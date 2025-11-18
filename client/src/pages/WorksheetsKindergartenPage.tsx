@@ -122,9 +122,9 @@ export default function WorksheetsKindergartenPage() {
   return (
     <div className="min-h-screen bg-slate-50" dir={isRTL ? 'rtl' : 'ltr'}>
       <SEOMetaTags
-        title={t('pages.grades.kindergarten.title')}
-        description={t('pages.grades.kindergarten.subtitle')}
-        keywords="kindergarten math worksheets, free kindergarten worksheets, printable kindergarten worksheets, kindergarten counting worksheets, number recognition worksheets, shapes worksheets kindergarten, kindergarten patterns worksheets, free printable kindergarten math worksheets PDF"
+        title={t('pages.grades.kindergarten.seoTitle')}
+        description={t('pages.grades.kindergarten.seoDescription')}
+        keywords={t('pages.grades.kindergarten.seoKeywords')}
         canonicalUrl="https://wizqo.com/worksheets/kindergarten-math-worksheets"
       />
       {(() => {
@@ -161,14 +161,14 @@ export default function WorksheetsKindergartenPage() {
           <div className="relative mx-auto max-w-6xl px-4 pb-14 pt-16 sm:px-6 lg:px-8">
             <div className="space-y-6">
               <span className="inline-flex items-center gap-2 rounded-full border border-purple-200 bg-white px-3 py-1 text-sm font-medium text-purple-700 shadow-sm">
-                ✨ Free kindergarten math worksheets • Pre-K & K free PDF
+                {t('pages.grades.kindergarten.badge')}
               </span>
               <h1 className="text-3xl font-bold tracking-tight text-slate-900 sm:text-4xl lg:text-5xl">
                 {t('pages.grades.kindergarten.title')}
                 <span className="block text-purple-600">{t('pages.grades.kindergarten.subtitle')}</span>
               </h1>
               <p className="max-w-2xl text-lg text-slate-600 leading-relaxed">
-                {t('pages.grades.kindergarten.subtitle')}
+                {t('pages.grades.kindergarten.description')}
               </p>
             </div>
           </div>
@@ -176,20 +176,20 @@ export default function WorksheetsKindergartenPage() {
         
         <div className="mx-auto max-w-6xl px-4 pb-16 sm:px-6 lg:px-8 space-y-10">
         <section className="bg-white border border-slate-200 rounded-2xl p-5">
-          <h2 className="text-xl font-bold text-slate-900 mb-2">What's Inside</h2>
+          <h2 className="text-xl font-bold text-slate-900 mb-2">{t('pages.grades.kindergarten.whatsInside')}</h2>
           <p className="text-slate-700 text-sm max-w-3xl">
-            Build kindergarten math foundations with focused practice: counting 1–20, number recognition, basic shapes, colors, patterns, and pre-writing skills. Each worksheet is one page, easy to print, and designed for quick daily practice with answer keys included.
+            {t('pages.grades.kindergarten.whatsInsideDesc')}
           </p>
           <div className="mt-4">
             <div className="border border-slate-200 rounded-xl p-4 bg-white">
-              <div className="text-slate-900 font-semibold mb-1">🧰 Build a 5‑Minute Print Pack</div>
-              <p className="text-slate-700 text-sm mb-3">Create a quick kindergarten math set — perfect for warm‑ups, brain breaks, or homework helpers.</p>
+              <div className="text-slate-900 font-semibold mb-1">{t('pages.grades.kindergarten.buildPack')}</div>
+              <p className="text-slate-700 text-sm mb-3">{t('pages.grades.kindergarten.buildPackDesc')}</p>
               <div className="flex flex-wrap items-center gap-2 text-xs text-slate-700 mb-3">
-                <span className="inline-flex items-center px-2 py-1 rounded-full bg-slate-100 border border-slate-200">Time: 5 min</span>
-                <span className="inline-flex items-center px-2 py-1 rounded-full bg-slate-100 border border-slate-200">Age/Grade: Kindergarten</span>
-                <span className="inline-flex items-center px-2 py-1 rounded-full bg-slate-100 border border-slate-200">Focus: Math</span>
+                <span className="inline-flex items-center px-2 py-1 rounded-full bg-slate-100 border border-slate-200">{t('pages.grades.kindergarten.buildPackTime')}</span>
+                <span className="inline-flex items-center px-2 py-1 rounded-full bg-slate-100 border border-slate-200">{t('pages.grades.kindergarten.buildPackAge')}</span>
+                <span className="inline-flex items-center px-2 py-1 rounded-full bg-slate-100 border border-slate-200">{t('pages.grades.kindergarten.buildPackFocus')}</span>
               </div>
-              <a href="/print?doc=pack&time=5&age=k&skill=math&from=kindergarten" className="inline-flex items-center justify-center px-4 py-2 rounded-lg bg-purple-600 text-white hover:bg-purple-700 transition-colors" onClick={(e)=>{ try { (window as any).gtag?.('event','build_pack_click',{grade:'K'});} catch{} }}>Build Pack →</a>
+              <a href="/print?doc=pack&time=5&age=k&skill=math&from=kindergarten" className="inline-flex items-center justify-center px-4 py-2 rounded-lg bg-purple-600 text-white hover:bg-purple-700 transition-colors" onClick={(e)=>{ try { (window as any).gtag?.('event','build_pack_click',{grade:'K'});} catch{} }}>{t('pages.printables.buildPackButton')}</a>
             </div>
           </div>
         </section>
@@ -266,42 +266,42 @@ export default function WorksheetsKindergartenPage() {
 
         {/* Explore More Worksheets */}
         <section className="bg-white border border-slate-200 rounded-2xl p-5">
-          <h2 className="text-xl font-bold text-slate-900">Explore More Worksheets</h2>
+          <h2 className="text-xl font-bold text-slate-900">{t('pages.grades.kindergarten.exploreMore')}</h2>
           <ul className="mt-3 grid sm:grid-cols-2 gap-2 text-sm text-purple-700">
-            <li><a className="hover:underline" href="/worksheets/1st-grade-math-worksheets">1st Grade Math Worksheets – Free PDF</a></li>
-            <li><a className="hover:underline" href="/worksheets/2nd-grade-math-worksheets">2nd Grade Math Worksheets – Printable</a></li>
-            <li><a className="hover:underline" href="/worksheets/3rd-grade-math-worksheets">3rd Grade Math Worksheets – Free PDF</a></li>
-            <li><a className="hover:underline" href="/worksheets/handwriting-worksheet-maker">Handwriting Worksheet Maker</a></li>
-            <li><a className="hover:underline" href="/printables">Printable Fun Learning Activities</a></li>
-            <li><a className="hover:underline" href="/kids">Kids Hub – Games & Activities</a></li>
+            <li><a className="hover:underline" href="/worksheets/1st-grade-math-worksheets">{t('pages.grades.kindergarten.exploreLinks.firstGrade')}</a></li>
+            <li><a className="hover:underline" href="/worksheets/2nd-grade-math-worksheets">{t('pages.grades.kindergarten.exploreLinks.secondGrade')}</a></li>
+            <li><a className="hover:underline" href="/worksheets/3rd-grade-math-worksheets">{t('pages.grades.kindergarten.exploreLinks.thirdGrade')}</a></li>
+            <li><a className="hover:underline" href="/worksheets/handwriting-worksheet-maker">{t('pages.grades.kindergarten.exploreLinks.handwriting')}</a></li>
+            <li><a className="hover:underline" href="/printables">{t('pages.printables.title')}</a></li>
+            <li><a className="hover:underline" href="/kids">{t('pages.grades.kindergarten.exploreLinks.kidsHub')}</a></li>
           </ul>
         </section>
 
         <section className="mb-10 bg-white border border-slate-200 rounded-2xl p-5">
-          <h2 className="text-xl font-bold text-slate-900 mb-4">FAQs</h2>
+          <h2 className="text-xl font-bold text-slate-900 mb-4">{t('pages.grades.kindergarten.faqs')}</h2>
           <Accordion type="single" collapsible className="divide-y rounded-xl border border-slate-200 bg-white">
             <AccordionItem value="q1">
-              <AccordionTrigger className="px-4">Are kindergarten math worksheets free to download?</AccordionTrigger>
+              <AccordionTrigger className="px-4">{t('pages.grades.kindergarten.faq1Question')}</AccordionTrigger>
               <AccordionContent className="px-4 text-slate-700">
-                Yes! All kindergarten math worksheets are completely free. Generate unlimited unique worksheets, download as PDFs, and print as many copies as you need. No sign-up required.
+                {t('pages.grades.kindergarten.faq1Answer')}
               </AccordionContent>
             </AccordionItem>
             <AccordionItem value="q2">
-              <AccordionTrigger className="px-4">What skills do kindergarten math worksheets cover?</AccordionTrigger>
+              <AccordionTrigger className="px-4">{t('pages.grades.kindergarten.faq2Question')}</AccordionTrigger>
               <AccordionContent className="px-4 text-slate-700">
-                Our kindergarten worksheets cover counting 1–20, number recognition, basic shapes, colors, patterns, comparisons (big/small, more/less), and pre-writing skills. Perfect for building early math foundations.
+                {t('pages.grades.kindergarten.faq2Answer')}
               </AccordionContent>
             </AccordionItem>
             <AccordionItem value="q3">
-              <AccordionTrigger className="px-4">Do kindergarten worksheets include answer keys?</AccordionTrigger>
+              <AccordionTrigger className="px-4">{t('pages.grades.kindergarten.faq3Question')}</AccordionTrigger>
               <AccordionContent className="px-4 text-slate-700">
-                Yes! Every kindergarten worksheet automatically includes a complete answer key, making it easy for parents and teachers to check work quickly.
+                {t('pages.grades.kindergarten.faq3Answer')}
               </AccordionContent>
             </AccordionItem>
             <AccordionItem value="q4">
-              <AccordionTrigger className="px-4">Are these worksheets suitable for pre-K students?</AccordionTrigger>
+              <AccordionTrigger className="px-4">{t('pages.grades.kindergarten.faq4Question')}</AccordionTrigger>
               <AccordionContent className="px-4 text-slate-700">
-                Yes! Many of our kindergarten worksheets are perfect for pre-K students who are ready for early math concepts like counting, shapes, and colors. Start with the simpler worksheets and progress as skills develop.
+                {t('pages.grades.kindergarten.faq4Answer')}
               </AccordionContent>
             </AccordionItem>
           </Accordion>
@@ -314,6 +314,7 @@ export default function WorksheetsKindergartenPage() {
 }
 
 function WorksheetThumbnailCard({ title, description, href, docId }: { title: string; description: string; href: string; docId: string }) {
+  const { t } = useTranslation();
   const previewUrl = href + (href.includes('?') ? '&preview=1' : '?preview=1')
   
   const handleClick = () => {
@@ -353,7 +354,7 @@ function WorksheetThumbnailCard({ title, description, href, docId }: { title: st
             height: '400%',
             pointerEvents: 'none',
           }}
-          title={`Preview of ${title}`}
+          title={t('pages.grades.kindergarten.previewOf') + ' ' + title}
           loading="lazy"
         />
         {/* Gradient fade at bottom */}
@@ -361,7 +362,7 @@ function WorksheetThumbnailCard({ title, description, href, docId }: { title: st
         {/* Overlay on hover */}
         <div className="absolute inset-0 bg-black/0 group-hover:bg-black/5 transition-colors flex items-center justify-center pointer-events-none">
           <div className="opacity-0 group-hover:opacity-100 transition-opacity bg-white/95 backdrop-blur-sm px-4 py-2 rounded-lg text-xs font-semibold text-purple-700 border-2 border-purple-300 shadow-lg pointer-events-auto">
-            👁️ Click to view full worksheet
+            {t('pages.grades.kindergarten.clickToView')}
           </div>
         </div>
         {/* Corner fold effect */}
@@ -373,16 +374,18 @@ function WorksheetThumbnailCard({ title, description, href, docId }: { title: st
           <a
             href={href}
             className="text-xs font-medium text-purple-600 hover:text-purple-700 px-3 py-1 rounded-full border border-purple-200 hover:border-purple-300 transition-colors"
+            aria-label={t('pages.grades.kindergarten.previewButton')}
           >
-            👁️ Preview
+            {t('pages.grades.kindergarten.previewButton')}
           </a>
           <a
             href={href + (href.includes('?') ? '&autoprint=1' : '?autoprint=1')}
             target="_blank"
             rel="noopener noreferrer"
             className="text-xs font-medium text-purple-600 hover:text-purple-700 px-3 py-1 rounded-full border border-purple-200 hover:border-purple-300 transition-colors"
+            aria-label={t('pages.grades.kindergarten.downloadButton')}
           >
-            ⬇️ Download
+            {t('pages.grades.kindergarten.downloadButton')}
           </a>
         </div>
       </div>
