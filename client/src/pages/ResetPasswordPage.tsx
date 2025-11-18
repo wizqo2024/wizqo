@@ -5,8 +5,10 @@ import { Label } from '@/components/ui/label';
 import { useToast } from '@/hooks/use-toast';
 import { supabase } from '@/lib/supabase';
 import { Lock, Eye, EyeOff, CheckCircle, XCircle } from 'lucide-react';
+import { useTranslation } from '@/context/TranslationContext';
 
 export function ResetPasswordPage() {
+  const { t, isRTL } = useTranslation();
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
   const [loading, setLoading] = useState(false);
@@ -22,7 +24,7 @@ export function ResetPasswordPage() {
     const checkSession = async () => {
       const { data: { session } } = await supabase.auth.getSession();
       if (!session) {
-        setError('Invalid or expired password reset link. Please request a new one.');
+        setError(t('pages.resetPassword.invalidLink'));
         return;
       }
     };
@@ -34,12 +36,12 @@ export function ResetPasswordPage() {
     e.preventDefault();
     
     if (password.length < 6) {
-      setError('Password must be at least 6 characters long.');
+      setError(t('pages.resetPassword.passwordTooShort'));
       return;
     }
 
     if (password !== confirmPassword) {
-      setError('Passwords do not match.');
+      setError(t('pages.resetPassword.passwordsNotMatch'));
       return;
     }
 
@@ -55,8 +57,8 @@ export function ResetPasswordPage() {
 
       setSuccess(true);
       toast({
-        title: 'Password Updated Successfully!',
-        description: 'Your password has been reset. You can now sign in with your new password.',
+        title: t('pages.resetPassword.updateSuccess'),
+        description: t('pages.resetPassword.updateSuccessDesc'),
       });
 
       // Redirect to sign in after 3 seconds
@@ -65,10 +67,10 @@ export function ResetPasswordPage() {
       }, 3000);
 
     } catch (error: any) {
-      setError(error?.message || 'Failed to update password. Please try again.');
+      setError(error?.message || t('pages.resetPassword.updateFailedDesc'));
       toast({
-        title: 'Password Update Failed',
-        description: error?.message || 'Please try again or request a new reset link.',
+        title: t('pages.resetPassword.updateFailed'),
+        description: error?.message || t('pages.resetPassword.updateFailedDesc'),
         variant: 'destructive',
       });
     } finally {
@@ -78,17 +80,17 @@ export function ResetPasswordPage() {
 
   if (success) {
     return (
-      <div className="min-h-screen bg-slate-50 flex items-center justify-center p-4">
+      <div className="min-h-screen bg-slate-50 flex items-center justify-center p-4" dir={isRTL ? 'rtl' : 'ltr'}>
         <div className="bg-white rounded-lg p-8 w-full max-w-md text-center shadow-xl">
           <div className="mb-6">
             <CheckCircle className="w-16 h-16 text-green-500 mx-auto mb-4" />
-            <h1 className="text-2xl font-bold text-gray-900 mb-2">Password Reset Successful!</h1>
-            <p className="text-gray-600">Your password has been updated successfully.</p>
+            <h1 className="text-2xl font-bold text-gray-900 mb-2">{t('pages.resetPassword.successTitle')}</h1>
+            <p className="text-gray-600">{t('pages.resetPassword.successMessage')}</p>
           </div>
           
           <div className="bg-green-50 border border-green-200 rounded-lg p-4 mb-6">
             <p className="text-green-800 text-sm">
-              You can now sign in with your new password. Redirecting you to the sign-in page...
+              {t('pages.resetPassword.successDescription')}
             </p>
           </div>
 
@@ -96,7 +98,7 @@ export function ResetPasswordPage() {
             onClick={() => window.location.href = '/'}
             className="w-full bg-purple-600 hover:bg-purple-700"
           >
-            Go to Sign In
+            {t('pages.resetPassword.goToSignIn')}
           </Button>
         </div>
       </div>
@@ -104,12 +106,12 @@ export function ResetPasswordPage() {
   }
 
   return (
-    <div className="min-h-screen bg-slate-50 flex items-center justify-center p-4">
+    <div className="min-h-screen bg-slate-50 flex items-center justify-center p-4" dir={isRTL ? 'rtl' : 'ltr'}>
       <div className="bg-white rounded-lg p-8 w-full max-w-md shadow-xl">
         <div className="text-center mb-8">
           <Lock className="w-12 h-12 text-purple-600 mx-auto mb-4" />
-          <h1 className="text-2xl font-bold text-gray-900 mb-2">Reset Your Password</h1>
-          <p className="text-gray-600">Enter your new password below</p>
+          <h1 className="text-2xl font-bold text-gray-900 mb-2">{t('pages.resetPassword.title')}</h1>
+          <p className="text-gray-600">{t('pages.resetPassword.subtitle')}</p>
         </div>
 
         {error && (
@@ -124,7 +126,7 @@ export function ResetPasswordPage() {
         <form onSubmit={handlePasswordReset} className="space-y-6">
           <div>
             <Label htmlFor="password" className="text-sm font-medium text-gray-700">
-              New Password
+              {t('pages.resetPassword.newPassword')}
             </Label>
             <div className="relative mt-1">
               <Input
@@ -133,7 +135,7 @@ export function ResetPasswordPage() {
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 className="pl-10 pr-10"
-                placeholder="Enter your new password"
+                placeholder={t('pages.resetPassword.passwordPlaceholder')}
                 required
                 minLength={6}
               />
@@ -142,19 +144,19 @@ export function ResetPasswordPage() {
                 type="button"
                 onClick={() => setShowPassword(!showPassword)}
                 className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600"
-                aria-label={showPassword ? 'Hide password' : 'Show password'}
+                aria-label={showPassword ? t('pages.resetPassword.hidePassword') : t('pages.resetPassword.showPassword')}
               >
                 {showPassword ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
               </button>
             </div>
             {password.length > 0 && password.length < 6 && (
-              <p className="text-xs text-red-500 mt-1">Password must be at least 6 characters</p>
+              <p className="text-xs text-red-500 mt-1">{t('pages.resetPassword.passwordMinLength')}</p>
             )}
           </div>
 
           <div>
             <Label htmlFor="confirmPassword" className="text-sm font-medium text-gray-700">
-              Confirm New Password
+              {t('pages.resetPassword.confirmPassword')}
             </Label>
             <div className="relative mt-1">
               <Input
@@ -163,7 +165,7 @@ export function ResetPasswordPage() {
                 value={confirmPassword}
                 onChange={(e) => setConfirmPassword(e.target.value)}
                 className="pl-10 pr-10"
-                placeholder="Confirm your new password"
+                placeholder={t('pages.resetPassword.confirmPlaceholder')}
                 required
                 minLength={6}
               />
@@ -172,13 +174,13 @@ export function ResetPasswordPage() {
                 type="button"
                 onClick={() => setShowConfirmPassword(!showConfirmPassword)}
                 className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600"
-                aria-label={showConfirmPassword ? 'Hide password' : 'Show password'}
+                aria-label={showConfirmPassword ? t('pages.resetPassword.hidePassword') : t('pages.resetPassword.showPassword')}
               >
                 {showConfirmPassword ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
               </button>
             </div>
             {confirmPassword.length > 0 && password !== confirmPassword && (
-              <p className="text-xs text-red-500 mt-1">Passwords do not match</p>
+              <p className="text-xs text-red-500 mt-1">{t('pages.resetPassword.passwordsNotMatch')}</p>
             )}
           </div>
 
@@ -187,18 +189,18 @@ export function ResetPasswordPage() {
             className="w-full bg-purple-600 hover:bg-purple-700"
             disabled={loading || password.length < 6 || password !== confirmPassword}
           >
-            {loading ? 'Updating Password...' : 'Update Password'}
+            {loading ? t('pages.resetPassword.updatingPassword') : t('pages.resetPassword.updatePassword')}
           </Button>
         </form>
 
         <div className="mt-6 text-center">
           <p className="text-sm text-gray-600">
-            Remember your password?{' '}
+            {t('pages.resetPassword.rememberPassword')}{' '}
                       <button
             onClick={() => window.location.href = '/'}
             className="text-purple-600 hover:text-purple-500 font-medium"
           >
-              Sign In
+              {t('pages.resetPassword.signIn')}
             </button>
           </p>
         </div>
