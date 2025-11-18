@@ -1505,8 +1505,8 @@ export function InteractiveWorksheetsPage() {
                   
                   {/* Info Footer */}
                   <div className="mt-6 rounded-xl border border-purple-200 bg-purple-50 p-4 text-sm text-purple-800">
-                    <p className="font-semibold mb-2">📄 Print Preview</p>
-                    <p>This is how the worksheet will appear when printed.</p>
+                    <p className="font-semibold mb-2">📄 {t('pages.interactive.printPreview')}</p>
+                    <p>{t('pages.interactive.printPreviewDescription')}</p>
                   </div>
                 </div>
               </div>

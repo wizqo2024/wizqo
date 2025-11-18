@@ -15,6 +15,23 @@ export const en = {
     remember: 'Remember:',
     clear: 'Clear',
   },
+  worksheets: {
+    countObjectsAndWriteNumber: 'Count the objects and write the number.',
+    countThe: 'Count the {{object}}',
+    numberLabel: 'Number',
+    wordLabel: 'Word',
+    answerLabel: 'Answer',
+    fillInTensFrame: 'Fill in the tens frame and solve the problem.',
+    countObjectsDrawTenFrames: 'Count the objects, draw them in ten frames, then write the number and number word.',
+    answerKeyAndNotes: 'Answer key & teacher notes',
+    countingTeachingNote: 'Teaching note: Students should count each object one by one. Encourage pointing or touching each object while counting to develop one-to-one correspondence.',
+    traceNumberAndDraw: 'Trace each number, write it, then draw that many objects.',
+  },
+  difficulty: {
+    beginner: 'Beginner',
+    intermediate: 'Intermediate',
+    advanced: 'Advanced',
+  },
   home: {
     hero: {
       badge: 'Free • Printable • Answer Keys Included',
@@ -1564,6 +1581,8 @@ export const en = {
       todaysWorksheets: 'Today\'s interactive worksheets',
       generating: 'Generating…',
       worksheetsReady: '{{count}} worksheets ready',
+      printPreview: 'Print Preview',
+      printPreviewDescription: 'This is how the worksheet will appear when printed.',
       browseMoreWorksheets: 'Browse More Free Worksheets by Grade & Subject',
       browseLinks: {
         firstGradeMath: {

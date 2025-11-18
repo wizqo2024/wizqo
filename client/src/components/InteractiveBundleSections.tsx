@@ -5,6 +5,7 @@ import {
   type InteractiveWorksheetDoc,
   type InteractiveCategory,
 } from '@shared/interactive/interactiveWorksheets'
+import { useTranslation } from '@/context/TranslationContext'
 
 type Props = {
   docIds: string[]
@@ -21,6 +22,7 @@ type RenderContext = {
   category: InteractiveCategory
   seed: string
   variant: number
+  t: (key: string) => string
 }
 
 type Renderer = (ctx: RenderContext) => React.ReactNode
@@ -1908,7 +1910,8 @@ const renderers: Record<string, Renderer> = {
       </div>
     )
   },
-  'interactive-early-counting': ({ seed, doc, variant }) => {
+  'interactive-early-counting': (ctx) => {
+    const { seed, doc, variant, t } = ctx
     const rng = makeRng(`${seed}|${doc.id}|${variant}`)
     const rows = Array.from({ length: 4 }).map(() => ({
       objects: pick(rng, ['stars', 'shells', 'dice', 'hearts', 'cars']),
@@ -1917,12 +1920,12 @@ const renderers: Record<string, Renderer> = {
     return (
       <div className="space-y-3">
         <p className="text-sm text-slate-600">
-          Count the objects, draw them in ten frames, then write the number and number word.
+          {t('worksheets.countObjectsDrawTenFrames')}
         </p>
         <div className="space-y-3 text-sm text-slate-700">
           {rows.map((row, idx) => (
             <div key={idx} className="rounded border border-emerald-200 bg-emerald-50 p-3">
-              <p className="font-semibold text-emerald-800">Count {row.count} {row.objects}</p>
+              <p className="font-semibold text-emerald-800">{t('worksheets.countThe').replace('{{object}}', `${row.count} ${row.objects}`)}</p>
               <div className="mt-2 grid grid-cols-10 gap-1">
                 {Array.from({ length: 10 }).map((_, boxIdx) => (
                   <div
@@ -1931,7 +1934,7 @@ const renderers: Record<string, Renderer> = {
                   />
                 ))}
               </div>
-              <p className="mt-2 text-xs text-emerald-700">Number: ______ • Word: __________________</p>
+              <p className="mt-2 text-xs text-emerald-700">{t('worksheets.numberLabel')}: ______ • {t('worksheets.wordLabel')}: __________________</p>
             </div>
           ))}
         </div>
@@ -2050,18 +2053,19 @@ const renderers: Record<string, Renderer> = {
       </div>
     )
   },
-  'interactive-early-numbers': ({ seed, doc, variant }) => {
+  'interactive-early-numbers': (ctx) => {
+    const { seed, doc, variant, t } = ctx
     const rng = makeRng(`${seed}|${doc.id}|${variant}`)
     const numbers = pickMany(rng, Array.from({ length: 20 }, (_, i) => i + 1), 4)
     return (
       <div className="space-y-3">
         <p className="text-sm text-slate-600">
-          Trace each number, write it, then draw that many objects.
+          {t('worksheets.traceNumberAndDraw')}
         </p>
         <div className="grid gap-4 md:grid-cols-2">
           {numbers.map((num) => (
             <div key={num} className="rounded-xl border border-emerald-200 bg-emerald-50 p-4">
-              <p className="text-lg font-semibold text-emerald-700">Number: {num}</p>
+              <p className="text-lg font-semibold text-emerald-700">{t('worksheets.numberLabel')}: {num}</p>
               <div className="mt-2 grid grid-cols-3 gap-2">
                 <div className="flex flex-col">
                   <p className="text-xs text-emerald-500">Trace</p>
@@ -3437,7 +3441,8 @@ const renderers: Record<string, Renderer> = {
       </div>
     )
   },
-  'interactive-math-counting': ({ seed, doc, variant }) => {
+  'interactive-math-counting': (ctx) => {
+    const { seed, doc, variant } = ctx
     const problems = buildMathCounting(seed, doc.id, variant)
     const objectEmojis: Record<string, string> = {
       'stars': '⭐',
@@ -3451,7 +3456,7 @@ const renderers: Record<string, Renderer> = {
     }
     return (
       <div className="space-y-4">
-        <p className="text-sm text-slate-600">Count the objects and write the number.</p>
+        <p className="text-sm text-slate-600">{ctx.t('worksheets.countObjectsAndWriteNumber')}</p>
         <div className="grid gap-4 md:grid-cols-2">
           {problems.map((prob, idx) => {
             const emoji = objectEmojis[prob.objects[0]] || '⭐'
@@ -3459,7 +3464,7 @@ const renderers: Record<string, Renderer> = {
               <div key={idx} className="rounded-xl border-2 border-purple-300 bg-gradient-to-br from-purple-100 via-pink-100 to-indigo-100 p-5 shadow-md hover:shadow-lg transition-shadow">
                 <p className="text-base font-bold text-purple-800 mb-3 flex items-center gap-2">
                   <span className="text-2xl">{emoji}</span>
-                  <span>Count the {prob.objects[0]}</span>
+                  <span>{ctx.t('worksheets.countThe').replace('{{object}}', prob.objects[0])}</span>
                 </p>
                 <div className="flex flex-wrap gap-3 mb-4 bg-white/80 rounded-lg p-4 border-2 border-purple-200">
                   {Array.from({ length: prob.number }).map((_, i) => (
@@ -3467,7 +3472,7 @@ const renderers: Record<string, Renderer> = {
                   ))}
                 </div>
                 <div className="bg-white rounded-lg border-2 border-purple-300 p-3">
-                  <p className="text-base font-bold text-purple-800">Number: <span className="border-b-2 border-purple-400 border-dashed inline-block min-w-[60px]">________</span></p>
+                  <p className="text-base font-bold text-purple-800">{ctx.t('worksheets.numberLabel')}: <span className="border-b-2 border-purple-400 border-dashed inline-block min-w-[60px]">________</span></p>
                 </div>
               </div>
             )
@@ -3476,11 +3481,12 @@ const renderers: Record<string, Renderer> = {
       </div>
     )
   },
-  'interactive-math-tens-frames': ({ seed, doc, variant }) => {
+  'interactive-math-tens-frames': (ctx) => {
+    const { seed, doc, variant, t } = ctx
     const problems = buildMathTensFrames(seed, doc.id, variant)
     return (
       <div className="space-y-4">
-        <p className="text-sm text-slate-600">Fill in the tens frame and solve the problem.</p>
+        <p className="text-sm text-slate-600">{t('worksheets.fillInTensFrame')}</p>
         <div className="grid gap-4 md:grid-cols-2">
           {problems.map((prob, idx) => {
             const total = prob.filled + prob.missing
@@ -3495,7 +3501,7 @@ const renderers: Record<string, Renderer> = {
                     <div key={i} className={`aspect-square border-2 border-purple-300 rounded ${i < showFilled ? 'bg-purple-400' : 'bg-white'}`}></div>
                   ))}
                 </div>
-                <p className="text-sm text-purple-800">Answer: {prob.operation === '+' ? `${prob.filled} + ${prob.missing}` : `${total} - ${prob.missing}`} = ________</p>
+                <p className="text-sm text-purple-800">{t('worksheets.answerLabel')}: {prob.operation === '+' ? `${prob.filled} + ${prob.missing}` : `${total} - ${prob.missing}`} = ________</p>
               </div>
             )
           })}
@@ -5991,15 +5997,16 @@ const answerRenderers: Record<string, AnswerRenderer> = {
       </ol>
     )
   },
-  'interactive-math-counting': ({ doc, seed, variant }) => {
+  'interactive-math-counting': (ctx) => {
+    const { doc, seed, variant, t } = ctx
     const problems = buildMathCounting(seed, doc.id, variant)
     return (
       <div className="space-y-2">
         <ol className="list-decimal list-inside space-y-2 text-sm">
           {problems.map((prob, idx) => (
             <li key={idx} className="mb-3">
-              <span className="font-semibold">Count the {prob.objects[0]}:</span> <span className="text-emerald-700 font-bold">{prob.number}</span>
-              <p className="text-xs text-slate-600 mt-1 ml-4">Teaching note: Students should count each object one by one. Encourage pointing or touching each object while counting to develop one-to-one correspondence.</p>
+              <span className="font-semibold">{ctx.t('worksheets.countThe').replace('{{object}}', prob.objects[0])}:</span> <span className="text-emerald-700 font-bold">{prob.number}</span>
+              <p className="text-xs text-slate-600 mt-1 ml-4">{ctx.t('worksheets.countingTeachingNote')}</p>
             </li>
           ))}
         </ol>
@@ -6553,28 +6560,25 @@ function InteractiveWorksheetSection({
         </div>
         <div className="flex flex-col items-end gap-2">
           <span className={`inline-flex items-center rounded-full border-2 ${theme.border} bg-white px-3 py-1 text-xs font-bold ${theme.text} shadow-sm`}>
-            {doc.difficulty}
+            {t(`difficulty.${doc.difficulty.toLowerCase()}`)}
           </span>
           <span className={`text-xs font-medium ${theme.text} opacity-60`}>
-            {doc.grades.map((g) => {
-              const gradeMap: Record<string, string> = { preK: 'Preschool', k1: 'K–1', g2: '2nd–3rd', '35': '4th–5th', '68': '6th–8th' }
-              return gradeMap[g] || g
-            }).join(' / ')}
+            {doc.grades.map((g) => t(`grades.${g}`)).join(' / ')}
           </span>
         </div>
       </header>
       
       <div className="relative z-10">
-        {renderer({ doc, category, seed, variant })}
+        {renderer({ doc, category, seed, variant, t })}
       </div>
 
       {showAnswers && answerRenderer && (
         <div className={`mt-6 rounded-xl border-2 ${theme.border} bg-white p-5 shadow-md relative z-10`}>
           <h3 className={`text-sm font-bold ${theme.text} mb-3 flex items-center gap-2`}>
             <span>✓</span>
-            Answer key & teacher notes
+            {t('worksheets.answerKeyAndNotes')}
           </h3>
-          {answerRenderer({ doc, category, seed, variant })}
+          {answerRenderer({ doc, category, seed, variant, t })}
         </div>
       )}
     </section>

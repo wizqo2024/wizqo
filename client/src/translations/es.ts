@@ -1567,6 +1567,8 @@ export const es = {
       todaysWorksheets: 'Hojas de trabajo interactivas de hoy',
       generating: 'Generando…',
       worksheetsReady: '{{count}} hojas de trabajo listas',
+      printPreview: 'Vista Previa de Impresión',
+      printPreviewDescription: 'Así es como aparecerá la hoja de trabajo cuando se imprima.',
       browseMoreWorksheets: 'Explora Más Hojas de Trabajo Gratis por Grado y Materia',
       browseLinks: {
         firstGradeMath: {

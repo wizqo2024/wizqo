@@ -1567,6 +1567,8 @@ export const ar = {
       todaysWorksheets: 'أوراق العمل التفاعلية اليوم',
       generating: 'جارٍ الإنشاء…',
       worksheetsReady: '{{count}} أوراق عمل جاهزة',
+      printPreview: 'معاينة الطباعة',
+      printPreviewDescription: 'هذه هي الطريقة التي ستظهر بها ورقة العمل عند الطباعة.',
       browseMoreWorksheets: 'تصفح المزيد من أوراق العمل المجانية حسب الصف والمادة',
       browseLinks: {
         firstGradeMath: {
