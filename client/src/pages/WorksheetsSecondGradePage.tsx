@@ -5,13 +5,9 @@ import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/
 import { SEOMetaTags } from '@/components/SEOMetaTags'
 import { CategoryFilter, type Category } from '@/components/CategoryFilter'
 import { trackCategoryFilter } from '@/utils/analytics'
+import { useTranslation } from '@/context/TranslationContext'
 
-const SECOND_GRADE_CATEGORIES: Category[] = [
-  { id: 'number-sense', label: 'Number Sense', icon: '🔢' },
-  { id: 'addition-subtraction', label: 'Addition & Subtraction', icon: '➕➖' },
-  { id: 'fluency', label: 'Fluency Boosters', icon: '⚡' },
-  { id: 'logic', label: 'Focus & Logic', icon: '🧩' },
-]
+// Categories will be defined inside component to use translation
 
 interface WorksheetItem {
   title: string
@@ -23,6 +19,19 @@ interface WorksheetItem {
 }
 
 export default function WorksheetsSecondGradePage() {
+  const { t, isRTL } = useTranslation();
+  
+  React.useEffect(() => {
+    // Ensure re-render on language change
+  }, [t]);
+  
+  const SECOND_GRADE_CATEGORIES: Category[] = [
+    { id: 'number-sense', label: t('pages.secondGrade.categories.numberSense'), icon: '🔢' },
+    { id: 'addition-subtraction', label: t('pages.secondGrade.categories.additionSubtraction'), icon: '➕➖' },
+    { id: 'fluency', label: t('pages.secondGrade.categories.fluency'), icon: '⚡' },
+    { id: 'logic', label: t('pages.secondGrade.categories.logic'), icon: '🧩' },
+  ];
+  
   const [selectedCategories, setSelectedCategories] = useState<Set<string>>(new Set())
 
   const toggleCategory = (categoryId: string) => {
@@ -94,10 +103,10 @@ export default function WorksheetsSecondGradePage() {
     return groups
   }, [filteredWorksheets])
   return (
-    <div className="min-h-screen bg-slate-50">
+    <div className="min-h-screen bg-slate-50" dir={isRTL ? 'rtl' : 'ltr'}>
       <SEOMetaTags
-        title="2nd Grade Math Worksheets – Free Printable PDF"
-        description="Free 2nd grade math worksheets covering counting, place value, addition/subtraction within 20 and 100, and focus skills. Print or save as PDF."
+        title={t('pages.secondGrade.seoTitle')}
+        description={t('pages.secondGrade.seoDescription')}
         canonicalUrl="https://wizqo.com/worksheets/2nd-grade-math-worksheets"
       />
       {(() => {
@@ -117,9 +126,9 @@ export default function WorksheetsSecondGradePage() {
           "@context": "https://schema.org",
           "@type": "FAQPage",
           mainEntity: [
-            { "@type": "Question", name: "Are these worksheets printable as PDF?", acceptedAnswer: { "@type": "Answer", text: "Yes. Open any worksheet and use your browser’s Print → Save as PDF to download." } },
-            { "@type": "Question", name: "Can I use these in the classroom?", acceptedAnswer: { "@type": "Answer", text: "Yes—free for personal and classroom use." } },
-            { "@type": "Question", name: "What skills are covered?", acceptedAnswer: { "@type": "Answer", text: "Counting, number sense, place value (tens/ones), addition/subtraction within 20 and 100, and focus/logic practice." } }
+            { "@type": "Question", name: "{t('pages.secondGrade.faq3Question')}", acceptedAnswer: { "@type": "Answer", text: "Yes. Open any worksheet and use your browser’s Print → Save as PDF to download." } },
+            { "@type": "Question", name: "{t('pages.secondGrade.faq1Question')}", acceptedAnswer: { "@type": "Answer", text: "Yes—free for personal and classroom use." } },
+            { "@type": "Question", name: "{t('pages.secondGrade.faq2Question')}", acceptedAnswer: { "@type": "Answer", text: "Counting, number sense, place value (tens/ones), addition/subtraction within 20 and 100, and focus/logic practice." } }
           ]
         } as const;
         return (
@@ -142,20 +151,20 @@ export default function WorksheetsSecondGradePage() {
       `}</style>
       <div className="hidden print:block print-name-date" aria-hidden>
         <div>
-          <span className="label">Name</span>
+          <span className="label">{t('pages.handwriting.name')}</span>
           <span className="line" />
         </div>
         <div>
-          <span className="label">Date</span>
+          <span className="label">{t('pages.handwriting.date')}</span>
           <span className="line" />
         </div>
       </div>
       <main className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-10 space-y-10">
         <header className="mb-2">
-          <h1 className="text-3xl sm:text-4xl font-extrabold bg-gradient-to-r from-yellow-400 via-pink-500 to-purple-500 bg-clip-text text-transparent">2nd Grade Math Worksheets</h1>
+          <h1 className="text-3xl sm:text-4xl font-extrabold bg-gradient-to-r from-yellow-400 via-pink-500 to-purple-500 bg-clip-text text-transparent">{t('pages.secondGrade.title')}</h1>
           <div className="h-1 w-16 rounded-full bg-gradient-to-r from-yellow-300 to-pink-400 mt-3 mb-3" />
           <p className="text-slate-700 text-sm max-w-3xl">
-            Free 2nd grade math worksheets—number sense, addition/subtraction to 100, ten‑frames, skip counting, and word‑problem warmups you can print and use at home or in class. Download as PDF.
+            {t('pages.secondGrade.description')}
           </p>
           {/* Builder moved under What's Inside per request */}
         </header>
@@ -163,7 +172,7 @@ export default function WorksheetsSecondGradePage() {
         <section>
           <div className="text-slate-800 font-semibold mb-1">What’s Inside</div>
           <p className="text-slate-700 text-sm max-w-3xl">
-            Build fluency with focused practice: place value (tens/ones), ten‑frames, number lines, addition and subtraction within 20, and attention‑boosting puzzles. Each worksheet is one page, easy to print, and designed for quick daily practice.
+            {t('pages.secondGrade.whatsInsideDesc')}
           </p>
           <div className="mt-4">
             <BuildPackInline />
@@ -180,7 +189,7 @@ export default function WorksheetsSecondGradePage() {
                 selectedCategories={selectedCategories}
                 onToggleCategory={toggleCategory}
                 onClearAll={clearCategories}
-                title="Filter by Category"
+                title={t('pages.secondGrade.filterByCategory')}
               />
             </div>
           </aside>
@@ -189,10 +198,10 @@ export default function WorksheetsSecondGradePage() {
           <div className="space-y-8">
             {Object.entries(groupedWorksheets).map(([section, worksheets]) => {
               const sectionLabels: Record<string, string> = {
-                'Number Sense': '🔢 Number Sense',
-                'Addition & Subtraction': '➕➖ Addition & Subtraction',
-                'Fluency Boosters': '⚡ Fluency Boosters',
-                'Focus & Logic': '🧩 Focus & Logic',
+                'Number Sense': `🔢 ${t('pages.secondGrade.sections.numberSense')}`,
+                'Addition & Subtraction': `➕➖ ${t('pages.secondGrade.sections.additionSubtraction')}`,
+                'Fluency Boosters': `⚡ ${t('pages.secondGrade.sections.fluencyBoosters')}`,
+                'Focus & Logic': `🧩 ${t('pages.secondGrade.sections.focusLogic')}`,
               }
               const label = sectionLabels[section] || section
               
@@ -215,12 +224,12 @@ export default function WorksheetsSecondGradePage() {
             })}
             {filteredWorksheets.length === 0 && (
               <div className="text-center py-12 text-slate-500">
-                <p className="text-lg">No worksheets match the selected categories.</p>
+                <p className="text-lg">{t('pages.secondGrade.noWorksheets')}</p>
                 <button
                   onClick={clearCategories}
                   className="mt-4 text-purple-600 hover:text-purple-700 font-medium"
                 >
-                  Clear filters to show all worksheets
+                  {t('pages.secondGrade.clearFilters')}
                 </button>
               </div>
             )}
@@ -229,34 +238,34 @@ export default function WorksheetsSecondGradePage() {
 
         {/* Explore More Worksheets */}
         <section className="bg-white border border-slate-200 rounded-2xl p-5">
-          <h2 className="text-xl font-bold text-slate-900">Explore More Worksheets</h2>
+          <h2 className="text-xl font-bold text-slate-900">{t('pages.secondGrade.exploreMore')}</h2>
           <ul className="mt-3 grid sm:grid-cols-2 gap-2 text-sm text-purple-700">
-            <li><a className="hover:underline" href="/worksheets/1st-grade-math-worksheets">1st Grade Math Worksheets – Free PDF</a></li>
-            <li><a className="hover:underline" href="/worksheets/3rd-grade-math-worksheets">3rd Grade Math Worksheets – Printable</a></li>
-            <li><a className="hover:underline" href="/worksheets/multiplication-worksheets">Multiplication Worksheets – Free PDF</a></li>
-            <li><a className="hover:underline" href="/worksheets/times-table-multiplication-worksheets">Times Table Multiplication Worksheets</a></li>
-            <li><a className="hover:underline" href="/worksheets/reading-comprehension">Reading Comprehension Worksheets</a></li>
-            <li><a className="hover:underline" href="/printables">Printable Fun Learning Activities</a></li>
+            <li><a className="hover:underline" href="/worksheets/1st-grade-math-worksheets">{t('pages.secondGrade.exploreLinks.firstGrade')}</a></li>
+            <li><a className="hover:underline" href="/worksheets/3rd-grade-math-worksheets">{t('pages.secondGrade.exploreLinks.thirdGrade')}</a></li>
+            <li><a className="hover:underline" href="/worksheets/multiplication-worksheets">{t('pages.secondGrade.exploreLinks.multiplication')}</a></li>
+            <li><a className="hover:underline" href="/worksheets/times-table-multiplication-worksheets">{t('pages.secondGrade.exploreLinks.timesTable')}</a></li>
+            <li><a className="hover:underline" href="/worksheets/reading-comprehension">{t('pages.secondGrade.exploreLinks.readingComprehension')}</a></li>
+            <li><a className="hover:underline" href="/printables">{t('pages.printables.title')}</a></li>
           </ul>
         </section>
 
         <section className="mb-10 bg-white border border-slate-200 rounded-2xl p-5">
-          <h2 className="text-xl font-bold text-slate-900 mb-4">FAQs</h2>
+          <h2 className="text-xl font-bold text-slate-900 mb-4">{t('pages.secondGrade.faqs')}</h2>
           <Accordion type="single" collapsible className="divide-y rounded-xl border border-slate-200 bg-white">
             <AccordionItem value="q1">
-              <AccordionTrigger className="px-4">Can I use these in the classroom?</AccordionTrigger>
+              <AccordionTrigger className="px-4">{t('pages.secondGrade.faq1Question')}</AccordionTrigger>
               <AccordionContent className="px-4 text-slate-700">
                 Yes, they’re free for personal and classroom use.
               </AccordionContent>
             </AccordionItem>
             <AccordionItem value="q2">
-              <AccordionTrigger className="px-4">What skills are covered?</AccordionTrigger>
+              <AccordionTrigger className="px-4">{t('pages.secondGrade.faq2Question')}</AccordionTrigger>
               <AccordionContent className="px-4 text-slate-700">
-                Counting, number sense, place value, addition/subtraction within 20 and 100, focus and attention.
+                {t('pages.secondGrade.faq2Answer')}
               </AccordionContent>
             </AccordionItem>
             <AccordionItem value="q3">
-              <AccordionTrigger className="px-4">Are these worksheets printable as PDF?</AccordionTrigger>
+              <AccordionTrigger className="px-4">{t('pages.secondGrade.faq3Question')}</AccordionTrigger>
               <AccordionContent className="px-4 text-slate-700">
                 Yes. Open any worksheet and use your browser’s Print → Save as PDF to download.
               </AccordionContent>
@@ -273,19 +282,21 @@ const CARD_CLASS = 'bg-white rounded-xl border border-slate-200 shadow-sm hover:
 const BUTTON_CLASS = 'inline-flex items-center justify-center px-4 py-2 rounded-lg bg-purple-600 text-white hover:bg-purple-700 transition-colors'
 const OUTLINE_BUTTON = 'inline-flex items-center justify-center px-4 py-2 rounded-lg border border-purple-200 text-purple-700 hover:bg-purple-50 transition-colors'
 function ItemCard({ title, description, href }: { title: string; description: string; href: string }) {
+  const { t } = useTranslation();
   return (
     <div className={CARD_CLASS}>
       <div className="text-base font-semibold text-slate-900">{title}</div>
       <p className="text-slate-600 text-sm mt-1">{description}</p>
       <div className="mt-3 flex items-center gap-2">
-        <a href={href} className={OUTLINE_BUTTON} aria-label={`Open ${title} printable view`}>Open printable view →</a>
-        <a href={href + (href.includes('?') ? '&autoprint=1' : '?autoprint=1')} className={BUTTON_CLASS} aria-label={`Download ${title} as PDF`}>Download PDF</a>
+        <a href={href} className={OUTLINE_BUTTON} aria-label={`${t('pages.secondGrade.openPrintable')} ${title}`}>{t('pages.secondGrade.openPrintable')}</a>
+        <a href={href + (href.includes('?') ? '&autoprint=1' : '?autoprint=1')} className={BUTTON_CLASS} aria-label={`${t('pages.secondGrade.downloadPDF')} ${title}`}>{t('pages.secondGrade.downloadPDF')}</a>
       </div>
     </div>
   )
 }
 
 function WorksheetThumbnailCard({ title, description, href, docId }: { title: string; description: string; href: string; docId: string }) {
+  const { t } = useTranslation();
   const previewUrl = href + (href.includes('?') ? '&preview=1' : '?preview=1')
   
   return (
@@ -318,7 +329,7 @@ function WorksheetThumbnailCard({ title, description, href, docId }: { title: st
             height: '400%',
             pointerEvents: 'none',
           }}
-          title={`Preview of ${title}`}
+          title={`${t('pages.secondGrade.previewOf')} ${title}`}
           loading="lazy"
         />
         {/* Gradient fade at bottom */}
@@ -326,7 +337,7 @@ function WorksheetThumbnailCard({ title, description, href, docId }: { title: st
         {/* Overlay on hover */}
         <div className="absolute inset-0 bg-black/0 group-hover:bg-black/5 transition-colors flex items-center justify-center pointer-events-none">
           <div className="opacity-0 group-hover:opacity-100 transition-opacity bg-white/95 backdrop-blur-sm px-4 py-2 rounded-lg text-xs font-semibold text-purple-700 border-2 border-purple-300 shadow-lg pointer-events-auto">
-            👁️ Click to view full worksheet
+            {t('pages.secondGrade.clickToView')}
           </div>
         </div>
         {/* Corner fold effect */}
@@ -339,7 +350,7 @@ function WorksheetThumbnailCard({ title, description, href, docId }: { title: st
             href={href}
             className="text-xs font-medium text-purple-600 hover:text-purple-700 px-3 py-1 rounded-full border border-purple-200 hover:border-purple-300 transition-colors"
           >
-            👁️ Preview
+            {t('pages.secondGrade.preview')}
           </a>
           <a
             href={href + (href.includes('?') ? '&autoprint=1' : '?autoprint=1')}
@@ -347,7 +358,7 @@ function WorksheetThumbnailCard({ title, description, href, docId }: { title: st
             rel="noopener noreferrer"
             className="text-xs font-medium text-purple-600 hover:text-purple-700 px-3 py-1 rounded-full border border-purple-200 hover:border-purple-300 transition-colors"
           >
-            ⬇️ Download
+            {t('pages.secondGrade.download')}
           </a>
         </div>
       </div>
@@ -356,22 +367,23 @@ function WorksheetThumbnailCard({ title, description, href, docId }: { title: st
 }
 
 function BuildPackInline() {
+  const { t } = useTranslation();
   return (
     <div className="bg-white border border-slate-200 rounded-2xl p-4">
-      <div className="text-base font-semibold text-slate-900 mb-1">🧰 Build a 5‑Minute Print Pack</div>
-      <p className="text-slate-700 text-sm mb-3 max-w-3xl">Create a quick Grade 2 math set — perfect for warm‑ups, brain breaks, or homework helpers.</p>
+      <div className="text-base font-semibold text-slate-900 mb-1">{t('pages.secondGrade.buildPack')}</div>
+      <p className="text-slate-700 text-sm mb-3 max-w-3xl">{t('pages.secondGrade.buildPackDesc')}</p>
       <div className="flex flex-col sm:flex-row gap-3 items-start sm:items-center">
-        <label className="text-sm text-slate-600">Time
+        <label className="text-sm text-slate-600">{t('pages.secondGrade.buildPackTimeLabel')}
           <select id="g2p-time" className="ml-2 px-3 py-2 border border-slate-300 rounded-lg text-sm bg-white" defaultValue="5"
             onChange={(e) => { (document.getElementById('g2p-time') as HTMLSelectElement).setAttribute('data-v', e.target.value); }}
           >
-            <option value="5">5 min</option>
-            <option value="10">10 min</option>
-            <option value="15">15 min</option>
+            <option value="5">{t('pages.secondGrade.buildPackTime5')}</option>
+            <option value="10">{t('pages.secondGrade.buildPackTime10')}</option>
+            <option value="15">{t('pages.secondGrade.buildPackTime15')}</option>
           </select>
         </label>
-      <div className="text-sm text-slate-600">Age/Grade <span className="font-medium ml-2">2nd Grade</span></div>
-      <div className="text-sm text-slate-600">Focus <span className="font-medium ml-2">Math</span></div>
+      <div className="text-sm text-slate-600">{t('pages.secondGrade.buildPackAgeLabel')} <span className="font-medium ml-2">{t('pages.secondGrade.buildPackAge')}</span></div>
+      <div className="text-sm text-slate-600">{t('pages.secondGrade.buildPackFocusLabel')} <span className="font-medium ml-2">{t('pages.secondGrade.buildPackFocus')}</span></div>
         <button
           onClick={() => {
             try {
@@ -382,7 +394,7 @@ function BuildPackInline() {
           }}
           className="px-4 py-2 bg-purple-600 text-white rounded-lg hover:bg-purple-700"
         >
-          Build Pack →
+          {t('pages.printables.buildPackButton')}
         </button>
       </div>
     </div>
