@@ -38,7 +38,6 @@
   ],
   "rewrites": [
     { "source": "/api/(.*)", "destination": "/api/[...path].ts" },
-    // Locale-aware rewrites (es/ and ar/ prefixes)
     { "source": "/:locale(es|ar)/kids", "destination": "/kids/index.html" },
     { "source": "/:locale(es|ar)/kids/games/memory", "destination": "/kids/games/memory/index.html" },
     { "source": "/:locale(es|ar)/kids/games/word-search", "destination": "/kids/games/word-search/index.html" },
@@ -68,7 +67,6 @@
     { "source": "/:locale(es|ar)/terms", "destination": "/terms/index.html" },
     { "source": "/:locale(es|ar)/cookies", "destination": "/cookies/index.html" },
     { "source": "/:locale(es|ar)/((?!assets/|api/).*)", "destination": "/index.html" },
-    // Original rewrites (English - no prefix, backward compatible)
     { "source": "/kids", "destination": "/kids/index.html" },
     { "source": "/kids/games/memory", "destination": "/kids/games/memory/index.html" },
     { "source": "/kids/games/word-search", "destination": "/kids/games/word-search/index.html" },
