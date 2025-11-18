@@ -289,6 +289,57 @@ export const es = {
         add: 'suma',
       },
     },
+    'mental-math-20': {
+      title: 'Cálculo Mental (Suma/Resta hasta 20)',
+      description: '¡Resuelve estos rápidamente en tu cabeza!',
+      learningObjectives: [
+        'Resolver problemas de suma y resta mentalmente',
+        'Desarrollar fluidez y velocidad con los hechos',
+        'Usar estrategias de cálculo mental (dobles, casi dobles, hacer 10)',
+        'Mejorar el sentido numérico y el pensamiento rápido',
+      ],
+      parentTeacherTips: [
+        'Anima a los estudiantes a resolver sin papel - usa estrategias mentales',
+        'Para 7+5, piensa: "7+3=10, luego 10+2=12" (hacer 10)',
+        'Para 12-5, piensa: "¿Qué más 5 es igual a 12?" o "12-2=10, luego 10-3=7"',
+        'Usa dobles: 6+7 es como 6+6+1=13',
+        'Practica diariamente durante 5 minutos para desarrollar velocidad y confianza',
+      ],
+      example: {
+        title: '📚 Ejemplo - Resolvamos esto juntos:',
+        problem: 'Problema:',
+        problemText: '7 + 5 = ?',
+        strategy1: 'Estrategia 1 (Hacer 10):',
+        strategy1Text: '7 + 3 = 10, luego 10 + 2 = 12',
+        strategy2: 'Estrategia 2 (Contar hacia adelante):',
+        strategy2Text: 'Comienza en 7, cuenta 5 más: 8, 9, 10, 11, 12',
+        answer: 'Respuesta:',
+        answerText: '12',
+        tip: '💡 Consejo: ¡Usa la estrategia que te resulte más fácil!',
+      },
+      challenge: {
+        title: '🌟 Desafíate (Opcional):',
+        items: [
+          '¿Puedes resolver 13+7 mentalmente? ¿Qué estrategia usaste?',
+          'Intenta: 19-6. ¿Qué tan rápido puedes resolverlo?',
+          'Crea 3 problemas de cálculo mental y resuélvelos en tu cabeza',
+        ],
+      },
+      selfAssessment: {
+        title: '📊 ¿Cómo te fue?',
+        items: [
+          'Puedo resolver problemas mentalmente',
+          'Usé estrategias de cálculo mental',
+          'Resolví correctamente los 12 problemas',
+        ],
+        score: 'Mi puntuación:',
+        hardest: '¿Qué fue lo más difícil?',
+      },
+      answerKey: {
+        title: '✅ Clave de Respuestas',
+        remember: '💡 Recuerda: Practica cálculo mental diariamente para desarrollar velocidad y confianza. ¡Usa estrategias como hacer 10, dobles o contar hacia adelante!',
+      },
+    },
     'times-table-horizontal-1-5': {
       title: 'Tabla de Multiplicar Horizontal (1-5)',
       description: 'Practica las tablas de multiplicar del 1 al 5 en formato horizontal. Escribe la respuesta en cada espacio en blanco. Desarrolla confianza con práctica de multiplicación simple y sin estrés.',

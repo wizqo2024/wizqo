@@ -286,6 +286,57 @@ export const en = {
         add: 'add',
       },
     },
+    'mental-math-20': {
+      title: 'Mental Math (Add/Sub to 20)',
+      description: 'Solve these quickly in your head!',
+      learningObjectives: [
+        'Solve addition and subtraction problems mentally',
+        'Build fact fluency and speed',
+        'Use mental math strategies (doubles, near doubles, making 10)',
+        'Improve number sense and quick thinking',
+      ],
+      parentTeacherTips: [
+        'Encourage students to solve without paper - use mental strategies',
+        'For 7+5, think: "7+3=10, then 10+2=12" (making 10)',
+        'For 12-5, think: "What plus 5 equals 12?" or "12-2=10, then 10-3=7"',
+        'Use doubles: 6+7 is like 6+6+1=13',
+        'Practice daily for 5 minutes to build speed and confidence',
+      ],
+      example: {
+        title: '📚 Example - Let\'s solve this together:',
+        problem: 'Problem:',
+        problemText: '7 + 5 = ?',
+        strategy1: 'Strategy 1 (Making 10):',
+        strategy1Text: '7 + 3 = 10, then 10 + 2 = 12',
+        strategy2: 'Strategy 2 (Counting on):',
+        strategy2Text: 'Start at 7, count up 5: 8, 9, 10, 11, 12',
+        answer: 'Answer:',
+        answerText: '12',
+        tip: '💡 Tip: Use the strategy that feels easiest for you!',
+      },
+      challenge: {
+        title: '🌟 Challenge Yourself (Optional):',
+        items: [
+          'Can you solve 13+7 mentally? What strategy did you use?',
+          'Try: 19-6. How fast can you solve it?',
+          'Create 3 mental math problems and solve them in your head',
+        ],
+      },
+      selfAssessment: {
+        title: '📊 How did you do?',
+        items: [
+          'I can solve problems mentally',
+          'I used mental math strategies',
+          'I solved all 12 problems correctly',
+        ],
+        score: 'My score:',
+        hardest: 'What was hardest?',
+      },
+      answerKey: {
+        title: '✅ Answer Key',
+        remember: '💡 Remember: Practice mental math daily to build speed and confidence. Use strategies like making 10, doubles, or counting on!',
+      },
+    },
     'times-table-horizontal-1-5': {
       title: 'Horizontal Times Table (1-5)',
       description: 'Practice times tables 1-5 in horizontal format. Write the answer in each blank. Build confidence with simple, stress-free multiplication practice.',

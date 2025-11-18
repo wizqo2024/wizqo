@@ -730,6 +730,12 @@ function resolveDocTitle(docId: string, context: { packTime: string; bundleCateg
     case 'fact-families-20':
       return '⚖️ Fact Families (to 20)'
     case 'mental-math-20':
+      if (t) {
+        const translated = t('worksheets.mental-math-20.title')
+        if (translated && translated !== 'worksheets.mental-math-20.title' && !translated.startsWith('worksheets.')) {
+          return translated
+        }
+      }
       return '🔢 Mental Math (Add/Sub to 20)'
     case 'number-line-200':
       return '📈 Number Line to 200'
@@ -12386,101 +12392,126 @@ export function PrintablesPage() {
           </WorksheetSectionWrapper>
         )}
 
-        {activeDocs.includes('mental-math-20') && (
-          <WorksheetSectionWrapper
-            docId="mental-math-20"
-            title="Mental Math (Add/Sub to 20)"
-            emoji="🔢"
-            description="Solve these quickly in your head!"
-            problemCount={12}
-            learningObjectives={[
-              'Solve addition and subtraction problems mentally',
-              'Build fact fluency and speed',
-              'Use mental math strategies (doubles, near doubles, making 10)',
-              'Improve number sense and quick thinking'
-            ]}
-            parentTeacherTips={[
-              'Encourage students to solve without paper - use mental strategies',
-              'For 7+5, think: "7+3=10, then 10+2=12" (making 10)',
-              'For 12-5, think: "What plus 5 equals 12?" or "12-2=10, then 10-3=7"',
-              'Use doubles: 6+7 is like 6+6+1=13',
-              'Practice daily for 5 minutes to build speed and confidence'
-            ]}
-          >
-            <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-indigo-400 to-purple-400 animate-gradient-x mb-2" />
-            {/* Worked Example */}
-            <div className="mb-6 p-4 bg-blue-50 border-2 border-blue-200 rounded-lg print:border print:bg-white">
-              <div className="font-semibold text-blue-900 mb-3 text-sm">📚 Example - Let's solve this together:</div>
-              <div className="space-y-2 text-sm">
-                <div className="font-semibold text-base"><strong>Problem:</strong> 7 + 5 = ?</div>
-                <div className="pl-4 border-l-2 border-blue-300 space-y-1">
-                  <div><strong>Strategy 1 (Making 10):</strong> 7 + 3 = 10, then 10 + 2 = 12</div>
-                  <div><strong>Strategy 2 (Counting on):</strong> Start at 7, count up 5: 8, 9, 10, 11, 12</div>
-                  <div className="font-semibold text-blue-900"><strong>Answer:</strong> 12</div>
-                  <div className="text-xs text-blue-700 mt-1">💡 Tip: Use the strategy that feels easiest for you!</div>
+        {activeDocs.includes('mental-math-20') && (() => {
+          const docId = 'mental-math-20'
+          return (
+            <WorksheetSectionWrapper
+              docId={docId}
+              title={getTrans(`worksheets.${docId}.title`, 'Mental Math (Add/Sub to 20)')}
+              emoji="🔢"
+              description={getTrans(`worksheets.${docId}.description`, 'Solve these quickly in your head!')}
+              problemCount={12}
+              learningObjectives={(() => {
+                const objectives = t(`worksheets.${docId}.learningObjectives`)
+                return Array.isArray(objectives) && objectives.length > 0 ? objectives : [
+                  'Solve addition and subtraction problems mentally',
+                  'Build fact fluency and speed',
+                  'Use mental math strategies (doubles, near doubles, making 10)',
+                  'Improve number sense and quick thinking'
+                ]
+              })()}
+              parentTeacherTips={(() => {
+                const tips = t(`worksheets.${docId}.parentTeacherTips`)
+                return Array.isArray(tips) && tips.length > 0 ? tips : [
+                  'Encourage students to solve without paper - use mental strategies',
+                  'For 7+5, think: "7+3=10, then 10+2=12" (making 10)',
+                  'For 12-5, think: "What plus 5 equals 12?" or "12-2=10, then 10-3=7"',
+                  'Use doubles: 6+7 is like 6+6+1=13',
+                  'Practice daily for 5 minutes to build speed and confidence'
+                ]
+              })()}
+            >
+              <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-indigo-400 to-purple-400 animate-gradient-x mb-2" />
+              {/* Worked Example */}
+              <div className="mb-6 p-4 bg-blue-50 border-2 border-blue-200 rounded-lg print:border print:bg-white">
+                <div className="font-semibold text-blue-900 mb-3 text-sm">{getTrans(`worksheets.${docId}.example.title`, '📚 Example - Let\'s solve this together:')}</div>
+                <div className="space-y-2 text-sm">
+                  <div className="font-semibold text-base"><strong>{getTrans(`worksheets.${docId}.example.problem`, 'Problem:')}</strong> {getTrans(`worksheets.${docId}.example.problemText`, '7 + 5 = ?')}</div>
+                  <div className="pl-4 border-l-2 border-blue-300 space-y-1">
+                    <div><strong>{getTrans(`worksheets.${docId}.example.strategy1`, 'Strategy 1 (Making 10):')}</strong> {getTrans(`worksheets.${docId}.example.strategy1Text`, '7 + 3 = 10, then 10 + 2 = 12')}</div>
+                    <div><strong>{getTrans(`worksheets.${docId}.example.strategy2`, 'Strategy 2 (Counting on):')}</strong> {getTrans(`worksheets.${docId}.example.strategy2Text`, 'Start at 7, count up 5: 8, 9, 10, 11, 12')}</div>
+                    <div className="font-semibold text-blue-900"><strong>{getTrans(`worksheets.${docId}.example.answer`, 'Answer:')}</strong> {getTrans(`worksheets.${docId}.example.answerText`, '12')}</div>
+                    <div className="text-xs text-blue-700 mt-1">{getTrans(`worksheets.${docId}.example.tip`, '💡 Tip: Use the strategy that feels easiest for you!')}</div>
+                  </div>
                 </div>
               </div>
-            </div>
-            <div className="grid grid-cols-3 gap-3 break-inside-avoid" style={{ pageBreakAfter: 'auto' }}>
-              {[
-                '7+5', '9+4', '8+6', '12-5', '15-7', '18-9',
-                '6+7', '5+8', '11-4', '14-6', '16-8', '20-9'
-              ].map((prob, idx) => (
-                <div key={idx} className="border border-slate-300 rounded p-3 bg-white text-center">
-                  <p className="text-slate-900 text-lg font-semibold">{prob} = __</p>
+              <div className="grid grid-cols-3 gap-3 break-inside-avoid" style={{ pageBreakAfter: 'auto' }}>
+                {[
+                  '7+5', '9+4', '8+6', '12-5', '15-7', '18-9',
+                  '6+7', '5+8', '11-4', '14-6', '16-8', '20-9'
+                ].map((prob, idx) => (
+                  <div key={idx} className="border border-slate-300 rounded p-3 bg-white text-center">
+                    <p className="text-slate-900 text-lg font-semibold">{prob} = __</p>
+                  </div>
+                ))}
+              </div>
+              {/* Extension/Challenge Problems */}
+              <div className="mt-6 print:mt-0 p-4 bg-purple-50 border-2 border-purple-200 rounded print:bg-white print:border" style={{ pageBreakBefore: 'always', pageBreakInside: 'avoid' }}>
+                <div className="font-semibold text-purple-900 mb-3 text-sm">{getTrans(`worksheets.${docId}.challenge.title`, '🌟 Challenge Yourself (Optional):')}</div>
+                <div className="space-y-2 text-sm text-purple-800">
+                  {(() => {
+                    const challengeItems = t(`worksheets.${docId}.challenge.items`)
+                    const items = Array.isArray(challengeItems) && challengeItems.length > 0 ? challengeItems : [
+                      'Can you solve 13+7 mentally? What strategy did you use?',
+                      'Try: 19-6. How fast can you solve it?',
+                      'Create 3 mental math problems and solve them in your head'
+                    ]
+                    return items.map((item, idx) => (
+                      <div key={idx}>{idx + 1}. {item}</div>
+                    ))
+                  })()}
+                </div>
+              </div>
+              {/* Self-Assessment */}
+              <div className="print:block hidden print:mt-0 mt-6 p-4 border-2 border-slate-300 rounded" style={{ pageBreakBefore: 'avoid', pageBreakInside: 'avoid' }}>
+                <div className="font-semibold text-slate-800 mb-3 text-sm">{getTrans(`worksheets.${docId}.selfAssessment.title`, '📊 How did you do?')}</div>
+                <div className="space-y-2 text-xs">
+                  {(() => {
+                    const assessmentItems = t(`worksheets.${docId}.selfAssessment.items`)
+                    const items = Array.isArray(assessmentItems) && assessmentItems.length > 0 ? assessmentItems : [
+                      'I can solve problems mentally',
+                      'I used mental math strategies',
+                      'I solved all 12 problems correctly'
+                    ]
+                    return items.map((item, idx) => (
+                      <div key={idx}>☐ {item}</div>
+                    ))
+                  })()}
+                </div>
+                <div className="mt-3 text-xs">
+                  <strong>{getTrans(`worksheets.${docId}.selfAssessment.score`, 'My score:')}</strong> ___ / 12
+                </div>
+                <div className="mt-2 text-xs">
+                  <strong>{getTrans(`worksheets.${docId}.selfAssessment.hardest`, 'What was hardest?')}</strong> _________________________
+                </div>
+              </div>
+              {showAnswersForDoc('mental-math-20', () => (
+                <div className="mt-6 p-4 border-2 border-emerald-300 bg-emerald-50 rounded print:border print:bg-white print:page-break-before-always">
+                  <div className="font-bold text-emerald-900 mb-3 text-base">{getTrans(`worksheets.${docId}.answerKey.title`, '✅ Answer Key')}</div>
+                  <ul className="list-disc list-inside space-y-2 text-sm text-emerald-800 columns-2">
+                    {[
+                      { prob: '7+5', ans: 12 },
+                      { prob: '9+4', ans: 13 },
+                      { prob: '8+6', ans: 14 },
+                      { prob: '12-5', ans: 7 },
+                      { prob: '15-7', ans: 8 },
+                      { prob: '18-9', ans: 9 },
+                      { prob: '6+7', ans: 13 },
+                      { prob: '5+8', ans: 13 },
+                      { prob: '11-4', ans: 7 },
+                      { prob: '14-6', ans: 8 },
+                      { prob: '16-8', ans: 8 },
+                      { prob: '20-9', ans: 11 }
+                    ].map(({ prob, ans }, idx) => (
+                      <li key={idx}><strong>{prob} = {ans}</strong></li>
+                    ))}
+                  </ul>
+                  <div className="text-xs text-emerald-700 mt-3">{getTrans(`worksheets.${docId}.answerKey.remember`, '💡 Remember: Practice mental math daily to build speed and confidence. Use strategies like making 10, doubles, or counting on!')}</div>
                 </div>
               ))}
-            </div>
-            {/* Extension/Challenge Problems */}
-            <div className="mt-6 print:mt-0 p-4 bg-purple-50 border-2 border-purple-200 rounded print:bg-white print:border" style={{ pageBreakBefore: 'always', pageBreakInside: 'avoid' }}>
-              <div className="font-semibold text-purple-900 mb-3 text-sm">🌟 Challenge Yourself (Optional):</div>
-              <div className="space-y-2 text-sm text-purple-800">
-                <div>1. Can you solve 13+7 mentally? What strategy did you use?</div>
-                <div>2. Try: 19-6. How fast can you solve it?</div>
-                <div>3. Create 3 mental math problems and solve them in your head</div>
-              </div>
-            </div>
-            {/* Self-Assessment */}
-            <div className="print:block hidden print:mt-0 mt-6 p-4 border-2 border-slate-300 rounded" style={{ pageBreakBefore: 'avoid', pageBreakInside: 'avoid' }}>
-              <div className="font-semibold text-slate-800 mb-3 text-sm">📊 How did you do?</div>
-              <div className="space-y-2 text-xs">
-                <div>☐ I can solve problems mentally</div>
-                <div>☐ I used mental math strategies</div>
-                <div>☐ I solved all 12 problems correctly</div>
-              </div>
-              <div className="mt-3 text-xs">
-                <strong>My score:</strong> ___ / 12
-              </div>
-              <div className="mt-2 text-xs">
-                <strong>What was hardest?</strong> _________________________
-              </div>
-            </div>
-            {showAnswersForDoc('mental-math-20', () => (
-              <div className="mt-6 p-4 border-2 border-emerald-300 bg-emerald-50 rounded print:border print:bg-white print:page-break-before-always">
-                <div className="font-bold text-emerald-900 mb-3 text-base">✅ Answer Key</div>
-                <ul className="list-disc list-inside space-y-2 text-sm text-emerald-800 columns-2">
-                  {[
-                    { prob: '7+5', ans: 12 },
-                    { prob: '9+4', ans: 13 },
-                    { prob: '8+6', ans: 14 },
-                    { prob: '12-5', ans: 7 },
-                    { prob: '15-7', ans: 8 },
-                    { prob: '18-9', ans: 9 },
-                    { prob: '6+7', ans: 13 },
-                    { prob: '5+8', ans: 13 },
-                    { prob: '11-4', ans: 7 },
-                    { prob: '14-6', ans: 8 },
-                    { prob: '16-8', ans: 8 },
-                    { prob: '20-9', ans: 11 }
-                  ].map(({ prob, ans }, idx) => (
-                    <li key={idx}><strong>{prob} = {ans}</strong></li>
-                  ))}
-                </ul>
-                <div className="text-xs text-emerald-700 mt-3">💡 Remember: Practice mental math daily to build speed and confidence. Use strategies like making 10, doubles, or counting on!</div>
-              </div>
-            ))}
-          </WorksheetSectionWrapper>
-        )}
+            </WorksheetSectionWrapper>
+          )
+        })()}
 
         {activeDocs.includes('number-line-200') && (() => {
           const rng = makeRng(`${effectiveSeed}|v${variant}|doc=${doc}`);
