@@ -5,16 +5,7 @@ import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/
 import { SEOMetaTags } from '@/components/SEOMetaTags'
 import { CategoryFilter, type Category } from '@/components/CategoryFilter'
 import { trackPackGeneration, trackCategoryFilter } from '@/utils/analytics'
-
-const MULTIPLICATION_CATEGORIES: Category[] = [
-  { id: 'facts', label: 'Multiplication Facts', icon: '✖️' },
-  { id: 'arrays', label: 'Arrays & Models', icon: '📊' },
-  { id: 'word-problems', label: 'Word Problems', icon: '🧮' },
-  { id: 'multi-digit', label: 'Multi-Digit', icon: '🔢' },
-  { id: 'fluency', label: 'Fluency & Practice', icon: '⏱️' },
-  { id: 'skip-counting', label: 'Skip Counting', icon: '➡️' },
-  { id: 'fact-families', label: 'Fact Families', icon: '⚖️' },
-]
+import { useTranslation } from '@/context/TranslationContext'
 
 interface WorksheetItem {
   title: string
@@ -26,6 +17,19 @@ interface WorksheetItem {
 }
 
 export default function MultiplicationWorksheetsPage() {
+  const { t, language, isRTL } = useTranslation()
+  React.useEffect(() => {}, [language])
+  
+  const MULTIPLICATION_CATEGORIES: Category[] = useMemo(() => [
+    { id: 'facts', label: t('pages.multiplication.categories.facts'), icon: '✖️' },
+    { id: 'arrays', label: t('pages.multiplication.categories.arrays'), icon: '📊' },
+    { id: 'word-problems', label: t('pages.multiplication.categories.wordProblems'), icon: '🧮' },
+    { id: 'multi-digit', label: t('pages.multiplication.categories.multiDigit'), icon: '🔢' },
+    { id: 'fluency', label: t('pages.multiplication.categories.fluency'), icon: '⏱️' },
+    { id: 'skip-counting', label: t('pages.multiplication.categories.skipCounting'), icon: '➡️' },
+    { id: 'fact-families', label: t('pages.multiplication.categories.factFamilies'), icon: '⚖️' },
+  ], [t, language])
+  
   const [selectedCategories, setSelectedCategories] = useState<Set<string>>(new Set())
 
   const toggleCategory = (categoryId: string) => {
@@ -90,10 +94,10 @@ export default function MultiplicationWorksheetsPage() {
     return groups
   }, [filteredWorksheets])
   return (
-    <div className="min-h-screen bg-slate-50">
+    <div className="min-h-screen bg-slate-50" dir={isRTL ? 'rtl' : 'ltr'}>
       <SEOMetaTags
-        title="Free Multiplication Worksheets - Printable PDFs with Answer Keys | Wizqo"
-        description="Help your child master multiplication with our free multiplication worksheets for 2nd grade, 3rd grade, 4th grade, and 5th grade! Download printable PDFs instantly with answer keys. Practice multiplication facts, arrays, and word problems - perfect for building confidence and math fluency. No sign-up required!"
+        title={`${t('pages.multiplication.title')} - Printable PDFs with Answer Keys | Wizqo`}
+        description={t('pages.multiplication.subtitle')}
         keywords="multiplication worksheets, free multiplication worksheets, multiplication worksheets for 2nd grade, multiplication worksheets for 3rd grade, printable multiplication worksheets, multiplication facts worksheets, multiplication arrays worksheets, multiplication word problems, free multiplication worksheets PDF, multiplication practice sheets, multiplication worksheets with answer keys, 2nd grade multiplication worksheets, 3rd grade multiplication worksheets, multiplication tables worksheets, multiplication drills"
         canonicalUrl="https://wizqo.com/worksheets/multiplication-worksheets"
       />
@@ -143,14 +147,14 @@ export default function MultiplicationWorksheetsPage() {
           <div className="relative mx-auto max-w-6xl px-4 pb-14 pt-16 sm:px-6 lg:px-8">
             <div className="space-y-6">
               <span className="inline-flex items-center gap-2 rounded-full border border-purple-200 bg-white px-3 py-1 text-sm font-medium text-purple-700 shadow-sm">
-                ✨ Free multiplication worksheets • 2nd-5th grade
+                ✨ {t('pages.multiplication.title')} • 2nd-5th grade
               </span>
               <h1 className="text-3xl font-bold tracking-tight text-slate-900 sm:text-4xl lg:text-5xl">
-                Free Multiplication Worksheets
-                <span className="block text-purple-600">Printable PDFs with answer keys for every grade.</span>
+                {t('pages.multiplication.title')}
+                <span className="block text-purple-600">{t('pages.multiplication.subtitle')}</span>
               </h1>
               <p className="max-w-2xl text-lg text-slate-600 leading-relaxed">
-                Free multiplication worksheets for 2nd grade, 3rd grade, 4th grade, and 5th grade—multiplication facts, arrays, word problems, and visual models you can print and use at home or in class. Download as PDF with answer keys included.
+                {t('pages.multiplication.subtitle')}
               </p>
             </div>
           </div>
