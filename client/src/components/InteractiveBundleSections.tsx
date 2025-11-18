@@ -6545,15 +6545,28 @@ function InteractiveWorksheetSection({
   const cornerColors = getCornerAccentColor(category.id)
 
   // Ensure t function works correctly - always use getTranslation directly to bypass context issues
+  // This ensures translations work even if context has issues
   const t = React.useCallback((key: string): string => {
-    // Always use getTranslation directly to ensure it works
-    const directResult = getTranslation(language, key)
-    if (typeof directResult === 'string') {
-      return directResult
+    // Always use getTranslation directly first - it's the most reliable
+    try {
+      const directResult = getTranslation(language, key)
+      // If we got a valid string (not the key itself), return it
+      if (typeof directResult === 'string' && directResult !== key) {
+        return directResult
+      }
+      // If directResult is the key, it means translation is missing - try context as fallback
+      const result = tFromContext(key)
+      if (typeof result === 'string' && result !== key) {
+        return result
+      }
+      // Final fallback: return the key (will be visible in UI for debugging)
+      return key
+    } catch (error) {
+      console.warn('Translation error in renderer:', key, language, error)
+      // Try context as last resort
+      const result = tFromContext(key)
+      return typeof result === 'string' ? result : key
     }
-    // Fallback to context if direct lookup fails
-    const result = tFromContext(key)
-    return typeof result === 'string' ? result : key
   }, [language, tFromContext])
 
   if (!renderer) {
