@@ -12,7 +12,8 @@ export const translations = {
 } as const
 
 // Helper function to get translation with fallback
-export function getTranslation(language: Language, key: string): string {
+// Returns string, array, or object depending on the translation value
+export function getTranslation(language: Language, key: string): string | any {
   try {
     const keys = key.split('.')
     let value: any = translations[language]
@@ -23,9 +24,16 @@ export function getTranslation(language: Language, key: string): string {
       value = value[k]
     }
     
-    // If we got a valid string, return it
-    if (typeof value === 'string' && value.length > 0) {
-      return value
+    // If we got a valid value (string, array, or object), return it
+    if (value !== null && value !== undefined) {
+      // Return arrays and objects as-is
+      if (Array.isArray(value) || (typeof value === 'object' && typeof value !== 'string')) {
+        return value
+      }
+      // Return strings
+      if (typeof value === 'string' && value.length > 0) {
+        return value
+      }
     }
     
     // Fallback to English if translation missing
@@ -35,8 +43,15 @@ export function getTranslation(language: Language, key: string): string {
         if (fallbackValue === null || fallbackValue === undefined) break
         fallbackValue = fallbackValue[k]
       }
-      if (typeof fallbackValue === 'string' && fallbackValue.length > 0) {
-        return fallbackValue
+      if (fallbackValue !== null && fallbackValue !== undefined) {
+        // Return arrays and objects as-is
+        if (Array.isArray(fallbackValue) || (typeof fallbackValue === 'object' && typeof fallbackValue !== 'string')) {
+          return fallbackValue
+        }
+        // Return strings
+        if (typeof fallbackValue === 'string' && fallbackValue.length > 0) {
+          return fallbackValue
+        }
       }
     }
     

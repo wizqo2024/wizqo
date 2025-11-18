@@ -6,6 +6,7 @@ import { getPostImage, getPostRating } from '../utils';
 import { CATEGORY_IMAGES, GENERIC_BLOG_IMAGE } from '../constants';
 import { BlogPostCard } from './BlogPostCard';
 import { BlogFilters } from './BlogFilters';
+import { useTranslation } from '@/context/TranslationContext';
 
 interface BlogListProps {
   allPosts: BlogPost[];
@@ -46,6 +47,12 @@ export function BlogList({
   onNewsletterSubmit,
   showBackToTop,
 }: BlogListProps) {
+  const { t, isRTL } = useTranslation();
+  
+  React.useEffect(() => {
+    // Ensure re-render on language change
+  }, [t]);
+  
   const handleBackToTop = () => {
     try {
       window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -53,24 +60,24 @@ export function BlogList({
   };
 
   return (
-    <div className="min-h-screen bg-slate-50 overflow-x-hidden">
+    <div className="min-h-screen bg-slate-50 overflow-x-hidden" dir={isRTL ? 'rtl' : 'ltr'}>
       <UnifiedNavigation currentPage="blog" />
       
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-16">
         <div className="text-center mb-8 sm:mb-16">
           <h1 className="text-3xl sm:text-4xl lg:text-5xl font-black text-slate-900 mb-4 sm:mb-6 px-2">
-            Wizqo <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-500 to-pink-500">Blog</span>
+            Wizqo <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-500 to-pink-500">{t('pages.blog.title')}</span>
           </h1>
           <p className="text-lg sm:text-xl text-slate-600 max-w-3xl mx-auto leading-relaxed px-4">
-            Discover learning tips, hobby guides, and success stories from our community of learners.
+            {t('pages.blog.subtitle')}
           </p>
         </div>
 
         {allPosts.length > 0 ? (
           <div className="grid md:grid-cols-12 gap-8 items-start">
-            <aside className="hidden md:block md:col-span-3 print:hidden" aria-label="Popular posts">
+            <aside className="hidden md:block md:col-span-3 print:hidden" aria-label={t('pages.blog.popularPosts')}>
               <div className="sticky top-24 bg-white border border-slate-200 rounded-2xl p-4">
-                <div className="text-xs font-semibold text-slate-500 tracking-wide mb-2">Popular posts</div>
+                <div className="text-xs font-semibold text-slate-500 tracking-wide mb-2">{t('pages.blog.popularPosts')}</div>
                 <nav aria-label="Popular blog posts">
                   <ul className="mt-1 space-y-1 text-sm">
                     {allPosts.slice(0, 6).map((p) => (
@@ -136,7 +143,7 @@ export function BlogList({
                     aria-label={`Read featured article: ${featurePost.title}`}
                   >
                   <span className="bg-purple-100 text-purple-700 text-sm px-3 py-1 rounded-full mb-4 inline-block">
-                    Featured Article
+                    {t('pages.blog.readMore')}
                   </span>
                   {(() => {
                     const firstImgMatch = (featurePost.content || '').match(/!\[[^\]]*\]\((\S+?)(?:\s+".*?")?\)/);
@@ -209,10 +216,10 @@ export function BlogList({
               <div className="space-y-6">
                 <div className="bg-gradient-to-r from-purple-50 to-pink-50 border border-purple-200 rounded-xl p-6 sm:p-8 mb-6">
                   <p className="text-base sm:text-lg text-slate-700 leading-relaxed max-w-4xl">
-                    Welcome to Wizqo's Learning Blog — your home for <strong className="text-slate-900">free printable worksheets</strong>, creative classroom ideas, hobby tips, and educational wellness guides. Explore fresh resources for teachers, parents, and students every week.
+                    {t('pages.blog.subtitle')}
                   </p>
                 </div>
-                <h2 className="text-2xl font-bold text-slate-900 mb-6">More Articles</h2>
+                <h2 className="text-2xl font-bold text-slate-900 mb-6">{t('pages.blog.readMore')}</h2>
                 <div id="blog-results" className="grid md:grid-cols-2 gap-6">
                   {(() => {
                     const cards = (isFilteringActive ? filteredPosts : allPosts)
@@ -220,7 +227,7 @@ export function BlogList({
                     if (cards.length === 0) {
                       return (
                         <div className="col-span-2 bg-white rounded-xl p-6 border border-slate-200 text-center text-slate-600" role="status" aria-live="polite">
-                          No articles found. Try a different search or clear filters.
+                          {t('pages.blog.filters.searchPlaceholder')}
                         </div>
                       );
                     }
@@ -239,29 +246,29 @@ export function BlogList({
               </div>
 
               <div className="bg-gradient-to-r from-slate-900 to-slate-800 rounded-2xl p-8 text-center text-white">
-                <h3 className="text-2xl font-bold mb-4">Never Miss a New Article</h3>
+                <h3 className="text-2xl font-bold mb-4">{t('pages.blog.newsletter.title')}</h3>
                 <p className="text-slate-300 mb-6 max-w-2xl mx-auto">
-                  Get the latest hobby guides, learning tips, and AI insights delivered straight to your inbox.
+                  {t('pages.blog.newsletter.description')}
                 </p>
-                <form onSubmit={onNewsletterSubmit} className="flex flex-col sm:flex-row gap-3 justify-center items-center max-w-md mx-auto" aria-label="Newsletter subscription">
-                  <label htmlFor="newsletter-email" className="sr-only">Email address</label>
+                <form onSubmit={onNewsletterSubmit} className="flex flex-col sm:flex-row gap-3 justify-center items-center max-w-md mx-auto" aria-label={t('pages.blog.newsletter.title')}>
+                  <label htmlFor="newsletter-email" className="sr-only">{t('pages.blog.newsletter.placeholder')}</label>
                   <input
                     id="newsletter-email"
                     type="email"
                     value={newsletterEmail}
                     onChange={(e) => onNewsletterEmailChange(e.target.value)}
-                    placeholder="Enter your email address"
+                    placeholder={t('pages.blog.newsletter.placeholder')}
                     className="flex-1 px-4 py-3 border border-slate-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500 bg-slate-800 text-white placeholder-slate-400"
                     required
-                    aria-label="Email address for newsletter"
+                    aria-label={t('pages.blog.newsletter.placeholder')}
                   />
                   <button 
                     type="submit"
                     disabled={isSubscribing}
                     className="px-6 py-3 bg-gradient-to-r from-purple-500 to-pink-500 text-white font-medium rounded-lg hover:from-purple-600 hover:to-pink-600 transition-all disabled:opacity-50 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:ring-offset-2"
-                    aria-label={isSubscribing ? 'Subscribing...' : 'Subscribe to newsletter'}
+                    aria-label={isSubscribing ? t('pages.blog.newsletter.subscribing') : t('pages.blog.newsletter.subscribe')}
                   >
-                    {isSubscribing ? 'Subscribing...' : 'Subscribe'}
+                    {isSubscribing ? t('pages.blog.newsletter.subscribing') : t('pages.blog.newsletter.subscribe')}
                   </button>
                 </form>
               </div>
@@ -294,27 +301,27 @@ export function BlogList({
             </div>
 
             <div className="bg-gradient-to-r from-purple-50 to-pink-50 border border-purple-200 rounded-xl p-6">
-              <h3 className="font-bold text-slate-900 mb-3">Want to be notified when we publish new content?</h3>
-              <p className="text-slate-600 mb-4">Join our newsletter to get the latest learning tips and hobby guides.</p>
-              <form onSubmit={onNewsletterSubmit} className="flex flex-col sm:flex-row gap-3 justify-center items-center max-w-md mx-auto" aria-label="Newsletter subscription">
-                <label htmlFor="newsletter-email-empty" className="sr-only">Email address</label>
+              <h3 className="font-bold text-slate-900 mb-3">{t('pages.blog.newsletter.title')}</h3>
+              <p className="text-slate-600 mb-4">{t('pages.blog.newsletter.description')}</p>
+              <form onSubmit={onNewsletterSubmit} className="flex flex-col sm:flex-row gap-3 justify-center items-center max-w-md mx-auto" aria-label={t('pages.blog.newsletter.title')}>
+                <label htmlFor="newsletter-email-empty" className="sr-only">{t('pages.blog.newsletter.placeholder')}</label>
                 <input
                   id="newsletter-email-empty"
                   type="email"
                   value={newsletterEmail}
                   onChange={(e) => onNewsletterEmailChange(e.target.value)}
-                  placeholder="Enter your email"
+                  placeholder={t('pages.blog.newsletter.placeholder')}
                   className="flex-1 px-4 py-2 border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500"
                   required
-                  aria-label="Email address for newsletter"
+                  aria-label={t('pages.blog.newsletter.placeholder')}
                 />
                 <button 
                   type="submit"
                   disabled={isSubscribing}
                   className="px-6 py-2 bg-gradient-to-r from-purple-500 to-pink-500 text-white font-medium rounded-lg hover:from-purple-600 hover:to-pink-600 transition-all disabled:opacity-50 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:ring-offset-2"
-                  aria-label={isSubscribing ? 'Subscribing...' : 'Subscribe to newsletter'}
+                  aria-label={isSubscribing ? t('pages.blog.newsletter.subscribing') : t('pages.blog.newsletter.subscribe')}
                 >
-                  {isSubscribing ? 'Subscribing...' : 'Subscribe'}
+                  {isSubscribing ? t('pages.blog.newsletter.subscribing') : t('pages.blog.newsletter.subscribe')}
                 </button>
               </form>
             </div>
@@ -325,11 +332,11 @@ export function BlogList({
       {showBackToTop && (
         <button
           onClick={handleBackToTop}
-          aria-label="Scroll to top"
+          aria-label={t('pages.blog.backToTop')}
           className="fixed bottom-6 left-6 z-40 print:hidden inline-flex items-center gap-2 rounded-full bg-purple-600 text-white shadow-lg hover:bg-purple-700 focus:outline-none focus-visible:ring-2 focus-visible:ring-purple-500 focus-visible:ring-offset-2 px-4 py-3"
         >
           <span aria-hidden="true">↑</span>
-          <span className="text-sm">Scroll up</span>
+          <span className="text-sm">{t('pages.blog.backToTop')}</span>
         </button>
       )}
 

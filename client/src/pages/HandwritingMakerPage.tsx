@@ -2,10 +2,17 @@ import React from 'react';
 import { UnifiedNavigation } from '@/components/UnifiedNavigation';
 import { Footer } from '@/components/Footer';
 import { SEOMetaTags } from '@/components/SEOMetaTags';
+import { useTranslation } from '@/context/TranslationContext';
 
 type Mode = 'letters' | 'words' | 'sentences';
 
 export default function HandwritingMakerPage() {
+  const { t, isRTL } = useTranslation();
+  
+  React.useEffect(() => {
+    // Ensure re-render on language change
+  }, [t]);
+  
   const [mode, setMode] = React.useState<Mode>('letters');
   const [letters, setLetters] = React.useState<string>('A B C D E F G H I J K L M N O P Q R S T U V W X Y Z');
   const [words, setWords] = React.useState<string>('cat dog sun moon bus red blue green');
@@ -32,6 +39,8 @@ export default function HandwritingMakerPage() {
       if (!sheet) return;
       const svg = sheet.querySelector('svg');
       const content = svg ? (svg as SVGElement).outerHTML : sheet.innerHTML;
+      const nameLabel = t('pages.handwriting.name');
+      const dateLabel = t('pages.handwriting.date');
       const html = `<!doctype html><html><head><meta charset=\"utf-8\"/>
 <title>Print</title>
 <style>
@@ -48,7 +57,7 @@ export default function HandwritingMakerPage() {
   #print-footer .line { border-bottom: 1px solid #94a3b8; min-width: 2.5in; height: 0.9em; display: inline-block; }
   
 </style>
-</head><body><div id=\"frame\"><img id=\"print-logo\" src=\"/favicon.svg\" alt=\"Wizqo\" />${content}<div id=\"print-footer\"><div><span class=\"label\">Name</span><span class=\"line\"></span></div><div><span class=\"label\">Date</span><span class=\"line\"></span></div></div></div></body></html>`;
+</head><body><div id=\"frame\"><img id=\"print-logo\" src=\"/favicon.svg\" alt=\"Wizqo\" />${content}<div id=\"print-footer\"><div><span class=\"label\">${nameLabel}</span><span class=\"line\"></span></div><div><span class=\"label\">${dateLabel}</span><span class=\"line\"></span></div></div></div></body></html>`;
       const iframe = document.createElement('iframe');
       iframe.style.position = 'fixed';
       iframe.style.right = '0';
@@ -230,10 +239,10 @@ export default function HandwritingMakerPage() {
   }
 
   return (
-    <div className="min-h-screen bg-slate-50">
+    <div className="min-h-screen bg-slate-50" dir={isRTL ? 'rtl' : 'ltr'}>
       <SEOMetaTags
-        title="Free Handwriting Practice Sheets | Printable Tracing Worksheets"
-        description="Download free printable handwriting practice sheets for kids. Trace letters A–Z, words, and sentences in print and cursive. Perfect for teaching handwriting!"
+        title={t('pages.handwriting.title')}
+        description={t('pages.handwriting.subtitle')}
         keywords="handwriting worksheets, handwriting practice sheets, printable handwriting worksheets, tracing worksheets, cursive handwriting worksheets, print handwriting worksheets, handwriting practice for kids, free handwriting worksheets PDF"
         canonicalUrl="https://wizqo.com/worksheets/handwriting-worksheet-maker"
       />
@@ -310,9 +319,9 @@ export default function HandwritingMakerPage() {
 
       <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-6">
         <header>
-          <h1 className="text-3xl sm:text-4xl font-extrabold bg-gradient-to-r from-yellow-400 via-pink-500 to-purple-500 bg-clip-text text-transparent">Handwriting Practice Sheets</h1>
+          <h1 className="text-3xl sm:text-4xl font-extrabold bg-gradient-to-r from-yellow-400 via-pink-500 to-purple-500 bg-clip-text text-transparent">{t('pages.handwriting.title')}</h1>
           <div className="h-1 w-16 rounded-full bg-gradient-to-r from-yellow-300 to-pink-400 mt-3 mb-3" />
-          <p className="text-slate-700 text-sm max-w-3xl">Generate printable tracing worksheets with guidelines and dotted letters. Practice A–Z letters, simple words, or short sentences. Print and save as PDF.</p>
+          <p className="text-slate-700 text-sm max-w-3xl">{t('pages.handwriting.subtitle')}</p>
         </header>
 
         <section className="grid grid-cols-1 md:grid-cols-12 gap-6 items-start">
@@ -321,9 +330,9 @@ export default function HandwritingMakerPage() {
             {/* Mode segmented control */}
             <div className="mb-4">
               <div className="inline-flex rounded-lg border border-slate-200 overflow-hidden">
-                <button onClick={() => setMode('letters')} className={`px-4 py-2 text-sm ${mode==='letters' ? 'bg-purple-600 text-white' : 'bg-white text-slate-700 hover:bg-slate-50'}`}>Letters A–Z</button>
-                <button onClick={() => setMode('words')} className={`px-4 py-2 text-sm border-l border-slate-200 ${mode==='words' ? 'bg-purple-600 text-white' : 'bg-white text-slate-700 hover:bg-slate-50'}`}>Words</button>
-                <button onClick={() => setMode('sentences')} className={`px-4 py-2 text-sm border-l border-slate-200 ${mode==='sentences' ? 'bg-purple-600 text-white' : 'bg-white text-slate-700 hover:bg-slate-50'}`}>Sentences</button>
+                <button onClick={() => setMode('letters')} className={`px-4 py-2 text-sm ${mode==='letters' ? 'bg-purple-600 text-white' : 'bg-white text-slate-700 hover:bg-slate-50'}`}>{t('pages.handwriting.mode.letters')}</button>
+                <button onClick={() => setMode('words')} className={`px-4 py-2 text-sm border-l border-slate-200 ${mode==='words' ? 'bg-purple-600 text-white' : 'bg-white text-slate-700 hover:bg-slate-50'}`}>{t('pages.handwriting.mode.words')}</button>
+                <button onClick={() => setMode('sentences')} className={`px-4 py-2 text-sm border-l border-slate-200 ${mode==='sentences' ? 'bg-purple-600 text-white' : 'bg-white text-slate-700 hover:bg-slate-50'}`}>{t('pages.handwriting.mode.sentences')}</button>
               </div>
             </div>
 
@@ -332,11 +341,11 @@ export default function HandwritingMakerPage() {
               {mode==='letters' && (
                 <div>
                   <div className="flex items-center justify-between mb-1">
-                    <label className="text-sm text-slate-700">Letters (separate by space)</label>
+                    <label className="text-sm text-slate-700">{t('pages.handwriting.mode.letters')}</label>
                     <div className="flex items-center gap-2">
-                      <button type="button" onClick={()=>applyLettersSample('upper')} className="text-xs px-2 py-1 rounded border border-slate-200 text-slate-600 hover:bg-slate-50">A–Z</button>
-                      <button type="button" onClick={()=>applyLettersSample('lower')} className="text-xs px-2 py-1 rounded border border-slate-200 text-slate-600 hover:bg-slate-50">a–z</button>
-                      <button type="button" onClick={()=>applyLettersSample('mixed')} className="text-xs px-2 py-1 rounded border border-slate-200 text-slate-600 hover:bg-slate-50">Aa–Zz</button>
+                      <button type="button" onClick={()=>applyLettersSample('upper')} className="text-xs px-2 py-1 rounded border border-slate-200 text-slate-600 hover:bg-slate-50">{t('pages.handwriting.quickFill.uppercase')}</button>
+                      <button type="button" onClick={()=>applyLettersSample('lower')} className="text-xs px-2 py-1 rounded border border-slate-200 text-slate-600 hover:bg-slate-50">{t('pages.handwriting.quickFill.lowercase')}</button>
+                      <button type="button" onClick={()=>applyLettersSample('mixed')} className="text-xs px-2 py-1 rounded border border-slate-200 text-slate-600 hover:bg-slate-50">{t('pages.handwriting.quickFill.mixed')}</button>
                       <button type="button" onClick={()=>setLetters('')} className="text-sm px-3 py-1.5 rounded border border-slate-200 text-slate-700 hover:bg-slate-50">Clear</button>
                     </div>
                   </div>
@@ -358,43 +367,43 @@ export default function HandwritingMakerPage() {
                     className="w-full h-24 px-3 py-2 border border-slate-300 rounded-lg text-sm"
                   />
                   <label className="mt-2 inline-flex items-center gap-2 text-xs text-slate-600">
-                    <input type="checkbox" checked={autoSpaceLetters} onChange={(e)=>setAutoSpaceLetters(e.target.checked)} /> Auto‑space letters
+                    <input type="checkbox" checked={autoSpaceLetters} onChange={(e)=>setAutoSpaceLetters(e.target.checked)} /> {t('pages.handwriting.options.autoSpace')}
                   </label>
                 </div>
               )}
               {mode==='words' && (
                 <div>
                   <div className="flex items-center justify-between mb-1">
-                    <label className="text-sm text-slate-700">Words (separate by space)</label>
+                    <label className="text-sm text-slate-700">{t('pages.handwriting.mode.words')}</label>
                     <div className="flex items-center gap-2">
-                      <button type="button" onClick={applyWordsSample} className="text-xs px-2 py-1 rounded border border-slate-200 text-slate-600 hover:bg-slate-50">Example</button>
+                      <button type="button" onClick={applyWordsSample} className="text-xs px-2 py-1 rounded border border-slate-200 text-slate-600 hover:bg-slate-50">{t('pages.handwriting.quickFill.words')}</button>
                       <button type="button" onClick={()=>setWords('')} className="text-sm px-3 py-1.5 rounded border border-slate-200 text-slate-700 hover:bg-slate-50">Clear</button>
                     </div>
                   </div>
                   <textarea value={words} onChange={(e)=>setWords(e.target.value)} className="w-full h-24 px-3 py-2 border border-slate-300 rounded-lg text-sm" />
                   <label className="mt-2 inline-flex items-center gap-2 text-xs text-slate-600">
-                    <input type="checkbox" checked={autoSpaceLetters} onChange={(e)=>setAutoSpaceLetters(e.target.checked)} /> Auto‑space letters
+                    <input type="checkbox" checked={autoSpaceLetters} onChange={(e)=>setAutoSpaceLetters(e.target.checked)} /> {t('pages.handwriting.options.autoSpace')}
                   </label>
                 </div>
               )}
               {mode==='sentences' && (
                 <div>
                   <div className="flex items-center justify-between mb-1">
-                    <label className="text-sm text-slate-700">Sentences (separate by period)</label>
+                    <label className="text-sm text-slate-700">{t('pages.handwriting.mode.sentences')}</label>
                     <div className="flex items-center gap-2">
-                      <button type="button" onClick={applySentencesSample} className="text-xs px-2 py-1 rounded border border-slate-200 text-slate-600 hover:bg-slate-50">Example</button>
+                      <button type="button" onClick={applySentencesSample} className="text-xs px-2 py-1 rounded border border-slate-200 text-slate-600 hover:bg-slate-50">{t('pages.handwriting.quickFill.sentences')}</button>
                       <button type="button" onClick={()=>setSentences('')} className="text-sm px-3 py-1.5 rounded border border-slate-200 text-slate-700 hover:bg-slate-50">Clear</button>
                     </div>
                   </div>
                   <textarea value={sentences} onChange={(e)=>setSentences(e.target.value)} className="w-full h-24 px-3 py-2 border border-slate-300 rounded-lg text-sm" />
                   <label className="mt-2 inline-flex items-center gap-2 text-xs text-slate-600">
-                    <input type="checkbox" checked={autoSpaceLetters} onChange={(e)=>setAutoSpaceLetters(e.target.checked)} /> Auto‑space letters
+                    <input type="checkbox" checked={autoSpaceLetters} onChange={(e)=>setAutoSpaceLetters(e.target.checked)} /> {t('pages.handwriting.options.autoSpace')}
                   </label>
                 </div>
               )}
 
               <div className="mt-4 border-t pt-3 grid grid-cols-2 gap-3">
-                <label className="text-sm text-slate-700">Font size <span className="text-slate-400">(28–72)</span>
+                <label className="text-sm text-slate-700">{t('pages.handwriting.options.fontSize')} <span className="text-slate-400">(28–72)</span>
                   <input
                     type="number"
                     min={28}
@@ -410,24 +419,24 @@ export default function HandwritingMakerPage() {
                     className="ml-2 w-24 px-2 py-1 border border-slate-300 rounded"
                   />
                 </label>
-                <label className="text-sm text-slate-700">Text style
+                <label className="text-sm text-slate-700">{t('pages.handwriting.options.textStyle')}
                   <select value={textStyle} onChange={(e)=>setTextStyle(e.target.value as any)} className="ml-2 px-2 py-1 border border-slate-300 rounded">
-                    <option value="print">Print</option>
-                    <option value="cursive">Cursive</option>
-                    <option value="bubble">Bubble (outline)</option>
+                    <option value="print">{t('pages.handwriting.options.print')}</option>
+                    <option value="cursive">{t('pages.handwriting.options.cursive')}</option>
+                    <option value="bubble">{t('pages.handwriting.options.bubble')}</option>
                   </select>
                 </label>
-                <label className="text-sm text-slate-700">Line style
+                <label className="text-sm text-slate-700">{t('pages.handwriting.options.lineType')}
                   <select value={lineType} onChange={(e)=>setLineType(e.target.value as any)} className="ml-2 px-2 py-1 border border-slate-300 rounded">
-                    <option value="primary">Primary guidelines</option>
-                    <option value="baseline">Baseline only</option>
+                    <option value="primary">{t('pages.handwriting.options.primary')}</option>
+                    <option value="baseline">{t('pages.handwriting.options.baseline')}</option>
                   </select>
                 </label>
                 <label className="text-sm text-slate-700 inline-flex items-center gap-2">
-                  <input type="checkbox" checked={dotted} onChange={(e)=>setDotted(e.target.checked)} /> Dotted trace
+                  <input type="checkbox" checked={dotted} onChange={(e)=>setDotted(e.target.checked)} /> {t('pages.handwriting.options.dotted')}
                 </label>
                 <label className="text-sm text-slate-700 inline-flex items-center gap-2">
-                  <input type="checkbox" checked={startDots} onChange={(e)=>setStartDots(e.target.checked)} /> Starting dot
+                  <input type="checkbox" checked={startDots} onChange={(e)=>setStartDots(e.target.checked)} /> {t('pages.handwriting.options.startDots')}
                 </label>
               </div>
 
@@ -437,7 +446,7 @@ export default function HandwritingMakerPage() {
                   className="inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-purple-600 text-white hover:bg-purple-700 text-sm shadow"
                 >
                   <span>⬇️</span>
-                  <span>Print / Save as PDF</span>
+                  <span>{t('pages.handwriting.print')}</span>
                 </button>
               </div>
               {/* Tips moved here below the Print button */}

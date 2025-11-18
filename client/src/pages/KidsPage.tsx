@@ -3,6 +3,7 @@ import { SEOMetaTags } from '@/components/SEOMetaTags';
 import { UnifiedNavigation } from '@/components/UnifiedNavigation';
 import { Footer } from '@/components/Footer';
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
+import { useTranslation } from '@/context/TranslationContext';
 import MemoryMatch from '@/components/kids/MemoryMatch';
 import WordSearch from '@/components/kids/WordSearch';
 import PuzzleGame from '@/components/kids/PuzzleGame';
@@ -29,6 +30,12 @@ const KID_SAFE = {
 } as const;
 
 export default function KidsPage() {
+  const { t, isRTL } = useTranslation();
+  
+  React.useEffect(() => {
+    // Ensure re-render on language change
+  }, [t]);
+  
   const usedImageUrlsRef = useRef<Set<string>>(new Set());
   const KIDS_GENERIC_IMAGE = KID_SAFE.coloringCrayons;
   const KIDS_IMAGE_POOL = useMemo(
@@ -125,32 +132,32 @@ export default function KidsPage() {
     const gameSlug = (sub2 || 'memory').toLowerCase();
     const gameTitle = gameNameMap[gameSlug] || 'Memory Match';
     return (
-      <div className="min-h-screen bg-slate-50">
+      <div className="min-h-screen bg-slate-50" dir={isRTL ? 'rtl' : 'ltr'}>
         <SEOMetaTags
-          title={`Kids Hub – ${gameTitle}`}
-          description="Play free fun learning games for kids online – Memory Match, Word Search, Puzzle, Typing Safari, and Pattern Builder. Kid‑safe, fast, and mobile‑friendly."
+          title={`${t('pages.kids.title')} – ${gameTitle}`}
+          description={t('pages.kids.games.subtitle')}
           canonicalUrl={`https://wizqo.com/kids/games/${gameSlug}`}
         />
         <UnifiedNavigation currentPage="kids" />
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
           <div className="flex items-center justify-between mb-6">
             <h1 className="sr-only">{gameTitle}</h1>
-            <a className={OUTLINE_BUTTON} href="/kids">Back to Kids Hub</a>
+            <a className={OUTLINE_BUTTON} href="/kids">{t('pages.kids.backToHub')}</a>
           </div>
           {gameSlug === 'word-search' ? <WordSearch /> : gameSlug === 'puzzle' ? <PuzzleGame /> : gameSlug === 'typing' ? <TypingSafari /> : gameSlug === 'pattern' ? <PatternBuilder /> : <MemoryMatch />}
           
           {/* Explore More */}
           <section className="mt-8 bg-white border border-slate-200 rounded-2xl p-5">
-            <h2 className="text-xl font-bold text-slate-900">Explore More</h2>
+            <h2 className="text-xl font-bold text-slate-900">{t('pages.kids.exploreMore.title')}</h2>
             <ul className="mt-3 grid sm:grid-cols-2 gap-2 text-sm text-purple-700">
-              <li><a className="hover:underline" href="/kids">Kids Hub – All Games</a></li>
-              <li><a className="hover:underline" href="/kids/games/memory">Memory Match Game</a></li>
-              <li><a className="hover:underline" href="/kids/games/word-search">Word Search Game</a></li>
-              <li><a className="hover:underline" href="/kids/games/puzzle">Puzzle Game</a></li>
-              <li><a className="hover:underline" href="/kids/games/typing">Typing Safari Game</a></li>
-              <li><a className="hover:underline" href="/kids/games/pattern">Pattern Builder Game</a></li>
-              <li><a className="hover:underline" href="/printables">Printable Fun Learning Activities</a></li>
-              <li><a className="hover:underline" href="/worksheets/1st-grade-math-worksheets">1st Grade Math Worksheets</a></li>
+              <li><a className="hover:underline" href="/kids">{t('pages.kids.exploreMore.allGames')}</a></li>
+              <li><a className="hover:underline" href="/kids/games/memory">{t('pages.kids.exploreMore.memory')}</a></li>
+              <li><a className="hover:underline" href="/kids/games/word-search">{t('pages.kids.exploreMore.wordSearch')}</a></li>
+              <li><a className="hover:underline" href="/kids/games/puzzle">{t('pages.kids.exploreMore.puzzle')}</a></li>
+              <li><a className="hover:underline" href="/kids/games/typing">{t('pages.kids.exploreMore.typing')}</a></li>
+              <li><a className="hover:underline" href="/kids/games/pattern">{t('pages.kids.exploreMore.pattern')}</a></li>
+              <li><a className="hover:underline" href="/printables">{t('pages.kids.exploreMore.printables')}</a></li>
+              <li><a className="hover:underline" href="/worksheets/1st-grade-math-worksheets">{t('pages.kids.exploreMore.firstGrade')}</a></li>
             </ul>
           </section>
         </div>
@@ -159,10 +166,10 @@ export default function KidsPage() {
   }
 
   return (
-    <div className="min-h-screen bg-slate-50">
+    <div className="min-h-screen bg-slate-50" dir={isRTL ? 'rtl' : 'ltr'}>
       <SEOMetaTags
-        title="Kids Hub – Fun Learning Games & Printable Activities for Kids"
-        description="Discover our Kids Hub: free fun learning games, printable puzzles, and creative 7-day skill plans that make learning fun for children ages 6–12."
+        title={`${t('pages.kids.title')} – Fun Learning Games & Printable Activities for Kids`}
+        description={t('pages.kids.subtitle')}
         canonicalUrl="https://wizqo.com/kids"
         ogType="website"
         twitterCard="summary_large_image"
@@ -293,17 +300,16 @@ export default function KidsPage() {
         {/* Play Free Fun Learning Games Online */}
         <section id="play">
           <div className="mb-4">
-            <h2 className="text-2xl sm:text-3xl font-extrabold bg-gradient-to-r from-yellow-400 via-pink-500 to-purple-500 bg-clip-text text-transparent">Play Free Fun Learning Games Online</h2>
+            <h2 className="text-2xl sm:text-3xl font-extrabold bg-gradient-to-r from-yellow-400 via-pink-500 to-purple-500 bg-clip-text text-transparent">{t('pages.kids.games.title')}</h2>
             <div className="h-1 w-16 rounded-full bg-gradient-to-r from-yellow-300 to-pink-400 mt-2 mb-2" />
             <p className="mt-2 text-slate-700 max-w-3xl">
-              Keep your brain active with our <strong>fun learning games for kids online</strong>.
-              Play quick, interactive games that test memory and vocabulary skills:
+              {t('pages.kids.games.subtitle')}
             </p>
             <ul className="mt-3 list-disc list-inside text-slate-700 space-y-1">
-              <li>🃏 Memory Match – Find all pairs before time runs out!</li>
-              <li>🔤 Word Search Game – Race the clock to uncover hidden words.</li>
-              <li>🧩 Puzzle Game – Fix the picture by swapping tiles.</li>
-              <li>⌨️ Typing Safari – Type letters and words to help animals cross.</li>
+              <li>{t('pages.kids.games.memoryMatch')}</li>
+              <li>{t('pages.kids.games.wordSearch')}</li>
+              <li>{t('pages.kids.games.puzzle')}</li>
+              <li>{t('pages.kids.games.typing')}</li>
             </ul>
             
           </div>
@@ -319,12 +325,12 @@ export default function KidsPage() {
               />
               <div className="p-5">
                 <div className="flex gap-2 mb-2">
-                  <span className={CHIP_CLASS}>Ages 6–8</span>
-                  <span className={CHIP_CLASS}>Easy/Medium</span>
+                  <span className={CHIP_CLASS}>{t('pages.kids.games.memoryCard.ages')}</span>
+                  <span className={CHIP_CLASS}>{t('pages.kids.games.memoryCard.difficulty')}</span>
                 </div>
-                <h3 className="font-semibold text-slate-900 mb-1">Memory Match</h3>
-                <p className="text-slate-600 text-sm mb-4">Find all pairs in the fewest moves. Timer + best score.</p>
-                <a href="/kids/games/memory" className={BUTTON_CLASS}>Play</a>
+                <h3 className="font-semibold text-slate-900 mb-1">{t('pages.kids.games.memoryCard.title')}</h3>
+                <p className="text-slate-600 text-sm mb-4">{t('pages.kids.games.memoryCard.description')}</p>
+                <a href="/kids/games/memory" className={BUTTON_CLASS}>{t('pages.kids.games.memoryCard.play')}</a>
               </div>
             </article>
 
@@ -339,12 +345,12 @@ export default function KidsPage() {
               />
               <div className="p-5">
                 <div className="flex gap-2 mb-2">
-                  <span className={CHIP_CLASS}>Ages 6–10</span>
-                  <span className={CHIP_CLASS}>Drag & Drop</span>
+                  <span className={CHIP_CLASS}>{t('pages.kids.games.puzzleCard.ages')}</span>
+                  <span className={CHIP_CLASS}>{t('pages.kids.games.puzzleCard.difficulty')}</span>
                 </div>
-                <h3 className="font-semibold text-slate-900 mb-1">Puzzle Game</h3>
-                <p className="text-slate-600 text-sm mb-4">Fix the picture by swapping tiles. Animals & Nature.</p>
-                <a href="/kids/games/puzzle" className={BUTTON_CLASS}>Play</a>
+                <h3 className="font-semibold text-slate-900 mb-1">{t('pages.kids.games.puzzleCard.title')}</h3>
+                <p className="text-slate-600 text-sm mb-4">{t('pages.kids.games.puzzleCard.description')}</p>
+                <a href="/kids/games/puzzle" className={BUTTON_CLASS}>{t('pages.kids.games.puzzleCard.play')}</a>
               </div>
             </article>
             <article className={CARD_CLASS}>
@@ -357,12 +363,12 @@ export default function KidsPage() {
               />
               <div className="p-5">
                 <div className="flex gap-2 mb-2">
-                  <span className={CHIP_CLASS}>Ages 9–12</span>
-                  <span className={CHIP_CLASS}>Animals/Space</span>
+                  <span className={CHIP_CLASS}>{t('pages.kids.games.wordSearchCard.ages')}</span>
+                  <span className={CHIP_CLASS}>{t('pages.kids.games.wordSearchCard.difficulty')}</span>
                 </div>
-                <h3 className="font-semibold text-slate-900 mb-1">Word Search</h3>
-                <p className="text-slate-600 text-sm mb-4">Find all hidden words in time. Mobile friendly.</p>
-                <a href="/kids/games/word-search" className={BUTTON_CLASS}>Play</a>
+                <h3 className="font-semibold text-slate-900 mb-1">{t('pages.kids.games.wordSearchCard.title')}</h3>
+                <p className="text-slate-600 text-sm mb-4">{t('pages.kids.games.wordSearchCard.description')}</p>
+                <a href="/kids/games/word-search" className={BUTTON_CLASS}>{t('pages.kids.games.wordSearchCard.play')}</a>
               </div>
             </article>
             {/* Typing Safari */}
@@ -376,12 +382,12 @@ export default function KidsPage() {
               />
               <div className="p-5">
                 <div className="flex gap-2 mb-2">
-                  <span className={CHIP_CLASS}>Ages 7–12</span>
-                  <span className={CHIP_CLASS}>Typing</span>
+                  <span className={CHIP_CLASS}>{t('pages.kids.games.typingCard.ages')}</span>
+                  <span className={CHIP_CLASS}>{t('pages.kids.games.typingCard.difficulty')}</span>
                 </div>
-                <h3 className="font-semibold text-slate-900 mb-1">Typing Safari</h3>
-                <p className="text-slate-600 text-sm mb-4">Type letters and words to help animals cross the river.</p>
-                <a href="/kids/games/typing" className={BUTTON_CLASS}>Play</a>
+                <h3 className="font-semibold text-slate-900 mb-1">{t('pages.kids.games.typingCard.title')}</h3>
+                <p className="text-slate-600 text-sm mb-4">{t('pages.kids.games.typingCard.description')}</p>
+                <a href="/kids/games/typing" className={BUTTON_CLASS}>{t('pages.kids.games.typingCard.play')}</a>
               </div>
             </article>
             {/* Pattern Builder */}
@@ -395,12 +401,12 @@ export default function KidsPage() {
               />
               <div className="p-5">
                 <div className="flex gap-2 mb-2">
-                  <span className={CHIP_CLASS}>Ages 6–10</span>
-                  <span className={CHIP_CLASS}>Memory</span>
+                  <span className={CHIP_CLASS}>{t('pages.kids.games.patternCard.ages')}</span>
+                  <span className={CHIP_CLASS}>{t('pages.kids.games.patternCard.difficulty')}</span>
                 </div>
-                <h3 className="font-semibold text-slate-900 mb-1">Pattern Builder</h3>
-                <p className="text-slate-600 text-sm mb-4">Watch the pattern and repeat it before time runs out.</p>
-                <a href="/kids/games/pattern" className={BUTTON_CLASS}>Play</a>
+                <h3 className="font-semibold text-slate-900 mb-1">{t('pages.kids.games.patternCard.title')}</h3>
+                <p className="text-slate-600 text-sm mb-4">{t('pages.kids.games.patternCard.description')}</p>
+                <a href="/kids/games/pattern" className={BUTTON_CLASS}>{t('pages.kids.games.patternCard.play')}</a>
               </div>
             </article>
           </div>
@@ -409,21 +415,20 @@ export default function KidsPage() {
         {/* Printable Fun Learning Activities */}
         <section id="print">
           <div className="mb-4">
-            <h2 className="text-2xl sm:text-3xl font-extrabold bg-gradient-to-r from-yellow-400 via-pink-500 to-purple-500 bg-clip-text text-transparent">Printable Fun Learning Activities</h2>
+            <h2 className="text-2xl sm:text-3xl font-extrabold bg-gradient-to-r from-yellow-400 via-pink-500 to-purple-500 bg-clip-text text-transparent">{t('pages.kids.printables.title')}</h2>
             <div className="h-1 w-16 rounded-full bg-gradient-to-r from-yellow-300 to-pink-400 mt-2 mb-2" />
             <p className="mt-2 text-slate-700 max-w-3xl">
-              Take a break from screens with our <strong>fun learning activities for kids</strong> you can print at home.
-              Download puzzles and worksheets designed to boost focus, logic, and creativity:
+              {t('pages.kids.printables.subtitle')}
             </p>
             <ul className="mt-3 list-disc list-inside text-slate-700 space-y-1">
-              <li>🧠 Word Search – Animals & Space</li>
-              <li>🔢 Sudoku – Easy (4×4) & Medium (6×6)</li>
-              <li>🎨 Coloring Page – Creative Animals</li>
+              <li>{t('pages.kids.printables.wordSearch')}</li>
+              <li>{t('pages.kids.printables.sudoku')}</li>
+              <li>{t('pages.kids.printables.coloring')}</li>
             </ul>
             <div className="mt-4">
               <div className="flex flex-wrap gap-2">
-                <a href="/printables" className={OUTLINE_BUTTON}>Explore more →</a>
-                <a href="/worksheets/handwriting-worksheet-maker" className={OUTLINE_BUTTON} aria-label="Open Handwriting Worksheet Maker">✍️ Handwriting Worksheet Maker</a>
+                <a href="/printables" className={OUTLINE_BUTTON}>{t('pages.kids.printables.exploreMore')}</a>
+                <a href="/worksheets/handwriting-worksheet-maker" className={OUTLINE_BUTTON} aria-label={t('pages.kids.printables.handwritingMaker')}>{t('pages.kids.printables.handwritingMaker')}</a>
               </div>
             </div>
           </div>
@@ -434,11 +439,10 @@ export default function KidsPage() {
         {/* Creative Generators */}
         <section id="generators" className="mt-12">
           <div className="mb-4">
-            <h2 className="text-2xl sm:text-3xl font-extrabold bg-gradient-to-r from-yellow-400 via-pink-500 to-purple-500 bg-clip-text text-transparent">Create Something Magical</h2>
+            <h2 className="text-2xl sm:text-3xl font-extrabold bg-gradient-to-r from-yellow-400 via-pink-500 to-purple-500 bg-clip-text text-transparent">{t('pages.kids.generators.title')}</h2>
             <div className="h-1 w-16 rounded-full bg-gradient-to-r from-yellow-300 to-pink-400 mt-2 mb-2" />
             <p className="mt-2 text-slate-700 max-w-3xl">
-              Use our kid-friendly generators to make printable keepsakes in minutes. Customize awards, handwriting sheets, and more — perfect for
-              classrooms, homeschool, or daily motivation.
+              {t('pages.kids.generators.subtitle')}
             </p>
           </div>
           <div className="grid gap-6 sm:grid-cols-3">
@@ -451,12 +455,13 @@ export default function KidsPage() {
               />
               <div className="p-5">
                 <div className="flex gap-2 mb-2">
-                  <span className={CHIP_CLASS}>Print-ready</span>
-                  <span className={CHIP_CLASS}>Custom text</span>
+                  {Array.isArray(t('pages.kids.generators.certificate.tags')) && (t('pages.kids.generators.certificate.tags') as string[]).map((tag: string, idx: number) => (
+                    <span key={idx} className={CHIP_CLASS}>{tag}</span>
+                  ))}
                 </div>
-                <h3 className="font-semibold text-slate-900 mb-1">Certificate Maker</h3>
-                <p className="text-slate-600 text-sm mb-4">Celebrate big wins with personalized certificates, cute badges, and editable fields.</p>
-                <a href="/printables/certificate-maker" className={BUTTON_CLASS} aria-label="Open certificate maker">Make a certificate</a>
+                <h3 className="font-semibold text-slate-900 mb-1">{t('pages.kids.generators.certificate.title')}</h3>
+                <p className="text-slate-600 text-sm mb-4">{t('pages.kids.generators.certificate.description')}</p>
+                <a href="/printables/certificate-maker" className={BUTTON_CLASS} aria-label={t('pages.kids.generators.certificate.button')}>{t('pages.kids.generators.certificate.button')}</a>
               </div>
             </article>
 
@@ -469,12 +474,13 @@ export default function KidsPage() {
               />
               <div className="p-5">
                 <div className="flex gap-2 mb-2">
-                  <span className={CHIP_CLASS}>Handwriting</span>
-                  <span className={CHIP_CLASS}>Custom name</span>
+                  {Array.isArray(t('pages.kids.generators.nameTracing.tags')) && (t('pages.kids.generators.nameTracing.tags') as string[]).map((tag: string, idx: number) => (
+                    <span key={idx} className={CHIP_CLASS}>{tag}</span>
+                  ))}
                 </div>
-                <h3 className="font-semibold text-slate-900 mb-1">Name Tracing Generator</h3>
-                <p className="text-slate-600 text-sm mb-4">Type any name to create dotted, bubble, or cursive tracing sheets instantly.</p>
-                <a href="/printables/name-tracing-generator" className={BUTTON_CLASS} aria-label="Open name tracing generator">Create worksheet</a>
+                <h3 className="font-semibold text-slate-900 mb-1">{t('pages.kids.generators.nameTracing.title')}</h3>
+                <p className="text-slate-600 text-sm mb-4">{t('pages.kids.generators.nameTracing.description')}</p>
+                <a href="/printables/name-tracing-generator" className={BUTTON_CLASS} aria-label={t('pages.kids.generators.nameTracing.button')}>{t('pages.kids.generators.nameTracing.button')}</a>
               </div>
             </article>
 
@@ -487,12 +493,13 @@ export default function KidsPage() {
               />
               <div className="p-5">
                 <div className="flex gap-2 mb-2">
-                  <span className={CHIP_CLASS}>Printables</span>
-                  <span className={CHIP_CLASS}>Letters & words</span>
+                  {Array.isArray(t('pages.kids.generators.handwriting.tags')) && (t('pages.kids.generators.handwriting.tags') as string[]).map((tag: string, idx: number) => (
+                    <span key={idx} className={CHIP_CLASS}>{tag}</span>
+                  ))}
                 </div>
-                <h3 className="font-semibold text-slate-900 mb-1">Handwriting Worksheet Maker</h3>
-                <p className="text-slate-600 text-sm mb-4">Generate dotted letters, words, or sentences with primary line guides in seconds.</p>
-                <a href="/worksheets/handwriting-worksheet-maker" className={BUTTON_CLASS} aria-label="Open handwriting worksheet maker">Build practice sheet</a>
+                <h3 className="font-semibold text-slate-900 mb-1">{t('pages.kids.generators.handwriting.title')}</h3>
+                <p className="text-slate-600 text-sm mb-4">{t('pages.kids.generators.handwriting.description')}</p>
+                <a href="/worksheets/handwriting-worksheet-maker" className={BUTTON_CLASS} aria-label={t('pages.kids.generators.handwriting.button')}>{t('pages.kids.generators.handwriting.button')}</a>
               </div>
             </article>
 
@@ -505,15 +512,16 @@ export default function KidsPage() {
             />
             <div className="p-5">
               <div className="flex gap-2 mb-2">
-                <span className={CHIP_CLASS}>Print-ready</span>
-                <span className={CHIP_CLASS}>Daily refresh</span>
+                {Array.isArray(t('pages.kids.generators.interactive.tags')) && (t('pages.kids.generators.interactive.tags') as string[]).map((tag: string, idx: number) => (
+                  <span key={idx} className={CHIP_CLASS}>{tag}</span>
+                ))}
               </div>
-              <h3 className="font-semibold text-slate-900 mb-1">Interactive Worksheets Generator</h3>
+              <h3 className="font-semibold text-slate-900 mb-1">{t('pages.kids.generators.interactive.title')}</h3>
               <p className="text-slate-600 text-sm mb-4">
-                Mix math, reading, science, SEL, and logic pages for any grade. Each pack includes matching answer keys.
+                {t('pages.kids.generators.interactive.description')}
               </p>
-              <a href="/interactive-worksheets-generator" className={BUTTON_CLASS} aria-label="Open interactive worksheets generator">
-                Build worksheets
+              <a href="/interactive-worksheets-generator" className={BUTTON_CLASS} aria-label={t('pages.kids.generators.interactive.button')}>
+                {t('pages.kids.generators.interactive.button')}
               </a>
             </div>
           </article>
@@ -523,18 +531,17 @@ export default function KidsPage() {
         {/* 7‑Day Fun Skills to Learn */}
         <section id="skills">
           <div className="mb-4">
-            <h2 className="text-2xl sm:text-3xl font-extrabold bg-gradient-to-r from-yellow-400 via-pink-500 to-purple-500 bg-clip-text text-transparent">7‑Day Fun Skills to Learn</h2>
+            <h2 className="text-2xl sm:text-3xl font-extrabold bg-gradient-to-r from-yellow-400 via-pink-500 to-purple-500 bg-clip-text text-transparent">{t('pages.kids.skills.title')}</h2>
             <div className="h-1 w-16 rounded-full bg-gradient-to-r from-yellow-300 to-pink-400 mt-2 mb-2" />
             <p className="mt-2 text-slate-700 max-w-3xl">
-              Explore short, guided plans that help kids build new creative skills step‑by‑step.
-              Each plan includes daily tasks, printable checklists, and mini‑rewards to keep kids motivated.
+              {t('pages.kids.skills.subtitle')}
             </p>
             <ul className="mt-3 list-disc list-inside text-slate-700 space-y-1">
-              <li>✂️ Origami Basics – Fold amazing paper animals.</li>
-              <li>🐾 Drawing Animals – Learn to sketch your favorite creatures.</li>
+              <li>{t('pages.kids.skills.origami')}</li>
+              <li>{t('pages.kids.skills.drawing')}</li>
             </ul>
             <div className="mt-4">
-              <a href="/generate" className={BUTTON_CLASS}>Start a 7‑Day Plan →</a>
+              <a href="/generate" className={BUTTON_CLASS}>{t('pages.kids.skills.startPlan')}</a>
             </div>
           </div>
         </section>
@@ -542,10 +549,10 @@ export default function KidsPage() {
         {/* Kids Blog Picks */}
         <section id="kids-blog">
           <div className="mb-4">
-            <h2 className="text-2xl sm:text-3xl font-extrabold bg-gradient-to-r from-yellow-400 via-pink-500 to-purple-500 bg-clip-text text-transparent">Kids Blog Picks</h2>
+            <h2 className="text-2xl sm:text-3xl font-extrabold bg-gradient-to-r from-yellow-400 via-pink-500 to-purple-500 bg-clip-text text-transparent">{t('pages.kids.blog.title')}</h2>
             <div className="h-1 w-16 rounded-full bg-gradient-to-r from-yellow-300 to-pink-400 mt-2 mb-2" />
             <p className="mt-2 text-slate-700 max-w-3xl">
-              Explore helpful reads about <strong>making learning fun</strong>, building good study habits, and simple activities kids can enjoy.
+              {t('pages.kids.blog.subtitle')}
             </p>
           </div>
           <div className="grid sm:grid-cols-3 gap-6">
@@ -560,7 +567,7 @@ export default function KidsPage() {
                 <div className="p-5">
                   <h3 className="font-semibold text-slate-900 mb-1">{post.title}</h3>
                   <p className="text-slate-600 text-sm mb-4">{post.subtitle}</p>
-                  <a href={post.href} className="text-purple-600 hover:text-purple-700 font-medium">Read</a>
+                  <a href={post.href} className="text-purple-600 hover:text-purple-700 font-medium">{t('pages.kids.blog.read')}</a>
                 </div>
               </article>
             ))}

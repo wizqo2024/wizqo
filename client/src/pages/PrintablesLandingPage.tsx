@@ -1,14 +1,16 @@
 import React from 'react';
 import { UnifiedNavigation } from '@/components/UnifiedNavigation';
 import { Footer } from '@/components/Footer';
+import { useTranslation } from '@/context/TranslationContext';
 import { PRINTABLE_BUNDLE_SECTIONS, PRINTABLE_DOC_META } from '@/data/printableBundles';
 
 const BUTTON_CLASS = 'inline-flex items-center justify-center px-4 py-2 rounded-lg bg-purple-600 text-white hover:bg-purple-700 transition-colors';
 const OUTLINE_BUTTON = 'inline-flex items-center justify-center px-4 py-2 rounded-lg border border-purple-200 text-purple-700 hover:bg-purple-50 transition-colors';
 const CARD_CLASS = 'bg-white rounded-xl border border-slate-200 shadow-sm hover:shadow transition-all overflow-hidden p-4';
-const DOWNLOAD_NOTE = 'Your browser will open the print dialog. Choose "Save as PDF" to download.';
+// DOWNLOAD_NOTE will be translated in component
 
 function WorksheetThumbnailCard({ title, description, skills, age, href, docId }: { title: string; description: string; skills?: string; age?: string; href: string; docId?: string }) {
+  const { t } = useTranslation();
   const level = docId ? PRINTABLE_DOC_META[docId]?.level : undefined;
   const previewUrl = href + (href.includes('?') ? '&preview=1' : '?preview=1');
   const finalHref = href.includes('?') ? `${href}&from=printables` : `${href}?from=printables`;
@@ -26,9 +28,9 @@ function WorksheetThumbnailCard({ title, description, skills, age, href, docId }
       
       {(skills || age || level) && (
         <div className="flex flex-wrap gap-2 text-xs">
-          {level ? <span className="inline-flex items-center px-2 py-0.5 rounded-full bg-purple-50 border border-purple-100 text-purple-700">Level: {level}</span> : null}
-          {skills ? <span className="inline-flex items-center px-2 py-0.5 rounded-full bg-slate-100 border border-slate-200 text-slate-600">Skills: {skills}</span> : null}
-          {age ? <span className="inline-flex items-center px-2 py-0.5 rounded-full bg-slate-100 border border-slate-200 text-slate-600">Age: {age}</span> : null}
+          {level ? <span className="inline-flex items-center px-2 py-0.5 rounded-full bg-purple-50 border border-purple-100 text-purple-700">{t('pages.printables.level')} {level}</span> : null}
+          {skills ? <span className="inline-flex items-center px-2 py-0.5 rounded-full bg-slate-100 border border-slate-200 text-slate-600">{t('pages.printables.skills')} {skills}</span> : null}
+          {age ? <span className="inline-flex items-center px-2 py-0.5 rounded-full bg-slate-100 border border-slate-200 text-slate-600">{t('pages.printables.age')} {age}</span> : null}
         </div>
       )}
       
@@ -60,7 +62,7 @@ function WorksheetThumbnailCard({ title, description, skills, age, href, docId }
         {/* Overlay on hover */}
         <div className="absolute inset-0 bg-black/0 group-hover:bg-black/5 transition-colors flex items-center justify-center pointer-events-none">
           <div className="opacity-0 group-hover:opacity-100 transition-opacity bg-white/95 backdrop-blur-sm px-4 py-2 rounded-lg text-xs font-semibold text-purple-700 border-2 border-purple-300 shadow-lg pointer-events-auto">
-            👁️ Click to view full worksheet
+            {t('pages.printables.clickToView')}
           </div>
         </div>
         {/* Corner fold effect */}
@@ -74,7 +76,7 @@ function WorksheetThumbnailCard({ title, description, skills, age, href, docId }
             className="text-xs font-medium text-purple-600 hover:text-purple-700 px-3 py-1 rounded-full border border-purple-200 hover:border-purple-300 transition-colors"
             aria-label={`Open ${title} printable view`}
           >
-            👁️ Preview
+            {t('pages.printables.preview')}
           </a>
           <a
             href={downloadHref}
@@ -82,9 +84,9 @@ function WorksheetThumbnailCard({ title, description, skills, age, href, docId }
             rel="noopener noreferrer"
             className="text-xs font-medium text-purple-600 hover:text-purple-700 px-3 py-1 rounded-full border border-purple-200 hover:border-purple-300 transition-colors"
             aria-label={`Download ${title} as PDF`}
-            title={DOWNLOAD_NOTE}
+            title={t('pages.printables.downloadNote')}
           >
-            ⬇️ Download
+            {t('pages.printables.download')}
           </a>
         </div>
       </div>
@@ -108,14 +110,20 @@ function BundleButton({ section, className }: { section: string; className?: str
       href={url}
       className={`${BUTTON_CLASS} ${className ?? ''}`.trim()}
       aria-label={`Download the ${section} printable bundle`}
-      title={DOWNLOAD_NOTE}
+      title={t('pages.printables.downloadNote')}
     >
-      ⬇️ Download bundle (PDF)
+      ⬇️ {t('pages.printables.download')}
     </a>
   );
 }
 
 export function PrintablesLandingPage() {
+  const { t, isRTL } = useTranslation();
+  
+  React.useEffect(() => {
+    // Ensure re-render on language change
+  }, [t]);
+  
   const [filterCategory, setFilterCategory] = React.useState<string>('All');
   const [packTime, setPackTime] = React.useState<'5' | '10' | '15'>('5');
   const [packAge, setPackAge] = React.useState<'k1' | 'k2' | 'g1' | 'g2' | '35' | '68'>('k2');
@@ -280,11 +288,11 @@ export function PrintablesLandingPage() {
           <div className="absolute inset-0 bg-black/25 print:hidden" />
         </div>
         <div className="relative z-10 max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-14 md:py-20">
-          <h1 className="text-3xl sm:text-4xl font-extrabold bg-gradient-to-r from-yellow-400 via-pink-500 to-purple-500 bg-clip-text text-transparent drop-shadow-[0_1px_1px_rgba(0,0,0,0.4)]">Free Printables</h1>
+          <h1 className="text-3xl sm:text-4xl font-extrabold bg-gradient-to-r from-yellow-400 via-pink-500 to-purple-500 bg-clip-text text-transparent drop-shadow-[0_1px_1px_rgba(0,0,0,0.4)]">{t('pages.printables.title')}</h1>
           <div className="h-1 w-16 rounded-full bg-gradient-to-r from-yellow-300 to-pink-400 mt-3 mb-3" />
-          <p className="text-white max-w-3xl">Welcome to our Printable Fun Learning Activities page — a creative space where kids can learn, play, and grow away from screens! All activities are free to download, easy to print, and perfect for home, school, or travel.</p>
+          <p className="text-white max-w-3xl">{t('pages.printables.subtitle')}</p>
           {/* Above-the-fold quick links to worksheets */}
-          <nav aria-label="Popular worksheets" className="mt-3">
+          <nav aria-label={t('pages.printables.popularWorksheets')} className="mt-3">
             <ul className="flex flex-wrap gap-2 text-sm">
               <li><a href="/worksheets/handwriting-worksheet-maker" className="inline-flex items-center px-3 py-1.5 rounded-full bg-white/10 border border-white/20 text-white hover:bg-white/15">✍️ Handwriting worksheets (PDF)</a></li>
               <li><a href="/printables/name-tracing-generator" className="inline-flex items-center px-3 py-1.5 rounded-full bg-white/10 border border-white/20 text-white hover:bg-white/15">🖊️ Personalized name tracing</a></li>
@@ -298,31 +306,31 @@ export function PrintablesLandingPage() {
             <div className="absolute top-2 left-8 z-20 pointer-events-auto">
               <div className="bg-white/10 backdrop-blur-sm rounded-2xl p-4 transform rotate-12 hover:rotate-6 hover:-translate-y-1 hover:scale-105 transition-transform duration-300 shadow-lg">
                 <div className="text-2xl">🖨️</div>
-                <p className="text-white text-sm mt-1">Print</p>
+                <p className="text-white text-sm mt-1">{t('pages.printables.print')}</p>
               </div>
             </div>
             <div className="absolute top-[22%] right-6 md:right-10 z-20 pointer-events-auto">
               <div className="bg-white/10 backdrop-blur-sm rounded-2xl p-4 transform -rotate-12 hover:-rotate-6 hover:-translate-y-1 hover:scale-105 transition-transform duration-300 shadow-lg">
                 <div className="text-2xl">🖍️</div>
-                <p className="text-white text-sm mt-1">Coloring</p>
+                <p className="text-white text-sm mt-1">{t('pages.printables.coloring')}</p>
               </div>
             </div>
             <div className="absolute top-[64%] left-[6%] z-20 pointer-events-auto">
               <div className="bg-white/10 backdrop-blur-sm rounded-2xl p-4 transform rotate-6 hover:rotate-3 hover:-translate-y-1 hover:scale-105 transition-transform duration-300 shadow-lg">
                 <div className="text-2xl">🧩</div>
-                <p className="text-white text-sm mt-1">Puzzles</p>
+                <p className="text-white text-sm mt-1">{t('pages.printables.puzzles')}</p>
               </div>
             </div>
             <div className="absolute top-[52%] right-6 md:right-10 z-20 pointer-events-auto">
               <div className="bg-white/10 backdrop-blur-sm rounded-2xl p-4 transform -rotate-6 hover:-rotate-3 hover:-translate-y-1 hover:scale-105 transition-transform duration-300 shadow-lg">
                 <div className="text-2xl">➕</div>
-                <p className="text-white text-sm mt-1">Math</p>
+                <p className="text-white text-sm mt-1">{t('pages.printables.math')}</p>
               </div>
             </div>
             <div className="absolute top-[18%] right-[6%] z-20 pointer-events-auto">
               <div className="bg-white/10 backdrop-blur-sm rounded-2xl p-4 transform rotate-3 hover:rotate-0 hover:-translate-y-1 hover:scale-105 transition-transform duration-300 shadow-lg">
                 <div className="text-2xl">📖</div>
-                <p className="text-white text-sm mt-1">Reading</p>
+                <p className="text-white text-sm mt-1">{t('pages.printables.reading')}</p>
               </div>
             </div>
           </div>
@@ -338,7 +346,7 @@ export function PrintablesLandingPage() {
             aria-expanded={showSidebar}
             aria-controls="printables-sidebar"
           >
-            ☰ Browse categories
+            ☰ {t('pages.printables.browseCategories')}
           </button>
           {showSidebar && (
             <nav id="printables-sidebar" aria-label="Printables categories" className="mt-2 bg-white border border-slate-200 rounded-2xl p-3">
@@ -357,7 +365,7 @@ export function PrintablesLandingPage() {
           {/* Desktop sidebar */}
           <aside className="hidden md:block md:col-span-3 print:hidden">
             <nav aria-label="Printables categories" className="sticky top-24 bg-white border border-slate-200 rounded-2xl p-4">
-              <div className="text-slate-900 font-semibold mb-2">Browse</div>
+              <div className="text-slate-900 font-semibold mb-2">{t('pages.printables.browse')}</div>
               <ul className="space-y-1 text-sm">
                 {quickLinks.map((l) => (
                   <li key={l.label}>
@@ -380,59 +388,59 @@ export function PrintablesLandingPage() {
         <section className="print:hidden">
           <div className="bg-white border border-slate-200 rounded-2xl p-4 flex flex-col sm:flex-row items-stretch sm:items-center gap-3">
             <div className="flex items-center gap-2">
-              <label htmlFor="printables-filter" className="text-sm text-slate-600">Filter</label>
+              <label htmlFor="printables-filter" className="text-sm text-slate-600">{t('pages.printables.filter')}</label>
               <select
                 id="printables-filter"
                 value={filterCategory}
                 onChange={(e) => setFilterCategory(e.target.value)}
                 className="px-3 py-2 border border-slate-300 rounded-lg text-sm bg-white"
               >
-                <option>All</option>
-                <option>Recent</option>
-                <option>Coloring</option>
-                <option>Worksheets</option>
-                <option>Creative</option>
-                <option>Brain</option>
-                <option>Emotional</option>
-                <option>Season</option>
-                <option>Challenge</option>
-                <option>One-pagers</option>
+                <option value="All">{t('pages.printables.all')}</option>
+                <option value="Recent">{t('pages.printables.recent')}</option>
+                <option value="Coloring">{t('pages.printables.coloring')}</option>
+                <option value="Worksheets">{t('pages.printables.worksheets')}</option>
+                <option value="Creative">{t('pages.printables.creative')}</option>
+                <option value="Brain">{t('pages.printables.brain')}</option>
+                <option value="Emotional">{t('pages.printables.emotional')}</option>
+                <option value="Season">{t('pages.printables.season')}</option>
+                <option value="Challenge">{t('pages.printables.challenge')}</option>
+                <option value="One-pagers">{t('pages.printables.onePagers')}</option>
               </select>
             </div>
             <div className="flex-1">
               <input
                 type="search"
                 inputMode="search"
-                placeholder="Search printables (e.g., 'math', 'color', 'reading')"
+                placeholder={t('pages.printables.searchPlaceholder')}
                 value={searchQuery}
                 onChange={(e)=> setSearchQuery(e.target.value)}
                 className="w-full px-3 py-2 border border-slate-300 rounded-lg text-sm bg-white"
-                aria-label="Search printables"
+                aria-label={t('pages.printables.searchPlaceholder')}
               />
             </div>
             <div className="flex items-center gap-2">
               {filterCategory !== 'All' && (
-                <button onClick={() => setFilterCategory('All')} className="px-3 py-2 text-sm bg-slate-100 hover:bg-slate-200 rounded-lg">Clear filter</button>
+                <button onClick={() => setFilterCategory('All')} className="px-3 py-2 text-sm bg-slate-100 hover:bg-slate-200 rounded-lg">{t('pages.printables.clearFilter')}</button>
               )}
               {searchQuery && (
-                <button onClick={() => setSearchQuery('')} className="px-3 py-2 text-sm bg-slate-100 hover:bg-slate-200 rounded-lg">Clear search</button>
+                <button onClick={() => setSearchQuery('')} className="px-3 py-2 text-sm bg-slate-100 hover:bg-slate-200 rounded-lg">{t('pages.printables.clearSearch')}</button>
               )}
             </div>
           </div>
         </section>
         {/* Build a 5‑Minute Print Pack */}
         <section className="bg-white border border-slate-200 rounded-2xl p-4">
-          <h2 className="text-xl font-bold text-slate-900 mb-1">🧰 Build a 5‑Minute Print Pack</h2>
-          <p className="text-slate-700 text-sm mb-3 max-w-3xl">Create a quick math printable set for today — perfect for warm‑ups, brain breaks, or homework helpers.</p>
+          <h2 className="text-xl font-bold text-slate-900 mb-1">{t('pages.printables.buildPack')}</h2>
+          <p className="text-slate-700 text-sm mb-3 max-w-3xl">{t('pages.printables.buildPackDesc')}</p>
           <div className="flex flex-col sm:flex-row gap-3 items-start sm:items-center">
-            <label className="text-sm text-slate-600">Time
+            <label className="text-sm text-slate-600">{t('pages.printables.time')}
               <select value={packTime} onChange={(e)=>setPackTime(e.target.value as any)} className="ml-2 px-3 py-2 border border-slate-300 rounded-lg text-sm bg-white">
                 <option value="5">5 min</option>
                 <option value="10">10 min</option>
                 <option value="15">15 min</option>
               </select>
             </label>
-            <label className="text-sm text-slate-600">Age/Grade
+            <label className="text-sm text-slate-600">{t('pages.printables.ageGrade')}
               <select value={packAge} onChange={(e)=>setPackAge(e.target.value as any)} className="ml-2 px-3 py-2 border border-slate-300 rounded-lg text-sm bg-white">
                 <option value="k1">K–1</option>
                 <option value="k2">K–2</option>
@@ -442,7 +450,7 @@ export function PrintablesLandingPage() {
                 <option value="68">6–8</option>
               </select>
             </label>
-            <label className="text-sm text-slate-600">Focus
+            <label className="text-sm text-slate-600">{t('pages.printables.focus')}
               <select value={packSkill} onChange={(e)=>setPackSkill(e.target.value as any)} className="ml-2 px-3 py-2 border border-slate-300 rounded-lg text-sm bg-white">
                 <option value="math">Math</option>
                 <option value="mixed">Mixed</option>
@@ -459,7 +467,7 @@ export function PrintablesLandingPage() {
               }}
               className="px-4 py-2 bg-purple-600 text-white rounded-lg hover:bg-purple-700"
             >
-              Build Pack →
+              {t('pages.printables.buildPackButton')}
             </button>
           </div>
         </section>

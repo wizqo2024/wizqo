@@ -1,5 +1,6 @@
 import React, { useEffect, useMemo, useState } from 'react';
 import { useToast } from '@/hooks/use-toast';
+import { useTranslation } from '@/context/TranslationContext';
 import { BlogPost } from './blog/types';
 import { basePosts } from './blog/basePosts';
 import { loadMarkdownPosts } from './blog/utils';
@@ -7,8 +8,13 @@ import { BlogPostView } from './blog/components/BlogPostView';
 import { BlogList } from './blog/components/BlogList';
 
 export function BlogPage({ initialSlug, onNavigate }: { initialSlug?: string; onNavigate?: (path: string) => void }) {
+  const { t } = useTranslation();
   const routeRefreshKey = () => (typeof window !== 'undefined' ? window.location.pathname : '');
   const mdPosts = useMemo(() => loadMarkdownPosts(), [routeRefreshKey()]);
+  
+  React.useEffect(() => {
+    // Ensure re-render on language change
+  }, [t]);
   const allPosts: BlogPost[] = useMemo(() => {
     // Prefer authored Markdown; use inline base posts only if missing in MD
     const byId = new Map<string, BlogPost>();
@@ -130,14 +136,14 @@ export function BlogPage({ initialSlug, onNavigate }: { initialSlug?: string; on
     const found = allPosts.find(p => p.id === initialSlug);
     if (found) setSelectedPost(found);
   }, [initialSlug, allPosts]);
-
+  
   const handleNewsletterSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     
     if (!newsletterEmail || !newsletterEmail.includes('@')) {
       toast({
-        title: "Invalid Email",
-        description: "Please enter a valid email address.",
+        title: t('pages.blog.newsletter.invalidEmail'),
+        description: t('pages.blog.newsletter.invalidEmailDesc'),
         variant: "destructive"
       });
       return;
@@ -150,16 +156,16 @@ export function BlogPage({ initialSlug, onNavigate }: { initialSlug?: string; on
       await new Promise(resolve => setTimeout(resolve, 1000));
       
       toast({
-        title: "Successfully Subscribed!",
-        description: "You'll receive our latest hobby guides and AI insights in your inbox.",
+        title: t('pages.blog.newsletter.success'),
+        description: t('pages.blog.newsletter.successDesc'),
         variant: "default"
       });
       
       setNewsletterEmail('');
     } catch (error) {
       toast({
-        title: "Subscription Failed",
-        description: "Please try again later or contact support.",
+        title: t('pages.blog.newsletter.failed'),
+        description: t('pages.blog.newsletter.failedDesc'),
         variant: "destructive"
       });
     } finally {

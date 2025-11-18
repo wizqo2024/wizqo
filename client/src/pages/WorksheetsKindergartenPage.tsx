@@ -4,15 +4,17 @@ import { Footer } from '@/components/Footer'
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion'
 import { SEOMetaTags } from '@/components/SEOMetaTags'
 import { CategoryFilter, type Category } from '@/components/CategoryFilter'
+import { useTranslation } from '@/context/TranslationContext'
 import { trackCategoryFilter, trackThumbnailClick } from '@/utils/analytics'
 
-const KINDERGARTEN_CATEGORIES: Category[] = [
-  { id: 'counting', label: 'Counting', icon: '🔢' },
-  { id: 'number-recognition', label: 'Number Recognition', icon: '🔟' },
-  { id: 'shapes-colors', label: 'Shapes & Colors', icon: '🟩' },
-  { id: 'patterns', label: 'Patterns', icon: '🧩' },
-  { id: 'comparison', label: 'Comparison', icon: '⚖️' },
-  { id: 'pre-writing', label: 'Pre-Writing', icon: '✏️' },
+// Categories will be translated in the component
+const KINDERGARTEN_CATEGORIES_IDS = [
+  { id: 'counting', icon: '🔢' },
+  { id: 'number-recognition', icon: '🔟' },
+  { id: 'shapes-colors', icon: '🟩' },
+  { id: 'patterns', icon: '🧩' },
+  { id: 'comparison', icon: '⚖️' },
+  { id: 'pre-writing', icon: '✏️' },
 ]
 
 interface WorksheetItem {
@@ -63,6 +65,20 @@ const KINDERGARTEN_WORKSHEETS: WorksheetItem[] = [
 ]
 
 export default function WorksheetsKindergartenPage() {
+  const { t, isRTL } = useTranslation();
+  
+  React.useEffect(() => {
+    // Ensure re-render on language change
+  }, [t]);
+  
+  // Build translated categories
+  const KINDERGARTEN_CATEGORIES: Category[] = useMemo(() => 
+    KINDERGARTEN_CATEGORIES_IDS.map(cat => ({
+      ...cat,
+      label: t(`pages.grades.kindergarten.categories.${cat.id}`) as string
+    }))
+  , [t]);
+  
   const [selectedCategories, setSelectedCategories] = useState<Set<string>>(new Set())
 
   const toggleCategory = (categoryId: string) => {
@@ -104,10 +120,10 @@ export default function WorksheetsKindergartenPage() {
   }, [filteredWorksheets])
 
   return (
-    <div className="min-h-screen bg-slate-50">
+    <div className="min-h-screen bg-slate-50" dir={isRTL ? 'rtl' : 'ltr'}>
       <SEOMetaTags
-        title="Kindergarten Math Worksheets – Free Printable PDF"
-        description="Free printable kindergarten math worksheets for early learners. Download PDF worksheets covering counting, number recognition, basic shapes, and simple addition. Perfect for building math foundations with answer keys included."
+        title={t('pages.grades.kindergarten.title')}
+        description={t('pages.grades.kindergarten.subtitle')}
         keywords="kindergarten math worksheets, free kindergarten worksheets, printable kindergarten worksheets, kindergarten counting worksheets, number recognition worksheets, shapes worksheets kindergarten, kindergarten patterns worksheets, free printable kindergarten math worksheets PDF"
         canonicalUrl="https://wizqo.com/worksheets/kindergarten-math-worksheets"
       />
@@ -148,11 +164,11 @@ export default function WorksheetsKindergartenPage() {
                 ✨ Free kindergarten math worksheets • Pre-K & K free PDF
               </span>
               <h1 className="text-3xl font-bold tracking-tight text-slate-900 sm:text-4xl lg:text-5xl">
-                Free Kindergarten Math Worksheets
-                <span className="block text-purple-600">Printable PDFs with answer keys for early learners.</span>
+                {t('pages.grades.kindergarten.title')}
+                <span className="block text-purple-600">{t('pages.grades.kindergarten.subtitle')}</span>
               </h1>
               <p className="max-w-2xl text-lg text-slate-600 leading-relaxed">
-                Free printable kindergarten math worksheets for early learners. Download PDF worksheets covering counting, number recognition, basic shapes, and simple addition. Perfect for building math foundations with answer keys included.
+                {t('pages.grades.kindergarten.subtitle')}
               </p>
             </div>
           </div>
@@ -188,7 +204,7 @@ export default function WorksheetsKindergartenPage() {
                 selectedCategories={selectedCategories}
                 onToggleCategory={toggleCategory}
                 onClearAll={clearCategories}
-                title="Filter by Category"
+                title={t('pages.grades.kindergarten.filterByCategory')}
               />
             </div>
           </aside>
@@ -196,15 +212,26 @@ export default function WorksheetsKindergartenPage() {
           {/* Right side - Worksheets grouped by section */}
           <div className="space-y-8">
             {Object.entries(groupedWorksheets).map(([section, worksheets]) => {
-              const sectionLabels: Record<string, string> = {
-                'Counting': '🔢 Counting',
-                'Number Recognition': '🔟 Number Recognition',
-                'Shapes & Colors': '🟩 Shapes & Colors',
-                'Patterns': '🧩 Patterns',
-                'Comparison': '⚖️ Comparison',
-                'Pre-Writing': '✏️ Pre-Writing',
+              // Translate section labels
+              const sectionKeyMap: Record<string, string> = {
+                'Counting': 'counting',
+                'Number Recognition': 'numberRecognition',
+                'Shapes & Colors': 'shapesColors',
+                'Patterns': 'patterns',
+                'Comparison': 'comparison',
+                'Pre-Writing': 'preWriting',
               }
-              const label = sectionLabels[section] || section
+              const sectionKey = sectionKeyMap[section] || section.toLowerCase()
+              const iconMap: Record<string, string> = {
+                'Counting': '🔢',
+                'Number Recognition': '🔟',
+                'Shapes & Colors': '🟩',
+                'Patterns': '🧩',
+                'Comparison': '⚖️',
+                'Pre-Writing': '✏️',
+              }
+              const icon = iconMap[section] || ''
+              const label = `${icon} ${t(`pages.grades.kindergarten.categories.${sectionKey}`)}`
               
               return (
                 <div key={section}>
@@ -225,12 +252,12 @@ export default function WorksheetsKindergartenPage() {
             })}
             {filteredWorksheets.length === 0 && (
               <div className="text-center py-12 text-slate-500">
-                <p className="text-lg">No worksheets match the selected categories.</p>
+                <p className="text-lg">{t('pages.grades.kindergarten.noResults')}</p>
                 <button
                   onClick={clearCategories}
                   className="mt-4 text-purple-600 hover:text-purple-700 font-medium"
                 >
-                  Clear filters to show all worksheets
+                  {t('pages.grades.kindergarten.allCategories')}
                 </button>
               </div>
             )}

@@ -80,7 +80,7 @@ export function TranslationProvider({ children }: { children: ReactNode }) {
     }
   }, [language])
 
-  const t = React.useCallback((key: string): string => {
+  const t = React.useCallback((key: string): string | any => {
     return getTranslation(language, key)
   }, [language])
 
