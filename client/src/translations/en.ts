@@ -328,6 +328,116 @@ export const en = {
       clickToView: '👁️ Click to view full worksheet',
       openPrintable: 'Open printable view →',
       downloadPDF: 'Download PDF',
+      worksheets: {
+        tenFrames1_10: {
+          title: '🔟 Ten Frames 1–10',
+          description: 'Color counters to build numbers 1–10; develop subitizing and number bonds.',
+        },
+        numberTracing1_20: {
+          title: '✏️ Number Tracing 1–20',
+          description: 'Trace numbers 1–20 with start points and big writing space.',
+        },
+        numberBonds10: {
+          title: '🔢 Number Bonds to 10',
+          description: 'Complete number bonds showing parts that make 10; build fact fluency.',
+        },
+        countWrite30: {
+          title: '📊 Count & Write 1–30',
+          description: 'Count objects and write the number; practice one-to-one correspondence.',
+        },
+        missingNumbers50: {
+          title: '🔍 Missing Numbers 1–50',
+          description: 'Fill in missing numbers on number lines; practice sequencing.',
+        },
+        addSubWithin10: {
+          title: '➕ Add/Sub within 10',
+          description: 'No‑prep practice with number lines and picture cues.',
+        },
+        mathMaze: {
+          title: '🧮 Math Maze (Within 18)',
+          description: 'Solve simple equations to find a path from start to finish.',
+        },
+        pictureAddition10: {
+          title: '➕ Picture Addition to 10',
+          description: 'Count pictures and add them together; visual math practice.',
+        },
+        subtractionStories: {
+          title: '➖ Subtraction Stories',
+          description: 'Solve subtraction problems using picture stories and number lines.',
+        },
+        balanceEquations10: {
+          title: '⚖️ Balance Equations (to 10)',
+          description: 'Find missing numbers to balance addition and subtraction equations.',
+        },
+        dotToDot1_20: {
+          title: '🔢 Dot‑to‑Dot 1–20',
+          description: 'Connect the dots to reveal a picture while you count to 20.',
+        },
+        colorByNumber: {
+          title: '🎨 Color‑by‑Number (1–4)',
+          description: 'Follow the key to color simple scenes; practice number recognition.',
+        },
+        skipCounting2s: {
+          title: '➡️ Skip Counting by 2s',
+          description: 'Practice counting by 2s from 2 to 20; build pattern recognition.',
+        },
+        numberLineAddition: {
+          title: '🔢 Number Line Addition',
+          description: 'Use number lines to solve addition problems within 15.',
+        },
+        doublesFacts: {
+          title: '🎯 Doubles Facts Practice',
+          description: 'Master doubles (1+1, 2+2, etc.) with fun visual activities.',
+        },
+        spotDifference: {
+          title: '👀 Spot‑the‑Difference (7)',
+          description: 'Find differences to build attention and visual scanning.',
+        },
+        shapesColorsSort: {
+          title: '🟩 Shapes & Colors Sort',
+          description: 'Cut, sort, and glue basic shapes by color; early math + fine motor.',
+        },
+        patternCompletion: {
+          title: '🧩 Pattern Completion',
+          description: 'Complete AB, ABC, and AAB patterns using shapes and colors.',
+        },
+        findMissingShape: {
+          title: '🔍 Find the Missing Shape',
+          description: 'Identify which shape comes next in a sequence; logic practice.',
+        },
+        sizeComparison: {
+          title: '📏 Size Comparison',
+          description: 'Compare objects by size (big/small, long/short); measurement basics.',
+        },
+        rhymingWords: {
+          title: '🎵 Rhyming Words',
+          description: 'Circle the word that rhymes with the picture. Say both words out loud.',
+        },
+        cvcWords: {
+          title: '📚 CVC Words',
+          description: 'Read each CVC word. Match it to the picture. Then write the word.',
+        },
+        sightWordsPrePrimer: {
+          title: '👁️ Sight Words (Pre-Primer)',
+          description: 'Read each sight word. Trace it, then write it three times.',
+        },
+        letterTracingAZ: {
+          title: '✏️ Letter Tracing A–Z',
+          description: 'Trace each letter. Start at the dot. Say the letter name and sound.',
+        },
+        sentenceBuilding: {
+          title: '📝 Sentence Building',
+          description: 'Put the words in order to make a sentence. Write the sentence on the line.',
+        },
+        moreLessEqual10: {
+          title: '⚖️ More, Less, or Equal? (1–10)',
+          description: 'Compare the two groups. Circle: more, less, or equal.',
+        },
+        countingObjects20: {
+          title: '🔢 Count the Objects (1–20)',
+          description: 'Count each group of objects. Write the number in the box.',
+        },
+      },
     },
     secondGrade: {
       seoTitle: '2nd Grade Math Worksheets – Free Printable PDF',

@@ -55,42 +55,42 @@ export default function WorksheetsFirstGradePage() {
     setSelectedCategories(new Set())
   }
 
-  // Define all worksheets with their categories
-  const allWorksheets: WorksheetItem[] = [
+  // Define all worksheets with their categories - using translation keys
+  const allWorksheets: WorksheetItem[] = useMemo(() => [
     // Number Sense
-    { title: '🔟 Ten Frames 1–10', description: 'Color counters to build numbers 1–10; develop subitizing and number bonds.', href: '/print?doc=ten-frames-1-10&from=1st-grade', docId: 'ten-frames-1-10', categories: ['number-sense'], section: 'Number Sense' },
-    { title: '✏️ Number Tracing 1–20', description: 'Trace numbers 1–20 with start points and big writing space.', href: '/print?doc=number-tracing-1-20&from=1st-grade', docId: 'number-tracing-1-20', categories: ['number-sense'], section: 'Number Sense' },
-    { title: '🔢 Number Bonds to 10', description: 'Complete number bonds showing parts that make 10; build fact fluency.', href: '/print?doc=number-bonds-10&from=1st-grade', docId: 'number-bonds-10', categories: ['number-sense'], section: 'Number Sense' },
-    { title: '📊 Count & Write 1–30', description: 'Count objects and write the number; practice one-to-one correspondence.', href: '/print?doc=count-write-30&from=1st-grade', docId: 'count-write-30', categories: ['number-sense'], section: 'Number Sense' },
-    { title: '🔍 Missing Numbers 1–50', description: 'Fill in missing numbers on number lines; practice sequencing.', href: '/print?doc=missing-numbers-50&from=1st-grade', docId: 'missing-numbers-50', categories: ['number-sense'], section: 'Number Sense' },
+    { title: t('pages.firstGrade.worksheets.tenFrames1_10.title'), description: t('pages.firstGrade.worksheets.tenFrames1_10.description'), href: '/print?doc=ten-frames-1-10&from=1st-grade', docId: 'ten-frames-1-10', categories: ['number-sense'], section: 'Number Sense' },
+    { title: t('pages.firstGrade.worksheets.numberTracing1_20.title'), description: t('pages.firstGrade.worksheets.numberTracing1_20.description'), href: '/print?doc=number-tracing-1-20&from=1st-grade', docId: 'number-tracing-1-20', categories: ['number-sense'], section: 'Number Sense' },
+    { title: t('pages.firstGrade.worksheets.numberBonds10.title'), description: t('pages.firstGrade.worksheets.numberBonds10.description'), href: '/print?doc=number-bonds-10&from=1st-grade', docId: 'number-bonds-10', categories: ['number-sense'], section: 'Number Sense' },
+    { title: t('pages.firstGrade.worksheets.countWrite30.title'), description: t('pages.firstGrade.worksheets.countWrite30.description'), href: '/print?doc=count-write-30&from=1st-grade', docId: 'count-write-30', categories: ['number-sense'], section: 'Number Sense' },
+    { title: t('pages.firstGrade.worksheets.missingNumbers50.title'), description: t('pages.firstGrade.worksheets.missingNumbers50.description'), href: '/print?doc=missing-numbers-50&from=1st-grade', docId: 'missing-numbers-50', categories: ['number-sense'], section: 'Number Sense' },
     // Addition & Subtraction
-    { title: '➕ Add/Sub within 10', description: 'No‑prep practice with number lines and picture cues.', href: '/print?doc=addition-subtraction-0-10&from=1st-grade', docId: 'addition-subtraction-0-10', categories: ['addition-subtraction'], section: 'Addition & Subtraction' },
-    { title: '🧮 Math Maze (Within 18)', description: 'Solve simple equations to find a path from start to finish.', href: '/print?doc=math-maze&from=1st-grade', docId: 'math-maze', categories: ['addition-subtraction'], section: 'Addition & Subtraction' },
-    { title: '➕ Picture Addition to 10', description: 'Count pictures and add them together; visual math practice.', href: '/print?doc=picture-addition-10&from=1st-grade', docId: 'picture-addition-10', categories: ['addition-subtraction'], section: 'Addition & Subtraction' },
-    { title: '➖ Subtraction Stories', description: 'Solve subtraction problems using picture stories and number lines.', href: '/print?doc=subtraction-stories&from=1st-grade', docId: 'subtraction-stories', categories: ['addition-subtraction'], section: 'Addition & Subtraction' },
-    { title: '⚖️ Balance Equations (to 10)', description: 'Find missing numbers to balance addition and subtraction equations.', href: '/print?doc=balance-equations-10&from=1st-grade', docId: 'balance-equations-10', categories: ['addition-subtraction'], section: 'Addition & Subtraction' },
+    { title: t('pages.firstGrade.worksheets.addSubWithin10.title'), description: t('pages.firstGrade.worksheets.addSubWithin10.description'), href: '/print?doc=addition-subtraction-0-10&from=1st-grade', docId: 'addition-subtraction-0-10', categories: ['addition-subtraction'], section: 'Addition & Subtraction' },
+    { title: t('pages.firstGrade.worksheets.mathMaze.title'), description: t('pages.firstGrade.worksheets.mathMaze.description'), href: '/print?doc=math-maze&from=1st-grade', docId: 'math-maze', categories: ['addition-subtraction'], section: 'Addition & Subtraction' },
+    { title: t('pages.firstGrade.worksheets.pictureAddition10.title'), description: t('pages.firstGrade.worksheets.pictureAddition10.description'), href: '/print?doc=picture-addition-10&from=1st-grade', docId: 'picture-addition-10', categories: ['addition-subtraction'], section: 'Addition & Subtraction' },
+    { title: t('pages.firstGrade.worksheets.subtractionStories.title'), description: t('pages.firstGrade.worksheets.subtractionStories.description'), href: '/print?doc=subtraction-stories&from=1st-grade', docId: 'subtraction-stories', categories: ['addition-subtraction'], section: 'Addition & Subtraction' },
+    { title: t('pages.firstGrade.worksheets.balanceEquations10.title'), description: t('pages.firstGrade.worksheets.balanceEquations10.description'), href: '/print?doc=balance-equations-10&from=1st-grade', docId: 'balance-equations-10', categories: ['addition-subtraction'], section: 'Addition & Subtraction' },
     // Fluency Boosters
-    { title: '🔢 Dot‑to‑Dot 1–20', description: 'Connect the dots to reveal a picture while you count to 20.', href: '/print?doc=dot-to-dot-1-20&from=1st-grade', docId: 'dot-to-dot-1-20', categories: ['fluency'], section: 'Fluency Boosters' },
-    { title: '🎨 Color‑by‑Number (1–4)', description: 'Follow the key to color simple scenes; practice number recognition.', href: '/print?doc=color-by-number&from=1st-grade', docId: 'color-by-number', categories: ['fluency'], section: 'Fluency Boosters' },
-    { title: '➡️ Skip Counting by 2s', description: 'Practice counting by 2s from 2 to 20; build pattern recognition.', href: '/print?doc=skip-count-2s&from=1st-grade', docId: 'skip-count-2s', categories: ['fluency'], section: 'Fluency Boosters' },
-    { title: '🔢 Number Line Addition', description: 'Use number lines to solve addition problems within 15.', href: '/print?doc=number-line-add&from=1st-grade', docId: 'number-line-add', categories: ['fluency', 'addition-subtraction'], section: 'Fluency Boosters' },
-    { title: '🎯 Doubles Facts Practice', description: 'Master doubles (1+1, 2+2, etc.) with fun visual activities.', href: '/print?doc=doubles-facts&from=1st-grade', docId: 'doubles-facts', categories: ['fluency'], section: 'Fluency Boosters' },
+    { title: t('pages.firstGrade.worksheets.dotToDot1_20.title'), description: t('pages.firstGrade.worksheets.dotToDot1_20.description'), href: '/print?doc=dot-to-dot-1-20&from=1st-grade', docId: 'dot-to-dot-1-20', categories: ['fluency'], section: 'Fluency Boosters' },
+    { title: t('pages.firstGrade.worksheets.colorByNumber.title'), description: t('pages.firstGrade.worksheets.colorByNumber.description'), href: '/print?doc=color-by-number&from=1st-grade', docId: 'color-by-number', categories: ['fluency'], section: 'Fluency Boosters' },
+    { title: t('pages.firstGrade.worksheets.skipCounting2s.title'), description: t('pages.firstGrade.worksheets.skipCounting2s.description'), href: '/print?doc=skip-count-2s&from=1st-grade', docId: 'skip-count-2s', categories: ['fluency'], section: 'Fluency Boosters' },
+    { title: t('pages.firstGrade.worksheets.numberLineAddition.title'), description: t('pages.firstGrade.worksheets.numberLineAddition.description'), href: '/print?doc=number-line-add&from=1st-grade', docId: 'number-line-add', categories: ['fluency', 'addition-subtraction'], section: 'Fluency Boosters' },
+    { title: t('pages.firstGrade.worksheets.doublesFacts.title'), description: t('pages.firstGrade.worksheets.doublesFacts.description'), href: '/print?doc=doubles-facts&from=1st-grade', docId: 'doubles-facts', categories: ['fluency'], section: 'Fluency Boosters' },
     // Focus & Logic
-    { title: '👀 Spot‑the‑Difference (7)', description: 'Find differences to build attention and visual scanning.', href: '/print?doc=spot-difference&from=1st-grade', docId: 'spot-difference', categories: ['logic'], section: 'Focus & Logic' },
-    { title: '🟩 Shapes & Colors Sort', description: 'Cut, sort, and glue basic shapes by color; early math + fine motor.', href: '/print?doc=shapes-colors-sort&from=1st-grade', docId: 'shapes-colors-sort', categories: ['logic'], section: 'Focus & Logic' },
-    { title: '🧩 Pattern Completion', description: 'Complete AB, ABC, and AAB patterns using shapes and colors.', href: '/print?doc=pattern-complete&from=1st-grade', docId: 'pattern-complete', categories: ['logic'], section: 'Focus & Logic' },
-    { title: '🔍 Find the Missing Shape', description: 'Identify which shape comes next in a sequence; logic practice.', href: '/print?doc=missing-shape&from=1st-grade', docId: 'missing-shape', categories: ['logic'], section: 'Focus & Logic' },
-    { title: '📏 Size Comparison', description: 'Compare objects by size (big/small, long/short); measurement basics.', href: '/print?doc=size-comparison&from=1st-grade', docId: 'size-comparison', categories: ['logic'], section: 'Focus & Logic' },
+    { title: t('pages.firstGrade.worksheets.spotDifference.title'), description: t('pages.firstGrade.worksheets.spotDifference.description'), href: '/print?doc=spot-difference&from=1st-grade', docId: 'spot-difference', categories: ['logic'], section: 'Focus & Logic' },
+    { title: t('pages.firstGrade.worksheets.shapesColorsSort.title'), description: t('pages.firstGrade.worksheets.shapesColorsSort.description'), href: '/print?doc=shapes-colors-sort&from=1st-grade', docId: 'shapes-colors-sort', categories: ['logic'], section: 'Focus & Logic' },
+    { title: t('pages.firstGrade.worksheets.patternCompletion.title'), description: t('pages.firstGrade.worksheets.patternCompletion.description'), href: '/print?doc=pattern-complete&from=1st-grade', docId: 'pattern-complete', categories: ['logic'], section: 'Focus & Logic' },
+    { title: t('pages.firstGrade.worksheets.findMissingShape.title'), description: t('pages.firstGrade.worksheets.findMissingShape.description'), href: '/print?doc=missing-shape&from=1st-grade', docId: 'missing-shape', categories: ['logic'], section: 'Focus & Logic' },
+    { title: t('pages.firstGrade.worksheets.sizeComparison.title'), description: t('pages.firstGrade.worksheets.sizeComparison.description'), href: '/print?doc=size-comparison&from=1st-grade', docId: 'size-comparison', categories: ['logic'], section: 'Focus & Logic' },
     // Early Literacy
-    { title: '🎵 Rhyming Words', description: 'Circle the word that rhymes with the picture. Say both words out loud.', href: '/print?doc=rhyming-words&from=1st-grade', docId: 'rhyming-words', categories: ['literacy'], section: 'Early Literacy' },
-    { title: '📚 CVC Words', description: 'Read each CVC word. Match it to the picture. Then write the word.', href: '/print?doc=cvc-words&from=1st-grade', docId: 'cvc-words', categories: ['literacy'], section: 'Early Literacy' },
-    { title: '👁️ Sight Words (Pre-Primer)', description: 'Read each sight word. Trace it, then write it three times.', href: '/print?doc=sight-words-pre-primer&from=1st-grade', docId: 'sight-words-pre-primer', categories: ['literacy'], section: 'Early Literacy' },
-    { title: '✏️ Letter Tracing A–Z', description: 'Trace each letter. Start at the dot. Say the letter name and sound.', href: '/print?doc=letter-tracing-az&from=1st-grade', docId: 'letter-tracing-az', categories: ['literacy'], section: 'Early Literacy' },
-    { title: '📝 Sentence Building', description: 'Put the words in order to make a sentence. Write the sentence on the line.', href: '/print?doc=sentence-building&from=1st-grade', docId: 'sentence-building', categories: ['literacy'], section: 'Early Literacy' },
+    { title: t('pages.firstGrade.worksheets.rhymingWords.title'), description: t('pages.firstGrade.worksheets.rhymingWords.description'), href: '/print?doc=rhyming-words&from=1st-grade', docId: 'rhyming-words', categories: ['literacy'], section: 'Early Literacy' },
+    { title: t('pages.firstGrade.worksheets.cvcWords.title'), description: t('pages.firstGrade.worksheets.cvcWords.description'), href: '/print?doc=cvc-words&from=1st-grade', docId: 'cvc-words', categories: ['literacy'], section: 'Early Literacy' },
+    { title: t('pages.firstGrade.worksheets.sightWordsPrePrimer.title'), description: t('pages.firstGrade.worksheets.sightWordsPrePrimer.description'), href: '/print?doc=sight-words-pre-primer&from=1st-grade', docId: 'sight-words-pre-primer', categories: ['literacy'], section: 'Early Literacy' },
+    { title: t('pages.firstGrade.worksheets.letterTracingAZ.title'), description: t('pages.firstGrade.worksheets.letterTracingAZ.description'), href: '/print?doc=letter-tracing-az&from=1st-grade', docId: 'letter-tracing-az', categories: ['literacy'], section: 'Early Literacy' },
+    { title: t('pages.firstGrade.worksheets.sentenceBuilding.title'), description: t('pages.firstGrade.worksheets.sentenceBuilding.description'), href: '/print?doc=sentence-building&from=1st-grade', docId: 'sentence-building', categories: ['literacy'], section: 'Early Literacy' },
     // Early Math Skills
-    { title: '⚖️ More, Less, or Equal? (1–10)', description: 'Compare the two groups. Circle: more, less, or equal.', href: '/print?doc=more-less-equal-10&from=1st-grade', docId: 'more-less-equal-10', categories: ['early-math'], section: 'Early Math Skills' },
-    { title: '🔢 Count the Objects (1–20)', description: 'Count each group of objects. Write the number in the box.', href: '/print?doc=counting-objects-20&from=1st-grade', docId: 'counting-objects-20', categories: ['early-math'], section: 'Early Math Skills' },
-  ]
+    { title: t('pages.firstGrade.worksheets.moreLessEqual10.title'), description: t('pages.firstGrade.worksheets.moreLessEqual10.description'), href: '/print?doc=more-less-equal-10&from=1st-grade', docId: 'more-less-equal-10', categories: ['early-math'], section: 'Early Math Skills' },
+    { title: t('pages.firstGrade.worksheets.countingObjects20.title'), description: t('pages.firstGrade.worksheets.countingObjects20.description'), href: '/print?doc=counting-objects-20&from=1st-grade', docId: 'counting-objects-20', categories: ['early-math'], section: 'Early Math Skills' },
+  ], [t])
 
   // Filter worksheets based on selected categories
   const filteredWorksheets = useMemo(() => {
@@ -98,7 +98,7 @@ export default function WorksheetsFirstGradePage() {
     return allWorksheets.filter((ws) => 
       ws.categories.some((cat) => selectedCategories.has(cat))
     )
-  }, [selectedCategories])
+  }, [selectedCategories, allWorksheets])
 
   // Group filtered worksheets by section
   const groupedWorksheets = useMemo(() => {
@@ -134,7 +134,7 @@ export default function WorksheetsFirstGradePage() {
           "@context": "https://schema.org",
           "@type": "FAQPage",
           mainEntity: [
-            { "@type": "Question", name: "Are these worksheets printable as PDF?", acceptedAnswer: { "@type": "Answer", text: "Yes. Open any worksheet and use your browser’s Print → Save as PDF to download." } },
+            { "@type": "Question", name: "Are these worksheets printable as PDF?", acceptedAnswer: { "@type": "Answer", text: "Yes. Open any worksheet and use your browser's Print → Save as PDF to download." } },
             { "@type": "Question", name: "{t('pages.firstGrade.faq1Question')}", acceptedAnswer: { "@type": "Answer", text: "Yes—free for personal and classroom use." } },
             { "@type": "Question", name: "What skills are covered?", acceptedAnswer: { "@type": "Answer", text: "Number sense, addition/subtraction within 10, ten‑frames, skip counting, shapes, and simple logic warm‑ups." } }
           ]
@@ -177,7 +177,7 @@ export default function WorksheetsFirstGradePage() {
         </header>
 
         <section>
-          <div className="text-slate-800 font-semibold mb-1">What’s Inside</div>
+          <div className="text-slate-800 font-semibold mb-1">{t('pages.firstGrade.whatsInside')}</div>
           <p className="text-slate-700 text-sm max-w-3xl">
             {t('pages.firstGrade.whatsInsideDesc')}
           </p>
@@ -272,19 +272,19 @@ export default function WorksheetsFirstGradePage() {
             <AccordionItem value="q1">
               <AccordionTrigger className="px-4">{t('pages.firstGrade.faq1Question')}</AccordionTrigger>
               <AccordionContent className="px-4 text-slate-700">
-                Yes, they’re free for personal and classroom use.
+                {t('pages.firstGrade.faq1Answer')}
               </AccordionContent>
             </AccordionItem>
             <AccordionItem value="q2">
-              <AccordionTrigger className="px-4">What skills are covered?</AccordionTrigger>
+              <AccordionTrigger className="px-4">{t('pages.firstGrade.faq2Question')}</AccordionTrigger>
               <AccordionContent className="px-4 text-slate-700">
                 {t('pages.firstGrade.faq2Answer')}
               </AccordionContent>
             </AccordionItem>
             <AccordionItem value="q3">
-              <AccordionTrigger className="px-4">Are these worksheets printable as PDF?</AccordionTrigger>
+              <AccordionTrigger className="px-4">{t('pages.firstGrade.faq3Question')}</AccordionTrigger>
               <AccordionContent className="px-4 text-slate-700">
-                Yes. Open any worksheet and use your browser’s Print → Save as PDF to download.
+                {t('pages.firstGrade.faq3Answer')}
               </AccordionContent>
             </AccordionItem>
           </Accordion>

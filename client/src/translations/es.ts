@@ -385,6 +385,116 @@ export const es = {
       clickToView: '👁️ Haz clic para ver la hoja de trabajo completa',
       openPrintable: 'Abrir vista imprimible →',
       downloadPDF: 'Descargar PDF',
+      worksheets: {
+        tenFrames1_10: {
+          title: '🔟 Marcos de Diez 1–10',
+          description: 'Colorea contadores para construir números 1–10; desarrolla subitización y enlaces numéricos.',
+        },
+        numberTracing1_20: {
+          title: '✏️ Trazado de Números 1–20',
+          description: 'Traza números 1–20 con puntos de inicio y espacio grande para escribir.',
+        },
+        numberBonds10: {
+          title: '🔢 Enlaces Numéricos hasta 10',
+          description: 'Completa enlaces numéricos mostrando partes que suman 10; desarrolla fluidez de datos.',
+        },
+        countWrite30: {
+          title: '📊 Contar y Escribir 1–30',
+          description: 'Cuenta objetos y escribe el número; practica correspondencia uno a uno.',
+        },
+        missingNumbers50: {
+          title: '🔍 Números Faltantes 1–50',
+          description: 'Completa los números faltantes en líneas numéricas; practica secuenciación.',
+        },
+        addSubWithin10: {
+          title: '➕ Suma/Resta dentro de 10',
+          description: 'Práctica sin preparación con líneas numéricas y pistas visuales.',
+        },
+        mathMaze: {
+          title: '🧮 Laberinto Matemático (Dentro de 18)',
+          description: 'Resuelve ecuaciones simples para encontrar un camino del inicio al final.',
+        },
+        pictureAddition10: {
+          title: '➕ Suma con Imágenes hasta 10',
+          description: 'Cuenta imágenes y súmalas; práctica matemática visual.',
+        },
+        subtractionStories: {
+          title: '➖ Historias de Resta',
+          description: 'Resuelve problemas de resta usando historias con imágenes y líneas numéricas.',
+        },
+        balanceEquations10: {
+          title: '⚖️ Balancear Ecuaciones (hasta 10)',
+          description: 'Encuentra números faltantes para balancear ecuaciones de suma y resta.',
+        },
+        dotToDot1_20: {
+          title: '🔢 Punto a Punto 1–20',
+          description: 'Conecta los puntos para revelar una imagen mientras cuentas hasta 20.',
+        },
+        colorByNumber: {
+          title: '🎨 Colorear por Número (1–4)',
+          description: 'Sigue la clave para colorear escenas simples; practica reconocimiento de números.',
+        },
+        skipCounting2s: {
+          title: '➡️ Conteo de Saltos por 2s',
+          description: 'Practica contar de 2 en 2 desde 2 hasta 20; desarrolla reconocimiento de patrones.',
+        },
+        numberLineAddition: {
+          title: '🔢 Suma en Línea Numérica',
+          description: 'Usa líneas numéricas para resolver problemas de suma dentro de 15.',
+        },
+        doublesFacts: {
+          title: '🎯 Práctica de Dobles',
+          description: 'Domina los dobles (1+1, 2+2, etc.) con actividades visuales divertidas.',
+        },
+        spotDifference: {
+          title: '👀 Encuentra la Diferencia (7)',
+          description: 'Encuentra diferencias para desarrollar atención y escaneo visual.',
+        },
+        shapesColorsSort: {
+          title: '🟩 Clasificar Formas y Colores',
+          description: 'Corta, clasifica y pega formas básicas por color; matemáticas tempranas + motricidad fina.',
+        },
+        patternCompletion: {
+          title: '🧩 Completar Patrones',
+          description: 'Completa patrones AB, ABC y AAB usando formas y colores.',
+        },
+        findMissingShape: {
+          title: '🔍 Encuentra la Forma Faltante',
+          description: 'Identifica qué forma viene después en una secuencia; práctica de lógica.',
+        },
+        sizeComparison: {
+          title: '📏 Comparación de Tamaños',
+          description: 'Compara objetos por tamaño (grande/pequeño, largo/corto); conceptos básicos de medición.',
+        },
+        rhymingWords: {
+          title: '🎵 Palabras que Riman',
+          description: 'Encierra en un círculo la palabra que rima con la imagen. Di ambas palabras en voz alta.',
+        },
+        cvcWords: {
+          title: '📚 Palabras CVC',
+          description: 'Lee cada palabra CVC. Relaciónala con la imagen. Luego escribe la palabra.',
+        },
+        sightWordsPrePrimer: {
+          title: '👁️ Palabras de Vista (Pre-Primer)',
+          description: 'Lee cada palabra de vista. Trázala, luego escríbela tres veces.',
+        },
+        letterTracingAZ: {
+          title: '✏️ Trazado de Letras A–Z',
+          description: 'Traza cada letra. Comienza en el punto. Di el nombre y el sonido de la letra.',
+        },
+        sentenceBuilding: {
+          title: '📝 Construcción de Oraciones',
+          description: 'Pon las palabras en orden para hacer una oración. Escribe la oración en la línea.',
+        },
+        moreLessEqual10: {
+          title: '⚖️ ¿Más, Menos o Igual? (1–10)',
+          description: 'Compara los dos grupos. Encierra en un círculo: más, menos o igual.',
+        },
+        countingObjects20: {
+          title: '🔢 Contar los Objetos (1–20)',
+          description: 'Cuenta cada grupo de objetos. Escribe el número en el cuadro.',
+        },
+      },
     },
     thirdGrade: {
       seoTitle: 'Hojas de Trabajo de Matemáticas de 3er Grado – PDF Gratis Imprimible',
