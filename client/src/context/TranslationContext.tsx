@@ -1,6 +1,7 @@
 // Translation Context - Manages language state
 import React, { createContext, useContext, useState, useEffect, ReactNode } from 'react'
 import { Language, getTranslation, isRTL, getAvailableLanguages } from '@/translations'
+import { getLocaleFromURL, parseLocaleFromPath, type Locale } from '@/utils/locale'
 
 interface TranslationContextType {
   language: Language
@@ -13,14 +14,45 @@ interface TranslationContextType {
 const TranslationContext = createContext<TranslationContextType | undefined>(undefined)
 
 export function TranslationProvider({ children }: { children: ReactNode }) {
-  // Get language from localStorage or default to 'en'
+  // Get language from URL first (for SEO), then localStorage, then default to 'en'
   const [language, setLanguageState] = useState<Language>(() => {
     if (typeof window !== 'undefined') {
+      // Priority 1: Get from URL (for SEO and shareable links)
+      const urlLocale = getLocaleFromURL()
+      if (urlLocale && ['en', 'es', 'ar'].includes(urlLocale)) {
+        return urlLocale as Language
+      }
+      
+      // Priority 2: Get from localStorage (user preference)
       const saved = localStorage.getItem('wizqo-language') as Language
-      return saved && ['en', 'es', 'ar'].includes(saved) ? saved : 'en'
+      if (saved && ['en', 'es', 'ar'].includes(saved)) {
+        return saved
+      }
     }
     return 'en'
   })
+  
+  // Sync language with URL when URL changes (e.g., browser back/forward)
+  useEffect(() => {
+    if (typeof window === 'undefined') return
+    
+    const syncLanguageFromURL = () => {
+      const urlLocale = getLocaleFromURL()
+      if (urlLocale && ['en', 'es', 'ar'].includes(urlLocale) && urlLocale !== language) {
+        setLanguageState(urlLocale as Language)
+      }
+    }
+    
+    // Sync on mount
+    syncLanguageFromURL()
+    
+    // Sync on popstate (browser back/forward)
+    window.addEventListener('popstate', syncLanguageFromURL)
+    
+    return () => {
+      window.removeEventListener('popstate', syncLanguageFromURL)
+    }
+  }, [language])
 
   // Save language preference
   const setLanguage = React.useCallback((lang: Language) => {

@@ -1,4 +1,6 @@
 import { useEffect } from 'react';
+import { HreflangTags } from './HreflangTags';
+import { addLocaleToPath, removeLocaleFromPath, getLocaleFromURL } from '@/utils/locale';
 
 interface SEOMetaTagsProps {
   title?: string;
@@ -21,6 +23,15 @@ export function SEOMetaTags({
   ogType,
   twitterCard
 }: SEOMetaTagsProps) {
+  // Get current locale and build locale-aware canonical URL
+  const currentLocale = typeof window !== 'undefined' ? getLocaleFromURL() : 'en'
+  const currentPath = typeof window !== 'undefined' ? window.location.pathname : '/'
+  const cleanPath = removeLocaleFromPath(currentPath)
+  
+  // Build canonical URL with locale (or use provided one)
+  const finalCanonicalUrl = canonicalUrl || (typeof window !== 'undefined' 
+    ? `${window.location.origin}${addLocaleToPath(cleanPath, currentLocale)}`
+    : 'https://wizqo.com/')
   useEffect(() => {
     // Default types
     const computedOgType = ogType || (canonicalUrl && canonicalUrl.includes('/blog/') ? 'article' : 'website');
@@ -128,16 +139,14 @@ export function SEOMetaTags({
     }
     twitterCardMeta.setAttribute('content', computedTwitterCard);
     
-    // Update canonical URL if provided
-    if (canonicalUrl) {
-      let canonical = document.querySelector('link[rel="canonical"]');
-      if (!canonical) {
-        canonical = document.createElement('link');
-        canonical.setAttribute('rel', 'canonical');
-        document.head.appendChild(canonical);
-      }
-      canonical.setAttribute('href', canonicalUrl);
+    // Update canonical URL (always set, with locale)
+    let canonical = document.querySelector('link[rel="canonical"]');
+    if (!canonical) {
+      canonical = document.createElement('link');
+      canonical.setAttribute('rel', 'canonical');
+      document.head.appendChild(canonical);
     }
+    canonical.setAttribute('href', finalCanonicalUrl);
     
     // Update Open Graph URL
     let ogUrl = document.querySelector('meta[property="og:url"]');
@@ -146,7 +155,7 @@ export function SEOMetaTags({
       ogUrl.setAttribute('property', 'og:url');
       document.head.appendChild(ogUrl);
     }
-    ogUrl.setAttribute('content', canonicalUrl || window.location.href);
+    ogUrl.setAttribute('content', finalCanonicalUrl);
     
     // Update Twitter URL
     let twitterUrl = document.querySelector('meta[property="twitter:url"]');
@@ -155,9 +164,14 @@ export function SEOMetaTags({
       twitterUrl.setAttribute('property', 'twitter:url');
       document.head.appendChild(twitterUrl);
     }
-    twitterUrl.setAttribute('content', canonicalUrl || window.location.href);
+    twitterUrl.setAttribute('content', finalCanonicalUrl);
     
-  }, [title, description, keywords, ogImage, canonicalUrl, noIndex, ogType, twitterCard]);
+  }, [title, description, keywords, ogImage, finalCanonicalUrl, noIndex, ogType, twitterCard]);
   
-  return null; // This component doesn't render anything
+  return (
+    <>
+      {/* Hreflang tags for SEO - tells Google about alternate language versions */}
+      <HreflangTags path={cleanPath} />
+    </>
+  )
 }

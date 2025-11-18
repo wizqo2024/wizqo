@@ -1,17 +1,33 @@
 // Language Selector Component
+import React from 'react'
 import { useTranslation } from '@/context/TranslationContext'
+import { addLocaleToPath, removeLocaleFromPath, type Locale } from '@/utils/locale'
 
 export function LanguageSelector() {
   const { language, setLanguage, availableLanguages } = useTranslation()
 
   const handleLanguageChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    const newLang = e.target.value as 'en' | 'es' | 'ar'
+    const newLang = e.target.value as Locale
     console.log('Language changing to:', newLang)
+    
+    // Get current path without locale
+    const currentPath = typeof window !== 'undefined' 
+      ? removeLocaleFromPath(window.location.pathname)
+      : '/'
+    
+    // Build new URL with locale prefix
+    const newPath = addLocaleToPath(currentPath, newLang)
+    const newUrl = newPath + (typeof window !== 'undefined' ? window.location.search : '')
+    
+    // Update language state
     setLanguage(newLang)
-    // Force a small delay to ensure state updates
-    setTimeout(() => {
-      console.log('Language should be:', newLang)
-    }, 100)
+    
+    // Navigate to new URL (this will trigger route change)
+    if (typeof window !== 'undefined') {
+      window.history.pushState({}, '', newUrl)
+      // Trigger a custom event to notify App.tsx of the route change
+      window.dispatchEvent(new PopStateEvent('popstate'))
+    }
   }
 
   return (

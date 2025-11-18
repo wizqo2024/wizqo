@@ -101,18 +101,43 @@ export default function App() {
     }
   })();
 
-  // NEW: Use proper URL routing instead of hash routing
+  // NEW: Use proper URL routing with locale support
   const [route, setRoute] = useState<string>(() => {
     const path = window.location.pathname + window.location.search;
     return path || '/';
   });
   const [isNavigating, setIsNavigating] = useState(false);
   
-  // NEW: Navigation function that updates URL properly
-  const navigateTo = React.useCallback((path: string) => {
-    window.history.pushState({}, '', path);
-    setRoute(path);
+  // Import locale utilities
+  const { parseLocaleFromPath, addLocaleToPath, removeLocaleFromPath, getLocaleFromURL, shouldAddLocale } = React.useMemo(() => {
+    // Dynamic import to avoid SSR issues
+    return require('@/utils/locale');
   }, []);
+  
+  // NEW: Navigation function that updates URL properly and preserves locale
+  const navigateTo = React.useCallback((path: string) => {
+    // Get current locale from URL
+    const currentLocale = getLocaleFromURL();
+    
+    // Parse the new path
+    const url = new URL(path, window.location.origin);
+    const newPath = url.pathname;
+    
+    // If path already has locale, use it; otherwise preserve current locale
+    const { locale: pathLocale } = parseLocaleFromPath(newPath);
+    const localeToUse = pathLocale !== 'en' ? pathLocale : currentLocale;
+    
+    // Build final path with locale
+    const cleanPath = removeLocaleFromPath(newPath);
+    const finalPath = shouldAddLocale(cleanPath) 
+      ? addLocaleToPath(cleanPath, localeToUse)
+      : cleanPath;
+    
+    const finalUrl = finalPath + url.search;
+    
+    window.history.pushState({}, '', finalUrl);
+    setRoute(finalUrl);
+  }, [parseLocaleFromPath, addLocaleToPath, removeLocaleFromPath, getLocaleFromURL, shouldAddLocale]);
   
   // Track previous route for user flow analysis
   const prevRouteRef = React.useRef<string>('');
@@ -214,31 +239,43 @@ export default function App() {
     const currentRoute = route || window.location.pathname + window.location.search;
     const path = currentRoute.replace(/^\/?/, '');
     const [pathname, queryString] = path.split('?');
-    const seg = pathname.split('/')[0] || '';
+    
+    // Remove locale prefix from pathname for routing
+    const { path: pathWithoutLocale } = parseLocaleFromPath(pathname);
+    const cleanPath = pathWithoutLocale.replace(/^\/+/, '');
+    
+    // Get first segment (route key) after removing locale
+    const seg = cleanPath.split('/')[0] || '';
     const params = new URLSearchParams(queryString || '');
     return [seg, params] as const;
-  }, [route]);
+  }, [route, parseLocaleFromPath]);
 
   const routeSubKey = useMemo(() => {
     const currentRoute = route || window.location.pathname + window.location.search;
     const path = currentRoute.replace(/^\/?/, '');
     const [pathname] = path.split('?');
-    const segs = pathname.split('/');
+    
+    // Remove locale prefix
+    const { path: pathWithoutLocale } = parseLocaleFromPath(pathname);
+    const cleanPath = pathWithoutLocale.replace(/^\/+/, '');
+    const segs = cleanPath.split('/');
     return segs[1] || '';
-  }, [route]);
+  }, [route, parseLocaleFromPath]);
 
   // Redirect bare /worksheets to the preferred hub URL to avoid duplicate indexing
+  // Preserve locale when redirecting
   useEffect(() => {
     try {
       if (routeKey === 'worksheets' && !routeSubKey) {
-        const target = '/worksheets/2nd-grade-math-worksheets';
+        const currentLocale = getLocaleFromURL();
+        const target = addLocaleToPath('/worksheets/2nd-grade-math-worksheets', currentLocale);
         if (window.location.pathname !== target) {
           window.history.replaceState({}, '', target);
           setRoute(target);
         }
       }
     } catch {}
-  }, [routeKey, routeSubKey]);
+  }, [routeKey, routeSubKey, getLocaleFromURL, addLocaleToPath]);
 
   // Persist plan_id from URL into session for downstream hydration
   useEffect(() => {
@@ -340,6 +377,12 @@ export default function App() {
             <div className="fixed inset-0 bg-white/80 backdrop-blur-sm z-[9999] pointer-events-none transition-opacity duration-200" />
           )}
           {(() => {
+          // Get current locale for canonical URLs
+          const currentLocale = getLocaleFromURL();
+          const currentPath = typeof window !== 'undefined' ? window.location.pathname : '/';
+          const cleanPath = removeLocaleFromPath(currentPath);
+          const baseCanonical = `https://wizqo.com${addLocaleToPath(cleanPath, currentLocale)}`;
+          
           switch (routeKey) {
             case '': // home
               return (
@@ -348,7 +391,7 @@ export default function App() {
                     title="Free Math Worksheets for K-5 | Multiplication & More | Wizqo"
                     description="Free PDF math and multiplication worksheets for Kindergarten to 5th grade. Download kindergarten math worksheets instantly – boost confidence!"
                     keywords="multiplication worksheets, 2nd grade math worksheets, 1st grade math worksheets, 3rd grade math worksheets, kindergarten math worksheets, 4th grade math worksheets, 5th grade math worksheets, free multiplication worksheets for 2nd grade, printable subtraction worksheets for kids, free math worksheets PDF, printable math worksheets with answer keys, grade 1 math worksheets, grade 2 math worksheets, grade 3 math worksheets, grade 4 math worksheets, grade 5 math worksheets, kindergarten printable worksheets free, math practice worksheets, addition worksheets, division worksheets"
-                    canonicalUrl="https://wizqo.com/"
+                    canonicalUrl={baseCanonical}
                   />
                   <LandingPage onNavigateToGenerate={() => navigateTo('/generate')} />
                 </>
@@ -360,7 +403,7 @@ export default function App() {
                     title="My Learning Plan Generator - Free AI-Powered 7-Day Plans | Wizqo"
                     description="Create my learning plan instantly with AI! Generate personalized 7-day learning plans with daily lessons, videos, and practice prompts. Free tool for teachers, students, and hobby learners."
                     keywords="my learning plan, learning plan generator, create learning plan, personalized learning plan, 7-day learning plan, AI learning plan, free learning plan generator"
-                    canonicalUrl="https://wizqo.com/generate"
+                    canonicalUrl={`https://wizqo.com${addLocaleToPath('/generate', currentLocale)}`}
                   />
                   <SplitPlanInterface onGeneratePlan={handleGeneratePlan} onNavigateBack={() => navigateTo('/')} />
                 </>
@@ -371,7 +414,7 @@ export default function App() {
                   <SEOMetaTags 
                     title="Your Learning Plan - Wizqo"
                     description="Your personalized 7-day learning plan with daily videos, practice guides, and progress tracking."
-                    canonicalUrl="https://wizqo.com/plan"
+                    canonicalUrl={`https://wizqo.com${addLocaleToPath('/plan', currentLocale)}`}
                     noIndex={true}
                   />
                   <SplitPlanInterface 
@@ -388,7 +431,7 @@ export default function App() {
                     title="Free Printable Worksheet Ideas, Teaching Tips & Learning Blog | Wizqo"
                     description="Explore Wizqo's free educational blog — full of printable worksheet ideas, teaching hacks, learning tips, student hobbies, and classroom inspiration for teachers and parents."
                     keywords="free printable worksheets, learning blog, educational tips, teaching ideas, classroom resources, student hobbies, homeschool worksheets"
-                    canonicalUrl="https://wizqo.com/blog"
+                    canonicalUrl={`https://wizqo.com${addLocaleToPath('/blog', currentLocale)}`}
                   />
                   <BlogPage initialSlug={window.location.pathname.replace(/^\/?/, '').split('/')[1]} />
                 </>
@@ -399,7 +442,7 @@ export default function App() {
                   <SEOMetaTags 
                     title="Kids Hub - Play Games & Download Free Printables"
                     description="Play kid-safe mini-games and download free printables: puzzles, handwriting, and quick math warm-ups."
-                    canonicalUrl="https://wizqo.com/kids"
+                    canonicalUrl={`https://wizqo.com${addLocaleToPath('/kids', currentLocale)}`}
                   />
                   <KidsPage />
                 </>
@@ -410,7 +453,7 @@ export default function App() {
                   <SEOMetaTags 
                     title="Printable Fun Learning Activities for Kids | Free Worksheets & Games"
                     description="Download free printables for kids: word searches, Sudoku, coloring, and spot-the-difference. Print at home in seconds."
-                    canonicalUrl="https://wizqo.com/print"
+                    canonicalUrl={`https://wizqo.com${addLocaleToPath('/print', currentLocale)}`}
                     noIndex={true}
                   />
                   <PrintablesPage />
@@ -423,31 +466,33 @@ export default function App() {
                       title="Free Interactive Worksheets Generator | Create PDFs | Wizqo"
                       description="Generate free interactive worksheets for math, reading, science, and SEL. Create printable PDF worksheets with answer keys for all grades (K-5). Daily refresh with new problems. No sign-up required!"
                       keywords="interactive worksheets generator, free worksheet generator, printable worksheets generator, create worksheets online, math worksheet generator, reading worksheet generator, free worksheet maker, interactive math worksheets, printable PDF worksheets, worksheet generator with answer keys, grade-specific worksheets, K-5 worksheets"
-                      canonicalUrl="https://wizqo.com/interactive-worksheets-generator"
+                      canonicalUrl={`https://wizqo.com${addLocaleToPath('/interactive-worksheets-generator', currentLocale)}`}
                     />
                     <InteractiveWorksheetsPage />
                   </>
                 );
             case 'printables':
               if (routeSubKey === 'name-tracing-generator') {
+                const canonical = addLocaleToPath('/printables/name-tracing-generator', currentLocale);
                 return (
                   <>
                     <SEOMetaTags 
                       title="Free Name Tracing Generator - Create Personalized Handwriting Sheets"
                       description="Create free personalized name tracing worksheets for kids! Customize font styles, sizes, and patterns. Perfect for teaching handwriting and name recognition. Print instantly!"
-                      canonicalUrl="https://wizqo.com/printables/name-tracing-generator"
+                      canonicalUrl={`https://wizqo.com${canonical}`}
                     />
                     <NameTracingGeneratorPage />
                   </>
                 );
               }
               if (routeSubKey === 'certificate-maker') {
+                const canonical = addLocaleToPath('/printables/certificate-maker', currentLocale);
                 return (
                   <>
                     <SEOMetaTags 
                       title="How to Make a Certificate Online - Free Certificate Maker"
                       description="Create your own certificate online for free! Learn how to make a certificate with editable names, cute themes, and instant download options."
-                      canonicalUrl="https://wizqo.com/printables/certificate-maker"
+                      canonicalUrl={`https://wizqo.com${canonical}`}
                     />
                     <CertificateMakerPage />
                   </>
@@ -458,136 +503,147 @@ export default function App() {
                   <SEOMetaTags 
                     title="Free Printables Hub - Download Fun Learning Activities & Worksheets | Wizqo"
                     description="Download free printable fun learning activities for kids — word searches, Sudoku, coloring pages, and spot-the-difference games. Perfect for home, school, or travel!"
-                    canonicalUrl="https://wizqo.com/printables"
+                    canonicalUrl={`https://wizqo.com${addLocaleToPath('/printables', currentLocale)}`}
                   />
                   <PrintablesLandingPage />
                 </>
               );
             case 'worksheets':
               if (routeSubKey === 'multiplication-worksheets') {
+                const canonical = addLocaleToPath('/worksheets/multiplication-worksheets', currentLocale);
                 return (
                   <>
                     <SEOMetaTags 
                       title="Free Multiplication Worksheets - Printable PDFs with Answer Keys | Wizqo"
                       description="Help your child master multiplication with our free multiplication worksheets for 2nd grade, 3rd grade, and beyond! Download printable PDFs instantly with answer keys. Practice multiplication facts, arrays, and word problems - perfect for building confidence and math fluency. No sign-up required!"
                       keywords="multiplication worksheets, free multiplication worksheets, multiplication worksheets for 2nd grade, multiplication worksheets for 3rd grade, printable multiplication worksheets, multiplication facts worksheets, multiplication arrays worksheets, multiplication word problems, free multiplication worksheets PDF, multiplication practice sheets, multiplication worksheets with answer keys, 2rd grade multiplication worksheets, 3rd grade multiplication worksheets, multiplication tables worksheets, multiplication drills"
-                      canonicalUrl="https://wizqo.com/worksheets/multiplication-worksheets"
+                      canonicalUrl={`https://wizqo.com${canonical}`}
                     />
                     <MultiplicationWorksheetsPage />
                   </>
                 );
               }
               if (routeSubKey === 'times-table-multiplication-worksheets') {
+                const canonical = addLocaleToPath('/worksheets/times-table-multiplication-worksheets', currentLocale);
                 return (
                   <>
                     <SEOMetaTags 
                       title="Free Times Table Worksheets PDF | Math Practice | Wizqo"
                       description="Print free time table multiplication worksheets (PDF) that boost confidence, speed, and accuracy. Fun, no-stress practice sheets for grades 1–5. Download and learn today!"
                       keywords="times table multiplication worksheets free pdf, printable times table worksheets for kids, 1–12 multiplication table worksheets pdf, free times table practice sheets grade 1–5, multiplication drill worksheets printable, easy times table worksheets for struggling learners, fun multiplication worksheets for kids pdf, basic multiplication worksheets for beginners, multiplication worksheets with answers pdf, confidence-building multiplication worksheets pdf, stress-free times table worksheets for kids, fun and simple worksheets to make multiplication easier, no-tears times table practice sheets, gentle step-by-step multiplication worksheets, worksheets for kids who struggle with multiplication, printable worksheets to help kids overcome math fear, engaging multiplication worksheets that make learning fun, horizontal multiplication worksheets pdf, vertical multiplication worksheets printable, missing number multiplication worksheets, timed multiplication test sheets printable, multiplication color-by-number worksheets, multiplication worksheets for slow learners pdf, blank times table worksheets to fill in, memorize times tables, multiplication fluency, math fact practice, repeated addition worksheets, math confidence building"
-                      canonicalUrl="https://wizqo.com/worksheets/times-table-multiplication-worksheets"
+                      canonicalUrl={`https://wizqo.com${canonical}`}
                     />
                     <TimesTableMultiplicationWorksheetsPage />
                   </>
                 );
               }
               if (routeSubKey === '1st-grade-math-worksheets') {
+                const canonical = addLocaleToPath('/worksheets/1st-grade-math-worksheets', currentLocale);
                 return (
                   <>
                     <SEOMetaTags 
                       title="1st Grade Math Worksheets – Free Printable PDF"
                       description="Free 1st grade math worksheets—number sense, addition/subtraction within 10, ten‑frames, skip counting, and shapes. Print or save as PDF."
                       keywords="1st grade math worksheets, first grade math worksheets, free 1st grade math worksheets PDF, printable math worksheets grade 1, addition worksheets first grade, subtraction worksheets grade 1, number sense worksheets, ten frames worksheets, skip counting worksheets"
-                      canonicalUrl="https://wizqo.com/worksheets/1st-grade-math-worksheets"
+                      canonicalUrl={`https://wizqo.com${canonical}`}
                     />
                     <WorksheetsFirstGradePage />
                   </>
                 );
               }
               if (routeSubKey === 'handwriting-worksheet-maker') {
+                const canonical = addLocaleToPath('/worksheets/handwriting-worksheet-maker', currentLocale);
                 return (
                   <>
                     <SEOMetaTags 
                       title="Free Handwriting Practice Sheets | Printable Tracing Worksheets"
                       description="Download free printable handwriting practice sheets for kids. Trace letters A–Z, words, and sentences in print and cursive. Perfect for teaching handwriting!"
                       keywords="handwriting worksheets, handwriting practice sheets, printable handwriting worksheets, tracing worksheets, cursive handwriting worksheets, print handwriting worksheets, handwriting practice for kids, free handwriting worksheets PDF"
-                      canonicalUrl="https://wizqo.com/worksheets/handwriting-worksheet-maker"
+                      canonicalUrl={`https://wizqo.com${canonical}`}
                     />
                     <HandwritingMakerPage />
                   </>
                 );
               }
               if (routeSubKey === 'reading-comprehension') {
+                const canonical = addLocaleToPath('/worksheets/reading-comprehension', currentLocale);
                 return (
                   <>
                     <SEOMetaTags 
                       title="Free Printable Reading Comprehension Worksheets for Kids (PDF)"
                       description="Download free printable reading comprehension worksheets for kids. Fun and engaging passages with questions, answers, and PDFs for grades 1–3."
                       keywords="reading comprehension worksheets, free reading comprehension worksheets PDF, reading comprehension for kids, reading passages with questions, reading worksheets grade 1, reading worksheets grade 2, reading worksheets grade 3, printable reading comprehension"
-                      canonicalUrl="https://wizqo.com/worksheets/reading-comprehension"
+                      canonicalUrl={`https://wizqo.com${canonical}`}
                     />
                     <ReadingComprehensionPage />
                   </>
                 );
               }
               if (routeSubKey === 'kindergarten-math-worksheets') {
+                const canonical = addLocaleToPath('/worksheets/kindergarten-math-worksheets', currentLocale);
                 return (
                   <>
                     <SEOMetaTags 
                       title="Kindergarten Math Worksheets – Free Printable PDF"
                       description="Free printable kindergarten math worksheets for early learners. Download PDF worksheets covering counting, number recognition, basic shapes, and simple addition. Perfect for building math foundations with answer keys included."
                       keywords="kindergarten math worksheets, free kindergarten worksheets, printable kindergarten worksheets, kindergarten counting worksheets, number recognition worksheets, shapes worksheets kindergarten, kindergarten patterns worksheets, free printable kindergarten math worksheets PDF"
-                      canonicalUrl="https://wizqo.com/worksheets/kindergarten-math-worksheets"
+                      canonicalUrl={`https://wizqo.com${canonical}`}
                     />
                     <WorksheetsKindergartenPage />
                   </>
                 );
               }
               if (routeSubKey === '3rd-grade-math-worksheets') {
+                const canonical = addLocaleToPath('/worksheets/3rd-grade-math-worksheets', currentLocale);
                 return (
                   <>
                     <SEOMetaTags 
                       title="3rd Grade Math Worksheets – Free Printable PDF"
                       description="Free 3rd grade math worksheets covering advanced multiplication, fractions, division, and multi-step word problems. Printable PDF worksheets with answer keys for comprehensive math practice. Perfect for building problem-solving skills."
                       keywords="3rd grade math worksheets, third grade math worksheets, free 3rd grade math worksheets PDF, printable math worksheets grade 3, multiplication worksheets 3rd grade, division worksheets 3rd grade, fractions worksheets 3rd grade, word problems 3rd grade, geometry worksheets 3rd grade"
-                      canonicalUrl="https://wizqo.com/worksheets/3rd-grade-math-worksheets"
+                      canonicalUrl={`https://wizqo.com${canonical}`}
                     />
                     <WorksheetsThirdGradePage />
                   </>
                 );
               }
               if (routeSubKey === '4th-grade-math-worksheets') {
+                const canonical = addLocaleToPath('/worksheets/4th-grade-math-worksheets', currentLocale);
                 return (
                   <>
                     <SEOMetaTags 
                       title="4th Grade Math Worksheets – Free Printable PDF"
                       description="Free 4th grade math worksheets covering multiplication, division, fractions, decimals, and geometry. Download printable PDFs with answer keys for comprehensive math practice and skill building."
                       keywords="4th grade math worksheets, fourth grade math worksheets, free 4th grade math worksheets PDF, printable math worksheets grade 4, multiplication worksheets 4th grade, division worksheets 4th grade, fractions worksheets 4th grade, decimals worksheets 4th grade, geometry worksheets 4th grade"
-                      canonicalUrl="https://wizqo.com/worksheets/4th-grade-math-worksheets"
+                      canonicalUrl={`https://wizqo.com${canonical}`}
                     />
                     <WorksheetsFourthGradePage />
                   </>
                 );
               }
               if (routeSubKey === '5th-grade-math-worksheets') {
+                const canonical = addLocaleToPath('/worksheets/5th-grade-math-worksheets', currentLocale);
                 return (
                   <>
                     <SEOMetaTags 
                       title="5th Grade Math Worksheets – Free Printable PDF"
                       description="Free 5th grade math worksheets covering advanced multiplication, division, fractions, decimals, and algebra basics. Download printable PDF worksheets with answer keys for comprehensive math practice."
                       keywords="5th grade math worksheets, fifth grade math worksheets, free 5th grade math worksheets PDF, printable math worksheets grade 5, multiplication worksheets 5th grade, division worksheets 5th grade, fractions worksheets 5th grade, decimals worksheets 5th grade, algebra worksheets 5th grade, geometry worksheets 5th grade"
-                      canonicalUrl="https://wizqo.com/worksheets/5th-grade-math-worksheets"
+                      canonicalUrl={`https://wizqo.com${canonical}`}
                     />
                     <WorksheetsFifthGradePage />
                   </>
                 );
               }
+              // Default: 2nd grade worksheets
+              const canonical = addLocaleToPath('/worksheets/2nd-grade-math-worksheets', currentLocale);
               return (
                 <>
                   <SEOMetaTags 
                     title="2nd Grade Math Worksheets – Free Printable PDF"
                     description="Free 2nd grade math worksheets covering counting, place value, addition/subtraction within 20 and 100, and focus skills. Print or save as PDF."
                     keywords="2nd grade math worksheets, second grade math worksheets, free 2nd grade math worksheets PDF, printable math worksheets grade 2, addition worksheets second grade, subtraction worksheets grade 2, place value worksheets, counting worksheets grade 2"
-                    canonicalUrl="https://wizqo.com/worksheets/2nd-grade-math-worksheets"
+                    canonicalUrl={`https://wizqo.com${canonical}`}
                   />
                   <WorksheetsSecondGradePage />
                 </>
