@@ -1274,8 +1274,11 @@ export function PrintablesPage() {
   const { t } = useTranslation()
   
   // Helper function to get translations with fallback
-  const getTrans = (key: string, fallback: string) => {
+  const getTrans = React.useCallback((key: string, fallback: string) => {
     try {
+      if (!t || typeof t !== 'function') {
+        return fallback
+      }
       const result = t(key)
       // If result is the key itself, translation is missing - use fallback
       if (typeof result === 'string' && result === key) {
@@ -1293,7 +1296,7 @@ export function PrintablesPage() {
     } catch (error) {
       return fallback
     }
-  }
+  }, [t])
   
   const params = new URLSearchParams(typeof window !== 'undefined' ? window.location.search : '')
   const doc = params.get('doc') || ''
@@ -17816,8 +17819,9 @@ export function PrintablesPage() {
 
         {/* Kindergarten Worksheets */}
         {activeDocs.includes('count-circle-1-10') && (() => {
-          const docId = 'count-circle-1-10'
-          const rng = makeRng(`${effectiveSeed}|v${variant}|doc=${doc}`)
+          try {
+            const docId = 'count-circle-1-10'
+            const rng = makeRng(`${effectiveSeed}|v${variant}|doc=${doc}`)
           const problems = Array.from({ length: 8 }, () => {
             const count = Math.floor(rng() * 10) + 1
             return { count, objects: Array.from({ length: count }, (_, i) => i) }
@@ -17936,6 +17940,14 @@ export function PrintablesPage() {
               ))}
             </WorksheetSectionWrapper>
           )
+          } catch (error) {
+            console.error('Error rendering count-circle-1-10:', error)
+            return (
+              <div className="p-4 border-2 border-red-300 bg-red-50 rounded">
+                <p className="text-red-800">Error loading worksheet. Please refresh the page.</p>
+              </div>
+            )
+          }
         })()}
 
         {activeDocs.includes('count-match-1-20') && (() => {
