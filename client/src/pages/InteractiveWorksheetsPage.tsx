@@ -645,7 +645,6 @@ export function InteractiveWorksheetsPage() {
     return matchedCategories
   }, [])
 
-  useFaqSchema()
 
   const loadPack = React.useCallback(async (currentFilters: FiltersState) => {
     // Cancel any in-flight request
