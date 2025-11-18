@@ -612,8 +612,7 @@ export default function KidsPage() {
             <AccordionItem value="q5">
               <AccordionTrigger className="px-4">{t('pages.kids.faq.q5.question')}</AccordionTrigger>
               <AccordionContent className="px-4 text-slate-700">
-                Fun learning keeps kids curious, reduces study stress, and improves motivation. When children enjoy what they’re doing,
-                they naturally absorb more and develop a love for lifelong learning.
+                {t('pages.kids.faq.q5.answer')}
               </AccordionContent>
             </AccordionItem>
           </Accordion>
