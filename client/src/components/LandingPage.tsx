@@ -205,7 +205,7 @@ export function LandingPage({ onNavigateToGenerate }: LandingPageProps) {
               </a>
             </div>
             {/* Above-the-fold internal links to worksheets (SEO-safe) - Card Layout */}
-            <nav aria-label="Popular worksheets" className="px-4 sm:px-0 mb-8">
+            <nav aria-label={t('home.popularWorksheets')} className="px-4 sm:px-0 mb-8">
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-6 gap-4 max-w-7xl mx-auto">
                 <a 
                   href="/worksheets/kindergarten-math-worksheets" 
@@ -215,8 +215,8 @@ export function LandingPage({ onNavigateToGenerate }: LandingPageProps) {
                     <div className="w-16 h-16 bg-gradient-to-br from-purple-100 to-pink-200 rounded-xl flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-300 overflow-hidden">
                       <span className="text-3xl">👶</span>
                     </div>
-                    <h3 className="text-base font-bold text-gray-900 mb-2 group-hover:text-purple-600 transition-colors">Kindergarten Math</h3>
-                    <p className="text-xs text-gray-600">Counting, shapes, patterns</p>
+                    <h3 className="text-base font-bold text-gray-900 mb-2 group-hover:text-purple-600 transition-colors">{t('home.gradeCards.kindergarten.title')}</h3>
+                    <p className="text-xs text-gray-600">{t('home.gradeCards.kindergarten.description')}</p>
                   </div>
                 </a>
                 <a 
@@ -235,8 +235,8 @@ export function LandingPage({ onNavigateToGenerate }: LandingPageProps) {
                         }
                       />
                     </div>
-                    <h3 className="text-base font-bold text-gray-900 mb-2 group-hover:text-blue-600 transition-colors">1st Grade Math</h3>
-                    <p className="text-xs text-gray-600">Addition, subtraction, counting</p>
+                    <h3 className="text-base font-bold text-gray-900 mb-2 group-hover:text-blue-600 transition-colors">{t('home.gradeCards.firstGrade.title')}</h3>
+                    <p className="text-xs text-gray-600">{t('home.gradeCards.firstGrade.description')}</p>
                   </div>
                 </a>
                 <a 
@@ -255,8 +255,8 @@ export function LandingPage({ onNavigateToGenerate }: LandingPageProps) {
                         }
                       />
                     </div>
-                    <h3 className="text-base font-bold text-gray-900 mb-2 group-hover:text-green-600 transition-colors">2nd Grade Math</h3>
-                    <p className="text-xs text-gray-600">Multiplication, division, word problems</p>
+                    <h3 className="text-base font-bold text-gray-900 mb-2 group-hover:text-green-600 transition-colors">{t('home.gradeCards.secondGrade.title')}</h3>
+                    <p className="text-xs text-gray-600">{t('home.gradeCards.secondGrade.description')}</p>
                   </div>
                 </a>
                 <a 
@@ -267,8 +267,8 @@ export function LandingPage({ onNavigateToGenerate }: LandingPageProps) {
                     <div className="w-16 h-16 bg-gradient-to-br from-yellow-100 to-orange-200 rounded-xl flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-300 overflow-hidden">
                       <span className="text-3xl">3️⃣</span>
                     </div>
-                    <h3 className="text-base font-bold text-gray-900 mb-2 group-hover:text-yellow-600 transition-colors">3rd Grade Math</h3>
-                    <p className="text-xs text-gray-600">Fractions, division, word problems</p>
+                    <h3 className="text-base font-bold text-gray-900 mb-2 group-hover:text-yellow-600 transition-colors">{t('home.gradeCards.thirdGrade.title')}</h3>
+                    <p className="text-xs text-gray-600">{t('home.gradeCards.thirdGrade.description')}</p>
                   </div>
                 </a>
                 <a 
@@ -279,8 +279,8 @@ export function LandingPage({ onNavigateToGenerate }: LandingPageProps) {
                     <div className="w-16 h-16 bg-gradient-to-br from-teal-100 to-cyan-200 rounded-xl flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-300 overflow-hidden">
                       <span className="text-3xl">4️⃣</span>
                     </div>
-                    <h3 className="text-base font-bold text-gray-900 mb-2 group-hover:text-teal-600 transition-colors">4th Grade Math</h3>
-                    <p className="text-xs text-gray-600">Decimals, geometry, measurement</p>
+                    <h3 className="text-base font-bold text-gray-900 mb-2 group-hover:text-teal-600 transition-colors">{t('home.gradeCards.fourthGrade.title')}</h3>
+                    <p className="text-xs text-gray-600">{t('home.gradeCards.fourthGrade.description')}</p>
                   </div>
                 </a>
                 <a 
@@ -291,8 +291,8 @@ export function LandingPage({ onNavigateToGenerate }: LandingPageProps) {
                     <div className="w-16 h-16 bg-gradient-to-br from-indigo-100 to-blue-200 rounded-xl flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-300 overflow-hidden">
                       <span className="text-3xl">5️⃣</span>
                     </div>
-                    <h3 className="text-base font-bold text-gray-900 mb-2 group-hover:text-indigo-600 transition-colors">5th Grade Math</h3>
-                    <p className="text-xs text-gray-600">Algebra, advanced operations</p>
+                    <h3 className="text-base font-bold text-gray-900 mb-2 group-hover:text-indigo-600 transition-colors">{t('home.gradeCards.fifthGrade.title')}</h3>
+                    <p className="text-xs text-gray-600">{t('home.gradeCards.fifthGrade.description')}</p>
                   </div>
                 </a>
               </div>
@@ -328,25 +328,25 @@ export function LandingPage({ onNavigateToGenerate }: LandingPageProps) {
         <div className="absolute top-1/4 left-10 hidden lg:block">
           <div className="bg-white/10 backdrop-blur-sm rounded-2xl p-4 transform rotate-12 hover:rotate-6 transition-transform duration-300" aria-label="Math worksheets example">
             <span className="text-2xl" aria-hidden="true">🔢</span>
-            <p className="text-white text-sm mt-1">Math</p>
+            <p className="text-white text-sm mt-1">{t('home.subjects.math')}</p>
           </div>
         </div>
         <div className="absolute top-1/3 right-16 hidden lg:block">
           <div className="bg-white/10 backdrop-blur-sm rounded-2xl p-4 transform -rotate-12 hover:-rotate-6 transition-transform duration-300" aria-label="Reading worksheets example">
             <span className="text-2xl" aria-hidden="true">📖</span>
-            <p className="text-white text-sm mt-1">Reading</p>
+            <p className="text-white text-sm mt-1">{t('home.subjects.reading')}</p>
           </div>
         </div>
         <div className="absolute bottom-1/4 left-1/4 hidden lg:block">
           <div className="bg-white/10 backdrop-blur-sm rounded-2xl p-4 transform rotate-6 hover:rotate-12 transition-transform duration-300" aria-label="Writing worksheets example">
             <span className="text-2xl" aria-hidden="true">✍️</span>
-            <p className="text-white text-sm mt-1">Writing</p>
+            <p className="text-white text-sm mt-1">{t('home.subjects.writing')}</p>
           </div>
         </div>
         <div className="absolute bottom-1/3 right-1/4 hidden lg:block">
           <div className="bg-white/10 backdrop-blur-sm rounded-2xl p-4 transform -rotate-6 hover:-rotate-12 transition-transform duration-300" aria-label="Science worksheets example">
             <span className="text-2xl" aria-hidden="true">🔬</span>
-            <p className="text-white text-sm mt-1">Science</p>
+            <p className="text-white text-sm mt-1">{t('home.subjects.science')}</p>
           </div>
         </div>
       </section>
@@ -373,38 +373,38 @@ export function LandingPage({ onNavigateToGenerate }: LandingPageProps) {
               <div className="absolute top-2 left-4">
                 <div className="bg-white/60 backdrop-blur-sm border border-slate-300/60 rounded-2xl p-4 shadow-lg transform rotate-6 hover:-rotate-2 hover:-translate-y-1 transition">
                   <div className="text-2xl" aria-hidden="true">🃏</div>
-                  <p className="text-slate-800 text-sm mt-1">Memory</p>
+                  <p className="text-slate-800 text-sm mt-1">{t('home.kidsHubGames.memory')}</p>
                 </div>
               </div>
               <div className="absolute top-6 right-12">
                 <div className="bg-white/60 backdrop-blur-sm border border-slate-300/60 rounded-2xl p-4 shadow-lg transform -rotate-6 hover:-rotate-1 hover:-translate-y-1 transition">
                   <div className="text-2xl" aria-hidden="true">🔤</div>
-                  <p className="text-slate-800 text-sm mt-1">Word Search</p>
+                  <p className="text-slate-800 text-sm mt-1">{t('home.kidsHubGames.wordSearch')}</p>
                 </div>
               </div>
               <div className="absolute bottom-8 left-1/4">
                 <div className="bg-white/60 backdrop-blur-sm border border-slate-300/60 rounded-2xl p-4 shadow-lg transform rotate-3 hover:rotate-0 hover:-translate-y-1 transition">
                   <div className="text-2xl" aria-hidden="true">🧩</div>
-                  <p className="text-slate-800 text-sm mt-1">Puzzle</p>
+                  <p className="text-slate-800 text-sm mt-1">{t('home.kidsHubGames.puzzle')}</p>
                 </div>
               </div>
               <div className="absolute bottom-6 right-32">
                 <div className="bg-white/60 backdrop-blur-sm border border-slate-300/60 rounded-2xl p-4 shadow-lg transform -rotate-3 hover:rotate-0 hover:-translate-y-1 transition">
                   <div className="text-2xl" aria-hidden="true">⌨️</div>
-                  <p className="text-slate-800 text-sm mt-1">Typing</p>
+                  <p className="text-slate-800 text-sm mt-1">{t('home.kidsHubGames.typing')}</p>
                 </div>
               </div>
               {/* Added: Floating Printables & Coloring cards with extra spacing */}
               <div className="absolute top-24 right-40 hidden sm:block">
                 <div className="bg-white/60 backdrop-blur-sm border border-slate-300/60 rounded-2xl p-4 shadow-lg transform rotate-2 hover:-rotate-1 hover:-translate-y-1 transition">
                   <div className="text-2xl" aria-hidden="true">🖨️</div>
-                  <p className="text-slate-800 text-sm mt-1">Printables</p>
+                  <p className="text-slate-800 text-sm mt-1">{t('home.kidsHubGames.printables')}</p>
                 </div>
               </div>
               <div className="absolute top-40 right-10 hidden sm:block">
                 <div className="bg-white/60 backdrop-blur-sm border border-slate-300/60 rounded-2xl p-4 shadow-lg transform -rotate-2 hover:rotate-0 hover:-translate-y-1 transition">
                   <div className="text-2xl" aria-hidden="true">🖍️</div>
-                  <p className="text-slate-800 text-sm mt-1">Coloring</p>
+                  <p className="text-slate-800 text-sm mt-1">{t('home.kidsHubGames.coloring')}</p>
                 </div>
               </div>
             </div>
@@ -546,48 +546,48 @@ export function LandingPage({ onNavigateToGenerate }: LandingPageProps) {
               className="text-center p-6 rounded-2xl bg-gradient-to-br from-purple-50 to-pink-50 border border-purple-100 hover:border-purple-200 hover:shadow-md transition-all block"
             >
               <div className="text-4xl mb-4" aria-hidden="true">👶</div>
-              <h3 className="font-bold text-slate-900 mb-2">Kindergarten Math Worksheets</h3>
-              <p className="text-slate-600 text-sm">Free printable kindergarten math worksheets with answer keys</p>
+              <h3 className="font-bold text-slate-900 mb-2">{t('home.gradeGridCards.kindergarten.title')}</h3>
+              <p className="text-slate-600 text-sm">{t('home.gradeGridCards.kindergarten.description')}</p>
             </a>
             <a 
               href="/worksheets/1st-grade-math-worksheets"
               className="text-center p-6 rounded-2xl bg-gradient-to-br from-blue-50 to-indigo-50 border border-blue-100 hover:border-blue-200 hover:shadow-md transition-all block"
             >
               <div className="text-4xl mb-4" aria-hidden="true">1️⃣</div>
-              <h3 className="font-bold text-slate-900 mb-2">1st Grade Math Worksheets</h3>
-              <p className="text-slate-600 text-sm">Free 1st grade math worksheets PDF with answer keys</p>
+              <h3 className="font-bold text-slate-900 mb-2">{t('home.gradeGridCards.firstGrade.title')}</h3>
+              <p className="text-slate-600 text-sm">{t('home.gradeGridCards.firstGrade.description')}</p>
             </a>
             <a 
               href="/worksheets/2nd-grade-math-worksheets"
               className="text-center p-6 rounded-2xl bg-gradient-to-br from-green-50 to-emerald-50 border border-green-100 hover:border-green-200 hover:shadow-md transition-all block"
             >
               <div className="text-4xl mb-4" aria-hidden="true">2️⃣</div>
-              <h3 className="font-bold text-slate-900 mb-2">2nd Grade Math Worksheets</h3>
-              <p className="text-slate-600 text-sm">Free multiplication worksheets for 2nd grade with answer keys</p>
+              <h3 className="font-bold text-slate-900 mb-2">{t('home.gradeGridCards.secondGrade.title')}</h3>
+              <p className="text-slate-600 text-sm">{t('home.gradeGridCards.secondGrade.description')}</p>
             </a>
             <a 
               href="/worksheets/3rd-grade-math-worksheets"
               className="text-center p-6 rounded-2xl bg-gradient-to-br from-yellow-50 to-orange-50 border border-yellow-100 hover:border-yellow-200 hover:shadow-md transition-all block"
             >
               <div className="text-4xl mb-4" aria-hidden="true">3️⃣</div>
-              <h3 className="font-bold text-slate-900 mb-2">3rd Grade Math Worksheets</h3>
-              <p className="text-slate-600 text-sm">Free 3rd grade math worksheets PDF with answer keys</p>
+              <h3 className="font-bold text-slate-900 mb-2">{t('home.gradeGridCards.thirdGrade.title')}</h3>
+              <p className="text-slate-600 text-sm">{t('home.gradeGridCards.thirdGrade.description')}</p>
             </a>
             <a 
               href="/worksheets/4th-grade-math-worksheets"
               className="text-center p-6 rounded-2xl bg-gradient-to-br from-teal-50 to-cyan-50 border border-teal-100 hover:border-teal-200 hover:shadow-md transition-all block"
             >
               <div className="text-4xl mb-4" aria-hidden="true">4️⃣</div>
-              <h3 className="font-bold text-slate-900 mb-2">4th Grade Math Worksheets</h3>
-              <p className="text-slate-600 text-sm">Free 4th grade math worksheets PDF with answer keys</p>
+              <h3 className="font-bold text-slate-900 mb-2">{t('home.gradeGridCards.fourthGrade.title')}</h3>
+              <p className="text-slate-600 text-sm">{t('home.gradeGridCards.fourthGrade.description')}</p>
             </a>
             <a 
               href="/worksheets/5th-grade-math-worksheets"
               className="text-center p-6 rounded-2xl bg-gradient-to-br from-indigo-50 to-blue-50 border border-indigo-100 hover:border-indigo-200 hover:shadow-md transition-all block"
             >
               <div className="text-4xl mb-4" aria-hidden="true">5️⃣</div>
-              <h3 className="font-bold text-slate-900 mb-2">5th Grade Math Worksheets</h3>
-              <p className="text-slate-600 text-sm">Free 5th grade math worksheets PDF with answer keys</p>
+              <h3 className="font-bold text-slate-900 mb-2">{t('home.gradeGridCards.fifthGrade.title')}</h3>
+              <p className="text-slate-600 text-sm">{t('home.gradeGridCards.fifthGrade.description')}</p>
             </a>
           </div>
           
@@ -613,19 +613,19 @@ export function LandingPage({ onNavigateToGenerate }: LandingPageProps) {
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
             <div className="text-center p-4 rounded-xl bg-slate-50 border border-slate-200">
               <div className="text-2xl mb-2" aria-hidden="true">🔢</div>
-              <h4 className="font-semibold text-slate-900 text-sm">Math Worksheets</h4>
+              <h4 className="font-semibold text-slate-900 text-sm">{t('home.subjects.mathWorksheets')}</h4>
             </div>
             <div className="text-center p-4 rounded-xl bg-slate-50 border border-slate-200">
               <div className="text-2xl mb-2" aria-hidden="true">📖</div>
-              <h4 className="font-semibold text-slate-900 text-sm">Reading Worksheets</h4>
+              <h4 className="font-semibold text-slate-900 text-sm">{t('home.subjects.readingWorksheets')}</h4>
             </div>
             <div className="text-center p-4 rounded-xl bg-slate-50 border border-slate-200">
               <div className="text-2xl mb-2" aria-hidden="true">✍️</div>
-              <h4 className="font-semibold text-slate-900 text-sm">Writing Worksheets</h4>
+              <h4 className="font-semibold text-slate-900 text-sm">{t('home.subjects.writingWorksheets')}</h4>
             </div>
             <div className="text-center p-4 rounded-xl bg-slate-50 border border-slate-200">
               <div className="text-2xl mb-2" aria-hidden="true">🔬</div>
-              <h4 className="font-semibold text-slate-900 text-sm">Science Worksheets</h4>
+              <h4 className="font-semibold text-slate-900 text-sm">{t('home.subjects.scienceWorksheets')}</h4>
             </div>
           </div>
         </div>
@@ -693,15 +693,15 @@ export function LandingPage({ onNavigateToGenerate }: LandingPageProps) {
                 <div className="bg-white/60 backdrop-blur-sm rounded-2xl p-4">
                   <div className="flex items-center space-x-3 mb-2">
                     <div className="w-3 h-3 bg-green-400 rounded-full"></div>
-                    <span className="text-sm font-medium text-slate-700">Grade Level: K-5</span>
+                    <span className="text-sm font-medium text-slate-700">{t('home.gradeLevelK5')}</span>
                   </div>
                   <div className="flex items-center space-x-3 mb-2">
                     <div className="w-3 h-3 bg-blue-400 rounded-full"></div>
-                    <span className="text-sm font-medium text-slate-700">Subjects: Math, Reading, Writing</span>
+                    <span className="text-sm font-medium text-slate-700">{t('home.subjectsList')}</span>
                   </div>
                   <div className="flex items-center space-x-3">
                     <div className="w-3 h-3 bg-purple-400 rounded-full"></div>
-                    <span className="text-sm font-medium text-slate-700">Answer Keys: Included</span>
+                    <span className="text-sm font-medium text-slate-700">{t('home.answerKeysIncluded')}</span>
                   </div>
                 </div>
               </div>
@@ -714,9 +714,9 @@ export function LandingPage({ onNavigateToGenerate }: LandingPageProps) {
                 <div className="w-16 h-16 bg-gradient-to-r from-blue-500 to-indigo-500 rounded-2xl flex items-center justify-center mb-6 group-hover:rotate-12 transition-transform duration-300">
                   <span className="text-2xl" aria-hidden="true">📚</span>
                 </div>
-                <h3 className="text-xl font-bold text-slate-900 mb-4">All Grade Levels Covered</h3>
+                <h3 className="text-xl font-bold text-slate-900 mb-4">{t('home.allGradeLevelsCovered')}</h3>
                 <p className="text-slate-700 leading-relaxed mb-4">
-                  Worksheets available for every grade from Kindergarten through 5th grade. Perfect for classroom use, homework, or extra practice.
+                  {t('home.allGradeLevelsDescription')}
                 </p>
                 <div className="grid grid-cols-5 gap-2 mt-6">
                   {['K', '1st', '2nd', '3rd', '4th-5th'].map((grade) => (
@@ -735,9 +735,9 @@ export function LandingPage({ onNavigateToGenerate }: LandingPageProps) {
                 <div className="w-12 h-12 bg-gradient-to-r from-green-500 to-emerald-500 rounded-xl flex items-center justify-center mb-4 group-hover:rotate-12 transition-transform duration-300">
                   <span className="text-xl" aria-hidden="true">🎯</span>
                 </div>
-                <h3 className="text-xl font-bold text-slate-900 mb-3">Answer Keys Included</h3>
+                <h3 className="text-xl font-bold text-slate-900 mb-3">{t('home.answerKeysIncludedTitle')}</h3>
                 <p className="text-slate-700 text-sm leading-relaxed">
-                  Every worksheet comes with a complete answer key, making grading quick and easy for teachers and parents.
+                  {t('home.answerKeysIncludedDescription')}
                 </p>
                 <div className="mt-4 bg-white/60 rounded-lg p-2">
                   <div className="bg-green-400 h-2 rounded-full" style={{width: '70%'}}></div>
@@ -752,9 +752,9 @@ export function LandingPage({ onNavigateToGenerate }: LandingPageProps) {
                 <div className="w-12 h-12 bg-gradient-to-r from-yellow-500 to-orange-500 rounded-xl flex items-center justify-center mb-4 group-hover:rotate-12 transition-transform duration-300">
                   <span className="text-xl" aria-hidden="true">👥</span>
                 </div>
-                <h3 className="text-xl font-bold text-slate-900 mb-3">Trusted by Teachers</h3>
+                <h3 className="text-xl font-bold text-slate-900 mb-3">{t('home.trustedByTeachers')}</h3>
                 <p className="text-slate-700 text-sm leading-relaxed">
-                  Used by thousands of teachers and parents worldwide. High-quality worksheets that align with educational standards.
+                  {t('home.trustedByTeachersDescription')}
                 </p>
                 <div className="flex -space-x-2 mt-4">
                   <div className="w-6 h-6 bg-gradient-to-r from-purple-400 to-pink-400 rounded-full border-2 border-white"></div>
@@ -797,12 +797,12 @@ export function LandingPage({ onNavigateToGenerate }: LandingPageProps) {
                   </div>
                   <div className="space-y-2">
                     <div className="flex items-center justify-between bg-white/60 rounded-lg p-2 text-sm">
-                      <span aria-hidden="true">🔢</span> Math
-                      <span aria-hidden="true">📖</span> Reading
+                      <span aria-hidden="true">🔢</span> {t('home.subjects.math')}
+                      <span aria-hidden="true">📖</span> {t('home.subjects.reading')}
                     </div>
                     <div className="flex items-center justify-between bg-white/60 rounded-lg p-2 text-sm">
-                      <span aria-hidden="true">✍️</span> Writing
-                      <span aria-hidden="true">🔬</span> Science
+                      <span aria-hidden="true">✍️</span> {t('home.subjects.writing')}
+                      <span aria-hidden="true">🔬</span> {t('home.subjects.science')}
                     </div>
                   </div>
                 </div>
@@ -872,11 +872,11 @@ export function LandingPage({ onNavigateToGenerate }: LandingPageProps) {
                   </div>
                   <div className="bg-white/60 rounded-lg p-3">
                     <div className="flex justify-between items-center mb-2">
-                      <span className="text-xs font-medium text-slate-600">PDF Ready</span>
+                      <span className="text-xs font-medium text-slate-600">{t('home.pdfReady')}</span>
                     </div>
                     <div className="flex items-center justify-center">
                       <span className="text-lg" aria-hidden="true">📄</span>
-                      <span className="ml-2 text-xs text-slate-600">Answer Key Included</span>
+                      <span className="ml-2 text-xs text-slate-600">{t('home.answerKeyIncluded')}</span>
                     </div>
                   </div>
                 </div>

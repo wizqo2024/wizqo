@@ -30,6 +30,89 @@ export const es = {
       printableAwards: 'Premios imprimibles y hojas de escritura',
       allGrades: 'Hojas de trabajo para todos los grados K-5',
     },
+    gradeCards: {
+      kindergarten: {
+        title: 'Matemáticas de Kindergarten',
+        description: 'Conteo, formas, patrones',
+      },
+      firstGrade: {
+        title: 'Matemáticas de 1er Grado',
+        description: 'Suma, resta, conteo',
+      },
+      secondGrade: {
+        title: 'Matemáticas de 2do Grado',
+        description: 'Multiplicación, división, problemas de palabras',
+      },
+      thirdGrade: {
+        title: 'Matemáticas de 3er Grado',
+        description: 'Fracciones, división, problemas de palabras',
+      },
+      fourthGrade: {
+        title: 'Matemáticas de 4to Grado',
+        description: 'Decimales, geometría, medición',
+      },
+      fifthGrade: {
+        title: 'Matemáticas de 5to Grado',
+        description: 'Álgebra, operaciones avanzadas',
+      },
+    },
+    gradeGridCards: {
+      kindergarten: {
+        title: 'Hojas de Trabajo de Matemáticas de Kindergarten',
+        description: 'Hojas de trabajo de matemáticas de kindergarten imprimibles gratis con claves de respuestas',
+      },
+      firstGrade: {
+        title: 'Hojas de Trabajo de Matemáticas de 1er Grado',
+        description: 'Hojas de trabajo de matemáticas de 1er grado PDF gratis con claves de respuestas',
+      },
+      secondGrade: {
+        title: 'Hojas de Trabajo de Matemáticas de 2do Grado',
+        description: 'Hojas de trabajo de multiplicación gratis para 2do grado con claves de respuestas',
+      },
+      thirdGrade: {
+        title: 'Hojas de Trabajo de Matemáticas de 3er Grado',
+        description: 'Hojas de trabajo de matemáticas de 3er grado PDF gratis con claves de respuestas',
+      },
+      fourthGrade: {
+        title: 'Hojas de Trabajo de Matemáticas de 4to Grado',
+        description: 'Hojas de trabajo de matemáticas de 4to grado PDF gratis con claves de respuestas',
+      },
+      fifthGrade: {
+        title: 'Hojas de Trabajo de Matemáticas de 5to Grado',
+        description: 'Hojas de trabajo de matemáticas de 5to grado PDF gratis con claves de respuestas',
+      },
+    },
+    subjects: {
+      math: 'Matemáticas',
+      reading: 'Lectura',
+      writing: 'Escritura',
+      science: 'Ciencias',
+      mathWorksheets: 'Hojas de Trabajo de Matemáticas',
+      readingWorksheets: 'Hojas de Trabajo de Lectura',
+      writingWorksheets: 'Hojas de Trabajo de Escritura',
+      scienceWorksheets: 'Hojas de Trabajo de Ciencias',
+    },
+    kidsHubGames: {
+      memory: 'Memoria',
+      wordSearch: 'Búsqueda de Palabras',
+      puzzle: 'Rompecabezas',
+      typing: 'Escritura',
+      printables: 'Imprimibles',
+      coloring: 'Colorear',
+    },
+    popularWorksheets: 'Hojas de trabajo populares',
+    gradeLevel: 'Nivel de Grado',
+    gradeLevelK5: 'Nivel de Grado: K-5',
+    subjectsList: 'Materias: Matemáticas, Lectura, Escritura',
+    answerKeysIncluded: 'Claves de Respuestas: Incluidas',
+    allGradeLevelsCovered: 'Todos los Niveles de Grado Cubiertos',
+    allGradeLevelsDescription: 'Hojas de trabajo disponibles para cada grado desde Kindergarten hasta 5to grado. Perfecto para uso en el aula, tareas o práctica adicional.',
+    answerKeysIncludedTitle: 'Claves de Respuestas Incluidas',
+    answerKeysIncludedDescription: 'Cada hoja de trabajo viene con una clave de respuestas completa, haciendo que la calificación sea rápida y fácil para maestros y padres.',
+    trustedByTeachers: 'Confiado por Maestros',
+    trustedByTeachersDescription: 'Utilizado por miles de maestros y padres en todo el mundo. Hojas de trabajo de alta calidad que se alinean con los estándares educativos.',
+    pdfReady: 'PDF Listo',
+    answerKeyIncluded: 'Clave de Respuestas Incluida',
     kidsHub: {
       title: 'Centro para Niños – Juegos de Aprendizaje Divertidos e Imprimibles',
       description: 'Juega juegos rápidos y amigables para niños que desarrollan concentración, vocabulario y lógica — además de rompecabezas imprimibles que puedes descargar y usar en casa.',

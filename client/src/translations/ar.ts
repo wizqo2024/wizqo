@@ -31,6 +31,89 @@ export const ar = {
       printableAwards: 'جوائز قابلة للطباعة وأوراق الكتابة',
       allGrades: 'أوراق عمل لجميع الصفوف K-5',
     },
+    gradeCards: {
+      kindergarten: {
+        title: 'رياضيات الروضة',
+        description: 'العد، الأشكال، الأنماط',
+      },
+      firstGrade: {
+        title: 'رياضيات الصف الأول',
+        description: 'الجمع، الطرح، العد',
+      },
+      secondGrade: {
+        title: 'رياضيات الصف الثاني',
+        description: 'الضرب، القسمة، مسائل الكلمات',
+      },
+      thirdGrade: {
+        title: 'رياضيات الصف الثالث',
+        description: 'الكسور، القسمة، مسائل الكلمات',
+      },
+      fourthGrade: {
+        title: 'رياضيات الصف الرابع',
+        description: 'الأعداد العشرية، الهندسة، القياس',
+      },
+      fifthGrade: {
+        title: 'رياضيات الصف الخامس',
+        description: 'الجبر، العمليات المتقدمة',
+      },
+    },
+    gradeGridCards: {
+      kindergarten: {
+        title: 'أوراق عمل رياضيات الروضة',
+        description: 'أوراق عمل رياضيات الروضة قابلة للطباعة مجاناً مع مفاتيح الإجابات',
+      },
+      firstGrade: {
+        title: 'أوراق عمل رياضيات الصف الأول',
+        description: 'أوراق عمل رياضيات الصف الأول PDF مجانية مع مفاتيح الإجابات',
+      },
+      secondGrade: {
+        title: 'أوراق عمل رياضيات الصف الثاني',
+        description: 'أوراق عمل الضرب المجانية للصف الثاني مع مفاتيح الإجابات',
+      },
+      thirdGrade: {
+        title: 'أوراق عمل رياضيات الصف الثالث',
+        description: 'أوراق عمل رياضيات الصف الثالث PDF مجانية مع مفاتيح الإجابات',
+      },
+      fourthGrade: {
+        title: 'أوراق عمل رياضيات الصف الرابع',
+        description: 'أوراق عمل رياضيات الصف الرابع PDF مجانية مع مفاتيح الإجابات',
+      },
+      fifthGrade: {
+        title: 'أوراق عمل رياضيات الصف الخامس',
+        description: 'أوراق عمل رياضيات الصف الخامس PDF مجانية مع مفاتيح الإجابات',
+      },
+    },
+    subjects: {
+      math: 'الرياضيات',
+      reading: 'القراءة',
+      writing: 'الكتابة',
+      science: 'العلوم',
+      mathWorksheets: 'أوراق عمل الرياضيات',
+      readingWorksheets: 'أوراق عمل القراءة',
+      writingWorksheets: 'أوراق عمل الكتابة',
+      scienceWorksheets: 'أوراق عمل العلوم',
+    },
+    kidsHubGames: {
+      memory: 'الذاكرة',
+      wordSearch: 'البحث عن الكلمات',
+      puzzle: 'الألغاز',
+      typing: 'الكتابة',
+      printables: 'القابلة للطباعة',
+      coloring: 'التلوين',
+    },
+    popularWorksheets: 'أوراق العمل الشائعة',
+    gradeLevel: 'مستوى الصف',
+    gradeLevelK5: 'مستوى الصف: K-5',
+    subjectsList: 'المواد: الرياضيات، القراءة، الكتابة',
+    answerKeysIncluded: 'مفاتيح الإجابات: متضمنة',
+    allGradeLevelsCovered: 'جميع مستويات الصفوف مغطاة',
+    allGradeLevelsDescription: 'أوراق عمل متاحة لكل صف من الروضة حتى الصف الخامس. مثالي للاستخدام في الفصل أو الواجبات المنزلية أو الممارسة الإضافية.',
+    answerKeysIncludedTitle: 'مفاتيح الإجابات متضمنة',
+    answerKeysIncludedDescription: 'كل ورقة عمل تأتي مع مفتاح إجابات كامل، مما يجعل التصحيح سريعاً وسهلاً للمعلمين والآباء.',
+    trustedByTeachers: 'موثوق من قبل المعلمين',
+    trustedByTeachersDescription: 'يستخدمه آلاف المعلمين والآباء في جميع أنحاء العالم. أوراق عمل عالية الجودة تتماشى مع المعايير التعليمية.',
+    pdfReady: 'PDF جاهز',
+    answerKeyIncluded: 'مفتاح الإجابات متضمن',
     kidsHub: {
       title: 'مركز الأطفال – ألعاب تعليمية ممتعة ومواد قابلة للطباعة',
       description: 'العب ألعاباً سريعة ومناسبة للأطفال تبني التركيز والمفردات والمنطق — بالإضافة إلى الألغاز القابلة للطباعة التي يمكنك تنزيلها واستخدامها في المنزل.',

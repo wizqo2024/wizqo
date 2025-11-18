@@ -27,6 +27,89 @@ export const en = {
       printableAwards: 'Printable awards & handwriting sheets',
       allGrades: 'Worksheets for all grades K-5',
     },
+    gradeCards: {
+      kindergarten: {
+        title: 'Kindergarten Math',
+        description: 'Counting, shapes, patterns',
+      },
+      firstGrade: {
+        title: '1st Grade Math',
+        description: 'Addition, subtraction, counting',
+      },
+      secondGrade: {
+        title: '2nd Grade Math',
+        description: 'Multiplication, division, word problems',
+      },
+      thirdGrade: {
+        title: '3rd Grade Math',
+        description: 'Fractions, division, word problems',
+      },
+      fourthGrade: {
+        title: '4th Grade Math',
+        description: 'Decimals, geometry, measurement',
+      },
+      fifthGrade: {
+        title: '5th Grade Math',
+        description: 'Algebra, advanced operations',
+      },
+    },
+    gradeGridCards: {
+      kindergarten: {
+        title: 'Kindergarten Math Worksheets',
+        description: 'Free printable kindergarten math worksheets with answer keys',
+      },
+      firstGrade: {
+        title: '1st Grade Math Worksheets',
+        description: 'Free 1st grade math worksheets PDF with answer keys',
+      },
+      secondGrade: {
+        title: '2nd Grade Math Worksheets',
+        description: 'Free multiplication worksheets for 2nd grade with answer keys',
+      },
+      thirdGrade: {
+        title: '3rd Grade Math Worksheets',
+        description: 'Free 3rd grade math worksheets PDF with answer keys',
+      },
+      fourthGrade: {
+        title: '4th Grade Math Worksheets',
+        description: 'Free 4th grade math worksheets PDF with answer keys',
+      },
+      fifthGrade: {
+        title: '5th Grade Math Worksheets',
+        description: 'Free 5th grade math worksheets PDF with answer keys',
+      },
+    },
+    subjects: {
+      math: 'Math',
+      reading: 'Reading',
+      writing: 'Writing',
+      science: 'Science',
+      mathWorksheets: 'Math Worksheets',
+      readingWorksheets: 'Reading Worksheets',
+      writingWorksheets: 'Writing Worksheets',
+      scienceWorksheets: 'Science Worksheets',
+    },
+    kidsHubGames: {
+      memory: 'Memory',
+      wordSearch: 'Word Search',
+      puzzle: 'Puzzle',
+      typing: 'Typing',
+      printables: 'Printables',
+      coloring: 'Coloring',
+    },
+    popularWorksheets: 'Popular worksheets',
+    gradeLevel: 'Grade Level',
+    gradeLevelK5: 'Grade Level: K-5',
+    subjectsList: 'Subjects: Math, Reading, Writing',
+    answerKeysIncluded: 'Answer Keys: Included',
+    allGradeLevelsCovered: 'All Grade Levels Covered',
+    allGradeLevelsDescription: 'Worksheets available for every grade from Kindergarten through 5th grade. Perfect for classroom use, homework, or extra practice.',
+    answerKeysIncludedTitle: 'Answer Keys Included',
+    answerKeysIncludedDescription: 'Every worksheet comes with a complete answer key, making grading quick and easy for teachers and parents.',
+    trustedByTeachers: 'Trusted by Teachers',
+    trustedByTeachersDescription: 'Used by thousands of teachers and parents worldwide. High-quality worksheets that align with educational standards.',
+    pdfReady: 'PDF Ready',
+    answerKeyIncluded: 'Answer Key Included',
     kidsHub: {
       title: 'Kids Hub – Fun Learning Games & Printables',
       description: 'Play quick, kid‑friendly games that build focus, vocabulary, and logic — plus printable puzzles you can download and use at home.',
