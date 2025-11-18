@@ -34,7 +34,7 @@ import TimesTableMultiplicationWorksheetsPage from './pages/TimesTableMultiplica
 import { ErrorBoundary } from './components/ErrorBoundary';
 import { initAnalytics, trackPageView, trackUserFlow } from './utils/analytics';
 import { TranslationProvider } from './context/TranslationContext';
-// (duplicate import removed)
+import { parseLocaleFromPath, addLocaleToPath, removeLocaleFromPath, getLocaleFromURL, shouldAddLocale } from './utils/locale';
 
 
 type QuizAnswers = {
@@ -107,12 +107,6 @@ export default function App() {
     return path || '/';
   });
   const [isNavigating, setIsNavigating] = useState(false);
-  
-  // Import locale utilities
-  const { parseLocaleFromPath, addLocaleToPath, removeLocaleFromPath, getLocaleFromURL, shouldAddLocale } = React.useMemo(() => {
-    // Dynamic import to avoid SSR issues
-    return require('@/utils/locale');
-  }, []);
   
   // NEW: Navigation function that updates URL properly and preserves locale
   const navigateTo = React.useCallback((path: string) => {
