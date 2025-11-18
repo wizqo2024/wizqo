@@ -4,6 +4,7 @@
 
 export const es = {
   common: {
+    home: 'Inicio',
     challengeYourself: 'Desafíate (Opcional):',
     howDidYouDo: '¿Cómo te fue?',
     myScore: 'Mi puntuación:',
@@ -1524,6 +1525,51 @@ export const es = {
       categoriesSelected: 'Categorías seleccionadas',
       gradeSelected: 'Grado seleccionado',
       filtersAtAGlance: 'Filtros de un vistazo',
+      seoTitle: 'Generador de Hojas de Trabajo Interactivas Gratis | Crear PDFs | Wizqo',
+      noStudentsAdded: 'No se han agregado estudiantes todavía. Haz clic en "Agregar Estudiante" para agregar nombres.',
+      faqTitle: 'Preguntas frecuentes sobre hojas de trabajo interactivas',
+      faq: {
+        q1: {
+          question: '¿Son realmente gratuitas estas hojas de trabajo interactivas?',
+          answer: 'Sí. Cada paquete de hojas de trabajo interactivas en Wizqo es 100% gratuito para generar y descargar como PDF. No se requiere cuenta ni tarjeta de crédito.',
+        },
+        q2: {
+          question: '¿Cómo obtengo un conjunto nuevo cada día?',
+          answer: 'El generador usa una semilla diaria para que cada día del calendario desbloquee una combinación única. Haz clic en "Regenerar" para variantes adicionales si necesitas más de un conjunto.',
+        },
+        q3: {
+          question: '¿Puedo elegir el nivel de grado y las materias?',
+          answer: 'Absolutamente. Usa la barra lateral de filtros para elegir una banda de grado más hasta diez categorías populares como Matemáticas, Lectura, Ciencias, SEL y Aprendizaje Temprano.',
+        },
+        q4: {
+          question: '¿Los PDFs imprimibles incluyen claves de respuestas?',
+          answer: 'Sí. Cada paquete de hojas de trabajo interactivas incluye un apéndice de respuestas imprimible para que puedas revisar el trabajo rápidamente o enviarlo a casa con las familias.',
+        },
+        q5: {
+          question: '¿Puedo usar estas hojas de trabajo interactivas en mi aula?',
+          answer: 'Los maestros, tutores, educadores en casa y terapeutas pueden usar e imprimir libremente estos recursos para los estudiantes. Solo pedimos que mantengas el crédito del pie de página de Wizqo intacto.',
+        },
+      },
+      howTo: {
+        name: 'Cómo Crear Hojas de Trabajo Interactivas Gratis',
+        description: 'Genera hojas de trabajo únicas ilimitadas para matemáticas, lectura, escritura y más en segundos',
+        step1: {
+          name: 'Seleccionar Nivel de Grado',
+          text: 'Elige tu nivel de grado de Preescolar, K-1, 2do-3ro, 4to-5to o Escuela Media',
+        },
+        step2: {
+          name: 'Elegir Materias',
+          text: 'Selecciona una o más materias como Matemáticas, Lectura, Escritura, Ciencias o Pensamiento Crítico',
+        },
+        step3: {
+          name: 'Generar Hojas de Trabajo',
+          text: 'Haz clic en Generar para crear tu paquete de hojas de trabajo personalizado con claves de respuestas',
+        },
+        step4: {
+          name: 'Descargar PDF',
+          text: 'Descarga tus hojas de trabajo como PDF imprimible e imprime tantas copias como necesites',
+        },
+      },
     },
     printables: {
       title: 'Centro de Imprimibles Gratis',

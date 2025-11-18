@@ -516,12 +516,13 @@ const FAQ_ITEMS = [
 
 const FAQ_SCRIPT_ID = 'interactive-worksheets-faq-schema'
 
-function useFaqSchema() {
+function useFaqSchema(t: (key: string) => string) {
   React.useEffect(() => {
+    const faqItems = getFAQItems(t)
     const faqSchema = {
       '@context': 'https://schema.org',
       '@type': 'FAQPage',
-      mainEntity: FAQ_ITEMS.map((item) => ({
+      mainEntity: faqItems.map((item) => ({
         '@type': 'Question',
         name: item.question,
         acceptedAnswer: {
@@ -534,32 +535,32 @@ function useFaqSchema() {
     const howToSchema = {
       '@context': 'https://schema.org',
       '@type': 'HowTo',
-      name: 'How to Create Free Interactive Worksheets',
-      description: 'Generate unlimited unique worksheets for math, reading, writing, and more in seconds',
+      name: t('pages.interactive.howTo.name'),
+      description: t('pages.interactive.howTo.description'),
       step: [
         {
           '@type': 'HowToStep',
           position: 1,
-          name: 'Select Grade Level',
-          text: 'Choose your grade level from Preschool, K-1, 2nd-3rd, 4th-5th, or Middle School',
+          name: t('pages.interactive.howTo.step1.name'),
+          text: t('pages.interactive.howTo.step1.text'),
         },
         {
           '@type': 'HowToStep',
           position: 2,
-          name: 'Choose Subjects',
-          text: 'Select one or more subjects like Math, Reading, Writing, Science, or Critical Thinking',
+          name: t('pages.interactive.howTo.step2.name'),
+          text: t('pages.interactive.howTo.step2.text'),
         },
         {
           '@type': 'HowToStep',
           position: 3,
-          name: 'Generate Worksheets',
-          text: 'Click Generate to create your personalized worksheet pack with answer keys',
+          name: t('pages.interactive.howTo.step3.name'),
+          text: t('pages.interactive.howTo.step3.text'),
         },
         {
           '@type': 'HowToStep',
           position: 4,
-          name: 'Download PDF',
-          text: 'Download your worksheets as a printable PDF and print as many copies as needed',
+          name: t('pages.interactive.howTo.step4.name'),
+          text: t('pages.interactive.howTo.step4.text'),
         },
       ],
     }
@@ -594,11 +595,12 @@ function useFaqSchema() {
         if (howTo) document.head.removeChild(howTo)
       } catch {}
     }
-  }, [])
+  }, [t])
 }
 
 export function InteractiveWorksheetsPage() {
   const { t, isRTL } = useTranslation()
+  useFaqSchema(t)
   const [filters, setFilters] = React.useState<FiltersState>(() => parseInitialFilters())
   const [pack, setPack] = React.useState<InteractiveWorksheetPack | null>(null)
   const [loading, setLoading] = React.useState(false)
@@ -1056,7 +1058,7 @@ export function InteractiveWorksheetsPage() {
   return (
     <div className="min-h-screen bg-slate-50">
       <SEOMetaTags
-        title="Free Interactive Worksheets Generator | Create PDFs | Wizqo"
+        title={t('pages.interactive.seoTitle')}
         description="Generate free interactive worksheets for math, reading, science, and SEL. Create printable PDF worksheets with answer keys for all grades (K-5). Daily refresh with new problems. No sign-up required!"
         keywords="interactive worksheets generator, free worksheet generator, printable worksheets generator, create worksheets online, math worksheet generator, reading worksheet generator, free worksheet maker, interactive math worksheets, printable PDF worksheets, worksheet generator with answer keys, grade-specific worksheets, K-5 worksheets"
         canonicalUrl="https://wizqo.com/interactive-worksheets-generator"
@@ -1073,7 +1075,7 @@ export function InteractiveWorksheetsPage() {
                 </span>
                 <h1 className="text-3xl font-bold tracking-tight text-slate-900 sm:text-4xl lg:text-5xl">
                   <Shuffle 
-                    text="Free Interactive Worksheets Generator"
+                    text={t('pages.interactive.title')}
                     tag="span"
                     className="block"
                     textAlign="left"
@@ -1373,9 +1375,9 @@ export function InteractiveWorksheetsPage() {
 
         <section className="bg-white py-16">
           <div className="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8">
-            <h2 className="text-2xl font-semibold text-slate-900">Interactive worksheets FAQs</h2>
+            <h2 className="text-2xl font-semibold text-slate-900">{t('pages.interactive.faqTitle')}</h2>
             <dl className="mt-6 space-y-6">
-              {FAQ_ITEMS.map((item) => (
+              {getFAQItems(t).map((item) => (
                 <div key={item.question} className="rounded-2xl border border-slate-200 bg-slate-50 p-5">
                   <dt className="font-semibold text-slate-900">{item.question}</dt>
                   <dd className="mt-2 text-sm text-slate-600">{item.answer}</dd>
@@ -1557,7 +1559,7 @@ export function InteractiveWorksheetsPage() {
                 </button>
               </div>
               {customization.studentNames.length === 0 ? (
-                <p className="text-sm text-slate-500 italic">No students added yet. Click "Add Student" to add names.</p>
+                <p className="text-sm text-slate-500 italic">{t('pages.interactive.noStudentsAdded')}</p>
               ) : (
                 <div className="space-y-2">
                   {customization.studentNames.map((name, index) => (

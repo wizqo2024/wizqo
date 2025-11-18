@@ -1,6 +1,7 @@
 // English translations (default/base language)
 export const en = {
   common: {
+    home: 'Home',
     challengeYourself: 'Challenge Yourself (Optional):',
     howDidYouDo: 'How did you do?',
     myScore: 'My score:',
@@ -1521,6 +1522,51 @@ export const en = {
       categoriesSelected: 'Categories selected',
       gradeSelected: 'Grade selected',
       filtersAtAGlance: 'Filters at a glance',
+      seoTitle: 'Free Interactive Worksheets Generator | Create PDFs | Wizqo',
+      noStudentsAdded: 'No students added yet. Click "Add Student" to add names.',
+      faqTitle: 'Interactive worksheets FAQs',
+      faq: {
+        q1: {
+          question: 'Are these interactive worksheets really free?',
+          answer: 'Yes. Every interactive worksheet pack on Wizqo is 100% free to generate and download as a PDF. No account or credit card required.',
+        },
+        q2: {
+          question: 'How do I get a fresh set every day?',
+          answer: 'The generator uses a daily seed so each calendar day unlocks a unique combination. Click "Regenerate" for additional variants if you need more than one set.',
+        },
+        q3: {
+          question: 'Can I choose the grade level and subjects?',
+          answer: 'Absolutely. Use the filter sidebar to pick a grade band plus up to ten in-demand categories like Math, Reading, Science, SEL, and Early Learning.',
+        },
+        q4: {
+          question: 'Do the printable PDFs include answer keys?',
+          answer: 'Yes. Every interactive worksheet bundle includes a printable answer appendix so you can check work quickly or send home with families.',
+        },
+        q5: {
+          question: 'May I use these interactive worksheets in my classroom?',
+          answer: 'Teachers, tutors, homeschoolers, and therapists can freely use and print these resources for students. We just ask that you keep the Wizqo footer credit intact.',
+        },
+      },
+      howTo: {
+        name: 'How to Create Free Interactive Worksheets',
+        description: 'Generate unlimited unique worksheets for math, reading, writing, and more in seconds',
+        step1: {
+          name: 'Select Grade Level',
+          text: 'Choose your grade level from Preschool, K-1, 2nd-3rd, 4th-5th, or Middle School',
+        },
+        step2: {
+          name: 'Choose Subjects',
+          text: 'Select one or more subjects like Math, Reading, Writing, Science, or Critical Thinking',
+        },
+        step3: {
+          name: 'Generate Worksheets',
+          text: 'Click Generate to create your personalized worksheet pack with answer keys',
+        },
+        step4: {
+          name: 'Download PDF',
+          text: 'Download your worksheets as a printable PDF and print as many copies as needed',
+        },
+      },
     },
     printables: {
       title: 'Free Printables Hub',

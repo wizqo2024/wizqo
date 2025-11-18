@@ -182,23 +182,28 @@ export default function KidsPage() {
           mainEntity: [
             {
               "@type": "Question",
-              name: "How can I make learning fun for my child?",
-              acceptedAnswer: { "@type": "Answer", text: "Turn lessons into games, use printable puzzles, and encourage creativity through art or short challenges." }
+              name: t('pages.kids.faq.q1.question'),
+              acceptedAnswer: { "@type": "Answer", text: t('pages.kids.faq.q1.answer') }
             },
             {
               "@type": "Question",
-              name: "What are the best fun learning games for kids online?",
-              acceptedAnswer: { "@type": "Answer", text: "Memory Match improves focus and Word Search builds vocabulary. These quick, browser‑based games help kids learn new words and enjoy learning." }
+              name: t('pages.kids.faq.q2.question'),
+              acceptedAnswer: { "@type": "Answer", text: t('pages.kids.faq.q2.answer') }
             },
             {
               "@type": "Question",
-              name: "What printable activities help kids learn better?",
-              acceptedAnswer: { "@type": "Answer", text: "Printable puzzles like Sudoku, Word Search, and Spot‑the‑Difference improve problem‑solving and attention to detail. Coloring pages support creativity and relaxation." }
+              name: t('pages.kids.faq.q3.question'),
+              acceptedAnswer: { "@type": "Answer", text: t('pages.kids.faq.q3.answer') }
             },
             {
               "@type": "Question",
-              name: "What fun skills can kids learn in a week?",
-              acceptedAnswer: { "@type": "Answer", text: "Kids can build creative skills in just seven days with plans like Origami Basics or Drawing Animals that teach patience, focus, and creativity." }
+              name: t('pages.kids.faq.q4.question'),
+              acceptedAnswer: { "@type": "Answer", text: t('pages.kids.faq.q4.answer') }
+            },
+            {
+              "@type": "Question",
+              name: t('pages.kids.faq.q5.question'),
+              acceptedAnswer: { "@type": "Answer", text: t('pages.kids.faq.q5.answer') }
             }
           ]
         } as const;
@@ -206,8 +211,8 @@ export default function KidsPage() {
           "@context": "https://schema.org",
           "@type": "BreadcrumbList",
           itemListElement: [
-            { "@type": "ListItem", position: 1, name: "Home", item: "https://wizqo.com/" },
-            { "@type": "ListItem", position: 2, name: "Kids Hub", item: "https://wizqo.com/kids" }
+            { "@type": "ListItem", position: 1, name: t('common.home'), item: "https://wizqo.com/" },
+            { "@type": "ListItem", position: 2, name: t('pages.kids.title'), item: "https://wizqo.com/kids" }
           ]
         } as const;
         return (
