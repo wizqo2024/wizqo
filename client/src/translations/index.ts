@@ -167,8 +167,8 @@ const ensureInteractiveWorksheetKeys = () => {
       const worksheets = langTranslations.worksheets
       const keys = interactiveKeys[lang]
       
-      // Only merge if keys are missing (to avoid overwriting if they exist)
-      if (!worksheets.countObjectsAndWriteNumber) {
+      // Always merge to ensure complete translations (even if key exists, it might be incomplete due to tree-shaking)
+      if (keys.countObjectsAndWriteNumber) {
         worksheets.countObjectsAndWriteNumber = keys.countObjectsAndWriteNumber
       }
       if (!worksheets.countThe) {
