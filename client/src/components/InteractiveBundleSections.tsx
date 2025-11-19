@@ -751,7 +751,7 @@ const renderers: Record<string, Renderer> = {
     )
   },
   'interactive-math-race': (ctx) => {
-    const { doc, category, seed, variant, t } = ctx
+    const { doc, category, seed, variant, t, formatNum } = ctx
     const problems = buildMathRace(seed, doc.id, variant)
     return (
       <div className="space-y-3">
@@ -761,7 +761,7 @@ const renderers: Record<string, Renderer> = {
         <div className="grid grid-cols-3 gap-3">
           {problems.map((prob, idx) => (
             <div key={idx} className="rounded-lg border border-slate-200 bg-white px-3 py-2 text-center text-lg font-semibold tracking-wide">
-              {prob.first} {prob.op} {prob.second} =
+              {formatNum(prob.first)} {prob.op} {formatNum(prob.second)} =
             </div>
           ))}
         </div>
@@ -5202,13 +5202,13 @@ const answerRenderers: Record<string, AnswerRenderer> = {
     )
   },
   'interactive-math-race': (ctx) => {
-    const { doc, seed, variant } = ctx
+    const { doc, seed, variant, formatNum } = ctx
     const problems = buildMathRace(seed, doc.id, variant)
     return (
       <div className="grid grid-cols-2 gap-2 text-sm sm:grid-cols-3">
         {problems.map((prob, idx) => (
           <div key={idx} className="rounded border border-emerald-200 bg-white px-3 py-2 font-semibold text-emerald-800">
-            {prob.first} {prob.op} {prob.second} = {prob.answer}
+            {formatNum(prob.first)} {prob.op} {formatNum(prob.second)} = {formatNum(prob.answer)}
           </div>
         ))}
       </div>
