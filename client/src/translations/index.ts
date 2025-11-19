@@ -57,6 +57,9 @@ const ensureWorksheetKeys = () => {
   
   // Then, ensure count-circle-1-10 worksheet keys
   ensureCountCircleKeys()
+  
+  // Then, ensure mult-facts-0-12 worksheet keys
+  ensureMultFactsKeys()
 }
 
 const ensureInteractiveWorksheetKeys = () => {
@@ -575,6 +578,198 @@ const ensureCountCircleKeys = () => {
       // Only merge if keys are missing (to avoid overwriting if they exist)
       if (keys['count-circle-1-10'] && !worksheets['count-circle-1-10']) {
         worksheets['count-circle-1-10'] = keys['count-circle-1-10']
+      }
+    }
+  }
+}
+
+// Ensure mult-facts-0-12 worksheet keys are present
+const ensureMultFactsKeys = () => {
+  // Define the keys directly to prevent tree-shaking - hardcode the full structure
+  const multFactsKeys = {
+    en: {
+      'mult-facts-0-12': {
+        title: 'Multiplication Facts 0–12',
+        description: 'Practice all multiplication facts from 0×0 to 12×12. Build speed and accuracy.',
+        learningObjectives: [
+          'Master multiplication facts from 0×0 to 12×12',
+          'Build speed and accuracy with multiplication facts',
+          'Memorize multiplication tables',
+          'Develop fact fluency for mental math',
+        ],
+        parentTeacherTips: [
+          'Practice daily for 5-10 minutes for best results',
+          'Use strategies: doubles (6×6), skip counting, or arrays',
+          'Start with easier facts (0s, 1s, 2s, 5s, 10s) and work up',
+          'Use flashcards or games to make practice fun',
+          'Extension: Time yourself and try to beat your record',
+        ],
+        example: {
+          title: '📚 Example - Let\'s solve this together:',
+          problem: 'Problem:',
+          problemText: '6 × 4 = ?',
+          strategy1: 'Strategy 1 (Skip counting):',
+          strategy1Text: 'Count by 4s: 4, 8, 12, 16, 20, 24 (6 times)',
+          strategy2: 'Strategy 2 (Arrays):',
+          strategy2Text: '6 rows of 4 = 24',
+          strategy3: 'Strategy 3 (Doubles):',
+          strategy3Text: '6 × 2 = 12, so 6 × 4 = 12 + 12 = 24',
+          answer: 'Answer:',
+          answerText: '24',
+          tip: '💡 Tip: Use the strategy that works best for you! Practice helps you memorize facts faster!',
+        },
+        challenge: {
+          title: '🌟 Challenge Yourself (Optional):',
+          items: [
+            'Time yourself: How fast can you solve all 20 problems?',
+            'Try solving: 13 × 5 = ? and 11 × 12 = ?',
+            'Create your own multiplication problems and solve them',
+          ],
+        },
+        selfAssessment: {
+          title: '📊 How did you do?',
+          items: [
+            'I can solve multiplication facts quickly',
+            'I know my multiplication facts from 0-12',
+            'I solved all {count} problems correctly',
+          ],
+          score: 'My score:',
+          time: 'My time:',
+          minutes: 'minutes',
+          hardest: 'What was hardest?',
+        },
+        answerKey: {
+          title: '✅ Answer Key',
+          remember: '💡 Remember: Practice makes perfect! Keep practicing your multiplication facts daily to build speed and accuracy!',
+        },
+      },
+    },
+    es: {
+      'mult-facts-0-12': {
+        title: 'Operaciones de Multiplicación 0–12',
+        description: 'Practica todas las operaciones de multiplicación del 0×0 al 12×12. Desarrolla velocidad y precisión.',
+        learningObjectives: [
+          'Dominar las operaciones de multiplicación del 0×0 al 12×12',
+          'Desarrollar velocidad y precisión con operaciones de multiplicación',
+          'Memorizar las tablas de multiplicar',
+          'Desarrollar fluidez en operaciones para cálculo mental',
+        ],
+        parentTeacherTips: [
+          'Practica diariamente durante 5-10 minutos para mejores resultados',
+          'Usa estrategias: dobles (6×6), conteo saltado o matrices',
+          'Comienza con operaciones más fáciles (0s, 1s, 2s, 5s, 10s) y avanza',
+          'Usa tarjetas o juegos para hacer la práctica divertida',
+          'Extensión: Cronométrate e intenta superar tu récord',
+        ],
+        example: {
+          title: '📚 Ejemplo - Resolvamos esto juntos:',
+          problem: 'Problema:',
+          problemText: '6 × 4 = ?',
+          strategy1: 'Estrategia 1 (Conteo saltado):',
+          strategy1Text: 'Cuenta de 4 en 4: 4, 8, 12, 16, 20, 24 (6 veces)',
+          strategy2: 'Estrategia 2 (Matrices):',
+          strategy2Text: '6 filas de 4 = 24',
+          strategy3: 'Estrategia 3 (Dobles):',
+          strategy3Text: '6 × 2 = 12, entonces 6 × 4 = 12 + 12 = 24',
+          answer: 'Respuesta:',
+          answerText: '24',
+          tip: '💡 Consejo: ¡Usa la estrategia que mejor funcione para ti! ¡La práctica te ayuda a memorizar las operaciones más rápido!',
+        },
+        challenge: {
+          title: '🌟 Desafíate (Opcional):',
+          items: [
+            'Cronométrate: ¿Qué tan rápido puedes resolver los 20 problemas?',
+            'Intenta resolver: 13 × 5 = ? y 11 × 12 = ?',
+            'Crea tus propios problemas de multiplicación y resuélvelos',
+          ],
+        },
+        selfAssessment: {
+          title: '📊 ¿Cómo te fue?',
+          items: [
+            'Puedo resolver operaciones de multiplicación rápidamente',
+            'Conozco mis operaciones de multiplicación del 0-12',
+            'Resolví correctamente todos los {count} problemas',
+          ],
+          score: 'Mi puntuación:',
+          time: 'Mi tiempo:',
+          minutes: 'minutos',
+          hardest: '¿Qué fue lo más difícil?',
+        },
+        answerKey: {
+          title: '✅ Clave de Respuestas',
+          remember: '💡 Recuerda: ¡La práctica hace la perfección! ¡Sigue practicando tus operaciones de multiplicación diariamente para desarrollar velocidad y precisión!',
+        },
+      },
+    },
+    ar: {
+      'mult-facts-0-12': {
+        title: 'حقائق الضرب 0–12',
+        description: 'تدرب على جميع حقائق الضرب من 0×0 إلى 12×12. بناء السرعة والدقة.',
+        learningObjectives: [
+          'إتقان حقائق الضرب من 0×0 إلى 12×12',
+          'بناء السرعة والدقة مع حقائق الضرب',
+          'حفظ جداول الضرب',
+          'تطوير الطلاقة في الحقائق للحساب الذهني',
+        ],
+        parentTeacherTips: [
+          'تدرب يومياً لمدة 5-10 دقائق للحصول على أفضل النتائج',
+          'استخدم الاستراتيجيات: المضاعفات (6×6)، العد المتخطي، أو المصفوفات',
+          'ابدأ بحقائق أسهل (0s، 1s، 2s، 5s، 10s) واعمل حتى',
+          'استخدم البطاقات التعليمية أو الألعاب لجعل الممارسة ممتعة',
+          'التمديد: قم بتوقيت نفسك وحاول تحطيم رقمك القياسي',
+        ],
+        example: {
+          title: '📚 مثال - دعنا نحل هذا معاً:',
+          problem: 'المشكلة:',
+          problemText: '6 × 4 = ?',
+          strategy1: 'الاستراتيجية 1 (العد المتخطي):',
+          strategy1Text: 'عد بالـ 4: 4، 8، 12، 16، 20، 24 (6 مرات)',
+          strategy2: 'الاستراتيجية 2 (المصفوفات):',
+          strategy2Text: '6 صفوف من 4 = 24',
+          strategy3: 'الاستراتيجية 3 (المضاعفات):',
+          strategy3Text: '6 × 2 = 12، إذن 6 × 4 = 12 + 12 = 24',
+          answer: 'الإجابة:',
+          answerText: '24',
+          tip: '💡 نصيحة: استخدم الاستراتيجية التي تناسبك أكثر! الممارسة تساعدك على حفظ الحقائق بشكل أسرع!',
+        },
+        challenge: {
+          title: '🌟 تحدى نفسك (اختياري):',
+          items: [
+            'قم بتوقيت نفسك: ما مدى سرعة حل جميع المشاكل الـ 20؟',
+            'حاول حل: 13 × 5 = ? و 11 × 12 = ?',
+            'أنشئ مشاكل الضرب الخاصة بك وحلها',
+          ],
+        },
+        selfAssessment: {
+          title: '📊 كيف كان أداؤك؟',
+          items: [
+            'يمكنني حل حقائق الضرب بسرعة',
+            'أعرف حقائق الضرب من 0-12',
+            'حللت جميع المشاكل الـ {count} بشكل صحيح',
+          ],
+          score: 'نقاطي:',
+          time: 'وقتي:',
+          minutes: 'دقائق',
+          hardest: 'ما كان الأصعب؟',
+        },
+        answerKey: {
+          title: '✅ مفتاح الإجابات',
+          remember: '💡 تذكر: الممارسة تصنع الكمال! استمر في ممارسة حقائق الضرب يومياً لبناء السرعة والدقة!',
+        },
+      },
+    },
+  }
+
+  // Merge into translations object if keys are missing
+  for (const lang of ['en', 'es', 'ar'] as const) {
+    const langTranslations = (translations as any)[lang]
+    if (langTranslations && langTranslations.worksheets) {
+      const worksheets = langTranslations.worksheets
+      const keys = multFactsKeys[lang]
+      
+      // Only merge if keys are missing (to avoid overwriting if they exist)
+      if (keys['mult-facts-0-12'] && !worksheets['mult-facts-0-12']) {
+        worksheets['mult-facts-0-12'] = keys['mult-facts-0-12']
       }
     }
   }

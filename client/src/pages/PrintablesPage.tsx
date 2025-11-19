@@ -19193,6 +19193,7 @@ export function PrintablesPage() {
 
         {/* 3rd Grade Worksheets */}
         {activeDocs.includes('mult-facts-0-12') && (() => {
+          const docId = 'mult-facts-0-12'
           const rng = makeRng(`${effectiveSeed}|v${variant}|doc=${doc}`)
           const problems = Array.from({ length: 20 }, () => {
             const a = Math.floor(rng() * 13)
@@ -19201,37 +19202,45 @@ export function PrintablesPage() {
           })
           return (
             <WorksheetSectionWrapper
-              docId="mult-facts-0-12"
-              title="Multiplication Facts 0–12"
+              docId={docId}
+              title={getTrans(`worksheets.${docId}.title`, 'Multiplication Facts 0–12')}
               emoji="✖️"
-              description="Practice all multiplication facts from 0×0 to 12×12. Build speed and accuracy."
+              description={getTrans(`worksheets.${docId}.description`, 'Practice all multiplication facts from 0×0 to 12×12. Build speed and accuracy.')}
               problemCount={problems.length}
-              learningObjectives={[
-                'Master multiplication facts from 0×0 to 12×12',
-                'Build speed and accuracy with multiplication facts',
-                'Memorize multiplication tables',
-                'Develop fact fluency for mental math'
-              ]}
-              parentTeacherTips={[
-                'Practice daily for 5-10 minutes for best results',
-                'Use strategies: doubles (6×6), skip counting, or arrays',
-                'Start with easier facts (0s, 1s, 2s, 5s, 10s) and work up',
-                'Use flashcards or games to make practice fun',
-                'Extension: Time yourself and try to beat your record'
-              ]}
+              learningObjectives={(() => {
+                const obj = t(`worksheets.${docId}.learningObjectives`)
+                if (Array.isArray(obj) && obj.length > 0 && typeof obj[0] === 'string') return obj
+                return [
+                  'Master multiplication facts from 0×0 to 12×12',
+                  'Build speed and accuracy with multiplication facts',
+                  'Memorize multiplication tables',
+                  'Develop fact fluency for mental math'
+                ]
+              })()}
+              parentTeacherTips={(() => {
+                const tips = t(`worksheets.${docId}.parentTeacherTips`)
+                if (Array.isArray(tips) && tips.length > 0 && typeof tips[0] === 'string') return tips
+                return [
+                  'Practice daily for 5-10 minutes for best results',
+                  'Use strategies: doubles (6×6), skip counting, or arrays',
+                  'Start with easier facts (0s, 1s, 2s, 5s, 10s) and work up',
+                  'Use flashcards or games to make practice fun',
+                  'Extension: Time yourself and try to beat your record'
+                ]
+              })()}
             >
               <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-purple-400 to-pink-400 animate-gradient-x mb-2" />
               {/* Worked Example */}
               <div className="mb-6 p-4 bg-blue-50 border-2 border-blue-200 rounded-lg print:border print:bg-white">
-                <div className="font-semibold text-blue-900 mb-3 text-sm">📚 Example - Let's solve this together:</div>
+                <div className="font-semibold text-blue-900 mb-3 text-sm">{getTrans(`worksheets.${docId}.example.title`, '📚 Example - Let\'s solve this together:')}</div>
                 <div className="space-y-2 text-sm">
-                  <div className="font-mono text-base"><strong>Problem:</strong> 6 × 4 = ?</div>
+                  <div className="font-mono text-base"><strong>{getTrans(`worksheets.${docId}.example.problem`, 'Problem:')}</strong> {getTrans(`worksheets.${docId}.example.problemText`, '6 × 4 = ?')}</div>
                   <div className="pl-4 border-l-2 border-blue-300 space-y-1">
-                    <div><strong>Strategy 1 (Skip counting):</strong> Count by 4s: 4, 8, 12, 16, 20, 24 (6 times)</div>
-                    <div><strong>Strategy 2 (Arrays):</strong> 6 rows of 4 = 24</div>
-                    <div><strong>Strategy 3 (Doubles):</strong> 6 × 2 = 12, so 6 × 4 = 12 + 12 = 24</div>
-                    <div className="font-semibold text-blue-900"><strong>Answer:</strong> 24</div>
-                    <div className="text-xs text-blue-700 mt-1">💡 Tip: Use the strategy that works best for you! Practice helps you memorize facts faster!</div>
+                    <div><strong>{getTrans(`worksheets.${docId}.example.strategy1`, 'Strategy 1 (Skip counting):')}</strong> {getTrans(`worksheets.${docId}.example.strategy1Text`, 'Count by 4s: 4, 8, 12, 16, 20, 24 (6 times)')}</div>
+                    <div><strong>{getTrans(`worksheets.${docId}.example.strategy2`, 'Strategy 2 (Arrays):')}</strong> {getTrans(`worksheets.${docId}.example.strategy2Text`, '6 rows of 4 = 24')}</div>
+                    <div><strong>{getTrans(`worksheets.${docId}.example.strategy3`, 'Strategy 3 (Doubles):')}</strong> {getTrans(`worksheets.${docId}.example.strategy3Text`, '6 × 2 = 12, so 6 × 4 = 12 + 12 = 24')}</div>
+                    <div className="font-semibold text-blue-900"><strong>{getTrans(`worksheets.${docId}.example.answer`, 'Answer:')}</strong> {getTrans(`worksheets.${docId}.example.answerText`, '24')}</div>
+                    <div className="text-xs text-blue-700 mt-1">{getTrans(`worksheets.${docId}.example.tip`, '💡 Tip: Use the strategy that works best for you! Practice helps you memorize facts faster!')}</div>
                   </div>
                 </div>
               </div>
@@ -19248,40 +19257,59 @@ export function PrintablesPage() {
               </div>
               {/* Extension/Challenge Problems */}
               <div className="mt-6 print:mt-0 p-4 bg-purple-50 border-2 border-purple-200 rounded print:bg-white print:border" style={{ pageBreakBefore: 'always', pageBreakInside: 'avoid' }}>
-                <div className="font-semibold text-purple-900 mb-3 text-sm">🌟 Challenge Yourself (Optional):</div>
+                <div className="font-semibold text-purple-900 mb-3 text-sm">{getTrans(`worksheets.${docId}.challenge.title`, '🌟 Challenge Yourself (Optional):')}</div>
                 <div className="space-y-2 text-sm text-purple-800">
-                  <div>1. Time yourself: How fast can you solve all 20 problems?</div>
-                  <div>2. Try solving: 13 × 5 = ? and 11 × 12 = ?</div>
-                  <div>3. Create your own multiplication problems and solve them</div>
+                  {(() => {
+                    const items = t(`worksheets.${docId}.challenge.items`)
+                    const fallbackItems = [
+                      'Time yourself: How fast can you solve all 20 problems?',
+                      'Try solving: 13 × 5 = ? and 11 × 12 = ?',
+                      'Create your own multiplication problems and solve them',
+                    ]
+                    const itemsArray = Array.isArray(items) && items.length > 0 && typeof items[0] === 'string' && items[0] !== `worksheets.${docId}.challenge.items` ? items : fallbackItems
+                    return itemsArray.map((item, i) => (
+                      <div key={i}>{i + 1}. {item}</div>
+                    ))
+                  })()}
                 </div>
               </div>
               {/* Self-Assessment */}
               <div className="print:block hidden print:mt-0 mt-6 p-4 border-2 border-slate-300 rounded" style={{ pageBreakBefore: 'avoid', pageBreakInside: 'avoid' }}>
-                <div className="font-semibold text-slate-800 mb-3 text-sm">📊 How did you do?</div>
+                <div className="font-semibold text-slate-800 mb-3 text-sm">{getTrans(`worksheets.${docId}.selfAssessment.title`, '📊 How did you do?')}</div>
                 <div className="space-y-2 text-xs">
-                  <div>☐ I can solve multiplication facts quickly</div>
-                  <div>☐ I know my multiplication facts from 0-12</div>
-                  <div>☐ I solved all {problems.length} problems correctly</div>
+                  {(() => {
+                    const items = t(`worksheets.${docId}.selfAssessment.items`)
+                    const fallbackItems = [
+                      'I can solve multiplication facts quickly',
+                      'I know my multiplication facts from 0-12',
+                      `I solved all ${problems.length} problems correctly`,
+                    ]
+                    const itemsArray = Array.isArray(items) && items.length > 0 && typeof items[0] === 'string' && items[0] !== `worksheets.${docId}.selfAssessment.items` ? items : fallbackItems
+                    return itemsArray.map((item, i) => {
+                      const itemText = typeof item === 'string' ? item.replace('{count}', String(problems.length)) : item
+                      return <div key={i}>☐ {itemText}</div>
+                    })
+                  })()}
                 </div>
                 <div className="mt-3 text-xs">
-                  <strong>My score:</strong> ___ / {problems.length}
+                  <strong>{getTrans(`worksheets.${docId}.selfAssessment.score`, 'My score:')}</strong> ___ / {problems.length}
                 </div>
                 <div className="mt-2 text-xs">
-                  <strong>My time:</strong> ___ minutes
+                  <strong>{getTrans(`worksheets.${docId}.selfAssessment.time`, 'My time:')}</strong> ___ {getTrans(`worksheets.${docId}.selfAssessment.minutes`, 'minutes')}
                 </div>
                 <div className="mt-2 text-xs">
-                  <strong>What was hardest?</strong> _________________________
+                  <strong>{getTrans(`worksheets.${docId}.selfAssessment.hardest`, 'What was hardest?')}</strong> _________________________
                 </div>
               </div>
-              {showAnswersForDoc('mult-facts-0-12', () => (
+              {showAnswersForDoc(docId, () => (
                 <div className="mt-6 p-4 border-2 border-emerald-300 bg-emerald-50 rounded print:border print:bg-white print:page-break-before-always">
-                  <div className="font-bold text-emerald-900 mb-3 text-base">✅ Answer Key</div>
+                  <div className="font-bold text-emerald-900 mb-3 text-base">{getTrans(`worksheets.${docId}.answerKey.title`, '✅ Answer Key')}</div>
                   <ul className="list-disc list-inside space-y-2 text-sm text-emerald-800 columns-2">
                     {problems.map((p, i) => (
                       <li key={i}><strong>{p.a} × {p.b} = {p.answer}</strong></li>
                     ))}
                   </ul>
-                  <div className="text-xs text-emerald-700 mt-3">💡 Remember: Practice makes perfect! Keep practicing your multiplication facts daily to build speed and accuracy!</div>
+                  <div className="text-xs text-emerald-700 mt-3">{getTrans(`worksheets.${docId}.answerKey.remember`, '💡 Remember: Practice makes perfect! Keep practicing your multiplication facts daily to build speed and accuracy!')}</div>
                 </div>
               ))}
             </WorksheetSectionWrapper>
