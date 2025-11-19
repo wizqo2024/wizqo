@@ -69,6 +69,9 @@ const ensureWorksheetKeys = () => {
   
   // Then, ensure addition-subtraction-0-10 worksheet keys
   ensureAdditionSubtraction010Keys()
+  
+  // Then, ensure number-id-1-10 worksheet keys
+  ensureNumberId110Keys()
 }
 
 const ensureInteractiveWorksheetKeys = () => {
