@@ -6,6 +6,7 @@ import InteractiveBundleSections from '@/components/InteractiveBundleSections'
 import Shuffle from '@/components/Shuffle'
 import { trackWorksheetGeneration, trackCategoryFilter, trackGradeSelection, trackWorksheetDownload } from '@/utils/analytics'
 import { useTranslation } from '@/context/TranslationContext'
+import { addLocaleToPath } from '@/utils/locale'
 import {
   Dialog,
   DialogContent,
@@ -1025,18 +1026,24 @@ export function InteractiveWorksheetsPage() {
   const getPrintUrl = React.useCallback(() => {
     if (!pack?.printUrl) return ''
     const url = new URL(pack.printUrl, window.location.origin)
+    // Add locale prefix to the path
+    const pathWithLocale = addLocaleToPath(url.pathname, language)
+    url.pathname = pathWithLocale
     if (customization.teacherName) url.searchParams.set('teacher', customization.teacherName)
     if (customization.className) url.searchParams.set('class', customization.className)
     if (customization.studentNames.length > 0) {
       url.searchParams.set('students', customization.studentNames.join(','))
     }
     return url.toString()
-  }, [pack, customization])
+  }, [pack, customization, language])
 
   // Generate print URL for a single worksheet
   const getSingleWorksheetPrintUrl = React.useCallback((docId: string) => {
     if (!pack?.printUrl) return ''
     const url = new URL(pack.printUrl, window.location.origin)
+    // Add locale prefix to the path
+    const pathWithLocale = addLocaleToPath(url.pathname, language)
+    url.pathname = pathWithLocale
     // Replace items parameter to show only this single worksheet
     url.searchParams.set('items', docId)
     if (customization.teacherName) url.searchParams.set('teacher', customization.teacherName)
@@ -1050,7 +1057,7 @@ export function InteractiveWorksheetsPage() {
       trackWorksheetDownload(docId, worksheet.title, 'interactive-worksheets-generator', filters.grade)
     }
     return url.toString()
-  }, [pack, customization, filters.grade])
+  }, [pack, customization, filters.grade, language])
 
   return (
     <div className="min-h-screen bg-slate-50">
