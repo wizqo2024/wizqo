@@ -1845,12 +1845,17 @@ export function getTranslation(language: Language, key: string): string | any {
     for (let i = 0; i < keys.length; i++) {
       const k = keys[i]
       // Debug: Log when looking for number-id-1-10 translations
-      if (typeof window !== 'undefined' && key.includes('number-id-1-10') && process.env.NODE_ENV === 'development') {
-        const debugKey = `translation-debug-${key}-${language}`
-        if (!(window as any)[debugKey] && i === 1) {
+      if (typeof window !== 'undefined' && key.includes('number-id-1-10')) {
+        const debugKey = `translation-debug-${key}-${language}-${i}`
+        if (!(window as any)[debugKey]) {
           (window as any)[debugKey] = true
-          const worksheetsObj = value && typeof value === 'object' ? value : undefined
-          console.log(`[getTranslation] Looking for key: ${key}, language: ${language}, current key: ${k}, hasWorksheets: ${!!worksheetsObj}, worksheetsKeys:`, worksheetsObj && typeof worksheetsObj === 'object' ? Object.keys(worksheetsObj).filter(k => k.includes('number')).slice(0, 10) : 'N/A')
+          const worksheetsObj = i === 0 ? value : (value && typeof value === 'object' ? value : undefined)
+          if (i === 1) {
+            console.log(`[getTranslation] Looking for key: ${key}, language: ${language}, at key[${i}]: ${k}, value type: ${typeof value}, hasKey: ${value && typeof value === 'object' ? k in value : false}, availableKeys:`, value && typeof value === 'object' ? Object.keys(value).filter(k => k.includes('number') || k.includes('id')).slice(0, 15) : 'N/A')
+          }
+          if (i === 2 && value && typeof value === 'object') {
+            console.log(`[getTranslation] At final key: ${k}, value:`, value[k], 'type:', typeof value[k])
+          }
         }
       }
       if (value === null || value === undefined) {
