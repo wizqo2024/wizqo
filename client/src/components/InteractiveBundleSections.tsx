@@ -4342,7 +4342,7 @@ const renderers: Record<string, Renderer> = {
                 <div className="h-8 w-8 border border-dashed border-blue-300 bg-white rounded"></div>
                 <div className="h-8 w-8 border border-dashed border-blue-300 bg-white rounded"></div>
               </div>
-              <p className="text-xs text-blue-600 mt-2">{t('worksheets.circleThe', 'Circle the {{letter}}', { letter })}</p>
+              <p className="text-xs text-blue-600 mt-2">{t('worksheets.circleThe', 'Circle the {{letter}}').replace('{{letter}}', letter)}</p>
             </div>
           ))}
         </div>
