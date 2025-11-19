@@ -3270,37 +3270,46 @@ export function PrintablesPage() {
         })()}
 
         {activeDocs.includes('place-value-hto') && (() => {
+          const docId = 'place-value-hto'
           const nums = [12, 27, 45, 63, 84, 99, 30, 51];
           const isColor = true; // default colorful visuals
           return (
             <WorksheetSectionWrapper
-              docId="place-value-hto"
-              title="Place Value – Tens and Ones (to 99)"
+              docId={docId}
+              title={getTrans(`worksheets.${docId}.title`, 'Place Value – Tens and Ones (to 99)')}
               emoji="🔢"
-              description="Write how many tens and ones in each number. Then write the complete number in expanded form in the blank spaces."
+              description={getTrans(`worksheets.${docId}.description`, 'Write how many tens and ones in each number. Then write the complete number in expanded form in the blank spaces.')}
               problemCount={nums.length}
-              learningObjectives={[
-                'Understand place value: tens and ones',
-                'Break numbers into tens and ones',
-                'Write numbers in expanded form'
-              ]}
-              parentTeacherTips={[
-                'The tens place tells how many groups of 10',
-                'The ones place tells how many extra ones',
-                'Expanded form shows the value of each place',
-                'Example: 47 = 4 tens + 7 ones = 40 + 7',
-                'Extension: Try with 3-digit numbers (hundreds, tens, ones)'
-              ]}
+              learningObjectives={(() => {
+                const obj = t(`worksheets.${docId}.learningObjectives`)
+                if (Array.isArray(obj) && obj.length > 0 && typeof obj[0] === 'string') return obj
+                return [
+                  'Understand place value: tens and ones',
+                  'Break numbers into tens and ones',
+                  'Write numbers in expanded form'
+                ]
+              })()}
+              parentTeacherTips={(() => {
+                const tips = t(`worksheets.${docId}.parentTeacherTips`)
+                if (Array.isArray(tips) && tips.length > 0 && typeof tips[0] === 'string') return tips
+                return [
+                  'The tens place tells how many groups of 10',
+                  'The ones place tells how many extra ones',
+                  'Expanded form shows the value of each place',
+                  'Example: 47 = 4 tens + 7 ones = 40 + 7',
+                  'Extension: Try with 3-digit numbers (hundreds, tens, ones)'
+                ]
+              })()}
             >
               <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-violet-400 to-pink-400 animate-gradient-x mb-2" />
               {/* Worked Example */}
               <div className="mb-6 p-4 bg-gradient-to-br from-violet-50 to-pink-50 border-2 border-violet-200 rounded-lg print:border print:bg-white">
                 <div className="font-semibold text-violet-900 mb-3 text-sm flex items-center gap-2">
                   <span className="text-2xl">📚</span>
-                  <span>Example - Let's solve this together:</span>
+                  <span>{getTrans(`worksheets.${docId}.example.title`, 'Example - Let\'s solve this together:')}</span>
                 </div>
                 <div className="space-y-3 text-sm">
-                  <div className="font-semibold text-base text-violet-900"><strong>Number:</strong> <span className="text-3xl text-violet-700 ml-2">47</span></div>
+                  <div className="font-semibold text-base text-violet-900"><strong>{getTrans(`worksheets.${docId}.example.number`, 'Number:')}</strong> <span className="text-3xl text-violet-700 ml-2">47</span></div>
                   {/* Visual base-10 blocks */}
                   <div className="bg-white p-4 rounded-lg border-2 border-violet-300 overflow-hidden">
                     <svg viewBox="0 0 550 130" className="w-full h-auto max-h-32" preserveAspectRatio="xMidYMid meet">
@@ -3308,23 +3317,23 @@ export function PrintablesPage() {
                       {Array.from({ length: 4 }).map((_, j) => (
                         <rect key={j} x={15 + j * 55} y="15" width="45" height="65" rx="4" fill="#22c55e" stroke="#16a34a" strokeWidth="2.5" />
                       ))}
-                      <text x="250" y="50" fontSize="15" fill="#16a34a" fontWeight="bold">4 tens = 40</text>
+                      <text x="250" y="50" fontSize="15" fill="#16a34a" fontWeight="bold">{getTrans(`worksheets.${docId}.example.tensLabel`, '4 tens = 40')}</text>
                       {/* 7 ones cubes */}
                       {Array.from({ length: 7 }).map((_, j) => (
                         <rect key={j} x={15 + j * 35} y="85" width="25" height="25" rx="2" fill="#60a5fa" stroke="#2563eb" strokeWidth="2" />
                       ))}
-                      <text x="15" y="120" fontSize="15" fill="#2563eb" fontWeight="bold">7 ones = 7</text>
-                      <text x="275" y="120" fontSize="16" fill="#7c3aed" fontWeight="bold" textAnchor="middle">47 = 40 + 7</text>
+                      <text x="15" y="120" fontSize="15" fill="#2563eb" fontWeight="bold">{getTrans(`worksheets.${docId}.example.onesLabel`, '7 ones = 7')}</text>
+                      <text x="275" y="120" fontSize="16" fill="#7c3aed" fontWeight="bold" textAnchor="middle">{getTrans(`worksheets.${docId}.example.expandedLabel`, '47 = 40 + 7')}</text>
                     </svg>
                   </div>
                   <div className="pl-4 border-l-2 border-violet-300 space-y-1">
-                    <div><strong>Step 1:</strong> Find tens: <span className="text-violet-700 font-bold">47 has 4 tens (40)</span></div>
-                    <div><strong>Step 2:</strong> Find ones: <span className="text-violet-700 font-bold">47 has 7 ones</span></div>
-                    <div><strong>Step 3:</strong> Expanded form: <span className="text-violet-700 font-bold text-lg">40 + 7</span></div>
-                    <div className="font-semibold text-violet-900 mt-2"><strong>Answer:</strong> Tens: <span className="text-violet-700">4</span>, Ones: <span className="text-violet-700">7</span>, Expanded: <span className="text-violet-700">40 + 7</span></div>
+                    <div><strong>{getTrans(`worksheets.${docId}.example.step1`, 'Step 1: Find tens:')}</strong> <span className="text-violet-700 font-bold">{getTrans(`worksheets.${docId}.example.step1Text`, '47 has 4 tens (40)')}</span></div>
+                    <div><strong>{getTrans(`worksheets.${docId}.example.step2`, 'Step 2: Find ones:')}</strong> <span className="text-violet-700 font-bold">{getTrans(`worksheets.${docId}.example.step2Text`, '47 has 7 ones')}</span></div>
+                    <div><strong>{getTrans(`worksheets.${docId}.example.step3`, 'Step 3: Expanded form:')}</strong> <span className="text-violet-700 font-bold text-lg">{getTrans(`worksheets.${docId}.example.step3Text`, '40 + 7')}</span></div>
+                    <div className="font-semibold text-violet-900 mt-2"><strong>{getTrans(`worksheets.${docId}.example.answer`, 'Answer:')}</strong> <span className="text-violet-700">{getTrans(`worksheets.${docId}.example.answerText`, 'Tens: 4, Ones: 7, Expanded: 40 + 7')}</span></div>
                     <div className="text-xs text-violet-700 mt-2 flex items-center gap-1">
                       <span>💡</span>
-                      <span>Tip: The tens digit tells you how many groups of 10, the ones digit tells you how many extra ones!</span>
+                      <span>{getTrans(`worksheets.${docId}.example.tip`, 'Tip: The tens digit tells you how many groups of 10, the ones digit tells you how many extra ones!')}</span>
                     </div>
                   </div>
                 </div>
@@ -3334,12 +3343,12 @@ export function PrintablesPage() {
                 <svg viewBox="0 0 200 50" className="h-12 w-auto flex-shrink-0">
                   {/* Tens rod */}
                   <rect x="10" y="10" width="15" height="30" rx="3" fill="#22c55e" stroke="#16a34a" strokeWidth="2" />
-                  <text x="35" y="28" fontSize="12" fill="#16a34a" fontWeight="bold">= 1 Ten (10)</text>
+                  <text x="35" y="28" fontSize="12" fill="#16a34a" fontWeight="bold">{getTrans(`worksheets.${docId}.legend.tenLabel`, '= 1 Ten (10)')}</text>
                   {/* Ones cubes */}
                   {Array.from({length:3}).map((_,i)=> (
                     <rect key={i} x={120 + i*18} y="20" width="12" height="12" rx="2" fill="#60a5fa" stroke="#2563eb" strokeWidth="1.5" />
                   ))}
-                  <text x="180" y="28" fontSize="12" fill="#2563eb" fontWeight="bold">= 1 One</text>
+                  <text x="180" y="28" fontSize="12" fill="#2563eb" fontWeight="bold">{getTrans(`worksheets.${docId}.legend.oneLabel`, '= 1 One')}</text>
                 </svg>
               </div>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 break-inside-avoid" style={{ pageBreakAfter: 'auto' }}>
@@ -3348,7 +3357,7 @@ export function PrintablesPage() {
                   const ones = n%10;
                   return (
                     <div key={i} className="border-2 border-violet-200 rounded-lg p-4 bg-gradient-to-br from-violet-50 to-pink-50 break-inside-avoid print:p-3">
-                      <div className="text-violet-900 font-semibold mb-3 text-lg print:mb-2">Number: <span className="text-2xl">{n}</span></div>
+                      <div className="text-violet-900 font-semibold mb-3 text-lg print:mb-2">{getTrans(`worksheets.${docId}.labels.number`, 'Number:')} <span className="text-2xl">{n}</span></div>
                       {/* Visual base-10 blocks */}
                       <div className="mb-4 bg-white p-3 rounded border border-violet-300 print:mb-3 print:p-2 overflow-hidden">
                         <svg viewBox="0 0 280 90" className="w-full h-auto max-h-20" preserveAspectRatio="xMidYMid meet">
@@ -3365,15 +3374,15 @@ export function PrintablesPage() {
                       </div>
                       <div className="grid grid-cols-3 gap-3 text-sm print:gap-2">
                         <div className="border-2 border-violet-300 rounded p-2.5 bg-white print:p-2">
-                          <div className="text-xs text-violet-600 mb-1.5 print:mb-1">Tens:</div>
+                          <div className="text-xs text-violet-600 mb-1.5 print:mb-1">{getTrans(`worksheets.${docId}.labels.tens`, 'Tens:')}</div>
                           <div className="text-violet-900 font-mono text-base">______</div>
                         </div>
                         <div className="border-2 border-violet-300 rounded p-2.5 bg-white print:p-2">
-                          <div className="text-xs text-violet-600 mb-1.5 print:mb-1">Ones:</div>
+                          <div className="text-xs text-violet-600 mb-1.5 print:mb-1">{getTrans(`worksheets.${docId}.labels.ones`, 'Ones:')}</div>
                           <div className="text-violet-900 font-mono text-base">______</div>
                         </div>
                         <div className="border-2 border-violet-300 rounded p-2.5 bg-white print:p-2">
-                          <div className="text-xs text-violet-600 mb-1.5 print:mb-1">Expanded:</div>
+                          <div className="text-xs text-violet-600 mb-1.5 print:mb-1">{getTrans(`worksheets.${docId}.labels.expanded`, 'Expanded:')}</div>
                           <div className="text-violet-900 font-mono text-xs leading-tight">___ + ___</div>
                         </div>
                       </div>
@@ -3383,31 +3392,49 @@ export function PrintablesPage() {
               </div>
               {/* Extension/Challenge Problems */}
               <div className="mt-6 print:mt-0 p-4 bg-purple-50 border-2 border-purple-200 rounded print:bg-white print:border" style={{ pageBreakBefore: 'always', pageBreakInside: 'avoid' }}>
-                <div className="font-semibold text-purple-900 mb-3 text-sm">🌟 Challenge Yourself (Optional):</div>
+                <div className="font-semibold text-purple-900 mb-3 text-sm">{getTrans(`worksheets.${docId}.challenge.title`, '🌟 Challenge Yourself (Optional):')}</div>
                 <div className="space-y-2 text-sm text-purple-800">
-                  <div>1. Write 56 in expanded form: ___ + ___</div>
-                  <div>2. What number has 8 tens and 3 ones? ___</div>
-                  <div>3. Can you write a 3-digit number in expanded form? (hundreds, tens, ones)</div>
+                  {(() => {
+                    const items = t(`worksheets.${docId}.challenge.items`)
+                    const fallbackItems = [
+                      'Write 56 in expanded form: ___ + ___',
+                      'What number has 8 tens and 3 ones? ___',
+                      'Can you write a 3-digit number in expanded form? (hundreds, tens, ones)',
+                    ]
+                    const itemsArray = Array.isArray(items) && items.length > 0 && typeof items[0] === 'string' && items[0] !== `worksheets.${docId}.challenge.items` ? items : fallbackItems
+                    return itemsArray.map((item, i) => (
+                      <div key={i}>{i + 1}. {item}</div>
+                    ))
+                  })()}
                 </div>
               </div>
               {/* Self-Assessment */}
               <div className="print:block hidden print:mt-0 mt-6 p-4 border-2 border-slate-300 rounded" style={{ pageBreakBefore: 'avoid', pageBreakInside: 'avoid' }}>
-                <div className="font-semibold text-slate-800 mb-3 text-sm">📊 How did you do?</div>
+                <div className="font-semibold text-slate-800 mb-3 text-sm">{getTrans(`worksheets.${docId}.selfAssessment.title`, '📊 How did you do?')}</div>
                 <div className="space-y-2 text-xs">
-                  <div>☐ I understand tens and ones</div>
-                  <div>☐ I can break numbers into tens and ones</div>
-                  <div>☐ I can write numbers in expanded form</div>
+                  {(() => {
+                    const items = t(`worksheets.${docId}.selfAssessment.items`)
+                    const fallbackItems = [
+                      'I understand tens and ones',
+                      'I can break numbers into tens and ones',
+                      'I can write numbers in expanded form',
+                    ]
+                    const itemsArray = Array.isArray(items) && items.length > 0 && typeof items[0] === 'string' && items[0] !== `worksheets.${docId}.selfAssessment.items` ? items : fallbackItems
+                    return itemsArray.map((item, i) => (
+                      <div key={i}>☐ {item}</div>
+                    ))
+                  })()}
                 </div>
                 <div className="mt-3 text-xs">
-                  <strong>My score:</strong> ___ / {nums.length}
+                  <strong>{getTrans(`worksheets.${docId}.selfAssessment.score`, 'My score:')}</strong> ___ / {nums.length}
                 </div>
                 <div className="mt-2 text-xs">
-                  <strong>What was hardest?</strong> _________________________
+                  <strong>{getTrans(`worksheets.${docId}.selfAssessment.hardest`, 'What was hardest?')}</strong> _________________________
                 </div>
               </div>
-              {showAnswersForDoc('place-value-hto', () => (
+              {showAnswersForDoc(docId, () => (
                 <div className="mt-6 p-4 border-2 border-emerald-300 bg-emerald-50 rounded print:border print:bg-white print:page-break-before-always">
-                  <div className="font-bold text-emerald-900 mb-3 text-base">✅ Answer Key</div>
+                  <div className="font-bold text-emerald-900 mb-3 text-base">{getTrans(`worksheets.${docId}.answerKey.title`, '✅ Answer Key')}</div>
                   <div className="space-y-2">
                     {nums.map((n,i)=> {
                       const tens = Math.floor(n/10); const ones = n%10;

@@ -51,6 +51,9 @@ const ensureWorksheetKeys = () => {
   
   // Then, ensure times-table worksheet keys
   ensureTimesTableWorksheetKeys()
+  
+  // Then, ensure place-value-hto worksheet keys
+  ensurePlaceValueHtoKeys()
 }
 
 const ensureInteractiveWorksheetKeys = () => {
@@ -170,6 +173,222 @@ const ensureInteractiveWorksheetKeys = () => {
       }
       if (!worksheets.reflection) {
         worksheets.reflection = keys.reflection
+      }
+    }
+  }
+}
+
+// Ensure place-value-hto worksheet keys are present
+const ensurePlaceValueHtoKeys = () => {
+  // Define the keys directly to prevent tree-shaking - hardcode the full structure
+  const placeValueKeys = {
+    en: {
+      'place-value-hto': {
+        title: 'Place Value – Tens and Ones (to 99)',
+        description: 'Write how many tens and ones in each number. Then write the complete number in expanded form in the blank spaces.',
+        learningObjectives: [
+          'Understand place value: tens and ones',
+          'Break numbers into tens and ones',
+          'Write numbers in expanded form',
+        ],
+        parentTeacherTips: [
+          'The tens place tells how many groups of 10',
+          'The ones place tells how many extra ones',
+          'Expanded form shows the value of each place',
+          'Example: 47 = 4 tens + 7 ones = 40 + 7',
+          'Extension: Try with 3-digit numbers (hundreds, tens, ones)',
+        ],
+        example: {
+          title: '📚 Example - Let\'s solve this together:',
+          number: 'Number:',
+          tensLabel: '4 tens = 40',
+          onesLabel: '7 ones = 7',
+          expandedLabel: '47 = 40 + 7',
+          step1: 'Step 1: Find tens:',
+          step1Text: '47 has 4 tens (40)',
+          step2: 'Step 2: Find ones:',
+          step2Text: '47 has 7 ones',
+          step3: 'Step 3: Expanded form:',
+          step3Text: '40 + 7',
+          answer: 'Answer:',
+          answerText: 'Tens: 4, Ones: 7, Expanded: 40 + 7',
+          tip: '💡 Tip: The tens digit tells you how many groups of 10, the ones digit tells you how many extra ones!',
+        },
+        legend: {
+          tenLabel: '= 1 Ten (10)',
+          oneLabel: '= 1 One',
+        },
+        labels: {
+          number: 'Number:',
+          tens: 'Tens:',
+          ones: 'Ones:',
+          expanded: 'Expanded:',
+        },
+        challenge: {
+          title: '🌟 Challenge Yourself (Optional):',
+          items: [
+            'Write 56 in expanded form: ___ + ___',
+            'What number has 8 tens and 3 ones? ___',
+            'Can you write a 3-digit number in expanded form? (hundreds, tens, ones)',
+          ],
+        },
+        selfAssessment: {
+          title: '📊 How did you do?',
+          items: [
+            'I understand tens and ones',
+            'I can break numbers into tens and ones',
+            'I can write numbers in expanded form',
+          ],
+          score: 'My score:',
+          hardest: 'What was hardest?',
+        },
+        answerKey: {
+          title: '✅ Answer Key',
+        },
+      },
+    },
+    es: {
+      'place-value-hto': {
+        title: 'Valor Posicional – Decenas y Unidades (hasta 99)',
+        description: 'Escribe cuántas decenas y unidades hay en cada número. Luego escribe el número completo en forma expandida en los espacios en blanco.',
+        learningObjectives: [
+          'Entender el valor posicional: decenas y unidades',
+          'Descomponer números en decenas y unidades',
+          'Escribir números en forma expandida',
+        ],
+        parentTeacherTips: [
+          'El lugar de las decenas indica cuántos grupos de 10',
+          'El lugar de las unidades indica cuántas unidades extra',
+          'La forma expandida muestra el valor de cada posición',
+          'Ejemplo: 47 = 4 decenas + 7 unidades = 40 + 7',
+          'Extensión: Prueba con números de 3 dígitos (centenas, decenas, unidades)',
+        ],
+        example: {
+          title: '📚 Ejemplo - Resolvamos esto juntos:',
+          number: 'Número:',
+          tensLabel: '4 decenas = 40',
+          onesLabel: '7 unidades = 7',
+          expandedLabel: '47 = 40 + 7',
+          step1: 'Paso 1: Encuentra las decenas:',
+          step1Text: '47 tiene 4 decenas (40)',
+          step2: 'Paso 2: Encuentra las unidades:',
+          step2Text: '47 tiene 7 unidades',
+          step3: 'Paso 3: Forma expandida:',
+          step3Text: '40 + 7',
+          answer: 'Respuesta:',
+          answerText: 'Decenas: 4, Unidades: 7, Expandida: 40 + 7',
+          tip: '💡 Consejo: ¡El dígito de las decenas te dice cuántos grupos de 10, el dígito de las unidades te dice cuántas unidades extra!',
+        },
+        legend: {
+          tenLabel: '= 1 Decena (10)',
+          oneLabel: '= 1 Unidad',
+        },
+        labels: {
+          number: 'Número:',
+          tens: 'Decenas:',
+          ones: 'Unidades:',
+          expanded: 'Expandida:',
+        },
+        challenge: {
+          title: '🌟 Desafíate (Opcional):',
+          items: [
+            'Escribe 56 en forma expandida: ___ + ___',
+            '¿Qué número tiene 8 decenas y 3 unidades? ___',
+            '¿Puedes escribir un número de 3 dígitos en forma expandida? (centenas, decenas, unidades)',
+          ],
+        },
+        selfAssessment: {
+          title: '📊 ¿Cómo te fue?',
+          items: [
+            'Entiendo las decenas y unidades',
+            'Puedo descomponer números en decenas y unidades',
+            'Puedo escribir números en forma expandida',
+          ],
+          score: 'Mi puntuación:',
+          hardest: '¿Qué fue lo más difícil?',
+        },
+        answerKey: {
+          title: '✅ Clave de Respuestas',
+        },
+      },
+    },
+    ar: {
+      'place-value-hto': {
+        title: 'القيمة المكانية – العشرات والآحاد (حتى 99)',
+        description: 'اكتب كم عشرة وكم واحد في كل رقم. ثم اكتب الرقم الكامل في الصورة الموسعة في المسافات الفارغة.',
+        learningObjectives: [
+          'فهم القيمة المكانية: العشرات والآحاد',
+          'تحليل الأرقام إلى عشرات وآحاد',
+          'كتابة الأرقام في الصورة الموسعة',
+        ],
+        parentTeacherTips: [
+          'مكان العشرات يخبرك بعدد مجموعات الـ 10',
+          'مكان الآحاد يخبرك بعدد الآحاد الإضافية',
+          'الصورة الموسعة تُظهر قيمة كل مكان',
+          'مثال: 47 = 4 عشرات + 7 آحاد = 40 + 7',
+          'التمديد: جرب مع أرقام من 3 أرقام (مئات، عشرات، آحاد)',
+        ],
+        example: {
+          title: '📚 مثال - دعنا نحل هذا معاً:',
+          number: 'الرقم:',
+          tensLabel: '4 عشرات = 40',
+          onesLabel: '7 آحاد = 7',
+          expandedLabel: '47 = 40 + 7',
+          step1: 'الخطوة 1: ابحث عن العشرات:',
+          step1Text: '47 لديه 4 عشرات (40)',
+          step2: 'الخطوة 2: ابحث عن الآحاد:',
+          step2Text: '47 لديه 7 آحاد',
+          step3: 'الخطوة 3: الصورة الموسعة:',
+          step3Text: '40 + 7',
+          answer: 'الإجابة:',
+          answerText: 'العشرات: 4، الآحاد: 7، الموسعة: 40 + 7',
+          tip: '💡 نصيحة: رقم العشرات يخبرك بعدد مجموعات الـ 10، رقم الآحاد يخبرك بعدد الآحاد الإضافية!',
+        },
+        legend: {
+          tenLabel: '= عشرة واحدة (10)',
+          oneLabel: '= واحد واحد',
+        },
+        labels: {
+          number: 'الرقم:',
+          tens: 'العشرات:',
+          ones: 'الآحاد:',
+          expanded: 'الموسعة:',
+        },
+        challenge: {
+          title: '🌟 تحدى نفسك (اختياري):',
+          items: [
+            'اكتب 56 في الصورة الموسعة: ___ + ___',
+            'ما الرقم الذي لديه 8 عشرات و 3 آحاد؟ ___',
+            'هل يمكنك كتابة رقم من 3 أرقام في الصورة الموسعة؟ (مئات، عشرات، آحاد)',
+          ],
+        },
+        selfAssessment: {
+          title: '📊 كيف كان أداؤك؟',
+          items: [
+            'أفهم العشرات والآحاد',
+            'يمكنني تحليل الأرقام إلى عشرات وآحاد',
+            'يمكنني كتابة الأرقام في الصورة الموسعة',
+          ],
+          score: 'نقاطي:',
+          hardest: 'ما كان الأصعب؟',
+        },
+        answerKey: {
+          title: '✅ مفتاح الإجابات',
+        },
+      },
+    },
+  }
+
+  // Merge into translations object if keys are missing
+  for (const lang of ['en', 'es', 'ar'] as const) {
+    const langTranslations = (translations as any)[lang]
+    if (langTranslations && langTranslations.worksheets) {
+      const worksheets = langTranslations.worksheets
+      const keys = placeValueKeys[lang]
+      
+      // Only merge if keys are missing (to avoid overwriting if they exist)
+      if (keys['place-value-hto'] && !worksheets['place-value-hto']) {
+        worksheets['place-value-hto'] = keys['place-value-hto']
       }
     }
   }
