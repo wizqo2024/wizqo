@@ -52,16 +52,32 @@ export function getTranslation(language: Language, key: string): string | any {
     }
     
     // Navigate through nested keys
-    for (const k of keys) {
+    for (let i = 0; i < keys.length; i++) {
+      const k = keys[i]
       if (value === null || value === undefined) {
-        // Debug: log what we found so far
-        if (typeof window !== 'undefined' && process.env.NODE_ENV === 'development') {
-          console.warn(`[getTranslation] Navigation stopped at key: ${k}`, {
+        // Debug: log what we found so far - show in production too for debugging
+        if (typeof window !== 'undefined') {
+          console.warn(`[getTranslation] Navigation stopped at key: ${k} (index ${i})`, {
             language,
             fullKey: key,
-            keysSoFar: keys.slice(0, keys.indexOf(k)),
+            keysSoFar: keys.slice(0, i),
             currentValue: value,
-            availableKeys: value && typeof value === 'object' ? Object.keys(value) : 'N/A'
+            previousValue: i > 0 ? (() => {
+              let prev = translations[language]
+              for (let j = 0; j < i; j++) {
+                if (prev && typeof prev === 'object') prev = prev[keys[j]]
+                else break
+              }
+              return prev
+            })() : translations[language],
+            availableKeys: (() => {
+              let check = translations[language]
+              for (let j = 0; j < i; j++) {
+                if (check && typeof check === 'object') check = check[keys[j]]
+                else return 'N/A'
+              }
+              return check && typeof check === 'object' ? Object.keys(check).slice(0, 20) : 'N/A'
+            })()
           })
         }
         break
