@@ -3626,7 +3626,7 @@ const renderers: Record<string, Renderer> = {
     )
   },
   'interactive-math-place-value': (ctx) => {
-    const { seed, doc, variant, t } = ctx
+    const { seed, doc, variant, t, formatNum, language } = ctx
     const problems = buildMathPlaceValue(seed, doc.id, variant)
     return (
       <div className="space-y-4">
@@ -3638,7 +3638,7 @@ const renderers: Record<string, Renderer> = {
             const placeIndex = placeOrder.indexOf(prob.place)
             return (
               <div key={idx} className="rounded-xl border border-purple-200 bg-white p-4">
-                <p className="text-lg font-bold text-purple-800 mb-2">{prob.number}</p>
+                <p className="text-lg font-bold text-purple-800 mb-2">{formatNum(prob.number)}</p>
                 <div className="mb-2 p-2 bg-purple-50 rounded border border-purple-200">
                   <p className="text-xs text-purple-700 mb-1 font-semibold">{t('worksheets.placeValue.placeValueChart')}</p>
                   <div className="flex gap-1 justify-start items-end">
@@ -3646,10 +3646,11 @@ const renderers: Record<string, Renderer> = {
                       const placeKey = placeOrder[i] || ''
                       const placeName = placeKey ? t(`worksheets.placeValue.${placeKey}`) : ''
                       const isHighlighted = i === placeIndex
+                      const formattedDigit = language === 'ar' ? formatNum(parseInt(digit, 10)) : digit
                       return (
                         <div key={i} className={`text-center ${isHighlighted ? 'bg-purple-300 border-2 border-purple-600' : 'bg-white border border-purple-200'} rounded p-1 min-w-[50px]`}>
                           <div className="text-xs text-purple-600">{placeName}</div>
-                          <div className={`text-lg font-bold ${isHighlighted ? 'text-purple-900' : 'text-purple-700'}`}>{digit}</div>
+                          <div className={`text-lg font-bold ${isHighlighted ? 'text-purple-900' : 'text-purple-700'}`}>{formattedDigit}</div>
                         </div>
                       )
                     })}

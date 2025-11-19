@@ -106,6 +106,16 @@ const ensureInteractiveWorksheetKeys = () => {
       },
       answerKeyAndNotes: 'Answer key & teacher notes',
       countingTeachingNote: 'Teaching note: Students should count each object one by one. Encourage pointing or touching each object while counting to develop one-to-one correspondence.',
+      placeValue: {
+        instructions: 'Identify the digit in each place value.',
+        placeValueChart: 'Place Value Chart:',
+        whatDigit: 'What digit is in the {{place}} place?',
+        expandedForm: 'Expanded form:',
+        ones: 'Ones',
+        tens: 'Tens',
+        hundreds: 'Hundreds',
+        thousands: 'Thousands',
+      },
     },
     es: {
       countObjectsAndWriteNumber: 'Cuenta los objetos y escribe el número.',
@@ -136,6 +146,16 @@ const ensureInteractiveWorksheetKeys = () => {
       },
       answerKeyAndNotes: 'Clave de respuestas y notas del maestro',
       countingTeachingNote: 'Nota para enseñar: Los estudiantes deben contar cada objeto uno por uno. Anima a señalar o tocar cada objeto mientras cuentan para desarrollar la correspondencia uno a uno.',
+      placeValue: {
+        instructions: 'Identifica el dígito en cada valor posicional.',
+        placeValueChart: 'Tabla de Valor Posicional:',
+        whatDigit: '¿Qué dígito está en el lugar {{place}}?',
+        expandedForm: 'Forma expandida:',
+        ones: 'Unidades',
+        tens: 'Decenas',
+        hundreds: 'Centenas',
+        thousands: 'Millares',
+      },
     },
     ar: {
       countObjectsAndWriteNumber: 'عد الكائنات واكتب الرقم.',
@@ -166,6 +186,16 @@ const ensureInteractiveWorksheetKeys = () => {
       },
       answerKeyAndNotes: 'مفتاح الإجابات وملاحظات المعلم',
       countingTeachingNote: 'ملاحظة تعليمية: يجب على الطلاب عد كل كائن واحداً تلو الآخر. شجع على الإشارة أو لمس كل كائن أثناء العد لتطوير المراسلة واحد لواحد.',
+      placeValue: {
+        instructions: 'حدد الرقم في كل قيمة منزلية.',
+        placeValueChart: 'جدول القيمة المنزلية:',
+        whatDigit: 'ما الرقم الموجود في منزلة {{place}}؟',
+        expandedForm: 'الصيغة الموسعة:',
+        ones: 'الآحاد',
+        tens: 'العشرات',
+        hundreds: 'المئات',
+        thousands: 'الآلاف',
+      },
     },
   }
 
@@ -203,6 +233,9 @@ const ensureInteractiveWorksheetKeys = () => {
       }
       if (keys.countingTeachingNote) {
         worksheets.countingTeachingNote = keys.countingTeachingNote
+      }
+      if (keys.placeValue) {
+        worksheets.placeValue = keys.placeValue
       }
     }
   }

@@ -3681,5 +3681,9 @@ export const en = {
       title: 'Equation Puzzle Box',
       description: 'Solve missing number equations arranged in puzzle format. Each puzzle is unique.',
     },
+    'interactive-math-place-value': {
+      title: 'Place Value Explorer',
+      description: 'Understand ones, tens, hundreds, and thousands place with interactive exercises.',
+    },
   },
 }
