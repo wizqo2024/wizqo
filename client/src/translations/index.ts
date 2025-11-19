@@ -38,7 +38,7 @@ export function getTranslation(language: Language, key: string): string | any {
       }
     }
     
-    // Debug: Check if worksheets exists
+    // Debug: Check if worksheets exists and log its structure
     if (keys[0] === 'worksheets' && typeof window !== 'undefined') {
       const hasWorksheets = value && typeof value === 'object' && 'worksheets' in value
       if (!hasWorksheets) {
@@ -48,6 +48,20 @@ export function getTranslation(language: Language, key: string): string | any {
           valueKeys: value && typeof value === 'object' ? Object.keys(value).slice(0, 10) : 'N/A',
           valueType: typeof value
         })
+      } else {
+        // Log the worksheets object structure for debugging
+        const worksheetsObj = value.worksheets
+        if (worksheetsObj && typeof worksheetsObj === 'object') {
+          console.log(`[getTranslation] worksheets object structure for ${language}:`, {
+            hasObjectNames: 'objectNames' in worksheetsObj,
+            objectNamesType: typeof worksheetsObj.objectNames,
+            objectNamesKeys: worksheetsObj.objectNames && typeof worksheetsObj.objectNames === 'object' ? Object.keys(worksheetsObj.objectNames) : 'N/A',
+            hasCountObjectsAndWriteNumber: 'countObjectsAndWriteNumber' in worksheetsObj,
+            hasCountThe: 'countThe' in worksheetsObj,
+            hasNumberLabel: 'numberLabel' in worksheetsObj,
+            worksheetsKeys: Object.keys(worksheetsObj).slice(0, 20)
+          })
+        }
       }
     }
     
