@@ -6593,6 +6593,16 @@ function InteractiveWorksheetSection({
     // Always use getTranslation directly first - it's the most reliable
     try {
       const directResult = getTranslation(language, key)
+      // Debug: log the actual result to see what we're getting
+      if (typeof window !== 'undefined' && directResult === key) {
+        console.log(`[InteractiveBundleSections t()] getTranslation returned key for: ${key}, language: ${language}`, {
+          directResult,
+          directResultType: typeof directResult,
+          isKey: directResult === key,
+          startsWithWorksheets: typeof directResult === 'string' && directResult.startsWith('worksheets.'),
+          startsWithCategories: typeof directResult === 'string' && directResult.startsWith('categories.')
+        })
+      }
       // Check if we got a valid translation (not the key itself, and not a key-like string)
       if (typeof directResult === 'string' && directResult !== key && !directResult.startsWith('worksheets.') && !directResult.startsWith('categories.')) {
         return directResult
