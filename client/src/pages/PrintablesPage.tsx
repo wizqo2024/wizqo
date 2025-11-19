@@ -1275,6 +1275,11 @@ export function PrintablesPage() {
         return fallback
       }
       const result = t(key)
+      // Debug: Log if translation is missing
+      if (typeof window !== 'undefined' && process.env.NODE_ENV === 'development' && 
+          key.includes('number-id-1-10') && (result === key || (typeof result === 'string' && result.startsWith('worksheets.')))) {
+        console.warn(`[PrintablesPage] Translation missing for key: ${key}, language: ${language}, result: ${result}`)
+      }
       // If result is the key itself, translation is missing - use fallback
       if (typeof result === 'string' && result === key) {
         return fallback
@@ -18498,21 +18503,21 @@ export function PrintablesPage() {
           return (
             <WorksheetSectionWrapper
               docId="number-id-1-10"
-              title={t('worksheets.number-id-1-10.title') || 'Number Identification 1–10'}
+              title={getTrans('worksheets.number-id-1-10.title', 'Number Identification 1–10')}
               emoji="🔟"
               description={getTrans('worksheets.number-id-1-10.description', `Find and circle all the number ${formattedTarget}s.`).replace(/\{\{number\}\}/g, formattedTarget)}
               problemCount={targetCount}
               learningObjectives={[
-                'Identify and recognize numbers 1-10',
-                'Find specific numbers in a group',
-                'Develop visual discrimination skills',
-                'Build number recognition and attention to detail'
+                getTrans('worksheets.number-id-1-10.objective1', 'Identify and recognize numbers 1-10'),
+                getTrans('worksheets.number-id-1-10.objective2', 'Find specific numbers in a group'),
+                getTrans('worksheets.number-id-1-10.objective3', 'Develop visual discrimination skills'),
+                getTrans('worksheets.number-id-1-10.objective4', 'Build number recognition and attention to detail')
               ]}
               parentTeacherTips={[
-                'Encourage students to look carefully at each number',
-                'Help students recognize the shape of the target number',
-                'Practice saying the number name as they find it',
-                'Extension: Try finding numbers in different fonts or sizes'
+                getTrans('worksheets.number-id-1-10.tip1', 'Encourage students to look carefully at each number'),
+                getTrans('worksheets.number-id-1-10.tip2', 'Help students recognize the shape of the target number'),
+                getTrans('worksheets.number-id-1-10.tip3', 'Practice saying the number name as they find it'),
+                getTrans('worksheets.number-id-1-10.tip4', 'Extension: Try finding numbers in different fonts or sizes')
               ]}
             >
               <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-purple-400 to-pink-400 animate-gradient-x mb-2" />

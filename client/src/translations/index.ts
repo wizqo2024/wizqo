@@ -1844,6 +1844,15 @@ export function getTranslation(language: Language, key: string): string | any {
     // Navigate through nested keys
     for (let i = 0; i < keys.length; i++) {
       const k = keys[i]
+      // Debug: Log when looking for number-id-1-10 translations
+      if (typeof window !== 'undefined' && key.includes('number-id-1-10') && process.env.NODE_ENV === 'development') {
+        const debugKey = `translation-debug-${key}-${language}`
+        if (!(window as any)[debugKey] && i === 1) {
+          (window as any)[debugKey] = true
+          const worksheetsObj = value && typeof value === 'object' ? value : undefined
+          console.log(`[getTranslation] Looking for key: ${key}, language: ${language}, current key: ${k}, hasWorksheets: ${!!worksheetsObj}, worksheetsKeys:`, worksheetsObj && typeof worksheetsObj === 'object' ? Object.keys(worksheetsObj).filter(k => k.includes('number')).slice(0, 10) : 'N/A')
+        }
+      }
       if (value === null || value === undefined) {
         // If we're looking for interactive worksheet keys and they're missing,
         // try to get them from the exported interactiveWorksheetKeys
