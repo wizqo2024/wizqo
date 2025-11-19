@@ -3163,22 +3163,25 @@ export const es = {
         'Extensión: Intenta resolver problemas mentalmente sin usar la recta numérica'
       ],
       workedExample: {
-        title: 'Ejemplo - Resolvamos esto juntos:',
-        problem: 'Problema: 5 + 3 = ?',
+        title: '📚 Ejemplo - Resolvamos esto juntos:',
+        problem: 'Problema:',
+        problemText: '5 + 3 = ?',
+        countAll: 'Cuenta todos los círculos: 5 + 3 = 8',
         step1: 'Paso 1: Cuenta los círculos azules: 5',
         step2: 'Paso 2: Cuenta los círculos verdes: 3',
         step3: 'Paso 3: Cuéntalos todos juntos: 8',
-        answer: 'Respuesta: 5 + 3 = 8',
-        tip: 'Consejo: También puedes usar la recta numérica de abajo - ¡comienza en 5, muévete 3 pasos a la derecha!'
+        answer: 'Respuesta:',
+        answerText: '5 + 3 = 8',
+        tip: '💡 Consejo: También puedes usar la recta numérica de abajo - ¡comienza en 5, muévete 3 pasos a la derecha!'
       },
       challenge: {
-        title: 'Desafíate (Opcional):',
+        title: '🌟 Desafíate (Opcional):',
         problem1: '¿Puedes resolver 7 + 2 sin usar la recta numérica? ___',
         problem2: '¿Cuánto es 9 - 4? ¡Intenta resolverlo mentalmente! ___',
         problem3: 'Crea tu propio problema: ___ + ___ = ?'
       },
       selfAssessment: {
-        title: '¿Cómo te fue?',
+        title: '📊 ¿Cómo te fue?',
         question1: 'Puedo sumar números hasta 10',
         question2: 'Puedo restar números hasta 10',
         question3: 'Puedo usar la recta numérica para ayudarme',
@@ -3186,9 +3189,9 @@ export const es = {
         hardest: '¿Qué fue lo más difícil?'
       },
       answerKey: {
-        title: 'Clave de Respuestas',
+        title: '✅ Clave de Respuestas',
         note: 'Nota: Los problemas se generan aleatoriamente. Usa la recta numérica para resolver cada problema.',
-        tip: 'Recuerda: Para sumar, muévete a la derecha en la recta numérica. Para restar, muévete a la izquierda. ¡Comienza en el primer número!'
+        tip: '💡 Recuerda: Para sumar, muévete a la derecha en la recta numérica. Para restar, muévete a la izquierda. ¡Comienza en el primer número!'
       }
     },
     'ten-frames-1-10': {

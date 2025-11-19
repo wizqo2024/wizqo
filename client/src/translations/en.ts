@@ -3160,13 +3160,16 @@ export const en = {
         'Extension: Try solving problems mentally without using the number line'
       ],
       workedExample: {
-        title: 'Example - Let\'s solve this together:',
-        problem: 'Problem: 5 + 3 = ?',
+        title: '📚 Example - Let\'s solve this together:',
+        problem: 'Problem:',
+        problemText: '5 + 3 = ?',
+        countAll: 'Count all the circles: 5 + 3 = 8',
         step1: 'Step 1: Count the blue circles: 5',
         step2: 'Step 2: Count the green circles: 3',
         step3: 'Step 3: Count them all together: 8',
-        answer: 'Answer: 5 + 3 = 8',
-        tip: 'Tip: You can also use the number line below - start at 5, move 3 steps right!'
+        answer: 'Answer:',
+        answerText: '5 + 3 = 8',
+        tip: '💡 Tip: You can also use the number line below - start at 5, move 3 steps right!'
       },
       challenge: {
         title: 'Challenge Yourself (Optional):',

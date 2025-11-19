@@ -162,7 +162,7 @@ function WorkedExampleContent() {
         <span>{t('worksheets.addition-subtraction-0-10.workedExample.title')}</span>
       </div>
       <div className="space-y-3 text-sm">
-        <div className="font-semibold text-base text-blue-900 math-problem"><strong>{t('common.problem')}</strong> 5 + 3 = ?</div>
+        <div className="font-semibold text-base text-blue-900 math-problem"><strong>{t('worksheets.addition-subtraction-0-10.workedExample.problem', 'Problem:')}</strong> {t('worksheets.addition-subtraction-0-10.workedExample.problemText', '5 + 3 = ?')}</div>
         {/* Visual example with objects */}
         <div className="bg-white p-4 rounded-lg border-2 border-blue-300">
           <svg viewBox="0 0 500 120" className="w-full h-auto">
@@ -187,13 +187,13 @@ function WorkedExampleContent() {
             {/* Equals */}
             <text x="480" y="50" fontSize="32" fill="#1e40af" fontWeight="bold">=</text>
           </svg>
-          <div className="text-center mt-2 text-blue-900 font-semibold">Count all the circles: 5 + 3 = 8</div>
+          <div className="text-center mt-2 text-blue-900 font-semibold">{t('worksheets.addition-subtraction-0-10.workedExample.countAll', 'Count all the circles: 5 + 3 = 8')}</div>
         </div>
         <div className="pl-4 border-l-2 border-blue-300 space-y-1">
           <div><strong>{t('worksheets.addition-subtraction-0-10.workedExample.step1')}</strong></div>
           <div><strong>{t('worksheets.addition-subtraction-0-10.workedExample.step2')}</strong></div>
           <div><strong>{t('worksheets.addition-subtraction-0-10.workedExample.step3')}</strong></div>
-          <div className="font-semibold text-blue-900 mt-2"><strong>{t('common.answer')}</strong> 5 + 3 = <span className="text-2xl">8</span></div>
+          <div className="font-semibold text-blue-900 mt-2"><strong>{t('worksheets.addition-subtraction-0-10.workedExample.answer', 'Answer:')}</strong> {t('worksheets.addition-subtraction-0-10.workedExample.answerText', '5 + 3 = 8')}</div>
           <div className="text-xs text-blue-700 mt-2 flex items-center gap-1">
             <span>💡</span>
             <span>{t('worksheets.addition-subtraction-0-10.workedExample.tip')}</span>
@@ -3066,27 +3066,37 @@ export function PrintablesPage() {
           </WorksheetSectionWrapper>
         )}
 
-        {activeDocs.includes('addition-subtraction-0-10') && (
-          <WorksheetSectionWrapper
-            docId="addition-subtraction-0-10"
-            title="Addition & Subtraction 0–10"
-            emoji="➕➖"
-            description="Use the number line if needed to solve each addition problem. Write the correct answer in the blank space provided."
-            problemCount={12}
-            learningObjectives={[
-              'Add numbers within 10',
-              'Subtract numbers within 10',
-              'Use a number line to solve problems',
-              'Build fact fluency for addition and subtraction'
-            ]}
-            parentTeacherTips={[
-              'Use the number line: start at the first number, then move right for addition, left for subtraction',
-              'Encourage counting on for addition (e.g., 5 + 3: start at 5, count 3 more)',
-              'For subtraction, count backwards (e.g., 8 - 3: start at 8, count back 3)',
-              'Practice makes perfect - try to solve without the number line as you get better',
-              'Extension: Try solving problems mentally without using the number line'
-            ]}
-          >
+        {activeDocs.includes('addition-subtraction-0-10') && (() => {
+          const docId = 'addition-subtraction-0-10'
+          return (
+            <WorksheetSectionWrapper
+              docId={docId}
+              title={getTrans(`worksheets.${docId}.title`, 'Addition & Subtraction 0–10')}
+              emoji="➕➖"
+              description={getTrans(`worksheets.${docId}.description`, 'Use the number line if needed to solve each addition problem. Write the correct answer in the blank space provided.')}
+              problemCount={12}
+              learningObjectives={(() => {
+                const obj = t(`worksheets.${docId}.learningObjectives`)
+                if (Array.isArray(obj) && obj.length > 0 && typeof obj[0] === 'string') return obj
+                return [
+                  'Add numbers within 10',
+                  'Subtract numbers within 10',
+                  'Use a number line to solve problems',
+                  'Build fact fluency for addition and subtraction'
+                ]
+              })()}
+              parentTeacherTips={(() => {
+                const tips = t(`worksheets.${docId}.parentTeacherTips`)
+                if (Array.isArray(tips) && tips.length > 0 && typeof tips[0] === 'string') return tips
+                return [
+                  'Use the number line: start at the first number, then move right for addition, left for subtraction',
+                  'Encourage counting on for addition (e.g., 5 + 3: start at 5, count 3 more)',
+                  'For subtraction, count backwards (e.g., 8 - 3: start at 8, count back 3)',
+                  'Practice makes perfect - try to solve without the number line as you get better',
+                  'Extension: Try solving problems mentally without using the number line'
+                ]
+              })()}
+            >
             <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-blue-400 to-indigo-400 animate-gradient-x mb-2" />
             {/* Worked Example */}
             <WorkedExampleContent />
@@ -3157,8 +3167,9 @@ export function PrintablesPage() {
             </div>
             {/* Extension/Challenge Problems */}
             <ChallengeAndAssessmentContent />
-          </WorksheetSectionWrapper>
-        )}
+            </WorksheetSectionWrapper>
+          )
+        })()}
 
         {activeDocs.includes('ten-frames-1-10') && (() => {
           const numbers = Array.from({ length: 10 }, (_, n) => n + 1);

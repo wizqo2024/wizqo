@@ -66,6 +66,9 @@ const ensureWorksheetKeys = () => {
   
   // Then, ensure number-tracing-1-20 worksheet keys
   ensureNumberTracing120Keys()
+  
+  // Then, ensure addition-subtraction-0-10 worksheet keys
+  ensureAdditionSubtraction010Keys()
 }
 
 const ensureInteractiveWorksheetKeys = () => {
@@ -1205,6 +1208,177 @@ const ensureNumberTracing120Keys = () => {
       // Only merge if keys are missing (to avoid overwriting if they exist)
       if (keys['number-tracing-1-20'] && !worksheets['number-tracing-1-20']) {
         worksheets['number-tracing-1-20'] = keys['number-tracing-1-20']
+      }
+    }
+  }
+}
+
+// Ensure addition-subtraction-0-10 worksheet keys are present
+const ensureAdditionSubtraction010Keys = () => {
+  // Define the keys directly to prevent tree-shaking - hardcode the full structure
+  const additionSubtractionKeys = {
+    en: {
+      'addition-subtraction-0-10': {
+        title: 'Addition & Subtraction 0–10',
+        description: 'Use the number line if needed to solve each addition problem. Write the correct answer in the blank space provided.',
+        learningObjectives: [
+          'Add numbers within 10',
+          'Subtract numbers within 10',
+          'Use a number line to solve problems',
+          'Build fact fluency for addition and subtraction',
+        ],
+        parentTeacherTips: [
+          'Use the number line: start at the first number, then move right for addition, left for subtraction',
+          'Encourage counting on for addition (e.g., 5 + 3: start at 5, count 3 more)',
+          'For subtraction, count backwards (e.g., 8 - 3: start at 8, count back 3)',
+          'Practice makes perfect - try to solve without the number line as you get better',
+          'Extension: Try solving problems mentally without using the number line',
+        ],
+        workedExample: {
+          title: '📚 Example - Let\'s solve this together:',
+          problem: 'Problem:',
+          problemText: '5 + 3 = ?',
+          countAll: 'Count all the circles: 5 + 3 = 8',
+          step1: 'Step 1: Count the blue circles: 5',
+          step2: 'Step 2: Count the green circles: 3',
+          step3: 'Step 3: Count them all together: 8',
+          answer: 'Answer:',
+          answerText: '5 + 3 = 8',
+          tip: '💡 Tip: You can also use the number line below - start at 5, move 3 steps right!',
+        },
+        challenge: {
+          title: '🌟 Challenge Yourself (Optional):',
+          problem1: 'Can you solve 7 + 2 without using the number line? ___',
+          problem2: 'What is 9 - 4? Try solving it mentally! ___',
+          problem3: 'Create your own problem: ___ + ___ = ?',
+        },
+        selfAssessment: {
+          title: '📊 How did you do?',
+          question1: 'I can add numbers within 10',
+          question2: 'I can subtract numbers within 10',
+          question3: 'I can use the number line to help me',
+          score: 'My score:',
+          hardest: 'What was hardest?',
+        },
+        answerKey: {
+          title: '✅ Answer Key',
+          note: 'Note: Problems are randomly generated. Use the number line to solve each problem.',
+          tip: '💡 Remember: For addition, move right on the number line. For subtraction, move left. Start at the first number!',
+        },
+      },
+    },
+    es: {
+      'addition-subtraction-0-10': {
+        title: 'Suma y Resta 0–10',
+        description: 'Usa la recta numérica si es necesario para resolver cada problema de suma. Escribe la respuesta correcta en el espacio en blanco proporcionado.',
+        learningObjectives: [
+          'Sumar números hasta 10',
+          'Restar números hasta 10',
+          'Usar la recta numérica para resolver problemas',
+          'Desarrollar fluidez en las operaciones de suma y resta',
+        ],
+        parentTeacherTips: [
+          'Usa la recta numérica: comienza en el primer número, luego muévete a la derecha para sumar, a la izquierda para restar',
+          'Anima a contar para sumar (ejemplo: 5 + 3: comienza en 5, cuenta 3 más)',
+          'Para la resta, cuenta hacia atrás (ejemplo: 8 - 3: comienza en 8, cuenta 3 hacia atrás)',
+          'La práctica hace la perfección - intenta resolver sin usar la recta numérica a medida que mejoras',
+          'Extensión: Intenta resolver problemas mentalmente sin usar la recta numérica',
+        ],
+        workedExample: {
+          title: '📚 Ejemplo - Resolvamos esto juntos:',
+          problem: 'Problema:',
+          problemText: '5 + 3 = ?',
+          countAll: 'Cuenta todos los círculos: 5 + 3 = 8',
+          step1: 'Paso 1: Cuenta los círculos azules: 5',
+          step2: 'Paso 2: Cuenta los círculos verdes: 3',
+          step3: 'Paso 3: Cuéntalos todos juntos: 8',
+          answer: 'Respuesta:',
+          answerText: '5 + 3 = 8',
+          tip: '💡 Consejo: También puedes usar la recta numérica de abajo - ¡comienza en 5, muévete 3 pasos a la derecha!',
+        },
+        challenge: {
+          title: '🌟 Desafíate (Opcional):',
+          problem1: '¿Puedes resolver 7 + 2 sin usar la recta numérica? ___',
+          problem2: '¿Cuánto es 9 - 4? ¡Intenta resolverlo mentalmente! ___',
+          problem3: 'Crea tu propio problema: ___ + ___ = ?',
+        },
+        selfAssessment: {
+          title: '📊 ¿Cómo te fue?',
+          question1: 'Puedo sumar números hasta 10',
+          question2: 'Puedo restar números hasta 10',
+          question3: 'Puedo usar la recta numérica para ayudarme',
+          score: 'Mi puntuación:',
+          hardest: '¿Qué fue lo más difícil?',
+        },
+        answerKey: {
+          title: '✅ Clave de Respuestas',
+          note: 'Nota: Los problemas se generan aleatoriamente. Usa la recta numérica para resolver cada problema.',
+          tip: '💡 Recuerda: Para sumar, muévete a la derecha en la recta numérica. Para restar, muévete a la izquierda. ¡Comienza en el primer número!',
+        },
+      },
+    },
+    ar: {
+      'addition-subtraction-0-10': {
+        title: 'الجمع والطرح 0–10',
+        description: 'استخدم خط الأعداد إذا لزم الأمر لحل كل مسألة جمع. اكتب الإجابة الصحيحة في المساحة المقدمة.',
+        learningObjectives: [
+          'جمع الأرقام حتى 10',
+          'طرح الأرقام حتى 10',
+          'استخدام خط الأعداد لحل المسائل',
+          'بناء الطلاقة في حقائق الجمع والطرح',
+        ],
+        parentTeacherTips: [
+          'استخدم خط الأعداد: ابدأ من الرقم الأول، ثم انتقل إلى اليمين للجمع، وإلى اليسار للطرح',
+          'شجع على العد للأمام في الجمع (مثال: 5 + 3: ابدأ من 5، عد 3 أخرى)',
+          'للطرح، عد للخلف (مثال: 8 - 3: ابدأ من 8، عد للخلف 3)',
+          'الممارسة تجعل الكمال - حاول الحل دون استخدام خط الأعداد كلما تحسنت',
+          'التوسع: جرب حل المسائل ذهنياً دون استخدام خط الأعداد',
+        ],
+        workedExample: {
+          title: '📚 مثال - دعنا نحل هذا معاً:',
+          problem: 'المسألة:',
+          problemText: '5 + 3 = ?',
+          countAll: 'عد جميع الدوائر: 5 + 3 = 8',
+          step1: 'الخطوة 1: عد الدوائر الزرقاء: 5',
+          step2: 'الخطوة 2: عد الدوائر الخضراء: 3',
+          step3: 'الخطوة 3: عدهم جميعاً معاً: 8',
+          answer: 'الإجابة:',
+          answerText: '5 + 3 = 8',
+          tip: '💡 نصيحة: يمكنك أيضاً استخدام خط الأعداد أدناه - ابدأ من 5، انتقل 3 خطوات إلى اليمين!',
+        },
+        challenge: {
+          title: '🌟 تحدّ نفسك (اختياري):',
+          problem1: 'هل يمكنك حل 7 + 2 دون استخدام خط الأعداد؟ ___',
+          problem2: 'ما هو 9 - 4؟ جرب حله ذهنياً! ___',
+          problem3: 'أنشئ مسألتك الخاصة: ___ + ___ = ?',
+        },
+        selfAssessment: {
+          title: '📊 كيف كان أداؤك؟',
+          question1: 'يمكنني جمع الأرقام حتى 10',
+          question2: 'يمكنني طرح الأرقام حتى 10',
+          question3: 'يمكنني استخدام خط الأعداد لمساعدتي',
+          score: 'نقاطي:',
+          hardest: 'ما كان الأصعب؟',
+        },
+        answerKey: {
+          title: '✅ مفتاح الإجابات',
+          note: 'ملاحظة: يتم إنشاء المسائل بشكل عشوائي. استخدم خط الأعداد لحل كل مسألة.',
+          tip: '💡 تذكر: للجمع، انتقل إلى اليمين على خط الأعداد. للطرح، انتقل إلى اليسار. ابدأ من الرقم الأول!',
+        },
+      },
+    },
+  }
+
+  // Merge into translations object if keys are missing
+  for (const lang of ['en', 'es', 'ar'] as const) {
+    const langTranslations = (translations as any)[lang]
+    if (langTranslations && langTranslations.worksheets) {
+      const worksheets = langTranslations.worksheets
+      const keys = additionSubtractionKeys[lang]
+      
+      // Only merge if keys are missing (to avoid overwriting if they exist)
+      if (keys['addition-subtraction-0-10'] && !worksheets['addition-subtraction-0-10']) {
+        worksheets['addition-subtraction-0-10'] = keys['addition-subtraction-0-10']
       }
     }
   }
