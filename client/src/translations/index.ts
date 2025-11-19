@@ -104,6 +104,8 @@ const ensureInteractiveWorksheetKeys = () => {
         generalQuestions: 'What helped you complete your tasks? What would you do differently next time?',
         mandalaQuestion: 'Reflection: How did creating this mandala make you feel?',
       },
+      answerKeyAndNotes: 'Answer key & teacher notes',
+      countingTeachingNote: 'Teaching note: Students should count each object one by one. Encourage pointing or touching each object while counting to develop one-to-one correspondence.',
     },
     es: {
       countObjectsAndWriteNumber: 'Cuenta los objetos y escribe el número.',
@@ -132,6 +134,8 @@ const ensureInteractiveWorksheetKeys = () => {
         generalQuestions: '¿Qué te ayudó a completar tus tareas? ¿Qué harías diferente la próxima vez?',
         mandalaQuestion: 'Reflexión: ¿Cómo te hizo sentir crear este mandala?',
       },
+      answerKeyAndNotes: 'Clave de respuestas y notas del maestro',
+      countingTeachingNote: 'Nota para enseñar: Los estudiantes deben contar cada objeto uno por uno. Anima a señalar o tocar cada objeto mientras cuentan para desarrollar la correspondencia uno a uno.',
     },
     ar: {
       countObjectsAndWriteNumber: 'عد الكائنات واكتب الرقم.',
@@ -160,6 +164,8 @@ const ensureInteractiveWorksheetKeys = () => {
         generalQuestions: 'ما الذي ساعدك على إكمال مهامك؟ ماذا ستفعل بشكل مختلف في المرة القادمة؟',
         mandalaQuestion: 'التفكير: كيف جعلك إنشاء هذا الماندالا تشعر؟',
       },
+      answerKeyAndNotes: 'مفتاح الإجابات وملاحظات المعلم',
+      countingTeachingNote: 'ملاحظة تعليمية: يجب على الطلاب عد كل كائن واحداً تلو الآخر. شجع على الإشارة أو لمس كل كائن أثناء العد لتطوير المراسلة واحد لواحد.',
     },
   }
 
@@ -191,6 +197,12 @@ const ensureInteractiveWorksheetKeys = () => {
       }
       if (keys.reflection) {
         worksheets.reflection = keys.reflection
+      }
+      if (keys.answerKeyAndNotes) {
+        worksheets.answerKeyAndNotes = keys.answerKeyAndNotes
+      }
+      if (keys.countingTeachingNote) {
+        worksheets.countingTeachingNote = keys.countingTeachingNote
       }
     }
   }
