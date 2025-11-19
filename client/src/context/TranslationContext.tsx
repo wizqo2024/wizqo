@@ -77,6 +77,20 @@ export function TranslationProvider({ children }: { children: ReactNode }) {
     // Sync on mount - always check localStorage when no URL locale
     syncLanguageFromURL()
     
+    // Also check query parameter immediately after mount (in case it wasn't in initial state)
+    React.useEffect(() => {
+      if (typeof window !== 'undefined') {
+        const params = new URLSearchParams(window.location.search)
+        const langParam = params.get('lang')
+        if (langParam && ['en', 'es', 'ar'].includes(langParam) && langParam !== language) {
+          setLanguageState(langParam as Language)
+          localStorage.setItem('wizqo-language', langParam)
+          document.documentElement.dir = isRTL(langParam) ? 'rtl' : 'ltr'
+          document.documentElement.lang = langParam
+        }
+      }
+    }, []) // Run once on mount
+    
     // Also check on location change (for navigation without page reload)
     const checkLanguage = () => {
       const urlLocale = getLocaleFromURL()
