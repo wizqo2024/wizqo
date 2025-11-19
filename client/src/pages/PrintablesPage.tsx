@@ -5,6 +5,7 @@ import { WizqoLogo } from '@/components/WizqoLogo'
 import InteractiveBundleSections from '@/components/InteractiveBundleSections'
 import { PRINTABLE_BUNDLE_SECTIONS, getPrintableSectionForDoc } from '@/data/printableBundles'
 import { INTERACTIVE_CATEGORIES } from '@shared/interactive/interactiveWorksheets'
+import { formatNumber } from '@/utils/numbers'
 import { 
   trackWorksheetDownload, 
   trackWorksheetView, 
@@ -18491,12 +18492,15 @@ export function PrintablesPage() {
           const targetNumber = Math.floor(rng() * 10) + 1
           const numbers = Array.from({ length: 30 }, () => Math.floor(rng() * 10) + 1)
           const targetCount = numbers.filter(n => n === targetNumber).length;
+          const formatNum = (num: number | string) => formatNumber(num, language)
+          const formattedTarget = formatNum(targetNumber)
+          const formattedCount = formatNum(targetCount)
           return (
             <WorksheetSectionWrapper
               docId="number-id-1-10"
-              title="Number Identification 1–10"
+              title={t('worksheets.number-id-1-10.title') || 'Number Identification 1–10'}
               emoji="🔟"
-              description={`Find and circle all the number ${targetNumber}s.`}
+              description={getTrans('worksheets.number-id-1-10.description', `Find and circle all the number ${formattedTarget}s.`).replace('{{number}}', formattedTarget)}
               problemCount={targetCount}
               learningObjectives={[
                 'Identify and recognize numbers 1-10',
@@ -18514,57 +18518,57 @@ export function PrintablesPage() {
               <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-purple-400 to-pink-400 animate-gradient-x mb-2" />
               {/* Worked Example */}
               <div className="mb-6 p-4 bg-blue-50 border-2 border-blue-200 rounded-lg print:border print:bg-white">
-                <div className="font-semibold text-blue-900 mb-3 text-sm">📚 Example - Let's solve this together:</div>
+                <div className="font-semibold text-blue-900 mb-3 text-sm">{getTrans('worksheets.number-id-1-10.example.title', '📚 Example - Let\'s solve this together:')}</div>
                 <div className="space-y-2 text-sm">
-                  <div className="font-semibold text-base"><strong>Problem:</strong> Find and circle all the 5s</div>
+                  <div className="font-semibold text-base"><strong>{getTrans('worksheets.number-id-1-10.example.problem', 'Problem:')}</strong> {getTrans('worksheets.number-id-1-10.example.problemText', `Find and circle all the ${formatNum(5)}s`)}</div>
                   <div className="pl-4 border-l-2 border-blue-300 space-y-1">
-                    <div><strong>Step 1:</strong> Look at each number carefully</div>
-                    <div><strong>Step 2:</strong> Find numbers that look like 5</div>
-                    <div><strong>Step 3:</strong> Circle each 5 you find</div>
-                    <div className="font-semibold text-blue-900"><strong>Answer:</strong> Circle all the 5s</div>
-                    <div className="text-xs text-blue-700 mt-1">💡 Tip: Look carefully at each number and match it to the target number!</div>
+                    <div><strong>{getTrans('worksheets.number-id-1-10.example.step1', 'Step 1:')}</strong> {getTrans('worksheets.number-id-1-10.example.step1Text', 'Look at each number carefully')}</div>
+                    <div><strong>{getTrans('worksheets.number-id-1-10.example.step2', 'Step 2:')}</strong> {getTrans('worksheets.number-id-1-10.example.step2Text', 'Find numbers that look like the target number')}</div>
+                    <div><strong>{getTrans('worksheets.number-id-1-10.example.step3', 'Step 3:')}</strong> {getTrans('worksheets.number-id-1-10.example.step3Text', 'Circle each matching number you find')}</div>
+                    <div className="font-semibold text-blue-900"><strong>{getTrans('worksheets.number-id-1-10.example.answer', 'Answer:')}</strong> {getTrans('worksheets.number-id-1-10.example.answerText', 'Circle all the matching numbers')}</div>
+                    <div className="text-xs text-blue-700 mt-1">{getTrans('worksheets.number-id-1-10.example.tip', '💡 Tip: Look carefully at each number and match it to the target number!')}</div>
                   </div>
                 </div>
               </div>
               <div className="text-center mb-4">
-                <p className="text-xl font-bold text-slate-900">Find and circle all the {targetNumber}s</p>
+                <p className="text-xl font-bold text-slate-900">{getTrans('worksheets.number-id-1-10.instruction', `Find and circle all the ${formattedTarget}s`)}</p>
               </div>
               <div className="grid grid-cols-10 gap-2 break-inside-avoid" style={{ pageBreakAfter: 'auto' }}>
                 {numbers.map((n, i) => (
                   <div key={i} className="w-12 h-12 border-2 border-slate-300 rounded-lg flex items-center justify-center text-2xl font-bold bg-white text-slate-700">
-                    {n}
+                    {formatNum(n)}
                   </div>
                 ))}
               </div>
               {/* Extension/Challenge Problems */}
               <div className="mt-6 print:mt-0 p-4 bg-purple-50 border-2 border-purple-200 rounded print:bg-white print:border" style={{ pageBreakBefore: 'always', pageBreakInside: 'avoid' }}>
-                <div className="font-semibold text-purple-900 mb-3 text-sm">🌟 Challenge Yourself (Optional):</div>
+                <div className="font-semibold text-purple-900 mb-3 text-sm">{getTrans('worksheets.number-id-1-10.challenge.title', '🌟 Challenge Yourself (Optional):')}</div>
                 <div className="space-y-2 text-sm text-purple-800">
-                  <div>1. Can you find numbers around your house? Look for numbers on clocks, calendars, or books</div>
-                  <div>2. Write your own number grid and have someone find a specific number</div>
-                  <div>3. Try finding numbers in different styles or fonts</div>
+                  <div>1. {getTrans('worksheets.number-id-1-10.challenge.1', 'Can you find numbers around your house? Look for numbers on clocks, calendars, or books')}</div>
+                  <div>2. {getTrans('worksheets.number-id-1-10.challenge.2', 'Write your own number grid and have someone find a specific number')}</div>
+                  <div>3. {getTrans('worksheets.number-id-1-10.challenge.3', 'Try finding numbers in different styles or fonts')}</div>
                 </div>
               </div>
               {/* Self-Assessment */}
               <div className="print:block hidden print:mt-0 mt-6 p-4 border-2 border-slate-300 rounded" style={{ pageBreakBefore: 'avoid', pageBreakInside: 'avoid' }}>
-                <div className="font-semibold text-slate-800 mb-3 text-sm">📊 How did you do?</div>
+                <div className="font-semibold text-slate-800 mb-3 text-sm">{getTrans('worksheets.number-id-1-10.selfCheck.title', '📊 How did you do?')}</div>
                 <div className="space-y-2 text-xs">
-                  <div>☐ I can identify numbers 1-10</div>
-                  <div>☐ I found all the {targetNumber}s</div>
-                  <div>☐ I circled {targetCount} {targetNumber}s correctly</div>
+                  <div>☐ {getTrans('worksheets.number-id-1-10.selfCheck.canIdentify', 'I can identify numbers 1-10')}</div>
+                  <div>☐ {getTrans('worksheets.number-id-1-10.selfCheck.found', `I found all the ${formattedTarget}s`)}</div>
+                  <div>☐ {getTrans('worksheets.number-id-1-10.selfCheck.circled', `I circled ${formattedCount} ${formattedTarget}s correctly`)}</div>
                 </div>
                 <div className="mt-3 text-xs">
-                  <strong>My score:</strong> ___ / {targetCount}
+                  <strong>{getTrans('worksheets.number-id-1-10.selfCheck.score', 'My score:')}</strong> ___ / {formattedCount}
                 </div>
                 <div className="mt-2 text-xs">
-                  <strong>What was hardest?</strong> _________________________
+                  <strong>{getTrans('worksheets.number-id-1-10.selfCheck.hardest', 'What was hardest?')}</strong> _________________________
                 </div>
               </div>
               {showAnswersForDoc('number-id-1-10', () => (
                 <div className="mt-6 p-4 border-2 border-emerald-300 bg-emerald-50 rounded print:border print:bg-white print:page-break-before-always">
-                  <div className="font-bold text-emerald-900 mb-3 text-base">✅ Answer Key</div>
-                  <p className="text-sm text-emerald-800 mb-2"><strong>Circle all {targetNumber}s.</strong> Found: {targetCount} instances.</p>
-                  <div className="text-xs text-emerald-700 mt-2">💡 Remember: Look carefully at each number and match it to the target number {targetNumber}. Circle all instances you find!</div>
+                  <div className="font-bold text-emerald-900 mb-3 text-base">{getTrans('worksheets.answerKeyAndNotes', '✅ Answer Key')}</div>
+                  <p className="text-sm text-emerald-800 mb-2"><strong>{getTrans('worksheets.number-id-1-10.answer.text', `Circle all ${formattedTarget}s.`)}</strong> {getTrans('worksheets.number-id-1-10.answer.found', `Found: ${formattedCount} instances.`)}</p>
+                  <div className="text-xs text-emerald-700 mt-2">{getTrans('worksheets.number-id-1-10.answer.remember', `💡 Remember: Look carefully at each number and match it to the target number ${formattedTarget}. Circle all instances you find!`)}</div>
                 </div>
               ))}
             </WorksheetSectionWrapper>
