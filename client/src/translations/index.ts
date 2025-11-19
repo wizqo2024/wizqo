@@ -23,17 +23,32 @@ export function getTranslation(language: Language, key: string): string | any {
       const debugKey = `translation-debug-${language}`
       if (!(window as any)[debugKey]) {
         (window as any)[debugKey] = true
+        const langObj = translations[language]
+        const worksheetsObj = langObj && typeof langObj === 'object' ? langObj.worksheets : undefined
+        const objectNamesObj = worksheetsObj && typeof worksheetsObj === 'object' ? worksheetsObj.objectNames : undefined
+        
         console.error(`[getTranslation] Top-level translations structure for ${language}:`, {
           hasTranslations: !!translations,
-          hasLanguage: !!translations[language],
-          languageType: typeof translations[language],
-          languageKeys: translations[language] && typeof translations[language] === 'object' ? Object.keys(translations[language]).slice(0, 20) : 'N/A',
-          hasWorksheets: translations[language] && typeof translations[language] === 'object' ? 'worksheets' in translations[language] : false,
-          worksheetsType: translations[language] && typeof translations[language] === 'object' ? typeof translations[language].worksheets : 'N/A',
-          worksheetsValue: translations[language] && typeof translations[language] === 'object' ? translations[language].worksheets : 'N/A',
-          worksheetsIsUndefined: translations[language] && typeof translations[language] === 'object' ? translations[language].worksheets === undefined : 'N/A',
-          worksheetsIsNull: translations[language] && typeof translations[language] === 'object' ? translations[language].worksheets === null : 'N/A',
-          worksheetsKeys: (translations[language] && typeof translations[language] === 'object' && translations[language].worksheets && typeof translations[language].worksheets === 'object') ? Object.keys(translations[language].worksheets).slice(0, 30) : 'N/A'
+          hasLanguage: !!langObj,
+          languageType: typeof langObj,
+          languageKeys: langObj && typeof langObj === 'object' ? Object.keys(langObj).slice(0, 20) : 'N/A',
+          hasWorksheets: langObj && typeof langObj === 'object' ? 'worksheets' in langObj : false,
+          worksheetsType: typeof worksheetsObj,
+          worksheetsValue: worksheetsObj,
+          worksheetsIsUndefined: worksheetsObj === undefined,
+          worksheetsIsNull: worksheetsObj === null,
+          worksheetsKeys: worksheetsObj && typeof worksheetsObj === 'object' ? Object.keys(worksheetsObj).slice(0, 30) : 'N/A',
+          // Direct access to nested objects
+          hasObjectNames: worksheetsObj && typeof worksheetsObj === 'object' ? 'objectNames' in worksheetsObj : false,
+          objectNamesType: typeof objectNamesObj,
+          objectNamesValue: objectNamesObj,
+          objectNamesIsUndefined: objectNamesObj === undefined,
+          objectNamesKeys: objectNamesObj && typeof objectNamesObj === 'object' ? Object.keys(objectNamesObj).slice(0, 10) : 'N/A',
+          // Try direct access to specific keys
+          directCountObjects: worksheetsObj && typeof worksheetsObj === 'object' ? worksheetsObj.countObjectsAndWriteNumber : 'N/A',
+          directCountThe: worksheetsObj && typeof worksheetsObj === 'object' ? worksheetsObj.countThe : 'N/A',
+          directNumberLabel: worksheetsObj && typeof worksheetsObj === 'object' ? worksheetsObj.numberLabel : 'N/A',
+          directObjectNamesBalls: objectNamesObj && typeof objectNamesObj === 'object' ? objectNamesObj.balls : 'N/A'
         })
       }
     }
