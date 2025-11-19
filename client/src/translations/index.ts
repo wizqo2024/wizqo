@@ -46,27 +46,504 @@ export const interactiveWorksheetKeys = {
 // Ensure interactive worksheet title and description keys are present
 const ensureInteractiveTitleDescriptionKeys = () => {
   // Define the keys directly to prevent tree-shaking
+  // Auto-generated: All 124 interactive worksheets
   const interactiveTitleDescKeys = {
     en: {
+      'interactive-art-color-by-number': {
+        title: 'Color-by-Number Art',
+        description: 'Color pictures using number codes. Each sheet features unique designs and color patterns.',
+      },
+      'interactive-art-colorwheel': {
+        title: 'Color Theory Practice',
+        description: 'Color pictures with the correct colors. Learn colors while having fun!',
+      },
+      'interactive-art-comic': {
+        title: 'Comic Strip Creator',
+        description: 'Create your own comic strips with panels, speech bubbles, and characters. Tell a visual story!',
+      },
+      'interactive-art-critique': {
+        title: 'Art Critique & Analysis',
+        description: 'Learn to observe, describe, and analyze artwork using art vocabulary and critical thinking.',
+      },
+      'interactive-art-design': {
+        title: 'Creative Design Challenge',
+        description: 'Fun coloring pages with simple pictures to color. Perfect for young artists!',
+      },
+      'interactive-art-doodle': {
+        title: 'Doodle Art Challenge',
+        description: 'Free-form doodling prompts that spark creativity and imagination. No rules, just fun!',
+      },
+      'interactive-art-mandala': {
+        title: 'Mandala Art & Patterns',
+        description: 'Create beautiful mandala designs with patterns and symmetry. Perfect for mindfulness and creativity.',
+      },
+      'interactive-art-patterns': {
+        title: 'Pattern & Symmetry Art',
+        description: 'Create patterns and explore symmetry through drawing and coloring activities.',
+      },
+      'interactive-art-perspective': {
+        title: 'Art & Perspective Practice',
+        description: 'Learn about perspective, shading, and artistic techniques through guided exercises.',
+      },
+      'interactive-art-seasonal': {
+        title: 'Seasonal Coloring Pages',
+        description: 'Themed coloring pages for different seasons and holidays. Each sheet features unique seasonal designs.',
+      },
+      'interactive-art-shapes': {
+        title: 'Shape Art & Drawing',
+        description: 'Create art using basic shapes. Draw and color shapes to make pictures.',
+      },
+      'interactive-art-sketch': {
+        title: 'Sketch & Observe',
+        description: 'Simple drawing prompts with helpful hints. Draw and have fun!',
+      },
+      'interactive-cognitive-attention': {
+        title: 'Attention & Focus Builder',
+        description: 'Develop sustained attention and focus through visual scanning, spot-the-difference, and concentration exercises.',
+      },
+      'interactive-cognitive-executive': {
+        title: 'Executive Function Practice',
+        description: 'Build planning, organization, and task completion skills with structured activities and goal-setting exercises.',
+      },
+      'interactive-cognitive-flexibility': {
+        title: 'Cognitive Flexibility Practice',
+        description: 'Develop mental flexibility by switching between tasks, adapting to new rules, and thinking from multiple perspectives.',
+      },
+      'interactive-cognitive-memory': {
+        title: 'Working Memory Challenge',
+        description: 'Practice remembering sequences, patterns, and information. Strengthens working memory and recall skills.',
+      },
+      'interactive-cognitive-processing': {
+        title: 'Processing Speed Challenge',
+        description: 'Improve quick recognition and response time through timed activities and rapid identification exercises.',
+      },
+      'interactive-cognitive-visual': {
+        title: 'Visual Processing Skills',
+        description: 'Enhance visual discrimination, spatial reasoning, and visual-motor integration through pattern matching and spatial tasks.',
+      },
+      'interactive-early-basics': {
+        title: 'Basic Skills Practice',
+        description: 'Essential early learning skills including letter sounds, counting, and basic patterns.',
+      },
+      'interactive-early-counting': {
+        title: 'Counting & Number Recognition',
+        description: 'Interactive counting exercises with one-to-one correspondence practice.',
+      },
+      'interactive-early-foundations': {
+        title: 'Foundational Skills Review',
+        description: 'Review basic letter, number, and shape recognition skills. Perfect for remediation or review.',
+      },
+      'interactive-early-letters': {
+        title: 'Letter Formation Practice',
+        description: 'Trace and write uppercase and lowercase letters with guided practice.',
+      },
+      'interactive-early-numbers': {
+        title: 'Number Writing & Recognition',
+        description: 'Practice writing numbers 1-20 and matching quantities to numerals.',
+      },
+      'interactive-early-patterns': {
+        title: 'Pattern Recognition Explorer',
+        description: 'Complete and create patterns with colors, shapes, and numbers.',
+      },
+      'interactive-early-phonics': {
+        title: 'Phonics Fun Practice',
+        description: 'Letter sounds, beginning sounds, and CVC word practice. Each sheet focuses on different sounds.',
+      },
+      'interactive-early-shapes': {
+        title: 'Shape & Color Explorer',
+        description: 'Identify and match shapes and colors with interactive sorting activities.',
+      },
+      'interactive-geography-continents': {
+        title: 'Continents & Oceans Explorer',
+        description: 'Learn about the seven continents and five oceans with maps and activities.',
+      },
+      'interactive-geography-culture': {
+        title: 'Culture Explorer',
+        description: 'Learn about different cultures, traditions, and communities around the world.',
+      },
+      'interactive-geography-economics': {
+        title: 'Economics Basics',
+        description: 'Explore supply and demand, budgeting, financial literacy, and economic systems.',
+      },
+      'interactive-geography-government': {
+        title: 'Civics & Government Explorer',
+        description: 'Learn about government structure, citizenship, rights, and responsibilities.',
+      },
+      'interactive-geography-history': {
+        title: 'Historical Timeline Builder',
+        description: 'Create timelines and learn about historical events and figures.',
+      },
+      'interactive-geography-map': {
+        title: 'Interactive Map Skills',
+        description: 'Practice reading maps, using legends, and identifying locations. Each sheet features different maps.',
+      },
+      'interactive-geography-places': {
+        title: 'Places & Landmarks',
+        description: 'Learn about important places, landmarks, and locations in your community and country.',
+      },
+      'interactive-geography-prek': {
+        title: 'My Community Explorer',
+        description: 'Learn about places in the community, home, and school with simple maps and pictures.',
+      },
+      'interactive-geography-seasons': {
+        title: 'Seasons & Weather Around the World',
+        description: 'Learn about different seasons, weather patterns, and how they vary in different places.',
+      },
+      'interactive-grammar-advanced': {
+        title: 'Advanced Grammar Practice',
+        description: 'Practice complex sentence structures, clauses, phrases, and advanced punctuation.',
+      },
+      'interactive-grammar-antonyms': {
+        title: 'Synonyms & Antonyms Challenge',
+        description: 'Match words with synonyms and antonyms to expand vocabulary.',
+      },
+      'interactive-grammar-capitalization': {
+        title: 'Capitalization & Punctuation',
+        description: 'Practice proper capitalization and punctuation in sentences.',
+      },
+      'interactive-grammar-parts': {
+        title: 'Parts of Speech Practice',
+        description: 'Identify nouns, verbs, adjectives, and adverbs in sentences. Each sheet has new sentences.',
+      },
+      'interactive-grammar-plurals': {
+        title: 'Plurals & Possessives',
+        description: 'Learn to form plurals and possessives correctly.',
+      },
+      'interactive-grammar-prek': {
+        title: 'Word & Picture Match',
+        description: 'Match simple words with pictures and identify basic word types.',
+      },
+      'interactive-grammar-rhyming': {
+        title: 'Rhyming Words Practice',
+        description: 'Identify and match rhyming words through fun activities.',
+      },
+      'interactive-grammar-tenses': {
+        title: 'Verb Tense Mastery',
+        description: 'Practice past, present, and future tense with verb conjugation exercises.',
+      },
+      'interactive-grammar-vocab': {
+        title: 'Academic Vocabulary Builder',
+        description: 'Learn and practice academic vocabulary words with context clues and usage exercises.',
+      },
+      'interactive-logic-analogies': {
+        title: 'Analogies & Relationships',
+        description: 'Practice identifying relationships and completing analogies.',
+      },
+      'interactive-logic-classification': {
+        title: 'Classification & Categorization',
+        description: 'Sort and classify objects, pictures, and concepts into groups.',
+      },
+      'interactive-logic-deduction': {
+        title: 'Deductive Reasoning Quest',
+        description: 'Use clues to solve mysteries and logic puzzles.',
+      },
+      'interactive-logic-matching': {
+        title: 'Matching & Memory Games',
+        description: 'Match objects, pictures, and concepts. Practice memory and recognition skills.',
+      },
+      'interactive-logic-prek': {
+        title: 'Simple Patterns & Sorting',
+        description: 'Complete simple patterns and sort objects by color, size, or type.',
+      },
+      'interactive-logic-riddles': {
+        title: 'Brain Teaser Riddles',
+        description: 'Solve riddles and brain teasers with varying difficulty levels.',
+      },
+      'interactive-logic-sequence': {
+        title: 'Sequencing Challenge',
+        description: 'Order events, steps, and patterns logically. Each sheet has unique sequences.',
+      },
+      'interactive-math-algebra': {
+        title: 'Algebra Basics Practice',
+        description: 'Solve equations, work with variables, and practice algebraic expressions.',
+      },
       'interactive-math-counting': {
         title: 'Counting & Number Recognition',
         description: 'Practice counting objects, recognizing numbers, and matching quantities to numerals.',
       },
-      'interactive-math-race': {
-        title: 'Math Race Challenge',
-        description: 'Timed addition and subtraction challenges with varying difficulty levels.',
+      'interactive-math-decimals': {
+        title: 'Decimal Operations',
+        description: 'Add, subtract, multiply, and divide decimals with real-world applications.',
       },
-      'interactive-math-puzzle': {
-        title: 'Equation Puzzle Box',
-        description: 'Solve missing number equations arranged in puzzle format. Each puzzle is unique.',
+      'interactive-math-division': {
+        title: 'Division Practice',
+        description: 'Learn division facts, use arrays, and solve division word problems.',
+      },
+      'interactive-math-exponents': {
+        title: 'Exponents & Powers',
+        description: 'Understand exponents, powers, and scientific notation.',
+      },
+      'interactive-math-fractions': {
+        title: 'Fraction Fun Practice',
+        description: 'Compare fractions, find equivalents, and solve fraction operations.',
+      },
+      'interactive-math-geometry': {
+        title: 'Advanced Geometry Challenge',
+        description: 'Calculate area, perimeter, volume, and work with angles and transformations.',
+      },
+      'interactive-math-graphing': {
+        title: 'Data & Graphing Practice',
+        description: 'Create bar graphs, pictographs, and line plots from data sets.',
+      },
+      'interactive-math-integers': {
+        title: 'Integers & Number Line',
+        description: 'Work with positive and negative numbers, absolute value, and coordinate plane.',
+      },
+      'interactive-math-measurement': {
+        title: 'Measurement Mission',
+        description: 'Practice length, weight, volume, and time measurement conversions.',
+      },
+      'interactive-math-money': {
+        title: 'Money Math Mastery',
+        description: 'Count coins, make change, and solve money word problems.',
+      },
+      'interactive-math-multiplication': {
+        title: 'Multiplication Mastery',
+        description: 'Practice multiplication facts, arrays, and multiplication word problems.',
+      },
+      'interactive-math-percentages': {
+        title: 'Percentage & Ratio Mastery',
+        description: 'Calculate percentages, work with ratios, and solve proportion problems.',
       },
       'interactive-math-place-value': {
         title: 'Place Value Explorer',
         description: 'Understand ones, tens, hundreds, and thousands place with interactive exercises.',
       },
+      'interactive-math-puzzle': {
+        title: 'Equation Puzzle Box',
+        description: 'Solve missing number equations arranged in puzzle format. Each puzzle is unique.',
+      },
+      'interactive-math-race': {
+        title: 'Math Race Challenge',
+        description: 'Timed addition and subtraction challenges with varying difficulty levels.',
+      },
+      'interactive-math-rhythm': {
+        title: 'Number Pattern Rhythm',
+        description: 'Complete number patterns with skip counting sequences. Each sheet generates unique patterns.',
+      },
+      'interactive-math-rounding': {
+        title: 'Rounding Numbers',
+        description: 'Round numbers to the nearest ten, hundred, and thousand.',
+      },
+      'interactive-math-shapes': {
+        title: 'Geometry Shape Challenge',
+        description: 'Identify, count, and classify shapes with interactive exercises.',
+      },
+      'interactive-math-statistics': {
+        title: 'Data & Statistics Explorer',
+        description: 'Analyze data sets, create graphs, calculate mean, median, mode, and interpret statistics.',
+      },
+      'interactive-math-tens-frames': {
+        title: 'Tens Frames Practice',
+        description: 'Use tens frames to understand numbers, addition, and subtraction visually.',
+      },
+      'interactive-math-time': {
+        title: 'Time & Clock Practice',
+        description: 'Read analog and digital clocks, calculate elapsed time, and solve time word problems.',
+      },
+      'interactive-math-word-problems': {
+        title: 'Multi-Step Word Problems',
+        description: 'Solve complex word problems requiring multiple steps and critical thinking.',
+      },
+      'interactive-reading-adventure': {
+        title: 'Reading Adventure Quest',
+        description: 'Interactive story passages with multiple choice and short answer questions. Each sheet features a new story.',
+      },
       'interactive-reading-alphabet': {
         title: 'Alphabet & Letter Recognition',
         description: 'Practice recognizing letters, matching uppercase and lowercase, and beginning sounds.',
+      },
+      'interactive-reading-character': {
+        title: 'Character Analysis Workshop',
+        description: 'Analyze character traits, motivations, and development in stories.',
+      },
+      'interactive-reading-compare': {
+        title: 'Compare & Contrast Passages',
+        description: 'Read multiple texts and compare themes, characters, or information.',
+      },
+      'interactive-reading-detective': {
+        title: 'Reading Detective Challenge',
+        description: 'Find clues in the text to answer mystery questions. New mysteries each time.',
+      },
+      'interactive-reading-fluency': {
+        title: 'Reading Fluency Practice',
+        description: 'Practice reading with expression, accuracy, and appropriate pacing. Includes repeated reading exercises.',
+      },
+      'interactive-reading-literary-analysis': {
+        title: 'Literary Analysis Workshop',
+        description: 'Analyze literary elements, themes, symbolism, and author\'s purpose in fiction texts.',
+      },
+      'interactive-reading-prek': {
+        title: 'Picture Story Time',
+        description: 'Simple picture-based stories with yes/no questions and basic comprehension activities.',
+      },
+      'interactive-reading-research': {
+        title: 'Research & Evidence Builder',
+        description: 'Practice finding and evaluating sources, citing evidence, and building arguments from multiple texts.',
+      },
+      'interactive-reading-sightwords': {
+        title: 'Sight Word Practice',
+        description: 'Practice reading and writing common sight words with fun activities.',
+      },
+      'interactive-reading-storymap': {
+        title: 'Story Map Builders',
+        description: 'Retell fiction stories with beginning, middle, and ending organizers plus clue gathering practice.',
+      },
+      'interactive-reading-summary': {
+        title: 'Summary & Main Idea',
+        description: 'Practice identifying main ideas and writing concise summaries.',
+      },
+      'interactive-reading-vocab': {
+        title: 'Vocabulary Builder Workshop',
+        description: 'Context clues exercises with word matching and sentence completion.',
+      },
+      'interactive-science-animals': {
+        title: 'Animal Classification',
+        description: 'Learn about different types of animals, their habitats, and characteristics.',
+      },
+      'interactive-science-chemistry': {
+        title: 'Chemistry Basics Lab',
+        description: 'Explore atoms, molecules, chemical reactions, and the periodic table.',
+      },
+      'interactive-science-ecology': {
+        title: 'Ecology & Environment Study',
+        description: 'Explore ecosystems, food webs, environmental issues, and conservation.',
+      },
+      'interactive-science-lifecycle': {
+        title: 'Life Cycle Explorer',
+        description: 'Interactive worksheets exploring plant and animal life cycles.',
+      },
+      'interactive-science-observation': {
+        title: 'Science Observation Journal',
+        description: 'Daily observation logs for experiments and nature studies. Each sheet features new prompts.',
+      },
+      'interactive-science-physics': {
+        title: 'Physics Fundamentals',
+        description: 'Learn about forces, motion, energy, and simple machines with hands-on activities.',
+      },
+      'interactive-science-plants': {
+        title: 'Plant Explorer',
+        description: 'Learn about plants, their parts, and how they grow through simple activities.',
+      },
+      'interactive-science-prek': {
+        title: 'Nature Explorer',
+        description: 'Simple nature observation activities with pictures and basic questions about plants, animals, and weather.',
+      },
+      'interactive-science-senses': {
+        title: 'Five Senses Explorer',
+        description: 'Explore the five senses through hands-on activities and observation exercises.',
+      },
+      'interactive-science-space': {
+        title: 'Space & Astronomy Explorer',
+        description: 'Learn about planets, stars, and space phenomena with interactive activities.',
+      },
+      'interactive-science-states': {
+        title: 'States of Matter Lab',
+        description: 'Hands-on activities exploring solid, liquid, gas with observation charts.',
+      },
+      'interactive-science-weather': {
+        title: 'Weather Watcher Journal',
+        description: 'Track weather patterns, temperature, and observations over time.',
+      },
+      'interactive-sel-character': {
+        title: 'Character Building & Values',
+        description: 'Explore important character traits like honesty, respect, responsibility, and integrity.',
+      },
+      'interactive-sel-conflict': {
+        title: 'Conflict Resolution Skills',
+        description: 'Learn strategies to resolve conflicts peacefully and communicate effectively with others.',
+      },
+      'interactive-sel-empathy': {
+        title: 'Empathy Builder',
+        description: 'Practice perspective-taking and understanding others\' feelings and experiences.',
+      },
+      'interactive-sel-friendship': {
+        title: 'Friendship & Social Skills',
+        description: 'Learn about making friends, sharing, taking turns, and being kind to others.',
+      },
+      'interactive-sel-goals': {
+        title: 'Goal Setting & Growth',
+        description: 'Set and track personal and academic goals with action plans.',
+      },
+      'interactive-sel-gratitude': {
+        title: 'Gratitude & Appreciation',
+        description: 'Practice gratitude through writing, drawing, and reflection activities.',
+      },
+      'interactive-sel-growth-mindset': {
+        title: 'Growth Mindset Practice',
+        description: 'Develop a growth mindset by learning to embrace challenges, learn from mistakes, and persist.',
+      },
+      'interactive-sel-kindness': {
+        title: 'Kindness Challenge',
+        description: 'Complete daily acts of kindness and reflect on how kindness impacts yourself and others.',
+      },
+      'interactive-sel-mindfulness': {
+        title: 'Mindfulness & Reflection',
+        description: 'Daily mindfulness exercises with breathing techniques and reflection prompts.',
+      },
+      'interactive-sel-prek': {
+        title: 'Feelings & Emotions Explorer',
+        description: 'Identify and express feelings through pictures, simple words, and activities.',
+      },
+      'interactive-sel-regulation': {
+        title: 'Self-Regulation Strategies',
+        description: 'Practice techniques to manage emotions, stay calm, and make thoughtful choices.',
+      },
+      'interactive-sel-stress': {
+        title: 'Stress Management & Coping',
+        description: 'Identify stress triggers and practice healthy coping strategies for managing anxiety and stress.',
+      },
+      'interactive-writing-argumentative': {
+        title: 'Argumentative Writing Practice',
+        description: 'Develop arguments with claims, evidence, and reasoning. Practice persuasive writing skills.',
+      },
+      'interactive-writing-essay': {
+        title: 'Essay Writing Workshop',
+        description: 'Practice writing structured essays with thesis statements, body paragraphs, and conclusions.',
+      },
+      'interactive-writing-informative': {
+        title: 'Informative Writing Guide',
+        description: 'Learn to write informative paragraphs and essays with facts, details, and explanations.',
+      },
+      'interactive-writing-lowercase-trace': {
+        title: 'Neat Handwriting Practice – Lowercase Alphabet Tracing',
+        description: 'Practice tracing lowercase letters with guided lines. Perfect for developing neat handwriting skills.',
+      },
+      'interactive-writing-narrative': {
+        title: 'Narrative Writing Practice',
+        description: 'Write short stories with beginning, middle, and end. Includes story planning templates.',
+      },
+      'interactive-writing-opinion': {
+        title: 'Opinion Writing Framework',
+        description: 'Structured templates for opinion writing with prompts and evidence gathering.',
+      },
+      'interactive-writing-pictures': {
+        title: 'Picture Story Starters',
+        description: 'Draw pictures based on prompts and write simple sentences about what you see.',
+      },
+      'interactive-writing-poetry': {
+        title: 'Poetry Writing Practice',
+        description: 'Guided poetry exercises with rhyming, haiku, and free verse prompts.',
+      },
+      'interactive-writing-prek': {
+        title: 'Drawing & Labeling',
+        description: 'Draw pictures and label them with simple words. Perfect for early artists!',
+      },
+      'interactive-writing-prompts': {
+        title: 'Creative Writing Prompts',
+        description: 'Unique story starters and creative writing prompts that change with each generation.',
+      },
+      'interactive-writing-research': {
+        title: 'Research Paper Planner',
+        description: 'Organize research, create outlines, and structure research papers with proper citations.',
+      },
+      'interactive-writing-sentences': {
+        title: 'Sentence Builder Workshop',
+        description: 'Practice building complete sentences with varied structures and punctuation.',
+      },
+      'interactive-writing-trace': {
+        title: 'Letter & Word Tracing',
+        description: 'Trace letters and simple words to build handwriting skills and letter recognition.',
       },
     },
     es: {
@@ -92,6 +569,10 @@ const ensureInteractiveTitleDescriptionKeys = () => {
       },
     },
     ar: {
+      'interactive-reading-detective': {
+        title: 'تحدي المحقق القارئ',
+        description: 'ابحث عن الأدلة في النص للإجابة على أسئلة الغموض. ألغاز جديدة في كل مرة.',
+      },
       'interactive-math-counting': {
         title: 'العد والتعرف على الأرقام',
         description: 'تدرب على عد الكائنات والتعرف على الأرقام ومطابقة الكميات بالأرقام.',
@@ -218,6 +699,99 @@ const ensureInteractiveWorksheetKeys = () => {
       says: 'says',
       circleWordsStart: 'Circle words that start with',
       alphabetAnswerKey: 'Students should correctly identify and match uppercase/lowercase letters, recognize beginning sounds, and circle matching letters. Check for letter recognition accuracy.',
+      readingDetective: {
+        caseFile: 'Case File',
+        detectiveNotes: 'Detective Notes: The scene is the {{setting}}. A witness heard a hum. The main clue is {{clue}}. Who or what is responsible?',
+        writeThreeInferences: 'Write three inferences using the clues.',
+        explainWhy: 'Explain why the culprit might be {{culprit}}.',
+        proveOrDisprove: 'Prove or disprove your theory with text evidence.',
+        drawEvidenceBoard: 'Draw your evidence board below and label each clue.',
+      },
+      storyMap: {
+        beginning: 'Beginning',
+        beginningPrompt: 'Who are the characters? Where are they?',
+        middle: 'Middle',
+        middlePrompt: 'What problem appears? What clues help?',
+        ending: 'Ending',
+        endingPrompt: 'How do they solve it? What is the lesson?',
+        clueLog: 'Clue Log',
+        lookBackAtStory: 'Look back at the story',
+        clue: 'Clue {{number}}',
+        retellInOwnWords: 'Retell in Your Own Words',
+        retellPrompt: 'Write three sentences that cover beginning, middle, and ending.',
+        comprehensionChecks: 'Comprehension Checks',
+        whyDidVisit: 'Why did {{hero}} and {{friend}} visit the {{setting}}?',
+        whatProblem: 'What problem slowed them down in the middle of the story?',
+        howDidHelper: 'How did {{helper}} help them finish their goal? What lesson did they learn?',
+      },
+      vocab: {
+        instructions: 'Use context clues to match each word to its meaning. Then write a sentence using the word in the {{context}} context.',
+        word: 'Word',
+        matchMeaning: 'Match the meaning',
+        sentenceInContext: 'Sentence in context',
+      },
+      summary: {
+        instructions: 'Read the informational paragraph about the {{topic}}. Highlight the most important idea from each section. Then complete the summary box with 3 key points.',
+        paragraph: 'Paragraph {{number}}',
+        paragraph1Intro: 'Introduces the {{topic}}. Why was it created? Who benefits from it?',
+        paragraph2Intro: 'Describes how it works each day. What steps are involved? Who helps?',
+        paragraph3Intro: 'Shares one challenge and a plan to improve it next month.',
+        summaryBox: 'Summary Box',
+        keyPoint: 'Key point {{number}}',
+        closingSentence: 'Write one closing sentence that restates the main idea in your own words.',
+      },
+      compare: {
+        instructions: 'Compare and contrast the two texts. Record information about {{topicA}} and {{topicB}}, then write a paragraph explaining how they are alike and different.',
+        text1: 'Text 1: {{topic}}',
+        text2: 'Text 2: {{topic}}',
+        keyDetails: 'Key details:',
+        whatProblem: 'What problem does it solve?',
+        compareContrastParagraph: 'Compare & Contrast Paragraph',
+        alikeBecause: '{{topicA}} and {{topicB}} are alike because',
+        differentBecause: 'They are different because',
+      },
+      writingPrompts: {
+        instructions: 'Choose a prompt and write a beginning, middle, and end. Include feelings, actions, and dialogue.',
+        prompt: 'Prompt {{number}}',
+        brainstorm: 'Brainstorm:',
+        beginning: 'Beginning:',
+        middle: 'Middle:',
+        end: 'End:',
+      },
+      writingSentences: {
+        instructions: 'Complete each sentence with vivid verbs and details. Then rewrite one sentence using a compound structure.',
+        compoundSentenceChallenge: 'Compound Sentence Challenge',
+        combineWithConjunction: 'Combine two of your sentences with a conjunction:',
+      },
+      writingPoetry: {
+        instructions: 'Create a haiku and a free-verse stanza about a {{theme}}. Use at least three word bank words.',
+        wordBank: 'Word Bank',
+        haiku: 'Haiku (5-7-5)',
+        freeVerseStanza: 'Free-verse Stanza',
+        line: 'Line {{number}}',
+      },
+      writingOpinion: {
+        instructions: 'Plan an opinion paragraph about:',
+        reasonsAndEvidence: 'Reasons & Evidence',
+        reason: 'Reason #{{number}}',
+        evidence: 'Evidence',
+        paragraphPlanner: 'Paragraph Planner',
+        hookSentence: 'Hook sentence:',
+        opinionStatement: 'Opinion statement:',
+        closingSentence: 'Closing sentence:',
+      },
+      scienceObservation: {
+        instructions: 'Observe and record data about {{focus}}. Include sketches, measurements, and interesting questions.',
+        dateAndTime: 'Date & Time',
+        observationSketch: 'Observation Sketch',
+        whatINoticed: 'What I Noticed',
+        questionsNextSteps: 'Questions / Next Steps',
+      },
+      scienceLifecycle: {
+        instructions: 'Label and illustrate the life cycle of a {{cycle}}. Describe what happens at each stage.',
+        stage: '{{number}} Stage',
+        notes: 'Notes:',
+      },
     },
     es: {
       countObjectsAndWriteNumber: 'Cuenta los objetos y escribe el número.',
@@ -264,6 +838,99 @@ const ensureInteractiveWorksheetKeys = () => {
       says: 'dice',
       circleWordsStart: 'Encierra en un círculo las palabras que comienzan con',
       alphabetAnswerKey: 'Los estudiantes deben identificar y emparejar correctamente las letras mayúsculas/minúsculas, reconocer sonidos iniciales y encerrar en un círculo las letras coincidentes. Verifica la precisión del reconocimiento de letras.',
+      readingDetective: {
+        caseFile: 'Archivo del Caso',
+        detectiveNotes: 'Notas del Detective: La escena es {{setting}}. Un testigo escuchó un zumbido. La pista principal es {{clue}}. ¿Quién o qué es responsable?',
+        writeThreeInferences: 'Escribe tres inferencias usando las pistas.',
+        explainWhy: 'Explica por qué el culpable podría ser {{culprit}}.',
+        proveOrDisprove: 'Prueba o refuta tu teoría con evidencia del texto.',
+        drawEvidenceBoard: 'Dibuja tu tablero de evidencia a continuación y etiqueta cada pista.',
+      },
+      storyMap: {
+        beginning: 'Inicio',
+        beginningPrompt: '¿Quiénes son los personajes? ¿Dónde están?',
+        middle: 'Medio',
+        middlePrompt: '¿Qué problema aparece? ¿Qué pistas ayudan?',
+        ending: 'Final',
+        endingPrompt: '¿Cómo lo resuelven? ¿Cuál es la lección?',
+        clueLog: 'Registro de Pistas',
+        lookBackAtStory: 'Vuelve a leer la historia',
+        clue: 'Pista {{number}}',
+        retellInOwnWords: 'Cuenta con Tus Propias Palabras',
+        retellPrompt: 'Escribe tres oraciones que cubran el inicio, medio y final.',
+        comprehensionChecks: 'Verificaciones de Comprensión',
+        whyDidVisit: '¿Por qué {{hero}} y {{friend}} visitaron el {{setting}}?',
+        whatProblem: '¿Qué problema los retrasó en el medio de la historia?',
+        howDidHelper: '¿Cómo {{helper}} los ayudó a terminar su objetivo? ¿Qué lección aprendieron?',
+      },
+      vocab: {
+        instructions: 'Usa pistas de contexto para hacer coincidir cada palabra con su significado. Luego escribe una oración usando la palabra en el contexto {{context}}.',
+        word: 'Palabra',
+        matchMeaning: 'Haz coincidir el significado',
+        sentenceInContext: 'Oración en contexto',
+      },
+      summary: {
+        instructions: 'Lee el párrafo informativo sobre {{topic}}. Resalta la idea más importante de cada sección. Luego completa el cuadro de resumen con 3 puntos clave.',
+        paragraph: 'Párrafo {{number}}',
+        paragraph1Intro: 'Presenta el {{topic}}. ¿Por qué se creó? ¿Quién se beneficia?',
+        paragraph2Intro: 'Describe cómo funciona cada día. ¿Qué pasos están involucrados? ¿Quién ayuda?',
+        paragraph3Intro: 'Comparte un desafío y un plan para mejorarlo el próximo mes.',
+        summaryBox: 'Cuadro de Resumen',
+        keyPoint: 'Punto clave {{number}}',
+        closingSentence: 'Escribe una oración de cierre que reafirme la idea principal con tus propias palabras.',
+      },
+      compare: {
+        instructions: 'Compara y contrasta los dos textos. Registra información sobre {{topicA}} y {{topicB}}, luego escribe un párrafo explicando cómo son similares y diferentes.',
+        text1: 'Texto 1: {{topic}}',
+        text2: 'Texto 2: {{topic}}',
+        keyDetails: 'Detalles clave:',
+        whatProblem: '¿Qué problema resuelve?',
+        compareContrastParagraph: 'Párrafo de Comparación y Contraste',
+        alikeBecause: '{{topicA}} y {{topicB}} son similares porque',
+        differentBecause: 'Son diferentes porque',
+      },
+      writingPrompts: {
+        instructions: 'Elige un indicador y escribe un inicio, medio y final. Incluye sentimientos, acciones y diálogo.',
+        prompt: 'Indicador {{number}}',
+        brainstorm: 'Lluvia de ideas:',
+        beginning: 'Inicio:',
+        middle: 'Medio:',
+        end: 'Final:',
+      },
+      writingSentences: {
+        instructions: 'Completa cada oración con verbos vívidos y detalles. Luego reescribe una oración usando una estructura compuesta.',
+        compoundSentenceChallenge: 'Desafío de Oración Compuesta',
+        combineWithConjunction: 'Combina dos de tus oraciones con una conjunción:',
+      },
+      writingPoetry: {
+        instructions: 'Crea un haiku y una estrofa de verso libre sobre {{theme}}. Usa al menos tres palabras del banco de palabras.',
+        wordBank: 'Banco de Palabras',
+        haiku: 'Haiku (5-7-5)',
+        freeVerseStanza: 'Estrofa de Verso Libre',
+        line: 'Línea {{number}}',
+      },
+      writingOpinion: {
+        instructions: 'Planifica un párrafo de opinión sobre:',
+        reasonsAndEvidence: 'Razones y Evidencia',
+        reason: 'Razón #{{number}}',
+        evidence: 'Evidencia',
+        paragraphPlanner: 'Planificador de Párrafos',
+        hookSentence: 'Oración gancho:',
+        opinionStatement: 'Declaración de opinión:',
+        closingSentence: 'Oración de cierre:',
+      },
+      scienceObservation: {
+        instructions: 'Observa y registra datos sobre {{focus}}. Incluye bocetos, mediciones y preguntas interesantes.',
+        dateAndTime: 'Fecha y Hora',
+        observationSketch: 'Boceto de Observación',
+        whatINoticed: 'Lo que Noté',
+        questionsNextSteps: 'Preguntas / Próximos Pasos',
+      },
+      scienceLifecycle: {
+        instructions: 'Etiqueta e ilustra el ciclo de vida de {{cycle}}. Describe lo que sucede en cada etapa.',
+        stage: 'Etapa {{number}}',
+        notes: 'Notas:',
+      },
     },
     ar: {
       countObjectsAndWriteNumber: 'عد الكائنات واكتب الرقم.',
@@ -310,6 +977,99 @@ const ensureInteractiveWorksheetKeys = () => {
       says: 'يقول',
       circleWordsStart: 'أحط الكلمات التي تبدأ بـ',
       alphabetAnswerKey: 'يجب على الطلاب تحديد ومطابقة الأحرف الكبيرة/الصغيرة بشكل صحيح، والتعرف على الأصوات الأولية، وأحط الحروف المطابقة. تحقق من دقة التعرف على الحروف.',
+      readingDetective: {
+        caseFile: 'ملف القضية',
+        detectiveNotes: 'ملاحظات المحقق: المشهد هو {{setting}}. سمع شاهد همهمة. الدليل الرئيسي هو {{clue}}. من أو ما هو المسؤول؟',
+        writeThreeInferences: 'اكتب ثلاث استنتاجات باستخدام الأدلة.',
+        explainWhy: 'اشرح لماذا قد يكون الجاني {{culprit}}.',
+        proveOrDisprove: 'أثبت أو ا disprove نظريتك بأدلة نصية.',
+        drawEvidenceBoard: 'ارسم لوحة الأدلة أدناه وضع علامة على كل دليل.',
+      },
+      storyMap: {
+        beginning: 'البداية',
+        beginningPrompt: 'من هم الشخصيات؟ أين هم؟',
+        middle: 'الوسط',
+        middlePrompt: 'ما المشكلة التي تظهر؟ ما الأدلة التي تساعد؟',
+        ending: 'النهاية',
+        endingPrompt: 'كيف يحلونها؟ ما الدرس؟',
+        clueLog: 'سجل الأدلة',
+        lookBackAtStory: 'ارجع إلى القصة',
+        clue: 'دليل {{number}}',
+        retellInOwnWords: 'أعد السرد بكلماتك الخاصة',
+        retellPrompt: 'اكتب ثلاث جمل تغطي البداية والوسط والنهاية.',
+        comprehensionChecks: 'فحوصات الفهم',
+        whyDidVisit: 'لماذا زار {{hero}} و{{friend}} {{setting}}؟',
+        whatProblem: 'ما المشكلة التي أبطأتهم في منتصف القصة؟',
+        howDidHelper: 'كيف ساعدهم {{helper}} على إنهاء هدفهم؟ ما الدرس الذي تعلموه؟',
+      },
+      vocab: {
+        instructions: 'استخدم أدلة السياق لمطابقة كل كلمة بمعناها. ثم اكتب جملة باستخدام الكلمة في سياق {{context}}.',
+        word: 'الكلمة',
+        matchMeaning: 'طابق المعنى',
+        sentenceInContext: 'الجملة في السياق',
+      },
+      summary: {
+        instructions: 'اقرأ الفقرة المعلوماتية حول {{topic}}. أبرز الفكرة الأكثر أهمية من كل قسم. ثم أكمل صندوق الملخص بثلاث نقاط رئيسية.',
+        paragraph: 'الفقرة {{number}}',
+        paragraph1Intro: 'تقدم {{topic}}. لماذا تم إنشاؤه؟ من يستفيد منه؟',
+        paragraph2Intro: 'تصف كيف يعمل كل يوم. ما الخطوات المتضمنة؟ من يساعد؟',
+        paragraph3Intro: 'تشارك تحدياً واحداً وخطة لتحسينه الشهر القادم.',
+        summaryBox: 'صندوق الملخص',
+        keyPoint: 'النقطة الرئيسية {{number}}',
+        closingSentence: 'اكتب جملة ختامية واحدة تعيد صياغة الفكرة الرئيسية بكلماتك الخاصة.',
+      },
+      compare: {
+        instructions: 'قارن واعقد بين النصين. سجل معلومات حول {{topicA}} و{{topicB}}، ثم اكتب فقرة تشرح كيف هما متشابهان ومختلفان.',
+        text1: 'النص 1: {{topic}}',
+        text2: 'النص 2: {{topic}}',
+        keyDetails: 'التفاصيل الرئيسية:',
+        whatProblem: 'ما المشكلة التي يحلها؟',
+        compareContrastParagraph: 'فقرة المقارنة والتباين',
+        alikeBecause: '{{topicA}} و{{topicB}} متشابهان لأن',
+        differentBecause: 'هما مختلفان لأن',
+      },
+      writingPrompts: {
+        instructions: 'اختر مؤشراً واكتب بداية ووسط ونهاية. أضف المشاعر والإجراءات والحوار.',
+        prompt: 'المؤشر {{number}}',
+        brainstorm: 'العصف الذهني:',
+        beginning: 'البداية:',
+        middle: 'الوسط:',
+        end: 'النهاية:',
+      },
+      writingSentences: {
+        instructions: 'أكمل كل جملة بأفعال حية وتفاصيل. ثم أعد كتابة جملة واحدة باستخدام بنية مركبة.',
+        compoundSentenceChallenge: 'تحدي الجملة المركبة',
+        combineWithConjunction: 'اجمع جملتين من جملك بحرف عطف:',
+      },
+      writingPoetry: {
+        instructions: 'أنشئ قصيدة هايكو وبيتاً من الشعر الحر حول {{theme}}. استخدم ثلاث كلمات على الأقل من بنك الكلمات.',
+        wordBank: 'بنك الكلمات',
+        haiku: 'هايكو (5-7-5)',
+        freeVerseStanza: 'بيت الشعر الحر',
+        line: 'السطر {{number}}',
+      },
+      writingOpinion: {
+        instructions: 'خطط لفقرة رأي حول:',
+        reasonsAndEvidence: 'الأسباب والأدلة',
+        reason: 'السبب #{{number}}',
+        evidence: 'الدليل',
+        paragraphPlanner: 'مخطط الفقرة',
+        hookSentence: 'جملة الجذب:',
+        opinionStatement: 'بيان الرأي:',
+        closingSentence: 'جملة الختام:',
+      },
+      scienceObservation: {
+        instructions: 'راقب وسجل البيانات حول {{focus}}. أضف الرسوم التخطيطية والقياسات والأسئلة المثيرة للاهتمام.',
+        dateAndTime: 'التاريخ والوقت',
+        observationSketch: 'رسم الملاحظة',
+        whatINoticed: 'ما لاحظته',
+        questionsNextSteps: 'الأسئلة / الخطوات التالية',
+      },
+      scienceLifecycle: {
+        instructions: 'ضع علامة وارسم دورة حياة {{cycle}}. صف ما يحدث في كل مرحلة.',
+        stage: 'المرحلة {{number}}',
+        notes: 'الملاحظات:',
+      },
     },
   }
 
@@ -365,6 +1125,39 @@ const ensureInteractiveWorksheetKeys = () => {
       }
       if (keys.alphabetAnswerKey) {
         worksheets.alphabetAnswerKey = keys.alphabetAnswerKey
+      }
+      if (keys.readingDetective) {
+        worksheets.readingDetective = keys.readingDetective
+      }
+      if (keys.storyMap) {
+        worksheets.storyMap = keys.storyMap
+      }
+      if (keys.vocab) {
+        worksheets.vocab = keys.vocab
+      }
+      if (keys.summary) {
+        worksheets.summary = keys.summary
+      }
+      if (keys.compare) {
+        worksheets.compare = keys.compare
+      }
+      if (keys.writingPrompts) {
+        worksheets.writingPrompts = keys.writingPrompts
+      }
+      if (keys.writingSentences) {
+        worksheets.writingSentences = keys.writingSentences
+      }
+      if (keys.writingPoetry) {
+        worksheets.writingPoetry = keys.writingPoetry
+      }
+      if (keys.writingOpinion) {
+        worksheets.writingOpinion = keys.writingOpinion
+      }
+      if (keys.scienceObservation) {
+        worksheets.scienceObservation = keys.scienceObservation
+      }
+      if (keys.scienceLifecycle) {
+        worksheets.scienceLifecycle = keys.scienceLifecycle
       }
     }
   }

@@ -947,7 +947,8 @@ const renderers: Record<string, Renderer> = {
       </div>
     )
   },
-  'interactive-reading-detective': ({ seed, doc, variant }) => {
+  'interactive-reading-detective': (ctx) => {
+    const { seed, doc, variant, t } = ctx
     const rng = makeRng(`${seed}|${doc.id}|${variant}`)
     const mysteries = [
       { title: 'The Missing Lab Goggles', culprit: 'an absent-minded janitor', clue: 'a trail of glitter', setting: 'science fair' },
@@ -955,25 +956,30 @@ const renderers: Record<string, Renderer> = {
       { title: 'The Whispering Lockers', culprit: 'a friendly robot', clue: 'battery crumbs', setting: 'hallway' },
     ]
     const caseFile = pick(rng, mysteries)
+    const detectiveNotes = t('worksheets.readingDetective.detectiveNotes')
+      .replace('{{setting}}', caseFile.setting)
+      .replace('{{clue}}', caseFile.clue)
+    const explainWhy = t('worksheets.readingDetective.explainWhy').replace('{{culprit}}', caseFile.culprit)
     return (
       <div className="space-y-3">
-        <p className="text-sm text-slate-700 font-semibold">Case File: {caseFile.title}</p>
+        <p className="text-sm text-slate-700 font-semibold">{t('worksheets.readingDetective.caseFile')}: {caseFile.title}</p>
         <p className="text-sm text-slate-600">
-          Detective Notes: The scene is the {caseFile.setting}. A witness heard a hum. The main clue is {caseFile.clue}. Who or what is responsible?
+          {detectiveNotes}
         </p>
         <ul className="list-disc list-inside space-y-1 text-sm text-slate-700">
-          <li>Write three inferences using the clues.</li>
-          <li>Explain why the culprit might be {caseFile.culprit}.</li>
-          <li>Prove or disprove your theory with text evidence.</li>
+          <li>{t('worksheets.readingDetective.writeThreeInferences')}</li>
+          <li>{explainWhy}</li>
+          <li>{t('worksheets.readingDetective.proveOrDisprove')}</li>
         </ul>
         <div className="rounded-lg border border-dashed border-indigo-300 bg-indigo-50 px-4 py-3 text-sm text-indigo-800">
-          Draw your evidence board below and label each clue.
+          {t('worksheets.readingDetective.drawEvidenceBoard')}
           <div className="mt-2 h-28 rounded border border-indigo-200 bg-white" />
         </div>
       </div>
     )
   },
-  'interactive-reading-storymap': ({ seed, doc, variant }) => {
+  'interactive-reading-storymap': (ctx) => {
+    const { seed, doc, variant, t } = ctx
     const story = buildReadingStoryMap(seed, doc.id, variant)
     return (
       <div className="space-y-3">
@@ -982,9 +988,9 @@ const renderers: Record<string, Renderer> = {
         </p>
         <div className="grid gap-3 md:grid-cols-3">
           {[
-            { title: 'Beginning', prompt: 'Who are the characters? Where are they?' },
-            { title: 'Middle', prompt: 'What problem appears? What clues help?' },
-            { title: 'Ending', prompt: 'How do they solve it? What is the lesson?' },
+            { title: t('worksheets.storyMap.beginning'), prompt: t('worksheets.storyMap.beginningPrompt') },
+            { title: t('worksheets.storyMap.middle'), prompt: t('worksheets.storyMap.middlePrompt') },
+            { title: t('worksheets.storyMap.ending'), prompt: t('worksheets.storyMap.endingPrompt') },
           ].map((section) => (
             <div key={section.title} className="rounded-xl border border-slate-200 bg-white p-4 text-sm text-slate-700">
               <p className="font-semibold text-slate-900">{section.title}</p>
@@ -995,16 +1001,16 @@ const renderers: Record<string, Renderer> = {
         </div>
         <div className="grid gap-3 md:grid-cols-2">
           <div className="rounded-xl border border-purple-200 bg-purple-50 p-4 text-sm text-purple-800">
-            <p className="font-semibold">Clue Log</p>
-            <p className="text-xs uppercase tracking-wide text-purple-500">Look back at the story</p>
+            <p className="font-semibold">{t('worksheets.storyMap.clueLog')}</p>
+            <p className="text-xs uppercase tracking-wide text-purple-500">{t('worksheets.storyMap.lookBackAtStory')}</p>
             <ol className="mt-2 list-decimal list-inside space-y-2 text-purple-900">
-              <li>Clue 1: _____________________________________________</li>
-              <li>Clue 2: _____________________________________________</li>
+              <li>{t('worksheets.storyMap.clue').replace('{{number}}', '1')}: _____________________________________________</li>
+              <li>{t('worksheets.storyMap.clue').replace('{{number}}', '2')}: _____________________________________________</li>
             </ol>
           </div>
           <div className="rounded-xl border border-slate-200 bg-white p-4 text-sm text-slate-700">
-            <p className="font-semibold text-slate-900">Retell in Your Own Words</p>
-            <p className="text-xs text-slate-500">Write three sentences that cover beginning, middle, and ending.</p>
+            <p className="font-semibold text-slate-900">{t('worksheets.storyMap.retellInOwnWords')}</p>
+            <p className="text-xs text-slate-500">{t('worksheets.storyMap.retellPrompt')}</p>
             <div className="mt-3 space-y-2">
               <div className="h-10 rounded border border-dashed border-slate-300" />
               <div className="h-10 rounded border border-dashed border-slate-300" />
@@ -1013,17 +1019,18 @@ const renderers: Record<string, Renderer> = {
           </div>
         </div>
         <div className="space-y-2 text-sm text-slate-700">
-          <p className="font-semibold text-slate-900">Comprehension Checks</p>
+          <p className="font-semibold text-slate-900">{t('worksheets.storyMap.comprehensionChecks')}</p>
           <ol className="list-decimal list-inside space-y-1">
-            <li>Why did {story.hero} and {story.friend} visit the {story.setting}?</li>
-            <li>What problem slowed them down in the middle of the story?</li>
-            <li>How did {story.helper} help them finish their goal? What lesson did they learn?</li>
+            <li>{t('worksheets.storyMap.whyDidVisit').replace('{{hero}}', story.hero).replace('{{friend}}', story.friend).replace('{{setting}}', story.setting)}</li>
+            <li>{t('worksheets.storyMap.whatProblem')}</li>
+            <li>{t('worksheets.storyMap.howDidHelper').replace('{{helper}}', story.helper)}</li>
           </ol>
         </div>
       </div>
     )
   },
-  'interactive-reading-vocab': ({ seed, doc, variant }) => {
+  'interactive-reading-vocab': (ctx) => {
+    const { seed, doc, variant, t } = ctx
     const rng = makeRng(`${seed}|${doc.id}|${variant}`)
     const words = pickMany(rng, ['brisk', 'illuminate', 'curious', 'soar', 'murmur', 'astonished', 'grumble', 'admire', 'voyage', 'bundle'], 6)
     const contexts = ['after-school announcement', 'nature discovery', 'space mission', 'friendship moment', 'STEM experiment', 'art showcase']
@@ -1031,14 +1038,14 @@ const renderers: Record<string, Renderer> = {
     return (
       <div className="space-y-3">
         <p className="text-sm text-slate-600">
-          Use context clues to match each word to its meaning. Then write a sentence using the word in the {context} context.
+          {t('worksheets.vocab.instructions').replace('{{context}}', context)}
         </p>
         <table className="w-full border border-slate-300 text-sm">
           <thead className="bg-slate-100">
             <tr>
-              <th className="px-3 py-2">Word</th>
-              <th className="px-3 py-2">Match the meaning</th>
-              <th className="px-3 py-2">Sentence in context</th>
+              <th className="px-3 py-2">{t('worksheets.vocab.word')}</th>
+              <th className="px-3 py-2">{t('worksheets.vocab.matchMeaning')}</th>
+              <th className="px-3 py-2">{t('worksheets.vocab.sentenceInContext')}</th>
             </tr>
           </thead>
           <tbody>
@@ -1054,41 +1061,43 @@ const renderers: Record<string, Renderer> = {
       </div>
     )
   },
-  'interactive-reading-summary': ({ seed, doc, variant }) => {
+  'interactive-reading-summary': (ctx) => {
+    const { seed, doc, variant, t } = ctx
     const rng = makeRng(`${seed}|${doc.id}|${variant}`)
     const topics = ['community garden', 'solar-powered bus', 'classroom pet adoption', 'school makerspace', 'reading marathon']
     const topic = pick(rng, topics)
     return (
       <div className="space-y-3">
         <p className="text-sm leading-relaxed text-slate-700">
-          Read the informational paragraph about the {topic}. Highlight the most important idea from each section. Then complete the summary box with 3 key points.
+          {t('worksheets.summary.instructions').replace('{{topic}}', topic)}
         </p>
         <div className="grid gap-3 md:grid-cols-2">
           <div className="rounded-xl border border-slate-200 bg-white p-4 text-sm text-slate-600">
             <p>
-              Paragraph 1: Introduces the {topic}. Why was it created? Who benefits from it?
+              {t('worksheets.summary.paragraph').replace('{{number}}', '1')}: {t('worksheets.summary.paragraph1Intro').replace('{{topic}}', topic)}
             </p>
             <p className="mt-2">
-              Paragraph 2: Describes how it works each day. What steps are involved? Who helps?
+              {t('worksheets.summary.paragraph').replace('{{number}}', '2')}: {t('worksheets.summary.paragraph2Intro')}
             </p>
             <p className="mt-2">
-              Paragraph 3: Shares one challenge and a plan to improve it next month.
+              {t('worksheets.summary.paragraph').replace('{{number}}', '3')}: {t('worksheets.summary.paragraph3Intro')}
             </p>
           </div>
           <div className="rounded-xl border border-purple-200 bg-purple-50 p-4 text-sm text-purple-800">
-            <p className="font-semibold">Summary Box</p>
+            <p className="font-semibold">{t('worksheets.summary.summaryBox')}</p>
             <ul className="mt-2 space-y-2 text-purple-900">
-              <li>Key point 1: __________________________</li>
-              <li>Key point 2: __________________________</li>
-              <li>Key point 3: __________________________</li>
+              <li>{t('worksheets.summary.keyPoint').replace('{{number}}', '1')}: __________________________</li>
+              <li>{t('worksheets.summary.keyPoint').replace('{{number}}', '2')}: __________________________</li>
+              <li>{t('worksheets.summary.keyPoint').replace('{{number}}', '3')}: __________________________</li>
             </ul>
-            <p className="mt-3 text-xs text-purple-700">Write one closing sentence that restates the main idea in your own words.</p>
+            <p className="mt-3 text-xs text-purple-700">{t('worksheets.summary.closingSentence')}</p>
           </div>
         </div>
       </div>
     )
   },
-  'interactive-reading-compare': ({ seed, doc, variant }) => {
+  'interactive-reading-compare': (ctx) => {
+    const { seed, doc, variant, t } = ctx
     const rng = makeRng(`${seed}|${doc.id}|${variant}`)
     const topics = [
       ['solar camping tent', 'traditional canvas tent'],
@@ -1100,30 +1109,31 @@ const renderers: Record<string, Renderer> = {
     return (
       <div className="space-y-3">
         <p className="text-sm text-slate-600">
-          Compare and contrast the two texts. Record information about {topicA} and {topicB}, then write a paragraph explaining how they are alike and different.
+          {t('worksheets.compare.instructions').replace('{{topicA}}', topicA).replace('{{topicB}}', topicB)}
         </p>
         <div className="grid gap-4">
           <div className="rounded-xl border border-slate-200 bg-white p-4 text-sm text-slate-700">
-            <p className="font-semibold">Text 1: {topicA}</p>
-            <p>Key details: ______________________________</p>
-            <p>What problem does it solve? __________________</p>
+            <p className="font-semibold">{t('worksheets.compare.text1').replace('{{topic}}', topicA)}</p>
+            <p>{t('worksheets.compare.keyDetails')} ______________________________</p>
+            <p>{t('worksheets.compare.whatProblem')} __________________</p>
           </div>
           <div className="rounded-xl border border-slate-200 bg-white p-4 text-sm text-slate-700">
-            <p className="font-semibold">Text 2: {topicB}</p>
-            <p>Key details: ______________________________</p>
-            <p>What problem does it solve? __________________</p>
+            <p className="font-semibold">{t('worksheets.compare.text2').replace('{{topic}}', topicB)}</p>
+            <p>{t('worksheets.compare.keyDetails')} ______________________________</p>
+            <p>{t('worksheets.compare.whatProblem')} __________________</p>
           </div>
           <div className="rounded-xl border border-emerald-200 bg-emerald-50 p-4 text-sm text-emerald-900">
-            <p className="font-semibold">Compare & Contrast Paragraph</p>
+            <p className="font-semibold">{t('worksheets.compare.compareContrastParagraph')}</p>
             <p className="mt-2">
-              {topicA} and {topicB} are alike because _______________________________. They are different because _______________________________.
+              {t('worksheets.compare.alikeBecause').replace('{{topicA}}', topicA).replace('{{topicB}}', topicB)} _______________________________. {t('worksheets.compare.differentBecause')} _______________________________.
             </p>
           </div>
         </div>
       </div>
     )
   },
-  'interactive-writing-prompts': ({ seed, doc, variant }) => {
+  'interactive-writing-prompts': (ctx) => {
+    const { seed, doc, variant, t } = ctx
     const rng = makeRng(`${seed}|${doc.id}|${variant}`)
     const prompts = [
       'Write about a time your class invented something helpful.',
@@ -1137,25 +1147,26 @@ const renderers: Record<string, Renderer> = {
     return (
       <div className="space-y-3">
         <p className="text-sm text-slate-600">
-          Choose a prompt and write a beginning, middle, and end. Include feelings, actions, and dialogue.
+          {t('worksheets.writingPrompts.instructions')}
         </p>
         <ul className="space-y-2 text-sm text-slate-700">
           {chosen.map((prompt, idx) => (
             <li key={idx} className="rounded-lg border border-slate-200 bg-white px-4 py-3">
-              <span className="font-semibold text-purple-700">Prompt {idx + 1}:</span> {prompt}
+              <span className="font-semibold text-purple-700">{t('worksheets.writingPrompts.prompt').replace('{{number}}', String(idx + 1))}:</span> {prompt}
             </li>
           ))}
         </ul>
         <div className="space-y-1 text-xs text-slate-500">
-          <p>Brainstorm: ________________________________</p>
-          <p>Beginning: _________________________________</p>
-          <p>Middle: ___________________________________</p>
-          <p>End: ______________________________________</p>
+          <p>{t('worksheets.writingPrompts.brainstorm')} ________________________________</p>
+          <p>{t('worksheets.writingPrompts.beginning')} _________________________________</p>
+          <p>{t('worksheets.writingPrompts.middle')} ___________________________________</p>
+          <p>{t('worksheets.writingPrompts.end')} ______________________________________</p>
         </div>
       </div>
     )
   },
-  'interactive-writing-sentences': ({ seed, doc, variant }) => {
+  'interactive-writing-sentences': (ctx) => {
+    const { seed, doc, variant, t } = ctx
     const rng = makeRng(`${seed}|${doc.id}|${variant}`)
     const starters = pickMany(rng, ['After lunch', 'During the storm', 'When the robot blinked', 'While the choir practiced', 'Before sunrise', 'Whenever the bell rings'], 4)
     const actions = pickMany(rng, ['we built a domino tower', 'the lights flickered', 'a secret message appeared', 'someone whispered a clue', 'the class cheered', 'the cat jumped on the desk'], 4)
@@ -1163,7 +1174,7 @@ const renderers: Record<string, Renderer> = {
     return (
       <div className="space-y-3">
         <p className="text-sm text-slate-600">
-          Complete each sentence with vivid verbs and details. Then rewrite one sentence using a compound structure.
+          {t('worksheets.writingSentences.instructions')}
         </p>
         <ul className="space-y-2 text-sm text-slate-700">
           {sentences.map((sentence, idx) => (
@@ -1173,13 +1184,14 @@ const renderers: Record<string, Renderer> = {
           ))}
         </ul>
         <div className="rounded-lg border border-slate-200 bg-white px-4 py-3 text-sm text-slate-600">
-          <p className="font-semibold text-slate-900">Compound Sentence Challenge</p>
-          <p>Combine two of your sentences with a conjunction: _______________________________________________________</p>
+          <p className="font-semibold text-slate-900">{t('worksheets.writingSentences.compoundSentenceChallenge')}</p>
+          <p>{t('worksheets.writingSentences.combineWithConjunction')} _______________________________________________________</p>
         </div>
       </div>
     )
   },
-  'interactive-writing-poetry': ({ seed, doc, variant }) => {
+  'interactive-writing-poetry': (ctx) => {
+    const { seed, doc, variant, t } = ctx
     const rng = makeRng(`${seed}|${doc.id}|${variant}`)
     const themes = ['rainy playground', 'city skyline', 'secret garden', 'music festival', 'winter morning', 'campfire night']
     const theme = pick(rng, themes)
@@ -1187,73 +1199,75 @@ const renderers: Record<string, Renderer> = {
     return (
       <div className="space-y-3">
         <p className="text-sm text-slate-600">
-          Create a haiku and a free-verse stanza about a {theme}. Use at least three word bank words.
+          {t('worksheets.writingPoetry.instructions').replace('{{theme}}', theme)}
         </p>
         <div className="rounded-xl border border-purple-200 bg-purple-50 p-4 text-sm text-purple-800">
-          <p className="font-semibold">Word Bank</p>
+          <p className="font-semibold">{t('worksheets.writingPoetry.wordBank')}</p>
           <p className="mt-1 uppercase tracking-wide text-xs">{wordBank.join(' • ')}</p>
         </div>
         <div className="grid gap-4 md:grid-cols-2">
           <div className="rounded-xl border border-slate-200 bg-white p-4 text-sm text-slate-700">
-            <p className="font-semibold">Haiku (5-7-5)</p>
-            <p>Line 1: ___________________________</p>
-            <p>Line 2: ___________________________</p>
-            <p>Line 3: ___________________________</p>
+            <p className="font-semibold">{t('worksheets.writingPoetry.haiku')}</p>
+            <p>{t('worksheets.writingPoetry.line').replace('{{number}}', '1')}: ___________________________</p>
+            <p>{t('worksheets.writingPoetry.line').replace('{{number}}', '2')}: ___________________________</p>
+            <p>{t('worksheets.writingPoetry.line').replace('{{number}}', '3')}: ___________________________</p>
           </div>
           <div className="rounded-xl border border-slate-200 bg-white p-4 text-sm text-slate-700">
-            <p className="font-semibold">Free-verse Stanza</p>
-            <p>Line 1: ___________________________</p>
-            <p>Line 2: ___________________________</p>
-            <p>Line 3: ___________________________</p>
-            <p>Line 4: ___________________________</p>
+            <p className="font-semibold">{t('worksheets.writingPoetry.freeVerseStanza')}</p>
+            <p>{t('worksheets.writingPoetry.line').replace('{{number}}', '1')}: ___________________________</p>
+            <p>{t('worksheets.writingPoetry.line').replace('{{number}}', '2')}: ___________________________</p>
+            <p>{t('worksheets.writingPoetry.line').replace('{{number}}', '3')}: ___________________________</p>
+            <p>{t('worksheets.writingPoetry.line').replace('{{number}}', '4')}: ___________________________</p>
           </div>
         </div>
       </div>
     )
   },
-  'interactive-writing-opinion': ({ seed, doc, variant }) => {
+  'interactive-writing-opinion': (ctx) => {
+    const { seed, doc, variant, t } = ctx
     const rng = makeRng(`${seed}|${doc.id}|${variant}`)
     const topics = ['Should recess be longer?', 'Is it better to read ebooks or paper books?', 'Should robots help with homework?', 'Is homework on weekends a good idea?', 'Should the cafeteria add a smoothie bar?']
     const topic = pick(rng, topics)
     return (
       <div className="space-y-3">
         <p className="text-sm text-slate-600">
-          Plan an opinion paragraph about: <span className="font-semibold text-purple-700">{topic}</span>
+          {t('worksheets.writingOpinion.instructions')} <span className="font-semibold text-purple-700">{topic}</span>
         </p>
         <div className="grid gap-4 md:grid-cols-2">
           <div className="rounded-xl border border-slate-200 bg-white p-4 text-sm text-slate-700">
-            <p className="font-semibold">Reasons & Evidence</p>
-            <p>Reason #1 ____________________________________</p>
-            <p>Evidence _____________________________________</p>
-            <p className="mt-3">Reason #2 ____________________________________</p>
-            <p>Evidence _____________________________________</p>
+            <p className="font-semibold">{t('worksheets.writingOpinion.reasonsAndEvidence')}</p>
+            <p>{t('worksheets.writingOpinion.reason').replace('{{number}}', '1')} ____________________________________</p>
+            <p>{t('worksheets.writingOpinion.evidence')} _____________________________________</p>
+            <p className="mt-3">{t('worksheets.writingOpinion.reason').replace('{{number}}', '2')} ____________________________________</p>
+            <p>{t('worksheets.writingOpinion.evidence')} _____________________________________</p>
           </div>
           <div className="rounded-xl border border-emerald-200 bg-emerald-50 p-4 text-sm text-emerald-800">
-            <p className="font-semibold">Paragraph Planner</p>
-            <p>Hook sentence: ___________________________________</p>
-            <p>Opinion statement: _______________________________</p>
-            <p>Closing sentence: ________________________________</p>
+            <p className="font-semibold">{t('worksheets.writingOpinion.paragraphPlanner')}</p>
+            <p>{t('worksheets.writingOpinion.hookSentence')} ___________________________________</p>
+            <p>{t('worksheets.writingOpinion.opinionStatement')} _______________________________</p>
+            <p>{t('worksheets.writingOpinion.closingSentence')} ________________________________</p>
           </div>
         </div>
       </div>
     )
   },
-  'interactive-science-observation': ({ seed, doc, variant }) => {
+  'interactive-science-observation': (ctx) => {
+    const { seed, doc, variant, t } = ctx
     const rng = makeRng(`${seed}|${doc.id}|${variant}`)
     const focuses = ['plants', 'weather', 'animal behavior', 'STEM gadgets', 'rocks & minerals']
     const focus = pick(rng, focuses)
     return (
       <div className="space-y-3">
         <p className="text-sm text-slate-600">
-          Observe and record data about {focus}. Include sketches, measurements, and interesting questions.
+          {t('worksheets.scienceObservation.instructions').replace('{{focus}}', focus)}
         </p>
         <table className="w-full border border-slate-300 text-left text-sm">
           <thead className="bg-slate-100">
             <tr>
-              <th className="px-3 py-2">Date & Time</th>
-              <th className="px-3 py-2">Observation Sketch</th>
-              <th className="px-3 py-2">What I Noticed</th>
-              <th className="px-3 py-2">Questions / Next Steps</th>
+              <th className="px-3 py-2">{t('worksheets.scienceObservation.dateAndTime')}</th>
+              <th className="px-3 py-2">{t('worksheets.scienceObservation.observationSketch')}</th>
+              <th className="px-3 py-2">{t('worksheets.scienceObservation.whatINoticed')}</th>
+              <th className="px-3 py-2">{t('worksheets.scienceObservation.questionsNextSteps')}</th>
             </tr>
           </thead>
           <tbody>
@@ -1272,7 +1286,8 @@ const renderers: Record<string, Renderer> = {
       </div>
     )
   },
-  'interactive-science-lifecycle': ({ seed, doc, variant }) => {
+  'interactive-science-lifecycle': (ctx) => {
+    const { seed, doc, variant, t, formatNum } = ctx
     const rng = makeRng(`${seed}|${doc.id}|${variant}`)
     const cycles = ['butterfly', 'sunflower', 'frog', 'apple tree', 'bean plant']
     const cycle = pick(rng, cycles)
@@ -1284,18 +1299,19 @@ const renderers: Record<string, Renderer> = {
       'bean plant': ['Seed', 'Sprout', 'Flowering', 'Bean pod'],
     }
     const stages = stagesMap[cycle]
+    const numberWords = ['first', 'second', 'third', 'fourth']
     return (
       <div className="space-y-3">
         <p className="text-sm text-slate-600">
-          Label and illustrate the life cycle of a {cycle}. Describe what happens at each stage.
+          {t('worksheets.scienceLifecycle.instructions').replace('{{cycle}}', cycle)}
         </p>
         <div className="grid gap-4 md:grid-cols-4">
           {stages.map((stage, idx) => (
             <div key={stage} className="rounded-xl border border-emerald-200 bg-emerald-50 p-3 text-center text-sm text-emerald-800">
-              <p className="font-semibold">{numberWords[idx].toUpperCase()} Stage</p>
+              <p className="font-semibold">{t('worksheets.scienceLifecycle.stage').replace('{{number}}', formatNum ? formatNum(idx + 1) : String(idx + 1))}</p>
               <p className="mt-1 font-bold text-emerald-900">{stage}</p>
               <div className="mt-2 h-16 rounded border border-dashed border-emerald-300 bg-white" />
-              <p className="mt-2 text-xs text-emerald-700">Notes: __________________</p>
+              <p className="mt-2 text-xs text-emerald-700">{t('worksheets.scienceLifecycle.notes')} __________________</p>
             </div>
           ))}
         </div>
