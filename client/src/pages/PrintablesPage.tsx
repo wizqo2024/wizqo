@@ -247,7 +247,8 @@ function ChallengeAndAssessmentContent() {
 }
 
 // Helper component to wrap worksheet sections with nice styling
-const WorksheetSectionWrapper = React.memo(function WorksheetSectionWrapper({ 
+// Remove memo to ensure re-renders when language changes
+function WorksheetSectionWrapper({ 
   docId, 
   title, 
   emoji, 
@@ -335,7 +336,7 @@ const WorksheetSectionWrapper = React.memo(function WorksheetSectionWrapper({
       </div>
     </section>
   )
-});
+}
 
 const ANSWERABLE_BASE_DOC_IDS = [
   'science-match',
@@ -1295,9 +1296,10 @@ const BUNDLE_DOC_ALLOWLIST = new Set<string>([
 ])
 
 export function PrintablesPage() {
-  const { t } = useTranslation()
+  const { t, language } = useTranslation()
   
   // Helper function to get translations with fallback
+  // Include language in dependencies to ensure it updates when language changes
   const getTrans = React.useCallback((key: string, fallback: string) => {
     try {
       if (!t || typeof t !== 'function') {
@@ -1320,7 +1322,7 @@ export function PrintablesPage() {
     } catch (error) {
       return fallback
     }
-  }, [t])
+  }, [t, language])
   
   const params = new URLSearchParams(typeof window !== 'undefined' ? window.location.search : '')
   const doc = params.get('doc') || ''
@@ -15350,21 +15352,8 @@ export function PrintablesPage() {
         {/* Times Table Worksheets */}
         {activeDocs.includes('times-table-horizontal-1-5') && (() => {
           const docId = 'times-table-horizontal-1-5'
-          // getTrans function - will use current language from context
-          const getTrans = (key: string, fallback: string) => {
-            try {
-              const result = t(key)
-              // If result is the same as key, translation is missing
-              if (typeof result === 'string' && result === key) return fallback
-              // If result starts with 'worksheets.', it's likely a missing translation
-              if (typeof result === 'string' && result.startsWith('worksheets.')) return fallback
-              // If result is empty or falsy, use fallback
-              if (!result || (typeof result === 'string' && result.trim() === '')) return fallback
-              return result
-            } catch (error) {
-              return fallback
-            }
-          }
+          // Use the component-level getTrans function which includes language in dependencies
+          // This ensures translations update when language changes
           const rng = makeRng(`${effectiveSeed}|v${variant}|doc=${doc}`);
           function nextInt(min: number, max: number) { return Math.floor(rng() * (max - min + 1)) + min; }
           const facts: Array<[number, number]> = Array.from({length: 15}).map(() => {
@@ -15372,7 +15361,6 @@ export function PrintablesPage() {
           });
           return (
             <WorksheetSectionWrapper
-              key={`${docId}-${language}`}
               docId={docId}
               title={getTrans(`worksheets.${docId}.title`, 'Horizontal Times Table (1-5)')}
               emoji="➡️"
