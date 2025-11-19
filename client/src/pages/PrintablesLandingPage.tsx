@@ -16,15 +16,23 @@ function WorksheetThumbnailCard({ title, description, skills, age, href, docId }
   const finalHref = href.includes('?') ? `${href}&from=printables` : `${href}?from=printables`;
   const downloadHref = (href.includes('?') ? `${href}&autoprint=1` : `${href}?autoprint=1`) + `&from=printables`;
   
+  // Use translations if docId is provided
+  const translatedTitle = docId 
+    ? (t(`worksheets.${docId}.title`) !== `worksheets.${docId}.title` ? t(`worksheets.${docId}.title`) : title)
+    : title;
+  const translatedDescription = docId
+    ? (t(`worksheets.${docId}.description`) !== `worksheets.${docId}.description` ? t(`worksheets.${docId}.description`) : description)
+    : description;
+  
   return (
     <article className="rounded-2xl border border-slate-200 bg-white shadow-sm hover:shadow-lg transition-all duration-200 p-5 flex flex-col gap-3">
       <div className="flex items-center justify-between gap-3">
         <div className="flex-1">
-          <h3 className="text-lg font-semibold text-slate-900">{title}</h3>
+          <h3 className="text-lg font-semibold text-slate-900">{translatedTitle}</h3>
         </div>
       </div>
       
-      <p className="text-sm text-slate-600 leading-relaxed">{description}</p>
+      <p className="text-sm text-slate-600 leading-relaxed">{translatedDescription}</p>
       
       {(skills || age || level) && (
         <div className="flex flex-wrap gap-2 text-xs">
