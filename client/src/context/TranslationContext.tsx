@@ -53,8 +53,11 @@ export function TranslationProvider({ children }: { children: ReactNode }) {
           document.documentElement.dir = isRTL(urlLocale) ? 'rtl' : 'ltr'
           document.documentElement.lang = urlLocale
         }
-      } else if (!urlLocale) {
-        // If no locale in URL path, check query parameter
+        return // Early return to avoid checking query param if URL locale exists
+      }
+      
+      // If no locale in URL path, check query parameter
+      if (!urlLocale && typeof window !== 'undefined') {
         const params = new URLSearchParams(window.location.search)
         const langParam = params.get('lang')
         if (langParam && ['en', 'es', 'ar'].includes(langParam) && langParam !== language) {
@@ -62,37 +65,20 @@ export function TranslationProvider({ children }: { children: ReactNode }) {
           localStorage.setItem('wizqo-language', langParam)
           document.documentElement.dir = isRTL(langParam) ? 'rtl' : 'ltr'
           document.documentElement.lang = langParam
-        } else {
-          // If no locale in URL or query param, check localStorage and update if different
-          const saved = localStorage.getItem('wizqo-language') as Language
-          if (saved && ['en', 'es', 'ar'].includes(saved) && saved !== language) {
-            setLanguageState(saved)
-            document.documentElement.dir = isRTL(saved) ? 'rtl' : 'ltr'
-            document.documentElement.lang = saved
-          }
+          return // Early return to avoid checking localStorage
+        }
+      }
+      
+      // If no locale in URL or query param, check localStorage and update if different
+      if (!urlLocale && typeof window !== 'undefined') {
+        const saved = localStorage.getItem('wizqo-language') as Language
+        if (saved && ['en', 'es', 'ar'].includes(saved) && saved !== language) {
+          setLanguageState(saved)
+          document.documentElement.dir = isRTL(saved) ? 'rtl' : 'ltr'
+          document.documentElement.lang = saved
         }
       }
     }
-    
-    // Sync on mount - always check localStorage when no URL locale
-    syncLanguageFromURL()
-    
-    // Also check query parameter immediately after mount (in case it wasn't in initial state)
-    // This ensures the language is set even if the initial state didn't catch it
-    React.useEffect(() => {
-      if (typeof window !== 'undefined') {
-        const params = new URLSearchParams(window.location.search)
-        const langParam = params.get('lang')
-        if (langParam && ['en', 'es', 'ar'].includes(langParam)) {
-          // Always set if lang param exists, even if it matches current language
-          // This ensures the language is set correctly on initial load
-          setLanguageState(langParam as Language)
-          localStorage.setItem('wizqo-language', langParam)
-          document.documentElement.dir = isRTL(langParam) ? 'rtl' : 'ltr'
-          document.documentElement.lang = langParam
-        }
-      }
-    }, []) // Run once on mount
     
     // Also check on location change (for navigation without page reload)
     const checkLanguage = () => {
@@ -116,6 +102,12 @@ export function TranslationProvider({ children }: { children: ReactNode }) {
         }
       }
     }
+    
+    // Sync on mount - always check localStorage when no URL locale
+    // Use setTimeout to avoid React error about updating during render
+    const timeoutId = setTimeout(() => {
+      syncLanguageFromURL()
+    }, 0)
     
     // Sync on popstate (browser back/forward)
     window.addEventListener('popstate', syncLanguageFromURL)
@@ -157,6 +149,7 @@ export function TranslationProvider({ children }: { children: ReactNode }) {
     window.addEventListener('languagechange', handleLanguageChange as EventListener)
     
     return () => {
+      clearTimeout(timeoutId)
       window.removeEventListener('popstate', syncLanguageFromURL)
       window.removeEventListener('hashchange', checkLanguage)
       window.removeEventListener('storage', handleStorageChange)
