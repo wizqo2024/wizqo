@@ -18500,7 +18500,7 @@ export function PrintablesPage() {
               docId="number-id-1-10"
               title={t('worksheets.number-id-1-10.title') || 'Number Identification 1–10'}
               emoji="🔟"
-              description={getTrans('worksheets.number-id-1-10.description', `Find and circle all the number ${formattedTarget}s.`).replace('{{number}}', formattedTarget)}
+              description={getTrans('worksheets.number-id-1-10.description', `Find and circle all the number ${formattedTarget}s.`).replace(/\{\{number\}\}/g, formattedTarget)}
               problemCount={targetCount}
               learningObjectives={[
                 'Identify and recognize numbers 1-10',
@@ -18520,7 +18520,7 @@ export function PrintablesPage() {
               <div className="mb-6 p-4 bg-blue-50 border-2 border-blue-200 rounded-lg print:border print:bg-white">
                 <div className="font-semibold text-blue-900 mb-3 text-sm">{getTrans('worksheets.number-id-1-10.example.title', '📚 Example - Let\'s solve this together:')}</div>
                 <div className="space-y-2 text-sm">
-                  <div className="font-semibold text-base"><strong>{getTrans('worksheets.number-id-1-10.example.problem', 'Problem:')}</strong> {getTrans('worksheets.number-id-1-10.example.problemText', `Find and circle all the ${formatNum(5)}s`)}</div>
+                  <div className="font-semibold text-base"><strong>{getTrans('worksheets.number-id-1-10.example.problem', 'Problem:')}</strong> {getTrans('worksheets.number-id-1-10.example.problemText', `Find and circle all the ${formatNum(5)}s`).replace(/\{\{number\}\}/g, formatNum(5))}</div>
                   <div className="pl-4 border-l-2 border-blue-300 space-y-1">
                     <div><strong>{getTrans('worksheets.number-id-1-10.example.step1', 'Step 1:')}</strong> {getTrans('worksheets.number-id-1-10.example.step1Text', 'Look at each number carefully')}</div>
                     <div><strong>{getTrans('worksheets.number-id-1-10.example.step2', 'Step 2:')}</strong> {getTrans('worksheets.number-id-1-10.example.step2Text', 'Find numbers that look like the target number')}</div>
@@ -18531,7 +18531,7 @@ export function PrintablesPage() {
                 </div>
               </div>
               <div className="text-center mb-4">
-                <p className="text-xl font-bold text-slate-900">{getTrans('worksheets.number-id-1-10.instruction', `Find and circle all the ${formattedTarget}s`)}</p>
+                <p className="text-xl font-bold text-slate-900">{getTrans('worksheets.number-id-1-10.instruction', `Find and circle all the ${formattedTarget}s`).replace(/\{\{number\}\}/g, formattedTarget)}</p>
               </div>
               <div className="grid grid-cols-10 gap-2 break-inside-avoid" style={{ pageBreakAfter: 'auto' }}>
                 {numbers.map((n, i) => (
@@ -18554,8 +18554,8 @@ export function PrintablesPage() {
                 <div className="font-semibold text-slate-800 mb-3 text-sm">{getTrans('worksheets.number-id-1-10.selfCheck.title', '📊 How did you do?')}</div>
                 <div className="space-y-2 text-xs">
                   <div>☐ {getTrans('worksheets.number-id-1-10.selfCheck.canIdentify', 'I can identify numbers 1-10')}</div>
-                  <div>☐ {getTrans('worksheets.number-id-1-10.selfCheck.found', `I found all the ${formattedTarget}s`)}</div>
-                  <div>☐ {getTrans('worksheets.number-id-1-10.selfCheck.circled', `I circled ${formattedCount} ${formattedTarget}s correctly`)}</div>
+                  <div>☐ {getTrans('worksheets.number-id-1-10.selfCheck.found', `I found all the ${formattedTarget}s`).replace(/\{\{number\}\}/g, formattedTarget)}</div>
+                  <div>☐ {getTrans('worksheets.number-id-1-10.selfCheck.circled', `I circled ${formattedCount} ${formattedTarget}s correctly`).replace(/\{\{count\}\}/g, formattedCount).replace(/\{\{number\}\}/g, formattedTarget)}</div>
                 </div>
                 <div className="mt-3 text-xs">
                   <strong>{getTrans('worksheets.number-id-1-10.selfCheck.score', 'My score:')}</strong> ___ / {formattedCount}
@@ -18567,8 +18567,8 @@ export function PrintablesPage() {
               {showAnswersForDoc('number-id-1-10', () => (
                 <div className="mt-6 p-4 border-2 border-emerald-300 bg-emerald-50 rounded print:border print:bg-white print:page-break-before-always">
                   <div className="font-bold text-emerald-900 mb-3 text-base">{getTrans('worksheets.answerKeyAndNotes', '✅ Answer Key')}</div>
-                  <p className="text-sm text-emerald-800 mb-2"><strong>{getTrans('worksheets.number-id-1-10.answer.text', `Circle all ${formattedTarget}s.`)}</strong> {getTrans('worksheets.number-id-1-10.answer.found', `Found: ${formattedCount} instances.`)}</p>
-                  <div className="text-xs text-emerald-700 mt-2">{getTrans('worksheets.number-id-1-10.answer.remember', `💡 Remember: Look carefully at each number and match it to the target number ${formattedTarget}. Circle all instances you find!`)}</div>
+                  <p className="text-sm text-emerald-800 mb-2"><strong>{getTrans('worksheets.number-id-1-10.answer.text', `Circle all ${formattedTarget}s.`).replace(/\{\{number\}\}/g, formattedTarget)}</strong> {getTrans('worksheets.number-id-1-10.answer.found', `Found: ${formattedCount} instances.`).replace(/\{\{count\}\}/g, formattedCount)}</p>
+                  <div className="text-xs text-emerald-700 mt-2">{getTrans('worksheets.number-id-1-10.answer.remember', `💡 Remember: Look carefully at each number and match it to the target number ${formattedTarget}. Circle all instances you find!`).replace(/\{\{number\}\}/g, formattedTarget)}</div>
                 </div>
               ))}
             </WorksheetSectionWrapper>
