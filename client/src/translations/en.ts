@@ -15,6 +15,7 @@ export const en = {
     remember: 'Remember:',
     clear: 'Clear',
     printTip: 'Tip: Use your browser menu → Print → Save as PDF.',
+    withExplanations: 'with explanations',
   },
   worksheets: {
     countObjectsAndWriteNumber: 'Count the objects and write the number.',

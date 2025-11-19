@@ -537,15 +537,29 @@ const ANSWERABLE_BASE_DOC_IDS = [
   'probability',
 ]
 
+// Helper function to get translated worksheet title
+function getTranslatedWorksheetTitle(docId: string, t: ((key: string) => string) | undefined, fallback: string): string {
+  if (t) {
+    const translated = t(`worksheets.${docId}.title`)
+    if (translated && translated !== `worksheets.${docId}.title` && !translated.startsWith('worksheets.')) {
+      // Extract emoji from fallback if present, otherwise use first emoji from translated
+      const emojiMatch = fallback.match(/^[\u{1F300}-\u{1F9FF}]|[\u{2600}-\u{26FF}]|[\u{2700}-\u{27BF}]/u)
+      const emoji = emojiMatch ? emojiMatch[0] : ''
+      return emoji ? `${emoji} ${translated}` : translated
+    }
+  }
+  return fallback
+}
+
 function resolveDocTitle(docId: string, context: { packTime: string; bundleCategory?: string; t?: (key: string) => string }): string {
   const { packTime, bundleCategory, t } = context
   switch (docId) {
     case 'bundle':
       return bundleCategory ? `${bundleCategory} ${t ? t('pages.printables.printableBundle') : 'Printable Bundle'}` : (t ? t('pages.printables.printableBundle') : 'Printable Bundle')
     case 'ten-frames-1-20':
-      return '🔟 Ten Frames 1–20'
+      return getTranslatedWorksheetTitle(docId, t, '🔟 Ten Frames 1–20')
     case 'number-tracing-1-20':
-      return '🔢 Number Tracing 1–20'
+      return getTranslatedWorksheetTitle(docId, t, '🔢 Number Tracing 1–20')
     case 'stem-balloon-rocket':
       return '🚀 Balloon Rocket (STEM)'
     case 'stem-walking-water':
@@ -559,7 +573,7 @@ function resolveDocTitle(docId: string, context: { packTime: string; bundleCateg
     case 'beginning-sounds-az':
       return '🔤 Beginning Sounds (A–Z)'
     case 'addition-subtraction-0-10':
-      return '➕➖ Addition & Subtraction 0–10'
+      return getTranslatedWorksheetTitle(docId, t, '➕➖ Addition & Subtraction 0–10')
     case 'ten-frames-1-10':
       return '🔟 Ten Frames 1–10'
     case 'shapes-colors-sort':
@@ -636,7 +650,7 @@ function resolveDocTitle(docId: string, context: { packTime: string; bundleCateg
     case 'sudoku6':
       return '🧮 Sudoku – 6×6 (Medium)'
     case 'place-value-hto':
-      return '🧮 Place Value (Tens/Ones)'
+      return getTranslatedWorksheetTitle(docId, t, '🧮 Place Value (Tens/Ones)')
     case 'skip-count-5-10-120':
       return '🔁 Skip Counting by 5s & 10s'
     case 'add-2digit-100':
@@ -2131,7 +2145,7 @@ export function PrintablesPage() {
               const continents = ['North America', 'South America', 'Europe', 'Africa', 'Asia', 'Australia', 'Antarctica'];
               return (
                 <div className="mt-6 p-4 border-2 border-emerald-300 bg-emerald-50 rounded print:border print:bg-white print:page-break-before-always">
-                  <div className="font-bold text-emerald-900 mb-3 text-base">✅ Answer Key</div>
+                  <div className="font-bold text-emerald-900 mb-3 text-base">✅ {getTrans('common.answerKey', 'Answer Key')}</div>
                   <div className="space-y-2">
                     {continents.map((name, i) => (
                       <div key={i} className="text-sm text-emerald-800">
@@ -2238,7 +2252,7 @@ export function PrintablesPage() {
               ];
               return (
                 <div className="mt-6 p-4 border-2 border-emerald-300 bg-emerald-50 rounded print:border print:bg-white print:page-break-before-always">
-                  <div className="font-bold text-emerald-900 mb-3 text-base">✅ Answer Key</div>
+                  <div className="font-bold text-emerald-900 mb-3 text-base">✅ {getTrans('common.answerKey', 'Answer Key')}</div>
                   <div className="space-y-2">
                     {directions.map((d, i) => (
                       <div key={i} className="text-sm text-emerald-800">
@@ -2414,7 +2428,7 @@ export function PrintablesPage() {
               ];
               return (
                 <div className="mt-6 p-4 border-2 border-emerald-300 bg-emerald-50 rounded print:border print:bg-white print:page-break-before-always">
-                  <div className="font-bold text-emerald-900 mb-3 text-base">✅ Answer Key</div>
+                  <div className="font-bold text-emerald-900 mb-3 text-base">✅ {getTrans('common.answerKey', 'Answer Key')}</div>
                   <div className="space-y-2">
                     {matches.map((m, i) => (
                       <div key={i} className="text-sm text-emerald-800">
@@ -2536,7 +2550,7 @@ export function PrintablesPage() {
             </div>
             {showAnswersForDoc('geo-latlong', () => (
               <div className="mt-6 p-4 border-2 border-emerald-300 bg-emerald-50 rounded print:border print:bg-white print:page-break-before-always">
-                <div className="font-bold text-emerald-900 mb-3 text-base">✅ Answer Key</div>
+                <div className="font-bold text-emerald-900 mb-3 text-base">✅ {getTrans('common.answerKey', 'Answer Key')}</div>
                 <div className="space-y-2">
                   <div className="text-sm text-emerald-800">
                     Point A: <strong>(15°N, 80°W)</strong> - Located in the northern and western hemisphere
@@ -2664,7 +2678,7 @@ export function PrintablesPage() {
             </div>
             {showAnswersForDoc('number-tracing-1-10', () => (
               <div className="mt-6 p-4 border-2 border-emerald-300 bg-emerald-50 rounded print:border print:bg-white print:page-break-before-always">
-                <div className="font-bold text-emerald-900 mb-3 text-base">✅ Answer Key</div>
+                <div className="font-bold text-emerald-900 mb-3 text-base">✅ {getTrans('common.answerKey', 'Answer Key')}</div>
                 <div className="space-y-2 text-sm text-emerald-800">
                   <div>Trace each number following the dashed lines. Start at the red dot and follow the arrow direction.</div>
                   <div className="mt-2">Numbers to trace: <strong>1, 2, 3, 4, 5, 6, 7, 8, 9, 10</strong></div>
@@ -2955,7 +2969,7 @@ export function PrintablesPage() {
               const letters = [['A','a'],['B','b'],['C','c'],['D','d'],['E','e'],['F','f'],['G','g'],['H','h'],['I','i'],['J','j'],['K','k'],['L','l'],['M','m'],['N','n'],['O','o'],['P','p'],['Q','q'],['R','r'],['S','s'],['T','t'],['U','u'],['V','v'],['W','w'],['X','x'],['Y','y'],['Z','z']];
               return (
                 <div className="mt-6 p-4 border-2 border-emerald-300 bg-emerald-50 rounded print:border print:bg-white print:page-break-before-always">
-                  <div className="font-bold text-emerald-900 mb-3 text-base">✅ Answer Key</div>
+                  <div className="font-bold text-emerald-900 mb-3 text-base">✅ {getTrans('common.answerKey', 'Answer Key')}</div>
                   <div className="space-y-1 text-sm text-emerald-800">
                     {letters.map(([U, l], i) => (
                       <div key={i}>{U} → <strong>{l}</strong></div>
@@ -3116,7 +3130,7 @@ export function PrintablesPage() {
               };
               return (
                 <div className="mt-6 p-4 border-2 border-emerald-300 bg-emerald-50 rounded print:border print:bg-white print:page-break-before-always">
-                  <div className="font-bold text-emerald-900 mb-3 text-base">✅ Answer Key</div>
+                  <div className="font-bold text-emerald-900 mb-3 text-base">✅ {getTrans('common.answerKey', 'Answer Key')}</div>
                   <div className="space-y-1 text-sm text-emerald-800">
                     {Object.entries(answers).map(([letter, emojis]) => (
                       <div key={letter}>{letter}: Circle <strong>{emojis.join(', ')}</strong></div>
@@ -3348,7 +3362,7 @@ export function PrintablesPage() {
               </div>
               {showAnswersForDoc('ten-frames-1-10', () => (
                 <div className="mt-6 p-4 border-2 border-emerald-300 bg-emerald-50 rounded print:border print:bg-white print:page-break-before-always">
-                  <div className="font-bold text-emerald-900 mb-3 text-base">✅ Answer Key</div>
+                  <div className="font-bold text-emerald-900 mb-3 text-base">✅ {getTrans('common.answerKey', 'Answer Key')}</div>
                   <div className="space-y-2 text-sm text-emerald-800">
                     {numbers.map((n, i) => {
                       const filled = n;
@@ -3640,7 +3654,7 @@ export function PrintablesPage() {
               </div>
               {showAnswersForDoc('skip-count-5-10-120', () => (
                 <div className="mt-6 p-4 border-2 border-emerald-300 bg-emerald-50 rounded print:border print:bg-white print:page-break-before-always">
-                  <div className="font-bold text-emerald-900 mb-3 text-base">✅ Answer Key</div>
+                  <div className="font-bold text-emerald-900 mb-3 text-base">✅ {getTrans('common.answerKey', 'Answer Key')}</div>
                   <div className="space-y-3">
                     <div className="text-sm text-emerald-800">
                       <strong>Count by 5s to 120:</strong> The missing numbers are: {seq5.filter((_, i) => isBlank5(i)).map((n, idx) => `${idx + 1}. ${n}`).join(', ')}
@@ -3787,7 +3801,7 @@ export function PrintablesPage() {
               </div>
               {showAnswersForDoc('add-2digit-100', () => (
                 <div className="mt-6 p-4 border-2 border-emerald-300 bg-emerald-50 rounded print:border print:bg-white print:page-break-before-always">
-                  <div className="font-bold text-emerald-900 mb-3 text-base">✅ Answer Key</div>
+                  <div className="font-bold text-emerald-900 mb-3 text-base">✅ {getTrans('common.answerKey', 'Answer Key')}</div>
                   <div className="space-y-2">
                     {pairs.map(([a,b],i)=> (
                       <div key={i} className="text-sm text-emerald-800">
@@ -3932,7 +3946,7 @@ export function PrintablesPage() {
               </div>
               {showAnswersForDoc('sub-2digit-100', () => (
                 <div className="mt-6 p-4 border-2 border-emerald-300 bg-emerald-50 rounded print:border print:bg-white print:page-break-before-always">
-                  <div className="font-bold text-emerald-900 mb-3 text-base">✅ Answer Key</div>
+                  <div className="font-bold text-emerald-900 mb-3 text-base">✅ {getTrans('common.answerKey', 'Answer Key')}</div>
                   <div className="space-y-2">
                     {pairs.map(([a,b],i)=> (
                       <div key={i} className="text-sm text-emerald-800">
@@ -4104,7 +4118,7 @@ export function PrintablesPage() {
               </div>
               {showAnswersForDoc('word-problems-100', () => (
                 <div className="mt-6 p-4 border-2 border-emerald-300 bg-emerald-50 rounded print:border print:bg-white print:page-break-before-always">
-                  <div className="font-bold text-emerald-900 mb-3 text-base">✅ Answer Key</div>
+                  <div className="font-bold text-emerald-900 mb-3 text-base">✅ {getTrans('common.answerKey', 'Answer Key')}</div>
                   <div className="space-y-2">
                     {problems.map((item, i) => (
                       <div key={i} className="text-sm text-emerald-800">
@@ -4201,8 +4215,8 @@ export function PrintablesPage() {
                 </div>
               </div>
               {showAnswersForDoc('compare-2digit', () => (
-                <div className="mt-6 p-4 border-2 border-emerald-300 bg-emerald-50 rounded print:border print:bg-white print:page-break-before-always">
-                  <div className="font-bold text-emerald-900 mb-3 text-base">✅ Answer Key (with explanations)</div>
+              <div className="mt-6 p-4 border-2 border-emerald-300 bg-emerald-50 rounded print:border print:bg-white print:page-break-before-always">
+                <div className="font-bold text-emerald-900 mb-3 text-base">✅ {getTrans('common.answerKey', 'Answer Key')} ({getTrans('common.withExplanations', 'with explanations')})</div>
                   <div className="space-y-2">
                     {pairs.map(([a, b], i) => {
                       const symbol = a > b ? '>' : a < b ? '<' : '=';
@@ -4296,7 +4310,7 @@ export function PrintablesPage() {
               </div>
               {showAnswersForDoc('even-odd-100', () => (
                 <div className="mt-6 p-4 border-2 border-emerald-300 bg-emerald-50 rounded print:border print:bg-white print:page-break-before-always">
-                  <div className="font-bold text-emerald-900 mb-3 text-base">✅ Answer Key</div>
+                  <div className="font-bold text-emerald-900 mb-3 text-base">✅ {getTrans('common.answerKey', 'Answer Key')}</div>
                   <div className="space-y-2">
                     {nums.map((n, i) => (
                       <div key={i} className="text-sm text-emerald-800">
@@ -4392,7 +4406,7 @@ export function PrintablesPage() {
                 };
                 return (
                   <div className="mt-6 p-4 border-2 border-emerald-300 bg-emerald-50 rounded print:border print:bg-white print:page-break-before-always">
-                    <div className="font-bold text-emerald-900 mb-3 text-base">✅ Answer Key</div>
+                    <div className="font-bold text-emerald-900 mb-3 text-base">✅ {getTrans('common.answerKey', 'Answer Key')}</div>
                     <div className="space-y-3">
                       {times.map((t, i) => {
                         const { hour, minute } = parseTime(t);
@@ -4504,7 +4518,7 @@ export function PrintablesPage() {
               </div>
               {showAnswersForDoc('ten-frames-1-20', () => (
                 <div className="mt-6 p-4 border-2 border-emerald-300 bg-emerald-50 rounded print:border print:bg-white print:page-break-before-always">
-                  <div className="font-bold text-emerald-900 mb-3 text-base">✅ Answer Key</div>
+                  <div className="font-bold text-emerald-900 mb-3 text-base">✅ {getTrans('common.answerKey', 'Answer Key')}</div>
                   <div className="space-y-2 text-sm text-emerald-800">
                     {numbers.map((n, i) => {
                       const filled = n <= 10 ? n : 10;
@@ -4613,7 +4627,7 @@ export function PrintablesPage() {
             </div>
             {showAnswersForDoc('shapes-colors-sort', () => (
               <div className="mt-6 p-4 border-2 border-emerald-300 bg-emerald-50 rounded print:border print:bg-white print:page-break-before-always">
-                <div className="font-bold text-emerald-900 mb-3 text-base">✅ Answer Key</div>
+                <div className="font-bold text-emerald-900 mb-3 text-base">✅ {getTrans('common.answerKey', 'Answer Key')}</div>
                 <div className="space-y-2 text-sm text-emerald-800">
                   <div><strong>Blue box:</strong> Blue circle, blue rectangle, blue triangle</div>
                   <div><strong>Red box:</strong> Red circle, red rectangle, red triangle</div>
@@ -4701,7 +4715,7 @@ export function PrintablesPage() {
               </div>
               {showAnswersForDoc('dot-to-dot-1-20', () => (
                 <div className="mt-6 p-4 border-2 border-emerald-300 bg-emerald-50 rounded print:border print:bg-white print:page-break-before-always">
-                  <div className="font-bold text-emerald-900 mb-3 text-base">✅ Answer Key</div>
+                  <div className="font-bold text-emerald-900 mb-3 text-base">✅ {getTrans('common.answerKey', 'Answer Key')}</div>
                   <div className="space-y-2 text-sm text-emerald-800">
                     <div>Connect the dots in this order: <strong>1 → 2 → 3 → 4 → 5 → 6 → 7 → 8 → 9 → 10 → 11 → 12 → 13 → 14 → 15 → 16 → 17 → 18 → 19 → 20</strong></div>
                     <div className="mt-2">The completed picture should show a wavy or zigzag pattern connecting all 20 dots in numerical order.</div>
@@ -4788,7 +4802,7 @@ export function PrintablesPage() {
             </div>
             {showAnswersForDoc('tangram-animals', () => (
               <div className="mt-6 p-4 border-2 border-emerald-300 bg-emerald-50 rounded print:border print:bg-white print:page-break-before-always">
-                <div className="font-bold text-emerald-900 mb-3 text-base">✅ Answer Key</div>
+                <div className="font-bold text-emerald-900 mb-3 text-base">✅ {getTrans('common.answerKey', 'Answer Key')}</div>
                 <div className="space-y-2 text-sm text-emerald-800">
                   <div>Tangram puzzles have many solutions! The goal is to use all 7 pieces to create different shapes.</div>
                   <div className="mt-2">Common animals you can make: cat, rabbit, bird, fish, horse, and more!</div>
@@ -4869,7 +4883,7 @@ export function PrintablesPage() {
             </div>
             {showAnswersForDoc('spot-difference', () => (
               <div className="mt-6 p-4 border-2 border-emerald-300 bg-emerald-50 rounded print:border print:bg-white print:page-break-before-always">
-                <div className="font-bold text-emerald-900 mb-3 text-base">✅ Answer Key</div>
+                <div className="font-bold text-emerald-900 mb-3 text-base">✅ {getTrans('common.answerKey', 'Answer Key')}</div>
                 <div className="space-y-2 text-sm text-emerald-800">
                   <div>There are 7 differences between the two pictures. Look carefully at:</div>
                   <div className="pl-4">
@@ -4950,7 +4964,7 @@ export function PrintablesPage() {
             </svg>
             {showAnswersForDoc('directed-drawing-animals', () => (
               <div className="mt-6 p-4 border-2 border-emerald-300 bg-emerald-50 rounded print:border print:bg-white print:page-break-before-always">
-                <div className="font-bold text-emerald-900 mb-3 text-base">✅ Answer Key</div>
+                <div className="font-bold text-emerald-900 mb-3 text-base">✅ {getTrans('common.answerKey', 'Answer Key')}</div>
                 <div className="text-sm text-emerald-800">
                   Follow the 6 steps in order: 1) Draw body ellipse, 2) Add tail, 3) Add dorsal fin, 4) Add ventral fin, 5) Add side fin, 6) Add gentle stripes. Your fish should look like the final step!
                 </div>
@@ -4992,7 +5006,7 @@ export function PrintablesPage() {
             </svg>
             {showAnswersForDoc('cut-and-paste-crafts', () => (
               <div className="mt-6 p-4 border-2 border-emerald-300 bg-emerald-50 rounded print:border print:bg-white print:page-break-before-always">
-                <div className="font-bold text-emerald-900 mb-3 text-base">✅ Answer Key</div>
+                <div className="font-bold text-emerald-900 mb-3 text-base">✅ {getTrans('common.answerKey', 'Answer Key')}</div>
                 <div className="text-sm text-emerald-800">
                   Cut out the shapes and glue them together to create your craft. Be creative with colors!
                 </div>
@@ -5037,7 +5051,7 @@ export function PrintablesPage() {
             </svg>
             {showAnswersForDoc('feelings-checkin', () => (
               <div className="mt-6 p-4 border-2 border-emerald-300 bg-emerald-50 rounded print:border print:bg-white print:page-break-before-always">
-                <div className="font-bold text-emerald-900 mb-3 text-base">✅ Answer Key</div>
+                <div className="font-bold text-emerald-900 mb-3 text-base">✅ {getTrans('common.answerKey', 'Answer Key')}</div>
                 <div className="text-sm text-emerald-800">
                   There's no right or wrong answer! Point to or color where you feel on the meter. All feelings are valid and important to express.
                 </div>
@@ -5086,7 +5100,7 @@ export function PrintablesPage() {
             </svg>
             {showAnswersForDoc('reward-chart', () => (
               <div className="mt-6 p-4 border-2 border-emerald-300 bg-emerald-50 rounded print:border print:bg-white print:page-break-before-always">
-                <div className="font-bold text-emerald-900 mb-3 text-base">✅ Answer Key</div>
+                <div className="font-bold text-emerald-900 mb-3 text-base">✅ {getTrans('common.answerKey', 'Answer Key')}</div>
                 <div className="text-sm text-emerald-800">
                   Add a sticker or color a star in each box when you complete a task. Track your progress throughout the week!
                 </div>
@@ -5165,7 +5179,7 @@ export function PrintablesPage() {
             </div>
             {showAnswersForDoc('reading-mini-1', () => (
               <div className="mt-6 p-4 border-2 border-emerald-300 bg-emerald-50 rounded print:border print:bg-white print:page-break-before-always">
-                <div className="font-bold text-emerald-900 mb-3 text-base">✅ Answer Key</div>
+                <div className="font-bold text-emerald-900 mb-3 text-base">✅ {getTrans('common.answerKey', 'Answer Key')}</div>
                 <ol className="list-decimal list-inside space-y-2 text-sm text-emerald-800">
                   <li><strong>By the window</strong> (Sara planted a tiny seed in a cup by the window)</li>
                   <li><strong>A little water</strong> (Every day, she gave it a little water)</li>
@@ -5458,7 +5472,7 @@ export function PrintablesPage() {
             </div>
             {showAnswersForDoc('reading-g1-bus-ride', () => (
               <div className="mt-6 p-4 border-2 border-emerald-300 bg-emerald-50 rounded print:border print:bg-white print:page-break-before-always">
-                <div className="font-bold text-emerald-900 mb-3 text-base">✅ Answer Key</div>
+                <div className="font-bold text-emerald-900 mb-3 text-base">✅ {getTrans('common.answerKey', 'Answer Key')}</div>
                 <ol className="list-decimal list-inside space-y-2 text-sm text-emerald-800">
                   <li><strong>Blue</strong> (The seats were soft and blue)</li>
                   <li><strong>His mom</strong> (Eli held his mom's hand)</li>
@@ -5541,7 +5555,7 @@ export function PrintablesPage() {
             </div>
             {showAnswersForDoc('reading-g1-pet-fish', () => (
               <div className="mt-6 p-4 border-2 border-emerald-300 bg-emerald-50 rounded print:border print:bg-white print:page-break-before-always">
-                <div className="font-bold text-emerald-900 mb-3 text-base">✅ Answer Key</div>
+                <div className="font-bold text-emerald-900 mb-3 text-base">✅ {getTrans('common.answerKey', 'Answer Key')}</div>
                 <ol className="list-decimal list-inside space-y-2 text-sm text-emerald-800">
                   <li><strong>A tiny orange fish</strong> (Tara had a tiny orange fish)</li>
                   <li><strong>Dot</strong> (She named it Dot)</li>
@@ -5624,7 +5638,7 @@ export function PrintablesPage() {
             </div>
             {showAnswersForDoc('reading-g2-paper-bridge', () => (
               <div className="mt-6 p-4 border-2 border-emerald-300 bg-emerald-50 rounded print:border print:bg-white print:page-break-before-always">
-                <div className="font-bold text-emerald-900 mb-3 text-base">✅ Answer Key</div>
+                <div className="font-bold text-emerald-900 mb-3 text-base">✅ {getTrans('common.answerKey', 'Answer Key')}</div>
                 <ol className="list-decimal list-inside space-y-2 text-sm text-emerald-800">
                   <li><strong>A tiny paper bridge</strong> (Lena wanted a tiny bridge for her toy river)</li>
                   <li><strong>It bent and fell (too weak)</strong> (The first bridge bent and fell)</li>
@@ -5823,7 +5837,7 @@ export function PrintablesPage() {
             </div>
             {showAnswersForDoc('reading-g3-lighthouse', () => (
               <div className="mt-6 p-4 border-2 border-emerald-300 bg-emerald-50 rounded print:border print:bg-white print:page-break-before-always">
-                <div className="font-bold text-emerald-900 mb-3 text-base">✅ Answer Key</div>
+                <div className="font-bold text-emerald-900 mb-3 text-base">✅ {getTrans('common.answerKey', 'Answer Key')}</div>
                 <ol className="list-decimal list-inside space-y-2 text-sm text-emerald-800">
                   <li><strong>It drifted off course in thick fog</strong> (But the fog was thick, and a fishing boat drifted off course)</li>
                   <li><strong>A timed lamp flash</strong> (She covered one lamp for a few seconds, then uncovered it, making a slow flash)</li>
@@ -5964,7 +5978,7 @@ export function PrintablesPage() {
             </div>
             {showAnswersForDoc('reading-g3-community-garden', () => (
               <div className="mt-6 p-4 border-2 border-emerald-300 bg-emerald-50 rounded print:border print:bg-white print:page-break-before-always">
-                <div className="font-bold text-emerald-900 mb-3 text-base">✅ Answer Key</div>
+                <div className="font-bold text-emerald-900 mb-3 text-base">✅ {getTrans('common.answerKey', 'Answer Key')}</div>
                 <ol className="list-decimal list-inside space-y-2 text-sm text-emerald-800">
                   <li><strong>Permission to plant a garden</strong> (Families asked the town for permission to plant)</li>
                   <li><strong>Paths, a tool shed, and a compost bin</strong> (We drew a map with paths, a tool shed, and a compost bin)</li>
@@ -6047,7 +6061,7 @@ export function PrintablesPage() {
             </div>
             {showAnswersForDoc('reading-g1-red-balloon', () => (
               <div className="mt-6 p-4 border-2 border-emerald-300 bg-emerald-50 rounded print:border print:bg-white print:page-break-before-always">
-                <div className="font-bold text-emerald-900 mb-3 text-base">✅ Answer Key</div>
+                <div className="font-bold text-emerald-900 mb-3 text-base">✅ {getTrans('common.answerKey', 'Answer Key')}</div>
                 <ol className="list-decimal list-inside space-y-2 text-sm text-emerald-800">
                   <li><strong>At the fair</strong> (Sam got a red balloon at the fair)</li>
                   <li><strong>Red</strong> (Sam got a red balloon)</li>
@@ -6130,7 +6144,7 @@ export function PrintablesPage() {
             </div>
             {showAnswersForDoc('reading-g1-big-box', () => (
               <div className="mt-6 p-4 border-2 border-emerald-300 bg-emerald-50 rounded print:border print:bg-white print:page-break-before-always">
-                <div className="font-bold text-emerald-900 mb-3 text-base">✅ Answer Key</div>
+                <div className="font-bold text-emerald-900 mb-3 text-base">✅ {getTrans('common.answerKey', 'Answer Key')}</div>
                 <ol className="list-decimal list-inside space-y-2 text-sm text-emerald-800">
                   <li><strong>In the garage</strong> (Mia found a big box in the garage)</li>
                   <li><strong>Old toys</strong> (She opened it and saw old toys)</li>
@@ -6213,7 +6227,7 @@ export function PrintablesPage() {
             </div>
             {showAnswersForDoc('reading-g1-garden-snail', () => (
               <div className="mt-6 p-4 border-2 border-emerald-300 bg-emerald-50 rounded print:border print:bg-white print:page-break-before-always">
-                <div className="font-bold text-emerald-900 mb-3 text-base">✅ Answer Key</div>
+                <div className="font-bold text-emerald-900 mb-3 text-base">✅ {getTrans('common.answerKey', 'Answer Key')}</div>
                 <ol className="list-decimal list-inside space-y-2 text-sm text-emerald-800">
                   <li><strong>In the garden</strong> (Noah saw a snail in the garden)</li>
                   <li><strong>Brown</strong> (It had a brown shell)</li>
@@ -6296,7 +6310,7 @@ export function PrintablesPage() {
             </div>
             {showAnswersForDoc('reading-g1-birthday-cake', () => (
               <div className="mt-6 p-4 border-2 border-emerald-300 bg-emerald-50 rounded print:border print:bg-white print:page-break-before-always">
-                <div className="font-bold text-emerald-900 mb-3 text-base">✅ Answer Key</div>
+                <div className="font-bold text-emerald-900 mb-3 text-base">✅ {getTrans('common.answerKey', 'Answer Key')}</div>
                 <ol className="list-decimal list-inside space-y-2 text-sm text-emerald-800">
                   <li><strong>Emma's</strong> (It was Emma's birthday)</li>
                   <li><strong>Chocolate cake</strong> (Mom made a chocolate cake)</li>
@@ -6379,7 +6393,7 @@ export function PrintablesPage() {
             </div>
             {showAnswersForDoc('reading-g2-bird-feeder', () => (
               <div className="mt-6 p-4 border-2 border-emerald-300 bg-emerald-50 rounded print:border print:bg-white print:page-break-before-always">
-                <div className="font-bold text-emerald-900 mb-3 text-base">✅ Answer Key</div>
+                <div className="font-bold text-emerald-900 mb-3 text-base">✅ {getTrans('common.answerKey', 'Answer Key')}</div>
                 <ol className="list-decimal list-inside space-y-2 text-sm text-emerald-800">
                   <li><strong>A milk carton</strong> (Carlos and his sister made a bird feeder from a milk carton)</li>
                   <li><strong>Seeds</strong> (They cut a hole in the side and filled it with seeds)</li>
@@ -6462,7 +6476,7 @@ export function PrintablesPage() {
             </div>
             {showAnswersForDoc('reading-g2-cookie-recipe', () => (
               <div className="mt-6 p-4 border-2 border-emerald-300 bg-emerald-50 rounded print:border print:bg-white print:page-break-before-always">
-                <div className="font-bold text-emerald-900 mb-3 text-base">✅ Answer Key</div>
+                <div className="font-bold text-emerald-900 mb-3 text-base">✅ {getTrans('common.answerKey', 'Answer Key')}</div>
                 <ol className="list-decimal list-inside space-y-2 text-sm text-emerald-800">
                   <li><strong>Her grandma</strong> (Ava wanted to bake cookies with her grandma)</li>
                   <li><strong>The recipe</strong> (They read the recipe together)</li>
@@ -6545,7 +6559,7 @@ export function PrintablesPage() {
             </div>
             {showAnswersForDoc('reading-g2-tree-house', () => (
               <div className="mt-6 p-4 border-2 border-emerald-300 bg-emerald-50 rounded print:border print:bg-white print:page-break-before-always">
-                <div className="font-bold text-emerald-900 mb-3 text-base">✅ Answer Key</div>
+                <div className="font-bold text-emerald-900 mb-3 text-base">✅ {getTrans('common.answerKey', 'Answer Key')}</div>
                 <ol className="list-decimal list-inside space-y-2 text-sm text-emerald-800">
                   <li><strong>His dad</strong> (Jake's dad helped him build a tree house)</li>
                   <li><strong>Wood planks and strong nails</strong> (They used wood planks and strong nails)</li>
@@ -6628,7 +6642,7 @@ export function PrintablesPage() {
             </div>
             {showAnswersForDoc('reading-g3-school-play', () => (
               <div className="mt-6 p-4 border-2 border-emerald-300 bg-emerald-50 rounded print:border print:bg-white print:page-break-before-always">
-                <div className="font-bold text-emerald-900 mb-3 text-base">✅ Answer Key</div>
+                <div className="font-bold text-emerald-900 mb-3 text-base">✅ {getTrans('common.answerKey', 'Answer Key')}</div>
                 <ol className="list-decimal list-inside space-y-2 text-sm text-emerald-800">
                   <li><strong>Explorers</strong> (Our class practiced a play about explorers)</li>
                   <li><strong>Three weeks</strong> (Our class practiced a play about explorers for three weeks)</li>
@@ -6711,7 +6725,7 @@ export function PrintablesPage() {
             </div>
             {showAnswersForDoc('reading-g3-art-project', () => (
               <div className="mt-6 p-4 border-2 border-emerald-300 bg-emerald-50 rounded print:border print:bg-white print:page-break-before-always">
-                <div className="font-bold text-emerald-900 mb-3 text-base">✅ Answer Key</div>
+                <div className="font-bold text-emerald-900 mb-3 text-base">✅ {getTrans('common.answerKey', 'Answer Key')}</div>
                 <ol className="list-decimal list-inside space-y-2 text-sm text-emerald-800">
                   <li><strong>Bottle caps, old magazines, and cardboard</strong> (I collected bottle caps, old magazines, and cardboard)</li>
                   <li><strong>A flower-shaped mosaic</strong> (I glued them into a flower shape)</li>
@@ -7679,7 +7693,7 @@ export function PrintablesPage() {
             </div>
             {showAnswersForDoc('stem-balloon-rocket', () => (
               <div className="mt-6 p-4 border-2 border-emerald-300 bg-emerald-50 rounded print:border print:bg-white print:page-break-before-always">
-                <div className="font-bold text-emerald-900 mb-3 text-base">✅ Answer Key</div>
+                <div className="font-bold text-emerald-900 mb-3 text-base">✅ {getTrans('common.answerKey', 'Answer Key')}</div>
                 <div className="text-sm text-emerald-800">
                   <div className="mb-2"><strong>What you learned:</strong> When air pushes backward out of the balloon, the rocket moves forward. This is Newton's third law: for every action, there is an equal and opposite reaction!</div>
                   <div><strong>Success tip:</strong> Make sure the string is tight and the balloon opening faces backward. The tighter the string, the faster your rocket will go!</div>
@@ -7743,7 +7757,7 @@ export function PrintablesPage() {
             </div>
             {showAnswersForDoc('stem-walking-water', () => (
               <div className="mt-6 p-4 border-2 border-emerald-300 bg-emerald-50 rounded print:border print:bg-white print:page-break-before-always">
-                <div className="font-bold text-emerald-900 mb-3 text-base">✅ Answer Key</div>
+                <div className="font-bold text-emerald-900 mb-3 text-base">✅ {getTrans('common.answerKey', 'Answer Key')}</div>
                 <div className="text-sm text-emerald-800">
                   <div className="mb-2"><strong>What you learned:</strong> Water climbs up the paper towel through tiny spaces between the fibers. This is called capillary action! When the red and blue water meet in the middle cup, they mix to make purple.</div>
                   <div><strong>Success tip:</strong> Make sure the paper towels are fully in the water and the middle cup. Be patient - it takes 10-20 minutes for the water to walk!</div>
@@ -7805,7 +7819,7 @@ export function PrintablesPage() {
             </div>
             {showAnswersForDoc('arts-3-shape-creature', () => (
               <div className="mt-6 p-4 border-2 border-emerald-300 bg-emerald-50 rounded print:border print:bg-white print:page-break-before-always">
-                <div className="font-bold text-emerald-900 mb-3 text-base">✅ Answer Key</div>
+                <div className="font-bold text-emerald-900 mb-3 text-base">✅ {getTrans('common.answerKey', 'Answer Key')}</div>
                 <div className="text-sm text-emerald-800">
                   <div className="mb-2"><strong>What you learned:</strong> Simple shapes can be combined in creative ways to make unique creatures! There's no right or wrong way - use your imagination!</div>
                   <div><strong>Success tip:</strong> Start with big shapes, then add details. Don't worry about making it perfect - have fun and be creative!</div>
@@ -8011,7 +8025,7 @@ export function PrintablesPage() {
             </div>
             {showAnswersForDoc('spelling', () => (
               <div className="mt-6 p-4 border-2 border-emerald-300 bg-emerald-50 rounded print:border print:bg-white print:page-break-before-always">
-                <div className="font-bold text-emerald-900 mb-3 text-base">✅ Answer Key</div>
+                <div className="font-bold text-emerald-900 mb-3 text-base">✅ {getTrans('common.answerKey', 'Answer Key')}</div>
                 <div className="space-y-2 text-sm text-emerald-800">
                   <div>1. <strong>elephant</strong> (not elefant or elephent)</div>
                   <div>2. <strong>because</strong> (not becaus or becuase)</div>
@@ -8167,7 +8181,7 @@ export function PrintablesPage() {
             </div>
             {showAnswersForDoc('grammar-detective', () => (
               <div className="mt-6 p-4 border-2 border-emerald-300 bg-emerald-50 rounded print:border print:bg-white print:page-break-before-always">
-                <div className="font-bold text-emerald-900 mb-3 text-base">✅ Answer Key</div>
+                <div className="font-bold text-emerald-900 mb-3 text-base">✅ {getTrans('common.answerKey', 'Answer Key')}</div>
                 <div className="space-y-2 text-sm text-emerald-800">
                   <div>1. <strong>We go</strong> to the park every <strong>Saturday</strong>. (subject-verb agreement, capitalization)</div>
                   <div>2. The cats <strong>are</strong> sleeping under the table. (subject-verb agreement)</div>
@@ -8311,7 +8325,7 @@ export function PrintablesPage() {
               </div>
               {showAnswersForDoc('color-by-number', () => (
                 <div className="mt-6 p-4 border-2 border-emerald-300 bg-emerald-50 rounded print:border print:bg-white print:page-break-before-always">
-                  <div className="font-bold text-emerald-900 mb-3 text-base">✅ Answer Key</div>
+                  <div className="font-bold text-emerald-900 mb-3 text-base">✅ {getTrans('common.answerKey', 'Answer Key')}</div>
                   <div className="text-sm text-emerald-800">
                     <div className="mb-2">The colored pattern shows the completed picture. Color each square according to the legend:</div>
                     <div>• <strong>1 = Yellow</strong> - Color all 1s yellow</div>
@@ -8356,7 +8370,7 @@ export function PrintablesPage() {
             </div>
             {showAnswersForDoc('bookmark-templates', () => (
               <div className="mt-6 p-4 border-2 border-emerald-300 bg-emerald-50 rounded print:border print:bg-white print:page-break-before-always">
-                <div className="font-bold text-emerald-900 mb-3 text-base">✅ Answer Key</div>
+                <div className="font-bold text-emerald-900 mb-3 text-base">✅ {getTrans('common.answerKey', 'Answer Key')}</div>
                 <div className="text-sm text-emerald-800">
                   Cut along the dotted lines to create your bookmarks. Decorate them however you like - there's no right or wrong way! Add your name on the back to make them personal.
                 </div>
@@ -8402,7 +8416,7 @@ export function PrintablesPage() {
             </div>
             {showAnswersForDoc('design-monster', () => (
               <div className="mt-6 p-4 border-2 border-emerald-300 bg-emerald-50 rounded print:border print:bg-white print:page-break-before-always">
-                <div className="font-bold text-emerald-900 mb-3 text-base">✅ Answer Key</div>
+                <div className="font-bold text-emerald-900 mb-3 text-base">✅ {getTrans('common.answerKey', 'Answer Key')}</div>
                 <div className="text-sm text-emerald-800">
                   There's no right or wrong monster! Use your imagination to create a unique creature. Check off the features you used and give it a fun name!
                 </div>
@@ -8532,7 +8546,7 @@ export function PrintablesPage() {
             </div>
             {showAnswersForDoc('draw-half', () => (
               <div className="mt-6 p-4 border-2 border-emerald-300 bg-emerald-50 rounded print:border print:bg-white print:page-break-before-always">
-                <div className="font-bold text-emerald-900 mb-3 text-base">✅ Answer Key</div>
+                <div className="font-bold text-emerald-900 mb-3 text-base">✅ {getTrans('common.answerKey', 'Answer Key')}</div>
                 <div className="text-sm text-emerald-800">
                   Use the grid lines to help you mirror the left side on the right. Look carefully at the shapes, curves, and lines. The completed picture should be symmetrical!
                 </div>
@@ -8628,7 +8642,7 @@ export function PrintablesPage() {
             </div>
             {showAnswersForDoc('logic-grid', () => (
               <div className="mt-6 p-4 border-2 border-emerald-300 bg-emerald-50 rounded print:border print:bg-white print:page-break-before-always">
-                <div className="font-bold text-emerald-900 mb-3 text-base">✅ Answer Key</div>
+                <div className="font-bold text-emerald-900 mb-3 text-base">✅ {getTrans('common.answerKey', 'Answer Key')}</div>
                 <div className="text-sm text-emerald-800">
                   <div className="mb-2"><strong>Solution:</strong></div>
                   <div>• Liam → Cat (not dog, and fish swims so it's Ava's)</div>
@@ -8707,7 +8721,7 @@ export function PrintablesPage() {
             </div>
             {showAnswersForDoc('hidden-object', () => (
               <div className="mt-6 p-4 border-2 border-emerald-300 bg-emerald-50 rounded print:border print:bg-white print:page-break-before-always">
-                <div className="font-bold text-emerald-900 mb-3 text-base">✅ Answer Key</div>
+                <div className="font-bold text-emerald-900 mb-3 text-base">✅ {getTrans('common.answerKey', 'Answer Key')}</div>
                 <div className="text-sm text-emerald-800">
                   <div className="mb-2">Find and circle these objects in the scene:</div>
                   <div><strong>Key, Apple, Star, Leaf, Car, Book, Shell, Cloud, Ball, Hat</strong></div>
@@ -8767,7 +8781,7 @@ export function PrintablesPage() {
             </div>
             {showAnswersForDoc('maze-focus', () => (
               <div className="mt-6 p-4 border-2 border-emerald-300 bg-emerald-50 rounded print:border print:bg-white print:page-break-before-always">
-                <div className="font-bold text-emerald-900 mb-3 text-base">✅ Answer Key</div>
+                <div className="font-bold text-emerald-900 mb-3 text-base">✅ {getTrans('common.answerKey', 'Answer Key')}</div>
                 <div className="text-sm text-emerald-800">
                   Follow the path from START to FINISH, skipping the distractions (marked with "skip"). The path should be: START → Deep breath → One step → Water sip → Stretch → Refocus → Tiny goal → Timer 10 min → FINISH → ⭐ Great job!
                 </div>
@@ -8814,7 +8828,7 @@ export function PrintablesPage() {
             </svg>
             {showAnswersForDoc('gratitude-jar', () => (
               <div className="mt-6 p-4 border-2 border-emerald-300 bg-emerald-50 rounded print:border print:bg-white print:page-break-before-always">
-                <div className="font-bold text-emerald-900 mb-3 text-base">✅ Answer Key</div>
+                <div className="font-bold text-emerald-900 mb-3 text-base">✅ {getTrans('common.answerKey', 'Answer Key')}</div>
                 <div className="text-sm text-emerald-800">
                   There's no right or wrong answer! Write or draw things you're grateful for in each circle. Examples: family, friends, pets, favorite foods, toys, activities, nature, etc. Be creative and think of both big and small things!
                 </div>
@@ -8863,7 +8877,7 @@ export function PrintablesPage() {
             </table>
             {showAnswersForDoc('mood-tracker', () => (
               <div className="mt-6 p-4 border-2 border-emerald-300 bg-emerald-50 rounded print:border print:bg-white print:page-break-before-always">
-                <div className="font-bold text-emerald-900 mb-3 text-base">✅ Answer Key</div>
+                <div className="font-bold text-emerald-900 mb-3 text-base">✅ {getTrans('common.answerKey', 'Answer Key')}</div>
                 <div className="text-sm text-emerald-800">
                   There's no right or wrong answer! Color each day based on how you felt. Create your own color legend (e.g., red = happy, blue = calm, yellow = excited). All moods are valid and important to track!
                 </div>
@@ -8916,7 +8930,7 @@ export function PrintablesPage() {
             </svg>
             {showAnswersForDoc('mandalas', () => (
               <div className="mt-6 p-4 border-2 border-emerald-300 bg-emerald-50 rounded print:border print:bg-white print:page-break-before-always">
-                <div className="font-bold text-emerald-900 mb-3 text-base">✅ Answer Key</div>
+                <div className="font-bold text-emerald-900 mb-3 text-base">✅ {getTrans('common.answerKey', 'Answer Key')}</div>
                 <div className="text-sm text-emerald-800">
                   There is no right or wrong way to color! Start from the center and work outward. Use colors that make you feel calm and happy. Take your time and enjoy the process!
                 </div>
@@ -8955,7 +8969,7 @@ export function PrintablesPage() {
             ))}
             {showAnswersForDoc('weekly-goals', () => (
               <div className="mt-6 p-4 border-2 border-emerald-300 bg-emerald-50 rounded print:border print:bg-white print:page-break-before-always">
-                <div className="font-bold text-emerald-900 mb-3 text-base">✅ Answer Key</div>
+                <div className="font-bold text-emerald-900 mb-3 text-base">✅ {getTrans('common.answerKey', 'Answer Key')}</div>
                 <div className="text-sm text-emerald-800">
                   There's no right or wrong answer! Write your own goals, something new to try, and something you're proud of. Examples: Goals - finish homework, help at home, read a book; Try - a new sport, cooking, art; Proud of - learning something new, helping a friend, etc.
                 </div>
@@ -9122,7 +9136,7 @@ export function PrintablesPage() {
             </div>
             {showAnswersForDoc('halloween-pack', () => (
               <div className="mt-6 p-4 border-2 border-emerald-300 bg-emerald-50 rounded print:border print:bg-white print:page-break-before-always">
-                <div className="font-bold text-emerald-900 mb-3 text-base">✅ Answer Key</div>
+                <div className="font-bold text-emerald-900 mb-3 text-base">✅ {getTrans('common.answerKey', 'Answer Key')}</div>
                 <div className="text-sm text-emerald-800">
                   <div className="mb-2"><strong>Spooky Word List:</strong> ghost, pumpkin, witch, bat, candy, mask, moon, owl</div>
                   <div className="mb-2"><strong>Costume Ideas:</strong> Be creative! Draw or write your costume ideas in the box.</div>
@@ -9160,7 +9174,7 @@ export function PrintablesPage() {
             </div>
             {showAnswersForDoc('winter-kindness', () => (
               <div className="mt-6 p-4 border-2 border-emerald-300 bg-emerald-50 rounded print:border print:bg-white print:page-break-before-always">
-                <div className="font-bold text-emerald-900 mb-3 text-base">✅ Answer Key</div>
+                <div className="font-bold text-emerald-900 mb-3 text-base">✅ {getTrans('common.answerKey', 'Answer Key')}</div>
                 <div className="text-sm text-emerald-800">
                   There is no right or wrong answer! Color a square each time you complete a kind act. Examples: helping someone, sharing, saying thank you, giving a compliment, helping with chores, etc. Keep track of your kindness acts!
                 </div>
@@ -9194,7 +9208,7 @@ export function PrintablesPage() {
             </ul>
             {showAnswersForDoc('spring-scavenger', () => (
               <div className="mt-6 p-4 border-2 border-emerald-300 bg-emerald-50 rounded print:border print:bg-white print:page-break-before-always">
-                <div className="font-bold text-emerald-900 mb-3 text-base">✅ Answer Key</div>
+                <div className="font-bold text-emerald-900 mb-3 text-base">✅ {getTrans('common.answerKey', 'Answer Key')}</div>
                 <div className="text-sm text-emerald-800">
                   Check off each item as you find it outside! Look carefully - some items might be small. Have fun exploring nature!
                 </div>
@@ -9235,7 +9249,7 @@ export function PrintablesPage() {
             </div>
             {showAnswersForDoc('summer-pack', () => (
               <div className="mt-6 p-4 border-2 border-emerald-300 bg-emerald-50 rounded print:border print:bg-white print:page-break-before-always">
-                <div className="font-bold text-emerald-900 mb-3 text-base">✅ Answer Key</div>
+                <div className="font-bold text-emerald-900 mb-3 text-base">✅ {getTrans('common.answerKey', 'Answer Key')}</div>
                 <div className="text-sm text-emerald-800">
                   <div className="mb-2"><strong>Summer Words:</strong> beach, shell, sand, wave, sun, boat, crab, icecream</div>
                   <div className="mb-2"><strong>Maze:</strong> Draw your path through the maze in the box.</div>
@@ -9302,7 +9316,7 @@ export function PrintablesPage() {
             </div>
             {showAnswersForDoc('brain-boost', () => (
               <div className="mt-6 p-4 border-2 border-emerald-300 bg-emerald-50 rounded print:border print:bg-white print:page-break-before-always">
-                <div className="font-bold text-emerald-900 mb-3 text-base">✅ Answer Key</div>
+                <div className="font-bold text-emerald-900 mb-3 text-base">✅ {getTrans('common.answerKey', 'Answer Key')}</div>
                 <div className="text-sm text-emerald-800">
                   Complete one challenge each day and check it off in the streak tracker. Challenges: Memory pairs, Word jumble, Counting maze, Pattern copy, Quick sudoku, Riddle time, Spot the change. Track your progress and reflect on what was tricky and what you nailed!
                 </div>
@@ -9336,7 +9350,7 @@ export function PrintablesPage() {
             </ol>
             {showAnswersForDoc('creative-challenge', () => (
               <div className="mt-6 p-4 border-2 border-emerald-300 bg-emerald-50 rounded print:border print:bg-white print:page-break-before-always">
-                <div className="font-bold text-emerald-900 mb-3 text-base">✅ Answer Key</div>
+                <div className="font-bold text-emerald-900 mb-3 text-base">✅ {getTrans('common.answerKey', 'Answer Key')}</div>
                 <div className="text-sm text-emerald-800">
                   There is no right or wrong answer! Complete each creative prompt with your own unique ideas. Spend 5-10 minutes on each one. Be creative and have fun!
                 </div>
@@ -9391,7 +9405,7 @@ export function PrintablesPage() {
             })()}
             {showAnswersForDoc('ws-world', () => (
               <div className="mt-6 p-4 border-2 border-emerald-300 bg-emerald-50 rounded print:border print:bg-white print:page-break-before-always">
-                <div className="font-bold text-emerald-900 mb-3 text-base">✅ Answer Key</div>
+                <div className="font-bold text-emerald-900 mb-3 text-base">✅ {getTrans('common.answerKey', 'Answer Key')}</div>
                 <div className="text-sm text-emerald-800">
                   Find all 11 words in the grid: PARIS, NILE, AFRICA, ASIA, ALPS, TOKYO, ITALY, NORTH, SOUTH, RIO, BERLIN. Words can be found horizontally, vertically, or diagonally. Check off each word as you find it!
                 </div>
@@ -9575,7 +9589,7 @@ export function PrintablesPage() {
             </div>
             {showAnswersForDoc('animal-pack', () => (
               <div className="mt-6 p-4 border-2 border-emerald-300 bg-emerald-50 rounded print:border print:bg-white print:page-break-before-always">
-                <div className="font-bold text-emerald-900 mb-3 text-base">✅ Answer Key</div>
+                <div className="font-bold text-emerald-900 mb-3 text-base">✅ {getTrans('common.answerKey', 'Answer Key')}</div>
                 <div className="text-sm text-emerald-800">
                   <div className="mb-2"><strong>Maze:</strong> Follow the path from START to DEN. There is one correct path!</div>
                   <div className="mb-2"><strong>Animal Words:</strong> lion, zebra, panda, eagle, whale, koala</div>
@@ -9715,7 +9729,7 @@ export function PrintablesPage() {
             </div>
             {showAnswersForDoc('sudoku4', () => (
               <div className="mt-6 p-4 border-2 border-emerald-300 bg-emerald-50 rounded print:border print:bg-white print:page-break-before-always">
-                <div className="font-bold text-emerald-900 mb-3 text-base">✅ Answer Key</div>
+                <div className="font-bold text-emerald-900 mb-3 text-base">✅ {getTrans('common.answerKey', 'Answer Key')}</div>
                 <div className="text-sm text-emerald-800">
                   The completed sudoku grid shows the solution. Each row, column, and 2×2 box contains the numbers 1-4 exactly once. Use the clues provided to solve step by step!
                 </div>
@@ -9809,7 +9823,7 @@ export function PrintablesPage() {
             </div>
             {showAnswersForDoc('coloring', () => (
               <div className="mt-6 p-4 border-2 border-emerald-300 bg-emerald-50 rounded print:border print:bg-white print:page-break-before-always">
-                <div className="font-bold text-emerald-900 mb-3 text-base">✅ Answer Key</div>
+                <div className="font-bold text-emerald-900 mb-3 text-base">✅ {getTrans('common.answerKey', 'Answer Key')}</div>
                 <div className="text-sm text-emerald-800">
                   There is no right or wrong way to color! Use your favorite colors and be creative. Take your time and enjoy coloring the cute animal!
                 </div>
@@ -9867,7 +9881,7 @@ export function PrintablesPage() {
             </div>
             {showAnswersForDoc('coloring-letters-numbers', () => (
               <div className="mt-6 p-4 border-2 border-emerald-300 bg-emerald-50 rounded print:border print:bg-white print:page-break-before-always">
-                <div className="font-bold text-emerald-900 mb-3 text-base">✅ Answer Key</div>
+                <div className="font-bold text-emerald-900 mb-3 text-base">✅ {getTrans('common.answerKey', 'Answer Key')}</div>
                 <div className="text-sm text-emerald-800">
                   Trace and color all 26 letters (A-Z) and all 10 numbers (1-10). There is no right or wrong way to color! Use your favorite colors and practice saying each letter and number as you color it.
                 </div>
@@ -9983,7 +9997,7 @@ export function PrintablesPage() {
             </div>
             {showAnswersForDoc('coloring-animals', () => (
               <div className="mt-6 p-4 border-2 border-emerald-300 bg-emerald-50 rounded print:border print:bg-white print:page-break-before-always">
-                <div className="font-bold text-emerald-900 mb-3 text-base">✅ Answer Key</div>
+                <div className="font-bold text-emerald-900 mb-3 text-base">✅ {getTrans('common.answerKey', 'Answer Key')}</div>
                 <div className="text-sm text-emerald-800">
                   There is no right or wrong way to color! Use your favorite colors to color the animals. Be creative and have fun!
                 </div>
@@ -10077,7 +10091,7 @@ export function PrintablesPage() {
             </div>
             {showAnswersForDoc('coloring-nature', () => (
               <div className="mt-6 p-4 border-2 border-emerald-300 bg-emerald-50 rounded print:border print:bg-white print:page-break-before-always">
-                <div className="font-bold text-emerald-900 mb-3 text-base">✅ Answer Key</div>
+                <div className="font-bold text-emerald-900 mb-3 text-base">✅ {getTrans('common.answerKey', 'Answer Key')}</div>
                 <div className="text-sm text-emerald-800">
                   There is no right or wrong way to color! Use your favorite colors to color the nature scenes. Be creative and think about what colors match each season!
                 </div>
@@ -10226,7 +10240,7 @@ export function PrintablesPage() {
             </div>
             {showAnswersForDoc('coloring-space', () => (
               <div className="mt-6 p-4 border-2 border-emerald-300 bg-emerald-50 rounded print:border print:bg-white print:page-break-before-always">
-                <div className="font-bold text-emerald-900 mb-3 text-base">✅ Answer Key</div>
+                <div className="font-bold text-emerald-900 mb-3 text-base">✅ {getTrans('common.answerKey', 'Answer Key')}</div>
                 <div className="text-sm text-emerald-800">
                   There is no right or wrong way to color! Use your favorite colors to color the space scenes. Be creative and imagine what space looks like!
                 </div>
@@ -10321,7 +10335,7 @@ export function PrintablesPage() {
             </div>
             {showAnswersForDoc('coloring-vehicles', () => (
               <div className="mt-6 p-4 border-2 border-emerald-300 bg-emerald-50 rounded print:border print:bg-white print:page-break-before-always">
-                <div className="font-bold text-emerald-900 mb-3 text-base">✅ Answer Key</div>
+                <div className="font-bold text-emerald-900 mb-3 text-base">✅ {getTrans('common.answerKey', 'Answer Key')}</div>
                 <div className="text-sm text-emerald-800">
                   There is no right or wrong way to color! Use your favorite colors to color the vehicles. Be creative and have fun!
                 </div>
@@ -10407,7 +10421,7 @@ export function PrintablesPage() {
             </div>
             {showAnswersForDoc('coloring-heroes', () => (
               <div className="mt-6 p-4 border-2 border-emerald-300 bg-emerald-50 rounded print:border print:bg-white print:page-break-before-always">
-                <div className="font-bold text-emerald-900 mb-3 text-base">✅ Answer Key</div>
+                <div className="font-bold text-emerald-900 mb-3 text-base">✅ {getTrans('common.answerKey', 'Answer Key')}</div>
                 <div className="text-sm text-emerald-800">
                   There is no right or wrong way to color! Use your favorite colors to color the superhero and hero symbols. Be creative and celebrate courage and kindness!
                 </div>
@@ -10543,7 +10557,7 @@ export function PrintablesPage() {
             </div>
             {showAnswersForDoc('number-bonds-10', () => (
               <div className="mt-6 p-4 border-2 border-emerald-300 bg-emerald-50 rounded print:border print:bg-white print:page-break-before-always">
-                <div className="font-bold text-emerald-900 mb-3 text-base">✅ Answer Key</div>
+                <div className="font-bold text-emerald-900 mb-3 text-base">✅ {getTrans('common.answerKey', 'Answer Key')}</div>
                 <ul className="list-disc list-inside space-y-2 text-sm text-emerald-800">
                   {[7, 3, 5, 8, 4, 6, 2, 9].map((n, i) => (
                     <li key={i}><strong>10 = {n} + {10 - n}</strong> (The missing part is {10 - n} because {n} + {10 - n} = 10)</li>
@@ -10661,7 +10675,7 @@ export function PrintablesPage() {
             </div>
             {showAnswersForDoc('count-write-30', () => (
               <div className="mt-6 p-4 border-2 border-emerald-300 bg-emerald-50 rounded print:border print:bg-white print:page-break-before-always">
-                <div className="font-bold text-emerald-900 mb-3 text-base">✅ Answer Key</div>
+                <div className="font-bold text-emerald-900 mb-3 text-base">✅ {getTrans('common.answerKey', 'Answer Key')}</div>
                 <ul className="list-disc list-inside space-y-2 text-sm text-emerald-800">
                   {[5, 8, 12, 15, 18, 20, 23, 25].map((count, i) => (
                     <li key={i}><strong>Box {i + 1}: {count} objects</strong> (Count each circle: there are {count} circles in this group)</li>
@@ -10758,7 +10772,7 @@ export function PrintablesPage() {
             </div>
             {showAnswersForDoc('missing-numbers-50', () => (
               <div className="mt-6 p-4 border-2 border-emerald-300 bg-emerald-50 rounded print:border print:bg-white print:page-break-before-always">
-                <div className="font-bold text-emerald-900 mb-3 text-base">✅ Answer Key</div>
+                <div className="font-bold text-emerald-900 mb-3 text-base">✅ {getTrans('common.answerKey', 'Answer Key')}</div>
                 <ul className="list-disc list-inside space-y-2 text-sm text-emerald-800">
                   {[[1, 5], [10, 15], [20, 25], [30, 35], [40, 45]].map(([start, end], idx) => {
                     const missing = Array.from({ length: end - start + 1 }, (_, i) => start + i).filter(n => n % 5 !== 0 && n !== start && n !== end)
@@ -10901,7 +10915,7 @@ export function PrintablesPage() {
             </div>
             {showAnswersForDoc('picture-addition-10', () => (
               <div className="mt-6 p-4 border-2 border-emerald-300 bg-emerald-50 rounded print:border print:bg-white print:page-break-before-always">
-                <div className="font-bold text-emerald-900 mb-3 text-base">✅ Answer Key</div>
+                <div className="font-bold text-emerald-900 mb-3 text-base">✅ {getTrans('common.answerKey', 'Answer Key')}</div>
                 <ul className="list-disc list-inside space-y-2 text-sm text-emerald-800">
                   {[[3, 4], [2, 5], [4, 3], [1, 6], [5, 2], [3, 5]].map(([a, b], idx) => (
                     <li key={idx}><strong>{a} + {b} = {a + b}</strong> (Count {a} circles in the first group, {b} circles in the second group, total = {a + b})</li>
@@ -11052,7 +11066,7 @@ export function PrintablesPage() {
             </div>
             {showAnswersForDoc('subtraction-stories', () => (
               <div className="mt-6 p-4 border-2 border-emerald-300 bg-emerald-50 rounded print:border print:bg-white print:page-break-before-always">
-                <div className="font-bold text-emerald-900 mb-3 text-base">✅ Answer Key</div>
+                <div className="font-bold text-emerald-900 mb-3 text-base">✅ {getTrans('common.answerKey', 'Answer Key')}</div>
                 <ul className="list-disc list-inside space-y-2 text-sm text-emerald-800">
                   {[
                     { total: 8, take: 3, story: '8 apples, 3 eaten' },
@@ -11277,7 +11291,7 @@ export function PrintablesPage() {
               </div>
               {showAnswersForDoc('balance-equations-10', () => (
                 <div className="mt-6 p-4 border-2 border-emerald-300 bg-emerald-50 rounded print:border print:bg-white print:page-break-before-always">
-                  <div className="font-bold text-emerald-900 mb-3 text-base">✅ Answer Key</div>
+                  <div className="font-bold text-emerald-900 mb-3 text-base">✅ {getTrans('common.answerKey', 'Answer Key')}</div>
                   <ul className="list-disc list-inside space-y-2 text-sm text-emerald-800">
                     {equations.map((eq, idx) => {
                       const leftValue = eq.left.includes('+') 
@@ -11415,7 +11429,7 @@ export function PrintablesPage() {
             </div>
             {showAnswersForDoc('skip-count-2s', () => (
               <div className="mt-6 p-4 border-2 border-emerald-300 bg-emerald-50 rounded print:border print:bg-white print:page-break-before-always">
-                <div className="font-bold text-emerald-900 mb-3 text-base">✅ Answer Key</div>
+                <div className="font-bold text-emerald-900 mb-3 text-base">✅ {getTrans('common.answerKey', 'Answer Key')}</div>
                 <p className="text-sm text-emerald-800 mb-2"><strong>Complete sequence:</strong> 2, 4, 6, 8, 10, 12, 14, 16, 18, 20</p>
                 <p className="text-xs text-emerald-700">Each number is 2 more than the previous number. Skip counting by 2s means counting every other number!</p>
               </div>
@@ -11584,7 +11598,7 @@ export function PrintablesPage() {
               </div>
               {showAnswersForDoc('number-line-add', () => (
                 <div className="mt-6 p-4 border-2 border-emerald-300 bg-emerald-50 rounded print:border print:bg-white print:page-break-before-always">
-                  <div className="font-bold text-emerald-900 mb-3 text-base">✅ Answer Key</div>
+                  <div className="font-bold text-emerald-900 mb-3 text-base">✅ {getTrans('common.answerKey', 'Answer Key')}</div>
                   <ul className="list-disc list-inside space-y-2 text-sm text-emerald-800">
                     {problems.map(([a, b], idx) => (
                       <li key={idx}><strong>{a} + {b} = {a + b}</strong> (Start at {a} on the number line, count forward {b} spaces, land on {a + b})</li>
@@ -11718,7 +11732,7 @@ export function PrintablesPage() {
             </div>
             {showAnswersForDoc('doubles-facts', () => (
               <div className="mt-6 p-4 border-2 border-emerald-300 bg-emerald-50 rounded print:border print:bg-white print:page-break-before-always">
-                <div className="font-bold text-emerald-900 mb-3 text-base">✅ Answer Key</div>
+                <div className="font-bold text-emerald-900 mb-3 text-base">✅ {getTrans('common.answerKey', 'Answer Key')}</div>
                 <ul className="list-disc list-inside space-y-2 text-sm text-emerald-800">
                   {[1, 2, 3, 4, 5, 6, 7, 8].map((n) => (
                     <li key={n}><strong>{n} + {n} = {n * 2}</strong> (Count all the circles: there are {n * 2} circles total)</li>
@@ -11818,7 +11832,7 @@ export function PrintablesPage() {
             </div>
             {showAnswersForDoc('pattern-complete', () => (
               <div className="mt-6 p-4 border-2 border-emerald-300 bg-emerald-50 rounded print:border print:bg-white print:page-break-before-always">
-                <div className="font-bold text-emerald-900 mb-3 text-base">✅ Answer Key</div>
+                <div className="font-bold text-emerald-900 mb-3 text-base">✅ {getTrans('common.answerKey', 'Answer Key')}</div>
                 <ul className="list-disc list-inside space-y-2 text-sm text-emerald-800">
                   <li><strong>AB Pattern: Next shape is circle</strong> (The pattern alternates: circle, square, circle, square, so next is circle)</li>
                   <li><strong>ABC Pattern: Next color is green</strong> (The pattern repeats: red, blue, green, red, blue, so next is green)</li>
@@ -11913,7 +11927,7 @@ export function PrintablesPage() {
             </div>
             {showAnswersForDoc('missing-shape', () => (
               <div className="mt-6 p-4 border-2 border-emerald-300 bg-emerald-50 rounded print:border print:bg-white print:page-break-before-always">
-                <div className="font-bold text-emerald-900 mb-3 text-base">✅ Answer Key</div>
+                <div className="font-bold text-emerald-900 mb-3 text-base">✅ {getTrans('common.answerKey', 'Answer Key')}</div>
                 <p className="text-sm text-emerald-800 mb-2"><strong>Pattern:</strong> Circle, Square, Triangle, Circle, Square. <strong>Missing shape:</strong> Triangle</p>
                 <p className="text-xs text-emerald-700">The pattern repeats: Circle, Square, Triangle. After Circle, Square comes Triangle. Look for the repeating sequence to find what's missing!</p>
               </div>
@@ -12005,7 +12019,7 @@ export function PrintablesPage() {
             </div>
             {showAnswersForDoc('size-comparison', () => (
               <div className="mt-6 p-4 border-2 border-emerald-300 bg-emerald-50 rounded print:border print:bg-white print:page-break-before-always">
-                <div className="font-bold text-emerald-900 mb-3 text-base">✅ Answer Key</div>
+                <div className="font-bold text-emerald-900 mb-3 text-base">✅ {getTrans('common.answerKey', 'Answer Key')}</div>
                 <ul className="list-disc list-inside space-y-2 text-sm text-emerald-800">
                   <li><strong>Circle the bigger: B</strong> (B is 50px, A is 30px, so B is bigger)</li>
                   <li><strong>Circle the smaller: B</strong> (B is 25px, A is 40px, so B is smaller)</li>
@@ -12097,7 +12111,7 @@ export function PrintablesPage() {
             </div>
             {showAnswersForDoc('expanded-form-200', () => (
               <div className="mt-6 p-4 border-2 border-emerald-300 bg-emerald-50 rounded print:border print:bg-white print:page-break-before-always">
-                <div className="font-bold text-emerald-900 mb-3 text-base">✅ Answer Key</div>
+                <div className="font-bold text-emerald-900 mb-3 text-base">✅ {getTrans('common.answerKey', 'Answer Key')}</div>
                 <ul className="list-disc list-inside space-y-2 text-sm text-emerald-800">
                   {[125, 143, 167, 189, 152, 176].map((num) => {
                     const hundreds = Math.floor(num / 100)
@@ -12192,7 +12206,7 @@ export function PrintablesPage() {
             </div>
             {showAnswersForDoc('number-patterns-200', () => (
               <div className="mt-6 p-4 border-2 border-emerald-300 bg-emerald-50 rounded print:border print:bg-white print:page-break-before-always">
-                <div className="font-bold text-emerald-900 mb-3 text-base">✅ Answer Key</div>
+                <div className="font-bold text-emerald-900 mb-3 text-base">✅ {getTrans('common.answerKey', 'Answer Key')}</div>
                 <ul className="list-disc list-inside space-y-2 text-sm text-emerald-800">
                   <li><strong>Pattern +10:</strong> Missing numbers are 40, 60 (10, 20, 30, 40, 50, 60, 70)</li>
                   <li><strong>Pattern +5:</strong> Missing numbers are 20, 30 (5, 10, 15, 20, 25, 30, 35)</li>
@@ -12279,7 +12293,7 @@ export function PrintablesPage() {
             </div>
             {showAnswersForDoc('rounding-nearest-10', () => (
               <div className="mt-6 p-4 border-2 border-emerald-300 bg-emerald-50 rounded print:border print:bg-white print:page-break-before-always">
-                <div className="font-bold text-emerald-900 mb-3 text-base">✅ Answer Key</div>
+                <div className="font-bold text-emerald-900 mb-3 text-base">✅ {getTrans('common.answerKey', 'Answer Key')}</div>
                 <ul className="list-disc list-inside space-y-2 text-sm text-emerald-800">
                   {[23, 37, 45, 58, 64, 76, 82, 91].map((num) => {
                     const rounded = Math.round(num / 10) * 10
@@ -12362,7 +12376,7 @@ export function PrintablesPage() {
             </div>
             {showAnswersForDoc('add-three-numbers', () => (
               <div className="mt-6 p-4 border-2 border-emerald-300 bg-emerald-50 rounded print:border print:bg-white print:page-break-before-always">
-                <div className="font-bold text-emerald-900 mb-3 text-base">✅ Answer Key</div>
+                <div className="font-bold text-emerald-900 mb-3 text-base">✅ {getTrans('common.answerKey', 'Answer Key')}</div>
                 <ul className="list-disc list-inside space-y-2 text-sm text-emerald-800">
                   {[[3, 4, 2], [5, 2, 3], [4, 3, 3], [6, 2, 1], [2, 5, 3], [4, 4, 2]].map((nums, idx) => {
                     const sum = nums[0] + nums[1] + nums[2]
@@ -12451,7 +12465,7 @@ export function PrintablesPage() {
             </div>
             {showAnswersForDoc('missing-addends', () => (
               <div className="mt-6 p-4 border-2 border-emerald-300 bg-emerald-50 rounded print:border print:bg-white print:page-break-before-always">
-                <div className="font-bold text-emerald-900 mb-3 text-base">✅ Answer Key</div>
+                <div className="font-bold text-emerald-900 mb-3 text-base">✅ {getTrans('common.answerKey', 'Answer Key')}</div>
                 <ul className="list-disc list-inside space-y-2 text-sm text-emerald-800">
                   {[
                     { a: 3, sum: 8 },
@@ -12544,7 +12558,7 @@ export function PrintablesPage() {
             </div>
             {showAnswersForDoc('fact-families-20', () => (
               <div className="mt-6 p-4 border-2 border-emerald-300 bg-emerald-50 rounded print:border print:bg-white print:page-break-before-always">
-                <div className="font-bold text-emerald-900 mb-3 text-base">✅ Answer Key</div>
+                <div className="font-bold text-emerald-900 mb-3 text-base">✅ {getTrans('common.answerKey', 'Answer Key')}</div>
                 <ul className="list-disc list-inside space-y-2 text-sm text-emerald-800">
                   {[[5, 8, 13], [6, 7, 13], [4, 9, 13]].map(([a, b, sum], idx) => (
                     <li key={idx}><strong>Family {idx + 1} ({a}, {b}, {sum}):</strong> {a}+{b}={sum}, {b}+{a}={sum}, {sum}-{a}={b}, {sum}-{b}={a}</li>
@@ -12789,7 +12803,7 @@ export function PrintablesPage() {
               </div>
               {showAnswersForDoc('number-line-200', () => (
                 <div className="mt-6 p-4 border-2 border-emerald-300 bg-emerald-50 rounded print:border print:bg-white print:page-break-before-always">
-                  <div className="font-bold text-emerald-900 mb-3 text-base">✅ Answer Key</div>
+                  <div className="font-bold text-emerald-900 mb-3 text-base">✅ {getTrans('common.answerKey', 'Answer Key')}</div>
                   <ul className="list-disc list-inside space-y-2 text-sm text-emerald-800">
                     {problems.map(({ target, start, end }, idx) => (
                       <li key={idx}><strong>Locate {target}:</strong> Positioned between {start} and {end} on the number line (closer to {target < (start + end) / 2 ? start : end})</li>
@@ -12876,7 +12890,7 @@ export function PrintablesPage() {
             </div>
             {showAnswersForDoc('doubles-near-doubles', () => (
               <div className="mt-6 p-4 border-2 border-emerald-300 bg-emerald-50 rounded print:border print:bg-white print:page-break-before-always">
-                <div className="font-bold text-emerald-900 mb-3 text-base">✅ Answer Key</div>
+                <div className="font-bold text-emerald-900 mb-3 text-base">✅ {getTrans('common.answerKey', 'Answer Key')}</div>
                 <ul className="list-disc list-inside space-y-2 text-sm text-emerald-800">
                   <li><strong>6 + 6 = 12</strong> (Double: same number added to itself)</li>
                   <li><strong>7 + 7 = 14</strong> (Double: same number added to itself)</li>
@@ -12975,7 +12989,7 @@ export function PrintablesPage() {
             </div>
             {showAnswersForDoc('money-coins-bills', () => (
               <div className="mt-6 p-4 border-2 border-emerald-300 bg-emerald-50 rounded print:border print:bg-white print:page-break-before-always">
-                <div className="font-bold text-emerald-900 mb-3 text-base">✅ Answer Key</div>
+                <div className="font-bold text-emerald-900 mb-3 text-base">✅ {getTrans('common.answerKey', 'Answer Key')}</div>
                 <ul className="list-disc list-inside space-y-2 text-sm text-emerald-800">
                   {[
                     { coins: [1, 1, 5, 5], label: '2 pennies, 2 nickels' },
@@ -13077,7 +13091,7 @@ export function PrintablesPage() {
             </div>
             {showAnswersForDoc('measurement-length', () => (
               <div className="mt-6 p-4 border-2 border-emerald-300 bg-emerald-50 rounded print:border print:bg-white print:page-break-before-always">
-                <div className="font-bold text-emerald-900 mb-3 text-base">✅ Answer Key</div>
+                <div className="font-bold text-emerald-900 mb-3 text-base">✅ {getTrans('common.answerKey', 'Answer Key')}</div>
                 <ul className="list-disc list-inside space-y-2 text-sm text-emerald-800">
                   <li><strong>5 inches vs 8 inches: B is longer</strong> (8 &gt; 5, so B is longer)</li>
                   <li><strong>12 cm vs 7 cm: A is longer</strong> (12 &gt; 7, so A is longer)</li>
@@ -13195,7 +13209,7 @@ export function PrintablesPage() {
             </div>
             {showAnswersForDoc('bar-graphs-data', () => (
               <div className="mt-6 p-4 border-2 border-emerald-300 bg-emerald-50 rounded print:border print:bg-white print:page-break-before-always">
-                <div className="font-bold text-emerald-900 mb-3 text-base">✅ Answer Key</div>
+                <div className="font-bold text-emerald-900 mb-3 text-base">✅ {getTrans('common.answerKey', 'Answer Key')}</div>
                 <ul className="list-disc list-inside space-y-2 text-sm text-emerald-800">
                   <li><strong>1. Yellow is most popular</strong> (16 votes - it has the tallest bar)</li>
                   <li><strong>2. Red: 8 votes</strong> (Look at the Red bar and read the number on the side)</li>
@@ -13426,7 +13440,7 @@ export function PrintablesPage() {
             </div>
             {showAnswersForDoc('fractions-halves-thirds-fourths', () => (
               <div className="mt-6 p-4 border-2 border-emerald-300 bg-emerald-50 rounded print:border print:bg-white print:page-break-before-always">
-                <div className="font-bold text-emerald-900 mb-3 text-base">✅ Answer Key</div>
+                <div className="font-bold text-emerald-900 mb-3 text-base">✅ {getTrans('common.answerKey', 'Answer Key')}</div>
                 <ul className="list-disc list-inside space-y-2 text-sm text-emerald-800">
                   <li><strong>1/2 = one half</strong> (Color 1 out of 2 equal parts)</li>
                   <li><strong>1/3 = one third</strong> (Color 1 out of 3 equal parts)</li>
@@ -13637,7 +13651,7 @@ export function PrintablesPage() {
               </div>
               {showAnswersForDoc('mult-arrays-2-5', () => (
                 <div className="mt-6 p-4 border-2 border-emerald-300 bg-emerald-50 rounded print:border print:bg-white print:page-break-before-always">
-                  <div className="font-bold text-emerald-900 mb-3 text-base">✅ Answer Key</div>
+                  <div className="font-bold text-emerald-900 mb-3 text-base">✅ {getTrans('common.answerKey', 'Answer Key')}</div>
                   <div className="space-y-2">
                     {arrays.map(([rows, cols], i) => (
                       <div key={i} className="text-sm text-emerald-800">
@@ -13780,7 +13794,7 @@ export function PrintablesPage() {
               </div>
               {showAnswersForDoc('mult-word-problems-2-3', () => (
                 <div className="mt-6 p-4 border-2 border-emerald-300 bg-emerald-50 rounded print:border print:bg-white print:page-break-before-always">
-                  <div className="font-bold text-emerald-900 mb-3 text-base">✅ Answer Key</div>
+                  <div className="font-bold text-emerald-900 mb-3 text-base">✅ {getTrans('common.answerKey', 'Answer Key')}</div>
                   <div className="space-y-2">
                     {problems.map((item, i) => (
                       <div key={i} className="text-sm text-emerald-800">
@@ -13873,7 +13887,7 @@ export function PrintablesPage() {
               </div>
               {showAnswersForDoc('mult-facts-6-12', () => (
                 <div className="mt-6 p-4 border-2 border-emerald-300 bg-emerald-50 rounded print:border print:bg-white print:page-break-before-always">
-                  <div className="font-bold text-emerald-900 mb-3 text-base">✅ Answer Key</div>
+                  <div className="font-bold text-emerald-900 mb-3 text-base">✅ {getTrans('common.answerKey', 'Answer Key')}</div>
                   <div className="space-y-2">
                     {facts.map(([a, b], i) => (
                       <div key={i} className="text-sm text-emerald-800">
@@ -13965,7 +13979,7 @@ export function PrintablesPage() {
               </div>
               {showAnswersForDoc('mult-arrays-models', () => (
                 <div className="mt-6 p-4 border-2 border-emerald-300 bg-emerald-50 rounded print:border print:bg-white print:page-break-before-always">
-                  <div className="font-bold text-emerald-900 mb-3 text-base">✅ Answer Key</div>
+                  <div className="font-bold text-emerald-900 mb-3 text-base">✅ {getTrans('common.answerKey', 'Answer Key')}</div>
                   <div className="space-y-2">
                     {arrays.map(([rows, cols], i) => (
                       <div key={i} className="text-sm text-emerald-800">
@@ -15102,7 +15116,7 @@ export function PrintablesPage() {
               </div>
               {showAnswersForDoc('mult-fact-fluency', () => (
                 <div className="mt-6 p-4 border-2 border-emerald-300 bg-emerald-50 rounded print:border print:bg-white print:page-break-before-always">
-                  <div className="font-bold text-emerald-900 mb-3 text-base">✅ Answer Key</div>
+                  <div className="font-bold text-emerald-900 mb-3 text-base">✅ {getTrans('common.answerKey', 'Answer Key')}</div>
                   <div className="grid grid-cols-4 gap-2 text-sm">
                     {facts.map(([a, b], i) => (
                       <div key={i} className="border-b border-emerald-200 pb-1 text-emerald-800">
@@ -15194,7 +15208,7 @@ export function PrintablesPage() {
               </div>
               {showAnswersForDoc('mult-mixed-review', () => (
                 <div className="mt-6 p-4 border-2 border-emerald-300 bg-emerald-50 rounded print:border print:bg-white print:page-break-before-always">
-                  <div className="font-bold text-emerald-900 mb-3 text-base">✅ Answer Key</div>
+                  <div className="font-bold text-emerald-900 mb-3 text-base">✅ {getTrans('common.answerKey', 'Answer Key')}</div>
                   <div className="grid grid-cols-4 gap-2 text-sm">
                     {facts.map(([a, b], i) => (
                       <div key={i} className="border-b border-emerald-200 pb-1 text-emerald-800">
@@ -15714,7 +15728,7 @@ export function PrintablesPage() {
               </div>
               {showAnswersForDoc('times-table-horizontal-6-12', () => (
                 <div className="mt-6 p-4 border-2 border-emerald-300 bg-emerald-50 rounded print:border print:bg-white print:page-break-before-always">
-                  <div className="font-bold text-emerald-900 mb-3 text-base">✅ Answer Key</div>
+                  <div className="font-bold text-emerald-900 mb-3 text-base">✅ {getTrans('common.answerKey', 'Answer Key')}</div>
                   <div className="grid grid-cols-3 gap-2 text-sm">
                     {facts.map(([a, b], i) => (
                       <div key={i} className="border-b border-emerald-200 pb-1 text-emerald-800">
@@ -15810,7 +15824,7 @@ export function PrintablesPage() {
               </div>
               {showAnswersForDoc('times-table-horizontal-1-12', () => (
                 <div className="mt-6 p-4 border-2 border-emerald-300 bg-emerald-50 rounded print:border print:bg-white print:page-break-before-always">
-                  <div className="font-bold text-emerald-900 mb-3 text-base">✅ Answer Key</div>
+                  <div className="font-bold text-emerald-900 mb-3 text-base">✅ {getTrans('common.answerKey', 'Answer Key')}</div>
                   <div className="grid grid-cols-3 gap-2 text-sm">
                     {facts.map(([a, b], i) => (
                       <div key={i} className="border-b border-emerald-200 pb-1 text-emerald-800">
@@ -15914,7 +15928,7 @@ export function PrintablesPage() {
               </div>
               {showAnswersForDoc('times-table-vertical-1-5', () => (
                 <div className="mt-6 p-4 border-2 border-emerald-300 bg-emerald-50 rounded print:border print:bg-white print:page-break-before-always">
-                  <div className="font-bold text-emerald-900 mb-3 text-base">✅ Answer Key</div>
+                  <div className="font-bold text-emerald-900 mb-3 text-base">✅ {getTrans('common.answerKey', 'Answer Key')}</div>
                   <div className="grid grid-cols-2 gap-2 text-sm">
                     {facts.map(([a, b], i) => (
                       <div key={i} className="border-b border-emerald-200 pb-1 text-emerald-800">
@@ -16015,7 +16029,7 @@ export function PrintablesPage() {
               </div>
               {showAnswersForDoc('times-table-vertical-6-12', () => (
                 <div className="mt-6 p-4 border-2 border-emerald-300 bg-emerald-50 rounded print:border print:bg-white print:page-break-before-always">
-                  <div className="font-bold text-emerald-900 mb-3 text-base">✅ Answer Key</div>
+                  <div className="font-bold text-emerald-900 mb-3 text-base">✅ {getTrans('common.answerKey', 'Answer Key')}</div>
                   <div className="grid grid-cols-2 gap-2 text-sm">
                     {facts.map(([a, b], i) => (
                       <div key={i} className="border-b border-emerald-200 pb-1 text-emerald-800">
@@ -16121,7 +16135,7 @@ export function PrintablesPage() {
               </div>
               {showAnswersForDoc('times-table-vertical-1-12', () => (
                 <div className="mt-6 p-4 border-2 border-emerald-300 bg-emerald-50 rounded print:border print:bg-white print:page-break-before-always">
-                  <div className="font-bold text-emerald-900 mb-3 text-base">✅ Answer Key</div>
+                  <div className="font-bold text-emerald-900 mb-3 text-base">✅ {getTrans('common.answerKey', 'Answer Key')}</div>
                   <div className="grid grid-cols-2 gap-2 text-sm">
                     {facts.map(([a, b], i) => (
                       <div key={i} className="border-b border-emerald-200 pb-1 text-emerald-800">
@@ -16579,7 +16593,7 @@ export function PrintablesPage() {
               </div>
               {showAnswersForDoc('times-table-timed-1-5', () => (
                 <div className="mt-6 p-4 border-2 border-emerald-300 bg-emerald-50 rounded print:border print:bg-white print:page-break-before-always">
-                  <div className="font-bold text-emerald-900 mb-3 text-base">✅ Answer Key</div>
+                  <div className="font-bold text-emerald-900 mb-3 text-base">✅ {getTrans('common.answerKey', 'Answer Key')}</div>
                   <div className="grid grid-cols-4 gap-2 text-sm">
                     {facts.map(([a, b], i) => (
                       <div key={i} className="border-b border-emerald-200 pb-1 text-emerald-800">
@@ -16675,7 +16689,7 @@ export function PrintablesPage() {
               </div>
               {showAnswersForDoc('times-table-timed-6-12', () => (
                 <div className="mt-6 p-4 border-2 border-emerald-300 bg-emerald-50 rounded print:border print:bg-white print:page-break-before-always">
-                  <div className="font-bold text-emerald-900 mb-3 text-base">✅ Answer Key</div>
+                  <div className="font-bold text-emerald-900 mb-3 text-base">✅ {getTrans('common.answerKey', 'Answer Key')}</div>
                   <div className="grid grid-cols-4 gap-2 text-sm">
                     {facts.map(([a, b], i) => (
                       <div key={i} className="border-b border-emerald-200 pb-1 text-emerald-800">
@@ -16771,7 +16785,7 @@ export function PrintablesPage() {
               </div>
               {showAnswersForDoc('times-table-timed-1-12', () => (
                 <div className="mt-6 p-4 border-2 border-emerald-300 bg-emerald-50 rounded print:border print:bg-white print:page-break-before-always">
-                  <div className="font-bold text-emerald-900 mb-3 text-base">✅ Answer Key</div>
+                  <div className="font-bold text-emerald-900 mb-3 text-base">✅ {getTrans('common.answerKey', 'Answer Key')}</div>
                   <div className="grid grid-cols-4 gap-2 text-sm">
                     {facts.map(([a, b], i) => (
                       <div key={i} className="border-b border-emerald-200 pb-1 text-emerald-800">
@@ -16876,7 +16890,7 @@ export function PrintablesPage() {
             </div>
             {showAnswersForDoc('times-table-blank-1-5', () => (
               <div className="mt-6 p-4 border-2 border-emerald-300 bg-emerald-50 rounded print:border print:bg-white print:page-break-before-always">
-                <div className="font-bold text-emerald-900 mb-3 text-base">✅ Answer Key</div>
+                <div className="font-bold text-emerald-900 mb-3 text-base">✅ {getTrans('common.answerKey', 'Answer Key')}</div>
                 <div className="text-xs space-y-1">
                   <div><strong>Row 1:</strong> 1, 2, 3, 4, 5</div>
                   <div><strong>Row 2:</strong> 2, 4, 6, 8, 10</div>
@@ -16982,7 +16996,7 @@ export function PrintablesPage() {
             </div>
             {showAnswersForDoc('times-table-blank-6-12', () => (
               <div className="mt-6 p-4 border-2 border-emerald-300 bg-emerald-50 rounded print:border print:bg-white print:page-break-before-always">
-                <div className="font-bold text-emerald-900 mb-3 text-base">✅ Answer Key</div>
+                <div className="font-bold text-emerald-900 mb-3 text-base">✅ {getTrans('common.answerKey', 'Answer Key')}</div>
                 <div className="text-xs space-y-1">
                   <div><strong>Row 6:</strong> 36, 42, 48, 54, 60, 66, 72</div>
                   <div><strong>Row 7:</strong> 42, 49, 56, 63, 70, 77, 84</div>
@@ -17088,7 +17102,7 @@ export function PrintablesPage() {
             </div>
             {showAnswersForDoc('times-table-blank-1-12', () => (
               <div className="mt-6 p-4 border-2 border-emerald-300 bg-emerald-50 rounded print:border print:bg-white print:page-break-before-always">
-                <div className="font-bold text-emerald-900 mb-3 text-base">✅ Answer Key</div>
+                <div className="font-bold text-emerald-900 mb-3 text-base">✅ {getTrans('common.answerKey', 'Answer Key')}</div>
                 <div className="text-xs space-y-1">
                   <div><strong>Complete 12×12 times table:</strong> Each cell (row × column) = product</div>
                   <div><strong>Examples:</strong> Row 1: 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12</div>
@@ -17183,7 +17197,7 @@ export function PrintablesPage() {
               </div>
               {showAnswersForDoc('times-table-confidence-1-5', () => (
                 <div className="mt-6 p-4 border-2 border-emerald-300 bg-emerald-50 rounded print:border print:bg-white print:page-break-before-always">
-                  <div className="font-bold text-emerald-900 mb-3 text-base">✅ Answer Key</div>
+                  <div className="font-bold text-emerald-900 mb-3 text-base">✅ {getTrans('common.answerKey', 'Answer Key')}</div>
                   <div className="grid grid-cols-2 gap-2 text-sm">
                     {facts.map(([a, b], i) => (
                       <div key={i} className="border-b border-emerald-200 pb-1 text-emerald-800">
@@ -17279,7 +17293,7 @@ export function PrintablesPage() {
               </div>
               {showAnswersForDoc('times-table-confidence-6-12', () => (
                 <div className="mt-6 p-4 border-2 border-emerald-300 bg-emerald-50 rounded print:border print:bg-white print:page-break-before-always">
-                  <div className="font-bold text-emerald-900 mb-3 text-base">✅ Answer Key</div>
+                  <div className="font-bold text-emerald-900 mb-3 text-base">✅ {getTrans('common.answerKey', 'Answer Key')}</div>
                   <div className="grid grid-cols-2 gap-2 text-sm">
                     {facts.map(([a, b], i) => (
                       <div key={i} className="border-b border-emerald-200 pb-1 text-emerald-800">
@@ -17373,7 +17387,7 @@ export function PrintablesPage() {
               </div>
               {showAnswersForDoc('times-table-fluency-1-12', () => (
                 <div className="mt-6 p-4 border-2 border-emerald-300 bg-emerald-50 rounded print:border print:bg-white print:page-break-before-always">
-                  <div className="font-bold text-emerald-900 mb-3 text-base">✅ Answer Key</div>
+                  <div className="font-bold text-emerald-900 mb-3 text-base">✅ {getTrans('common.answerKey', 'Answer Key')}</div>
                   <div className="grid grid-cols-3 gap-2 text-sm">
                     {facts.map(([a, b], i) => (
                       <div key={i} className="border-b border-emerald-200 pb-1 text-emerald-800">
@@ -17467,7 +17481,7 @@ export function PrintablesPage() {
               </div>
               {showAnswersForDoc('times-table-mixed-review', () => (
                 <div className="mt-6 p-4 border-2 border-emerald-300 bg-emerald-50 rounded print:border print:bg-white print:page-break-before-always">
-                  <div className="font-bold text-emerald-900 mb-3 text-base">✅ Answer Key</div>
+                  <div className="font-bold text-emerald-900 mb-3 text-base">✅ {getTrans('common.answerKey', 'Answer Key')}</div>
                   <div className="grid grid-cols-4 gap-2 text-sm">
                     {facts.map(([a, b], i) => (
                       <div key={i} className="border-b border-emerald-200 pb-1 text-emerald-800">
@@ -18288,7 +18302,7 @@ export function PrintablesPage() {
               </div>
               {showAnswersForDoc('count-match-1-20', () => (
                 <div className="mt-6 p-4 border-2 border-emerald-300 bg-emerald-50 rounded print:border print:bg-white print:page-break-before-always">
-                  <div className="font-bold text-emerald-900 mb-3 text-base">✅ Answer Key</div>
+                  <div className="font-bold text-emerald-900 mb-3 text-base">✅ {getTrans('common.answerKey', 'Answer Key')}</div>
                   <ul className="list-disc list-inside space-y-2 text-sm text-emerald-800">
                     {problems.map((p, i) => (
                       <li key={i}><strong>Row {i + 1}:</strong> Match to {p.count} (There are {p.count} circles in the group)</li>
@@ -18385,7 +18399,7 @@ export function PrintablesPage() {
               </div>
               {showAnswersForDoc('how-many-1-15', () => (
                 <div className="mt-6 p-4 border-2 border-emerald-300 bg-emerald-50 rounded print:border print:bg-white print:page-break-before-always">
-                  <div className="font-bold text-emerald-900 mb-3 text-base">✅ Answer Key</div>
+                  <div className="font-bold text-emerald-900 mb-3 text-base">✅ {getTrans('common.answerKey', 'Answer Key')}</div>
                   <ul className="list-disc list-inside space-y-2 text-sm text-emerald-800">
                     {problems.map((p, i) => (
                       <li key={i}><strong>Box {i + 1}:</strong> {p.count} (There are {p.count} circles in the box)</li>
@@ -18486,7 +18500,7 @@ export function PrintablesPage() {
               </div>
               {showAnswersForDoc('count-color-1-10', () => (
                 <div className="mt-6 p-4 border-2 border-emerald-300 bg-emerald-50 rounded print:border print:bg-white print:page-break-before-always">
-                  <div className="font-bold text-emerald-900 mb-3 text-base">✅ Answer Key</div>
+                  <div className="font-bold text-emerald-900 mb-3 text-base">✅ {getTrans('common.answerKey', 'Answer Key')}</div>
                   <ul className="list-disc list-inside space-y-2 text-sm text-emerald-800">
                     {problems.map((p, i) => (
                       <li key={i}><strong>Row {i + 1}:</strong> Color {p.count} {p.emoji} (There are {p.total} {p.emoji} total, color exactly {p.count} of them)</li>
@@ -18674,7 +18688,7 @@ export function PrintablesPage() {
               </div>
               {showAnswersForDoc('number-matching-1-15', () => (
                 <div className="mt-6 p-4 border-2 border-emerald-300 bg-emerald-50 rounded print:border print:bg-white print:page-break-before-always">
-                  <div className="font-bold text-emerald-900 mb-3 text-base">✅ Answer Key</div>
+                  <div className="font-bold text-emerald-900 mb-3 text-base">✅ {getTrans('common.answerKey', 'Answer Key')}</div>
                   <ul className="list-disc list-inside space-y-2 text-sm text-emerald-800">
                     {problems.map((p, i) => (
                       <li key={i}><strong>{p.num} = {p.word}</strong> (Draw a line connecting {p.num} to {p.word})</li>
@@ -18774,7 +18788,7 @@ export function PrintablesPage() {
               </div>
               {showAnswersForDoc('number-order-1-20', () => (
                 <div className="mt-6 p-4 border-2 border-emerald-300 bg-emerald-50 rounded print:border print:bg-white print:page-break-before-always">
-                  <div className="font-bold text-emerald-900 mb-3 text-base">✅ Answer Key</div>
+                  <div className="font-bold text-emerald-900 mb-3 text-base">✅ {getTrans('common.answerKey', 'Answer Key')}</div>
                   <p className="text-sm text-emerald-800 mb-2"><strong>Order (smallest to largest):</strong> {sequence.join(', ')}</p>
                   <div className="text-xs text-emerald-700 mt-2">💡 Remember: Start with the smallest number and work your way up. Use counting to help you: 1, 2, 3, 4, 5...</div>
                 </div>
@@ -18863,7 +18877,7 @@ export function PrintablesPage() {
               </div>
               {showAnswersForDoc('find-number-1-10', () => (
                 <div className="mt-6 p-4 border-2 border-emerald-300 bg-emerald-50 rounded print:border print:bg-white print:page-break-before-always">
-                  <div className="font-bold text-emerald-900 mb-3 text-base">✅ Answer Key</div>
+                  <div className="font-bold text-emerald-900 mb-3 text-base">✅ {getTrans('common.answerKey', 'Answer Key')}</div>
                   <p className="text-sm text-emerald-800 mb-2"><strong>Circle all {targetNumber}s.</strong> Found: {targetCount} instances.</p>
                   <div className="text-xs text-emerald-700 mt-2">💡 Remember: Look carefully at each number in the grid and match it to the target number {targetNumber}. Circle all instances you find!</div>
                 </div>
@@ -18977,7 +18991,7 @@ export function PrintablesPage() {
               </div>
               {showAnswersForDoc('shape-identification', () => (
                 <div className="mt-6 p-4 border-2 border-emerald-300 bg-emerald-50 rounded print:border print:bg-white print:page-break-before-always">
-                  <div className="font-bold text-emerald-900 mb-3 text-base">✅ Answer Key</div>
+                  <div className="font-bold text-emerald-900 mb-3 text-base">✅ {getTrans('common.answerKey', 'Answer Key')}</div>
                   <ul className="list-disc list-inside space-y-2 text-sm text-emerald-800">
                     {tasks.map((t, i) => {
                       const targetCount = t.shapes.filter(s => s === t.type).length;
@@ -19086,7 +19100,7 @@ export function PrintablesPage() {
               </div>
               {showAnswersForDoc('ab-pattern', () => (
                 <div className="mt-6 p-4 border-2 border-emerald-300 bg-emerald-50 rounded print:border print:bg-white print:page-break-before-always">
-                  <div className="font-bold text-emerald-900 mb-3 text-base">✅ Answer Key</div>
+                  <div className="font-bold text-emerald-900 mb-3 text-base">✅ {getTrans('common.answerKey', 'Answer Key')}</div>
                   <ul className="list-disc list-inside space-y-2 text-sm text-emerald-800">
                     {patterns.map((p, i) => (
                       <li key={i}><strong>Pattern {i + 1}:</strong> {p.answer} (The pattern repeats: {p.items.filter((item, idx) => idx < p.items.length - 1 && item !== '___').slice(0, 2).join(', ')}, {p.items.filter((item, idx) => idx < p.items.length - 1 && item !== '___').slice(0, 2).join(', ')}, ...)</li>
@@ -19193,7 +19207,7 @@ export function PrintablesPage() {
               </div>
               {showAnswersForDoc('big-small', () => (
                 <div className="mt-6 p-4 border-2 border-emerald-300 bg-emerald-50 rounded print:border print:bg-white print:page-break-before-always">
-                  <div className="font-bold text-emerald-900 mb-3 text-base">✅ Answer Key</div>
+                  <div className="font-bold text-emerald-900 mb-3 text-base">✅ {getTrans('common.answerKey', 'Answer Key')}</div>
                   <ul className="list-disc list-inside space-y-2 text-sm text-emerald-800">
                     {pairs.map((p, i) => (
                       <li key={i}><strong>Row {i + 1}:</strong> Circle {p.bigLabel} ({p.big}), X on {p.smallLabel} ({p.small}) - The {p.bigLabel} is bigger than the {p.smallLabel}</li>
@@ -19304,7 +19318,7 @@ export function PrintablesPage() {
               </div>
               {showAnswersForDoc('more-less', () => (
                 <div className="mt-6 p-4 border-2 border-emerald-300 bg-emerald-50 rounded print:border print:bg-white print:page-break-before-always">
-                  <div className="font-bold text-emerald-900 mb-3 text-base">✅ Answer Key</div>
+                  <div className="font-bold text-emerald-900 mb-3 text-base">✅ {getTrans('common.answerKey', 'Answer Key')}</div>
                   <ul className="list-disc list-inside space-y-2 text-sm text-emerald-800">
                     {problems.map((p, i) => {
                       const answer = p.left > p.right ? 'Left' : p.right > p.left ? 'Right' : 'Equal'
@@ -19532,7 +19546,7 @@ export function PrintablesPage() {
               </div>
               {showAnswersForDoc('div-facts-1-12', () => (
                 <div className="mt-6 p-4 border-2 border-emerald-300 bg-emerald-50 rounded print:border print:bg-white print:page-break-before-always">
-                  <div className="font-bold text-emerald-900 mb-3 text-base">✅ Answer Key</div>
+                  <div className="font-bold text-emerald-900 mb-3 text-base">✅ {getTrans('common.answerKey', 'Answer Key')}</div>
                   <div className="space-y-2">
                     {problems.map((p, i) => (
                       <div key={i} className="text-sm text-emerald-800">
@@ -19634,7 +19648,7 @@ export function PrintablesPage() {
               </div>
               {showAnswersForDoc('fractions-whole', () => (
                 <div className="mt-6 p-4 border-2 border-emerald-300 bg-emerald-50 rounded print:border print:bg-white print:page-break-before-always">
-                  <div className="font-bold text-emerald-900 mb-3 text-base">✅ Answer Key</div>
+                  <div className="font-bold text-emerald-900 mb-3 text-base">✅ {getTrans('common.answerKey', 'Answer Key')}</div>
                   <div className="space-y-2">
                     {problems.map((p, i) => {
                       const toColor = Math.floor((p.numerator / p.denominator) * p.total)
@@ -20722,7 +20736,7 @@ export function PrintablesPage() {
               </div>
               {showAnswersForDoc('decimals-place-value', () => (
                 <div className="mt-6 p-4 border-2 border-emerald-300 bg-emerald-50 rounded print:border print:bg-white print:page-break-before-always">
-                  <div className="font-bold text-emerald-900 mb-3 text-base">✅ Answer Key</div>
+                  <div className="font-bold text-emerald-900 mb-3 text-base">✅ {getTrans('common.answerKey', 'Answer Key')}</div>
                   <div className="space-y-2">
                     {problems.map((p, i) => (
                       <div key={i} className="border-b border-emerald-200 pb-2 last:border-b-0">
@@ -20817,7 +20831,7 @@ export function PrintablesPage() {
               </div>
               {showAnswersForDoc('comparing-decimals', () => (
                 <div className="mt-6 p-4 border-2 border-emerald-300 bg-emerald-50 rounded print:border print:bg-white print:page-break-before-always">
-                  <div className="font-bold text-emerald-900 mb-3 text-base">✅ Answer Key</div>
+                  <div className="font-bold text-emerald-900 mb-3 text-base">✅ {getTrans('common.answerKey', 'Answer Key')}</div>
                   <div className="space-y-2">
                     {problems.map((p, i) => {
                       const symbol = p.d1 > p.d2 ? '>' : p.d1 < p.d2 ? '<' : '=';
@@ -22748,7 +22762,7 @@ export function PrintablesPage() {
               </div>
               {showAnswersForDoc('classifying-shapes', () => (
                 <div className="mt-6 p-4 border-2 border-emerald-300 bg-emerald-50 rounded print:border print:bg-white print:page-break-before-always">
-                  <div className="font-bold text-emerald-900 mb-3 text-base">✅ Answer Key</div>
+                  <div className="font-bold text-emerald-900 mb-3 text-base">✅ {getTrans('common.answerKey', 'Answer Key')}</div>
                   <div className="space-y-3">
                     {shapes.map((s, i) => {
                       const sides = { triangle: 3, square: 4, rectangle: 4, pentagon: 5, hexagon: 6, octagon: 8 }[s];
@@ -24559,7 +24573,7 @@ export function PrintablesPage() {
               </div>
               {showAnswersForDoc('bar-graphs-pictographs', () => (
                 <div className="mt-6 p-4 border-2 border-emerald-300 bg-emerald-50 rounded print:border print:bg-white print:page-break-before-always">
-                  <div className="font-bold text-emerald-900 mb-3 text-base">✅ Answer Key</div>
+                  <div className="font-bold text-emerald-900 mb-3 text-base">✅ {getTrans('common.answerKey', 'Answer Key')}</div>
                   <div className="space-y-3">
                     <div className="border-b border-emerald-200 pb-3">
                       <div className="font-semibold mb-2 text-sm">Fruit Sales Bar Graph</div>
@@ -25006,7 +25020,7 @@ export function PrintablesPage() {
               </div>
               {showAnswersForDoc('stem-leaf-plots', () => (
                 <div className="mt-6 p-4 border-2 border-emerald-300 bg-emerald-50 rounded print:border print:bg-white print:page-break-before-always">
-                  <div className="font-bold text-emerald-900 mb-3 text-base">✅ Answer Key</div>
+                  <div className="font-bold text-emerald-900 mb-3 text-base">✅ {getTrans('common.answerKey', 'Answer Key')}</div>
                   <div className="space-y-3">
                     <div className="border-b border-emerald-200 pb-3">
                       <div className="font-semibold mb-2 text-sm">Data: {data.join(', ')}</div>
@@ -26569,7 +26583,7 @@ export function PrintablesPage() {
               </div>
               {showAnswersForDoc('color-shapes', () => (
                 <div className="mt-6 p-4 border-2 border-emerald-300 bg-emerald-50 rounded print:border print:bg-white print:page-break-before-always">
-                  <div className="font-bold text-emerald-900 mb-3 text-base">✅ Answer Key</div>
+                  <div className="font-bold text-emerald-900 mb-3 text-base">✅ {getTrans('common.answerKey', 'Answer Key')}</div>
                   <ul className="list-disc list-inside space-y-1 text-sm">
                     {shapeData.map((s, i) => (<li key={i} className="text-emerald-800">{s.name}: Color {s.color}</li>))}
                   </ul>
@@ -26678,7 +26692,7 @@ export function PrintablesPage() {
               </div>
               {showAnswersForDoc('shape-sorting', () => (
                 <div className="mt-6 p-4 border-2 border-emerald-300 bg-emerald-50 rounded print:border print:bg-white print:page-break-before-always">
-                  <div className="font-bold text-emerald-900 mb-3 text-base">✅ Answer Key</div>
+                  <div className="font-bold text-emerald-900 mb-3 text-base">✅ {getTrans('common.answerKey', 'Answer Key')}</div>
                   <ul className="list-disc list-inside space-y-1 text-sm">
                     {shapes.map((s, i) => (<li key={i} className="text-emerald-800">{s.name}: Sort all {s.name}s into the {s.name} group</li>))}
                   </ul>
@@ -26757,7 +26771,7 @@ export function PrintablesPage() {
               </div>
               {showAnswersForDoc('color-recognition', () => (
                 <div className="mt-6 p-4 border-2 border-emerald-300 bg-emerald-50 rounded print:border print:bg-white print:page-break-before-always">
-                  <div className="font-bold text-emerald-900 mb-3 text-base">✅ Answer Key</div>
+                  <div className="font-bold text-emerald-900 mb-3 text-base">✅ {getTrans('common.answerKey', 'Answer Key')}</div>
                   <ul className="list-disc list-inside space-y-1 text-sm">
                     {items.map((i, idx) => (<li key={idx} className="text-emerald-800">{i.item}: Color {i.color}</li>))}
                   </ul>
@@ -26820,7 +26834,7 @@ export function PrintablesPage() {
               </div>
               {showAnswersForDoc('draw-shape', () => (
                 <div className="mt-6 p-4 border-2 border-emerald-300 bg-emerald-50 rounded print:border print:bg-white print:page-break-before-always">
-                  <div className="font-bold text-emerald-900 mb-3 text-base">✅ Answer Key</div>
+                  <div className="font-bold text-emerald-900 mb-3 text-base">✅ {getTrans('common.answerKey', 'Answer Key')}</div>
                   <ul className="list-disc list-inside space-y-1 text-sm">
                     {shapes.map((s, i) => (
                       <li key={i} className="text-emerald-800">
@@ -26899,7 +26913,7 @@ export function PrintablesPage() {
               </div>
               {showAnswersForDoc('color-patterns', () => (
                 <div className="mt-6 p-4 border-2 border-emerald-300 bg-emerald-50 rounded print:border print:bg-white print:page-break-before-always">
-                  <div className="font-bold text-emerald-900 mb-3 text-base">✅ Answer Key</div>
+                  <div className="font-bold text-emerald-900 mb-3 text-base">✅ {getTrans('common.answerKey', 'Answer Key')}</div>
                   <ul className="list-disc list-inside space-y-1 text-sm">
                     {patterns.map((p, i) => (
                       <li key={i} className="flex items-center gap-2 text-emerald-800">
@@ -26981,7 +26995,7 @@ export function PrintablesPage() {
               </div>
               {showAnswersForDoc('shape-patterns', () => (
                 <div className="mt-6 p-4 border-2 border-emerald-300 bg-emerald-50 rounded print:border print:bg-white print:page-break-before-always">
-                  <div className="font-bold text-emerald-900 mb-3 text-base">✅ Answer Key</div>
+                  <div className="font-bold text-emerald-900 mb-3 text-base">✅ {getTrans('common.answerKey', 'Answer Key')}</div>
                   <ul className="list-disc list-inside space-y-1 text-sm">
                     {patterns.map((p, i) => (
                       <li key={i} className="flex items-center gap-2 text-emerald-800">
@@ -27063,7 +27077,7 @@ export function PrintablesPage() {
               </div>
               {showAnswersForDoc('what-comes-next', () => (
                 <div className="mt-6 p-4 border-2 border-emerald-300 bg-emerald-50 rounded print:border print:bg-white print:page-break-before-always">
-                  <div className="font-bold text-emerald-900 mb-3 text-base">✅ Answer Key</div>
+                  <div className="font-bold text-emerald-900 mb-3 text-base">✅ {getTrans('common.answerKey', 'Answer Key')}</div>
                   <ul className="list-disc list-inside space-y-1 text-sm">
                     {patterns.map((p, i) => (
                       <li key={i} className="flex items-center gap-2 text-emerald-800">
@@ -27159,7 +27173,7 @@ export function PrintablesPage() {
               </div>
               {showAnswersForDoc('long-short', () => (
                 <div className="mt-6 p-4 border-2 border-emerald-300 bg-emerald-50 rounded print:border print:bg-white print:page-break-before-always">
-                  <div className="font-bold text-emerald-900 mb-3 text-base">✅ Answer Key</div>
+                  <div className="font-bold text-emerald-900 mb-3 text-base">✅ {getTrans('common.answerKey', 'Answer Key')}</div>
                   <ul className="list-disc list-inside space-y-1 text-sm">
                     {pairs.map((pair, idx) => (
                       <li key={idx} className="text-emerald-800">
@@ -27255,7 +27269,7 @@ export function PrintablesPage() {
               </div>
               {showAnswersForDoc('heavy-light', () => (
                 <div className="mt-6 p-4 border-2 border-emerald-300 bg-emerald-50 rounded print:border print:bg-white print:page-break-before-always">
-                  <div className="font-bold text-emerald-900 mb-3 text-base">✅ Answer Key</div>
+                  <div className="font-bold text-emerald-900 mb-3 text-base">✅ {getTrans('common.answerKey', 'Answer Key')}</div>
                   <ul className="list-disc list-inside space-y-1 text-sm">
                     {pairs.map((pair, idx) => (
                       <li key={idx} className="text-emerald-800">
@@ -27327,7 +27341,7 @@ export function PrintablesPage() {
               </div>
               {showAnswersForDoc('same-different', () => (
                 <div className="mt-6 p-4 border-2 border-emerald-300 bg-emerald-50 rounded print:border print:bg-white print:page-break-before-always">
-                  <div className="font-bold text-emerald-900 mb-3 text-base">✅ Answer Key</div>
+                  <div className="font-bold text-emerald-900 mb-3 text-base">✅ {getTrans('common.answerKey', 'Answer Key')}</div>
                   <ul className="list-disc list-inside space-y-1 text-sm">
                     {sets.map((s, i) => (<li key={i} className="text-emerald-800">Position {s.different + 1} is different</li>))}
                   </ul>
@@ -27410,7 +27424,7 @@ export function PrintablesPage() {
               </div>
               {showAnswersForDoc('line-tracing', () => (
                 <div className="mt-6 p-4 border-2 border-emerald-300 bg-emerald-50 rounded print:border print:bg-white print:page-break-before-always">
-                  <div className="font-bold text-emerald-900 mb-3 text-base">✅ Answer Key</div>
+                  <div className="font-bold text-emerald-900 mb-3 text-base">✅ {getTrans('common.answerKey', 'Answer Key')}</div>
                   <p className="text-sm text-emerald-800">Trace the dashed lines from left to right. Follow the line carefully with your pencil.</p>
                 </div>
               ))}
@@ -27516,7 +27530,7 @@ export function PrintablesPage() {
               </div>
               {showAnswersForDoc('curve-tracing', () => (
                 <div className="mt-6 p-4 border-2 border-emerald-300 bg-emerald-50 rounded print:border print:bg-white print:page-break-before-always">
-                  <div className="font-bold text-emerald-900 mb-3 text-base">✅ Answer Key</div>
+                  <div className="font-bold text-emerald-900 mb-3 text-base">✅ {getTrans('common.answerKey', 'Answer Key')}</div>
                   <p className="text-sm text-emerald-800">Trace the dashed curves and circles. Follow the curved lines carefully with your pencil.</p>
                 </div>
               ))}
@@ -27596,7 +27610,7 @@ export function PrintablesPage() {
               </div>
               {showAnswersForDoc('zigzag-lines', () => (
                 <div className="mt-6 p-4 border-2 border-emerald-300 bg-emerald-50 rounded print:border print:bg-white print:page-break-before-always">
-                  <div className="font-bold text-emerald-900 mb-3 text-base">✅ Answer Key</div>
+                  <div className="font-bold text-emerald-900 mb-3 text-base">✅ {getTrans('common.answerKey', 'Answer Key')}</div>
                   <p className="text-sm text-emerald-800">Trace the dashed zigzag lines from left to right. Follow the up and down pattern carefully with your pencil.</p>
                 </div>
               ))}
@@ -27680,7 +27694,7 @@ export function PrintablesPage() {
               </div>
               {showAnswersForDoc('path-tracing', () => (
                 <div className="mt-6 p-4 border-2 border-emerald-300 bg-emerald-50 rounded print:border print:bg-white print:page-break-before-always">
-                  <div className="font-bold text-emerald-900 mb-3 text-base">✅ Answer Key</div>
+                  <div className="font-bold text-emerald-900 mb-3 text-base">✅ {getTrans('common.answerKey', 'Answer Key')}</div>
                   <p className="text-sm text-emerald-800">Trace the dashed path from the green Start point to the red Finish point. Follow the path carefully with your pencil.</p>
                 </div>
               ))}
@@ -27820,7 +27834,7 @@ export function PrintablesPage() {
               </div>
               {showAnswersForDoc('mult-arrays', () => (
                 <div className="mt-6 p-4 border-2 border-emerald-300 bg-emerald-50 rounded print:border print:bg-white print:page-break-before-always">
-                  <div className="font-bold text-emerald-900 mb-3 text-base">✅ Answer Key</div>
+                  <div className="font-bold text-emerald-900 mb-3 text-base">✅ {getTrans('common.answerKey', 'Answer Key')}</div>
                   <div className="space-y-2">
                     {problems.map((p, i) => (
                       <div key={i} className="border-b border-emerald-200 pb-2 last:border-b-0">
@@ -28365,7 +28379,7 @@ export function PrintablesPage() {
               </div>
               {showAnswersForDoc('div-by-10-100', () => (
                 <div className="mt-6 p-4 border-2 border-emerald-300 bg-emerald-50 rounded print:border print:bg-white print:page-break-before-always">
-                  <div className="font-bold text-emerald-900 mb-3 text-base">✅ Answer Key</div>
+                  <div className="font-bold text-emerald-900 mb-3 text-base">✅ {getTrans('common.answerKey', 'Answer Key')}</div>
                   <div className="grid grid-cols-2 gap-2 text-sm">
                     {problems.map((p, i) => (
                       <div key={i} className="border-b border-emerald-200 pb-1 text-emerald-800">
@@ -29182,7 +29196,7 @@ export function PrintablesPage() {
               </div>
               {showAnswersForDoc('identify-polygons', () => (
                 <div className="mt-6 p-4 border-2 border-emerald-300 bg-emerald-50 rounded print:border print:bg-white print:page-break-before-always">
-                  <div className="font-bold text-emerald-900 mb-3 text-base">✅ Answer Key</div>
+                  <div className="font-bold text-emerald-900 mb-3 text-base">✅ {getTrans('common.answerKey', 'Answer Key')}</div>
                   <div className="space-y-3">
                     {polygons.map((p, i) => (
                       <div key={i} className="border-b border-emerald-200 pb-3 last:border-b-0">
@@ -29335,7 +29349,7 @@ export function PrintablesPage() {
               </div>
               {showAnswersForDoc('lines-rays-angles', () => (
                 <div className="mt-6 p-4 border-2 border-emerald-300 bg-emerald-50 rounded print:border print:bg-white print:page-break-before-always">
-                  <div className="font-bold text-emerald-900 mb-3 text-base">✅ Answer Key</div>
+                  <div className="font-bold text-emerald-900 mb-3 text-base">✅ {getTrans('common.answerKey', 'Answer Key')}</div>
                   <div className="space-y-3">
                     {items.map((i, idx) => (
                       <div key={idx} className="border-b border-emerald-200 pb-3 last:border-b-0">
@@ -29483,7 +29497,7 @@ export function PrintablesPage() {
               </div>
               {showAnswersForDoc('symmetry', () => (
                 <div className="mt-6 p-4 border-2 border-emerald-300 bg-emerald-50 rounded print:border print:bg-white print:page-break-before-always">
-                  <div className="font-bold text-emerald-900 mb-3 text-base">✅ Answer Key</div>
+                  <div className="font-bold text-emerald-900 mb-3 text-base">✅ {getTrans('common.answerKey', 'Answer Key')}</div>
                   <div className="space-y-3">
                     {shapes.map((s, i) => {
                       const lines = { square: 4, circle: 'infinite', rectangle: 2, triangle: 3, hexagon: 6, star: 5 }[s];
@@ -29605,7 +29619,7 @@ export function PrintablesPage() {
               </div>
               {showAnswersForDoc('time-to-minute', () => (
                 <div className="mt-6 p-4 border-2 border-emerald-300 bg-emerald-50 rounded print:border print:bg-white print:page-break-before-always">
-                  <div className="font-bold text-emerald-900 mb-3 text-base">✅ Answer Key</div>
+                  <div className="font-bold text-emerald-900 mb-3 text-base">✅ {getTrans('common.answerKey', 'Answer Key')}</div>
                   <div className="space-y-3">
                     {times.map((t, i) => {
                       const [hours, minutes] = t.split(':').map(Number);

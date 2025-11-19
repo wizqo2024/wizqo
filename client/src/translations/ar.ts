@@ -18,6 +18,7 @@ export const ar = {
     remember: 'تذكر:',
     clear: 'مسح',
     printTip: 'نصيحة: استخدم قائمة المتصفح → طباعة → حفظ كـ PDF.',
+    withExplanations: 'مع الشرح',
   },
   worksheets: {
     countObjectsAndWriteNumber: 'عد الكائنات واكتب الرقم.',

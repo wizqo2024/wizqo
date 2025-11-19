@@ -18,6 +18,7 @@ export const es = {
     remember: 'Recuerda:',
     clear: 'Limpiar',
     printTip: 'Consejo: Usa el menú de tu navegador → Imprimir → Guardar como PDF.',
+    withExplanations: 'con explicaciones',
   },
   worksheets: {
     countObjectsAndWriteNumber: 'Cuenta los objetos y escribe el número.',
