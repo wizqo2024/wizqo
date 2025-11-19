@@ -67,6 +67,9 @@ export function TranslationProvider({ children }: { children: ReactNode }) {
       if (langParam && ['en', 'es', 'ar'].includes(langParam)) {
         setLanguageState((currentLang) => {
           if (currentLang !== langParam) {
+            if (typeof window !== 'undefined' && process.env.NODE_ENV === 'development') {
+              console.log('[TranslationContext] Setting language from query param:', langParam, 'current:', currentLang)
+            }
             localStorage.setItem('wizqo-language', langParam)
             document.documentElement.dir = isRTL(langParam) ? 'rtl' : 'ltr'
             document.documentElement.lang = langParam
@@ -106,6 +109,12 @@ export function TranslationProvider({ children }: { children: ReactNode }) {
     // Check on hashchange (for SPA navigation)
     window.addEventListener('hashchange', checkLanguage)
     
+    // Also check periodically for URL query parameter changes (e.g., when lang=ar is added)
+    // This is important for /print route where language might change via query param
+    const checkInterval = setInterval(() => {
+      syncLanguageFromURL()
+    }, 200) // Check every 200ms for URL changes
+    
     // Listen for storage events (when language is changed in another tab/window)
     // But only apply if no URL parameter exists
     const handleStorageChange = (e: StorageEvent) => {
@@ -129,6 +138,7 @@ export function TranslationProvider({ children }: { children: ReactNode }) {
       window.removeEventListener('popstate', syncLanguageFromURL)
       window.removeEventListener('hashchange', checkLanguage)
       window.removeEventListener('storage', handleStorageChange)
+      clearInterval(checkInterval)
     }
   }, []) // Empty deps - only run on mount and location changes
 
