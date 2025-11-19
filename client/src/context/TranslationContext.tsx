@@ -19,13 +19,20 @@ export function TranslationProvider({ children }: { children: ReactNode }) {
   const [language, setLanguageState] = useState<Language>(() => {
     if (typeof window !== 'undefined') {
       // Priority 1: Get from URL path (for SEO and shareable links)
-      const urlLocale = getLocaleFromURL()
-      if (urlLocale && ['en', 'es', 'ar'].includes(urlLocale)) {
+      // BUT: Only use path locale if it's actually in the path (not default 'en')
+      // For paths like /print, there's no locale prefix, so we should check query param
+      const pathname = window.location.pathname
+      const pathSegments = pathname.split('/').filter(Boolean)
+      const hasLocaleInPath = pathSegments.length > 0 && ['en', 'es', 'ar'].includes(pathSegments[0])
+      
+      if (hasLocaleInPath) {
+        const urlLocale = pathSegments[0] as Language
         console.log('[TranslationContext] Initial state: Using URL path locale:', urlLocale)
-        return urlLocale as Language
+        return urlLocale
       }
       
       // Priority 2: Get from query parameter (for /print route) - MUST check this before localStorage
+      // This is especially important for /print route which doesn't have locale in path
       const params = new URLSearchParams(window.location.search)
       const langParam = params.get('lang')
       if (langParam && ['en', 'es', 'ar'].includes(langParam)) {
@@ -54,8 +61,14 @@ export function TranslationProvider({ children }: { children: ReactNode }) {
     
     const syncLanguageFromURL = () => {
       // Priority 1: Check URL path locale
-      const urlLocale = getLocaleFromURL()
-      if (urlLocale && ['en', 'es', 'ar'].includes(urlLocale)) {
+      // BUT: Only use path locale if it's actually in the path (not default 'en')
+      // For paths like /print, there's no locale prefix, so we should check query param
+      const pathname = typeof window !== 'undefined' ? window.location.pathname : ''
+      const pathSegments = pathname.split('/').filter(Boolean)
+      const hasLocaleInPath = pathSegments.length > 0 && ['en', 'es', 'ar'].includes(pathSegments[0])
+      
+      if (hasLocaleInPath) {
+        const urlLocale = pathSegments[0] as Language
         setLanguageState((currentLang) => {
           if (currentLang !== urlLocale) {
             localStorage.setItem('wizqo-language', urlLocale)
