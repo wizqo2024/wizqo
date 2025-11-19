@@ -6573,6 +6573,13 @@ function InteractiveWorksheetSection({
   const doc = getDocMeta(docId)
   const category = doc ? categoryByDocId.get(docId) : undefined
 
+  // Debug: Log language value
+  React.useEffect(() => {
+    if (typeof window !== 'undefined' && process.env.NODE_ENV === 'development') {
+      console.log('[InteractiveWorksheetSection] Language:', language, 'docId:', docId)
+    }
+  }, [language, docId])
+
   // Force re-render when language changes by using language in state
   const [, forceUpdate] = React.useReducer(x => x + 1, 0)
   React.useEffect(() => {
@@ -6593,6 +6600,11 @@ function InteractiveWorksheetSection({
       try {
         // Priority 1: Use getTranslation with current language (most reliable)
         const directResult = getTranslation(language, key)
+        // Debug: Log translation attempts for important keys
+        if (typeof window !== 'undefined' && process.env.NODE_ENV === 'development' && 
+            (key.includes('countObjectsAndWriteNumber') || key.includes('countThe') || key.includes('numberLabel'))) {
+          console.log(`[InteractiveBundleSections] Translation attempt: key=${key}, language=${language}, result=${directResult}, isKey=${directResult === key}`)
+        }
         if (typeof directResult === 'string' && directResult !== key) {
           return directResult
         }

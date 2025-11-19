@@ -181,17 +181,36 @@ export function TranslationProvider({ children }: { children: ReactNode }) {
   }, [language])
 
   const t = React.useCallback((key: string): string | any => {
-    return getTranslation(language, key)
+    const result = getTranslation(language, key)
+    // Debug: Log if language is ar but we're getting English results
+    if (typeof window !== 'undefined' && language === 'ar' && 
+        (key.includes('countObjectsAndWriteNumber') || key.includes('countThe') || key.includes('numberLabel'))) {
+      const englishResult = getTranslation('en', key)
+      if (result === englishResult && result !== key) {
+        console.warn(`[TranslationContext] Got English translation for Arabic: key=${key}, language=${language}, result=${result}`)
+      }
+    }
+    return result
   }, [language])
 
   // Use useMemo to ensure value object reference changes when language changes
-  const value: TranslationContextType = React.useMemo(() => ({
-    language,
-    setLanguage,
-    t,
-    isRTL: isRTL(language),
-    availableLanguages: getAvailableLanguages(),
-  }), [language, setLanguage, t])
+  const value: TranslationContextType = React.useMemo(() => {
+    // Debug: Log language changes
+    if (typeof window !== 'undefined') {
+      const urlParams = new URLSearchParams(window.location.search)
+      const urlLang = urlParams.get('lang')
+      if (urlLang && urlLang !== language) {
+        console.warn(`[TranslationContext] Language mismatch: URL has lang=${urlLang} but state is language=${language}`)
+      }
+    }
+    return {
+      language,
+      setLanguage,
+      t,
+      isRTL: isRTL(language),
+      availableLanguages: getAvailableLanguages(),
+    }
+  }, [language, setLanguage, t])
 
   return (
     <TranslationContext.Provider value={value}>
