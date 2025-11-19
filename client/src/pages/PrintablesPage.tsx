@@ -18549,9 +18549,9 @@ export function PrintablesPage() {
               <div className="mt-6 print:mt-0 p-4 bg-purple-50 border-2 border-purple-200 rounded print:bg-white print:border" style={{ pageBreakBefore: 'always', pageBreakInside: 'avoid' }}>
                 <div className="font-semibold text-purple-900 mb-3 text-sm">{getTrans('worksheets.number-id-1-10.challenge.title', '🌟 Challenge Yourself (Optional):')}</div>
                 <div className="space-y-2 text-sm text-purple-800">
-                  <div>1. {getTrans('worksheets.number-id-1-10.challenge.1', 'Can you find numbers around your house? Look for numbers on clocks, calendars, or books')}</div>
-                  <div>2. {getTrans('worksheets.number-id-1-10.challenge.2', 'Write your own number grid and have someone find a specific number')}</div>
-                  <div>3. {getTrans('worksheets.number-id-1-10.challenge.3', 'Try finding numbers in different styles or fonts')}</div>
+                  <div>{formatNum(1)}. {getTrans('worksheets.number-id-1-10.challenge.1', 'Can you find numbers around your house? Look for numbers on clocks, calendars, or books')}</div>
+                  <div>{formatNum(2)}. {getTrans('worksheets.number-id-1-10.challenge.2', 'Write your own number grid and have someone find a specific number')}</div>
+                  <div>{formatNum(3)}. {getTrans('worksheets.number-id-1-10.challenge.3', 'Try finding numbers in different styles or fonts')}</div>
                 </div>
               </div>
               {/* Self-Assessment */}
