@@ -19,7 +19,10 @@ export function getTranslation(language: Language, key: string): string | any {
     let value: any = translations[language]
     
     if (!value) {
-      console.warn(`Translation object not found for language: ${language}`)
+      console.warn(`[getTranslation] Translation object not found for language: ${language}`, {
+        availableLanguages: Object.keys(translations),
+        translationsObject: translations
+      })
       // Fallback to English
       value = translations.en
       if (!value) {
@@ -30,6 +33,16 @@ export function getTranslation(language: Language, key: string): string | any {
     // Navigate through nested keys
     for (const k of keys) {
       if (value === null || value === undefined) {
+        // Debug: log what we found so far
+        if (typeof window !== 'undefined' && process.env.NODE_ENV === 'development') {
+          console.warn(`[getTranslation] Navigation stopped at key: ${k}`, {
+            language,
+            fullKey: key,
+            keysSoFar: keys.slice(0, keys.indexOf(k)),
+            currentValue: value,
+            availableKeys: value && typeof value === 'object' ? Object.keys(value) : 'N/A'
+          })
+        }
         break
       }
       value = value[k]

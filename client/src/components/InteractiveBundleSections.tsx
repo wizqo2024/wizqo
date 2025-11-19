@@ -6614,9 +6614,23 @@ function InteractiveWorksheetSection({
       if (typeof window !== 'undefined') {
         console.warn(`[InteractiveBundleSections] Translation missing: key=${key}, language=${language}`, { 
           directResult, 
+          directResultType: typeof directResult,
+          directResultEqualsKey: directResult === key,
           contextResult,
+          contextResultType: typeof contextResult,
+          contextResultEqualsKey: contextResult === key,
           languageValue: language,
-          keyPath: key
+          keyPath: key,
+          // Try to manually check if translation exists
+          manualCheck: (() => {
+            try {
+              const { getTranslation: gt } = require('@/translations')
+              const manualResult = gt(language, key)
+              return { manualResult, manualResultType: typeof manualResult, manualResultEqualsKey: manualResult === key }
+            } catch (e) {
+              return { error: e.message }
+            }
+          })()
         })
       }
       return key
