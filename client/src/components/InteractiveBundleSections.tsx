@@ -6592,30 +6592,23 @@ function InteractiveWorksheetSection({
     try {
       // Try context first - it might have better access to the full translation object
       const contextResult = tFromContext(key)
-      if (typeof contextResult === 'string' && contextResult !== key && !contextResult.startsWith('worksheets.') && !contextResult.startsWith('categories.')) {
+      // Accept any string result that's different from the key (means translation was found)
+      if (typeof contextResult === 'string' && contextResult !== key) {
         return contextResult
       }
       
       // If context didn't work, try getTranslation directly
       const directResult = getTranslation(language, key)
-      // Check if we got a valid translation (not the key itself, and not a key-like string)
-      if (typeof directResult === 'string' && directResult !== key && !directResult.startsWith('worksheets.') && !directResult.startsWith('categories.')) {
+      if (typeof directResult === 'string' && directResult !== key) {
         return directResult
       }
       
-      // If both return the key or a key-like string, try English as final fallback
+      // If both return the key, try English as final fallback
       if (language !== 'en') {
         const englishResult = getTranslation('en', key)
-        if (typeof englishResult === 'string' && englishResult !== key && !englishResult.startsWith('worksheets.') && !englishResult.startsWith('categories.')) {
+        if (typeof englishResult === 'string' && englishResult !== key) {
           return englishResult
         }
-        // Also try context with English
-        try {
-          const englishContextResult = getTranslation('en', key)
-          if (typeof englishContextResult === 'string' && englishContextResult !== key && !englishContextResult.startsWith('worksheets.') && !englishContextResult.startsWith('categories.')) {
-            return englishContextResult
-          }
-        } catch {}
       }
       
       // Final fallback: return the key (will be visible in UI for debugging)
@@ -6638,7 +6631,7 @@ function InteractiveWorksheetSection({
       // Try context as last resort
       try {
         const result = tFromContext(key)
-        if (typeof result === 'string' && result !== key && !result.startsWith('worksheets.') && !result.startsWith('categories.')) {
+        if (typeof result === 'string' && result !== key) {
           return result
         }
       } catch {}
@@ -6646,7 +6639,7 @@ function InteractiveWorksheetSection({
       if (language !== 'en') {
         try {
           const englishResult = getTranslation('en', key)
-          if (typeof englishResult === 'string' && englishResult !== key && !englishResult.startsWith('worksheets.') && !englishResult.startsWith('categories.')) {
+          if (typeof englishResult === 'string' && englishResult !== key) {
             return englishResult
           }
         } catch {}
