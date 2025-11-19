@@ -60,6 +60,9 @@ const ensureWorksheetKeys = () => {
   
   // Then, ensure mult-facts-0-12 worksheet keys
   ensureMultFactsKeys()
+  
+  // Then, ensure math-maze worksheet keys
+  ensureMathMazeKeys()
 }
 
 const ensureInteractiveWorksheetKeys = () => {
@@ -770,6 +773,231 @@ const ensureMultFactsKeys = () => {
       // Only merge if keys are missing (to avoid overwriting if they exist)
       if (keys['mult-facts-0-12'] && !worksheets['mult-facts-0-12']) {
         worksheets['mult-facts-0-12'] = keys['mult-facts-0-12']
+      }
+    }
+  }
+}
+
+// Ensure math-maze worksheet keys are present
+const ensureMathMazeKeys = () => {
+  // Define the keys directly to prevent tree-shaking - hardcode the full structure
+  const mathMazeKeys = {
+    en: {
+      'math-maze': {
+        title: 'Math Maze Adventure',
+        description: 'Start at S and reach F. Move up/down/left/right only onto tiles whose equation equals the target shown in that row. Circle your path!',
+        learningObjectives: [
+          'Solve addition and subtraction equations',
+          'Navigate through a maze using math skills',
+          'Apply problem-solving strategies',
+          'Practice mental math and number recognition',
+        ],
+        parentTeacherTips: [
+          'Choose a target number for each row before starting',
+          'Only move onto tiles where the equation equals the row target',
+          'Work backwards: start from F and find valid paths',
+          'Encourage students to check their math as they go',
+          'Extension: Create your own math maze with different equations',
+        ],
+        example: {
+          title: '📚 Example - Let\'s solve this together:',
+          problem: 'Problem:',
+          problemText: 'Find a path from S to F',
+          step1: 'Step 1:',
+          step1Text: 'Choose target numbers for each row (e.g., Row 1 = 6, Row 2 = 8, Row 3 = 10)',
+          step2: 'Step 2:',
+          step2Text: 'Find tiles in Row 1 that equal 6: 4+2=6, 8-2=6, etc.',
+          step3: 'Step 3:',
+          step3Text: 'Move to Row 2 and find tiles that equal 8: 6+2=8, 9-1=8, etc.',
+          step4: 'Step 4:',
+          step4Text: 'Continue to Row 3 and find tiles that equal 10: 7+3=10, 12-2=10, etc.',
+          step5: 'Step 5:',
+          step5Text: 'Draw your path from S to F following valid tiles',
+          tip: '💡 Tip: Check each equation before moving onto that tile!',
+        },
+        howToPlay: {
+          title: 'How to play',
+          step1: 'Choose a target number per row (e.g., row 1 = 6).',
+          step2: 'Step only on equations that equal that row\'s target.',
+          step3: 'Draw your path from S to F without diagonal moves.',
+        },
+        challenge: {
+          title: '🌟 Challenge Yourself (Optional):',
+          items: [
+            'Can you find a different path using different target numbers?',
+            'Try using only addition equations (no subtraction)',
+            'Create your own math maze with 3 rows and 5 columns',
+          ],
+        },
+        selfAssessment: {
+          title: '📊 How did you do?',
+          items: [
+            'I can solve addition and subtraction equations',
+            'I found a valid path from S to F',
+            'I checked my math as I went',
+          ],
+          targetNumbers: 'My target numbers:',
+          targetNumbersFormat: 'Row 1: ___, Row 2: ___, Row 3: ___',
+          hardest: 'What was hardest?',
+        },
+        answerKey: {
+          title: '✅ Answer Key',
+          exampleTargetPlan: 'Example target plan:',
+          row1: 'Row 1 target: 6 → valid tiles: 4+2, 8-2, 3+3, etc.',
+          row2: 'Row 2 target: 8 → valid tiles: 6+2, 9-1, 5+3, etc.',
+          row3: 'Row 3 target: 10 → valid tiles: 7+3, 12-2, 5+5, etc.',
+          remember: '💡 Remember: Any path that follows the row targets is correct! Choose your own target numbers and find a valid path from S to F.',
+        },
+      },
+    },
+    es: {
+      'math-maze': {
+        title: 'Aventura de Laberinto Matemático',
+        description: 'Comienza en S y llega a F. Muévete arriba/abajo/izquierda/derecha solo sobre casillas cuya ecuación sea igual al objetivo mostrado en esa fila. ¡Marca tu camino!',
+        learningObjectives: [
+          'Resolver ecuaciones de suma y resta',
+          'Navegar por un laberinto usando habilidades matemáticas',
+          'Aplicar estrategias de resolución de problemas',
+          'Practicar cálculo mental y reconocimiento de números',
+        ],
+        parentTeacherTips: [
+          'Elige un número objetivo para cada fila antes de comenzar',
+          'Solo muévete sobre casillas donde la ecuación sea igual al objetivo de la fila',
+          'Trabaja hacia atrás: comienza desde F y encuentra caminos válidos',
+          'Anima a los estudiantes a verificar sus cálculos mientras avanzan',
+          'Extensión: Crea tu propio laberinto matemático con diferentes ecuaciones',
+        ],
+        example: {
+          title: '📚 Ejemplo - Resolvamos esto juntos:',
+          problem: 'Problema:',
+          problemText: 'Encuentra un camino de S a F',
+          step1: 'Paso 1:',
+          step1Text: 'Elige números objetivo para cada fila (ej., Fila 1 = 6, Fila 2 = 8, Fila 3 = 10)',
+          step2: 'Paso 2:',
+          step2Text: 'Encuentra casillas en la Fila 1 que sean igual a 6: 4+2=6, 8-2=6, etc.',
+          step3: 'Paso 3:',
+          step3Text: 'Muévete a la Fila 2 y encuentra casillas que sean igual a 8: 6+2=8, 9-1=8, etc.',
+          step4: 'Paso 4:',
+          step4Text: 'Continúa a la Fila 3 y encuentra casillas que sean igual a 10: 7+3=10, 12-2=10, etc.',
+          step5: 'Paso 5:',
+          step5Text: 'Dibuja tu camino de S a F siguiendo casillas válidas',
+          tip: '💡 Consejo: ¡Verifica cada ecuación antes de moverte a esa casilla!',
+        },
+        howToPlay: {
+          title: 'Cómo jugar',
+          step1: 'Elige un número objetivo por fila (ej., fila 1 = 6).',
+          step2: 'Pisa solo ecuaciones que sean igual al objetivo de esa fila.',
+          step3: 'Dibuja tu camino de S a F sin movimientos diagonales.',
+        },
+        challenge: {
+          title: '🌟 Desafíate (Opcional):',
+          items: [
+            '¿Puedes encontrar un camino diferente usando diferentes números objetivo?',
+            'Intenta usar solo ecuaciones de suma (sin resta)',
+            'Crea tu propio laberinto matemático con 3 filas y 5 columnas',
+          ],
+        },
+        selfAssessment: {
+          title: '📊 ¿Cómo te fue?',
+          items: [
+            'Puedo resolver ecuaciones de suma y resta',
+            'Encontré un camino válido de S a F',
+            'Verifiqué mis cálculos mientras avanzaba',
+          ],
+          targetNumbers: 'Mis números objetivo:',
+          targetNumbersFormat: 'Fila 1: ___, Fila 2: ___, Fila 3: ___',
+          hardest: '¿Qué fue lo más difícil?',
+        },
+        answerKey: {
+          title: '✅ Clave de Respuestas',
+          exampleTargetPlan: 'Plan de objetivo de ejemplo:',
+          row1: 'Fila 1 objetivo: 6 → casillas válidas: 4+2, 8-2, 3+3, etc.',
+          row2: 'Fila 2 objetivo: 8 → casillas válidas: 6+2, 9-1, 5+3, etc.',
+          row3: 'Fila 3 objetivo: 10 → casillas válidas: 7+3, 12-2, 5+5, etc.',
+          remember: '💡 Recuerda: ¡Cualquier camino que siga los objetivos de las filas es correcto! Elige tus propios números objetivo y encuentra un camino válido de S a F.',
+        },
+      },
+    },
+    ar: {
+      'math-maze': {
+        title: 'مغامرة متاهة الرياضيات',
+        description: 'ابدأ من S ووصل إلى F. تحرك لأعلى/لأسفل/يسار/يمين فقط على المربعات التي تساوي معادلتها الهدف الموضح في ذلك الصف. ضع دائرة حول مسارك!',
+        learningObjectives: [
+          'حل معادلات الجمع والطرح',
+          'التنقل عبر متاهة باستخدام مهارات الرياضيات',
+          'تطبيق استراتيجيات حل المشكلات',
+          'ممارسة الحساب الذهني والتعرف على الأرقام',
+        ],
+        parentTeacherTips: [
+          'اختر رقم هدف لكل صف قبل البدء',
+          'تحرك فقط على المربعات حيث المعادلة تساوي هدف الصف',
+          'اعمل للخلف: ابدأ من F وابحث عن مسارات صحيحة',
+          'شجع الطلاب على التحقق من حساباتهم أثناء التقدم',
+          'التمديد: أنشئ متاهة رياضية خاصة بك بمعادلات مختلفة',
+        ],
+        example: {
+          title: '📚 مثال - دعنا نحل هذا معاً:',
+          problem: 'المشكلة:',
+          problemText: 'ابحث عن مسار من S إلى F',
+          step1: 'الخطوة 1:',
+          step1Text: 'اختر أرقام هدف لكل صف (مثلاً، الصف 1 = 6، الصف 2 = 8، الصف 3 = 10)',
+          step2: 'الخطوة 2:',
+          step2Text: 'ابحث عن مربعات في الصف 1 تساوي 6: 4+2=6، 8-2=6، إلخ.',
+          step3: 'الخطوة 3:',
+          step3Text: 'انتقل إلى الصف 2 وابحث عن مربعات تساوي 8: 6+2=8، 9-1=8، إلخ.',
+          step4: 'الخطوة 4:',
+          step4Text: 'تابع إلى الصف 3 وابحث عن مربعات تساوي 10: 7+3=10، 12-2=10، إلخ.',
+          step5: 'الخطوة 5:',
+          step5Text: 'ارسم مسارك من S إلى F متبعاً المربعات الصحيحة',
+          tip: '💡 نصيحة: تحقق من كل معادلة قبل الانتقال إلى ذلك المربع!',
+        },
+        howToPlay: {
+          title: 'كيفية اللعب',
+          step1: 'اختر رقم هدف لكل صف (مثلاً، الصف 1 = 6).',
+          step2: 'خطو فقط على المعادلات التي تساوي هدف ذلك الصف.',
+          step3: 'ارسم مسارك من S إلى F بدون حركات قطرية.',
+        },
+        challenge: {
+          title: '🌟 تحدى نفسك (اختياري):',
+          items: [
+            'هل يمكنك العثور على مسار مختلف باستخدام أرقام هدف مختلفة؟',
+            'جرب استخدام معادلات الجمع فقط (بدون طرح)',
+            'أنشئ متاهة رياضية خاصة بك بـ 3 صفوف و 5 أعمدة',
+          ],
+        },
+        selfAssessment: {
+          title: '📊 كيف كان أداؤك؟',
+          items: [
+            'يمكنني حل معادلات الجمع والطرح',
+            'وجدت مساراً صحيحاً من S إلى F',
+            'تحققت من حساباتي أثناء التقدم',
+          ],
+          targetNumbers: 'أرقام الهدف الخاصة بي:',
+          targetNumbersFormat: 'الصف 1: ___، الصف 2: ___، الصف 3: ___',
+          hardest: 'ما كان الأصعب؟',
+        },
+        answerKey: {
+          title: '✅ مفتاح الإجابات',
+          exampleTargetPlan: 'خطة الهدف المثال:',
+          row1: 'هدف الصف 1: 6 → مربعات صحيحة: 4+2، 8-2، 3+3، إلخ.',
+          row2: 'هدف الصف 2: 8 → مربعات صحيحة: 6+2، 9-1، 5+3، إلخ.',
+          row3: 'هدف الصف 3: 10 → مربعات صحيحة: 7+3، 12-2، 5+5، إلخ.',
+          remember: '💡 تذكر: أي مسار يتبع أهداف الصفوف صحيح! اختر أرقام الهدف الخاصة بك وابحث عن مسار صحيح من S إلى F.',
+        },
+      },
+    },
+  }
+
+  // Merge into translations object if keys are missing
+  for (const lang of ['en', 'es', 'ar'] as const) {
+    const langTranslations = (translations as any)[lang]
+    if (langTranslations && langTranslations.worksheets) {
+      const worksheets = langTranslations.worksheets
+      const keys = mathMazeKeys[lang]
+      
+      // Only merge if keys are missing (to avoid overwriting if they exist)
+      if (keys['math-maze'] && !worksheets['math-maze']) {
+        worksheets['math-maze'] = keys['math-maze']
       }
     }
   }
