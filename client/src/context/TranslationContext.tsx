@@ -14,16 +14,23 @@ interface TranslationContextType {
 const TranslationContext = createContext<TranslationContextType | undefined>(undefined)
 
 export function TranslationProvider({ children }: { children: ReactNode }) {
-  // Get language from URL first (for SEO), then localStorage, then default to 'en'
+  // Get language from URL first (for SEO), then query param, then localStorage, then default to 'en'
   const [language, setLanguageState] = useState<Language>(() => {
     if (typeof window !== 'undefined') {
-      // Priority 1: Get from URL (for SEO and shareable links)
+      // Priority 1: Get from URL path (for SEO and shareable links)
       const urlLocale = getLocaleFromURL()
       if (urlLocale && ['en', 'es', 'ar'].includes(urlLocale)) {
         return urlLocale as Language
       }
       
-      // Priority 2: Get from localStorage (user preference)
+      // Priority 2: Get from query parameter (for /print route)
+      const params = new URLSearchParams(window.location.search)
+      const langParam = params.get('lang')
+      if (langParam && ['en', 'es', 'ar'].includes(langParam)) {
+        return langParam as Language
+      }
+      
+      // Priority 3: Get from localStorage (user preference)
       const saved = localStorage.getItem('wizqo-language') as Language
       if (saved && ['en', 'es', 'ar'].includes(saved)) {
         return saved
@@ -47,12 +54,22 @@ export function TranslationProvider({ children }: { children: ReactNode }) {
           document.documentElement.lang = urlLocale
         }
       } else if (!urlLocale) {
-        // If no locale in URL, check localStorage and update if different
-        const saved = localStorage.getItem('wizqo-language') as Language
-        if (saved && ['en', 'es', 'ar'].includes(saved) && saved !== language) {
-          setLanguageState(saved)
-          document.documentElement.dir = isRTL(saved) ? 'rtl' : 'ltr'
-          document.documentElement.lang = saved
+        // If no locale in URL path, check query parameter
+        const params = new URLSearchParams(window.location.search)
+        const langParam = params.get('lang')
+        if (langParam && ['en', 'es', 'ar'].includes(langParam) && langParam !== language) {
+          setLanguageState(langParam as Language)
+          localStorage.setItem('wizqo-language', langParam)
+          document.documentElement.dir = isRTL(langParam) ? 'rtl' : 'ltr'
+          document.documentElement.lang = langParam
+        } else {
+          // If no locale in URL or query param, check localStorage and update if different
+          const saved = localStorage.getItem('wizqo-language') as Language
+          if (saved && ['en', 'es', 'ar'].includes(saved) && saved !== language) {
+            setLanguageState(saved)
+            document.documentElement.dir = isRTL(saved) ? 'rtl' : 'ltr'
+            document.documentElement.lang = saved
+          }
         }
       }
     }
@@ -64,11 +81,21 @@ export function TranslationProvider({ children }: { children: ReactNode }) {
     const checkLanguage = () => {
       const urlLocale = getLocaleFromURL()
       if (!urlLocale) {
-        const saved = localStorage.getItem('wizqo-language') as Language
-        if (saved && ['en', 'es', 'ar'].includes(saved) && saved !== language) {
-          setLanguageState(saved)
-          document.documentElement.dir = isRTL(saved) ? 'rtl' : 'ltr'
-          document.documentElement.lang = saved
+        // Check query parameter first
+        const params = new URLSearchParams(window.location.search)
+        const langParam = params.get('lang')
+        if (langParam && ['en', 'es', 'ar'].includes(langParam) && langParam !== language) {
+          setLanguageState(langParam as Language)
+          localStorage.setItem('wizqo-language', langParam)
+          document.documentElement.dir = isRTL(langParam) ? 'rtl' : 'ltr'
+          document.documentElement.lang = langParam
+        } else {
+          const saved = localStorage.getItem('wizqo-language') as Language
+          if (saved && ['en', 'es', 'ar'].includes(saved) && saved !== language) {
+            setLanguageState(saved)
+            document.documentElement.dir = isRTL(saved) ? 'rtl' : 'ltr'
+            document.documentElement.lang = saved
+          }
         }
       }
     }
@@ -92,11 +119,21 @@ export function TranslationProvider({ children }: { children: ReactNode }) {
     // Listen for custom event when language is changed (for same-window updates)
     const handleLanguageChange = () => {
       if (!getLocaleFromURL()) {
-        const saved = localStorage.getItem('wizqo-language') as Language
-        if (saved && ['en', 'es', 'ar'].includes(saved) && saved !== language) {
-          setLanguageState(saved)
-          document.documentElement.dir = isRTL(saved) ? 'rtl' : 'ltr'
-          document.documentElement.lang = saved
+        // Check query parameter first
+        const params = new URLSearchParams(window.location.search)
+        const langParam = params.get('lang')
+        if (langParam && ['en', 'es', 'ar'].includes(langParam) && langParam !== language) {
+          setLanguageState(langParam as Language)
+          localStorage.setItem('wizqo-language', langParam)
+          document.documentElement.dir = isRTL(langParam) ? 'rtl' : 'ltr'
+          document.documentElement.lang = langParam
+        } else {
+          const saved = localStorage.getItem('wizqo-language') as Language
+          if (saved && ['en', 'es', 'ar'].includes(saved) && saved !== language) {
+            setLanguageState(saved)
+            document.documentElement.dir = isRTL(saved) ? 'rtl' : 'ltr'
+            document.documentElement.lang = saved
+          }
         }
       }
     }

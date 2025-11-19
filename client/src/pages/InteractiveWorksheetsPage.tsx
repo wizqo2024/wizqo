@@ -6,7 +6,6 @@ import InteractiveBundleSections from '@/components/InteractiveBundleSections'
 import Shuffle from '@/components/Shuffle'
 import { trackWorksheetGeneration, trackCategoryFilter, trackGradeSelection, trackWorksheetDownload } from '@/utils/analytics'
 import { useTranslation } from '@/context/TranslationContext'
-import { addLocaleToPath } from '@/utils/locale'
 import {
   Dialog,
   DialogContent,
@@ -1026,9 +1025,10 @@ export function InteractiveWorksheetsPage() {
   const getPrintUrl = React.useCallback(() => {
     if (!pack?.printUrl) return ''
     const url = new URL(pack.printUrl, window.location.origin)
-    // Add locale prefix to the path
-    const pathWithLocale = addLocaleToPath(url.pathname, language)
-    url.pathname = pathWithLocale
+    // Pass language as query parameter since /print route doesn't support locale prefixes
+    if (language !== 'en') {
+      url.searchParams.set('lang', language)
+    }
     if (customization.teacherName) url.searchParams.set('teacher', customization.teacherName)
     if (customization.className) url.searchParams.set('class', customization.className)
     if (customization.studentNames.length > 0) {
@@ -1041,9 +1041,10 @@ export function InteractiveWorksheetsPage() {
   const getSingleWorksheetPrintUrl = React.useCallback((docId: string) => {
     if (!pack?.printUrl) return ''
     const url = new URL(pack.printUrl, window.location.origin)
-    // Add locale prefix to the path
-    const pathWithLocale = addLocaleToPath(url.pathname, language)
-    url.pathname = pathWithLocale
+    // Pass language as query parameter since /print route doesn't support locale prefixes
+    if (language !== 'en') {
+      url.searchParams.set('lang', language)
+    }
     // Replace items parameter to show only this single worksheet
     url.searchParams.set('items', docId)
     if (customization.teacherName) url.searchParams.set('teacher', customization.teacherName)
