@@ -7,6 +7,7 @@ import {
 } from '@shared/interactive/interactiveWorksheets'
 import { useTranslation } from '@/context/TranslationContext'
 import { getTranslation } from '@/translations'
+import { formatNumber, formatNumberRange } from '@/utils/numbers'
 
 type Props = {
   docIds: string[]
@@ -24,6 +25,9 @@ type RenderContext = {
   seed: string
   variant: number
   t: (key: string) => string
+  language: 'en' | 'es' | 'ar'
+  formatNum: (num: number | string) => string
+  formatRange: (start: number | string, end: number | string) => string
 }
 
 type Renderer = (ctx: RenderContext) => React.ReactNode
@@ -3449,7 +3453,7 @@ const renderers: Record<string, Renderer> = {
     )
   },
   'interactive-math-counting': (ctx) => {
-    const { seed, doc, variant, t } = ctx
+    const { seed, doc, variant, t, formatNum } = ctx
     const problems = buildMathCounting(seed, doc.id, variant)
     const objectEmojis: Record<string, string> = {
       'stars': '⭐',
@@ -6045,7 +6049,7 @@ const answerRenderers: Record<string, AnswerRenderer> = {
     )
   },
   'interactive-math-counting': (ctx) => {
-    const { doc, seed, variant, t } = ctx
+    const { doc, seed, variant, t, formatNum } = ctx
     const problems = buildMathCounting(seed, doc.id, variant)
     return (
       <div className="space-y-2">
@@ -6054,7 +6058,7 @@ const answerRenderers: Record<string, AnswerRenderer> = {
             const objectName = t(`worksheets.objectNames.${prob.objects[0]}`) || prob.objects[0]
             return (
               <li key={idx} className="mb-3">
-                <span className="font-semibold">{t('worksheets.countThe').replace('{{object}}', objectName)}:</span> <span className="text-emerald-700 font-bold">{prob.number}</span>
+                <span className="font-semibold">{t('worksheets.countThe').replace('{{object}}', objectName)}:</span> <span className="text-emerald-700 font-bold">{formatNum(prob.number)}</span>
                 <p className="text-xs text-slate-600 mt-1 ml-4">{t('worksheets.countingTeachingNote')}</p>
               </li>
             )
@@ -6572,6 +6576,10 @@ function InteractiveWorksheetSection({
   const { t: tFromContext, language } = useTranslation()
   const doc = getDocMeta(docId)
   const category = doc ? categoryByDocId.get(docId) : undefined
+  
+  // Helper to format numbers based on language
+  const formatNum = (num: number | string) => formatNumber(num, language)
+  const formatRange = (start: number | string, end: number | string) => formatNumberRange(start, end, language)
 
   // Debug: Log language value
   React.useEffect(() => {
@@ -6708,7 +6716,7 @@ function InteractiveWorksheetSection({
       </header>
       
       <div className="relative z-10">
-        {renderer({ doc, category, seed, variant, t })}
+        {renderer({ doc, category, seed, variant, t, language, formatNum, formatRange })}
       </div>
 
       {showAnswers && answerRenderer && (
@@ -6717,7 +6725,7 @@ function InteractiveWorksheetSection({
             <span>✓</span>
             {t('worksheets.answerKeyAndNotes')}
           </h3>
-          {answerRenderer({ doc, category, seed, variant, t })}
+          {answerRenderer({ doc, category, seed, variant, t, language, formatNum, formatRange })}
         </div>
       )}
     </section>
