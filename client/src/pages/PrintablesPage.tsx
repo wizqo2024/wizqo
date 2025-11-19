@@ -1256,12 +1256,17 @@ const BUNDLE_DOC_ALLOWLIST = new Set<string>([
 ])
 
 export function PrintablesPage() {
-  const { t, language } = useTranslation()
+  const { t, language, isRTL } = useTranslation()
   
   // Force re-render when language changes (important for /print route with ?lang=ar)
   React.useEffect(() => {
     // This effect ensures the component re-renders when language changes from query parameter
-  }, [language])
+    // Also ensure HTML attributes are set correctly for print
+    if (typeof window !== 'undefined') {
+      document.documentElement.dir = isRTL ? 'rtl' : 'ltr'
+      document.documentElement.lang = language
+    }
+  }, [language, isRTL])
   
   // Helper function to get translations with fallback
   // Include language in dependencies to ensure it updates when language changes
@@ -1637,7 +1642,12 @@ export function PrintablesPage() {
       if (!autoPrint) return
       // Defer a bit to let the view render fully
       const t = setTimeout(() => { 
-        try { 
+        try {
+          // Ensure language and RTL are set before opening print dialog
+          if (typeof window !== 'undefined') {
+            document.documentElement.dir = isRTL ? 'rtl' : 'ltr'
+            document.documentElement.lang = language
+          }
           window.print()
           // Track auto-print
           if (doc && primaryDoc) {
@@ -1650,7 +1660,7 @@ export function PrintablesPage() {
       }, 1200)
       return () => clearTimeout(t)
     } catch {}
-  }, [autoPrint, doc, primaryDoc, docTitle])
+  }, [autoPrint, doc, primaryDoc, docTitle, language, isRTL])
   return (
     <div className="min-h-screen bg-white">
       <style>{`
@@ -1664,6 +1674,14 @@ export function PrintablesPage() {
             padding: 0 !important; 
             font-size: 11pt;
             line-height: 1.3;
+            direction: ${isRTL ? 'rtl' : 'ltr'};
+          }
+          html[dir="rtl"], body[dir="rtl"] {
+            direction: rtl !important;
+          }
+          html[lang="ar"], body[lang="ar"] {
+            direction: rtl !important;
+            font-family: 'Segoe UI', 'Arial', 'Tahoma', 'Arabic Typesetting', sans-serif;
           }
           /* Hide URLs in print */
           a[href]::after { content: none !important; }
@@ -1916,6 +1934,11 @@ export function PrintablesPage() {
             <div className="print:hidden">
               <button
                 onClick={() => {
+                  // Ensure language and RTL are set before opening print dialog
+                  if (typeof window !== 'undefined') {
+                    document.documentElement.dir = isRTL ? 'rtl' : 'ltr'
+                    document.documentElement.lang = language
+                  }
                   const from = params.get('from') || 'unknown'
                   const grade = from.includes('grade') ? from.replace('-grade', '') : 
                                 from.includes('kindergarten') ? 'kindergarten' :
@@ -1923,7 +1946,10 @@ export function PrintablesPage() {
                                 from.includes('reading') ? 'reading' : undefined
                   trackPrintDialog(primaryDoc, from)
                   trackWorksheetDownload(primaryDoc, docTitle, from, grade)
-                  window.print()
+                  // Small delay to ensure DOM updates are applied before print dialog opens
+                  setTimeout(() => {
+                    window.print()
+                  }, 50)
                 }}
                 className="inline-flex items-center gap-2 px-3 py-1.5 rounded-lg border text-sm shadow-sm focus:outline-none focus:ring-2 focus:ring-purple-400 focus:ring-offset-1 bg-purple-600 hover:bg-purple-700 text-white border-purple-600"
                 title={t('pages.printables.downloadAsPDFTitle')}
@@ -9843,8 +9869,15 @@ export function PrintablesPage() {
               <button
                 onClick={() => {
                   try {
+                    // Ensure language and RTL are set before opening print dialog
+                    if (typeof window !== 'undefined') {
+                      document.documentElement.dir = isRTL ? 'rtl' : 'ltr'
+                      document.documentElement.lang = language
+                    }
                     // Fallback: open print; most browsers offer Save as PDF
-                    window.print();
+                    setTimeout(() => {
+                      window.print();
+                    }, 50)
                   } catch {}
                 }}
                 className="inline-flex items-center gap-2 px-3 py-2 rounded-lg border border-slate-200 text-slate-700 hover:bg-slate-50 text-sm"
