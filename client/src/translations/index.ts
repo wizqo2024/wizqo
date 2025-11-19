@@ -409,6 +409,16 @@ const ensurePlaceValueHtoKeys = () => {
         },
         answerKey: {
           title: '✅ مفتاح الإجابات',
+          tensLabel: 'العشرات',
+          onesLabel: 'الآحاد',
+          expandedLabel: 'الموسعة',
+        },
+        labels: {
+          number: 'الرقم:',
+          tens: 'العشرات:',
+          ones: 'الآحاد:',
+          expanded: 'الموسعة:',
+          more: '+{count} أكثر',
         },
       },
     },
