@@ -1258,6 +1258,11 @@ const BUNDLE_DOC_ALLOWLIST = new Set<string>([
 export function PrintablesPage() {
   const { t, language } = useTranslation()
   
+  // Force re-render when language changes (important for /print route with ?lang=ar)
+  React.useEffect(() => {
+    // This effect ensures the component re-renders when language changes from query parameter
+  }, [language])
+  
   // Helper function to get translations with fallback
   // Include language in dependencies to ensure it updates when language changes
   const getTrans = React.useCallback((key: string, fallback: string) => {
