@@ -773,7 +773,7 @@ const renderers: Record<string, Renderer> = {
     )
   },
   'interactive-math-puzzle': (ctx) => {
-    const { doc, seed, variant, t } = ctx
+    const { doc, seed, variant, t, formatNum } = ctx
     const puzzles = buildMathPuzzle(seed, doc.id, variant)
     return (
       <div className="space-y-3">
@@ -781,11 +781,15 @@ const renderers: Record<string, Renderer> = {
           {t('worksheets.mathPuzzle.instructions')}
         </p>
         <div className="grid grid-cols-2 gap-4">
-          {puzzles.map((puzzle, idx) => (
-            <div key={idx} className="rounded-xl border border-amber-200 bg-amber-50 px-4 py-5 text-center text-lg font-semibold text-amber-800">
-              {puzzle.prompt}
-            </div>
-          ))}
+          {puzzles.map((puzzle, idx) => {
+            // Format numbers in the prompt for Arabic
+            const formattedPrompt = puzzle.prompt.replace(/\d+/g, (match) => formatNum(parseInt(match, 10)))
+            return (
+              <div key={idx} className="rounded-xl border border-amber-200 bg-amber-50 px-4 py-5 text-center text-lg font-semibold text-amber-800">
+                {formattedPrompt}
+              </div>
+            )
+          })}
         </div>
       </div>
     )
@@ -5211,13 +5215,13 @@ const answerRenderers: Record<string, AnswerRenderer> = {
     )
   },
   'interactive-math-puzzle': (ctx) => {
-    const { doc, seed, variant, t } = ctx
+    const { doc, seed, variant, t, formatNum } = ctx
     const puzzles = buildMathPuzzle(seed, doc.id, variant)
     return (
       <ol className="list-decimal list-inside space-y-2">
         {puzzles.map((puzzle, idx) => (
           <li key={idx}>
-            <span className="font-semibold">{t('worksheets.mathPuzzle.answerLabel').replace('{{number}}', String(idx + 1))}:</span> {puzzle.answer}
+            <span className="font-semibold">{t('worksheets.mathPuzzle.answerLabel').replace('{{number}}', formatNum(idx + 1))}:</span> {formatNum(puzzle.answer)}
           </li>
         ))}
       </ol>
