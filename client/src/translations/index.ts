@@ -171,22 +171,22 @@ const ensureInteractiveWorksheetKeys = () => {
       if (keys.countObjectsAndWriteNumber) {
         worksheets.countObjectsAndWriteNumber = keys.countObjectsAndWriteNumber
       }
-      if (!worksheets.countThe) {
+      if (keys.countThe) {
         worksheets.countThe = keys.countThe
       }
-      if (!worksheets.numberLabel) {
+      if (keys.numberLabel) {
         worksheets.numberLabel = keys.numberLabel
       }
-      if (!worksheets.objectNames) {
+      if (keys.objectNames) {
         worksheets.objectNames = keys.objectNames
       }
-      if (!worksheets.mathPuzzle) {
+      if (keys.mathPuzzle) {
         worksheets.mathPuzzle = keys.mathPuzzle
       }
-      if (!worksheets.mathRace) {
+      if (keys.mathRace) {
         worksheets.mathRace = keys.mathRace
       }
-      if (!worksheets.reflection) {
+      if (keys.reflection) {
         worksheets.reflection = keys.reflection
       }
     }
