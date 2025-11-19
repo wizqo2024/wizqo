@@ -204,47 +204,7 @@ function WorkedExampleContent() {
   )
 }
 
-// Challenge and Assessment Component
-function ChallengeAndAssessmentContent() {
-  const { t, language } = useTranslation()
-  // Force re-render when language changes
-  React.useEffect(() => {}, [language])
-  return (
-    <>
-      <div className="mt-6 print:mt-0 p-4 bg-purple-50 border-2 border-purple-200 rounded print:bg-white print:border challenge-section" style={{ pageBreakBefore: 'always', pageBreakInside: 'avoid' }}>
-        <div className="font-semibold text-purple-900 mb-3 text-sm">🌟 {t('worksheets.addition-subtraction-0-10.challenge.title')}</div>
-        <div className="space-y-2 text-sm text-purple-800">
-          <div>1. {t('worksheets.addition-subtraction-0-10.challenge.problem1')}</div>
-          <div>2. {t('worksheets.addition-subtraction-0-10.challenge.problem2')}</div>
-          <div>3. {t('worksheets.addition-subtraction-0-10.challenge.problem3')}</div>
-        </div>
-      </div>
-      <div className="print:block hidden print:mt-0 mt-6 p-4 border-2 border-slate-300 rounded self-assessment" style={{ pageBreakBefore: 'avoid', pageBreakInside: 'avoid' }}>
-        <div className="font-semibold text-slate-800 mb-3 text-sm">📊 {t('worksheets.addition-subtraction-0-10.selfAssessment.title')}</div>
-        <div className="space-y-2 text-xs">
-          <div>☐ {t('worksheets.addition-subtraction-0-10.selfAssessment.question1')}</div>
-          <div>☐ {t('worksheets.addition-subtraction-0-10.selfAssessment.question2')}</div>
-          <div>☐ {t('worksheets.addition-subtraction-0-10.selfAssessment.question3')}</div>
-        </div>
-        <div className="mt-3 text-xs">
-          <strong>{t('worksheets.addition-subtraction-0-10.selfAssessment.score')}</strong> ___ / 12
-        </div>
-        <div className="mt-2 text-xs">
-          <strong>{t('worksheets.addition-subtraction-0-10.selfAssessment.hardest')}</strong> _________________________
-        </div>
-      </div>
-      {showAnswersForDoc('addition-subtraction-0-10', () => (
-        <div className="mt-6 p-4 border-2 border-emerald-300 bg-emerald-50 rounded print:border print:bg-white print:page-break-before-always answer-key">
-          <div className="font-bold text-emerald-900 mb-3 text-base">✅ {t('worksheets.addition-subtraction-0-10.answerKey.title')}</div>
-          <div className="space-y-2 text-sm text-emerald-800">
-            <div>{t('worksheets.addition-subtraction-0-10.answerKey.note')}</div>
-            <div className="text-xs text-emerald-700 mt-2">💡 {t('worksheets.addition-subtraction-0-10.answerKey.tip')}</div>
-          </div>
-        </div>
-      ))}
-    </>
-  )
-}
+// Challenge and Assessment Component - will be defined inside PrintablesPage to access showAnswersForDoc
 
 // Helper component to wrap worksheet sections with nice styling
 // Remove memo to ensure re-renders when language changes
@@ -1421,6 +1381,45 @@ export function PrintablesPage() {
     }
     return content
   }
+
+  // Challenge and Assessment Component for addition-subtraction-0-10
+  const ChallengeAndAssessmentContent = React.useCallback(() => {
+    return (
+      <>
+        <div className="mt-6 print:mt-0 p-4 bg-purple-50 border-2 border-purple-200 rounded print:bg-white print:border challenge-section" style={{ pageBreakBefore: 'always', pageBreakInside: 'avoid' }}>
+          <div className="font-semibold text-purple-900 mb-3 text-sm">🌟 {t('worksheets.addition-subtraction-0-10.challenge.title')}</div>
+          <div className="space-y-2 text-sm text-purple-800">
+            <div>1. {t('worksheets.addition-subtraction-0-10.challenge.problem1')}</div>
+            <div>2. {t('worksheets.addition-subtraction-0-10.challenge.problem2')}</div>
+            <div>3. {t('worksheets.addition-subtraction-0-10.challenge.problem3')}</div>
+          </div>
+        </div>
+        <div className="print:block hidden print:mt-0 mt-6 p-4 border-2 border-slate-300 rounded self-assessment" style={{ pageBreakBefore: 'avoid', pageBreakInside: 'avoid' }}>
+          <div className="font-semibold text-slate-800 mb-3 text-sm">📊 {t('worksheets.addition-subtraction-0-10.selfAssessment.title')}</div>
+          <div className="space-y-2 text-xs">
+            <div>☐ {t('worksheets.addition-subtraction-0-10.selfAssessment.question1')}</div>
+            <div>☐ {t('worksheets.addition-subtraction-0-10.selfAssessment.question2')}</div>
+            <div>☐ {t('worksheets.addition-subtraction-0-10.selfAssessment.question3')}</div>
+          </div>
+          <div className="mt-3 text-xs">
+            <strong>{t('worksheets.addition-subtraction-0-10.selfAssessment.score')}</strong> ___ / 12
+          </div>
+          <div className="mt-2 text-xs">
+            <strong>{t('worksheets.addition-subtraction-0-10.selfAssessment.hardest')}</strong> _________________________
+          </div>
+        </div>
+        {showAnswersForDoc('addition-subtraction-0-10', () => (
+          <div className="mt-6 p-4 border-2 border-emerald-300 bg-emerald-50 rounded print:border print:bg-white print:page-break-before-always answer-key">
+            <div className="font-bold text-emerald-900 mb-3 text-base">✅ {t('worksheets.addition-subtraction-0-10.answerKey.title')}</div>
+            <div className="space-y-2 text-sm text-emerald-800">
+              <div>{t('worksheets.addition-subtraction-0-10.answerKey.note')}</div>
+              <div className="text-xs text-emerald-700 mt-2">💡 {t('worksheets.addition-subtraction-0-10.answerKey.tip')}</div>
+            </div>
+          </div>
+        ))}
+      </>
+    )
+  }, [t, language, showAnswersForDoc])
 
   const friendlyAge = (v: string) => 
     v === 'k1' ? 'K–1'
@@ -3166,7 +3165,7 @@ export function PrintablesPage() {
               })}
             </div>
             {/* Extension/Challenge Problems */}
-            <ChallengeAndAssessmentContent />
+            {ChallengeAndAssessmentContent()}
             </WorksheetSectionWrapper>
           )
         })()}
