@@ -773,7 +773,7 @@ const renderers: Record<string, Renderer> = {
     )
   },
   'interactive-math-puzzle': (ctx) => {
-    const { doc, seed, variant, t, formatNum } = ctx
+    const { doc, seed, variant, t, formatNum, language } = ctx
     const puzzles = buildMathPuzzle(seed, doc.id, variant)
     return (
       <div className="space-y-3">
@@ -782,8 +782,15 @@ const renderers: Record<string, Renderer> = {
         </p>
         <div className="grid grid-cols-2 gap-4">
           {puzzles.map((puzzle, idx) => {
-            // Format numbers in the prompt for Arabic
-            const formattedPrompt = puzzle.prompt.replace(/\d+/g, (match) => formatNum(parseInt(match, 10)))
+            // Format numbers in the prompt for Arabic - replace all digits with formatted versions
+            let formattedPrompt = puzzle.prompt
+            if (language === 'ar' && formatNum) {
+              // Replace all sequences of digits with formatted versions
+              formattedPrompt = puzzle.prompt.replace(/\d+/g, (match) => {
+                const num = parseInt(match, 10)
+                return formatNum(num)
+              })
+            }
             return (
               <div key={idx} className="rounded-xl border border-amber-200 bg-amber-50 px-4 py-5 text-center text-lg font-semibold text-amber-800">
                 {formattedPrompt}
