@@ -1001,11 +1001,18 @@ const ensureInteractiveWorksheetKeys = () => {
         word: 'Word:',
         label: 'Label:',
       },
+      readingSightwords: {
+        instructions: 'Practice reading and writing common sight words with fun activities.',
+        writeIt3Times: 'Write it 3 times:',
+        useInSentences: 'Use sight words in sentences:',
+        writeSentenceWith: 'Write a sentence with "{{word}}":',
+      },
       answerKey: {
         acceptYesNo: 'Accept yes/no answers based on picture clues. Students should look at the pictures to answer.',
         studentsShould: 'Students should',
         drawPicture: 'draw a picture',
         lookAtPictures: 'look at the pictures to answer',
+        sightWordsAnswer: 'correctly write sight words 3 times each and use them in sentences. Check for spelling accuracy and appropriate sentence construction.',
       },
       sciencePrek: {
         instructions: 'Simple nature observation activities with pictures and basic questions.',
@@ -1348,11 +1355,18 @@ const ensureInteractiveWorksheetKeys = () => {
         word: 'Palabra:',
         label: 'Etiqueta:',
       },
+      readingSightwords: {
+        instructions: 'Practica leyendo y escribiendo palabras comunes de vista con actividades divertidas.',
+        writeIt3Times: 'Escríbelo 3 veces:',
+        useInSentences: 'Usa palabras de vista en oraciones:',
+        writeSentenceWith: 'Escribe una oración con "{{word}}":',
+      },
       answerKey: {
         acceptYesNo: 'Acepta respuestas de sí/no basadas en pistas de imágenes. Los estudiantes deben mirar las imágenes para responder.',
         studentsShould: 'Los estudiantes deben',
         drawPicture: 'dibujar una imagen',
         lookAtPictures: 'mirar las imágenes para responder',
+        sightWordsAnswer: 'escribir correctamente las palabras de vista 3 veces cada una y usarlas en oraciones. Verifica la precisión ortográfica y la construcción apropiada de oraciones.',
       },
       sciencePrek: {
         instructions: 'Actividades simples de observación de la naturaleza con imágenes y preguntas básicas.',
@@ -1695,11 +1709,18 @@ const ensureInteractiveWorksheetKeys = () => {
         word: 'الكلمة:',
         label: 'التسمية:',
       },
+      readingSightwords: {
+        instructions: 'تدرب على قراءة وكتابة كلمات البصر الشائعة مع أنشطة ممتعة.',
+        writeIt3Times: 'اكتبها 3 مرات:',
+        useInSentences: 'استخدم كلمات البصر في الجمل:',
+        writeSentenceWith: 'اكتب جملة مع "{{word}}":',
+      },
       answerKey: {
         acceptYesNo: 'اقبل إجابات نعم/لا بناءً على أدلة الصور. يجب على الطلاب النظر إلى الصور للإجابة.',
         studentsShould: 'يجب على الطلاب',
         drawPicture: 'رسم صورة',
         lookAtPictures: 'النظر إلى الصور للإجابة',
+        sightWordsAnswer: 'كتابة كلمات البصر بشكل صحيح 3 مرات لكل كلمة واستخدامها في الجمل. تحقق من دقة الإملاء وبناء الجملة المناسب.',
       },
       sciencePrek: {
         instructions: 'أنشطة بسيطة لمراقبة الطبيعة مع الصور والأسئلة الأساسية.',
@@ -1906,6 +1927,9 @@ const ensureInteractiveWorksheetKeys = () => {
       }
       if (keys.geographyPrek) {
         worksheets.geographyPrek = keys.geographyPrek
+      }
+      if (keys.readingSightwords) {
+        worksheets.readingSightwords = keys.readingSightwords
       }
     }
   }

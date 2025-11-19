@@ -4475,13 +4475,13 @@ const renderers: Record<string, Renderer> = {
     const sightWords = pickMany(rng, ['the', 'and', 'is', 'it', 'you', 'that', 'he', 'was', 'for', 'on', 'are', 'as', 'with', 'his', 'they', 'I', 'at', 'be', 'this', 'have', 'from', 'or', 'one', 'had', 'by', 'word', 'but', 'not', 'what', 'all', 'were', 'we', 'when', 'your', 'can', 'said'], 8)
     return (
       <div className="space-y-4">
-        <p className="text-sm text-slate-600">Practice reading and writing common sight words with fun activities.</p>
+        <p className="text-sm text-slate-600">{t('worksheets.readingSightwords.instructions')}</p>
         <div className="grid gap-3 md:grid-cols-4">
           {sightWords.map((word, idx) => (
             <div key={idx} className="rounded-xl border border-indigo-200 bg-indigo-50 p-3 text-center">
               <p className="text-lg font-bold text-indigo-700 mb-2">{word}</p>
               <div className="h-8 border border-dashed border-indigo-300 bg-white rounded mb-1"></div>
-              <p className="text-xs text-indigo-600">Write it 3 times:</p>
+              <p className="text-xs text-indigo-600">{t('worksheets.readingSightwords.writeIt3Times')}</p>
               <div className="flex gap-1 mt-1">
                 <div className="flex-1 h-6 border border-dashed border-indigo-300 bg-white rounded"></div>
                 <div className="flex-1 h-6 border border-dashed border-indigo-300 bg-white rounded"></div>
@@ -4491,11 +4491,11 @@ const renderers: Record<string, Renderer> = {
           ))}
         </div>
         <div className="rounded-xl border border-indigo-200 bg-indigo-50 p-4">
-          <p className="text-sm font-semibold text-indigo-700 mb-2">Use sight words in sentences:</p>
+          <p className="text-sm font-semibold text-indigo-700 mb-2">{t('worksheets.readingSightwords.useInSentences')}</p>
           <div className="space-y-2">
             {sightWords.slice(0, 3).map((word, idx) => (
               <div key={idx} className="bg-white rounded border border-indigo-200 p-2">
-                <p className="text-xs text-indigo-700 mb-1">Write a sentence with "{word}":</p>
+                <p className="text-xs text-indigo-700 mb-1">{t('worksheets.readingSightwords.writeSentenceWith').replace('{{word}}', word)}</p>
                 <div className="h-10 border border-dashed border-indigo-300 rounded"></div>
               </div>
             ))}
@@ -6559,9 +6559,10 @@ const answerRenderers: Record<string, AnswerRenderer> = {
       <p className="text-sm">{t('worksheets.alphabetAnswerKey', 'Students should correctly identify and match uppercase/lowercase letters, recognize beginning sounds, and circle matching letters. Check for letter recognition accuracy.')}</p>
     )
   },
-  'interactive-reading-sightwords': ({ doc, seed, variant }) => {
+  'interactive-reading-sightwords': (ctx) => {
+    const { doc, seed, variant, t } = ctx
     return (
-      <p className="text-sm">Students should correctly write sight words 3 times each and use them in sentences. Check for spelling accuracy and appropriate sentence construction.</p>
+      <p className="text-sm">{t('worksheets.answerKey.studentsShould')} {t('worksheets.answerKey.sightWordsAnswer')}</p>
     )
   },
   'interactive-reading-fluency': ({ doc, seed, variant }) => {
