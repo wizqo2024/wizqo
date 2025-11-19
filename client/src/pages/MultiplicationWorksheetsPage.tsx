@@ -281,17 +281,23 @@ const CARD_CLASS = 'bg-white rounded-xl border border-slate-200 shadow-sm hover:
 const BUTTON_CLASS = 'inline-flex items-center justify-center px-4 py-2 rounded-lg bg-purple-600 text-white hover:bg-purple-700 transition-colors'
 const OUTLINE_BUTTON = 'inline-flex items-center justify-center px-4 py-2 rounded-lg border border-purple-200 text-purple-700 hover:bg-purple-50 transition-colors'
 
-function WorksheetThumbnailCard({ title, description, href, docId }: { title: string; description: string; href: string; docId: string }) {
-  const { t } = useTranslation();
+const WorksheetThumbnailCard = React.memo(function WorksheetThumbnailCard({ title, description, href, docId }: { title: string; description: string; href: string; docId: string }) {
+  const { t, language } = useTranslation();
   const previewUrl = href + (href.includes('?') ? '&preview=1' : '?preview=1')
   
-  // Use translations if available (fallback to provided title/description)
-  const translatedTitle = docId 
-    ? (t(`worksheets.${docId}.title`) !== `worksheets.${docId}.title` ? t(`worksheets.${docId}.title`) : title)
-    : title;
-  const translatedDescription = docId
-    ? (t(`worksheets.${docId}.description`) !== `worksheets.${docId}.description` ? t(`worksheets.${docId}.description`) : description)
-    : description;
+  // Use translations if available (fallback to provided title/description) - memoize to prevent re-renders
+  // Use language instead of t in dependencies to avoid re-renders when t function reference changes
+  const translatedTitle = React.useMemo(() => {
+    if (!docId) return title;
+    const translated = t(`worksheets.${docId}.title`);
+    return translated && translated !== `worksheets.${docId}.title` ? translated : title;
+  }, [docId, title, language, t]);
+  
+  const translatedDescription = React.useMemo(() => {
+    if (!docId) return description;
+    const translated = t(`worksheets.${docId}.description`);
+    return translated && translated !== `worksheets.${docId}.description` ? translated : description;
+  }, [docId, description, language, t]);
   
   return (
     <article className="rounded-2xl border border-slate-200 bg-white shadow-sm hover:shadow-lg transition-all duration-200 p-5 flex flex-col gap-3">
@@ -361,7 +367,7 @@ function WorksheetThumbnailCard({ title, description, href, docId }: { title: st
       </div>
     </article>
   )
-}
+});
 
 function BuildPackInline() {
   const { t } = useTranslation();

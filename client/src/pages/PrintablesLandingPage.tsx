@@ -9,20 +9,26 @@ const OUTLINE_BUTTON = 'inline-flex items-center justify-center px-4 py-2 rounde
 const CARD_CLASS = 'bg-white rounded-xl border border-slate-200 shadow-sm hover:shadow transition-all overflow-hidden p-4';
 // DOWNLOAD_NOTE will be translated in component
 
-function WorksheetThumbnailCard({ title, description, skills, age, href, docId }: { title: string; description: string; skills?: string; age?: string; href: string; docId?: string }) {
-  const { t } = useTranslation();
+const WorksheetThumbnailCard = React.memo(function WorksheetThumbnailCard({ title, description, skills, age, href, docId }: { title: string; description: string; skills?: string; age?: string; href: string; docId?: string }) {
+  const { t, language } = useTranslation();
   const level = docId ? PRINTABLE_DOC_META[docId]?.level : undefined;
   const previewUrl = href + (href.includes('?') ? '&preview=1' : '?preview=1');
   const finalHref = href.includes('?') ? `${href}&from=printables` : `${href}?from=printables`;
   const downloadHref = (href.includes('?') ? `${href}&autoprint=1` : `${href}?autoprint=1`) + `&from=printables`;
   
-  // Use translations if docId is provided
-  const translatedTitle = docId 
-    ? (t(`worksheets.${docId}.title`) !== `worksheets.${docId}.title` ? t(`worksheets.${docId}.title`) : title)
-    : title;
-  const translatedDescription = docId
-    ? (t(`worksheets.${docId}.description`) !== `worksheets.${docId}.description` ? t(`worksheets.${docId}.description`) : description)
-    : description;
+  // Use translations if docId is provided - memoize to prevent re-renders
+  // Use language instead of t in dependencies to avoid re-renders when t function reference changes
+  const translatedTitle = React.useMemo(() => {
+    if (!docId) return title;
+    const translated = t(`worksheets.${docId}.title`);
+    return translated && translated !== `worksheets.${docId}.title` ? translated : title;
+  }, [docId, title, language, t]);
+  
+  const translatedDescription = React.useMemo(() => {
+    if (!docId) return description;
+    const translated = t(`worksheets.${docId}.description`);
+    return translated && translated !== `worksheets.${docId}.description` ? translated : description;
+  }, [docId, description, language, t]);
   
   return (
     <article className="rounded-2xl border border-slate-200 bg-white shadow-sm hover:shadow-lg transition-all duration-200 p-5 flex flex-col gap-3">
@@ -100,7 +106,7 @@ function WorksheetThumbnailCard({ title, description, skills, age, href, docId }
       </div>
     </article>
   );
-}
+});
 
 function BundleButton({ section, className }: { section: string; className?: string }) {
   const { t } = useTranslation();
