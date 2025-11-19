@@ -1945,6 +1945,7 @@ export function PrintablesPage() {
         {/* Doc-specific sections (unique content per topic) */}
         {interactiveDocs.length > 0 && (
           <InteractiveBundleSections
+            key={`interactive-${interactiveDocs.join('-')}-${language}-${effectiveSeed}`}
             docIds={interactiveDocs}
             seed={effectiveSeed}
             variant={variant}
