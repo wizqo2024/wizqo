@@ -946,6 +946,15 @@ const ensureInteractiveWorksheetKeys = () => {
           treeBig: 'Is the tree big?',
           seeHouse: 'Do you see a house?',
         },
+        objectNames: {
+          sun: 'Sun',
+          flower: 'Flower',
+          ball: 'Ball',
+          tree: 'Tree',
+          house: 'House',
+          car: 'Car',
+          road: 'Road',
+        },
       },
       writingPrek: {
         instructions: 'Draw a picture and label it with the word. Perfect for early writers.',
@@ -1284,6 +1293,15 @@ const ensureInteractiveWorksheetKeys = () => {
           treeBig: '¿Es grande el árbol?',
           seeHouse: '¿Ves una casa?',
         },
+        objectNames: {
+          sun: 'Sol',
+          flower: 'Flor',
+          ball: 'Pelota',
+          tree: 'Árbol',
+          house: 'Casa',
+          car: 'Auto',
+          road: 'Carretera',
+        },
       },
       writingPrek: {
         instructions: 'Dibuja una imagen y etiquétala con la palabra. Perfecto para escritores principiantes.',
@@ -1621,6 +1639,15 @@ const ensureInteractiveWorksheetKeys = () => {
           thereFlower: 'هل هناك زهرة؟',
           treeBig: 'هل الشجرة كبيرة؟',
           seeHouse: 'هل ترى منزلاً؟',
+        },
+        objectNames: {
+          sun: 'الشمس',
+          flower: 'زهرة',
+          ball: 'كرة',
+          tree: 'شجرة',
+          house: 'منزل',
+          car: 'سيارة',
+          road: 'طريق',
         },
       },
       writingPrek: {
