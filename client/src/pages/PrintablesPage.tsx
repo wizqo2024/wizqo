@@ -7834,7 +7834,8 @@ export function PrintablesPage() {
               </div>
             ))}
           </WorksheetSectionWrapper>
-        )}
+          )
+        })()}
 
         {activeDocs.includes('spelling') && (
           <WorksheetSectionWrapper
