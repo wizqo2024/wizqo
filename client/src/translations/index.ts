@@ -845,6 +845,91 @@ const ensureInteractiveWorksheetKeys = () => {
         antonym: 'Antonym',
         sentence: 'Sentence',
       },
+      artDesign: {
+        instructions: 'Color each pattern! Use your favorite colors and make it beautiful.',
+        colorInsideShape: 'Color inside the shape!',
+      },
+      artColorwheel: {
+        instructions: 'Color each item with the correct color. Match the color name to the object.',
+        item: 'Item',
+        color: 'Color',
+        colorIt: 'Color it!',
+      },
+      artSketch: {
+        instructions: 'Draw each picture! Take your time and use your imagination.',
+        drawHere: 'Draw here!',
+      },
+      earlyPhonics: {
+        instructions: 'Say the sound, trace the letter, then draw a picture that starts with it.',
+        saySound: 'Say the sound:',
+        traceLetter: 'Trace the letter:',
+        drawPicture: 'Draw a picture:',
+        words: 'Words:',
+      },
+      earlyPatterns: {
+        instructions: 'Continue each pattern and create your own using shapes, colors, or stickers.',
+        pattern: 'Pattern',
+        tryBuilding: 'Try building your own using:',
+      },
+      earlyShapes: {
+        instructions: 'Identify each shape, color it, then sort shapes by type and color.',
+        shape: 'Shape',
+        color: 'Color:',
+        drawMore: 'Draw 2 more {{shape}}s below:',
+        sortingActivity: 'Sorting Activity',
+        sortByShape: 'Sort by shape:',
+        sortByColor: 'Sort by color:',
+      },
+      earlyLetters: {
+        instructions: 'Trace each letter, then write it 3 times. Draw a picture that starts with that letter.',
+        trace: 'Trace',
+        write: 'Write',
+        draw: 'Draw',
+      },
+      mathShapes: {
+        instructions: 'Draw and tally each shape. Then classify it as "flat" or "solid" and record the number of sides.',
+        shape: 'Shape',
+        color: 'Color',
+        howMany: 'How many?',
+        flatOrSolid: 'Flat or Solid?',
+        numberOfSides: 'Number of sides',
+      },
+      mathMoney: {
+        instructions: 'Use coins to count up to the total. Draw the coins you would use and record the value.',
+        costs: 'The {{item}} costs ${{amount}}. Pay using {{coin}}. Draw your coins below and write the total.',
+        total: 'Total:',
+        change: 'Change:',
+      },
+      mathFractions: {
+        instructions: 'Compare each pair of fractions. Shade the bar models to help you decide, then write <, >, or =.',
+        shade: 'Shade {{num}} of {{den}} equal parts.',
+      },
+      mathMeasurement: {
+        instructions: 'Convert each measurement. Show your work in the space provided.',
+        given: 'Given',
+        convertTo: 'Convert to',
+        workSpace: 'Work space',
+      },
+      readingAdventure: {
+        story: '{{hero}} and {{partner}} arrive at the {{setting}}. They must {{quest}} before the moon sets. Along the way they meet a guide who speaks only in rhymes. What clues do they gather? How do they work together?',
+        comprehensionChecks: 'Comprehension Checks',
+        whatProblem: 'What problem do {{hero}} and {{partner}} need to solve?',
+        describeClue: 'Describe one clue from the rhyme-speaking guide.',
+        howSetting: 'How does the setting help or challenge the characters?',
+        creativeExtension: 'Creative Extension',
+        sketchScene: 'Sketch one scene from the adventure and label the important details.',
+      },
+      earlyFoundations: {
+        instructions: 'Review basic skills: identify letters, numbers, and shapes. Perfect for remediation or review.',
+        review: 'Review:',
+        identify: 'Identify:',
+        practiceWriting: 'Practice Writing',
+        writeName: 'Write your name:',
+        countTo10: 'Count to 10:',
+      },
+      earlyBasics: {
+        instructions: 'Essential early learning skills review. Practice letter sounds, counting, and basic patterns.',
+      },
     },
     es: {
       countObjectsAndWriteNumber: 'Cuenta los objetos y escribe el número.',
@@ -1036,6 +1121,91 @@ const ensureInteractiveWorksheetKeys = () => {
         word: 'Palabra',
         antonym: 'Antónimo',
         sentence: 'Oración',
+      },
+      artDesign: {
+        instructions: '¡Colorea cada patrón! Usa tus colores favoritos y hazlo hermoso.',
+        colorInsideShape: '¡Colorea dentro de la forma!',
+      },
+      artColorwheel: {
+        instructions: 'Colorea cada elemento con el color correcto. Haz coincidir el nombre del color con el objeto.',
+        item: 'Elemento',
+        color: 'Color',
+        colorIt: '¡Colorealo!',
+      },
+      artSketch: {
+        instructions: '¡Dibuja cada imagen! Tómate tu tiempo y usa tu imaginación.',
+        drawHere: '¡Dibuja aquí!',
+      },
+      earlyPhonics: {
+        instructions: 'Di el sonido, traza la letra y luego dibuja una imagen que comience con ella.',
+        saySound: 'Di el sonido:',
+        traceLetter: 'Traza la letra:',
+        drawPicture: 'Dibuja una imagen:',
+        words: 'Palabras:',
+      },
+      earlyPatterns: {
+        instructions: 'Continúa cada patrón y crea el tuyo usando formas, colores o pegatinas.',
+        pattern: 'Patrón',
+        tryBuilding: 'Intenta construir el tuyo usando:',
+      },
+      earlyShapes: {
+        instructions: 'Identifica cada forma, coloreala y luego clasifica las formas por tipo y color.',
+        shape: 'Forma',
+        color: 'Color:',
+        drawMore: 'Dibuja 2 más {{shape}}s abajo:',
+        sortingActivity: 'Actividad de Clasificación',
+        sortByShape: 'Clasificar por forma:',
+        sortByColor: 'Clasificar por color:',
+      },
+      earlyLetters: {
+        instructions: 'Traza cada letra, luego escríbela 3 veces. Dibuja una imagen que comience con esa letra.',
+        trace: 'Traza',
+        write: 'Escribe',
+        draw: 'Dibuja',
+      },
+      mathShapes: {
+        instructions: 'Dibuja y cuenta cada forma. Luego clasifícala como "plana" o "sólida" y registra el número de lados.',
+        shape: 'Forma',
+        color: 'Color',
+        howMany: '¿Cuántos?',
+        flatOrSolid: '¿Plana o Sólida?',
+        numberOfSides: 'Número de lados',
+      },
+      mathMoney: {
+        instructions: 'Usa monedas para contar hasta el total. Dibuja las monedas que usarías y registra el valor.',
+        costs: 'El {{item}} cuesta ${{amount}}. Paga usando {{coin}}. Dibuja tus monedas abajo y escribe el total.',
+        total: 'Total:',
+        change: 'Cambio:',
+      },
+      mathFractions: {
+        instructions: 'Compara cada par de fracciones. Sombrea los modelos de barras para ayudarte a decidir, luego escribe <, >, o =.',
+        shade: 'Sombrea {{num}} de {{den}} partes iguales.',
+      },
+      mathMeasurement: {
+        instructions: 'Convierte cada medida. Muestra tu trabajo en el espacio proporcionado.',
+        given: 'Dado',
+        convertTo: 'Convertir a',
+        workSpace: 'Espacio de trabajo',
+      },
+      readingAdventure: {
+        story: '{{hero}} y {{partner}} llegan al {{setting}}. Deben {{quest}} antes de que se ponga la luna. En el camino conocen a un guía que solo habla en rimas. ¿Qué pistas reúnen? ¿Cómo trabajan juntos?',
+        comprehensionChecks: 'Verificaciones de Comprensión',
+        whatProblem: '¿Qué problema necesitan resolver {{hero}} y {{partner}}?',
+        describeClue: 'Describe una pista del guía que habla en rimas.',
+        howSetting: '¿Cómo el escenario ayuda o desafía a los personajes?',
+        creativeExtension: 'Extensión Creativa',
+        sketchScene: 'Dibuja una escena de la aventura y etiqueta los detalles importantes.',
+      },
+      earlyFoundations: {
+        instructions: 'Revisa habilidades básicas: identifica letras, números y formas. Perfecto para remediación o revisión.',
+        review: 'Revisar:',
+        identify: 'Identificar:',
+        practiceWriting: 'Practicar Escritura',
+        writeName: 'Escribe tu nombre:',
+        countTo10: 'Cuenta hasta 10:',
+      },
+      earlyBasics: {
+        instructions: 'Revisión de habilidades esenciales de aprendizaje temprano. Practica sonidos de letras, conteo y patrones básicos.',
       },
     },
     ar: {
@@ -1229,6 +1399,91 @@ const ensureInteractiveWorksheetKeys = () => {
         antonym: 'العكس',
         sentence: 'الجملة',
       },
+      artDesign: {
+        instructions: 'لون كل نمط! استخدم ألوانك المفضلة واجعله جميلاً.',
+        colorInsideShape: 'لون داخل الشكل!',
+      },
+      artColorwheel: {
+        instructions: 'لون كل عنصر باللون الصحيح. طابق اسم اللون مع الكائن.',
+        item: 'العنصر',
+        color: 'اللون',
+        colorIt: 'لونه!',
+      },
+      artSketch: {
+        instructions: 'ارسم كل صورة! خذ وقتك واستخدم خيالك.',
+        drawHere: 'ارسم هنا!',
+      },
+      earlyPhonics: {
+        instructions: 'قل الصوت، تتبع الحرف، ثم ارسم صورة تبدأ به.',
+        saySound: 'قل الصوت:',
+        traceLetter: 'تتبع الحرف:',
+        drawPicture: 'ارسم صورة:',
+        words: 'الكلمات:',
+      },
+      earlyPatterns: {
+        instructions: 'تابع كل نمط وأنشئ نمطك الخاص باستخدام الأشكال أو الألوان أو الملصقات.',
+        pattern: 'النمط',
+        tryBuilding: 'جرب بناء نمطك الخاص باستخدام:',
+      },
+      earlyShapes: {
+        instructions: 'حدد كل شكل، لونه، ثم صنف الأشكال حسب النوع واللون.',
+        shape: 'الشكل',
+        color: 'اللون:',
+        drawMore: 'ارسم 2 {{shape}}s أخرى أدناه:',
+        sortingActivity: 'نشاط التصنيف',
+        sortByShape: 'صنف حسب الشكل:',
+        sortByColor: 'صنف حسب اللون:',
+      },
+      earlyLetters: {
+        instructions: 'تتبع كل حرف، ثم اكتبه 3 مرات. ارسم صورة تبدأ بهذا الحرف.',
+        trace: 'تتبع',
+        write: 'اكتب',
+        draw: 'ارسم',
+      },
+      mathShapes: {
+        instructions: 'ارسم واحسب كل شكل. ثم صنفه كـ "مسطح" أو "مجسم" وسجل عدد الأضلاع.',
+        shape: 'الشكل',
+        color: 'اللون',
+        howMany: 'كم عدد؟',
+        flatOrSolid: 'مسطح أم مجسم؟',
+        numberOfSides: 'عدد الأضلاع',
+      },
+      mathMoney: {
+        instructions: 'استخدم العملات المعدنية للعد حتى المجموع. ارسم العملات التي ستستخدمها وسجل القيمة.',
+        costs: '{{item}} يكلف ${{amount}}. ادفع باستخدام {{coin}}. ارسم عملاتك أدناه واكتب المجموع.',
+        total: 'المجموع:',
+        change: 'الباقي:',
+      },
+      mathFractions: {
+        instructions: 'قارن كل زوج من الكسور. ظلل نماذج الأشرطة لمساعدتك في اتخاذ القرار، ثم اكتب < أو > أو =.',
+        shade: 'ظلل {{num}} من {{den}} أجزاء متساوية.',
+      },
+      mathMeasurement: {
+        instructions: 'حول كل قياس. أظهر عملك في المساحة الم provided.',
+        given: 'المعطى',
+        convertTo: 'حول إلى',
+        workSpace: 'مساحة العمل',
+      },
+      readingAdventure: {
+        story: '{{hero}} و{{partner}} يصلان إلى {{setting}}. يجب عليهما {{quest}} قبل غروب القمر. في الطريق يلتقيان بمرشد يتحدث فقط بقوافي. ما الأدلة التي يجمعانها؟ كيف يعملان معاً؟',
+        comprehensionChecks: 'فحوصات الفهم',
+        whatProblem: 'ما المشكلة التي يحتاج {{hero}} و{{partner}} إلى حلها؟',
+        describeClue: 'صف دليلاً واحداً من المرشد الذي يتحدث بقوافي.',
+        howSetting: 'كيف يساعد المشهد أو يتحدى الشخصيات؟',
+        creativeExtension: 'امتداد إبداعي',
+        sketchScene: 'ارسم مشهداً واحداً من المغامرة وضع علامة على التفاصيل المهمة.',
+      },
+      earlyFoundations: {
+        instructions: 'راجع المهارات الأساسية: حدد الحروف والأرقام والأشكال. مثالي للمعالجة أو المراجعة.',
+        review: 'مراجعة:',
+        identify: 'تحديد:',
+        practiceWriting: 'ممارسة الكتابة',
+        writeName: 'اكتب اسمك:',
+        countTo10: 'عد حتى 10:',
+      },
+      earlyBasics: {
+        instructions: 'مراجعة المهارات الأساسية للتعلم المبكر. تدرب على أصوات الحروف والعد والأنماط الأساسية.',
+      },
     },
   }
 
@@ -1341,6 +1596,48 @@ const ensureInteractiveWorksheetKeys = () => {
       }
       if (keys.grammarAntonyms) {
         worksheets.grammarAntonyms = keys.grammarAntonyms
+      }
+      if (keys.artDesign) {
+        worksheets.artDesign = keys.artDesign
+      }
+      if (keys.artColorwheel) {
+        worksheets.artColorwheel = keys.artColorwheel
+      }
+      if (keys.artSketch) {
+        worksheets.artSketch = keys.artSketch
+      }
+      if (keys.earlyPhonics) {
+        worksheets.earlyPhonics = keys.earlyPhonics
+      }
+      if (keys.earlyPatterns) {
+        worksheets.earlyPatterns = keys.earlyPatterns
+      }
+      if (keys.earlyShapes) {
+        worksheets.earlyShapes = keys.earlyShapes
+      }
+      if (keys.earlyLetters) {
+        worksheets.earlyLetters = keys.earlyLetters
+      }
+      if (keys.mathShapes) {
+        worksheets.mathShapes = keys.mathShapes
+      }
+      if (keys.mathMoney) {
+        worksheets.mathMoney = keys.mathMoney
+      }
+      if (keys.mathFractions) {
+        worksheets.mathFractions = keys.mathFractions
+      }
+      if (keys.mathMeasurement) {
+        worksheets.mathMeasurement = keys.mathMeasurement
+      }
+      if (keys.readingAdventure) {
+        worksheets.readingAdventure = keys.readingAdventure
+      }
+      if (keys.earlyFoundations) {
+        worksheets.earlyFoundations = keys.earlyFoundations
+      }
+      if (keys.earlyBasics) {
+        worksheets.earlyBasics = keys.earlyBasics
       }
     }
   }

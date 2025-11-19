@@ -801,21 +801,22 @@ const renderers: Record<string, Renderer> = {
       </div>
     )
   },
-  'interactive-math-shapes': ({ seed, doc, variant }) => {
+  'interactive-math-shapes': (ctx) => {
+    const { seed, doc, variant, t } = ctx
     const rows = buildMathShapes(seed, doc.id, variant)
     return (
       <div className="space-y-3">
         <p className="text-sm text-slate-600">
-          Draw and tally each shape. Then classify it as {`"flat"`} or {`"solid"`} and record the number of sides.
+          {t('worksheets.mathShapes.instructions')}
         </p>
         <table className="w-full border border-slate-300 text-sm">
           <thead className="bg-slate-100 text-left">
             <tr>
-              <th className="px-3 py-2">Shape</th>
-              <th className="px-3 py-2">Color</th>
-              <th className="px-3 py-2">How many?</th>
-              <th className="px-3 py-2">Flat or Solid?</th>
-              <th className="px-3 py-2">Number of sides</th>
+              <th className="px-3 py-2">{t('worksheets.mathShapes.shape')}</th>
+              <th className="px-3 py-2">{t('worksheets.mathShapes.color')}</th>
+              <th className="px-3 py-2">{t('worksheets.mathShapes.howMany')}</th>
+              <th className="px-3 py-2">{t('worksheets.mathShapes.flatOrSolid')}</th>
+              <th className="px-3 py-2">{t('worksheets.mathShapes.numberOfSides')}</th>
             </tr>
           </thead>
           <tbody>
@@ -833,22 +834,26 @@ const renderers: Record<string, Renderer> = {
       </div>
     )
   },
-  'interactive-math-money': ({ seed, doc, variant }) => {
+  'interactive-math-money': (ctx) => {
+    const { seed, doc, variant, t, formatNum } = ctx
     const prompts = buildMathMoney(seed, doc.id, variant)
     return (
       <div className="space-y-3">
         <p className="text-sm text-slate-600">
-          Use coins to count up to the total. Draw the coins you would use and record the value.
+          {t('worksheets.mathMoney.instructions')}
         </p>
         <ol className="space-y-3 text-sm text-slate-700 list-decimal list-inside">
           {prompts.map((prompt, idx) => (
             <li key={idx} className="rounded-lg border border-emerald-200 bg-emerald-50 px-4 py-3">
               <p>
-                The {prompt.item} costs ${(prompt.amount / 100).toFixed(2)}. Pay using {prompt.coin}. Draw your coins below and write the total.
+                {t('worksheets.mathMoney.costs')
+                  .replace('{{item}}', prompt.item)
+                  .replace('{{amount}}', formatNum ? formatNum((prompt.amount / 100).toFixed(2)) : (prompt.amount / 100).toFixed(2))
+                  .replace('{{coin}}', prompt.coin)}
               </p>
               <div className="mt-2 h-16 rounded border border-dashed border-emerald-300 bg-white" />
               <div className="mt-2 text-xs text-emerald-700">
-                Total: ________ • Change: ________
+                {t('worksheets.mathMoney.total')} ________ • {t('worksheets.mathMoney.change')} ________
               </div>
             </li>
           ))}
@@ -856,20 +861,21 @@ const renderers: Record<string, Renderer> = {
       </div>
     )
   },
-  'interactive-math-fractions': ({ seed, doc, variant }) => {
+  'interactive-math-fractions': (ctx) => {
+    const { seed, doc, variant, t, formatNum } = ctx
     const pairs = buildMathFractions(seed, doc.id, variant)
     return (
       <div className="space-y-3">
         <p className="text-sm text-slate-600">
-          Compare each pair of fractions. Shade the bar models to help you decide, then write &lt;, &gt;, or =.
+          {t('worksheets.mathFractions.instructions')}
         </p>
         <div className="space-y-4">
           {pairs.map(({ left: a, right: b }, idx) => (
             <div key={idx} className="rounded-xl border border-purple-200 bg-white p-4">
               <div className="flex items-center justify-between text-lg font-semibold text-purple-800">
-                <span>{a.num}/{a.den}</span>
+                <span>{formatNum ? formatNum(a.num) : a.num}/{formatNum ? formatNum(a.den) : a.den}</span>
                 <span className="text-slate-400">__________</span>
-                <span>{b.num}/{b.den}</span>
+                <span>{formatNum ? formatNum(b.num) : b.num}/{formatNum ? formatNum(b.den) : b.den}</span>
               </div>
               <div className="mt-3 grid grid-cols-2 gap-3">
                 {[a, b].map((frac, barIdx) => (
@@ -877,7 +883,7 @@ const renderers: Record<string, Renderer> = {
                     <div className="h-3 w-full overflow-hidden rounded-full border border-slate-300 bg-slate-100">
                       <div className="h-full bg-purple-400" style={{ width: `${(frac.num / frac.den) * 100}%` }} />
                     </div>
-                    <p>Shade {frac.num} of {frac.den} equal parts.</p>
+                    <p>{t('worksheets.mathFractions.shade').replace('{{num}}', formatNum ? formatNum(frac.num) : String(frac.num)).replace('{{den}}', formatNum ? formatNum(frac.den) : String(frac.den))}</p>
                   </div>
                 ))}
               </div>
@@ -887,19 +893,20 @@ const renderers: Record<string, Renderer> = {
       </div>
     )
   },
-  'interactive-math-measurement': ({ seed, doc, variant }) => {
+  'interactive-math-measurement': (ctx) => {
+    const { seed, doc, variant, t } = ctx
     const problems = buildMathMeasurement(seed, doc.id, variant)
     return (
       <div className="space-y-3">
         <p className="text-sm text-slate-600">
-          Convert each measurement. Show your work in the space provided.
+          {t('worksheets.mathMeasurement.instructions')}
         </p>
         <table className="w-full border border-slate-300 text-left text-sm">
           <thead className="bg-slate-100">
             <tr>
-              <th className="px-3 py-2">Given</th>
-              <th className="px-3 py-2">Convert to</th>
-              <th className="px-3 py-2">Work space</th>
+              <th className="px-3 py-2">{t('worksheets.mathMeasurement.given')}</th>
+              <th className="px-3 py-2">{t('worksheets.mathMeasurement.convertTo')}</th>
+              <th className="px-3 py-2">{t('worksheets.mathMeasurement.workSpace')}</th>
             </tr>
           </thead>
           <tbody>
@@ -917,7 +924,8 @@ const renderers: Record<string, Renderer> = {
       </div>
     )
   },
-  'interactive-reading-adventure': ({ seed, doc, variant }) => {
+  'interactive-reading-adventure': (ctx) => {
+    const { seed, doc, variant, t } = ctx
     const rng = makeRng(`${seed}|${doc.id}|${variant}`)
     const heroes = ['Maya', 'Jasper', 'Alani', 'Theo', 'Priya', 'Leo']
     const settings = ['hidden treehouse', 'floating library', 'midnight carnival', 'desert lab', 'mountain observatory']
@@ -929,19 +937,23 @@ const renderers: Record<string, Renderer> = {
     return (
       <div className="space-y-3">
         <p className="text-sm leading-relaxed text-slate-700">
-          {hero} and {partner} arrive at the {setting}. They must {quest} before the moon sets. Along the way they meet a guide who speaks only in rhymes. What clues do they gather? How do they work together?
+          {t('worksheets.readingAdventure.story')
+            .replace('{{hero}}', hero)
+            .replace('{{partner}}', partner)
+            .replace('{{setting}}', setting)
+            .replace('{{quest}}', quest)}
         </p>
         <div className="space-y-2 text-sm text-slate-700">
-          <p className="font-semibold text-slate-900">Comprehension Checks</p>
+          <p className="font-semibold text-slate-900">{t('worksheets.readingAdventure.comprehensionChecks')}</p>
           <ol className="list-decimal list-inside space-y-1">
-            <li>What problem do {hero} and {partner} need to solve?</li>
-            <li>Describe one clue from the rhyme-speaking guide.</li>
-            <li>How does the setting help or challenge the characters?</li>
+            <li>{t('worksheets.readingAdventure.whatProblem').replace('{{hero}}', hero).replace('{{partner}}', partner)}</li>
+            <li>{t('worksheets.readingAdventure.describeClue')}</li>
+            <li>{t('worksheets.readingAdventure.howSetting')}</li>
           </ol>
         </div>
         <div className="rounded-xl border border-slate-200 bg-white p-4">
-          <p className="text-xs uppercase tracking-wide text-slate-500">Creative Extension</p>
-          <p className="text-sm text-slate-700">Sketch one scene from the adventure and label the important details.</p>
+          <p className="text-xs uppercase tracking-wide text-slate-500">{t('worksheets.readingAdventure.creativeExtension')}</p>
+          <p className="text-sm text-slate-700">{t('worksheets.readingAdventure.sketchScene')}</p>
           <div className="mt-2 h-32 rounded border border-dashed border-slate-300" />
         </div>
       </div>
@@ -1701,7 +1713,8 @@ const renderers: Record<string, Renderer> = {
       </div>
     )
   },
-  'interactive-art-design': ({ seed, doc, variant }) => {
+  'interactive-art-design': (ctx) => {
+    const { seed, doc, variant, t } = ctx
     const rng = makeRng(`${seed}|${doc.id}|${variant}`)
     const coloringPages = pickMany(rng, [
       { title: 'Geometric Star', shape: 'star', description: 'Color the star pattern with your favorite colors!' },
@@ -1794,7 +1807,7 @@ const renderers: Record<string, Renderer> = {
     return (
       <div className="space-y-3">
         <p className="text-sm text-slate-600">
-          Color each pattern! Use your favorite colors and make it beautiful.
+          {t('worksheets.artDesign.instructions')}
         </p>
         <div className="grid gap-4 md:grid-cols-2">
           {coloringPages.map((page, idx) => (
@@ -1804,14 +1817,15 @@ const renderers: Record<string, Renderer> = {
               <div className="mt-3 min-h-[280px] rounded border-2 border-dashed border-purple-300 bg-white flex items-center justify-center p-4">
                 <ShapeSVG shape={page.shape} />
               </div>
-              <p className="mt-2 text-xs text-purple-600 text-center">Color inside the shape!</p>
+              <p className="mt-2 text-xs text-purple-600 text-center">{t('worksheets.artDesign.colorInsideShape')}</p>
             </div>
           ))}
         </div>
       </div>
     )
   },
-  'interactive-art-colorwheel': ({ seed, doc, variant }) => {
+  'interactive-art-colorwheel': (ctx) => {
+    const { seed, doc, variant, t } = ctx
     const rng = makeRng(`${seed}|${doc.id}|${variant}`)
     const coloringActivities = pickMany(rng, [
       { item: 'Apple', color: 'red', shape: 'circle' },
@@ -1867,24 +1881,25 @@ const renderers: Record<string, Renderer> = {
     return (
       <div className="space-y-3">
         <p className="text-sm text-slate-600">
-          Color each shape with the correct color! Practice your colors.
+          {t('worksheets.artColorwheel.instructions')}
         </p>
         <div className="grid gap-3 grid-cols-2 md:grid-cols-3">
           {coloringActivities.map((activity, idx) => (
             <div key={idx} className="rounded-xl border-2 border-slate-200 bg-white p-4 text-center">
               <p className="text-sm font-semibold text-slate-700 capitalize mb-1">{activity.item}</p>
-              <p className="text-xs text-slate-600 mb-2">Color: <span className="font-semibold capitalize" style={{ color: activity.color }}>{activity.color}</span></p>
+              <p className="text-xs text-slate-600 mb-2">{t('worksheets.artColorwheel.color')}: <span className="font-semibold capitalize" style={{ color: activity.color }}>{activity.color}</span></p>
               <div className="min-h-[240px] rounded border-2 border-dashed border-slate-300 bg-white flex items-center justify-center my-2 p-4">
                 <ColorShapeSVG shape={activity.shape} color={activity.color} />
               </div>
-              <p className="text-xs text-slate-500">Color inside the shape!</p>
+              <p className="text-xs text-slate-500">{t('worksheets.artColorwheel.colorIt')}</p>
             </div>
           ))}
         </div>
       </div>
     )
   },
-  'interactive-art-sketch': ({ seed, doc, variant }) => {
+  'interactive-art-sketch': (ctx) => {
+    const { seed, doc, variant, t } = ctx
     const rng = makeRng(`${seed}|${doc.id}|${variant}`)
     const drawingPrompts = pickMany(rng, [
       { prompt: 'Draw a beautiful flower', emoji: '🌺', hint: 'Add petals and a stem!' },
@@ -1897,7 +1912,7 @@ const renderers: Record<string, Renderer> = {
     return (
       <div className="space-y-3">
         <p className="text-sm text-slate-600">
-          Draw each picture! Take your time and use your imagination.
+          {t('worksheets.artSketch.instructions')}
         </p>
         <div className="grid gap-4 md:grid-cols-3">
           {drawingPrompts.map((item, idx) => (
@@ -1906,14 +1921,15 @@ const renderers: Record<string, Renderer> = {
               <p className="text-sm font-semibold text-slate-700 mb-1">{item.prompt}</p>
               <p className="text-xs text-slate-600 mb-3">{item.hint}</p>
               <div className="h-32 rounded border-2 border-dashed border-purple-300 bg-white" />
-              <p className="mt-2 text-xs text-purple-600 text-center">Draw here!</p>
+              <p className="mt-2 text-xs text-purple-600 text-center">{t('worksheets.artSketch.drawHere')}</p>
             </div>
           ))}
         </div>
       </div>
     )
   },
-  'interactive-early-phonics': ({ seed, doc, variant }) => {
+  'interactive-early-phonics': (ctx) => {
+    const { seed, doc, variant, t } = ctx
     const rng = makeRng(`${seed}|${doc.id}|${variant}`)
     const sounds = pickMany(rng, ['m', 's', 't', 'b', 'p', 'n', 'f', 'r'], 4)
     const words = {
@@ -1929,7 +1945,7 @@ const renderers: Record<string, Renderer> = {
     return (
       <div className="space-y-3">
         <p className="text-sm text-slate-600">
-          Say the sound, trace the letter, then draw a picture that starts with it.
+          {t('worksheets.earlyPhonics.instructions')}
         </p>
         <div className="grid gap-4 md:grid-cols-2">
           {sounds.map((sound) => (
@@ -1937,15 +1953,15 @@ const renderers: Record<string, Renderer> = {
               <p className="text-lg font-semibold text-rose-700">Letter: {sound.toUpperCase()}</p>
               <div className="mt-2 flex gap-3">
                 <div className="flex-1">
-                  <p className="text-xs uppercase text-rose-500">Trace</p>
+                  <p className="text-xs uppercase text-rose-500">{t('worksheets.earlyPhonics.traceLetter')}</p>
                   <div className="mt-1 h-16 rounded border border-dashed border-rose-300 bg-white" />
                 </div>
                 <div className="flex-1">
-                  <p className="text-xs uppercase text-rose-500">Draw</p>
+                  <p className="text-xs uppercase text-rose-500">{t('worksheets.earlyPhonics.drawPicture')}</p>
                   <div className="mt-1 h-16 rounded border border-dashed border-rose-300 bg-white" />
                 </div>
               </div>
-              <p className="mt-2 text-xs text-rose-700">Try these words: {words[sound].join(', ')}</p>
+              <p className="mt-2 text-xs text-rose-700">{t('worksheets.earlyPhonics.words')} {words[sound].join(', ')}</p>
             </div>
           ))}
         </div>
@@ -1986,13 +2002,14 @@ const renderers: Record<string, Renderer> = {
       </div>
     )
   },
-  'interactive-early-patterns': ({ seed, doc, variant }) => {
+  'interactive-early-patterns': (ctx) => {
+    const { seed, doc, variant, t } = ctx
     const rng = makeRng(`${seed}|${doc.id}|${variant}`)
     const patterns = pickMany(rng, ['AB', 'AAB', 'ABC', 'ABB', 'AABB'], 4)
     return (
       <div className="space-y-3">
         <p className="text-sm text-slate-600">
-          Continue each pattern and create your own using shapes, colors, or stickers.
+          {t('worksheets.earlyPatterns.instructions')}
         </p>
         <div className="space-y-3">
           {patterns.map((pattern, idx) => {
@@ -2007,7 +2024,7 @@ const renderers: Record<string, Renderer> = {
               .map((char) => (char === 'A' ? first : char === 'B' ? second : third))
             return (
               <div key={idx} className="rounded-xl border border-slate-200 bg-white p-4">
-                <p className="text-xs uppercase text-slate-500">Pattern {pattern}</p>
+                <p className="text-xs uppercase text-slate-500">{t('worksheets.earlyPatterns.pattern')} {pattern}</p>
                 <div className="mt-3 flex items-center gap-2">
                   {previewTokens.map((token, tokenIdx) => (
                     <span
@@ -2022,7 +2039,7 @@ const renderers: Record<string, Renderer> = {
                 </div>
                 <div className="mt-2 h-10 rounded border border-dashed border-slate-300" />
                 <p className="mt-2 text-xs text-slate-500">
-                  Try building your own using:{' '}
+                  {t('worksheets.earlyPatterns.tryBuilding')}{' '}
                   <span className="font-medium text-slate-700">
                     {first.label}, {second.label}
                     {previewTokens.length > 2 ? `, ${third.label}` : ''}
@@ -2035,22 +2052,23 @@ const renderers: Record<string, Renderer> = {
       </div>
     )
   },
-  'interactive-early-shapes': ({ seed, doc, variant }) => {
+  'interactive-early-shapes': (ctx) => {
+    const { seed, doc, variant, t, formatNum } = ctx
     const rng = makeRng(`${seed}|${doc.id}|${variant}`)
     const shapes = pickMany(rng, ['circle', 'square', 'triangle', 'rectangle', 'star', 'heart'], 4)
     const colors = pickMany(rng, ['red', 'blue', 'yellow', 'green', 'purple', 'orange'], 4)
     return (
       <div className="space-y-3">
         <p className="text-sm text-slate-600">
-          Identify each shape, color it, then sort shapes by type and color.
+          {t('worksheets.earlyShapes.instructions')}
         </p>
         <div className="grid gap-4 md:grid-cols-2">
           {shapes.map((shape, idx) => (
             <div key={idx} className="rounded-xl border border-purple-200 bg-purple-50 p-4">
-              <p className="text-sm font-semibold text-purple-700">Shape {idx + 1}: {shape}</p>
+              <p className="text-sm font-semibold text-purple-700">{t('worksheets.earlyShapes.shape')} {formatNum ? formatNum(idx + 1) : idx + 1}: {shape}</p>
               <div className="mt-2 h-20 rounded border border-dashed border-purple-300 bg-white" />
-              <p className="mt-2 text-xs text-purple-600">Color: {colors[idx]}</p>
-              <p className="mt-1 text-xs text-purple-600">Draw 2 more {shape}s below:</p>
+              <p className="mt-2 text-xs text-purple-600">{t('worksheets.earlyShapes.color')} {colors[idx]}</p>
+              <p className="mt-1 text-xs text-purple-600">{t('worksheets.earlyShapes.drawMore').replace('{{shape}}', shape)}</p>
               <div className="mt-1 flex gap-2">
                 <div className="h-12 w-12 rounded border border-dashed border-purple-300" />
                 <div className="h-12 w-12 rounded border border-dashed border-purple-300" />
@@ -2059,20 +2077,21 @@ const renderers: Record<string, Renderer> = {
           ))}
         </div>
         <div className="mt-4 rounded-xl border border-purple-200 bg-purple-50 p-4">
-          <p className="text-sm font-semibold text-purple-700">Sorting Activity</p>
-          <p className="mt-2 text-xs text-purple-600">Sort by shape: ________________________________</p>
-          <p className="mt-1 text-xs text-purple-600">Sort by color: ________________________________</p>
+          <p className="text-sm font-semibold text-purple-700">{t('worksheets.earlyShapes.sortingActivity')}</p>
+          <p className="mt-2 text-xs text-purple-600">{t('worksheets.earlyShapes.sortByShape')} ________________________________</p>
+          <p className="mt-1 text-xs text-purple-600">{t('worksheets.earlyShapes.sortByColor')} ________________________________</p>
         </div>
       </div>
     )
   },
-  'interactive-early-letters': ({ seed, doc, variant }) => {
+  'interactive-early-letters': (ctx) => {
+    const { seed, doc, variant, t } = ctx
     const rng = makeRng(`${seed}|${doc.id}|${variant}`)
     const letters = pickMany(rng, ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'], 4)
     return (
       <div className="space-y-3">
         <p className="text-sm text-slate-600">
-          Trace each letter, then write it 3 times. Draw a picture that starts with that letter.
+          {t('worksheets.earlyLetters.instructions')}
         </p>
         <div className="grid gap-4 md:grid-cols-2">
           {letters.map((letter) => (
@@ -2080,15 +2099,15 @@ const renderers: Record<string, Renderer> = {
               <p className="text-lg font-semibold text-blue-700">{letter} / {letter.toLowerCase()}</p>
               <div className="mt-2 grid grid-cols-3 gap-2">
                 <div className="flex flex-col">
-                  <p className="text-xs text-blue-500">Trace</p>
+                  <p className="text-xs text-blue-500">{t('worksheets.earlyLetters.trace')}</p>
                   <div className="mt-1 h-16 rounded border border-dashed border-blue-300 bg-white" />
                 </div>
                 <div className="flex flex-col">
-                  <p className="text-xs text-blue-500">Write</p>
+                  <p className="text-xs text-blue-500">{t('worksheets.earlyLetters.write')}</p>
                   <div className="mt-1 h-16 rounded border border-dashed border-blue-300 bg-white" />
                 </div>
                 <div className="flex flex-col">
-                  <p className="text-xs text-blue-500">Draw</p>
+                  <p className="text-xs text-blue-500">{t('worksheets.earlyLetters.draw')}</p>
                   <div className="mt-1 h-16 rounded border border-dashed border-blue-300 bg-white" />
                 </div>
               </div>
@@ -2132,7 +2151,8 @@ const renderers: Record<string, Renderer> = {
       </div>
     )
   },
-  'interactive-early-foundations': ({ seed, doc, variant }) => {
+  'interactive-early-foundations': (ctx) => {
+    const { seed, doc, variant, t } = ctx
     const rng = makeRng(`${seed}|${doc.id}|${variant}`)
     const activities = [
       { type: 'letter', items: pickMany(rng, ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H'], 4) },
@@ -2142,30 +2162,31 @@ const renderers: Record<string, Renderer> = {
     return (
       <div className="space-y-3">
         <p className="text-sm text-slate-600">
-          Review basic skills: identify letters, numbers, and shapes. Perfect for remediation or review.
+          {t('worksheets.earlyFoundations.instructions')}
         </p>
         {activities.map((activity, actIdx) => (
           <div key={actIdx} className="rounded-xl border border-amber-200 bg-amber-50 p-4">
-            <p className="text-sm font-semibold text-amber-700">Review: {activity.type}s</p>
+            <p className="text-sm font-semibold text-amber-700">{t('worksheets.earlyFoundations.review')} {activity.type}s</p>
             <div className="mt-2 flex flex-wrap gap-3">
               {activity.items.map((item, idx) => (
                 <div key={idx} className="rounded border border-amber-300 bg-white px-4 py-2 text-center">
                   <p className="font-semibold text-amber-800">{item}</p>
-                  <p className="mt-1 text-xs text-amber-600">Identify: ______</p>
+                  <p className="mt-1 text-xs text-amber-600">{t('worksheets.earlyFoundations.identify')} ______</p>
                 </div>
               ))}
             </div>
           </div>
         ))}
         <div className="rounded-xl border border-amber-200 bg-amber-50 p-4">
-          <p className="text-sm font-semibold text-amber-700">Practice Writing</p>
-          <p className="mt-2 text-xs text-amber-600">Write your name: ________________________</p>
-          <p className="mt-1 text-xs text-amber-600">Count to 10: ________________________________</p>
+          <p className="text-sm font-semibold text-amber-700">{t('worksheets.earlyFoundations.practiceWriting')}</p>
+          <p className="mt-2 text-xs text-amber-600">{t('worksheets.earlyFoundations.writeName')} ________________________</p>
+          <p className="mt-1 text-xs text-amber-600">{t('worksheets.earlyFoundations.countTo10')} ________________________________</p>
         </div>
       </div>
     )
   },
-  'interactive-early-basics': ({ seed, doc, variant }) => {
+  'interactive-early-basics': (ctx) => {
+    const { seed, doc, variant, t } = ctx
     const rng = makeRng(`${seed}|${doc.id}|${variant}`)
     const skills = [
       { skill: 'Letter Sounds', examples: pickMany(rng, ['A says /a/', 'B says /b/', 'C says /c/', 'D says /d/'], 3) },
@@ -2175,7 +2196,7 @@ const renderers: Record<string, Renderer> = {
     return (
       <div className="space-y-3">
         <p className="text-sm text-slate-600">
-          Essential early learning skills review. Practice letter sounds, counting, and basic patterns.
+          {t('worksheets.earlyBasics.instructions')}
         </p>
         {skills.map((skillGroup, idx) => (
           <div key={idx} className="rounded-xl border border-indigo-200 bg-indigo-50 p-4">
@@ -2193,7 +2214,8 @@ const renderers: Record<string, Renderer> = {
       </div>
     )
   },
-  'interactive-reading-prek': ({ seed, doc, variant }) => {
+  'interactive-reading-prek': (ctx) => {
+    const { seed, doc, variant, t } = ctx
     const rng = makeRng(`${seed}|${doc.id}|${variant}`)
     const stories = pickMany(
       rng,
@@ -2231,7 +2253,7 @@ const renderers: Record<string, Renderer> = {
     return (
       <div className="space-y-4">
         <p className="text-sm text-slate-600">
-          Look at the pictures and answer yes/no questions about the story.
+          {t('worksheets.lookAtPicturesAndAnswer') || 'Look at the pictures and answer yes/no questions about the story.'}
         </p>
         {stories.map((story, idx) => (
           <div key={idx} className="rounded-xl border border-rose-200 bg-rose-50 p-4">
@@ -2258,7 +2280,8 @@ const renderers: Record<string, Renderer> = {
       </div>
     )
   },
-  'interactive-writing-prek': ({ seed, doc, variant }) => {
+  'interactive-writing-prek': (ctx) => {
+    const { seed, doc, variant, t } = ctx
     const rng = makeRng(`${seed}|${doc.id}|${variant}`)
     const prompts = pickMany(
       rng,
@@ -2275,7 +2298,7 @@ const renderers: Record<string, Renderer> = {
     return (
       <div className="space-y-3">
         <p className="text-sm text-slate-600">
-          Draw a picture and label it with the word. Perfect for early writers.
+          {t('worksheets.drawPictureAndLabel') || 'Draw a picture and label it with the word. Perfect for early writers.'}
         </p>
         <div className="grid gap-4 md:grid-cols-2">
           {prompts.map((prompt, idx) => (
@@ -2293,7 +2316,8 @@ const renderers: Record<string, Renderer> = {
       </div>
     )
   },
-  'interactive-science-prek': ({ seed, doc, variant }) => {
+  'interactive-science-prek': (ctx) => {
+    const { seed, doc, variant, t } = ctx
     const rng = makeRng(`${seed}|${doc.id}|${variant}`)
     const observations = pickMany(
       rng,
@@ -2329,7 +2353,8 @@ const renderers: Record<string, Renderer> = {
       </div>
     )
   },
-  'interactive-science-space': ({ seed, doc, variant }) => {
+  'interactive-science-space': (ctx) => {
+    const { seed, doc, variant, t } = ctx
     const rng = makeRng(`${seed}|${doc.id}|${variant}`)
     const planets = pickMany(
       rng,
@@ -2366,7 +2391,8 @@ const renderers: Record<string, Renderer> = {
       </div>
     )
   },
-  'interactive-geography-prek': ({ seed, doc, variant }) => {
+  'interactive-geography-prek': (ctx) => {
+    const { seed, doc, variant, t } = ctx
     const rng = makeRng(`${seed}|${doc.id}|${variant}`)
     const places = pickMany(
       rng,
@@ -2401,7 +2427,8 @@ const renderers: Record<string, Renderer> = {
       </div>
     )
   },
-  'interactive-grammar-prek': ({ seed, doc, variant }) => {
+  'interactive-grammar-prek': (ctx) => {
+    const { seed, doc, variant, t } = ctx
     const rng = makeRng(`${seed}|${doc.id}|${variant}`)
     const words = pickMany(
       rng,
@@ -2448,7 +2475,8 @@ const renderers: Record<string, Renderer> = {
       </div>
     )
   },
-  'interactive-logic-prek': ({ seed, doc, variant }) => {
+  'interactive-logic-prek': (ctx) => {
+    const { seed, doc, variant, t } = ctx
     const rng = makeRng(`${seed}|${doc.id}|${variant}`)
     const patterns = pickMany(rng, ['AB', 'AAB', 'ABC'], 3)
     const sortingItems = pickMany(rng, ['red', 'blue', 'yellow', 'big', 'small', 'round', 'square'], 6)
@@ -2489,7 +2517,8 @@ const renderers: Record<string, Renderer> = {
       </div>
     )
   },
-  'interactive-sel-prek': ({ seed, doc, variant }) => {
+  'interactive-sel-prek': (ctx) => {
+    const { seed, doc, variant, t } = ctx
     const rng = makeRng(`${seed}|${doc.id}|${variant}`)
     const feelings = pickMany(
       rng,
@@ -2536,7 +2565,8 @@ const renderers: Record<string, Renderer> = {
       </div>
     )
   },
-  'interactive-logic-sequence': ({ seed, doc, variant }) => {
+  'interactive-logic-sequence': (ctx) => {
+    const { seed, doc, variant, t } = ctx
     const rng = makeRng(`${seed}|${doc.id}|${variant}`)
     const tasks = pickMany(
       rng,
@@ -2571,7 +2601,8 @@ const renderers: Record<string, Renderer> = {
       </div>
     )
   },
-  'interactive-logic-riddles': ({ seed, doc, variant }) => {
+  'interactive-logic-riddles': (ctx) => {
+    const { seed, doc, variant, t } = ctx
     const rng = makeRng(`${seed}|${doc.id}|${variant}`)
     const riddles = pickMany(
       rng,
@@ -2602,7 +2633,8 @@ const renderers: Record<string, Renderer> = {
       </div>
     )
   },
-  'interactive-logic-deduction': ({ seed, doc, variant }) => {
+  'interactive-logic-deduction': (ctx) => {
+    const { seed, doc, variant, t } = ctx
     const rng = makeRng(`${seed}|${doc.id}|${variant}`)
     const suspects = pickMany(rng, ['Ava', 'Ben', 'Chloe', 'Diego', 'Erin', 'Finn'], 3)
     const items = pickMany(rng, ['robot dog', 'rocket model', 'skateboard', 'drone', 'canvas painting', 'puzzle cube'], 3)
@@ -2638,7 +2670,8 @@ const renderers: Record<string, Renderer> = {
       </div>
     )
   },
-  'interactive-cognitive-memory': ({ seed, doc, variant }) => {
+  'interactive-cognitive-memory': (ctx) => {
+    const { seed, doc, variant, t } = ctx
     const rng = makeRng(`${seed}|${doc.id}|${variant}`)
     const sequences = [
       { type: 'numbers', items: pickMany(rng, ['2', '4', '6', '8', '10', '12'], 4) },
@@ -2682,7 +2715,8 @@ const renderers: Record<string, Renderer> = {
       </div>
     )
   },
-  'interactive-cognitive-attention': ({ seed, doc, variant }) => {
+  'interactive-cognitive-attention': (ctx) => {
+    const { seed, doc, variant, t } = ctx
     const rng = makeRng(`${seed}|${doc.id}|${variant}`)
     const targetItems = pickMany(rng, ['star', 'circle', 'triangle', 'heart'], 1)[0]
     const gridItems = Array.from({ length: 25 }, (_, i) => {
@@ -2741,7 +2775,8 @@ const renderers: Record<string, Renderer> = {
       </div>
     )
   },
-  'interactive-cognitive-executive': ({ seed, doc, variant }) => {
+  'interactive-cognitive-executive': (ctx) => {
+    const { seed, doc, variant, t } = ctx
     const rng = makeRng(`${seed}|${doc.id}|${variant}`)
     const tasks = pickMany(rng, [
       'Complete math homework',
@@ -2807,7 +2842,8 @@ const renderers: Record<string, Renderer> = {
       </div>
     )
   },
-  'interactive-cognitive-processing': ({ seed, doc, variant }) => {
+  'interactive-cognitive-processing': (ctx) => {
+    const { seed, doc, variant, t } = ctx
     const rng = makeRng(`${seed}|${doc.id}|${variant}`)
     const symbols = ['★', '●', '▲', '■', '◆', '♥']
     const quickItems = Array.from({ length: 20 }, () => pick(rng, symbols))
@@ -2850,7 +2886,8 @@ const renderers: Record<string, Renderer> = {
       </div>
     )
   },
-  'interactive-cognitive-visual': ({ seed, doc, variant }) => {
+  'interactive-cognitive-visual': (ctx) => {
+    const { seed, doc, variant, t } = ctx
     const rng = makeRng(`${seed}|${doc.id}|${variant}`)
     const patterns = [
       { original: ['red', 'blue', 'red', 'blue'], match: ['red', 'blue', 'red', 'green'] },
@@ -2934,7 +2971,8 @@ const renderers: Record<string, Renderer> = {
       </div>
     )
   },
-  'interactive-cognitive-flexibility': ({ seed, doc, variant }) => {
+  'interactive-cognitive-flexibility': (ctx) => {
+    const { seed, doc, variant, t } = ctx
     const rng = makeRng(`${seed}|${doc.id}|${variant}`)
     const tasks = [
       { task: 'Sort by color', rule: 'Group red items together', switch: 'Now sort by size instead' },
@@ -2998,7 +3036,8 @@ const renderers: Record<string, Renderer> = {
       </div>
     )
   },
-  'interactive-sel-mindfulness': ({ seed, doc, variant }) => {
+  'interactive-sel-mindfulness': (ctx) => {
+    const { seed, doc, variant, t } = ctx
     const rng = makeRng(`${seed}|${doc.id}|${variant}`)
     const breaths = pickMany(rng, ['rainbow breathing', 'box breathing', 'five-finger breathing', 'balloon breath'], 3)
     return (
@@ -3030,7 +3069,8 @@ const renderers: Record<string, Renderer> = {
       </div>
     )
   },
-  'interactive-sel-empathy': ({ seed, doc, variant }) => {
+  'interactive-sel-empathy': (ctx) => {
+    const { seed, doc, variant, t } = ctx
     const rng = makeRng(`${seed}|${doc.id}|${variant}`)
     const scenarios = pickMany(
       rng,
@@ -3077,7 +3117,8 @@ const renderers: Record<string, Renderer> = {
       </div>
     )
   },
-  'interactive-sel-conflict': ({ seed, doc, variant }) => {
+  'interactive-sel-conflict': (ctx) => {
+    const { seed, doc, variant, t } = ctx
     const rng = makeRng(`${seed}|${doc.id}|${variant}`)
     const scenarios = pickMany(rng, [
       'Two friends want to play different games at recess.',
@@ -3108,7 +3149,8 @@ const renderers: Record<string, Renderer> = {
       </div>
     )
   },
-  'interactive-sel-regulation': ({ seed, doc, variant }) => {
+  'interactive-sel-regulation': (ctx) => {
+    const { seed, doc, variant, t } = ctx
     const rng = makeRng(`${seed}|${doc.id}|${variant}`)
     const strategies = pickMany(rng, [
       { name: 'Take deep breaths', emoji: '🫁', steps: 'Breathe in for 4, hold for 4, breathe out for 4' },
@@ -3141,7 +3183,8 @@ const renderers: Record<string, Renderer> = {
       </div>
     )
   },
-  'interactive-sel-kindness': ({ seed, doc, variant }) => {
+  'interactive-sel-kindness': (ctx) => {
+    const { seed, doc, variant, t } = ctx
     const rng = makeRng(`${seed}|${doc.id}|${variant}`)
     const acts = pickMany(rng, [
       'Help someone with their work',
@@ -3191,7 +3234,8 @@ const renderers: Record<string, Renderer> = {
       </div>
     )
   },
-  'interactive-sel-growth-mindset': ({ seed, doc, variant }) => {
+  'interactive-sel-growth-mindset': (ctx) => {
+    const { seed, doc, variant, t } = ctx
     const rng = makeRng(`${seed}|${doc.id}|${variant}`)
     const fixedStatements = pickMany(rng, [
       'I\'m not good at math',
@@ -3222,7 +3266,8 @@ const renderers: Record<string, Renderer> = {
       </div>
     )
   },
-  'interactive-sel-stress': ({ seed, doc, variant }) => {
+  'interactive-sel-stress': (ctx) => {
+    const { seed, doc, variant, t } = ctx
     const rng = makeRng(`${seed}|${doc.id}|${variant}`)
     const triggers = pickMany(rng, [
       'Too much homework',
@@ -3272,7 +3317,8 @@ const renderers: Record<string, Renderer> = {
       </div>
     )
   },
-  'interactive-sel-character': ({ seed, doc, variant }) => {
+  'interactive-sel-character': (ctx) => {
+    const { seed, doc, variant, t } = ctx
     const rng = makeRng(`${seed}|${doc.id}|${variant}`)
     const traits = pickMany(rng, [
       { name: 'Honesty', description: 'Telling the truth even when it\'s hard', emoji: '💎' },
@@ -3306,7 +3352,8 @@ const renderers: Record<string, Renderer> = {
       </div>
     )
   },
-  'interactive-math-algebra': ({ seed, doc, variant }) => {
+  'interactive-math-algebra': (ctx) => {
+    const { seed, doc, variant, t } = ctx
     const rng = makeRng(`${seed}|${doc.id}|${variant}`)
     const problems = Array.from({ length: 5 }, () => {
       const type = pick(rng, ['solve', 'evaluate', 'simplify'])
@@ -3348,7 +3395,8 @@ const renderers: Record<string, Renderer> = {
       </div>
     )
   },
-  'interactive-math-percentages': ({ seed, doc, variant }) => {
+  'interactive-math-percentages': (ctx) => {
+    const { seed, doc, variant, t } = ctx
     const rng = makeRng(`${seed}|${doc.id}|${variant}`)
     const problems = Array.from({ length: 5 }, () => {
       const type = pick(rng, ['percent', 'ratio', 'proportion'])
@@ -3383,7 +3431,8 @@ const renderers: Record<string, Renderer> = {
       </div>
     )
   },
-  'interactive-math-geometry': ({ seed, doc, variant }) => {
+  'interactive-math-geometry': (ctx) => {
+    const { seed, doc, variant, t } = ctx
     const rng = makeRng(`${seed}|${doc.id}|${variant}`)
     const problems = Array.from({ length: 5 }, () => {
       const type = pick(rng, ['area', 'perimeter', 'volume', 'angle'])
@@ -3420,7 +3469,8 @@ const renderers: Record<string, Renderer> = {
       </div>
     )
   },
-  'interactive-math-statistics': ({ seed, doc, variant }) => {
+  'interactive-math-statistics': (ctx) => {
+    const { seed, doc, variant, t } = ctx
     const rng = makeRng(`${seed}|${doc.id}|${variant}`)
     const datasets = Array.from({ length: 3 }, () => {
       const nums = Array.from({ length: 6 }, () => Math.floor(rng() * 20) + 10).sort((a, b) => a - b)
@@ -3460,7 +3510,8 @@ const renderers: Record<string, Renderer> = {
       </div>
     )
   },
-  'interactive-math-word-problems': ({ seed, doc, variant }) => {
+  'interactive-math-word-problems': (ctx) => {
+    const { seed, doc, variant, t } = ctx
     const rng = makeRng(`${seed}|${doc.id}|${variant}`)
     const problems = [
       { q: 'A store sells 3 notebooks for $12. How much would 7 notebooks cost?', answer: '$28' },
@@ -3819,7 +3870,8 @@ const renderers: Record<string, Renderer> = {
       </div>
     )
   },
-  'interactive-reading-literary-analysis': ({ seed, doc, variant }) => {
+  'interactive-reading-literary-analysis': (ctx) => {
+    const { seed, doc, variant, t } = ctx
     const rng = makeRng(`${seed}|${doc.id}|${variant}`)
     const passages = [
       {
@@ -3858,7 +3910,8 @@ const renderers: Record<string, Renderer> = {
       </div>
     )
   },
-  'interactive-reading-research': ({ seed, doc, variant }) => {
+  'interactive-reading-research': (ctx) => {
+    const { seed, doc, variant, t } = ctx
     const rng = makeRng(`${seed}|${doc.id}|${variant}`)
     const topics = pickMany(rng, ['climate change', 'ancient civilizations', 'space exploration', 'renewable energy'], 3)
     return (
@@ -3883,7 +3936,8 @@ const renderers: Record<string, Renderer> = {
       </div>
     )
   },
-  'interactive-writing-research': ({ seed, doc, variant }) => {
+  'interactive-writing-research': (ctx) => {
+    const { seed, doc, variant, t } = ctx
     const rng = makeRng(`${seed}|${doc.id}|${variant}`)
     return (
       <div className="space-y-3">
@@ -3921,7 +3975,8 @@ const renderers: Record<string, Renderer> = {
       </div>
     )
   },
-  'interactive-writing-essay': ({ seed, doc, variant }) => {
+  'interactive-writing-essay': (ctx) => {
+    const { seed, doc, variant, t } = ctx
     const rng = makeRng(`${seed}|${doc.id}|${variant}`)
     const prompts = pickMany(rng, [
       'Should students have homework on weekends?',
@@ -3964,7 +4019,8 @@ const renderers: Record<string, Renderer> = {
       </div>
     )
   },
-  'interactive-science-chemistry': ({ seed, doc, variant }) => {
+  'interactive-science-chemistry': (ctx) => {
+    const { seed, doc, variant, t } = ctx
     const rng = makeRng(`${seed}|${doc.id}|${variant}`)
     const concepts = pickMany(rng, ['atoms', 'molecules', 'chemical reactions', 'periodic table', 'elements'], 4)
     return (
@@ -3986,7 +4042,8 @@ const renderers: Record<string, Renderer> = {
       </div>
     )
   },
-  'interactive-science-physics': ({ seed, doc, variant }) => {
+  'interactive-science-physics': (ctx) => {
+    const { seed, doc, variant, t } = ctx
     const rng = makeRng(`${seed}|${doc.id}|${variant}`)
     const topics = pickMany(rng, ['forces', 'motion', 'energy', 'simple machines'], 4)
     return (
@@ -4007,7 +4064,8 @@ const renderers: Record<string, Renderer> = {
       </div>
     )
   },
-  'interactive-science-ecology': ({ seed, doc, variant }) => {
+  'interactive-science-ecology': (ctx) => {
+    const { seed, doc, variant, t } = ctx
     const rng = makeRng(`${seed}|${doc.id}|${variant}`)
     const topics = pickMany(rng, ['ecosystems', 'food webs', 'environmental issues', 'conservation'], 4)
     return (
@@ -4028,7 +4086,8 @@ const renderers: Record<string, Renderer> = {
       </div>
     )
   },
-  'interactive-geography-government': ({ seed, doc, variant }) => {
+  'interactive-geography-government': (ctx) => {
+    const { seed, doc, variant, t } = ctx
     const rng = makeRng(`${seed}|${doc.id}|${variant}`)
     const topics = pickMany(rng, ['government structure', 'citizenship', 'rights and responsibilities', 'branches of government'], 4)
     return (
@@ -4048,7 +4107,8 @@ const renderers: Record<string, Renderer> = {
       </div>
     )
   },
-  'interactive-geography-economics': ({ seed, doc, variant }) => {
+  'interactive-geography-economics': (ctx) => {
+    const { seed, doc, variant, t } = ctx
     const rng = makeRng(`${seed}|${doc.id}|${variant}`)
     const concepts = pickMany(rng, ['supply and demand', 'budgeting', 'saving and spending', 'economic systems'], 4)
     return (
@@ -4074,7 +4134,8 @@ const renderers: Record<string, Renderer> = {
       </div>
     )
   },
-  'interactive-grammar-advanced': ({ seed, doc, variant }) => {
+  'interactive-grammar-advanced': (ctx) => {
+    const { seed, doc, variant, t } = ctx
     const rng = makeRng(`${seed}|${doc.id}|${variant}`)
     const sentences = [
       'The book that I read yesterday was fascinating.',
@@ -4103,7 +4164,8 @@ const renderers: Record<string, Renderer> = {
       </div>
     )
   },
-  'interactive-grammar-vocab': ({ seed, doc, variant }) => {
+  'interactive-grammar-vocab': (ctx) => {
+    const { seed, doc, variant, t } = ctx
     const rng = makeRng(`${seed}|${doc.id}|${variant}`)
     const words = pickMany(rng, ['analyze', 'evaluate', 'synthesize', 'hypothesize', 'conclude', 'demonstrate'], 5)
     return (
@@ -4125,7 +4187,8 @@ const renderers: Record<string, Renderer> = {
     )
   },
   // NEW WORKSHEET RENDERERS - Writing
-  'interactive-writing-trace': ({ seed, doc, variant }) => {
+  'interactive-writing-trace': (ctx) => {
+    const { seed, doc, variant, t } = ctx
     const rng = makeRng(`${seed}|${doc.id}|${variant}`)
     const letters = pickMany(rng, ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'], 4)
     const words = pickMany(rng, ['cat', 'dog', 'sun', 'moon', 'star', 'tree', 'car', 'bus'], 3)
@@ -4165,7 +4228,8 @@ const renderers: Record<string, Renderer> = {
       </div>
     )
   },
-  'interactive-writing-lowercase-trace': ({ seed, doc, variant }) => {
+  'interactive-writing-lowercase-trace': (ctx) => {
+    const { seed, doc, variant, t } = ctx
     const rng = makeRng(`${seed}|${doc.id}|${variant}`)
     const lowercaseLetters = pickMany(rng, ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z'], 6)
     return (
@@ -4214,7 +4278,8 @@ const renderers: Record<string, Renderer> = {
       </div>
     )
   },
-  'interactive-writing-pictures': ({ seed, doc, variant }) => {
+  'interactive-writing-pictures': (ctx) => {
+    const { seed, doc, variant, t } = ctx
     const rng = makeRng(`${seed}|${doc.id}|${variant}`)
     const prompts = pickMany(rng, [
       { picture: 'A sunny day at the park', question: 'What do you see?' },
@@ -4240,7 +4305,8 @@ const renderers: Record<string, Renderer> = {
       </div>
     )
   },
-  'interactive-writing-narrative': ({ seed, doc, variant }) => {
+  'interactive-writing-narrative': (ctx) => {
+    const { seed, doc, variant, t } = ctx
     const rng = makeRng(`${seed}|${doc.id}|${variant}`)
     const storyStarters = pickMany(rng, ['One sunny morning, I discovered...', 'The magic door opened and...', 'When I looked in the mirror, I saw...', 'The old tree in the backyard began to...'], 2)
     return (
@@ -4272,7 +4338,8 @@ const renderers: Record<string, Renderer> = {
       </div>
     )
   },
-  'interactive-writing-informative': ({ seed, doc, variant }) => {
+  'interactive-writing-informative': (ctx) => {
+    const { seed, doc, variant, t } = ctx
     const rng = makeRng(`${seed}|${doc.id}|${variant}`)
     const topics = pickMany(rng, ['How plants grow', 'The life cycle of a butterfly', 'How to care for a pet', 'The water cycle'], 1)
     return (
@@ -4305,7 +4372,8 @@ const renderers: Record<string, Renderer> = {
       </div>
     )
   },
-  'interactive-writing-argumentative': ({ seed, doc, variant }) => {
+  'interactive-writing-argumentative': (ctx) => {
+    const { seed, doc, variant, t } = ctx
     const rng = makeRng(`${seed}|${doc.id}|${variant}`)
     const prompts = pickMany(rng, ['Should students have longer recess?', 'Is reading books better than watching videos?', 'Should schools ban homework?'], 1)
     return (
@@ -4389,7 +4457,8 @@ const renderers: Record<string, Renderer> = {
       </div>
     )
   },
-  'interactive-reading-sightwords': ({ seed, doc, variant }) => {
+  'interactive-reading-sightwords': (ctx) => {
+    const { seed, doc, variant, t } = ctx
     const rng = makeRng(`${seed}|${doc.id}|${variant}`)
     const sightWords = pickMany(rng, ['the', 'and', 'is', 'it', 'you', 'that', 'he', 'was', 'for', 'on', 'are', 'as', 'with', 'his', 'they', 'I', 'at', 'be', 'this', 'have', 'from', 'or', 'one', 'had', 'by', 'word', 'but', 'not', 'what', 'all', 'were', 'we', 'when', 'your', 'can', 'said'], 8)
     return (
@@ -4423,7 +4492,8 @@ const renderers: Record<string, Renderer> = {
       </div>
     )
   },
-  'interactive-reading-fluency': ({ seed, doc, variant }) => {
+  'interactive-reading-fluency': (ctx) => {
+    const { seed, doc, variant, t } = ctx
     const rng = makeRng(`${seed}|${doc.id}|${variant}`)
     const passages = pickMany(rng, ['The cat sat on the mat. The cat is happy.', 'I see a big tree. The tree has green leaves.', 'The sun is bright. It shines in the sky.', 'I like to read books. Books are fun to read.'], 2)
     return (
@@ -4451,7 +4521,8 @@ const renderers: Record<string, Renderer> = {
       </div>
     )
   },
-  'interactive-reading-character': ({ seed, doc, variant }) => {
+  'interactive-reading-character': (ctx) => {
+    const { seed, doc, variant, t } = ctx
     const rng = makeRng(`${seed}|${doc.id}|${variant}`)
     const characters = pickMany(rng, [
       { name: 'Sam', traits: ['kind', 'brave', 'curious'], action: 'helps a friend' },
@@ -4483,7 +4554,8 @@ const renderers: Record<string, Renderer> = {
       </div>
     )
   },
-  'interactive-science-senses': ({ seed, doc, variant }) => {
+  'interactive-science-senses': (ctx) => {
+    const { seed, doc, variant, t } = ctx
     const rng = makeRng(`${seed}|${doc.id}|${variant}`)
     const senses = ['sight', 'hearing', 'touch', 'taste', 'smell']
     const senseVerbs: Record<string, string> = {
@@ -4529,7 +4601,8 @@ const renderers: Record<string, Renderer> = {
       </div>
     )
   },
-  'interactive-science-plants': ({ seed, doc, variant }) => {
+  'interactive-science-plants': (ctx) => {
+    const { seed, doc, variant, t } = ctx
     const rng = makeRng(`${seed}|${doc.id}|${variant}`)
     const plantParts = ['roots', 'stem', 'leaves', 'flower', 'seeds']
     return (
@@ -4563,7 +4636,8 @@ const renderers: Record<string, Renderer> = {
       </div>
     )
   },
-  'interactive-science-animals': ({ seed, doc, variant }) => {
+  'interactive-science-animals': (ctx) => {
+    const { seed, doc, variant, t } = ctx
     const rng = makeRng(`${seed}|${doc.id}|${variant}`)
     const animals = pickMany(rng, [
       { name: 'bird', habitat: 'sky', feature: 'wings' },
@@ -4590,7 +4664,8 @@ const renderers: Record<string, Renderer> = {
       </div>
     )
   },
-  'interactive-geography-seasons': ({ seed, doc, variant }) => {
+  'interactive-geography-seasons': (ctx) => {
+    const { seed, doc, variant, t } = ctx
     const rng = makeRng(`${seed}|${doc.id}|${variant}`)
     const seasons = ['spring', 'summer', 'fall', 'winter']
     const weatherTypes = pickMany(rng, ['sunny', 'rainy', 'snowy', 'windy', 'cloudy'], 4)
@@ -4620,7 +4695,8 @@ const renderers: Record<string, Renderer> = {
       </div>
     )
   },
-  'interactive-geography-places': ({ seed, doc, variant }) => {
+  'interactive-geography-places': (ctx) => {
+    const { seed, doc, variant, t } = ctx
     const rng = makeRng(`${seed}|${doc.id}|${variant}`)
     const places = pickMany(rng, [
       { name: 'Library', type: 'Learning place', activity: 'read books' },
@@ -4646,7 +4722,8 @@ const renderers: Record<string, Renderer> = {
       </div>
     )
   },
-  'interactive-geography-continents': ({ seed, doc, variant }) => {
+  'interactive-geography-continents': (ctx) => {
+    const { seed, doc, variant, t } = ctx
     const rng = makeRng(`${seed}|${doc.id}|${variant}`)
     const continents = pickMany(rng, [
       { name: 'North America', fact: 'Has many countries', ocean: 'Atlantic and Pacific' },
@@ -4681,7 +4758,8 @@ const renderers: Record<string, Renderer> = {
       </div>
     )
   },
-  'interactive-grammar-rhyming': ({ seed, doc, variant }) => {
+  'interactive-grammar-rhyming': (ctx) => {
+    const { seed, doc, variant, t } = ctx
     const rng = makeRng(`${seed}|${doc.id}|${variant}`)
     const wordGroups = pickMany(rng, [
       { word: 'cat', rhymes: ['hat', 'bat', 'sat'] },
@@ -4710,7 +4788,8 @@ const renderers: Record<string, Renderer> = {
       </div>
     )
   },
-  'interactive-grammar-capitalization': ({ seed, doc, variant }) => {
+  'interactive-grammar-capitalization': (ctx) => {
+    const { seed, doc, variant, t } = ctx
     const rng = makeRng(`${seed}|${doc.id}|${variant}`)
     const sentences = pickMany(rng, [
       { text: 'i like to play.', correct: 'I like to play.' },
@@ -4742,7 +4821,8 @@ const renderers: Record<string, Renderer> = {
       </div>
     )
   },
-  'interactive-grammar-plurals': ({ seed, doc, variant }) => {
+  'interactive-grammar-plurals': (ctx) => {
+    const { seed, doc, variant, t } = ctx
     const rng = makeRng(`${seed}|${doc.id}|${variant}`)
     const words = pickMany(rng, [
       { singular: 'cat', plural: 'cats', rule: 'add -s' },
@@ -4786,7 +4866,8 @@ const renderers: Record<string, Renderer> = {
       </div>
     )
   },
-  'interactive-art-shapes': ({ seed, doc, variant }) => {
+  'interactive-art-shapes': (ctx) => {
+    const { seed, doc, variant, t } = ctx
     const rng = makeRng(`${seed}|${doc.id}|${variant}`)
     const shapes = pickMany(rng, ['circle', 'square', 'triangle', 'rectangle', 'star', 'heart'], 6)
     return (
@@ -4813,7 +4894,8 @@ const renderers: Record<string, Renderer> = {
       </div>
     )
   },
-  'interactive-art-patterns': ({ seed, doc, variant }) => {
+  'interactive-art-patterns': (ctx) => {
+    const { seed, doc, variant, t } = ctx
     const rng = makeRng(`${seed}|${doc.id}|${variant}`)
     const patternTypes = pickMany(rng, ['AB', 'ABC', 'AAB', 'ABB'], 3)
     return (
@@ -4843,7 +4925,8 @@ const renderers: Record<string, Renderer> = {
       </div>
     )
   },
-  'interactive-art-perspective': ({ seed, doc, variant }) => {
+  'interactive-art-perspective': (ctx) => {
+    const { seed, doc, variant, t } = ctx
     const rng = makeRng(`${seed}|${doc.id}|${variant}`)
     const techniques = pickMany(rng, ['perspective', 'shading', 'texture', 'composition'], 4)
     return (
@@ -4863,7 +4946,8 @@ const renderers: Record<string, Renderer> = {
       </div>
     )
   },
-  'interactive-art-color-by-number': ({ seed, doc, variant }) => {
+  'interactive-art-color-by-number': (ctx) => {
+    const { seed, doc, variant, t } = ctx
     const rng = makeRng(`${seed}|${doc.id}|${variant}`)
     const colorCodes = [
       { num: 1, color: 'red', emoji: '🔴', bgColor: 'bg-red-500' },
@@ -4941,7 +5025,8 @@ const renderers: Record<string, Renderer> = {
       </div>
     )
   },
-  'interactive-art-doodle': ({ seed, doc, variant }) => {
+  'interactive-art-doodle': (ctx) => {
+    const { seed, doc, variant, t } = ctx
     const rng = makeRng(`${seed}|${doc.id}|${variant}`)
     const prompts = pickMany(rng, [
       'Doodle your favorite animal',
@@ -4970,7 +5055,8 @@ const renderers: Record<string, Renderer> = {
       </div>
     )
   },
-  'interactive-art-seasonal': ({ seed, doc, variant }) => {
+  'interactive-art-seasonal': (ctx) => {
+    const { seed, doc, variant, t } = ctx
     const rng = makeRng(`${seed}|${doc.id}|${variant}`)
     const seasons = pickMany(rng, [
       { name: 'Spring', themes: ['flowers', 'butterflies', 'rainbows'], emoji: '🌸' },
@@ -5002,7 +5088,8 @@ const renderers: Record<string, Renderer> = {
       </div>
     )
   },
-  'interactive-art-comic': ({ seed, doc, variant }) => {
+  'interactive-art-comic': (ctx) => {
+    const { seed, doc, variant, t } = ctx
     const rng = makeRng(`${seed}|${doc.id}|${variant}`)
     const panelCount = pick(rng, [3, 4, 6])
     const themes = pickMany(rng, ['adventure', 'friendship', 'superhero', 'animals', 'school'], 1)
@@ -5036,7 +5123,8 @@ const renderers: Record<string, Renderer> = {
       </div>
     )
   },
-  'interactive-art-critique': ({ seed, doc, variant }) => {
+  'interactive-art-critique': (ctx) => {
+    const { seed, doc, variant, t } = ctx
     const rng = makeRng(`${seed}|${doc.id}|${variant}`)
     const artElements = pickMany(rng, ['line', 'color', 'shape', 'texture', 'space', 'form'], 4)
     return (
@@ -5063,7 +5151,8 @@ const renderers: Record<string, Renderer> = {
       </div>
     )
   },
-  'interactive-logic-matching': ({ seed, doc, variant }) => {
+  'interactive-logic-matching': (ctx) => {
+    const { seed, doc, variant, t } = ctx
     const rng = makeRng(`${seed}|${doc.id}|${variant}`)
     const pairs = pickMany(rng, [
       { item1: 'apple', item2: 'fruit' },
@@ -5095,7 +5184,8 @@ const renderers: Record<string, Renderer> = {
       </div>
     )
   },
-  'interactive-logic-classification': ({ seed, doc, variant }) => {
+  'interactive-logic-classification': (ctx) => {
+    const { seed, doc, variant, t } = ctx
     const rng = makeRng(`${seed}|${doc.id}|${variant}`)
     const categories = pickMany(rng, [
       { name: 'Animals', items: ['dog', 'cat', 'bird'] },
@@ -5121,7 +5211,8 @@ const renderers: Record<string, Renderer> = {
       </div>
     )
   },
-  'interactive-logic-analogies': ({ seed, doc, variant }) => {
+  'interactive-logic-analogies': (ctx) => {
+    const { seed, doc, variant, t } = ctx
     const rng = makeRng(`${seed}|${doc.id}|${variant}`)
     const analogies = pickMany(rng, [
       { first: 'cat', second: 'kitten', third: 'dog', answer: 'puppy' },
@@ -5151,7 +5242,8 @@ const renderers: Record<string, Renderer> = {
       </div>
     )
   },
-  'interactive-sel-friendship': ({ seed, doc, variant }) => {
+  'interactive-sel-friendship': (ctx) => {
+    const { seed, doc, variant, t } = ctx
     const rng = makeRng(`${seed}|${doc.id}|${variant}`)
     const scenarios = pickMany(rng, [
       { situation: 'A new student joins your class', action: 'introduce yourself' },
@@ -5182,7 +5274,8 @@ const renderers: Record<string, Renderer> = {
       </div>
     )
   },
-  'interactive-sel-gratitude': ({ seed, doc, variant }) => {
+  'interactive-sel-gratitude': (ctx) => {
+    const { seed, doc, variant, t } = ctx
     const rng = makeRng(`${seed}|${doc.id}|${variant}`)
     const prompts = pickMany(rng, [
       'Something I am thankful for',
