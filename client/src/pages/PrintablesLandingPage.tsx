@@ -1009,7 +1009,7 @@ export function PrintablesLandingPage() {
         </section>
 
         <section className="text-xs text-slate-500">
-          <p className="print:hidden">Tip: Use your browser menu → Print → Save as PDF.</p>
+          <p className="print:hidden">{t('common.printTip', 'Tip: Use your browser menu → Print → Save as PDF.')}</p>
         </section>
           </div>
         </div>

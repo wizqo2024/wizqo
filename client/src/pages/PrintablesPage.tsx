@@ -30604,7 +30604,7 @@ export function PrintablesPage() {
         })()}
 
         <footer className="text-center text-slate-500 text-xs print:hidden">
-          Tip: Use your browser menu → Print → Save as PDF.
+          {t('common.printTip', 'Tip: Use your browser menu → Print → Save as PDF.')}
         </footer>
       </div>
     </div>
