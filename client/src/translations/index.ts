@@ -1417,6 +1417,171 @@ const ensureAdditionSubtraction010Keys = () => {
   }
 }
 
+// Ensure number-id-1-10 worksheet keys are present
+const ensureNumberId110Keys = () => {
+  // Define the keys directly to prevent tree-shaking - hardcode the full structure
+  const numberIdKeys = {
+    en: {
+      'number-id-1-10': {
+        title: 'Number Identification 1–10',
+        description: 'Find and circle all the number {{number}}s.',
+        instruction: 'Find and circle all the {{number}}s',
+        objective1: 'Identify and recognize numbers 1-10',
+        objective2: 'Find specific numbers in a group',
+        objective3: 'Develop visual discrimination skills',
+        objective4: 'Build number recognition and attention to detail',
+        tip1: 'Encourage students to look carefully at each number',
+        tip2: 'Help students recognize the shape of the target number',
+        tip3: 'Practice saying the number name as they find it',
+        tip4: 'Extension: Try finding numbers in different fonts or sizes',
+        example: {
+          title: '📚 Example - Let\'s solve this together:',
+          problem: 'Problem:',
+          problemText: 'Find and circle all the {{number}}s',
+          step1: 'Step 1:',
+          step1Text: 'Look at each number carefully',
+          step2: 'Step 2:',
+          step2Text: 'Find numbers that look like the target number',
+          step3: 'Step 3:',
+          step3Text: 'Circle each matching number you find',
+          answer: 'Answer:',
+          answerText: 'Circle all the matching numbers',
+          tip: '💡 Tip: Look carefully at each number and match it to the target number!',
+        },
+        challenge: {
+          title: '🌟 Challenge Yourself (Optional):',
+          '1': 'Can you find numbers around your house? Look for numbers on clocks, calendars, or books',
+          '2': 'Write your own number grid and have someone find a specific number',
+          '3': 'Try finding numbers in different styles or fonts',
+        },
+        selfCheck: {
+          title: '📊 How did you do?',
+          canIdentify: 'I can identify numbers 1-10',
+          found: 'I found all the {{number}}s',
+          circled: 'I circled {{count}} {{number}}s correctly',
+          score: 'My score:',
+          hardest: 'What was hardest?',
+        },
+        answer: {
+          text: 'Circle all {{number}}s.',
+          found: 'Found: {{count}} instances.',
+          remember: '💡 Remember: Look carefully at each number and match it to the target number {{number}}. Circle all instances you find!',
+        },
+      },
+    },
+    es: {
+      'number-id-1-10': {
+        title: 'Identificación de Números 1–10',
+        description: 'Encuentra y encierra en un círculo todos los números {{number}}.',
+        instruction: 'Encuentra y encierra en un círculo todos los {{number}}',
+        objective1: 'Identificar y reconocer números 1-10',
+        objective2: 'Encontrar números específicos en un grupo',
+        objective3: 'Desarrollar habilidades de discriminación visual',
+        objective4: 'Desarrollar reconocimiento de números y atención al detalle',
+        tip1: 'Anima a los estudiantes a mirar cuidadosamente cada número',
+        tip2: 'Ayuda a los estudiantes a reconocer la forma del número objetivo',
+        tip3: 'Practica diciendo el nombre del número mientras lo encuentran',
+        tip4: 'Extensión: Intenta encontrar números en diferentes fuentes o tamaños',
+        example: {
+          title: '📚 Ejemplo - Resolvamos esto juntos:',
+          problem: 'Problema:',
+          problemText: 'Encuentra y encierra en un círculo todos los {{number}}',
+          step1: 'Paso 1:',
+          step1Text: 'Mira cuidadosamente cada número',
+          step2: 'Paso 2:',
+          step2Text: 'Encuentra números que se parezcan al número objetivo',
+          step3: 'Paso 3:',
+          step3Text: 'Encierra en un círculo cada número coincidente que encuentres',
+          answer: 'Respuesta:',
+          answerText: 'Encierra en un círculo todos los números coincidentes',
+          tip: '💡 Consejo: ¡Mira cuidadosamente cada número y compáralo con el número objetivo!',
+        },
+        challenge: {
+          title: '🌟 Desafíate (Opcional):',
+          '1': '¿Puedes encontrar números alrededor de tu casa? Busca números en relojes, calendarios o libros',
+          '2': 'Escribe tu propia cuadrícula de números y pídele a alguien que encuentre un número específico',
+          '3': 'Intenta encontrar números en diferentes estilos o fuentes',
+        },
+        selfCheck: {
+          title: '📊 ¿Cómo lo hiciste?',
+          canIdentify: 'Puedo identificar números 1-10',
+          found: 'Encontré todos los {{number}}',
+          circled: 'Encerré en un círculo {{count}} {{number}} correctamente',
+          score: 'Mi puntuación:',
+          hardest: '¿Qué fue lo más difícil?',
+        },
+        answer: {
+          text: 'Encierra en un círculo todos los {{number}}.',
+          found: 'Encontrados: {{count}} instancias.',
+          remember: '💡 Recuerda: ¡Mira cuidadosamente cada número y compáralo con el número objetivo {{number}}. Encierra en un círculo todas las instancias que encuentres!',
+        },
+      },
+    },
+    ar: {
+      'number-id-1-10': {
+        title: 'تحديد الأرقام ١–١٠',
+        description: 'ابحث وأحط دائرة حول جميع الأرقام {{number}}.',
+        instruction: 'ابحث وأحط دائرة حول جميع الأرقام {{number}}',
+        objective1: 'تحديد والتعرف على الأرقام ١-١٠',
+        objective2: 'العثور على أرقام محددة في مجموعة',
+        objective3: 'تطوير مهارات التمييز البصري',
+        objective4: 'بناء التعرف على الأرقام والانتباه للتفاصيل',
+        tip1: 'شجع الطلاب على النظر بعناية إلى كل رقم',
+        tip2: 'ساعد الطلاب على التعرف على شكل الرقم المستهدف',
+        tip3: 'تدرب على نطق اسم الرقم أثناء العثور عليه',
+        tip4: 'امتداد: جرب العثور على أرقام بخطوط أو أحجام مختلفة',
+        example: {
+          title: '📚 مثال - دعنا نحل هذا معاً:',
+          problem: 'المسألة:',
+          problemText: 'ابحث وأحط دائرة حول جميع الأرقام {{number}}',
+          step1: 'الخطوة ١:',
+          step1Text: 'انظر بعناية إلى كل رقم',
+          step2: 'الخطوة ٢:',
+          step2Text: 'ابحث عن أرقام تشبه الرقم المستهدف',
+          step3: 'الخطوة ٣:',
+          step3Text: 'أحط دائرة حول كل رقم مطابق تجده',
+          answer: 'الإجابة:',
+          answerText: 'أحط دائرة حول جميع الأرقام المطابقة',
+          tip: '💡 نصيحة: انظر بعناية إلى كل رقم وطابقه مع الرقم المستهدف!',
+        },
+        challenge: {
+          title: '🌟 تحدّ نفسك (اختياري):',
+          '1': 'هل يمكنك العثور على أرقام حول منزلك؟ ابحث عن أرقام على الساعات أو التقويمات أو الكتب',
+          '2': 'اكتب شبكة أرقام خاصة بك واطلب من شخص ما العثور على رقم محدد',
+          '3': 'جرب العثور على أرقام بخطوط أو أنماط مختلفة',
+        },
+        selfCheck: {
+          title: '📊 كيف كان أداؤك؟',
+          canIdentify: 'يمكنني تحديد الأرقام ١-١٠',
+          found: 'وجدت جميع الأرقام {{number}}',
+          circled: 'أحطت دائرة حول {{count}} رقم {{number}} بشكل صحيح',
+          score: 'نقاطي:',
+          hardest: 'ما كان الأصعب؟',
+        },
+        answer: {
+          text: 'أحط دائرة حول جميع الأرقام {{number}}.',
+          found: 'تم العثور على: {{count}} حالة.',
+          remember: '💡 تذكر: انظر بعناية إلى كل رقم وطابقه مع الرقم المستهدف {{number}}. أحط دائرة حول جميع الحالات التي تجدها!',
+        },
+      },
+    },
+  }
+
+  // Merge into translations object if keys are missing
+  for (const lang of ['en', 'es', 'ar'] as const) {
+    const langTranslations = (translations as any)[lang]
+    if (langTranslations && langTranslations.worksheets) {
+      const worksheets = langTranslations.worksheets
+      const keys = numberIdKeys[lang]
+      
+      // Always merge to ensure complete translations (even if key exists, it might be incomplete due to tree-shaking)
+      if (keys['number-id-1-10']) {
+        worksheets['number-id-1-10'] = keys['number-id-1-10']
+      }
+    }
+  }
+}
+
 // Ensure times-table worksheet keys are present
 const ensureTimesTableWorksheetKeys = () => {
   // Define the keys directly to prevent tree-shaking - hardcode the full structure
