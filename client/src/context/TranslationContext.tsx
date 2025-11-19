@@ -78,11 +78,14 @@ export function TranslationProvider({ children }: { children: ReactNode }) {
     syncLanguageFromURL()
     
     // Also check query parameter immediately after mount (in case it wasn't in initial state)
+    // This ensures the language is set even if the initial state didn't catch it
     React.useEffect(() => {
       if (typeof window !== 'undefined') {
         const params = new URLSearchParams(window.location.search)
         const langParam = params.get('lang')
-        if (langParam && ['en', 'es', 'ar'].includes(langParam) && langParam !== language) {
+        if (langParam && ['en', 'es', 'ar'].includes(langParam)) {
+          // Always set if lang param exists, even if it matches current language
+          // This ensures the language is set correctly on initial load
           setLanguageState(langParam as Language)
           localStorage.setItem('wizqo-language', langParam)
           document.documentElement.dir = isRTL(langParam) ? 'rtl' : 'ltr'
