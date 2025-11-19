@@ -1011,6 +1011,13 @@ function resolveDocTitle(docId: string, context: { packTime: string; bundleCateg
     case 'count-color-1-10':
       return '🔢 Count & Color (1–10)'
     case 'number-id-1-10':
+      // Use translation if available, otherwise fallback to English
+      if (context.t) {
+        const translated = context.t('worksheets.number-id-1-10.title')
+        if (translated && translated !== 'worksheets.number-id-1-10.title') {
+          return `🔟 ${translated}`
+        }
+      }
       return '🔟 Number Identification 1–10'
     case 'number-matching-1-15':
       return '🔟 Number Matching 1–15'
@@ -18571,7 +18578,7 @@ export function PrintablesPage() {
               </div>
               {showAnswersForDoc('number-id-1-10', () => (
                 <div className="mt-6 p-4 border-2 border-emerald-300 bg-emerald-50 rounded print:border print:bg-white print:page-break-before-always">
-                  <div className="font-bold text-emerald-900 mb-3 text-base">{getTrans('worksheets.answerKeyAndNotes', '✅ Answer Key')}</div>
+                  <div className="font-bold text-emerald-900 mb-3 text-base">✅ {getTrans('common.answerKey', 'Answer Key')}</div>
                   <p className="text-sm text-emerald-800 mb-2"><strong>{getTrans('worksheets.number-id-1-10.answer.text', `Circle all ${formattedTarget}s.`).replace(/\{\{number\}\}/g, formattedTarget)}</strong> {getTrans('worksheets.number-id-1-10.answer.found', `Found: ${formattedCount} instances.`).replace(/\{\{count\}\}/g, formattedCount)}</p>
                   <div className="text-xs text-emerald-700 mt-2">{getTrans('worksheets.number-id-1-10.answer.remember', `💡 Remember: Look carefully at each number and match it to the target number ${formattedTarget}. Circle all instances you find!`).replace(/\{\{number\}\}/g, formattedTarget)}</div>
                 </div>
