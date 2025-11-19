@@ -617,6 +617,10 @@ const ensureInteractiveTitleDescriptionKeys = () => {
         title: 'وقت قصة الصور',
         description: 'قصص بسيطة قائمة على الصور مع أسئلة نعم/لا وأنشطة فهم أساسية.',
       },
+      'interactive-reading-sightwords': {
+        title: 'ممارسة كلمات البصر',
+        description: 'تدرب على قراءة وكتابة كلمات البصر الشائعة مع أنشطة ممتعة.',
+      },
       'interactive-science-prek': {
         title: 'مستكشف الطبيعة',
         description: 'أنشطة بسيطة لمراقبة الطبيعة مع الصور والأسئلة الأساسية حول النباتات والحيوانات والطقس.',
