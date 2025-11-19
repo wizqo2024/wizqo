@@ -52,32 +52,252 @@ export default function ReadingComprehensionPage() {
     setSelectedCategories(new Set())
   }
 
-  // Define all worksheets with their categories
-  const allWorksheets: WorksheetItem[] = [
+  // Define all worksheets with their categories - use translations
+  const allWorksheets: WorksheetItem[] = useMemo(() => [
     // Grade 1
-    { title: '📖 The Lost Hat (Grade 1)', description: 'Short passage + 4 questions — print‑ready PDF view.', href: '/print?doc=reading-g1-lost-hat&from=reading-comprehension', docId: 'reading-g1-lost-hat', categories: ['grade-1'], grade: 'Grade 1' },
-    { title: '📖 Lunch for the Ants (Grade 1)', description: 'Short passage + 4 questions — print‑ready PDF view.', href: '/print?doc=reading-g1-ants&from=reading-comprehension', docId: 'reading-g1-ants', categories: ['grade-1'], grade: 'Grade 1' },
-    { title: '📖 The Bus Ride (Grade 1)', description: 'Short passage + 4 questions — print‑ready PDF view.', href: '/print?doc=reading-g1-bus-ride&from=reading-comprehension', docId: 'reading-g1-bus-ride', categories: ['grade-1'], grade: 'Grade 1' },
-    { title: '📖 The Pet Fish (Grade 1)', description: 'Short passage + 4 questions — print‑ready PDF view.', href: '/print?doc=reading-g1-pet-fish&from=reading-comprehension', docId: 'reading-g1-pet-fish', categories: ['grade-1'], grade: 'Grade 1' },
-    { title: '📖 The Red Balloon (Grade 1)', description: 'Short passage + 4 questions — print‑ready PDF view.', href: '/print?doc=reading-g1-red-balloon&from=reading-comprehension', docId: 'reading-g1-red-balloon', categories: ['grade-1'], grade: 'Grade 1' },
-    { title: '📖 The Big Box (Grade 1)', description: 'Short passage + 4 questions — print‑ready PDF view.', href: '/print?doc=reading-g1-big-box&from=reading-comprehension', docId: 'reading-g1-big-box', categories: ['grade-1'], grade: 'Grade 1' },
-    { title: '📖 The Garden Snail (Grade 1)', description: 'Short passage + 4 questions — print‑ready PDF view.', href: '/print?doc=reading-g1-garden-snail&from=reading-comprehension', docId: 'reading-g1-garden-snail', categories: ['grade-1'], grade: 'Grade 1' },
-    { title: '📖 The Birthday Cake (Grade 1)', description: 'Short passage + 4 questions — print‑ready PDF view.', href: '/print?doc=reading-g1-birthday-cake&from=reading-comprehension', docId: 'reading-g1-birthday-cake', categories: ['grade-1'], grade: 'Grade 1' },
+    { 
+      title: t('worksheets.reading-g1-lost-hat.title') !== 'worksheets.reading-g1-lost-hat.title' 
+        ? t('worksheets.reading-g1-lost-hat.title') 
+        : '📖 The Lost Hat (Grade 1)', 
+      description: t('worksheets.reading-g1-lost-hat.description') !== 'worksheets.reading-g1-lost-hat.description'
+        ? t('worksheets.reading-g1-lost-hat.description')
+        : 'Short passage + 4 questions — print‑ready PDF view.', 
+      href: '/print?doc=reading-g1-lost-hat&from=reading-comprehension', 
+      docId: 'reading-g1-lost-hat', 
+      categories: ['grade-1'], 
+      grade: 'Grade 1' 
+    },
+    { 
+      title: t('worksheets.reading-g1-ants.title') !== 'worksheets.reading-g1-ants.title' 
+        ? t('worksheets.reading-g1-ants.title') 
+        : '📖 Lunch for the Ants (Grade 1)', 
+      description: t('worksheets.reading-g1-ants.description') !== 'worksheets.reading-g1-ants.description'
+        ? t('worksheets.reading-g1-ants.description')
+        : 'Short passage + 4 questions — print‑ready PDF view.', 
+      href: '/print?doc=reading-g1-ants&from=reading-comprehension', 
+      docId: 'reading-g1-ants', 
+      categories: ['grade-1'], 
+      grade: 'Grade 1' 
+    },
+    { 
+      title: t('worksheets.reading-g1-bus-ride.title') !== 'worksheets.reading-g1-bus-ride.title' 
+        ? t('worksheets.reading-g1-bus-ride.title') 
+        : '📖 The Bus Ride (Grade 1)', 
+      description: t('worksheets.reading-g1-bus-ride.description') !== 'worksheets.reading-g1-bus-ride.description'
+        ? t('worksheets.reading-g1-bus-ride.description')
+        : 'Short passage + 4 questions — print‑ready PDF view.', 
+      href: '/print?doc=reading-g1-bus-ride&from=reading-comprehension', 
+      docId: 'reading-g1-bus-ride', 
+      categories: ['grade-1'], 
+      grade: 'Grade 1' 
+    },
+    { 
+      title: t('worksheets.reading-g1-pet-fish.title') !== 'worksheets.reading-g1-pet-fish.title' 
+        ? t('worksheets.reading-g1-pet-fish.title') 
+        : '📖 The Pet Fish (Grade 1)', 
+      description: t('worksheets.reading-g1-pet-fish.description') !== 'worksheets.reading-g1-pet-fish.description'
+        ? t('worksheets.reading-g1-pet-fish.description')
+        : 'Short passage + 4 questions — print‑ready PDF view.', 
+      href: '/print?doc=reading-g1-pet-fish&from=reading-comprehension', 
+      docId: 'reading-g1-pet-fish', 
+      categories: ['grade-1'], 
+      grade: 'Grade 1' 
+    },
+    { 
+      title: t('worksheets.reading-g1-red-balloon.title') !== 'worksheets.reading-g1-red-balloon.title' 
+        ? t('worksheets.reading-g1-red-balloon.title') 
+        : '📖 The Red Balloon (Grade 1)', 
+      description: t('worksheets.reading-g1-red-balloon.description') !== 'worksheets.reading-g1-red-balloon.description'
+        ? t('worksheets.reading-g1-red-balloon.description')
+        : 'Short passage + 4 questions — print‑ready PDF view.', 
+      href: '/print?doc=reading-g1-red-balloon&from=reading-comprehension', 
+      docId: 'reading-g1-red-balloon', 
+      categories: ['grade-1'], 
+      grade: 'Grade 1' 
+    },
+    { 
+      title: t('worksheets.reading-g1-big-box.title') !== 'worksheets.reading-g1-big-box.title' 
+        ? t('worksheets.reading-g1-big-box.title') 
+        : '📖 The Big Box (Grade 1)', 
+      description: t('worksheets.reading-g1-big-box.description') !== 'worksheets.reading-g1-big-box.description'
+        ? t('worksheets.reading-g1-big-box.description')
+        : 'Short passage + 4 questions — print‑ready PDF view.', 
+      href: '/print?doc=reading-g1-big-box&from=reading-comprehension', 
+      docId: 'reading-g1-big-box', 
+      categories: ['grade-1'], 
+      grade: 'Grade 1' 
+    },
+    { 
+      title: t('worksheets.reading-g1-garden-snail.title') !== 'worksheets.reading-g1-garden-snail.title' 
+        ? t('worksheets.reading-g1-garden-snail.title') 
+        : '📖 The Garden Snail (Grade 1)', 
+      description: t('worksheets.reading-g1-garden-snail.description') !== 'worksheets.reading-g1-garden-snail.description'
+        ? t('worksheets.reading-g1-garden-snail.description')
+        : 'Short passage + 4 questions — print‑ready PDF view.', 
+      href: '/print?doc=reading-g1-garden-snail&from=reading-comprehension', 
+      docId: 'reading-g1-garden-snail', 
+      categories: ['grade-1'], 
+      grade: 'Grade 1' 
+    },
+    { 
+      title: t('worksheets.reading-g1-birthday-cake.title') !== 'worksheets.reading-g1-birthday-cake.title' 
+        ? t('worksheets.reading-g1-birthday-cake.title') 
+        : '📖 The Birthday Cake (Grade 1)', 
+      description: t('worksheets.reading-g1-birthday-cake.description') !== 'worksheets.reading-g1-birthday-cake.description'
+        ? t('worksheets.reading-g1-birthday-cake.description')
+        : 'Short passage + 4 questions — print‑ready PDF view.', 
+      href: '/print?doc=reading-g1-birthday-cake&from=reading-comprehension', 
+      docId: 'reading-g1-birthday-cake', 
+      categories: ['grade-1'], 
+      grade: 'Grade 1' 
+    },
     // Grade 2
-    { title: '📖 The Paper Bridge (Grade 2)', description: 'Short passage + questions — open to print‑ready PDF view.', href: '/print?doc=reading-g2-paper-bridge&from=reading-comprehension', docId: 'reading-g2-paper-bridge', categories: ['grade-2'], grade: 'Grade 2' },
-    { title: '📖 Rainy Day Garden (Grade 2)', description: 'Short passage + questions — open to print‑ready PDF view.', href: '/print?doc=reading-g2-rainy-garden&from=reading-comprehension', docId: 'reading-g2-rainy-garden', categories: ['grade-2'], grade: 'Grade 2' },
-    { title: '📖 New Library Card (Grade 2)', description: 'Short passage + questions — open to print‑ready PDF view.', href: '/print?doc=reading-g2-library-card&from=reading-comprehension', docId: 'reading-g2-library-card', categories: ['grade-2'], grade: 'Grade 2' },
-    { title: '📖 Lost and Found (Grade 2)', description: 'Short passage + questions — open to print‑ready PDF view.', href: '/print?doc=reading-g2-lost-and-found&from=reading-comprehension', docId: 'reading-g2-lost-and-found', categories: ['grade-2'], grade: 'Grade 2' },
-    { title: '📖 The Bird Feeder (Grade 2)', description: 'Short passage + questions — open to print‑ready PDF view.', href: '/print?doc=reading-g2-bird-feeder&from=reading-comprehension', docId: 'reading-g2-bird-feeder', categories: ['grade-2'], grade: 'Grade 2' },
-    { title: '📖 The Cookie Recipe (Grade 2)', description: 'Short passage + questions — open to print‑ready PDF view.', href: '/print?doc=reading-g2-cookie-recipe&from=reading-comprehension', docId: 'reading-g2-cookie-recipe', categories: ['grade-2'], grade: 'Grade 2' },
-    { title: '📖 The Tree House (Grade 2)', description: 'Short passage + questions — open to print‑ready PDF view.', href: '/print?doc=reading-g2-tree-house&from=reading-comprehension', docId: 'reading-g2-tree-house', categories: ['grade-2'], grade: 'Grade 2' },
+    { 
+      title: t('worksheets.reading-g2-paper-bridge.title') !== 'worksheets.reading-g2-paper-bridge.title' 
+        ? t('worksheets.reading-g2-paper-bridge.title') 
+        : '📖 The Paper Bridge (Grade 2)', 
+      description: t('worksheets.reading-g2-paper-bridge.description') !== 'worksheets.reading-g2-paper-bridge.description'
+        ? t('worksheets.reading-g2-paper-bridge.description')
+        : 'Short passage + questions — open to print‑ready PDF view.', 
+      href: '/print?doc=reading-g2-paper-bridge&from=reading-comprehension', 
+      docId: 'reading-g2-paper-bridge', 
+      categories: ['grade-2'], 
+      grade: 'Grade 2' 
+    },
+    { 
+      title: t('worksheets.reading-g2-rainy-garden.title') !== 'worksheets.reading-g2-rainy-garden.title' 
+        ? t('worksheets.reading-g2-rainy-garden.title') 
+        : '📖 Rainy Day Garden (Grade 2)', 
+      description: t('worksheets.reading-g2-rainy-garden.description') !== 'worksheets.reading-g2-rainy-garden.description'
+        ? t('worksheets.reading-g2-rainy-garden.description')
+        : 'Short passage + questions — open to print‑ready PDF view.', 
+      href: '/print?doc=reading-g2-rainy-garden&from=reading-comprehension', 
+      docId: 'reading-g2-rainy-garden', 
+      categories: ['grade-2'], 
+      grade: 'Grade 2' 
+    },
+    { 
+      title: t('worksheets.reading-g2-library-card.title') !== 'worksheets.reading-g2-library-card.title' 
+        ? t('worksheets.reading-g2-library-card.title') 
+        : '📖 New Library Card (Grade 2)', 
+      description: t('worksheets.reading-g2-library-card.description') !== 'worksheets.reading-g2-library-card.description'
+        ? t('worksheets.reading-g2-library-card.description')
+        : 'Short passage + questions — open to print‑ready PDF view.', 
+      href: '/print?doc=reading-g2-library-card&from=reading-comprehension', 
+      docId: 'reading-g2-library-card', 
+      categories: ['grade-2'], 
+      grade: 'Grade 2' 
+    },
+    { 
+      title: t('worksheets.reading-g2-lost-and-found.title') !== 'worksheets.reading-g2-lost-and-found.title' 
+        ? t('worksheets.reading-g2-lost-and-found.title') 
+        : '📖 Lost and Found (Grade 2)', 
+      description: t('worksheets.reading-g2-lost-and-found.description') !== 'worksheets.reading-g2-lost-and-found.description'
+        ? t('worksheets.reading-g2-lost-and-found.description')
+        : 'Short passage + questions — open to print‑ready PDF view.', 
+      href: '/print?doc=reading-g2-lost-and-found&from=reading-comprehension', 
+      docId: 'reading-g2-lost-and-found', 
+      categories: ['grade-2'], 
+      grade: 'Grade 2' 
+    },
+    { 
+      title: t('worksheets.reading-g2-bird-feeder.title') !== 'worksheets.reading-g2-bird-feeder.title' 
+        ? t('worksheets.reading-g2-bird-feeder.title') 
+        : '📖 The Bird Feeder (Grade 2)', 
+      description: t('worksheets.reading-g2-bird-feeder.description') !== 'worksheets.reading-g2-bird-feeder.description'
+        ? t('worksheets.reading-g2-bird-feeder.description')
+        : 'Short passage + questions — open to print‑ready PDF view.', 
+      href: '/print?doc=reading-g2-bird-feeder&from=reading-comprehension', 
+      docId: 'reading-g2-bird-feeder', 
+      categories: ['grade-2'], 
+      grade: 'Grade 2' 
+    },
+    { 
+      title: t('worksheets.reading-g2-cookie-recipe.title') !== 'worksheets.reading-g2-cookie-recipe.title' 
+        ? t('worksheets.reading-g2-cookie-recipe.title') 
+        : '📖 The Cookie Recipe (Grade 2)', 
+      description: t('worksheets.reading-g2-cookie-recipe.description') !== 'worksheets.reading-g2-cookie-recipe.description'
+        ? t('worksheets.reading-g2-cookie-recipe.description')
+        : 'Short passage + questions — open to print‑ready PDF view.', 
+      href: '/print?doc=reading-g2-cookie-recipe&from=reading-comprehension', 
+      docId: 'reading-g2-cookie-recipe', 
+      categories: ['grade-2'], 
+      grade: 'Grade 2' 
+    },
+    { 
+      title: t('worksheets.reading-g2-tree-house.title') !== 'worksheets.reading-g2-tree-house.title' 
+        ? t('worksheets.reading-g2-tree-house.title') 
+        : '📖 The Tree House (Grade 2)', 
+      description: t('worksheets.reading-g2-tree-house.description') !== 'worksheets.reading-g2-tree-house.description'
+        ? t('worksheets.reading-g2-tree-house.description')
+        : 'Short passage + questions — open to print‑ready PDF view.', 
+      href: '/print?doc=reading-g2-tree-house&from=reading-comprehension', 
+      docId: 'reading-g2-tree-house', 
+      categories: ['grade-2'], 
+      grade: 'Grade 2' 
+    },
     // Grade 3
-    { title: '📖 The Lighthouse Keeper\'s Trick (Grade 3)', description: 'Short passage + Q&A — open print‑ready PDF view.', href: '/print?doc=reading-g3-lighthouse&from=reading-comprehension', docId: 'reading-g3-lighthouse', categories: ['grade-3'], grade: 'Grade 3' },
-    { title: '📖 The Science Fair Plan (Grade 3)', description: 'Short passage + Q&A — open print‑ready PDF view.', href: '/print?doc=reading-g3-science-fair&from=reading-comprehension', docId: 'reading-g3-science-fair', categories: ['grade-3'], grade: 'Grade 3' },
-    { title: '📖 The Community Garden (Grade 3)', description: 'Short passage + Q&A — open print‑ready PDF view.', href: '/print?doc=reading-g3-community-garden&from=reading-comprehension', docId: 'reading-g3-community-garden', categories: ['grade-3'], grade: 'Grade 3' },
-    { title: '📖 The School Play (Grade 3)', description: 'Short passage + Q&A — open print‑ready PDF view.', href: '/print?doc=reading-g3-school-play&from=reading-comprehension', docId: 'reading-g3-school-play', categories: ['grade-3'], grade: 'Grade 3' },
-    { title: '📖 The Art Project (Grade 3)', description: 'Short passage + Q&A — open print‑ready PDF view.', href: '/print?doc=reading-g3-art-project&from=reading-comprehension', docId: 'reading-g3-art-project', categories: ['grade-3'], grade: 'Grade 3' },
-  ]
+    { 
+      title: t('worksheets.reading-g3-lighthouse.title') !== 'worksheets.reading-g3-lighthouse.title' 
+        ? t('worksheets.reading-g3-lighthouse.title') 
+        : '📖 The Lighthouse Keeper\'s Trick (Grade 3)', 
+      description: t('worksheets.reading-g3-lighthouse.description') !== 'worksheets.reading-g3-lighthouse.description'
+        ? t('worksheets.reading-g3-lighthouse.description')
+        : 'Short passage + Q&A — open print‑ready PDF view.', 
+      href: '/print?doc=reading-g3-lighthouse&from=reading-comprehension', 
+      docId: 'reading-g3-lighthouse', 
+      categories: ['grade-3'], 
+      grade: 'Grade 3' 
+    },
+    { 
+      title: t('worksheets.reading-g3-science-fair.title') !== 'worksheets.reading-g3-science-fair.title' 
+        ? t('worksheets.reading-g3-science-fair.title') 
+        : '📖 The Science Fair Plan (Grade 3)', 
+      description: t('worksheets.reading-g3-science-fair.description') !== 'worksheets.reading-g3-science-fair.description'
+        ? t('worksheets.reading-g3-science-fair.description')
+        : 'Short passage + Q&A — open print‑ready PDF view.', 
+      href: '/print?doc=reading-g3-science-fair&from=reading-comprehension', 
+      docId: 'reading-g3-science-fair', 
+      categories: ['grade-3'], 
+      grade: 'Grade 3' 
+    },
+    { 
+      title: t('worksheets.reading-g3-community-garden.title') !== 'worksheets.reading-g3-community-garden.title' 
+        ? t('worksheets.reading-g3-community-garden.title') 
+        : '📖 The Community Garden (Grade 3)', 
+      description: t('worksheets.reading-g3-community-garden.description') !== 'worksheets.reading-g3-community-garden.description'
+        ? t('worksheets.reading-g3-community-garden.description')
+        : 'Short passage + Q&A — open print‑ready PDF view.', 
+      href: '/print?doc=reading-g3-community-garden&from=reading-comprehension', 
+      docId: 'reading-g3-community-garden', 
+      categories: ['grade-3'], 
+      grade: 'Grade 3' 
+    },
+    { 
+      title: t('worksheets.reading-g3-school-play.title') !== 'worksheets.reading-g3-school-play.title' 
+        ? t('worksheets.reading-g3-school-play.title') 
+        : '📖 The School Play (Grade 3)', 
+      description: t('worksheets.reading-g3-school-play.description') !== 'worksheets.reading-g3-school-play.description'
+        ? t('worksheets.reading-g3-school-play.description')
+        : 'Short passage + Q&A — open print‑ready PDF view.', 
+      href: '/print?doc=reading-g3-school-play&from=reading-comprehension', 
+      docId: 'reading-g3-school-play', 
+      categories: ['grade-3'], 
+      grade: 'Grade 3' 
+    },
+    { 
+      title: t('worksheets.reading-g3-art-project.title') !== 'worksheets.reading-g3-art-project.title' 
+        ? t('worksheets.reading-g3-art-project.title') 
+        : '📖 The Art Project (Grade 3)', 
+      description: t('worksheets.reading-g3-art-project.description') !== 'worksheets.reading-g3-art-project.description'
+        ? t('worksheets.reading-g3-art-project.description')
+        : 'Short passage + Q&A — open print‑ready PDF view.', 
+      href: '/print?doc=reading-g3-art-project&from=reading-comprehension', 
+      docId: 'reading-g3-art-project', 
+      categories: ['grade-3'], 
+      grade: 'Grade 3' 
+    },
+  ], [t])
 
   // Filter worksheets based on selected categories
   const filteredWorksheets = useMemo(() => {
