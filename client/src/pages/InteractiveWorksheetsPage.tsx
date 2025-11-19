@@ -597,7 +597,7 @@ function useFaqSchema(t: (key: string) => string) {
 }
 
 export function InteractiveWorksheetsPage() {
-  const { t, isRTL } = useTranslation()
+  const { t, isRTL, language } = useTranslation()
   useFaqSchema(t)
   const [filters, setFilters] = React.useState<FiltersState>(() => parseInitialFilters())
   const [pack, setPack] = React.useState<InteractiveWorksheetPack | null>(null)
