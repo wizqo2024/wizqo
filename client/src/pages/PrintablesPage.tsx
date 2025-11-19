@@ -1877,7 +1877,7 @@ export function PrintablesPage() {
           </div>
           <div>
             <h1 className="text-2xl font-extrabold text-slate-900">{docTitle}</h1>
-            <p className="text-slate-600 mt-2 print:mt-1 text-sm">Print these kid‑friendly activities. Use your browser’s Print → Save as PDF to download.</p>
+            <p className="text-slate-600 mt-2 print:mt-1 text-sm">{t('pages.printables.printInstructions')}</p>
           </div>
           <div className="flex items-center gap-3">
             <a
