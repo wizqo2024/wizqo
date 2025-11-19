@@ -63,6 +63,9 @@ const ensureWorksheetKeys = () => {
   
   // Then, ensure math-maze worksheet keys
   ensureMathMazeKeys()
+  
+  // Then, ensure number-tracing-1-20 worksheet keys
+  ensureNumberTracing120Keys()
 }
 
 const ensureInteractiveWorksheetKeys = () => {
@@ -998,6 +1001,210 @@ const ensureMathMazeKeys = () => {
       // Only merge if keys are missing (to avoid overwriting if they exist)
       if (keys['math-maze'] && !worksheets['math-maze']) {
         worksheets['math-maze'] = keys['math-maze']
+      }
+    }
+  }
+}
+
+// Ensure number-tracing-1-20 worksheet keys are present
+const ensureNumberTracing120Keys = () => {
+  // Define the keys directly to prevent tree-shaking - hardcode the full structure
+  const numberTracingKeys = {
+    en: {
+      'number-tracing-1-20': {
+        title: 'Trace Numbers 1–20',
+        description: 'Start‑point arrows included. Say each number while tracing; then color one object for each number.',
+        learningObjectives: [
+          'Recognize and write numbers 1–20',
+          'Practice fine motor skills (tracing)',
+          'Follow directional arrows',
+          'Build number recognition and formation',
+        ],
+        parentTeacherTips: [
+          'Start at the red dot and follow the arrow',
+          'Say the number name while tracing',
+          'Encourage proper pencil grip',
+          'Color one object for each number after tracing',
+          'Extension: Practice writing numbers without tracing lines',
+        ],
+        example: {
+          title: '📚 Example - Let\'s solve this together:',
+          number: 'Number:',
+          numberValue: '15',
+          step1: 'Step 1:',
+          step1Text: 'Find the red dot (start point)',
+          step2: 'Step 2:',
+          step2Text: 'Follow the arrow direction',
+          step3: 'Step 3:',
+          step3Text: 'Trace along the dashed line',
+          step4: 'Step 4:',
+          step4Text: 'Say "fifteen" while tracing',
+          answer: 'Answer:',
+          answerText: 'Trace the number 15 following the dashed line, starting at the red dot',
+          tip: '💡 Tip: Always start at the red dot and follow the arrow. Say the number name as you trace!',
+        },
+        challenge: {
+          title: '🌟 More Fun (Optional):',
+          items: [
+            'Try writing the numbers 1–20 without tracing lines',
+            'Count objects around you: How many can you find of each number?',
+            'Draw your own numbers and trace them!',
+          ],
+        },
+        selfAssessment: {
+          title: '📊 How did you do?',
+          items: [
+            'I can recognize numbers 1–20',
+            'I can trace numbers following the lines',
+            'I can say the number names',
+          ],
+          score: 'My score:',
+          scoreFormat: '___ / 20',
+          hardest: 'What was hardest?',
+        },
+        answerKey: {
+          title: '✅ Answer Key',
+          instruction: 'Trace each number following the dashed lines. Start at the red dot and follow the arrow direction.',
+          numbersToTrace: 'Numbers to trace:',
+          numbersList: '1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20',
+          remember: '💡 Remember: Always start at the red dot, follow the arrow, and say the number name as you trace!',
+        },
+      },
+    },
+    es: {
+      'number-tracing-1-20': {
+        title: 'Trazar Números 1–20',
+        description: 'Flechas de punto de inicio incluidas. Di cada número mientras trazas; luego colorea un objeto por cada número.',
+        learningObjectives: [
+          'Reconocer y escribir números del 1 al 20',
+          'Practicar habilidades motoras finas (trazado)',
+          'Seguir flechas direccionales',
+          'Desarrollar reconocimiento y formación de números',
+        ],
+        parentTeacherTips: [
+          'Comienza en el punto rojo y sigue la flecha',
+          'Di el nombre del número mientras trazas',
+          'Anima a usar el agarre correcto del lápiz',
+          'Colorea un objeto por cada número después de trazar',
+          'Extensión: Practica escribiendo números sin líneas de trazado',
+        ],
+        example: {
+          title: '📚 Ejemplo - Resolvamos esto juntos:',
+          number: 'Número:',
+          numberValue: '15',
+          step1: 'Paso 1:',
+          step1Text: 'Encuentra el punto rojo (punto de inicio)',
+          step2: 'Paso 2:',
+          step2Text: 'Sigue la dirección de la flecha',
+          step3: 'Paso 3:',
+          step3Text: 'Traza a lo largo de la línea punteada',
+          step4: 'Paso 4:',
+          step4Text: 'Di "quince" mientras trazas',
+          answer: 'Respuesta:',
+          answerText: 'Traza el número 15 siguiendo la línea punteada, comenzando en el punto rojo',
+          tip: '💡 Consejo: ¡Siempre comienza en el punto rojo y sigue la flecha. Di el nombre del número mientras trazas!',
+        },
+        challenge: {
+          title: '🌟 Más Diversión (Opcional):',
+          items: [
+            'Intenta escribir los números del 1 al 20 sin líneas de trazado',
+            'Cuenta objetos a tu alrededor: ¿Cuántos puedes encontrar de cada número?',
+            '¡Dibuja tus propios números y trázalos!',
+          ],
+        },
+        selfAssessment: {
+          title: '📊 ¿Cómo te fue?',
+          items: [
+            'Puedo reconocer números del 1 al 20',
+            'Puedo trazar números siguiendo las líneas',
+            'Puedo decir los nombres de los números',
+          ],
+          score: 'Mi puntuación:',
+          scoreFormat: '___ / 20',
+          hardest: '¿Qué fue lo más difícil?',
+        },
+        answerKey: {
+          title: '✅ Clave de Respuestas',
+          instruction: 'Traza cada número siguiendo las líneas punteadas. Comienza en el punto rojo y sigue la dirección de la flecha.',
+          numbersToTrace: 'Números a trazar:',
+          numbersList: '1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20',
+          remember: '💡 Recuerda: ¡Siempre comienza en el punto rojo, sigue la flecha y di el nombre del número mientras trazas!',
+        },
+      },
+    },
+    ar: {
+      'number-tracing-1-20': {
+        title: 'تتبع الأرقام 1–20',
+        description: 'أسهم نقطة البداية متضمنة. قل كل رقم أثناء التتبع؛ ثم لون كائناً واحداً لكل رقم.',
+        learningObjectives: [
+          'التعرف على الأرقام من 1 إلى 20 وكتابتها',
+          'ممارسة المهارات الحركية الدقيقة (التتبع)',
+          'اتباع الأسهم الاتجاهية',
+          'بناء التعرف على الأرقام وتكوينها',
+        ],
+        parentTeacherTips: [
+          'ابدأ من النقطة الحمراء واتبع السهم',
+          'قل اسم الرقم أثناء التتبع',
+          'شجع على الإمساك الصحيح بالقلم',
+          'لون كائناً واحداً لكل رقم بعد التتبع',
+          'التمديد: تدرب على كتابة الأرقام بدون خطوط التتبع',
+        ],
+        example: {
+          title: '📚 مثال - دعنا نحل هذا معاً:',
+          number: 'الرقم:',
+          numberValue: '15',
+          step1: 'الخطوة 1:',
+          step1Text: 'ابحث عن النقطة الحمراء (نقطة البداية)',
+          step2: 'الخطوة 2:',
+          step2Text: 'اتبع اتجاه السهم',
+          step3: 'الخطوة 3:',
+          step3Text: 'تتبع على طول الخط المتقطع',
+          step4: 'الخطوة 4:',
+          step4Text: 'قل "خمسة عشر" أثناء التتبع',
+          answer: 'الإجابة:',
+          answerText: 'تتبع الرقم 15 متبعاً الخط المتقطع، بدءاً من النقطة الحمراء',
+          tip: '💡 نصيحة: ابدأ دائماً من النقطة الحمراء واتبع السهم. قل اسم الرقم أثناء التتبع!',
+        },
+        challenge: {
+          title: '🌟 المزيد من المرح (اختياري):',
+          items: [
+            'حاول كتابة الأرقام من 1 إلى 20 بدون خطوط التتبع',
+            'عد الأشياء من حولك: كم يمكنك العثور على كل رقم؟',
+            'ارسم أرقامك الخاصة وتتبعها!',
+          ],
+        },
+        selfAssessment: {
+          title: '📊 كيف كان أداؤك؟',
+          items: [
+            'يمكنني التعرف على الأرقام من 1 إلى 20',
+            'يمكنني تتبع الأرقام متبعاً الخطوط',
+            'يمكنني قول أسماء الأرقام',
+          ],
+          score: 'نقاطي:',
+          scoreFormat: '___ / 20',
+          hardest: 'ما كان الأصعب؟',
+        },
+        answerKey: {
+          title: '✅ مفتاح الإجابات',
+          instruction: 'تتبع كل رقم متبعاً الخطوط المتقطعة. ابدأ من النقطة الحمراء واتبع اتجاه السهم.',
+          numbersToTrace: 'الأرقام للتتبع:',
+          numbersList: '1، 2، 3، 4، 5، 6، 7، 8، 9، 10، 11، 12، 13، 14، 15، 16، 17، 18، 19، 20',
+          remember: '💡 تذكر: ابدأ دائماً من النقطة الحمراء، اتبع السهم، وقل اسم الرقم أثناء التتبع!',
+        },
+      },
+    },
+  }
+
+  // Merge into translations object if keys are missing
+  for (const lang of ['en', 'es', 'ar'] as const) {
+    const langTranslations = (translations as any)[lang]
+    if (langTranslations && langTranslations.worksheets) {
+      const worksheets = langTranslations.worksheets
+      const keys = numberTracingKeys[lang]
+      
+      // Only merge if keys are missing (to avoid overwriting if they exist)
+      if (keys['number-tracing-1-20'] && !worksheets['number-tracing-1-20']) {
+        worksheets['number-tracing-1-20'] = keys['number-tracing-1-20']
       }
     }
   }

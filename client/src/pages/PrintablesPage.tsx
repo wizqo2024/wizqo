@@ -2614,41 +2614,50 @@ export function PrintablesPage() {
         )}
 
         {activeDocs.includes('number-tracing-1-20') && (() => {
+          const docId = 'number-tracing-1-20'
           const numbers = Array.from({ length: 20 }, (_, i) => i + 1);
           return (
             <WorksheetSectionWrapper
-              docId="number-tracing-1-20"
-              title="Trace Numbers 1–20"
+              docId={docId}
+              title={getTrans(`worksheets.${docId}.title`, 'Trace Numbers 1–20')}
               emoji="🔢"
-              description="Start‑point arrows included. Say each number while tracing; then color one object for each number."
+              description={getTrans(`worksheets.${docId}.description`, 'Start‑point arrows included. Say each number while tracing; then color one object for each number.')}
               problemCount={20}
-              learningObjectives={[
-                'Recognize and write numbers 1–20',
-                'Practice fine motor skills (tracing)',
-                'Follow directional arrows',
-                'Build number recognition and formation'
-              ]}
-              parentTeacherTips={[
-                'Start at the red dot and follow the arrow',
-                'Say the number name while tracing',
-                'Encourage proper pencil grip',
-                'Color one object for each number after tracing',
-                'Extension: Practice writing numbers without tracing lines'
-              ]}
+              learningObjectives={(() => {
+                const obj = t(`worksheets.${docId}.learningObjectives`)
+                if (Array.isArray(obj) && obj.length > 0 && typeof obj[0] === 'string') return obj
+                return [
+                  'Recognize and write numbers 1–20',
+                  'Practice fine motor skills (tracing)',
+                  'Follow directional arrows',
+                  'Build number recognition and formation'
+                ]
+              })()}
+              parentTeacherTips={(() => {
+                const tips = t(`worksheets.${docId}.parentTeacherTips`)
+                if (Array.isArray(tips) && tips.length > 0 && typeof tips[0] === 'string') return tips
+                return [
+                  'Start at the red dot and follow the arrow',
+                  'Say the number name while tracing',
+                  'Encourage proper pencil grip',
+                  'Color one object for each number after tracing',
+                  'Extension: Practice writing numbers without tracing lines'
+                ]
+              })()}
             >
               <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-indigo-400 to-purple-400 animate-gradient-x mb-2" />
               {/* Worked Example */}
               <div className="mb-6 p-4 bg-blue-50 border-2 border-blue-200 rounded-lg print:border print:bg-white">
-                <div className="font-semibold text-blue-900 mb-3 text-sm">📚 Example - Let's solve this together:</div>
+                <div className="font-semibold text-blue-900 mb-3 text-sm">{getTrans(`worksheets.${docId}.example.title`, '📚 Example - Let\'s solve this together:')}</div>
                 <div className="space-y-2 text-sm">
-                  <div className="font-semibold text-base"><strong>Number:</strong> 15</div>
+                  <div className="font-semibold text-base"><strong>{getTrans(`worksheets.${docId}.example.number`, 'Number:')}</strong> {getTrans(`worksheets.${docId}.example.numberValue`, '15')}</div>
                   <div className="pl-4 border-l-2 border-blue-300 space-y-1">
-                    <div><strong>Step 1:</strong> Find the red dot (start point)</div>
-                    <div><strong>Step 2:</strong> Follow the arrow direction</div>
-                    <div><strong>Step 3:</strong> Trace along the dashed line</div>
-                    <div><strong>Step 4:</strong> Say "fifteen" while tracing</div>
-                    <div className="font-semibold text-blue-900"><strong>Answer:</strong> Trace the number 15 following the dashed line, starting at the red dot</div>
-                    <div className="text-xs text-blue-700 mt-1">💡 Tip: Always start at the red dot and follow the arrow. Say the number name as you trace!</div>
+                    <div><strong>{getTrans(`worksheets.${docId}.example.step1`, 'Step 1:')}</strong> {getTrans(`worksheets.${docId}.example.step1Text`, 'Find the red dot (start point)')}</div>
+                    <div><strong>{getTrans(`worksheets.${docId}.example.step2`, 'Step 2:')}</strong> {getTrans(`worksheets.${docId}.example.step2Text`, 'Follow the arrow direction')}</div>
+                    <div><strong>{getTrans(`worksheets.${docId}.example.step3`, 'Step 3:')}</strong> {getTrans(`worksheets.${docId}.example.step3Text`, 'Trace along the dashed line')}</div>
+                    <div><strong>{getTrans(`worksheets.${docId}.example.step4`, 'Step 4:')}</strong> {getTrans(`worksheets.${docId}.example.step4Text`, 'Say "fifteen" while tracing')}</div>
+                    <div className="font-semibold text-blue-900"><strong>{getTrans(`worksheets.${docId}.example.answer`, 'Answer:')}</strong> {getTrans(`worksheets.${docId}.example.answerText`, 'Trace the number 15 following the dashed line, starting at the red dot')}</div>
+                    <div className="text-xs text-blue-700 mt-1">{getTrans(`worksheets.${docId}.example.tip`, '💡 Tip: Always start at the red dot and follow the arrow. Say the number name as you trace!')}</div>
                   </div>
                 </div>
               </div>
@@ -2703,35 +2712,53 @@ export function PrintablesPage() {
               </div>
               {/* Extension/Challenge Problems */}
               <div className="mt-6 print:mt-0 p-4 bg-purple-50 border-2 border-purple-200 rounded print:bg-white print:border" style={{ pageBreakBefore: 'always', pageBreakInside: 'avoid' }}>
-                <div className="font-semibold text-purple-900 mb-3 text-sm">🌟 More Fun (Optional):</div>
+                <div className="font-semibold text-purple-900 mb-3 text-sm">{getTrans(`worksheets.${docId}.challenge.title`, '🌟 More Fun (Optional):')}</div>
                 <div className="space-y-2 text-sm text-purple-800">
-                  <div>1. Try writing the numbers 1–20 without tracing lines</div>
-                  <div>2. Count objects around you: How many can you find of each number?</div>
-                  <div>3. Draw your own numbers and trace them!</div>
+                  {(() => {
+                    const items = t(`worksheets.${docId}.challenge.items`)
+                    const fallbackItems = [
+                      'Try writing the numbers 1–20 without tracing lines',
+                      'Count objects around you: How many can you find of each number?',
+                      'Draw your own numbers and trace them!',
+                    ]
+                    const itemsArray = Array.isArray(items) && items.length > 0 && typeof items[0] === 'string' && items[0] !== `worksheets.${docId}.challenge.items` ? items : fallbackItems
+                    return itemsArray.map((item, i) => (
+                      <div key={i}>{i + 1}. {item}</div>
+                    ))
+                  })()}
                 </div>
               </div>
               {/* Self-Assessment */}
               <div className="print:block hidden print:mt-0 mt-6 p-4 border-2 border-slate-300 rounded" style={{ pageBreakBefore: 'avoid', pageBreakInside: 'avoid' }}>
-                <div className="font-semibold text-slate-800 mb-3 text-sm">📊 How did you do?</div>
+                <div className="font-semibold text-slate-800 mb-3 text-sm">{getTrans(`worksheets.${docId}.selfAssessment.title`, '📊 How did you do?')}</div>
                 <div className="space-y-2 text-xs">
-                  <div>☐ I can recognize numbers 1–20</div>
-                  <div>☐ I can trace numbers following the lines</div>
-                  <div>☐ I can say the number names</div>
+                  {(() => {
+                    const items = t(`worksheets.${docId}.selfAssessment.items`)
+                    const fallbackItems = [
+                      'I can recognize numbers 1–20',
+                      'I can trace numbers following the lines',
+                      'I can say the number names',
+                    ]
+                    const itemsArray = Array.isArray(items) && items.length > 0 && typeof items[0] === 'string' && items[0] !== `worksheets.${docId}.selfAssessment.items` ? items : fallbackItems
+                    return itemsArray.map((item, i) => (
+                      <div key={i}>☐ {item}</div>
+                    ))
+                  })()}
                 </div>
                 <div className="mt-3 text-xs">
-                  <strong>My score:</strong> ___ / 20
+                  <strong>{getTrans(`worksheets.${docId}.selfAssessment.score`, 'My score:')}</strong> {getTrans(`worksheets.${docId}.selfAssessment.scoreFormat`, '___ / 20')}
                 </div>
                 <div className="mt-2 text-xs">
-                  <strong>What was hardest?</strong> _________________________
+                  <strong>{getTrans(`worksheets.${docId}.selfAssessment.hardest`, 'What was hardest?')}</strong> _________________________
                 </div>
               </div>
-              {showAnswersForDoc('number-tracing-1-20', () => (
+              {showAnswersForDoc(docId, () => (
                 <div className="mt-6 p-4 border-2 border-emerald-300 bg-emerald-50 rounded print:border print:bg-white print:page-break-before-always">
-                  <div className="font-bold text-emerald-900 mb-3 text-base">✅ Answer Key</div>
+                  <div className="font-bold text-emerald-900 mb-3 text-base">{getTrans(`worksheets.${docId}.answerKey.title`, '✅ Answer Key')}</div>
                   <div className="space-y-2 text-sm text-emerald-800">
-                    <div>Trace each number following the dashed lines. Start at the red dot and follow the arrow direction.</div>
-                    <div className="mt-2">Numbers to trace: <strong>1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20</strong></div>
-                    <div className="text-xs text-emerald-700 mt-2">💡 Remember: Always start at the red dot, follow the arrow, and say the number name as you trace!</div>
+                    <div>{getTrans(`worksheets.${docId}.answerKey.instruction`, 'Trace each number following the dashed lines. Start at the red dot and follow the arrow direction.')}</div>
+                    <div className="mt-2">{getTrans(`worksheets.${docId}.answerKey.numbersToTrace`, 'Numbers to trace:')} <strong>{getTrans(`worksheets.${docId}.answerKey.numbersList`, '1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20')}</strong></div>
+                    <div className="text-xs text-emerald-700 mt-2">{getTrans(`worksheets.${docId}.answerKey.remember`, '💡 Remember: Always start at the red dot, follow the arrow, and say the number name as you trace!')}</div>
                   </div>
                 </div>
               ))}
