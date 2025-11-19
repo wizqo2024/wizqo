@@ -118,7 +118,11 @@ const ensureInteractiveTitleDescriptionKeys = () => {
   // Merge into translations object if keys are missing
   for (const lang of ['en', 'es', 'ar'] as const) {
     const langTranslations = (translations as any)[lang]
-    if (langTranslations && langTranslations.interactive) {
+    if (langTranslations) {
+      // Create interactive object if it doesn't exist
+      if (!langTranslations.interactive) {
+        langTranslations.interactive = {}
+      }
       const interactive = langTranslations.interactive
       const keys = interactiveTitleDescKeys[lang]
       
