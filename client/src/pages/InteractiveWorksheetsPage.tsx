@@ -370,8 +370,8 @@ function WorksheetPreviewCard({
     <article className="rounded-2xl border border-slate-200 bg-white shadow-sm hover:shadow-lg transition-all duration-200 p-5 flex flex-col gap-3">
       <div className="flex items-center justify-between gap-3">
         <div className="flex-1">
-          <p className="text-xs uppercase tracking-wide text-slate-500 font-semibold">{item.categoryLabel}</p>
-          <h3 className="text-lg font-semibold text-slate-900">{item.title}</h3>
+          <p className="text-xs uppercase tracking-wide text-slate-500 font-semibold">{t(`categories.${item.categoryId}`) || item.categoryLabel}</p>
+          <h3 className="text-lg font-semibold text-slate-900">{t(`interactive.${item.docId}.title`) || item.title}</h3>
         </div>
         <div className="flex items-center gap-2">
           <span className="inline-flex items-center rounded-full border border-purple-100 bg-purple-50 px-3 py-1 text-xs font-medium text-purple-700">
@@ -394,7 +394,7 @@ function WorksheetPreviewCard({
         </div>
       </div>
       
-      <p className="text-sm text-slate-600 leading-relaxed">{item.description}</p>
+      <p className="text-sm text-slate-600 leading-relaxed">{t(`interactive.${item.docId}.description`) || item.description}</p>
       
       {/* Worksheet Thumbnail Preview */}
       {pack && pack.seed ? (
@@ -1472,9 +1472,9 @@ export function InteractiveWorksheetsPage() {
               {/* Header */}
                 <div className="flex items-center justify-between border-b border-slate-200 bg-white px-6 py-4">
                 <div className="flex-1">
-                  <h2 className="text-xl font-semibold text-slate-900">{previewItem.title}</h2>
+                  <h2 className="text-xl font-semibold text-slate-900">{t(`interactive.${previewItem.docId}.title`) || previewItem.title}</h2>
                   <p className="text-sm text-slate-600 mt-1">
-                    {previewItem.description} • {previewItem.categoryLabel} • {previewItem.gradeLabel}
+                    {t(`interactive.${previewItem.docId}.description`) || previewItem.description} • {t(`categories.${previewItem.categoryId}`) || previewItem.categoryLabel} • {previewItem.gradeLabel}
                   </p>
                 </div>
                 <button
