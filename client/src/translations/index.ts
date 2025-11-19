@@ -792,6 +792,59 @@ const ensureInteractiveWorksheetKeys = () => {
         stage: '{{number}} Stage',
         notes: 'Notes:',
       },
+      scienceStates: {
+        instructions: 'Identify the change of state for each scenario. Draw the particles before and after the change.',
+        scenario: 'Scenario',
+        stateChange: 'State Change',
+        particleDiagram: 'Particle Diagram',
+      },
+      scienceWeather: {
+        instructions: 'Track the week\'s weather. Record the temperature, sketch the sky, and write one safety tip.',
+        day: 'Day',
+        temperature: 'Temperature',
+        skySketch: 'Sky Sketch',
+        safetyTip: 'Safety Tip',
+      },
+      geographyMap: {
+        instructions: 'Plot each location on the grid below. Label and describe what is found at each spot.',
+        coordinate: 'Coordinate',
+        place: 'Place',
+        whatDoYouNotice: 'What do you notice there?',
+        exampleMap: 'Example map',
+        yourMapGrid: 'Your map grid',
+        useSampleToCheck: 'Use this sample to double-check coordinates and landmarks.',
+        drawLandmarks: 'Draw landmarks, create a legend, and label each coordinate.',
+      },
+      geographyCulture: {
+        instructions: 'Explore traditions from around the world. Research and note a food, celebration, and interesting fact for each region.',
+        region: 'Region',
+        food: 'Food',
+        celebration: 'Celebration',
+        interestingFact: 'Interesting Fact',
+      },
+      geographyHistory: {
+        instructions: 'Build a timeline about {{theme}}. Place the events in order and explain the impact of each.',
+        impact: 'Impact:',
+      },
+      grammarParts: {
+        instructions: 'Label each underlined word as a noun, verb, adjective, or adverb. Add one more word to expand the sentence.',
+        label: 'Label:',
+        extraWord: 'Extra word:',
+      },
+      grammarTenses: {
+        instructions: 'Conjugate each verb in past, present, and future tense. Then use the verb in a sentence.',
+        verb: 'Verb',
+        past: 'Past',
+        present: 'Present',
+        future: 'Future',
+        writeSentence: 'Write one sentence using each tense below the table.',
+      },
+      grammarAntonyms: {
+        instructions: 'Match each word to its antonym and use the pair in a sentence.',
+        word: 'Word',
+        antonym: 'Antonym',
+        sentence: 'Sentence',
+      },
     },
     es: {
       countObjectsAndWriteNumber: 'Cuenta los objetos y escribe el número.',
@@ -930,6 +983,59 @@ const ensureInteractiveWorksheetKeys = () => {
         instructions: 'Etiqueta e ilustra el ciclo de vida de {{cycle}}. Describe lo que sucede en cada etapa.',
         stage: 'Etapa {{number}}',
         notes: 'Notas:',
+      },
+      scienceStates: {
+        instructions: 'Identifica el cambio de estado para cada escenario. Dibuja las partículas antes y después del cambio.',
+        scenario: 'Escenario',
+        stateChange: 'Cambio de Estado',
+        particleDiagram: 'Diagrama de Partículas',
+      },
+      scienceWeather: {
+        instructions: 'Rastrea el clima de la semana. Registra la temperatura, dibuja el cielo y escribe un consejo de seguridad.',
+        day: 'Día',
+        temperature: 'Temperatura',
+        skySketch: 'Boceto del Cielo',
+        safetyTip: 'Consejo de Seguridad',
+      },
+      geographyMap: {
+        instructions: 'Traza cada ubicación en la cuadrícula a continuación. Etiqueta y describe lo que se encuentra en cada lugar.',
+        coordinate: 'Coordenada',
+        place: 'Lugar',
+        whatDoYouNotice: '¿Qué notas allí?',
+        exampleMap: 'Mapa de ejemplo',
+        yourMapGrid: 'Tu cuadrícula de mapa',
+        useSampleToCheck: 'Usa esta muestra para verificar las coordenadas y los puntos de referencia.',
+        drawLandmarks: 'Dibuja puntos de referencia, crea una leyenda y etiqueta cada coordenada.',
+      },
+      geographyCulture: {
+        instructions: 'Explora tradiciones de todo el mundo. Investiga y anota una comida, celebración y dato interesante para cada región.',
+        region: 'Región',
+        food: 'Comida',
+        celebration: 'Celebración',
+        interestingFact: 'Dato Interesante',
+      },
+      geographyHistory: {
+        instructions: 'Construye una línea de tiempo sobre {{theme}}. Coloca los eventos en orden y explica el impacto de cada uno.',
+        impact: 'Impacto:',
+      },
+      grammarParts: {
+        instructions: 'Etiqueta cada palabra subrayada como sustantivo, verbo, adjetivo o adverbio. Agrega una palabra más para expandir la oración.',
+        label: 'Etiqueta:',
+        extraWord: 'Palabra extra:',
+      },
+      grammarTenses: {
+        instructions: 'Conjuga cada verbo en tiempo pasado, presente y futuro. Luego usa el verbo en una oración.',
+        verb: 'Verbo',
+        past: 'Pasado',
+        present: 'Presente',
+        future: 'Futuro',
+        writeSentence: 'Escribe una oración usando cada tiempo debajo de la tabla.',
+      },
+      grammarAntonyms: {
+        instructions: 'Haz coincidir cada palabra con su antónimo y usa el par en una oración.',
+        word: 'Palabra',
+        antonym: 'Antónimo',
+        sentence: 'Oración',
       },
     },
     ar: {
@@ -1070,6 +1176,59 @@ const ensureInteractiveWorksheetKeys = () => {
         stage: 'المرحلة {{number}}',
         notes: 'الملاحظات:',
       },
+      scienceStates: {
+        instructions: 'حدد تغيير الحالة لكل سيناريو. ارسم الجسيمات قبل وبعد التغيير.',
+        scenario: 'السيناريو',
+        stateChange: 'تغيير الحالة',
+        particleDiagram: 'رسم الجسيمات',
+      },
+      scienceWeather: {
+        instructions: 'تتبع طقس الأسبوع. سجل درجة الحرارة، ارسم السماء، واكتب نصيحة سلامة واحدة.',
+        day: 'اليوم',
+        temperature: 'درجة الحرارة',
+        skySketch: 'رسم السماء',
+        safetyTip: 'نصيحة السلامة',
+      },
+      geographyMap: {
+        instructions: 'ارسم كل موقع على الشبكة أدناه. ضع علامة وصف ما يوجد في كل مكان.',
+        coordinate: 'الإحداثيات',
+        place: 'المكان',
+        whatDoYouNotice: 'ماذا تلاحظ هناك؟',
+        exampleMap: 'خريطة المثال',
+        yourMapGrid: 'شبكة الخريطة الخاصة بك',
+        useSampleToCheck: 'استخدم هذه العينة للتحقق من الإحداثيات والمعالم.',
+        drawLandmarks: 'ارسم المعالم، أنشئ وسيلة إيضاحية، وضع علامة على كل إحداثي.',
+      },
+      geographyCulture: {
+        instructions: 'استكشف التقاليد من جميع أنحاء العالم. ابحث وسجل طعاماً واحتفالاً وحقيقة مثيرة للاهتمام لكل منطقة.',
+        region: 'المنطقة',
+        food: 'الطعام',
+        celebration: 'الاحتفال',
+        interestingFact: 'حقيقة مثيرة للاهتمام',
+      },
+      geographyHistory: {
+        instructions: 'أنشئ جدولاً زمنياً حول {{theme}}. ضع الأحداث بالترتيب واشرح تأثير كل منها.',
+        impact: 'التأثير:',
+      },
+      grammarParts: {
+        instructions: 'ضع علامة على كل كلمة مسطرة كاسم أو فعل أو صفة أو ظرف. أضف كلمة أخرى لتوسيع الجملة.',
+        label: 'العلامة:',
+        extraWord: 'كلمة إضافية:',
+      },
+      grammarTenses: {
+        instructions: 'صرف كل فعل في الماضي والحاضر والمستقبل. ثم استخدم الفعل في جملة.',
+        verb: 'الفعل',
+        past: 'الماضي',
+        present: 'الحاضر',
+        future: 'المستقبل',
+        writeSentence: 'اكتب جملة واحدة باستخدام كل زمن أسفل الجدول.',
+      },
+      grammarAntonyms: {
+        instructions: 'طابق كل كلمة مع عكسها واستخدم الزوج في جملة.',
+        word: 'الكلمة',
+        antonym: 'العكس',
+        sentence: 'الجملة',
+      },
     },
   }
 
@@ -1158,6 +1317,30 @@ const ensureInteractiveWorksheetKeys = () => {
       }
       if (keys.scienceLifecycle) {
         worksheets.scienceLifecycle = keys.scienceLifecycle
+      }
+      if (keys.scienceStates) {
+        worksheets.scienceStates = keys.scienceStates
+      }
+      if (keys.scienceWeather) {
+        worksheets.scienceWeather = keys.scienceWeather
+      }
+      if (keys.geographyMap) {
+        worksheets.geographyMap = keys.geographyMap
+      }
+      if (keys.geographyCulture) {
+        worksheets.geographyCulture = keys.geographyCulture
+      }
+      if (keys.geographyHistory) {
+        worksheets.geographyHistory = keys.geographyHistory
+      }
+      if (keys.grammarParts) {
+        worksheets.grammarParts = keys.grammarParts
+      }
+      if (keys.grammarTenses) {
+        worksheets.grammarTenses = keys.grammarTenses
+      }
+      if (keys.grammarAntonyms) {
+        worksheets.grammarAntonyms = keys.grammarAntonyms
       }
     }
   }

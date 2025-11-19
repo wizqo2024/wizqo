@@ -1318,7 +1318,8 @@ const renderers: Record<string, Renderer> = {
       </div>
     )
   },
-  'interactive-science-states': ({ seed, doc, variant }) => {
+  'interactive-science-states': (ctx) => {
+    const { seed, doc, variant, t } = ctx
     const rng = makeRng(`${seed}|${doc.id}|${variant}`)
     const scenarios = pickMany(
       rng,
@@ -1335,14 +1336,14 @@ const renderers: Record<string, Renderer> = {
     return (
       <div className="space-y-3">
         <p className="text-sm text-slate-600">
-          Identify the change of state for each scenario. Draw the particles before and after the change.
+          {t('worksheets.scienceStates.instructions')}
         </p>
         <table className="w-full border border-slate-300 text-left text-sm">
           <thead className="bg-slate-100">
             <tr>
-              <th className="px-3 py-2">Scenario</th>
-              <th className="px-3 py-2">State Change</th>
-              <th className="px-3 py-2">Particle Diagram</th>
+              <th className="px-3 py-2">{t('worksheets.scienceStates.scenario')}</th>
+              <th className="px-3 py-2">{t('worksheets.scienceStates.stateChange')}</th>
+              <th className="px-3 py-2">{t('worksheets.scienceStates.particleDiagram')}</th>
             </tr>
           </thead>
           <tbody>
@@ -1360,7 +1361,8 @@ const renderers: Record<string, Renderer> = {
       </div>
     )
   },
-  'interactive-science-weather': ({ seed, doc, variant }) => {
+  'interactive-science-weather': (ctx) => {
+    const { seed, doc, variant, t, formatNum } = ctx
     const rng = makeRng(`${seed}|${doc.id}|${variant}`)
     const days = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday']
     const conditions = ['sunny', 'windy', 'rainy', 'stormy', 'foggy', 'partly cloudy', 'snowy']
@@ -1368,22 +1370,22 @@ const renderers: Record<string, Renderer> = {
     return (
       <div className="space-y-3">
         <p className="text-sm text-slate-600">
-          Track the week?s weather. Record the temperature, sketch the sky, and write one safety tip.
+          {t('worksheets.scienceWeather.instructions')}
         </p>
         <table className="w-full border border-slate-300 text-sm">
           <thead className="bg-slate-100">
             <tr>
-              <th className="px-3 py-2">Day</th>
-              <th className="px-3 py-2">Temperature</th>
-              <th className="px-3 py-2">Sky Sketch</th>
-              <th className="px-3 py-2">Safety Tip</th>
+              <th className="px-3 py-2">{t('worksheets.scienceWeather.day')}</th>
+              <th className="px-3 py-2">{t('worksheets.scienceWeather.temperature')}</th>
+              <th className="px-3 py-2">{t('worksheets.scienceWeather.skySketch')}</th>
+              <th className="px-3 py-2">{t('worksheets.scienceWeather.safetyTip')}</th>
             </tr>
           </thead>
           <tbody>
             {tracker.map((entry, idx) => (
               <tr key={idx} className="border-t border-slate-200">
                 <td className="px-3 py-2">{entry.day}</td>
-                <td className="px-3 py-2">{entry.temp}?F</td>
+                <td className="px-3 py-2">{formatNum ? formatNum(entry.temp) : entry.temp}°F</td>
                 <td className="px-3 py-2">
                   <div className="h-12 rounded border border-dashed border-slate-300 bg-white" />
                   <p className="text-xs text-slate-500">{entry.condition}</p>
@@ -1396,7 +1398,8 @@ const renderers: Record<string, Renderer> = {
       </div>
     )
   },
-  'interactive-geography-map': ({ seed, doc, variant }) => {
+  'interactive-geography-map': (ctx) => {
+    const { seed, doc, variant, t } = ctx
     const rng = makeRng(`${seed}|${doc.id}|${variant}`)
     const letters = ['A', 'B', 'C', 'D', 'E', 'F']
     const numbers = [1, 2, 3, 4, 5, 6]
@@ -1432,14 +1435,14 @@ const renderers: Record<string, Renderer> = {
     return (
       <div className="space-y-3">
         <p className="text-sm text-slate-600">
-          Plot each location on the grid below. Label and describe what is found at each spot.
+          {t('worksheets.geographyMap.instructions')}
         </p>
         <table className="w-full border border-slate-300 text-sm">
           <thead className="bg-slate-100">
             <tr>
-              <th className="px-3 py-2">Coordinate</th>
-              <th className="px-3 py-2">Place</th>
-              <th className="px-3 py-2">What do you notice there?</th>
+              <th className="px-3 py-2">{t('worksheets.geographyMap.coordinate')}</th>
+              <th className="px-3 py-2">{t('worksheets.geographyMap.place')}</th>
+              <th className="px-3 py-2">{t('worksheets.geographyMap.whatDoYouNotice')}</th>
             </tr>
           </thead>
           <tbody>
@@ -1454,7 +1457,7 @@ const renderers: Record<string, Renderer> = {
         </table>
         <div className="grid gap-4 md:grid-cols-2">
           <div>
-            <p className="text-xs font-semibold uppercase tracking-wide text-slate-500 mb-2">Example map</p>
+            <p className="text-xs font-semibold uppercase tracking-wide text-slate-500 mb-2">{t('worksheets.geographyMap.exampleMap')}</p>
             <div className="overflow-hidden rounded-2xl border border-slate-300">
               <table className="w-full border-collapse text-xs">
                 <thead className="bg-slate-100">
@@ -1495,11 +1498,11 @@ const renderers: Record<string, Renderer> = {
               </table>
             </div>
             <p className="mt-1 text-xs text-slate-500">
-              Use this sample to double-check coordinates and landmarks.
+              {t('worksheets.geographyMap.useSampleToCheck')}
             </p>
           </div>
           <div>
-            <p className="text-xs font-semibold uppercase tracking-wide text-slate-500 mb-2">Your map grid</p>
+            <p className="text-xs font-semibold uppercase tracking-wide text-slate-500 mb-2">{t('worksheets.geographyMap.yourMapGrid')}</p>
             <div className="overflow-hidden rounded-2xl border border-slate-300">
               <table className="w-full border-collapse text-xs">
                 <thead className="bg-slate-100">
@@ -1529,27 +1532,28 @@ const renderers: Record<string, Renderer> = {
                 </tbody>
               </table>
             </div>
-            <p className="mt-1 text-xs text-slate-500">Draw landmarks, create a legend, and label each coordinate.</p>
+            <p className="mt-1 text-xs text-slate-500">{t('worksheets.geographyMap.drawLandmarks')}</p>
           </div>
         </div>
       </div>
     )
   },
-  'interactive-geography-culture': ({ seed, doc, variant }) => {
+  'interactive-geography-culture': (ctx) => {
+    const { seed, doc, variant, t } = ctx
     const rng = makeRng(`${seed}|${doc.id}|${variant}`)
     const regions = pickMany(rng, ['Kenya', 'Peru', 'Japan', 'Norway', 'India', 'Brazil', 'Egypt', 'Canada'], 3)
     return (
       <div className="space-y-3">
         <p className="text-sm text-slate-600">
-          Explore traditions from around the world. Research and note a food, celebration, and interesting fact for each region.
+          {t('worksheets.geographyCulture.instructions')}
         </p>
         <table className="w-full border border-slate-300 text-sm">
           <thead className="bg-slate-100">
             <tr>
-              <th className="px-3 py-2">Region</th>
-              <th className="px-3 py-2">Traditional Food</th>
-              <th className="px-3 py-2">Celebration / Holiday</th>
-              <th className="px-3 py-2">Interesting Fact</th>
+              <th className="px-3 py-2">{t('worksheets.geographyCulture.region')}</th>
+              <th className="px-3 py-2">{t('worksheets.geographyCulture.food')}</th>
+              <th className="px-3 py-2">{t('worksheets.geographyCulture.celebration')}</th>
+              <th className="px-3 py-2">{t('worksheets.geographyCulture.interestingFact')}</th>
             </tr>
           </thead>
           <tbody>
@@ -1566,7 +1570,8 @@ const renderers: Record<string, Renderer> = {
       </div>
     )
   },
-  'interactive-geography-history': ({ seed, doc, variant }) => {
+  'interactive-geography-history': (ctx) => {
+    const { seed, doc, variant, t, formatNum } = ctx
     const rng = makeRng(`${seed}|${doc.id}|${variant}`)
     const themes = pickMany(rng, ['communication tools', 'transportation', 'space exploration', 'civil rights', 'technology inventions'], 1)
     const events = pickMany(
@@ -1584,22 +1589,23 @@ const renderers: Record<string, Renderer> = {
     return (
       <div className="space-y-3">
         <p className="text-sm text-slate-600">
-          Build a timeline about {themes[0]}. Place the events in order and explain the impact of each.
+          {t('worksheets.geographyHistory.instructions').replace('{{theme}}', themes[0])}
         </p>
         <div className="space-y-4">
           {events.map((entry, idx) => (
             <div key={idx} className="rounded border border-slate-200 bg-white p-4 text-sm text-slate-700">
               <p className="font-semibold text-slate-900">
-                {entry.year}: {entry.event}
+                {formatNum ? formatNum(entry.year) : entry.year}: {entry.event}
               </p>
-              <p>Impact: ________________________________________</p>
+              <p>{t('worksheets.geographyHistory.impact')} ________________________________________</p>
             </div>
           ))}
         </div>
       </div>
     )
   },
-  'interactive-grammar-parts': ({ seed, doc, variant }) => {
+  'interactive-grammar-parts': (ctx) => {
+    const { seed, doc, variant, t } = ctx
     const rng = makeRng(`${seed}|${doc.id}|${variant}`)
     const nouns = ['robot', 'teacher', 'river', 'backpack', 'galaxy', 'scientist']
     const verbs = ['whispers', 'builds', 'shimmers', 'protects', 'discovers', 'balances']
@@ -1608,34 +1614,35 @@ const renderers: Record<string, Renderer> = {
     return (
       <div className="space-y-3">
         <p className="text-sm text-slate-600">
-          Label each underlined word as a noun, verb, adjective, or adverb. Add one more word to expand the sentence.
+          {t('worksheets.grammarParts.instructions')}
         </p>
         <ul className="space-y-2 text-sm text-slate-700">
           {sentences.map((sentence, idx) => (
             <li key={idx} className="rounded border border-slate-200 bg-white px-4 py-3">
               {sentence}
-              <div className="mt-1 text-xs text-slate-500">Label: __________ • Extra word: __________</div>
+              <div className="mt-1 text-xs text-slate-500">{t('worksheets.grammarParts.label')} __________ • {t('worksheets.grammarParts.extraWord')} __________</div>
             </li>
           ))}
         </ul>
       </div>
     )
   },
-  'interactive-grammar-tenses': ({ seed, doc, variant }) => {
+  'interactive-grammar-tenses': (ctx) => {
+    const { seed, doc, variant, t } = ctx
     const rng = makeRng(`${seed}|${doc.id}|${variant}`)
     const verbs = pickMany(rng, ['explore', 'finish', 'design', 'listen', 'organize', 'travel', 'collect'], 6)
     return (
       <div className="space-y-3">
         <p className="text-sm text-slate-600">
-          Conjugate each verb in past, present, and future tense. Then use the verb in a sentence.
+          {t('worksheets.grammarTenses.instructions')}
         </p>
         <table className="w-full border border-slate-300 text-left text-sm">
           <thead className="bg-slate-100">
             <tr>
-              <th className="px-3 py-2">Verb</th>
-              <th className="px-3 py-2">Past</th>
-              <th className="px-3 py-2">Present</th>
-              <th className="px-3 py-2">Future</th>
+              <th className="px-3 py-2">{t('worksheets.grammarTenses.verb')}</th>
+              <th className="px-3 py-2">{t('worksheets.grammarTenses.past')}</th>
+              <th className="px-3 py-2">{t('worksheets.grammarTenses.present')}</th>
+              <th className="px-3 py-2">{t('worksheets.grammarTenses.future')}</th>
             </tr>
           </thead>
           <tbody>
@@ -1649,11 +1656,12 @@ const renderers: Record<string, Renderer> = {
             ))}
           </tbody>
         </table>
-        <p className="text-xs text-slate-500">Write one sentence using each tense below the table.</p>
+        <p className="text-xs text-slate-500">{t('worksheets.grammarTenses.writeSentence')}</p>
       </div>
     )
   },
-  'interactive-grammar-antonyms': ({ seed, doc, variant }) => {
+  'interactive-grammar-antonyms': (ctx) => {
+    const { seed, doc, variant, t } = ctx
     const rng = makeRng(`${seed}|${doc.id}|${variant}`)
     const pairs = pickMany(
       rng,
@@ -1670,14 +1678,14 @@ const renderers: Record<string, Renderer> = {
     return (
       <div className="space-y-3">
         <p className="text-sm text-slate-600">
-          Match each word to its antonym and use the pair in a sentence.
+          {t('worksheets.grammarAntonyms.instructions')}
         </p>
         <table className="w-full border border-slate-300 text-sm">
           <thead className="bg-slate-100">
             <tr>
-              <th className="px-3 py-2">Word</th>
-              <th className="px-3 py-2">Antonym</th>
-              <th className="px-3 py-2">Sentence</th>
+              <th className="px-3 py-2">{t('worksheets.grammarAntonyms.word')}</th>
+              <th className="px-3 py-2">{t('worksheets.grammarAntonyms.antonym')}</th>
+              <th className="px-3 py-2">{t('worksheets.grammarAntonyms.sentence')}</th>
             </tr>
           </thead>
           <tbody>
