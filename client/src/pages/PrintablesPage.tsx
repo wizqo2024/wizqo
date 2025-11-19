@@ -1292,7 +1292,41 @@ export function PrintablesPage() {
     }
   }, [t, language])
   
-  const params = new URLSearchParams(typeof window !== 'undefined' ? window.location.search : '')
+  // Track URL search params in state so they update reactively when URL changes
+  const [urlSearch, setUrlSearch] = React.useState(() => 
+    typeof window !== 'undefined' ? window.location.search : ''
+  )
+  
+  // Update URL search when location changes (for language changes)
+  React.useEffect(() => {
+    const updateSearch = () => {
+      const currentSearch = typeof window !== 'undefined' ? window.location.search : ''
+      if (currentSearch !== urlSearch) {
+        setUrlSearch(currentSearch)
+      }
+    }
+    
+    // Check immediately
+    updateSearch()
+    
+    // Listen for URL changes
+    window.addEventListener('popstate', updateSearch)
+    window.addEventListener('hashchange', updateSearch)
+    
+    // Also check periodically for programmatic URL changes (e.g., when lang param is added)
+    const interval = setInterval(updateSearch, 100)
+    
+    return () => {
+      window.removeEventListener('popstate', updateSearch)
+      window.removeEventListener('hashchange', updateSearch)
+      clearInterval(interval)
+    }
+  }, [urlSearch])
+  
+  const params = React.useMemo(() => {
+    return new URLSearchParams(urlSearch)
+  }, [urlSearch])
+  
   const doc = params.get('doc') || ''
   const autoPrint = (params.get('autoprint') || '').toLowerCase() === '1' || (params.get('autoprint') || '').toLowerCase() === 'true'
   const isPreview = (params.get('preview') || '').toLowerCase() === '1' || (params.get('preview') || '').toLowerCase() === 'true'
@@ -1926,7 +1960,11 @@ export function PrintablesPage() {
                                 from.includes('reading') ? 'reading' : undefined
                   trackPrintDialog(primaryDoc, from)
                   trackWorksheetDownload(primaryDoc, docTitle, from, grade)
-                  window.print()
+                  // Wait for language to be fully applied before printing
+                  // This ensures the worksheet content is rendered in the correct language
+                  setTimeout(() => {
+                    window.print()
+                  }, 100)
                 }}
                 className="inline-flex items-center gap-2 px-3 py-1.5 rounded-lg border text-sm shadow-sm focus:outline-none focus:ring-2 focus:ring-purple-400 focus:ring-offset-1 bg-purple-600 hover:bg-purple-700 text-white border-purple-600"
                 title={t('pages.printables.downloadAsPDFTitle')}

@@ -143,6 +143,16 @@ export function TranslationProvider({ children }: { children: ReactNode }) {
           // Update HTML dir attribute for RTL
           document.documentElement.dir = isRTL(lang) ? 'rtl' : 'ltr'
           document.documentElement.lang = lang
+          
+          // For /print route, update the lang query parameter instead of path
+          const currentPath = window.location.pathname
+          if (currentPath === '/print' || currentPath.startsWith('/print/')) {
+            const url = new URL(window.location.href)
+            url.searchParams.set('lang', lang)
+            // Update URL without reloading the page
+            window.history.replaceState({}, '', url.toString())
+          }
+          
           // Dispatch custom event to notify other components
           window.dispatchEvent(new CustomEvent('languagechange', { detail: { language: lang } }))
         }
