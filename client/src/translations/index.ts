@@ -57,27 +57,27 @@ export function getTranslation(language: Language, key: string): string | any {
       if (value === null || value === undefined) {
         // Debug: log what we found so far - show in production too for debugging
         if (typeof window !== 'undefined') {
-          console.warn(`[getTranslation] Navigation stopped at key: ${k} (index ${i})`, {
+          // Get the previous value (the object we were trying to access)
+          let prevValue = translations[language]
+          for (let j = 0; j < i; j++) {
+            if (prevValue && typeof prevValue === 'object') prevValue = prevValue[keys[j]]
+            else break
+          }
+          
+          console.error(`[getTranslation] Navigation stopped at key: ${k} (index ${i})`, {
             language,
             fullKey: key,
             keysSoFar: keys.slice(0, i),
             currentValue: value,
-            previousValue: i > 0 ? (() => {
-              let prev = translations[language]
-              for (let j = 0; j < i; j++) {
-                if (prev && typeof prev === 'object') prev = prev[keys[j]]
-                else break
-              }
-              return prev
-            })() : translations[language],
-            availableKeys: (() => {
-              let check = translations[language]
-              for (let j = 0; j < i; j++) {
-                if (check && typeof check === 'object') check = check[keys[j]]
-                else return 'N/A'
-              }
-              return check && typeof check === 'object' ? Object.keys(check).slice(0, 20) : 'N/A'
-            })()
+            previousValue: prevValue,
+            previousValueType: typeof prevValue,
+            previousValueIsObject: prevValue && typeof prevValue === 'object',
+            previousValueKeys: prevValue && typeof prevValue === 'object' ? Object.keys(prevValue).slice(0, 30) : 'N/A',
+            tryingToAccess: k,
+            availableKeys: prevValue && typeof prevValue === 'object' ? Object.keys(prevValue).slice(0, 30) : 'N/A',
+            // Check if the key exists but is undefined
+            keyExists: prevValue && typeof prevValue === 'object' ? (k in prevValue) : false,
+            keyValue: prevValue && typeof prevValue === 'object' ? prevValue[k] : 'N/A'
           })
         }
         break
