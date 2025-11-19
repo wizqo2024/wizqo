@@ -19,6 +19,9 @@ export const es = {
     clear: 'Limpiar',
     printTip: 'Consejo: Usa el menú de tu navegador → Imprimir → Guardar como PDF.',
     withExplanations: 'con explicaciones',
+    problem: 'Problema',
+    explanation: 'Explicación',
+    place: 'lugar',
   },
   worksheets: {
     countObjectsAndWriteNumber: 'Cuenta los objetos y escribe el número.',
@@ -3703,6 +3706,10 @@ export const es = {
     'interactive-math-place-value': {
       title: 'Explorador de Valor Posicional',
       description: 'Comprende el lugar de unidades, decenas, centenas y millares con ejercicios interactivos.',
+    },
+    'interactive-reading-alphabet': {
+      title: 'Alfabeto y Reconocimiento de Letras',
+      description: 'Practica reconocer letras, emparejar mayúsculas y minúsculas, y sonidos iniciales.',
     },
   },
 }

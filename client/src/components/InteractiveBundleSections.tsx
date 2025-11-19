@@ -4325,13 +4325,14 @@ const renderers: Record<string, Renderer> = {
     )
   },
   // NEW WORKSHEET RENDERERS - Reading, Science, Geography, Grammar, Art, Logic, SEL
-  'interactive-reading-alphabet': ({ seed, doc, variant }) => {
+  'interactive-reading-alphabet': (ctx) => {
+    const { seed, doc, variant, t } = ctx
     const rng = makeRng(`${seed}|${doc.id}|${variant}`)
     const letters = pickMany(rng, ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'], 6)
     const beginningSounds = pickMany(rng, [{ letter: 'B', words: ['ball', 'book', 'bus'] }, { letter: 'C', words: ['cat', 'car', 'cup'] }, { letter: 'D', words: ['dog', 'door', 'duck'] }, { letter: 'F', words: ['fish', 'fan', 'flower'] }, { letter: 'M', words: ['moon', 'mouse', 'map'] }, { letter: 'S', words: ['sun', 'star', 'snake'] }], 4)
     return (
       <div className="space-y-4">
-        <p className="text-sm text-slate-600">Practice recognizing letters, matching uppercase and lowercase, and beginning sounds.</p>
+        <p className="text-sm text-slate-600">{t('interactive.interactive-reading-alphabet.description', 'Practice recognizing letters, matching uppercase and lowercase, and beginning sounds.')}</p>
         <div className="grid gap-4 md:grid-cols-3">
           {letters.map((letter, idx) => (
             <div key={idx} className="rounded-xl border border-blue-200 bg-blue-50 p-4 text-center">
@@ -4341,22 +4342,22 @@ const renderers: Record<string, Renderer> = {
                 <div className="h-8 w-8 border border-dashed border-blue-300 bg-white rounded"></div>
                 <div className="h-8 w-8 border border-dashed border-blue-300 bg-white rounded"></div>
               </div>
-              <p className="text-xs text-blue-600 mt-2">Circle the {letter}</p>
+              <p className="text-xs text-blue-600 mt-2">{t('worksheets.circleThe', 'Circle the {{letter}}', { letter })}</p>
             </div>
           ))}
         </div>
         <div className="rounded-xl border border-blue-200 bg-blue-50 p-4">
-          <p className="text-sm font-semibold text-blue-700 mb-2">Beginning Sounds</p>
+          <p className="text-sm font-semibold text-blue-700 mb-2">{t('worksheets.beginningSounds', 'Beginning Sounds')}</p>
           <div className="grid gap-3 md:grid-cols-2">
             {beginningSounds.map((item, idx) => (
               <div key={idx} className="bg-white rounded border border-blue-200 p-3">
-                <p className="text-sm font-semibold text-blue-800 mb-1">{item.letter} says /{item.letter.toLowerCase()}/</p>
+                <p className="text-sm font-semibold text-blue-800 mb-1">{item.letter} {t('worksheets.says', 'says')} /{item.letter.toLowerCase()}/</p>
                 <div className="flex gap-2 flex-wrap">
                   {item.words.map((word, wIdx) => (
                     <span key={wIdx} className="text-xs px-2 py-1 bg-blue-100 rounded border border-blue-300 text-blue-700">{word}</span>
                   ))}
                 </div>
-                <p className="text-xs text-blue-600 mt-2">Circle words that start with {item.letter}</p>
+                <p className="text-xs text-blue-600 mt-2">{t('worksheets.circleWordsStart', 'Circle words that start with')} {item.letter}</p>
               </div>
             ))}
           </div>
@@ -6140,23 +6141,32 @@ const answerRenderers: Record<string, AnswerRenderer> = {
       </div>
     )
   },
-  'interactive-math-place-value': ({ doc, seed, variant }) => {
+  'interactive-math-place-value': (ctx) => {
+    const { doc, seed, variant, t, formatNum, language } = ctx
     const problems = buildMathPlaceValue(seed, doc.id, variant)
     return (
       <div className="space-y-2">
         <ol className="list-decimal list-inside space-y-2 text-sm">
           {problems.map((prob, idx) => {
             const numStr = String(prob.number)
+            const placeOrder = ['ones', 'tens', 'hundreds', 'thousands']
+            const placeName = t(`worksheets.placeValue.${prob.place}`) || prob.place
             const expandedForm = numStr.split('').reverse().map((digit, i) => {
-              const place = ['ones', 'tens', 'hundreds', 'thousands'][i] || ''
-              return `${digit} × ${Math.pow(10, i)}`
+              const place = placeOrder[i] || ''
+              const formattedDigit = language === 'ar' ? formatNum(parseInt(digit, 10)) : digit
+              const power = Math.pow(10, i)
+              const formattedPower = formatNum(power)
+              return `${formattedDigit} × ${formattedPower}`
             }).reverse().join(' + ')
+            const formattedNumber = formatNum(prob.number)
+            const formattedDigit = formatNum(prob.digit)
+            const formattedProblemNum = formatNum(idx + 1)
             return (
               <li key={idx} className="mb-3">
-                <span className="font-semibold">Problem {idx + 1}:</span> {prob.number}: {prob.place} place = <span className="text-emerald-700 font-bold">{prob.digit}</span>
+                <span className="font-semibold">{t('common.problem', 'Problem')} {formattedProblemNum}:</span> {formattedNumber}: {placeName} {t('common.place', 'place')} = <span className="text-emerald-700 font-bold">{formattedDigit}</span>
                 <p className="text-xs text-slate-600 mt-1 ml-4">
-                  <span className="font-semibold">Explanation:</span> In the number {prob.number}, read from right to left: ones place, tens place, hundreds place, etc. The digit in the {prob.place} place is {prob.digit}.
-                  <span className="block mt-1"><span className="font-semibold">Expanded form:</span> {expandedForm} = {prob.number}</span>
+                  <span className="font-semibold">{t('common.explanation', 'Explanation')}:</span> {t('worksheets.placeValue.explanation', 'In the number {{number}}, read from right to left: ones place, tens place, hundreds place, etc. The digit in the {{place}} place is {{digit}}.').replace('{{number}}', formattedNumber).replace('{{place}}', placeName).replace('{{digit}}', formattedDigit)}
+                  <span className="block mt-1"><span className="font-semibold">{t('worksheets.placeValue.expandedForm')}:</span> {expandedForm} = {formattedNumber}</span>
                 </p>
               </li>
             )
@@ -6401,9 +6411,10 @@ const answerRenderers: Record<string, AnswerRenderer> = {
       <p className="text-sm">Student responses may vary. Evaluate based on clear claim, supporting evidence, logical reasoning, counterargument acknowledgment, and strong conclusion.</p>
     )
   },
-  'interactive-reading-alphabet': ({ doc, seed, variant }) => {
+  'interactive-reading-alphabet': (ctx) => {
+    const { t } = ctx
     return (
-      <p className="text-sm">Students should correctly identify and match uppercase/lowercase letters, recognize beginning sounds, and circle matching letters. Check for letter recognition accuracy.</p>
+      <p className="text-sm">{t('worksheets.alphabetAnswerKey', 'Students should correctly identify and match uppercase/lowercase letters, recognize beginning sounds, and circle matching letters. Check for letter recognition accuracy.')}</p>
     )
   },
   'interactive-reading-sightwords': ({ doc, seed, variant }) => {

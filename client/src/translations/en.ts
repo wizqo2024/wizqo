@@ -16,6 +16,9 @@ export const en = {
     clear: 'Clear',
     printTip: 'Tip: Use your browser menu → Print → Save as PDF.',
     withExplanations: 'with explanations',
+    problem: 'Problem',
+    explanation: 'Explanation',
+    place: 'place',
   },
   worksheets: {
     countObjectsAndWriteNumber: 'Count the objects and write the number.',
@@ -3684,6 +3687,10 @@ export const en = {
     'interactive-math-place-value': {
       title: 'Place Value Explorer',
       description: 'Understand ones, tens, hundreds, and thousands place with interactive exercises.',
+    },
+    'interactive-reading-alphabet': {
+      title: 'Alphabet & Letter Recognition',
+      description: 'Practice recognizing letters, matching uppercase and lowercase, and beginning sounds.',
     },
   },
 }

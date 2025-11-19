@@ -19,6 +19,9 @@ export const ar = {
     clear: 'مسح',
     printTip: 'نصيحة: استخدم قائمة المتصفح → طباعة → حفظ كـ PDF.',
     withExplanations: 'مع الشرح',
+    problem: 'المسألة',
+    explanation: 'الشرح',
+    place: 'منزلة',
   },
   worksheets: {
     countObjectsAndWriteNumber: 'عد الكائنات واكتب الرقم.',
@@ -88,7 +91,13 @@ export const ar = {
       tens: 'العشرات',
       hundreds: 'المئات',
       thousands: 'الآلاف',
+      explanation: 'في الرقم {{number}}، اقرأ من اليمين إلى اليسار: منزلة الآحاد، منزلة العشرات، منزلة المئات، إلخ. الرقم الموجود في منزلة {{place}} هو {{digit}}.',
     },
+    circleThe: 'أحط دائرة حول {{letter}}',
+    beginningSounds: 'الأصوات الأولية',
+    says: 'يقول',
+    circleWordsStart: 'أحط الكلمات التي تبدأ بـ',
+    alphabetAnswerKey: 'يجب على الطلاب تحديد ومطابقة الأحرف الكبيرة/الصغيرة بشكل صحيح، والتعرف على الأصوات الأولية، وأحط الحروف المطابقة. تحقق من دقة التعرف على الحروف.',
     'number-id-1-10': {
       title: 'تحديد الأرقام ١–١٠',
       description: 'ابحث وأحط دائرة حول جميع الأرقام {{number}}.',
@@ -3749,6 +3758,10 @@ export const ar = {
     'interactive-math-place-value': {
       title: 'مستكشف القيمة المنزلية',
       description: 'افهم منزلة الآحاد والعشرات والمئات والآلاف مع تمارين تفاعلية.',
+    },
+    'interactive-reading-alphabet': {
+      title: 'الأبجدية والتعرف على الحروف',
+      description: 'تدرب على التعرف على الحروف ومطابقة الأحرف الكبيرة والصغيرة والأصوات الأولية.',
     },
   },
 }
