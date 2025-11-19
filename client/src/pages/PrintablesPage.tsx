@@ -15350,11 +15350,15 @@ export function PrintablesPage() {
         {/* Times Table Worksheets */}
         {activeDocs.includes('times-table-horizontal-1-5') && (() => {
           const docId = 'times-table-horizontal-1-5'
+          // getTrans function - will use current language from context
           const getTrans = (key: string, fallback: string) => {
             try {
               const result = t(key)
+              // If result is the same as key, translation is missing
               if (typeof result === 'string' && result === key) return fallback
+              // If result starts with 'worksheets.', it's likely a missing translation
               if (typeof result === 'string' && result.startsWith('worksheets.')) return fallback
+              // If result is empty or falsy, use fallback
               if (!result || (typeof result === 'string' && result.trim() === '')) return fallback
               return result
             } catch (error) {
@@ -15368,6 +15372,7 @@ export function PrintablesPage() {
           });
           return (
             <WorksheetSectionWrapper
+              key={`${docId}-${language}`}
               docId={docId}
               title={getTrans(`worksheets.${docId}.title`, 'Horizontal Times Table (1-5)')}
               emoji="➡️"
@@ -15423,12 +15428,14 @@ export function PrintablesPage() {
                 <div className="space-y-2 text-sm text-purple-800">
                   {(() => {
                     const items = t(`worksheets.${docId}.challenge.items`)
-                    const itemsArray = Array.isArray(items) && items.length > 0 ? items : [
+                    const fallbackItems = [
                       'Create your own multiplication problem: ___ × ___ = ?',
                       'Solve: 5 × 5 = ? (the biggest fact in this worksheet!)',
                       'Write all the facts that equal 12: ___ × ___ = 12',
                       `Time yourself: Can you complete all ${facts.length} problems in under 2 minutes?`
                     ]
+                    // Check if items is a valid array with string elements
+                    const itemsArray = Array.isArray(items) && items.length > 0 && typeof items[0] === 'string' && items[0] !== `worksheets.${docId}.challenge.items` ? items : fallbackItems
                     return itemsArray.map((item, i) => (
                       <div key={i}>{i + 1}. {item}</div>
                     ))
@@ -15441,11 +15448,13 @@ export function PrintablesPage() {
                 <div className="space-y-2 text-xs">
                   {(() => {
                     const items = t(`worksheets.${docId}.selfAssessment.items`)
-                    const itemsArray = Array.isArray(items) && items.length > 0 ? items : [
+                    const fallbackItems = [
                       'I can multiply numbers 1-5 easily',
                       'I need more practice with some facts',
                       'I can say the answers quickly (fluency)'
                     ]
+                    // Check if items is a valid array with string elements and not a translation key
+                    const itemsArray = Array.isArray(items) && items.length > 0 && typeof items[0] === 'string' && items[0] !== `worksheets.${docId}.selfAssessment.items` ? items : fallbackItems
                     return itemsArray.map((item, i) => (
                       <div key={i}>☐ {item}</div>
                     ))
