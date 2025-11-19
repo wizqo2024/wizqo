@@ -54,6 +54,9 @@ const ensureWorksheetKeys = () => {
   
   // Then, ensure place-value-hto worksheet keys
   ensurePlaceValueHtoKeys()
+  
+  // Then, ensure count-circle-1-10 worksheet keys
+  ensureCountCircleKeys()
 }
 
 const ensureInteractiveWorksheetKeys = () => {
@@ -389,6 +392,189 @@ const ensurePlaceValueHtoKeys = () => {
       // Only merge if keys are missing (to avoid overwriting if they exist)
       if (keys['place-value-hto'] && !worksheets['place-value-hto']) {
         worksheets['place-value-hto'] = keys['place-value-hto']
+      }
+    }
+  }
+}
+
+// Ensure count-circle-1-10 worksheet keys are present
+const ensureCountCircleKeys = () => {
+  // Define the keys directly to prevent tree-shaking - hardcode the full structure
+  const countCircleKeys = {
+    en: {
+      'count-circle-1-10': {
+        title: 'Count & Circle 1–10',
+        description: 'Count the objects in each box. Circle the correct number.',
+        learningObjectives: [
+          'Count objects accurately up to 10',
+          'Match quantities to numerals',
+          'Develop one-to-one correspondence',
+          'Build number recognition skills',
+        ],
+        parentTeacherTips: [
+          'Encourage students to point to each object as they count',
+          'Use one-to-one correspondence: one object = one number',
+          'Help students recognize that the last number counted is the total',
+          'Practice counting aloud: 1, 2, 3, 4, 5...',
+          'Extension: Try counting larger groups or counting backwards',
+        ],
+        example: {
+          title: '📚 Example - Let\'s solve this together:',
+          problem: 'Problem:',
+          problemText: 'Count the circles and circle the correct number',
+          step1: 'Step 1:',
+          step1Text: 'Point to each circle and count: 1, 2, 3, 4, 5',
+          step2: 'Step 2:',
+          step2Text: 'The last number counted is 5, so there are 5 circles',
+          step3: 'Step 3:',
+          step3Text: 'Circle the number 5',
+          answer: 'Answer:',
+          answerText: 'Circle 5',
+          tip: '💡 Tip: Count each object once, and the last number you say is the total!',
+        },
+        challenge: {
+          title: '🌟 Challenge Yourself (Optional):',
+          items: [
+            'Count objects around you: How many pencils? How many books?',
+            'Draw your own group of objects and count them',
+            'Try counting backwards from 10: 10, 9, 8, 7...',
+          ],
+        },
+        selfAssessment: {
+          title: '📊 How did you do?',
+          items: [
+            'I can count objects accurately',
+            'I can match quantities to numbers',
+            'I circled all {count} correct numbers',
+          ],
+          score: 'My score:',
+          hardest: 'What was hardest?',
+        },
+        answerKey: {
+          title: '✅ Answer Key',
+        },
+      },
+    },
+    es: {
+      'count-circle-1-10': {
+        title: 'Contar y Encerrar 1–10',
+        description: 'Cuenta los objetos en cada caja. Encierra el número correcto.',
+        learningObjectives: [
+          'Contar objetos con precisión hasta 10',
+          'Hacer coincidir cantidades con numerales',
+          'Desarrollar correspondencia uno a uno',
+          'Desarrollar habilidades de reconocimiento de números',
+        ],
+        parentTeacherTips: [
+          'Anima a los estudiantes a señalar cada objeto mientras cuentan',
+          'Usa correspondencia uno a uno: un objeto = un número',
+          'Ayuda a los estudiantes a reconocer que el último número contado es el total',
+          'Practica contando en voz alta: 1, 2, 3, 4, 5...',
+          'Extensión: Intenta contar grupos más grandes o contar hacia atrás',
+        ],
+        example: {
+          title: '📚 Ejemplo - Resolvamos esto juntos:',
+          problem: 'Problema:',
+          problemText: 'Cuenta los círculos y encierra el número correcto',
+          step1: 'Paso 1:',
+          step1Text: 'Señala cada círculo y cuenta: 1, 2, 3, 4, 5',
+          step2: 'Paso 2:',
+          step2Text: 'El último número contado es 5, así que hay 5 círculos',
+          step3: 'Paso 3:',
+          step3Text: 'Encierra el número 5',
+          answer: 'Respuesta:',
+          answerText: 'Encierra el 5',
+          tip: '💡 Consejo: ¡Cuenta cada objeto una vez, y el último número que digas es el total!',
+        },
+        challenge: {
+          title: '🌟 Desafíate (Opcional):',
+          items: [
+            'Cuenta objetos a tu alrededor: ¿Cuántos lápices? ¿Cuántos libros?',
+            'Dibuja tu propio grupo de objetos y cuéntalos',
+            'Intenta contar hacia atrás desde 10: 10, 9, 8, 7...',
+          ],
+        },
+        selfAssessment: {
+          title: '📊 ¿Cómo te fue?',
+          items: [
+            'Puedo contar objetos con precisión',
+            'Puedo hacer coincidir cantidades con números',
+            'Encerré todos los {count} números correctos',
+          ],
+          score: 'Mi puntuación:',
+          hardest: '¿Qué fue lo más difícil?',
+        },
+        answerKey: {
+          title: '✅ Clave de Respuestas',
+        },
+      },
+    },
+    ar: {
+      'count-circle-1-10': {
+        title: 'عد وأحط 1–10',
+        description: 'عد الكائنات في كل صندوق. أحط الرقم الصحيح.',
+        learningObjectives: [
+          'عد الكائنات بدقة حتى 10',
+          'مطابقة الكميات مع الأرقام',
+          'تطوير المراسلة واحد لواحد',
+          'بناء مهارات التعرف على الأرقام',
+        ],
+        parentTeacherTips: [
+          'شجع الطلاب على الإشارة إلى كل كائن أثناء العد',
+          'استخدم المراسلة واحد لواحد: كائن واحد = رقم واحد',
+          'ساعد الطلاب على إدراك أن آخر رقم تم عدّه هو المجموع',
+          'تدرب على العد بصوت عالٍ: 1، 2، 3، 4، 5...',
+          'امتداد: جرب عد مجموعات أكبر أو العد للخلف',
+        ],
+        example: {
+          title: '📚 مثال - دعنا نحل هذا معاً:',
+          problem: 'المسألة:',
+          problemText: 'عد الدوائر وأحط الرقم الصحيح',
+          step1: 'الخطوة 1:',
+          step1Text: 'أشر إلى كل دائرة وعد: 1، 2، 3، 4، 5',
+          step2: 'الخطوة 2:',
+          step2Text: 'آخر رقم تم عدّه هو 5، إذن هناك 5 دوائر',
+          step3: 'الخطوة 3:',
+          step3Text: 'أحط الرقم 5',
+          answer: 'الإجابة:',
+          answerText: 'أحط 5',
+          tip: '💡 نصيحة: عد كل كائن مرة واحدة، وآخر رقم تقوله هو المجموع!',
+        },
+        challenge: {
+          title: '🌟 تحدّ نفسك (اختياري):',
+          items: [
+            'عد الكائنات من حولك: كم قلم؟ كم كتاب؟',
+            'ارسم مجموعة خاصة بك من الكائنات وعدها',
+            'جرب العد للخلف من 10: 10، 9، 8، 7...',
+          ],
+        },
+        selfAssessment: {
+          title: '📊 كيف كان أداؤك؟',
+          items: [
+            'يمكنني عد الكائنات بدقة',
+            'يمكنني مطابقة الكميات مع الأرقام',
+            'أحطت جميع الأرقام الصحيحة {count}',
+          ],
+          score: 'نقاطي:',
+          hardest: 'ما كان الأصعب؟',
+        },
+        answerKey: {
+          title: '✅ مفتاح الإجابات',
+        },
+      },
+    },
+  }
+
+  // Merge into translations object if keys are missing
+  for (const lang of ['en', 'es', 'ar'] as const) {
+    const langTranslations = (translations as any)[lang]
+    if (langTranslations && langTranslations.worksheets) {
+      const worksheets = langTranslations.worksheets
+      const keys = countCircleKeys[lang]
+      
+      // Only merge if keys are missing (to avoid overwriting if they exist)
+      if (keys['count-circle-1-10'] && !worksheets['count-circle-1-10']) {
+        worksheets['count-circle-1-10'] = keys['count-circle-1-10']
       }
     }
   }
