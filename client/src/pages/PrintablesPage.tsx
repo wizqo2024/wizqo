@@ -15507,9 +15507,11 @@ export function PrintablesPage() {
                     ]
                     // Check if items is a valid array with string elements
                     const itemsArray = Array.isArray(items) && items.length > 0 && typeof items[0] === 'string' && items[0] !== `worksheets.${docId}.challenge.items` ? items : fallbackItems
-                    return itemsArray.map((item, i) => (
-                      <div key={i}>{i + 1}. {item}</div>
-                    ))
+                    return itemsArray.map((item, i) => {
+                      // Replace {count} placeholder if it exists in the translated string
+                      const itemText = typeof item === 'string' ? item.replace('{count}', String(facts.length)) : item
+                      return <div key={i}>{i + 1}. {itemText}</div>
+                    })
                   })()}
                 </div>
               </div>

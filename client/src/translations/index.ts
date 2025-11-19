@@ -1249,7 +1249,7 @@ const ensureTimesTableWorksheetKeys = () => {
             'Create your own multiplication problem: ___ × ___ = ?',
             'Solve: 5 × 5 = ? (the biggest fact in this worksheet!)',
             'Write all the facts that equal 12: ___ × ___ = 12',
-            'Time yourself: Can you complete all 15 problems in under 2 minutes?',
+            'Time yourself: Can you complete all {count} problems in under 2 minutes?',
           ],
         },
         selfAssessment: {
@@ -1304,7 +1304,7 @@ const ensureTimesTableWorksheetKeys = () => {
             'Create your own multiplication problem: ___ × ___ = ?',
             'Solve: 5 × 5 = ? (the biggest fact in this worksheet!)',
             'Write all the facts that equal 12: ___ × ___ = 12',
-            'Time yourself: Can you complete all 15 problems in under 2 minutes?',
+            'Time yourself: Can you complete all {count} problems in under 2 minutes?',
           ],
         },
         selfAssessment: {
@@ -1361,7 +1361,7 @@ const ensureTimesTableWorksheetKeys = () => {
             'Crea tu propio problema de multiplicación: ___ × ___ = ?',
             'Resuelve: 5 × 5 = ? (¡la operación más grande en esta hoja de trabajo!)',
             'Escribe todas las operaciones que igualan 12: ___ × ___ = 12',
-            'Cronométrate: ¿Puedes completar las 15 operaciones en menos de 2 minutos?',
+            'Cronométrate: ¿Puedes completar los {count} problemas en menos de 2 minutos?',
           ],
         },
         selfAssessment: {
@@ -1416,7 +1416,7 @@ const ensureTimesTableWorksheetKeys = () => {
             'Crea tu propio problema de multiplicación: ___ × ___ = ?',
             'Resuelve: 5 × 5 = ? (¡la operación más grande en esta hoja de trabajo!)',
             'Escribe todas las operaciones que igualan 12: ___ × ___ = 12',
-            'Cronométrate: ¿Puedes completar los 15 problemas en menos de 2 minutos?',
+            'Cronométrate: ¿Puedes completar los {count} problemas en menos de 2 minutos?',
           ],
         },
         selfAssessment: {
@@ -1473,7 +1473,7 @@ const ensureTimesTableWorksheetKeys = () => {
             'أنشئ مسألة ضرب خاصة بك: ___ × ___ = ?',
             'حل: 5 × 5 = ? (أكبر حقيقة في هذه الورقة!)',
             'اكتب جميع الحقائق التي تساوي 12: ___ × ___ = 12',
-            'قم بقياس وقتك: هل يمكنك إكمال جميع المسائل الـ 15 في أقل من دقيقتين؟',
+            'قم بقياس وقتك: هل يمكنك إكمال جميع المسائل الـ {count} في أقل من دقيقتين؟',
           ],
         },
         selfAssessment: {

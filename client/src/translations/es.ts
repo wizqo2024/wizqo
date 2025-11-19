@@ -427,7 +427,7 @@ export const es = {
           'Crea tu propio problema de multiplicación: ___ × ___ = ?',
           'Resuelve: 5 × 5 = ? (¡la operación más grande en esta hoja de trabajo!)',
           'Escribe todas las operaciones que igualan 12: ___ × ___ = 12',
-          'Cronométrate: ¿Puedes completar las 15 operaciones en menos de 2 minutos?',
+            'Cronométrate: ¿Puedes completar los {count} problemas en menos de 2 minutos?',
         ],
       },
       selfAssessment: {
@@ -482,7 +482,7 @@ export const es = {
           'Crea tu propio problema de multiplicación: ___ × ___ = ?',
           'Resuelve: 5 × 5 = ? (¡la operación más grande en esta hoja de trabajo!)',
           'Escribe todas las operaciones que igualan 12: ___ × ___ = 12',
-          'Cronométrate: ¿Puedes completar los 15 problemas en menos de 2 minutos?',
+            'Cronométrate: ¿Puedes completar los {count} problemas en menos de 2 minutos?',
         ],
       },
       selfAssessment: {
