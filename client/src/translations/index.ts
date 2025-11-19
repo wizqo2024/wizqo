@@ -52,14 +52,22 @@ export function getTranslation(language: Language, key: string): string | any {
         // Log the worksheets object structure for debugging
         const worksheetsObj = value.worksheets
         if (worksheetsObj && typeof worksheetsObj === 'object') {
-          console.log(`[getTranslation] worksheets object structure for ${language}:`, {
+          const allKeys = Object.keys(worksheetsObj)
+          console.error(`[getTranslation] worksheets object structure for ${language}:`, {
             hasObjectNames: 'objectNames' in worksheetsObj,
             objectNamesType: typeof worksheetsObj.objectNames,
+            objectNamesValue: worksheetsObj.objectNames,
             objectNamesKeys: worksheetsObj.objectNames && typeof worksheetsObj.objectNames === 'object' ? Object.keys(worksheetsObj.objectNames) : 'N/A',
             hasCountObjectsAndWriteNumber: 'countObjectsAndWriteNumber' in worksheetsObj,
+            countObjectsAndWriteNumberValue: worksheetsObj.countObjectsAndWriteNumber,
             hasCountThe: 'countThe' in worksheetsObj,
+            countTheValue: worksheetsObj.countThe,
             hasNumberLabel: 'numberLabel' in worksheetsObj,
-            worksheetsKeys: Object.keys(worksheetsObj).slice(0, 20)
+            numberLabelValue: worksheetsObj.numberLabel,
+            worksheetsKeys: allKeys.slice(0, 30),
+            worksheetsKeysCount: allKeys.length,
+            // Log first few key-value pairs to see actual structure
+            sampleEntries: allKeys.slice(0, 5).map(k => ({ key: k, value: worksheetsObj[k], valueType: typeof worksheetsObj[k] }))
           })
         }
       }
