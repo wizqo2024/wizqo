@@ -18,6 +18,26 @@ export function getTranslation(language: Language, key: string): string | any {
     const keys = key.split('.')
     let value: any = translations[language]
     
+    // Debug: Log the top-level structure once per language
+    if (typeof window !== 'undefined' && keys[0] === 'worksheets') {
+      const debugKey = `translation-debug-${language}`
+      if (!(window as any)[debugKey]) {
+        (window as any)[debugKey] = true
+        console.error(`[getTranslation] Top-level translations structure for ${language}:`, {
+          hasTranslations: !!translations,
+          hasLanguage: !!translations[language],
+          languageType: typeof translations[language],
+          languageKeys: translations[language] && typeof translations[language] === 'object' ? Object.keys(translations[language]).slice(0, 20) : 'N/A',
+          hasWorksheets: translations[language] && typeof translations[language] === 'object' ? 'worksheets' in translations[language] : false,
+          worksheetsType: translations[language] && typeof translations[language] === 'object' ? typeof translations[language].worksheets : 'N/A',
+          worksheetsValue: translations[language] && typeof translations[language] === 'object' ? translations[language].worksheets : 'N/A',
+          worksheetsIsUndefined: translations[language] && typeof translations[language] === 'object' ? translations[language].worksheets === undefined : 'N/A',
+          worksheetsIsNull: translations[language] && typeof translations[language] === 'object' ? translations[language].worksheets === null : 'N/A',
+          worksheetsKeys: (translations[language] && typeof translations[language] === 'object' && translations[language].worksheets && typeof translations[language].worksheets === 'object') ? Object.keys(translations[language].worksheets).slice(0, 30) : 'N/A'
+        })
+      }
+    }
+    
     // Debug: Log if translations object is missing or malformed
     if (!value) {
       console.warn(`[getTranslation] Translation object not found for language: ${language}`, {
