@@ -15,27 +15,34 @@ const TranslationContext = createContext<TranslationContextType | undefined>(und
 
 export function TranslationProvider({ children }: { children: ReactNode }) {
   // Get language from URL first (for SEO), then query param, then localStorage, then default to 'en'
+  // IMPORTANT: Query parameter must take priority over localStorage for /print route
   const [language, setLanguageState] = useState<Language>(() => {
     if (typeof window !== 'undefined') {
       // Priority 1: Get from URL path (for SEO and shareable links)
       const urlLocale = getLocaleFromURL()
       if (urlLocale && ['en', 'es', 'ar'].includes(urlLocale)) {
+        console.log('[TranslationContext] Initial state: Using URL path locale:', urlLocale)
         return urlLocale as Language
       }
       
-      // Priority 2: Get from query parameter (for /print route)
+      // Priority 2: Get from query parameter (for /print route) - MUST check this before localStorage
       const params = new URLSearchParams(window.location.search)
       const langParam = params.get('lang')
       if (langParam && ['en', 'es', 'ar'].includes(langParam)) {
+        console.log('[TranslationContext] Initial state: Using query param lang:', langParam)
+        // Also save to localStorage so it persists
+        localStorage.setItem('wizqo-language', langParam)
         return langParam as Language
       }
       
-      // Priority 3: Get from localStorage (user preference)
+      // Priority 3: Get from localStorage (user preference) - only if no URL param
       const saved = localStorage.getItem('wizqo-language') as Language
       if (saved && ['en', 'es', 'ar'].includes(saved)) {
+        console.log('[TranslationContext] Initial state: Using localStorage:', saved)
         return saved
       }
     }
+    console.log('[TranslationContext] Initial state: Using default: en')
     return 'en'
   })
   
@@ -62,14 +69,13 @@ export function TranslationProvider({ children }: { children: ReactNode }) {
       }
       
       // Priority 2: Check query parameter (for /print route with ?lang=ar)
+      // This MUST take priority over localStorage
       const params = new URLSearchParams(window.location.search)
       const langParam = params.get('lang')
       if (langParam && ['en', 'es', 'ar'].includes(langParam)) {
         setLanguageState((currentLang) => {
           if (currentLang !== langParam) {
-            if (typeof window !== 'undefined' && process.env.NODE_ENV === 'development') {
-              console.log('[TranslationContext] Setting language from query param:', langParam, 'current:', currentLang)
-            }
+            console.log('[TranslationContext] syncLanguageFromURL: Setting language from query param:', langParam, 'current:', currentLang)
             localStorage.setItem('wizqo-language', langParam)
             document.documentElement.dir = isRTL(langParam) ? 'rtl' : 'ltr'
             document.documentElement.lang = langParam
