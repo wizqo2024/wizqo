@@ -6646,7 +6646,26 @@ function InteractiveWorksheetSection({
           return contextResult
         }
         
-        // Priority 3: If both return the key, try English as final fallback
+        // Priority 3: If both return the key, try English as final fallback (but only if not Arabic)
+        // For Arabic, we want to see the key if translation is missing rather than falling back to English
+        if (language === 'ar') {
+          // For Arabic, return the key so we can see what's missing
+          if (typeof window !== 'undefined') {
+            const logKey = `translation-missing-${key}-${language}`
+            if (!(window as any)[logKey]) {
+              (window as any)[logKey] = true
+              console.warn(`[InteractiveBundleSections] Translation missing for Arabic: key=${key}, language=${language}`, { 
+                directResult, 
+                contextResult,
+                languageValue: language,
+                keyPath: key
+              })
+            }
+          }
+          return key
+        }
+        
+        // For other languages, try English fallback
         if (language !== 'en') {
           const englishResult = getTranslation('en', key)
           if (typeof englishResult === 'string' && englishResult !== key) {
@@ -6655,19 +6674,6 @@ function InteractiveWorksheetSection({
         }
         
         // Final fallback: return the key (will be visible in UI for debugging)
-        // Only log once per unique key to avoid spam
-        if (typeof window !== 'undefined') {
-          const logKey = `translation-missing-${key}-${language}`
-          if (!(window as any)[logKey]) {
-            (window as any)[logKey] = true
-            console.warn(`[InteractiveBundleSections] Translation missing: key=${key}, language=${language}`, { 
-              directResult, 
-              contextResult,
-              languageValue: language,
-              keyPath: key
-            })
-          }
-        }
         return key
       } catch (error) {
         console.warn('[InteractiveBundleSections] Translation error:', key, language, error)
