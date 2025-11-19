@@ -109,6 +109,23 @@ export function TranslationProvider({ children }: { children: ReactNode }) {
       syncLanguageFromURL()
     }, 0)
     
+    // Also check query parameter on mount (in case initial state didn't catch it)
+    // This is important for /print route which uses ?lang=ar
+    const checkQueryParam = () => {
+      if (typeof window !== 'undefined') {
+        const params = new URLSearchParams(window.location.search)
+        const langParam = params.get('lang')
+        if (langParam && ['en', 'es', 'ar'].includes(langParam) && langParam !== language) {
+          setLanguageState(langParam as Language)
+          localStorage.setItem('wizqo-language', langParam)
+          document.documentElement.dir = isRTL(langParam) ? 'rtl' : 'ltr'
+          document.documentElement.lang = langParam
+        }
+      }
+    }
+    // Check immediately
+    checkQueryParam()
+    
     // Sync on popstate (browser back/forward)
     window.addEventListener('popstate', syncLanguageFromURL)
     
