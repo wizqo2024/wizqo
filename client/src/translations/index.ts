@@ -43,8 +43,16 @@ export const interactiveWorksheetKeys = {
   },
 } as const
 
-// Runtime merge: Ensure interactive worksheet keys are always present
+// Runtime merge: Ensure worksheet keys are always present
 // This fixes the tree-shaking issue by directly injecting the keys
+const ensureWorksheetKeys = () => {
+  // First, ensure interactive worksheet keys
+  ensureInteractiveWorksheetKeys()
+  
+  // Then, ensure times-table worksheet keys
+  ensureTimesTableWorksheetKeys()
+}
+
 const ensureInteractiveWorksheetKeys = () => {
   // Define the keys directly to prevent tree-shaking
   const interactiveKeys = {
@@ -167,8 +175,368 @@ const ensureInteractiveWorksheetKeys = () => {
   }
 }
 
+// Ensure times-table worksheet keys are present
+const ensureTimesTableWorksheetKeys = () => {
+  // Define the keys directly to prevent tree-shaking - hardcode the full structure
+  const timesTableKeys = {
+    en: {
+      'times-table-horizontal-1-5': {
+        title: 'Horizontal Times Table (1-5)',
+        description: 'Practice times tables 1-5 in horizontal format. Write the answer in each blank. Build confidence with simple, stress-free multiplication practice.',
+        learningObjectives: [
+          'Memorize multiplication facts for numbers 1-5',
+          'Practice multiplication in horizontal format',
+          'Build speed and accuracy with basic facts',
+        ],
+        parentTeacherTips: [
+          'Start with easier facts (1s, 2s) and work up to 5s',
+          'Use skip counting to help: 3 × 4 means count by 3s four times',
+          'Practice daily for 5-10 minutes for best results',
+          'Extension: Time yourself and try to beat your record!',
+        ],
+        example: {
+          title: '📚 Example - Let\'s solve this together:',
+          problem: 'Problem:',
+          problemText: '3 × 4 = ?',
+          method1: 'Method 1 (Skip Counting):',
+          method1Text: 'Count by 3s four times: 3, 6, 9, 12',
+          method2: 'Method 2 (Repeated Addition):',
+          method2Text: '3 + 3 + 3 + 3 = 12',
+          method3: 'Method 3 (Visual):',
+          method3Text: '3 groups of 4 objects = 12 objects',
+          answer: 'Answer:',
+          answerText: '12',
+          tip: '💡 Tip: You can also think of it as 4 × 3 = 12 (order doesn\'t matter!)',
+        },
+        challenge: {
+          title: '🌟 Challenge Yourself (Optional):',
+          items: [
+            'Create your own multiplication problem: ___ × ___ = ?',
+            'Solve: 5 × 5 = ? (the biggest fact in this worksheet!)',
+            'Write all the facts that equal 12: ___ × ___ = 12',
+            'Time yourself: Can you complete all 15 problems in under 2 minutes?',
+          ],
+        },
+        selfAssessment: {
+          title: '📊 How did you do?',
+          items: [
+            'I can multiply numbers 1-5 easily',
+            'I need more practice with some facts',
+            'I can say the answers quickly (fluency)',
+          ],
+          score: 'My score:',
+          timeTaken: 'Time taken:',
+          minutes: 'minutes',
+          factsToPractice: 'Facts I want to practice more:',
+        },
+        answerKey: {
+          title: '✅ Answer Key',
+          studyTip: '💡 Study Tip:',
+          studyTipText: 'Practice saying these facts out loud daily. Try to answer faster each time!',
+        },
+      },
+      'times-table-vertical-1-5': {
+        title: 'Vertical Times Table (1-5)',
+        description: 'Practice times tables 1-5 in vertical format. Write the answer in each blank. Build confidence with simple, stress-free multiplication practice.',
+        learningObjectives: [
+          'Memorize multiplication facts for numbers 1-5',
+          'Practice multiplication in vertical format',
+          'Build speed and accuracy with basic facts',
+        ],
+        parentTeacherTips: [
+          'Start with easier facts (1s, 2s) and work up to 5s',
+          'Use skip counting to help: 3 × 4 means count by 3s four times',
+          'Practice daily for 5-10 minutes for best results',
+          'Extension: Time yourself and try to beat your record!',
+        ],
+        example: {
+          title: '📚 Example - Let\'s solve this together:',
+          problem: 'Problem:',
+          problemText: '3 × 4 = ?',
+          method1: 'Method 1 (Skip Counting):',
+          method1Text: 'Count by 3s four times: 3, 6, 9, 12',
+          method2: 'Method 2 (Repeated Addition):',
+          method2Text: '3 + 3 + 3 + 3 = 12',
+          method3: 'Method 3 (Visual):',
+          method3Text: '3 groups of 4 objects = 12 objects',
+          answer: 'Answer:',
+          answerText: '12',
+          tip: '💡 Tip: You can also think of it as 4 × 3 = 12 (order doesn\'t matter!)',
+        },
+        challenge: {
+          title: '🌟 Challenge Yourself (Optional):',
+          items: [
+            'Create your own multiplication problem: ___ × ___ = ?',
+            'Solve: 5 × 5 = ? (the biggest fact in this worksheet!)',
+            'Write all the facts that equal 12: ___ × ___ = 12',
+            'Time yourself: Can you complete all 15 problems in under 2 minutes?',
+          ],
+        },
+        selfAssessment: {
+          title: '📊 How did you do?',
+          items: [
+            'I can multiply numbers 1-5 easily',
+            'I need more practice with some facts',
+            'I can say the answers quickly (fluency)',
+          ],
+          score: 'My score:',
+          timeTaken: 'Time taken:',
+          minutes: 'minutes',
+          factsToPractice: 'Facts I want to practice more:',
+        },
+        answerKey: {
+          title: '✅ Answer Key',
+          studyTip: '💡 Study Tip:',
+          studyTipText: 'Practice saying these facts out loud daily. Try to answer faster each time!',
+        },
+      },
+    },
+    es: {
+      'times-table-horizontal-1-5': {
+        title: 'Tabla de Multiplicar Horizontal (1-5)',
+        description: 'Practica las tablas de multiplicar del 1 al 5 en formato horizontal. Escribe la respuesta en cada espacio en blanco. Desarrolla confianza con práctica de multiplicación simple y sin estrés.',
+        learningObjectives: [
+          'Memorizar las tablas de multiplicar para los números 1-5',
+          'Practicar la multiplicación en formato horizontal',
+          'Desarrollar velocidad y precisión con operaciones básicas',
+        ],
+        parentTeacherTips: [
+          'Comienza con operaciones más fáciles (1s, 2s) y avanza hasta 5s',
+          'Usa el conteo saltado para ayudar: 3 × 4 significa contar de 3 en 3 cuatro veces',
+          'Practica diariamente durante 5-10 minutos para mejores resultados',
+          'Extensión: ¡Cronométrate e intenta superar tu récord!',
+        ],
+        example: {
+          title: '📚 Ejemplo - Resolvamos esto juntos:',
+          problem: 'Problema:',
+          problemText: '3 × 4 = ?',
+          method1: 'Método 1 (Conteo Saltado):',
+          method1Text: 'Cuenta de 3 en 3 cuatro veces: 3, 6, 9, 12',
+          method2: 'Método 2 (Suma Repetida):',
+          method2Text: '3 + 3 + 3 + 3 = 12',
+          method3: 'Método 3 (Visual):',
+          method3Text: '3 grupos de 4 objetos = 12 objetos',
+          answer: 'Respuesta:',
+          answerText: '12',
+          tip: '💡 Consejo: ¡También puedes pensarlo como 4 × 3 = 12 (el orden no importa!)',
+        },
+        challenge: {
+          title: '🌟 Desafíate (Opcional):',
+          items: [
+            'Crea tu propio problema de multiplicación: ___ × ___ = ?',
+            'Resuelve: 5 × 5 = ? (¡la operación más grande en esta hoja de trabajo!)',
+            'Escribe todas las operaciones que igualan 12: ___ × ___ = 12',
+            'Cronométrate: ¿Puedes completar las 15 operaciones en menos de 2 minutos?',
+          ],
+        },
+        selfAssessment: {
+          title: '📊 ¿Cómo te fue?',
+          items: [
+            'Puedo multiplicar números del 1 al 5 fácilmente',
+            'Necesito más práctica con algunas operaciones',
+            'Puedo decir las respuestas rápidamente (fluidez)',
+          ],
+          score: 'Mi puntuación:',
+          timeTaken: 'Tiempo tomado:',
+          minutes: 'minutos',
+          factsToPractice: 'Operaciones que quiero practicar más:',
+        },
+        answerKey: {
+          title: '✅ Clave de Respuestas',
+          studyTip: '💡 Consejo de Estudio:',
+          studyTipText: '¡Practica diciendo estas operaciones en voz alta diariamente. Intenta responder más rápido cada vez!',
+        },
+      },
+      'times-table-vertical-1-5': {
+        title: 'Tabla de Multiplicar Vertical (1-5)',
+        description: 'Practica las tablas de multiplicar 1-5 en formato vertical. Escribe la respuesta en cada espacio en blanco. Desarrolla confianza con práctica de multiplicación simple y sin estrés.',
+        learningObjectives: [
+          'Memorizar las operaciones de multiplicación para los números 1-5',
+          'Practicar multiplicación en formato vertical',
+          'Desarrollar velocidad y precisión con operaciones básicas',
+        ],
+        parentTeacherTips: [
+          'Comienza con operaciones más fáciles (1s, 2s) y avanza hasta 5s',
+          'Usa el conteo saltado para ayudar: 3 × 4 significa contar de 3 en 3 cuatro veces',
+          'Practica diariamente durante 5-10 minutos para mejores resultados',
+          'Extensión: ¡Cronométrate e intenta superar tu récord!',
+        ],
+        example: {
+          title: '📚 Ejemplo - Resolvamos esto juntos:',
+          problem: 'Problema:',
+          problemText: '3 × 4 = ?',
+          method1: 'Método 1 (Conteo Saltado):',
+          method1Text: 'Cuenta de 3 en 3 cuatro veces: 3, 6, 9, 12',
+          method2: 'Método 2 (Suma Repetida):',
+          method2Text: '3 + 3 + 3 + 3 = 12',
+          method3: 'Método 3 (Visual):',
+          method3Text: '3 grupos de 4 objetos = 12 objetos',
+          answer: 'Respuesta:',
+          answerText: '12',
+          tip: '💡 Consejo: También puedes pensarlo como 4 × 3 = 12 (¡el orden no importa!)',
+        },
+        challenge: {
+          title: '🌟 Desafíate a Ti Mismo (Opcional):',
+          items: [
+            'Crea tu propio problema de multiplicación: ___ × ___ = ?',
+            'Resuelve: 5 × 5 = ? (¡la operación más grande en esta hoja de trabajo!)',
+            'Escribe todas las operaciones que igualan 12: ___ × ___ = 12',
+            'Cronométrate: ¿Puedes completar los 15 problemas en menos de 2 minutos?',
+          ],
+        },
+        selfAssessment: {
+          title: '📊 ¿Cómo te fue?',
+          items: [
+            'Puedo multiplicar números 1-5 fácilmente',
+            'Necesito más práctica con algunas operaciones',
+            'Puedo decir las respuestas rápidamente (fluidez)',
+          ],
+          score: 'Mi puntuación:',
+          timeTaken: 'Tiempo tomado:',
+          minutes: 'minutos',
+          factsToPractice: 'Operaciones que quiero practicar más:',
+        },
+        answerKey: {
+          title: '✅ Clave de Respuestas',
+          studyTip: '💡 Consejo de Estudio:',
+          studyTipText: '¡Practica diciendo estas operaciones en voz alta diariamente. Intenta responder más rápido cada vez!',
+        },
+      },
+    },
+    ar: {
+      'times-table-horizontal-1-5': {
+        title: 'جدول الضرب الأفقي (1-5)',
+        description: 'تدرب على جداول الضرب من 1 إلى 5 في التنسيق الأفقي. اكتب الإجابة في كل فراغ. بناء الثقة مع ممارسة الضرب البسيطة والخالية من الإجهاد.',
+        learningObjectives: [
+          'حفظ حقائق الضرب للأرقام 1-5',
+          'ممارسة الضرب في التنسيق الأفقي',
+          'بناء السرعة والدقة مع الحقائق الأساسية',
+        ],
+        parentTeacherTips: [
+          'ابدأ بالحقائق الأسهل (1s، 2s) وتقدم حتى 5s',
+          'استخدم العد المتخطي للمساعدة: 3 × 4 يعني العد بالثلاثات أربع مرات',
+          'تدرب يومياً لمدة 5-10 دقائق للحصول على أفضل النتائج',
+          'امتداد: قم بقياس وقتك وحاول تحطيم رقمك القياسي!',
+        ],
+        example: {
+          title: '📚 مثال - دعنا نحل هذا معاً:',
+          problem: 'المسألة:',
+          problemText: '3 × 4 = ?',
+          method1: 'الطريقة 1 (العد المتخطي):',
+          method1Text: 'عد بالثلاثات أربع مرات: 3، 6، 9، 12',
+          method2: 'الطريقة 2 (الجمع المتكرر):',
+          method2Text: '3 + 3 + 3 + 3 = 12',
+          method3: 'الطريقة 3 (البصري):',
+          method3Text: '3 مجموعات من 4 أشياء = 12 شيئاً',
+          answer: 'الإجابة:',
+          answerText: '12',
+          tip: '💡 نصيحة: يمكنك أيضاً التفكير فيها كـ 4 × 3 = 12 (الترتيب لا يهم!)',
+        },
+        challenge: {
+          title: '🌟 تحدّ نفسك (اختياري):',
+          items: [
+            'أنشئ مسألة ضرب خاصة بك: ___ × ___ = ?',
+            'حل: 5 × 5 = ? (أكبر حقيقة في هذه الورقة!)',
+            'اكتب جميع الحقائق التي تساوي 12: ___ × ___ = 12',
+            'قم بقياس وقتك: هل يمكنك إكمال جميع المسائل الـ 15 في أقل من دقيقتين؟',
+          ],
+        },
+        selfAssessment: {
+          title: '📊 كيف كان أداؤك؟',
+          items: [
+            'يمكنني ضرب الأرقام 1-5 بسهولة',
+            'أحتاج إلى مزيد من الممارسة مع بعض الحقائق',
+            'يمكنني قول الإجابات بسرعة (الطلاقة)',
+          ],
+          score: 'نقاطي:',
+          timeTaken: 'الوقت المستغرق:',
+          minutes: 'دقائق',
+          factsToPractice: 'الحقائق التي أريد ممارستها أكثر:',
+        },
+        answerKey: {
+          title: '✅ مفتاح الإجابات',
+          studyTip: '💡 نصيحة للدراسة:',
+          studyTipText: 'تدرب على قول هذه الحقائق بصوت عالٍ يومياً. حاول الإجابة بشكل أسرع في كل مرة!',
+        },
+      },
+      'times-table-vertical-1-5': {
+        title: 'جدول الضرب العمودي (1-5)',
+        description: 'تدرب على جداول الضرب 1-5 في التنسيق العمودي. اكتب الإجابة في كل فراغ. بناء الثقة مع ممارسة الضرب البسيطة والخالية من الإجهاد.',
+        learningObjectives: [
+          'حفظ حقائق الضرب للأرقام 1-5',
+          'ممارسة الضرب في التنسيق العمودي',
+          'بناء السرعة والدقة مع الحقائق الأساسية',
+        ],
+        parentTeacherTips: [
+          'ابدأ بحقائق أسهل (1s، 2s) واعمل حتى 5s',
+          'استخدم العد المتخطي للمساعدة: 3 × 4 يعني العد بالثلاثات أربع مرات',
+          'تدرب يومياً لمدة 5-10 دقائق للحصول على أفضل النتائج',
+          'التمديد: قم بتوقيت نفسك وحاول تحطيم رقمك القياسي!',
+        ],
+        example: {
+          title: '📚 مثال - دعنا نحل هذا معاً:',
+          problem: 'المشكلة:',
+          problemText: '3 × 4 = ?',
+          method1: 'الطريقة 1 (العد المتخطي):',
+          method1Text: 'عد بالثلاثات أربع مرات: 3، 6، 9، 12',
+          method2: 'الطريقة 2 (الجمع المتكرر):',
+          method2Text: '3 + 3 + 3 + 3 = 12',
+          method3: 'الطريقة 3 (البصري):',
+          method3Text: '3 مجموعات من 4 أشياء = 12 شيئاً',
+          answer: 'الإجابة:',
+          answerText: '12',
+          tip: '💡 نصيحة: يمكنك أيضاً التفكير في الأمر كـ 4 × 3 = 12 (الترتيب لا يهم!)',
+        },
+        challenge: {
+          title: '🌟 تحدى نفسك (اختياري):',
+          items: [
+            'أنشئ مشكلة الضرب الخاصة بك: ___ × ___ = ?',
+            'حل: 5 × 5 = ? (أكبر حقيقة في ورقة العمل هذه!)',
+            'اكتب جميع الحقائق التي تساوي 12: ___ × ___ = 12',
+            'قم بتوقيت نفسك: هل يمكنك إكمال جميع المشاكل الـ 15 في أقل من دقيقتين؟',
+          ],
+        },
+        selfAssessment: {
+          title: '📊 كيف كان أداؤك؟',
+          items: [
+            'يمكنني ضرب الأرقام 1-5 بسهولة',
+            'أحتاج إلى مزيد من الممارسة مع بعض الحقائق',
+            'يمكنني قول الإجابات بسرعة (الطلاقة)',
+          ],
+          score: 'نقاطي:',
+          timeTaken: 'الوقت المستغرق:',
+          minutes: 'دقائق',
+          factsToPractice: 'الحقائق التي أريد ممارستها أكثر:',
+        },
+        answerKey: {
+          title: '✅ مفتاح الإجابات',
+          studyTip: '💡 نصيحة للدراسة:',
+          studyTipText: 'تدرب على قول هذه الحقائق بصوت عالٍ يومياً. حاول الإجابة بشكل أسرع في كل مرة!',
+        },
+      },
+    },
+  }
+
+  // Merge into translations object if keys are missing
+  for (const lang of ['en', 'es', 'ar'] as const) {
+    const langTranslations = (translations as any)[lang]
+    if (langTranslations && langTranslations.worksheets) {
+      const worksheets = langTranslations.worksheets
+      const keys = timesTableKeys[lang]
+      
+      // Only merge if keys are missing (to avoid overwriting if they exist)
+      if (keys['times-table-horizontal-1-5'] && !worksheets['times-table-horizontal-1-5']) {
+        worksheets['times-table-horizontal-1-5'] = keys['times-table-horizontal-1-5']
+      }
+      if (keys['times-table-vertical-1-5'] && !worksheets['times-table-vertical-1-5']) {
+        worksheets['times-table-vertical-1-5'] = keys['times-table-vertical-1-5']
+      }
+    }
+  }
+}
+
 // Run the merge immediately
-ensureInteractiveWorksheetKeys()
+ensureWorksheetKeys()
 
 // Helper function to get translation with fallback
 // Returns string, array, or object depending on the translation value
