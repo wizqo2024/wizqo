@@ -567,6 +567,26 @@ const ensureInteractiveTitleDescriptionKeys = () => {
         title: 'Alfabeto y Reconocimiento de Letras',
         description: 'Practica reconocer letras, emparejar mayúsculas y minúsculas, y sonidos iniciales.',
       },
+      'interactive-reading-prek': {
+        title: 'Hora de Cuentos con Imágenes',
+        description: 'Historias simples basadas en imágenes con preguntas de sí/no y actividades básicas de comprensión.',
+      },
+      'interactive-science-prek': {
+        title: 'Explorador de la Naturaleza',
+        description: 'Actividades simples de observación de la naturaleza con imágenes y preguntas básicas sobre plantas, animales y clima.',
+      },
+      'interactive-science-space': {
+        title: 'Explorador del Espacio y la Astronomía',
+        description: 'Aprende sobre planetas, estrellas y fenómenos espaciales con actividades interactivas.',
+      },
+      'interactive-geography-prek': {
+        title: 'Explorador de Mi Comunidad',
+        description: 'Aprende sobre lugares en la comunidad, el hogar y la escuela con mapas simples e imágenes.',
+      },
+      'interactive-writing-prek': {
+        title: 'Dibujo y Etiquetado',
+        description: 'Dibuja imágenes y etiquétalas con palabras simples. ¡Perfecto para artistas principiantes!',
+      },
     },
     ar: {
       'interactive-reading-detective': {
@@ -592,6 +612,26 @@ const ensureInteractiveTitleDescriptionKeys = () => {
       'interactive-reading-alphabet': {
         title: 'الأبجدية والتعرف على الحروف',
         description: 'تدرب على التعرف على الحروف ومطابقة الأحرف الكبيرة والصغيرة والأصوات الأولية.',
+      },
+      'interactive-reading-prek': {
+        title: 'وقت قصة الصور',
+        description: 'قصص بسيطة قائمة على الصور مع أسئلة نعم/لا وأنشطة فهم أساسية.',
+      },
+      'interactive-science-prek': {
+        title: 'مستكشف الطبيعة',
+        description: 'أنشطة بسيطة لمراقبة الطبيعة مع الصور والأسئلة الأساسية حول النباتات والحيوانات والطقس.',
+      },
+      'interactive-science-space': {
+        title: 'مستكشف الفضاء وعلم الفلك',
+        description: 'تعلم عن الكواكب والنجوم وظواهر الفضاء مع الأنشطة التفاعلية.',
+      },
+      'interactive-geography-prek': {
+        title: 'مستكشف مجتمعي',
+        description: 'تعلم عن الأماكن في المجتمع والمنزل والمدرسة مع خرائط وصور بسيطة.',
+      },
+      'interactive-writing-prek': {
+        title: 'الرسم والتسمية',
+        description: 'ارسم الصور وضع عليها تسميات بكلمات بسيطة. مثالي للفنانين المبتدئين!',
       },
     },
   }
