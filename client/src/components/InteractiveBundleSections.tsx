@@ -2221,31 +2221,43 @@ const renderers: Record<string, Renderer> = {
       rng,
       [
         { 
-          title: 'The Red Car', 
+          titleKey: 'redCar',
+          title: t('worksheets.readingPrek.storyTitles.redCar'),
           images: [
             { name: 'car', svg: <svg width="80" height="60" viewBox="0 0 80 60"><rect x="10" y="25" width="60" height="25" rx="3" fill="none" stroke="#333" strokeWidth="2"/><rect x="15" y="15" width="50" height="15" rx="2" fill="none" stroke="#333" strokeWidth="2"/><circle cx="20" cy="50" r="8" fill="none" stroke="#333" strokeWidth="2"/><circle cx="60" cy="50" r="8" fill="none" stroke="#333" strokeWidth="2"/></svg> },
             { name: 'road', svg: <svg width="80" height="60" viewBox="0 0 80 60"><rect x="0" y="25" width="80" height="10" fill="none" stroke="#333" strokeWidth="2"/><line x1="10" y1="30" x2="20" y2="30" stroke="#333" strokeWidth="1"/><line x1="30" y1="30" x2="40" y2="30" stroke="#333" strokeWidth="1"/><line x1="50" y1="30" x2="60" y2="30" stroke="#333" strokeWidth="1"/><line x1="70" y1="30" x2="80" y2="30" stroke="#333" strokeWidth="1"/></svg> },
             { name: 'tree', svg: <svg width="60" height="80" viewBox="0 0 60 80"><rect x="25" y="50" width="10" height="30" fill="none" stroke="#333" strokeWidth="2"/><ellipse cx="30" cy="40" rx="20" ry="25" fill="none" stroke="#333" strokeWidth="2"/></svg> }
           ], 
-          questions: ['Do you see a car?', 'Is the car on the road?'] 
+          questions: [
+            { key: 'seeCar', text: t('worksheets.readingPrek.questions.seeCar') },
+            { key: 'carOnRoad', text: t('worksheets.readingPrek.questions.carOnRoad') }
+          ] 
         },
         { 
-          title: 'The Sunny Day', 
+          titleKey: 'sunnyDay',
+          title: t('worksheets.readingPrek.storyTitles.sunnyDay'),
           images: [
             { name: 'sun', svg: <svg width="70" height="70" viewBox="0 0 70 70"><circle cx="35" cy="35" r="20" fill="none" stroke="#333" strokeWidth="2"/><line x1="35" y1="5" x2="35" y2="15" stroke="#333" strokeWidth="2"/><line x1="35" y1="55" x2="35" y2="65" stroke="#333" strokeWidth="2"/><line x1="5" y1="35" x2="15" y2="35" stroke="#333" strokeWidth="2"/><line x1="55" y1="35" x2="65" y2="35" stroke="#333" strokeWidth="2"/><line x1="12" y1="12" x2="18" y2="18" stroke="#333" strokeWidth="2"/><line x1="52" y1="52" x2="58" y2="58" stroke="#333" strokeWidth="2"/><line x1="52" y1="12" x2="58" y2="18" stroke="#333" strokeWidth="2"/><line x1="12" y1="52" x2="18" y2="58" stroke="#333" strokeWidth="2"/></svg> },
             { name: 'flower', svg: <svg width="60" height="70" viewBox="0 0 60 70"><line x1="30" y1="50" x2="30" y2="70" stroke="#333" strokeWidth="2"/><circle cx="30" cy="30" r="12" fill="none" stroke="#333" strokeWidth="2"/><ellipse cx="30" cy="15" rx="8" ry="10" fill="none" stroke="#333" strokeWidth="2"/><ellipse cx="30" cy="45" rx="8" ry="10" fill="none" stroke="#333" strokeWidth="2"/><ellipse cx="15" cy="30" rx="10" ry="8" fill="none" stroke="#333" strokeWidth="2"/><ellipse cx="45" cy="30" rx="10" ry="8" fill="none" stroke="#333" strokeWidth="2"/></svg> },
             { name: 'ball', svg: <svg width="60" height="60" viewBox="0 0 60 60"><circle cx="30" cy="30" r="25" fill="none" stroke="#333" strokeWidth="2"/><path d="M 30 5 Q 15 15, 5 30 Q 15 45, 30 55 Q 45 45, 55 30 Q 45 15, 30 5" fill="none" stroke="#333" strokeWidth="1.5"/></svg> }
           ], 
-          questions: ['Do you see the sun?', 'Is there a flower?'] 
+          questions: [
+            { key: 'seeSun', text: t('worksheets.readingPrek.questions.seeSun') },
+            { key: 'thereFlower', text: t('worksheets.readingPrek.questions.thereFlower') }
+          ] 
         },
         { 
-          title: 'The Big Tree', 
+          titleKey: 'bigTree',
+          title: t('worksheets.readingPrek.storyTitles.bigTree'),
           images: [
             { name: 'tree', svg: <svg width="60" height="80" viewBox="0 0 60 80"><rect x="25" y="50" width="10" height="30" fill="none" stroke="#333" strokeWidth="2"/><ellipse cx="30" cy="40" rx="20" ry="25" fill="none" stroke="#333" strokeWidth="2"/></svg> },
             { name: 'house', svg: <svg width="70" height="70" viewBox="0 0 70 70"><rect x="15" y="35" width="40" height="35" fill="none" stroke="#333" strokeWidth="2"/><polygon points="15,35 35,15 55,35" fill="none" stroke="#333" strokeWidth="2"/><rect x="25" y="45" width="12" height="20" fill="none" stroke="#333" strokeWidth="2"/><rect x="42" y="50" width="8" height="8" fill="none" stroke="#333" strokeWidth="2"/></svg> },
             { name: 'flower', svg: <svg width="50" height="60" viewBox="0 0 50 60"><line x1="25" y1="40" x2="25" y2="60" stroke="#333" strokeWidth="2"/><circle cx="25" cy="25" r="10" fill="none" stroke="#333" strokeWidth="2"/><ellipse cx="25" cy="12" rx="6" ry="8" fill="none" stroke="#333" strokeWidth="2"/><ellipse cx="25" cy="38" rx="6" ry="8" fill="none" stroke="#333" strokeWidth="2"/><ellipse cx="12" cy="25" rx="8" ry="6" fill="none" stroke="#333" strokeWidth="2"/><ellipse cx="38" cy="25" rx="8" ry="6" fill="none" stroke="#333" strokeWidth="2"/></svg> }
           ], 
-          questions: ['Is the tree big?', 'Do you see a house?'] 
+          questions: [
+            { key: 'treeBig', text: t('worksheets.readingPrek.questions.treeBig') },
+            { key: 'seeHouse', text: t('worksheets.readingPrek.questions.seeHouse') }
+          ] 
         },
       ],
       3
@@ -2253,7 +2265,7 @@ const renderers: Record<string, Renderer> = {
     return (
       <div className="space-y-4">
         <p className="text-sm text-slate-600">
-          {t('worksheets.lookAtPicturesAndAnswer') || 'Look at the pictures and answer yes/no questions about the story.'}
+          {t('worksheets.readingPrek.instructions')}
         </p>
         {stories.map((story, idx) => (
           <div key={idx} className="rounded-xl border border-rose-200 bg-rose-50 p-4">
@@ -2271,7 +2283,7 @@ const renderers: Record<string, Renderer> = {
             <div className="mt-4 space-y-2">
               {story.questions.map((q, qIdx) => (
                 <div key={qIdx} className="text-xs text-rose-700">
-                  {q} <span className="text-rose-500 font-semibold">Yes / No</span>
+                  {q.text} <span className="text-rose-500 font-semibold">{t('worksheets.readingPrek.yesNo')}</span>
                 </div>
               ))}
             </div>
@@ -2298,17 +2310,17 @@ const renderers: Record<string, Renderer> = {
     return (
       <div className="space-y-3">
         <p className="text-sm text-slate-600">
-          {t('worksheets.drawPictureAndLabel') || 'Draw a picture and label it with the word. Perfect for early writers.'}
+          {t('worksheets.writingPrek.instructions')}
         </p>
         <div className="grid gap-4 md:grid-cols-2">
           {prompts.map((prompt, idx) => (
             <div key={idx} className="rounded-xl border border-green-200 bg-green-50 p-4">
-              <p className="text-sm font-semibold text-green-700">Word: {prompt.word}</p>
+              <p className="text-sm font-semibold text-green-700">{t('worksheets.writingPrek.word')} {prompt.word}</p>
               <div className="mt-2">
                 <p className="text-xs text-green-600">{prompt.picture}</p>
                 <div className="mt-1 h-24 rounded border border-dashed border-green-300 bg-white" />
               </div>
-              <p className="mt-2 text-xs text-green-600">Label: <span className="font-semibold">{prompt.word}</span></p>
+              <p className="mt-2 text-xs text-green-600">{t('worksheets.writingPrek.label')} <span className="font-semibold">{prompt.word}</span></p>
               <div className="mt-1 h-8 rounded border border-dashed border-green-300 bg-white" />
             </div>
           ))}
@@ -2322,23 +2334,23 @@ const renderers: Record<string, Renderer> = {
     const observations = pickMany(
       rng,
       [
-        { topic: 'Plants', question: 'What do plants need?', options: ['water', 'sun', 'soil'] },
-        { topic: 'Animals', question: 'Where do animals live?', options: ['forest', 'ocean', 'farm'] },
-        { topic: 'Weather', question: 'What is the weather like?', options: ['sunny', 'rainy', 'cloudy'] },
-        { topic: 'Seasons', question: 'What season is it?', options: ['spring', 'summer', 'fall', 'winter'] },
+        { topicKey: 'plants', topic: t('worksheets.sciencePrek.topics.plants'), questionKey: 'whatPlantsNeed', question: t('worksheets.sciencePrek.questions.whatPlantsNeed'), options: ['water', 'sun', 'soil'] },
+        { topicKey: 'animals', topic: t('worksheets.sciencePrek.topics.animals'), questionKey: 'whereAnimalsLive', question: t('worksheets.sciencePrek.questions.whereAnimalsLive'), options: ['forest', 'ocean', 'farm'] },
+        { topicKey: 'weather', topic: t('worksheets.sciencePrek.topics.weather'), questionKey: 'whatWeatherLike', question: t('worksheets.sciencePrek.questions.whatWeatherLike'), options: ['sunny', 'rainy', 'cloudy'] },
+        { topicKey: 'seasons', topic: t('worksheets.sciencePrek.topics.seasons'), questionKey: 'whatSeason', question: t('worksheets.sciencePrek.questions.whatSeason'), options: ['spring', 'summer', 'fall', 'winter'] },
       ],
       3
     )
     return (
       <div className="space-y-3">
         <p className="text-sm text-slate-600">
-          Simple nature observation activities with pictures and basic questions.
+          {t('worksheets.sciencePrek.instructions')}
         </p>
         {observations.map((obs, idx) => (
           <div key={idx} className="rounded-xl border border-teal-200 bg-teal-50 p-4">
             <p className="text-sm font-semibold text-teal-700">{obs.topic}</p>
             <div className="mt-2 h-20 rounded border border-teal-300 bg-white">
-              <p className="p-2 text-xs text-teal-600">Draw or paste a picture</p>
+              <p className="p-2 text-xs text-teal-600">{t('worksheets.sciencePrek.drawOrPaste')}</p>
             </div>
             <p className="mt-2 text-xs text-teal-700">{obs.question}</p>
             <div className="mt-1 flex flex-wrap gap-2">
@@ -2369,24 +2381,24 @@ const renderers: Record<string, Renderer> = {
     return (
       <div className="space-y-3">
         <p className="text-sm text-slate-600">
-          Learn about planets, stars, and space phenomena with interactive activities.
+          {t('worksheets.scienceSpace.instructions')}
         </p>
         <div className="grid gap-4 md:grid-cols-2">
           {planets.map((planet, idx) => (
             <div key={idx} className="rounded-xl border border-indigo-200 bg-indigo-50 p-4">
               <p className="text-sm font-semibold text-indigo-700">{planet.name}</p>
               <div className="mt-2 h-16 rounded border border-indigo-300 bg-white">
-                <p className="p-2 text-xs text-indigo-600">Draw {planet.name}</p>
+                <p className="p-2 text-xs text-indigo-600">{t('worksheets.answerKey.drawPicture')} {planet.name}</p>
               </div>
-              <p className="mt-2 text-xs text-indigo-700">Fact: {planet.fact}</p>
-              <p className="mt-1 text-xs text-indigo-600">Distance from sun: {planet.distance}</p>
+              <p className="mt-2 text-xs text-indigo-700">{t('worksheets.scienceSpace.fact')} {planet.fact}</p>
+              <p className="mt-1 text-xs text-indigo-600">{t('worksheets.scienceSpace.distanceFromSun')} {planet.distance}</p>
             </div>
           ))}
         </div>
         <div className="rounded-xl border border-indigo-200 bg-indigo-50 p-4">
-          <p className="text-sm font-semibold text-indigo-700">Space Questions</p>
-          <p className="mt-2 text-xs text-indigo-700">What is a star? ________________________</p>
-          <p className="mt-1 text-xs text-indigo-700">Name one planet: ________________________</p>
+          <p className="text-sm font-semibold text-indigo-700">{t('worksheets.scienceSpace.spaceQuestions')}</p>
+          <p className="mt-2 text-xs text-indigo-700">{t('worksheets.scienceSpace.whatIsStar')} ________________________</p>
+          <p className="mt-1 text-xs text-indigo-700">{t('worksheets.scienceSpace.nameOnePlanet')} ________________________</p>
         </div>
       </div>
     )
@@ -2397,23 +2409,23 @@ const renderers: Record<string, Renderer> = {
     const places = pickMany(
       rng,
       [
-        { name: 'Home', type: 'Where I live', features: ['bedroom', 'kitchen'] },
-        { name: 'School', type: 'Where I learn', features: ['classroom', 'playground'] },
-        { name: 'Park', type: 'Where I play', features: ['swings', 'slides'] },
+        { name: 'Home', typeKey: 'whereILive', type: t('worksheets.geographyPrek.placeTypes.whereILive'), features: ['bedroom', 'kitchen'] },
+        { name: 'School', typeKey: 'whereILearn', type: t('worksheets.geographyPrek.placeTypes.whereILearn'), features: ['classroom', 'playground'] },
+        { name: 'Park', typeKey: 'whereIPlay', type: t('worksheets.geographyPrek.placeTypes.whereIPlay'), features: ['swings', 'slides'] },
       ],
       3
     )
     return (
       <div className="space-y-3">
         <p className="text-sm text-slate-600">
-          Learn about places in the community, home, and school with simple maps and pictures.
+          {t('worksheets.geographyPrek.instructions')}
         </p>
         {places.map((place, idx) => (
           <div key={idx} className="rounded-xl border border-amber-200 bg-amber-50 p-4">
             <p className="text-sm font-semibold text-amber-700">{place.name}</p>
             <p className="text-xs text-amber-600">{place.type}</p>
             <div className="mt-2 h-16 rounded border border-amber-300 bg-white">
-              <p className="p-2 text-xs text-amber-600">Draw a simple map</p>
+              <p className="p-2 text-xs text-amber-600">{t('worksheets.geographyPrek.drawSimpleMap')}</p>
             </div>
             <div className="mt-2 flex flex-wrap gap-2">
               {place.features.map((feature, featIdx) => (
@@ -5527,12 +5539,22 @@ const answerRenderers: Record<string, AnswerRenderer> = {
       </div>
     )
   },
-  'interactive-reading-prek': ({ doc, seed, variant }) => {
+  'interactive-reading-prek': (ctx) => {
+    const { doc, seed, variant, t } = ctx
     const rng = makeRng(`${seed}|${doc.id}|${variant}`)
     const stories = [
-      { title: 'The Red Car', questions: ['Do you see a car?', 'Is the car on the road?'] },
-      { title: 'The Sunny Day', questions: ['Do you see the sun?', 'Is there a flower?'] },
-      { title: 'The Big Tree', questions: ['Is the tree big?', 'Do you see a house?'] },
+      { titleKey: 'redCar', title: t('worksheets.readingPrek.storyTitles.redCar'), questions: [
+        { key: 'seeCar', text: t('worksheets.readingPrek.questions.seeCar') },
+        { key: 'carOnRoad', text: t('worksheets.readingPrek.questions.carOnRoad') }
+      ]},
+      { titleKey: 'sunnyDay', title: t('worksheets.readingPrek.storyTitles.sunnyDay'), questions: [
+        { key: 'seeSun', text: t('worksheets.readingPrek.questions.seeSun') },
+        { key: 'thereFlower', text: t('worksheets.readingPrek.questions.thereFlower') }
+      ]},
+      { titleKey: 'bigTree', title: t('worksheets.readingPrek.storyTitles.bigTree'), questions: [
+        { key: 'treeBig', text: t('worksheets.readingPrek.questions.treeBig') },
+        { key: 'seeHouse', text: t('worksheets.readingPrek.questions.seeHouse') }
+      ]},
     ]
     return (
       <ul className="space-y-2 text-sm">
@@ -5541,7 +5563,7 @@ const answerRenderers: Record<string, AnswerRenderer> = {
             <span className="font-semibold">{story.title}:</span>
             <ul className="ml-4 mt-1 list-disc space-y-1">
               {story.questions.map((q, qIdx) => (
-                <li key={qIdx}>{q} - Accept yes/no answers based on picture clues. Students should look at the pictures to answer.</li>
+                <li key={qIdx}>{q.text} - {t('worksheets.answerKey.acceptYesNo')}</li>
               ))}
             </ul>
           </li>
@@ -5573,15 +5595,16 @@ const answerRenderers: Record<string, AnswerRenderer> = {
       </ul>
     )
   },
-  'interactive-science-prek': ({ doc, seed, variant }) => {
+  'interactive-science-prek': (ctx) => {
+    const { doc, seed, variant, t } = ctx
     const rng = makeRng(`${seed}|${doc.id}|${variant}`)
     const observations = pickMany(
       rng,
       [
-        { topic: 'Plants', question: 'What do plants need?', options: ['water', 'sun', 'soil'] },
-        { topic: 'Animals', question: 'Where do animals live?', options: ['forest', 'ocean', 'farm'] },
-        { topic: 'Weather', question: 'What is the weather like?', options: ['sunny', 'rainy', 'cloudy'] },
-        { topic: 'Seasons', question: 'What season is it?', options: ['spring', 'summer', 'fall', 'winter'] },
+        { topicKey: 'plants', topic: t('worksheets.sciencePrek.topics.plants'), questionKey: 'whatPlantsNeed', question: t('worksheets.sciencePrek.questions.whatPlantsNeed'), options: ['water', 'sun', 'soil'] },
+        { topicKey: 'animals', topic: t('worksheets.sciencePrek.topics.animals'), questionKey: 'whereAnimalsLive', question: t('worksheets.sciencePrek.questions.whereAnimalsLive'), options: ['forest', 'ocean', 'farm'] },
+        { topicKey: 'weather', topic: t('worksheets.sciencePrek.topics.weather'), questionKey: 'whatWeatherLike', question: t('worksheets.sciencePrek.questions.whatWeatherLike'), options: ['sunny', 'rainy', 'cloudy'] },
+        { topicKey: 'seasons', topic: t('worksheets.sciencePrek.topics.seasons'), questionKey: 'whatSeason', question: t('worksheets.sciencePrek.questions.whatSeason'), options: ['spring', 'summer', 'fall', 'winter'] },
       ],
       3
     )
@@ -5589,13 +5612,14 @@ const answerRenderers: Record<string, AnswerRenderer> = {
       <ul className="space-y-2 text-sm">
         {observations.map((obs, idx) => (
           <li key={idx}>
-            <span className="font-semibold">{obs.topic}:</span> {obs.question} - Accept any of: {obs.options.join(', ')}. Students should draw or paste a picture related to the topic.
+            <span className="font-semibold">{obs.topic}:</span> {obs.question} - {t('worksheets.answerKey.acceptYesNo')}
           </li>
         ))}
       </ul>
     )
   },
-  'interactive-science-space': ({ doc, seed, variant }) => {
+  'interactive-science-space': (ctx) => {
+    const { doc, seed, variant, t } = ctx
     const rng = makeRng(`${seed}|${doc.id}|${variant}`)
     const planets = pickMany(
       rng,
@@ -5611,21 +5635,22 @@ const answerRenderers: Record<string, AnswerRenderer> = {
       <ul className="space-y-2 text-sm">
         {planets.map((planet, idx) => (
           <li key={idx}>
-            <span className="font-semibold">{planet.name}:</span> {planet.fact}. Distance from sun: {planet.distance}. Students should draw the planet and remember the key fact.
+            <span className="font-semibold">{planet.name}:</span> {planet.fact}. {t('worksheets.scienceSpace.distanceFromSun')} {planet.distance}. {t('worksheets.answerKey.studentsShould')} {t('worksheets.answerKey.drawPicture')} {planet.name} {t('worksheets.answerKey.lookAtPictures')}.
           </li>
         ))}
-        <li className="mt-2 text-emerald-800">Space Questions: A star is a hot ball of gas that gives off light. Any planet name is acceptable (Mercury, Venus, Earth, Mars, Jupiter, Saturn, Uranus, Neptune).</li>
+        <li className="mt-2 text-emerald-800">{t('worksheets.scienceSpace.spaceQuestions')}: {t('worksheets.scienceSpace.whatIsStar')} {t('worksheets.answerKey.studentsShould')} {t('worksheets.answerKey.drawPicture')}.</li>
       </ul>
     )
   },
-  'interactive-geography-prek': ({ doc, seed, variant }) => {
+  'interactive-geography-prek': (ctx) => {
+    const { doc, seed, variant, t } = ctx
     const rng = makeRng(`${seed}|${doc.id}|${variant}`)
     const places = pickMany(
       rng,
       [
-        { name: 'Home', type: 'Where I live', features: ['bedroom', 'kitchen'] },
-        { name: 'School', type: 'Where I learn', features: ['classroom', 'playground'] },
-        { name: 'Park', type: 'Where I play', features: ['swings', 'slides'] },
+        { name: 'Home', typeKey: 'whereILive', type: t('worksheets.geographyPrek.placeTypes.whereILive'), features: ['bedroom', 'kitchen'] },
+        { name: 'School', typeKey: 'whereILearn', type: t('worksheets.geographyPrek.placeTypes.whereILearn'), features: ['classroom', 'playground'] },
+        { name: 'Park', typeKey: 'whereIPlay', type: t('worksheets.geographyPrek.placeTypes.whereIPlay'), features: ['swings', 'slides'] },
       ],
       3
     )
@@ -5633,7 +5658,7 @@ const answerRenderers: Record<string, AnswerRenderer> = {
       <ul className="space-y-2 text-sm">
         {places.map((place, idx) => (
           <li key={idx}>
-            <span className="font-semibold">{place.name}:</span> {place.type}. Features include: {place.features.join(', ')}. Students should draw a simple map showing these features.
+            <span className="font-semibold">{place.name}:</span> {place.type}. {t('worksheets.answerKey.studentsShould')} {t('worksheets.geographyPrek.drawSimpleMap')} {place.features.join(', ')}.
           </li>
         ))}
       </ul>

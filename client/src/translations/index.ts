@@ -930,6 +930,67 @@ const ensureInteractiveWorksheetKeys = () => {
       earlyBasics: {
         instructions: 'Essential early learning skills review. Practice letter sounds, counting, and basic patterns.',
       },
+      readingPrek: {
+        instructions: 'Look at the pictures and answer yes/no questions about the story.',
+        yesNo: 'Yes / No',
+        storyTitles: {
+          redCar: 'The Red Car',
+          sunnyDay: 'The Sunny Day',
+          bigTree: 'The Big Tree',
+        },
+        questions: {
+          seeCar: 'Do you see a car?',
+          carOnRoad: 'Is the car on the road?',
+          seeSun: 'Do you see the sun?',
+          thereFlower: 'Is there a flower?',
+          treeBig: 'Is the tree big?',
+          seeHouse: 'Do you see a house?',
+        },
+      },
+      writingPrek: {
+        instructions: 'Draw a picture and label it with the word. Perfect for early writers.',
+        word: 'Word:',
+        label: 'Label:',
+      },
+      answerKey: {
+        acceptYesNo: 'Accept yes/no answers based on picture clues. Students should look at the pictures to answer.',
+        studentsShould: 'Students should',
+        drawPicture: 'draw a picture',
+        lookAtPictures: 'look at the pictures to answer',
+      },
+      sciencePrek: {
+        instructions: 'Simple nature observation activities with pictures and basic questions.',
+        drawOrPaste: 'Draw or paste a picture',
+        topics: {
+          plants: 'Plants',
+          animals: 'Animals',
+          weather: 'Weather',
+          seasons: 'Seasons',
+        },
+        questions: {
+          whatPlantsNeed: 'What do plants need?',
+          whereAnimalsLive: 'Where do animals live?',
+          whatWeatherLike: 'What is the weather like?',
+          whatSeason: 'What season is it?',
+        },
+      },
+      scienceSpace: {
+        instructions: 'Learn about planets, stars, and space phenomena with interactive activities.',
+        fact: 'Fact:',
+        distanceFromSun: 'Distance from sun:',
+        spaceQuestions: 'Space Questions',
+        whatIsStar: 'What is a star?',
+        nameOnePlanet: 'Name one planet:',
+      },
+      geographyPrek: {
+        instructions: 'Learn about places in the community, home, and school with simple maps and pictures.',
+        drawSimpleMap: 'Draw a simple map',
+        placeTypes: {
+          whereILive: 'Where I live',
+          whereILearn: 'Where I learn',
+          whereIPlay: 'Where I play',
+        },
+      },
     },
     es: {
       countObjectsAndWriteNumber: 'Cuenta los objetos y escribe el número.',
@@ -1206,6 +1267,67 @@ const ensureInteractiveWorksheetKeys = () => {
       },
       earlyBasics: {
         instructions: 'Revisión de habilidades esenciales de aprendizaje temprano. Practica sonidos de letras, conteo y patrones básicos.',
+      },
+      readingPrek: {
+        instructions: 'Mira las imágenes y responde preguntas de sí/no sobre la historia.',
+        yesNo: 'Sí / No',
+        storyTitles: {
+          redCar: 'El Auto Rojo',
+          sunnyDay: 'El Día Soleado',
+          bigTree: 'El Árbol Grande',
+        },
+        questions: {
+          seeCar: '¿Ves un auto?',
+          carOnRoad: '¿Está el auto en la carretera?',
+          seeSun: '¿Ves el sol?',
+          thereFlower: '¿Hay una flor?',
+          treeBig: '¿Es grande el árbol?',
+          seeHouse: '¿Ves una casa?',
+        },
+      },
+      writingPrek: {
+        instructions: 'Dibuja una imagen y etiquétala con la palabra. Perfecto para escritores principiantes.',
+        word: 'Palabra:',
+        label: 'Etiqueta:',
+      },
+      answerKey: {
+        acceptYesNo: 'Acepta respuestas de sí/no basadas en pistas de imágenes. Los estudiantes deben mirar las imágenes para responder.',
+        studentsShould: 'Los estudiantes deben',
+        drawPicture: 'dibujar una imagen',
+        lookAtPictures: 'mirar las imágenes para responder',
+      },
+      sciencePrek: {
+        instructions: 'Actividades simples de observación de la naturaleza con imágenes y preguntas básicas.',
+        drawOrPaste: 'Dibuja o pega una imagen',
+        topics: {
+          plants: 'Plantas',
+          animals: 'Animales',
+          weather: 'Clima',
+          seasons: 'Estaciones',
+        },
+        questions: {
+          whatPlantsNeed: '¿Qué necesitan las plantas?',
+          whereAnimalsLive: '¿Dónde viven los animales?',
+          whatWeatherLike: '¿Cómo está el clima?',
+          whatSeason: '¿Qué estación es?',
+        },
+      },
+      scienceSpace: {
+        instructions: 'Aprende sobre planetas, estrellas y fenómenos espaciales con actividades interactivas.',
+        fact: 'Hecho:',
+        distanceFromSun: 'Distancia del sol:',
+        spaceQuestions: 'Preguntas Espaciales',
+        whatIsStar: '¿Qué es una estrella?',
+        nameOnePlanet: 'Nombra un planeta:',
+      },
+      geographyPrek: {
+        instructions: 'Aprende sobre lugares en la comunidad, el hogar y la escuela con mapas simples e imágenes.',
+        drawSimpleMap: 'Dibuja un mapa simple',
+        placeTypes: {
+          whereILive: 'Donde vivo',
+          whereILearn: 'Donde aprendo',
+          whereIPlay: 'Donde juego',
+        },
       },
     },
     ar: {
@@ -1484,6 +1606,67 @@ const ensureInteractiveWorksheetKeys = () => {
       earlyBasics: {
         instructions: 'مراجعة المهارات الأساسية للتعلم المبكر. تدرب على أصوات الحروف والعد والأنماط الأساسية.',
       },
+      readingPrek: {
+        instructions: 'انظر إلى الصور وأجب على أسئلة نعم/لا حول القصة.',
+        yesNo: 'نعم / لا',
+        storyTitles: {
+          redCar: 'السيارة الحمراء',
+          sunnyDay: 'اليوم المشمس',
+          bigTree: 'الشجرة الكبيرة',
+        },
+        questions: {
+          seeCar: 'هل ترى سيارة؟',
+          carOnRoad: 'هل السيارة على الطريق؟',
+          seeSun: 'هل ترى الشمس؟',
+          thereFlower: 'هل هناك زهرة؟',
+          treeBig: 'هل الشجرة كبيرة؟',
+          seeHouse: 'هل ترى منزلاً؟',
+        },
+      },
+      writingPrek: {
+        instructions: 'ارسم صورة وضع عليها تسمية بالكلمة. مثالي للكتّاب المبتدئين.',
+        word: 'الكلمة:',
+        label: 'التسمية:',
+      },
+      answerKey: {
+        acceptYesNo: 'اقبل إجابات نعم/لا بناءً على أدلة الصور. يجب على الطلاب النظر إلى الصور للإجابة.',
+        studentsShould: 'يجب على الطلاب',
+        drawPicture: 'رسم صورة',
+        lookAtPictures: 'النظر إلى الصور للإجابة',
+      },
+      sciencePrek: {
+        instructions: 'أنشطة بسيطة لمراقبة الطبيعة مع الصور والأسئلة الأساسية.',
+        drawOrPaste: 'ارسم أو الصق صورة',
+        topics: {
+          plants: 'النباتات',
+          animals: 'الحيوانات',
+          weather: 'الطقس',
+          seasons: 'الفصول',
+        },
+        questions: {
+          whatPlantsNeed: 'ماذا تحتاج النباتات؟',
+          whereAnimalsLive: 'أين تعيش الحيوانات؟',
+          whatWeatherLike: 'كيف الطقس؟',
+          whatSeason: 'ما الفصل؟',
+        },
+      },
+      scienceSpace: {
+        instructions: 'تعلم عن الكواكب والنجوم وظواهر الفضاء مع الأنشطة التفاعلية.',
+        fact: 'حقيقة:',
+        distanceFromSun: 'المسافة من الشمس:',
+        spaceQuestions: 'أسئلة الفضاء',
+        whatIsStar: 'ما هي النجوم؟',
+        nameOnePlanet: 'اذكر كوكباً واحداً:',
+      },
+      geographyPrek: {
+        instructions: 'تعلم عن الأماكن في المجتمع والمنزل والمدرسة مع خرائط وصور بسيطة.',
+        drawSimpleMap: 'ارسم خريطة بسيطة',
+        placeTypes: {
+          whereILive: 'حيث أعيش',
+          whereILearn: 'حيث أتعلم',
+          whereIPlay: 'حيث ألعب',
+        },
+      },
     },
   }
 
@@ -1638,6 +1821,24 @@ const ensureInteractiveWorksheetKeys = () => {
       }
       if (keys.earlyBasics) {
         worksheets.earlyBasics = keys.earlyBasics
+      }
+      if (keys.readingPrek) {
+        worksheets.readingPrek = keys.readingPrek
+      }
+      if (keys.writingPrek) {
+        worksheets.writingPrek = keys.writingPrek
+      }
+      if (keys.answerKey) {
+        worksheets.answerKey = keys.answerKey
+      }
+      if (keys.sciencePrek) {
+        worksheets.sciencePrek = keys.sciencePrek
+      }
+      if (keys.scienceSpace) {
+        worksheets.scienceSpace = keys.scienceSpace
+      }
+      if (keys.geographyPrek) {
+        worksheets.geographyPrek = keys.geographyPrek
       }
     }
   }
