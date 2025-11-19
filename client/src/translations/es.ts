@@ -3700,5 +3700,9 @@ export const es = {
       title: 'Caja de Rompecabezas de Ecuaciones',
       description: 'Resuelve ecuaciones con números faltantes organizadas en formato de rompecabezas. Cada rompecabezas es único.',
     },
+    'interactive-math-place-value': {
+      title: 'Explorador de Valor Posicional',
+      description: 'Comprende el lugar de unidades, decenas, centenas y millares con ejercicios interactivos.',
+    },
   },
 }
