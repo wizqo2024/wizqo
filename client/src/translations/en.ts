@@ -535,12 +535,6 @@ export const en = {
         tenLabel: '= 1 Ten (10)',
         oneLabel: '= 1 One',
       },
-      labels: {
-        number: 'Number:',
-        tens: 'Tens:',
-        ones: 'Ones:',
-        expanded: 'Expanded:',
-      },
       challenge: {
         title: '🌟 Challenge Yourself (Optional):',
         items: [

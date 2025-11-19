@@ -564,6 +564,16 @@ export const es = {
       },
       answerKey: {
         title: '✅ Clave de Respuestas',
+        tensLabel: 'Decenas',
+        onesLabel: 'Unidades',
+        expandedLabel: 'Expandida',
+      },
+      labels: {
+        number: 'Número:',
+        tens: 'Decenas:',
+        ones: 'Unidades:',
+        expanded: 'Expandida:',
+        more: '+{count} más',
       },
     },
     'mult-facts-0-12': {

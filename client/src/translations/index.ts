@@ -259,6 +259,16 @@ const ensurePlaceValueHtoKeys = () => {
         },
         answerKey: {
           title: '✅ Answer Key',
+          tensLabel: 'Tens',
+          onesLabel: 'Ones',
+          expandedLabel: 'Expanded',
+        },
+        labels: {
+          number: 'Number:',
+          tens: 'Tens:',
+          ones: 'Ones:',
+          expanded: 'Expanded:',
+          more: '+{count} more',
         },
       },
     },
@@ -324,6 +334,16 @@ const ensurePlaceValueHtoKeys = () => {
         },
         answerKey: {
           title: '✅ Clave de Respuestas',
+          tensLabel: 'Decenas',
+          onesLabel: 'Unidades',
+          expandedLabel: 'Expandida',
+        },
+        labels: {
+          number: 'Número:',
+          tens: 'Decenas:',
+          ones: 'Unidades:',
+          expanded: 'Expandida:',
+          more: '+{count} más',
         },
       },
     },

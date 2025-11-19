@@ -3402,7 +3402,7 @@ export function PrintablesPage() {
                           {Array.from({ length: Math.min(tens, 5) }).map((_, j) => (
                             <rect key={j} x={5 + j * 38} y="5" width="35" height="55" rx="3" fill="#22c55e" stroke="#16a34a" strokeWidth="2" />
                           ))}
-                          {tens > 5 && <text x={200} y="35" fontSize="11" fill="#16a34a">+{tens-5} more</text>}
+                          {tens > 5 && <text x={200} y="35" fontSize="11" fill="#16a34a">{t('worksheets.place-value-hto.labels.more', '+{count} more').replace('{count}', String(tens-5))}</text>}
                           {/* Ones cubes */}
                           {Array.from({ length: Math.min(ones, 8) }).map((_, j) => (
                             <rect key={j} x={5 + j * 28} y="65" width="20" height="20" rx="2" fill="#60a5fa" stroke="#2563eb" strokeWidth="1.5" />
@@ -3477,7 +3477,7 @@ export function PrintablesPage() {
                       const tens = Math.floor(n/10); const ones = n%10;
                       return (
                         <div key={i} className="text-sm text-emerald-800">
-                          {i + 1}. {n}: Tens <strong>{tens}</strong>, Ones <strong>{ones}</strong>, Expanded <strong>{tens*10} + {ones}</strong>
+                          {i + 1}. {n}: {getTrans(`worksheets.${docId}.answerKey.tensLabel`, 'Tens')} <strong>{tens}</strong>, {getTrans(`worksheets.${docId}.answerKey.onesLabel`, 'Ones')} <strong>{ones}</strong>, {getTrans(`worksheets.${docId}.answerKey.expandedLabel`, 'Expanded')} <strong>{tens*10} + {ones}</strong>
                         </div>
                       )
                     })}
