@@ -115,7 +115,13 @@ const ensureInteractiveWorksheetKeys = () => {
         tens: 'Tens',
         hundreds: 'Hundreds',
         thousands: 'Thousands',
+        explanation: 'In the number {{number}}, read from right to left: ones place, tens place, hundreds place, etc. The digit in the {{place}} place is {{digit}}.',
       },
+      circleThe: 'Circle the {{letter}}',
+      beginningSounds: 'Beginning Sounds',
+      says: 'says',
+      circleWordsStart: 'Circle words that start with',
+      alphabetAnswerKey: 'Students should correctly identify and match uppercase/lowercase letters, recognize beginning sounds, and circle matching letters. Check for letter recognition accuracy.',
     },
     es: {
       countObjectsAndWriteNumber: 'Cuenta los objetos y escribe el número.',
@@ -155,7 +161,13 @@ const ensureInteractiveWorksheetKeys = () => {
         tens: 'Decenas',
         hundreds: 'Centenas',
         thousands: 'Millares',
+        explanation: 'En el número {{number}}, lee de derecha a izquierda: lugar de unidades, lugar de decenas, lugar de centenas, etc. El dígito en el lugar {{place}} es {{digit}}.',
       },
+      circleThe: 'Encierra en un círculo la {{letter}}',
+      beginningSounds: 'Sonidos Iniciales',
+      says: 'dice',
+      circleWordsStart: 'Encierra en un círculo las palabras que comienzan con',
+      alphabetAnswerKey: 'Los estudiantes deben identificar y emparejar correctamente las letras mayúsculas/minúsculas, reconocer sonidos iniciales y encerrar en un círculo las letras coincidentes. Verifica la precisión del reconocimiento de letras.',
     },
     ar: {
       countObjectsAndWriteNumber: 'عد الكائنات واكتب الرقم.',
@@ -195,7 +207,13 @@ const ensureInteractiveWorksheetKeys = () => {
         tens: 'العشرات',
         hundreds: 'المئات',
         thousands: 'الآلاف',
+        explanation: 'في الرقم {{number}}، اقرأ من اليمين إلى اليسار: منزلة الآحاد، منزلة العشرات، منزلة المئات، إلخ. الرقم الموجود في منزلة {{place}} هو {{digit}}.',
       },
+      circleThe: 'أحط دائرة حول {{letter}}',
+      beginningSounds: 'الأصوات الأولية',
+      says: 'يقول',
+      circleWordsStart: 'أحط الكلمات التي تبدأ بـ',
+      alphabetAnswerKey: 'يجب على الطلاب تحديد ومطابقة الأحرف الكبيرة/الصغيرة بشكل صحيح، والتعرف على الأصوات الأولية، وأحط الحروف المطابقة. تحقق من دقة التعرف على الحروف.',
     },
   }
 
@@ -236,6 +254,21 @@ const ensureInteractiveWorksheetKeys = () => {
       }
       if (keys.placeValue) {
         worksheets.placeValue = keys.placeValue
+      }
+      if (keys.circleThe) {
+        worksheets.circleThe = keys.circleThe
+      }
+      if (keys.beginningSounds) {
+        worksheets.beginningSounds = keys.beginningSounds
+      }
+      if (keys.says) {
+        worksheets.says = keys.says
+      }
+      if (keys.circleWordsStart) {
+        worksheets.circleWordsStart = keys.circleWordsStart
+      }
+      if (keys.alphabetAnswerKey) {
+        worksheets.alphabetAnswerKey = keys.alphabetAnswerKey
       }
     }
   }
