@@ -53,21 +53,40 @@ export function getTranslation(language: Language, key: string): string | any {
         const worksheetsObj = value.worksheets
         if (worksheetsObj && typeof worksheetsObj === 'object') {
           const allKeys = Object.keys(worksheetsObj)
+          // Direct access to see what we get
+          const objectNamesDirect = worksheetsObj.objectNames
+          const countObjectsDirect = worksheetsObj.countObjectsAndWriteNumber
+          const countTheDirect = worksheetsObj.countThe
+          const numberLabelDirect = worksheetsObj.numberLabel
+          
           console.error(`[getTranslation] worksheets object structure for ${language}:`, {
             hasObjectNames: 'objectNames' in worksheetsObj,
-            objectNamesType: typeof worksheetsObj.objectNames,
-            objectNamesValue: worksheetsObj.objectNames,
-            objectNamesKeys: worksheetsObj.objectNames && typeof worksheetsObj.objectNames === 'object' ? Object.keys(worksheetsObj.objectNames) : 'N/A',
+            objectNamesType: typeof objectNamesDirect,
+            objectNamesValue: objectNamesDirect,
+            objectNamesIsUndefined: objectNamesDirect === undefined,
+            objectNamesIsNull: objectNamesDirect === null,
+            objectNamesKeys: objectNamesDirect && typeof objectNamesDirect === 'object' ? Object.keys(objectNamesDirect) : 'N/A',
             hasCountObjectsAndWriteNumber: 'countObjectsAndWriteNumber' in worksheetsObj,
-            countObjectsAndWriteNumberValue: worksheetsObj.countObjectsAndWriteNumber,
+            countObjectsAndWriteNumberValue: countObjectsDirect,
+            countObjectsAndWriteNumberType: typeof countObjectsDirect,
             hasCountThe: 'countThe' in worksheetsObj,
-            countTheValue: worksheetsObj.countThe,
+            countTheValue: countTheDirect,
+            countTheType: typeof countTheDirect,
             hasNumberLabel: 'numberLabel' in worksheetsObj,
-            numberLabelValue: worksheetsObj.numberLabel,
+            numberLabelValue: numberLabelDirect,
+            numberLabelType: typeof numberLabelDirect,
             worksheetsKeys: allKeys.slice(0, 30),
             worksheetsKeysCount: allKeys.length,
             // Log first few key-value pairs to see actual structure
-            sampleEntries: allKeys.slice(0, 5).map(k => ({ key: k, value: worksheetsObj[k], valueType: typeof worksheetsObj[k] }))
+            sampleEntries: allKeys.slice(0, 10).map(k => ({ 
+              key: k, 
+              value: worksheetsObj[k], 
+              valueType: typeof worksheetsObj[k],
+              isUndefined: worksheetsObj[k] === undefined,
+              isNull: worksheetsObj[k] === null,
+              isObject: typeof worksheetsObj[k] === 'object' && worksheetsObj[k] !== null,
+              objectKeys: (typeof worksheetsObj[k] === 'object' && worksheetsObj[k] !== null) ? Object.keys(worksheetsObj[k]).slice(0, 5) : 'N/A'
+            }))
           })
         }
       }
