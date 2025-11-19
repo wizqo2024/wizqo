@@ -3371,4 +3371,18 @@ export const en = {
     logic: 'Logic & Critical Thinking',
     sel: 'Social Emotional Learning',
   },
+  interactive: {
+    'interactive-math-counting': {
+      title: 'Counting & Number Recognition',
+      description: 'Practice counting objects, recognizing numbers, and matching quantities to numerals.',
+    },
+    'interactive-math-race': {
+      title: 'Math Race Challenge',
+      description: 'Timed addition and subtraction challenges with varying difficulty levels.',
+    },
+    'interactive-math-puzzle': {
+      title: 'Equation Puzzle Box',
+      description: 'Solve missing number equations arranged in puzzle format. Each puzzle is unique.',
+    },
+  },
 }

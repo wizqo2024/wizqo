@@ -3374,4 +3374,18 @@ export const es = {
     logic: 'Lógica y Pensamiento Crítico',
     sel: 'Aprendizaje Socioemocional',
   },
+  interactive: {
+    'interactive-math-counting': {
+      title: 'Conteo y Reconocimiento de Números',
+      description: 'Practica contando objetos, reconociendo números y emparejando cantidades con numerales.',
+    },
+    'interactive-math-race': {
+      title: 'Desafío de Carrera Matemática',
+      description: 'Desafíos de suma y resta cronometrados con niveles de dificultad variables.',
+    },
+    'interactive-math-puzzle': {
+      title: 'Caja de Rompecabezas de Ecuaciones',
+      description: 'Resuelve ecuaciones con números faltantes organizadas en formato de rompecabezas. Cada rompecabezas es único.',
+    },
+  },
 }

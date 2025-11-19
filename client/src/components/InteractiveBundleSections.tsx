@@ -6658,7 +6658,7 @@ function InteractiveWorksheetSection({
   if (!renderer) {
     return (
       <section className={`mb-10 break-inside-avoid rounded-xl border-2 ${theme.border} ${theme.background} p-5 print:border-0 print:p-0 print:bg-white shadow-lg`}>
-        <h2 className={`text-lg font-semibold ${theme.text}`}>{category.icon} {doc.title}</h2>
+        <h2 className={`text-lg font-semibold ${theme.text}`}>{category.icon} {t(`interactive.${doc.id}.title`) || doc.title}</h2>
         <p className="text-sm text-slate-600">Coming soon: printable activity for this interactive worksheet.</p>
         {showAnswers && (
           <div className="mt-4 rounded-xl border border-emerald-200 bg-emerald-50 p-4 text-sm text-emerald-900">
@@ -6677,12 +6677,12 @@ function InteractiveWorksheetSection({
       
       <header className="mb-4 flex items-start justify-between gap-3 relative z-10">
         <div>
-          <p className={`text-xs uppercase tracking-wide font-bold ${theme.text} opacity-80`}>{category.label}</p>
+          <p className={`text-xs uppercase tracking-wide font-bold ${theme.text} opacity-80`}>{t(`categories.${category.id}`) || category.label}</p>
           <h2 className={`text-xl font-bold ${theme.text} mt-1 flex items-center gap-2`}>
             <span className={theme.emojiSize}>{category.icon}</span>
-            <span>{doc.title}</span>
+            <span>{t(`interactive.${doc.id}.title`) || doc.title}</span>
           </h2>
-          <p className={`text-sm ${theme.text} opacity-70 mt-1`}>{doc.description}</p>
+          <p className={`text-sm ${theme.text} opacity-70 mt-1`}>{t(`interactive.${doc.id}.description`) || doc.description}</p>
         </div>
         <div className="flex flex-col items-end gap-2">
           <span className={`inline-flex items-center rounded-full border-2 ${theme.border} bg-white px-3 py-1 text-xs font-bold ${theme.text} shadow-sm`}>
