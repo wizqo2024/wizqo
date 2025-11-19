@@ -18,15 +18,36 @@ export function getTranslation(language: Language, key: string): string | any {
     const keys = key.split('.')
     let value: any = translations[language]
     
+    // Debug: Log if translations object is missing or malformed
     if (!value) {
       console.warn(`[getTranslation] Translation object not found for language: ${language}`, {
         availableLanguages: Object.keys(translations),
-        translationsObject: translations
+        translationsObject: translations,
+        translationsType: typeof translations,
+        hasEn: !!translations.en,
+        hasAr: !!translations.ar,
+        hasEs: !!translations.es,
+        enType: typeof translations.en,
+        arType: typeof translations.ar
       })
       // Fallback to English
       value = translations.en
       if (!value) {
+        console.error(`[getTranslation] Even English fallback is missing!`, { translations })
         return key
+      }
+    }
+    
+    // Debug: Check if worksheets exists
+    if (keys[0] === 'worksheets' && typeof window !== 'undefined') {
+      const hasWorksheets = value && typeof value === 'object' && 'worksheets' in value
+      if (!hasWorksheets) {
+        console.warn(`[getTranslation] 'worksheets' not found in ${language} translations`, {
+          language,
+          key,
+          valueKeys: value && typeof value === 'object' ? Object.keys(value).slice(0, 10) : 'N/A',
+          valueType: typeof value
+        })
       }
     }
     
