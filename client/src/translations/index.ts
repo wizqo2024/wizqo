@@ -11,6 +11,38 @@ export const translations = {
   ar,
 } as const
 
+// Explicitly export interactive worksheet keys to prevent tree-shaking
+// This ensures these keys are included in the bundle
+export const interactiveWorksheetKeys = {
+  en: {
+    countObjectsAndWriteNumber: en.worksheets.countObjectsAndWriteNumber,
+    countThe: en.worksheets.countThe,
+    numberLabel: en.worksheets.numberLabel,
+    objectNames: en.worksheets.objectNames,
+    mathPuzzle: en.worksheets.mathPuzzle,
+    mathRace: en.worksheets.mathRace,
+    reflection: en.worksheets.reflection,
+  },
+  es: {
+    countObjectsAndWriteNumber: es.worksheets.countObjectsAndWriteNumber,
+    countThe: es.worksheets.countThe,
+    numberLabel: es.worksheets.numberLabel,
+    objectNames: es.worksheets.objectNames,
+    mathPuzzle: es.worksheets.mathPuzzle,
+    mathRace: es.worksheets.mathRace,
+    reflection: es.worksheets.reflection,
+  },
+  ar: {
+    countObjectsAndWriteNumber: ar.worksheets.countObjectsAndWriteNumber,
+    countThe: ar.worksheets.countThe,
+    numberLabel: ar.worksheets.numberLabel,
+    objectNames: ar.worksheets.objectNames,
+    mathPuzzle: ar.worksheets.mathPuzzle,
+    mathRace: ar.worksheets.mathRace,
+    reflection: ar.worksheets.reflection,
+  },
+} as const
+
 // Helper function to get translation with fallback
 // Returns string, array, or object depending on the translation value
 export function getTranslation(language: Language, key: string): string | any {
@@ -131,6 +163,32 @@ export function getTranslation(language: Language, key: string): string | any {
     for (let i = 0; i < keys.length; i++) {
       const k = keys[i]
       if (value === null || value === undefined) {
+        // If we're looking for interactive worksheet keys and they're missing,
+        // try to get them from the exported interactiveWorksheetKeys
+        if (keys[0] === 'worksheets' && i >= 1 && typeof window !== 'undefined') {
+          const interactiveKey = keys[1] as keyof typeof interactiveWorksheetKeys.en
+          if (interactiveKey && interactiveWorksheetKeys[language] && interactiveKey in interactiveWorksheetKeys[language]) {
+            const interactiveValue = (interactiveWorksheetKeys[language] as any)[interactiveKey]
+            if (interactiveValue !== undefined) {
+              // Continue navigation from the interactive value
+              value = interactiveValue
+              // Continue with remaining keys if any (starting from index 2, since we already handled 0 and 1)
+              for (let j = 2; j < keys.length; j++) {
+                if (value === null || value === undefined) break
+                value = value[keys[j]]
+              }
+              if (value !== null && value !== undefined) {
+                if (Array.isArray(value) || (typeof value === 'object' && typeof value !== 'string')) {
+                  return value
+                }
+                if (typeof value === 'string') {
+                  return value
+                }
+              }
+            }
+          }
+        }
+        
         // Debug: log what we found so far - show in production too for debugging
         if (typeof window !== 'undefined') {
           // Get the previous value (the object we were trying to access)
