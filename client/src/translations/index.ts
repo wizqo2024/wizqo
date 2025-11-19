@@ -43,31 +43,132 @@ export const interactiveWorksheetKeys = {
   },
 } as const
 
-// Verify that interactiveWorksheetKeys has values (for debugging)
-if (typeof window !== 'undefined') {
-  const checkKeys = (lang: 'en' | 'es' | 'ar', label: string) => {
-    const keys = interactiveWorksheetKeys[lang]
-    const missing: string[] = []
-    if (!keys.countObjectsAndWriteNumber) missing.push('countObjectsAndWriteNumber')
-    if (!keys.countThe) missing.push('countThe')
-    if (!keys.numberLabel) missing.push('numberLabel')
-    if (!keys.objectNames) missing.push('objectNames')
-    if (!keys.mathPuzzle) missing.push('mathPuzzle')
-    if (!keys.mathRace) missing.push('mathRace')
-    if (!keys.reflection) missing.push('reflection')
-    if (missing.length > 0) {
-      console.error(`[interactiveWorksheetKeys] ${label} (${lang}) missing keys:`, missing)
-    } else {
-      console.log(`[interactiveWorksheetKeys] ${label} (${lang}) all keys present`)
+// Runtime merge: Ensure interactive worksheet keys are always present
+// This fixes the tree-shaking issue by directly injecting the keys
+const ensureInteractiveWorksheetKeys = () => {
+  // Define the keys directly to prevent tree-shaking
+  const interactiveKeys = {
+    en: {
+      countObjectsAndWriteNumber: 'Count the objects and write the number.',
+      countThe: 'Count the {{object}}',
+      numberLabel: 'Number',
+      objectNames: {
+        stars: 'stars',
+        hearts: 'hearts',
+        circles: 'circles',
+        apples: 'apples',
+        balls: 'balls',
+        flowers: 'flowers',
+        butterflies: 'butterflies',
+        fish: 'fish',
+      },
+      mathPuzzle: {
+        instructions: 'Fill in the missing numbers to complete each equation. Show a different strategy (number line, draw, tens frame) for at least two puzzles.',
+        answerLabel: 'Puzzle {{number}} answer',
+      },
+      mathRace: {
+        instructions: 'Set a 60-second timer. Solve as many facts as you can, then circle your personal record.',
+      },
+      reflection: {
+        title: 'Reflection',
+        mathRaceQuestions: 'How many facts did you solve? ______ • Which strategy helped you most? ____________________',
+        generalQuestions: 'What helped you complete your tasks? What would you do differently next time?',
+        mandalaQuestion: 'Reflection: How did creating this mandala make you feel?',
+      },
+    },
+    es: {
+      countObjectsAndWriteNumber: 'Cuenta los objetos y escribe el número.',
+      countThe: 'Cuenta {{object}}',
+      numberLabel: 'Número',
+      objectNames: {
+        stars: 'estrellas',
+        hearts: 'corazones',
+        circles: 'círculos',
+        apples: 'manzanas',
+        balls: 'pelotas',
+        flowers: 'flores',
+        butterflies: 'mariposas',
+        fish: 'peces',
+      },
+      mathPuzzle: {
+        instructions: 'Completa los números faltantes para completar cada ecuación. Muestra una estrategia diferente (recta numérica, dibujo, marco de diez) para al menos dos rompecabezas.',
+        answerLabel: 'Respuesta del rompecabezas {{number}}',
+      },
+      mathRace: {
+        instructions: 'Configura un temporizador de 60 segundos. Resuelve tantos hechos como puedas, luego marca tu récord personal.',
+      },
+      reflection: {
+        title: 'Reflexión',
+        mathRaceQuestions: '¿Cuántos hechos resolviste? ______ • ¿Qué estrategia te ayudó más? ____________________',
+        generalQuestions: '¿Qué te ayudó a completar tus tareas? ¿Qué harías diferente la próxima vez?',
+        mandalaQuestion: 'Reflexión: ¿Cómo te hizo sentir crear este mandala?',
+      },
+    },
+    ar: {
+      countObjectsAndWriteNumber: 'عد الكائنات واكتب الرقم.',
+      countThe: 'عد {{object}}',
+      numberLabel: 'الرقم',
+      objectNames: {
+        stars: 'النجوم',
+        hearts: 'القلوب',
+        circles: 'الدوائر',
+        apples: 'التفاح',
+        balls: 'الكرات',
+        flowers: 'الزهور',
+        butterflies: 'الفراشات',
+        fish: 'الأسماك',
+      },
+      mathPuzzle: {
+        instructions: 'املأ الأرقام المفقودة لإكمال كل معادلة. أظهر استراتيجية مختلفة (خط الأعداد، الرسم، إطار العشرة) لاثنين على الأقل من الألغاز.',
+        answerLabel: 'إجابة اللغز {{number}}',
+      },
+      mathRace: {
+        instructions: 'اضبط مؤقتاً لمدة 60 ثانية. حل أكبر عدد ممكن من الحقائق، ثم ضع دائرة حول رقمك الشخصي.',
+      },
+      reflection: {
+        title: 'التفكير',
+        mathRaceQuestions: 'كم عدد الحقائق التي حللتها؟ ______ • ما الاستراتيجية التي ساعدتك أكثر؟ ____________________',
+        generalQuestions: 'ما الذي ساعدك على إكمال مهامك؟ ماذا ستفعل بشكل مختلف في المرة القادمة؟',
+        mandalaQuestion: 'التفكير: كيف جعلك إنشاء هذا الماندالا تشعر؟',
+      },
+    },
+  }
+
+  // Merge into translations object if keys are missing
+  for (const lang of ['en', 'es', 'ar'] as const) {
+    const langTranslations = (translations as any)[lang]
+    if (langTranslations && langTranslations.worksheets) {
+      const worksheets = langTranslations.worksheets
+      const keys = interactiveKeys[lang]
+      
+      // Only merge if keys are missing (to avoid overwriting if they exist)
+      if (!worksheets.countObjectsAndWriteNumber) {
+        worksheets.countObjectsAndWriteNumber = keys.countObjectsAndWriteNumber
+      }
+      if (!worksheets.countThe) {
+        worksheets.countThe = keys.countThe
+      }
+      if (!worksheets.numberLabel) {
+        worksheets.numberLabel = keys.numberLabel
+      }
+      if (!worksheets.objectNames) {
+        worksheets.objectNames = keys.objectNames
+      }
+      if (!worksheets.mathPuzzle) {
+        worksheets.mathPuzzle = keys.mathPuzzle
+      }
+      if (!worksheets.mathRace) {
+        worksheets.mathRace = keys.mathRace
+      }
+      if (!worksheets.reflection) {
+        worksheets.reflection = keys.reflection
+      }
     }
   }
-  // Check after a short delay to ensure module is loaded
-  setTimeout(() => {
-    checkKeys('en', 'English')
-    checkKeys('es', 'Spanish')
-    checkKeys('ar', 'Arabic')
-  }, 100)
 }
+
+// Run the merge immediately
+ensureInteractiveWorksheetKeys()
 
 // Helper function to get translation with fallback
 // Returns string, array, or object depending on the translation value
