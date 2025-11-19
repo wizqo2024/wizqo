@@ -764,8 +764,8 @@ export function getTranslation(language: Language, key: string): string | any {
     const keys = key.split('.')
     let value: any = translations[language]
     
-    // Debug: Log the top-level structure once per language
-    if (typeof window !== 'undefined' && keys[0] === 'worksheets') {
+    // Debug logging removed - translations are working correctly
+    if (false && typeof window !== 'undefined' && keys[0] === 'worksheets' && process.env.NODE_ENV === 'development') {
       const debugKey = `translation-debug-${language}`
       if (!(window as any)[debugKey]) {
         (window as any)[debugKey] = true
@@ -773,7 +773,7 @@ export function getTranslation(language: Language, key: string): string | any {
         const worksheetsObj = langObj && typeof langObj === 'object' ? langObj.worksheets : undefined
         const objectNamesObj = worksheetsObj && typeof worksheetsObj === 'object' ? worksheetsObj.objectNames : undefined
         
-        console.error(`[getTranslation] Top-level translations structure for ${language}:`, {
+        console.log(`[getTranslation] Top-level translations structure for ${language}:`, {
           hasTranslations: !!translations,
           hasLanguage: !!langObj,
           languageType: typeof langObj,
@@ -819,59 +819,7 @@ export function getTranslation(language: Language, key: string): string | any {
       }
     }
     
-    // Debug: Check if worksheets exists and log its structure
-    if (keys[0] === 'worksheets' && typeof window !== 'undefined') {
-      const hasWorksheets = value && typeof value === 'object' && 'worksheets' in value
-      if (!hasWorksheets) {
-        console.warn(`[getTranslation] 'worksheets' not found in ${language} translations`, {
-          language,
-          key,
-          valueKeys: value && typeof value === 'object' ? Object.keys(value).slice(0, 10) : 'N/A',
-          valueType: typeof value
-        })
-      } else {
-        // Log the worksheets object structure for debugging
-        const worksheetsObj = value.worksheets
-        if (worksheetsObj && typeof worksheetsObj === 'object') {
-          const allKeys = Object.keys(worksheetsObj)
-          // Direct access to see what we get
-          const objectNamesDirect = worksheetsObj.objectNames
-          const countObjectsDirect = worksheetsObj.countObjectsAndWriteNumber
-          const countTheDirect = worksheetsObj.countThe
-          const numberLabelDirect = worksheetsObj.numberLabel
-          
-          console.error(`[getTranslation] worksheets object structure for ${language}:`, {
-            hasObjectNames: 'objectNames' in worksheetsObj,
-            objectNamesType: typeof objectNamesDirect,
-            objectNamesValue: objectNamesDirect,
-            objectNamesIsUndefined: objectNamesDirect === undefined,
-            objectNamesIsNull: objectNamesDirect === null,
-            objectNamesKeys: objectNamesDirect && typeof objectNamesDirect === 'object' ? Object.keys(objectNamesDirect) : 'N/A',
-            hasCountObjectsAndWriteNumber: 'countObjectsAndWriteNumber' in worksheetsObj,
-            countObjectsAndWriteNumberValue: countObjectsDirect,
-            countObjectsAndWriteNumberType: typeof countObjectsDirect,
-            hasCountThe: 'countThe' in worksheetsObj,
-            countTheValue: countTheDirect,
-            countTheType: typeof countTheDirect,
-            hasNumberLabel: 'numberLabel' in worksheetsObj,
-            numberLabelValue: numberLabelDirect,
-            numberLabelType: typeof numberLabelDirect,
-            worksheetsKeys: allKeys.slice(0, 30),
-            worksheetsKeysCount: allKeys.length,
-            // Log first few key-value pairs to see actual structure
-            sampleEntries: allKeys.slice(0, 10).map(k => ({ 
-              key: k, 
-              value: worksheetsObj[k], 
-              valueType: typeof worksheetsObj[k],
-              isUndefined: worksheetsObj[k] === undefined,
-              isNull: worksheetsObj[k] === null,
-              isObject: typeof worksheetsObj[k] === 'object' && worksheetsObj[k] !== null,
-              objectKeys: (typeof worksheetsObj[k] === 'object' && worksheetsObj[k] !== null) ? Object.keys(worksheetsObj[k]).slice(0, 5) : 'N/A'
-            }))
-          })
-        }
-      }
-    }
+    // Debug logging removed - translations are working correctly
     
     // Navigate through nested keys
     for (let i = 0; i < keys.length; i++) {
@@ -912,31 +860,7 @@ export function getTranslation(language: Language, key: string): string | any {
           // Don't log warnings for non-interactive keys - they're just regular worksheet keys
         }
         
-        // Debug: log what we found so far - show in production too for debugging
-        if (typeof window !== 'undefined') {
-          // Get the previous value (the object we were trying to access)
-          let prevValue = translations[language]
-          for (let j = 0; j < i; j++) {
-            if (prevValue && typeof prevValue === 'object') prevValue = prevValue[keys[j]]
-            else break
-          }
-          
-          console.error(`[getTranslation] Navigation stopped at key: ${k} (index ${i})`, {
-            language,
-            fullKey: key,
-            keysSoFar: keys.slice(0, i),
-            currentValue: value,
-            previousValue: prevValue,
-            previousValueType: typeof prevValue,
-            previousValueIsObject: prevValue && typeof prevValue === 'object',
-            previousValueKeys: prevValue && typeof prevValue === 'object' ? Object.keys(prevValue).slice(0, 30) : 'N/A',
-            tryingToAccess: k,
-            availableKeys: prevValue && typeof prevValue === 'object' ? Object.keys(prevValue).slice(0, 30) : 'N/A',
-            // Check if the key exists but is undefined
-            keyExists: prevValue && typeof prevValue === 'object' ? (k in prevValue) : false,
-            keyValue: prevValue && typeof prevValue === 'object' ? prevValue[k] : 'N/A'
-          })
-        }
+        // Debug logging removed - translations are working correctly
         break
       }
       value = value[k]
