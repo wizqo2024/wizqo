@@ -401,8 +401,8 @@ const ensurePlaceValueHtoKeys = () => {
       const worksheets = langTranslations.worksheets
       const keys = placeValueKeys[lang]
       
-      // Only merge if keys are missing (to avoid overwriting if they exist)
-      if (keys['place-value-hto'] && !worksheets['place-value-hto']) {
+      // Always merge to ensure complete translations (even if key exists, it might be incomplete due to tree-shaking)
+      if (keys['place-value-hto']) {
         worksheets['place-value-hto'] = keys['place-value-hto']
       }
     }
@@ -584,8 +584,8 @@ const ensureCountCircleKeys = () => {
       const worksheets = langTranslations.worksheets
       const keys = countCircleKeys[lang]
       
-      // Only merge if keys are missing (to avoid overwriting if they exist)
-      if (keys['count-circle-1-10'] && !worksheets['count-circle-1-10']) {
+      // Always merge to ensure complete translations (even if key exists, it might be incomplete due to tree-shaking)
+      if (keys['count-circle-1-10']) {
         worksheets['count-circle-1-10'] = keys['count-circle-1-10']
       }
     }
@@ -776,8 +776,8 @@ const ensureMultFactsKeys = () => {
       const worksheets = langTranslations.worksheets
       const keys = multFactsKeys[lang]
       
-      // Only merge if keys are missing (to avoid overwriting if they exist)
-      if (keys['mult-facts-0-12'] && !worksheets['mult-facts-0-12']) {
+      // Always merge to ensure complete translations (even if key exists, it might be incomplete due to tree-shaking)
+      if (keys['mult-facts-0-12']) {
         worksheets['mult-facts-0-12'] = keys['mult-facts-0-12']
       }
     }
@@ -1001,8 +1001,8 @@ const ensureMathMazeKeys = () => {
       const worksheets = langTranslations.worksheets
       const keys = mathMazeKeys[lang]
       
-      // Only merge if keys are missing (to avoid overwriting if they exist)
-      if (keys['math-maze'] && !worksheets['math-maze']) {
+      // Always merge to ensure complete translations (even if key exists, it might be incomplete due to tree-shaking)
+      if (keys['math-maze']) {
         worksheets['math-maze'] = keys['math-maze']
       }
     }
@@ -1205,8 +1205,8 @@ const ensureNumberTracing120Keys = () => {
       const worksheets = langTranslations.worksheets
       const keys = numberTracingKeys[lang]
       
-      // Only merge if keys are missing (to avoid overwriting if they exist)
-      if (keys['number-tracing-1-20'] && !worksheets['number-tracing-1-20']) {
+      // Always merge to ensure complete translations (even if key exists, it might be incomplete due to tree-shaking)
+      if (keys['number-tracing-1-20']) {
         worksheets['number-tracing-1-20'] = keys['number-tracing-1-20']
       }
     }
@@ -1376,8 +1376,8 @@ const ensureAdditionSubtraction010Keys = () => {
       const worksheets = langTranslations.worksheets
       const keys = additionSubtractionKeys[lang]
       
-      // Only merge if keys are missing (to avoid overwriting if they exist)
-      if (keys['addition-subtraction-0-10'] && !worksheets['addition-subtraction-0-10']) {
+      // Always merge to ensure complete translations (even if key exists, it might be incomplete due to tree-shaking)
+      if (keys['addition-subtraction-0-10']) {
         worksheets['addition-subtraction-0-10'] = keys['addition-subtraction-0-10']
       }
     }
@@ -1733,11 +1733,11 @@ const ensureTimesTableWorksheetKeys = () => {
       const worksheets = langTranslations.worksheets
       const keys = timesTableKeys[lang]
       
-      // Only merge if keys are missing (to avoid overwriting if they exist)
-      if (keys['times-table-horizontal-1-5'] && !worksheets['times-table-horizontal-1-5']) {
+      // Always merge to ensure complete translations (even if key exists, it might be incomplete due to tree-shaking)
+      if (keys['times-table-horizontal-1-5']) {
         worksheets['times-table-horizontal-1-5'] = keys['times-table-horizontal-1-5']
       }
-      if (keys['times-table-vertical-1-5'] && !worksheets['times-table-vertical-1-5']) {
+      if (keys['times-table-vertical-1-5']) {
         worksheets['times-table-vertical-1-5'] = keys['times-table-vertical-1-5']
       }
     }
