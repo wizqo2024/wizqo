@@ -6586,71 +6586,62 @@ function InteractiveWorksheetSection({
   const theme = getCategoryTheme(category.id)
   const cornerColors = getCornerAccentColor(category.id)
 
-  // Ensure t function works correctly - always use getTranslation directly to bypass context issues
-  // This ensures translations work even if context has issues
+  // Ensure t function works correctly - try context first since it might have better access to translations
   // Don't use useCallback - recreate function on every render to ensure latest language is used
   const t = (key: string): string => {
-    // Always use getTranslation directly first - it's the most reliable
     try {
-      const directResult = getTranslation(language, key)
-      // Debug: log the actual result to see what we're getting
-      if (typeof window !== 'undefined' && directResult === key) {
-        console.log(`[InteractiveBundleSections t()] getTranslation returned key for: ${key}, language: ${language}`, {
-          directResult,
-          directResultType: typeof directResult,
-          isKey: directResult === key,
-          startsWithWorksheets: typeof directResult === 'string' && directResult.startsWith('worksheets.'),
-          startsWithCategories: typeof directResult === 'string' && directResult.startsWith('categories.')
-        })
-      }
-      // Check if we got a valid translation (not the key itself, and not a key-like string)
-      if (typeof directResult === 'string' && directResult !== key && !directResult.startsWith('worksheets.') && !directResult.startsWith('categories.')) {
-        return directResult
-      }
-      // If directResult is the key or starts with 'worksheets.'/'categories.', try context as fallback
+      // Try context first - it might have better access to the full translation object
       const contextResult = tFromContext(key)
       if (typeof contextResult === 'string' && contextResult !== key && !contextResult.startsWith('worksheets.') && !contextResult.startsWith('categories.')) {
         return contextResult
       }
+      
+      // If context didn't work, try getTranslation directly
+      const directResult = getTranslation(language, key)
+      // Check if we got a valid translation (not the key itself, and not a key-like string)
+      if (typeof directResult === 'string' && directResult !== key && !directResult.startsWith('worksheets.') && !directResult.startsWith('categories.')) {
+        return directResult
+      }
+      
       // If both return the key or a key-like string, try English as final fallback
       if (language !== 'en') {
         const englishResult = getTranslation('en', key)
         if (typeof englishResult === 'string' && englishResult !== key && !englishResult.startsWith('worksheets.') && !englishResult.startsWith('categories.')) {
           return englishResult
         }
+        // Also try context with English
+        try {
+          const englishContextResult = getTranslation('en', key)
+          if (typeof englishContextResult === 'string' && englishContextResult !== key && !englishContextResult.startsWith('worksheets.') && !englishContextResult.startsWith('categories.')) {
+            return englishContextResult
+          }
+        } catch {}
       }
+      
       // Final fallback: return the key (will be visible in UI for debugging)
-      // Log in production too for debugging this issue
+      // Only log once per unique key to avoid spam
       if (typeof window !== 'undefined') {
-        console.warn(`[InteractiveBundleSections] Translation missing: key=${key}, language=${language}`, { 
-          directResult, 
-          directResultType: typeof directResult,
-          directResultEqualsKey: directResult === key,
-          contextResult,
-          contextResultType: typeof contextResult,
-          contextResultEqualsKey: contextResult === key,
-          languageValue: language,
-          keyPath: key,
-          // Try to manually check if translation exists
-          manualCheck: (() => {
-            try {
-              const { getTranslation: gt } = require('@/translations')
-              const manualResult = gt(language, key)
-              return { manualResult, manualResultType: typeof manualResult, manualResultEqualsKey: manualResult === key }
-            } catch (e) {
-              return { error: e.message }
-            }
-          })()
-        })
+        const logKey = `translation-missing-${key}-${language}`
+        if (!(window as any)[logKey]) {
+          (window as any)[logKey] = true
+          console.warn(`[InteractiveBundleSections] Translation missing: key=${key}, language=${language}`, { 
+            directResult, 
+            contextResult,
+            languageValue: language,
+            keyPath: key
+          })
+        }
       }
       return key
     } catch (error) {
       console.warn('[InteractiveBundleSections] Translation error:', key, language, error)
       // Try context as last resort
-      const result = tFromContext(key)
-      if (typeof result === 'string' && result !== key && !result.startsWith('worksheets.') && !result.startsWith('categories.')) {
-        return result
-      }
+      try {
+        const result = tFromContext(key)
+        if (typeof result === 'string' && result !== key && !result.startsWith('worksheets.') && !result.startsWith('categories.')) {
+          return result
+        }
+      } catch {}
       // Try English fallback
       if (language !== 'en') {
         try {
