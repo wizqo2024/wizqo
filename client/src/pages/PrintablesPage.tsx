@@ -247,7 +247,7 @@ function ChallengeAndAssessmentContent() {
 }
 
 // Helper component to wrap worksheet sections with nice styling
-function WorksheetSectionWrapper({ 
+const WorksheetSectionWrapper = React.memo(function WorksheetSectionWrapper({ 
   docId, 
   title, 
   emoji, 
@@ -335,7 +335,7 @@ function WorksheetSectionWrapper({
       </div>
     </section>
   )
-}
+});
 
 const ANSWERABLE_BASE_DOC_IDS = [
   'science-match',

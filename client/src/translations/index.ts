@@ -292,9 +292,12 @@ export function getTranslation(language: Language, key: string): string | any {
       if (value === null || value === undefined) {
         // If we're looking for interactive worksheet keys and they're missing,
         // try to get them from the exported interactiveWorksheetKeys
+        // Only check interactiveWorksheetKeys for actual interactive keys (not regular worksheet keys)
+        const INTERACTIVE_KEYS = ['countObjectsAndWriteNumber', 'countThe', 'numberLabel', 'objectNames', 'mathPuzzle', 'mathRace', 'reflection']
         if (keys[0] === 'worksheets' && i >= 1) {
           const interactiveKey = keys[1] as keyof typeof interactiveWorksheetKeys.en
-          if (interactiveKey && interactiveWorksheetKeys[language] && interactiveKey in interactiveWorksheetKeys[language]) {
+          // Only try interactiveWorksheetKeys fallback if this is actually an interactive key
+          if (interactiveKey && INTERACTIVE_KEYS.includes(interactiveKey) && interactiveWorksheetKeys[language] && interactiveKey in interactiveWorksheetKeys[language]) {
             const interactiveValue = (interactiveWorksheetKeys[language] as any)[interactiveKey]
             if (interactiveValue !== undefined) {
               if (typeof window !== 'undefined') {
@@ -318,15 +321,8 @@ export function getTranslation(language: Language, key: string): string | any {
             } else if (typeof window !== 'undefined') {
               console.warn(`[getTranslation] interactiveWorksheetKeys[${language}][${interactiveKey}] is undefined`)
             }
-          } else if (typeof window !== 'undefined') {
-            console.warn(`[getTranslation] interactiveWorksheetKeys fallback check failed:`, {
-              language,
-              interactiveKey,
-              hasLanguage: !!interactiveWorksheetKeys[language],
-              hasKey: interactiveKey ? interactiveKey in (interactiveWorksheetKeys[language] || {}) : false,
-              availableKeys: interactiveWorksheetKeys[language] ? Object.keys(interactiveWorksheetKeys[language]) : []
-            })
           }
+          // Don't log warnings for non-interactive keys - they're just regular worksheet keys
         }
         
         // Debug: log what we found so far - show in production too for debugging
@@ -393,9 +389,11 @@ export function getTranslation(language: Language, key: string): string | any {
         }
       }
       // Also try interactiveWorksheetKeys fallback for English
+      // Only check for actual interactive keys
+      const INTERACTIVE_KEYS = ['countObjectsAndWriteNumber', 'countThe', 'numberLabel', 'objectNames', 'mathPuzzle', 'mathRace', 'reflection']
       if (keys[0] === 'worksheets' && keys.length >= 2) {
         const interactiveKey = keys[1] as keyof typeof interactiveWorksheetKeys.en
-        if (interactiveKey && interactiveWorksheetKeys.en && interactiveKey in interactiveWorksheetKeys.en) {
+        if (interactiveKey && INTERACTIVE_KEYS.includes(interactiveKey) && interactiveWorksheetKeys.en && interactiveKey in interactiveWorksheetKeys.en) {
           const interactiveValue = (interactiveWorksheetKeys.en as any)[interactiveKey]
           if (interactiveValue !== undefined) {
             let englishValue = interactiveValue
