@@ -1259,8 +1259,11 @@ export function PrintablesPage() {
   const { t, language } = useTranslation()
   
   // Force re-render when language changes (important for /print route with ?lang=ar)
+  // Use a state update to ensure component re-renders when language changes
+  const [, forceUpdate] = React.useReducer(x => x + 1, 0)
   React.useEffect(() => {
-    // This effect ensures the component re-renders when language changes from query parameter
+    // Force re-render when language changes to ensure translations update
+    forceUpdate()
   }, [language])
   
   // Helper function to get translations with fallback
