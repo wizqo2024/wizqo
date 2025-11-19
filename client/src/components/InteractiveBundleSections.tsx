@@ -6586,67 +6586,75 @@ function InteractiveWorksheetSection({
   const theme = getCategoryTheme(category.id)
   const cornerColors = getCornerAccentColor(category.id)
 
-  // Ensure t function works correctly - try context first since it might have better access to translations
+  // Ensure t function works correctly - prioritize direct translation with current language
   // Don't use useCallback - recreate function on every render to ensure latest language is used
-  const t = (key: string): string => {
-    try {
-      // Try context first - it might have better access to the full translation object
-      const contextResult = tFromContext(key)
-      // Accept any string result that's different from the key (means translation was found)
-      if (typeof contextResult === 'string' && contextResult !== key) {
-        return contextResult
-      }
-      
-      // If context didn't work, try getTranslation directly
-      const directResult = getTranslation(language, key)
-      if (typeof directResult === 'string' && directResult !== key) {
-        return directResult
-      }
-      
-      // If both return the key, try English as final fallback
-      if (language !== 'en') {
-        const englishResult = getTranslation('en', key)
-        if (typeof englishResult === 'string' && englishResult !== key) {
-          return englishResult
-        }
-      }
-      
-      // Final fallback: return the key (will be visible in UI for debugging)
-      // Only log once per unique key to avoid spam
-      if (typeof window !== 'undefined') {
-        const logKey = `translation-missing-${key}-${language}`
-        if (!(window as any)[logKey]) {
-          (window as any)[logKey] = true
-          console.warn(`[InteractiveBundleSections] Translation missing: key=${key}, language=${language}`, { 
-            directResult, 
-            contextResult,
-            languageValue: language,
-            keyPath: key
-          })
-        }
-      }
-      return key
-    } catch (error) {
-      console.warn('[InteractiveBundleSections] Translation error:', key, language, error)
-      // Try context as last resort
+  const t = React.useMemo(() => {
+    return (key: string): string => {
       try {
-        const result = tFromContext(key)
-        if (typeof result === 'string' && result !== key) {
-          return result
+        // Priority 1: Use getTranslation with current language (most reliable)
+        const directResult = getTranslation(language, key)
+        if (typeof directResult === 'string' && directResult !== key) {
+          return directResult
         }
-      } catch {}
-      // Try English fallback
-      if (language !== 'en') {
-        try {
+        
+        // Priority 2: Try context as fallback
+        const contextResult = tFromContext(key)
+        if (typeof contextResult === 'string' && contextResult !== key) {
+          return contextResult
+        }
+        
+        // Priority 3: If both return the key, try English as final fallback
+        if (language !== 'en') {
           const englishResult = getTranslation('en', key)
           if (typeof englishResult === 'string' && englishResult !== key) {
             return englishResult
           }
+        }
+        
+        // Final fallback: return the key (will be visible in UI for debugging)
+        // Only log once per unique key to avoid spam
+        if (typeof window !== 'undefined') {
+          const logKey = `translation-missing-${key}-${language}`
+          if (!(window as any)[logKey]) {
+            (window as any)[logKey] = true
+            console.warn(`[InteractiveBundleSections] Translation missing: key=${key}, language=${language}`, { 
+              directResult, 
+              contextResult,
+              languageValue: language,
+              keyPath: key
+            })
+          }
+        }
+        return key
+      } catch (error) {
+        console.warn('[InteractiveBundleSections] Translation error:', key, language, error)
+        // Try direct translation first
+        try {
+          const result = getTranslation(language, key)
+          if (typeof result === 'string' && result !== key) {
+            return result
+          }
         } catch {}
+        // Try context as fallback
+        try {
+          const result = tFromContext(key)
+          if (typeof result === 'string' && result !== key) {
+            return result
+          }
+        } catch {}
+        // Try English fallback
+        if (language !== 'en') {
+          try {
+            const englishResult = getTranslation('en', key)
+            if (typeof englishResult === 'string' && englishResult !== key) {
+              return englishResult
+            }
+          } catch {}
+        }
+        return key
       }
-      return key
     }
-  }
+  }, [language, tFromContext])
 
   if (!renderer) {
     return (

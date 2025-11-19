@@ -1374,12 +1374,15 @@ export function PrintablesPage() {
       for (const category of INTERACTIVE_CATEGORIES) {
         const worksheet = category.docs.find(d => d.id === singleDocId)
         if (worksheet) {
-          return `${category.icon} ${worksheet.title}`
+          // Use translated title if available, otherwise fall back to English title
+          const translatedTitle = t(`interactive.${singleDocId}.title`)
+          const title = translatedTitle !== `interactive.${singleDocId}.title` ? translatedTitle : worksheet.title
+          return `${category.icon} ${title}`
         }
       }
     }
     return resolveDocTitle(doc || '', { packTime, bundleCategory: bundleCategoryParam || undefined, t })
-  }, [doc, packTime, bundleCategoryParam, activeDocs, t])
+  }, [doc, packTime, bundleCategoryParam, activeDocs, t, language])
   const pinHref = React.useMemo(() => {
     try {
       const url = typeof window !== 'undefined' ? window.location.href : 'https://wizqo.com/print'
