@@ -72,6 +72,9 @@ const ensureWorksheetKeys = () => {
   
   // Then, ensure number-id-1-10 worksheet keys
   ensureNumberId110Keys()
+  
+  // Then, ensure interactive worksheet title/description keys
+  ensureInteractiveTitleDescriptionKeys()
 }
 
 const ensureInteractiveWorksheetKeys = () => {
@@ -2218,6 +2221,95 @@ export function getTranslation(language: Language, key: string): string | any {
       console.warn('Translation error for key:', key, 'language:', language, error)
     }
     return key
+  }
+}
+
+// Ensure interactive worksheet title and description keys are present
+const ensureInteractiveTitleDescriptionKeys = () => {
+  // Define the keys directly to prevent tree-shaking
+  const interactiveTitleDescKeys = {
+    en: {
+      'interactive-math-counting': {
+        title: 'Counting & Number Recognition',
+        description: 'Practice counting objects, recognizing numbers, and matching quantities to numerals.',
+      },
+      'interactive-math-race': {
+        title: 'Math Race Challenge',
+        description: 'Timed addition and subtraction challenges with varying difficulty levels.',
+      },
+      'interactive-math-puzzle': {
+        title: 'Equation Puzzle Box',
+        description: 'Solve missing number equations arranged in puzzle format. Each puzzle is unique.',
+      },
+      'interactive-math-place-value': {
+        title: 'Place Value Explorer',
+        description: 'Understand ones, tens, hundreds, and thousands place with interactive exercises.',
+      },
+      'interactive-reading-alphabet': {
+        title: 'Alphabet & Letter Recognition',
+        description: 'Practice recognizing letters, matching uppercase and lowercase, and beginning sounds.',
+      },
+    },
+    es: {
+      'interactive-math-counting': {
+        title: 'Conteo y Reconocimiento de Números',
+        description: 'Practica contando objetos, reconociendo números y emparejando cantidades con numerales.',
+      },
+      'interactive-math-race': {
+        title: 'Desafío de Carrera Matemática',
+        description: 'Desafíos de suma y resta cronometrados con niveles de dificultad variables.',
+      },
+      'interactive-math-puzzle': {
+        title: 'Caja de Rompecabezas de Ecuaciones',
+        description: 'Resuelve ecuaciones con números faltantes organizadas en formato de rompecabezas. Cada rompecabezas es único.',
+      },
+      'interactive-math-place-value': {
+        title: 'Explorador de Valor Posicional',
+        description: 'Comprende el lugar de unidades, decenas, centenas y millares con ejercicios interactivos.',
+      },
+      'interactive-reading-alphabet': {
+        title: 'Alfabeto y Reconocimiento de Letras',
+        description: 'Practica reconocer letras, emparejar mayúsculas y minúsculas, y sonidos iniciales.',
+      },
+    },
+    ar: {
+      'interactive-math-counting': {
+        title: 'العد والتعرف على الأرقام',
+        description: 'تدرب على عد الكائنات والتعرف على الأرقام ومطابقة الكميات بالأرقام.',
+      },
+      'interactive-math-race': {
+        title: 'تحدي سباق الرياضيات',
+        description: 'تحديات الجمع والطرح الموقوتة بمستويات صعوبة مختلفة.',
+      },
+      'interactive-math-puzzle': {
+        title: 'صندوق لغز المعادلات',
+        description: 'حل معادلات الأرقام المفقودة مرتبة بتنسيق الألغاز. كل لغز فريد.',
+      },
+      'interactive-math-place-value': {
+        title: 'مستكشف القيمة المنزلية',
+        description: 'افهم منزلة الآحاد والعشرات والمئات والآلاف مع تمارين تفاعلية.',
+      },
+      'interactive-reading-alphabet': {
+        title: 'الأبجدية والتعرف على الحروف',
+        description: 'تدرب على التعرف على الحروف ومطابقة الأحرف الكبيرة والصغيرة والأصوات الأولية.',
+      },
+    },
+  }
+
+  // Merge into translations object if keys are missing
+  for (const lang of ['en', 'es', 'ar'] as const) {
+    const langTranslations = (translations as any)[lang]
+    if (langTranslations && langTranslations.interactive) {
+      const interactive = langTranslations.interactive
+      const keys = interactiveTitleDescKeys[lang]
+      
+      // Always merge to ensure complete translations (even if key exists, it might be incomplete due to tree-shaking)
+      Object.keys(keys).forEach((docId) => {
+        if (keys[docId as keyof typeof keys]) {
+          interactive[docId] = keys[docId as keyof typeof keys]
+        }
+      })
+    }
   }
 }
 
