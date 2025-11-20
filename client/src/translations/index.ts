@@ -2038,6 +2038,12 @@ const ensureInteractiveWorksheetKeys = () => {
         toTheLeftOf: 'to the left of',
         toTheRightOf: 'to the right of',
       },
+      readingFluency: {
+        instructions: 'Practice reading with expression, accuracy, and appropriate pacing. Read each passage three times.',
+        passage: 'Passage {{number}}',
+        read: 'Read {{number}}:',
+        notes: 'Notes:',
+      },
       cognitiveFlexibility: {
         instructions: 'Complete each task, then switch to the new rule:',
         perspectiveTakingPractice: 'Perspective-Taking Practice',
@@ -2612,6 +2618,12 @@ const ensureInteractiveWorksheetKeys = () => {
         toTheLeftOf: 'a la izquierda de',
         toTheRightOf: 'a la derecha de',
       },
+      readingFluency: {
+        instructions: 'Practica la lectura con expresión, precisión y ritmo apropiado. Lee cada pasaje tres veces.',
+        passage: 'Pasaje {{number}}',
+        read: 'Lee {{number}}:',
+        notes: 'Notas:',
+      },
       cognitiveFlexibility: {
         instructions: 'Completa cada tarea, luego cambia a la nueva regla:',
         perspectiveTakingPractice: 'Práctica de Toma de Perspectiva',
@@ -3185,6 +3197,12 @@ const ensureInteractiveWorksheetKeys = () => {
         below: 'تحت',
         toTheLeftOf: 'على يسار',
         toTheRightOf: 'على يمين',
+      },
+      readingFluency: {
+        instructions: 'مارس القراءة بالتعبير والدقة والسرعة المناسبة. اقرأ كل نص ثلاث مرات.',
+        passage: 'النص {{number}}',
+        read: 'اقرأ {{number}}:',
+        notes: 'ملاحظات:',
       },
       cognitiveFlexibility: {
         instructions: 'أكمل كل مهمة، ثم انتقل إلى القاعدة الجديدة:',

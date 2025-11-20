@@ -4555,24 +4555,24 @@ const renderers: Record<string, Renderer> = {
     const passages = pickMany(rng, ['The cat sat on the mat. The cat is happy.', 'I see a big tree. The tree has green leaves.', 'The sun is bright. It shines in the sky.', 'I like to read books. Books are fun to read.'], 2)
     return (
       <div className="space-y-4">
-        <p className="text-sm text-slate-600">Practice reading with expression, accuracy, and appropriate pacing. Read each passage three times.</p>
+        <p className="text-sm text-slate-600">{t('worksheets.readingFluency.instructions')}</p>
         {passages.map((passage, idx) => (
           <div key={idx} className="rounded-xl border border-purple-200 bg-purple-50 p-4">
-            <p className="text-sm font-semibold text-purple-700 mb-2">Passage {idx + 1}</p>
+            <p className="text-sm font-semibold text-purple-700 mb-2">{t('worksheets.readingFluency.passage').replace('{{number}}', String(idx + 1))}</p>
             <div className="bg-white rounded border border-purple-200 p-3 mb-3">
               <p className="text-sm text-purple-800 leading-relaxed">{passage}</p>
             </div>
             <div className="space-y-2">
               {[1, 2, 3].map((readNum) => (
                 <div key={readNum} className="flex items-center gap-2">
-                  <span className="text-xs text-purple-600 w-24">Read {readNum}:</span>
+                  <span className="text-xs text-purple-600 w-24">{t('worksheets.readingFluency.read').replace('{{number}}', String(readNum))}</span>
                   <div className="flex gap-1">
                     {[1, 2, 3, 4, 5].map((star) => (<span key={star} className="text-xs">⭐</span>))}
                   </div>
                 </div>
               ))}
             </div>
-            <p className="text-xs text-purple-600 mt-2">Notes: ________________________________</p>
+            <p className="text-xs text-purple-600 mt-2">{t('worksheets.readingFluency.notes')} ________________________________</p>
           </div>
         ))}
       </div>
