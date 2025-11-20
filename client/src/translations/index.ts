@@ -5495,42 +5495,48 @@ const ensureInteractiveContentTranslations = () => {
       // Also try to merge from source files as fallback
       const fileInteractive = lang === 'en' ? en.interactive : lang === 'es' ? es.interactive : ar.interactive
       if (fileInteractive) {
-        // Merge friendship translations from files
-        if (fileInteractive['interactive-sel-friendship'] && !interactive['interactive-sel-friendship']) {
-          interactive['interactive-sel-friendship'] = fileInteractive['interactive-sel-friendship']
-        }
-        // Merge gratitude translations
-        if (fileInteractive['interactive-sel-gratitude']) {
-          interactive['interactive-sel-gratitude'] = fileInteractive['interactive-sel-gratitude']
+        // Merge all SEL translations from files
+        const selKeys = [
+          'interactive-sel-friendship',
+          'interactive-sel-gratitude',
+          'interactive-sel-mindfulness',
+          'interactive-sel-empathy',
+          'interactive-sel-conflict',
+          'interactive-sel-regulation',
+          'interactive-sel-kindness',
+          'interactive-sel-growth-mindset',
+          'interactive-sel-stress',
+          'interactive-sel-character',
+        ]
+        for (const key of selKeys) {
+          if (fileInteractive[key]) {
+            interactive[key] = fileInteractive[key]
+          }
         }
         // Merge art translations
-        if (fileInteractive['interactive-art-color-by-number']) {
-          interactive['interactive-art-color-by-number'] = fileInteractive['interactive-art-color-by-number']
-        }
-        if (fileInteractive['interactive-art-mandala']) {
-          interactive['interactive-art-mandala'] = fileInteractive['interactive-art-mandala']
-        }
-        if (fileInteractive['interactive-art-doodle']) {
-          interactive['interactive-art-doodle'] = fileInteractive['interactive-art-doodle']
-        }
-        if (fileInteractive['interactive-art-seasonal']) {
-          interactive['interactive-art-seasonal'] = fileInteractive['interactive-art-seasonal']
-        }
-        if (fileInteractive['interactive-art-comic']) {
-          interactive['interactive-art-comic'] = fileInteractive['interactive-art-comic']
-        }
-        if (fileInteractive['interactive-art-critique']) {
-          interactive['interactive-art-critique'] = fileInteractive['interactive-art-critique']
+        const artKeys = [
+          'interactive-art-color-by-number',
+          'interactive-art-mandala',
+          'interactive-art-doodle',
+          'interactive-art-seasonal',
+          'interactive-art-comic',
+          'interactive-art-critique',
+        ]
+        for (const key of artKeys) {
+          if (fileInteractive[key]) {
+            interactive[key] = fileInteractive[key]
+          }
         }
         // Merge logic translations
-        if (fileInteractive['interactive-logic-matching']) {
-          interactive['interactive-logic-matching'] = fileInteractive['interactive-logic-matching']
-        }
-        if (fileInteractive['interactive-logic-classification']) {
-          interactive['interactive-logic-classification'] = fileInteractive['interactive-logic-classification']
-        }
-        if (fileInteractive['interactive-logic-analogies']) {
-          interactive['interactive-logic-analogies'] = fileInteractive['interactive-logic-analogies']
+        const logicKeys = [
+          'interactive-logic-matching',
+          'interactive-logic-classification',
+          'interactive-logic-analogies',
+        ]
+        for (const key of logicKeys) {
+          if (fileInteractive[key]) {
+            interactive[key] = fileInteractive[key]
+          }
         }
       }
     }

@@ -3089,24 +3089,25 @@ const renderers: Record<string, Renderer> = {
   'interactive-sel-mindfulness': (ctx) => {
     const { seed, doc, variant, t } = ctx
     const rng = makeRng(`${seed}|${doc.id}|${variant}`)
-    const breaths = pickMany(rng, ['rainbow breathing', 'box breathing', 'five-finger breathing', 'balloon breath'], 3)
+    const breathKeys = ['rainbowBreathing', 'boxBreathing', 'fiveFingerBreathing', 'balloonBreath']
+    const selectedBreaths = pickMany(rng, breathKeys, 3)
     return (
       <div className="space-y-3">
         <p className="text-sm text-slate-600">
-          Practice three breathing strategies. Track how your body feels before and after.
+          {t('interactive.interactive-sel-mindfulness.description')}
         </p>
         <table className="w-full border border-slate-300 text-sm">
           <thead className="bg-slate-100">
             <tr>
-              <th className="px-3 py-2">Breathing Strategy</th>
-              <th className="px-3 py-2">Before I feel?</th>
-              <th className="px-3 py-2">After I feel?</th>
+              <th className="px-3 py-2">{t('interactive.interactive-sel-mindfulness.breathingStrategy')}</th>
+              <th className="px-3 py-2">{t('interactive.interactive-sel-mindfulness.beforeIFeel')}</th>
+              <th className="px-3 py-2">{t('interactive.interactive-sel-mindfulness.afterIFeel')}</th>
             </tr>
           </thead>
           <tbody>
-            {breaths.map((breath, idx) => (
+            {selectedBreaths.map((breathKey, idx) => (
               <tr key={idx} className="border-t border-slate-200">
-                <td className="px-3 py-2 capitalize">{breath}</td>
+                <td className="px-3 py-2">{t(`interactive.interactive-sel-mindfulness.strategies.${breathKey}`)}</td>
                 <td className="px-3 py-2">_______________________</td>
                 <td className="px-3 py-2">_______________________</td>
               </tr>
@@ -3114,7 +3115,7 @@ const renderers: Record<string, Renderer> = {
           </tbody>
         </table>
         <div className="rounded-lg border border-blue-200 bg-blue-50 px-4 py-3 text-xs text-blue-700">
-          Repeat your favorite strategy three times this week and jot when it helped you most.
+          {t('interactive.interactive-sel-mindfulness.repeatFavorite')}
         </div>
       </div>
     )
@@ -3122,23 +3123,20 @@ const renderers: Record<string, Renderer> = {
   'interactive-sel-empathy': (ctx) => {
     const { seed, doc, variant, t } = ctx
     const rng = makeRng(`${seed}|${doc.id}|${variant}`)
-    const scenarios = pickMany(
-      rng,
-      ['Someone new joins the lunch table.', 'A friend loses their favorite pencil case.', 'A teammate feels nervous before a performance.', 'A classmate forgets homework again.'],
-      3
-    )
+    const scenarioKeys = ['newLunchTable', 'lostPencilCase', 'nervousPerformance', 'forgotHomework']
+    const selectedScenarios = pickMany(rng, scenarioKeys, 3)
     return (
       <div className="space-y-3">
         <p className="text-sm text-slate-600">
-          Imagine each scenario. How might the person feel? What words or actions would show empathy?
+          {t('interactive.interactive-sel-empathy.description')}
         </p>
         <div className="space-y-3 text-sm text-slate-700">
-          {scenarios.map((scenario, idx) => (
+          {selectedScenarios.map((scenarioKey, idx) => (
             <div key={idx} className="rounded-xl border border-slate-200 bg-white p-4">
-              <p className="font-semibold">Scenario {idx + 1}</p>
-              <p>{scenario}</p>
-              <p className="mt-2 text-xs text-slate-500">Feelings I notice: ______________________________</p>
-              <p className="text-xs text-slate-500">Words or actions to show empathy: ______________________</p>
+              <p className="font-semibold">{t('interactive.interactive-sel-empathy.scenario').replace('{{number}}', String(idx + 1))}</p>
+              <p>{t(`interactive.interactive-sel-empathy.scenarios.${scenarioKey}`)}</p>
+              <p className="mt-2 text-xs text-slate-500">{t('interactive.interactive-sel-empathy.feelingsINotice')}</p>
+              <p className="text-xs text-slate-500">{t('interactive.interactive-sel-empathy.wordsOrActions')}</p>
             </div>
           ))}
         </div>
@@ -3170,31 +3168,26 @@ const renderers: Record<string, Renderer> = {
   'interactive-sel-conflict': (ctx) => {
     const { seed, doc, variant, t } = ctx
     const rng = makeRng(`${seed}|${doc.id}|${variant}`)
-    const scenarios = pickMany(rng, [
-      'Two friends want to play different games at recess.',
-      'Someone cuts in line in front of you.',
-      'A classmate takes your pencil without asking.',
-      'You and a friend disagree about a group project idea.',
-      'Someone says something unkind about your friend.',
-    ], 3)
+    const scenarioKeys = ['differentGames', 'cutsInLine', 'takesPencil', 'disagreeProject', 'unkindFriend']
+    const selectedScenarios = pickMany(rng, scenarioKeys, 3)
     return (
       <div className="space-y-4">
-        <p className="text-sm text-slate-600">{t('worksheets.selConflict.instructions')}</p>
+        <p className="text-sm text-slate-600">{t('interactive.interactive-sel-conflict.description')}</p>
         <div className="space-y-3">
-          {scenarios.map((scenario, idx) => (
+          {selectedScenarios.map((scenarioKey, idx) => (
             <div key={idx} className="rounded-xl border border-blue-200 bg-blue-50 p-4">
-              <p className="text-sm font-semibold text-blue-700 mb-2">Scenario {idx + 1}:</p>
-              <p className="text-sm text-blue-800 mb-3">{scenario}</p>
+              <p className="text-sm font-semibold text-blue-700 mb-2">{t('interactive.interactive-sel-conflict.scenario').replace('{{number}}', String(idx + 1))}</p>
+              <p className="text-sm text-blue-800 mb-3">{t(`interactive.interactive-sel-conflict.scenarios.${scenarioKey}`)}</p>
               <div className="space-y-2 text-xs">
-                <p className="text-blue-700">What are your feelings? ______________________________</p>
-                <p className="text-blue-700">What could you say to express your feelings? ________________</p>
-                <p className="text-blue-700">What is a peaceful solution? ______________________________</p>
+                <p className="text-blue-700">{t('interactive.interactive-sel-conflict.whatAreFeelings')}</p>
+                <p className="text-blue-700">{t('interactive.interactive-sel-conflict.whatCouldSay')}</p>
+                <p className="text-blue-700">{t('interactive.interactive-sel-conflict.peacefulSolution')}</p>
               </div>
             </div>
           ))}
         </div>
         <div className="rounded-lg border border-blue-200 bg-blue-50 px-4 py-3 text-xs text-blue-700">
-          💡 Remember: Use "I" statements, listen actively, and find win-win solutions!
+          {t('interactive.interactive-sel-conflict.remember')}
         </div>
       </div>
     )
@@ -3202,33 +3195,28 @@ const renderers: Record<string, Renderer> = {
   'interactive-sel-regulation': (ctx) => {
     const { seed, doc, variant, t } = ctx
     const rng = makeRng(`${seed}|${doc.id}|${variant}`)
-    const strategies = pickMany(rng, [
-      { name: 'Take deep breaths', emoji: '🫁', steps: 'Breathe in for 4, hold for 4, breathe out for 4' },
-      { name: 'Count to 10', emoji: '🔢', steps: 'Slowly count from 1 to 10' },
-      { name: 'Use a calm-down corner', emoji: '🧘', steps: 'Find a quiet space to relax' },
-      { name: 'Think of happy thoughts', emoji: '😊', steps: 'Picture something that makes you smile' },
-      { name: 'Squeeze a stress ball', emoji: '🤲', steps: 'Use your hands to release tension' },
-      { name: 'Take a walk', emoji: '🚶', steps: 'Move your body to calm your mind' },
-    ], 4)
+    const strategyKeys = ['deepBreaths', 'countTo10', 'calmDownCorner', 'happyThoughts', 'stressBall', 'takeWalk']
+    const emojis = { deepBreaths: '🫁', countTo10: '🔢', calmDownCorner: '🧘', happyThoughts: '😊', stressBall: '🤲', takeWalk: '🚶' }
+    const selectedStrategies = pickMany(rng, strategyKeys, 4)
     return (
       <div className="space-y-4">
-        <p className="text-sm text-slate-600">{t('worksheets.selRegulation.instructions')}</p>
+        <p className="text-sm text-slate-600">{t('interactive.interactive-sel-regulation.description')}</p>
         <div className="grid gap-3 md:grid-cols-2">
-          {strategies.map((strategy, idx) => (
+          {selectedStrategies.map((strategyKey, idx) => (
             <div key={idx} className="rounded-xl border border-purple-200 bg-purple-50 p-4">
               <div className="flex items-center gap-2 mb-2">
-                <span className="text-xl">{strategy.emoji}</span>
-                <p className="text-sm font-semibold text-purple-700">{strategy.name}</p>
+                <span className="text-xl">{emojis[strategyKey]}</span>
+                <p className="text-sm font-semibold text-purple-700">{t(`interactive.interactive-sel-regulation.strategies.${strategyKey}.name`)}</p>
               </div>
-              <p className="text-xs text-purple-600 mb-2">{strategy.steps}</p>
+              <p className="text-xs text-purple-600 mb-2">{t(`interactive.interactive-sel-regulation.strategies.${strategyKey}.steps`)}</p>
               <div className="mt-2 rounded border border-purple-200 bg-white p-2">
-                <p className="text-xs text-purple-600">When I tried this, I felt: ________________</p>
+                <p className="text-xs text-purple-600">{t('interactive.interactive-sel-regulation.whenITried')}</p>
               </div>
             </div>
           ))}
         </div>
         <div className="rounded-lg border border-purple-200 bg-purple-50 px-4 py-3 text-xs text-purple-700">
-          💡 Practice these strategies when you feel calm, so they're easier to use when you need them!
+          {t('interactive.interactive-sel-regulation.practiceTip')}
         </div>
       </div>
     )
@@ -3236,37 +3224,29 @@ const renderers: Record<string, Renderer> = {
   'interactive-sel-kindness': (ctx) => {
     const { seed, doc, variant, t } = ctx
     const rng = makeRng(`${seed}|${doc.id}|${variant}`)
-    const acts = pickMany(rng, [
-      'Help someone with their work',
-      'Say something kind to a classmate',
-      'Share something with a friend',
-      'Help clean up without being asked',
-      'Write a thank-you note',
-      'Include someone who looks lonely',
-      'Give someone a compliment',
-      'Hold the door for someone',
-    ], 5)
+    const actKeys = ['helpWork', 'sayKind', 'shareFriend', 'helpClean', 'thankYouNote', 'includeLonely', 'compliment', 'holdDoor']
+    const selectedActs = pickMany(rng, actKeys, 5)
     return (
       <div className="space-y-4">
-        <p className="text-base font-semibold text-indigo-800">{t('worksheets.selKindness.instructions')}</p>
+        <p className="text-base font-semibold text-indigo-800">{t('interactive.interactive-sel-kindness.description')}</p>
         <div className="rounded-xl border-2 border-indigo-300 bg-gradient-to-br from-indigo-50 via-violet-50 to-purple-50 p-5 shadow-lg">
           <div className="flex items-center gap-3 mb-4">
             <span className="text-4xl">💝</span>
-            <p className="text-xl font-bold text-indigo-800">Kindness Challenge</p>
+            <p className="text-xl font-bold text-indigo-800">{t('interactive.interactive-sel-kindness.kindnessChallenge')}</p>
           </div>
           <table className="w-full border-2 border-indigo-300 text-sm bg-white rounded-lg overflow-hidden shadow-md">
             <thead className="bg-gradient-to-r from-indigo-400 to-violet-400 text-white">
               <tr>
-                <th className="px-4 py-3 text-left font-bold">Kindness Act</th>
-                <th className="px-4 py-3 text-left font-bold">When I did this...</th>
-                <th className="px-4 py-3 text-left font-bold">How did it make others feel?</th>
-                <th className="px-4 py-3 text-left font-bold">How did it make me feel?</th>
+                <th className="px-4 py-3 text-left font-bold">{t('interactive.interactive-sel-kindness.kindnessAct')}</th>
+                <th className="px-4 py-3 text-left font-bold">{t('interactive.interactive-sel-kindness.whenIDidThis')}</th>
+                <th className="px-4 py-3 text-left font-bold">{t('interactive.interactive-sel-kindness.howOthersFeel')}</th>
+                <th className="px-4 py-3 text-left font-bold">{t('interactive.interactive-sel-kindness.howIFeel')}</th>
               </tr>
             </thead>
             <tbody>
-              {acts.map((act, idx) => (
+              {selectedActs.map((actKey, idx) => (
                 <tr key={idx} className={`border-t-2 border-indigo-200 ${idx % 2 === 0 ? 'bg-indigo-50/50' : 'bg-white'} hover:bg-indigo-100 transition-colors`}>
-                  <td className="px-4 py-3 font-semibold text-indigo-900">{act}</td>
+                  <td className="px-4 py-3 font-semibold text-indigo-900">{t(`interactive.interactive-sel-kindness.acts.${actKey}`)}</td>
                   <td className="px-4 py-3"><span className="border-b-2 border-indigo-300 border-dashed inline-block min-w-[120px]">_______________________</span></td>
                   <td className="px-4 py-3"><span className="border-b-2 border-indigo-300 border-dashed inline-block min-w-[120px]">_______________________</span></td>
                   <td className="px-4 py-3"><span className="border-b-2 border-indigo-300 border-dashed inline-block min-w-[120px]">_______________________</span></td>
@@ -3278,7 +3258,7 @@ const renderers: Record<string, Renderer> = {
         <div className="rounded-xl border-2 border-pink-300 bg-gradient-to-r from-pink-100 to-rose-100 px-6 py-4 text-sm text-pink-800 shadow-md">
           <p className="font-bold text-base flex items-center gap-2">
             <span className="text-2xl">💡</span>
-            <span>Kindness is contagious! When you're kind, others are more likely to be kind too.</span>
+            <span>{t('interactive.interactive-sel-kindness.kindnessContagious')}</span>
           </p>
         </div>
       </div>
@@ -3287,31 +3267,26 @@ const renderers: Record<string, Renderer> = {
   'interactive-sel-growth-mindset': (ctx) => {
     const { seed, doc, variant, t } = ctx
     const rng = makeRng(`${seed}|${doc.id}|${variant}`)
-    const fixedStatements = pickMany(rng, [
-      'I\'m not good at math',
-      'I can\'t do this',
-      'This is too hard',
-      'I give up',
-      'I\'m not smart enough',
-    ], 3)
+    const statementKeys = ['notGoodMath', 'cantDo', 'tooHard', 'giveUp', 'notSmart']
+    const selectedStatements = pickMany(rng, statementKeys, 3)
     return (
       <div className="space-y-4">
-        <p className="text-sm text-slate-600">{t('worksheets.selGrowthMindset.instructions')}</p>
+        <p className="text-sm text-slate-600">{t('interactive.interactive-sel-growth-mindset.description')}</p>
         <div className="space-y-3">
-          {fixedStatements.map((statement, idx) => (
+          {selectedStatements.map((statementKey, idx) => (
             <div key={idx} className="rounded-xl border border-orange-200 bg-orange-50 p-4">
-              <p className="text-sm font-semibold text-orange-700 mb-2">Fixed Mindset:</p>
-              <p className="text-sm text-orange-800 mb-3">"{statement}"</p>
-              <p className="text-sm font-semibold text-green-700 mb-2">Growth Mindset:</p>
-              <p className="text-sm text-green-800 mb-2">Rewrite this thought: ________________________________</p>
+              <p className="text-sm font-semibold text-orange-700 mb-2">{t('interactive.interactive-sel-growth-mindset.fixedMindset')}</p>
+              <p className="text-sm text-orange-800 mb-3">"{t(`interactive.interactive-sel-growth-mindset.statements.${statementKey}`)}"</p>
+              <p className="text-sm font-semibold text-green-700 mb-2">{t('interactive.interactive-sel-growth-mindset.growthMindset')}</p>
+              <p className="text-sm text-green-800 mb-2">{t('interactive.interactive-sel-growth-mindset.rewriteThought')}</p>
               <div className="mt-2 rounded border border-green-200 bg-white p-2">
-                <p className="text-xs text-green-600">What can I learn from this challenge? ________________</p>
+                <p className="text-xs text-green-600">{t('interactive.interactive-sel-growth-mindset.whatCanLearn')}</p>
               </div>
             </div>
           ))}
         </div>
         <div className="rounded-lg border border-green-200 bg-green-50 px-4 py-3 text-xs text-green-700">
-          💡 Remember: Your brain grows stronger when you practice! Mistakes are opportunities to learn.
+          {t('interactive.interactive-sel-growth-mindset.remember')}
         </div>
       </div>
     )
@@ -3319,50 +3294,39 @@ const renderers: Record<string, Renderer> = {
   'interactive-sel-stress': (ctx) => {
     const { seed, doc, variant, t } = ctx
     const rng = makeRng(`${seed}|${doc.id}|${variant}`)
-    const triggers = pickMany(rng, [
-      'Too much homework',
-      'Test anxiety',
-      'Conflict with friends',
-      'Feeling overwhelmed',
-      'Time pressure',
-    ], 3)
-    const copingStrategies = pickMany(rng, [
-      'Deep breathing exercises',
-      'Physical activity or exercise',
-      'Talking to someone you trust',
-      'Taking breaks',
-      'Organizing your tasks',
-      'Mindfulness or meditation',
-    ], 4)
+    const triggerKeys = ['tooMuchHomework', 'testAnxiety', 'conflictFriends', 'overwhelmed', 'timePressure']
+    const strategyKeys = ['deepBreathing', 'physicalActivity', 'talkTrust', 'takingBreaks', 'organizingTasks', 'mindfulness']
+    const selectedTriggers = pickMany(rng, triggerKeys, 3)
+    const selectedStrategies = pickMany(rng, strategyKeys, 4)
     return (
       <div className="space-y-4">
-        <p className="text-sm text-slate-600">{t('worksheets.selStress.instructions')}</p>
+        <p className="text-sm text-slate-600">{t('interactive.interactive-sel-stress.description')}</p>
         <div className="grid gap-4 md:grid-cols-2">
           <div className="rounded-xl border border-red-200 bg-red-50 p-4">
-            <p className="text-sm font-semibold text-red-700 mb-3">Stress Triggers:</p>
+            <p className="text-sm font-semibold text-red-700 mb-3">{t('interactive.interactive-sel-stress.stressTriggers')}</p>
             <div className="space-y-2">
-              {triggers.map((trigger, idx) => (
+              {selectedTriggers.map((triggerKey, idx) => (
                 <div key={idx} className="bg-white rounded border border-red-200 p-2">
-                  <p className="text-xs text-red-700">{trigger}</p>
-                  <p className="text-xs text-red-600 mt-1">How does this make me feel? ________________</p>
+                  <p className="text-xs text-red-700">{t(`interactive.interactive-sel-stress.triggers.${triggerKey}`)}</p>
+                  <p className="text-xs text-red-600 mt-1">{t('interactive.interactive-sel-stress.howMakesFeel')}</p>
                 </div>
               ))}
             </div>
           </div>
           <div className="rounded-xl border border-green-200 bg-green-50 p-4">
-            <p className="text-sm font-semibold text-green-700 mb-3">Healthy Coping Strategies:</p>
+            <p className="text-sm font-semibold text-green-700 mb-3">{t('interactive.interactive-sel-stress.healthyCoping')}</p>
             <div className="space-y-2">
-              {copingStrategies.map((strategy, idx) => (
+              {selectedStrategies.map((strategyKey, idx) => (
                 <div key={idx} className="bg-white rounded border border-green-200 p-2">
-                  <p className="text-xs text-green-700">{strategy}</p>
-                  <p className="text-xs text-green-600 mt-1">When I can use this: ________________</p>
+                  <p className="text-xs text-green-700">{t(`interactive.interactive-sel-stress.strategies.${strategyKey}`)}</p>
+                  <p className="text-xs text-green-600 mt-1">{t('interactive.interactive-sel-stress.whenCanUse')}</p>
                 </div>
               ))}
             </div>
           </div>
         </div>
         <div className="rounded-lg border border-blue-200 bg-blue-50 px-4 py-3 text-xs text-blue-700">
-          💡 It's okay to feel stressed sometimes. The important thing is knowing how to manage it in healthy ways.
+          {t('interactive.interactive-sel-stress.itsOkay')}
         </div>
       </div>
     )
@@ -3380,7 +3344,7 @@ const renderers: Record<string, Renderer> = {
     }))
     return (
       <div className="space-y-4">
-        <p className="text-sm text-slate-600">{t('worksheets.selCharacter.instructions')}</p>
+        <p className="text-sm text-slate-600">{t('interactive.interactive-sel-character.description')}</p>
         <div className="grid gap-3 md:grid-cols-2">
           {traits.map((trait, idx) => (
             <div key={idx} className="rounded-xl border border-indigo-200 bg-indigo-50 p-4">
@@ -3390,14 +3354,14 @@ const renderers: Record<string, Renderer> = {
               </div>
               <p className="text-xs text-indigo-600 mb-3">{trait.description}</p>
               <div className="space-y-2 text-xs">
-                <p className="text-indigo-700">How can I show {trait.name.toLowerCase()}? ________________</p>
-                <p className="text-indigo-700">When have I seen someone show {trait.name.toLowerCase()}? ________________</p>
+                <p className="text-indigo-700">{t('interactive.interactive-sel-character.howCanShow').replace('{{trait}}', trait.name.toLowerCase())}</p>
+                <p className="text-indigo-700">{t('interactive.interactive-sel-character.whenSeen').replace('{{trait}}', trait.name.toLowerCase())}</p>
               </div>
             </div>
           ))}
         </div>
         <div className="rounded-lg border border-indigo-200 bg-indigo-50 px-4 py-3 text-xs text-indigo-700">
-          💡 Character traits are like muscles—the more you practice them, the stronger they become!
+          {t('interactive.interactive-sel-character.remember')}
         </div>
       </div>
     )
