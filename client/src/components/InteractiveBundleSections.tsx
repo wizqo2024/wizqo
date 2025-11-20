@@ -4986,25 +4986,28 @@ const renderers: Record<string, Renderer> = {
     )
   },
   'interactive-art-color-by-number': (ctx) => {
-    const { seed, doc, variant, t } = ctx
+    const { seed, doc, variant, t, language } = ctx
     const rng = makeRng(`${seed}|${doc.id}|${variant}`)
     const colorCodes = [
-      { num: 1, color: 'red', emoji: '🔴', bgColor: 'bg-red-500' },
-      { num: 2, color: 'blue', emoji: '🔵', bgColor: 'bg-blue-500' },
-      { num: 3, color: 'green', emoji: '🟢', bgColor: 'bg-green-500' },
-      { num: 4, color: 'yellow', emoji: '🟡', bgColor: 'bg-yellow-400' },
-      { num: 5, color: 'purple', emoji: '🟣', bgColor: 'bg-purple-500' },
-      { num: 6, color: 'orange', emoji: '🟠', bgColor: 'bg-orange-500' },
+      { num: 1, color: t('common.colors.red'), emoji: '🔴', bgColor: 'bg-red-500' },
+      { num: 2, color: t('common.colors.blue'), emoji: '🔵', bgColor: 'bg-blue-500' },
+      { num: 3, color: t('common.colors.green'), emoji: '🟢', bgColor: 'bg-green-500' },
+      { num: 4, color: t('common.colors.yellow'), emoji: '🟡', bgColor: 'bg-yellow-400' },
+      { num: 5, color: t('common.colors.purple'), emoji: '🟣', bgColor: 'bg-purple-500' },
+      { num: 6, color: t('common.colors.orange'), emoji: '🟠', bgColor: 'bg-orange-500' },
     ]
     const selectedCodes = pickMany(rng, colorCodes, 4)
     const designs = pickMany(rng, ['butterfly', 'flower', 'star', 'heart', 'rainbow', 'tree'], 1)
+    const drawDesignText = t('interactive.interactive-art-color-by-number.drawDesign')
+      .replace('{{design}}', designs[0])
+      .replace('{{count}}', selectedCodes.length.toString())
     return (
       <div className="space-y-4">
-        <p className="text-base font-semibold text-pink-800">Color the picture using the number codes below. Match each number to its color!</p>
+        <p className="text-base font-semibold text-pink-800">{t('interactive.interactive-art-color-by-number.colorThePicture')}</p>
         <div className="rounded-xl border-2 border-pink-300 bg-gradient-to-br from-pink-100 via-purple-100 to-fuchsia-100 p-6 shadow-lg">
           <p className="text-lg font-bold text-pink-800 mb-4 flex items-center gap-2">
             <span className="text-2xl">🎨</span>
-            <span>Color Key:</span>
+            <span>{t('interactive.interactive-art-color-by-number.colorKey')}</span>
           </p>
           <div className="grid grid-cols-2 md:grid-cols-4 gap-3 mb-6">
             {selectedCodes.map((code) => (
@@ -5019,12 +5022,12 @@ const renderers: Record<string, Renderer> = {
           <div className="h-80 rounded-xl border-4 border-pink-300 bg-gradient-to-br from-white to-pink-50 flex items-center justify-center shadow-inner">
             <div className="text-center">
               <p className="text-6xl mb-4">🎨</p>
-              <p className="text-pink-700 text-lg font-bold">Draw a {designs[0]} design with numbers 1-{selectedCodes.length}</p>
-              <p className="text-pink-600 text-sm mt-2">Use the color key above!</p>
+              <p className="text-pink-700 text-lg font-bold">{drawDesignText}</p>
+              <p className="text-pink-600 text-sm mt-2">{t('interactive.interactive-art-color-by-number.useColorKey')}</p>
             </div>
           </div>
           <p className="mt-4 text-center text-base font-semibold text-pink-800 bg-white/80 rounded-lg p-3 border-2 border-pink-200">
-            ✨ Color each section according to the number code!
+            {t('interactive.interactive-art-color-by-number.colorEachSection')}
           </p>
         </div>
       </div>
@@ -5034,28 +5037,29 @@ const renderers: Record<string, Renderer> = {
     const { seed, doc, variant, t } = ctx
     const rng = makeRng(`${seed}|${doc.id}|${variant}`)
     const patterns = pickMany(rng, ['circles', 'petals', 'geometric', 'spiral'], 1)
+    const createMandalaText = t('interactive.interactive-art-mandala.createMandala').replace('{{pattern}}', patterns[0])
     return (
       <div className="space-y-4">
-        <p className="text-sm text-slate-600">Create a beautiful mandala design with {patterns[0]} patterns. Focus on symmetry and mindfulness.</p>
+        <p className="text-sm text-slate-600">{createMandalaText}</p>
         <div className="grid gap-4 md:grid-cols-2">
           <div className="rounded-xl border border-pink-200 bg-pink-50 p-4">
-            <p className="text-sm font-semibold text-pink-700 mb-2">Mandala Template</p>
+            <p className="text-sm font-semibold text-pink-700 mb-2">{t('interactive.interactive-art-mandala.mandalaTemplate')}</p>
             <div className="h-64 rounded border-2 border-pink-300 bg-white flex items-center justify-center">
               <div className="text-center">
                 <p className="text-4xl mb-2">⭕</p>
-                <p className="text-xs text-pink-600">Draw your mandala here</p>
+                <p className="text-xs text-pink-600">{t('interactive.interactive-art-mandala.drawMandalaHere')}</p>
               </div>
             </div>
-            <p className="mt-2 text-xs text-pink-600">Start from the center and work outward. Use patterns and symmetry!</p>
+            <p className="mt-2 text-xs text-pink-600">{t('interactive.interactive-art-mandala.startFromCenter')}</p>
           </div>
           <div className="rounded-xl border border-pink-200 bg-pink-50 p-4">
-            <p className="text-sm font-semibold text-pink-700 mb-2">Pattern Ideas:</p>
+            <p className="text-sm font-semibold text-pink-700 mb-2">{t('interactive.interactive-art-mandala.patternIdeas')}</p>
             <ul className="space-y-2 text-xs text-pink-700">
-              <li>• Circles and dots</li>
-              <li>• Petals and flowers</li>
-              <li>• Geometric shapes</li>
-              <li>• Spiral patterns</li>
-              <li>• Lines and curves</li>
+              <li>• {t('interactive.interactive-art-mandala.patterns.circles')}</li>
+              <li>• {t('interactive.interactive-art-mandala.patterns.petals')}</li>
+              <li>• {t('interactive.interactive-art-mandala.patterns.geometric')}</li>
+              <li>• {t('interactive.interactive-art-mandala.patterns.spiral')}</li>
+              <li>• {t('interactive.interactive-art-mandala.patterns.lines')}</li>
             </ul>
             <p className="mt-4 text-xs text-pink-600">{t('worksheets.reflection.mandalaQuestion')}</p>
             <div className="mt-2 h-16 rounded border border-dashed border-pink-300 bg-white"></div>
@@ -5067,29 +5071,30 @@ const renderers: Record<string, Renderer> = {
   'interactive-art-doodle': (ctx) => {
     const { seed, doc, variant, t } = ctx
     const rng = makeRng(`${seed}|${doc.id}|${variant}`)
-    const prompts = pickMany(rng, [
-      'Doodle your favorite animal',
-      'Create patterns with lines',
-      'Draw shapes that connect',
-      'Make a zentangle design',
-      'Doodle things that make you happy',
-      'Create a border pattern',
-    ], 3)
+    const promptData = [
+      t('interactive.interactive-art-doodle.prompts.favoriteAnimal'),
+      t('interactive.interactive-art-doodle.prompts.patternsWithLines'),
+      t('interactive.interactive-art-doodle.prompts.shapesConnect'),
+      t('interactive.interactive-art-doodle.prompts.zentangle'),
+      t('interactive.interactive-art-doodle.prompts.thingsHappy'),
+      t('interactive.interactive-art-doodle.prompts.borderPattern'),
+    ]
+    const prompts = pickMany(rng, promptData, 3)
     return (
       <div className="space-y-4">
-        <p className="text-sm text-slate-600">Free-form doodling! No rules, just creativity. Let your imagination flow.</p>
+        <p className="text-sm text-slate-600">{t('interactive.interactive-art-doodle.description')}</p>
         <div className="grid gap-4 md:grid-cols-3">
           {prompts.map((prompt, idx) => (
             <div key={idx} className="rounded-xl border border-purple-200 bg-purple-50 p-4">
               <p className="text-sm font-semibold text-purple-700 mb-2">{prompt}</p>
               <div className="h-40 rounded border-2 border-dashed border-purple-300 bg-white flex items-center justify-center">
-                <p className="text-xs text-purple-500">Doodle here!</p>
+                <p className="text-xs text-purple-500">{t('interactive.interactive-art-doodle.doodleHere')}</p>
               </div>
             </div>
           ))}
         </div>
         <div className="rounded-lg border border-purple-200 bg-purple-50 px-4 py-3 text-xs text-purple-700">
-          💡 Tip: There are no mistakes in doodling! Just keep your pen moving and see what emerges.
+          {t('interactive.interactive-art-doodle.tip')}
         </div>
       </div>
     )
@@ -5098,31 +5103,36 @@ const renderers: Record<string, Renderer> = {
     const { seed, doc, variant, t } = ctx
     const rng = makeRng(`${seed}|${doc.id}|${variant}`)
     const seasons = pickMany(rng, [
-      { name: 'Spring', themes: ['flowers', 'butterflies', 'rainbows'], emoji: '🌸' },
-      { name: 'Summer', themes: ['sun', 'beach', 'ice cream'], emoji: '☀️' },
-      { name: 'Fall', themes: ['leaves', 'pumpkins', 'apples'], emoji: '🍂' },
-      { name: 'Winter', themes: ['snowflakes', 'snowman', 'mittens'], emoji: '❄️' },
+      { name: 'Spring', nameKey: 'spring', themes: ['flowers', 'butterflies', 'rainbows'], emoji: '🌸' },
+      { name: 'Summer', nameKey: 'summer', themes: ['sun', 'beach', 'ice cream'], emoji: '☀️' },
+      { name: 'Fall', nameKey: 'fall', themes: ['leaves', 'pumpkins', 'apples'], emoji: '🍂' },
+      { name: 'Winter', nameKey: 'winter', themes: ['snowflakes', 'snowman', 'mittens'], emoji: '❄️' },
     ], 2)
     return (
       <div className="space-y-4">
-        <p className="text-sm text-slate-600">Color these seasonal pictures! Each season has its own special themes and colors.</p>
+        <p className="text-sm text-slate-600">{t('interactive.interactive-art-seasonal.description')}</p>
         <div className="grid gap-4 md:grid-cols-2">
-          {seasons.map((season, idx) => (
-            <div key={idx} className="rounded-xl border border-green-200 bg-green-50 p-4">
-              <div className="flex items-center gap-2 mb-2">
-                <span className="text-2xl">{season.emoji}</span>
-                <p className="text-sm font-semibold text-green-700">{season.name} Coloring</p>
-              </div>
-              <p className="text-xs text-green-600 mb-2">Themes: {season.themes.join(', ')}</p>
-              <div className="h-48 rounded border-2 border-green-300 bg-white flex items-center justify-center">
-                <div className="text-center">
-                  <p className="text-3xl mb-2">{season.emoji}</p>
-                  <p className="text-xs text-green-600">Draw and color a {season.name.toLowerCase()} scene!</p>
+          {seasons.map((season, idx) => {
+            const seasonName = t(`interactive.interactive-art-seasonal.seasons.${season.nameKey}`)
+            const drawAndColorText = t('interactive.interactive-art-seasonal.drawAndColor').replace('{{season}}', seasonName)
+            const useColorsText = t('interactive.interactive-art-seasonal.useColors').replace('{{season}}', seasonName)
+            return (
+              <div key={idx} className="rounded-xl border border-green-200 bg-green-50 p-4">
+                <div className="flex items-center gap-2 mb-2">
+                  <span className="text-2xl">{season.emoji}</span>
+                  <p className="text-sm font-semibold text-green-700">{season.name} {t('interactive.interactive-art-seasonal.coloring')}</p>
                 </div>
+                <p className="text-xs text-green-600 mb-2">{t('interactive.interactive-art-seasonal.themes')} {season.themes.join(', ')}</p>
+                <div className="h-48 rounded border-2 border-green-300 bg-white flex items-center justify-center">
+                  <div className="text-center">
+                    <p className="text-3xl mb-2">{season.emoji}</p>
+                    <p className="text-xs text-green-600">{drawAndColorText}</p>
+                  </div>
+                </div>
+                <p className="mt-2 text-xs text-green-600 text-center">{useColorsText}</p>
               </div>
-              <p className="mt-2 text-xs text-green-600 text-center">Use colors that remind you of {season.name.toLowerCase()}!</p>
-            </div>
-          ))}
+            )
+          })}
         </div>
       </div>
     )
@@ -5132,30 +5142,31 @@ const renderers: Record<string, Renderer> = {
     const rng = makeRng(`${seed}|${doc.id}|${variant}`)
     const panelCount = pick(rng, [3, 4, 6])
     const themes = pickMany(rng, ['adventure', 'friendship', 'superhero', 'animals', 'school'], 1)
+    const comicStripText = t('interactive.interactive-art-comic.comicStrip').replace('{{theme}}', themes[0])
     return (
       <div className="space-y-4">
-        <p className="text-sm text-slate-600">Create your own comic strip! Tell a story with pictures, speech bubbles, and action.</p>
+        <p className="text-sm text-slate-600">{t('interactive.interactive-art-comic.description')}</p>
         <div className="rounded-xl border border-blue-200 bg-blue-50 p-4">
-          <p className="text-sm font-semibold text-blue-700 mb-2">Comic Strip: {themes[0]} story</p>
+          <p className="text-sm font-semibold text-blue-700 mb-2">{comicStripText}</p>
           <div className={`grid gap-2 ${panelCount === 3 ? 'grid-cols-3' : panelCount === 4 ? 'grid-cols-4' : 'grid-cols-3'}`}>
             {Array.from({ length: panelCount }).map((_, idx) => (
               <div key={idx} className="border-2 border-blue-300 bg-white rounded p-2">
                 <div className="h-32 rounded border border-dashed border-blue-200 mb-1">
-                  <p className="text-xs text-blue-500 p-1">Panel {idx + 1}</p>
+                  <p className="text-xs text-blue-500 p-1">{t('interactive.interactive-art-comic.panel').replace('{{number}}', (idx + 1).toString())}</p>
                 </div>
                 <div className="h-8 rounded border border-dashed border-blue-200 bg-blue-50">
-                  <p className="text-xs text-blue-400 p-1">💬 Speech bubble</p>
+                  <p className="text-xs text-blue-400 p-1">{t('interactive.interactive-art-comic.speechBubble')}</p>
                 </div>
               </div>
             ))}
           </div>
           <div className="mt-3 rounded border border-blue-200 bg-white p-3">
-            <p className="text-xs font-semibold text-blue-700 mb-1">Story Elements:</p>
+            <p className="text-xs font-semibold text-blue-700 mb-1">{t('interactive.interactive-art-comic.storyElements')}</p>
             <ul className="text-xs text-blue-600 space-y-1">
-              <li>• Characters: ________________</li>
-              <li>• Setting: ________________</li>
-              <li>• Problem/Conflict: ________________</li>
-              <li>• Solution: ________________</li>
+              <li>• {t('interactive.interactive-art-comic.characters')}</li>
+              <li>• {t('interactive.interactive-art-comic.setting')}</li>
+              <li>• {t('interactive.interactive-art-comic.problemConflict')}</li>
+              <li>• {t('interactive.interactive-art-comic.solution')}</li>
             </ul>
           </div>
         </div>
@@ -5168,23 +5179,23 @@ const renderers: Record<string, Renderer> = {
     const artElements = pickMany(rng, ['line', 'color', 'shape', 'texture', 'space', 'form'], 4)
     return (
       <div className="space-y-4">
-        <p className="text-sm text-slate-600">Observe and analyze artwork using art vocabulary. Look closely and describe what you see.</p>
+        <p className="text-sm text-slate-600">{t('interactive.interactive-art-critique.description')}</p>
         <div className="rounded-xl border border-purple-200 bg-purple-50 p-4">
-          <p className="text-sm font-semibold text-purple-700 mb-3">Artwork Analysis</p>
+          <p className="text-sm font-semibold text-purple-700 mb-3">{t('interactive.interactive-art-critique.artworkAnalysis')}</p>
           <div className="h-48 rounded border-2 border-purple-300 bg-white flex items-center justify-center mb-3">
-            <p className="text-purple-600 text-sm">[Artwork image or description]</p>
+            <p className="text-purple-600 text-sm">{t('interactive.interactive-art-critique.artworkImage')}</p>
           </div>
           <div className="space-y-2 text-sm">
             {artElements.map((element, idx) => (
               <div key={idx} className="bg-white rounded border border-purple-200 p-2">
                 <p className="text-xs font-semibold text-purple-700 capitalize mb-1">{element}:</p>
-                <p className="text-xs text-purple-600">Describe how {element} is used: ________________________________</p>
+                <p className="text-xs text-purple-600">{t('interactive.interactive-art-critique.describeHowUsed').replace('{{element}}', element)}</p>
               </div>
             ))}
           </div>
           <div className="mt-3 rounded border border-purple-200 bg-white p-3">
-            <p className="text-xs font-semibold text-purple-700 mb-1">Overall Impression:</p>
-            <p className="text-xs text-purple-600">What does this artwork make you think or feel? ________________</p>
+            <p className="text-xs font-semibold text-purple-700 mb-1">{t('interactive.interactive-art-critique.overallImpression')}</p>
+            <p className="text-xs text-purple-600">{t('interactive.interactive-art-critique.whatDoesMakeYouThink')}</p>
           </div>
         </div>
       </div>
@@ -5201,7 +5212,7 @@ const renderers: Record<string, Renderer> = {
     ], 4)
     return (
       <div className="space-y-4">
-        <p className="text-sm text-slate-600">Match objects, pictures, and concepts. Practice memory and recognition skills.</p>
+        <p className="text-sm text-slate-600">{t('interactive.interactive-logic-matching.description')}</p>
         <div className="grid gap-3 md:grid-cols-2">
           {pairs.map((pair, idx) => (
             <div key={idx} className="rounded-xl border border-slate-200 bg-slate-50 p-4">
@@ -5215,7 +5226,7 @@ const renderers: Record<string, Renderer> = {
                 </div>
               </div>
               <div className="h-16 rounded border border-dashed border-slate-300 bg-white">
-                <p className="p-2 text-xs text-slate-500">Draw a line to match</p>
+                <p className="p-2 text-xs text-slate-500">{t('interactive.interactive-logic-matching.drawLineToMatch')}</p>
               </div>
             </div>
           ))}
@@ -5233,7 +5244,7 @@ const renderers: Record<string, Renderer> = {
     ], 3)
     return (
       <div className="space-y-4">
-        <p className="text-sm text-slate-600">Sort and classify objects, pictures, and concepts into groups.</p>
+        <p className="text-sm text-slate-600">{t('interactive.interactive-logic-classification.description')}</p>
         <div className="space-y-3">
           {categories.map((category, idx) => (
             <div key={idx} className="rounded-xl border border-slate-200 bg-slate-50 p-4">
@@ -5243,7 +5254,7 @@ const renderers: Record<string, Renderer> = {
                   <span key={iIdx} className="text-xs px-2 py-1 bg-white rounded border border-slate-300 text-slate-700">{item}</span>
                 ))}
               </div>
-              <p className="text-xs text-slate-600">Add more {category.name.toLowerCase()}: ________________</p>
+              <p className="text-xs text-slate-600">{t('interactive.interactive-logic-classification.addMore').replace('{{category}}', category.name.toLowerCase())}</p>
             </div>
           ))}
         </div>
@@ -5260,21 +5271,21 @@ const renderers: Record<string, Renderer> = {
     ], 3)
     return (
       <div className="space-y-4">
-        <p className="text-sm text-slate-600">Practice identifying relationships and completing analogies.</p>
+        <p className="text-sm text-slate-600">{t('interactive.interactive-logic-analogies.description')}</p>
         <div className="space-y-3">
           {analogies.map((analogy, idx) => (
             <div key={idx} className="rounded-xl border border-slate-200 bg-slate-50 p-4">
-              <p className="text-sm font-semibold text-slate-700 mb-2">Analogy {idx + 1}</p>
+              <p className="text-sm font-semibold text-slate-700 mb-2">{t('interactive.interactive-logic-analogies.analogy').replace('{{number}}', (idx + 1).toString())}</p>
               <div className="flex items-center gap-2 mb-2">
                 <span className="text-sm text-slate-700">{analogy.first}</span>
-                <span className="text-slate-400">is to</span>
+                <span className="text-slate-400">{t('interactive.interactive-logic-analogies.isTo')}</span>
                 <span className="text-sm text-slate-700">{analogy.second}</span>
-                <span className="text-slate-400">as</span>
+                <span className="text-slate-400">{t('interactive.interactive-logic-analogies.as')}</span>
                 <span className="text-sm text-slate-700">{analogy.third}</span>
-                <span className="text-slate-400">is to</span>
+                <span className="text-slate-400">{t('interactive.interactive-logic-analogies.isTo')}</span>
                 <div className="h-8 w-20 border border-dashed border-slate-400 bg-white rounded"></div>
               </div>
-              <p className="text-xs text-slate-600">Answer: {analogy.answer}</p>
+              <p className="text-xs text-slate-600">{t('interactive.interactive-logic-analogies.answer')} {analogy.answer}</p>
             </div>
           ))}
         </div>
@@ -5284,30 +5295,31 @@ const renderers: Record<string, Renderer> = {
   'interactive-sel-friendship': (ctx) => {
     const { seed, doc, variant, t } = ctx
     const rng = makeRng(`${seed}|${doc.id}|${variant}`)
-    const scenarios = pickMany(rng, [
-      { situation: 'A new student joins your class', action: 'introduce yourself' },
-      { situation: 'A friend is sad', action: 'ask how they feel' },
-      { situation: 'Someone needs help', action: 'offer to help' },
-    ], 3)
+    const scenarioData = [
+      { situation: t('interactive.interactive-sel-friendship.scenarios.newStudent'), action: t('interactive.interactive-sel-friendship.scenarios.newStudentAction') },
+      { situation: t('interactive.interactive-sel-friendship.scenarios.friendSad'), action: t('interactive.interactive-sel-friendship.scenarios.friendSadAction') },
+      { situation: t('interactive.interactive-sel-friendship.scenarios.someoneNeedsHelp'), action: t('interactive.interactive-sel-friendship.scenarios.someoneNeedsHelpAction') },
+    ]
+    const scenarios = pickMany(rng, scenarioData, 3)
     return (
       <div className="space-y-4">
-        <p className="text-sm text-slate-600">Learn about making friends, sharing, taking turns, and being kind to others.</p>
+        <p className="text-sm text-slate-600">{t('interactive.interactive-sel-friendship.description')}</p>
         <div className="space-y-3">
           {scenarios.map((scenario, idx) => (
             <div key={idx} className="rounded-xl border border-pink-200 bg-pink-50 p-4">
-              <p className="text-sm font-semibold text-pink-700 mb-2">Situation: {scenario.situation}</p>
-              <p className="text-xs text-pink-600 mb-2">What can you do? {scenario.action}</p>
+              <p className="text-sm font-semibold text-pink-700 mb-2">{t('interactive.interactive-sel-friendship.situation')} {scenario.situation}</p>
+              <p className="text-xs text-pink-600 mb-2">{t('interactive.interactive-sel-friendship.whatCanYouDo')} {scenario.action}</p>
               <div className="h-12 border border-dashed border-pink-300 bg-white rounded"></div>
             </div>
           ))}
         </div>
         <div className="rounded-xl border border-pink-200 bg-pink-50 p-4">
-          <p className="text-sm font-semibold text-pink-700 mb-2">Ways to Be a Good Friend</p>
+          <p className="text-sm font-semibold text-pink-700 mb-2">{t('interactive.interactive-sel-friendship.waysToBeGoodFriend')}</p>
           <ul className="list-disc list-inside space-y-1 text-xs text-pink-600">
-            <li>Share and take turns</li>
-            <li>Listen when others talk</li>
-            <li>Be kind and helpful</li>
-            <li>Include everyone</li>
+            <li>{t('interactive.interactive-sel-friendship.shareAndTakeTurns')}</li>
+            <li>{t('interactive.interactive-sel-friendship.listenWhenOthersTalk')}</li>
+            <li>{t('interactive.interactive-sel-friendship.beKindAndHelpful')}</li>
+            <li>{t('interactive.interactive-sel-friendship.includeEveryone')}</li>
           </ul>
         </div>
       </div>
@@ -5316,29 +5328,30 @@ const renderers: Record<string, Renderer> = {
   'interactive-sel-gratitude': (ctx) => {
     const { seed, doc, variant, t } = ctx
     const rng = makeRng(`${seed}|${doc.id}|${variant}`)
-    const prompts = pickMany(rng, [
-      'Something I am thankful for',
-      'Someone who helps me',
-      'Something that makes me happy',
-      'A place I love',
-    ], 4)
+    const promptData = [
+      t('interactive.interactive-sel-gratitude.prompts.somethingThankful'),
+      t('interactive.interactive-sel-gratitude.prompts.someoneHelps'),
+      t('interactive.interactive-sel-gratitude.prompts.somethingHappy'),
+      t('interactive.interactive-sel-gratitude.prompts.placeLove'),
+    ]
+    const prompts = pickMany(rng, promptData, 4)
     return (
       <div className="space-y-4">
-        <p className="text-sm text-slate-600">Practice gratitude through writing, drawing, and reflection activities.</p>
+        <p className="text-sm text-slate-600">{t('interactive.interactive-sel-gratitude.description')}</p>
         <div className="grid gap-3 md:grid-cols-2">
           {prompts.map((prompt, idx) => (
             <div key={idx} className="rounded-xl border border-pink-200 bg-pink-50 p-4">
               <p className="text-sm font-semibold text-pink-700 mb-2">{prompt}:</p>
               <div className="h-16 rounded border border-pink-300 bg-white mb-2">
-                <p className="p-2 text-xs text-pink-600">Draw or write</p>
+                <p className="p-2 text-xs text-pink-600">{t('interactive.interactive-sel-gratitude.drawOrWrite')}</p>
               </div>
               <div className="h-10 border border-dashed border-pink-300 bg-white rounded"></div>
             </div>
           ))}
         </div>
         <div className="rounded-xl border border-pink-200 bg-pink-50 p-4">
-          <p className="text-sm font-semibold text-pink-700 mb-2">Gratitude Journal</p>
-          <p className="text-xs text-pink-600 mb-2">Today I am grateful for:</p>
+          <p className="text-sm font-semibold text-pink-700 mb-2">{t('interactive.interactive-sel-gratitude.gratitudeJournal')}</p>
+          <p className="text-xs text-pink-600 mb-2">{t('interactive.interactive-sel-gratitude.todayGrateful')}</p>
           <div className="h-20 border border-dashed border-pink-300 bg-white rounded"></div>
         </div>
       </div>
@@ -6657,59 +6670,59 @@ const answerRenderers: Record<string, AnswerRenderer> = {
       <p className="text-sm">Student responses may vary. Evaluate based on understanding of perspective, shading techniques, texture representation, and composition principles.</p>
     )
   },
-  'interactive-logic-matching': ({ doc, seed, variant }) => {
+  'interactive-logic-matching': ({ doc, seed, variant, t }) => {
     return (
-      <p className="text-sm">Students should correctly match related items (e.g., apple-fruit, car-vehicle). Check for understanding of relationships and categorization.</p>
+      <p className="text-sm">{t('interactive.interactive-logic-matching.answerKey')}</p>
     )
   },
-  'interactive-logic-classification': ({ doc, seed, variant }) => {
+  'interactive-logic-classification': ({ doc, seed, variant, t }) => {
     return (
-      <p className="text-sm">Students should correctly sort items into categories (animals, food, colors, etc.). Check for understanding of classification and categorization skills.</p>
+      <p className="text-sm">{t('interactive.interactive-logic-classification.answerKey')}</p>
     )
   },
-  'interactive-logic-analogies': ({ doc, seed, variant }) => {
+  'interactive-logic-analogies': ({ doc, seed, variant, t }) => {
     return (
-      <p className="text-sm">Students should correctly complete analogies by identifying relationships. Check for understanding of word relationships and logical thinking.</p>
+      <p className="text-sm">{t('interactive.interactive-logic-analogies.answerKey')}</p>
     )
   },
-  'interactive-sel-friendship': ({ doc, seed, variant }) => {
+  'interactive-sel-friendship': ({ doc, seed, variant, t }) => {
     return (
-      <p className="text-sm">Student responses may vary. Check for understanding of friendship skills, empathy, kindness, and appropriate social responses to different situations.</p>
+      <p className="text-sm">{t('interactive.interactive-sel-friendship.answerKey')}</p>
     )
   },
-  'interactive-sel-gratitude': ({ doc, seed, variant }) => {
+  'interactive-sel-gratitude': ({ doc, seed, variant, t }) => {
     return (
-      <p className="text-sm">Student responses may vary. Check for thoughtful reflection, genuine gratitude expression, and understanding of positive thinking and appreciation.</p>
+      <p className="text-sm">{t('interactive.interactive-sel-gratitude.answerKey')}</p>
     )
   },
-  'interactive-art-color-by-number': ({ doc, seed, variant }) => {
+  'interactive-art-color-by-number': ({ doc, seed, variant, t }) => {
     return (
-      <p className="text-sm">Students should color each section according to the number code provided. Check that colors match the key (1=red, 2=blue, etc.) and that students follow directions accurately.</p>
+      <p className="text-sm">{t('interactive.interactive-art-color-by-number.answerKey')}</p>
     )
   },
-  'interactive-art-mandala': ({ doc, seed, variant }) => {
+  'interactive-art-mandala': ({ doc, seed, variant, t }) => {
     return (
-      <p className="text-sm">Student responses may vary. Evaluate based on symmetry, pattern consistency, creativity, and mindfulness reflection. Encourage students to start from the center and work outward.</p>
+      <p className="text-sm">{t('interactive.interactive-art-mandala.answerKey')}</p>
     )
   },
-  'interactive-art-doodle': ({ doc, seed, variant }) => {
+  'interactive-art-doodle': ({ doc, seed, variant, t }) => {
     return (
-      <p className="text-sm">Student responses may vary. There are no wrong answers in doodling! Evaluate based on creativity, engagement, and willingness to experiment. Encourage free expression.</p>
+      <p className="text-sm">{t('interactive.interactive-art-doodle.answerKey')}</p>
     )
   },
-  'interactive-art-seasonal': ({ doc, seed, variant }) => {
+  'interactive-art-seasonal': ({ doc, seed, variant, t }) => {
     return (
-      <p className="text-sm">Student responses may vary. Check for appropriate seasonal themes, color choices that match the season, and creative expression. Encourage students to think about what makes each season special.</p>
+      <p className="text-sm">{t('interactive.interactive-art-seasonal.answerKey')}</p>
     )
   },
-  'interactive-art-comic': ({ doc, seed, variant }) => {
+  'interactive-art-comic': ({ doc, seed, variant, t }) => {
     return (
-      <p className="text-sm">Student responses may vary. Evaluate based on story structure (beginning/middle/end), character development, use of speech bubbles, visual narrative flow, and creativity. Check that panels tell a coherent story.</p>
+      <p className="text-sm">{t('interactive.interactive-art-comic.answerKey')}</p>
     )
   },
-  'interactive-art-critique': ({ doc, seed, variant }) => {
+  'interactive-art-critique': ({ doc, seed, variant, t }) => {
     return (
-      <p className="text-sm">Student responses may vary. Evaluate based on use of art vocabulary, detailed observations, thoughtful analysis of art elements (line, color, shape, etc.), and ability to express personal impressions. Encourage specific, descriptive language.</p>
+      <p className="text-sm">{t('interactive.interactive-art-critique.answerKey')}</p>
     )
   },
   'interactive-sel-conflict': ({ doc, seed, variant }) => {
