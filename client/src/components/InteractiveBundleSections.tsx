@@ -3770,38 +3770,46 @@ const renderers: Record<string, Renderer> = {
     )
   },
   'interactive-math-division': (ctx) => {
-    const { seed, doc, variant, t } = ctx
+    const { seed, doc, variant, t, formatNum } = ctx
     const problems = buildMathDivision(seed, doc.id, variant)
     return (
       <div className="space-y-4">
         <p className="text-sm text-slate-600">{t('worksheets.division.instructions')}</p>
         <div className="space-y-3">
-          {problems.map((prob, idx) => (
-            <div key={idx} className="rounded-xl border border-purple-200 bg-white p-4">
-              <p className="text-sm font-semibold text-purple-800 mb-2">{prob.dividend} ÷ {prob.divisor} = ________</p>
-              {prob.remainder > 0 && <p className="text-xs text-slate-600">{t('worksheets.division.remainder')} ________</p>}
-              <div className="mb-2 p-2 bg-purple-50 rounded border border-purple-200">
-                <p className="text-xs text-purple-700 mb-1 font-semibold">{t('worksheets.division.visualGrouping')}</p>
-                <div className="flex flex-wrap gap-1">
-                  {Array.from({ length: Math.min(prob.dividend, 20) }).map((_, i) => (
-                    <div key={i} className={`w-6 h-6 rounded border ${i < prob.quotient * prob.divisor ? 'bg-purple-300 border-purple-400' : 'bg-purple-100 border-purple-200'}`}></div>
-                  ))}
-                  {prob.dividend > 20 && (
-                    <span className="text-xs text-purple-600 ml-1">
-                      ... ({prob.dividend} {t('worksheets.division.total')})
-                    </span>
-                  )}
+          {problems.map((prob, idx) => {
+            const groupIntoText = t('worksheets.division.groupInto')
+            const leftOverText = prob.remainder > 0 ? t('worksheets.division.leftOver') : ''
+            return (
+              <div key={idx} className="rounded-xl border border-purple-200 bg-white p-4">
+                <p className="text-sm font-semibold text-purple-800 mb-2">{formatNum(prob.dividend)} ÷ {formatNum(prob.divisor)} = ________</p>
+                {prob.remainder > 0 && <p className="text-xs text-slate-600">{t('worksheets.division.remainder')} ________</p>}
+                <div className="mb-2 p-2 bg-purple-50 rounded border border-purple-200">
+                  <p className="text-xs text-purple-700 mb-1 font-semibold">{t('worksheets.division.visualGrouping')}</p>
+                  <div className="flex flex-wrap gap-1">
+                    {Array.from({ length: Math.min(prob.dividend, 20) }).map((_, i) => (
+                      <div key={i} className={`w-6 h-6 rounded border ${i < prob.quotient * prob.divisor ? 'bg-purple-300 border-purple-400' : 'bg-purple-100 border-purple-200'}`}></div>
+                    ))}
+                    {prob.dividend > 20 && (
+                      <span className="text-xs text-purple-600 ml-1">
+                        ... ({formatNum(prob.dividend)} {t('worksheets.division.total')})
+                      </span>
+                    )}
+                  </div>
+                  <p className="text-xs text-purple-600 mt-1">
+                    {groupIntoText && groupIntoText !== 'worksheets.division.groupInto'
+                      ? groupIntoText
+                          .replace(/\{\{divisor\}\}/g, formatNum(prob.divisor))
+                          .replace(/\{\{quotient\}\}/g, formatNum(prob.quotient))
+                          .replace(/\{\{remainder\}\}/g, prob.remainder > 0 && leftOverText && leftOverText !== 'worksheets.division.leftOver' 
+                            ? leftOverText.replace(/\{\{remainder\}\}/g, formatNum(prob.remainder)) 
+                            : '')
+                      : `جمّع في ${formatNum(prob.divisor)}: ${formatNum(prob.quotient)} مجموعات${prob.remainder > 0 ? ` + ${formatNum(prob.remainder)} متبقية` : ''}`}
+                  </p>
                 </div>
-                <p className="text-xs text-purple-600 mt-1">
-                  {t('worksheets.division.groupInto')
-                    .replace('{{divisor}}', String(prob.divisor))
-                    .replace('{{quotient}}', String(prob.quotient))
-                    .replace('{{remainder}}', prob.remainder > 0 ? t('worksheets.division.leftOver').replace('{{remainder}}', String(prob.remainder)) : '')}
-                </p>
+                <div className="mt-2 h-16 border border-dashed border-purple-300 rounded bg-purple-50"></div>
               </div>
-              <div className="mt-2 h-16 border border-dashed border-purple-300 rounded bg-purple-50"></div>
-            </div>
-          ))}
+            )
+          })}
         </div>
       </div>
     )
@@ -6386,22 +6394,65 @@ const answerRenderers: Record<string, AnswerRenderer> = {
       </div>
     )
   },
-  'interactive-math-division': ({ doc, seed, variant }) => {
+  'interactive-math-division': (ctx) => {
+    const { doc, seed, variant, t, formatNum } = ctx
     const problems = buildMathDivision(seed, doc.id, variant)
     return (
       <div className="space-y-2">
         <ol className="list-decimal list-inside space-y-2 text-sm">
-          {problems.map((prob, idx) => (
-            <li key={idx} className="mb-3">
-              <span className="font-semibold">Problem {idx + 1}:</span> {prob.dividend} ÷ {prob.divisor} = <span className="text-emerald-700 font-bold">{prob.quotient}</span>
-              {prob.remainder > 0 && <span className="text-emerald-700"> (remainder: {prob.remainder})</span>}
-              <p className="text-xs text-slate-600 mt-1 ml-4">
-                <span className="font-semibold">Solution:</span> Divide {prob.dividend} into groups of {prob.divisor}. You can make {prob.quotient} complete groups.
-                {prob.remainder > 0 ? ` There are ${prob.remainder} left over that don't make a complete group.` : ' All items are grouped evenly.'}
-                <span className="block mt-1">Strategy: Use repeated subtraction ({prob.dividend} - {prob.divisor} - {prob.divisor} - ...) or think "How many {prob.divisor}s fit into {prob.dividend}?"</span>
-              </p>
-            </li>
-          ))}
+          {problems.map((prob, idx) => {
+            const problemLabel = t('worksheets.division.answerKey.problem')
+            const solutionLabel = t('worksheets.division.answerKey.solution')
+            const divideIntoText = t('worksheets.division.answerKey.divideInto')
+            const remainderLeftText = t('worksheets.division.answerKey.remainderLeft')
+            const allGroupedText = t('worksheets.division.answerKey.allGrouped')
+            const strategyText = t('worksheets.division.answerKey.strategy')
+            const remainderLabel = t('worksheets.division.answerKey.remainderLabel')
+            
+            let solution = ''
+            if (divideIntoText && divideIntoText !== 'worksheets.division.answerKey.divideInto') {
+              solution = divideIntoText
+                .replace(/\{\{dividend\}\}/g, formatNum(prob.dividend))
+                .replace(/\{\{divisor\}\}/g, formatNum(prob.divisor))
+                .replace(/\{\{quotient\}\}/g, formatNum(prob.quotient))
+            } else {
+              solution = `${t('common.divide')} ${formatNum(prob.dividend)} ${t('worksheets.division.answerKey.divideInto') || 'إلى مجموعات من'} ${formatNum(prob.divisor)}. ${t('worksheets.division.answerKey.divideInto') || 'يمكنك عمل'} ${formatNum(prob.quotient)} ${t('worksheets.division.answerKey.divideInto') || 'مجموعات كاملة'}.`
+            }
+            
+            if (prob.remainder > 0) {
+              if (remainderLeftText && remainderLeftText !== 'worksheets.division.answerKey.remainderLeft') {
+                solution += ' ' + remainderLeftText.replace(/\{\{remainder\}\}/g, formatNum(prob.remainder))
+              } else {
+                solution += ` ${t('worksheets.division.answerKey.remainderLeft') || 'يتبقى'} ${formatNum(prob.remainder)} ${t('worksheets.division.answerKey.remainderLeft') || 'لا تشكل مجموعة كاملة'}.`
+              }
+            } else {
+              if (allGroupedText && allGroupedText !== 'worksheets.division.answerKey.allGrouped') {
+                solution += ' ' + allGroupedText
+              } else {
+                solution += ` ${t('worksheets.division.answerKey.allGrouped') || 'جميع العناصر مجمعة بالتساوي.'}`
+              }
+            }
+            
+            let strategy = ''
+            if (strategyText && strategyText !== 'worksheets.division.answerKey.strategy') {
+              strategy = strategyText
+                .replace(/\{\{dividend\}\}/g, formatNum(prob.dividend))
+                .replace(/\{\{divisor\}\}/g, formatNum(prob.divisor))
+            } else {
+              strategy = `${t('worksheets.division.answerKey.strategy') || 'الاستراتيجية: استخدم الطرح المتكرر'} (${formatNum(prob.dividend)} - ${formatNum(prob.divisor)} - ${formatNum(prob.divisor)} - ...) ${t('worksheets.division.answerKey.strategy') || 'أو فكر'} "كم ${formatNum(prob.divisor)} ${t('worksheets.division.answerKey.strategy') || 'يناسب في'} ${formatNum(prob.dividend)}؟"`
+            }
+            
+            return (
+              <li key={idx} className="mb-3">
+                <span className="font-semibold">{(problemLabel && problemLabel !== 'worksheets.division.answerKey.problem' ? problemLabel : t('common.problem'))} {formatNum(idx + 1)}:</span> {formatNum(prob.dividend)} ÷ {formatNum(prob.divisor)} = <span className="text-emerald-700 font-bold">{formatNum(prob.quotient)}</span>
+                {prob.remainder > 0 && <span className="text-emerald-700"> ({remainderLabel && remainderLabel !== 'worksheets.division.answerKey.remainderLabel' ? remainderLabel : t('worksheets.division.remainder')} {formatNum(prob.remainder)})</span>}
+                <p className="text-xs text-slate-600 mt-1 ml-4">
+                  <span className="font-semibold">{(solutionLabel && solutionLabel !== 'worksheets.division.answerKey.solution' ? solutionLabel : t('common.solution'))}</span> {solution}
+                  <span className="block mt-1">{strategy}</span>
+                </p>
+              </li>
+            )
+          })}
         </ol>
       </div>
     )

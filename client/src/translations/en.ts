@@ -165,6 +165,15 @@ export const en = {
       groupInto: 'Group into {{divisor}}s: {{quotient}} groups{{remainder}}',
       leftOver: ' + {{remainder}} left over',
       total: 'total',
+      answerKey: {
+        problem: 'Problem',
+        solution: 'Solution:',
+        divideInto: 'Divide {{dividend}} into groups of {{divisor}}. You can make {{quotient}} complete groups.',
+        remainderLeft: 'There are {{remainder}} left over that don't make a complete group.',
+        allGrouped: 'All items are grouped evenly.',
+        strategy: 'Strategy: Use repeated subtraction ({{dividend}} - {{divisor}} - {{divisor}} - ...) or think "How many {{divisor}}s fit into {{dividend}}?"',
+        remainderLabel: 'remainder:',
+      },
     },
     placeValue: {
       instructions: 'Identify the digit in each place value.',

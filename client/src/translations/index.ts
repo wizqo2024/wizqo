@@ -102,6 +102,7 @@ export const interactiveWorksheetKeys = {
     mathRace: en.worksheets.mathRace,
     reflection: en.worksheets.reflection,
     decimals: en.worksheets.decimals,
+    division: en.worksheets.division,
   },
   es: {
     countObjectsAndWriteNumber: es.worksheets.countObjectsAndWriteNumber,
@@ -112,6 +113,7 @@ export const interactiveWorksheetKeys = {
     mathRace: es.worksheets.mathRace,
     reflection: es.worksheets.reflection,
     decimals: es.worksheets.decimals,
+    division: es.worksheets.division,
   },
   ar: {
     countObjectsAndWriteNumber: ar.worksheets.countObjectsAndWriteNumber,
@@ -122,6 +124,7 @@ export const interactiveWorksheetKeys = {
     mathRace: ar.worksheets.mathRace,
     reflection: ar.worksheets.reflection,
     decimals: ar.worksheets.decimals,
+    division: ar.worksheets.division,
   },
 } as const
 
@@ -5953,7 +5956,7 @@ export function getTranslation(language: Language, key: string): string | any {
         // If we're looking for interactive worksheet keys and they're missing,
         // try to get them from the exported interactiveWorksheetKeys
         // Only check interactiveWorksheetKeys for actual interactive keys (not regular worksheet keys)
-        const INTERACTIVE_KEYS = ['countObjectsAndWriteNumber', 'countThe', 'numberLabel', 'objectNames', 'mathPuzzle', 'mathRace', 'reflection', 'decimals']
+        const INTERACTIVE_KEYS = ['countObjectsAndWriteNumber', 'countThe', 'numberLabel', 'objectNames', 'mathPuzzle', 'mathRace', 'reflection', 'decimals', 'division']
         if (keys[0] === 'worksheets' && i >= 1) {
           const interactiveKey = keys[1] as keyof typeof interactiveWorksheetKeys.en
           // Only try interactiveWorksheetKeys fallback if this is actually an interactive key

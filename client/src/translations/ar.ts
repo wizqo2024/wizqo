@@ -168,6 +168,15 @@ export const ar = {
       groupInto: 'جمّع في {{divisor}}s: {{quotient}} مجموعات{{remainder}}',
       leftOver: ' + {{remainder}} متبقية',
       total: 'إجمالي',
+      answerKey: {
+        problem: 'المسألة',
+        solution: 'الحل:',
+        divideInto: 'اقسم {{dividend}} إلى مجموعات من {{divisor}}. يمكنك عمل {{quotient}} مجموعات كاملة.',
+        remainderLeft: 'يتبقى {{remainder}} لا تشكل مجموعة كاملة.',
+        allGrouped: 'جميع العناصر مجمعة بالتساوي.',
+        strategy: 'الاستراتيجية: استخدم الطرح المتكرر ({{dividend}} - {{divisor}} - {{divisor}} - ...) أو فكر "كم {{divisor}} يناسب في {{dividend}}؟"',
+        remainderLabel: 'الباقي:',
+      },
     },
     mathFractions: {
       instructions: 'قارن كل زوج من الكسور. ظلل نماذج الأشرطة لمساعدتك في اتخاذ القرار، ثم اكتب < أو > أو =.',
