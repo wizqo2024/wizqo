@@ -5322,6 +5322,28 @@ ensureWorksheetKeys()
 export function getTranslation(language: Language, key: string): string | any {
   try {
     const keys = key.split('.')
+    
+    // For interactive translations, try the exported interactiveTranslations first (prevents tree-shaking issues)
+    if (keys[0] === 'interactive' && keys.length >= 2 && interactiveTranslations[language]) {
+      const interactiveKey = keys[1]
+      if (interactiveKey && interactiveKey in interactiveTranslations[language]) {
+        let value: any = (interactiveTranslations[language] as any)[interactiveKey]
+        // Navigate through remaining keys (starting from index 2)
+        for (let j = 2; j < keys.length; j++) {
+          if (value === null || value === undefined) break
+          value = value[keys[j]]
+        }
+        if (value !== null && value !== undefined) {
+          if (Array.isArray(value) || (typeof value === 'object' && typeof value !== 'string')) {
+            return value
+          }
+          if (typeof value === 'string') {
+            return value
+          }
+        }
+      }
+    }
+    
     let value: any = translations[language]
     
     // Debug logging for interactive translations
@@ -5333,9 +5355,12 @@ export function getTranslation(language: Language, key: string): string | any {
         const interactiveObj = langObj && typeof langObj === 'object' ? langObj.interactive : undefined
         console.log(`[getTranslation] Looking for interactive key: ${key}, language: ${language}`, {
           hasInteractive: !!interactiveObj,
+          hasExportedInteractive: !!interactiveTranslations[language],
           interactiveKeys: interactiveObj && typeof interactiveObj === 'object' ? Object.keys(interactiveObj).slice(0, 10) : 'N/A',
+          exportedKeys: interactiveTranslations[language] && typeof interactiveTranslations[language] === 'object' ? Object.keys(interactiveTranslations[language]).slice(0, 10) : 'N/A',
           targetKey: keys.length > 1 ? keys[1] : 'N/A',
-          hasTargetKey: interactiveObj && typeof interactiveObj === 'object' && keys.length > 1 ? keys[1] in interactiveObj : false
+          hasTargetKey: interactiveObj && typeof interactiveObj === 'object' && keys.length > 1 ? keys[1] in interactiveObj : false,
+          hasTargetInExported: interactiveTranslations[language] && typeof interactiveTranslations[language] === 'object' && keys.length > 1 ? keys[1] in interactiveTranslations[language] : false
         })
       }
     }
