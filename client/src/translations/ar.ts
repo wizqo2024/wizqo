@@ -45,6 +45,7 @@ export const ar = {
       heart: 'قلب',
       diamond: 'معين',
       oval: 'بيضاوي',
+      round: 'دائري',
     },
     sizes: {
       big: 'كبير',

@@ -2070,27 +2070,36 @@ const renderers: Record<string, Renderer> = {
             const previewTokens = pattern
               .split('')
               .map((char) => (char === 'A' ? first : char === 'B' ? second : third))
+            const getTranslatedLabel = (token: ShapeToken) => {
+              const parts = token.key.split('-')
+              const shapeKey = parts[0] === 'diamond' || parts[0] === 'circle' || parts[0] === 'square' || parts[0] === 'star' || parts[0] === 'heart' ? parts[0] : parts[1]
+              const colorKey = parts[0] === 'diamond' || parts[0] === 'circle' || parts[0] === 'square' || parts[0] === 'star' || parts[0] === 'heart' ? parts[1] : parts[0]
+              return `${t(`common.colors.${colorKey}`) || colorKey} ${t(`common.shapes.${shapeKey}`) || shapeKey}`
+            }
             return (
               <div key={idx} className="rounded-xl border border-slate-200 bg-white p-4">
                 <p className="text-xs uppercase text-slate-500">{t('worksheets.earlyPatterns.pattern')} {pattern}</p>
                 <div className="mt-3 flex items-center gap-2">
-                  {previewTokens.map((token, tokenIdx) => (
-                    <span
-                      key={`${token.key}-${tokenIdx}`}
-                      className="relative inline-flex items-center justify-center"
-                    >
-                      <span className="sr-only">{token.label}</span>
-                      {token.render}
-                    </span>
-                  ))}
+                  {previewTokens.map((token, tokenIdx) => {
+                    const translatedLabel = getTranslatedLabel(token)
+                    return (
+                      <span
+                        key={`${token.key}-${tokenIdx}`}
+                        className="relative inline-flex items-center justify-center"
+                      >
+                        <span className="sr-only">{translatedLabel}</span>
+                        {token.render}
+                      </span>
+                    )
+                  })}
                   <span className="text-lg font-semibold text-slate-400">?</span>
                 </div>
                 <div className="mt-2 h-10 rounded border border-dashed border-slate-300" />
                 <p className="mt-2 text-xs text-slate-500">
                   {t('worksheets.earlyPatterns.tryBuilding')}{' '}
                   <span className="font-medium text-slate-700">
-                    {first.label}, {second.label}
-                    {previewTokens.length > 2 ? `, ${third.label}` : ''}
+                    {getTranslatedLabel(first)}, {getTranslatedLabel(second)}
+                    {previewTokens.length > 2 ? `, ${getTranslatedLabel(third)}` : ''}
                   </span>
                 </p>
               </div>
@@ -2103,8 +2112,10 @@ const renderers: Record<string, Renderer> = {
   'interactive-early-shapes': (ctx) => {
     const { seed, doc, variant, t, formatNum } = ctx
     const rng = makeRng(`${seed}|${doc.id}|${variant}`)
-    const shapes = pickMany(rng, ['circle', 'square', 'triangle', 'rectangle', 'star', 'heart'], 4)
-    const colors = pickMany(rng, ['red', 'blue', 'yellow', 'green', 'purple', 'orange'], 4)
+    const shapesRaw = pickMany(rng, ['circle', 'square', 'triangle', 'rectangle', 'star', 'heart'], 4)
+    const colorsRaw = pickMany(rng, ['red', 'blue', 'yellow', 'green', 'purple', 'orange'], 4)
+    const shapes = shapesRaw.map(shape => t(`common.shapes.${shape}`) || shape)
+    const colors = colorsRaw.map(color => t(`common.colors.${color}`) || color)
     return (
       <div className="space-y-3">
         <p className="text-sm text-slate-600">
@@ -2533,7 +2544,17 @@ const renderers: Record<string, Renderer> = {
     const { seed, doc, variant, t } = ctx
     const rng = makeRng(`${seed}|${doc.id}|${variant}`)
     const patterns = pickMany(rng, ['AB', 'AAB', 'ABC'], 3)
-    const sortingItems = pickMany(rng, ['red', 'blue', 'yellow', 'big', 'small', 'round', 'square'], 6)
+    const sortingItemsRaw = pickMany(rng, ['red', 'blue', 'yellow', 'big', 'small', 'round', 'square'], 6)
+    const sortingItems = sortingItemsRaw.map(item => {
+      if (['red', 'blue', 'yellow', 'green', 'pink', 'orange', 'purple'].includes(item)) {
+        return t(`common.colors.${item}`) || item
+      } else if (['big', 'small', 'large', 'tiny'].includes(item)) {
+        return t(`common.sizes.${item}`) || item
+      } else if (['round', 'square', 'circle', 'diamond', 'heart', 'star'].includes(item)) {
+        return t(`common.shapes.${item === 'round' ? 'circle' : item}`) || item
+      }
+      return item
+    })
     return (
       <div className="space-y-3">
         <p className="text-sm text-slate-600">
@@ -2549,12 +2570,18 @@ const renderers: Record<string, Renderer> = {
               <div key={idx} className="rounded-xl border border-slate-200 bg-white p-4">
                 <p className="text-xs uppercase text-slate-500">{t('worksheets.logicPrek.pattern')} {pattern}</p>
                 <div className="mt-3 flex items-center gap-2">
-                  {previewTokens.map((token, tokenIdx) => (
-                    <span key={`${token.key}-${tokenIdx}`} className="relative inline-flex items-center justify-center">
-                      <span className="sr-only">{token.label}</span>
-                      {token.render}
-                    </span>
-                  ))}
+                  {previewTokens.map((token, tokenIdx) => {
+                    const parts = token.key.split('-')
+                    const shapeKey = parts[0] === 'diamond' || parts[0] === 'circle' || parts[0] === 'square' || parts[0] === 'star' || parts[0] === 'heart' ? parts[0] : parts[1]
+                    const colorKey = parts[0] === 'diamond' || parts[0] === 'circle' || parts[0] === 'square' || parts[0] === 'star' || parts[0] === 'heart' ? parts[1] : parts[0]
+                    const translatedLabel = `${t(`common.colors.${colorKey}`) || colorKey} ${t(`common.shapes.${shapeKey}`) || shapeKey}`
+                    return (
+                      <span key={`${token.key}-${tokenIdx}`} className="relative inline-flex items-center justify-center">
+                        <span className="sr-only">{translatedLabel}</span>
+                        {token.render}
+                      </span>
+                    )
+                  })}
                   <span className="text-lg font-semibold text-slate-400">?</span>
                 </div>
                 <div className="mt-2 h-10 rounded border border-dashed border-slate-300" />
