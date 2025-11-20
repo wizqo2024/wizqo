@@ -5330,6 +5330,73 @@ const ensureTimesTableWorksheetKeys = () => {
 ensureWorksheetKeys()
 
 // Ensure interactive content translations are merged (prevents tree-shaking)
+// Define translations directly here to ensure they're always available
+const interactiveContentTranslations = {
+  en: {
+    'interactive-sel-friendship': {
+      description: 'Learn about making friends, sharing, taking turns, and being kind to others.',
+      situation: 'Situation:',
+      whatCanYouDo: 'What can you do?',
+      waysToBeGoodFriend: 'Ways to Be a Good Friend',
+      shareAndTakeTurns: 'Share and take turns',
+      listenWhenOthersTalk: 'Listen when others talk',
+      beKindAndHelpful: 'Be kind and helpful',
+      includeEveryone: 'Include everyone',
+      scenarios: {
+        newStudent: 'A new student joins your class',
+        newStudentAction: 'introduce yourself',
+        friendSad: 'A friend is sad',
+        friendSadAction: 'ask how they feel',
+        someoneNeedsHelp: 'Someone needs help',
+        someoneNeedsHelpAction: 'offer to help',
+      },
+      answerKey: 'Student responses may vary. Check for understanding of friendship skills, empathy, kindness, and appropriate social responses to different situations.',
+    },
+  },
+  es: {
+    'interactive-sel-friendship': {
+      description: 'Aprende sobre hacer amigos, compartir, tomar turnos y ser amable con otros.',
+      situation: 'Situación:',
+      whatCanYouDo: '¿Qué puedes hacer?',
+      waysToBeGoodFriend: 'Formas de Ser un Buen Amigo',
+      shareAndTakeTurns: 'Compartir y tomar turnos',
+      listenWhenOthersTalk: 'Escuchar cuando otros hablan',
+      beKindAndHelpful: 'Ser amable y servicial',
+      includeEveryone: 'Incluir a todos',
+      scenarios: {
+        newStudent: 'Un nuevo estudiante se une a tu clase',
+        newStudentAction: 'preséntate',
+        friendSad: 'Un amigo está triste',
+        friendSadAction: 'pregunta cómo se siente',
+        someoneNeedsHelp: 'Alguien necesita ayuda',
+        someoneNeedsHelpAction: 'ofrece ayuda',
+      },
+      answerKey: 'Las respuestas de los estudiantes pueden variar. Verifica la comprensión de habilidades de amistad, empatía, bondad y respuestas sociales apropiadas a diferentes situaciones.',
+    },
+  },
+  ar: {
+    'interactive-sel-friendship': {
+      description: 'تعلم عن تكوين الصداقات والمشاركة وأخذ الأدوار واللطف مع الآخرين.',
+      situation: 'الموقف:',
+      whatCanYouDo: 'ماذا يمكنك أن تفعل؟',
+      waysToBeGoodFriend: 'طرق أن تكون صديقاً جيداً',
+      shareAndTakeTurns: 'شارك وخذ الأدوار',
+      listenWhenOthersTalk: 'استمع عندما يتحدث الآخرون',
+      beKindAndHelpful: 'كن لطيفاً ومفيداً',
+      includeEveryone: 'شمل الجميع',
+      scenarios: {
+        newStudent: 'طالب جديد ينضم إلى صفك',
+        newStudentAction: 'قدم نفسك',
+        friendSad: 'صديق حزين',
+        friendSadAction: 'اسأل كيف يشعر',
+        someoneNeedsHelp: 'شخص يحتاج مساعدة',
+        someoneNeedsHelpAction: 'عرض المساعدة',
+      },
+      answerKey: 'قد تختلف إجابات الطلاب. تحقق من فهم مهارات الصداقة والتعاطف واللطف والاستجابات الاجتماعية المناسبة لمواقف مختلفة.',
+    },
+  },
+}
+
 const ensureInteractiveContentTranslations = () => {
   for (const lang of ['en', 'es', 'ar'] as const) {
     const langTranslations = (translations as any)[lang]
@@ -5340,45 +5407,54 @@ const ensureInteractiveContentTranslations = () => {
       }
       const interactive = langTranslations.interactive
       
-      // Merge from the source translation files to ensure all keys are present
-      const sourceInteractive = lang === 'en' ? en.interactive : lang === 'es' ? es.interactive : ar.interactive
+      // Merge from the directly defined translations (prevents tree-shaking)
+      const sourceInteractive = interactiveContentTranslations[lang]
       if (sourceInteractive) {
         // Merge friendship translations explicitly
         if (sourceInteractive['interactive-sel-friendship']) {
           interactive['interactive-sel-friendship'] = sourceInteractive['interactive-sel-friendship']
         }
+      }
+      
+      // Also try to merge from source files as fallback
+      const fileInteractive = lang === 'en' ? en.interactive : lang === 'es' ? es.interactive : ar.interactive
+      if (fileInteractive) {
+        // Merge friendship translations from files
+        if (fileInteractive['interactive-sel-friendship'] && !interactive['interactive-sel-friendship']) {
+          interactive['interactive-sel-friendship'] = fileInteractive['interactive-sel-friendship']
+        }
         // Merge gratitude translations
-        if (sourceInteractive['interactive-sel-gratitude']) {
-          interactive['interactive-sel-gratitude'] = sourceInteractive['interactive-sel-gratitude']
+        if (fileInteractive['interactive-sel-gratitude']) {
+          interactive['interactive-sel-gratitude'] = fileInteractive['interactive-sel-gratitude']
         }
         // Merge art translations
-        if (sourceInteractive['interactive-art-color-by-number']) {
-          interactive['interactive-art-color-by-number'] = sourceInteractive['interactive-art-color-by-number']
+        if (fileInteractive['interactive-art-color-by-number']) {
+          interactive['interactive-art-color-by-number'] = fileInteractive['interactive-art-color-by-number']
         }
-        if (sourceInteractive['interactive-art-mandala']) {
-          interactive['interactive-art-mandala'] = sourceInteractive['interactive-art-mandala']
+        if (fileInteractive['interactive-art-mandala']) {
+          interactive['interactive-art-mandala'] = fileInteractive['interactive-art-mandala']
         }
-        if (sourceInteractive['interactive-art-doodle']) {
-          interactive['interactive-art-doodle'] = sourceInteractive['interactive-art-doodle']
+        if (fileInteractive['interactive-art-doodle']) {
+          interactive['interactive-art-doodle'] = fileInteractive['interactive-art-doodle']
         }
-        if (sourceInteractive['interactive-art-seasonal']) {
-          interactive['interactive-art-seasonal'] = sourceInteractive['interactive-art-seasonal']
+        if (fileInteractive['interactive-art-seasonal']) {
+          interactive['interactive-art-seasonal'] = fileInteractive['interactive-art-seasonal']
         }
-        if (sourceInteractive['interactive-art-comic']) {
-          interactive['interactive-art-comic'] = sourceInteractive['interactive-art-comic']
+        if (fileInteractive['interactive-art-comic']) {
+          interactive['interactive-art-comic'] = fileInteractive['interactive-art-comic']
         }
-        if (sourceInteractive['interactive-art-critique']) {
-          interactive['interactive-art-critique'] = sourceInteractive['interactive-art-critique']
+        if (fileInteractive['interactive-art-critique']) {
+          interactive['interactive-art-critique'] = fileInteractive['interactive-art-critique']
         }
         // Merge logic translations
-        if (sourceInteractive['interactive-logic-matching']) {
-          interactive['interactive-logic-matching'] = sourceInteractive['interactive-logic-matching']
+        if (fileInteractive['interactive-logic-matching']) {
+          interactive['interactive-logic-matching'] = fileInteractive['interactive-logic-matching']
         }
-        if (sourceInteractive['interactive-logic-classification']) {
-          interactive['interactive-logic-classification'] = sourceInteractive['interactive-logic-classification']
+        if (fileInteractive['interactive-logic-classification']) {
+          interactive['interactive-logic-classification'] = fileInteractive['interactive-logic-classification']
         }
-        if (sourceInteractive['interactive-logic-analogies']) {
-          interactive['interactive-logic-analogies'] = sourceInteractive['interactive-logic-analogies']
+        if (fileInteractive['interactive-logic-analogies']) {
+          interactive['interactive-logic-analogies'] = fileInteractive['interactive-logic-analogies']
         }
       }
     }
