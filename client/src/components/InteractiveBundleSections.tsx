@@ -4436,7 +4436,7 @@ const renderers: Record<string, Renderer> = {
     const beginningSounds = pickMany(rng, [{ letter: 'B', words: ['ball', 'book', 'bus'] }, { letter: 'C', words: ['cat', 'car', 'cup'] }, { letter: 'D', words: ['dog', 'door', 'duck'] }, { letter: 'F', words: ['fish', 'fan', 'flower'] }, { letter: 'M', words: ['moon', 'mouse', 'map'] }, { letter: 'S', words: ['sun', 'star', 'snake'] }], 4)
     return (
       <div className="space-y-4">
-        <p className="text-sm text-slate-600">{t('interactive.interactive-reading-alphabet.description', 'Practice recognizing letters, matching uppercase and lowercase, and beginning sounds.')}</p>
+        <p className="text-sm text-slate-600">{t(`interactive.${doc.id}.description`) || t('worksheets.earlyPhonics.instructions')}</p>
         <div className="grid gap-4 md:grid-cols-3">
           {letters.map((letter, idx) => (
             <div key={idx} className="rounded-xl border border-blue-200 bg-blue-50 p-4 text-center">
@@ -4446,22 +4446,22 @@ const renderers: Record<string, Renderer> = {
                 <div className="h-8 w-8 border border-dashed border-blue-300 bg-white rounded"></div>
                 <div className="h-8 w-8 border border-dashed border-blue-300 bg-white rounded"></div>
               </div>
-              <p className="text-xs text-blue-600 mt-2">{t('worksheets.circleThe', 'Circle the {{letter}}').replace('{{letter}}', letter)}</p>
+              <p className="text-xs text-blue-600 mt-2">{t('worksheets.circleThe').replace('{{letter}}', letter)}</p>
             </div>
           ))}
         </div>
         <div className="rounded-xl border border-blue-200 bg-blue-50 p-4">
-          <p className="text-sm font-semibold text-blue-700 mb-2">{t('worksheets.beginningSounds', 'Beginning Sounds')}</p>
+          <p className="text-sm font-semibold text-blue-700 mb-2">{t('worksheets.beginningSounds')}</p>
           <div className="grid gap-3 md:grid-cols-2">
             {beginningSounds.map((item, idx) => (
               <div key={idx} className="bg-white rounded border border-blue-200 p-3">
-                <p className="text-sm font-semibold text-blue-800 mb-1">{item.letter} {t('worksheets.says', 'says')} /{item.letter.toLowerCase()}/</p>
+                <p className="text-sm font-semibold text-blue-800 mb-1">{item.letter} {t('worksheets.says')} /{item.letter.toLowerCase()}/</p>
                 <div className="flex gap-2 flex-wrap">
                   {item.words.map((word, wIdx) => (
                     <span key={wIdx} className="text-xs px-2 py-1 bg-blue-100 rounded border border-blue-300 text-blue-700">{word}</span>
                   ))}
                 </div>
-                <p className="text-xs text-blue-600 mt-2">{t('worksheets.circleWordsStart', 'Circle words that start with')} {item.letter}</p>
+                <p className="text-xs text-blue-600 mt-2">{t('worksheets.circleWordsStart')} {item.letter}</p>
               </div>
             ))}
           </div>
@@ -6556,7 +6556,7 @@ const answerRenderers: Record<string, AnswerRenderer> = {
   'interactive-reading-alphabet': (ctx) => {
     const { t } = ctx
     return (
-      <p className="text-sm">{t('worksheets.alphabetAnswerKey', 'Students should correctly identify and match uppercase/lowercase letters, recognize beginning sounds, and circle matching letters. Check for letter recognition accuracy.')}</p>
+      <p className="text-sm">{t('worksheets.alphabetAnswerKey')}</p>
     )
   },
   'interactive-reading-sightwords': (ctx) => {
