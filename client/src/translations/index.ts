@@ -5316,6 +5316,22 @@ export function getTranslation(language: Language, key: string): string | any {
     const keys = key.split('.')
     let value: any = translations[language]
     
+    // Debug logging for interactive translations
+    if (typeof window !== 'undefined' && keys[0] === 'interactive' && process.env.NODE_ENV === 'development') {
+      const debugKey = `translation-debug-interactive-${language}-${key}`
+      if (!(window as any)[debugKey]) {
+        (window as any)[debugKey] = true
+        const langObj = translations[language]
+        const interactiveObj = langObj && typeof langObj === 'object' ? langObj.interactive : undefined
+        console.log(`[getTranslation] Looking for interactive key: ${key}, language: ${language}`, {
+          hasInteractive: !!interactiveObj,
+          interactiveKeys: interactiveObj && typeof interactiveObj === 'object' ? Object.keys(interactiveObj).slice(0, 10) : 'N/A',
+          targetKey: keys.length > 1 ? keys[1] : 'N/A',
+          hasTargetKey: interactiveObj && typeof interactiveObj === 'object' && keys.length > 1 ? keys[1] in interactiveObj : false
+        })
+      }
+    }
+    
     // Debug logging removed - translations are working correctly
     if (false && typeof window !== 'undefined' && keys[0] === 'worksheets' && process.env.NODE_ENV === 'development') {
       const debugKey = `translation-debug-${language}`
