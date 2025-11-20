@@ -5558,12 +5558,33 @@ export function getTranslation(language: Language, key: string): string | any {
           // Navigate through remaining keys (starting from index 2)
           for (let j = 2; j < keys.length; j++) {
             if (value === null || value === undefined) {
-              if (typeof window !== 'undefined' && process.env.NODE_ENV === 'development') {
-                console.warn(`[getTranslation] Navigation failed at key[${j}]=${keys[j]}, value is ${value}`, { key, language, keys, currentValue: value })
+              if (typeof window !== 'undefined') {
+                console.warn(`[getTranslation] Navigation failed at key[${j}]=${keys[j]}, value is ${value}`, { 
+                  key, 
+                  language, 
+                  keys, 
+                  currentValue: value,
+                  valueType: typeof value,
+                  valueKeys: value && typeof value === 'object' ? Object.keys(value) : 'N/A'
+                })
               }
               break
             }
-            value = value[keys[j]]
+            const nextKey = keys[j]
+            if (value && typeof value === 'object' && nextKey in value) {
+              value = value[nextKey]
+            } else {
+              if (typeof window !== 'undefined') {
+                console.warn(`[getTranslation] Key ${nextKey} not found in value`, {
+                  key,
+                  nextKey,
+                  value,
+                  valueKeys: value && typeof value === 'object' ? Object.keys(value) : 'N/A'
+                })
+              }
+              value = undefined
+              break
+            }
           }
           if (value !== null && value !== undefined) {
             if (Array.isArray(value) || (typeof value === 'object' && typeof value !== 'string')) {
@@ -5584,12 +5605,33 @@ export function getTranslation(language: Language, key: string): string | any {
           // Navigate through remaining keys (starting from index 2)
           for (let j = 2; j < keys.length; j++) {
             if (value === null || value === undefined) {
-              if (typeof window !== 'undefined' && process.env.NODE_ENV === 'development') {
-                console.warn(`[getTranslation] Navigation failed at key[${j}]=${keys[j]}, value is ${value}`, { key, language, keys, currentValue: value })
+              if (typeof window !== 'undefined') {
+                console.warn(`[getTranslation] Navigation failed at key[${j}]=${keys[j]}, value is ${value}`, { 
+                  key, 
+                  language, 
+                  keys, 
+                  currentValue: value,
+                  valueType: typeof value,
+                  valueKeys: value && typeof value === 'object' ? Object.keys(value) : 'N/A'
+                })
               }
               break
             }
-            value = value[keys[j]]
+            const nextKey = keys[j]
+            if (value && typeof value === 'object' && nextKey in value) {
+              value = value[nextKey]
+            } else {
+              if (typeof window !== 'undefined') {
+                console.warn(`[getTranslation] Key ${nextKey} not found in value`, {
+                  key,
+                  nextKey,
+                  value,
+                  valueKeys: value && typeof value === 'object' ? Object.keys(value) : 'N/A'
+                })
+              }
+              value = undefined
+              break
+            }
           }
           if (value !== null && value !== undefined) {
             if (Array.isArray(value) || (typeof value === 'object' && typeof value !== 'string')) {

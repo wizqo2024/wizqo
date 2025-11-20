@@ -6832,7 +6832,21 @@ function InteractiveWorksheetSection({
                 // Navigate through remaining keys
                 for (let j = 2; j < keys.length; j++) {
                   if (value === null || value === undefined) break
-                  value = value[keys[j]]
+                  const nextKey = keys[j]
+                  if (value && typeof value === 'object' && nextKey in value) {
+                    value = value[nextKey]
+                  } else {
+                    if (typeof window !== 'undefined') {
+                      console.warn(`[InteractiveBundleSections] Key ${nextKey} not found in value`, {
+                        key,
+                        nextKey,
+                        value,
+                        valueKeys: value && typeof value === 'object' ? Object.keys(value) : 'N/A'
+                      })
+                    }
+                    value = undefined
+                    break
+                  }
                 }
                 if (value !== null && value !== undefined && typeof value === 'string') {
                   return value
@@ -6847,7 +6861,21 @@ function InteractiveWorksheetSection({
                 // Navigate through remaining keys
                 for (let j = 2; j < keys.length; j++) {
                   if (value === null || value === undefined) break
-                  value = value[keys[j]]
+                  const nextKey = keys[j]
+                  if (value && typeof value === 'object' && nextKey in value) {
+                    value = value[nextKey]
+                  } else {
+                    if (typeof window !== 'undefined') {
+                      console.warn(`[InteractiveBundleSections] Key ${nextKey} not found in value`, {
+                        key,
+                        nextKey,
+                        value,
+                        valueKeys: value && typeof value === 'object' ? Object.keys(value) : 'N/A'
+                      })
+                    }
+                    value = undefined
+                    break
+                  }
                 }
                 if (value !== null && value !== undefined && typeof value === 'string') {
                   return value
