@@ -2907,10 +2907,10 @@ const renderers: Record<string, Renderer> = {
       { original: ['big', 'small', 'big', 'small'], match: ['big', 'small', 'big', 'big'] },
     ]
     const spatialItems = [
-      { position: 'above', item: 'star', text: 'above' },
-      { position: 'below', item: 'circle', text: 'below' },
-      { position: 'left', item: 'triangle', text: 'to the left of' },
-      { position: 'right', item: 'square', text: 'to the right of' },
+      { position: 'above', item: 'star', textKey: 'above' },
+      { position: 'below', item: 'circle', textKey: 'below' },
+      { position: 'left', item: 'triangle', textKey: 'toTheLeftOf' },
+      { position: 'right', item: 'square', textKey: 'toTheRightOf' },
     ]
     return (
       <div className="space-y-4">
@@ -2923,10 +2923,10 @@ const renderers: Record<string, Renderer> = {
           <div className="space-y-3">
             {patterns.map((pattern, idx) => (
               <div key={idx} className="bg-white rounded-lg p-3 border border-pink-200">
-                <p className="text-xs text-pink-600 mb-2">Pattern {idx + 1}:</p>
+                <p className="text-xs text-pink-600 mb-2">{t('worksheets.cognitiveVisual.pattern').replace('{{number}}', String(idx + 1))}</p>
                 <div className="flex gap-4 mb-2">
                   <div>
-                    <p className="text-xs text-pink-600 mb-1">Original:</p>
+                    <p className="text-xs text-pink-600 mb-1">{t('worksheets.cognitiveVisual.original')}</p>
                     <div className="flex gap-1">
                       {pattern.original.map((item, i) => (
                         <span key={i} className="px-2 py-1 bg-pink-100 rounded text-xs font-semibold text-pink-800">{item}</span>
@@ -2942,19 +2942,19 @@ const renderers: Record<string, Renderer> = {
                     </div>
                   </div>
                 </div>
-                <p className="text-xs text-pink-600">What's different? Position: _______ Item: _______</p>
+                <p className="text-xs text-pink-600">{t('worksheets.cognitiveVisual.whatsDifferent')}</p>
               </div>
             ))}
           </div>
         </div>
         <div className="rounded-xl border border-pink-200 bg-pink-50 p-4">
-          <p className="text-sm font-semibold text-pink-700 mb-3">Spatial Reasoning</p>
+          <p className="text-sm font-semibold text-pink-700 mb-3">{t('worksheets.cognitiveVisual.spatialReasoning')}</p>
           <p className="text-xs text-pink-600 mb-3">{t('worksheets.cognitiveVisual.drawItemPosition')}</p>
           <div className="bg-white rounded-lg p-3 border border-pink-200">
             <div className="grid grid-cols-2 gap-4">
               {spatialItems.map((item, idx) => (
                 <div key={idx} className="border border-dashed border-pink-300 rounded p-3">
-                  <p className="text-xs text-pink-600 mb-2">{t('worksheets.cognitiveVisual.drawItemText').replace('{{item}}', item.item).replace('{{text}}', item.text)}</p>
+                  <p className="text-xs text-pink-600 mb-2">{t('worksheets.cognitiveVisual.drawItemText').replace('{{item}}', item.item).replace('{{text}}', t(`worksheets.cognitiveVisual.${item.textKey}`))}</p>
                   {item.position === 'above' && (
                     <div className="h-20 border border-pink-200 rounded relative">
                       <div className="absolute bottom-0 left-0 right-0 h-0.5 bg-pink-600"></div>
@@ -6062,11 +6062,12 @@ const answerRenderers: Record<string, AnswerRenderer> = {
       </div>
     )
   },
-  'interactive-cognitive-visual': ({ doc, seed, variant }) => {
+  'interactive-cognitive-visual': (ctx) => {
+    const { t } = ctx
     return (
       <div className="space-y-2 text-sm">
-        <p><span className="font-semibold">Visual Processing:</span> Students should identify differences in patterns and demonstrate spatial reasoning by drawing items in correct positions.</p>
-        <p className="text-emerald-800">Note: Pattern differences are: Pattern 1 - position 4 (green vs blue), Pattern 2 - position 3 (triangle vs circle), Pattern 3 - position 4 (big vs small). Spatial reasoning drawings should show items in correct relative positions.</p>
+        <p><span className="font-semibold">{t('worksheets.cognitiveVisual.visualPatternMatching')}:</span> {t('worksheets.answerKey.studentsShould')} {t('worksheets.answerKey.visualProcessingAnswer')}</p>
+        <p className="text-emerald-800">{t('worksheets.answerKey.visualProcessingNote')}</p>
       </div>
     )
   },
