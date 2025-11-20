@@ -6820,6 +6820,43 @@ function InteractiveWorksheetSection({
   const t = React.useMemo(() => {
     return (key: string): string => {
       try {
+        // For interactive translations, try direct access first
+        if (key.startsWith('interactive.')) {
+          const keys = key.split('.')
+          if (keys.length >= 2) {
+            // Try interactiveTranslations export first
+            if (interactiveTranslations && interactiveTranslations[language]) {
+              const interactiveKey = keys[1]
+              if (interactiveKey && interactiveKey in interactiveTranslations[language]) {
+                let value: any = (interactiveTranslations[language] as any)[interactiveKey]
+                // Navigate through remaining keys
+                for (let j = 2; j < keys.length; j++) {
+                  if (value === null || value === undefined) break
+                  value = value[keys[j]]
+                }
+                if (value !== null && value !== undefined && typeof value === 'string') {
+                  return value
+                }
+              }
+            }
+            // Fallback: try translations[language].interactive
+            if (translations[language] && translations[language].interactive) {
+              const interactiveKey = keys[1]
+              if (interactiveKey && interactiveKey in translations[language].interactive) {
+                let value: any = (translations[language].interactive as any)[interactiveKey]
+                // Navigate through remaining keys
+                for (let j = 2; j < keys.length; j++) {
+                  if (value === null || value === undefined) break
+                  value = value[keys[j]]
+                }
+                if (value !== null && value !== undefined && typeof value === 'string') {
+                  return value
+                }
+              }
+            }
+          }
+        }
+        
         // Priority 1: Use getTranslation with current language (most reliable)
         const directResult = getTranslation(language, key)
         // Debug: Log translation attempts for important keys
@@ -6849,7 +6886,10 @@ function InteractiveWorksheetSection({
                 directResult, 
                 contextResult,
                 languageValue: language,
-                keyPath: key
+                keyPath: key,
+                hasInteractiveTranslations: !!interactiveTranslations?.[language],
+                hasTranslationsInteractive: !!translations[language]?.interactive,
+                interactiveKeys: interactiveTranslations?.[language] ? Object.keys(interactiveTranslations[language]).slice(0, 10) : 'N/A'
               })
             }
           }
