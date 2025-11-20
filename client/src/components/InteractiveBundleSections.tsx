@@ -3772,38 +3772,55 @@ const renderers: Record<string, Renderer> = {
   'interactive-math-division': (ctx) => {
     const { seed, doc, variant, t, formatNum } = ctx
     const problems = buildMathDivision(seed, doc.id, variant)
+    
+    // Helper to check if translation was found
+    const isTranslationFound = (text: any, key: string) => {
+      return text && typeof text === 'string' && text !== key && !text.startsWith('worksheets.')
+    }
+    
+    const instructionsText = t('worksheets.division.instructions')
+    const remainderText = t('worksheets.division.remainder')
+    const visualGroupingText = t('worksheets.division.visualGrouping')
+    const totalText = t('worksheets.division.total')
+    
     return (
       <div className="space-y-4">
-        <p className="text-sm text-slate-600">{t('worksheets.division.instructions')}</p>
+        <p className="text-sm text-slate-600">{isTranslationFound(instructionsText, 'worksheets.division.instructions') ? instructionsText : 'حل كل مسألة قسمة. أظهر عملك.'}</p>
         <div className="space-y-3">
           {problems.map((prob, idx) => {
             const groupIntoText = t('worksheets.division.groupInto')
             const leftOverText = prob.remainder > 0 ? t('worksheets.division.leftOver') : ''
+            
+            let groupIntoDisplay = ''
+            if (isTranslationFound(groupIntoText, 'worksheets.division.groupInto')) {
+              groupIntoDisplay = groupIntoText
+                .replace(/\{\{divisor\}\}/g, formatNum(prob.divisor))
+                .replace(/\{\{quotient\}\}/g, formatNum(prob.quotient))
+                .replace(/\{\{remainder\}\}/g, prob.remainder > 0 && isTranslationFound(leftOverText, 'worksheets.division.leftOver')
+                  ? leftOverText.replace(/\{\{remainder\}\}/g, formatNum(prob.remainder))
+                  : '')
+            } else {
+              groupIntoDisplay = `جمّع في ${formatNum(prob.divisor)}: ${formatNum(prob.quotient)} مجموعات${prob.remainder > 0 ? ` + ${formatNum(prob.remainder)} متبقية` : ''}`
+            }
+            
             return (
               <div key={idx} className="rounded-xl border border-purple-200 bg-white p-4">
                 <p className="text-sm font-semibold text-purple-800 mb-2">{formatNum(prob.dividend)} ÷ {formatNum(prob.divisor)} = ________</p>
-                {prob.remainder > 0 && <p className="text-xs text-slate-600">{t('worksheets.division.remainder')} ________</p>}
+                {prob.remainder > 0 && <p className="text-xs text-slate-600">{isTranslationFound(remainderText, 'worksheets.division.remainder') ? remainderText : 'الباقي:'} ________</p>}
                 <div className="mb-2 p-2 bg-purple-50 rounded border border-purple-200">
-                  <p className="text-xs text-purple-700 mb-1 font-semibold">{t('worksheets.division.visualGrouping')}</p>
+                  <p className="text-xs text-purple-700 mb-1 font-semibold">{isTranslationFound(visualGroupingText, 'worksheets.division.visualGrouping') ? visualGroupingText : 'التجميع المرئي:'}</p>
                   <div className="flex flex-wrap gap-1">
                     {Array.from({ length: Math.min(prob.dividend, 20) }).map((_, i) => (
                       <div key={i} className={`w-6 h-6 rounded border ${i < prob.quotient * prob.divisor ? 'bg-purple-300 border-purple-400' : 'bg-purple-100 border-purple-200'}`}></div>
                     ))}
                     {prob.dividend > 20 && (
                       <span className="text-xs text-purple-600 ml-1">
-                        ... ({formatNum(prob.dividend)} {t('worksheets.division.total')})
+                        ... ({formatNum(prob.dividend)} {isTranslationFound(totalText, 'worksheets.division.total') ? totalText : 'إجمالي'})
                       </span>
                     )}
                   </div>
                   <p className="text-xs text-purple-600 mt-1">
-                    {groupIntoText && groupIntoText !== 'worksheets.division.groupInto'
-                      ? groupIntoText
-                          .replace(/\{\{divisor\}\}/g, formatNum(prob.divisor))
-                          .replace(/\{\{quotient\}\}/g, formatNum(prob.quotient))
-                          .replace(/\{\{remainder\}\}/g, prob.remainder > 0 && leftOverText && leftOverText !== 'worksheets.division.leftOver' 
-                            ? leftOverText.replace(/\{\{remainder\}\}/g, formatNum(prob.remainder)) 
-                            : '')
-                      : `جمّع في ${formatNum(prob.divisor)}: ${formatNum(prob.quotient)} مجموعات${prob.remainder > 0 ? ` + ${formatNum(prob.remainder)} متبقية` : ''}`}
+                    {groupIntoDisplay}
                   </p>
                 </div>
                 <div className="mt-2 h-16 border border-dashed border-purple-300 rounded bg-purple-50"></div>
@@ -6502,10 +6519,10 @@ const answerRenderers: Record<string, AnswerRenderer> = {
             
             return (
               <li key={idx} className="mb-3">
-                <span className="font-semibold">{(problemLabel && problemLabel !== 'worksheets.division.answerKey.problem' ? problemLabel : t('common.problem'))} {formatNum(idx + 1)}:</span> {formatNum(prob.dividend)} ÷ {formatNum(prob.divisor)} = <span className="text-emerald-700 font-bold">{formatNum(prob.quotient)}</span>
-                {prob.remainder > 0 && <span className="text-emerald-700"> ({remainderLabel && remainderLabel !== 'worksheets.division.answerKey.remainderLabel' ? remainderLabel : t('worksheets.division.remainder')} {formatNum(prob.remainder)})</span>}
+                <span className="font-semibold">{(isTranslationFound(problemLabel, 'worksheets.division.answerKey.problem') ? problemLabel : t('common.problem'))} {formatNum(idx + 1)}:</span> {formatNum(prob.dividend)} ÷ {formatNum(prob.divisor)} = <span className="text-emerald-700 font-bold">{formatNum(prob.quotient)}</span>
+                {prob.remainder > 0 && <span className="text-emerald-700"> ({isTranslationFound(remainderLabel, 'worksheets.division.answerKey.remainderLabel') ? remainderLabel : (isTranslationFound(t('worksheets.division.remainder'), 'worksheets.division.remainder') ? t('worksheets.division.remainder') : 'الباقي:')} {formatNum(prob.remainder)})</span>}
                 <p className="text-xs text-slate-600 mt-1 ml-4">
-                  <span className="font-semibold">{(solutionLabel && solutionLabel !== 'worksheets.division.answerKey.solution' ? solutionLabel : t('common.solution'))}</span> {solution}
+                  <span className="font-semibold">{(isTranslationFound(solutionLabel, 'worksheets.division.answerKey.solution') ? solutionLabel : t('common.solution'))}</span> {solution}
                   <span className="block mt-1">{strategy}</span>
                 </p>
               </li>
