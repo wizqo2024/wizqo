@@ -36,11 +36,13 @@ if (false) {
     void interactiveTranslations.ar?.[key]
     // Also reference nested keys for friendship
     if (key === 'interactive-sel-friendship') {
+      void interactiveTranslations.en?.[key]?.title
       void interactiveTranslations.en?.[key]?.situation
       void interactiveTranslations.en?.[key]?.whatCanYouDo
       void interactiveTranslations.en?.[key]?.scenarios?.newStudent
       void interactiveTranslations.en?.[key]?.scenarios?.friendSad
       void interactiveTranslations.en?.[key]?.scenarios?.someoneNeedsHelp
+      void interactiveTranslations.ar?.[key]?.title
       void interactiveTranslations.ar?.[key]?.situation
       void interactiveTranslations.ar?.[key]?.whatCanYouDo
       void interactiveTranslations.ar?.[key]?.scenarios?.newStudent

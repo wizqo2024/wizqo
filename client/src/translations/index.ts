@@ -149,11 +149,13 @@ if (false) {
     void ar.interactive[key]
     // Also reference nested keys
     if (key === 'interactive-sel-friendship') {
+      void en.interactive[key]?.title
       void en.interactive[key]?.situation
       void en.interactive[key]?.whatCanYouDo
       void en.interactive[key]?.scenarios?.newStudent
       void en.interactive[key]?.scenarios?.friendSad
       void en.interactive[key]?.scenarios?.someoneNeedsHelp
+      void ar.interactive[key]?.title
       void ar.interactive[key]?.situation
       void ar.interactive[key]?.whatCanYouDo
       void ar.interactive[key]?.scenarios?.newStudent
@@ -5434,6 +5436,7 @@ ensureWorksheetKeys()
 const interactiveContentTranslations = {
   en: {
     'interactive-sel-friendship': {
+      title: 'Friendship & Social Skills',
       description: 'Learn about making friends, sharing, taking turns, and being kind to others.',
       situation: 'Situation:',
       whatCanYouDo: 'What can you do?',
@@ -5455,6 +5458,7 @@ const interactiveContentTranslations = {
   },
   es: {
     'interactive-sel-friendship': {
+      title: 'Amistad y Habilidades Sociales',
       description: 'Aprende sobre hacer amigos, compartir, tomar turnos y ser amable con otros.',
       situation: 'Situación:',
       whatCanYouDo: '¿Qué puedes hacer?',
@@ -5476,6 +5480,7 @@ const interactiveContentTranslations = {
   },
   ar: {
     'interactive-sel-friendship': {
+      title: 'الصداقة والمهارات الاجتماعية',
       description: 'تعلم عن تكوين الصداقات والمشاركة وأخذ الأدوار واللطف مع الآخرين.',
       situation: 'الموقف:',
       whatCanYouDo: 'ماذا يمكنك أن تفعل؟',
