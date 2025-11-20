@@ -1968,6 +1968,7 @@ const ensureInteractiveWorksheetKeys = () => {
         sortingActivity: 'Sorting Activity',
         sortByShape: 'Sort by shape:',
         sortByColor: 'Sort by color:',
+        sortBySize: 'Sort by size:',
       },
       earlyLetters: {
         instructions: 'Trace each letter, then write it 3 times. Draw a picture that starts with that letter.',
@@ -2541,6 +2542,7 @@ const ensureInteractiveWorksheetKeys = () => {
         sortingActivity: 'Actividad de Clasificación',
         sortByShape: 'Clasificar por forma:',
         sortByColor: 'Clasificar por color:',
+        sortBySize: 'Clasificar por tamaño:',
       },
       earlyLetters: {
         instructions: 'Traza cada letra, luego escríbela 3 veces. Dibuja una imagen que comience con esa letra.',
@@ -3114,6 +3116,7 @@ const ensureInteractiveWorksheetKeys = () => {
         sortingActivity: 'نشاط التصنيف',
         sortByShape: 'صنف حسب الشكل:',
         sortByColor: 'صنف حسب اللون:',
+        sortBySize: 'صنف حسب الحجم:',
       },
       earlyLetters: {
         instructions: 'تتبع كل حرف، ثم اكتبه 3 مرات. ارسم صورة تبدأ بهذا الحرف.',
@@ -5438,6 +5441,33 @@ ensureWorksheetKeys()
 // Define translations directly here to ensure they're always available
 const interactiveContentTranslations = {
   en: {
+    'interactive-logic-matching': {
+      title: 'Matching & Memory Games',
+      description: 'Match objects, pictures, and concepts. Practice memory and recognition skills.',
+      drawLineToMatch: 'Draw a line to match',
+      answerKey: 'Students should correctly match related items (e.g., apple-fruit, car-vehicle). Check for understanding of relationships and categorization.',
+    },
+    'interactive-sel-kindness': {
+      title: 'Kindness Challenge',
+      description: 'Complete daily acts of kindness and reflect on how kindness impacts yourself and others.',
+      kindnessChallenge: 'Kindness Challenge',
+      kindnessAct: 'Kindness Act',
+      whenIDidThis: 'When I did this...',
+      howOthersFeel: 'How did it make others feel?',
+      howIFeel: 'How did it make me feel?',
+      kindnessContagious: 'Kindness is contagious! When you\'re kind, others are more likely to be kind too.',
+      acts: {
+        helpWork: 'Help someone with their work',
+        sayKind: 'Say something kind to a classmate',
+        shareFriend: 'Share something with a friend',
+        helpClean: 'Help clean up without being asked',
+        thankYouNote: 'Write a thank-you note',
+        includeLonely: 'Include someone who looks lonely',
+        compliment: 'Give someone a compliment',
+        holdDoor: 'Hold the door for someone',
+      },
+      answerKey: 'Student responses may vary. Check for thoughtful reflection on kindness acts, understanding of how kindness affects others and self, and genuine engagement with kindness challenges.',
+    },
     'interactive-sel-friendship': {
       title: 'Friendship & Social Skills',
       description: 'Learn about making friends, sharing, taking turns, and being kind to others.',
@@ -5460,6 +5490,33 @@ const interactiveContentTranslations = {
     },
   },
   es: {
+    'interactive-logic-matching': {
+      title: 'Juegos de Emparejamiento y Memoria',
+      description: 'Empareja objetos, imágenes y conceptos. Practica habilidades de memoria y reconocimiento.',
+      drawLineToMatch: 'Dibuja una línea para emparejar',
+      answerKey: 'Los estudiantes deben emparejar correctamente elementos relacionados (p. ej., manzana-fruta, coche-vehículo). Verifica la comprensión de relaciones y categorización.',
+    },
+    'interactive-sel-kindness': {
+      title: 'Desafío de Bondad',
+      description: 'Completa actos diarios de bondad y reflexiona sobre cómo la bondad impacta a ti mismo y a otros.',
+      kindnessChallenge: 'Desafío de Bondad',
+      kindnessAct: 'Acto de Bondad',
+      whenIDidThis: 'Cuando hice esto...',
+      howOthersFeel: '¿Cómo hizo sentir a otros?',
+      howIFeel: '¿Cómo me hizo sentir?',
+      kindnessContagious: '¡La bondad es contagiosa! Cuando eres amable, otros tienen más probabilidades de ser amables también.',
+      acts: {
+        helpWork: 'Ayuda a alguien con su trabajo',
+        sayKind: 'Di algo amable a un compañero',
+        shareFriend: 'Comparte algo con un amigo',
+        helpClean: 'Ayuda a limpiar sin que te lo pidan',
+        thankYouNote: 'Escribe una nota de agradecimiento',
+        includeLonely: 'Incluye a alguien que se ve solo',
+        compliment: 'Dale un cumplido a alguien',
+        holdDoor: 'Sostén la puerta para alguien',
+      },
+      answerKey: 'Las respuestas de los estudiantes pueden variar. Verifica la reflexión cuidadosa sobre actos de bondad, comprensión de cómo la bondad afecta a otros y a uno mismo, y participación genuina con desafíos de bondad.',
+    },
     'interactive-sel-friendship': {
       title: 'Amistad y Habilidades Sociales',
       description: 'Aprende sobre hacer amigos, compartir, tomar turnos y ser amable con otros.',
@@ -5482,6 +5539,33 @@ const interactiveContentTranslations = {
     },
   },
   ar: {
+    'interactive-logic-matching': {
+      title: 'ألعاب المطابقة والذاكرة',
+      description: 'طابق الكائنات والصور والمفاهيم. تدرب على مهارات الذاكرة والتعرف.',
+      drawLineToMatch: 'ارسم خطاً للمطابقة',
+      answerKey: 'يجب على الطلاب مطابقة العناصر ذات الصلة بشكل صحيح (مثل: تفاحة-فاكهة، سيارة-مركبة). تحقق من فهم العلاقات والتصنيف.',
+    },
+    'interactive-sel-kindness': {
+      title: 'تحدي اللطف',
+      description: 'أكمل أعمال لطف يومية وتأمل في كيفية تأثير اللطف على نفسك والآخرين.',
+      kindnessChallenge: 'تحدي اللطف',
+      kindnessAct: 'عمل اللطف',
+      whenIDidThis: 'عندما فعلت هذا...',
+      howOthersFeel: 'كيف جعل الآخرين يشعرون؟',
+      howIFeel: 'كيف جعلني أشعر؟',
+      kindnessContagious: 'اللطف معدي! عندما تكون لطيفاً، من المرجح أن يكون الآخرون لطيفين أيضاً.',
+      acts: {
+        helpWork: 'ساعد شخصاً في عمله',
+        sayKind: 'قل شيئاً لطيفاً لزميل',
+        shareFriend: 'شارك شيئاً مع صديق',
+        helpClean: 'ساعد في التنظيف دون أن يُطلب منك',
+        thankYouNote: 'اكتب رسالة شكر',
+        includeLonely: 'شمل شخصاً يبدو وحيداً',
+        compliment: 'أعطِ شخصاً مجاملة',
+        holdDoor: 'أمسك الباب لشخص',
+      },
+      answerKey: 'قد تختلف إجابات الطلاب. تحقق من التأمل المدروس في أعمال اللطف وفهم كيفية تأثير اللطف على الآخرين والذات والمشاركة الصادقة في تحديات اللطف.',
+    },
     'interactive-sel-friendship': {
       title: 'الصداقة والمهارات الاجتماعية',
       description: 'تعلم عن تكوين الصداقات والمشاركة وأخذ الأدوار واللطف مع الآخرين.',
@@ -5518,10 +5602,17 @@ const ensureInteractiveContentTranslations = () => {
       // Merge from the directly defined translations (prevents tree-shaking)
       const sourceInteractive = interactiveContentTranslations[lang]
       if (sourceInteractive) {
-        // Merge friendship translations explicitly
-        if (sourceInteractive['interactive-sel-friendship']) {
-          interactive['interactive-sel-friendship'] = sourceInteractive['interactive-sel-friendship']
-        }
+      // Merge friendship translations explicitly
+      if (sourceInteractive['interactive-sel-friendship']) {
+        interactive['interactive-sel-friendship'] = sourceInteractive['interactive-sel-friendship']
+      }
+      // Merge matching and kindness titles
+      if (sourceInteractive['interactive-logic-matching']) {
+        interactive['interactive-logic-matching'] = sourceInteractive['interactive-logic-matching']
+      }
+      if (sourceInteractive['interactive-sel-kindness']) {
+        interactive['interactive-sel-kindness'] = sourceInteractive['interactive-sel-kindness']
+      }
       }
       
       // Also try to merge from source files as fallback

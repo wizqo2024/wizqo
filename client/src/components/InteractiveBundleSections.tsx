@@ -2563,10 +2563,10 @@ const renderers: Record<string, Renderer> = {
           })}
         </div>
         <div className="rounded-xl border border-slate-200 bg-white p-4">
-          <p className="text-sm font-semibold text-slate-700">Sorting Activity</p>
-          <p className="mt-2 text-xs text-slate-600">Sort by color: {sortingItems.slice(0, 3).join(', ')}</p>
-          <p className="mt-1 text-xs text-slate-600">Sort by size: {sortingItems.slice(3, 5).join(', ')}</p>
-          <p className="mt-1 text-xs text-slate-600">Sort by shape: {sortingItems.slice(5).join(', ')}</p>
+          <p className="text-sm font-semibold text-slate-700">{t('worksheets.earlyShapes.sortingActivity')}</p>
+          <p className="mt-2 text-xs text-slate-600">{t('worksheets.earlyShapes.sortByColor')} {sortingItems.slice(0, 3).join(', ')}</p>
+          <p className="mt-1 text-xs text-slate-600">{t('worksheets.earlyShapes.sortBySize')} {sortingItems.slice(3, 5).join(', ')}</p>
+          <p className="mt-1 text-xs text-slate-600">{t('worksheets.earlyShapes.sortByShape')} {sortingItems.slice(5).join(', ')}</p>
         </div>
       </div>
     )

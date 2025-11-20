@@ -3867,6 +3867,7 @@ export const es = {
       answerKey: 'Las respuestas de los estudiantes pueden variar. Evalúa basándote en el uso de vocabulario artístico, observaciones detalladas, análisis reflexivo de elementos artísticos (línea, color, forma, etc.) y capacidad de expresar impresiones personales. Anima un lenguaje específico y descriptivo.',
     },
     'interactive-logic-matching': {
+      title: 'Juegos de Emparejamiento y Memoria',
       description: 'Empareja objetos, imágenes y conceptos. Practica habilidades de memoria y reconocimiento.',
       drawLineToMatch: 'Dibuja una línea para emparejar',
       answerKey: 'Los estudiantes deben emparejar correctamente elementos relacionados (p. ej., manzana-fruta, coche-vehículo). Verifica la comprensión de relaciones y categorización.',
@@ -3942,6 +3943,7 @@ export const es = {
       answerKey: 'Las respuestas de los estudiantes pueden variar. Verifica la comprensión de estrategias de autorregulación, capacidad de identificar cuándo se necesitan estrategias y reflexión sobre cómo las estrategias ayudan a manejar emociones. Anima la práctica de técnicas.',
     },
     'interactive-sel-kindness': {
+      title: 'Desafío de Bondad',
       description: 'Completa actos diarios de bondad y reflexiona sobre cómo la bondad impacta a ti mismo y a otros.',
       kindnessChallenge: 'Desafío de Bondad',
       kindnessAct: 'Acto de Bondad',

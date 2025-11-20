@@ -3848,6 +3848,7 @@ export const en = {
       answerKey: 'Student responses may vary. Evaluate based on use of art vocabulary, detailed observations, thoughtful analysis of art elements (line, color, shape, etc.), and ability to express personal impressions. Encourage specific, descriptive language.',
     },
     'interactive-logic-matching': {
+      title: 'Matching & Memory Games',
       description: 'Match objects, pictures, and concepts. Practice memory and recognition skills.',
       drawLineToMatch: 'Draw a line to match',
       answerKey: 'Students should correctly match related items (e.g., apple-fruit, car-vehicle). Check for understanding of relationships and categorization.',
@@ -3923,6 +3924,7 @@ export const en = {
       answerKey: 'Student responses may vary. Check for understanding of self-regulation strategies, ability to identify when strategies are needed, and reflection on how strategies help manage emotions. Encourage practice of techniques.',
     },
     'interactive-sel-kindness': {
+      title: 'Kindness Challenge',
       description: 'Complete daily acts of kindness and reflect on how kindness impacts yourself and others.',
       kindnessChallenge: 'Kindness Challenge',
       kindnessAct: 'Kindness Act',
