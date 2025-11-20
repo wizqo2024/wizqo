@@ -1840,6 +1840,74 @@ const ensureInteractiveWorksheetKeys = () => {
         draw: 'Draw',
         numberWord: 'Number word:',
       },
+      logicPrek: {
+        instructions: 'Complete simple patterns and sort objects by color, size, or type.',
+        pattern: 'Pattern',
+      },
+      selPrek: {
+        instructions: 'Identify and express feelings through pictures, simple words, and activities.',
+        feeling: 'Feeling:',
+        color: 'Color:',
+        drawTimeFelt: 'Draw a time you felt {{feeling}}',
+        howIFeelToday: 'How I Feel Today',
+      },
+      mathRhythm: {
+        instructions: 'Continue each skip-counting rhythm. Write the missing numbers in the blanks.',
+      },
+      logicRiddles: {
+        instructions: 'Solve each brain teaser. Write your guess, then reveal the answer.',
+        answer: 'Answer:',
+      },
+      logicDeduction: {
+        instructions: 'Use the clues to determine who borrowed each item and where it was found.',
+      },
+      cognitiveMemory: {
+        instructions: 'Try to remember all three sequences in order. Write them here:',
+      },
+      cognitiveAttention: {
+        instructions: 'Practice focusing your attention with visual scanning and spot-the-difference exercises.',
+        findAndCircle: 'Find and circle all the <span className="font-bold">{{items}}</span> shapes in the grid below:',
+        countHowMany: 'Count how many {{items}} shapes you found: _______',
+        compareImages: 'Compare the two images and find the differences:',
+      },
+      cognitiveExecutive: {
+        instructions: 'Practice planning, organizing, and completing tasks. This builds executive function skills!',
+        taskPlanning: 'Task Planning',
+        planTasksToday: 'Plan your tasks for today. Break each task into steps:',
+      },
+      cognitiveVisual: {
+        visualPatternMatching: 'Visual Pattern Matching',
+        comparePatterns: 'Compare the two patterns. Circle what\'s different:',
+        match: 'Match:',
+        drawItemPosition: 'Draw each item in the correct position:',
+        drawItemText: 'Draw a {{item}} {{text}} the line:',
+      },
+      cognitiveFlexibility: {
+        instructions: 'Complete each task, then switch to the new rule:',
+        perspectiveTakingPractice: 'Perspective-Taking Practice',
+        thinkAboutSituation: 'Think about each situation from different points of view:',
+      },
+      cognitiveProcessing: {
+        instructions: 'Circle all the ★ (stars) as quickly as you can:',
+      },
+      selConflict: {
+        instructions: 'Learn strategies to resolve conflicts peacefully. Think about how to communicate effectively.',
+      },
+      selRegulation: {
+        instructions: 'Practice self-regulation strategies. These techniques help you manage big feelings and make thoughtful choices.',
+      },
+      selKindness: {
+        instructions: 'Complete acts of kindness this week! Track your kindness and reflect on how it makes you and others feel.',
+      },
+      selGrowthMindset: {
+        instructions: 'Transform fixed mindset thoughts into growth mindset thoughts! Learn to embrace challenges and learn from mistakes.',
+      },
+      selStress: {
+        instructions: 'Identify stress triggers and practice healthy coping strategies. Learn to manage anxiety and stress effectively.',
+      },
+      selCharacter: {
+        instructions: 'Explore important character traits and values. Think about how these traits help you and others.',
+      },
       mathShapes: {
         instructions: 'Draw and tally each shape. Then classify it as "flat" or "solid" and record the number of sides.',
         shape: 'Shape',
@@ -2213,6 +2281,74 @@ const ensureInteractiveWorksheetKeys = () => {
         write: 'Escribe',
         draw: 'Dibuja',
         numberWord: 'Palabra del número:',
+      },
+      logicPrek: {
+        instructions: 'Completa patrones simples y clasifica objetos por color, tamaño o tipo.',
+        pattern: 'Patrón',
+      },
+      selPrek: {
+        instructions: 'Identifica y expresa sentimientos a través de imágenes, palabras simples y actividades.',
+        feeling: 'Sentimiento:',
+        color: 'Color:',
+        drawTimeFelt: 'Dibuja un momento en que te sentiste {{feeling}}',
+        howIFeelToday: 'Cómo Me Siento Hoy',
+      },
+      mathRhythm: {
+        instructions: 'Continúa cada ritmo de conteo saltado. Escribe los números faltantes en los espacios en blanco.',
+      },
+      logicRiddles: {
+        instructions: 'Resuelve cada acertijo. Escribe tu suposición, luego revela la respuesta.',
+        answer: 'Respuesta:',
+      },
+      logicDeduction: {
+        instructions: 'Usa las pistas para determinar quién tomó prestado cada artículo y dónde se encontró.',
+      },
+      cognitiveMemory: {
+        instructions: 'Intenta recordar las tres secuencias en orden. Escríbelas aquí:',
+      },
+      cognitiveAttention: {
+        instructions: 'Practica enfocar tu atención con ejercicios de escaneo visual y busca las diferencias.',
+        findAndCircle: 'Encuentra y encierra en un círculo todas las formas <span className="font-bold">{{items}}</span> en la cuadrícula a continuación:',
+        countHowMany: 'Cuenta cuántas formas {{items}} encontraste: _______',
+        compareImages: 'Compara las dos imágenes y encuentra las diferencias:',
+      },
+      cognitiveExecutive: {
+        instructions: 'Practica planificar, organizar y completar tareas. ¡Esto desarrolla habilidades de función ejecutiva!',
+        taskPlanning: 'Planificación de Tareas',
+        planTasksToday: 'Planifica tus tareas para hoy. Divide cada tarea en pasos:',
+      },
+      cognitiveVisual: {
+        visualPatternMatching: 'Coincidencia de Patrones Visuales',
+        comparePatterns: 'Compara los dos patrones. Encierra en un círculo lo que es diferente:',
+        match: 'Emparejar:',
+        drawItemPosition: 'Dibuja cada elemento en la posición correcta:',
+        drawItemText: 'Dibuja un {{item}} {{text}} la línea:',
+      },
+      cognitiveFlexibility: {
+        instructions: 'Completa cada tarea, luego cambia a la nueva regla:',
+        perspectiveTakingPractice: 'Práctica de Toma de Perspectiva',
+        thinkAboutSituation: 'Piensa en cada situación desde diferentes puntos de vista:',
+      },
+      cognitiveProcessing: {
+        instructions: 'Encierra en un círculo todas las ★ (estrellas) lo más rápido que puedas:',
+      },
+      selConflict: {
+        instructions: 'Aprende estrategias para resolver conflictos pacíficamente. Piensa en cómo comunicarte efectivamente.',
+      },
+      selRegulation: {
+        instructions: 'Practica estrategias de autorregulación. Estas técnicas te ayudan a manejar grandes sentimientos y tomar decisiones reflexivas.',
+      },
+      selKindness: {
+        instructions: '¡Completa actos de bondad esta semana! Rastrea tu bondad y reflexiona sobre cómo te hace sentir a ti y a otros.',
+      },
+      selGrowthMindset: {
+        instructions: '¡Transforma los pensamientos de mentalidad fija en pensamientos de mentalidad de crecimiento! Aprende a abrazar desafíos y aprender de errores.',
+      },
+      selStress: {
+        instructions: 'Identifica desencadenantes del estrés y practica estrategias saludables de afrontamiento. Aprende a manejar la ansiedad y el estrés efectivamente.',
+      },
+      selCharacter: {
+        instructions: 'Explora rasgos de carácter y valores importantes. Piensa en cómo estos rasgos te ayudan a ti y a otros.',
       },
       mathShapes: {
         instructions: 'Dibuja y cuenta cada forma. Luego clasifícala como "plana" o "sólida" y registra el número de lados.',
@@ -2588,6 +2724,74 @@ const ensureInteractiveWorksheetKeys = () => {
         draw: 'ارسم',
         numberWord: 'كلمة الرقم:',
       },
+      logicPrek: {
+        instructions: 'أكمل الأنماط البسيطة وصنف الكائنات حسب اللون أو الحجم أو النوع.',
+        pattern: 'النمط',
+      },
+      selPrek: {
+        instructions: 'حدد وعبّر عن المشاعر من خلال الصور والكلمات البسيطة والأنشطة.',
+        feeling: 'المشاعر:',
+        color: 'اللون:',
+        drawTimeFelt: 'ارسم وقتاً شعرت فيه بـ {{feeling}}',
+        howIFeelToday: 'كيف أشعر اليوم',
+      },
+      mathRhythm: {
+        instructions: 'أكمل كل إيقاع عد بالقفز. اكتب الأرقام المفقودة في الفراغات.',
+      },
+      logicRiddles: {
+        instructions: 'حل كل لغز. اكتب تخمينك، ثم كشف الإجابة.',
+        answer: 'الإجابة:',
+      },
+      logicDeduction: {
+        instructions: 'استخدم الأدلة لتحديد من استعار كل عنصر وأين تم العثور عليه.',
+      },
+      cognitiveMemory: {
+        instructions: 'حاول تذكر التسلسلات الثلاثة بالترتيب. اكتبها هنا:',
+      },
+      cognitiveAttention: {
+        instructions: 'تدرب على التركيز على انتباهك مع تمارين المسح البصري والبحث عن الاختلافات.',
+        findAndCircle: 'ابحث وضع دائرة حول جميع الأشكال <span className="font-bold">{{items}}</span> في الشبكة أدناه:',
+        countHowMany: 'عد كم عدد الأشكال {{items}} التي وجدتها: _______',
+        compareImages: 'قارن الصورتين وابحث عن الاختلافات:',
+      },
+      cognitiveExecutive: {
+        instructions: 'تدرب على التخطيط والتنظيم وإكمال المهام. هذا يبني مهارات الوظيفة التنفيذية!',
+        taskPlanning: 'تخطيط المهام',
+        planTasksToday: 'خطط مهامك لليوم. قسم كل مهمة إلى خطوات:',
+      },
+      cognitiveVisual: {
+        visualPatternMatching: 'مطابقة الأنماط البصرية',
+        comparePatterns: 'قارن النمطين. ضع دائرة حول ما يختلف:',
+        match: 'مطابقة:',
+        drawItemPosition: 'ارسم كل عنصر في الموضع الصحيح:',
+        drawItemText: 'ارسم {{item}} {{text}} الخط:',
+      },
+      cognitiveFlexibility: {
+        instructions: 'أكمل كل مهمة، ثم انتقل إلى القاعدة الجديدة:',
+        perspectiveTakingPractice: 'ممارسة أخذ المنظور',
+        thinkAboutSituation: 'فكر في كل موقف من وجهات نظر مختلفة:',
+      },
+      cognitiveProcessing: {
+        instructions: 'ضع دائرة حول جميع ★ (النجوم) بأسرع ما يمكن:',
+      },
+      selConflict: {
+        instructions: 'تعلم استراتيجيات حل النزاعات بسلام. فكر في كيفية التواصل الفعال.',
+      },
+      selRegulation: {
+        instructions: 'تدرب على استراتيجيات التنظيم الذاتي. هذه التقنيات تساعدك على إدارة المشاعر الكبيرة واتخاذ خيارات مدروسة.',
+      },
+      selKindness: {
+        instructions: 'أكمل أعمال لطف هذا الأسبوع! تتبع لطفك وتأمل في كيفية تأثيره على نفسك والآخرين.',
+      },
+      selGrowthMindset: {
+        instructions: 'حوّل أفكار العقلية الثابتة إلى أفكار عقلية النمو! تعلم احتضان التحديات والتعلم من الأخطاء.',
+      },
+      selStress: {
+        instructions: 'حدد محفزات التوتر ومارس استراتيجيات مواجهة صحية. تعلم إدارة القلق والتوتر بفعالية.',
+      },
+      selCharacter: {
+        instructions: 'استكشف سمات الشخصية والقيم المهمة. فكر في كيفية مساعدة هذه السمات لك والآخرين.',
+      },
       mathShapes: {
         instructions: 'ارسم واحسب كل شكل. ثم صنفه كـ "مسطح" أو "مجسم" وسجل عدد الأضلاع.',
         shape: 'الشكل',
@@ -2907,6 +3111,57 @@ const ensureInteractiveWorksheetKeys = () => {
       }
       if (keys.grammarPrek) {
         worksheets.grammarPrek = keys.grammarPrek
+      }
+      if (keys.logicPrek) {
+        worksheets.logicPrek = keys.logicPrek
+      }
+      if (keys.selPrek) {
+        worksheets.selPrek = keys.selPrek
+      }
+      if (keys.mathRhythm) {
+        worksheets.mathRhythm = keys.mathRhythm
+      }
+      if (keys.logicRiddles) {
+        worksheets.logicRiddles = keys.logicRiddles
+      }
+      if (keys.logicDeduction) {
+        worksheets.logicDeduction = keys.logicDeduction
+      }
+      if (keys.cognitiveMemory) {
+        worksheets.cognitiveMemory = keys.cognitiveMemory
+      }
+      if (keys.cognitiveAttention) {
+        worksheets.cognitiveAttention = keys.cognitiveAttention
+      }
+      if (keys.cognitiveExecutive) {
+        worksheets.cognitiveExecutive = keys.cognitiveExecutive
+      }
+      if (keys.cognitiveVisual) {
+        worksheets.cognitiveVisual = keys.cognitiveVisual
+      }
+      if (keys.cognitiveFlexibility) {
+        worksheets.cognitiveFlexibility = keys.cognitiveFlexibility
+      }
+      if (keys.cognitiveProcessing) {
+        worksheets.cognitiveProcessing = keys.cognitiveProcessing
+      }
+      if (keys.selConflict) {
+        worksheets.selConflict = keys.selConflict
+      }
+      if (keys.selRegulation) {
+        worksheets.selRegulation = keys.selRegulation
+      }
+      if (keys.selKindness) {
+        worksheets.selKindness = keys.selKindness
+      }
+      if (keys.selGrowthMindset) {
+        worksheets.selGrowthMindset = keys.selGrowthMindset
+      }
+      if (keys.selStress) {
+        worksheets.selStress = keys.selStress
+      }
+      if (keys.selCharacter) {
+        worksheets.selCharacter = keys.selCharacter
       }
     }
   }

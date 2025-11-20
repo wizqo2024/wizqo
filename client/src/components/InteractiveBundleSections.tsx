@@ -723,7 +723,7 @@ const renderers: Record<string, Renderer> = {
     return (
       <div className="space-y-3">
         <p className="text-sm text-slate-600">
-          Continue each skip-counting rhythm. Write the missing numbers in the blanks.
+          {t('worksheets.mathRhythm.instructions')}
         </p>
         <div className="grid gap-3">
           {sequences.map((sequence, rowIdx) => {
@@ -2495,7 +2495,7 @@ const renderers: Record<string, Renderer> = {
     return (
       <div className="space-y-3">
         <p className="text-sm text-slate-600">
-          Complete simple patterns and sort objects by color, size, or type.
+          {t('worksheets.logicPrek.instructions')}
         </p>
         <div className="space-y-3">
           {patterns.map((pattern, idx) => {
@@ -2505,7 +2505,7 @@ const renderers: Record<string, Renderer> = {
             const previewTokens = pattern.split('').map((char) => (char === 'A' ? first : char === 'B' ? second : third))
             return (
               <div key={idx} className="rounded-xl border border-slate-200 bg-white p-4">
-                <p className="text-xs uppercase text-slate-500">Pattern {pattern}</p>
+                <p className="text-xs uppercase text-slate-500">{t('worksheets.logicPrek.pattern')} {pattern}</p>
                 <div className="mt-3 flex items-center gap-2">
                   {previewTokens.map((token, tokenIdx) => (
                     <span key={`${token.key}-${tokenIdx}`} className="relative inline-flex items-center justify-center">
@@ -2545,7 +2545,7 @@ const renderers: Record<string, Renderer> = {
     return (
       <div className="space-y-3">
         <p className="text-sm text-slate-600">
-          Identify and express feelings through pictures, simple words, and activities.
+          {t('worksheets.selPrek.instructions')}
         </p>
         <div className="grid gap-4 md:grid-cols-2">
           {feelings.map((feeling, idx) => (
@@ -2553,18 +2553,18 @@ const renderers: Record<string, Renderer> = {
               <div className="flex items-center gap-3">
                 <span className="text-3xl">{feeling.emoji}</span>
                 <div className="flex-1">
-                  <p className="text-sm font-semibold text-pink-700">Feeling: {feeling.feeling}</p>
-                  <p className="text-xs text-pink-600">Color: {feeling.color}</p>
+                  <p className="text-sm font-semibold text-pink-700">{t('worksheets.selPrek.feeling')} {feeling.feeling}</p>
+                  <p className="text-xs text-pink-600">{t('worksheets.selPrek.color')} {feeling.color}</p>
                 </div>
               </div>
               <div className="mt-2 h-12 rounded border border-dashed border-pink-300 bg-white">
-                <p className="p-2 text-xs text-pink-600">Draw a time you felt {feeling.feeling}</p>
+                <p className="p-2 text-xs text-pink-600">{t('worksheets.selPrek.drawTimeFelt').replace('{{feeling}}', feeling.feeling)}</p>
               </div>
             </div>
           ))}
         </div>
         <div className="rounded-xl border border-pink-200 bg-pink-50 p-4">
-          <p className="text-sm font-semibold text-pink-700">How I Feel Today</p>
+          <p className="text-sm font-semibold text-pink-700">{t('worksheets.selPrek.howIFeelToday')}</p>
           <div className="mt-2 flex gap-2">
             {feelings.map((feeling, idx) => (
               <div key={idx} className="flex flex-col items-center">
@@ -2630,7 +2630,7 @@ const renderers: Record<string, Renderer> = {
     return (
       <div className="space-y-3">
         <p className="text-sm text-slate-600">
-          Solve each brain teaser. Write your guess, then reveal the answer.
+          {t('worksheets.logicRiddles.instructions')}
         </p>
         <div className="space-y-3">
           {riddles.map(([riddle, answer], idx) => (
@@ -2638,7 +2638,7 @@ const renderers: Record<string, Renderer> = {
               <p className="font-semibold text-slate-900">Riddle {idx + 1}</p>
               <p>{riddle}</p>
               <p className="mt-2 text-xs text-slate-500">My guess: __________________________</p>
-              <p className="mt-1 text-xs text-slate-500">Answer: {answer}</p>
+              <p className="mt-1 text-xs text-slate-500">{t('worksheets.logicRiddles.answer')} {answer}</p>
             </div>
           ))}
         </div>
@@ -2654,7 +2654,7 @@ const renderers: Record<string, Renderer> = {
     return (
       <div className="space-y-3">
         <p className="text-sm text-slate-600">
-          Use the clues to determine who borrowed each item and where it was found.
+          {t('worksheets.logicDeduction.instructions')}
         </p>
         <table className="w-full border border-slate-300 text-sm">
           <thead className="bg-slate-100">
@@ -2717,7 +2717,7 @@ const renderers: Record<string, Renderer> = {
         </div>
         <div className="rounded-lg border border-purple-200 bg-white px-4 py-3 text-xs text-purple-700">
           <p className="font-semibold mb-1">Memory Challenge:</p>
-          <p>Try to remember all three sequences in order. Write them here:</p>
+          <p>{t('worksheets.cognitiveMemory.instructions')}</p>
           <div className="mt-2 space-y-1">
             <p>Sequence 1: ________________________________________________</p>
             <p>Sequence 2: ________________________________________________</p>
@@ -2743,11 +2743,11 @@ const renderers: Record<string, Renderer> = {
     return (
       <div className="space-y-4">
         <p className="text-sm text-slate-600">
-          Practice focusing your attention with visual scanning and spot-the-difference exercises.
+          {t('worksheets.cognitiveAttention.instructions')}
         </p>
         <div className="rounded-xl border border-blue-200 bg-blue-50 p-4">
           <p className="text-sm font-semibold text-blue-700 mb-2">Visual Scanning Challenge</p>
-          <p className="text-xs text-blue-600 mb-3">Find and circle all the <span className="font-bold">{targetItems}</span> shapes in the grid below:</p>
+          <p className="text-xs text-blue-600 mb-3" dangerouslySetInnerHTML={{ __html: t('worksheets.cognitiveAttention.findAndCircle').replace('{{items}}', targetItems) }}></p>
           <div className="bg-white rounded-lg p-3 border border-blue-200">
             <div className="grid grid-cols-5 gap-1">
               {gridItems.map((item, idx) => (
@@ -2757,11 +2757,11 @@ const renderers: Record<string, Renderer> = {
               ))}
             </div>
           </div>
-          <p className="text-xs text-blue-600 mt-2">Count how many {targetItems} shapes you found: _______</p>
+          <p className="text-xs text-blue-600 mt-2">{t('worksheets.cognitiveAttention.countHowMany').replace('{{items}}', targetItems)}</p>
         </div>
         <div className="rounded-xl border border-green-200 bg-green-50 p-4">
           <p className="text-sm font-semibold text-green-700 mb-2">Spot the Difference</p>
-          <p className="text-xs text-green-600 mb-3">Compare the two images and find the differences:</p>
+          <p className="text-xs text-green-600 mb-3">{t('worksheets.cognitiveAttention.compareImages')}</p>
           <div className="space-y-3">
             {differences.map((diff, idx) => (
               <div key={idx} className="bg-white rounded-lg p-3 border border-green-200">
@@ -2801,11 +2801,11 @@ const renderers: Record<string, Renderer> = {
     return (
       <div className="space-y-4">
         <p className="text-sm text-slate-600">
-          Practice planning, organizing, and completing tasks. This builds executive function skills!
+          {t('worksheets.cognitiveExecutive.instructions')}
         </p>
         <div className="rounded-xl border border-indigo-200 bg-indigo-50 p-4">
-          <p className="text-sm font-semibold text-indigo-700 mb-3">Task Planning</p>
-          <p className="text-xs text-indigo-600 mb-3">Plan your tasks for today. Break each task into steps:</p>
+          <p className="text-sm font-semibold text-indigo-700 mb-3">{t('worksheets.cognitiveExecutive.taskPlanning')}</p>
+          <p className="text-xs text-indigo-600 mb-3">{t('worksheets.cognitiveExecutive.planTasksToday')}</p>
           <div className="space-y-3">
             {tasks.map((task, idx) => (
               <div key={idx} className="bg-white rounded-lg p-3 border border-indigo-200">
@@ -2863,7 +2863,7 @@ const renderers: Record<string, Renderer> = {
     return (
       <div className="space-y-4">
         <p className="text-sm text-slate-600">
-          Improve your processing speed by quickly identifying and responding to visual information.
+          {t('worksheets.cognitiveProcessing.instructions')}
         </p>
         <div className="rounded-xl border border-orange-200 bg-orange-50 p-4">
           <p className="text-sm font-semibold text-orange-700 mb-2">Quick Symbol Recognition</p>
@@ -2915,11 +2915,11 @@ const renderers: Record<string, Renderer> = {
     return (
       <div className="space-y-4">
         <p className="text-sm text-slate-600">
-          Strengthen visual processing skills through pattern matching and spatial reasoning exercises.
+          {t('worksheets.cognitiveVisual.visualPatternMatching')}
         </p>
         <div className="rounded-xl border border-pink-200 bg-pink-50 p-4">
-          <p className="text-sm font-semibold text-pink-700 mb-3">Visual Pattern Matching</p>
-          <p className="text-xs text-pink-600 mb-3">Compare the two patterns. Circle what's different:</p>
+          <p className="text-sm font-semibold text-pink-700 mb-3">{t('worksheets.cognitiveVisual.visualPatternMatching')}</p>
+          <p className="text-xs text-pink-600 mb-3">{t('worksheets.cognitiveVisual.comparePatterns')}</p>
           <div className="space-y-3">
             {patterns.map((pattern, idx) => (
               <div key={idx} className="bg-white rounded-lg p-3 border border-pink-200">
@@ -2934,7 +2934,7 @@ const renderers: Record<string, Renderer> = {
                     </div>
                   </div>
                   <div>
-                    <p className="text-xs text-pink-600 mb-1">Match:</p>
+                    <p className="text-xs text-pink-600 mb-1">{t('worksheets.cognitiveVisual.match')}</p>
                     <div className="flex gap-1">
                       {pattern.match.map((item, i) => (
                         <span key={i} className={`px-2 py-1 rounded text-xs font-semibold ${item !== pattern.original[i] ? 'bg-pink-200 text-pink-900 border-2 border-pink-500' : 'bg-pink-100 text-pink-800'}`}>{item}</span>
@@ -2949,12 +2949,12 @@ const renderers: Record<string, Renderer> = {
         </div>
         <div className="rounded-xl border border-pink-200 bg-pink-50 p-4">
           <p className="text-sm font-semibold text-pink-700 mb-3">Spatial Reasoning</p>
-          <p className="text-xs text-pink-600 mb-3">Draw each item in the correct position:</p>
+          <p className="text-xs text-pink-600 mb-3">{t('worksheets.cognitiveVisual.drawItemPosition')}</p>
           <div className="bg-white rounded-lg p-3 border border-pink-200">
             <div className="grid grid-cols-2 gap-4">
               {spatialItems.map((item, idx) => (
                 <div key={idx} className="border border-dashed border-pink-300 rounded p-3">
-                  <p className="text-xs text-pink-600 mb-2">Draw a {item.item} {item.text} the line:</p>
+                  <p className="text-xs text-pink-600 mb-2">{t('worksheets.cognitiveVisual.drawItemText').replace('{{item}}', item.item).replace('{{text}}', item.text)}</p>
                   {item.position === 'above' && (
                     <div className="h-20 border border-pink-200 rounded relative">
                       <div className="absolute bottom-0 left-0 right-0 h-0.5 bg-pink-600"></div>
@@ -2999,7 +2999,7 @@ const renderers: Record<string, Renderer> = {
     return (
       <div className="space-y-4">
         <p className="text-sm text-slate-600">
-          Practice cognitive flexibility by switching between tasks and thinking from different perspectives.
+          {t('worksheets.cognitiveFlexibility.instructions')}
         </p>
         <div className="rounded-xl border border-teal-200 bg-teal-50 p-4">
           <p className="text-sm font-semibold text-teal-700 mb-3">Task Switching Challenge</p>
@@ -3021,8 +3021,8 @@ const renderers: Record<string, Renderer> = {
           </div>
         </div>
         <div className="rounded-xl border border-teal-200 bg-teal-50 p-4">
-          <p className="text-sm font-semibold text-teal-700 mb-3">Perspective-Taking Practice</p>
-          <p className="text-xs text-teal-600 mb-3">Think about each situation from different points of view:</p>
+          <p className="text-sm font-semibold text-teal-700 mb-3">{t('worksheets.cognitiveFlexibility.perspectiveTakingPractice')}</p>
+          <p className="text-xs text-teal-600 mb-3">{t('worksheets.cognitiveFlexibility.thinkAboutSituation')}</p>
           <div className="space-y-3">
             {perspectives.map((perspective, idx) => (
               <div key={idx} className="bg-white rounded-lg p-3 border border-teal-200">
@@ -3141,7 +3141,7 @@ const renderers: Record<string, Renderer> = {
     ], 3)
     return (
       <div className="space-y-4">
-        <p className="text-sm text-slate-600">Learn strategies to resolve conflicts peacefully. Think about how to communicate effectively.</p>
+        <p className="text-sm text-slate-600">{t('worksheets.selConflict.instructions')}</p>
         <div className="space-y-3">
           {scenarios.map((scenario, idx) => (
             <div key={idx} className="rounded-xl border border-blue-200 bg-blue-50 p-4">
@@ -3174,7 +3174,7 @@ const renderers: Record<string, Renderer> = {
     ], 4)
     return (
       <div className="space-y-4">
-        <p className="text-sm text-slate-600">Practice self-regulation strategies. These techniques help you manage big feelings and make thoughtful choices.</p>
+        <p className="text-sm text-slate-600">{t('worksheets.selRegulation.instructions')}</p>
         <div className="grid gap-3 md:grid-cols-2">
           {strategies.map((strategy, idx) => (
             <div key={idx} className="rounded-xl border border-purple-200 bg-purple-50 p-4">
@@ -3210,7 +3210,7 @@ const renderers: Record<string, Renderer> = {
     ], 5)
     return (
       <div className="space-y-4">
-        <p className="text-base font-semibold text-indigo-800">Complete acts of kindness this week! Track your kindness and reflect on how it makes you and others feel.</p>
+        <p className="text-base font-semibold text-indigo-800">{t('worksheets.selKindness.instructions')}</p>
         <div className="rounded-xl border-2 border-indigo-300 bg-gradient-to-br from-indigo-50 via-violet-50 to-purple-50 p-5 shadow-lg">
           <div className="flex items-center gap-3 mb-4">
             <span className="text-4xl">💝</span>
@@ -3258,7 +3258,7 @@ const renderers: Record<string, Renderer> = {
     ], 3)
     return (
       <div className="space-y-4">
-        <p className="text-sm text-slate-600">Transform fixed mindset thoughts into growth mindset thoughts! Learn to embrace challenges and learn from mistakes.</p>
+        <p className="text-sm text-slate-600">{t('worksheets.selGrowthMindset.instructions')}</p>
         <div className="space-y-3">
           {fixedStatements.map((statement, idx) => (
             <div key={idx} className="rounded-xl border border-orange-200 bg-orange-50 p-4">
@@ -3298,7 +3298,7 @@ const renderers: Record<string, Renderer> = {
     ], 4)
     return (
       <div className="space-y-4">
-        <p className="text-sm text-slate-600">Identify stress triggers and practice healthy coping strategies. Learn to manage anxiety and stress effectively.</p>
+        <p className="text-sm text-slate-600">{t('worksheets.selStress.instructions')}</p>
         <div className="grid gap-4 md:grid-cols-2">
           <div className="rounded-xl border border-red-200 bg-red-50 p-4">
             <p className="text-sm font-semibold text-red-700 mb-3">Stress Triggers:</p>
@@ -3342,7 +3342,7 @@ const renderers: Record<string, Renderer> = {
     ], 4)
     return (
       <div className="space-y-4">
-        <p className="text-sm text-slate-600">Explore important character traits and values. Think about how these traits help you and others.</p>
+        <p className="text-sm text-slate-600">{t('worksheets.selCharacter.instructions')}</p>
         <div className="grid gap-3 md:grid-cols-2">
           {traits.map((trait, idx) => (
             <div key={idx} className="rounded-xl border border-indigo-200 bg-indigo-50 p-4">
