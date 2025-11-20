@@ -2809,7 +2809,7 @@ const renderers: Record<string, Renderer> = {
           <div className="space-y-3">
             {tasks.map((task, idx) => (
               <div key={idx} className="bg-white rounded-lg p-3 border border-indigo-200">
-                <p className="text-sm font-semibold text-indigo-800 mb-2">Task {idx + 1}: {task}</p>
+                <p className="text-sm font-semibold text-indigo-800 mb-2">{t('worksheets.answerKey.task').replace('{{number}}', String(idx + 1))} {task}</p>
                 <p className="text-xs text-indigo-600 mb-1">Steps to complete:</p>
                 <div className="space-y-1">
                   <p className="text-xs text-slate-500">Step 1: ________________________________</p>
@@ -3007,7 +3007,7 @@ const renderers: Record<string, Renderer> = {
           <div className="space-y-3">
             {tasks.map((taskItem, idx) => (
               <div key={idx} className="bg-white rounded-lg p-3 border border-teal-200">
-                <p className="text-sm font-semibold text-teal-800 mb-2">Task {idx + 1}: {taskItem.task}</p>
+                <p className="text-sm font-semibold text-teal-800 mb-2">{t('worksheets.answerKey.task').replace('{{number}}', String(idx + 1))} {taskItem.task}</p>
                 <div className="mb-2">
                   <p className="text-xs text-teal-600 mb-1">First rule: {taskItem.rule}</p>
                   <div className="h-12 border border-dashed border-teal-300 rounded bg-teal-50"></div>
@@ -3400,7 +3400,7 @@ const renderers: Record<string, Renderer> = {
                 {prob.type === 'evaluate' && `Evaluate ${prob.expr} when x = ${prob.x}`}
                 {prob.type === 'simplify' && `Simplify: ${prob.expr}`}
               </p>
-              <p className="mt-2 text-xs text-slate-500">Answer: _______________</p>
+              <p className="mt-2 text-xs text-slate-500">{t('worksheets.answerKey.answer')} _______________</p>
             </div>
           ))}
         </div>
@@ -3436,7 +3436,7 @@ const renderers: Record<string, Renderer> = {
           {problems.map((prob, idx) => (
             <div key={idx} className="rounded-xl border border-purple-200 bg-white p-4">
               <p className="text-sm font-semibold text-purple-800">{prob.q}</p>
-              <p className="mt-2 text-xs text-slate-500">Answer: _______________</p>
+              <p className="mt-2 text-xs text-slate-500">{t('worksheets.answerKey.answer')} _______________</p>
             </div>
           ))}
         </div>
@@ -3474,7 +3474,7 @@ const renderers: Record<string, Renderer> = {
           {problems.map((prob, idx) => (
             <div key={idx} className="rounded-xl border border-purple-200 bg-white p-4">
               <p className="text-sm font-semibold text-purple-800">{prob.q}</p>
-              <p className="mt-2 text-xs text-slate-500">Answer: _______________</p>
+              <p className="mt-2 text-xs text-slate-500">{t('worksheets.answerKey.answer')} _______________</p>
             </div>
           ))}
         </div>
@@ -3540,10 +3540,10 @@ const renderers: Record<string, Renderer> = {
         <div className="space-y-3">
           {problems.map((prob, idx) => (
             <div key={idx} className="rounded-xl border border-purple-200 bg-white p-4">
-              <p className="text-sm font-semibold text-purple-800">Problem {idx + 1}</p>
+              <p className="text-sm font-semibold text-purple-800">{t('worksheets.answerKey.problem').replace('{{number}}', String(idx + 1))}</p>
               <p className="mt-1 text-sm text-slate-700">{prob.q}</p>
               <div className="mt-3 h-16 border border-slate-200 rounded bg-slate-50"></div>
-              <p className="mt-2 text-xs text-slate-500">Answer: _______________</p>
+              <p className="mt-2 text-xs text-slate-500">{t('worksheets.answerKey.answer')} _______________</p>
             </div>
           ))}
         </div>
