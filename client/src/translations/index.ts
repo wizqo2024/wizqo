@@ -2860,6 +2860,9 @@ const ensureInteractiveWorksheetKeys = () => {
       if (keys.readingSightwords) {
         worksheets.readingSightwords = keys.readingSightwords
       }
+      if (keys.grammarRhyming) {
+        worksheets.grammarRhyming = keys.grammarRhyming
+      }
     }
   }
 }
