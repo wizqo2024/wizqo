@@ -2979,11 +2979,11 @@ const renderers: Record<string, Renderer> = {
               ))}
             </div>
           </div>
-          <p className="text-xs text-orange-600 mt-2">Time yourself: _______ seconds</p>
+          <p className="text-xs text-orange-600 mt-2">{t('worksheets.cognitiveProcessing.timeYourself')}</p>
         </div>
         <div className="rounded-xl border border-orange-200 bg-orange-50 p-4">
-          <p className="text-sm font-semibold text-orange-700 mb-2">Rapid Word Identification</p>
-          <p className="text-xs text-orange-600 mb-3">Quickly find and circle words that start with "b":</p>
+          <p className="text-sm font-semibold text-orange-700 mb-2">{t('worksheets.cognitiveProcessing.rapidWordIdentification')}</p>
+          <p className="text-xs text-orange-600 mb-3">{t('worksheets.cognitiveProcessing.quicklyFindAndCircle').replace('{{letter}}', 'b')}</p>
           <div className="bg-white rounded-lg p-3 border border-orange-200">
             <div className="flex flex-wrap gap-2">
               {words.map((word, idx) => (
@@ -2993,11 +2993,11 @@ const renderers: Record<string, Renderer> = {
               ))}
             </div>
           </div>
-          <p className="text-xs text-orange-600 mt-2">How many "b" words did you find? _______</p>
+          <p className="text-xs text-orange-600 mt-2">{t('worksheets.cognitiveProcessing.howManyWordsFound').replace('{{letter}}', 'b')}</p>
         </div>
         <div className="rounded-lg border border-orange-200 bg-white px-4 py-3 text-xs text-orange-700">
-          <p className="font-semibold mb-1">Speed Challenge:</p>
-          <p>Try to complete both exercises faster each time you practice!</p>
+          <p className="font-semibold mb-1">{t('worksheets.cognitiveProcessing.speedChallenge')}</p>
+          <p>{t('worksheets.cognitiveProcessing.tryToCompleteFaster')}</p>
         </div>
       </div>
     )
