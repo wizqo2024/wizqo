@@ -3923,7 +3923,7 @@ const renderers: Record<string, Renderer> = {
     )
   },
   'interactive-math-decimals': (ctx) => {
-    const { seed, doc, variant, t } = ctx
+    const { seed, doc, variant, t, formatNum } = ctx
     const problems = buildMathDecimals(seed, doc.id, variant)
     return (
       <div className="space-y-4">
@@ -3931,7 +3931,7 @@ const renderers: Record<string, Renderer> = {
         <div className="space-y-3">
           {problems.map((prob, idx) => (
             <div key={idx} className="rounded-xl border border-purple-200 bg-white p-4">
-              <p className="text-sm font-semibold text-purple-800 mb-2">{prob.num1} {prob.op} {prob.num2} = ________</p>
+              <p className="text-sm font-semibold text-purple-800 mb-2">{formatNum(prob.num1)} {prob.op} {formatNum(prob.num2)} = ________</p>
               <div className="mt-2 h-12 border border-dashed border-purple-300 rounded bg-purple-50"></div>
             </div>
           ))}
@@ -6505,7 +6505,8 @@ const answerRenderers: Record<string, AnswerRenderer> = {
       </div>
     )
   },
-  'interactive-math-decimals': ({ doc, seed, variant }) => {
+  'interactive-math-decimals': (ctx) => {
+    const { doc, seed, variant, t, formatNum } = ctx
     const problems = buildMathDecimals(seed, doc.id, variant)
     return (
       <div className="space-y-2">
@@ -6513,19 +6514,31 @@ const answerRenderers: Record<string, AnswerRenderer> = {
           {problems.map((prob, idx) => {
             let explanation = ''
             if (prob.op === '+') {
-              explanation = `Add: ${prob.num1} + ${prob.num2} = ${prob.answer}. Line up decimal points and add each place value.`
+              explanation = t('worksheets.decimals.answerKey.add')
+                .replace('{{num1}}', formatNum(prob.num1))
+                .replace('{{num2}}', formatNum(prob.num2))
+                .replace('{{answer}}', formatNum(prob.answer))
             } else if (prob.op === '-') {
-              explanation = `Subtract: ${prob.num1} - ${prob.num2} = ${prob.answer}. Line up decimal points and subtract each place value.`
+              explanation = t('worksheets.decimals.answerKey.subtract')
+                .replace('{{num1}}', formatNum(prob.num1))
+                .replace('{{num2}}', formatNum(prob.num2))
+                .replace('{{answer}}', formatNum(prob.answer))
             } else if (prob.op === '×') {
-              explanation = `Multiply: ${prob.num1} × ${prob.num2} = ${prob.answer}. Multiply as whole numbers, then count total decimal places and place decimal point.`
+              explanation = t('worksheets.decimals.answerKey.multiply')
+                .replace('{{num1}}', formatNum(prob.num1))
+                .replace('{{num2}}', formatNum(prob.num2))
+                .replace('{{answer}}', formatNum(prob.answer))
             } else {
-              explanation = `Divide: ${prob.num1} ÷ ${prob.num2} = ${prob.answer}. Move decimal points to make divisor whole, then divide normally.`
+              explanation = t('worksheets.decimals.answerKey.divide')
+                .replace('{{num1}}', formatNum(prob.num1))
+                .replace('{{num2}}', formatNum(prob.num2))
+                .replace('{{answer}}', formatNum(prob.answer))
             }
             return (
               <li key={idx} className="mb-3">
-                <span className="font-semibold">Problem {idx + 1}:</span> {prob.num1} {prob.op} {prob.num2} = <span className="text-emerald-700 font-bold">{prob.answer}</span>
+                <span className="font-semibold">{t('worksheets.decimals.answerKey.problem')} {formatNum(idx + 1)}:</span> {formatNum(prob.num1)} {prob.op} {formatNum(prob.num2)} = <span className="text-emerald-700 font-bold">{formatNum(prob.answer)}</span>
                 <p className="text-xs text-slate-600 mt-1 ml-4">
-                  <span className="font-semibold">Solution:</span> {explanation}
+                  <span className="font-semibold">{t('worksheets.decimals.answerKey.solution')}</span> {explanation}
                 </p>
               </li>
             )
@@ -6534,7 +6547,8 @@ const answerRenderers: Record<string, AnswerRenderer> = {
       </div>
     )
   },
-  'interactive-math-integers': ({ doc, seed, variant }) => {
+  'interactive-math-integers': (ctx) => {
+    const { doc, seed, variant, t, formatNum } = ctx
     const problems = buildMathIntegers(seed, doc.id, variant)
     return (
       <div className="space-y-2">
@@ -6543,23 +6557,23 @@ const answerRenderers: Record<string, AnswerRenderer> = {
             let explanation = ''
             if (prob.op === '+') {
               if (prob.num1 < 0 && prob.num2 < 0) {
-                explanation = `Add two negatives: (${prob.num1}) + (${prob.num2}) = ${prob.answer}. Add absolute values, keep negative sign.`
+                explanation = `${t('common.add')} ${t('common.twoNegatives')}: (${formatNum(prob.num1)}) + (${formatNum(prob.num2)}) = ${formatNum(prob.answer)}. ${t('common.addAbsoluteValues')}, ${t('common.keepNegativeSign')}.`
               } else if (prob.num1 < 0 || prob.num2 < 0) {
-                explanation = `Add positive and negative: ${prob.num1} + ${prob.num2} = ${prob.answer}. Subtract absolute values, keep sign of larger number.`
+                explanation = `${t('common.add')} ${t('common.positiveAndNegative')}: ${formatNum(prob.num1)} + ${formatNum(prob.num2)} = ${formatNum(prob.answer)}. ${t('common.subtractAbsoluteValues')}, ${t('common.keepSignOfLarger')}.`
               } else {
-                explanation = `Add two positives: ${prob.num1} + ${prob.num2} = ${prob.answer}.`
+                explanation = `${t('common.add')} ${t('common.twoPositives')}: ${formatNum(prob.num1)} + ${formatNum(prob.num2)} = ${formatNum(prob.answer)}.`
               }
             } else if (prob.op === '-') {
-              explanation = `Subtract: ${prob.num1} - ${prob.num2} = ${prob.answer}. Change subtraction to addition: ${prob.num1} + (${-prob.num2}) = ${prob.answer}.`
+              explanation = `${t('common.subtract')}: ${formatNum(prob.num1)} - ${formatNum(prob.num2)} = ${formatNum(prob.answer)}. ${t('common.changeSubtractionToAddition')}: ${formatNum(prob.num1)} + (${formatNum(-prob.num2)}) = ${formatNum(prob.answer)}.`
             } else {
-              const sign = (prob.num1 < 0) !== (prob.num2 < 0) ? 'negative' : 'positive'
-              explanation = `Multiply: ${prob.num1} × ${prob.num2} = ${prob.answer}. Multiply absolute values: ${Math.abs(prob.num1)} × ${Math.abs(prob.num2)} = ${Math.abs(prob.answer)}. Result is ${sign} because ${(prob.num1 < 0) !== (prob.num2 < 0) ? 'one number is negative' : 'both numbers have the same sign'}.`
+              const sign = (prob.num1 < 0) !== (prob.num2 < 0) ? t('common.negative') : t('common.positive')
+              explanation = `${t('common.multiply')}: ${formatNum(prob.num1)} × ${formatNum(prob.num2)} = ${formatNum(prob.answer)}. ${t('common.multiplyAbsoluteValues')}: ${formatNum(Math.abs(prob.num1))} × ${formatNum(Math.abs(prob.num2))} = ${formatNum(Math.abs(prob.answer))}. ${t('common.resultIs')} ${sign} ${t('common.because')} ${(prob.num1 < 0) !== (prob.num2 < 0) ? t('common.oneNumberNegative') : t('common.bothSameSign')}.`
             }
             return (
               <li key={idx} className="mb-3">
-                <span className="font-semibold">Problem {idx + 1}:</span> {prob.num1 < 0 ? `(${prob.num1})` : prob.num1} {prob.op} {prob.num2 < 0 ? `(${prob.num2})` : prob.num2} = <span className="text-emerald-700 font-bold">{prob.answer}</span>
+                <span className="font-semibold">{t('common.problem')} {formatNum(idx + 1)}:</span> {prob.num1 < 0 ? `(${formatNum(prob.num1)})` : formatNum(prob.num1)} {prob.op} {prob.num2 < 0 ? `(${formatNum(prob.num2)})` : formatNum(prob.num2)} = <span className="text-emerald-700 font-bold">{formatNum(prob.answer)}</span>
                 <p className="text-xs text-slate-600 mt-1 ml-4">
-                  <span className="font-semibold">Solution:</span> {explanation}
+                  <span className="font-semibold">{t('common.solution')}</span> {explanation}
                 </p>
               </li>
             )
@@ -6568,7 +6582,8 @@ const answerRenderers: Record<string, AnswerRenderer> = {
       </div>
     )
   },
-  'interactive-math-exponents': ({ doc, seed, variant }) => {
+  'interactive-math-exponents': (ctx) => {
+    const { doc, seed, variant, t, formatNum } = ctx
     const problems = buildMathExponents(seed, doc.id, variant)
     return (
       <div className="space-y-2">
@@ -6577,11 +6592,11 @@ const answerRenderers: Record<string, AnswerRenderer> = {
             const expansion = Array(prob.exponent).fill(prob.base).join(' × ')
             return (
               <li key={idx} className="mb-3">
-                <span className="font-semibold">Problem {idx + 1}:</span> {prob.base}<sup>{prob.exponent}</sup> = <span className="text-emerald-700 font-bold">{prob.answer}</span>
+                <span className="font-semibold">{t('common.problem')} {formatNum(idx + 1)}:</span> {formatNum(prob.base)}<sup>{formatNum(prob.exponent)}</sup> = <span className="text-emerald-700 font-bold">{formatNum(prob.answer)}</span>
                 <p className="text-xs text-slate-600 mt-1 ml-4">
-                  <span className="font-semibold">Solution:</span> {prob.base}<sup>{prob.exponent}</sup> means multiply {prob.base} by itself {prob.exponent} times.
-                  <span className="block mt-1"><span className="font-semibold">Expansion:</span> {expansion} = {prob.answer}</span>
-                  <span className="block mt-1"><span className="font-semibold">Tip:</span> The exponent tells you how many times to multiply the base. {prob.base}<sup>{prob.exponent}</sup> = {prob.base} × {prob.base} × ... ({prob.exponent} times).</span>
+                  <span className="font-semibold">{t('common.solution')}</span> {formatNum(prob.base)}<sup>{formatNum(prob.exponent)}</sup> {t('worksheets.exponents.answerKey.means')} {formatNum(prob.base)} {t('worksheets.exponents.answerKey.byItself')} {formatNum(prob.exponent)} {t('worksheets.exponents.answerKey.times')}.
+                  <span className="block mt-1"><span className="font-semibold">{t('common.expansion')}</span> {expansion} = {formatNum(prob.answer)}</span>
+                  <span className="block mt-1"><span className="font-semibold">{t('common.tip')}</span> {t('worksheets.exponents.answerKey.tip')} {formatNum(prob.base)}<sup>{formatNum(prob.exponent)}</sup> = {formatNum(prob.base)} × {formatNum(prob.base)} × ... ({formatNum(prob.exponent)} {t('worksheets.exponents.answerKey.times')}).</span>
                 </p>
               </li>
             )
