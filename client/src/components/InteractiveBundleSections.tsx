@@ -6460,8 +6460,13 @@ const answerRenderers: Record<string, AnswerRenderer> = {
             const strategyText = t('worksheets.division.answerKey.strategy')
             const remainderLabel = t('worksheets.division.answerKey.remainderLabel')
             
+            // Check if translation was found (not a raw key)
+            const isTranslationFound = (text: any, key: string) => {
+              return text && typeof text === 'string' && text !== key && !text.startsWith('worksheets.')
+            }
+            
             let solution = ''
-            if (divideIntoText && divideIntoText !== 'worksheets.division.answerKey.divideInto' && typeof divideIntoText === 'string') {
+            if (isTranslationFound(divideIntoText, 'worksheets.division.answerKey.divideInto')) {
               solution = divideIntoText
                 .replace(/\{\{dividend\}\}/g, formatNum(prob.dividend))
                 .replace(/\{\{divisor\}\}/g, formatNum(prob.divisor))
@@ -6472,13 +6477,13 @@ const answerRenderers: Record<string, AnswerRenderer> = {
             }
             
             if (prob.remainder > 0) {
-              if (remainderLeftText && remainderLeftText !== 'worksheets.division.answerKey.remainderLeft' && typeof remainderLeftText === 'string') {
+              if (isTranslationFound(remainderLeftText, 'worksheets.division.answerKey.remainderLeft')) {
                 solution += ' ' + remainderLeftText.replace(/\{\{remainder\}\}/g, formatNum(prob.remainder))
               } else {
                 solution += ` يتبقى ${formatNum(prob.remainder)} لا تشكل مجموعة كاملة.`
               }
             } else {
-              if (allGroupedText && allGroupedText !== 'worksheets.division.answerKey.allGrouped' && typeof allGroupedText === 'string') {
+              if (isTranslationFound(allGroupedText, 'worksheets.division.answerKey.allGrouped')) {
                 solution += ' ' + allGroupedText
               } else {
                 solution += ' جميع العناصر مجمعة بالتساوي.'
@@ -6486,7 +6491,7 @@ const answerRenderers: Record<string, AnswerRenderer> = {
             }
             
             let strategy = ''
-            if (strategyText && strategyText !== 'worksheets.division.answerKey.strategy' && typeof strategyText === 'string') {
+            if (isTranslationFound(strategyText, 'worksheets.division.answerKey.strategy')) {
               strategy = strategyText
                 .replace(/\{\{dividend\}\}/g, formatNum(prob.dividend))
                 .replace(/\{\{divisor\}\}/g, formatNum(prob.divisor))
