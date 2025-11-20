@@ -1003,13 +1003,17 @@ const renderers: Record<string, Renderer> = {
     )
   },
   'interactive-reading-detective': (ctx) => {
-    const { seed, doc, variant, t } = ctx
+    const { seed, doc, variant, t, language } = ctx
     const rng = makeRng(`${seed}|${doc.id}|${variant}`)
-    const mysteries = [
+    const defaultMysteries = [
       { title: 'The Missing Lab Goggles', culprit: 'an absent-minded janitor', clue: 'a trail of glitter', setting: 'science fair' },
       { title: 'Case of the Empty Birdhouse', culprit: 'a helpful raccoon', clue: 'muddy paw prints', setting: 'school garden' },
       { title: 'The Whispering Lockers', culprit: 'a friendly robot', clue: 'battery crumbs', setting: 'hallway' },
     ]
+    const translatedMysteries = language === 'ar'
+      ? (t('worksheets.readingDetective.mysteries') as unknown as typeof defaultMysteries) || defaultMysteries
+      : defaultMysteries
+    const mysteries = translatedMysteries.length > 0 ? translatedMysteries : defaultMysteries
     const caseFile = pick(rng, mysteries)
     const detectiveNotes = t('worksheets.readingDetective.detectiveNotes')
       .replace('{{setting}}', caseFile.setting)
@@ -1152,14 +1156,18 @@ const renderers: Record<string, Renderer> = {
     )
   },
   'interactive-reading-compare': (ctx) => {
-    const { seed, doc, variant, t } = ctx
+    const { seed, doc, variant, t, language } = ctx
     const rng = makeRng(`${seed}|${doc.id}|${variant}`)
-    const topics = [
+    const defaultTopics = [
       ['solar camping tent', 'traditional canvas tent'],
       ['silent reading nook', 'classroom makerspace'],
       ['city playground', 'forest trail'],
       ['robot helper', 'human volunteer'],
     ]
+    const translatedTopics = language === 'ar'
+      ? (t('worksheets.compare.topics') as unknown as string[][]) || defaultTopics
+      : defaultTopics
+    const topics = translatedTopics.length > 0 ? translatedTopics : defaultTopics
     const [topicA, topicB] = pick(rng, topics)
     return (
       <div className="space-y-3">
@@ -1188,17 +1196,26 @@ const renderers: Record<string, Renderer> = {
     )
   },
   'interactive-writing-prompts': (ctx) => {
-    const { seed, doc, variant, t, formatNum } = ctx
+    const { seed, doc, variant, t, formatNum, language } = ctx
     const rng = makeRng(`${seed}|${doc.id}|${variant}`)
-    const prompts = [
+    const prompts = language === 'ar' 
+      ? (t('worksheets.writingPrompts.prompts') as unknown as string[]) || []
+      : [
+          'Write about a time your class invented something helpful.',
+          'Describe a secret door you discover during recess.',
+          'Imagine the library books come alive at night?what happens?',
+          'Create a story where your pet becomes the substitute teacher.',
+          'Explain how to care for a tiny dragon who loves math.',
+          'Describe a neighborhood celebration that you design.',
+        ]
+    const chosen = pickMany(rng, prompts.length > 0 ? prompts : [
       'Write about a time your class invented something helpful.',
       'Describe a secret door you discover during recess.',
       'Imagine the library books come alive at night?what happens?',
       'Create a story where your pet becomes the substitute teacher.',
       'Explain how to care for a tiny dragon who loves math.',
       'Describe a neighborhood celebration that you design.',
-    ]
-    const chosen = pickMany(rng, prompts, 3)
+    ], 3)
     return (
       <div className="space-y-3">
         <p className="text-sm text-slate-600">
@@ -1246,9 +1263,13 @@ const renderers: Record<string, Renderer> = {
     )
   },
   'interactive-writing-poetry': (ctx) => {
-    const { seed, doc, variant, t, formatNum } = ctx
+    const { seed, doc, variant, t, formatNum, language } = ctx
     const rng = makeRng(`${seed}|${doc.id}|${variant}`)
-    const themes = ['rainy playground', 'city skyline', 'secret garden', 'music festival', 'winter morning', 'campfire night']
+    const defaultThemes = ['rainy playground', 'city skyline', 'secret garden', 'music festival', 'winter morning', 'campfire night']
+    const translatedThemes = language === 'ar'
+      ? (t('worksheets.writingPoetry.themes') as unknown as string[]) || defaultThemes
+      : defaultThemes
+    const themes = translatedThemes.length > 0 ? translatedThemes : defaultThemes
     const theme = pick(rng, themes)
     const wordBank = pickMany(rng, ['glimmer', 'echo', 'whirl', 'rustle', 'shimmer', 'spark', 'twirl', 'glide', 'bloom', 'glisten'], 6)
     return (
@@ -1279,9 +1300,13 @@ const renderers: Record<string, Renderer> = {
     )
   },
   'interactive-writing-opinion': (ctx) => {
-    const { seed, doc, variant, t, formatNum } = ctx
+    const { seed, doc, variant, t, formatNum, language } = ctx
     const rng = makeRng(`${seed}|${doc.id}|${variant}`)
-    const topics = ['Should recess be longer?', 'Is it better to read ebooks or paper books?', 'Should robots help with homework?', 'Is homework on weekends a good idea?', 'Should the cafeteria add a smoothie bar?']
+    const defaultTopics = ['Should recess be longer?', 'Is it better to read ebooks or paper books?', 'Should robots help with homework?', 'Is homework on weekends a good idea?', 'Should the cafeteria add a smoothie bar?']
+    const translatedTopics = language === 'ar'
+      ? (t('worksheets.writingOpinion.topics') as unknown as string[]) || defaultTopics
+      : defaultTopics
+    const topics = translatedTopics.length > 0 ? translatedTopics : defaultTopics
     const topic = pick(rng, topics)
     return (
       <div className="space-y-3">
@@ -4577,9 +4602,13 @@ const renderers: Record<string, Renderer> = {
     )
   },
   'interactive-reading-fluency': (ctx) => {
-    const { seed, doc, variant, t } = ctx
+    const { seed, doc, variant, t, language } = ctx
     const rng = makeRng(`${seed}|${doc.id}|${variant}`)
-    const passages = pickMany(rng, ['The cat sat on the mat. The cat is happy.', 'I see a big tree. The tree has green leaves.', 'The sun is bright. It shines in the sky.', 'I like to read books. Books are fun to read.'], 2)
+    const defaultPassages = ['The cat sat on the mat. The cat is happy.', 'I see a big tree. The tree has green leaves.', 'The sun is bright. It shines in the sky.', 'I like to read books. Books are fun to read.']
+    const translatedPassages = language === 'ar' 
+      ? (t('worksheets.readingFluency.passages') as unknown as string[]) || defaultPassages
+      : defaultPassages
+    const passages = pickMany(rng, translatedPassages.length > 0 ? translatedPassages : defaultPassages, 2)
     return (
       <div className="space-y-4">
         <p className="text-sm text-slate-600">{t('worksheets.readingFluency.instructions')}</p>
