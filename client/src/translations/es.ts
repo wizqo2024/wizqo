@@ -22,6 +22,8 @@ export const es = {
     problem: 'Problema',
     explanation: 'Explicación',
     place: 'lugar',
+    comingSoon: 'Próximamente: actividad imprimible para esta hoja de trabajo interactiva.',
+    answersWillBeAdded: 'Se agregarán las respuestas una vez que esta actividad esté disponible.',
   },
   worksheets: {
     countObjectsAndWriteNumber: 'Cuenta los objetos y escribe el número.',

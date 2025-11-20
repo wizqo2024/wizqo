@@ -19,6 +19,8 @@ export const en = {
     problem: 'Problem',
     explanation: 'Explanation',
     place: 'place',
+    comingSoon: 'Coming soon: printable activity for this interactive worksheet.',
+    answersWillBeAdded: 'Answers will be added once this activity is available.',
   },
   worksheets: {
     countObjectsAndWriteNumber: 'Count the objects and write the number.',

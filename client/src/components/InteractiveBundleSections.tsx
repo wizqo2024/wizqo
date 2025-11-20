@@ -2866,8 +2866,8 @@ const renderers: Record<string, Renderer> = {
           {t('worksheets.cognitiveProcessing.instructions')}
         </p>
         <div className="rounded-xl border border-orange-200 bg-orange-50 p-4">
-          <p className="text-sm font-semibold text-orange-700 mb-2">Quick Symbol Recognition</p>
-          <p className="text-xs text-orange-600 mb-3">Circle all the ★ (stars) as quickly as you can:</p>
+          <p className="text-sm font-semibold text-orange-700 mb-2">{t('worksheets.cognitiveProcessing.quickSymbolRecognition')}</p>
+          <p className="text-xs text-orange-600 mb-3">{t('worksheets.cognitiveProcessing.circleAllStars')}</p>
           <div className="bg-white rounded-lg p-3 border border-orange-200">
             <div className="flex flex-wrap gap-2">
               {quickItems.map((symbol, idx) => (
@@ -3002,8 +3002,8 @@ const renderers: Record<string, Renderer> = {
           {t('worksheets.cognitiveFlexibility.instructions')}
         </p>
         <div className="rounded-xl border border-teal-200 bg-teal-50 p-4">
-          <p className="text-sm font-semibold text-teal-700 mb-3">Task Switching Challenge</p>
-          <p className="text-xs text-teal-600 mb-3">Complete each task, then switch to the new rule:</p>
+          <p className="text-sm font-semibold text-teal-700 mb-3">{t('worksheets.cognitiveFlexibility.taskSwitchingChallenge')}</p>
+          <p className="text-xs text-teal-600 mb-3">{t('worksheets.cognitiveFlexibility.completeEachTask')}</p>
           <div className="space-y-3">
             {tasks.map((taskItem, idx) => (
               <div key={idx} className="bg-white rounded-lg p-3 border border-teal-200">
@@ -3390,13 +3390,13 @@ const renderers: Record<string, Renderer> = {
     return (
       <div className="space-y-3">
         <p className="text-sm text-slate-600">
-          Solve each equation, evaluate each expression, or simplify as indicated.
+          {t('worksheets.algebra.solveEachEquation')}
         </p>
         <div className="space-y-3">
           {problems.map((prob, idx) => (
             <div key={idx} className="rounded-xl border border-purple-200 bg-white p-4">
               <p className="text-sm font-semibold text-purple-800">
-                {prob.type === 'solve' && `Solve: ${prob.eq}`}
+                {prob.type === 'solve' && `${t('worksheets.algebra.solve')} ${prob.eq}`}
                 {prob.type === 'evaluate' && `Evaluate ${prob.expr} when x = ${prob.x}`}
                 {prob.type === 'simplify' && `Simplify: ${prob.expr}`}
               </p>
@@ -3535,7 +3535,7 @@ const renderers: Record<string, Renderer> = {
     return (
       <div className="space-y-3">
         <p className="text-sm text-slate-600">
-          Solve each multi-step word problem. Show your work.
+          {t('worksheets.wordProblems.solveEachMultiStep')}
         </p>
         <div className="space-y-3">
           {problems.map((prob, idx) => (
@@ -3904,7 +3904,7 @@ const renderers: Record<string, Renderer> = {
     return (
       <div className="space-y-3">
         <p className="text-sm text-slate-600">
-          Read the passage and analyze the literary elements below. Provide evidence from the text.
+          {t('worksheets.readingLiterary.readAndAnalyze')}
         </p>
         <div className="rounded-xl border border-slate-200 bg-slate-50 p-4 mb-4">
           <p className="text-sm font-semibold text-slate-900 mb-2">{passage.title}</p>
@@ -3934,7 +3934,7 @@ const renderers: Record<string, Renderer> = {
         <div className="space-y-4">
           {topics.map((topic, idx) => (
             <div key={idx} className="rounded-xl border border-blue-200 bg-white p-4">
-              <p className="text-sm font-semibold text-blue-800 capitalize">Topic: {topic}</p>
+              <p className="text-sm font-semibold text-blue-800 capitalize">{t('worksheets.readingVocab.topic')} {topic}</p>
               <div className="mt-3 space-y-2 text-xs">
                 <p className="text-slate-600">Key Fact 1: ________________________________</p>
                 <p className="text-slate-600">Source: ___________________________________</p>
@@ -3958,7 +3958,7 @@ const renderers: Record<string, Renderer> = {
         </p>
         <div className="space-y-4">
           <div className="rounded-xl border border-emerald-200 bg-white p-4">
-            <p className="text-sm font-semibold text-emerald-800">Research Topic:</p>
+            <p className="text-sm font-semibold text-emerald-800">{t('worksheets.readingResearch.researchTopic')}</p>
             <p className="mt-1 text-xs text-slate-500">________________________________</p>
             <p className="mt-3 text-sm font-semibold text-emerald-800">Thesis Statement:</p>
             <p className="mt-1 text-xs text-slate-500">________________________________</p>
@@ -3998,10 +3998,10 @@ const renderers: Record<string, Renderer> = {
     return (
       <div className="space-y-3">
         <p className="text-sm text-slate-600">
-          Write a structured essay responding to the prompt below.
+          {t('worksheets.writingEssay.writeStructuredEssay')}
         </p>
         <div className="rounded-xl border border-emerald-200 bg-emerald-50 p-4 mb-4">
-          <p className="text-sm font-semibold text-emerald-900">Prompt: {prompts[0]}</p>
+          <p className="text-sm font-semibold text-emerald-900">{t('worksheets.writingEssay.prompt')} {prompts[0]}</p>
         </div>
         <div className="space-y-4">
           <div className="rounded-xl border border-emerald-200 bg-white p-4">
@@ -4159,7 +4159,7 @@ const renderers: Record<string, Renderer> = {
     return (
       <div className="space-y-3">
         <p className="text-sm text-slate-600">
-          Identify clauses, phrases, and advanced sentence structures in each sentence.
+          {t('worksheets.grammarAdvanced.identifyClauses')}
         </p>
         <div className="space-y-3">
           {sentences.map((sentence, idx) => (
@@ -4216,7 +4216,7 @@ const renderers: Record<string, Renderer> = {
                   <span className="text-2xl text-green-600 font-light">{letter}</span>
                   <div className="flex-1 h-8 border border-dashed border-green-300 bg-white rounded"></div>
                 </div>
-                <p className="text-xs text-green-600">Write 3 times:</p>
+                <p className="text-xs text-green-600">{t('worksheets.writingTrace.write3Times')}</p>
                 <div className="flex gap-2">
                   <div className="flex-1 h-8 border border-dashed border-green-300 bg-white rounded"></div>
                   <div className="flex-1 h-8 border border-dashed border-green-300 bg-white rounded"></div>
@@ -4246,23 +4246,23 @@ const renderers: Record<string, Renderer> = {
     const lowercaseLetters = pickMany(rng, ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z'], 6)
     return (
       <div className="space-y-4">
-        <p className="text-sm text-slate-600">Practice tracing lowercase letters neatly. Follow the dotted lines, then write each letter 3 times on your own.</p>
+        <p className="text-sm text-slate-600">{t('worksheets.writingTrace.practiceTracing')}</p>
         <div className="grid gap-4 md:grid-cols-3">
           {lowercaseLetters.map((letter, idx) => (
             <div key={idx} className="rounded-xl border border-blue-200 bg-blue-50 p-4">
-              <p className="text-sm font-semibold text-blue-700 mb-3 text-center">Letter: {letter}</p>
+              <p className="text-sm font-semibold text-blue-700 mb-3 text-center">{t('worksheets.writingTrace.letter')} {letter}</p>
               <div className="space-y-3">
                 <div className="bg-white rounded-lg p-3 border border-blue-200">
-                  <p className="text-xs text-blue-600 mb-2 text-center">Trace the letter:</p>
+                  <p className="text-xs text-blue-600 mb-2 text-center">{t('worksheets.writingTrace.traceTheLetter')}</p>
                   <div className="flex items-center justify-center">
                     <span className="text-4xl text-blue-400 font-light" style={{ fontFamily: 'monospace' }}>{letter}</span>
                     <div className="ml-2 flex-1 h-10 border-2 border-dashed border-blue-300 bg-white rounded flex items-center justify-center">
-                      <span className="text-xs text-blue-400">Trace here</span>
+                      <span className="text-xs text-blue-400">{t('worksheets.writingTrace.traceHere')}</span>
                     </div>
                   </div>
                 </div>
                 <div className="bg-white rounded-lg p-3 border border-blue-200">
-                  <p className="text-xs text-blue-600 mb-2 text-center">Write 3 times:</p>
+                  <p className="text-xs text-blue-600 mb-2 text-center">{t('worksheets.writingTrace.write3Times')}</p>
                   <div className="flex gap-2">
                     <div className="flex-1 h-8 border border-dashed border-blue-300 bg-white rounded"></div>
                     <div className="flex-1 h-8 border border-dashed border-blue-300 bg-white rounded"></div>
@@ -4274,8 +4274,8 @@ const renderers: Record<string, Renderer> = {
           ))}
         </div>
         <div className="rounded-xl border border-blue-200 bg-blue-50 p-4 mt-4">
-          <p className="text-sm font-semibold text-blue-700 mb-2">Practice All Letters</p>
-          <p className="text-xs text-blue-600 mb-3">Write the entire lowercase alphabet:</p>
+          <p className="text-sm font-semibold text-blue-700 mb-2">{t('worksheets.writingTrace.practiceAllLetters')}</p>
+          <p className="text-xs text-blue-600 mb-3">{t('worksheets.writingTrace.writeEntireAlphabet')}</p>
           <div className="bg-white rounded-lg p-3 border border-blue-200">
             <div className="flex flex-wrap gap-2">
               {['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z'].map((ltr, idx) => (
@@ -4301,15 +4301,15 @@ const renderers: Record<string, Renderer> = {
     ], 4)
     return (
       <div className="space-y-4">
-        <p className="text-sm text-slate-600">Look at each picture prompt and write simple sentences or a short story about what you see.</p>
+        <p className="text-sm text-slate-600">{t('worksheets.writingPictures.instructions')}</p>
         <div className="grid gap-4 md:grid-cols-2">
           {prompts.map((prompt, idx) => (
             <div key={idx} className="rounded-xl border border-blue-200 bg-blue-50 p-4">
               <p className="text-sm font-semibold text-blue-700 mb-2">{prompt.picture}</p>
-              <div className="mt-2 h-24 rounded border border-dashed border-blue-300 bg-white"><p className="p-2 text-xs text-blue-600">Draw the picture</p></div>
+              <div className="mt-2 h-24 rounded border border-dashed border-blue-300 bg-white"><p className="p-2 text-xs text-blue-600">{t('worksheets.writingPictures.drawPicture')}</p></div>
               <p className="mt-2 text-xs text-blue-700">{prompt.question}</p>
               <div className="mt-1 h-12 rounded border border-dashed border-blue-300 bg-white"></div>
-              <p className="mt-2 text-xs text-blue-600">Write a sentence:</p>
+              <p className="mt-2 text-xs text-blue-600">{t('worksheets.writingPictures.writeSentence')}</p>
               <div className="mt-1 h-10 rounded border border-dashed border-blue-300 bg-white"></div>
             </div>
           ))}
@@ -4323,9 +4323,9 @@ const renderers: Record<string, Renderer> = {
     const storyStarters = pickMany(rng, ['One sunny morning, I discovered...', 'The magic door opened and...', 'When I looked in the mirror, I saw...', 'The old tree in the backyard began to...'], 2)
     return (
       <div className="space-y-4">
-        <p className="text-sm text-slate-600">Write a short story with a beginning, middle, and end. Use the story planning template below.</p>
+        <p className="text-sm text-slate-600">{t('worksheets.writingNarrative.instructions')}</p>
         <div className="rounded-xl border border-purple-200 bg-purple-50 p-4 mb-4">
-          <p className="text-sm font-semibold text-purple-700 mb-2">Story Starters (choose one):</p>
+          <p className="text-sm font-semibold text-purple-700 mb-2">{t('worksheets.writingNarrative.storyStarters')}</p>
           <ul className="list-disc list-inside space-y-1 text-xs text-purple-600">
             {storyStarters.map((starter, idx) => (<li key={idx}>{starter}</li>))}
           </ul>
@@ -4356,9 +4356,9 @@ const renderers: Record<string, Renderer> = {
     const topics = pickMany(rng, ['How plants grow', 'The life cycle of a butterfly', 'How to care for a pet', 'The water cycle'], 1)
     return (
       <div className="space-y-4">
-        <p className="text-sm text-slate-600">Write an informative paragraph about the topic below. Include facts, details, and explanations.</p>
+        <p className="text-sm text-slate-600">{t('worksheets.writingInformative.instructions')}</p>
         <div className="rounded-xl border border-teal-200 bg-teal-50 p-4 mb-4">
-          <p className="text-sm font-semibold text-teal-900">Topic: {topics[0]}</p>
+          <p className="text-sm font-semibold text-teal-900">{t('worksheets.writingInformative.topic')} {topics[0]}</p>
         </div>
         <div className="space-y-3">
           <div className="rounded-xl border border-teal-200 bg-white p-4">
@@ -6852,10 +6852,10 @@ function InteractiveWorksheetSection({
     return (
       <section className={`mb-10 break-inside-avoid rounded-xl border-2 ${theme.border} ${theme.background} p-5 print:border-0 print:p-0 print:bg-white shadow-lg`}>
         <h2 className={`text-lg font-semibold ${theme.text}`}>{category.icon} {t(`interactive.${doc.id}.title`) || doc.title}</h2>
-        <p className="text-sm text-slate-600">Coming soon: printable activity for this interactive worksheet.</p>
+        <p className="text-sm text-slate-600">{t('common.comingSoon')}</p>
         {showAnswers && (
           <div className="mt-4 rounded-xl border border-emerald-200 bg-emerald-50 p-4 text-sm text-emerald-900">
-            Answers will be added once this activity is available.
+            {t('common.answersWillBeAdded')}
           </div>
         )}
       </section>

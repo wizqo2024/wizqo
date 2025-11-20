@@ -1989,6 +1989,82 @@ const ensureInteractiveWorksheetKeys = () => {
         useInSentences: 'Use sight words in sentences:',
         writeSentenceWith: 'Write a sentence with "{{word}}":',
       },
+      writingTrace: {
+        practiceTracing: 'Practice tracing lowercase letters neatly. Follow the dotted lines, then write each letter 3 times on your own.',
+        letter: 'Letter:',
+        traceTheLetter: 'Trace the letter:',
+        traceHere: 'Trace here',
+        write3Times: 'Write 3 times:',
+        practiceAllLetters: 'Practice All Letters',
+        writeEntireAlphabet: 'Write the entire lowercase alphabet:',
+        drawPicture: 'Draw the picture',
+        writeSentence: 'Write a sentence:',
+      },
+      writingLowercase: {
+        practiceTracing: 'Practice tracing lowercase letters neatly. Follow the dotted lines, then write each letter 3 times on your own.',
+        letter: 'Letter:',
+        traceTheLetter: 'Trace the letter:',
+        traceHere: 'Trace here',
+        write3Times: 'Write 3 times:',
+        practiceAllLetters: 'Practice All Letters',
+        writeEntireAlphabet: 'Write the entire lowercase alphabet:',
+      },
+      writingNarrative: {
+        instructions: 'Write a short story with a beginning, middle, and end. Use the story planning template below.',
+      },
+      writingInformative: {
+        instructions: 'Write an informative paragraph about the topic below. Include facts, details, and explanations.',
+      },
+      writingPictures: {
+        instructions: 'Look at each picture prompt and write simple sentences or a short story about what you see.',
+        drawPicture: 'Draw the picture',
+        writeSentence: 'Write a sentence:',
+      },
+      writingNarrative: {
+        instructions: 'Write a short story with a beginning, middle, and end. Use the story planning template below.',
+        storyStarters: 'Story Starters (choose one):',
+      },
+      writingInformative: {
+        instructions: 'Write an informative paragraph about the topic below. Include facts, details, and explanations.',
+        topic: 'Topic:',
+      },
+      writingEssay: {
+        writeStructuredEssay: 'Write a structured essay responding to the prompt below.',
+        prompt: 'Prompt:',
+      },
+      readingResearch: {
+        researchTopic: 'Research Topic:',
+      },
+      readingVocab: {
+        topic: 'Topic:',
+      },
+      writingPrompts: {
+        prompt: 'Prompt:',
+      },
+      cognitiveProcessing: {
+        quickSymbolRecognition: 'Quick Symbol Recognition',
+        circleAllStars: 'Circle all the ★ (stars) as quickly as you can:',
+      },
+      cognitiveFlexibility: {
+        taskSwitchingChallenge: 'Task Switching Challenge',
+        completeEachTask: 'Complete each task, then switch to the new rule:',
+      },
+      algebra: {
+        solveEachEquation: 'Solve each equation, evaluate each expression, or simplify as indicated.',
+        solve: 'Solve:',
+      },
+      wordProblems: {
+        solveEachMultiStep: 'Solve each multi-step word problem. Show your work.',
+      },
+      readingLiterary: {
+        readAndAnalyze: 'Read the passage and analyze the literary elements below. Provide evidence from the text.',
+      },
+      writingEssay: {
+        writeStructuredEssay: 'Write a structured essay responding to the prompt below.',
+      },
+      grammarAdvanced: {
+        identifyClauses: 'Identify clauses, phrases, and advanced sentence structures in each sentence.',
+      },
       grammarRhyming: {
         instructions: 'Identify and match rhyming words through fun activities.',
         word: 'Word:',
@@ -2431,6 +2507,82 @@ const ensureInteractiveWorksheetKeys = () => {
         useInSentences: 'Usa palabras de vista en oraciones:',
         writeSentenceWith: 'Escribe una oración con "{{word}}":',
       },
+      writingTrace: {
+        practiceTracing: 'Practica trazar letras minúsculas con cuidado. Sigue las líneas punteadas, luego escribe cada letra 3 veces por tu cuenta.',
+        letter: 'Letra:',
+        traceTheLetter: 'Traza la letra:',
+        traceHere: 'Traza aquí',
+        write3Times: 'Escribe 3 veces:',
+        practiceAllLetters: 'Practica Todas las Letras',
+        writeEntireAlphabet: 'Escribe todo el alfabeto en minúsculas:',
+        drawPicture: 'Dibuja la imagen',
+        writeSentence: 'Escribe una oración:',
+      },
+      writingLowercase: {
+        practiceTracing: 'Practica trazar letras minúsculas con cuidado. Sigue las líneas punteadas, luego escribe cada letra 3 veces por tu cuenta.',
+        letter: 'Letra:',
+        traceTheLetter: 'Traza la letra:',
+        traceHere: 'Traza aquí',
+        write3Times: 'Escribe 3 veces:',
+        practiceAllLetters: 'Practica Todas las Letras',
+        writeEntireAlphabet: 'Escribe todo el alfabeto en minúsculas:',
+      },
+      writingNarrative: {
+        instructions: 'Escribe una historia corta con un inicio, medio y final. Usa la plantilla de planificación de historia a continuación.',
+      },
+      writingInformative: {
+        instructions: 'Escribe un párrafo informativo sobre el tema a continuación. Incluye hechos, detalles y explicaciones.',
+      },
+      writingPictures: {
+        instructions: 'Mira cada indicador de imagen y escribe oraciones simples o una historia corta sobre lo que ves.',
+        drawPicture: 'Dibuja la imagen',
+        writeSentence: 'Escribe una oración:',
+      },
+      writingNarrative: {
+        instructions: 'Escribe una historia corta con un inicio, medio y final. Usa la plantilla de planificación de historia a continuación.',
+        storyStarters: 'Inicios de Historia (elige uno):',
+      },
+      writingInformative: {
+        instructions: 'Escribe un párrafo informativo sobre el tema a continuación. Incluye hechos, detalles y explicaciones.',
+        topic: 'Tema:',
+      },
+      writingEssay: {
+        writeStructuredEssay: 'Escribe un ensayo estructurado respondiendo al indicador a continuación.',
+        prompt: 'Indicador:',
+      },
+      readingResearch: {
+        researchTopic: 'Tema de Investigación:',
+      },
+      readingVocab: {
+        topic: 'Tema:',
+      },
+      writingPrompts: {
+        prompt: 'Indicador:',
+      },
+      cognitiveProcessing: {
+        quickSymbolRecognition: 'Reconocimiento Rápido de Símbolos',
+        circleAllStars: 'Encierra en un círculo todas las ★ (estrellas) lo más rápido que puedas:',
+      },
+      cognitiveFlexibility: {
+        taskSwitchingChallenge: 'Desafío de Cambio de Tareas',
+        completeEachTask: 'Completa cada tarea, luego cambia a la nueva regla:',
+      },
+      algebra: {
+        solveEachEquation: 'Resuelve cada ecuación, evalúa cada expresión o simplifica como se indica.',
+        solve: 'Resuelve:',
+      },
+      wordProblems: {
+        solveEachMultiStep: 'Resuelve cada problema de palabras de varios pasos. Muestra tu trabajo.',
+      },
+      readingLiterary: {
+        readAndAnalyze: 'Lee el pasaje y analiza los elementos literarios a continuación. Proporciona evidencia del texto.',
+      },
+      writingEssay: {
+        writeStructuredEssay: 'Escribe un ensayo estructurado respondiendo al indicador a continuación.',
+      },
+      grammarAdvanced: {
+        identifyClauses: 'Identifica cláusulas, frases y estructuras de oraciones avanzadas en cada oración.',
+      },
       grammarRhyming: {
         instructions: 'Identifica y empareja palabras que riman a través de actividades divertidas.',
         word: 'Palabra:',
@@ -2867,11 +3019,81 @@ const ensureInteractiveWorksheetKeys = () => {
         word: 'الكلمة:',
         label: 'التسمية:',
       },
-      readingSightwords: {
-        instructions: 'تدرب على قراءة وكتابة كلمات البصر الشائعة مع أنشطة ممتعة.',
-        writeIt3Times: 'اكتبها 3 مرات:',
-        useInSentences: 'استخدم كلمات البصر في الجمل:',
-        writeSentenceWith: 'اكتب جملة مع "{{word}}":',
+      writingTrace: {
+        practiceTracing: 'تدرب على تتبع الأحرف الصغيرة بانتظام. اتبع الخطوط المنقطة، ثم اكتب كل حرف 3 مرات بنفسك.',
+        letter: 'الحرف:',
+        traceTheLetter: 'تتبع الحرف:',
+        traceHere: 'تتبع هنا',
+        write3Times: 'اكتب 3 مرات:',
+        practiceAllLetters: 'تدرب على جميع الأحرف',
+        writeEntireAlphabet: 'اكتب الأبجدية الصغيرة بالكامل:',
+        drawPicture: 'ارسم الصورة',
+        writeSentence: 'اكتب جملة:',
+      },
+      writingLowercase: {
+        practiceTracing: 'تدرب على تتبع الأحرف الصغيرة بانتظام. اتبع الخطوط المنقطة، ثم اكتب كل حرف 3 مرات بنفسك.',
+        letter: 'الحرف:',
+        traceTheLetter: 'تتبع الحرف:',
+        traceHere: 'تتبع هنا',
+        write3Times: 'اكتب 3 مرات:',
+        practiceAllLetters: 'تدرب على جميع الأحرف',
+        writeEntireAlphabet: 'اكتب الأبجدية الصغيرة بالكامل:',
+      },
+      writingNarrative: {
+        instructions: 'اكتب قصة قصيرة لها بداية ووسط ونهاية. استخدم قالب تخطيط القصة أدناه.',
+      },
+      writingInformative: {
+        instructions: 'اكتب فقرة إعلامية حول الموضوع أدناه. أدرج الحقائق والتفاصيل والتفسيرات.',
+      },
+      writingPictures: {
+        instructions: 'انظر إلى كل مطالبة صورة واكتب جمل بسيطة أو قصة قصيرة عما تراه.',
+        drawPicture: 'ارسم الصورة',
+        writeSentence: 'اكتب جملة:',
+      },
+      writingNarrative: {
+        instructions: 'اكتب قصة قصيرة لها بداية ووسط ونهاية. استخدم قالب تخطيط القصة أدناه.',
+        storyStarters: 'بدايات القصص (اختر واحدة):',
+      },
+      writingInformative: {
+        instructions: 'اكتب فقرة إعلامية حول الموضوع أدناه. أدرج الحقائق والتفاصيل والتفسيرات.',
+        topic: 'الموضوع:',
+      },
+      writingEssay: {
+        writeStructuredEssay: 'اكتب مقالاً منظمًا يرد على المطالبة أدناه.',
+        prompt: 'المطالبة:',
+      },
+      readingResearch: {
+        researchTopic: 'موضوع البحث:',
+      },
+      readingVocab: {
+        topic: 'الموضوع:',
+      },
+      writingPrompts: {
+        prompt: 'المطالبة:',
+      },
+      cognitiveProcessing: {
+        quickSymbolRecognition: 'التعرف السريع على الرموز',
+        circleAllStars: 'ضع دائرة حول جميع ★ (النجوم) بأسرع ما يمكن:',
+      },
+      cognitiveFlexibility: {
+        taskSwitchingChallenge: 'تحدي تبديل المهام',
+        completeEachTask: 'أكمل كل مهمة، ثم انتقل إلى القاعدة الجديدة:',
+      },
+      algebra: {
+        solveEachEquation: 'حل كل معادلة، قيّم كل تعبير، أو بسّط كما هو موضح.',
+        solve: 'حل:',
+      },
+      wordProblems: {
+        solveEachMultiStep: 'حل كل مسألة كلمات متعددة الخطوات. أظهر عملك.',
+      },
+      readingLiterary: {
+        readAndAnalyze: 'اقرأ المقطع وحلل العناصر الأدبية أدناه. قدم أدلة من النص.',
+      },
+      writingEssay: {
+        writeStructuredEssay: 'اكتب مقالاً منظمًا يرد على المطالبة أدناه.',
+      },
+      grammarAdvanced: {
+        identifyClauses: 'حدد الجمل والعبارات وبنيات الجمل المتقدمة في كل جملة.',
       },
       grammarRhyming: {
         instructions: 'حدد وطابق الكلمات المقفاة من خلال أنشطة ممتعة.',

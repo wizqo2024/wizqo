@@ -22,6 +22,8 @@ export const ar = {
     problem: 'المسألة',
     explanation: 'الشرح',
     place: 'منزلة',
+    comingSoon: 'قريباً: نشاط قابل للطباعة لهذه الورقة التفاعلية.',
+    answersWillBeAdded: 'سيتم إضافة الإجابات بمجرد توفر هذا النشاط.',
   },
   worksheets: {
     countObjectsAndWriteNumber: 'عد الكائنات واكتب الرقم.',
