@@ -2300,18 +2300,12 @@ const renderers: Record<string, Renderer> = {
   'interactive-writing-prek': (ctx) => {
     const { seed, doc, variant, t } = ctx
     const rng = makeRng(`${seed}|${doc.id}|${variant}`)
-    const prompts = pickMany(
-      rng,
-      [
-        { word: 'cat', picture: 'Draw a cat' },
-        { word: 'dog', picture: 'Draw a dog' },
-        { word: 'sun', picture: 'Draw the sun' },
-        { word: 'car', picture: 'Draw a car' },
-        { word: 'tree', picture: 'Draw a tree' },
-        { word: 'flower', picture: 'Draw a flower' },
-      ],
-      4
-    )
+    const wordKeys = ['cat', 'dog', 'sun', 'car', 'tree', 'flower']
+    const selectedKeys = pickMany(rng, wordKeys, 4)
+    const prompts = selectedKeys.map(key => ({
+      word: key,
+      picture: t(`worksheets.writingPrek.drawPrompts.${key}`),
+    }))
     return (
       <div className="space-y-3">
         <p className="text-sm text-slate-600">
@@ -5602,20 +5596,14 @@ const answerRenderers: Record<string, AnswerRenderer> = {
       </ul>
     )
   },
-  'interactive-writing-prek': ({ doc, seed, variant }) => {
+  'interactive-writing-prek': ({ doc, seed, variant, t }) => {
     const rng = makeRng(`${seed}|${doc.id}|${variant}`)
-    const prompts = pickMany(
-      rng,
-      [
-        { word: 'cat', picture: 'Draw a cat' },
-        { word: 'dog', picture: 'Draw a dog' },
-        { word: 'sun', picture: 'Draw the sun' },
-        { word: 'car', picture: 'Draw a car' },
-        { word: 'tree', picture: 'Draw a tree' },
-        { word: 'flower', picture: 'Draw a flower' },
-      ],
-      4
-    )
+    const wordKeys = ['cat', 'dog', 'sun', 'car', 'tree', 'flower']
+    const selectedKeys = pickMany(rng, wordKeys, 4)
+    const prompts = selectedKeys.map(key => ({
+      word: key,
+      picture: t(`worksheets.writingPrek.drawPrompts.${key}`),
+    }))
     return (
       <ul className="space-y-2 text-sm">
         {prompts.map((prompt, idx) => (

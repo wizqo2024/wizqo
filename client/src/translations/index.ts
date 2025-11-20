@@ -2020,6 +2020,14 @@ const ensureInteractiveWorksheetKeys = () => {
         instructions: 'Draw a picture and label it with the word. Perfect for early writers.',
         word: 'Word:',
         label: 'Label:',
+        drawPrompts: {
+          cat: 'Draw a cat',
+          dog: 'Draw a dog',
+          sun: 'Draw the sun',
+          car: 'Draw a car',
+          tree: 'Draw a tree',
+          flower: 'Draw a flower',
+        },
       },
       readingSightwords: {
         instructions: 'Practice reading and writing common sight words with fun activities.',
@@ -2584,6 +2592,14 @@ const ensureInteractiveWorksheetKeys = () => {
         instructions: 'Dibuja una imagen y etiquétala con la palabra. Perfecto para escritores principiantes.',
         word: 'Palabra:',
         label: 'Etiqueta:',
+        drawPrompts: {
+          cat: 'Dibuja un gato',
+          dog: 'Dibuja un perro',
+          sun: 'Dibuja el sol',
+          car: 'Dibuja un auto',
+          tree: 'Dibuja un árbol',
+          flower: 'Dibuja una flor',
+        },
       },
       readingSightwords: {
         instructions: 'Practica leyendo y escribiendo palabras comunes de vista con actividades divertidas.',
@@ -3148,6 +3164,14 @@ const ensureInteractiveWorksheetKeys = () => {
         instructions: 'ارسم صورة وضع عليها تسمية بالكلمة. مثالي للكتّاب المبتدئين.',
         word: 'الكلمة:',
         label: 'التسمية:',
+        drawPrompts: {
+          cat: 'ارسم قطة',
+          dog: 'ارسم كلباً',
+          sun: 'ارسم الشمس',
+          car: 'ارسم سيارة',
+          tree: 'ارسم شجرة',
+          flower: 'ارسم زهرة',
+        },
       },
       readingSightwords: {
         instructions: 'تدرب على قراءة وكتابة كلمات البصر الشائعة مع أنشطة ممتعة.',
