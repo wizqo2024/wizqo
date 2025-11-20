@@ -3773,9 +3773,14 @@ const renderers: Record<string, Renderer> = {
     const { seed, doc, variant, t, formatNum } = ctx
     const problems = buildMathDivision(seed, doc.id, variant)
     
-    // Helper to check if translation was found
+    // Helper to check if translation was found (not a raw key)
     const isTranslationFound = (text: any, key: string) => {
-      return text && typeof text === 'string' && text !== key && !text.startsWith('worksheets.')
+      if (!text || typeof text !== 'string') return false
+      // If it's exactly the key or starts with 'worksheets.', it's a raw key
+      if (text === key || text.startsWith('worksheets.')) return false
+      // If it contains the key pattern, it's likely a raw key
+      if (text.includes('worksheets.division.')) return false
+      return true
     }
     
     const instructionsText = t('worksheets.division.instructions')
@@ -6479,7 +6484,12 @@ const answerRenderers: Record<string, AnswerRenderer> = {
             
             // Check if translation was found (not a raw key)
             const isTranslationFound = (text: any, key: string) => {
-              return text && typeof text === 'string' && text !== key && !text.startsWith('worksheets.')
+              if (!text || typeof text !== 'string') return false
+              // If it's exactly the key or starts with 'worksheets.', it's a raw key
+              if (text === key || text.startsWith('worksheets.')) return false
+              // If it contains the key pattern, it's likely a raw key
+              if (text.includes('worksheets.division.answerKey.')) return false
+              return true
             }
             
             let solution = ''
