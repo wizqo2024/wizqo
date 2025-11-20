@@ -6353,7 +6353,8 @@ const answerRenderers: Record<string, AnswerRenderer> = {
       </div>
     )
   },
-  'interactive-math-tens-frames': ({ doc, seed, variant }) => {
+  'interactive-math-tens-frames': (ctx) => {
+    const { doc, seed, variant, t, formatNum } = ctx
     const problems = buildMathTensFrames(seed, doc.id, variant)
     return (
       <div className="space-y-2">
@@ -6361,13 +6362,35 @@ const answerRenderers: Record<string, AnswerRenderer> = {
           {problems.map((prob, idx) => {
             const total = prob.filled + prob.missing
             const answer = prob.operation === '+' ? total : prob.filled
+            const problemLabel = t('worksheets.tensFrame.answerKey.problem')
+            const strategyLabel = t('worksheets.tensFrame.answerKey.strategy')
+            let strategy = ''
+            if (prob.operation === '+') {
+              const strategyText = t('worksheets.tensFrame.answerKey.additionStrategy')
+              if (strategyText && strategyText !== 'worksheets.tensFrame.answerKey.additionStrategy') {
+                strategy = strategyText
+                  .replace(/\{\{filled\}\}/g, formatNum(prob.filled))
+                  .replace(/\{\{missing\}\}/g, formatNum(prob.missing))
+                  .replace(/\{\{total\}\}/g, formatNum(total))
+              } else {
+                strategy = `${strategyLabel} ${t('worksheets.tensFrame.answerKey.additionStrategy') || 'ابدأ بـ'} ${formatNum(prob.filled)} ${t('worksheets.tensFrame.answerKey.additionStrategy') || 'صناديق ممتلئة'}.`
+              }
+            } else {
+              const strategyText = t('worksheets.tensFrame.answerKey.subtractionStrategy')
+              if (strategyText && strategyText !== 'worksheets.tensFrame.answerKey.subtractionStrategy') {
+                strategy = strategyText
+                  .replace(/\{\{total\}\}/g, formatNum(total))
+                  .replace(/\{\{missing\}\}/g, formatNum(prob.missing))
+                  .replace(/\{\{filled\}\}/g, formatNum(prob.filled))
+              } else {
+                strategy = `${strategyLabel} ${t('worksheets.tensFrame.answerKey.subtractionStrategy') || 'ابدأ بـ'} ${formatNum(total)} ${t('worksheets.tensFrame.answerKey.subtractionStrategy') || 'صناديق ممتلئة'}.`
+              }
+            }
             return (
               <li key={idx} className="mb-3">
-                <span className="font-semibold">Problem {idx + 1}:</span> {prob.operation === '+' ? `${prob.filled} + ${prob.missing}` : `${total} - ${prob.missing}`} = <span className="text-emerald-700 font-bold">{answer}</span>
+                <span className="font-semibold">{(problemLabel && problemLabel !== 'worksheets.tensFrame.answerKey.problem' ? problemLabel : t('common.problem'))} {formatNum(idx + 1)}:</span> {prob.operation === '+' ? `${formatNum(prob.filled)} + ${formatNum(prob.missing)}` : `${formatNum(total)} - ${formatNum(prob.missing)}`} = <span className="text-emerald-700 font-bold">{formatNum(answer)}</span>
                 <p className="text-xs text-slate-600 mt-1 ml-4">
-                  {prob.operation === '+' 
-                    ? `Strategy: Start with ${prob.filled} filled boxes. Count on ${prob.missing} more to reach ${total}. Use the tens frame to visualize: fill ${prob.missing} empty boxes.`
-                    : `Strategy: Start with ${total} filled boxes. Remove ${prob.missing} boxes. Count how many remain: ${prob.filled}. This shows subtraction as "taking away."`}
+                  {strategy}
                 </p>
               </li>
             )
@@ -6376,20 +6399,48 @@ const answerRenderers: Record<string, AnswerRenderer> = {
       </div>
     )
   },
-  'interactive-math-multiplication': ({ doc, seed, variant }) => {
+  'interactive-math-multiplication': (ctx) => {
+    const { doc, seed, variant, t, formatNum } = ctx
     const problems = buildMathMultiplication(seed, doc.id, variant)
     return (
       <div className="space-y-2">
         <ol className="list-decimal list-inside space-y-2 text-sm">
-          {problems.map((prob, idx) => (
-            <li key={idx} className="mb-3">
-              <span className="font-semibold">Problem {idx + 1}:</span> {prob.factor1} × {prob.factor2} = <span className="text-emerald-700 font-bold">{prob.answer}</span>
-              <p className="text-xs text-slate-600 mt-1 ml-4">
-                <span className="font-semibold">Solution:</span> Draw an array with {prob.arrayRows} rows and {prob.arrayCols} columns. Count all the objects: {prob.arrayRows} groups of {prob.arrayCols} = {prob.answer}. 
-                <span className="block mt-1">Alternative strategies: Skip count by {prob.factor2}, {prob.factor2} times. Or use repeated addition: {prob.factor2} + {prob.factor2} + ... ({prob.arrayRows} times) = {prob.answer}.</span>
-              </p>
-            </li>
-          ))}
+          {problems.map((prob, idx) => {
+            const problemLabel = t('worksheets.multiplication.answerKey.problem')
+            const solutionLabel = t('worksheets.multiplication.answerKey.solution')
+            const drawArrayText = t('worksheets.multiplication.answerKey.drawArray')
+            const altStrategiesText = t('worksheets.multiplication.answerKey.alternativeStrategies')
+            
+            let solution = ''
+            if (drawArrayText && drawArrayText !== 'worksheets.multiplication.answerKey.drawArray') {
+              solution = drawArrayText
+                .replace(/\{\{rows\}\}/g, formatNum(prob.arrayRows))
+                .replace(/\{\{cols\}\}/g, formatNum(prob.arrayCols))
+                .replace(/\{\{answer\}\}/g, formatNum(prob.answer))
+            } else {
+              solution = `${t('worksheets.multiplication.answerKey.drawArray') || 'ارسم مصفوفة بـ'} ${formatNum(prob.arrayRows)} ${t('worksheets.multiplication.answerKey.drawArray') || 'صفوف'} ${formatNum(prob.arrayCols)} ${t('worksheets.multiplication.answerKey.drawArray') || 'أعمدة'}.`
+            }
+            
+            let altStrategies = ''
+            if (altStrategiesText && altStrategiesText !== 'worksheets.multiplication.answerKey.alternativeStrategies') {
+              altStrategies = altStrategiesText
+                .replace(/\{\{factor2\}\}/g, formatNum(prob.factor2))
+                .replace(/\{\{times\}\}/g, formatNum(prob.factor2))
+                .replace(/\{\{answer\}\}/g, formatNum(prob.answer))
+            } else {
+              altStrategies = `${t('worksheets.multiplication.answerKey.alternativeStrategies') || 'استراتيجيات بديلة'}: ${formatNum(prob.factor2)} + ${formatNum(prob.factor2)} + ... (${formatNum(prob.arrayRows)} ${t('worksheets.multiplication.answerKey.alternativeStrategies') || 'مرات'}) = ${formatNum(prob.answer)}.`
+            }
+            
+            return (
+              <li key={idx} className="mb-3">
+                <span className="font-semibold">{(problemLabel && problemLabel !== 'worksheets.multiplication.answerKey.problem' ? problemLabel : t('common.problem'))} {formatNum(idx + 1)}:</span> {formatNum(prob.factor1)} × {formatNum(prob.factor2)} = <span className="text-emerald-700 font-bold">{formatNum(prob.answer)}</span>
+                <p className="text-xs text-slate-600 mt-1 ml-4">
+                  <span className="font-semibold">{(solutionLabel && solutionLabel !== 'worksheets.multiplication.answerKey.solution' ? solutionLabel : t('common.solution'))}</span> {solution}
+                  <span className="block mt-1">{altStrategies}</span>
+                </p>
+              </li>
+            )
+          })}
         </ol>
       </div>
     )
@@ -6491,7 +6542,8 @@ const answerRenderers: Record<string, AnswerRenderer> = {
       </div>
     )
   },
-  'interactive-math-time': ({ doc, seed, variant }) => {
+  'interactive-math-time': (ctx) => {
+    const { doc, seed, variant, t, formatNum } = ctx
     const problems = buildMathTime(seed, doc.id, variant)
     return (
       <div className="space-y-2">
@@ -6501,13 +6553,28 @@ const answerRenderers: Record<string, AnswerRenderer> = {
             const elapsedMatch = prob.question.match(/(\d+)\s+hour.*?(\d+)\s+minute/)
             const elapsedHours = elapsedMatch ? parseInt(elapsedMatch[1]) : 0
             const elapsedMinutes = elapsedMatch ? parseInt(elapsedMatch[2]) : 0
+            const problemLabel = t('worksheets.time.answerKey.problem')
+            const solutionLabel = t('worksheets.time.answerKey.solution')
+            const startTimeLabel = t('worksheets.time.answerKey.startTime')
+            const addLabel = t('worksheets.time.answerKey.add')
+            const hourLabel = elapsedHours === 1 ? t('worksheets.time.answerKey.hour') : t('worksheets.time.answerKey.hours')
+            const minuteLabel = elapsedMinutes === 1 ? t('worksheets.time.answerKey.minute') : t('worksheets.time.answerKey.minutes')
+            const step1Label = t('worksheets.time.answerKey.step1')
+            const step2Label = t('worksheets.time.answerKey.step2')
+            const finalTimeLabel = t('worksheets.time.answerKey.finalTime')
+            const carryOverLabel = t('worksheets.time.answerKey.carryOver')
+            const ifNeededLabel = t('worksheets.time.answerKey.ifNeeded')
+            
+            const carryHours = Math.floor((startMins + elapsedMinutes) / 60)
+            const finalMins = (startMins + elapsedMinutes) % 60
+            
             return (
               <li key={idx} className="mb-3">
-                <span className="font-semibold">Problem {idx + 1}:</span> {prob.question} Answer: <span className="text-emerald-700 font-bold">{prob.answer}</span>
+                <span className="font-semibold">{(problemLabel && problemLabel !== 'worksheets.time.answerKey.problem' ? problemLabel : t('common.problem'))} {formatNum(idx + 1)}:</span> {prob.question} {t('common.answer')}: <span className="text-emerald-700 font-bold">{prob.answer}</span>
                 <p className="text-xs text-slate-600 mt-1 ml-4">
-                  <span className="font-semibold">Solution:</span> Start time: {startHours}:{String(startMins).padStart(2, '0')}. Add {elapsedHours} hour{elapsedHours !== 1 ? 's' : ''} and {elapsedMinutes} minute{elapsedMinutes !== 1 ? 's' : ''}.
-                  <span className="block mt-1">Step 1: Add minutes: {startMins} + {elapsedMinutes} = {(startMins + elapsedMinutes) % 60} (carry over {Math.floor((startMins + elapsedMinutes) / 60)} hour if needed).</span>
-                  <span className="block mt-1">Step 2: Add hours: {startHours} + {elapsedHours} + {Math.floor((startMins + elapsedMinutes) / 60)} = Final time: {prob.answer}</span>
+                  <span className="font-semibold">{(solutionLabel && solutionLabel !== 'worksheets.time.answerKey.solution' ? solutionLabel : t('common.solution'))}</span> {startTimeLabel && startTimeLabel !== 'worksheets.time.answerKey.startTime' ? startTimeLabel : t('worksheets.time.answerKey.startTime')} {formatNum(startHours)}:{String(startMins).padStart(2, '0')}. {addLabel && addLabel !== 'worksheets.time.answerKey.add' ? addLabel : t('worksheets.time.answerKey.add')} {formatNum(elapsedHours)} {hourLabel} {addLabel && addLabel !== 'worksheets.time.answerKey.add' ? 'و' : ''} {formatNum(elapsedMinutes)} {minuteLabel}.
+                  <span className="block mt-1">{step1Label && step1Label !== 'worksheets.time.answerKey.step1' ? step1Label : t('worksheets.time.answerKey.step1')} {formatNum(startMins)} + {formatNum(elapsedMinutes)} = {formatNum(finalMins)} ({carryOverLabel && carryOverLabel !== 'worksheets.time.answerKey.carryOver' ? carryOverLabel : t('worksheets.time.answerKey.carryOver')} {formatNum(carryHours)} {hourLabel} {ifNeededLabel && ifNeededLabel !== 'worksheets.time.answerKey.ifNeeded' ? ifNeededLabel : t('worksheets.time.answerKey.ifNeeded')}).</span>
+                  <span className="block mt-1">{step2Label && step2Label !== 'worksheets.time.answerKey.step2' ? step2Label : t('worksheets.time.answerKey.step2')} {formatNum(startHours)} + {formatNum(elapsedHours)} + {formatNum(carryHours)} = {finalTimeLabel && finalTimeLabel !== 'worksheets.time.answerKey.finalTime' ? finalTimeLabel : t('worksheets.time.answerKey.finalTime')} {prob.answer}</span>
                 </p>
               </li>
             )
@@ -6521,33 +6588,53 @@ const answerRenderers: Record<string, AnswerRenderer> = {
       <p className="text-sm">Students should create a bar graph with appropriate scale and labels. Check that bars match the data values correctly.</p>
     )
   },
-  'interactive-math-rounding': ({ doc, seed, variant }) => {
+  'interactive-math-rounding': (ctx) => {
+    const { doc, seed, variant, t, formatNum } = ctx
     const problems = buildMathRounding(seed, doc.id, variant)
     return (
       <div className="space-y-2">
         <ol className="list-decimal list-inside space-y-2 text-sm">
           {problems.map((prob, idx) => {
+            const problemLabel = t('worksheets.rounding.answerKey.problem')
+            const ruleLabel = t('worksheets.rounding.answerKey.rule')
+            const stepByStepLabel = t('worksheets.rounding.answerKey.stepByStep')
+            const roundUpLabel = t('worksheets.rounding.answerKey.roundUp')
+            const roundDownLabel = t('worksheets.rounding.answerKey.roundDown')
+            const lookAtLabel = t('worksheets.rounding.answerKey.lookAt')
+            const sinceGreaterLabel = t('worksheets.rounding.answerKey.sinceGreater')
+            const sinceLessLabel = t('worksheets.rounding.answerKey.sinceLess')
+            const replaceWithLabel = t('worksheets.rounding.answerKey.replaceWith')
+            
             let roundingRule = ''
             let stepByStep = ''
             if (prob.roundTo === 'ten') {
               const onesDigit = prob.number % 10
-              roundingRule = onesDigit >= 5 ? `Round up because ${onesDigit} ≥ 5` : `Round down because ${onesDigit} < 5`
-              stepByStep = `Look at the ones digit (${onesDigit}). ${onesDigit >= 5 ? 'Since it\'s 5 or greater, round up' : 'Since it\'s less than 5, round down'}. Replace ones with 0: ${prob.answer}`
+              const digitLabel = t('worksheets.rounding.answerKey.onesDigit')
+              roundingRule = onesDigit >= 5 
+                ? `${roundUpLabel && roundUpLabel !== 'worksheets.rounding.answerKey.roundUp' ? roundUpLabel : t('worksheets.rounding.answerKey.roundUp')} ${formatNum(onesDigit)} ≥ 5`
+                : `${roundDownLabel && roundDownLabel !== 'worksheets.rounding.answerKey.roundDown' ? roundDownLabel : t('worksheets.rounding.answerKey.roundDown')} ${formatNum(onesDigit)} < 5`
+              stepByStep = `${lookAtLabel && lookAtLabel !== 'worksheets.rounding.answerKey.lookAt' ? lookAtLabel : t('worksheets.rounding.answerKey.lookAt')} ${digitLabel && digitLabel !== 'worksheets.rounding.answerKey.onesDigit' ? digitLabel : t('worksheets.rounding.answerKey.onesDigit')} (${formatNum(onesDigit)}). ${onesDigit >= 5 ? (sinceGreaterLabel && sinceGreaterLabel !== 'worksheets.rounding.answerKey.sinceGreater' ? sinceGreaterLabel : t('worksheets.rounding.answerKey.sinceGreater')) : (sinceLessLabel && sinceLessLabel !== 'worksheets.rounding.answerKey.sinceLess' ? sinceLessLabel : t('worksheets.rounding.answerKey.sinceLess'))}. ${replaceWithLabel && replaceWithLabel !== 'worksheets.rounding.answerKey.replaceWith' ? replaceWithLabel : t('worksheets.rounding.answerKey.replaceWith')} 0: ${formatNum(prob.answer)}`
             } else if (prob.roundTo === 'hundred') {
               const tensDigit = Math.floor((prob.number % 100) / 10)
-              roundingRule = tensDigit >= 5 ? `Round up because tens digit ${tensDigit} ≥ 5` : `Round down because tens digit ${tensDigit} < 5`
-              stepByStep = `Look at the tens digit (${tensDigit}). ${tensDigit >= 5 ? 'Since it\'s 5 or greater, round up' : 'Since it\'s less than 5, round down'}. Replace tens and ones with 00: ${prob.answer}`
+              const digitLabel = t('worksheets.rounding.answerKey.tensDigit')
+              roundingRule = tensDigit >= 5
+                ? `${roundUpLabel && roundUpLabel !== 'worksheets.rounding.answerKey.roundUp' ? roundUpLabel : t('worksheets.rounding.answerKey.roundUp')} ${digitLabel && digitLabel !== 'worksheets.rounding.answerKey.tensDigit' ? digitLabel : t('worksheets.rounding.answerKey.tensDigit')} ${formatNum(tensDigit)} ≥ 5`
+                : `${roundDownLabel && roundDownLabel !== 'worksheets.rounding.answerKey.roundDown' ? roundDownLabel : t('worksheets.rounding.answerKey.roundDown')} ${digitLabel && digitLabel !== 'worksheets.rounding.answerKey.tensDigit' ? digitLabel : t('worksheets.rounding.answerKey.tensDigit')} ${formatNum(tensDigit)} < 5`
+              stepByStep = `${lookAtLabel && lookAtLabel !== 'worksheets.rounding.answerKey.lookAt' ? lookAtLabel : t('worksheets.rounding.answerKey.lookAt')} ${digitLabel && digitLabel !== 'worksheets.rounding.answerKey.tensDigit' ? digitLabel : t('worksheets.rounding.answerKey.tensDigit')} (${formatNum(tensDigit)}). ${tensDigit >= 5 ? (sinceGreaterLabel && sinceGreaterLabel !== 'worksheets.rounding.answerKey.sinceGreater' ? sinceGreaterLabel : t('worksheets.rounding.answerKey.sinceGreater')) : (sinceLessLabel && sinceLessLabel !== 'worksheets.rounding.answerKey.sinceLess' ? sinceLessLabel : t('worksheets.rounding.answerKey.sinceLess'))}. ${replaceWithLabel && replaceWithLabel !== 'worksheets.rounding.answerKey.replaceWith' ? replaceWithLabel : t('worksheets.rounding.answerKey.replaceWith')} 00: ${formatNum(prob.answer)}`
             } else {
               const hundredsDigit = Math.floor((prob.number % 1000) / 100)
-              roundingRule = hundredsDigit >= 5 ? `Round up because hundreds digit ${hundredsDigit} ≥ 5` : `Round down because hundreds digit ${hundredsDigit} < 5`
-              stepByStep = `Look at the hundreds digit (${hundredsDigit}). ${hundredsDigit >= 5 ? 'Since it\'s 5 or greater, round up' : 'Since it\'s less than 5, round down'}. Replace hundreds, tens, and ones with 000: ${prob.answer}`
+              const digitLabel = t('worksheets.rounding.answerKey.hundredsDigit')
+              roundingRule = hundredsDigit >= 5
+                ? `${roundUpLabel && roundUpLabel !== 'worksheets.rounding.answerKey.roundUp' ? roundUpLabel : t('worksheets.rounding.answerKey.roundUp')} ${digitLabel && digitLabel !== 'worksheets.rounding.answerKey.hundredsDigit' ? digitLabel : t('worksheets.rounding.answerKey.hundredsDigit')} ${formatNum(hundredsDigit)} ≥ 5`
+                : `${roundDownLabel && roundDownLabel !== 'worksheets.rounding.answerKey.roundDown' ? roundDownLabel : t('worksheets.rounding.answerKey.roundDown')} ${digitLabel && digitLabel !== 'worksheets.rounding.answerKey.hundredsDigit' ? digitLabel : t('worksheets.rounding.answerKey.hundredsDigit')} ${formatNum(hundredsDigit)} < 5`
+              stepByStep = `${lookAtLabel && lookAtLabel !== 'worksheets.rounding.answerKey.lookAt' ? lookAtLabel : t('worksheets.rounding.answerKey.lookAt')} ${digitLabel && digitLabel !== 'worksheets.rounding.answerKey.hundredsDigit' ? digitLabel : t('worksheets.rounding.answerKey.hundredsDigit')} (${formatNum(hundredsDigit)}). ${hundredsDigit >= 5 ? (sinceGreaterLabel && sinceGreaterLabel !== 'worksheets.rounding.answerKey.sinceGreater' ? sinceGreaterLabel : t('worksheets.rounding.answerKey.sinceGreater')) : (sinceLessLabel && sinceLessLabel !== 'worksheets.rounding.answerKey.sinceLess' ? sinceLessLabel : t('worksheets.rounding.answerKey.sinceLess'))}. ${replaceWithLabel && replaceWithLabel !== 'worksheets.rounding.answerKey.replaceWith' ? replaceWithLabel : t('worksheets.rounding.answerKey.replaceWith')} 000: ${formatNum(prob.answer)}`
             }
             return (
               <li key={idx} className="mb-3">
-                <span className="font-semibold">Problem {idx + 1}:</span> {prob.number} rounded to the nearest {prob.roundTo} = <span className="text-emerald-700 font-bold">{prob.answer}</span>
+                <span className="font-semibold">{(problemLabel && problemLabel !== 'worksheets.rounding.answerKey.problem' ? problemLabel : t('common.problem'))} {formatNum(idx + 1)}:</span> {formatNum(prob.number)} {t('worksheets.rounding.roundedTo')} {prob.roundTo} = <span className="text-emerald-700 font-bold">{formatNum(prob.answer)}</span>
                 <p className="text-xs text-slate-600 mt-1 ml-4">
-                  <span className="font-semibold">Rule:</span> {roundingRule}
-                  <span className="block mt-1"><span className="font-semibold">Step-by-step:</span> {stepByStep}</span>
+                  <span className="font-semibold">{(ruleLabel && ruleLabel !== 'worksheets.rounding.answerKey.rule' ? ruleLabel : t('common.rule'))}</span> {roundingRule}
+                  <span className="block mt-1"><span className="font-semibold">{(stepByStepLabel && stepByStepLabel !== 'worksheets.rounding.answerKey.stepByStep' ? stepByStepLabel : t('worksheets.rounding.answerKey.stepByStep'))}</span> {stepByStep}</span>
                 </p>
               </li>
             )
