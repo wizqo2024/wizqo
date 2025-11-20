@@ -1828,12 +1828,12 @@ const renderers: Record<string, Renderer> = {
     const { seed, doc, variant, t } = ctx
     const rng = makeRng(`${seed}|${doc.id}|${variant}`)
     const coloringActivities = pickMany(rng, [
-      { item: 'Apple', color: 'red', shape: 'circle' },
-      { item: 'Sun', color: 'yellow', shape: 'circle' },
-      { item: 'Leaf', color: 'green', shape: 'leaf' },
-      { item: 'Sky', color: 'blue', shape: 'rectangle' },
-      { item: 'Flower', color: 'purple', shape: 'flower' },
-      { item: 'Orange Fruit', color: 'orange', shape: 'circle' },
+      { itemKey: 'apple', colorKey: 'red', shape: 'circle' },
+      { itemKey: 'sun', colorKey: 'yellow', shape: 'circle' },
+      { itemKey: 'leaf', colorKey: 'green', shape: 'leaf' },
+      { itemKey: 'sky', colorKey: 'blue', shape: 'rectangle' },
+      { itemKey: 'flower', colorKey: 'purple', shape: 'flower' },
+      { itemKey: 'orangeFruit', colorKey: 'orange', shape: 'circle' },
     ], 6)
     
     const ColorShapeSVG = ({ shape, color }: { shape: string; color: string }) => {
@@ -1884,16 +1884,21 @@ const renderers: Record<string, Renderer> = {
           {t('worksheets.artColorwheel.instructions')}
         </p>
         <div className="grid gap-3 grid-cols-2 md:grid-cols-3">
-          {coloringActivities.map((activity, idx) => (
-            <div key={idx} className="rounded-xl border-2 border-slate-200 bg-white p-4 text-center">
-              <p className="text-sm font-semibold text-slate-700 capitalize mb-1">{activity.item}</p>
-              <p className="text-xs text-slate-600 mb-2">{t('worksheets.artColorwheel.color')}: <span className="font-semibold capitalize" style={{ color: activity.color }}>{activity.color}</span></p>
-              <div className="min-h-[240px] rounded border-2 border-dashed border-slate-300 bg-white flex items-center justify-center my-2 p-4">
-                <ColorShapeSVG shape={activity.shape} color={activity.color} />
+          {coloringActivities.map((activity, idx) => {
+            const itemText = t(`common.items.${activity.itemKey}`)
+            const colorText = t(`common.colors.${activity.colorKey}`)
+            const colorValue = activity.colorKey // Keep color value for CSS
+            return (
+              <div key={idx} className="rounded-xl border-2 border-slate-200 bg-white p-4 text-center">
+                <p className="text-sm font-semibold text-slate-700 capitalize mb-1">{itemText}</p>
+                <p className="text-xs text-slate-600 mb-2">{t('worksheets.artColorwheel.color')}: <span className="font-semibold capitalize" style={{ color: colorValue }}>{colorText}</span></p>
+                <div className="min-h-[240px] rounded border-2 border-dashed border-slate-300 bg-white flex items-center justify-center my-2 p-4">
+                  <ColorShapeSVG shape={activity.shape} color={colorValue} />
+                </div>
+                <p className="text-xs text-slate-500">{t('worksheets.artColorwheel.colorIt')}</p>
               </div>
-              <p className="text-xs text-slate-500">{t('worksheets.artColorwheel.colorIt')}</p>
-            </div>
-          ))}
+            )
+          })}
         </div>
       </div>
     )
