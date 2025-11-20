@@ -5329,6 +5329,40 @@ const ensureTimesTableWorksheetKeys = () => {
 // Run the merge immediately
 ensureWorksheetKeys()
 
+// Ensure interactive content translations are merged (prevents tree-shaking)
+const ensureInteractiveContentTranslations = () => {
+  for (const lang of ['en', 'es', 'ar'] as const) {
+    const langTranslations = (translations as any)[lang]
+    if (langTranslations && langTranslations.interactive) {
+      const interactive = langTranslations.interactive
+      // Explicitly reference friendship translations to ensure they're included
+      if (interactive['interactive-sel-friendship']) {
+        // Force reference to prevent tree-shaking
+        const friendship = interactive['interactive-sel-friendship']
+        void friendship.description
+        void friendship.situation
+        void friendship.whatCanYouDo
+        void friendship.waysToBeGoodFriend
+        void friendship.shareAndTakeTurns
+        void friendship.listenWhenOthersTalk
+        void friendship.beKindAndHelpful
+        void friendship.includeEveryone
+        void friendship.scenarios
+        void friendship.scenarios?.newStudent
+        void friendship.scenarios?.newStudentAction
+        void friendship.scenarios?.friendSad
+        void friendship.scenarios?.friendSadAction
+        void friendship.scenarios?.someoneNeedsHelp
+        void friendship.scenarios?.someoneNeedsHelpAction
+        void friendship.answerKey
+      }
+    }
+  }
+}
+
+// Run immediately to ensure translations are included
+ensureInteractiveContentTranslations()
+
 // Helper function to get translation with fallback
 // Returns string, array, or object depending on the translation value
 export function getTranslation(language: Language, key: string): string | any {
