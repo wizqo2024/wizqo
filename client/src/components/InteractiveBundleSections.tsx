@@ -4781,19 +4781,19 @@ const renderers: Record<string, Renderer> = {
     ], 4)
     return (
       <div className="space-y-4">
-        <p className="text-sm text-slate-600">Identify and match rhyming words through fun activities.</p>
+        <p className="text-sm text-slate-600">{t('worksheets.grammarRhyming.instructions')}</p>
         <div className="grid gap-3 md:grid-cols-2">
           {wordGroups.map((group, idx) => (
             <div key={idx} className="rounded-xl border border-purple-200 bg-purple-50 p-4">
-              <p className="text-sm font-semibold text-purple-700 mb-2">Word: {group.word}</p>
-              <p className="text-xs text-purple-600 mb-2">Rhyming words:</p>
+              <p className="text-sm font-semibold text-purple-700 mb-2">{t('worksheets.grammarRhyming.word')} {group.word}</p>
+              <p className="text-xs text-purple-600 mb-2">{t('worksheets.grammarRhyming.rhymingWords')}</p>
               <div className="flex flex-wrap gap-2 mb-2">
                 {group.rhymes.map((rhyme, rIdx) => (
                   <span key={rIdx} className="text-xs px-2 py-1 bg-purple-100 rounded border border-purple-300 text-purple-700">{rhyme}</span>
                 ))}
               </div>
               <div className="h-8 border border-dashed border-purple-300 bg-white rounded"></div>
-              <p className="text-xs text-purple-600 mt-2">Write another word that rhymes: ________</p>
+              <p className="text-xs text-purple-600 mt-2">{t('worksheets.grammarRhyming.writeAnotherWord')}</p>
             </div>
           ))}
         </div>
@@ -6605,9 +6605,9 @@ const answerRenderers: Record<string, AnswerRenderer> = {
       <p className="text-sm">Students should correctly identify continents and their associated oceans. Check for understanding of world geography and continent facts.</p>
     )
   },
-  'interactive-grammar-rhyming': ({ doc, seed, variant }) => {
+  'interactive-grammar-rhyming': ({ doc, seed, variant, t }) => {
     return (
-      <p className="text-sm">Students should correctly identify and match rhyming words. Check for understanding of word families and phonemic awareness.</p>
+      <p className="text-sm">{t('worksheets.answerKey.grammarRhymingAnswer')}</p>
     )
   },
   'interactive-grammar-capitalization': ({ doc, seed, variant }) => {

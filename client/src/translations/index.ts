@@ -1915,12 +1915,19 @@ const ensureInteractiveWorksheetKeys = () => {
         useInSentences: 'Use sight words in sentences:',
         writeSentenceWith: 'Write a sentence with "{{word}}":',
       },
+      grammarRhyming: {
+        instructions: 'Identify and match rhyming words through fun activities.',
+        word: 'Word:',
+        rhymingWords: 'Rhyming words:',
+        writeAnotherWord: 'Write another word that rhymes: ________',
+      },
       answerKey: {
         acceptYesNo: 'Accept yes/no answers based on picture clues. Students should look at the pictures to answer.',
         studentsShould: 'Students should',
         drawPicture: 'draw a picture',
         lookAtPictures: 'look at the pictures to answer',
         sightWordsAnswer: 'correctly write sight words 3 times each and use them in sentences. Check for spelling accuracy and appropriate sentence construction.',
+        grammarRhymingAnswer: 'Students should correctly identify and match rhyming words. Check for understanding of word families and phonemic awareness.',
       },
       sciencePrek: {
         instructions: 'Simple nature observation activities with pictures and basic questions.',
@@ -2269,12 +2276,19 @@ const ensureInteractiveWorksheetKeys = () => {
         useInSentences: 'Usa palabras de vista en oraciones:',
         writeSentenceWith: 'Escribe una oración con "{{word}}":',
       },
+      grammarRhyming: {
+        instructions: 'Identifica y empareja palabras que riman a través de actividades divertidas.',
+        word: 'Palabra:',
+        rhymingWords: 'Palabras que riman:',
+        writeAnotherWord: 'Escribe otra palabra que rime: ________',
+      },
       answerKey: {
         acceptYesNo: 'Acepta respuestas de sí/no basadas en pistas de imágenes. Los estudiantes deben mirar las imágenes para responder.',
         studentsShould: 'Los estudiantes deben',
         drawPicture: 'dibujar una imagen',
         lookAtPictures: 'mirar las imágenes para responder',
         sightWordsAnswer: 'escribir correctamente las palabras de vista 3 veces cada una y usarlas en oraciones. Verifica la precisión ortográfica y la construcción apropiada de oraciones.',
+        grammarRhymingAnswer: 'Los estudiantes deben identificar y emparejar correctamente las palabras que riman. Verifica la comprensión de familias de palabras y conciencia fonémica.',
       },
       sciencePrek: {
         instructions: 'Actividades simples de observación de la naturaleza con imágenes y preguntas básicas.',
@@ -2623,12 +2637,19 @@ const ensureInteractiveWorksheetKeys = () => {
         useInSentences: 'استخدم كلمات البصر في الجمل:',
         writeSentenceWith: 'اكتب جملة مع "{{word}}":',
       },
+      grammarRhyming: {
+        instructions: 'حدد وطابق الكلمات المقفاة من خلال أنشطة ممتعة.',
+        word: 'الكلمة:',
+        rhymingWords: 'الكلمات المقفاة:',
+        writeAnotherWord: 'اكتب كلمة أخرى تقفا: ________',
+      },
       answerKey: {
         acceptYesNo: 'اقبل إجابات نعم/لا بناءً على أدلة الصور. يجب على الطلاب النظر إلى الصور للإجابة.',
         studentsShould: 'يجب على الطلاب',
         drawPicture: 'رسم صورة',
         lookAtPictures: 'النظر إلى الصور للإجابة',
         sightWordsAnswer: 'كتابة كلمات البصر بشكل صحيح 3 مرات لكل كلمة واستخدامها في الجمل. تحقق من دقة الإملاء وبناء الجملة المناسب.',
+        grammarRhymingAnswer: 'يجب على الطلاب تحديد ومطابقة الكلمات المقفاة بشكل صحيح. تحقق من فهم عائلات الكلمات والوعي الصوتي.',
       },
       sciencePrek: {
         instructions: 'أنشطة بسيطة لمراقبة الطبيعة مع الصور والأسئلة الأساسية.',
