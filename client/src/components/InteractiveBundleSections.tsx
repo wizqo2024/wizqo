@@ -2132,19 +2132,19 @@ const renderers: Record<string, Renderer> = {
               <p className="text-lg font-semibold text-emerald-700">{t('worksheets.numberLabel')}: {num}</p>
               <div className="mt-2 grid grid-cols-3 gap-2">
                 <div className="flex flex-col">
-                  <p className="text-xs text-emerald-500">Trace</p>
+                  <p className="text-xs text-emerald-500">{t('worksheets.earlyNumbers.trace')}</p>
                   <div className="mt-1 h-12 rounded border border-dashed border-emerald-300 bg-white text-center text-lg font-bold text-emerald-700">{num}</div>
                 </div>
                 <div className="flex flex-col">
-                  <p className="text-xs text-emerald-500">Write</p>
+                  <p className="text-xs text-emerald-500">{t('worksheets.earlyNumbers.write')}</p>
                   <div className="mt-1 h-12 rounded border border-dashed border-emerald-300 bg-white" />
                 </div>
                 <div className="flex flex-col">
-                  <p className="text-xs text-emerald-500">Draw {num}</p>
+                  <p className="text-xs text-emerald-500">{t('worksheets.earlyNumbers.draw')} {num}</p>
                   <div className="mt-1 h-12 rounded border border-dashed border-emerald-300 bg-white" />
                 </div>
               </div>
-              <p className="mt-2 text-xs text-emerald-600">Number word: {numberWords[num - 1] || num}</p>
+              <p className="mt-2 text-xs text-emerald-600">{t('worksheets.earlyNumbers.numberWord')} {numberWords[num - 1] || num}</p>
             </div>
           ))}
         </div>
@@ -2457,7 +2457,7 @@ const renderers: Record<string, Renderer> = {
     return (
       <div className="space-y-3">
         <p className="text-sm text-slate-600">
-          Match simple words with pictures and identify basic word types.
+          {t('worksheets.grammarPrek.instructions')}
         </p>
         <div className="grid gap-4 md:grid-cols-2">
           {words.map((item, idx) => (
@@ -2465,8 +2465,8 @@ const renderers: Record<string, Renderer> = {
               <div className="flex items-center gap-3">
                 <span className="text-3xl">{item.picture}</span>
                 <div className="flex-1">
-                  <p className="text-sm font-semibold text-purple-700">Word: {item.word}</p>
-                  <p className="mt-1 text-xs text-purple-600">Match: <span className="font-semibold">{item.word}</span></p>
+                  <p className="text-sm font-semibold text-purple-700">{t('worksheets.grammarPrek.word')} {item.word}</p>
+                  <p className="mt-1 text-xs text-purple-600">{t('worksheets.grammarPrek.match')} <span className="font-semibold">{item.word}</span></p>
                   <div className="mt-1 h-8 rounded border border-dashed border-purple-300 bg-white" />
                 </div>
               </div>
@@ -2474,8 +2474,8 @@ const renderers: Record<string, Renderer> = {
           ))}
         </div>
         <div className="rounded-xl border border-purple-200 bg-purple-50 p-4">
-          <p className="text-sm font-semibold text-purple-700">Word Practice</p>
-          <p className="mt-2 text-xs text-purple-700">Circle the word that matches the picture:</p>
+          <p className="text-sm font-semibold text-purple-700">{t('worksheets.grammarPrek.wordPractice')}</p>
+          <p className="mt-2 text-xs text-purple-700">{t('worksheets.grammarPrek.circleWordMatches')}</p>
           <div className="mt-1 flex flex-wrap gap-2">
             {words.map((item, idx) => (
               <span key={idx} className="rounded border border-purple-300 bg-white px-3 py-1 text-xs text-purple-700">

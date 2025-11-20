@@ -1834,6 +1834,12 @@ const ensureInteractiveWorksheetKeys = () => {
         write: 'Write',
         draw: 'Draw',
       },
+      earlyNumbers: {
+        trace: 'Trace',
+        write: 'Write',
+        draw: 'Draw',
+        numberWord: 'Number word:',
+      },
       mathShapes: {
         instructions: 'Draw and tally each shape. Then classify it as "flat" or "solid" and record the number of sides.',
         shape: 'Shape',
@@ -1920,6 +1926,13 @@ const ensureInteractiveWorksheetKeys = () => {
         word: 'Word:',
         rhymingWords: 'Rhyming words:',
         writeAnotherWord: 'Write another word that rhymes: ________',
+      },
+      grammarPrek: {
+        instructions: 'Match simple words with pictures and identify basic word types.',
+        word: 'Word:',
+        match: 'Match:',
+        wordPractice: 'Word Practice',
+        circleWordMatches: 'Circle the word that matches the picture:',
       },
       answerKey: {
         acceptYesNo: 'Accept yes/no answers based on picture clues. Students should look at the pictures to answer.',
@@ -2195,6 +2208,12 @@ const ensureInteractiveWorksheetKeys = () => {
         write: 'Escribe',
         draw: 'Dibuja',
       },
+      earlyNumbers: {
+        trace: 'Traza',
+        write: 'Escribe',
+        draw: 'Dibuja',
+        numberWord: 'Palabra del número:',
+      },
       mathShapes: {
         instructions: 'Dibuja y cuenta cada forma. Luego clasifícala como "plana" o "sólida" y registra el número de lados.',
         shape: 'Forma',
@@ -2281,6 +2300,13 @@ const ensureInteractiveWorksheetKeys = () => {
         word: 'Palabra:',
         rhymingWords: 'Palabras que riman:',
         writeAnotherWord: 'Escribe otra palabra que rime: ________',
+      },
+      grammarPrek: {
+        instructions: 'Empareja palabras simples con imágenes e identifica tipos básicos de palabras.',
+        word: 'Palabra:',
+        match: 'Emparejar:',
+        wordPractice: 'Práctica de Palabras',
+        circleWordMatches: 'Encierra en un círculo la palabra que coincide con la imagen:',
       },
       answerKey: {
         acceptYesNo: 'Acepta respuestas de sí/no basadas en pistas de imágenes. Los estudiantes deben mirar las imágenes para responder.',
@@ -2556,6 +2582,12 @@ const ensureInteractiveWorksheetKeys = () => {
         write: 'اكتب',
         draw: 'ارسم',
       },
+      earlyNumbers: {
+        trace: 'تتبع',
+        write: 'اكتب',
+        draw: 'ارسم',
+        numberWord: 'كلمة الرقم:',
+      },
       mathShapes: {
         instructions: 'ارسم واحسب كل شكل. ثم صنفه كـ "مسطح" أو "مجسم" وسجل عدد الأضلاع.',
         shape: 'الشكل',
@@ -2642,6 +2674,13 @@ const ensureInteractiveWorksheetKeys = () => {
         word: 'الكلمة:',
         rhymingWords: 'الكلمات المقفاة:',
         writeAnotherWord: 'اكتب كلمة أخرى تقفا: ________',
+      },
+      grammarPrek: {
+        instructions: 'طابق الكلمات البسيطة مع الصور وحدد أنواع الكلمات الأساسية.',
+        word: 'الكلمة:',
+        match: 'مطابقة:',
+        wordPractice: 'ممارسة الكلمات',
+        circleWordMatches: 'ضع دائرة حول الكلمة التي تطابق الصورة:',
       },
       answerKey: {
         acceptYesNo: 'اقبل إجابات نعم/لا بناءً على أدلة الصور. يجب على الطلاب النظر إلى الصور للإجابة.',
@@ -2818,6 +2857,9 @@ const ensureInteractiveWorksheetKeys = () => {
       if (keys.earlyLetters) {
         worksheets.earlyLetters = keys.earlyLetters
       }
+      if (keys.earlyNumbers) {
+        worksheets.earlyNumbers = keys.earlyNumbers
+      }
       if (keys.mathShapes) {
         worksheets.mathShapes = keys.mathShapes
       }
@@ -2862,6 +2904,9 @@ const ensureInteractiveWorksheetKeys = () => {
       }
       if (keys.grammarRhyming) {
         worksheets.grammarRhyming = keys.grammarRhyming
+      }
+      if (keys.grammarPrek) {
+        worksheets.grammarPrek = keys.grammarPrek
       }
     }
   }
