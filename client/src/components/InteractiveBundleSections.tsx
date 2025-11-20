@@ -845,7 +845,7 @@ const renderers: Record<string, Renderer> = {
     )
   },
   'interactive-math-shapes': (ctx) => {
-    const { seed, doc, variant, t } = ctx
+    const { seed, doc, variant, t, formatNum } = ctx
     const rows = buildMathShapes(seed, doc.id, variant)
     return (
       <div className="space-y-3">
@@ -867,7 +867,7 @@ const renderers: Record<string, Renderer> = {
               <tr key={idx} className="border-t border-slate-200">
                 <td className="px-3 py-2 capitalize">{row.shape}</td>
                 <td className="px-3 py-2 capitalize">{row.color}</td>
-                <td className="px-3 py-2">{row.count}</td>
+                <td className="px-3 py-2">{formatNum ? formatNum(row.count) : row.count}</td>
                 <td className="px-3 py-2">________________</td>
                 <td className="px-3 py-2">________</td>
               </tr>
@@ -937,7 +937,7 @@ const renderers: Record<string, Renderer> = {
     )
   },
   'interactive-math-measurement': (ctx) => {
-    const { seed, doc, variant, t } = ctx
+    const { seed, doc, variant, t, formatNum } = ctx
     const problems = buildMathMeasurement(seed, doc.id, variant)
     return (
       <div className="space-y-3">
@@ -955,7 +955,7 @@ const renderers: Record<string, Renderer> = {
           <tbody>
             {problems.map((problem, idx) => (
               <tr key={idx} className="border-t border-slate-200">
-                <td className="px-3 py-2">{problem.amount} {problem.from}</td>
+                <td className="px-3 py-2">{formatNum ? formatNum(problem.amount) : problem.amount} {problem.from}</td>
                 <td className="px-3 py-2">_____ {problem.to}</td>
                 <td className="px-3 py-2">
                   <div className="h-12 rounded border border-dashed border-slate-300 bg-white" />
@@ -1034,7 +1034,7 @@ const renderers: Record<string, Renderer> = {
     )
   },
   'interactive-reading-storymap': (ctx) => {
-    const { seed, doc, variant, t } = ctx
+    const { seed, doc, variant, t, formatNum } = ctx
     const story = buildReadingStoryMap(seed, doc.id, variant)
     return (
       <div className="space-y-3">
@@ -1059,8 +1059,8 @@ const renderers: Record<string, Renderer> = {
             <p className="font-semibold">{t('worksheets.storyMap.clueLog')}</p>
             <p className="text-xs uppercase tracking-wide text-purple-500">{t('worksheets.storyMap.lookBackAtStory')}</p>
             <ol className="mt-2 list-decimal list-inside space-y-2 text-purple-900">
-              <li>{t('worksheets.storyMap.clue').replace('{{number}}', '1')}: _____________________________________________</li>
-              <li>{t('worksheets.storyMap.clue').replace('{{number}}', '2')}: _____________________________________________</li>
+              <li>{t('worksheets.storyMap.clue').replace('{{number}}', formatNum ? formatNum('1') : '1')}: _____________________________________________</li>
+              <li>{t('worksheets.storyMap.clue').replace('{{number}}', formatNum ? formatNum('2') : '2')}: _____________________________________________</li>
             </ol>
           </div>
           <div className="rounded-xl border border-slate-200 bg-white p-4 text-sm text-slate-700">
@@ -1117,7 +1117,7 @@ const renderers: Record<string, Renderer> = {
     )
   },
   'interactive-reading-summary': (ctx) => {
-    const { seed, doc, variant, t } = ctx
+    const { seed, doc, variant, t, formatNum } = ctx
     const rng = makeRng(`${seed}|${doc.id}|${variant}`)
     const topics = ['community garden', 'solar-powered bus', 'classroom pet adoption', 'school makerspace', 'reading marathon']
     const topic = pick(rng, topics)
@@ -1129,21 +1129,21 @@ const renderers: Record<string, Renderer> = {
         <div className="grid gap-3 md:grid-cols-2">
           <div className="rounded-xl border border-slate-200 bg-white p-4 text-sm text-slate-600">
             <p>
-              {t('worksheets.summary.paragraph').replace('{{number}}', '1')}: {t('worksheets.summary.paragraph1Intro').replace('{{topic}}', topic)}
+              {t('worksheets.summary.paragraph').replace('{{number}}', formatNum ? formatNum('1') : '1')}: {t('worksheets.summary.paragraph1Intro').replace('{{topic}}', topic)}
             </p>
             <p className="mt-2">
-              {t('worksheets.summary.paragraph').replace('{{number}}', '2')}: {t('worksheets.summary.paragraph2Intro')}
+              {t('worksheets.summary.paragraph').replace('{{number}}', formatNum ? formatNum('2') : '2')}: {t('worksheets.summary.paragraph2Intro')}
             </p>
             <p className="mt-2">
-              {t('worksheets.summary.paragraph').replace('{{number}}', '3')}: {t('worksheets.summary.paragraph3Intro')}
+              {t('worksheets.summary.paragraph').replace('{{number}}', formatNum ? formatNum('3') : '3')}: {t('worksheets.summary.paragraph3Intro')}
             </p>
           </div>
           <div className="rounded-xl border border-purple-200 bg-purple-50 p-4 text-sm text-purple-800">
             <p className="font-semibold">{t('worksheets.summary.summaryBox')}</p>
             <ul className="mt-2 space-y-2 text-purple-900">
-              <li>{t('worksheets.summary.keyPoint').replace('{{number}}', '1')}: __________________________</li>
-              <li>{t('worksheets.summary.keyPoint').replace('{{number}}', '2')}: __________________________</li>
-              <li>{t('worksheets.summary.keyPoint').replace('{{number}}', '3')}: __________________________</li>
+              <li>{t('worksheets.summary.keyPoint').replace('{{number}}', formatNum ? formatNum('1') : '1')}: __________________________</li>
+              <li>{t('worksheets.summary.keyPoint').replace('{{number}}', formatNum ? formatNum('2') : '2')}: __________________________</li>
+              <li>{t('worksheets.summary.keyPoint').replace('{{number}}', formatNum ? formatNum('3') : '3')}: __________________________</li>
             </ul>
             <p className="mt-3 text-xs text-purple-700">{t('worksheets.summary.closingSentence')}</p>
           </div>
@@ -1188,7 +1188,7 @@ const renderers: Record<string, Renderer> = {
     )
   },
   'interactive-writing-prompts': (ctx) => {
-    const { seed, doc, variant, t } = ctx
+    const { seed, doc, variant, t, formatNum } = ctx
     const rng = makeRng(`${seed}|${doc.id}|${variant}`)
     const prompts = [
       'Write about a time your class invented something helpful.',
@@ -1207,7 +1207,7 @@ const renderers: Record<string, Renderer> = {
         <ul className="space-y-2 text-sm text-slate-700">
           {chosen.map((prompt, idx) => (
             <li key={idx} className="rounded-lg border border-slate-200 bg-white px-4 py-3">
-              <span className="font-semibold text-purple-700">{t('worksheets.writingPrompts.prompt').replace('{{number}}', String(idx + 1))}:</span> {prompt}
+              <span className="font-semibold text-purple-700">{t('worksheets.writingPrompts.prompt').replace('{{number}}', formatNum ? formatNum(idx + 1) : String(idx + 1))}:</span> {prompt}
             </li>
           ))}
         </ul>
@@ -1246,7 +1246,7 @@ const renderers: Record<string, Renderer> = {
     )
   },
   'interactive-writing-poetry': (ctx) => {
-    const { seed, doc, variant, t } = ctx
+    const { seed, doc, variant, t, formatNum } = ctx
     const rng = makeRng(`${seed}|${doc.id}|${variant}`)
     const themes = ['rainy playground', 'city skyline', 'secret garden', 'music festival', 'winter morning', 'campfire night']
     const theme = pick(rng, themes)
@@ -1263,23 +1263,23 @@ const renderers: Record<string, Renderer> = {
         <div className="grid gap-4 md:grid-cols-2">
           <div className="rounded-xl border border-slate-200 bg-white p-4 text-sm text-slate-700">
             <p className="font-semibold">{t('worksheets.writingPoetry.haiku')}</p>
-            <p>{t('worksheets.writingPoetry.line').replace('{{number}}', '1')}: ___________________________</p>
-            <p>{t('worksheets.writingPoetry.line').replace('{{number}}', '2')}: ___________________________</p>
-            <p>{t('worksheets.writingPoetry.line').replace('{{number}}', '3')}: ___________________________</p>
+            <p>{t('worksheets.writingPoetry.line').replace('{{number}}', formatNum ? formatNum('1') : '1')}: ___________________________</p>
+            <p>{t('worksheets.writingPoetry.line').replace('{{number}}', formatNum ? formatNum('2') : '2')}: ___________________________</p>
+            <p>{t('worksheets.writingPoetry.line').replace('{{number}}', formatNum ? formatNum('3') : '3')}: ___________________________</p>
           </div>
           <div className="rounded-xl border border-slate-200 bg-white p-4 text-sm text-slate-700">
             <p className="font-semibold">{t('worksheets.writingPoetry.freeVerseStanza')}</p>
-            <p>{t('worksheets.writingPoetry.line').replace('{{number}}', '1')}: ___________________________</p>
-            <p>{t('worksheets.writingPoetry.line').replace('{{number}}', '2')}: ___________________________</p>
-            <p>{t('worksheets.writingPoetry.line').replace('{{number}}', '3')}: ___________________________</p>
-            <p>{t('worksheets.writingPoetry.line').replace('{{number}}', '4')}: ___________________________</p>
+            <p>{t('worksheets.writingPoetry.line').replace('{{number}}', formatNum ? formatNum('1') : '1')}: ___________________________</p>
+            <p>{t('worksheets.writingPoetry.line').replace('{{number}}', formatNum ? formatNum('2') : '2')}: ___________________________</p>
+            <p>{t('worksheets.writingPoetry.line').replace('{{number}}', formatNum ? formatNum('3') : '3')}: ___________________________</p>
+            <p>{t('worksheets.writingPoetry.line').replace('{{number}}', formatNum ? formatNum('4') : '4')}: ___________________________</p>
           </div>
         </div>
       </div>
     )
   },
   'interactive-writing-opinion': (ctx) => {
-    const { seed, doc, variant, t } = ctx
+    const { seed, doc, variant, t, formatNum } = ctx
     const rng = makeRng(`${seed}|${doc.id}|${variant}`)
     const topics = ['Should recess be longer?', 'Is it better to read ebooks or paper books?', 'Should robots help with homework?', 'Is homework on weekends a good idea?', 'Should the cafeteria add a smoothie bar?']
     const topic = pick(rng, topics)
@@ -1291,9 +1291,9 @@ const renderers: Record<string, Renderer> = {
         <div className="grid gap-4 md:grid-cols-2">
           <div className="rounded-xl border border-slate-200 bg-white p-4 text-sm text-slate-700">
             <p className="font-semibold">{t('worksheets.writingOpinion.reasonsAndEvidence')}</p>
-            <p>{t('worksheets.writingOpinion.reason').replace('{{number}}', '1')} ____________________________________</p>
+            <p>{t('worksheets.writingOpinion.reason').replace('{{number}}', formatNum ? formatNum('1') : '1')} ____________________________________</p>
             <p>{t('worksheets.writingOpinion.evidence')} _____________________________________</p>
-            <p className="mt-3">{t('worksheets.writingOpinion.reason').replace('{{number}}', '2')} ____________________________________</p>
+            <p className="mt-3">{t('worksheets.writingOpinion.reason').replace('{{number}}', formatNum ? formatNum('2') : '2')} ____________________________________</p>
             <p>{t('worksheets.writingOpinion.evidence')} _____________________________________</p>
           </div>
           <div className="rounded-xl border border-emerald-200 bg-emerald-50 p-4 text-sm text-emerald-800">
@@ -1454,7 +1454,7 @@ const renderers: Record<string, Renderer> = {
     )
   },
   'interactive-geography-map': (ctx) => {
-    const { seed, doc, variant, t } = ctx
+    const { seed, doc, variant, t, formatNum } = ctx
     const rng = makeRng(`${seed}|${doc.id}|${variant}`)
     const letters = ['A', 'B', 'C', 'D', 'E', 'F']
     const numbers = [1, 2, 3, 4, 5, 6]
@@ -1503,7 +1503,7 @@ const renderers: Record<string, Renderer> = {
           <tbody>
             {coordinates.map((row, idx) => (
               <tr key={idx} className="border-t border-slate-200">
-                <td className="px-3 py-2">{row.letter}{row.number}</td>
+                <td className="px-3 py-2">{row.letter}{formatNum ? formatNum(row.number) : row.number}</td>
                 <td className="px-3 py-2 capitalize">{row.place}</td>
                 <td className="px-3 py-2">____________________________________</td>
               </tr>
@@ -2017,7 +2017,7 @@ const renderers: Record<string, Renderer> = {
     )
   },
   'interactive-early-counting': (ctx) => {
-    const { seed, doc, variant, t } = ctx
+    const { seed, doc, variant, t, formatNum } = ctx
     const rng = makeRng(`${seed}|${doc.id}|${variant}`)
     const rows = Array.from({ length: 4 }).map(() => ({
       objects: pick(rng, ['stars', 'shells', 'dice', 'hearts', 'cars']),
@@ -2033,7 +2033,7 @@ const renderers: Record<string, Renderer> = {
             const objectName = t(`worksheets.objectNames.${row.objects}`) || row.objects
             return (
               <div key={idx} className="rounded border border-emerald-200 bg-emerald-50 p-3">
-                <p className="font-semibold text-emerald-800">{t('worksheets.countThe').replace('{{object}}', `${row.count} ${objectName}`)}</p>
+                <p className="font-semibold text-emerald-800">{t('worksheets.countThe').replace('{{object}}', `${formatNum ? formatNum(row.count) : row.count} ${objectName}`)}</p>
               <div className="mt-2 grid grid-cols-10 gap-1">
                 {Array.from({ length: 10 }).map((_, boxIdx) => (
                   <div
@@ -2177,7 +2177,7 @@ const renderers: Record<string, Renderer> = {
     )
   },
   'interactive-early-numbers': (ctx) => {
-    const { seed, doc, variant, t } = ctx
+    const { seed, doc, variant, t, formatNum } = ctx
     const rng = makeRng(`${seed}|${doc.id}|${variant}`)
     const numbers = pickMany(rng, Array.from({ length: 20 }, (_, i) => i + 1), 4)
     return (
@@ -2188,22 +2188,22 @@ const renderers: Record<string, Renderer> = {
         <div className="grid gap-4 md:grid-cols-2">
           {numbers.map((num) => (
             <div key={num} className="rounded-xl border border-emerald-200 bg-emerald-50 p-4">
-              <p className="text-lg font-semibold text-emerald-700">{t('worksheets.numberLabel')}: {num}</p>
+              <p className="text-lg font-semibold text-emerald-700">{t('worksheets.numberLabel')}: {formatNum ? formatNum(num) : num}</p>
               <div className="mt-2 grid grid-cols-3 gap-2">
                 <div className="flex flex-col">
                   <p className="text-xs text-emerald-500">{t('worksheets.earlyNumbers.trace')}</p>
-                  <div className="mt-1 h-12 rounded border border-dashed border-emerald-300 bg-white text-center text-lg font-bold text-emerald-700">{num}</div>
+                  <div className="mt-1 h-12 rounded border border-dashed border-emerald-300 bg-white text-center text-lg font-bold text-emerald-700">{formatNum ? formatNum(num) : num}</div>
                 </div>
                 <div className="flex flex-col">
                   <p className="text-xs text-emerald-500">{t('worksheets.earlyNumbers.write')}</p>
                   <div className="mt-1 h-12 rounded border border-dashed border-emerald-300 bg-white" />
                 </div>
                 <div className="flex flex-col">
-                  <p className="text-xs text-emerald-500">{t('worksheets.earlyNumbers.draw')} {num}</p>
+                  <p className="text-xs text-emerald-500">{t('worksheets.earlyNumbers.draw')} {formatNum ? formatNum(num) : num}</p>
                   <div className="mt-1 h-12 rounded border border-dashed border-emerald-300 bg-white" />
                 </div>
               </div>
-              <p className="mt-2 text-xs text-emerald-600">{t('worksheets.earlyNumbers.numberWord')} {numberWords[num - 1] || num}</p>
+              <p className="mt-2 text-xs text-emerald-600">{t('worksheets.earlyNumbers.numberWord')} {numberWords[num - 1] || (formatNum ? formatNum(num) : num)}</p>
             </div>
           ))}
         </div>
