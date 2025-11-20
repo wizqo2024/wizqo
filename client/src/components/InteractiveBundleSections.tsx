@@ -6461,36 +6461,38 @@ const answerRenderers: Record<string, AnswerRenderer> = {
             const remainderLabel = t('worksheets.division.answerKey.remainderLabel')
             
             let solution = ''
-            if (divideIntoText && divideIntoText !== 'worksheets.division.answerKey.divideInto') {
+            if (divideIntoText && divideIntoText !== 'worksheets.division.answerKey.divideInto' && typeof divideIntoText === 'string') {
               solution = divideIntoText
                 .replace(/\{\{dividend\}\}/g, formatNum(prob.dividend))
                 .replace(/\{\{divisor\}\}/g, formatNum(prob.divisor))
                 .replace(/\{\{quotient\}\}/g, formatNum(prob.quotient))
             } else {
-              solution = `${t('common.divide')} ${formatNum(prob.dividend)} ${t('worksheets.division.answerKey.divideInto') || 'إلى مجموعات من'} ${formatNum(prob.divisor)}. ${t('worksheets.division.answerKey.divideInto') || 'يمكنك عمل'} ${formatNum(prob.quotient)} ${t('worksheets.division.answerKey.divideInto') || 'مجموعات كاملة'}.`
+              // Fallback to proper Arabic text
+              solution = `اقسم ${formatNum(prob.dividend)} إلى مجموعات من ${formatNum(prob.divisor)}. يمكنك عمل ${formatNum(prob.quotient)} مجموعات كاملة.`
             }
             
             if (prob.remainder > 0) {
-              if (remainderLeftText && remainderLeftText !== 'worksheets.division.answerKey.remainderLeft') {
+              if (remainderLeftText && remainderLeftText !== 'worksheets.division.answerKey.remainderLeft' && typeof remainderLeftText === 'string') {
                 solution += ' ' + remainderLeftText.replace(/\{\{remainder\}\}/g, formatNum(prob.remainder))
               } else {
-                solution += ` ${t('worksheets.division.answerKey.remainderLeft') || 'يتبقى'} ${formatNum(prob.remainder)} ${t('worksheets.division.answerKey.remainderLeft') || 'لا تشكل مجموعة كاملة'}.`
+                solution += ` يتبقى ${formatNum(prob.remainder)} لا تشكل مجموعة كاملة.`
               }
             } else {
-              if (allGroupedText && allGroupedText !== 'worksheets.division.answerKey.allGrouped') {
+              if (allGroupedText && allGroupedText !== 'worksheets.division.answerKey.allGrouped' && typeof allGroupedText === 'string') {
                 solution += ' ' + allGroupedText
               } else {
-                solution += ` ${t('worksheets.division.answerKey.allGrouped') || 'جميع العناصر مجمعة بالتساوي.'}`
+                solution += ' جميع العناصر مجمعة بالتساوي.'
               }
             }
             
             let strategy = ''
-            if (strategyText && strategyText !== 'worksheets.division.answerKey.strategy') {
+            if (strategyText && strategyText !== 'worksheets.division.answerKey.strategy' && typeof strategyText === 'string') {
               strategy = strategyText
                 .replace(/\{\{dividend\}\}/g, formatNum(prob.dividend))
                 .replace(/\{\{divisor\}\}/g, formatNum(prob.divisor))
             } else {
-              strategy = `${t('worksheets.division.answerKey.strategy') || 'الاستراتيجية: استخدم الطرح المتكرر'} (${formatNum(prob.dividend)} - ${formatNum(prob.divisor)} - ${formatNum(prob.divisor)} - ...) ${t('worksheets.division.answerKey.strategy') || 'أو فكر'} "كم ${formatNum(prob.divisor)} ${t('worksheets.division.answerKey.strategy') || 'يناسب في'} ${formatNum(prob.dividend)}؟"`
+              // Fallback to proper Arabic text
+              strategy = `الاستراتيجية: استخدم الطرح المتكرر (${formatNum(prob.dividend)} - ${formatNum(prob.divisor)} - ${formatNum(prob.divisor)} - ...) أو فكر "كم ${formatNum(prob.divisor)} يناسب في ${formatNum(prob.dividend)}؟"`
             }
             
             return (
