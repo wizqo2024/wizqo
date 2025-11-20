@@ -5333,28 +5333,53 @@ ensureWorksheetKeys()
 const ensureInteractiveContentTranslations = () => {
   for (const lang of ['en', 'es', 'ar'] as const) {
     const langTranslations = (translations as any)[lang]
-    if (langTranslations && langTranslations.interactive) {
+    if (langTranslations) {
+      // Ensure interactive section exists
+      if (!langTranslations.interactive) {
+        langTranslations.interactive = {}
+      }
       const interactive = langTranslations.interactive
-      // Explicitly reference friendship translations to ensure they're included
-      if (interactive['interactive-sel-friendship']) {
-        // Force reference to prevent tree-shaking
-        const friendship = interactive['interactive-sel-friendship']
-        void friendship.description
-        void friendship.situation
-        void friendship.whatCanYouDo
-        void friendship.waysToBeGoodFriend
-        void friendship.shareAndTakeTurns
-        void friendship.listenWhenOthersTalk
-        void friendship.beKindAndHelpful
-        void friendship.includeEveryone
-        void friendship.scenarios
-        void friendship.scenarios?.newStudent
-        void friendship.scenarios?.newStudentAction
-        void friendship.scenarios?.friendSad
-        void friendship.scenarios?.friendSadAction
-        void friendship.scenarios?.someoneNeedsHelp
-        void friendship.scenarios?.someoneNeedsHelpAction
-        void friendship.answerKey
+      
+      // Merge from the source translation files to ensure all keys are present
+      const sourceInteractive = lang === 'en' ? en.interactive : lang === 'es' ? es.interactive : ar.interactive
+      if (sourceInteractive) {
+        // Merge friendship translations explicitly
+        if (sourceInteractive['interactive-sel-friendship']) {
+          interactive['interactive-sel-friendship'] = sourceInteractive['interactive-sel-friendship']
+        }
+        // Merge gratitude translations
+        if (sourceInteractive['interactive-sel-gratitude']) {
+          interactive['interactive-sel-gratitude'] = sourceInteractive['interactive-sel-gratitude']
+        }
+        // Merge art translations
+        if (sourceInteractive['interactive-art-color-by-number']) {
+          interactive['interactive-art-color-by-number'] = sourceInteractive['interactive-art-color-by-number']
+        }
+        if (sourceInteractive['interactive-art-mandala']) {
+          interactive['interactive-art-mandala'] = sourceInteractive['interactive-art-mandala']
+        }
+        if (sourceInteractive['interactive-art-doodle']) {
+          interactive['interactive-art-doodle'] = sourceInteractive['interactive-art-doodle']
+        }
+        if (sourceInteractive['interactive-art-seasonal']) {
+          interactive['interactive-art-seasonal'] = sourceInteractive['interactive-art-seasonal']
+        }
+        if (sourceInteractive['interactive-art-comic']) {
+          interactive['interactive-art-comic'] = sourceInteractive['interactive-art-comic']
+        }
+        if (sourceInteractive['interactive-art-critique']) {
+          interactive['interactive-art-critique'] = sourceInteractive['interactive-art-critique']
+        }
+        // Merge logic translations
+        if (sourceInteractive['interactive-logic-matching']) {
+          interactive['interactive-logic-matching'] = sourceInteractive['interactive-logic-matching']
+        }
+        if (sourceInteractive['interactive-logic-classification']) {
+          interactive['interactive-logic-classification'] = sourceInteractive['interactive-logic-classification']
+        }
+        if (sourceInteractive['interactive-logic-analogies']) {
+          interactive['interactive-logic-analogies'] = sourceInteractive['interactive-logic-analogies']
+        }
       }
     }
   }
