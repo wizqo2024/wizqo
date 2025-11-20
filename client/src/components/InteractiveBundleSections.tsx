@@ -1010,10 +1010,13 @@ const renderers: Record<string, Renderer> = {
       { title: 'Case of the Empty Birdhouse', culprit: 'a helpful raccoon', clue: 'muddy paw prints', setting: 'school garden' },
       { title: 'The Whispering Lockers', culprit: 'a friendly robot', clue: 'battery crumbs', setting: 'hallway' },
     ]
-    const translatedMysteries = language === 'ar'
-      ? (t('worksheets.readingDetective.mysteries') as unknown as typeof defaultMysteries) || defaultMysteries
-      : defaultMysteries
-    const mysteries = translatedMysteries.length > 0 ? translatedMysteries : defaultMysteries
+    let mysteries = defaultMysteries
+    if (language === 'ar') {
+      const translatedMysteries = t('worksheets.readingDetective.mysteries')
+      if (Array.isArray(translatedMysteries) && translatedMysteries.length > 0) {
+        mysteries = translatedMysteries as typeof defaultMysteries
+      }
+    }
     const caseFile = pick(rng, mysteries)
     const detectiveNotes = t('worksheets.readingDetective.detectiveNotes')
       .replace('{{setting}}', caseFile.setting)
@@ -1164,10 +1167,13 @@ const renderers: Record<string, Renderer> = {
       ['city playground', 'forest trail'],
       ['robot helper', 'human volunteer'],
     ]
-    const translatedTopics = language === 'ar'
-      ? (t('worksheets.compare.topics') as unknown as string[][]) || defaultTopics
-      : defaultTopics
-    const topics = translatedTopics.length > 0 ? translatedTopics : defaultTopics
+    let topics = defaultTopics
+    if (language === 'ar') {
+      const translatedTopics = t('worksheets.compare.topics')
+      if (Array.isArray(translatedTopics) && translatedTopics.length > 0) {
+        topics = translatedTopics as string[][]
+      }
+    }
     const [topicA, topicB] = pick(rng, topics)
     return (
       <div className="space-y-3">
@@ -1198,24 +1204,22 @@ const renderers: Record<string, Renderer> = {
   'interactive-writing-prompts': (ctx) => {
     const { seed, doc, variant, t, formatNum, language } = ctx
     const rng = makeRng(`${seed}|${doc.id}|${variant}`)
-    const prompts = language === 'ar' 
-      ? (t('worksheets.writingPrompts.prompts') as unknown as string[]) || []
-      : [
-          'Write about a time your class invented something helpful.',
-          'Describe a secret door you discover during recess.',
-          'Imagine the library books come alive at night?what happens?',
-          'Create a story where your pet becomes the substitute teacher.',
-          'Explain how to care for a tiny dragon who loves math.',
-          'Describe a neighborhood celebration that you design.',
-        ]
-    const chosen = pickMany(rng, prompts.length > 0 ? prompts : [
+    const defaultPrompts = [
       'Write about a time your class invented something helpful.',
       'Describe a secret door you discover during recess.',
       'Imagine the library books come alive at night?what happens?',
       'Create a story where your pet becomes the substitute teacher.',
       'Explain how to care for a tiny dragon who loves math.',
       'Describe a neighborhood celebration that you design.',
-    ], 3)
+    ]
+    let prompts = defaultPrompts
+    if (language === 'ar') {
+      const translatedPrompts = t('worksheets.writingPrompts.prompts')
+      if (Array.isArray(translatedPrompts) && translatedPrompts.length > 0) {
+        prompts = translatedPrompts as string[]
+      }
+    }
+    const chosen = pickMany(rng, prompts, 3)
     return (
       <div className="space-y-3">
         <p className="text-sm text-slate-600">
@@ -1266,10 +1270,13 @@ const renderers: Record<string, Renderer> = {
     const { seed, doc, variant, t, formatNum, language } = ctx
     const rng = makeRng(`${seed}|${doc.id}|${variant}`)
     const defaultThemes = ['rainy playground', 'city skyline', 'secret garden', 'music festival', 'winter morning', 'campfire night']
-    const translatedThemes = language === 'ar'
-      ? (t('worksheets.writingPoetry.themes') as unknown as string[]) || defaultThemes
-      : defaultThemes
-    const themes = translatedThemes.length > 0 ? translatedThemes : defaultThemes
+    let themes = defaultThemes
+    if (language === 'ar') {
+      const translatedThemes = t('worksheets.writingPoetry.themes')
+      if (Array.isArray(translatedThemes) && translatedThemes.length > 0) {
+        themes = translatedThemes as string[]
+      }
+    }
     const theme = pick(rng, themes)
     const wordBank = pickMany(rng, ['glimmer', 'echo', 'whirl', 'rustle', 'shimmer', 'spark', 'twirl', 'glide', 'bloom', 'glisten'], 6)
     return (
@@ -1303,10 +1310,13 @@ const renderers: Record<string, Renderer> = {
     const { seed, doc, variant, t, formatNum, language } = ctx
     const rng = makeRng(`${seed}|${doc.id}|${variant}`)
     const defaultTopics = ['Should recess be longer?', 'Is it better to read ebooks or paper books?', 'Should robots help with homework?', 'Is homework on weekends a good idea?', 'Should the cafeteria add a smoothie bar?']
-    const translatedTopics = language === 'ar'
-      ? (t('worksheets.writingOpinion.topics') as unknown as string[]) || defaultTopics
-      : defaultTopics
-    const topics = translatedTopics.length > 0 ? translatedTopics : defaultTopics
+    let topics = defaultTopics
+    if (language === 'ar') {
+      const translatedTopics = t('worksheets.writingOpinion.topics')
+      if (Array.isArray(translatedTopics) && translatedTopics.length > 0) {
+        topics = translatedTopics as string[]
+      }
+    }
     const topic = pick(rng, topics)
     return (
       <div className="space-y-3">
@@ -4605,14 +4615,18 @@ const renderers: Record<string, Renderer> = {
     const { seed, doc, variant, t, language } = ctx
     const rng = makeRng(`${seed}|${doc.id}|${variant}`)
     const defaultPassages = ['The cat sat on the mat. The cat is happy.', 'I see a big tree. The tree has green leaves.', 'The sun is bright. It shines in the sky.', 'I like to read books. Books are fun to read.']
-    const translatedPassages = language === 'ar' 
-      ? (t('worksheets.readingFluency.passages') as unknown as string[]) || defaultPassages
-      : defaultPassages
-    const passages = pickMany(rng, translatedPassages.length > 0 ? translatedPassages : defaultPassages, 2)
+    let passages = defaultPassages
+    if (language === 'ar') {
+      const translatedPassages = t('worksheets.readingFluency.passages')
+      if (Array.isArray(translatedPassages) && translatedPassages.length > 0) {
+        passages = translatedPassages as string[]
+      }
+    }
+    const selectedPassages = pickMany(rng, passages, 2)
     return (
       <div className="space-y-4">
         <p className="text-sm text-slate-600">{t('worksheets.readingFluency.instructions')}</p>
-        {passages.map((passage, idx) => (
+        {selectedPassages.map((passage, idx) => (
           <div key={idx} className="rounded-xl border border-purple-200 bg-purple-50 p-4">
             <p className="text-sm font-semibold text-purple-700 mb-2">{t('worksheets.readingFluency.passage').replace('{{number}}', String(idx + 1))}</p>
             <div className="bg-white rounded border border-purple-200 p-3 mb-3">
