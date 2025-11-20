@@ -5325,14 +5325,21 @@ export function getTranslation(language: Language, key: string): string | any {
     
     // For interactive translations, try the exported interactiveTranslations first (prevents tree-shaking issues)
     if (keys[0] === 'interactive' && keys.length >= 2) {
+      const interactiveKey = keys[1]
+      
       // Try exported interactiveTranslations first
-      if (interactiveTranslations && interactiveTranslations[language]) {
-        const interactiveKey = keys[1]
-        if (interactiveKey && interactiveKey in interactiveTranslations[language]) {
-          let value: any = (interactiveTranslations[language] as any)[interactiveKey]
+      if (interactiveTranslations && interactiveTranslations[language] && interactiveKey) {
+        const interactiveObj = (interactiveTranslations[language] as any)
+        if (interactiveKey in interactiveObj) {
+          let value: any = interactiveObj[interactiveKey]
           // Navigate through remaining keys (starting from index 2)
           for (let j = 2; j < keys.length; j++) {
-            if (value === null || value === undefined) break
+            if (value === null || value === undefined) {
+              if (typeof window !== 'undefined' && process.env.NODE_ENV === 'development') {
+                console.warn(`[getTranslation] Navigation failed at key[${j}]=${keys[j]}, value is ${value}`, { key, language, keys, currentValue: value })
+              }
+              break
+            }
             value = value[keys[j]]
           }
           if (value !== null && value !== undefined) {
@@ -5345,14 +5352,20 @@ export function getTranslation(language: Language, key: string): string | any {
           }
         }
       }
+      
       // Fallback: try translations[language].interactive
-      if (translations[language] && translations[language].interactive) {
-        const interactiveKey = keys[1]
-        if (interactiveKey && interactiveKey in translations[language].interactive) {
-          let value: any = (translations[language].interactive as any)[interactiveKey]
+      if (translations[language] && translations[language].interactive && interactiveKey) {
+        const interactiveObj = (translations[language].interactive as any)
+        if (interactiveKey in interactiveObj) {
+          let value: any = interactiveObj[interactiveKey]
           // Navigate through remaining keys (starting from index 2)
           for (let j = 2; j < keys.length; j++) {
-            if (value === null || value === undefined) break
+            if (value === null || value === undefined) {
+              if (typeof window !== 'undefined' && process.env.NODE_ENV === 'development') {
+                console.warn(`[getTranslation] Navigation failed at key[${j}]=${keys[j]}, value is ${value}`, { key, language, keys, currentValue: value })
+              }
+              break
+            }
             value = value[keys[j]]
           }
           if (value !== null && value !== undefined) {
@@ -5363,6 +5376,22 @@ export function getTranslation(language: Language, key: string): string | any {
               return value
             }
           }
+        }
+      }
+      
+      // If we get here and it's an interactive key, log for debugging
+      if (typeof window !== 'undefined' && process.env.NODE_ENV === 'development') {
+        const debugKey = `interactive-missing-${language}-${key}`
+        if (!(window as any)[debugKey]) {
+          (window as any)[debugKey] = true
+          console.warn(`[getTranslation] Interactive translation not found: ${key}`, {
+            language,
+            hasInteractiveTranslations: !!interactiveTranslations?.[language],
+            hasTranslationsInteractive: !!translations[language]?.interactive,
+            interactiveKey,
+            availableKeys: interactiveTranslations?.[language] ? Object.keys(interactiveTranslations[language]).slice(0, 10) : 'N/A',
+            translationsKeys: translations[language]?.interactive ? Object.keys(translations[language].interactive).slice(0, 10) : 'N/A'
+          })
         }
       }
     }
