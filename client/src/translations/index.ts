@@ -13,6 +13,7 @@ export const translations = {
       ...en.interactive,
       // Explicitly include friendship translations
       'interactive-sel-friendship': en.interactive?.['interactive-sel-friendship'] || {
+        title: 'Friendship & Social Skills',
         description: 'Learn about making friends, sharing, taking turns, and being kind to others.',
         situation: 'Situation:',
         whatCanYouDo: 'What can you do?',
@@ -39,6 +40,7 @@ export const translations = {
       ...es.interactive,
       // Explicitly include friendship translations
       'interactive-sel-friendship': es.interactive?.['interactive-sel-friendship'] || {
+        title: 'Amistad y Habilidades Sociales',
         description: 'Aprende sobre hacer amigos, compartir, tomar turnos y ser amable con otros.',
         situation: 'Situación:',
         whatCanYouDo: '¿Qué puedes hacer?',
@@ -65,6 +67,7 @@ export const translations = {
       ...ar.interactive,
       // Explicitly include friendship translations
       'interactive-sel-friendship': ar.interactive?.['interactive-sel-friendship'] || {
+        title: 'الصداقة والمهارات الاجتماعية',
         description: 'تعلم عن تكوين الصداقات والمشاركة وأخذ الأدوار واللطف مع الآخرين.',
         situation: 'الموقف:',
         whatCanYouDo: 'ماذا يمكنك أن تفعل؟',
