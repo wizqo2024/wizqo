@@ -5,10 +5,86 @@ import { ar } from './ar'
 
 export type Language = 'en' | 'es' | 'ar'
 
+// Initialize translations with explicit interactive content to prevent tree-shaking
 export const translations = {
-  en,
-  es,
-  ar,
+  en: {
+    ...en,
+    interactive: {
+      ...en.interactive,
+      // Explicitly include friendship translations
+      'interactive-sel-friendship': en.interactive?.['interactive-sel-friendship'] || {
+        description: 'Learn about making friends, sharing, taking turns, and being kind to others.',
+        situation: 'Situation:',
+        whatCanYouDo: 'What can you do?',
+        waysToBeGoodFriend: 'Ways to Be a Good Friend',
+        shareAndTakeTurns: 'Share and take turns',
+        listenWhenOthersTalk: 'Listen when others talk',
+        beKindAndHelpful: 'Be kind and helpful',
+        includeEveryone: 'Include everyone',
+        scenarios: {
+          newStudent: 'A new student joins your class',
+          newStudentAction: 'introduce yourself',
+          friendSad: 'A friend is sad',
+          friendSadAction: 'ask how they feel',
+          someoneNeedsHelp: 'Someone needs help',
+          someoneNeedsHelpAction: 'offer to help',
+        },
+        answerKey: 'Student responses may vary. Check for understanding of friendship skills, empathy, kindness, and appropriate social responses to different situations.',
+      },
+    },
+  },
+  es: {
+    ...es,
+    interactive: {
+      ...es.interactive,
+      // Explicitly include friendship translations
+      'interactive-sel-friendship': es.interactive?.['interactive-sel-friendship'] || {
+        description: 'Aprende sobre hacer amigos, compartir, tomar turnos y ser amable con otros.',
+        situation: 'Situación:',
+        whatCanYouDo: '¿Qué puedes hacer?',
+        waysToBeGoodFriend: 'Formas de Ser un Buen Amigo',
+        shareAndTakeTurns: 'Compartir y tomar turnos',
+        listenWhenOthersTalk: 'Escuchar cuando otros hablan',
+        beKindAndHelpful: 'Ser amable y servicial',
+        includeEveryone: 'Incluir a todos',
+        scenarios: {
+          newStudent: 'Un nuevo estudiante se une a tu clase',
+          newStudentAction: 'preséntate',
+          friendSad: 'Un amigo está triste',
+          friendSadAction: 'pregunta cómo se siente',
+          someoneNeedsHelp: 'Alguien necesita ayuda',
+          someoneNeedsHelpAction: 'ofrece ayuda',
+        },
+        answerKey: 'Las respuestas de los estudiantes pueden variar. Verifica la comprensión de habilidades de amistad, empatía, bondad y respuestas sociales apropiadas a diferentes situaciones.',
+      },
+    },
+  },
+  ar: {
+    ...ar,
+    interactive: {
+      ...ar.interactive,
+      // Explicitly include friendship translations
+      'interactive-sel-friendship': ar.interactive?.['interactive-sel-friendship'] || {
+        description: 'تعلم عن تكوين الصداقات والمشاركة وأخذ الأدوار واللطف مع الآخرين.',
+        situation: 'الموقف:',
+        whatCanYouDo: 'ماذا يمكنك أن تفعل؟',
+        waysToBeGoodFriend: 'طرق أن تكون صديقاً جيداً',
+        shareAndTakeTurns: 'شارك وخذ الأدوار',
+        listenWhenOthersTalk: 'استمع عندما يتحدث الآخرون',
+        beKindAndHelpful: 'كن لطيفاً ومفيداً',
+        includeEveryone: 'شمل الجميع',
+        scenarios: {
+          newStudent: 'طالب جديد ينضم إلى صفك',
+          newStudentAction: 'قدم نفسك',
+          friendSad: 'صديق حزين',
+          friendSadAction: 'اسأل كيف يشعر',
+          someoneNeedsHelp: 'شخص يحتاج مساعدة',
+          someoneNeedsHelpAction: 'عرض المساعدة',
+        },
+        answerKey: 'قد تختلف إجابات الطلاب. تحقق من فهم مهارات الصداقة والتعاطف واللطف والاستجابات الاجتماعية المناسبة لمواقف مختلفة.',
+      },
+    },
+  },
 } as const
 
 // Explicitly export interactive worksheet keys to prevent tree-shaking
