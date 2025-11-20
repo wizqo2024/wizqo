@@ -1796,6 +1796,14 @@ const ensureInteractiveWorksheetKeys = () => {
       artDesign: {
         instructions: 'Color each pattern! Use your favorite colors and make it beautiful.',
         colorInsideShape: 'Color inside the shape!',
+        patterns: {
+          geometricStar: { title: 'Geometric Star', description: 'Color the star pattern with your favorite colors!' },
+          flowerPattern: { title: 'Flower Pattern', description: 'Color the flower petals: pink, yellow, and purple' },
+          rainbowPattern: { title: 'Rainbow Pattern', description: 'Color each stripe: red, orange, yellow, green, blue, purple' },
+          heartDesign: { title: 'Heart Design', description: 'Color the hearts red and pink' },
+          circleMandala: { title: 'Circle Mandala', description: 'Color the circles with different colors' },
+          leafPattern: { title: 'Leaf Pattern', description: 'Color the leaves green' },
+        },
       },
       artColorwheel: {
         instructions: 'Color each item with the correct color. Match the color name to the object.',
@@ -1806,6 +1814,14 @@ const ensureInteractiveWorksheetKeys = () => {
       artSketch: {
         instructions: 'Draw each picture! Take your time and use your imagination.',
         drawHere: 'Draw here!',
+        prompts: {
+          beautifulFlower: { prompt: 'Draw a beautiful flower', hint: 'Add petals and a stem!' },
+          treeWithLeaves: { prompt: 'Draw a tree with leaves', hint: 'Make it big and green!' },
+          geometricShapes: { prompt: 'Draw geometric shapes', hint: 'Draw circles, squares, and triangles!' },
+          rainbow: { prompt: 'Draw a rainbow', hint: 'Use all the colors!' },
+          pattern: { prompt: 'Draw a pattern', hint: 'Create your own design!' },
+          gardenScene: { prompt: 'Draw a garden scene', hint: 'Add flowers and plants!' },
+        },
       },
       earlyPhonics: {
         instructions: 'Say the sound, trace the letter, then draw a picture that starts with it.',
@@ -1850,6 +1866,12 @@ const ensureInteractiveWorksheetKeys = () => {
         color: 'Color:',
         drawTimeFelt: 'Draw a time you felt {{feeling}}',
         howIFeelToday: 'How I Feel Today',
+        feelings: {
+          happy: 'happy',
+          sad: 'sad',
+          angry: 'angry',
+          excited: 'excited',
+        },
       },
       mathRhythm: {
         instructions: 'Continue each skip-counting rhythm. Write the missing numbers in the blanks.',
@@ -1915,6 +1937,14 @@ const ensureInteractiveWorksheetKeys = () => {
       },
       selCharacter: {
         instructions: 'Explore important character traits and values. Think about how these traits help you and others.',
+        traits: {
+          honesty: { name: 'Honesty', description: 'Telling the truth even when it\'s hard' },
+          respect: { name: 'Respect', description: 'Treating others with kindness and consideration' },
+          responsibility: { name: 'Responsibility', description: 'Doing what you\'re supposed to do' },
+          integrity: { name: 'Integrity', description: 'Doing the right thing even when no one is watching' },
+          courage: { name: 'Courage', description: 'Facing fears and standing up for what\'s right' },
+          compassion: { name: 'Compassion', description: 'Caring about others and their feelings' },
+        },
       },
       mathShapes: {
         instructions: 'Draw and tally each shape. Then classify it as "flat" or "solid" and record the number of sides.',
@@ -2330,6 +2360,14 @@ const ensureInteractiveWorksheetKeys = () => {
       artDesign: {
         instructions: '¡Colorea cada patrón! Usa tus colores favoritos y hazlo hermoso.',
         colorInsideShape: '¡Colorea dentro de la forma!',
+        patterns: {
+          geometricStar: { title: 'Estrella Geométrica', description: '¡Colorea el patrón de estrella con tus colores favoritos!' },
+          flowerPattern: { title: 'Patrón de Flor', description: 'Colorea los pétalos de la flor: rosa, amarillo y morado' },
+          rainbowPattern: { title: 'Patrón de Arcoíris', description: 'Colorea cada franja: rojo, naranja, amarillo, verde, azul, morado' },
+          heartDesign: { title: 'Diseño de Corazón', description: 'Colorea los corazones de rojo y rosa' },
+          circleMandala: { title: 'Mandala Circular', description: 'Colorea los círculos con diferentes colores' },
+          leafPattern: { title: 'Patrón de Hoja', description: 'Colorea las hojas de verde' },
+        },
       },
       artColorwheel: {
         instructions: 'Colorea cada elemento con el color correcto. Haz coincidir el nombre del color con el objeto.',
@@ -2340,6 +2378,14 @@ const ensureInteractiveWorksheetKeys = () => {
       artSketch: {
         instructions: '¡Dibuja cada imagen! Tómate tu tiempo y usa tu imaginación.',
         drawHere: '¡Dibuja aquí!',
+        prompts: {
+          beautifulFlower: { prompt: 'Dibuja una flor hermosa', hint: '¡Agrega pétalos y un tallo!' },
+          treeWithLeaves: { prompt: 'Dibuja un árbol con hojas', hint: '¡Hazlo grande y verde!' },
+          geometricShapes: { prompt: 'Dibuja formas geométricas', hint: '¡Dibuja círculos, cuadrados y triángulos!' },
+          rainbow: { prompt: 'Dibuja un arcoíris', hint: '¡Usa todos los colores!' },
+          pattern: { prompt: 'Dibuja un patrón', hint: '¡Crea tu propio diseño!' },
+          gardenScene: { prompt: 'Dibuja una escena de jardín', hint: '¡Agrega flores y plantas!' },
+        },
       },
       earlyPhonics: {
         instructions: 'Di el sonido, traza la letra y luego dibuja una imagen que comience con ella.',
@@ -2384,6 +2430,12 @@ const ensureInteractiveWorksheetKeys = () => {
         color: 'Color:',
         drawTimeFelt: 'Dibuja un momento en que te sentiste {{feeling}}',
         howIFeelToday: 'Cómo Me Siento Hoy',
+        feelings: {
+          happy: 'feliz',
+          sad: 'triste',
+          angry: 'enojado',
+          excited: 'emocionado',
+        },
       },
       mathRhythm: {
         instructions: 'Continúa cada ritmo de conteo saltado. Escribe los números faltantes en los espacios en blanco.',
@@ -2449,6 +2501,14 @@ const ensureInteractiveWorksheetKeys = () => {
       },
       selCharacter: {
         instructions: 'Explora rasgos de carácter y valores importantes. Piensa en cómo estos rasgos te ayudan a ti y a otros.',
+        traits: {
+          honesty: { name: 'Honestidad', description: 'Decir la verdad incluso cuando es difícil' },
+          respect: { name: 'Respeto', description: 'Tratar a otros con amabilidad y consideración' },
+          responsibility: { name: 'Responsabilidad', description: 'Hacer lo que se supone que debes hacer' },
+          integrity: { name: 'Integridad', description: 'Hacer lo correcto incluso cuando nadie está mirando' },
+          courage: { name: 'Valentía', description: 'Enfrentar miedos y defender lo que es correcto' },
+          compassion: { name: 'Compasión', description: 'Preocuparse por otros y sus sentimientos' },
+        },
       },
       mathShapes: {
         instructions: 'Dibuja y cuenta cada forma. Luego clasifícala como "plana" o "sólida" y registra el número de lados.',
@@ -2864,6 +2924,14 @@ const ensureInteractiveWorksheetKeys = () => {
       artDesign: {
         instructions: 'لون كل نمط! استخدم ألوانك المفضلة واجعله جميلاً.',
         colorInsideShape: 'لون داخل الشكل!',
+        patterns: {
+          geometricStar: { title: 'نجمة هندسية', description: 'لون نمط النجمة بألوانك المفضلة!' },
+          flowerPattern: { title: 'نمط الزهرة', description: 'لون بتلات الزهرة: وردي وأصفر وبنفسجي' },
+          rainbowPattern: { title: 'نمط قوس قزح', description: 'لون كل شريط: أحمر وبرتقالي وأصفر وأخضر وأزرق وبنفسجي' },
+          heartDesign: { title: 'تصميم القلب', description: 'لون القلوب باللون الأحمر والوردي' },
+          circleMandala: { title: 'ماندالا دائرية', description: 'لون الدوائر بألوان مختلفة' },
+          leafPattern: { title: 'نمط الورقة', description: 'لون الأوراق باللون الأخضر' },
+        },
       },
       artColorwheel: {
         instructions: 'لون كل عنصر باللون الصحيح. طابق اسم اللون مع الكائن.',
@@ -2874,6 +2942,14 @@ const ensureInteractiveWorksheetKeys = () => {
       artSketch: {
         instructions: 'ارسم كل صورة! خذ وقتك واستخدم خيالك.',
         drawHere: 'ارسم هنا!',
+        prompts: {
+          beautifulFlower: { prompt: 'ارسم زهرة جميلة', hint: 'أضف البتلات والساق!' },
+          treeWithLeaves: { prompt: 'ارسم شجرة بأوراق', hint: 'اجعله كبيراً وأخضر!' },
+          geometricShapes: { prompt: 'ارسم أشكالاً هندسية', hint: 'ارسم دوائر ومربعات ومثلثات!' },
+          rainbow: { prompt: 'ارسم قوس قزح', hint: 'استخدم كل الألوان!' },
+          pattern: { prompt: 'ارسم نمطاً', hint: 'أنشئ تصميمك الخاص!' },
+          gardenScene: { prompt: 'ارسم مشهد حديقة', hint: 'أضف الزهور والنباتات!' },
+        },
       },
       earlyPhonics: {
         instructions: 'قل الصوت، تتبع الحرف، ثم ارسم صورة تبدأ به.',
@@ -2918,6 +2994,12 @@ const ensureInteractiveWorksheetKeys = () => {
         color: 'اللون:',
         drawTimeFelt: 'ارسم وقتاً شعرت فيه بـ {{feeling}}',
         howIFeelToday: 'كيف أشعر اليوم',
+        feelings: {
+          happy: 'سعيد',
+          sad: 'حزين',
+          angry: 'غاضب',
+          excited: 'متحمس',
+        },
       },
       mathRhythm: {
         instructions: 'أكمل كل إيقاع عد بالقفز. اكتب الأرقام المفقودة في الفراغات.',
@@ -2983,6 +3065,14 @@ const ensureInteractiveWorksheetKeys = () => {
       },
       selCharacter: {
         instructions: 'استكشف سمات الشخصية والقيم المهمة. فكر في كيفية مساعدة هذه السمات لك والآخرين.',
+        traits: {
+          honesty: { name: 'الصدق', description: 'قول الحقيقة حتى عندما يكون الأمر صعباً' },
+          respect: { name: 'الاحترام', description: 'معاملة الآخرين بلطف واعتبار' },
+          responsibility: { name: 'المسؤولية', description: 'فعل ما من المفترض أن تفعله' },
+          integrity: { name: 'النزاهة', description: 'فعل الصواب حتى عندما لا أحد يراقب' },
+          courage: { name: 'الشجاعة', description: 'مواجهة المخاوف والوقوف لما هو صحيح' },
+          compassion: { name: 'الرحمة', description: 'الاهتمام بالآخرين ومشاعرهم' },
+        },
       },
       mathShapes: {
         instructions: 'ارسم واحسب كل شكل. ثم صنفه كـ "مسطح" أو "مجسم" وسجل عدد الأضلاع.',

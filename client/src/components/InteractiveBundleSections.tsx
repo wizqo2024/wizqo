@@ -1716,14 +1716,14 @@ const renderers: Record<string, Renderer> = {
   'interactive-art-design': (ctx) => {
     const { seed, doc, variant, t } = ctx
     const rng = makeRng(`${seed}|${doc.id}|${variant}`)
-    const coloringPages = pickMany(rng, [
-      { title: 'Geometric Star', shape: 'star', description: 'Color the star pattern with your favorite colors!' },
-      { title: 'Flower Pattern', shape: 'flower', description: 'Color the flower petals: pink, yellow, and purple' },
-      { title: 'Rainbow Pattern', shape: 'rainbow', description: 'Color each stripe: red, orange, yellow, green, blue, purple' },
-      { title: 'Heart Design', shape: 'heart', description: 'Color the hearts red and pink' },
-      { title: 'Circle Mandala', shape: 'mandala', description: 'Color the circles with different colors' },
-      { title: 'Leaf Pattern', shape: 'leaf', description: 'Color the leaves green' },
-    ], 4)
+    const patternKeys = ['geometricStar', 'flowerPattern', 'rainbowPattern', 'heartDesign', 'circleMandala', 'leafPattern']
+    const selectedKeys = pickMany(rng, patternKeys, 4)
+    const coloringPages = selectedKeys.map(key => ({
+      key,
+      title: t(`worksheets.artDesign.patterns.${key}.title`),
+      shape: key === 'geometricStar' ? 'star' : key === 'flowerPattern' ? 'flower' : key === 'rainbowPattern' ? 'rainbow' : key === 'heartDesign' ? 'heart' : key === 'circleMandala' ? 'mandala' : 'leaf',
+      description: t(`worksheets.artDesign.patterns.${key}.description`),
+    }))
     
     const ShapeSVG = ({ shape }: { shape: string }) => {
       const size = 250
@@ -1906,14 +1906,14 @@ const renderers: Record<string, Renderer> = {
   'interactive-art-sketch': (ctx) => {
     const { seed, doc, variant, t } = ctx
     const rng = makeRng(`${seed}|${doc.id}|${variant}`)
-    const drawingPrompts = pickMany(rng, [
-      { prompt: 'Draw a beautiful flower', emoji: '🌺', hint: 'Add petals and a stem!' },
-      { prompt: 'Draw a tree with leaves', emoji: '🌳', hint: 'Make it big and green!' },
-      { prompt: 'Draw geometric shapes', emoji: '⬜', hint: 'Draw circles, squares, and triangles!' },
-      { prompt: 'Draw a rainbow', emoji: '🌈', hint: 'Use all the colors!' },
-      { prompt: 'Draw a pattern', emoji: '✨', hint: 'Create your own design!' },
-      { prompt: 'Draw a garden scene', emoji: '🌻', hint: 'Add flowers and plants!' },
-    ], 3)
+    const promptKeys = ['beautifulFlower', 'treeWithLeaves', 'geometricShapes', 'rainbow', 'pattern', 'gardenScene']
+    const emojis = { beautifulFlower: '🌺', treeWithLeaves: '🌳', geometricShapes: '⬜', rainbow: '🌈', pattern: '✨', gardenScene: '🌻' }
+    const selectedKeys = pickMany(rng, promptKeys, 3)
+    const drawingPrompts = selectedKeys.map(key => ({
+      prompt: t(`worksheets.artSketch.prompts.${key}.prompt`),
+      emoji: emojis[key],
+      hint: t(`worksheets.artSketch.prompts.${key}.hint`),
+    }))
     return (
       <div className="space-y-3">
         <p className="text-sm text-slate-600">
@@ -3363,14 +3363,14 @@ const renderers: Record<string, Renderer> = {
   'interactive-sel-character': (ctx) => {
     const { seed, doc, variant, t } = ctx
     const rng = makeRng(`${seed}|${doc.id}|${variant}`)
-    const traits = pickMany(rng, [
-      { name: 'Honesty', description: 'Telling the truth even when it\'s hard', emoji: '💎' },
-      { name: 'Respect', description: 'Treating others with kindness and consideration', emoji: '🤝' },
-      { name: 'Responsibility', description: 'Doing what you\'re supposed to do', emoji: '📋' },
-      { name: 'Integrity', description: 'Doing the right thing even when no one is watching', emoji: '⭐' },
-      { name: 'Courage', description: 'Facing fears and standing up for what\'s right', emoji: '🦁' },
-      { name: 'Compassion', description: 'Caring about others and their feelings', emoji: '❤️' },
-    ], 4)
+    const traitKeys = ['honesty', 'respect', 'responsibility', 'integrity', 'courage', 'compassion']
+    const emojis = { honesty: '💎', respect: '🤝', responsibility: '📋', integrity: '⭐', courage: '🦁', compassion: '❤️' }
+    const selectedKeys = pickMany(rng, traitKeys, 4)
+    const traits = selectedKeys.map(key => ({
+      name: t(`worksheets.selCharacter.traits.${key}.name`),
+      description: t(`worksheets.selCharacter.traits.${key}.description`),
+      emoji: emojis[key],
+    }))
     return (
       <div className="space-y-4">
         <p className="text-sm text-slate-600">{t('worksheets.selCharacter.instructions')}</p>
