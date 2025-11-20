@@ -6530,15 +6530,19 @@ const answerRenderers: Record<string, AnswerRenderer> = {
                 .replace(/\{\{num2\}\}/g, formatNum(prob.num2))
                 .replace(/\{\{answer\}\}/g, formatNum(prob.answer))
             } else {
-              // Fallback if translation not found
+              // Fallback if translation not found - use simple Arabic explanations
+              const instructionsText = t('worksheets.decimals.instructions')
+              const instructions = (instructionsText && instructionsText !== 'worksheets.decimals.instructions') 
+                ? instructionsText 
+                : 'قم بمحاذاة النقاط العشرية.'
               if (prob.op === '+') {
-                explanation = `${t('common.add')}: ${formatNum(prob.num1)} + ${formatNum(prob.num2)} = ${formatNum(prob.answer)}. ${t('worksheets.decimals.instructions')}`
+                explanation = `${t('common.add')}: ${formatNum(prob.num1)} + ${formatNum(prob.num2)} = ${formatNum(prob.answer)}. ${instructions}`
               } else if (prob.op === '-') {
-                explanation = `${t('common.subtract')}: ${formatNum(prob.num1)} - ${formatNum(prob.num2)} = ${formatNum(prob.answer)}. ${t('worksheets.decimals.instructions')}`
+                explanation = `${t('common.subtract')}: ${formatNum(prob.num1)} - ${formatNum(prob.num2)} = ${formatNum(prob.answer)}. ${instructions}`
               } else if (prob.op === '×') {
-                explanation = `${t('common.multiply')}: ${formatNum(prob.num1)} × ${formatNum(prob.num2)} = ${formatNum(prob.answer)}. ${t('worksheets.decimals.instructions')}`
+                explanation = `${t('common.multiply')}: ${formatNum(prob.num1)} × ${formatNum(prob.num2)} = ${formatNum(prob.answer)}. ${instructions}`
               } else {
-                explanation = `${t('common.divide')}: ${formatNum(prob.num1)} ÷ ${formatNum(prob.num2)} = ${formatNum(prob.answer)}. ${t('worksheets.decimals.instructions')}`
+                explanation = `${t('common.divide')}: ${formatNum(prob.num1)} ÷ ${formatNum(prob.num2)} = ${formatNum(prob.answer)}. ${instructions}`
               }
             }
             const problemLabel = t('worksheets.decimals.answerKey.problem')
