@@ -17,9 +17,37 @@ if (false) {
   void interactiveTranslations.en
   void interactiveTranslations.es
   void interactiveTranslations.ar
-  void interactiveTranslations.en?.['interactive-sel-friendship']
-  void interactiveTranslations.es?.['interactive-sel-friendship']
-  void interactiveTranslations.ar?.['interactive-sel-friendship']
+  // Explicitly reference all SEL translations
+  const selKeys = [
+    'interactive-sel-friendship',
+    'interactive-sel-gratitude',
+    'interactive-sel-mindfulness',
+    'interactive-sel-empathy',
+    'interactive-sel-conflict',
+    'interactive-sel-regulation',
+    'interactive-sel-kindness',
+    'interactive-sel-growth-mindset',
+    'interactive-sel-stress',
+    'interactive-sel-character',
+  ]
+  for (const key of selKeys) {
+    void interactiveTranslations.en?.[key]
+    void interactiveTranslations.es?.[key]
+    void interactiveTranslations.ar?.[key]
+    // Also reference nested keys for friendship
+    if (key === 'interactive-sel-friendship') {
+      void interactiveTranslations.en?.[key]?.situation
+      void interactiveTranslations.en?.[key]?.whatCanYouDo
+      void interactiveTranslations.en?.[key]?.scenarios?.newStudent
+      void interactiveTranslations.en?.[key]?.scenarios?.friendSad
+      void interactiveTranslations.en?.[key]?.scenarios?.someoneNeedsHelp
+      void interactiveTranslations.ar?.[key]?.situation
+      void interactiveTranslations.ar?.[key]?.whatCanYouDo
+      void interactiveTranslations.ar?.[key]?.scenarios?.newStudent
+      void interactiveTranslations.ar?.[key]?.scenarios?.friendSad
+      void interactiveTranslations.ar?.[key]?.scenarios?.someoneNeedsHelp
+    }
+  }
 }
 
 type Props = {

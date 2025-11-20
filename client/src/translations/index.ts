@@ -128,15 +128,39 @@ export const interactiveTranslations = {
   ar: ar.interactive,
 } as const
 
-// Explicitly reference friendship translations to prevent tree-shaking
+// Explicitly reference all SEL translations to prevent tree-shaking
 if (false) {
   // This code never runs but ensures the translations are included in the bundle
-  const _friendshipEn = en.interactive['interactive-sel-friendship']
-  const _friendshipEs = es.interactive['interactive-sel-friendship']
-  const _friendshipAr = ar.interactive['interactive-sel-friendship']
-  void _friendshipEn
-  void _friendshipEs
-  void _friendshipAr
+  const selKeys = [
+    'interactive-sel-friendship',
+    'interactive-sel-gratitude',
+    'interactive-sel-mindfulness',
+    'interactive-sel-empathy',
+    'interactive-sel-conflict',
+    'interactive-sel-regulation',
+    'interactive-sel-kindness',
+    'interactive-sel-growth-mindset',
+    'interactive-sel-stress',
+    'interactive-sel-character',
+  ]
+  for (const key of selKeys) {
+    void en.interactive[key]
+    void es.interactive[key]
+    void ar.interactive[key]
+    // Also reference nested keys
+    if (key === 'interactive-sel-friendship') {
+      void en.interactive[key]?.situation
+      void en.interactive[key]?.whatCanYouDo
+      void en.interactive[key]?.scenarios?.newStudent
+      void en.interactive[key]?.scenarios?.friendSad
+      void en.interactive[key]?.scenarios?.someoneNeedsHelp
+      void ar.interactive[key]?.situation
+      void ar.interactive[key]?.whatCanYouDo
+      void ar.interactive[key]?.scenarios?.newStudent
+      void ar.interactive[key]?.scenarios?.friendSad
+      void ar.interactive[key]?.scenarios?.someoneNeedsHelp
+    }
+  }
 }
 
 // Ensure interactive worksheet title and description keys are present
