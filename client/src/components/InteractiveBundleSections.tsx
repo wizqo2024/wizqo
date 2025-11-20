@@ -4465,7 +4465,18 @@ const renderers: Record<string, Renderer> = {
     const { seed, doc, variant, t } = ctx
     const rng = makeRng(`${seed}|${doc.id}|${variant}`)
     const letters = pickMany(rng, ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'], 6)
-    const beginningSounds = pickMany(rng, [{ letter: 'B', words: ['ball', 'book', 'bus'] }, { letter: 'C', words: ['cat', 'car', 'cup'] }, { letter: 'D', words: ['dog', 'door', 'duck'] }, { letter: 'F', words: ['fish', 'fan', 'flower'] }, { letter: 'M', words: ['moon', 'mouse', 'map'] }, { letter: 'S', words: ['sun', 'star', 'snake'] }], 4)
+    const beginningSoundsData = [
+      { letter: 'B', words: ['ball', 'book', 'bus'] },
+      { letter: 'C', words: ['cat', 'car', 'cup'] },
+      { letter: 'D', words: ['dog', 'door', 'duck'] },
+      { letter: 'F', words: ['fish', 'fan', 'flower'] },
+      { letter: 'M', words: ['moon', 'mouse', 'map'] },
+      { letter: 'S', words: ['sun', 'star', 'snake'] }
+    ]
+    const beginningSounds = pickMany(rng, beginningSoundsData, 4).map(item => ({
+      letter: item.letter,
+      words: item.words.map(word => t(`common.items.${word}`) || word)
+    }))
     return (
       <div className="space-y-4">
         <p className="text-sm text-slate-600">{t(`interactive.${doc.id}.description`) || t('worksheets.earlyPhonics.instructions')}</p>
