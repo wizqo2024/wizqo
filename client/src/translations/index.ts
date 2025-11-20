@@ -2034,6 +2034,7 @@ const ensureInteractiveWorksheetKeys = () => {
         writeIt3Times: 'Write it 3 times:',
         useInSentences: 'Use sight words in sentences:',
         writeSentenceWith: 'Write a sentence with "{{word}}":',
+        words: ['the', 'and', 'is', 'it', 'you', 'that', 'he', 'was', 'for', 'on', 'are', 'as', 'with', 'his', 'they', 'I', 'at', 'be', 'this', 'have', 'from', 'or', 'one', 'had', 'by', 'word', 'but', 'not', 'what', 'all', 'were', 'we', 'when', 'your', 'can', 'said'],
       },
       writingTrace: {
         practiceTracing: 'Practice tracing lowercase letters neatly. Follow the dotted lines, then write each letter 3 times on your own.',
@@ -2606,6 +2607,7 @@ const ensureInteractiveWorksheetKeys = () => {
         writeIt3Times: 'Escríbelo 3 veces:',
         useInSentences: 'Usa palabras de vista en oraciones:',
         writeSentenceWith: 'Escribe una oración con "{{word}}":',
+        words: ['el', 'la', 'y', 'es', 'un', 'una', 'en', 'de', 'que', 'con', 'por', 'para', 'son', 'las', 'los', 'del', 'se', 'le', 'te', 'me', 'nos', 'les', 'tiene', 'tiene', 'hacer', 'estar', 'ser', 'tener', 'poder', 'decir', 'ir', 'ver', 'dar', 'saber', 'querer'],
       },
       writingTrace: {
         practiceTracing: 'Practica trazar letras minúsculas con cuidado. Sigue las líneas punteadas, luego escribe cada letra 3 veces por tu cuenta.',
@@ -3178,6 +3180,7 @@ const ensureInteractiveWorksheetKeys = () => {
         writeIt3Times: 'اكتبها 3 مرات:',
         useInSentences: 'استخدم كلمات البصر في الجمل:',
         writeSentenceWith: 'اكتب جملة مع "{{word}}":',
+        words: ['في', 'من', 'إلى', 'على', 'هذا', 'ذلك', 'هذه', 'كان', 'كانت', 'يكون', 'كانوا', 'له', 'لها', 'لهم', 'لي', 'لك', 'لكم', 'مع', 'بدون', 'أو', 'لكن', 'إذا', 'عندما', 'حيث', 'كيف', 'ماذا', 'من', 'لماذا', 'كل', 'بعض', 'كثير', 'قليل', 'أول', 'آخر', 'جديد', 'قديم'],
       },
       writingTrace: {
         practiceTracing: 'تدرب على تتبع الأحرف الصغيرة بانتظام. اتبع الخطوط المنقطة، ثم اكتب كل حرف 3 مرات بنفسك.',

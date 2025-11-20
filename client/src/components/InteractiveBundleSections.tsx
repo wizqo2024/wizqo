@@ -6,7 +6,7 @@ import {
   type InteractiveCategory,
 } from '@shared/interactive/interactiveWorksheets'
 import { useTranslation } from '@/context/TranslationContext'
-import { getTranslation } from '@/translations'
+import { getTranslation, translations } from '@/translations'
 import { formatNumber, formatNumberRange } from '@/utils/numbers'
 
 type Props = {
@@ -4495,9 +4495,11 @@ const renderers: Record<string, Renderer> = {
     )
   },
   'interactive-reading-sightwords': (ctx) => {
-    const { seed, doc, variant, t } = ctx
+    const { seed, doc, variant, t, language } = ctx
     const rng = makeRng(`${seed}|${doc.id}|${variant}`)
-    const sightWords = pickMany(rng, ['the', 'and', 'is', 'it', 'you', 'that', 'he', 'was', 'for', 'on', 'are', 'as', 'with', 'his', 'they', 'I', 'at', 'be', 'this', 'have', 'from', 'or', 'one', 'had', 'by', 'word', 'but', 'not', 'what', 'all', 'were', 'we', 'when', 'your', 'can', 'said'], 8)
+    // Get language-specific sight words from translations
+    const allSightWords = getTranslation(language, 'worksheets.readingSightwords.words') as string[] || []
+    const sightWords = pickMany(rng, allSightWords, 8)
     return (
       <div className="space-y-4">
         <p className="text-sm text-slate-600">{t('worksheets.readingSightwords.instructions')}</p>
