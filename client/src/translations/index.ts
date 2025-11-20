@@ -5324,21 +5324,44 @@ export function getTranslation(language: Language, key: string): string | any {
     const keys = key.split('.')
     
     // For interactive translations, try the exported interactiveTranslations first (prevents tree-shaking issues)
-    if (keys[0] === 'interactive' && keys.length >= 2 && interactiveTranslations[language]) {
-      const interactiveKey = keys[1]
-      if (interactiveKey && interactiveKey in interactiveTranslations[language]) {
-        let value: any = (interactiveTranslations[language] as any)[interactiveKey]
-        // Navigate through remaining keys (starting from index 2)
-        for (let j = 2; j < keys.length; j++) {
-          if (value === null || value === undefined) break
-          value = value[keys[j]]
-        }
-        if (value !== null && value !== undefined) {
-          if (Array.isArray(value) || (typeof value === 'object' && typeof value !== 'string')) {
-            return value
+    if (keys[0] === 'interactive' && keys.length >= 2) {
+      // Try exported interactiveTranslations first
+      if (interactiveTranslations && interactiveTranslations[language]) {
+        const interactiveKey = keys[1]
+        if (interactiveKey && interactiveKey in interactiveTranslations[language]) {
+          let value: any = (interactiveTranslations[language] as any)[interactiveKey]
+          // Navigate through remaining keys (starting from index 2)
+          for (let j = 2; j < keys.length; j++) {
+            if (value === null || value === undefined) break
+            value = value[keys[j]]
           }
-          if (typeof value === 'string') {
-            return value
+          if (value !== null && value !== undefined) {
+            if (Array.isArray(value) || (typeof value === 'object' && typeof value !== 'string')) {
+              return value
+            }
+            if (typeof value === 'string') {
+              return value
+            }
+          }
+        }
+      }
+      // Fallback: try translations[language].interactive
+      if (translations[language] && translations[language].interactive) {
+        const interactiveKey = keys[1]
+        if (interactiveKey && interactiveKey in translations[language].interactive) {
+          let value: any = (translations[language].interactive as any)[interactiveKey]
+          // Navigate through remaining keys (starting from index 2)
+          for (let j = 2; j < keys.length; j++) {
+            if (value === null || value === undefined) break
+            value = value[keys[j]]
+          }
+          if (value !== null && value !== undefined) {
+            if (Array.isArray(value) || (typeof value === 'object' && typeof value !== 'string')) {
+              return value
+            }
+            if (typeof value === 'string') {
+              return value
+            }
           }
         }
       }
