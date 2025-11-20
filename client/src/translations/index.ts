@@ -5932,7 +5932,12 @@ export function getTranslation(language: Language, key: string): string | any {
               // Continue with remaining keys if any (starting from index 2, since we already handled 0 and 1)
               for (let j = 2; j < keys.length; j++) {
                 if (value === null || value === undefined) break
-                value = value[keys[j]]
+                if (value && typeof value === 'object' && keys[j] in value) {
+                  value = value[keys[j]]
+                } else {
+                  value = undefined
+                  break
+                }
               }
               if (value !== null && value !== undefined) {
                 if (Array.isArray(value) || (typeof value === 'object' && typeof value !== 'string')) {
@@ -5963,7 +5968,12 @@ export function getTranslation(language: Language, key: string): string | any {
               // Continue with remaining keys if any (starting from index 2, since we already handled 0 and 1)
               for (let j = 2; j < keys.length; j++) {
                 if (value === null || value === undefined) break
-                value = value[keys[j]]
+                if (value && typeof value === 'object' && keys[j] in value) {
+                  value = value[keys[j]]
+                } else {
+                  value = undefined
+                  break
+                }
               }
               if (value !== null && value !== undefined) {
                 if (Array.isArray(value) || (typeof value === 'object' && typeof value !== 'string')) {
