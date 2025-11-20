@@ -5,6 +5,7 @@
 
 export const ar = {
   common: {
+    home: 'الرئيسية',
     challengeYourself: 'تحدي نفسك (اختياري):',
     howDidYouDo: 'كيف كان أداؤك؟',
     myScore: 'نقاطي:',
@@ -24,6 +25,34 @@ export const ar = {
     place: 'منزلة',
     comingSoon: 'قريباً: نشاط قابل للطباعة لهذه الورقة التفاعلية.',
     answersWillBeAdded: 'سيتم إضافة الإجابات بمجرد توفر هذا النشاط.',
+    colors: {
+      red: 'أحمر',
+      blue: 'أزرق',
+      green: 'أخضر',
+      yellow: 'أصفر',
+      orange: 'برتقالي',
+      purple: 'بنفسجي',
+      pink: 'وردي',
+      brown: 'بني',
+      black: 'أسود',
+      white: 'أبيض',
+    },
+    shapes: {
+      circle: 'دائرة',
+      square: 'مربع',
+      triangle: 'مثلث',
+      rectangle: 'مستطيل',
+      star: 'نجمة',
+      heart: 'قلب',
+      diamond: 'معين',
+      oval: 'بيضاوي',
+    },
+    sizes: {
+      big: 'كبير',
+      small: 'صغير',
+      large: 'كبير',
+      tiny: 'صغير جداً',
+    },
   },
   worksheets: {
     countObjectsAndWriteNumber: 'عد الكائنات واكتب الرقم.',

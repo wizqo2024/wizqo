@@ -2901,16 +2901,26 @@ const renderers: Record<string, Renderer> = {
   'interactive-cognitive-visual': (ctx) => {
     const { seed, doc, variant, t } = ctx
     const rng = makeRng(`${seed}|${doc.id}|${variant}`)
+    // Use translation keys for colors, shapes, and sizes
     const patterns = [
-      { original: ['red', 'blue', 'red', 'blue'], match: ['red', 'blue', 'red', 'green'] },
-      { original: ['circle', 'square', 'circle', 'square'], match: ['circle', 'square', 'triangle', 'square'] },
-      { original: ['big', 'small', 'big', 'small'], match: ['big', 'small', 'big', 'big'] },
+      { 
+        original: [t('common.colors.red'), t('common.colors.blue'), t('common.colors.red'), t('common.colors.blue')], 
+        match: [t('common.colors.red'), t('common.colors.blue'), t('common.colors.red'), t('common.colors.green')] 
+      },
+      { 
+        original: [t('common.shapes.circle'), t('common.shapes.square'), t('common.shapes.circle'), t('common.shapes.square')], 
+        match: [t('common.shapes.circle'), t('common.shapes.square'), t('common.shapes.triangle'), t('common.shapes.square')] 
+      },
+      { 
+        original: [t('common.sizes.big'), t('common.sizes.small'), t('common.sizes.big'), t('common.sizes.small')], 
+        match: [t('common.sizes.big'), t('common.sizes.small'), t('common.sizes.big'), t('common.sizes.big')] 
+      },
     ]
     const spatialItems = [
-      { position: 'above', item: 'star', textKey: 'above' },
-      { position: 'below', item: 'circle', textKey: 'below' },
-      { position: 'left', item: 'triangle', textKey: 'toTheLeftOf' },
-      { position: 'right', item: 'square', textKey: 'toTheRightOf' },
+      { position: 'above', itemKey: 'star', textKey: 'above' },
+      { position: 'below', itemKey: 'circle', textKey: 'below' },
+      { position: 'left', itemKey: 'triangle', textKey: 'toTheLeftOf' },
+      { position: 'right', itemKey: 'square', textKey: 'toTheRightOf' },
     ]
     return (
       <div className="space-y-4">
@@ -2952,31 +2962,34 @@ const renderers: Record<string, Renderer> = {
           <p className="text-xs text-pink-600 mb-3">{t('worksheets.cognitiveVisual.drawItemPosition')}</p>
           <div className="bg-white rounded-lg p-3 border border-pink-200">
             <div className="grid grid-cols-2 gap-4">
-              {spatialItems.map((item, idx) => (
-                <div key={idx} className="border border-dashed border-pink-300 rounded p-3">
-                  <p className="text-xs text-pink-600 mb-2">{t('worksheets.cognitiveVisual.drawItemText').replace('{{item}}', item.item).replace('{{text}}', t(`worksheets.cognitiveVisual.${item.textKey}`))}</p>
-                  {item.position === 'above' && (
-                    <div className="h-20 border border-pink-200 rounded relative">
-                      <div className="absolute bottom-0 left-0 right-0 h-0.5 bg-pink-600"></div>
-                    </div>
-                  )}
-                  {item.position === 'below' && (
-                    <div className="h-20 border border-pink-200 rounded relative">
-                      <div className="absolute top-0 left-0 right-0 h-0.5 bg-pink-600"></div>
-                    </div>
-                  )}
-                  {item.position === 'left' && (
-                    <div className="h-20 border border-pink-200 rounded relative">
-                      <div className="absolute top-0 bottom-0 right-0 w-0.5 bg-pink-600"></div>
-                    </div>
-                  )}
-                  {item.position === 'right' && (
-                    <div className="h-20 border border-pink-200 rounded relative">
-                      <div className="absolute top-0 bottom-0 left-0 w-0.5 bg-pink-600"></div>
-                    </div>
-                  )}
-                </div>
-              ))}
+              {spatialItems.map((item, idx) => {
+                const itemText = t(`common.shapes.${item.itemKey}`)
+                return (
+                  <div key={idx} className="border border-dashed border-pink-300 rounded p-3">
+                    <p className="text-xs text-pink-600 mb-2">{t('worksheets.cognitiveVisual.drawItemText').replace('{{item}}', itemText).replace('{{text}}', t(`worksheets.cognitiveVisual.${item.textKey}`))}</p>
+                    {item.position === 'above' && (
+                      <div className="h-20 border border-pink-200 rounded relative">
+                        <div className="absolute bottom-0 left-0 right-0 h-0.5 bg-pink-600"></div>
+                      </div>
+                    )}
+                    {item.position === 'below' && (
+                      <div className="h-20 border border-pink-200 rounded relative">
+                        <div className="absolute top-0 left-0 right-0 h-0.5 bg-pink-600"></div>
+                      </div>
+                    )}
+                    {item.position === 'left' && (
+                      <div className="h-20 border border-pink-200 rounded relative">
+                        <div className="absolute top-0 bottom-0 right-0 w-0.5 bg-pink-600"></div>
+                      </div>
+                    )}
+                    {item.position === 'right' && (
+                      <div className="h-20 border border-pink-200 rounded relative">
+                        <div className="absolute top-0 bottom-0 left-0 w-0.5 bg-pink-600"></div>
+                      </div>
+                    )}
+                  </div>
+                )
+              })}
             </div>
           </div>
         </div>
@@ -2987,15 +3000,28 @@ const renderers: Record<string, Renderer> = {
     const { seed, doc, variant, t } = ctx
     const rng = makeRng(`${seed}|${doc.id}|${variant}`)
     const tasks = [
-      { task: 'Sort by color', rule: 'Group red items together', switch: 'Now sort by size instead' },
-      { task: 'Count forward', rule: 'Count 1, 2, 3...', switch: 'Now count backward from 10' },
-      { task: 'Name animals', rule: 'List farm animals', switch: 'Now list ocean animals' },
+      { 
+        taskKey: 'sortByColor', 
+        ruleKey: 'groupRedItems', 
+        switchKey: 'sortBySize' 
+      },
+      { 
+        taskKey: 'countForward', 
+        ruleKey: 'count123', 
+        switchKey: 'countBackward' 
+      },
+      { 
+        taskKey: 'nameAnimals', 
+        ruleKey: 'listFarmAnimals', 
+        switchKey: 'listOceanAnimals' 
+      },
     ]
-    const perspectives = pickMany(rng, [
-      'A new student joins your class',
-      'Your favorite game is cancelled',
-      'You have to work with someone you disagree with',
-    ], 2)
+    const allPerspectives = [
+      'newStudent',
+      'gameCancelled',
+      'disagreeWith',
+    ]
+    const perspectives = pickMany(rng, allPerspectives, 2)
     return (
       <div className="space-y-4">
         <p className="text-sm text-slate-600">
@@ -3007,13 +3033,13 @@ const renderers: Record<string, Renderer> = {
           <div className="space-y-3">
             {tasks.map((taskItem, idx) => (
               <div key={idx} className="bg-white rounded-lg p-3 border border-teal-200">
-                <p className="text-sm font-semibold text-teal-800 mb-2">{t('worksheets.answerKey.task').replace('{{number}}', String(idx + 1))} {taskItem.task}</p>
+                <p className="text-sm font-semibold text-teal-800 mb-2">{t('worksheets.cognitiveFlexibility.tasks.' + taskItem.taskKey)}</p>
                 <div className="mb-2">
-                  <p className="text-xs text-teal-600 mb-1">First rule: {taskItem.rule}</p>
+                  <p className="text-xs text-teal-600 mb-1">{t('worksheets.cognitiveFlexibility.firstRule')} {t('worksheets.cognitiveFlexibility.tasks.' + taskItem.ruleKey)}</p>
                   <div className="h-12 border border-dashed border-teal-300 rounded bg-teal-50"></div>
                 </div>
                 <div>
-                  <p className="text-xs text-teal-600 mb-1">Switch! New rule: {taskItem.switch}</p>
+                  <p className="text-xs text-teal-600 mb-1">{t('worksheets.cognitiveFlexibility.switchNewRule')} {t('worksheets.cognitiveFlexibility.tasks.' + taskItem.switchKey)}</p>
                   <div className="h-12 border border-dashed border-teal-300 rounded bg-teal-50"></div>
                 </div>
               </div>
@@ -3024,20 +3050,20 @@ const renderers: Record<string, Renderer> = {
           <p className="text-sm font-semibold text-teal-700 mb-3">{t('worksheets.cognitiveFlexibility.perspectiveTakingPractice')}</p>
           <p className="text-xs text-teal-600 mb-3">{t('worksheets.cognitiveFlexibility.thinkAboutSituation')}</p>
           <div className="space-y-3">
-            {perspectives.map((perspective, idx) => (
+            {perspectives.map((perspectiveKey, idx) => (
               <div key={idx} className="bg-white rounded-lg p-3 border border-teal-200">
-                <p className="text-sm font-semibold text-teal-800 mb-2">Situation: {perspective}</p>
+                <p className="text-sm font-semibold text-teal-800 mb-2">{t('worksheets.cognitiveFlexibility.situation')} {t('worksheets.cognitiveFlexibility.perspectives.' + perspectiveKey)}</p>
                 <div className="space-y-2 text-xs">
                   <div>
-                    <p className="text-teal-600 mb-1">Your perspective:</p>
+                    <p className="text-teal-600 mb-1">{t('worksheets.cognitiveFlexibility.yourPerspective')}</p>
                     <div className="h-10 border border-dashed border-teal-300 rounded"></div>
                   </div>
                   <div>
-                    <p className="text-teal-600 mb-1">Another person's perspective:</p>
+                    <p className="text-teal-600 mb-1">{t('worksheets.cognitiveFlexibility.anotherPerspective')}</p>
                     <div className="h-10 border border-dashed border-teal-300 rounded"></div>
                   </div>
                   <div>
-                    <p className="text-teal-600 mb-1">What's a solution that works for both?</p>
+                    <p className="text-teal-600 mb-1">{t('worksheets.cognitiveFlexibility.solutionForBoth')}</p>
                     <div className="h-10 border border-dashed border-teal-300 rounded"></div>
                   </div>
                 </div>
