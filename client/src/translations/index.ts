@@ -3019,6 +3019,12 @@ const ensureInteractiveWorksheetKeys = () => {
         word: 'الكلمة:',
         label: 'التسمية:',
       },
+      readingSightwords: {
+        instructions: 'تدرب على قراءة وكتابة كلمات البصر الشائعة مع أنشطة ممتعة.',
+        writeIt3Times: 'اكتبها 3 مرات:',
+        useInSentences: 'استخدم كلمات البصر في الجمل:',
+        writeSentenceWith: 'اكتب جملة مع "{{word}}":',
+      },
       writingTrace: {
         practiceTracing: 'تدرب على تتبع الأحرف الصغيرة بانتظام. اتبع الخطوط المنقطة، ثم اكتب كل حرف 3 مرات بنفسك.',
         letter: 'الحرف:',
