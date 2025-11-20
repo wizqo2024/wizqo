@@ -6,8 +6,21 @@ import {
   type InteractiveCategory,
 } from '@shared/interactive/interactiveWorksheets'
 import { useTranslation } from '@/context/TranslationContext'
-import { getTranslation, translations } from '@/translations'
+import { getTranslation, translations, interactiveTranslations } from '@/translations'
 import { formatNumber, formatNumberRange } from '@/utils/numbers'
+
+// Explicitly import interactive translations to prevent tree-shaking
+// This ensures the translations are included in the bundle
+if (false) {
+  // This code never runs but ensures the translations are included
+  void interactiveTranslations
+  void interactiveTranslations.en
+  void interactiveTranslations.es
+  void interactiveTranslations.ar
+  void interactiveTranslations.en?.['interactive-sel-friendship']
+  void interactiveTranslations.es?.['interactive-sel-friendship']
+  void interactiveTranslations.ar?.['interactive-sel-friendship']
+}
 
 type Props = {
   docIds: string[]
