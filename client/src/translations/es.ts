@@ -45,6 +45,7 @@ export const es = {
       heart: 'corazón',
       diamond: 'diamante',
       oval: 'óvalo',
+      round: 'redondo',
     },
     sizes: {
       big: 'grande',

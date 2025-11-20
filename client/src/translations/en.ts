@@ -42,6 +42,7 @@ export const en = {
       heart: 'heart',
       diamond: 'diamond',
       oval: 'oval',
+      round: 'round',
     },
     sizes: {
       big: 'big',
