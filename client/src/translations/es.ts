@@ -3750,6 +3750,7 @@ export const es = {
       description: 'Practica reconocer letras, emparejar mayúsculas y minúsculas, y sonidos iniciales.',
     },
     'interactive-sel-friendship': {
+      title: 'Amistad y Habilidades Sociales',
       description: 'Aprende sobre hacer amigos, compartir, tomar turnos y ser amable con otros.',
       situation: 'Situación:',
       whatCanYouDo: '¿Qué puedes hacer?',

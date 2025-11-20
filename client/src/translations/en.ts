@@ -3731,6 +3731,7 @@ export const en = {
       description: 'Practice recognizing letters, matching uppercase and lowercase, and beginning sounds.',
     },
     'interactive-sel-friendship': {
+      title: 'Friendship & Social Skills',
       description: 'Learn about making friends, sharing, taking turns, and being kind to others.',
       situation: 'Situation:',
       whatCanYouDo: 'What can you do?',
