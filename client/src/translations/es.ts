@@ -59,6 +59,18 @@ export const es = {
       sky: 'Cielo',
       flower: 'Flor',
       orangeFruit: 'Naranja',
+      car: 'Coche',
+      book: 'Libro',
+      fruit: 'Fruta',
+      vehicle: 'Vehículo',
+      reading: 'Lectura',
+      day: 'Día',
+    },
+    feelings: {
+      happy: 'Feliz',
+      sad: 'Triste',
+      angry: 'Enojado',
+      excited: 'Emocionado',
     },
   },
   worksheets: {

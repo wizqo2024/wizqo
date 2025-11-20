@@ -59,6 +59,18 @@ export const ar = {
       sky: 'سماء',
       flower: 'زهرة',
       orangeFruit: 'برتقالة',
+      car: 'سيارة',
+      book: 'كتاب',
+      fruit: 'فاكهة',
+      vehicle: 'مركبة',
+      reading: 'قراءة',
+      day: 'يوم',
+    },
+    feelings: {
+      happy: 'سعيد',
+      sad: 'حزين',
+      angry: 'غاضب',
+      excited: 'متحمس',
     },
   },
   worksheets: {

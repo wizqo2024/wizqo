@@ -2595,12 +2595,12 @@ const renderers: Record<string, Renderer> = {
               <div className="flex items-center gap-3">
                 <span className="text-3xl">{feeling.emoji}</span>
                 <div className="flex-1">
-                  <p className="text-sm font-semibold text-pink-700">{t('worksheets.selPrek.feeling')} {feeling.feeling}</p>
-                  <p className="text-xs text-pink-600">{t('worksheets.selPrek.color')} {feeling.color}</p>
+                  <p className="text-sm font-semibold text-pink-700">{t('worksheets.selPrek.feeling')} {t(`common.feelings.${feeling.feeling}`) || feeling.feeling}</p>
+                  <p className="text-xs text-pink-600">{t('worksheets.selPrek.color')} {t(`common.colors.${feeling.color}`) || feeling.color}</p>
                 </div>
               </div>
               <div className="mt-2 h-12 rounded border border-dashed border-pink-300 bg-white">
-                <p className="p-2 text-xs text-pink-600">{t('worksheets.selPrek.drawTimeFelt').replace('{{feeling}}', feeling.feeling)}</p>
+                <p className="p-2 text-xs text-pink-600">{t('worksheets.selPrek.drawTimeFelt').replace('{{feeling}}', t(`common.feelings.${feeling.feeling}`) || feeling.feeling)}</p>
               </div>
             </div>
           ))}
@@ -5225,11 +5225,11 @@ const renderers: Record<string, Renderer> = {
             <div key={idx} className="rounded-xl border border-slate-200 bg-slate-50 p-4">
               <div className="flex items-center gap-3 mb-2">
                 <div className="flex-1 bg-white rounded border border-slate-200 p-2 text-center">
-                  <p className="text-sm text-slate-700">{pair.item1}</p>
+                  <p className="text-sm text-slate-700">{t(`common.items.${pair.item1}`) || pair.item1}</p>
                 </div>
                 <span className="text-slate-400">→</span>
                 <div className="flex-1 bg-white rounded border border-slate-200 p-2 text-center">
-                  <p className="text-sm text-slate-700">{pair.item2}</p>
+                  <p className="text-sm text-slate-700">{t(`common.items.${pair.item2}`) || t(`common.${pair.item2}`) || pair.item2}</p>
                 </div>
               </div>
               <div className="h-16 rounded border border-dashed border-slate-300 bg-white">
