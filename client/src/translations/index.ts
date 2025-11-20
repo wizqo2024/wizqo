@@ -5400,6 +5400,17 @@ export function getTranslation(language: Language, key: string): string | any {
     // Navigate through nested keys
     for (let i = 0; i < keys.length; i++) {
       const k = keys[i]
+      // Debug: Log when looking for interactive translations
+      if (typeof window !== 'undefined' && keys[0] === 'interactive' && process.env.NODE_ENV === 'development') {
+        const debugKey = `translation-debug-interactive-nav-${language}-${key}-${i}`
+        if (!(window as any)[debugKey]) {
+          (window as any)[debugKey] = true
+          console.log(`[getTranslation] Navigation step ${i}: key=${k}, value type=${typeof value}, isObject=${value && typeof value === 'object'}, hasKey=${value && typeof value === 'object' ? k in value : false}`, {
+            availableKeys: value && typeof value === 'object' ? Object.keys(value).slice(0, 10) : 'N/A',
+            currentValue: value
+          })
+        }
+      }
       // Debug: Log when looking for number-id-1-10 translations
       if (typeof window !== 'undefined' && key.includes('number-id-1-10')) {
         const debugKey = `translation-debug-${key}-${language}-${i}`
@@ -5415,6 +5426,33 @@ export function getTranslation(language: Language, key: string): string | any {
         }
       }
       if (value === null || value === undefined) {
+        // If we're looking for interactive translations and they're missing, try the exported interactiveTranslations
+        if (keys[0] === 'interactive' && i >= 1 && interactiveTranslations[language]) {
+          const interactiveKey = keys[1]
+          if (interactiveKey && interactiveTranslations[language] && interactiveKey in interactiveTranslations[language]) {
+            const interactiveValue = (interactiveTranslations[language] as any)[interactiveKey]
+            if (interactiveValue !== undefined) {
+              if (typeof window !== 'undefined' && process.env.NODE_ENV === 'development') {
+                console.log(`[getTranslation] Using interactiveTranslations fallback for: ${key}, language: ${language}, interactiveKey: ${interactiveKey}`)
+              }
+              // Continue navigation from the interactive value
+              value = interactiveValue
+              // Continue with remaining keys if any (starting from index 2, since we already handled 0 and 1)
+              for (let j = 2; j < keys.length; j++) {
+                if (value === null || value === undefined) break
+                value = value[keys[j]]
+              }
+              if (value !== null && value !== undefined) {
+                if (Array.isArray(value) || (typeof value === 'object' && typeof value !== 'string')) {
+                  return value
+                }
+                if (typeof value === 'string') {
+                  return value
+                }
+              }
+            }
+          }
+        }
         // If we're looking for interactive worksheet keys and they're missing,
         // try to get them from the exported interactiveWorksheetKeys
         // Only check interactiveWorksheetKeys for actual interactive keys (not regular worksheet keys)
