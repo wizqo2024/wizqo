@@ -6513,32 +6513,41 @@ const answerRenderers: Record<string, AnswerRenderer> = {
         <ol className="list-decimal list-inside space-y-2 text-sm">
           {problems.map((prob, idx) => {
             let explanation = ''
+            let explanationKey = ''
             if (prob.op === '+') {
-              explanation = t('worksheets.decimals.answerKey.add')
-                .replace('{{num1}}', formatNum(prob.num1))
-                .replace('{{num2}}', formatNum(prob.num2))
-                .replace('{{answer}}', formatNum(prob.answer))
+              explanationKey = 'worksheets.decimals.answerKey.add'
             } else if (prob.op === '-') {
-              explanation = t('worksheets.decimals.answerKey.subtract')
-                .replace('{{num1}}', formatNum(prob.num1))
-                .replace('{{num2}}', formatNum(prob.num2))
-                .replace('{{answer}}', formatNum(prob.answer))
+              explanationKey = 'worksheets.decimals.answerKey.subtract'
             } else if (prob.op === '×') {
-              explanation = t('worksheets.decimals.answerKey.multiply')
-                .replace('{{num1}}', formatNum(prob.num1))
-                .replace('{{num2}}', formatNum(prob.num2))
-                .replace('{{answer}}', formatNum(prob.answer))
+              explanationKey = 'worksheets.decimals.answerKey.multiply'
             } else {
-              explanation = t('worksheets.decimals.answerKey.divide')
-                .replace('{{num1}}', formatNum(prob.num1))
-                .replace('{{num2}}', formatNum(prob.num2))
-                .replace('{{answer}}', formatNum(prob.answer))
+              explanationKey = 'worksheets.decimals.answerKey.divide'
             }
+            const explanationTemplate = t(explanationKey)
+            if (explanationTemplate && typeof explanationTemplate === 'string' && explanationTemplate !== explanationKey) {
+              explanation = explanationTemplate
+                .replace(/\{\{num1\}\}/g, formatNum(prob.num1))
+                .replace(/\{\{num2\}\}/g, formatNum(prob.num2))
+                .replace(/\{\{answer\}\}/g, formatNum(prob.answer))
+            } else {
+              // Fallback if translation not found
+              if (prob.op === '+') {
+                explanation = `${t('common.add')}: ${formatNum(prob.num1)} + ${formatNum(prob.num2)} = ${formatNum(prob.answer)}. ${t('worksheets.decimals.instructions')}`
+              } else if (prob.op === '-') {
+                explanation = `${t('common.subtract')}: ${formatNum(prob.num1)} - ${formatNum(prob.num2)} = ${formatNum(prob.answer)}. ${t('worksheets.decimals.instructions')}`
+              } else if (prob.op === '×') {
+                explanation = `${t('common.multiply')}: ${formatNum(prob.num1)} × ${formatNum(prob.num2)} = ${formatNum(prob.answer)}. ${t('worksheets.decimals.instructions')}`
+              } else {
+                explanation = `${t('common.divide')}: ${formatNum(prob.num1)} ÷ ${formatNum(prob.num2)} = ${formatNum(prob.answer)}. ${t('worksheets.decimals.instructions')}`
+              }
+            }
+            const problemLabel = t('worksheets.decimals.answerKey.problem')
+            const solutionLabel = t('worksheets.decimals.answerKey.solution')
             return (
               <li key={idx} className="mb-3">
-                <span className="font-semibold">{t('worksheets.decimals.answerKey.problem')} {formatNum(idx + 1)}:</span> {formatNum(prob.num1)} {prob.op} {formatNum(prob.num2)} = <span className="text-emerald-700 font-bold">{formatNum(prob.answer)}</span>
+                <span className="font-semibold">{(problemLabel && problemLabel !== 'worksheets.decimals.answerKey.problem' ? problemLabel : t('common.problem'))} {formatNum(idx + 1)}:</span> {formatNum(prob.num1)} {prob.op} {formatNum(prob.num2)} = <span className="text-emerald-700 font-bold">{formatNum(prob.answer)}</span>
                 <p className="text-xs text-slate-600 mt-1 ml-4">
-                  <span className="font-semibold">{t('worksheets.decimals.answerKey.solution')}</span> {explanation}
+                  <span className="font-semibold">{(solutionLabel && solutionLabel !== 'worksheets.decimals.answerKey.solution' ? solutionLabel : t('common.solution'))}</span> {explanation}
                 </p>
               </li>
             )
