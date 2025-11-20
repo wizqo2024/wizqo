@@ -45,11 +45,23 @@ export const interactiveWorksheetKeys = {
 
 // Explicitly export interactive translations to prevent tree-shaking
 // This ensures these translations are included in the bundle
+// We explicitly reference each key to prevent tree-shaking
 export const interactiveTranslations = {
   en: en.interactive,
   es: es.interactive,
   ar: ar.interactive,
 } as const
+
+// Explicitly reference friendship translations to prevent tree-shaking
+if (false) {
+  // This code never runs but ensures the translations are included in the bundle
+  const _friendshipEn = en.interactive['interactive-sel-friendship']
+  const _friendshipEs = es.interactive['interactive-sel-friendship']
+  const _friendshipAr = ar.interactive['interactive-sel-friendship']
+  void _friendshipEn
+  void _friendshipEs
+  void _friendshipAr
+}
 
 // Ensure interactive worksheet title and description keys are present
 const ensureInteractiveTitleDescriptionKeys = () => {
