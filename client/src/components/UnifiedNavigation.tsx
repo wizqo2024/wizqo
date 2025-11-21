@@ -664,25 +664,24 @@ export function UnifiedNavigation({ showBackButton = false, onBackClick, current
               
               <div className="pl-7 pt-1 space-y-1">
                 <div className="px-3 pb-1 text-[11px] uppercase tracking-wide text-slate-500 font-semibold">{t('navigation.kidsGames')}</div>
-                  {[
-                    { href: '/kids/games/memory', label: t('navigation.memoryMatch') },
-                    { href: '/kids/games/word-search', label: t('navigation.wordSearchGame') },
-                    { href: '/kids/games/puzzle', label: t('navigation.puzzleBuilder') },
-                    { href: '/kids/games/typing', label: t('navigation.typingSafari') },
-                    { href: '/kids/games/pattern', label: t('navigation.patternBuilder') },
-                  ].map(({ href, label }) => (
-                    <button
-                      key={href}
-                      onClick={() => {
-                        window.location.href = href;
-                        setShowMobileMenu(false);
-                      }}
-                      className="w-full flex items-center space-x-3 px-3 py-2 rounded-md transition-colors text-left text-slate-600 hover:text-slate-800 hover:bg-slate-100"
-                    >
-                      <span className="text-sm">{label}</span>
-                    </button>
-                  ))}
-                </div>
+                {[
+                  { href: '/kids/games/memory', label: t('navigation.memoryMatch') },
+                  { href: '/kids/games/word-search', label: t('navigation.wordSearchGame') },
+                  { href: '/kids/games/puzzle', label: t('navigation.puzzleBuilder') },
+                  { href: '/kids/games/typing', label: t('navigation.typingSafari') },
+                  { href: '/kids/games/pattern', label: t('navigation.patternBuilder') },
+                ].map(({ href, label }) => (
+                  <button
+                    key={href}
+                    onClick={() => {
+                      window.location.href = href;
+                      setShowMobileMenu(false);
+                    }}
+                    className="w-full flex items-center space-x-3 px-3 py-2 rounded-md transition-colors text-left text-slate-600 hover:text-slate-800 hover:bg-slate-100"
+                  >
+                    <span className="text-sm">{label}</span>
+                  </button>
+                ))}
               </div>
             </div>
 
