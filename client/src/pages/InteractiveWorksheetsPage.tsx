@@ -874,14 +874,14 @@ export function InteractiveWorksheetsPage() {
           }).catch(() => {
             // Fallback to clipboard
             navigator.clipboard.writeText(url).then(() => {
-              alert('Link copied to clipboard!')
+              alert(t('pages.interactive.linkCopiedAlert'))
             }).catch(() => {
-              alert('Unable to copy link. Please copy manually: ' + url)
+              alert(t('pages.interactive.copyLinkManually') + ' ' + url)
             })
           })
         } else if (navigator.clipboard) {
           navigator.clipboard.writeText(url).then(() => {
-            alert('Link copied to clipboard!')
+            alert(t('pages.interactive.linkCopiedAlert'))
           }).catch(() => {
             // Fallback for older browsers
             const textArea = document.createElement('textarea')
@@ -892,14 +892,14 @@ export function InteractiveWorksheetsPage() {
             textArea.select()
             try {
               document.execCommand('copy')
-              alert('Link copied to clipboard!')
+              alert(t('pages.interactive.linkCopiedAlert'))
             } catch (err) {
-              alert('Unable to copy link. Please copy manually: ' + url)
+              alert(t('pages.interactive.copyLinkManually') + ' ' + url)
             }
             document.body.removeChild(textArea)
           })
         } else {
-          alert('Please copy this link: ' + url)
+          alert(t('pages.interactive.pleaseCopyLink') + ' ' + url)
         }
         break
     }
@@ -1488,7 +1488,7 @@ export function InteractiveWorksheetsPage() {
                 <button
                   onClick={() => setPreviewItem(null)}
                   className="ml-4 p-2 text-slate-400 hover:text-slate-600 rounded-lg hover:bg-slate-100 transition-colors"
-                  aria-label="Close preview"
+                  aria-label={t('pages.interactive.closePreview')}
                 >
                   <svg className="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
@@ -1527,40 +1527,40 @@ export function InteractiveWorksheetsPage() {
       <Dialog open={showCustomization} onOpenChange={setShowCustomization}>
         <DialogContent className="max-w-2xl">
           <DialogHeader>
-            <DialogTitle>Customize Worksheets</DialogTitle>
+            <DialogTitle>{t('pages.interactive.buttons.customize')}</DialogTitle>
             <DialogDescription>
-              Add student names, teacher name, and class name to personalize your worksheets before downloading.
+              {t('pages.interactive.customization.description')}
             </DialogDescription>
           </DialogHeader>
           <div className="space-y-6 mt-4">
             <div>
-              <label className="block text-sm font-medium text-slate-700 mb-2">Teacher Name</label>
+              <label className="block text-sm font-medium text-slate-700 mb-2">{t('pages.interactive.customization.teacherName')}</label>
               <input
                 type="text"
                 value={customization.teacherName}
                 onChange={(e) => handleCustomizationChange('teacherName', e.target.value)}
-                placeholder="Enter teacher name"
+                placeholder={t('pages.interactive.customization.teacherNamePlaceholder')}
                 className="w-full rounded-lg border border-slate-300 bg-white px-4 py-2 text-sm text-slate-900 focus:border-purple-400 focus:outline-none focus:ring-2 focus:ring-purple-200"
               />
             </div>
             <div>
-              <label className="block text-sm font-medium text-slate-700 mb-2">Class Name</label>
+              <label className="block text-sm font-medium text-slate-700 mb-2">{t('pages.interactive.customization.className')}</label>
               <input
                 type="text"
                 value={customization.className}
                 onChange={(e) => handleCustomizationChange('className', e.target.value)}
-                placeholder="Enter class name (e.g., Grade 3A)"
+                placeholder={t('pages.interactive.customization.classNamePlaceholder')}
                 className="w-full rounded-lg border border-slate-300 bg-white px-4 py-2 text-sm text-slate-900 focus:border-purple-400 focus:outline-none focus:ring-2 focus:ring-purple-200"
               />
             </div>
             <div>
               <div className="flex items-center justify-between mb-2">
-                <label className="block text-sm font-medium text-slate-700">Student Names</label>
+                <label className="block text-sm font-medium text-slate-700">{t('pages.interactive.customization.studentNames')}</label>
                 <button
                   onClick={addStudentName}
                   className="text-sm font-medium text-purple-600 hover:text-purple-700"
                 >
-                  + Add Student
+                  + {t('pages.interactive.customization.addStudent')}
                 </button>
               </div>
               {customization.studentNames.length === 0 ? (
@@ -1582,7 +1582,7 @@ export function InteractiveWorksheetsPage() {
                       <button
                         onClick={() => removeStudentName(index)}
                         className="p-2 text-red-600 hover:text-red-700 rounded-lg hover:bg-red-50"
-                        aria-label="Remove student"
+                        aria-label={t('pages.interactive.customization.removeStudent')}
                       >
                         <svg className="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
@@ -1657,7 +1657,7 @@ export function InteractiveWorksheetsPage() {
                         })
                       }}
                       className="p-2 text-yellow-500 hover:text-yellow-600 rounded-lg hover:bg-yellow-50"
-                      aria-label="Remove from favorites"
+                      aria-label={t('pages.interactive.removeFromFavorites')}
                     >
                       <svg className="h-5 w-5" fill="currentColor" viewBox="0 0 24 24">
                         <path d="M11.049 2.927c.3-.921 1.603-.921 1.902 0l1.519 4.674a1 1 0 00.95.69h4.915c.969 0 1.371 1.24.588 1.81l-3.976 2.888a1 1 0 00-.363 1.118l1.518 4.674c.3.922-.755 1.688-1.538 1.118l-3.976-2.888a1 1 0 00-1.176 0l-3.976 2.888c-.783.57-1.838-.197-1.538-1.118l1.518-4.674a1 1 0 00-.363-1.118l-3.976-2.888c-.784-.57-.38-1.81.588-1.81h4.914a1 1 0 00.951-.69l1.519-4.674z" />

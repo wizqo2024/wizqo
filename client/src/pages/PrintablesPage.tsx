@@ -2183,13 +2183,13 @@ export function PrintablesPage() {
             <div className="mb-6 p-4 bg-blue-50 border-2 border-blue-200 rounded-lg print:border print:bg-white">
               <div className="font-semibold text-blue-900 mb-3 text-sm">📚 Example - Let's solve this together:</div>
               <div className="space-y-2 text-sm">
-                <div className="font-semibold text-base"><strong>Problem:</strong> Label the direction at the top of the compass</div>
+                <div className="font-semibold text-base"><strong>{t('common.problem')}</strong> {t('worksheets.geographyMap.example.problemText', 'Label the direction at the top of the compass')}</div>
                 <div className="pl-4 border-l-2 border-blue-300 space-y-1">
-                  <div><strong>Step 1:</strong> Look at the top of the compass rose</div>
-                  <div><strong>Step 2:</strong> The top direction is always North (N)</div>
-                  <div><strong>Step 3:</strong> Write "N" at the top</div>
-                  <div className="font-semibold text-blue-900"><strong>Answer:</strong> N (North)</div>
-                  <div className="text-xs text-blue-700 mt-1">💡 Tip: Remember "Never Eat Soggy Waffles" for N, E, S, W!</div>
+                  <div><strong>{t('common.step1')}</strong> {t('worksheets.geographyMap.example.step1Text', 'Look at the top of the compass rose')}</div>
+                  <div><strong>{t('common.step2')}</strong> {t('worksheets.geographyMap.example.step2Text', 'The top direction is always North (N)')}</div>
+                  <div><strong>{t('common.step3')}</strong> {t('worksheets.geographyMap.example.step3Text', 'Write "N" at the top')}</div>
+                  <div className="font-semibold text-blue-900"><strong>{t('common.answer')}</strong> {t('worksheets.geographyMap.example.answerText', 'N (North)')}</div>
+                  <div className="text-xs text-blue-700 mt-1">💡 {t('common.tip')} {t('worksheets.geographyMap.example.tip', 'Remember "Never Eat Soggy Waffles" for N, E, S, W!')}</div>
                 </div>
               </div>
             </div>
@@ -2292,11 +2292,11 @@ export function PrintablesPage() {
               <div className="space-y-2 text-sm">
                 <div className="font-semibold text-base"><strong>Problem:</strong> Match "Mountain" to the correct picture</div>
                 <div className="pl-4 border-l-2 border-blue-300 space-y-1">
-                  <div><strong>Step 1:</strong> Look at the word "Mountain"</div>
-                  <div><strong>Step 2:</strong> Find the picture that shows tall peaks pointing up</div>
-                  <div><strong>Step 3:</strong> Draw a line from "Mountain" to that picture</div>
-                  <div className="font-semibold text-blue-900"><strong>Answer:</strong> Mountain matches the picture with tall peaks</div>
-                  <div className="text-xs text-blue-700 mt-1">💡 Tip: Look at the shape - mountains have peaks, valleys have a V shape!</div>
+                  <div><strong>{t('common.step1')}</strong> {t('worksheets.vocab.example.step1Text', 'Look at the word "Mountain"')}</div>
+                  <div><strong>{t('common.step2')}</strong> {t('worksheets.vocab.example.step2Text', 'Find the picture that shows tall peaks pointing up')}</div>
+                  <div><strong>{t('common.step3')}</strong> {t('worksheets.vocab.example.step3Text', 'Draw a line from "Mountain" to that picture')}</div>
+                  <div className="font-semibold text-blue-900"><strong>{t('common.answer')}</strong> {t('worksheets.vocab.example.answerText', 'Mountain matches the picture with tall peaks')}</div>
+                  <div className="text-xs text-blue-700 mt-1">💡 {t('common.tip')} {t('worksheets.vocab.example.tip', 'Look at the shape - mountains have peaks, valleys have a V shape!')}</div>
                 </div>
               </div>
             </div>
@@ -2466,13 +2466,13 @@ export function PrintablesPage() {
             <div className="mb-6 p-4 bg-blue-50 border-2 border-blue-200 rounded-lg print:border print:bg-white">
               <div className="font-semibold text-blue-900 mb-3 text-sm">📚 Example - Let's solve this together:</div>
               <div className="space-y-2 text-sm">
-                <div className="font-semibold text-base"><strong>Problem:</strong> Plot point A at (15°N, 80°W)</div>
+                <div className="font-semibold text-base"><strong>{t('common.problem')}</strong> {t('worksheets.geographyMap.example.problemText2', 'Plot point A at (15°N, 80°W)')}</div>
                 <div className="pl-4 border-l-2 border-blue-300 space-y-1">
-                  <div><strong>Step 1:</strong> Find 15°N on the left side (latitude is horizontal)</div>
-                  <div><strong>Step 2:</strong> Find 80°W on the bottom (longitude is vertical)</div>
-                  <div><strong>Step 3:</strong> Where they meet is point A</div>
-                  <div className="font-semibold text-blue-900"><strong>Answer:</strong> Point A is at the intersection of 15°N and 80°W</div>
-                  <div className="text-xs text-blue-700 mt-1">💡 Tip: Latitude = flat (like ladder rungs), Longitude = long (up and down)!</div>
+                  <div><strong>{t('common.step1')}</strong> {t('worksheets.geographyMap.example.step1Text2', 'Find 15°N on the left side (latitude is horizontal)')}</div>
+                  <div><strong>{t('common.step2')}</strong> {t('worksheets.geographyMap.example.step2Text2', 'Find 80°W on the bottom (longitude is vertical)')}</div>
+                  <div><strong>{t('common.step3')}</strong> {t('worksheets.geographyMap.example.step3Text2', 'Where they meet is point A')}</div>
+                  <div className="font-semibold text-blue-900"><strong>{t('common.answer')}</strong> {t('worksheets.geographyMap.example.answerText2', 'Point A is at the intersection of 15°N and 80°W')}</div>
+                  <div className="text-xs text-blue-700 mt-1">💡 {t('common.tip')} {t('worksheets.geographyMap.example.tip2', 'Latitude = flat (like ladder rungs), Longitude = long (up and down)!')}</div>
                 </div>
               </div>
             </div>
@@ -2893,7 +2893,7 @@ export function PrintablesPage() {
                   </svg>
                 </div>
                 <div className="pl-4 border-l-2 border-indigo-300 space-y-1">
-                  <div><strong>Step 1:</strong> Find uppercase <span className="text-indigo-700 font-bold text-lg">"A"</span> (big letter)</div>
+                  <div><strong>{t('common.step1')}</strong> {t('worksheets.readingAlphabet.example.step1Text', 'Find uppercase')} <span className="text-indigo-700 font-bold text-lg">"A"</span> {t('worksheets.readingAlphabet.example.step1Text2', '(big letter)')}</div>
                   <div><strong>Step 2:</strong> Find lowercase <span className="text-purple-700 font-bold text-lg">"a"</span> (small letter)</div>
                   <div><strong>Step 3:</strong> Draw a line connecting them</div>
                   <div><strong>Step 4:</strong> Say <span className="text-indigo-700 font-bold">"A"</span> sound as you match</div>
@@ -4027,13 +4027,13 @@ export function PrintablesPage() {
                     </div>
                   </div>
                   <div className="pl-4 border-l-2 border-amber-300 space-y-1">
-                    <div><strong>Step 1:</strong> Find the numbers: <span className="text-amber-700 font-bold">15 apples, 12 more</span></div>
-                    <div><strong>Step 2:</strong> Write the equation: <span className="text-amber-700 font-bold text-lg">15 + 12 = ?</span></div>
-                    <div><strong>Step 3:</strong> Solve: <span className="text-amber-700 font-bold text-lg">15 + 12 = 27</span></div>
-                    <div className="font-semibold text-amber-900 mt-2"><strong>Answer:</strong> <span className="text-2xl text-amber-700">27 apples</span></div>
+                    <div><strong>{t('common.step1')}</strong> {t('worksheets.wordProblems.example.step1Text', 'Find the numbers:')} <span className="text-amber-700 font-bold">15 apples, 12 more</span></div>
+                    <div><strong>{t('common.step2')}</strong> {t('worksheets.wordProblems.example.step2Text', 'Write the equation:')} <span className="text-amber-700 font-bold text-lg">15 + 12 = ?</span></div>
+                    <div><strong>{t('common.step3')}</strong> {t('worksheets.wordProblems.example.step3Text', 'Solve:')} <span className="text-amber-700 font-bold text-lg">15 + 12 = 27</span></div>
+                    <div className="font-semibold text-amber-900 mt-2"><strong>{t('common.answer')}</strong> <span className="text-2xl text-amber-700">27 apples</span></div>
                     <div className="text-xs text-amber-700 mt-2 flex items-center gap-1">
                       <span>💡</span>
-                      <span>Tip: "More" or "in all" usually means addition! "Left" or "remain" usually means subtraction!</span>
+                      <span>{t('common.tip')} {t('worksheets.wordProblems.example.tip', '"More" or "in all" usually means addition! "Left" or "remain" usually means subtraction!')}</span>
                     </div>
                   </div>
                 </div>
@@ -7627,11 +7627,11 @@ export function PrintablesPage() {
                 </div>
                 <div className="print:hidden flex items-center gap-2">
                   <a href={todayUrl} className="inline-flex items-center px-3 py-1.5 rounded-lg border border-slate-200 text-slate-700 hover:bg-slate-50 text-sm">Today’s Pack</a>
-                  <a href={nextVariantUrl} className="inline-flex items-center px-3 py-1.5 rounded-lg border border-slate-200 text-slate-700 hover:bg-slate-50 text-sm">New Pack</a>
-                  <button onClick={copyShare} className="inline-flex items-center px-3 py-1.5 rounded-lg border border-slate-200 text-slate-700 hover:bg-slate-50 text-sm">{copiedLink ? 'Link Copied!' : 'Copy Link'}</button>
+                  <a href={nextVariantUrl} className="inline-flex items-center px-3 py-1.5 rounded-lg border border-slate-200 text-slate-700 hover:bg-slate-50 text-sm">{t('common.newPack')}</a>
+                  <button onClick={copyShare} className="inline-flex items-center px-3 py-1.5 rounded-lg border border-slate-200 text-slate-700 hover:bg-slate-50 text-sm">{copiedLink ? t('common.linkCopied') : t('common.copyLink')}</button>
                 </div>
               </div>
-              <div className="text-slate-700 text-xl mt-3 mb-3">Quick wins you can finish today. Check off as you go!</div>
+              <div className="text-slate-700 text-xl mt-3 mb-3">{t('pages.printables.quickWins')}</div>
               <div className="grid sm:grid-cols-2 gap-6">
                 {items.slice(0, itemCount)}
               </div>
