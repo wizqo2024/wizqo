@@ -2170,6 +2170,12 @@ export const es = {
       ratingLabel: 'Calificación: {{rating}} de 5 estrellas',
       relatedArticles: 'Artículos relacionados',
       readArticle: 'Leer artículo: {{title}}',
+      categories: {
+        'Learning Tips': 'Consejos de Aprendizaje',
+        'Mental Wellness': 'Bienestar Mental',
+        'Creative Arts': 'Artes Creativas',
+      },
+      readTimeFormat: '{{minutes}} min de lectura',
     },
     kids: {
       title: 'Centro para Niños',

@@ -2231,6 +2231,12 @@ export const en = {
       ratingLabel: 'Rating: {{rating}} out of 5 stars',
       relatedArticles: 'Related articles',
       readArticle: 'Read article: {{title}}',
+      categories: {
+        'Learning Tips': 'Learning Tips',
+        'Mental Wellness': 'Mental Wellness',
+        'Creative Arts': 'Creative Arts',
+      },
+      readTimeFormat: '{{minutes}} min read',
     },
     kids: {
       title: 'Kids Hub',
