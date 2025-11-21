@@ -191,13 +191,13 @@ export default function MultiplicationWorksheetsBlog() {
           <p className="text-gray-700 leading-relaxed">{t('pages.blog.components.multiplicationWorksheetsBlog.gameChangerText')}</p>
         </div>
 
-        <div className="bg-white p-6 rounded-lg shadow-md">
-          <div className="flex flex-col items-center text-center">
-            <h2 className="text-lg md:text-xl font-bold text-gray-800 mb-4 max-w-full" style={{ wordWrap: 'break-word', overflowWrap: 'break-word' }}>{t('pages.blog.components.multiplicationWorksheetsBlog.powerOfPracticeTitle')}</h2>
-            <p className="text-sm md:text-base text-gray-600 mb-6 leading-relaxed max-w-full px-1" style={{ wordWrap: 'break-word', overflowWrap: 'break-word' }}>{t('pages.blog.components.multiplicationWorksheetsBlog.powerOfPracticeSubtitle')}</p>
-            <div className="text-5xl md:text-6xl font-bold text-blue-600 mb-3 whitespace-nowrap">70%</div>
-            <div className="text-lg md:text-xl font-semibold text-gray-700 mb-4 max-w-full" style={{ wordWrap: 'break-word', overflowWrap: 'break-word' }}>{t('pages.blog.components.multiplicationWorksheetsBlog.improvedRetention')}</div>
-            <p className="text-sm md:text-base text-gray-600 leading-relaxed max-w-full px-1" style={{ wordWrap: 'break-word', overflowWrap: 'break-word' }}>{t('pages.blog.components.multiplicationWorksheetsBlog.improvedRetentionText')}</p>
+        <div className="bg-white p-6 rounded-lg shadow-md w-full box-border">
+          <div className="flex flex-col items-center text-center w-full box-border">
+            <h2 className="text-base md:text-lg font-bold text-gray-800 mb-4 w-full box-border px-2" style={{ wordWrap: 'break-word', overflowWrap: 'break-word', hyphens: 'auto' }}>{t('pages.blog.components.multiplicationWorksheetsBlog.powerOfPracticeTitle')}</h2>
+            <p className="text-xs md:text-sm text-gray-600 mb-6 leading-relaxed w-full box-border px-3" style={{ wordWrap: 'break-word', overflowWrap: 'break-word', hyphens: 'auto' }}>{t('pages.blog.components.multiplicationWorksheetsBlog.powerOfPracticeSubtitle')}</p>
+            <div className="text-4xl md:text-5xl font-bold text-blue-600 mb-3 whitespace-nowrap">70%</div>
+            <div className="text-base md:text-lg font-semibold text-gray-700 mb-4 w-full box-border px-2" style={{ wordWrap: 'break-word', overflowWrap: 'break-word' }}>{t('pages.blog.components.multiplicationWorksheetsBlog.improvedRetention')}</div>
+            <p className="text-xs md:text-sm text-gray-600 leading-relaxed w-full box-border px-3" style={{ wordWrap: 'break-word', overflowWrap: 'break-word', hyphens: 'auto' }}>{t('pages.blog.components.multiplicationWorksheetsBlog.improvedRetentionText')}</p>
           </div>
         </div>
 
