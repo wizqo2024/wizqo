@@ -349,21 +349,36 @@ const WorksheetThumbnailCard = React.memo(function WorksheetThumbnailCard({ titl
           <span>Answer key included</span>
         </div>
         <div className="flex items-center gap-2">
-          <a
-            href={href}
-            target="_blank"
-            rel="noopener noreferrer"
+          <button
+            onClick={async () => {
+              try {
+                const response = await fetch(href)
+                if (!response.ok) throw new Error('Failed to fetch PDF')
+                const blob = await response.blob()
+                const downloadUrl = window.URL.createObjectURL(blob)
+                const link = document.createElement('a')
+                link.href = downloadUrl
+                link.download = `${title || docId}.pdf`
+                document.body.appendChild(link)
+                link.click()
+                document.body.removeChild(link)
+                window.URL.revokeObjectURL(downloadUrl)
+              } catch (error) {
+                console.error('Download failed:', error)
+                window.open(href, '_blank', 'noopener,noreferrer')
+              }
+            }}
             className="text-xs font-medium text-purple-600 hover:text-purple-700 px-3 py-1 rounded-full border border-purple-200 hover:border-purple-300 transition-colors"
           >
-            👁️ Preview
-          </a>
+            ⬇️ Download
+          </button>
           <a
             href={href + (href.includes('?') ? '&autoprint=1' : '?autoprint=1')}
             target="_blank"
             rel="noopener noreferrer"
             className="text-xs font-medium text-purple-600 hover:text-purple-700 px-3 py-1 rounded-full border border-purple-200 hover:border-purple-300 transition-colors"
           >
-            ⬇️ Download
+            🖨️ Print
           </a>
         </div>
       </div>

@@ -353,6 +353,7 @@ function WorksheetPreviewCard({
   isFavorite,
   onPreview,
   onDownload,
+  onDownloadDirect,
   pack,
   filters,
   t,
@@ -362,6 +363,7 @@ function WorksheetPreviewCard({
   isFavorite: boolean
   onPreview: (item: InteractiveWorksheetItem) => void
   onDownload: (docId: string) => string
+  onDownloadDirect?: (item: InteractiveWorksheetItem) => void
   pack: InteractiveWorksheetPack | null
   filters: FiltersState
   t: (key: string) => string
@@ -465,24 +467,26 @@ function WorksheetPreviewCard({
         </div>
         <div className="flex items-center gap-2">
           {(() => {
-            const downloadUrl = pack?.printUrl ? onDownload(item.docId) : null
-            return downloadUrl ? (
+            const printUrl = pack?.printUrl ? onDownload(item.docId) : null
+            return printUrl ? (
               <a
-                href={downloadUrl}
+                href={printUrl}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="text-xs font-medium text-purple-600 hover:text-purple-700 px-3 py-1 rounded-full border border-purple-200 hover:border-purple-300 transition-colors"
               >
-                ⬇️ {t('pages.interactive.download')}
+                🖨️ Print
               </a>
             ) : null
           })()}
-          <button
-            onClick={() => onPreview(item)}
-            className="text-xs font-medium text-purple-600 hover:text-purple-700 px-3 py-1 rounded-full border border-purple-200 hover:border-purple-300 transition-colors"
-          >
-            👁️ {t('pages.interactive.preview')}
-          </button>
+          {pack?.printUrl && onDownloadDirect && (
+            <button
+              onClick={() => onDownloadDirect(item)}
+              className="text-xs font-medium text-purple-600 hover:text-purple-700 px-3 py-1 rounded-full border border-purple-200 hover:border-purple-300 transition-colors"
+            >
+              ⬇️ Download
+            </button>
+          )}
         </div>
       </div>
     </article>
@@ -1069,7 +1073,34 @@ export function InteractiveWorksheetsPage() {
     return urlObj.toString()
   }, [getSingleWorksheetPrintUrl])
 
-  // Preview handler - opens modal/popup
+  // Download handler - downloads PDF directly
+  const handleDownload = React.useCallback(async (item: InteractiveWorksheetItem) => {
+    const url = getSingleWorksheetPrintUrl(item.docId)
+    if (!url) return
+    
+    try {
+      // Fetch the PDF
+      const response = await fetch(url)
+      if (!response.ok) throw new Error('Failed to fetch PDF')
+      const blob = await response.blob()
+      
+      // Create download link
+      const downloadUrl = window.URL.createObjectURL(blob)
+      const link = document.createElement('a')
+      link.href = downloadUrl
+      link.download = `${item.title || item.docId}.pdf`
+      document.body.appendChild(link)
+      link.click()
+      document.body.removeChild(link)
+      window.URL.revokeObjectURL(downloadUrl)
+    } catch (error) {
+      console.error('Download failed:', error)
+      // Fallback: open in new tab
+      window.open(url, '_blank', 'noopener,noreferrer')
+    }
+  }, [getSingleWorksheetPrintUrl])
+
+  // Preview handler - opens modal/popup (kept for potential future use)
   const handlePreview = React.useCallback((item: InteractiveWorksheetItem) => {
     setPreviewItem(item)
   }, [])
@@ -1358,6 +1389,7 @@ export function InteractiveWorksheetsPage() {
                           isFavorite={isFavorite(item.docId)}
                           onPreview={handlePreview}
                           onDownload={getSingleWorksheetDownloadUrl}
+                          onDownloadDirect={handleDownload}
                           pack={pack}
                           filters={filters}
                           t={t}
