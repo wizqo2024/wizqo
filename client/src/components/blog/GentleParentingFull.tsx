@@ -290,11 +290,11 @@ export function GentleParentingFull() {
             </div>
             <div className="bg-green-50 p-6 rounded-lg">
               <h3 className="text-xl font-semibold text-green-700 mb-2">{t('pages.blog.components.gentleParentingFull.realLifeExample')}</h3>
-              <p className="mb-3">When 7‑year‑old Mia refused to put on her shoes, instead of yelling, her mom knelt and said:</p>
+              <p className="mb-3">{t('pages.blog.components.gentleParentingFull.realLifeStory')}</p>
               <blockquote className="border-l-4 border-green-500 pl-4 py-2 text-green-800 italic">
                 “You really don’t want to stop playing, right? It’s hard to leave something fun.”
               </blockquote>
-              <p className="mt-3">Mia nodded, took a deep breath — and then slipped on her shoes.</p>
+              <p className="mt-3">{t('pages.blog.components.gentleParentingFull.realLifeResult')}</p>
             </div>
           </div>
         </div>
@@ -379,7 +379,7 @@ export function GentleParentingFull() {
               </tr>
               <tr className="hover:bg-green-50">
                 <td className="p-4 font-semibold">“Kids won’t respect you.”</td>
-                <td className="p-4">Respect is modeled, not demanded. Calm, respectful parents model the behavior they want to see.</td>
+                <td className="p-4">{t('pages.blog.components.gentleParentingFull.reality2')}</td>
               </tr>
               <tr className="hover:bg-green-50">
                 <td className="p-4 font-semibold">“It takes too long.”</td>
@@ -395,12 +395,12 @@ export function GentleParentingFull() {
         <h2 id="you-can-start-today" className="text-3xl font-bold text-green-700 mb-4">{t('pages.blog.components.gentleParentingFull.startTodayTitle')}</h2>
         <div className="max-w-2xl mx-auto bg-white p-8 rounded-lg shadow-xl border border-slate-200">
           <p className="mb-6">Nobody’s perfect. The beauty of gentle parenting is you can start today, even after tough moments. You’re not raising a “good” kid — you’re raising a kind, emotionally aware human.</p>
-          <h3 className="text-xl font-semibold text-green-800 mb-3">Start Small:</h3>
+          <h3 className="text-xl font-semibold text-green-800 mb-3">{t('pages.blog.components.gentleParentingFull.startSmallTitle')}</h3>
           <ul className="space-y-3 text-left w-fit mx-auto">
-            <li className="flex items-center text-green-800"><span className="text-green-800 text-2xl mr-3">🧘</span><span>Take one deep breath before reacting, a step toward <span className="font-semibold">parenting without yelling</span>.</span></li>
-            <li className="flex items-center"><span className="text-green-700 text-2xl mr-3">🎧</span>Listen more than you lecture.</li>
+            <li className="flex items-center text-green-800"><span className="text-green-800 text-2xl mr-3">🧘</span><span>{t('pages.blog.components.gentleParentingFull.tip1')}</span></li>
+            <li className="flex items-center"><span className="text-green-700 text-2xl mr-3">🎧</span>{t('pages.blog.components.gentleParentingFull.tip2')}</li>
             <li className="flex items-center"><span className="text-green-700 text-2xl mr-3">💬</span>Validate feelings: “You’re sad it’s bedtime, huh?”</li>
-            <li className="flex items-center"><span className="text-green-700 text-2xl mr-3">🤗</span>Hug after hard moments.</li>
+            <li className="flex items-center"><span className="text-green-700 text-2xl mr-3">🤗</span>{t('pages.blog.components.gentleParentingFull.tip4')}</li>
           </ul>
         </div>
         <div className="mt-10">
