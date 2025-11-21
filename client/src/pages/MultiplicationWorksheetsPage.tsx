@@ -350,26 +350,8 @@ const WorksheetThumbnailCard = React.memo(function WorksheetThumbnailCard({ titl
         </div>
         <div className="flex items-center gap-2">
           <button
-            onClick={async () => {
-              try {
-                const response = await fetch(href)
-                if (!response.ok) throw new Error(`Failed: ${response.status}`)
-                const blob = await response.blob()
-                const url = window.URL.createObjectURL(blob)
-                const a = document.createElement('a')
-                a.style.display = 'none'
-                a.href = url
-                a.download = `${title || docId}.pdf`
-                document.body.appendChild(a)
-                a.click()
-                setTimeout(() => {
-                  document.body.removeChild(a)
-                  window.URL.revokeObjectURL(url)
-                }, 100)
-              } catch (err) {
-                console.error('Download error:', err)
-                window.open(href, '_blank')
-              }
+            onClick={() => {
+              window.open(href, '_blank', 'noopener,noreferrer')
             }}
             className="text-xs font-medium text-purple-600 hover:text-purple-700 px-3 py-1 rounded-full border border-purple-200 hover:border-purple-300 transition-colors"
           >

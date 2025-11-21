@@ -1074,72 +1074,14 @@ export function InteractiveWorksheetsPage() {
   }, [getSingleWorksheetPrintUrl])
 
   // Download handler - downloads PDF directly
-  const handleDownload = React.useCallback(async (item: InteractiveWorksheetItem) => {
+  const handleDownload = React.useCallback((item: InteractiveWorksheetItem) => {
     const baseUrl = getSingleWorksheetPrintUrl(item.docId)
     if (!baseUrl) return
     
-    console.log('Downloading from URL:', baseUrl)
-    
-    try {
-      // Fetch the PDF with no-cors mode as fallback
-      let response
-      try {
-        response = await fetch(baseUrl, {
-          method: 'GET',
-          mode: 'cors',
-          credentials: 'include',
-        })
-      } catch (corsError) {
-        console.log('CORS error, trying no-cors mode:', corsError)
-        response = await fetch(baseUrl, {
-          method: 'GET',
-          mode: 'no-cors',
-        })
-      }
-      
-      if (!response.ok && response.type !== 'opaque') {
-        throw new Error(`HTTP ${response.status}: ${response.statusText}`)
-      }
-      
-      // Get blob
-      const blob = await response.blob()
-      console.log('Blob created, size:', blob.size, 'type:', blob.type)
-      
-      if (blob.size === 0) {
-        throw new Error('Empty blob received')
-      }
-      
-      // Check if response is HTML (error page) instead of PDF
-      if (blob.type.includes('text/html') || blob.type.includes('html')) {
-        console.error('Server returned HTML instead of PDF - likely an error page')
-        // Read the HTML to see what error it is
-        const text = await blob.text()
-        console.error('HTML response:', text.substring(0, 500))
-        throw new Error('Server returned HTML instead of PDF. The PDF route may not be working.')
-      }
-      
-      // Create download link
-      const url = window.URL.createObjectURL(blob)
-      const a = document.createElement('a')
-      a.style.display = 'none'
-      a.href = url
-      a.download = `${item.title || item.docId || 'worksheet'}.pdf`
-      
-      document.body.appendChild(a)
-      a.click()
-      console.log('Download triggered')
-      
-      // Cleanup
-      setTimeout(() => {
-        document.body.removeChild(a)
-        window.URL.revokeObjectURL(url)
-      }, 100)
-    } catch (err) {
-      console.error('Download failed:', err)
-      console.log('Falling back to window.open')
-      // Fallback: open URL directly
-      window.open(baseUrl, '_blank', 'noopener,noreferrer')
-    }
+    // Since server returns HTML when fetched, just open the URL directly
+    // Browser will handle PDF download if server sends proper headers
+    // User can use browser's download button if needed
+    window.open(baseUrl, '_blank', 'noopener,noreferrer')
   }, [getSingleWorksheetPrintUrl])
 
   // Preview handler - opens modal/popup (kept for potential future use)
