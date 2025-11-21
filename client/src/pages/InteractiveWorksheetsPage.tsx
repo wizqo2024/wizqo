@@ -1082,8 +1082,8 @@ export function InteractiveWorksheetsPage() {
       // Try to fetch the PDF as a blob for direct download
       const response = await fetch(baseUrl, {
         method: 'GET',
-        credentials: 'include', // Include cookies
-        mode: 'cors', // Allow CORS
+        credentials: 'include',
+        mode: 'cors',
       })
       
       if (!response.ok) {
@@ -1098,17 +1098,27 @@ export function InteractiveWorksheetsPage() {
       const link = document.createElement('a')
       link.href = blobUrl
       link.download = `${item.title || item.docId || 'worksheet'}.pdf`
-      link.style.display = 'none'
-      document.body.appendChild(link)
-      link.click()
+      link.setAttribute('download', `${item.title || item.docId || 'worksheet'}.pdf`) // Ensure download attribute is set
       
-      // Clean up
+      // Make link temporarily visible to ensure browser recognizes it
+      link.style.position = 'absolute'
+      link.style.left = '-9999px'
+      link.style.top = '-9999px'
+      
+      document.body.appendChild(link)
+      
+      // Trigger click with a small delay to ensure DOM is ready
       setTimeout(() => {
-        if (link.parentNode) {
-          document.body.removeChild(link)
-        }
-        window.URL.revokeObjectURL(blobUrl)
-      }, 100)
+        link.click()
+        
+        // Clean up after download starts
+        setTimeout(() => {
+          if (link.parentNode) {
+            document.body.removeChild(link)
+          }
+          window.URL.revokeObjectURL(blobUrl)
+        }, 200)
+      }, 10)
     } catch (error) {
       // If fetch fails (CORS or other issues), fall back to opening in new tab
       console.log('Direct download failed, opening in new tab:', error)

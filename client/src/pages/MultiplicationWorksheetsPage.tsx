@@ -352,7 +352,6 @@ const WorksheetThumbnailCard = React.memo(function WorksheetThumbnailCard({ titl
           <button
             onClick={async () => {
               try {
-                // Try to fetch the PDF as a blob for direct download
                 const response = await fetch(href, {
                   method: 'GET',
                   credentials: 'include',
@@ -368,16 +367,22 @@ const WorksheetThumbnailCard = React.memo(function WorksheetThumbnailCard({ titl
                 const link = document.createElement('a')
                 link.href = blobUrl
                 link.download = `${title || docId}.pdf`
-                link.style.display = 'none'
+                link.setAttribute('download', `${title || docId}.pdf`)
+                link.style.position = 'absolute'
+                link.style.left = '-9999px'
+                link.style.top = '-9999px'
+                
                 document.body.appendChild(link)
-                link.click()
                 
                 setTimeout(() => {
-                  if (link.parentNode) {
-                    document.body.removeChild(link)
-                  }
-                  window.URL.revokeObjectURL(blobUrl)
-                }, 100)
+                  link.click()
+                  setTimeout(() => {
+                    if (link.parentNode) {
+                      document.body.removeChild(link)
+                    }
+                    window.URL.revokeObjectURL(blobUrl)
+                  }, 200)
+                }, 10)
               } catch (error) {
                 console.log('Direct download failed, opening in new tab:', error)
                 window.open(href, '_blank', 'noopener,noreferrer')
