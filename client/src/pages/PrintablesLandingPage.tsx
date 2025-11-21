@@ -86,43 +86,11 @@ const WorksheetThumbnailCard = React.memo(function WorksheetThumbnailCard({ titl
       <div className="flex items-center justify-between">
         <div className="flex items-center gap-2">
           <button
-            onClick={async () => {
-              try {
-                const response = await fetch(finalHref, {
-                  method: 'GET',
-                  credentials: 'include',
-                  mode: 'cors',
-                })
-                
-                if (!response.ok) {
-                  throw new Error(`HTTP ${response.status}`)
-                }
-                
-                const blob = await response.blob()
-                const blobUrl = window.URL.createObjectURL(blob)
-                const link = document.createElement('a')
-                link.href = blobUrl
-                link.download = `${title || docId || 'worksheet'}.pdf`
-                link.setAttribute('download', `${title || docId || 'worksheet'}.pdf`)
-                link.style.position = 'absolute'
-                link.style.left = '-9999px'
-                link.style.top = '-9999px'
-                
-                document.body.appendChild(link)
-                
-                setTimeout(() => {
-                  link.click()
-                  setTimeout(() => {
-                    if (link.parentNode) {
-                      document.body.removeChild(link)
-                    }
-                    window.URL.revokeObjectURL(blobUrl)
-                  }, 200)
-                }, 10)
-              } catch (error) {
-                console.log('Direct download failed, opening in new tab:', error)
-                window.open(finalHref, '_blank', 'noopener,noreferrer')
-              }
+            onClick={() => {
+              // Add download parameter and open
+              const url = new URL(finalHref, window.location.origin)
+              url.searchParams.set('download', '1')
+              window.open(url.toString(), '_blank', 'noopener,noreferrer')
             }}
             className="text-xs font-medium text-purple-600 hover:text-purple-700 px-3 py-1 rounded-full border border-purple-200 hover:border-purple-300 transition-colors"
             aria-label={`Download ${title} as PDF`}

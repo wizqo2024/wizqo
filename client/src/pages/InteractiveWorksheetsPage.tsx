@@ -1078,54 +1078,14 @@ export function InteractiveWorksheetsPage() {
     const baseUrl = getSingleWorksheetPrintUrl(item.docId)
     if (!baseUrl) return
     
-    try {
-      // Try to fetch the PDF as a blob for direct download
-      const response = await fetch(baseUrl, {
-        method: 'GET',
-        credentials: 'include',
-        mode: 'cors',
-      })
-      
-      if (!response.ok) {
-        throw new Error(`HTTP ${response.status}`)
-      }
-      
-      // Get the blob
-      const blob = await response.blob()
-      
-      // Create object URL and trigger download
-      const blobUrl = window.URL.createObjectURL(blob)
-      const link = document.createElement('a')
-      link.href = blobUrl
-      link.download = `${item.title || item.docId || 'worksheet'}.pdf`
-      link.setAttribute('download', `${item.title || item.docId || 'worksheet'}.pdf`) // Ensure download attribute is set
-      
-      // Make link temporarily visible to ensure browser recognizes it
-      link.style.position = 'absolute'
-      link.style.left = '-9999px'
-      link.style.top = '-9999px'
-      
-      document.body.appendChild(link)
-      
-      // Trigger click with a small delay to ensure DOM is ready
-      setTimeout(() => {
-        link.click()
-        
-        // Clean up after download starts
-        setTimeout(() => {
-          if (link.parentNode) {
-            document.body.removeChild(link)
-          }
-          window.URL.revokeObjectURL(blobUrl)
-        }, 200)
-      }, 10)
-    } catch (error) {
-      // If fetch fails (CORS or other issues), fall back to opening in new tab
-      console.log('Direct download failed, opening in new tab:', error)
-      const url = new URL(baseUrl, window.location.origin)
-      url.searchParams.set('download', '1')
-      window.open(url.toString(), '_blank', 'noopener,noreferrer')
-    }
+    // For now, use window.open with download parameter
+    // The server should handle the download=1 parameter and send Content-Disposition header
+    const url = new URL(baseUrl, window.location.origin)
+    url.searchParams.set('download', '1')
+    
+    // Open in new tab - browser will download if server sends proper headers
+    // Otherwise user can use browser's download button
+    window.open(url.toString(), '_blank', 'noopener,noreferrer')
   }, [getSingleWorksheetPrintUrl])
 
   // Preview handler - opens modal/popup (kept for potential future use)
