@@ -351,7 +351,25 @@ const WorksheetThumbnailCard = React.memo(function WorksheetThumbnailCard({ titl
         <div className="flex items-center gap-2">
           <button
             onClick={() => {
-              window.open(href, '_blank', 'noopener,noreferrer')
+              // Add download=1 parameter
+              const url = new URL(href, window.location.origin)
+              url.searchParams.set('download', '1')
+              
+              // Use hidden iframe to trigger download
+              const iframe = document.createElement('iframe')
+              iframe.style.display = 'none'
+              iframe.style.width = '0'
+              iframe.style.height = '0'
+              iframe.style.position = 'absolute'
+              iframe.style.left = '-9999px'
+              iframe.src = url.toString()
+              document.body.appendChild(iframe)
+              
+              setTimeout(() => {
+                if (iframe.parentNode) {
+                  document.body.removeChild(iframe)
+                }
+              }, 10000)
             }}
             className="text-xs font-medium text-purple-600 hover:text-purple-700 px-3 py-1 rounded-full border border-purple-200 hover:border-purple-300 transition-colors"
           >
