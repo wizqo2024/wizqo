@@ -3,12 +3,12 @@ import { useToast } from '@/hooks/use-toast';
 import { useTranslation } from '@/context/TranslationContext';
 import { BlogPost } from './blog/types';
 import { basePosts } from './blog/basePosts';
-import { loadMarkdownPosts } from './blog/utils';
+import { loadMarkdownPosts, translateBlogPost } from './blog/utils';
 import { BlogPostView } from './blog/components/BlogPostView';
 import { BlogList } from './blog/components/BlogList';
 
 export function BlogPage({ initialSlug, onNavigate }: { initialSlug?: string; onNavigate?: (path: string) => void }) {
-  const { t } = useTranslation();
+  const { t, language } = useTranslation();
   const routeRefreshKey = () => (typeof window !== 'undefined' ? window.location.pathname : '');
   const mdPosts = useMemo(() => loadMarkdownPosts(), [routeRefreshKey()]);
   
@@ -21,13 +21,15 @@ export function BlogPage({ initialSlug, onNavigate }: { initialSlug?: string; on
     for (const p of mdPosts) byId.set(p.id, p);
     for (const p of basePosts) if (!byId.has(p.id)) byId.set(p.id, p);
     const merged = Array.from(byId.values());
-    merged.sort((a, b) => {
+    // Translate posts based on current language
+    const translated = merged.map(post => translateBlogPost(post, language as 'en' | 'es' | 'ar'));
+    translated.sort((a, b) => {
       const da = Date.parse(a.date || '') || 0;
       const db = Date.parse(b.date || '') || 0;
       return db - da;
     });
-    return merged;
-  }, [mdPosts]);
+    return translated;
+  }, [mdPosts, language]);
 
   const [selectedPost, setSelectedPost] = useState<BlogPost | null>(null);
   const featurePost = useMemo(() => {

@@ -1,5 +1,6 @@
 import { BlogPost } from './types';
 import { CATEGORY_IMAGES, GENERIC_BLOG_IMAGE } from './constants';
+import { getTranslation } from '@/translations';
 
 export function getPostImage(post: BlogPost): string {
   return post.imageUrl || CATEGORY_IMAGES[post.category] || GENERIC_BLOG_IMAGE;
@@ -60,4 +61,25 @@ export function loadMarkdownPosts(): BlogPost[] {
   } catch {
     return [];
   }
+}
+
+// Translate blog post title and excerpt based on current language
+export function translateBlogPost(post: BlogPost, language: 'en' | 'es' | 'ar' = 'en'): BlogPost {
+  try {
+    const translationKey = `pages.blog.posts.${post.id}`;
+    const translated = getTranslation(translationKey, language);
+    
+    if (translated && typeof translated === 'object' && 'title' in translated && 'excerpt' in translated) {
+      return {
+        ...post,
+        title: (translated as any).title || post.title,
+        excerpt: (translated as any).excerpt || post.excerpt,
+      };
+    }
+  } catch (error) {
+    // If translation fails, return original post
+    console.warn(`Translation failed for blog post ${post.id}:`, error);
+  }
+  
+  return post;
 }
