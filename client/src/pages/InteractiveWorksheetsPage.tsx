@@ -1074,33 +1074,53 @@ export function InteractiveWorksheetsPage() {
   }, [getSingleWorksheetPrintUrl])
 
   // Download handler - downloads PDF directly
-  const handleDownload = React.useCallback((item: InteractiveWorksheetItem) => {
+  const handleDownload = React.useCallback(async (item: InteractiveWorksheetItem) => {
     const baseUrl = getSingleWorksheetPrintUrl(item.docId)
     if (!baseUrl) return
     
-    // Add download=1 parameter to signal server to send Content-Disposition header
-    const url = new URL(baseUrl, window.location.origin)
-    url.searchParams.set('download', '1')
-    const downloadUrl = url.toString()
-    
-    // Use a simple link click with download attribute
-    // This will work if server sends Content-Disposition header or if same-origin
-    const link = document.createElement('a')
-    link.href = downloadUrl
-    link.download = `${item.title || item.docId}.pdf`
-    link.style.display = 'none'
-    document.body.appendChild(link)
-    link.click()
-    
-    // Clean up
-    setTimeout(() => {
-      if (link.parentNode) {
-        document.body.removeChild(link)
+    try {
+      // Try to fetch the PDF as a blob
+      const response = await fetch(baseUrl, {
+        method: 'GET',
+        credentials: 'same-origin', // Include cookies for same-origin requests
+      })
+      
+      if (!response.ok) {
+        throw new Error(`HTTP ${response.status}: ${response.statusText}`)
       }
-    }, 100)
-    
-    // If download attribute doesn't trigger download (cross-origin without header),
-    // the browser will open in new tab, which is acceptable fallback
+      
+      // Check if response is actually a PDF
+      const contentType = response.headers.get('content-type') || ''
+      if (!contentType.includes('pdf') && !contentType.includes('application/octet-stream')) {
+        console.warn('Response is not a PDF, content-type:', contentType)
+      }
+      
+      // Get the blob
+      const blob = await response.blob()
+      
+      // Create object URL and trigger download
+      const blobUrl = window.URL.createObjectURL(blob)
+      const link = document.createElement('a')
+      link.href = blobUrl
+      link.download = `${item.title || item.docId || 'worksheet'}.pdf`
+      link.style.display = 'none'
+      document.body.appendChild(link)
+      link.click()
+      
+      // Clean up
+      setTimeout(() => {
+        if (link.parentNode) {
+          document.body.removeChild(link)
+        }
+        window.URL.revokeObjectURL(blobUrl)
+      }, 100)
+    } catch (error) {
+      console.error('Download failed:', error)
+      // Fallback: open in new tab with download parameter
+      const url = new URL(baseUrl, window.location.origin)
+      url.searchParams.set('download', '1')
+      window.open(url.toString(), '_blank', 'noopener,noreferrer')
+    }
   }, [getSingleWorksheetPrintUrl])
 
   // Preview handler - opens modal/popup (kept for potential future use)

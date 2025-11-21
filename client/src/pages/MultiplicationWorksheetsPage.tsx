@@ -350,25 +350,38 @@ const WorksheetThumbnailCard = React.memo(function WorksheetThumbnailCard({ titl
         </div>
         <div className="flex items-center gap-2">
           <button
-            onClick={() => {
-              // Add download=1 parameter to signal server to send Content-Disposition header
-              const url = new URL(href, window.location.origin)
-              url.searchParams.set('download', '1')
-              const downloadUrl = url.toString()
-              
-              // Use a simple link click with download attribute
-              const link = document.createElement('a')
-              link.href = downloadUrl
-              link.download = `${title || docId}.pdf`
-              link.style.display = 'none'
-              document.body.appendChild(link)
-              link.click()
-              
-              setTimeout(() => {
-                if (link.parentNode) {
-                  document.body.removeChild(link)
+            onClick={async () => {
+              try {
+                // Try to fetch the PDF as a blob
+                const response = await fetch(href, {
+                  method: 'GET',
+                  credentials: 'same-origin',
+                })
+                
+                if (!response.ok) {
+                  throw new Error(`HTTP ${response.status}: ${response.statusText}`)
                 }
-              }, 100)
+                
+                const blob = await response.blob()
+                const blobUrl = window.URL.createObjectURL(blob)
+                const link = document.createElement('a')
+                link.href = blobUrl
+                link.download = `${title || docId}.pdf`
+                link.style.display = 'none'
+                document.body.appendChild(link)
+                link.click()
+                
+                setTimeout(() => {
+                  if (link.parentNode) {
+                    document.body.removeChild(link)
+                  }
+                  window.URL.revokeObjectURL(blobUrl)
+                }, 100)
+              } catch (error) {
+                console.error('Download failed:', error)
+                // Fallback: open in new tab
+                window.open(href, '_blank', 'noopener,noreferrer')
+              }
             }}
             className="text-xs font-medium text-purple-600 hover:text-purple-700 px-3 py-1 rounded-full border border-purple-200 hover:border-purple-300 transition-colors"
           >
