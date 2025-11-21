@@ -243,7 +243,7 @@ export function GentleParentingFull() {
                 The goal of <strong>mindful parenting</strong> is not a “perfect” child. By applying
                 <strong> gentle parenting techniques</strong>, you build a calmer, more connected relationship.
               </p>
-              <p className="mb-3">At its heart, it means:</p>
+              <p className="mb-3">{t('pages.blog.components.gentleParentingFull.whatIsText2')}</p>
               <ul className="space-y-2 mb-4">
                 <li className="flex items-center"><span className={`text-2xl ${isRTL ? 'ml-3' : 'mr-3'}`}>🤝</span><strong className="text-green-800">{t('pages.blog.components.gentleParentingFull.respect')}</strong> {t('pages.blog.components.gentleParentingFull.respectOver')}</li>
                 <li className="flex items-center"><span className={`text-2xl ${isRTL ? 'ml-3' : 'mr-3'}`}>🧭</span><strong className="text-green-800">{t('pages.blog.components.gentleParentingFull.guidance')}</strong> {t('pages.blog.components.gentleParentingFull.guidanceOver')}</li>
