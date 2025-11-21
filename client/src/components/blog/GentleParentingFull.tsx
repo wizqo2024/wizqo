@@ -320,6 +320,7 @@ export function GentleParentingFull() {
                 {idx === 2 && t('pages.blog.components.gentleParentingFull.technique3.description')}
                 {idx === 3 && t('pages.blog.components.gentleParentingFull.technique4.description')}
                 {idx === 4 && t('pages.blog.components.gentleParentingFull.technique5.description')}
+              </p>
             </div>
           ))}
         </div>
@@ -382,8 +383,8 @@ export function GentleParentingFull() {
               </tr>
               <tr className="hover:bg-green-50">
                 <td className="p-4 font-semibold">{t('pages.blog.components.gentleParentingFull.myth3')}</td>
-                <td className="p-4 font-semibold">{t('pages.blog.components.gentleParentingFull.myth3')}</td>
                 <td className="p-4">{t('pages.blog.components.gentleParentingFull.reality3')}</td>
+              </tr>
             </tbody>
           </table>
         </div>

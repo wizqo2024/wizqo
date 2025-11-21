@@ -22,7 +22,6 @@ export const en = {
     clear: 'Clear',
     printTip: 'Tip: Use your browser menu → Print → Save as PDF.',
     withExplanations: 'with explanations',
-    problem: 'Problem',
     explanation: 'Explanation',
     place: 'place',
     solution: 'Solution:',
@@ -2616,9 +2615,6 @@ export const en = {
       shareOnTwitter: 'Share on Twitter',
       shareOnPinterest: 'Share on Pinterest',
       copyLink: 'Copy link or share',
-      todaysWorksheets: 'Today\'s interactive worksheets',
-      generating: 'Generating…',
-      worksheetsReady: '{{count}} worksheets ready',
       printPreview: 'Print Preview',
       printPreviewDescription: 'This is how the worksheet will appear when printed.',
       browseMoreWorksheets: 'Browse More Free Worksheets by Grade & Subject',
@@ -3477,7 +3473,7 @@ export const en = {
       subtitle: 'Track your learning progress, manage your plans, and access your personalized educational resources and worksheets.',
     },
   },
-  worksheets: {
+  worksheetDocs: {
     'addition-subtraction-0-10': {
       title: 'Addition & Subtraction 0–10',
       description: 'Use the number line if needed to solve each addition problem. Write the correct answer in the blank space provided.',
@@ -3962,18 +3958,6 @@ export const en = {
     g2: '2nd–3rd',
     '35': '4th–5th',
     '68': '6th–8th',
-  },
-  categories: {
-    math: 'Math',
-    reading: 'Reading',
-    writing: 'Writing',
-    science: 'Science',
-    socialStudies: 'Social Studies',
-    grammar: 'Grammar & Vocabulary',
-    art: 'Art & Coloring',
-    earlyLearning: 'Early Learning',
-    criticalThinking: 'Critical Thinking',
-    socialEmotional: 'Social Emotional',
   },
   footer: {
     description: 'Create unlimited free printable worksheets with AI-powered personalized learning tools for teachers and parents.',

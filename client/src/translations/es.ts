@@ -19,7 +19,6 @@ export const es = {
     clear: 'Limpiar',
     printTip: 'Consejo: Usa el menú de tu navegador → Imprimir → Guardar como PDF.',
     withExplanations: 'con explicaciones',
-    problem: 'Problema',
     explanation: 'Explicación',
     place: 'lugar',
     comingSoon: 'Próximamente: actividad imprimible para esta hoja de trabajo interactiva.',
@@ -613,6 +612,7 @@ export const es = {
         tens: 'Decenas:',
         ones: 'Unidades:',
         expanded: 'Expandida:',
+        more: '+{count} más',
       },
       challenge: {
         title: '🌟 Desafíate (Opcional):',
@@ -637,13 +637,6 @@ export const es = {
         tensLabel: 'Decenas',
         onesLabel: 'Unidades',
         expandedLabel: 'Expandida',
-      },
-      labels: {
-        number: 'Número:',
-        tens: 'Decenas:',
-        ones: 'Unidades:',
-        expanded: 'Expandida:',
-        more: '+{count} más',
       },
     },
     'mult-facts-0-12': {
@@ -2399,9 +2392,6 @@ export const es = {
       shareOnTwitter: 'Compartir en Twitter',
       shareOnPinterest: 'Compartir en Pinterest',
       copyLink: 'Copiar enlace o compartir',
-      todaysWorksheets: 'Hojas de trabajo interactivas de hoy',
-      generating: 'Generando…',
-      worksheetsReady: '{{count}} hojas de trabajo listas',
       printPreview: 'Vista Previa de Impresión',
       printPreviewDescription: 'Así es como aparecerá la hoja de trabajo cuando se imprima.',
       browseMoreWorksheets: 'Explora Más Hojas de Trabajo Gratis por Grado y Materia',
@@ -3246,7 +3236,7 @@ export const es = {
       subtitle: 'Rastrea tu progreso de aprendizaje, administra tus planes y accede a tus recursos educativos y hojas de trabajo personalizadas.',
     },
   },
-  worksheets: {
+  worksheetDocs: {
     'addition-subtraction-0-10': {
       title: 'Suma y Resta 0–10',
       description: 'Usa la recta numérica si es necesario para resolver cada problema de suma. Escribe la respuesta correcta en el espacio en blanco proporcionado.',
@@ -3763,18 +3753,6 @@ export const es = {
     instagramComingSoon: 'Instagram próximamente',
     allRightsReserved: 'Todos los derechos reservados.',
     madeWithLove: 'Hecho con ❤️ para estudiantes de por vida',
-  },
-  categories: {
-    math: 'Matemáticas',
-    reading: 'Lectura',
-    writing: 'Escritura',
-    science: 'Ciencias',
-    geography: 'Geografía',
-    grammar: 'Gramática y Vocabulario',
-    art: 'Arte y Colorear',
-    'early-learning': 'Aprendizaje Temprano',
-    logic: 'Lógica y Pensamiento Crítico',
-    sel: 'Aprendizaje Socioemocional',
   },
   interactive: {
     'interactive-math-counting': {

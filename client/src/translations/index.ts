@@ -2066,9 +2066,13 @@ const ensureInteractiveWorksheetKeys = () => {
         instructions: 'Complete each task, then switch to the new rule:',
         perspectiveTakingPractice: 'Perspective-Taking Practice',
         thinkAboutSituation: 'Think about each situation from different points of view:',
+        taskSwitchingChallenge: 'Task Switching Challenge',
+        completeEachTask: 'Complete each task, then switch to the new rule:',
       },
       cognitiveProcessing: {
         instructions: 'Circle all the ★ (stars) as quickly as you can:',
+        quickSymbolRecognition: 'Quick Symbol Recognition',
+        circleAllStars: 'Circle all the ★ (stars) as quickly as you can:',
       },
       selConflict: {
         instructions: 'Learn strategies to resolve conflicts peacefully. Think about how to communicate effectively.',
@@ -2208,22 +2212,16 @@ const ensureInteractiveWorksheetKeys = () => {
       },
       writingNarrative: {
         instructions: 'Write a short story with a beginning, middle, and end. Use the story planning template below.',
-      },
-      writingInformative: {
-        instructions: 'Write an informative paragraph about the topic below. Include facts, details, and explanations.',
-      },
-      writingPictures: {
-        instructions: 'Look at each picture prompt and write simple sentences or a short story about what you see.',
-        drawPicture: 'Draw the picture',
-        writeSentence: 'Write a sentence:',
-      },
-      writingNarrative: {
-        instructions: 'Write a short story with a beginning, middle, and end. Use the story planning template below.',
         storyStarters: 'Story Starters (choose one):',
       },
       writingInformative: {
         instructions: 'Write an informative paragraph about the topic below. Include facts, details, and explanations.',
         topic: 'Topic:',
+      },
+      writingPictures: {
+        instructions: 'Look at each picture prompt and write simple sentences or a short story about what you see.',
+        drawPicture: 'Draw the picture',
+        writeSentence: 'Write a sentence:',
       },
       writingEssay: {
         writeStructuredEssay: 'Write a structured essay responding to the prompt below.',
@@ -2235,17 +2233,6 @@ const ensureInteractiveWorksheetKeys = () => {
       readingVocab: {
         topic: 'Topic:',
       },
-      writingPrompts: {
-        prompt: 'Prompt:',
-      },
-      cognitiveProcessing: {
-        quickSymbolRecognition: 'Quick Symbol Recognition',
-        circleAllStars: 'Circle all the ★ (stars) as quickly as you can:',
-      },
-      cognitiveFlexibility: {
-        taskSwitchingChallenge: 'Task Switching Challenge',
-        completeEachTask: 'Complete each task, then switch to the new rule:',
-      },
       algebra: {
         solveEachEquation: 'Solve each equation, evaluate each expression, or simplify as indicated.',
         solve: 'Solve:',
@@ -2255,9 +2242,6 @@ const ensureInteractiveWorksheetKeys = () => {
       },
       readingLiterary: {
         readAndAnalyze: 'Read the passage and analyze the literary elements below. Provide evidence from the text.',
-      },
-      writingEssay: {
-        writeStructuredEssay: 'Write a structured essay responding to the prompt below.',
       },
       grammarAdvanced: {
         identifyClauses: 'Identify clauses, phrases, and advanced sentence structures in each sentence.',
@@ -2646,9 +2630,13 @@ const ensureInteractiveWorksheetKeys = () => {
         instructions: 'Completa cada tarea, luego cambia a la nueva regla:',
         perspectiveTakingPractice: 'Práctica de Toma de Perspectiva',
         thinkAboutSituation: 'Piensa en cada situación desde diferentes puntos de vista:',
+        taskSwitchingChallenge: 'Desafío de Cambio de Tareas',
+        completeEachTask: 'Completa cada tarea, luego cambia a la nueva regla:',
       },
       cognitiveProcessing: {
         instructions: 'Encierra en un círculo todas las ★ (estrellas) lo más rápido que puedas:',
+        quickSymbolRecognition: 'Reconocimiento Rápido de Símbolos',
+        circleAllStars: 'Encierra en un círculo todas las ★ (estrellas) lo más rápido que puedas:',
       },
       selConflict: {
         instructions: 'Aprende estrategias para resolver conflictos pacíficamente. Piensa en cómo comunicarte efectivamente.',
@@ -2788,22 +2776,16 @@ const ensureInteractiveWorksheetKeys = () => {
       },
       writingNarrative: {
         instructions: 'Escribe una historia corta con un inicio, medio y final. Usa la plantilla de planificación de historia a continuación.',
-      },
-      writingInformative: {
-        instructions: 'Escribe un párrafo informativo sobre el tema a continuación. Incluye hechos, detalles y explicaciones.',
-      },
-      writingPictures: {
-        instructions: 'Mira cada indicador de imagen y escribe oraciones simples o una historia corta sobre lo que ves.',
-        drawPicture: 'Dibuja la imagen',
-        writeSentence: 'Escribe una oración:',
-      },
-      writingNarrative: {
-        instructions: 'Escribe una historia corta con un inicio, medio y final. Usa la plantilla de planificación de historia a continuación.',
         storyStarters: 'Inicios de Historia (elige uno):',
       },
       writingInformative: {
         instructions: 'Escribe un párrafo informativo sobre el tema a continuación. Incluye hechos, detalles y explicaciones.',
         topic: 'Tema:',
+      },
+      writingPictures: {
+        instructions: 'Mira cada indicador de imagen y escribe oraciones simples o una historia corta sobre lo que ves.',
+        drawPicture: 'Dibuja la imagen',
+        writeSentence: 'Escribe una oración:',
       },
       writingEssay: {
         writeStructuredEssay: 'Escribe un ensayo estructurado respondiendo al indicador a continuación.',
@@ -2815,17 +2797,6 @@ const ensureInteractiveWorksheetKeys = () => {
       readingVocab: {
         topic: 'Tema:',
       },
-      writingPrompts: {
-        prompt: 'Indicador:',
-      },
-      cognitiveProcessing: {
-        quickSymbolRecognition: 'Reconocimiento Rápido de Símbolos',
-        circleAllStars: 'Encierra en un círculo todas las ★ (estrellas) lo más rápido que puedas:',
-      },
-      cognitiveFlexibility: {
-        taskSwitchingChallenge: 'Desafío de Cambio de Tareas',
-        completeEachTask: 'Completa cada tarea, luego cambia a la nueva regla:',
-      },
       algebra: {
         solveEachEquation: 'Resuelve cada ecuación, evalúa cada expresión o simplifica como se indica.',
         solve: 'Resuelve:',
@@ -2835,9 +2806,6 @@ const ensureInteractiveWorksheetKeys = () => {
       },
       readingLiterary: {
         readAndAnalyze: 'Lee el pasaje y analiza los elementos literarios a continuación. Proporciona evidencia del texto.',
-      },
-      writingEssay: {
-        writeStructuredEssay: 'Escribe un ensayo estructurado respondiendo al indicador a continuación.',
       },
       grammarAdvanced: {
         identifyClauses: 'Identifica cláusulas, frases y estructuras de oraciones avanzadas en cada oración.',
@@ -3226,9 +3194,13 @@ const ensureInteractiveWorksheetKeys = () => {
         instructions: 'أكمل كل مهمة، ثم انتقل إلى القاعدة الجديدة:',
         perspectiveTakingPractice: 'ممارسة أخذ المنظور',
         thinkAboutSituation: 'فكر في كل موقف من وجهات نظر مختلفة:',
+        taskSwitchingChallenge: 'تحدي تبديل المهام',
+        completeEachTask: 'أكمل كل مهمة، ثم انتقل إلى القاعدة الجديدة:',
       },
       cognitiveProcessing: {
         instructions: 'ضع دائرة حول جميع ★ (النجوم) بأسرع ما يمكن:',
+        quickSymbolRecognition: 'التعرف السريع على الرموز',
+        circleAllStars: 'ضع دائرة حول جميع ★ (النجوم) بأسرع ما يمكن:',
       },
       selConflict: {
         instructions: 'تعلم استراتيجيات حل النزاعات بسلام. فكر في كيفية التواصل الفعال.',
@@ -3368,22 +3340,16 @@ const ensureInteractiveWorksheetKeys = () => {
       },
       writingNarrative: {
         instructions: 'اكتب قصة قصيرة لها بداية ووسط ونهاية. استخدم قالب تخطيط القصة أدناه.',
-      },
-      writingInformative: {
-        instructions: 'اكتب فقرة إعلامية حول الموضوع أدناه. أدرج الحقائق والتفاصيل والتفسيرات.',
-      },
-      writingPictures: {
-        instructions: 'انظر إلى كل مطالبة صورة واكتب جمل بسيطة أو قصة قصيرة عما تراه.',
-        drawPicture: 'ارسم الصورة',
-        writeSentence: 'اكتب جملة:',
-      },
-      writingNarrative: {
-        instructions: 'اكتب قصة قصيرة لها بداية ووسط ونهاية. استخدم قالب تخطيط القصة أدناه.',
         storyStarters: 'بدايات القصص (اختر واحدة):',
       },
       writingInformative: {
         instructions: 'اكتب فقرة إعلامية حول الموضوع أدناه. أدرج الحقائق والتفاصيل والتفسيرات.',
         topic: 'الموضوع:',
+      },
+      writingPictures: {
+        instructions: 'انظر إلى كل مطالبة صورة واكتب جمل بسيطة أو قصة قصيرة عما تراه.',
+        drawPicture: 'ارسم الصورة',
+        writeSentence: 'اكتب جملة:',
       },
       writingEssay: {
         writeStructuredEssay: 'اكتب مقالاً منظمًا يرد على المطالبة أدناه.',
@@ -3395,17 +3361,6 @@ const ensureInteractiveWorksheetKeys = () => {
       readingVocab: {
         topic: 'الموضوع:',
       },
-      writingPrompts: {
-        prompt: 'المطالبة:',
-      },
-      cognitiveProcessing: {
-        quickSymbolRecognition: 'التعرف السريع على الرموز',
-        circleAllStars: 'ضع دائرة حول جميع ★ (النجوم) بأسرع ما يمكن:',
-      },
-      cognitiveFlexibility: {
-        taskSwitchingChallenge: 'تحدي تبديل المهام',
-        completeEachTask: 'أكمل كل مهمة، ثم انتقل إلى القاعدة الجديدة:',
-      },
       algebra: {
         solveEachEquation: 'حل كل معادلة، قيّم كل تعبير، أو بسّط كما هو موضح.',
         solve: 'حل:',
@@ -3415,9 +3370,6 @@ const ensureInteractiveWorksheetKeys = () => {
       },
       readingLiterary: {
         readAndAnalyze: 'اقرأ المقطع وحلل العناصر الأدبية أدناه. قدم أدلة من النص.',
-      },
-      writingEssay: {
-        writeStructuredEssay: 'اكتب مقالاً منظمًا يرد على المطالبة أدناه.',
       },
       grammarAdvanced: {
         identifyClauses: 'حدد الجمل والعبارات وبنيات الجمل المتقدمة في كل جملة.',
@@ -3769,6 +3721,7 @@ const ensurePlaceValueHtoKeys = () => {
           tens: 'Tens:',
           ones: 'Ones:',
           expanded: 'Expanded:',
+          more: '+{count} more',
         },
         challenge: {
           title: '🌟 Challenge Yourself (Optional):',
@@ -3793,13 +3746,6 @@ const ensurePlaceValueHtoKeys = () => {
           tensLabel: 'Tens',
           onesLabel: 'Ones',
           expandedLabel: 'Expanded',
-        },
-        labels: {
-          number: 'Number:',
-          tens: 'Tens:',
-          ones: 'Ones:',
-          expanded: 'Expanded:',
-          more: '+{count} more',
         },
       },
     },
@@ -3844,6 +3790,7 @@ const ensurePlaceValueHtoKeys = () => {
           tens: 'Decenas:',
           ones: 'Unidades:',
           expanded: 'Expandida:',
+          more: '+{count} más',
         },
         challenge: {
           title: '🌟 Desafíate (Opcional):',
@@ -3868,13 +3815,6 @@ const ensurePlaceValueHtoKeys = () => {
           tensLabel: 'Decenas',
           onesLabel: 'Unidades',
           expandedLabel: 'Expandida',
-        },
-        labels: {
-          number: 'Número:',
-          tens: 'Decenas:',
-          ones: 'Unidades:',
-          expanded: 'Expandida:',
-          more: '+{count} más',
         },
       },
     },
@@ -3919,6 +3859,7 @@ const ensurePlaceValueHtoKeys = () => {
           tens: 'العشرات:',
           ones: 'الآحاد:',
           expanded: 'الموسعة:',
+          more: '+{count} أكثر',
         },
         challenge: {
           title: '🌟 تحدى نفسك (اختياري):',
@@ -3943,13 +3884,6 @@ const ensurePlaceValueHtoKeys = () => {
           tensLabel: 'العشرات',
           onesLabel: 'الآحاد',
           expandedLabel: 'الموسعة',
-        },
-        labels: {
-          number: 'الرقم:',
-          tens: 'العشرات:',
-          ones: 'الآحاد:',
-          expanded: 'الموسعة:',
-          more: '+{count} أكثر',
         },
       },
     },
@@ -4941,6 +4875,11 @@ const ensureAdditionSubtraction010Keys = () => {
       if (keys['addition-subtraction-0-10']) {
         worksheets['addition-subtraction-0-10'] = keys['addition-subtraction-0-10']
       }
+    }
+    
+    // Merge worksheetDocs into worksheets if it exists
+    if (langTranslations && langTranslations.worksheetDocs && langTranslations.worksheets) {
+      Object.assign(langTranslations.worksheets, langTranslations.worksheetDocs)
     }
   }
 }
