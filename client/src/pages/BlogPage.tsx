@@ -43,7 +43,6 @@ export function BlogPage({ initialSlug, onNavigate }: { initialSlug?: string; on
   }, [allPosts]);
 
   // Blog filters: category + search query
-  const { t } = useTranslation();
   const allCategory = t('pages.blog.filters.all');
   const recentCategory = t('pages.blog.filters.recent');
   const [filterCategory, setFilterCategory] = useState<string>(allCategory);
