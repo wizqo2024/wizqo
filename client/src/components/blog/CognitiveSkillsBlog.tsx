@@ -1,4 +1,5 @@
 import React, { useEffect, useRef } from 'react';
+import { useTranslation } from '@/context/TranslationContext';
 
 function loadChartJs(): Promise<void> {
   return new Promise((resolve, reject) => {
@@ -21,6 +22,7 @@ function loadChartJs(): Promise<void> {
 }
 
 export default function CognitiveSkillsBlog() {
+  const { t } = useTranslation();
   const radarChartRef = useRef<HTMLCanvasElement | null>(null);
   const chartInstanceRef = useRef<any>(null);
 
@@ -66,11 +68,11 @@ export default function CognitiveSkillsBlog() {
         }
 
         const rawLabels = [
-          'Attention', 
-          'Logic & Reasoning', 
-          'Memory', 
-          'Processing Speed', 
-          'Visual Processing'
+          t('pages.blog.components.cognitiveSkillsBlog.chartLabels.attention'),
+          t('pages.blog.components.cognitiveSkillsBlog.chartLabels.logicReasoning'),
+          t('pages.blog.components.cognitiveSkillsBlog.chartLabels.memory'),
+          t('pages.blog.components.cognitiveSkillsBlog.chartLabels.processingSpeed'),
+          t('pages.blog.components.cognitiveSkillsBlog.chartLabels.visualProcessing')
         ];
         
         const processedLabels = processLabels(rawLabels);
@@ -84,7 +86,7 @@ export default function CognitiveSkillsBlog() {
           data: {
             labels: processedLabels,
             datasets: [{
-              label: 'Balanced Brain Profile',
+              label: t('pages.blog.components.cognitiveSkillsBlog.chartLabel'),
               data: [5, 5, 5, 5, 5],
               fill: true,
               backgroundColor: hexToRgba('#43AA8B', 0.2),
@@ -154,23 +156,23 @@ export default function CognitiveSkillsBlog() {
     <div className="w-full py-8">
       <header className="text-center mb-12 md:mb-16">
         <h1 className="text-4xl md:text-5xl lg:text-6xl font-extrabold mb-6 text-gray-900 leading-tight">
-          🧠 What Are Cognitive Skills? How to Strengthen Your Mind and Unlock Your True Potential
+          {t('pages.blog.components.cognitiveSkillsBlog.headerTitle')}
         </h1>
         <p className="text-xl md:text-2xl italic text-gray-600 mb-8 max-w-4xl mx-auto">
-          "The mind is not a vessel to be filled, but a fire to be kindled." – Plutarch
+          {t('pages.blog.components.cognitiveSkillsBlog.headerQuote')}
         </p>
         <p className="text-lg md:text-xl lg:text-2xl max-w-4xl mx-auto text-gray-800 leading-relaxed">
-          Cognitive skills are the mental building blocks behind everything you do. They determine how effectively you think, learn, and solve problems. And the best part? Anyone can strengthen them.
+          {t('pages.blog.components.cognitiveSkillsBlog.headerDescription')}
         </p>
       </header>
 
       <main>
         <section className="mb-12 md:mb-16">
           <h2 className="text-3xl md:text-4xl font-bold text-center mb-8 text-gray-900">
-            The 5 Core Cognitive Skills
+            {t('pages.blog.components.cognitiveSkillsBlog.coreSkillsTitle')}
           </h2>
           <p className="text-lg md:text-xl text-center max-w-4xl mx-auto mb-10 text-gray-800 leading-relaxed">
-            These five skills work together to help your brain learn, remember, and apply information. A balanced profile, as shown in the chart below, is key to peak mental performance.
+            {t('pages.blog.components.cognitiveSkillsBlog.coreSkillsDescription')}
           </p>
 
           <div className="relative w-full max-w-3xl mx-auto mb-12 h-[350px] md:h-[450px]">
@@ -180,57 +182,56 @@ export default function CognitiveSkillsBlog() {
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8 mb-10">
             <div className="bg-white rounded-lg shadow-lg p-6 md:p-8 transform hover:scale-105 transition-transform duration-300">
               <span className="text-5xl block mb-3">🧠</span>
-              <h3 className="text-2xl md:text-3xl font-bold my-3 text-gray-900">Attention</h3>
-              <p className="text-gray-700 mb-4 text-lg leading-relaxed">Helps you focus on what matters most and ignore distractions.</p>
-              <p className="font-semibold text-gray-800 text-lg"><strong>How to Improve:</strong> Practice mindful coloring or "focus mazes."</p>
+              <h3 className="text-2xl md:text-3xl font-bold my-3 text-gray-900">{t('pages.blog.components.cognitiveSkillsBlog.attention.title')}</h3>
+              <p className="text-gray-700 mb-4 text-lg leading-relaxed">{t('pages.blog.components.cognitiveSkillsBlog.attention.description')}</p>
+              <p className="font-semibold text-gray-800 text-lg"><strong>{t('pages.blog.components.cognitiveSkillsBlog.attention.improve')}</strong></p>
             </div>
             
             <div className="bg-white rounded-lg shadow-lg p-6 md:p-8 transform hover:scale-105 transition-transform duration-300">
               <span className="text-5xl block mb-3">🧮</span>
-              <h3 className="text-2xl md:text-3xl font-bold my-3 text-gray-900">Logic & Reasoning</h3>
-              <p className="text-gray-700 mb-4 text-lg leading-relaxed">Enables problem-solving, critical thinking, and forming conclusions.</p>
-              <p className="font-semibold text-gray-800 text-lg"><strong>How to Improve:</strong> Try printable logic grids and riddles.</p>
+              <h3 className="text-2xl md:text-3xl font-bold my-3 text-gray-900">{t('pages.blog.components.cognitiveSkillsBlog.logicReasoning.title')}</h3>
+              <p className="text-gray-700 mb-4 text-lg leading-relaxed">{t('pages.blog.components.cognitiveSkillsBlog.logicReasoning.description')}</p>
+              <p className="font-semibold text-gray-800 text-lg"><strong>{t('pages.blog.components.cognitiveSkillsBlog.logicReasoning.improve')}</strong></p>
             </div>
             
             <div className="bg-white rounded-lg shadow-lg p-6 md:p-8 transform hover:scale-105 transition-transform duration-300">
               <span className="text-5xl block mb-3">🔁</span>
-              <h3 className="text-2xl md:text-3xl font-bold my-3 text-gray-900">Memory</h3>
-              <p className="text-gray-700 mb-4 text-lg leading-relaxed">Retains and recalls information, whether short-term or long-term.</p>
-              <p className="font-semibold text-gray-800 text-lg"><strong>How to Improve:</strong> Play memory match games or learn a new language.</p>
+              <h3 className="text-2xl md:text-3xl font-bold my-3 text-gray-900">{t('pages.blog.components.cognitiveSkillsBlog.memory.title')}</h3>
+              <p className="text-gray-700 mb-4 text-lg leading-relaxed">{t('pages.blog.components.cognitiveSkillsBlog.memory.description')}</p>
+              <p className="font-semibold text-gray-800 text-lg"><strong>{t('pages.blog.components.cognitiveSkillsBlog.memory.improve')}</strong></p>
             </div>
             
             <div className="bg-white rounded-lg shadow-lg p-6 md:p-8 transform hover:scale-105 transition-transform duration-300 lg:col-start-2">
               <span className="text-5xl block mb-3">⚡</span>
-              <h3 className="text-2xl md:text-3xl font-bold my-3 text-gray-900">Processing Speed</h3>
-              <p className="text-gray-700 mb-4 text-lg leading-relaxed">How quickly your brain can take in and react to new information.</p>
-              <p className="font-semibold text-gray-800 text-lg"><strong>How to Improve:</strong> Do quick word searches or rapid-fire math drills.</p>
+              <h3 className="text-2xl md:text-3xl font-bold my-3 text-gray-900">{t('pages.blog.components.cognitiveSkillsBlog.processingSpeed.title')}</h3>
+              <p className="text-gray-700 mb-4 text-lg leading-relaxed">{t('pages.blog.components.cognitiveSkillsBlog.processingSpeed.description')}</p>
+              <p className="font-semibold text-gray-800 text-lg"><strong>{t('pages.blog.components.cognitiveSkillsBlog.processingSpeed.improve')}</strong></p>
             </div>
 
             <div className="bg-white rounded-lg shadow-lg p-6 md:p-8 transform hover:scale-105 transition-transform duration-300">
               <span className="text-5xl block mb-3">👁️</span>
-              <h3 className="text-2xl md:text-3xl font-bold my-3 text-gray-900">Visual Processing</h3>
-              <p className="text-gray-700 mb-4 text-lg leading-relaxed">Helps you interpret and understand what you see (e.g., reading maps).</p>
-              <p className="font-semibold text-gray-800 text-lg"><strong>How to Improve:</strong> Complete drawing or symmetry worksheets.</p>
+              <h3 className="text-2xl md:text-3xl font-bold my-3 text-gray-900">{t('pages.blog.components.cognitiveSkillsBlog.visualProcessing.title')}</h3>
+              <p className="text-gray-700 mb-4 text-lg leading-relaxed">{t('pages.blog.components.cognitiveSkillsBlog.visualProcessing.description')}</p>
+              <p className="font-semibold text-gray-800 text-lg"><strong>{t('pages.blog.components.cognitiveSkillsBlog.visualProcessing.improve')}</strong></p>
             </div>
           </div>
         </section>
 
         <section className="mb-12 md:mb-16">
           <h2 className="text-3xl md:text-4xl font-bold text-center mb-8 text-gray-900">
-            The Proof: From Frustration to Focus
+            {t('pages.blog.components.cognitiveSkillsBlog.proofTitle')}
           </h2>
           <p className="text-lg md:text-xl text-center max-w-4xl mx-auto mb-10 text-gray-700 leading-relaxed">
-            Small, consistent effort leads to real change. Sara, a college student, transformed her study habits by training her brain for just 10 minutes a day.
+            {t('pages.blog.components.cognitiveSkillsBlog.proofDescription')}
           </p>
 
           <div className="grid grid-cols-1 md:grid-cols-3 items-center gap-6 md:gap-8 mb-12">
             <div className="bg-red-50 rounded-lg shadow-md p-6 md:p-8 border-l-4 border-red-500">
-              <h3 className="text-2xl md:text-3xl font-bold mb-4 text-red-600">Before: Frustration</h3>
+              <h3 className="text-2xl md:text-3xl font-bold mb-4 text-red-600">{t('pages.blog.components.cognitiveSkillsBlog.beforeTitle')}</h3>
               <ul className="list-disc list-inside text-gray-700 space-y-2 text-lg">
-                <li>Constantly distracted</li>
-                <li>Felt overwhelmed</li>
-                <li>Couldn't remember notes</li>
-                <li>Doubted her abilities</li>
+                {t('pages.blog.components.cognitiveSkillsBlog.beforeItems', { returnObjects: true }).map((item: string, idx: number) => (
+                  <li key={idx}>{item}</li>
+                ))}
               </ul>
             </div>
             
@@ -238,89 +239,88 @@ export default function CognitiveSkillsBlog() {
             <div className="text-5xl text-center text-gray-400 font-bold md:hidden my-4" aria-hidden="true">&darr;</div>
 
             <div className="bg-green-50 rounded-lg shadow-md p-6 md:p-8 border-l-4 border-green-500">
-              <h3 className="text-2xl md:text-3xl font-bold mb-4 text-green-600">After: Focus</h3>
+              <h3 className="text-2xl md:text-3xl font-bold mb-4 text-green-600">{t('pages.blog.components.cognitiveSkillsBlog.afterTitle')}</h3>
               <ul className="list-disc list-inside text-gray-700 space-y-2 text-lg">
-                <li>Focus improved</li>
-                <li>Confidence returned</li>
-                <li>Studying felt lighter</li>
-                <li>Learned how to train her brain</li>
+                {t('pages.blog.components.cognitiveSkillsBlog.afterItems', { returnObjects: true }).map((item: string, idx: number) => (
+                  <li key={idx}>{item}</li>
+                ))}
               </ul>
             </div>
           </div>
 
           <div className="bg-gradient-to-r from-teal-600 to-blue-600 text-white rounded-lg shadow-xl p-8 md:p-10 max-w-5xl mx-auto">
-            <h3 className="text-2xl md:text-3xl font-bold mb-4">🔬 Science Says: Your Brain Can Change</h3>
+            <h3 className="text-2xl md:text-3xl font-bold mb-4">{t('pages.blog.components.cognitiveSkillsBlog.scienceTitle')}</h3>
             <p className="text-lg md:text-xl mb-4 opacity-90 leading-relaxed">
-              This isn't just a nice idea. Research on <strong>neuroplasticity</strong> confirms that your brain can grow and rewire itself at any age. Every new puzzle and challenge strengthens the connections between your brain cells.
+              {t('pages.blog.components.cognitiveSkillsBlog.scienceDescription')}
             </p>
             <p className="text-lg md:text-xl italic font-semibold opacity-100">
-              "Learning is not a spectator sport." – Jim Kwik
+              {t('pages.blog.components.cognitiveSkillsBlog.scienceQuote')}
             </p>
           </div>
         </section>
 
         <section className="mb-12 md:mb-16">
           <h2 className="text-3xl md:text-4xl font-bold text-center mb-8 text-gray-900">
-            Try This 7-Day Brain Challenge
+            {t('pages.blog.components.cognitiveSkillsBlog.challengeTitle')}
           </h2>
           <p className="text-lg md:text-xl text-center max-w-4xl mx-auto mb-10 text-gray-700 leading-relaxed">
-            Make it real. For one week, do one small activity each day. Notice how you feel by day 7—calmer, sharper, and more focused.
+            {t('pages.blog.components.cognitiveSkillsBlog.challengeDescription')}
           </p>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 lg:grid-cols-7 gap-4 md:gap-6 mb-10">
             <div className="bg-white rounded-lg shadow-md p-5 md:p-6 text-center border-t-4 border-red-500">
-              <div className="font-bold text-lg md:text-xl mb-2 text-red-600">Monday</div>
+              <div className="font-bold text-lg md:text-xl mb-2 text-red-600">{t('pages.blog.components.cognitiveSkillsBlog.monday.day')}</div>
               <span className="text-4xl md:text-5xl mb-3 block" role="img" aria-label="puzzle piece">🧩</span>
-              <p className="text-gray-700 text-base md:text-lg">Solve a logic puzzle.</p>
+              <p className="text-gray-700 text-base md:text-lg">{t('pages.blog.components.cognitiveSkillsBlog.monday.activity')}</p>
             </div>
             <div className="bg-white rounded-lg shadow-md p-5 md:p-6 text-center border-t-4 border-orange-500">
-              <div className="font-bold text-lg md:text-xl mb-2 text-orange-600">Tuesday</div>
+              <div className="font-bold text-lg md:text-xl mb-2 text-orange-600">{t('pages.blog.components.cognitiveSkillsBlog.tuesday.day')}</div>
               <span className="text-4xl md:text-5xl mb-3 block" role="img" aria-label="brain">🧠</span>
-              <p className="text-gray-700 text-base md:text-lg">Do a 5-min memory match.</p>
+              <p className="text-gray-700 text-base md:text-lg">{t('pages.blog.components.cognitiveSkillsBlog.tuesday.activity')}</p>
             </div>
             <div className="bg-white rounded-lg shadow-md p-5 md:p-6 text-center border-t-4 border-yellow-500">
-              <div className="font-bold text-lg md:text-xl mb-2 text-yellow-600">Wednesday</div>
+              <div className="font-bold text-lg md:text-xl mb-2 text-yellow-600">{t('pages.blog.components.cognitiveSkillsBlog.wednesday.day')}</div>
               <span className="text-4xl md:text-5xl mb-3 block" role="img" aria-label="abacus">🔢</span>
-              <p className="text-gray-700 text-base md:text-lg">Try a math worksheet.</p>
+              <p className="text-gray-700 text-base md:text-lg">{t('pages.blog.components.cognitiveSkillsBlog.wednesday.activity')}</p>
             </div>
             <div className="bg-white rounded-lg shadow-md p-5 md:p-6 text-center border-t-4 border-yellow-400">
-              <div className="font-bold text-lg md:text-xl mb-2 text-yellow-500">Thursday</div>
+              <div className="font-bold text-lg md:text-xl mb-2 text-yellow-500">{t('pages.blog.components.cognitiveSkillsBlog.thursday.day')}</div>
               <span className="text-4xl md:text-5xl mb-3 block" role="img" aria-label="books">📚</span>
-              <p className="text-gray-700 text-base md:text-lg">Read something new.</p>
+              <p className="text-gray-700 text-base md:text-lg">{t('pages.blog.components.cognitiveSkillsBlog.thursday.activity')}</p>
             </div>
             <div className="bg-white rounded-lg shadow-md p-5 md:p-6 text-center border-t-4 border-green-500">
-              <div className="font-bold text-lg md:text-xl mb-2 text-green-600">Friday</div>
+              <div className="font-bold text-lg md:text-xl mb-2 text-green-600">{t('pages.blog.components.cognitiveSkillsBlog.friday.day')}</div>
               <span className="text-4xl md:text-5xl mb-3 block" role="img" aria-label="artist palette">🎨</span>
-              <p className="text-gray-700 text-base md:text-lg">Color a mindful mandala.</p>
+              <p className="text-gray-700 text-base md:text-lg">{t('pages.blog.components.cognitiveSkillsBlog.friday.activity')}</p>
             </div>
             <div className="bg-white rounded-lg shadow-md p-5 md:p-6 text-center border-t-4 border-teal-500">
-              <div className="font-bold text-lg md:text-xl mb-2 text-teal-600">Saturday</div>
+              <div className="font-bold text-lg md:text-xl mb-2 text-teal-600">{t('pages.blog.components.cognitiveSkillsBlog.saturday.day')}</div>
               <span className="text-4xl md:text-5xl mb-3 block" role="img" aria-label="thought bubble">💭</span>
-              <p className="text-gray-700 text-base md:text-lg">Journal one new thing.</p>
+              <p className="text-gray-700 text-base md:text-lg">{t('pages.blog.components.cognitiveSkillsBlog.saturday.activity')}</p>
             </div>
             <div className="bg-white rounded-lg shadow-md p-5 md:p-6 text-center border-t-4 border-blue-500">
-              <div className="font-bold text-lg md:text-xl mb-2 text-blue-600">Sunday</div>
+              <div className="font-bold text-lg md:text-xl mb-2 text-blue-600">{t('pages.blog.components.cognitiveSkillsBlog.sunday.day')}</div>
               <span className="text-4xl md:text-5xl mb-3 block" role="img" aria-label="sparkles">🌟</span>
-              <p className="text-gray-700 text-base md:text-lg">Reflect on your progress.</p>
+              <p className="text-gray-700 text-base md:text-lg">{t('pages.blog.components.cognitiveSkillsBlog.sunday.activity')}</p>
             </div>
           </div>
         </section>
 
         <footer className="mt-16 text-center max-w-4xl mx-auto bg-white p-8 md:p-10 rounded-lg shadow-xl">
           <h2 className="text-3xl md:text-4xl font-bold mb-6 text-red-600">
-            💖 Remember: Progress, Not Perfection
+            {t('pages.blog.components.cognitiveSkillsBlog.footerTitle')}
           </h2>
           <p className="text-xl md:text-2xl mb-6 text-gray-700 leading-relaxed">
-            Building cognitive strength isn't about doing everything perfectly. It's about showing up — one small step, one puzzle, one worksheet at a time.
+            {t('pages.blog.components.cognitiveSkillsBlog.footerDescription')}
           </p>
           <p className="text-2xl md:text-3xl italic font-semibold text-gray-800 mb-8">
-            "Small progress is still progress. And progress builds confidence."
+            {t('pages.blog.components.cognitiveSkillsBlog.footerQuote')}
           </p>
           <a 
             href="https://wizqo.com/interactive-worksheets-generator" 
             className="inline-block bg-gradient-to-r from-purple-600 to-pink-600 text-white px-8 md:px-10 py-4 md:py-5 rounded-lg text-lg md:text-xl font-bold hover:from-purple-700 hover:to-pink-700 transform hover:scale-105 transition-all duration-300 shadow-lg"
           >
-            Ready to strengthen your cognitive skills? Explore our free interactive worksheets →
+            {t('pages.blog.components.cognitiveSkillsBlog.footerLink')}
           </a>
         </footer>
       </main>
