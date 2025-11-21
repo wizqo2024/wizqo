@@ -2821,12 +2821,6 @@ export const ar = {
         firstGradeMath: 'رياضيات الصف الأول – قابلة للطباعة',
         readingComprehension: 'القراءة والفهم (PDF مجاني)',
       },
-      filters: {
-        all: 'الكل',
-        recent: 'حديث',
-        searchPlaceholder: 'البحث في المشاركات...',
-        clearFilters: 'مسح المرشحات',
-      },
     },
     kids: {
       title: 'مركز الأطفال',
