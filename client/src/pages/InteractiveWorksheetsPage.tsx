@@ -1073,14 +1073,15 @@ export function InteractiveWorksheetsPage() {
     return urlObj.toString()
   }, [getSingleWorksheetPrintUrl])
 
-  // Download handler - downloads PDF directly
+  // Download handler - opens PDF in new tab
+  // Note: Since /print route is client-side and generates PDFs via browser print,
+  // we open it in a new tab. Users can use browser's "Save as PDF" option.
+  // For true direct downloads, server-side PDF generation would be needed.
   const handleDownload = React.useCallback((item: InteractiveWorksheetItem) => {
     const baseUrl = getSingleWorksheetPrintUrl(item.docId)
     if (!baseUrl) return
     
-    // Since server returns HTML when fetched, just open the URL directly
-    // Browser will handle PDF download if server sends proper headers
-    // User can use browser's download button if needed
+    // Open in new tab - browser will display PDF, user can download from there
     window.open(baseUrl, '_blank', 'noopener,noreferrer')
   }, [getSingleWorksheetPrintUrl])
 
