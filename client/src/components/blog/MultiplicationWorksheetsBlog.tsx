@@ -192,11 +192,11 @@ export default function MultiplicationWorksheetsBlog() {
         </div>
 
         <div className="bg-white p-6 rounded-lg shadow-md flex flex-col items-center justify-center text-center min-h-[400px]">
-          <h2 className="text-2xl font-bold text-gray-800 mb-4">{t('pages.blog.components.multiplicationWorksheetsBlog.powerOfPracticeTitle')}</h2>
-          <p className="text-gray-600 mb-6 leading-relaxed max-w-md">{t('pages.blog.components.multiplicationWorksheetsBlog.powerOfPracticeSubtitle')}</p>
+          <h2 className="text-2xl font-bold text-gray-800 mb-4 px-2 break-words">{t('pages.blog.components.multiplicationWorksheetsBlog.powerOfPracticeTitle')}</h2>
+          <p className="text-gray-600 mb-6 leading-relaxed max-w-md px-4 break-words overflow-wrap-anywhere">{t('pages.blog.components.multiplicationWorksheetsBlog.powerOfPracticeSubtitle')}</p>
           <div className="text-8xl font-bold text-blue-600 mb-3">70%</div>
-          <div className="text-2xl font-semibold text-gray-700 mb-4">{t('pages.blog.components.multiplicationWorksheetsBlog.improvedRetention')}</div>
-          <p className="text-gray-600 leading-relaxed max-w-md">{t('pages.blog.components.multiplicationWorksheetsBlog.improvedRetentionText')}</p>
+          <div className="text-2xl font-semibold text-gray-700 mb-4 px-2 break-words">{t('pages.blog.components.multiplicationWorksheetsBlog.improvedRetention')}</div>
+          <p className="text-gray-600 leading-relaxed max-w-md px-4 break-words overflow-wrap-anywhere">{t('pages.blog.components.multiplicationWorksheetsBlog.improvedRetentionText')}</p>
         </div>
 
         <div className="bg-white p-6 rounded-lg shadow-md">
