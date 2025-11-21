@@ -1083,32 +1083,9 @@ export function InteractiveWorksheetsPage() {
     url.searchParams.set('download', '1')
     const downloadUrl = url.toString()
     
-    // Use a hidden iframe to trigger download (works even with CORS restrictions)
-    // This approach bypasses fetch CORS issues
-    const iframe = document.createElement('iframe')
-    iframe.style.display = 'none'
-    iframe.style.width = '0'
-    iframe.style.height = '0'
-    iframe.src = downloadUrl
-    document.body.appendChild(iframe)
-    
-    // Also try using a link with download attribute (works for same-origin)
-    const link = document.createElement('a')
-    link.href = downloadUrl
-    link.download = `${item.title || item.docId || 'worksheet'}.pdf`
-    link.style.display = 'none'
-    document.body.appendChild(link)
-    link.click()
-    
-    // Clean up after delay
-    setTimeout(() => {
-      if (iframe.parentNode) {
-        document.body.removeChild(iframe)
-      }
-      if (link.parentNode) {
-        document.body.removeChild(link)
-      }
-    }, 2000)
+    // Use window.open which will download if server sends Content-Disposition header
+    // Otherwise it opens in new tab (acceptable fallback)
+    window.open(downloadUrl, '_blank', 'noopener,noreferrer')
   }, [getSingleWorksheetPrintUrl])
 
   // Preview handler - opens modal/popup (kept for potential future use)

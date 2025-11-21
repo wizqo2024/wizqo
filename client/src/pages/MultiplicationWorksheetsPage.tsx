@@ -351,35 +351,10 @@ const WorksheetThumbnailCard = React.memo(function WorksheetThumbnailCard({ titl
         <div className="flex items-center gap-2">
           <button
             onClick={() => {
-              // Add download parameter
+              // Add download parameter and open
               const url = new URL(href, window.location.origin)
               url.searchParams.set('download', '1')
-              const downloadUrl = url.toString()
-              
-              // Use hidden iframe to trigger download
-              const iframe = document.createElement('iframe')
-              iframe.style.display = 'none'
-              iframe.style.width = '0'
-              iframe.style.height = '0'
-              iframe.src = downloadUrl
-              document.body.appendChild(iframe)
-              
-              // Also try link with download attribute
-              const link = document.createElement('a')
-              link.href = downloadUrl
-              link.download = `${title || docId}.pdf`
-              link.style.display = 'none'
-              document.body.appendChild(link)
-              link.click()
-              
-              setTimeout(() => {
-                if (iframe.parentNode) {
-                  document.body.removeChild(iframe)
-                }
-                if (link.parentNode) {
-                  document.body.removeChild(link)
-                }
-              }, 2000)
+              window.open(url.toString(), '_blank', 'noopener,noreferrer')
             }}
             className="text-xs font-medium text-purple-600 hover:text-purple-700 px-3 py-1 rounded-full border border-purple-200 hover:border-purple-300 transition-colors"
           >
