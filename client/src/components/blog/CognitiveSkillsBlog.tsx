@@ -150,7 +150,7 @@ export default function CognitiveSkillsBlog() {
         chartInstanceRef.current = null;
       }
     };
-  }, []);
+  }, [t]);
 
   return (
     <div className="w-full py-8">
