@@ -1605,11 +1605,11 @@ export function InteractiveWorksheetsPage() {
       <Dialog open={showFavorites} onOpenChange={setShowFavorites}>
         <DialogContent className="max-w-3xl max-h-[90vh] overflow-y-auto">
           <DialogHeader>
-            <DialogTitle>My Favorite Worksheets</DialogTitle>
+            <DialogTitle>{t('pages.interactive.favorites.title')}</DialogTitle>
             <DialogDescription>
               {favorites.length === 0 
-                ? 'You haven\'t saved any favorite worksheets yet. Click the star icon on any worksheet to add it to your favorites.'
-                : `You have ${favorites.length} favorite worksheet${favorites.length === 1 ? '' : 's'}.`}
+                ? t('pages.interactive.favorites.emptyDescription')
+                : t('pages.interactive.favorites.hasFavorites').replace('{{count}}', String(favorites.length)).replace('{{plural}}', favorites.length === 1 ? '' : 's')}
             </DialogDescription>
           </DialogHeader>
           {favorites.length === 0 ? (
@@ -1617,7 +1617,7 @@ export function InteractiveWorksheetsPage() {
               <svg className="mx-auto h-12 w-12 text-slate-300 mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M11.049 2.927c.3-.921 1.603-.921 1.902 0l1.519 4.674a1 1 0 00.95.69h4.915c.969 0 1.371 1.24.588 1.81l-3.976 2.888a1 1 0 00-.363 1.118l1.518 4.674c.3.922-.755 1.688-1.538 1.118l-3.976-2.888a1 1 0 00-1.176 0l-3.976 2.888c-.783.57-1.838-.197-1.538-1.118l1.518-4.674a1 1 0 00-.363-1.118l-3.976-2.888c-.784-.57-.38-1.81.588-1.81h4.914a1 1 0 00.951-.69l1.519-4.674z" />
               </svg>
-              <p className="text-slate-600">Start favoriting worksheets to build your collection!</p>
+              <p className="text-slate-600">{t('pages.interactive.favorites.emptyMessage')}</p>
             </div>
           ) : (
             <div className="mt-4 space-y-3">
@@ -1644,7 +1644,7 @@ export function InteractiveWorksheetsPage() {
                       className="px-3 py-1.5 text-sm font-medium text-purple-700 hover:text-purple-800 border border-purple-200 rounded-lg hover:bg-purple-50 transition-colors"
                       onClick={(e) => e.stopPropagation()}
                     >
-                      Open
+                      {t('pages.interactive.favorites.open')}
                     </a>
                     <button
                       onClick={(e) => {

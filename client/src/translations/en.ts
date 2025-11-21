@@ -2423,6 +2423,13 @@ export const en = {
         sheets: 'sheets',
         share: 'Share',
       },
+      favorites: {
+        title: 'My Favorite Worksheets',
+        emptyDescription: 'You haven\'t saved any favorite worksheets yet. Click the star icon on any worksheet to add it to your favorites.',
+        hasFavorites: 'You have {{count}} favorite worksheet{{plural}}.',
+        emptyMessage: 'Start favoriting worksheets to build your collection!',
+        open: 'Open',
+      },
       features: {
         freeWithAnswerKeys: 'Free interactive worksheets with printable answer keys',
         unlimitedGenerations: 'Unlimited unique generations—click again for a completely new set',
