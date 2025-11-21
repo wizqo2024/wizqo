@@ -191,13 +191,13 @@ export default function MultiplicationWorksheetsBlog() {
           <p className="text-gray-700 leading-relaxed">{t('pages.blog.components.multiplicationWorksheetsBlog.gameChangerText')}</p>
         </div>
 
-        <div className="bg-white p-6 rounded-lg shadow-md">
-          <div className="flex flex-col items-center text-center">
-            <h2 className="text-2xl font-bold text-gray-800 mb-3">{t('pages.blog.components.multiplicationWorksheetsBlog.powerOfPracticeTitle')}</h2>
-            <p className="text-gray-600 mb-5 leading-relaxed">{t('pages.blog.components.multiplicationWorksheetsBlog.powerOfPracticeSubtitle')}</p>
-            <div className="text-8xl font-bold text-blue-600 mb-3">70%</div>
-            <div className="text-2xl font-semibold text-gray-700 mb-4">{t('pages.blog.components.multiplicationWorksheetsBlog.improvedRetention')}</div>
-            <p className="text-gray-600 leading-relaxed">{t('pages.blog.components.multiplicationWorksheetsBlog.improvedRetentionText')}</p>
+        <div className="bg-white p-6 rounded-lg shadow-md overflow-hidden">
+          <div className="flex flex-col items-center text-center w-full">
+            <h2 className="text-lg md:text-xl font-bold text-gray-800 mb-3 w-full break-words">{t('pages.blog.components.multiplicationWorksheetsBlog.powerOfPracticeTitle')}</h2>
+            <p className="text-sm md:text-base text-gray-600 mb-5 leading-relaxed w-full break-words px-2">{t('pages.blog.components.multiplicationWorksheetsBlog.powerOfPracticeSubtitle')}</p>
+            <div className="text-5xl md:text-6xl font-bold text-blue-600 mb-3">70%</div>
+            <div className="text-lg md:text-xl font-semibold text-gray-700 mb-4 w-full break-words">{t('pages.blog.components.multiplicationWorksheetsBlog.improvedRetention')}</div>
+            <p className="text-sm md:text-base text-gray-600 leading-relaxed w-full break-words px-2">{t('pages.blog.components.multiplicationWorksheetsBlog.improvedRetentionText')}</p>
           </div>
         </div>
 
