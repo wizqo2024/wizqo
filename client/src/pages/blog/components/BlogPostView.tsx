@@ -125,7 +125,7 @@ export function BlogPostView({
           </div>
         </div>
         
-        <nav aria-label="Popular worksheets" className="mb-4">
+        <nav aria-label={t('pages.blog.popularWorksheets')} className="mb-4">
           <ul className="flex flex-wrap gap-2 text-sm">
             <li><a href="/worksheets/handwriting-worksheet-maker" className="inline-flex items-center px-3 py-1.5 rounded-full bg-purple-50 border border-purple-200 text-purple-700 hover:bg-purple-100 focus:outline-none focus:ring-2 focus:ring-purple-500">{t('pages.blog.popularLinks.handwriting')}</a></li>
             <li><a href="/worksheets/1st-grade-math-worksheets" className="inline-flex items-center px-3 py-1.5 rounded-full bg-purple-50 border border-purple-200 text-purple-700 hover:bg-purple-100 focus:outline-none focus:ring-2 focus:ring-purple-500">{t('pages.blog.popularLinks.firstGradeMath')}</a></li>
@@ -157,11 +157,11 @@ export function BlogPostView({
                 {post.title}
               </h1>
               {(['easy-hobbies-that-make-you-smarter','easy-watercolor-paintings'].includes(post.id)) && (
-                <nav aria-label="Quick worksheet links" className="mb-4">
+                <nav aria-label={t('pages.blog.quickWorksheetLinks')} className="mb-4">
                   <ul className="flex flex-wrap gap-2 text-sm">
-                    <li><a href="/worksheets/handwriting-worksheet-maker" className="inline-flex items-center px-3 py-1.5 rounded-full bg-purple-50 border border-purple-200 text-purple-700 hover:bg-purple-100 focus:outline-none focus:ring-2 focus:ring-purple-500">✍️ Handwriting worksheets (PDF)</a></li>
-                    <li><a href="/worksheets/1st-grade-math-worksheets" className="inline-flex items-center px-3 py-1.5 rounded-full bg-purple-50 border border-purple-200 text-purple-700 hover:bg-purple-100 focus:outline-none focus:ring-2 focus:ring-purple-500">➕ 1st grade math – printable</a></li>
-                    <li><a href="/worksheets/reading-comprehension" className="inline-flex items-center px-3 py-1.5 rounded-full bg-purple-50 border border-purple-200 text-purple-700 hover:bg-purple-100 focus:outline-none focus:ring-2 focus:ring-purple-500">📖 Reading comprehension (free PDF)</a></li>
+                    <li><a href="/worksheets/handwriting-worksheet-maker" className="inline-flex items-center px-3 py-1.5 rounded-full bg-purple-50 border border-purple-200 text-purple-700 hover:bg-purple-100 focus:outline-none focus:ring-2 focus:ring-purple-500">{t('pages.blog.popularLinks.handwriting')}</a></li>
+                    <li><a href="/worksheets/1st-grade-math-worksheets" className="inline-flex items-center px-3 py-1.5 rounded-full bg-purple-50 border border-purple-200 text-purple-700 hover:bg-purple-100 focus:outline-none focus:ring-2 focus:ring-purple-500">{t('pages.blog.popularLinks.firstGradeMath')}</a></li>
+                    <li><a href="/worksheets/reading-comprehension" className="inline-flex items-center px-3 py-1.5 rounded-full bg-purple-50 border border-purple-200 text-purple-700 hover:bg-purple-100 focus:outline-none focus:ring-2 focus:ring-purple-500">{t('pages.blog.popularLinks.readingComprehension')}</a></li>
                   </ul>
                 </nav>
               )}
@@ -208,9 +208,9 @@ export function BlogPostView({
                 )}
               </figure>
               <div className="flex items-center justify-between mb-6">
-                <p className="text-lg text-slate-600">By {post.author || 'Wizqo Team'} • Last updated {post.date}</p>
+                <p className="text-lg text-slate-600">{t('pages.blog.byAuthor')} {post.author || 'Wizqo Team'} • {t('pages.blog.lastUpdated')} {post.date}</p>
                 <div className="flex items-center gap-2">
-                  <div className="flex items-center gap-1 text-yellow-500" role="img" aria-label={`Rating: ${getPostRating(post)} out of 5 stars`}>
+                  <div className="flex items-center gap-1 text-yellow-500" role="img" aria-label={t('pages.blog.ratingLabel').replace('{{rating}}', String(getPostRating(post)))}>
                     {[1,2,3,4,5].map(star => (
                       <svg key={star} className="w-4 h-4 fill-current" viewBox="0 0 20 20" aria-hidden="true">
                         <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
@@ -232,8 +232,8 @@ export function BlogPostView({
           </article>
         </div>
 
-        <aside className="mt-12" aria-label="Related articles">
-          <h3 className="text-xl font-bold text-slate-900 mb-4">Keep Reading</h3>
+        <aside className="mt-12" aria-label={t('pages.blog.relatedArticles')}>
+          <h3 className="text-xl font-bold text-slate-900 mb-4">{t('pages.blog.keepReading')}</h3>
           <div className="grid md:grid-cols-2 gap-4">
             {allPosts
               .filter(p => p.id !== post.id)
@@ -243,7 +243,7 @@ export function BlogPostView({
                   key={p.id}
                   onClick={() => onPostSelect(p)}
                   className="text-left bg-white rounded-xl p-4 border border-slate-200 hover:border-purple-300 shadow-sm hover:shadow transition-all focus:outline-none focus:ring-2 focus:ring-purple-500 focus:ring-offset-2"
-                  aria-label={`Read article: ${p.title}`}
+                  aria-label={t('pages.blog.readArticle').replace('{{title}}', p.title)}
                 >
                   <div className="flex items-center gap-3 mb-2">
                     <span className="bg-purple-100 text-purple-700 text-xs px-2 py-1 rounded-full font-medium">{p.category}</span>
@@ -264,11 +264,11 @@ export function BlogPostView({
               window.scrollTo({ top: 0, behavior: 'smooth' });
             } catch {}
           }}
-          aria-label="Scroll to top"
+          aria-label={t('pages.blog.scrollToTop')}
           className="fixed bottom-6 left-6 z-40 print:hidden inline-flex items-center gap-2 rounded-full bg-purple-600 text-white shadow-lg hover:bg-purple-700 focus:outline-none focus-visible:ring-2 focus-visible:ring-purple-500 focus-visible:ring-offset-2 px-4 py-3"
         >
           <span aria-hidden="true">↑</span>
-          <span className="text-sm">Scroll up</span>
+          <span className="text-sm">{t('pages.blog.scrollUp')}</span>
         </button>
       )}
 
