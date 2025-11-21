@@ -328,11 +328,11 @@ export default function HWTInfographic() {
           <h2 className="text-3xl font-bold text-center mb-6">{t('pages.blog.components.hwtInfographic.homeTitle')}</h2>
           <ul className="space-y-4">
             {[
-              { t: 'Practice Short Daily Sessions', b: 'Aim for 10–15 minutes. Consistency is more important than duration.' },
-              { t: 'Start Big', b: 'Write in the air, on a big chalkboard, or even on the floor to engage gross motor skills first.' },
-              { t: 'Add Tactile Fun', b: 'Use clay, sand, shaving cream, or finger paint. Make it feel like play, not work.' },
-              { t: 'Focus on Progress', b: 'Always prioritize and praise effort over perfection. “I love how you finished that letter!”' },
-              { t: 'End with a “Writing Win”', b: 'Conclude every session with a positive moment—a high-five, a smile, or a favorite sticker.' },
+              { t: t('pages.blog.components.hwtInfographic.homeTip1.title'), b: t('pages.blog.components.hwtInfographic.homeTip1.body') },
+              { t: t('pages.blog.components.hwtInfographic.homeTip2.title'), b: t('pages.blog.components.hwtInfographic.homeTip2.body') },
+              { t: t('pages.blog.components.hwtInfographic.homeTip3.title'), b: t('pages.blog.components.hwtInfographic.homeTip3.body') },
+              { t: t('pages.blog.components.hwtInfographic.homeTip4.title'), b: 'Always prioritize and praise effort over perfection. “I love how you finished that letter!”' },
+              { t: 'End with a “Writing Win”', b: t('pages.blog.components.hwtInfographic.homeTip5.body') },
             ].map((tip, i) => (
               <li key={i} className="flex items-start">
                 <span className="text-2xl mr-3" aria-hidden>✅</span>
@@ -354,10 +354,10 @@ export default function HWTInfographic() {
           <div className="bg-white rounded-lg shadow p-6 md:p-8 border-t-4 border-t-emerald-400">
             <h2 className="text-3xl font-bold mb-4 text-slate-900">{t('pages.blog.components.hwtInfographic.howTitle')}</h2>
             <ul className="space-y-2 text-slate-700">
-              <li>• Short daily practice (10–15 minutes).</li>
-              <li>• Begin with big movement (air/board/floor).</li>
-              <li>• Add tactile fun (clay, sand, finger tracing).</li>
-              <li>• Focus on progress, not perfection.</li>
+              <li>• {t('pages.blog.components.hwtInfographic.howTip1')}</li>
+              <li>• {t('pages.blog.components.hwtInfographic.howTip2')}</li>
+              <li>• {t('pages.blog.components.hwtInfographic.howTip3')}</li>
+              <li>• {t('pages.blog.components.hwtInfographic.howTip4')}</li>
               <li>• End with a “writing win”.</li>
             </ul>
           </div>
