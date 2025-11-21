@@ -350,11 +350,38 @@ const WorksheetThumbnailCard = React.memo(function WorksheetThumbnailCard({ titl
         </div>
         <div className="flex items-center gap-2">
           <button
-            onClick={() => {
-              // Add download parameter and open
-              const url = new URL(href, window.location.origin)
-              url.searchParams.set('download', '1')
-              window.open(url.toString(), '_blank', 'noopener,noreferrer')
+            onClick={async () => {
+              try {
+                // Try to fetch the PDF as a blob for direct download
+                const response = await fetch(href, {
+                  method: 'GET',
+                  credentials: 'include',
+                  mode: 'cors',
+                })
+                
+                if (!response.ok) {
+                  throw new Error(`HTTP ${response.status}`)
+                }
+                
+                const blob = await response.blob()
+                const blobUrl = window.URL.createObjectURL(blob)
+                const link = document.createElement('a')
+                link.href = blobUrl
+                link.download = `${title || docId}.pdf`
+                link.style.display = 'none'
+                document.body.appendChild(link)
+                link.click()
+                
+                setTimeout(() => {
+                  if (link.parentNode) {
+                    document.body.removeChild(link)
+                  }
+                  window.URL.revokeObjectURL(blobUrl)
+                }, 100)
+              } catch (error) {
+                console.log('Direct download failed, opening in new tab:', error)
+                window.open(href, '_blank', 'noopener,noreferrer')
+              }
             }}
             className="text-xs font-medium text-purple-600 hover:text-purple-700 px-3 py-1 rounded-full border border-purple-200 hover:border-purple-300 transition-colors"
           >
