@@ -465,18 +465,17 @@ function WorksheetPreviewCard({
         </div>
         <div className="flex items-center gap-2">
           {pack?.printUrl && (() => {
-            const downloadUrl = onDownload(item.docId)
-            const urlWithAutoprint = downloadUrl + (downloadUrl.includes('?') ? '&autoprint=1' : '?autoprint=1')
-            return (
+            const downloadUrl = getSingleWorksheetDownloadUrl(item.docId)
+            return downloadUrl ? (
               <a
-                href={urlWithAutoprint}
+                href={downloadUrl}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="text-xs font-medium text-purple-600 hover:text-purple-700 px-3 py-1 rounded-full border border-purple-200 hover:border-purple-300 transition-colors"
               >
                 ⬇️ {t('pages.interactive.download')}
               </a>
-            )
+            ) : null
           })()}
           <button
             onClick={() => onPreview(item)}
@@ -1033,10 +1032,12 @@ export function InteractiveWorksheetsPage() {
     if (customization.studentNames.length > 0) {
       url.searchParams.set('students', customization.studentNames.join(','))
     }
+    // Add autoprint for download buttons
+    url.searchParams.set('autoprint', '1')
     return url.toString()
   }, [pack, customization, language])
 
-  // Generate print URL for a single worksheet
+  // Generate print URL for a single worksheet (for preview - no autoprint)
   const getSingleWorksheetPrintUrl = React.useCallback((docId: string) => {
     if (!pack?.printUrl) return ''
     const url = new URL(pack.printUrl, window.location.origin)
@@ -1058,6 +1059,15 @@ export function InteractiveWorksheetsPage() {
     }
     return url.toString()
   }, [pack, customization, filters.grade, language])
+
+  // Generate download URL for a single worksheet (with autoprint)
+  const getSingleWorksheetDownloadUrl = React.useCallback((docId: string) => {
+    const url = getSingleWorksheetPrintUrl(docId)
+    if (!url) return ''
+    const urlObj = new URL(url, window.location.origin)
+    urlObj.searchParams.set('autoprint', '1')
+    return urlObj.toString()
+  }, [getSingleWorksheetPrintUrl])
 
   // Preview handler - opens modal/popup
   const handlePreview = React.useCallback((item: InteractiveWorksheetItem) => {
@@ -1347,7 +1357,7 @@ export function InteractiveWorksheetsPage() {
                           onToggleFavorite={toggleFavorite}
                           isFavorite={isFavorite(item.docId)}
                           onPreview={handlePreview}
-                          onDownload={getSingleWorksheetPrintUrl}
+                          onDownload={getSingleWorksheetDownloadUrl}
                           pack={pack}
                           filters={filters}
                           t={t}
