@@ -1078,16 +1078,36 @@ export function InteractiveWorksheetsPage() {
     const baseUrl = getSingleWorksheetPrintUrl(item.docId)
     if (!baseUrl) return
     
+    console.log('Downloading from URL:', baseUrl)
+    
     try {
-      // Fetch the PDF
-      const response = await fetch(baseUrl)
+      // Fetch the PDF with no-cors mode as fallback
+      let response
+      try {
+        response = await fetch(baseUrl, {
+          method: 'GET',
+          mode: 'cors',
+          credentials: 'include',
+        })
+      } catch (corsError) {
+        console.log('CORS error, trying no-cors mode:', corsError)
+        response = await fetch(baseUrl, {
+          method: 'GET',
+          mode: 'no-cors',
+        })
+      }
       
-      if (!response.ok) {
-        throw new Error(`Failed to fetch: ${response.status}`)
+      if (!response.ok && response.type !== 'opaque') {
+        throw new Error(`HTTP ${response.status}: ${response.statusText}`)
       }
       
       // Get blob
       const blob = await response.blob()
+      console.log('Blob created, size:', blob.size, 'type:', blob.type)
+      
+      if (blob.size === 0) {
+        throw new Error('Empty blob received')
+      }
       
       // Create download link
       const url = window.URL.createObjectURL(blob)
@@ -1098,6 +1118,7 @@ export function InteractiveWorksheetsPage() {
       
       document.body.appendChild(a)
       a.click()
+      console.log('Download triggered')
       
       // Cleanup
       setTimeout(() => {
@@ -1105,9 +1126,10 @@ export function InteractiveWorksheetsPage() {
         window.URL.revokeObjectURL(url)
       }, 100)
     } catch (err) {
-      console.error('Download error:', err)
+      console.error('Download failed:', err)
+      console.log('Falling back to window.open')
       // Fallback: open URL directly
-      window.open(baseUrl, '_blank')
+      window.open(baseUrl, '_blank', 'noopener,noreferrer')
     }
   }, [getSingleWorksheetPrintUrl])
 
