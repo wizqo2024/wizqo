@@ -2821,11 +2821,6 @@ export const ar = {
         firstGradeMath: 'رياضيات الصف الأول – قابلة للطباعة',
         readingComprehension: 'القراءة والفهم (PDF مجاني)',
       },
-      blogLinkCopied: 'تم نسخ رابط المدونة إلى الحافظة.',
-      popularBlogPosts: 'منشورات المدونة الشائعة',
-      category: 'الفئة',
-      published: 'نُشر',
-      readingTime: 'وقت القراءة',
       filters: {
         all: 'الكل',
         recent: 'حديث',
