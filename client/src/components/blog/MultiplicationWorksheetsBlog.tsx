@@ -22,11 +22,12 @@ function loadChartJs(): Promise<void> {
 }
 
 export default function MultiplicationWorksheetsBlog() {
-  const { t } = useTranslation();
+  const { t, language } = useTranslation();
   const retentionChartRef = useRef<HTMLCanvasElement | null>(null);
   const worksheetChartRef = useRef<HTMLCanvasElement | null>(null);
   const retentionChartInstanceRef = useRef<any>(null);
   const worksheetChartInstanceRef = useRef<any>(null);
+  const isRTL = language === 'ar';
 
   useEffect(() => {
     let mounted = true;
@@ -219,7 +220,7 @@ export default function MultiplicationWorksheetsBlog() {
         <div className="bg-white p-6 rounded-lg shadow-md">
           <h2 className="text-2xl font-bold text-gray-800 mb-2">{t('pages.blog.components.multiplicationWorksheetsBlog.frustrationToFocusTitle')}</h2>
           <p className="text-gray-600 mb-4">{t('pages.blog.components.multiplicationWorksheetsBlog.frustrationToFocusText')}</p>
-          <blockquote className="bg-blue-100 border-l-4 border-blue-500 text-blue-800 p-4 rounded-r-lg">
+          <blockquote className={`bg-blue-100 ${isRTL ? 'border-r-4 rounded-l-lg' : 'border-l-4 rounded-r-lg'} border-blue-500 text-blue-800 p-4`}>
             <p className="italic">{t('pages.blog.components.multiplicationWorksheetsBlog.parentQuote')}</p>
             <cite className="mt-2 block not-italic font-semibold">{t('pages.blog.components.multiplicationWorksheetsBlog.parentCite')}</cite>
           </blockquote>
@@ -236,21 +237,21 @@ export default function MultiplicationWorksheetsBlog() {
               <p className="text-gray-700">{t('pages.blog.components.multiplicationWorksheetsBlog.step1.description')}</p>
             </div>
             <span className="text-blue-500 text-3xl font-bold md:hidden">▼</span>
-            <span className="text-blue-500 text-3xl font-bold hidden md:block px-2">→</span>
+            <span className="text-blue-500 text-3xl font-bold hidden md:block px-2">{isRTL ? '←' : '→'}</span>
             <div className="flex-1 w-full bg-gray-100 p-4 rounded-lg shadow-inner text-center">
               <div className="text-3xl mb-2">{t('pages.blog.components.multiplicationWorksheetsBlog.step2.number')}</div>
               <h3 className="text-xl font-semibold text-blue-600">{t('pages.blog.components.multiplicationWorksheetsBlog.step2.title')}</h3>
               <p className="text-gray-700">{t('pages.blog.components.multiplicationWorksheetsBlog.step2.description')}</p>
             </div>
             <span className="text-blue-500 text-3xl font-bold md:hidden">▼</span>
-            <span className="text-blue-500 text-3xl font-bold hidden md:block px-2">→</span>
+            <span className="text-blue-500 text-3xl font-bold hidden md:block px-2">{isRTL ? '←' : '→'}</span>
             <div className="flex-1 w-full bg-gray-100 p-4 rounded-lg shadow-inner text-center">
               <div className="text-3xl mb-2">{t('pages.blog.components.multiplicationWorksheetsBlog.step3.number')}</div>
               <h3 className="text-xl font-semibold text-blue-600">{t('pages.blog.components.multiplicationWorksheetsBlog.step3.title')}</h3>
               <p className="text-gray-700">{t('pages.blog.components.multiplicationWorksheetsBlog.step3.description')}</p>
             </div>
             <span className="text-blue-500 text-3xl font-bold md:hidden">▼</span>
-            <span className="text-blue-500 text-3xl font-bold hidden md:block px-2">→</span>
+            <span className="text-blue-500 text-3xl font-bold hidden md:block px-2">{isRTL ? '←' : '→'}</span>
             <div className="flex-1 w-full bg-gray-100 p-4 rounded-lg shadow-inner text-center">
               <div className="text-3xl mb-2">{t('pages.blog.components.multiplicationWorksheetsBlog.step4.number')}</div>
               <h3 className="text-xl font-semibold text-blue-600">{t('pages.blog.components.multiplicationWorksheetsBlog.step4.title')}</h3>
@@ -265,15 +266,15 @@ export default function MultiplicationWorksheetsBlog() {
           <a href="/interactive-worksheets-generator" className="inline-block bg-white text-green-600 font-bold py-3 px-8 rounded-full shadow-lg text-lg transform hover:scale-105 transition-transform">
             {t('pages.blog.components.multiplicationWorksheetsBlog.generateButton')}
           </a>
-          <ul className="flex flex-col md:flex-row justify-center items-center space-y-2 md:space-y-0 md:space-x-6 mt-8 text-green-50">
+          <ul className={`flex flex-col md:flex-row justify-center items-center space-y-2 md:space-y-0 ${isRTL ? 'md:space-x-reverse md:space-x-6' : 'md:space-x-6'} mt-8 text-green-50`}>
             <li className="flex items-center">
-              <span className="text-2xl mr-2">✅</span> {t('pages.blog.components.multiplicationWorksheetsBlog.feature1')}
+              <span className={`text-2xl ${isRTL ? 'ml-2' : 'mr-2'}`}>✅</span> {t('pages.blog.components.multiplicationWorksheetsBlog.feature1')}
             </li>
             <li className="flex items-center">
-              <span className="text-2xl mr-2">✅</span> {t('pages.blog.components.multiplicationWorksheetsBlog.feature2')}
+              <span className={`text-2xl ${isRTL ? 'ml-2' : 'mr-2'}`}>✅</span> {t('pages.blog.components.multiplicationWorksheetsBlog.feature2')}
             </li>
             <li className="flex items-center">
-              <span className="text-2xl mr-2">✅</span> {t('pages.blog.components.multiplicationWorksheetsBlog.feature3')}
+              <span className={`text-2xl ${isRTL ? 'ml-2' : 'mr-2'}`}>✅</span> {t('pages.blog.components.multiplicationWorksheetsBlog.feature3')}
             </li>
           </ul>
         </div>
