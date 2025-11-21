@@ -245,7 +245,7 @@ export default function HWTInfographic() {
       {/* Real-world example */}
       <section>
         <div className="bg-green-50 rounded-xl shadow p-6 md:p-8 border-l-8 border-green-300 max-w-4xl mx-auto">
-          <h3 className="text-2xl font-bold mb-3 text-slate-900">💡 Real-World Example</h3>
+          <h3 className="text-2xl font-bold mb-3 text-slate-900">{t('pages.blog.components.hwtInfographic.exampleTitle')}</h3>
           <p className="text-lg text-slate-800 italic">
             “After six weeks of sensory-based exercises — tracing letters in sand, shaping them with dough, and singing through steps — Sam’s handwriting became legible and he smiled every time he picked up a pencil.”
           </p>
@@ -325,7 +325,7 @@ export default function HWTInfographic() {
       {/* Tips */}
       <section>
         <div className="bg-white rounded-lg shadow p-6 md:p-10 max-w-3xl mx-auto">
-          <h2 className="text-3xl font-bold text-center mb-6">How to Start at Home</h2>
+          <h2 className="text-3xl font-bold text-center mb-6">{t('pages.blog.components.hwtInfographic.homeTitle')}</h2>
           <ul className="space-y-4">
             {[
               { t: 'Practice Short Daily Sessions', b: 'Aim for 10–15 minutes. Consistency is more important than duration.' },
@@ -347,12 +347,12 @@ export default function HWTInfographic() {
       <section>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           <div className="bg-white rounded-lg shadow p-6 md:p-8 border-t-4 border-t-amber-300">
-            <h2 className="text-3xl font-bold mb-4 text-slate-900">🪶 Why It Works for Everyone</h2>
+            <h2 className="text-3xl font-bold mb-4 text-slate-900">{t('pages.blog.components.hwtInfographic.whyTitle')}</h2>
             <p className="text-slate-700">Parents, teachers, therapists, and adults all benefit. Whether it’s first letters or retraining after years on a keyboard, HWT brings clarity and calm.</p>
             <p className="text-slate-700 mt-3 font-semibold">It’s not about handwriting — it’s about confidence in communication.</p>
           </div>
           <div className="bg-white rounded-lg shadow p-6 md:p-8 border-t-4 border-t-emerald-400">
-            <h2 className="text-3xl font-bold mb-4 text-slate-900">🌈 How to Start</h2>
+            <h2 className="text-3xl font-bold mb-4 text-slate-900">{t('pages.blog.components.hwtInfographic.howTitle')}</h2>
             <ul className="space-y-2 text-slate-700">
               <li>• Short daily practice (10–15 minutes).</li>
               <li>• Begin with big movement (air/board/floor).</li>
