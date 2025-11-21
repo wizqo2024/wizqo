@@ -3,7 +3,7 @@ import { useToast } from '@/hooks/use-toast';
 import { useTranslation } from '@/context/TranslationContext';
 import { BlogPost } from './blog/types';
 import { basePosts } from './blog/basePosts';
-import { loadMarkdownPosts, translateBlogPost } from './blog/utils';
+import { loadMarkdownPosts, translateBlogPost, translateCategory } from './blog/utils';
 import { BlogPostView } from './blog/components/BlogPostView';
 import { BlogList } from './blog/components/BlogList';
 
@@ -49,7 +49,6 @@ export function BlogPage({ initialSlug, onNavigate }: { initialSlug?: string; on
   const recentCategory = t('pages.blog.filters.recent');
   const [filterCategory, setFilterCategory] = useState<string>(allCategory);
   const [filterQuery, setFilterQuery] = useState<string>('');
-  const { translateCategory } = require('./blog/utils');
   const categories = useMemo(() => {
     const unique = Array.from(new Set(allPosts.map(p => p.category))).sort();
     // Translate categories for display

@@ -65,6 +65,9 @@ export function loadMarkdownPosts(): BlogPost[] {
 
 // Translate blog post category based on current language
 export function translateCategory(category: string, language: 'en' | 'es' | 'ar' = 'en'): string {
+  if (!category || typeof category !== 'string') return category;
+  if (language === 'en') return category;
+  
   try {
     const langTranslations = translations[language];
     if (langTranslations && typeof langTranslations === 'object') {
@@ -90,6 +93,7 @@ export function translateCategory(category: string, language: 'en' | 'es' | 'ar'
 
 // Translate readTime format (e.g., "6-7 min read" -> "6-7 دقيقة قراءة")
 export function translateReadTime(readTime: string, language: 'en' | 'es' | 'ar' = 'en'): string {
+  if (!readTime || typeof readTime !== 'string') return readTime;
   if (language === 'en') return readTime;
   
   try {
