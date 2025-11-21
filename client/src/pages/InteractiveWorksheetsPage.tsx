@@ -464,16 +464,20 @@ function WorksheetPreviewCard({
           <span>{t('pages.interactive.answerKeyIncluded')}</span>
         </div>
         <div className="flex items-center gap-2">
-          {pack?.printUrl && (
-            <a
-              href={onDownload(item.docId)}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-xs font-medium text-purple-600 hover:text-purple-700 px-3 py-1 rounded-full border border-purple-200 hover:border-purple-300 transition-colors"
-            >
-              ⬇️ {t('pages.interactive.download')}
-            </a>
-          )}
+          {pack?.printUrl && (() => {
+            const downloadUrl = onDownload(item.docId)
+            const urlWithAutoprint = downloadUrl + (downloadUrl.includes('?') ? '&autoprint=1' : '?autoprint=1')
+            return (
+              <a
+                href={urlWithAutoprint}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-xs font-medium text-purple-600 hover:text-purple-700 px-3 py-1 rounded-full border border-purple-200 hover:border-purple-300 transition-colors"
+              >
+                ⬇️ {t('pages.interactive.download')}
+              </a>
+            )
+          })()}
           <button
             onClick={() => onPreview(item)}
             className="text-xs font-medium text-purple-600 hover:text-purple-700 px-3 py-1 rounded-full border border-purple-200 hover:border-purple-300 transition-colors"
