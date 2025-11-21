@@ -1074,44 +1074,33 @@ export function InteractiveWorksheetsPage() {
   }, [getSingleWorksheetPrintUrl])
 
   // Download handler - downloads PDF directly
-  const handleDownload = React.useCallback(async (item: InteractiveWorksheetItem) => {
-    const url = getSingleWorksheetPrintUrl(item.docId)
-    if (!url) return
+  const handleDownload = React.useCallback((item: InteractiveWorksheetItem) => {
+    const baseUrl = getSingleWorksheetPrintUrl(item.docId)
+    if (!baseUrl) return
     
-    try {
-      // Try to fetch the PDF and create a blob download
-      const response = await fetch(url, {
-        method: 'GET',
-        headers: {
-          'Accept': 'application/pdf',
-        },
-      })
-      
-      if (!response.ok) {
-        throw new Error(`HTTP error! status: ${response.status}`)
-      }
-      
-      const blob = await response.blob()
-      const blobUrl = window.URL.createObjectURL(blob)
-      
-      // Create a temporary link and trigger download
-      const link = document.createElement('a')
-      link.href = blobUrl
-      link.download = `${item.title || item.docId}.pdf`
-      link.style.display = 'none'
-      document.body.appendChild(link)
-      link.click()
-      
-      // Clean up
-      setTimeout(() => {
+    // Add download=1 parameter to signal server to send Content-Disposition header
+    const url = new URL(baseUrl, window.location.origin)
+    url.searchParams.set('download', '1')
+    const downloadUrl = url.toString()
+    
+    // Use a simple link click with download attribute
+    // This will work if server sends Content-Disposition header or if same-origin
+    const link = document.createElement('a')
+    link.href = downloadUrl
+    link.download = `${item.title || item.docId}.pdf`
+    link.style.display = 'none'
+    document.body.appendChild(link)
+    link.click()
+    
+    // Clean up
+    setTimeout(() => {
+      if (link.parentNode) {
         document.body.removeChild(link)
-        window.URL.revokeObjectURL(blobUrl)
-      }, 100)
-    } catch (error) {
-      console.error('Direct download failed, opening in new tab:', error)
-      // Fallback: open in new tab if fetch fails (CORS or other issues)
-      window.open(url, '_blank', 'noopener,noreferrer')
-    }
+      }
+    }, 100)
+    
+    // If download attribute doesn't trigger download (cross-origin without header),
+    // the browser will open in new tab, which is acceptable fallback
   }, [getSingleWorksheetPrintUrl])
 
   // Preview handler - opens modal/popup (kept for potential future use)
