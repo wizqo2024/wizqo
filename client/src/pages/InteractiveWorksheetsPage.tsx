@@ -1074,30 +1074,41 @@ export function InteractiveWorksheetsPage() {
   }, [getSingleWorksheetPrintUrl])
 
   // Download handler - downloads PDF directly
-  const handleDownload = React.useCallback((item: InteractiveWorksheetItem) => {
+  const handleDownload = React.useCallback(async (item: InteractiveWorksheetItem) => {
     const baseUrl = getSingleWorksheetPrintUrl(item.docId)
     if (!baseUrl) return
     
-    // Add download parameter to URL
-    const url = new URL(baseUrl, window.location.origin)
-    url.searchParams.set('download', '1')
-    const downloadUrl = url.toString()
-    
-    // Create a direct link with download attribute (no target="_blank" to allow download)
-    const link = document.createElement('a')
-    link.href = downloadUrl
-    link.download = `${item.title || item.docId || 'worksheet'}.pdf`
-    // Don't use target="_blank" - it prevents download attribute from working
-    
-    // Append to body, click, then remove
-    document.body.appendChild(link)
-    link.click()
-    
-    setTimeout(() => {
-      if (link.parentNode) {
-        document.body.removeChild(link)
+    try {
+      // Fetch the PDF
+      const response = await fetch(baseUrl)
+      
+      if (!response.ok) {
+        throw new Error(`Failed to fetch: ${response.status}`)
       }
-    }, 100)
+      
+      // Get blob
+      const blob = await response.blob()
+      
+      // Create download link
+      const url = window.URL.createObjectURL(blob)
+      const a = document.createElement('a')
+      a.style.display = 'none'
+      a.href = url
+      a.download = `${item.title || item.docId || 'worksheet'}.pdf`
+      
+      document.body.appendChild(a)
+      a.click()
+      
+      // Cleanup
+      setTimeout(() => {
+        document.body.removeChild(a)
+        window.URL.revokeObjectURL(url)
+      }, 100)
+    } catch (err) {
+      console.error('Download error:', err)
+      // Fallback: open URL directly
+      window.open(baseUrl, '_blank')
+    }
   }, [getSingleWorksheetPrintUrl])
 
   // Preview handler - opens modal/popup (kept for potential future use)

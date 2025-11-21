@@ -86,25 +86,26 @@ const WorksheetThumbnailCard = React.memo(function WorksheetThumbnailCard({ titl
       <div className="flex items-center justify-between">
         <div className="flex items-center gap-2">
           <button
-            onClick={() => {
-              // Add download parameter
-              const url = new URL(finalHref, window.location.origin)
-              url.searchParams.set('download', '1')
-              const downloadUrl = url.toString()
-              
-              // Create a direct link with download attribute (no target="_blank")
-              const link = document.createElement('a')
-              link.href = downloadUrl
-              link.download = `${title || docId || 'worksheet'}.pdf`
-              
-              document.body.appendChild(link)
-              link.click()
-              
-              setTimeout(() => {
-                if (link.parentNode) {
-                  document.body.removeChild(link)
-                }
-              }, 100)
+            onClick={async () => {
+              try {
+                const response = await fetch(finalHref)
+                if (!response.ok) throw new Error(`Failed: ${response.status}`)
+                const blob = await response.blob()
+                const url = window.URL.createObjectURL(blob)
+                const a = document.createElement('a')
+                a.style.display = 'none'
+                a.href = url
+                a.download = `${title || docId || 'worksheet'}.pdf`
+                document.body.appendChild(a)
+                a.click()
+                setTimeout(() => {
+                  document.body.removeChild(a)
+                  window.URL.revokeObjectURL(url)
+                }, 100)
+              } catch (err) {
+                console.error('Download error:', err)
+                window.open(finalHref, '_blank')
+              }
             }}
             className="text-xs font-medium text-purple-600 hover:text-purple-700 px-3 py-1 rounded-full border border-purple-200 hover:border-purple-300 transition-colors"
             aria-label={`Download ${title} as PDF`}
