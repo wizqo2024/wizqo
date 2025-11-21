@@ -247,7 +247,7 @@ export default function HWTInfographic() {
         <div className="bg-green-50 rounded-xl shadow p-6 md:p-8 border-l-8 border-green-300 max-w-4xl mx-auto">
           <h3 className="text-2xl font-bold mb-3 text-slate-900">{t('pages.blog.components.hwtInfographic.exampleTitle')}</h3>
           <p className="text-lg text-slate-800 italic">
-            “After six weeks of sensory-based exercises — tracing letters in sand, shaping them with dough, and singing through steps — Sam’s handwriting became legible and he smiled every time he picked up a pencil.”
+            “{t('pages.blog.components.hwtInfographic.exampleText')} of sensory-based exercises — tracing letters in sand, shaping them with dough, and singing through steps — Sam’s handwriting became legible and he smiled every time he picked up a pencil.”
           </p>
         </div>
       </section>
@@ -331,7 +331,7 @@ export default function HWTInfographic() {
               { t: t('pages.blog.components.hwtInfographic.homeTip1.title'), b: t('pages.blog.components.hwtInfographic.homeTip1.body') },
               { t: t('pages.blog.components.hwtInfographic.homeTip2.title'), b: t('pages.blog.components.hwtInfographic.homeTip2.body') },
               { t: t('pages.blog.components.hwtInfographic.homeTip3.title'), b: t('pages.blog.components.hwtInfographic.homeTip3.body') },
-              { t: t('pages.blog.components.hwtInfographic.homeTip4.title'), b: 'Always prioritize and praise effort over perfection. “I love how you finished that letter!”' },
+              { t: t('pages.blog.components.hwtInfographic.homeTip4.title'), b: '{t('pages.blog.components.hwtInfographic.homeTip4.body')}. “I love how you finished that letter!”' },
               { t: 'End with a “Writing Win”', b: t('pages.blog.components.hwtInfographic.homeTip5.body') },
             ].map((tip, i) => (
               <li key={i} className="flex items-start">
@@ -348,7 +348,7 @@ export default function HWTInfographic() {
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           <div className="bg-white rounded-lg shadow p-6 md:p-8 border-t-4 border-t-amber-300">
             <h2 className="text-3xl font-bold mb-4 text-slate-900">{t('pages.blog.components.hwtInfographic.whyTitle')}</h2>
-            <p className="text-slate-700">Parents, teachers, therapists, and adults all benefit. Whether it’s first letters or retraining after years on a keyboard, HWT brings clarity and calm.</p>
+            <p className="text-slate-700">{t('pages.blog.components.hwtInfographic.whyText')}. Whether it’s first letters or retraining after years on a keyboard, HWT brings clarity and calm.</p>
             <p className="text-slate-700 mt-3 font-semibold">It’s not about handwriting — it’s about confidence in communication.</p>
           </div>
           <div className="bg-white rounded-lg shadow p-6 md:p-8 border-t-4 border-t-emerald-400">
