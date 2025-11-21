@@ -140,6 +140,7 @@ export function translateBlogPost(post: BlogPost, language: 'en' | 'es' | 'ar' =
                 ...post,
                 title: postTranslation.title || post.title,
                 excerpt: postTranslation.excerpt || post.excerpt,
+                content: postTranslation.content || post.content,
                 category: translateCategory(post.category, language),
                 readTime: translateReadTime(post.readTime, language),
               };
