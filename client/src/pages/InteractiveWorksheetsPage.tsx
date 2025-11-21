@@ -1074,24 +1074,43 @@ export function InteractiveWorksheetsPage() {
   }, [getSingleWorksheetPrintUrl])
 
   // Download handler - downloads PDF directly
-  const handleDownload = React.useCallback((item: InteractiveWorksheetItem) => {
+  const handleDownload = React.useCallback(async (item: InteractiveWorksheetItem) => {
     const url = getSingleWorksheetPrintUrl(item.docId)
     if (!url) return
     
-    // Use window.open which works reliably even with CORS
-    // The browser will handle the download if server sends Content-Disposition header
-    // Otherwise it will open in a new tab where user can use browser's download button
-    const newWindow = window.open(url, '_blank', 'noopener,noreferrer')
-    
-    // If popup was blocked, try using a link click instead
-    if (!newWindow || newWindow.closed || typeof newWindow.closed === 'undefined') {
+    try {
+      // Try to fetch the PDF and create a blob download
+      const response = await fetch(url, {
+        method: 'GET',
+        headers: {
+          'Accept': 'application/pdf',
+        },
+      })
+      
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`)
+      }
+      
+      const blob = await response.blob()
+      const blobUrl = window.URL.createObjectURL(blob)
+      
+      // Create a temporary link and trigger download
       const link = document.createElement('a')
-      link.href = url
-      link.target = '_blank'
-      link.rel = 'noopener noreferrer'
+      link.href = blobUrl
+      link.download = `${item.title || item.docId}.pdf`
+      link.style.display = 'none'
       document.body.appendChild(link)
       link.click()
-      document.body.removeChild(link)
+      
+      // Clean up
+      setTimeout(() => {
+        document.body.removeChild(link)
+        window.URL.revokeObjectURL(blobUrl)
+      }, 100)
+    } catch (error) {
+      console.error('Direct download failed, opening in new tab:', error)
+      // Fallback: open in new tab if fetch fails (CORS or other issues)
+      window.open(url, '_blank', 'noopener,noreferrer')
     }
   }, [getSingleWorksheetPrintUrl])
 

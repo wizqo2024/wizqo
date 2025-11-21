@@ -350,19 +350,42 @@ const WorksheetThumbnailCard = React.memo(function WorksheetThumbnailCard({ titl
         </div>
         <div className="flex items-center gap-2">
           <button
-            onClick={() => {
-              // Use window.open which works reliably even with CORS
-              const newWindow = window.open(href, '_blank', 'noopener,noreferrer')
-              
-              // If popup was blocked, try using a link click instead
-              if (!newWindow || newWindow.closed || typeof newWindow.closed === 'undefined') {
+            onClick={async () => {
+              try {
+                // Try to fetch the PDF and create a blob download
+                const response = await fetch(href, {
+                  method: 'GET',
+                  headers: {
+                    'Accept': 'application/pdf',
+                  },
+                })
+                
+                if (!response.ok) {
+                  throw new Error(`HTTP error! status: ${response.status}`)
+                }
+                
+                const blob = await response.blob()
+                const blobUrl = window.URL.createObjectURL(blob)
+                
+                // Create a temporary link and trigger download
                 const link = document.createElement('a')
-                link.href = href
-                link.target = '_blank'
-                link.rel = 'noopener noreferrer'
+                link.href = blobUrl
+                link.download = `${title || docId}.pdf`
+                link.style.display = 'none'
                 document.body.appendChild(link)
                 link.click()
-                document.body.removeChild(link)
+                
+                // Clean up
+                setTimeout(() => {
+                  if (link.parentNode) {
+                    document.body.removeChild(link)
+                  }
+                  window.URL.revokeObjectURL(blobUrl)
+                }, 100)
+              } catch (error) {
+                console.error('Direct download failed, opening in new tab:', error)
+                // Fallback: open in new tab if fetch fails (CORS or other issues)
+                window.open(href, '_blank', 'noopener,noreferrer')
               }
             }}
             className="text-xs font-medium text-purple-600 hover:text-purple-700 px-3 py-1 rounded-full border border-purple-200 hover:border-purple-300 transition-colors"
