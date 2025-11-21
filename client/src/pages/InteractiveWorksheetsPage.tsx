@@ -397,14 +397,10 @@ function WorksheetPreviewCard({
       <p className="text-sm text-slate-600 leading-relaxed">{t(`interactive.${item.docId}.description`) || item.description}</p>
       
       {/* Worksheet Thumbnail Preview */}
-      {(() => {
-        const previewUrl = pack && pack.seed ? onDownload(item.docId) : null
-        return previewUrl ? (
-        <a
-          href={previewUrl}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="relative w-full bg-gradient-to-br from-slate-50 to-slate-100 rounded-lg border border-slate-200 overflow-hidden cursor-pointer group shadow-sm hover:shadow-md transition-shadow block"
+      {pack && pack.seed ? (
+        <div 
+          className="relative w-full bg-gradient-to-br from-slate-50 to-slate-100 rounded-lg border border-slate-200 overflow-hidden cursor-pointer group shadow-sm hover:shadow-md transition-shadow"
+          onClick={() => onPreview(item)}
           style={{ 
             height: '140px',
             aspectRatio: '2.5/1',
@@ -443,13 +439,12 @@ function WorksheetPreviewCard({
           </div>
           {/* Corner fold effect */}
           <div className="absolute top-0 right-0 w-8 h-8 bg-gradient-to-br from-slate-200/50 to-transparent pointer-events-none" />
-        </a>
-        ) : (
+        </div>
+      ) : (
         <div className="rounded-lg border border-slate-200 bg-slate-50 p-3 flex items-center justify-center" style={{ height: '140px' }}>
           <p className="text-xs text-slate-400">{t('pages.interactive.previewAfterGeneration')}</p>
         </div>
-        )
-      })()}
+      )}
       
       {item.focus.length > 0 && (
         <div className="flex flex-wrap gap-2">
@@ -479,19 +474,12 @@ function WorksheetPreviewCard({
               ⬇️ {t('pages.interactive.download')}
             </a>
           )}
-          {(() => {
-            const previewUrl = onDownload(item.docId)
-            return previewUrl ? (
-            <a
-              href={previewUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-xs font-medium text-purple-600 hover:text-purple-700 px-3 py-1 rounded-full border border-purple-200 hover:border-purple-300 transition-colors"
-            >
-              👁️ {t('pages.interactive.preview')}
-            </a>
-            ) : null
-          })()}
+          <button
+            onClick={() => onPreview(item)}
+            className="text-xs font-medium text-purple-600 hover:text-purple-700 px-3 py-1 rounded-full border border-purple-200 hover:border-purple-300 transition-colors"
+          >
+            👁️ {t('pages.interactive.preview')}
+          </button>
         </div>
       </div>
     </article>
@@ -1067,13 +1055,10 @@ export function InteractiveWorksheetsPage() {
     return url.toString()
   }, [pack, customization, filters.grade, language])
 
-  // Preview handler - opens in new tab
+  // Preview handler - opens modal/popup
   const handlePreview = React.useCallback((item: InteractiveWorksheetItem) => {
-    const url = getSingleWorksheetPrintUrl(item.docId)
-    if (url) {
-      window.open(url, '_blank', 'noopener,noreferrer')
-    }
-  }, [getSingleWorksheetPrintUrl])
+    setPreviewItem(item)
+  }, [])
 
   return (
     <div className="min-h-screen bg-slate-50">
