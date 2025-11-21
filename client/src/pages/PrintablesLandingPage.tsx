@@ -87,6 +87,8 @@ const WorksheetThumbnailCard = React.memo(function WorksheetThumbnailCard({ titl
         <div className="flex items-center gap-2">
           <a
             href={finalHref}
+            target="_blank"
+            rel="noopener noreferrer"
             className="text-xs font-medium text-purple-600 hover:text-purple-700 px-3 py-1 rounded-full border border-purple-200 hover:border-purple-300 transition-colors"
             aria-label={`Open ${title} printable view`}
           >

@@ -398,9 +398,11 @@ function WorksheetPreviewCard({
       
       {/* Worksheet Thumbnail Preview */}
       {pack && pack.seed ? (
-        <div 
-          className="relative w-full bg-gradient-to-br from-slate-50 to-slate-100 rounded-lg border border-slate-200 overflow-hidden cursor-pointer group shadow-sm hover:shadow-md transition-shadow"
-          onClick={() => onPreview(item)}
+        <a
+          href={onDownload(item.docId)}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="relative w-full bg-gradient-to-br from-slate-50 to-slate-100 rounded-lg border border-slate-200 overflow-hidden cursor-pointer group shadow-sm hover:shadow-md transition-shadow block"
           style={{ 
             height: '140px',
             aspectRatio: '2.5/1',
@@ -439,7 +441,7 @@ function WorksheetPreviewCard({
           </div>
           {/* Corner fold effect */}
           <div className="absolute top-0 right-0 w-8 h-8 bg-gradient-to-br from-slate-200/50 to-transparent pointer-events-none" />
-        </div>
+        </a>
       ) : (
         <div className="rounded-lg border border-slate-200 bg-slate-50 p-3 flex items-center justify-center" style={{ height: '140px' }}>
           <p className="text-xs text-slate-400">{t('pages.interactive.previewAfterGeneration')}</p>
@@ -474,12 +476,14 @@ function WorksheetPreviewCard({
               ⬇️ {t('pages.interactive.download')}
             </a>
           )}
-          <button
-            onClick={() => onPreview(item)}
+          <a
+            href={onDownload(item.docId)}
+            target="_blank"
+            rel="noopener noreferrer"
             className="text-xs font-medium text-purple-600 hover:text-purple-700 px-3 py-1 rounded-full border border-purple-200 hover:border-purple-300 transition-colors"
           >
             👁️ {t('pages.interactive.preview')}
-          </button>
+          </a>
         </div>
       </div>
     </article>
@@ -974,10 +978,13 @@ export function InteractiveWorksheetsPage() {
     [favorites]
   )
 
-  // Preview handler
+  // Preview handler - opens in new tab
   const handlePreview = React.useCallback((item: InteractiveWorksheetItem) => {
-    setPreviewItem(item)
-  }, [])
+    const url = getSingleWorksheetPrintUrl(item.docId)
+    if (url) {
+      window.open(url, '_blank', 'noopener,noreferrer')
+    }
+  }, [getSingleWorksheetPrintUrl])
 
   // Customization handlers
   const handleCustomizationChange = React.useCallback((field: keyof CustomizationData, value: string | string[]) => {
