@@ -63,6 +63,62 @@ export function loadMarkdownPosts(): BlogPost[] {
   }
 }
 
+// Translate blog post category based on current language
+export function translateCategory(category: string, language: 'en' | 'es' | 'ar' = 'en'): string {
+  try {
+    const langTranslations = translations[language];
+    if (langTranslations && typeof langTranslations === 'object') {
+      const pages = (langTranslations as any).pages;
+      if (pages && typeof pages === 'object') {
+        const blog = pages.blog;
+        if (blog && typeof blog === 'object') {
+          const categories = blog.categories;
+          if (categories && typeof categories === 'object') {
+            const translated = (categories as any)[category];
+            if (translated && typeof translated === 'string') {
+              return translated;
+            }
+          }
+        }
+      }
+    }
+  } catch (error) {
+    console.warn(`Translation failed for category ${category}:`, error);
+  }
+  return category;
+}
+
+// Translate readTime format (e.g., "6-7 min read" -> "6-7 دقيقة قراءة")
+export function translateReadTime(readTime: string, language: 'en' | 'es' | 'ar' = 'en'): string {
+  if (language === 'en') return readTime;
+  
+  try {
+    const langTranslations = translations[language];
+    if (langTranslations && typeof langTranslations === 'object') {
+      const pages = (langTranslations as any).pages;
+      if (pages && typeof pages === 'object') {
+        const blog = pages.blog;
+        if (blog && typeof blog === 'object') {
+          const format = blog.readTimeFormat;
+          if (format && typeof format === 'string') {
+            // Extract minutes from "6-7 min read" or "8–9 min read" or "5 min read"
+            const match = readTime.match(/(\d+)[–-]?(\d+)?\s*min\s*read/i);
+            if (match) {
+              const min1 = match[1];
+              const min2 = match[2];
+              const minutes = min2 ? `${min1}–${min2}` : min1;
+              return format.replace('{{minutes}}', minutes);
+            }
+          }
+        }
+      }
+    }
+  } catch (error) {
+    console.warn(`Translation failed for readTime ${readTime}:`, error);
+  }
+  return readTime;
+}
+
 // Translate blog post title and excerpt based on current language
 export function translateBlogPost(post: BlogPost, language: 'en' | 'es' | 'ar' = 'en'): BlogPost {
   try {
@@ -80,6 +136,8 @@ export function translateBlogPost(post: BlogPost, language: 'en' | 'es' | 'ar' =
                 ...post,
                 title: postTranslation.title || post.title,
                 excerpt: postTranslation.excerpt || post.excerpt,
+                category: translateCategory(post.category, language),
+                readTime: translateReadTime(post.readTime, language),
               };
             }
           }
@@ -91,5 +149,9 @@ export function translateBlogPost(post: BlogPost, language: 'en' | 'es' | 'ar' =
     console.warn(`Translation failed for blog post ${post.id}:`, error);
   }
   
-  return post;
+  return {
+    ...post,
+    category: translateCategory(post.category, language),
+    readTime: translateReadTime(post.readTime, language),
+  };
 }

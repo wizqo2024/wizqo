@@ -49,10 +49,13 @@ export function BlogPage({ initialSlug, onNavigate }: { initialSlug?: string; on
   const recentCategory = t('pages.blog.filters.recent');
   const [filterCategory, setFilterCategory] = useState<string>(allCategory);
   const [filterQuery, setFilterQuery] = useState<string>('');
+  const { translateCategory } = require('./blog/utils');
   const categories = useMemo(() => {
     const unique = Array.from(new Set(allPosts.map(p => p.category))).sort();
-    return [allCategory, recentCategory, ...unique];
-  }, [allPosts, allCategory, recentCategory]);
+    // Translate categories for display
+    const translatedUnique = unique.map(cat => translateCategory(cat, language as 'en' | 'es' | 'ar'));
+    return [allCategory, recentCategory, ...translatedUnique];
+  }, [allPosts, allCategory, recentCategory, language]);
   const filteredPosts = useMemo(() => {
     const activeCategory = filterCategory;
     const q = filterQuery.trim().toLowerCase();
@@ -63,16 +66,18 @@ export function BlogPage({ initialSlug, onNavigate }: { initialSlug?: string; on
         const ts = Date.parse(p.date || '');
         return !!ts && (now - ts) <= sevenDaysMs;
       })();
+      // Compare against translated category for display, but use original for filtering
+      const translatedPostCategory = translateCategory(p.category, language as 'en' | 'es' | 'ar');
       const matchesCategory = (
         activeCategory === allCategory ||
-        (activeCategory === recentCategory ? isRecent : p.category === activeCategory)
+        (activeCategory === recentCategory ? isRecent : translatedPostCategory === activeCategory)
       );
       if (!matchesCategory) return false;
       if (!q) return true;
       const haystack = `${p.title} ${p.excerpt} ${p.content}`.toLowerCase();
       return haystack.includes(q);
     });
-  }, [allPosts, filterCategory, filterQuery, allCategory, recentCategory]);
+  }, [allPosts, filterCategory, filterQuery, allCategory, recentCategory, language]);
   const isFilteringActive = filterCategory !== allCategory || (filterQuery.trim().length > 0);
   const visibleFeaturePost = useMemo(() => {
     if (isFilteringActive && filteredPosts.length > 0) {

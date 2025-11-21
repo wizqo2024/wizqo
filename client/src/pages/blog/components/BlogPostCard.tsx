@@ -1,7 +1,8 @@
 import React from 'react';
 import { BlogPost } from '../types';
-import { getPostImage, getPostRating } from '../utils';
+import { getPostImage, getPostRating, translateCategory, translateReadTime } from '../utils';
 import { CATEGORY_IMAGES, GENERIC_BLOG_IMAGE } from '../constants';
+import { useTranslation } from '@/context/TranslationContext';
 
 interface BlogPostCardProps {
   post: BlogPost;
@@ -9,6 +10,7 @@ interface BlogPostCardProps {
 }
 
 export function BlogPostCard({ post, onClick }: BlogPostCardProps) {
+  const { language } = useTranslation();
   const handleClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
     // Allow right-click, middle-click, and Ctrl/Cmd+click to work naturally (open in new tab)
     if (e.button === 1 || e.button === 2 || e.ctrlKey || e.metaKey || e.shiftKey) {
@@ -61,9 +63,9 @@ export function BlogPostCard({ post, onClick }: BlogPostCardProps) {
       <div className="flex items-center justify-between mb-4">
         <span 
           className="bg-purple-100 text-purple-700 text-xs px-3 py-1 rounded-full font-medium"
-          aria-label={`Category: ${post.category}`}
+          aria-label={`Category: ${translateCategory(post.category, language as 'en' | 'es' | 'ar')}`}
         >
-          {post.category}
+          {translateCategory(post.category, language as 'en' | 'es' | 'ar')}
         </span>
         <div 
           className="flex items-center gap-1 text-yellow-500"
@@ -93,11 +95,11 @@ export function BlogPostCard({ post, onClick }: BlogPostCardProps) {
         <span className="font-medium" aria-label={`Author: ${post.author}`}>
           {post.author}
         </span>
-        <span className="flex items-center gap-1" aria-label={`Reading time: ${post.readTime}`}>
+        <span className="flex items-center gap-1" aria-label={`Reading time: ${translateReadTime(post.readTime, language as 'en' | 'es' | 'ar')}`}>
           <svg className="w-3 h-3" fill="currentColor" viewBox="0 0 20 20" aria-hidden="true">
             <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-12a1 1 0 10-2 0v4a1 1 0 00.293.707l2.828 2.829a1 1 0 101.415-1.415L11 9.586V6z" clipRule="evenodd" />
           </svg>
-          <span>{post.readTime}</span>
+          <span>{translateReadTime(post.readTime, language as 'en' | 'es' | 'ar')}</span>
         </span>
       </div>
       </a>

@@ -2831,6 +2831,12 @@ export const ar = {
       ratingLabel: 'التقييم: {{rating}} من 5 نجوم',
       relatedArticles: 'مقالات ذات صلة',
       readArticle: 'اقرأ المقال: {{title}}',
+      categories: {
+        'Learning Tips': 'نصائح التعلم',
+        'Mental Wellness': 'الصحة النفسية',
+        'Creative Arts': 'الفنون الإبداعية',
+      },
+      readTimeFormat: '{{minutes}} دقيقة قراءة',
       posts: {
         'gentle-parenting-techniques': {
           title: 'تقنيات التربية اللطيفة التي تعمل حقاً',
