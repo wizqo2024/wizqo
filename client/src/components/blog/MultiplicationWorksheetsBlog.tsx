@@ -184,19 +184,19 @@ export default function MultiplicationWorksheetsBlog() {
   }, [t]);
 
   return (
-    <div className="max-w-6xl mx-auto p-4 md:p-8">
+    <div className="max-w-6xl mx-auto p-4 md:p-8" dir={isRTL ? 'rtl' : 'ltr'}>
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8">
         <div className="md:col-span-2 bg-white p-6 rounded-lg shadow-md">
           <h2 className="text-2xl font-bold text-blue-600 mb-3">{t('pages.blog.components.multiplicationWorksheetsBlog.gameChangerTitle')}</h2>
           <p className="text-gray-700 leading-relaxed">{t('pages.blog.components.multiplicationWorksheetsBlog.gameChangerText')}</p>
         </div>
 
-        <div className="bg-white p-6 rounded-lg shadow-md flex flex-col items-center justify-center text-center">
-          <h2 className="text-2xl font-bold text-gray-800 mb-2">{t('pages.blog.components.multiplicationWorksheetsBlog.powerOfPracticeTitle')}</h2>
-          <p className="text-gray-600 mb-4">{t('pages.blog.components.multiplicationWorksheetsBlog.powerOfPracticeSubtitle')}</p>
-          <div className="text-8xl font-bold text-blue-600">70%</div>
-          <div className="text-2xl font-semibold text-gray-700 mt-2">{t('pages.blog.components.multiplicationWorksheetsBlog.improvedRetention')}</div>
-          <p className="text-gray-600 mt-4">{t('pages.blog.components.multiplicationWorksheetsBlog.improvedRetentionText')}</p>
+        <div className="bg-white p-6 rounded-lg shadow-md flex flex-col items-center justify-center text-center min-h-[400px]">
+          <h2 className="text-2xl font-bold text-gray-800 mb-4">{t('pages.blog.components.multiplicationWorksheetsBlog.powerOfPracticeTitle')}</h2>
+          <p className="text-gray-600 mb-6 leading-relaxed max-w-md">{t('pages.blog.components.multiplicationWorksheetsBlog.powerOfPracticeSubtitle')}</p>
+          <div className="text-8xl font-bold text-blue-600 mb-3">70%</div>
+          <div className="text-2xl font-semibold text-gray-700 mb-4">{t('pages.blog.components.multiplicationWorksheetsBlog.improvedRetention')}</div>
+          <p className="text-gray-600 leading-relaxed max-w-md">{t('pages.blog.components.multiplicationWorksheetsBlog.improvedRetentionText')}</p>
         </div>
 
         <div className="bg-white p-6 rounded-lg shadow-md">
