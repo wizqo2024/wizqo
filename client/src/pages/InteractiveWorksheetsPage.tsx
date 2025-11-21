@@ -453,14 +453,14 @@ function WorksheetPreviewCard({
               key={tag}
               className="inline-flex items-center rounded-full bg-slate-100 px-2 py-0.5 text-xs text-slate-600"
             >
-              {tag}
+              {t(`focusSkills.${tag}`) || tag}
             </span>
           ))}
         </div>
       )}
       <div className="flex items-center justify-between">
         <div className="flex items-center gap-4 text-xs text-slate-500">
-          <span>{item.gradeLabel}</span>
+          <span>{item.gradeLabel.split(' / ').map(g => t(`grades.${INTERACTIVE_GRADE_OPTIONS.find(opt => opt.label === g.trim())?.id || g.trim()}`) || g.trim()).join(' / ')}</span>
           <span>{t('pages.interactive.answerKeyIncluded')}</span>
         </div>
         <div className="flex items-center gap-2">
@@ -1482,7 +1482,7 @@ export function InteractiveWorksheetsPage() {
                 <div className="flex-1">
                   <h2 className="text-xl font-semibold text-slate-900">{t(`interactive.${previewItem.docId}.title`) || previewItem.title}</h2>
                   <p className="text-sm text-slate-600 mt-1">
-                    {t(`interactive.${previewItem.docId}.description`) || previewItem.description} • {t(`categories.${previewItem.categoryId}`) || previewItem.categoryLabel} • {previewItem.gradeLabel}
+                    {t(`interactive.${previewItem.docId}.description`) || previewItem.description} • {t(`categories.${previewItem.categoryId}`) || previewItem.categoryLabel} • {previewItem.gradeLabel.split(' / ').map(g => t(`grades.${INTERACTIVE_GRADE_OPTIONS.find(opt => opt.label === g.trim())?.id || g.trim()}`) || g.trim()).join(' / ')}
                   </p>
                 </div>
                 <button
@@ -1631,9 +1631,9 @@ export function InteractiveWorksheetsPage() {
                   }}>
                     <h3 className="font-semibold text-slate-900">{fav.title}</h3>
                     <div className="flex items-center gap-3 mt-1 text-sm text-slate-600">
-                      <span>{fav.categoryLabel}</span>
+                      <span>{t(`categories.${INTERACTIVE_CATEGORIES.find(c => c.label === fav.categoryLabel)?.id || ''}`) || fav.categoryLabel}</span>
                       <span>•</span>
-                      <span>{fav.gradeLabel}</span>
+                      <span>{fav.gradeLabel.split(' / ').map(g => t(`grades.${INTERACTIVE_GRADE_OPTIONS.find(opt => opt.label === g.trim())?.id || g.trim()}`) || g.trim()).join(' / ')}</span>
                     </div>
                   </div>
                   <div className="flex items-center gap-2">
