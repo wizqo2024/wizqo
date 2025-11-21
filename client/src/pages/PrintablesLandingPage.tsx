@@ -87,10 +87,21 @@ const WorksheetThumbnailCard = React.memo(function WorksheetThumbnailCard({ titl
         <div className="flex items-center gap-2">
           <button
             onClick={() => {
-              // Add download parameter and open
-              const url = new URL(finalHref, window.location.origin)
-              url.searchParams.set('download', '1')
-              window.open(url.toString(), '_blank', 'noopener,noreferrer')
+              // Create a direct link with download attribute
+              const link = document.createElement('a')
+              link.href = finalHref
+              link.download = `${title || docId || 'worksheet'}.pdf`
+              link.target = '_blank'
+              link.rel = 'noopener noreferrer'
+              
+              document.body.appendChild(link)
+              link.click()
+              
+              setTimeout(() => {
+                if (link.parentNode) {
+                  document.body.removeChild(link)
+                }
+              }, 100)
             }}
             className="text-xs font-medium text-purple-600 hover:text-purple-700 px-3 py-1 rounded-full border border-purple-200 hover:border-purple-300 transition-colors"
             aria-label={`Download ${title} as PDF`}

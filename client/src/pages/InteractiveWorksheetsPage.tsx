@@ -1074,18 +1074,27 @@ export function InteractiveWorksheetsPage() {
   }, [getSingleWorksheetPrintUrl])
 
   // Download handler - downloads PDF directly
-  const handleDownload = React.useCallback(async (item: InteractiveWorksheetItem) => {
+  const handleDownload = React.useCallback((item: InteractiveWorksheetItem) => {
     const baseUrl = getSingleWorksheetPrintUrl(item.docId)
     if (!baseUrl) return
     
-    // For now, use window.open with download parameter
-    // The server should handle the download=1 parameter and send Content-Disposition header
-    const url = new URL(baseUrl, window.location.origin)
-    url.searchParams.set('download', '1')
+    // Create a direct link with download attribute
+    // This works for same-origin URLs and will trigger download
+    const link = document.createElement('a')
+    link.href = baseUrl
+    link.download = `${item.title || item.docId || 'worksheet'}.pdf`
+    link.target = '_blank'
+    link.rel = 'noopener noreferrer'
     
-    // Open in new tab - browser will download if server sends proper headers
-    // Otherwise user can use browser's download button
-    window.open(url.toString(), '_blank', 'noopener,noreferrer')
+    // Append to body, click, then remove
+    document.body.appendChild(link)
+    link.click()
+    
+    setTimeout(() => {
+      if (link.parentNode) {
+        document.body.removeChild(link)
+      }
+    }, 100)
   }, [getSingleWorksheetPrintUrl])
 
   // Preview handler - opens modal/popup (kept for potential future use)
