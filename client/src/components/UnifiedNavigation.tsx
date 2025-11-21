@@ -276,6 +276,7 @@ export function UnifiedNavigation({ showBackButton = false, onBackClick, current
                           <div className="text-[10px] text-slate-600 truncate">{t('navigation.readingComprehensionWorksheetsDesc')}</div>
                         </div>
                       </a>
+                      </div>
                     </div>
 
                     <div className="pl-4">
@@ -652,6 +653,7 @@ export function UnifiedNavigation({ showBackButton = false, onBackClick, current
                 >
                   <span className="text-sm">{t('navigation.readingComprehensionWorksheets')}</span>
                 </button>
+                </div>
                 
                 <div className="pt-2">
                   <div className="px-3 pb-1 text-[11px] uppercase tracking-wide text-slate-500 font-semibold">{t('navigation.worksheetsQuickPacks')}</div>
