@@ -351,12 +351,15 @@ const WorksheetThumbnailCard = React.memo(function WorksheetThumbnailCard({ titl
         <div className="flex items-center gap-2">
           <button
             onClick={() => {
-              // Create a direct link with download attribute
+              // Add download parameter
+              const url = new URL(href, window.location.origin)
+              url.searchParams.set('download', '1')
+              const downloadUrl = url.toString()
+              
+              // Create a direct link with download attribute (no target="_blank")
               const link = document.createElement('a')
-              link.href = href
+              link.href = downloadUrl
               link.download = `${title || docId}.pdf`
-              link.target = '_blank'
-              link.rel = 'noopener noreferrer'
               
               document.body.appendChild(link)
               link.click()

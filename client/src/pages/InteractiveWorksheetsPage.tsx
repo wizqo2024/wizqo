@@ -1078,13 +1078,16 @@ export function InteractiveWorksheetsPage() {
     const baseUrl = getSingleWorksheetPrintUrl(item.docId)
     if (!baseUrl) return
     
-    // Create a direct link with download attribute
-    // This works for same-origin URLs and will trigger download
+    // Add download parameter to URL
+    const url = new URL(baseUrl, window.location.origin)
+    url.searchParams.set('download', '1')
+    const downloadUrl = url.toString()
+    
+    // Create a direct link with download attribute (no target="_blank" to allow download)
     const link = document.createElement('a')
-    link.href = baseUrl
+    link.href = downloadUrl
     link.download = `${item.title || item.docId || 'worksheet'}.pdf`
-    link.target = '_blank'
-    link.rel = 'noopener noreferrer'
+    // Don't use target="_blank" - it prevents download attribute from working
     
     // Append to body, click, then remove
     document.body.appendChild(link)
