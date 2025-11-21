@@ -1109,6 +1109,15 @@ export function InteractiveWorksheetsPage() {
         throw new Error('Empty blob received')
       }
       
+      // Check if response is HTML (error page) instead of PDF
+      if (blob.type.includes('text/html') || blob.type.includes('html')) {
+        console.error('Server returned HTML instead of PDF - likely an error page')
+        // Read the HTML to see what error it is
+        const text = await blob.text()
+        console.error('HTML response:', text.substring(0, 500))
+        throw new Error('Server returned HTML instead of PDF. The PDF route may not be working.')
+      }
+      
       // Create download link
       const url = window.URL.createObjectURL(blob)
       const a = document.createElement('a')
