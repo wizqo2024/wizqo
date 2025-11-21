@@ -183,7 +183,7 @@ export const ar = {
       instructions: 'حل كل مسألة قسمة. أظهر عملك.',
       remainder: 'الباقي:',
       visualGrouping: 'التجميع المرئي:',
-      groupInto: 'جمّع في {{divisor}}s: {{quotient}} مجموعات{{remainder}}',
+      groupInto: 'جمّع في {{divisor}}: {{quotient}} مجموعات{{remainder}}',
       leftOver: ' + {{remainder}} متبقية',
       total: 'إجمالي',
       answerKey: {

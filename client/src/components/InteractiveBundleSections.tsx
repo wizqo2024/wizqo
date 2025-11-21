@@ -6492,17 +6492,40 @@ const answerRenderers: Record<string, AnswerRenderer> = {
               return true
             }
             
-            // Always use fallback for now since translations aren't being found
-            // This ensures proper Arabic text is always displayed
-            let solution = `اقسم ${formatNum(prob.dividend)} إلى مجموعات من ${formatNum(prob.divisor)}. يمكنك عمل ${formatNum(prob.quotient)} مجموعات كاملة.`
-            
-            if (prob.remainder > 0) {
-              solution += ` يتبقى ${formatNum(prob.remainder)} لا تشكل مجموعة كاملة.`
+            // Build solution using translations with template replacement
+            let solution = ''
+            if (isTranslationFound(divideIntoText, 'worksheets.division.answerKey.divideInto')) {
+              solution = divideIntoText
+                .replace(/\{\{dividend\}\}/g, formatNum(prob.dividend))
+                .replace(/\{\{divisor\}\}/g, formatNum(prob.divisor))
+                .replace(/\{\{quotient\}\}/g, formatNum(prob.quotient))
             } else {
-              solution += ' جميع العناصر مجمعة بالتساوي.'
+              solution = `اقسم ${formatNum(prob.dividend)} إلى مجموعات من ${formatNum(prob.divisor)}. يمكنك عمل ${formatNum(prob.quotient)} مجموعات كاملة.`
             }
             
-            const strategy = `الاستراتيجية: استخدم الطرح المتكرر (${formatNum(prob.dividend)} - ${formatNum(prob.divisor)} - ${formatNum(prob.divisor)} - ...) أو فكر "كم ${formatNum(prob.divisor)} يناسب في ${formatNum(prob.dividend)}؟"`
+            if (prob.remainder > 0) {
+              if (isTranslationFound(remainderLeftText, 'worksheets.division.answerKey.remainderLeft')) {
+                solution += ' ' + remainderLeftText.replace(/\{\{remainder\}\}/g, formatNum(prob.remainder))
+              } else {
+                solution += ` يتبقى ${formatNum(prob.remainder)} لا تشكل مجموعة كاملة.`
+              }
+            } else {
+              if (isTranslationFound(allGroupedText, 'worksheets.division.answerKey.allGrouped')) {
+                solution += ' ' + allGroupedText
+              } else {
+                solution += ' جميع العناصر مجمعة بالتساوي.'
+              }
+            }
+            
+            // Build strategy using translations with template replacement
+            let strategy = ''
+            if (isTranslationFound(strategyText, 'worksheets.division.answerKey.strategy')) {
+              strategy = strategyText
+                .replace(/\{\{dividend\}\}/g, formatNum(prob.dividend))
+                .replace(/\{\{divisor\}\}/g, formatNum(prob.divisor))
+            } else {
+              strategy = `الاستراتيجية: استخدم الطرح المتكرر (${formatNum(prob.dividend)} - ${formatNum(prob.divisor)} - ${formatNum(prob.divisor)} - ...) أو فكر "كم ${formatNum(prob.divisor)} يناسب في ${formatNum(prob.dividend)}؟"`
+            }
             
             return (
               <li key={idx} className="mb-3">
