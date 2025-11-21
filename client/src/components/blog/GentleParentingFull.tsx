@@ -315,7 +315,7 @@ export function GentleParentingFull() {
               <span className="text-4xl">{idx + 1}️⃣</span>
               <h3 className="text-xl font-bold text-green-800 my-2">{title}</h3>
               <p className="text-slate-700">
-                {idx === 0 && 'Even 5 seconds can reset your tone. Using gentle parenting techniques models calm discipline — a vital skill.'}
+                {idx === 0 && t('pages.blog.components.gentleParentingFull.technique1.description')}
                 {idx === 1 && '“You’re mad because your tower fell.” Empathy lowers defenses; kids who feel seen listen better.'}
                 {idx === 2 && '“Blocks or books first?” Choices reduce power struggles — a mindful parenting win.'}
                 {idx === 3 && '“I’m sorry I yelled.” Repair teaches accountability and that relationships can be fixed.'}
