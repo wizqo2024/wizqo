@@ -1356,6 +1356,7 @@ export function PrintablesPage() {
   
   const doc = params.get('doc') || ''
   const autoPrint = (params.get('autoprint') || '').toLowerCase() === '1' || (params.get('autoprint') || '').toLowerCase() === 'true'
+  const autoDownload = (params.get('download') || '').toLowerCase() === '1' || (params.get('download') || '').toLowerCase() === 'true'
   const isPreview = (params.get('preview') || '').toLowerCase() === '1' || (params.get('preview') || '').toLowerCase() === 'true'
   const packTime = params.get('time') || '5'
   const packAge = params.get('age') || 'k2'
@@ -1698,10 +1699,95 @@ export function PrintablesPage() {
     return () => window.removeEventListener('scroll', handleScroll)
   }, [doc])
 
+  // Auto-download PDF when download=1 parameter is present
+  React.useEffect(() => {
+    if (!autoDownload) return
+    
+    const downloadPDF = async () => {
+      try {
+        // Wait for page to fully render
+        await new Promise(resolve => setTimeout(resolve, 2000))
+        
+        // Import jsPDF and html2canvas dynamically
+        const [{ default: jsPDF }, html2canvas] = await Promise.all([
+          import('jspdf'),
+          import('html2canvas').then(m => m.default || m)
+        ])
+        
+        // Get the main content element (the worksheet content)
+        const contentElement = document.querySelector('.min-h-screen.bg-white') as HTMLElement
+        if (!contentElement) {
+          console.error('Content element not found')
+          window.print() // Fallback
+          return
+        }
+        
+        // Convert HTML to canvas
+        const canvas = await html2canvas(contentElement, {
+          scale: 2,
+          useCORS: true,
+          logging: false,
+          backgroundColor: '#ffffff',
+          windowWidth: contentElement.scrollWidth,
+          windowHeight: contentElement.scrollHeight
+        })
+        
+        // Calculate PDF dimensions
+        const imgWidth = 210 // A4 width in mm
+        const pageHeight = 297 // A4 height in mm
+        const imgHeight = (canvas.height * imgWidth) / canvas.width
+        const pdf = new jsPDF('p', 'mm', 'a4')
+        
+        // Handle multi-page content
+        let heightLeft = imgHeight
+        let position = 0
+        
+        // Add first page
+        const imgData = canvas.toDataURL('image/png')
+        pdf.addImage(imgData, 'PNG', 0, position, imgWidth, imgHeight)
+        heightLeft -= pageHeight
+        
+        // Add additional pages if content is taller than one page
+        while (heightLeft > 0) {
+          position = heightLeft - imgHeight
+          pdf.addPage()
+          pdf.addImage(imgData, 'PNG', 0, position, imgWidth, imgHeight)
+          heightLeft -= pageHeight
+        }
+        
+        // Generate filename
+        const filename = docTitle 
+          ? `${docTitle.replace(/[^a-z0-9]/gi, '_').toLowerCase()}.pdf`
+          : `worksheet_${doc || 'download'}.pdf`
+        
+        // Download the PDF
+        pdf.save(filename)
+        
+        // Track download
+        if (doc && primaryDoc) {
+          const from = params.get('from') || 'unknown'
+          const grade = from.includes('grade') ? from.replace('-grade', '') : undefined
+          trackWorksheetDownload(primaryDoc, docTitle, from, grade)
+        }
+        
+        // Close the tab after download (optional)
+        setTimeout(() => {
+          window.close()
+        }, 500)
+      } catch (error) {
+        console.error('PDF download failed:', error)
+        // Fallback to print dialog
+        window.print()
+      }
+    }
+    
+    downloadPDF()
+  }, [autoDownload, doc, primaryDoc, docTitle, params])
+
   // Auto-open browser print dialog when requested (e.g., from "Download PDF" links)
   React.useEffect(() => {
     try {
-      if (!autoPrint) return
+      if (!autoPrint || autoDownload) return // Skip if download is already handling it
       // Defer a bit to let the view render fully
       const t = setTimeout(() => { 
         try { 
@@ -1717,7 +1803,7 @@ export function PrintablesPage() {
       }, 1200)
       return () => clearTimeout(t)
     } catch {}
-  }, [autoPrint, doc, primaryDoc, docTitle])
+  }, [autoPrint, autoDownload, doc, primaryDoc, docTitle, params])
   return (
     <div className="min-h-screen bg-white">
       <style>{`
