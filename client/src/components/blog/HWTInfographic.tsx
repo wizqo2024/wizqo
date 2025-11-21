@@ -247,7 +247,7 @@ export default function HWTInfographic() {
         <div className="bg-green-50 rounded-xl shadow p-6 md:p-8 border-l-8 border-green-300 max-w-4xl mx-auto">
           <h3 className="text-2xl font-bold mb-3 text-slate-900">{t('pages.blog.components.hwtInfographic.exampleTitle')}</h3>
           <p className="text-lg text-slate-800 italic">
-            “{t('pages.blog.components.hwtInfographic.exampleText')} of sensory-based exercises — tracing letters in sand, shaping them with dough, and singing through steps — Sam’s handwriting became legible and he smiled every time he picked up a pencil.”
+            “{t('pages.blog.components.hwtInfographic.exampleText')} — tracing letters in sand, shaping them with dough, and singing through steps — Sam’s handwriting became legible and he smiled every time he picked up a pencil.”
           </p>
         </div>
       </section>
