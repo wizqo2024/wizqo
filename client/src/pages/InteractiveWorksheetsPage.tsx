@@ -464,8 +464,8 @@ function WorksheetPreviewCard({
           <span>{t('pages.interactive.answerKeyIncluded')}</span>
         </div>
         <div className="flex items-center gap-2">
-          {pack?.printUrl && (() => {
-            const downloadUrl = getSingleWorksheetDownloadUrl(item.docId)
+          {(() => {
+            const downloadUrl = pack?.printUrl ? onDownload(item.docId) : null
             return downloadUrl ? (
               <a
                 href={downloadUrl}
