@@ -238,16 +238,16 @@ export function GentleParentingFull() {
         <div className="bg-white rounded-xl shadow-xl p-6 md:p-10 border border-slate-200">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
             <div>
-              <h2 id="what-is-gentle-parenting" className="text-3xl font-bold text-green-700 mb-3">What Is Gentle Parenting?</h2>
+              <h2 id="what-is-gentle-parenting" className="text-3xl font-bold text-green-700 mb-3">{t('pages.blog.components.gentleParentingFull.whatIsTitle')}</h2>
               <p className="mb-3">
                 The goal of <strong>mindful parenting</strong> is not a “perfect” child. By applying
                 <strong> gentle parenting techniques</strong>, you build a calmer, more connected relationship.
               </p>
               <p className="mb-3">At its heart, it means:</p>
               <ul className="space-y-2 mb-4">
-                <li className="flex items-center"><span className="text-2xl mr-3">🤝</span><strong className="text-green-800">Respect</strong> over fear.</li>
-                <li className="flex items-center"><span className="text-2xl mr-3">🧭</span><strong className="text-green-800">Guidance</strong> over punishment.</li>
-                <li className="flex items-center"><span className="text-2xl mr-3">❤️</span><strong className="text-green-800">Empathy</strong> over control.</li>
+                <li className="flex items-center"><span className={`text-2xl ${isRTL ? 'ml-3' : 'mr-3'}`}>🤝</span><strong className="text-green-800">{t('pages.blog.components.gentleParentingFull.respect')}</strong> {t('pages.blog.components.gentleParentingFull.respectOver')}</li>
+                <li className="flex items-center"><span className={`text-2xl ${isRTL ? 'ml-3' : 'mr-3'}`}>🧭</span><strong className="text-green-800">{t('pages.blog.components.gentleParentingFull.guidance')}</strong> {t('pages.blog.components.gentleParentingFull.guidanceOver')}</li>
+                <li className="flex items-center"><span className={`text-2xl ${isRTL ? 'ml-3' : 'mr-3'}`}>❤️</span><strong className="text-green-800">{t('pages.blog.components.gentleParentingFull.empathy')}</strong> {t('pages.blog.components.gentleParentingFull.empathyOver')}</li>
               </ul>
               <p>It’s not about letting kids “get away” with things. It’s about teaching
                 <strong> emotional intelligence</strong> and problem‑solving in real time.</p>
@@ -289,7 +289,7 @@ export function GentleParentingFull() {
               <p className="text-center mt-4 font-semibold text-green-800">{t('pages.blog.components.gentleParentingFull.connectionFirst')}</p>
             </div>
             <div className="bg-green-50 p-6 rounded-lg">
-              <h3 className="text-xl font-semibold text-green-700 mb-2">Real-Life Example:</h3>
+              <h3 className="text-xl font-semibold text-green-700 mb-2">{t('pages.blog.components.gentleParentingFull.realLifeExample')}</h3>
               <p className="mb-3">When 7‑year‑old Mia refused to put on her shoes, instead of yelling, her mom knelt and said:</p>
               <blockquote className="border-l-4 border-green-500 pl-4 py-2 text-green-800 italic">
                 “You really don’t want to stop playing, right? It’s hard to leave something fun.”
@@ -302,9 +302,15 @@ export function GentleParentingFull() {
 
       {/* Techniques grid */}
       <section>
-        <h2 id="five-gentle-parenting-techniques" className="text-3xl font-bold text-green-700 mb-6 text-center">5 Gentle Parenting Techniques That Work</h2>
+        <h2 id="five-gentle-parenting-techniques" className="text-3xl font-bold text-green-700 mb-6 text-center">{t('pages.blog.components.gentleParentingFull.techniquesTitle')}</h2>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-          {["Pause Before Reacting","Name the Emotion","Offer Choices, Not Orders","Repair After Conflict","Set Boundaries with Love"].map((title, idx) => (
+          {[
+            t('pages.blog.components.gentleParentingFull.technique1.title'),
+            t('pages.blog.components.gentleParentingFull.technique2.title'),
+            t('pages.blog.components.gentleParentingFull.technique3.title'),
+            t('pages.blog.components.gentleParentingFull.technique4.title'),
+            t('pages.blog.components.gentleParentingFull.technique5.title')
+          ].map((title, idx) => (
             <div key={idx} className="bg-white p-6 rounded-lg shadow-lg border border-slate-200">
               <span className="text-4xl">{idx + 1}️⃣</span>
               <h3 className="text-xl font-bold text-green-800 my-2">{title}</h3>
@@ -357,13 +363,13 @@ export function GentleParentingFull() {
 
       {/* Myths vs Reality */}
       <section>
-        <h2 id="common-myths-vs-reality" className="text-3xl font-bold text-green-700 mb-6 text-center">Common Myths vs. Reality</h2>
+        <h2 id="common-myths-vs-reality" className="text-3xl font-bold text-green-700 mb-6 text-center">{t('pages.blog.components.gentleParentingFull.mythsTitle')}</h2>
         <div className="bg-white rounded-lg shadow-xl overflow-hidden border border-slate-200">
           <table className="w-full">
             <thead className="bg-green-500 text-white">
               <tr>
-                <th className="text-left p-4 text-lg w-1/2">❌ Myth</th>
-                <th className="text-left p-4 text-lg w-1/2">✅ Reality</th>
+                <th className={`${isRTL ? 'text-right' : 'text-left'} p-4 text-lg w-1/2`}>❌ {t('pages.blog.components.gentleParentingFull.mythLabel')}</th>
+                <th className={`${isRTL ? 'text-right' : 'text-left'} p-4 text-lg w-1/2`}>✅ {t('pages.blog.components.gentleParentingFull.realityLabel')}</th>
               </tr>
             </thead>
             <tbody className="divide-y">
@@ -386,7 +392,7 @@ export function GentleParentingFull() {
 
       {/* CTA */}
       <section className="text-center">
-        <h2 id="you-can-start-today" className="text-3xl font-bold text-green-700 mb-4">You Can Start Today</h2>
+        <h2 id="you-can-start-today" className="text-3xl font-bold text-green-700 mb-4">{t('pages.blog.components.gentleParentingFull.startTodayTitle')}</h2>
         <div className="max-w-2xl mx-auto bg-white p-8 rounded-lg shadow-xl border border-slate-200">
           <p className="mb-6">Nobody’s perfect. The beauty of gentle parenting is you can start today, even after tough moments. You’re not raising a “good” kid — you’re raising a kind, emotionally aware human.</p>
           <h3 className="text-xl font-semibold text-green-800 mb-3">Start Small:</h3>
@@ -398,8 +404,8 @@ export function GentleParentingFull() {
           </ul>
         </div>
         <div className="mt-10">
-          <h2 className="text-3xl font-bold text-green-700">🌟 Progress over perfection.</h2>
-          <h2 className="text-3xl font-bold text-green-700 mt-1">Connection over control.</h2>
+          <h2 className="text-3xl font-bold text-green-700">{t('pages.blog.components.gentleParentingFull.progressOver')}</h2>
+          <h2 className="text-3xl font-bold text-green-700 mt-1">{t('pages.blog.components.gentleParentingFull.connectionOver')}</h2>
         </div>
       </section>
 
