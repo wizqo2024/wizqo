@@ -1074,29 +1074,24 @@ export function InteractiveWorksheetsPage() {
   }, [getSingleWorksheetPrintUrl])
 
   // Download handler - downloads PDF directly
-  const handleDownload = React.useCallback(async (item: InteractiveWorksheetItem) => {
+  const handleDownload = React.useCallback((item: InteractiveWorksheetItem) => {
     const url = getSingleWorksheetPrintUrl(item.docId)
     if (!url) return
     
-    try {
-      // Fetch the PDF
-      const response = await fetch(url)
-      if (!response.ok) throw new Error('Failed to fetch PDF')
-      const blob = await response.blob()
-      
-      // Create download link
-      const downloadUrl = window.URL.createObjectURL(blob)
+    // Use window.open which works reliably even with CORS
+    // The browser will handle the download if server sends Content-Disposition header
+    // Otherwise it will open in a new tab where user can use browser's download button
+    const newWindow = window.open(url, '_blank', 'noopener,noreferrer')
+    
+    // If popup was blocked, try using a link click instead
+    if (!newWindow || newWindow.closed || typeof newWindow.closed === 'undefined') {
       const link = document.createElement('a')
-      link.href = downloadUrl
-      link.download = `${item.title || item.docId}.pdf`
+      link.href = url
+      link.target = '_blank'
+      link.rel = 'noopener noreferrer'
       document.body.appendChild(link)
       link.click()
       document.body.removeChild(link)
-      window.URL.revokeObjectURL(downloadUrl)
-    } catch (error) {
-      console.error('Download failed:', error)
-      // Fallback: open in new tab
-      window.open(url, '_blank', 'noopener,noreferrer')
     }
   }, [getSingleWorksheetPrintUrl])
 
