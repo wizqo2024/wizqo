@@ -5827,13 +5827,41 @@ export function getTranslation(language: Language, key: string): string | any {
     }
     
     // For worksheet keys, try interactiveWorksheetKeys first (prevents tree-shaking issues)
-    const INTERACTIVE_WORKSHEET_KEYS = ['countObjectsAndWriteNumber', 'countThe', 'numberLabel', 'objectNames', 'mathPuzzle', 'mathRace', 'reflection', 'decimals', 'division', 'tensFrame', 'multiplication', 'time', 'rounding']
+    // Then fallback to main translations object for any worksheet key
     if (keys[0] === 'worksheets' && keys.length >= 2) {
       const interactiveKey = keys[1] as keyof typeof interactiveWorksheetKeys.en
-      if (interactiveKey && INTERACTIVE_WORKSHEET_KEYS.includes(interactiveKey) && interactiveWorksheetKeys[language] && interactiveKey in interactiveWorksheetKeys[language]) {
+      
+      // First, try explicit exports (prevents tree-shaking)
+      if (interactiveKey && interactiveWorksheetKeys[language] && interactiveKey in interactiveWorksheetKeys[language]) {
         const interactiveValue = (interactiveWorksheetKeys[language] as any)[interactiveKey]
         if (interactiveValue !== undefined) {
           let value: any = interactiveValue
+          // Navigate through remaining keys (starting from index 2)
+          for (let j = 2; j < keys.length; j++) {
+            if (value === null || value === undefined) break
+            if (value && typeof value === 'object' && keys[j] in value) {
+              value = value[keys[j]]
+            } else {
+              value = undefined
+              break
+            }
+          }
+          if (value !== null && value !== undefined) {
+            if (Array.isArray(value) || (typeof value === 'object' && typeof value !== 'string')) {
+              return value
+            }
+            if (typeof value === 'string') {
+              return value
+            }
+          }
+        }
+      }
+      
+      // Fallback: try main translations object for any worksheet key
+      if (translations[language] && translations[language].worksheets && interactiveKey) {
+        const worksheetsObj = (translations[language].worksheets as any)
+        if (interactiveKey in worksheetsObj) {
+          let value: any = worksheetsObj[interactiveKey]
           // Navigate through remaining keys (starting from index 2)
           for (let j = 2; j < keys.length; j++) {
             if (value === null || value === undefined) break
@@ -5995,19 +6023,14 @@ export function getTranslation(language: Language, key: string): string | any {
             }
           }
         }
-        // If we're looking for interactive worksheet keys and they're missing,
-        // try to get them from the exported interactiveWorksheetKeys
-        // Only check interactiveWorksheetKeys for actual interactive keys (not regular worksheet keys)
-        const INTERACTIVE_KEYS = ['countObjectsAndWriteNumber', 'countThe', 'numberLabel', 'objectNames', 'mathPuzzle', 'mathRace', 'reflection', 'decimals', 'division', 'tensFrame', 'multiplication', 'time', 'rounding']
+        // If we're looking for worksheet keys and they're missing,
+        // try to get them from the exported interactiveWorksheetKeys or main translations
         if (keys[0] === 'worksheets' && i >= 1) {
-          const interactiveKey = keys[1] as keyof typeof interactiveWorksheetKeys.en
-          // Only try interactiveWorksheetKeys fallback if this is actually an interactive key
-          if (interactiveKey && INTERACTIVE_KEYS.includes(interactiveKey) && interactiveWorksheetKeys[language] && interactiveKey in interactiveWorksheetKeys[language]) {
+          const interactiveKey = keys[1]
+          // Try explicit exports first
+          if (interactiveKey && interactiveWorksheetKeys[language] && interactiveKey in interactiveWorksheetKeys[language]) {
             const interactiveValue = (interactiveWorksheetKeys[language] as any)[interactiveKey]
             if (interactiveValue !== undefined) {
-              if (typeof window !== 'undefined') {
-                console.log(`[getTranslation] Using interactiveWorksheetKeys fallback for: ${key}, language: ${language}, interactiveKey: ${interactiveKey}`)
-              }
               // Continue navigation from the interactive value
               value = interactiveValue
               // Continue with remaining keys if any (starting from index 2, since we already handled 0 and 1)
@@ -6028,11 +6051,33 @@ export function getTranslation(language: Language, key: string): string | any {
                   return value
                 }
               }
-            } else if (typeof window !== 'undefined') {
-              console.warn(`[getTranslation] interactiveWorksheetKeys[${language}][${interactiveKey}] is undefined`)
             }
           }
-          // Don't log warnings for non-interactive keys - they're just regular worksheet keys
+          // Fallback to main translations object for any worksheet key
+          if (translations[language] && translations[language].worksheets && interactiveKey && interactiveKey in translations[language].worksheets) {
+            const worksheetsValue = (translations[language].worksheets as any)[interactiveKey]
+            if (worksheetsValue !== undefined) {
+              value = worksheetsValue
+              // Continue with remaining keys if any
+              for (let j = 2; j < keys.length; j++) {
+                if (value === null || value === undefined) break
+                if (value && typeof value === 'object' && keys[j] in value) {
+                  value = value[keys[j]]
+                } else {
+                  value = undefined
+                  break
+                }
+              }
+              if (value !== null && value !== undefined) {
+                if (Array.isArray(value) || (typeof value === 'object' && typeof value !== 'string')) {
+                  return value
+                }
+                if (typeof value === 'string') {
+                  return value
+                }
+              }
+            }
+          }
         }
         
         // Debug logging removed - translations are working correctly
@@ -6075,11 +6120,11 @@ export function getTranslation(language: Language, key: string): string | any {
         }
       }
       // Also try interactiveWorksheetKeys fallback for English
-      // Only check for actual interactive keys
-      const INTERACTIVE_KEYS = ['countObjectsAndWriteNumber', 'countThe', 'numberLabel', 'objectNames', 'mathPuzzle', 'mathRace', 'reflection', 'decimals', 'division', 'tensFrame', 'multiplication', 'time', 'rounding']
+      // Try any worksheet key from the main translations object
       if (keys[0] === 'worksheets' && keys.length >= 2) {
-        const interactiveKey = keys[1] as keyof typeof interactiveWorksheetKeys.en
-        if (interactiveKey && INTERACTIVE_KEYS.includes(interactiveKey) && interactiveWorksheetKeys.en && interactiveKey in interactiveWorksheetKeys.en) {
+        const interactiveKey = keys[1]
+        // Try explicit exports first
+        if (interactiveKey && interactiveWorksheetKeys.en && interactiveKey in interactiveWorksheetKeys.en) {
           const interactiveValue = (interactiveWorksheetKeys.en as any)[interactiveKey]
           if (interactiveValue !== undefined) {
             let englishValue = interactiveValue
@@ -6095,6 +6140,23 @@ export function getTranslation(language: Language, key: string): string | any {
               if (typeof englishValue === 'string') {
                 return englishValue
               }
+            }
+          }
+        }
+        // Fallback to main translations object
+        if (translations.en && translations.en.worksheets && interactiveKey in translations.en.worksheets) {
+          let englishValue = (translations.en.worksheets as any)[interactiveKey]
+          // Continue with remaining keys if any
+          for (let j = 2; j < keys.length; j++) {
+            if (englishValue === null || englishValue === undefined) break
+            englishValue = englishValue[keys[j]]
+          }
+          if (englishValue !== null && englishValue !== undefined) {
+            if (Array.isArray(englishValue) || (typeof englishValue === 'object' && typeof englishValue !== 'string')) {
+              return englishValue
+            }
+            if (typeof englishValue === 'string') {
+              return englishValue
             }
           }
         }
