@@ -316,10 +316,10 @@ export function GentleParentingFull() {
               <p className="text-slate-700">
                 {idx === 0 && t('pages.blog.components.gentleParentingFull.technique1.description')}
                 {idx === 1 && '“You’re mad because your tower fell.” Empathy lowers defenses; kids who feel seen listen better.'}
-                {idx === 2 && '“Blocks or books first?” Choices reduce power struggles — a mindful parenting win.'}
+                {idx === 1 && t('pages.blog.components.gentleParentingFull.technique2.description')}
                 {idx === 2 && t('pages.blog.components.gentleParentingFull.technique3.description')}
-                {idx === 4 && '“I won’t let you hit, but I will help you calm down.” Firm limits with warmth build trust.'}
-              </p>
+                {idx === 3 && t('pages.blog.components.gentleParentingFull.technique4.description')}
+                {idx === 4 && t('pages.blog.components.gentleParentingFull.technique5.description')}
             </div>
           ))}
         </div>
@@ -381,9 +381,9 @@ export function GentleParentingFull() {
                 <td className="p-4">{t('pages.blog.components.gentleParentingFull.reality2')}</td>
               </tr>
               <tr className="hover:bg-green-50">
-                <td className="p-4 font-semibold">“It takes too long.”</td>
                 <td className="p-4 font-semibold">{t('pages.blog.components.gentleParentingFull.myth3')}</td>
-              </tr>
+                <td className="p-4 font-semibold">{t('pages.blog.components.gentleParentingFull.myth3')}</td>
+                <td className="p-4">{t('pages.blog.components.gentleParentingFull.reality3')}</td>
             </tbody>
           </table>
         </div>
@@ -398,7 +398,7 @@ export function GentleParentingFull() {
           <ul className="space-y-3 text-left w-fit mx-auto">
             <li className="flex items-center text-green-800"><span className="text-green-800 text-2xl mr-3">🧘</span><span>{t('pages.blog.components.gentleParentingFull.tip1')}</span></li>
             <li className="flex items-center"><span className="text-green-700 text-2xl mr-3">🎧</span>{t('pages.blog.components.gentleParentingFull.tip2')}</li>
-            <li className="flex items-center"><span className="text-green-700 text-2xl mr-3">💬</span>Validate feelings: “You’re sad it’s bedtime, huh?”</li>
+            <li className="flex items-center"><span className="text-green-700 text-2xl mr-3">💬</span>{t('pages.blog.components.gentleParentingFull.tip3')}</li>
             <li className="flex items-center"><span className="text-green-700 text-2xl mr-3">💬</span>{t('pages.blog.components.gentleParentingFull.tip3')}</li>
           </ul>
         </div>
