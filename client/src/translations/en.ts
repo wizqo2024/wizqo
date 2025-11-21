@@ -2216,6 +2216,11 @@ export const en = {
         searchPlaceholder: 'Search posts...',
         clearFilters: 'Clear filters',
       },
+      popularLinks: {
+        handwriting: '✍️ Handwriting worksheets (PDF)',
+        firstGradeMath: '1st grade math – printable',
+        readingComprehension: 'Reading comprehension (free PDF)',
+      },
     },
     kids: {
       title: 'Kids Hub',

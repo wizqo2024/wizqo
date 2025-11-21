@@ -43,12 +43,15 @@ export function BlogPage({ initialSlug, onNavigate }: { initialSlug?: string; on
   }, [allPosts]);
 
   // Blog filters: category + search query
-  const [filterCategory, setFilterCategory] = useState<string>('All');
+  const { t } = useTranslation();
+  const allCategory = t('pages.blog.filters.all');
+  const recentCategory = t('pages.blog.filters.recent');
+  const [filterCategory, setFilterCategory] = useState<string>(allCategory);
   const [filterQuery, setFilterQuery] = useState<string>('');
   const categories = useMemo(() => {
     const unique = Array.from(new Set(allPosts.map(p => p.category))).sort();
-    return ['All', 'Recent', ...unique];
-  }, [allPosts]);
+    return [allCategory, recentCategory, ...unique];
+  }, [allPosts, allCategory, recentCategory]);
   const filteredPosts = useMemo(() => {
     const activeCategory = filterCategory;
     const q = filterQuery.trim().toLowerCase();
@@ -60,16 +63,16 @@ export function BlogPage({ initialSlug, onNavigate }: { initialSlug?: string; on
         return !!ts && (now - ts) <= sevenDaysMs;
       })();
       const matchesCategory = (
-        activeCategory === 'All' ||
-        (activeCategory === 'Recent' ? isRecent : p.category === activeCategory)
+        activeCategory === allCategory ||
+        (activeCategory === recentCategory ? isRecent : p.category === activeCategory)
       );
       if (!matchesCategory) return false;
       if (!q) return true;
       const haystack = `${p.title} ${p.excerpt} ${p.content}`.toLowerCase();
       return haystack.includes(q);
     });
-  }, [allPosts, filterCategory, filterQuery]);
-  const isFilteringActive = filterCategory !== 'All' || (filterQuery.trim().length > 0);
+  }, [allPosts, filterCategory, filterQuery, allCategory, recentCategory]);
+  const isFilteringActive = filterCategory !== allCategory || (filterQuery.trim().length > 0);
   const visibleFeaturePost = useMemo(() => {
     if (isFilteringActive && filteredPosts.length > 0) {
       return filteredPosts[0];
@@ -204,7 +207,7 @@ export function BlogPage({ initialSlug, onNavigate }: { initialSlug?: string; on
       onCategoryChange={setFilterCategory}
       onQueryChange={setFilterQuery}
       onClearFilters={() => {
-        setFilterCategory('All');
+        setFilterCategory(allCategory);
         setFilterQuery('');
       }}
       onPostSelect={(post) => {

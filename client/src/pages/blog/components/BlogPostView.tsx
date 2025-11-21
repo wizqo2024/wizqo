@@ -87,7 +87,7 @@ export function BlogPostView({
     "@context": "https://schema.org",
     "@type": "BreadcrumbList",
     itemListElement: [
-      { "@type": "ListItem", position: 1, name: "Blog", item: "https://wizqo.com/blog" },
+      { "@type": "ListItem", position: 1, name: t('pages.blog.title'), item: "https://wizqo.com/blog" },
       { "@type": "ListItem", position: 2, name: post.title, item: canonical }
     ]
   };
@@ -127,9 +127,9 @@ export function BlogPostView({
         
         <nav aria-label="Popular worksheets" className="mb-4">
           <ul className="flex flex-wrap gap-2 text-sm">
-            <li><a href="/worksheets/handwriting-worksheet-maker" className="inline-flex items-center px-3 py-1.5 rounded-full bg-purple-50 border border-purple-200 text-purple-700 hover:bg-purple-100 focus:outline-none focus:ring-2 focus:ring-purple-500">✍️ Handwriting worksheets (PDF)</a></li>
-            <li><a href="/worksheets/1st-grade-math-worksheets" className="inline-flex items-center px-3 py-1.5 rounded-full bg-purple-50 border border-purple-200 text-purple-700 hover:bg-purple-100 focus:outline-none focus:ring-2 focus:ring-purple-500">1st grade math – printable</a></li>
-            <li><a href="/worksheets/reading-comprehension" className="inline-flex items-center px-3 py-1.5 rounded-full bg-purple-50 border border-purple-200 text-purple-700 hover:bg-purple-100 focus:outline-none focus:ring-2 focus:ring-purple-500">Reading comprehension (free PDF)</a></li>
+            <li><a href="/worksheets/handwriting-worksheet-maker" className="inline-flex items-center px-3 py-1.5 rounded-full bg-purple-50 border border-purple-200 text-purple-700 hover:bg-purple-100 focus:outline-none focus:ring-2 focus:ring-purple-500">{t('pages.blog.popularLinks.handwriting')}</a></li>
+            <li><a href="/worksheets/1st-grade-math-worksheets" className="inline-flex items-center px-3 py-1.5 rounded-full bg-purple-50 border border-purple-200 text-purple-700 hover:bg-purple-100 focus:outline-none focus:ring-2 focus:ring-purple-500">{t('pages.blog.popularLinks.firstGradeMath')}</a></li>
+            <li><a href="/worksheets/reading-comprehension" className="inline-flex items-center px-3 py-1.5 rounded-full bg-purple-50 border border-purple-200 text-purple-700 hover:bg-purple-100 focus:outline-none focus:ring-2 focus:ring-purple-500">{t('pages.blog.popularLinks.readingComprehension')}</a></li>
           </ul>
         </nav>
 
