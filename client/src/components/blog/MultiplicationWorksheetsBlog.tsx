@@ -232,7 +232,7 @@ export default function MultiplicationWorksheetsBlog() {
         <div className="md:col-span-2 bg-white p-6 rounded-lg shadow-md">
           <h2 className="text-2xl font-bold text-blue-600 mb-4">{t('pages.blog.components.multiplicationWorksheetsBlog.learningProcessTitle')}</h2>
           <p className="text-gray-700 leading-relaxed mb-6">{t('pages.blog.components.multiplicationWorksheetsBlog.learningProcessText')}</p>
-          <div className="flex flex-col md:flex-row items-center justify-between w-full space-y-4 md:space-y-0 md:space-x-2">
+          <div className={`flex flex-col md:flex-row items-center justify-between w-full space-y-4 md:space-y-0 ${isRTL ? 'md:space-x-reverse md:space-x-2' : 'md:space-x-2'}`}>
             <div className="flex-1 w-full bg-gray-100 p-4 rounded-lg shadow-inner text-center">
               <div className="text-3xl mb-2">{t('pages.blog.components.multiplicationWorksheetsBlog.step1.number')}</div>
               <h3 className="text-xl font-semibold text-blue-600">{t('pages.blog.components.multiplicationWorksheetsBlog.step1.title')}</h3>
