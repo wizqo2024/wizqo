@@ -211,7 +211,7 @@ export function GentleParentingFull() {
           {t('pages.blog.components.gentleParentingFull.headerTitle')}
         </h1>
         <p className="text-lg text-green-800">
-          Because parenting isn’t about perfection — it’s about connection.
+          {t('pages.blog.components.gentleParentingFull.headerSubtitle')}
         </p>
       </header>
 
@@ -240,8 +240,7 @@ export function GentleParentingFull() {
             <div>
               <h2 id="what-is-gentle-parenting" className="text-3xl font-bold text-green-700 mb-3">{t('pages.blog.components.gentleParentingFull.whatIsTitle')}</h2>
               <p className="mb-3">
-                The goal of <strong>mindful parenting</strong> is not a “perfect” child. By applying
-                <strong> gentle parenting techniques</strong>, you build a calmer, more connected relationship.
+                {t('pages.blog.components.gentleParentingFull.whatIsText1')}
               </p>
               <p className="mb-3">{t('pages.blog.components.gentleParentingFull.whatIsText2')}</p>
               <ul className="space-y-2 mb-4">
@@ -318,7 +317,7 @@ export function GentleParentingFull() {
                 {idx === 0 && t('pages.blog.components.gentleParentingFull.technique1.description')}
                 {idx === 1 && '“You’re mad because your tower fell.” Empathy lowers defenses; kids who feel seen listen better.'}
                 {idx === 2 && '“Blocks or books first?” Choices reduce power struggles — a mindful parenting win.'}
-                {idx === 3 && '“I’m sorry I yelled.” Repair teaches accountability and that relationships can be fixed.'}
+                {idx === 2 && t('pages.blog.components.gentleParentingFull.technique3.description')}
                 {idx === 4 && '“I won’t let you hit, but I will help you calm down.” Firm limits with warmth build trust.'}
               </p>
             </div>
@@ -383,7 +382,7 @@ export function GentleParentingFull() {
               </tr>
               <tr className="hover:bg-green-50">
                 <td className="p-4 font-semibold">“It takes too long.”</td>
-                <td className="p-4">It’s an investment: fewer battles now, more self‑discipline later.</td>
+                <td className="p-4 font-semibold">{t('pages.blog.components.gentleParentingFull.myth3')}</td>
               </tr>
             </tbody>
           </table>
@@ -400,7 +399,7 @@ export function GentleParentingFull() {
             <li className="flex items-center text-green-800"><span className="text-green-800 text-2xl mr-3">🧘</span><span>{t('pages.blog.components.gentleParentingFull.tip1')}</span></li>
             <li className="flex items-center"><span className="text-green-700 text-2xl mr-3">🎧</span>{t('pages.blog.components.gentleParentingFull.tip2')}</li>
             <li className="flex items-center"><span className="text-green-700 text-2xl mr-3">💬</span>Validate feelings: “You’re sad it’s bedtime, huh?”</li>
-            <li className="flex items-center"><span className="text-green-700 text-2xl mr-3">🤗</span>{t('pages.blog.components.gentleParentingFull.tip4')}</li>
+            <li className="flex items-center"><span className="text-green-700 text-2xl mr-3">💬</span>{t('pages.blog.components.gentleParentingFull.tip3')}</li>
           </ul>
         </div>
         <div className="mt-10">
