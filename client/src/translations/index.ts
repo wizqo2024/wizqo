@@ -5828,6 +5828,9 @@ export function getTranslation(language: Language, key: string): string | any {
     
     // For worksheet keys, try interactiveWorksheetKeys first (prevents tree-shaking issues)
     // Then fallback to main translations object for any worksheet key
+    // This handles both:
+    // - Interactive worksheet keys: worksheets.division.instructions
+    // - Static worksheet document IDs: worksheets.addition-subtraction-0-10.title
     if (keys[0] === 'worksheets' && keys.length >= 2) {
       const interactiveKey = keys[1] as keyof typeof interactiveWorksheetKeys.en
       
