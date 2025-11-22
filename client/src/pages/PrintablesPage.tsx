@@ -2457,6 +2457,12 @@ export function PrintablesPage() {
             margin-top: 0.5in !important;
             padding: 0 !important;
             page-break-before: auto !important;
+            overflow: visible !important;
+          }
+          /* Force content to start - override any browser defaults */
+          [data-worksheet-content="true"] {
+            page-break-before: auto !important;
+            page-break-after: auto !important;
           }
           /* Fix blank first page - remove padding/margin from first child and prevent page break */
           [data-worksheet-content="true"] > *:first-child {
@@ -2469,12 +2475,20 @@ export function PrintablesPage() {
           [data-worksheet-content="true"] > div:first-child > .print-customization-header:first-child {
             margin-top: 0 !important;
             padding-top: 0 !important;
+            page-break-before: auto !important;
           }
-          /* Ensure first worksheet section has no top margin */
+          /* Ensure first worksheet section has no top margin and starts on first page */
           [data-worksheet-content="true"] section:first-of-type,
-          [data-worksheet-content="true"] .worksheet-section:first-of-type {
+          [data-worksheet-content="true"] .worksheet-section:first-of-type,
+          [data-worksheet-content="true"] section.break-inside-avoid:first-of-type {
             margin-top: 0 !important;
             padding-top: 0 !important;
+            page-break-before: auto !important;
+            break-before: auto !important;
+          }
+          /* Prevent any element from forcing a page break before the first content */
+          [data-worksheet-content="true"] > div:first-child > *:first-child[style*="page-break-before"],
+          [data-worksheet-content="true"] > div:first-child > *:first-child[style*="pageBreakBefore"] {
             page-break-before: auto !important;
           }
           /* Hide URLs in print */
