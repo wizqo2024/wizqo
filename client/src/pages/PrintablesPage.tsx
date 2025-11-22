@@ -2220,32 +2220,82 @@ export function PrintablesPage() {
         if (originalMaxWidth !== undefined) element.style.maxWidth = originalMaxWidth
       })
       
-      // Find the first actual content element to calculate top offset BEFORE creating PDF
-      const firstContent = actualContentElement.querySelector('section.break-inside-avoid, section[class*="worksheet"], .worksheet-section, .print-customization-header')
-      let cropTopPx = 0
-      if (firstContent) {
-        const contentRect = actualContentElement.getBoundingClientRect()
-        const firstRect = firstContent.getBoundingClientRect()
-        cropTopPx = Math.max(0, firstRect.top - contentRect.top)
+      // Check for important header elements that should NOT be cropped
+      const customizationHeader = actualContentElement.querySelector('.print-customization-header')
+      // Find name/grade header by looking for elements containing "Name:" text
+      const allDivs = actualContentElement.querySelectorAll('div')
+      let nameGradeHeader: HTMLElement | null = null
+      for (const div of Array.from(allDivs)) {
+        const text = div.textContent || ''
+        if (text.includes('Name:') && text.includes('Date:') && (div.classList.contains('print:block') || div.classList.contains('hidden'))) {
+          nameGradeHeader = div as HTMLElement
+          break
+        }
       }
       
-      // Crop canvas to remove blank space at top
-      const cropTop = Math.floor(cropTopPx * scale)
-      const croppedCanvas = document.createElement('canvas')
-      const croppedCtx = croppedCanvas.getContext('2d')
-      if (!croppedCtx) throw new Error('Failed to get canvas context')
+      // Find the actual top of content - but preserve headers
+      let cropTopPx = 0
+      const contentRect = actualContentElement.getBoundingClientRect()
       
-      croppedCanvas.width = canvas.width
-      croppedCanvas.height = canvas.height - cropTop
-      croppedCtx.drawImage(canvas, 0, cropTop, canvas.width, canvas.height - cropTop, 0, 0, canvas.width, canvas.height - cropTop)
+      // Priority: customization header > name/grade header > first section
+      // If there's a customization header, start from it (but don't crop it)
+      if (customizationHeader) {
+        const headerRect = customizationHeader.getBoundingClientRect()
+        const headerTop = headerRect.top - contentRect.top
+        // Only crop if there's space above the header (navigation, etc.)
+        if (headerTop > 30) {
+          cropTopPx = headerTop - 10 // Small margin above header
+        }
+      } else if (nameGradeHeader) {
+        // If there's a name/grade header, start from it
+        const headerRect = nameGradeHeader.getBoundingClientRect()
+        const headerTop = headerRect.top - contentRect.top
+        // Only crop if there's space above the header
+        if (headerTop > 30) {
+          cropTopPx = headerTop - 10
+        }
+      } else {
+        // Only crop if there's truly blank space (like navigation)
+        // Find first visible content element
+        const firstSection = actualContentElement.querySelector('section.break-inside-avoid, section[class*="worksheet"], .worksheet-section')
+        if (firstSection) {
+          const firstRect = firstSection.getBoundingClientRect()
+          const topOffset = firstRect.top - contentRect.top
+          // Only crop if there's significant blank space (more than 80px)
+          // This prevents cropping when content starts near the top
+          if (topOffset > 80) {
+            cropTopPx = topOffset - 20 // Leave small margin
+          }
+        }
+      }
       
-      // Calculate PDF dimensions using cropped canvas
+      // Don't crop if crop amount is too small (would remove important content)
+      // Or if it would crop too much (more than 100px suggests we're cropping content)
+      if (cropTopPx < 20 || cropTopPx > 100) {
+        cropTopPx = 0
+      }
+      
+      // Use original canvas if no cropping needed, otherwise crop
+      let finalCanvas = canvas
+      if (cropTopPx > 0) {
+        const cropTop = Math.floor(cropTopPx * scale)
+        const croppedCanvas = document.createElement('canvas')
+        const croppedCtx = croppedCanvas.getContext('2d')
+        if (!croppedCtx) throw new Error('Failed to get canvas context')
+        
+        croppedCanvas.width = canvas.width
+        croppedCanvas.height = canvas.height - cropTop
+        croppedCtx.drawImage(canvas, 0, cropTop, canvas.width, canvas.height - cropTop, 0, 0, canvas.width, canvas.height - cropTop)
+        finalCanvas = croppedCanvas
+      }
+      
+      // Calculate PDF dimensions using final canvas
       const imgWidth = 210 // A4 width in mm
       const pageHeight = 297 // A4 height in mm
-      let imgHeight = (croppedCanvas.height * imgWidth) / croppedCanvas.width
+      let imgHeight = (finalCanvas.height * imgWidth) / finalCanvas.width
       
       // Use lower quality JPEG instead of PNG for faster generation and smaller file size
-      const imgData = croppedCanvas.toDataURL('image/jpeg', 0.85)
+      const imgData = finalCanvas.toDataURL('image/jpeg', 0.85)
       
       const pdf = new jsPDF('p', 'mm', 'a4')
       
@@ -2259,7 +2309,7 @@ export function PrintablesPage() {
           const rect = (section as HTMLElement).getBoundingClientRect()
           const containerRect = actualContentElement.getBoundingClientRect()
           // Calculate position in PDF coordinates (mm) - convert from pixels to mm
-          // Adjust for cropped top space
+          // Adjust for cropped top space (if any)
           const topPx = Math.max(0, (rect.top - containerRect.top) - cropTopPx)
           const heightPx = rect.height
           const top = (topPx * imgWidth) / printWidth
