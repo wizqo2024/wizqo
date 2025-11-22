@@ -7065,6 +7065,560 @@ function WorksheetHeader({ problemCount }: { problemCount?: number }) {
   )
 }
 
+// Learning objectives component
+function LearningObjectives({ objectives }: { objectives: string[] }) {
+  return (
+    <div className="print:block hidden mb-4 p-3 bg-slate-50 border-l-4 border-blue-500 rounded">
+      <div className="text-sm font-semibold text-slate-800 mb-2">📚 What You'll Practice:</div>
+      <ul className="text-xs text-slate-700 space-y-1 list-disc list-inside">
+        {objectives.map((obj, i) => (
+          <li key={i}>{obj}</li>
+        ))}
+      </ul>
+    </div>
+  )
+}
+
+// Challenge section component
+function ChallengeSection({ challenges }: { challenges: string[] }) {
+  return (
+    <div className="mt-6 print:mt-0 p-4 bg-purple-50 border-2 border-purple-200 rounded print:bg-white print:border challenge-section" style={{ pageBreakBefore: 'always', pageBreakInside: 'avoid' }}>
+      <div className="font-semibold text-purple-900 mb-3 text-sm">🌟 Challenge Yourself (Optional):</div>
+      <div className="space-y-2 text-sm text-purple-800">
+        {challenges.map((challenge, i) => (
+          <div key={i}>{i + 1}. {challenge}</div>
+        ))}
+      </div>
+    </div>
+  )
+}
+
+// Get learning objectives and challenges for each worksheet type
+function getWorksheetSections(docId: string): { objectives: string[]; challenges: string[] } {
+  const sections: Record<string, { objectives: string[]; challenges: string[] }> = {
+    // Math worksheets
+    'interactive-math-rhythm': {
+      objectives: ['Identify number patterns', 'Complete skip counting sequences', 'Recognize arithmetic patterns'],
+      challenges: ['Create your own number pattern', 'Find patterns in everyday objects', 'Extend the pattern beyond the worksheet']
+    },
+    'interactive-math-race': {
+      objectives: ['Improve addition and subtraction speed', 'Build fact fluency', 'Practice mental math'],
+      challenges: ['Time yourself and try to beat your record', 'Create your own math race problems', 'Practice with a friend']
+    },
+    'interactive-math-puzzle': {
+      objectives: ['Solve missing number equations', 'Develop algebraic thinking', 'Practice problem-solving strategies'],
+      challenges: ['Create your own equation puzzle', 'Solve the puzzle in different ways', 'Explain your solving strategy']
+    },
+    'interactive-math-shapes': {
+      objectives: ['Identify geometric shapes', 'Classify shapes by attributes', 'Count and compare shapes'],
+      challenges: ['Find these shapes in your environment', 'Draw your own shape challenge', 'Create a shape collage']
+    },
+    'interactive-math-money': {
+      objectives: ['Count coins and bills', 'Make change', 'Solve money word problems'],
+      challenges: ['Practice with real coins', 'Create your own money problems', 'Plan a shopping trip with a budget']
+    },
+    'interactive-math-fractions': {
+      objectives: ['Compare fractions', 'Find equivalent fractions', 'Solve fraction operations'],
+      challenges: ['Use visual models to show fractions', 'Create fraction stories', 'Find fractions in everyday life']
+    },
+    'interactive-math-measurement': {
+      objectives: ['Measure length, weight, and volume', 'Convert between units', 'Solve measurement problems'],
+      challenges: ['Measure objects around you', 'Create your own measurement problems', 'Compare measurements with friends']
+    },
+    'interactive-math-counting': {
+      objectives: ['Count objects accurately', 'Recognize number patterns', 'Build number sense'],
+      challenges: ['Count objects in your room', 'Create counting patterns', 'Practice skip counting']
+    },
+    'interactive-math-tens-frames': {
+      objectives: ['Understand place value', 'Visualize numbers 1-20', 'Build number sense'],
+      challenges: ['Create your own tens frame problems', 'Use tens frames to solve addition', 'Draw tens frames for different numbers']
+    },
+    'interactive-math-multiplication': {
+      objectives: ['Practice multiplication facts', 'Understand multiplication as repeated addition', 'Solve multiplication word problems'],
+      challenges: ['Create your own multiplication problems', 'Practice with flashcards', 'Find multiplication in real life']
+    },
+    'interactive-math-division': {
+      objectives: ['Practice division facts', 'Understand division as sharing', 'Solve division word problems'],
+      challenges: ['Create your own division problems', 'Use objects to model division', 'Explain division in your own words']
+    },
+    'interactive-math-place-value': {
+      objectives: ['Understand place value concepts', 'Read and write multi-digit numbers', 'Compare numbers'],
+      challenges: ['Create numbers with specific place values', 'Find the largest and smallest numbers', 'Write numbers in expanded form']
+    },
+    'interactive-math-time': {
+      objectives: ['Tell time on analog and digital clocks', 'Understand elapsed time', 'Solve time word problems'],
+      challenges: ['Create a daily schedule', 'Practice telling time throughout the day', 'Solve time puzzles']
+    },
+    'interactive-math-algebra': {
+      objectives: ['Solve simple equations', 'Understand variables', 'Apply algebraic thinking'],
+      challenges: ['Create your own equations', 'Explain your solving process', 'Find patterns in equations']
+    },
+    'interactive-math-percentages': {
+      objectives: ['Understand percentages', 'Convert between fractions, decimals, and percents', 'Solve percentage problems'],
+      challenges: ['Find percentages in real life', 'Create percentage word problems', 'Calculate discounts and tips']
+    },
+    'interactive-math-geometry': {
+      objectives: ['Identify geometric properties', 'Calculate area and perimeter', 'Understand angles and symmetry'],
+      challenges: ['Find geometric shapes in nature', 'Create geometric art', 'Design shapes with specific properties']
+    },
+    'interactive-math-statistics': {
+      objectives: ['Read and interpret data', 'Create graphs and charts', 'Calculate mean, median, and mode'],
+      challenges: ['Collect your own data', 'Create graphs from real data', 'Analyze data from your class']
+    },
+    'interactive-math-word-problems': {
+      objectives: ['Read and understand word problems', 'Identify key information', 'Apply problem-solving strategies'],
+      challenges: ['Write your own word problems', 'Solve problems in multiple ways', 'Explain your thinking process']
+    },
+    'interactive-math-graphing': {
+      objectives: ['Create and read graphs', 'Organize data visually', 'Interpret graph information'],
+      challenges: ['Collect data and create your own graph', 'Compare different types of graphs', 'Present your data']
+    },
+    'interactive-math-rounding': {
+      objectives: ['Round numbers to nearest place value', 'Estimate using rounding', 'Apply rounding in real situations'],
+      challenges: ['Round numbers in your daily life', 'Create rounding word problems', 'Estimate large numbers']
+    },
+    'interactive-math-decimals': {
+      objectives: ['Understand decimal place value', 'Perform decimal operations', 'Apply decimals to real-world problems'],
+      challenges: ['Find decimals in prices and measurements', 'Create decimal word problems', 'Compare decimal values']
+    },
+    'interactive-math-integers': {
+      objectives: ['Understand positive and negative numbers', 'Use number lines with integers', 'Perform integer operations'],
+      challenges: ['Find integers in real life', 'Create integer problems', 'Use integers to solve problems']
+    },
+    'interactive-math-exponents': {
+      objectives: ['Understand exponents and powers', 'Apply exponent rules', 'Use scientific notation'],
+      challenges: ['Explore large numbers with exponents', 'Create exponent problems', 'Use exponents in calculations']
+    },
+    // Reading worksheets
+    'interactive-reading-adventure': {
+      objectives: ['Improve reading comprehension', 'Identify story elements', 'Make predictions'],
+      challenges: ['Write your own adventure story', 'Create a story map', 'Act out the story']
+    },
+    'interactive-reading-detective': {
+      objectives: ['Find evidence in text', 'Make inferences', 'Draw conclusions'],
+      challenges: ['Be a reading detective at home', 'Create your own mystery', 'Solve clues in books']
+    },
+    'interactive-reading-storymap': {
+      objectives: ['Identify story structure', 'Understand plot elements', 'Organize story information'],
+      challenges: ['Create a story map for your favorite book', 'Write your own story using the map', 'Compare different story structures']
+    },
+    'interactive-reading-vocab': {
+      objectives: ['Learn new vocabulary words', 'Understand word meanings', 'Use words in context'],
+      challenges: ['Use new words in sentences', 'Create a vocabulary journal', 'Find synonyms and antonyms']
+    },
+    'interactive-reading-summary': {
+      objectives: ['Identify main ideas', 'Summarize text', 'Distinguish important from unimportant details'],
+      challenges: ['Summarize your favorite book', 'Create a summary in different formats', 'Compare summaries with friends']
+    },
+    'interactive-reading-compare': {
+      objectives: ['Compare and contrast texts', 'Identify similarities and differences', 'Analyze relationships'],
+      challenges: ['Compare two of your favorite books', 'Create a Venn diagram', 'Write a comparison essay']
+    },
+    'interactive-reading-prek': {
+      objectives: ['Recognize letters and sounds', 'Build phonemic awareness', 'Develop pre-reading skills'],
+      challenges: ['Find letters in your name', 'Match sounds to objects', 'Create letter art']
+    },
+    'interactive-reading-alphabet': {
+      objectives: ['Recognize all letters', 'Match uppercase and lowercase', 'Identify beginning sounds'],
+      challenges: ['Find letters around you', 'Create an alphabet book', 'Practice letter sounds']
+    },
+    'interactive-reading-sightwords': {
+      objectives: ['Recognize common sight words', 'Read sight words in context', 'Build reading fluency'],
+      challenges: ['Create sight word flashcards', 'Find sight words in books', 'Write sentences with sight words']
+    },
+    'interactive-reading-literary-analysis': {
+      objectives: ['Analyze literary elements', 'Identify themes and symbolism', 'Compare literary works'],
+      challenges: ['Analyze your favorite book', 'Compare two stories', 'Create a literary analysis']
+    },
+    'interactive-reading-research': {
+      objectives: ['Conduct research', 'Evaluate sources', 'Synthesize information'],
+      challenges: ['Research a topic you\'re curious about', 'Create a research project', 'Present your findings']
+    },
+    'interactive-reading-fluency': {
+      objectives: ['Improve reading speed', 'Develop expression', 'Build reading confidence'],
+      challenges: ['Practice reading aloud', 'Record yourself reading', 'Read to someone else']
+    },
+    'interactive-reading-character': {
+      objectives: ['Analyze character traits', 'Understand character development', 'Make character inferences'],
+      challenges: ['Describe characters from your favorite book', 'Create your own character', 'Compare characters']
+    },
+    // Writing worksheets
+    'interactive-writing-prompts': {
+      objectives: ['Generate writing ideas', 'Develop creative thinking', 'Express ideas in writing'],
+      challenges: ['Create your own writing prompts', 'Write a story from a different perspective', 'Combine multiple prompts']
+    },
+    'interactive-writing-sentences': {
+      objectives: ['Write complete sentences', 'Use proper grammar', 'Vary sentence structure'],
+      challenges: ['Write sentences about your day', 'Create compound and complex sentences', 'Edit and improve sentences']
+    },
+    'interactive-writing-poetry': {
+      objectives: ['Understand poetic forms', 'Use figurative language', 'Express emotions through poetry'],
+      challenges: ['Write your own poem', 'Create a poetry collection', 'Perform your poem']
+    },
+    'interactive-writing-opinion': {
+      objectives: ['Form and express opinions', 'Support opinions with reasons', 'Write persuasive text'],
+      challenges: ['Write an opinion about a topic you care about', 'Debate with a friend', 'Create a persuasive poster']
+    },
+    'interactive-writing-prek': {
+      objectives: ['Develop fine motor skills', 'Practice letter formation', 'Build writing confidence'],
+      challenges: ['Write your name', 'Draw and label pictures', 'Create your own story']
+    },
+    'interactive-writing-trace': {
+      objectives: ['Practice letter formation', 'Develop handwriting skills', 'Build muscle memory'],
+      challenges: ['Trace letters in different sizes', 'Write letters without tracing', 'Create letter art']
+    },
+    'interactive-writing-lowercase-trace': {
+      objectives: ['Master lowercase letter formation', 'Develop consistent handwriting', 'Build writing fluency'],
+      challenges: ['Write lowercase letters in words', 'Practice writing your name', 'Create lowercase letter patterns']
+    },
+    'interactive-writing-narrative': {
+      objectives: ['Write engaging stories', 'Develop plot and characters', 'Use descriptive language'],
+      challenges: ['Write a story from a different perspective', 'Create a sequel to your story', 'Illustrate your narrative']
+    },
+    'interactive-writing-informative': {
+      objectives: ['Write informative texts', 'Organize information clearly', 'Use facts and details'],
+      challenges: ['Research and write about a topic', 'Create an informative poster', 'Present your information']
+    },
+    'interactive-writing-research': {
+      objectives: ['Conduct research', 'Cite sources', 'Write research papers'],
+      challenges: ['Research a topic you love', 'Create a research presentation', 'Share your findings']
+    },
+    'interactive-writing-essay': {
+      objectives: ['Write structured essays', 'Develop thesis statements', 'Support arguments with evidence'],
+      challenges: ['Write an essay on a topic you care about', 'Revise and improve your essay', 'Get feedback from others']
+    },
+    'interactive-writing-argumentative': {
+      objectives: ['Form and support arguments', 'Address counterarguments', 'Write persuasively'],
+      challenges: ['Debate a topic with a friend', 'Write a persuasive letter', 'Create an argumentative poster']
+    },
+    'interactive-writing-pictures': {
+      objectives: ['Use pictures to inspire writing', 'Describe visual details', 'Create stories from images'],
+      challenges: ['Draw your own picture and write about it', 'Create a picture story', 'Describe a favorite photo']
+    },
+    // Science worksheets
+    'interactive-science-observation': {
+      objectives: ['Make scientific observations', 'Record data', 'Develop inquiry skills'],
+      challenges: ['Observe nature around you', 'Create a science journal', 'Conduct your own experiment']
+    },
+    'interactive-science-experiment': {
+      objectives: ['Follow scientific method', 'Make predictions', 'Analyze results'],
+      challenges: ['Design your own experiment', 'Document your findings', 'Share results with others']
+    },
+    'interactive-science-life-cycles': {
+      objectives: ['Understand life cycles', 'Identify stages of development', 'Compare different organisms'],
+      challenges: ['Observe a life cycle in nature', 'Create a life cycle diagram', 'Research different life cycles']
+    },
+    'interactive-science-prek': {
+      objectives: ['Explore the natural world', 'Make observations', 'Develop curiosity'],
+      challenges: ['Observe nature around you', 'Ask questions about the world', 'Create a nature journal']
+    },
+    'interactive-science-senses': {
+      objectives: ['Identify the five senses', 'Use senses to observe', 'Understand how senses work'],
+      challenges: ['Use your senses to explore', 'Create a senses scavenger hunt', 'Describe objects using all senses']
+    },
+    'interactive-science-plants': {
+      objectives: ['Understand plant parts', 'Learn about plant growth', 'Explore plant life cycles'],
+      challenges: ['Grow your own plant', 'Observe plants in nature', 'Create a plant diagram']
+    },
+    'interactive-science-animals': {
+      objectives: ['Learn about animal characteristics', 'Understand animal habitats', 'Compare different animals'],
+      challenges: ['Research your favorite animal', 'Create an animal habitat', 'Observe animals in nature']
+    },
+    'interactive-science-space': {
+      objectives: ['Learn about planets and stars', 'Understand the solar system', 'Explore space concepts'],
+      challenges: ['Create a model of the solar system', 'Research a planet', 'Observe the night sky']
+    },
+    'interactive-science-lifecycle': {
+      objectives: ['Understand life cycles', 'Identify stages of development', 'Compare different organisms'],
+      challenges: ['Observe a life cycle in nature', 'Create a life cycle diagram', 'Research different life cycles']
+    },
+    'interactive-science-states': {
+      objectives: ['Understand states of matter', 'Identify solid, liquid, and gas', 'Explore changes in matter'],
+      challenges: ['Find examples of each state of matter', 'Conduct a matter experiment', 'Create a states of matter poster']
+    },
+    'interactive-science-weather': {
+      objectives: ['Understand weather patterns', 'Read weather data', 'Predict weather'],
+      challenges: ['Track weather for a week', 'Create a weather journal', 'Make weather predictions']
+    },
+    'interactive-science-chemistry': {
+      objectives: ['Understand basic chemistry', 'Learn about elements and compounds', 'Explore chemical reactions'],
+      challenges: ['Research a chemical element', 'Create a chemistry experiment', 'Explain a chemical reaction']
+    },
+    'interactive-science-physics': {
+      objectives: ['Understand forces and motion', 'Explore energy and matter', 'Learn physics concepts'],
+      challenges: ['Observe forces in action', 'Create a physics experiment', 'Explain physics in everyday life']
+    },
+    'interactive-science-ecology': {
+      objectives: ['Understand ecosystems', 'Learn about food chains', 'Explore environmental science'],
+      challenges: ['Observe an ecosystem', 'Create a food chain diagram', 'Research an environmental issue']
+    },
+    // SEL worksheets
+    'interactive-sel-friendship': {
+      objectives: ['Understand friendship qualities', 'Develop social skills', 'Practice empathy'],
+      challenges: ['Write about a good friend', 'Practice being a good friend', 'Create a friendship card']
+    },
+    'interactive-sel-gratitude': {
+      objectives: ['Practice gratitude', 'Recognize positive aspects of life', 'Develop mindfulness'],
+      challenges: ['Keep a gratitude journal', 'Share gratitude with others', 'Find gratitude in daily life']
+    },
+    'interactive-sel-mindfulness': {
+      objectives: ['Practice mindfulness techniques', 'Develop self-awareness', 'Manage emotions'],
+      challenges: ['Practice mindfulness daily', 'Teach someone else mindfulness', 'Create a calm space']
+    },
+    'interactive-sel-empathy': {
+      objectives: ['Understand others\' perspectives', 'Develop empathy skills', 'Practice kindness'],
+      challenges: ['Put yourself in someone else\'s shoes', 'Practice active listening', 'Perform acts of kindness']
+    },
+    'interactive-sel-conflict': {
+      objectives: ['Learn conflict resolution', 'Develop communication skills', 'Practice problem-solving'],
+      challenges: ['Role-play conflict scenarios', 'Practice "I" statements', 'Create a conflict resolution guide']
+    },
+    'interactive-sel-regulation': {
+      objectives: ['Understand emotions', 'Develop self-regulation strategies', 'Manage stress'],
+      challenges: ['Create a calm-down toolkit', 'Practice breathing exercises', 'Identify your triggers']
+    },
+    'interactive-sel-kindness': {
+      objectives: ['Practice acts of kindness', 'Understand impact of kindness', 'Develop compassion'],
+      challenges: ['Perform random acts of kindness', 'Create a kindness challenge', 'Share kindness stories']
+    },
+    'interactive-sel-growth-mindset': {
+      objectives: ['Develop growth mindset', 'Embrace challenges', 'Learn from mistakes'],
+      challenges: ['Set a growth mindset goal', 'Reflect on challenges overcome', 'Encourage others']
+    },
+    'interactive-sel-stress': {
+      objectives: ['Identify stress triggers', 'Develop coping strategies', 'Practice self-care'],
+      challenges: ['Create a stress management plan', 'Practice relaxation techniques', 'Build a support network']
+    },
+    'interactive-sel-character': {
+      objectives: ['Identify character traits', 'Develop positive character', 'Practice values'],
+      challenges: ['Reflect on your character traits', 'Set character goals', 'Recognize character in others']
+    },
+    'interactive-sel-prek': {
+      objectives: ['Recognize emotions', 'Develop social skills', 'Build self-awareness'],
+      challenges: ['Name your feelings', 'Practice sharing', 'Show kindness to others']
+    },
+    'interactive-sel-goals': {
+      objectives: ['Set meaningful goals', 'Create action plans', 'Track progress'],
+      challenges: ['Set a goal for this week', 'Break your goal into steps', 'Celebrate your achievements']
+    },
+    // Geography worksheets
+    'interactive-geography-map': {
+      objectives: ['Read maps', 'Understand map symbols', 'Use maps for navigation'],
+      challenges: ['Create your own map', 'Use a map to plan a trip', 'Find places on a world map']
+    },
+    'interactive-geography-prek': {
+      objectives: ['Explore places', 'Understand basic geography', 'Develop spatial awareness'],
+      challenges: ['Draw a map of your room', 'Find places on a map', 'Explore different places']
+    },
+    'interactive-geography-places': {
+      objectives: ['Learn about different places', 'Understand geography concepts', 'Compare locations'],
+      challenges: ['Research a place you want to visit', 'Create a travel brochure', 'Compare two places']
+    },
+    'interactive-geography-seasons': {
+      objectives: ['Understand seasons', 'Learn about weather patterns', 'Explore seasonal changes'],
+      challenges: ['Observe seasonal changes', 'Create a seasons journal', 'Compare seasons']
+    },
+    'interactive-geography-continents': {
+      objectives: ['Identify continents', 'Learn about world geography', 'Understand continent characteristics'],
+      challenges: ['Research a continent', 'Create a continent map', 'Compare different continents']
+    },
+    'interactive-geography-culture': {
+      objectives: ['Learn about different cultures', 'Understand cultural diversity', 'Appreciate differences'],
+      challenges: ['Research a culture', 'Create a cultural presentation', 'Compare cultures']
+    },
+    'interactive-geography-history': {
+      objectives: ['Understand historical events', 'Learn about timelines', 'Explore history'],
+      challenges: ['Research a historical event', 'Create a timeline', 'Write about history']
+    },
+    'interactive-geography-government': {
+      objectives: ['Understand government systems', 'Learn about citizenship', 'Explore civic concepts'],
+      challenges: ['Research your government', 'Create a government diagram', 'Learn about your rights']
+    },
+    'interactive-geography-economics': {
+      objectives: ['Understand basic economics', 'Learn about money and trade', 'Explore economic concepts'],
+      challenges: ['Create a budget', 'Research an economic concept', 'Plan a business']
+    },
+    // Grammar worksheets
+    'interactive-grammar-parts': {
+      objectives: ['Identify parts of speech', 'Understand grammar rules', 'Apply grammar in writing'],
+      challenges: ['Find parts of speech in sentences', 'Create sentences with specific parts', 'Edit writing for grammar']
+    },
+    'interactive-grammar-prek': {
+      objectives: ['Learn basic language', 'Recognize words', 'Develop language skills'],
+      challenges: ['Practice saying words', 'Match words to pictures', 'Create simple sentences']
+    },
+    'interactive-grammar-rhyming': {
+      objectives: ['Recognize rhyming words', 'Create rhymes', 'Develop phonemic awareness'],
+      challenges: ['Find rhyming words', 'Write your own rhymes', 'Create a rhyming poem']
+    },
+    'interactive-grammar-capitalization': {
+      objectives: ['Use capital letters correctly', 'Understand capitalization rules', 'Apply rules in writing'],
+      challenges: ['Edit text for capitalization', 'Create sentences with proper capitalization', 'Explain capitalization rules']
+    },
+    'interactive-grammar-plurals': {
+      objectives: ['Form plural nouns', 'Understand plural rules', 'Use plurals correctly'],
+      challenges: ['Find plural words', 'Create plural sentences', 'Practice irregular plurals']
+    },
+    'interactive-grammar-tenses': {
+      objectives: ['Understand verb tenses', 'Use tenses correctly', 'Apply tenses in writing'],
+      challenges: ['Write sentences in different tenses', 'Identify tenses in text', 'Create a tense timeline']
+    },
+    'interactive-grammar-antonyms': {
+      objectives: ['Understand opposite words', 'Identify antonyms', 'Use antonyms in context'],
+      challenges: ['Find antonyms for words', 'Create antonym pairs', 'Use antonyms in sentences']
+    },
+    'interactive-grammar-advanced': {
+      objectives: ['Master advanced grammar', 'Apply complex rules', 'Edit for grammar'],
+      challenges: ['Edit complex sentences', 'Create grammatically perfect writing', 'Teach grammar to others']
+    },
+    'interactive-grammar-vocab': {
+      objectives: ['Build vocabulary', 'Understand word meanings', 'Use words correctly'],
+      challenges: ['Learn new words daily', 'Create a vocabulary journal', 'Use new words in writing']
+    },
+    // Art worksheets
+    'interactive-art-design': {
+      objectives: ['Understand design principles', 'Create visual compositions', 'Express creativity'],
+      challenges: ['Design your own artwork', 'Create a design portfolio', 'Apply design to everyday objects']
+    },
+    'interactive-art-shapes': {
+      objectives: ['Recognize and create shapes', 'Use shapes in art', 'Develop spatial skills'],
+      challenges: ['Create art using only shapes', 'Find shapes in art', 'Design with geometric shapes']
+    },
+    'interactive-art-colorwheel': {
+      objectives: ['Understand color theory', 'Mix colors', 'Use colors effectively'],
+      challenges: ['Create your own color wheel', 'Mix new colors', 'Use colors to express emotions']
+    },
+    'interactive-art-sketch': {
+      objectives: ['Develop drawing skills', 'Practice observation', 'Create sketches'],
+      challenges: ['Sketch from observation', 'Create a sketchbook', 'Practice daily sketching']
+    },
+    'interactive-art-patterns': {
+      objectives: ['Create patterns', 'Recognize patterns', 'Use patterns in design'],
+      challenges: ['Create your own patterns', 'Find patterns in nature', 'Design with patterns']
+    },
+    'interactive-art-perspective': {
+      objectives: ['Understand perspective', 'Draw with depth', 'Create 3D effects'],
+      challenges: ['Draw objects in perspective', 'Create a perspective drawing', 'Practice depth in art']
+    },
+    'interactive-art-color-by-number': {
+      objectives: ['Follow instructions', 'Develop fine motor skills', 'Create colorful art'],
+      challenges: ['Create your own color-by-number', 'Design a color-by-number for a friend', 'Experiment with colors']
+    },
+    'interactive-art-mandala': {
+      objectives: ['Create symmetrical designs', 'Develop focus', 'Express creativity'],
+      challenges: ['Design your own mandala', 'Create mandalas with different themes', 'Use mandalas for relaxation']
+    },
+    'interactive-art-doodle': {
+      objectives: ['Express creativity freely', 'Develop drawing skills', 'Create unique designs'],
+      challenges: ['Create a doodle journal', 'Doodle daily', 'Combine doodles into art']
+    },
+    'interactive-art-seasonal': {
+      objectives: ['Create seasonal art', 'Express seasonal themes', 'Develop artistic skills'],
+      challenges: ['Create art for each season', 'Design seasonal decorations', 'Express seasonal feelings']
+    },
+    'interactive-art-comic': {
+      objectives: ['Create comic strips', 'Tell stories visually', 'Develop narrative skills'],
+      challenges: ['Create your own comic', 'Write and illustrate a story', 'Design comic characters']
+    },
+    'interactive-art-critique': {
+      objectives: ['Analyze artwork', 'Develop critical thinking', 'Express artistic opinions'],
+      challenges: ['Critique your own art', 'Analyze famous artwork', 'Create art critiques']
+    },
+    // Early Learning worksheets
+    'interactive-early-phonics': {
+      objectives: ['Learn letter sounds', 'Blend sounds', 'Develop reading readiness'],
+      challenges: ['Practice letter sounds', 'Blend sounds to make words', 'Read simple words']
+    },
+    'interactive-early-counting': {
+      objectives: ['Count objects', 'Recognize numbers', 'Build number sense'],
+      challenges: ['Count objects around you', 'Practice counting to higher numbers', 'Create counting games']
+    },
+    'interactive-early-patterns': {
+      objectives: ['Recognize patterns', 'Create patterns', 'Extend patterns'],
+      challenges: ['Find patterns everywhere', 'Create your own patterns', 'Extend patterns']
+    },
+    'interactive-early-shapes': {
+      objectives: ['Identify shapes', 'Draw shapes', 'Use shapes in activities'],
+      challenges: ['Find shapes around you', 'Create art with shapes', 'Build with shapes']
+    },
+    'interactive-early-letters': {
+      objectives: ['Recognize letters', 'Form letters', 'Build letter knowledge'],
+      challenges: ['Practice writing letters', 'Find letters in words', 'Create letter art']
+    },
+    'interactive-early-numbers': {
+      objectives: ['Recognize numbers', 'Count with numbers', 'Build number knowledge'],
+      challenges: ['Practice writing numbers', 'Count with numbers', 'Create number art']
+    },
+    'interactive-early-foundations': {
+      objectives: ['Build foundational skills', 'Develop readiness', 'Prepare for learning'],
+      challenges: ['Practice foundational skills', 'Apply skills in daily life', 'Teach skills to others']
+    },
+    'interactive-early-basics': {
+      objectives: ['Learn basic concepts', 'Develop core skills', 'Build confidence'],
+      challenges: ['Practice basic skills', 'Apply concepts', 'Create with basics']
+    },
+    // Logic worksheets
+    'interactive-logic-sequence': {
+      objectives: ['Recognize sequences', 'Complete patterns', 'Develop logical thinking'],
+      challenges: ['Create your own sequences', 'Find sequences in nature', 'Solve sequence puzzles']
+    },
+    'interactive-logic-prek': {
+      objectives: ['Develop logical thinking', 'Solve simple problems', 'Build reasoning skills'],
+      challenges: ['Solve logic puzzles', 'Create simple problems', 'Think logically']
+    },
+    'interactive-logic-matching': {
+      objectives: ['Match related items', 'Identify relationships', 'Develop classification skills'],
+      challenges: ['Create matching games', 'Find matches in real life', 'Design matching activities']
+    },
+    'interactive-logic-classification': {
+      objectives: ['Classify objects', 'Group by attributes', 'Develop categorization skills'],
+      challenges: ['Classify objects around you', 'Create classification systems', 'Explain your classifications']
+    },
+    'interactive-logic-analogies': {
+      objectives: ['Understand analogies', 'Complete analogies', 'Create analogies'],
+      challenges: ['Find analogies in daily life', 'Create your own analogies', 'Solve analogy puzzles']
+    },
+    'interactive-logic-riddles': {
+      objectives: ['Solve riddles', 'Think creatively', 'Develop problem-solving skills'],
+      challenges: ['Create your own riddles', 'Solve riddles with friends', 'Explain your thinking']
+    },
+    'interactive-logic-deduction': {
+      objectives: ['Use deductive reasoning', 'Draw conclusions', 'Solve logic problems'],
+      challenges: ['Create deduction problems', 'Solve logic puzzles', 'Explain your reasoning']
+    },
+    // Cognitive worksheets
+    'interactive-cognitive-memory': {
+      objectives: ['Improve memory skills', 'Use memory strategies', 'Develop recall'],
+      challenges: ['Practice memory techniques', 'Create memory games', 'Test your memory']
+    },
+    'interactive-cognitive-attention': {
+      objectives: ['Develop focus', 'Improve attention span', 'Practice concentration'],
+      challenges: ['Practice focused activities', 'Create attention exercises', 'Build concentration skills']
+    },
+    'interactive-cognitive-executive': {
+      objectives: ['Develop executive function', 'Plan and organize', 'Manage tasks'],
+      challenges: ['Create a plan for a project', 'Organize your workspace', 'Practice task management']
+    },
+    'interactive-cognitive-processing': {
+      objectives: ['Process information', 'Understand concepts', 'Apply knowledge'],
+      challenges: ['Explain concepts in your own words', 'Teach someone else', 'Apply knowledge to new situations']
+    },
+    'interactive-cognitive-visual': {
+      objectives: ['Develop visual processing', 'Recognize visual patterns', 'Use visual thinking'],
+      challenges: ['Create visual representations', 'Solve visual puzzles', 'Use visual learning']
+    },
+    'interactive-cognitive-flexibility': {
+      objectives: ['Think flexibly', 'Adapt to changes', 'Consider multiple perspectives'],
+      challenges: ['Try new approaches', 'Consider different solutions', 'Practice flexible thinking']
+    },
+  }
+  
+  return sections[docId] || {
+    objectives: ['Practice key skills', 'Develop understanding', 'Apply knowledge'],
+    challenges: ['Try an extension activity', 'Create your own problem', 'Teach someone else']
+  }
+}
+
 function InteractiveWorksheetSection({
   docId,
   seed,
@@ -7260,9 +7814,17 @@ function InteractiveWorksheetSection({
   }, [language, tFromContext])
 
   if (!renderer) {
+    const sections = getWorksheetSections(docId)
     return (
       <section className={`mb-10 break-inside-avoid rounded-xl border-2 ${theme.border} ${theme.background} p-5 print:border-0 print:p-0 print:bg-white shadow-lg`}>
-        <WorksheetHeader />
+        <div className="relative z-10">
+          <WorksheetHeader />
+          {sections.objectives.length > 0 && (
+            <div className="mb-4">
+              <LearningObjectives objectives={sections.objectives} />
+            </div>
+          )}
+        </div>
         <h2 className={`text-lg font-semibold ${theme.text}`}>{category.icon} {t(`interactive.${doc.id}.title`) || doc.title}</h2>
         <p className="text-sm text-slate-600">{t('common.comingSoon')}</p>
         {showAnswers && (
@@ -7304,9 +7866,29 @@ function InteractiveWorksheetSection({
         </div>
       </header>
       
+      {/* Learning Objectives */}
+      {(() => {
+        const sections = getWorksheetSections(docId)
+        return sections.objectives.length > 0 ? (
+          <div className="relative z-10 mb-4">
+            <LearningObjectives objectives={sections.objectives} />
+          </div>
+        ) : null
+      })()}
+      
       <div className="relative z-10">
         {renderer({ doc, category, seed, variant, t, language, formatNum, formatRange })}
       </div>
+      
+      {/* Challenge Section */}
+      {(() => {
+        const sections = getWorksheetSections(docId)
+        return sections.challenges.length > 0 ? (
+          <div className="relative z-10">
+            <ChallengeSection challenges={sections.challenges} />
+          </div>
+        ) : null
+      })()}
 
       {showAnswers && answerRenderer && (
         <div className={`mt-6 rounded-xl border-2 ${theme.border} bg-white p-5 shadow-md relative z-10`}>
