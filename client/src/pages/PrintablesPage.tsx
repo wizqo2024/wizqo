@@ -4272,17 +4272,21 @@ export function PrintablesPage() {
                 </div>
               </div>
               {/* Visual legend */}
-              <div className="mb-4 flex items-center gap-4 text-sm bg-violet-50 p-3 rounded-lg border border-violet-200 print:mb-3">
-                <svg viewBox="0 0 200 50" className="h-12 w-auto flex-shrink-0">
-                  {/* Tens rod */}
-                  <rect x="10" y="10" width="15" height="30" rx="3" fill="#22c55e" stroke="#16a34a" strokeWidth="2" />
-                  <text x="35" y="28" fontSize="12" fill="#16a34a" fontWeight="bold">{getTrans(`worksheets.${docId}.legend.tenLabel`, '= 1 Ten (10)')}</text>
-                  {/* Ones cubes */}
-                  {Array.from({length:3}).map((_,i)=> (
-                    <rect key={i} x={120 + i*18} y="20" width="12" height="12" rx="2" fill="#60a5fa" stroke="#2563eb" strokeWidth="1.5" />
-                  ))}
-                  <text x="180" y="28" fontSize="12" fill="#2563eb" fontWeight="bold">{getTrans(`worksheets.${docId}.legend.oneLabel`, '= 1 One')}</text>
-                </svg>
+              <div className="mb-4 flex flex-wrap items-center gap-4 text-sm bg-violet-50 p-3 rounded-lg border border-violet-200 print:mb-3">
+                <div className="flex items-center gap-2">
+                  <svg viewBox="0 0 25 50" className="h-12 w-auto flex-shrink-0">
+                    <rect x="10" y="10" width="15" height="30" rx="3" fill="#22c55e" stroke="#16a34a" strokeWidth="2" />
+                  </svg>
+                  <span className="text-green-700 font-bold whitespace-nowrap">{getTrans(`worksheets.${docId}.legend.tenLabel`, '= 1 Ten (10)')}</span>
+                </div>
+                <div className="flex items-center gap-2">
+                  <svg viewBox="0 0 60 30" className="h-8 w-auto flex-shrink-0">
+                    {Array.from({length:3}).map((_,i)=> (
+                      <rect key={i} x={10 + i*18} y="10" width="12" height="12" rx="2" fill="#60a5fa" stroke="#2563eb" strokeWidth="1.5" />
+                    ))}
+                  </svg>
+                  <span className="text-blue-700 font-bold whitespace-nowrap">{getTrans(`worksheets.${docId}.legend.oneLabel`, '= 1 One')}</span>
+                </div>
               </div>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 break-inside-avoid" style={{ pageBreakAfter: 'auto' }}>
                 {nums.map((n,i)=> {
