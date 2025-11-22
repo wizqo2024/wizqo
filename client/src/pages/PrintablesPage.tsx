@@ -1872,7 +1872,16 @@ export function PrintablesPage() {
         }
       }
       
-      // Calculate actual content bounds to crop blank space
+      // Find the first visible content element to determine where content actually starts
+      const firstContent = actualContentElement.querySelector('.print-customization-header, section.break-inside-avoid, section[class*="worksheet"], .worksheet-section, [class*="print:block hidden"]')
+      let contentStartY = 0
+      if (firstContent) {
+        const firstRect = firstContent.getBoundingClientRect()
+        const containerRect = actualContentElement.getBoundingClientRect()
+        contentStartY = Math.max(0, firstRect.top - containerRect.top)
+      }
+      
+      // Calculate actual content bounds
       const allSections = actualContentElement.querySelectorAll('section.break-inside-avoid, section[class*="worksheet"], .worksheet-section')
       let contentHeight = actualContentElement.offsetHeight
       
@@ -1888,6 +1897,11 @@ export function PrintablesPage() {
         if (allSections.length === 1) {
           contentHeight = lastSectionBottom + 5
         }
+      }
+      
+      // Adjust content height to exclude blank space at top
+      if (contentStartY > 0) {
+        contentHeight = contentHeight - contentStartY + 10 // Add small buffer
       }
       
       // Apply print styles before capturing to match browser "Save as PDF" layout
@@ -2004,8 +2018,8 @@ export function PrintablesPage() {
       const scale = 1.2 // Higher scale for better quality
       const canvasWidth = printWidth * scale
       
-      // Ensure we capture from the very top of the content element
-      // Use y: 0 to start capture from the top, not from scroll position
+      // Capture from where content actually starts (skip blank space at top)
+      // Use scrollY to start capture from first content element
       const canvas = await html2canvas(actualContentElement, {
         scale: scale,
         useCORS: true,
@@ -2016,8 +2030,8 @@ export function PrintablesPage() {
         windowWidth: printWidth,
         windowHeight: contentHeight,
         removeContainer: false,
-        y: 0, // Start from top of element
-        x: 0, // Start from left of element
+        scrollY: -contentStartY, // Start capture from first content, not top of container
+        scrollX: 0,
         onclone: (clonedDoc) => {
           // Apply print styles to the cloned document
           const clonedHtml = clonedDoc.documentElement
