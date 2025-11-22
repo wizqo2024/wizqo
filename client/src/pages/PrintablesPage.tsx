@@ -1809,14 +1809,63 @@ export function PrintablesPage() {
           }
         }
         
-        // Convert HTML to canvas
-        const canvas = await html2canvas(contentElement, {
+        // Find the actual content area to avoid capturing blank space
+        // Look for the first section or content container
+        let actualContentElement = contentElement
+        const firstSection = contentElement.querySelector('section.break-inside-avoid, section[class*="worksheet"], .worksheet-section')
+        
+        if (firstSection) {
+          // Find the parent container that wraps all sections
+          let container = firstSection.parentElement
+          while (container && container !== contentElement) {
+            // Check if this container has multiple sections (likely the content wrapper)
+            const sections = container.querySelectorAll('section.break-inside-avoid, section[class*="worksheet"]')
+            if (sections.length > 0 && container.offsetHeight > 100) {
+              actualContentElement = container as HTMLElement
+              break
+            }
+            container = container.parentElement
+          }
+          
+          // If we found a good container, use it; otherwise try to find a wrapper div
+          if (actualContentElement === contentElement) {
+            // Look for a div that contains all the sections
+            const allSections = contentElement.querySelectorAll('section.break-inside-avoid, section[class*="worksheet"]')
+            if (allSections.length > 0) {
+              // Find common parent of all sections
+              let commonParent = allSections[0].parentElement
+              if (commonParent && commonParent !== contentElement && commonParent.offsetHeight > 100) {
+                // Check if all sections are children of this parent
+                const sectionsInParent = commonParent.querySelectorAll('section.break-inside-avoid, section[class*="worksheet"]')
+                if (sectionsInParent.length === allSections.length) {
+                  actualContentElement = commonParent as HTMLElement
+                }
+              }
+            }
+          }
+        }
+        
+        // Calculate actual content bounds to crop blank space
+        const allSections = actualContentElement.querySelectorAll('section.break-inside-avoid, section[class*="worksheet"], .worksheet-section')
+        let contentHeight = actualContentElement.offsetHeight
+        
+        if (allSections.length > 0) {
+          // Find the last section's bottom position
+          const lastSection = allSections[allSections.length - 1] as HTMLElement
+          const lastSectionBottom = lastSection.offsetTop + lastSection.offsetHeight
+          // Use the actual content height (add some padding)
+          contentHeight = Math.min(lastSectionBottom + 50, actualContentElement.offsetHeight)
+        }
+        
+        // Convert HTML to canvas - only capture the actual content area
+        const canvas = await html2canvas(actualContentElement, {
           scale: 2,
           useCORS: true,
           logging: false,
           backgroundColor: '#ffffff',
-          windowWidth: contentElement.scrollWidth,
-          windowHeight: contentElement.scrollHeight
+          height: contentHeight,
+          windowWidth: actualContentElement.scrollWidth,
+          windowHeight: contentHeight
         })
         
         // Calculate PDF dimensions
