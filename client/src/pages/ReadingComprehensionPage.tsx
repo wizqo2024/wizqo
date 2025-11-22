@@ -654,15 +654,7 @@ const WorksheetThumbnailCard = React.memo(function WorksheetThumbnailCard({ titl
             rel="noopener noreferrer"
             className="text-xs font-medium text-purple-600 hover:text-purple-700 px-3 py-1 rounded-full border border-purple-200 hover:border-purple-300 transition-colors"
           >
-            {t('pages.printables.preview')}
-          </a>
-          <a
-            href={href}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="text-xs font-medium text-purple-600 hover:text-purple-700 px-3 py-1 rounded-full border border-purple-200 hover:border-purple-300 transition-colors"
-          >
-            {t('pages.printables.download')}
+            ⬇️ {t('pages.printables.download')}
           </a>
         </div>
       </div>
