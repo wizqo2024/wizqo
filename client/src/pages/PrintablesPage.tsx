@@ -1829,10 +1829,17 @@ export function PrintablesPage() {
           trackWorksheetDownload(primaryDoc, docTitle, from, grade)
         }
         
-        // Close the tab after download (optional)
-        setTimeout(() => {
-          window.close()
-        }, 500)
+        // Close the tab after download (only if not in iframe)
+        // Don't close if we're in an iframe (detected by checking if window.top !== window.self)
+        if (window.top === window.self) {
+          setTimeout(() => {
+            try {
+              window.close()
+            } catch (e) {
+              // Ignore errors if window can't be closed (e.g., not opened by script)
+            }
+          }, 500)
+        }
       } catch (error) {
         console.error('PDF download failed:', error)
         // Don't fall back to print dialog when download=1 is set
