@@ -288,8 +288,7 @@ function ItemCard({ title, description, href }: { title: string; description: st
       <div className="text-base font-semibold text-slate-900">{title}</div>
       <p className="text-slate-600 text-sm mt-1">{description}</p>
       <div className="mt-3 flex items-center gap-2">
-        <a href={href} className={OUTLINE_BUTTON} aria-label={`${t('pages.secondGrade.openPrintable')} ${title}`}>{t('pages.secondGrade.openPrintable')}</a>
-        <a href={href + (href.includes('?') ? '&autoprint=1' : '?autoprint=1')} className={BUTTON_CLASS} aria-label={`${t('pages.secondGrade.downloadPDF')} ${title}`}>{t('pages.secondGrade.downloadPDF')}</a>
+        <a href={href} className={BUTTON_CLASS} aria-label={`${t('pages.secondGrade.downloadPDF')} ${title}`} target="_blank" rel="noopener noreferrer">⬇️ {t('pages.secondGrade.downloadPDF')}</a>
       </div>
     </div>
   )
@@ -366,15 +365,7 @@ const WorksheetThumbnailCard = React.memo(function WorksheetThumbnailCard({ titl
             rel="noopener noreferrer"
             className="text-xs font-medium text-purple-600 hover:text-purple-700 px-3 py-1 rounded-full border border-purple-200 hover:border-purple-300 transition-colors"
           >
-            {t('pages.secondGrade.preview')}
-          </a>
-          <a
-            href={href + (href.includes('?') ? '&autoprint=1' : '?autoprint=1')}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="text-xs font-medium text-purple-600 hover:text-purple-700 px-3 py-1 rounded-full border border-purple-200 hover:border-purple-300 transition-colors"
-          >
-            {t('pages.secondGrade.download')}
+            ⬇️ {t('pages.secondGrade.download')}
           </a>
         </div>
       </div>
