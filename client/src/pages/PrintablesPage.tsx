@@ -1776,9 +1776,37 @@ export function PrintablesPage() {
         }
         
         if (!contentElement || contentElement.offsetHeight === 0) {
-          console.error('Content element not found or not rendered after', attempts, 'attempts. Document readyState:', document.readyState, 'Body children:', document.body?.children.length)
-          // Don't fall back to print - just return silently for download mode
-          return
+          // Last resort: try to find any element with substantial content
+          const allElements = document.querySelectorAll('*')
+          let largestElement: HTMLElement | null = null
+          let maxHeight = 0
+          
+          for (const el of Array.from(allElements)) {
+            const htmlEl = el as HTMLElement
+            if (htmlEl.offsetHeight > maxHeight && htmlEl.offsetHeight > 200) {
+              // Skip script, style, and other non-content elements
+              const tagName = htmlEl.tagName.toLowerCase()
+              if (!['script', 'style', 'meta', 'link', 'title', 'head'].includes(tagName)) {
+                maxHeight = htmlEl.offsetHeight
+                largestElement = htmlEl
+              }
+            }
+          }
+          
+          if (largestElement && largestElement.offsetHeight > 200) {
+            contentElement = largestElement
+            console.log('Using largest element as fallback:', largestElement.tagName, largestElement.className)
+          } else {
+            console.error('Content element not found or not rendered after', attempts, 'attempts. Document readyState:', document.readyState, 'Body children:', document.body?.children.length)
+            // Try using body as absolute last resort if it has content
+            if (document.body && document.body.offsetHeight > 200) {
+              contentElement = document.body
+              console.log('Using body as absolute fallback')
+            } else {
+              // Don't fall back to print - just return silently for download mode
+              return
+            }
+          }
         }
         
         // Convert HTML to canvas
