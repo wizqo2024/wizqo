@@ -1876,21 +1876,28 @@ export function PrintablesPage() {
         const imgHeight = (canvas.height * imgWidth) / canvas.width
         const pdf = new jsPDF('p', 'mm', 'a4')
         
-        // Handle multi-page content
-        let heightLeft = imgHeight
-        let position = 0
-        
-        // Add first page
+        // Get image data
         const imgData = canvas.toDataURL('image/png')
-        pdf.addImage(imgData, 'PNG', 0, position, imgWidth, imgHeight)
-        heightLeft -= pageHeight
         
-        // Add additional pages if content is taller than one page
-        while (heightLeft > 0) {
-          position = heightLeft - imgHeight
-          pdf.addPage()
+        // If content fits on one page, add it directly without splitting
+        if (imgHeight <= pageHeight) {
+          pdf.addImage(imgData, 'PNG', 0, 0, imgWidth, imgHeight)
+        } else {
+          // Handle multi-page content - split across pages only if needed
+          let heightLeft = imgHeight
+          let position = 0
+          
+          // Add first page
           pdf.addImage(imgData, 'PNG', 0, position, imgWidth, imgHeight)
           heightLeft -= pageHeight
+          
+          // Add additional pages if content is taller than one page
+          while (heightLeft > 0) {
+            position = heightLeft - imgHeight
+            pdf.addPage()
+            pdf.addImage(imgData, 'PNG', 0, position, imgWidth, imgHeight)
+            heightLeft -= pageHeight
+          }
         }
         
         // Generate filename
