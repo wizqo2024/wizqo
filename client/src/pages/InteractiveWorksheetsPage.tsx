@@ -1079,12 +1079,13 @@ export function InteractiveWorksheetsPage() {
     const baseUrl = getSingleWorksheetPrintUrl(item.docId)
     if (!baseUrl) return
     
-    // Add download=1 parameter to trigger automatic PDF download
+    // Build URL with download=1 parameter (no autoprint to avoid print dialog)
     const url = new URL(baseUrl, window.location.origin)
     url.searchParams.set('download', '1')
+    url.searchParams.delete('autoprint') // Ensure autoprint doesn't interfere
     
-    // Use hidden iframe to trigger PDF download without opening new tab
-    // The PrintablesPage will detect download=1 and automatically generate/download PDF
+    // Use iframe approach to trigger PDF download in background
+    // The PrintablesPage will detect download=1 and generate PDF automatically
     const iframe = document.createElement('iframe')
     iframe.style.display = 'none'
     iframe.style.width = '0'
@@ -1093,10 +1094,13 @@ export function InteractiveWorksheetsPage() {
     iframe.style.left = '-9999px'
     iframe.style.top = '-9999px'
     iframe.style.border = 'none'
+    iframe.style.visibility = 'hidden'
     iframe.src = url.toString()
+    
+    // Add iframe to body
     document.body.appendChild(iframe)
     
-    // Clean up iframe after download completes
+    // Clean up iframe after sufficient time for PDF generation
     setTimeout(() => {
       try {
         if (iframe.parentNode) {
@@ -1105,7 +1109,7 @@ export function InteractiveWorksheetsPage() {
       } catch (e) {
         // Ignore cleanup errors
       }
-    }, 15000) // Give enough time for PDF generation and download
+    }, 20000) // Give enough time for PDF generation and download
   }, [getSingleWorksheetPrintUrl])
 
   // Preview handler - opens modal/popup (kept for potential future use)

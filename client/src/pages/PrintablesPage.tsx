@@ -1705,8 +1705,8 @@ export function PrintablesPage() {
     
     const downloadPDF = async () => {
       try {
-        // Wait for page to fully render
-        await new Promise(resolve => setTimeout(resolve, 2000))
+        // Wait for page to fully render - increase delay for iframe context
+        await new Promise(resolve => setTimeout(resolve, 3000))
         
         // Import jsPDF and html2canvas dynamically
         const [{ default: jsPDF }, html2canvas] = await Promise.all([
@@ -1715,10 +1715,19 @@ export function PrintablesPage() {
         ])
         
         // Get the main content element (the worksheet content)
-        const contentElement = document.querySelector('.min-h-screen.bg-white') as HTMLElement
+        // Try multiple selectors to find the content
+        let contentElement = document.querySelector('.min-h-screen.bg-white') as HTMLElement
         if (!contentElement) {
-          console.error('Content element not found')
-          window.print() // Fallback
+          // Fallback selectors
+          contentElement = document.querySelector('main') as HTMLElement
+        }
+        if (!contentElement) {
+          contentElement = document.body as HTMLElement
+        }
+        
+        if (!contentElement || contentElement.offsetHeight === 0) {
+          console.error('Content element not found or not rendered')
+          // Don't fall back to print - just return silently for download mode
           return
         }
         
@@ -1776,8 +1785,10 @@ export function PrintablesPage() {
         }, 500)
       } catch (error) {
         console.error('PDF download failed:', error)
-        // Fallback to print dialog
-        window.print()
+        // Don't fall back to print dialog when download=1 is set
+        // The user expects a download, not a print dialog
+        // If PDF generation fails, we should fail silently or show an error
+        // but not trigger print dialog
       }
     }
     
