@@ -2254,9 +2254,21 @@ export function PrintablesPage() {
         sectionBoundaries.sort((a, b) => a.top - b.top)
       }
       
+      // Find the first actual content element to calculate top offset
+      const firstContent = actualContentElement.querySelector('section.break-inside-avoid, section[class*="worksheet"], .worksheet-section, .print-customization-header')
+      let topOffset = 0
+      if (firstContent) {
+        const contentRect = actualContentElement.getBoundingClientRect()
+        const firstRect = firstContent.getBoundingClientRect()
+        const offsetPx = firstRect.top - contentRect.top
+        // Convert pixels to mm for PDF coordinates
+        topOffset = (offsetPx * imgWidth) / printWidth
+      }
+      
       if (imgHeight <= pageHeight) {
-        // Content fits on one page - add it directly
-        pdf.addImage(imgData, 'JPEG', 0, 0, imgWidth, imgHeight)
+        // Content fits on one page - add it directly starting from first content
+        // Use topOffset to position content at top of page, cropping blank space
+        pdf.addImage(imgData, 'JPEG', 0, -topOffset, imgWidth, imgHeight)
       } else {
         // Content spans multiple pages - split while respecting section boundaries
         let currentY = 0
@@ -2291,8 +2303,8 @@ export function PrintablesPage() {
               
               if (safeBreak > currentY) {
                 // Can fit section(s) on this page, break after them
-                // Position image: for first page use 0, for others use negative offset
-                const yPos = currentY === 0 ? 0 : currentY - imgHeight
+                // Position image: for first page account for topOffset, for others use negative offset
+                const yPos = currentY === 0 ? -topOffset : currentY - imgHeight
                 pdf.addImage(imgData, 'JPEG', 0, yPos, imgWidth, imgHeight)
                 currentY = Math.min(safeBreak, pageEndY) // Don't exceed page height
                 
@@ -2321,7 +2333,7 @@ export function PrintablesPage() {
                 currentY = sectionToProtect.top
               } else {
                 // Normal page break
-                const yPos = currentY === 0 ? 0 : currentY - imgHeight
+                const yPos = currentY === 0 ? -topOffset : currentY - imgHeight
                 pdf.addImage(imgData, 'JPEG', 0, yPos, imgWidth, imgHeight)
                 currentY = pageEndY
                 if (currentY < imgHeight) {
@@ -2331,8 +2343,8 @@ export function PrintablesPage() {
             }
           } else {
             // Safe to break here - no section would be cut
-            // Position image: for first page use 0, for others use negative offset
-            const yPos = currentY === 0 ? 0 : currentY - imgHeight
+            // Position image: for first page account for topOffset, for others use negative offset
+            const yPos = currentY === 0 ? -topOffset : currentY - imgHeight
             pdf.addImage(imgData, 'JPEG', 0, yPos, imgWidth, imgHeight)
             currentY = pageEndY
             
