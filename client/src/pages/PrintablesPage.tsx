@@ -2490,7 +2490,9 @@ export function PrintablesPage() {
       
       if (imgHeight <= pageHeight) {
         // Content fits on one page - add at top
-        pdf.addImage(imgData, 'JPEG', 0, 0, imgWidth, imgHeight)
+        // Determine image format from data URL
+        const imageFormat = imgData.startsWith('data:image/jpeg') ? 'JPEG' : 'PNG'
+        pdf.addImage(imgData, imageFormat, 0, 0, imgWidth, imgHeight)
       } else {
         // Content spans multiple pages - split while respecting section boundaries
         // Convert mm to pixels for canvas operations
@@ -2544,17 +2546,43 @@ export function PrintablesPage() {
                 // Section starts on this page but doesn't fit - finish current page first
                 if (currentY > 0 && currentY < sectionToProtect.top * pixelsPerMm) {
                   // Create canvas chunk for current page
-                  const pageCanvas = document.createElement('canvas')
-                  pageCanvas.width = finalCanvas.width
-                  pageCanvas.height = Math.min(pageHeightPx, finalCanvas.height - currentY)
-                  const pageCtx = pageCanvas.getContext('2d')
-                  if (pageCtx) {
-                    pageCtx.drawImage(finalCanvas, 0, currentY, finalCanvas.width, pageCanvas.height, 0, 0, finalCanvas.width, pageCanvas.height)
-                    const pageImgData = pageCanvas.toDataURL('image/jpeg', 0.85)
-                    const pageImgHeight = (pageCanvas.height * imgWidth) / finalCanvas.width
-                    pdf.addImage(pageImgData, 'JPEG', 0, 0, imgWidth, pageImgHeight)
+                  const pageHeightForSection = Math.min(pageHeightPx, sectionToProtect.top * pixelsPerMm - currentY, finalCanvas.height - currentY)
+                  if (pageHeightForSection > 0) {
+                    const pageCanvas = document.createElement('canvas')
+                    pageCanvas.width = finalCanvas.width
+                    pageCanvas.height = Math.ceil(pageHeightForSection)
+                    const pageCtx = pageCanvas.getContext('2d')
+                    if (pageCtx && pageCanvas.width > 0 && pageCanvas.height > 0) {
+                      // Fill with white background
+                      pageCtx.fillStyle = '#ffffff'
+                      pageCtx.fillRect(0, 0, pageCanvas.width, pageCanvas.height)
+                      
+                      // Draw content
+                      pageCtx.drawImage(
+                        finalCanvas,
+                        0, Math.floor(currentY),
+                        finalCanvas.width, Math.ceil(pageHeightForSection),
+                        0, 0,
+                        pageCanvas.width, pageCanvas.height
+                      )
+                      
+                      let pageImgData: string
+                      try {
+                        pageImgData = pageCanvas.toDataURL('image/jpeg', 0.85)
+                      } catch (e) {
+                        pageImgData = pageCanvas.toDataURL('image/png')
+                      }
+                      
+                      if (pageImgData && pageImgData !== 'data:,') {
+                        const pageImgHeight = (pageCanvas.height * imgWidth) / finalCanvas.width
+                        if (pageImgHeight > 0 && isFinite(pageImgHeight)) {
+                          const imageFormat = pageImgData.startsWith('data:image/jpeg') ? 'JPEG' : 'PNG'
+                          pdf.addImage(pageImgData, imageFormat, 0, 0, imgWidth, pageImgHeight)
+                        }
+                      }
+                      pdf.addPage()
+                    }
                   }
-                  pdf.addPage()
                 }
                 // Start at section beginning
                 currentY = sectionToProtect.top * pixelsPerMm
@@ -2567,41 +2595,83 @@ export function PrintablesPage() {
           // Create canvas chunk for this page
           const pageHeightActual = Math.min(pageEndYpxFinal - pageStartYpx, finalCanvas.height - pageStartYpx)
           
-          if (pageHeightActual > 0) {
+          // Ensure we have valid dimensions
+          if (pageHeightActual > 0 && pageHeightActual <= finalCanvas.height && pageStartYpx >= 0 && pageStartYpx < finalCanvas.height) {
             const pageCanvas = document.createElement('canvas')
             pageCanvas.width = finalCanvas.width
-            pageCanvas.height = pageHeightActual
+            pageCanvas.height = Math.ceil(pageHeightActual) // Ensure integer height
             const pageCtx = pageCanvas.getContext('2d')
             
-            if (pageCtx) {
+            if (pageCtx && pageCanvas.width > 0 && pageCanvas.height > 0) {
+              // Fill with white background first
+              pageCtx.fillStyle = '#ffffff'
+              pageCtx.fillRect(0, 0, pageCanvas.width, pageCanvas.height)
+              
               // Draw the portion of the original canvas for this page
-              pageCtx.drawImage(
-                finalCanvas,
-                0, pageStartYpx, // Source: start at currentY
-                finalCanvas.width, pageHeightActual, // Source: width and height
-                0, 0, // Destination: start at top-left
-                finalCanvas.width, pageHeightActual // Destination: same size
-              )
-              
-              const pageImgData = pageCanvas.toDataURL('image/jpeg', 0.85)
-              const pageImgHeight = (pageHeightActual * imgWidth) / finalCanvas.width
-              
-              // Add to PDF
-              pdf.addImage(pageImgData, 'JPEG', 0, 0, imgWidth, pageImgHeight)
-              
-              // Move to next page
-              currentY = pageEndYpxFinal
-              
-              if (currentY < finalCanvas.height) {
-                pdf.addPage()
+              try {
+                pageCtx.drawImage(
+                  finalCanvas,
+                  0, Math.floor(pageStartYpx), // Source: start at currentY (ensure integer)
+                  finalCanvas.width, Math.ceil(pageHeightActual), // Source: width and height
+                  0, 0, // Destination: start at top-left
+                  pageCanvas.width, pageCanvas.height // Destination: same size
+                )
+                
+                // Trust that if we're drawing from a valid canvas position, there's content
+                // Worksheets are mostly white with text, so we'll include all pages
+                // Only skip if this is clearly beyond the content area
+                const isWithinContent = pageStartYpx < finalCanvas.height && pageStartYpx >= 0
+                
+                // Only add page if it's within content bounds
+                if (isWithinContent) {
+                  let pageImgData: string
+                  try {
+                    pageImgData = pageCanvas.toDataURL('image/jpeg', 0.85)
+                  } catch (e) {
+                    pageImgData = pageCanvas.toDataURL('image/png')
+                  }
+                  
+                  if (pageImgData && pageImgData !== 'data:,') {
+                    const pageImgHeight = (pageCanvas.height * imgWidth) / finalCanvas.width
+                    
+                    if (pageImgHeight > 0 && isFinite(pageImgHeight)) {
+                      // Determine image format
+                      const imageFormat = pageImgData.startsWith('data:image/jpeg') ? 'JPEG' : 'PNG'
+                      
+                      // Add to PDF
+                      pdf.addImage(pageImgData, imageFormat, 0, 0, imgWidth, pageImgHeight)
+                      
+                      // Move to next page
+                      currentY = pageEndYpxFinal
+                      
+                      if (currentY < finalCanvas.height) {
+                        pdf.addPage()
+                      }
+                    } else {
+                      console.warn('Invalid page image height, skipping page')
+                      break
+                    }
+                  } else {
+                    console.warn('Failed to generate page image data, skipping page')
+                    break
+                  }
+                } else {
+                  // Outside content bounds, break
+                  console.warn('Page outside content bounds, breaking')
+                  break
+                }
+              } catch (drawError) {
+                console.error('Error drawing page canvas:', drawError)
+                break
               }
             } else {
               // Fallback: if canvas context fails, break
-              console.error('Failed to get canvas context for page chunk')
+              console.error('Failed to get canvas context for page chunk or invalid dimensions')
               break
             }
           } else {
-            // No height to add, break to avoid infinite loop
+            // No valid height to add, break to avoid infinite loop
+            console.warn('Invalid page dimensions, breaking:', { pageHeightActual, pageStartYpx, canvasHeight: finalCanvas.height })
             break
           }
           
