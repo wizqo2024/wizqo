@@ -1704,33 +1704,180 @@ export function PrintablesPage() {
     return () => window.removeEventListener('scroll', handleScroll)
   }, [doc])
 
-  // PDF download function - uses browser print dialog (same as print button)
-  // This ensures consistent behavior and avoids blank page issues
-  const downloadPDF = React.useCallback(() => {
+  // PDF download function - generates and downloads PDF automatically
+  const downloadPDF = React.useCallback(async () => {
+    let wrapperElement: HTMLElement | null = null
+    let wrapperOriginalStyle: { width: string; maxWidth: string; margin: string; padding: string } | null = null
+    
     try {
       setIsDownloadingPDF(true)
-      // Use browser's print dialog - user can select "Save as PDF"
-      // This matches the print button behavior exactly
-      window.print()
+      
+      // Import jsPDF and html2canvas dynamically
+      const [{ default: jsPDF }, html2canvas] = await Promise.all([
+        import('jspdf'),
+        import('html2canvas').then(m => m.default || m)
+      ])
+      
+      // Wait for content to be fully rendered
+      await new Promise(resolve => setTimeout(resolve, 500))
+      
+      // Find the content element - use the same selector that print uses
+      let contentElement: HTMLElement | null = document.querySelector('[data-worksheet-content="true"]') as HTMLElement
+      
+      if (!contentElement || contentElement.offsetHeight === 0) {
+        contentElement = document.querySelector('.min-h-screen.bg-white') as HTMLElement
+      }
+      
+      if (!contentElement || contentElement.offsetHeight === 0) {
+        contentElement = document.body
+      }
+      
+      if (!contentElement || contentElement.offsetHeight === 0) {
+        throw new Error('Could not find content to download')
+      }
+      
+      // Apply print styles temporarily
+      const originalBodyClass = document.body.className
+      document.body.classList.add('pdf-export-mode')
+      
+      // Show print-only elements
+      const allElements = document.querySelectorAll('*')
+      const hiddenElements: Array<{ element: HTMLElement; originalDisplay: string }> = []
+      
+      allElements.forEach((el) => {
+        const htmlEl = el as HTMLElement
+        const classList = Array.from(htmlEl.classList)
+        const hasPrintBlock = classList.some(cls => cls.includes('print:block'))
+        
+        if (hasPrintBlock) {
+          const computedStyle = window.getComputedStyle(htmlEl)
+          if (computedStyle.display === 'none') {
+            hiddenElements.push({
+              element: htmlEl,
+              originalDisplay: htmlEl.style.display || ''
+            })
+            htmlEl.style.display = 'block'
+          }
+        }
+      })
+      
+      // Wait for styles to apply
+      await new Promise(resolve => setTimeout(resolve, 300))
+      
+      // Capture the content
+      const canvas = await html2canvas(contentElement, {
+        scale: 2,
+        useCORS: true,
+        logging: false,
+        backgroundColor: '#ffffff',
+        allowTaint: false,
+        onclone: (clonedDoc) => {
+          // Show print elements in cloned document
+          const allClonedElements = clonedDoc.querySelectorAll('*')
+          allClonedElements.forEach((el) => {
+            const htmlEl = el as HTMLElement
+            const classList = Array.from(htmlEl.classList)
+            if (classList.some(cls => cls.includes('print:block'))) {
+              htmlEl.style.display = 'block'
+              htmlEl.style.visibility = 'visible'
+            }
+            // Hide print:hidden elements
+            if (classList.some(cls => cls.includes('print:hidden'))) {
+              htmlEl.style.display = 'none'
+            }
+          })
+        }
+      })
+      
+      // Restore original styles
+      document.body.className = originalBodyClass
+      hiddenElements.forEach(({ element, originalDisplay }) => {
+        element.style.display = originalDisplay
+      })
+      
+      // Validate canvas
+      if (!canvas || canvas.width === 0 || canvas.height === 0) {
+        throw new Error('Failed to capture content')
+      }
+      
+      // Create PDF
+      const imgWidth = 210 // A4 width in mm
+      const pageHeight = 297 // A4 height in mm
+      const imgHeight = (canvas.height * imgWidth) / canvas.width
+      
+      const imgData = canvas.toDataURL('image/jpeg', 0.9)
+      const pdf = new jsPDF('p', 'mm', 'a4')
+      
+      if (imgHeight <= pageHeight) {
+        // Single page
+        pdf.addImage(imgData, 'JPEG', 0, 0, imgWidth, imgHeight)
+      } else {
+        // Multiple pages - split canvas
+        const pixelsPerMm = canvas.width / imgWidth
+        const pageHeightPx = pageHeight * pixelsPerMm
+        let currentY = 0
+        
+        while (currentY < canvas.height) {
+          const pageEndY = Math.min(currentY + pageHeightPx, canvas.height)
+          const pageHeightActual = pageEndY - currentY
+          
+          // Create page canvas
+          const pageCanvas = document.createElement('canvas')
+          pageCanvas.width = canvas.width
+          pageCanvas.height = pageHeightActual
+          const pageCtx = pageCanvas.getContext('2d')
+          
+          if (pageCtx) {
+            // Fill white background
+            pageCtx.fillStyle = '#ffffff'
+            pageCtx.fillRect(0, 0, pageCanvas.width, pageCanvas.height)
+            
+            // Draw portion of original canvas
+            pageCtx.drawImage(
+              canvas,
+              0, currentY,
+              canvas.width, pageHeightActual,
+              0, 0,
+              pageCanvas.width, pageCanvas.height
+            )
+            
+            const pageImgData = pageCanvas.toDataURL('image/jpeg', 0.9)
+            const pageImgHeight = (pageHeightActual * imgWidth) / canvas.width
+            
+            pdf.addImage(pageImgData, 'JPEG', 0, 0, imgWidth, pageImgHeight)
+            
+            currentY = pageEndY
+            if (currentY < canvas.height) {
+              pdf.addPage()
+            }
+          } else {
+            break
+          }
+        }
+      }
+      
+      // Generate filename and download
+      const filename = docTitle 
+        ? `${docTitle.replace(/[^a-z0-9]/gi, '_').toLowerCase()}.pdf`
+        : `worksheet_${doc || 'download'}.pdf`
+      
+      pdf.save(filename)
       
       // Track download
       if (doc && primaryDoc) {
         const from = params.get('from') || 'unknown'
         const grade = from.includes('grade') ? from.replace('-grade', '') : undefined
         trackWorksheetDownload(primaryDoc, docTitle, from, grade)
-        trackPrintDialog(primaryDoc, from)
       }
       
-      // Reset state after a delay
-      setTimeout(() => {
-        setIsDownloadingPDF(false)
-      }, 1000)
     } catch (error) {
       console.error('PDF download failed:', error)
-      alert('Failed to open print dialog. Please try using the Print button instead.')
+      // Fallback to print dialog if PDF generation fails
+      window.print()
+    } finally {
       setIsDownloadingPDF(false)
     }
-  }, [doc, primaryDoc, docTitle, params])
+  }, [doc, primaryDoc, docTitle, params, showAnswers])
 
   // OLD PDF download function - kept for reference but not used
   // This was causing blank pages, so we now use browser print dialog instead
@@ -2843,26 +2990,14 @@ export function PrintablesPage() {
   }, [showAnswers, doc, primaryDoc, docTitle, params, autoDownload])
 
   // Auto-download PDF when download=1 parameter is present
-  // Uses browser print dialog (same as print button) for consistent behavior
   React.useEffect(() => {
     if (!autoDownload) return
     // Defer a bit to let the view render fully
     const t = setTimeout(() => {
-      try {
-        window.print()
-        // Track auto-download
-        if (doc && primaryDoc) {
-          const from = params.get('from') || 'unknown'
-          const grade = from.includes('grade') ? from.replace('-grade', '') : undefined
-          trackWorksheetDownload(primaryDoc, docTitle, from, grade)
-          trackPrintDialog(primaryDoc, from)
-        }
-      } catch (e) {
-        console.error('Auto-download failed:', e)
-      }
+      downloadPDF()
     }, 1200)
     return () => clearTimeout(t)
-  }, [autoDownload, doc, primaryDoc, docTitle, params])
+  }, [autoDownload, downloadPDF])
 
   // Auto-open browser print dialog when requested (e.g., from "Download PDF" links)
   React.useEffect(() => {
