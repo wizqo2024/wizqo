@@ -1077,40 +1077,30 @@ export function InteractiveWorksheetsPage() {
   // The PrintablesPage component will detect download=1 and trigger download
   const handleDownload = React.useCallback((item: InteractiveWorksheetItem) => {
     const baseUrl = getSingleWorksheetPrintUrl(item.docId)
-    if (!baseUrl) return
+    if (!baseUrl) {
+      console.error('No print URL available for worksheet:', item.docId)
+      return
+    }
     
     // Build URL with download=1 parameter (no autoprint to avoid print dialog)
     const url = new URL(baseUrl, window.location.origin)
     url.searchParams.set('download', '1')
     url.searchParams.delete('autoprint') // Ensure autoprint doesn't interfere
     
-    // Use iframe approach to trigger PDF download in background
+    // Open in a new window/tab to trigger PDF download
     // The PrintablesPage will detect download=1 and generate PDF automatically
-    const iframe = document.createElement('iframe')
-    iframe.style.display = 'none'
-    iframe.style.width = '0'
-    iframe.style.height = '0'
-    iframe.style.position = 'fixed'
-    iframe.style.left = '-9999px'
-    iframe.style.top = '-9999px'
-    iframe.style.border = 'none'
-    iframe.style.visibility = 'hidden'
-    iframe.src = url.toString()
+    // The window will close automatically after PDF is downloaded
+    const downloadWindow = window.open(url.toString(), '_blank', 'noopener,noreferrer')
     
-    // Add iframe to body
-    document.body.appendChild(iframe)
+    // Track the download attempt
+    const worksheet = pack?.items.find(w => w.docId === item.docId)
+    if (worksheet) {
+      trackWorksheetDownload(item.docId, worksheet.title, 'interactive-worksheets-generator', filters.grade)
+    }
     
-    // Clean up iframe after sufficient time for PDF generation
-    setTimeout(() => {
-      try {
-        if (iframe.parentNode) {
-          document.body.removeChild(iframe)
-        }
-      } catch (e) {
-        // Ignore cleanup errors
-      }
-    }, 20000) // Give enough time for PDF generation and download
-  }, [getSingleWorksheetPrintUrl])
+    // Note: The window will close automatically after PDF download completes
+    // (handled by PrintablesPage when download=1 is detected)
+  }, [getSingleWorksheetPrintUrl, pack, filters.grade])
 
   // Preview handler - opens modal/popup (kept for potential future use)
   const handlePreview = React.useCallback((item: InteractiveWorksheetItem) => {
