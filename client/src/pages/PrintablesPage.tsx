@@ -1885,74 +1885,66 @@ export function PrintablesPage() {
               clonedBody.style.marginBottom = '0'
             }
             
-            // Hide all elements with print:hidden class (header buttons, navigation, etc.)
-            // Tailwind generates classes like "print:hidden" which need special handling
-            const allElementsForPrint = clonedDoc.querySelectorAll('*')
-            allElementsForPrint.forEach((el) => {
+            // Helper function to safely get className as string
+            const getClassName = (el: HTMLElement): string => {
               try {
-                const htmlEl = el as HTMLElement
-                // Handle className which can be string, DOMTokenList, or SVGAnimatedString
-                let classNameStr = ''
-                if (typeof htmlEl.className === 'string') {
-                  classNameStr = htmlEl.className
-                } else if (htmlEl.className && typeof htmlEl.className === 'object' && 'baseVal' in htmlEl.className) {
-                  // SVGAnimatedString
-                  classNameStr = (htmlEl.className as any).baseVal || ''
-                } else if (htmlEl.className && typeof htmlEl.className === 'object' && 'value' in htmlEl.className) {
-                  // DOMTokenList or similar
-                  classNameStr = String((htmlEl.className as any).value || '')
-                } else if (htmlEl.className && typeof htmlEl.className.toString === 'function') {
-                  classNameStr = htmlEl.className.toString()
-                }
-                
-                // Check if element has print:hidden class (Tailwind format)
-                if (classNameStr && (classNameStr.includes('print:hidden') || classNameStr.includes('print\\:hidden'))) {
-                  htmlEl.style.display = 'none'
-                  htmlEl.style.visibility = 'hidden'
-                  htmlEl.style.opacity = '0'
-                  htmlEl.style.height = '0'
-                  htmlEl.style.width = '0'
-                  htmlEl.style.overflow = 'hidden'
+                if (typeof el.className === 'string') {
+                  return el.className
+                } else if (el.className && typeof el.className === 'object') {
+                  if ('baseVal' in el.className) {
+                    return (el.className as any).baseVal || ''
+                  } else if ('value' in el.className) {
+                    return String((el.className as any).value || '')
+                  } else if (typeof el.className.toString === 'function') {
+                    return el.className.toString()
+                  }
                 }
               } catch (e) {
-                // Skip elements that cause errors
-                console.warn('Error processing element for PDF:', e)
+                // Ignore errors
               }
-            })
+              return ''
+            }
             
-            // Also hide elements that contain specific text/classes that indicate they're UI elements
+            // Hide specific UI elements by targeting them more precisely
+            // Only hide elements that are clearly UI/navigation, not content
             const allElements = clonedDoc.querySelectorAll('*')
             allElements.forEach((el) => {
               try {
                 const htmlEl = el as HTMLElement
-                // Handle className safely
-                let classNameStr = ''
-                if (typeof htmlEl.className === 'string') {
-                  classNameStr = htmlEl.className
-                } else if (htmlEl.className && typeof htmlEl.className === 'object') {
-                  if ('baseVal' in htmlEl.className) {
-                    classNameStr = (htmlEl.className as any).baseVal || ''
-                  } else if ('value' in htmlEl.className) {
-                    classNameStr = String((htmlEl.className as any).value || '')
-                  } else if (typeof htmlEl.className.toString === 'function') {
-                    classNameStr = htmlEl.className.toString()
+                const classNameStr = getClassName(htmlEl)
+                const textContent = (htmlEl.textContent || '').trim()
+                const tagName = htmlEl.tagName?.toLowerCase() || ''
+                
+                // Skip if this is likely content (sections, divs with worksheet content)
+                if (tagName === 'section' || classNameStr.includes('worksheet') || classNameStr.includes('break-inside-avoid')) {
+                  return
+                }
+                
+                // Hide elements with print:hidden class (but be careful not to hide content)
+                if (classNameStr && (classNameStr.includes('print:hidden') || classNameStr.includes('print\\:hidden'))) {
+                  // Only hide if it's clearly a UI element (button, link, header, etc.)
+                  if (tagName === 'button' || tagName === 'a' || classNameStr.includes('mb-4') || classNameStr.includes('header') || classNameStr.includes('border-b')) {
+                    htmlEl.style.display = 'none'
                   }
                 }
-                const textContent = (htmlEl.textContent || '').trim()
                 
-                // Hide back link section
-                if (textContent.includes('Back to') || (classNameStr && classNameStr.includes('mb-4 print:hidden'))) {
+                // Hide back link section (the div containing "Back to" link)
+                if (classNameStr && classNameStr.includes('mb-4 print:hidden') && htmlEl.querySelector('a[href*="back"]')) {
                   htmlEl.style.display = 'none'
                 }
                 
-                // Hide header with buttons
-                if (classNameStr && classNameStr.includes('border-b border-slate-200') && htmlEl.querySelector('button, a[href*="pin"]')) {
-                  htmlEl.style.display = 'none'
+                // Hide header with buttons (but not if it contains worksheet sections)
+                if (tagName === 'header' || (classNameStr && classNameStr.includes('border-b border-slate-200'))) {
+                  if (htmlEl.querySelector('button, a[href*="pin"]') && !htmlEl.querySelector('section')) {
+                    htmlEl.style.display = 'none'
+                  }
                 }
                 
-                // Hide specific buttons by text content
-                if (textContent.includes('Download PDF') || textContent.includes('Pin this') || textContent.includes('Show answers') || textContent.includes('Hide answers')) {
-                  htmlEl.style.display = 'none'
+                // Hide specific buttons by text content (but only if they're buttons/links)
+                if (tagName === 'button' || tagName === 'a') {
+                  if (textContent.includes('Download PDF') || textContent.includes('Pin this') || textContent.includes('Show answers') || textContent.includes('Hide answers') || textContent.includes('Print')) {
+                    htmlEl.style.display = 'none'
+                  }
                 }
               } catch (e) {
                 // Skip elements that cause errors
