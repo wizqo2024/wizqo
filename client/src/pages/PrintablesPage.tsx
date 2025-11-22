@@ -2243,57 +2243,50 @@ export function PrintablesPage() {
       let cropTopPx = 0
       const contentRect = actualContentElement.getBoundingClientRect()
       
-      // Priority: customization header > name/grade header > first section
-      // If there's a customization header, start from it (but don't crop it)
-      if (customizationHeader) {
-        const headerRect = customizationHeader.getBoundingClientRect()
-        const headerTop = headerRect.top - contentRect.top
-        // Only crop if there's space above the header (navigation, etc.)
-        if (headerTop > 30) {
-          cropTopPx = headerTop - 10 // Small margin above header
-        }
-      } else if (nameGradeHeader) {
-        // If there's a name/grade header, start from it
-        const headerRect = nameGradeHeader.getBoundingClientRect()
-        const headerTop = headerRect.top - contentRect.top
-        // Only crop if there's space above the header
-        if (headerTop > 30) {
-          cropTopPx = headerTop - 10
-        }
-      } else {
-        // Only crop if there's truly blank space (like navigation)
-        // Find first visible content element
-        const firstSection = actualContentElement.querySelector('section.break-inside-avoid, section[class*="worksheet"], .worksheet-section')
-        if (firstSection) {
-          const firstRect = firstSection.getBoundingClientRect()
-          const topOffset = firstRect.top - contentRect.top
-          // Only crop if there's significant blank space (more than 80px)
-          // This prevents cropping when content starts near the top
-          if (topOffset > 80) {
-            cropTopPx = topOffset - 20 // Leave small margin
+      // Check if there's significant blank space at the top (navigation, etc.)
+      // Only crop if we can identify clear blank space without removing content
+      const firstVisibleElement = actualContentElement.querySelector('section, .print-customization-header, [class*="worksheet"]')
+      
+      if (firstVisibleElement) {
+        const firstRect = firstVisibleElement.getBoundingClientRect()
+        const topOffset = firstRect.top - contentRect.top
+        
+        // Only crop if:
+        // 1. There's significant space (more than 60px suggests navigation/blank space)
+        // 2. AND we have a header that should be preserved
+        // 3. OR there's a lot of space (more than 120px) which is definitely blank
+        if (topOffset > 120) {
+          // Large blank space - safe to crop most of it
+          cropTopPx = topOffset - 30 // Leave 30px margin
+        } else if ((customizationHeader || nameGradeHeader) && topOffset > 60) {
+          // We have a header and some space above - crop carefully
+          if (customizationHeader) {
+            const headerRect = customizationHeader.getBoundingClientRect()
+            const headerTop = headerRect.top - contentRect.top
+            if (headerTop > 0 && headerTop < 50) {
+              // Header is near top, don't crop much
+              cropTopPx = Math.max(0, headerTop - 5)
+            }
+          } else if (nameGradeHeader) {
+            const headerRect = nameGradeHeader.getBoundingClientRect()
+            const headerTop = headerRect.top - contentRect.top
+            if (headerTop > 0 && headerTop < 50) {
+              // Header is near top, don't crop much
+              cropTopPx = Math.max(0, headerTop - 5)
+            }
           }
         }
       }
       
-      // Don't crop if crop amount is too small (would remove important content)
-      // Or if it would crop too much (more than 100px suggests we're cropping content)
-      if (cropTopPx < 20 || cropTopPx > 100) {
+      // Safety: Don't crop if it's too small (not worth it) or too large (would remove content)
+      // Also, if content starts very close to top (< 40px), don't crop at all
+      if (cropTopPx < 10 || cropTopPx > 150) {
         cropTopPx = 0
       }
       
-      // Use original canvas if no cropping needed, otherwise crop
-      let finalCanvas = canvas
-      if (cropTopPx > 0) {
-        const cropTop = Math.floor(cropTopPx * scale)
-        const croppedCanvas = document.createElement('canvas')
-        const croppedCtx = croppedCanvas.getContext('2d')
-        if (!croppedCtx) throw new Error('Failed to get canvas context')
-        
-        croppedCanvas.width = canvas.width
-        croppedCanvas.height = canvas.height - cropTop
-        croppedCtx.drawImage(canvas, 0, cropTop, canvas.width, canvas.height - cropTop, 0, 0, canvas.width, canvas.height - cropTop)
-        finalCanvas = croppedCanvas
-      }
+      // Use original canvas - don't crop to avoid blank first page issues
+      // Instead, we'll handle spacing in the PDF layout
+      const finalCanvas = canvas
       
       // Calculate PDF dimensions using final canvas
       const imgWidth = 210 // A4 width in mm
@@ -2315,8 +2308,8 @@ export function PrintablesPage() {
           const rect = (section as HTMLElement).getBoundingClientRect()
           const containerRect = actualContentElement.getBoundingClientRect()
           // Calculate position in PDF coordinates (mm) - convert from pixels to mm
-          // Adjust for cropped top space (if any)
-          const topPx = Math.max(0, (rect.top - containerRect.top) - cropTopPx)
+          // No cropping adjustment needed since we're using original canvas
+          const topPx = rect.top - containerRect.top
           const heightPx = rect.height
           const top = (topPx * imgWidth) / printWidth
           const height = (heightPx * imgWidth) / printWidth
