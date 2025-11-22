@@ -2271,32 +2271,6 @@ export function PrintablesPage() {
                 </button>
               </div>
             )}
-            <div className="print:hidden">
-              <button
-                onClick={() => {
-                  const from = params.get('from') || 'unknown'
-                  const grade = from.includes('grade') ? from.replace('-grade', '') : 
-                                from.includes('kindergarten') ? 'kindergarten' :
-                                from.includes('multiplication') ? 'multiplication' :
-                                from.includes('reading') ? 'reading' : undefined
-                  trackPrintDialog(primaryDoc, from)
-                  trackWorksheetDownload(primaryDoc, docTitle, from, grade)
-                  // Wait for language to be fully applied before printing
-                  // This ensures the worksheet content is rendered in the correct language
-                  setTimeout(() => {
-                    window.print()
-                  }, 100)
-                }}
-                className="inline-flex items-center gap-2 px-3 py-1.5 rounded-lg border text-sm shadow-sm focus:outline-none focus:ring-2 focus:ring-purple-400 focus:ring-offset-1 bg-purple-600 hover:bg-purple-700 text-white border-purple-600"
-                title={t('pages.printables.downloadAsPDFTitle')}
-                aria-label={t('pages.printables.downloadAsPDFAria')}
-              >
-                <svg className="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
-                </svg>
-                {t('pages.printables.downloadPDF')}
-              </button>
-            </div>
             <div className="print:block">
               <WizqoLogo className="w-20 h-auto opacity-80" />
             </div>
@@ -10201,22 +10175,6 @@ export function PrintablesPage() {
             ]}
           >
             <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-orange-400 to-yellow-400 animate-gradient-x mb-2" />
-            <div className="mb-3 print:hidden">
-              <button
-                onClick={() => {
-                  try {
-                    // Fallback: open print; most browsers offer Save as PDF
-                    window.print();
-                  } catch {}
-                }}
-                className="inline-flex items-center gap-2 px-3 py-2 rounded-lg border border-slate-200 text-slate-700 hover:bg-slate-50 text-sm"
-                aria-label={t('pages.printables.downloadAsPDFAria')}
-                title={t('pages.printables.downloadAsPDFTitle')}
-              >
-                <span>⬇️</span>
-                <span>{t('pages.printables.downloadPDF')}</span>
-              </button>
-            </div>
             <div className="grid sm:grid-cols-2 gap-6">
               <div className="border border-slate-300 rounded p-4 bg-white">
                 {/* Lion */}
