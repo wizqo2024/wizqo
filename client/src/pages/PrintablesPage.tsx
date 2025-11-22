@@ -1889,40 +1889,74 @@ export function PrintablesPage() {
             // Tailwind generates classes like "print:hidden" which need special handling
             const allElementsForPrint = clonedDoc.querySelectorAll('*')
             allElementsForPrint.forEach((el) => {
-              const htmlEl = el as HTMLElement
-              const className = htmlEl.className || ''
-              
-              // Check if element has print:hidden class (Tailwind format)
-              if (typeof className === 'string' && (className.includes('print:hidden') || className.includes('print\\:hidden'))) {
-                htmlEl.style.display = 'none'
-                htmlEl.style.visibility = 'hidden'
-                htmlEl.style.opacity = '0'
-                htmlEl.style.height = '0'
-                htmlEl.style.width = '0'
-                htmlEl.style.overflow = 'hidden'
+              try {
+                const htmlEl = el as HTMLElement
+                // Handle className which can be string, DOMTokenList, or SVGAnimatedString
+                let classNameStr = ''
+                if (typeof htmlEl.className === 'string') {
+                  classNameStr = htmlEl.className
+                } else if (htmlEl.className && typeof htmlEl.className === 'object' && 'baseVal' in htmlEl.className) {
+                  // SVGAnimatedString
+                  classNameStr = (htmlEl.className as any).baseVal || ''
+                } else if (htmlEl.className && typeof htmlEl.className === 'object' && 'value' in htmlEl.className) {
+                  // DOMTokenList or similar
+                  classNameStr = String((htmlEl.className as any).value || '')
+                } else if (htmlEl.className && typeof htmlEl.className.toString === 'function') {
+                  classNameStr = htmlEl.className.toString()
+                }
+                
+                // Check if element has print:hidden class (Tailwind format)
+                if (classNameStr && (classNameStr.includes('print:hidden') || classNameStr.includes('print\\:hidden'))) {
+                  htmlEl.style.display = 'none'
+                  htmlEl.style.visibility = 'hidden'
+                  htmlEl.style.opacity = '0'
+                  htmlEl.style.height = '0'
+                  htmlEl.style.width = '0'
+                  htmlEl.style.overflow = 'hidden'
+                }
+              } catch (e) {
+                // Skip elements that cause errors
+                console.warn('Error processing element for PDF:', e)
               }
             })
             
             // Also hide elements that contain specific text/classes that indicate they're UI elements
             const allElements = clonedDoc.querySelectorAll('*')
             allElements.forEach((el) => {
-              const htmlEl = el as HTMLElement
-              const className = htmlEl.className || ''
-              const textContent = htmlEl.textContent || ''
-              
-              // Hide back link section
-              if (textContent.includes('Back to') || className.includes('mb-4 print:hidden')) {
-                htmlEl.style.display = 'none'
-              }
-              
-              // Hide header with buttons
-              if (className.includes('border-b border-slate-200') && htmlEl.querySelector('button, a[href*="pin"]')) {
-                htmlEl.style.display = 'none'
-              }
-              
-              // Hide specific buttons by text content
-              if (textContent.includes('Download PDF') || textContent.includes('Pin this') || textContent.includes('Show answers') || textContent.includes('Hide answers')) {
-                htmlEl.style.display = 'none'
+              try {
+                const htmlEl = el as HTMLElement
+                // Handle className safely
+                let classNameStr = ''
+                if (typeof htmlEl.className === 'string') {
+                  classNameStr = htmlEl.className
+                } else if (htmlEl.className && typeof htmlEl.className === 'object') {
+                  if ('baseVal' in htmlEl.className) {
+                    classNameStr = (htmlEl.className as any).baseVal || ''
+                  } else if ('value' in htmlEl.className) {
+                    classNameStr = String((htmlEl.className as any).value || '')
+                  } else if (typeof htmlEl.className.toString === 'function') {
+                    classNameStr = htmlEl.className.toString()
+                  }
+                }
+                const textContent = (htmlEl.textContent || '').trim()
+                
+                // Hide back link section
+                if (textContent.includes('Back to') || (classNameStr && classNameStr.includes('mb-4 print:hidden'))) {
+                  htmlEl.style.display = 'none'
+                }
+                
+                // Hide header with buttons
+                if (classNameStr && classNameStr.includes('border-b border-slate-200') && htmlEl.querySelector('button, a[href*="pin"]')) {
+                  htmlEl.style.display = 'none'
+                }
+                
+                // Hide specific buttons by text content
+                if (textContent.includes('Download PDF') || textContent.includes('Pin this') || textContent.includes('Show answers') || textContent.includes('Hide answers')) {
+                  htmlEl.style.display = 'none'
+                }
+              } catch (e) {
+                // Skip elements that cause errors
+                console.warn('Error processing element for PDF:', e)
               }
             })
           }
