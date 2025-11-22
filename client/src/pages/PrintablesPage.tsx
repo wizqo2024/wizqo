@@ -1872,13 +1872,29 @@ export function PrintablesPage() {
         }
       }
       
-      // Find the first visible content element to determine where content actually starts
-      const firstContent = actualContentElement.querySelector('.print-customization-header, section.break-inside-avoid, section[class*="worksheet"], .worksheet-section, [class*="print:block hidden"]')
+      // Find the first actual worksheet content element (skip UI elements like tips, navigation)
+      // Priority: customization header > first worksheet section > first section
+      let firstContent: HTMLElement | null = null
+      const customizationHeader = actualContentElement.querySelector('.print-customization-header')
+      if (customizationHeader) {
+        firstContent = customizationHeader as HTMLElement
+      } else {
+        // Find first worksheet section, not UI elements
+        const firstSection = actualContentElement.querySelector('section.break-inside-avoid, section[class*="worksheet"], .worksheet-section')
+        if (firstSection) {
+          firstContent = firstSection as HTMLElement
+        }
+      }
+      
       let contentStartY = 0
       if (firstContent) {
         const firstRect = firstContent.getBoundingClientRect()
         const containerRect = actualContentElement.getBoundingClientRect()
         contentStartY = Math.max(0, firstRect.top - containerRect.top)
+        // If content starts very close to top (< 20px), don't offset (might be actual content)
+        if (contentStartY < 20) {
+          contentStartY = 0
+        }
       }
       
       // Calculate actual content bounds
@@ -1899,10 +1915,7 @@ export function PrintablesPage() {
         }
       }
       
-      // Adjust content height to exclude blank space at top
-      if (contentStartY > 0) {
-        contentHeight = contentHeight - contentStartY + 10 // Add small buffer
-      }
+      // Don't adjust content height - capture full element, CSS will handle spacing
       
       // Apply print styles before capturing to match browser "Save as PDF" layout
       // Store original styles to restore later
@@ -2030,7 +2043,8 @@ export function PrintablesPage() {
         windowWidth: printWidth,
         windowHeight: contentHeight,
         removeContainer: false,
-        scrollY: -contentStartY, // Start capture from first content, not top of container
+        // Don't use scrollY - it can cause issues. Instead, capture from top and let CSS handle spacing
+        scrollY: 0,
         scrollX: 0,
         onclone: (clonedDoc) => {
           // Apply print styles to the cloned document
@@ -2189,24 +2203,20 @@ export function PrintablesPage() {
                 return
               }
               
-              // Hide elements with print:hidden class (but be careful not to hide content)
+              // Hide ALL elements with print:hidden class (these are UI elements, not content)
               if (classNameStr && (classNameStr.includes('print:hidden') || classNameStr.includes('print\\:hidden'))) {
-                // Only hide if it's clearly a UI element (button, link, header, etc.)
-                if (tagName === 'button' || tagName === 'a' || classNameStr.includes('mb-4') || classNameStr.includes('header') || classNameStr.includes('border-b')) {
-                  htmlEl.style.display = 'none'
-                }
+                htmlEl.style.display = 'none'
+                htmlEl.style.visibility = 'hidden'
               }
               
-              // Hide back link section (the div containing "Back to" link)
-              if (classNameStr && classNameStr.includes('mb-4 print:hidden') && htmlEl.querySelector('a[href*="back"]')) {
+              // Hide header with print instructions and navigation
+              if (tagName === 'header' || (classNameStr && classNameStr.includes('border-b border-slate-200'))) {
                 htmlEl.style.display = 'none'
               }
               
-              // Hide header with buttons (but not if it contains worksheet sections)
-              if (tagName === 'header' || (classNameStr && classNameStr.includes('border-b border-slate-200'))) {
-                if (htmlEl.querySelector('button, a[href*="pin"]') && !htmlEl.querySelector('section')) {
-                  htmlEl.style.display = 'none'
-                }
+              // Hide any div containing print instructions or navigation
+              if (textContent.includes('Tip: Use your browser menu') || textContent.includes('Print → Save as PDF')) {
+                htmlEl.style.display = 'none'
               }
               
               // Hide specific buttons by text content (but only if they're buttons/links)
