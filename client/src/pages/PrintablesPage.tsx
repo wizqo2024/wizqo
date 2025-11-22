@@ -2105,9 +2105,9 @@ export function PrintablesPage() {
             </div>
           </div>
         )}
-        {/* Doc-specific back link is above header; sections appear below header */}
+        {/* Doc-specific back link and download button */}
         {!isPreview && (
-        <div className="mb-4 print:hidden flex justify-end">
+        <div className="mb-4 print:hidden flex justify-between items-center">
           <a
             href={(() => {
               try {
