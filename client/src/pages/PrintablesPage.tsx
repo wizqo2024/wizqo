@@ -1714,37 +1714,59 @@ export function PrintablesPage() {
         // Wait for content to render with retry mechanism
         let contentElement: HTMLElement | null = null
         let attempts = 0
-        const maxAttempts = 10
+        const maxAttempts = 15
         
-        while (!contentElement && attempts < maxAttempts) {
-          // Wait before each attempt
-          await new Promise(resolve => setTimeout(resolve, 500))
+        const findContentElement = (): HTMLElement | null => {
+          // Try data attribute first (most reliable)
+          let el = document.querySelector('[data-worksheet-content="true"]') as HTMLElement
+          if (el && el.offsetHeight > 0) return el
           
-          // Try multiple selectors to find the content
-          contentElement = document.querySelector('.min-h-screen.bg-white') as HTMLElement
+          // Try primary selector
+          el = document.querySelector('.min-h-screen.bg-white') as HTMLElement
+          if (el && el.offsetHeight > 0) return el
           
-          if (!contentElement) {
-            // Try finding by worksheet content classes
-            contentElement = document.querySelector('[class*="worksheet"]') as HTMLElement ||
-                            document.querySelector('[class*="bundle"]') as HTMLElement ||
-                            document.querySelector('main') as HTMLElement
-          }
-          
-          if (!contentElement) {
-            // Try finding the root container
-            contentElement = document.querySelector('#root > div') as HTMLElement ||
-                            document.body.querySelector('div[class*="min-h"]') as HTMLElement
-          }
-          
-          if (!contentElement) {
-            // Last resort: use body but check if it has content
-            const body = document.body
-            if (body && body.children.length > 0 && body.offsetHeight > 100) {
-              contentElement = body
+          // Try finding any div with min-h-screen class
+          const allDivs = document.querySelectorAll('div')
+          for (const div of Array.from(allDivs)) {
+            if (div.classList.contains('min-h-screen') && div.classList.contains('bg-white')) {
+              if (div.offsetHeight > 0) return div as HTMLElement
             }
           }
           
-          // Check if element is actually rendered
+          // Try finding div with min-h class
+          for (const div of Array.from(allDivs)) {
+            if (div.className.includes('min-h-screen') && div.className.includes('bg-white')) {
+              if (div.offsetHeight > 0) return div as HTMLElement
+            }
+          }
+          
+          // Try root div
+          el = document.querySelector('#root > div') as HTMLElement
+          if (el && el.offsetHeight > 0) return el
+          
+          // Try any div that's the first child of body or root
+          const root = document.getElementById('root') || document.body
+          if (root && root.firstElementChild) {
+            el = root.firstElementChild as HTMLElement
+            if (el && el.offsetHeight > 0) return el
+          }
+          
+          // Try body if it has substantial content
+          const body = document.body
+          if (body && body.children.length > 0 && body.offsetHeight > 100) {
+            return body
+          }
+          
+          return null
+        }
+        
+        while (!contentElement && attempts < maxAttempts) {
+          // Wait before each attempt (longer wait for first few attempts)
+          const waitTime = attempts < 3 ? 1000 : 500
+          await new Promise(resolve => setTimeout(resolve, waitTime))
+          
+          contentElement = findContentElement()
+          
           if (contentElement && contentElement.offsetHeight > 0 && contentElement.offsetWidth > 0) {
             break
           }
@@ -1754,7 +1776,7 @@ export function PrintablesPage() {
         }
         
         if (!contentElement || contentElement.offsetHeight === 0) {
-          console.error('Content element not found or not rendered after', attempts, 'attempts')
+          console.error('Content element not found or not rendered after', attempts, 'attempts. Document readyState:', document.readyState, 'Body children:', document.body?.children.length)
           // Don't fall back to print - just return silently for download mode
           return
         }
@@ -1844,7 +1866,7 @@ export function PrintablesPage() {
     } catch {}
   }, [autoPrint, autoDownload, doc, primaryDoc, docTitle, params])
   return (
-    <div className="min-h-screen bg-white">
+    <div className="min-h-screen bg-white" data-worksheet-content="true">
       <style>{`
         @media print {
           @page { 
