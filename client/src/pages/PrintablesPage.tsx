@@ -1706,6 +1706,9 @@ export function PrintablesPage() {
 
   // PDF download function - can be called directly or via auto-download
   const downloadPDF = React.useCallback(async () => {
+    let wrapperElement: HTMLElement | null = null
+    let wrapperOriginalStyle: { width: string; maxWidth: string; margin: string; padding: string } | null = null
+    
     try {
       setIsDownloadingPDF(true)
       
@@ -1888,14 +1891,60 @@ export function PrintablesPage() {
       }
       
       // Apply print styles before capturing to match browser "Save as PDF" layout
-      // Add a class to trigger print media queries
+      // Store original styles to restore later
       const originalBodyClass = document.body.className
+      const originalBodyStyle = {
+        width: document.body.style.width,
+        maxWidth: document.body.style.maxWidth,
+        margin: document.body.style.margin,
+        padding: document.body.style.padding,
+        fontSize: document.body.style.fontSize,
+        lineHeight: document.body.style.lineHeight
+      }
+      
+      // Set body to print-like dimensions (A4 width: 8.27 inches = 794px at 96dpi)
+      // This matches the print layout exactly
       document.body.classList.add('pdf-export-mode')
+      document.body.style.width = '794px'
+      document.body.style.maxWidth = '794px'
+      document.body.style.margin = '0 auto'
+      document.body.style.padding = '0'
+      document.body.style.fontSize = '11pt'
+      document.body.style.lineHeight = '1.3'
+      
+      // Apply print styles to the main content container and wrapper
+      wrapperElement = document.querySelector('.max-w-4xl.mx-auto') as HTMLElement
+      wrapperOriginalStyle = wrapperElement ? {
+        width: wrapperElement.style.width,
+        maxWidth: wrapperElement.style.maxWidth,
+        margin: wrapperElement.style.margin,
+        padding: wrapperElement.style.padding
+      } : null
+      
+      if (wrapperElement) {
+        wrapperElement.style.width = '794px'
+        wrapperElement.style.maxWidth = '794px'
+        wrapperElement.style.margin = '0 auto'
+        wrapperElement.style.padding = '0'
+      }
+      
+      if (contentElement) {
+        const originalContentStyle = {
+          width: (contentElement as HTMLElement).style.width,
+          maxWidth: (contentElement as HTMLElement).style.maxWidth,
+          margin: (contentElement as HTMLElement).style.margin,
+          padding: (contentElement as HTMLElement).style.padding
+        }
+        ;(contentElement as HTMLElement).style.width = '794px'
+        ;(contentElement as HTMLElement).style.maxWidth = '794px'
+        ;(contentElement as HTMLElement).style.margin = '0'
+        ;(contentElement as HTMLElement).style.padding = '0'
+      }
       
       // Show all print-only elements (name, grade, date, etc.)
       // This includes elements with classes like "hidden print:block" or "print:block"
       const allElements = document.querySelectorAll('*')
-      const hiddenElements: Array<{ element: HTMLElement; originalDisplay: string; originalVisibility: string }> = []
+      const hiddenElements: Array<{ element: HTMLElement; originalDisplay: string; originalVisibility: string; originalWidth?: string; originalMaxWidth?: string }> = []
       
       allElements.forEach((el) => {
         const htmlEl = el as HTMLElement
@@ -1912,28 +1961,39 @@ export function PrintablesPage() {
             hiddenElements.push({
               element: htmlEl,
               originalDisplay: htmlEl.style.display || '',
-              originalVisibility: htmlEl.style.visibility || ''
+              originalVisibility: htmlEl.style.visibility || '',
+              originalWidth: htmlEl.style.width || '',
+              originalMaxWidth: htmlEl.style.maxWidth || ''
             })
             htmlEl.style.display = 'block'
             htmlEl.style.visibility = 'visible'
           }
         }
+        
+        // Apply print spacing to sections
+        if (htmlEl.tagName === 'SECTION' && classList.some(cls => cls.includes('break-inside-avoid'))) {
+          htmlEl.style.marginBottom = '0.75rem'
+          htmlEl.style.padding = '0 0.5in'
+        }
       })
       
-      // Wait a moment for styles to apply
-      await new Promise(resolve => setTimeout(resolve, 100))
+      // Wait for layout to settle with print dimensions
+      await new Promise(resolve => setTimeout(resolve, 200))
       
       // Convert HTML to canvas - only capture the actual content area
-      // Use scale 1.2 for faster generation and smaller file size while maintaining quality
-      // Reduce height calculation to ensure single-page worksheets fit
+      // Use print width (794px for A4) to match browser print layout exactly
+      const printWidth = 794 // A4 width in pixels at 96dpi
+      const scale = 1.2 // Higher scale for better quality
+      const canvasWidth = printWidth * scale
+      
       const canvas = await html2canvas(actualContentElement, {
-        scale: 1.2,
+        scale: scale,
         useCORS: true,
         logging: false,
         backgroundColor: '#ffffff',
-        height: contentHeight,
-        width: actualContentElement.scrollWidth,
-        windowWidth: actualContentElement.scrollWidth,
+        height: contentHeight * scale,
+        width: canvasWidth,
+        windowWidth: printWidth,
         windowHeight: contentHeight,
         removeContainer: false,
         onclone: (clonedDoc) => {
@@ -1966,46 +2026,63 @@ export function PrintablesPage() {
             }
           })
           
+          // Set cloned document to print dimensions (A4 width)
+          if (clonedHtml) {
+            clonedHtml.style.width = '794px'
+            clonedHtml.style.maxWidth = '794px'
+          }
+          if (clonedBody) {
+            clonedBody.style.width = '794px'
+            clonedBody.style.maxWidth = '794px'
+            clonedBody.style.margin = '0'
+            clonedBody.style.padding = '0'
+            clonedBody.style.fontSize = '11pt'
+            clonedBody.style.lineHeight = '1.3'
+          }
+          
           // Apply print styles via inline styles to match @media print
           const style = clonedDoc.createElement('style')
           style.textContent = `
-            .pdf-export-mode html,
-            .pdf-export-mode body {
+            html, body {
+              width: 794px !important;
+              max-width: 794px !important;
               margin: 0 !important;
               padding: 0 !important;
               font-size: 11pt !important;
               line-height: 1.3 !important;
             }
-            .pdf-export-mode * {
+            * {
               box-shadow: none !important;
             }
-            .pdf-export-mode a[href]::after {
+            a[href]::after {
               content: none !important;
             }
-            .pdf-export-mode a {
+            a {
               text-decoration: none !important;
             }
-            .pdf-export-mode header,
-            .pdf-export-mode .print\\:hidden,
-            .pdf-export-mode nav,
-            .pdf-export-mode button {
+            header,
+            .print\\:hidden,
+            nav,
+            button {
               border: none !important;
               border-radius: 0 !important;
             }
-            .pdf-export-mode section[class*="break-inside-avoid"] {
+            section[class*="break-inside-avoid"] {
               border: 1px solid #e2e8f0 !important;
               border-radius: 4px !important;
               background: white !important;
+              margin-bottom: 0.75rem !important;
+              padding: 0 0.5in !important;
             }
-            .pdf-export-mode section[class*="break-inside-avoid"] div[class*="border"],
-            .pdf-export-mode section[class*="break-inside-avoid"] div[class*="rounded"] {
+            section[class*="break-inside-avoid"] div[class*="border"],
+            section[class*="break-inside-avoid"] div[class*="rounded"] {
               border: 1px solid #cbd5e1 !important;
               border-radius: 4px !important;
             }
-            .pdf-export-mode section[class*="break-inside-avoid"] > div[class*="absolute"] {
+            section[class*="break-inside-avoid"] > div[class*="absolute"] {
               display: none !important;
             }
-            .pdf-export-mode .print-customization-header {
+            .print-customization-header {
               display: block !important;
               margin-bottom: 0.5rem !important;
               padding: 0.25rem 0.5in !important;
@@ -2015,32 +2092,26 @@ export function PrintablesPage() {
               line-height: 1.3 !important;
               font-weight: 500 !important;
             }
-            .pdf-export-mode section {
+            section {
               margin-bottom: 0.75rem !important;
               padding: 0 0.5in !important;
             }
-            .pdf-export-mode p {
+            p {
               line-height: 1.4 !important;
               margin: 0.25rem 0 !important;
             }
-            .pdf-export-mode div,
-            .pdf-export-mode span {
+            div, span {
               line-height: 1.3 !important;
             }
-            .pdf-export-mode h1,
-            .pdf-export-mode h2,
-            .pdf-export-mode h3 {
+            h1, h2, h3 {
               margin-bottom: 0.25rem !important;
               margin-top: 0.5rem !important;
               line-height: 1.2 !important;
             }
-            .pdf-export-mode .mb-10 { margin-bottom: 0.75rem !important; }
-            .pdf-export-mode .mb-4,
-            .pdf-export-mode .mb-6 { margin-bottom: 0.5rem !important; }
-            .pdf-export-mode .p-4,
-            .pdf-export-mode .p-5,
-            .pdf-export-mode .p-6 { padding: 0.5rem !important; }
-            .pdf-export-mode .py-10 {
+            .mb-10 { margin-bottom: 0.75rem !important; }
+            .mb-4, .mb-6 { margin-bottom: 0.5rem !important; }
+            .p-4, .p-5, .p-6 { padding: 0.5rem !important; }
+            .py-10 {
               padding-top: 0.5rem !important;
               padding-bottom: 0.5rem !important;
             }
@@ -2118,9 +2189,35 @@ export function PrintablesPage() {
       
       // Restore original state
       document.body.className = originalBodyClass
-      hiddenElements.forEach(({ element, originalDisplay, originalVisibility }) => {
+      document.body.style.width = originalBodyStyle.width
+      document.body.style.maxWidth = originalBodyStyle.maxWidth
+      document.body.style.margin = originalBodyStyle.margin
+      document.body.style.padding = originalBodyStyle.padding
+      document.body.style.fontSize = originalBodyStyle.fontSize
+      document.body.style.lineHeight = originalBodyStyle.lineHeight
+      
+      // Restore wrapper styles
+      if (wrapperElement && wrapperOriginalStyle) {
+        wrapperElement.style.width = wrapperOriginalStyle.width
+        wrapperElement.style.maxWidth = wrapperOriginalStyle.maxWidth
+        wrapperElement.style.margin = wrapperOriginalStyle.margin
+        wrapperElement.style.padding = wrapperOriginalStyle.padding
+      }
+      
+      if (contentElement) {
+        const htmlEl = contentElement as HTMLElement
+        // Restore will be handled by React's style management, but clear inline styles
+        htmlEl.style.width = ''
+        htmlEl.style.maxWidth = ''
+        htmlEl.style.margin = ''
+        htmlEl.style.padding = ''
+      }
+      
+      hiddenElements.forEach(({ element, originalDisplay, originalVisibility, originalWidth, originalMaxWidth }) => {
         element.style.display = originalDisplay
         element.style.visibility = originalVisibility
+        if (originalWidth !== undefined) element.style.width = originalWidth
+        if (originalMaxWidth !== undefined) element.style.maxWidth = originalMaxWidth
       })
       
       // Calculate PDF dimensions
