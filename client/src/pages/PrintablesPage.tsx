@@ -1365,7 +1365,11 @@ export function PrintablesPage() {
   const seedParam = params.get('seed') || ''
   const timestampParam = params.get('timestamp') || ''
   const variantParam = params.get('variant') || '1'
-  const [showAnswers, setShowAnswers] = React.useState(false)
+  // Initialize showAnswers from URL parameter if present, otherwise default to false
+  const [showAnswers, setShowAnswers] = React.useState(() => {
+    const showAnswersParam = params.get('showAnswers')
+    return showAnswersParam === '1' || showAnswersParam === 'true'
+  })
   const [copiedLink, setCopiedLink] = React.useState(false)
   const bundleItemsParam = params.get('items') || ''
   const bundleCategoryParam = params.get('category') || ''
@@ -2278,9 +2282,13 @@ export function PrintablesPage() {
             <button
               onClick={() => {
                 // Add download=1 parameter to current URL and reload to trigger PDF download
+                // Preserve showAnswers state in URL so it's included in PDF
                 const url = new URL(window.location.href)
                 url.searchParams.set('download', '1')
                 url.searchParams.delete('autoprint') // Remove autoprint if present
+                if (showAnswers) {
+                  url.searchParams.set('showAnswers', '1')
+                }
                 window.location.href = url.toString()
               }}
               className="inline-flex items-center gap-2 px-4 py-2 rounded-lg border border-purple-200 bg-purple-600 hover:bg-purple-700 text-white text-sm font-medium shadow-sm focus:outline-none focus:ring-2 focus:ring-purple-400 focus:ring-offset-1 print:hidden"

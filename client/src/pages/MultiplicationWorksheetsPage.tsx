@@ -331,7 +331,7 @@ export default function MultiplicationWorksheetsPage() {
                       rel="noopener noreferrer"
                       className="inline-flex items-center gap-2 px-4 py-2 rounded-lg border border-purple-200 bg-purple-600 hover:bg-purple-700 text-white text-sm font-medium shadow-sm"
                     >
-                      ⬇️ Download
+                      Download
                     </a>
                     <button
                       onClick={() => {
