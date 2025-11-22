@@ -2336,14 +2336,22 @@ export function PrintablesPage() {
         pdf.addImage(imgData, 'JPEG', 0, 0, imgWidth, imgHeight)
       } else {
         // Content spans multiple pages - split while respecting section boundaries
+        // Convert mm to pixels for canvas operations
+        const pixelsPerMm = finalCanvas.width / imgWidth
+        const pageHeightPx = pageHeight * pixelsPerMm
+        
         let currentY = 0
         let iterations = 0
         let prevY = -1 // Track previous Y to detect stuck loops
         const maxIterations = 100 // Safety limit
         
-        while (currentY < imgHeight && iterations < maxIterations) {
+        while (currentY < finalCanvas.height && iterations < maxIterations) {
           iterations++
-          const pageEndY = currentY + pageHeight
+          
+          // Calculate page end in pixels
+          const currentYmm = (currentY / pixelsPerMm)
+          const pageEndYmm = currentYmm + pageHeight
+          const pageEndYpx = Math.min(pageEndYmm * pixelsPerMm, finalCanvas.height)
           
           // Check if page break would cut through a section
           let sectionToProtect: { top: number; bottom: number } | null = null
@@ -2351,83 +2359,105 @@ export function PrintablesPage() {
             sectionToProtect = sectionBoundaries.find(section => {
               // Check if page break is in the middle of a section (with small margin)
               const margin = 2 // 2mm margin to avoid cutting too close to edges
-              return pageEndY > section.top + margin && pageEndY < section.bottom - margin
+              return pageEndYmm > section.top + margin && pageEndYmm < section.bottom - margin
             }) || null
           }
           
-          if (sectionToProtect && pageEndY < imgHeight) {
+          let pageStartYpx = currentY
+          let pageEndYpxFinal = pageEndYpx
+          
+          if (sectionToProtect && pageEndYmm < imgHeight) {
             // Page break would cut through a section - find safe break point
             // Find the last section that ends before the page break
             const sectionsBeforeBreak = sectionBoundaries
-              .filter(s => s.bottom <= pageEndY && s.bottom > currentY)
+              .filter(s => s.bottom <= pageEndYmm && (s.top * pixelsPerMm) >= currentY)
               .sort((a, b) => b.bottom - a.bottom)
             
             if (sectionsBeforeBreak.length > 0) {
               // Break after the last section that fits on this page
-              const safeBreak = sectionsBeforeBreak[0].bottom + 2 // 2mm padding after section
+              const safeBreakMm = sectionsBeforeBreak[0].bottom + 2 // 2mm padding after section
+              const safeBreakPx = safeBreakMm * pixelsPerMm
               
-              if (safeBreak > currentY) {
-                // Can fit section(s) on this page, break after them
-                // Position image: for first page use 0, for others use negative offset
-                const yPos = currentY === 0 ? 0 : currentY - imgHeight
-                pdf.addImage(imgData, 'JPEG', 0, yPos, imgWidth, imgHeight)
-                currentY = Math.min(safeBreak, pageEndY) // Don't exceed page height
-                
-                if (currentY < imgHeight) {
-                  pdf.addPage()
-                }
-              } else {
-                // Fallback: normal page break
-                const yPos = currentY === 0 ? 0 : currentY - imgHeight
-                pdf.addImage(imgData, 'JPEG', 0, yPos, imgWidth, imgHeight)
-                currentY = pageEndY
-                if (currentY < imgHeight) {
-                  pdf.addPage()
-                }
+              if (safeBreakPx > currentY && safeBreakPx <= pageEndYpx) {
+                pageEndYpxFinal = safeBreakPx
               }
             } else {
               // No sections before break - start section on next page if it doesn't fit
-              if (sectionToProtect.top < pageEndY && sectionToProtect.top > currentY) {
+              if (sectionToProtect.top * pixelsPerMm < pageEndYpx && sectionToProtect.top * pixelsPerMm > currentY) {
                 // Section starts on this page but doesn't fit - finish current page first
-                if (currentY > 0 && currentY < sectionToProtect.top) {
-                  const yPos = currentY - imgHeight
-                  pdf.addImage(imgData, 'JPEG', 0, yPos, imgWidth, imgHeight)
+                if (currentY > 0 && currentY < sectionToProtect.top * pixelsPerMm) {
+                  // Create canvas chunk for current page
+                  const pageCanvas = document.createElement('canvas')
+                  pageCanvas.width = finalCanvas.width
+                  pageCanvas.height = Math.min(pageHeightPx, finalCanvas.height - currentY)
+                  const pageCtx = pageCanvas.getContext('2d')
+                  if (pageCtx) {
+                    pageCtx.drawImage(finalCanvas, 0, currentY, finalCanvas.width, pageCanvas.height, 0, 0, finalCanvas.width, pageCanvas.height)
+                    const pageImgData = pageCanvas.toDataURL('image/jpeg', 0.85)
+                    const pageImgHeight = (pageCanvas.height * imgWidth) / finalCanvas.width
+                    pdf.addImage(pageImgData, 'JPEG', 0, 0, imgWidth, pageImgHeight)
+                  }
                   pdf.addPage()
                 }
                 // Start at section beginning
-                currentY = sectionToProtect.top
-              } else {
-                // Normal page break
-                const yPos = currentY === 0 ? 0 : currentY - imgHeight
-                pdf.addImage(imgData, 'JPEG', 0, yPos, imgWidth, imgHeight)
-                currentY = pageEndY
-                if (currentY < imgHeight) {
-                  pdf.addPage()
-                }
+                currentY = sectionToProtect.top * pixelsPerMm
+                prevY = currentY
+                continue
               }
-            }
-          } else {
-            // Safe to break here - no section would be cut
-            // Position image: for first page use 0, for others use negative offset
-            const yPos = currentY === 0 ? 0 : currentY - imgHeight
-            pdf.addImage(imgData, 'JPEG', 0, yPos, imgWidth, imgHeight)
-            currentY = pageEndY
-            
-            if (currentY < imgHeight) {
-              pdf.addPage()
             }
           }
           
+          // Create canvas chunk for this page
+          const pageHeightActual = Math.min(pageEndYpxFinal - pageStartYpx, finalCanvas.height - pageStartYpx)
+          
+          if (pageHeightActual > 0) {
+            const pageCanvas = document.createElement('canvas')
+            pageCanvas.width = finalCanvas.width
+            pageCanvas.height = pageHeightActual
+            const pageCtx = pageCanvas.getContext('2d')
+            
+            if (pageCtx) {
+              // Draw the portion of the original canvas for this page
+              pageCtx.drawImage(
+                finalCanvas,
+                0, pageStartYpx, // Source: start at currentY
+                finalCanvas.width, pageHeightActual, // Source: width and height
+                0, 0, // Destination: start at top-left
+                finalCanvas.width, pageHeightActual // Destination: same size
+              )
+              
+              const pageImgData = pageCanvas.toDataURL('image/jpeg', 0.85)
+              const pageImgHeight = (pageHeightActual * imgWidth) / finalCanvas.width
+              
+              // Add to PDF
+              pdf.addImage(pageImgData, 'JPEG', 0, 0, imgWidth, pageImgHeight)
+              
+              // Move to next page
+              currentY = pageEndYpxFinal
+              
+              if (currentY < finalCanvas.height) {
+                pdf.addPage()
+              }
+            } else {
+              // Fallback: if canvas context fails, break
+              console.error('Failed to get canvas context for page chunk')
+              break
+            }
+          } else {
+            // No height to add, break to avoid infinite loop
+            break
+          }
+          
           // Safety check to prevent infinite loop
-          if (currentY >= imgHeight) {
+          if (currentY >= finalCanvas.height) {
             break
           }
           
           // Additional safety: ensure we always make progress
           if (iterations > 1 && currentY === prevY) {
             // Force progress if we're stuck
-            currentY = pageEndY
-            if (currentY >= imgHeight) {
+            currentY = pageEndYpx
+            if (currentY >= finalCanvas.height) {
               break
             }
           }
