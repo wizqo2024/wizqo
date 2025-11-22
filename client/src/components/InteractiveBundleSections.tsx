@@ -7082,11 +7082,19 @@ function LearningObjectives({ objectives }: { objectives: string[] }) {
 // Challenge section component
 function ChallengeSection({ challenges }: { challenges: string[] }) {
   return (
-    <div className="mt-6 print:mt-0 p-4 bg-purple-50 border-2 border-purple-200 rounded print:bg-white print:border challenge-section" style={{ pageBreakBefore: 'always', pageBreakInside: 'avoid' }}>
+    <div 
+      className="mt-6 print:mt-0 p-4 bg-purple-50 border-2 border-purple-200 rounded print:bg-white print:border challenge-section" 
+      style={{ 
+        pageBreakInside: 'avoid',
+        breakInside: 'avoid',
+        WebkitRegionBreakInside: 'avoid',
+        pageBreakBefore: 'auto' // Don't force new page, but move if no space
+      }}
+    >
       <div className="font-semibold text-purple-900 mb-3 text-sm">🌟 Challenge Yourself (Optional):</div>
-      <div className="space-y-2 text-sm text-purple-800">
+      <div className="space-y-2 text-sm text-purple-800" style={{ pageBreakInside: 'avoid', breakInside: 'avoid' }}>
         {challenges.map((challenge, i) => (
-          <div key={i}>{i + 1}. {challenge}</div>
+          <div key={i} style={{ pageBreakInside: 'avoid', breakInside: 'avoid' }}>{i + 1}. {challenge}</div>
         ))}
       </div>
     </div>

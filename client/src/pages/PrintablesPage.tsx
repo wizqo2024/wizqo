@@ -1875,7 +1875,8 @@ export function PrintablesPage() {
       }
       
       // Find section positions BEFORE restoring styles (while print styles are applied)
-      const sections = contentElement.querySelectorAll('section.break-inside-avoid, section[class*="break-inside-avoid"], .worksheet-section')
+      // Include both worksheet sections and challenge sections
+      const sections = contentElement.querySelectorAll('section.break-inside-avoid, section[class*="break-inside-avoid"], .worksheet-section, .challenge-section')
       const sectionPositions: Array<{ top: number; bottom: number }> = []
       
       if (sections.length > 0) {
@@ -2480,6 +2481,19 @@ export function PrintablesPage() {
               color: #1e293b !important;
               line-height: 1.3 !important;
               font-weight: 500 !important;
+            }
+            /* Challenge section - prevent breaking across pages */
+            .challenge-section {
+              page-break-inside: avoid !important;
+              break-inside: avoid !important;
+              -webkit-region-break-inside: avoid !important;
+              page-break-before: auto !important;
+              orphans: 3 !important;
+              widows: 3 !important;
+            }
+            .challenge-section > * {
+              page-break-inside: avoid !important;
+              break-inside: avoid !important;
             }
             section {
               margin-bottom: 0.75rem !important;
@@ -3271,6 +3285,19 @@ export function PrintablesPage() {
           /* Prevent any worksheet section from breaking across pages */
           section.break-inside-avoid > *,
           .worksheet-section > * {
+            page-break-inside: avoid !important;
+            break-inside: avoid !important;
+          }
+          /* Challenge section - must stay together, move to next page if no space */
+          .challenge-section {
+            page-break-inside: avoid !important;
+            break-inside: avoid !important;
+            -webkit-region-break-inside: avoid !important;
+            page-break-before: auto !important;
+            orphans: 3 !important; /* Keep at least 3 lines together */
+            widows: 3 !important; /* Keep at least 3 lines together */
+          }
+          .challenge-section > * {
             page-break-inside: avoid !important;
             break-inside: avoid !important;
           }
