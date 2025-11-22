@@ -1715,6 +1715,11 @@ export function PrintablesPage() {
           import('html2canvas').then(m => m.default || m)
         ])
         
+        // If showAnswers is true, wait a bit longer for answers to render
+        if (showAnswers) {
+          await new Promise(resolve => setTimeout(resolve, 1500))
+        }
+        
         // Wait for content to render with retry mechanism
         let contentElement: HTMLElement | null = null
         let attempts = 0
@@ -1810,6 +1815,21 @@ export function PrintablesPage() {
               // Don't fall back to print - just return silently for download mode
               return
             }
+          }
+        }
+        
+        // If showAnswers is true, verify that answer elements are actually rendered
+        if (showAnswers && contentElement) {
+          // Look for common answer indicators (answer keys, solution sections, etc.)
+          const answerIndicators = contentElement.querySelectorAll('[class*="answer"], [class*="solution"], [class*="key"], [data-answer]')
+          // Also check for text content that might indicate answers are shown
+          const hasAnswerText = contentElement.textContent?.toLowerCase().includes('answer') || 
+                                contentElement.textContent?.toLowerCase().includes('solution')
+          
+          // If we expect answers but don't see them, wait a bit more
+          if (answerIndicators.length === 0 && !hasAnswerText) {
+            console.log('Waiting for answers to render...')
+            await new Promise(resolve => setTimeout(resolve, 1000))
           }
         }
         
@@ -2036,7 +2056,7 @@ export function PrintablesPage() {
     }
     
     downloadPDF()
-  }, [autoDownload, doc, primaryDoc, docTitle, params])
+  }, [autoDownload, doc, primaryDoc, docTitle, params, showAnswers])
 
   // Auto-open browser print dialog when requested (e.g., from "Download PDF" links)
   React.useEffect(() => {
