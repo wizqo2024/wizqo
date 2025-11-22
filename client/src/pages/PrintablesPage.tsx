@@ -2223,6 +2223,7 @@ export function PrintablesPage() {
       // Calculate PDF dimensions
       const imgWidth = 210 // A4 width in mm
       const pageHeight = 297 // A4 height in mm
+      const scale = canvas.width / printWidth // Calculate actual scale used
       let imgHeight = (canvas.height * imgWidth) / canvas.width
       
       // Use lower quality JPEG instead of PNG for faster generation and smaller file size
@@ -2230,27 +2231,124 @@ export function PrintablesPage() {
       
       const pdf = new jsPDF('p', 'mm', 'a4')
       
-      // Always split content across pages naturally, matching browser print behavior
-      // This ensures the PDF has the same pagination as "Print → Save as PDF"
+      // Find all worksheet sections/cards to prevent breaking them across pages
+      const sections = actualContentElement.querySelectorAll('section.break-inside-avoid, section[class*="worksheet"], .worksheet-section')
+      const sectionBoundaries: Array<{ top: number; bottom: number }> = []
+      
+      sections.forEach((section) => {
+        const rect = (section as HTMLElement).getBoundingClientRect()
+        const containerRect = actualContentElement.getBoundingClientRect()
+        // Calculate position in PDF coordinates (mm)
+        const top = ((rect.top - containerRect.top) * scale * imgWidth) / printWidth
+        const height = (rect.height * scale * imgWidth) / printWidth
+        const bottom = top + height
+        
+        sectionBoundaries.push({ top, bottom })
+      })
+      
+      // Sort sections by top position
+      sectionBoundaries.sort((a, b) => a.top - b.top)
+      
+      // Function to find the next safe break point (after a section ends, before next starts)
+      const findSafeBreakPoint = (startY: number): number => {
+        // Find the first section that starts after startY
+        const nextSection = sectionBoundaries.find(s => s.top > startY)
+        
+        if (nextSection) {
+          // Find the section that ends just before nextSection starts
+          const prevSection = sectionBoundaries
+            .filter(s => s.bottom <= nextSection.top)
+            .sort((a, b) => b.bottom - a.bottom)[0]
+          
+          if (prevSection) {
+            // Safe break is right after the previous section ends
+            return prevSection.bottom + 1 // 1mm padding
+          }
+        }
+        
+        // Find the last section that ends before or at startY + pageHeight
+        const lastSectionBeforeBreak = sectionBoundaries
+          .filter(s => s.bottom <= startY + pageHeight)
+          .sort((a, b) => b.bottom - a.bottom)[0]
+        
+        if (lastSectionBeforeBreak) {
+          // Safe break is right after this section
+          return lastSectionBeforeBreak.bottom + 1
+        }
+        
+        // Default: allow natural break
+        return startY + pageHeight
+      }
+      
       if (imgHeight <= pageHeight) {
         // Content fits on one page - add it directly
         pdf.addImage(imgData, 'JPEG', 0, 0, imgWidth, imgHeight)
       } else {
-        // Content spans multiple pages - split it naturally
-        // This matches how the browser print dialog handles pagination
-        let heightLeft = imgHeight
-        let position = 0
+        // Content spans multiple pages - split while respecting section boundaries
+        let currentY = 0
         
-        // Add first page
-        pdf.addImage(imgData, 'JPEG', 0, position, imgWidth, imgHeight)
-        heightLeft -= pageHeight
-        
-        // Add additional pages for remaining content
-        while (heightLeft > 0) {
-          position = heightLeft - imgHeight
-          pdf.addPage()
-          pdf.addImage(imgData, 'JPEG', 0, position, imgWidth, imgHeight)
-          heightLeft -= pageHeight
+        while (currentY < imgHeight) {
+          const pageEndY = currentY + pageHeight
+          
+          // Check if page break would cut through a section
+          const wouldCutSection = sectionBoundaries.some(section => {
+            // Check if page break is in the middle of a section (with small margin)
+            const margin = 3 // 3mm margin
+            return pageEndY > section.top + margin && pageEndY < section.bottom - margin
+          })
+          
+          if (wouldCutSection && pageEndY < imgHeight) {
+            // Find safe break point (after current section ends)
+            const safeBreak = findSafeBreakPoint(currentY)
+            
+            if (safeBreak <= pageEndY && safeBreak > currentY) {
+              // Can fit section on this page, break after it
+              const pageContentHeight = safeBreak - currentY
+              pdf.addImage(imgData, 'JPEG', 0, currentY - imgHeight, imgWidth, imgHeight)
+              currentY = safeBreak
+              
+              if (currentY < imgHeight) {
+                pdf.addPage()
+              }
+            } else {
+              // Section is too tall or can't fit, start new page before it
+              // Find the section that would be cut
+              const sectionToProtect = sectionBoundaries.find(section => {
+                const margin = 3
+                return pageEndY > section.top + margin && pageEndY < section.bottom - margin
+              })
+              
+              if (sectionToProtect) {
+                // Finish current page (if we have content)
+                if (currentY > 0) {
+                  pdf.addImage(imgData, 'JPEG', 0, currentY - imgHeight, imgWidth, imgHeight)
+                }
+                // Start new page at the section start
+                currentY = sectionToProtect.top
+                pdf.addPage()
+              } else {
+                // Fallback: natural break
+                pdf.addImage(imgData, 'JPEG', 0, currentY - imgHeight, imgWidth, imgHeight)
+                currentY = pageEndY
+                if (currentY < imgHeight) {
+                  pdf.addPage()
+                }
+              }
+            }
+          } else {
+            // Safe to break here
+            pdf.addImage(imgData, 'JPEG', 0, currentY - imgHeight, imgWidth, imgHeight)
+            currentY = pageEndY
+            
+            if (currentY < imgHeight) {
+              pdf.addPage()
+            }
+          }
+          
+          // Safety check
+          if (currentY >= imgHeight) {
+            break
+          }
         }
       }
       
