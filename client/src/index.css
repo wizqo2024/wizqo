@@ -379,3 +379,19 @@ html {
 ::-webkit-scrollbar-thumb:hover {
   background: hsl(215.3, 19.3%, 34.5%);
 }
+
+/* Universal print/PDF fix for all worksheets */
+/* Prevents worksheet cards, blocks, and content from splitting across pages */
+@media print {
+  /* Apply to all elements to prevent page breaks inside any block */
+  *, *::before, *::after {
+    break-inside: avoid;
+    page-break-inside: avoid;
+  }
+
+  /* Reinforce for common block-level containers */
+  div, section, article, figure, table, tr, td {
+    break-inside: avoid !important;
+    page-break-inside: avoid !important;
+  }
+}
