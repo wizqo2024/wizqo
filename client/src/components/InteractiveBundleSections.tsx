@@ -7045,6 +7045,26 @@ const answerRenderers: Record<string, AnswerRenderer> = {
   },
 }
 
+// Worksheet header component for print/PDF
+function WorksheetHeader({ problemCount }: { problemCount?: number }) {
+  return (
+    <div className="print:block hidden print:mb-4 pb-3 mb-4">
+      <div className="flex justify-between items-start">
+        <div className="flex-1">
+          <div className="text-sm mb-2"><strong>Name:</strong> _________________________</div>
+          <div className="text-sm mb-2"><strong>Date:</strong> ___________  <strong>Grade:</strong> _____</div>
+          <div className="text-sm"><strong>Teacher/Parent:</strong> _________________</div>
+        </div>
+        {problemCount && (
+          <div className="text-right text-xs text-slate-600">
+            <div>Score: ___ / {problemCount}</div>
+          </div>
+        )}
+      </div>
+    </div>
+  )
+}
+
 function InteractiveWorksheetSection({
   docId,
   seed,
@@ -7242,6 +7262,7 @@ function InteractiveWorksheetSection({
   if (!renderer) {
     return (
       <section className={`mb-10 break-inside-avoid rounded-xl border-2 ${theme.border} ${theme.background} p-5 print:border-0 print:p-0 print:bg-white shadow-lg`}>
+        <WorksheetHeader />
         <h2 className={`text-lg font-semibold ${theme.text}`}>{category.icon} {t(`interactive.${doc.id}.title`) || doc.title}</h2>
         <p className="text-sm text-slate-600">{t('common.comingSoon')}</p>
         {showAnswers && (
@@ -7258,6 +7279,11 @@ function InteractiveWorksheetSection({
       {/* Decorative corner accent */}
       <div className="absolute top-0 right-0 w-32 h-32 bg-gradient-to-br rounded-bl-full pointer-events-none" style={{ backgroundColor: cornerColors.topRight }} />
       <div className="absolute bottom-0 left-0 w-24 h-24 bg-gradient-to-tr rounded-tr-full pointer-events-none" style={{ backgroundColor: cornerColors.bottomLeft }} />
+      
+      {/* Worksheet header for print/PDF */}
+      <div className="relative z-10">
+        <WorksheetHeader />
+      </div>
       
       <header className="mb-4 flex items-start justify-between gap-3 relative z-10">
         <div>
