@@ -2220,17 +2220,37 @@ export function PrintablesPage() {
         if (originalMaxWidth !== undefined) element.style.maxWidth = originalMaxWidth
       })
       
-      // Calculate PDF dimensions
+      // Find the first actual content element to calculate top offset BEFORE creating PDF
+      const firstContent = actualContentElement.querySelector('section.break-inside-avoid, section[class*="worksheet"], .worksheet-section, .print-customization-header')
+      let cropTopPx = 0
+      if (firstContent) {
+        const contentRect = actualContentElement.getBoundingClientRect()
+        const firstRect = firstContent.getBoundingClientRect()
+        cropTopPx = Math.max(0, firstRect.top - contentRect.top)
+      }
+      
+      // Crop canvas to remove blank space at top
+      const cropTop = Math.floor(cropTopPx * scale)
+      const croppedCanvas = document.createElement('canvas')
+      const croppedCtx = croppedCanvas.getContext('2d')
+      if (!croppedCtx) throw new Error('Failed to get canvas context')
+      
+      croppedCanvas.width = canvas.width
+      croppedCanvas.height = canvas.height - cropTop
+      croppedCtx.drawImage(canvas, 0, cropTop, canvas.width, canvas.height - cropTop, 0, 0, canvas.width, canvas.height - cropTop)
+      
+      // Calculate PDF dimensions using cropped canvas
       const imgWidth = 210 // A4 width in mm
       const pageHeight = 297 // A4 height in mm
-      let imgHeight = (canvas.height * imgWidth) / canvas.width
+      let imgHeight = (croppedCanvas.height * imgWidth) / croppedCanvas.width
       
       // Use lower quality JPEG instead of PNG for faster generation and smaller file size
-      const imgData = canvas.toDataURL('image/jpeg', 0.85)
+      const imgData = croppedCanvas.toDataURL('image/jpeg', 0.85)
       
       const pdf = new jsPDF('p', 'mm', 'a4')
       
       // Find all worksheet sections/cards to prevent breaking them across pages
+      // Adjust section positions since we cropped the top
       const sections = actualContentElement.querySelectorAll('section.break-inside-avoid, section[class*="worksheet"], .worksheet-section')
       const sectionBoundaries: Array<{ top: number; bottom: number }> = []
       
@@ -2239,9 +2259,8 @@ export function PrintablesPage() {
           const rect = (section as HTMLElement).getBoundingClientRect()
           const containerRect = actualContentElement.getBoundingClientRect()
           // Calculate position in PDF coordinates (mm) - convert from pixels to mm
-          // DOM coordinates are in pixels, PDF coordinates are in mm
-          // Conversion: 1 DOM pixel = (210mm / printWidth) PDF mm
-          const topPx = rect.top - containerRect.top
+          // Adjust for cropped top space
+          const topPx = Math.max(0, (rect.top - containerRect.top) - cropTopPx)
           const heightPx = rect.height
           const top = (topPx * imgWidth) / printWidth
           const height = (heightPx * imgWidth) / printWidth
@@ -2254,21 +2273,9 @@ export function PrintablesPage() {
         sectionBoundaries.sort((a, b) => a.top - b.top)
       }
       
-      // Find the first actual content element to calculate top offset
-      const firstContent = actualContentElement.querySelector('section.break-inside-avoid, section[class*="worksheet"], .worksheet-section, .print-customization-header')
-      let topOffset = 0
-      if (firstContent) {
-        const contentRect = actualContentElement.getBoundingClientRect()
-        const firstRect = firstContent.getBoundingClientRect()
-        const offsetPx = firstRect.top - contentRect.top
-        // Convert pixels to mm for PDF coordinates
-        topOffset = (offsetPx * imgWidth) / printWidth
-      }
-      
       if (imgHeight <= pageHeight) {
-        // Content fits on one page - add it directly starting from first content
-        // Use topOffset to position content at top of page, cropping blank space
-        pdf.addImage(imgData, 'JPEG', 0, -topOffset, imgWidth, imgHeight)
+        // Content fits on one page - add it directly at top (blank space already cropped)
+        pdf.addImage(imgData, 'JPEG', 0, 0, imgWidth, imgHeight)
       } else {
         // Content spans multiple pages - split while respecting section boundaries
         let currentY = 0
@@ -2303,8 +2310,8 @@ export function PrintablesPage() {
               
               if (safeBreak > currentY) {
                 // Can fit section(s) on this page, break after them
-                // Position image: for first page account for topOffset, for others use negative offset
-                const yPos = currentY === 0 ? -topOffset : currentY - imgHeight
+                // Position image: for first page use 0 (blank space already cropped), for others use negative offset
+                const yPos = currentY === 0 ? 0 : currentY - imgHeight
                 pdf.addImage(imgData, 'JPEG', 0, yPos, imgWidth, imgHeight)
                 currentY = Math.min(safeBreak, pageEndY) // Don't exceed page height
                 
@@ -2333,7 +2340,7 @@ export function PrintablesPage() {
                 currentY = sectionToProtect.top
               } else {
                 // Normal page break
-                const yPos = currentY === 0 ? -topOffset : currentY - imgHeight
+                const yPos = currentY === 0 ? 0 : currentY - imgHeight
                 pdf.addImage(imgData, 'JPEG', 0, yPos, imgWidth, imgHeight)
                 currentY = pageEndY
                 if (currentY < imgHeight) {
@@ -2343,8 +2350,8 @@ export function PrintablesPage() {
             }
           } else {
             // Safe to break here - no section would be cut
-            // Position image: for first page account for topOffset, for others use negative offset
-            const yPos = currentY === 0 ? -topOffset : currentY - imgHeight
+            // Position image: for first page use 0 (blank space already cropped), for others use negative offset
+            const yPos = currentY === 0 ? 0 : currentY - imgHeight
             pdf.addImage(imgData, 'JPEG', 0, yPos, imgWidth, imgHeight)
             currentY = pageEndY
             
