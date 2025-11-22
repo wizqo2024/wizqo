@@ -1853,49 +1853,69 @@ export function PrintablesPage() {
           // Find the last section's bottom position
           const lastSection = allSections[allSections.length - 1] as HTMLElement
           const lastSectionBottom = lastSection.offsetTop + lastSection.offsetHeight
-          // Use the actual content height (add minimal padding - 20px instead of 50px)
-          contentHeight = Math.min(lastSectionBottom + 20, actualContentElement.offsetHeight)
+          // Use the actual content height (add minimal padding - 10px to ensure we capture everything)
+          contentHeight = Math.min(lastSectionBottom + 10, actualContentElement.offsetHeight)
+          
+          // For single worksheets, ensure we're not capturing too much
+          // If it's a single worksheet (one section), be more precise
+          if (allSections.length === 1) {
+            contentHeight = lastSectionBottom + 5
+          }
         }
         
         // Convert HTML to canvas - only capture the actual content area
-        // Use a lower scale (1.5 instead of 2) to reduce file size and ensure better single-page fitting
+        // Use scale 1.2 for faster generation and smaller file size while maintaining quality
+        // Reduce height calculation to ensure single-page worksheets fit
         const canvas = await html2canvas(actualContentElement, {
-          scale: 1.5,
+          scale: 1.2,
           useCORS: true,
           logging: false,
           backgroundColor: '#ffffff',
           height: contentHeight,
+          width: actualContentElement.scrollWidth,
           windowWidth: actualContentElement.scrollWidth,
           windowHeight: contentHeight,
-          removeContainer: false
+          removeContainer: false,
+          onclone: (clonedDoc) => {
+            // Hide any elements that might add extra height in the cloned document
+            const clonedBody = clonedDoc.body
+            if (clonedBody) {
+              // Remove any excessive padding/margins that might cause extra height
+              clonedBody.style.paddingBottom = '0'
+              clonedBody.style.marginBottom = '0'
+            }
+          }
         })
         
         // Calculate PDF dimensions
         const imgWidth = 210 // A4 width in mm
         const pageHeight = 297 // A4 height in mm
         const imgHeight = (canvas.height * imgWidth) / canvas.width
+        
+        // Use lower quality JPEG instead of PNG for faster generation and smaller file size
+        const imgData = canvas.toDataURL('image/jpeg', 0.85)
+        
         const pdf = new jsPDF('p', 'mm', 'a4')
         
-        // Get image data
-        const imgData = canvas.toDataURL('image/png')
-        
-        // If content fits on one page, add it directly without splitting
-        if (imgHeight <= pageHeight) {
-          pdf.addImage(imgData, 'PNG', 0, 0, imgWidth, imgHeight)
+        // Check if content actually fits on one page (with small margin for rounding)
+        // For single worksheets, they should typically fit on one page
+        if (imgHeight <= pageHeight + 10) {
+          // Content fits on one page - add it directly
+          pdf.addImage(imgData, 'JPEG', 0, 0, imgWidth, imgHeight)
         } else {
-          // Handle multi-page content - split across pages only if needed
+          // Content is too tall - split across pages
           let heightLeft = imgHeight
           let position = 0
           
           // Add first page
-          pdf.addImage(imgData, 'PNG', 0, position, imgWidth, imgHeight)
+          pdf.addImage(imgData, 'JPEG', 0, position, imgWidth, imgHeight)
           heightLeft -= pageHeight
           
           // Add additional pages if content is taller than one page
           while (heightLeft > 0) {
             position = heightLeft - imgHeight
             pdf.addPage()
-            pdf.addImage(imgData, 'PNG', 0, position, imgWidth, imgHeight)
+            pdf.addImage(imgData, 'JPEG', 0, position, imgWidth, imgHeight)
             heightLeft -= pageHeight
           }
         }
