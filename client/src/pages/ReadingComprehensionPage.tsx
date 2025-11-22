@@ -577,8 +577,7 @@ function ItemCard({ title, description, href }: { title: string; description: st
       <div className="text-base font-semibold text-slate-900">{title}</div>
       <p className="text-slate-600 text-sm mt-1">{description}</p>
       <div className="mt-3 flex items-center gap-2">
-        <a href={href} className={OUTLINE_BUTTON} aria-label={`Open ${title} printable view`}>{t('pages.readingComprehension.openPrintable')}</a>
-        <a href={href + (href.includes('?') ? '&autoprint=1' : '?autoprint=1')} className={BUTTON_CLASS} aria-label={`Download ${title} as PDF`}>{t('pages.readingComprehension.downloadPDF')}</a>
+        <a href={href} className={BUTTON_CLASS} aria-label={`Download ${title} as PDF`} target="_blank" rel="noopener noreferrer">⬇️ {t('pages.readingComprehension.downloadPDF')}</a>
       </div>
     </div>
   );
@@ -658,7 +657,7 @@ const WorksheetThumbnailCard = React.memo(function WorksheetThumbnailCard({ titl
             {t('pages.printables.preview')}
           </a>
           <a
-            href={href + (href.includes('?') ? '&autoprint=1' : '?autoprint=1')}
+            href={href}
             target="_blank"
             rel="noopener noreferrer"
             className="text-xs font-medium text-purple-600 hover:text-purple-700 px-3 py-1 rounded-full border border-purple-200 hover:border-purple-300 transition-colors"
