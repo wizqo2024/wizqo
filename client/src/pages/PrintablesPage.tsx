@@ -2207,18 +2207,28 @@ export function PrintablesPage() {
               }
             })()}</span>
           </a>
-          <button
-            onClick={() => {
-              // Add download=1 parameter to current URL and reload to trigger PDF download
-              const url = new URL(window.location.href)
-              url.searchParams.set('download', '1')
-              url.searchParams.delete('autoprint') // Remove autoprint if present
-              window.location.href = url.toString()
-            }}
-            className="inline-flex items-center gap-2 px-4 py-2 rounded-lg border border-purple-200 bg-purple-600 hover:bg-purple-700 text-white text-sm font-medium shadow-sm focus:outline-none focus:ring-2 focus:ring-purple-400 focus:ring-offset-1 print:hidden"
-          >
-            ⬇️ Download PDF
-          </button>
+          <div className="flex items-center gap-2">
+            <button
+              onClick={() => {
+                // Add download=1 parameter to current URL and reload to trigger PDF download
+                const url = new URL(window.location.href)
+                url.searchParams.set('download', '1')
+                url.searchParams.delete('autoprint') // Remove autoprint if present
+                window.location.href = url.toString()
+              }}
+              className="inline-flex items-center gap-2 px-4 py-2 rounded-lg border border-purple-200 bg-purple-600 hover:bg-purple-700 text-white text-sm font-medium shadow-sm focus:outline-none focus:ring-2 focus:ring-purple-400 focus:ring-offset-1 print:hidden"
+            >
+              ⬇️ Download PDF
+            </button>
+            <button
+              onClick={() => {
+                window.print()
+              }}
+              className="inline-flex items-center gap-2 px-4 py-2 rounded-lg border border-slate-300 bg-white hover:bg-slate-50 text-slate-700 text-sm font-medium shadow-sm focus:outline-none focus:ring-2 focus:ring-slate-400 focus:ring-offset-1 print:hidden"
+            >
+              🖨️ Print
+            </button>
+          </div>
         </div>
         )}
         {!isPreview && (
