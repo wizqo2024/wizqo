@@ -1890,20 +1890,29 @@ export function PrintablesPage() {
         // Calculate PDF dimensions
         const imgWidth = 210 // A4 width in mm
         const pageHeight = 297 // A4 height in mm
-        const imgHeight = (canvas.height * imgWidth) / canvas.width
+        let imgHeight = (canvas.height * imgWidth) / canvas.width
         
         // Use lower quality JPEG instead of PNG for faster generation and smaller file size
         const imgData = canvas.toDataURL('image/jpeg', 0.85)
         
         const pdf = new jsPDF('p', 'mm', 'a4')
         
-        // Check if content actually fits on one page (with small margin for rounding)
-        // For single worksheets, they should typically fit on one page
-        if (imgHeight <= pageHeight + 10) {
+        // Check if this is a single worksheet (not a bundle)
+        const isSingleWorksheet = doc !== 'bundle' || (activeDocs && activeDocs.length === 1)
+        
+        // For single worksheets, force it to fit on one page by scaling if needed
+        if (isSingleWorksheet && imgHeight > pageHeight) {
+          // Scale down to fit on one page
+          const scaleFactor = pageHeight / imgHeight
+          imgHeight = pageHeight
+          const scaledWidth = imgWidth * scaleFactor
+          const xOffset = (210 - scaledWidth) / 2 // Center it
+          pdf.addImage(imgData, 'JPEG', xOffset, 0, scaledWidth, imgHeight)
+        } else if (imgHeight <= pageHeight + 10) {
           // Content fits on one page - add it directly
           pdf.addImage(imgData, 'JPEG', 0, 0, imgWidth, imgHeight)
         } else {
-          // Content is too tall - split across pages
+          // Content is too tall - split across pages (only for bundles or very long content)
           let heightLeft = imgHeight
           let position = 0
           
