@@ -2005,7 +2005,33 @@ export function PrintablesPage() {
       })
       
       // Wait for layout to settle with print dimensions and for print elements to be visible
-      await new Promise(resolve => setTimeout(resolve, 300))
+      await new Promise(resolve => setTimeout(resolve, 500))
+      
+      // Verify element is visible and has content before capturing
+      if (!actualContentElement || actualContentElement.offsetHeight === 0 || actualContentElement.offsetWidth === 0) {
+        throw new Error('Content element is not visible or has no dimensions')
+      }
+      
+      // Check if element has actual text content
+      const hasTextContent = actualContentElement.textContent && actualContentElement.textContent.trim().length > 0
+      const hasChildElements = actualContentElement.children.length > 0
+      
+      if (!hasTextContent && !hasChildElements) {
+        throw new Error('Content element appears to be empty')
+      }
+      
+      // Ensure element is visible and in viewport for html2canvas
+      const originalScrollY = window.scrollY
+      const originalScrollX = window.scrollX
+      
+      // Scroll element into view if needed
+      actualContentElement.scrollIntoView({ behavior: 'instant', block: 'start' })
+      
+      // Force a reflow to ensure all styles are applied
+      void actualContentElement.offsetHeight
+      
+      // Wait a bit for scroll to complete
+      await new Promise(resolve => setTimeout(resolve, 100))
       
       // Convert HTML to canvas - only capture the actual content area
       // Use print width (794px for A4) to match browser print layout exactly
@@ -2013,18 +2039,24 @@ export function PrintablesPage() {
       const scale = 1.2 // Higher scale for better quality
       const canvasWidth = printWidth * scale
       
+      // Ensure contentHeight is valid
+      if (!contentHeight || contentHeight <= 0) {
+        contentHeight = actualContentElement.offsetHeight
+      }
+      
       // Capture from where content actually starts (skip blank space at top)
       // Use scrollY to start capture from first content element
       const canvas = await html2canvas(actualContentElement, {
         scale: scale,
         useCORS: true,
-        logging: false,
+        logging: false, // Disable logging for production
         backgroundColor: '#ffffff',
         height: contentHeight * scale,
         width: canvasWidth,
         windowWidth: printWidth,
         windowHeight: contentHeight,
         removeContainer: false,
+        allowTaint: false,
         // Don't use scrollY - it can cause issues. Instead, capture from top and let CSS handle spacing
         scrollY: 0,
         scrollX: 0,
@@ -2215,6 +2247,9 @@ export function PrintablesPage() {
         }
       })
       
+      // Restore scroll position
+      window.scrollTo(originalScrollX, originalScrollY)
+      
       // Restore original state
       document.body.className = originalBodyClass
       document.body.style.width = originalBodyStyle.width
@@ -2298,13 +2333,177 @@ export function PrintablesPage() {
       // Don't crop to avoid removing important content like headers
       const finalCanvas = canvas
       
+      // Validate canvas has content
+      if (!finalCanvas || finalCanvas.width === 0 || finalCanvas.height === 0) {
+        console.error('Canvas is empty or invalid:', { width: finalCanvas?.width, height: finalCanvas?.height })
+        throw new Error('Failed to capture content for PDF. Canvas is empty.')
+      }
+      
+      // Check if canvas has actual content (not just white/blank)
+      const ctx = finalCanvas.getContext('2d')
+      if (!ctx) {
+        throw new Error('Failed to get canvas context')
+      }
+      
+      // Sample some pixels to check if canvas has content
+      const imageData = ctx.getImageData(0, 0, Math.min(100, finalCanvas.width), Math.min(100, finalCanvas.height))
+      const pixels = imageData.data
+      let hasNonWhitePixels = false
+      for (let i = 0; i < pixels.length; i += 4) {
+        const r = pixels[i]
+        const g = pixels[i + 1]
+        const b = pixels[i + 2]
+        const a = pixels[i + 3]
+        // Check if pixel is not white/transparent (allowing for some tolerance)
+        if (a > 10 && (r < 250 || g < 250 || b < 250)) {
+          hasNonWhitePixels = true
+          break
+        }
+      }
+      
+      if (!hasNonWhitePixels) {
+        console.warn('Canvas appears to be blank. Checking full canvas...')
+        // Check a larger sample
+        const fullImageData = ctx.getImageData(0, 0, finalCanvas.width, Math.min(500, finalCanvas.height))
+        const fullPixels = fullImageData.data
+        hasNonWhitePixels = false
+        for (let i = 0; i < fullPixels.length; i += 16) { // Sample every 4th pixel
+          const r = fullPixels[i]
+          const g = fullPixels[i + 1]
+          const b = fullPixels[i + 2]
+          const a = fullPixels[i + 3]
+          if (a > 10 && (r < 250 || g < 250 || b < 250)) {
+            hasNonWhitePixels = true
+            break
+          }
+        }
+      }
+      
+      if (!hasNonWhitePixels) {
+        console.error('Canvas appears to be blank. Content element:', actualContentElement, 'Height:', actualContentElement?.offsetHeight)
+        console.error('Attempting to capture full body as fallback...')
+        
+        // Fallback: Try capturing the entire body or a larger container
+        try {
+          const fallbackElement = document.querySelector('[data-worksheet-content="true"]') || 
+                                  document.querySelector('.min-h-screen.bg-white') ||
+                                  document.body
+          
+          if (fallbackElement && fallbackElement !== actualContentElement) {
+            console.log('Trying fallback element:', fallbackElement)
+            const fallbackCanvas = await html2canvas(fallbackElement as HTMLElement, {
+              scale: 1.2,
+              useCORS: true,
+              logging: false,
+              backgroundColor: '#ffffff',
+              allowTaint: false,
+            })
+            
+            // Check if fallback canvas has content
+            const fallbackCtx = fallbackCanvas.getContext('2d')
+            if (fallbackCtx) {
+              const fallbackImageData = fallbackCtx.getImageData(0, 0, Math.min(200, fallbackCanvas.width), Math.min(200, fallbackCanvas.height))
+              const fallbackPixels = fallbackImageData.data
+              let fallbackHasContent = false
+              for (let i = 0; i < fallbackPixels.length; i += 4) {
+                const r = fallbackPixels[i]
+                const g = fallbackPixels[i + 1]
+                const b = fallbackPixels[i + 2]
+                const a = fallbackPixels[i + 3]
+                if (a > 10 && (r < 250 || g < 250 || b < 250)) {
+                  fallbackHasContent = true
+                  break
+                }
+              }
+              
+              if (fallbackHasContent && fallbackCanvas.width > 0 && fallbackCanvas.height > 0) {
+                console.log('Fallback canvas has content, using it')
+                // Use fallback canvas
+                const finalCanvas = fallbackCanvas
+                const imgWidth = 210
+                const pageHeight = 297
+                const imgHeight = (finalCanvas.height * imgWidth) / finalCanvas.width
+                const imgData = finalCanvas.toDataURL('image/jpeg', 0.85)
+                const pdf = new jsPDF('p', 'mm', 'a4')
+                
+                if (imgHeight <= pageHeight) {
+                  pdf.addImage(imgData, 'JPEG', 0, 0, imgWidth, imgHeight)
+                } else {
+                  // Split into multiple pages (simplified version)
+                  const pixelsPerMm = finalCanvas.width / imgWidth
+                  let currentY = 0
+                  while (currentY < finalCanvas.height) {
+                    const pageHeightPx = pageHeight * pixelsPerMm
+                    const pageEndY = Math.min(currentY + pageHeightPx, finalCanvas.height)
+                    const pageHeightActual = pageEndY - currentY
+                    
+                    const pageCanvas = document.createElement('canvas')
+                    pageCanvas.width = finalCanvas.width
+                    pageCanvas.height = pageHeightActual
+                    const pageCtx = pageCanvas.getContext('2d')
+                    if (pageCtx) {
+                      pageCtx.drawImage(finalCanvas, 0, currentY, finalCanvas.width, pageHeightActual, 0, 0, finalCanvas.width, pageHeightActual)
+                      const pageImgData = pageCanvas.toDataURL('image/jpeg', 0.85)
+                      const pageImgHeight = (pageHeightActual * imgWidth) / finalCanvas.width
+                      pdf.addImage(pageImgData, 'JPEG', 0, 0, imgWidth, pageImgHeight)
+                      currentY = pageEndY
+                      if (currentY < finalCanvas.height) {
+                        pdf.addPage()
+                      }
+                    } else {
+                      break
+                    }
+                  }
+                }
+                
+                const filename = docTitle 
+                  ? `${docTitle.replace(/[^a-z0-9]/gi, '_').toLowerCase()}.pdf`
+                  : `worksheet_${doc || 'download'}.pdf`
+                pdf.save(filename)
+                
+                if (doc && primaryDoc) {
+                  const from = params.get('from') || 'unknown'
+                  const grade = from.includes('grade') ? from.replace('-grade', '') : undefined
+                  trackWorksheetDownload(primaryDoc, docTitle, from, grade)
+                }
+                
+                if (autoDownload && window.top === window.self) {
+                  setTimeout(() => {
+                    try {
+                      window.close()
+                    } catch (e) {
+                      // Ignore errors
+                    }
+                  }, 500)
+                }
+                
+                setIsDownloadingPDF(false)
+                return
+              }
+            }
+          }
+        } catch (fallbackError) {
+          console.error('Fallback capture also failed:', fallbackError)
+        }
+        
+        throw new Error('Failed to capture content for PDF. The canvas appears to be blank.')
+      }
+      
       // Calculate PDF dimensions
       const imgWidth = 210 // A4 width in mm
       const pageHeight = 297 // A4 height in mm
       let imgHeight = (finalCanvas.height * imgWidth) / finalCanvas.width
       
+      if (imgHeight <= 0 || isNaN(imgHeight)) {
+        throw new Error('Invalid image dimensions calculated for PDF')
+      }
+      
       // Use lower quality JPEG instead of PNG for faster generation and smaller file size
       const imgData = finalCanvas.toDataURL('image/jpeg', 0.85)
+      
+      if (!imgData || imgData === 'data:,') {
+        throw new Error('Failed to convert canvas to image data')
+      }
       
       const pdf = new jsPDF('p', 'mm', 'a4')
       
