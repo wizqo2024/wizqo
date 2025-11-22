@@ -1705,28 +1705,56 @@ export function PrintablesPage() {
     
     const downloadPDF = async () => {
       try {
-        // Wait for page to fully render - increase delay for iframe context
-        await new Promise(resolve => setTimeout(resolve, 3000))
-        
         // Import jsPDF and html2canvas dynamically
         const [{ default: jsPDF }, html2canvas] = await Promise.all([
           import('jspdf'),
           import('html2canvas').then(m => m.default || m)
         ])
         
-        // Get the main content element (the worksheet content)
-        // Try multiple selectors to find the content
-        let contentElement = document.querySelector('.min-h-screen.bg-white') as HTMLElement
-        if (!contentElement) {
-          // Fallback selectors
-          contentElement = document.querySelector('main') as HTMLElement
-        }
-        if (!contentElement) {
-          contentElement = document.body as HTMLElement
+        // Wait for content to render with retry mechanism
+        let contentElement: HTMLElement | null = null
+        let attempts = 0
+        const maxAttempts = 10
+        
+        while (!contentElement && attempts < maxAttempts) {
+          // Wait before each attempt
+          await new Promise(resolve => setTimeout(resolve, 500))
+          
+          // Try multiple selectors to find the content
+          contentElement = document.querySelector('.min-h-screen.bg-white') as HTMLElement
+          
+          if (!contentElement) {
+            // Try finding by worksheet content classes
+            contentElement = document.querySelector('[class*="worksheet"]') as HTMLElement ||
+                            document.querySelector('[class*="bundle"]') as HTMLElement ||
+                            document.querySelector('main') as HTMLElement
+          }
+          
+          if (!contentElement) {
+            // Try finding the root container
+            contentElement = document.querySelector('#root > div') as HTMLElement ||
+                            document.body.querySelector('div[class*="min-h"]') as HTMLElement
+          }
+          
+          if (!contentElement) {
+            // Last resort: use body but check if it has content
+            const body = document.body
+            if (body && body.children.length > 0 && body.offsetHeight > 100) {
+              contentElement = body
+            }
+          }
+          
+          // Check if element is actually rendered
+          if (contentElement && contentElement.offsetHeight > 0 && contentElement.offsetWidth > 0) {
+            break
+          }
+          
+          contentElement = null
+          attempts++
         }
         
         if (!contentElement || contentElement.offsetHeight === 0) {
-          console.error('Content element not found or not rendered')
+          console.error('Content element not found or not rendered after', attempts, 'attempts')
           // Don't fall back to print - just return silently for download mode
           return
         }
