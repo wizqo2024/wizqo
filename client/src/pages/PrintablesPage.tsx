@@ -1371,6 +1371,7 @@ export function PrintablesPage() {
     return showAnswersParam === '1' || showAnswersParam === 'true'
   })
   const [copiedLink, setCopiedLink] = React.useState(false)
+  const [isDownloadingPDF, setIsDownloadingPDF] = React.useState(false)
   const bundleItemsParam = params.get('items') || ''
   const bundleCategoryParam = params.get('category') || ''
   // Customization parameters
@@ -1703,360 +1704,364 @@ export function PrintablesPage() {
     return () => window.removeEventListener('scroll', handleScroll)
   }, [doc])
 
+  // PDF download function - can be called directly or via auto-download
+  const downloadPDF = React.useCallback(async () => {
+    try {
+      setIsDownloadingPDF(true)
+      
+      // Import jsPDF and html2canvas dynamically
+      const [{ default: jsPDF }, html2canvas] = await Promise.all([
+        import('jspdf'),
+        import('html2canvas').then(m => m.default || m)
+      ])
+      
+      // If showAnswers is true, wait a bit longer for answers to render
+      if (showAnswers) {
+        await new Promise(resolve => setTimeout(resolve, 1500))
+      }
+      
+      // Wait for content to render with retry mechanism
+      let contentElement: HTMLElement | null = null
+      let attempts = 0
+      const maxAttempts = 15
+      
+      const findContentElement = (): HTMLElement | null => {
+        // Try data attribute first (most reliable)
+        let el = document.querySelector('[data-worksheet-content="true"]') as HTMLElement
+        if (el && el.offsetHeight > 0) return el
+        
+        // Try primary selector
+        el = document.querySelector('.min-h-screen.bg-white') as HTMLElement
+        if (el && el.offsetHeight > 0) return el
+        
+        // Try finding any div with min-h-screen class
+        const allDivs = document.querySelectorAll('div')
+        for (const div of Array.from(allDivs)) {
+          if (div.classList.contains('min-h-screen') && div.classList.contains('bg-white')) {
+            if (div.offsetHeight > 0) return div as HTMLElement
+          }
+        }
+        
+        // Try finding div with min-h class
+        for (const div of Array.from(allDivs)) {
+          if (div.className.includes('min-h-screen') && div.className.includes('bg-white')) {
+            if (div.offsetHeight > 0) return div as HTMLElement
+          }
+        }
+        
+        // Try root div
+        el = document.querySelector('#root > div') as HTMLElement
+        if (el && el.offsetHeight > 0) return el
+        
+        // Try any div that's the first child of body or root
+        const root = document.getElementById('root') || document.body
+        if (root && root.firstElementChild) {
+          el = root.firstElementChild as HTMLElement
+          if (el && el.offsetHeight > 0) return el
+        }
+        
+        // Try body if it has substantial content
+        const body = document.body
+        if (body && body.children.length > 0 && body.offsetHeight > 100) {
+          return body
+        }
+        
+        return null
+      }
+      
+      while (!contentElement && attempts < maxAttempts) {
+        // Wait before each attempt (longer wait for first few attempts)
+        const waitTime = attempts < 3 ? 1000 : 500
+        await new Promise(resolve => setTimeout(resolve, waitTime))
+        
+        contentElement = findContentElement()
+        
+        if (contentElement && contentElement.offsetHeight > 0 && contentElement.offsetWidth > 0) {
+          break
+        }
+        
+        contentElement = null
+        attempts++
+      }
+      
+      if (!contentElement || contentElement.offsetHeight === 0) {
+        // Last resort: try to find any element with substantial content
+        const allElements = document.querySelectorAll('*')
+        let largestElement: HTMLElement | null = null
+        let maxHeight = 0
+        
+        for (const el of Array.from(allElements)) {
+          const htmlEl = el as HTMLElement
+          if (htmlEl.offsetHeight > maxHeight && htmlEl.offsetHeight > 200) {
+            // Skip script, style, and other non-content elements
+            const tagName = htmlEl.tagName.toLowerCase()
+            if (!['script', 'style', 'meta', 'link', 'title', 'head'].includes(tagName)) {
+              maxHeight = htmlEl.offsetHeight
+              largestElement = htmlEl
+            }
+          }
+        }
+        
+        if (largestElement && largestElement.offsetHeight > 200) {
+          contentElement = largestElement
+          console.log('Using largest element as fallback:', largestElement.tagName, largestElement.className)
+        } else {
+          console.error('Content element not found or not rendered after', attempts, 'attempts. Document readyState:', document.readyState, 'Body children:', document.body?.children.length)
+          // Try using body as absolute last resort if it has content
+          if (document.body && document.body.offsetHeight > 200) {
+            contentElement = document.body
+            console.log('Using body as absolute fallback')
+          } else {
+            // Don't fall back to print - just return silently for download mode
+            return
+          }
+        }
+      }
+      
+      // If showAnswers is true, verify that answer elements are actually rendered
+      if (showAnswers && contentElement) {
+        // Look for common answer indicators (answer keys, solution sections, etc.)
+        const answerIndicators = contentElement.querySelectorAll('[class*="answer"], [class*="solution"], [class*="key"], [data-answer]')
+        // Also check for text content that might indicate answers are shown
+        const hasAnswerText = contentElement.textContent?.toLowerCase().includes('answer') || 
+                              contentElement.textContent?.toLowerCase().includes('solution')
+        
+        // If we expect answers but don't see them, wait a bit more
+        if (answerIndicators.length === 0 && !hasAnswerText) {
+          console.log('Waiting for answers to render...')
+          await new Promise(resolve => setTimeout(resolve, 1000))
+        }
+      }
+      
+      // Find the actual content area to avoid capturing blank space
+      // Look for the first section or content container
+      let actualContentElement = contentElement
+      const firstSection = contentElement.querySelector('section.break-inside-avoid, section[class*="worksheet"], .worksheet-section')
+      
+      if (firstSection) {
+        // Find the parent container that wraps all sections
+        let container = firstSection.parentElement
+        while (container && container !== contentElement) {
+          // Check if this container has multiple sections (likely the content wrapper)
+          const sections = container.querySelectorAll('section.break-inside-avoid, section[class*="worksheet"]')
+          if (sections.length > 0 && container.offsetHeight > 100) {
+            actualContentElement = container as HTMLElement
+            break
+          }
+          container = container.parentElement
+        }
+        
+        // If we found a good container, use it; otherwise try to find a wrapper div
+        if (actualContentElement === contentElement) {
+          // Look for a div that contains all the sections
+          const allSections = contentElement.querySelectorAll('section.break-inside-avoid, section[class*="worksheet"]')
+          if (allSections.length > 0) {
+            // Find common parent of all sections
+            let commonParent = allSections[0].parentElement
+            if (commonParent && commonParent !== contentElement && commonParent.offsetHeight > 100) {
+              // Check if all sections are children of this parent
+              const sectionsInParent = commonParent.querySelectorAll('section.break-inside-avoid, section[class*="worksheet"]')
+              if (sectionsInParent.length === allSections.length) {
+                actualContentElement = commonParent as HTMLElement
+              }
+            }
+          }
+        }
+      }
+      
+      // Calculate actual content bounds to crop blank space
+      const allSections = actualContentElement.querySelectorAll('section.break-inside-avoid, section[class*="worksheet"], .worksheet-section')
+      let contentHeight = actualContentElement.offsetHeight
+      
+      if (allSections.length > 0) {
+        // Find the last section's bottom position
+        const lastSection = allSections[allSections.length - 1] as HTMLElement
+        const lastSectionBottom = lastSection.offsetTop + lastSection.offsetHeight
+        // Use the actual content height (add minimal padding - 10px to ensure we capture everything)
+        contentHeight = Math.min(lastSectionBottom + 10, actualContentElement.offsetHeight)
+        
+        // For single worksheets, ensure we're not capturing too much
+        // If it's a single worksheet (one section), be more precise
+        if (allSections.length === 1) {
+          contentHeight = lastSectionBottom + 5
+        }
+      }
+      
+      // Convert HTML to canvas - only capture the actual content area
+      // Use scale 1.2 for faster generation and smaller file size while maintaining quality
+      // Reduce height calculation to ensure single-page worksheets fit
+      const canvas = await html2canvas(actualContentElement, {
+        scale: 1.2,
+        useCORS: true,
+        logging: false,
+        backgroundColor: '#ffffff',
+        height: contentHeight,
+        width: actualContentElement.scrollWidth,
+        windowWidth: actualContentElement.scrollWidth,
+        windowHeight: contentHeight,
+        removeContainer: false,
+        onclone: (clonedDoc) => {
+          // Hide any elements that might add extra height in the cloned document
+          const clonedBody = clonedDoc.body
+          if (clonedBody) {
+            // Remove any excessive padding/margins that might cause extra height
+            clonedBody.style.paddingBottom = '0'
+            clonedBody.style.marginBottom = '0'
+          }
+          
+          // Helper function to safely get className as string
+          const getClassName = (el: HTMLElement): string => {
+            try {
+              if (typeof el.className === 'string') {
+                return el.className
+              } else if (el.className && typeof el.className === 'object') {
+                if ('baseVal' in el.className) {
+                  return (el.className as any).baseVal || ''
+                } else if ('value' in el.className) {
+                  return String((el.className as any).value || '')
+                } else if (typeof el.className.toString === 'function') {
+                  return el.className.toString()
+                }
+              }
+            } catch (e) {
+              // Ignore errors
+            }
+            return ''
+          }
+          
+          // Hide specific UI elements by targeting them more precisely
+          // Only hide elements that are clearly UI/navigation, not content
+          const allElements = clonedDoc.querySelectorAll('*')
+          allElements.forEach((el) => {
+            try {
+              const htmlEl = el as HTMLElement
+              const classNameStr = getClassName(htmlEl)
+              const textContent = (htmlEl.textContent || '').trim()
+              const tagName = htmlEl.tagName?.toLowerCase() || ''
+              
+              // Skip if this is likely content (sections, divs with worksheet content)
+              if (tagName === 'section' || classNameStr.includes('worksheet') || classNameStr.includes('break-inside-avoid')) {
+                return
+              }
+              
+              // Hide elements with print:hidden class (but be careful not to hide content)
+              if (classNameStr && (classNameStr.includes('print:hidden') || classNameStr.includes('print\\:hidden'))) {
+                // Only hide if it's clearly a UI element (button, link, header, etc.)
+                if (tagName === 'button' || tagName === 'a' || classNameStr.includes('mb-4') || classNameStr.includes('header') || classNameStr.includes('border-b')) {
+                  htmlEl.style.display = 'none'
+                }
+              }
+              
+              // Hide back link section (the div containing "Back to" link)
+              if (classNameStr && classNameStr.includes('mb-4 print:hidden') && htmlEl.querySelector('a[href*="back"]')) {
+                htmlEl.style.display = 'none'
+              }
+              
+              // Hide header with buttons (but not if it contains worksheet sections)
+              if (tagName === 'header' || (classNameStr && classNameStr.includes('border-b border-slate-200'))) {
+                if (htmlEl.querySelector('button, a[href*="pin"]') && !htmlEl.querySelector('section')) {
+                  htmlEl.style.display = 'none'
+                }
+              }
+              
+              // Hide specific buttons by text content (but only if they're buttons/links)
+              if (tagName === 'button' || tagName === 'a') {
+                if (textContent.includes('Download PDF') || textContent.includes('Pin this') || textContent.includes('Show answers') || textContent.includes('Hide answers') || textContent.includes('Print')) {
+                  htmlEl.style.display = 'none'
+                }
+              }
+            } catch (e) {
+              // Skip elements that cause errors
+              console.warn('Error processing element for PDF:', e)
+            }
+          })
+        }
+      })
+      
+      // Calculate PDF dimensions
+      const imgWidth = 210 // A4 width in mm
+      const pageHeight = 297 // A4 height in mm
+      let imgHeight = (canvas.height * imgWidth) / canvas.width
+      
+      // Use lower quality JPEG instead of PNG for faster generation and smaller file size
+      const imgData = canvas.toDataURL('image/jpeg', 0.85)
+      
+      const pdf = new jsPDF('p', 'mm', 'a4')
+      
+      // Check if this is a single worksheet (not a bundle)
+      const isSingleWorksheet = doc !== 'bundle' || (activeDocs && activeDocs.length === 1)
+      
+      // For single worksheets, force it to fit on one page by scaling if needed
+      if (isSingleWorksheet && imgHeight > pageHeight) {
+        // Scale down to fit on one page
+        const scaleFactor = pageHeight / imgHeight
+        imgHeight = pageHeight
+        const scaledWidth = imgWidth * scaleFactor
+        const xOffset = (210 - scaledWidth) / 2 // Center it
+        pdf.addImage(imgData, 'JPEG', xOffset, 0, scaledWidth, imgHeight)
+      } else if (imgHeight <= pageHeight + 10) {
+        // Content fits on one page - add it directly
+        pdf.addImage(imgData, 'JPEG', 0, 0, imgWidth, imgHeight)
+      } else {
+        // Content is too tall - split across pages (only for bundles or very long content)
+        let heightLeft = imgHeight
+        let position = 0
+        
+        // Add first page
+        pdf.addImage(imgData, 'JPEG', 0, position, imgWidth, imgHeight)
+        heightLeft -= pageHeight
+        
+        // Add additional pages if content is taller than one page
+        while (heightLeft > 0) {
+          position = heightLeft - imgHeight
+          pdf.addPage()
+          pdf.addImage(imgData, 'JPEG', 0, position, imgWidth, imgHeight)
+          heightLeft -= pageHeight
+        }
+      }
+      
+      // Generate filename
+      const filename = docTitle 
+        ? `${docTitle.replace(/[^a-z0-9]/gi, '_').toLowerCase()}.pdf`
+        : `worksheet_${doc || 'download'}.pdf`
+      
+      // Download the PDF
+      pdf.save(filename)
+      
+      // Track download
+      if (doc && primaryDoc) {
+        const from = params.get('from') || 'unknown'
+        const grade = from.includes('grade') ? from.replace('-grade', '') : undefined
+        trackWorksheetDownload(primaryDoc, docTitle, from, grade)
+      }
+      
+      // Close the tab after download (only if not in iframe and auto-download)
+      // Don't close if we're in an iframe (detected by checking if window.top !== window.self)
+      if (autoDownload && window.top === window.self) {
+        setTimeout(() => {
+          try {
+            window.close()
+          } catch (e) {
+            // Ignore errors if window can't be closed (e.g., not opened by script)
+          }
+        }, 500)
+      }
+    } catch (error) {
+      console.error('PDF download failed:', error)
+      // Don't fall back to print dialog when download=1 is set
+      // The user expects a download, not a print dialog
+      // If PDF generation fails, we should fail silently or show an error
+      // but not trigger print dialog
+    } finally {
+      setIsDownloadingPDF(false)
+    }
+  }, [showAnswers, doc, primaryDoc, docTitle, params, autoDownload])
+
   // Auto-download PDF when download=1 parameter is present
   React.useEffect(() => {
     if (!autoDownload) return
-    
-    const downloadPDF = async () => {
-      try {
-        // Import jsPDF and html2canvas dynamically
-        const [{ default: jsPDF }, html2canvas] = await Promise.all([
-          import('jspdf'),
-          import('html2canvas').then(m => m.default || m)
-        ])
-        
-        // If showAnswers is true, wait a bit longer for answers to render
-        if (showAnswers) {
-          await new Promise(resolve => setTimeout(resolve, 1500))
-        }
-        
-        // Wait for content to render with retry mechanism
-        let contentElement: HTMLElement | null = null
-        let attempts = 0
-        const maxAttempts = 15
-        
-        const findContentElement = (): HTMLElement | null => {
-          // Try data attribute first (most reliable)
-          let el = document.querySelector('[data-worksheet-content="true"]') as HTMLElement
-          if (el && el.offsetHeight > 0) return el
-          
-          // Try primary selector
-          el = document.querySelector('.min-h-screen.bg-white') as HTMLElement
-          if (el && el.offsetHeight > 0) return el
-          
-          // Try finding any div with min-h-screen class
-          const allDivs = document.querySelectorAll('div')
-          for (const div of Array.from(allDivs)) {
-            if (div.classList.contains('min-h-screen') && div.classList.contains('bg-white')) {
-              if (div.offsetHeight > 0) return div as HTMLElement
-            }
-          }
-          
-          // Try finding div with min-h class
-          for (const div of Array.from(allDivs)) {
-            if (div.className.includes('min-h-screen') && div.className.includes('bg-white')) {
-              if (div.offsetHeight > 0) return div as HTMLElement
-            }
-          }
-          
-          // Try root div
-          el = document.querySelector('#root > div') as HTMLElement
-          if (el && el.offsetHeight > 0) return el
-          
-          // Try any div that's the first child of body or root
-          const root = document.getElementById('root') || document.body
-          if (root && root.firstElementChild) {
-            el = root.firstElementChild as HTMLElement
-            if (el && el.offsetHeight > 0) return el
-          }
-          
-          // Try body if it has substantial content
-          const body = document.body
-          if (body && body.children.length > 0 && body.offsetHeight > 100) {
-            return body
-          }
-          
-          return null
-        }
-        
-        while (!contentElement && attempts < maxAttempts) {
-          // Wait before each attempt (longer wait for first few attempts)
-          const waitTime = attempts < 3 ? 1000 : 500
-          await new Promise(resolve => setTimeout(resolve, waitTime))
-          
-          contentElement = findContentElement()
-          
-          if (contentElement && contentElement.offsetHeight > 0 && contentElement.offsetWidth > 0) {
-            break
-          }
-          
-          contentElement = null
-          attempts++
-        }
-        
-        if (!contentElement || contentElement.offsetHeight === 0) {
-          // Last resort: try to find any element with substantial content
-          const allElements = document.querySelectorAll('*')
-          let largestElement: HTMLElement | null = null
-          let maxHeight = 0
-          
-          for (const el of Array.from(allElements)) {
-            const htmlEl = el as HTMLElement
-            if (htmlEl.offsetHeight > maxHeight && htmlEl.offsetHeight > 200) {
-              // Skip script, style, and other non-content elements
-              const tagName = htmlEl.tagName.toLowerCase()
-              if (!['script', 'style', 'meta', 'link', 'title', 'head'].includes(tagName)) {
-                maxHeight = htmlEl.offsetHeight
-                largestElement = htmlEl
-              }
-            }
-          }
-          
-          if (largestElement && largestElement.offsetHeight > 200) {
-            contentElement = largestElement
-            console.log('Using largest element as fallback:', largestElement.tagName, largestElement.className)
-          } else {
-            console.error('Content element not found or not rendered after', attempts, 'attempts. Document readyState:', document.readyState, 'Body children:', document.body?.children.length)
-            // Try using body as absolute last resort if it has content
-            if (document.body && document.body.offsetHeight > 200) {
-              contentElement = document.body
-              console.log('Using body as absolute fallback')
-            } else {
-              // Don't fall back to print - just return silently for download mode
-              return
-            }
-          }
-        }
-        
-        // If showAnswers is true, verify that answer elements are actually rendered
-        if (showAnswers && contentElement) {
-          // Look for common answer indicators (answer keys, solution sections, etc.)
-          const answerIndicators = contentElement.querySelectorAll('[class*="answer"], [class*="solution"], [class*="key"], [data-answer]')
-          // Also check for text content that might indicate answers are shown
-          const hasAnswerText = contentElement.textContent?.toLowerCase().includes('answer') || 
-                                contentElement.textContent?.toLowerCase().includes('solution')
-          
-          // If we expect answers but don't see them, wait a bit more
-          if (answerIndicators.length === 0 && !hasAnswerText) {
-            console.log('Waiting for answers to render...')
-            await new Promise(resolve => setTimeout(resolve, 1000))
-          }
-        }
-        
-        // Find the actual content area to avoid capturing blank space
-        // Look for the first section or content container
-        let actualContentElement = contentElement
-        const firstSection = contentElement.querySelector('section.break-inside-avoid, section[class*="worksheet"], .worksheet-section')
-        
-        if (firstSection) {
-          // Find the parent container that wraps all sections
-          let container = firstSection.parentElement
-          while (container && container !== contentElement) {
-            // Check if this container has multiple sections (likely the content wrapper)
-            const sections = container.querySelectorAll('section.break-inside-avoid, section[class*="worksheet"]')
-            if (sections.length > 0 && container.offsetHeight > 100) {
-              actualContentElement = container as HTMLElement
-              break
-            }
-            container = container.parentElement
-          }
-          
-          // If we found a good container, use it; otherwise try to find a wrapper div
-          if (actualContentElement === contentElement) {
-            // Look for a div that contains all the sections
-            const allSections = contentElement.querySelectorAll('section.break-inside-avoid, section[class*="worksheet"]')
-            if (allSections.length > 0) {
-              // Find common parent of all sections
-              let commonParent = allSections[0].parentElement
-              if (commonParent && commonParent !== contentElement && commonParent.offsetHeight > 100) {
-                // Check if all sections are children of this parent
-                const sectionsInParent = commonParent.querySelectorAll('section.break-inside-avoid, section[class*="worksheet"]')
-                if (sectionsInParent.length === allSections.length) {
-                  actualContentElement = commonParent as HTMLElement
-                }
-              }
-            }
-          }
-        }
-        
-        // Calculate actual content bounds to crop blank space
-        const allSections = actualContentElement.querySelectorAll('section.break-inside-avoid, section[class*="worksheet"], .worksheet-section')
-        let contentHeight = actualContentElement.offsetHeight
-        
-        if (allSections.length > 0) {
-          // Find the last section's bottom position
-          const lastSection = allSections[allSections.length - 1] as HTMLElement
-          const lastSectionBottom = lastSection.offsetTop + lastSection.offsetHeight
-          // Use the actual content height (add minimal padding - 10px to ensure we capture everything)
-          contentHeight = Math.min(lastSectionBottom + 10, actualContentElement.offsetHeight)
-          
-          // For single worksheets, ensure we're not capturing too much
-          // If it's a single worksheet (one section), be more precise
-          if (allSections.length === 1) {
-            contentHeight = lastSectionBottom + 5
-          }
-        }
-        
-        // Convert HTML to canvas - only capture the actual content area
-        // Use scale 1.2 for faster generation and smaller file size while maintaining quality
-        // Reduce height calculation to ensure single-page worksheets fit
-        const canvas = await html2canvas(actualContentElement, {
-          scale: 1.2,
-          useCORS: true,
-          logging: false,
-          backgroundColor: '#ffffff',
-          height: contentHeight,
-          width: actualContentElement.scrollWidth,
-          windowWidth: actualContentElement.scrollWidth,
-          windowHeight: contentHeight,
-          removeContainer: false,
-          onclone: (clonedDoc) => {
-            // Hide any elements that might add extra height in the cloned document
-            const clonedBody = clonedDoc.body
-            if (clonedBody) {
-              // Remove any excessive padding/margins that might cause extra height
-              clonedBody.style.paddingBottom = '0'
-              clonedBody.style.marginBottom = '0'
-            }
-            
-            // Helper function to safely get className as string
-            const getClassName = (el: HTMLElement): string => {
-              try {
-                if (typeof el.className === 'string') {
-                  return el.className
-                } else if (el.className && typeof el.className === 'object') {
-                  if ('baseVal' in el.className) {
-                    return (el.className as any).baseVal || ''
-                  } else if ('value' in el.className) {
-                    return String((el.className as any).value || '')
-                  } else if (typeof el.className.toString === 'function') {
-                    return el.className.toString()
-                  }
-                }
-              } catch (e) {
-                // Ignore errors
-              }
-              return ''
-            }
-            
-            // Hide specific UI elements by targeting them more precisely
-            // Only hide elements that are clearly UI/navigation, not content
-            const allElements = clonedDoc.querySelectorAll('*')
-            allElements.forEach((el) => {
-              try {
-                const htmlEl = el as HTMLElement
-                const classNameStr = getClassName(htmlEl)
-                const textContent = (htmlEl.textContent || '').trim()
-                const tagName = htmlEl.tagName?.toLowerCase() || ''
-                
-                // Skip if this is likely content (sections, divs with worksheet content)
-                if (tagName === 'section' || classNameStr.includes('worksheet') || classNameStr.includes('break-inside-avoid')) {
-                  return
-                }
-                
-                // Hide elements with print:hidden class (but be careful not to hide content)
-                if (classNameStr && (classNameStr.includes('print:hidden') || classNameStr.includes('print\\:hidden'))) {
-                  // Only hide if it's clearly a UI element (button, link, header, etc.)
-                  if (tagName === 'button' || tagName === 'a' || classNameStr.includes('mb-4') || classNameStr.includes('header') || classNameStr.includes('border-b')) {
-                    htmlEl.style.display = 'none'
-                  }
-                }
-                
-                // Hide back link section (the div containing "Back to" link)
-                if (classNameStr && classNameStr.includes('mb-4 print:hidden') && htmlEl.querySelector('a[href*="back"]')) {
-                  htmlEl.style.display = 'none'
-                }
-                
-                // Hide header with buttons (but not if it contains worksheet sections)
-                if (tagName === 'header' || (classNameStr && classNameStr.includes('border-b border-slate-200'))) {
-                  if (htmlEl.querySelector('button, a[href*="pin"]') && !htmlEl.querySelector('section')) {
-                    htmlEl.style.display = 'none'
-                  }
-                }
-                
-                // Hide specific buttons by text content (but only if they're buttons/links)
-                if (tagName === 'button' || tagName === 'a') {
-                  if (textContent.includes('Download PDF') || textContent.includes('Pin this') || textContent.includes('Show answers') || textContent.includes('Hide answers') || textContent.includes('Print')) {
-                    htmlEl.style.display = 'none'
-                  }
-                }
-              } catch (e) {
-                // Skip elements that cause errors
-                console.warn('Error processing element for PDF:', e)
-              }
-            })
-          }
-        })
-        
-        // Calculate PDF dimensions
-        const imgWidth = 210 // A4 width in mm
-        const pageHeight = 297 // A4 height in mm
-        let imgHeight = (canvas.height * imgWidth) / canvas.width
-        
-        // Use lower quality JPEG instead of PNG for faster generation and smaller file size
-        const imgData = canvas.toDataURL('image/jpeg', 0.85)
-        
-        const pdf = new jsPDF('p', 'mm', 'a4')
-        
-        // Check if this is a single worksheet (not a bundle)
-        const isSingleWorksheet = doc !== 'bundle' || (activeDocs && activeDocs.length === 1)
-        
-        // For single worksheets, force it to fit on one page by scaling if needed
-        if (isSingleWorksheet && imgHeight > pageHeight) {
-          // Scale down to fit on one page
-          const scaleFactor = pageHeight / imgHeight
-          imgHeight = pageHeight
-          const scaledWidth = imgWidth * scaleFactor
-          const xOffset = (210 - scaledWidth) / 2 // Center it
-          pdf.addImage(imgData, 'JPEG', xOffset, 0, scaledWidth, imgHeight)
-        } else if (imgHeight <= pageHeight + 10) {
-          // Content fits on one page - add it directly
-          pdf.addImage(imgData, 'JPEG', 0, 0, imgWidth, imgHeight)
-        } else {
-          // Content is too tall - split across pages (only for bundles or very long content)
-          let heightLeft = imgHeight
-          let position = 0
-          
-          // Add first page
-          pdf.addImage(imgData, 'JPEG', 0, position, imgWidth, imgHeight)
-          heightLeft -= pageHeight
-          
-          // Add additional pages if content is taller than one page
-          while (heightLeft > 0) {
-            position = heightLeft - imgHeight
-            pdf.addPage()
-            pdf.addImage(imgData, 'JPEG', 0, position, imgWidth, imgHeight)
-            heightLeft -= pageHeight
-          }
-        }
-        
-        // Generate filename
-        const filename = docTitle 
-          ? `${docTitle.replace(/[^a-z0-9]/gi, '_').toLowerCase()}.pdf`
-          : `worksheet_${doc || 'download'}.pdf`
-        
-        // Download the PDF
-        pdf.save(filename)
-        
-        // Track download
-        if (doc && primaryDoc) {
-          const from = params.get('from') || 'unknown'
-          const grade = from.includes('grade') ? from.replace('-grade', '') : undefined
-          trackWorksheetDownload(primaryDoc, docTitle, from, grade)
-        }
-        
-        // Close the tab after download (only if not in iframe)
-        // Don't close if we're in an iframe (detected by checking if window.top !== window.self)
-        if (window.top === window.self) {
-          setTimeout(() => {
-            try {
-              window.close()
-            } catch (e) {
-              // Ignore errors if window can't be closed (e.g., not opened by script)
-            }
-          }, 500)
-        }
-      } catch (error) {
-        console.error('PDF download failed:', error)
-        // Don't fall back to print dialog when download=1 is set
-        // The user expects a download, not a print dialog
-        // If PDF generation fails, we should fail silently or show an error
-        // but not trigger print dialog
-      }
-    }
-    
     downloadPDF()
-  }, [autoDownload, doc, primaryDoc, docTitle, params, showAnswers])
+  }, [autoDownload, downloadPDF])
 
   // Auto-open browser print dialog when requested (e.g., from "Download PDF" links)
   React.useEffect(() => {
@@ -2301,19 +2306,22 @@ export function PrintablesPage() {
           <div className="flex items-center gap-2">
             <button
               onClick={() => {
-                // Add download=1 parameter to current URL and reload to trigger PDF download
-                // Preserve showAnswers state in URL so it's included in PDF
-                const url = new URL(window.location.href)
-                url.searchParams.set('download', '1')
-                url.searchParams.delete('autoprint') // Remove autoprint if present
-                if (showAnswers) {
-                  url.searchParams.set('showAnswers', '1')
-                }
-                window.location.href = url.toString()
+                downloadPDF()
               }}
-              className="inline-flex items-center gap-2 px-4 py-2 rounded-lg border border-purple-200 bg-purple-600 hover:bg-purple-700 text-white text-sm font-medium shadow-sm focus:outline-none focus:ring-2 focus:ring-purple-400 focus:ring-offset-1 print:hidden"
+              disabled={isDownloadingPDF}
+              className="inline-flex items-center gap-2 px-4 py-2 rounded-lg border border-purple-200 bg-purple-600 hover:bg-purple-700 text-white text-sm font-medium shadow-sm focus:outline-none focus:ring-2 focus:ring-purple-400 focus:ring-offset-1 print:hidden disabled:opacity-50 disabled:cursor-not-allowed"
             >
-              Download PDF
+              {isDownloadingPDF ? (
+                <>
+                  <svg className="animate-spin h-4 w-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                    <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                    <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                  </svg>
+                  Generating PDF...
+                </>
+              ) : (
+                'Download PDF'
+              )}
             </button>
             <button
               onClick={() => {
