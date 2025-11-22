@@ -1869,29 +1869,24 @@ export function PrintablesPage() {
         element.style.display = originalDisplay
       })
       
-      // Find all worksheet sections/cards BEFORE restoring styles
-      // Calculate their positions relative to contentElement while print styles are still applied
+      // Validate canvas
+      if (!canvas || canvas.width === 0 || canvas.height === 0) {
+        throw new Error('Failed to capture content')
+      }
+      
+      // Find section positions BEFORE restoring styles (while print styles are applied)
       const sections = contentElement.querySelectorAll('section.break-inside-avoid, section[class*="break-inside-avoid"], .worksheet-section')
-      const sectionBoundaries: Array<{ topPx: number; bottomPx: number }> = []
+      const sectionPositions: Array<{ top: number; bottom: number }> = []
       
       if (sections.length > 0) {
         const containerRect = contentElement.getBoundingClientRect()
         sections.forEach((section) => {
           const rect = (section as HTMLElement).getBoundingClientRect()
-          // Calculate position in pixels relative to contentElement
-          const topPx = rect.top - containerRect.top
-          const bottomPx = topPx + rect.height
-          
-          sectionBoundaries.push({ topPx, bottomPx })
+          const top = rect.top - containerRect.top
+          const bottom = top + rect.height
+          sectionPositions.push({ top, bottom })
         })
-        
-        // Sort sections by top position
-        sectionBoundaries.sort((a, b) => a.topPx - b.topPx)
-      }
-      
-      // Validate canvas
-      if (!canvas || canvas.width === 0 || canvas.height === 0) {
-        throw new Error('Failed to capture content')
+        sectionPositions.sort((a, b) => a.top - b.top)
       }
       
       // Create PDF
@@ -1906,63 +1901,50 @@ export function PrintablesPage() {
         // Single page
         pdf.addImage(imgData, 'JPEG', 0, 0, imgWidth, imgHeight)
       } else {
-        // Multiple pages - split canvas while respecting section boundaries
+        // Multiple pages - simple split with card protection
         const pixelsPerMm = canvas.width / imgWidth
         const pageHeightPx = pageHeight * pixelsPerMm
+        const scaleFactor = canvas.width / printWidth // html2canvas scale factor
         
-        // Convert section boundaries from contentElement pixels to canvas pixels
-        const scaleFactor = canvas.width / printWidth // Account for html2canvas scale
-        const canvasSectionBoundaries = sectionBoundaries.map(s => ({
-          topPx: s.topPx * scaleFactor,
-          bottomPx: s.bottomPx * scaleFactor
+        // Convert section positions to canvas coordinates
+        const canvasSections = sectionPositions.map(s => ({
+          top: s.top * scaleFactor,
+          bottom: s.bottom * scaleFactor
         }))
         
         let currentY = 0
         
         while (currentY < canvas.height) {
-          const pageEndY = Math.min(currentY + pageHeightPx, canvas.height)
+          let pageEndY = Math.min(currentY + pageHeightPx, canvas.height)
           
-          // Check if page break would cut through a section
-          let sectionToProtect: { topPx: number; bottomPx: number } | null = null
-          if (canvasSectionBoundaries.length > 0) {
-            sectionToProtect = canvasSectionBoundaries.find(section => {
-              // Check if page break is in the middle of a section (with 5px margin)
-              const margin = 5
-              return pageEndY > section.topPx + margin && pageEndY < section.bottomPx - margin
-            }) || null
-          }
-          
-          let actualPageEndY = pageEndY
-          
-          if (sectionToProtect) {
-            // Page break would cut through a section - find safe break point
-            // Find the last section that ends before the page break
-            const sectionsBeforeBreak = canvasSectionBoundaries
-              .filter(s => s.bottomPx <= pageEndY && s.topPx >= currentY)
-              .sort((a, b) => b.bottomPx - a.bottomPx)
+          // Check if page break would split a card
+          if (canvasSections.length > 0) {
+            const wouldSplitCard = canvasSections.some(section => {
+              // Check if page break is in the middle of a section
+              return pageEndY > section.top + 10 && pageEndY < section.bottom - 10
+            })
             
-            if (sectionsBeforeBreak.length > 0) {
-              // Break after the last section that fits on this page
-              actualPageEndY = sectionsBeforeBreak[0].bottomPx + 2 // 2px padding after section
-            } else {
-              // No sections before break - start section on next page if it doesn't fit
-              if (sectionToProtect.topPx < pageEndY && sectionToProtect.topPx > currentY) {
-                // Section starts on this page but doesn't fit - finish current page first
-                if (currentY > 0 && currentY < sectionToProtect.topPx) {
-                  actualPageEndY = sectionToProtect.topPx
-                } else {
-                  // Start section on next page
-                  currentY = sectionToProtect.topPx
-                  if (currentY < canvas.height) {
-                    pdf.addPage()
-                  }
-                  continue
+            if (wouldSplitCard) {
+              // Find the last section that ends before this page break
+              const sectionsBeforeBreak = canvasSections
+                .filter(s => s.bottom <= pageEndY && s.top >= currentY)
+                .sort((a, b) => b.bottom - a.bottom)
+              
+              if (sectionsBeforeBreak.length > 0) {
+                // Break after the last complete section
+                pageEndY = sectionsBeforeBreak[0].bottom + 5
+              } else {
+                // Section starts on this page but doesn't fit - move it to next page
+                const nextSection = canvasSections.find(s => s.top >= currentY && s.top < pageEndY)
+                if (nextSection && nextSection.top > currentY) {
+                  // Finish current page before the section
+                  pageEndY = nextSection.top
                 }
               }
             }
           }
           
-          const pageHeightActual = Math.min(actualPageEndY - currentY, canvas.height - currentY)
+          const pageHeightActual = Math.min(pageEndY - currentY, canvas.height - currentY)
           
           if (pageHeightActual > 0) {
             // Create page canvas
@@ -1990,7 +1972,7 @@ export function PrintablesPage() {
               
               pdf.addImage(pageImgData, 'JPEG', 0, 0, imgWidth, pageImgHeight)
               
-              currentY = actualPageEndY
+              currentY = pageEndY
               if (currentY < canvas.height) {
                 pdf.addPage()
               }
