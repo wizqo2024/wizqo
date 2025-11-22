@@ -2230,22 +2230,14 @@ export function PrintablesPage() {
       
       const pdf = new jsPDF('p', 'mm', 'a4')
       
-      // Check if this is a single worksheet (not a bundle)
-      const isSingleWorksheet = doc !== 'bundle' || (activeDocs && activeDocs.length === 1)
-      
-      // For single worksheets, force it to fit on one page by scaling if needed
-      if (isSingleWorksheet && imgHeight > pageHeight) {
-        // Scale down to fit on one page
-        const scaleFactor = pageHeight / imgHeight
-        imgHeight = pageHeight
-        const scaledWidth = imgWidth * scaleFactor
-        const xOffset = (210 - scaledWidth) / 2 // Center it
-        pdf.addImage(imgData, 'JPEG', xOffset, 0, scaledWidth, imgHeight)
-      } else if (imgHeight <= pageHeight + 10) {
+      // Always split content across pages naturally, matching browser print behavior
+      // This ensures the PDF has the same pagination as "Print → Save as PDF"
+      if (imgHeight <= pageHeight) {
         // Content fits on one page - add it directly
         pdf.addImage(imgData, 'JPEG', 0, 0, imgWidth, imgHeight)
       } else {
-        // Content is too tall - split across pages (only for bundles or very long content)
+        // Content spans multiple pages - split it naturally
+        // This matches how the browser print dialog handles pagination
         let heightLeft = imgHeight
         let position = 0
         
@@ -2253,7 +2245,7 @@ export function PrintablesPage() {
         pdf.addImage(imgData, 'JPEG', 0, position, imgWidth, imgHeight)
         heightLeft -= pageHeight
         
-        // Add additional pages if content is taller than one page
+        // Add additional pages for remaining content
         while (heightLeft > 0) {
           position = heightLeft - imgHeight
           pdf.addPage()
