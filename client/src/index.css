@@ -383,15 +383,45 @@ html {
 /* Universal print/PDF fix for all worksheets */
 /* Prevents worksheet cards, blocks, and content from splitting across pages */
 @media print {
-  /* Apply to all elements to prevent page breaks inside any block */
-  *, *::before, *::after {
-    break-inside: avoid;
-    page-break-inside: avoid;
+  /* Fix blank first page - ensure content starts at top */
+  @page {
+    margin: 0.5in;
   }
-
-  /* Reinforce for common block-level containers */
-  div, section, article, figure, table, tr, td {
+  
+  /* Prevent page breaks inside worksheet sections and cards */
+  section.break-inside-avoid,
+  section[class*="break-inside-avoid"],
+  section[class*="worksheet"],
+  .worksheet-section,
+  .break-inside-avoid,
+  [class*="worksheet-section"] {
     break-inside: avoid !important;
     page-break-inside: avoid !important;
+    -webkit-region-break-inside: avoid !important;
+  }
+
+  /* Prevent breaks inside worksheet content blocks */
+  section.break-inside-avoid > *,
+  .worksheet-section > *,
+  [data-worksheet-content="true"] section,
+  [data-worksheet-content="true"] .worksheet-section {
+    break-inside: avoid !important;
+    page-break-inside: avoid !important;
+  }
+
+  /* Prevent breaks in tables and cards */
+  table, tr {
+    break-inside: avoid !important;
+    page-break-inside: avoid !important;
+  }
+
+  /* Allow page breaks between sections, but not inside them */
+  section.break-inside-avoid + section.break-inside-avoid {
+    page-break-before: auto;
+  }
+
+  /* Fix blank first page - remove any forced page breaks at start */
+  [data-worksheet-content="true"] > *:first-child {
+    page-break-before: auto !important;
   }
 }

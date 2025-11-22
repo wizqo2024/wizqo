@@ -2434,7 +2434,7 @@ export function PrintablesPage() {
       <style>{`
         @media print {
           @page { 
-            margin: 0;
+            margin: 0.5in;
             size: A4;
           }
           html, body { 
@@ -2442,6 +2442,12 @@ export function PrintablesPage() {
             padding: 0 !important; 
             font-size: 11pt;
             line-height: 1.3;
+          }
+          /* Fix blank first page - prevent forced page break on first element */
+          [data-worksheet-content="true"] > *:first-child,
+          [data-worksheet-content="true"] > section:first-child,
+          [data-worksheet-content="true"] > div:first-child {
+            page-break-before: auto !important;
           }
           /* Hide URLs in print */
           a[href]::after { content: none !important; }
@@ -2491,9 +2497,19 @@ export function PrintablesPage() {
             break-inside: avoid !important;
             padding: 0 0.5in;
           }
-          .break-inside-avoid { 
+          .break-inside-avoid,
+          section.break-inside-avoid,
+          section[class*="break-inside-avoid"],
+          .worksheet-section {
             page-break-inside: avoid !important; 
-            break-inside: avoid !important; 
+            break-inside: avoid !important;
+            -webkit-region-break-inside: avoid !important;
+          }
+          /* Prevent any worksheet section from breaking across pages */
+          section.break-inside-avoid > *,
+          .worksheet-section > * {
+            page-break-inside: avoid !important;
+            break-inside: avoid !important;
           }
           /* Prevent text merging and improve readability - tighter spacing */
           p { 
