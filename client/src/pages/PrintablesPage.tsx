@@ -1704,8 +1704,37 @@ export function PrintablesPage() {
     return () => window.removeEventListener('scroll', handleScroll)
   }, [doc])
 
-  // PDF download function - can be called directly or via auto-download
-  const downloadPDF = React.useCallback(async () => {
+  // PDF download function - uses browser print dialog (same as print button)
+  // This ensures consistent behavior and avoids blank page issues
+  const downloadPDF = React.useCallback(() => {
+    try {
+      setIsDownloadingPDF(true)
+      // Use browser's print dialog - user can select "Save as PDF"
+      // This matches the print button behavior exactly
+      window.print()
+      
+      // Track download
+      if (doc && primaryDoc) {
+        const from = params.get('from') || 'unknown'
+        const grade = from.includes('grade') ? from.replace('-grade', '') : undefined
+        trackWorksheetDownload(primaryDoc, docTitle, from, grade)
+        trackPrintDialog(primaryDoc, from)
+      }
+      
+      // Reset state after a delay
+      setTimeout(() => {
+        setIsDownloadingPDF(false)
+      }, 1000)
+    } catch (error) {
+      console.error('PDF download failed:', error)
+      alert('Failed to open print dialog. Please try using the Print button instead.')
+      setIsDownloadingPDF(false)
+    }
+  }, [doc, primaryDoc, docTitle, params])
+
+  // OLD PDF download function - kept for reference but not used
+  // This was causing blank pages, so we now use browser print dialog instead
+  const downloadPDF_OLD = React.useCallback(async () => {
     let wrapperElement: HTMLElement | null = null
     let wrapperOriginalStyle: { width: string; maxWidth: string; margin: string; padding: string } | null = null
     
@@ -2814,10 +2843,26 @@ export function PrintablesPage() {
   }, [showAnswers, doc, primaryDoc, docTitle, params, autoDownload])
 
   // Auto-download PDF when download=1 parameter is present
+  // Uses browser print dialog (same as print button) for consistent behavior
   React.useEffect(() => {
     if (!autoDownload) return
-    downloadPDF()
-  }, [autoDownload, downloadPDF])
+    // Defer a bit to let the view render fully
+    const t = setTimeout(() => {
+      try {
+        window.print()
+        // Track auto-download
+        if (doc && primaryDoc) {
+          const from = params.get('from') || 'unknown'
+          const grade = from.includes('grade') ? from.replace('-grade', '') : undefined
+          trackWorksheetDownload(primaryDoc, docTitle, from, grade)
+          trackPrintDialog(primaryDoc, from)
+        }
+      } catch (e) {
+        console.error('Auto-download failed:', e)
+      }
+    }, 1200)
+    return () => clearTimeout(t)
+  }, [autoDownload, doc, primaryDoc, docTitle, params])
 
   // Auto-open browser print dialog when requested (e.g., from "Download PDF" links)
   React.useEffect(() => {
