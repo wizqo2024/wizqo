@@ -2293,13 +2293,46 @@ export function PrintablesPage() {
       const pageHeight = 297 // A4 height in mm
       let imgHeight = (finalCanvas.height * imgWidth) / finalCanvas.width
       
+      // Detect blank space at top of canvas by sampling pixels
+      // Check top 100 pixels (scaled) for blank/white space
+      const ctx = finalCanvas.getContext('2d')
+      let topBlankPixels = 0
+      if (ctx) {
+        const sampleHeight = Math.min(100 * scale, finalCanvas.height)
+        const sampleWidth = finalCanvas.width
+        const imageData = ctx.getImageData(0, 0, sampleWidth, sampleHeight)
+        const pixels = imageData.data
+        
+        // Find first row with non-white content
+        for (let y = 0; y < sampleHeight; y++) {
+          let hasContent = false
+          for (let x = 0; x < sampleWidth; x++) {
+            const idx = (y * sampleWidth + x) * 4
+            const r = pixels[idx]
+            const g = pixels[idx + 1]
+            const b = pixels[idx + 2]
+            // Check if pixel is not white (allow small variations)
+            if (r < 250 || g < 250 || b < 250) {
+              hasContent = true
+              break
+            }
+          }
+          if (hasContent) {
+            topBlankPixels = y
+            break
+          }
+        }
+      }
+      
+      // Calculate offset in mm to skip blank space
+      const topOffsetMm = (topBlankPixels * imgWidth) / finalCanvas.width
+      
       // Use lower quality JPEG instead of PNG for faster generation and smaller file size
       const imgData = finalCanvas.toDataURL('image/jpeg', 0.85)
       
       const pdf = new jsPDF('p', 'mm', 'a4')
       
       // Find all worksheet sections/cards to prevent breaking them across pages
-      // Adjust section positions since we cropped the top
       const sections = actualContentElement.querySelectorAll('section.break-inside-avoid, section[class*="worksheet"], .worksheet-section')
       const sectionBoundaries: Array<{ top: number; bottom: number }> = []
       
@@ -2308,7 +2341,6 @@ export function PrintablesPage() {
           const rect = (section as HTMLElement).getBoundingClientRect()
           const containerRect = actualContentElement.getBoundingClientRect()
           // Calculate position in PDF coordinates (mm) - convert from pixels to mm
-          // No cropping adjustment needed since we're using original canvas
           const topPx = rect.top - containerRect.top
           const heightPx = rect.height
           const top = (topPx * imgWidth) / printWidth
@@ -2323,8 +2355,8 @@ export function PrintablesPage() {
       }
       
       if (imgHeight <= pageHeight) {
-        // Content fits on one page - add it directly at top (blank space already cropped)
-        pdf.addImage(imgData, 'JPEG', 0, 0, imgWidth, imgHeight)
+        // Content fits on one page - position to skip blank space at top
+        pdf.addImage(imgData, 'JPEG', 0, -topOffsetMm, imgWidth, imgHeight)
       } else {
         // Content spans multiple pages - split while respecting section boundaries
         let currentY = 0
@@ -2359,8 +2391,8 @@ export function PrintablesPage() {
               
               if (safeBreak > currentY) {
                 // Can fit section(s) on this page, break after them
-                // Position image: for first page use 0 (blank space already cropped), for others use negative offset
-                const yPos = currentY === 0 ? 0 : currentY - imgHeight
+                // Position image: for first page skip blank space, for others use negative offset
+                const yPos = currentY === 0 ? -topOffsetMm : currentY - imgHeight
                 pdf.addImage(imgData, 'JPEG', 0, yPos, imgWidth, imgHeight)
                 currentY = Math.min(safeBreak, pageEndY) // Don't exceed page height
                 
@@ -2389,7 +2421,7 @@ export function PrintablesPage() {
                 currentY = sectionToProtect.top
               } else {
                 // Normal page break
-                const yPos = currentY === 0 ? 0 : currentY - imgHeight
+                const yPos = currentY === 0 ? -topOffsetMm : currentY - imgHeight
                 pdf.addImage(imgData, 'JPEG', 0, yPos, imgWidth, imgHeight)
                 currentY = pageEndY
                 if (currentY < imgHeight) {
@@ -2399,8 +2431,8 @@ export function PrintablesPage() {
             }
           } else {
             // Safe to break here - no section would be cut
-            // Position image: for first page use 0 (blank space already cropped), for others use negative offset
-            const yPos = currentY === 0 ? 0 : currentY - imgHeight
+            // Position image: for first page skip blank space, for others use negative offset
+            const yPos = currentY === 0 ? -topOffsetMm : currentY - imgHeight
             pdf.addImage(imgData, 'JPEG', 0, yPos, imgWidth, imgHeight)
             currentY = pageEndY
             
