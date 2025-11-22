@@ -2260,8 +2260,12 @@ export function PrintablesPage() {
       } else {
         // Content spans multiple pages - split while respecting section boundaries
         let currentY = 0
+        let iterations = 0
+        let prevY = -1 // Track previous Y to detect stuck loops
+        const maxIterations = 100 // Safety limit
         
-        while (currentY < imgHeight) {
+        while (currentY < imgHeight && iterations < maxIterations) {
+          iterations++
           const pageEndY = currentY + pageHeight
           
           // Check if page break would cut through a section
@@ -2276,7 +2280,7 @@ export function PrintablesPage() {
           
           if (sectionToProtect && pageEndY < imgHeight) {
             // Page break would cut through a section - find safe break point
-            // Find the last section that ends before or at the page break
+            // Find the last section that ends before the page break
             const sectionsBeforeBreak = sectionBoundaries
               .filter(s => s.bottom <= pageEndY && s.bottom > currentY)
               .sort((a, b) => b.bottom - a.bottom)
@@ -2285,32 +2289,40 @@ export function PrintablesPage() {
               // Break after the last section that fits on this page
               const safeBreak = sectionsBeforeBreak[0].bottom + 2 // 2mm padding after section
               
-              if (safeBreak > currentY && safeBreak <= pageEndY) {
+              if (safeBreak > currentY) {
                 // Can fit section(s) on this page, break after them
-                const pageContentHeight = safeBreak - currentY
                 pdf.addImage(imgData, 'JPEG', 0, currentY - imgHeight, imgWidth, imgHeight)
-                currentY = safeBreak
+                currentY = Math.min(safeBreak, pageEndY) // Don't exceed page height
                 
                 if (currentY < imgHeight) {
                   pdf.addPage()
                 }
               } else {
-                // Section doesn't fit - start it on next page
-                if (currentY > 0) {
-                  // Finish current page
+                // Fallback: normal page break
+                pdf.addImage(imgData, 'JPEG', 0, currentY - imgHeight, imgWidth, imgHeight)
+                currentY = pageEndY
+                if (currentY < imgHeight) {
+                  pdf.addPage()
+                }
+              }
+            } else {
+              // No sections before break - start section on next page if it doesn't fit
+              if (sectionToProtect.top < pageEndY && sectionToProtect.top > currentY) {
+                // Section starts on this page but doesn't fit - finish current page first
+                if (currentY > 0 && currentY < sectionToProtect.top) {
                   pdf.addImage(imgData, 'JPEG', 0, currentY - imgHeight, imgWidth, imgHeight)
                   pdf.addPage()
                 }
-                // Start new page at the section start
+                // Start at section beginning
                 currentY = sectionToProtect.top
-              }
-            } else {
-              // Section starts before currentY but doesn't fit - start it on next page
-              if (currentY > 0) {
+              } else {
+                // Normal page break
                 pdf.addImage(imgData, 'JPEG', 0, currentY - imgHeight, imgWidth, imgHeight)
-                pdf.addPage()
+                currentY = pageEndY
+                if (currentY < imgHeight) {
+                  pdf.addPage()
+                }
               }
-              currentY = sectionToProtect.top
             }
           } else {
             // Safe to break here - no section would be cut
@@ -2326,6 +2338,22 @@ export function PrintablesPage() {
           if (currentY >= imgHeight) {
             break
           }
+          
+          // Additional safety: ensure we always make progress
+          if (iterations > 1 && currentY === prevY) {
+            // Force progress if we're stuck
+            currentY = pageEndY
+            if (currentY >= imgHeight) {
+              break
+            }
+          }
+          
+          prevY = currentY // Update for next iteration
+        }
+        
+        // If we hit max iterations, log a warning
+        if (iterations >= maxIterations) {
+          console.warn('PDF generation hit max iterations, may be incomplete')
         }
       }
       
@@ -2357,6 +2385,8 @@ export function PrintablesPage() {
       }
     } catch (error) {
       console.error('PDF download failed:', error)
+      // Show user-friendly error message
+      alert('Failed to generate PDF. Please try using the Print button and selecting "Save as PDF" instead.')
       // Don't fall back to print dialog when download=1 is set
       // The user expects a download, not a print dialog
       // If PDF generation fails, we should fail silently or show an error
