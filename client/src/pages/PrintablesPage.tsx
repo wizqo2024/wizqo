@@ -1917,11 +1917,13 @@ export function PrintablesPage() {
         while (currentY < canvas.height) {
           let pageEndY = Math.min(currentY + pageHeightPx, canvas.height)
           
-          // Check if page break would split a card
+          // Check if page break would split a card (only if we're actually in the middle)
           if (canvasSections.length > 0) {
             const wouldSplitCard = canvasSections.some(section => {
-              // Check if page break is in the middle of a section
-              return pageEndY > section.top + 10 && pageEndY < section.bottom - 10
+              // Only consider it a split if we're clearly in the middle (not near edges)
+              // Use larger margins to avoid false positives
+              const margin = Math.max(30, section.bottom - section.top) * 0.1 // 10% of card height or 30px, whichever is larger
+              return pageEndY > section.top + margin && pageEndY < section.bottom - margin
             })
             
             if (wouldSplitCard) {
@@ -1931,13 +1933,19 @@ export function PrintablesPage() {
                 .sort((a, b) => b.bottom - a.bottom)
               
               if (sectionsBeforeBreak.length > 0) {
-                // Break after the last complete section
-                pageEndY = sectionsBeforeBreak[0].bottom + 5
+                // Break after the last complete section (only if it's reasonable)
+                const suggestedBreak = sectionsBeforeBreak[0].bottom + 5
+                // Only use this break if it doesn't waste too much space (at least 50% of page used)
+                const pageUsage = (suggestedBreak - currentY) / pageHeightPx
+                if (pageUsage > 0.5 || currentY === 0) {
+                  pageEndY = suggestedBreak
+                }
+                // Otherwise, let it break normally (card is too large for one page)
               } else {
-                // Section starts on this page but doesn't fit - move it to next page
+                // Section starts on this page but doesn't fit - only move if we have content
                 const nextSection = canvasSections.find(s => s.top >= currentY && s.top < pageEndY)
-                if (nextSection && nextSection.top > currentY) {
-                  // Finish current page before the section
+                if (nextSection && nextSection.top > currentY && (nextSection.top - currentY) > pageHeightPx * 0.3) {
+                  // Only move section if we have at least 30% of page filled
                   pageEndY = nextSection.top
                 }
               }
