@@ -2293,7 +2293,7 @@ export function PrintablesPage() {
               }}
               className="inline-flex items-center gap-2 px-4 py-2 rounded-lg border border-purple-200 bg-purple-600 hover:bg-purple-700 text-white text-sm font-medium shadow-sm focus:outline-none focus:ring-2 focus:ring-purple-400 focus:ring-offset-1 print:hidden"
             >
-              ⬇️ Download PDF
+              Download PDF
             </button>
             <button
               onClick={() => {

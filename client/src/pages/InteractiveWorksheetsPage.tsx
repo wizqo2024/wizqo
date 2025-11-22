@@ -475,7 +475,7 @@ function WorksheetPreviewCard({
                 rel="noopener noreferrer"
                 className="text-xs font-medium text-purple-600 hover:text-purple-700 px-3 py-1 rounded-full border border-purple-200 hover:border-purple-300 transition-colors"
               >
-                ⬇️ Download
+                Download
               </a>
             ) : null
           })()}

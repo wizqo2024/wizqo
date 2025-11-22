@@ -653,7 +653,7 @@ function ItemCard({ title, description, href }: { title: string; description: st
       <div className="text-base font-semibold text-slate-900">{title}</div>
       <p className="text-slate-600 text-sm mt-1">{description}</p>
       <div className="mt-3 flex items-center gap-2">
-        <a href={href} className={BUTTON_CLASS} aria-label={`Download ${title} as PDF`} target="_blank" rel="noopener noreferrer">⬇️ {t('pages.readingComprehension.downloadPDF')}</a>
+        <a href={href} className={BUTTON_CLASS} aria-label={`Download ${title} as PDF`} target="_blank" rel="noopener noreferrer">{t('pages.readingComprehension.downloadPDF')}</a>
       </div>
     </div>
   );
