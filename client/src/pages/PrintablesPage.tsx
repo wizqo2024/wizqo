@@ -1977,8 +1977,26 @@ export function PrintablesPage() {
         }
       })
       
-      // Wait for layout to settle with print dimensions
-      await new Promise(resolve => setTimeout(resolve, 200))
+      // Wait for layout to settle with print dimensions and for print elements to be visible
+      await new Promise(resolve => setTimeout(resolve, 300))
+      
+      // Now that print elements are visible, check for headers again
+      // Check for important header elements that should NOT be cropped
+      const customizationHeader = actualContentElement.querySelector('.print-customization-header')
+      // Find name/grade header by looking for elements containing "Name:" text
+      const allDivs = actualContentElement.querySelectorAll('div')
+      let nameGradeHeader: HTMLElement | null = null
+      for (const div of Array.from(allDivs)) {
+        const text = div.textContent || ''
+        if (text.includes('Name:') && text.includes('Date:') && (div.classList.contains('print:block') || div.classList.contains('hidden'))) {
+          // Check if it's actually visible now
+          const style = window.getComputedStyle(div)
+          if (style.display !== 'none' && style.visibility !== 'hidden') {
+            nameGradeHeader = div as HTMLElement
+            break
+          }
+        }
+      }
       
       // Convert HTML to canvas - only capture the actual content area
       // Use print width (794px for A4) to match browser print layout exactly
@@ -2220,20 +2238,8 @@ export function PrintablesPage() {
         if (originalMaxWidth !== undefined) element.style.maxWidth = originalMaxWidth
       })
       
-      // Check for important header elements that should NOT be cropped
-      const customizationHeader = actualContentElement.querySelector('.print-customization-header')
-      // Find name/grade header by looking for elements containing "Name:" text
-      const allDivs = actualContentElement.querySelectorAll('div')
-      let nameGradeHeader: HTMLElement | null = null
-      for (const div of Array.from(allDivs)) {
-        const text = div.textContent || ''
-        if (text.includes('Name:') && text.includes('Date:') && (div.classList.contains('print:block') || div.classList.contains('hidden'))) {
-          nameGradeHeader = div as HTMLElement
-          break
-        }
-      }
-      
       // Find the actual top of content - but preserve headers
+      // (Headers are already detected above after print elements are made visible)
       let cropTopPx = 0
       const contentRect = actualContentElement.getBoundingClientRect()
       
