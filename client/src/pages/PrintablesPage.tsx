@@ -2294,11 +2294,11 @@ export function PrintablesPage() {
       let imgHeight = (finalCanvas.height * imgWidth) / finalCanvas.width
       
       // Detect blank space at top of canvas by sampling pixels
-      // Check top 100 pixels (scaled) for blank/white space
+      // Check top 150 pixels (scaled) for blank/white space
       const ctx = finalCanvas.getContext('2d')
       let topBlankPixels = 0
       if (ctx) {
-        const sampleHeight = Math.min(100 * scale, finalCanvas.height)
+        const sampleHeight = Math.min(150 * scale, finalCanvas.height)
         const sampleWidth = finalCanvas.width
         const imageData = ctx.getImageData(0, 0, sampleWidth, sampleHeight)
         const pixels = imageData.data
@@ -2306,7 +2306,8 @@ export function PrintablesPage() {
         // Find first row with non-white content
         for (let y = 0; y < sampleHeight; y++) {
           let hasContent = false
-          for (let x = 0; x < sampleWidth; x++) {
+          // Sample every 10th pixel horizontally for performance
+          for (let x = 0; x < sampleWidth; x += 10) {
             const idx = (y * sampleWidth + x) * 4
             const r = pixels[idx]
             const g = pixels[idx + 1]
@@ -2318,21 +2319,38 @@ export function PrintablesPage() {
             }
           }
           if (hasContent) {
-            topBlankPixels = y
+            topBlankPixels = Math.max(0, y - 5) // Small buffer
             break
           }
         }
       }
       
-      // Calculate offset in mm to skip blank space
-      const topOffsetMm = (topBlankPixels * imgWidth) / finalCanvas.width
+      // Actually crop the canvas to remove blank space
+      let croppedCanvas = finalCanvas
+      if (topBlankPixels > 10) {
+        const cropTop = topBlankPixels
+        const cropped = document.createElement('canvas')
+        const croppedCtx = cropped.getContext('2d')
+        if (croppedCtx) {
+          cropped.width = finalCanvas.width
+          cropped.height = finalCanvas.height - cropTop
+          croppedCtx.drawImage(finalCanvas, 0, cropTop, finalCanvas.width, finalCanvas.height - cropTop, 0, 0, finalCanvas.width, finalCanvas.height - cropTop)
+          croppedCanvas = cropped
+        }
+      }
+      
+      // Calculate PDF dimensions using cropped canvas
+      const imgWidth = 210 // A4 width in mm
+      const pageHeight = 297 // A4 height in mm
+      let imgHeight = (croppedCanvas.height * imgWidth) / croppedCanvas.width
       
       // Use lower quality JPEG instead of PNG for faster generation and smaller file size
-      const imgData = finalCanvas.toDataURL('image/jpeg', 0.85)
+      const imgData = croppedCanvas.toDataURL('image/jpeg', 0.85)
       
       const pdf = new jsPDF('p', 'mm', 'a4')
       
       // Find all worksheet sections/cards to prevent breaking them across pages
+      // Adjust section positions for cropped canvas
       const sections = actualContentElement.querySelectorAll('section.break-inside-avoid, section[class*="worksheet"], .worksheet-section')
       const sectionBoundaries: Array<{ top: number; bottom: number }> = []
       
@@ -2340,8 +2358,8 @@ export function PrintablesPage() {
         sections.forEach((section) => {
           const rect = (section as HTMLElement).getBoundingClientRect()
           const containerRect = actualContentElement.getBoundingClientRect()
-          // Calculate position in PDF coordinates (mm) - convert from pixels to mm
-          const topPx = rect.top - containerRect.top
+          // Calculate position in PDF coordinates (mm) - adjust for cropped top
+          const topPx = Math.max(0, (rect.top - containerRect.top) - (topBlankPixels / scale))
           const heightPx = rect.height
           const top = (topPx * imgWidth) / printWidth
           const height = (heightPx * imgWidth) / printWidth
@@ -2355,8 +2373,8 @@ export function PrintablesPage() {
       }
       
       if (imgHeight <= pageHeight) {
-        // Content fits on one page - position to skip blank space at top
-        pdf.addImage(imgData, 'JPEG', 0, -topOffsetMm, imgWidth, imgHeight)
+        // Content fits on one page - add at top (blank space already cropped)
+        pdf.addImage(imgData, 'JPEG', 0, 0, imgWidth, imgHeight)
       } else {
         // Content spans multiple pages - split while respecting section boundaries
         let currentY = 0
@@ -2391,8 +2409,8 @@ export function PrintablesPage() {
               
               if (safeBreak > currentY) {
                 // Can fit section(s) on this page, break after them
-                // Position image: for first page skip blank space, for others use negative offset
-                const yPos = currentY === 0 ? -topOffsetMm : currentY - imgHeight
+                // Position image: for first page use 0 (blank space already cropped), for others use negative offset
+                const yPos = currentY === 0 ? 0 : currentY - imgHeight
                 pdf.addImage(imgData, 'JPEG', 0, yPos, imgWidth, imgHeight)
                 currentY = Math.min(safeBreak, pageEndY) // Don't exceed page height
                 
@@ -2421,7 +2439,7 @@ export function PrintablesPage() {
                 currentY = sectionToProtect.top
               } else {
                 // Normal page break
-                const yPos = currentY === 0 ? -topOffsetMm : currentY - imgHeight
+                const yPos = currentY === 0 ? 0 : currentY - imgHeight
                 pdf.addImage(imgData, 'JPEG', 0, yPos, imgWidth, imgHeight)
                 currentY = pageEndY
                 if (currentY < imgHeight) {
@@ -2431,8 +2449,8 @@ export function PrintablesPage() {
             }
           } else {
             // Safe to break here - no section would be cut
-            // Position image: for first page skip blank space, for others use negative offset
-            const yPos = currentY === 0 ? -topOffsetMm : currentY - imgHeight
+            // Position image: for first page use 0 (blank space already cropped), for others use negative offset
+            const yPos = currentY === 0 ? 0 : currentY - imgHeight
             pdf.addImage(imgData, 'JPEG', 0, yPos, imgWidth, imgHeight)
             currentY = pageEndY
             
