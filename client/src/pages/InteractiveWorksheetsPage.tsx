@@ -1073,32 +1073,39 @@ export function InteractiveWorksheetsPage() {
     return urlObj.toString()
   }, [getSingleWorksheetPrintUrl])
 
-  // Download handler - downloads PDF directly using hidden iframe
+  // Download handler - downloads PDF directly
   // The PrintablesPage component will detect download=1 and trigger download
   const handleDownload = React.useCallback((item: InteractiveWorksheetItem) => {
     const baseUrl = getSingleWorksheetPrintUrl(item.docId)
     if (!baseUrl) return
     
-    // Add download=1 parameter to trigger automatic download
+    // Add download=1 parameter to trigger automatic PDF download
     const url = new URL(baseUrl, window.location.origin)
     url.searchParams.set('download', '1')
     
-    // Use hidden iframe to load the page and trigger download without opening new tab
+    // Use hidden iframe to trigger PDF download without opening new tab
+    // The PrintablesPage will detect download=1 and automatically generate/download PDF
     const iframe = document.createElement('iframe')
     iframe.style.display = 'none'
     iframe.style.width = '0'
     iframe.style.height = '0'
-    iframe.style.position = 'absolute'
+    iframe.style.position = 'fixed'
     iframe.style.left = '-9999px'
+    iframe.style.top = '-9999px'
+    iframe.style.border = 'none'
     iframe.src = url.toString()
     document.body.appendChild(iframe)
     
-    // Clean up iframe after download completes (give it time to download)
+    // Clean up iframe after download completes
     setTimeout(() => {
-      if (iframe.parentNode) {
-        document.body.removeChild(iframe)
+      try {
+        if (iframe.parentNode) {
+          document.body.removeChild(iframe)
+        }
+      } catch (e) {
+        // Ignore cleanup errors
       }
-    }, 10000) // 10 seconds should be enough for download
+    }, 15000) // Give enough time for PDF generation and download
   }, [getSingleWorksheetPrintUrl])
 
   // Preview handler - opens modal/popup (kept for potential future use)
