@@ -380,6 +380,26 @@ html {
   background: hsl(215.3, 19.3%, 34.5%);
 }
 
+/* Worksheet visual layout fixes - prevent text/block overlap */
+.worksheet-example {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 20px;
+}
+
+.worksheet-visual {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.worksheet-text {
+  margin-left: 12px;
+  white-space: nowrap;
+  line-height: 1.4;
+}
+
 /* Universal print/PDF fix for all worksheets */
 /* Prevents worksheet cards, blocks, and content from splitting across pages */
 @media print {

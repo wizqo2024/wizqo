@@ -4226,21 +4226,32 @@ export function PrintablesPage() {
                 </div>
                 <div className="space-y-3 text-sm">
                   <div className="font-semibold text-base text-violet-900"><strong>{getTrans(`worksheets.${docId}.example.number`, 'Number:')}</strong> <span className="text-3xl text-violet-700 ml-2">47</span></div>
-                  {/* Visual base-10 blocks */}
-                  <div className="bg-white p-4 rounded-lg border-2 border-violet-300 overflow-hidden">
-                    <svg viewBox="0 0 550 130" className="w-full h-auto max-h-32" preserveAspectRatio="xMidYMid meet">
-                      {/* 4 tens rods */}
-                      {Array.from({ length: 4 }).map((_, j) => (
-                        <rect key={j} x={15 + j * 55} y="15" width="45" height="65" rx="4" fill="#22c55e" stroke="#16a34a" strokeWidth="2.5" />
-                      ))}
-                      <text x="250" y="50" fontSize="15" fill="#16a34a" fontWeight="bold">{getTrans(`worksheets.${docId}.example.tensLabel`, '4 tens = 40')}</text>
-                      {/* 7 ones cubes */}
-                      {Array.from({ length: 7 }).map((_, j) => (
-                        <rect key={j} x={15 + j * 35} y="85" width="25" height="25" rx="2" fill="#60a5fa" stroke="#2563eb" strokeWidth="2" />
-                      ))}
-                      <text x="15" y="120" fontSize="15" fill="#2563eb" fontWeight="bold">{getTrans(`worksheets.${docId}.example.onesLabel`, '7 ones = 7')}</text>
-                      <text x="275" y="120" fontSize="16" fill="#7c3aed" fontWeight="bold" textAnchor="middle">{getTrans(`worksheets.${docId}.example.expandedLabel`, '47 = 40 + 7')}</text>
-                    </svg>
+                  {/* Visual base-10 blocks with proper spacing */}
+                  <div className="bg-white p-4 rounded-lg border-2 border-violet-300">
+                    <div className="flex flex-wrap items-center gap-4">
+                      {/* Tens blocks with label */}
+                      <div className="flex flex-col items-center gap-2">
+                        <svg viewBox="0 0 240 80" className="w-auto h-20" preserveAspectRatio="xMidYMid meet">
+                          {Array.from({ length: 4 }).map((_, j) => (
+                            <rect key={j} x={15 + j * 55} y="15" width="45" height="65" rx="4" fill="#22c55e" stroke="#16a34a" strokeWidth="2.5" />
+                          ))}
+                        </svg>
+                        <div className="text-sm font-bold text-green-700 whitespace-nowrap">{getTrans(`worksheets.${docId}.example.tensLabel`, '4 tens = 40')}</div>
+                      </div>
+                      {/* Ones blocks with label */}
+                      <div className="flex flex-col items-center gap-2">
+                        <svg viewBox="0 0 250 50" className="w-auto h-16" preserveAspectRatio="xMidYMid meet">
+                          {Array.from({ length: 7 }).map((_, j) => (
+                            <rect key={j} x={15 + j * 35} y="10" width="25" height="25" rx="2" fill="#60a5fa" stroke="#2563eb" strokeWidth="2" />
+                          ))}
+                        </svg>
+                        <div className="text-sm font-bold text-blue-700 whitespace-nowrap">{getTrans(`worksheets.${docId}.example.onesLabel`, '7 ones = 7')}</div>
+                      </div>
+                      {/* Expanded form label */}
+                      <div className="flex items-center">
+                        <div className="text-base font-bold text-violet-700 whitespace-nowrap">{getTrans(`worksheets.${docId}.example.expandedLabel`, '47 = 40 + 7')}</div>
+                      </div>
+                    </div>
                   </div>
                   <div className="pl-4 border-l-2 border-violet-300 space-y-1">
                     <div><strong>{getTrans(`worksheets.${docId}.example.step1`, 'Step 1: Find tens:')}</strong> <span className="text-violet-700 font-bold">{getTrans(`worksheets.${docId}.example.step1Text`, '47 has 4 tens (40)')}</span></div>
