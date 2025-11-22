@@ -1886,15 +1886,21 @@ export function PrintablesPage() {
             }
             
             // Hide all elements with print:hidden class (header buttons, navigation, etc.)
-            const printHiddenElements = clonedDoc.querySelectorAll('.print\\:hidden, [class*="print:hidden"]')
-            printHiddenElements.forEach((el) => {
+            // Tailwind generates classes like "print:hidden" which need special handling
+            const allElementsForPrint = clonedDoc.querySelectorAll('*')
+            allElementsForPrint.forEach((el) => {
               const htmlEl = el as HTMLElement
-              htmlEl.style.display = 'none'
-              htmlEl.style.visibility = 'hidden'
-              htmlEl.style.opacity = '0'
-              htmlEl.style.height = '0'
-              htmlEl.style.width = '0'
-              htmlEl.style.overflow = 'hidden'
+              const className = htmlEl.className || ''
+              
+              // Check if element has print:hidden class (Tailwind format)
+              if (typeof className === 'string' && (className.includes('print:hidden') || className.includes('print\\:hidden'))) {
+                htmlEl.style.display = 'none'
+                htmlEl.style.visibility = 'hidden'
+                htmlEl.style.opacity = '0'
+                htmlEl.style.height = '0'
+                htmlEl.style.width = '0'
+                htmlEl.style.overflow = 'hidden'
+              }
             })
             
             // Also hide elements that contain specific text/classes that indicate they're UI elements
