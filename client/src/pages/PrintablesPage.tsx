@@ -2004,6 +2004,8 @@ export function PrintablesPage() {
       const scale = 1.2 // Higher scale for better quality
       const canvasWidth = printWidth * scale
       
+      // Ensure we capture from the very top of the content element
+      // Use y: 0 to start capture from the top, not from scroll position
       const canvas = await html2canvas(actualContentElement, {
         scale: scale,
         useCORS: true,
@@ -2014,6 +2016,8 @@ export function PrintablesPage() {
         windowWidth: printWidth,
         windowHeight: contentHeight,
         removeContainer: false,
+        y: 0, // Start from top of element
+        x: 0, // Start from left of element
         onclone: (clonedDoc) => {
           // Apply print styles to the cloned document
           const clonedHtml = clonedDoc.documentElement
@@ -2284,65 +2288,17 @@ export function PrintablesPage() {
         cropTopPx = 0
       }
       
-      // Use original canvas - don't crop to avoid blank first page issues
-      // Instead, we'll handle spacing in the PDF layout
+      // Use original canvas - ensure we capture all content
+      // Don't crop to avoid removing important content like headers
       const finalCanvas = canvas
       
-      // Calculate PDF dimensions - will be recalculated after cropping if needed
+      // Calculate PDF dimensions
       const imgWidth = 210 // A4 width in mm
       const pageHeight = 297 // A4 height in mm
-      
-      // Detect blank space at top of canvas by sampling pixels
-      // Check top 150 pixels (scaled) for blank/white space
-      const ctx = finalCanvas.getContext('2d')
-      let topBlankPixels = 0
-      if (ctx) {
-        const sampleHeight = Math.min(150 * scale, finalCanvas.height)
-        const sampleWidth = finalCanvas.width
-        const imageData = ctx.getImageData(0, 0, sampleWidth, sampleHeight)
-        const pixels = imageData.data
-        
-        // Find first row with non-white content
-        for (let y = 0; y < sampleHeight; y++) {
-          let hasContent = false
-          // Sample every 10th pixel horizontally for performance
-          for (let x = 0; x < sampleWidth; x += 10) {
-            const idx = (y * sampleWidth + x) * 4
-            const r = pixels[idx]
-            const g = pixels[idx + 1]
-            const b = pixels[idx + 2]
-            // Check if pixel is not white (allow small variations)
-            if (r < 250 || g < 250 || b < 250) {
-              hasContent = true
-              break
-            }
-          }
-          if (hasContent) {
-            topBlankPixels = Math.max(0, y - 5) // Small buffer
-            break
-          }
-        }
-      }
-      
-      // Actually crop the canvas to remove blank space
-      let croppedCanvas = finalCanvas
-      if (topBlankPixels > 10) {
-        const cropTop = topBlankPixels
-        const cropped = document.createElement('canvas')
-        const croppedCtx = cropped.getContext('2d')
-        if (croppedCtx) {
-          cropped.width = finalCanvas.width
-          cropped.height = finalCanvas.height - cropTop
-          croppedCtx.drawImage(finalCanvas, 0, cropTop, finalCanvas.width, finalCanvas.height - cropTop, 0, 0, finalCanvas.width, finalCanvas.height - cropTop)
-          croppedCanvas = cropped
-        }
-      }
-      
-      // Calculate PDF dimensions using cropped canvas
-      let imgHeight = (croppedCanvas.height * imgWidth) / croppedCanvas.width
+      let imgHeight = (finalCanvas.height * imgWidth) / finalCanvas.width
       
       // Use lower quality JPEG instead of PNG for faster generation and smaller file size
-      const imgData = croppedCanvas.toDataURL('image/jpeg', 0.85)
+      const imgData = finalCanvas.toDataURL('image/jpeg', 0.85)
       
       const pdf = new jsPDF('p', 'mm', 'a4')
       
@@ -2355,8 +2311,8 @@ export function PrintablesPage() {
         sections.forEach((section) => {
           const rect = (section as HTMLElement).getBoundingClientRect()
           const containerRect = actualContentElement.getBoundingClientRect()
-          // Calculate position in PDF coordinates (mm) - adjust for cropped top
-          const topPx = Math.max(0, (rect.top - containerRect.top) - (topBlankPixels / scale))
+          // Calculate position in PDF coordinates (mm) - convert from pixels to mm
+          const topPx = rect.top - containerRect.top
           const heightPx = rect.height
           const top = (topPx * imgWidth) / printWidth
           const height = (heightPx * imgWidth) / printWidth
@@ -2370,7 +2326,7 @@ export function PrintablesPage() {
       }
       
       if (imgHeight <= pageHeight) {
-        // Content fits on one page - add at top (blank space already cropped)
+        // Content fits on one page - add at top
         pdf.addImage(imgData, 'JPEG', 0, 0, imgWidth, imgHeight)
       } else {
         // Content spans multiple pages - split while respecting section boundaries
@@ -2406,7 +2362,7 @@ export function PrintablesPage() {
               
               if (safeBreak > currentY) {
                 // Can fit section(s) on this page, break after them
-                // Position image: for first page use 0 (blank space already cropped), for others use negative offset
+                // Position image: for first page use 0, for others use negative offset
                 const yPos = currentY === 0 ? 0 : currentY - imgHeight
                 pdf.addImage(imgData, 'JPEG', 0, yPos, imgWidth, imgHeight)
                 currentY = Math.min(safeBreak, pageEndY) // Don't exceed page height
@@ -2446,7 +2402,7 @@ export function PrintablesPage() {
             }
           } else {
             // Safe to break here - no section would be cut
-            // Position image: for first page use 0 (blank space already cropped), for others use negative offset
+            // Position image: for first page use 0, for others use negative offset
             const yPos = currentY === 0 ? 0 : currentY - imgHeight
             pdf.addImage(imgData, 'JPEG', 0, yPos, imgWidth, imgHeight)
             currentY = pageEndY
