@@ -2288,10 +2288,9 @@ export function PrintablesPage() {
       // Instead, we'll handle spacing in the PDF layout
       const finalCanvas = canvas
       
-      // Calculate PDF dimensions using final canvas
+      // Calculate PDF dimensions - will be recalculated after cropping if needed
       const imgWidth = 210 // A4 width in mm
       const pageHeight = 297 // A4 height in mm
-      let imgHeight = (finalCanvas.height * imgWidth) / finalCanvas.width
       
       // Detect blank space at top of canvas by sampling pixels
       // Check top 150 pixels (scaled) for blank/white space
@@ -2340,8 +2339,6 @@ export function PrintablesPage() {
       }
       
       // Calculate PDF dimensions using cropped canvas
-      const imgWidth = 210 // A4 width in mm
-      const pageHeight = 297 // A4 height in mm
       let imgHeight = (croppedCanvas.height * imgWidth) / croppedCanvas.width
       
       // Use lower quality JPEG instead of PNG for faster generation and smaller file size
