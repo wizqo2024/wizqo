@@ -4036,6 +4036,10 @@ export function PrintablesPage() {
                         ))}
                       </g>
                     </svg>
+                    {/* Answer label below - moved outside SVG to prevent overlap */}
+                    <div className="text-center text-sm text-slate-600 mt-2">
+                      Answer: <span className="font-bold text-blue-700">?</span>
+                    </div>
                     <div className="mt-2 text-xs text-center text-slate-600">
                       {num1} {isAdd ? '+' : '−'} {num2} = <span className="font-bold text-blue-700">___</span>
                     </div>
@@ -4083,24 +4087,26 @@ export function PrintablesPage() {
                   <div className="font-semibold text-base text-teal-900"><strong>Number:</strong> <span className="text-4xl text-teal-700 ml-2">7</span></div>
                   {/* Visual ten frame example */}
                   <div className="bg-white p-4 rounded-lg border-2 border-teal-300">
-                    <svg viewBox="0 0 300 140" className="w-full h-auto">
-                      <rect x="20" y="20" width="260" height="100" rx="8" fill="white" stroke="#14b8a6" strokeWidth="3" />
-                      {/* 5 circles in top row - all filled */}
-                      {Array.from({ length: 5 }).map((_, j) => (
-                        <g key={j}>
-                          <circle cx={50 + j * 40} cy="50" r="18" fill="#14b8a6" stroke="#0d9488" strokeWidth="2.5" />
-                          <circle cx={50 + j * 40 - 4} cy="46" r="3" fill="#ffffff" />
-                        </g>
-                      ))}
-                      {/* 5 circles in bottom row - first 2 filled */}
-                      {Array.from({ length: 5 }).map((_, j) => (
-                        <g key={j}>
-                          <circle cx={50 + j * 40} cy="90" r="18" fill={j < 2 ? "#14b8a6" : "white"} stroke="#0d9488" strokeWidth="2.5" />
-                          {j < 2 && <circle cx={50 + j * 40 - 4} cy="86" r="3" fill="#ffffff" />}
-                        </g>
-                      ))}
-                      <text x="150" y="125" fontSize="18" fill="#0d9488" textAnchor="middle" fontWeight="bold">7 filled circles, 3 empty circles</text>
-                    </svg>
+                    <div className="flex flex-col items-center gap-3">
+                      <svg viewBox="0 0 300 110" className="w-full h-auto max-h-32">
+                        <rect x="20" y="20" width="260" height="100" rx="8" fill="white" stroke="#14b8a6" strokeWidth="3" />
+                        {/* 5 circles in top row - all filled */}
+                        {Array.from({ length: 5 }).map((_, j) => (
+                          <g key={j}>
+                            <circle cx={50 + j * 40} cy="50" r="18" fill="#14b8a6" stroke="#0d9488" strokeWidth="2.5" />
+                            <circle cx={50 + j * 40 - 4} cy="46" r="3" fill="#ffffff" />
+                          </g>
+                        ))}
+                        {/* 5 circles in bottom row - first 2 filled */}
+                        {Array.from({ length: 5 }).map((_, j) => (
+                          <g key={j}>
+                            <circle cx={50 + j * 40} cy="90" r="18" fill={j < 2 ? "#14b8a6" : "white"} stroke="#0d9488" strokeWidth="2.5" />
+                            {j < 2 && <circle cx={50 + j * 40 - 4} cy="86" r="3" fill="#ffffff" />}
+                          </g>
+                        ))}
+                      </svg>
+                      <div className="text-base font-bold text-teal-700 whitespace-nowrap">7 filled circles, 3 empty circles</div>
+                    </div>
                   </div>
                   <div className="pl-4 border-l-2 border-teal-300 space-y-1">
                     <div><strong>Step 1:</strong> Look at the number: <span className="text-teal-700 font-bold text-lg">7</span></div>
@@ -4117,9 +4123,9 @@ export function PrintablesPage() {
               <div className="grid grid-cols-2 gap-4 break-inside-avoid" style={{ pageBreakAfter: 'auto' }}>
                 {numbers.map((n)=> (
                   <div key={n} className="break-inside-avoid bg-gradient-to-br from-teal-50 to-cyan-50 p-3 rounded-lg border-2 border-teal-200">
-                    <svg viewBox="0 0 400 180" className="w-full h-auto bg-white border border-slate-300 rounded">
-                      <text x="40" y="50" fontSize="48" fill="#0d9488" fontWeight="bold">{n}</text>
-                      <g transform="translate(120,30)">
+                    <div className="flex flex-col items-center gap-2 bg-white border border-slate-300 rounded p-2">
+                      <div className="text-3xl font-bold text-teal-700">{n}</div>
+                      <svg viewBox="0 0 200 100" className="w-full h-auto max-h-24">
                         <rect x="0" y="0" width="200" height="100" rx="6" fill="white" stroke="#14b8a6" strokeWidth="3" />
                         {Array.from({ length: 10 }).map((__,i)=> {
                           const col = i % 5;
@@ -4130,11 +4136,11 @@ export function PrintablesPage() {
                             <circle key={i} cx={x} cy={y} r="15" fill={i < n ? "#14b8a6" : "white"} stroke="#0d9488" strokeWidth="2.5" />
                           );
                         })}
-                      </g>
-                      <text x="200" y="150" fontSize="14" fill="#64748b" textAnchor="middle">
-                        Color <tspan fill="#0d9488" fontWeight="bold">{n}</tspan> circles
-                      </text>
-                    </svg>
+                      </svg>
+                      <div className="text-sm text-slate-600 text-center">
+                        Color <span className="text-teal-700 font-bold">{n}</span> circles
+                      </div>
+                    </div>
                   </div>
                 ))}
               </div>
@@ -4286,18 +4292,24 @@ export function PrintablesPage() {
                     <div key={i} className="border-2 border-violet-200 rounded-lg p-4 bg-gradient-to-br from-violet-50 to-pink-50 break-inside-avoid print:p-3">
                       <div className="text-violet-900 font-semibold mb-3 text-lg print:mb-2">{getTrans(`worksheets.${docId}.labels.number`, 'Number:')} <span className="text-2xl">{n}</span></div>
                       {/* Visual base-10 blocks */}
-                      <div className="mb-4 bg-white p-3 rounded border border-violet-300 print:mb-3 print:p-2 overflow-hidden">
-                        <svg viewBox="0 0 280 90" className="w-full h-auto max-h-20" preserveAspectRatio="xMidYMid meet">
-                          {/* Tens rods */}
-                          {Array.from({ length: Math.min(tens, 5) }).map((_, j) => (
-                            <rect key={j} x={5 + j * 38} y="5" width="35" height="55" rx="3" fill="#22c55e" stroke="#16a34a" strokeWidth="2" />
-                          ))}
-                          {tens > 5 && <text x={200} y="35" fontSize="11" fill="#16a34a">{t('worksheets.place-value-hto.labels.more', '+{count} more').replace('{count}', String(tens-5))}</text>}
-                          {/* Ones cubes */}
-                          {Array.from({ length: Math.min(ones, 8) }).map((_, j) => (
-                            <rect key={j} x={5 + j * 28} y="65" width="20" height="20" rx="2" fill="#60a5fa" stroke="#2563eb" strokeWidth="1.5" />
-                          ))}
-                        </svg>
+                      <div className="mb-4 bg-white p-3 rounded border border-violet-300 print:mb-3 print:p-2">
+                        <div className="flex flex-col items-center gap-2">
+                          <svg viewBox="0 0 280 70" className="w-full h-auto max-h-16" preserveAspectRatio="xMidYMid meet">
+                            {/* Tens rods */}
+                            {Array.from({ length: Math.min(tens, 5) }).map((_, j) => (
+                              <rect key={j} x={5 + j * 38} y="5" width="35" height="55" rx="3" fill="#22c55e" stroke="#16a34a" strokeWidth="2" />
+                            ))}
+                            {/* Ones cubes */}
+                            {Array.from({ length: Math.min(ones, 8) }).map((_, j) => (
+                              <rect key={j} x={5 + j * 28} y="65" width="20" height="20" rx="2" fill="#60a5fa" stroke="#2563eb" strokeWidth="1.5" />
+                            ))}
+                          </svg>
+                          {tens > 5 && (
+                            <div className="text-xs font-semibold text-green-700 whitespace-nowrap">
+                              {t('worksheets.place-value-hto.labels.more', '+{count} more').replace('{count}', String(tens-5))}
+                            </div>
+                          )}
+                        </div>
                       </div>
                       <div className="grid grid-cols-3 gap-3 text-sm print:gap-2">
                         <div className="border-2 border-violet-300 rounded p-2.5 bg-white print:p-2">
