@@ -1887,6 +1887,42 @@ export function PrintablesPage() {
         }
       }
       
+      // Apply print styles before capturing to match browser "Save as PDF" layout
+      // Add a class to trigger print media queries
+      const originalBodyClass = document.body.className
+      document.body.classList.add('pdf-export-mode')
+      
+      // Show all print-only elements (name, grade, date, etc.)
+      // This includes elements with classes like "hidden print:block" or "print:block"
+      const allElements = document.querySelectorAll('*')
+      const hiddenElements: Array<{ element: HTMLElement; originalDisplay: string; originalVisibility: string }> = []
+      
+      allElements.forEach((el) => {
+        const htmlEl = el as HTMLElement
+        const classList = Array.from(htmlEl.classList)
+        const hasPrintBlock = classList.some(cls => cls.includes('print:block') || cls === 'print:block')
+        
+        if (hasPrintBlock) {
+          const computedStyle = window.getComputedStyle(htmlEl)
+          const currentDisplay = computedStyle.display
+          const currentVisibility = computedStyle.visibility
+          
+          // If element is hidden, show it for PDF export
+          if (currentDisplay === 'none' || currentVisibility === 'hidden') {
+            hiddenElements.push({
+              element: htmlEl,
+              originalDisplay: htmlEl.style.display || '',
+              originalVisibility: htmlEl.style.visibility || ''
+            })
+            htmlEl.style.display = 'block'
+            htmlEl.style.visibility = 'visible'
+          }
+        }
+      })
+      
+      // Wait a moment for styles to apply
+      await new Promise(resolve => setTimeout(resolve, 100))
+      
       // Convert HTML to canvas - only capture the actual content area
       // Use scale 1.2 for faster generation and smaller file size while maintaining quality
       // Reduce height calculation to ensure single-page worksheets fit
@@ -1901,13 +1937,115 @@ export function PrintablesPage() {
         windowHeight: contentHeight,
         removeContainer: false,
         onclone: (clonedDoc) => {
-          // Hide any elements that might add extra height in the cloned document
+          // Apply print styles to the cloned document
+          const clonedHtml = clonedDoc.documentElement
           const clonedBody = clonedDoc.body
+          
+          // Add print mode class
+          if (clonedHtml) {
+            clonedHtml.classList.add('pdf-export-mode')
+          }
           if (clonedBody) {
+            clonedBody.classList.add('pdf-export-mode')
             // Remove any excessive padding/margins that might cause extra height
             clonedBody.style.paddingBottom = '0'
             clonedBody.style.marginBottom = '0'
           }
+          
+          // Show all print-only elements in the cloned document
+          // Find all elements with print:block class and make them visible
+          const allClonedElements = clonedDoc.querySelectorAll('*')
+          allClonedElements.forEach((el) => {
+            const htmlEl = el as HTMLElement
+            const classList = Array.from(htmlEl.classList)
+            const hasPrintBlock = classList.some(cls => cls.includes('print:block') || cls === 'print:block')
+            
+            if (hasPrintBlock) {
+              htmlEl.style.display = 'block'
+              htmlEl.style.visibility = 'visible'
+            }
+          })
+          
+          // Apply print styles via inline styles to match @media print
+          const style = clonedDoc.createElement('style')
+          style.textContent = `
+            .pdf-export-mode html,
+            .pdf-export-mode body {
+              margin: 0 !important;
+              padding: 0 !important;
+              font-size: 11pt !important;
+              line-height: 1.3 !important;
+            }
+            .pdf-export-mode * {
+              box-shadow: none !important;
+            }
+            .pdf-export-mode a[href]::after {
+              content: none !important;
+            }
+            .pdf-export-mode a {
+              text-decoration: none !important;
+            }
+            .pdf-export-mode header,
+            .pdf-export-mode .print\\:hidden,
+            .pdf-export-mode nav,
+            .pdf-export-mode button {
+              border: none !important;
+              border-radius: 0 !important;
+            }
+            .pdf-export-mode section[class*="break-inside-avoid"] {
+              border: 1px solid #e2e8f0 !important;
+              border-radius: 4px !important;
+              background: white !important;
+            }
+            .pdf-export-mode section[class*="break-inside-avoid"] div[class*="border"],
+            .pdf-export-mode section[class*="break-inside-avoid"] div[class*="rounded"] {
+              border: 1px solid #cbd5e1 !important;
+              border-radius: 4px !important;
+            }
+            .pdf-export-mode section[class*="break-inside-avoid"] > div[class*="absolute"] {
+              display: none !important;
+            }
+            .pdf-export-mode .print-customization-header {
+              display: block !important;
+              margin-bottom: 0.5rem !important;
+              padding: 0.25rem 0.5in !important;
+              border-bottom: 1px solid #e2e8f0 !important;
+              font-size: 9pt !important;
+              color: #1e293b !important;
+              line-height: 1.3 !important;
+              font-weight: 500 !important;
+            }
+            .pdf-export-mode section {
+              margin-bottom: 0.75rem !important;
+              padding: 0 0.5in !important;
+            }
+            .pdf-export-mode p {
+              line-height: 1.4 !important;
+              margin: 0.25rem 0 !important;
+            }
+            .pdf-export-mode div,
+            .pdf-export-mode span {
+              line-height: 1.3 !important;
+            }
+            .pdf-export-mode h1,
+            .pdf-export-mode h2,
+            .pdf-export-mode h3 {
+              margin-bottom: 0.25rem !important;
+              margin-top: 0.5rem !important;
+              line-height: 1.2 !important;
+            }
+            .pdf-export-mode .mb-10 { margin-bottom: 0.75rem !important; }
+            .pdf-export-mode .mb-4,
+            .pdf-export-mode .mb-6 { margin-bottom: 0.5rem !important; }
+            .pdf-export-mode .p-4,
+            .pdf-export-mode .p-5,
+            .pdf-export-mode .p-6 { padding: 0.5rem !important; }
+            .pdf-export-mode .py-10 {
+              padding-top: 0.5rem !important;
+              padding-bottom: 0.5rem !important;
+            }
+          `
+          clonedDoc.head.appendChild(style)
           
           // Helper function to safely get className as string
           const getClassName = (el: HTMLElement): string => {
@@ -1976,6 +2114,13 @@ export function PrintablesPage() {
             }
           })
         }
+      })
+      
+      // Restore original state
+      document.body.className = originalBodyClass
+      hiddenElements.forEach(({ element, originalDisplay, originalVisibility }) => {
+        element.style.display = originalDisplay
+        element.style.visibility = originalVisibility
       })
       
       // Calculate PDF dimensions
