@@ -2434,7 +2434,7 @@ export function PrintablesPage() {
       <style>{`
         @media print {
           @page { 
-            margin: 0.5in;
+            margin: 0;
             size: A4;
           }
           html, body { 
@@ -2448,6 +2448,15 @@ export function PrintablesPage() {
           .min-h-screen {
             min-height: auto !important;
             height: auto !important;
+            margin: 0 !important;
+            padding: 0 !important;
+          }
+          /* Add padding to content container instead of @page margin to prevent blank first page */
+          [data-worksheet-content="true"] > div:first-child {
+            margin: 0.5in !important;
+            margin-top: 0.5in !important;
+            padding: 0 !important;
+            page-break-before: auto !important;
           }
           /* Fix blank first page - remove padding/margin from first child and prevent page break */
           [data-worksheet-content="true"] > *:first-child {
@@ -2455,15 +2464,18 @@ export function PrintablesPage() {
             margin-top: 0 !important;
             padding-top: 0 !important;
           }
-          [data-worksheet-content="true"] > div:first-child {
+          /* Ensure first visible element starts immediately - target first section or customization header */
+          [data-worksheet-content="true"] > div:first-child > *:first-child,
+          [data-worksheet-content="true"] > div:first-child > .print-customization-header:first-child {
+            margin-top: 0 !important;
+            padding-top: 0 !important;
+          }
+          /* Ensure first worksheet section has no top margin */
+          [data-worksheet-content="true"] section:first-of-type,
+          [data-worksheet-content="true"] .worksheet-section:first-of-type {
             margin-top: 0 !important;
             padding-top: 0 !important;
             page-break-before: auto !important;
-          }
-          /* Ensure first section starts immediately */
-          [data-worksheet-content="true"] > div:first-child > *:first-child {
-            margin-top: 0 !important;
-            padding-top: 0 !important;
           }
           /* Hide URLs in print */
           a[href]::after { content: none !important; }
@@ -2496,10 +2508,9 @@ export function PrintablesPage() {
           /* Customization header at top of page - only appears once */
           .print-customization-header { 
             display: block;
-            margin-top: 0 !important;
-            margin-bottom: 0.5rem;
-            padding: 0.25rem 0.5in;
-            padding-top: 0 !important;
+            margin: 0 !important;
+            margin-bottom: 0.5rem !important;
+            padding: 0.25rem 0 !important;
             border-bottom: 1px solid #e2e8f0;
             font-size: 9pt; 
             color: #1e293b; 
@@ -2512,9 +2523,18 @@ export function PrintablesPage() {
           /* Better spacing for print - more compact */
           section { 
             margin-bottom: 0.75rem !important; 
+            margin-top: 0 !important;
             page-break-inside: avoid !important;
             break-inside: avoid !important;
-            padding: 0 0.5in;
+            padding-left: 0 !important;
+            padding-right: 0 !important;
+            padding-top: 0 !important;
+            padding-bottom: 0 !important;
+          }
+          /* First section should have no top margin */
+          section:first-of-type {
+            margin-top: 0 !important;
+            padding-top: 0 !important;
           }
           .break-inside-avoid,
           section.break-inside-avoid,
