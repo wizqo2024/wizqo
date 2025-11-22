@@ -1884,6 +1884,41 @@ export function PrintablesPage() {
               clonedBody.style.paddingBottom = '0'
               clonedBody.style.marginBottom = '0'
             }
+            
+            // Hide all elements with print:hidden class (header buttons, navigation, etc.)
+            const printHiddenElements = clonedDoc.querySelectorAll('.print\\:hidden, [class*="print:hidden"]')
+            printHiddenElements.forEach((el) => {
+              const htmlEl = el as HTMLElement
+              htmlEl.style.display = 'none'
+              htmlEl.style.visibility = 'hidden'
+              htmlEl.style.opacity = '0'
+              htmlEl.style.height = '0'
+              htmlEl.style.width = '0'
+              htmlEl.style.overflow = 'hidden'
+            })
+            
+            // Also hide elements that contain specific text/classes that indicate they're UI elements
+            const allElements = clonedDoc.querySelectorAll('*')
+            allElements.forEach((el) => {
+              const htmlEl = el as HTMLElement
+              const className = htmlEl.className || ''
+              const textContent = htmlEl.textContent || ''
+              
+              // Hide back link section
+              if (textContent.includes('Back to') || className.includes('mb-4 print:hidden')) {
+                htmlEl.style.display = 'none'
+              }
+              
+              // Hide header with buttons
+              if (className.includes('border-b border-slate-200') && htmlEl.querySelector('button, a[href*="pin"]')) {
+                htmlEl.style.display = 'none'
+              }
+              
+              // Hide specific buttons by text content
+              if (textContent.includes('Download PDF') || textContent.includes('Pin this') || textContent.includes('Show answers') || textContent.includes('Hide answers')) {
+                htmlEl.style.display = 'none'
+              }
+            })
           }
         })
         
