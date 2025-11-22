@@ -2291,7 +2291,9 @@ export function PrintablesPage() {
               
               if (safeBreak > currentY) {
                 // Can fit section(s) on this page, break after them
-                pdf.addImage(imgData, 'JPEG', 0, currentY - imgHeight, imgWidth, imgHeight)
+                // Position image: shift up by currentY to show portion starting at currentY
+                const yPos = -currentY
+                pdf.addImage(imgData, 'JPEG', 0, yPos, imgWidth, imgHeight)
                 currentY = Math.min(safeBreak, pageEndY) // Don't exceed page height
                 
                 if (currentY < imgHeight) {
@@ -2299,7 +2301,8 @@ export function PrintablesPage() {
                 }
               } else {
                 // Fallback: normal page break
-                pdf.addImage(imgData, 'JPEG', 0, currentY - imgHeight, imgWidth, imgHeight)
+                const yPos = -currentY
+                pdf.addImage(imgData, 'JPEG', 0, yPos, imgWidth, imgHeight)
                 currentY = pageEndY
                 if (currentY < imgHeight) {
                   pdf.addPage()
@@ -2310,14 +2313,16 @@ export function PrintablesPage() {
               if (sectionToProtect.top < pageEndY && sectionToProtect.top > currentY) {
                 // Section starts on this page but doesn't fit - finish current page first
                 if (currentY > 0 && currentY < sectionToProtect.top) {
-                  pdf.addImage(imgData, 'JPEG', 0, currentY - imgHeight, imgWidth, imgHeight)
+                  const yPos = -currentY
+                  pdf.addImage(imgData, 'JPEG', 0, yPos, imgWidth, imgHeight)
                   pdf.addPage()
                 }
                 // Start at section beginning
                 currentY = sectionToProtect.top
               } else {
                 // Normal page break
-                pdf.addImage(imgData, 'JPEG', 0, currentY - imgHeight, imgWidth, imgHeight)
+                const yPos = -currentY
+                pdf.addImage(imgData, 'JPEG', 0, yPos, imgWidth, imgHeight)
                 currentY = pageEndY
                 if (currentY < imgHeight) {
                   pdf.addPage()
@@ -2326,7 +2331,9 @@ export function PrintablesPage() {
             }
           } else {
             // Safe to break here - no section would be cut
-            pdf.addImage(imgData, 'JPEG', 0, currentY - imgHeight, imgWidth, imgHeight)
+            // Position image: shift up by currentY to show portion starting at currentY
+            const yPos = -currentY
+            pdf.addImage(imgData, 'JPEG', 0, yPos, imgWidth, imgHeight)
             currentY = pageEndY
             
             if (currentY < imgHeight) {
