@@ -1736,9 +1736,37 @@ export function PrintablesPage() {
         throw new Error('Could not find content to download')
       }
       
-      // Apply print styles temporarily
+      // Apply print styles temporarily to match print layout exactly
       const originalBodyClass = document.body.className
+      const originalBodyStyle = {
+        width: document.body.style.width,
+        maxWidth: document.body.style.maxWidth,
+        margin: document.body.style.margin,
+        padding: document.body.style.padding,
+      }
+      
+      // Set body to print dimensions (A4 width: 794px at 96dpi)
       document.body.classList.add('pdf-export-mode')
+      document.body.style.width = '794px'
+      document.body.style.maxWidth = '794px'
+      document.body.style.margin = '0 auto'
+      document.body.style.padding = '0'
+      
+      // Apply print styles to wrapper
+      const wrapperElement = document.querySelector('.max-w-4xl.mx-auto') as HTMLElement
+      const wrapperOriginalStyle = wrapperElement ? {
+        width: wrapperElement.style.width,
+        maxWidth: wrapperElement.style.maxWidth,
+        margin: wrapperElement.style.margin,
+        padding: wrapperElement.style.padding,
+      } : null
+      
+      if (wrapperElement) {
+        wrapperElement.style.width = '794px'
+        wrapperElement.style.maxWidth = '794px'
+        wrapperElement.style.margin = '0 auto'
+        wrapperElement.style.padding = '0'
+      }
       
       // Show print-only elements
       const allElements = document.querySelectorAll('*')
@@ -1762,16 +1790,50 @@ export function PrintablesPage() {
       })
       
       // Wait for styles to apply
-      await new Promise(resolve => setTimeout(resolve, 300))
+      await new Promise(resolve => setTimeout(resolve, 500))
       
-      // Capture the content
+      // Capture the content with print dimensions
+      const printWidth = 794 // A4 width in pixels at 96dpi
       const canvas = await html2canvas(contentElement, {
         scale: 2,
         useCORS: true,
         logging: false,
         backgroundColor: '#ffffff',
         allowTaint: false,
+        width: printWidth,
+        windowWidth: printWidth,
         onclone: (clonedDoc) => {
+          // Apply print styles to cloned document
+          const clonedHtml = clonedDoc.documentElement
+          const clonedBody = clonedDoc.body
+          
+          if (clonedHtml) {
+            clonedHtml.style.width = '794px'
+            clonedHtml.style.maxWidth = '794px'
+          }
+          if (clonedBody) {
+            clonedBody.style.width = '794px'
+            clonedBody.style.maxWidth = '794px'
+            clonedBody.style.margin = '0'
+            clonedBody.style.padding = '0'
+          }
+          
+          // Add print styles
+          const style = clonedDoc.createElement('style')
+          style.textContent = `
+            html, body {
+              width: 794px !important;
+              max-width: 794px !important;
+              margin: 0 !important;
+              padding: 0 !important;
+            }
+            [data-worksheet-content="true"] > div:first-child {
+              margin: 0.5in !important;
+              padding: 0 !important;
+            }
+          `
+          clonedDoc.head.appendChild(style)
+          
           // Show print elements in cloned document
           const allClonedElements = clonedDoc.querySelectorAll('*')
           allClonedElements.forEach((el) => {
@@ -1791,6 +1853,18 @@ export function PrintablesPage() {
       
       // Restore original styles
       document.body.className = originalBodyClass
+      document.body.style.width = originalBodyStyle.width
+      document.body.style.maxWidth = originalBodyStyle.maxWidth
+      document.body.style.margin = originalBodyStyle.margin
+      document.body.style.padding = originalBodyStyle.padding
+      
+      if (wrapperElement && wrapperOriginalStyle) {
+        wrapperElement.style.width = wrapperOriginalStyle.width
+        wrapperElement.style.maxWidth = wrapperOriginalStyle.maxWidth
+        wrapperElement.style.margin = wrapperOriginalStyle.margin
+        wrapperElement.style.padding = wrapperOriginalStyle.padding
+      }
+      
       hiddenElements.forEach(({ element, originalDisplay }) => {
         element.style.display = originalDisplay
       })
