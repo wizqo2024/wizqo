@@ -2223,7 +2223,6 @@ export function PrintablesPage() {
       // Calculate PDF dimensions
       const imgWidth = 210 // A4 width in mm
       const pageHeight = 297 // A4 height in mm
-      const scale = canvas.width / printWidth // Calculate actual scale used
       let imgHeight = (canvas.height * imgWidth) / canvas.width
       
       // Use lower quality JPEG instead of PNG for faster generation and smaller file size
@@ -2240,6 +2239,8 @@ export function PrintablesPage() {
           const rect = (section as HTMLElement).getBoundingClientRect()
           const containerRect = actualContentElement.getBoundingClientRect()
           // Calculate position in PDF coordinates (mm) - convert from pixels to mm
+          // DOM coordinates are in pixels, PDF coordinates are in mm
+          // Conversion: 1 DOM pixel = (210mm / printWidth) PDF mm
           const topPx = rect.top - containerRect.top
           const heightPx = rect.height
           const top = (topPx * imgWidth) / printWidth
