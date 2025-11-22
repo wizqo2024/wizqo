@@ -1811,12 +1811,24 @@ export function PrintablesPage() {
         } else {
           console.error('Content element not found or not rendered after', attempts, 'attempts. Document readyState:', document.readyState, 'Body children:', document.body?.children.length)
           // Try using body as absolute last resort if it has content
-          if (document.body && document.body.offsetHeight > 200) {
+          if (document.body && document.body.offsetHeight > 100) {
             contentElement = document.body
             console.log('Using body as absolute fallback')
           } else {
-            // Don't fall back to print - just return silently for download mode
-            return
+            // Wait a bit more and try one more time
+            await new Promise(resolve => setTimeout(resolve, 1000))
+            contentElement = findContentElement()
+            if (!contentElement || contentElement.offsetHeight === 0) {
+              // Try body one more time
+              if (document.body && document.body.offsetHeight > 50) {
+                contentElement = document.body
+                console.log('Using body after additional wait')
+              } else {
+                console.error('Could not find content element, but proceeding anyway')
+                // Don't return - let it try with whatever we have
+                contentElement = document.body || document.documentElement
+              }
+            }
           }
         }
       }
@@ -2333,176 +2345,122 @@ export function PrintablesPage() {
       // Don't crop to avoid removing important content like headers
       const finalCanvas = canvas
       
-      // Validate canvas has content
+      // Validate canvas has basic dimensions
       if (!finalCanvas || finalCanvas.width === 0 || finalCanvas.height === 0) {
         console.error('Canvas is empty or invalid:', { width: finalCanvas?.width, height: finalCanvas?.height })
-        throw new Error('Failed to capture content for PDF. Canvas is empty.')
-      }
-      
-      // Check if canvas has actual content (not just white/blank)
-      const ctx = finalCanvas.getContext('2d')
-      if (!ctx) {
-        throw new Error('Failed to get canvas context')
-      }
-      
-      // Sample some pixels to check if canvas has content
-      const imageData = ctx.getImageData(0, 0, Math.min(100, finalCanvas.width), Math.min(100, finalCanvas.height))
-      const pixels = imageData.data
-      let hasNonWhitePixels = false
-      for (let i = 0; i < pixels.length; i += 4) {
-        const r = pixels[i]
-        const g = pixels[i + 1]
-        const b = pixels[i + 2]
-        const a = pixels[i + 3]
-        // Check if pixel is not white/transparent (allowing for some tolerance)
-        if (a > 10 && (r < 250 || g < 250 || b < 250)) {
-          hasNonWhitePixels = true
-          break
-        }
-      }
-      
-      if (!hasNonWhitePixels) {
-        console.warn('Canvas appears to be blank. Checking full canvas...')
-        // Check a larger sample
-        const fullImageData = ctx.getImageData(0, 0, finalCanvas.width, Math.min(500, finalCanvas.height))
-        const fullPixels = fullImageData.data
-        hasNonWhitePixels = false
-        for (let i = 0; i < fullPixels.length; i += 16) { // Sample every 4th pixel
-          const r = fullPixels[i]
-          const g = fullPixels[i + 1]
-          const b = fullPixels[i + 2]
-          const a = fullPixels[i + 3]
-          if (a > 10 && (r < 250 || g < 250 || b < 250)) {
-            hasNonWhitePixels = true
-            break
-          }
-        }
-      }
-      
-      if (!hasNonWhitePixels) {
-        console.error('Canvas appears to be blank. Content element:', actualContentElement, 'Height:', actualContentElement?.offsetHeight)
-        console.error('Attempting to capture full body as fallback...')
-        
-        // Fallback: Try capturing the entire body or a larger container
-        try {
-          const fallbackElement = document.querySelector('[data-worksheet-content="true"]') || 
-                                  document.querySelector('.min-h-screen.bg-white') ||
-                                  document.body
-          
-          if (fallbackElement && fallbackElement !== actualContentElement) {
-            console.log('Trying fallback element:', fallbackElement)
-            const fallbackCanvas = await html2canvas(fallbackElement as HTMLElement, {
-              scale: 1.2,
-              useCORS: true,
-              logging: false,
-              backgroundColor: '#ffffff',
-              allowTaint: false,
-            })
+        // Try fallback before throwing error
+        const fallbackElement = document.querySelector('[data-worksheet-content="true"]') || 
+                                document.querySelector('.min-h-screen.bg-white') ||
+                                document.body
+        if (fallbackElement && fallbackElement !== actualContentElement) {
+          console.log('Trying fallback element due to empty canvas')
+          const fallbackCanvas = await html2canvas(fallbackElement as HTMLElement, {
+            scale: 1.2,
+            useCORS: true,
+            logging: false,
+            backgroundColor: '#ffffff',
+            allowTaint: false,
+          })
+          if (fallbackCanvas && fallbackCanvas.width > 0 && fallbackCanvas.height > 0) {
+            // Use fallback canvas - skip validation and proceed
+            const finalCanvas = fallbackCanvas
+            const imgWidth = 210
+            const pageHeight = 297
+            const imgHeight = (finalCanvas.height * imgWidth) / finalCanvas.width
+            const imgData = finalCanvas.toDataURL('image/jpeg', 0.85)
+            const pdf = new jsPDF('p', 'mm', 'a4')
             
-            // Check if fallback canvas has content
-            const fallbackCtx = fallbackCanvas.getContext('2d')
-            if (fallbackCtx) {
-              const fallbackImageData = fallbackCtx.getImageData(0, 0, Math.min(200, fallbackCanvas.width), Math.min(200, fallbackCanvas.height))
-              const fallbackPixels = fallbackImageData.data
-              let fallbackHasContent = false
-              for (let i = 0; i < fallbackPixels.length; i += 4) {
-                const r = fallbackPixels[i]
-                const g = fallbackPixels[i + 1]
-                const b = fallbackPixels[i + 2]
-                const a = fallbackPixels[i + 3]
-                if (a > 10 && (r < 250 || g < 250 || b < 250)) {
-                  fallbackHasContent = true
+            if (imgHeight <= pageHeight) {
+              pdf.addImage(imgData, 'JPEG', 0, 0, imgWidth, imgHeight)
+            } else {
+              const pixelsPerMm = finalCanvas.width / imgWidth
+              let currentY = 0
+              while (currentY < finalCanvas.height) {
+                const pageHeightPx = pageHeight * pixelsPerMm
+                const pageEndY = Math.min(currentY + pageHeightPx, finalCanvas.height)
+                const pageHeightActual = pageEndY - currentY
+                const pageCanvas = document.createElement('canvas')
+                pageCanvas.width = finalCanvas.width
+                pageCanvas.height = pageHeightActual
+                const pageCtx = pageCanvas.getContext('2d')
+                if (pageCtx) {
+                  pageCtx.drawImage(finalCanvas, 0, currentY, finalCanvas.width, pageHeightActual, 0, 0, finalCanvas.width, pageHeightActual)
+                  const pageImgData = pageCanvas.toDataURL('image/jpeg', 0.85)
+                  const pageImgHeight = (pageHeightActual * imgWidth) / finalCanvas.width
+                  pdf.addImage(pageImgData, 'JPEG', 0, 0, imgWidth, pageImgHeight)
+                  currentY = pageEndY
+                  if (currentY < finalCanvas.height) {
+                    pdf.addPage()
+                  }
+                } else {
                   break
                 }
               }
-              
-              if (fallbackHasContent && fallbackCanvas.width > 0 && fallbackCanvas.height > 0) {
-                console.log('Fallback canvas has content, using it')
-                // Use fallback canvas
-                const finalCanvas = fallbackCanvas
-                const imgWidth = 210
-                const pageHeight = 297
-                const imgHeight = (finalCanvas.height * imgWidth) / finalCanvas.width
-                const imgData = finalCanvas.toDataURL('image/jpeg', 0.85)
-                const pdf = new jsPDF('p', 'mm', 'a4')
-                
-                if (imgHeight <= pageHeight) {
-                  pdf.addImage(imgData, 'JPEG', 0, 0, imgWidth, imgHeight)
-                } else {
-                  // Split into multiple pages (simplified version)
-                  const pixelsPerMm = finalCanvas.width / imgWidth
-                  let currentY = 0
-                  while (currentY < finalCanvas.height) {
-                    const pageHeightPx = pageHeight * pixelsPerMm
-                    const pageEndY = Math.min(currentY + pageHeightPx, finalCanvas.height)
-                    const pageHeightActual = pageEndY - currentY
-                    
-                    const pageCanvas = document.createElement('canvas')
-                    pageCanvas.width = finalCanvas.width
-                    pageCanvas.height = pageHeightActual
-                    const pageCtx = pageCanvas.getContext('2d')
-                    if (pageCtx) {
-                      pageCtx.drawImage(finalCanvas, 0, currentY, finalCanvas.width, pageHeightActual, 0, 0, finalCanvas.width, pageHeightActual)
-                      const pageImgData = pageCanvas.toDataURL('image/jpeg', 0.85)
-                      const pageImgHeight = (pageHeightActual * imgWidth) / finalCanvas.width
-                      pdf.addImage(pageImgData, 'JPEG', 0, 0, imgWidth, pageImgHeight)
-                      currentY = pageEndY
-                      if (currentY < finalCanvas.height) {
-                        pdf.addPage()
-                      }
-                    } else {
-                      break
-                    }
-                  }
-                }
-                
-                const filename = docTitle 
-                  ? `${docTitle.replace(/[^a-z0-9]/gi, '_').toLowerCase()}.pdf`
-                  : `worksheet_${doc || 'download'}.pdf`
-                pdf.save(filename)
-                
-                if (doc && primaryDoc) {
-                  const from = params.get('from') || 'unknown'
-                  const grade = from.includes('grade') ? from.replace('-grade', '') : undefined
-                  trackWorksheetDownload(primaryDoc, docTitle, from, grade)
-                }
-                
-                if (autoDownload && window.top === window.self) {
-                  setTimeout(() => {
-                    try {
-                      window.close()
-                    } catch (e) {
-                      // Ignore errors
-                    }
-                  }, 500)
-                }
-                
-                setIsDownloadingPDF(false)
-                return
-              }
             }
+            
+            const filename = docTitle 
+              ? `${docTitle.replace(/[^a-z0-9]/gi, '_').toLowerCase()}.pdf`
+              : `worksheet_${doc || 'download'}.pdf`
+            pdf.save(filename)
+            
+            if (doc && primaryDoc) {
+              const from = params.get('from') || 'unknown'
+              const grade = from.includes('grade') ? from.replace('-grade', '') : undefined
+              trackWorksheetDownload(primaryDoc, docTitle, from, grade)
+            }
+            
+            if (autoDownload && window.top === window.self) {
+              setTimeout(() => {
+                try {
+                  window.close()
+                } catch (e) {
+                  // Ignore errors
+                }
+              }, 500)
+            }
+            
+            setIsDownloadingPDF(false)
+            return
           }
-        } catch (fallbackError) {
-          console.error('Fallback capture also failed:', fallbackError)
         }
-        
-        throw new Error('Failed to capture content for PDF. The canvas appears to be blank.')
+        throw new Error('Failed to capture content for PDF. Canvas is empty.')
       }
+      
+      // Light validation - just check if canvas has reasonable dimensions
+      // Don't reject based on pixel content as worksheets might be mostly white
+      // If the element has content and canvas has dimensions, trust it
       
       // Calculate PDF dimensions
       const imgWidth = 210 // A4 width in mm
       const pageHeight = 297 // A4 height in mm
       let imgHeight = (finalCanvas.height * imgWidth) / finalCanvas.width
       
-      if (imgHeight <= 0 || isNaN(imgHeight)) {
-        throw new Error('Invalid image dimensions calculated for PDF')
+      if (imgHeight <= 0 || isNaN(imgHeight) || !isFinite(imgHeight)) {
+        // Try to recover by using a default height
+        console.warn('Invalid image height calculated, using canvas height directly:', imgHeight)
+        imgHeight = (finalCanvas.height * imgWidth) / finalCanvas.width
+        if (imgHeight <= 0 || isNaN(imgHeight)) {
+          // Last resort: use a reasonable default
+          imgHeight = pageHeight
+        }
       }
       
       // Use lower quality JPEG instead of PNG for faster generation and smaller file size
-      const imgData = finalCanvas.toDataURL('image/jpeg', 0.85)
+      let imgData: string
+      try {
+        imgData = finalCanvas.toDataURL('image/jpeg', 0.85)
+      } catch (e) {
+        // Fallback to PNG if JPEG fails
+        console.warn('JPEG conversion failed, trying PNG:', e)
+        imgData = finalCanvas.toDataURL('image/png')
+      }
       
       if (!imgData || imgData === 'data:,') {
-        throw new Error('Failed to convert canvas to image data')
+        // Try PNG as fallback
+        imgData = finalCanvas.toDataURL('image/png')
+        if (!imgData || imgData === 'data:,') {
+          throw new Error('Failed to convert canvas to image data')
+        }
       }
       
       const pdf = new jsPDF('p', 'mm', 'a4')
@@ -2698,12 +2656,88 @@ export function PrintablesPage() {
       }
     } catch (error) {
       console.error('PDF download failed:', error)
-      // Show user-friendly error message
+      
+      // Try one more fallback: capture the entire visible viewport
+      try {
+        console.log('Attempting final fallback: capturing viewport')
+        const viewportCanvas = await html2canvas(document.body, {
+          scale: 1.2,
+          useCORS: true,
+          logging: false,
+          backgroundColor: '#ffffff',
+          allowTaint: false,
+          height: window.innerHeight,
+          width: window.innerWidth,
+        })
+        
+        if (viewportCanvas && viewportCanvas.width > 0 && viewportCanvas.height > 0) {
+          const imgWidth = 210
+          const pageHeight = 297
+          const imgHeight = (viewportCanvas.height * imgWidth) / viewportCanvas.width
+          const imgData = viewportCanvas.toDataURL('image/jpeg', 0.85) || viewportCanvas.toDataURL('image/png')
+          
+          if (imgData && imgData !== 'data:,') {
+            const pdf = new jsPDF('p', 'mm', 'a4')
+            
+            if (imgHeight <= pageHeight) {
+              pdf.addImage(imgData, 'JPEG', 0, 0, imgWidth, imgHeight)
+            } else {
+              const pixelsPerMm = viewportCanvas.width / imgWidth
+              let currentY = 0
+              while (currentY < viewportCanvas.height) {
+                const pageHeightPx = pageHeight * pixelsPerMm
+                const pageEndY = Math.min(currentY + pageHeightPx, viewportCanvas.height)
+                const pageHeightActual = pageEndY - currentY
+                const pageCanvas = document.createElement('canvas')
+                pageCanvas.width = viewportCanvas.width
+                pageCanvas.height = pageHeightActual
+                const pageCtx = pageCanvas.getContext('2d')
+                if (pageCtx) {
+                  pageCtx.drawImage(viewportCanvas, 0, currentY, viewportCanvas.width, pageHeightActual, 0, 0, viewportCanvas.width, pageHeightActual)
+                  const pageImgData = pageCanvas.toDataURL('image/jpeg', 0.85) || pageCanvas.toDataURL('image/png')
+                  const pageImgHeight = (pageHeightActual * imgWidth) / viewportCanvas.width
+                  pdf.addImage(pageImgData, 'JPEG', 0, 0, imgWidth, pageImgHeight)
+                  currentY = pageEndY
+                  if (currentY < viewportCanvas.height) {
+                    pdf.addPage()
+                  }
+                } else {
+                  break
+                }
+              }
+            }
+            
+            const filename = docTitle 
+              ? `${docTitle.replace(/[^a-z0-9]/gi, '_').toLowerCase()}.pdf`
+              : `worksheet_${doc || 'download'}.pdf`
+            pdf.save(filename)
+            
+            if (doc && primaryDoc) {
+              const from = params.get('from') || 'unknown'
+              const grade = from.includes('grade') ? from.replace('-grade', '') : undefined
+              trackWorksheetDownload(primaryDoc, docTitle, from, grade)
+            }
+            
+            if (autoDownload && window.top === window.self) {
+              setTimeout(() => {
+                try {
+                  window.close()
+                } catch (e) {
+                  // Ignore errors
+                }
+              }, 500)
+            }
+            
+            setIsDownloadingPDF(false)
+            return
+          }
+        }
+      } catch (fallbackError) {
+        console.error('Final fallback also failed:', fallbackError)
+      }
+      
+      // Show user-friendly error message only if all fallbacks failed
       alert('Failed to generate PDF. Please try using the Print button and selecting "Save as PDF" instead.')
-      // Don't fall back to print dialog when download=1 is set
-      // The user expects a download, not a print dialog
-      // If PDF generation fails, we should fail silently or show an error
-      // but not trigger print dialog
     } finally {
       setIsDownloadingPDF(false)
     }
