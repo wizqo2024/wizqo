@@ -1853,19 +1853,21 @@ export function PrintablesPage() {
           // Find the last section's bottom position
           const lastSection = allSections[allSections.length - 1] as HTMLElement
           const lastSectionBottom = lastSection.offsetTop + lastSection.offsetHeight
-          // Use the actual content height (add some padding)
-          contentHeight = Math.min(lastSectionBottom + 50, actualContentElement.offsetHeight)
+          // Use the actual content height (add minimal padding - 20px instead of 50px)
+          contentHeight = Math.min(lastSectionBottom + 20, actualContentElement.offsetHeight)
         }
         
         // Convert HTML to canvas - only capture the actual content area
+        // Use a lower scale (1.5 instead of 2) to reduce file size and ensure better single-page fitting
         const canvas = await html2canvas(actualContentElement, {
-          scale: 2,
+          scale: 1.5,
           useCORS: true,
           logging: false,
           backgroundColor: '#ffffff',
           height: contentHeight,
           windowWidth: actualContentElement.scrollWidth,
-          windowHeight: contentHeight
+          windowHeight: contentHeight,
+          removeContainer: false
         })
         
         // Calculate PDF dimensions
