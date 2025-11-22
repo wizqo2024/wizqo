@@ -403,14 +403,38 @@ html {
 /* Universal print/PDF fix for all worksheets */
 /* Prevents worksheet cards, blocks, and content from splitting across pages */
 @media print {
+  /* Fix blank first page - remove margins and padding */
+  body, html {
+    margin: 0 !important;
+    padding: 0 !important;
+  }
+
+  /* Prevent root from forcing page break */
+  #root {
+    page-break-before: auto !important;
+  }
+
+  /* Prevent first element from being pushed off-page */
+  #root > *:first-child {
+    page-break-before: avoid !important;
+  }
+
   /* Fix blank first page - remove min-height constraints */
   [data-worksheet-content="true"],
   .min-h-screen {
     min-height: auto !important;
     height: auto !important;
+    margin: 0 !important;
+    padding: 0 !important;
   }
-  
-  /* Prevent page breaks inside worksheet sections and cards */
+
+  /* Prevent page breaks inside worksheet sections and cards - TARGETED, not universal */
+  div, section, article, table, tr, td, figure {
+    break-inside: avoid !important;
+    page-break-inside: avoid !important;
+  }
+
+  /* Reinforce for worksheet sections specifically */
   section.break-inside-avoid,
   section[class*="break-inside-avoid"],
   section[class*="worksheet"],
@@ -427,12 +451,6 @@ html {
   .worksheet-section > *,
   [data-worksheet-content="true"] section,
   [data-worksheet-content="true"] .worksheet-section {
-    break-inside: avoid !important;
-    page-break-inside: avoid !important;
-  }
-
-  /* Prevent breaks in tables and cards */
-  table, tr {
     break-inside: avoid !important;
     page-break-inside: avoid !important;
   }
