@@ -383,9 +383,11 @@ html {
 /* Universal print/PDF fix for all worksheets */
 /* Prevents worksheet cards, blocks, and content from splitting across pages */
 @media print {
-  /* Fix blank first page - ensure content starts at top */
-  @page {
-    margin: 0.5in;
+  /* Fix blank first page - remove min-height constraints */
+  [data-worksheet-content="true"],
+  .min-h-screen {
+    min-height: auto !important;
+    height: auto !important;
   }
   
   /* Prevent page breaks inside worksheet sections and cards */
@@ -420,8 +422,10 @@ html {
     page-break-before: auto;
   }
 
-  /* Fix blank first page - remove any forced page breaks at start */
+  /* Fix blank first page - ensure first element starts at top with no forced breaks */
   [data-worksheet-content="true"] > *:first-child {
     page-break-before: auto !important;
+    margin-top: 0 !important;
+    padding-top: 0 !important;
   }
 }

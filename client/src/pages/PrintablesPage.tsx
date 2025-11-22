@@ -2443,11 +2443,27 @@ export function PrintablesPage() {
             font-size: 11pt;
             line-height: 1.3;
           }
-          /* Fix blank first page - prevent forced page break on first element */
-          [data-worksheet-content="true"] > *:first-child,
-          [data-worksheet-content="true"] > section:first-child,
-          [data-worksheet-content="true"] > div:first-child {
+          /* Fix blank first page - remove min-height and ensure content starts at top */
+          [data-worksheet-content="true"],
+          .min-h-screen {
+            min-height: auto !important;
+            height: auto !important;
+          }
+          /* Fix blank first page - remove padding/margin from first child and prevent page break */
+          [data-worksheet-content="true"] > *:first-child {
             page-break-before: auto !important;
+            margin-top: 0 !important;
+            padding-top: 0 !important;
+          }
+          [data-worksheet-content="true"] > div:first-child {
+            margin-top: 0 !important;
+            padding-top: 0 !important;
+            page-break-before: auto !important;
+          }
+          /* Ensure first section starts immediately */
+          [data-worksheet-content="true"] > div:first-child > *:first-child {
+            margin-top: 0 !important;
+            padding-top: 0 !important;
           }
           /* Hide URLs in print */
           a[href]::after { content: none !important; }
@@ -2480,14 +2496,17 @@ export function PrintablesPage() {
           /* Customization header at top of page - only appears once */
           .print-customization-header { 
             display: block;
+            margin-top: 0 !important;
             margin-bottom: 0.5rem;
             padding: 0.25rem 0.5in;
+            padding-top: 0 !important;
             border-bottom: 1px solid #e2e8f0;
             font-size: 9pt; 
             color: #1e293b; 
             line-height: 1.3; 
             font-weight: 500;
             page-break-after: avoid;
+            page-break-before: auto !important;
           }
           .print-customization-header strong { font-weight: 600; color: #0f172a; }
           /* Better spacing for print - more compact */
@@ -2548,7 +2567,7 @@ export function PrintablesPage() {
         }
       `}</style>
       {/* Print layout optimized - updated 2025-01-11 */}
-      <div className={`max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-10 print:p-0 print:py-4 ${isPreview ? 'preview-mode' : ''}`}>
+      <div className={`max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-10 print:p-0 print:py-0 print:mt-0 ${isPreview ? 'preview-mode' : ''}`}>
         {/* Customization header (print view - appears once at top) */}
         {(teacherName || className || studentNames.length > 0) && !isPreview && (
           <div className="hidden print:block print-customization-header" aria-hidden>
