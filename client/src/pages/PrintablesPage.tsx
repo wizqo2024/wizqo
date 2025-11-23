@@ -1864,9 +1864,11 @@ export function PrintablesPage() {
             clonedBody.style.padding = '0'
           }
           
-          // Add ALL print styles to match print layout exactly
+          // Add ALL print styles to match print layout exactly (for PDF download)
+          // These styles ensure consistency across all browsers and future worksheets
           const style = clonedDoc.createElement('style')
           style.textContent = `
+            /* Default: no page margins for maximum content space (consistent across all browsers) */
             @page { 
               margin: 0;
               size: A4;
@@ -3619,6 +3621,7 @@ export function PrintablesPage() {
     <div className="min-h-screen bg-white" data-worksheet-content="true">
       <style>{`
         @media print {
+          /* Default: no page margins for maximum content space (consistent across all browsers) */
           @page { 
             margin: 0;
             size: A4;

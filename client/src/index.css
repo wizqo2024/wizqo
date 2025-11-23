@@ -400,13 +400,21 @@ html {
   line-height: 1.4;
 }
 
-/* Universal print/PDF fix for all worksheets */
-/* Prevents worksheet sections from breaking across pages */
+/* ============================================================================
+ * UNIVERSAL PRINT/PDF STYLES FOR ALL WORKSHEETS
+ * ============================================================================
+ * These styles apply to ALL worksheets across the entire application.
+ * - Default: No page margins (margin: 0) for maximum content space
+ * - Consistent across all browsers (Chrome, Firefox, Safari, Edge)
+ * - Works for both browser print and PDF download
+ * - Future worksheets will automatically inherit these styles
+ * - Prevents worksheet sections from breaking across pages
+ * ============================================================================ */
 @media print {
-  /* Page setup - no margins for maximum content space */
+  /* Page setup - no margins for maximum content space (consistent across all browsers) */
   @page {
     size: A4;
-    margin: 0;
+    margin: 0; /* Default: no margins - users get maximum content space */
   }
   
   /* CRITICAL: Ensure all pages have white background - fix black pages */
