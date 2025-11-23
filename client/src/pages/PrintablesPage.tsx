@@ -1864,7 +1864,7 @@ export function PrintablesPage() {
             clonedBody.style.padding = '0'
           }
           
-          // Add print styles including page-break rules
+          // Add print styles including page-break rules - Ultra compact layout
           const style = clonedDoc.createElement('style')
           style.textContent = `
             html, body {
@@ -1872,6 +1872,8 @@ export function PrintablesPage() {
               max-width: 794px !important;
               margin: 0 !important;
               padding: 0 !important;
+              font-size: 11pt !important;
+              line-height: 1.3 !important;
             }
             [data-worksheet-content="true"] > div:first-child {
               margin: 0.5in !important;
@@ -1884,44 +1886,96 @@ export function PrintablesPage() {
               margin-top: 0 !important;
               padding-top: 0 !important;
             }
-            /* Compact header on first page */
+            /* Compact header on first page - Ultra compact */
             .worksheet-section:first-child .worksheet-header,
             .worksheet-section:first-child > div:first-child {
               margin-top: 0 !important;
               padding-top: 0 !important;
             }
-            /* Compact spacing in print */
+            /* Ultra compact spacing in print */
             .worksheet-section {
               margin-top: 0 !important;
-              margin-bottom: 0 !important;
+              margin-bottom: 0.25rem !important;
             }
             .worksheet-section > div {
               margin-top: 0 !important;
               padding-top: 0 !important;
             }
-            /* Make header extremely compact */
+            /* Make header extremely compact - 9px font */
             .worksheet-header {
-              margin-bottom: 0.25rem !important;
+              margin-bottom: 0.125rem !important;
               padding-bottom: 0 !important;
-              line-height: 1.2 !important;
+              line-height: 1.1 !important;
             }
             .worksheet-header > div > div {
-              margin-bottom: 0.125rem !important;
-              font-size: 0.625rem !important;
-              line-height: 1.2 !important;
+              margin-bottom: 0 !important;
+              font-size: 9px !important;
+              line-height: 1.1 !important;
             }
-            /* Compact learning objectives */
+            /* Ultra compact learning objectives - 8-9px */
             .learning-objectives {
-              margin-bottom: 0.25rem !important;
-              padding: 0.375rem !important;
-              font-size: 0.625rem !important;
+              margin-bottom: 0.125rem !important;
+              padding: 0.25rem !important;
+              font-size: 9px !important;
+              line-height: 1.1 !important;
             }
-            /* Compact section title */
+            .learning-objectives > div {
+              font-size: 9px !important;
+              margin-bottom: 0 !important;
+            }
+            .learning-objectives ul {
+              font-size: 8px !important;
+              line-height: 1.1 !important;
+              padding-left: 0.75rem !important;
+            }
+            .learning-objectives li {
+              margin-bottom: 0 !important;
+            }
+            /* Ultra compact section title - 14px */
             .worksheet-section h2 {
-              margin-bottom: 0.25rem !important;
-              font-size: 1rem !important;
-              line-height: 1.2 !important;
+              margin-bottom: 0.125rem !important;
+              font-size: 14px !important;
+              line-height: 1.1 !important;
             }
+            .worksheet-section h2 span {
+              font-size: 16px !important;
+            }
+            /* Compact description - 9px */
+            .worksheet-section p {
+              font-size: 9px !important;
+              margin-bottom: 0.125rem !important;
+              line-height: 1.1 !important;
+            }
+            /* Ultra compact example section - target all spacing classes */
+            [class*="mb-6"], [class*="print:mb-1"] { margin-bottom: 0.25rem !important; }
+            [class*="mb-4"], [class*="print:mb-0.5"] { margin-bottom: 0.125rem !important; }
+            [class*="mb-3"], [class*="print:mb-0.5"] { margin-bottom: 0.1rem !important; }
+            [class*="mb-2"] { margin-bottom: 0.05rem !important; }
+            [class*="p-4"], [class*="print:p-1.5"] { padding: 0.25rem !important; }
+            [class*="p-3"], [class*="print:p-1"] { padding: 0.15rem !important; }
+            [class*="p-2"], [class*="print:p-1"] { padding: 0.1rem !important; }
+            /* Compact example text - override print:text classes */
+            [class*="text-sm"], [class*="print:text-[8px]"] { font-size: 8px !important; }
+            [class*="text-base"], [class*="print:text-[9px]"] { font-size: 9px !important; }
+            [class*="text-lg"], [class*="print:text-lg"] { font-size: 10px !important; }
+            [class*="text-xl"] { font-size: 12px !important; }
+            [class*="text-2xl"], [class*="print:text-base"] { font-size: 14px !important; }
+            [class*="text-3xl"], [class*="print:text-lg"] { font-size: 16px !important; }
+            /* Compact SVG sizes - override print:h classes */
+            svg[class*="h-20"], svg[class*="print:h-8"] { height: 2rem !important; }
+            svg[class*="h-16"], svg[class*="print:h-6"] { height: 1.5rem !important; }
+            svg[class*="h-12"], svg[class*="print:h-4"] { height: 1rem !important; }
+            svg[class*="h-8"], svg[class*="print:h-3"] { height: 0.75rem !important; }
+            /* Compact gaps - override print:gap classes */
+            [class*="gap-4"], [class*="print:gap-2"] { gap: 0.25rem !important; }
+            [class*="gap-2"], [class*="print:gap-1"] { gap: 0.125rem !important; }
+            [class*="gap-1"], [class*="print:gap-0.5"] { gap: 0.05rem !important; }
+            /* Compact grid gaps */
+            [class*="grid"][class*="gap-4"], [class*="grid"][class*="print:gap-1"] { gap: 0.125rem !important; }
+            [class*="grid"][class*="gap-2"] { gap: 0.125rem !important; }
+            /* Compact space-y spacing */
+            [class*="space-y-3"], [class*="print:space-y-0.5"] { gap: 0.125rem !important; }
+            [class*="space-y-1"], [class*="print:space-y-0"] { gap: 0 !important; }
             /* Ensure content starts immediately after header */
             .worksheet-section > div > *:not(.worksheet-header):not(.learning-objectives):not(h2):first-of-type {
               margin-top: 0 !important;
