@@ -1,4 +1,5 @@
 import React, { useEffect, useRef } from 'react';
+import { useTranslation } from '@/context/TranslationContext';
 
 function loadChartJs(): Promise<void> {
   return new Promise((resolve, reject) => {
@@ -21,10 +22,12 @@ function loadChartJs(): Promise<void> {
 }
 
 export default function MultiplicationWorksheetsBlog() {
+  const { t, language } = useTranslation();
   const retentionChartRef = useRef<HTMLCanvasElement | null>(null);
   const worksheetChartRef = useRef<HTMLCanvasElement | null>(null);
   const retentionChartInstanceRef = useRef<any>(null);
   const worksheetChartInstanceRef = useRef<any>(null);
+  const isRTL = language === 'ar';
 
   useEffect(() => {
     let mounted = true;
@@ -70,14 +73,19 @@ export default function MultiplicationWorksheetsBlog() {
         // Retention Chart
         const ctxRetention = retentionChartRef.current?.getContext('2d');
         if (ctxRetention) {
-          const labels = ['Reading or Watching', 'Listening', 'Writing / Worksheets', 'Teaching Others'];
+          const labels = [
+            t('pages.blog.components.multiplicationWorksheetsBlog.chartLabels.readingWatching'),
+            t('pages.blog.components.multiplicationWorksheetsBlog.chartLabels.listening'),
+            t('pages.blog.components.multiplicationWorksheetsBlog.chartLabels.writingWorksheets'),
+            t('pages.blog.components.multiplicationWorksheetsBlog.chartLabels.teachingOthers')
+          ];
           const wrappedLabels = labels.map(l => wrapLabel(l, 16));
           retentionChartInstanceRef.current = new Chart(ctxRetention, {
             type: 'bar',
             data: {
               labels: wrappedLabels,
               datasets: [{
-                label: 'Retention Rate',
+                label: t('pages.blog.components.multiplicationWorksheetsBlog.chartLabels.retentionRate'),
                 data: [20, 30, 70, 90],
                 backgroundColor: chartColors,
                 borderColor: chartColors.map(color => color + 'B3'),
@@ -112,11 +120,11 @@ export default function MultiplicationWorksheetsBlog() {
         const ctxWorksheet = worksheetChartRef.current?.getContext('2d');
         if (ctxWorksheet) {
           const sortedData = [
-            { label: 'Basic 1–5 Times Tables', difficulty: 1 },
-            { label: 'Color-by-Number Pages', difficulty: 1 },
-            { label: 'Double-Digit Practice', difficulty: 2 },
-            { label: 'Word Problem Sheets', difficulty: 2 },
-            { label: 'Timed Challenges', difficulty: 3 },
+            { label: t('pages.blog.components.multiplicationWorksheetsBlog.chartLabels.basicTimesTables'), difficulty: 1 },
+            { label: t('pages.blog.components.multiplicationWorksheetsBlog.chartLabels.colorByNumber'), difficulty: 1 },
+            { label: t('pages.blog.components.multiplicationWorksheetsBlog.chartLabels.doubleDigit'), difficulty: 2 },
+            { label: t('pages.blog.components.multiplicationWorksheetsBlog.chartLabels.wordProblems'), difficulty: 2 },
+            { label: t('pages.blog.components.multiplicationWorksheetsBlog.chartLabels.timedChallenges'), difficulty: 3 },
           ].sort((a, b) => a.difficulty - b.difficulty);
 
           const wrappedLabels = sortedData.map(d => wrapLabel(d.label, 16));
@@ -127,7 +135,7 @@ export default function MultiplicationWorksheetsBlog() {
             data: {
               labels: wrappedLabels,
               datasets: [{
-                label: 'Difficulty Rating (out of 3)',
+                label: t('pages.blog.components.multiplicationWorksheetsBlog.chartLabels.difficultyRating'),
                 data: difficultyData,
                 backgroundColor: chartColors,
                 borderColor: chartColors.map(color => color + 'B3'),
@@ -173,100 +181,102 @@ export default function MultiplicationWorksheetsBlog() {
         worksheetChartInstanceRef.current.destroy();
       }
     };
-  }, []);
+  }, [t]);
 
   return (
-    <div className="max-w-6xl mx-auto p-4 md:p-8">
+    <div className="max-w-6xl mx-auto p-4 md:p-8" dir={isRTL ? 'rtl' : 'ltr'}>
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8">
         <div className="md:col-span-2 bg-white p-6 rounded-lg shadow-md">
-          <h2 className="text-2xl font-bold text-blue-600 mb-3">Why Are Worksheets a Game Changer?</h2>
-          <p className="text-gray-700 leading-relaxed">For many learners, multiplication is where math starts to feel "serious." As numbers get bigger, confidence can drop. Printable worksheets transform this frustration into visible progress, building skill, structure, and self-belief one page at a time. Unlike screens, they offer repetition without distraction and build visual memory. For teachers and parents looking to create unlimited unique practice sheets, our <a href="/interactive-worksheets-generator" className="text-blue-600 hover:text-blue-800 underline font-semibold">Interactive Worksheets Generator</a> makes it easy to generate fresh multiplication worksheets with answer keys in seconds.</p>
-        </div>
-
-        <div className="bg-white p-6 rounded-lg shadow-md flex flex-col items-center justify-center text-center">
-          <h2 className="text-2xl font-bold text-gray-800 mb-2">The Power of Practice</h2>
-          <p className="text-gray-600 mb-4">Learning science is clear: writing by hand engages the brain differently and more effectively than typing or tapping.</p>
-          <div className="text-8xl font-bold text-blue-600">70%</div>
-          <div className="text-2xl font-semibold text-gray-700 mt-2">Improved Retention</div>
-          <p className="text-gray-600 mt-4">That's the boost learners get from writing answers by hand. Each solved page is a small victory that builds motivation and long-term memory.</p>
+          <h2 className="text-2xl font-bold text-blue-600 mb-3">{t('pages.blog.components.multiplicationWorksheetsBlog.gameChangerTitle')}</h2>
+          <p className="text-gray-700 leading-relaxed">{t('pages.blog.components.multiplicationWorksheetsBlog.gameChangerText')}</p>
         </div>
 
         <div className="bg-white p-6 rounded-lg shadow-md">
-          <h2 className="text-2xl font-bold text-gray-800 mb-2">How Printables Boost Retention</h2>
-          <p className="text-gray-600 mb-4">Worksheets are a powerful, evidence-based method for building long-term knowledge. Compared to passive learning, active writing and problem-solving create much stronger neural pathways.</p>
+          <h2 className="text-2xl font-bold text-gray-800 mb-2">{t('pages.blog.components.multiplicationWorksheetsBlog.powerOfPracticeTitle')}</h2>
+          <p className="text-gray-600 mb-4">{t('pages.blog.components.multiplicationWorksheetsBlog.powerOfPracticeSubtitle')}</p>
+          <div className="text-center my-6">
+            <div className="text-6xl md:text-7xl font-bold text-blue-600 mb-2">70%</div>
+            <div className="text-xl md:text-2xl font-semibold text-gray-700 mb-4">{t('pages.blog.components.multiplicationWorksheetsBlog.improvedRetention')}</div>
+          </div>
+          <p className="text-gray-600 leading-relaxed">{t('pages.blog.components.multiplicationWorksheetsBlog.improvedRetentionText')}</p>
+        </div>
+
+        <div className="bg-white p-6 rounded-lg shadow-md">
+          <h2 className="text-2xl font-bold text-gray-800 mb-2">{t('pages.blog.components.multiplicationWorksheetsBlog.boostRetentionTitle')}</h2>
+          <p className="text-gray-600 mb-4">{t('pages.blog.components.multiplicationWorksheetsBlog.boostRetentionText')}</p>
           <div className="relative w-full max-w-[600px] mx-auto" style={{ height: '300px', maxHeight: '400px' }}>
             <canvas ref={retentionChartRef}></canvas>
           </div>
-          <p className="text-gray-600 mt-4 text-center">This chart shows the average retention rate by learning method, highlighting why active practice is superior for mastery.</p>
+          <p className="text-gray-600 mt-4 text-center">{t('pages.blog.components.multiplicationWorksheetsBlog.boostRetentionChartNote')}</p>
         </div>
 
         <div className="bg-white p-6 rounded-lg shadow-md">
-          <h2 className="text-2xl font-bold text-gray-800 mb-2">What's Inside the Worksheet Pack?</h2>
-          <p className="text-gray-600 mb-4">The free pack is designed to build skills progressively, from basic familiarity to real-world application, with a mix of fun and focus. This chart visualizes the relative difficulty of each sheet type. Our <a href="/interactive-worksheets-generator" className="text-blue-600 hover:text-blue-800 underline font-semibold">Interactive Worksheets Generator</a> creates multiplication worksheets that include arrays, word problems, and timed challenges—all with printable answer keys included.</p>
+          <h2 className="text-2xl font-bold text-gray-800 mb-2">{t('pages.blog.components.multiplicationWorksheetsBlog.whatsInsideTitle')}</h2>
+          <p className="text-gray-600 mb-4">{t('pages.blog.components.multiplicationWorksheetsBlog.whatsInsideText')}</p>
           <div className="relative w-full max-w-[600px] mx-auto" style={{ height: '300px', maxHeight: '400px' }}>
             <canvas ref={worksheetChartRef}></canvas>
           </div>
-          <p className="text-gray-600 mt-4 text-center">The pack also includes answer keys, fun themes, and visual guides to ensure learners feel supported and engaged.</p>
+          <p className="text-gray-600 mt-4 text-center">{t('pages.blog.components.multiplicationWorksheetsBlog.whatsInsideNote')}</p>
         </div>
 
         <div className="bg-white p-6 rounded-lg shadow-md">
-          <h2 className="text-2xl font-bold text-gray-800 mb-2">From Frustration to Focus</h2>
-          <p className="text-gray-600 mb-4">A parent from Dubai shared their story, proving that the right materials can turn routine into reward and change a child's mindset about math.</p>
-          <blockquote className="bg-blue-100 border-l-4 border-blue-500 text-blue-800 p-4 rounded-r-lg">
-            <p className="italic">"My son hated multiplication drills until we tried these printable sheets. The color-by-number pages made him laugh... Now he finishes practice before I even ask!"</p>
-            <cite className="mt-2 block not-italic font-semibold">— A Parent from Dubai</cite>
+          <h2 className="text-2xl font-bold text-gray-800 mb-2">{t('pages.blog.components.multiplicationWorksheetsBlog.frustrationToFocusTitle')}</h2>
+          <p className="text-gray-600 mb-4">{t('pages.blog.components.multiplicationWorksheetsBlog.frustrationToFocusText')}</p>
+          <blockquote className={`bg-blue-100 ${isRTL ? 'border-r-4 rounded-l-lg' : 'border-l-4 rounded-r-lg'} border-blue-500 text-blue-800 p-4`}>
+            <p className="italic">{t('pages.blog.components.multiplicationWorksheetsBlog.parentQuote')}</p>
+            <cite className="mt-2 block not-italic font-semibold">{t('pages.blog.components.multiplicationWorksheetsBlog.parentCite')}</cite>
           </blockquote>
-          <p className="text-gray-600 mt-4">This is the goal: turning a chore into a choice by making learning feel rewarding.</p>
+          <p className="text-gray-600 mt-4">{t('pages.blog.components.multiplicationWorksheetsBlog.frustrationToFocusNote')}</p>
         </div>
 
         <div className="md:col-span-2 bg-white p-6 rounded-lg shadow-md">
-          <h2 className="text-2xl font-bold text-blue-600 mb-4">The 4-Step Learning Process</h2>
-          <p className="text-gray-700 leading-relaxed mb-6">Our sheets follow a simple but effective pattern. Learners don't just guess; they connect math with meaning and build a solid foundation for fluency. Each step builds naturally on the previous one, creating a clear path from confusion to confidence.</p>
-          <div className="flex flex-col md:flex-row items-center justify-between w-full space-y-4 md:space-y-0 md:space-x-2">
+          <h2 className="text-2xl font-bold text-blue-600 mb-4">{t('pages.blog.components.multiplicationWorksheetsBlog.learningProcessTitle')}</h2>
+          <p className="text-gray-700 leading-relaxed mb-6">{t('pages.blog.components.multiplicationWorksheetsBlog.learningProcessText')}</p>
+          <div className={`flex flex-col md:flex-row items-center justify-between w-full space-y-4 md:space-y-0 ${isRTL ? 'md:space-x-reverse md:space-x-2' : 'md:space-x-2'}`}>
             <div className="flex-1 w-full bg-gray-100 p-4 rounded-lg shadow-inner text-center">
-              <div className="text-3xl mb-2">1.</div>
-              <h3 className="text-xl font-semibold text-blue-600">Visualize</h3>
-              <p className="text-gray-700">Group objects and count patterns.</p>
+              <div className="text-3xl mb-2">{t('pages.blog.components.multiplicationWorksheetsBlog.step1.number')}</div>
+              <h3 className="text-xl font-semibold text-blue-600">{t('pages.blog.components.multiplicationWorksheetsBlog.step1.title')}</h3>
+              <p className="text-gray-700">{t('pages.blog.components.multiplicationWorksheetsBlog.step1.description')}</p>
             </div>
             <span className="text-blue-500 text-3xl font-bold md:hidden">▼</span>
-            <span className="text-blue-500 text-3xl font-bold hidden md:block px-2">→</span>
+            <span className="text-blue-500 text-3xl font-bold hidden md:block px-2">{isRTL ? '←' : '→'}</span>
             <div className="flex-1 w-full bg-gray-100 p-4 rounded-lg shadow-inner text-center">
-              <div className="text-3xl mb-2">2.</div>
-              <h3 className="text-xl font-semibold text-blue-600">Understand</h3>
-              <p className="text-gray-700">See math as "adding equal groups."</p>
+              <div className="text-3xl mb-2">{t('pages.blog.components.multiplicationWorksheetsBlog.step2.number')}</div>
+              <h3 className="text-xl font-semibold text-blue-600">{t('pages.blog.components.multiplicationWorksheetsBlog.step2.title')}</h3>
+              <p className="text-gray-700">{t('pages.blog.components.multiplicationWorksheetsBlog.step2.description')}</p>
             </div>
             <span className="text-blue-500 text-3xl font-bold md:hidden">▼</span>
-            <span className="text-blue-500 text-3xl font-bold hidden md:block px-2">→</span>
+            <span className="text-blue-500 text-3xl font-bold hidden md:block px-2">{isRTL ? '←' : '→'}</span>
             <div className="flex-1 w-full bg-gray-100 p-4 rounded-lg shadow-inner text-center">
-              <div className="text-3xl mb-2">3.</div>
-              <h3 className="text-xl font-semibold text-blue-600">Apply</h3>
-              <p className="text-gray-700">Solve fun, real-life word problems.</p>
+              <div className="text-3xl mb-2">{t('pages.blog.components.multiplicationWorksheetsBlog.step3.number')}</div>
+              <h3 className="text-xl font-semibold text-blue-600">{t('pages.blog.components.multiplicationWorksheetsBlog.step3.title')}</h3>
+              <p className="text-gray-700">{t('pages.blog.components.multiplicationWorksheetsBlog.step3.description')}</p>
             </div>
             <span className="text-blue-500 text-3xl font-bold md:hidden">▼</span>
-            <span className="text-blue-500 text-3xl font-bold hidden md:block px-2">→</span>
+            <span className="text-blue-500 text-3xl font-bold hidden md:block px-2">{isRTL ? '←' : '→'}</span>
             <div className="flex-1 w-full bg-gray-100 p-4 rounded-lg shadow-inner text-center">
-              <div className="text-3xl mb-2">4.</div>
-              <h3 className="text-xl font-semibold text-blue-600">Recall</h3>
-              <p className="text-gray-700">Practice timed drills for fluency.</p>
+              <div className="text-3xl mb-2">{t('pages.blog.components.multiplicationWorksheetsBlog.step4.number')}</div>
+              <h3 className="text-xl font-semibold text-blue-600">{t('pages.blog.components.multiplicationWorksheetsBlog.step4.title')}</h3>
+              <p className="text-gray-700">{t('pages.blog.components.multiplicationWorksheetsBlog.step4.description')}</p>
             </div>
           </div>
         </div>
 
         <div className="md:col-span-2 bg-green-500 text-white p-8 rounded-lg shadow-xl text-center">
-          <h2 className="text-3xl font-bold mb-4">Download Your Free Printable Worksheets</h2>
-          <p className="text-lg text-green-100 mb-6">Ready to get started? Get your free pack designed for learning, confidence, and fun. Use our <a href="/interactive-worksheets-generator" className="text-white underline font-semibold hover:text-green-100">Interactive Worksheets Generator</a> to create unlimited unique multiplication worksheets with answer keys—perfect for classrooms, homework, or extra practice.</p>
+          <h2 className="text-3xl font-bold mb-4">{t('pages.blog.components.multiplicationWorksheetsBlog.downloadTitle')}</h2>
+          <p className="text-lg text-green-100 mb-6">{t('pages.blog.components.multiplicationWorksheetsBlog.downloadText')}</p>
           <a href="/interactive-worksheets-generator" className="inline-block bg-white text-green-600 font-bold py-3 px-8 rounded-full shadow-lg text-lg transform hover:scale-105 transition-transform">
-            Generate Free Worksheets Now
+            {t('pages.blog.components.multiplicationWorksheetsBlog.generateButton')}
           </a>
-          <ul className="flex flex-col md:flex-row justify-center items-center space-y-2 md:space-y-0 md:space-x-6 mt-8 text-green-50">
+          <ul className={`flex flex-col md:flex-row justify-center items-center space-y-2 md:space-y-0 ${isRTL ? 'md:space-x-reverse md:space-x-6' : 'md:space-x-6'} mt-8 text-green-50`}>
             <li className="flex items-center">
-              <span className="text-2xl mr-2">✅</span> No sign-up required
+              <span className={`text-2xl ${isRTL ? 'ml-2' : 'mr-2'}`}>✅</span> {t('pages.blog.components.multiplicationWorksheetsBlog.feature1')}
             </li>
             <li className="flex items-center">
-              <span className="text-2xl mr-2">✅</span> Classroom & home use
+              <span className={`text-2xl ${isRTL ? 'ml-2' : 'mr-2'}`}>✅</span> {t('pages.blog.components.multiplicationWorksheetsBlog.feature2')}
             </li>
             <li className="flex items-center">
-              <span className="text-2xl mr-2">✅</span> Reusable and shareable
+              <span className={`text-2xl ${isRTL ? 'ml-2' : 'mr-2'}`}>✅</span> {t('pages.blog.components.multiplicationWorksheetsBlog.feature3')}
             </li>
           </ul>
         </div>

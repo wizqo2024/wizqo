@@ -5,10 +5,89 @@ import { ar } from './ar'
 
 export type Language = 'en' | 'es' | 'ar'
 
+// Initialize translations with explicit interactive content to prevent tree-shaking
 export const translations = {
-  en,
-  es,
-  ar,
+  en: {
+    ...en,
+    interactive: {
+      ...en.interactive,
+      // Explicitly include friendship translations
+      'interactive-sel-friendship': en.interactive?.['interactive-sel-friendship'] || {
+        title: 'Friendship & Social Skills',
+        description: 'Learn about making friends, sharing, taking turns, and being kind to others.',
+        situation: 'Situation:',
+        whatCanYouDo: 'What can you do?',
+        waysToBeGoodFriend: 'Ways to Be a Good Friend',
+        shareAndTakeTurns: 'Share and take turns',
+        listenWhenOthersTalk: 'Listen when others talk',
+        beKindAndHelpful: 'Be kind and helpful',
+        includeEveryone: 'Include everyone',
+        scenarios: {
+          newStudent: 'A new student joins your class',
+          newStudentAction: 'introduce yourself',
+          friendSad: 'A friend is sad',
+          friendSadAction: 'ask how they feel',
+          someoneNeedsHelp: 'Someone needs help',
+          someoneNeedsHelpAction: 'offer to help',
+        },
+        answerKey: 'Student responses may vary. Check for understanding of friendship skills, empathy, kindness, and appropriate social responses to different situations.',
+      },
+    },
+  },
+  es: {
+    ...es,
+    interactive: {
+      ...es.interactive,
+      // Explicitly include friendship translations
+      'interactive-sel-friendship': es.interactive?.['interactive-sel-friendship'] || {
+        title: 'Amistad y Habilidades Sociales',
+        description: 'Aprende sobre hacer amigos, compartir, tomar turnos y ser amable con otros.',
+        situation: 'Situación:',
+        whatCanYouDo: '¿Qué puedes hacer?',
+        waysToBeGoodFriend: 'Formas de Ser un Buen Amigo',
+        shareAndTakeTurns: 'Compartir y tomar turnos',
+        listenWhenOthersTalk: 'Escuchar cuando otros hablan',
+        beKindAndHelpful: 'Ser amable y servicial',
+        includeEveryone: 'Incluir a todos',
+        scenarios: {
+          newStudent: 'Un nuevo estudiante se une a tu clase',
+          newStudentAction: 'preséntate',
+          friendSad: 'Un amigo está triste',
+          friendSadAction: 'pregunta cómo se siente',
+          someoneNeedsHelp: 'Alguien necesita ayuda',
+          someoneNeedsHelpAction: 'ofrece ayuda',
+        },
+        answerKey: 'Las respuestas de los estudiantes pueden variar. Verifica la comprensión de habilidades de amistad, empatía, bondad y respuestas sociales apropiadas a diferentes situaciones.',
+      },
+    },
+  },
+  ar: {
+    ...ar,
+    interactive: {
+      ...ar.interactive,
+      // Explicitly include friendship translations
+      'interactive-sel-friendship': ar.interactive?.['interactive-sel-friendship'] || {
+        title: 'الصداقة والمهارات الاجتماعية',
+        description: 'تعلم عن تكوين الصداقات والمشاركة وأخذ الأدوار واللطف مع الآخرين.',
+        situation: 'الموقف:',
+        whatCanYouDo: 'ماذا يمكنك أن تفعل؟',
+        waysToBeGoodFriend: 'طرق أن تكون صديقاً جيداً',
+        shareAndTakeTurns: 'شارك وخذ الأدوار',
+        listenWhenOthersTalk: 'استمع عندما يتحدث الآخرون',
+        beKindAndHelpful: 'كن لطيفاً ومفيداً',
+        includeEveryone: 'شمل الجميع',
+        scenarios: {
+          newStudent: 'طالب جديد ينضم إلى صفك',
+          newStudentAction: 'قدم نفسك',
+          friendSad: 'صديق حزين',
+          friendSadAction: 'اسأل كيف يشعر',
+          someoneNeedsHelp: 'شخص يحتاج مساعدة',
+          someoneNeedsHelpAction: 'عرض المساعدة',
+        },
+        answerKey: 'قد تختلف إجابات الطلاب. تحقق من فهم مهارات الصداقة والتعاطف واللطف والاستجابات الاجتماعية المناسبة لمواقف مختلفة.',
+      },
+    },
+  },
 } as const
 
 // Explicitly export interactive worksheet keys to prevent tree-shaking
@@ -22,6 +101,12 @@ export const interactiveWorksheetKeys = {
     mathPuzzle: en.worksheets.mathPuzzle,
     mathRace: en.worksheets.mathRace,
     reflection: en.worksheets.reflection,
+    decimals: en.worksheets.decimals,
+    division: en.worksheets.division,
+    tensFrame: en.worksheets.tensFrame,
+    multiplication: en.worksheets.multiplication,
+    time: en.worksheets.time,
+    rounding: en.worksheets.rounding,
   },
   es: {
     countObjectsAndWriteNumber: es.worksheets.countObjectsAndWriteNumber,
@@ -31,6 +116,12 @@ export const interactiveWorksheetKeys = {
     mathPuzzle: es.worksheets.mathPuzzle,
     mathRace: es.worksheets.mathRace,
     reflection: es.worksheets.reflection,
+    decimals: es.worksheets.decimals,
+    division: es.worksheets.division,
+    tensFrame: es.worksheets.tensFrame,
+    multiplication: es.worksheets.multiplication,
+    time: es.worksheets.time,
+    rounding: es.worksheets.rounding,
   },
   ar: {
     countObjectsAndWriteNumber: ar.worksheets.countObjectsAndWriteNumber,
@@ -40,13 +131,1590 @@ export const interactiveWorksheetKeys = {
     mathPuzzle: ar.worksheets.mathPuzzle,
     mathRace: ar.worksheets.mathRace,
     reflection: ar.worksheets.reflection,
+    decimals: ar.worksheets.decimals,
+    division: ar.worksheets.division,
+    tensFrame: ar.worksheets.tensFrame,
+    multiplication: ar.worksheets.multiplication,
+    time: ar.worksheets.time,
+    rounding: ar.worksheets.rounding,
   },
 } as const
+
+// Explicitly export interactive translations to prevent tree-shaking
+// This ensures these translations are included in the bundle
+// We explicitly reference each key to prevent tree-shaking
+export const interactiveTranslations = {
+  en: en.interactive,
+  es: es.interactive,
+  ar: ar.interactive,
+} as const
+
+// Explicitly reference all SEL translations to prevent tree-shaking
+if (false) {
+  // This code never runs but ensures the translations are included in the bundle
+  const selKeys = [
+    'interactive-sel-friendship',
+    'interactive-sel-gratitude',
+    'interactive-sel-mindfulness',
+    'interactive-sel-empathy',
+    'interactive-sel-conflict',
+    'interactive-sel-regulation',
+    'interactive-sel-kindness',
+    'interactive-sel-growth-mindset',
+    'interactive-sel-stress',
+    'interactive-sel-character',
+  ]
+  for (const key of selKeys) {
+    void en.interactive[key]
+    void es.interactive[key]
+    void ar.interactive[key]
+    // Also reference nested keys
+    if (key === 'interactive-sel-friendship') {
+      void en.interactive[key]?.title
+      void en.interactive[key]?.situation
+      void en.interactive[key]?.whatCanYouDo
+      void en.interactive[key]?.scenarios?.newStudent
+      void en.interactive[key]?.scenarios?.friendSad
+      void en.interactive[key]?.scenarios?.someoneNeedsHelp
+      void ar.interactive[key]?.title
+      void ar.interactive[key]?.situation
+      void ar.interactive[key]?.whatCanYouDo
+      void ar.interactive[key]?.scenarios?.newStudent
+      void ar.interactive[key]?.scenarios?.friendSad
+      void ar.interactive[key]?.scenarios?.someoneNeedsHelp
+    }
+  }
+}
+
+// Ensure interactive worksheet title and description keys are present
+const ensureInteractiveTitleDescriptionKeys = () => {
+  // Define the keys directly to prevent tree-shaking
+  // Auto-generated: All 124 interactive worksheets
+  const interactiveTitleDescKeys = {
+    en: {
+      'interactive-art-color-by-number': {
+        title: 'Color-by-Number Art',
+        description: 'Color pictures using number codes. Each sheet features unique designs and color patterns.',
+      },
+      'interactive-art-colorwheel': {
+        title: 'Color Theory Practice',
+        description: 'Color pictures with the correct colors. Learn colors while having fun!',
+      },
+      'interactive-art-comic': {
+        title: 'Comic Strip Creator',
+        description: 'Create your own comic strips with panels, speech bubbles, and characters. Tell a visual story!',
+      },
+      'interactive-art-critique': {
+        title: 'Art Critique & Analysis',
+        description: 'Learn to observe, describe, and analyze artwork using art vocabulary and critical thinking.',
+      },
+      'interactive-art-design': {
+        title: 'Creative Design Challenge',
+        description: 'Fun coloring pages with simple pictures to color. Perfect for young artists!',
+      },
+      'interactive-art-doodle': {
+        title: 'Doodle Art Challenge',
+        description: 'Free-form doodling prompts that spark creativity and imagination. No rules, just fun!',
+      },
+      'interactive-art-mandala': {
+        title: 'Mandala Art & Patterns',
+        description: 'Create beautiful mandala designs with patterns and symmetry. Perfect for mindfulness and creativity.',
+      },
+      'interactive-art-patterns': {
+        title: 'Pattern & Symmetry Art',
+        description: 'Create patterns and explore symmetry through drawing and coloring activities.',
+      },
+      'interactive-art-perspective': {
+        title: 'Art & Perspective Practice',
+        description: 'Learn about perspective, shading, and artistic techniques through guided exercises.',
+      },
+      'interactive-art-seasonal': {
+        title: 'Seasonal Coloring Pages',
+        description: 'Themed coloring pages for different seasons and holidays. Each sheet features unique seasonal designs.',
+      },
+      'interactive-art-shapes': {
+        title: 'Shape Art & Drawing',
+        description: 'Create art using basic shapes. Draw and color shapes to make pictures.',
+      },
+      'interactive-art-sketch': {
+        title: 'Sketch & Observe',
+        description: 'Simple drawing prompts with helpful hints. Draw and have fun!',
+      },
+      'interactive-cognitive-attention': {
+        title: 'Attention & Focus Builder',
+        description: 'Develop sustained attention and focus through visual scanning, spot-the-difference, and concentration exercises.',
+      },
+      'interactive-cognitive-executive': {
+        title: 'Executive Function Practice',
+        description: 'Build planning, organization, and task completion skills with structured activities and goal-setting exercises.',
+      },
+      'interactive-cognitive-flexibility': {
+        title: 'Cognitive Flexibility Practice',
+        description: 'Develop mental flexibility by switching between tasks, adapting to new rules, and thinking from multiple perspectives.',
+      },
+      'interactive-cognitive-memory': {
+        title: 'Working Memory Challenge',
+        description: 'Practice remembering sequences, patterns, and information. Strengthens working memory and recall skills.',
+      },
+      'interactive-cognitive-processing': {
+        title: 'Processing Speed Challenge',
+        description: 'Improve quick recognition and response time through timed activities and rapid identification exercises.',
+      },
+      'interactive-cognitive-visual': {
+        title: 'Visual Processing Skills',
+        description: 'Enhance visual discrimination, spatial reasoning, and visual-motor integration through pattern matching and spatial tasks.',
+      },
+      'interactive-early-basics': {
+        title: 'Basic Skills Practice',
+        description: 'Essential early learning skills including letter sounds, counting, and basic patterns.',
+      },
+      'interactive-early-counting': {
+        title: 'Counting & Number Recognition',
+        description: 'Interactive counting exercises with one-to-one correspondence practice.',
+      },
+      'interactive-early-foundations': {
+        title: 'Foundational Skills Review',
+        description: 'Review basic letter, number, and shape recognition skills. Perfect for remediation or review.',
+      },
+      'interactive-early-letters': {
+        title: 'Letter Formation Practice',
+        description: 'Trace and write uppercase and lowercase letters with guided practice.',
+      },
+      'interactive-early-numbers': {
+        title: 'Number Writing & Recognition',
+        description: 'Practice writing numbers 1-20 and matching quantities to numerals.',
+      },
+      'interactive-early-patterns': {
+        title: 'Pattern Recognition Explorer',
+        description: 'Complete and create patterns with colors, shapes, and numbers.',
+      },
+      'interactive-early-phonics': {
+        title: 'Phonics Fun Practice',
+        description: 'Letter sounds, beginning sounds, and CVC word practice. Each sheet focuses on different sounds.',
+      },
+      'interactive-early-shapes': {
+        title: 'Shape & Color Explorer',
+        description: 'Identify and match shapes and colors with interactive sorting activities.',
+      },
+      'interactive-geography-continents': {
+        title: 'Continents & Oceans Explorer',
+        description: 'Learn about the seven continents and five oceans with maps and activities.',
+      },
+      'interactive-geography-culture': {
+        title: 'Culture Explorer',
+        description: 'Learn about different cultures, traditions, and communities around the world.',
+      },
+      'interactive-geography-economics': {
+        title: 'Economics Basics',
+        description: 'Explore supply and demand, budgeting, financial literacy, and economic systems.',
+      },
+      'interactive-geography-government': {
+        title: 'Civics & Government Explorer',
+        description: 'Learn about government structure, citizenship, rights, and responsibilities.',
+      },
+      'interactive-geography-history': {
+        title: 'Historical Timeline Builder',
+        description: 'Create timelines and learn about historical events and figures.',
+      },
+      'interactive-geography-map': {
+        title: 'Interactive Map Skills',
+        description: 'Practice reading maps, using legends, and identifying locations. Each sheet features different maps.',
+      },
+      'interactive-geography-places': {
+        title: 'Places & Landmarks',
+        description: 'Learn about important places, landmarks, and locations in your community and country.',
+      },
+      'interactive-geography-prek': {
+        title: 'My Community Explorer',
+        description: 'Learn about places in the community, home, and school with simple maps and pictures.',
+      },
+      'interactive-geography-seasons': {
+        title: 'Seasons & Weather Around the World',
+        description: 'Learn about different seasons, weather patterns, and how they vary in different places.',
+      },
+      'interactive-grammar-advanced': {
+        title: 'Advanced Grammar Practice',
+        description: 'Practice complex sentence structures, clauses, phrases, and advanced punctuation.',
+      },
+      'interactive-grammar-antonyms': {
+        title: 'Synonyms & Antonyms Challenge',
+        description: 'Match words with synonyms and antonyms to expand vocabulary.',
+      },
+      'interactive-grammar-capitalization': {
+        title: 'Capitalization & Punctuation',
+        description: 'Practice proper capitalization and punctuation in sentences.',
+      },
+      'interactive-grammar-parts': {
+        title: 'Parts of Speech Practice',
+        description: 'Identify nouns, verbs, adjectives, and adverbs in sentences. Each sheet has new sentences.',
+      },
+      'interactive-grammar-plurals': {
+        title: 'Plurals & Possessives',
+        description: 'Learn to form plurals and possessives correctly.',
+      },
+      'interactive-grammar-prek': {
+        title: 'Word & Picture Match',
+        description: 'Match simple words with pictures and identify basic word types.',
+      },
+      'interactive-grammar-rhyming': {
+        title: 'Rhyming Words Practice',
+        description: 'Identify and match rhyming words through fun activities.',
+      },
+      'interactive-grammar-tenses': {
+        title: 'Verb Tense Mastery',
+        description: 'Practice past, present, and future tense with verb conjugation exercises.',
+      },
+      'interactive-grammar-vocab': {
+        title: 'Academic Vocabulary Builder',
+        description: 'Learn and practice academic vocabulary words with context clues and usage exercises.',
+      },
+      'interactive-logic-analogies': {
+        title: 'Analogies & Relationships',
+        description: 'Practice identifying relationships and completing analogies.',
+      },
+      'interactive-logic-classification': {
+        title: 'Classification & Categorization',
+        description: 'Sort and classify objects, pictures, and concepts into groups.',
+      },
+      'interactive-logic-deduction': {
+        title: 'Deductive Reasoning Quest',
+        description: 'Use clues to solve mysteries and logic puzzles.',
+      },
+      'interactive-logic-matching': {
+        title: 'Matching & Memory Games',
+        description: 'Match objects, pictures, and concepts. Practice memory and recognition skills.',
+      },
+      'interactive-logic-prek': {
+        title: 'Simple Patterns & Sorting',
+        description: 'Complete simple patterns and sort objects by color, size, or type.',
+      },
+      'interactive-logic-riddles': {
+        title: 'Brain Teaser Riddles',
+        description: 'Solve riddles and brain teasers with varying difficulty levels.',
+      },
+      'interactive-logic-sequence': {
+        title: 'Sequencing Challenge',
+        description: 'Order events, steps, and patterns logically. Each sheet has unique sequences.',
+      },
+      'interactive-math-algebra': {
+        title: 'Algebra Basics Practice',
+        description: 'Solve equations, work with variables, and practice algebraic expressions.',
+      },
+      'interactive-math-counting': {
+        title: 'Counting & Number Recognition',
+        description: 'Practice counting objects, recognizing numbers, and matching quantities to numerals.',
+      },
+      'interactive-math-decimals': {
+        title: 'Decimal Operations',
+        description: 'Add, subtract, multiply, and divide decimals with real-world applications.',
+      },
+      'interactive-math-division': {
+        title: 'Division Practice',
+        description: 'Learn division facts, use arrays, and solve division word problems.',
+      },
+      'interactive-math-exponents': {
+        title: 'Exponents & Powers',
+        description: 'Understand exponents, powers, and scientific notation.',
+      },
+      'interactive-math-fractions': {
+        title: 'Fraction Fun Practice',
+        description: 'Compare fractions, find equivalents, and solve fraction operations.',
+      },
+      'interactive-math-geometry': {
+        title: 'Advanced Geometry Challenge',
+        description: 'Calculate area, perimeter, volume, and work with angles and transformations.',
+      },
+      'interactive-math-graphing': {
+        title: 'Data & Graphing Practice',
+        description: 'Create bar graphs, pictographs, and line plots from data sets.',
+      },
+      'interactive-math-integers': {
+        title: 'Integers & Number Line',
+        description: 'Work with positive and negative numbers, absolute value, and coordinate plane.',
+      },
+      'interactive-math-measurement': {
+        title: 'Measurement Mission',
+        description: 'Practice length, weight, volume, and time measurement conversions.',
+      },
+      'interactive-math-money': {
+        title: 'Money Math Mastery',
+        description: 'Count coins, make change, and solve money word problems.',
+      },
+      'interactive-math-multiplication': {
+        title: 'Multiplication Mastery',
+        description: 'Practice multiplication facts, arrays, and multiplication word problems.',
+      },
+      'interactive-math-percentages': {
+        title: 'Percentage & Ratio Mastery',
+        description: 'Calculate percentages, work with ratios, and solve proportion problems.',
+      },
+      'interactive-math-place-value': {
+        title: 'Place Value Explorer',
+        description: 'Understand ones, tens, hundreds, and thousands place with interactive exercises.',
+      },
+      'interactive-math-puzzle': {
+        title: 'Equation Puzzle Box',
+        description: 'Solve missing number equations arranged in puzzle format. Each puzzle is unique.',
+      },
+      'interactive-math-race': {
+        title: 'Math Race Challenge',
+        description: 'Timed addition and subtraction challenges with varying difficulty levels.',
+      },
+      'interactive-math-rhythm': {
+        title: 'Number Pattern Rhythm',
+        description: 'Complete number patterns with skip counting sequences. Each sheet generates unique patterns.',
+      },
+      'interactive-math-rounding': {
+        title: 'Rounding Numbers',
+        description: 'Round numbers to the nearest ten, hundred, and thousand.',
+      },
+      'interactive-math-shapes': {
+        title: 'Geometry Shape Challenge',
+        description: 'Identify, count, and classify shapes with interactive exercises.',
+      },
+      'interactive-math-statistics': {
+        title: 'Data & Statistics Explorer',
+        description: 'Analyze data sets, create graphs, calculate mean, median, mode, and interpret statistics.',
+      },
+      'interactive-math-tens-frames': {
+        title: 'Tens Frames Practice',
+        description: 'Use tens frames to understand numbers, addition, and subtraction visually.',
+      },
+      'interactive-math-time': {
+        title: 'Time & Clock Practice',
+        description: 'Read analog and digital clocks, calculate elapsed time, and solve time word problems.',
+      },
+      'interactive-math-word-problems': {
+        title: 'Multi-Step Word Problems',
+        description: 'Solve complex word problems requiring multiple steps and critical thinking.',
+      },
+      'interactive-reading-adventure': {
+        title: 'Reading Adventure Quest',
+        description: 'Interactive story passages with multiple choice and short answer questions. Each sheet features a new story.',
+      },
+      'interactive-reading-alphabet': {
+        title: 'Alphabet & Letter Recognition',
+        description: 'Practice recognizing letters, matching uppercase and lowercase, and beginning sounds.',
+      },
+      'interactive-reading-character': {
+        title: 'Character Analysis Workshop',
+        description: 'Analyze character traits, motivations, and development in stories.',
+      },
+      'interactive-reading-compare': {
+        title: 'Compare & Contrast Passages',
+        description: 'Read multiple texts and compare themes, characters, or information.',
+      },
+      'interactive-reading-detective': {
+        title: 'Reading Detective Challenge',
+        description: 'Find clues in the text to answer mystery questions. New mysteries each time.',
+      },
+      'interactive-reading-fluency': {
+        title: 'Reading Fluency Practice',
+        description: 'Practice reading with expression, accuracy, and appropriate pacing. Includes repeated reading exercises.',
+      },
+      'interactive-reading-literary-analysis': {
+        title: 'Literary Analysis Workshop',
+        description: 'Analyze literary elements, themes, symbolism, and author\'s purpose in fiction texts.',
+      },
+      'interactive-reading-prek': {
+        title: 'Picture Story Time',
+        description: 'Simple picture-based stories with yes/no questions and basic comprehension activities.',
+      },
+      'interactive-reading-research': {
+        title: 'Research & Evidence Builder',
+        description: 'Practice finding and evaluating sources, citing evidence, and building arguments from multiple texts.',
+      },
+      'interactive-reading-sightwords': {
+        title: 'Sight Word Practice',
+        description: 'Practice reading and writing common sight words with fun activities.',
+      },
+      'interactive-reading-storymap': {
+        title: 'Story Map Builders',
+        description: 'Retell fiction stories with beginning, middle, and ending organizers plus clue gathering practice.',
+      },
+      'interactive-reading-summary': {
+        title: 'Summary & Main Idea',
+        description: 'Practice identifying main ideas and writing concise summaries.',
+      },
+      'interactive-reading-vocab': {
+        title: 'Vocabulary Builder Workshop',
+        description: 'Context clues exercises with word matching and sentence completion.',
+      },
+      'interactive-science-animals': {
+        title: 'Animal Classification',
+        description: 'Learn about different types of animals, their habitats, and characteristics.',
+      },
+      'interactive-science-chemistry': {
+        title: 'Chemistry Basics Lab',
+        description: 'Explore atoms, molecules, chemical reactions, and the periodic table.',
+      },
+      'interactive-science-ecology': {
+        title: 'Ecology & Environment Study',
+        description: 'Explore ecosystems, food webs, environmental issues, and conservation.',
+      },
+      'interactive-science-lifecycle': {
+        title: 'Life Cycle Explorer',
+        description: 'Interactive worksheets exploring plant and animal life cycles.',
+      },
+      'interactive-science-observation': {
+        title: 'Science Observation Journal',
+        description: 'Daily observation logs for experiments and nature studies. Each sheet features new prompts.',
+      },
+      'interactive-science-physics': {
+        title: 'Physics Fundamentals',
+        description: 'Learn about forces, motion, energy, and simple machines with hands-on activities.',
+      },
+      'interactive-science-plants': {
+        title: 'Plant Explorer',
+        description: 'Learn about plants, their parts, and how they grow through simple activities.',
+      },
+      'interactive-science-prek': {
+        title: 'Nature Explorer',
+        description: 'Simple nature observation activities with pictures and basic questions about plants, animals, and weather.',
+      },
+      'interactive-science-senses': {
+        title: 'Five Senses Explorer',
+        description: 'Explore the five senses through hands-on activities and observation exercises.',
+      },
+      'interactive-science-space': {
+        title: 'Space & Astronomy Explorer',
+        description: 'Learn about planets, stars, and space phenomena with interactive activities.',
+      },
+      'interactive-science-states': {
+        title: 'States of Matter Lab',
+        description: 'Hands-on activities exploring solid, liquid, gas with observation charts.',
+      },
+      'interactive-science-weather': {
+        title: 'Weather Watcher Journal',
+        description: 'Track weather patterns, temperature, and observations over time.',
+      },
+      'interactive-sel-character': {
+        title: 'Character Building & Values',
+        description: 'Explore important character traits like honesty, respect, responsibility, and integrity.',
+      },
+      'interactive-sel-conflict': {
+        title: 'Conflict Resolution Skills',
+        description: 'Learn strategies to resolve conflicts peacefully and communicate effectively with others.',
+      },
+      'interactive-sel-empathy': {
+        title: 'Empathy Builder',
+        description: 'Practice perspective-taking and understanding others\' feelings and experiences.',
+      },
+      'interactive-sel-friendship': {
+        title: 'Friendship & Social Skills',
+        description: 'Learn about making friends, sharing, taking turns, and being kind to others.',
+      },
+      'interactive-sel-goals': {
+        title: 'Goal Setting & Growth',
+        description: 'Set and track personal and academic goals with action plans.',
+      },
+      'interactive-sel-gratitude': {
+        title: 'Gratitude & Appreciation',
+        description: 'Practice gratitude through writing, drawing, and reflection activities.',
+      },
+      'interactive-sel-growth-mindset': {
+        title: 'Growth Mindset Practice',
+        description: 'Develop a growth mindset by learning to embrace challenges, learn from mistakes, and persist.',
+      },
+      'interactive-sel-kindness': {
+        title: 'Kindness Challenge',
+        description: 'Complete daily acts of kindness and reflect on how kindness impacts yourself and others.',
+      },
+      'interactive-sel-mindfulness': {
+        title: 'Mindfulness & Reflection',
+        description: 'Daily mindfulness exercises with breathing techniques and reflection prompts.',
+      },
+      'interactive-sel-prek': {
+        title: 'Feelings & Emotions Explorer',
+        description: 'Identify and express feelings through pictures, simple words, and activities.',
+      },
+      'interactive-sel-regulation': {
+        title: 'Self-Regulation Strategies',
+        description: 'Practice techniques to manage emotions, stay calm, and make thoughtful choices.',
+      },
+      'interactive-sel-stress': {
+        title: 'Stress Management & Coping',
+        description: 'Identify stress triggers and practice healthy coping strategies for managing anxiety and stress.',
+      },
+      'interactive-writing-argumentative': {
+        title: 'Argumentative Writing Practice',
+        description: 'Develop arguments with claims, evidence, and reasoning. Practice persuasive writing skills.',
+      },
+      'interactive-writing-essay': {
+        title: 'Essay Writing Workshop',
+        description: 'Practice writing structured essays with thesis statements, body paragraphs, and conclusions.',
+      },
+      'interactive-writing-informative': {
+        title: 'Informative Writing Guide',
+        description: 'Learn to write informative paragraphs and essays with facts, details, and explanations.',
+      },
+      'interactive-writing-lowercase-trace': {
+        title: 'Neat Handwriting Practice – Lowercase Alphabet Tracing',
+        description: 'Practice tracing lowercase letters with guided lines. Perfect for developing neat handwriting skills.',
+      },
+      'interactive-writing-narrative': {
+        title: 'Narrative Writing Practice',
+        description: 'Write short stories with beginning, middle, and end. Includes story planning templates.',
+      },
+      'interactive-writing-opinion': {
+        title: 'Opinion Writing Framework',
+        description: 'Structured templates for opinion writing with prompts and evidence gathering.',
+      },
+      'interactive-writing-pictures': {
+        title: 'Picture Story Starters',
+        description: 'Draw pictures based on prompts and write simple sentences about what you see.',
+      },
+      'interactive-writing-poetry': {
+        title: 'Poetry Writing Practice',
+        description: 'Guided poetry exercises with rhyming, haiku, and free verse prompts.',
+      },
+      'interactive-writing-prek': {
+        title: 'Drawing & Labeling',
+        description: 'Draw pictures and label them with simple words. Perfect for early artists!',
+      },
+      'interactive-writing-prompts': {
+        title: 'Creative Writing Prompts',
+        description: 'Unique story starters and creative writing prompts that change with each generation.',
+      },
+      'interactive-writing-research': {
+        title: 'Research Paper Planner',
+        description: 'Organize research, create outlines, and structure research papers with proper citations.',
+      },
+      'interactive-writing-sentences': {
+        title: 'Sentence Builder Workshop',
+        description: 'Practice building complete sentences with varied structures and punctuation.',
+      },
+      'interactive-writing-trace': {
+        title: 'Letter & Word Tracing',
+        description: 'Trace letters and simple words to build handwriting skills and letter recognition.',
+      },
+    },
+    es: {
+      'interactive-art-color-by-number': {
+        title: 'Arte de Colorear por Números',
+        description: 'Colorea imágenes usando códigos numéricos. Cada hoja presenta diseños únicos y patrones de color.',
+      },
+      'interactive-art-colorwheel': {
+        title: 'Práctica de Teoría del Color',
+        description: 'Colorea imágenes con los colores correctos. ¡Aprende colores mientras te diviertes!',
+      },
+      'interactive-art-comic': {
+        title: 'Creador de Tiras Cómicas',
+        description: 'Crea tus propias tiras cómicas con paneles, globos de diálogo y personajes. ¡Cuenta una historia visual!',
+      },
+      'interactive-art-critique': {
+        title: 'Crítica y Análisis de Arte',
+        description: 'Aprende a observar, describir y analizar obras de arte usando vocabulario artístico y pensamiento crítico.',
+      },
+      'interactive-art-design': {
+        title: 'Desafío de Diseño Creativo',
+        description: 'Páginas de colorear divertidas con imágenes simples para colorear. ¡Perfecto para artistas jóvenes!',
+      },
+      'interactive-art-doodle': {
+        title: 'Desafío de Arte Garabateado',
+        description: 'Indicadores de garabateo de forma libre que despiertan la creatividad y la imaginación. ¡Sin reglas, solo diversión!',
+      },
+      'interactive-art-mandala': {
+        title: 'Arte de Mandala y Patrones',
+        description: 'Crea hermosos diseños de mandala con patrones y simetría. Perfecto para la atención plena y la creatividad.',
+      },
+      'interactive-art-patterns': {
+        title: 'Arte de Patrones y Simetría',
+        description: 'Crea patrones y explora la simetría a través de actividades de dibujo y coloreado.',
+      },
+      'interactive-art-perspective': {
+        title: 'Práctica de Arte y Perspectiva',
+        description: 'Aprende sobre perspectiva, sombreado y técnicas artísticas a través de ejercicios guiados.',
+      },
+      'interactive-art-seasonal': {
+        title: 'Páginas de Colorear Estacionales',
+        description: 'Páginas de colorear temáticas para diferentes estaciones y festividades. Cada hoja presenta diseños estacionales únicos.',
+      },
+      'interactive-art-shapes': {
+        title: 'Arte y Dibujo de Formas',
+        description: 'Crea arte usando formas básicas. Dibuja y colorea formas para hacer imágenes.',
+      },
+      'interactive-art-sketch': {
+        title: 'Boceto y Observación',
+        description: 'Indicadores de dibujo simples con pistas útiles. ¡Dibuja y diviértete!',
+      },
+      'interactive-cognitive-attention': {
+        title: 'Constructor de Atención y Enfoque',
+        description: 'Desarrolla atención sostenida y enfoque a través de escaneo visual, busca las diferencias y ejercicios de concentración.',
+      },
+      'interactive-cognitive-executive': {
+        title: 'Práctica de Función Ejecutiva',
+        description: 'Desarrolla habilidades de planificación, organización y finalización de tareas con actividades estructuradas y ejercicios de establecimiento de metas.',
+      },
+      'interactive-cognitive-flexibility': {
+        title: 'Práctica de Flexibilidad Cognitiva',
+        description: 'Desarrolla flexibilidad mental cambiando entre tareas, adaptándote a nuevas reglas y pensando desde múltiples perspectivas.',
+      },
+      'interactive-cognitive-memory': {
+        title: 'Desafío de Memoria de Trabajo',
+        description: 'Practica recordar secuencias, patrones e información. Fortalece la memoria de trabajo y las habilidades de recuperación.',
+      },
+      'interactive-cognitive-processing': {
+        title: 'Desafío de Velocidad de Procesamiento',
+        description: 'Mejora el reconocimiento rápido y el tiempo de respuesta a través de actividades cronometradas y ejercicios de identificación rápida.',
+      },
+      'interactive-cognitive-visual': {
+        title: 'Habilidades de Procesamiento Visual',
+        description: 'Mejora la discriminación visual, el razonamiento espacial y la integración visomotora a través de tareas de coincidencia de patrones y espaciales.',
+      },
+      'interactive-early-basics': {
+        title: 'Práctica de Habilidades Básicas',
+        description: 'Habilidades esenciales de aprendizaje temprano que incluyen sonidos de letras, conteo y patrones básicos.',
+      },
+      'interactive-early-counting': {
+        title: 'Conteo y Reconocimiento de Números',
+        description: 'Ejercicios de conteo interactivos con práctica de correspondencia uno a uno.',
+      },
+      'interactive-early-foundations': {
+        title: 'Revisión de Habilidades Fundamentales',
+        description: 'Revisa habilidades básicas de reconocimiento de letras, números y formas. Perfecto para remediación o revisión.',
+      },
+      'interactive-early-letters': {
+        title: 'Práctica de Formación de Letras',
+        description: 'Traza y escribe letras mayúsculas y minúsculas con práctica guiada.',
+      },
+      'interactive-early-numbers': {
+        title: 'Escritura y Reconocimiento de Números',
+        description: 'Practica escribir números del 1 al 20 y emparejar cantidades con numerales.',
+      },
+      'interactive-early-patterns': {
+        title: 'Explorador de Reconocimiento de Patrones',
+        description: 'Completa y crea patrones con colores, formas y números.',
+      },
+      'interactive-early-phonics': {
+        title: 'Práctica Divertida de Fonética',
+        description: 'Sonidos de letras, sonidos iniciales y práctica de palabras CVC. Cada hoja se enfoca en diferentes sonidos.',
+      },
+      'interactive-early-shapes': {
+        title: 'Explorador de Formas y Colores',
+        description: 'Identifica y empareja formas y colores con actividades de clasificación interactivas.',
+      },
+      'interactive-geography-continents': {
+        title: 'Explorador de Continentes y Océanos',
+        description: 'Aprende sobre los siete continentes y cinco océanos con mapas y actividades.',
+      },
+      'interactive-geography-culture': {
+        title: 'Explorador de Culturas',
+        description: 'Aprende sobre diferentes culturas, tradiciones y comunidades alrededor del mundo.',
+      },
+      'interactive-geography-economics': {
+        title: 'Fundamentos de Economía',
+        description: 'Explora oferta y demanda, presupuesto, alfabetización financiera y sistemas económicos.',
+      },
+      'interactive-geography-government': {
+        title: 'Explorador de Civismo y Gobierno',
+        description: 'Aprende sobre la estructura del gobierno, ciudadanía, derechos y responsabilidades.',
+      },
+      'interactive-geography-history': {
+        title: 'Constructor de Línea de Tiempo Histórica',
+        description: 'Crea líneas de tiempo y aprende sobre eventos históricos y figuras.',
+      },
+      'interactive-geography-map': {
+        title: 'Habilidades de Mapas Interactivos',
+        description: 'Practica leer mapas, usar leyendas e identificar ubicaciones. Cada hoja presenta diferentes mapas.',
+      },
+      'interactive-geography-places': {
+        title: 'Lugares y Puntos de Referencia',
+        description: 'Aprende sobre lugares importantes, puntos de referencia y ubicaciones en tu comunidad y país.',
+      },
+      'interactive-geography-prek': {
+        title: 'Explorador de Mi Comunidad',
+        description: 'Aprende sobre lugares en la comunidad, el hogar y la escuela con mapas simples e imágenes.',
+      },
+      'interactive-geography-seasons': {
+        title: 'Estaciones y Clima Alrededor del Mundo',
+        description: 'Aprende sobre diferentes estaciones, patrones climáticos y cómo varían en diferentes lugares.',
+      },
+      'interactive-grammar-advanced': {
+        title: 'Práctica Avanzada de Gramática',
+        description: 'Practica estructuras de oraciones complejas, cláusulas, frases y puntuación avanzada.',
+      },
+      'interactive-grammar-antonyms': {
+        title: 'Desafío de Sinónimos y Antónimos',
+        description: 'Empareja palabras con sinónimos y antónimos para expandir el vocabulario.',
+      },
+      'interactive-grammar-capitalization': {
+        title: 'Mayúsculas y Puntuación',
+        description: 'Practica el uso correcto de mayúsculas y puntuación en oraciones.',
+      },
+      'interactive-grammar-parts': {
+        title: 'Práctica de Partes de la Oración',
+        description: 'Identifica sustantivos, verbos, adjetivos y adverbios en oraciones. Cada hoja tiene nuevas oraciones.',
+      },
+      'interactive-grammar-plurals': {
+        title: 'Plurales y Posesivos',
+        description: 'Aprende a formar plurales y posesivos correctamente.',
+      },
+      'interactive-grammar-prek': {
+        title: 'Emparejamiento de Palabras e Imágenes',
+        description: 'Empareja palabras simples con imágenes e identifica tipos básicos de palabras.',
+      },
+      'interactive-grammar-rhyming': {
+        title: 'Práctica de Palabras que Riman',
+        description: 'Identifica y empareja palabras que riman a través de actividades divertidas.',
+      },
+      'interactive-grammar-tenses': {
+        title: 'Dominio de Tiempos Verbales',
+        description: 'Practica tiempos pasado, presente y futuro con ejercicios de conjugación de verbos.',
+      },
+      'interactive-grammar-vocab': {
+        title: 'Constructor de Vocabulario Académico',
+        description: 'Aprende y practica palabras de vocabulario académico con pistas de contexto y ejercicios de uso.',
+      },
+      'interactive-logic-analogies': {
+        title: 'Analogías y Relaciones',
+        description: 'Practica identificar relaciones y completar analogías.',
+      },
+      'interactive-logic-classification': {
+        title: 'Clasificación y Categorización',
+        description: 'Clasifica y categoriza objetos, imágenes y conceptos en grupos.',
+      },
+      'interactive-logic-deduction': {
+        title: 'Búsqueda de Razonamiento Deductivo',
+        description: 'Usa pistas para resolver misterios y rompecabezas lógicos.',
+      },
+      'interactive-logic-matching': {
+        title: 'Juegos de Emparejamiento y Memoria',
+        description: 'Empareja objetos, imágenes y conceptos. Practica habilidades de memoria y reconocimiento.',
+      },
+      'interactive-logic-prek': {
+        title: 'Patrones y Clasificación Simples',
+        description: 'Completa patrones simples y clasifica objetos por color, tamaño o tipo.',
+      },
+      'interactive-logic-riddles': {
+        title: 'Adivinanzas y Acertijos',
+        description: 'Resuelve adivinanzas y acertijos con niveles de dificultad variables.',
+      },
+      'interactive-logic-sequence': {
+        title: 'Desafío de Secuenciación',
+        description: 'Ordena eventos, pasos y patrones lógicamente. Cada hoja tiene secuencias únicas.',
+      },
+      'interactive-math-algebra': {
+        title: 'Práctica de Fundamentos de Álgebra',
+        description: 'Resuelve ecuaciones, trabaja con variables y practica expresiones algebraicas.',
+      },
+      'interactive-math-counting': {
+        title: 'Conteo y Reconocimiento de Números',
+        description: 'Practica contando objetos, reconociendo números y emparejando cantidades con numerales.',
+      },
+      'interactive-math-decimals': {
+        title: 'Operaciones con Decimales',
+        description: 'Suma, resta, multiplica y divide decimales con aplicaciones del mundo real.',
+      },
+      'interactive-math-division': {
+        title: 'Práctica de División',
+        description: 'Aprende hechos de división, usa matrices y resuelve problemas de palabras de división.',
+      },
+      'interactive-math-exponents': {
+        title: 'Exponentes y Potencias',
+        description: 'Comprende exponentes, potencias y notación científica.',
+      },
+      'interactive-math-fractions': {
+        title: 'Práctica Divertida de Fracciones',
+        description: 'Compara fracciones, encuentra equivalentes y resuelve operaciones con fracciones.',
+      },
+      'interactive-math-geometry': {
+        title: 'Desafío Avanzado de Geometría',
+        description: 'Calcula área, perímetro, volumen y trabaja con ángulos y transformaciones.',
+      },
+      'interactive-math-graphing': {
+        title: 'Práctica de Datos y Gráficos',
+        description: 'Crea gráficos de barras, pictogramas y gráficos de líneas a partir de conjuntos de datos.',
+      },
+      'interactive-math-integers': {
+        title: 'Enteros y Recta Numérica',
+        description: 'Trabaja con números positivos y negativos, valor absoluto y plano de coordenadas.',
+      },
+      'interactive-math-measurement': {
+        title: 'Misión de Medición',
+        description: 'Practica conversiones de medida de longitud, peso, volumen y tiempo.',
+      },
+      'interactive-math-money': {
+        title: 'Dominio de Matemáticas con Dinero',
+        description: 'Cuenta monedas, haz cambio y resuelve problemas de palabras con dinero.',
+      },
+      'interactive-math-multiplication': {
+        title: 'Dominio de Multiplicación',
+        description: 'Practica hechos de multiplicación, matrices y problemas de palabras de multiplicación.',
+      },
+      'interactive-math-percentages': {
+        title: 'Dominio de Porcentajes y Razones',
+        description: 'Calcula porcentajes, trabaja con razones y resuelve problemas de proporción.',
+      },
+      'interactive-math-place-value': {
+        title: 'Explorador de Valor Posicional',
+        description: 'Comprende el lugar de unidades, decenas, centenas y millares con ejercicios interactivos.',
+      },
+      'interactive-math-puzzle': {
+        title: 'Caja de Rompecabezas de Ecuaciones',
+        description: 'Resuelve ecuaciones con números faltantes organizadas en formato de rompecabezas. Cada rompecabezas es único.',
+      },
+      'interactive-math-race': {
+        title: 'Desafío de Carrera Matemática',
+        description: 'Desafíos de suma y resta cronometrados con niveles de dificultad variables.',
+      },
+      'interactive-math-rhythm': {
+        title: 'Ritmo de Patrones Numéricos',
+        description: 'Completa patrones numéricos con secuencias de conteo saltado. Cada hoja genera patrones únicos.',
+      },
+      'interactive-math-rounding': {
+        title: 'Redondeo de Números',
+        description: 'Redondea números a la decena, centena y millar más cercanos.',
+      },
+      'interactive-math-shapes': {
+        title: 'Desafío de Formas Geométricas',
+        description: 'Identifica, cuenta y clasifica formas con ejercicios interactivos.',
+      },
+      'interactive-math-statistics': {
+        title: 'Explorador de Datos y Estadísticas',
+        description: 'Analiza conjuntos de datos, crea gráficos, calcula media, mediana, moda e interpreta estadísticas.',
+      },
+      'interactive-math-tens-frames': {
+        title: 'Práctica de Marcos de Diez',
+        description: 'Usa marcos de diez para entender números, suma y resta visualmente.',
+      },
+      'interactive-math-time': {
+        title: 'Práctica de Tiempo y Reloj',
+        description: 'Lee relojes analógicos y digitales, calcula tiempo transcurrido y resuelve problemas de palabras de tiempo.',
+      },
+      'interactive-math-word-problems': {
+        title: 'Problemas de Palabras Multi-Paso',
+        description: 'Resuelve problemas de palabras complejos que requieren múltiples pasos y pensamiento crítico.',
+      },
+      'interactive-reading-adventure': {
+        title: 'Búsqueda de Aventura de Lectura',
+        description: 'Pasajes de historias interactivas con preguntas de opción múltiple y respuesta corta. Cada hoja presenta una nueva historia.',
+      },
+      'interactive-reading-alphabet': {
+        title: 'Alfabeto y Reconocimiento de Letras',
+        description: 'Practica reconocer letras, emparejar mayúsculas y minúsculas, y sonidos iniciales.',
+      },
+      'interactive-reading-character': {
+        title: 'Taller de Análisis de Personajes',
+        description: 'Analiza rasgos de personajes, motivaciones y desarrollo en historias.',
+      },
+      'interactive-reading-compare': {
+        title: 'Pasajes de Comparar y Contrastar',
+        description: 'Lee múltiples textos y compara temas, personajes o información.',
+      },
+      'interactive-reading-detective': {
+        title: 'Desafío de Detective de Lectura',
+        description: 'Encuentra pistas en el texto para responder preguntas misteriosas. Nuevos misterios cada vez.',
+      },
+      'interactive-reading-fluency': {
+        title: 'Práctica de Fluidez de Lectura',
+        description: 'Practica leer con expresión, precisión y ritmo apropiado. Incluye ejercicios de lectura repetida.',
+      },
+      'interactive-reading-literary-analysis': {
+        title: 'Taller de Análisis Literario',
+        description: 'Analiza elementos literarios, temas, simbolismo y propósito del autor en textos de ficción.',
+      },
+      'interactive-reading-prek': {
+        title: 'Hora de Cuentos con Imágenes',
+        description: 'Historias simples basadas en imágenes con preguntas de sí/no y actividades básicas de comprensión.',
+      },
+      'interactive-reading-research': {
+        title: 'Constructor de Investigación y Evidencia',
+        description: 'Practica encontrar y evaluar fuentes, citar evidencia y construir argumentos a partir de múltiples textos.',
+      },
+      'interactive-reading-sightwords': {
+        title: 'Práctica de Palabras de Vista',
+        description: 'Practica leer y escribir palabras de vista comunes con actividades divertidas.',
+      },
+      'interactive-reading-storymap': {
+        title: 'Constructores de Mapa de Historia',
+        description: 'Reconstruye historias de ficción con organizadores de inicio, medio y final más práctica de recopilación de pistas.',
+      },
+      'interactive-reading-summary': {
+        title: 'Resumen e Idea Principal',
+        description: 'Practica identificar ideas principales y escribir resúmenes concisos.',
+      },
+      'interactive-reading-vocab': {
+        title: 'Taller Constructor de Vocabulario',
+        description: 'Ejercicios de pistas de contexto con emparejamiento de palabras y completar oraciones.',
+      },
+      'interactive-science-animals': {
+        title: 'Clasificación de Animales',
+        description: 'Aprende sobre diferentes tipos de animales, sus hábitats y características.',
+      },
+      'interactive-science-chemistry': {
+        title: 'Laboratorio de Fundamentos de Química',
+        description: 'Explora átomos, moléculas, reacciones químicas y la tabla periódica.',
+      },
+      'interactive-science-ecology': {
+        title: 'Estudio de Ecología y Medio Ambiente',
+        description: 'Explora ecosistemas, redes alimentarias, problemas ambientales y conservación.',
+      },
+      'interactive-science-lifecycle': {
+        title: 'Explorador de Ciclo de Vida',
+        description: 'Hojas de trabajo interactivas que exploran ciclos de vida de plantas y animales.',
+      },
+      'interactive-science-observation': {
+        title: 'Diario de Observación Científica',
+        description: 'Registros de observación diarios para experimentos y estudios de la naturaleza. Cada hoja presenta nuevos indicadores.',
+      },
+      'interactive-science-physics': {
+        title: 'Fundamentos de Física',
+        description: 'Aprende sobre fuerzas, movimiento, energía y máquinas simples con actividades prácticas.',
+      },
+      'interactive-science-plants': {
+        title: 'Explorador de Plantas',
+        description: 'Aprende sobre plantas, sus partes y cómo crecen a través de actividades simples.',
+      },
+      'interactive-science-prek': {
+        title: 'Explorador de la Naturaleza',
+        description: 'Actividades simples de observación de la naturaleza con imágenes y preguntas básicas sobre plantas, animales y clima.',
+      },
+      'interactive-science-senses': {
+        title: 'Explorador de los Cinco Sentidos',
+        description: 'Explora los cinco sentidos a través de actividades prácticas y ejercicios de observación.',
+      },
+      'interactive-science-space': {
+        title: 'Explorador del Espacio y la Astronomía',
+        description: 'Aprende sobre planetas, estrellas y fenómenos espaciales con actividades interactivas.',
+      },
+      'interactive-science-states': {
+        title: 'Laboratorio de Estados de la Materia',
+        description: 'Actividades prácticas que exploran sólido, líquido, gas con gráficos de observación.',
+      },
+      'interactive-science-weather': {
+        title: 'Diario Observador del Clima',
+        description: 'Rastrea patrones climáticos, temperatura y observaciones a lo largo del tiempo.',
+      },
+      'interactive-sel-character': {
+        title: 'Construcción de Carácter y Valores',
+        description: 'Explora rasgos de carácter importantes como honestidad, respeto, responsabilidad e integridad.',
+      },
+      'interactive-sel-conflict': {
+        title: 'Habilidades de Resolución de Conflictos',
+        description: 'Aprende estrategias para resolver conflictos pacíficamente y comunicarte efectivamente con otros.',
+      },
+      'interactive-sel-empathy': {
+        title: 'Constructor de Empatía',
+        description: 'Practica tomar perspectiva y entender los sentimientos y experiencias de otros.',
+      },
+      'interactive-sel-friendship': {
+        title: 'Amistad y Habilidades Sociales',
+        description: 'Aprende sobre hacer amigos, compartir, tomar turnos y ser amable con otros.',
+      },
+      'interactive-sel-goals': {
+        title: 'Establecimiento de Metas y Crecimiento',
+        description: 'Establece y rastrea metas personales y académicas con planes de acción.',
+      },
+      'interactive-sel-gratitude': {
+        title: 'Gratitud y Apreciación',
+        description: 'Practica la gratitud a través de actividades de escritura, dibujo y reflexión.',
+      },
+      'interactive-sel-growth-mindset': {
+        title: 'Práctica de Mentalidad de Crecimiento',
+        description: 'Desarrolla una mentalidad de crecimiento aprendiendo a abrazar desafíos, aprender de errores y persistir.',
+      },
+      'interactive-sel-kindness': {
+        title: 'Desafío de Bondad',
+        description: 'Completa actos diarios de bondad y reflexiona sobre cómo la bondad impacta a ti mismo y a otros.',
+      },
+      'interactive-sel-mindfulness': {
+        title: 'Atención Plena y Reflexión',
+        description: 'Ejercicios diarios de atención plena con técnicas de respiración e indicadores de reflexión.',
+      },
+      'interactive-sel-prek': {
+        title: 'Explorador de Sentimientos y Emociones',
+        description: 'Identifica y expresa sentimientos a través de imágenes, palabras simples y actividades.',
+      },
+      'interactive-sel-regulation': {
+        title: 'Estrategias de Autorregulación',
+        description: 'Practica técnicas para manejar emociones, mantener la calma y tomar decisiones reflexivas.',
+      },
+      'interactive-sel-stress': {
+        title: 'Manejo del Estrés y Afrontamiento',
+        description: 'Identifica desencadenantes del estrés y practica estrategias saludables de afrontamiento para manejar ansiedad y estrés.',
+      },
+      'interactive-writing-argumentative': {
+        title: 'Práctica de Escritura Argumentativa',
+        description: 'Desarrolla argumentos con afirmaciones, evidencia y razonamiento. Practica habilidades de escritura persuasiva.',
+      },
+      'interactive-writing-essay': {
+        title: 'Taller de Escritura de Ensayos',
+        description: 'Practica escribir ensayos estructurados con declaraciones de tesis, párrafos del cuerpo y conclusiones.',
+      },
+      'interactive-writing-informative': {
+        title: 'Guía de Escritura Informativa',
+        description: 'Aprende a escribir párrafos y ensayos informativos con hechos, detalles y explicaciones.',
+      },
+      'interactive-writing-lowercase-trace': {
+        title: 'Práctica de Escritura Ordenada – Trazado del Alfabeto en Minúsculas',
+        description: 'Practica trazar letras minúsculas con líneas guía. Perfecto para desarrollar habilidades de escritura ordenada.',
+      },
+      'interactive-writing-narrative': {
+        title: 'Práctica de Escritura Narrativa',
+        description: 'Escribe historias cortas con inicio, medio y final. Incluye plantillas de planificación de historias.',
+      },
+      'interactive-writing-opinion': {
+        title: 'Marco de Escritura de Opinión',
+        description: 'Plantillas estructuradas para escritura de opinión con indicadores y recopilación de evidencia.',
+      },
+      'interactive-writing-pictures': {
+        title: 'Iniciadores de Historias con Imágenes',
+        description: 'Dibuja imágenes basadas en indicadores y escribe oraciones simples sobre lo que ves.',
+      },
+      'interactive-writing-poetry': {
+        title: 'Práctica de Escritura de Poesía',
+        description: 'Ejercicios de poesía guiados con indicadores de rima, haiku y verso libre.',
+      },
+      'interactive-writing-prek': {
+        title: 'Dibujo y Etiquetado',
+        description: 'Dibuja imágenes y etiquétalas con palabras simples. ¡Perfecto para artistas principiantes!',
+      },
+      'interactive-writing-prompts': {
+        title: 'Indicadores de Escritura Creativa',
+        description: 'Iniciadores de historias únicos e indicadores de escritura creativa que cambian con cada generación.',
+      },
+      'interactive-writing-research': {
+        title: 'Planificador de Trabajo de Investigación',
+        description: 'Organiza investigación, crea esquemas y estructura trabajos de investigación con citas apropiadas.',
+      },
+      'interactive-writing-sentences': {
+        title: 'Taller Constructor de Oraciones',
+        description: 'Practica construir oraciones completas con estructuras variadas y puntuación.',
+      },
+      'interactive-writing-trace': {
+        title: 'Trazado de Letras y Palabras',
+        description: 'Traza letras y palabras simples para desarrollar habilidades de escritura y reconocimiento de letras.',
+      },
+    },
+    ar: {
+      'interactive-art-color-by-number': {
+        title: 'فن التلوين بالأرقام',
+        description: 'لون الصور باستخدام رموز الأرقام. كل ورقة تتميز بتصاميم وأنماط ألوان فريدة.',
+      },
+      'interactive-art-colorwheel': {
+        title: 'ممارسة نظرية الألوان',
+        description: 'لون الصور بالألوان الصحيحة. تعلم الألوان أثناء الاستمتاع!',
+      },
+      'interactive-art-comic': {
+        title: 'منشئ القصص المصورة',
+        description: 'أنشئ قصصك المصورة الخاصة مع اللوحات وفقاعات الكلام والشخصيات. اروِ قصة بصرية!',
+      },
+      'interactive-art-critique': {
+        title: 'نقد وتحليل الفن',
+        description: 'تعلم مراقبة ووصف وتحليل الأعمال الفنية باستخدام مفردات فنية والتفكير النقدي.',
+      },
+      'interactive-art-design': {
+        title: 'تحدي التصميم الإبداعي',
+        description: 'صفحات تلوين ممتعة مع صور بسيطة للتلوين. مثالي للفنانين الصغار!',
+      },
+      'interactive-art-doodle': {
+        title: 'تحدي فن الخربشة',
+        description: 'مطالبات خربشة حرة تثير الإبداع والخيال. لا قواعد، فقط متعة!',
+      },
+      'interactive-art-mandala': {
+        title: 'فن الماندالا والأنماط',
+        description: 'أنشئ تصاميم ماندالا جميلة مع الأنماط والتماثل. مثالي للوعي والإبداع.',
+      },
+      'interactive-art-patterns': {
+        title: 'فن الأنماط والتماثل',
+        description: 'أنشئ أنماطاً واستكشف التماثل من خلال أنشطة الرسم والتلوين.',
+      },
+      'interactive-art-perspective': {
+        title: 'ممارسة الفن والمنظور',
+        description: 'تعلم عن المنظور والتظليل والتقنيات الفنية من خلال التمارين الموجهة.',
+      },
+      'interactive-art-seasonal': {
+        title: 'صفحات التلوين الموسمية',
+        description: 'صفحات تلوين مواضيعية لموسمات وعطلات مختلفة. كل ورقة تتميز بتصاميم موسمية فريدة.',
+      },
+      'interactive-art-shapes': {
+        title: 'فن الأشكال والرسم',
+        description: 'أنشئ فناً باستخدام الأشكال الأساسية. ارسم ولون الأشكال لصنع صور.',
+      },
+      'interactive-art-sketch': {
+        title: 'الرسم والمراقبة',
+        description: 'مطالبات رسم بسيطة مع تلميحات مفيدة. ارسم واستمتع!',
+      },
+      'interactive-cognitive-attention': {
+        title: 'باني الانتباه والتركيز',
+        description: 'طور الانتباه والتركيز المستدام من خلال المسح البصري وتمارين البحث عن الاختلافات والتركيز.',
+      },
+      'interactive-cognitive-executive': {
+        title: 'ممارسة الوظيفة التنفيذية',
+        description: 'ابنِ مهارات التخطيط والتنظيم وإكمال المهام مع الأنشطة المنظمة وتمارين تحديد الأهداف.',
+      },
+      'interactive-cognitive-flexibility': {
+        title: 'ممارسة المرونة المعرفية',
+        description: 'طور المرونة العقلية بالتبديل بين المهام والتكيف مع القواعد الجديدة والتفكير من وجهات نظر متعددة.',
+      },
+      'interactive-cognitive-memory': {
+        title: 'تحدي الذاكرة العاملة',
+        description: 'تدرب على تذكر التسلسلات والأنماط والمعلومات. يقوي الذاكرة العاملة ومهارات الاستدعاء.',
+      },
+      'interactive-cognitive-processing': {
+        title: 'تحدي سرعة المعالجة',
+        description: 'حسّن التعرف السريع ووقت الاستجابة من خلال الأنشطة الموقوتة وتمارين التعرف السريع.',
+      },
+      'interactive-cognitive-visual': {
+        title: 'مهارات المعالجة البصرية',
+        description: 'عزز التمييز البصري والاستدلال المكاني والتكامل الحركي البصري من خلال مطابقة الأنماط والمهام المكانية.',
+      },
+      'interactive-early-basics': {
+        title: 'ممارسة المهارات الأساسية',
+        description: 'مهارات التعلم المبكر الأساسية بما في ذلك أصوات الحروف والعد والأنماط الأساسية.',
+      },
+      'interactive-early-counting': {
+        title: 'العد والتعرف على الأرقام',
+        description: 'تمارين عد تفاعلية مع ممارسة المراسلة واحد لواحد.',
+      },
+      'interactive-early-foundations': {
+        title: 'مراجعة المهارات الأساسية',
+        description: 'راجع مهارات التعرف الأساسية على الحروف والأرقام والأشكال. مثالي للمعالجة أو المراجعة.',
+      },
+      'interactive-early-letters': {
+        title: 'ممارسة تكوين الحروف',
+        description: 'تتبع واكتب الأحرف الكبيرة والصغيرة مع ممارسة موجهة.',
+      },
+      'interactive-early-numbers': {
+        title: 'كتابة الأرقام والتعرف عليها',
+        description: 'تدرب على كتابة الأرقام من 1 إلى 20 ومطابقة الكميات بالأرقام.',
+      },
+      'interactive-early-patterns': {
+        title: 'مستكشف التعرف على الأنماط',
+        description: 'أكمل وأنشئ أنماطاً بالألوان والأشكال والأرقام.',
+      },
+      'interactive-early-phonics': {
+        title: 'ممارسة ممتعة للفونيكس',
+        description: 'أصوات الحروف والأصوات الأولية وممارسة كلمات CVC. كل ورقة تركز على أصوات مختلفة.',
+      },
+      'interactive-early-shapes': {
+        title: 'مستكشف الأشكال والألوان',
+        description: 'حدد وطابق الأشكال والألوان مع أنشطة التصنيف التفاعلية.',
+      },
+      'interactive-geography-continents': {
+        title: 'مستكشف القارات والمحيطات',
+        description: 'تعلم عن القارات السبع والمحيطات الخمسة مع الخرائط والأنشطة.',
+      },
+      'interactive-geography-culture': {
+        title: 'مستكشف الثقافات',
+        description: 'تعلم عن الثقافات والتقاليد والمجتمعات المختلفة حول العالم.',
+      },
+      'interactive-geography-economics': {
+        title: 'أساسيات الاقتصاد',
+        description: 'استكشف العرض والطلب والميزانية والثقافة المالية والأنظمة الاقتصادية.',
+      },
+      'interactive-geography-government': {
+        title: 'مستكشف المواطنة والحكومة',
+        description: 'تعلم عن هيكل الحكومة والمواطنة والحقوق والمسؤوليات.',
+      },
+      'interactive-geography-history': {
+        title: 'باني الخط الزمني التاريخي',
+        description: 'أنشئ خطوطاً زمنية وتعلم عن الأحداث والشخصيات التاريخية.',
+      },
+      'interactive-geography-map': {
+        title: 'مهارات الخرائط التفاعلية',
+        description: 'تدرب على قراءة الخرائط واستخدام المفاتيح وتحديد المواقع. كل ورقة تتميز بخرائط مختلفة.',
+      },
+      'interactive-geography-places': {
+        title: 'الأماكن والمعالم',
+        description: 'تعلم عن الأماكن والمعالم والمواقع المهمة في مجتمعك وبلدك.',
+      },
+      'interactive-geography-prek': {
+        title: 'مستكشف مجتمعي',
+        description: 'تعلم عن الأماكن في المجتمع والمنزل والمدرسة مع خرائط وصور بسيطة.',
+      },
+      'interactive-geography-seasons': {
+        title: 'الفصول والطقس حول العالم',
+        description: 'تعلم عن الفصول المختلفة وأنماط الطقس وكيف تختلف في أماكن مختلفة.',
+      },
+      'interactive-grammar-advanced': {
+        title: 'ممارسة النحو المتقدمة',
+        description: 'تدرب على تراكيب الجمل المعقدة والعبارات والجمل وعلامات الترقيم المتقدمة.',
+      },
+      'interactive-grammar-antonyms': {
+        title: 'تحدي المرادفات والمتضادات',
+        description: 'طابق الكلمات مع المرادفات والمتضادات لتوسيع المفردات.',
+      },
+      'interactive-grammar-capitalization': {
+        title: 'الحروف الكبيرة وعلامات الترقيم',
+        description: 'تدرب على الاستخدام الصحيح للحروف الكبيرة وعلامات الترقيم في الجمل.',
+      },
+      'interactive-grammar-parts': {
+        title: 'ممارسة أجزاء الكلام',
+        description: 'حدد الأسماء والأفعال والصفات والظروف في الجمل. كل ورقة تحتوي على جمل جديدة.',
+      },
+      'interactive-grammar-plurals': {
+        title: 'الجمع والملكية',
+        description: 'تعلم تكوين الجمع والملكية بشكل صحيح.',
+      },
+      'interactive-grammar-prek': {
+        title: 'مطابقة الكلمات والصور',
+        description: 'طابق الكلمات البسيطة مع الصور وحدد أنواع الكلمات الأساسية.',
+      },
+      'interactive-grammar-rhyming': {
+        title: 'ممارسة الكلمات المقفاة',
+        description: 'حدد وطابق الكلمات المقفاة من خلال أنشطة ممتعة.',
+      },
+      'interactive-grammar-tenses': {
+        title: 'إتقان أزمنة الأفعال',
+        description: 'تدرب على الأزمنة الماضية والحاضرة والمستقبلية مع تمارين تصريف الأفعال.',
+      },
+      'interactive-grammar-vocab': {
+        title: 'باني المفردات الأكاديمية',
+        description: 'تعلم ومارس كلمات المفردات الأكاديمية مع أدلة السياق وتمارين الاستخدام.',
+      },
+      'interactive-logic-analogies': {
+        title: 'القياسات والعلاقات',
+        description: 'تدرب على تحديد العلاقات وإكمال القياسات.',
+      },
+      'interactive-logic-classification': {
+        title: 'التصنيف والفئات',
+        description: 'صنف وفرز الكائنات والصور والمفاهيم إلى مجموعات.',
+      },
+      'interactive-logic-deduction': {
+        title: 'مهمة الاستدلال الاستنتاجي',
+        description: 'استخدم الأدلة لحل الألغاز والأحاجي المنطقية.',
+      },
+      'interactive-logic-matching': {
+        title: 'ألعاب المطابقة والذاكرة',
+        description: 'طابق الكائنات والصور والمفاهيم. تدرب على مهارات الذاكرة والتعرف.',
+      },
+      'interactive-logic-prek': {
+        title: 'الأنماط والتصنيف البسيطة',
+        description: 'أكمل الأنماط البسيطة وصنف الكائنات حسب اللون أو الحجم أو النوع.',
+      },
+      'interactive-logic-riddles': {
+        title: 'الألغاز والأحاجي',
+        description: 'حل الألغاز والأحاجي بمستويات صعوبة مختلفة.',
+      },
+      'interactive-logic-sequence': {
+        title: 'تحدي التسلسل',
+        description: 'رتب الأحداث والخطوات والأنماط منطقياً. كل ورقة تحتوي على تسلسلات فريدة.',
+      },
+      'interactive-math-algebra': {
+        title: 'ممارسة أساسيات الجبر',
+        description: 'حل المعادلات واعمل مع المتغيرات ومارس التعبيرات الجبرية.',
+      },
+      'interactive-math-counting': {
+        title: 'العد والتعرف على الأرقام',
+        description: 'تدرب على عد الكائنات والتعرف على الأرقام ومطابقة الكميات بالأرقام.',
+      },
+      'interactive-math-decimals': {
+        title: 'عمليات الكسور العشرية',
+        description: 'اجمع واطرح واضرب واقسم الكسور العشرية مع تطبيقات من العالم الحقيقي.',
+      },
+      'interactive-math-division': {
+        title: 'ممارسة القسمة',
+        description: 'تعلم حقائق القسمة واستخدم المصفوفات وحل مسائل القسمة اللفظية.',
+      },
+      'interactive-math-exponents': {
+        title: 'الأسس والقوى',
+        description: 'افهم الأسس والقوى والتدوين العلمي.',
+      },
+      'interactive-math-fractions': {
+        title: 'ممارسة ممتعة للكسور',
+        description: 'قارن الكسور وابحث عن المكافئات وحل عمليات الكسور.',
+      },
+      'interactive-math-geometry': {
+        title: 'تحدي الهندسة المتقدمة',
+        description: 'احسب المساحة والمحيط والحجم واعمل مع الزوايا والتحويلات.',
+      },
+      'interactive-math-graphing': {
+        title: 'ممارسة البيانات والرسوم البيانية',
+        description: 'أنشئ رسوم بيانية شريطية ورسوم بيانية مصورة ومخططات خطية من مجموعات البيانات.',
+      },
+      'interactive-math-integers': {
+        title: 'الأعداد الصحيحة وخط الأعداد',
+        description: 'اعمل مع الأعداد الموجبة والسالبة والقيمة المطلقة ومستوى الإحداثيات.',
+      },
+      'interactive-math-measurement': {
+        title: 'مهمة القياس',
+        description: 'تدرب على تحويلات قياس الطول والوزن والحجم والوقت.',
+      },
+      'interactive-math-money': {
+        title: 'إتقان رياضيات المال',
+        description: 'عد العملات المعدنية واصنع الباقي وحل مسائل المال اللفظية.',
+      },
+      'interactive-math-multiplication': {
+        title: 'إتقان الضرب',
+        description: 'تدرب على حقائق الضرب والمصفوفات ومسائل الضرب اللفظية.',
+      },
+      'interactive-math-percentages': {
+        title: 'إتقان النسب المئوية والنسب',
+        description: 'احسب النسب المئوية واعمل مع النسب وحل مسائل التناسب.',
+      },
+      'interactive-math-place-value': {
+        title: 'مستكشف القيمة المنزلية',
+        description: 'افهم منزلة الآحاد والعشرات والمئات والآلاف مع تمارين تفاعلية.',
+      },
+      'interactive-math-puzzle': {
+        title: 'صندوق لغز المعادلات',
+        description: 'حل معادلات الأرقام المفقودة مرتبة بتنسيق الألغاز. كل لغز فريد.',
+      },
+      'interactive-math-race': {
+        title: 'تحدي سباق الرياضيات',
+        description: 'تحديات الجمع والطرح الموقوتة بمستويات صعوبة مختلفة.',
+      },
+      'interactive-math-rhythm': {
+        title: 'إيقاع الأنماط الرقمية',
+        description: 'أكمل الأنماط الرقمية مع تسلسلات العد بالقفز. كل ورقة تولد أنماطاً فريدة.',
+      },
+      'interactive-math-rounding': {
+        title: 'تقريب الأرقام',
+        description: 'قرّب الأرقام لأقرب عشرة ومئة وألف.',
+      },
+      'interactive-math-shapes': {
+        title: 'تحدي الأشكال الهندسية',
+        description: 'حدد وعد وصنف الأشكال مع تمارين تفاعلية.',
+      },
+      'interactive-math-statistics': {
+        title: 'مستكشف البيانات والإحصاءات',
+        description: 'حلل مجموعات البيانات وأنشئ رسوم بيانية واحسب المتوسط والوسيط والمنوال وفسر الإحصاءات.',
+      },
+      'interactive-math-tens-frames': {
+        title: 'ممارسة إطارات العشرة',
+        description: 'استخدم إطارات العشرة لفهم الأرقام والجمع والطرح بصرياً.',
+      },
+      'interactive-math-time': {
+        title: 'ممارسة الوقت والساعة',
+        description: 'اقرأ الساعات التناظرية والرقمية واحسب الوقت المنقضي وحل مسائل الوقت اللفظية.',
+      },
+      'interactive-math-word-problems': {
+        title: 'مسائل متعددة الخطوات',
+        description: 'حل مسائل لفظية معقدة تتطلب خطوات متعددة والتفكير النقدي.',
+      },
+      'interactive-reading-adventure': {
+        title: 'مهمة مغامرة القراءة',
+        description: 'مقتطفات قصص تفاعلية مع أسئلة الاختيار من متعدد والإجابة القصيرة. كل ورقة تتميز بقصة جديدة.',
+      },
+      'interactive-reading-alphabet': {
+        title: 'الأبجدية والتعرف على الحروف',
+        description: 'تدرب على التعرف على الحروف ومطابقة الأحرف الكبيرة والصغيرة والأصوات الأولية.',
+      },
+      'interactive-reading-character': {
+        title: 'ورشة تحليل الشخصيات',
+        description: 'حلل سمات الشخصيات والدوافع والتطور في القصص.',
+      },
+      'interactive-reading-compare': {
+        title: 'مقتطفات المقارنة والتباين',
+        description: 'اقرأ نصوصاً متعددة وقارن المواضيع أو الشخصيات أو المعلومات.',
+      },
+      'interactive-reading-detective': {
+        title: 'تحدي المحقق القارئ',
+        description: 'ابحث عن الأدلة في النص للإجابة على أسئلة الغموض. ألغاز جديدة في كل مرة.',
+      },
+      'interactive-reading-fluency': {
+        title: 'ممارسة طلاقة القراءة',
+        description: 'تدرب على القراءة بالتعبير والدقة والسرعة المناسبة. يتضمن تمارين القراءة المتكررة.',
+      },
+      'interactive-reading-literary-analysis': {
+        title: 'ورشة التحليل الأدبي',
+        description: 'حلل العناصر الأدبية والمواضيع والرمزية والغرض من المؤلف في النصوص الخيالية.',
+      },
+      'interactive-reading-prek': {
+        title: 'وقت قصة الصور',
+        description: 'قصص بسيطة قائمة على الصور مع أسئلة نعم/لا وأنشطة فهم أساسية.',
+      },
+      'interactive-reading-research': {
+        title: 'باني البحث والأدلة',
+        description: 'تدرب على العثور على المصادر وتقييمها واستشهاد الأدلة وبناء الحجج من نصوص متعددة.',
+      },
+      'interactive-reading-sightwords': {
+        title: 'ممارسة كلمات البصر',
+        description: 'تدرب على قراءة وكتابة كلمات البصر الشائعة مع أنشطة ممتعة.',
+      },
+      'interactive-reading-storymap': {
+        title: 'بناة خريطة القصة',
+        description: 'أعد سرد قصص خيالية مع منظمات البداية والوسط والنهاية بالإضافة إلى ممارسة جمع الأدلة.',
+      },
+      'interactive-reading-summary': {
+        title: 'الملخص والفكرة الرئيسية',
+        description: 'تدرب على تحديد الأفكار الرئيسية وكتابة ملخصات موجزة.',
+      },
+      'interactive-reading-vocab': {
+        title: 'ورشة باني المفردات',
+        description: 'تمارين أدلة السياق مع مطابقة الكلمات وإكمال الجمل.',
+      },
+      'interactive-science-animals': {
+        title: 'تصنيف الحيوانات',
+        description: 'تعلم عن أنواع الحيوانات المختلفة وموائلها وخصائصها.',
+      },
+      'interactive-science-chemistry': {
+        title: 'مختبر أساسيات الكيمياء',
+        description: 'استكشف الذرات والجزيئات والتفاعلات الكيميائية والجدول الدوري.',
+      },
+      'interactive-science-ecology': {
+        title: 'دراسة البيئة والبيئة',
+        description: 'استكشف النظم البيئية وشبكات الغذاء والقضايا البيئية والحفظ.',
+      },
+      'interactive-science-lifecycle': {
+        title: 'مستكشف دورة الحياة',
+        description: 'أوراق عمل تفاعلية تستكشف دورات حياة النباتات والحيوانات.',
+      },
+      'interactive-science-observation': {
+        title: 'مجلة المراقبة العلمية',
+        description: 'سجلات مراقبة يومية للتجارب ودراسات الطبيعة. كل ورقة تتميز بمطالبات جديدة.',
+      },
+      'interactive-science-physics': {
+        title: 'أساسيات الفيزياء',
+        description: 'تعلم عن القوى والحركة والطاقة والآلات البسيطة مع أنشطة عملية.',
+      },
+      'interactive-science-plants': {
+        title: 'مستكشف النباتات',
+        description: 'تعلم عن النباتات وأجزائها وكيف تنمو من خلال أنشطة بسيطة.',
+      },
+      'interactive-science-prek': {
+        title: 'مستكشف الطبيعة',
+        description: 'أنشطة بسيطة لمراقبة الطبيعة مع الصور والأسئلة الأساسية حول النباتات والحيوانات والطقس.',
+      },
+      'interactive-science-senses': {
+        title: 'مستكشف الحواس الخمس',
+        description: 'استكشف الحواس الخمس من خلال الأنشطة العملية وتمارين المراقبة.',
+      },
+      'interactive-science-space': {
+        title: 'مستكشف الفضاء وعلم الفلك',
+        description: 'تعلم عن الكواكب والنجوم وظواهر الفضاء مع الأنشطة التفاعلية.',
+      },
+      'interactive-science-states': {
+        title: 'مختبر حالات المادة',
+        description: 'أنشطة عملية تستكشف الصلب والسائل والغاز مع مخططات المراقبة.',
+      },
+      'interactive-science-weather': {
+        title: 'مجلة مراقب الطقس',
+        description: 'تتبع أنماط الطقس ودرجة الحرارة والملاحظات بمرور الوقت.',
+      },
+      'interactive-sel-character': {
+        title: 'بناء الشخصية والقيم',
+        description: 'استكشف سمات الشخصية المهمة مثل الصدق والاحترام والمسؤولية والنزاهة.',
+      },
+      'interactive-sel-conflict': {
+        title: 'مهارات حل النزاعات',
+        description: 'تعلم استراتيجيات حل النزاعات بسلام والتواصل الفعال مع الآخرين.',
+      },
+      'interactive-sel-empathy': {
+        title: 'باني التعاطف',
+        description: 'تدرب على أخذ المنظور وفهم مشاعر وتجارب الآخرين.',
+      },
+      'interactive-sel-friendship': {
+        title: 'الصداقة والمهارات الاجتماعية',
+        description: 'تعلم عن تكوين الصداقات والمشاركة وأخذ الأدوار واللطف مع الآخرين.',
+      },
+      'interactive-sel-goals': {
+        title: 'تحديد الأهداف والنمو',
+        description: 'حدد وتتبع الأهداف الشخصية والأكاديمية مع خطط العمل.',
+      },
+      'interactive-sel-gratitude': {
+        title: 'الامتنان والتقدير',
+        description: 'مارس الامتنان من خلال أنشطة الكتابة والرسم والتأمل.',
+      },
+      'interactive-sel-growth-mindset': {
+        title: 'ممارسة عقلية النمو',
+        description: 'طور عقلية النمو من خلال تعلم احتضان التحديات والتعلم من الأخطاء والمثابرة.',
+      },
+      'interactive-sel-kindness': {
+        title: 'تحدي اللطف',
+        description: 'أكمل أعمال لطف يومية وتأمل في كيفية تأثير اللطف على نفسك والآخرين.',
+      },
+      'interactive-sel-mindfulness': {
+        title: 'اليقظة والتأمل',
+        description: 'تمارين اليقظة اليومية مع تقنيات التنفس ومطالبات التأمل.',
+      },
+      'interactive-sel-prek': {
+        title: 'مستكشف المشاعر والعواطف',
+        description: 'حدد وعبّر عن المشاعر من خلال الصور والكلمات البسيطة والأنشطة.',
+      },
+      'interactive-sel-regulation': {
+        title: 'استراتيجيات التنظيم الذاتي',
+        description: 'تدرب على تقنيات إدارة المشاعر والبقاء هادئاً واتخاذ خيارات مدروسة.',
+      },
+      'interactive-sel-stress': {
+        title: 'إدارة التوتر والمواجهة',
+        description: 'حدد محفزات التوتر ومارس استراتيجيات مواجهة صحية لإدارة القلق والتوتر.',
+      },
+      'interactive-writing-argumentative': {
+        title: 'ممارسة الكتابة الجدلية',
+        description: 'طور الحجج مع الادعاءات والأدلة والمنطق. تدرب على مهارات الكتابة الإقناعية.',
+      },
+      'interactive-writing-essay': {
+        title: 'ورشة كتابة المقالات',
+        description: 'تدرب على كتابة مقالات منظمة مع بيانات الأطروحة والفقرات الأساسية والاستنتاجات.',
+      },
+      'interactive-writing-informative': {
+        title: 'دليل الكتابة الإعلامية',
+        description: 'تعلم كتابة الفقرات والمقالات الإعلامية مع الحقائق والتفاصيل والتفسيرات.',
+      },
+      'interactive-writing-lowercase-trace': {
+        title: 'ممارسة الخط المرتب – تتبع الأبجدية الصغيرة',
+        description: 'تدرب على تتبع الأحرف الصغيرة مع خطوط إرشادية. مثالي لتطوير مهارات الخط المرتب.',
+      },
+      'interactive-writing-narrative': {
+        title: 'ممارسة الكتابة السردية',
+        description: 'اكتب قصصاً قصيرة مع البداية والوسط والنهاية. يتضمن قوالب تخطيط القصة.',
+      },
+      'interactive-writing-opinion': {
+        title: 'إطار كتابة الرأي',
+        description: 'قوالب منظمة لكتابة الرأي مع مطالبات وجمع الأدلة.',
+      },
+      'interactive-writing-pictures': {
+        title: 'مبتدئو قصص الصور',
+        description: 'ارسم صوراً بناءً على مطالبات واكتب جمل بسيطة عما تراه.',
+      },
+      'interactive-writing-poetry': {
+        title: 'ممارسة كتابة الشعر',
+        description: 'تمارين شعرية موجهة مع مطالبات القافية والهايكو والقصيدة الحرة.',
+      },
+      'interactive-writing-prek': {
+        title: 'الرسم والتسمية',
+        description: 'ارسم الصور وضع عليها تسميات بكلمات بسيطة. مثالي للفنانين المبتدئين!',
+      },
+      'interactive-writing-prompts': {
+        title: 'مطالبات الكتابة الإبداعية',
+        description: 'مبتدئو قصص فريدون ومطالبات كتابة إبداعية تتغير مع كل جيل.',
+      },
+      'interactive-writing-research': {
+        title: 'مخطط ورقة البحث',
+        description: 'نظم البحث وأنشئ الخطوط العريضة وبنِ أوراق البحث مع الاستشهادات المناسبة.',
+      },
+      'interactive-writing-sentences': {
+        title: 'ورشة بناء الجمل',
+        description: 'تدرب على بناء جمل كاملة مع تراكيب متنوعة وعلامات الترقيم.',
+      },
+      'interactive-writing-trace': {
+        title: 'تتبع الحروف والكلمات',
+        description: 'تتبع الحروف والكلمات البسيطة لبناء مهارات الكتابة والتعرف على الحروف.',
+      },
+    },
+  }
+
+  // Merge into translations object if keys are missing
+  for (const lang of ['en', 'es', 'ar'] as const) {
+    const langTranslations = (translations as any)[lang]
+    if (langTranslations) {
+      // Create interactive object if it doesn't exist
+      if (!langTranslations.interactive) {
+        langTranslations.interactive = {}
+      }
+      const interactive = langTranslations.interactive
+      const keys = interactiveTitleDescKeys[lang]
+      
+      // Always merge to ensure complete translations (even if key exists, it might be incomplete due to tree-shaking)
+      Object.keys(keys).forEach((docId) => {
+        if (keys[docId as keyof typeof keys]) {
+          interactive[docId] = keys[docId as keyof typeof keys]
+        }
+      })
+    }
+  }
+}
 
 // Runtime merge: Ensure worksheet keys are always present
 // This fixes the tree-shaking issue by directly injecting the keys
 const ensureWorksheetKeys = () => {
-  // First, ensure interactive worksheet keys
+  // First, ensure interactive worksheet title/description keys
+  ensureInteractiveTitleDescriptionKeys()
+  
+  // Then, ensure interactive worksheet keys
   ensureInteractiveWorksheetKeys()
   
   // Then, ensure times-table worksheet keys
@@ -69,6 +1737,9 @@ const ensureWorksheetKeys = () => {
   
   // Then, ensure addition-subtraction-0-10 worksheet keys
   ensureAdditionSubtraction010Keys()
+  
+  // Then, ensure number-id-1-10 worksheet keys
+  ensureNumberId110Keys()
 }
 
 const ensureInteractiveWorksheetKeys = () => {
@@ -101,6 +1772,542 @@ const ensureInteractiveWorksheetKeys = () => {
         generalQuestions: 'What helped you complete your tasks? What would you do differently next time?',
         mandalaQuestion: 'Reflection: How did creating this mandala make you feel?',
       },
+      answerKeyAndNotes: 'Answer key & teacher notes',
+      countingTeachingNote: 'Teaching note: Students should count each object one by one. Encourage pointing or touching each object while counting to develop one-to-one correspondence.',
+      placeValue: {
+        instructions: 'Identify the digit in each place value.',
+        placeValueChart: 'Place Value Chart:',
+        whatDigit: 'What digit is in the {{place}} place?',
+        expandedForm: 'Expanded form:',
+        ones: 'Ones',
+        tens: 'Tens',
+        hundreds: 'Hundreds',
+        thousands: 'Thousands',
+        explanation: 'In the number {{number}}, read from right to left: ones place, tens place, hundreds place, etc. The digit in the {{place}} place is {{digit}}.',
+      },
+      circleThe: 'Circle the {{letter}}',
+      beginningSounds: 'Beginning Sounds',
+      says: 'says',
+      circleWordsStart: 'Circle words that start with',
+      alphabetAnswerKey: 'Students should correctly identify and match uppercase/lowercase letters, recognize beginning sounds, and circle matching letters. Check for letter recognition accuracy.',
+      readingDetective: {
+        caseFile: 'Case File',
+        detectiveNotes: 'Detective Notes: The scene is the {{setting}}. A witness heard a hum. The main clue is {{clue}}. Who or what is responsible?',
+        writeThreeInferences: 'Write three inferences using the clues.',
+        explainWhy: 'Explain why the culprit might be {{culprit}}.',
+        proveOrDisprove: 'Prove or disprove your theory with text evidence.',
+        drawEvidenceBoard: 'Draw your evidence board below and label each clue.',
+      },
+      storyMap: {
+        beginning: 'Beginning',
+        beginningPrompt: 'Who are the characters? Where are they?',
+        middle: 'Middle',
+        middlePrompt: 'What problem appears? What clues help?',
+        ending: 'Ending',
+        endingPrompt: 'How do they solve it? What is the lesson?',
+        clueLog: 'Clue Log',
+        lookBackAtStory: 'Look back at the story',
+        clue: 'Clue {{number}}',
+        retellInOwnWords: 'Retell in Your Own Words',
+        retellPrompt: 'Write three sentences that cover beginning, middle, and ending.',
+        comprehensionChecks: 'Comprehension Checks',
+        whyDidVisit: 'Why did {{hero}} and {{friend}} visit the {{setting}}?',
+        whatProblem: 'What problem slowed them down in the middle of the story?',
+        howDidHelper: 'How did {{helper}} help them finish their goal? What lesson did they learn?',
+      },
+      vocab: {
+        instructions: 'Use context clues to match each word to its meaning. Then write a sentence using the word in the {{context}} context.',
+        word: 'Word',
+        matchMeaning: 'Match the meaning',
+        sentenceInContext: 'Sentence in context',
+      },
+      summary: {
+        instructions: 'Read the informational paragraph about the {{topic}}. Highlight the most important idea from each section. Then complete the summary box with 3 key points.',
+        paragraph: 'Paragraph {{number}}',
+        paragraph1Intro: 'Introduces the {{topic}}. Why was it created? Who benefits from it?',
+        paragraph2Intro: 'Describes how it works each day. What steps are involved? Who helps?',
+        paragraph3Intro: 'Shares one challenge and a plan to improve it next month.',
+        summaryBox: 'Summary Box',
+        keyPoint: 'Key point {{number}}',
+        closingSentence: 'Write one closing sentence that restates the main idea in your own words.',
+      },
+      compare: {
+        instructions: 'Compare and contrast the two texts. Record information about {{topicA}} and {{topicB}}, then write a paragraph explaining how they are alike and different.',
+        text1: 'Text 1: {{topic}}',
+        text2: 'Text 2: {{topic}}',
+        keyDetails: 'Key details:',
+        whatProblem: 'What problem does it solve?',
+        compareContrastParagraph: 'Compare & Contrast Paragraph',
+        alikeBecause: '{{topicA}} and {{topicB}} are alike because',
+        differentBecause: 'They are different because',
+      },
+      writingPrompts: {
+        instructions: 'Choose a prompt and write a beginning, middle, and end. Include feelings, actions, and dialogue.',
+        prompt: 'Prompt {{number}}',
+        brainstorm: 'Brainstorm:',
+        beginning: 'Beginning:',
+        middle: 'Middle:',
+        end: 'End:',
+      },
+      writingSentences: {
+        instructions: 'Complete each sentence with vivid verbs and details. Then rewrite one sentence using a compound structure.',
+        compoundSentenceChallenge: 'Compound Sentence Challenge',
+        combineWithConjunction: 'Combine two of your sentences with a conjunction:',
+      },
+      writingPoetry: {
+        instructions: 'Create a haiku and a free-verse stanza about a {{theme}}. Use at least three word bank words.',
+        wordBank: 'Word Bank',
+        haiku: 'Haiku (5-7-5)',
+        freeVerseStanza: 'Free-verse Stanza',
+        line: 'Line {{number}}',
+      },
+      writingOpinion: {
+        instructions: 'Plan an opinion paragraph about:',
+        reasonsAndEvidence: 'Reasons & Evidence',
+        reason: 'Reason #{{number}}',
+        evidence: 'Evidence',
+        paragraphPlanner: 'Paragraph Planner',
+        hookSentence: 'Hook sentence:',
+        opinionStatement: 'Opinion statement:',
+        closingSentence: 'Closing sentence:',
+      },
+      scienceObservation: {
+        instructions: 'Observe and record data about {{focus}}. Include sketches, measurements, and interesting questions.',
+        dateAndTime: 'Date & Time',
+        observationSketch: 'Observation Sketch',
+        whatINoticed: 'What I Noticed',
+        questionsNextSteps: 'Questions / Next Steps',
+      },
+      scienceLifecycle: {
+        instructions: 'Label and illustrate the life cycle of a {{cycle}}. Describe what happens at each stage.',
+        stage: '{{number}} Stage',
+        notes: 'Notes:',
+      },
+      scienceStates: {
+        instructions: 'Identify the change of state for each scenario. Draw the particles before and after the change.',
+        scenario: 'Scenario',
+        stateChange: 'State Change',
+        particleDiagram: 'Particle Diagram',
+      },
+      scienceWeather: {
+        instructions: 'Track the week\'s weather. Record the temperature, sketch the sky, and write one safety tip.',
+        day: 'Day',
+        temperature: 'Temperature',
+        skySketch: 'Sky Sketch',
+        safetyTip: 'Safety Tip',
+      },
+      geographyMap: {
+        instructions: 'Plot each location on the grid below. Label and describe what is found at each spot.',
+        coordinate: 'Coordinate',
+        place: 'Place',
+        whatDoYouNotice: 'What do you notice there?',
+        exampleMap: 'Example map',
+        yourMapGrid: 'Your map grid',
+        useSampleToCheck: 'Use this sample to double-check coordinates and landmarks.',
+        drawLandmarks: 'Draw landmarks, create a legend, and label each coordinate.',
+      },
+      geographyCulture: {
+        instructions: 'Explore traditions from around the world. Research and note a food, celebration, and interesting fact for each region.',
+        region: 'Region',
+        food: 'Food',
+        celebration: 'Celebration',
+        interestingFact: 'Interesting Fact',
+      },
+      geographyHistory: {
+        instructions: 'Build a timeline about {{theme}}. Place the events in order and explain the impact of each.',
+        impact: 'Impact:',
+      },
+      grammarParts: {
+        instructions: 'Label each underlined word as a noun, verb, adjective, or adverb. Add one more word to expand the sentence.',
+        label: 'Label:',
+        extraWord: 'Extra word:',
+      },
+      grammarTenses: {
+        instructions: 'Conjugate each verb in past, present, and future tense. Then use the verb in a sentence.',
+        verb: 'Verb',
+        past: 'Past',
+        present: 'Present',
+        future: 'Future',
+        writeSentence: 'Write one sentence using each tense below the table.',
+      },
+      grammarAntonyms: {
+        instructions: 'Match each word to its antonym and use the pair in a sentence.',
+        word: 'Word',
+        antonym: 'Antonym',
+        sentence: 'Sentence',
+      },
+      artDesign: {
+        instructions: 'Color each pattern! Use your favorite colors and make it beautiful.',
+        colorInsideShape: 'Color inside the shape!',
+        patterns: {
+          geometricStar: { title: 'Geometric Star', description: 'Color the star pattern with your favorite colors!' },
+          flowerPattern: { title: 'Flower Pattern', description: 'Color the flower petals: pink, yellow, and purple' },
+          rainbowPattern: { title: 'Rainbow Pattern', description: 'Color each stripe: red, orange, yellow, green, blue, purple' },
+          heartDesign: { title: 'Heart Design', description: 'Color the hearts red and pink' },
+          circleMandala: { title: 'Circle Mandala', description: 'Color the circles with different colors' },
+          leafPattern: { title: 'Leaf Pattern', description: 'Color the leaves green' },
+        },
+      },
+      artColorwheel: {
+        instructions: 'Color each item with the correct color. Match the color name to the object.',
+        item: 'Item',
+        color: 'Color',
+        colorIt: 'Color it!',
+      },
+      artSketch: {
+        instructions: 'Draw each picture! Take your time and use your imagination.',
+        drawHere: 'Draw here!',
+        prompts: {
+          beautifulFlower: { prompt: 'Draw a beautiful flower', hint: 'Add petals and a stem!' },
+          treeWithLeaves: { prompt: 'Draw a tree with leaves', hint: 'Make it big and green!' },
+          geometricShapes: { prompt: 'Draw geometric shapes', hint: 'Draw circles, squares, and triangles!' },
+          rainbow: { prompt: 'Draw a rainbow', hint: 'Use all the colors!' },
+          pattern: { prompt: 'Draw a pattern', hint: 'Create your own design!' },
+          gardenScene: { prompt: 'Draw a garden scene', hint: 'Add flowers and plants!' },
+        },
+      },
+      earlyPhonics: {
+        instructions: 'Say the sound, trace the letter, then draw a picture that starts with it.',
+        saySound: 'Say the sound:',
+        traceLetter: 'Trace the letter:',
+        drawPicture: 'Draw a picture:',
+        words: 'Words:',
+      },
+      earlyPatterns: {
+        instructions: 'Continue each pattern and create your own using shapes, colors, or stickers.',
+        pattern: 'Pattern',
+        tryBuilding: 'Try building your own using:',
+      },
+      earlyShapes: {
+        instructions: 'Identify each shape, color it, then sort shapes by type and color.',
+        shape: 'Shape',
+        color: 'Color:',
+        drawMore: 'Draw 2 more {{shape}}s below:',
+        sortingActivity: 'Sorting Activity',
+        sortByShape: 'Sort by shape:',
+        sortByColor: 'Sort by color:',
+        sortBySize: 'Sort by size:',
+      },
+      earlyLetters: {
+        instructions: 'Trace each letter, then write it 3 times. Draw a picture that starts with that letter.',
+        trace: 'Trace',
+        write: 'Write',
+        draw: 'Draw',
+      },
+      earlyNumbers: {
+        trace: 'Trace',
+        write: 'Write',
+        draw: 'Draw',
+        numberWord: 'Number word:',
+      },
+      logicPrek: {
+        instructions: 'Complete simple patterns and sort objects by color, size, or type.',
+        pattern: 'Pattern',
+      },
+      selPrek: {
+        instructions: 'Identify and express feelings through pictures, simple words, and activities.',
+        feeling: 'Feeling:',
+        color: 'Color:',
+        drawTimeFelt: 'Draw a time you felt {{feeling}}',
+        howIFeelToday: 'How I Feel Today',
+        feelings: {
+          happy: 'happy',
+          sad: 'sad',
+          angry: 'angry',
+          excited: 'excited',
+        },
+      },
+      mathRhythm: {
+        instructions: 'Continue each skip-counting rhythm. Write the missing numbers in the blanks.',
+      },
+      logicRiddles: {
+        instructions: 'Solve each brain teaser. Write your guess, then reveal the answer.',
+        answer: 'Answer:',
+      },
+      logicDeduction: {
+        instructions: 'Use the clues to determine who borrowed each item and where it was found.',
+      },
+      cognitiveMemory: {
+        instructions: 'Try to remember all three sequences in order. Write them here:',
+      },
+      cognitiveAttention: {
+        instructions: 'Practice focusing your attention with visual scanning and spot-the-difference exercises.',
+        findAndCircle: 'Find and circle all the <span className="font-bold">{{items}}</span> shapes in the grid below:',
+        countHowMany: 'Count how many {{items}} shapes you found: _______',
+        compareImages: 'Compare the two images and find the differences:',
+      },
+      cognitiveExecutive: {
+        instructions: 'Practice planning, organizing, and completing tasks. This builds executive function skills!',
+        taskPlanning: 'Task Planning',
+        planTasksToday: 'Plan your tasks for today. Break each task into steps:',
+      },
+      cognitiveVisual: {
+        visualPatternMatching: 'Visual Pattern Matching',
+        comparePatterns: 'Compare the two patterns. Circle what\'s different:',
+        match: 'Match:',
+        drawItemPosition: 'Draw each item in the correct position:',
+        drawItemText: 'Draw a {{item}} {{text}} the line:',
+        pattern: 'Pattern {{number}}:',
+        original: 'Original:',
+        whatsDifferent: 'What\'s different? Position: _______ Item: _______',
+        spatialReasoning: 'Spatial Reasoning',
+        above: 'above',
+        below: 'below',
+        toTheLeftOf: 'to the left of',
+        toTheRightOf: 'to the right of',
+      },
+      readingFluency: {
+        instructions: 'Practice reading with expression, accuracy, and appropriate pacing. Read each passage three times.',
+        passage: 'Passage {{number}}',
+        read: 'Read {{number}}:',
+        notes: 'Notes:',
+      },
+      cognitiveFlexibility: {
+        instructions: 'Complete each task, then switch to the new rule:',
+        perspectiveTakingPractice: 'Perspective-Taking Practice',
+        thinkAboutSituation: 'Think about each situation from different points of view:',
+        taskSwitchingChallenge: 'Task Switching Challenge',
+        completeEachTask: 'Complete each task, then switch to the new rule:',
+      },
+      cognitiveProcessing: {
+        instructions: 'Circle all the ★ (stars) as quickly as you can:',
+        quickSymbolRecognition: 'Quick Symbol Recognition',
+        circleAllStars: 'Circle all the ★ (stars) as quickly as you can:',
+      },
+      selConflict: {
+        instructions: 'Learn strategies to resolve conflicts peacefully. Think about how to communicate effectively.',
+      },
+      selRegulation: {
+        instructions: 'Practice self-regulation strategies. These techniques help you manage big feelings and make thoughtful choices.',
+      },
+      selKindness: {
+        instructions: 'Complete acts of kindness this week! Track your kindness and reflect on how it makes you and others feel.',
+      },
+      selGrowthMindset: {
+        instructions: 'Transform fixed mindset thoughts into growth mindset thoughts! Learn to embrace challenges and learn from mistakes.',
+      },
+      selStress: {
+        instructions: 'Identify stress triggers and practice healthy coping strategies. Learn to manage anxiety and stress effectively.',
+      },
+      selCharacter: {
+        instructions: 'Explore important character traits and values. Think about how these traits help you and others.',
+        traits: {
+          honesty: { name: 'Honesty', description: 'Telling the truth even when it\'s hard' },
+          respect: { name: 'Respect', description: 'Treating others with kindness and consideration' },
+          responsibility: { name: 'Responsibility', description: 'Doing what you\'re supposed to do' },
+          integrity: { name: 'Integrity', description: 'Doing the right thing even when no one is watching' },
+          courage: { name: 'Courage', description: 'Facing fears and standing up for what\'s right' },
+          compassion: { name: 'Compassion', description: 'Caring about others and their feelings' },
+        },
+      },
+      mathShapes: {
+        instructions: 'Draw and tally each shape. Then classify it as "flat" or "solid" and record the number of sides.',
+        shape: 'Shape',
+        color: 'Color',
+        howMany: 'How many?',
+        flatOrSolid: 'Flat or Solid?',
+        numberOfSides: 'Number of sides',
+      },
+      mathMoney: {
+        instructions: 'Use coins to count up to the total. Draw the coins you would use and record the value.',
+        costs: 'The {{item}} costs ${{amount}}. Pay using {{coin}}. Draw your coins below and write the total.',
+        total: 'Total:',
+        change: 'Change:',
+      },
+      mathFractions: {
+        instructions: 'Compare each pair of fractions. Shade the bar models to help you decide, then write <, >, or =.',
+        shade: 'Shade {{num}} of {{den}} equal parts.',
+      },
+      mathMeasurement: {
+        instructions: 'Convert each measurement. Show your work in the space provided.',
+        given: 'Given',
+        convertTo: 'Convert to',
+        workSpace: 'Work space',
+      },
+      readingAdventure: {
+        story: '{{hero}} and {{partner}} arrive at the {{setting}}. They must {{quest}} before the moon sets. Along the way they meet a guide who speaks only in rhymes. What clues do they gather? How do they work together?',
+        comprehensionChecks: 'Comprehension Checks',
+        whatProblem: 'What problem do {{hero}} and {{partner}} need to solve?',
+        describeClue: 'Describe one clue from the rhyme-speaking guide.',
+        howSetting: 'How does the setting help or challenge the characters?',
+        creativeExtension: 'Creative Extension',
+        sketchScene: 'Sketch one scene from the adventure and label the important details.',
+      },
+      earlyFoundations: {
+        instructions: 'Review basic skills: identify letters, numbers, and shapes. Perfect for remediation or review.',
+        review: 'Review:',
+        identify: 'Identify:',
+        practiceWriting: 'Practice Writing',
+        writeName: 'Write your name:',
+        countTo10: 'Count to 10:',
+      },
+      earlyBasics: {
+        instructions: 'Essential early learning skills review. Practice letter sounds, counting, and basic patterns.',
+      },
+      readingPrek: {
+        instructions: 'Look at the pictures and answer yes/no questions about the story.',
+        yesNo: 'Yes / No',
+        storyTitles: {
+          redCar: 'The Red Car',
+          sunnyDay: 'The Sunny Day',
+          bigTree: 'The Big Tree',
+        },
+        questions: {
+          seeCar: 'Do you see a car?',
+          carOnRoad: 'Is the car on the road?',
+          seeSun: 'Do you see the sun?',
+          thereFlower: 'Is there a flower?',
+          treeBig: 'Is the tree big?',
+          seeHouse: 'Do you see a house?',
+        },
+        objectNames: {
+          sun: 'Sun',
+          flower: 'Flower',
+          ball: 'Ball',
+          tree: 'Tree',
+          house: 'House',
+          car: 'Car',
+          road: 'Road',
+        },
+      },
+      writingPrek: {
+        instructions: 'Draw a picture and label it with the word. Perfect for early writers.',
+        word: 'Word:',
+        label: 'Label:',
+        drawPrompts: {
+          cat: 'Draw a cat',
+          dog: 'Draw a dog',
+          sun: 'Draw the sun',
+          car: 'Draw a car',
+          tree: 'Draw a tree',
+          flower: 'Draw a flower',
+        },
+      },
+      readingSightwords: {
+        instructions: 'Practice reading and writing common sight words with fun activities.',
+        writeIt3Times: 'Write it 3 times:',
+        useInSentences: 'Use sight words in sentences:',
+        writeSentenceWith: 'Write a sentence with "{{word}}":',
+        words: ['the', 'and', 'is', 'it', 'you', 'that', 'he', 'was', 'for', 'on', 'are', 'as', 'with', 'his', 'they', 'I', 'at', 'be', 'this', 'have', 'from', 'or', 'one', 'had', 'by', 'word', 'but', 'not', 'what', 'all', 'were', 'we', 'when', 'your', 'can', 'said'],
+      },
+      writingTrace: {
+        practiceTracing: 'Practice tracing lowercase letters neatly. Follow the dotted lines, then write each letter 3 times on your own.',
+        letter: 'Letter:',
+        traceTheLetter: 'Trace the letter:',
+        traceHere: 'Trace here',
+        write3Times: 'Write 3 times:',
+        practiceAllLetters: 'Practice All Letters',
+        writeEntireAlphabet: 'Write the entire lowercase alphabet:',
+        drawPicture: 'Draw the picture',
+        writeSentence: 'Write a sentence:',
+      },
+      writingLowercase: {
+        practiceTracing: 'Practice tracing lowercase letters neatly. Follow the dotted lines, then write each letter 3 times on your own.',
+        letter: 'Letter:',
+        traceTheLetter: 'Trace the letter:',
+        traceHere: 'Trace here',
+        write3Times: 'Write 3 times:',
+        practiceAllLetters: 'Practice All Letters',
+        writeEntireAlphabet: 'Write the entire lowercase alphabet:',
+      },
+      writingNarrative: {
+        instructions: 'Write a short story with a beginning, middle, and end. Use the story planning template below.',
+        storyStarters: 'Story Starters (choose one):',
+      },
+      writingInformative: {
+        instructions: 'Write an informative paragraph about the topic below. Include facts, details, and explanations.',
+        topic: 'Topic:',
+      },
+      writingPictures: {
+        instructions: 'Look at each picture prompt and write simple sentences or a short story about what you see.',
+        drawPicture: 'Draw the picture',
+        writeSentence: 'Write a sentence:',
+      },
+      writingEssay: {
+        writeStructuredEssay: 'Write a structured essay responding to the prompt below.',
+        prompt: 'Prompt:',
+      },
+      readingResearch: {
+        researchTopic: 'Research Topic:',
+      },
+      readingVocab: {
+        topic: 'Topic:',
+      },
+      algebra: {
+        solveEachEquation: 'Solve each equation, evaluate each expression, or simplify as indicated.',
+        solve: 'Solve:',
+      },
+      wordProblems: {
+        solveEachMultiStep: 'Solve each multi-step word problem. Show your work.',
+      },
+      readingLiterary: {
+        readAndAnalyze: 'Read the passage and analyze the literary elements below. Provide evidence from the text.',
+      },
+      grammarAdvanced: {
+        identifyClauses: 'Identify clauses, phrases, and advanced sentence structures in each sentence.',
+      },
+      grammarRhyming: {
+        instructions: 'Identify and match rhyming words through fun activities.',
+        word: 'Word:',
+        rhymingWords: 'Rhyming words:',
+        writeAnotherWord: 'Write another word that rhymes: ________',
+      },
+      grammarPrek: {
+        instructions: 'Match simple words with pictures and identify basic word types.',
+        word: 'Word:',
+        match: 'Match:',
+        wordPractice: 'Word Practice',
+        circleWordMatches: 'Circle the word that matches the picture:',
+      },
+      answerKey: {
+        acceptYesNo: 'Accept yes/no answers based on picture clues. Students should look at the pictures to answer.',
+        studentsShould: 'Students should',
+        drawPicture: 'draw a picture',
+        lookAtPictures: 'look at the pictures to answer',
+        sightWordsAnswer: 'correctly write sight words 3 times each and use them in sentences. Check for spelling accuracy and appropriate sentence construction.',
+        grammarRhymingAnswer: 'Students should correctly identify and match rhyming words. Check for understanding of word families and phonemic awareness.',
+        visualProcessingAnswer: 'identify differences in patterns and demonstrate spatial reasoning by drawing items in correct positions.',
+        visualProcessingNote: 'Note: Pattern differences are: Pattern 1 - position 4 (green vs blue), Pattern 2 - position 3 (triangle vs circle), Pattern 3 - position 4 (big vs small). Spatial reasoning drawings should show items in correct relative positions.',
+        note: 'Note:',
+        answer: 'Answer:',
+        task: 'Task {{number}}:',
+        problem: 'Problem {{number}}',
+        pattern: 'Pattern {{number}}:',
+        answersWillVary: 'Answers will vary.',
+      },
+      sciencePrek: {
+        instructions: 'Simple nature observation activities with pictures and basic questions.',
+        drawOrPaste: 'Draw or paste a picture',
+        topics: {
+          plants: 'Plants',
+          animals: 'Animals',
+          weather: 'Weather',
+          seasons: 'Seasons',
+        },
+        questions: {
+          whatPlantsNeed: 'What do plants need?',
+          whereAnimalsLive: 'Where do animals live?',
+          whatWeatherLike: 'What is the weather like?',
+          whatSeason: 'What season is it?',
+        },
+      },
+      scienceSpace: {
+        instructions: 'Learn about planets, stars, and space phenomena with interactive activities.',
+        fact: 'Fact:',
+        distanceFromSun: 'Distance from sun:',
+        spaceQuestions: 'Space Questions',
+        whatIsStar: 'What is a star?',
+        nameOnePlanet: 'Name one planet:',
+      },
+      geographyPrek: {
+        instructions: 'Learn about places in the community, home, and school with simple maps and pictures.',
+        drawSimpleMap: 'Draw a simple map',
+        placeTypes: {
+          whereILive: 'Where I live',
+          whereILearn: 'Where I learn',
+          whereIPlay: 'Where I play',
+        },
+      },
     },
     es: {
       countObjectsAndWriteNumber: 'Cuenta los objetos y escribe el número.',
@@ -129,6 +2336,542 @@ const ensureInteractiveWorksheetKeys = () => {
         generalQuestions: '¿Qué te ayudó a completar tus tareas? ¿Qué harías diferente la próxima vez?',
         mandalaQuestion: 'Reflexión: ¿Cómo te hizo sentir crear este mandala?',
       },
+      answerKeyAndNotes: 'Clave de respuestas y notas del maestro',
+      countingTeachingNote: 'Nota para enseñar: Los estudiantes deben contar cada objeto uno por uno. Anima a señalar o tocar cada objeto mientras cuentan para desarrollar la correspondencia uno a uno.',
+      placeValue: {
+        instructions: 'Identifica el dígito en cada valor posicional.',
+        placeValueChart: 'Tabla de Valor Posicional:',
+        whatDigit: '¿Qué dígito está en el lugar {{place}}?',
+        expandedForm: 'Forma expandida:',
+        ones: 'Unidades',
+        tens: 'Decenas',
+        hundreds: 'Centenas',
+        thousands: 'Millares',
+        explanation: 'En el número {{number}}, lee de derecha a izquierda: lugar de unidades, lugar de decenas, lugar de centenas, etc. El dígito en el lugar {{place}} es {{digit}}.',
+      },
+      circleThe: 'Encierra en un círculo la {{letter}}',
+      beginningSounds: 'Sonidos Iniciales',
+      says: 'dice',
+      circleWordsStart: 'Encierra en un círculo las palabras que comienzan con',
+      alphabetAnswerKey: 'Los estudiantes deben identificar y emparejar correctamente las letras mayúsculas/minúsculas, reconocer sonidos iniciales y encerrar en un círculo las letras coincidentes. Verifica la precisión del reconocimiento de letras.',
+      readingDetective: {
+        caseFile: 'Archivo del Caso',
+        detectiveNotes: 'Notas del Detective: La escena es {{setting}}. Un testigo escuchó un zumbido. La pista principal es {{clue}}. ¿Quién o qué es responsable?',
+        writeThreeInferences: 'Escribe tres inferencias usando las pistas.',
+        explainWhy: 'Explica por qué el culpable podría ser {{culprit}}.',
+        proveOrDisprove: 'Prueba o refuta tu teoría con evidencia del texto.',
+        drawEvidenceBoard: 'Dibuja tu tablero de evidencia a continuación y etiqueta cada pista.',
+      },
+      storyMap: {
+        beginning: 'Inicio',
+        beginningPrompt: '¿Quiénes son los personajes? ¿Dónde están?',
+        middle: 'Medio',
+        middlePrompt: '¿Qué problema aparece? ¿Qué pistas ayudan?',
+        ending: 'Final',
+        endingPrompt: '¿Cómo lo resuelven? ¿Cuál es la lección?',
+        clueLog: 'Registro de Pistas',
+        lookBackAtStory: 'Vuelve a leer la historia',
+        clue: 'Pista {{number}}',
+        retellInOwnWords: 'Cuenta con Tus Propias Palabras',
+        retellPrompt: 'Escribe tres oraciones que cubran el inicio, medio y final.',
+        comprehensionChecks: 'Verificaciones de Comprensión',
+        whyDidVisit: '¿Por qué {{hero}} y {{friend}} visitaron el {{setting}}?',
+        whatProblem: '¿Qué problema los retrasó en el medio de la historia?',
+        howDidHelper: '¿Cómo {{helper}} los ayudó a terminar su objetivo? ¿Qué lección aprendieron?',
+      },
+      vocab: {
+        instructions: 'Usa pistas de contexto para hacer coincidir cada palabra con su significado. Luego escribe una oración usando la palabra en el contexto {{context}}.',
+        word: 'Palabra',
+        matchMeaning: 'Haz coincidir el significado',
+        sentenceInContext: 'Oración en contexto',
+      },
+      summary: {
+        instructions: 'Lee el párrafo informativo sobre {{topic}}. Resalta la idea más importante de cada sección. Luego completa el cuadro de resumen con 3 puntos clave.',
+        paragraph: 'Párrafo {{number}}',
+        paragraph1Intro: 'Presenta el {{topic}}. ¿Por qué se creó? ¿Quién se beneficia?',
+        paragraph2Intro: 'Describe cómo funciona cada día. ¿Qué pasos están involucrados? ¿Quién ayuda?',
+        paragraph3Intro: 'Comparte un desafío y un plan para mejorarlo el próximo mes.',
+        summaryBox: 'Cuadro de Resumen',
+        keyPoint: 'Punto clave {{number}}',
+        closingSentence: 'Escribe una oración de cierre que reafirme la idea principal con tus propias palabras.',
+      },
+      compare: {
+        instructions: 'Compara y contrasta los dos textos. Registra información sobre {{topicA}} y {{topicB}}, luego escribe un párrafo explicando cómo son similares y diferentes.',
+        text1: 'Texto 1: {{topic}}',
+        text2: 'Texto 2: {{topic}}',
+        keyDetails: 'Detalles clave:',
+        whatProblem: '¿Qué problema resuelve?',
+        compareContrastParagraph: 'Párrafo de Comparación y Contraste',
+        alikeBecause: '{{topicA}} y {{topicB}} son similares porque',
+        differentBecause: 'Son diferentes porque',
+      },
+      writingPrompts: {
+        instructions: 'Elige un indicador y escribe un inicio, medio y final. Incluye sentimientos, acciones y diálogo.',
+        prompt: 'Indicador {{number}}',
+        brainstorm: 'Lluvia de ideas:',
+        beginning: 'Inicio:',
+        middle: 'Medio:',
+        end: 'Final:',
+      },
+      writingSentences: {
+        instructions: 'Completa cada oración con verbos vívidos y detalles. Luego reescribe una oración usando una estructura compuesta.',
+        compoundSentenceChallenge: 'Desafío de Oración Compuesta',
+        combineWithConjunction: 'Combina dos de tus oraciones con una conjunción:',
+      },
+      writingPoetry: {
+        instructions: 'Crea un haiku y una estrofa de verso libre sobre {{theme}}. Usa al menos tres palabras del banco de palabras.',
+        wordBank: 'Banco de Palabras',
+        haiku: 'Haiku (5-7-5)',
+        freeVerseStanza: 'Estrofa de Verso Libre',
+        line: 'Línea {{number}}',
+      },
+      writingOpinion: {
+        instructions: 'Planifica un párrafo de opinión sobre:',
+        reasonsAndEvidence: 'Razones y Evidencia',
+        reason: 'Razón #{{number}}',
+        evidence: 'Evidencia',
+        paragraphPlanner: 'Planificador de Párrafos',
+        hookSentence: 'Oración gancho:',
+        opinionStatement: 'Declaración de opinión:',
+        closingSentence: 'Oración de cierre:',
+      },
+      scienceObservation: {
+        instructions: 'Observa y registra datos sobre {{focus}}. Incluye bocetos, mediciones y preguntas interesantes.',
+        dateAndTime: 'Fecha y Hora',
+        observationSketch: 'Boceto de Observación',
+        whatINoticed: 'Lo que Noté',
+        questionsNextSteps: 'Preguntas / Próximos Pasos',
+      },
+      scienceLifecycle: {
+        instructions: 'Etiqueta e ilustra el ciclo de vida de {{cycle}}. Describe lo que sucede en cada etapa.',
+        stage: 'Etapa {{number}}',
+        notes: 'Notas:',
+      },
+      scienceStates: {
+        instructions: 'Identifica el cambio de estado para cada escenario. Dibuja las partículas antes y después del cambio.',
+        scenario: 'Escenario',
+        stateChange: 'Cambio de Estado',
+        particleDiagram: 'Diagrama de Partículas',
+      },
+      scienceWeather: {
+        instructions: 'Rastrea el clima de la semana. Registra la temperatura, dibuja el cielo y escribe un consejo de seguridad.',
+        day: 'Día',
+        temperature: 'Temperatura',
+        skySketch: 'Boceto del Cielo',
+        safetyTip: 'Consejo de Seguridad',
+      },
+      geographyMap: {
+        instructions: 'Traza cada ubicación en la cuadrícula a continuación. Etiqueta y describe lo que se encuentra en cada lugar.',
+        coordinate: 'Coordenada',
+        place: 'Lugar',
+        whatDoYouNotice: '¿Qué notas allí?',
+        exampleMap: 'Mapa de ejemplo',
+        yourMapGrid: 'Tu cuadrícula de mapa',
+        useSampleToCheck: 'Usa esta muestra para verificar las coordenadas y los puntos de referencia.',
+        drawLandmarks: 'Dibuja puntos de referencia, crea una leyenda y etiqueta cada coordenada.',
+      },
+      geographyCulture: {
+        instructions: 'Explora tradiciones de todo el mundo. Investiga y anota una comida, celebración y dato interesante para cada región.',
+        region: 'Región',
+        food: 'Comida',
+        celebration: 'Celebración',
+        interestingFact: 'Dato Interesante',
+      },
+      geographyHistory: {
+        instructions: 'Construye una línea de tiempo sobre {{theme}}. Coloca los eventos en orden y explica el impacto de cada uno.',
+        impact: 'Impacto:',
+      },
+      grammarParts: {
+        instructions: 'Etiqueta cada palabra subrayada como sustantivo, verbo, adjetivo o adverbio. Agrega una palabra más para expandir la oración.',
+        label: 'Etiqueta:',
+        extraWord: 'Palabra extra:',
+      },
+      grammarTenses: {
+        instructions: 'Conjuga cada verbo en tiempo pasado, presente y futuro. Luego usa el verbo en una oración.',
+        verb: 'Verbo',
+        past: 'Pasado',
+        present: 'Presente',
+        future: 'Futuro',
+        writeSentence: 'Escribe una oración usando cada tiempo debajo de la tabla.',
+      },
+      grammarAntonyms: {
+        instructions: 'Haz coincidir cada palabra con su antónimo y usa el par en una oración.',
+        word: 'Palabra',
+        antonym: 'Antónimo',
+        sentence: 'Oración',
+      },
+      artDesign: {
+        instructions: '¡Colorea cada patrón! Usa tus colores favoritos y hazlo hermoso.',
+        colorInsideShape: '¡Colorea dentro de la forma!',
+        patterns: {
+          geometricStar: { title: 'Estrella Geométrica', description: '¡Colorea el patrón de estrella con tus colores favoritos!' },
+          flowerPattern: { title: 'Patrón de Flor', description: 'Colorea los pétalos de la flor: rosa, amarillo y morado' },
+          rainbowPattern: { title: 'Patrón de Arcoíris', description: 'Colorea cada franja: rojo, naranja, amarillo, verde, azul, morado' },
+          heartDesign: { title: 'Diseño de Corazón', description: 'Colorea los corazones de rojo y rosa' },
+          circleMandala: { title: 'Mandala Circular', description: 'Colorea los círculos con diferentes colores' },
+          leafPattern: { title: 'Patrón de Hoja', description: 'Colorea las hojas de verde' },
+        },
+      },
+      artColorwheel: {
+        instructions: 'Colorea cada elemento con el color correcto. Haz coincidir el nombre del color con el objeto.',
+        item: 'Elemento',
+        color: 'Color',
+        colorIt: '¡Colorealo!',
+      },
+      artSketch: {
+        instructions: '¡Dibuja cada imagen! Tómate tu tiempo y usa tu imaginación.',
+        drawHere: '¡Dibuja aquí!',
+        prompts: {
+          beautifulFlower: { prompt: 'Dibuja una flor hermosa', hint: '¡Agrega pétalos y un tallo!' },
+          treeWithLeaves: { prompt: 'Dibuja un árbol con hojas', hint: '¡Hazlo grande y verde!' },
+          geometricShapes: { prompt: 'Dibuja formas geométricas', hint: '¡Dibuja círculos, cuadrados y triángulos!' },
+          rainbow: { prompt: 'Dibuja un arcoíris', hint: '¡Usa todos los colores!' },
+          pattern: { prompt: 'Dibuja un patrón', hint: '¡Crea tu propio diseño!' },
+          gardenScene: { prompt: 'Dibuja una escena de jardín', hint: '¡Agrega flores y plantas!' },
+        },
+      },
+      earlyPhonics: {
+        instructions: 'Di el sonido, traza la letra y luego dibuja una imagen que comience con ella.',
+        saySound: 'Di el sonido:',
+        traceLetter: 'Traza la letra:',
+        drawPicture: 'Dibuja una imagen:',
+        words: 'Palabras:',
+      },
+      earlyPatterns: {
+        instructions: 'Continúa cada patrón y crea el tuyo usando formas, colores o pegatinas.',
+        pattern: 'Patrón',
+        tryBuilding: 'Intenta construir el tuyo usando:',
+      },
+      earlyShapes: {
+        instructions: 'Identifica cada forma, coloreala y luego clasifica las formas por tipo y color.',
+        shape: 'Forma',
+        color: 'Color:',
+        drawMore: 'Dibuja 2 más {{shape}}s abajo:',
+        sortingActivity: 'Actividad de Clasificación',
+        sortByShape: 'Clasificar por forma:',
+        sortByColor: 'Clasificar por color:',
+        sortBySize: 'Clasificar por tamaño:',
+      },
+      earlyLetters: {
+        instructions: 'Traza cada letra, luego escríbela 3 veces. Dibuja una imagen que comience con esa letra.',
+        trace: 'Traza',
+        write: 'Escribe',
+        draw: 'Dibuja',
+      },
+      earlyNumbers: {
+        trace: 'Traza',
+        write: 'Escribe',
+        draw: 'Dibuja',
+        numberWord: 'Palabra del número:',
+      },
+      logicPrek: {
+        instructions: 'Completa patrones simples y clasifica objetos por color, tamaño o tipo.',
+        pattern: 'Patrón',
+      },
+      selPrek: {
+        instructions: 'Identifica y expresa sentimientos a través de imágenes, palabras simples y actividades.',
+        feeling: 'Sentimiento:',
+        color: 'Color:',
+        drawTimeFelt: 'Dibuja un momento en que te sentiste {{feeling}}',
+        howIFeelToday: 'Cómo Me Siento Hoy',
+        feelings: {
+          happy: 'feliz',
+          sad: 'triste',
+          angry: 'enojado',
+          excited: 'emocionado',
+        },
+      },
+      mathRhythm: {
+        instructions: 'Continúa cada ritmo de conteo saltado. Escribe los números faltantes en los espacios en blanco.',
+      },
+      logicRiddles: {
+        instructions: 'Resuelve cada acertijo. Escribe tu suposición, luego revela la respuesta.',
+        answer: 'Respuesta:',
+      },
+      logicDeduction: {
+        instructions: 'Usa las pistas para determinar quién tomó prestado cada artículo y dónde se encontró.',
+      },
+      cognitiveMemory: {
+        instructions: 'Intenta recordar las tres secuencias en orden. Escríbelas aquí:',
+      },
+      cognitiveAttention: {
+        instructions: 'Practica enfocar tu atención con ejercicios de escaneo visual y busca las diferencias.',
+        findAndCircle: 'Encuentra y encierra en un círculo todas las formas <span className="font-bold">{{items}}</span> en la cuadrícula a continuación:',
+        countHowMany: 'Cuenta cuántas formas {{items}} encontraste: _______',
+        compareImages: 'Compara las dos imágenes y encuentra las diferencias:',
+      },
+      cognitiveExecutive: {
+        instructions: 'Practica planificar, organizar y completar tareas. ¡Esto desarrolla habilidades de función ejecutiva!',
+        taskPlanning: 'Planificación de Tareas',
+        planTasksToday: 'Planifica tus tareas para hoy. Divide cada tarea en pasos:',
+      },
+      cognitiveVisual: {
+        visualPatternMatching: 'Coincidencia de Patrones Visuales',
+        comparePatterns: 'Compara los dos patrones. Encierra en un círculo lo que es diferente:',
+        match: 'Emparejar:',
+        drawItemPosition: 'Dibuja cada elemento en la posición correcta:',
+        drawItemText: 'Dibuja un {{item}} {{text}} la línea:',
+        pattern: 'Patrón {{number}}:',
+        original: 'Original:',
+        whatsDifferent: '¿Qué es diferente? Posición: _______ Elemento: _______',
+        spatialReasoning: 'Razonamiento Espacial',
+        above: 'arriba',
+        below: 'abajo',
+        toTheLeftOf: 'a la izquierda de',
+        toTheRightOf: 'a la derecha de',
+      },
+      readingFluency: {
+        instructions: 'Practica la lectura con expresión, precisión y ritmo apropiado. Lee cada pasaje tres veces.',
+        passage: 'Pasaje {{number}}',
+        read: 'Lee {{number}}:',
+        notes: 'Notas:',
+      },
+      cognitiveFlexibility: {
+        instructions: 'Completa cada tarea, luego cambia a la nueva regla:',
+        perspectiveTakingPractice: 'Práctica de Toma de Perspectiva',
+        thinkAboutSituation: 'Piensa en cada situación desde diferentes puntos de vista:',
+        taskSwitchingChallenge: 'Desafío de Cambio de Tareas',
+        completeEachTask: 'Completa cada tarea, luego cambia a la nueva regla:',
+      },
+      cognitiveProcessing: {
+        instructions: 'Encierra en un círculo todas las ★ (estrellas) lo más rápido que puedas:',
+        quickSymbolRecognition: 'Reconocimiento Rápido de Símbolos',
+        circleAllStars: 'Encierra en un círculo todas las ★ (estrellas) lo más rápido que puedas:',
+      },
+      selConflict: {
+        instructions: 'Aprende estrategias para resolver conflictos pacíficamente. Piensa en cómo comunicarte efectivamente.',
+      },
+      selRegulation: {
+        instructions: 'Practica estrategias de autorregulación. Estas técnicas te ayudan a manejar grandes sentimientos y tomar decisiones reflexivas.',
+      },
+      selKindness: {
+        instructions: '¡Completa actos de bondad esta semana! Rastrea tu bondad y reflexiona sobre cómo te hace sentir a ti y a otros.',
+      },
+      selGrowthMindset: {
+        instructions: '¡Transforma los pensamientos de mentalidad fija en pensamientos de mentalidad de crecimiento! Aprende a abrazar desafíos y aprender de errores.',
+      },
+      selStress: {
+        instructions: 'Identifica desencadenantes del estrés y practica estrategias saludables de afrontamiento. Aprende a manejar la ansiedad y el estrés efectivamente.',
+      },
+      selCharacter: {
+        instructions: 'Explora rasgos de carácter y valores importantes. Piensa en cómo estos rasgos te ayudan a ti y a otros.',
+        traits: {
+          honesty: { name: 'Honestidad', description: 'Decir la verdad incluso cuando es difícil' },
+          respect: { name: 'Respeto', description: 'Tratar a otros con amabilidad y consideración' },
+          responsibility: { name: 'Responsabilidad', description: 'Hacer lo que se supone que debes hacer' },
+          integrity: { name: 'Integridad', description: 'Hacer lo correcto incluso cuando nadie está mirando' },
+          courage: { name: 'Valentía', description: 'Enfrentar miedos y defender lo que es correcto' },
+          compassion: { name: 'Compasión', description: 'Preocuparse por otros y sus sentimientos' },
+        },
+      },
+      mathShapes: {
+        instructions: 'Dibuja y cuenta cada forma. Luego clasifícala como "plana" o "sólida" y registra el número de lados.',
+        shape: 'Forma',
+        color: 'Color',
+        howMany: '¿Cuántos?',
+        flatOrSolid: '¿Plana o Sólida?',
+        numberOfSides: 'Número de lados',
+      },
+      mathMoney: {
+        instructions: 'Usa monedas para contar hasta el total. Dibuja las monedas que usarías y registra el valor.',
+        costs: 'El {{item}} cuesta ${{amount}}. Paga usando {{coin}}. Dibuja tus monedas abajo y escribe el total.',
+        total: 'Total:',
+        change: 'Cambio:',
+      },
+      mathFractions: {
+        instructions: 'Compara cada par de fracciones. Sombrea los modelos de barras para ayudarte a decidir, luego escribe <, >, o =.',
+        shade: 'Sombrea {{num}} de {{den}} partes iguales.',
+      },
+      mathMeasurement: {
+        instructions: 'Convierte cada medida. Muestra tu trabajo en el espacio proporcionado.',
+        given: 'Dado',
+        convertTo: 'Convertir a',
+        workSpace: 'Espacio de trabajo',
+      },
+      readingAdventure: {
+        story: '{{hero}} y {{partner}} llegan al {{setting}}. Deben {{quest}} antes de que se ponga la luna. En el camino conocen a un guía que solo habla en rimas. ¿Qué pistas reúnen? ¿Cómo trabajan juntos?',
+        comprehensionChecks: 'Verificaciones de Comprensión',
+        whatProblem: '¿Qué problema necesitan resolver {{hero}} y {{partner}}?',
+        describeClue: 'Describe una pista del guía que habla en rimas.',
+        howSetting: '¿Cómo el escenario ayuda o desafía a los personajes?',
+        creativeExtension: 'Extensión Creativa',
+        sketchScene: 'Dibuja una escena de la aventura y etiqueta los detalles importantes.',
+      },
+      earlyFoundations: {
+        instructions: 'Revisa habilidades básicas: identifica letras, números y formas. Perfecto para remediación o revisión.',
+        review: 'Revisar:',
+        identify: 'Identificar:',
+        practiceWriting: 'Practicar Escritura',
+        writeName: 'Escribe tu nombre:',
+        countTo10: 'Cuenta hasta 10:',
+      },
+      earlyBasics: {
+        instructions: 'Revisión de habilidades esenciales de aprendizaje temprano. Practica sonidos de letras, conteo y patrones básicos.',
+      },
+      readingPrek: {
+        instructions: 'Mira las imágenes y responde preguntas de sí/no sobre la historia.',
+        yesNo: 'Sí / No',
+        storyTitles: {
+          redCar: 'El Auto Rojo',
+          sunnyDay: 'El Día Soleado',
+          bigTree: 'El Árbol Grande',
+        },
+        questions: {
+          seeCar: '¿Ves un auto?',
+          carOnRoad: '¿Está el auto en la carretera?',
+          seeSun: '¿Ves el sol?',
+          thereFlower: '¿Hay una flor?',
+          treeBig: '¿Es grande el árbol?',
+          seeHouse: '¿Ves una casa?',
+        },
+        objectNames: {
+          sun: 'Sol',
+          flower: 'Flor',
+          ball: 'Pelota',
+          tree: 'Árbol',
+          house: 'Casa',
+          car: 'Auto',
+          road: 'Carretera',
+        },
+      },
+      writingPrek: {
+        instructions: 'Dibuja una imagen y etiquétala con la palabra. Perfecto para escritores principiantes.',
+        word: 'Palabra:',
+        label: 'Etiqueta:',
+        drawPrompts: {
+          cat: 'Dibuja un gato',
+          dog: 'Dibuja un perro',
+          sun: 'Dibuja el sol',
+          car: 'Dibuja un auto',
+          tree: 'Dibuja un árbol',
+          flower: 'Dibuja una flor',
+        },
+      },
+      readingSightwords: {
+        instructions: 'Practica leyendo y escribiendo palabras comunes de vista con actividades divertidas.',
+        writeIt3Times: 'Escríbelo 3 veces:',
+        useInSentences: 'Usa palabras de vista en oraciones:',
+        writeSentenceWith: 'Escribe una oración con "{{word}}":',
+        words: ['el', 'la', 'y', 'es', 'un', 'una', 'en', 'de', 'que', 'con', 'por', 'para', 'son', 'las', 'los', 'del', 'se', 'le', 'te', 'me', 'nos', 'les', 'tiene', 'tiene', 'hacer', 'estar', 'ser', 'tener', 'poder', 'decir', 'ir', 'ver', 'dar', 'saber', 'querer'],
+      },
+      writingTrace: {
+        practiceTracing: 'Practica trazar letras minúsculas con cuidado. Sigue las líneas punteadas, luego escribe cada letra 3 veces por tu cuenta.',
+        letter: 'Letra:',
+        traceTheLetter: 'Traza la letra:',
+        traceHere: 'Traza aquí',
+        write3Times: 'Escribe 3 veces:',
+        practiceAllLetters: 'Practica Todas las Letras',
+        writeEntireAlphabet: 'Escribe todo el alfabeto en minúsculas:',
+        drawPicture: 'Dibuja la imagen',
+        writeSentence: 'Escribe una oración:',
+      },
+      writingLowercase: {
+        practiceTracing: 'Practica trazar letras minúsculas con cuidado. Sigue las líneas punteadas, luego escribe cada letra 3 veces por tu cuenta.',
+        letter: 'Letra:',
+        traceTheLetter: 'Traza la letra:',
+        traceHere: 'Traza aquí',
+        write3Times: 'Escribe 3 veces:',
+        practiceAllLetters: 'Practica Todas las Letras',
+        writeEntireAlphabet: 'Escribe todo el alfabeto en minúsculas:',
+      },
+      writingNarrative: {
+        instructions: 'Escribe una historia corta con un inicio, medio y final. Usa la plantilla de planificación de historia a continuación.',
+        storyStarters: 'Inicios de Historia (elige uno):',
+      },
+      writingInformative: {
+        instructions: 'Escribe un párrafo informativo sobre el tema a continuación. Incluye hechos, detalles y explicaciones.',
+        topic: 'Tema:',
+      },
+      writingPictures: {
+        instructions: 'Mira cada indicador de imagen y escribe oraciones simples o una historia corta sobre lo que ves.',
+        drawPicture: 'Dibuja la imagen',
+        writeSentence: 'Escribe una oración:',
+      },
+      writingEssay: {
+        writeStructuredEssay: 'Escribe un ensayo estructurado respondiendo al indicador a continuación.',
+        prompt: 'Indicador:',
+      },
+      readingResearch: {
+        researchTopic: 'Tema de Investigación:',
+      },
+      readingVocab: {
+        topic: 'Tema:',
+      },
+      algebra: {
+        solveEachEquation: 'Resuelve cada ecuación, evalúa cada expresión o simplifica como se indica.',
+        solve: 'Resuelve:',
+      },
+      wordProblems: {
+        solveEachMultiStep: 'Resuelve cada problema de palabras de varios pasos. Muestra tu trabajo.',
+      },
+      readingLiterary: {
+        readAndAnalyze: 'Lee el pasaje y analiza los elementos literarios a continuación. Proporciona evidencia del texto.',
+      },
+      grammarAdvanced: {
+        identifyClauses: 'Identifica cláusulas, frases y estructuras de oraciones avanzadas en cada oración.',
+      },
+      grammarRhyming: {
+        instructions: 'Identifica y empareja palabras que riman a través de actividades divertidas.',
+        word: 'Palabra:',
+        rhymingWords: 'Palabras que riman:',
+        writeAnotherWord: 'Escribe otra palabra que rime: ________',
+      },
+      grammarPrek: {
+        instructions: 'Empareja palabras simples con imágenes e identifica tipos básicos de palabras.',
+        word: 'Palabra:',
+        match: 'Emparejar:',
+        wordPractice: 'Práctica de Palabras',
+        circleWordMatches: 'Encierra en un círculo la palabra que coincide con la imagen:',
+      },
+      answerKey: {
+        acceptYesNo: 'Acepta respuestas de sí/no basadas en pistas de imágenes. Los estudiantes deben mirar las imágenes para responder.',
+        studentsShould: 'Los estudiantes deben',
+        drawPicture: 'dibujar una imagen',
+        lookAtPictures: 'mirar las imágenes para responder',
+        sightWordsAnswer: 'escribir correctamente las palabras de vista 3 veces cada una y usarlas en oraciones. Verifica la precisión ortográfica y la construcción apropiada de oraciones.',
+        grammarRhymingAnswer: 'Los estudiantes deben identificar y emparejar correctamente las palabras que riman. Verifica la comprensión de familias de palabras y conciencia fonémica.',
+        visualProcessingAnswer: 'identificar diferencias en patrones y demostrar razonamiento espacial dibujando elementos en posiciones correctas.',
+        visualProcessingNote: 'Nota: Las diferencias de patrones son: Patrón 1 - posición 4 (verde vs azul), Patrón 2 - posición 3 (triángulo vs círculo), Patrón 3 - posición 4 (grande vs pequeño). Los dibujos de razonamiento espacial deben mostrar elementos en posiciones relativas correctas.',
+        note: 'Nota:',
+        answer: 'Respuesta:',
+        task: 'Tarea {{number}}:',
+        problem: 'Problema {{number}}',
+        pattern: 'Patrón {{number}}:',
+        answersWillVary: 'Las respuestas variarán.',
+      },
+      sciencePrek: {
+        instructions: 'Actividades simples de observación de la naturaleza con imágenes y preguntas básicas.',
+        drawOrPaste: 'Dibuja o pega una imagen',
+        topics: {
+          plants: 'Plantas',
+          animals: 'Animales',
+          weather: 'Clima',
+          seasons: 'Estaciones',
+        },
+        questions: {
+          whatPlantsNeed: '¿Qué necesitan las plantas?',
+          whereAnimalsLive: '¿Dónde viven los animales?',
+          whatWeatherLike: '¿Cómo está el clima?',
+          whatSeason: '¿Qué estación es?',
+        },
+      },
+      scienceSpace: {
+        instructions: 'Aprende sobre planetas, estrellas y fenómenos espaciales con actividades interactivas.',
+        fact: 'Hecho:',
+        distanceFromSun: 'Distancia del sol:',
+        spaceQuestions: 'Preguntas Espaciales',
+        whatIsStar: '¿Qué es una estrella?',
+        nameOnePlanet: 'Nombra un planeta:',
+      },
+      geographyPrek: {
+        instructions: 'Aprende sobre lugares en la comunidad, el hogar y la escuela con mapas simples e imágenes.',
+        drawSimpleMap: 'Dibuja un mapa simple',
+        placeTypes: {
+          whereILive: 'Donde vivo',
+          whereILearn: 'Donde aprendo',
+          whereIPlay: 'Donde juego',
+        },
+      },
     },
     ar: {
       countObjectsAndWriteNumber: 'عد الكائنات واكتب الرقم.',
@@ -156,6 +2899,542 @@ const ensureInteractiveWorksheetKeys = () => {
         mathRaceQuestions: 'كم عدد الحقائق التي حللتها؟ ______ • ما الاستراتيجية التي ساعدتك أكثر؟ ____________________',
         generalQuestions: 'ما الذي ساعدك على إكمال مهامك؟ ماذا ستفعل بشكل مختلف في المرة القادمة؟',
         mandalaQuestion: 'التفكير: كيف جعلك إنشاء هذا الماندالا تشعر؟',
+      },
+      answerKeyAndNotes: 'مفتاح الإجابات وملاحظات المعلم',
+      countingTeachingNote: 'ملاحظة تعليمية: يجب على الطلاب عد كل كائن واحداً تلو الآخر. شجع على الإشارة أو لمس كل كائن أثناء العد لتطوير المراسلة واحد لواحد.',
+      placeValue: {
+        instructions: 'حدد الرقم في كل قيمة منزلية.',
+        placeValueChart: 'جدول القيمة المنزلية:',
+        whatDigit: 'ما الرقم الموجود في منزلة {{place}}؟',
+        expandedForm: 'الصيغة الموسعة:',
+        ones: 'الآحاد',
+        tens: 'العشرات',
+        hundreds: 'المئات',
+        thousands: 'الآلاف',
+        explanation: 'في الرقم {{number}}، اقرأ من اليمين إلى اليسار: منزلة الآحاد، منزلة العشرات، منزلة المئات، إلخ. الرقم الموجود في منزلة {{place}} هو {{digit}}.',
+      },
+      circleThe: 'أحط دائرة حول {{letter}}',
+      beginningSounds: 'الأصوات الأولية',
+      says: 'يقول',
+      circleWordsStart: 'أحط الكلمات التي تبدأ بـ',
+      alphabetAnswerKey: 'يجب على الطلاب تحديد ومطابقة الأحرف الكبيرة/الصغيرة بشكل صحيح، والتعرف على الأصوات الأولية، وأحط الحروف المطابقة. تحقق من دقة التعرف على الحروف.',
+      readingDetective: {
+        caseFile: 'ملف القضية',
+        detectiveNotes: 'ملاحظات المحقق: المشهد هو {{setting}}. سمع شاهد همهمة. الدليل الرئيسي هو {{clue}}. من أو ما هو المسؤول؟',
+        writeThreeInferences: 'اكتب ثلاث استنتاجات باستخدام الأدلة.',
+        explainWhy: 'اشرح لماذا قد يكون الجاني {{culprit}}.',
+        proveOrDisprove: 'أثبت أو ا disprove نظريتك بأدلة نصية.',
+        drawEvidenceBoard: 'ارسم لوحة الأدلة أدناه وضع علامة على كل دليل.',
+      },
+      storyMap: {
+        beginning: 'البداية',
+        beginningPrompt: 'من هم الشخصيات؟ أين هم؟',
+        middle: 'الوسط',
+        middlePrompt: 'ما المشكلة التي تظهر؟ ما الأدلة التي تساعد؟',
+        ending: 'النهاية',
+        endingPrompt: 'كيف يحلونها؟ ما الدرس؟',
+        clueLog: 'سجل الأدلة',
+        lookBackAtStory: 'ارجع إلى القصة',
+        clue: 'دليل {{number}}',
+        retellInOwnWords: 'أعد السرد بكلماتك الخاصة',
+        retellPrompt: 'اكتب ثلاث جمل تغطي البداية والوسط والنهاية.',
+        comprehensionChecks: 'فحوصات الفهم',
+        whyDidVisit: 'لماذا زار {{hero}} و{{friend}} {{setting}}؟',
+        whatProblem: 'ما المشكلة التي أبطأتهم في منتصف القصة؟',
+        howDidHelper: 'كيف ساعدهم {{helper}} على إنهاء هدفهم؟ ما الدرس الذي تعلموه؟',
+      },
+      vocab: {
+        instructions: 'استخدم أدلة السياق لمطابقة كل كلمة بمعناها. ثم اكتب جملة باستخدام الكلمة في سياق {{context}}.',
+        word: 'الكلمة',
+        matchMeaning: 'طابق المعنى',
+        sentenceInContext: 'الجملة في السياق',
+      },
+      summary: {
+        instructions: 'اقرأ الفقرة المعلوماتية حول {{topic}}. أبرز الفكرة الأكثر أهمية من كل قسم. ثم أكمل صندوق الملخص بثلاث نقاط رئيسية.',
+        paragraph: 'الفقرة {{number}}',
+        paragraph1Intro: 'تقدم {{topic}}. لماذا تم إنشاؤه؟ من يستفيد منه؟',
+        paragraph2Intro: 'تصف كيف يعمل كل يوم. ما الخطوات المتضمنة؟ من يساعد؟',
+        paragraph3Intro: 'تشارك تحدياً واحداً وخطة لتحسينه الشهر القادم.',
+        summaryBox: 'صندوق الملخص',
+        keyPoint: 'النقطة الرئيسية {{number}}',
+        closingSentence: 'اكتب جملة ختامية واحدة تعيد صياغة الفكرة الرئيسية بكلماتك الخاصة.',
+      },
+      compare: {
+        instructions: 'قارن واعقد بين النصين. سجل معلومات حول {{topicA}} و{{topicB}}، ثم اكتب فقرة تشرح كيف هما متشابهان ومختلفان.',
+        text1: 'النص 1: {{topic}}',
+        text2: 'النص 2: {{topic}}',
+        keyDetails: 'التفاصيل الرئيسية:',
+        whatProblem: 'ما المشكلة التي يحلها؟',
+        compareContrastParagraph: 'فقرة المقارنة والتباين',
+        alikeBecause: '{{topicA}} و{{topicB}} متشابهان لأن',
+        differentBecause: 'هما مختلفان لأن',
+      },
+      writingPrompts: {
+        instructions: 'اختر مؤشراً واكتب بداية ووسط ونهاية. أضف المشاعر والإجراءات والحوار.',
+        prompt: 'المؤشر {{number}}',
+        brainstorm: 'العصف الذهني:',
+        beginning: 'البداية:',
+        middle: 'الوسط:',
+        end: 'النهاية:',
+      },
+      writingSentences: {
+        instructions: 'أكمل كل جملة بأفعال حية وتفاصيل. ثم أعد كتابة جملة واحدة باستخدام بنية مركبة.',
+        compoundSentenceChallenge: 'تحدي الجملة المركبة',
+        combineWithConjunction: 'اجمع جملتين من جملك بحرف عطف:',
+      },
+      writingPoetry: {
+        instructions: 'أنشئ قصيدة هايكو وبيتاً من الشعر الحر حول {{theme}}. استخدم ثلاث كلمات على الأقل من بنك الكلمات.',
+        wordBank: 'بنك الكلمات',
+        haiku: 'هايكو (5-7-5)',
+        freeVerseStanza: 'بيت الشعر الحر',
+        line: 'السطر {{number}}',
+      },
+      writingOpinion: {
+        instructions: 'خطط لفقرة رأي حول:',
+        reasonsAndEvidence: 'الأسباب والأدلة',
+        reason: 'السبب #{{number}}',
+        evidence: 'الدليل',
+        paragraphPlanner: 'مخطط الفقرة',
+        hookSentence: 'جملة الجذب:',
+        opinionStatement: 'بيان الرأي:',
+        closingSentence: 'جملة الختام:',
+      },
+      scienceObservation: {
+        instructions: 'راقب وسجل البيانات حول {{focus}}. أضف الرسوم التخطيطية والقياسات والأسئلة المثيرة للاهتمام.',
+        dateAndTime: 'التاريخ والوقت',
+        observationSketch: 'رسم الملاحظة',
+        whatINoticed: 'ما لاحظته',
+        questionsNextSteps: 'الأسئلة / الخطوات التالية',
+      },
+      scienceLifecycle: {
+        instructions: 'ضع علامة وارسم دورة حياة {{cycle}}. صف ما يحدث في كل مرحلة.',
+        stage: 'المرحلة {{number}}',
+        notes: 'الملاحظات:',
+      },
+      scienceStates: {
+        instructions: 'حدد تغيير الحالة لكل سيناريو. ارسم الجسيمات قبل وبعد التغيير.',
+        scenario: 'السيناريو',
+        stateChange: 'تغيير الحالة',
+        particleDiagram: 'رسم الجسيمات',
+      },
+      scienceWeather: {
+        instructions: 'تتبع طقس الأسبوع. سجل درجة الحرارة، ارسم السماء، واكتب نصيحة سلامة واحدة.',
+        day: 'اليوم',
+        temperature: 'درجة الحرارة',
+        skySketch: 'رسم السماء',
+        safetyTip: 'نصيحة السلامة',
+      },
+      geographyMap: {
+        instructions: 'ارسم كل موقع على الشبكة أدناه. ضع علامة وصف ما يوجد في كل مكان.',
+        coordinate: 'الإحداثيات',
+        place: 'المكان',
+        whatDoYouNotice: 'ماذا تلاحظ هناك؟',
+        exampleMap: 'خريطة المثال',
+        yourMapGrid: 'شبكة الخريطة الخاصة بك',
+        useSampleToCheck: 'استخدم هذه العينة للتحقق من الإحداثيات والمعالم.',
+        drawLandmarks: 'ارسم المعالم، أنشئ وسيلة إيضاحية، وضع علامة على كل إحداثي.',
+      },
+      geographyCulture: {
+        instructions: 'استكشف التقاليد من جميع أنحاء العالم. ابحث وسجل طعاماً واحتفالاً وحقيقة مثيرة للاهتمام لكل منطقة.',
+        region: 'المنطقة',
+        food: 'الطعام',
+        celebration: 'الاحتفال',
+        interestingFact: 'حقيقة مثيرة للاهتمام',
+      },
+      geographyHistory: {
+        instructions: 'أنشئ جدولاً زمنياً حول {{theme}}. ضع الأحداث بالترتيب واشرح تأثير كل منها.',
+        impact: 'التأثير:',
+      },
+      grammarParts: {
+        instructions: 'ضع علامة على كل كلمة مسطرة كاسم أو فعل أو صفة أو ظرف. أضف كلمة أخرى لتوسيع الجملة.',
+        label: 'العلامة:',
+        extraWord: 'كلمة إضافية:',
+      },
+      grammarTenses: {
+        instructions: 'صرف كل فعل في الماضي والحاضر والمستقبل. ثم استخدم الفعل في جملة.',
+        verb: 'الفعل',
+        past: 'الماضي',
+        present: 'الحاضر',
+        future: 'المستقبل',
+        writeSentence: 'اكتب جملة واحدة باستخدام كل زمن أسفل الجدول.',
+      },
+      grammarAntonyms: {
+        instructions: 'طابق كل كلمة مع عكسها واستخدم الزوج في جملة.',
+        word: 'الكلمة',
+        antonym: 'العكس',
+        sentence: 'الجملة',
+      },
+      artDesign: {
+        instructions: 'لون كل نمط! استخدم ألوانك المفضلة واجعله جميلاً.',
+        colorInsideShape: 'لون داخل الشكل!',
+        patterns: {
+          geometricStar: { title: 'نجمة هندسية', description: 'لون نمط النجمة بألوانك المفضلة!' },
+          flowerPattern: { title: 'نمط الزهرة', description: 'لون بتلات الزهرة: وردي وأصفر وبنفسجي' },
+          rainbowPattern: { title: 'نمط قوس قزح', description: 'لون كل شريط: أحمر وبرتقالي وأصفر وأخضر وأزرق وبنفسجي' },
+          heartDesign: { title: 'تصميم القلب', description: 'لون القلوب باللون الأحمر والوردي' },
+          circleMandala: { title: 'ماندالا دائرية', description: 'لون الدوائر بألوان مختلفة' },
+          leafPattern: { title: 'نمط الورقة', description: 'لون الأوراق باللون الأخضر' },
+        },
+      },
+      artColorwheel: {
+        instructions: 'لون كل عنصر باللون الصحيح. طابق اسم اللون مع الكائن.',
+        item: 'العنصر',
+        color: 'اللون',
+        colorIt: 'لونه!',
+      },
+      artSketch: {
+        instructions: 'ارسم كل صورة! خذ وقتك واستخدم خيالك.',
+        drawHere: 'ارسم هنا!',
+        prompts: {
+          beautifulFlower: { prompt: 'ارسم زهرة جميلة', hint: 'أضف البتلات والساق!' },
+          treeWithLeaves: { prompt: 'ارسم شجرة بأوراق', hint: 'اجعله كبيراً وأخضر!' },
+          geometricShapes: { prompt: 'ارسم أشكالاً هندسية', hint: 'ارسم دوائر ومربعات ومثلثات!' },
+          rainbow: { prompt: 'ارسم قوس قزح', hint: 'استخدم كل الألوان!' },
+          pattern: { prompt: 'ارسم نمطاً', hint: 'أنشئ تصميمك الخاص!' },
+          gardenScene: { prompt: 'ارسم مشهد حديقة', hint: 'أضف الزهور والنباتات!' },
+        },
+      },
+      earlyPhonics: {
+        instructions: 'قل الصوت، تتبع الحرف، ثم ارسم صورة تبدأ به.',
+        saySound: 'قل الصوت:',
+        traceLetter: 'تتبع الحرف:',
+        drawPicture: 'ارسم صورة:',
+        words: 'الكلمات:',
+      },
+      earlyPatterns: {
+        instructions: 'تابع كل نمط وأنشئ نمطك الخاص باستخدام الأشكال أو الألوان أو الملصقات.',
+        pattern: 'النمط',
+        tryBuilding: 'جرب بناء نمطك الخاص باستخدام:',
+      },
+      earlyShapes: {
+        instructions: 'حدد كل شكل، لونه، ثم صنف الأشكال حسب النوع واللون.',
+        shape: 'الشكل',
+        color: 'اللون:',
+        drawMore: 'ارسم 2 {{shape}}s أخرى أدناه:',
+        sortingActivity: 'نشاط التصنيف',
+        sortByShape: 'صنف حسب الشكل:',
+        sortByColor: 'صنف حسب اللون:',
+        sortBySize: 'صنف حسب الحجم:',
+      },
+      earlyLetters: {
+        instructions: 'تتبع كل حرف، ثم اكتبه 3 مرات. ارسم صورة تبدأ بهذا الحرف.',
+        trace: 'تتبع',
+        write: 'اكتب',
+        draw: 'ارسم',
+      },
+      earlyNumbers: {
+        trace: 'تتبع',
+        write: 'اكتب',
+        draw: 'ارسم',
+        numberWord: 'كلمة الرقم:',
+      },
+      logicPrek: {
+        instructions: 'أكمل الأنماط البسيطة وصنف الكائنات حسب اللون أو الحجم أو النوع.',
+        pattern: 'النمط',
+      },
+      selPrek: {
+        instructions: 'حدد وعبّر عن المشاعر من خلال الصور والكلمات البسيطة والأنشطة.',
+        feeling: 'المشاعر:',
+        color: 'اللون:',
+        drawTimeFelt: 'ارسم وقتاً شعرت فيه بـ {{feeling}}',
+        howIFeelToday: 'كيف أشعر اليوم',
+        feelings: {
+          happy: 'سعيد',
+          sad: 'حزين',
+          angry: 'غاضب',
+          excited: 'متحمس',
+        },
+      },
+      mathRhythm: {
+        instructions: 'أكمل كل إيقاع عد بالقفز. اكتب الأرقام المفقودة في الفراغات.',
+      },
+      logicRiddles: {
+        instructions: 'حل كل لغز. اكتب تخمينك، ثم كشف الإجابة.',
+        answer: 'الإجابة:',
+      },
+      logicDeduction: {
+        instructions: 'استخدم الأدلة لتحديد من استعار كل عنصر وأين تم العثور عليه.',
+      },
+      cognitiveMemory: {
+        instructions: 'حاول تذكر التسلسلات الثلاثة بالترتيب. اكتبها هنا:',
+      },
+      cognitiveAttention: {
+        instructions: 'تدرب على التركيز على انتباهك مع تمارين المسح البصري والبحث عن الاختلافات.',
+        findAndCircle: 'ابحث وضع دائرة حول جميع الأشكال <span className="font-bold">{{items}}</span> في الشبكة أدناه:',
+        countHowMany: 'عد كم عدد الأشكال {{items}} التي وجدتها: _______',
+        compareImages: 'قارن الصورتين وابحث عن الاختلافات:',
+      },
+      cognitiveExecutive: {
+        instructions: 'تدرب على التخطيط والتنظيم وإكمال المهام. هذا يبني مهارات الوظيفة التنفيذية!',
+        taskPlanning: 'تخطيط المهام',
+        planTasksToday: 'خطط مهامك لليوم. قسم كل مهمة إلى خطوات:',
+      },
+      cognitiveVisual: {
+        visualPatternMatching: 'مطابقة الأنماط البصرية',
+        comparePatterns: 'قارن النمطين. ضع دائرة حول ما يختلف:',
+        match: 'مطابقة:',
+        drawItemPosition: 'ارسم كل عنصر في الموضع الصحيح:',
+        drawItemText: 'ارسم {{item}} {{text}} الخط:',
+        pattern: 'النمط {{number}}:',
+        original: 'الأصلي:',
+        whatsDifferent: 'ما المختلف؟ الموضع: _______ العنصر: _______',
+        spatialReasoning: 'الاستدلال المكاني',
+        above: 'فوق',
+        below: 'تحت',
+        toTheLeftOf: 'على يسار',
+        toTheRightOf: 'على يمين',
+      },
+      readingFluency: {
+        instructions: 'مارس القراءة بالتعبير والدقة والسرعة المناسبة. اقرأ كل نص ثلاث مرات.',
+        passage: 'النص {{number}}',
+        read: 'اقرأ {{number}}:',
+        notes: 'ملاحظات:',
+      },
+      cognitiveFlexibility: {
+        instructions: 'أكمل كل مهمة، ثم انتقل إلى القاعدة الجديدة:',
+        perspectiveTakingPractice: 'ممارسة أخذ المنظور',
+        thinkAboutSituation: 'فكر في كل موقف من وجهات نظر مختلفة:',
+        taskSwitchingChallenge: 'تحدي تبديل المهام',
+        completeEachTask: 'أكمل كل مهمة، ثم انتقل إلى القاعدة الجديدة:',
+      },
+      cognitiveProcessing: {
+        instructions: 'ضع دائرة حول جميع ★ (النجوم) بأسرع ما يمكن:',
+        quickSymbolRecognition: 'التعرف السريع على الرموز',
+        circleAllStars: 'ضع دائرة حول جميع ★ (النجوم) بأسرع ما يمكن:',
+      },
+      selConflict: {
+        instructions: 'تعلم استراتيجيات حل النزاعات بسلام. فكر في كيفية التواصل الفعال.',
+      },
+      selRegulation: {
+        instructions: 'تدرب على استراتيجيات التنظيم الذاتي. هذه التقنيات تساعدك على إدارة المشاعر الكبيرة واتخاذ خيارات مدروسة.',
+      },
+      selKindness: {
+        instructions: 'أكمل أعمال لطف هذا الأسبوع! تتبع لطفك وتأمل في كيفية تأثيره على نفسك والآخرين.',
+      },
+      selGrowthMindset: {
+        instructions: 'حوّل أفكار العقلية الثابتة إلى أفكار عقلية النمو! تعلم احتضان التحديات والتعلم من الأخطاء.',
+      },
+      selStress: {
+        instructions: 'حدد محفزات التوتر ومارس استراتيجيات مواجهة صحية. تعلم إدارة القلق والتوتر بفعالية.',
+      },
+      selCharacter: {
+        instructions: 'استكشف سمات الشخصية والقيم المهمة. فكر في كيفية مساعدة هذه السمات لك والآخرين.',
+        traits: {
+          honesty: { name: 'الصدق', description: 'قول الحقيقة حتى عندما يكون الأمر صعباً' },
+          respect: { name: 'الاحترام', description: 'معاملة الآخرين بلطف واعتبار' },
+          responsibility: { name: 'المسؤولية', description: 'فعل ما من المفترض أن تفعله' },
+          integrity: { name: 'النزاهة', description: 'فعل الصواب حتى عندما لا أحد يراقب' },
+          courage: { name: 'الشجاعة', description: 'مواجهة المخاوف والوقوف لما هو صحيح' },
+          compassion: { name: 'الرحمة', description: 'الاهتمام بالآخرين ومشاعرهم' },
+        },
+      },
+      mathShapes: {
+        instructions: 'ارسم واحسب كل شكل. ثم صنفه كـ "مسطح" أو "مجسم" وسجل عدد الأضلاع.',
+        shape: 'الشكل',
+        color: 'اللون',
+        howMany: 'كم عدد؟',
+        flatOrSolid: 'مسطح أم مجسم؟',
+        numberOfSides: 'عدد الأضلاع',
+      },
+      mathMoney: {
+        instructions: 'استخدم العملات المعدنية للعد حتى المجموع. ارسم العملات التي ستستخدمها وسجل القيمة.',
+        costs: '{{item}} يكلف ${{amount}}. ادفع باستخدام {{coin}}. ارسم عملاتك أدناه واكتب المجموع.',
+        total: 'المجموع:',
+        change: 'الباقي:',
+      },
+      mathFractions: {
+        instructions: 'قارن كل زوج من الكسور. ظلل نماذج الأشرطة لمساعدتك في اتخاذ القرار، ثم اكتب < أو > أو =.',
+        shade: 'ظلل {{num}} من {{den}} أجزاء متساوية.',
+      },
+      mathMeasurement: {
+        instructions: 'حول كل قياس. أظهر عملك في المساحة الم provided.',
+        given: 'المعطى',
+        convertTo: 'حول إلى',
+        workSpace: 'مساحة العمل',
+      },
+      readingAdventure: {
+        story: '{{hero}} و{{partner}} يصلان إلى {{setting}}. يجب عليهما {{quest}} قبل غروب القمر. في الطريق يلتقيان بمرشد يتحدث فقط بقوافي. ما الأدلة التي يجمعانها؟ كيف يعملان معاً؟',
+        comprehensionChecks: 'فحوصات الفهم',
+        whatProblem: 'ما المشكلة التي يحتاج {{hero}} و{{partner}} إلى حلها؟',
+        describeClue: 'صف دليلاً واحداً من المرشد الذي يتحدث بقوافي.',
+        howSetting: 'كيف يساعد المشهد أو يتحدى الشخصيات؟',
+        creativeExtension: 'امتداد إبداعي',
+        sketchScene: 'ارسم مشهداً واحداً من المغامرة وضع علامة على التفاصيل المهمة.',
+      },
+      earlyFoundations: {
+        instructions: 'راجع المهارات الأساسية: حدد الحروف والأرقام والأشكال. مثالي للمعالجة أو المراجعة.',
+        review: 'مراجعة:',
+        identify: 'تحديد:',
+        practiceWriting: 'ممارسة الكتابة',
+        writeName: 'اكتب اسمك:',
+        countTo10: 'عد حتى 10:',
+      },
+      earlyBasics: {
+        instructions: 'مراجعة المهارات الأساسية للتعلم المبكر. تدرب على أصوات الحروف والعد والأنماط الأساسية.',
+      },
+      readingPrek: {
+        instructions: 'انظر إلى الصور وأجب على أسئلة نعم/لا حول القصة.',
+        yesNo: 'نعم / لا',
+        storyTitles: {
+          redCar: 'السيارة الحمراء',
+          sunnyDay: 'اليوم المشمس',
+          bigTree: 'الشجرة الكبيرة',
+        },
+        questions: {
+          seeCar: 'هل ترى سيارة؟',
+          carOnRoad: 'هل السيارة على الطريق؟',
+          seeSun: 'هل ترى الشمس؟',
+          thereFlower: 'هل هناك زهرة؟',
+          treeBig: 'هل الشجرة كبيرة؟',
+          seeHouse: 'هل ترى منزلاً؟',
+        },
+        objectNames: {
+          sun: 'الشمس',
+          flower: 'زهرة',
+          ball: 'كرة',
+          tree: 'شجرة',
+          house: 'منزل',
+          car: 'سيارة',
+          road: 'طريق',
+        },
+      },
+      writingPrek: {
+        instructions: 'ارسم صورة وضع عليها تسمية بالكلمة. مثالي للكتّاب المبتدئين.',
+        word: 'الكلمة:',
+        label: 'التسمية:',
+        drawPrompts: {
+          cat: 'ارسم قطة',
+          dog: 'ارسم كلباً',
+          sun: 'ارسم الشمس',
+          car: 'ارسم سيارة',
+          tree: 'ارسم شجرة',
+          flower: 'ارسم زهرة',
+        },
+      },
+      readingSightwords: {
+        instructions: 'تدرب على قراءة وكتابة كلمات البصر الشائعة مع أنشطة ممتعة.',
+        writeIt3Times: 'اكتبها 3 مرات:',
+        useInSentences: 'استخدم كلمات البصر في الجمل:',
+        writeSentenceWith: 'اكتب جملة مع "{{word}}":',
+        words: ['في', 'من', 'إلى', 'على', 'هذا', 'ذلك', 'هذه', 'كان', 'كانت', 'يكون', 'كانوا', 'له', 'لها', 'لهم', 'لي', 'لك', 'لكم', 'مع', 'بدون', 'أو', 'لكن', 'إذا', 'عندما', 'حيث', 'كيف', 'ماذا', 'من', 'لماذا', 'كل', 'بعض', 'كثير', 'قليل', 'أول', 'آخر', 'جديد', 'قديم'],
+      },
+      writingTrace: {
+        practiceTracing: 'تدرب على تتبع الأحرف الصغيرة بانتظام. اتبع الخطوط المنقطة، ثم اكتب كل حرف 3 مرات بنفسك.',
+        letter: 'الحرف:',
+        traceTheLetter: 'تتبع الحرف:',
+        traceHere: 'تتبع هنا',
+        write3Times: 'اكتب 3 مرات:',
+        practiceAllLetters: 'تدرب على جميع الأحرف',
+        writeEntireAlphabet: 'اكتب الأبجدية الصغيرة بالكامل:',
+        drawPicture: 'ارسم الصورة',
+        writeSentence: 'اكتب جملة:',
+      },
+      writingLowercase: {
+        practiceTracing: 'تدرب على تتبع الأحرف الصغيرة بانتظام. اتبع الخطوط المنقطة، ثم اكتب كل حرف 3 مرات بنفسك.',
+        letter: 'الحرف:',
+        traceTheLetter: 'تتبع الحرف:',
+        traceHere: 'تتبع هنا',
+        write3Times: 'اكتب 3 مرات:',
+        practiceAllLetters: 'تدرب على جميع الأحرف',
+        writeEntireAlphabet: 'اكتب الأبجدية الصغيرة بالكامل:',
+      },
+      writingNarrative: {
+        instructions: 'اكتب قصة قصيرة لها بداية ووسط ونهاية. استخدم قالب تخطيط القصة أدناه.',
+        storyStarters: 'بدايات القصص (اختر واحدة):',
+      },
+      writingInformative: {
+        instructions: 'اكتب فقرة إعلامية حول الموضوع أدناه. أدرج الحقائق والتفاصيل والتفسيرات.',
+        topic: 'الموضوع:',
+      },
+      writingPictures: {
+        instructions: 'انظر إلى كل مطالبة صورة واكتب جمل بسيطة أو قصة قصيرة عما تراه.',
+        drawPicture: 'ارسم الصورة',
+        writeSentence: 'اكتب جملة:',
+      },
+      writingEssay: {
+        writeStructuredEssay: 'اكتب مقالاً منظمًا يرد على المطالبة أدناه.',
+        prompt: 'المطالبة:',
+      },
+      readingResearch: {
+        researchTopic: 'موضوع البحث:',
+      },
+      readingVocab: {
+        topic: 'الموضوع:',
+      },
+      algebra: {
+        solveEachEquation: 'حل كل معادلة، قيّم كل تعبير، أو بسّط كما هو موضح.',
+        solve: 'حل:',
+      },
+      wordProblems: {
+        solveEachMultiStep: 'حل كل مسألة كلمات متعددة الخطوات. أظهر عملك.',
+      },
+      readingLiterary: {
+        readAndAnalyze: 'اقرأ المقطع وحلل العناصر الأدبية أدناه. قدم أدلة من النص.',
+      },
+      grammarAdvanced: {
+        identifyClauses: 'حدد الجمل والعبارات وبنيات الجمل المتقدمة في كل جملة.',
+      },
+      grammarRhyming: {
+        instructions: 'حدد وطابق الكلمات المقفاة من خلال أنشطة ممتعة.',
+        word: 'الكلمة:',
+        rhymingWords: 'الكلمات المقفاة:',
+        writeAnotherWord: 'اكتب كلمة أخرى تقفا: ________',
+      },
+      grammarPrek: {
+        instructions: 'طابق الكلمات البسيطة مع الصور وحدد أنواع الكلمات الأساسية.',
+        word: 'الكلمة:',
+        match: 'مطابقة:',
+        wordPractice: 'ممارسة الكلمات',
+        circleWordMatches: 'ضع دائرة حول الكلمة التي تطابق الصورة:',
+      },
+      answerKey: {
+        acceptYesNo: 'اقبل إجابات نعم/لا بناءً على أدلة الصور. يجب على الطلاب النظر إلى الصور للإجابة.',
+        studentsShould: 'يجب على الطلاب',
+        drawPicture: 'رسم صورة',
+        lookAtPictures: 'النظر إلى الصور للإجابة',
+        sightWordsAnswer: 'كتابة كلمات البصر بشكل صحيح 3 مرات لكل كلمة واستخدامها في الجمل. تحقق من دقة الإملاء وبناء الجملة المناسب.',
+        grammarRhymingAnswer: 'يجب على الطلاب تحديد ومطابقة الكلمات المقفاة بشكل صحيح. تحقق من فهم عائلات الكلمات والوعي الصوتي.',
+        visualProcessingAnswer: 'تحديد الاختلافات في الأنماط وإظهار الاستدلال المكاني من خلال رسم العناصر في المواضع الصحيحة.',
+        visualProcessingNote: 'ملاحظة: الاختلافات في الأنماط هي: النمط 1 - الموضع 4 (أخضر مقابل أزرق)، النمط 2 - الموضع 3 (مثلث مقابل دائرة)، النمط 3 - الموضع 4 (كبير مقابل صغير). يجب أن تظهر رسومات الاستدلال المكاني العناصر في المواضع النسبية الصحيحة.',
+        note: 'ملاحظة:',
+        answer: 'الإجابة:',
+        task: 'المهمة {{number}}:',
+        problem: 'المسألة {{number}}',
+        pattern: 'النمط {{number}}:',
+        answersWillVary: 'ستختلف الإجابات.',
+      },
+      sciencePrek: {
+        instructions: 'أنشطة بسيطة لمراقبة الطبيعة مع الصور والأسئلة الأساسية.',
+        drawOrPaste: 'ارسم أو الصق صورة',
+        topics: {
+          plants: 'النباتات',
+          animals: 'الحيوانات',
+          weather: 'الطقس',
+          seasons: 'الفصول',
+        },
+        questions: {
+          whatPlantsNeed: 'ماذا تحتاج النباتات؟',
+          whereAnimalsLive: 'أين تعيش الحيوانات؟',
+          whatWeatherLike: 'كيف الطقس؟',
+          whatSeason: 'ما الفصل؟',
+        },
+      },
+      scienceSpace: {
+        instructions: 'تعلم عن الكواكب والنجوم وظواهر الفضاء مع الأنشطة التفاعلية.',
+        fact: 'حقيقة:',
+        distanceFromSun: 'المسافة من الشمس:',
+        spaceQuestions: 'أسئلة الفضاء',
+        whatIsStar: 'ما هي النجوم؟',
+        nameOnePlanet: 'اذكر كوكباً واحداً:',
+      },
+      geographyPrek: {
+        instructions: 'تعلم عن الأماكن في المجتمع والمنزل والمدرسة مع خرائط وصور بسيطة.',
+        drawSimpleMap: 'ارسم خريطة بسيطة',
+        placeTypes: {
+          whereILive: 'حيث أعيش',
+          whereILearn: 'حيث أتعلم',
+          whereIPlay: 'حيث ألعب',
+        },
       },
     },
   }
@@ -188,6 +3467,210 @@ const ensureInteractiveWorksheetKeys = () => {
       }
       if (keys.reflection) {
         worksheets.reflection = keys.reflection
+      }
+      if (keys.answerKeyAndNotes) {
+        worksheets.answerKeyAndNotes = keys.answerKeyAndNotes
+      }
+      if (keys.countingTeachingNote) {
+        worksheets.countingTeachingNote = keys.countingTeachingNote
+      }
+      if (keys.placeValue) {
+        worksheets.placeValue = keys.placeValue
+      }
+      if (keys.circleThe) {
+        worksheets.circleThe = keys.circleThe
+      }
+      if (keys.beginningSounds) {
+        worksheets.beginningSounds = keys.beginningSounds
+      }
+      if (keys.says) {
+        worksheets.says = keys.says
+      }
+      if (keys.circleWordsStart) {
+        worksheets.circleWordsStart = keys.circleWordsStart
+      }
+      if (keys.alphabetAnswerKey) {
+        worksheets.alphabetAnswerKey = keys.alphabetAnswerKey
+      }
+      if (keys.readingDetective) {
+        worksheets.readingDetective = keys.readingDetective
+      }
+      if (keys.storyMap) {
+        worksheets.storyMap = keys.storyMap
+      }
+      if (keys.vocab) {
+        worksheets.vocab = keys.vocab
+      }
+      if (keys.summary) {
+        worksheets.summary = keys.summary
+      }
+      if (keys.compare) {
+        worksheets.compare = keys.compare
+      }
+      if (keys.writingPrompts) {
+        worksheets.writingPrompts = keys.writingPrompts
+      }
+      if (keys.writingSentences) {
+        worksheets.writingSentences = keys.writingSentences
+      }
+      if (keys.writingPoetry) {
+        worksheets.writingPoetry = keys.writingPoetry
+      }
+      if (keys.writingOpinion) {
+        worksheets.writingOpinion = keys.writingOpinion
+      }
+      if (keys.scienceObservation) {
+        worksheets.scienceObservation = keys.scienceObservation
+      }
+      if (keys.scienceLifecycle) {
+        worksheets.scienceLifecycle = keys.scienceLifecycle
+      }
+      if (keys.scienceStates) {
+        worksheets.scienceStates = keys.scienceStates
+      }
+      if (keys.scienceWeather) {
+        worksheets.scienceWeather = keys.scienceWeather
+      }
+      if (keys.geographyMap) {
+        worksheets.geographyMap = keys.geographyMap
+      }
+      if (keys.geographyCulture) {
+        worksheets.geographyCulture = keys.geographyCulture
+      }
+      if (keys.geographyHistory) {
+        worksheets.geographyHistory = keys.geographyHistory
+      }
+      if (keys.grammarParts) {
+        worksheets.grammarParts = keys.grammarParts
+      }
+      if (keys.grammarTenses) {
+        worksheets.grammarTenses = keys.grammarTenses
+      }
+      if (keys.grammarAntonyms) {
+        worksheets.grammarAntonyms = keys.grammarAntonyms
+      }
+      if (keys.artDesign) {
+        worksheets.artDesign = keys.artDesign
+      }
+      if (keys.artColorwheel) {
+        worksheets.artColorwheel = keys.artColorwheel
+      }
+      if (keys.artSketch) {
+        worksheets.artSketch = keys.artSketch
+      }
+      if (keys.earlyPhonics) {
+        worksheets.earlyPhonics = keys.earlyPhonics
+      }
+      if (keys.earlyPatterns) {
+        worksheets.earlyPatterns = keys.earlyPatterns
+      }
+      if (keys.earlyShapes) {
+        worksheets.earlyShapes = keys.earlyShapes
+      }
+      if (keys.earlyLetters) {
+        worksheets.earlyLetters = keys.earlyLetters
+      }
+      if (keys.earlyNumbers) {
+        worksheets.earlyNumbers = keys.earlyNumbers
+      }
+      if (keys.mathShapes) {
+        worksheets.mathShapes = keys.mathShapes
+      }
+      if (keys.mathMoney) {
+        worksheets.mathMoney = keys.mathMoney
+      }
+      if (keys.mathFractions) {
+        worksheets.mathFractions = keys.mathFractions
+      }
+      if (keys.mathMeasurement) {
+        worksheets.mathMeasurement = keys.mathMeasurement
+      }
+      if (keys.readingAdventure) {
+        worksheets.readingAdventure = keys.readingAdventure
+      }
+      if (keys.earlyFoundations) {
+        worksheets.earlyFoundations = keys.earlyFoundations
+      }
+      if (keys.earlyBasics) {
+        worksheets.earlyBasics = keys.earlyBasics
+      }
+      if (keys.readingPrek) {
+        worksheets.readingPrek = keys.readingPrek
+      }
+      if (keys.writingPrek) {
+        worksheets.writingPrek = keys.writingPrek
+      }
+      if (keys.answerKey) {
+        worksheets.answerKey = keys.answerKey
+      }
+      if (keys.sciencePrek) {
+        worksheets.sciencePrek = keys.sciencePrek
+      }
+      if (keys.scienceSpace) {
+        worksheets.scienceSpace = keys.scienceSpace
+      }
+      if (keys.geographyPrek) {
+        worksheets.geographyPrek = keys.geographyPrek
+      }
+      if (keys.readingSightwords) {
+        worksheets.readingSightwords = keys.readingSightwords
+      }
+      if (keys.grammarRhyming) {
+        worksheets.grammarRhyming = keys.grammarRhyming
+      }
+      if (keys.grammarPrek) {
+        worksheets.grammarPrek = keys.grammarPrek
+      }
+      if (keys.logicPrek) {
+        worksheets.logicPrek = keys.logicPrek
+      }
+      if (keys.selPrek) {
+        worksheets.selPrek = keys.selPrek
+      }
+      if (keys.mathRhythm) {
+        worksheets.mathRhythm = keys.mathRhythm
+      }
+      if (keys.logicRiddles) {
+        worksheets.logicRiddles = keys.logicRiddles
+      }
+      if (keys.logicDeduction) {
+        worksheets.logicDeduction = keys.logicDeduction
+      }
+      if (keys.cognitiveMemory) {
+        worksheets.cognitiveMemory = keys.cognitiveMemory
+      }
+      if (keys.cognitiveAttention) {
+        worksheets.cognitiveAttention = keys.cognitiveAttention
+      }
+      if (keys.cognitiveExecutive) {
+        worksheets.cognitiveExecutive = keys.cognitiveExecutive
+      }
+      if (keys.cognitiveVisual) {
+        worksheets.cognitiveVisual = keys.cognitiveVisual
+      }
+      if (keys.cognitiveFlexibility) {
+        worksheets.cognitiveFlexibility = keys.cognitiveFlexibility
+      }
+      if (keys.cognitiveProcessing) {
+        worksheets.cognitiveProcessing = keys.cognitiveProcessing
+      }
+      if (keys.selConflict) {
+        worksheets.selConflict = keys.selConflict
+      }
+      if (keys.selRegulation) {
+        worksheets.selRegulation = keys.selRegulation
+      }
+      if (keys.selKindness) {
+        worksheets.selKindness = keys.selKindness
+      }
+      if (keys.selGrowthMindset) {
+        worksheets.selGrowthMindset = keys.selGrowthMindset
+      }
+      if (keys.selStress) {
+        worksheets.selStress = keys.selStress
+      }
+      if (keys.selCharacter) {
+        worksheets.selCharacter = keys.selCharacter
       }
     }
   }
@@ -238,6 +3721,7 @@ const ensurePlaceValueHtoKeys = () => {
           tens: 'Tens:',
           ones: 'Ones:',
           expanded: 'Expanded:',
+          more: '+{count} more',
         },
         challenge: {
           title: '🌟 Challenge Yourself (Optional):',
@@ -262,13 +3746,6 @@ const ensurePlaceValueHtoKeys = () => {
           tensLabel: 'Tens',
           onesLabel: 'Ones',
           expandedLabel: 'Expanded',
-        },
-        labels: {
-          number: 'Number:',
-          tens: 'Tens:',
-          ones: 'Ones:',
-          expanded: 'Expanded:',
-          more: '+{count} more',
         },
       },
     },
@@ -313,6 +3790,7 @@ const ensurePlaceValueHtoKeys = () => {
           tens: 'Decenas:',
           ones: 'Unidades:',
           expanded: 'Expandida:',
+          more: '+{count} más',
         },
         challenge: {
           title: '🌟 Desafíate (Opcional):',
@@ -337,13 +3815,6 @@ const ensurePlaceValueHtoKeys = () => {
           tensLabel: 'Decenas',
           onesLabel: 'Unidades',
           expandedLabel: 'Expandida',
-        },
-        labels: {
-          number: 'Número:',
-          tens: 'Decenas:',
-          ones: 'Unidades:',
-          expanded: 'Expandida:',
-          more: '+{count} más',
         },
       },
     },
@@ -388,6 +3859,7 @@ const ensurePlaceValueHtoKeys = () => {
           tens: 'العشرات:',
           ones: 'الآحاد:',
           expanded: 'الموسعة:',
+          more: '+{count} أكثر',
         },
         challenge: {
           title: '🌟 تحدى نفسك (اختياري):',
@@ -412,13 +3884,6 @@ const ensurePlaceValueHtoKeys = () => {
           tensLabel: 'العشرات',
           onesLabel: 'الآحاد',
           expandedLabel: 'الموسعة',
-        },
-        labels: {
-          number: 'الرقم:',
-          tens: 'العشرات:',
-          ones: 'الآحاد:',
-          expanded: 'الموسعة:',
-          more: '+{count} أكثر',
         },
       },
     },
@@ -1411,6 +4876,176 @@ const ensureAdditionSubtraction010Keys = () => {
         worksheets['addition-subtraction-0-10'] = keys['addition-subtraction-0-10']
       }
     }
+    
+    // Merge worksheetDocs into worksheets if it exists
+    if (langTranslations && langTranslations.worksheetDocs && langTranslations.worksheets) {
+      Object.assign(langTranslations.worksheets, langTranslations.worksheetDocs)
+    }
+  }
+}
+
+// Ensure number-id-1-10 worksheet keys are present
+const ensureNumberId110Keys = () => {
+  // Define the keys directly to prevent tree-shaking - hardcode the full structure
+  const numberIdKeys = {
+    en: {
+      'number-id-1-10': {
+        title: 'Number Identification 1–10',
+        description: 'Find and circle all the number {{number}}s.',
+        instruction: 'Find and circle all the {{number}}s',
+        objective1: 'Identify and recognize numbers 1-10',
+        objective2: 'Find specific numbers in a group',
+        objective3: 'Develop visual discrimination skills',
+        objective4: 'Build number recognition and attention to detail',
+        tip1: 'Encourage students to look carefully at each number',
+        tip2: 'Help students recognize the shape of the target number',
+        tip3: 'Practice saying the number name as they find it',
+        tip4: 'Extension: Try finding numbers in different fonts or sizes',
+        example: {
+          title: '📚 Example - Let\'s solve this together:',
+          problem: 'Problem:',
+          problemText: 'Find and circle all the {{number}}s',
+          step1: 'Step 1:',
+          step1Text: 'Look at each number carefully',
+          step2: 'Step 2:',
+          step2Text: 'Find numbers that look like the target number',
+          step3: 'Step 3:',
+          step3Text: 'Circle each matching number you find',
+          answer: 'Answer:',
+          answerText: 'Circle all the matching numbers',
+          tip: '💡 Tip: Look carefully at each number and match it to the target number!',
+        },
+        challenge: {
+          title: '🌟 Challenge Yourself (Optional):',
+          '1': 'Can you find numbers around your house? Look for numbers on clocks, calendars, or books',
+          '2': 'Write your own number grid and have someone find a specific number',
+          '3': 'Try finding numbers in different styles or fonts',
+        },
+        selfCheck: {
+          title: '📊 How did you do?',
+          canIdentify: 'I can identify numbers 1-10',
+          found: 'I found all the {{number}}s',
+          circled: 'I circled {{count}} {{number}}s correctly',
+          score: 'My score:',
+          hardest: 'What was hardest?',
+        },
+        answer: {
+          text: 'Circle all {{number}}s.',
+          found: 'Found: {{count}} instances.',
+          remember: '💡 Remember: Look carefully at each number and match it to the target number {{number}}. Circle all instances you find!',
+        },
+      },
+    },
+    es: {
+      'number-id-1-10': {
+        title: 'Identificación de Números 1–10',
+        description: 'Encuentra y encierra en un círculo todos los números {{number}}.',
+        instruction: 'Encuentra y encierra en un círculo todos los {{number}}',
+        objective1: 'Identificar y reconocer números 1-10',
+        objective2: 'Encontrar números específicos en un grupo',
+        objective3: 'Desarrollar habilidades de discriminación visual',
+        objective4: 'Desarrollar reconocimiento de números y atención al detalle',
+        tip1: 'Anima a los estudiantes a mirar cuidadosamente cada número',
+        tip2: 'Ayuda a los estudiantes a reconocer la forma del número objetivo',
+        tip3: 'Practica diciendo el nombre del número mientras lo encuentran',
+        tip4: 'Extensión: Intenta encontrar números en diferentes fuentes o tamaños',
+        example: {
+          title: '📚 Ejemplo - Resolvamos esto juntos:',
+          problem: 'Problema:',
+          problemText: 'Encuentra y encierra en un círculo todos los {{number}}',
+          step1: 'Paso 1:',
+          step1Text: 'Mira cuidadosamente cada número',
+          step2: 'Paso 2:',
+          step2Text: 'Encuentra números que se parezcan al número objetivo',
+          step3: 'Paso 3:',
+          step3Text: 'Encierra en un círculo cada número coincidente que encuentres',
+          answer: 'Respuesta:',
+          answerText: 'Encierra en un círculo todos los números coincidentes',
+          tip: '💡 Consejo: ¡Mira cuidadosamente cada número y compáralo con el número objetivo!',
+        },
+        challenge: {
+          title: '🌟 Desafíate (Opcional):',
+          '1': '¿Puedes encontrar números alrededor de tu casa? Busca números en relojes, calendarios o libros',
+          '2': 'Escribe tu propia cuadrícula de números y pídele a alguien que encuentre un número específico',
+          '3': 'Intenta encontrar números en diferentes estilos o fuentes',
+        },
+        selfCheck: {
+          title: '📊 ¿Cómo lo hiciste?',
+          canIdentify: 'Puedo identificar números 1-10',
+          found: 'Encontré todos los {{number}}',
+          circled: 'Encerré en un círculo {{count}} {{number}} correctamente',
+          score: 'Mi puntuación:',
+          hardest: '¿Qué fue lo más difícil?',
+        },
+        answer: {
+          text: 'Encierra en un círculo todos los {{number}}.',
+          found: 'Encontrados: {{count}} instancias.',
+          remember: '💡 Recuerda: ¡Mira cuidadosamente cada número y compáralo con el número objetivo {{number}}. Encierra en un círculo todas las instancias que encuentres!',
+        },
+      },
+    },
+    ar: {
+      'number-id-1-10': {
+        title: 'تحديد الأرقام ١–١٠',
+        description: 'ابحث وأحط دائرة حول جميع الأرقام {{number}}.',
+        instruction: 'ابحث وأحط دائرة حول جميع الأرقام {{number}}',
+        objective1: 'تحديد والتعرف على الأرقام ١-١٠',
+        objective2: 'العثور على أرقام محددة في مجموعة',
+        objective3: 'تطوير مهارات التمييز البصري',
+        objective4: 'بناء التعرف على الأرقام والانتباه للتفاصيل',
+        tip1: 'شجع الطلاب على النظر بعناية إلى كل رقم',
+        tip2: 'ساعد الطلاب على التعرف على شكل الرقم المستهدف',
+        tip3: 'تدرب على نطق اسم الرقم أثناء العثور عليه',
+        tip4: 'امتداد: جرب العثور على أرقام بخطوط أو أحجام مختلفة',
+        example: {
+          title: '📚 مثال - دعنا نحل هذا معاً:',
+          problem: 'المسألة:',
+          problemText: 'ابحث وأحط دائرة حول جميع الأرقام {{number}}',
+          step1: 'الخطوة ١:',
+          step1Text: 'انظر بعناية إلى كل رقم',
+          step2: 'الخطوة ٢:',
+          step2Text: 'ابحث عن أرقام تشبه الرقم المستهدف',
+          step3: 'الخطوة ٣:',
+          step3Text: 'أحط دائرة حول كل رقم مطابق تجده',
+          answer: 'الإجابة:',
+          answerText: 'أحط دائرة حول جميع الأرقام المطابقة',
+          tip: '💡 نصيحة: انظر بعناية إلى كل رقم وطابقه مع الرقم المستهدف!',
+        },
+        challenge: {
+          title: '🌟 تحدّ نفسك (اختياري):',
+          '1': 'هل يمكنك العثور على أرقام حول منزلك؟ ابحث عن أرقام على الساعات أو التقويمات أو الكتب',
+          '2': 'اكتب شبكة أرقام خاصة بك واطلب من شخص ما العثور على رقم محدد',
+          '3': 'جرب العثور على أرقام بخطوط أو أنماط مختلفة',
+        },
+        selfCheck: {
+          title: '📊 كيف كان أداؤك؟',
+          canIdentify: 'يمكنني تحديد الأرقام ١-١٠',
+          found: 'وجدت جميع الأرقام {{number}}',
+          circled: 'أحطت دائرة حول {{count}} رقم {{number}} بشكل صحيح',
+          score: 'نقاطي:',
+          hardest: 'ما كان الأصعب؟',
+        },
+        answer: {
+          text: 'أحط دائرة حول جميع الأرقام {{number}}.',
+          found: 'تم العثور على: {{count}} حالة.',
+          remember: '💡 تذكر: انظر بعناية إلى كل رقم وطابقه مع الرقم المستهدف {{number}}. أحط دائرة حول جميع الحالات التي تجدها!',
+        },
+      },
+    },
+  }
+
+  // Merge into translations object if keys are missing
+  for (const lang of ['en', 'es', 'ar'] as const) {
+    const langTranslations = (translations as any)[lang]
+    if (langTranslations && langTranslations.worksheets) {
+      const worksheets = langTranslations.worksheets
+      const keys = numberIdKeys[lang]
+      
+      // Always merge to ensure complete translations (even if key exists, it might be incomplete due to tree-shaking)
+      if (keys['number-id-1-10']) {
+        worksheets['number-id-1-10'] = keys['number-id-1-10']
+      }
+    }
   }
 }
 
@@ -1777,12 +5412,440 @@ const ensureTimesTableWorksheetKeys = () => {
 // Run the merge immediately
 ensureWorksheetKeys()
 
+// Ensure interactive content translations are merged (prevents tree-shaking)
+// Define translations directly here to ensure they're always available
+const interactiveContentTranslations = {
+  en: {
+    'interactive-logic-matching': {
+      title: 'Matching & Memory Games',
+      description: 'Match objects, pictures, and concepts. Practice memory and recognition skills.',
+      drawLineToMatch: 'Draw a line to match',
+      answerKey: 'Students should correctly match related items (e.g., apple-fruit, car-vehicle). Check for understanding of relationships and categorization.',
+    },
+    'interactive-sel-kindness': {
+      title: 'Kindness Challenge',
+      description: 'Complete daily acts of kindness and reflect on how kindness impacts yourself and others.',
+      kindnessChallenge: 'Kindness Challenge',
+      kindnessAct: 'Kindness Act',
+      whenIDidThis: 'When I did this...',
+      howOthersFeel: 'How did it make others feel?',
+      howIFeel: 'How did it make me feel?',
+      kindnessContagious: 'Kindness is contagious! When you\'re kind, others are more likely to be kind too.',
+      acts: {
+        helpWork: 'Help someone with their work',
+        sayKind: 'Say something kind to a classmate',
+        shareFriend: 'Share something with a friend',
+        helpClean: 'Help clean up without being asked',
+        thankYouNote: 'Write a thank-you note',
+        includeLonely: 'Include someone who looks lonely',
+        compliment: 'Give someone a compliment',
+        holdDoor: 'Hold the door for someone',
+      },
+      answerKey: 'Student responses may vary. Check for thoughtful reflection on kindness acts, understanding of how kindness affects others and self, and genuine engagement with kindness challenges.',
+    },
+    'interactive-sel-friendship': {
+      title: 'Friendship & Social Skills',
+      description: 'Learn about making friends, sharing, taking turns, and being kind to others.',
+      situation: 'Situation:',
+      whatCanYouDo: 'What can you do?',
+      waysToBeGoodFriend: 'Ways to Be a Good Friend',
+      shareAndTakeTurns: 'Share and take turns',
+      listenWhenOthersTalk: 'Listen when others talk',
+      beKindAndHelpful: 'Be kind and helpful',
+      includeEveryone: 'Include everyone',
+      scenarios: {
+        newStudent: 'A new student joins your class',
+        newStudentAction: 'introduce yourself',
+        friendSad: 'A friend is sad',
+        friendSadAction: 'ask how they feel',
+        someoneNeedsHelp: 'Someone needs help',
+        someoneNeedsHelpAction: 'offer to help',
+      },
+      answerKey: 'Student responses may vary. Check for understanding of friendship skills, empathy, kindness, and appropriate social responses to different situations.',
+    },
+  },
+  es: {
+    'interactive-logic-matching': {
+      title: 'Juegos de Emparejamiento y Memoria',
+      description: 'Empareja objetos, imágenes y conceptos. Practica habilidades de memoria y reconocimiento.',
+      drawLineToMatch: 'Dibuja una línea para emparejar',
+      answerKey: 'Los estudiantes deben emparejar correctamente elementos relacionados (p. ej., manzana-fruta, coche-vehículo). Verifica la comprensión de relaciones y categorización.',
+    },
+    'interactive-sel-kindness': {
+      title: 'Desafío de Bondad',
+      description: 'Completa actos diarios de bondad y reflexiona sobre cómo la bondad impacta a ti mismo y a otros.',
+      kindnessChallenge: 'Desafío de Bondad',
+      kindnessAct: 'Acto de Bondad',
+      whenIDidThis: 'Cuando hice esto...',
+      howOthersFeel: '¿Cómo hizo sentir a otros?',
+      howIFeel: '¿Cómo me hizo sentir?',
+      kindnessContagious: '¡La bondad es contagiosa! Cuando eres amable, otros tienen más probabilidades de ser amables también.',
+      acts: {
+        helpWork: 'Ayuda a alguien con su trabajo',
+        sayKind: 'Di algo amable a un compañero',
+        shareFriend: 'Comparte algo con un amigo',
+        helpClean: 'Ayuda a limpiar sin que te lo pidan',
+        thankYouNote: 'Escribe una nota de agradecimiento',
+        includeLonely: 'Incluye a alguien que se ve solo',
+        compliment: 'Dale un cumplido a alguien',
+        holdDoor: 'Sostén la puerta para alguien',
+      },
+      answerKey: 'Las respuestas de los estudiantes pueden variar. Verifica la reflexión cuidadosa sobre actos de bondad, comprensión de cómo la bondad afecta a otros y a uno mismo, y participación genuina con desafíos de bondad.',
+    },
+    'interactive-sel-friendship': {
+      title: 'Amistad y Habilidades Sociales',
+      description: 'Aprende sobre hacer amigos, compartir, tomar turnos y ser amable con otros.',
+      situation: 'Situación:',
+      whatCanYouDo: '¿Qué puedes hacer?',
+      waysToBeGoodFriend: 'Formas de Ser un Buen Amigo',
+      shareAndTakeTurns: 'Compartir y tomar turnos',
+      listenWhenOthersTalk: 'Escuchar cuando otros hablan',
+      beKindAndHelpful: 'Ser amable y servicial',
+      includeEveryone: 'Incluir a todos',
+      scenarios: {
+        newStudent: 'Un nuevo estudiante se une a tu clase',
+        newStudentAction: 'preséntate',
+        friendSad: 'Un amigo está triste',
+        friendSadAction: 'pregunta cómo se siente',
+        someoneNeedsHelp: 'Alguien necesita ayuda',
+        someoneNeedsHelpAction: 'ofrece ayuda',
+      },
+      answerKey: 'Las respuestas de los estudiantes pueden variar. Verifica la comprensión de habilidades de amistad, empatía, bondad y respuestas sociales apropiadas a diferentes situaciones.',
+    },
+  },
+  ar: {
+    'interactive-logic-matching': {
+      title: 'ألعاب المطابقة والذاكرة',
+      description: 'طابق الكائنات والصور والمفاهيم. تدرب على مهارات الذاكرة والتعرف.',
+      drawLineToMatch: 'ارسم خطاً للمطابقة',
+      answerKey: 'يجب على الطلاب مطابقة العناصر ذات الصلة بشكل صحيح (مثل: تفاحة-فاكهة، سيارة-مركبة). تحقق من فهم العلاقات والتصنيف.',
+    },
+    'interactive-sel-kindness': {
+      title: 'تحدي اللطف',
+      description: 'أكمل أعمال لطف يومية وتأمل في كيفية تأثير اللطف على نفسك والآخرين.',
+      kindnessChallenge: 'تحدي اللطف',
+      kindnessAct: 'عمل اللطف',
+      whenIDidThis: 'عندما فعلت هذا...',
+      howOthersFeel: 'كيف جعل الآخرين يشعرون؟',
+      howIFeel: 'كيف جعلني أشعر؟',
+      kindnessContagious: 'اللطف معدي! عندما تكون لطيفاً، من المرجح أن يكون الآخرون لطيفين أيضاً.',
+      acts: {
+        helpWork: 'ساعد شخصاً في عمله',
+        sayKind: 'قل شيئاً لطيفاً لزميل',
+        shareFriend: 'شارك شيئاً مع صديق',
+        helpClean: 'ساعد في التنظيف دون أن يُطلب منك',
+        thankYouNote: 'اكتب رسالة شكر',
+        includeLonely: 'شمل شخصاً يبدو وحيداً',
+        compliment: 'أعطِ شخصاً مجاملة',
+        holdDoor: 'أمسك الباب لشخص',
+      },
+      answerKey: 'قد تختلف إجابات الطلاب. تحقق من التأمل المدروس في أعمال اللطف وفهم كيفية تأثير اللطف على الآخرين والذات والمشاركة الصادقة في تحديات اللطف.',
+    },
+    'interactive-sel-friendship': {
+      title: 'الصداقة والمهارات الاجتماعية',
+      description: 'تعلم عن تكوين الصداقات والمشاركة وأخذ الأدوار واللطف مع الآخرين.',
+      situation: 'الموقف:',
+      whatCanYouDo: 'ماذا يمكنك أن تفعل؟',
+      waysToBeGoodFriend: 'طرق أن تكون صديقاً جيداً',
+      shareAndTakeTurns: 'شارك وخذ الأدوار',
+      listenWhenOthersTalk: 'استمع عندما يتحدث الآخرون',
+      beKindAndHelpful: 'كن لطيفاً ومفيداً',
+      includeEveryone: 'شمل الجميع',
+      scenarios: {
+        newStudent: 'طالب جديد ينضم إلى صفك',
+        newStudentAction: 'قدم نفسك',
+        friendSad: 'صديق حزين',
+        friendSadAction: 'اسأل كيف يشعر',
+        someoneNeedsHelp: 'شخص يحتاج مساعدة',
+        someoneNeedsHelpAction: 'عرض المساعدة',
+      },
+      answerKey: 'قد تختلف إجابات الطلاب. تحقق من فهم مهارات الصداقة والتعاطف واللطف والاستجابات الاجتماعية المناسبة لمواقف مختلفة.',
+    },
+  },
+}
+
+const ensureInteractiveContentTranslations = () => {
+  for (const lang of ['en', 'es', 'ar'] as const) {
+    const langTranslations = (translations as any)[lang]
+    if (langTranslations) {
+      // Ensure interactive section exists
+      if (!langTranslations.interactive) {
+        langTranslations.interactive = {}
+      }
+      const interactive = langTranslations.interactive
+      
+      // Merge from the directly defined translations (prevents tree-shaking)
+      const sourceInteractive = interactiveContentTranslations[lang]
+      if (sourceInteractive) {
+      // Merge friendship translations explicitly
+      if (sourceInteractive['interactive-sel-friendship']) {
+        interactive['interactive-sel-friendship'] = sourceInteractive['interactive-sel-friendship']
+      }
+      // Merge matching and kindness titles
+      if (sourceInteractive['interactive-logic-matching']) {
+        interactive['interactive-logic-matching'] = sourceInteractive['interactive-logic-matching']
+      }
+      if (sourceInteractive['interactive-sel-kindness']) {
+        interactive['interactive-sel-kindness'] = sourceInteractive['interactive-sel-kindness']
+      }
+      }
+      
+      // Also try to merge from source files as fallback
+      const fileInteractive = lang === 'en' ? en.interactive : lang === 'es' ? es.interactive : ar.interactive
+      if (fileInteractive) {
+        // Merge all SEL translations from files
+        const selKeys = [
+          'interactive-sel-friendship',
+          'interactive-sel-gratitude',
+          'interactive-sel-mindfulness',
+          'interactive-sel-empathy',
+          'interactive-sel-conflict',
+          'interactive-sel-regulation',
+          'interactive-sel-kindness',
+          'interactive-sel-growth-mindset',
+          'interactive-sel-stress',
+          'interactive-sel-character',
+        ]
+        for (const key of selKeys) {
+          if (fileInteractive[key]) {
+            interactive[key] = fileInteractive[key]
+          }
+        }
+        // Merge art translations
+        const artKeys = [
+          'interactive-art-color-by-number',
+          'interactive-art-mandala',
+          'interactive-art-doodle',
+          'interactive-art-seasonal',
+          'interactive-art-comic',
+          'interactive-art-critique',
+        ]
+        for (const key of artKeys) {
+          if (fileInteractive[key]) {
+            interactive[key] = fileInteractive[key]
+          }
+        }
+        // Merge logic translations
+        const logicKeys = [
+          'interactive-logic-matching',
+          'interactive-logic-classification',
+          'interactive-logic-analogies',
+        ]
+        for (const key of logicKeys) {
+          if (fileInteractive[key]) {
+            interactive[key] = fileInteractive[key]
+          }
+        }
+      }
+    }
+  }
+}
+
+// Run immediately to ensure translations are included
+ensureInteractiveContentTranslations()
+
 // Helper function to get translation with fallback
 // Returns string, array, or object depending on the translation value
 export function getTranslation(language: Language, key: string): string | any {
   try {
     const keys = key.split('.')
+    
+    // For interactive translations, try the exported interactiveTranslations first (prevents tree-shaking issues)
+    if (keys[0] === 'interactive' && keys.length >= 2) {
+      const interactiveKey = keys[1]
+      
+      // Try exported interactiveTranslations first
+      if (interactiveTranslations && interactiveTranslations[language] && interactiveKey) {
+        const interactiveObj = (interactiveTranslations[language] as any)
+        if (interactiveKey in interactiveObj) {
+          let value: any = interactiveObj[interactiveKey]
+          // Navigate through remaining keys (starting from index 2)
+          for (let j = 2; j < keys.length; j++) {
+            if (value === null || value === undefined) {
+              if (typeof window !== 'undefined') {
+                console.warn(`[getTranslation] Navigation failed at key[${j}]=${keys[j]}, value is ${value}`, { 
+                  key, 
+                  language, 
+                  keys, 
+                  currentValue: value,
+                  valueType: typeof value,
+                  valueKeys: value && typeof value === 'object' ? Object.keys(value) : 'N/A'
+                })
+              }
+              break
+            }
+            const nextKey = keys[j]
+            if (value && typeof value === 'object' && nextKey in value) {
+              value = value[nextKey]
+            } else {
+              if (typeof window !== 'undefined') {
+                console.warn(`[getTranslation] Key ${nextKey} not found in value`, {
+                  key,
+                  nextKey,
+                  value,
+                  valueKeys: value && typeof value === 'object' ? Object.keys(value) : 'N/A'
+                })
+              }
+              value = undefined
+              break
+            }
+          }
+          if (value !== null && value !== undefined) {
+            if (Array.isArray(value) || (typeof value === 'object' && typeof value !== 'string')) {
+              return value
+            }
+            if (typeof value === 'string') {
+              return value
+            }
+          }
+        }
+      }
+      
+      // Fallback: try translations[language].interactive
+      if (translations[language] && translations[language].interactive && interactiveKey) {
+        const interactiveObj = (translations[language].interactive as any)
+        if (interactiveKey in interactiveObj) {
+          let value: any = interactiveObj[interactiveKey]
+          // Navigate through remaining keys (starting from index 2)
+          for (let j = 2; j < keys.length; j++) {
+            if (value === null || value === undefined) {
+              if (typeof window !== 'undefined') {
+                console.warn(`[getTranslation] Navigation failed at key[${j}]=${keys[j]}, value is ${value}`, { 
+                  key, 
+                  language, 
+                  keys, 
+                  currentValue: value,
+                  valueType: typeof value,
+                  valueKeys: value && typeof value === 'object' ? Object.keys(value) : 'N/A'
+                })
+              }
+              break
+            }
+            const nextKey = keys[j]
+            if (value && typeof value === 'object' && nextKey in value) {
+              value = value[nextKey]
+            } else {
+              if (typeof window !== 'undefined') {
+                console.warn(`[getTranslation] Key ${nextKey} not found in value`, {
+                  key,
+                  nextKey,
+                  value,
+                  valueKeys: value && typeof value === 'object' ? Object.keys(value) : 'N/A'
+                })
+              }
+              value = undefined
+              break
+            }
+          }
+          if (value !== null && value !== undefined) {
+            if (Array.isArray(value) || (typeof value === 'object' && typeof value !== 'string')) {
+              return value
+            }
+            if (typeof value === 'string') {
+              return value
+            }
+          }
+        }
+      }
+      
+      // If we get here and it's an interactive key, log for debugging
+      if (typeof window !== 'undefined' && process.env.NODE_ENV === 'development') {
+        const debugKey = `interactive-missing-${language}-${key}`
+        if (!(window as any)[debugKey]) {
+          (window as any)[debugKey] = true
+          console.warn(`[getTranslation] Interactive translation not found: ${key}`, {
+            language,
+            hasInteractiveTranslations: !!interactiveTranslations?.[language],
+            hasTranslationsInteractive: !!translations[language]?.interactive,
+            interactiveKey,
+            availableKeys: interactiveTranslations?.[language] ? Object.keys(interactiveTranslations[language]).slice(0, 10) : 'N/A',
+            translationsKeys: translations[language]?.interactive ? Object.keys(translations[language].interactive).slice(0, 10) : 'N/A'
+          })
+        }
+      }
+    }
+    
+    // For worksheet keys, try interactiveWorksheetKeys first (prevents tree-shaking issues)
+    // Then fallback to main translations object for any worksheet key
+    // This handles both:
+    // - Interactive worksheet keys: worksheets.division.instructions
+    // - Static worksheet document IDs: worksheets.addition-subtraction-0-10.title
+    if (keys[0] === 'worksheets' && keys.length >= 2) {
+      const interactiveKey = keys[1] as keyof typeof interactiveWorksheetKeys.en
+      
+      // First, try explicit exports (prevents tree-shaking)
+      if (interactiveKey && interactiveWorksheetKeys[language] && interactiveKey in interactiveWorksheetKeys[language]) {
+        const interactiveValue = (interactiveWorksheetKeys[language] as any)[interactiveKey]
+        if (interactiveValue !== undefined) {
+          let value: any = interactiveValue
+          // Navigate through remaining keys (starting from index 2)
+          for (let j = 2; j < keys.length; j++) {
+            if (value === null || value === undefined) break
+            if (value && typeof value === 'object' && keys[j] in value) {
+              value = value[keys[j]]
+            } else {
+              value = undefined
+              break
+            }
+          }
+          if (value !== null && value !== undefined) {
+            if (Array.isArray(value) || (typeof value === 'object' && typeof value !== 'string')) {
+              return value
+            }
+            if (typeof value === 'string') {
+              return value
+            }
+          }
+        }
+      }
+      
+      // Fallback: try main translations object for any worksheet key
+      if (translations[language] && translations[language].worksheets && interactiveKey) {
+        const worksheetsObj = (translations[language].worksheets as any)
+        if (interactiveKey in worksheetsObj) {
+          let value: any = worksheetsObj[interactiveKey]
+          // Navigate through remaining keys (starting from index 2)
+          for (let j = 2; j < keys.length; j++) {
+            if (value === null || value === undefined) break
+            if (value && typeof value === 'object' && keys[j] in value) {
+              value = value[keys[j]]
+            } else {
+              value = undefined
+              break
+            }
+          }
+          if (value !== null && value !== undefined) {
+            if (Array.isArray(value) || (typeof value === 'object' && typeof value !== 'string')) {
+              return value
+            }
+            if (typeof value === 'string') {
+              return value
+            }
+          }
+        }
+      }
+    }
+    
     let value: any = translations[language]
+    
+    // Debug logging for interactive translations
+    if (typeof window !== 'undefined' && keys[0] === 'interactive' && process.env.NODE_ENV === 'development') {
+      const debugKey = `translation-debug-interactive-${language}-${key}`
+      if (!(window as any)[debugKey]) {
+        (window as any)[debugKey] = true
+        const langObj = translations[language]
+        const interactiveObj = langObj && typeof langObj === 'object' ? langObj.interactive : undefined
+        console.log(`[getTranslation] Looking for interactive key: ${key}, language: ${language}`, {
+          hasInteractive: !!interactiveObj,
+          hasExportedInteractive: !!interactiveTranslations[language],
+          interactiveKeys: interactiveObj && typeof interactiveObj === 'object' ? Object.keys(interactiveObj).slice(0, 10) : 'N/A',
+          exportedKeys: interactiveTranslations[language] && typeof interactiveTranslations[language] === 'object' ? Object.keys(interactiveTranslations[language]).slice(0, 10) : 'N/A',
+          targetKey: keys.length > 1 ? keys[1] : 'N/A',
+          hasTargetKey: interactiveObj && typeof interactiveObj === 'object' && keys.length > 1 ? keys[1] in interactiveObj : false,
+          hasTargetInExported: interactiveTranslations[language] && typeof interactiveTranslations[language] === 'object' && keys.length > 1 ? keys[1] in interactiveTranslations[language] : false
+        })
+      }
+    }
     
     // Debug logging removed - translations are working correctly
     if (false && typeof window !== 'undefined' && keys[0] === 'worksheets' && process.env.NODE_ENV === 'development') {
@@ -1844,26 +5907,52 @@ export function getTranslation(language: Language, key: string): string | any {
     // Navigate through nested keys
     for (let i = 0; i < keys.length; i++) {
       const k = keys[i]
+      // Debug: Log when looking for interactive translations
+      if (typeof window !== 'undefined' && keys[0] === 'interactive' && process.env.NODE_ENV === 'development') {
+        const debugKey = `translation-debug-interactive-nav-${language}-${key}-${i}`
+        if (!(window as any)[debugKey]) {
+          (window as any)[debugKey] = true
+          console.log(`[getTranslation] Navigation step ${i}: key=${k}, value type=${typeof value}, isObject=${value && typeof value === 'object'}, hasKey=${value && typeof value === 'object' ? k in value : false}`, {
+            availableKeys: value && typeof value === 'object' ? Object.keys(value).slice(0, 10) : 'N/A',
+            currentValue: value
+          })
+        }
+      }
+      // Debug: Log when looking for number-id-1-10 translations
+      if (typeof window !== 'undefined' && key.includes('number-id-1-10')) {
+        const debugKey = `translation-debug-${key}-${language}-${i}`
+        if (!(window as any)[debugKey]) {
+          (window as any)[debugKey] = true
+          const worksheetsObj = i === 0 ? value : (value && typeof value === 'object' ? value : undefined)
+          if (i === 1) {
+            console.log(`[getTranslation] Looking for key: ${key}, language: ${language}, at key[${i}]: ${k}, value type: ${typeof value}, hasKey: ${value && typeof value === 'object' ? k in value : false}, availableKeys:`, value && typeof value === 'object' ? Object.keys(value).filter(k => k.includes('number') || k.includes('id')).slice(0, 15) : 'N/A')
+          }
+          if (i === 2 && value && typeof value === 'object') {
+            console.log(`[getTranslation] At final key: ${k}, value:`, value[k], 'type:', typeof value[k])
+          }
+        }
+      }
       if (value === null || value === undefined) {
-        // If we're looking for interactive worksheet keys and they're missing,
-        // try to get them from the exported interactiveWorksheetKeys
-        // Only check interactiveWorksheetKeys for actual interactive keys (not regular worksheet keys)
-        const INTERACTIVE_KEYS = ['countObjectsAndWriteNumber', 'countThe', 'numberLabel', 'objectNames', 'mathPuzzle', 'mathRace', 'reflection']
-        if (keys[0] === 'worksheets' && i >= 1) {
-          const interactiveKey = keys[1] as keyof typeof interactiveWorksheetKeys.en
-          // Only try interactiveWorksheetKeys fallback if this is actually an interactive key
-          if (interactiveKey && INTERACTIVE_KEYS.includes(interactiveKey) && interactiveWorksheetKeys[language] && interactiveKey in interactiveWorksheetKeys[language]) {
-            const interactiveValue = (interactiveWorksheetKeys[language] as any)[interactiveKey]
+        // If we're looking for interactive translations and they're missing, try the exported interactiveTranslations
+        if (keys[0] === 'interactive' && i >= 1 && interactiveTranslations[language]) {
+          const interactiveKey = keys[1]
+          if (interactiveKey && interactiveTranslations[language] && interactiveKey in interactiveTranslations[language]) {
+            const interactiveValue = (interactiveTranslations[language] as any)[interactiveKey]
             if (interactiveValue !== undefined) {
-              if (typeof window !== 'undefined') {
-                console.log(`[getTranslation] Using interactiveWorksheetKeys fallback for: ${key}, language: ${language}, interactiveKey: ${interactiveKey}`)
+              if (typeof window !== 'undefined' && process.env.NODE_ENV === 'development') {
+                console.log(`[getTranslation] Using interactiveTranslations fallback for: ${key}, language: ${language}, interactiveKey: ${interactiveKey}`)
               }
               // Continue navigation from the interactive value
               value = interactiveValue
               // Continue with remaining keys if any (starting from index 2, since we already handled 0 and 1)
               for (let j = 2; j < keys.length; j++) {
                 if (value === null || value === undefined) break
-                value = value[keys[j]]
+                if (value && typeof value === 'object' && keys[j] in value) {
+                  value = value[keys[j]]
+                } else {
+                  value = undefined
+                  break
+                }
               }
               if (value !== null && value !== undefined) {
                 if (Array.isArray(value) || (typeof value === 'object' && typeof value !== 'string')) {
@@ -1873,11 +5962,64 @@ export function getTranslation(language: Language, key: string): string | any {
                   return value
                 }
               }
-            } else if (typeof window !== 'undefined') {
-              console.warn(`[getTranslation] interactiveWorksheetKeys[${language}][${interactiveKey}] is undefined`)
             }
           }
-          // Don't log warnings for non-interactive keys - they're just regular worksheet keys
+        }
+        // If we're looking for worksheet keys and they're missing,
+        // try to get them from the exported interactiveWorksheetKeys or main translations
+        if (keys[0] === 'worksheets' && i >= 1) {
+          const interactiveKey = keys[1]
+          // Try explicit exports first
+          if (interactiveKey && interactiveWorksheetKeys[language] && interactiveKey in interactiveWorksheetKeys[language]) {
+            const interactiveValue = (interactiveWorksheetKeys[language] as any)[interactiveKey]
+            if (interactiveValue !== undefined) {
+              // Continue navigation from the interactive value
+              value = interactiveValue
+              // Continue with remaining keys if any (starting from index 2, since we already handled 0 and 1)
+              for (let j = 2; j < keys.length; j++) {
+                if (value === null || value === undefined) break
+                if (value && typeof value === 'object' && keys[j] in value) {
+                  value = value[keys[j]]
+                } else {
+                  value = undefined
+                  break
+                }
+              }
+              if (value !== null && value !== undefined) {
+                if (Array.isArray(value) || (typeof value === 'object' && typeof value !== 'string')) {
+                  return value
+                }
+                if (typeof value === 'string') {
+                  return value
+                }
+              }
+            }
+          }
+          // Fallback to main translations object for any worksheet key
+          if (translations[language] && translations[language].worksheets && interactiveKey && interactiveKey in translations[language].worksheets) {
+            const worksheetsValue = (translations[language].worksheets as any)[interactiveKey]
+            if (worksheetsValue !== undefined) {
+              value = worksheetsValue
+              // Continue with remaining keys if any
+              for (let j = 2; j < keys.length; j++) {
+                if (value === null || value === undefined) break
+                if (value && typeof value === 'object' && keys[j] in value) {
+                  value = value[keys[j]]
+                } else {
+                  value = undefined
+                  break
+                }
+              }
+              if (value !== null && value !== undefined) {
+                if (Array.isArray(value) || (typeof value === 'object' && typeof value !== 'string')) {
+                  return value
+                }
+                if (typeof value === 'string') {
+                  return value
+                }
+              }
+            }
+          }
         }
         
         // Debug logging removed - translations are working correctly
@@ -1920,11 +6062,11 @@ export function getTranslation(language: Language, key: string): string | any {
         }
       }
       // Also try interactiveWorksheetKeys fallback for English
-      // Only check for actual interactive keys
-      const INTERACTIVE_KEYS = ['countObjectsAndWriteNumber', 'countThe', 'numberLabel', 'objectNames', 'mathPuzzle', 'mathRace', 'reflection']
+      // Try any worksheet key from the main translations object
       if (keys[0] === 'worksheets' && keys.length >= 2) {
-        const interactiveKey = keys[1] as keyof typeof interactiveWorksheetKeys.en
-        if (interactiveKey && INTERACTIVE_KEYS.includes(interactiveKey) && interactiveWorksheetKeys.en && interactiveKey in interactiveWorksheetKeys.en) {
+        const interactiveKey = keys[1]
+        // Try explicit exports first
+        if (interactiveKey && interactiveWorksheetKeys.en && interactiveKey in interactiveWorksheetKeys.en) {
           const interactiveValue = (interactiveWorksheetKeys.en as any)[interactiveKey]
           if (interactiveValue !== undefined) {
             let englishValue = interactiveValue
@@ -1940,6 +6082,23 @@ export function getTranslation(language: Language, key: string): string | any {
               if (typeof englishValue === 'string') {
                 return englishValue
               }
+            }
+          }
+        }
+        // Fallback to main translations object
+        if (translations.en && translations.en.worksheets && interactiveKey in translations.en.worksheets) {
+          let englishValue = (translations.en.worksheets as any)[interactiveKey]
+          // Continue with remaining keys if any
+          for (let j = 2; j < keys.length; j++) {
+            if (englishValue === null || englishValue === undefined) break
+            englishValue = englishValue[keys[j]]
+          }
+          if (englishValue !== null && englishValue !== undefined) {
+            if (Array.isArray(englishValue) || (typeof englishValue === 'object' && typeof englishValue !== 'string')) {
+              return englishValue
+            }
+            if (typeof englishValue === 'string') {
+              return englishValue
             }
           }
         }

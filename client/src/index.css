@@ -379,3 +379,109 @@ html {
 ::-webkit-scrollbar-thumb:hover {
   background: hsl(215.3, 19.3%, 34.5%);
 }
+
+/* Worksheet visual layout fixes - prevent text/block overlap */
+.worksheet-example {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 20px;
+}
+
+.worksheet-visual {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.worksheet-text {
+  margin-left: 12px;
+  white-space: nowrap;
+  line-height: 1.4;
+}
+
+/* Universal print/PDF fix for all worksheets */
+/* Prevents worksheet sections from breaking across pages */
+@media print {
+  /* Fix blank first page - remove margins and padding */
+  body, html {
+    margin: 0 !important;
+    padding: 0 !important;
+  }
+
+  /* Prevent root from forcing page break */
+  #root {
+    page-break-before: auto !important;
+  }
+
+  /* Prevent first element from being pushed off-page */
+  #root > *:first-child {
+    page-break-before: avoid !important;
+  }
+
+  /* Fix blank first page - remove min-height constraints */
+  [data-worksheet-content="true"],
+  .min-h-screen {
+    min-height: auto !important;
+    height: auto !important;
+    margin: 0 !important;
+    padding: 0 !important;
+  }
+
+  /* Prevent page breaks inside worksheet sections - TARGETED approach */
+  /* Apply to worksheet sections and content blocks that should stay together */
+  section,
+  .worksheet-section,
+  [class*="worksheet-section"],
+  .worked-example,
+  .worksheet-content,
+  [data-worksheet-content="true"] > section,
+  [data-worksheet-content="true"] > div[class*="section"],
+  /* Worksheet wrapper components */
+  div[class*="WorksheetSectionWrapper"],
+  div[class*="worksheet-wrapper"],
+  /* Content blocks that should stay together */
+  .learning-objectives,
+  .parent-teacher-tips,
+  .worksheet-header,
+  /* Problem sets and question groups */
+  .problem-set,
+  .question-group,
+  .math-problem,
+  /* Tables and figures */
+  table,
+  figure,
+  /* Keep headings with their content */
+  h1, h2, h3, h4, h5, h6 {
+    break-inside: avoid !important;
+    page-break-inside: avoid !important;
+    -webkit-region-break-inside: avoid !important;
+  }
+
+  /* Keep headings with following content */
+  h1 + *, h2 + *, h3 + *, h4 + *, h5 + *, h6 + * {
+    page-break-before: avoid;
+    break-before: avoid;
+  }
+
+  /* Allow page breaks between sections when needed */
+  section + section,
+  .worksheet-section + .worksheet-section,
+  [class*="worksheet-section"] + [class*="worksheet-section"] {
+    page-break-before: auto;
+    break-before: auto;
+  }
+
+  /* Prevent breaks inside table rows and cells */
+  tr {
+    break-inside: avoid !important;
+    page-break-inside: avoid !important;
+  }
+
+  /* Fix blank first page - ensure first element starts at top with no forced breaks */
+  [data-worksheet-content="true"] > *:first-child {
+    page-break-before: auto !important;
+    margin-top: 0 !important;
+    padding-top: 0 !important;
+  }
+}

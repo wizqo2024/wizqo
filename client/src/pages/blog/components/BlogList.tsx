@@ -2,7 +2,7 @@ import React from 'react';
 import { UnifiedNavigation } from '@/components/UnifiedNavigation';
 import { Footer } from '@/components/Footer';
 import { BlogPost } from '../types';
-import { getPostImage, getPostRating } from '../utils';
+import { getPostImage, getPostRating, translateCategory, translateReadTime } from '../utils';
 import { CATEGORY_IMAGES, GENERIC_BLOG_IMAGE } from '../constants';
 import { BlogPostCard } from './BlogPostCard';
 import { BlogFilters } from './BlogFilters';
@@ -47,7 +47,7 @@ export function BlogList({
   onNewsletterSubmit,
   showBackToTop,
 }: BlogListProps) {
-  const { t, isRTL } = useTranslation();
+  const { t, isRTL, language } = useTranslation();
   
   React.useEffect(() => {
     // Ensure re-render on language change
@@ -176,11 +176,11 @@ export function BlogList({
                     {featurePost.excerpt}
                   </p>
                   <div className="flex flex-wrap items-center gap-3 sm:gap-4 mb-4 sm:mb-6 text-sm">
-                    <span className="flex items-center gap-2" aria-label={`Reading time: ${featurePost.readTime}`}>
+                    <span className="flex items-center gap-2" aria-label={`Reading time: ${translateReadTime(featurePost.readTime, language as 'en' | 'es' | 'ar')}`}>
                       <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 20 20" aria-hidden="true">
                         <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-12a1 1 0 10-2 0v4a1 1 0 00.293.707l2.828 2.829a1 1 0 101.415-1.415L11 9.586V6z" clipRule="evenodd" />
                       </svg>
-                      {featurePost.readTime}
+                      {translateReadTime(featurePost.readTime, language as 'en' | 'es' | 'ar')}
                     </span>
                     <span className="flex items-center gap-2" aria-label={`Published: ${featurePost.date}`}>
                       <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 20 20" aria-hidden="true">
@@ -188,8 +188,8 @@ export function BlogList({
                       </svg>
                       {featurePost.date}
                     </span>
-                    <span className="bg-white bg-opacity-20 px-2 py-1 rounded text-xs" aria-label={`Category: ${featurePost.category}`}>
-                      {featurePost.category}
+                    <span className="bg-white bg-opacity-20 px-2 py-1 rounded text-xs" aria-label={`Category: ${translateCategory(featurePost.category, language as 'en' | 'es' | 'ar')}`}>
+                      {translateCategory(featurePost.category, language as 'en' | 'es' | 'ar')}
                     </span>
                     <div className="flex items-center gap-1 text-yellow-300" role="img" aria-label={`Rating: ${getPostRating(featurePost)} out of 5 stars`}>
                       {[1,2,3,4,5].map(star => (

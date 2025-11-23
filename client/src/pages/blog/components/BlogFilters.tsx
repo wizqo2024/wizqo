@@ -44,7 +44,8 @@ export function BlogFilters({
     }
   };
 
-  const hasActiveFilters = filterCategory !== 'All' || filterQuery.trim().length > 0;
+  const allCategory = t('pages.blog.filters.all');
+  const hasActiveFilters = filterCategory !== allCategory || filterQuery.trim().length > 0;
 
   return (
     <div 
@@ -67,11 +68,15 @@ export function BlogFilters({
             aria-label={t('pages.blog.filters.all')}
             className="px-3 py-2 border border-slate-300 rounded-lg text-sm bg-white focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-purple-500"
           >
-            {categories.map(cat => (
-              <option key={cat} value={cat}>
-                {cat === 'All' ? t('pages.blog.filters.all') : cat === 'Recent' ? t('pages.blog.filters.recent') : cat}
-              </option>
-            ))}
+            {categories.map(cat => {
+              const allCategory = t('pages.blog.filters.all');
+              const recentCategory = t('pages.blog.filters.recent');
+              return (
+                <option key={cat} value={cat}>
+                  {cat === allCategory ? allCategory : cat === recentCategory ? recentCategory : cat}
+                </option>
+              );
+            })}
           </select>
         </div>
         <div className="flex-1 flex items-center gap-2">

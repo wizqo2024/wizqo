@@ -1,5 +1,6 @@
 import { BlogPost } from './types';
 import { CATEGORY_IMAGES, GENERIC_BLOG_IMAGE } from './constants';
+import { translations } from '@/translations';
 
 export function getPostImage(post: BlogPost): string {
   return post.imageUrl || CATEGORY_IMAGES[post.category] || GENERIC_BLOG_IMAGE;
@@ -60,4 +61,102 @@ export function loadMarkdownPosts(): BlogPost[] {
   } catch {
     return [];
   }
+}
+
+// Translate blog post category based on current language
+export function translateCategory(category: string, language: 'en' | 'es' | 'ar' = 'en'): string {
+  if (!category || typeof category !== 'string') return category;
+  if (language === 'en') return category;
+  
+  try {
+    const langTranslations = translations[language];
+    if (langTranslations && typeof langTranslations === 'object') {
+      const pages = (langTranslations as any).pages;
+      if (pages && typeof pages === 'object') {
+        const blog = pages.blog;
+        if (blog && typeof blog === 'object') {
+          const categories = blog.categories;
+          if (categories && typeof categories === 'object') {
+            const translated = (categories as any)[category];
+            if (translated && typeof translated === 'string') {
+              return translated;
+            }
+          }
+        }
+      }
+    }
+  } catch (error) {
+    console.warn(`Translation failed for category ${category}:`, error);
+  }
+  return category;
+}
+
+// Translate readTime format (e.g., "6-7 min read" -> "6-7 دقيقة قراءة")
+export function translateReadTime(readTime: string, language: 'en' | 'es' | 'ar' = 'en'): string {
+  if (!readTime || typeof readTime !== 'string') return readTime;
+  if (language === 'en') return readTime;
+  
+  try {
+    const langTranslations = translations[language];
+    if (langTranslations && typeof langTranslations === 'object') {
+      const pages = (langTranslations as any).pages;
+      if (pages && typeof pages === 'object') {
+        const blog = pages.blog;
+        if (blog && typeof blog === 'object') {
+          const format = blog.readTimeFormat;
+          if (format && typeof format === 'string') {
+            // Extract minutes from "6-7 min read" or "8–9 min read" or "5 min read"
+            const match = readTime.match(/(\d+)[–-]?(\d+)?\s*min\s*read/i);
+            if (match) {
+              const min1 = match[1];
+              const min2 = match[2];
+              const minutes = min2 ? `${min1}–${min2}` : min1;
+              return format.replace('{{minutes}}', minutes);
+            }
+          }
+        }
+      }
+    }
+  } catch (error) {
+    console.warn(`Translation failed for readTime ${readTime}:`, error);
+  }
+  return readTime;
+}
+
+// Translate blog post title and excerpt based on current language
+export function translateBlogPost(post: BlogPost, language: 'en' | 'es' | 'ar' = 'en'): BlogPost {
+  try {
+    const langTranslations = translations[language];
+    if (langTranslations && typeof langTranslations === 'object') {
+      const pages = (langTranslations as any).pages;
+      if (pages && typeof pages === 'object') {
+        const blog = pages.blog;
+        if (blog && typeof blog === 'object') {
+          const posts = blog.posts;
+          if (posts && typeof posts === 'object') {
+            const postTranslation = (posts as any)[post.id];
+            if (postTranslation && typeof postTranslation === 'object' && 'title' in postTranslation && 'excerpt' in postTranslation) {
+              return {
+                ...post,
+                title: postTranslation.title || post.title,
+                excerpt: postTranslation.excerpt || post.excerpt,
+                content: postTranslation.content || post.content,
+                category: translateCategory(post.category, language),
+                readTime: translateReadTime(post.readTime, language),
+              };
+            }
+          }
+        }
+      }
+    }
+  } catch (error) {
+    // If translation fails, return original post
+    console.warn(`Translation failed for blog post ${post.id}:`, error);
+  }
+  
+  return {
+    ...post,
+    category: translateCategory(post.category, language),
+    readTime: translateReadTime(post.readTime, language),
+  };
 }

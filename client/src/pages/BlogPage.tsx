@@ -3,12 +3,12 @@ import { useToast } from '@/hooks/use-toast';
 import { useTranslation } from '@/context/TranslationContext';
 import { BlogPost } from './blog/types';
 import { basePosts } from './blog/basePosts';
-import { loadMarkdownPosts } from './blog/utils';
+import { loadMarkdownPosts, translateBlogPost, translateCategory } from './blog/utils';
 import { BlogPostView } from './blog/components/BlogPostView';
 import { BlogList } from './blog/components/BlogList';
 
 export function BlogPage({ initialSlug, onNavigate }: { initialSlug?: string; onNavigate?: (path: string) => void }) {
-  const { t } = useTranslation();
+  const { t, language } = useTranslation();
   const routeRefreshKey = () => (typeof window !== 'undefined' ? window.location.pathname : '');
   const mdPosts = useMemo(() => loadMarkdownPosts(), [routeRefreshKey()]);
   
@@ -21,13 +21,15 @@ export function BlogPage({ initialSlug, onNavigate }: { initialSlug?: string; on
     for (const p of mdPosts) byId.set(p.id, p);
     for (const p of basePosts) if (!byId.has(p.id)) byId.set(p.id, p);
     const merged = Array.from(byId.values());
-    merged.sort((a, b) => {
+    // Translate posts based on current language
+    const translated = merged.map(post => translateBlogPost(post, language as 'en' | 'es' | 'ar'));
+    translated.sort((a, b) => {
       const da = Date.parse(a.date || '') || 0;
       const db = Date.parse(b.date || '') || 0;
       return db - da;
     });
-    return merged;
-  }, [mdPosts]);
+    return translated;
+  }, [mdPosts, language]);
 
   const [selectedPost, setSelectedPost] = useState<BlogPost | null>(null);
   const featurePost = useMemo(() => {
@@ -43,12 +45,16 @@ export function BlogPage({ initialSlug, onNavigate }: { initialSlug?: string; on
   }, [allPosts]);
 
   // Blog filters: category + search query
-  const [filterCategory, setFilterCategory] = useState<string>('All');
+  const allCategory = t('pages.blog.filters.all');
+  const recentCategory = t('pages.blog.filters.recent');
+  const [filterCategory, setFilterCategory] = useState<string>(allCategory);
   const [filterQuery, setFilterQuery] = useState<string>('');
   const categories = useMemo(() => {
     const unique = Array.from(new Set(allPosts.map(p => p.category))).sort();
-    return ['All', 'Recent', ...unique];
-  }, [allPosts]);
+    // Translate categories for display
+    const translatedUnique = unique.map(cat => translateCategory(cat, language as 'en' | 'es' | 'ar'));
+    return [allCategory, recentCategory, ...translatedUnique];
+  }, [allPosts, allCategory, recentCategory, language]);
   const filteredPosts = useMemo(() => {
     const activeCategory = filterCategory;
     const q = filterQuery.trim().toLowerCase();
@@ -59,17 +65,19 @@ export function BlogPage({ initialSlug, onNavigate }: { initialSlug?: string; on
         const ts = Date.parse(p.date || '');
         return !!ts && (now - ts) <= sevenDaysMs;
       })();
+      // Compare against translated category for display, but use original for filtering
+      const translatedPostCategory = translateCategory(p.category, language as 'en' | 'es' | 'ar');
       const matchesCategory = (
-        activeCategory === 'All' ||
-        (activeCategory === 'Recent' ? isRecent : p.category === activeCategory)
+        activeCategory === allCategory ||
+        (activeCategory === recentCategory ? isRecent : translatedPostCategory === activeCategory)
       );
       if (!matchesCategory) return false;
       if (!q) return true;
       const haystack = `${p.title} ${p.excerpt} ${p.content}`.toLowerCase();
       return haystack.includes(q);
     });
-  }, [allPosts, filterCategory, filterQuery]);
-  const isFilteringActive = filterCategory !== 'All' || (filterQuery.trim().length > 0);
+  }, [allPosts, filterCategory, filterQuery, allCategory, recentCategory, language]);
+  const isFilteringActive = filterCategory !== allCategory || (filterQuery.trim().length > 0);
   const visibleFeaturePost = useMemo(() => {
     if (isFilteringActive && filteredPosts.length > 0) {
       return filteredPosts[0];
@@ -204,7 +212,7 @@ export function BlogPage({ initialSlug, onNavigate }: { initialSlug?: string; on
       onCategoryChange={setFilterCategory}
       onQueryChange={setFilterQuery}
       onClearFilters={() => {
-        setFilterCategory('All');
+        setFilterCategory(allCategory);
         setFilterQuery('');
       }}
       onPostSelect={(post) => {

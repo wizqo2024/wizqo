@@ -85,22 +85,42 @@ const WorksheetThumbnailCard = React.memo(function WorksheetThumbnailCard({ titl
       
       <div className="flex items-center justify-between">
         <div className="flex items-center gap-2">
-          <a
-            href={finalHref}
+          <button
+            onClick={() => {
+              // Add download=1 parameter
+              const url = new URL(finalHref, window.location.origin)
+              url.searchParams.set('download', '1')
+              
+              // Use hidden iframe to trigger download
+              const iframe = document.createElement('iframe')
+              iframe.style.display = 'none'
+              iframe.style.width = '0'
+              iframe.style.height = '0'
+              iframe.style.position = 'absolute'
+              iframe.style.left = '-9999px'
+              iframe.src = url.toString()
+              document.body.appendChild(iframe)
+              
+              setTimeout(() => {
+                if (iframe.parentNode) {
+                  document.body.removeChild(iframe)
+                }
+              }, 10000)
+            }}
             className="text-xs font-medium text-purple-600 hover:text-purple-700 px-3 py-1 rounded-full border border-purple-200 hover:border-purple-300 transition-colors"
-            aria-label={`Open ${title} printable view`}
+            aria-label={`Download ${title} as PDF`}
           >
-            {t('pages.printables.preview')}
-          </a>
+            Download
+          </button>
           <a
             href={downloadHref}
             target="_blank"
             rel="noopener noreferrer"
             className="text-xs font-medium text-purple-600 hover:text-purple-700 px-3 py-1 rounded-full border border-purple-200 hover:border-purple-300 transition-colors"
-            aria-label={`Download ${title} as PDF`}
+            aria-label={`Print ${title}`}
             title={t('pages.printables.downloadNote')}
           >
-            {t('pages.printables.download')}
+            🖨️ Print
           </a>
         </div>
       </div>
@@ -1009,7 +1029,7 @@ export function PrintablesLandingPage() {
         </section>
 
         <section className="text-xs text-slate-500">
-          <p className="print:hidden">Tip: Use your browser menu → Print → Save as PDF.</p>
+          <p className="print:hidden">{t('common.printTip', 'Tip: Use your browser menu → Print → Save as PDF.')}</p>
         </section>
           </div>
         </div>

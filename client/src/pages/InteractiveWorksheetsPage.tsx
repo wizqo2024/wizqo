@@ -353,6 +353,7 @@ function WorksheetPreviewCard({
   isFavorite,
   onPreview,
   onDownload,
+  onDownloadDirect,
   pack,
   filters,
   t,
@@ -362,6 +363,7 @@ function WorksheetPreviewCard({
   isFavorite: boolean
   onPreview: (item: InteractiveWorksheetItem) => void
   onDownload: (docId: string) => string
+  onDownloadDirect?: (item: InteractiveWorksheetItem) => void
   pack: InteractiveWorksheetPack | null
   filters: FiltersState
   t: (key: string) => string
@@ -453,33 +455,30 @@ function WorksheetPreviewCard({
               key={tag}
               className="inline-flex items-center rounded-full bg-slate-100 px-2 py-0.5 text-xs text-slate-600"
             >
-              {tag}
+              {t(`focusSkills.${tag}`) || tag}
             </span>
           ))}
         </div>
       )}
       <div className="flex items-center justify-between">
         <div className="flex items-center gap-4 text-xs text-slate-500">
-          <span>{item.gradeLabel}</span>
+          <span>{item.gradeLabel.split(' / ').map(g => t(`grades.${INTERACTIVE_GRADE_OPTIONS.find(opt => opt.label === g.trim())?.id || g.trim()}`) || g.trim()).join(' / ')}</span>
           <span>{t('pages.interactive.answerKeyIncluded')}</span>
         </div>
         <div className="flex items-center gap-2">
-          {pack?.printUrl && (
-            <a
-              href={onDownload(item.docId)}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-xs font-medium text-purple-600 hover:text-purple-700 px-3 py-1 rounded-full border border-purple-200 hover:border-purple-300 transition-colors"
-            >
-              ⬇️ {t('pages.interactive.download')}
-            </a>
-          )}
-          <button
-            onClick={() => onPreview(item)}
-            className="text-xs font-medium text-purple-600 hover:text-purple-700 px-3 py-1 rounded-full border border-purple-200 hover:border-purple-300 transition-colors"
-          >
-            👁️ {t('pages.interactive.preview')}
-          </button>
+          {(() => {
+            const printUrl = pack?.printUrl ? onDownload(item.docId) : null
+            return printUrl ? (
+              <a
+                href={printUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-xs font-medium text-purple-600 hover:text-purple-700 px-3 py-1 rounded-full border border-purple-200 hover:border-purple-300 transition-colors"
+              >
+                Download
+              </a>
+            ) : null
+          })()}
         </div>
       </div>
     </article>
@@ -874,14 +873,14 @@ export function InteractiveWorksheetsPage() {
           }).catch(() => {
             // Fallback to clipboard
             navigator.clipboard.writeText(url).then(() => {
-              alert('Link copied to clipboard!')
+              alert(t('pages.interactive.linkCopiedAlert'))
             }).catch(() => {
-              alert('Unable to copy link. Please copy manually: ' + url)
+              alert(t('pages.interactive.copyLinkManually') + ' ' + url)
             })
           })
         } else if (navigator.clipboard) {
           navigator.clipboard.writeText(url).then(() => {
-            alert('Link copied to clipboard!')
+            alert(t('pages.interactive.linkCopiedAlert'))
           }).catch(() => {
             // Fallback for older browsers
             const textArea = document.createElement('textarea')
@@ -892,14 +891,14 @@ export function InteractiveWorksheetsPage() {
             textArea.select()
             try {
               document.execCommand('copy')
-              alert('Link copied to clipboard!')
+              alert(t('pages.interactive.linkCopiedAlert'))
             } catch (err) {
-              alert('Unable to copy link. Please copy manually: ' + url)
+              alert(t('pages.interactive.copyLinkManually') + ' ' + url)
             }
             document.body.removeChild(textArea)
           })
         } else {
-          alert('Please copy this link: ' + url)
+          alert(t('pages.interactive.pleaseCopyLink') + ' ' + url)
         }
         break
     }
@@ -974,11 +973,6 @@ export function InteractiveWorksheetsPage() {
     [favorites]
   )
 
-  // Preview handler
-  const handlePreview = React.useCallback((item: InteractiveWorksheetItem) => {
-    setPreviewItem(item)
-  }, [])
-
   // Customization handlers
   const handleCustomizationChange = React.useCallback((field: keyof CustomizationData, value: string | string[]) => {
     setCustomization((prev) => {
@@ -1034,10 +1028,12 @@ export function InteractiveWorksheetsPage() {
     if (customization.studentNames.length > 0) {
       url.searchParams.set('students', customization.studentNames.join(','))
     }
+    // Add autoprint for download buttons
+    url.searchParams.set('autoprint', '1')
     return url.toString()
   }, [pack, customization, language])
 
-  // Generate print URL for a single worksheet
+  // Generate print URL for a single worksheet (for preview - no autoprint)
   const getSingleWorksheetPrintUrl = React.useCallback((docId: string) => {
     if (!pack?.printUrl) return ''
     const url = new URL(pack.printUrl, window.location.origin)
@@ -1059,6 +1055,67 @@ export function InteractiveWorksheetsPage() {
     }
     return url.toString()
   }, [pack, customization, filters.grade, language])
+
+  // Generate download URL for a single worksheet (without autoprint - user can choose to download or print)
+  const getSingleWorksheetDownloadUrl = React.useCallback((docId: string) => {
+    const url = getSingleWorksheetPrintUrl(docId)
+    if (!url) return ''
+    const urlObj = new URL(url, window.location.origin)
+    // Remove autoprint so user can choose to download or print
+    urlObj.searchParams.delete('autoprint')
+    return urlObj.toString()
+  }, [getSingleWorksheetPrintUrl])
+
+  // Download handler - downloads PDF directly without opening new tab
+  // The PrintablesPage component will detect download=1 and trigger download
+  const handleDownload = React.useCallback((item: InteractiveWorksheetItem) => {
+    const baseUrl = getSingleWorksheetPrintUrl(item.docId)
+    if (!baseUrl) {
+      console.error('No print URL available for worksheet:', item.docId)
+      return
+    }
+    
+    // Build URL with download=1 parameter (no autoprint to avoid print dialog)
+    const url = new URL(baseUrl, window.location.origin)
+    url.searchParams.set('download', '1')
+    url.searchParams.delete('autoprint') // Ensure autoprint doesn't interfere
+    
+    // Track the download attempt
+    const worksheet = pack?.items.find(w => w.docId === item.docId)
+    if (worksheet) {
+      trackWorksheetDownload(item.docId, worksheet.title, 'interactive-worksheets-generator', filters.grade)
+    }
+    
+    // Use hidden iframe to trigger PDF download without opening new tab
+    // The PrintablesPage will detect download=1 and generate PDF automatically
+    const iframe = document.createElement('iframe')
+    iframe.style.cssText = 'position:absolute;width:0;height:0;border:none;visibility:hidden;'
+    iframe.setAttribute('aria-hidden', 'true')
+    iframe.setAttribute('tabindex', '-1')
+    
+    // Add iframe to body
+    document.body.appendChild(iframe)
+    
+    // Set src after iframe is in DOM to ensure it loads properly
+    iframe.src = url.toString()
+    
+    // Clean up iframe after sufficient time for PDF generation and download
+    // The PDF download will happen automatically when PrintablesPage detects download=1
+    setTimeout(() => {
+      try {
+        if (iframe.parentNode) {
+          document.body.removeChild(iframe)
+        }
+      } catch (e) {
+        // Ignore cleanup errors
+      }
+    }, 30000) // Give enough time for PDF generation and download
+  }, [getSingleWorksheetPrintUrl, pack, filters.grade])
+
+  // Preview handler - opens modal/popup (kept for potential future use)
+  const handlePreview = React.useCallback((item: InteractiveWorksheetItem) => {
+    setPreviewItem(item)
+  }, [])
 
   return (
     <div className="min-h-screen bg-slate-50">
@@ -1343,7 +1400,8 @@ export function InteractiveWorksheetsPage() {
                           onToggleFavorite={toggleFavorite}
                           isFavorite={isFavorite(item.docId)}
                           onPreview={handlePreview}
-                          onDownload={getSingleWorksheetPrintUrl}
+                          onDownload={getSingleWorksheetDownloadUrl}
+                          onDownloadDirect={handleDownload}
                           pack={pack}
                           filters={filters}
                           t={t}
@@ -1482,13 +1540,13 @@ export function InteractiveWorksheetsPage() {
                 <div className="flex-1">
                   <h2 className="text-xl font-semibold text-slate-900">{t(`interactive.${previewItem.docId}.title`) || previewItem.title}</h2>
                   <p className="text-sm text-slate-600 mt-1">
-                    {t(`interactive.${previewItem.docId}.description`) || previewItem.description} • {t(`categories.${previewItem.categoryId}`) || previewItem.categoryLabel} • {previewItem.gradeLabel}
+                    {t(`interactive.${previewItem.docId}.description`) || previewItem.description} • {t(`categories.${previewItem.categoryId}`) || previewItem.categoryLabel} • {previewItem.gradeLabel.split(' / ').map(g => t(`grades.${INTERACTIVE_GRADE_OPTIONS.find(opt => opt.label === g.trim())?.id || g.trim()}`) || g.trim()).join(' / ')}
                   </p>
                 </div>
                 <button
                   onClick={() => setPreviewItem(null)}
                   className="ml-4 p-2 text-slate-400 hover:text-slate-600 rounded-lg hover:bg-slate-100 transition-colors"
-                  aria-label="Close preview"
+                  aria-label={t('pages.interactive.closePreview')}
                 >
                   <svg className="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
@@ -1527,40 +1585,40 @@ export function InteractiveWorksheetsPage() {
       <Dialog open={showCustomization} onOpenChange={setShowCustomization}>
         <DialogContent className="max-w-2xl">
           <DialogHeader>
-            <DialogTitle>Customize Worksheets</DialogTitle>
+            <DialogTitle>{t('pages.interactive.buttons.customize')}</DialogTitle>
             <DialogDescription>
-              Add student names, teacher name, and class name to personalize your worksheets before downloading.
+              {t('pages.interactive.customization.description')}
             </DialogDescription>
           </DialogHeader>
           <div className="space-y-6 mt-4">
             <div>
-              <label className="block text-sm font-medium text-slate-700 mb-2">Teacher Name</label>
+              <label className="block text-sm font-medium text-slate-700 mb-2">{t('pages.interactive.customization.teacherName')}</label>
               <input
                 type="text"
                 value={customization.teacherName}
                 onChange={(e) => handleCustomizationChange('teacherName', e.target.value)}
-                placeholder="Enter teacher name"
+                placeholder={t('pages.interactive.customization.teacherNamePlaceholder')}
                 className="w-full rounded-lg border border-slate-300 bg-white px-4 py-2 text-sm text-slate-900 focus:border-purple-400 focus:outline-none focus:ring-2 focus:ring-purple-200"
               />
             </div>
             <div>
-              <label className="block text-sm font-medium text-slate-700 mb-2">Class Name</label>
+              <label className="block text-sm font-medium text-slate-700 mb-2">{t('pages.interactive.customization.className')}</label>
               <input
                 type="text"
                 value={customization.className}
                 onChange={(e) => handleCustomizationChange('className', e.target.value)}
-                placeholder="Enter class name (e.g., Grade 3A)"
+                placeholder={t('pages.interactive.customization.classNamePlaceholder')}
                 className="w-full rounded-lg border border-slate-300 bg-white px-4 py-2 text-sm text-slate-900 focus:border-purple-400 focus:outline-none focus:ring-2 focus:ring-purple-200"
               />
             </div>
             <div>
               <div className="flex items-center justify-between mb-2">
-                <label className="block text-sm font-medium text-slate-700">Student Names</label>
+                <label className="block text-sm font-medium text-slate-700">{t('pages.interactive.customization.studentNames')}</label>
                 <button
                   onClick={addStudentName}
                   className="text-sm font-medium text-purple-600 hover:text-purple-700"
                 >
-                  + Add Student
+                  + {t('pages.interactive.customization.addStudent')}
                 </button>
               </div>
               {customization.studentNames.length === 0 ? (
@@ -1582,7 +1640,7 @@ export function InteractiveWorksheetsPage() {
                       <button
                         onClick={() => removeStudentName(index)}
                         className="p-2 text-red-600 hover:text-red-700 rounded-lg hover:bg-red-50"
-                        aria-label="Remove student"
+                        aria-label={t('pages.interactive.customization.removeStudent')}
                       >
                         <svg className="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
@@ -1605,11 +1663,11 @@ export function InteractiveWorksheetsPage() {
       <Dialog open={showFavorites} onOpenChange={setShowFavorites}>
         <DialogContent className="max-w-3xl max-h-[90vh] overflow-y-auto">
           <DialogHeader>
-            <DialogTitle>My Favorite Worksheets</DialogTitle>
+            <DialogTitle>{t('pages.interactive.favorites.title')}</DialogTitle>
             <DialogDescription>
               {favorites.length === 0 
-                ? 'You haven\'t saved any favorite worksheets yet. Click the star icon on any worksheet to add it to your favorites.'
-                : `You have ${favorites.length} favorite worksheet${favorites.length === 1 ? '' : 's'}.`}
+                ? t('pages.interactive.favorites.emptyDescription')
+                : t('pages.interactive.favorites.hasFavorites').replace('{{count}}', String(favorites.length)).replace('{{plural}}', favorites.length === 1 ? '' : 's')}
             </DialogDescription>
           </DialogHeader>
           {favorites.length === 0 ? (
@@ -1617,7 +1675,7 @@ export function InteractiveWorksheetsPage() {
               <svg className="mx-auto h-12 w-12 text-slate-300 mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M11.049 2.927c.3-.921 1.603-.921 1.902 0l1.519 4.674a1 1 0 00.95.69h4.915c.969 0 1.371 1.24.588 1.81l-3.976 2.888a1 1 0 00-.363 1.118l1.518 4.674c.3.922-.755 1.688-1.538 1.118l-3.976-2.888a1 1 0 00-1.176 0l-3.976 2.888c-.783.57-1.838-.197-1.538-1.118l1.518-4.674a1 1 0 00-.363-1.118l-3.976-2.888c-.784-.57-.38-1.81.588-1.81h4.914a1 1 0 00.951-.69l1.519-4.674z" />
               </svg>
-              <p className="text-slate-600">Start favoriting worksheets to build your collection!</p>
+              <p className="text-slate-600">{t('pages.interactive.favorites.emptyMessage')}</p>
             </div>
           ) : (
             <div className="mt-4 space-y-3">
@@ -1631,9 +1689,9 @@ export function InteractiveWorksheetsPage() {
                   }}>
                     <h3 className="font-semibold text-slate-900">{fav.title}</h3>
                     <div className="flex items-center gap-3 mt-1 text-sm text-slate-600">
-                      <span>{fav.categoryLabel}</span>
+                      <span>{t(`categories.${INTERACTIVE_CATEGORIES.find(c => c.label === fav.categoryLabel)?.id || ''}`) || fav.categoryLabel}</span>
                       <span>•</span>
-                      <span>{fav.gradeLabel}</span>
+                      <span>{fav.gradeLabel.split(' / ').map(g => t(`grades.${INTERACTIVE_GRADE_OPTIONS.find(opt => opt.label === g.trim())?.id || g.trim()}`) || g.trim()).join(' / ')}</span>
                     </div>
                   </div>
                   <div className="flex items-center gap-2">
@@ -1644,7 +1702,7 @@ export function InteractiveWorksheetsPage() {
                       className="px-3 py-1.5 text-sm font-medium text-purple-700 hover:text-purple-800 border border-purple-200 rounded-lg hover:bg-purple-50 transition-colors"
                       onClick={(e) => e.stopPropagation()}
                     >
-                      Open
+                      {t('pages.interactive.favorites.open')}
                     </a>
                     <button
                       onClick={(e) => {
@@ -1657,7 +1715,7 @@ export function InteractiveWorksheetsPage() {
                         })
                       }}
                       className="p-2 text-yellow-500 hover:text-yellow-600 rounded-lg hover:bg-yellow-50"
-                      aria-label="Remove from favorites"
+                      aria-label={t('pages.interactive.removeFromFavorites')}
                     >
                       <svg className="h-5 w-5" fill="currentColor" viewBox="0 0 24 24">
                         <path d="M11.049 2.927c.3-.921 1.603-.921 1.902 0l1.519 4.674a1 1 0 00.95.69h4.915c.969 0 1.371 1.24.588 1.81l-3.976 2.888a1 1 0 00-.363 1.118l1.518 4.674c.3.922-.755 1.688-1.538 1.118l-3.976-2.888a1 1 0 00-1.176 0l-3.976 2.888c-.783.57-1.838-.197-1.538-1.118l1.518-4.674a1 1 0 00-.363-1.118l-3.976-2.888c-.784-.57-.38-1.81.588-1.81h4.914a1 1 0 00.951-.69l1.519-4.674z" />

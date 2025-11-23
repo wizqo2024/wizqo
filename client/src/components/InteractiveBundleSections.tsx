@@ -6,7 +6,51 @@ import {
   type InteractiveCategory,
 } from '@shared/interactive/interactiveWorksheets'
 import { useTranslation } from '@/context/TranslationContext'
-import { getTranslation } from '@/translations'
+import { getTranslation, translations, interactiveTranslations } from '@/translations'
+import { formatNumber, formatNumberRange } from '@/utils/numbers'
+
+// Explicitly import interactive translations to prevent tree-shaking
+// This ensures the translations are included in the bundle
+if (false) {
+  // This code never runs but ensures the translations are included
+  void interactiveTranslations
+  void interactiveTranslations.en
+  void interactiveTranslations.es
+  void interactiveTranslations.ar
+  // Explicitly reference all SEL translations
+  const selKeys = [
+    'interactive-sel-friendship',
+    'interactive-sel-gratitude',
+    'interactive-sel-mindfulness',
+    'interactive-sel-empathy',
+    'interactive-sel-conflict',
+    'interactive-sel-regulation',
+    'interactive-sel-kindness',
+    'interactive-sel-growth-mindset',
+    'interactive-sel-stress',
+    'interactive-sel-character',
+  ]
+  for (const key of selKeys) {
+    void interactiveTranslations.en?.[key]
+    void interactiveTranslations.es?.[key]
+    void interactiveTranslations.ar?.[key]
+    // Also reference nested keys for friendship
+    if (key === 'interactive-sel-friendship') {
+      void interactiveTranslations.en?.[key]?.title
+      void interactiveTranslations.en?.[key]?.situation
+      void interactiveTranslations.en?.[key]?.whatCanYouDo
+      void interactiveTranslations.en?.[key]?.scenarios?.newStudent
+      void interactiveTranslations.en?.[key]?.scenarios?.friendSad
+      void interactiveTranslations.en?.[key]?.scenarios?.someoneNeedsHelp
+      void interactiveTranslations.ar?.[key]?.title
+      void interactiveTranslations.ar?.[key]?.situation
+      void interactiveTranslations.ar?.[key]?.whatCanYouDo
+      void interactiveTranslations.ar?.[key]?.scenarios?.newStudent
+      void interactiveTranslations.ar?.[key]?.scenarios?.friendSad
+      void interactiveTranslations.ar?.[key]?.scenarios?.someoneNeedsHelp
+    }
+  }
+}
 
 type Props = {
   docIds: string[]
@@ -24,6 +68,9 @@ type RenderContext = {
   seed: string
   variant: number
   t: (key: string) => string
+  language: 'en' | 'es' | 'ar'
+  formatNum: (num: number | string) => string
+  formatRange: (start: number | string, end: number | string) => string
 }
 
 type Renderer = (ctx: RenderContext) => React.ReactNode
@@ -719,7 +766,7 @@ const renderers: Record<string, Renderer> = {
     return (
       <div className="space-y-3">
         <p className="text-sm text-slate-600">
-          Continue each skip-counting rhythm. Write the missing numbers in the blanks.
+          {t('worksheets.mathRhythm.instructions')}
         </p>
         <div className="grid gap-3">
           {sequences.map((sequence, rowIdx) => {
@@ -747,7 +794,7 @@ const renderers: Record<string, Renderer> = {
     )
   },
   'interactive-math-race': (ctx) => {
-    const { doc, category, seed, variant, t } = ctx
+    const { doc, category, seed, variant, t, formatNum } = ctx
     const problems = buildMathRace(seed, doc.id, variant)
     return (
       <div className="space-y-3">
@@ -757,7 +804,7 @@ const renderers: Record<string, Renderer> = {
         <div className="grid grid-cols-3 gap-3">
           {problems.map((prob, idx) => (
             <div key={idx} className="rounded-lg border border-slate-200 bg-white px-3 py-2 text-center text-lg font-semibold tracking-wide">
-              {prob.first} {prob.op} {prob.second} =
+              {formatNum(prob.first)} {prob.op} {formatNum(prob.second)} =
             </div>
           ))}
         </div>
@@ -769,7 +816,7 @@ const renderers: Record<string, Renderer> = {
     )
   },
   'interactive-math-puzzle': (ctx) => {
-    const { doc, seed, variant, t } = ctx
+    const { doc, seed, variant, t, formatNum, language } = ctx
     const puzzles = buildMathPuzzle(seed, doc.id, variant)
     return (
       <div className="space-y-3">
@@ -777,30 +824,42 @@ const renderers: Record<string, Renderer> = {
           {t('worksheets.mathPuzzle.instructions')}
         </p>
         <div className="grid grid-cols-2 gap-4">
-          {puzzles.map((puzzle, idx) => (
-            <div key={idx} className="rounded-xl border border-amber-200 bg-amber-50 px-4 py-5 text-center text-lg font-semibold text-amber-800">
-              {puzzle.prompt}
-            </div>
-          ))}
+          {puzzles.map((puzzle, idx) => {
+            // Format numbers in the prompt for Arabic - replace all digits with formatted versions
+            let formattedPrompt = puzzle.prompt
+            if (language === 'ar' && formatNum) {
+              // Replace all sequences of digits with formatted versions
+              formattedPrompt = puzzle.prompt.replace(/\d+/g, (match) => {
+                const num = parseInt(match, 10)
+                return formatNum(num)
+              })
+            }
+            return (
+              <div key={idx} className="rounded-xl border border-amber-200 bg-amber-50 px-4 py-5 text-center text-lg font-semibold text-amber-800">
+                {formattedPrompt}
+              </div>
+            )
+          })}
         </div>
       </div>
     )
   },
-  'interactive-math-shapes': ({ seed, doc, variant }) => {
+  'interactive-math-shapes': (ctx) => {
+    const { seed, doc, variant, t, formatNum } = ctx
     const rows = buildMathShapes(seed, doc.id, variant)
     return (
       <div className="space-y-3">
         <p className="text-sm text-slate-600">
-          Draw and tally each shape. Then classify it as {`"flat"`} or {`"solid"`} and record the number of sides.
+          {t('worksheets.mathShapes.instructions')}
         </p>
         <table className="w-full border border-slate-300 text-sm">
           <thead className="bg-slate-100 text-left">
             <tr>
-              <th className="px-3 py-2">Shape</th>
-              <th className="px-3 py-2">Color</th>
-              <th className="px-3 py-2">How many?</th>
-              <th className="px-3 py-2">Flat or Solid?</th>
-              <th className="px-3 py-2">Number of sides</th>
+              <th className="px-3 py-2">{t('worksheets.mathShapes.shape')}</th>
+              <th className="px-3 py-2">{t('worksheets.mathShapes.color')}</th>
+              <th className="px-3 py-2">{t('worksheets.mathShapes.howMany')}</th>
+              <th className="px-3 py-2">{t('worksheets.mathShapes.flatOrSolid')}</th>
+              <th className="px-3 py-2">{t('worksheets.mathShapes.numberOfSides')}</th>
             </tr>
           </thead>
           <tbody>
@@ -808,7 +867,7 @@ const renderers: Record<string, Renderer> = {
               <tr key={idx} className="border-t border-slate-200">
                 <td className="px-3 py-2 capitalize">{row.shape}</td>
                 <td className="px-3 py-2 capitalize">{row.color}</td>
-                <td className="px-3 py-2">{row.count}</td>
+                <td className="px-3 py-2">{formatNum ? formatNum(row.count) : row.count}</td>
                 <td className="px-3 py-2">________________</td>
                 <td className="px-3 py-2">________</td>
               </tr>
@@ -818,22 +877,26 @@ const renderers: Record<string, Renderer> = {
       </div>
     )
   },
-  'interactive-math-money': ({ seed, doc, variant }) => {
+  'interactive-math-money': (ctx) => {
+    const { seed, doc, variant, t, formatNum } = ctx
     const prompts = buildMathMoney(seed, doc.id, variant)
     return (
       <div className="space-y-3">
         <p className="text-sm text-slate-600">
-          Use coins to count up to the total. Draw the coins you would use and record the value.
+          {t('worksheets.mathMoney.instructions')}
         </p>
         <ol className="space-y-3 text-sm text-slate-700 list-decimal list-inside">
           {prompts.map((prompt, idx) => (
             <li key={idx} className="rounded-lg border border-emerald-200 bg-emerald-50 px-4 py-3">
               <p>
-                The {prompt.item} costs ${(prompt.amount / 100).toFixed(2)}. Pay using {prompt.coin}. Draw your coins below and write the total.
+                {t('worksheets.mathMoney.costs')
+                  .replace('{{item}}', prompt.item)
+                  .replace('{{amount}}', formatNum ? formatNum((prompt.amount / 100).toFixed(2)) : (prompt.amount / 100).toFixed(2))
+                  .replace('{{coin}}', prompt.coin)}
               </p>
               <div className="mt-2 h-16 rounded border border-dashed border-emerald-300 bg-white" />
               <div className="mt-2 text-xs text-emerald-700">
-                Total: ________ • Change: ________
+                {t('worksheets.mathMoney.total')} ________ • {t('worksheets.mathMoney.change')} ________
               </div>
             </li>
           ))}
@@ -841,20 +904,21 @@ const renderers: Record<string, Renderer> = {
       </div>
     )
   },
-  'interactive-math-fractions': ({ seed, doc, variant }) => {
+  'interactive-math-fractions': (ctx) => {
+    const { seed, doc, variant, t, formatNum } = ctx
     const pairs = buildMathFractions(seed, doc.id, variant)
     return (
       <div className="space-y-3">
         <p className="text-sm text-slate-600">
-          Compare each pair of fractions. Shade the bar models to help you decide, then write &lt;, &gt;, or =.
+          {t('worksheets.mathFractions.instructions')}
         </p>
         <div className="space-y-4">
           {pairs.map(({ left: a, right: b }, idx) => (
             <div key={idx} className="rounded-xl border border-purple-200 bg-white p-4">
               <div className="flex items-center justify-between text-lg font-semibold text-purple-800">
-                <span>{a.num}/{a.den}</span>
+                <span>{formatNum ? formatNum(a.num) : a.num}/{formatNum ? formatNum(a.den) : a.den}</span>
                 <span className="text-slate-400">__________</span>
-                <span>{b.num}/{b.den}</span>
+                <span>{formatNum ? formatNum(b.num) : b.num}/{formatNum ? formatNum(b.den) : b.den}</span>
               </div>
               <div className="mt-3 grid grid-cols-2 gap-3">
                 {[a, b].map((frac, barIdx) => (
@@ -862,7 +926,7 @@ const renderers: Record<string, Renderer> = {
                     <div className="h-3 w-full overflow-hidden rounded-full border border-slate-300 bg-slate-100">
                       <div className="h-full bg-purple-400" style={{ width: `${(frac.num / frac.den) * 100}%` }} />
                     </div>
-                    <p>Shade {frac.num} of {frac.den} equal parts.</p>
+                    <p>{t('worksheets.mathFractions.shade').replace('{{num}}', formatNum ? formatNum(frac.num) : String(frac.num)).replace('{{den}}', formatNum ? formatNum(frac.den) : String(frac.den))}</p>
                   </div>
                 ))}
               </div>
@@ -872,25 +936,26 @@ const renderers: Record<string, Renderer> = {
       </div>
     )
   },
-  'interactive-math-measurement': ({ seed, doc, variant }) => {
+  'interactive-math-measurement': (ctx) => {
+    const { seed, doc, variant, t, formatNum } = ctx
     const problems = buildMathMeasurement(seed, doc.id, variant)
     return (
       <div className="space-y-3">
         <p className="text-sm text-slate-600">
-          Convert each measurement. Show your work in the space provided.
+          {t('worksheets.mathMeasurement.instructions')}
         </p>
         <table className="w-full border border-slate-300 text-left text-sm">
           <thead className="bg-slate-100">
             <tr>
-              <th className="px-3 py-2">Given</th>
-              <th className="px-3 py-2">Convert to</th>
-              <th className="px-3 py-2">Work space</th>
+              <th className="px-3 py-2">{t('worksheets.mathMeasurement.given')}</th>
+              <th className="px-3 py-2">{t('worksheets.mathMeasurement.convertTo')}</th>
+              <th className="px-3 py-2">{t('worksheets.mathMeasurement.workSpace')}</th>
             </tr>
           </thead>
           <tbody>
             {problems.map((problem, idx) => (
               <tr key={idx} className="border-t border-slate-200">
-                <td className="px-3 py-2">{problem.amount} {problem.from}</td>
+                <td className="px-3 py-2">{formatNum ? formatNum(problem.amount) : problem.amount} {problem.from}</td>
                 <td className="px-3 py-2">_____ {problem.to}</td>
                 <td className="px-3 py-2">
                   <div className="h-12 rounded border border-dashed border-slate-300 bg-white" />
@@ -902,7 +967,8 @@ const renderers: Record<string, Renderer> = {
       </div>
     )
   },
-  'interactive-reading-adventure': ({ seed, doc, variant }) => {
+  'interactive-reading-adventure': (ctx) => {
+    const { seed, doc, variant, t } = ctx
     const rng = makeRng(`${seed}|${doc.id}|${variant}`)
     const heroes = ['Maya', 'Jasper', 'Alani', 'Theo', 'Priya', 'Leo']
     const settings = ['hidden treehouse', 'floating library', 'midnight carnival', 'desert lab', 'mountain observatory']
@@ -914,51 +980,68 @@ const renderers: Record<string, Renderer> = {
     return (
       <div className="space-y-3">
         <p className="text-sm leading-relaxed text-slate-700">
-          {hero} and {partner} arrive at the {setting}. They must {quest} before the moon sets. Along the way they meet a guide who speaks only in rhymes. What clues do they gather? How do they work together?
+          {t('worksheets.readingAdventure.story')
+            .replace('{{hero}}', hero)
+            .replace('{{partner}}', partner)
+            .replace('{{setting}}', setting)
+            .replace('{{quest}}', quest)}
         </p>
         <div className="space-y-2 text-sm text-slate-700">
-          <p className="font-semibold text-slate-900">Comprehension Checks</p>
+          <p className="font-semibold text-slate-900">{t('worksheets.readingAdventure.comprehensionChecks')}</p>
           <ol className="list-decimal list-inside space-y-1">
-            <li>What problem do {hero} and {partner} need to solve?</li>
-            <li>Describe one clue from the rhyme-speaking guide.</li>
-            <li>How does the setting help or challenge the characters?</li>
+            <li>{t('worksheets.readingAdventure.whatProblem').replace('{{hero}}', hero).replace('{{partner}}', partner)}</li>
+            <li>{t('worksheets.readingAdventure.describeClue')}</li>
+            <li>{t('worksheets.readingAdventure.howSetting')}</li>
           </ol>
         </div>
         <div className="rounded-xl border border-slate-200 bg-white p-4">
-          <p className="text-xs uppercase tracking-wide text-slate-500">Creative Extension</p>
-          <p className="text-sm text-slate-700">Sketch one scene from the adventure and label the important details.</p>
+          <p className="text-xs uppercase tracking-wide text-slate-500">{t('worksheets.readingAdventure.creativeExtension')}</p>
+          <p className="text-sm text-slate-700">{t('worksheets.readingAdventure.sketchScene')}</p>
           <div className="mt-2 h-32 rounded border border-dashed border-slate-300" />
         </div>
       </div>
     )
   },
-  'interactive-reading-detective': ({ seed, doc, variant }) => {
+  'interactive-reading-detective': (ctx) => {
+    const { seed, doc, variant, t, language } = ctx
     const rng = makeRng(`${seed}|${doc.id}|${variant}`)
-    const mysteries = [
+    const defaultMysteries = [
       { title: 'The Missing Lab Goggles', culprit: 'an absent-minded janitor', clue: 'a trail of glitter', setting: 'science fair' },
       { title: 'Case of the Empty Birdhouse', culprit: 'a helpful raccoon', clue: 'muddy paw prints', setting: 'school garden' },
       { title: 'The Whispering Lockers', culprit: 'a friendly robot', clue: 'battery crumbs', setting: 'hallway' },
     ]
+    let mysteries = defaultMysteries
+    if (language === 'ar') {
+      const translatedMysteries = t('worksheets.readingDetective.mysteries')
+      if (Array.isArray(translatedMysteries) && translatedMysteries.length > 0) {
+        mysteries = translatedMysteries as typeof defaultMysteries
+      }
+    }
     const caseFile = pick(rng, mysteries)
+    const detectiveNotes = t('worksheets.readingDetective.detectiveNotes')
+      .replace('{{setting}}', caseFile.setting)
+      .replace('{{clue}}', caseFile.clue)
+    const explainWhy = t('worksheets.readingDetective.explainWhy').replace('{{culprit}}', caseFile.culprit)
     return (
       <div className="space-y-3">
-        <p className="text-sm text-slate-700 font-semibold">Case File: {caseFile.title}</p>
+        <p className="text-sm text-slate-700 font-semibold">{t('worksheets.readingDetective.caseFile')}: {caseFile.title}</p>
         <p className="text-sm text-slate-600">
-          Detective Notes: The scene is the {caseFile.setting}. A witness heard a hum. The main clue is {caseFile.clue}. Who or what is responsible?
+          {detectiveNotes}
         </p>
         <ul className="list-disc list-inside space-y-1 text-sm text-slate-700">
-          <li>Write three inferences using the clues.</li>
-          <li>Explain why the culprit might be {caseFile.culprit}.</li>
-          <li>Prove or disprove your theory with text evidence.</li>
+          <li>{t('worksheets.readingDetective.writeThreeInferences')}</li>
+          <li>{explainWhy}</li>
+          <li>{t('worksheets.readingDetective.proveOrDisprove')}</li>
         </ul>
         <div className="rounded-lg border border-dashed border-indigo-300 bg-indigo-50 px-4 py-3 text-sm text-indigo-800">
-          Draw your evidence board below and label each clue.
+          {t('worksheets.readingDetective.drawEvidenceBoard')}
           <div className="mt-2 h-28 rounded border border-indigo-200 bg-white" />
         </div>
       </div>
     )
   },
-  'interactive-reading-storymap': ({ seed, doc, variant }) => {
+  'interactive-reading-storymap': (ctx) => {
+    const { seed, doc, variant, t, formatNum } = ctx
     const story = buildReadingStoryMap(seed, doc.id, variant)
     return (
       <div className="space-y-3">
@@ -967,9 +1050,9 @@ const renderers: Record<string, Renderer> = {
         </p>
         <div className="grid gap-3 md:grid-cols-3">
           {[
-            { title: 'Beginning', prompt: 'Who are the characters? Where are they?' },
-            { title: 'Middle', prompt: 'What problem appears? What clues help?' },
-            { title: 'Ending', prompt: 'How do they solve it? What is the lesson?' },
+            { title: t('worksheets.storyMap.beginning'), prompt: t('worksheets.storyMap.beginningPrompt') },
+            { title: t('worksheets.storyMap.middle'), prompt: t('worksheets.storyMap.middlePrompt') },
+            { title: t('worksheets.storyMap.ending'), prompt: t('worksheets.storyMap.endingPrompt') },
           ].map((section) => (
             <div key={section.title} className="rounded-xl border border-slate-200 bg-white p-4 text-sm text-slate-700">
               <p className="font-semibold text-slate-900">{section.title}</p>
@@ -980,16 +1063,16 @@ const renderers: Record<string, Renderer> = {
         </div>
         <div className="grid gap-3 md:grid-cols-2">
           <div className="rounded-xl border border-purple-200 bg-purple-50 p-4 text-sm text-purple-800">
-            <p className="font-semibold">Clue Log</p>
-            <p className="text-xs uppercase tracking-wide text-purple-500">Look back at the story</p>
+            <p className="font-semibold">{t('worksheets.storyMap.clueLog')}</p>
+            <p className="text-xs uppercase tracking-wide text-purple-500">{t('worksheets.storyMap.lookBackAtStory')}</p>
             <ol className="mt-2 list-decimal list-inside space-y-2 text-purple-900">
-              <li>Clue 1: _____________________________________________</li>
-              <li>Clue 2: _____________________________________________</li>
+              <li>{t('worksheets.storyMap.clue').replace('{{number}}', formatNum ? formatNum('1') : '1')}: _____________________________________________</li>
+              <li>{t('worksheets.storyMap.clue').replace('{{number}}', formatNum ? formatNum('2') : '2')}: _____________________________________________</li>
             </ol>
           </div>
           <div className="rounded-xl border border-slate-200 bg-white p-4 text-sm text-slate-700">
-            <p className="font-semibold text-slate-900">Retell in Your Own Words</p>
-            <p className="text-xs text-slate-500">Write three sentences that cover beginning, middle, and ending.</p>
+            <p className="font-semibold text-slate-900">{t('worksheets.storyMap.retellInOwnWords')}</p>
+            <p className="text-xs text-slate-500">{t('worksheets.storyMap.retellPrompt')}</p>
             <div className="mt-3 space-y-2">
               <div className="h-10 rounded border border-dashed border-slate-300" />
               <div className="h-10 rounded border border-dashed border-slate-300" />
@@ -998,17 +1081,18 @@ const renderers: Record<string, Renderer> = {
           </div>
         </div>
         <div className="space-y-2 text-sm text-slate-700">
-          <p className="font-semibold text-slate-900">Comprehension Checks</p>
+          <p className="font-semibold text-slate-900">{t('worksheets.storyMap.comprehensionChecks')}</p>
           <ol className="list-decimal list-inside space-y-1">
-            <li>Why did {story.hero} and {story.friend} visit the {story.setting}?</li>
-            <li>What problem slowed them down in the middle of the story?</li>
-            <li>How did {story.helper} help them finish their goal? What lesson did they learn?</li>
+            <li>{t('worksheets.storyMap.whyDidVisit').replace('{{hero}}', story.hero).replace('{{friend}}', story.friend).replace('{{setting}}', story.setting)}</li>
+            <li>{t('worksheets.storyMap.whatProblem')}</li>
+            <li>{t('worksheets.storyMap.howDidHelper').replace('{{helper}}', story.helper)}</li>
           </ol>
         </div>
       </div>
     )
   },
-  'interactive-reading-vocab': ({ seed, doc, variant }) => {
+  'interactive-reading-vocab': (ctx) => {
+    const { seed, doc, variant, t } = ctx
     const rng = makeRng(`${seed}|${doc.id}|${variant}`)
     const words = pickMany(rng, ['brisk', 'illuminate', 'curious', 'soar', 'murmur', 'astonished', 'grumble', 'admire', 'voyage', 'bundle'], 6)
     const contexts = ['after-school announcement', 'nature discovery', 'space mission', 'friendship moment', 'STEM experiment', 'art showcase']
@@ -1016,14 +1100,14 @@ const renderers: Record<string, Renderer> = {
     return (
       <div className="space-y-3">
         <p className="text-sm text-slate-600">
-          Use context clues to match each word to its meaning. Then write a sentence using the word in the {context} context.
+          {t('worksheets.vocab.instructions').replace('{{context}}', context)}
         </p>
         <table className="w-full border border-slate-300 text-sm">
           <thead className="bg-slate-100">
             <tr>
-              <th className="px-3 py-2">Word</th>
-              <th className="px-3 py-2">Match the meaning</th>
-              <th className="px-3 py-2">Sentence in context</th>
+              <th className="px-3 py-2">{t('worksheets.vocab.word')}</th>
+              <th className="px-3 py-2">{t('worksheets.vocab.matchMeaning')}</th>
+              <th className="px-3 py-2">{t('worksheets.vocab.sentenceInContext')}</th>
             </tr>
           </thead>
           <tbody>
@@ -1039,78 +1123,88 @@ const renderers: Record<string, Renderer> = {
       </div>
     )
   },
-  'interactive-reading-summary': ({ seed, doc, variant }) => {
+  'interactive-reading-summary': (ctx) => {
+    const { seed, doc, variant, t, formatNum } = ctx
     const rng = makeRng(`${seed}|${doc.id}|${variant}`)
     const topics = ['community garden', 'solar-powered bus', 'classroom pet adoption', 'school makerspace', 'reading marathon']
     const topic = pick(rng, topics)
     return (
       <div className="space-y-3">
         <p className="text-sm leading-relaxed text-slate-700">
-          Read the informational paragraph about the {topic}. Highlight the most important idea from each section. Then complete the summary box with 3 key points.
+          {t('worksheets.summary.instructions').replace('{{topic}}', topic)}
         </p>
         <div className="grid gap-3 md:grid-cols-2">
           <div className="rounded-xl border border-slate-200 bg-white p-4 text-sm text-slate-600">
             <p>
-              Paragraph 1: Introduces the {topic}. Why was it created? Who benefits from it?
+              {t('worksheets.summary.paragraph').replace('{{number}}', formatNum ? formatNum('1') : '1')}: {t('worksheets.summary.paragraph1Intro').replace('{{topic}}', topic)}
             </p>
             <p className="mt-2">
-              Paragraph 2: Describes how it works each day. What steps are involved? Who helps?
+              {t('worksheets.summary.paragraph').replace('{{number}}', formatNum ? formatNum('2') : '2')}: {t('worksheets.summary.paragraph2Intro')}
             </p>
             <p className="mt-2">
-              Paragraph 3: Shares one challenge and a plan to improve it next month.
+              {t('worksheets.summary.paragraph').replace('{{number}}', formatNum ? formatNum('3') : '3')}: {t('worksheets.summary.paragraph3Intro')}
             </p>
           </div>
           <div className="rounded-xl border border-purple-200 bg-purple-50 p-4 text-sm text-purple-800">
-            <p className="font-semibold">Summary Box</p>
+            <p className="font-semibold">{t('worksheets.summary.summaryBox')}</p>
             <ul className="mt-2 space-y-2 text-purple-900">
-              <li>Key point 1: __________________________</li>
-              <li>Key point 2: __________________________</li>
-              <li>Key point 3: __________________________</li>
+              <li>{t('worksheets.summary.keyPoint').replace('{{number}}', formatNum ? formatNum('1') : '1')}: __________________________</li>
+              <li>{t('worksheets.summary.keyPoint').replace('{{number}}', formatNum ? formatNum('2') : '2')}: __________________________</li>
+              <li>{t('worksheets.summary.keyPoint').replace('{{number}}', formatNum ? formatNum('3') : '3')}: __________________________</li>
             </ul>
-            <p className="mt-3 text-xs text-purple-700">Write one closing sentence that restates the main idea in your own words.</p>
+            <p className="mt-3 text-xs text-purple-700">{t('worksheets.summary.closingSentence')}</p>
           </div>
         </div>
       </div>
     )
   },
-  'interactive-reading-compare': ({ seed, doc, variant }) => {
+  'interactive-reading-compare': (ctx) => {
+    const { seed, doc, variant, t, language } = ctx
     const rng = makeRng(`${seed}|${doc.id}|${variant}`)
-    const topics = [
+    const defaultTopics = [
       ['solar camping tent', 'traditional canvas tent'],
       ['silent reading nook', 'classroom makerspace'],
       ['city playground', 'forest trail'],
       ['robot helper', 'human volunteer'],
     ]
+    let topics = defaultTopics
+    if (language === 'ar') {
+      const translatedTopics = t('worksheets.compare.topics')
+      if (Array.isArray(translatedTopics) && translatedTopics.length > 0) {
+        topics = translatedTopics as string[][]
+      }
+    }
     const [topicA, topicB] = pick(rng, topics)
     return (
       <div className="space-y-3">
         <p className="text-sm text-slate-600">
-          Compare and contrast the two texts. Record information about {topicA} and {topicB}, then write a paragraph explaining how they are alike and different.
+          {t('worksheets.compare.instructions').replace('{{topicA}}', topicA).replace('{{topicB}}', topicB)}
         </p>
         <div className="grid gap-4">
           <div className="rounded-xl border border-slate-200 bg-white p-4 text-sm text-slate-700">
-            <p className="font-semibold">Text 1: {topicA}</p>
-            <p>Key details: ______________________________</p>
-            <p>What problem does it solve? __________________</p>
+            <p className="font-semibold">{t('worksheets.compare.text1').replace('{{topic}}', topicA)}</p>
+            <p>{t('worksheets.compare.keyDetails')} ______________________________</p>
+            <p>{t('worksheets.compare.whatProblem')} __________________</p>
           </div>
           <div className="rounded-xl border border-slate-200 bg-white p-4 text-sm text-slate-700">
-            <p className="font-semibold">Text 2: {topicB}</p>
-            <p>Key details: ______________________________</p>
-            <p>What problem does it solve? __________________</p>
+            <p className="font-semibold">{t('worksheets.compare.text2').replace('{{topic}}', topicB)}</p>
+            <p>{t('worksheets.compare.keyDetails')} ______________________________</p>
+            <p>{t('worksheets.compare.whatProblem')} __________________</p>
           </div>
           <div className="rounded-xl border border-emerald-200 bg-emerald-50 p-4 text-sm text-emerald-900">
-            <p className="font-semibold">Compare & Contrast Paragraph</p>
+            <p className="font-semibold">{t('worksheets.compare.compareContrastParagraph')}</p>
             <p className="mt-2">
-              {topicA} and {topicB} are alike because _______________________________. They are different because _______________________________.
+              {t('worksheets.compare.alikeBecause').replace('{{topicA}}', topicA).replace('{{topicB}}', topicB)} _______________________________. {t('worksheets.compare.differentBecause')} _______________________________.
             </p>
           </div>
         </div>
       </div>
     )
   },
-  'interactive-writing-prompts': ({ seed, doc, variant }) => {
+  'interactive-writing-prompts': (ctx) => {
+    const { seed, doc, variant, t, formatNum, language } = ctx
     const rng = makeRng(`${seed}|${doc.id}|${variant}`)
-    const prompts = [
+    const defaultPrompts = [
       'Write about a time your class invented something helpful.',
       'Describe a secret door you discover during recess.',
       'Imagine the library books come alive at night?what happens?',
@@ -1118,29 +1212,37 @@ const renderers: Record<string, Renderer> = {
       'Explain how to care for a tiny dragon who loves math.',
       'Describe a neighborhood celebration that you design.',
     ]
+    let prompts = defaultPrompts
+    if (language === 'ar') {
+      const translatedPrompts = t('worksheets.writingPrompts.prompts')
+      if (Array.isArray(translatedPrompts) && translatedPrompts.length > 0) {
+        prompts = translatedPrompts as string[]
+      }
+    }
     const chosen = pickMany(rng, prompts, 3)
     return (
       <div className="space-y-3">
         <p className="text-sm text-slate-600">
-          Choose a prompt and write a beginning, middle, and end. Include feelings, actions, and dialogue.
+          {t('worksheets.writingPrompts.instructions')}
         </p>
         <ul className="space-y-2 text-sm text-slate-700">
           {chosen.map((prompt, idx) => (
             <li key={idx} className="rounded-lg border border-slate-200 bg-white px-4 py-3">
-              <span className="font-semibold text-purple-700">Prompt {idx + 1}:</span> {prompt}
+              <span className="font-semibold text-purple-700">{t('worksheets.writingPrompts.prompt').replace('{{number}}', formatNum ? formatNum(idx + 1) : String(idx + 1))}:</span> {prompt}
             </li>
           ))}
         </ul>
         <div className="space-y-1 text-xs text-slate-500">
-          <p>Brainstorm: ________________________________</p>
-          <p>Beginning: _________________________________</p>
-          <p>Middle: ___________________________________</p>
-          <p>End: ______________________________________</p>
+          <p>{t('worksheets.writingPrompts.brainstorm')} ________________________________</p>
+          <p>{t('worksheets.writingPrompts.beginning')} _________________________________</p>
+          <p>{t('worksheets.writingPrompts.middle')} ___________________________________</p>
+          <p>{t('worksheets.writingPrompts.end')} ______________________________________</p>
         </div>
       </div>
     )
   },
-  'interactive-writing-sentences': ({ seed, doc, variant }) => {
+  'interactive-writing-sentences': (ctx) => {
+    const { seed, doc, variant, t } = ctx
     const rng = makeRng(`${seed}|${doc.id}|${variant}`)
     const starters = pickMany(rng, ['After lunch', 'During the storm', 'When the robot blinked', 'While the choir practiced', 'Before sunrise', 'Whenever the bell rings'], 4)
     const actions = pickMany(rng, ['we built a domino tower', 'the lights flickered', 'a secret message appeared', 'someone whispered a clue', 'the class cheered', 'the cat jumped on the desk'], 4)
@@ -1148,7 +1250,7 @@ const renderers: Record<string, Renderer> = {
     return (
       <div className="space-y-3">
         <p className="text-sm text-slate-600">
-          Complete each sentence with vivid verbs and details. Then rewrite one sentence using a compound structure.
+          {t('worksheets.writingSentences.instructions')}
         </p>
         <ul className="space-y-2 text-sm text-slate-700">
           {sentences.map((sentence, idx) => (
@@ -1158,87 +1260,104 @@ const renderers: Record<string, Renderer> = {
           ))}
         </ul>
         <div className="rounded-lg border border-slate-200 bg-white px-4 py-3 text-sm text-slate-600">
-          <p className="font-semibold text-slate-900">Compound Sentence Challenge</p>
-          <p>Combine two of your sentences with a conjunction: _______________________________________________________</p>
+          <p className="font-semibold text-slate-900">{t('worksheets.writingSentences.compoundSentenceChallenge')}</p>
+          <p>{t('worksheets.writingSentences.combineWithConjunction')} _______________________________________________________</p>
         </div>
       </div>
     )
   },
-  'interactive-writing-poetry': ({ seed, doc, variant }) => {
+  'interactive-writing-poetry': (ctx) => {
+    const { seed, doc, variant, t, formatNum, language } = ctx
     const rng = makeRng(`${seed}|${doc.id}|${variant}`)
-    const themes = ['rainy playground', 'city skyline', 'secret garden', 'music festival', 'winter morning', 'campfire night']
+    const defaultThemes = ['rainy playground', 'city skyline', 'secret garden', 'music festival', 'winter morning', 'campfire night']
+    let themes = defaultThemes
+    if (language === 'ar') {
+      const translatedThemes = t('worksheets.writingPoetry.themes')
+      if (Array.isArray(translatedThemes) && translatedThemes.length > 0) {
+        themes = translatedThemes as string[]
+      }
+    }
     const theme = pick(rng, themes)
     const wordBank = pickMany(rng, ['glimmer', 'echo', 'whirl', 'rustle', 'shimmer', 'spark', 'twirl', 'glide', 'bloom', 'glisten'], 6)
     return (
       <div className="space-y-3">
         <p className="text-sm text-slate-600">
-          Create a haiku and a free-verse stanza about a {theme}. Use at least three word bank words.
+          {t('worksheets.writingPoetry.instructions').replace('{{theme}}', theme)}
         </p>
         <div className="rounded-xl border border-purple-200 bg-purple-50 p-4 text-sm text-purple-800">
-          <p className="font-semibold">Word Bank</p>
+          <p className="font-semibold">{t('worksheets.writingPoetry.wordBank')}</p>
           <p className="mt-1 uppercase tracking-wide text-xs">{wordBank.join(' • ')}</p>
         </div>
         <div className="grid gap-4 md:grid-cols-2">
           <div className="rounded-xl border border-slate-200 bg-white p-4 text-sm text-slate-700">
-            <p className="font-semibold">Haiku (5-7-5)</p>
-            <p>Line 1: ___________________________</p>
-            <p>Line 2: ___________________________</p>
-            <p>Line 3: ___________________________</p>
+            <p className="font-semibold">{t('worksheets.writingPoetry.haiku')}</p>
+            <p>{t('worksheets.writingPoetry.line').replace('{{number}}', formatNum ? formatNum('1') : '1')}: ___________________________</p>
+            <p>{t('worksheets.writingPoetry.line').replace('{{number}}', formatNum ? formatNum('2') : '2')}: ___________________________</p>
+            <p>{t('worksheets.writingPoetry.line').replace('{{number}}', formatNum ? formatNum('3') : '3')}: ___________________________</p>
           </div>
           <div className="rounded-xl border border-slate-200 bg-white p-4 text-sm text-slate-700">
-            <p className="font-semibold">Free-verse Stanza</p>
-            <p>Line 1: ___________________________</p>
-            <p>Line 2: ___________________________</p>
-            <p>Line 3: ___________________________</p>
-            <p>Line 4: ___________________________</p>
+            <p className="font-semibold">{t('worksheets.writingPoetry.freeVerseStanza')}</p>
+            <p>{t('worksheets.writingPoetry.line').replace('{{number}}', formatNum ? formatNum('1') : '1')}: ___________________________</p>
+            <p>{t('worksheets.writingPoetry.line').replace('{{number}}', formatNum ? formatNum('2') : '2')}: ___________________________</p>
+            <p>{t('worksheets.writingPoetry.line').replace('{{number}}', formatNum ? formatNum('3') : '3')}: ___________________________</p>
+            <p>{t('worksheets.writingPoetry.line').replace('{{number}}', formatNum ? formatNum('4') : '4')}: ___________________________</p>
           </div>
         </div>
       </div>
     )
   },
-  'interactive-writing-opinion': ({ seed, doc, variant }) => {
+  'interactive-writing-opinion': (ctx) => {
+    const { seed, doc, variant, t, formatNum, language } = ctx
     const rng = makeRng(`${seed}|${doc.id}|${variant}`)
-    const topics = ['Should recess be longer?', 'Is it better to read ebooks or paper books?', 'Should robots help with homework?', 'Is homework on weekends a good idea?', 'Should the cafeteria add a smoothie bar?']
+    const defaultTopics = ['Should recess be longer?', 'Is it better to read ebooks or paper books?', 'Should robots help with homework?', 'Is homework on weekends a good idea?', 'Should the cafeteria add a smoothie bar?']
+    let topics = defaultTopics
+    if (language === 'ar') {
+      const translatedTopics = t('worksheets.writingOpinion.topics')
+      if (Array.isArray(translatedTopics) && translatedTopics.length > 0) {
+        topics = translatedTopics as string[]
+      }
+    }
     const topic = pick(rng, topics)
     return (
       <div className="space-y-3">
         <p className="text-sm text-slate-600">
-          Plan an opinion paragraph about: <span className="font-semibold text-purple-700">{topic}</span>
+          {t('worksheets.writingOpinion.instructions')} <span className="font-semibold text-purple-700">{topic}</span>
         </p>
         <div className="grid gap-4 md:grid-cols-2">
           <div className="rounded-xl border border-slate-200 bg-white p-4 text-sm text-slate-700">
-            <p className="font-semibold">Reasons & Evidence</p>
-            <p>Reason #1 ____________________________________</p>
-            <p>Evidence _____________________________________</p>
-            <p className="mt-3">Reason #2 ____________________________________</p>
-            <p>Evidence _____________________________________</p>
+            <p className="font-semibold">{t('worksheets.writingOpinion.reasonsAndEvidence')}</p>
+            <p>{t('worksheets.writingOpinion.reason').replace('{{number}}', formatNum ? formatNum('1') : '1')} ____________________________________</p>
+            <p>{t('worksheets.writingOpinion.evidence')} _____________________________________</p>
+            <p className="mt-3">{t('worksheets.writingOpinion.reason').replace('{{number}}', formatNum ? formatNum('2') : '2')} ____________________________________</p>
+            <p>{t('worksheets.writingOpinion.evidence')} _____________________________________</p>
           </div>
           <div className="rounded-xl border border-emerald-200 bg-emerald-50 p-4 text-sm text-emerald-800">
-            <p className="font-semibold">Paragraph Planner</p>
-            <p>Hook sentence: ___________________________________</p>
-            <p>Opinion statement: _______________________________</p>
-            <p>Closing sentence: ________________________________</p>
+            <p className="font-semibold">{t('worksheets.writingOpinion.paragraphPlanner')}</p>
+            <p>{t('worksheets.writingOpinion.hookSentence')} ___________________________________</p>
+            <p>{t('worksheets.writingOpinion.opinionStatement')} _______________________________</p>
+            <p>{t('worksheets.writingOpinion.closingSentence')} ________________________________</p>
           </div>
         </div>
       </div>
     )
   },
-  'interactive-science-observation': ({ seed, doc, variant }) => {
+  'interactive-science-observation': (ctx) => {
+    const { seed, doc, variant, t } = ctx
     const rng = makeRng(`${seed}|${doc.id}|${variant}`)
     const focuses = ['plants', 'weather', 'animal behavior', 'STEM gadgets', 'rocks & minerals']
     const focus = pick(rng, focuses)
     return (
       <div className="space-y-3">
         <p className="text-sm text-slate-600">
-          Observe and record data about {focus}. Include sketches, measurements, and interesting questions.
+          {t('worksheets.scienceObservation.instructions').replace('{{focus}}', focus)}
         </p>
         <table className="w-full border border-slate-300 text-left text-sm">
           <thead className="bg-slate-100">
             <tr>
-              <th className="px-3 py-2">Date & Time</th>
-              <th className="px-3 py-2">Observation Sketch</th>
-              <th className="px-3 py-2">What I Noticed</th>
-              <th className="px-3 py-2">Questions / Next Steps</th>
+              <th className="px-3 py-2">{t('worksheets.scienceObservation.dateAndTime')}</th>
+              <th className="px-3 py-2">{t('worksheets.scienceObservation.observationSketch')}</th>
+              <th className="px-3 py-2">{t('worksheets.scienceObservation.whatINoticed')}</th>
+              <th className="px-3 py-2">{t('worksheets.scienceObservation.questionsNextSteps')}</th>
             </tr>
           </thead>
           <tbody>
@@ -1257,7 +1376,8 @@ const renderers: Record<string, Renderer> = {
       </div>
     )
   },
-  'interactive-science-lifecycle': ({ seed, doc, variant }) => {
+  'interactive-science-lifecycle': (ctx) => {
+    const { seed, doc, variant, t, formatNum } = ctx
     const rng = makeRng(`${seed}|${doc.id}|${variant}`)
     const cycles = ['butterfly', 'sunflower', 'frog', 'apple tree', 'bean plant']
     const cycle = pick(rng, cycles)
@@ -1269,25 +1389,27 @@ const renderers: Record<string, Renderer> = {
       'bean plant': ['Seed', 'Sprout', 'Flowering', 'Bean pod'],
     }
     const stages = stagesMap[cycle]
+    const numberWords = ['first', 'second', 'third', 'fourth']
     return (
       <div className="space-y-3">
         <p className="text-sm text-slate-600">
-          Label and illustrate the life cycle of a {cycle}. Describe what happens at each stage.
+          {t('worksheets.scienceLifecycle.instructions').replace('{{cycle}}', cycle)}
         </p>
         <div className="grid gap-4 md:grid-cols-4">
           {stages.map((stage, idx) => (
             <div key={stage} className="rounded-xl border border-emerald-200 bg-emerald-50 p-3 text-center text-sm text-emerald-800">
-              <p className="font-semibold">{numberWords[idx].toUpperCase()} Stage</p>
+              <p className="font-semibold">{t('worksheets.scienceLifecycle.stage').replace('{{number}}', formatNum ? formatNum(idx + 1) : String(idx + 1))}</p>
               <p className="mt-1 font-bold text-emerald-900">{stage}</p>
               <div className="mt-2 h-16 rounded border border-dashed border-emerald-300 bg-white" />
-              <p className="mt-2 text-xs text-emerald-700">Notes: __________________</p>
+              <p className="mt-2 text-xs text-emerald-700">{t('worksheets.scienceLifecycle.notes')} __________________</p>
             </div>
           ))}
         </div>
       </div>
     )
   },
-  'interactive-science-states': ({ seed, doc, variant }) => {
+  'interactive-science-states': (ctx) => {
+    const { seed, doc, variant, t } = ctx
     const rng = makeRng(`${seed}|${doc.id}|${variant}`)
     const scenarios = pickMany(
       rng,
@@ -1304,14 +1426,14 @@ const renderers: Record<string, Renderer> = {
     return (
       <div className="space-y-3">
         <p className="text-sm text-slate-600">
-          Identify the change of state for each scenario. Draw the particles before and after the change.
+          {t('worksheets.scienceStates.instructions')}
         </p>
         <table className="w-full border border-slate-300 text-left text-sm">
           <thead className="bg-slate-100">
             <tr>
-              <th className="px-3 py-2">Scenario</th>
-              <th className="px-3 py-2">State Change</th>
-              <th className="px-3 py-2">Particle Diagram</th>
+              <th className="px-3 py-2">{t('worksheets.scienceStates.scenario')}</th>
+              <th className="px-3 py-2">{t('worksheets.scienceStates.stateChange')}</th>
+              <th className="px-3 py-2">{t('worksheets.scienceStates.particleDiagram')}</th>
             </tr>
           </thead>
           <tbody>
@@ -1329,7 +1451,8 @@ const renderers: Record<string, Renderer> = {
       </div>
     )
   },
-  'interactive-science-weather': ({ seed, doc, variant }) => {
+  'interactive-science-weather': (ctx) => {
+    const { seed, doc, variant, t, formatNum } = ctx
     const rng = makeRng(`${seed}|${doc.id}|${variant}`)
     const days = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday']
     const conditions = ['sunny', 'windy', 'rainy', 'stormy', 'foggy', 'partly cloudy', 'snowy']
@@ -1337,22 +1460,22 @@ const renderers: Record<string, Renderer> = {
     return (
       <div className="space-y-3">
         <p className="text-sm text-slate-600">
-          Track the week?s weather. Record the temperature, sketch the sky, and write one safety tip.
+          {t('worksheets.scienceWeather.instructions')}
         </p>
         <table className="w-full border border-slate-300 text-sm">
           <thead className="bg-slate-100">
             <tr>
-              <th className="px-3 py-2">Day</th>
-              <th className="px-3 py-2">Temperature</th>
-              <th className="px-3 py-2">Sky Sketch</th>
-              <th className="px-3 py-2">Safety Tip</th>
+              <th className="px-3 py-2">{t('worksheets.scienceWeather.day')}</th>
+              <th className="px-3 py-2">{t('worksheets.scienceWeather.temperature')}</th>
+              <th className="px-3 py-2">{t('worksheets.scienceWeather.skySketch')}</th>
+              <th className="px-3 py-2">{t('worksheets.scienceWeather.safetyTip')}</th>
             </tr>
           </thead>
           <tbody>
             {tracker.map((entry, idx) => (
               <tr key={idx} className="border-t border-slate-200">
                 <td className="px-3 py-2">{entry.day}</td>
-                <td className="px-3 py-2">{entry.temp}?F</td>
+                <td className="px-3 py-2">{formatNum ? formatNum(entry.temp) : entry.temp}°F</td>
                 <td className="px-3 py-2">
                   <div className="h-12 rounded border border-dashed border-slate-300 bg-white" />
                   <p className="text-xs text-slate-500">{entry.condition}</p>
@@ -1365,7 +1488,8 @@ const renderers: Record<string, Renderer> = {
       </div>
     )
   },
-  'interactive-geography-map': ({ seed, doc, variant }) => {
+  'interactive-geography-map': (ctx) => {
+    const { seed, doc, variant, t, formatNum } = ctx
     const rng = makeRng(`${seed}|${doc.id}|${variant}`)
     const letters = ['A', 'B', 'C', 'D', 'E', 'F']
     const numbers = [1, 2, 3, 4, 5, 6]
@@ -1401,20 +1525,20 @@ const renderers: Record<string, Renderer> = {
     return (
       <div className="space-y-3">
         <p className="text-sm text-slate-600">
-          Plot each location on the grid below. Label and describe what is found at each spot.
+          {t('worksheets.geographyMap.instructions')}
         </p>
         <table className="w-full border border-slate-300 text-sm">
           <thead className="bg-slate-100">
             <tr>
-              <th className="px-3 py-2">Coordinate</th>
-              <th className="px-3 py-2">Place</th>
-              <th className="px-3 py-2">What do you notice there?</th>
+              <th className="px-3 py-2">{t('worksheets.geographyMap.coordinate')}</th>
+              <th className="px-3 py-2">{t('worksheets.geographyMap.place')}</th>
+              <th className="px-3 py-2">{t('worksheets.geographyMap.whatDoYouNotice')}</th>
             </tr>
           </thead>
           <tbody>
             {coordinates.map((row, idx) => (
               <tr key={idx} className="border-t border-slate-200">
-                <td className="px-3 py-2">{row.letter}{row.number}</td>
+                <td className="px-3 py-2">{row.letter}{formatNum ? formatNum(row.number) : row.number}</td>
                 <td className="px-3 py-2 capitalize">{row.place}</td>
                 <td className="px-3 py-2">____________________________________</td>
               </tr>
@@ -1423,7 +1547,7 @@ const renderers: Record<string, Renderer> = {
         </table>
         <div className="grid gap-4 md:grid-cols-2">
           <div>
-            <p className="text-xs font-semibold uppercase tracking-wide text-slate-500 mb-2">Example map</p>
+            <p className="text-xs font-semibold uppercase tracking-wide text-slate-500 mb-2">{t('worksheets.geographyMap.exampleMap')}</p>
             <div className="overflow-hidden rounded-2xl border border-slate-300">
               <table className="w-full border-collapse text-xs">
                 <thead className="bg-slate-100">
@@ -1464,11 +1588,11 @@ const renderers: Record<string, Renderer> = {
               </table>
             </div>
             <p className="mt-1 text-xs text-slate-500">
-              Use this sample to double-check coordinates and landmarks.
+              {t('worksheets.geographyMap.useSampleToCheck')}
             </p>
           </div>
           <div>
-            <p className="text-xs font-semibold uppercase tracking-wide text-slate-500 mb-2">Your map grid</p>
+            <p className="text-xs font-semibold uppercase tracking-wide text-slate-500 mb-2">{t('worksheets.geographyMap.yourMapGrid')}</p>
             <div className="overflow-hidden rounded-2xl border border-slate-300">
               <table className="w-full border-collapse text-xs">
                 <thead className="bg-slate-100">
@@ -1498,27 +1622,28 @@ const renderers: Record<string, Renderer> = {
                 </tbody>
               </table>
             </div>
-            <p className="mt-1 text-xs text-slate-500">Draw landmarks, create a legend, and label each coordinate.</p>
+            <p className="mt-1 text-xs text-slate-500">{t('worksheets.geographyMap.drawLandmarks')}</p>
           </div>
         </div>
       </div>
     )
   },
-  'interactive-geography-culture': ({ seed, doc, variant }) => {
+  'interactive-geography-culture': (ctx) => {
+    const { seed, doc, variant, t } = ctx
     const rng = makeRng(`${seed}|${doc.id}|${variant}`)
     const regions = pickMany(rng, ['Kenya', 'Peru', 'Japan', 'Norway', 'India', 'Brazil', 'Egypt', 'Canada'], 3)
     return (
       <div className="space-y-3">
         <p className="text-sm text-slate-600">
-          Explore traditions from around the world. Research and note a food, celebration, and interesting fact for each region.
+          {t('worksheets.geographyCulture.instructions')}
         </p>
         <table className="w-full border border-slate-300 text-sm">
           <thead className="bg-slate-100">
             <tr>
-              <th className="px-3 py-2">Region</th>
-              <th className="px-3 py-2">Traditional Food</th>
-              <th className="px-3 py-2">Celebration / Holiday</th>
-              <th className="px-3 py-2">Interesting Fact</th>
+              <th className="px-3 py-2">{t('worksheets.geographyCulture.region')}</th>
+              <th className="px-3 py-2">{t('worksheets.geographyCulture.food')}</th>
+              <th className="px-3 py-2">{t('worksheets.geographyCulture.celebration')}</th>
+              <th className="px-3 py-2">{t('worksheets.geographyCulture.interestingFact')}</th>
             </tr>
           </thead>
           <tbody>
@@ -1535,7 +1660,8 @@ const renderers: Record<string, Renderer> = {
       </div>
     )
   },
-  'interactive-geography-history': ({ seed, doc, variant }) => {
+  'interactive-geography-history': (ctx) => {
+    const { seed, doc, variant, t, formatNum } = ctx
     const rng = makeRng(`${seed}|${doc.id}|${variant}`)
     const themes = pickMany(rng, ['communication tools', 'transportation', 'space exploration', 'civil rights', 'technology inventions'], 1)
     const events = pickMany(
@@ -1553,22 +1679,23 @@ const renderers: Record<string, Renderer> = {
     return (
       <div className="space-y-3">
         <p className="text-sm text-slate-600">
-          Build a timeline about {themes[0]}. Place the events in order and explain the impact of each.
+          {t('worksheets.geographyHistory.instructions').replace('{{theme}}', themes[0])}
         </p>
         <div className="space-y-4">
           {events.map((entry, idx) => (
             <div key={idx} className="rounded border border-slate-200 bg-white p-4 text-sm text-slate-700">
               <p className="font-semibold text-slate-900">
-                {entry.year}: {entry.event}
+                {formatNum ? formatNum(entry.year) : entry.year}: {entry.event}
               </p>
-              <p>Impact: ________________________________________</p>
+              <p>{t('worksheets.geographyHistory.impact')} ________________________________________</p>
             </div>
           ))}
         </div>
       </div>
     )
   },
-  'interactive-grammar-parts': ({ seed, doc, variant }) => {
+  'interactive-grammar-parts': (ctx) => {
+    const { seed, doc, variant, t } = ctx
     const rng = makeRng(`${seed}|${doc.id}|${variant}`)
     const nouns = ['robot', 'teacher', 'river', 'backpack', 'galaxy', 'scientist']
     const verbs = ['whispers', 'builds', 'shimmers', 'protects', 'discovers', 'balances']
@@ -1577,34 +1704,35 @@ const renderers: Record<string, Renderer> = {
     return (
       <div className="space-y-3">
         <p className="text-sm text-slate-600">
-          Label each underlined word as a noun, verb, adjective, or adverb. Add one more word to expand the sentence.
+          {t('worksheets.grammarParts.instructions')}
         </p>
         <ul className="space-y-2 text-sm text-slate-700">
           {sentences.map((sentence, idx) => (
             <li key={idx} className="rounded border border-slate-200 bg-white px-4 py-3">
               {sentence}
-              <div className="mt-1 text-xs text-slate-500">Label: __________ • Extra word: __________</div>
+              <div className="mt-1 text-xs text-slate-500">{t('worksheets.grammarParts.label')} __________ • {t('worksheets.grammarParts.extraWord')} __________</div>
             </li>
           ))}
         </ul>
       </div>
     )
   },
-  'interactive-grammar-tenses': ({ seed, doc, variant }) => {
+  'interactive-grammar-tenses': (ctx) => {
+    const { seed, doc, variant, t } = ctx
     const rng = makeRng(`${seed}|${doc.id}|${variant}`)
     const verbs = pickMany(rng, ['explore', 'finish', 'design', 'listen', 'organize', 'travel', 'collect'], 6)
     return (
       <div className="space-y-3">
         <p className="text-sm text-slate-600">
-          Conjugate each verb in past, present, and future tense. Then use the verb in a sentence.
+          {t('worksheets.grammarTenses.instructions')}
         </p>
         <table className="w-full border border-slate-300 text-left text-sm">
           <thead className="bg-slate-100">
             <tr>
-              <th className="px-3 py-2">Verb</th>
-              <th className="px-3 py-2">Past</th>
-              <th className="px-3 py-2">Present</th>
-              <th className="px-3 py-2">Future</th>
+              <th className="px-3 py-2">{t('worksheets.grammarTenses.verb')}</th>
+              <th className="px-3 py-2">{t('worksheets.grammarTenses.past')}</th>
+              <th className="px-3 py-2">{t('worksheets.grammarTenses.present')}</th>
+              <th className="px-3 py-2">{t('worksheets.grammarTenses.future')}</th>
             </tr>
           </thead>
           <tbody>
@@ -1618,11 +1746,12 @@ const renderers: Record<string, Renderer> = {
             ))}
           </tbody>
         </table>
-        <p className="text-xs text-slate-500">Write one sentence using each tense below the table.</p>
+        <p className="text-xs text-slate-500">{t('worksheets.grammarTenses.writeSentence')}</p>
       </div>
     )
   },
-  'interactive-grammar-antonyms': ({ seed, doc, variant }) => {
+  'interactive-grammar-antonyms': (ctx) => {
+    const { seed, doc, variant, t } = ctx
     const rng = makeRng(`${seed}|${doc.id}|${variant}`)
     const pairs = pickMany(
       rng,
@@ -1639,14 +1768,14 @@ const renderers: Record<string, Renderer> = {
     return (
       <div className="space-y-3">
         <p className="text-sm text-slate-600">
-          Match each word to its antonym and use the pair in a sentence.
+          {t('worksheets.grammarAntonyms.instructions')}
         </p>
         <table className="w-full border border-slate-300 text-sm">
           <thead className="bg-slate-100">
             <tr>
-              <th className="px-3 py-2">Word</th>
-              <th className="px-3 py-2">Antonym</th>
-              <th className="px-3 py-2">Sentence</th>
+              <th className="px-3 py-2">{t('worksheets.grammarAntonyms.word')}</th>
+              <th className="px-3 py-2">{t('worksheets.grammarAntonyms.antonym')}</th>
+              <th className="px-3 py-2">{t('worksheets.grammarAntonyms.sentence')}</th>
             </tr>
           </thead>
           <tbody>
@@ -1662,16 +1791,17 @@ const renderers: Record<string, Renderer> = {
       </div>
     )
   },
-  'interactive-art-design': ({ seed, doc, variant }) => {
+  'interactive-art-design': (ctx) => {
+    const { seed, doc, variant, t } = ctx
     const rng = makeRng(`${seed}|${doc.id}|${variant}`)
-    const coloringPages = pickMany(rng, [
-      { title: 'Geometric Star', shape: 'star', description: 'Color the star pattern with your favorite colors!' },
-      { title: 'Flower Pattern', shape: 'flower', description: 'Color the flower petals: pink, yellow, and purple' },
-      { title: 'Rainbow Pattern', shape: 'rainbow', description: 'Color each stripe: red, orange, yellow, green, blue, purple' },
-      { title: 'Heart Design', shape: 'heart', description: 'Color the hearts red and pink' },
-      { title: 'Circle Mandala', shape: 'mandala', description: 'Color the circles with different colors' },
-      { title: 'Leaf Pattern', shape: 'leaf', description: 'Color the leaves green' },
-    ], 4)
+    const patternKeys = ['geometricStar', 'flowerPattern', 'rainbowPattern', 'heartDesign', 'circleMandala', 'leafPattern']
+    const selectedKeys = pickMany(rng, patternKeys, 4)
+    const coloringPages = selectedKeys.map(key => ({
+      key,
+      title: t(`worksheets.artDesign.patterns.${key}.title`),
+      shape: key === 'geometricStar' ? 'star' : key === 'flowerPattern' ? 'flower' : key === 'rainbowPattern' ? 'rainbow' : key === 'heartDesign' ? 'heart' : key === 'circleMandala' ? 'mandala' : 'leaf',
+      description: t(`worksheets.artDesign.patterns.${key}.description`),
+    }))
     
     const ShapeSVG = ({ shape }: { shape: string }) => {
       const size = 250
@@ -1755,7 +1885,7 @@ const renderers: Record<string, Renderer> = {
     return (
       <div className="space-y-3">
         <p className="text-sm text-slate-600">
-          Color each pattern! Use your favorite colors and make it beautiful.
+          {t('worksheets.artDesign.instructions')}
         </p>
         <div className="grid gap-4 md:grid-cols-2">
           {coloringPages.map((page, idx) => (
@@ -1765,22 +1895,23 @@ const renderers: Record<string, Renderer> = {
               <div className="mt-3 min-h-[280px] rounded border-2 border-dashed border-purple-300 bg-white flex items-center justify-center p-4">
                 <ShapeSVG shape={page.shape} />
               </div>
-              <p className="mt-2 text-xs text-purple-600 text-center">Color inside the shape!</p>
+              <p className="mt-2 text-xs text-purple-600 text-center">{t('worksheets.artDesign.colorInsideShape')}</p>
             </div>
           ))}
         </div>
       </div>
     )
   },
-  'interactive-art-colorwheel': ({ seed, doc, variant }) => {
+  'interactive-art-colorwheel': (ctx) => {
+    const { seed, doc, variant, t } = ctx
     const rng = makeRng(`${seed}|${doc.id}|${variant}`)
     const coloringActivities = pickMany(rng, [
-      { item: 'Apple', color: 'red', shape: 'circle' },
-      { item: 'Sun', color: 'yellow', shape: 'circle' },
-      { item: 'Leaf', color: 'green', shape: 'leaf' },
-      { item: 'Sky', color: 'blue', shape: 'rectangle' },
-      { item: 'Flower', color: 'purple', shape: 'flower' },
-      { item: 'Orange Fruit', color: 'orange', shape: 'circle' },
+      { itemKey: 'apple', colorKey: 'red', shape: 'circle' },
+      { itemKey: 'sun', colorKey: 'yellow', shape: 'circle' },
+      { itemKey: 'leaf', colorKey: 'green', shape: 'leaf' },
+      { itemKey: 'sky', colorKey: 'blue', shape: 'rectangle' },
+      { itemKey: 'flower', colorKey: 'purple', shape: 'flower' },
+      { itemKey: 'orangeFruit', colorKey: 'orange', shape: 'circle' },
     ], 6)
     
     const ColorShapeSVG = ({ shape, color }: { shape: string; color: string }) => {
@@ -1828,37 +1959,43 @@ const renderers: Record<string, Renderer> = {
     return (
       <div className="space-y-3">
         <p className="text-sm text-slate-600">
-          Color each shape with the correct color! Practice your colors.
+          {t('worksheets.artColorwheel.instructions')}
         </p>
         <div className="grid gap-3 grid-cols-2 md:grid-cols-3">
-          {coloringActivities.map((activity, idx) => (
-            <div key={idx} className="rounded-xl border-2 border-slate-200 bg-white p-4 text-center">
-              <p className="text-sm font-semibold text-slate-700 capitalize mb-1">{activity.item}</p>
-              <p className="text-xs text-slate-600 mb-2">Color: <span className="font-semibold capitalize" style={{ color: activity.color }}>{activity.color}</span></p>
-              <div className="min-h-[240px] rounded border-2 border-dashed border-slate-300 bg-white flex items-center justify-center my-2 p-4">
-                <ColorShapeSVG shape={activity.shape} color={activity.color} />
+          {coloringActivities.map((activity, idx) => {
+            const itemText = t(`common.items.${activity.itemKey}`)
+            const colorText = t(`common.colors.${activity.colorKey}`)
+            const colorValue = activity.colorKey // Keep color value for CSS
+            return (
+              <div key={idx} className="rounded-xl border-2 border-slate-200 bg-white p-4 text-center">
+                <p className="text-sm font-semibold text-slate-700 capitalize mb-1">{itemText}</p>
+                <p className="text-xs text-slate-600 mb-2">{t('worksheets.artColorwheel.color')}: <span className="font-semibold capitalize" style={{ color: colorValue }}>{colorText}</span></p>
+                <div className="min-h-[240px] rounded border-2 border-dashed border-slate-300 bg-white flex items-center justify-center my-2 p-4">
+                  <ColorShapeSVG shape={activity.shape} color={colorValue} />
+                </div>
+                <p className="text-xs text-slate-500">{t('worksheets.artColorwheel.colorIt')}</p>
               </div>
-              <p className="text-xs text-slate-500">Color inside the shape!</p>
-            </div>
-          ))}
+            )
+          })}
         </div>
       </div>
     )
   },
-  'interactive-art-sketch': ({ seed, doc, variant }) => {
+  'interactive-art-sketch': (ctx) => {
+    const { seed, doc, variant, t } = ctx
     const rng = makeRng(`${seed}|${doc.id}|${variant}`)
-    const drawingPrompts = pickMany(rng, [
-      { prompt: 'Draw a beautiful flower', emoji: '🌺', hint: 'Add petals and a stem!' },
-      { prompt: 'Draw a tree with leaves', emoji: '🌳', hint: 'Make it big and green!' },
-      { prompt: 'Draw geometric shapes', emoji: '⬜', hint: 'Draw circles, squares, and triangles!' },
-      { prompt: 'Draw a rainbow', emoji: '🌈', hint: 'Use all the colors!' },
-      { prompt: 'Draw a pattern', emoji: '✨', hint: 'Create your own design!' },
-      { prompt: 'Draw a garden scene', emoji: '🌻', hint: 'Add flowers and plants!' },
-    ], 3)
+    const promptKeys = ['beautifulFlower', 'treeWithLeaves', 'geometricShapes', 'rainbow', 'pattern', 'gardenScene']
+    const emojis = { beautifulFlower: '🌺', treeWithLeaves: '🌳', geometricShapes: '⬜', rainbow: '🌈', pattern: '✨', gardenScene: '🌻' }
+    const selectedKeys = pickMany(rng, promptKeys, 3)
+    const drawingPrompts = selectedKeys.map(key => ({
+      prompt: t(`worksheets.artSketch.prompts.${key}.prompt`),
+      emoji: emojis[key],
+      hint: t(`worksheets.artSketch.prompts.${key}.hint`),
+    }))
     return (
       <div className="space-y-3">
         <p className="text-sm text-slate-600">
-          Draw each picture! Take your time and use your imagination.
+          {t('worksheets.artSketch.instructions')}
         </p>
         <div className="grid gap-4 md:grid-cols-3">
           {drawingPrompts.map((item, idx) => (
@@ -1867,14 +2004,15 @@ const renderers: Record<string, Renderer> = {
               <p className="text-sm font-semibold text-slate-700 mb-1">{item.prompt}</p>
               <p className="text-xs text-slate-600 mb-3">{item.hint}</p>
               <div className="h-32 rounded border-2 border-dashed border-purple-300 bg-white" />
-              <p className="mt-2 text-xs text-purple-600 text-center">Draw here!</p>
+              <p className="mt-2 text-xs text-purple-600 text-center">{t('worksheets.artSketch.drawHere')}</p>
             </div>
           ))}
         </div>
       </div>
     )
   },
-  'interactive-early-phonics': ({ seed, doc, variant }) => {
+  'interactive-early-phonics': (ctx) => {
+    const { seed, doc, variant, t } = ctx
     const rng = makeRng(`${seed}|${doc.id}|${variant}`)
     const sounds = pickMany(rng, ['m', 's', 't', 'b', 'p', 'n', 'f', 'r'], 4)
     const words = {
@@ -1890,7 +2028,7 @@ const renderers: Record<string, Renderer> = {
     return (
       <div className="space-y-3">
         <p className="text-sm text-slate-600">
-          Say the sound, trace the letter, then draw a picture that starts with it.
+          {t('worksheets.earlyPhonics.instructions')}
         </p>
         <div className="grid gap-4 md:grid-cols-2">
           {sounds.map((sound) => (
@@ -1898,15 +2036,15 @@ const renderers: Record<string, Renderer> = {
               <p className="text-lg font-semibold text-rose-700">Letter: {sound.toUpperCase()}</p>
               <div className="mt-2 flex gap-3">
                 <div className="flex-1">
-                  <p className="text-xs uppercase text-rose-500">Trace</p>
+                  <p className="text-xs uppercase text-rose-500">{t('worksheets.earlyPhonics.traceLetter')}</p>
                   <div className="mt-1 h-16 rounded border border-dashed border-rose-300 bg-white" />
                 </div>
                 <div className="flex-1">
-                  <p className="text-xs uppercase text-rose-500">Draw</p>
+                  <p className="text-xs uppercase text-rose-500">{t('worksheets.earlyPhonics.drawPicture')}</p>
                   <div className="mt-1 h-16 rounded border border-dashed border-rose-300 bg-white" />
                 </div>
               </div>
-              <p className="mt-2 text-xs text-rose-700">Try these words: {words[sound].join(', ')}</p>
+              <p className="mt-2 text-xs text-rose-700">{t('worksheets.earlyPhonics.words')} {words[sound].join(', ')}</p>
             </div>
           ))}
         </div>
@@ -1914,7 +2052,7 @@ const renderers: Record<string, Renderer> = {
     )
   },
   'interactive-early-counting': (ctx) => {
-    const { seed, doc, variant, t } = ctx
+    const { seed, doc, variant, t, formatNum } = ctx
     const rng = makeRng(`${seed}|${doc.id}|${variant}`)
     const rows = Array.from({ length: 4 }).map(() => ({
       objects: pick(rng, ['stars', 'shells', 'dice', 'hearts', 'cars']),
@@ -1930,7 +2068,7 @@ const renderers: Record<string, Renderer> = {
             const objectName = t(`worksheets.objectNames.${row.objects}`) || row.objects
             return (
               <div key={idx} className="rounded border border-emerald-200 bg-emerald-50 p-3">
-                <p className="font-semibold text-emerald-800">{t('worksheets.countThe').replace('{{object}}', `${row.count} ${objectName}`)}</p>
+                <p className="font-semibold text-emerald-800">{t('worksheets.countThe').replace('{{object}}', `${formatNum ? formatNum(row.count) : row.count} ${objectName}`)}</p>
               <div className="mt-2 grid grid-cols-10 gap-1">
                 {Array.from({ length: 10 }).map((_, boxIdx) => (
                   <div
@@ -1947,13 +2085,14 @@ const renderers: Record<string, Renderer> = {
       </div>
     )
   },
-  'interactive-early-patterns': ({ seed, doc, variant }) => {
+  'interactive-early-patterns': (ctx) => {
+    const { seed, doc, variant, t } = ctx
     const rng = makeRng(`${seed}|${doc.id}|${variant}`)
     const patterns = pickMany(rng, ['AB', 'AAB', 'ABC', 'ABB', 'AABB'], 4)
     return (
       <div className="space-y-3">
         <p className="text-sm text-slate-600">
-          Continue each pattern and create your own using shapes, colors, or stickers.
+          {t('worksheets.earlyPatterns.instructions')}
         </p>
         <div className="space-y-3">
           {patterns.map((pattern, idx) => {
@@ -1966,27 +2105,36 @@ const renderers: Record<string, Renderer> = {
             const previewTokens = pattern
               .split('')
               .map((char) => (char === 'A' ? first : char === 'B' ? second : third))
+            const getTranslatedLabel = (token: ShapeToken) => {
+              const parts = token.key.split('-')
+              const shapeKey = parts[0] === 'diamond' || parts[0] === 'circle' || parts[0] === 'square' || parts[0] === 'star' || parts[0] === 'heart' ? parts[0] : parts[1]
+              const colorKey = parts[0] === 'diamond' || parts[0] === 'circle' || parts[0] === 'square' || parts[0] === 'star' || parts[0] === 'heart' ? parts[1] : parts[0]
+              return `${t(`common.colors.${colorKey}`) || colorKey} ${t(`common.shapes.${shapeKey}`) || shapeKey}`
+            }
             return (
               <div key={idx} className="rounded-xl border border-slate-200 bg-white p-4">
-                <p className="text-xs uppercase text-slate-500">Pattern {pattern}</p>
+                <p className="text-xs uppercase text-slate-500">{t('worksheets.earlyPatterns.pattern')} {pattern}</p>
                 <div className="mt-3 flex items-center gap-2">
-                  {previewTokens.map((token, tokenIdx) => (
-                    <span
-                      key={`${token.key}-${tokenIdx}`}
-                      className="relative inline-flex items-center justify-center"
-                    >
-                      <span className="sr-only">{token.label}</span>
-                      {token.render}
-                    </span>
-                  ))}
+                  {previewTokens.map((token, tokenIdx) => {
+                    const translatedLabel = getTranslatedLabel(token)
+                    return (
+                      <span
+                        key={`${token.key}-${tokenIdx}`}
+                        className="relative inline-flex items-center justify-center"
+                      >
+                        <span className="sr-only">{translatedLabel}</span>
+                        {token.render}
+                      </span>
+                    )
+                  })}
                   <span className="text-lg font-semibold text-slate-400">?</span>
                 </div>
                 <div className="mt-2 h-10 rounded border border-dashed border-slate-300" />
                 <p className="mt-2 text-xs text-slate-500">
-                  Try building your own using:{' '}
+                  {t('worksheets.earlyPatterns.tryBuilding')}{' '}
                   <span className="font-medium text-slate-700">
-                    {first.label}, {second.label}
-                    {previewTokens.length > 2 ? `, ${third.label}` : ''}
+                    {getTranslatedLabel(first)}, {getTranslatedLabel(second)}
+                    {previewTokens.length > 2 ? `, ${getTranslatedLabel(third)}` : ''}
                   </span>
                 </p>
               </div>
@@ -1996,22 +2144,25 @@ const renderers: Record<string, Renderer> = {
       </div>
     )
   },
-  'interactive-early-shapes': ({ seed, doc, variant }) => {
+  'interactive-early-shapes': (ctx) => {
+    const { seed, doc, variant, t, formatNum } = ctx
     const rng = makeRng(`${seed}|${doc.id}|${variant}`)
-    const shapes = pickMany(rng, ['circle', 'square', 'triangle', 'rectangle', 'star', 'heart'], 4)
-    const colors = pickMany(rng, ['red', 'blue', 'yellow', 'green', 'purple', 'orange'], 4)
+    const shapesRaw = pickMany(rng, ['circle', 'square', 'triangle', 'rectangle', 'star', 'heart'], 4)
+    const colorsRaw = pickMany(rng, ['red', 'blue', 'yellow', 'green', 'purple', 'orange'], 4)
+    const shapes = shapesRaw.map(shape => t(`common.shapes.${shape}`) || shape)
+    const colors = colorsRaw.map(color => t(`common.colors.${color}`) || color)
     return (
       <div className="space-y-3">
         <p className="text-sm text-slate-600">
-          Identify each shape, color it, then sort shapes by type and color.
+          {t('worksheets.earlyShapes.instructions')}
         </p>
         <div className="grid gap-4 md:grid-cols-2">
           {shapes.map((shape, idx) => (
             <div key={idx} className="rounded-xl border border-purple-200 bg-purple-50 p-4">
-              <p className="text-sm font-semibold text-purple-700">Shape {idx + 1}: {shape}</p>
+              <p className="text-sm font-semibold text-purple-700">{t('worksheets.earlyShapes.shape')} {formatNum ? formatNum(idx + 1) : idx + 1}: {shape}</p>
               <div className="mt-2 h-20 rounded border border-dashed border-purple-300 bg-white" />
-              <p className="mt-2 text-xs text-purple-600">Color: {colors[idx]}</p>
-              <p className="mt-1 text-xs text-purple-600">Draw 2 more {shape}s below:</p>
+              <p className="mt-2 text-xs text-purple-600">{t('worksheets.earlyShapes.color')} {colors[idx]}</p>
+              <p className="mt-1 text-xs text-purple-600">{t('worksheets.earlyShapes.drawMore').replace('{{shape}}', shape)}</p>
               <div className="mt-1 flex gap-2">
                 <div className="h-12 w-12 rounded border border-dashed border-purple-300" />
                 <div className="h-12 w-12 rounded border border-dashed border-purple-300" />
@@ -2020,20 +2171,21 @@ const renderers: Record<string, Renderer> = {
           ))}
         </div>
         <div className="mt-4 rounded-xl border border-purple-200 bg-purple-50 p-4">
-          <p className="text-sm font-semibold text-purple-700">Sorting Activity</p>
-          <p className="mt-2 text-xs text-purple-600">Sort by shape: ________________________________</p>
-          <p className="mt-1 text-xs text-purple-600">Sort by color: ________________________________</p>
+          <p className="text-sm font-semibold text-purple-700">{t('worksheets.earlyShapes.sortingActivity')}</p>
+          <p className="mt-2 text-xs text-purple-600">{t('worksheets.earlyShapes.sortByShape')} ________________________________</p>
+          <p className="mt-1 text-xs text-purple-600">{t('worksheets.earlyShapes.sortByColor')} ________________________________</p>
         </div>
       </div>
     )
   },
-  'interactive-early-letters': ({ seed, doc, variant }) => {
+  'interactive-early-letters': (ctx) => {
+    const { seed, doc, variant, t } = ctx
     const rng = makeRng(`${seed}|${doc.id}|${variant}`)
     const letters = pickMany(rng, ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'], 4)
     return (
       <div className="space-y-3">
         <p className="text-sm text-slate-600">
-          Trace each letter, then write it 3 times. Draw a picture that starts with that letter.
+          {t('worksheets.earlyLetters.instructions')}
         </p>
         <div className="grid gap-4 md:grid-cols-2">
           {letters.map((letter) => (
@@ -2041,15 +2193,15 @@ const renderers: Record<string, Renderer> = {
               <p className="text-lg font-semibold text-blue-700">{letter} / {letter.toLowerCase()}</p>
               <div className="mt-2 grid grid-cols-3 gap-2">
                 <div className="flex flex-col">
-                  <p className="text-xs text-blue-500">Trace</p>
+                  <p className="text-xs text-blue-500">{t('worksheets.earlyLetters.trace')}</p>
                   <div className="mt-1 h-16 rounded border border-dashed border-blue-300 bg-white" />
                 </div>
                 <div className="flex flex-col">
-                  <p className="text-xs text-blue-500">Write</p>
+                  <p className="text-xs text-blue-500">{t('worksheets.earlyLetters.write')}</p>
                   <div className="mt-1 h-16 rounded border border-dashed border-blue-300 bg-white" />
                 </div>
                 <div className="flex flex-col">
-                  <p className="text-xs text-blue-500">Draw</p>
+                  <p className="text-xs text-blue-500">{t('worksheets.earlyLetters.draw')}</p>
                   <div className="mt-1 h-16 rounded border border-dashed border-blue-300 bg-white" />
                 </div>
               </div>
@@ -2060,7 +2212,7 @@ const renderers: Record<string, Renderer> = {
     )
   },
   'interactive-early-numbers': (ctx) => {
-    const { seed, doc, variant, t } = ctx
+    const { seed, doc, variant, t, formatNum } = ctx
     const rng = makeRng(`${seed}|${doc.id}|${variant}`)
     const numbers = pickMany(rng, Array.from({ length: 20 }, (_, i) => i + 1), 4)
     return (
@@ -2071,29 +2223,30 @@ const renderers: Record<string, Renderer> = {
         <div className="grid gap-4 md:grid-cols-2">
           {numbers.map((num) => (
             <div key={num} className="rounded-xl border border-emerald-200 bg-emerald-50 p-4">
-              <p className="text-lg font-semibold text-emerald-700">{t('worksheets.numberLabel')}: {num}</p>
+              <p className="text-lg font-semibold text-emerald-700">{t('worksheets.numberLabel')}: {formatNum ? formatNum(num) : num}</p>
               <div className="mt-2 grid grid-cols-3 gap-2">
                 <div className="flex flex-col">
-                  <p className="text-xs text-emerald-500">Trace</p>
-                  <div className="mt-1 h-12 rounded border border-dashed border-emerald-300 bg-white text-center text-lg font-bold text-emerald-700">{num}</div>
+                  <p className="text-xs text-emerald-500">{t('worksheets.earlyNumbers.trace')}</p>
+                  <div className="mt-1 h-12 rounded border border-dashed border-emerald-300 bg-white text-center text-lg font-bold text-emerald-700">{formatNum ? formatNum(num) : num}</div>
                 </div>
                 <div className="flex flex-col">
-                  <p className="text-xs text-emerald-500">Write</p>
+                  <p className="text-xs text-emerald-500">{t('worksheets.earlyNumbers.write')}</p>
                   <div className="mt-1 h-12 rounded border border-dashed border-emerald-300 bg-white" />
                 </div>
                 <div className="flex flex-col">
-                  <p className="text-xs text-emerald-500">Draw {num}</p>
+                  <p className="text-xs text-emerald-500">{t('worksheets.earlyNumbers.draw')} {formatNum ? formatNum(num) : num}</p>
                   <div className="mt-1 h-12 rounded border border-dashed border-emerald-300 bg-white" />
                 </div>
               </div>
-              <p className="mt-2 text-xs text-emerald-600">Number word: {numberWords[num - 1] || num}</p>
+              <p className="mt-2 text-xs text-emerald-600">{t('worksheets.earlyNumbers.numberWord')} {numberWords[num - 1] || (formatNum ? formatNum(num) : num)}</p>
             </div>
           ))}
         </div>
       </div>
     )
   },
-  'interactive-early-foundations': ({ seed, doc, variant }) => {
+  'interactive-early-foundations': (ctx) => {
+    const { seed, doc, variant, t } = ctx
     const rng = makeRng(`${seed}|${doc.id}|${variant}`)
     const activities = [
       { type: 'letter', items: pickMany(rng, ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H'], 4) },
@@ -2103,30 +2256,31 @@ const renderers: Record<string, Renderer> = {
     return (
       <div className="space-y-3">
         <p className="text-sm text-slate-600">
-          Review basic skills: identify letters, numbers, and shapes. Perfect for remediation or review.
+          {t('worksheets.earlyFoundations.instructions')}
         </p>
         {activities.map((activity, actIdx) => (
           <div key={actIdx} className="rounded-xl border border-amber-200 bg-amber-50 p-4">
-            <p className="text-sm font-semibold text-amber-700">Review: {activity.type}s</p>
+            <p className="text-sm font-semibold text-amber-700">{t('worksheets.earlyFoundations.review')} {activity.type}s</p>
             <div className="mt-2 flex flex-wrap gap-3">
               {activity.items.map((item, idx) => (
                 <div key={idx} className="rounded border border-amber-300 bg-white px-4 py-2 text-center">
                   <p className="font-semibold text-amber-800">{item}</p>
-                  <p className="mt-1 text-xs text-amber-600">Identify: ______</p>
+                  <p className="mt-1 text-xs text-amber-600">{t('worksheets.earlyFoundations.identify')} ______</p>
                 </div>
               ))}
             </div>
           </div>
         ))}
         <div className="rounded-xl border border-amber-200 bg-amber-50 p-4">
-          <p className="text-sm font-semibold text-amber-700">Practice Writing</p>
-          <p className="mt-2 text-xs text-amber-600">Write your name: ________________________</p>
-          <p className="mt-1 text-xs text-amber-600">Count to 10: ________________________________</p>
+          <p className="text-sm font-semibold text-amber-700">{t('worksheets.earlyFoundations.practiceWriting')}</p>
+          <p className="mt-2 text-xs text-amber-600">{t('worksheets.earlyFoundations.writeName')} ________________________</p>
+          <p className="mt-1 text-xs text-amber-600">{t('worksheets.earlyFoundations.countTo10')} ________________________________</p>
         </div>
       </div>
     )
   },
-  'interactive-early-basics': ({ seed, doc, variant }) => {
+  'interactive-early-basics': (ctx) => {
+    const { seed, doc, variant, t } = ctx
     const rng = makeRng(`${seed}|${doc.id}|${variant}`)
     const skills = [
       { skill: 'Letter Sounds', examples: pickMany(rng, ['A says /a/', 'B says /b/', 'C says /c/', 'D says /d/'], 3) },
@@ -2136,7 +2290,7 @@ const renderers: Record<string, Renderer> = {
     return (
       <div className="space-y-3">
         <p className="text-sm text-slate-600">
-          Essential early learning skills review. Practice letter sounds, counting, and basic patterns.
+          {t('worksheets.earlyBasics.instructions')}
         </p>
         {skills.map((skillGroup, idx) => (
           <div key={idx} className="rounded-xl border border-indigo-200 bg-indigo-50 p-4">
@@ -2154,37 +2308,50 @@ const renderers: Record<string, Renderer> = {
       </div>
     )
   },
-  'interactive-reading-prek': ({ seed, doc, variant }) => {
+  'interactive-reading-prek': (ctx) => {
+    const { seed, doc, variant, t } = ctx
     const rng = makeRng(`${seed}|${doc.id}|${variant}`)
     const stories = pickMany(
       rng,
       [
         { 
-          title: 'The Red Car', 
+          titleKey: 'redCar',
+          title: t('worksheets.readingPrek.storyTitles.redCar'),
           images: [
-            { name: 'car', svg: <svg width="80" height="60" viewBox="0 0 80 60"><rect x="10" y="25" width="60" height="25" rx="3" fill="none" stroke="#333" strokeWidth="2"/><rect x="15" y="15" width="50" height="15" rx="2" fill="none" stroke="#333" strokeWidth="2"/><circle cx="20" cy="50" r="8" fill="none" stroke="#333" strokeWidth="2"/><circle cx="60" cy="50" r="8" fill="none" stroke="#333" strokeWidth="2"/></svg> },
-            { name: 'road', svg: <svg width="80" height="60" viewBox="0 0 80 60"><rect x="0" y="25" width="80" height="10" fill="none" stroke="#333" strokeWidth="2"/><line x1="10" y1="30" x2="20" y2="30" stroke="#333" strokeWidth="1"/><line x1="30" y1="30" x2="40" y2="30" stroke="#333" strokeWidth="1"/><line x1="50" y1="30" x2="60" y2="30" stroke="#333" strokeWidth="1"/><line x1="70" y1="30" x2="80" y2="30" stroke="#333" strokeWidth="1"/></svg> },
-            { name: 'tree', svg: <svg width="60" height="80" viewBox="0 0 60 80"><rect x="25" y="50" width="10" height="30" fill="none" stroke="#333" strokeWidth="2"/><ellipse cx="30" cy="40" rx="20" ry="25" fill="none" stroke="#333" strokeWidth="2"/></svg> }
+            { nameKey: 'car', name: t('worksheets.readingPrek.objectNames.car'), svg: <svg width="80" height="60" viewBox="0 0 80 60"><rect x="10" y="25" width="60" height="25" rx="3" fill="none" stroke="#333" strokeWidth="2"/><rect x="15" y="15" width="50" height="15" rx="2" fill="none" stroke="#333" strokeWidth="2"/><circle cx="20" cy="50" r="8" fill="none" stroke="#333" strokeWidth="2"/><circle cx="60" cy="50" r="8" fill="none" stroke="#333" strokeWidth="2"/></svg> },
+            { nameKey: 'road', name: t('worksheets.readingPrek.objectNames.road'), svg: <svg width="80" height="60" viewBox="0 0 80 60"><rect x="0" y="25" width="80" height="10" fill="none" stroke="#333" strokeWidth="2"/><line x1="10" y1="30" x2="20" y2="30" stroke="#333" strokeWidth="1"/><line x1="30" y1="30" x2="40" y2="30" stroke="#333" strokeWidth="1"/><line x1="50" y1="30" x2="60" y2="30" stroke="#333" strokeWidth="1"/><line x1="70" y1="30" x2="80" y2="30" stroke="#333" strokeWidth="1"/></svg> },
+            { nameKey: 'tree', name: t('worksheets.readingPrek.objectNames.tree'), svg: <svg width="60" height="80" viewBox="0 0 60 80"><rect x="25" y="50" width="10" height="30" fill="none" stroke="#333" strokeWidth="2"/><ellipse cx="30" cy="40" rx="20" ry="25" fill="none" stroke="#333" strokeWidth="2"/></svg> }
           ], 
-          questions: ['Do you see a car?', 'Is the car on the road?'] 
+          questions: [
+            { key: 'seeCar', text: t('worksheets.readingPrek.questions.seeCar') },
+            { key: 'carOnRoad', text: t('worksheets.readingPrek.questions.carOnRoad') }
+          ] 
         },
         { 
-          title: 'The Sunny Day', 
+          titleKey: 'sunnyDay',
+          title: t('worksheets.readingPrek.storyTitles.sunnyDay'),
           images: [
-            { name: 'sun', svg: <svg width="70" height="70" viewBox="0 0 70 70"><circle cx="35" cy="35" r="20" fill="none" stroke="#333" strokeWidth="2"/><line x1="35" y1="5" x2="35" y2="15" stroke="#333" strokeWidth="2"/><line x1="35" y1="55" x2="35" y2="65" stroke="#333" strokeWidth="2"/><line x1="5" y1="35" x2="15" y2="35" stroke="#333" strokeWidth="2"/><line x1="55" y1="35" x2="65" y2="35" stroke="#333" strokeWidth="2"/><line x1="12" y1="12" x2="18" y2="18" stroke="#333" strokeWidth="2"/><line x1="52" y1="52" x2="58" y2="58" stroke="#333" strokeWidth="2"/><line x1="52" y1="12" x2="58" y2="18" stroke="#333" strokeWidth="2"/><line x1="12" y1="52" x2="18" y2="58" stroke="#333" strokeWidth="2"/></svg> },
-            { name: 'flower', svg: <svg width="60" height="70" viewBox="0 0 60 70"><line x1="30" y1="50" x2="30" y2="70" stroke="#333" strokeWidth="2"/><circle cx="30" cy="30" r="12" fill="none" stroke="#333" strokeWidth="2"/><ellipse cx="30" cy="15" rx="8" ry="10" fill="none" stroke="#333" strokeWidth="2"/><ellipse cx="30" cy="45" rx="8" ry="10" fill="none" stroke="#333" strokeWidth="2"/><ellipse cx="15" cy="30" rx="10" ry="8" fill="none" stroke="#333" strokeWidth="2"/><ellipse cx="45" cy="30" rx="10" ry="8" fill="none" stroke="#333" strokeWidth="2"/></svg> },
-            { name: 'ball', svg: <svg width="60" height="60" viewBox="0 0 60 60"><circle cx="30" cy="30" r="25" fill="none" stroke="#333" strokeWidth="2"/><path d="M 30 5 Q 15 15, 5 30 Q 15 45, 30 55 Q 45 45, 55 30 Q 45 15, 30 5" fill="none" stroke="#333" strokeWidth="1.5"/></svg> }
+            { nameKey: 'sun', name: t('worksheets.readingPrek.objectNames.sun'), svg: <svg width="70" height="70" viewBox="0 0 70 70"><circle cx="35" cy="35" r="20" fill="none" stroke="#333" strokeWidth="2"/><line x1="35" y1="5" x2="35" y2="15" stroke="#333" strokeWidth="2"/><line x1="35" y1="55" x2="35" y2="65" stroke="#333" strokeWidth="2"/><line x1="5" y1="35" x2="15" y2="35" stroke="#333" strokeWidth="2"/><line x1="55" y1="35" x2="65" y2="35" stroke="#333" strokeWidth="2"/><line x1="12" y1="12" x2="18" y2="18" stroke="#333" strokeWidth="2"/><line x1="52" y1="52" x2="58" y2="58" stroke="#333" strokeWidth="2"/><line x1="52" y1="12" x2="58" y2="18" stroke="#333" strokeWidth="2"/><line x1="12" y1="52" x2="18" y2="58" stroke="#333" strokeWidth="2"/></svg> },
+            { nameKey: 'flower', name: t('worksheets.readingPrek.objectNames.flower'), svg: <svg width="60" height="70" viewBox="0 0 60 70"><line x1="30" y1="50" x2="30" y2="70" stroke="#333" strokeWidth="2"/><circle cx="30" cy="30" r="12" fill="none" stroke="#333" strokeWidth="2"/><ellipse cx="30" cy="15" rx="8" ry="10" fill="none" stroke="#333" strokeWidth="2"/><ellipse cx="30" cy="45" rx="8" ry="10" fill="none" stroke="#333" strokeWidth="2"/><ellipse cx="15" cy="30" rx="10" ry="8" fill="none" stroke="#333" strokeWidth="2"/><ellipse cx="45" cy="30" rx="10" ry="8" fill="none" stroke="#333" strokeWidth="2"/></svg> },
+            { nameKey: 'ball', name: t('worksheets.readingPrek.objectNames.ball'), svg: <svg width="60" height="60" viewBox="0 0 60 60"><circle cx="30" cy="30" r="25" fill="none" stroke="#333" strokeWidth="2"/><path d="M 30 5 Q 15 15, 5 30 Q 15 45, 30 55 Q 45 45, 55 30 Q 45 15, 30 5" fill="none" stroke="#333" strokeWidth="1.5"/></svg> }
           ], 
-          questions: ['Do you see the sun?', 'Is there a flower?'] 
+          questions: [
+            { key: 'seeSun', text: t('worksheets.readingPrek.questions.seeSun') },
+            { key: 'thereFlower', text: t('worksheets.readingPrek.questions.thereFlower') }
+          ] 
         },
         { 
-          title: 'The Big Tree', 
+          titleKey: 'bigTree',
+          title: t('worksheets.readingPrek.storyTitles.bigTree'),
           images: [
-            { name: 'tree', svg: <svg width="60" height="80" viewBox="0 0 60 80"><rect x="25" y="50" width="10" height="30" fill="none" stroke="#333" strokeWidth="2"/><ellipse cx="30" cy="40" rx="20" ry="25" fill="none" stroke="#333" strokeWidth="2"/></svg> },
-            { name: 'house', svg: <svg width="70" height="70" viewBox="0 0 70 70"><rect x="15" y="35" width="40" height="35" fill="none" stroke="#333" strokeWidth="2"/><polygon points="15,35 35,15 55,35" fill="none" stroke="#333" strokeWidth="2"/><rect x="25" y="45" width="12" height="20" fill="none" stroke="#333" strokeWidth="2"/><rect x="42" y="50" width="8" height="8" fill="none" stroke="#333" strokeWidth="2"/></svg> },
-            { name: 'flower', svg: <svg width="50" height="60" viewBox="0 0 50 60"><line x1="25" y1="40" x2="25" y2="60" stroke="#333" strokeWidth="2"/><circle cx="25" cy="25" r="10" fill="none" stroke="#333" strokeWidth="2"/><ellipse cx="25" cy="12" rx="6" ry="8" fill="none" stroke="#333" strokeWidth="2"/><ellipse cx="25" cy="38" rx="6" ry="8" fill="none" stroke="#333" strokeWidth="2"/><ellipse cx="12" cy="25" rx="8" ry="6" fill="none" stroke="#333" strokeWidth="2"/><ellipse cx="38" cy="25" rx="8" ry="6" fill="none" stroke="#333" strokeWidth="2"/></svg> }
+            { nameKey: 'tree', name: t('worksheets.readingPrek.objectNames.tree'), svg: <svg width="60" height="80" viewBox="0 0 60 80"><rect x="25" y="50" width="10" height="30" fill="none" stroke="#333" strokeWidth="2"/><ellipse cx="30" cy="40" rx="20" ry="25" fill="none" stroke="#333" strokeWidth="2"/></svg> },
+            { nameKey: 'house', name: t('worksheets.readingPrek.objectNames.house'), svg: <svg width="70" height="70" viewBox="0 0 70 70"><rect x="15" y="35" width="40" height="35" fill="none" stroke="#333" strokeWidth="2"/><polygon points="15,35 35,15 55,35" fill="none" stroke="#333" strokeWidth="2"/><rect x="25" y="45" width="12" height="20" fill="none" stroke="#333" strokeWidth="2"/><rect x="42" y="50" width="8" height="8" fill="none" stroke="#333" strokeWidth="2"/></svg> },
+            { nameKey: 'flower', name: t('worksheets.readingPrek.objectNames.flower'), svg: <svg width="50" height="60" viewBox="0 0 50 60"><line x1="25" y1="40" x2="25" y2="60" stroke="#333" strokeWidth="2"/><circle cx="25" cy="25" r="10" fill="none" stroke="#333" strokeWidth="2"/><ellipse cx="25" cy="12" rx="6" ry="8" fill="none" stroke="#333" strokeWidth="2"/><ellipse cx="25" cy="38" rx="6" ry="8" fill="none" stroke="#333" strokeWidth="2"/><ellipse cx="12" cy="25" rx="8" ry="6" fill="none" stroke="#333" strokeWidth="2"/><ellipse cx="38" cy="25" rx="8" ry="6" fill="none" stroke="#333" strokeWidth="2"/></svg> }
           ], 
-          questions: ['Is the tree big?', 'Do you see a house?'] 
+          questions: [
+            { key: 'treeBig', text: t('worksheets.readingPrek.questions.treeBig') },
+            { key: 'seeHouse', text: t('worksheets.readingPrek.questions.seeHouse') }
+          ] 
         },
       ],
       3
@@ -2192,7 +2359,7 @@ const renderers: Record<string, Renderer> = {
     return (
       <div className="space-y-4">
         <p className="text-sm text-slate-600">
-          Look at the pictures and answer yes/no questions about the story.
+          {t('worksheets.readingPrek.instructions')}
         </p>
         {stories.map((story, idx) => (
           <div key={idx} className="rounded-xl border border-rose-200 bg-rose-50 p-4">
@@ -2203,14 +2370,14 @@ const renderers: Record<string, Renderer> = {
                   <div className="h-20 w-20 rounded border-2 border-rose-300 bg-white flex items-center justify-center p-2">
                     {img.svg}
                   </div>
-                  <p className="text-xs text-rose-600 mt-1 capitalize">{img.name}</p>
+                  <p className="text-xs text-rose-600 mt-1">{img.name}</p>
                 </div>
               ))}
             </div>
             <div className="mt-4 space-y-2">
               {story.questions.map((q, qIdx) => (
                 <div key={qIdx} className="text-xs text-rose-700">
-                  {q} <span className="text-rose-500 font-semibold">Yes / No</span>
+                  {q.text} <span className="text-rose-500 font-semibold">{t('worksheets.readingPrek.yesNo')}</span>
                 </div>
               ))}
             </div>
@@ -2219,34 +2386,29 @@ const renderers: Record<string, Renderer> = {
       </div>
     )
   },
-  'interactive-writing-prek': ({ seed, doc, variant }) => {
+  'interactive-writing-prek': (ctx) => {
+    const { seed, doc, variant, t } = ctx
     const rng = makeRng(`${seed}|${doc.id}|${variant}`)
-    const prompts = pickMany(
-      rng,
-      [
-        { word: 'cat', picture: 'Draw a cat' },
-        { word: 'dog', picture: 'Draw a dog' },
-        { word: 'sun', picture: 'Draw the sun' },
-        { word: 'car', picture: 'Draw a car' },
-        { word: 'tree', picture: 'Draw a tree' },
-        { word: 'flower', picture: 'Draw a flower' },
-      ],
-      4
-    )
+    const wordKeys = ['cat', 'dog', 'sun', 'car', 'tree', 'flower']
+    const selectedKeys = pickMany(rng, wordKeys, 4)
+    const prompts = selectedKeys.map(key => ({
+      word: key,
+      picture: t(`worksheets.writingPrek.drawPrompts.${key}`),
+    }))
     return (
       <div className="space-y-3">
         <p className="text-sm text-slate-600">
-          Draw a picture and label it with the word. Perfect for early writers.
+          {t('worksheets.writingPrek.instructions')}
         </p>
         <div className="grid gap-4 md:grid-cols-2">
           {prompts.map((prompt, idx) => (
             <div key={idx} className="rounded-xl border border-green-200 bg-green-50 p-4">
-              <p className="text-sm font-semibold text-green-700">Word: {prompt.word}</p>
+              <p className="text-sm font-semibold text-green-700">{t('worksheets.writingPrek.word')} {prompt.word}</p>
               <div className="mt-2">
                 <p className="text-xs text-green-600">{prompt.picture}</p>
                 <div className="mt-1 h-24 rounded border border-dashed border-green-300 bg-white" />
               </div>
-              <p className="mt-2 text-xs text-green-600">Label: <span className="font-semibold">{prompt.word}</span></p>
+              <p className="mt-2 text-xs text-green-600">{t('worksheets.writingPrek.label')} <span className="font-semibold">{prompt.word}</span></p>
               <div className="mt-1 h-8 rounded border border-dashed border-green-300 bg-white" />
             </div>
           ))}
@@ -2254,28 +2416,29 @@ const renderers: Record<string, Renderer> = {
       </div>
     )
   },
-  'interactive-science-prek': ({ seed, doc, variant }) => {
+  'interactive-science-prek': (ctx) => {
+    const { seed, doc, variant, t } = ctx
     const rng = makeRng(`${seed}|${doc.id}|${variant}`)
     const observations = pickMany(
       rng,
       [
-        { topic: 'Plants', question: 'What do plants need?', options: ['water', 'sun', 'soil'] },
-        { topic: 'Animals', question: 'Where do animals live?', options: ['forest', 'ocean', 'farm'] },
-        { topic: 'Weather', question: 'What is the weather like?', options: ['sunny', 'rainy', 'cloudy'] },
-        { topic: 'Seasons', question: 'What season is it?', options: ['spring', 'summer', 'fall', 'winter'] },
+        { topicKey: 'plants', topic: t('worksheets.sciencePrek.topics.plants'), questionKey: 'whatPlantsNeed', question: t('worksheets.sciencePrek.questions.whatPlantsNeed'), options: ['water', 'sun', 'soil'] },
+        { topicKey: 'animals', topic: t('worksheets.sciencePrek.topics.animals'), questionKey: 'whereAnimalsLive', question: t('worksheets.sciencePrek.questions.whereAnimalsLive'), options: ['forest', 'ocean', 'farm'] },
+        { topicKey: 'weather', topic: t('worksheets.sciencePrek.topics.weather'), questionKey: 'whatWeatherLike', question: t('worksheets.sciencePrek.questions.whatWeatherLike'), options: ['sunny', 'rainy', 'cloudy'] },
+        { topicKey: 'seasons', topic: t('worksheets.sciencePrek.topics.seasons'), questionKey: 'whatSeason', question: t('worksheets.sciencePrek.questions.whatSeason'), options: ['spring', 'summer', 'fall', 'winter'] },
       ],
       3
     )
     return (
       <div className="space-y-3">
         <p className="text-sm text-slate-600">
-          Simple nature observation activities with pictures and basic questions.
+          {t('worksheets.sciencePrek.instructions')}
         </p>
         {observations.map((obs, idx) => (
           <div key={idx} className="rounded-xl border border-teal-200 bg-teal-50 p-4">
             <p className="text-sm font-semibold text-teal-700">{obs.topic}</p>
             <div className="mt-2 h-20 rounded border border-teal-300 bg-white">
-              <p className="p-2 text-xs text-teal-600">Draw or paste a picture</p>
+              <p className="p-2 text-xs text-teal-600">{t('worksheets.sciencePrek.drawOrPaste')}</p>
             </div>
             <p className="mt-2 text-xs text-teal-700">{obs.question}</p>
             <div className="mt-1 flex flex-wrap gap-2">
@@ -2290,7 +2453,8 @@ const renderers: Record<string, Renderer> = {
       </div>
     )
   },
-  'interactive-science-space': ({ seed, doc, variant }) => {
+  'interactive-science-space': (ctx) => {
+    const { seed, doc, variant, t } = ctx
     const rng = makeRng(`${seed}|${doc.id}|${variant}`)
     const planets = pickMany(
       rng,
@@ -2305,50 +2469,51 @@ const renderers: Record<string, Renderer> = {
     return (
       <div className="space-y-3">
         <p className="text-sm text-slate-600">
-          Learn about planets, stars, and space phenomena with interactive activities.
+          {t('worksheets.scienceSpace.instructions')}
         </p>
         <div className="grid gap-4 md:grid-cols-2">
           {planets.map((planet, idx) => (
             <div key={idx} className="rounded-xl border border-indigo-200 bg-indigo-50 p-4">
               <p className="text-sm font-semibold text-indigo-700">{planet.name}</p>
               <div className="mt-2 h-16 rounded border border-indigo-300 bg-white">
-                <p className="p-2 text-xs text-indigo-600">Draw {planet.name}</p>
+                <p className="p-2 text-xs text-indigo-600">{t('worksheets.answerKey.drawPicture')} {planet.name}</p>
               </div>
-              <p className="mt-2 text-xs text-indigo-700">Fact: {planet.fact}</p>
-              <p className="mt-1 text-xs text-indigo-600">Distance from sun: {planet.distance}</p>
+              <p className="mt-2 text-xs text-indigo-700">{t('worksheets.scienceSpace.fact')} {planet.fact}</p>
+              <p className="mt-1 text-xs text-indigo-600">{t('worksheets.scienceSpace.distanceFromSun')} {planet.distance}</p>
             </div>
           ))}
         </div>
         <div className="rounded-xl border border-indigo-200 bg-indigo-50 p-4">
-          <p className="text-sm font-semibold text-indigo-700">Space Questions</p>
-          <p className="mt-2 text-xs text-indigo-700">What is a star? ________________________</p>
-          <p className="mt-1 text-xs text-indigo-700">Name one planet: ________________________</p>
+          <p className="text-sm font-semibold text-indigo-700">{t('worksheets.scienceSpace.spaceQuestions')}</p>
+          <p className="mt-2 text-xs text-indigo-700">{t('worksheets.scienceSpace.whatIsStar')} ________________________</p>
+          <p className="mt-1 text-xs text-indigo-700">{t('worksheets.scienceSpace.nameOnePlanet')} ________________________</p>
         </div>
       </div>
     )
   },
-  'interactive-geography-prek': ({ seed, doc, variant }) => {
+  'interactive-geography-prek': (ctx) => {
+    const { seed, doc, variant, t } = ctx
     const rng = makeRng(`${seed}|${doc.id}|${variant}`)
     const places = pickMany(
       rng,
       [
-        { name: 'Home', type: 'Where I live', features: ['bedroom', 'kitchen'] },
-        { name: 'School', type: 'Where I learn', features: ['classroom', 'playground'] },
-        { name: 'Park', type: 'Where I play', features: ['swings', 'slides'] },
+        { name: 'Home', typeKey: 'whereILive', type: t('worksheets.geographyPrek.placeTypes.whereILive'), features: ['bedroom', 'kitchen'] },
+        { name: 'School', typeKey: 'whereILearn', type: t('worksheets.geographyPrek.placeTypes.whereILearn'), features: ['classroom', 'playground'] },
+        { name: 'Park', typeKey: 'whereIPlay', type: t('worksheets.geographyPrek.placeTypes.whereIPlay'), features: ['swings', 'slides'] },
       ],
       3
     )
     return (
       <div className="space-y-3">
         <p className="text-sm text-slate-600">
-          Learn about places in the community, home, and school with simple maps and pictures.
+          {t('worksheets.geographyPrek.instructions')}
         </p>
         {places.map((place, idx) => (
           <div key={idx} className="rounded-xl border border-amber-200 bg-amber-50 p-4">
             <p className="text-sm font-semibold text-amber-700">{place.name}</p>
             <p className="text-xs text-amber-600">{place.type}</p>
             <div className="mt-2 h-16 rounded border border-amber-300 bg-white">
-              <p className="p-2 text-xs text-amber-600">Draw a simple map</p>
+              <p className="p-2 text-xs text-amber-600">{t('worksheets.geographyPrek.drawSimpleMap')}</p>
             </div>
             <div className="mt-2 flex flex-wrap gap-2">
               {place.features.map((feature, featIdx) => (
@@ -2362,7 +2527,8 @@ const renderers: Record<string, Renderer> = {
       </div>
     )
   },
-  'interactive-grammar-prek': ({ seed, doc, variant }) => {
+  'interactive-grammar-prek': (ctx) => {
+    const { seed, doc, variant, t } = ctx
     const rng = makeRng(`${seed}|${doc.id}|${variant}`)
     const words = pickMany(
       rng,
@@ -2379,7 +2545,7 @@ const renderers: Record<string, Renderer> = {
     return (
       <div className="space-y-3">
         <p className="text-sm text-slate-600">
-          Match simple words with pictures and identify basic word types.
+          {t('worksheets.grammarPrek.instructions')}
         </p>
         <div className="grid gap-4 md:grid-cols-2">
           {words.map((item, idx) => (
@@ -2387,8 +2553,8 @@ const renderers: Record<string, Renderer> = {
               <div className="flex items-center gap-3">
                 <span className="text-3xl">{item.picture}</span>
                 <div className="flex-1">
-                  <p className="text-sm font-semibold text-purple-700">Word: {item.word}</p>
-                  <p className="mt-1 text-xs text-purple-600">Match: <span className="font-semibold">{item.word}</span></p>
+                  <p className="text-sm font-semibold text-purple-700">{t('worksheets.grammarPrek.word')} {item.word}</p>
+                  <p className="mt-1 text-xs text-purple-600">{t('worksheets.grammarPrek.match')} <span className="font-semibold">{item.word}</span></p>
                   <div className="mt-1 h-8 rounded border border-dashed border-purple-300 bg-white" />
                 </div>
               </div>
@@ -2396,8 +2562,8 @@ const renderers: Record<string, Renderer> = {
           ))}
         </div>
         <div className="rounded-xl border border-purple-200 bg-purple-50 p-4">
-          <p className="text-sm font-semibold text-purple-700">Word Practice</p>
-          <p className="mt-2 text-xs text-purple-700">Circle the word that matches the picture:</p>
+          <p className="text-sm font-semibold text-purple-700">{t('worksheets.grammarPrek.wordPractice')}</p>
+          <p className="mt-2 text-xs text-purple-700">{t('worksheets.grammarPrek.circleWordMatches')}</p>
           <div className="mt-1 flex flex-wrap gap-2">
             {words.map((item, idx) => (
               <span key={idx} className="rounded border border-purple-300 bg-white px-3 py-1 text-xs text-purple-700">
@@ -2409,14 +2575,25 @@ const renderers: Record<string, Renderer> = {
       </div>
     )
   },
-  'interactive-logic-prek': ({ seed, doc, variant }) => {
+  'interactive-logic-prek': (ctx) => {
+    const { seed, doc, variant, t } = ctx
     const rng = makeRng(`${seed}|${doc.id}|${variant}`)
     const patterns = pickMany(rng, ['AB', 'AAB', 'ABC'], 3)
-    const sortingItems = pickMany(rng, ['red', 'blue', 'yellow', 'big', 'small', 'round', 'square'], 6)
+    const sortingItemsRaw = pickMany(rng, ['red', 'blue', 'yellow', 'big', 'small', 'round', 'square'], 6)
+    const sortingItems = sortingItemsRaw.map(item => {
+      if (['red', 'blue', 'yellow', 'green', 'pink', 'orange', 'purple'].includes(item)) {
+        return t(`common.colors.${item}`) || item
+      } else if (['big', 'small', 'large', 'tiny'].includes(item)) {
+        return t(`common.sizes.${item}`) || item
+      } else if (['round', 'square', 'circle', 'diamond', 'heart', 'star'].includes(item)) {
+        return t(`common.shapes.${item === 'round' ? 'circle' : item}`) || item
+      }
+      return item
+    })
     return (
       <div className="space-y-3">
         <p className="text-sm text-slate-600">
-          Complete simple patterns and sort objects by color, size, or type.
+          {t('worksheets.logicPrek.instructions')}
         </p>
         <div className="space-y-3">
           {patterns.map((pattern, idx) => {
@@ -2426,14 +2603,20 @@ const renderers: Record<string, Renderer> = {
             const previewTokens = pattern.split('').map((char) => (char === 'A' ? first : char === 'B' ? second : third))
             return (
               <div key={idx} className="rounded-xl border border-slate-200 bg-white p-4">
-                <p className="text-xs uppercase text-slate-500">Pattern {pattern}</p>
+                <p className="text-xs uppercase text-slate-500">{t('worksheets.logicPrek.pattern')} {pattern}</p>
                 <div className="mt-3 flex items-center gap-2">
-                  {previewTokens.map((token, tokenIdx) => (
-                    <span key={`${token.key}-${tokenIdx}`} className="relative inline-flex items-center justify-center">
-                      <span className="sr-only">{token.label}</span>
-                      {token.render}
-                    </span>
-                  ))}
+                  {previewTokens.map((token, tokenIdx) => {
+                    const parts = token.key.split('-')
+                    const shapeKey = parts[0] === 'diamond' || parts[0] === 'circle' || parts[0] === 'square' || parts[0] === 'star' || parts[0] === 'heart' ? parts[0] : parts[1]
+                    const colorKey = parts[0] === 'diamond' || parts[0] === 'circle' || parts[0] === 'square' || parts[0] === 'star' || parts[0] === 'heart' ? parts[1] : parts[0]
+                    const translatedLabel = `${t(`common.colors.${colorKey}`) || colorKey} ${t(`common.shapes.${shapeKey}`) || shapeKey}`
+                    return (
+                      <span key={`${token.key}-${tokenIdx}`} className="relative inline-flex items-center justify-center">
+                        <span className="sr-only">{translatedLabel}</span>
+                        {token.render}
+                      </span>
+                    )
+                  })}
                   <span className="text-lg font-semibold text-slate-400">?</span>
                 </div>
                 <div className="mt-2 h-10 rounded border border-dashed border-slate-300" />
@@ -2442,15 +2625,16 @@ const renderers: Record<string, Renderer> = {
           })}
         </div>
         <div className="rounded-xl border border-slate-200 bg-white p-4">
-          <p className="text-sm font-semibold text-slate-700">Sorting Activity</p>
-          <p className="mt-2 text-xs text-slate-600">Sort by color: {sortingItems.slice(0, 3).join(', ')}</p>
-          <p className="mt-1 text-xs text-slate-600">Sort by size: {sortingItems.slice(3, 5).join(', ')}</p>
-          <p className="mt-1 text-xs text-slate-600">Sort by shape: {sortingItems.slice(5).join(', ')}</p>
+          <p className="text-sm font-semibold text-slate-700">{t('worksheets.earlyShapes.sortingActivity')}</p>
+          <p className="mt-2 text-xs text-slate-600">{t('worksheets.earlyShapes.sortByColor')} {sortingItems.slice(0, 3).join(', ')}</p>
+          <p className="mt-1 text-xs text-slate-600">{t('worksheets.earlyShapes.sortBySize')} {sortingItems.slice(3, 5).join(', ')}</p>
+          <p className="mt-1 text-xs text-slate-600">{t('worksheets.earlyShapes.sortByShape')} {sortingItems.slice(5).join(', ')}</p>
         </div>
       </div>
     )
   },
-  'interactive-sel-prek': ({ seed, doc, variant }) => {
+  'interactive-sel-prek': (ctx) => {
+    const { seed, doc, variant, t } = ctx
     const rng = makeRng(`${seed}|${doc.id}|${variant}`)
     const feelings = pickMany(
       rng,
@@ -2465,7 +2649,7 @@ const renderers: Record<string, Renderer> = {
     return (
       <div className="space-y-3">
         <p className="text-sm text-slate-600">
-          Identify and express feelings through pictures, simple words, and activities.
+          {t('worksheets.selPrek.instructions')}
         </p>
         <div className="grid gap-4 md:grid-cols-2">
           {feelings.map((feeling, idx) => (
@@ -2473,18 +2657,18 @@ const renderers: Record<string, Renderer> = {
               <div className="flex items-center gap-3">
                 <span className="text-3xl">{feeling.emoji}</span>
                 <div className="flex-1">
-                  <p className="text-sm font-semibold text-pink-700">Feeling: {feeling.feeling}</p>
-                  <p className="text-xs text-pink-600">Color: {feeling.color}</p>
+                  <p className="text-sm font-semibold text-pink-700">{t('worksheets.selPrek.feeling')} {t(`common.feelings.${feeling.feeling}`) || feeling.feeling}</p>
+                  <p className="text-xs text-pink-600">{t('worksheets.selPrek.color')} {t(`common.colors.${feeling.color}`) || feeling.color}</p>
                 </div>
               </div>
               <div className="mt-2 h-12 rounded border border-dashed border-pink-300 bg-white">
-                <p className="p-2 text-xs text-pink-600">Draw a time you felt {feeling.feeling}</p>
+                <p className="p-2 text-xs text-pink-600">{t('worksheets.selPrek.drawTimeFelt').replace('{{feeling}}', t(`common.feelings.${feeling.feeling}`) || feeling.feeling)}</p>
               </div>
             </div>
           ))}
         </div>
         <div className="rounded-xl border border-pink-200 bg-pink-50 p-4">
-          <p className="text-sm font-semibold text-pink-700">How I Feel Today</p>
+          <p className="text-sm font-semibold text-pink-700">{t('worksheets.selPrek.howIFeelToday')}</p>
           <div className="mt-2 flex gap-2">
             {feelings.map((feeling, idx) => (
               <div key={idx} className="flex flex-col items-center">
@@ -2497,7 +2681,8 @@ const renderers: Record<string, Renderer> = {
       </div>
     )
   },
-  'interactive-logic-sequence': ({ seed, doc, variant }) => {
+  'interactive-logic-sequence': (ctx) => {
+    const { seed, doc, variant, t } = ctx
     const rng = makeRng(`${seed}|${doc.id}|${variant}`)
     const tasks = pickMany(
       rng,
@@ -2532,7 +2717,8 @@ const renderers: Record<string, Renderer> = {
       </div>
     )
   },
-  'interactive-logic-riddles': ({ seed, doc, variant }) => {
+  'interactive-logic-riddles': (ctx) => {
+    const { seed, doc, variant, t } = ctx
     const rng = makeRng(`${seed}|${doc.id}|${variant}`)
     const riddles = pickMany(
       rng,
@@ -2548,7 +2734,7 @@ const renderers: Record<string, Renderer> = {
     return (
       <div className="space-y-3">
         <p className="text-sm text-slate-600">
-          Solve each brain teaser. Write your guess, then reveal the answer.
+          {t('worksheets.logicRiddles.instructions')}
         </p>
         <div className="space-y-3">
           {riddles.map(([riddle, answer], idx) => (
@@ -2556,14 +2742,15 @@ const renderers: Record<string, Renderer> = {
               <p className="font-semibold text-slate-900">Riddle {idx + 1}</p>
               <p>{riddle}</p>
               <p className="mt-2 text-xs text-slate-500">My guess: __________________________</p>
-              <p className="mt-1 text-xs text-slate-500">Answer: {answer}</p>
+              <p className="mt-1 text-xs text-slate-500">{t('worksheets.logicRiddles.answer')} {answer}</p>
             </div>
           ))}
         </div>
       </div>
     )
   },
-  'interactive-logic-deduction': ({ seed, doc, variant }) => {
+  'interactive-logic-deduction': (ctx) => {
+    const { seed, doc, variant, t } = ctx
     const rng = makeRng(`${seed}|${doc.id}|${variant}`)
     const suspects = pickMany(rng, ['Ava', 'Ben', 'Chloe', 'Diego', 'Erin', 'Finn'], 3)
     const items = pickMany(rng, ['robot dog', 'rocket model', 'skateboard', 'drone', 'canvas painting', 'puzzle cube'], 3)
@@ -2571,7 +2758,7 @@ const renderers: Record<string, Renderer> = {
     return (
       <div className="space-y-3">
         <p className="text-sm text-slate-600">
-          Use the clues to determine who borrowed each item and where it was found.
+          {t('worksheets.logicDeduction.instructions')}
         </p>
         <table className="w-full border border-slate-300 text-sm">
           <thead className="bg-slate-100">
@@ -2599,7 +2786,8 @@ const renderers: Record<string, Renderer> = {
       </div>
     )
   },
-  'interactive-cognitive-memory': ({ seed, doc, variant }) => {
+  'interactive-cognitive-memory': (ctx) => {
+    const { seed, doc, variant, t } = ctx
     const rng = makeRng(`${seed}|${doc.id}|${variant}`)
     const sequences = [
       { type: 'numbers', items: pickMany(rng, ['2', '4', '6', '8', '10', '12'], 4) },
@@ -2633,7 +2821,7 @@ const renderers: Record<string, Renderer> = {
         </div>
         <div className="rounded-lg border border-purple-200 bg-white px-4 py-3 text-xs text-purple-700">
           <p className="font-semibold mb-1">Memory Challenge:</p>
-          <p>Try to remember all three sequences in order. Write them here:</p>
+          <p>{t('worksheets.cognitiveMemory.instructions')}</p>
           <div className="mt-2 space-y-1">
             <p>Sequence 1: ________________________________________________</p>
             <p>Sequence 2: ________________________________________________</p>
@@ -2643,7 +2831,8 @@ const renderers: Record<string, Renderer> = {
       </div>
     )
   },
-  'interactive-cognitive-attention': ({ seed, doc, variant }) => {
+  'interactive-cognitive-attention': (ctx) => {
+    const { seed, doc, variant, t } = ctx
     const rng = makeRng(`${seed}|${doc.id}|${variant}`)
     const targetItems = pickMany(rng, ['star', 'circle', 'triangle', 'heart'], 1)[0]
     const gridItems = Array.from({ length: 25 }, (_, i) => {
@@ -2658,11 +2847,11 @@ const renderers: Record<string, Renderer> = {
     return (
       <div className="space-y-4">
         <p className="text-sm text-slate-600">
-          Practice focusing your attention with visual scanning and spot-the-difference exercises.
+          {t('worksheets.cognitiveAttention.instructions')}
         </p>
         <div className="rounded-xl border border-blue-200 bg-blue-50 p-4">
           <p className="text-sm font-semibold text-blue-700 mb-2">Visual Scanning Challenge</p>
-          <p className="text-xs text-blue-600 mb-3">Find and circle all the <span className="font-bold">{targetItems}</span> shapes in the grid below:</p>
+          <p className="text-xs text-blue-600 mb-3" dangerouslySetInnerHTML={{ __html: t('worksheets.cognitiveAttention.findAndCircle').replace('{{items}}', targetItems) }}></p>
           <div className="bg-white rounded-lg p-3 border border-blue-200">
             <div className="grid grid-cols-5 gap-1">
               {gridItems.map((item, idx) => (
@@ -2672,11 +2861,11 @@ const renderers: Record<string, Renderer> = {
               ))}
             </div>
           </div>
-          <p className="text-xs text-blue-600 mt-2">Count how many {targetItems} shapes you found: _______</p>
+          <p className="text-xs text-blue-600 mt-2">{t('worksheets.cognitiveAttention.countHowMany').replace('{{items}}', targetItems)}</p>
         </div>
         <div className="rounded-xl border border-green-200 bg-green-50 p-4">
           <p className="text-sm font-semibold text-green-700 mb-2">Spot the Difference</p>
-          <p className="text-xs text-green-600 mb-3">Compare the two images and find the differences:</p>
+          <p className="text-xs text-green-600 mb-3">{t('worksheets.cognitiveAttention.compareImages')}</p>
           <div className="space-y-3">
             {differences.map((diff, idx) => (
               <div key={idx} className="bg-white rounded-lg p-3 border border-green-200">
@@ -2702,7 +2891,8 @@ const renderers: Record<string, Renderer> = {
       </div>
     )
   },
-  'interactive-cognitive-executive': ({ seed, doc, variant }) => {
+  'interactive-cognitive-executive': (ctx) => {
+    const { seed, doc, variant, t } = ctx
     const rng = makeRng(`${seed}|${doc.id}|${variant}`)
     const tasks = pickMany(rng, [
       'Complete math homework',
@@ -2715,15 +2905,15 @@ const renderers: Record<string, Renderer> = {
     return (
       <div className="space-y-4">
         <p className="text-sm text-slate-600">
-          Practice planning, organizing, and completing tasks. This builds executive function skills!
+          {t('worksheets.cognitiveExecutive.instructions')}
         </p>
         <div className="rounded-xl border border-indigo-200 bg-indigo-50 p-4">
-          <p className="text-sm font-semibold text-indigo-700 mb-3">Task Planning</p>
-          <p className="text-xs text-indigo-600 mb-3">Plan your tasks for today. Break each task into steps:</p>
+          <p className="text-sm font-semibold text-indigo-700 mb-3">{t('worksheets.cognitiveExecutive.taskPlanning')}</p>
+          <p className="text-xs text-indigo-600 mb-3">{t('worksheets.cognitiveExecutive.planTasksToday')}</p>
           <div className="space-y-3">
             {tasks.map((task, idx) => (
               <div key={idx} className="bg-white rounded-lg p-3 border border-indigo-200">
-                <p className="text-sm font-semibold text-indigo-800 mb-2">Task {idx + 1}: {task}</p>
+                <p className="text-sm font-semibold text-indigo-800 mb-2">{t('worksheets.answerKey.task').replace('{{number}}', String(idx + 1))} {task}</p>
                 <p className="text-xs text-indigo-600 mb-1">Steps to complete:</p>
                 <div className="space-y-1">
                   <p className="text-xs text-slate-500">Step 1: ________________________________</p>
@@ -2768,7 +2958,8 @@ const renderers: Record<string, Renderer> = {
       </div>
     )
   },
-  'interactive-cognitive-processing': ({ seed, doc, variant }) => {
+  'interactive-cognitive-processing': (ctx) => {
+    const { seed, doc, variant, t } = ctx
     const rng = makeRng(`${seed}|${doc.id}|${variant}`)
     const symbols = ['★', '●', '▲', '■', '◆', '♥']
     const quickItems = Array.from({ length: 20 }, () => pick(rng, symbols))
@@ -2776,11 +2967,11 @@ const renderers: Record<string, Renderer> = {
     return (
       <div className="space-y-4">
         <p className="text-sm text-slate-600">
-          Improve your processing speed by quickly identifying and responding to visual information.
+          {t('worksheets.cognitiveProcessing.instructions')}
         </p>
         <div className="rounded-xl border border-orange-200 bg-orange-50 p-4">
-          <p className="text-sm font-semibold text-orange-700 mb-2">Quick Symbol Recognition</p>
-          <p className="text-xs text-orange-600 mb-3">Circle all the ★ (stars) as quickly as you can:</p>
+          <p className="text-sm font-semibold text-orange-700 mb-2">{t('worksheets.cognitiveProcessing.quickSymbolRecognition')}</p>
+          <p className="text-xs text-orange-600 mb-3">{t('worksheets.cognitiveProcessing.circleAllStars')}</p>
           <div className="bg-white rounded-lg p-3 border border-orange-200">
             <div className="flex flex-wrap gap-2">
               {quickItems.map((symbol, idx) => (
@@ -2788,11 +2979,11 @@ const renderers: Record<string, Renderer> = {
               ))}
             </div>
           </div>
-          <p className="text-xs text-orange-600 mt-2">Time yourself: _______ seconds</p>
+          <p className="text-xs text-orange-600 mt-2">{t('worksheets.cognitiveProcessing.timeYourself')}</p>
         </div>
         <div className="rounded-xl border border-orange-200 bg-orange-50 p-4">
-          <p className="text-sm font-semibold text-orange-700 mb-2">Rapid Word Identification</p>
-          <p className="text-xs text-orange-600 mb-3">Quickly find and circle words that start with "b":</p>
+          <p className="text-sm font-semibold text-orange-700 mb-2">{t('worksheets.cognitiveProcessing.rapidWordIdentification')}</p>
+          <p className="text-xs text-orange-600 mb-3">{t('worksheets.cognitiveProcessing.quicklyFindAndCircle').replace('{{letter}}', 'b')}</p>
           <div className="bg-white rounded-lg p-3 border border-orange-200">
             <div className="flex flex-wrap gap-2">
               {words.map((word, idx) => (
@@ -2802,43 +2993,54 @@ const renderers: Record<string, Renderer> = {
               ))}
             </div>
           </div>
-          <p className="text-xs text-orange-600 mt-2">How many "b" words did you find? _______</p>
+          <p className="text-xs text-orange-600 mt-2">{t('worksheets.cognitiveProcessing.howManyWordsFound').replace('{{letter}}', 'b')}</p>
         </div>
         <div className="rounded-lg border border-orange-200 bg-white px-4 py-3 text-xs text-orange-700">
-          <p className="font-semibold mb-1">Speed Challenge:</p>
-          <p>Try to complete both exercises faster each time you practice!</p>
+          <p className="font-semibold mb-1">{t('worksheets.cognitiveProcessing.speedChallenge')}</p>
+          <p>{t('worksheets.cognitiveProcessing.tryToCompleteFaster')}</p>
         </div>
       </div>
     )
   },
-  'interactive-cognitive-visual': ({ seed, doc, variant }) => {
+  'interactive-cognitive-visual': (ctx) => {
+    const { seed, doc, variant, t } = ctx
     const rng = makeRng(`${seed}|${doc.id}|${variant}`)
+    // Use translation keys for colors, shapes, and sizes
     const patterns = [
-      { original: ['red', 'blue', 'red', 'blue'], match: ['red', 'blue', 'red', 'green'] },
-      { original: ['circle', 'square', 'circle', 'square'], match: ['circle', 'square', 'triangle', 'square'] },
-      { original: ['big', 'small', 'big', 'small'], match: ['big', 'small', 'big', 'big'] },
+      { 
+        original: [t('common.colors.red'), t('common.colors.blue'), t('common.colors.red'), t('common.colors.blue')], 
+        match: [t('common.colors.red'), t('common.colors.blue'), t('common.colors.red'), t('common.colors.green')] 
+      },
+      { 
+        original: [t('common.shapes.circle'), t('common.shapes.square'), t('common.shapes.circle'), t('common.shapes.square')], 
+        match: [t('common.shapes.circle'), t('common.shapes.square'), t('common.shapes.triangle'), t('common.shapes.square')] 
+      },
+      { 
+        original: [t('common.sizes.big'), t('common.sizes.small'), t('common.sizes.big'), t('common.sizes.small')], 
+        match: [t('common.sizes.big'), t('common.sizes.small'), t('common.sizes.big'), t('common.sizes.big')] 
+      },
     ]
     const spatialItems = [
-      { position: 'above', item: 'star', text: 'above' },
-      { position: 'below', item: 'circle', text: 'below' },
-      { position: 'left', item: 'triangle', text: 'to the left of' },
-      { position: 'right', item: 'square', text: 'to the right of' },
+      { position: 'above', itemKey: 'star', textKey: 'above' },
+      { position: 'below', itemKey: 'circle', textKey: 'below' },
+      { position: 'left', itemKey: 'triangle', textKey: 'toTheLeftOf' },
+      { position: 'right', itemKey: 'square', textKey: 'toTheRightOf' },
     ]
     return (
       <div className="space-y-4">
         <p className="text-sm text-slate-600">
-          Strengthen visual processing skills through pattern matching and spatial reasoning exercises.
+          {t('worksheets.cognitiveVisual.visualPatternMatching')}
         </p>
         <div className="rounded-xl border border-pink-200 bg-pink-50 p-4">
-          <p className="text-sm font-semibold text-pink-700 mb-3">Visual Pattern Matching</p>
-          <p className="text-xs text-pink-600 mb-3">Compare the two patterns. Circle what's different:</p>
+          <p className="text-sm font-semibold text-pink-700 mb-3">{t('worksheets.cognitiveVisual.visualPatternMatching')}</p>
+          <p className="text-xs text-pink-600 mb-3">{t('worksheets.cognitiveVisual.comparePatterns')}</p>
           <div className="space-y-3">
             {patterns.map((pattern, idx) => (
               <div key={idx} className="bg-white rounded-lg p-3 border border-pink-200">
-                <p className="text-xs text-pink-600 mb-2">Pattern {idx + 1}:</p>
+                <p className="text-xs text-pink-600 mb-2">{t('worksheets.cognitiveVisual.pattern').replace('{{number}}', String(idx + 1))}</p>
                 <div className="flex gap-4 mb-2">
                   <div>
-                    <p className="text-xs text-pink-600 mb-1">Original:</p>
+                    <p className="text-xs text-pink-600 mb-1">{t('worksheets.cognitiveVisual.original')}</p>
                     <div className="flex gap-1">
                       {pattern.original.map((item, i) => (
                         <span key={i} className="px-2 py-1 bg-pink-100 rounded text-xs font-semibold text-pink-800">{item}</span>
@@ -2846,7 +3048,7 @@ const renderers: Record<string, Renderer> = {
                     </div>
                   </div>
                   <div>
-                    <p className="text-xs text-pink-600 mb-1">Match:</p>
+                    <p className="text-xs text-pink-600 mb-1">{t('worksheets.cognitiveVisual.match')}</p>
                     <div className="flex gap-1">
                       {pattern.match.map((item, i) => (
                         <span key={i} className={`px-2 py-1 rounded text-xs font-semibold ${item !== pattern.original[i] ? 'bg-pink-200 text-pink-900 border-2 border-pink-500' : 'bg-pink-100 text-pink-800'}`}>{item}</span>
@@ -2854,77 +3056,94 @@ const renderers: Record<string, Renderer> = {
                     </div>
                   </div>
                 </div>
-                <p className="text-xs text-pink-600">What's different? Position: _______ Item: _______</p>
+                <p className="text-xs text-pink-600">{t('worksheets.cognitiveVisual.whatsDifferent')}</p>
               </div>
             ))}
           </div>
         </div>
         <div className="rounded-xl border border-pink-200 bg-pink-50 p-4">
-          <p className="text-sm font-semibold text-pink-700 mb-3">Spatial Reasoning</p>
-          <p className="text-xs text-pink-600 mb-3">Draw each item in the correct position:</p>
+          <p className="text-sm font-semibold text-pink-700 mb-3">{t('worksheets.cognitiveVisual.spatialReasoning')}</p>
+          <p className="text-xs text-pink-600 mb-3">{t('worksheets.cognitiveVisual.drawItemPosition')}</p>
           <div className="bg-white rounded-lg p-3 border border-pink-200">
             <div className="grid grid-cols-2 gap-4">
-              {spatialItems.map((item, idx) => (
-                <div key={idx} className="border border-dashed border-pink-300 rounded p-3">
-                  <p className="text-xs text-pink-600 mb-2">Draw a {item.item} {item.text} the line:</p>
-                  {item.position === 'above' && (
-                    <div className="h-20 border border-pink-200 rounded relative">
-                      <div className="absolute bottom-0 left-0 right-0 h-0.5 bg-pink-600"></div>
-                    </div>
-                  )}
-                  {item.position === 'below' && (
-                    <div className="h-20 border border-pink-200 rounded relative">
-                      <div className="absolute top-0 left-0 right-0 h-0.5 bg-pink-600"></div>
-                    </div>
-                  )}
-                  {item.position === 'left' && (
-                    <div className="h-20 border border-pink-200 rounded relative">
-                      <div className="absolute top-0 bottom-0 right-0 w-0.5 bg-pink-600"></div>
-                    </div>
-                  )}
-                  {item.position === 'right' && (
-                    <div className="h-20 border border-pink-200 rounded relative">
-                      <div className="absolute top-0 bottom-0 left-0 w-0.5 bg-pink-600"></div>
-                    </div>
-                  )}
-                </div>
-              ))}
+              {spatialItems.map((item, idx) => {
+                const itemText = t(`common.shapes.${item.itemKey}`)
+                return (
+                  <div key={idx} className="border border-dashed border-pink-300 rounded p-3">
+                    <p className="text-xs text-pink-600 mb-2">{t('worksheets.cognitiveVisual.drawItemText').replace('{{item}}', itemText).replace('{{text}}', t(`worksheets.cognitiveVisual.${item.textKey}`))}</p>
+                    {item.position === 'above' && (
+                      <div className="h-20 border border-pink-200 rounded relative">
+                        <div className="absolute bottom-0 left-0 right-0 h-0.5 bg-pink-600"></div>
+                      </div>
+                    )}
+                    {item.position === 'below' && (
+                      <div className="h-20 border border-pink-200 rounded relative">
+                        <div className="absolute top-0 left-0 right-0 h-0.5 bg-pink-600"></div>
+                      </div>
+                    )}
+                    {item.position === 'left' && (
+                      <div className="h-20 border border-pink-200 rounded relative">
+                        <div className="absolute top-0 bottom-0 right-0 w-0.5 bg-pink-600"></div>
+                      </div>
+                    )}
+                    {item.position === 'right' && (
+                      <div className="h-20 border border-pink-200 rounded relative">
+                        <div className="absolute top-0 bottom-0 left-0 w-0.5 bg-pink-600"></div>
+                      </div>
+                    )}
+                  </div>
+                )
+              })}
             </div>
           </div>
         </div>
       </div>
     )
   },
-  'interactive-cognitive-flexibility': ({ seed, doc, variant }) => {
+  'interactive-cognitive-flexibility': (ctx) => {
+    const { seed, doc, variant, t } = ctx
     const rng = makeRng(`${seed}|${doc.id}|${variant}`)
     const tasks = [
-      { task: 'Sort by color', rule: 'Group red items together', switch: 'Now sort by size instead' },
-      { task: 'Count forward', rule: 'Count 1, 2, 3...', switch: 'Now count backward from 10' },
-      { task: 'Name animals', rule: 'List farm animals', switch: 'Now list ocean animals' },
+      { 
+        taskKey: 'sortByColor', 
+        ruleKey: 'groupRedItems', 
+        switchKey: 'sortBySize' 
+      },
+      { 
+        taskKey: 'countForward', 
+        ruleKey: 'count123', 
+        switchKey: 'countBackward' 
+      },
+      { 
+        taskKey: 'nameAnimals', 
+        ruleKey: 'listFarmAnimals', 
+        switchKey: 'listOceanAnimals' 
+      },
     ]
-    const perspectives = pickMany(rng, [
-      'A new student joins your class',
-      'Your favorite game is cancelled',
-      'You have to work with someone you disagree with',
-    ], 2)
+    const allPerspectives = [
+      'newStudent',
+      'gameCancelled',
+      'disagreeWith',
+    ]
+    const perspectives = pickMany(rng, allPerspectives, 2)
     return (
       <div className="space-y-4">
         <p className="text-sm text-slate-600">
-          Practice cognitive flexibility by switching between tasks and thinking from different perspectives.
+          {t('worksheets.cognitiveFlexibility.instructions')}
         </p>
         <div className="rounded-xl border border-teal-200 bg-teal-50 p-4">
-          <p className="text-sm font-semibold text-teal-700 mb-3">Task Switching Challenge</p>
-          <p className="text-xs text-teal-600 mb-3">Complete each task, then switch to the new rule:</p>
+          <p className="text-sm font-semibold text-teal-700 mb-3">{t('worksheets.cognitiveFlexibility.taskSwitchingChallenge')}</p>
+          <p className="text-xs text-teal-600 mb-3">{t('worksheets.cognitiveFlexibility.completeEachTask')}</p>
           <div className="space-y-3">
             {tasks.map((taskItem, idx) => (
               <div key={idx} className="bg-white rounded-lg p-3 border border-teal-200">
-                <p className="text-sm font-semibold text-teal-800 mb-2">Task {idx + 1}: {taskItem.task}</p>
+                <p className="text-sm font-semibold text-teal-800 mb-2">{t('worksheets.cognitiveFlexibility.tasks.' + taskItem.taskKey)}</p>
                 <div className="mb-2">
-                  <p className="text-xs text-teal-600 mb-1">First rule: {taskItem.rule}</p>
+                  <p className="text-xs text-teal-600 mb-1">{t('worksheets.cognitiveFlexibility.firstRule')} {t('worksheets.cognitiveFlexibility.tasks.' + taskItem.ruleKey)}</p>
                   <div className="h-12 border border-dashed border-teal-300 rounded bg-teal-50"></div>
                 </div>
                 <div>
-                  <p className="text-xs text-teal-600 mb-1">Switch! New rule: {taskItem.switch}</p>
+                  <p className="text-xs text-teal-600 mb-1">{t('worksheets.cognitiveFlexibility.switchNewRule')} {t('worksheets.cognitiveFlexibility.tasks.' + taskItem.switchKey)}</p>
                   <div className="h-12 border border-dashed border-teal-300 rounded bg-teal-50"></div>
                 </div>
               </div>
@@ -2932,23 +3151,23 @@ const renderers: Record<string, Renderer> = {
           </div>
         </div>
         <div className="rounded-xl border border-teal-200 bg-teal-50 p-4">
-          <p className="text-sm font-semibold text-teal-700 mb-3">Perspective-Taking Practice</p>
-          <p className="text-xs text-teal-600 mb-3">Think about each situation from different points of view:</p>
+          <p className="text-sm font-semibold text-teal-700 mb-3">{t('worksheets.cognitiveFlexibility.perspectiveTakingPractice')}</p>
+          <p className="text-xs text-teal-600 mb-3">{t('worksheets.cognitiveFlexibility.thinkAboutSituation')}</p>
           <div className="space-y-3">
-            {perspectives.map((perspective, idx) => (
+            {perspectives.map((perspectiveKey, idx) => (
               <div key={idx} className="bg-white rounded-lg p-3 border border-teal-200">
-                <p className="text-sm font-semibold text-teal-800 mb-2">Situation: {perspective}</p>
+                <p className="text-sm font-semibold text-teal-800 mb-2">{t('worksheets.cognitiveFlexibility.situation')} {t('worksheets.cognitiveFlexibility.perspectives.' + perspectiveKey)}</p>
                 <div className="space-y-2 text-xs">
                   <div>
-                    <p className="text-teal-600 mb-1">Your perspective:</p>
+                    <p className="text-teal-600 mb-1">{t('worksheets.cognitiveFlexibility.yourPerspective')}</p>
                     <div className="h-10 border border-dashed border-teal-300 rounded"></div>
                   </div>
                   <div>
-                    <p className="text-teal-600 mb-1">Another person's perspective:</p>
+                    <p className="text-teal-600 mb-1">{t('worksheets.cognitiveFlexibility.anotherPerspective')}</p>
                     <div className="h-10 border border-dashed border-teal-300 rounded"></div>
                   </div>
                   <div>
-                    <p className="text-teal-600 mb-1">What's a solution that works for both?</p>
+                    <p className="text-teal-600 mb-1">{t('worksheets.cognitiveFlexibility.solutionForBoth')}</p>
                     <div className="h-10 border border-dashed border-teal-300 rounded"></div>
                   </div>
                 </div>
@@ -2959,26 +3178,28 @@ const renderers: Record<string, Renderer> = {
       </div>
     )
   },
-  'interactive-sel-mindfulness': ({ seed, doc, variant }) => {
+  'interactive-sel-mindfulness': (ctx) => {
+    const { seed, doc, variant, t } = ctx
     const rng = makeRng(`${seed}|${doc.id}|${variant}`)
-    const breaths = pickMany(rng, ['rainbow breathing', 'box breathing', 'five-finger breathing', 'balloon breath'], 3)
+    const breathKeys = ['rainbowBreathing', 'boxBreathing', 'fiveFingerBreathing', 'balloonBreath']
+    const selectedBreaths = pickMany(rng, breathKeys, 3)
     return (
       <div className="space-y-3">
         <p className="text-sm text-slate-600">
-          Practice three breathing strategies. Track how your body feels before and after.
+          {t('interactive.interactive-sel-mindfulness.description')}
         </p>
         <table className="w-full border border-slate-300 text-sm">
           <thead className="bg-slate-100">
             <tr>
-              <th className="px-3 py-2">Breathing Strategy</th>
-              <th className="px-3 py-2">Before I feel?</th>
-              <th className="px-3 py-2">After I feel?</th>
+              <th className="px-3 py-2">{t('interactive.interactive-sel-mindfulness.breathingStrategy')}</th>
+              <th className="px-3 py-2">{t('interactive.interactive-sel-mindfulness.beforeIFeel')}</th>
+              <th className="px-3 py-2">{t('interactive.interactive-sel-mindfulness.afterIFeel')}</th>
             </tr>
           </thead>
           <tbody>
-            {breaths.map((breath, idx) => (
+            {selectedBreaths.map((breathKey, idx) => (
               <tr key={idx} className="border-t border-slate-200">
-                <td className="px-3 py-2 capitalize">{breath}</td>
+                <td className="px-3 py-2">{t(`interactive.interactive-sel-mindfulness.strategies.${breathKey}`)}</td>
                 <td className="px-3 py-2">_______________________</td>
                 <td className="px-3 py-2">_______________________</td>
               </tr>
@@ -2986,30 +3207,28 @@ const renderers: Record<string, Renderer> = {
           </tbody>
         </table>
         <div className="rounded-lg border border-blue-200 bg-blue-50 px-4 py-3 text-xs text-blue-700">
-          Repeat your favorite strategy three times this week and jot when it helped you most.
+          {t('interactive.interactive-sel-mindfulness.repeatFavorite')}
         </div>
       </div>
     )
   },
-  'interactive-sel-empathy': ({ seed, doc, variant }) => {
+  'interactive-sel-empathy': (ctx) => {
+    const { seed, doc, variant, t } = ctx
     const rng = makeRng(`${seed}|${doc.id}|${variant}`)
-    const scenarios = pickMany(
-      rng,
-      ['Someone new joins the lunch table.', 'A friend loses their favorite pencil case.', 'A teammate feels nervous before a performance.', 'A classmate forgets homework again.'],
-      3
-    )
+    const scenarioKeys = ['newLunchTable', 'lostPencilCase', 'nervousPerformance', 'forgotHomework']
+    const selectedScenarios = pickMany(rng, scenarioKeys, 3)
     return (
       <div className="space-y-3">
         <p className="text-sm text-slate-600">
-          Imagine each scenario. How might the person feel? What words or actions would show empathy?
+          {t('interactive.interactive-sel-empathy.description')}
         </p>
         <div className="space-y-3 text-sm text-slate-700">
-          {scenarios.map((scenario, idx) => (
+          {selectedScenarios.map((scenarioKey, idx) => (
             <div key={idx} className="rounded-xl border border-slate-200 bg-white p-4">
-              <p className="font-semibold">Scenario {idx + 1}</p>
-              <p>{scenario}</p>
-              <p className="mt-2 text-xs text-slate-500">Feelings I notice: ______________________________</p>
-              <p className="text-xs text-slate-500">Words or actions to show empathy: ______________________</p>
+              <p className="font-semibold">{t('interactive.interactive-sel-empathy.scenario').replace('{{number}}', String(idx + 1))}</p>
+              <p>{t(`interactive.interactive-sel-empathy.scenarios.${scenarioKey}`)}</p>
+              <p className="mt-2 text-xs text-slate-500">{t('interactive.interactive-sel-empathy.feelingsINotice')}</p>
+              <p className="text-xs text-slate-500">{t('interactive.interactive-sel-empathy.wordsOrActions')}</p>
             </div>
           ))}
         </div>
@@ -3038,103 +3257,88 @@ const renderers: Record<string, Renderer> = {
       </div>
     )
   },
-  'interactive-sel-conflict': ({ seed, doc, variant }) => {
+  'interactive-sel-conflict': (ctx) => {
+    const { seed, doc, variant, t } = ctx
     const rng = makeRng(`${seed}|${doc.id}|${variant}`)
-    const scenarios = pickMany(rng, [
-      'Two friends want to play different games at recess.',
-      'Someone cuts in line in front of you.',
-      'A classmate takes your pencil without asking.',
-      'You and a friend disagree about a group project idea.',
-      'Someone says something unkind about your friend.',
-    ], 3)
+    const scenarioKeys = ['differentGames', 'cutsInLine', 'takesPencil', 'disagreeProject', 'unkindFriend']
+    const selectedScenarios = pickMany(rng, scenarioKeys, 3)
     return (
       <div className="space-y-4">
-        <p className="text-sm text-slate-600">Learn strategies to resolve conflicts peacefully. Think about how to communicate effectively.</p>
+        <p className="text-sm text-slate-600">{t('interactive.interactive-sel-conflict.description')}</p>
         <div className="space-y-3">
-          {scenarios.map((scenario, idx) => (
+          {selectedScenarios.map((scenarioKey, idx) => (
             <div key={idx} className="rounded-xl border border-blue-200 bg-blue-50 p-4">
-              <p className="text-sm font-semibold text-blue-700 mb-2">Scenario {idx + 1}:</p>
-              <p className="text-sm text-blue-800 mb-3">{scenario}</p>
+              <p className="text-sm font-semibold text-blue-700 mb-2">{t('interactive.interactive-sel-conflict.scenario').replace('{{number}}', String(idx + 1))}</p>
+              <p className="text-sm text-blue-800 mb-3">{t(`interactive.interactive-sel-conflict.scenarios.${scenarioKey}`)}</p>
               <div className="space-y-2 text-xs">
-                <p className="text-blue-700">What are your feelings? ______________________________</p>
-                <p className="text-blue-700">What could you say to express your feelings? ________________</p>
-                <p className="text-blue-700">What is a peaceful solution? ______________________________</p>
+                <p className="text-blue-700">{t('interactive.interactive-sel-conflict.whatAreFeelings')}</p>
+                <p className="text-blue-700">{t('interactive.interactive-sel-conflict.whatCouldSay')}</p>
+                <p className="text-blue-700">{t('interactive.interactive-sel-conflict.peacefulSolution')}</p>
               </div>
             </div>
           ))}
         </div>
         <div className="rounded-lg border border-blue-200 bg-blue-50 px-4 py-3 text-xs text-blue-700">
-          💡 Remember: Use "I" statements, listen actively, and find win-win solutions!
+          {t('interactive.interactive-sel-conflict.remember')}
         </div>
       </div>
     )
   },
-  'interactive-sel-regulation': ({ seed, doc, variant }) => {
+  'interactive-sel-regulation': (ctx) => {
+    const { seed, doc, variant, t } = ctx
     const rng = makeRng(`${seed}|${doc.id}|${variant}`)
-    const strategies = pickMany(rng, [
-      { name: 'Take deep breaths', emoji: '🫁', steps: 'Breathe in for 4, hold for 4, breathe out for 4' },
-      { name: 'Count to 10', emoji: '🔢', steps: 'Slowly count from 1 to 10' },
-      { name: 'Use a calm-down corner', emoji: '🧘', steps: 'Find a quiet space to relax' },
-      { name: 'Think of happy thoughts', emoji: '😊', steps: 'Picture something that makes you smile' },
-      { name: 'Squeeze a stress ball', emoji: '🤲', steps: 'Use your hands to release tension' },
-      { name: 'Take a walk', emoji: '🚶', steps: 'Move your body to calm your mind' },
-    ], 4)
+    const strategyKeys = ['deepBreaths', 'countTo10', 'calmDownCorner', 'happyThoughts', 'stressBall', 'takeWalk']
+    const emojis = { deepBreaths: '🫁', countTo10: '🔢', calmDownCorner: '🧘', happyThoughts: '😊', stressBall: '🤲', takeWalk: '🚶' }
+    const selectedStrategies = pickMany(rng, strategyKeys, 4)
     return (
       <div className="space-y-4">
-        <p className="text-sm text-slate-600">Practice self-regulation strategies. These techniques help you manage big feelings and make thoughtful choices.</p>
+        <p className="text-sm text-slate-600">{t('interactive.interactive-sel-regulation.description')}</p>
         <div className="grid gap-3 md:grid-cols-2">
-          {strategies.map((strategy, idx) => (
+          {selectedStrategies.map((strategyKey, idx) => (
             <div key={idx} className="rounded-xl border border-purple-200 bg-purple-50 p-4">
               <div className="flex items-center gap-2 mb-2">
-                <span className="text-xl">{strategy.emoji}</span>
-                <p className="text-sm font-semibold text-purple-700">{strategy.name}</p>
+                <span className="text-xl">{emojis[strategyKey]}</span>
+                <p className="text-sm font-semibold text-purple-700">{t(`interactive.interactive-sel-regulation.strategies.${strategyKey}.name`)}</p>
               </div>
-              <p className="text-xs text-purple-600 mb-2">{strategy.steps}</p>
+              <p className="text-xs text-purple-600 mb-2">{t(`interactive.interactive-sel-regulation.strategies.${strategyKey}.steps`)}</p>
               <div className="mt-2 rounded border border-purple-200 bg-white p-2">
-                <p className="text-xs text-purple-600">When I tried this, I felt: ________________</p>
+                <p className="text-xs text-purple-600">{t('interactive.interactive-sel-regulation.whenITried')}</p>
               </div>
             </div>
           ))}
         </div>
         <div className="rounded-lg border border-purple-200 bg-purple-50 px-4 py-3 text-xs text-purple-700">
-          💡 Practice these strategies when you feel calm, so they're easier to use when you need them!
+          {t('interactive.interactive-sel-regulation.practiceTip')}
         </div>
       </div>
     )
   },
-  'interactive-sel-kindness': ({ seed, doc, variant }) => {
+  'interactive-sel-kindness': (ctx) => {
+    const { seed, doc, variant, t } = ctx
     const rng = makeRng(`${seed}|${doc.id}|${variant}`)
-    const acts = pickMany(rng, [
-      'Help someone with their work',
-      'Say something kind to a classmate',
-      'Share something with a friend',
-      'Help clean up without being asked',
-      'Write a thank-you note',
-      'Include someone who looks lonely',
-      'Give someone a compliment',
-      'Hold the door for someone',
-    ], 5)
+    const actKeys = ['helpWork', 'sayKind', 'shareFriend', 'helpClean', 'thankYouNote', 'includeLonely', 'compliment', 'holdDoor']
+    const selectedActs = pickMany(rng, actKeys, 5)
     return (
       <div className="space-y-4">
-        <p className="text-base font-semibold text-indigo-800">Complete acts of kindness this week! Track your kindness and reflect on how it makes you and others feel.</p>
+        <p className="text-base font-semibold text-indigo-800">{t('interactive.interactive-sel-kindness.description')}</p>
         <div className="rounded-xl border-2 border-indigo-300 bg-gradient-to-br from-indigo-50 via-violet-50 to-purple-50 p-5 shadow-lg">
           <div className="flex items-center gap-3 mb-4">
             <span className="text-4xl">💝</span>
-            <p className="text-xl font-bold text-indigo-800">Kindness Challenge</p>
+            <p className="text-xl font-bold text-indigo-800">{t('interactive.interactive-sel-kindness.kindnessChallenge')}</p>
           </div>
           <table className="w-full border-2 border-indigo-300 text-sm bg-white rounded-lg overflow-hidden shadow-md">
             <thead className="bg-gradient-to-r from-indigo-400 to-violet-400 text-white">
               <tr>
-                <th className="px-4 py-3 text-left font-bold">Kindness Act</th>
-                <th className="px-4 py-3 text-left font-bold">When I did this...</th>
-                <th className="px-4 py-3 text-left font-bold">How did it make others feel?</th>
-                <th className="px-4 py-3 text-left font-bold">How did it make me feel?</th>
+                <th className="px-4 py-3 text-left font-bold">{t('interactive.interactive-sel-kindness.kindnessAct')}</th>
+                <th className="px-4 py-3 text-left font-bold">{t('interactive.interactive-sel-kindness.whenIDidThis')}</th>
+                <th className="px-4 py-3 text-left font-bold">{t('interactive.interactive-sel-kindness.howOthersFeel')}</th>
+                <th className="px-4 py-3 text-left font-bold">{t('interactive.interactive-sel-kindness.howIFeel')}</th>
               </tr>
             </thead>
             <tbody>
-              {acts.map((act, idx) => (
+              {selectedActs.map((actKey, idx) => (
                 <tr key={idx} className={`border-t-2 border-indigo-200 ${idx % 2 === 0 ? 'bg-indigo-50/50' : 'bg-white'} hover:bg-indigo-100 transition-colors`}>
-                  <td className="px-4 py-3 font-semibold text-indigo-900">{act}</td>
+                  <td className="px-4 py-3 font-semibold text-indigo-900">{t(`interactive.interactive-sel-kindness.acts.${actKey}`)}</td>
                   <td className="px-4 py-3"><span className="border-b-2 border-indigo-300 border-dashed inline-block min-w-[120px]">_______________________</span></td>
                   <td className="px-4 py-3"><span className="border-b-2 border-indigo-300 border-dashed inline-block min-w-[120px]">_______________________</span></td>
                   <td className="px-4 py-3"><span className="border-b-2 border-indigo-300 border-dashed inline-block min-w-[120px]">_______________________</span></td>
@@ -3146,106 +3350,93 @@ const renderers: Record<string, Renderer> = {
         <div className="rounded-xl border-2 border-pink-300 bg-gradient-to-r from-pink-100 to-rose-100 px-6 py-4 text-sm text-pink-800 shadow-md">
           <p className="font-bold text-base flex items-center gap-2">
             <span className="text-2xl">💡</span>
-            <span>Kindness is contagious! When you're kind, others are more likely to be kind too.</span>
+            <span>{t('interactive.interactive-sel-kindness.kindnessContagious')}</span>
           </p>
         </div>
       </div>
     )
   },
-  'interactive-sel-growth-mindset': ({ seed, doc, variant }) => {
+  'interactive-sel-growth-mindset': (ctx) => {
+    const { seed, doc, variant, t } = ctx
     const rng = makeRng(`${seed}|${doc.id}|${variant}`)
-    const fixedStatements = pickMany(rng, [
-      'I\'m not good at math',
-      'I can\'t do this',
-      'This is too hard',
-      'I give up',
-      'I\'m not smart enough',
-    ], 3)
+    const statementKeys = ['notGoodMath', 'cantDo', 'tooHard', 'giveUp', 'notSmart']
+    const selectedStatements = pickMany(rng, statementKeys, 3)
     return (
       <div className="space-y-4">
-        <p className="text-sm text-slate-600">Transform fixed mindset thoughts into growth mindset thoughts! Learn to embrace challenges and learn from mistakes.</p>
+        <p className="text-sm text-slate-600">{t('interactive.interactive-sel-growth-mindset.description')}</p>
         <div className="space-y-3">
-          {fixedStatements.map((statement, idx) => (
+          {selectedStatements.map((statementKey, idx) => (
             <div key={idx} className="rounded-xl border border-orange-200 bg-orange-50 p-4">
-              <p className="text-sm font-semibold text-orange-700 mb-2">Fixed Mindset:</p>
-              <p className="text-sm text-orange-800 mb-3">"{statement}"</p>
-              <p className="text-sm font-semibold text-green-700 mb-2">Growth Mindset:</p>
-              <p className="text-sm text-green-800 mb-2">Rewrite this thought: ________________________________</p>
+              <p className="text-sm font-semibold text-orange-700 mb-2">{t('interactive.interactive-sel-growth-mindset.fixedMindset')}</p>
+              <p className="text-sm text-orange-800 mb-3">"{t(`interactive.interactive-sel-growth-mindset.statements.${statementKey}`)}"</p>
+              <p className="text-sm font-semibold text-green-700 mb-2">{t('interactive.interactive-sel-growth-mindset.growthMindset')}</p>
+              <p className="text-sm text-green-800 mb-2">{t('interactive.interactive-sel-growth-mindset.rewriteThought')}</p>
               <div className="mt-2 rounded border border-green-200 bg-white p-2">
-                <p className="text-xs text-green-600">What can I learn from this challenge? ________________</p>
+                <p className="text-xs text-green-600">{t('interactive.interactive-sel-growth-mindset.whatCanLearn')}</p>
               </div>
             </div>
           ))}
         </div>
         <div className="rounded-lg border border-green-200 bg-green-50 px-4 py-3 text-xs text-green-700">
-          💡 Remember: Your brain grows stronger when you practice! Mistakes are opportunities to learn.
+          {t('interactive.interactive-sel-growth-mindset.remember')}
         </div>
       </div>
     )
   },
-  'interactive-sel-stress': ({ seed, doc, variant }) => {
+  'interactive-sel-stress': (ctx) => {
+    const { seed, doc, variant, t } = ctx
     const rng = makeRng(`${seed}|${doc.id}|${variant}`)
-    const triggers = pickMany(rng, [
-      'Too much homework',
-      'Test anxiety',
-      'Conflict with friends',
-      'Feeling overwhelmed',
-      'Time pressure',
-    ], 3)
-    const copingStrategies = pickMany(rng, [
-      'Deep breathing exercises',
-      'Physical activity or exercise',
-      'Talking to someone you trust',
-      'Taking breaks',
-      'Organizing your tasks',
-      'Mindfulness or meditation',
-    ], 4)
+    const triggerKeys = ['tooMuchHomework', 'testAnxiety', 'conflictFriends', 'overwhelmed', 'timePressure']
+    const strategyKeys = ['deepBreathing', 'physicalActivity', 'talkTrust', 'takingBreaks', 'organizingTasks', 'mindfulness']
+    const selectedTriggers = pickMany(rng, triggerKeys, 3)
+    const selectedStrategies = pickMany(rng, strategyKeys, 4)
     return (
       <div className="space-y-4">
-        <p className="text-sm text-slate-600">Identify stress triggers and practice healthy coping strategies. Learn to manage anxiety and stress effectively.</p>
+        <p className="text-sm text-slate-600">{t('interactive.interactive-sel-stress.description')}</p>
         <div className="grid gap-4 md:grid-cols-2">
           <div className="rounded-xl border border-red-200 bg-red-50 p-4">
-            <p className="text-sm font-semibold text-red-700 mb-3">Stress Triggers:</p>
+            <p className="text-sm font-semibold text-red-700 mb-3">{t('interactive.interactive-sel-stress.stressTriggers')}</p>
             <div className="space-y-2">
-              {triggers.map((trigger, idx) => (
+              {selectedTriggers.map((triggerKey, idx) => (
                 <div key={idx} className="bg-white rounded border border-red-200 p-2">
-                  <p className="text-xs text-red-700">{trigger}</p>
-                  <p className="text-xs text-red-600 mt-1">How does this make me feel? ________________</p>
+                  <p className="text-xs text-red-700">{t(`interactive.interactive-sel-stress.triggers.${triggerKey}`)}</p>
+                  <p className="text-xs text-red-600 mt-1">{t('interactive.interactive-sel-stress.howMakesFeel')}</p>
                 </div>
               ))}
             </div>
           </div>
           <div className="rounded-xl border border-green-200 bg-green-50 p-4">
-            <p className="text-sm font-semibold text-green-700 mb-3">Healthy Coping Strategies:</p>
+            <p className="text-sm font-semibold text-green-700 mb-3">{t('interactive.interactive-sel-stress.healthyCoping')}</p>
             <div className="space-y-2">
-              {copingStrategies.map((strategy, idx) => (
+              {selectedStrategies.map((strategyKey, idx) => (
                 <div key={idx} className="bg-white rounded border border-green-200 p-2">
-                  <p className="text-xs text-green-700">{strategy}</p>
-                  <p className="text-xs text-green-600 mt-1">When I can use this: ________________</p>
+                  <p className="text-xs text-green-700">{t(`interactive.interactive-sel-stress.strategies.${strategyKey}`)}</p>
+                  <p className="text-xs text-green-600 mt-1">{t('interactive.interactive-sel-stress.whenCanUse')}</p>
                 </div>
               ))}
             </div>
           </div>
         </div>
         <div className="rounded-lg border border-blue-200 bg-blue-50 px-4 py-3 text-xs text-blue-700">
-          💡 It's okay to feel stressed sometimes. The important thing is knowing how to manage it in healthy ways.
+          {t('interactive.interactive-sel-stress.itsOkay')}
         </div>
       </div>
     )
   },
-  'interactive-sel-character': ({ seed, doc, variant }) => {
+  'interactive-sel-character': (ctx) => {
+    const { seed, doc, variant, t } = ctx
     const rng = makeRng(`${seed}|${doc.id}|${variant}`)
-    const traits = pickMany(rng, [
-      { name: 'Honesty', description: 'Telling the truth even when it\'s hard', emoji: '💎' },
-      { name: 'Respect', description: 'Treating others with kindness and consideration', emoji: '🤝' },
-      { name: 'Responsibility', description: 'Doing what you\'re supposed to do', emoji: '📋' },
-      { name: 'Integrity', description: 'Doing the right thing even when no one is watching', emoji: '⭐' },
-      { name: 'Courage', description: 'Facing fears and standing up for what\'s right', emoji: '🦁' },
-      { name: 'Compassion', description: 'Caring about others and their feelings', emoji: '❤️' },
-    ], 4)
+    const traitKeys = ['honesty', 'respect', 'responsibility', 'integrity', 'courage', 'compassion']
+    const emojis = { honesty: '💎', respect: '🤝', responsibility: '📋', integrity: '⭐', courage: '🦁', compassion: '❤️' }
+    const selectedKeys = pickMany(rng, traitKeys, 4)
+    const traits = selectedKeys.map(key => ({
+      name: t(`worksheets.selCharacter.traits.${key}.name`),
+      description: t(`worksheets.selCharacter.traits.${key}.description`),
+      emoji: emojis[key],
+    }))
     return (
       <div className="space-y-4">
-        <p className="text-sm text-slate-600">Explore important character traits and values. Think about how these traits help you and others.</p>
+        <p className="text-sm text-slate-600">{t('interactive.interactive-sel-character.description')}</p>
         <div className="grid gap-3 md:grid-cols-2">
           {traits.map((trait, idx) => (
             <div key={idx} className="rounded-xl border border-indigo-200 bg-indigo-50 p-4">
@@ -3255,19 +3446,20 @@ const renderers: Record<string, Renderer> = {
               </div>
               <p className="text-xs text-indigo-600 mb-3">{trait.description}</p>
               <div className="space-y-2 text-xs">
-                <p className="text-indigo-700">How can I show {trait.name.toLowerCase()}? ________________</p>
-                <p className="text-indigo-700">When have I seen someone show {trait.name.toLowerCase()}? ________________</p>
+                <p className="text-indigo-700">{t('interactive.interactive-sel-character.howCanShow').replace('{{trait}}', trait.name.toLowerCase())}</p>
+                <p className="text-indigo-700">{t('interactive.interactive-sel-character.whenSeen').replace('{{trait}}', trait.name.toLowerCase())}</p>
               </div>
             </div>
           ))}
         </div>
         <div className="rounded-lg border border-indigo-200 bg-indigo-50 px-4 py-3 text-xs text-indigo-700">
-          💡 Character traits are like muscles—the more you practice them, the stronger they become!
+          {t('interactive.interactive-sel-character.remember')}
         </div>
       </div>
     )
   },
-  'interactive-math-algebra': ({ seed, doc, variant }) => {
+  'interactive-math-algebra': (ctx) => {
+    const { seed, doc, variant, t } = ctx
     const rng = makeRng(`${seed}|${doc.id}|${variant}`)
     const problems = Array.from({ length: 5 }, () => {
       const type = pick(rng, ['solve', 'evaluate', 'simplify'])
@@ -3292,24 +3484,25 @@ const renderers: Record<string, Renderer> = {
     return (
       <div className="space-y-3">
         <p className="text-sm text-slate-600">
-          Solve each equation, evaluate each expression, or simplify as indicated.
+          {t('worksheets.algebra.solveEachEquation')}
         </p>
         <div className="space-y-3">
           {problems.map((prob, idx) => (
             <div key={idx} className="rounded-xl border border-purple-200 bg-white p-4">
               <p className="text-sm font-semibold text-purple-800">
-                {prob.type === 'solve' && `Solve: ${prob.eq}`}
+                {prob.type === 'solve' && `${t('worksheets.algebra.solve')} ${prob.eq}`}
                 {prob.type === 'evaluate' && `Evaluate ${prob.expr} when x = ${prob.x}`}
                 {prob.type === 'simplify' && `Simplify: ${prob.expr}`}
               </p>
-              <p className="mt-2 text-xs text-slate-500">Answer: _______________</p>
+              <p className="mt-2 text-xs text-slate-500">{t('worksheets.answerKey.answer')} _______________</p>
             </div>
           ))}
         </div>
       </div>
     )
   },
-  'interactive-math-percentages': ({ seed, doc, variant }) => {
+  'interactive-math-percentages': (ctx) => {
+    const { seed, doc, variant, t } = ctx
     const rng = makeRng(`${seed}|${doc.id}|${variant}`)
     const problems = Array.from({ length: 5 }, () => {
       const type = pick(rng, ['percent', 'ratio', 'proportion'])
@@ -3337,14 +3530,15 @@ const renderers: Record<string, Renderer> = {
           {problems.map((prob, idx) => (
             <div key={idx} className="rounded-xl border border-purple-200 bg-white p-4">
               <p className="text-sm font-semibold text-purple-800">{prob.q}</p>
-              <p className="mt-2 text-xs text-slate-500">Answer: _______________</p>
+              <p className="mt-2 text-xs text-slate-500">{t('worksheets.answerKey.answer')} _______________</p>
             </div>
           ))}
         </div>
       </div>
     )
   },
-  'interactive-math-geometry': ({ seed, doc, variant }) => {
+  'interactive-math-geometry': (ctx) => {
+    const { seed, doc, variant, t } = ctx
     const rng = makeRng(`${seed}|${doc.id}|${variant}`)
     const problems = Array.from({ length: 5 }, () => {
       const type = pick(rng, ['area', 'perimeter', 'volume', 'angle'])
@@ -3374,14 +3568,15 @@ const renderers: Record<string, Renderer> = {
           {problems.map((prob, idx) => (
             <div key={idx} className="rounded-xl border border-purple-200 bg-white p-4">
               <p className="text-sm font-semibold text-purple-800">{prob.q}</p>
-              <p className="mt-2 text-xs text-slate-500">Answer: _______________</p>
+              <p className="mt-2 text-xs text-slate-500">{t('worksheets.answerKey.answer')} _______________</p>
             </div>
           ))}
         </div>
       </div>
     )
   },
-  'interactive-math-statistics': ({ seed, doc, variant }) => {
+  'interactive-math-statistics': (ctx) => {
+    const { seed, doc, variant, t } = ctx
     const rng = makeRng(`${seed}|${doc.id}|${variant}`)
     const datasets = Array.from({ length: 3 }, () => {
       const nums = Array.from({ length: 6 }, () => Math.floor(rng() * 20) + 10).sort((a, b) => a - b)
@@ -3421,7 +3616,8 @@ const renderers: Record<string, Renderer> = {
       </div>
     )
   },
-  'interactive-math-word-problems': ({ seed, doc, variant }) => {
+  'interactive-math-word-problems': (ctx) => {
+    const { seed, doc, variant, t } = ctx
     const rng = makeRng(`${seed}|${doc.id}|${variant}`)
     const problems = [
       { q: 'A store sells 3 notebooks for $12. How much would 7 notebooks cost?', answer: '$28' },
@@ -3433,15 +3629,15 @@ const renderers: Record<string, Renderer> = {
     return (
       <div className="space-y-3">
         <p className="text-sm text-slate-600">
-          Solve each multi-step word problem. Show your work.
+          {t('worksheets.wordProblems.solveEachMultiStep')}
         </p>
         <div className="space-y-3">
           {problems.map((prob, idx) => (
             <div key={idx} className="rounded-xl border border-purple-200 bg-white p-4">
-              <p className="text-sm font-semibold text-purple-800">Problem {idx + 1}</p>
+              <p className="text-sm font-semibold text-purple-800">{t('worksheets.answerKey.problem').replace('{{number}}', String(idx + 1))}</p>
               <p className="mt-1 text-sm text-slate-700">{prob.q}</p>
               <div className="mt-3 h-16 border border-slate-200 rounded bg-slate-50"></div>
-              <p className="mt-2 text-xs text-slate-500">Answer: _______________</p>
+              <p className="mt-2 text-xs text-slate-500">{t('worksheets.answerKey.answer')} _______________</p>
             </div>
           ))}
         </div>
@@ -3449,7 +3645,7 @@ const renderers: Record<string, Renderer> = {
     )
   },
   'interactive-math-counting': (ctx) => {
-    const { seed, doc, variant, t } = ctx
+    const { seed, doc, variant, t, formatNum } = ctx
     const problems = buildMathCounting(seed, doc.id, variant)
     const objectEmojis: Record<string, string> = {
       'stars': '⭐',
@@ -3574,44 +3770,74 @@ const renderers: Record<string, Renderer> = {
     )
   },
   'interactive-math-division': (ctx) => {
-    const { seed, doc, variant, t } = ctx
+    const { seed, doc, variant, t, formatNum } = ctx
     const problems = buildMathDivision(seed, doc.id, variant)
+    
+    // Helper to check if translation was found (not a raw key)
+    const isTranslationFound = (text: any, key: string) => {
+      if (!text || typeof text !== 'string') return false
+      // If it's exactly the key or starts with 'worksheets.', it's a raw key
+      if (text === key || text.startsWith('worksheets.')) return false
+      // If it contains the key pattern, it's likely a raw key
+      if (text.includes('worksheets.division.')) return false
+      return true
+    }
+    
+    const instructionsText = t('worksheets.division.instructions')
+    const remainderText = t('worksheets.division.remainder')
+    const visualGroupingText = t('worksheets.division.visualGrouping')
+    const totalText = t('worksheets.division.total')
+    
     return (
       <div className="space-y-4">
-        <p className="text-sm text-slate-600">{t('worksheets.division.instructions')}</p>
+        <p className="text-sm text-slate-600">{isTranslationFound(instructionsText, 'worksheets.division.instructions') ? instructionsText : 'حل كل مسألة قسمة. أظهر عملك.'}</p>
         <div className="space-y-3">
-          {problems.map((prob, idx) => (
-            <div key={idx} className="rounded-xl border border-purple-200 bg-white p-4">
-              <p className="text-sm font-semibold text-purple-800 mb-2">{prob.dividend} ÷ {prob.divisor} = ________</p>
-              {prob.remainder > 0 && <p className="text-xs text-slate-600">{t('worksheets.division.remainder')} ________</p>}
-              <div className="mb-2 p-2 bg-purple-50 rounded border border-purple-200">
-                <p className="text-xs text-purple-700 mb-1 font-semibold">{t('worksheets.division.visualGrouping')}</p>
-                <div className="flex flex-wrap gap-1">
-                  {Array.from({ length: Math.min(prob.dividend, 20) }).map((_, i) => (
-                    <div key={i} className={`w-6 h-6 rounded border ${i < prob.quotient * prob.divisor ? 'bg-purple-300 border-purple-400' : 'bg-purple-100 border-purple-200'}`}></div>
-                  ))}
-                  {prob.dividend > 20 && (
-                    <span className="text-xs text-purple-600 ml-1">
-                      ... ({prob.dividend} {t('worksheets.division.total')})
-                    </span>
-                  )}
+          {problems.map((prob, idx) => {
+            const groupIntoText = t('worksheets.division.groupInto')
+            const leftOverText = prob.remainder > 0 ? t('worksheets.division.leftOver') : ''
+            
+            let groupIntoDisplay = ''
+            if (isTranslationFound(groupIntoText, 'worksheets.division.groupInto')) {
+              groupIntoDisplay = groupIntoText
+                .replace(/\{\{divisor\}\}/g, formatNum(prob.divisor))
+                .replace(/\{\{quotient\}\}/g, formatNum(prob.quotient))
+                .replace(/\{\{remainder\}\}/g, prob.remainder > 0 && isTranslationFound(leftOverText, 'worksheets.division.leftOver')
+                  ? leftOverText.replace(/\{\{remainder\}\}/g, formatNum(prob.remainder))
+                  : '')
+            } else {
+              groupIntoDisplay = `جمّع في ${formatNum(prob.divisor)}: ${formatNum(prob.quotient)} مجموعات${prob.remainder > 0 ? ` + ${formatNum(prob.remainder)} متبقية` : ''}`
+            }
+            
+            return (
+              <div key={idx} className="rounded-xl border border-purple-200 bg-white p-4">
+                <p className="text-sm font-semibold text-purple-800 mb-2">{formatNum(prob.dividend)} ÷ {formatNum(prob.divisor)} = ________</p>
+                {prob.remainder > 0 && <p className="text-xs text-slate-600">{isTranslationFound(remainderText, 'worksheets.division.remainder') ? remainderText : 'الباقي:'} ________</p>}
+                <div className="mb-2 p-2 bg-purple-50 rounded border border-purple-200">
+                  <p className="text-xs text-purple-700 mb-1 font-semibold">{isTranslationFound(visualGroupingText, 'worksheets.division.visualGrouping') ? visualGroupingText : 'التجميع المرئي:'}</p>
+                  <div className="flex flex-wrap gap-1">
+                    {Array.from({ length: Math.min(prob.dividend, 20) }).map((_, i) => (
+                      <div key={i} className={`w-6 h-6 rounded border ${i < prob.quotient * prob.divisor ? 'bg-purple-300 border-purple-400' : 'bg-purple-100 border-purple-200'}`}></div>
+                    ))}
+                    {prob.dividend > 20 && (
+                      <span className="text-xs text-purple-600 ml-1">
+                        ... ({formatNum(prob.dividend)} {isTranslationFound(totalText, 'worksheets.division.total') ? totalText : 'إجمالي'})
+                      </span>
+                    )}
+                  </div>
+                  <p className="text-xs text-purple-600 mt-1">
+                    {groupIntoDisplay}
+                  </p>
                 </div>
-                <p className="text-xs text-purple-600 mt-1">
-                  {t('worksheets.division.groupInto')
-                    .replace('{{divisor}}', String(prob.divisor))
-                    .replace('{{quotient}}', String(prob.quotient))
-                    .replace('{{remainder}}', prob.remainder > 0 ? t('worksheets.division.leftOver').replace('{{remainder}}', String(prob.remainder)) : '')}
-                </p>
+                <div className="mt-2 h-16 border border-dashed border-purple-300 rounded bg-purple-50"></div>
               </div>
-              <div className="mt-2 h-16 border border-dashed border-purple-300 rounded bg-purple-50"></div>
-            </div>
-          ))}
+            )
+          })}
         </div>
       </div>
     )
   },
   'interactive-math-place-value': (ctx) => {
-    const { seed, doc, variant, t } = ctx
+    const { seed, doc, variant, t, formatNum, language } = ctx
     const problems = buildMathPlaceValue(seed, doc.id, variant)
     return (
       <div className="space-y-4">
@@ -3623,7 +3849,7 @@ const renderers: Record<string, Renderer> = {
             const placeIndex = placeOrder.indexOf(prob.place)
             return (
               <div key={idx} className="rounded-xl border border-purple-200 bg-white p-4">
-                <p className="text-lg font-bold text-purple-800 mb-2">{prob.number}</p>
+                <p className="text-lg font-bold text-purple-800 mb-2">{formatNum(prob.number)}</p>
                 <div className="mb-2 p-2 bg-purple-50 rounded border border-purple-200">
                   <p className="text-xs text-purple-700 mb-1 font-semibold">{t('worksheets.placeValue.placeValueChart')}</p>
                   <div className="flex gap-1 justify-start items-end">
@@ -3631,10 +3857,11 @@ const renderers: Record<string, Renderer> = {
                       const placeKey = placeOrder[i] || ''
                       const placeName = placeKey ? t(`worksheets.placeValue.${placeKey}`) : ''
                       const isHighlighted = i === placeIndex
+                      const formattedDigit = language === 'ar' ? formatNum(parseInt(digit, 10)) : digit
                       return (
                         <div key={i} className={`text-center ${isHighlighted ? 'bg-purple-300 border-2 border-purple-600' : 'bg-white border border-purple-200'} rounded p-1 min-w-[50px]`}>
                           <div className="text-xs text-purple-600">{placeName}</div>
-                          <div className={`text-lg font-bold ${isHighlighted ? 'text-purple-900' : 'text-purple-700'}`}>{digit}</div>
+                          <div className={`text-lg font-bold ${isHighlighted ? 'text-purple-900' : 'text-purple-700'}`}>{formattedDigit}</div>
                         </div>
                       )
                     })}
@@ -3726,7 +3953,7 @@ const renderers: Record<string, Renderer> = {
     )
   },
   'interactive-math-decimals': (ctx) => {
-    const { seed, doc, variant, t } = ctx
+    const { seed, doc, variant, t, formatNum } = ctx
     const problems = buildMathDecimals(seed, doc.id, variant)
     return (
       <div className="space-y-4">
@@ -3734,7 +3961,7 @@ const renderers: Record<string, Renderer> = {
         <div className="space-y-3">
           {problems.map((prob, idx) => (
             <div key={idx} className="rounded-xl border border-purple-200 bg-white p-4">
-              <p className="text-sm font-semibold text-purple-800 mb-2">{prob.num1} {prob.op} {prob.num2} = ________</p>
+              <p className="text-sm font-semibold text-purple-800 mb-2">{formatNum(prob.num1)} {prob.op} {formatNum(prob.num2)} = ________</p>
               <div className="mt-2 h-12 border border-dashed border-purple-300 rounded bg-purple-50"></div>
             </div>
           ))}
@@ -3779,7 +4006,8 @@ const renderers: Record<string, Renderer> = {
       </div>
     )
   },
-  'interactive-reading-literary-analysis': ({ seed, doc, variant }) => {
+  'interactive-reading-literary-analysis': (ctx) => {
+    const { seed, doc, variant, t } = ctx
     const rng = makeRng(`${seed}|${doc.id}|${variant}`)
     const passages = [
       {
@@ -3800,7 +4028,7 @@ const renderers: Record<string, Renderer> = {
     return (
       <div className="space-y-3">
         <p className="text-sm text-slate-600">
-          Read the passage and analyze the literary elements below. Provide evidence from the text.
+          {t('worksheets.readingLiterary.readAndAnalyze')}
         </p>
         <div className="rounded-xl border border-slate-200 bg-slate-50 p-4 mb-4">
           <p className="text-sm font-semibold text-slate-900 mb-2">{passage.title}</p>
@@ -3818,7 +4046,8 @@ const renderers: Record<string, Renderer> = {
       </div>
     )
   },
-  'interactive-reading-research': ({ seed, doc, variant }) => {
+  'interactive-reading-research': (ctx) => {
+    const { seed, doc, variant, t } = ctx
     const rng = makeRng(`${seed}|${doc.id}|${variant}`)
     const topics = pickMany(rng, ['climate change', 'ancient civilizations', 'space exploration', 'renewable energy'], 3)
     return (
@@ -3829,7 +4058,7 @@ const renderers: Record<string, Renderer> = {
         <div className="space-y-4">
           {topics.map((topic, idx) => (
             <div key={idx} className="rounded-xl border border-blue-200 bg-white p-4">
-              <p className="text-sm font-semibold text-blue-800 capitalize">Topic: {topic}</p>
+              <p className="text-sm font-semibold text-blue-800 capitalize">{t('worksheets.readingVocab.topic')} {topic}</p>
               <div className="mt-3 space-y-2 text-xs">
                 <p className="text-slate-600">Key Fact 1: ________________________________</p>
                 <p className="text-slate-600">Source: ___________________________________</p>
@@ -3843,7 +4072,8 @@ const renderers: Record<string, Renderer> = {
       </div>
     )
   },
-  'interactive-writing-research': ({ seed, doc, variant }) => {
+  'interactive-writing-research': (ctx) => {
+    const { seed, doc, variant, t } = ctx
     const rng = makeRng(`${seed}|${doc.id}|${variant}`)
     return (
       <div className="space-y-3">
@@ -3852,7 +4082,7 @@ const renderers: Record<string, Renderer> = {
         </p>
         <div className="space-y-4">
           <div className="rounded-xl border border-emerald-200 bg-white p-4">
-            <p className="text-sm font-semibold text-emerald-800">Research Topic:</p>
+            <p className="text-sm font-semibold text-emerald-800">{t('worksheets.readingResearch.researchTopic')}</p>
             <p className="mt-1 text-xs text-slate-500">________________________________</p>
             <p className="mt-3 text-sm font-semibold text-emerald-800">Thesis Statement:</p>
             <p className="mt-1 text-xs text-slate-500">________________________________</p>
@@ -3881,7 +4111,8 @@ const renderers: Record<string, Renderer> = {
       </div>
     )
   },
-  'interactive-writing-essay': ({ seed, doc, variant }) => {
+  'interactive-writing-essay': (ctx) => {
+    const { seed, doc, variant, t } = ctx
     const rng = makeRng(`${seed}|${doc.id}|${variant}`)
     const prompts = pickMany(rng, [
       'Should students have homework on weekends?',
@@ -3891,10 +4122,10 @@ const renderers: Record<string, Renderer> = {
     return (
       <div className="space-y-3">
         <p className="text-sm text-slate-600">
-          Write a structured essay responding to the prompt below.
+          {t('worksheets.writingEssay.writeStructuredEssay')}
         </p>
         <div className="rounded-xl border border-emerald-200 bg-emerald-50 p-4 mb-4">
-          <p className="text-sm font-semibold text-emerald-900">Prompt: {prompts[0]}</p>
+          <p className="text-sm font-semibold text-emerald-900">{t('worksheets.writingEssay.prompt')} {prompts[0]}</p>
         </div>
         <div className="space-y-4">
           <div className="rounded-xl border border-emerald-200 bg-white p-4">
@@ -3924,7 +4155,8 @@ const renderers: Record<string, Renderer> = {
       </div>
     )
   },
-  'interactive-science-chemistry': ({ seed, doc, variant }) => {
+  'interactive-science-chemistry': (ctx) => {
+    const { seed, doc, variant, t } = ctx
     const rng = makeRng(`${seed}|${doc.id}|${variant}`)
     const concepts = pickMany(rng, ['atoms', 'molecules', 'chemical reactions', 'periodic table', 'elements'], 4)
     return (
@@ -3946,7 +4178,8 @@ const renderers: Record<string, Renderer> = {
       </div>
     )
   },
-  'interactive-science-physics': ({ seed, doc, variant }) => {
+  'interactive-science-physics': (ctx) => {
+    const { seed, doc, variant, t } = ctx
     const rng = makeRng(`${seed}|${doc.id}|${variant}`)
     const topics = pickMany(rng, ['forces', 'motion', 'energy', 'simple machines'], 4)
     return (
@@ -3967,7 +4200,8 @@ const renderers: Record<string, Renderer> = {
       </div>
     )
   },
-  'interactive-science-ecology': ({ seed, doc, variant }) => {
+  'interactive-science-ecology': (ctx) => {
+    const { seed, doc, variant, t } = ctx
     const rng = makeRng(`${seed}|${doc.id}|${variant}`)
     const topics = pickMany(rng, ['ecosystems', 'food webs', 'environmental issues', 'conservation'], 4)
     return (
@@ -3988,7 +4222,8 @@ const renderers: Record<string, Renderer> = {
       </div>
     )
   },
-  'interactive-geography-government': ({ seed, doc, variant }) => {
+  'interactive-geography-government': (ctx) => {
+    const { seed, doc, variant, t } = ctx
     const rng = makeRng(`${seed}|${doc.id}|${variant}`)
     const topics = pickMany(rng, ['government structure', 'citizenship', 'rights and responsibilities', 'branches of government'], 4)
     return (
@@ -4008,7 +4243,8 @@ const renderers: Record<string, Renderer> = {
       </div>
     )
   },
-  'interactive-geography-economics': ({ seed, doc, variant }) => {
+  'interactive-geography-economics': (ctx) => {
+    const { seed, doc, variant, t } = ctx
     const rng = makeRng(`${seed}|${doc.id}|${variant}`)
     const concepts = pickMany(rng, ['supply and demand', 'budgeting', 'saving and spending', 'economic systems'], 4)
     return (
@@ -4034,7 +4270,8 @@ const renderers: Record<string, Renderer> = {
       </div>
     )
   },
-  'interactive-grammar-advanced': ({ seed, doc, variant }) => {
+  'interactive-grammar-advanced': (ctx) => {
+    const { seed, doc, variant, t } = ctx
     const rng = makeRng(`${seed}|${doc.id}|${variant}`)
     const sentences = [
       'The book that I read yesterday was fascinating.',
@@ -4046,7 +4283,7 @@ const renderers: Record<string, Renderer> = {
     return (
       <div className="space-y-3">
         <p className="text-sm text-slate-600">
-          Identify clauses, phrases, and advanced sentence structures in each sentence.
+          {t('worksheets.grammarAdvanced.identifyClauses')}
         </p>
         <div className="space-y-3">
           {sentences.map((sentence, idx) => (
@@ -4063,7 +4300,8 @@ const renderers: Record<string, Renderer> = {
       </div>
     )
   },
-  'interactive-grammar-vocab': ({ seed, doc, variant }) => {
+  'interactive-grammar-vocab': (ctx) => {
+    const { seed, doc, variant, t } = ctx
     const rng = makeRng(`${seed}|${doc.id}|${variant}`)
     const words = pickMany(rng, ['analyze', 'evaluate', 'synthesize', 'hypothesize', 'conclude', 'demonstrate'], 5)
     return (
@@ -4085,7 +4323,8 @@ const renderers: Record<string, Renderer> = {
     )
   },
   // NEW WORKSHEET RENDERERS - Writing
-  'interactive-writing-trace': ({ seed, doc, variant }) => {
+  'interactive-writing-trace': (ctx) => {
+    const { seed, doc, variant, t } = ctx
     const rng = makeRng(`${seed}|${doc.id}|${variant}`)
     const letters = pickMany(rng, ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'], 4)
     const words = pickMany(rng, ['cat', 'dog', 'sun', 'moon', 'star', 'tree', 'car', 'bus'], 3)
@@ -4101,7 +4340,7 @@ const renderers: Record<string, Renderer> = {
                   <span className="text-2xl text-green-600 font-light">{letter}</span>
                   <div className="flex-1 h-8 border border-dashed border-green-300 bg-white rounded"></div>
                 </div>
-                <p className="text-xs text-green-600">Write 3 times:</p>
+                <p className="text-xs text-green-600">{t('worksheets.writingTrace.write3Times')}</p>
                 <div className="flex gap-2">
                   <div className="flex-1 h-8 border border-dashed border-green-300 bg-white rounded"></div>
                   <div className="flex-1 h-8 border border-dashed border-green-300 bg-white rounded"></div>
@@ -4125,28 +4364,29 @@ const renderers: Record<string, Renderer> = {
       </div>
     )
   },
-  'interactive-writing-lowercase-trace': ({ seed, doc, variant }) => {
+  'interactive-writing-lowercase-trace': (ctx) => {
+    const { seed, doc, variant, t } = ctx
     const rng = makeRng(`${seed}|${doc.id}|${variant}`)
     const lowercaseLetters = pickMany(rng, ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z'], 6)
     return (
       <div className="space-y-4">
-        <p className="text-sm text-slate-600">Practice tracing lowercase letters neatly. Follow the dotted lines, then write each letter 3 times on your own.</p>
+        <p className="text-sm text-slate-600">{t('worksheets.writingTrace.practiceTracing')}</p>
         <div className="grid gap-4 md:grid-cols-3">
           {lowercaseLetters.map((letter, idx) => (
             <div key={idx} className="rounded-xl border border-blue-200 bg-blue-50 p-4">
-              <p className="text-sm font-semibold text-blue-700 mb-3 text-center">Letter: {letter}</p>
+              <p className="text-sm font-semibold text-blue-700 mb-3 text-center">{t('worksheets.writingTrace.letter')} {letter}</p>
               <div className="space-y-3">
                 <div className="bg-white rounded-lg p-3 border border-blue-200">
-                  <p className="text-xs text-blue-600 mb-2 text-center">Trace the letter:</p>
+                  <p className="text-xs text-blue-600 mb-2 text-center">{t('worksheets.writingTrace.traceTheLetter')}</p>
                   <div className="flex items-center justify-center">
                     <span className="text-4xl text-blue-400 font-light" style={{ fontFamily: 'monospace' }}>{letter}</span>
                     <div className="ml-2 flex-1 h-10 border-2 border-dashed border-blue-300 bg-white rounded flex items-center justify-center">
-                      <span className="text-xs text-blue-400">Trace here</span>
+                      <span className="text-xs text-blue-400">{t('worksheets.writingTrace.traceHere')}</span>
                     </div>
                   </div>
                 </div>
                 <div className="bg-white rounded-lg p-3 border border-blue-200">
-                  <p className="text-xs text-blue-600 mb-2 text-center">Write 3 times:</p>
+                  <p className="text-xs text-blue-600 mb-2 text-center">{t('worksheets.writingTrace.write3Times')}</p>
                   <div className="flex gap-2">
                     <div className="flex-1 h-8 border border-dashed border-blue-300 bg-white rounded"></div>
                     <div className="flex-1 h-8 border border-dashed border-blue-300 bg-white rounded"></div>
@@ -4158,8 +4398,8 @@ const renderers: Record<string, Renderer> = {
           ))}
         </div>
         <div className="rounded-xl border border-blue-200 bg-blue-50 p-4 mt-4">
-          <p className="text-sm font-semibold text-blue-700 mb-2">Practice All Letters</p>
-          <p className="text-xs text-blue-600 mb-3">Write the entire lowercase alphabet:</p>
+          <p className="text-sm font-semibold text-blue-700 mb-2">{t('worksheets.writingTrace.practiceAllLetters')}</p>
+          <p className="text-xs text-blue-600 mb-3">{t('worksheets.writingTrace.writeEntireAlphabet')}</p>
           <div className="bg-white rounded-lg p-3 border border-blue-200">
             <div className="flex flex-wrap gap-2">
               {['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z'].map((ltr, idx) => (
@@ -4174,7 +4414,8 @@ const renderers: Record<string, Renderer> = {
       </div>
     )
   },
-  'interactive-writing-pictures': ({ seed, doc, variant }) => {
+  'interactive-writing-pictures': (ctx) => {
+    const { seed, doc, variant, t } = ctx
     const rng = makeRng(`${seed}|${doc.id}|${variant}`)
     const prompts = pickMany(rng, [
       { picture: 'A sunny day at the park', question: 'What do you see?' },
@@ -4184,15 +4425,15 @@ const renderers: Record<string, Renderer> = {
     ], 4)
     return (
       <div className="space-y-4">
-        <p className="text-sm text-slate-600">Look at each picture prompt and write simple sentences or a short story about what you see.</p>
+        <p className="text-sm text-slate-600">{t('worksheets.writingPictures.instructions')}</p>
         <div className="grid gap-4 md:grid-cols-2">
           {prompts.map((prompt, idx) => (
             <div key={idx} className="rounded-xl border border-blue-200 bg-blue-50 p-4">
               <p className="text-sm font-semibold text-blue-700 mb-2">{prompt.picture}</p>
-              <div className="mt-2 h-24 rounded border border-dashed border-blue-300 bg-white"><p className="p-2 text-xs text-blue-600">Draw the picture</p></div>
+              <div className="mt-2 h-24 rounded border border-dashed border-blue-300 bg-white"><p className="p-2 text-xs text-blue-600">{t('worksheets.writingPictures.drawPicture')}</p></div>
               <p className="mt-2 text-xs text-blue-700">{prompt.question}</p>
               <div className="mt-1 h-12 rounded border border-dashed border-blue-300 bg-white"></div>
-              <p className="mt-2 text-xs text-blue-600">Write a sentence:</p>
+              <p className="mt-2 text-xs text-blue-600">{t('worksheets.writingPictures.writeSentence')}</p>
               <div className="mt-1 h-10 rounded border border-dashed border-blue-300 bg-white"></div>
             </div>
           ))}
@@ -4200,14 +4441,15 @@ const renderers: Record<string, Renderer> = {
       </div>
     )
   },
-  'interactive-writing-narrative': ({ seed, doc, variant }) => {
+  'interactive-writing-narrative': (ctx) => {
+    const { seed, doc, variant, t } = ctx
     const rng = makeRng(`${seed}|${doc.id}|${variant}`)
     const storyStarters = pickMany(rng, ['One sunny morning, I discovered...', 'The magic door opened and...', 'When I looked in the mirror, I saw...', 'The old tree in the backyard began to...'], 2)
     return (
       <div className="space-y-4">
-        <p className="text-sm text-slate-600">Write a short story with a beginning, middle, and end. Use the story planning template below.</p>
+        <p className="text-sm text-slate-600">{t('worksheets.writingNarrative.instructions')}</p>
         <div className="rounded-xl border border-purple-200 bg-purple-50 p-4 mb-4">
-          <p className="text-sm font-semibold text-purple-700 mb-2">Story Starters (choose one):</p>
+          <p className="text-sm font-semibold text-purple-700 mb-2">{t('worksheets.writingNarrative.storyStarters')}</p>
           <ul className="list-disc list-inside space-y-1 text-xs text-purple-600">
             {storyStarters.map((starter, idx) => (<li key={idx}>{starter}</li>))}
           </ul>
@@ -4232,14 +4474,15 @@ const renderers: Record<string, Renderer> = {
       </div>
     )
   },
-  'interactive-writing-informative': ({ seed, doc, variant }) => {
+  'interactive-writing-informative': (ctx) => {
+    const { seed, doc, variant, t } = ctx
     const rng = makeRng(`${seed}|${doc.id}|${variant}`)
     const topics = pickMany(rng, ['How plants grow', 'The life cycle of a butterfly', 'How to care for a pet', 'The water cycle'], 1)
     return (
       <div className="space-y-4">
-        <p className="text-sm text-slate-600">Write an informative paragraph about the topic below. Include facts, details, and explanations.</p>
+        <p className="text-sm text-slate-600">{t('worksheets.writingInformative.instructions')}</p>
         <div className="rounded-xl border border-teal-200 bg-teal-50 p-4 mb-4">
-          <p className="text-sm font-semibold text-teal-900">Topic: {topics[0]}</p>
+          <p className="text-sm font-semibold text-teal-900">{t('worksheets.writingInformative.topic')} {topics[0]}</p>
         </div>
         <div className="space-y-3">
           <div className="rounded-xl border border-teal-200 bg-white p-4">
@@ -4265,7 +4508,8 @@ const renderers: Record<string, Renderer> = {
       </div>
     )
   },
-  'interactive-writing-argumentative': ({ seed, doc, variant }) => {
+  'interactive-writing-argumentative': (ctx) => {
+    const { seed, doc, variant, t } = ctx
     const rng = makeRng(`${seed}|${doc.id}|${variant}`)
     const prompts = pickMany(rng, ['Should students have longer recess?', 'Is reading books better than watching videos?', 'Should schools ban homework?'], 1)
     return (
@@ -4309,13 +4553,25 @@ const renderers: Record<string, Renderer> = {
     )
   },
   // NEW WORKSHEET RENDERERS - Reading, Science, Geography, Grammar, Art, Logic, SEL
-  'interactive-reading-alphabet': ({ seed, doc, variant }) => {
+  'interactive-reading-alphabet': (ctx) => {
+    const { seed, doc, variant, t } = ctx
     const rng = makeRng(`${seed}|${doc.id}|${variant}`)
     const letters = pickMany(rng, ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'], 6)
-    const beginningSounds = pickMany(rng, [{ letter: 'B', words: ['ball', 'book', 'bus'] }, { letter: 'C', words: ['cat', 'car', 'cup'] }, { letter: 'D', words: ['dog', 'door', 'duck'] }, { letter: 'F', words: ['fish', 'fan', 'flower'] }, { letter: 'M', words: ['moon', 'mouse', 'map'] }, { letter: 'S', words: ['sun', 'star', 'snake'] }], 4)
+    const beginningSoundsData = [
+      { letter: 'B', words: ['ball', 'book', 'bus'] },
+      { letter: 'C', words: ['cat', 'car', 'cup'] },
+      { letter: 'D', words: ['dog', 'door', 'duck'] },
+      { letter: 'F', words: ['fish', 'fan', 'flower'] },
+      { letter: 'M', words: ['moon', 'mouse', 'map'] },
+      { letter: 'S', words: ['sun', 'star', 'snake'] }
+    ]
+    const beginningSounds = pickMany(rng, beginningSoundsData, 4).map(item => ({
+      letter: item.letter,
+      words: item.words.map(word => t(`common.items.${word}`) || word)
+    }))
     return (
       <div className="space-y-4">
-        <p className="text-sm text-slate-600">Practice recognizing letters, matching uppercase and lowercase, and beginning sounds.</p>
+        <p className="text-sm text-slate-600">{t(`interactive.${doc.id}.description`) || t('worksheets.earlyPhonics.instructions')}</p>
         <div className="grid gap-4 md:grid-cols-3">
           {letters.map((letter, idx) => (
             <div key={idx} className="rounded-xl border border-blue-200 bg-blue-50 p-4 text-center">
@@ -4325,22 +4581,22 @@ const renderers: Record<string, Renderer> = {
                 <div className="h-8 w-8 border border-dashed border-blue-300 bg-white rounded"></div>
                 <div className="h-8 w-8 border border-dashed border-blue-300 bg-white rounded"></div>
               </div>
-              <p className="text-xs text-blue-600 mt-2">Circle the {letter}</p>
+              <p className="text-xs text-blue-600 mt-2">{t('worksheets.circleThe').replace('{{letter}}', letter)}</p>
             </div>
           ))}
         </div>
         <div className="rounded-xl border border-blue-200 bg-blue-50 p-4">
-          <p className="text-sm font-semibold text-blue-700 mb-2">Beginning Sounds</p>
+          <p className="text-sm font-semibold text-blue-700 mb-2">{t('worksheets.beginningSounds')}</p>
           <div className="grid gap-3 md:grid-cols-2">
             {beginningSounds.map((item, idx) => (
               <div key={idx} className="bg-white rounded border border-blue-200 p-3">
-                <p className="text-sm font-semibold text-blue-800 mb-1">{item.letter} says /{item.letter.toLowerCase()}/</p>
+                <p className="text-sm font-semibold text-blue-800 mb-1">{item.letter} {t('worksheets.says')} /{item.letter.toLowerCase()}/</p>
                 <div className="flex gap-2 flex-wrap">
                   {item.words.map((word, wIdx) => (
                     <span key={wIdx} className="text-xs px-2 py-1 bg-blue-100 rounded border border-blue-300 text-blue-700">{word}</span>
                   ))}
                 </div>
-                <p className="text-xs text-blue-600 mt-2">Circle words that start with {item.letter}</p>
+                <p className="text-xs text-blue-600 mt-2">{t('worksheets.circleWordsStart')} {item.letter}</p>
               </div>
             ))}
           </div>
@@ -4348,18 +4604,21 @@ const renderers: Record<string, Renderer> = {
       </div>
     )
   },
-  'interactive-reading-sightwords': ({ seed, doc, variant }) => {
+  'interactive-reading-sightwords': (ctx) => {
+    const { seed, doc, variant, t, language } = ctx
     const rng = makeRng(`${seed}|${doc.id}|${variant}`)
-    const sightWords = pickMany(rng, ['the', 'and', 'is', 'it', 'you', 'that', 'he', 'was', 'for', 'on', 'are', 'as', 'with', 'his', 'they', 'I', 'at', 'be', 'this', 'have', 'from', 'or', 'one', 'had', 'by', 'word', 'but', 'not', 'what', 'all', 'were', 'we', 'when', 'your', 'can', 'said'], 8)
+    // Get language-specific sight words from translations
+    const allSightWords = getTranslation(language, 'worksheets.readingSightwords.words') as string[] || []
+    const sightWords = pickMany(rng, allSightWords, 8)
     return (
       <div className="space-y-4">
-        <p className="text-sm text-slate-600">Practice reading and writing common sight words with fun activities.</p>
+        <p className="text-sm text-slate-600">{t('worksheets.readingSightwords.instructions')}</p>
         <div className="grid gap-3 md:grid-cols-4">
           {sightWords.map((word, idx) => (
             <div key={idx} className="rounded-xl border border-indigo-200 bg-indigo-50 p-3 text-center">
               <p className="text-lg font-bold text-indigo-700 mb-2">{word}</p>
               <div className="h-8 border border-dashed border-indigo-300 bg-white rounded mb-1"></div>
-              <p className="text-xs text-indigo-600">Write it 3 times:</p>
+              <p className="text-xs text-indigo-600">{t('worksheets.readingSightwords.writeIt3Times')}</p>
               <div className="flex gap-1 mt-1">
                 <div className="flex-1 h-6 border border-dashed border-indigo-300 bg-white rounded"></div>
                 <div className="flex-1 h-6 border border-dashed border-indigo-300 bg-white rounded"></div>
@@ -4369,11 +4628,11 @@ const renderers: Record<string, Renderer> = {
           ))}
         </div>
         <div className="rounded-xl border border-indigo-200 bg-indigo-50 p-4">
-          <p className="text-sm font-semibold text-indigo-700 mb-2">Use sight words in sentences:</p>
+          <p className="text-sm font-semibold text-indigo-700 mb-2">{t('worksheets.readingSightwords.useInSentences')}</p>
           <div className="space-y-2">
             {sightWords.slice(0, 3).map((word, idx) => (
               <div key={idx} className="bg-white rounded border border-indigo-200 p-2">
-                <p className="text-xs text-indigo-700 mb-1">Write a sentence with "{word}":</p>
+                <p className="text-xs text-indigo-700 mb-1">{t('worksheets.readingSightwords.writeSentenceWith').replace('{{word}}', word)}</p>
                 <div className="h-10 border border-dashed border-indigo-300 rounded"></div>
               </div>
             ))}
@@ -4382,35 +4641,45 @@ const renderers: Record<string, Renderer> = {
       </div>
     )
   },
-  'interactive-reading-fluency': ({ seed, doc, variant }) => {
+  'interactive-reading-fluency': (ctx) => {
+    const { seed, doc, variant, t, language } = ctx
     const rng = makeRng(`${seed}|${doc.id}|${variant}`)
-    const passages = pickMany(rng, ['The cat sat on the mat. The cat is happy.', 'I see a big tree. The tree has green leaves.', 'The sun is bright. It shines in the sky.', 'I like to read books. Books are fun to read.'], 2)
+    const defaultPassages = ['The cat sat on the mat. The cat is happy.', 'I see a big tree. The tree has green leaves.', 'The sun is bright. It shines in the sky.', 'I like to read books. Books are fun to read.']
+    let passages = defaultPassages
+    if (language === 'ar') {
+      const translatedPassages = t('worksheets.readingFluency.passages')
+      if (Array.isArray(translatedPassages) && translatedPassages.length > 0) {
+        passages = translatedPassages as string[]
+      }
+    }
+    const selectedPassages = pickMany(rng, passages, 2)
     return (
       <div className="space-y-4">
-        <p className="text-sm text-slate-600">Practice reading with expression, accuracy, and appropriate pacing. Read each passage three times.</p>
-        {passages.map((passage, idx) => (
+        <p className="text-sm text-slate-600">{t('worksheets.readingFluency.instructions')}</p>
+        {selectedPassages.map((passage, idx) => (
           <div key={idx} className="rounded-xl border border-purple-200 bg-purple-50 p-4">
-            <p className="text-sm font-semibold text-purple-700 mb-2">Passage {idx + 1}</p>
+            <p className="text-sm font-semibold text-purple-700 mb-2">{t('worksheets.readingFluency.passage').replace('{{number}}', String(idx + 1))}</p>
             <div className="bg-white rounded border border-purple-200 p-3 mb-3">
               <p className="text-sm text-purple-800 leading-relaxed">{passage}</p>
             </div>
             <div className="space-y-2">
               {[1, 2, 3].map((readNum) => (
                 <div key={readNum} className="flex items-center gap-2">
-                  <span className="text-xs text-purple-600 w-24">Read {readNum}:</span>
+                  <span className="text-xs text-purple-600 w-24">{t('worksheets.readingFluency.read').replace('{{number}}', String(readNum))}</span>
                   <div className="flex gap-1">
                     {[1, 2, 3, 4, 5].map((star) => (<span key={star} className="text-xs">⭐</span>))}
                   </div>
                 </div>
               ))}
             </div>
-            <p className="text-xs text-purple-600 mt-2">Notes: ________________________________</p>
+            <p className="text-xs text-purple-600 mt-2">{t('worksheets.readingFluency.notes')} ________________________________</p>
           </div>
         ))}
       </div>
     )
   },
-  'interactive-reading-character': ({ seed, doc, variant }) => {
+  'interactive-reading-character': (ctx) => {
+    const { seed, doc, variant, t } = ctx
     const rng = makeRng(`${seed}|${doc.id}|${variant}`)
     const characters = pickMany(rng, [
       { name: 'Sam', traits: ['kind', 'brave', 'curious'], action: 'helps a friend' },
@@ -4442,7 +4711,8 @@ const renderers: Record<string, Renderer> = {
       </div>
     )
   },
-  'interactive-science-senses': ({ seed, doc, variant }) => {
+  'interactive-science-senses': (ctx) => {
+    const { seed, doc, variant, t } = ctx
     const rng = makeRng(`${seed}|${doc.id}|${variant}`)
     const senses = ['sight', 'hearing', 'touch', 'taste', 'smell']
     const senseVerbs: Record<string, string> = {
@@ -4488,7 +4758,8 @@ const renderers: Record<string, Renderer> = {
       </div>
     )
   },
-  'interactive-science-plants': ({ seed, doc, variant }) => {
+  'interactive-science-plants': (ctx) => {
+    const { seed, doc, variant, t } = ctx
     const rng = makeRng(`${seed}|${doc.id}|${variant}`)
     const plantParts = ['roots', 'stem', 'leaves', 'flower', 'seeds']
     return (
@@ -4522,7 +4793,8 @@ const renderers: Record<string, Renderer> = {
       </div>
     )
   },
-  'interactive-science-animals': ({ seed, doc, variant }) => {
+  'interactive-science-animals': (ctx) => {
+    const { seed, doc, variant, t } = ctx
     const rng = makeRng(`${seed}|${doc.id}|${variant}`)
     const animals = pickMany(rng, [
       { name: 'bird', habitat: 'sky', feature: 'wings' },
@@ -4549,7 +4821,8 @@ const renderers: Record<string, Renderer> = {
       </div>
     )
   },
-  'interactive-geography-seasons': ({ seed, doc, variant }) => {
+  'interactive-geography-seasons': (ctx) => {
+    const { seed, doc, variant, t } = ctx
     const rng = makeRng(`${seed}|${doc.id}|${variant}`)
     const seasons = ['spring', 'summer', 'fall', 'winter']
     const weatherTypes = pickMany(rng, ['sunny', 'rainy', 'snowy', 'windy', 'cloudy'], 4)
@@ -4579,7 +4852,8 @@ const renderers: Record<string, Renderer> = {
       </div>
     )
   },
-  'interactive-geography-places': ({ seed, doc, variant }) => {
+  'interactive-geography-places': (ctx) => {
+    const { seed, doc, variant, t } = ctx
     const rng = makeRng(`${seed}|${doc.id}|${variant}`)
     const places = pickMany(rng, [
       { name: 'Library', type: 'Learning place', activity: 'read books' },
@@ -4605,7 +4879,8 @@ const renderers: Record<string, Renderer> = {
       </div>
     )
   },
-  'interactive-geography-continents': ({ seed, doc, variant }) => {
+  'interactive-geography-continents': (ctx) => {
+    const { seed, doc, variant, t } = ctx
     const rng = makeRng(`${seed}|${doc.id}|${variant}`)
     const continents = pickMany(rng, [
       { name: 'North America', fact: 'Has many countries', ocean: 'Atlantic and Pacific' },
@@ -4640,7 +4915,8 @@ const renderers: Record<string, Renderer> = {
       </div>
     )
   },
-  'interactive-grammar-rhyming': ({ seed, doc, variant }) => {
+  'interactive-grammar-rhyming': (ctx) => {
+    const { seed, doc, variant, t } = ctx
     const rng = makeRng(`${seed}|${doc.id}|${variant}`)
     const wordGroups = pickMany(rng, [
       { word: 'cat', rhymes: ['hat', 'bat', 'sat'] },
@@ -4650,26 +4926,27 @@ const renderers: Record<string, Renderer> = {
     ], 4)
     return (
       <div className="space-y-4">
-        <p className="text-sm text-slate-600">Identify and match rhyming words through fun activities.</p>
+        <p className="text-sm text-slate-600">{t('worksheets.grammarRhyming.instructions')}</p>
         <div className="grid gap-3 md:grid-cols-2">
           {wordGroups.map((group, idx) => (
             <div key={idx} className="rounded-xl border border-purple-200 bg-purple-50 p-4">
-              <p className="text-sm font-semibold text-purple-700 mb-2">Word: {group.word}</p>
-              <p className="text-xs text-purple-600 mb-2">Rhyming words:</p>
+              <p className="text-sm font-semibold text-purple-700 mb-2">{t('worksheets.grammarRhyming.word')} {group.word}</p>
+              <p className="text-xs text-purple-600 mb-2">{t('worksheets.grammarRhyming.rhymingWords')}</p>
               <div className="flex flex-wrap gap-2 mb-2">
                 {group.rhymes.map((rhyme, rIdx) => (
                   <span key={rIdx} className="text-xs px-2 py-1 bg-purple-100 rounded border border-purple-300 text-purple-700">{rhyme}</span>
                 ))}
               </div>
               <div className="h-8 border border-dashed border-purple-300 bg-white rounded"></div>
-              <p className="text-xs text-purple-600 mt-2">Write another word that rhymes: ________</p>
+              <p className="text-xs text-purple-600 mt-2">{t('worksheets.grammarRhyming.writeAnotherWord')}</p>
             </div>
           ))}
         </div>
       </div>
     )
   },
-  'interactive-grammar-capitalization': ({ seed, doc, variant }) => {
+  'interactive-grammar-capitalization': (ctx) => {
+    const { seed, doc, variant, t } = ctx
     const rng = makeRng(`${seed}|${doc.id}|${variant}`)
     const sentences = pickMany(rng, [
       { text: 'i like to play.', correct: 'I like to play.' },
@@ -4701,7 +4978,8 @@ const renderers: Record<string, Renderer> = {
       </div>
     )
   },
-  'interactive-grammar-plurals': ({ seed, doc, variant }) => {
+  'interactive-grammar-plurals': (ctx) => {
+    const { seed, doc, variant, t } = ctx
     const rng = makeRng(`${seed}|${doc.id}|${variant}`)
     const words = pickMany(rng, [
       { singular: 'cat', plural: 'cats', rule: 'add -s' },
@@ -4745,7 +5023,8 @@ const renderers: Record<string, Renderer> = {
       </div>
     )
   },
-  'interactive-art-shapes': ({ seed, doc, variant }) => {
+  'interactive-art-shapes': (ctx) => {
+    const { seed, doc, variant, t } = ctx
     const rng = makeRng(`${seed}|${doc.id}|${variant}`)
     const shapes = pickMany(rng, ['circle', 'square', 'triangle', 'rectangle', 'star', 'heart'], 6)
     return (
@@ -4772,7 +5051,8 @@ const renderers: Record<string, Renderer> = {
       </div>
     )
   },
-  'interactive-art-patterns': ({ seed, doc, variant }) => {
+  'interactive-art-patterns': (ctx) => {
+    const { seed, doc, variant, t } = ctx
     const rng = makeRng(`${seed}|${doc.id}|${variant}`)
     const patternTypes = pickMany(rng, ['AB', 'ABC', 'AAB', 'ABB'], 3)
     return (
@@ -4802,7 +5082,8 @@ const renderers: Record<string, Renderer> = {
       </div>
     )
   },
-  'interactive-art-perspective': ({ seed, doc, variant }) => {
+  'interactive-art-perspective': (ctx) => {
+    const { seed, doc, variant, t } = ctx
     const rng = makeRng(`${seed}|${doc.id}|${variant}`)
     const techniques = pickMany(rng, ['perspective', 'shading', 'texture', 'composition'], 4)
     return (
@@ -4822,25 +5103,29 @@ const renderers: Record<string, Renderer> = {
       </div>
     )
   },
-  'interactive-art-color-by-number': ({ seed, doc, variant }) => {
+  'interactive-art-color-by-number': (ctx) => {
+    const { seed, doc, variant, t, language } = ctx
     const rng = makeRng(`${seed}|${doc.id}|${variant}`)
     const colorCodes = [
-      { num: 1, color: 'red', emoji: '🔴', bgColor: 'bg-red-500' },
-      { num: 2, color: 'blue', emoji: '🔵', bgColor: 'bg-blue-500' },
-      { num: 3, color: 'green', emoji: '🟢', bgColor: 'bg-green-500' },
-      { num: 4, color: 'yellow', emoji: '🟡', bgColor: 'bg-yellow-400' },
-      { num: 5, color: 'purple', emoji: '🟣', bgColor: 'bg-purple-500' },
-      { num: 6, color: 'orange', emoji: '🟠', bgColor: 'bg-orange-500' },
+      { num: 1, color: t('common.colors.red'), emoji: '🔴', bgColor: 'bg-red-500' },
+      { num: 2, color: t('common.colors.blue'), emoji: '🔵', bgColor: 'bg-blue-500' },
+      { num: 3, color: t('common.colors.green'), emoji: '🟢', bgColor: 'bg-green-500' },
+      { num: 4, color: t('common.colors.yellow'), emoji: '🟡', bgColor: 'bg-yellow-400' },
+      { num: 5, color: t('common.colors.purple'), emoji: '🟣', bgColor: 'bg-purple-500' },
+      { num: 6, color: t('common.colors.orange'), emoji: '🟠', bgColor: 'bg-orange-500' },
     ]
     const selectedCodes = pickMany(rng, colorCodes, 4)
     const designs = pickMany(rng, ['butterfly', 'flower', 'star', 'heart', 'rainbow', 'tree'], 1)
+    const drawDesignText = t('interactive.interactive-art-color-by-number.drawDesign')
+      .replace('{{design}}', designs[0])
+      .replace('{{count}}', selectedCodes.length.toString())
     return (
       <div className="space-y-4">
-        <p className="text-base font-semibold text-pink-800">Color the picture using the number codes below. Match each number to its color!</p>
+        <p className="text-base font-semibold text-pink-800">{t('interactive.interactive-art-color-by-number.colorThePicture')}</p>
         <div className="rounded-xl border-2 border-pink-300 bg-gradient-to-br from-pink-100 via-purple-100 to-fuchsia-100 p-6 shadow-lg">
           <p className="text-lg font-bold text-pink-800 mb-4 flex items-center gap-2">
             <span className="text-2xl">🎨</span>
-            <span>Color Key:</span>
+            <span>{t('interactive.interactive-art-color-by-number.colorKey')}</span>
           </p>
           <div className="grid grid-cols-2 md:grid-cols-4 gap-3 mb-6">
             {selectedCodes.map((code) => (
@@ -4855,12 +5140,12 @@ const renderers: Record<string, Renderer> = {
           <div className="h-80 rounded-xl border-4 border-pink-300 bg-gradient-to-br from-white to-pink-50 flex items-center justify-center shadow-inner">
             <div className="text-center">
               <p className="text-6xl mb-4">🎨</p>
-              <p className="text-pink-700 text-lg font-bold">Draw a {designs[0]} design with numbers 1-{selectedCodes.length}</p>
-              <p className="text-pink-600 text-sm mt-2">Use the color key above!</p>
+              <p className="text-pink-700 text-lg font-bold">{drawDesignText}</p>
+              <p className="text-pink-600 text-sm mt-2">{t('interactive.interactive-art-color-by-number.useColorKey')}</p>
             </div>
           </div>
           <p className="mt-4 text-center text-base font-semibold text-pink-800 bg-white/80 rounded-lg p-3 border-2 border-pink-200">
-            ✨ Color each section according to the number code!
+            {t('interactive.interactive-art-color-by-number.colorEachSection')}
           </p>
         </div>
       </div>
@@ -4870,28 +5155,29 @@ const renderers: Record<string, Renderer> = {
     const { seed, doc, variant, t } = ctx
     const rng = makeRng(`${seed}|${doc.id}|${variant}`)
     const patterns = pickMany(rng, ['circles', 'petals', 'geometric', 'spiral'], 1)
+    const createMandalaText = t('interactive.interactive-art-mandala.createMandala').replace('{{pattern}}', patterns[0])
     return (
       <div className="space-y-4">
-        <p className="text-sm text-slate-600">Create a beautiful mandala design with {patterns[0]} patterns. Focus on symmetry and mindfulness.</p>
+        <p className="text-sm text-slate-600">{createMandalaText}</p>
         <div className="grid gap-4 md:grid-cols-2">
           <div className="rounded-xl border border-pink-200 bg-pink-50 p-4">
-            <p className="text-sm font-semibold text-pink-700 mb-2">Mandala Template</p>
+            <p className="text-sm font-semibold text-pink-700 mb-2">{t('interactive.interactive-art-mandala.mandalaTemplate')}</p>
             <div className="h-64 rounded border-2 border-pink-300 bg-white flex items-center justify-center">
               <div className="text-center">
                 <p className="text-4xl mb-2">⭕</p>
-                <p className="text-xs text-pink-600">Draw your mandala here</p>
+                <p className="text-xs text-pink-600">{t('interactive.interactive-art-mandala.drawMandalaHere')}</p>
               </div>
             </div>
-            <p className="mt-2 text-xs text-pink-600">Start from the center and work outward. Use patterns and symmetry!</p>
+            <p className="mt-2 text-xs text-pink-600">{t('interactive.interactive-art-mandala.startFromCenter')}</p>
           </div>
           <div className="rounded-xl border border-pink-200 bg-pink-50 p-4">
-            <p className="text-sm font-semibold text-pink-700 mb-2">Pattern Ideas:</p>
+            <p className="text-sm font-semibold text-pink-700 mb-2">{t('interactive.interactive-art-mandala.patternIdeas')}</p>
             <ul className="space-y-2 text-xs text-pink-700">
-              <li>• Circles and dots</li>
-              <li>• Petals and flowers</li>
-              <li>• Geometric shapes</li>
-              <li>• Spiral patterns</li>
-              <li>• Lines and curves</li>
+              <li>• {t('interactive.interactive-art-mandala.patterns.circles')}</li>
+              <li>• {t('interactive.interactive-art-mandala.patterns.petals')}</li>
+              <li>• {t('interactive.interactive-art-mandala.patterns.geometric')}</li>
+              <li>• {t('interactive.interactive-art-mandala.patterns.spiral')}</li>
+              <li>• {t('interactive.interactive-art-mandala.patterns.lines')}</li>
             </ul>
             <p className="mt-4 text-xs text-pink-600">{t('worksheets.reflection.mandalaQuestion')}</p>
             <div className="mt-2 h-16 rounded border border-dashed border-pink-300 bg-white"></div>
@@ -4900,129 +5186,141 @@ const renderers: Record<string, Renderer> = {
       </div>
     )
   },
-  'interactive-art-doodle': ({ seed, doc, variant }) => {
+  'interactive-art-doodle': (ctx) => {
+    const { seed, doc, variant, t } = ctx
     const rng = makeRng(`${seed}|${doc.id}|${variant}`)
-    const prompts = pickMany(rng, [
-      'Doodle your favorite animal',
-      'Create patterns with lines',
-      'Draw shapes that connect',
-      'Make a zentangle design',
-      'Doodle things that make you happy',
-      'Create a border pattern',
-    ], 3)
+    const promptData = [
+      t('interactive.interactive-art-doodle.prompts.favoriteAnimal'),
+      t('interactive.interactive-art-doodle.prompts.patternsWithLines'),
+      t('interactive.interactive-art-doodle.prompts.shapesConnect'),
+      t('interactive.interactive-art-doodle.prompts.zentangle'),
+      t('interactive.interactive-art-doodle.prompts.thingsHappy'),
+      t('interactive.interactive-art-doodle.prompts.borderPattern'),
+    ]
+    const prompts = pickMany(rng, promptData, 3)
     return (
       <div className="space-y-4">
-        <p className="text-sm text-slate-600">Free-form doodling! No rules, just creativity. Let your imagination flow.</p>
+        <p className="text-sm text-slate-600">{t('interactive.interactive-art-doodle.description')}</p>
         <div className="grid gap-4 md:grid-cols-3">
           {prompts.map((prompt, idx) => (
             <div key={idx} className="rounded-xl border border-purple-200 bg-purple-50 p-4">
               <p className="text-sm font-semibold text-purple-700 mb-2">{prompt}</p>
               <div className="h-40 rounded border-2 border-dashed border-purple-300 bg-white flex items-center justify-center">
-                <p className="text-xs text-purple-500">Doodle here!</p>
+                <p className="text-xs text-purple-500">{t('interactive.interactive-art-doodle.doodleHere')}</p>
               </div>
             </div>
           ))}
         </div>
         <div className="rounded-lg border border-purple-200 bg-purple-50 px-4 py-3 text-xs text-purple-700">
-          💡 Tip: There are no mistakes in doodling! Just keep your pen moving and see what emerges.
+          {t('interactive.interactive-art-doodle.tip')}
         </div>
       </div>
     )
   },
-  'interactive-art-seasonal': ({ seed, doc, variant }) => {
+  'interactive-art-seasonal': (ctx) => {
+    const { seed, doc, variant, t } = ctx
     const rng = makeRng(`${seed}|${doc.id}|${variant}`)
     const seasons = pickMany(rng, [
-      { name: 'Spring', themes: ['flowers', 'butterflies', 'rainbows'], emoji: '🌸' },
-      { name: 'Summer', themes: ['sun', 'beach', 'ice cream'], emoji: '☀️' },
-      { name: 'Fall', themes: ['leaves', 'pumpkins', 'apples'], emoji: '🍂' },
-      { name: 'Winter', themes: ['snowflakes', 'snowman', 'mittens'], emoji: '❄️' },
+      { name: 'Spring', nameKey: 'spring', themes: ['flowers', 'butterflies', 'rainbows'], emoji: '🌸' },
+      { name: 'Summer', nameKey: 'summer', themes: ['sun', 'beach', 'ice cream'], emoji: '☀️' },
+      { name: 'Fall', nameKey: 'fall', themes: ['leaves', 'pumpkins', 'apples'], emoji: '🍂' },
+      { name: 'Winter', nameKey: 'winter', themes: ['snowflakes', 'snowman', 'mittens'], emoji: '❄️' },
     ], 2)
     return (
       <div className="space-y-4">
-        <p className="text-sm text-slate-600">Color these seasonal pictures! Each season has its own special themes and colors.</p>
+        <p className="text-sm text-slate-600">{t('interactive.interactive-art-seasonal.description')}</p>
         <div className="grid gap-4 md:grid-cols-2">
-          {seasons.map((season, idx) => (
-            <div key={idx} className="rounded-xl border border-green-200 bg-green-50 p-4">
-              <div className="flex items-center gap-2 mb-2">
-                <span className="text-2xl">{season.emoji}</span>
-                <p className="text-sm font-semibold text-green-700">{season.name} Coloring</p>
-              </div>
-              <p className="text-xs text-green-600 mb-2">Themes: {season.themes.join(', ')}</p>
-              <div className="h-48 rounded border-2 border-green-300 bg-white flex items-center justify-center">
-                <div className="text-center">
-                  <p className="text-3xl mb-2">{season.emoji}</p>
-                  <p className="text-xs text-green-600">Draw and color a {season.name.toLowerCase()} scene!</p>
+          {seasons.map((season, idx) => {
+            const seasonName = t(`interactive.interactive-art-seasonal.seasons.${season.nameKey}`)
+            const drawAndColorText = t('interactive.interactive-art-seasonal.drawAndColor').replace('{{season}}', seasonName)
+            const useColorsText = t('interactive.interactive-art-seasonal.useColors').replace('{{season}}', seasonName)
+            return (
+              <div key={idx} className="rounded-xl border border-green-200 bg-green-50 p-4">
+                <div className="flex items-center gap-2 mb-2">
+                  <span className="text-2xl">{season.emoji}</span>
+                  <p className="text-sm font-semibold text-green-700">{season.name} {t('interactive.interactive-art-seasonal.coloring')}</p>
                 </div>
+                <p className="text-xs text-green-600 mb-2">{t('interactive.interactive-art-seasonal.themes')} {season.themes.join(', ')}</p>
+                <div className="h-48 rounded border-2 border-green-300 bg-white flex items-center justify-center">
+                  <div className="text-center">
+                    <p className="text-3xl mb-2">{season.emoji}</p>
+                    <p className="text-xs text-green-600">{drawAndColorText}</p>
+                  </div>
+                </div>
+                <p className="mt-2 text-xs text-green-600 text-center">{useColorsText}</p>
               </div>
-              <p className="mt-2 text-xs text-green-600 text-center">Use colors that remind you of {season.name.toLowerCase()}!</p>
-            </div>
-          ))}
+            )
+          })}
         </div>
       </div>
     )
   },
-  'interactive-art-comic': ({ seed, doc, variant }) => {
+  'interactive-art-comic': (ctx) => {
+    const { seed, doc, variant, t } = ctx
     const rng = makeRng(`${seed}|${doc.id}|${variant}`)
     const panelCount = pick(rng, [3, 4, 6])
     const themes = pickMany(rng, ['adventure', 'friendship', 'superhero', 'animals', 'school'], 1)
+    const comicStripText = t('interactive.interactive-art-comic.comicStrip').replace('{{theme}}', themes[0])
     return (
       <div className="space-y-4">
-        <p className="text-sm text-slate-600">Create your own comic strip! Tell a story with pictures, speech bubbles, and action.</p>
+        <p className="text-sm text-slate-600">{t('interactive.interactive-art-comic.description')}</p>
         <div className="rounded-xl border border-blue-200 bg-blue-50 p-4">
-          <p className="text-sm font-semibold text-blue-700 mb-2">Comic Strip: {themes[0]} story</p>
+          <p className="text-sm font-semibold text-blue-700 mb-2">{comicStripText}</p>
           <div className={`grid gap-2 ${panelCount === 3 ? 'grid-cols-3' : panelCount === 4 ? 'grid-cols-4' : 'grid-cols-3'}`}>
             {Array.from({ length: panelCount }).map((_, idx) => (
               <div key={idx} className="border-2 border-blue-300 bg-white rounded p-2">
                 <div className="h-32 rounded border border-dashed border-blue-200 mb-1">
-                  <p className="text-xs text-blue-500 p-1">Panel {idx + 1}</p>
+                  <p className="text-xs text-blue-500 p-1">{t('interactive.interactive-art-comic.panel').replace('{{number}}', (idx + 1).toString())}</p>
                 </div>
                 <div className="h-8 rounded border border-dashed border-blue-200 bg-blue-50">
-                  <p className="text-xs text-blue-400 p-1">💬 Speech bubble</p>
+                  <p className="text-xs text-blue-400 p-1">{t('interactive.interactive-art-comic.speechBubble')}</p>
                 </div>
               </div>
             ))}
           </div>
           <div className="mt-3 rounded border border-blue-200 bg-white p-3">
-            <p className="text-xs font-semibold text-blue-700 mb-1">Story Elements:</p>
+            <p className="text-xs font-semibold text-blue-700 mb-1">{t('interactive.interactive-art-comic.storyElements')}</p>
             <ul className="text-xs text-blue-600 space-y-1">
-              <li>• Characters: ________________</li>
-              <li>• Setting: ________________</li>
-              <li>• Problem/Conflict: ________________</li>
-              <li>• Solution: ________________</li>
+              <li>• {t('interactive.interactive-art-comic.characters')}</li>
+              <li>• {t('interactive.interactive-art-comic.setting')}</li>
+              <li>• {t('interactive.interactive-art-comic.problemConflict')}</li>
+              <li>• {t('interactive.interactive-art-comic.solution')}</li>
             </ul>
           </div>
         </div>
       </div>
     )
   },
-  'interactive-art-critique': ({ seed, doc, variant }) => {
+  'interactive-art-critique': (ctx) => {
+    const { seed, doc, variant, t } = ctx
     const rng = makeRng(`${seed}|${doc.id}|${variant}`)
     const artElements = pickMany(rng, ['line', 'color', 'shape', 'texture', 'space', 'form'], 4)
     return (
       <div className="space-y-4">
-        <p className="text-sm text-slate-600">Observe and analyze artwork using art vocabulary. Look closely and describe what you see.</p>
+        <p className="text-sm text-slate-600">{t('interactive.interactive-art-critique.description')}</p>
         <div className="rounded-xl border border-purple-200 bg-purple-50 p-4">
-          <p className="text-sm font-semibold text-purple-700 mb-3">Artwork Analysis</p>
+          <p className="text-sm font-semibold text-purple-700 mb-3">{t('interactive.interactive-art-critique.artworkAnalysis')}</p>
           <div className="h-48 rounded border-2 border-purple-300 bg-white flex items-center justify-center mb-3">
-            <p className="text-purple-600 text-sm">[Artwork image or description]</p>
+            <p className="text-purple-600 text-sm">{t('interactive.interactive-art-critique.artworkImage')}</p>
           </div>
           <div className="space-y-2 text-sm">
             {artElements.map((element, idx) => (
               <div key={idx} className="bg-white rounded border border-purple-200 p-2">
                 <p className="text-xs font-semibold text-purple-700 capitalize mb-1">{element}:</p>
-                <p className="text-xs text-purple-600">Describe how {element} is used: ________________________________</p>
+                <p className="text-xs text-purple-600">{t('interactive.interactive-art-critique.describeHowUsed').replace('{{element}}', element)}</p>
               </div>
             ))}
           </div>
           <div className="mt-3 rounded border border-purple-200 bg-white p-3">
-            <p className="text-xs font-semibold text-purple-700 mb-1">Overall Impression:</p>
-            <p className="text-xs text-purple-600">What does this artwork make you think or feel? ________________</p>
+            <p className="text-xs font-semibold text-purple-700 mb-1">{t('interactive.interactive-art-critique.overallImpression')}</p>
+            <p className="text-xs text-purple-600">{t('interactive.interactive-art-critique.whatDoesMakeYouThink')}</p>
           </div>
         </div>
       </div>
     )
   },
-  'interactive-logic-matching': ({ seed, doc, variant }) => {
+  'interactive-logic-matching': (ctx) => {
+    const { seed, doc, variant, t } = ctx
     const rng = makeRng(`${seed}|${doc.id}|${variant}`)
     const pairs = pickMany(rng, [
       { item1: 'apple', item2: 'fruit' },
@@ -5032,21 +5330,21 @@ const renderers: Record<string, Renderer> = {
     ], 4)
     return (
       <div className="space-y-4">
-        <p className="text-sm text-slate-600">Match objects, pictures, and concepts. Practice memory and recognition skills.</p>
+        <p className="text-sm text-slate-600">{t('interactive.interactive-logic-matching.description')}</p>
         <div className="grid gap-3 md:grid-cols-2">
           {pairs.map((pair, idx) => (
             <div key={idx} className="rounded-xl border border-slate-200 bg-slate-50 p-4">
               <div className="flex items-center gap-3 mb-2">
                 <div className="flex-1 bg-white rounded border border-slate-200 p-2 text-center">
-                  <p className="text-sm text-slate-700">{pair.item1}</p>
+                  <p className="text-sm text-slate-700">{t(`common.items.${pair.item1}`) || pair.item1}</p>
                 </div>
                 <span className="text-slate-400">→</span>
                 <div className="flex-1 bg-white rounded border border-slate-200 p-2 text-center">
-                  <p className="text-sm text-slate-700">{pair.item2}</p>
+                  <p className="text-sm text-slate-700">{t(`common.items.${pair.item2}`) || t(`common.${pair.item2}`) || pair.item2}</p>
                 </div>
               </div>
               <div className="h-16 rounded border border-dashed border-slate-300 bg-white">
-                <p className="p-2 text-xs text-slate-500">Draw a line to match</p>
+                <p className="p-2 text-xs text-slate-500">{t('interactive.interactive-logic-matching.drawLineToMatch')}</p>
               </div>
             </div>
           ))}
@@ -5054,7 +5352,8 @@ const renderers: Record<string, Renderer> = {
       </div>
     )
   },
-  'interactive-logic-classification': ({ seed, doc, variant }) => {
+  'interactive-logic-classification': (ctx) => {
+    const { seed, doc, variant, t } = ctx
     const rng = makeRng(`${seed}|${doc.id}|${variant}`)
     const categories = pickMany(rng, [
       { name: 'Animals', items: ['dog', 'cat', 'bird'] },
@@ -5063,7 +5362,7 @@ const renderers: Record<string, Renderer> = {
     ], 3)
     return (
       <div className="space-y-4">
-        <p className="text-sm text-slate-600">Sort and classify objects, pictures, and concepts into groups.</p>
+        <p className="text-sm text-slate-600">{t('interactive.interactive-logic-classification.description')}</p>
         <div className="space-y-3">
           {categories.map((category, idx) => (
             <div key={idx} className="rounded-xl border border-slate-200 bg-slate-50 p-4">
@@ -5073,14 +5372,15 @@ const renderers: Record<string, Renderer> = {
                   <span key={iIdx} className="text-xs px-2 py-1 bg-white rounded border border-slate-300 text-slate-700">{item}</span>
                 ))}
               </div>
-              <p className="text-xs text-slate-600">Add more {category.name.toLowerCase()}: ________________</p>
+              <p className="text-xs text-slate-600">{t('interactive.interactive-logic-classification.addMore').replace('{{category}}', category.name.toLowerCase())}</p>
             </div>
           ))}
         </div>
       </div>
     )
   },
-  'interactive-logic-analogies': ({ seed, doc, variant }) => {
+  'interactive-logic-analogies': (ctx) => {
+    const { seed, doc, variant, t } = ctx
     const rng = makeRng(`${seed}|${doc.id}|${variant}`)
     const analogies = pickMany(rng, [
       { first: 'cat', second: 'kitten', third: 'dog', answer: 'puppy' },
@@ -5089,83 +5389,87 @@ const renderers: Record<string, Renderer> = {
     ], 3)
     return (
       <div className="space-y-4">
-        <p className="text-sm text-slate-600">Practice identifying relationships and completing analogies.</p>
+        <p className="text-sm text-slate-600">{t('interactive.interactive-logic-analogies.description')}</p>
         <div className="space-y-3">
           {analogies.map((analogy, idx) => (
             <div key={idx} className="rounded-xl border border-slate-200 bg-slate-50 p-4">
-              <p className="text-sm font-semibold text-slate-700 mb-2">Analogy {idx + 1}</p>
+              <p className="text-sm font-semibold text-slate-700 mb-2">{t('interactive.interactive-logic-analogies.analogy').replace('{{number}}', (idx + 1).toString())}</p>
               <div className="flex items-center gap-2 mb-2">
                 <span className="text-sm text-slate-700">{analogy.first}</span>
-                <span className="text-slate-400">is to</span>
+                <span className="text-slate-400">{t('interactive.interactive-logic-analogies.isTo')}</span>
                 <span className="text-sm text-slate-700">{analogy.second}</span>
-                <span className="text-slate-400">as</span>
+                <span className="text-slate-400">{t('interactive.interactive-logic-analogies.as')}</span>
                 <span className="text-sm text-slate-700">{analogy.third}</span>
-                <span className="text-slate-400">is to</span>
+                <span className="text-slate-400">{t('interactive.interactive-logic-analogies.isTo')}</span>
                 <div className="h-8 w-20 border border-dashed border-slate-400 bg-white rounded"></div>
               </div>
-              <p className="text-xs text-slate-600">Answer: {analogy.answer}</p>
+              <p className="text-xs text-slate-600">{t('interactive.interactive-logic-analogies.answer')} {analogy.answer}</p>
             </div>
           ))}
         </div>
       </div>
     )
   },
-  'interactive-sel-friendship': ({ seed, doc, variant }) => {
+  'interactive-sel-friendship': (ctx) => {
+    const { seed, doc, variant, t } = ctx
     const rng = makeRng(`${seed}|${doc.id}|${variant}`)
-    const scenarios = pickMany(rng, [
-      { situation: 'A new student joins your class', action: 'introduce yourself' },
-      { situation: 'A friend is sad', action: 'ask how they feel' },
-      { situation: 'Someone needs help', action: 'offer to help' },
-    ], 3)
+    const scenarioData = [
+      { situation: t('interactive.interactive-sel-friendship.scenarios.newStudent'), action: t('interactive.interactive-sel-friendship.scenarios.newStudentAction') },
+      { situation: t('interactive.interactive-sel-friendship.scenarios.friendSad'), action: t('interactive.interactive-sel-friendship.scenarios.friendSadAction') },
+      { situation: t('interactive.interactive-sel-friendship.scenarios.someoneNeedsHelp'), action: t('interactive.interactive-sel-friendship.scenarios.someoneNeedsHelpAction') },
+    ]
+    const scenarios = pickMany(rng, scenarioData, 3)
     return (
       <div className="space-y-4">
-        <p className="text-sm text-slate-600">Learn about making friends, sharing, taking turns, and being kind to others.</p>
+        <p className="text-sm text-slate-600">{t('interactive.interactive-sel-friendship.description')}</p>
         <div className="space-y-3">
           {scenarios.map((scenario, idx) => (
             <div key={idx} className="rounded-xl border border-pink-200 bg-pink-50 p-4">
-              <p className="text-sm font-semibold text-pink-700 mb-2">Situation: {scenario.situation}</p>
-              <p className="text-xs text-pink-600 mb-2">What can you do? {scenario.action}</p>
+              <p className="text-sm font-semibold text-pink-700 mb-2">{t('interactive.interactive-sel-friendship.situation')} {scenario.situation}</p>
+              <p className="text-xs text-pink-600 mb-2">{t('interactive.interactive-sel-friendship.whatCanYouDo')} {scenario.action}</p>
               <div className="h-12 border border-dashed border-pink-300 bg-white rounded"></div>
             </div>
           ))}
         </div>
         <div className="rounded-xl border border-pink-200 bg-pink-50 p-4">
-          <p className="text-sm font-semibold text-pink-700 mb-2">Ways to Be a Good Friend</p>
+          <p className="text-sm font-semibold text-pink-700 mb-2">{t('interactive.interactive-sel-friendship.waysToBeGoodFriend')}</p>
           <ul className="list-disc list-inside space-y-1 text-xs text-pink-600">
-            <li>Share and take turns</li>
-            <li>Listen when others talk</li>
-            <li>Be kind and helpful</li>
-            <li>Include everyone</li>
+            <li>{t('interactive.interactive-sel-friendship.shareAndTakeTurns')}</li>
+            <li>{t('interactive.interactive-sel-friendship.listenWhenOthersTalk')}</li>
+            <li>{t('interactive.interactive-sel-friendship.beKindAndHelpful')}</li>
+            <li>{t('interactive.interactive-sel-friendship.includeEveryone')}</li>
           </ul>
         </div>
       </div>
     )
   },
-  'interactive-sel-gratitude': ({ seed, doc, variant }) => {
+  'interactive-sel-gratitude': (ctx) => {
+    const { seed, doc, variant, t } = ctx
     const rng = makeRng(`${seed}|${doc.id}|${variant}`)
-    const prompts = pickMany(rng, [
-      'Something I am thankful for',
-      'Someone who helps me',
-      'Something that makes me happy',
-      'A place I love',
-    ], 4)
+    const promptData = [
+      t('interactive.interactive-sel-gratitude.prompts.somethingThankful'),
+      t('interactive.interactive-sel-gratitude.prompts.someoneHelps'),
+      t('interactive.interactive-sel-gratitude.prompts.somethingHappy'),
+      t('interactive.interactive-sel-gratitude.prompts.placeLove'),
+    ]
+    const prompts = pickMany(rng, promptData, 4)
     return (
       <div className="space-y-4">
-        <p className="text-sm text-slate-600">Practice gratitude through writing, drawing, and reflection activities.</p>
+        <p className="text-sm text-slate-600">{t('interactive.interactive-sel-gratitude.description')}</p>
         <div className="grid gap-3 md:grid-cols-2">
           {prompts.map((prompt, idx) => (
             <div key={idx} className="rounded-xl border border-pink-200 bg-pink-50 p-4">
               <p className="text-sm font-semibold text-pink-700 mb-2">{prompt}:</p>
               <div className="h-16 rounded border border-pink-300 bg-white mb-2">
-                <p className="p-2 text-xs text-pink-600">Draw or write</p>
+                <p className="p-2 text-xs text-pink-600">{t('interactive.interactive-sel-gratitude.drawOrWrite')}</p>
               </div>
               <div className="h-10 border border-dashed border-pink-300 bg-white rounded"></div>
             </div>
           ))}
         </div>
         <div className="rounded-xl border border-pink-200 bg-pink-50 p-4">
-          <p className="text-sm font-semibold text-pink-700 mb-2">Gratitude Journal</p>
-          <p className="text-xs text-pink-600 mb-2">Today I am grateful for:</p>
+          <p className="text-sm font-semibold text-pink-700 mb-2">{t('interactive.interactive-sel-gratitude.gratitudeJournal')}</p>
+          <p className="text-xs text-pink-600 mb-2">{t('interactive.interactive-sel-gratitude.todayGrateful')}</p>
           <div className="h-20 border border-dashed border-pink-300 bg-white rounded"></div>
         </div>
       </div>
@@ -5194,26 +5498,26 @@ const answerRenderers: Record<string, AnswerRenderer> = {
     )
   },
   'interactive-math-race': (ctx) => {
-    const { doc, seed, variant } = ctx
+    const { doc, seed, variant, formatNum } = ctx
     const problems = buildMathRace(seed, doc.id, variant)
     return (
       <div className="grid grid-cols-2 gap-2 text-sm sm:grid-cols-3">
         {problems.map((prob, idx) => (
           <div key={idx} className="rounded border border-emerald-200 bg-white px-3 py-2 font-semibold text-emerald-800">
-            {prob.first} {prob.op} {prob.second} = {prob.answer}
+            {formatNum(prob.first)} {prob.op} {formatNum(prob.second)} = {formatNum(prob.answer)}
           </div>
         ))}
       </div>
     )
   },
   'interactive-math-puzzle': (ctx) => {
-    const { doc, seed, variant, t } = ctx
+    const { doc, seed, variant, t, formatNum } = ctx
     const puzzles = buildMathPuzzle(seed, doc.id, variant)
     return (
       <ol className="list-decimal list-inside space-y-2">
         {puzzles.map((puzzle, idx) => (
           <li key={idx}>
-            <span className="font-semibold">{t('worksheets.mathPuzzle.answerLabel').replace('{{number}}', String(idx + 1))}:</span> {puzzle.answer}
+            <span className="font-semibold">{t('worksheets.mathPuzzle.answerLabel').replace('{{number}}', formatNum(idx + 1))}:</span> {formatNum(puzzle.answer)}
           </li>
         ))}
       </ol>
@@ -5393,12 +5697,22 @@ const answerRenderers: Record<string, AnswerRenderer> = {
       </div>
     )
   },
-  'interactive-reading-prek': ({ doc, seed, variant }) => {
+  'interactive-reading-prek': (ctx) => {
+    const { doc, seed, variant, t } = ctx
     const rng = makeRng(`${seed}|${doc.id}|${variant}`)
     const stories = [
-      { title: 'The Red Car', questions: ['Do you see a car?', 'Is the car on the road?'] },
-      { title: 'The Sunny Day', questions: ['Do you see the sun?', 'Is there a flower?'] },
-      { title: 'The Big Tree', questions: ['Is the tree big?', 'Do you see a house?'] },
+      { titleKey: 'redCar', title: t('worksheets.readingPrek.storyTitles.redCar'), questions: [
+        { key: 'seeCar', text: t('worksheets.readingPrek.questions.seeCar') },
+        { key: 'carOnRoad', text: t('worksheets.readingPrek.questions.carOnRoad') }
+      ]},
+      { titleKey: 'sunnyDay', title: t('worksheets.readingPrek.storyTitles.sunnyDay'), questions: [
+        { key: 'seeSun', text: t('worksheets.readingPrek.questions.seeSun') },
+        { key: 'thereFlower', text: t('worksheets.readingPrek.questions.thereFlower') }
+      ]},
+      { titleKey: 'bigTree', title: t('worksheets.readingPrek.storyTitles.bigTree'), questions: [
+        { key: 'treeBig', text: t('worksheets.readingPrek.questions.treeBig') },
+        { key: 'seeHouse', text: t('worksheets.readingPrek.questions.seeHouse') }
+      ]},
     ]
     return (
       <ul className="space-y-2 text-sm">
@@ -5407,7 +5721,7 @@ const answerRenderers: Record<string, AnswerRenderer> = {
             <span className="font-semibold">{story.title}:</span>
             <ul className="ml-4 mt-1 list-disc space-y-1">
               {story.questions.map((q, qIdx) => (
-                <li key={qIdx}>{q} - Accept yes/no answers based on picture clues. Students should look at the pictures to answer.</li>
+                <li key={qIdx}>{q.text} - {t('worksheets.answerKey.acceptYesNo')}</li>
               ))}
             </ul>
           </li>
@@ -5415,20 +5729,14 @@ const answerRenderers: Record<string, AnswerRenderer> = {
       </ul>
     )
   },
-  'interactive-writing-prek': ({ doc, seed, variant }) => {
+  'interactive-writing-prek': ({ doc, seed, variant, t }) => {
     const rng = makeRng(`${seed}|${doc.id}|${variant}`)
-    const prompts = pickMany(
-      rng,
-      [
-        { word: 'cat', picture: 'Draw a cat' },
-        { word: 'dog', picture: 'Draw a dog' },
-        { word: 'sun', picture: 'Draw the sun' },
-        { word: 'car', picture: 'Draw a car' },
-        { word: 'tree', picture: 'Draw a tree' },
-        { word: 'flower', picture: 'Draw a flower' },
-      ],
-      4
-    )
+    const wordKeys = ['cat', 'dog', 'sun', 'car', 'tree', 'flower']
+    const selectedKeys = pickMany(rng, wordKeys, 4)
+    const prompts = selectedKeys.map(key => ({
+      word: key,
+      picture: t(`worksheets.writingPrek.drawPrompts.${key}`),
+    }))
     return (
       <ul className="space-y-2 text-sm">
         {prompts.map((prompt, idx) => (
@@ -5439,15 +5747,16 @@ const answerRenderers: Record<string, AnswerRenderer> = {
       </ul>
     )
   },
-  'interactive-science-prek': ({ doc, seed, variant }) => {
+  'interactive-science-prek': (ctx) => {
+    const { doc, seed, variant, t } = ctx
     const rng = makeRng(`${seed}|${doc.id}|${variant}`)
     const observations = pickMany(
       rng,
       [
-        { topic: 'Plants', question: 'What do plants need?', options: ['water', 'sun', 'soil'] },
-        { topic: 'Animals', question: 'Where do animals live?', options: ['forest', 'ocean', 'farm'] },
-        { topic: 'Weather', question: 'What is the weather like?', options: ['sunny', 'rainy', 'cloudy'] },
-        { topic: 'Seasons', question: 'What season is it?', options: ['spring', 'summer', 'fall', 'winter'] },
+        { topicKey: 'plants', topic: t('worksheets.sciencePrek.topics.plants'), questionKey: 'whatPlantsNeed', question: t('worksheets.sciencePrek.questions.whatPlantsNeed'), options: ['water', 'sun', 'soil'] },
+        { topicKey: 'animals', topic: t('worksheets.sciencePrek.topics.animals'), questionKey: 'whereAnimalsLive', question: t('worksheets.sciencePrek.questions.whereAnimalsLive'), options: ['forest', 'ocean', 'farm'] },
+        { topicKey: 'weather', topic: t('worksheets.sciencePrek.topics.weather'), questionKey: 'whatWeatherLike', question: t('worksheets.sciencePrek.questions.whatWeatherLike'), options: ['sunny', 'rainy', 'cloudy'] },
+        { topicKey: 'seasons', topic: t('worksheets.sciencePrek.topics.seasons'), questionKey: 'whatSeason', question: t('worksheets.sciencePrek.questions.whatSeason'), options: ['spring', 'summer', 'fall', 'winter'] },
       ],
       3
     )
@@ -5455,13 +5764,14 @@ const answerRenderers: Record<string, AnswerRenderer> = {
       <ul className="space-y-2 text-sm">
         {observations.map((obs, idx) => (
           <li key={idx}>
-            <span className="font-semibold">{obs.topic}:</span> {obs.question} - Accept any of: {obs.options.join(', ')}. Students should draw or paste a picture related to the topic.
+            <span className="font-semibold">{obs.topic}:</span> {obs.question} - {t('worksheets.answerKey.acceptYesNo')}
           </li>
         ))}
       </ul>
     )
   },
-  'interactive-science-space': ({ doc, seed, variant }) => {
+  'interactive-science-space': (ctx) => {
+    const { doc, seed, variant, t } = ctx
     const rng = makeRng(`${seed}|${doc.id}|${variant}`)
     const planets = pickMany(
       rng,
@@ -5477,21 +5787,22 @@ const answerRenderers: Record<string, AnswerRenderer> = {
       <ul className="space-y-2 text-sm">
         {planets.map((planet, idx) => (
           <li key={idx}>
-            <span className="font-semibold">{planet.name}:</span> {planet.fact}. Distance from sun: {planet.distance}. Students should draw the planet and remember the key fact.
+            <span className="font-semibold">{planet.name}:</span> {planet.fact}. {t('worksheets.scienceSpace.distanceFromSun')} {planet.distance}. {t('worksheets.answerKey.studentsShould')} {t('worksheets.answerKey.drawPicture')} {planet.name} {t('worksheets.answerKey.lookAtPictures')}.
           </li>
         ))}
-        <li className="mt-2 text-emerald-800">Space Questions: A star is a hot ball of gas that gives off light. Any planet name is acceptable (Mercury, Venus, Earth, Mars, Jupiter, Saturn, Uranus, Neptune).</li>
+        <li className="mt-2 text-emerald-800">{t('worksheets.scienceSpace.spaceQuestions')}: {t('worksheets.scienceSpace.whatIsStar')} {t('worksheets.answerKey.studentsShould')} {t('worksheets.answerKey.drawPicture')}.</li>
       </ul>
     )
   },
-  'interactive-geography-prek': ({ doc, seed, variant }) => {
+  'interactive-geography-prek': (ctx) => {
+    const { doc, seed, variant, t } = ctx
     const rng = makeRng(`${seed}|${doc.id}|${variant}`)
     const places = pickMany(
       rng,
       [
-        { name: 'Home', type: 'Where I live', features: ['bedroom', 'kitchen'] },
-        { name: 'School', type: 'Where I learn', features: ['classroom', 'playground'] },
-        { name: 'Park', type: 'Where I play', features: ['swings', 'slides'] },
+        { name: 'Home', typeKey: 'whereILive', type: t('worksheets.geographyPrek.placeTypes.whereILive'), features: ['bedroom', 'kitchen'] },
+        { name: 'School', typeKey: 'whereILearn', type: t('worksheets.geographyPrek.placeTypes.whereILearn'), features: ['classroom', 'playground'] },
+        { name: 'Park', typeKey: 'whereIPlay', type: t('worksheets.geographyPrek.placeTypes.whereIPlay'), features: ['swings', 'slides'] },
       ],
       3
     )
@@ -5499,7 +5810,7 @@ const answerRenderers: Record<string, AnswerRenderer> = {
       <ul className="space-y-2 text-sm">
         {places.map((place, idx) => (
           <li key={idx}>
-            <span className="font-semibold">{place.name}:</span> {place.type}. Features include: {place.features.join(', ')}. Students should draw a simple map showing these features.
+            <span className="font-semibold">{place.name}:</span> {place.type}. {t('worksheets.answerKey.studentsShould')} {t('worksheets.geographyPrek.drawSimpleMap')} {place.features.join(', ')}.
           </li>
         ))}
       </ul>
@@ -5903,11 +6214,12 @@ const answerRenderers: Record<string, AnswerRenderer> = {
       </div>
     )
   },
-  'interactive-cognitive-visual': ({ doc, seed, variant }) => {
+  'interactive-cognitive-visual': (ctx) => {
+    const { t } = ctx
     return (
       <div className="space-y-2 text-sm">
-        <p><span className="font-semibold">Visual Processing:</span> Students should identify differences in patterns and demonstrate spatial reasoning by drawing items in correct positions.</p>
-        <p className="text-emerald-800">Note: Pattern differences are: Pattern 1 - position 4 (green vs blue), Pattern 2 - position 3 (triangle vs circle), Pattern 3 - position 4 (big vs small). Spatial reasoning drawings should show items in correct relative positions.</p>
+        <p><span className="font-semibold">{t('worksheets.cognitiveVisual.visualPatternMatching')}:</span> {t('worksheets.answerKey.studentsShould')} {t('worksheets.answerKey.visualProcessingAnswer')}</p>
+        <p className="text-emerald-800">{t('worksheets.answerKey.visualProcessingNote')}</p>
       </div>
     )
   },
@@ -6045,7 +6357,7 @@ const answerRenderers: Record<string, AnswerRenderer> = {
     )
   },
   'interactive-math-counting': (ctx) => {
-    const { doc, seed, variant, t } = ctx
+    const { doc, seed, variant, t, formatNum } = ctx
     const problems = buildMathCounting(seed, doc.id, variant)
     return (
       <div className="space-y-2">
@@ -6054,7 +6366,7 @@ const answerRenderers: Record<string, AnswerRenderer> = {
             const objectName = t(`worksheets.objectNames.${prob.objects[0]}`) || prob.objects[0]
             return (
               <li key={idx} className="mb-3">
-                <span className="font-semibold">{t('worksheets.countThe').replace('{{object}}', objectName)}:</span> <span className="text-emerald-700 font-bold">{prob.number}</span>
+                <span className="font-semibold">{t('worksheets.countThe').replace('{{object}}', objectName)}:</span> <span className="text-emerald-700 font-bold">{formatNum(prob.number)}</span>
                 <p className="text-xs text-slate-600 mt-1 ml-4">{t('worksheets.countingTeachingNote')}</p>
               </li>
             )
@@ -6063,7 +6375,8 @@ const answerRenderers: Record<string, AnswerRenderer> = {
       </div>
     )
   },
-  'interactive-math-tens-frames': ({ doc, seed, variant }) => {
+  'interactive-math-tens-frames': (ctx) => {
+    const { doc, seed, variant, t, formatNum } = ctx
     const problems = buildMathTensFrames(seed, doc.id, variant)
     return (
       <div className="space-y-2">
@@ -6071,13 +6384,35 @@ const answerRenderers: Record<string, AnswerRenderer> = {
           {problems.map((prob, idx) => {
             const total = prob.filled + prob.missing
             const answer = prob.operation === '+' ? total : prob.filled
+            const problemLabel = t('worksheets.tensFrame.answerKey.problem')
+            const strategyLabel = t('worksheets.tensFrame.answerKey.strategy')
+            let strategy = ''
+            if (prob.operation === '+') {
+              const strategyText = t('worksheets.tensFrame.answerKey.additionStrategy')
+              if (strategyText && strategyText !== 'worksheets.tensFrame.answerKey.additionStrategy') {
+                strategy = strategyText
+                  .replace(/\{\{filled\}\}/g, formatNum(prob.filled))
+                  .replace(/\{\{missing\}\}/g, formatNum(prob.missing))
+                  .replace(/\{\{total\}\}/g, formatNum(total))
+              } else {
+                strategy = `${strategyLabel} ${t('worksheets.tensFrame.answerKey.additionStrategy') || 'ابدأ بـ'} ${formatNum(prob.filled)} ${t('worksheets.tensFrame.answerKey.additionStrategy') || 'صناديق ممتلئة'}.`
+              }
+            } else {
+              const strategyText = t('worksheets.tensFrame.answerKey.subtractionStrategy')
+              if (strategyText && strategyText !== 'worksheets.tensFrame.answerKey.subtractionStrategy') {
+                strategy = strategyText
+                  .replace(/\{\{total\}\}/g, formatNum(total))
+                  .replace(/\{\{missing\}\}/g, formatNum(prob.missing))
+                  .replace(/\{\{filled\}\}/g, formatNum(prob.filled))
+              } else {
+                strategy = `${strategyLabel} ${t('worksheets.tensFrame.answerKey.subtractionStrategy') || 'ابدأ بـ'} ${formatNum(total)} ${t('worksheets.tensFrame.answerKey.subtractionStrategy') || 'صناديق ممتلئة'}.`
+              }
+            }
             return (
               <li key={idx} className="mb-3">
-                <span className="font-semibold">Problem {idx + 1}:</span> {prob.operation === '+' ? `${prob.filled} + ${prob.missing}` : `${total} - ${prob.missing}`} = <span className="text-emerald-700 font-bold">{answer}</span>
+                <span className="font-semibold">{(problemLabel && problemLabel !== 'worksheets.tensFrame.answerKey.problem' ? problemLabel : t('common.problem'))} {formatNum(idx + 1)}:</span> {prob.operation === '+' ? `${formatNum(prob.filled)} + ${formatNum(prob.missing)}` : `${formatNum(total)} - ${formatNum(prob.missing)}`} = <span className="text-emerald-700 font-bold">{formatNum(answer)}</span>
                 <p className="text-xs text-slate-600 mt-1 ml-4">
-                  {prob.operation === '+' 
-                    ? `Strategy: Start with ${prob.filled} filled boxes. Count on ${prob.missing} more to reach ${total}. Use the tens frame to visualize: fill ${prob.missing} empty boxes.`
-                    : `Strategy: Start with ${total} filled boxes. Remove ${prob.missing} boxes. Count how many remain: ${prob.filled}. This shows subtraction as "taking away."`}
+                  {strategy}
                 </p>
               </li>
             )
@@ -6086,61 +6421,153 @@ const answerRenderers: Record<string, AnswerRenderer> = {
       </div>
     )
   },
-  'interactive-math-multiplication': ({ doc, seed, variant }) => {
+  'interactive-math-multiplication': (ctx) => {
+    const { doc, seed, variant, t, formatNum } = ctx
     const problems = buildMathMultiplication(seed, doc.id, variant)
     return (
       <div className="space-y-2">
         <ol className="list-decimal list-inside space-y-2 text-sm">
-          {problems.map((prob, idx) => (
-            <li key={idx} className="mb-3">
-              <span className="font-semibold">Problem {idx + 1}:</span> {prob.factor1} × {prob.factor2} = <span className="text-emerald-700 font-bold">{prob.answer}</span>
-              <p className="text-xs text-slate-600 mt-1 ml-4">
-                <span className="font-semibold">Solution:</span> Draw an array with {prob.arrayRows} rows and {prob.arrayCols} columns. Count all the objects: {prob.arrayRows} groups of {prob.arrayCols} = {prob.answer}. 
-                <span className="block mt-1">Alternative strategies: Skip count by {prob.factor2}, {prob.factor2} times. Or use repeated addition: {prob.factor2} + {prob.factor2} + ... ({prob.arrayRows} times) = {prob.answer}.</span>
-              </p>
-            </li>
-          ))}
+          {problems.map((prob, idx) => {
+            const problemLabel = t('worksheets.multiplication.answerKey.problem')
+            const solutionLabel = t('worksheets.multiplication.answerKey.solution')
+            const drawArrayText = t('worksheets.multiplication.answerKey.drawArray')
+            const altStrategiesText = t('worksheets.multiplication.answerKey.alternativeStrategies')
+            
+            let solution = ''
+            if (drawArrayText && drawArrayText !== 'worksheets.multiplication.answerKey.drawArray') {
+              solution = drawArrayText
+                .replace(/\{\{rows\}\}/g, formatNum(prob.arrayRows))
+                .replace(/\{\{cols\}\}/g, formatNum(prob.arrayCols))
+                .replace(/\{\{answer\}\}/g, formatNum(prob.answer))
+            } else {
+              solution = `${t('worksheets.multiplication.answerKey.drawArray') || 'ارسم مصفوفة بـ'} ${formatNum(prob.arrayRows)} ${t('worksheets.multiplication.answerKey.drawArray') || 'صفوف'} ${formatNum(prob.arrayCols)} ${t('worksheets.multiplication.answerKey.drawArray') || 'أعمدة'}.`
+            }
+            
+            let altStrategies = ''
+            if (altStrategiesText && altStrategiesText !== 'worksheets.multiplication.answerKey.alternativeStrategies') {
+              altStrategies = altStrategiesText
+                .replace(/\{\{factor2\}\}/g, formatNum(prob.factor2))
+                .replace(/\{\{times\}\}/g, formatNum(prob.factor2))
+                .replace(/\{\{answer\}\}/g, formatNum(prob.answer))
+            } else {
+              altStrategies = `${t('worksheets.multiplication.answerKey.alternativeStrategies') || 'استراتيجيات بديلة'}: ${formatNum(prob.factor2)} + ${formatNum(prob.factor2)} + ... (${formatNum(prob.arrayRows)} ${t('worksheets.multiplication.answerKey.alternativeStrategies') || 'مرات'}) = ${formatNum(prob.answer)}.`
+            }
+            
+            return (
+              <li key={idx} className="mb-3">
+                <span className="font-semibold">{(problemLabel && problemLabel !== 'worksheets.multiplication.answerKey.problem' ? problemLabel : t('common.problem'))} {formatNum(idx + 1)}:</span> {formatNum(prob.factor1)} × {formatNum(prob.factor2)} = <span className="text-emerald-700 font-bold">{formatNum(prob.answer)}</span>
+                <p className="text-xs text-slate-600 mt-1 ml-4">
+                  <span className="font-semibold">{(solutionLabel && solutionLabel !== 'worksheets.multiplication.answerKey.solution' ? solutionLabel : t('common.solution'))}</span> {solution}
+                  <span className="block mt-1">{altStrategies}</span>
+                </p>
+              </li>
+            )
+          })}
         </ol>
       </div>
     )
   },
-  'interactive-math-division': ({ doc, seed, variant }) => {
+  'interactive-math-division': (ctx) => {
+    const { doc, seed, variant, t, formatNum } = ctx
     const problems = buildMathDivision(seed, doc.id, variant)
     return (
       <div className="space-y-2">
         <ol className="list-decimal list-inside space-y-2 text-sm">
-          {problems.map((prob, idx) => (
-            <li key={idx} className="mb-3">
-              <span className="font-semibold">Problem {idx + 1}:</span> {prob.dividend} ÷ {prob.divisor} = <span className="text-emerald-700 font-bold">{prob.quotient}</span>
-              {prob.remainder > 0 && <span className="text-emerald-700"> (remainder: {prob.remainder})</span>}
-              <p className="text-xs text-slate-600 mt-1 ml-4">
-                <span className="font-semibold">Solution:</span> Divide {prob.dividend} into groups of {prob.divisor}. You can make {prob.quotient} complete groups.
-                {prob.remainder > 0 ? ` There are ${prob.remainder} left over that don't make a complete group.` : ' All items are grouped evenly.'}
-                <span className="block mt-1">Strategy: Use repeated subtraction ({prob.dividend} - {prob.divisor} - {prob.divisor} - ...) or think "How many {prob.divisor}s fit into {prob.dividend}?"</span>
-              </p>
-            </li>
-          ))}
+          {problems.map((prob, idx) => {
+            const problemLabel = t('worksheets.division.answerKey.problem')
+            const solutionLabel = t('worksheets.division.answerKey.solution')
+            const divideIntoText = t('worksheets.division.answerKey.divideInto')
+            const remainderLeftText = t('worksheets.division.answerKey.remainderLeft')
+            const allGroupedText = t('worksheets.division.answerKey.allGrouped')
+            const strategyText = t('worksheets.division.answerKey.strategy')
+            const remainderLabel = t('worksheets.division.answerKey.remainderLabel')
+            
+            // Check if translation was found (not a raw key)
+            const isTranslationFound = (text: any, key: string) => {
+              if (!text || typeof text !== 'string') return false
+              // If it's exactly the key or starts with 'worksheets.', it's a raw key
+              if (text === key || text.startsWith('worksheets.')) return false
+              // If it contains the key pattern, it's likely a raw key
+              if (text.includes('worksheets.division.answerKey.')) return false
+              return true
+            }
+            
+            // Build solution using translations with template replacement
+            let solution = ''
+            if (isTranslationFound(divideIntoText, 'worksheets.division.answerKey.divideInto')) {
+              solution = divideIntoText
+                .replace(/\{\{dividend\}\}/g, formatNum(prob.dividend))
+                .replace(/\{\{divisor\}\}/g, formatNum(prob.divisor))
+                .replace(/\{\{quotient\}\}/g, formatNum(prob.quotient))
+            } else {
+              solution = `اقسم ${formatNum(prob.dividend)} إلى مجموعات من ${formatNum(prob.divisor)}. يمكنك عمل ${formatNum(prob.quotient)} مجموعات كاملة.`
+            }
+            
+            if (prob.remainder > 0) {
+              if (isTranslationFound(remainderLeftText, 'worksheets.division.answerKey.remainderLeft')) {
+                solution += ' ' + remainderLeftText.replace(/\{\{remainder\}\}/g, formatNum(prob.remainder))
+              } else {
+                solution += ` يتبقى ${formatNum(prob.remainder)} لا تشكل مجموعة كاملة.`
+              }
+            } else {
+              if (isTranslationFound(allGroupedText, 'worksheets.division.answerKey.allGrouped')) {
+                solution += ' ' + allGroupedText
+              } else {
+                solution += ' جميع العناصر مجمعة بالتساوي.'
+              }
+            }
+            
+            // Build strategy using translations with template replacement
+            let strategy = ''
+            if (isTranslationFound(strategyText, 'worksheets.division.answerKey.strategy')) {
+              strategy = strategyText
+                .replace(/\{\{dividend\}\}/g, formatNum(prob.dividend))
+                .replace(/\{\{divisor\}\}/g, formatNum(prob.divisor))
+            } else {
+              strategy = `الاستراتيجية: استخدم الطرح المتكرر (${formatNum(prob.dividend)} - ${formatNum(prob.divisor)} - ${formatNum(prob.divisor)} - ...) أو فكر "كم ${formatNum(prob.divisor)} يناسب في ${formatNum(prob.dividend)}؟"`
+            }
+            
+            return (
+              <li key={idx} className="mb-3">
+                <span className="font-semibold">{(isTranslationFound(problemLabel, 'worksheets.division.answerKey.problem') ? problemLabel : t('common.problem'))} {formatNum(idx + 1)}:</span> {formatNum(prob.dividend)} ÷ {formatNum(prob.divisor)} = <span className="text-emerald-700 font-bold">{formatNum(prob.quotient)}</span>
+                {prob.remainder > 0 && <span className="text-emerald-700"> ({isTranslationFound(remainderLabel, 'worksheets.division.answerKey.remainderLabel') ? remainderLabel : (isTranslationFound(t('worksheets.division.remainder'), 'worksheets.division.remainder') ? t('worksheets.division.remainder') : 'الباقي:')} {formatNum(prob.remainder)})</span>}
+                <p className="text-xs text-slate-600 mt-1 ml-4">
+                  <span className="font-semibold">{(isTranslationFound(solutionLabel, 'worksheets.division.answerKey.solution') ? solutionLabel : t('common.solution'))}</span> {solution}
+                  <span className="block mt-1">{strategy}</span>
+                </p>
+              </li>
+            )
+          })}
         </ol>
       </div>
     )
   },
-  'interactive-math-place-value': ({ doc, seed, variant }) => {
+  'interactive-math-place-value': (ctx) => {
+    const { doc, seed, variant, t, formatNum, language } = ctx
     const problems = buildMathPlaceValue(seed, doc.id, variant)
     return (
       <div className="space-y-2">
         <ol className="list-decimal list-inside space-y-2 text-sm">
           {problems.map((prob, idx) => {
             const numStr = String(prob.number)
+            const placeOrder = ['ones', 'tens', 'hundreds', 'thousands']
+            const placeName = t(`worksheets.placeValue.${prob.place}`) || prob.place
             const expandedForm = numStr.split('').reverse().map((digit, i) => {
-              const place = ['ones', 'tens', 'hundreds', 'thousands'][i] || ''
-              return `${digit} × ${Math.pow(10, i)}`
+              const place = placeOrder[i] || ''
+              const formattedDigit = language === 'ar' ? formatNum(parseInt(digit, 10)) : digit
+              const power = Math.pow(10, i)
+              const formattedPower = formatNum(power)
+              return `${formattedDigit} × ${formattedPower}`
             }).reverse().join(' + ')
+            const formattedNumber = formatNum(prob.number)
+            const formattedDigit = formatNum(prob.digit)
+            const formattedProblemNum = formatNum(idx + 1)
             return (
               <li key={idx} className="mb-3">
-                <span className="font-semibold">Problem {idx + 1}:</span> {prob.number}: {prob.place} place = <span className="text-emerald-700 font-bold">{prob.digit}</span>
+                <span className="font-semibold">{t('common.problem', 'Problem')} {formattedProblemNum}:</span> {formattedNumber}: {placeName} {t('common.place', 'place')} = <span className="text-emerald-700 font-bold">{formattedDigit}</span>
                 <p className="text-xs text-slate-600 mt-1 ml-4">
-                  <span className="font-semibold">Explanation:</span> In the number {prob.number}, read from right to left: ones place, tens place, hundreds place, etc. The digit in the {prob.place} place is {prob.digit}.
-                  <span className="block mt-1"><span className="font-semibold">Expanded form:</span> {expandedForm} = {prob.number}</span>
+                  <span className="font-semibold">{t('common.explanation', 'Explanation')}:</span> {t('worksheets.placeValue.explanation', 'In the number {{number}}, read from right to left: ones place, tens place, hundreds place, etc. The digit in the {{place}} place is {{digit}}.').replace('{{number}}', formattedNumber).replace('{{place}}', placeName).replace('{{digit}}', formattedDigit)}
+                  <span className="block mt-1"><span className="font-semibold">{t('worksheets.placeValue.expandedForm')}:</span> {expandedForm} = {formattedNumber}</span>
                 </p>
               </li>
             )
@@ -6149,7 +6576,8 @@ const answerRenderers: Record<string, AnswerRenderer> = {
       </div>
     )
   },
-  'interactive-math-time': ({ doc, seed, variant }) => {
+  'interactive-math-time': (ctx) => {
+    const { doc, seed, variant, t, formatNum } = ctx
     const problems = buildMathTime(seed, doc.id, variant)
     return (
       <div className="space-y-2">
@@ -6159,13 +6587,28 @@ const answerRenderers: Record<string, AnswerRenderer> = {
             const elapsedMatch = prob.question.match(/(\d+)\s+hour.*?(\d+)\s+minute/)
             const elapsedHours = elapsedMatch ? parseInt(elapsedMatch[1]) : 0
             const elapsedMinutes = elapsedMatch ? parseInt(elapsedMatch[2]) : 0
+            const problemLabel = t('worksheets.time.answerKey.problem')
+            const solutionLabel = t('worksheets.time.answerKey.solution')
+            const startTimeLabel = t('worksheets.time.answerKey.startTime')
+            const addLabel = t('worksheets.time.answerKey.add')
+            const hourLabel = elapsedHours === 1 ? t('worksheets.time.answerKey.hour') : t('worksheets.time.answerKey.hours')
+            const minuteLabel = elapsedMinutes === 1 ? t('worksheets.time.answerKey.minute') : t('worksheets.time.answerKey.minutes')
+            const step1Label = t('worksheets.time.answerKey.step1')
+            const step2Label = t('worksheets.time.answerKey.step2')
+            const finalTimeLabel = t('worksheets.time.answerKey.finalTime')
+            const carryOverLabel = t('worksheets.time.answerKey.carryOver')
+            const ifNeededLabel = t('worksheets.time.answerKey.ifNeeded')
+            
+            const carryHours = Math.floor((startMins + elapsedMinutes) / 60)
+            const finalMins = (startMins + elapsedMinutes) % 60
+            
             return (
               <li key={idx} className="mb-3">
-                <span className="font-semibold">Problem {idx + 1}:</span> {prob.question} Answer: <span className="text-emerald-700 font-bold">{prob.answer}</span>
+                <span className="font-semibold">{(problemLabel && problemLabel !== 'worksheets.time.answerKey.problem' ? problemLabel : t('common.problem'))} {formatNum(idx + 1)}:</span> {prob.question} {t('common.answer')}: <span className="text-emerald-700 font-bold">{prob.answer}</span>
                 <p className="text-xs text-slate-600 mt-1 ml-4">
-                  <span className="font-semibold">Solution:</span> Start time: {startHours}:{String(startMins).padStart(2, '0')}. Add {elapsedHours} hour{elapsedHours !== 1 ? 's' : ''} and {elapsedMinutes} minute{elapsedMinutes !== 1 ? 's' : ''}.
-                  <span className="block mt-1">Step 1: Add minutes: {startMins} + {elapsedMinutes} = {(startMins + elapsedMinutes) % 60} (carry over {Math.floor((startMins + elapsedMinutes) / 60)} hour if needed).</span>
-                  <span className="block mt-1">Step 2: Add hours: {startHours} + {elapsedHours} + {Math.floor((startMins + elapsedMinutes) / 60)} = Final time: {prob.answer}</span>
+                  <span className="font-semibold">{(solutionLabel && solutionLabel !== 'worksheets.time.answerKey.solution' ? solutionLabel : t('common.solution'))}</span> {startTimeLabel && startTimeLabel !== 'worksheets.time.answerKey.startTime' ? startTimeLabel : t('worksheets.time.answerKey.startTime')} {formatNum(startHours)}:{String(startMins).padStart(2, '0')}. {addLabel && addLabel !== 'worksheets.time.answerKey.add' ? addLabel : t('worksheets.time.answerKey.add')} {formatNum(elapsedHours)} {hourLabel} {addLabel && addLabel !== 'worksheets.time.answerKey.add' ? 'و' : ''} {formatNum(elapsedMinutes)} {minuteLabel}.
+                  <span className="block mt-1">{step1Label && step1Label !== 'worksheets.time.answerKey.step1' ? step1Label : t('worksheets.time.answerKey.step1')} {formatNum(startMins)} + {formatNum(elapsedMinutes)} = {formatNum(finalMins)} ({carryOverLabel && carryOverLabel !== 'worksheets.time.answerKey.carryOver' ? carryOverLabel : t('worksheets.time.answerKey.carryOver')} {formatNum(carryHours)} {hourLabel} {ifNeededLabel && ifNeededLabel !== 'worksheets.time.answerKey.ifNeeded' ? ifNeededLabel : t('worksheets.time.answerKey.ifNeeded')}).</span>
+                  <span className="block mt-1">{step2Label && step2Label !== 'worksheets.time.answerKey.step2' ? step2Label : t('worksheets.time.answerKey.step2')} {formatNum(startHours)} + {formatNum(elapsedHours)} + {formatNum(carryHours)} = {finalTimeLabel && finalTimeLabel !== 'worksheets.time.answerKey.finalTime' ? finalTimeLabel : t('worksheets.time.answerKey.finalTime')} {prob.answer}</span>
                 </p>
               </li>
             )
@@ -6179,33 +6622,53 @@ const answerRenderers: Record<string, AnswerRenderer> = {
       <p className="text-sm">Students should create a bar graph with appropriate scale and labels. Check that bars match the data values correctly.</p>
     )
   },
-  'interactive-math-rounding': ({ doc, seed, variant }) => {
+  'interactive-math-rounding': (ctx) => {
+    const { doc, seed, variant, t, formatNum } = ctx
     const problems = buildMathRounding(seed, doc.id, variant)
     return (
       <div className="space-y-2">
         <ol className="list-decimal list-inside space-y-2 text-sm">
           {problems.map((prob, idx) => {
+            const problemLabel = t('worksheets.rounding.answerKey.problem')
+            const ruleLabel = t('worksheets.rounding.answerKey.rule')
+            const stepByStepLabel = t('worksheets.rounding.answerKey.stepByStep')
+            const roundUpLabel = t('worksheets.rounding.answerKey.roundUp')
+            const roundDownLabel = t('worksheets.rounding.answerKey.roundDown')
+            const lookAtLabel = t('worksheets.rounding.answerKey.lookAt')
+            const sinceGreaterLabel = t('worksheets.rounding.answerKey.sinceGreater')
+            const sinceLessLabel = t('worksheets.rounding.answerKey.sinceLess')
+            const replaceWithLabel = t('worksheets.rounding.answerKey.replaceWith')
+            
             let roundingRule = ''
             let stepByStep = ''
             if (prob.roundTo === 'ten') {
               const onesDigit = prob.number % 10
-              roundingRule = onesDigit >= 5 ? `Round up because ${onesDigit} ≥ 5` : `Round down because ${onesDigit} < 5`
-              stepByStep = `Look at the ones digit (${onesDigit}). ${onesDigit >= 5 ? 'Since it\'s 5 or greater, round up' : 'Since it\'s less than 5, round down'}. Replace ones with 0: ${prob.answer}`
+              const digitLabel = t('worksheets.rounding.answerKey.onesDigit')
+              roundingRule = onesDigit >= 5 
+                ? `${roundUpLabel && roundUpLabel !== 'worksheets.rounding.answerKey.roundUp' ? roundUpLabel : t('worksheets.rounding.answerKey.roundUp')} ${formatNum(onesDigit)} ≥ 5`
+                : `${roundDownLabel && roundDownLabel !== 'worksheets.rounding.answerKey.roundDown' ? roundDownLabel : t('worksheets.rounding.answerKey.roundDown')} ${formatNum(onesDigit)} < 5`
+              stepByStep = `${lookAtLabel && lookAtLabel !== 'worksheets.rounding.answerKey.lookAt' ? lookAtLabel : t('worksheets.rounding.answerKey.lookAt')} ${digitLabel && digitLabel !== 'worksheets.rounding.answerKey.onesDigit' ? digitLabel : t('worksheets.rounding.answerKey.onesDigit')} (${formatNum(onesDigit)}). ${onesDigit >= 5 ? (sinceGreaterLabel && sinceGreaterLabel !== 'worksheets.rounding.answerKey.sinceGreater' ? sinceGreaterLabel : t('worksheets.rounding.answerKey.sinceGreater')) : (sinceLessLabel && sinceLessLabel !== 'worksheets.rounding.answerKey.sinceLess' ? sinceLessLabel : t('worksheets.rounding.answerKey.sinceLess'))}. ${replaceWithLabel && replaceWithLabel !== 'worksheets.rounding.answerKey.replaceWith' ? replaceWithLabel : t('worksheets.rounding.answerKey.replaceWith')} 0: ${formatNum(prob.answer)}`
             } else if (prob.roundTo === 'hundred') {
               const tensDigit = Math.floor((prob.number % 100) / 10)
-              roundingRule = tensDigit >= 5 ? `Round up because tens digit ${tensDigit} ≥ 5` : `Round down because tens digit ${tensDigit} < 5`
-              stepByStep = `Look at the tens digit (${tensDigit}). ${tensDigit >= 5 ? 'Since it\'s 5 or greater, round up' : 'Since it\'s less than 5, round down'}. Replace tens and ones with 00: ${prob.answer}`
+              const digitLabel = t('worksheets.rounding.answerKey.tensDigit')
+              roundingRule = tensDigit >= 5
+                ? `${roundUpLabel && roundUpLabel !== 'worksheets.rounding.answerKey.roundUp' ? roundUpLabel : t('worksheets.rounding.answerKey.roundUp')} ${digitLabel && digitLabel !== 'worksheets.rounding.answerKey.tensDigit' ? digitLabel : t('worksheets.rounding.answerKey.tensDigit')} ${formatNum(tensDigit)} ≥ 5`
+                : `${roundDownLabel && roundDownLabel !== 'worksheets.rounding.answerKey.roundDown' ? roundDownLabel : t('worksheets.rounding.answerKey.roundDown')} ${digitLabel && digitLabel !== 'worksheets.rounding.answerKey.tensDigit' ? digitLabel : t('worksheets.rounding.answerKey.tensDigit')} ${formatNum(tensDigit)} < 5`
+              stepByStep = `${lookAtLabel && lookAtLabel !== 'worksheets.rounding.answerKey.lookAt' ? lookAtLabel : t('worksheets.rounding.answerKey.lookAt')} ${digitLabel && digitLabel !== 'worksheets.rounding.answerKey.tensDigit' ? digitLabel : t('worksheets.rounding.answerKey.tensDigit')} (${formatNum(tensDigit)}). ${tensDigit >= 5 ? (sinceGreaterLabel && sinceGreaterLabel !== 'worksheets.rounding.answerKey.sinceGreater' ? sinceGreaterLabel : t('worksheets.rounding.answerKey.sinceGreater')) : (sinceLessLabel && sinceLessLabel !== 'worksheets.rounding.answerKey.sinceLess' ? sinceLessLabel : t('worksheets.rounding.answerKey.sinceLess'))}. ${replaceWithLabel && replaceWithLabel !== 'worksheets.rounding.answerKey.replaceWith' ? replaceWithLabel : t('worksheets.rounding.answerKey.replaceWith')} 00: ${formatNum(prob.answer)}`
             } else {
               const hundredsDigit = Math.floor((prob.number % 1000) / 100)
-              roundingRule = hundredsDigit >= 5 ? `Round up because hundreds digit ${hundredsDigit} ≥ 5` : `Round down because hundreds digit ${hundredsDigit} < 5`
-              stepByStep = `Look at the hundreds digit (${hundredsDigit}). ${hundredsDigit >= 5 ? 'Since it\'s 5 or greater, round up' : 'Since it\'s less than 5, round down'}. Replace hundreds, tens, and ones with 000: ${prob.answer}`
+              const digitLabel = t('worksheets.rounding.answerKey.hundredsDigit')
+              roundingRule = hundredsDigit >= 5
+                ? `${roundUpLabel && roundUpLabel !== 'worksheets.rounding.answerKey.roundUp' ? roundUpLabel : t('worksheets.rounding.answerKey.roundUp')} ${digitLabel && digitLabel !== 'worksheets.rounding.answerKey.hundredsDigit' ? digitLabel : t('worksheets.rounding.answerKey.hundredsDigit')} ${formatNum(hundredsDigit)} ≥ 5`
+                : `${roundDownLabel && roundDownLabel !== 'worksheets.rounding.answerKey.roundDown' ? roundDownLabel : t('worksheets.rounding.answerKey.roundDown')} ${digitLabel && digitLabel !== 'worksheets.rounding.answerKey.hundredsDigit' ? digitLabel : t('worksheets.rounding.answerKey.hundredsDigit')} ${formatNum(hundredsDigit)} < 5`
+              stepByStep = `${lookAtLabel && lookAtLabel !== 'worksheets.rounding.answerKey.lookAt' ? lookAtLabel : t('worksheets.rounding.answerKey.lookAt')} ${digitLabel && digitLabel !== 'worksheets.rounding.answerKey.hundredsDigit' ? digitLabel : t('worksheets.rounding.answerKey.hundredsDigit')} (${formatNum(hundredsDigit)}). ${hundredsDigit >= 5 ? (sinceGreaterLabel && sinceGreaterLabel !== 'worksheets.rounding.answerKey.sinceGreater' ? sinceGreaterLabel : t('worksheets.rounding.answerKey.sinceGreater')) : (sinceLessLabel && sinceLessLabel !== 'worksheets.rounding.answerKey.sinceLess' ? sinceLessLabel : t('worksheets.rounding.answerKey.sinceLess'))}. ${replaceWithLabel && replaceWithLabel !== 'worksheets.rounding.answerKey.replaceWith' ? replaceWithLabel : t('worksheets.rounding.answerKey.replaceWith')} 000: ${formatNum(prob.answer)}`
             }
             return (
               <li key={idx} className="mb-3">
-                <span className="font-semibold">Problem {idx + 1}:</span> {prob.number} rounded to the nearest {prob.roundTo} = <span className="text-emerald-700 font-bold">{prob.answer}</span>
+                <span className="font-semibold">{(problemLabel && problemLabel !== 'worksheets.rounding.answerKey.problem' ? problemLabel : t('common.problem'))} {formatNum(idx + 1)}:</span> {formatNum(prob.number)} {t('worksheets.rounding.roundedTo')} {prob.roundTo} = <span className="text-emerald-700 font-bold">{formatNum(prob.answer)}</span>
                 <p className="text-xs text-slate-600 mt-1 ml-4">
-                  <span className="font-semibold">Rule:</span> {roundingRule}
-                  <span className="block mt-1"><span className="font-semibold">Step-by-step:</span> {stepByStep}</span>
+                  <span className="font-semibold">{(ruleLabel && ruleLabel !== 'worksheets.rounding.answerKey.rule' ? ruleLabel : t('common.rule'))}</span> {roundingRule}
+                  <span className="block mt-1"><span className="font-semibold">{(stepByStepLabel && stepByStepLabel !== 'worksheets.rounding.answerKey.stepByStep' ? stepByStepLabel : t('worksheets.rounding.answerKey.stepByStep'))}</span> {stepByStep}</span>
                 </p>
               </li>
             )
@@ -6214,27 +6677,53 @@ const answerRenderers: Record<string, AnswerRenderer> = {
       </div>
     )
   },
-  'interactive-math-decimals': ({ doc, seed, variant }) => {
+  'interactive-math-decimals': (ctx) => {
+    const { doc, seed, variant, t, formatNum } = ctx
     const problems = buildMathDecimals(seed, doc.id, variant)
     return (
       <div className="space-y-2">
         <ol className="list-decimal list-inside space-y-2 text-sm">
           {problems.map((prob, idx) => {
             let explanation = ''
+            let explanationKey = ''
             if (prob.op === '+') {
-              explanation = `Add: ${prob.num1} + ${prob.num2} = ${prob.answer}. Line up decimal points and add each place value.`
+              explanationKey = 'worksheets.decimals.answerKey.add'
             } else if (prob.op === '-') {
-              explanation = `Subtract: ${prob.num1} - ${prob.num2} = ${prob.answer}. Line up decimal points and subtract each place value.`
+              explanationKey = 'worksheets.decimals.answerKey.subtract'
             } else if (prob.op === '×') {
-              explanation = `Multiply: ${prob.num1} × ${prob.num2} = ${prob.answer}. Multiply as whole numbers, then count total decimal places and place decimal point.`
+              explanationKey = 'worksheets.decimals.answerKey.multiply'
             } else {
-              explanation = `Divide: ${prob.num1} ÷ ${prob.num2} = ${prob.answer}. Move decimal points to make divisor whole, then divide normally.`
+              explanationKey = 'worksheets.decimals.answerKey.divide'
             }
+            const explanationTemplate = t(explanationKey)
+            if (explanationTemplate && typeof explanationTemplate === 'string' && explanationTemplate !== explanationKey) {
+              explanation = explanationTemplate
+                .replace(/\{\{num1\}\}/g, formatNum(prob.num1))
+                .replace(/\{\{num2\}\}/g, formatNum(prob.num2))
+                .replace(/\{\{answer\}\}/g, formatNum(prob.answer))
+            } else {
+              // Fallback if translation not found - use simple Arabic explanations
+              const instructionsText = t('worksheets.decimals.instructions')
+              const instructions = (instructionsText && instructionsText !== 'worksheets.decimals.instructions') 
+                ? instructionsText 
+                : 'قم بمحاذاة النقاط العشرية.'
+              if (prob.op === '+') {
+                explanation = `${t('common.add')}: ${formatNum(prob.num1)} + ${formatNum(prob.num2)} = ${formatNum(prob.answer)}. ${instructions}`
+              } else if (prob.op === '-') {
+                explanation = `${t('common.subtract')}: ${formatNum(prob.num1)} - ${formatNum(prob.num2)} = ${formatNum(prob.answer)}. ${instructions}`
+              } else if (prob.op === '×') {
+                explanation = `${t('common.multiply')}: ${formatNum(prob.num1)} × ${formatNum(prob.num2)} = ${formatNum(prob.answer)}. ${instructions}`
+              } else {
+                explanation = `${t('common.divide')}: ${formatNum(prob.num1)} ÷ ${formatNum(prob.num2)} = ${formatNum(prob.answer)}. ${instructions}`
+              }
+            }
+            const problemLabel = t('worksheets.decimals.answerKey.problem')
+            const solutionLabel = t('worksheets.decimals.answerKey.solution')
             return (
               <li key={idx} className="mb-3">
-                <span className="font-semibold">Problem {idx + 1}:</span> {prob.num1} {prob.op} {prob.num2} = <span className="text-emerald-700 font-bold">{prob.answer}</span>
+                <span className="font-semibold">{(problemLabel && problemLabel !== 'worksheets.decimals.answerKey.problem' ? problemLabel : t('common.problem'))} {formatNum(idx + 1)}:</span> {formatNum(prob.num1)} {prob.op} {formatNum(prob.num2)} = <span className="text-emerald-700 font-bold">{formatNum(prob.answer)}</span>
                 <p className="text-xs text-slate-600 mt-1 ml-4">
-                  <span className="font-semibold">Solution:</span> {explanation}
+                  <span className="font-semibold">{(solutionLabel && solutionLabel !== 'worksheets.decimals.answerKey.solution' ? solutionLabel : t('common.solution'))}</span> {explanation}
                 </p>
               </li>
             )
@@ -6243,7 +6732,8 @@ const answerRenderers: Record<string, AnswerRenderer> = {
       </div>
     )
   },
-  'interactive-math-integers': ({ doc, seed, variant }) => {
+  'interactive-math-integers': (ctx) => {
+    const { doc, seed, variant, t, formatNum } = ctx
     const problems = buildMathIntegers(seed, doc.id, variant)
     return (
       <div className="space-y-2">
@@ -6252,23 +6742,23 @@ const answerRenderers: Record<string, AnswerRenderer> = {
             let explanation = ''
             if (prob.op === '+') {
               if (prob.num1 < 0 && prob.num2 < 0) {
-                explanation = `Add two negatives: (${prob.num1}) + (${prob.num2}) = ${prob.answer}. Add absolute values, keep negative sign.`
+                explanation = `${t('common.add')} ${t('common.twoNegatives')}: (${formatNum(prob.num1)}) + (${formatNum(prob.num2)}) = ${formatNum(prob.answer)}. ${t('common.addAbsoluteValues')}, ${t('common.keepNegativeSign')}.`
               } else if (prob.num1 < 0 || prob.num2 < 0) {
-                explanation = `Add positive and negative: ${prob.num1} + ${prob.num2} = ${prob.answer}. Subtract absolute values, keep sign of larger number.`
+                explanation = `${t('common.add')} ${t('common.positiveAndNegative')}: ${formatNum(prob.num1)} + ${formatNum(prob.num2)} = ${formatNum(prob.answer)}. ${t('common.subtractAbsoluteValues')}, ${t('common.keepSignOfLarger')}.`
               } else {
-                explanation = `Add two positives: ${prob.num1} + ${prob.num2} = ${prob.answer}.`
+                explanation = `${t('common.add')} ${t('common.twoPositives')}: ${formatNum(prob.num1)} + ${formatNum(prob.num2)} = ${formatNum(prob.answer)}.`
               }
             } else if (prob.op === '-') {
-              explanation = `Subtract: ${prob.num1} - ${prob.num2} = ${prob.answer}. Change subtraction to addition: ${prob.num1} + (${-prob.num2}) = ${prob.answer}.`
+              explanation = `${t('common.subtract')}: ${formatNum(prob.num1)} - ${formatNum(prob.num2)} = ${formatNum(prob.answer)}. ${t('common.changeSubtractionToAddition')}: ${formatNum(prob.num1)} + (${formatNum(-prob.num2)}) = ${formatNum(prob.answer)}.`
             } else {
-              const sign = (prob.num1 < 0) !== (prob.num2 < 0) ? 'negative' : 'positive'
-              explanation = `Multiply: ${prob.num1} × ${prob.num2} = ${prob.answer}. Multiply absolute values: ${Math.abs(prob.num1)} × ${Math.abs(prob.num2)} = ${Math.abs(prob.answer)}. Result is ${sign} because ${(prob.num1 < 0) !== (prob.num2 < 0) ? 'one number is negative' : 'both numbers have the same sign'}.`
+              const sign = (prob.num1 < 0) !== (prob.num2 < 0) ? t('common.negative') : t('common.positive')
+              explanation = `${t('common.multiply')}: ${formatNum(prob.num1)} × ${formatNum(prob.num2)} = ${formatNum(prob.answer)}. ${t('common.multiplyAbsoluteValues')}: ${formatNum(Math.abs(prob.num1))} × ${formatNum(Math.abs(prob.num2))} = ${formatNum(Math.abs(prob.answer))}. ${t('common.resultIs')} ${sign} ${t('common.because')} ${(prob.num1 < 0) !== (prob.num2 < 0) ? t('common.oneNumberNegative') : t('common.bothSameSign')}.`
             }
             return (
               <li key={idx} className="mb-3">
-                <span className="font-semibold">Problem {idx + 1}:</span> {prob.num1 < 0 ? `(${prob.num1})` : prob.num1} {prob.op} {prob.num2 < 0 ? `(${prob.num2})` : prob.num2} = <span className="text-emerald-700 font-bold">{prob.answer}</span>
+                <span className="font-semibold">{t('common.problem')} {formatNum(idx + 1)}:</span> {prob.num1 < 0 ? `(${formatNum(prob.num1)})` : formatNum(prob.num1)} {prob.op} {prob.num2 < 0 ? `(${formatNum(prob.num2)})` : formatNum(prob.num2)} = <span className="text-emerald-700 font-bold">{formatNum(prob.answer)}</span>
                 <p className="text-xs text-slate-600 mt-1 ml-4">
-                  <span className="font-semibold">Solution:</span> {explanation}
+                  <span className="font-semibold">{t('common.solution')}</span> {explanation}
                 </p>
               </li>
             )
@@ -6277,7 +6767,8 @@ const answerRenderers: Record<string, AnswerRenderer> = {
       </div>
     )
   },
-  'interactive-math-exponents': ({ doc, seed, variant }) => {
+  'interactive-math-exponents': (ctx) => {
+    const { doc, seed, variant, t, formatNum } = ctx
     const problems = buildMathExponents(seed, doc.id, variant)
     return (
       <div className="space-y-2">
@@ -6286,11 +6777,11 @@ const answerRenderers: Record<string, AnswerRenderer> = {
             const expansion = Array(prob.exponent).fill(prob.base).join(' × ')
             return (
               <li key={idx} className="mb-3">
-                <span className="font-semibold">Problem {idx + 1}:</span> {prob.base}<sup>{prob.exponent}</sup> = <span className="text-emerald-700 font-bold">{prob.answer}</span>
+                <span className="font-semibold">{t('common.problem')} {formatNum(idx + 1)}:</span> {formatNum(prob.base)}<sup>{formatNum(prob.exponent)}</sup> = <span className="text-emerald-700 font-bold">{formatNum(prob.answer)}</span>
                 <p className="text-xs text-slate-600 mt-1 ml-4">
-                  <span className="font-semibold">Solution:</span> {prob.base}<sup>{prob.exponent}</sup> means multiply {prob.base} by itself {prob.exponent} times.
-                  <span className="block mt-1"><span className="font-semibold">Expansion:</span> {expansion} = {prob.answer}</span>
-                  <span className="block mt-1"><span className="font-semibold">Tip:</span> The exponent tells you how many times to multiply the base. {prob.base}<sup>{prob.exponent}</sup> = {prob.base} × {prob.base} × ... ({prob.exponent} times).</span>
+                  <span className="font-semibold">{t('common.solution')}</span> {formatNum(prob.base)}<sup>{formatNum(prob.exponent)}</sup> {t('worksheets.exponents.answerKey.means')} {formatNum(prob.base)} {t('worksheets.exponents.answerKey.byItself')} {formatNum(prob.exponent)} {t('worksheets.exponents.answerKey.times')}.
+                  <span className="block mt-1"><span className="font-semibold">{t('common.expansion')}</span> {expansion} = {formatNum(prob.answer)}</span>
+                  <span className="block mt-1"><span className="font-semibold">{t('common.tip')}</span> {t('worksheets.exponents.answerKey.tip')} {formatNum(prob.base)}<sup>{formatNum(prob.exponent)}</sup> = {formatNum(prob.base)} × {formatNum(prob.base)} × ... ({formatNum(prob.exponent)} {t('worksheets.exponents.answerKey.times')}).</span>
                 </p>
               </li>
             )
@@ -6385,14 +6876,16 @@ const answerRenderers: Record<string, AnswerRenderer> = {
       <p className="text-sm">Student responses may vary. Evaluate based on clear claim, supporting evidence, logical reasoning, counterargument acknowledgment, and strong conclusion.</p>
     )
   },
-  'interactive-reading-alphabet': ({ doc, seed, variant }) => {
+  'interactive-reading-alphabet': (ctx) => {
+    const { t } = ctx
     return (
-      <p className="text-sm">Students should correctly identify and match uppercase/lowercase letters, recognize beginning sounds, and circle matching letters. Check for letter recognition accuracy.</p>
+      <p className="text-sm">{t('worksheets.alphabetAnswerKey')}</p>
     )
   },
-  'interactive-reading-sightwords': ({ doc, seed, variant }) => {
+  'interactive-reading-sightwords': (ctx) => {
+    const { doc, seed, variant, t } = ctx
     return (
-      <p className="text-sm">Students should correctly write sight words 3 times each and use them in sentences. Check for spelling accuracy and appropriate sentence construction.</p>
+      <p className="text-sm">{t('worksheets.answerKey.studentsShould')} {t('worksheets.answerKey.sightWordsAnswer')}</p>
     )
   },
   'interactive-reading-fluency': ({ doc, seed, variant }) => {
@@ -6435,9 +6928,9 @@ const answerRenderers: Record<string, AnswerRenderer> = {
       <p className="text-sm">Students should correctly identify continents and their associated oceans. Check for understanding of world geography and continent facts.</p>
     )
   },
-  'interactive-grammar-rhyming': ({ doc, seed, variant }) => {
+  'interactive-grammar-rhyming': ({ doc, seed, variant, t }) => {
     return (
-      <p className="text-sm">Students should correctly identify and match rhyming words. Check for understanding of word families and phonemic awareness.</p>
+      <p className="text-sm">{t('worksheets.answerKey.grammarRhymingAnswer')}</p>
     )
   },
   'interactive-grammar-capitalization': ({ doc, seed, variant }) => {
@@ -6465,59 +6958,59 @@ const answerRenderers: Record<string, AnswerRenderer> = {
       <p className="text-sm">Student responses may vary. Evaluate based on understanding of perspective, shading techniques, texture representation, and composition principles.</p>
     )
   },
-  'interactive-logic-matching': ({ doc, seed, variant }) => {
+  'interactive-logic-matching': ({ doc, seed, variant, t }) => {
     return (
-      <p className="text-sm">Students should correctly match related items (e.g., apple-fruit, car-vehicle). Check for understanding of relationships and categorization.</p>
+      <p className="text-sm">{t('interactive.interactive-logic-matching.answerKey')}</p>
     )
   },
-  'interactive-logic-classification': ({ doc, seed, variant }) => {
+  'interactive-logic-classification': ({ doc, seed, variant, t }) => {
     return (
-      <p className="text-sm">Students should correctly sort items into categories (animals, food, colors, etc.). Check for understanding of classification and categorization skills.</p>
+      <p className="text-sm">{t('interactive.interactive-logic-classification.answerKey')}</p>
     )
   },
-  'interactive-logic-analogies': ({ doc, seed, variant }) => {
+  'interactive-logic-analogies': ({ doc, seed, variant, t }) => {
     return (
-      <p className="text-sm">Students should correctly complete analogies by identifying relationships. Check for understanding of word relationships and logical thinking.</p>
+      <p className="text-sm">{t('interactive.interactive-logic-analogies.answerKey')}</p>
     )
   },
-  'interactive-sel-friendship': ({ doc, seed, variant }) => {
+  'interactive-sel-friendship': ({ doc, seed, variant, t }) => {
     return (
-      <p className="text-sm">Student responses may vary. Check for understanding of friendship skills, empathy, kindness, and appropriate social responses to different situations.</p>
+      <p className="text-sm">{t('interactive.interactive-sel-friendship.answerKey')}</p>
     )
   },
-  'interactive-sel-gratitude': ({ doc, seed, variant }) => {
+  'interactive-sel-gratitude': ({ doc, seed, variant, t }) => {
     return (
-      <p className="text-sm">Student responses may vary. Check for thoughtful reflection, genuine gratitude expression, and understanding of positive thinking and appreciation.</p>
+      <p className="text-sm">{t('interactive.interactive-sel-gratitude.answerKey')}</p>
     )
   },
-  'interactive-art-color-by-number': ({ doc, seed, variant }) => {
+  'interactive-art-color-by-number': ({ doc, seed, variant, t }) => {
     return (
-      <p className="text-sm">Students should color each section according to the number code provided. Check that colors match the key (1=red, 2=blue, etc.) and that students follow directions accurately.</p>
+      <p className="text-sm">{t('interactive.interactive-art-color-by-number.answerKey')}</p>
     )
   },
-  'interactive-art-mandala': ({ doc, seed, variant }) => {
+  'interactive-art-mandala': ({ doc, seed, variant, t }) => {
     return (
-      <p className="text-sm">Student responses may vary. Evaluate based on symmetry, pattern consistency, creativity, and mindfulness reflection. Encourage students to start from the center and work outward.</p>
+      <p className="text-sm">{t('interactive.interactive-art-mandala.answerKey')}</p>
     )
   },
-  'interactive-art-doodle': ({ doc, seed, variant }) => {
+  'interactive-art-doodle': ({ doc, seed, variant, t }) => {
     return (
-      <p className="text-sm">Student responses may vary. There are no wrong answers in doodling! Evaluate based on creativity, engagement, and willingness to experiment. Encourage free expression.</p>
+      <p className="text-sm">{t('interactive.interactive-art-doodle.answerKey')}</p>
     )
   },
-  'interactive-art-seasonal': ({ doc, seed, variant }) => {
+  'interactive-art-seasonal': ({ doc, seed, variant, t }) => {
     return (
-      <p className="text-sm">Student responses may vary. Check for appropriate seasonal themes, color choices that match the season, and creative expression. Encourage students to think about what makes each season special.</p>
+      <p className="text-sm">{t('interactive.interactive-art-seasonal.answerKey')}</p>
     )
   },
-  'interactive-art-comic': ({ doc, seed, variant }) => {
+  'interactive-art-comic': ({ doc, seed, variant, t }) => {
     return (
-      <p className="text-sm">Student responses may vary. Evaluate based on story structure (beginning/middle/end), character development, use of speech bubbles, visual narrative flow, and creativity. Check that panels tell a coherent story.</p>
+      <p className="text-sm">{t('interactive.interactive-art-comic.answerKey')}</p>
     )
   },
-  'interactive-art-critique': ({ doc, seed, variant }) => {
+  'interactive-art-critique': ({ doc, seed, variant, t }) => {
     return (
-      <p className="text-sm">Student responses may vary. Evaluate based on use of art vocabulary, detailed observations, thoughtful analysis of art elements (line, color, shape, etc.), and ability to express personal impressions. Encourage specific, descriptive language.</p>
+      <p className="text-sm">{t('interactive.interactive-art-critique.answerKey')}</p>
     )
   },
   'interactive-sel-conflict': ({ doc, seed, variant }) => {
@@ -6552,6 +7045,588 @@ const answerRenderers: Record<string, AnswerRenderer> = {
   },
 }
 
+// Worksheet header component for print/PDF
+function WorksheetHeader({ problemCount }: { problemCount?: number }) {
+  return (
+    <div className="print:block hidden print:mb-4 pb-3 mb-4">
+      <div className="flex justify-between items-start">
+        <div className="flex-1">
+          <div className="text-sm mb-2"><strong>Name:</strong> _________________________</div>
+          <div className="text-sm mb-2"><strong>Date:</strong> ___________  <strong>Grade:</strong> _____</div>
+          <div className="text-sm"><strong>Teacher/Parent:</strong> _________________</div>
+        </div>
+        {problemCount && (
+          <div className="text-right text-xs text-slate-600">
+            <div>Score: ___ / {problemCount}</div>
+          </div>
+        )}
+      </div>
+    </div>
+  )
+}
+
+// Learning objectives component
+function LearningObjectives({ objectives }: { objectives: string[] }) {
+  return (
+    <div className="print:block hidden mb-4 p-3 bg-slate-50 border-l-4 border-blue-500 rounded">
+      <div className="text-sm font-semibold text-slate-800 mb-2">📚 What You'll Practice:</div>
+      <ul className="text-xs text-slate-700 space-y-1 list-disc list-inside">
+        {objectives.map((obj, i) => (
+          <li key={i}>{obj}</li>
+        ))}
+      </ul>
+    </div>
+  )
+}
+
+// Challenge section component
+function ChallengeSection({ challenges }: { challenges: string[] }) {
+  return (
+    <div 
+      className="mt-6 print:mt-0 p-4 bg-purple-50 border-2 border-purple-200 rounded print:bg-white print:border challenge-section" 
+      style={{ 
+        pageBreakInside: 'avoid',
+        breakInside: 'avoid',
+        WebkitRegionBreakInside: 'avoid',
+        pageBreakBefore: 'auto' // Don't force new page, but move if no space
+      }}
+    >
+      <div className="font-semibold text-purple-900 mb-3 text-sm">🌟 Challenge Yourself (Optional):</div>
+      <div className="space-y-2 text-sm text-purple-800" style={{ pageBreakInside: 'avoid', breakInside: 'avoid' }}>
+        {challenges.map((challenge, i) => (
+          <div key={i} style={{ pageBreakInside: 'avoid', breakInside: 'avoid' }}>{i + 1}. {challenge}</div>
+        ))}
+      </div>
+    </div>
+  )
+}
+
+// Get learning objectives and challenges for each worksheet type
+function getWorksheetSections(docId: string): { objectives: string[]; challenges: string[] } {
+  const sections: Record<string, { objectives: string[]; challenges: string[] }> = {
+    // Math worksheets
+    'interactive-math-rhythm': {
+      objectives: ['Identify number patterns', 'Complete skip counting sequences', 'Recognize arithmetic patterns'],
+      challenges: ['Create your own number pattern', 'Find patterns in everyday objects', 'Extend the pattern beyond the worksheet']
+    },
+    'interactive-math-race': {
+      objectives: ['Improve addition and subtraction speed', 'Build fact fluency', 'Practice mental math'],
+      challenges: ['Time yourself and try to beat your record', 'Create your own math race problems', 'Practice with a friend']
+    },
+    'interactive-math-puzzle': {
+      objectives: ['Solve missing number equations', 'Develop algebraic thinking', 'Practice problem-solving strategies'],
+      challenges: ['Create your own equation puzzle', 'Solve the puzzle in different ways', 'Explain your solving strategy']
+    },
+    'interactive-math-shapes': {
+      objectives: ['Identify geometric shapes', 'Classify shapes by attributes', 'Count and compare shapes'],
+      challenges: ['Find these shapes in your environment', 'Draw your own shape challenge', 'Create a shape collage']
+    },
+    'interactive-math-money': {
+      objectives: ['Count coins and bills', 'Make change', 'Solve money word problems'],
+      challenges: ['Practice with real coins', 'Create your own money problems', 'Plan a shopping trip with a budget']
+    },
+    'interactive-math-fractions': {
+      objectives: ['Compare fractions', 'Find equivalent fractions', 'Solve fraction operations'],
+      challenges: ['Use visual models to show fractions', 'Create fraction stories', 'Find fractions in everyday life']
+    },
+    'interactive-math-measurement': {
+      objectives: ['Measure length, weight, and volume', 'Convert between units', 'Solve measurement problems'],
+      challenges: ['Measure objects around you', 'Create your own measurement problems', 'Compare measurements with friends']
+    },
+    'interactive-math-counting': {
+      objectives: ['Count objects accurately', 'Recognize number patterns', 'Build number sense'],
+      challenges: ['Count objects in your room', 'Create counting patterns', 'Practice skip counting']
+    },
+    'interactive-math-tens-frames': {
+      objectives: ['Understand place value', 'Visualize numbers 1-20', 'Build number sense'],
+      challenges: ['Create your own tens frame problems', 'Use tens frames to solve addition', 'Draw tens frames for different numbers']
+    },
+    'interactive-math-multiplication': {
+      objectives: ['Practice multiplication facts', 'Understand multiplication as repeated addition', 'Solve multiplication word problems'],
+      challenges: ['Create your own multiplication problems', 'Practice with flashcards', 'Find multiplication in real life']
+    },
+    'interactive-math-division': {
+      objectives: ['Practice division facts', 'Understand division as sharing', 'Solve division word problems'],
+      challenges: ['Create your own division problems', 'Use objects to model division', 'Explain division in your own words']
+    },
+    'interactive-math-place-value': {
+      objectives: ['Understand place value concepts', 'Read and write multi-digit numbers', 'Compare numbers'],
+      challenges: ['Create numbers with specific place values', 'Find the largest and smallest numbers', 'Write numbers in expanded form']
+    },
+    'interactive-math-time': {
+      objectives: ['Tell time on analog and digital clocks', 'Understand elapsed time', 'Solve time word problems'],
+      challenges: ['Create a daily schedule', 'Practice telling time throughout the day', 'Solve time puzzles']
+    },
+    'interactive-math-algebra': {
+      objectives: ['Solve simple equations', 'Understand variables', 'Apply algebraic thinking'],
+      challenges: ['Create your own equations', 'Explain your solving process', 'Find patterns in equations']
+    },
+    'interactive-math-percentages': {
+      objectives: ['Understand percentages', 'Convert between fractions, decimals, and percents', 'Solve percentage problems'],
+      challenges: ['Find percentages in real life', 'Create percentage word problems', 'Calculate discounts and tips']
+    },
+    'interactive-math-geometry': {
+      objectives: ['Identify geometric properties', 'Calculate area and perimeter', 'Understand angles and symmetry'],
+      challenges: ['Find geometric shapes in nature', 'Create geometric art', 'Design shapes with specific properties']
+    },
+    'interactive-math-statistics': {
+      objectives: ['Read and interpret data', 'Create graphs and charts', 'Calculate mean, median, and mode'],
+      challenges: ['Collect your own data', 'Create graphs from real data', 'Analyze data from your class']
+    },
+    'interactive-math-word-problems': {
+      objectives: ['Read and understand word problems', 'Identify key information', 'Apply problem-solving strategies'],
+      challenges: ['Write your own word problems', 'Solve problems in multiple ways', 'Explain your thinking process']
+    },
+    'interactive-math-graphing': {
+      objectives: ['Create and read graphs', 'Organize data visually', 'Interpret graph information'],
+      challenges: ['Collect data and create your own graph', 'Compare different types of graphs', 'Present your data']
+    },
+    'interactive-math-rounding': {
+      objectives: ['Round numbers to nearest place value', 'Estimate using rounding', 'Apply rounding in real situations'],
+      challenges: ['Round numbers in your daily life', 'Create rounding word problems', 'Estimate large numbers']
+    },
+    'interactive-math-decimals': {
+      objectives: ['Understand decimal place value', 'Perform decimal operations', 'Apply decimals to real-world problems'],
+      challenges: ['Find decimals in prices and measurements', 'Create decimal word problems', 'Compare decimal values']
+    },
+    'interactive-math-integers': {
+      objectives: ['Understand positive and negative numbers', 'Use number lines with integers', 'Perform integer operations'],
+      challenges: ['Find integers in real life', 'Create integer problems', 'Use integers to solve problems']
+    },
+    'interactive-math-exponents': {
+      objectives: ['Understand exponents and powers', 'Apply exponent rules', 'Use scientific notation'],
+      challenges: ['Explore large numbers with exponents', 'Create exponent problems', 'Use exponents in calculations']
+    },
+    // Reading worksheets
+    'interactive-reading-adventure': {
+      objectives: ['Improve reading comprehension', 'Identify story elements', 'Make predictions'],
+      challenges: ['Write your own adventure story', 'Create a story map', 'Act out the story']
+    },
+    'interactive-reading-detective': {
+      objectives: ['Find evidence in text', 'Make inferences', 'Draw conclusions'],
+      challenges: ['Be a reading detective at home', 'Create your own mystery', 'Solve clues in books']
+    },
+    'interactive-reading-storymap': {
+      objectives: ['Identify story structure', 'Understand plot elements', 'Organize story information'],
+      challenges: ['Create a story map for your favorite book', 'Write your own story using the map', 'Compare different story structures']
+    },
+    'interactive-reading-vocab': {
+      objectives: ['Learn new vocabulary words', 'Understand word meanings', 'Use words in context'],
+      challenges: ['Use new words in sentences', 'Create a vocabulary journal', 'Find synonyms and antonyms']
+    },
+    'interactive-reading-summary': {
+      objectives: ['Identify main ideas', 'Summarize text', 'Distinguish important from unimportant details'],
+      challenges: ['Summarize your favorite book', 'Create a summary in different formats', 'Compare summaries with friends']
+    },
+    'interactive-reading-compare': {
+      objectives: ['Compare and contrast texts', 'Identify similarities and differences', 'Analyze relationships'],
+      challenges: ['Compare two of your favorite books', 'Create a Venn diagram', 'Write a comparison essay']
+    },
+    'interactive-reading-prek': {
+      objectives: ['Recognize letters and sounds', 'Build phonemic awareness', 'Develop pre-reading skills'],
+      challenges: ['Find letters in your name', 'Match sounds to objects', 'Create letter art']
+    },
+    'interactive-reading-alphabet': {
+      objectives: ['Recognize all letters', 'Match uppercase and lowercase', 'Identify beginning sounds'],
+      challenges: ['Find letters around you', 'Create an alphabet book', 'Practice letter sounds']
+    },
+    'interactive-reading-sightwords': {
+      objectives: ['Recognize common sight words', 'Read sight words in context', 'Build reading fluency'],
+      challenges: ['Create sight word flashcards', 'Find sight words in books', 'Write sentences with sight words']
+    },
+    'interactive-reading-literary-analysis': {
+      objectives: ['Analyze literary elements', 'Identify themes and symbolism', 'Compare literary works'],
+      challenges: ['Analyze your favorite book', 'Compare two stories', 'Create a literary analysis']
+    },
+    'interactive-reading-research': {
+      objectives: ['Conduct research', 'Evaluate sources', 'Synthesize information'],
+      challenges: ['Research a topic you\'re curious about', 'Create a research project', 'Present your findings']
+    },
+    'interactive-reading-fluency': {
+      objectives: ['Improve reading speed', 'Develop expression', 'Build reading confidence'],
+      challenges: ['Practice reading aloud', 'Record yourself reading', 'Read to someone else']
+    },
+    'interactive-reading-character': {
+      objectives: ['Analyze character traits', 'Understand character development', 'Make character inferences'],
+      challenges: ['Describe characters from your favorite book', 'Create your own character', 'Compare characters']
+    },
+    // Writing worksheets
+    'interactive-writing-prompts': {
+      objectives: ['Generate writing ideas', 'Develop creative thinking', 'Express ideas in writing'],
+      challenges: ['Create your own writing prompts', 'Write a story from a different perspective', 'Combine multiple prompts']
+    },
+    'interactive-writing-sentences': {
+      objectives: ['Write complete sentences', 'Use proper grammar', 'Vary sentence structure'],
+      challenges: ['Write sentences about your day', 'Create compound and complex sentences', 'Edit and improve sentences']
+    },
+    'interactive-writing-poetry': {
+      objectives: ['Understand poetic forms', 'Use figurative language', 'Express emotions through poetry'],
+      challenges: ['Write your own poem', 'Create a poetry collection', 'Perform your poem']
+    },
+    'interactive-writing-opinion': {
+      objectives: ['Form and express opinions', 'Support opinions with reasons', 'Write persuasive text'],
+      challenges: ['Write an opinion about a topic you care about', 'Debate with a friend', 'Create a persuasive poster']
+    },
+    'interactive-writing-prek': {
+      objectives: ['Develop fine motor skills', 'Practice letter formation', 'Build writing confidence'],
+      challenges: ['Write your name', 'Draw and label pictures', 'Create your own story']
+    },
+    'interactive-writing-trace': {
+      objectives: ['Practice letter formation', 'Develop handwriting skills', 'Build muscle memory'],
+      challenges: ['Trace letters in different sizes', 'Write letters without tracing', 'Create letter art']
+    },
+    'interactive-writing-lowercase-trace': {
+      objectives: ['Master lowercase letter formation', 'Develop consistent handwriting', 'Build writing fluency'],
+      challenges: ['Write lowercase letters in words', 'Practice writing your name', 'Create lowercase letter patterns']
+    },
+    'interactive-writing-narrative': {
+      objectives: ['Write engaging stories', 'Develop plot and characters', 'Use descriptive language'],
+      challenges: ['Write a story from a different perspective', 'Create a sequel to your story', 'Illustrate your narrative']
+    },
+    'interactive-writing-informative': {
+      objectives: ['Write informative texts', 'Organize information clearly', 'Use facts and details'],
+      challenges: ['Research and write about a topic', 'Create an informative poster', 'Present your information']
+    },
+    'interactive-writing-research': {
+      objectives: ['Conduct research', 'Cite sources', 'Write research papers'],
+      challenges: ['Research a topic you love', 'Create a research presentation', 'Share your findings']
+    },
+    'interactive-writing-essay': {
+      objectives: ['Write structured essays', 'Develop thesis statements', 'Support arguments with evidence'],
+      challenges: ['Write an essay on a topic you care about', 'Revise and improve your essay', 'Get feedback from others']
+    },
+    'interactive-writing-argumentative': {
+      objectives: ['Form and support arguments', 'Address counterarguments', 'Write persuasively'],
+      challenges: ['Debate a topic with a friend', 'Write a persuasive letter', 'Create an argumentative poster']
+    },
+    'interactive-writing-pictures': {
+      objectives: ['Use pictures to inspire writing', 'Describe visual details', 'Create stories from images'],
+      challenges: ['Draw your own picture and write about it', 'Create a picture story', 'Describe a favorite photo']
+    },
+    // Science worksheets
+    'interactive-science-observation': {
+      objectives: ['Make scientific observations', 'Record data', 'Develop inquiry skills'],
+      challenges: ['Observe nature around you', 'Create a science journal', 'Conduct your own experiment']
+    },
+    'interactive-science-experiment': {
+      objectives: ['Follow scientific method', 'Make predictions', 'Analyze results'],
+      challenges: ['Design your own experiment', 'Document your findings', 'Share results with others']
+    },
+    'interactive-science-life-cycles': {
+      objectives: ['Understand life cycles', 'Identify stages of development', 'Compare different organisms'],
+      challenges: ['Observe a life cycle in nature', 'Create a life cycle diagram', 'Research different life cycles']
+    },
+    'interactive-science-prek': {
+      objectives: ['Explore the natural world', 'Make observations', 'Develop curiosity'],
+      challenges: ['Observe nature around you', 'Ask questions about the world', 'Create a nature journal']
+    },
+    'interactive-science-senses': {
+      objectives: ['Identify the five senses', 'Use senses to observe', 'Understand how senses work'],
+      challenges: ['Use your senses to explore', 'Create a senses scavenger hunt', 'Describe objects using all senses']
+    },
+    'interactive-science-plants': {
+      objectives: ['Understand plant parts', 'Learn about plant growth', 'Explore plant life cycles'],
+      challenges: ['Grow your own plant', 'Observe plants in nature', 'Create a plant diagram']
+    },
+    'interactive-science-animals': {
+      objectives: ['Learn about animal characteristics', 'Understand animal habitats', 'Compare different animals'],
+      challenges: ['Research your favorite animal', 'Create an animal habitat', 'Observe animals in nature']
+    },
+    'interactive-science-space': {
+      objectives: ['Learn about planets and stars', 'Understand the solar system', 'Explore space concepts'],
+      challenges: ['Create a model of the solar system', 'Research a planet', 'Observe the night sky']
+    },
+    'interactive-science-lifecycle': {
+      objectives: ['Understand life cycles', 'Identify stages of development', 'Compare different organisms'],
+      challenges: ['Observe a life cycle in nature', 'Create a life cycle diagram', 'Research different life cycles']
+    },
+    'interactive-science-states': {
+      objectives: ['Understand states of matter', 'Identify solid, liquid, and gas', 'Explore changes in matter'],
+      challenges: ['Find examples of each state of matter', 'Conduct a matter experiment', 'Create a states of matter poster']
+    },
+    'interactive-science-weather': {
+      objectives: ['Understand weather patterns', 'Read weather data', 'Predict weather'],
+      challenges: ['Track weather for a week', 'Create a weather journal', 'Make weather predictions']
+    },
+    'interactive-science-chemistry': {
+      objectives: ['Understand basic chemistry', 'Learn about elements and compounds', 'Explore chemical reactions'],
+      challenges: ['Research a chemical element', 'Create a chemistry experiment', 'Explain a chemical reaction']
+    },
+    'interactive-science-physics': {
+      objectives: ['Understand forces and motion', 'Explore energy and matter', 'Learn physics concepts'],
+      challenges: ['Observe forces in action', 'Create a physics experiment', 'Explain physics in everyday life']
+    },
+    'interactive-science-ecology': {
+      objectives: ['Understand ecosystems', 'Learn about food chains', 'Explore environmental science'],
+      challenges: ['Observe an ecosystem', 'Create a food chain diagram', 'Research an environmental issue']
+    },
+    // SEL worksheets
+    'interactive-sel-friendship': {
+      objectives: ['Understand friendship qualities', 'Develop social skills', 'Practice empathy'],
+      challenges: ['Write about a good friend', 'Practice being a good friend', 'Create a friendship card']
+    },
+    'interactive-sel-gratitude': {
+      objectives: ['Practice gratitude', 'Recognize positive aspects of life', 'Develop mindfulness'],
+      challenges: ['Keep a gratitude journal', 'Share gratitude with others', 'Find gratitude in daily life']
+    },
+    'interactive-sel-mindfulness': {
+      objectives: ['Practice mindfulness techniques', 'Develop self-awareness', 'Manage emotions'],
+      challenges: ['Practice mindfulness daily', 'Teach someone else mindfulness', 'Create a calm space']
+    },
+    'interactive-sel-empathy': {
+      objectives: ['Understand others\' perspectives', 'Develop empathy skills', 'Practice kindness'],
+      challenges: ['Put yourself in someone else\'s shoes', 'Practice active listening', 'Perform acts of kindness']
+    },
+    'interactive-sel-conflict': {
+      objectives: ['Learn conflict resolution', 'Develop communication skills', 'Practice problem-solving'],
+      challenges: ['Role-play conflict scenarios', 'Practice "I" statements', 'Create a conflict resolution guide']
+    },
+    'interactive-sel-regulation': {
+      objectives: ['Understand emotions', 'Develop self-regulation strategies', 'Manage stress'],
+      challenges: ['Create a calm-down toolkit', 'Practice breathing exercises', 'Identify your triggers']
+    },
+    'interactive-sel-kindness': {
+      objectives: ['Practice acts of kindness', 'Understand impact of kindness', 'Develop compassion'],
+      challenges: ['Perform random acts of kindness', 'Create a kindness challenge', 'Share kindness stories']
+    },
+    'interactive-sel-growth-mindset': {
+      objectives: ['Develop growth mindset', 'Embrace challenges', 'Learn from mistakes'],
+      challenges: ['Set a growth mindset goal', 'Reflect on challenges overcome', 'Encourage others']
+    },
+    'interactive-sel-stress': {
+      objectives: ['Identify stress triggers', 'Develop coping strategies', 'Practice self-care'],
+      challenges: ['Create a stress management plan', 'Practice relaxation techniques', 'Build a support network']
+    },
+    'interactive-sel-character': {
+      objectives: ['Identify character traits', 'Develop positive character', 'Practice values'],
+      challenges: ['Reflect on your character traits', 'Set character goals', 'Recognize character in others']
+    },
+    'interactive-sel-prek': {
+      objectives: ['Recognize emotions', 'Develop social skills', 'Build self-awareness'],
+      challenges: ['Name your feelings', 'Practice sharing', 'Show kindness to others']
+    },
+    'interactive-sel-goals': {
+      objectives: ['Set meaningful goals', 'Create action plans', 'Track progress'],
+      challenges: ['Set a goal for this week', 'Break your goal into steps', 'Celebrate your achievements']
+    },
+    // Geography worksheets
+    'interactive-geography-map': {
+      objectives: ['Read maps', 'Understand map symbols', 'Use maps for navigation'],
+      challenges: ['Create your own map', 'Use a map to plan a trip', 'Find places on a world map']
+    },
+    'interactive-geography-prek': {
+      objectives: ['Explore places', 'Understand basic geography', 'Develop spatial awareness'],
+      challenges: ['Draw a map of your room', 'Find places on a map', 'Explore different places']
+    },
+    'interactive-geography-places': {
+      objectives: ['Learn about different places', 'Understand geography concepts', 'Compare locations'],
+      challenges: ['Research a place you want to visit', 'Create a travel brochure', 'Compare two places']
+    },
+    'interactive-geography-seasons': {
+      objectives: ['Understand seasons', 'Learn about weather patterns', 'Explore seasonal changes'],
+      challenges: ['Observe seasonal changes', 'Create a seasons journal', 'Compare seasons']
+    },
+    'interactive-geography-continents': {
+      objectives: ['Identify continents', 'Learn about world geography', 'Understand continent characteristics'],
+      challenges: ['Research a continent', 'Create a continent map', 'Compare different continents']
+    },
+    'interactive-geography-culture': {
+      objectives: ['Learn about different cultures', 'Understand cultural diversity', 'Appreciate differences'],
+      challenges: ['Research a culture', 'Create a cultural presentation', 'Compare cultures']
+    },
+    'interactive-geography-history': {
+      objectives: ['Understand historical events', 'Learn about timelines', 'Explore history'],
+      challenges: ['Research a historical event', 'Create a timeline', 'Write about history']
+    },
+    'interactive-geography-government': {
+      objectives: ['Understand government systems', 'Learn about citizenship', 'Explore civic concepts'],
+      challenges: ['Research your government', 'Create a government diagram', 'Learn about your rights']
+    },
+    'interactive-geography-economics': {
+      objectives: ['Understand basic economics', 'Learn about money and trade', 'Explore economic concepts'],
+      challenges: ['Create a budget', 'Research an economic concept', 'Plan a business']
+    },
+    // Grammar worksheets
+    'interactive-grammar-parts': {
+      objectives: ['Identify parts of speech', 'Understand grammar rules', 'Apply grammar in writing'],
+      challenges: ['Find parts of speech in sentences', 'Create sentences with specific parts', 'Edit writing for grammar']
+    },
+    'interactive-grammar-prek': {
+      objectives: ['Learn basic language', 'Recognize words', 'Develop language skills'],
+      challenges: ['Practice saying words', 'Match words to pictures', 'Create simple sentences']
+    },
+    'interactive-grammar-rhyming': {
+      objectives: ['Recognize rhyming words', 'Create rhymes', 'Develop phonemic awareness'],
+      challenges: ['Find rhyming words', 'Write your own rhymes', 'Create a rhyming poem']
+    },
+    'interactive-grammar-capitalization': {
+      objectives: ['Use capital letters correctly', 'Understand capitalization rules', 'Apply rules in writing'],
+      challenges: ['Edit text for capitalization', 'Create sentences with proper capitalization', 'Explain capitalization rules']
+    },
+    'interactive-grammar-plurals': {
+      objectives: ['Form plural nouns', 'Understand plural rules', 'Use plurals correctly'],
+      challenges: ['Find plural words', 'Create plural sentences', 'Practice irregular plurals']
+    },
+    'interactive-grammar-tenses': {
+      objectives: ['Understand verb tenses', 'Use tenses correctly', 'Apply tenses in writing'],
+      challenges: ['Write sentences in different tenses', 'Identify tenses in text', 'Create a tense timeline']
+    },
+    'interactive-grammar-antonyms': {
+      objectives: ['Understand opposite words', 'Identify antonyms', 'Use antonyms in context'],
+      challenges: ['Find antonyms for words', 'Create antonym pairs', 'Use antonyms in sentences']
+    },
+    'interactive-grammar-advanced': {
+      objectives: ['Master advanced grammar', 'Apply complex rules', 'Edit for grammar'],
+      challenges: ['Edit complex sentences', 'Create grammatically perfect writing', 'Teach grammar to others']
+    },
+    'interactive-grammar-vocab': {
+      objectives: ['Build vocabulary', 'Understand word meanings', 'Use words correctly'],
+      challenges: ['Learn new words daily', 'Create a vocabulary journal', 'Use new words in writing']
+    },
+    // Art worksheets
+    'interactive-art-design': {
+      objectives: ['Understand design principles', 'Create visual compositions', 'Express creativity'],
+      challenges: ['Design your own artwork', 'Create a design portfolio', 'Apply design to everyday objects']
+    },
+    'interactive-art-shapes': {
+      objectives: ['Recognize and create shapes', 'Use shapes in art', 'Develop spatial skills'],
+      challenges: ['Create art using only shapes', 'Find shapes in art', 'Design with geometric shapes']
+    },
+    'interactive-art-colorwheel': {
+      objectives: ['Understand color theory', 'Mix colors', 'Use colors effectively'],
+      challenges: ['Create your own color wheel', 'Mix new colors', 'Use colors to express emotions']
+    },
+    'interactive-art-sketch': {
+      objectives: ['Develop drawing skills', 'Practice observation', 'Create sketches'],
+      challenges: ['Sketch from observation', 'Create a sketchbook', 'Practice daily sketching']
+    },
+    'interactive-art-patterns': {
+      objectives: ['Create patterns', 'Recognize patterns', 'Use patterns in design'],
+      challenges: ['Create your own patterns', 'Find patterns in nature', 'Design with patterns']
+    },
+    'interactive-art-perspective': {
+      objectives: ['Understand perspective', 'Draw with depth', 'Create 3D effects'],
+      challenges: ['Draw objects in perspective', 'Create a perspective drawing', 'Practice depth in art']
+    },
+    'interactive-art-color-by-number': {
+      objectives: ['Follow instructions', 'Develop fine motor skills', 'Create colorful art'],
+      challenges: ['Create your own color-by-number', 'Design a color-by-number for a friend', 'Experiment with colors']
+    },
+    'interactive-art-mandala': {
+      objectives: ['Create symmetrical designs', 'Develop focus', 'Express creativity'],
+      challenges: ['Design your own mandala', 'Create mandalas with different themes', 'Use mandalas for relaxation']
+    },
+    'interactive-art-doodle': {
+      objectives: ['Express creativity freely', 'Develop drawing skills', 'Create unique designs'],
+      challenges: ['Create a doodle journal', 'Doodle daily', 'Combine doodles into art']
+    },
+    'interactive-art-seasonal': {
+      objectives: ['Create seasonal art', 'Express seasonal themes', 'Develop artistic skills'],
+      challenges: ['Create art for each season', 'Design seasonal decorations', 'Express seasonal feelings']
+    },
+    'interactive-art-comic': {
+      objectives: ['Create comic strips', 'Tell stories visually', 'Develop narrative skills'],
+      challenges: ['Create your own comic', 'Write and illustrate a story', 'Design comic characters']
+    },
+    'interactive-art-critique': {
+      objectives: ['Analyze artwork', 'Develop critical thinking', 'Express artistic opinions'],
+      challenges: ['Critique your own art', 'Analyze famous artwork', 'Create art critiques']
+    },
+    // Early Learning worksheets
+    'interactive-early-phonics': {
+      objectives: ['Learn letter sounds', 'Blend sounds', 'Develop reading readiness'],
+      challenges: ['Practice letter sounds', 'Blend sounds to make words', 'Read simple words']
+    },
+    'interactive-early-counting': {
+      objectives: ['Count objects', 'Recognize numbers', 'Build number sense'],
+      challenges: ['Count objects around you', 'Practice counting to higher numbers', 'Create counting games']
+    },
+    'interactive-early-patterns': {
+      objectives: ['Recognize patterns', 'Create patterns', 'Extend patterns'],
+      challenges: ['Find patterns everywhere', 'Create your own patterns', 'Extend patterns']
+    },
+    'interactive-early-shapes': {
+      objectives: ['Identify shapes', 'Draw shapes', 'Use shapes in activities'],
+      challenges: ['Find shapes around you', 'Create art with shapes', 'Build with shapes']
+    },
+    'interactive-early-letters': {
+      objectives: ['Recognize letters', 'Form letters', 'Build letter knowledge'],
+      challenges: ['Practice writing letters', 'Find letters in words', 'Create letter art']
+    },
+    'interactive-early-numbers': {
+      objectives: ['Recognize numbers', 'Count with numbers', 'Build number knowledge'],
+      challenges: ['Practice writing numbers', 'Count with numbers', 'Create number art']
+    },
+    'interactive-early-foundations': {
+      objectives: ['Build foundational skills', 'Develop readiness', 'Prepare for learning'],
+      challenges: ['Practice foundational skills', 'Apply skills in daily life', 'Teach skills to others']
+    },
+    'interactive-early-basics': {
+      objectives: ['Learn basic concepts', 'Develop core skills', 'Build confidence'],
+      challenges: ['Practice basic skills', 'Apply concepts', 'Create with basics']
+    },
+    // Logic worksheets
+    'interactive-logic-sequence': {
+      objectives: ['Recognize sequences', 'Complete patterns', 'Develop logical thinking'],
+      challenges: ['Create your own sequences', 'Find sequences in nature', 'Solve sequence puzzles']
+    },
+    'interactive-logic-prek': {
+      objectives: ['Develop logical thinking', 'Solve simple problems', 'Build reasoning skills'],
+      challenges: ['Solve logic puzzles', 'Create simple problems', 'Think logically']
+    },
+    'interactive-logic-matching': {
+      objectives: ['Match related items', 'Identify relationships', 'Develop classification skills'],
+      challenges: ['Create matching games', 'Find matches in real life', 'Design matching activities']
+    },
+    'interactive-logic-classification': {
+      objectives: ['Classify objects', 'Group by attributes', 'Develop categorization skills'],
+      challenges: ['Classify objects around you', 'Create classification systems', 'Explain your classifications']
+    },
+    'interactive-logic-analogies': {
+      objectives: ['Understand analogies', 'Complete analogies', 'Create analogies'],
+      challenges: ['Find analogies in daily life', 'Create your own analogies', 'Solve analogy puzzles']
+    },
+    'interactive-logic-riddles': {
+      objectives: ['Solve riddles', 'Think creatively', 'Develop problem-solving skills'],
+      challenges: ['Create your own riddles', 'Solve riddles with friends', 'Explain your thinking']
+    },
+    'interactive-logic-deduction': {
+      objectives: ['Use deductive reasoning', 'Draw conclusions', 'Solve logic problems'],
+      challenges: ['Create deduction problems', 'Solve logic puzzles', 'Explain your reasoning']
+    },
+    // Cognitive worksheets
+    'interactive-cognitive-memory': {
+      objectives: ['Improve memory skills', 'Use memory strategies', 'Develop recall'],
+      challenges: ['Practice memory techniques', 'Create memory games', 'Test your memory']
+    },
+    'interactive-cognitive-attention': {
+      objectives: ['Develop focus', 'Improve attention span', 'Practice concentration'],
+      challenges: ['Practice focused activities', 'Create attention exercises', 'Build concentration skills']
+    },
+    'interactive-cognitive-executive': {
+      objectives: ['Develop executive function', 'Plan and organize', 'Manage tasks'],
+      challenges: ['Create a plan for a project', 'Organize your workspace', 'Practice task management']
+    },
+    'interactive-cognitive-processing': {
+      objectives: ['Process information', 'Understand concepts', 'Apply knowledge'],
+      challenges: ['Explain concepts in your own words', 'Teach someone else', 'Apply knowledge to new situations']
+    },
+    'interactive-cognitive-visual': {
+      objectives: ['Develop visual processing', 'Recognize visual patterns', 'Use visual thinking'],
+      challenges: ['Create visual representations', 'Solve visual puzzles', 'Use visual learning']
+    },
+    'interactive-cognitive-flexibility': {
+      objectives: ['Think flexibly', 'Adapt to changes', 'Consider multiple perspectives'],
+      challenges: ['Try new approaches', 'Consider different solutions', 'Practice flexible thinking']
+    },
+  }
+  
+  return sections[docId] || {
+    objectives: ['Practice key skills', 'Develop understanding', 'Apply knowledge'],
+    challenges: ['Try an extension activity', 'Create your own problem', 'Teach someone else']
+  }
+}
+
 function InteractiveWorksheetSection({
   docId,
   seed,
@@ -6572,6 +7647,17 @@ function InteractiveWorksheetSection({
   const { t: tFromContext, language } = useTranslation()
   const doc = getDocMeta(docId)
   const category = doc ? categoryByDocId.get(docId) : undefined
+  
+  // Helper to format numbers based on language
+  const formatNum = (num: number | string) => formatNumber(num, language)
+  const formatRange = (start: number | string, end: number | string) => formatNumberRange(start, end, language)
+
+  // Debug: Log language value
+  React.useEffect(() => {
+    if (typeof window !== 'undefined' && process.env.NODE_ENV === 'development') {
+      console.log('[InteractiveWorksheetSection] Language:', language, 'docId:', docId)
+    }
+  }, [language, docId])
 
   // Force re-render when language changes by using language in state
   const [, forceUpdate] = React.useReducer(x => x + 1, 0)
@@ -6586,76 +7672,172 @@ function InteractiveWorksheetSection({
   const theme = getCategoryTheme(category.id)
   const cornerColors = getCornerAccentColor(category.id)
 
-  // Ensure t function works correctly - try context first since it might have better access to translations
+  // Ensure t function works correctly - prioritize direct translation with current language
   // Don't use useCallback - recreate function on every render to ensure latest language is used
-  const t = (key: string): string => {
-    try {
-      // Try context first - it might have better access to the full translation object
-      const contextResult = tFromContext(key)
-      // Accept any string result that's different from the key (means translation was found)
-      if (typeof contextResult === 'string' && contextResult !== key) {
-        return contextResult
-      }
-      
-      // If context didn't work, try getTranslation directly
-      const directResult = getTranslation(language, key)
-      if (typeof directResult === 'string' && directResult !== key) {
-        return directResult
-      }
-      
-      // If both return the key, try English as final fallback
-      if (language !== 'en') {
-        const englishResult = getTranslation('en', key)
-        if (typeof englishResult === 'string' && englishResult !== key) {
-          return englishResult
-        }
-      }
-      
-      // Final fallback: return the key (will be visible in UI for debugging)
-      // Only log once per unique key to avoid spam
-      if (typeof window !== 'undefined') {
-        const logKey = `translation-missing-${key}-${language}`
-        if (!(window as any)[logKey]) {
-          (window as any)[logKey] = true
-          console.warn(`[InteractiveBundleSections] Translation missing: key=${key}, language=${language}`, { 
-            directResult, 
-            contextResult,
-            languageValue: language,
-            keyPath: key
-          })
-        }
-      }
-      return key
-    } catch (error) {
-      console.warn('[InteractiveBundleSections] Translation error:', key, language, error)
-      // Try context as last resort
+  const t = React.useMemo(() => {
+    return (key: string): string => {
       try {
-        const result = tFromContext(key)
-        if (typeof result === 'string' && result !== key) {
-          return result
+        // For interactive translations, try direct access first
+        if (key.startsWith('interactive.')) {
+          const keys = key.split('.')
+          if (keys.length >= 2) {
+            // Try interactiveTranslations export first
+            if (interactiveTranslations && interactiveTranslations[language]) {
+              const interactiveKey = keys[1]
+              if (interactiveKey && interactiveKey in interactiveTranslations[language]) {
+                let value: any = (interactiveTranslations[language] as any)[interactiveKey]
+                // Navigate through remaining keys
+                for (let j = 2; j < keys.length; j++) {
+                  if (value === null || value === undefined) break
+                  const nextKey = keys[j]
+                  if (value && typeof value === 'object' && nextKey in value) {
+                    value = value[nextKey]
+                  } else {
+                    if (typeof window !== 'undefined') {
+                      console.warn(`[InteractiveBundleSections] Key ${nextKey} not found in value`, {
+                        key,
+                        nextKey,
+                        value,
+                        valueKeys: value && typeof value === 'object' ? Object.keys(value) : 'N/A'
+                      })
+                    }
+                    value = undefined
+                    break
+                  }
+                }
+                if (value !== null && value !== undefined && typeof value === 'string') {
+                  return value
+                }
+              }
+            }
+            // Fallback: try translations[language].interactive
+            if (translations[language] && translations[language].interactive) {
+              const interactiveKey = keys[1]
+              if (interactiveKey && interactiveKey in translations[language].interactive) {
+                let value: any = (translations[language].interactive as any)[interactiveKey]
+                // Navigate through remaining keys
+                for (let j = 2; j < keys.length; j++) {
+                  if (value === null || value === undefined) break
+                  const nextKey = keys[j]
+                  if (value && typeof value === 'object' && nextKey in value) {
+                    value = value[nextKey]
+                  } else {
+                    if (typeof window !== 'undefined') {
+                      console.warn(`[InteractiveBundleSections] Key ${nextKey} not found in value`, {
+                        key,
+                        nextKey,
+                        value,
+                        valueKeys: value && typeof value === 'object' ? Object.keys(value) : 'N/A'
+                      })
+                    }
+                    value = undefined
+                    break
+                  }
+                }
+                if (value !== null && value !== undefined && typeof value === 'string') {
+                  return value
+                }
+              }
+            }
+          }
         }
-      } catch {}
-      // Try English fallback
-      if (language !== 'en') {
-        try {
+        
+        // Priority 1: Use getTranslation with current language (most reliable)
+        const directResult = getTranslation(language, key)
+        // Debug: Log translation attempts for important keys
+        if (typeof window !== 'undefined' && process.env.NODE_ENV === 'development' && 
+            (key.includes('countObjectsAndWriteNumber') || key.includes('countThe') || key.includes('numberLabel'))) {
+          console.log(`[InteractiveBundleSections] Translation attempt: key=${key}, language=${language}, result=${directResult}, isKey=${directResult === key}`)
+        }
+        if (typeof directResult === 'string' && directResult !== key) {
+          return directResult
+        }
+        
+        // Priority 2: Try context as fallback
+        const contextResult = tFromContext(key)
+        if (typeof contextResult === 'string' && contextResult !== key) {
+          return contextResult
+        }
+        
+        // Priority 3: If both return the key, try English as final fallback (but only if not Arabic)
+        // For Arabic, we want to see the key if translation is missing rather than falling back to English
+        if (language === 'ar') {
+          // For Arabic, return the key so we can see what's missing
+          if (typeof window !== 'undefined') {
+            const logKey = `translation-missing-${key}-${language}`
+            if (!(window as any)[logKey]) {
+              (window as any)[logKey] = true
+              console.warn(`[InteractiveBundleSections] Translation missing for Arabic: key=${key}, language=${language}`, { 
+                directResult, 
+                contextResult,
+                languageValue: language,
+                keyPath: key,
+                hasInteractiveTranslations: !!interactiveTranslations?.[language],
+                hasTranslationsInteractive: !!translations[language]?.interactive,
+                interactiveKeys: interactiveTranslations?.[language] ? Object.keys(interactiveTranslations[language]).slice(0, 10) : 'N/A'
+              })
+            }
+          }
+          return key
+        }
+        
+        // For other languages, try English fallback
+        if (language !== 'en') {
           const englishResult = getTranslation('en', key)
           if (typeof englishResult === 'string' && englishResult !== key) {
             return englishResult
           }
+        }
+        
+        // Final fallback: return the key (will be visible in UI for debugging)
+        return key
+      } catch (error) {
+        console.warn('[InteractiveBundleSections] Translation error:', key, language, error)
+        // Try direct translation first
+        try {
+          const result = getTranslation(language, key)
+          if (typeof result === 'string' && result !== key) {
+            return result
+          }
         } catch {}
+        // Try context as fallback
+        try {
+          const result = tFromContext(key)
+          if (typeof result === 'string' && result !== key) {
+            return result
+          }
+        } catch {}
+        // Try English fallback
+        if (language !== 'en') {
+          try {
+            const englishResult = getTranslation('en', key)
+            if (typeof englishResult === 'string' && englishResult !== key) {
+              return englishResult
+            }
+          } catch {}
+        }
+        return key
       }
-      return key
     }
-  }
+  }, [language, tFromContext])
 
   if (!renderer) {
+    const sections = getWorksheetSections(docId)
     return (
       <section className={`mb-10 break-inside-avoid rounded-xl border-2 ${theme.border} ${theme.background} p-5 print:border-0 print:p-0 print:bg-white shadow-lg`}>
+        <div className="relative z-10">
+          <WorksheetHeader />
+          {sections.objectives.length > 0 && (
+            <div className="mb-4">
+              <LearningObjectives objectives={sections.objectives} />
+            </div>
+          )}
+        </div>
         <h2 className={`text-lg font-semibold ${theme.text}`}>{category.icon} {t(`interactive.${doc.id}.title`) || doc.title}</h2>
-        <p className="text-sm text-slate-600">Coming soon: printable activity for this interactive worksheet.</p>
+        <p className="text-sm text-slate-600">{t('common.comingSoon')}</p>
         {showAnswers && (
           <div className="mt-4 rounded-xl border border-emerald-200 bg-emerald-50 p-4 text-sm text-emerald-900">
-            Answers will be added once this activity is available.
+            {t('common.answersWillBeAdded')}
           </div>
         )}
       </section>
@@ -6667,6 +7849,11 @@ function InteractiveWorksheetSection({
       {/* Decorative corner accent */}
       <div className="absolute top-0 right-0 w-32 h-32 bg-gradient-to-br rounded-bl-full pointer-events-none" style={{ backgroundColor: cornerColors.topRight }} />
       <div className="absolute bottom-0 left-0 w-24 h-24 bg-gradient-to-tr rounded-tr-full pointer-events-none" style={{ backgroundColor: cornerColors.bottomLeft }} />
+      
+      {/* Worksheet header for print/PDF */}
+      <div className="relative z-10">
+        <WorksheetHeader />
+      </div>
       
       <header className="mb-4 flex items-start justify-between gap-3 relative z-10">
         <div>
@@ -6687,9 +7874,29 @@ function InteractiveWorksheetSection({
         </div>
       </header>
       
+      {/* Learning Objectives */}
+      {(() => {
+        const sections = getWorksheetSections(docId)
+        return sections.objectives.length > 0 ? (
+          <div className="relative z-10 mb-4">
+            <LearningObjectives objectives={sections.objectives} />
+          </div>
+        ) : null
+      })()}
+      
       <div className="relative z-10">
-        {renderer({ doc, category, seed, variant, t })}
+        {renderer({ doc, category, seed, variant, t, language, formatNum, formatRange })}
       </div>
+      
+      {/* Challenge Section */}
+      {(() => {
+        const sections = getWorksheetSections(docId)
+        return sections.challenges.length > 0 ? (
+          <div className="relative z-10">
+            <ChallengeSection challenges={sections.challenges} />
+          </div>
+        ) : null
+      })()}
 
       {showAnswers && answerRenderer && (
         <div className={`mt-6 rounded-xl border-2 ${theme.border} bg-white p-5 shadow-md relative z-10`}>
@@ -6697,7 +7904,7 @@ function InteractiveWorksheetSection({
             <span>✓</span>
             {t('worksheets.answerKeyAndNotes')}
           </h3>
-          {answerRenderer({ doc, category, seed, variant, t })}
+          {answerRenderer({ doc, category, seed, variant, t, language, formatNum, formatRange })}
         </div>
       )}
     </section>
