@@ -93,16 +93,15 @@ const WorksheetThumbnailCard = React.memo(function WorksheetThumbnailCard({ titl
           >
             ⬇️ {t('pages.printables.download')}
           </a>
-          <button
-            onClick={() => {
-              window.open(finalHref, '_blank')
-              setTimeout(() => window.print(), 500)
-            }}
+          <a
+            href={finalHref + (finalHref.includes('?') ? '&autoprint=1' : '?autoprint=1')}
+            target="_blank"
+            rel="noopener noreferrer"
             className="text-xs font-medium text-purple-600 hover:text-purple-700 px-3 py-1 rounded-full border border-purple-200 hover:border-purple-300 transition-colors"
             aria-label={`Print ${title}`}
           >
             🖨️ Print
-          </button>
+          </a>
         </div>
       </div>
     </article>
