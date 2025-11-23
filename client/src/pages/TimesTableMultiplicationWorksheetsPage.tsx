@@ -355,7 +355,7 @@ export default function TimesTableMultiplicationWorksheetsPage() {
                   {/* Action Buttons */}
                   <div className="mt-6 flex items-center gap-3">
                     <a
-                      href={previewItem.href}
+                      href={previewItem.href + (previewItem.href.includes('?') ? '&download=1' : '?download=1')}
                       target="_blank"
                       rel="noopener noreferrer"
                       className="inline-flex items-center gap-2 px-4 py-2 rounded-lg border border-purple-200 bg-purple-600 hover:bg-purple-700 text-white text-sm font-medium shadow-sm"
@@ -365,7 +365,7 @@ export default function TimesTableMultiplicationWorksheetsPage() {
                     <button
                       onClick={() => {
                         window.open(previewItem.href, '_blank')
-                        window.print()
+                        setTimeout(() => window.print(), 500)
                       }}
                       className="inline-flex items-center gap-2 px-4 py-2 rounded-lg border border-slate-300 bg-white hover:bg-slate-50 text-slate-700 text-sm font-medium shadow-sm"
                     >
@@ -451,7 +451,7 @@ const WorksheetThumbnailCard = React.memo(function WorksheetThumbnailCard({ titl
         </div>
         <div className="flex items-center gap-2">
           <a
-            href={href}
+            href={href + (href.includes('?') ? '&download=1' : '?download=1')}
             target="_blank"
             rel="noopener noreferrer"
             className="text-xs font-medium text-purple-600 hover:text-purple-700 px-3 py-1 rounded-full border border-purple-200 hover:border-purple-300 transition-colors"
