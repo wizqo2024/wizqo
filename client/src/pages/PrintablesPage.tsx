@@ -1872,13 +1872,13 @@ export function PrintablesPage() {
           }
           
           // Add ALL print styles to match print layout exactly (for PDF download)
-          // These styles ensure consistency across all browsers and future worksheets
+          // These styles are EXACT copy of @media print from index.css to ensure perfect match
           const style = clonedDoc.createElement('style')
           style.textContent = `
-            /* Default: no page margins for maximum content space (consistent across all browsers) */
-            @page { 
-              margin: 0;
+            /* Page setup - no margins for maximum content space (consistent across all browsers) */
+            @page {
               size: A4;
+              margin: 0;
             }
             /* CRITICAL: Ensure all pages have white background - fix black pages */
             html, body, #root, [data-worksheet-content="true"] {
@@ -1915,7 +1915,90 @@ export function PrintablesPage() {
               background-color: white !important;
               background: white !important;
             }
-            /* Fix blank first page - remove min-height and ensure content starts at top */
+            /* Fix blank first page - remove margins and padding */
+            body, html {
+              margin: 0 !important;
+              padding: 0 !important;
+            }
+            /* Remove top margin/padding from first page content - ensure content starts at top */
+            [data-worksheet-content="true"] > *:first-child,
+            [data-worksheet-content="true"] > section:first-child,
+            .worksheet-section:first-child {
+              margin-top: 0.25rem !important;
+              padding-top: 0.25rem !important;
+              background-color: white !important;
+            }
+            /* Compact header on first page - keep header and content together */
+            .worksheet-section:first-child .worksheet-header,
+            .worksheet-section:first-child > div:first-child {
+              margin-top: 0 !important;
+              padding-top: 0 !important;
+              page-break-after: avoid !important;
+              margin-bottom: 0.25rem !important;
+            }
+            /* Ensure first section content flows immediately after header */
+            .worksheet-section:first-child > div:not(.worksheet-header) {
+              margin-top: 0 !important;
+              padding-top: 0 !important;
+            }
+            /* CRITICAL: Ensure content inside first section flows immediately after header */
+            .worksheet-section:first-child .worksheet-header + *,
+            section:first-child .worksheet-header + * {
+              margin-top: 0.25rem !important;
+              padding-top: 0 !important;
+            }
+            /* Ensure LearningObjectives and other content appear on first page */
+            .worksheet-section:first-child .learning-objectives,
+            section:first-child .learning-objectives {
+              margin-top: 0.25rem !important;
+              margin-bottom: 0.5rem !important;
+              padding: 0.5rem !important;
+            }
+            /* Ensure title and description appear on first page */
+            .worksheet-section:first-child h2,
+            .worksheet-section:first-child h3,
+            section:first-child h2,
+            section:first-child h3 {
+              margin-top: 0.25rem !important;
+              margin-bottom: 0.25rem !important;
+            }
+            .worksheet-section:first-child p,
+            section:first-child p {
+              margin-top: 0.25rem !important;
+              margin-bottom: 0.5rem !important;
+            }
+            /* CRITICAL: Ensure worksheet problems/content appear on first page immediately after learning objectives */
+            .worksheet-section:first-child .learning-objectives + *,
+            section:first-child .learning-objectives + *,
+            .worksheet-section:first-child h2 + *,
+            .worksheet-section:first-child h3 + *,
+            section:first-child h2 + *,
+            section:first-child h3 + * {
+              margin-top: 0.5rem !important;
+              padding-top: 0 !important;
+              page-break-before: auto !important;
+            }
+            /* Ensure all content inside first section flows on first page */
+            .worksheet-section:first-child > div > *:not(.worksheet-header):not(.learning-objectives),
+            section:first-child > div > *:not(.worksheet-header):not(.learning-objectives) {
+              page-break-before: auto !important;
+              break-before: auto !important;
+            }
+            /* Remove any page breaks from first section content */
+            .worksheet-section:first-child [style*="page-break-before"],
+            section:first-child [style*="page-break-before"] {
+              page-break-before: auto !important;
+            }
+            /* Prevent root from forcing page break */
+            #root {
+              page-break-before: auto !important;
+              background-color: white !important;
+            }
+            /* Prevent first element from being pushed off-page */
+            #root > *:first-child {
+              page-break-before: avoid !important;
+            }
+            /* Fix blank first page - remove min-height constraints */
             [data-worksheet-content="true"],
             .min-h-screen {
               min-height: auto !important;
@@ -1924,14 +2007,267 @@ export function PrintablesPage() {
               padding: 0 !important;
               background-color: white !important;
             }
+            /* CRITICAL: Force sections to be block-level and prevent breaking */
+            section.worksheet-section,
+            section[class*="worksheet-section"],
+            .worksheet-section {
+              display: block !important;
+              break-inside: avoid !important;
+              page-break-inside: avoid !important;
+              -webkit-region-break-inside: avoid !important;
+              -webkit-column-break-inside: avoid !important;
+              orphans: 999 !important;
+              widows: 999 !important;
+              overflow: visible !important;
+            }
+            /* Prevent page breaks inside worksheet sections - STRONG TARGETED approach */
+            section,
+            section.worksheet-section,
+            section[class*="worksheet-section"],
+            .worksheet-section,
+            [class*="worksheet-section"],
+            .break-inside-avoid,
+            section.worksheet-section > div,
+            section[class*="worksheet-section"] > div,
+            .worksheet-section > div,
+            .worked-example,
+            .worksheet-content,
+            [data-worksheet-content="true"] > section,
+            [data-worksheet-content="true"] > div[class*="section"],
+            div[class*="WorksheetSectionWrapper"],
+            div[class*="worksheet-wrapper"],
+            .learning-objectives,
+            .parent-teacher-tips,
+            .worksheet-header,
+            .problem-set,
+            .question-group,
+            .math-problem,
+            table,
+            figure {
+              break-inside: avoid !important;
+              page-break-inside: avoid !important;
+              -webkit-region-break-inside: avoid !important;
+              -webkit-column-break-inside: avoid !important;
+              orphans: 999 !important;
+              widows: 999 !important;
+            }
+            /* Prevent breaks in direct children of sections */
+            section.worksheet-section > div,
+            section[class*="worksheet-section"] > div,
+            .worksheet-section > div {
+              page-break-inside: avoid !important;
+              break-inside: avoid !important;
+            }
+            /* Keep worked examples together - header and content */
+            .worked-example,
+            .worked-example > * {
+              page-break-inside: avoid !important;
+              break-inside: avoid !important;
+            }
+            /* Keep example headers with their content */
+            .worked-example > div:first-child {
+              page-break-after: avoid !important;
+              break-after: avoid !important;
+            }
+            /* Prevent images, SVGs, and visual elements from breaking */
+            img, svg, picture, canvas, video {
+              page-break-inside: avoid !important;
+              break-inside: avoid !important;
+              page-break-after: avoid !important;
+              break-after: avoid !important;
+              max-height: 100vh !important;
+            }
+            /* Keep images with their captions/descriptions */
+            img + *, svg + *, picture + * {
+              page-break-before: avoid !important;
+              break-before: avoid !important;
+            }
+            /* Prevent cards and blocks from breaking */
+            [class*="card"],
+            [class*="Card"],
+            [class*="block"],
+            [class*="Block"],
+            .bg-white,
+            .rounded-lg,
+            .rounded-xl,
+            .border-2,
+            .border {
+              page-break-inside: avoid !important;
+              break-inside: avoid !important;
+            }
+            /* Keep math problems together */
+            .math-problem,
+            .math-problem + * {
+              page-break-inside: avoid !important;
+              break-inside: avoid !important;
+              page-break-before: avoid !important;
+              break-before: avoid !important;
+            }
+            /* Keep example blocks together */
+            [class*="example"],
+            [class*="Example"] {
+              page-break-inside: avoid !important;
+              break-inside: avoid !important;
+            }
+            /* Keep visual content blocks together */
+            .bg-white.p-4,
+            .bg-white.rounded-lg,
+            div[class*="bg-"].p-4 {
+              page-break-inside: avoid !important;
+              break-inside: avoid !important;
+            }
+            /* Keep headings with following content - STRONG rules (consolidated) */
+            h1, h2, h3, h4, h5, h6 {
+              page-break-after: avoid !important;
+              break-after: avoid !important;
+              page-break-inside: avoid !important;
+              break-inside: avoid !important;
+            }
+            /* Keep content immediately after headings */
+            h1 + *, h2 + *, h3 + *, h4 + *, h5 + *, h6 + * {
+              page-break-before: avoid !important;
+              break-before: avoid !important;
+            }
+            /* Keep paragraphs and divs after headings together */
+            h1 + p, h2 + p, h3 + p, h4 + p, h5 + p, h6 + p,
+            h1 + div, h2 + div, h3 + div, h4 + div, h5 + div, h6 + div {
+              page-break-before: avoid !important;
+              break-before: avoid !important;
+              page-break-inside: avoid !important;
+              break-inside: avoid !important;
+            }
+            /* Allow page breaks between sections when needed - but keep sections intact */
+            section.worksheet-section + section.worksheet-section,
+            section[class*="worksheet-section"] + section[class*="worksheet-section"],
+            .worksheet-section + .worksheet-section,
+            [class*="worksheet-section"] + [class*="worksheet-section"] {
+              page-break-before: auto;
+              break-before: auto;
+              page-break-after: auto;
+              break-after: auto;
+            }
+            /* Ensure sections can start on new page if they don't fit */
+            section.worksheet-section,
+            .worksheet-section {
+              page-break-before: auto;
+              break-before: auto;
+            }
+            /* Prevent breaks inside table rows and cells */
+            tr {
+              break-inside: avoid !important;
+              page-break-inside: avoid !important;
+            }
+            /* Fix blank first page - ensure first element starts at top with no forced breaks */
+            [data-worksheet-content="true"] > *:first-child,
+            [data-worksheet-content="true"] > section:first-child {
+              page-break-before: auto !important;
+              margin-top: 0 !important;
+              padding-top: 0 !important;
+            }
+            /* Remove all top margins from first section */
+            section.worksheet-section:first-child,
+            .worksheet-section:first-child {
+              margin-top: 0 !important;
+              padding-top: 0 !important;
+            }
+            /* Better spacing for print - readable and clean (matching Interactive Worksheets Generator) */
+            section { 
+              margin-bottom: 1.5rem !important; 
+              margin-top: 0 !important;
+              page-break-inside: avoid !important;
+              break-inside: avoid !important;
+              padding-left: 0.5rem !important;
+              padding-right: 0.5rem !important;
+              padding-top: 0.5rem !important;
+              padding-bottom: 0.5rem !important;
+              background-color: white !important;
+              background: white !important;
+            }
+            /* First section should have NO top padding/margin to fit on first page - matching Interactive Worksheets Generator */
+            section:first-of-type {
+              margin-top: 0 !important;
+              padding-top: 0 !important;
+              background-color: white !important;
+            }
+            /* Add spacing between worksheet sections */
+            .worksheet-section {
+              margin-bottom: 1.5rem !important;
+              padding: 0.5rem 0.5rem !important;
+              background-color: white !important;
+            }
+            /* First worksheet section should have NO top padding/margin - content starts immediately after header */
+            .worksheet-section:first-of-type {
+              padding-top: 0 !important;
+              margin-top: 0 !important;
+              background-color: white !important;
+            }
+            /* Add spacing between problems/equations */
+            .worksheet-section > div > * {
+              margin-bottom: 0.75rem !important;
+            }
+            .worksheet-section > div > *:last-child {
+              margin-bottom: 0 !important;
+            }
+            /* Add spacing between math problems */
+            [class*="math-problem"],
+            [class*="problem"],
+            .equation,
+            .puzzle {
+              margin-bottom: 1rem !important;
+              padding: 0.5rem 0 !important;
+            }
+            /* Make header compact */
+            .worksheet-header {
+              margin-bottom: 0.5rem !important;
+              padding-bottom: 0.25rem !important;
+              line-height: 1.2 !important;
+            }
+            /* First section header should be more compact */
+            .worksheet-section:first-of-type .worksheet-header {
+              margin-bottom: 0.25rem !important;
+              padding-bottom: 0.125rem !important;
+            }
+            /* Make title/description more compact in first section */
+            .worksheet-section:first-of-type h2,
+            .worksheet-section:first-of-type h3 {
+              margin-top: 0.25rem !important;
+              margin-bottom: 0.375rem !important;
+            }
+            .worksheet-section:first-of-type p {
+              margin-top: 0.25rem !important;
+              margin-bottom: 0.375rem !important;
+            }
+            /* Compact learning objectives */
+            .learning-objectives {
+              margin-bottom: 0.75rem !important;
+              padding: 0.5rem !important;
+            }
+            /* Prevent text merging and improve readability - comfortable spacing */
+            p { 
+              line-height: 1.5 !important; 
+              margin: 0.5rem 0 !important;
+            }
+            div, span { 
+              line-height: 1.4 !important; 
+            }
+            h1, h2, h3 { 
+              page-break-after: avoid !important; 
+              margin-bottom: 0.75rem !important;
+              margin-top: 1rem !important;
+              line-height: 1.3 !important;
+            }
+            /* First section headings should be more compact */
+            .worksheet-section:first-of-type h1,
+            .worksheet-section:first-of-type h2,
+            .worksheet-section:first-of-type h3 {
+              margin-top: 0.25rem !important;
+              margin-bottom: 0.375rem !important;
+            }
             /* Add padding to content container for proper spacing since @page has no margin */
-            [data-worksheet-content="true"] > div:first-child,
-            .max-w-4xl.mx-auto {
+            [data-worksheet-content="true"] > div:first-child {
               margin: 0.5in !important;
               margin-top: 0 !important;
               padding: 0 !important;
-              width: 794px !important;
-              max-width: 794px !important;
               page-break-before: auto !important;
               overflow: visible !important;
               background-color: white !important;
@@ -1942,82 +2278,32 @@ export function PrintablesPage() {
               background-color: white !important;
               background: white !important;
             }
-            /* Force content to start - override any browser defaults */
-            [data-worksheet-content="true"] {
-              page-break-before: auto !important;
-              page-break-after: auto !important;
-            }
-            /* Fix blank first page - remove padding/margin from first child and prevent page break */
-            [data-worksheet-content="true"] > *:first-child {
-              page-break-before: auto !important;
-              margin-top: 0 !important;
-              padding-top: 0 !important;
-            }
-            /* Ensure first visible element starts immediately - target first section or customization header */
-            [data-worksheet-content="true"] > div:first-child > *:first-child,
-            [data-worksheet-content="true"] > div:first-child > .print-customization-header:first-child {
-              margin-top: 0 !important;
-              padding-top: 0 !important;
-              page-break-before: auto !important;
-            }
-            /* CRITICAL: Ensure first worksheet section starts immediately after header on first page - matching Interactive Worksheets Generator */
-            [data-worksheet-content="true"] section:first-of-type,
-            [data-worksheet-content="true"] .worksheet-section:first-of-type,
-            [data-worksheet-content="true"] section.break-inside-avoid:first-of-type {
-              margin-top: 0 !important;
-              padding-top: 0 !important;
-              page-break-before: auto !important;
-              break-before: auto !important;
-              background-color: white !important;
+            /* Preserve worksheet section borders and styling for readability */
+            section[class*="break-inside-avoid"],
+            section.worksheet-section,
+            .worksheet-section {
+              border: 1px solid #e2e8f0 !important;
+              border-radius: 4px !important;
               background: white !important;
+              background-color: white !important;
             }
-            /* Ensure worksheet header and first section stay together on first page - matching Interactive Worksheets Generator */
-            .worksheet-section:first-of-type .worksheet-header,
-            section:first-of-type .worksheet-header {
-              margin-bottom: 1rem !important;
-              padding-bottom: 0 !important;
-              page-break-after: avoid !important;
-              margin-top: 0 !important;
-              padding-top: 0 !important;
+            /* Preserve content borders within worksheets */
+            section[class*="break-inside-avoid"] div[class*="border"],
+            section[class*="break-inside-avoid"] div[class*="rounded"] {
+              border: 1px solid #cbd5e1 !important;
+              border-radius: 4px !important;
             }
-            /* First section content should start immediately after header */
-            .worksheet-section:first-of-type > div:not(.worksheet-header),
-            section:first-of-type > div:not(.worksheet-header) {
-              margin-top: 0 !important;
-              padding-top: 0 !important;
+            /* Hide URLs in print */
+            a[href]::after { content: none !important; }
+            a { text-decoration: none !important; }
+            /* Remove backgrounds and borders in print for cleaner look - but preserve worksheet content */
+            * {
+              box-shadow: none !important;
             }
-            /* CRITICAL: Ensure content inside first section flows immediately after header - matching Interactive Worksheets Generator spacing */
-            .worksheet-section:first-of-type .worksheet-header + *,
-            section:first-of-type .worksheet-header + * {
-              margin-top: 0 !important;
-              padding-top: 0 !important;
-            }
-            /* Ensure the relative z-10 div inside first section has no top margin */
-            .worksheet-section:first-of-type > div.relative,
-            section:first-of-type > div.relative {
-              margin-top: 0 !important;
-              padding-top: 0 !important;
-            }
-            /* Ensure LearningObjectives and other content appear on first page - matching Interactive Worksheets Generator */
-            .worksheet-section:first-of-type .learning-objectives,
-            section:first-of-type .learning-objectives {
-              margin-top: 0 !important;
-              margin-bottom: 1rem !important;
-              padding: 0.75rem !important;
-              page-break-after: avoid !important;
-            }
-            /* Ensure title and description appear on first page - matching Interactive Worksheets Generator */
-            .worksheet-section:first-of-type h2,
-            .worksheet-section:first-of-type h3,
-            section:first-of-type h2,
-            section:first-of-type h3 {
-              margin-top: 0 !important;
-              margin-bottom: 0.5rem !important;
-            }
-            .worksheet-section:first-of-type p,
-            section:first-of-type p {
-              margin-top: 0.25rem !important;
-              margin-bottom: 1rem !important;
+            /* Remove borders from navigation and UI elements, but keep worksheet content borders */
+            header, .print\\:hidden, nav, button {
+              border: none !important;
+              border-radius: 0 !important;
             }
             /* CRITICAL: Ensure worksheet problems/content appear on first page immediately after learning objectives */
             .worksheet-section:first-of-type .learning-objectives + *,
@@ -2990,9 +3276,14 @@ export function PrintablesPage() {
           }
           
           // Apply ALL print styles as regular CSS (html2canvas doesn't respect @media print)
-          // Copy exact styles from @media print block to ensure identical layout
+          // EXACT copy of @media print from index.css to ensure perfect match with print preview
           const style = clonedDoc.createElement('style')
           style.textContent = `
+            /* Page setup - no margins for maximum content space (consistent across all browsers) */
+            @page {
+              size: A4;
+              margin: 0;
+            }
             /* CRITICAL: Ensure all pages have white background - fix black pages */
             html, body, #root, [data-worksheet-content="true"] {
               background-color: white !important;
@@ -3005,7 +3296,7 @@ export function PrintablesPage() {
               font-size: 11pt !important;
               line-height: 1.3 !important;
             }
-            /* Override dark backgrounds that cause black pages */
+            /* Override dark backgrounds that cause black pages - target common dark classes */
             [class*="bg-black"],
             [class*="bg-slate-900"],
             [class*="bg-gray-900"],
@@ -3028,7 +3319,90 @@ export function PrintablesPage() {
               background-color: white !important;
               background: white !important;
             }
-            /* Fix blank first page - remove min-height and ensure content starts at top */
+            /* Fix blank first page - remove margins and padding */
+            body, html {
+              margin: 0 !important;
+              padding: 0 !important;
+            }
+            /* Remove top margin/padding from first page content - ensure content starts at top */
+            [data-worksheet-content="true"] > *:first-child,
+            [data-worksheet-content="true"] > section:first-child,
+            .worksheet-section:first-child {
+              margin-top: 0.25rem !important;
+              padding-top: 0.25rem !important;
+              background-color: white !important;
+            }
+            /* Compact header on first page - keep header and content together */
+            .worksheet-section:first-child .worksheet-header,
+            .worksheet-section:first-child > div:first-child {
+              margin-top: 0 !important;
+              padding-top: 0 !important;
+              page-break-after: avoid !important;
+              margin-bottom: 0.25rem !important;
+            }
+            /* Ensure first section content flows immediately after header */
+            .worksheet-section:first-child > div:not(.worksheet-header) {
+              margin-top: 0 !important;
+              padding-top: 0 !important;
+            }
+            /* CRITICAL: Ensure content inside first section flows immediately after header */
+            .worksheet-section:first-child .worksheet-header + *,
+            section:first-child .worksheet-header + * {
+              margin-top: 0.25rem !important;
+              padding-top: 0 !important;
+            }
+            /* Ensure LearningObjectives and other content appear on first page */
+            .worksheet-section:first-child .learning-objectives,
+            section:first-child .learning-objectives {
+              margin-top: 0.25rem !important;
+              margin-bottom: 0.5rem !important;
+              padding: 0.5rem !important;
+            }
+            /* Ensure title and description appear on first page */
+            .worksheet-section:first-child h2,
+            .worksheet-section:first-child h3,
+            section:first-child h2,
+            section:first-child h3 {
+              margin-top: 0.25rem !important;
+              margin-bottom: 0.25rem !important;
+            }
+            .worksheet-section:first-child p,
+            section:first-child p {
+              margin-top: 0.25rem !important;
+              margin-bottom: 0.5rem !important;
+            }
+            /* CRITICAL: Ensure worksheet problems/content appear on first page immediately after learning objectives */
+            .worksheet-section:first-child .learning-objectives + *,
+            section:first-child .learning-objectives + *,
+            .worksheet-section:first-child h2 + *,
+            .worksheet-section:first-child h3 + *,
+            section:first-child h2 + *,
+            section:first-child h3 + * {
+              margin-top: 0.5rem !important;
+              padding-top: 0 !important;
+              page-break-before: auto !important;
+            }
+            /* Ensure all content inside first section flows on first page */
+            .worksheet-section:first-child > div > *:not(.worksheet-header):not(.learning-objectives),
+            section:first-child > div > *:not(.worksheet-header):not(.learning-objectives) {
+              page-break-before: auto !important;
+              break-before: auto !important;
+            }
+            /* Remove any page breaks from first section content */
+            .worksheet-section:first-child [style*="page-break-before"],
+            section:first-child [style*="page-break-before"] {
+              page-break-before: auto !important;
+            }
+            /* Prevent root from forcing page break */
+            #root {
+              page-break-before: auto !important;
+              background-color: white !important;
+            }
+            /* Prevent first element from being pushed off-page */
+            #root > *:first-child {
+              page-break-before: avoid !important;
+            }
+            /* Fix blank first page - remove min-height constraints */
             [data-worksheet-content="true"],
             .min-h-screen {
               min-height: auto !important;
@@ -3037,14 +3411,268 @@ export function PrintablesPage() {
               padding: 0 !important;
               background-color: white !important;
             }
+            /* CRITICAL: Force sections to be block-level and prevent breaking */
+            section.worksheet-section,
+            section[class*="worksheet-section"],
+            .worksheet-section {
+              display: block !important;
+              break-inside: avoid !important;
+              page-break-inside: avoid !important;
+              -webkit-region-break-inside: avoid !important;
+              -webkit-column-break-inside: avoid !important;
+              orphans: 999 !important;
+              widows: 999 !important;
+              overflow: visible !important;
+            }
+            /* Prevent page breaks inside worksheet sections - STRONG TARGETED approach */
+            section,
+            section.worksheet-section,
+            section[class*="worksheet-section"],
+            .worksheet-section,
+            [class*="worksheet-section"],
+            .break-inside-avoid,
+            section.worksheet-section > div,
+            section[class*="worksheet-section"] > div,
+            .worksheet-section > div,
+            .worked-example,
+            .worksheet-content,
+            [data-worksheet-content="true"] > section,
+            [data-worksheet-content="true"] > div[class*="section"],
+            div[class*="WorksheetSectionWrapper"],
+            div[class*="worksheet-wrapper"],
+            .learning-objectives,
+            .parent-teacher-tips,
+            .worksheet-header,
+            .problem-set,
+            .question-group,
+            .math-problem,
+            table,
+            figure {
+              break-inside: avoid !important;
+              page-break-inside: avoid !important;
+              -webkit-region-break-inside: avoid !important;
+              -webkit-column-break-inside: avoid !important;
+              orphans: 999 !important;
+              widows: 999 !important;
+            }
+            /* Prevent breaks in direct children of sections */
+            section.worksheet-section > div,
+            section[class*="worksheet-section"] > div,
+            .worksheet-section > div {
+              page-break-inside: avoid !important;
+              break-inside: avoid !important;
+            }
+            /* Keep worked examples together - header and content */
+            .worked-example,
+            .worked-example > * {
+              page-break-inside: avoid !important;
+              break-inside: avoid !important;
+            }
+            /* Keep example headers with their content */
+            .worked-example > div:first-child {
+              page-break-after: avoid !important;
+              break-after: avoid !important;
+            }
+            /* Prevent images, SVGs, and visual elements from breaking */
+            img, svg, picture, canvas, video {
+              page-break-inside: avoid !important;
+              break-inside: avoid !important;
+              page-break-after: avoid !important;
+              break-after: avoid !important;
+              max-height: 100vh !important;
+            }
+            /* Keep images with their captions/descriptions */
+            img + *, svg + *, picture + * {
+              page-break-before: avoid !important;
+              break-before: avoid !important;
+            }
+            /* Prevent cards and blocks from breaking */
+            [class*="card"],
+            [class*="Card"],
+            [class*="block"],
+            [class*="Block"],
+            .bg-white,
+            .rounded-lg,
+            .rounded-xl,
+            .border-2,
+            .border {
+              page-break-inside: avoid !important;
+              break-inside: avoid !important;
+            }
+            /* Keep math problems together */
+            .math-problem,
+            .math-problem + * {
+              page-break-inside: avoid !important;
+              break-inside: avoid !important;
+              page-break-before: avoid !important;
+              break-before: avoid !important;
+            }
+            /* Keep example blocks together */
+            [class*="example"],
+            [class*="Example"] {
+              page-break-inside: avoid !important;
+              break-inside: avoid !important;
+            }
+            /* Keep visual content blocks together */
+            .bg-white.p-4,
+            .bg-white.rounded-lg,
+            div[class*="bg-"].p-4 {
+              page-break-inside: avoid !important;
+              break-inside: avoid !important;
+            }
+            /* Keep headings with following content - STRONG rules (consolidated) */
+            h1, h2, h3, h4, h5, h6 {
+              page-break-after: avoid !important;
+              break-after: avoid !important;
+              page-break-inside: avoid !important;
+              break-inside: avoid !important;
+            }
+            /* Keep content immediately after headings */
+            h1 + *, h2 + *, h3 + *, h4 + *, h5 + *, h6 + * {
+              page-break-before: avoid !important;
+              break-before: avoid !important;
+            }
+            /* Keep paragraphs and divs after headings together */
+            h1 + p, h2 + p, h3 + p, h4 + p, h5 + p, h6 + p,
+            h1 + div, h2 + div, h3 + div, h4 + div, h5 + div, h6 + div {
+              page-break-before: avoid !important;
+              break-before: avoid !important;
+              page-break-inside: avoid !important;
+              break-inside: avoid !important;
+            }
+            /* Allow page breaks between sections when needed - but keep sections intact */
+            section.worksheet-section + section.worksheet-section,
+            section[class*="worksheet-section"] + section[class*="worksheet-section"],
+            .worksheet-section + .worksheet-section,
+            [class*="worksheet-section"] + [class*="worksheet-section"] {
+              page-break-before: auto;
+              break-before: auto;
+              page-break-after: auto;
+              break-after: auto;
+            }
+            /* Ensure sections can start on new page if they don't fit */
+            section.worksheet-section,
+            .worksheet-section {
+              page-break-before: auto;
+              break-before: auto;
+            }
+            /* Prevent breaks inside table rows and cells */
+            tr {
+              break-inside: avoid !important;
+              page-break-inside: avoid !important;
+            }
+            /* Fix blank first page - ensure first element starts at top with no forced breaks */
+            [data-worksheet-content="true"] > *:first-child,
+            [data-worksheet-content="true"] > section:first-child {
+              page-break-before: auto !important;
+              margin-top: 0 !important;
+              padding-top: 0 !important;
+            }
+            /* Remove all top margins from first section */
+            section.worksheet-section:first-child,
+            .worksheet-section:first-child {
+              margin-top: 0 !important;
+              padding-top: 0 !important;
+            }
+            /* Better spacing for print - readable and clean (matching Interactive Worksheets Generator) */
+            section { 
+              margin-bottom: 1.5rem !important; 
+              margin-top: 0 !important;
+              page-break-inside: avoid !important;
+              break-inside: avoid !important;
+              padding-left: 0.5rem !important;
+              padding-right: 0.5rem !important;
+              padding-top: 0.5rem !important;
+              padding-bottom: 0.5rem !important;
+              background-color: white !important;
+              background: white !important;
+            }
+            /* First section should have NO top padding/margin to fit on first page - matching Interactive Worksheets Generator */
+            section:first-of-type {
+              margin-top: 0 !important;
+              padding-top: 0 !important;
+              background-color: white !important;
+            }
+            /* Add spacing between worksheet sections */
+            .worksheet-section {
+              margin-bottom: 1.5rem !important;
+              padding: 0.5rem 0.5rem !important;
+              background-color: white !important;
+            }
+            /* First worksheet section should have NO top padding/margin - content starts immediately after header */
+            .worksheet-section:first-of-type {
+              padding-top: 0 !important;
+              margin-top: 0 !important;
+              background-color: white !important;
+            }
+            /* Add spacing between problems/equations */
+            .worksheet-section > div > * {
+              margin-bottom: 0.75rem !important;
+            }
+            .worksheet-section > div > *:last-child {
+              margin-bottom: 0 !important;
+            }
+            /* Add spacing between math problems */
+            [class*="math-problem"],
+            [class*="problem"],
+            .equation,
+            .puzzle {
+              margin-bottom: 1rem !important;
+              padding: 0.5rem 0 !important;
+            }
+            /* Make header compact */
+            .worksheet-header {
+              margin-bottom: 0.5rem !important;
+              padding-bottom: 0.25rem !important;
+              line-height: 1.2 !important;
+            }
+            /* First section header should be more compact */
+            .worksheet-section:first-of-type .worksheet-header {
+              margin-bottom: 0.25rem !important;
+              padding-bottom: 0.125rem !important;
+            }
+            /* Make title/description more compact in first section */
+            .worksheet-section:first-of-type h2,
+            .worksheet-section:first-of-type h3 {
+              margin-top: 0.25rem !important;
+              margin-bottom: 0.375rem !important;
+            }
+            .worksheet-section:first-of-type p {
+              margin-top: 0.25rem !important;
+              margin-bottom: 0.375rem !important;
+            }
+            /* Compact learning objectives */
+            .learning-objectives {
+              margin-bottom: 0.75rem !important;
+              padding: 0.5rem !important;
+            }
+            /* Prevent text merging and improve readability - comfortable spacing */
+            p { 
+              line-height: 1.5 !important; 
+              margin: 0.5rem 0 !important;
+            }
+            div, span { 
+              line-height: 1.4 !important; 
+            }
+            h1, h2, h3 { 
+              page-break-after: avoid !important; 
+              margin-bottom: 0.75rem !important;
+              margin-top: 1rem !important;
+              line-height: 1.3 !important;
+            }
+            /* First section headings should be more compact */
+            .worksheet-section:first-of-type h1,
+            .worksheet-section:first-of-type h2,
+            .worksheet-section:first-of-type h3 {
+              margin-top: 0.25rem !important;
+              margin-bottom: 0.375rem !important;
+            }
             /* Add padding to content container for proper spacing since @page has no margin */
-            [data-worksheet-content="true"] > div:first-child,
-            .max-w-4xl.mx-auto {
+            [data-worksheet-content="true"] > div:first-child {
               margin: 0.5in !important;
               margin-top: 0 !important;
               padding: 0 !important;
-              width: 794px !important;
-              max-width: 794px !important;
+              page-break-before: auto !important;
               overflow: visible !important;
               background-color: white !important;
               background: white !important;
@@ -3054,60 +3682,32 @@ export function PrintablesPage() {
               background-color: white !important;
               background: white !important;
             }
-            /* CRITICAL: Ensure first worksheet section starts immediately after header on first page */
-            [data-worksheet-content="true"] section:first-of-type,
-            [data-worksheet-content="true"] .worksheet-section:first-of-type,
-            [data-worksheet-content="true"] section.break-inside-avoid:first-of-type {
-              margin-top: 0 !important;
-              padding-top: 0 !important;
-              background-color: white !important;
+            /* Preserve worksheet section borders and styling for readability */
+            section[class*="break-inside-avoid"],
+            section.worksheet-section,
+            .worksheet-section {
+              border: 1px solid #e2e8f0 !important;
+              border-radius: 4px !important;
               background: white !important;
+              background-color: white !important;
             }
-            /* Ensure worksheet header and first section stay together on first page */
-            .worksheet-section:first-of-type .worksheet-header,
-            section:first-of-type .worksheet-header {
-              margin-bottom: 1rem !important;
-              padding-bottom: 0 !important;
-              margin-top: 0 !important;
-              padding-top: 0 !important;
+            /* Preserve content borders within worksheets */
+            section[class*="break-inside-avoid"] div[class*="border"],
+            section[class*="break-inside-avoid"] div[class*="rounded"] {
+              border: 1px solid #cbd5e1 !important;
+              border-radius: 4px !important;
             }
-            /* First section content should start immediately after header */
-            .worksheet-section:first-of-type > div:not(.worksheet-header),
-            section:first-of-type > div:not(.worksheet-header) {
-              margin-top: 0 !important;
-              padding-top: 0 !important;
+            /* Hide URLs in print */
+            a[href]::after { content: none !important; }
+            a { text-decoration: none !important; }
+            /* Remove backgrounds and borders in print for cleaner look - but preserve worksheet content */
+            * {
+              box-shadow: none !important;
             }
-            /* CRITICAL: Ensure content inside first section flows immediately after header */
-            .worksheet-section:first-of-type .worksheet-header + *,
-            section:first-of-type .worksheet-header + * {
-              margin-top: 0 !important;
-              padding-top: 0 !important;
-            }
-            /* Ensure the relative z-10 div inside first section has no top margin */
-            .worksheet-section:first-of-type > div.relative,
-            section:first-of-type > div.relative {
-              margin-top: 0 !important;
-              padding-top: 0 !important;
-            }
-            /* Ensure LearningObjectives and other content appear on first page */
-            .worksheet-section:first-of-type .learning-objectives,
-            section:first-of-type .learning-objectives {
-              margin-top: 0 !important;
-              margin-bottom: 1rem !important;
-              padding: 0.75rem !important;
-            }
-            /* Ensure title and description appear on first page */
-            .worksheet-section:first-of-type h2,
-            .worksheet-section:first-of-type h3,
-            section:first-of-type h2,
-            section:first-of-type h3 {
-              margin-top: 0 !important;
-              margin-bottom: 0.5rem !important;
-            }
-            .worksheet-section:first-of-type p,
-            section:first-of-type p {
-              margin-top: 0.25rem !important;
-              margin-bottom: 1rem !important;
+            /* Remove borders from navigation and UI elements, but keep worksheet content borders */
+            header, .print\\:hidden, nav, button {
+              border: none !important;
+              border-radius: 0 !important;
             }
             /* Hide URLs in print */
             a[href]::after { content: none !important; }
