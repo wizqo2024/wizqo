@@ -289,9 +289,9 @@ function WorksheetSectionWrapper({
       className={`mb-10 break-inside-avoid rounded-xl border-2 ${theme.border} ${theme.background} p-6 print:border-0 print:p-0 print:bg-white print:mt-0 print:mb-0 print:pt-0 shadow-lg relative overflow-hidden worksheet-section`}
       dir={isRTL ? 'rtl' : 'ltr'}
       style={{ 
-        pageBreakInside: 'avoid',
-        breakInside: 'avoid',
-        WebkitRegionBreakInside: 'avoid',
+        pageBreakInside: 'auto', // Allow section to break across pages if needed
+        breakInside: 'auto',
+        WebkitRegionBreakInside: 'auto',
         pageBreakBefore: 'auto', // Ensure no forced page break
         breakBefore: 'auto',
         marginTop: 0,
@@ -2093,8 +2093,8 @@ export function PrintablesPage() {
             section { 
               margin-bottom: 1.5rem !important; 
               margin-top: 0 !important;
-              page-break-inside: avoid !important;
-              break-inside: avoid !important;
+              page-break-inside: auto !important;
+              break-inside: auto !important;
               padding-left: 0.5rem !important;
               padding-right: 0.5rem !important;
               padding-top: 0.5rem !important;
@@ -2135,17 +2135,27 @@ export function PrintablesPage() {
               margin-bottom: 1rem !important;
               padding: 0.5rem 0 !important;
             }
+            /* Allow sections to break across pages if needed, but try to keep them together */
             .break-inside-avoid,
             section.break-inside-avoid,
             section[class*="break-inside-avoid"],
             .worksheet-section {
-              page-break-inside: avoid !important; 
-              break-inside: avoid !important;
-              -webkit-region-break-inside: avoid !important;
+              page-break-inside: auto !important; 
+              break-inside: auto !important;
+              -webkit-region-break-inside: auto !important;
             }
-            /* Prevent any worksheet section from breaking across pages */
+            /* Allow content within sections to break across pages - only prevent breaking of small cohesive units */
             section.break-inside-avoid > *,
             .worksheet-section > * {
+              page-break-inside: auto !important;
+              break-inside: auto !important;
+            }
+            /* Only prevent breaking of headers, small problem groups, and images */
+            .worksheet-header,
+            h1, h2, h3, h4, h5, h6,
+            .math-problem,
+            .equation,
+            img, svg, picture, canvas {
               page-break-inside: avoid !important;
               break-inside: avoid !important;
             }
@@ -2262,13 +2272,15 @@ export function PrintablesPage() {
               page-break-after: avoid !important;
               break-after: avoid !important;
             }
+            /* Allow cards and blocks to break if they're large, but try to keep small ones together */
             [class*="card"],
             [class*="block"],
             .bg-white.rounded-lg,
             .bg-white.p-4 {
-              page-break-inside: avoid !important;
-              break-inside: avoid !important;
+              page-break-inside: auto !important;
+              break-inside: auto !important;
             }
+            /* Only prevent breaking of individual math problems (small units) */
             .math-problem {
               page-break-inside: avoid !important;
               break-inside: avoid !important;
@@ -3917,8 +3929,8 @@ export function PrintablesPage() {
           section { 
             margin-bottom: 1.5rem !important; 
             margin-top: 0 !important;
-            page-break-inside: avoid !important;
-            break-inside: avoid !important;
+            page-break-inside: auto !important;
+            break-inside: auto !important;
             padding-left: 0.5rem !important;
             padding-right: 0.5rem !important;
             padding-top: 0.5rem !important;
@@ -3959,17 +3971,27 @@ export function PrintablesPage() {
             margin-bottom: 1rem !important;
             padding: 0.5rem 0 !important;
           }
+          /* Allow sections to break across pages if needed, but try to keep them together */
           .break-inside-avoid,
           section.break-inside-avoid,
           section[class*="break-inside-avoid"],
           .worksheet-section {
-            page-break-inside: avoid !important; 
-            break-inside: avoid !important;
-            -webkit-region-break-inside: avoid !important;
+            page-break-inside: auto !important; 
+            break-inside: auto !important;
+            -webkit-region-break-inside: auto !important;
           }
-          /* Prevent any worksheet section from breaking across pages */
+          /* Allow content within sections to break across pages - only prevent breaking of small cohesive units */
           section.break-inside-avoid > *,
           .worksheet-section > * {
+            page-break-inside: auto !important;
+            break-inside: auto !important;
+          }
+          /* Only prevent breaking of headers, small problem groups, and images */
+          .worksheet-header,
+          h1, h2, h3, h4, h5, h6,
+          .math-problem,
+          .equation,
+          img, svg, picture, canvas {
             page-break-inside: avoid !important;
             break-inside: avoid !important;
           }
