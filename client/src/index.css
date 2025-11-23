@@ -756,6 +756,10 @@ html {
     padding-bottom: 0.5rem !important;
     background-color: white !important;
     background: white !important;
+    /* Ensure sections don't overflow container width */
+    max-width: 100% !important;
+    box-sizing: border-box !important;
+    overflow-x: hidden !important;
   }
   
   /* First section should have NO top padding/margin to fit on first page - matching Interactive Worksheets Generator */
@@ -770,6 +774,10 @@ html {
     margin-bottom: 1.5rem !important;
     padding: 0.5rem 0.5rem !important;
     background-color: white !important;
+    /* Ensure sections don't overflow container width */
+    max-width: 100% !important;
+    box-sizing: border-box !important;
+    overflow-x: hidden !important;
   }
   
   /* First worksheet section should have NO top padding/margin - content starts immediately after header */
@@ -862,6 +870,10 @@ html {
     overflow: visible !important;
     background-color: white !important;
     background: white !important;
+    /* Account for left and right margins: 794px (A4 width) - 1in (0.5in * 2) = 698px */
+    width: calc(100% - 1in) !important;
+    max-width: calc(100% - 1in) !important;
+    box-sizing: border-box !important;
   }
   
   /* Ensure all divs inside worksheet content have white background */

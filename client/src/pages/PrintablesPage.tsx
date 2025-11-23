@@ -2182,6 +2182,10 @@ export function PrintablesPage() {
               padding-bottom: 0.5rem !important;
               background-color: white !important;
               background: white !important;
+              /* Ensure sections don't overflow container width */
+              max-width: 100% !important;
+              box-sizing: border-box !important;
+              overflow-x: hidden !important;
             }
             /* First section should have NO top padding/margin to fit on first page - matching Interactive Worksheets Generator */
             section:first-of-type {
@@ -2194,6 +2198,10 @@ export function PrintablesPage() {
               margin-bottom: 1.5rem !important;
               padding: 0.5rem 0.5rem !important;
               background-color: white !important;
+              /* Ensure sections don't overflow container width */
+              max-width: 100% !important;
+              box-sizing: border-box !important;
+              overflow-x: hidden !important;
             }
             /* First worksheet section should have NO top padding/margin - content starts immediately after header */
             .worksheet-section:first-of-type {
@@ -2272,6 +2280,10 @@ export function PrintablesPage() {
               overflow: visible !important;
               background-color: white !important;
               background: white !important;
+              /* Account for left and right margins: 794px (A4 width) - 1in (0.5in * 2) = 698px */
+              width: calc(100% - 1in) !important;
+              max-width: calc(100% - 1in) !important;
+              box-sizing: border-box !important;
             }
             /* Ensure all divs inside worksheet content have white background */
             [data-worksheet-content="true"] > div:first-child > * {
@@ -2413,6 +2425,10 @@ export function PrintablesPage() {
               margin-bottom: 1.5rem !important;
               padding: 0.5rem 0.5rem !important;
               background-color: white !important;
+              /* Ensure sections don't overflow container width */
+              max-width: 100% !important;
+              box-sizing: border-box !important;
+              overflow-x: hidden !important;
             }
             /* First worksheet section should have NO top padding/margin - content starts immediately after header */
             .worksheet-section:first-of-type {
@@ -3586,6 +3602,10 @@ export function PrintablesPage() {
               padding-bottom: 0.5rem !important;
               background-color: white !important;
               background: white !important;
+              /* Ensure sections don't overflow container width */
+              max-width: 100% !important;
+              box-sizing: border-box !important;
+              overflow-x: hidden !important;
             }
             /* First section should have NO top padding/margin to fit on first page - matching Interactive Worksheets Generator */
             section:first-of-type {
@@ -3598,6 +3618,10 @@ export function PrintablesPage() {
               margin-bottom: 1.5rem !important;
               padding: 0.5rem 0.5rem !important;
               background-color: white !important;
+              /* Ensure sections don't overflow container width */
+              max-width: 100% !important;
+              box-sizing: border-box !important;
+              overflow-x: hidden !important;
             }
             /* First worksheet section should have NO top padding/margin - content starts immediately after header */
             .worksheet-section:first-of-type {
@@ -3676,6 +3700,10 @@ export function PrintablesPage() {
               overflow: visible !important;
               background-color: white !important;
               background: white !important;
+              /* Account for left and right margins: 794px (A4 width) - 1in (0.5in * 2) = 698px */
+              width: calc(100% - 1in) !important;
+              max-width: calc(100% - 1in) !important;
+              box-sizing: border-box !important;
             }
             /* Ensure all divs inside worksheet content have white background */
             [data-worksheet-content="true"] > div:first-child > * {
@@ -3775,6 +3803,10 @@ export function PrintablesPage() {
               margin-bottom: 1.5rem !important;
               padding: 0.5rem 0.5rem !important;
               background-color: white !important;
+              /* Ensure sections don't overflow container width */
+              max-width: 100% !important;
+              box-sizing: border-box !important;
+              overflow-x: hidden !important;
             }
             /* First worksheet section should have NO top padding/margin */
             .worksheet-section:first-of-type {
@@ -4555,8 +4587,10 @@ export function PrintablesPage() {
             margin: 0.5in !important;
             margin-top: 0 !important;
             padding: 0 !important;
-            width: 794px !important;
-            max-width: 794px !important;
+            /* Account for left and right margins: 794px (A4 width) - 1in (0.5in * 2) = 698px */
+            width: calc(100% - 1in) !important;
+            max-width: calc(100% - 1in) !important;
+            box-sizing: border-box !important;
             page-break-before: auto !important;
             overflow: visible !important;
             background-color: white !important;
@@ -4752,6 +4786,10 @@ export function PrintablesPage() {
             margin-bottom: 1.5rem !important;
             padding: 0.5rem 0.5rem !important;
             background-color: white !important;
+            /* Ensure sections don't overflow container width */
+            max-width: 100% !important;
+            box-sizing: border-box !important;
+            overflow-x: hidden !important;
           }
           /* First worksheet section should have NO top padding/margin - matching Interactive Worksheets Generator */
           .worksheet-section:first-of-type {
