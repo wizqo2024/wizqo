@@ -478,6 +478,36 @@ html {
     margin-top: 0 !important;
     padding-top: 0 !important;
   }
+  
+  /* CRITICAL: Ensure content inside first section flows immediately after header */
+  .worksheet-section:first-child .worksheet-header + *,
+  section:first-child .worksheet-header + * {
+    margin-top: 0.25rem !important;
+    padding-top: 0 !important;
+  }
+  
+  /* Ensure LearningObjectives and other content appear on first page */
+  .worksheet-section:first-child .learning-objectives,
+  section:first-child .learning-objectives {
+    margin-top: 0.25rem !important;
+    margin-bottom: 0.5rem !important;
+    padding: 0.5rem !important;
+  }
+  
+  /* Ensure title and description appear on first page */
+  .worksheet-section:first-child h2,
+  .worksheet-section:first-child h3,
+  section:first-child h2,
+  section:first-child h3 {
+    margin-top: 0.25rem !important;
+    margin-bottom: 0.25rem !important;
+  }
+  
+  .worksheet-section:first-child p,
+  section:first-child p {
+    margin-top: 0.25rem !important;
+    margin-bottom: 0.5rem !important;
+  }
 
   /* Prevent root from forcing page break */
   #root {

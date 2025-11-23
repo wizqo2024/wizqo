@@ -286,7 +286,7 @@ function WorksheetSectionWrapper({
   
   return (
     <section 
-      className={`mb-10 break-inside-avoid rounded-xl border-2 ${theme.border} ${theme.background} p-6 print:border-0 print:p-0 print:bg-white print:mt-0 print:mb-0 shadow-lg relative overflow-hidden worksheet-section`}
+      className={`mb-10 break-inside-avoid rounded-xl border-2 ${theme.border} ${theme.background} p-6 print:border-0 print:p-0 print:bg-white print:mt-0 print:mb-0 print:pt-0 shadow-lg relative overflow-hidden worksheet-section`}
       dir={isRTL ? 'rtl' : 'ltr'}
       style={{ 
         pageBreakInside: 'avoid',
@@ -300,10 +300,12 @@ function WorksheetSectionWrapper({
       <div className="absolute top-0 right-0 w-32 h-32 bg-gradient-to-br rounded-bl-full pointer-events-none print:hidden" style={{ backgroundColor: theme.cornerAccent }} />
       <div className="absolute bottom-0 left-0 w-24 h-24 bg-gradient-to-tr rounded-tr-full pointer-events-none print:hidden" style={{ backgroundColor: theme.cornerAccent2 }} />
       <div 
-        className="relative z-10"
+        className="relative z-10 print:p-0"
         style={{ 
           pageBreakInside: 'avoid',
-          breakInside: 'avoid'
+          breakInside: 'avoid',
+          paddingTop: 0,
+          marginTop: 0
         } as React.CSSProperties}
       >
         <WorksheetHeader problemCount={problemCount} />
@@ -1973,6 +1975,32 @@ export function PrintablesPage() {
             section:first-of-type > div:not(.worksheet-header) {
               margin-top: 0 !important;
               padding-top: 0 !important;
+            }
+            /* CRITICAL: Ensure content inside first section flows immediately after header */
+            .worksheet-section:first-of-type .worksheet-header + *,
+            section:first-of-type .worksheet-header + * {
+              margin-top: 0.25rem !important;
+              padding-top: 0 !important;
+            }
+            /* Ensure LearningObjectives and other content appear on first page */
+            .worksheet-section:first-of-type .learning-objectives,
+            section:first-of-type .learning-objectives {
+              margin-top: 0.25rem !important;
+              margin-bottom: 0.5rem !important;
+              padding: 0.5rem !important;
+            }
+            /* Ensure title and description appear on first page */
+            .worksheet-section:first-of-type h2,
+            .worksheet-section:first-of-type h3,
+            section:first-of-type h2,
+            section:first-of-type h3 {
+              margin-top: 0.25rem !important;
+              margin-bottom: 0.25rem !important;
+            }
+            .worksheet-section:first-of-type p,
+            section:first-of-type p {
+              margin-top: 0.25rem !important;
+              margin-bottom: 0.5rem !important;
             }
             /* Hide URLs in print */
             a[href]::after { content: none !important; }
@@ -3724,6 +3752,32 @@ export function PrintablesPage() {
           section:first-of-type > div:not(.worksheet-header) {
             margin-top: 0 !important;
             padding-top: 0 !important;
+          }
+          /* CRITICAL: Ensure content inside first section flows immediately after header */
+          .worksheet-section:first-of-type .worksheet-header + *,
+          section:first-of-type .worksheet-header + * {
+            margin-top: 0.25rem !important;
+            padding-top: 0 !important;
+          }
+          /* Ensure LearningObjectives and other content appear on first page */
+          .worksheet-section:first-of-type .learning-objectives,
+          section:first-of-type .learning-objectives {
+            margin-top: 0.25rem !important;
+            margin-bottom: 0.5rem !important;
+            padding: 0.5rem !important;
+          }
+          /* Ensure title and description appear on first page */
+          .worksheet-section:first-of-type h2,
+          .worksheet-section:first-of-type h3,
+          section:first-of-type h2,
+          section:first-of-type h3 {
+            margin-top: 0.25rem !important;
+            margin-bottom: 0.25rem !important;
+          }
+          .worksheet-section:first-of-type p,
+          section:first-of-type p {
+            margin-top: 0.25rem !important;
+            margin-bottom: 0.5rem !important;
           }
           /* Prevent any element from forcing a page break before the first content */
           [data-worksheet-content="true"] > div:first-child > *:first-child[style*="page-break-before"],
