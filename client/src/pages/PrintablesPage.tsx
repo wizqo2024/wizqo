@@ -2273,16 +2273,16 @@ export function PrintablesPage() {
             }
             /* Add padding to content container for proper spacing since @page has no margin */
             [data-worksheet-content="true"] > div:first-child {
-              margin: 0.5in !important;
+              margin: 0 !important;
               margin-top: 0 !important;
               padding: 0 !important;
               page-break-before: auto !important;
               overflow: visible !important;
               background-color: white !important;
               background: white !important;
-              /* Account for left and right margins: 794px (A4 width) - 1in (0.5in * 2) = 698px */
-              width: calc(100% - 1in) !important;
-              max-width: calc(100% - 1in) !important;
+              /* Content width is exactly 698px (no margins for capture, margins added in PDF) */
+              width: 698px !important;
+              max-width: 698px !important;
               box-sizing: border-box !important;
             }
             /* Ensure all divs inside worksheet content have white background */
@@ -3771,16 +3771,16 @@ export function PrintablesPage() {
             }
             /* Add padding to content container for proper spacing since @page has no margin */
             [data-worksheet-content="true"] > div:first-child {
-              margin: 0.5in !important;
+              margin: 0 !important;
               margin-top: 0 !important;
               padding: 0 !important;
               page-break-before: auto !important;
               overflow: visible !important;
               background-color: white !important;
               background: white !important;
-              /* Account for left and right margins: 794px (A4 width) - 1in (0.5in * 2) = 698px */
-              width: calc(100% - 1in) !important;
-              max-width: calc(100% - 1in) !important;
+              /* Content width is exactly 698px (no margins for capture, margins added in PDF) */
+              width: 698px !important;
+              max-width: 698px !important;
               box-sizing: border-box !important;
             }
             /* Ensure all divs inside worksheet content have white background */
