@@ -1989,6 +1989,12 @@ export function PrintablesPage() {
               margin-top: 0 !important;
               padding-top: 0 !important;
             }
+            /* Ensure the relative z-10 div inside first section has no top margin */
+            .worksheet-section:first-of-type > div.relative,
+            section:first-of-type > div.relative {
+              margin-top: 0 !important;
+              padding-top: 0 !important;
+            }
             /* Ensure LearningObjectives and other content appear on first page - matching Interactive Worksheets Generator */
             .worksheet-section:first-of-type .learning-objectives,
             section:first-of-type .learning-objectives {
@@ -4043,10 +4049,10 @@ export function PrintablesPage() {
           .worksheet-section > div {
             padding: 0.5rem 0 !important;
           }
-          /* Add spacing between learning objectives and content */
+          /* Add spacing between learning objectives and content - matching Interactive Worksheets Generator */
           .learning-objectives {
-            margin-bottom: 0.75rem !important;
-            padding: 0.5rem !important;
+            margin-bottom: 1rem !important;
+            padding: 0.75rem !important;
           }
           /* Add spacing between header and content - matching Interactive Worksheets Generator */
           .worksheet-header {
