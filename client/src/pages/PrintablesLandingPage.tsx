@@ -9,7 +9,14 @@ const OUTLINE_BUTTON = 'inline-flex items-center justify-center px-4 py-2 rounde
 const CARD_CLASS = 'bg-white rounded-xl border border-slate-200 shadow-sm hover:shadow transition-all overflow-hidden p-4';
 // DOWNLOAD_NOTE will be translated in component
 
-const WorksheetThumbnailCard = React.memo(function WorksheetThumbnailCard({ title, description, skills, age, href, docId }: { title: string; description: string; skills?: string; age?: string; href: string; docId?: string }) {
+interface WorksheetItem {
+  title: string
+  description: string
+  href: string
+  docId?: string
+}
+
+const WorksheetThumbnailCard = React.memo(function WorksheetThumbnailCard({ title, description, skills, age, href, docId, onPreview }: { title: string; description: string; skills?: string; age?: string; href: string; docId?: string; onPreview?: (item: WorksheetItem) => void }) {
   const { t, language } = useTranslation();
   const level = docId ? PRINTABLE_DOC_META[docId]?.level : undefined;
   const previewUrl = href + (href.includes('?') ? '&preview=1' : '?preview=1');
@@ -50,7 +57,7 @@ const WorksheetThumbnailCard = React.memo(function WorksheetThumbnailCard({ titl
       {/* Worksheet Thumbnail Preview */}
       <div 
         className="relative w-full bg-gradient-to-br from-slate-50 to-slate-100 rounded-lg border border-slate-200 overflow-hidden cursor-pointer group shadow-sm hover:shadow-md transition-shadow"
-        onClick={() => window.open(finalHref, '_blank')}
+        onClick={() => onPreview?.({ title: translatedTitle, description: translatedDescription, href: finalHref, docId })}
         style={{ 
           height: '140px',
           aspectRatio: '2.5/1',
@@ -134,6 +141,7 @@ function BundleButton({ section, className }: { section: string; className?: str
 
 export function PrintablesLandingPage() {
   const { t, isRTL } = useTranslation();
+  const [previewItem, setPreviewItem] = React.useState<WorksheetItem | null>(null);
   
   React.useEffect(() => {
     // Ensure re-render on language change
@@ -529,6 +537,7 @@ export function PrintablesLandingPage() {
               title="🎨 Animal Friends Coloring Pages"
               description="Meet friendly jungle and sea animals — from roaring lions to jumping dolphins. Ages 5–10; learn animal names while coloring."
               href="/print?doc=coloring-animals" docId="coloring-animals"
+              onPreview={setPreviewItem}
             />
             <WorksheetThumbnailCard
               title="🌸 Nature & Seasons Coloring Pack"
@@ -684,9 +693,9 @@ export function PrintablesLandingPage() {
         <section id="Math-G1" className="scroll-mt-24">
           <h3 className="text-lg font-semibold text-slate-900 mb-2">Grade 1</h3>
           <div className={gridClass}>
-            <WorksheetThumbnailCard title="Ten Frames 1–10" description="Build numbers to 10 with counters" skills="number sense, subitizing" age="Grade 1" href="/print?doc=ten-frames-1-10" docId="ten-frames-1-10" />
-            <WorksheetThumbnailCard title="Addition within 10" description="Number lines + picture cues" skills="addition, number sense" age="Grade 1" href="/print?doc=addition-subtraction-0-10" docId="addition-subtraction-0-10" />
-            <WorksheetThumbnailCard title="Number Tracing 1–20" description="Trace digits with start points" skills="fine motor, counting" age="Grade 1" href="/print?doc=number-tracing-1-20" docId="number-tracing-1-20" />
+            <WorksheetThumbnailCard title="Ten Frames 1–10" description="Build numbers to 10 with counters" skills="number sense, subitizing" age="Grade 1" href="/print?doc=ten-frames-1-10" docId="ten-frames-1-10" onPreview={setPreviewItem} />
+            <WorksheetThumbnailCard title="Addition within 10" description="Number lines + picture cues" skills="addition, number sense" age="Grade 1" href="/print?doc=addition-subtraction-0-10" docId="addition-subtraction-0-10" onPreview={setPreviewItem} />
+            <WorksheetThumbnailCard title="Number Tracing 1–20" description="Trace digits with start points" skills="fine motor, counting" age="Grade 1" href="/print?doc=number-tracing-1-20" docId="number-tracing-1-20" onPreview={setPreviewItem} />
           </div>
           <div className="mt-3 print:hidden">
             <a href="/print?doc=pack&time=5&age=g1&skill=math" className="inline-flex items-center gap-2 px-3 py-2 rounded-lg border border-purple-200 text-purple-700 hover:bg-purple-50 text-sm">Build Grade 1 Pack →</a>
@@ -696,9 +705,9 @@ export function PrintablesLandingPage() {
         <section id="Math-G2" className="scroll-mt-24">
           <h3 className="text-lg font-semibold text-slate-900 mb-2">Grade 2</h3>
           <div className={gridClass}>
-            <WorksheetThumbnailCard title="Ten Frames 1–20" description="Compose/decompose to 20" skills="number bonds, subitizing" age="Grade 2" href="/print?doc=ten-frames-1-20" docId="ten-frames-1-20" />
-            <WorksheetThumbnailCard title="Place Value (Tens/Ones)" description="Break 2‑digit numbers" skills="place value, comparing" age="Grade 2" href="/print?doc=place-value-hto" docId="place-value-hto" />
-            <WorksheetThumbnailCard title="Facts to 20" description="Add/sub within 20" skills="fact fluency" age="Grade 2" href="/print?doc=addition-subtraction-0-10" docId="addition-subtraction-0-10" />
+            <WorksheetThumbnailCard title="Ten Frames 1–20" description="Compose/decompose to 20" skills="number bonds, subitizing" age="Grade 2" href="/print?doc=ten-frames-1-20" docId="ten-frames-1-20" onPreview={setPreviewItem} />
+            <WorksheetThumbnailCard title="Place Value (Tens/Ones)" description="Break 2‑digit numbers" skills="place value, comparing" age="Grade 2" href="/print?doc=place-value-hto" docId="place-value-hto" onPreview={setPreviewItem} />
+            <WorksheetThumbnailCard title="Facts to 20" description="Add/sub within 20" skills="fact fluency" age="Grade 2" href="/print?doc=addition-subtraction-0-10" docId="addition-subtraction-0-10" onPreview={setPreviewItem} />
           </div>
           <div className="mt-3 print:hidden">
             <a href="/print?doc=pack&time=5&age=g2&skill=math" className="inline-flex items-center gap-2 px-3 py-2 rounded-lg border border-purple-200 text-purple-700 hover:bg-purple-50 text-sm">Build Grade 2 Pack →</a>
@@ -710,9 +719,9 @@ export function PrintablesLandingPage() {
           <h2 className="text-xl font-bold text-slate-900 mb-2">🔢 Math — Numbers</h2>
           <p className="text-slate-700 text-sm mb-3 max-w-3xl">Number sense foundations — counting, comparing, and place value.</p>
           <div className={gridClass}>
-            <WorksheetThumbnailCard title="Ten Frames 1–10" description="Quick warm‑ups to build numbers" skills="subitizing" age="K–1" href="/print?doc=ten-frames-1-10" docId="ten-frames-1-10" />
-            <WorksheetThumbnailCard title="Ten Frames 1–20" description="Compose/decompose numbers to 20" skills="number bonds" age="1–2" href="/print?doc=ten-frames-1-20" docId="ten-frames-1-20" />
-            <WorksheetThumbnailCard title="Place Value — Tens/Ones" description="Break 2‑digit numbers" skills="place value" age="2–3" href="/print?doc=place-value-hto" docId="place-value-hto" />
+            <WorksheetThumbnailCard title="Ten Frames 1–10" description="Quick warm‑ups to build numbers" skills="subitizing" age="K–1" href="/print?doc=ten-frames-1-10" docId="ten-frames-1-10" onPreview={setPreviewItem} />
+            <WorksheetThumbnailCard title="Ten Frames 1–20" description="Compose/decompose numbers to 20" skills="number bonds" age="1–2" href="/print?doc=ten-frames-1-20" docId="ten-frames-1-20" onPreview={setPreviewItem} />
+            <WorksheetThumbnailCard title="Place Value — Tens/Ones" description="Break 2‑digit numbers" skills="place value" age="2–3" href="/print?doc=place-value-hto" docId="place-value-hto" onPreview={setPreviewItem} />
           </div>
         </section>
 
@@ -720,8 +729,8 @@ export function PrintablesLandingPage() {
           <h2 className="text-xl font-bold text-slate-900 mb-2">➕ Math — 4 Operations</h2>
           <p className="text-slate-700 text-sm mb-3 max-w-3xl">Practice addition and subtraction fluency with fun mini‑challenges.</p>
           <div className={gridClass}>
-            <WorksheetThumbnailCard title="Add/Sub within 10" description="Number lines and picture cues" skills="addition, subtraction" age="1–2" href="/print?doc=addition-subtraction-0-10" docId="addition-subtraction-0-10" />
-            <WorksheetThumbnailCard title="Math Maze" description="Solve to find the path" skills="fact fluency, focus" age="1–3" href="/print?doc=math-maze" docId="math-maze" />
+            <WorksheetThumbnailCard title="Add/Sub within 10" description="Number lines and picture cues" skills="addition, subtraction" age="1–2" href="/print?doc=addition-subtraction-0-10" docId="addition-subtraction-0-10" onPreview={setPreviewItem} />
+            <WorksheetThumbnailCard title="Math Maze" description="Solve to find the path" skills="fact fluency, focus" age="1–3" href="/print?doc=math-maze" docId="math-maze" onPreview={setPreviewItem} />
           </div>
         </section>
 
@@ -1001,10 +1010,10 @@ export function PrintablesLandingPage() {
               <BundleButton section="Geography" />
             </div>
           <div className={gridClass}>
-            <WorksheetThumbnailCard title="🌍 Label the 7 Continents (K–2)" description="Write or trace continent names; beginner‑friendly world outline with hints." href="/print?doc=geo-continents-k2" docId="geo-continents-k2" />
-            <WorksheetThumbnailCard title="🧭 Compass Rose & Directions" description="N, E, S, W with NE/SE/SW/NW — color and label the compass." href="/print?doc=geo-compass-rose" docId="geo-compass-rose" />
-            <WorksheetThumbnailCard title="🏔️ Landforms vs Water Bodies" description="Match words to simple icons: mountain, valley, island, lake, river." href="/print?doc=geo-landforms" docId="geo-landforms" />
-            <WorksheetThumbnailCard title="🗺️ Latitude & Longitude Basics" description="Practice reading and plotting coordinates on a simple world grid." href="/print?doc=geo-latlong" docId="geo-latlong" />
+            <WorksheetThumbnailCard title="🌍 Label the 7 Continents (K–2)" description="Write or trace continent names; beginner‑friendly world outline with hints." href="/print?doc=geo-continents-k2" docId="geo-continents-k2" onPreview={setPreviewItem} />
+            <WorksheetThumbnailCard title="🧭 Compass Rose & Directions" description="N, E, S, W with NE/SE/SW/NW — color and label the compass." href="/print?doc=geo-compass-rose" docId="geo-compass-rose" onPreview={setPreviewItem} />
+            <WorksheetThumbnailCard title="🏔️ Landforms vs Water Bodies" description="Match words to simple icons: mountain, valley, island, lake, river." href="/print?doc=geo-landforms" docId="geo-landforms" onPreview={setPreviewItem} />
+            <WorksheetThumbnailCard title="🗺️ Latitude & Longitude Basics" description="Practice reading and plotting coordinates on a simple world grid." href="/print?doc=geo-latlong" docId="geo-latlong" onPreview={setPreviewItem} />
           </div>
         </section>
 
@@ -1016,6 +1025,80 @@ export function PrintablesLandingPage() {
       </main>
 
       <Footer />
+      
+      {/* Preview Modal */}
+      {previewItem && (
+        <div className="fixed inset-0 z-50 overflow-hidden">
+          {/* Backdrop */}
+          <div 
+            className="absolute inset-0 bg-black/50 transition-opacity"
+            onClick={() => setPreviewItem(null)}
+          />
+          
+          {/* Side Panel */}
+          <div className="absolute right-0 top-0 h-full w-full max-w-4xl bg-white shadow-2xl transform transition-transform duration-300 ease-in-out">
+            <div className="flex h-full flex-col">
+              {/* Header */}
+              <div className="flex items-center justify-between border-b border-slate-200 bg-white px-6 py-4">
+                <div className="flex-1">
+                  <h2 className="text-xl font-semibold text-slate-900">{previewItem.title}</h2>
+                  <p className="text-sm text-slate-600 mt-1">{previewItem.description}</p>
+                </div>
+                <button
+                  onClick={() => setPreviewItem(null)}
+                  className="ml-4 p-2 text-slate-400 hover:text-slate-600 rounded-lg hover:bg-slate-100 transition-colors"
+                  aria-label="Close preview"
+                >
+                  <svg className="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                  </svg>
+                </button>
+              </div>
+              
+              {/* Scrollable Content */}
+              <div className="flex-1 overflow-y-auto bg-slate-50">
+                <div className="mx-auto max-w-3xl px-6 py-8">
+                  {/* Worksheet Preview */}
+                  <div className="bg-white shadow-lg rounded-lg p-8 print:shadow-none">
+                    <iframe
+                      src={previewItem.href}
+                      className="w-full h-full min-h-[600px] border-0"
+                      title={previewItem.title}
+                    />
+                  </div>
+                  
+                  {/* Info Footer */}
+                  <div className="mt-6 rounded-xl border border-purple-200 bg-purple-50 p-4 text-sm text-purple-800">
+                    <p className="font-semibold mb-2">📄 Preview</p>
+                    <p>Click the Download button below to download as PDF or use your browser's print function.</p>
+                  </div>
+                  
+                  {/* Action Buttons */}
+                  <div className="mt-6 flex items-center gap-3">
+                    <a
+                      href={previewItem.href + (previewItem.href.includes('?') ? '&download=1' : '?download=1')}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center gap-2 px-4 py-2 rounded-lg border border-purple-200 bg-purple-600 hover:bg-purple-700 text-white text-sm font-medium shadow-sm"
+                    >
+                      Download
+                    </a>
+                    <a
+                      href={previewItem.href + (previewItem.href.includes('?') ? '&autoprint=1' : '?autoprint=1')}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center gap-2 px-4 py-2 rounded-lg border border-slate-300 bg-white hover:bg-slate-50 text-slate-700 text-sm font-medium shadow-sm"
+                    >
+                      🖨️ Print
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
+      
       {showBackToTop && (
         <button
           onClick={() => { try { window.scrollTo({ top: 0, behavior: 'smooth' }); } catch {} }}
