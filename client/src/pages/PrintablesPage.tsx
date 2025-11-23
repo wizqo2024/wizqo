@@ -1957,23 +1957,25 @@ export function PrintablesPage() {
               padding-top: 0 !important;
               page-break-before: auto !important;
             }
-            /* CRITICAL: Ensure first worksheet section starts immediately after header on first page */
+            /* CRITICAL: Ensure first worksheet section starts immediately after header on first page - matching Interactive Worksheets Generator */
             [data-worksheet-content="true"] section:first-of-type,
             [data-worksheet-content="true"] .worksheet-section:first-of-type,
             [data-worksheet-content="true"] section.break-inside-avoid:first-of-type {
-              margin-top: 0.25rem !important;
-              padding-top: 0.25rem !important;
+              margin-top: 0 !important;
+              padding-top: 0 !important;
               page-break-before: auto !important;
               break-before: auto !important;
               background-color: white !important;
               background: white !important;
             }
-            /* Ensure worksheet header and first section stay together on first page */
+            /* Ensure worksheet header and first section stay together on first page - matching Interactive Worksheets Generator */
             .worksheet-section:first-of-type .worksheet-header,
             section:first-of-type .worksheet-header {
-              margin-bottom: 0.25rem !important;
+              margin-bottom: 1rem !important;
               padding-bottom: 0 !important;
               page-break-after: avoid !important;
+              margin-top: 0 !important;
+              padding-top: 0 !important;
             }
             /* First section content should start immediately after header */
             .worksheet-section:first-of-type > div:not(.worksheet-header),
@@ -1981,31 +1983,32 @@ export function PrintablesPage() {
               margin-top: 0 !important;
               padding-top: 0 !important;
             }
-            /* CRITICAL: Ensure content inside first section flows immediately after header */
+            /* CRITICAL: Ensure content inside first section flows immediately after header - matching Interactive Worksheets Generator spacing */
             .worksheet-section:first-of-type .worksheet-header + *,
             section:first-of-type .worksheet-header + * {
-              margin-top: 0.25rem !important;
+              margin-top: 0 !important;
               padding-top: 0 !important;
             }
-            /* Ensure LearningObjectives and other content appear on first page */
+            /* Ensure LearningObjectives and other content appear on first page - matching Interactive Worksheets Generator */
             .worksheet-section:first-of-type .learning-objectives,
             section:first-of-type .learning-objectives {
-              margin-top: 0.25rem !important;
-              margin-bottom: 0.5rem !important;
-              padding: 0.5rem !important;
+              margin-top: 0 !important;
+              margin-bottom: 1rem !important;
+              padding: 0.75rem !important;
+              page-break-after: avoid !important;
             }
-            /* Ensure title and description appear on first page */
+            /* Ensure title and description appear on first page - matching Interactive Worksheets Generator */
             .worksheet-section:first-of-type h2,
             .worksheet-section:first-of-type h3,
             section:first-of-type h2,
             section:first-of-type h3 {
-              margin-top: 0.25rem !important;
-              margin-bottom: 0.25rem !important;
+              margin-top: 0 !important;
+              margin-bottom: 0.5rem !important;
             }
             .worksheet-section:first-of-type p,
             section:first-of-type p {
               margin-top: 0.25rem !important;
-              margin-bottom: 0.5rem !important;
+              margin-bottom: 1rem !important;
             }
             /* CRITICAL: Ensure worksheet problems/content appear on first page immediately after learning objectives */
             .worksheet-section:first-of-type .learning-objectives + *,
@@ -3811,6 +3814,7 @@ export function PrintablesPage() {
             margin-top: 0 !important;
             margin-bottom: 1rem !important;
             padding: 0.75rem !important;
+            page-break-after: avoid !important;
           }
           /* Ensure title and description appear on first page - matching Interactive Worksheets Generator */
           .worksheet-section:first-of-type h2,
@@ -3922,10 +3926,10 @@ export function PrintablesPage() {
             background-color: white !important;
             background: white !important;
           }
-          /* First section should have minimal top padding to fit on first page - but allow small spacing after header */
+          /* First section should have NO top padding/margin to fit on first page - matching Interactive Worksheets Generator */
           section:first-of-type {
-            margin-top: 0.25rem !important;
-            padding-top: 0.25rem !important;
+            margin-top: 0 !important;
+            padding-top: 0 !important;
             background-color: white !important;
           }
           /* Add spacing between worksheet sections */
@@ -3934,10 +3938,10 @@ export function PrintablesPage() {
             padding: 0.5rem 0.5rem !important;
             background-color: white !important;
           }
-          /* First worksheet section should have minimal top padding but allow content to flow */
+          /* First worksheet section should have NO top padding/margin - matching Interactive Worksheets Generator */
           .worksheet-section:first-of-type {
-            padding-top: 0.25rem !important;
-            margin-top: 0.25rem !important;
+            padding-top: 0 !important;
+            margin-top: 0 !important;
             background-color: white !important;
           }
           /* Add spacing between problems/equations */
@@ -3996,12 +4000,12 @@ export function PrintablesPage() {
             margin-top: 1rem !important;
             line-height: 1.3 !important;
           }
-          /* First section headings should be more compact */
+          /* First section headings should be more compact - matching Interactive Worksheets Generator */
           .worksheet-section:first-of-type h1,
           .worksheet-section:first-of-type h2,
           .worksheet-section:first-of-type h3 {
-            margin-top: 0.25rem !important;
-            margin-bottom: 0.375rem !important;
+            margin-top: 0 !important;
+            margin-bottom: 0.5rem !important;
           }
           /* Comfortable spacing for readability */
           .mb-10 { margin-bottom: 1rem !important; }
@@ -4022,25 +4026,25 @@ export function PrintablesPage() {
             margin-bottom: 0.75rem !important;
             padding: 0.5rem !important;
           }
-          /* Add spacing between header and content - compact for first section */
+          /* Add spacing between header and content - matching Interactive Worksheets Generator */
           .worksheet-header {
-            margin-bottom: 0.5rem !important;
-            padding-bottom: 0.25rem !important;
+            margin-bottom: 1rem !important;
+            padding-bottom: 0 !important;
           }
-          /* First section header should be more compact */
+          /* First section header should be more compact - matching Interactive Worksheets Generator */
           .worksheet-section:first-of-type .worksheet-header {
-            margin-bottom: 0.25rem !important;
-            padding-bottom: 0.125rem !important;
+            margin-bottom: 1rem !important;
+            padding-bottom: 0 !important;
           }
-          /* Make title/description more compact in first section */
+          /* Make title/description more compact in first section - matching Interactive Worksheets Generator */
           .worksheet-section:first-of-type h2,
           .worksheet-section:first-of-type h3 {
-            margin-top: 0.25rem !important;
-            margin-bottom: 0.375rem !important;
+            margin-top: 0 !important;
+            margin-bottom: 0.5rem !important;
           }
           .worksheet-section:first-of-type p {
             margin-top: 0.25rem !important;
-            margin-bottom: 0.375rem !important;
+            margin-bottom: 1rem !important;
           }
         }
         /* Preview mode - hide navigation and UI elements for thumbnail previews */
