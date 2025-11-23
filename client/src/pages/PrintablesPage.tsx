@@ -157,8 +157,21 @@ function WorkedExampleContent() {
   // Force re-render when language changes
   React.useEffect(() => {}, [language])
   return (
-    <div className="mb-6 p-4 bg-gradient-to-br from-blue-50 to-indigo-50 border-2 border-blue-200 rounded-lg print:border print:bg-white worked-example">
-      <div className="font-semibold text-blue-900 mb-3 text-sm flex items-center gap-2">
+    <div 
+      className="mb-6 p-4 bg-gradient-to-br from-blue-50 to-indigo-50 border-2 border-blue-200 rounded-lg print:border print:bg-white worked-example"
+      style={{ 
+        pageBreakInside: 'avoid',
+        breakInside: 'avoid',
+        WebkitRegionBreakInside: 'avoid'
+      } as React.CSSProperties}
+    >
+      <div 
+        className="font-semibold text-blue-900 mb-3 text-sm flex items-center gap-2"
+        style={{ 
+          pageBreakAfter: 'avoid',
+          breakAfter: 'avoid'
+        } as React.CSSProperties}
+      >
         <span className="text-2xl">📚</span>
         <span>{t('worksheets.addition-subtraction-0-10.workedExample.title')}</span>
       </div>
@@ -292,11 +305,29 @@ function WorksheetSectionWrapper({
         } as React.CSSProperties}
       >
         <WorksheetHeader problemCount={problemCount} />
-        <h2 className={`text-xl font-bold ${theme.text} mb-2 flex items-center gap-2`}>
+        <h2 
+          className={`text-xl font-bold ${theme.text} mb-2 flex items-center gap-2`}
+          style={{ 
+            pageBreakAfter: 'avoid',
+            breakAfter: 'avoid',
+            pageBreakInside: 'avoid',
+            breakInside: 'avoid'
+          } as React.CSSProperties}
+        >
           {emoji && <span className="text-4xl">{emoji}</span>}
           <span>{translatedTitle}</span>
         </h2>
-        {translatedDescription && <p className={`text-sm ${theme.text} opacity-90 font-medium mb-4`}>{translatedDescription}</p>}
+        {translatedDescription && (
+          <p 
+            className={`text-sm ${theme.text} opacity-90 font-medium mb-4`}
+            style={{ 
+              pageBreakAfter: 'avoid',
+              breakAfter: 'avoid'
+            } as React.CSSProperties}
+          >
+            {translatedDescription}
+          </p>
+        )}
         {translatedObjectives && <LearningObjectives objectives={translatedObjectives} />}
         {children}
         {/* Parent/Teacher Tips - Will appear on page 2 with Self-Assessment */}

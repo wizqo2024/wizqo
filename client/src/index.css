@@ -458,9 +458,7 @@ html {
   .math-problem,
   /* Tables and figures - keep together */
   table,
-  figure,
-  /* Keep headings with their content */
-  h1, h2, h3, h4, h5, h6 {
+  figure {
     break-inside: avoid !important;
     page-break-inside: avoid !important;
     -webkit-region-break-inside: avoid !important;
@@ -475,11 +473,94 @@ html {
     page-break-inside: avoid !important;
     break-inside: avoid !important;
   }
+  
+  /* Keep worked examples together - header and content */
+  .worked-example,
+  .worked-example > * {
+    page-break-inside: avoid !important;
+    break-inside: avoid !important;
+  }
+  
+  /* Keep example headers with their content */
+  .worked-example > div:first-child {
+    page-break-after: avoid !important;
+    break-after: avoid !important;
+  }
+  
+  /* Prevent images, SVGs, and visual elements from breaking */
+  img, svg, picture, canvas, video {
+    page-break-inside: avoid !important;
+    break-inside: avoid !important;
+    page-break-after: avoid !important;
+    break-after: avoid !important;
+    max-height: 100vh !important;
+  }
+  
+  /* Keep images with their captions/descriptions */
+  img + *, svg + *, picture + * {
+    page-break-before: avoid !important;
+    break-before: avoid !important;
+  }
+  
+  /* Prevent cards and blocks from breaking */
+  [class*="card"],
+  [class*="Card"],
+  [class*="block"],
+  [class*="Block"],
+  .bg-white,
+  .rounded-lg,
+  .rounded-xl,
+  .border-2,
+  .border {
+    page-break-inside: avoid !important;
+    break-inside: avoid !important;
+  }
+  
+  /* Keep math problems together */
+  .math-problem,
+  .math-problem + * {
+    page-break-inside: avoid !important;
+    break-inside: avoid !important;
+    page-break-before: avoid !important;
+    break-before: avoid !important;
+  }
+  
+  /* Keep example blocks together */
+  [class*="example"],
+  [class*="Example"] {
+    page-break-inside: avoid !important;
+    break-inside: avoid !important;
+  }
+  
+  /* Keep visual content blocks together */
+  .bg-white.p-4,
+  .bg-white.rounded-lg,
+  div[class*="bg-"].p-4 {
+    page-break-inside: avoid !important;
+    break-inside: avoid !important;
+  }
 
-  /* Keep headings with following content */
+  /* Keep headings with following content - STRONG rules (consolidated) */
+  h1, h2, h3, h4, h5, h6 {
+    page-break-after: avoid !important;
+    break-after: avoid !important;
+    page-break-inside: avoid !important;
+    break-inside: avoid !important;
+  }
+  
+  /* Keep content immediately after headings */
   h1 + *, h2 + *, h3 + *, h4 + *, h5 + *, h6 + * {
-    page-break-before: avoid;
-    break-before: avoid;
+    page-break-before: avoid !important;
+    break-before: avoid !important;
+  }
+  
+  /* Keep paragraphs and divs after headings together */
+  h1 + p, h2 + p, h3 + p, h4 + p, h5 + p, h6 + p,
+  h1 + div, h2 + div, h3 + div, h4 + div, h5 + div, h6 + div {
+    page-break-before: avoid !important;
+    break-before: avoid !important;
+    page-break-inside: avoid !important;
+    break-inside: avoid !important;
   }
 
   /* Allow page breaks between sections when needed - but keep sections intact */
