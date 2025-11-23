@@ -2049,6 +2049,11 @@ export function PrintablesPage() {
               page-break-before: auto !important;
               break-before: auto !important;
             }
+            /* Prevent any element from forcing a page break before the first content */
+            [data-worksheet-content="true"] > div:first-child > *:first-child[style*="page-break-before"],
+            [data-worksheet-content="true"] > div:first-child > *:first-child[style*="pageBreakBefore"] {
+              page-break-before: auto !important;
+            }
             /* Hide URLs in print */
             a[href]::after { content: none !important; }
             a { text-decoration: none !important; }
@@ -3718,10 +3723,12 @@ export function PrintablesPage() {
             background-color: white !important;
             background: white !important;
             color: black !important;
+            width: 794px !important;
+            max-width: 794px !important;
             margin: 0 !important; 
             padding: 0 !important; 
-            font-size: 11pt;
-            line-height: 1.3;
+            font-size: 11pt !important;
+            line-height: 1.3 !important;
           }
           /* Override dark backgrounds that cause black pages - target common dark classes */
           [class*="bg-black"],
