@@ -106,15 +106,15 @@ function getWorksheetTheme(docId: string): {
 // Professional header component for print worksheets
 function WorksheetHeader({ problemCount }: { problemCount?: number }) {
   return (
-    <div className="print:block hidden print:mb-1 print:pb-0 pb-3 mb-4" style={{ marginTop: 0, paddingTop: 0, lineHeight: '1.2' } as React.CSSProperties}>
+    <div className="print:block hidden print:mb-0.5 print:pb-0 pb-3 mb-4" style={{ marginTop: 0, paddingTop: 0, lineHeight: '1.1' } as React.CSSProperties}>
       <div className="flex justify-between items-start print:items-center">
-        <div className="flex-1 print:text-[10px]">
-          <div className="text-sm print:mb-0.5 mb-2 print:leading-tight"><strong>Name:</strong> _________________________</div>
-          <div className="text-sm print:mb-0.5 mb-2 print:leading-tight"><strong>Date:</strong> ___________  <strong>Grade:</strong> _____</div>
-          <div className="text-sm print:leading-tight"><strong>Teacher/Parent:</strong> _________________</div>
+        <div className="flex-1 print:text-[9px]">
+          <div className="text-sm print:mb-0 print:leading-[1.1]"><strong>Name:</strong> _________________________</div>
+          <div className="text-sm print:mb-0 print:leading-[1.1]"><strong>Date:</strong> ___________  <strong>Grade:</strong> _____</div>
+          <div className="text-sm print:leading-[1.1]"><strong>Teacher/Parent:</strong> _________________</div>
         </div>
         {problemCount && (
-          <div className="text-right text-xs print:text-[9px] text-slate-600 print:leading-tight">
+          <div className="text-right text-xs print:text-[8px] text-slate-600 print:leading-[1.1]">
             <div>Score: ___ / {problemCount}</div>
           </div>
         )}
@@ -126,9 +126,9 @@ function WorksheetHeader({ problemCount }: { problemCount?: number }) {
 // Learning objectives component
 function LearningObjectives({ objectives }: { objectives: string[] }) {
   return (
-    <div className="print:block hidden print:mb-1 print:p-1.5 print:text-[10px] mb-4 p-3 bg-slate-50 border-l-4 border-blue-500 rounded print:border-l-2">
-      <div className="text-sm print:text-[10px] print:font-semibold text-slate-800 print:mb-0.5 mb-2 print:leading-tight">📚 What You'll Practice:</div>
-      <ul className="text-xs print:text-[9px] text-slate-700 print:space-y-0 print:leading-tight space-y-1 list-disc list-inside">
+    <div className="print:block hidden print:mb-0.5 print:p-1 print:text-[9px] mb-4 p-3 bg-slate-50 border-l-4 border-blue-500 rounded print:border-l print:border-slate-300">
+      <div className="text-sm print:text-[9px] print:font-semibold text-slate-800 print:mb-0 mb-2 print:leading-[1.1]">📚 What You'll Practice:</div>
+      <ul className="text-xs print:text-[8px] text-slate-700 print:space-y-0 print:leading-[1.1] space-y-1 list-disc list-inside print:pl-3">
         {objectives.map((obj, i) => (
           <li key={i} className="print:mb-0">{obj}</li>
         ))}
@@ -308,7 +308,7 @@ function WorksheetSectionWrapper({
       >
         <WorksheetHeader problemCount={problemCount} />
         <h2 
-          className={`text-xl print:text-base print:font-semibold font-bold ${theme.text} print:mb-1 mb-2 flex items-center gap-2 print:leading-tight`}
+          className={`text-xl print:text-sm print:font-semibold font-bold ${theme.text} print:mb-0.5 mb-2 flex items-center gap-2 print:gap-1 print:leading-[1.1]`}
           style={{ 
             pageBreakAfter: 'avoid',
             breakAfter: 'avoid',
@@ -318,12 +318,12 @@ function WorksheetSectionWrapper({
             paddingTop: 0
           } as React.CSSProperties}
         >
-          {emoji && <span className="text-4xl print:text-2xl">{emoji}</span>}
+          {emoji && <span className="text-4xl print:text-base">{emoji}</span>}
           <span>{translatedTitle}</span>
         </h2>
         {translatedDescription && (
           <p 
-            className={`text-sm ${theme.text} opacity-90 font-medium mb-4`}
+            className={`text-sm print:text-[9px] ${theme.text} opacity-90 font-medium mb-4 print:mb-0.5 print:leading-[1.1]`}
             style={{ 
               pageBreakAfter: 'avoid',
               breakAfter: 'avoid'
@@ -3495,11 +3495,16 @@ export function PrintablesPage() {
             margin-top: 0.5rem !important;
             line-height: 1.2 !important;
           }
-          /* Clean up excessive spacing - reduced */
-          .mb-10 { margin-bottom: 0.75rem !important; }
-          .mb-4, .mb-6 { margin-bottom: 0.5rem !important; }
-          .p-4, .p-5, .p-6 { padding: 0.5rem !important; }
-          .py-10 { padding-top: 0.5rem !important; padding-bottom: 0.5rem !important; }
+          /* Clean up excessive spacing - ultra compact */
+          .mb-10 { margin-bottom: 0.5rem !important; }
+          .mb-4, .mb-6 { margin-bottom: 0.25rem !important; }
+          .mb-3 { margin-bottom: 0.15rem !important; }
+          .mb-2 { margin-bottom: 0.1rem !important; }
+          .p-4, .p-5, .p-6 { padding: 0.25rem !important; }
+          .p-3 { padding: 0.15rem !important; }
+          .py-10 { padding-top: 0.25rem !important; padding-bottom: 0.25rem !important; }
+          /* Reduce section spacing */
+          section { margin-bottom: 0.25rem !important; }
         }
         /* Preview mode - hide navigation and UI elements for thumbnail previews */
         .preview-mode header,
@@ -5123,46 +5128,46 @@ export function PrintablesPage() {
             >
               <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-violet-400 to-pink-400 animate-gradient-x mb-2" />
               {/* Worked Example */}
-              <div className="mb-6 print:mb-2 p-4 print:p-2 bg-gradient-to-br from-violet-50 to-pink-50 border-2 border-violet-200 rounded-lg print:border print:bg-white">
-                <div className="font-semibold text-violet-900 mb-3 print:mb-1 text-sm print:text-xs flex items-center gap-2">
-                  <span className="text-2xl print:text-lg">📚</span>
+              <div className="mb-6 print:mb-1 p-4 print:p-1.5 bg-gradient-to-br from-violet-50 to-pink-50 border-2 border-violet-200 rounded-lg print:border print:bg-white">
+                <div className="font-semibold text-violet-900 mb-3 print:mb-0.5 text-sm print:text-[9px] flex items-center gap-2 print:gap-1">
+                  <span className="text-2xl print:text-sm">📚</span>
                   <span>{getTrans(`worksheets.${docId}.example.title`, 'Example - Let\'s solve this together:')}</span>
                 </div>
-                <div className="space-y-3 print:space-y-1 text-sm print:text-xs">
-                  <div className="font-semibold text-base print:text-sm text-violet-900"><strong>{getTrans(`worksheets.${docId}.example.number`, 'Number:')}</strong> <span className="text-3xl print:text-2xl text-violet-700 ml-2">47</span></div>
+                <div className="space-y-3 print:space-y-0.5 text-sm print:text-[8px]">
+                  <div className="font-semibold text-base print:text-[9px] text-violet-900"><strong>{getTrans(`worksheets.${docId}.example.number`, 'Number:')}</strong> <span className="text-3xl print:text-lg text-violet-700 ml-2">47</span></div>
                   {/* Visual base-10 blocks with proper spacing */}
-                  <div className="bg-white p-4 print:p-2 rounded-lg border-2 border-violet-300">
-                    <div className="flex flex-wrap items-center gap-4 print:gap-2">
+                  <div className="bg-white p-4 print:p-1 rounded-lg border-2 border-violet-300">
+                    <div className="flex flex-wrap items-center gap-4 print:gap-1">
                       {/* Tens blocks with label */}
-                      <div className="flex flex-col items-center gap-2 print:gap-1">
-                        <svg viewBox="0 0 240 80" className="w-auto h-20 print:h-12" preserveAspectRatio="xMidYMid meet">
+                      <div className="flex flex-col items-center gap-2 print:gap-0.5">
+                        <svg viewBox="0 0 240 80" className="w-auto h-20 print:h-8" preserveAspectRatio="xMidYMid meet">
                           {Array.from({ length: 4 }).map((_, j) => (
                             <rect key={j} x={15 + j * 55} y="15" width="45" height="65" rx="4" fill="#22c55e" stroke="#16a34a" strokeWidth="2.5" />
                           ))}
                         </svg>
-                        <div className="text-sm print:text-xs font-bold text-green-700 whitespace-nowrap">{getTrans(`worksheets.${docId}.example.tensLabel`, '4 tens = 40')}</div>
+                        <div className="text-sm print:text-[8px] font-bold text-green-700 whitespace-nowrap">{getTrans(`worksheets.${docId}.example.tensLabel`, '4 tens = 40')}</div>
                       </div>
                       {/* Ones blocks with label */}
-                      <div className="flex flex-col items-center gap-2 print:gap-1">
-                        <svg viewBox="0 0 250 50" className="w-auto h-16 print:h-10" preserveAspectRatio="xMidYMid meet">
+                      <div className="flex flex-col items-center gap-2 print:gap-0.5">
+                        <svg viewBox="0 0 250 50" className="w-auto h-16 print:h-6" preserveAspectRatio="xMidYMid meet">
                           {Array.from({ length: 7 }).map((_, j) => (
                             <rect key={j} x={15 + j * 35} y="10" width="25" height="25" rx="2" fill="#60a5fa" stroke="#2563eb" strokeWidth="2" />
                           ))}
                         </svg>
-                        <div className="text-sm print:text-xs font-bold text-blue-700 whitespace-nowrap">{getTrans(`worksheets.${docId}.example.onesLabel`, '7 ones = 7')}</div>
+                        <div className="text-sm print:text-[8px] font-bold text-blue-700 whitespace-nowrap">{getTrans(`worksheets.${docId}.example.onesLabel`, '7 ones = 7')}</div>
                       </div>
                       {/* Expanded form label */}
                       <div className="flex items-center">
-                        <div className="text-base print:text-sm font-bold text-violet-700 whitespace-nowrap">{getTrans(`worksheets.${docId}.example.expandedLabel`, '47 = 40 + 7')}</div>
+                        <div className="text-base print:text-[9px] font-bold text-violet-700 whitespace-nowrap">{getTrans(`worksheets.${docId}.example.expandedLabel`, '47 = 40 + 7')}</div>
                       </div>
                     </div>
                   </div>
-                  <div className="pl-4 print:pl-2 border-l-2 border-violet-300 space-y-1 print:space-y-0.5">
-                    <div><strong>{getTrans(`worksheets.${docId}.example.step1`, 'Step 1: Find tens:')}</strong> <span className="text-violet-700 font-bold">{getTrans(`worksheets.${docId}.example.step1Text`, '47 has 4 tens (40)')}</span></div>
-                    <div><strong>{getTrans(`worksheets.${docId}.example.step2`, 'Step 2: Find ones:')}</strong> <span className="text-violet-700 font-bold">{getTrans(`worksheets.${docId}.example.step2Text`, '47 has 7 ones')}</span></div>
-                    <div><strong>{getTrans(`worksheets.${docId}.example.step3`, 'Step 3: Expanded form:')}</strong> <span className="text-violet-700 font-bold text-lg print:text-base">{getTrans(`worksheets.${docId}.example.step3Text`, '40 + 7')}</span></div>
-                    <div className="font-semibold text-violet-900 mt-2 print:mt-1"><strong>{getTrans(`worksheets.${docId}.example.answer`, 'Answer:')}</strong> <span className="text-violet-700">{getTrans(`worksheets.${docId}.example.answerText`, 'Tens: 4, Ones: 7, Expanded: 40 + 7')}</span></div>
-                    <div className="text-xs print:text-[10px] text-violet-700 mt-2 print:mt-1 flex items-center gap-1">
+                  <div className="pl-4 print:pl-1 border-l-2 border-violet-300 space-y-1 print:space-y-0">
+                    <div className="print:text-[8px] print:leading-[1.1]"><strong>{getTrans(`worksheets.${docId}.example.step1`, 'Step 1: Find tens:')}</strong> <span className="text-violet-700 font-bold">{getTrans(`worksheets.${docId}.example.step1Text`, '47 has 4 tens (40)')}</span></div>
+                    <div className="print:text-[8px] print:leading-[1.1]"><strong>{getTrans(`worksheets.${docId}.example.step2`, 'Step 2: Find ones:')}</strong> <span className="text-violet-700 font-bold">{getTrans(`worksheets.${docId}.example.step2Text`, '47 has 7 ones')}</span></div>
+                    <div className="print:text-[8px] print:leading-[1.1]"><strong>{getTrans(`worksheets.${docId}.example.step3`, 'Step 3: Expanded form:')}</strong> <span className="text-violet-700 font-bold text-lg print:text-[9px]">{getTrans(`worksheets.${docId}.example.step3Text`, '40 + 7')}</span></div>
+                    <div className="font-semibold text-violet-900 mt-2 print:mt-0 print:text-[8px] print:leading-[1.1]"><strong>{getTrans(`worksheets.${docId}.example.answer`, 'Answer:')}</strong> <span className="text-violet-700">{getTrans(`worksheets.${docId}.example.answerText`, 'Tens: 4, Ones: 7, Expanded: 40 + 7')}</span></div>
+                    <div className="text-xs print:text-[7px] text-violet-700 mt-2 print:mt-0 flex items-center gap-1 print:leading-[1.1]">
                       <span>💡</span>
                       <span>{getTrans(`worksheets.${docId}.example.tip`, 'Tip: The tens digit tells you how many groups of 10, the ones digit tells you how many extra ones!')}</span>
                     </div>
@@ -5170,15 +5175,15 @@ export function PrintablesPage() {
                 </div>
               </div>
               {/* Visual legend */}
-              <div className="mb-4 print:mb-1 flex flex-wrap items-center gap-4 print:gap-2 text-sm print:text-xs bg-violet-50 p-3 print:p-1.5 rounded-lg border border-violet-200 print:mb-1">
-                <div className="flex items-center gap-2">
-                  <svg viewBox="0 0 25 50" className="h-12 w-auto flex-shrink-0">
+              <div className="mb-4 print:mb-0.5 flex flex-wrap items-center gap-4 print:gap-1 text-sm print:text-[8px] bg-violet-50 p-3 print:p-1 rounded-lg border border-violet-200">
+                <div className="flex items-center gap-2 print:gap-1">
+                  <svg viewBox="0 0 25 50" className="h-12 print:h-4 w-auto flex-shrink-0">
                     <rect x="10" y="10" width="15" height="30" rx="3" fill="#22c55e" stroke="#16a34a" strokeWidth="2" />
                   </svg>
                   <span className="text-green-700 font-bold whitespace-nowrap">{getTrans(`worksheets.${docId}.legend.tenLabel`, '= 1 Ten (10)')}</span>
                 </div>
-                <div className="flex items-center gap-2">
-                  <svg viewBox="0 0 60 30" className="h-8 w-auto flex-shrink-0">
+                <div className="flex items-center gap-2 print:gap-1">
+                  <svg viewBox="0 0 60 30" className="h-8 print:h-3 w-auto flex-shrink-0">
                     {Array.from({length:3}).map((_,i)=> (
                       <rect key={i} x={10 + i*18} y="10" width="12" height="12" rx="2" fill="#60a5fa" stroke="#2563eb" strokeWidth="1.5" />
                     ))}
@@ -5186,15 +5191,15 @@ export function PrintablesPage() {
                   <span className="text-blue-700 font-bold whitespace-nowrap">{getTrans(`worksheets.${docId}.legend.oneLabel`, '= 1 One')}</span>
                 </div>
               </div>
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 print:gap-2 break-inside-avoid" style={{ pageBreakAfter: 'auto' }}>
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 print:gap-1 break-inside-avoid" style={{ pageBreakAfter: 'auto' }}>
                 {nums.map((n,i)=> {
                   const tens = Math.floor(n/10);
                   const ones = n%10;
                   return (
-                    <div key={i} className="border-2 border-violet-200 rounded-lg p-4 print:p-2 bg-gradient-to-br from-violet-50 to-pink-50 break-inside-avoid">
-                      <div className="text-violet-900 font-semibold mb-3 print:mb-1 text-lg print:text-base">{getTrans(`worksheets.${docId}.labels.number`, 'Number:')} <span className="text-2xl print:text-xl">{n}</span></div>
+                    <div key={i} className="border-2 border-violet-200 rounded-lg p-4 print:p-1.5 bg-gradient-to-br from-violet-50 to-pink-50 break-inside-avoid">
+                      <div className="text-violet-900 font-semibold mb-3 print:mb-0.5 text-lg print:text-sm">{getTrans(`worksheets.${docId}.labels.number`, 'Number:')} <span className="text-2xl print:text-lg">{n}</span></div>
                       {/* Visual base-10 blocks */}
-                      <div className="mb-4 print:mb-2 bg-white p-3 print:p-1.5 rounded border border-violet-300">
+                      <div className="mb-4 print:mb-1 bg-white p-3 print:p-1 rounded border border-violet-300">
                         <div className="flex flex-col items-center gap-2">
                           <svg viewBox="0 0 280 70" className="w-full h-auto max-h-16" preserveAspectRatio="xMidYMid meet">
                             {/* Tens rods */}
