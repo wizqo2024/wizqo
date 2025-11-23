@@ -2046,6 +2046,13 @@ export function PrintablesPage() {
               margin-top: 1rem !important;
               line-height: 1.3 !important;
             }
+            /* First section headings should be more compact */
+            .worksheet-section:first-of-type h1,
+            .worksheet-section:first-of-type h2,
+            .worksheet-section:first-of-type h3 {
+              margin-top: 0.25rem !important;
+              margin-bottom: 0.375rem !important;
+            }
             /* Comfortable spacing for readability */
             .mb-10 { margin-bottom: 1rem !important; }
             .mb-4, .mb-6 { margin-bottom: 0.75rem !important; }
@@ -2072,8 +2079,18 @@ export function PrintablesPage() {
             }
             /* First section header should be more compact */
             .worksheet-section:first-of-type .worksheet-header {
+              margin-bottom: 0.25rem !important;
+              padding-bottom: 0.125rem !important;
+            }
+            /* Make title/description more compact in first section */
+            .worksheet-section:first-of-type h2,
+            .worksheet-section:first-of-type h3 {
+              margin-top: 0.25rem !important;
               margin-bottom: 0.375rem !important;
-              padding-bottom: 0.25rem !important;
+            }
+            .worksheet-section:first-of-type p {
+              margin-top: 0.25rem !important;
+              margin-bottom: 0.375rem !important;
             }
             /* Apply print:block and print:hidden classes */
             [class*="print:block"] { display: block !important; }
@@ -3725,6 +3742,13 @@ export function PrintablesPage() {
             margin-top: 1rem !important;
             line-height: 1.3 !important;
           }
+          /* First section headings should be more compact */
+          .worksheet-section:first-of-type h1,
+          .worksheet-section:first-of-type h2,
+          .worksheet-section:first-of-type h3 {
+            margin-top: 0.25rem !important;
+            margin-bottom: 0.375rem !important;
+          }
           /* Comfortable spacing for readability */
           .mb-10 { margin-bottom: 1rem !important; }
           .mb-4, .mb-6 { margin-bottom: 0.75rem !important; }
@@ -3751,8 +3775,18 @@ export function PrintablesPage() {
           }
           /* First section header should be more compact */
           .worksheet-section:first-of-type .worksheet-header {
+            margin-bottom: 0.25rem !important;
+            padding-bottom: 0.125rem !important;
+          }
+          /* Make title/description more compact in first section */
+          .worksheet-section:first-of-type h2,
+          .worksheet-section:first-of-type h3 {
+            margin-top: 0.25rem !important;
             margin-bottom: 0.375rem !important;
-            padding-bottom: 0.25rem !important;
+          }
+          .worksheet-section:first-of-type p {
+            margin-top: 0.25rem !important;
+            margin-bottom: 0.375rem !important;
           }
         }
         /* Preview mode - hide navigation and UI elements for thumbnail previews */
