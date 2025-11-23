@@ -758,10 +758,10 @@ html {
     background: white !important;
   }
   
-  /* First section should have minimal top padding to fit on first page - but allow small spacing after header */
+  /* First section should have NO top padding/margin to fit on first page - matching Interactive Worksheets Generator */
   section:first-of-type {
-    margin-top: 0.25rem !important;
-    padding-top: 0.25rem !important;
+    margin-top: 0 !important;
+    padding-top: 0 !important;
     background-color: white !important;
   }
   
@@ -772,10 +772,10 @@ html {
     background-color: white !important;
   }
   
-  /* First worksheet section should have minimal top padding but allow content to flow */
+  /* First worksheet section should have NO top padding/margin - content starts immediately after header */
   .worksheet-section:first-of-type {
-    padding-top: 0.25rem !important;
-    margin-top: 0.25rem !important;
+    padding-top: 0 !important;
+    margin-top: 0 !important;
     background-color: white !important;
   }
   
