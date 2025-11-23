@@ -403,10 +403,10 @@ html {
 /* Universal print/PDF fix for all worksheets */
 /* Prevents worksheet sections from breaking across pages */
 @media print {
-  /* Page setup */
+  /* Page setup - no margins for maximum content space */
   @page {
     size: A4;
-    margin: 0.5in;
+    margin: 0;
   }
   
   /* CRITICAL: Ensure all pages have white background - fix black pages */

@@ -1868,7 +1868,7 @@ export function PrintablesPage() {
           const style = clonedDoc.createElement('style')
           style.textContent = `
             @page { 
-              margin: 0.5in;
+              margin: 0;
               size: A4;
             }
             /* CRITICAL: Ensure all pages have white background - fix black pages */
@@ -1915,7 +1915,7 @@ export function PrintablesPage() {
               padding: 0 !important;
               background-color: white !important;
             }
-            /* Add padding to content container instead of @page margin to prevent blank first page */
+            /* Add padding to content container for proper spacing since @page has no margin */
             [data-worksheet-content="true"] > div:first-child {
               margin: 0.5in !important;
               margin-top: 0 !important;
@@ -3620,7 +3620,7 @@ export function PrintablesPage() {
       <style>{`
         @media print {
           @page { 
-            margin: 0.5in;
+            margin: 0;
             size: A4;
           }
           /* CRITICAL: Ensure all pages have white background - fix black pages */
@@ -3665,7 +3665,7 @@ export function PrintablesPage() {
             padding: 0 !important;
             background-color: white !important;
           }
-          /* Add padding to content container instead of @page margin to prevent blank first page */
+          /* Add padding to content container for proper spacing since @page has no margin */
           [data-worksheet-content="true"] > div:first-child {
             margin: 0.5in !important;
             margin-top: 0 !important;
