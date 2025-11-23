@@ -1923,6 +1923,12 @@ export function PrintablesPage() {
               page-break-before: auto !important;
               overflow: visible !important;
               background-color: white !important;
+              background: white !important;
+            }
+            /* Ensure all divs inside worksheet content have white background */
+            [data-worksheet-content="true"] > div:first-child > * {
+              background-color: white !important;
+              background: white !important;
             }
             /* Force content to start - override any browser defaults */
             [data-worksheet-content="true"] {
@@ -1942,14 +1948,29 @@ export function PrintablesPage() {
               padding-top: 0 !important;
               page-break-before: auto !important;
             }
-            /* Ensure first worksheet section has minimal top margin and starts on first page */
+            /* CRITICAL: Ensure first worksheet section starts immediately after header on first page */
             [data-worksheet-content="true"] section:first-of-type,
             [data-worksheet-content="true"] .worksheet-section:first-of-type,
             [data-worksheet-content="true"] section.break-inside-avoid:first-of-type {
-              margin-top: 0 !important;
-              padding-top: 0 !important;
+              margin-top: 0.25rem !important;
+              padding-top: 0.25rem !important;
               page-break-before: auto !important;
               break-before: auto !important;
+              background-color: white !important;
+              background: white !important;
+            }
+            /* Ensure worksheet header and first section stay together on first page */
+            .worksheet-section:first-of-type .worksheet-header,
+            section:first-of-type .worksheet-header {
+              margin-bottom: 0.25rem !important;
+              padding-bottom: 0 !important;
+              page-break-after: avoid !important;
+            }
+            /* First section content should start immediately after header */
+            .worksheet-section:first-of-type > div:not(.worksheet-header),
+            section:first-of-type > div:not(.worksheet-header) {
+              margin-top: 0 !important;
+              padding-top: 0 !important;
             }
             /* Hide URLs in print */
             a[href]::after { content: none !important; }
@@ -1964,10 +1985,13 @@ export function PrintablesPage() {
               border-radius: 0 !important;
             }
             /* Preserve worksheet section borders and styling for readability */
-            section[class*="break-inside-avoid"] {
+            section[class*="break-inside-avoid"],
+            section.worksheet-section,
+            .worksheet-section {
               border: 1px solid #e2e8f0 !important;
               border-radius: 4px !important;
               background: white !important;
+              background-color: white !important;
             }
             /* Preserve content borders within worksheets */
             section[class*="break-inside-avoid"] div[class*="border"],
@@ -2004,20 +2028,26 @@ export function PrintablesPage() {
               padding-right: 0.5rem !important;
               padding-top: 0.5rem !important;
               padding-bottom: 0.5rem !important;
+              background-color: white !important;
+              background: white !important;
             }
-            /* First section should have minimal top padding to fit on first page */
+            /* First section should have minimal top padding to fit on first page - but allow small spacing after header */
             section:first-of-type {
-              margin-top: 0 !important;
-              padding-top: 0 !important;
+              margin-top: 0.25rem !important;
+              padding-top: 0.25rem !important;
+              background-color: white !important;
             }
             /* Add spacing between worksheet sections */
             .worksheet-section {
               margin-bottom: 1.5rem !important;
               padding: 0.5rem 0.5rem !important;
+              background-color: white !important;
             }
-            /* First worksheet section should have minimal top padding */
+            /* First worksheet section should have minimal top padding but allow content to flow */
             .worksheet-section:first-of-type {
-              padding-top: 0 !important;
+              padding-top: 0.25rem !important;
+              margin-top: 0.25rem !important;
+              background-color: white !important;
             }
             /* Add spacing between problems/equations */
             .worksheet-section > div > * {
@@ -3643,6 +3673,12 @@ export function PrintablesPage() {
             page-break-before: auto !important;
             overflow: visible !important;
             background-color: white !important;
+            background: white !important;
+          }
+          /* Ensure all divs inside worksheet content have white background */
+          [data-worksheet-content="true"] > div:first-child > * {
+            background-color: white !important;
+            background: white !important;
           }
           /* Force content to start - override any browser defaults */
           [data-worksheet-content="true"] {
@@ -3662,14 +3698,29 @@ export function PrintablesPage() {
             padding-top: 0 !important;
             page-break-before: auto !important;
           }
-          /* Ensure first worksheet section has minimal top margin and starts on first page */
+          /* CRITICAL: Ensure first worksheet section starts immediately after header on first page */
           [data-worksheet-content="true"] section:first-of-type,
           [data-worksheet-content="true"] .worksheet-section:first-of-type,
           [data-worksheet-content="true"] section.break-inside-avoid:first-of-type {
-            margin-top: 0 !important;
-            padding-top: 0 !important;
+            margin-top: 0.25rem !important;
+            padding-top: 0.25rem !important;
             page-break-before: auto !important;
             break-before: auto !important;
+            background-color: white !important;
+            background: white !important;
+          }
+          /* Ensure worksheet header and first section stay together on first page */
+          .worksheet-section:first-of-type .worksheet-header,
+          section:first-of-type .worksheet-header {
+            margin-bottom: 0.25rem !important;
+            padding-bottom: 0 !important;
+            page-break-after: avoid !important;
+          }
+          /* First section content should start immediately after header */
+          .worksheet-section:first-of-type > div:not(.worksheet-header),
+          section:first-of-type > div:not(.worksheet-header) {
+            margin-top: 0 !important;
+            padding-top: 0 !important;
           }
           /* Prevent any element from forcing a page break before the first content */
           [data-worksheet-content="true"] > div:first-child > *:first-child[style*="page-break-before"],
@@ -3689,10 +3740,13 @@ export function PrintablesPage() {
             border-radius: 0 !important;
           }
           /* Preserve worksheet section borders and styling for readability */
-          section[class*="break-inside-avoid"] {
+          section[class*="break-inside-avoid"],
+          section.worksheet-section,
+          .worksheet-section {
             border: 1px solid #e2e8f0 !important;
             border-radius: 4px !important;
             background: white !important;
+            background-color: white !important;
           }
           /* Preserve content borders within worksheets */
           section[class*="break-inside-avoid"] div[class*="border"],
@@ -3729,20 +3783,26 @@ export function PrintablesPage() {
             padding-right: 0.5rem !important;
             padding-top: 0.5rem !important;
             padding-bottom: 0.5rem !important;
+            background-color: white !important;
+            background: white !important;
           }
-          /* First section should have minimal top padding to fit on first page */
+          /* First section should have minimal top padding to fit on first page - but allow small spacing after header */
           section:first-of-type {
-            margin-top: 0 !important;
-            padding-top: 0 !important;
+            margin-top: 0.25rem !important;
+            padding-top: 0.25rem !important;
+            background-color: white !important;
           }
           /* Add spacing between worksheet sections */
           .worksheet-section {
             margin-bottom: 1.5rem !important;
             padding: 0.5rem 0.5rem !important;
+            background-color: white !important;
           }
-          /* First worksheet section should have minimal top padding */
+          /* First worksheet section should have minimal top padding but allow content to flow */
           .worksheet-section:first-of-type {
-            padding-top: 0 !important;
+            padding-top: 0.25rem !important;
+            margin-top: 0.25rem !important;
+            background-color: white !important;
           }
           /* Add spacing between problems/equations */
           .worksheet-section > div > * {

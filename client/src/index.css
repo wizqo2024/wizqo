@@ -451,13 +451,22 @@ html {
   [data-worksheet-content="true"] > *:first-child,
   [data-worksheet-content="true"] > section:first-child,
   .worksheet-section:first-child {
-    margin-top: 0 !important;
-    padding-top: 0 !important;
+    margin-top: 0.25rem !important;
+    padding-top: 0.25rem !important;
+    background-color: white !important;
   }
   
-  /* Compact header on first page */
+  /* Compact header on first page - keep header and content together */
   .worksheet-section:first-child .worksheet-header,
   .worksheet-section:first-child > div:first-child {
+    margin-top: 0 !important;
+    padding-top: 0 !important;
+    page-break-after: avoid !important;
+    margin-bottom: 0.25rem !important;
+  }
+  
+  /* Ensure first section content flows immediately after header */
+  .worksheet-section:first-child > div:not(.worksheet-header) {
     margin-top: 0 !important;
     padding-top: 0 !important;
   }
