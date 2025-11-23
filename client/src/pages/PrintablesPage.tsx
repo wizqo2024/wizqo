@@ -2186,12 +2186,12 @@ export function PrintablesPage() {
               margin-top: 1rem !important;
               line-height: 1.3 !important;
             }
-            /* First section headings should be more compact */
+            /* First section headings should be more compact - matching Interactive Worksheets Generator */
             .worksheet-section:first-of-type h1,
             .worksheet-section:first-of-type h2,
             .worksheet-section:first-of-type h3 {
-              margin-top: 0.25rem !important;
-              margin-bottom: 0.375rem !important;
+              margin-top: 0 !important;
+              margin-bottom: 0.5rem !important;
             }
             /* Comfortable spacing for readability */
             .mb-10 { margin-bottom: 1rem !important; }
@@ -2207,30 +2207,30 @@ export function PrintablesPage() {
             .worksheet-section > div {
               padding: 0.5rem 0 !important;
             }
-            /* Add spacing between learning objectives and content */
+            /* Add spacing between learning objectives and content - matching Interactive Worksheets Generator */
             .learning-objectives {
-              margin-bottom: 0.75rem !important;
-              padding: 0.5rem !important;
+              margin-bottom: 1rem !important;
+              padding: 0.75rem !important;
             }
-            /* Add spacing between header and content - compact for first section */
+            /* Add spacing between header and content - matching Interactive Worksheets Generator */
             .worksheet-header {
-              margin-bottom: 0.5rem !important;
-              padding-bottom: 0.25rem !important;
+              margin-bottom: 1rem !important;
+              padding-bottom: 0 !important;
             }
-            /* First section header should be more compact */
+            /* First section header should be more compact - matching Interactive Worksheets Generator */
             .worksheet-section:first-of-type .worksheet-header {
-              margin-bottom: 0.25rem !important;
-              padding-bottom: 0.125rem !important;
+              margin-bottom: 1rem !important;
+              padding-bottom: 0 !important;
             }
-            /* Make title/description more compact in first section */
+            /* Make title/description more compact in first section - matching Interactive Worksheets Generator */
             .worksheet-section:first-of-type h2,
             .worksheet-section:first-of-type h3 {
-              margin-top: 0.25rem !important;
-              margin-bottom: 0.375rem !important;
+              margin-top: 0 !important;
+              margin-bottom: 0.5rem !important;
             }
             .worksheet-section:first-of-type p {
               margin-top: 0.25rem !important;
-              margin-bottom: 0.375rem !important;
+              margin-bottom: 1rem !important;
             }
             /* Apply print:block and print:hidden classes */
             [class*="print:block"] { display: block !important; }
