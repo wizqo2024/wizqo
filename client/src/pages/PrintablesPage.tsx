@@ -1973,9 +1973,10 @@ export function PrintablesPage() {
             /* Compact grid gaps */
             [class*="grid"][class*="gap-4"], [class*="grid"][class*="print:gap-1"] { gap: 0.125rem !important; }
             [class*="grid"][class*="gap-2"] { gap: 0.125rem !important; }
-            /* Compact space-y spacing */
-            [class*="space-y-3"], [class*="print:space-y-0.5"] { gap: 0.125rem !important; }
-            [class*="space-y-1"], [class*="print:space-y-0"] { gap: 0 !important; }
+            /* Compact space-y spacing - space-y uses margin on children, not gap */
+            [class*="space-y-3"] > *, [class*="print:space-y-0.5"] > * { margin-top: 0.125rem !important; }
+            [class*="space-y-3"] > *:first-child, [class*="print:space-y-0.5"] > *:first-child { margin-top: 0 !important; }
+            [class*="space-y-1"] > *, [class*="print:space-y-0"] > * { margin-top: 0 !important; }
             /* Ensure content starts immediately after header */
             .worksheet-section > div > *:not(.worksheet-header):not(.learning-objectives):not(h2):first-of-type {
               margin-top: 0 !important;
@@ -2244,8 +2245,14 @@ export function PrintablesPage() {
       
     } catch (error) {
       console.error('PDF download failed:', error)
-      // Fallback to print dialog if PDF generation fails
-      window.print()
+      console.error('Error details:', {
+        message: error instanceof Error ? error.message : String(error),
+        stack: error instanceof Error ? error.stack : undefined,
+        error
+      })
+      // Show error message to user instead of falling back to print
+      const errorMessage = error instanceof Error ? error.message : String(error)
+      alert(`PDF download failed: ${errorMessage}\n\nPlease try using the Print button and select "Save as PDF" instead, or check the browser console for more details.`)
     } finally {
       setIsDownloadingPDF(false)
     }
