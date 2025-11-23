@@ -1965,21 +1965,41 @@ export function PrintablesPage() {
               page-break-before: auto !important;
             }
             .print-customization-header strong { font-weight: 600; color: #0f172a; }
-            /* Better spacing for print - more compact */
+            /* Better spacing for print - readable and clean */
             section { 
-              margin-bottom: 0.75rem !important; 
+              margin-bottom: 1.5rem !important; 
               margin-top: 0 !important;
               page-break-inside: avoid !important;
               break-inside: avoid !important;
-              padding-left: 0 !important;
-              padding-right: 0 !important;
-              padding-top: 0 !important;
-              padding-bottom: 0 !important;
+              padding-left: 0.5rem !important;
+              padding-right: 0.5rem !important;
+              padding-top: 0.75rem !important;
+              padding-bottom: 0.75rem !important;
             }
             /* First section should have no top margin */
             section:first-of-type {
               margin-top: 0 !important;
-              padding-top: 0 !important;
+              padding-top: 0.75rem !important;
+            }
+            /* Add spacing between worksheet sections */
+            .worksheet-section {
+              margin-bottom: 1.5rem !important;
+              padding: 0.75rem 0.5rem !important;
+            }
+            /* Add spacing between problems/equations */
+            .worksheet-section > div > * {
+              margin-bottom: 0.75rem !important;
+            }
+            .worksheet-section > div > *:last-child {
+              margin-bottom: 0 !important;
+            }
+            /* Add spacing between math problems */
+            [class*="math-problem"],
+            [class*="problem"],
+            .equation,
+            .puzzle {
+              margin-bottom: 1rem !important;
+              padding: 0.5rem 0 !important;
             }
             .break-inside-avoid,
             section.break-inside-avoid,
@@ -2008,30 +2028,44 @@ export function PrintablesPage() {
               page-break-inside: avoid !important;
               break-inside: avoid !important;
             }
-            /* Prevent text merging and improve readability - tighter spacing */
+            /* Prevent text merging and improve readability - comfortable spacing */
             p { 
-              line-height: 1.4 !important; 
-              margin: 0.25rem 0 !important;
+              line-height: 1.5 !important; 
+              margin: 0.5rem 0 !important;
             }
             div, span { 
-              line-height: 1.3 !important; 
+              line-height: 1.4 !important; 
             }
             h1, h2, h3 { 
               page-break-after: avoid !important; 
-              margin-bottom: 0.25rem !important;
-              margin-top: 0.5rem !important;
-              line-height: 1.2 !important;
+              margin-bottom: 0.75rem !important;
+              margin-top: 1rem !important;
+              line-height: 1.3 !important;
             }
-            /* Clean up excessive spacing - ultra compact */
-            .mb-10 { margin-bottom: 0.5rem !important; }
-            .mb-4, .mb-6 { margin-bottom: 0.25rem !important; }
-            .mb-3 { margin-bottom: 0.15rem !important; }
-            .mb-2 { margin-bottom: 0.1rem !important; }
-            .p-4, .p-5, .p-6 { padding: 0.25rem !important; }
-            .p-3 { padding: 0.15rem !important; }
-            .py-10 { padding-top: 0.25rem !important; padding-bottom: 0.25rem !important; }
-            /* Reduce section spacing */
-            section { margin-bottom: 0.25rem !important; }
+            /* Comfortable spacing for readability */
+            .mb-10 { margin-bottom: 1rem !important; }
+            .mb-4, .mb-6 { margin-bottom: 0.75rem !important; }
+            .mb-3 { margin-bottom: 0.5rem !important; }
+            .mb-2 { margin-bottom: 0.375rem !important; }
+            .p-4, .p-5, .p-6 { padding: 0.75rem !important; }
+            .p-3 { padding: 0.5rem !important; }
+            .py-10 { padding-top: 0.75rem !important; padding-bottom: 0.75rem !important; }
+            /* Section spacing for readability */
+            section { margin-bottom: 1.5rem !important; }
+            /* Add spacing between content blocks */
+            .worksheet-section > div {
+              padding: 0.5rem 0 !important;
+            }
+            /* Add spacing between learning objectives and content */
+            .learning-objectives {
+              margin-bottom: 1rem !important;
+              padding: 0.5rem !important;
+            }
+            /* Add spacing between header and content */
+            .worksheet-header {
+              margin-bottom: 0.75rem !important;
+              padding-bottom: 0.5rem !important;
+            }
             /* Apply print:block and print:hidden classes */
             [class*="print:block"] { display: block !important; }
             [class*="print:hidden"] { display: none !important; }
@@ -3601,21 +3635,41 @@ export function PrintablesPage() {
             page-break-before: auto !important;
           }
           .print-customization-header strong { font-weight: 600; color: #0f172a; }
-          /* Better spacing for print - more compact */
+          /* Better spacing for print - readable and clean */
           section { 
-            margin-bottom: 0.75rem !important; 
+            margin-bottom: 1.5rem !important; 
             margin-top: 0 !important;
             page-break-inside: avoid !important;
             break-inside: avoid !important;
-            padding-left: 0 !important;
-            padding-right: 0 !important;
-            padding-top: 0 !important;
-            padding-bottom: 0 !important;
+            padding-left: 0.5rem !important;
+            padding-right: 0.5rem !important;
+            padding-top: 0.75rem !important;
+            padding-bottom: 0.75rem !important;
           }
           /* First section should have no top margin */
           section:first-of-type {
             margin-top: 0 !important;
-            padding-top: 0 !important;
+            padding-top: 0.75rem !important;
+          }
+          /* Add spacing between worksheet sections */
+          .worksheet-section {
+            margin-bottom: 1.5rem !important;
+            padding: 0.75rem 0.5rem !important;
+          }
+          /* Add spacing between problems/equations */
+          .worksheet-section > div > * {
+            margin-bottom: 0.75rem !important;
+          }
+          .worksheet-section > div > *:last-child {
+            margin-bottom: 0 !important;
+          }
+          /* Add spacing between math problems */
+          [class*="math-problem"],
+          [class*="problem"],
+          .equation,
+          .puzzle {
+            margin-bottom: 1rem !important;
+            padding: 0.5rem 0 !important;
           }
           .break-inside-avoid,
           section.break-inside-avoid,
@@ -3644,30 +3698,44 @@ export function PrintablesPage() {
             page-break-inside: avoid !important;
             break-inside: avoid !important;
           }
-          /* Prevent text merging and improve readability - tighter spacing */
+          /* Prevent text merging and improve readability - comfortable spacing */
           p { 
-            line-height: 1.4 !important; 
-            margin: 0.25rem 0 !important;
+            line-height: 1.5 !important; 
+            margin: 0.5rem 0 !important;
           }
           div, span { 
-            line-height: 1.3 !important; 
+            line-height: 1.4 !important; 
           }
           h1, h2, h3 { 
             page-break-after: avoid !important; 
-            margin-bottom: 0.25rem !important;
-            margin-top: 0.5rem !important;
-            line-height: 1.2 !important;
+            margin-bottom: 0.75rem !important;
+            margin-top: 1rem !important;
+            line-height: 1.3 !important;
           }
-          /* Clean up excessive spacing - ultra compact */
-          .mb-10 { margin-bottom: 0.5rem !important; }
-          .mb-4, .mb-6 { margin-bottom: 0.25rem !important; }
-          .mb-3 { margin-bottom: 0.15rem !important; }
-          .mb-2 { margin-bottom: 0.1rem !important; }
-          .p-4, .p-5, .p-6 { padding: 0.25rem !important; }
-          .p-3 { padding: 0.15rem !important; }
-          .py-10 { padding-top: 0.25rem !important; padding-bottom: 0.25rem !important; }
-          /* Reduce section spacing */
-          section { margin-bottom: 0.25rem !important; }
+          /* Comfortable spacing for readability */
+          .mb-10 { margin-bottom: 1rem !important; }
+          .mb-4, .mb-6 { margin-bottom: 0.75rem !important; }
+          .mb-3 { margin-bottom: 0.5rem !important; }
+          .mb-2 { margin-bottom: 0.375rem !important; }
+          .p-4, .p-5, .p-6 { padding: 0.75rem !important; }
+          .p-3 { padding: 0.5rem !important; }
+          .py-10 { padding-top: 0.75rem !important; padding-bottom: 0.75rem !important; }
+          /* Section spacing for readability */
+          section { margin-bottom: 1.5rem !important; }
+          /* Add spacing between content blocks */
+          .worksheet-section > div {
+            padding: 0.5rem 0 !important;
+          }
+          /* Add spacing between learning objectives and content */
+          .learning-objectives {
+            margin-bottom: 1rem !important;
+            padding: 0.5rem !important;
+          }
+          /* Add spacing between header and content */
+          .worksheet-header {
+            margin-bottom: 0.75rem !important;
+            padding-bottom: 0.5rem !important;
+          }
         }
         /* Preview mode - hide navigation and UI elements for thumbnail previews */
         .preview-mode header,
