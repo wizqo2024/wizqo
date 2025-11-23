@@ -1875,6 +1875,37 @@ export function PrintablesPage() {
               margin: 0.5in !important;
               padding: 0 !important;
             }
+            /* Remove top margins from first page content */
+            [data-worksheet-content="true"] > *:first-child,
+            [data-worksheet-content="true"] > section:first-child,
+            .worksheet-section:first-child {
+              margin-top: 0 !important;
+              padding-top: 0 !important;
+            }
+            /* Compact header on first page */
+            .worksheet-section:first-child .worksheet-header,
+            .worksheet-section:first-child > div:first-child {
+              margin-top: 0 !important;
+              padding-top: 0 !important;
+            }
+            /* Compact spacing in print */
+            .worksheet-section {
+              margin-top: 0 !important;
+              margin-bottom: 0 !important;
+            }
+            .worksheet-section > div {
+              margin-top: 0 !important;
+              padding-top: 0 !important;
+            }
+            /* Compact header text */
+            .worksheet-header {
+              margin-bottom: 0.5rem !important;
+              padding-bottom: 0.25rem !important;
+            }
+            .worksheet-header > div > div {
+              margin-bottom: 0.25rem !important;
+              font-size: 0.75rem !important;
+            }
             /* Page break rules for download PDF */
             section.worksheet-section,
             section[class*="worksheet-section"],
