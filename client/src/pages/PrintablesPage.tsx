@@ -106,7 +106,7 @@ function getWorksheetTheme(docId: string): {
 // Professional header component for print worksheets
 function WorksheetHeader({ problemCount }: { problemCount?: number }) {
   return (
-    <div className="print:block hidden print:mb-0.5 print:pb-0 pb-3 mb-4" style={{ marginTop: 0, paddingTop: 0, lineHeight: '1.1' } as React.CSSProperties}>
+    <div className="print:block hidden print:mb-0 print:pb-0 pb-3 mb-4" style={{ marginTop: 0, paddingTop: 0, lineHeight: '1.1', marginBottom: '0.25rem' } as React.CSSProperties}>
       <div className="flex justify-between items-start print:items-center">
         <div className="flex-1 print:text-[9px]">
           <div className="text-sm print:mb-0 print:leading-[1.1]"><strong>Name:</strong> _________________________</div>
@@ -1890,7 +1890,7 @@ export function PrintablesPage() {
             /* Add padding to content container instead of @page margin to prevent blank first page */
             [data-worksheet-content="true"] > div:first-child {
               margin: 0.5in !important;
-              margin-top: 0.4in !important;
+              margin-top: 0.25in !important;
               padding: 0 !important;
               page-break-before: auto !important;
               overflow: visible !important;
@@ -1918,7 +1918,7 @@ export function PrintablesPage() {
             [data-worksheet-content="true"] .worksheet-section:first-of-type,
             [data-worksheet-content="true"] section.break-inside-avoid:first-of-type {
               margin-top: 0 !important;
-              padding-top: 0.25rem !important;
+              padding-top: 0 !important;
               page-break-before: auto !important;
               break-before: auto !important;
             }
@@ -1979,7 +1979,7 @@ export function PrintablesPage() {
             /* First section should have minimal top padding to fit on first page */
             section:first-of-type {
               margin-top: 0 !important;
-              padding-top: 0.25rem !important;
+              padding-top: 0 !important;
             }
             /* Add spacing between worksheet sections */
             .worksheet-section {
@@ -1988,7 +1988,7 @@ export function PrintablesPage() {
             }
             /* First worksheet section should have minimal top padding */
             .worksheet-section:first-of-type {
-              padding-top: 0.25rem !important;
+              padding-top: 0 !important;
             }
             /* Add spacing between problems/equations */
             .worksheet-section > div > * {
@@ -2062,13 +2062,18 @@ export function PrintablesPage() {
             }
             /* Add spacing between learning objectives and content */
             .learning-objectives {
-              margin-bottom: 1rem !important;
+              margin-bottom: 0.75rem !important;
               padding: 0.5rem !important;
             }
-            /* Add spacing between header and content */
+            /* Add spacing between header and content - compact for first section */
             .worksheet-header {
-              margin-bottom: 0.75rem !important;
-              padding-bottom: 0.5rem !important;
+              margin-bottom: 0.5rem !important;
+              padding-bottom: 0.25rem !important;
+            }
+            /* First section header should be more compact */
+            .worksheet-section:first-of-type .worksheet-header {
+              margin-bottom: 0.375rem !important;
+              padding-bottom: 0.25rem !important;
             }
             /* Apply print:block and print:hidden classes */
             [class*="print:block"] { display: block !important; }
@@ -3559,7 +3564,7 @@ export function PrintablesPage() {
           /* Add padding to content container instead of @page margin to prevent blank first page */
           [data-worksheet-content="true"] > div:first-child {
             margin: 0.5in !important;
-            margin-top: 0.4in !important;
+            margin-top: 0.25in !important;
             padding: 0 !important;
             page-break-before: auto !important;
             overflow: visible !important;
@@ -3587,7 +3592,7 @@ export function PrintablesPage() {
           [data-worksheet-content="true"] .worksheet-section:first-of-type,
           [data-worksheet-content="true"] section.break-inside-avoid:first-of-type {
             margin-top: 0 !important;
-            padding-top: 0.25rem !important;
+            padding-top: 0 !important;
             page-break-before: auto !important;
             break-before: auto !important;
           }
@@ -3653,7 +3658,7 @@ export function PrintablesPage() {
           /* First section should have minimal top padding to fit on first page */
           section:first-of-type {
             margin-top: 0 !important;
-            padding-top: 0.25rem !important;
+            padding-top: 0 !important;
           }
           /* Add spacing between worksheet sections */
           .worksheet-section {
@@ -3662,7 +3667,7 @@ export function PrintablesPage() {
           }
           /* First worksheet section should have minimal top padding */
           .worksheet-section:first-of-type {
-            padding-top: 0.25rem !important;
+            padding-top: 0 !important;
           }
           /* Add spacing between problems/equations */
           .worksheet-section > div > * {
@@ -3736,13 +3741,18 @@ export function PrintablesPage() {
           }
           /* Add spacing between learning objectives and content */
           .learning-objectives {
-            margin-bottom: 1rem !important;
+            margin-bottom: 0.75rem !important;
             padding: 0.5rem !important;
           }
-          /* Add spacing between header and content */
+          /* Add spacing between header and content - compact for first section */
           .worksheet-header {
-            margin-bottom: 0.75rem !important;
-            padding-bottom: 0.5rem !important;
+            margin-bottom: 0.5rem !important;
+            padding-bottom: 0.25rem !important;
+          }
+          /* First section header should be more compact */
+          .worksheet-section:first-of-type .worksheet-header {
+            margin-bottom: 0.375rem !important;
+            padding-bottom: 0.25rem !important;
           }
         }
         /* Preview mode - hide navigation and UI elements for thumbnail previews */
