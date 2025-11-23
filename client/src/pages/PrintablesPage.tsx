@@ -106,15 +106,15 @@ function getWorksheetTheme(docId: string): {
 // Professional header component for print worksheets
 function WorksheetHeader({ problemCount }: { problemCount?: number }) {
   return (
-    <div className="print:block hidden print:mb-2 print:pb-1 pb-3 mb-4" style={{ marginTop: 0, paddingTop: 0 } as React.CSSProperties}>
-      <div className="flex justify-between items-start">
-        <div className="flex-1">
-          <div className="text-sm print:text-xs print:mb-1 mb-2"><strong>Name:</strong> _________________________</div>
-          <div className="text-sm print:text-xs print:mb-1 mb-2"><strong>Date:</strong> ___________  <strong>Grade:</strong> _____</div>
-          <div className="text-sm print:text-xs"><strong>Teacher/Parent:</strong> _________________</div>
+    <div className="print:block hidden print:mb-1 print:pb-0 pb-3 mb-4" style={{ marginTop: 0, paddingTop: 0, lineHeight: '1.2' } as React.CSSProperties}>
+      <div className="flex justify-between items-start print:items-center">
+        <div className="flex-1 print:text-[10px]">
+          <div className="text-sm print:mb-0.5 mb-2 print:leading-tight"><strong>Name:</strong> _________________________</div>
+          <div className="text-sm print:mb-0.5 mb-2 print:leading-tight"><strong>Date:</strong> ___________  <strong>Grade:</strong> _____</div>
+          <div className="text-sm print:leading-tight"><strong>Teacher/Parent:</strong> _________________</div>
         </div>
         {problemCount && (
-          <div className="text-right text-xs print:text-[10px] text-slate-600">
+          <div className="text-right text-xs print:text-[9px] text-slate-600 print:leading-tight">
             <div>Score: ___ / {problemCount}</div>
           </div>
         )}
@@ -126,11 +126,11 @@ function WorksheetHeader({ problemCount }: { problemCount?: number }) {
 // Learning objectives component
 function LearningObjectives({ objectives }: { objectives: string[] }) {
   return (
-    <div className="print:block hidden print:mb-2 print:p-2 print:text-xs mb-4 p-3 bg-slate-50 border-l-4 border-blue-500 rounded">
-      <div className="text-sm print:text-xs font-semibold text-slate-800 print:mb-1 mb-2">📚 What You'll Practice:</div>
-      <ul className="text-xs print:text-[11px] text-slate-700 print:space-y-0 space-y-1 list-disc list-inside">
+    <div className="print:block hidden print:mb-1 print:p-1.5 print:text-[10px] mb-4 p-3 bg-slate-50 border-l-4 border-blue-500 rounded print:border-l-2">
+      <div className="text-sm print:text-[10px] print:font-semibold text-slate-800 print:mb-0.5 mb-2 print:leading-tight">📚 What You'll Practice:</div>
+      <ul className="text-xs print:text-[9px] text-slate-700 print:space-y-0 print:leading-tight space-y-1 list-disc list-inside">
         {objectives.map((obj, i) => (
-          <li key={i}>{obj}</li>
+          <li key={i} className="print:mb-0">{obj}</li>
         ))}
       </ul>
     </div>
@@ -308,15 +308,17 @@ function WorksheetSectionWrapper({
       >
         <WorksheetHeader problemCount={problemCount} />
         <h2 
-          className={`text-xl font-bold ${theme.text} mb-2 flex items-center gap-2`}
+          className={`text-xl print:text-base print:font-semibold font-bold ${theme.text} print:mb-1 mb-2 flex items-center gap-2 print:leading-tight`}
           style={{ 
             pageBreakAfter: 'avoid',
             breakAfter: 'avoid',
             pageBreakInside: 'avoid',
-            breakInside: 'avoid'
+            breakInside: 'avoid',
+            marginTop: 0,
+            paddingTop: 0
           } as React.CSSProperties}
         >
-          {emoji && <span className="text-4xl">{emoji}</span>}
+          {emoji && <span className="text-4xl print:text-2xl">{emoji}</span>}
           <span>{translatedTitle}</span>
         </h2>
         {translatedDescription && (
