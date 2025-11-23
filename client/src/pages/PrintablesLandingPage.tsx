@@ -14,7 +14,6 @@ const WorksheetThumbnailCard = React.memo(function WorksheetThumbnailCard({ titl
   const level = docId ? PRINTABLE_DOC_META[docId]?.level : undefined;
   const previewUrl = href + (href.includes('?') ? '&preview=1' : '?preview=1');
   const finalHref = href.includes('?') ? `${href}&from=printables` : `${href}?from=printables`;
-  const downloadHref = (href.includes('?') ? `${href}&autoprint=1` : `${href}?autoprint=1`) + `&from=printables`;
   
   // Use translations if docId is provided - memoize to prevent re-renders
   // Use language instead of t in dependencies to avoid re-renders when t function reference changes
@@ -85,43 +84,25 @@ const WorksheetThumbnailCard = React.memo(function WorksheetThumbnailCard({ titl
       
       <div className="flex items-center justify-between">
         <div className="flex items-center gap-2">
-          <button
-            onClick={() => {
-              // Add download=1 parameter
-              const url = new URL(finalHref, window.location.origin)
-              url.searchParams.set('download', '1')
-              
-              // Use hidden iframe to trigger download
-              const iframe = document.createElement('iframe')
-              iframe.style.display = 'none'
-              iframe.style.width = '0'
-              iframe.style.height = '0'
-              iframe.style.position = 'absolute'
-              iframe.style.left = '-9999px'
-              iframe.src = url.toString()
-              document.body.appendChild(iframe)
-              
-              setTimeout(() => {
-                if (iframe.parentNode) {
-                  document.body.removeChild(iframe)
-                }
-              }, 10000)
-            }}
-            className="text-xs font-medium text-purple-600 hover:text-purple-700 px-3 py-1 rounded-full border border-purple-200 hover:border-purple-300 transition-colors"
-            aria-label={`Download ${title} as PDF`}
-          >
-            Download
-          </button>
           <a
-            href={downloadHref}
+            href={finalHref + (finalHref.includes('?') ? '&download=1' : '?download=1')}
             target="_blank"
             rel="noopener noreferrer"
             className="text-xs font-medium text-purple-600 hover:text-purple-700 px-3 py-1 rounded-full border border-purple-200 hover:border-purple-300 transition-colors"
+            aria-label={`Download ${title} as PDF`}
+          >
+            ⬇️ {t('pages.printables.download')}
+          </a>
+          <button
+            onClick={() => {
+              window.open(finalHref, '_blank')
+              setTimeout(() => window.print(), 500)
+            }}
+            className="text-xs font-medium text-purple-600 hover:text-purple-700 px-3 py-1 rounded-full border border-purple-200 hover:border-purple-300 transition-colors"
             aria-label={`Print ${title}`}
-            title={t('pages.printables.downloadNote')}
           >
             🖨️ Print
-          </a>
+          </button>
         </div>
       </div>
     </article>
@@ -137,7 +118,7 @@ function BundleButton({ section, className }: { section: string; className?: str
     items: docs.join(','),
     category: section,
     from: 'printables',
-    autoprint: '1',
+    download: '1',
   });
   const url = `/print?${params.toString()}`;
   return (
