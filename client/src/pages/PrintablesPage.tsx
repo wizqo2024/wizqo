@@ -2989,93 +2989,277 @@ export function PrintablesPage() {
             clonedBody.style.lineHeight = '1.3'
           }
           
-          // Apply print styles via inline styles to match @media print
+          // Apply ALL print styles as regular CSS (html2canvas doesn't respect @media print)
+          // Copy exact styles from @media print block to ensure identical layout
           const style = clonedDoc.createElement('style')
           style.textContent = `
-            html, body {
+            /* CRITICAL: Ensure all pages have white background - fix black pages */
+            html, body, #root, [data-worksheet-content="true"] {
+              background-color: white !important;
+              background: white !important;
+              color: black !important;
               width: 794px !important;
               max-width: 794px !important;
-              margin: 0 !important;
-              padding: 0 !important;
+              margin: 0 !important; 
+              padding: 0 !important; 
               font-size: 11pt !important;
               line-height: 1.3 !important;
             }
+            /* Override dark backgrounds that cause black pages */
+            [class*="bg-black"],
+            [class*="bg-slate-900"],
+            [class*="bg-gray-900"],
+            [class*="bg-zinc-900"],
+            [class*="bg-neutral-900"],
+            [class*="bg-stone-900"],
+            [class*="dark"],
+            .bg-black,
+            .bg-slate-900,
+            .bg-gray-900 {
+              background-color: white !important;
+              background: white !important;
+              color: black !important;
+            }
+            /* Ensure worksheet content has white background */
+            [data-worksheet-content="true"],
+            [data-worksheet-content="true"] section,
+            [data-worksheet-content="true"] div,
+            .worksheet-section {
+              background-color: white !important;
+              background: white !important;
+            }
+            /* Fix blank first page - remove min-height and ensure content starts at top */
+            [data-worksheet-content="true"],
+            .min-h-screen {
+              min-height: auto !important;
+              height: auto !important;
+              margin: 0 !important;
+              padding: 0 !important;
+              background-color: white !important;
+            }
+            /* Add padding to content container for proper spacing since @page has no margin */
+            [data-worksheet-content="true"] > div:first-child,
+            .max-w-4xl.mx-auto {
+              margin: 0.5in !important;
+              margin-top: 0 !important;
+              padding: 0 !important;
+              width: 794px !important;
+              max-width: 794px !important;
+              overflow: visible !important;
+              background-color: white !important;
+              background: white !important;
+            }
+            /* Ensure all divs inside worksheet content have white background */
+            [data-worksheet-content="true"] > div:first-child > * {
+              background-color: white !important;
+              background: white !important;
+            }
+            /* CRITICAL: Ensure first worksheet section starts immediately after header on first page */
+            [data-worksheet-content="true"] section:first-of-type,
+            [data-worksheet-content="true"] .worksheet-section:first-of-type,
+            [data-worksheet-content="true"] section.break-inside-avoid:first-of-type {
+              margin-top: 0 !important;
+              padding-top: 0 !important;
+              background-color: white !important;
+              background: white !important;
+            }
+            /* Ensure worksheet header and first section stay together on first page */
+            .worksheet-section:first-of-type .worksheet-header,
+            section:first-of-type .worksheet-header {
+              margin-bottom: 1rem !important;
+              padding-bottom: 0 !important;
+              margin-top: 0 !important;
+              padding-top: 0 !important;
+            }
+            /* First section content should start immediately after header */
+            .worksheet-section:first-of-type > div:not(.worksheet-header),
+            section:first-of-type > div:not(.worksheet-header) {
+              margin-top: 0 !important;
+              padding-top: 0 !important;
+            }
+            /* CRITICAL: Ensure content inside first section flows immediately after header */
+            .worksheet-section:first-of-type .worksheet-header + *,
+            section:first-of-type .worksheet-header + * {
+              margin-top: 0 !important;
+              padding-top: 0 !important;
+            }
+            /* Ensure the relative z-10 div inside first section has no top margin */
+            .worksheet-section:first-of-type > div.relative,
+            section:first-of-type > div.relative {
+              margin-top: 0 !important;
+              padding-top: 0 !important;
+            }
+            /* Ensure LearningObjectives and other content appear on first page */
+            .worksheet-section:first-of-type .learning-objectives,
+            section:first-of-type .learning-objectives {
+              margin-top: 0 !important;
+              margin-bottom: 1rem !important;
+              padding: 0.75rem !important;
+            }
+            /* Ensure title and description appear on first page */
+            .worksheet-section:first-of-type h2,
+            .worksheet-section:first-of-type h3,
+            section:first-of-type h2,
+            section:first-of-type h3 {
+              margin-top: 0 !important;
+              margin-bottom: 0.5rem !important;
+            }
+            .worksheet-section:first-of-type p,
+            section:first-of-type p {
+              margin-top: 0.25rem !important;
+              margin-bottom: 1rem !important;
+            }
+            /* Hide URLs in print */
+            a[href]::after { content: none !important; }
+            a { text-decoration: none !important; }
+            /* Remove backgrounds and borders in print */
             * {
               box-shadow: none !important;
             }
-            a[href]::after {
-              content: none !important;
-            }
-            a {
-              text-decoration: none !important;
-            }
-            header,
-            .print\\:hidden,
-            nav,
-            button {
+            /* Remove borders from navigation and UI elements */
+            header, .print\\:hidden, nav, button {
               border: none !important;
               border-radius: 0 !important;
             }
-            section[class*="break-inside-avoid"] {
+            /* Preserve worksheet section borders and styling */
+            section[class*="break-inside-avoid"],
+            section.worksheet-section,
+            .worksheet-section {
               border: 1px solid #e2e8f0 !important;
               border-radius: 4px !important;
               background: white !important;
-              margin-bottom: 0.75rem !important;
-              padding: 0 0.5in !important;
+              background-color: white !important;
             }
+            /* Preserve content borders within worksheets */
             section[class*="break-inside-avoid"] div[class*="border"],
             section[class*="break-inside-avoid"] div[class*="rounded"] {
               border: 1px solid #cbd5e1 !important;
               border-radius: 4px !important;
             }
+            /* Remove decorative corner accents */
             section[class*="break-inside-avoid"] > div[class*="absolute"] {
               display: none !important;
             }
-            .print-customization-header {
+            /* Customization header */
+            .print-customization-header { 
               display: block !important;
+              margin: 0 !important;
               margin-bottom: 0.5rem !important;
-              padding: 0.25rem 0.5in !important;
-              border-bottom: 1px solid #e2e8f0 !important;
-              font-size: 9pt !important;
-              color: #1e293b !important;
-              line-height: 1.3 !important;
+              padding: 0.25rem 0 !important;
+              border-bottom: 1px solid #e2e8f0;
+              font-size: 9pt !important; 
+              color: #1e293b !important; 
+              line-height: 1.3 !important; 
               font-weight: 500 !important;
             }
-            /* Challenge section - prevent breaking across pages */
-            .challenge-section {
-              page-break-inside: avoid !important;
-              break-inside: avoid !important;
-              -webkit-region-break-inside: avoid !important;
-              page-break-before: auto !important;
-              orphans: 3 !important;
-              widows: 3 !important;
-            }
-            .challenge-section > * {
-              page-break-inside: avoid !important;
-              break-inside: avoid !important;
-            }
-            section {
-              margin-bottom: 0.75rem !important;
-              padding: 0 0.5in !important;
-            }
-            p {
-              line-height: 1.4 !important;
-              margin: 0.25rem 0 !important;
-            }
-            div, span {
-              line-height: 1.3 !important;
-            }
-            h1, h2, h3 {
-              margin-bottom: 0.25rem !important;
-              margin-top: 0.5rem !important;
-              line-height: 1.2 !important;
-            }
-            .mb-10 { margin-bottom: 0.75rem !important; }
-            .mb-4, .mb-6 { margin-bottom: 0.5rem !important; }
-            .p-4, .p-5, .p-6 { padding: 0.5rem !important; }
-            .py-10 {
+            .print-customization-header strong { font-weight: 600; color: #0f172a; }
+            /* Better spacing for print */
+            section { 
+              margin-bottom: 1.5rem !important; 
+              margin-top: 0 !important;
+              padding-left: 0.5rem !important;
+              padding-right: 0.5rem !important;
               padding-top: 0.5rem !important;
               padding-bottom: 0.5rem !important;
+              background-color: white !important;
+              background: white !important;
+            }
+            /* First section should have NO top padding/margin */
+            section:first-of-type {
+              margin-top: 0 !important;
+              padding-top: 0 !important;
+              background-color: white !important;
+            }
+            /* Add spacing between worksheet sections */
+            .worksheet-section {
+              margin-bottom: 1.5rem !important;
+              padding: 0.5rem 0.5rem !important;
+              background-color: white !important;
+            }
+            /* First worksheet section should have NO top padding/margin */
+            .worksheet-section:first-of-type {
+              padding-top: 0 !important;
+              margin-top: 0 !important;
+              background-color: white !important;
+            }
+            /* Add spacing between problems/equations */
+            .worksheet-section > div > * {
+              margin-bottom: 0.75rem !important;
+            }
+            .worksheet-section > div > *:last-child {
+              margin-bottom: 0 !important;
+            }
+            /* Add spacing between math problems */
+            [class*="math-problem"],
+            [class*="problem"],
+            .equation,
+            .puzzle {
+              margin-bottom: 1rem !important;
+              padding: 0.5rem 0 !important;
+            }
+            /* Prevent text merging and improve readability */
+            p { 
+              line-height: 1.5 !important; 
+              margin: 0.5rem 0 !important;
+            }
+            div, span { 
+              line-height: 1.4 !important; 
+            }
+            h1, h2, h3 { 
+              margin-bottom: 0.75rem !important;
+              margin-top: 1rem !important;
+              line-height: 1.3 !important;
+            }
+            /* First section headings should be more compact */
+            .worksheet-section:first-of-type h1,
+            .worksheet-section:first-of-type h2,
+            .worksheet-section:first-of-type h3 {
+              margin-top: 0 !important;
+              margin-bottom: 0.5rem !important;
+            }
+            /* Comfortable spacing for readability */
+            .mb-10 { margin-bottom: 1rem !important; }
+            .mb-4, .mb-6 { margin-bottom: 0.75rem !important; }
+            .mb-3 { margin-bottom: 0.5rem !important; }
+            .mb-2 { margin-bottom: 0.375rem !important; }
+            .p-4, .p-5, .p-6 { padding: 0.75rem !important; }
+            .p-3 { padding: 0.5rem !important; }
+            .py-10 { padding-top: 0.75rem !important; padding-bottom: 0.75rem !important; }
+            /* Section spacing */
+            section { margin-bottom: 1.5rem !important; }
+            /* Add spacing between content blocks */
+            .worksheet-section > div {
+              padding: 0.5rem 0 !important;
+            }
+            /* Add spacing between learning objectives and content */
+            .learning-objectives {
+              margin-bottom: 1rem !important;
+              padding: 0.75rem !important;
+            }
+            /* Add spacing between header and content */
+            .worksheet-header {
+              margin-bottom: 1rem !important;
+              padding-bottom: 0 !important;
+            }
+            /* First section header */
+            .worksheet-section:first-of-type .worksheet-header {
+              margin-bottom: 1rem !important;
+              padding-bottom: 0 !important;
+            }
+            /* Make title/description more compact in first section */
+            .worksheet-section:first-of-type h2,
+            .worksheet-section:first-of-type h3 {
+              margin-top: 0 !important;
+              margin-bottom: 0.5rem !important;
+            }
+            .worksheet-section:first-of-type p {
+              margin-top: 0.25rem !important;
+              margin-bottom: 1rem !important;
+            }
+            /* Challenge section */
+            .challenge-section {
+              orphans: 3 !important;
+              widows: 3 !important;
             }
           `
           clonedDoc.head.appendChild(style)
