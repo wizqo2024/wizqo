@@ -1868,16 +1868,43 @@ export function PrintablesPage() {
           const style = clonedDoc.createElement('style')
           style.textContent = `
             @page { 
-              margin: 0;
+              margin: 0.5in;
               size: A4;
             }
-            html, body { 
+            /* CRITICAL: Ensure all pages have white background - fix black pages */
+            html, body, #root, [data-worksheet-content="true"] {
+              background-color: white !important;
+              background: white !important;
+              color: black !important;
               width: 794px !important;
               max-width: 794px !important;
               margin: 0 !important; 
               padding: 0 !important; 
               font-size: 11pt !important;
               line-height: 1.3 !important;
+            }
+            /* Override dark backgrounds that cause black pages - target common dark classes */
+            [class*="bg-black"],
+            [class*="bg-slate-900"],
+            [class*="bg-gray-900"],
+            [class*="bg-zinc-900"],
+            [class*="bg-neutral-900"],
+            [class*="bg-stone-900"],
+            [class*="dark"],
+            .bg-black,
+            .bg-slate-900,
+            .bg-gray-900 {
+              background-color: white !important;
+              background: white !important;
+              color: black !important;
+            }
+            /* Ensure worksheet content has white background */
+            [data-worksheet-content="true"],
+            [data-worksheet-content="true"] section,
+            [data-worksheet-content="true"] div,
+            .worksheet-section {
+              background-color: white !important;
+              background: white !important;
             }
             /* Fix blank first page - remove min-height and ensure content starts at top */
             [data-worksheet-content="true"],
@@ -1886,14 +1913,16 @@ export function PrintablesPage() {
               height: auto !important;
               margin: 0 !important;
               padding: 0 !important;
+              background-color: white !important;
             }
             /* Add padding to content container instead of @page margin to prevent blank first page */
             [data-worksheet-content="true"] > div:first-child {
               margin: 0.5in !important;
-              margin-top: 0.25in !important;
+              margin-top: 0 !important;
               padding: 0 !important;
               page-break-before: auto !important;
               overflow: visible !important;
+              background-color: white !important;
             }
             /* Force content to start - override any browser defaults */
             [data-worksheet-content="true"] {
@@ -3561,14 +3590,41 @@ export function PrintablesPage() {
       <style>{`
         @media print {
           @page { 
-            margin: 0;
+            margin: 0.5in;
             size: A4;
           }
-          html, body { 
+          /* CRITICAL: Ensure all pages have white background - fix black pages */
+          html, body, #root, [data-worksheet-content="true"] {
+            background-color: white !important;
+            background: white !important;
+            color: black !important;
             margin: 0 !important; 
             padding: 0 !important; 
             font-size: 11pt;
             line-height: 1.3;
+          }
+          /* Override dark backgrounds that cause black pages - target common dark classes */
+          [class*="bg-black"],
+          [class*="bg-slate-900"],
+          [class*="bg-gray-900"],
+          [class*="bg-zinc-900"],
+          [class*="bg-neutral-900"],
+          [class*="bg-stone-900"],
+          [class*="dark"],
+          .bg-black,
+          .bg-slate-900,
+          .bg-gray-900 {
+            background-color: white !important;
+            background: white !important;
+            color: black !important;
+          }
+          /* Ensure worksheet content has white background */
+          [data-worksheet-content="true"],
+          [data-worksheet-content="true"] section,
+          [data-worksheet-content="true"] div,
+          .worksheet-section {
+            background-color: white !important;
+            background: white !important;
           }
           /* Fix blank first page - remove min-height and ensure content starts at top */
           [data-worksheet-content="true"],
@@ -3577,14 +3633,16 @@ export function PrintablesPage() {
             height: auto !important;
             margin: 0 !important;
             padding: 0 !important;
+            background-color: white !important;
           }
           /* Add padding to content container instead of @page margin to prevent blank first page */
           [data-worksheet-content="true"] > div:first-child {
             margin: 0.5in !important;
-            margin-top: 0.25in !important;
+            margin-top: 0 !important;
             padding: 0 !important;
             page-break-before: auto !important;
             overflow: visible !important;
+            background-color: white !important;
           }
           /* Force content to start - override any browser defaults */
           [data-worksheet-content="true"] {
