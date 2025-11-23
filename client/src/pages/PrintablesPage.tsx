@@ -275,11 +275,22 @@ function WorksheetSectionWrapper({
     <section 
       className={`mb-10 break-inside-avoid rounded-xl border-2 ${theme.border} ${theme.background} p-6 print:border-0 print:p-0 print:bg-white shadow-lg relative overflow-hidden worksheet-section`}
       dir={isRTL ? 'rtl' : 'ltr'}
+      style={{ 
+        pageBreakInside: 'avoid',
+        breakInside: 'avoid',
+        WebkitRegionBreakInside: 'avoid'
+      } as React.CSSProperties}
     >
       {/* Decorative corner accent */}
       <div className="absolute top-0 right-0 w-32 h-32 bg-gradient-to-br rounded-bl-full pointer-events-none print:hidden" style={{ backgroundColor: theme.cornerAccent }} />
       <div className="absolute bottom-0 left-0 w-24 h-24 bg-gradient-to-tr rounded-tr-full pointer-events-none print:hidden" style={{ backgroundColor: theme.cornerAccent2 }} />
-      <div className="relative z-10">
+      <div 
+        className="relative z-10"
+        style={{ 
+          pageBreakInside: 'avoid',
+          breakInside: 'avoid'
+        } as React.CSSProperties}
+      >
         <WorksheetHeader problemCount={problemCount} />
         <h2 className={`text-xl font-bold ${theme.text} mb-2 flex items-center gap-2`}>
           {emoji && <span className="text-4xl">{emoji}</span>}

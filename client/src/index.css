@@ -428,11 +428,19 @@ html {
     padding: 0 !important;
   }
 
-  /* Prevent page breaks inside worksheet sections - TARGETED approach */
+  /* Prevent page breaks inside worksheet sections - STRONG TARGETED approach */
   /* Apply to worksheet sections and content blocks that should stay together */
   section,
+  section.worksheet-section,
+  section[class*="worksheet-section"],
   .worksheet-section,
   [class*="worksheet-section"],
+  .break-inside-avoid,
+  /* Inner content wrapper */
+  section.worksheet-section > div,
+  section[class*="worksheet-section"] > div,
+  .worksheet-section > div,
+  /* Worked examples and content blocks */
   .worked-example,
   .worksheet-content,
   [data-worksheet-content="true"] > section,
@@ -448,7 +456,7 @@ html {
   .problem-set,
   .question-group,
   .math-problem,
-  /* Tables and figures */
+  /* Tables and figures - keep together */
   table,
   figure,
   /* Keep headings with their content */
@@ -456,6 +464,16 @@ html {
     break-inside: avoid !important;
     page-break-inside: avoid !important;
     -webkit-region-break-inside: avoid !important;
+    orphans: 3 !important;
+    widows: 3 !important;
+  }
+  
+  /* Prevent breaks in direct children of sections */
+  section.worksheet-section > div,
+  section[class*="worksheet-section"] > div,
+  .worksheet-section > div {
+    page-break-inside: avoid !important;
+    break-inside: avoid !important;
   }
 
   /* Keep headings with following content */
@@ -464,10 +482,20 @@ html {
     break-before: avoid;
   }
 
-  /* Allow page breaks between sections when needed */
-  section + section,
+  /* Allow page breaks between sections when needed - but keep sections intact */
+  section.worksheet-section + section.worksheet-section,
+  section[class*="worksheet-section"] + section[class*="worksheet-section"],
   .worksheet-section + .worksheet-section,
   [class*="worksheet-section"] + [class*="worksheet-section"] {
+    page-break-before: auto;
+    break-before: auto;
+    page-break-after: auto;
+    break-after: auto;
+  }
+  
+  /* Ensure sections can start on new page if they don't fit */
+  section.worksheet-section,
+  .worksheet-section {
     page-break-before: auto;
     break-before: auto;
   }
