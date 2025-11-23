@@ -2731,17 +2731,26 @@ export function PrintablesPage() {
       // Sort by top position
       sectionPositions.sort((a, b) => a.top - b.top)
       
-      // Create PDF
-      const imgWidth = 210 // A4 width in mm
+      // Create PDF with correct content width and margins to match print preview
+      // Content is 698px wide, page is 794px, so content width in PDF = (698/794) * 210mm = 184.6mm
+      const pageWidthMm = 210 // A4 width in mm
       const pageHeight = 297 // A4 height in mm
+      const marginLeftMm = 12.7 // 0.5in in mm
+      // Canvas was captured at content width (698px) * scale
+      // Determine actual scale from canvas width: if canvas.width is ~1396px, scale is 2 (698 * 2)
+      // If canvas.width is ~837px, scale is 1.2 (698 * 1.2)
+      const estimatedScale = canvas.width > 1000 ? 2 : 1.2
+      const contentWidthPx = canvas.width / estimatedScale
+      const contentWidthMm = (contentWidthPx / 794) * pageWidthMm // Should be ~184.6mm
+      const imgWidth = contentWidthMm
       const imgHeight = (canvas.height * imgWidth) / canvas.width
       
       const imgData = canvas.toDataURL('image/jpeg', 0.9)
       const pdf = new jsPDF('p', 'mm', 'a4')
       
       if (imgHeight <= pageHeight) {
-        // Single page
-        pdf.addImage(imgData, 'JPEG', 0, 0, imgWidth, imgHeight)
+        // Single page - place with left margin to match print preview
+        pdf.addImage(imgData, 'JPEG', marginLeftMm, 0, imgWidth, imgHeight)
       } else {
         // Multiple pages - simple split with card protection
         const pixelsPerMm = canvas.width / imgWidth
@@ -4158,14 +4167,20 @@ export function PrintablesPage() {
           if (fallbackCanvas && fallbackCanvas.width > 0 && fallbackCanvas.height > 0) {
             // Use fallback canvas - skip validation and proceed
             const finalCanvas = fallbackCanvas
-            const imgWidth = 210
+            // Calculate content width in PDF: canvas was captured at content width (698px) * scale
+            const pageWidthMm = 210
             const pageHeight = 297
+            const marginLeftMm = 12.7 // 0.5in in mm
+            // Estimate scale from canvas width (should be ~698px * scale)
+            const estimatedContentWidthPx = finalCanvas.width / 1.2 // Assuming scale ~1.2
+            const contentWidthMm = (estimatedContentWidthPx / 794) * pageWidthMm
+            const imgWidth = contentWidthMm
             const imgHeight = (finalCanvas.height * imgWidth) / finalCanvas.width
             const imgData = finalCanvas.toDataURL('image/jpeg', 0.85)
             const pdf = new jsPDF('p', 'mm', 'a4')
             
             if (imgHeight <= pageHeight) {
-              pdf.addImage(imgData, 'JPEG', 0, 0, imgWidth, imgHeight)
+              pdf.addImage(imgData, 'JPEG', marginLeftMm, 0, imgWidth, imgHeight)
             } else {
               const pixelsPerMm = finalCanvas.width / imgWidth
               let currentY = 0
@@ -4181,7 +4196,7 @@ export function PrintablesPage() {
                   pageCtx.drawImage(finalCanvas, 0, currentY, finalCanvas.width, pageHeightActual, 0, 0, finalCanvas.width, pageHeightActual)
                   const pageImgData = pageCanvas.toDataURL('image/jpeg', 0.85)
                   const pageImgHeight = (pageHeightActual * imgWidth) / finalCanvas.width
-                  pdf.addImage(pageImgData, 'JPEG', 0, 0, imgWidth, pageImgHeight)
+                  pdf.addImage(pageImgData, 'JPEG', marginLeftMm, 0, imgWidth, pageImgHeight)
                   currentY = pageEndY
                   if (currentY < finalCanvas.height) {
                     pdf.addPage()
@@ -4233,11 +4248,15 @@ export function PrintablesPage() {
       const marginRightMm = 12.7 // 0.5in in mm
       
       // Calculate content width in PDF based on actual canvas dimensions
-      // Canvas was captured at measuredContentWidth * scale
-      // So content width in pixels = canvas.width / scale
+      // Canvas was captured at measuredContentWidth (698px) * scale (1.2)
+      // So content width in pixels = canvas.width / scale = canvas.width / 1.2
       const capturedContentWidthPx = finalCanvas.width / canvasScale
+      // Verify: capturedContentWidthPx should be approximately 698px
+      if (Math.abs(capturedContentWidthPx - 698) > 10) {
+        console.warn(`Unexpected content width: ${capturedContentWidthPx}px (expected ~698px)`)
+      }
       // Convert to PDF: (capturedWidth / pageWidth) * pageWidthMm
-      // This ensures PDF content width matches print preview exactly
+      // This ensures PDF content width matches print preview exactly: (698/794) * 210 = 184.6mm
       const contentWidthMm = (capturedContentWidthPx / pageWidth) * pageWidthMm
       const imgWidth = contentWidthMm // Content width in PDF (should be ~184.6mm)
       let imgHeight = (finalCanvas.height * imgWidth) / finalCanvas.width
@@ -4532,8 +4551,17 @@ export function PrintablesPage() {
         })
         
         if (viewportCanvas && viewportCanvas.width > 0 && viewportCanvas.height > 0) {
-          const imgWidth = 210
+          // Fallback: viewport capture - estimate content area
+          // Viewport might be full screen, so we need to estimate content width
+          const pageWidthMm = 210
           const pageHeight = 297
+          const marginLeftMm = 12.7 // 0.5in in mm
+          // Estimate: if viewport is ~794px (print width), content is ~698px
+          // Otherwise, assume viewport contains content with some padding
+          const viewportWidthPx = viewportCanvas.width
+          const estimatedContentWidthPx = viewportWidthPx > 1000 ? 698 : viewportWidthPx * 0.88 // Rough estimate
+          const contentWidthMm = (estimatedContentWidthPx / 794) * pageWidthMm
+          const imgWidth = Math.min(contentWidthMm, pageWidthMm - (marginLeftMm * 2)) // Don't exceed page width minus margins
           const imgHeight = (viewportCanvas.height * imgWidth) / viewportCanvas.width
           const imgData = viewportCanvas.toDataURL('image/jpeg', 0.85) || viewportCanvas.toDataURL('image/png')
           
@@ -4541,7 +4569,7 @@ export function PrintablesPage() {
             const pdf = new jsPDF('p', 'mm', 'a4')
             
             if (imgHeight <= pageHeight) {
-              pdf.addImage(imgData, 'JPEG', 0, 0, imgWidth, imgHeight)
+              pdf.addImage(imgData, 'JPEG', marginLeftMm, 0, imgWidth, imgHeight)
             } else {
               const pixelsPerMm = viewportCanvas.width / imgWidth
               let currentY = 0
@@ -4557,7 +4585,7 @@ export function PrintablesPage() {
                   pageCtx.drawImage(viewportCanvas, 0, currentY, viewportCanvas.width, pageHeightActual, 0, 0, viewportCanvas.width, pageHeightActual)
                   const pageImgData = pageCanvas.toDataURL('image/jpeg', 0.85) || pageCanvas.toDataURL('image/png')
                   const pageImgHeight = (pageHeightActual * imgWidth) / viewportCanvas.width
-                  pdf.addImage(pageImgData, 'JPEG', 0, 0, imgWidth, pageImgHeight)
+                  pdf.addImage(pageImgData, 'JPEG', marginLeftMm, 0, imgWidth, pageImgHeight)
                   currentY = pageEndY
                   if (currentY < viewportCanvas.height) {
                     pdf.addPage()
