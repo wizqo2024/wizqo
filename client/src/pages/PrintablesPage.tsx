@@ -1925,10 +1925,13 @@ export function PrintablesPage() {
               background-color: white !important;
             }
             /* Add padding to content container for proper spacing since @page has no margin */
-            [data-worksheet-content="true"] > div:first-child {
+            [data-worksheet-content="true"] > div:first-child,
+            .max-w-4xl.mx-auto {
               margin: 0.5in !important;
               margin-top: 0 !important;
               padding: 0 !important;
+              width: 794px !important;
+              max-width: 794px !important;
               page-break-before: auto !important;
               overflow: visible !important;
               background-color: white !important;
@@ -3763,10 +3766,13 @@ export function PrintablesPage() {
             background-color: white !important;
           }
           /* Add padding to content container for proper spacing since @page has no margin */
-          [data-worksheet-content="true"] > div:first-child {
+          [data-worksheet-content="true"] > div:first-child,
+          .max-w-4xl.mx-auto {
             margin: 0.5in !important;
             margin-top: 0 !important;
             padding: 0 !important;
+            width: 794px !important;
+            max-width: 794px !important;
             page-break-before: auto !important;
             overflow: visible !important;
             background-color: white !important;
