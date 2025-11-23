@@ -403,6 +403,12 @@ html {
 /* Universal print/PDF fix for all worksheets */
 /* Prevents worksheet sections from breaking across pages */
 @media print {
+  /* Page setup */
+  @page {
+    size: A4;
+    margin: 0.5in;
+  }
+  
   /* Fix blank first page - remove margins and padding */
   body, html {
     margin: 0 !important;
@@ -428,6 +434,20 @@ html {
     padding: 0 !important;
   }
 
+  /* CRITICAL: Force sections to be block-level and prevent breaking */
+  section.worksheet-section,
+  section[class*="worksheet-section"],
+  .worksheet-section {
+    display: block !important;
+    break-inside: avoid !important;
+    page-break-inside: avoid !important;
+    -webkit-region-break-inside: avoid !important;
+    -webkit-column-break-inside: avoid !important;
+    orphans: 999 !important;
+    widows: 999 !important;
+    overflow: visible !important;
+  }
+  
   /* Prevent page breaks inside worksheet sections - STRONG TARGETED approach */
   /* Apply to worksheet sections and content blocks that should stay together */
   section,
@@ -462,8 +482,9 @@ html {
     break-inside: avoid !important;
     page-break-inside: avoid !important;
     -webkit-region-break-inside: avoid !important;
-    orphans: 3 !important;
-    widows: 3 !important;
+    -webkit-column-break-inside: avoid !important;
+    orphans: 999 !important;
+    widows: 999 !important;
   }
   
   /* Prevent breaks in direct children of sections */
