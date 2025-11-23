@@ -1864,131 +1864,193 @@ export function PrintablesPage() {
             clonedBody.style.padding = '0'
           }
           
-          // Add print styles including page-break rules - Ultra compact layout
+          // Add ALL print styles to match print layout exactly
           const style = clonedDoc.createElement('style')
           style.textContent = `
-            html, body {
+            @page { 
+              margin: 0;
+              size: A4;
+            }
+            html, body { 
               width: 794px !important;
               max-width: 794px !important;
-              margin: 0 !important;
-              padding: 0 !important;
+              margin: 0 !important; 
+              padding: 0 !important; 
               font-size: 11pt !important;
               line-height: 1.3 !important;
             }
-            [data-worksheet-content="true"] > div:first-child {
-              margin: 0.5in !important;
+            /* Fix blank first page - remove min-height and ensure content starts at top */
+            [data-worksheet-content="true"],
+            .min-h-screen {
+              min-height: auto !important;
+              height: auto !important;
+              margin: 0 !important;
               padding: 0 !important;
             }
-            /* Remove top margins from first page content */
-            [data-worksheet-content="true"] > *:first-child,
-            [data-worksheet-content="true"] > section:first-child,
-            .worksheet-section:first-child {
+            /* Add padding to content container instead of @page margin to prevent blank first page */
+            [data-worksheet-content="true"] > div:first-child {
+              margin: 0.5in !important;
+              margin-top: 0.5in !important;
+              padding: 0 !important;
+              page-break-before: auto !important;
+              overflow: visible !important;
+            }
+            /* Force content to start - override any browser defaults */
+            [data-worksheet-content="true"] {
+              page-break-before: auto !important;
+              page-break-after: auto !important;
+            }
+            /* Fix blank first page - remove padding/margin from first child and prevent page break */
+            [data-worksheet-content="true"] > *:first-child {
+              page-break-before: auto !important;
               margin-top: 0 !important;
               padding-top: 0 !important;
             }
-            /* Compact header on first page - Ultra compact */
-            .worksheet-section:first-child .worksheet-header,
-            .worksheet-section:first-child > div:first-child {
+            /* Ensure first visible element starts immediately - target first section or customization header */
+            [data-worksheet-content="true"] > div:first-child > *:first-child,
+            [data-worksheet-content="true"] > div:first-child > .print-customization-header:first-child {
               margin-top: 0 !important;
               padding-top: 0 !important;
+              page-break-before: auto !important;
             }
-            /* Ultra compact spacing in print */
-            .worksheet-section {
-              margin-top: 0 !important;
-              margin-bottom: 0.25rem !important;
-            }
-            .worksheet-section > div {
+            /* Ensure first worksheet section has no top margin and starts on first page */
+            [data-worksheet-content="true"] section:first-of-type,
+            [data-worksheet-content="true"] .worksheet-section:first-of-type,
+            [data-worksheet-content="true"] section.break-inside-avoid:first-of-type {
               margin-top: 0 !important;
               padding-top: 0 !important;
+              page-break-before: auto !important;
+              break-before: auto !important;
             }
-            /* Make header extremely compact - 9px font */
-            .worksheet-header {
-              margin-bottom: 0.125rem !important;
+            /* Hide URLs in print */
+            a[href]::after { content: none !important; }
+            a { text-decoration: none !important; }
+            /* Remove backgrounds and borders in print for cleaner look - but preserve worksheet content */
+            * {
+              box-shadow: none !important;
+            }
+            /* Remove borders from navigation and UI elements, but keep worksheet content borders */
+            header, .print\\:hidden, nav, button {
+              border: none !important;
+              border-radius: 0 !important;
+            }
+            /* Preserve worksheet section borders and styling for readability */
+            section[class*="break-inside-avoid"] {
+              border: 1px solid #e2e8f0 !important;
+              border-radius: 4px !important;
+              background: white !important;
+            }
+            /* Preserve content borders within worksheets */
+            section[class*="break-inside-avoid"] div[class*="border"],
+            section[class*="break-inside-avoid"] div[class*="rounded"] {
+              border: 1px solid #cbd5e1 !important;
+              border-radius: 4px !important;
+            }
+            /* Remove decorative corner accents in print */
+            section[class*="break-inside-avoid"] > div[class*="absolute"] {
+              display: none !important;
+            }
+            /* Customization header at top of page - only appears once */
+            .print-customization-header { 
+              display: block;
+              margin: 0 !important;
+              margin-bottom: 0.5rem !important;
+              padding: 0.25rem 0 !important;
+              border-bottom: 1px solid #e2e8f0;
+              font-size: 9pt; 
+              color: #1e293b; 
+              line-height: 1.3; 
+              font-weight: 500;
+              page-break-after: avoid;
+              page-break-before: auto !important;
+            }
+            .print-customization-header strong { font-weight: 600; color: #0f172a; }
+            /* Better spacing for print - more compact */
+            section { 
+              margin-bottom: 0.75rem !important; 
+              margin-top: 0 !important;
+              page-break-inside: avoid !important;
+              break-inside: avoid !important;
+              padding-left: 0 !important;
+              padding-right: 0 !important;
+              padding-top: 0 !important;
               padding-bottom: 0 !important;
-              line-height: 1.1 !important;
             }
-            .worksheet-header > div > div {
-              margin-bottom: 0 !important;
-              font-size: 9px !important;
-              line-height: 1.1 !important;
-            }
-            /* Ultra compact learning objectives - 8-9px */
-            .learning-objectives {
-              margin-bottom: 0.125rem !important;
-              padding: 0.25rem !important;
-              font-size: 9px !important;
-              line-height: 1.1 !important;
-            }
-            .learning-objectives > div {
-              font-size: 9px !important;
-              margin-bottom: 0 !important;
-            }
-            .learning-objectives ul {
-              font-size: 8px !important;
-              line-height: 1.1 !important;
-              padding-left: 0.75rem !important;
-            }
-            .learning-objectives li {
-              margin-bottom: 0 !important;
-            }
-            /* Ultra compact section title - 14px */
-            .worksheet-section h2 {
-              margin-bottom: 0.125rem !important;
-              font-size: 14px !important;
-              line-height: 1.1 !important;
-            }
-            .worksheet-section h2 span {
-              font-size: 16px !important;
-            }
-            /* Compact description - 9px */
-            .worksheet-section p {
-              font-size: 9px !important;
-              margin-bottom: 0.125rem !important;
-              line-height: 1.1 !important;
-            }
-            /* Ultra compact example section - target all spacing classes */
-            [class*="mb-6"], [class*="print:mb-1"] { margin-bottom: 0.25rem !important; }
-            [class*="mb-4"], [class*="print:mb-0.5"] { margin-bottom: 0.125rem !important; }
-            [class*="mb-3"], [class*="print:mb-0.5"] { margin-bottom: 0.1rem !important; }
-            [class*="mb-2"] { margin-bottom: 0.05rem !important; }
-            [class*="p-4"], [class*="print:p-1.5"] { padding: 0.25rem !important; }
-            [class*="p-3"], [class*="print:p-1"] { padding: 0.15rem !important; }
-            [class*="p-2"], [class*="print:p-1"] { padding: 0.1rem !important; }
-            /* Compact example text - override print:text classes */
-            [class*="text-sm"], [class*="print:text-[8px]"] { font-size: 8px !important; }
-            [class*="text-base"], [class*="print:text-[9px]"] { font-size: 9px !important; }
-            [class*="text-lg"], [class*="print:text-lg"] { font-size: 10px !important; }
-            [class*="text-xl"] { font-size: 12px !important; }
-            [class*="text-2xl"], [class*="print:text-base"] { font-size: 14px !important; }
-            [class*="text-3xl"], [class*="print:text-lg"] { font-size: 16px !important; }
-            /* Compact SVG sizes - override print:h classes */
-            svg[class*="h-20"], svg[class*="print:h-8"] { height: 2rem !important; }
-            svg[class*="h-16"], svg[class*="print:h-6"] { height: 1.5rem !important; }
-            svg[class*="h-12"], svg[class*="print:h-4"] { height: 1rem !important; }
-            svg[class*="h-8"], svg[class*="print:h-3"] { height: 0.75rem !important; }
-            /* Compact gaps - override print:gap classes */
-            [class*="gap-4"], [class*="print:gap-2"] { gap: 0.25rem !important; }
-            [class*="gap-2"], [class*="print:gap-1"] { gap: 0.125rem !important; }
-            [class*="gap-1"], [class*="print:gap-0.5"] { gap: 0.05rem !important; }
-            /* Compact grid gaps */
-            [class*="grid"][class*="gap-4"], [class*="grid"][class*="print:gap-1"] { gap: 0.125rem !important; }
-            [class*="grid"][class*="gap-2"] { gap: 0.125rem !important; }
-            /* Compact space-y spacing - space-y uses margin on children, not gap */
-            [class*="space-y-3"] > *, [class*="print:space-y-0.5"] > * { margin-top: 0.125rem !important; }
-            [class*="space-y-3"] > *:first-child, [class*="print:space-y-0.5"] > *:first-child { margin-top: 0 !important; }
-            [class*="space-y-1"] > *, [class*="print:space-y-0"] > * { margin-top: 0 !important; }
-            /* Ensure content starts immediately after header */
-            .worksheet-section > div > *:not(.worksheet-header):not(.learning-objectives):not(h2):first-of-type {
+            /* First section should have no top margin */
+            section:first-of-type {
               margin-top: 0 !important;
               padding-top: 0 !important;
             }
-            /* Page break rules for download PDF */
-            section.worksheet-section,
-            section[class*="worksheet-section"],
+            .break-inside-avoid,
+            section.break-inside-avoid,
+            section[class*="break-inside-avoid"],
             .worksheet-section {
+              page-break-inside: avoid !important; 
+              break-inside: avoid !important;
+              -webkit-region-break-inside: avoid !important;
+            }
+            /* Prevent any worksheet section from breaking across pages */
+            section.break-inside-avoid > *,
+            .worksheet-section > * {
               page-break-inside: avoid !important;
               break-inside: avoid !important;
             }
+            /* Challenge section - must stay together, move to next page if no space */
+            .challenge-section {
+              page-break-inside: avoid !important;
+              break-inside: avoid !important;
+              -webkit-region-break-inside: avoid !important;
+              page-break-before: auto !important;
+              orphans: 3 !important; /* Keep at least 3 lines together */
+              widows: 3 !important; /* Keep at least 3 lines together */
+            }
+            .challenge-section > * {
+              page-break-inside: avoid !important;
+              break-inside: avoid !important;
+            }
+            /* Prevent text merging and improve readability - tighter spacing */
+            p { 
+              line-height: 1.4 !important; 
+              margin: 0.25rem 0 !important;
+            }
+            div, span { 
+              line-height: 1.3 !important; 
+            }
+            h1, h2, h3 { 
+              page-break-after: avoid !important; 
+              margin-bottom: 0.25rem !important;
+              margin-top: 0.5rem !important;
+              line-height: 1.2 !important;
+            }
+            /* Clean up excessive spacing - ultra compact */
+            .mb-10 { margin-bottom: 0.5rem !important; }
+            .mb-4, .mb-6 { margin-bottom: 0.25rem !important; }
+            .mb-3 { margin-bottom: 0.15rem !important; }
+            .mb-2 { margin-bottom: 0.1rem !important; }
+            .p-4, .p-5, .p-6 { padding: 0.25rem !important; }
+            .p-3 { padding: 0.15rem !important; }
+            .py-10 { padding-top: 0.25rem !important; padding-bottom: 0.25rem !important; }
+            /* Reduce section spacing */
+            section { margin-bottom: 0.25rem !important; }
+            /* Apply print:block and print:hidden classes */
+            [class*="print:block"] { display: block !important; }
+            [class*="print:hidden"] { display: none !important; }
+            /* Apply print text size classes */
+            [class*="print:text-[8px]"] { font-size: 8px !important; }
+            [class*="print:text-[9px]"] { font-size: 9px !important; }
+            [class*="print:text-[10px]"] { font-size: 10px !important; }
+            /* Apply print spacing classes */
+            [class*="print:mb-0"] { margin-bottom: 0 !important; }
+            [class*="print:mb-0.5"] { margin-bottom: 0.125rem !important; }
+            [class*="print:mb-1"] { margin-bottom: 0.25rem !important; }
+            [class*="print:p-1"] { padding: 0.25rem !important; }
+            [class*="print:p-1.5"] { padding: 0.375rem !important; }
+            [class*="print:gap-0.5"] { gap: 0.125rem !important; }
+            [class*="print:gap-1"] { gap: 0.25rem !important; }
+            [class*="print:gap-2"] { gap: 0.5rem !important; }
+            [class*="print:space-y-0"] > * { margin-top: 0 !important; }
+            [class*="print:space-y-0.5"] > *:not(:first-child) { margin-top: 0.125rem !important; }
+            /* Page break rules */
             h1, h2, h3, h4, h5, h6 {
               page-break-after: avoid !important;
               break-after: avoid !important;
@@ -2024,11 +2086,13 @@ export function PrintablesPage() {
           `
           clonedDoc.head.appendChild(style)
           
-          // Show print elements in cloned document
+          // Process print: utility classes in cloned document
           const allClonedElements = clonedDoc.querySelectorAll('*')
           allClonedElements.forEach((el) => {
             const htmlEl = el as HTMLElement
             const classList = Array.from(htmlEl.classList)
+            
+            // Show print:block elements
             if (classList.some(cls => cls.includes('print:block'))) {
               htmlEl.style.display = 'block'
               htmlEl.style.visibility = 'visible'
@@ -2036,6 +2100,44 @@ export function PrintablesPage() {
             // Hide print:hidden elements
             if (classList.some(cls => cls.includes('print:hidden'))) {
               htmlEl.style.display = 'none'
+            }
+            
+            // Apply print:text-* classes
+            classList.forEach(cls => {
+              const textMatch = cls.match(/print:text-\[(\d+)px\]/)
+              if (textMatch) {
+                htmlEl.style.fontSize = `${textMatch[1]}px`
+              }
+            })
+            
+            // Apply print spacing classes
+            if (classList.some(cls => cls.includes('print:mb-0'))) {
+              htmlEl.style.marginBottom = '0'
+            }
+            if (classList.some(cls => cls.includes('print:mb-0.5'))) {
+              htmlEl.style.marginBottom = '0.125rem'
+            }
+            if (classList.some(cls => cls.includes('print:mb-1'))) {
+              htmlEl.style.marginBottom = '0.25rem'
+            }
+            if (classList.some(cls => cls.includes('print:p-1'))) {
+              htmlEl.style.padding = '0.25rem'
+            }
+            if (classList.some(cls => cls.includes('print:p-1.5'))) {
+              htmlEl.style.padding = '0.375rem'
+            }
+            
+            // Apply print:gap-* classes (for flex/grid containers)
+            const gapMatch = classList.find(cls => cls.match(/print:gap-(\d+|0\.5)/))
+            if (gapMatch) {
+              const gapValue = gapMatch.match(/print:gap-(\d+|0\.5)/)?.[1]
+              if (gapValue === '0.5') {
+                htmlEl.style.gap = '0.125rem'
+              } else if (gapValue === '1') {
+                htmlEl.style.gap = '0.25rem'
+              } else if (gapValue === '2') {
+                htmlEl.style.gap = '0.5rem'
+              }
             }
           })
         }
