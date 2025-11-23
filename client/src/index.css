@@ -401,7 +401,7 @@ html {
 }
 
 /* Universal print/PDF fix for all worksheets */
-/* Prevents worksheet cards, blocks, and content from splitting across pages */
+/* Prevents worksheet sections from breaking across pages */
 @media print {
   /* Fix blank first page - remove margins and padding */
   body, html {
@@ -428,36 +428,54 @@ html {
     padding: 0 !important;
   }
 
-  /* Prevent page breaks inside worksheet sections and cards - TARGETED, not universal */
-  div, section, article, table, tr, td, figure {
-    break-inside: avoid !important;
-    page-break-inside: avoid !important;
-  }
-
-  /* Reinforce for worksheet sections specifically */
-  section.break-inside-avoid,
-  section[class*="break-inside-avoid"],
-  section[class*="worksheet"],
+  /* Prevent page breaks inside worksheet sections - TARGETED approach */
+  /* Apply to worksheet sections and content blocks that should stay together */
+  section,
   .worksheet-section,
-  .break-inside-avoid,
-  [class*="worksheet-section"] {
+  [class*="worksheet-section"],
+  .worked-example,
+  .worksheet-content,
+  [data-worksheet-content="true"] > section,
+  [data-worksheet-content="true"] > div[class*="section"],
+  /* Worksheet wrapper components */
+  div[class*="WorksheetSectionWrapper"],
+  div[class*="worksheet-wrapper"],
+  /* Content blocks that should stay together */
+  .learning-objectives,
+  .parent-teacher-tips,
+  .worksheet-header,
+  /* Problem sets and question groups */
+  .problem-set,
+  .question-group,
+  .math-problem,
+  /* Tables and figures */
+  table,
+  figure,
+  /* Keep headings with their content */
+  h1, h2, h3, h4, h5, h6 {
     break-inside: avoid !important;
     page-break-inside: avoid !important;
     -webkit-region-break-inside: avoid !important;
   }
 
-  /* Prevent breaks inside worksheet content blocks */
-  section.break-inside-avoid > *,
-  .worksheet-section > *,
-  [data-worksheet-content="true"] section,
-  [data-worksheet-content="true"] .worksheet-section {
-    break-inside: avoid !important;
-    page-break-inside: avoid !important;
+  /* Keep headings with following content */
+  h1 + *, h2 + *, h3 + *, h4 + *, h5 + *, h6 + * {
+    page-break-before: avoid;
+    break-before: avoid;
   }
 
-  /* Allow page breaks between sections, but not inside them */
-  section.break-inside-avoid + section.break-inside-avoid {
+  /* Allow page breaks between sections when needed */
+  section + section,
+  .worksheet-section + .worksheet-section,
+  [class*="worksheet-section"] + [class*="worksheet-section"] {
     page-break-before: auto;
+    break-before: auto;
+  }
+
+  /* Prevent breaks inside table rows and cells */
+  tr {
+    break-inside: avoid !important;
+    page-break-inside: avoid !important;
   }
 
   /* Fix blank first page - ensure first element starts at top with no forced breaks */
