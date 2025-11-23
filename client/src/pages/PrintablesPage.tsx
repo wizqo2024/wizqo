@@ -3140,19 +3140,52 @@ export function PrintablesPage() {
         wrapperElement.style.maxWidth = '794px'
         wrapperElement.style.margin = '0 auto'
         wrapperElement.style.padding = '0'
+        wrapperElement.style.boxSizing = 'border-box'
       }
       
+      // Store original content styles for restoration (declare outside if block for scope)
+      let originalContentStyle: {
+        width: string
+        maxWidth: string
+        margin: string
+        padding: string
+        marginTop: string
+        boxSizing: string
+      } | null = null
+      
       if (contentElement) {
-        const originalContentStyle = {
+        originalContentStyle = {
           width: (contentElement as HTMLElement).style.width,
           maxWidth: (contentElement as HTMLElement).style.maxWidth,
           margin: (contentElement as HTMLElement).style.margin,
-          padding: (contentElement as HTMLElement).style.padding
+          padding: (contentElement as HTMLElement).style.padding,
+          marginTop: (contentElement as HTMLElement).style.marginTop,
+          boxSizing: (contentElement as HTMLElement).style.boxSizing
         }
-        ;(contentElement as HTMLElement).style.width = '794px'
-        ;(contentElement as HTMLElement).style.maxWidth = '794px'
-        ;(contentElement as HTMLElement).style.margin = '0'
-        ;(contentElement as HTMLElement).style.padding = '0'
+        // Content container should be 698px (794px - 1in margins) to match print preview exactly
+        // Set parent to 794px first, then content to calc(100% - 1in) so calculation works
+        const contentEl = contentElement as HTMLElement
+        contentEl.style.width = 'calc(100% - 1in)'
+        contentEl.style.maxWidth = 'calc(100% - 1in)'
+        contentEl.style.margin = '0.5in'
+        contentEl.style.marginTop = '0'
+        contentEl.style.padding = '0'
+        contentEl.style.boxSizing = 'border-box'
+        
+        // Force a reflow to ensure styles are applied
+        void contentEl.offsetWidth
+        
+        // Verify content element dimensions match print preview
+        // Content should be approximately 698px (794px - 96px margins)
+        const computedWidth = contentEl.offsetWidth
+        const expectedWidth = 698
+        if (Math.abs(computedWidth - expectedWidth) > 10) {
+          console.warn(`Content width mismatch: expected ~${expectedWidth}px, got ${computedWidth}px. Adjusting...`)
+          // Force exact width if calculation is off
+          contentEl.style.width = `${expectedWidth}px`
+          contentEl.style.maxWidth = `${expectedWidth}px`
+          void contentEl.offsetWidth // Force reflow again
+        }
       }
       
       // Show all print-only elements (name, grade, date, etc.)
@@ -3192,7 +3225,8 @@ export function PrintablesPage() {
       })
       
       // Wait for layout to settle with print dimensions and for print elements to be visible
-      await new Promise(resolve => setTimeout(resolve, 500))
+      // Longer wait to ensure all styles are applied and layout is stable
+      await new Promise(resolve => setTimeout(resolve, 800))
       
       // Verify element is visible and has content before capturing
       if (!actualContentElement || actualContentElement.offsetHeight === 0 || actualContentElement.offsetWidth === 0) {
@@ -3220,11 +3254,14 @@ export function PrintablesPage() {
       // Wait a bit for scroll to complete
       await new Promise(resolve => setTimeout(resolve, 100))
       
-      // Convert HTML to canvas - only capture the actual content area
-      // Use print width (794px for A4) to match browser print layout exactly
-      const printWidth = 794 // A4 width in pixels at 96dpi
+      // Convert HTML to canvas - capture content as it appears in print preview
+      // Page width is 794px (A4), content container is 698px with 0.5in margins
+      // Use page width (794px) as windowWidth so html2canvas renders content correctly with margins
+      const pageWidth = 794 // A4 width in pixels at 96dpi
+      const contentWidth = 698 // Content width after 0.5in margins on each side (794px - 96px)
       const scale = 1.2 // Higher scale for better quality
-      const canvasWidth = printWidth * scale
+      // Canvas width should match the actual content element width (698px * scale)
+      const canvasWidth = contentWidth * scale
       
       // Ensure contentHeight is valid
       if (!contentHeight || contentHeight <= 0) {
@@ -3232,7 +3269,8 @@ export function PrintablesPage() {
       }
       
       // Capture from where content actually starts (skip blank space at top)
-      // Use scrollY to start capture from first content element
+      // Use pageWidth (794px) as windowWidth so html2canvas renders the 698px content
+      // within a 794px viewport, matching print preview exactly
       const canvas = await html2canvas(actualContentElement, {
         scale: scale,
         useCORS: true,
@@ -3240,7 +3278,7 @@ export function PrintablesPage() {
         backgroundColor: '#ffffff',
         height: contentHeight * scale,
         width: canvasWidth,
-        windowWidth: printWidth,
+        windowWidth: pageWidth, // Use page width so content renders with correct margins
         windowHeight: contentHeight,
         removeContainer: false,
         allowTaint: false,
@@ -3289,6 +3327,17 @@ export function PrintablesPage() {
             clonedBody.style.padding = '0'
             clonedBody.style.fontSize = '11pt'
             clonedBody.style.lineHeight = '1.3'
+          }
+          
+          // Ensure content container in cloned document matches print preview exactly
+          const clonedContentContainer = clonedDoc.querySelector('[data-worksheet-content="true"] > div:first-child') as HTMLElement
+          if (clonedContentContainer) {
+            clonedContentContainer.style.width = 'calc(100% - 1in)'
+            clonedContentContainer.style.maxWidth = 'calc(100% - 1in)'
+            clonedContentContainer.style.margin = '0.5in'
+            clonedContentContainer.style.marginTop = '0'
+            clonedContentContainer.style.padding = '0'
+            clonedContentContainer.style.boxSizing = 'border-box'
           }
           
           // Apply ALL print styles as regular CSS (html2canvas doesn't respect @media print)
@@ -3983,11 +4032,21 @@ export function PrintablesPage() {
       
       if (contentElement) {
         const htmlEl = contentElement as HTMLElement
-        // Restore will be handled by React's style management, but clear inline styles
-        htmlEl.style.width = ''
-        htmlEl.style.maxWidth = ''
-        htmlEl.style.margin = ''
-        htmlEl.style.padding = ''
+        // Restore original styles
+        if (originalContentStyle) {
+          htmlEl.style.width = originalContentStyle.width || ''
+          htmlEl.style.maxWidth = originalContentStyle.maxWidth || ''
+          htmlEl.style.margin = originalContentStyle.margin || ''
+          htmlEl.style.padding = originalContentStyle.padding || ''
+          htmlEl.style.marginTop = originalContentStyle.marginTop || ''
+          htmlEl.style.boxSizing = originalContentStyle.boxSizing || ''
+        } else {
+          // Fallback: clear inline styles
+          htmlEl.style.width = ''
+          htmlEl.style.maxWidth = ''
+          htmlEl.style.margin = ''
+          htmlEl.style.padding = ''
+        }
       }
       
       hiddenElements.forEach(({ element, originalDisplay, originalVisibility, originalWidth, originalMaxWidth }) => {
@@ -4133,8 +4192,14 @@ export function PrintablesPage() {
       // If the element has content and canvas has dimensions, trust it
       
       // Calculate PDF dimensions
-      const imgWidth = 210 // A4 width in mm
+      // Content width is 698px (794px page - 1in margins), so in PDF it should be:
+      // 698/794 * 210mm = 184.6mm (content width in PDF)
+      // Left margin: 0.5in = 12.7mm
+      const pageWidthMm = 210 // A4 width in mm
       const pageHeight = 297 // A4 height in mm
+      const marginLeftMm = 12.7 // 0.5in in mm
+      const contentWidthMm = (contentWidth / pageWidth) * pageWidthMm // 698/794 * 210 = 184.6mm
+      const imgWidth = contentWidthMm // Use content width, not full page width
       let imgHeight = (finalCanvas.height * imgWidth) / finalCanvas.width
       
       if (imgHeight <= 0 || isNaN(imgHeight) || !isFinite(imgHeight)) {
@@ -4171,10 +4236,10 @@ export function PrintablesPage() {
       // (calculated above while print styles are still applied)
       
       if (imgHeight <= pageHeight) {
-        // Content fits on one page - add at top
+        // Content fits on one page - add with left margin to match print preview
         // Determine image format from data URL
         const imageFormat = imgData.startsWith('data:image/jpeg') ? 'JPEG' : 'PNG'
-        pdf.addImage(imgData, imageFormat, 0, 0, imgWidth, imgHeight)
+        pdf.addImage(imgData, imageFormat, marginLeftMm, 0, imgWidth, imgHeight)
       } else {
         // Content spans multiple pages - split while respecting section boundaries
         // Convert mm to pixels for canvas operations
@@ -4182,8 +4247,8 @@ export function PrintablesPage() {
         const pageHeightPx = pageHeight * pixelsPerMm
         
         // Convert section boundaries from contentElement pixels to canvas pixels
-        // Scale factor: canvas might be scaled (scale: 2), so we need to account for that
-        const scaleFactor = canvas.width / printWidth // Should be 2 if scale is 2
+        // Scale factor: canvas is scaled (scale: 1.2), so we need to account for that
+        const scaleFactor = canvas.width / contentWidth // Canvas width / content width = scale
         const canvasSectionBoundaries = sectionBoundaries.map(s => ({
           topPx: s.topPx * scaleFactor,
           bottomPx: s.bottomPx * scaleFactor
@@ -4262,7 +4327,7 @@ export function PrintablesPage() {
                         const pageImgHeight = (pageCanvas.height * imgWidth) / canvas.width
                         if (pageImgHeight > 0 && isFinite(pageImgHeight)) {
                           const imageFormat = pageImgData.startsWith('data:image/jpeg') ? 'JPEG' : 'PNG'
-                          pdf.addImage(pageImgData, imageFormat, 0, 0, imgWidth, pageImgHeight)
+                          pdf.addImage(pageImgData, imageFormat, marginLeftMm, 0, imgWidth, pageImgHeight)
                         }
                       }
                       pdf.addPage()
@@ -4323,8 +4388,8 @@ export function PrintablesPage() {
                       // Determine image format
                       const imageFormat = pageImgData.startsWith('data:image/jpeg') ? 'JPEG' : 'PNG'
                       
-                      // Add to PDF
-                      pdf.addImage(pageImgData, imageFormat, 0, 0, imgWidth, pageImgHeight)
+                      // Add to PDF with left margin to match print preview
+                      pdf.addImage(pageImgData, imageFormat, marginLeftMm, 0, imgWidth, pageImgHeight)
                       
                       // Move to next page
                       currentY = pageEndYpxFinal
