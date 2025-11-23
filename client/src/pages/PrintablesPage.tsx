@@ -103,18 +103,18 @@ function getWorksheetTheme(docId: string): {
   }
 }
 
-// Professional header component for print worksheets
+// Professional header component for print worksheets - matching Interactive Worksheets Generator
 function WorksheetHeader({ problemCount }: { problemCount?: number }) {
   return (
-    <div className="print:block hidden print:mb-0 print:pb-0 pb-3 mb-4" style={{ marginTop: 0, paddingTop: 0, lineHeight: '1.1', marginBottom: '0.25rem' } as React.CSSProperties}>
-      <div className="flex justify-between items-start print:items-center">
-        <div className="flex-1 print:text-[9px]">
-          <div className="text-sm print:mb-0 print:leading-[1.1]"><strong>Name:</strong> _________________________</div>
-          <div className="text-sm print:mb-0 print:leading-[1.1]"><strong>Date:</strong> ___________  <strong>Grade:</strong> _____</div>
-          <div className="text-sm print:leading-[1.1]"><strong>Teacher/Parent:</strong> _________________</div>
+    <div className="print:block hidden print:mb-4 pb-3 mb-4">
+      <div className="flex justify-between items-start">
+        <div className="flex-1">
+          <div className="text-sm mb-2"><strong>Name:</strong> _________________________</div>
+          <div className="text-sm mb-2"><strong>Date:</strong> ___________  <strong>Grade:</strong> _____</div>
+          <div className="text-sm"><strong>Teacher/Parent:</strong> _________________</div>
         </div>
         {problemCount && (
-          <div className="text-right text-xs print:text-[8px] text-slate-600 print:leading-[1.1]">
+          <div className="text-right text-xs text-slate-600">
             <div>Score: ___ / {problemCount}</div>
           </div>
         )}
@@ -123,14 +123,14 @@ function WorksheetHeader({ problemCount }: { problemCount?: number }) {
   )
 }
 
-// Learning objectives component
+// Learning objectives component - matching Interactive Worksheets Generator
 function LearningObjectives({ objectives }: { objectives: string[] }) {
   return (
-    <div className="print:block hidden print:mb-0.5 print:p-1 print:text-[9px] mb-4 p-3 bg-slate-50 border-l-4 border-blue-500 rounded print:border-l print:border-slate-300">
-      <div className="text-sm print:text-[9px] print:font-semibold text-slate-800 print:mb-0 mb-2 print:leading-[1.1]">📚 What You'll Practice:</div>
-      <ul className="text-xs print:text-[8px] text-slate-700 print:space-y-0 print:leading-[1.1] space-y-1 list-disc list-inside print:pl-3">
+    <div className="print:block hidden mb-4 p-3 bg-slate-50 border-l-4 border-blue-500 rounded">
+      <div className="text-sm font-semibold text-slate-800 mb-2">📚 What You'll Practice:</div>
+      <ul className="text-xs text-slate-700 space-y-1 list-disc list-inside">
         {objectives.map((obj, i) => (
-          <li key={i} className="print:mb-0">{obj}</li>
+          <li key={i}>{obj}</li>
         ))}
       </ul>
     </div>
@@ -312,7 +312,7 @@ function WorksheetSectionWrapper({
       >
         <WorksheetHeader problemCount={problemCount} />
         <h2 
-          className={`text-xl print:text-sm print:font-semibold font-bold ${theme.text} print:mb-0.5 mb-2 flex items-center gap-2 print:gap-1 print:leading-[1.1]`}
+          className={`text-xl font-bold ${theme.text} mb-2 flex items-center gap-2`}
           style={{ 
             pageBreakAfter: 'avoid',
             breakAfter: 'avoid',
@@ -322,15 +322,16 @@ function WorksheetSectionWrapper({
             paddingTop: 0
           } as React.CSSProperties}
         >
-          {emoji && <span className="text-4xl print:text-base">{emoji}</span>}
+          {emoji && <span className="text-4xl">{emoji}</span>}
           <span>{translatedTitle}</span>
         </h2>
         {translatedDescription && (
           <p 
-            className={`text-sm print:text-[9px] ${theme.text} opacity-90 font-medium mb-4 print:mb-0.5 print:leading-[1.1]`}
+            className={`text-sm ${theme.text} opacity-70 mb-4`}
             style={{ 
               pageBreakAfter: 'avoid',
-              breakAfter: 'avoid'
+              breakAfter: 'avoid',
+              marginTop: '0.25rem'
             } as React.CSSProperties}
           >
             {translatedDescription}
@@ -3777,10 +3778,10 @@ export function PrintablesPage() {
             background-color: white !important;
             background: white !important;
           }
-          /* Ensure worksheet header and first section stay together on first page */
+          /* Ensure worksheet header and first section stay together on first page - matching Interactive Worksheets Generator */
           .worksheet-section:first-of-type .worksheet-header,
           section:first-of-type .worksheet-header {
-            margin-bottom: 0.125rem !important;
+            margin-bottom: 1rem !important;
             padding-bottom: 0 !important;
             page-break-after: avoid !important;
             margin-top: 0 !important;
@@ -3792,10 +3793,10 @@ export function PrintablesPage() {
             margin-top: 0 !important;
             padding-top: 0 !important;
           }
-          /* CRITICAL: Ensure content inside first section flows immediately after header - no spacing */
+          /* CRITICAL: Ensure content inside first section flows immediately after header - matching Interactive Worksheets Generator spacing */
           .worksheet-section:first-of-type .worksheet-header + *,
           section:first-of-type .worksheet-header + * {
-            margin-top: 0.125rem !important;
+            margin-top: 0 !important;
             padding-top: 0 !important;
           }
           /* Ensure the relative z-10 div inside first section has no top margin */
@@ -3804,25 +3805,25 @@ export function PrintablesPage() {
             margin-top: 0 !important;
             padding-top: 0 !important;
           }
-          /* Ensure LearningObjectives and other content appear on first page - minimal spacing */
+          /* Ensure LearningObjectives and other content appear on first page - matching Interactive Worksheets Generator */
           .worksheet-section:first-of-type .learning-objectives,
           section:first-of-type .learning-objectives {
-            margin-top: 0.125rem !important;
-            margin-bottom: 0.5rem !important;
-            padding: 0.5rem !important;
+            margin-top: 0 !important;
+            margin-bottom: 1rem !important;
+            padding: 0.75rem !important;
           }
-          /* Ensure title and description appear on first page - minimal spacing */
+          /* Ensure title and description appear on first page - matching Interactive Worksheets Generator */
           .worksheet-section:first-of-type h2,
           .worksheet-section:first-of-type h3,
           section:first-of-type h2,
           section:first-of-type h3 {
-            margin-top: 0.125rem !important;
-            margin-bottom: 0.25rem !important;
+            margin-top: 0 !important;
+            margin-bottom: 0.5rem !important;
           }
           .worksheet-section:first-of-type p,
           section:first-of-type p {
-            margin-top: 0.125rem !important;
-            margin-bottom: 0.5rem !important;
+            margin-top: 0.25rem !important;
+            margin-bottom: 1rem !important;
           }
           /* CRITICAL: Ensure worksheet problems/content appear on first page immediately after learning objectives */
           .worksheet-section:first-of-type .learning-objectives + *,
