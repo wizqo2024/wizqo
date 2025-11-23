@@ -414,6 +414,21 @@ html {
     margin: 0 !important;
     padding: 0 !important;
   }
+  
+  /* Remove top margin/padding from first page content */
+  [data-worksheet-content="true"] > *:first-child,
+  [data-worksheet-content="true"] > section:first-child,
+  .worksheet-section:first-child {
+    margin-top: 0 !important;
+    padding-top: 0 !important;
+  }
+  
+  /* Compact header on first page */
+  .worksheet-section:first-child .worksheet-header,
+  .worksheet-section:first-child > div:first-child {
+    margin-top: 0 !important;
+    padding-top: 0 !important;
+  }
 
   /* Prevent root from forcing page break */
   #root {
@@ -609,8 +624,28 @@ html {
   }
 
   /* Fix blank first page - ensure first element starts at top with no forced breaks */
-  [data-worksheet-content="true"] > *:first-child {
+  [data-worksheet-content="true"] > *:first-child,
+  [data-worksheet-content="true"] > section:first-child {
     page-break-before: auto !important;
+    margin-top: 0 !important;
+    padding-top: 0 !important;
+  }
+  
+  /* Remove all top margins from first section */
+  section.worksheet-section:first-child,
+  .worksheet-section:first-child {
+    margin-top: 0 !important;
+    padding-top: 0 !important;
+  }
+  
+  /* Compact spacing in print */
+  .worksheet-section {
+    margin-top: 0 !important;
+    margin-bottom: 0 !important;
+  }
+  
+  /* Reduce spacing between elements in print */
+  .worksheet-section > div {
     margin-top: 0 !important;
     padding-top: 0 !important;
   }

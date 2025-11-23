@@ -106,15 +106,15 @@ function getWorksheetTheme(docId: string): {
 // Professional header component for print worksheets
 function WorksheetHeader({ problemCount }: { problemCount?: number }) {
   return (
-    <div className="print:block hidden print:mb-4 pb-3 mb-4">
+    <div className="print:block hidden print:mb-2 print:pb-1 pb-3 mb-4" style={{ marginTop: 0, paddingTop: 0 } as React.CSSProperties}>
       <div className="flex justify-between items-start">
         <div className="flex-1">
-          <div className="text-sm mb-2"><strong>Name:</strong> _________________________</div>
-          <div className="text-sm mb-2"><strong>Date:</strong> ___________  <strong>Grade:</strong> _____</div>
-          <div className="text-sm"><strong>Teacher/Parent:</strong> _________________</div>
+          <div className="text-sm print:text-xs print:mb-1 mb-2"><strong>Name:</strong> _________________________</div>
+          <div className="text-sm print:text-xs print:mb-1 mb-2"><strong>Date:</strong> ___________  <strong>Grade:</strong> _____</div>
+          <div className="text-sm print:text-xs"><strong>Teacher/Parent:</strong> _________________</div>
         </div>
         {problemCount && (
-          <div className="text-right text-xs text-slate-600">
+          <div className="text-right text-xs print:text-[10px] text-slate-600">
             <div>Score: ___ / {problemCount}</div>
           </div>
         )}
@@ -126,9 +126,9 @@ function WorksheetHeader({ problemCount }: { problemCount?: number }) {
 // Learning objectives component
 function LearningObjectives({ objectives }: { objectives: string[] }) {
   return (
-    <div className="print:block hidden mb-4 p-3 bg-slate-50 border-l-4 border-blue-500 rounded">
-      <div className="text-sm font-semibold text-slate-800 mb-2">📚 What You'll Practice:</div>
-      <ul className="text-xs text-slate-700 space-y-1 list-disc list-inside">
+    <div className="print:block hidden print:mb-2 print:p-2 print:text-xs mb-4 p-3 bg-slate-50 border-l-4 border-blue-500 rounded">
+      <div className="text-sm print:text-xs font-semibold text-slate-800 print:mb-1 mb-2">📚 What You'll Practice:</div>
+      <ul className="text-xs print:text-[11px] text-slate-700 print:space-y-0 space-y-1 list-disc list-inside">
         {objectives.map((obj, i) => (
           <li key={i}>{obj}</li>
         ))}
@@ -286,12 +286,14 @@ function WorksheetSectionWrapper({
   
   return (
     <section 
-      className={`mb-10 break-inside-avoid rounded-xl border-2 ${theme.border} ${theme.background} p-6 print:border-0 print:p-0 print:bg-white shadow-lg relative overflow-hidden worksheet-section`}
+      className={`mb-10 break-inside-avoid rounded-xl border-2 ${theme.border} ${theme.background} p-6 print:border-0 print:p-0 print:bg-white print:mt-0 print:mb-0 shadow-lg relative overflow-hidden worksheet-section`}
       dir={isRTL ? 'rtl' : 'ltr'}
       style={{ 
         pageBreakInside: 'avoid',
         breakInside: 'avoid',
-        WebkitRegionBreakInside: 'avoid'
+        WebkitRegionBreakInside: 'avoid',
+        marginTop: 0,
+        marginBottom: 0
       } as React.CSSProperties}
     >
       {/* Decorative corner accent */}
