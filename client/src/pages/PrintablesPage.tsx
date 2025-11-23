@@ -1860,7 +1860,7 @@ export function PrintablesPage() {
             clonedBody.style.padding = '0'
           }
           
-          // Add print styles
+          // Add print styles including page-break rules
           const style = clonedDoc.createElement('style')
           style.textContent = `
             html, body {
@@ -1872,6 +1872,45 @@ export function PrintablesPage() {
             [data-worksheet-content="true"] > div:first-child {
               margin: 0.5in !important;
               padding: 0 !important;
+            }
+            /* Page break rules for download PDF */
+            section.worksheet-section,
+            section[class*="worksheet-section"],
+            .worksheet-section {
+              page-break-inside: avoid !important;
+              break-inside: avoid !important;
+            }
+            h1, h2, h3, h4, h5, h6 {
+              page-break-after: avoid !important;
+              break-after: avoid !important;
+              page-break-inside: avoid !important;
+              break-inside: avoid !important;
+            }
+            h1 + *, h2 + *, h3 + *, h4 + *, h5 + *, h6 + * {
+              page-break-before: avoid !important;
+              break-before: avoid !important;
+            }
+            .worked-example,
+            .worked-example > * {
+              page-break-inside: avoid !important;
+              break-inside: avoid !important;
+            }
+            img, svg, picture, canvas, video {
+              page-break-inside: avoid !important;
+              break-inside: avoid !important;
+              page-break-after: avoid !important;
+              break-after: avoid !important;
+            }
+            [class*="card"],
+            [class*="block"],
+            .bg-white.rounded-lg,
+            .bg-white.p-4 {
+              page-break-inside: avoid !important;
+              break-inside: avoid !important;
+            }
+            .math-problem {
+              page-break-inside: avoid !important;
+              break-inside: avoid !important;
             }
           `
           clonedDoc.head.appendChild(style)
@@ -1917,8 +1956,8 @@ export function PrintablesPage() {
       }
       
       // Find section positions BEFORE restoring styles (while print styles are applied)
-      // Include both worksheet sections and challenge sections
-      const sections = contentElement.querySelectorAll('section.break-inside-avoid, section[class*="break-inside-avoid"], .worksheet-section, .challenge-section')
+      // Include both worksheet sections, challenge sections, worked examples, and other content blocks
+      const sections = contentElement.querySelectorAll('section.break-inside-avoid, section[class*="break-inside-avoid"], section.worksheet-section, .worksheet-section, .challenge-section, .worked-example, [class*="example"]')
       const sectionPositions: Array<{ top: number; bottom: number }> = []
       
       if (sections.length > 0) {
