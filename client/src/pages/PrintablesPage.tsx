@@ -335,7 +335,9 @@ function WorksheetSectionWrapper({
           </p>
         )}
         {translatedObjectives && <LearningObjectives objectives={translatedObjectives} />}
-        {children}
+        <div className="print:mt-0" style={{ marginTop: 0, paddingTop: 0, pageBreakBefore: 'auto' } as React.CSSProperties}>
+          {children}
+        </div>
         {/* Parent/Teacher Tips - Will appear on page 2 with Self-Assessment */}
         {translatedTips && (
           <div style={{ pageBreakBefore: 'avoid', pageBreakInside: 'avoid' }}>
@@ -2001,6 +2003,39 @@ export function PrintablesPage() {
             section:first-of-type p {
               margin-top: 0.25rem !important;
               margin-bottom: 0.5rem !important;
+            }
+            /* CRITICAL: Ensure worksheet problems/content appear on first page immediately after learning objectives */
+            .worksheet-section:first-of-type .learning-objectives + *,
+            section:first-of-type .learning-objectives + *,
+            .worksheet-section:first-of-type h2 + *,
+            .worksheet-section:first-of-type h3 + *,
+            section:first-of-type h2 + *,
+            section:first-of-type h3 + * {
+              margin-top: 0.5rem !important;
+              padding-top: 0 !important;
+              page-break-before: auto !important;
+            }
+            /* Ensure all content inside first section flows on first page */
+            .worksheet-section:first-of-type > div > *:not(.worksheet-header):not(.learning-objectives),
+            section:first-of-type > div > *:not(.worksheet-header):not(.learning-objectives) {
+              page-break-before: auto !important;
+              break-before: auto !important;
+            }
+            /* Remove any page breaks from first section content - override inline styles */
+            .worksheet-section:first-of-type [style*="page-break-before"],
+            .worksheet-section:first-of-type [style*="pageBreakBefore"],
+            section:first-of-type [style*="page-break-before"],
+            section:first-of-type [style*="pageBreakBefore"] {
+              page-break-before: auto !important;
+              break-before: auto !important;
+            }
+            /* Override any page-break-before: always on first section children */
+            .worksheet-section:first-of-type > div > div[style*="page-break-before"],
+            .worksheet-section:first-of-type > div > div[style*="pageBreakBefore"],
+            section:first-of-type > div > div[style*="page-break-before"],
+            section:first-of-type > div > div[style*="pageBreakBefore"] {
+              page-break-before: auto !important;
+              break-before: auto !important;
             }
             /* Hide URLs in print */
             a[href]::after { content: none !important; }
@@ -3778,6 +3813,39 @@ export function PrintablesPage() {
           section:first-of-type p {
             margin-top: 0.25rem !important;
             margin-bottom: 0.5rem !important;
+          }
+          /* CRITICAL: Ensure worksheet problems/content appear on first page immediately after learning objectives */
+          .worksheet-section:first-of-type .learning-objectives + *,
+          section:first-of-type .learning-objectives + *,
+          .worksheet-section:first-of-type h2 + *,
+          .worksheet-section:first-of-type h3 + *,
+          section:first-of-type h2 + *,
+          section:first-of-type h3 + * {
+            margin-top: 0.5rem !important;
+            padding-top: 0 !important;
+            page-break-before: auto !important;
+          }
+          /* Ensure all content inside first section flows on first page */
+          .worksheet-section:first-of-type > div > *:not(.worksheet-header):not(.learning-objectives),
+          section:first-of-type > div > *:not(.worksheet-header):not(.learning-objectives) {
+            page-break-before: auto !important;
+            break-before: auto !important;
+          }
+          /* Remove any page breaks from first section content - override inline styles */
+          .worksheet-section:first-of-type [style*="page-break-before"],
+          .worksheet-section:first-of-type [style*="pageBreakBefore"],
+          section:first-of-type [style*="page-break-before"],
+          section:first-of-type [style*="pageBreakBefore"] {
+            page-break-before: auto !important;
+            break-before: auto !important;
+          }
+          /* Override any page-break-before: always on first section children */
+          .worksheet-section:first-of-type > div > div[style*="page-break-before"],
+          .worksheet-section:first-of-type > div > div[style*="pageBreakBefore"],
+          section:first-of-type > div > div[style*="page-break-before"],
+          section:first-of-type > div > div[style*="pageBreakBefore"] {
+            page-break-before: auto !important;
+            break-before: auto !important;
           }
           /* Prevent any element from forcing a page break before the first content */
           [data-worksheet-content="true"] > div:first-child > *:first-child[style*="page-break-before"],

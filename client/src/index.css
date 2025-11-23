@@ -508,6 +508,31 @@ html {
     margin-top: 0.25rem !important;
     margin-bottom: 0.5rem !important;
   }
+  
+  /* CRITICAL: Ensure worksheet problems/content appear on first page immediately after learning objectives */
+  .worksheet-section:first-child .learning-objectives + *,
+  section:first-child .learning-objectives + *,
+  .worksheet-section:first-child h2 + *,
+  .worksheet-section:first-child h3 + *,
+  section:first-child h2 + *,
+  section:first-child h3 + * {
+    margin-top: 0.5rem !important;
+    padding-top: 0 !important;
+    page-break-before: auto !important;
+  }
+  
+  /* Ensure all content inside first section flows on first page */
+  .worksheet-section:first-child > div > *:not(.worksheet-header):not(.learning-objectives),
+  section:first-child > div > *:not(.worksheet-header):not(.learning-objectives) {
+    page-break-before: auto !important;
+    break-before: auto !important;
+  }
+  
+  /* Remove any page breaks from first section content */
+  .worksheet-section:first-child [style*="page-break-before"],
+  section:first-child [style*="page-break-before"] {
+    page-break-before: auto !important;
+  }
 
   /* Prevent root from forcing page break */
   #root {
