@@ -1956,20 +1956,51 @@ export function PrintablesPage() {
       }
       
       // Find section positions BEFORE restoring styles (while print styles are applied)
-      // Include both worksheet sections, challenge sections, worked examples, and other content blocks
+      // Include worksheet sections, headers with content, worked examples, images, and other content blocks
       const sections = contentElement.querySelectorAll('section.break-inside-avoid, section[class*="break-inside-avoid"], section.worksheet-section, .worksheet-section, .challenge-section, .worked-example, [class*="example"]')
-      const sectionPositions: Array<{ top: number; bottom: number }> = []
+      const headers = contentElement.querySelectorAll('h1, h2, h3, h4, h5, h6')
+      const images = contentElement.querySelectorAll('img, svg, picture, canvas')
       
-      if (sections.length > 0) {
-        const containerRect = contentElement.getBoundingClientRect()
-        sections.forEach((section) => {
-          const rect = (section as HTMLElement).getBoundingClientRect()
-          const top = rect.top - containerRect.top
-          const bottom = top + rect.height
-          sectionPositions.push({ top, bottom })
+      const sectionPositions: Array<{ top: number; bottom: number; type: string }> = []
+      
+      // Get container rect for coordinate calculation
+      const containerRect = contentElement.getBoundingClientRect()
+      
+      // Add all sections
+      sections.forEach((section) => {
+        const rect = (section as HTMLElement).getBoundingClientRect()
+        const top = rect.top - containerRect.top
+        const bottom = top + rect.height
+        sectionPositions.push({ top, bottom, type: 'section' })
+      })
+      
+      // Add headers with their following content (next 200px or until next header)
+      headers.forEach((header) => {
+        const rect = (header as HTMLElement).getBoundingClientRect()
+        const top = rect.top - containerRect.top
+        // Find next header or section, or use 200px as default
+        let bottom = top + 200 // Default: keep 200px with header
+        const nextHeader = Array.from(headers).find(h => {
+          const hRect = (h as HTMLElement).getBoundingClientRect()
+          return hRect.top > rect.top
         })
-        sectionPositions.sort((a, b) => a.top - b.top)
-      }
+        if (nextHeader) {
+          const nextRect = (nextHeader as HTMLElement).getBoundingClientRect()
+          bottom = Math.min(bottom, nextRect.top - containerRect.top)
+        }
+        sectionPositions.push({ top, bottom, type: 'header' })
+      })
+      
+      // Add images with small padding
+      images.forEach((img) => {
+        const rect = (img as HTMLElement).getBoundingClientRect()
+        const top = rect.top - containerRect.top
+        const bottom = top + rect.height + 20 // Add 20px padding below image
+        sectionPositions.push({ top, bottom, type: 'image' })
+      })
+      
+      // Sort by top position
+      sectionPositions.sort((a, b) => a.top - b.top)
       
       // Create PDF
       const imgWidth = 210 // A4 width in mm
@@ -1991,7 +2022,8 @@ export function PrintablesPage() {
         // Convert section positions to canvas coordinates
         const canvasSections = sectionPositions.map(s => ({
           top: s.top * scaleFactor,
-          bottom: s.bottom * scaleFactor
+          bottom: s.bottom * scaleFactor,
+          type: s.type
         }))
         
         let currentY = 0
@@ -1999,36 +2031,49 @@ export function PrintablesPage() {
         while (currentY < canvas.height) {
           let pageEndY = Math.min(currentY + pageHeightPx, canvas.height)
           
-          // Check if page break would split a card (only if we're actually in the middle)
+          // Check if page break would split any section/header/image
           if (canvasSections.length > 0) {
-            const wouldSplitCard = canvasSections.some(section => {
-              // Only consider it a split if we're clearly in the middle (not near edges)
-              // Use larger margins to avoid false positives
-              const margin = Math.max(30, section.bottom - section.top) * 0.1 // 10% of card height or 30px, whichever is larger
+            // Find sections that would be split by this page break
+            const sectionsToProtect = canvasSections.filter(section => {
+              // Check if page break is in the middle of section (not at edges)
+              // Use smaller margin for headers/images, larger for sections
+              const isHeaderOrImage = section.type === 'header' || section.type === 'image'
+              const margin = isHeaderOrImage 
+                ? Math.max(10, (section.bottom - section.top) * 0.05) // 5% margin for headers/images
+                : Math.max(20, (section.bottom - section.top) * 0.1)   // 10% margin for sections
+              
               return pageEndY > section.top + margin && pageEndY < section.bottom - margin
             })
             
-            if (wouldSplitCard) {
-              // Find the last section that ends before this page break
+            if (sectionsToProtect.length > 0) {
+              // Find the last complete section that ends before this page break
               const sectionsBeforeBreak = canvasSections
                 .filter(s => s.bottom <= pageEndY && s.top >= currentY)
                 .sort((a, b) => b.bottom - a.bottom)
               
               if (sectionsBeforeBreak.length > 0) {
-                // Break after the last complete section (only if it's reasonable)
-                const suggestedBreak = sectionsBeforeBreak[0].bottom + 5
-                // Only use this break if it doesn't waste too much space (at least 50% of page used)
+                // Break after the last complete section
+                const suggestedBreak = sectionsBeforeBreak[0].bottom + 10 // 10px gap
+                // Use this break if it doesn't waste too much space (at least 30% of page used)
                 const pageUsage = (suggestedBreak - currentY) / pageHeightPx
-                if (pageUsage > 0.5 || currentY === 0) {
+                if (pageUsage > 0.3 || currentY === 0) {
                   pageEndY = suggestedBreak
+                } else {
+                  // Page would be too empty, move to next section start instead
+                  const firstSplitSection = sectionsToProtect[0]
+                  if (firstSplitSection.top > currentY) {
+                    pageEndY = firstSplitSection.top
+                  }
                 }
-                // Otherwise, let it break normally (card is too large for one page)
               } else {
-                // Section starts on this page but doesn't fit - only move if we have content
-                const nextSection = canvasSections.find(s => s.top >= currentY && s.top < pageEndY)
-                if (nextSection && nextSection.top > currentY && (nextSection.top - currentY) > pageHeightPx * 0.3) {
-                  // Only move section if we have at least 30% of page filled
-                  pageEndY = nextSection.top
+                // No complete sections before break - move page break to start of first split section
+                const firstSplitSection = sectionsToProtect[0]
+                if (firstSplitSection.top > currentY) {
+                  // Only move if we have some content on page (at least 20% filled)
+                  const pageUsage = (firstSplitSection.top - currentY) / pageHeightPx
+                  if (pageUsage > 0.2 || currentY === 0) {
+                    pageEndY = firstSplitSection.top
+                  }
                 }
               }
             }
