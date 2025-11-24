@@ -502,6 +502,7 @@ const ANSWERABLE_BASE_DOC_IDS = [
   'div-word-problems',
   'fact-families-mult-div',
   'div-by-10-100',
+  'whodunnit-math-mystery-division',
   'fractions-whole',
   'comparing-fractions',
   'equivalent-fractions',
@@ -1216,6 +1217,8 @@ function resolveDocTitle(docId: string, context: { packTime: string; bundleCateg
       return getTranslatedWorksheetTitle(docId, t, '🍕 Adding & Subtracting Decimals')
     case 'fractions-to-decimals':
       return getTranslatedWorksheetTitle(docId, t, '🍕 Fractions to Decimals')
+    case 'whodunnit-math-mystery-division':
+      return getTranslatedWorksheetTitle(docId, t, '🕵️ Whodunnit? Math Mystery - Division')
     case 'classifying-angles':
       return getTranslatedWorksheetTitle(docId, t, '📐 Classifying Angles')
     case 'area-perimeter-4th':
@@ -24665,6 +24668,162 @@ export function PrintablesPage() {
             </WorksheetSectionWrapper>
           );
         })()}
+
+        {activeDocs.includes('whodunnit-math-mystery-division') && (
+          <WorksheetSectionWrapper
+            docId="whodunnit-math-mystery-division"
+            title="Whodunnit? Math Mystery - Division"
+            emoji="🕵️"
+            description="Solve division problems to crack the case of the missing cookies!"
+            problemCount={4}
+            learningObjectives={[
+              'Reinforce division facts (up to 8s)',
+              'Develop logical reasoning and problem-solving skills',
+              'Engage in multi-step problem solving to reach a conclusion',
+              'Practice process of elimination'
+            ]}
+            parentTeacherTips={[
+              'Encourage students to cross out suspects as they get clues',
+              'If a student struggles with division, allow them to use multiplication charts or manipulatives',
+              'Discuss the process of elimination - why is one suspect the only possibility?',
+              'Extension: Create your own mystery with different division problems'
+            ]}
+          >
+            <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-red-400 to-pink-400 animate-gradient-x mb-2" />
+            {/* Worked Example */}
+            <div className="mb-6 p-4 bg-blue-50 border-2 border-blue-200 rounded-lg print:border print:bg-white">
+              <div className="font-semibold text-blue-900 mb-3 text-sm">📚 Example - Let's solve this together:</div>
+              <div className="space-y-2 text-sm">
+                <div className="font-semibold text-base"><strong>Problem:</strong> 24 ÷ 4 = ?</div>
+                <div className="pl-4 border-l-2 border-blue-300 space-y-1">
+                  <div><strong>Step 1:</strong> Think "how many groups of 4 make 24?"</div>
+                  <div><strong>Step 2:</strong> Counting by fours: 4, 8, 12, 16, 20, 24. That's 6 groups!</div>
+                  <div className="font-semibold text-blue-900"><strong>Answer:</strong> 6</div>
+                  <div className="text-xs text-blue-700 mt-1">💡 Clue: "If the answer is 6, the suspect is NOT wearing a hat." So, Sally Sunshine is innocent! Cross her off.</div>
+                </div>
+              </div>
+            </div>
+
+            <div className="bg-white border-2 border-red-300 rounded-lg p-6 mb-6 break-inside-avoid" style={{ pageBreakAfter: 'auto' }}>
+              <h1 className="text-3xl font-extrabold text-center text-red-700 mb-4 leading-tight print:text-2xl">
+                THE "WHODUNNIT?" MATH MYSTERY
+              </h1>
+              <h2 className="text-xl font-semibold text-center text-gray-800 mb-6 print:text-lg">
+                The Case of the Missing Cookies!
+              </h2>
+
+              <div className="grid md:grid-cols-2 gap-6 mb-6">
+                <div className="bg-yellow-50 border-2 border-yellow-400 rounded-lg p-4">
+                  <h3 className="text-xl font-bold text-yellow-800 mb-4 text-center print:text-lg">SUSPECTS</h3>
+                  <div className="grid grid-cols-2 gap-3">
+                    <div className="flex flex-col items-center">
+                      <div className="w-20 h-20 bg-slate-300 rounded-full mb-2 flex items-center justify-center text-2xl">🏴‍☠️</div>
+                      <p className="font-semibold text-center text-sm">Captain Hook<br />(Beard)</p>
+                    </div>
+                    <div className="flex flex-col items-center">
+                      <div className="w-20 h-20 bg-slate-300 rounded-full mb-2 flex items-center justify-center text-2xl">🤖</div>
+                      <p className="font-semibold text-center text-sm">Robot Ralph<br />(Glasses)</p>
+                    </div>
+                    <div className="flex flex-col items-center">
+                      <div className="w-20 h-20 bg-slate-300 rounded-full mb-2 flex items-center justify-center text-2xl">👒</div>
+                      <p className="font-semibold text-center text-sm">Sally Sunshine<br />(Hat)</p>
+                    </div>
+                    <div className="flex flex-col items-center">
+                      <div className="w-20 h-20 bg-slate-300 rounded-full mb-2 flex items-center justify-center text-2xl">👨‍🍳</div>
+                      <p className="font-semibold text-center text-sm">Chef Pierre<br />(Mustache)</p>
+                    </div>
+                  </div>
+                </div>
+
+                <div className="bg-blue-50 border-2 border-blue-400 rounded-lg p-4">
+                  <h3 className="text-xl font-bold text-blue-800 mb-4 text-center print:text-lg">CLUES & PROBLEMS</h3>
+                  <div className="space-y-3">
+                    <div className="bg-white p-3 rounded border border-blue-200">
+                      <p className="font-bold text-base mb-1">Problem 1: <span className="font-normal">24 ÷ 4 = ?</span></p>
+                      <p className="text-sm text-gray-700">Clue: If the answer is 6, the suspect is NOT wearing a hat.</p>
+                    </div>
+                    <div className="bg-white p-3 rounded border border-blue-200">
+                      <p className="font-bold text-base mb-1">Problem 2: <span className="font-normal">35 ÷ 5 = ?</span></p>
+                      <p className="text-sm text-gray-700">Clue: If the answer is 7, the suspect has NO beard.</p>
+                    </div>
+                    <div className="bg-white p-3 rounded border border-blue-200">
+                      <p className="font-bold text-base mb-1">Problem 3: <span className="font-normal">18 ÷ 3 = ?</span></p>
+                      <p className="text-sm text-gray-700">Clue: If the answer is 6, the suspect is NOT a robot.</p>
+                    </div>
+                    <div className="bg-white p-3 rounded border border-blue-200">
+                      <p className="font-bold text-base mb-1">Problem 4: <span className="font-normal">40 ÷ 8 = ?</span></p>
+                      <p className="text-sm text-gray-700">Clue: If the answer is 5, the suspect HAS a mustache.</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div className="bg-green-50 border-2 border-green-400 rounded-lg p-4">
+                <h3 className="text-xl font-bold text-green-800 mb-3 text-center print:text-lg">WHO IS THE CULPRIT?</h3>
+                <p className="text-base text-center mb-3 print:text-sm">(Write the name of the culprit below)</p>
+                <div className="bg-white border-2 border-gray-400 rounded p-4 h-20 flex items-center justify-center">
+                  <div className="w-full text-center text-xl font-semibold text-gray-800 border-b-2 border-dashed border-gray-400 pb-2">
+                    _________________________
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* Extension/Challenge Problems */}
+            <div className="mt-6 print:mt-0 p-4 bg-purple-50 border-2 border-purple-200 rounded print:bg-white print:border" style={{ pageBreakBefore: 'always', pageBreakInside: 'avoid' }}>
+              <div className="font-semibold text-purple-900 mb-3 text-sm">🌟 {getTrans('common.challengeYourself', 'Challenge Yourself (Optional):')}</div>
+              <div className="space-y-2 text-sm text-purple-800">
+                <div>1. Create your own mystery with 5 division problems</div>
+                <div>2. Write a story about why the cookies were stolen</div>
+                <div>3. Draw pictures of all the suspects</div>
+              </div>
+            </div>
+
+            {/* Self-Assessment */}
+            <div className="print:block hidden print:mt-0 mt-6 p-4 border-2 border-slate-300 rounded" style={{ pageBreakBefore: 'avoid', pageBreakInside: 'avoid' }}>
+              <div className="font-semibold text-slate-800 mb-3 text-sm">📊 {getTrans('common.howDidYouDo', 'How did you do?')}</div>
+              <div className="space-y-2 text-xs">
+                <div>☐ I solved all 4 division problems</div>
+                <div>☐ I used the clues to eliminate suspects</div>
+                <div>☐ I identified the culprit correctly</div>
+              </div>
+              <div className="mt-3 text-xs">
+                <strong>{getTrans('common.myScore', 'My score:')}</strong> ___ / 4
+              </div>
+              <div className="mt-2 text-xs">
+                <strong>{getTrans('common.whatWasHardest', 'What was hardest?')}</strong> _________________________
+              </div>
+            </div>
+
+            {showAnswersForDoc('whodunnit-math-mystery-division', () => (
+              <div className="mt-6 p-4 border-2 border-emerald-300 bg-emerald-50 rounded print:border print:bg-white print:page-break-before-always">
+                <div className="font-bold text-emerald-900 mb-3 text-base">✅ {getTrans('common.answerKey', 'Answer Key')}</div>
+                <div className="space-y-3 text-sm text-emerald-800">
+                  <div>
+                    <div className="font-semibold mb-1">Problem 1: 24 ÷ 4 = 6</div>
+                    <div className="text-xs pl-4">Clue: Not wearing a hat → Eliminate Sally Sunshine</div>
+                  </div>
+                  <div>
+                    <div className="font-semibold mb-1">Problem 2: 35 ÷ 5 = 7</div>
+                    <div className="text-xs pl-4">Clue: Has no beard → Eliminate Captain Hook</div>
+                  </div>
+                  <div>
+                    <div className="font-semibold mb-1">Problem 3: 18 ÷ 3 = 6</div>
+                    <div className="text-xs pl-4">Clue: Not a robot → Eliminate Robot Ralph</div>
+                  </div>
+                  <div>
+                    <div className="font-semibold mb-1">Problem 4: 40 ÷ 8 = 5</div>
+                    <div className="text-xs pl-4">Clue: Has a mustache → This matches Chef Pierre!</div>
+                  </div>
+                  <div className="mt-4 p-3 bg-emerald-100 rounded">
+                    <div className="font-bold text-base">🕵️ Culprit: Chef Pierre</div>
+                    <div className="text-xs mt-2">By process of elimination, Chef Pierre is the only suspect left who matches all the clues!</div>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </WorksheetSectionWrapper>
+        )}
 
         {activeDocs.includes('fractions-to-decimals') && (() => {
           const rng = makeRng(`${effectiveSeed}|v${variant}|doc=${doc}`);
