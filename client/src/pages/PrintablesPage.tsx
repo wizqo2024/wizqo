@@ -3586,18 +3586,13 @@ export function PrintablesPage() {
           }
           
           // Ensure outer container in cloned document is exactly 794px (matching print layout)
-          // CRITICAL: Use padding on outer container for html2canvas - it captures padding reliably
+          // CRITICAL: Match print CSS exactly - use margin on inner div (not padding on outer)
           const clonedOuterContainer = clonedDoc.querySelector('[data-worksheet-content="true"]') as HTMLElement
           if (clonedOuterContainer) {
             clonedOuterContainer.style.width = '794px'
             clonedOuterContainer.style.maxWidth = '794px'
             clonedOuterContainer.style.margin = '0'
-            // Use padding to create the 48px white space (matches print visual layout)
-            clonedOuterContainer.style.padding = '0 48px'
-            clonedOuterContainer.style.paddingLeft = '48px'
-            clonedOuterContainer.style.paddingRight = '48px'
-            clonedOuterContainer.style.paddingTop = '0'
-            clonedOuterContainer.style.paddingBottom = '0'
+            clonedOuterContainer.style.padding = '0'
             clonedOuterContainer.style.boxSizing = 'border-box'
             clonedOuterContainer.style.backgroundColor = 'white'
             clonedOuterContainer.style.background = 'white'
@@ -3606,16 +3601,16 @@ export function PrintablesPage() {
           }
           
           // Ensure content container in cloned document matches print layout EXACTLY
-          // Print layout: @page margin: 0, but content has 0.5in (48px) left/right spacing = 698px width
-          // Use padding on parent, inner div fills content area
+          // Print layout: @page margin: 0, inner div has margin: 0.5in left/right/bottom = 698px width
+          // Use margin on inner div to match print CSS exactly
           const clonedContentContainer = clonedDoc.querySelector('[data-worksheet-content="true"] > div:first-child') as HTMLElement
           if (clonedContentContainer) {
-            // No margins - padding is on parent container
-            clonedContentContainer.style.margin = '0'
+            // Apply margins as in print CSS
+            clonedContentContainer.style.margin = '0.5in'
             clonedContentContainer.style.marginTop = '0'
-            clonedContentContainer.style.marginLeft = '0'
-            clonedContentContainer.style.marginRight = '0'
-            clonedContentContainer.style.marginBottom = '0'
+            clonedContentContainer.style.marginLeft = '0.5in'
+            clonedContentContainer.style.marginRight = '0.5in'
+            clonedContentContainer.style.marginBottom = '0.5in'
             clonedContentContainer.style.padding = '0'
             clonedContentContainer.style.boxSizing = 'border-box'
             // Width should be 698px (794px - 96px) - use explicit pixels
