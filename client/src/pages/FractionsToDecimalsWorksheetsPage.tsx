@@ -51,27 +51,25 @@ export default function FractionsToDecimalsWorksheetsPage() {
     setSelectedCategories(new Set())
   }
 
-  // Define all worksheets with their categories - using translation keys
-  // Note: All worksheets use the existing 'fractions-to-decimals' doc ID since the worksheet generator
-  // creates unique worksheets each time, so they'll be different even with the same doc ID
+  // Define all worksheets with their categories - using unique doc IDs for each worksheet
   const allWorksheets: WorksheetItem[] = useMemo(() => [
-    // 3rd Grade
-    { title: t('pages.fractionsToDecimals.worksheets.basicTenths.title'), description: t('pages.fractionsToDecimals.worksheets.basicTenths.description'), href: '/print?doc=fractions-to-decimals&from=fractions-to-decimals', docId: 'fractions-to-decimals', categories: ['basic', 'tenths-hundredths'], gradeRange: '3rd' },
+    // 3rd Grade - Each worksheet uses a unique doc ID
+    { title: t('pages.fractionsToDecimals.worksheets.basicTenths.title'), description: t('pages.fractionsToDecimals.worksheets.basicTenths.description'), href: '/print?doc=decimals-place-value&from=fractions-to-decimals', docId: 'decimals-place-value', categories: ['basic', 'tenths-hundredths'], gradeRange: '3rd' },
     { title: t('pages.fractionsToDecimals.worksheets.visualTenths.title'), description: t('pages.fractionsToDecimals.worksheets.visualTenths.description'), href: '/print?doc=fractions-to-decimals&from=fractions-to-decimals', docId: 'fractions-to-decimals', categories: ['visual', 'tenths-hundredths'], gradeRange: '3rd' },
-    { title: t('pages.fractionsToDecimals.worksheets.basicHundredths.title'), description: t('pages.fractionsToDecimals.worksheets.basicHundredths.description'), href: '/print?doc=fractions-to-decimals&from=fractions-to-decimals', docId: 'fractions-to-decimals', categories: ['basic', 'tenths-hundredths'], gradeRange: '3rd' },
-    // 4th Grade
-    { title: t('pages.fractionsToDecimals.worksheets.mixedNumbersBasic.title'), description: t('pages.fractionsToDecimals.worksheets.mixedNumbersBasic.description'), href: '/print?doc=fractions-to-decimals&from=fractions-to-decimals', docId: 'fractions-to-decimals', categories: ['mixed-numbers'], gradeRange: '4th' },
-    { title: t('pages.fractionsToDecimals.worksheets.comparingFractionsDecimals.title'), description: t('pages.fractionsToDecimals.worksheets.comparingFractionsDecimals.description'), href: '/print?doc=fractions-to-decimals&from=fractions-to-decimals', docId: 'fractions-to-decimals', categories: ['comparing'], gradeRange: '4th' },
+    { title: t('pages.fractionsToDecimals.worksheets.basicHundredths.title'), description: t('pages.fractionsToDecimals.worksheets.basicHundredths.description'), href: '/print?doc=comparing-decimals&from=fractions-to-decimals', docId: 'comparing-decimals', categories: ['basic', 'tenths-hundredths'], gradeRange: '3rd' },
+    // 4th Grade - Each worksheet uses a unique doc ID
+    { title: t('pages.fractionsToDecimals.worksheets.mixedNumbersBasic.title'), description: t('pages.fractionsToDecimals.worksheets.mixedNumbersBasic.description'), href: '/print?doc=mixed-improper-fractions&from=fractions-to-decimals', docId: 'mixed-improper-fractions', categories: ['mixed-numbers'], gradeRange: '4th' },
+    { title: t('pages.fractionsToDecimals.worksheets.comparingFractionsDecimals.title'), description: t('pages.fractionsToDecimals.worksheets.comparingFractionsDecimals.description'), href: '/print?doc=comparing-ordering-fractions-decimals&from=fractions-to-decimals', docId: 'comparing-ordering-fractions-decimals', categories: ['comparing'], gradeRange: '4th' },
     { title: t('pages.fractionsToDecimals.worksheets.divisionMethod.title'), description: t('pages.fractionsToDecimals.worksheets.divisionMethod.description'), href: '/print?doc=fractions-to-decimals&from=fractions-to-decimals', docId: 'fractions-to-decimals', categories: ['division'], gradeRange: '4th' },
-    { title: t('pages.fractionsToDecimals.worksheets.wordProblemsBasic.title'), description: t('pages.fractionsToDecimals.worksheets.wordProblemsBasic.description'), href: '/print?doc=fractions-to-decimals&from=fractions-to-decimals', docId: 'fractions-to-decimals', categories: ['word-problems'], gradeRange: '4th' },
-    // 5th Grade
-    { title: t('pages.fractionsToDecimals.worksheets.advancedMixedNumbers.title'), description: t('pages.fractionsToDecimals.worksheets.advancedMixedNumbers.description'), href: '/print?doc=fractions-to-decimals&from=fractions-to-decimals', docId: 'fractions-to-decimals', categories: ['mixed-numbers'], gradeRange: '5th' },
-    { title: t('pages.fractionsToDecimals.worksheets.repeatingDecimals.title'), description: t('pages.fractionsToDecimals.worksheets.repeatingDecimals.description'), href: '/print?doc=fractions-to-decimals&from=fractions-to-decimals', docId: 'fractions-to-decimals', categories: ['division'], gradeRange: '5th' },
-    { title: t('pages.fractionsToDecimals.worksheets.complexWordProblems.title'), description: t('pages.fractionsToDecimals.worksheets.complexWordProblems.description'), href: '/print?doc=fractions-to-decimals&from=fractions-to-decimals', docId: 'fractions-to-decimals', categories: ['word-problems'], gradeRange: '5th' },
-    { title: t('pages.fractionsToDecimals.worksheets.orderingFractionsDecimals.title'), description: t('pages.fractionsToDecimals.worksheets.orderingFractionsDecimals.description'), href: '/print?doc=fractions-to-decimals&from=fractions-to-decimals', docId: 'fractions-to-decimals', categories: ['comparing'], gradeRange: '5th' },
-    // All Grades - Practice
-    { title: t('pages.fractionsToDecimals.worksheets.mixedReview.title'), description: t('pages.fractionsToDecimals.worksheets.mixedReview.description'), href: '/print?doc=fractions-to-decimals&from=fractions-to-decimals', docId: 'fractions-to-decimals', categories: ['basic'], gradeRange: 'All' },
-    { title: t('pages.fractionsToDecimals.worksheets.fluencyPractice.title'), description: t('pages.fractionsToDecimals.worksheets.fluencyPractice.description'), href: '/print?doc=fractions-to-decimals&from=fractions-to-decimals', docId: 'fractions-to-decimals', categories: ['basic'], gradeRange: 'All' },
+    { title: t('pages.fractionsToDecimals.worksheets.wordProblemsBasic.title'), description: t('pages.fractionsToDecimals.worksheets.wordProblemsBasic.description'), href: '/print?doc=fraction-word-problems&from=fractions-to-decimals', docId: 'fraction-word-problems', categories: ['word-problems'], gradeRange: '4th' },
+    // 5th Grade - Each worksheet uses a unique doc ID
+    { title: t('pages.fractionsToDecimals.worksheets.advancedMixedNumbers.title'), description: t('pages.fractionsToDecimals.worksheets.advancedMixedNumbers.description'), href: '/print?doc=fractions-decimals-percents&from=fractions-to-decimals', docId: 'fractions-decimals-percents', categories: ['mixed-numbers'], gradeRange: '5th' },
+    { title: t('pages.fractionsToDecimals.worksheets.repeatingDecimals.title'), description: t('pages.fractionsToDecimals.worksheets.repeatingDecimals.description'), href: '/print?doc=add-sub-decimals&from=fractions-to-decimals', docId: 'add-sub-decimals', categories: ['division'], gradeRange: '5th' },
+    { title: t('pages.fractionsToDecimals.worksheets.complexWordProblems.title'), description: t('pages.fractionsToDecimals.worksheets.complexWordProblems.description'), href: '/print?doc=decimal-word-problems&from=fractions-to-decimals', docId: 'decimal-word-problems', categories: ['word-problems'], gradeRange: '5th' },
+    { title: t('pages.fractionsToDecimals.worksheets.orderingFractionsDecimals.title'), description: t('pages.fractionsToDecimals.worksheets.orderingFractionsDecimals.description'), href: '/print?doc=comparing-fractions-4th&from=fractions-to-decimals', docId: 'comparing-fractions-4th', categories: ['comparing'], gradeRange: '5th' },
+    // All Grades - Practice - Each worksheet uses a unique doc ID
+    { title: t('pages.fractionsToDecimals.worksheets.mixedReview.title'), description: t('pages.fractionsToDecimals.worksheets.mixedReview.description'), href: '/print?doc=equivalent-fractions-4th&from=fractions-to-decimals', docId: 'equivalent-fractions-4th', categories: ['basic'], gradeRange: 'All' },
+    { title: t('pages.fractionsToDecimals.worksheets.fluencyPractice.title'), description: t('pages.fractionsToDecimals.worksheets.fluencyPractice.description'), href: '/print?doc=add-sub-fractions-4th&from=fractions-to-decimals', docId: 'add-sub-fractions-4th', categories: ['basic'], gradeRange: 'All' },
   ], [t])
 
   // Filter worksheets based on selected categories
