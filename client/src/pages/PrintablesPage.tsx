@@ -1805,13 +1805,26 @@ export function PrintablesPage() {
       document.body.style.margin = '0' // NO margin - matches print layout (margin: 0)
       document.body.style.padding = '0'
       
-      // Set content element to exact print width (794px) - NO margins
+      // Set content element to match print layout exactly
+      // Print: @page has margin: 0, but content container has 0.5in left/right margins
+      // So the outer container is 794px, but inner content is 698px (794 - 96px)
       if (contentElement) {
+        // The outer [data-worksheet-content="true"] element should be 794px
         contentElement.style.width = '794px'
         contentElement.style.maxWidth = '794px'
         contentElement.style.margin = '0'
         contentElement.style.padding = '0'
         contentElement.style.boxSizing = 'border-box'
+        
+        // The inner div:first-child should have 0.5in margins (matching print layout)
+        const innerDiv = contentElement.querySelector('> div:first-child') as HTMLElement
+        if (innerDiv) {
+          innerDiv.style.margin = '0 0.5in'
+          innerDiv.style.marginTop = '0'
+          innerDiv.style.width = 'calc(100% - 1in)' // 698px
+          innerDiv.style.maxWidth = 'calc(100% - 1in)'
+          innerDiv.style.boxSizing = 'border-box'
+        }
       }
       
       // Apply print styles to wrapper
@@ -2300,17 +2313,20 @@ export function PrintablesPage() {
               margin-bottom: 0.375rem !important;
             }
             /* Add padding to content container for proper spacing since @page has no margin */
+            /* CRITICAL: This MUST match index.css print styles exactly */
+            /* Print layout: @page has margin: 0, but content container has 0.5in left/right margins */
+            /* This makes content width = 794px - 1in = 698px (matching print preview) */
             [data-worksheet-content="true"] > div:first-child {
-              margin: 0 !important;
+              margin: 0.5in !important;
               margin-top: 0 !important;
               padding: 0 !important;
               page-break-before: auto !important;
               overflow: visible !important;
               background-color: white !important;
               background: white !important;
-              /* Content width is full page width (794px) to match print layout with margin: 0 */
-              width: 794px !important;
-              max-width: 794px !important;
+              /* Account for left and right margins: 794px (A4 width) - 1in (0.5in * 2) = 698px */
+              width: calc(100% - 1in) !important;
+              max-width: calc(100% - 1in) !important;
               box-sizing: border-box !important;
             }
             /* Ensure all divs inside worksheet content have white background */
@@ -2759,23 +2775,28 @@ export function PrintablesPage() {
       // Sort by top position
       sectionPositions.sort((a, b) => a.top - b.top)
       
-      // Create PDF with correct content width and margins to match print preview
-      // Match print layout exactly: no margins (margin: 0)
+      // Create PDF with correct content width and margins to match print preview EXACTLY
+      // Print layout analysis:
+      // - @page has margin: 0 (no page margins)
+      // - But content container [data-worksheet-content="true"] > div:first-child has:
+      //   - margin: 0.5in left/right (12.7mm each side)
+      //   - width: calc(100% - 1in) = 698px (794px - 96px)
+      // - So content area is 698px wide, centered in 794px page
       // A4 page: 210mm x 297mm (8.27in x 11.69in)
       // Print width: 794px at 96dpi = 210mm
       const pageWidthMm = 210 // A4 width in mm
       const pageHeight = 297 // A4 height in mm
-      const marginLeftMm = 0 // NO MARGIN - matches print layout (margin: 0)
+      const marginLeftMm = 12.7 // 0.5in in mm - matches print layout content margin
       
-      // Canvas was captured at print width (794px) with scale (2)
+      // Canvas was captured at outer container width (794px) with scale (2)
       // So canvas.width = 794 * 2 = 1588px
-      // We need to calculate the correct image dimensions to match print layout exactly
-      const actualScale = 2 // We're using scale: 2 in html2canvas
-      const capturedWidthPx = 794 // Content was captured at exactly 794px width
-      const capturedWidthMm = (capturedWidthPx / 794) * pageWidthMm // Should be 210mm
+      // But the actual content inside is 698px wide (with 0.5in margins on each side)
+      // Content width in mm: 698px / 794px * 210mm = 184.6mm
+      const contentWidthPx = 698 // Content width in print layout (794px - 96px margins)
+      const contentWidthMm = (contentWidthPx / 794) * pageWidthMm // 184.6mm
       
-      // Use full page width (210mm) to match print layout with no margins
-      const imgWidth = pageWidthMm // Full page width - no margins
+      // Use content width (184.6mm) with left margin (12.7mm) to match print layout exactly
+      const imgWidth = contentWidthMm // Content width - matches print layout
       // Calculate height maintaining aspect ratio: (canvas.height / canvas.width) * imgWidth
       const imgHeight = (canvas.height * imgWidth) / canvas.width
       
@@ -2783,7 +2804,8 @@ export function PrintablesPage() {
       const pdf = new jsPDF('p', 'mm', 'a4')
       
       if (imgHeight <= pageHeight) {
-        // Single page - place with NO margin to match print layout (margin: 0)
+        // Single page - place with 0.5in left margin to match print layout exactly
+        // Print layout: content has 0.5in (12.7mm) left margin, content width is 184.6mm
         pdf.addImage(imgData, 'JPEG', marginLeftMm, 0, imgWidth, imgHeight)
       } else {
         // Multiple pages - simple split with card protection
@@ -2877,7 +2899,8 @@ export function PrintablesPage() {
               const pageImgData = pageCanvas.toDataURL('image/jpeg', 0.9)
               const pageImgHeight = (pageHeightActual * imgWidth) / canvas.width
               
-              // Use NO margin (0, 0) to match print layout exactly (margin: 0)
+              // Use 0.5in left margin (12.7mm) to match print layout exactly
+              // Print layout: content has 0.5in left margin, content width is 184.6mm
               pdf.addImage(pageImgData, 'JPEG', marginLeftMm, 0, imgWidth, pageImgHeight)
               
               currentY = pageEndY
@@ -3401,18 +3424,21 @@ export function PrintablesPage() {
             clonedBody.style.lineHeight = '1.3'
           }
           
-          // Ensure content container in cloned document is exactly 794px (full width, no margins - matches print layout)
-          // This must match the print layout exactly with margin: 0
+          // Ensure content container in cloned document matches print layout EXACTLY
+          // Print layout: @page margin: 0, but content has 0.5in left/right margins = 698px width
+          // This MUST match index.css print styles: margin: 0.5in, width: calc(100% - 1in)
           const clonedContentContainer = clonedDoc.querySelector('[data-worksheet-content="true"] > div:first-child') as HTMLElement
           if (clonedContentContainer) {
-            clonedContentContainer.style.width = '794px'
-            clonedContentContainer.style.maxWidth = '794px'
-            clonedContentContainer.style.margin = '0'
+            // Match print layout: 0.5in margins on left/right, 0 on top
+            clonedContentContainer.style.margin = '0 0.5in'
             clonedContentContainer.style.marginTop = '0'
-            clonedContentContainer.style.marginLeft = '0'
-            clonedContentContainer.style.marginRight = '0'
+            clonedContentContainer.style.marginLeft = '0.5in'
+            clonedContentContainer.style.marginRight = '0.5in'
             clonedContentContainer.style.padding = '0'
             clonedContentContainer.style.boxSizing = 'border-box'
+            // Width should be calc(100% - 1in) which equals 698px (794px - 96px)
+            clonedContentContainer.style.width = 'calc(100% - 1in)'
+            clonedContentContainer.style.maxWidth = 'calc(100% - 1in)'
           }
           
           // Apply ALL print styles as regular CSS (html2canvas doesn't respect @media print)
@@ -3821,17 +3847,20 @@ export function PrintablesPage() {
               margin-bottom: 0.375rem !important;
             }
             /* Add padding to content container for proper spacing since @page has no margin */
+            /* CRITICAL: This MUST match index.css print styles exactly */
+            /* Print layout: @page has margin: 0, but content container has 0.5in left/right margins */
+            /* This makes content width = 794px - 1in = 698px (matching print preview) */
             [data-worksheet-content="true"] > div:first-child {
-              margin: 0 !important;
+              margin: 0.5in !important;
               margin-top: 0 !important;
               padding: 0 !important;
               page-break-before: auto !important;
               overflow: visible !important;
               background-color: white !important;
               background: white !important;
-              /* Content width is full page width (794px) to match print layout with margin: 0 */
-              width: 794px !important;
-              max-width: 794px !important;
+              /* Account for left and right margins: 794px (A4 width) - 1in (0.5in * 2) = 698px */
+              width: calc(100% - 1in) !important;
+              max-width: calc(100% - 1in) !important;
               box-sizing: border-box !important;
             }
             /* Ensure all divs inside worksheet content have white background */
@@ -4750,14 +4779,16 @@ export function PrintablesPage() {
             background-color: white !important;
           }
           /* Add padding to content container for proper spacing since @page has no margin */
+          /* CRITICAL: This MUST match index.css print styles exactly */
+          /* Print layout: @page has margin: 0, but content container has 0.5in left/right margins */
           [data-worksheet-content="true"] > div:first-child,
           .max-w-4xl.mx-auto {
-            margin: 0 !important;
+            margin: 0.5in !important;
             margin-top: 0 !important;
             padding: 0 !important;
-            /* Full page width (794px) with no margins - matches print layout (margin: 0) */
-            width: 794px !important;
-            max-width: 794px !important;
+            /* Account for left and right margins: 794px (A4 width) - 1in (0.5in * 2) = 698px */
+            width: calc(100% - 1in) !important;
+            max-width: calc(100% - 1in) !important;
             box-sizing: border-box !important;
             page-break-before: auto !important;
             overflow: visible !important;
