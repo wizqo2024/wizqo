@@ -1949,8 +1949,7 @@ export function PrintablesPage() {
         await new Promise(resolve => setTimeout(resolve, 100))
       }
       
-      // Get inner div margins for verification
-      const innerDiv = contentElement.querySelector(':scope > div:first-child') as HTMLElement
+      // Get inner div margins for logging (reuse innerDiv from above)
       const innerMarginLeft = innerDiv ? parseFloat(window.getComputedStyle(innerDiv).marginLeft) || 0 : 0
       const innerMarginRight = innerDiv ? parseFloat(window.getComputedStyle(innerDiv).marginRight) || 0 : 0
       
