@@ -1329,6 +1329,7 @@ export const en = {
       buildPackAge: 'Age/Grade: 3rd-5th Grade',
       buildPackFocus: 'Focus: Fractions & Decimals',
       allGrades: 'All Grades',
+      filterByCategory: 'Filter by Category',
       noResults: 'No worksheets match the selected categories.',
       clearFilters: 'Clear filters to show all worksheets',
       categories: {

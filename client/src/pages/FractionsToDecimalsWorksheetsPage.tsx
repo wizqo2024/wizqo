@@ -181,7 +181,8 @@ export default function FractionsToDecimalsWorksheetsPage() {
                 categories={FRACTIONS_TO_DECIMALS_CATEGORIES}
                 selectedCategories={selectedCategories}
                 onToggleCategory={toggleCategory}
-                onClearCategories={clearCategories}
+                onClearAll={clearCategories}
+                title={t('pages.fractionsToDecimals.filterByCategory')}
               />
             </div>
           </aside>
@@ -438,19 +439,18 @@ const WorksheetThumbnailCard = React.memo(function WorksheetThumbnailCard({ titl
                 }
               }, 10000)
             }}
-            className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-purple-600 hover:bg-purple-700 text-white text-xs font-medium transition-colors"
+            className="text-xs font-medium text-purple-600 hover:text-purple-700 px-3 py-1 rounded-full border border-purple-200 hover:border-purple-300 transition-colors"
           >
-            <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
-            </svg>
-            Download PDF
+            Download
           </button>
-          <button
-            onClick={() => onPreview?.({ title: translatedTitle, description: translatedDescription, href, docId, categories: [], gradeRange: '' })}
-            className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-slate-300 bg-white hover:bg-slate-50 text-slate-700 text-xs font-medium transition-colors"
+          <a
+            href={href + (href.includes('?') ? '&download=1' : '?download=1')}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-xs font-medium text-purple-600 hover:text-purple-700 px-3 py-1 rounded-full border border-purple-200 hover:border-purple-300 transition-colors"
           >
-            Preview
-          </button>
+            Open
+          </a>
         </div>
       </div>
     </article>
