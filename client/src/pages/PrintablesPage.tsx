@@ -24694,7 +24694,7 @@ export function PrintablesPage() {
             <div className="mb-6 p-4 bg-blue-50 border-2 border-blue-200 rounded-lg print:border print:bg-white">
               <div className="font-semibold text-blue-900 mb-3 text-sm">📚 Example - Let's solve this together:</div>
               <div className="space-y-2 text-sm">
-                <div className="font-semibold text-base"><strong>Problem:</strong> 24 ÷ 4 = ?</div>
+                <div className="font-semibold text-base"><strong>Problem:</strong> 24 {'÷'} 4 = ?</div>
                 <div className="pl-4 border-l-2 border-blue-300 space-y-1">
                   <div><strong>Step 1:</strong> Think "how many groups of 4 make 24?"</div>
                   <div><strong>Step 2:</strong> Counting by fours: 4, 8, 12, 16, 20, 24. That's 6 groups!</div>
@@ -24717,7 +24717,7 @@ export function PrintablesPage() {
                   <h3 className="text-xl font-bold text-yellow-800 mb-4 text-center print:text-lg">SUSPECTS</h3>
                   <div className="grid grid-cols-2 gap-3">
                     <div className="flex flex-col items-center">
-                      <div className="w-20 h-20 bg-slate-300 rounded-full mb-2 flex items-center justify-center text-2xl">🏴‍☠️</div>
+                      <div className="w-20 h-20 bg-slate-300 rounded-full mb-2 flex items-center justify-center text-2xl">🏴</div>
                       <p className="font-semibold text-center text-sm">Captain Hook<br />(Beard)</p>
                     </div>
                     <div className="flex flex-col items-center">
@@ -24739,19 +24739,19 @@ export function PrintablesPage() {
                   <h3 className="text-xl font-bold text-blue-800 mb-4 text-center print:text-lg">CLUES & PROBLEMS</h3>
                   <div className="space-y-3">
                     <div className="bg-white p-3 rounded border border-blue-200">
-                      <p className="font-bold text-base mb-1">Problem 1: <span className="font-normal">24 ÷ 4 = ?</span></p>
+                      <p className="font-bold text-base mb-1">Problem 1: <span className="font-normal">24 {'÷'} 4 = ?</span></p>
                       <p className="text-sm text-gray-700">Clue: If the answer is 6, the suspect is NOT wearing a hat.</p>
                     </div>
                     <div className="bg-white p-3 rounded border border-blue-200">
-                      <p className="font-bold text-base mb-1">Problem 2: <span className="font-normal">35 ÷ 5 = ?</span></p>
+                      <p className="font-bold text-base mb-1">Problem 2: <span className="font-normal">35 {'÷'} 5 = ?</span></p>
                       <p className="text-sm text-gray-700">Clue: If the answer is 7, the suspect has NO beard.</p>
                     </div>
                     <div className="bg-white p-3 rounded border border-blue-200">
-                      <p className="font-bold text-base mb-1">Problem 3: <span className="font-normal">18 ÷ 3 = ?</span></p>
+                      <p className="font-bold text-base mb-1">Problem 3: <span className="font-normal">18 {'÷'} 3 = ?</span></p>
                       <p className="text-sm text-gray-700">Clue: If the answer is 6, the suspect is NOT a robot.</p>
                     </div>
                     <div className="bg-white p-3 rounded border border-blue-200">
-                      <p className="font-bold text-base mb-1">Problem 4: <span className="font-normal">40 ÷ 8 = ?</span></p>
+                      <p className="font-bold text-base mb-1">Problem 4: <span className="font-normal">40 {'÷'} 8 = ?</span></p>
                       <p className="text-sm text-gray-700">Clue: If the answer is 5, the suspect HAS a mustache.</p>
                     </div>
                   </div>
@@ -24800,19 +24800,19 @@ export function PrintablesPage() {
                 <div className="font-bold text-emerald-900 mb-3 text-base">✅ {getTrans('common.answerKey', 'Answer Key')}</div>
                 <div className="space-y-3 text-sm text-emerald-800">
                   <div>
-                    <div className="font-semibold mb-1">Problem 1: 24 ÷ 4 = 6</div>
+                    <div className="font-semibold mb-1">Problem 1: 24 {'÷'} 4 = 6</div>
                     <div className="text-xs pl-4">Clue: Not wearing a hat → Eliminate Sally Sunshine</div>
                   </div>
                   <div>
-                    <div className="font-semibold mb-1">Problem 2: 35 ÷ 5 = 7</div>
+                    <div className="font-semibold mb-1">Problem 2: 35 {'÷'} 5 = 7</div>
                     <div className="text-xs pl-4">Clue: Has no beard → Eliminate Captain Hook</div>
                   </div>
                   <div>
-                    <div className="font-semibold mb-1">Problem 3: 18 ÷ 3 = 6</div>
+                    <div className="font-semibold mb-1">Problem 3: 18 {'÷'} 3 = 6</div>
                     <div className="text-xs pl-4">Clue: Not a robot → Eliminate Robot Ralph</div>
                   </div>
                   <div>
-                    <div className="font-semibold mb-1">Problem 4: 40 ÷ 8 = 5</div>
+                    <div className="font-semibold mb-1">Problem 4: 40 {'÷'} 8 = 5</div>
                     <div className="text-xs pl-4">Clue: Has a mustache → This matches Chef Pierre!</div>
                   </div>
                   <div className="mt-4 p-3 bg-emerald-100 rounded">
