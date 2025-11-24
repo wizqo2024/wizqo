@@ -126,7 +126,7 @@ export function UnifiedNavigation({ showBackButton = false, onBackClick, current
 
               <div className="relative">
                 <div className="flex items-center">
-                  <a href="/interactive-worksheets-generator" className={`flex items-center space-x-2 px-3 py-2 rounded-md transition-colors ${(() => {
+                  <a href="/interactive-worksheets-generator" className={`flex items-center space-x-2 px-3 py-2 rounded-md transition-colors whitespace-nowrap ${(() => {
                     // Only show active on interactive-worksheets-generator, not on specific worksheet pages
                     return currentPage === 'interactive-worksheets-generator' || 
                            getIsWorksheetsPageActive();
@@ -134,7 +134,7 @@ export function UnifiedNavigation({ showBackButton = false, onBackClick, current
                     <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
                     </svg>
-                    <span className="font-medium">{t('navigation.worksheets')}</span>
+                    <span className="font-medium whitespace-nowrap">{t('navigation.worksheets')}</span>
                   </a>
                   <button
                     type="button"
@@ -152,14 +152,14 @@ export function UnifiedNavigation({ showBackButton = false, onBackClick, current
                 {/* Dropdown: Worksheets */}
                 <div
                   ref={worksheetsMenuRef}
-                  className={`absolute left-0 top-full mt-2 ${showWorksheetsMenu ? 'opacity-100 translate-y-0 pointer-events-auto' : 'opacity-0 -translate-y-1 pointer-events-none'} transition-all duration-150 bg-white/95 backdrop-blur-sm border border-slate-200 rounded-2xl shadow-xl min-w-[320px] w-full md:w-auto md:max-w-[1400px] z-50 p-6`}
+                  className={`absolute right-0 top-full mt-2 ${showWorksheetsMenu ? 'opacity-100 translate-y-0 pointer-events-auto' : 'opacity-0 -translate-y-1 pointer-events-none'} transition-all duration-150 bg-white/95 backdrop-blur-sm border border-slate-200 rounded-2xl shadow-xl min-w-[320px] w-full md:w-auto md:max-w-[1400px] z-50 p-6`}
                   role="menu"
                   aria-label="Worksheets menu"
                   onMouseEnter={() => { if (worksheetsMenuCloseTimer.current) { window.clearTimeout(worksheetsMenuCloseTimer.current); worksheetsMenuCloseTimer.current = null; }}}
                   onMouseLeave={() => { worksheetsMenuCloseTimer.current = window.setTimeout(() => setShowWorksheetsMenu(false), 200) as unknown as number; }}
                 >
                   {/* caret */}
-                  <div className="absolute -top-2 left-10 h-4 w-4 bg-white rotate-45 border-l border-t border-slate-200" aria-hidden />
+                  <div className="absolute -top-2 right-10 h-4 w-4 bg-white rotate-45 border-l border-t border-slate-200" aria-hidden />
                   <div className="grid gap-6 min-w-[320px] md:grid-cols-3 w-full">
                     {/* First Column: Free Worksheet PDFs */}
                     <div>
