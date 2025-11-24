@@ -2045,7 +2045,7 @@ export function PrintablesPage() {
       }
       
       let canvas = await html2canvas(finalContentElement, {
-        scale: 3.0, // Higher scale for better print quality and larger file size (~2-3MB)
+        scale: 4.5, // Higher scale for better print quality and larger file size (~1.5-2MB)
         useCORS: true,
         logging: false,
         backgroundColor: '#ffffff',
@@ -2920,7 +2920,7 @@ export function PrintablesPage() {
           console.warn('Canvas has zero height, retrying with outer container...')
           // Retry with outer container
           const retryCanvas = await html2canvas(contentElement, {
-            scale: 2,
+            scale: 4.0,
             useCORS: true,
             logging: false,
             backgroundColor: '#ffffff',
@@ -3561,7 +3561,7 @@ export function PrintablesPage() {
       // CRITICAL: Verify actual element dimensions match expected print preview dimensions
       const pageWidth = 794 // A4 width in pixels at 96dpi
       const expectedContentWidth = 698 // Expected content width after 0.5in margins (794px - 96px)
-      const scale = 2.5 // Increased scale for better quality and larger file size (~1.5-2MB)
+      const scale = 4.0 // Increased scale for better quality and larger file size (~1.5-2MB)
       
       // Verify and fix content element width to match print preview exactly
       const actualWidth = actualContentElement.offsetWidth
@@ -4473,7 +4473,7 @@ export function PrintablesPage() {
         if (fallbackElement && fallbackElement !== actualContentElement) {
           console.log('Trying fallback element due to empty canvas')
           const fallbackCanvas = await html2canvas(fallbackElement as HTMLElement, {
-            scale: 2.5, // Increased scale for better quality and larger file size (~1.5-2MB)
+            scale: 4.0, // Increased scale for better quality and larger file size (~1.5-2MB)
             useCORS: true,
             logging: false,
             backgroundColor: '#ffffff',
