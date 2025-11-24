@@ -3461,6 +3461,16 @@ export function PrintablesPage() {
             clonedBody.style.lineHeight = '1.3'
           }
           
+          // Ensure outer container in cloned document is exactly 794px (matching print layout)
+          const clonedOuterContainer = clonedDoc.querySelector('[data-worksheet-content="true"]') as HTMLElement
+          if (clonedOuterContainer) {
+            clonedOuterContainer.style.width = '794px'
+            clonedOuterContainer.style.maxWidth = '794px'
+            clonedOuterContainer.style.margin = '0'
+            clonedOuterContainer.style.padding = '0'
+            clonedOuterContainer.style.boxSizing = 'border-box'
+          }
+          
           // Ensure content container in cloned document matches print layout EXACTLY
           // Print layout: @page margin: 0, but content has 0.5in (48px) left/right margins = 698px width
           // Use explicit pixel values for html2canvas to render correctly
