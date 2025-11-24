@@ -50,28 +50,84 @@ function escapeHtml(s) {
 function setMeta(html, { title, description, canonical, ogImage, ogType = 'website', twitterCard = 'summary_large_image', robots = 'index, follow', keywords }) {
   let out = html;
   out = setTitle(out, title);
+  
+  // More aggressive replacement - replace entire tag including content
   // description
-  out = upsertTag(out, /<meta\s+name=["']description["'][^>]*>/i, `<meta name="description" content="${escapeHtml(description)}">`);
+  out = out.replace(/<meta\s+name=["']description["'][^>]*>/i, `<meta name="description" content="${escapeHtml(description)}">`);
+  if (!/<meta\s+name=["']description["'][^>]*>/i.test(out)) {
+    out = out.replace(/<\/head>/i, `  <meta name="description" content="${escapeHtml(description)}">\n</head>`);
+  }
+  
   // keywords (if provided)
   if (keywords) {
-    out = upsertTag(out, /<meta\s+name=["']keywords["'][^>]*>/i, `<meta name="keywords" content="${escapeHtml(keywords)}">`);
+    out = out.replace(/<meta\s+name=["']keywords["'][^>]*>/i, `<meta name="keywords" content="${escapeHtml(keywords)}">`);
+    if (!/<meta\s+name=["']keywords["'][^>]*>/i.test(out)) {
+      out = out.replace(/<\/head>/i, `  <meta name="keywords" content="${escapeHtml(keywords)}">\n</head>`);
+    }
   }
+  
   // robots
-  out = upsertTag(out, /<meta\s+name=["']robots["'][^>]*>/i, `<meta name="robots" content="${robots}">`);
-  // canonical
-  out = upsertTag(out, /<link\s+rel=["']canonical["'][^>]*>/i, `<link rel="canonical" href="${canonical}">`);
+  out = out.replace(/<meta\s+name=["']robots["'][^>]*>/i, `<meta name="robots" content="${robots}">`);
+  if (!/<meta\s+name=["']robots["'][^>]*>/i.test(out)) {
+    out = out.replace(/<\/head>/i, `  <meta name="robots" content="${robots}">\n</head>`);
+  }
+  
+  // canonical - remove all existing canonical links first, then add new one
+  out = out.replace(/<link\s+rel=["']canonical["'][^>]*>/gi, '');
+  out = out.replace(/<\/head>/i, `  <link rel="canonical" href="${canonical}">\n</head>`);
+  
   // Open Graph
-  out = upsertTag(out, /<meta\s+property=["']og:title["'][^>]*>/i, `<meta property="og:title" content="${escapeHtml(title)}">`);
-  out = upsertTag(out, /<meta\s+property=["']og:description["'][^>]*>/i, `<meta property="og:description" content="${escapeHtml(description)}">`);
-  out = upsertTag(out, /<meta\s+property=["']og:image["'][^>]*>/i, `<meta property="og:image" content="${ogImage}">`);
-  out = upsertTag(out, /<meta\s+property=["']og:type["'][^>]*>/i, `<meta property="og:type" content="${ogType}">`);
-  out = upsertTag(out, /<meta\s+property=["']og:url["'][^>]*>/i, `<meta property="og:url" content="${canonical}">`);
+  out = out.replace(/<meta\s+property=["']og:title["'][^>]*>/i, `<meta property="og:title" content="${escapeHtml(title)}">`);
+  if (!/<meta\s+property=["']og:title["'][^>]*>/i.test(out)) {
+    out = out.replace(/<\/head>/i, `  <meta property="og:title" content="${escapeHtml(title)}">\n</head>`);
+  }
+  
+  out = out.replace(/<meta\s+property=["']og:description["'][^>]*>/i, `<meta property="og:description" content="${escapeHtml(description)}">`);
+  if (!/<meta\s+property=["']og:description["'][^>]*>/i.test(out)) {
+    out = out.replace(/<\/head>/i, `  <meta property="og:description" content="${escapeHtml(description)}">\n</head>`);
+  }
+  
+  out = out.replace(/<meta\s+property=["']og:image["'][^>]*>/i, `<meta property="og:image" content="${ogImage}">`);
+  if (!/<meta\s+property=["']og:image["'][^>]*>/i.test(out)) {
+    out = out.replace(/<\/head>/i, `  <meta property="og:image" content="${ogImage}">\n</head>`);
+  }
+  
+  out = out.replace(/<meta\s+property=["']og:type["'][^>]*>/i, `<meta property="og:type" content="${ogType}">`);
+  if (!/<meta\s+property=["']og:type["'][^>]*>/i.test(out)) {
+    out = out.replace(/<\/head>/i, `  <meta property="og:type" content="${ogType}">\n</head>`);
+  }
+  
+  out = out.replace(/<meta\s+property=["']og:url["'][^>]*>/i, `<meta property="og:url" content="${canonical}">`);
+  if (!/<meta\s+property=["']og:url["'][^>]*>/i.test(out)) {
+    out = out.replace(/<\/head>/i, `  <meta property="og:url" content="${canonical}">\n</head>`);
+  }
+  
   // Twitter
-  out = upsertTag(out, /<meta\s+name=["']twitter:card["'][^>]*>/i, `<meta name="twitter:card" content="${twitterCard}">`);
-  out = upsertTag(out, /<meta\s+property=["']twitter:title["'][^>]*>/i, `<meta property="twitter:title" content="${escapeHtml(title)}">`);
-  out = upsertTag(out, /<meta\s+property=["']twitter:description["'][^>]*>/i, `<meta property="twitter:description" content="${escapeHtml(description)}">`);
-  out = upsertTag(out, /<meta\s+property=["']twitter:image["'][^>]*>/i, `<meta property="twitter:image" content="${ogImage}">`);
-  out = upsertTag(out, /<meta\s+property=["']twitter:url["'][^>]*>/i, `<meta property="twitter:url" content="${canonical}">`);
+  out = out.replace(/<meta\s+(?:name|property)=["']twitter:card["'][^>]*>/i, `<meta name="twitter:card" content="${twitterCard}">`);
+  if (!/<meta\s+(?:name|property)=["']twitter:card["'][^>]*>/i.test(out)) {
+    out = out.replace(/<\/head>/i, `  <meta name="twitter:card" content="${twitterCard}">\n</head>`);
+  }
+  
+  out = out.replace(/<meta\s+property=["']twitter:title["'][^>]*>/i, `<meta property="twitter:title" content="${escapeHtml(title)}">`);
+  if (!/<meta\s+property=["']twitter:title["'][^>]*>/i.test(out)) {
+    out = out.replace(/<\/head>/i, `  <meta property="twitter:title" content="${escapeHtml(title)}">\n</head>`);
+  }
+  
+  out = out.replace(/<meta\s+property=["']twitter:description["'][^>]*>/i, `<meta property="twitter:description" content="${escapeHtml(description)}">`);
+  if (!/<meta\s+property=["']twitter:description["'][^>]*>/i.test(out)) {
+    out = out.replace(/<\/head>/i, `  <meta property="twitter:description" content="${escapeHtml(description)}">\n</head>`);
+  }
+  
+  out = out.replace(/<meta\s+property=["']twitter:image["'][^>]*>/i, `<meta property="twitter:image" content="${ogImage}">`);
+  if (!/<meta\s+property=["']twitter:image["'][^>]*>/i.test(out)) {
+    out = out.replace(/<\/head>/i, `  <meta property="twitter:image" content="${ogImage}">\n</head>`);
+  }
+  
+  out = out.replace(/<meta\s+property=["']twitter:url["'][^>]*>/i, `<meta property="twitter:url" content="${canonical}">`);
+  if (!/<meta\s+property=["']twitter:url["'][^>]*>/i.test(out)) {
+    out = out.replace(/<\/head>/i, `  <meta property="twitter:url" content="${canonical}">\n</head>`);
+  }
+  
   return out;
 }
 
