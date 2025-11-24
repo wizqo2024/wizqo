@@ -1945,10 +1945,30 @@ export function PrintablesPage() {
       finalContentElement.style.maxWidth = `${printWidth}px`
       finalContentElement.style.boxSizing = 'border-box'
       
-      // Force reflow and wait for layout
+      // CRITICAL: Ensure inner div has margins applied BEFORE capture
+      // This ensures html2canvas captures the margins as visible white space
+      const innerDiv = finalContentElement.querySelector('[data-worksheet-content="true"] > div:first-child') as HTMLElement || finalContentElement.querySelector('div:first-child') as HTMLElement
+      if (innerDiv) {
+        // Apply print margins to inner div to match print preview
+        const marginInPx = 48 // 0.5in = 48px at 96dpi
+        innerDiv.style.margin = '0'
+        innerDiv.style.marginLeft = `${marginInPx}px`
+        innerDiv.style.marginRight = `${marginInPx}px`
+        innerDiv.style.marginTop = '0'
+        innerDiv.style.marginBottom = `${marginInPx}px`
+        innerDiv.style.width = 'calc(100% - 96px)' // 794px - 96px = 698px
+        innerDiv.style.maxWidth = 'calc(100% - 96px)'
+        innerDiv.style.boxSizing = 'border-box'
+      }
+      
+      // Force reflow and wait for layout to settle
       void finalContentElement.offsetWidth
       void finalContentElement.offsetHeight
-      await new Promise(resolve => setTimeout(resolve, 200))
+      if (innerDiv) {
+        void innerDiv.offsetWidth
+        void innerDiv.offsetHeight
+      }
+      await new Promise(resolve => setTimeout(resolve, 300))
       
       // Final validation before capture - check both offsetHeight and scrollHeight
       const elementHeight = finalContentElement.offsetHeight || finalContentElement.scrollHeight || 0
@@ -2844,6 +2864,18 @@ export function PrintablesPage() {
       if (finalContentElement && originalContentWidth !== undefined) {
         finalContentElement.style.width = originalContentWidth
         finalContentElement.style.maxWidth = originalContentMaxWidth
+      }
+      
+      // Restore inner div styles if we modified them
+      const innerDiv = finalContentElement.querySelector('[data-worksheet-content="true"] > div:first-child') as HTMLElement || finalContentElement.querySelector('div:first-child') as HTMLElement
+      if (innerDiv) {
+        innerDiv.style.margin = ''
+        innerDiv.style.marginLeft = ''
+        innerDiv.style.marginRight = ''
+        innerDiv.style.marginTop = ''
+        innerDiv.style.marginBottom = ''
+        innerDiv.style.width = ''
+        innerDiv.style.maxWidth = ''
       }
       
       hiddenElements.forEach(({ element, originalDisplay }) => {
