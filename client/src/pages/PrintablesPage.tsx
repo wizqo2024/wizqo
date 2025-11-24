@@ -1815,11 +1815,15 @@ export function PrintablesPage() {
       // Set outer container to match print layout exactly (794px with inner content having margins)
       if (contentElement) {
         // The outer container should be exactly 794px wide (matching print layout)
+        // CRITICAL: Set white background so margins show as white space
         contentElement.style.width = '794px'
         contentElement.style.maxWidth = '794px'
         contentElement.style.margin = '0'
         contentElement.style.padding = '0'
         contentElement.style.boxSizing = 'border-box'
+        contentElement.style.backgroundColor = 'white'
+        contentElement.style.background = 'white'
+        contentElement.style.overflow = 'visible' // Ensure margins are visible
         
         // Ensure inner content div has the correct margins (0.5in = 48px) matching print layout
         // Use explicit pixel values for html2canvas to render correctly
@@ -1833,6 +1837,8 @@ export function PrintablesPage() {
           innerDiv.style.width = '698px' // Explicit: 794px - 96px (48px * 2) = 698px
           innerDiv.style.maxWidth = '698px'
           innerDiv.style.boxSizing = 'border-box'
+          innerDiv.style.backgroundColor = 'white'
+          innerDiv.style.background = 'white'
         }
       }
       
@@ -1912,6 +1918,17 @@ export function PrintablesPage() {
         }
         
         // Final wait to ensure all styles are applied
+        await new Promise(resolve => setTimeout(resolve, 200))
+      }
+      
+      // Double-check outer container dimensions before capture
+      const finalOuterWidth = contentElement.offsetWidth
+      const finalOuterHeight = contentElement.scrollHeight || contentElement.offsetHeight
+      if (Math.abs(finalOuterWidth - 794) > 2) {
+        console.warn(`Final outer width mismatch: ${finalOuterWidth}px (expected 794px). Forcing...`)
+        contentElement.style.width = '794px'
+        contentElement.style.maxWidth = '794px'
+        void contentElement.offsetWidth // Force reflow
         await new Promise(resolve => setTimeout(resolve, 100))
       }
       
@@ -1927,6 +1944,11 @@ export function PrintablesPage() {
         allowTaint: false,
         width: printWidth,
         windowWidth: printWidth,
+        height: contentElement.scrollHeight, // Capture full height
+        y: 0, // Start from top
+        x: 0, // Start from left
+        scrollX: 0, // No horizontal scroll
+        scrollY: 0, // No vertical scroll
         onclone: (clonedDoc) => {
           // Apply print styles to cloned document
           const clonedHtml = clonedDoc.documentElement
@@ -3474,6 +3496,9 @@ export function PrintablesPage() {
             clonedOuterContainer.style.margin = '0'
             clonedOuterContainer.style.padding = '0'
             clonedOuterContainer.style.boxSizing = 'border-box'
+            clonedOuterContainer.style.backgroundColor = 'white'
+            clonedOuterContainer.style.background = 'white'
+            clonedOuterContainer.style.overflow = 'visible' // Ensure margins are visible
           }
           
           // Ensure content container in cloned document matches print layout EXACTLY
@@ -3492,6 +3517,8 @@ export function PrintablesPage() {
             // Width should be 698px (794px - 96px) - use explicit pixels
             clonedContentContainer.style.width = '698px'
             clonedContentContainer.style.maxWidth = '698px'
+            clonedContentContainer.style.backgroundColor = 'white'
+            clonedContentContainer.style.background = 'white'
           }
           
           // Apply ALL print styles as regular CSS (html2canvas doesn't respect @media print)
