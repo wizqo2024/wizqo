@@ -1821,13 +1821,17 @@ export function PrintablesPage() {
         contentElement.style.padding = '0'
         contentElement.style.boxSizing = 'border-box'
         
-        // Ensure inner content div has the correct margins (0.5in) matching print layout
+        // Ensure inner content div has the correct margins (0.5in = 48px) matching print layout
+        // Use explicit pixel values for html2canvas to render correctly
         const innerDiv = contentElement.querySelector(':scope > div:first-child') as HTMLElement
         if (innerDiv) {
-          innerDiv.style.margin = '0 0.5in'
+          // 0.5in = 48px at 96dpi - use explicit pixels for accurate rendering
+          innerDiv.style.margin = '0 48px'
           innerDiv.style.marginTop = '0'
-          innerDiv.style.width = 'calc(100% - 1in)' // 698px
-          innerDiv.style.maxWidth = 'calc(100% - 1in)'
+          innerDiv.style.marginLeft = '48px'
+          innerDiv.style.marginRight = '48px'
+          innerDiv.style.width = '698px' // Explicit: 794px - 96px (48px * 2) = 698px
+          innerDiv.style.maxWidth = '698px'
           innerDiv.style.boxSizing = 'border-box'
         }
       }
@@ -3430,20 +3434,21 @@ export function PrintablesPage() {
           }
           
           // Ensure content container in cloned document matches print layout EXACTLY
-          // Print layout: @page margin: 0, but content has 0.5in left/right margins = 698px width
-          // This MUST match index.css print styles: margin: 0.5in, width: calc(100% - 1in)
+          // Print layout: @page margin: 0, but content has 0.5in (48px) left/right margins = 698px width
+          // Use explicit pixel values for html2canvas to render correctly
           const clonedContentContainer = clonedDoc.querySelector('[data-worksheet-content="true"] > div:first-child') as HTMLElement
           if (clonedContentContainer) {
-            // Match print layout: 0.5in margins on left/right, 0 on top
-            clonedContentContainer.style.margin = '0 0.5in'
+            // Match print layout: 0.5in (48px) margins on left/right, 0 on top
+            // Use explicit pixels: 0.5in = 48px at 96dpi
+            clonedContentContainer.style.margin = '0 48px'
             clonedContentContainer.style.marginTop = '0'
-            clonedContentContainer.style.marginLeft = '0.5in'
-            clonedContentContainer.style.marginRight = '0.5in'
+            clonedContentContainer.style.marginLeft = '48px'
+            clonedContentContainer.style.marginRight = '48px'
             clonedContentContainer.style.padding = '0'
             clonedContentContainer.style.boxSizing = 'border-box'
-            // Width should be calc(100% - 1in) which equals 698px (794px - 96px)
-            clonedContentContainer.style.width = 'calc(100% - 1in)'
-            clonedContentContainer.style.maxWidth = 'calc(100% - 1in)'
+            // Width should be 698px (794px - 96px) - use explicit pixels
+            clonedContentContainer.style.width = '698px'
+            clonedContentContainer.style.maxWidth = '698px'
           }
           
           // Apply ALL print styles as regular CSS (html2canvas doesn't respect @media print)
