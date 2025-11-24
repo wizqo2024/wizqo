@@ -2838,8 +2838,8 @@ export function PrintablesPage() {
       // Calculate height maintaining aspect ratio: (canvas.height / canvas.width) * imgWidth
       const imgHeight = (canvas.height * imgWidth) / canvas.width
       
-      // Use JPEG with higher quality (0.94) to target ~1MB file size with better print quality
-      const imgData = canvas.toDataURL('image/jpeg', 0.94)
+      // Use JPEG with higher quality (0.96) to target ~1.5-2MB file size with better print quality
+      const imgData = canvas.toDataURL('image/jpeg', 0.96)
       const pdf = new jsPDF('p', 'mm', 'a4')
       
       if (imgHeight <= pageHeight) {
@@ -2936,8 +2936,8 @@ export function PrintablesPage() {
                 pageCanvas.width, pageCanvas.height
               )
               
-              // Use JPEG with higher quality (0.94) to target ~1MB file size
-              const pageImgData = pageCanvas.toDataURL('image/jpeg', 0.94)
+              // Use JPEG with higher quality (0.96) to target ~1.5-2MB file size
+              const pageImgData = pageCanvas.toDataURL('image/jpeg', 0.96)
               const pageImgHeight = (pageHeightActual * imgWidth) / canvas.width
               
               // Use NO left margin (0mm) to match print layout exactly
@@ -4302,8 +4302,8 @@ export function PrintablesPage() {
             // Use full page width for PDF to match print layout
             const imgWidth = pageWidthMm // Full page width - no margins
             const imgHeight = (finalCanvas.height * imgWidth) / finalCanvas.width
-            // Use JPEG with higher quality (0.94) to target ~1MB file size
-            const imgData = finalCanvas.toDataURL('image/jpeg', 0.94)
+            // Use JPEG with higher quality (0.96) to target ~1.5-2MB file size
+            const imgData = finalCanvas.toDataURL('image/jpeg', 0.96)
             const pdf = new jsPDF('p', 'mm', 'a4')
             
             if (imgHeight <= pageHeight) {
@@ -4323,8 +4323,8 @@ export function PrintablesPage() {
                 const pageCtx = pageCanvas.getContext('2d')
                 if (pageCtx) {
                   pageCtx.drawImage(finalCanvas, 0, currentY, finalCanvas.width, pageHeightActual, 0, 0, finalCanvas.width, pageHeightActual)
-                  // Use JPEG with higher quality (0.94) to target ~1MB file size
-                  const pageImgData = pageCanvas.toDataURL('image/jpeg', 0.94)
+                  // Use JPEG with higher quality (0.96) to target ~1.5-2MB file size
+                  const pageImgData = pageCanvas.toDataURL('image/jpeg', 0.96)
                   const pageImgHeight = (pageHeightActual * imgWidth) / finalCanvas.width
                   // Use JPEG format for medium quality and reasonable file size
                   pdf.addImage(pageImgData, 'JPEG', marginLeftMm, 0, imgWidth, pageImgHeight)
@@ -4396,8 +4396,8 @@ export function PrintablesPage() {
       // Use lower quality JPEG instead of PNG for faster generation and smaller file size
       let imgData: string
       try {
-        // Use JPEG with higher quality (0.94) to target ~1MB file size
-        imgData = finalCanvas.toDataURL('image/jpeg', 0.94)
+        // Use JPEG with higher quality (0.96) to target ~1.5-2MB file size
+        imgData = finalCanvas.toDataURL('image/jpeg', 0.96)
       } catch (e) {
         // Fallback to PNG if JPEG fails
         console.warn('JPEG conversion failed, trying PNG:', e)
@@ -4501,8 +4501,8 @@ export function PrintablesPage() {
                       
                       let pageImgData: string
                       try {
-                        // Use JPEG with higher quality (0.94) to target ~1MB file size
-                        pageImgData = pageCanvas.toDataURL('image/jpeg', 0.94)
+                        // Use JPEG with higher quality (0.96) to target ~1.5-2MB file size
+                        pageImgData = pageCanvas.toDataURL('image/jpeg', 0.96)
                       } catch (e) {
                         pageImgData = pageCanvas.toDataURL('image/png')
                       }
@@ -4560,8 +4560,8 @@ export function PrintablesPage() {
                 if (isWithinContent) {
                   let pageImgData: string
                   try {
-                    // Use JPEG with higher quality (0.94) to target ~1MB file size
-                    pageImgData = pageCanvas.toDataURL('image/jpeg', 0.94)
+                    // Use JPEG with higher quality (0.96) to target ~1.5-2MB file size
+                    pageImgData = pageCanvas.toDataURL('image/jpeg', 0.96)
                   } catch (e) {
                     pageImgData = pageCanvas.toDataURL('image/png')
                   }
@@ -4684,8 +4684,8 @@ export function PrintablesPage() {
           // Match print layout: full page width (794px = 210mm) with no margins
           const imgWidth = pageWidthMm // Full page width - no margins
           const imgHeight = (viewportCanvas.height * imgWidth) / viewportCanvas.width
-          // Use JPEG with higher quality (0.94) to target ~1MB file size
-          const imgData = viewportCanvas.toDataURL('image/jpeg', 0.94)
+          // Use JPEG with higher quality (0.96) to target ~1.5-2MB file size
+          const imgData = viewportCanvas.toDataURL('image/jpeg', 0.96)
           
           if (imgData && imgData !== 'data:,') {
             const pdf = new jsPDF('p', 'mm', 'a4')
@@ -4706,8 +4706,8 @@ export function PrintablesPage() {
                 const pageCtx = pageCanvas.getContext('2d')
                 if (pageCtx) {
                   pageCtx.drawImage(viewportCanvas, 0, currentY, viewportCanvas.width, pageHeightActual, 0, 0, viewportCanvas.width, pageHeightActual)
-                  // Use JPEG with higher quality (0.94) to target ~1MB file size
-                  const pageImgData = pageCanvas.toDataURL('image/jpeg', 0.94) || pageCanvas.toDataURL('image/png')
+                  // Use JPEG with higher quality (0.96) to target ~1.5-2MB file size
+                  const pageImgData = pageCanvas.toDataURL('image/jpeg', 0.96) || pageCanvas.toDataURL('image/png')
                   const pageImgHeight = (pageHeightActual * imgWidth) / viewportCanvas.width
                   // Use JPEG format for medium quality and reasonable file size
                   pdf.addImage(pageImgData, 'JPEG', marginLeftMm, 0, imgWidth, pageImgHeight)
