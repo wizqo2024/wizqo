@@ -1340,6 +1340,7 @@ export const en = {
         wordProblems: 'Word Problems',
         comparing: 'Comparing & Ordering',
         visual: 'Visual Models',
+        percentage: 'Percentage',
       },
       worksheets: {
         basicTenths: {
@@ -1401,6 +1402,18 @@ export const en = {
         percentWordProblems: {
           title: '🧮 Percent Word Problems',
           description: 'Solve real-world word problems involving percentages, discounts, and savings.',
+        },
+        fractionsOutOf100: {
+          title: '📈 Fractions Out of 100',
+          description: 'Convert fractions with denominator 100 to decimals and percents. Perfect for understanding the relationship between fractions, decimals, and percents.',
+        },
+        percentToDecimal: {
+          title: '🔄 Percent to Decimal Conversion',
+          description: 'Convert percentages to decimals. Practice moving the decimal point and understanding percent as parts per 100.',
+        },
+        decimalToPercent: {
+          title: '🔄 Decimal to Percent Conversion',
+          description: 'Convert decimals to percentages. Multiply by 100 and add the percent sign.',
         },
       },
     },
