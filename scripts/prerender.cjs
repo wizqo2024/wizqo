@@ -78,7 +78,17 @@ function setMeta(html, { title, description, canonical, ogImage, ogType = 'websi
 function cloneForRoute(baseHtml, route, allPosts = [], allRoutes = []) {
   const canonical = `${SITE}${route.path}`;
   const ogImage = route.ogImage || `${SITE}/og-image.jpg`;
-  let html = setMeta(baseHtml, {
+  
+  // For fractions-to-decimals page, remove document.write scripts BEFORE setMeta
+  // so setMeta can properly insert hardcoded tags
+  let workingHtml = baseHtml;
+  if (route.path === '/worksheets/fractions-to-decimals-worksheets') {
+    // Remove document.write scripts that write title/meta tags
+    workingHtml = workingHtml.replace(/<script>[\s\S]*?CRITICAL: Write correct tags DURING parsing[\s\S]*?<\/script>/i, '');
+    workingHtml = workingHtml.replace(/<script>[\s\S]*?Write OG\/Twitter tags during parsing[\s\S]*?<\/script>/i, '');
+  }
+  
+  let html = setMeta(workingHtml, {
     title: route.title,
     description: route.description,
     canonical,
@@ -242,11 +252,7 @@ ${gameLinks}
     // Replace the seo-fallback content
     html = html.replace(/<main id="seo-fallback"[^>]*>[\s\S]*?<\/main>/, timesTableContent);
   } else if (route.path === '/worksheets/fractions-to-decimals-worksheets') {
-    // Remove document.write scripts for title/meta (not needed in static file)
-    // The setMeta function above already sets the correct hardcoded tags
-    html = html.replace(/<script>[\s\S]*?CRITICAL: Write correct tags DURING parsing[\s\S]*?<\/script>/i, '');
-    html = html.replace(/<script>[\s\S]*?Write OG\/Twitter tags during parsing[\s\S]*?<\/script>/i, '');
-    
+    // document.write scripts already removed above before setMeta
     // Replace fallback content with fractions-to-decimals-specific content
     const fractionsToDecimalsContent = `<main id="seo-fallback" style="display: none; max-width: 1200px; margin: 0 auto; padding: 2rem 1rem; font-family: system-ui, -apple-system, sans-serif;">
       <h1 style="font-size: 2.5rem; font-weight: 900; color: #0f172a; margin-bottom: 1rem; line-height: 1.2;">
