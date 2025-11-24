@@ -1812,30 +1812,34 @@ export function PrintablesPage() {
       document.body.style.margin = '0' // NO margin - matches print layout (margin: 0)
       document.body.style.padding = '0'
       
-      // Set outer container to match print layout exactly (794px with inner content having margins)
-      // CRITICAL: Match print CSS exactly - use margin on inner div, not padding on outer
+      // Set outer container to match print layout exactly (794px with inner content having spacing)
+      // CRITICAL: Use padding on outer container for html2canvas - it captures padding reliably
+      // Print layout: outer 794px, inner 698px with 48px spacing on each side
       if (contentElement) {
         // The outer container should be exactly 794px wide (matching print layout)
-        // Set white background so margins show as white space
+        // Use padding to create the 48px white space (matches print visual layout)
         contentElement.style.width = '794px'
         contentElement.style.maxWidth = '794px'
         contentElement.style.margin = '0'
-        contentElement.style.padding = '0'
-        contentElement.style.boxSizing = 'border-box'
+        contentElement.style.padding = '0 48px' // 48px padding left/right = 0.5in (matches print)
+        contentElement.style.paddingLeft = '48px'
+        contentElement.style.paddingRight = '48px'
+        contentElement.style.paddingTop = '0'
+        contentElement.style.paddingBottom = '0'
+        contentElement.style.boxSizing = 'border-box' // Padding included in width
         contentElement.style.backgroundColor = 'white'
         contentElement.style.background = 'white'
-        contentElement.style.overflow = 'visible' // Ensure margins are visible
-        contentElement.style.position = 'relative' // Ensure proper positioning context
+        contentElement.style.overflow = 'visible'
+        contentElement.style.position = 'relative'
         
-        // Ensure inner content div has the correct margins (0.5in = 48px) matching print layout EXACTLY
-        // This matches index.css: [data-worksheet-content="true"] > div:first-child { margin: 0.5in }
+        // Inner content div should fill the content area (698px = 794px - 96px padding)
         const innerDiv = contentElement.querySelector(':scope > div:first-child') as HTMLElement
         if (innerDiv) {
-          // Match print CSS exactly: margin: 0.5in (48px) left/right, 0 top
-          innerDiv.style.margin = '0 48px'
+          // No margins - padding is on parent, inner div fills content area
+          innerDiv.style.margin = '0'
           innerDiv.style.marginTop = '0'
-          innerDiv.style.marginLeft = '48px'
-          innerDiv.style.marginRight = '48px'
+          innerDiv.style.marginLeft = '0'
+          innerDiv.style.marginRight = '0'
           innerDiv.style.marginBottom = '0'
           innerDiv.style.padding = '0'
           innerDiv.style.width = '698px' // Explicit: 794px - 96px (48px * 2) = 698px
@@ -1843,7 +1847,7 @@ export function PrintablesPage() {
           innerDiv.style.boxSizing = 'border-box'
           innerDiv.style.backgroundColor = 'white'
           innerDiv.style.background = 'white'
-          innerDiv.style.position = 'relative' // Ensure margins are part of layout
+          innerDiv.style.position = 'relative'
         }
       }
       
@@ -1901,12 +1905,12 @@ export function PrintablesPage() {
         await new Promise(resolve => setTimeout(resolve, 100))
       }
       
-      // Verify outer container and inner div dimensions (matching print layout exactly)
+      // Verify outer container padding and inner div dimensions (matching print layout exactly)
       const innerDiv = contentElement.querySelector(':scope > div:first-child') as HTMLElement
       if (innerDiv) {
         const innerWidth = innerDiv.offsetWidth
-        const innerMarginLeft = parseFloat(window.getComputedStyle(innerDiv).marginLeft) || 0
-        const innerMarginRight = parseFloat(window.getComputedStyle(innerDiv).marginRight) || 0
+        const outerPaddingLeft = parseFloat(window.getComputedStyle(contentElement).paddingLeft) || 0
+        const outerPaddingRight = parseFloat(window.getComputedStyle(contentElement).paddingRight) || 0
         const innerRect = innerDiv.getBoundingClientRect()
         const outerRect = contentElement.getBoundingClientRect()
         
@@ -1917,17 +1921,17 @@ export function PrintablesPage() {
           void innerDiv.offsetWidth // Force reflow
         }
         
-        if (Math.abs(innerMarginLeft - 48) > 2 || Math.abs(innerMarginRight - 48) > 2) {
-          console.warn(`Inner div margin mismatch: left=${innerMarginLeft}px, right=${innerMarginRight}px (expected 48px each). Adjusting...`)
-          innerDiv.style.marginLeft = '48px'
-          innerDiv.style.marginRight = '48px'
-          void innerDiv.offsetWidth // Force reflow
+        if (Math.abs(outerPaddingLeft - 48) > 2 || Math.abs(outerPaddingRight - 48) > 2) {
+          console.warn(`Outer container padding mismatch: left=${outerPaddingLeft}px, right=${outerPaddingRight}px (expected 48px each). Adjusting...`)
+          contentElement.style.paddingLeft = '48px'
+          contentElement.style.paddingRight = '48px'
+          void contentElement.offsetWidth // Force reflow
         }
         
-        // Verify the total width including margins matches 794px
-        const totalWidth = innerRect.width + innerMarginLeft + innerMarginRight
+        // Verify the total width including padding matches 794px
+        const totalWidth = innerRect.width + outerPaddingLeft + outerPaddingRight
         if (Math.abs(totalWidth - 794) > 2) {
-          console.warn(`Total width mismatch: ${totalWidth}px (expected 794px). Inner: ${innerRect.width}px, margins: ${innerMarginLeft + innerMarginRight}px`)
+          console.warn(`Total width mismatch: ${totalWidth}px (expected 794px). Inner: ${innerRect.width}px, padding: ${outerPaddingLeft + outerPaddingRight}px`)
         }
         
         // Final wait to ensure all styles are applied
@@ -2392,26 +2396,31 @@ export function PrintablesPage() {
               margin-top: 0.25rem !important;
               margin-bottom: 0.375rem !important;
             }
-            /* Add margin to content container for proper spacing since @page has no margin */
-            /* CRITICAL: This MUST match index.css print styles exactly */
-            /* Print layout: @page has margin: 0, but content container has 0.5in (48px) left/right margins */
+            /* Add padding to content container for proper spacing since @page has no margin */
+            /* CRITICAL: Use padding on outer container for html2canvas - it captures padding reliably */
+            /* Print layout: @page has margin: 0, but content container has 0.5in (48px) left/right spacing */
             /* This makes content width = 794px - 96px = 698px (matching print preview) */
             /* Use explicit pixels for html2canvas to render correctly */
             [data-worksheet-content="true"] {
-              padding: 0 !important;
+              padding: 0 48px !important;
+              padding-left: 48px !important;
+              padding-right: 48px !important;
+              padding-top: 0 !important;
+              padding-bottom: 0 !important;
+              box-sizing: border-box !important;
             }
             [data-worksheet-content="true"] > div:first-child {
-              margin: 0 48px !important;
+              margin: 0 !important;
               margin-top: 0 !important;
-              margin-left: 48px !important;
-              margin-right: 48px !important;
+              margin-left: 0 !important;
+              margin-right: 0 !important;
               margin-bottom: 0 !important;
               padding: 0 !important;
               page-break-before: auto !important;
               overflow: visible !important;
               background-color: white !important;
               background: white !important;
-              /* Explicit width: 794px (A4 width) - 96px (48px * 2 margins) = 698px */
+              /* Explicit width: 794px (A4 width) - 96px (48px * 2 padding) = 698px */
               width: 698px !important;
               max-width: 698px !important;
               box-sizing: border-box !important;
@@ -3515,13 +3524,18 @@ export function PrintablesPage() {
           }
           
           // Ensure outer container in cloned document is exactly 794px (matching print layout)
-          // CRITICAL: Match print CSS exactly - use margin on inner div, not padding on outer
+          // CRITICAL: Use padding on outer container for html2canvas - it captures padding reliably
           const clonedOuterContainer = clonedDoc.querySelector('[data-worksheet-content="true"]') as HTMLElement
           if (clonedOuterContainer) {
             clonedOuterContainer.style.width = '794px'
             clonedOuterContainer.style.maxWidth = '794px'
             clonedOuterContainer.style.margin = '0'
-            clonedOuterContainer.style.padding = '0'
+            // Use padding to create the 48px white space (matches print visual layout)
+            clonedOuterContainer.style.padding = '0 48px'
+            clonedOuterContainer.style.paddingLeft = '48px'
+            clonedOuterContainer.style.paddingRight = '48px'
+            clonedOuterContainer.style.paddingTop = '0'
+            clonedOuterContainer.style.paddingBottom = '0'
             clonedOuterContainer.style.boxSizing = 'border-box'
             clonedOuterContainer.style.backgroundColor = 'white'
             clonedOuterContainer.style.background = 'white'
@@ -3530,15 +3544,15 @@ export function PrintablesPage() {
           }
           
           // Ensure content container in cloned document matches print layout EXACTLY
-          // Print layout: @page margin: 0, but content has 0.5in (48px) left/right margins = 698px width
-          // This matches index.css: [data-worksheet-content="true"] > div:first-child { margin: 0.5in }
+          // Print layout: @page margin: 0, but content has 0.5in (48px) left/right spacing = 698px width
+          // Use padding on parent, inner div fills content area
           const clonedContentContainer = clonedDoc.querySelector('[data-worksheet-content="true"] > div:first-child') as HTMLElement
           if (clonedContentContainer) {
-            // Match print CSS exactly: margin: 0.5in (48px) left/right, 0 top
-            clonedContentContainer.style.margin = '0 48px'
+            // No margins - padding is on parent container
+            clonedContentContainer.style.margin = '0'
             clonedContentContainer.style.marginTop = '0'
-            clonedContentContainer.style.marginLeft = '48px'
-            clonedContentContainer.style.marginRight = '48px'
+            clonedContentContainer.style.marginLeft = '0'
+            clonedContentContainer.style.marginRight = '0'
             clonedContentContainer.style.marginBottom = '0'
             clonedContentContainer.style.padding = '0'
             clonedContentContainer.style.boxSizing = 'border-box'
@@ -3955,26 +3969,31 @@ export function PrintablesPage() {
               margin-top: 0.25rem !important;
               margin-bottom: 0.375rem !important;
             }
-            /* Add margin to content container for proper spacing since @page has no margin */
-            /* CRITICAL: This MUST match index.css print styles exactly */
-            /* Print layout: @page has margin: 0, but content container has 0.5in (48px) left/right margins */
+            /* Add padding to content container for proper spacing since @page has no margin */
+            /* CRITICAL: Use padding on outer container for html2canvas - it captures padding reliably */
+            /* Print layout: @page has margin: 0, but content container has 0.5in (48px) left/right spacing */
             /* This makes content width = 794px - 96px = 698px (matching print preview) */
             /* Use explicit pixels for html2canvas to render correctly */
             [data-worksheet-content="true"] {
-              padding: 0 !important;
+              padding: 0 48px !important;
+              padding-left: 48px !important;
+              padding-right: 48px !important;
+              padding-top: 0 !important;
+              padding-bottom: 0 !important;
+              box-sizing: border-box !important;
             }
             [data-worksheet-content="true"] > div:first-child {
-              margin: 0 48px !important;
+              margin: 0 !important;
               margin-top: 0 !important;
-              margin-left: 48px !important;
-              margin-right: 48px !important;
+              margin-left: 0 !important;
+              margin-right: 0 !important;
               margin-bottom: 0 !important;
               padding: 0 !important;
               page-break-before: auto !important;
               overflow: visible !important;
               background-color: white !important;
               background: white !important;
-              /* Explicit width: 794px (A4 width) - 96px (48px * 2 margins) = 698px */
+              /* Explicit width: 794px (A4 width) - 96px (48px * 2 padding) = 698px */
               width: 698px !important;
               max-width: 698px !important;
               box-sizing: border-box !important;
