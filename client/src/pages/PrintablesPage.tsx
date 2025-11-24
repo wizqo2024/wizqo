@@ -1895,25 +1895,54 @@ export function PrintablesPage() {
       
       // Capture the content with print dimensions
       // Find the inner content div that has the actual content (698px width with margins)
-      const innerContentDiv = contentElement.querySelector('[data-worksheet-content="true"] > div:first-child') as HTMLElement || contentElement.querySelector('div:first-child') as HTMLElement || contentElement
-      const actualContentElement = innerContentDiv || contentElement
+      let innerContentDiv = contentElement.querySelector('[data-worksheet-content="true"] > div:first-child') as HTMLElement
+      if (!innerContentDiv || innerContentDiv.offsetHeight === 0) {
+        innerContentDiv = contentElement.querySelector('div:first-child') as HTMLElement
+      }
+      // Use inner div if it exists and has content, otherwise use outer container
+      const actualContentElement = (innerContentDiv && innerContentDiv.offsetHeight > 0) ? innerContentDiv : contentElement
+      
+      // Validate element is visible and has dimensions
+      let finalContentElement = actualContentElement
+      if (!finalContentElement || finalContentElement.offsetHeight === 0 || finalContentElement.offsetWidth === 0) {
+        // Try to find any visible content element
+        const visibleElements = [
+          document.querySelector('[data-worksheet-content="true"]'),
+          document.querySelector('.min-h-screen.bg-white'),
+          document.querySelector('main'),
+          document.body
+        ].filter(el => el && (el as HTMLElement).offsetHeight > 0) as HTMLElement[]
+        
+        if (visibleElements.length === 0) {
+          throw new Error('Could not find visible content to download. Please ensure the page has loaded completely.')
+        }
+        
+        // Use the first visible element
+        finalContentElement = visibleElements[0]
+      }
       
       // Set content width to 698px to match print preview (794px page - 96px margins)
       const contentWidth = 698 // Content width in pixels (matches print preview)
       const printWidth = 794 // A4 width in pixels at 96dpi (for windowWidth to ensure proper rendering)
       
       // Ensure content element is exactly 698px wide
-      const originalContentWidth = actualContentElement.style.width
-      const originalContentMaxWidth = actualContentElement.style.maxWidth
-      actualContentElement.style.width = `${contentWidth}px`
-      actualContentElement.style.maxWidth = `${contentWidth}px`
-      actualContentElement.style.boxSizing = 'border-box'
+      const originalContentWidth = finalContentElement.style.width
+      const originalContentMaxWidth = finalContentElement.style.maxWidth
+      finalContentElement.style.width = `${contentWidth}px`
+      finalContentElement.style.maxWidth = `${contentWidth}px`
+      finalContentElement.style.boxSizing = 'border-box'
       
-      // Force reflow
-      void actualContentElement.offsetWidth
-      await new Promise(resolve => setTimeout(resolve, 100))
+      // Force reflow and wait for layout
+      void finalContentElement.offsetWidth
+      void finalContentElement.offsetHeight
+      await new Promise(resolve => setTimeout(resolve, 200))
       
-      const canvas = await html2canvas(actualContentElement, {
+      // Final validation before capture
+      if (finalContentElement.offsetHeight === 0 || finalContentElement.offsetWidth === 0) {
+        throw new Error(`Content element has zero dimensions: width=${finalContentElement.offsetWidth}px, height=${finalContentElement.offsetHeight}px. Element may not be visible or loaded yet.`)
+      }
+      
+      const canvas = await html2canvas(finalContentElement, {
         scale: 2,
         useCORS: true,
         logging: false,
@@ -2762,9 +2791,9 @@ export function PrintablesPage() {
       }
       
       // Restore content element width
-      if (actualContentElement && originalContentWidth !== undefined) {
-        actualContentElement.style.width = originalContentWidth
-        actualContentElement.style.maxWidth = originalContentMaxWidth
+      if (finalContentElement && originalContentWidth !== undefined) {
+        finalContentElement.style.width = originalContentWidth
+        finalContentElement.style.maxWidth = originalContentMaxWidth
       }
       
       hiddenElements.forEach(({ element, originalDisplay }) => {
@@ -2772,20 +2801,24 @@ export function PrintablesPage() {
       })
       
       // Validate canvas
-      if (!canvas || canvas.width === 0 || canvas.height === 0) {
-        throw new Error('Failed to capture content')
+      if (!canvas) {
+        throw new Error('Failed to capture content: html2canvas returned null. The content element may not be visible or accessible.')
+      }
+      if (canvas.width === 0 || canvas.height === 0) {
+        throw new Error(`Failed to capture content: Canvas has zero dimensions (${canvas.width}x${canvas.height}). The content element may be hidden or have no visible content.`)
       }
       
       // Find section positions BEFORE restoring styles (while print styles are applied)
       // Include worksheet sections, headers with content, worked examples, images, and other content blocks
-      const sections = contentElement.querySelectorAll('section.break-inside-avoid, section[class*="break-inside-avoid"], section.worksheet-section, .worksheet-section, .challenge-section, .worked-example, [class*="example"]')
-      const headers = contentElement.querySelectorAll('h1, h2, h3, h4, h5, h6')
-      const images = contentElement.querySelectorAll('img, svg, picture, canvas')
+      // Use the element that was actually captured
+      const sections = finalContentElement.querySelectorAll('section.break-inside-avoid, section[class*="break-inside-avoid"], section.worksheet-section, .worksheet-section, .challenge-section, .worked-example, [class*="example"]')
+      const headers = finalContentElement.querySelectorAll('h1, h2, h3, h4, h5, h6')
+      const images = finalContentElement.querySelectorAll('img, svg, picture, canvas')
       
       const sectionPositions: Array<{ top: number; bottom: number; type: string }> = []
       
       // Get container rect for coordinate calculation (different scope from html2canvas)
-      const contentRect = contentElement.getBoundingClientRect()
+      const contentRect = finalContentElement.getBoundingClientRect()
       
       // Add all sections
       sections.forEach((section) => {
