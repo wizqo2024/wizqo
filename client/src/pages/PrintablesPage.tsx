@@ -1817,7 +1817,7 @@ export function PrintablesPage() {
         contentElement.style.boxSizing = 'border-box'
         
         // The inner div:first-child should have 0.5in margins (matching print layout)
-        const innerDiv = contentElement.querySelector('> div:first-child') as HTMLElement
+        const innerDiv = contentElement.querySelector(':scope > div:first-child') as HTMLElement
         if (innerDiv) {
           innerDiv.style.margin = '0 0.5in'
           innerDiv.style.marginTop = '0'
