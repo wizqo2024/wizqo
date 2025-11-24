@@ -160,7 +160,7 @@ export function UnifiedNavigation({ showBackButton = false, onBackClick, current
                 >
                   {/* caret */}
                   <div className="absolute -top-2 left-10 h-4 w-4 bg-white rotate-45 border-l border-t border-slate-200" aria-hidden />
-                  <div className="grid gap-1 min-w-[320px] md:grid-cols-3 w-full">
+                  <div className="grid gap-0.5 min-w-[320px] md:grid-cols-3 w-full">
                     {/* First Column: Free Worksheet PDFs */}
                     <div>
                       <div className="px-2 py-1.5 mb-2 text-xs uppercase tracking-wide text-slate-500 font-semibold border-b border-slate-200">Free Worksheet PDFs</div>
