@@ -2143,63 +2143,76 @@ export function PrintablesPage() {
               margin: 0 !important;
               padding: 0 !important;
             }
-            /* Remove top margin/padding from first page content - ensure content starts at top */
+            /* Remove ALL top margin/padding from first page content - content starts at very top */
             [data-worksheet-content="true"] > *:first-child,
             [data-worksheet-content="true"] > section:first-child,
             .worksheet-section:first-child {
-              margin-top: 0.25rem !important;
-              padding-top: 0.25rem !important;
+              margin-top: 0 !important;
+              padding-top: 0 !important;
               background-color: white !important;
             }
-            /* Compact header on first page - keep header and content together */
+            /* Compact header on first page - minimal spacing */
             .worksheet-section:first-child .worksheet-header,
             .worksheet-section:first-child > div:first-child {
               margin-top: 0 !important;
               padding-top: 0 !important;
               page-break-after: avoid !important;
-              margin-bottom: 0.25rem !important;
+              margin-bottom: 0.125rem !important;
             }
-            /* Ensure first section content flows immediately after header */
+            /* Ensure first section content flows immediately after header - NO gaps */
             .worksheet-section:first-child > div:not(.worksheet-header) {
               margin-top: 0 !important;
               padding-top: 0 !important;
             }
-            /* CRITICAL: Ensure content inside first section flows immediately after header */
+            /* CRITICAL: Ensure content inside first section flows immediately after header - minimal gap */
             .worksheet-section:first-child .worksheet-header + *,
             section:first-child .worksheet-header + * {
-              margin-top: 0.25rem !important;
+              margin-top: 0.125rem !important;
               padding-top: 0 !important;
             }
-            /* Ensure LearningObjectives and other content appear on first page */
+            /* Compact learning objectives - minimal spacing */
             .worksheet-section:first-child .learning-objectives,
             section:first-child .learning-objectives {
-              margin-top: 0.25rem !important;
-              margin-bottom: 0.5rem !important;
-              padding: 0.5rem !important;
+              margin-top: 0.125rem !important;
+              margin-bottom: 0.25rem !important;
+              padding: 0.25rem !important;
             }
-            /* Ensure title and description appear on first page */
+            /* Compact title and description on first page */
             .worksheet-section:first-child h2,
             .worksheet-section:first-child h3,
             section:first-child h2,
             section:first-child h3 {
-              margin-top: 0.25rem !important;
-              margin-bottom: 0.25rem !important;
+              margin-top: 0.125rem !important;
+              margin-bottom: 0.125rem !important;
             }
             .worksheet-section:first-child p,
             section:first-child p {
-              margin-top: 0.25rem !important;
-              margin-bottom: 0.5rem !important;
+              margin-top: 0.125rem !important;
+              margin-bottom: 0.25rem !important;
             }
-            /* CRITICAL: Ensure worksheet problems/content appear on first page immediately after learning objectives */
+            /* CRITICAL: Ensure worksheet problems/content appear on first page immediately - minimal gap */
             .worksheet-section:first-child .learning-objectives + *,
             section:first-child .learning-objectives + *,
             .worksheet-section:first-child h2 + *,
             .worksheet-section:first-child h3 + *,
             section:first-child h2 + *,
             section:first-child h3 + * {
-              margin-top: 0.5rem !important;
+              margin-top: 0.25rem !important;
               padding-top: 0 !important;
               page-break-before: auto !important;
+            }
+            /* Compact worked examples and tips on first page */
+            .worksheet-section:first-child .worked-example,
+            section:first-child .worked-example {
+              margin-top: 0.25rem !important;
+              margin-bottom: 0.25rem !important;
+              padding: 0.375rem !important;
+            }
+            /* Ensure problems flow immediately after examples */
+            .worksheet-section:first-child .worked-example + *,
+            section:first-child .worked-example + * {
+              margin-top: 0.25rem !important;
+              padding-top: 0 !important;
             }
             /* Ensure all content inside first section flows on first page */
             .worksheet-section:first-child > div > *:not(.worksheet-header):not(.learning-objectives),
@@ -2230,18 +2243,25 @@ export function PrintablesPage() {
               padding: 0 !important;
               background-color: white !important;
             }
-            /* CRITICAL: Force sections to be block-level and prevent breaking */
+            /* CRITICAL: Force sections to be block-level - allow breaking to avoid blank pages */
             section.worksheet-section,
             section[class*="worksheet-section"],
             .worksheet-section {
               display: block !important;
+              break-inside: auto !important;
+              page-break-inside: auto !important;
+              -webkit-region-break-inside: auto !important;
+              -webkit-column-break-inside: auto !important;
+              orphans: 2 !important;
+              widows: 2 !important;
+              overflow: visible !important;
+            }
+            /* Only prevent breaking of small cohesive units like headers and examples */
+            .worksheet-header,
+            .worked-example,
+            .learning-objectives {
               break-inside: avoid !important;
               page-break-inside: avoid !important;
-              -webkit-region-break-inside: avoid !important;
-              -webkit-column-break-inside: avoid !important;
-              orphans: 999 !important;
-              widows: 999 !important;
-              overflow: visible !important;
             }
             /* Prevent page breaks inside worksheet sections - STRONG TARGETED approach */
             section,
@@ -3773,63 +3793,76 @@ export function PrintablesPage() {
               margin: 0 !important;
               padding: 0 !important;
             }
-            /* Remove top margin/padding from first page content - ensure content starts at top */
+            /* Remove ALL top margin/padding from first page content - content starts at very top */
             [data-worksheet-content="true"] > *:first-child,
             [data-worksheet-content="true"] > section:first-child,
             .worksheet-section:first-child {
-              margin-top: 0.25rem !important;
-              padding-top: 0.25rem !important;
+              margin-top: 0 !important;
+              padding-top: 0 !important;
               background-color: white !important;
             }
-            /* Compact header on first page - keep header and content together */
+            /* Compact header on first page - minimal spacing */
             .worksheet-section:first-child .worksheet-header,
             .worksheet-section:first-child > div:first-child {
               margin-top: 0 !important;
               padding-top: 0 !important;
               page-break-after: avoid !important;
-              margin-bottom: 0.25rem !important;
+              margin-bottom: 0.125rem !important;
             }
-            /* Ensure first section content flows immediately after header */
+            /* Ensure first section content flows immediately after header - NO gaps */
             .worksheet-section:first-child > div:not(.worksheet-header) {
               margin-top: 0 !important;
               padding-top: 0 !important;
             }
-            /* CRITICAL: Ensure content inside first section flows immediately after header */
+            /* CRITICAL: Ensure content inside first section flows immediately after header - minimal gap */
             .worksheet-section:first-child .worksheet-header + *,
             section:first-child .worksheet-header + * {
-              margin-top: 0.25rem !important;
+              margin-top: 0.125rem !important;
               padding-top: 0 !important;
             }
-            /* Ensure LearningObjectives and other content appear on first page */
+            /* Compact learning objectives - minimal spacing */
             .worksheet-section:first-child .learning-objectives,
             section:first-child .learning-objectives {
-              margin-top: 0.25rem !important;
-              margin-bottom: 0.5rem !important;
-              padding: 0.5rem !important;
+              margin-top: 0.125rem !important;
+              margin-bottom: 0.25rem !important;
+              padding: 0.25rem !important;
             }
-            /* Ensure title and description appear on first page */
+            /* Compact title and description on first page */
             .worksheet-section:first-child h2,
             .worksheet-section:first-child h3,
             section:first-child h2,
             section:first-child h3 {
-              margin-top: 0.25rem !important;
-              margin-bottom: 0.25rem !important;
+              margin-top: 0.125rem !important;
+              margin-bottom: 0.125rem !important;
             }
             .worksheet-section:first-child p,
             section:first-child p {
-              margin-top: 0.25rem !important;
-              margin-bottom: 0.5rem !important;
+              margin-top: 0.125rem !important;
+              margin-bottom: 0.25rem !important;
             }
-            /* CRITICAL: Ensure worksheet problems/content appear on first page immediately after learning objectives */
+            /* CRITICAL: Ensure worksheet problems/content appear on first page immediately - minimal gap */
             .worksheet-section:first-child .learning-objectives + *,
             section:first-child .learning-objectives + *,
             .worksheet-section:first-child h2 + *,
             .worksheet-section:first-child h3 + *,
             section:first-child h2 + *,
             section:first-child h3 + * {
-              margin-top: 0.5rem !important;
+              margin-top: 0.25rem !important;
               padding-top: 0 !important;
               page-break-before: auto !important;
+            }
+            /* Compact worked examples and tips on first page */
+            .worksheet-section:first-child .worked-example,
+            section:first-child .worked-example {
+              margin-top: 0.25rem !important;
+              margin-bottom: 0.25rem !important;
+              padding: 0.375rem !important;
+            }
+            /* Ensure problems flow immediately after examples */
+            .worksheet-section:first-child .worked-example + *,
+            section:first-child .worked-example + * {
+              margin-top: 0.25rem !important;
+              padding-top: 0 !important;
             }
             /* Ensure all content inside first section flows on first page */
             .worksheet-section:first-child > div > *:not(.worksheet-header):not(.learning-objectives),
@@ -3860,18 +3893,25 @@ export function PrintablesPage() {
               padding: 0 !important;
               background-color: white !important;
             }
-            /* CRITICAL: Force sections to be block-level and prevent breaking */
+            /* CRITICAL: Force sections to be block-level - allow breaking to avoid blank pages */
             section.worksheet-section,
             section[class*="worksheet-section"],
             .worksheet-section {
               display: block !important;
+              break-inside: auto !important;
+              page-break-inside: auto !important;
+              -webkit-region-break-inside: auto !important;
+              -webkit-column-break-inside: auto !important;
+              orphans: 2 !important;
+              widows: 2 !important;
+              overflow: visible !important;
+            }
+            /* Only prevent breaking of small cohesive units like headers and examples */
+            .worksheet-header,
+            .worked-example,
+            .learning-objectives {
               break-inside: avoid !important;
               page-break-inside: avoid !important;
-              -webkit-region-break-inside: avoid !important;
-              -webkit-column-break-inside: avoid !important;
-              orphans: 999 !important;
-              widows: 999 !important;
-              overflow: visible !important;
             }
             /* Prevent page breaks inside worksheet sections - STRONG TARGETED approach */
             section,
