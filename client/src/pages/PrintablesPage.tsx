@@ -1939,8 +1939,12 @@ export function PrintablesPage() {
       }
       
       // Double-check outer container dimensions before capture
+      // CRITICAL: With box-sizing: border-box, offsetWidth includes padding
       const finalOuterWidth = contentElement.offsetWidth
       const finalOuterHeight = contentElement.scrollHeight || contentElement.offsetHeight
+      const computedPadding = parseFloat(window.getComputedStyle(contentElement).paddingLeft) || 0
+      const computedPaddingRight = parseFloat(window.getComputedStyle(contentElement).paddingRight) || 0
+      
       if (Math.abs(finalOuterWidth - 794) > 2) {
         console.warn(`Final outer width mismatch: ${finalOuterWidth}px (expected 794px). Forcing...`)
         contentElement.style.width = '794px'
@@ -1949,14 +1953,26 @@ export function PrintablesPage() {
         await new Promise(resolve => setTimeout(resolve, 100))
       }
       
+      // Verify padding is correct
+      if (Math.abs(computedPadding - 48) > 2 || Math.abs(computedPaddingRight - 48) > 2) {
+        console.warn(`Padding mismatch: left=${computedPadding}px, right=${computedPaddingRight}px (expected 48px each). Adjusting...`)
+        contentElement.style.paddingLeft = '48px'
+        contentElement.style.paddingRight = '48px'
+        void contentElement.offsetWidth // Force reflow
+        await new Promise(resolve => setTimeout(resolve, 100))
+      }
+      
       // Capture the outer container with print dimensions (exactly 794px to match print layout)
-      // This includes the 0.5in margins visually, matching print preview exactly
+      // This includes the 48px padding visually, matching print preview exactly
       // Higher quality setting: scale 2.5 with higher JPEG quality for better print quality
-      const printWidth = 794 // Outer container width in pixels (includes margins)
-      // CRITICAL: html2canvas needs to capture the full bounding box including margins
-      // Get the actual bounding box of the outer container including any margins
+      const printWidth = 794 // Outer container width in pixels (includes padding with box-sizing: border-box)
+      
+      // CRITICAL: Get the actual rendered dimensions
       const containerRect = contentElement.getBoundingClientRect()
+      // With box-sizing: border-box, getBoundingClientRect().width should equal offsetWidth (794px)
       const actualWidth = Math.max(containerRect.width, printWidth)
+      
+      console.log(`PDF Capture: outer width=${finalOuterWidth}px, rect width=${containerRect.width}px, padding left=${computedPadding}px, padding right=${computedPaddingRight}px, actual capture width=${actualWidth}px`)
       
       const canvas = await html2canvas(contentElement, {
         scale: 2.5, // Increased scale for better quality and larger file size (~1.5-2MB)
@@ -1964,7 +1980,7 @@ export function PrintablesPage() {
         logging: false,
         backgroundColor: '#ffffff',
         allowTaint: false,
-        width: actualWidth, // Use actual width including margins
+        width: actualWidth, // Use actual width (794px with box-sizing: border-box includes padding)
         windowWidth: actualWidth,
         height: contentElement.scrollHeight, // Capture full height
         y: 0, // Start from top
