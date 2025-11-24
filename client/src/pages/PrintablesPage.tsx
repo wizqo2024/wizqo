@@ -4466,7 +4466,8 @@ export function PrintablesPage() {
             const imgWidth = pageWidthMm // Full page width - no margins
             const imgHeight = (finalCanvas.height * imgWidth) / finalCanvas.width
             // Use JPEG with higher quality (0.98) for better print quality
-            const imgData = finalCanvas.toDataURL('image/jpeg', 0.98)
+            // Use maximum JPEG quality (1.0) for best print quality
+            const imgData = finalCanvas.toDataURL('image/jpeg', 1.0)
             const pdf = new jsPDF('p', 'mm', 'a4')
             
             if (imgHeight <= pageHeight) {
@@ -4487,7 +4488,8 @@ export function PrintablesPage() {
                 if (pageCtx) {
                   pageCtx.drawImage(finalCanvas, 0, currentY, finalCanvas.width, pageHeightActual, 0, 0, finalCanvas.width, pageHeightActual)
                   // Use JPEG with higher quality (0.98) for better print quality
-                  const pageImgData = pageCanvas.toDataURL('image/jpeg', 0.98)
+                  // Use maximum JPEG quality (1.0) for best print quality
+              const pageImgData = pageCanvas.toDataURL('image/jpeg', 1.0)
                   const pageImgHeight = (pageHeightActual * imgWidth) / finalCanvas.width
                   // Use JPEG format for medium quality and reasonable file size
                   pdf.addImage(pageImgData, 'JPEG', marginLeftMm, 0, imgWidth, pageImgHeight)
@@ -4560,7 +4562,8 @@ export function PrintablesPage() {
       let imgData: string
       try {
         // Use JPEG with higher quality (0.98) for better print quality
-        imgData = finalCanvas.toDataURL('image/jpeg', 0.98)
+        // Use maximum JPEG quality (1.0) for best print quality
+        imgData = finalCanvas.toDataURL('image/jpeg', 1.0)
       } catch (e) {
         // Fallback to PNG if JPEG fails
         console.warn('JPEG conversion failed, trying PNG:', e)
@@ -4665,7 +4668,8 @@ export function PrintablesPage() {
                       let pageImgData: string
                       try {
                         // Use JPEG with higher quality (0.98) for better print quality
-                        pageImgData = pageCanvas.toDataURL('image/jpeg', 0.98)
+                        // Use maximum JPEG quality (1.0) for best print quality
+                        pageImgData = pageCanvas.toDataURL('image/jpeg', 1.0)
                       } catch (e) {
                         pageImgData = pageCanvas.toDataURL('image/png')
                       }
@@ -4724,7 +4728,8 @@ export function PrintablesPage() {
                   let pageImgData: string
                   try {
                     // Use JPEG with higher quality (0.98) for better print quality
-                    pageImgData = pageCanvas.toDataURL('image/jpeg', 0.98)
+                    // Use maximum JPEG quality (1.0) for best print quality
+                    pageImgData = pageCanvas.toDataURL('image/jpeg', 1.0)
                   } catch (e) {
                     pageImgData = pageCanvas.toDataURL('image/png')
                   }
@@ -4848,7 +4853,8 @@ export function PrintablesPage() {
           const imgWidth = pageWidthMm // Full page width - no margins
           const imgHeight = (viewportCanvas.height * imgWidth) / viewportCanvas.width
           // Use JPEG with higher quality (0.98) for better print quality
-          const imgData = viewportCanvas.toDataURL('image/jpeg', 0.98)
+          // Use maximum JPEG quality (1.0) for best print quality
+          const imgData = viewportCanvas.toDataURL('image/jpeg', 1.0)
           
           if (imgData && imgData !== 'data:,') {
             const pdf = new jsPDF('p', 'mm', 'a4')
@@ -4870,7 +4876,8 @@ export function PrintablesPage() {
                 if (pageCtx) {
                   pageCtx.drawImage(viewportCanvas, 0, currentY, viewportCanvas.width, pageHeightActual, 0, 0, viewportCanvas.width, pageHeightActual)
                   // Use JPEG with higher quality (0.98) for better print quality
-                  const pageImgData = pageCanvas.toDataURL('image/jpeg', 0.98) || pageCanvas.toDataURL('image/png')
+                  // Use maximum JPEG quality (1.0) for best print quality
+              const pageImgData = pageCanvas.toDataURL('image/jpeg', 1.0) || pageCanvas.toDataURL('image/png')
                   const pageImgHeight = (pageHeightActual * imgWidth) / viewportCanvas.width
                   // Use JPEG format for medium quality and reasonable file size
                   pdf.addImage(pageImgData, 'JPEG', marginLeftMm, 0, imgWidth, pageImgHeight)
