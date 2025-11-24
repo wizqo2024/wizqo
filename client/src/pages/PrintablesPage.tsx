@@ -1876,9 +1876,14 @@ export function PrintablesPage() {
           const style = clonedDoc.createElement('style')
           style.textContent = `
             /* Page setup - no margins for maximum content space (consistent across all browsers) */
+            /* This ensures Ctrl+P (or Cmd+P) defaults to NO margins in all browsers */
             @page {
               size: A4;
-              margin: 0;
+              margin: 0 !important;
+              margin-top: 0 !important;
+              margin-right: 0 !important;
+              margin-bottom: 0 !important;
+              margin-left: 0 !important;
             }
             /* CRITICAL: Ensure all pages have white background - fix black pages */
             html, body, #root, [data-worksheet-content="true"] {
@@ -3383,9 +3388,14 @@ export function PrintablesPage() {
           const style = clonedDoc.createElement('style')
           style.textContent = `
             /* Page setup - no margins for maximum content space (consistent across all browsers) */
+            /* This ensures Ctrl+P (or Cmd+P) defaults to NO margins in all browsers */
             @page {
               size: A4;
-              margin: 0;
+              margin: 0 !important;
+              margin-top: 0 !important;
+              margin-right: 0 !important;
+              margin-bottom: 0 !important;
+              margin-left: 0 !important;
             }
             /* CRITICAL: Ensure all pages have white background - fix black pages */
             html, body, #root, [data-worksheet-content="true"] {
@@ -4667,9 +4677,14 @@ export function PrintablesPage() {
       <style>{`
         @media print {
           /* Default: no page margins for maximum content space (consistent across all browsers) */
+          /* This ensures Ctrl+P (or Cmd+P) defaults to NO margins in all browsers */
           @page { 
-            margin: 0;
             size: A4;
+            margin: 0 !important;
+            margin-top: 0 !important;
+            margin-right: 0 !important;
+            margin-bottom: 0 !important;
+            margin-left: 0 !important;
           }
           /* CRITICAL: Ensure all pages have white background - fix black pages */
           html, body, #root, [data-worksheet-content="true"] {

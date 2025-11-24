@@ -411,10 +411,20 @@ html {
  * - Prevents worksheet sections from breaking across pages
  * ============================================================================ */
 @media print {
-  /* Page setup - no margins for maximum content space (consistent across all browsers) */
+  /* ============================================================================
+   * DEFAULT PRINT MARGINS: NONE (0) - Applies to ALL browsers and ALL pages
+   * ============================================================================
+   * This ensures that when users press Ctrl+P (or Cmd+P on Mac), the print
+   * layout defaults to NO margins across all browsers (Chrome, Firefox, Safari, Edge).
+   * Users get maximum content space by default.
+   * ============================================================================ */
   @page {
     size: A4;
-    margin: 0; /* Default: no margins - users get maximum content space */
+    margin: 0 !important; /* Default: no margins - applies to all browsers */
+    margin-top: 0 !important;
+    margin-right: 0 !important;
+    margin-bottom: 0 !important;
+    margin-left: 0 !important;
   }
   
   /* CRITICAL: Ensure all pages have white background - fix black pages */
