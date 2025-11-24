@@ -152,7 +152,7 @@ export function UnifiedNavigation({ showBackButton = false, onBackClick, current
                 {/* Dropdown: Worksheets */}
                 <div
                   ref={worksheetsMenuRef}
-                  className={`absolute right-0 top-full mt-2 ${showWorksheetsMenu ? 'opacity-100 translate-y-0 pointer-events-auto' : 'opacity-0 -translate-y-1 pointer-events-none'} transition-all duration-150 bg-white/95 backdrop-blur-sm border border-slate-200 rounded-2xl shadow-xl min-w-[320px] w-full md:w-auto md:max-w-[1400px] z-50 p-6`}
+                  className={`absolute right-0 top-full mt-2 ${showWorksheetsMenu ? 'opacity-100 translate-y-0 pointer-events-auto' : 'opacity-0 -translate-y-1 pointer-events-none'} transition-all duration-150 bg-white/95 backdrop-blur-sm border border-slate-200 rounded-2xl shadow-xl min-w-[320px] w-full md:w-auto md:min-w-[1600px] z-50 p-6`}
                   role="menu"
                   aria-label="Worksheets menu"
                   onMouseEnter={() => { if (worksheetsMenuCloseTimer.current) { window.clearTimeout(worksheetsMenuCloseTimer.current); worksheetsMenuCloseTimer.current = null; }}}
@@ -160,7 +160,7 @@ export function UnifiedNavigation({ showBackButton = false, onBackClick, current
                 >
                   {/* caret */}
                   <div className="absolute -top-2 right-10 h-4 w-4 bg-white rotate-45 border-l border-t border-slate-200" aria-hidden />
-                  <div className="grid gap-6 min-w-[320px] md:grid-cols-3 w-full">
+                  <div className="grid gap-8 min-w-[320px] md:grid-cols-3 w-full">
                     {/* First Column: Free Worksheet PDFs */}
                     <div>
                       <div className="px-3 py-2 mb-3 text-xs uppercase tracking-wide text-slate-500 font-semibold border-b border-slate-200">Free Worksheet PDFs</div>
@@ -168,8 +168,8 @@ export function UnifiedNavigation({ showBackButton = false, onBackClick, current
                         <svg className="w-4 h-4 text-slate-500 flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                           <path d="M4 19h16M4 5h16M7 12h10" />
                         </svg>
-                        <div className="min-w-0">
-                          <div className="text-xs font-semibold text-slate-800">Multiplication Worksheets</div>
+                        <div className="min-w-0 flex-1">
+                          <div className="text-xs font-semibold text-slate-800 whitespace-nowrap">Multiplication Worksheets</div>
                           <div className="text-[10px] text-slate-600 truncate">2nd-5th grade free PDF</div>
                         </div>
                       </a>
@@ -177,8 +177,8 @@ export function UnifiedNavigation({ showBackButton = false, onBackClick, current
                         <svg className="w-4 h-4 text-slate-500 flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                           <path d="M4 19h16M4 5h16M7 12h10" />
                         </svg>
-                        <div className="min-w-0">
-                          <div className="text-xs font-semibold text-slate-800">Times Table Multiplication Worksheets</div>
+                        <div className="min-w-0 flex-1">
+                          <div className="text-xs font-semibold text-slate-800 whitespace-nowrap">Times Table Multiplication Worksheets</div>
                           <div className="text-[10px] text-slate-600 truncate">1-12 tables, confidence building free PDF</div>
                         </div>
                       </a>
@@ -186,8 +186,8 @@ export function UnifiedNavigation({ showBackButton = false, onBackClick, current
                         <svg className="w-4 h-4 text-slate-500 flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                           <path d="M4 19h16M4 5h16M7 12h10" />
                         </svg>
-                        <div className="min-w-0">
-                          <div className="text-xs font-semibold text-slate-800">Kindergarten Math Worksheets</div>
+                        <div className="min-w-0 flex-1">
+                          <div className="text-xs font-semibold text-slate-800 whitespace-nowrap">Kindergarten Math Worksheets</div>
                           <div className="text-[10px] text-slate-600 truncate">Counting, shapes, patterns free PDF</div>
                         </div>
                       </a>
@@ -195,8 +195,8 @@ export function UnifiedNavigation({ showBackButton = false, onBackClick, current
                         <svg className="w-4 h-4 text-slate-500 flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                           <path d="M4 19h16M4 5h16M7 12h10" />
                         </svg>
-                        <div className="min-w-0">
-                          <div className="text-xs font-semibold text-slate-800">1st Grade Math Worksheets</div>
+                        <div className="min-w-0 flex-1">
+                          <div className="text-xs font-semibold text-slate-800 whitespace-nowrap">1st Grade Math Worksheets</div>
                           <div className="text-[10px] text-slate-600 truncate">Ten-frames, add/sub free PDF</div>
                         </div>
                       </a>
@@ -204,8 +204,8 @@ export function UnifiedNavigation({ showBackButton = false, onBackClick, current
                         <svg className="w-4 h-4 text-slate-500 flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                           <path d="M4 19h16M4 5h16M7 12h10" />
                         </svg>
-                        <div className="min-w-0">
-                          <div className="text-xs font-semibold text-slate-800">2nd Grade Math Worksheets</div>
+                        <div className="min-w-0 flex-1">
+                          <div className="text-xs font-semibold text-slate-800 whitespace-nowrap">2nd Grade Math Worksheets</div>
                           <div className="text-[10px] text-slate-600 truncate">Place value, add/sub free PDF</div>
                         </div>
                       </a>
@@ -213,8 +213,8 @@ export function UnifiedNavigation({ showBackButton = false, onBackClick, current
                         <svg className="w-4 h-4 text-slate-500 flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                           <path d="M4 19h16M4 5h16M7 12h10" />
                         </svg>
-                        <div className="min-w-0">
-                          <div className="text-xs font-semibold text-slate-800">3rd Grade Math Worksheets</div>
+                        <div className="min-w-0 flex-1">
+                          <div className="text-xs font-semibold text-slate-800 whitespace-nowrap">3rd Grade Math Worksheets</div>
                           <div className="text-[10px] text-slate-600 truncate">Fractions, division, word problems free PDF</div>
                         </div>
                       </a>
@@ -222,8 +222,8 @@ export function UnifiedNavigation({ showBackButton = false, onBackClick, current
                         <svg className="w-4 h-4 text-slate-500 flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                           <path d="M4 19h16M4 5h16M7 12h10" />
                         </svg>
-                        <div className="min-w-0">
-                          <div className="text-xs font-semibold text-slate-800">4th Grade Math Worksheets</div>
+                        <div className="min-w-0 flex-1">
+                          <div className="text-xs font-semibold text-slate-800 whitespace-nowrap">4th Grade Math Worksheets</div>
                           <div className="text-[10px] text-slate-600 truncate">Decimals, geometry, measurement free PDF</div>
                         </div>
                       </a>
@@ -231,8 +231,8 @@ export function UnifiedNavigation({ showBackButton = false, onBackClick, current
                         <svg className="w-4 h-4 text-slate-500 flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                           <path d="M4 19h16M4 5h16M7 12h10" />
                         </svg>
-                        <div className="min-w-0">
-                          <div className="text-xs font-semibold text-slate-800">5th Grade Math Worksheets</div>
+                        <div className="min-w-0 flex-1">
+                          <div className="text-xs font-semibold text-slate-800 whitespace-nowrap">5th Grade Math Worksheets</div>
                           <div className="text-[10px] text-slate-600 truncate">Algebra, advanced operations free PDF</div>
                         </div>
                       </a>
@@ -240,8 +240,8 @@ export function UnifiedNavigation({ showBackButton = false, onBackClick, current
                         <svg className="w-4 h-4 text-slate-500 flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                           <path d="M4 19h16M4 5h16M7 12h10" />
                         </svg>
-                        <div className="min-w-0">
-                          <div className="text-xs font-semibold text-slate-800">Reading Comprehension Worksheets</div>
+                        <div className="min-w-0 flex-1">
+                          <div className="text-xs font-semibold text-slate-800 whitespace-nowrap">Reading Comprehension Worksheets</div>
                           <div className="text-[10px] text-slate-600 truncate">G1-G3 passages free PDF</div>
                         </div>
                       </a>
@@ -249,8 +249,8 @@ export function UnifiedNavigation({ showBackButton = false, onBackClick, current
                         <svg className="w-4 h-4 text-slate-500 flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                           <path d="M4 19h16M4 5h16M7 12h10" />
                         </svg>
-                        <div className="min-w-0">
-                          <div className="text-xs font-semibold text-slate-800">Converting Fractions to Decimals Worksheets</div>
+                        <div className="min-w-0 flex-1">
+                          <div className="text-xs font-semibold text-slate-800 whitespace-nowrap">Converting Fractions to Decimals Worksheets</div>
                           <div className="text-[10px] text-slate-600 truncate">3rd-5th grade free PDF</div>
                         </div>
                       </a>
@@ -263,8 +263,8 @@ export function UnifiedNavigation({ showBackButton = false, onBackClick, current
                         <svg className="w-4 h-4 text-slate-500 flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                           <path d="M12 17l-5 3 1.9-5.9L4 9h6l2-6 2 6h6l-4.9 5.1L17 20z" />
                         </svg>
-                        <div className="min-w-0">
-                          <div className="text-xs font-semibold text-slate-800">Certificate Maker</div>
+                        <div className="min-w-0 flex-1">
+                          <div className="text-xs font-semibold text-slate-800 whitespace-nowrap">Certificate Maker</div>
                           <div className="text-[10px] text-slate-600 truncate">Editable name/date</div>
                         </div>
                       </a>
@@ -273,8 +273,8 @@ export function UnifiedNavigation({ showBackButton = false, onBackClick, current
                           <path d="M12 20h9" />
                           <path d="M16.5 3.5a2.121 2.121 0 013 3L7 19l-4 1 1-4 12.5-12.5z" />
                         </svg>
-                        <div className="min-w-0">
-                          <div className="text-xs font-semibold text-slate-800">Name Tracing</div>
+                        <div className="min-w-0 flex-1">
+                          <div className="text-xs font-semibold text-slate-800 whitespace-nowrap">Name Tracing</div>
                           <div className="text-[10px] text-slate-600 truncate">Personalized sheets</div>
                         </div>
                       </a>
@@ -283,8 +283,8 @@ export function UnifiedNavigation({ showBackButton = false, onBackClick, current
                           <path d="M12 20h9" />
                           <path d="M16.5 3.5a2.121 2.121 0 013 3L7 19l-4 1 1-4 12.5-12.5z" />
                         </svg>
-                        <div className="min-w-0">
-                          <div className="text-xs font-semibold text-slate-800">Handwriting Maker</div>
+                        <div className="min-w-0 flex-1">
+                          <div className="text-xs font-semibold text-slate-800 whitespace-nowrap">Handwriting Maker</div>
                           <div className="text-[10px] text-slate-600 truncate">Letters, words, sentences</div>
                         </div>
                       </a>
@@ -299,8 +299,8 @@ export function UnifiedNavigation({ showBackButton = false, onBackClick, current
                           <path d="M6 18H5a3 3 0 01-3-3v-2a3 3 0 013-3h14a3 3 0 013 3v2a3 3 0 01-3 3h-1" />
                           <rect x="6" y="14" width="12" height="8" rx="1" />
                         </svg>
-                        <div className="min-w-0">
-                          <div className="text-xs font-semibold text-slate-800">Printables</div>
+                        <div className="min-w-0 flex-1">
+                          <div className="text-xs font-semibold text-slate-800 whitespace-nowrap">Printables</div>
                           <div className="text-[10px] text-slate-600 truncate">Puzzles, coloring, packs</div>
                         </div>
                       </a>
