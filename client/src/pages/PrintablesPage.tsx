@@ -1890,6 +1890,31 @@ export function PrintablesPage() {
         await new Promise(resolve => setTimeout(resolve, 100))
       }
       
+      // Verify inner div is exactly 698px wide with 48px margins (matching print layout)
+      const innerDiv = contentElement.querySelector(':scope > div:first-child') as HTMLElement
+      if (innerDiv) {
+        const innerWidth = innerDiv.offsetWidth
+        const innerMarginLeft = parseFloat(window.getComputedStyle(innerDiv).marginLeft) || 0
+        const innerMarginRight = parseFloat(window.getComputedStyle(innerDiv).marginRight) || 0
+        
+        if (Math.abs(innerWidth - 698) > 2) {
+          console.warn(`Inner div width mismatch: ${innerWidth}px (expected 698px). Adjusting...`)
+          innerDiv.style.width = '698px'
+          innerDiv.style.maxWidth = '698px'
+          void innerDiv.offsetWidth // Force reflow
+        }
+        
+        if (Math.abs(innerMarginLeft - 48) > 2 || Math.abs(innerMarginRight - 48) > 2) {
+          console.warn(`Inner div margin mismatch: left=${innerMarginLeft}px, right=${innerMarginRight}px (expected 48px each). Adjusting...`)
+          innerDiv.style.marginLeft = '48px'
+          innerDiv.style.marginRight = '48px'
+          void innerDiv.offsetWidth // Force reflow
+        }
+        
+        // Final wait to ensure all styles are applied
+        await new Promise(resolve => setTimeout(resolve, 100))
+      }
+      
       // Capture the outer container with print dimensions (exactly 794px to match print layout)
       // This includes the 0.5in margins visually, matching print preview exactly
       const printWidth = 794 // Outer container width in pixels (includes margins)
