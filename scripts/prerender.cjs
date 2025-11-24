@@ -242,6 +242,11 @@ ${gameLinks}
     // Replace the seo-fallback content
     html = html.replace(/<main id="seo-fallback"[^>]*>[\s\S]*?<\/main>/, timesTableContent);
   } else if (route.path === '/worksheets/fractions-to-decimals-worksheets') {
+    // Remove document.write scripts for title/meta (not needed in static file)
+    // The setMeta function above already sets the correct hardcoded tags
+    html = html.replace(/<script>[\s\S]*?CRITICAL: Write correct tags DURING parsing[\s\S]*?<\/script>/i, '');
+    html = html.replace(/<script>[\s\S]*?Write OG\/Twitter tags during parsing[\s\S]*?<\/script>/i, '');
+    
     // Replace fallback content with fractions-to-decimals-specific content
     const fractionsToDecimalsContent = `<main id="seo-fallback" style="display: none; max-width: 1200px; margin: 0 auto; padding: 2rem 1rem; font-family: system-ui, -apple-system, sans-serif;">
       <h1 style="font-size: 2.5rem; font-weight: 900; color: #0f172a; margin-bottom: 1rem; line-height: 1.2;">
