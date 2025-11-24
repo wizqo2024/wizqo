@@ -1826,14 +1826,21 @@ export function PrintablesPage() {
         contentElement.style.overflow = 'visible' // Ensure margins are visible
         
         // Ensure inner content div has the correct margins (0.5in = 48px) matching print layout
-        // Use explicit pixel values for html2canvas to render correctly
+        // CRITICAL: Use padding on outer container instead of margin on inner div for html2canvas
+        // html2canvas captures padding better than margins
+        contentElement.style.padding = '0 48px'
+        contentElement.style.paddingLeft = '48px'
+        contentElement.style.paddingRight = '48px'
+        contentElement.style.paddingTop = '0'
+        contentElement.style.paddingBottom = '0'
+        
         const innerDiv = contentElement.querySelector(':scope > div:first-child') as HTMLElement
         if (innerDiv) {
-          // 0.5in = 48px at 96dpi - use explicit pixels for accurate rendering
-          innerDiv.style.margin = '0 48px'
+          // Inner div should be full width (698px) with no margins - padding is on parent
+          innerDiv.style.margin = '0'
           innerDiv.style.marginTop = '0'
-          innerDiv.style.marginLeft = '48px'
-          innerDiv.style.marginRight = '48px'
+          innerDiv.style.marginLeft = '0'
+          innerDiv.style.marginRight = '0'
           innerDiv.style.width = '698px' // Explicit: 794px - 96px (48px * 2) = 698px
           innerDiv.style.maxWidth = '698px'
           innerDiv.style.boxSizing = 'border-box'
@@ -1896,12 +1903,12 @@ export function PrintablesPage() {
         await new Promise(resolve => setTimeout(resolve, 100))
       }
       
-      // Verify inner div is exactly 698px wide with 48px margins (matching print layout)
+      // Verify outer container padding and inner div width (matching print layout)
       const innerDiv = contentElement.querySelector(':scope > div:first-child') as HTMLElement
       if (innerDiv) {
         const innerWidth = innerDiv.offsetWidth
-        const innerMarginLeft = parseFloat(window.getComputedStyle(innerDiv).marginLeft) || 0
-        const innerMarginRight = parseFloat(window.getComputedStyle(innerDiv).marginRight) || 0
+        const outerPaddingLeft = parseFloat(window.getComputedStyle(contentElement).paddingLeft) || 0
+        const outerPaddingRight = parseFloat(window.getComputedStyle(contentElement).paddingRight) || 0
         
         if (Math.abs(innerWidth - 698) > 2) {
           console.warn(`Inner div width mismatch: ${innerWidth}px (expected 698px). Adjusting...`)
@@ -1910,11 +1917,11 @@ export function PrintablesPage() {
           void innerDiv.offsetWidth // Force reflow
         }
         
-        if (Math.abs(innerMarginLeft - 48) > 2 || Math.abs(innerMarginRight - 48) > 2) {
-          console.warn(`Inner div margin mismatch: left=${innerMarginLeft}px, right=${innerMarginRight}px (expected 48px each). Adjusting...`)
-          innerDiv.style.marginLeft = '48px'
-          innerDiv.style.marginRight = '48px'
-          void innerDiv.offsetWidth // Force reflow
+        if (Math.abs(outerPaddingLeft - 48) > 2 || Math.abs(outerPaddingRight - 48) > 2) {
+          console.warn(`Outer container padding mismatch: left=${outerPaddingLeft}px, right=${outerPaddingRight}px (expected 48px each). Adjusting...`)
+          contentElement.style.paddingLeft = '48px'
+          contentElement.style.paddingRight = '48px'
+          void contentElement.offsetWidth // Force reflow
         }
         
         // Final wait to ensure all styles are applied
@@ -3489,29 +3496,34 @@ export function PrintablesPage() {
           }
           
           // Ensure outer container in cloned document is exactly 794px (matching print layout)
+          // CRITICAL: Use padding instead of margin for html2canvas to capture white space correctly
           const clonedOuterContainer = clonedDoc.querySelector('[data-worksheet-content="true"]') as HTMLElement
           if (clonedOuterContainer) {
             clonedOuterContainer.style.width = '794px'
             clonedOuterContainer.style.maxWidth = '794px'
             clonedOuterContainer.style.margin = '0'
-            clonedOuterContainer.style.padding = '0'
+            // Use padding to create the 48px white space on left/right (matches print layout)
+            clonedOuterContainer.style.padding = '0 48px'
+            clonedOuterContainer.style.paddingLeft = '48px'
+            clonedOuterContainer.style.paddingRight = '48px'
+            clonedOuterContainer.style.paddingTop = '0'
+            clonedOuterContainer.style.paddingBottom = '0'
             clonedOuterContainer.style.boxSizing = 'border-box'
             clonedOuterContainer.style.backgroundColor = 'white'
             clonedOuterContainer.style.background = 'white'
-            clonedOuterContainer.style.overflow = 'visible' // Ensure margins are visible
+            clonedOuterContainer.style.overflow = 'visible'
           }
           
           // Ensure content container in cloned document matches print layout EXACTLY
-          // Print layout: @page margin: 0, but content has 0.5in (48px) left/right margins = 698px width
+          // Print layout: @page margin: 0, but content has 0.5in (48px) left/right spacing = 698px width
           // Use explicit pixel values for html2canvas to render correctly
           const clonedContentContainer = clonedDoc.querySelector('[data-worksheet-content="true"] > div:first-child') as HTMLElement
           if (clonedContentContainer) {
-            // Match print layout: 0.5in (48px) margins on left/right, 0 on top
-            // Use explicit pixels: 0.5in = 48px at 96dpi
-            clonedContentContainer.style.margin = '0 48px'
+            // No margins - padding is on parent container
+            clonedContentContainer.style.margin = '0'
             clonedContentContainer.style.marginTop = '0'
-            clonedContentContainer.style.marginLeft = '48px'
-            clonedContentContainer.style.marginRight = '48px'
+            clonedContentContainer.style.marginLeft = '0'
+            clonedContentContainer.style.marginRight = '0'
             clonedContentContainer.style.padding = '0'
             clonedContentContainer.style.boxSizing = 'border-box'
             // Width should be 698px (794px - 96px) - use explicit pixels
