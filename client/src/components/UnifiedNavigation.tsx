@@ -182,7 +182,7 @@ export function UnifiedNavigation({ showBackButton = false, onBackClick, current
                           <div className="text-[10px] text-slate-600 truncate">1-12 tables, confidence building free PDF</div>
                         </div>
                       </a>
-                      <a href="/worksheets/kindergarten-math-worksheets" className="flex items-center gap-3 px-3 py-2.5 rounded-lg text-slate-700 hover:bg-slate-50 transition-colors">
+                      <a href="/worksheets/kindergarten-math-worksheets" className="flex items-center gap-2.5 px-2.5 py-2 rounded-lg text-slate-700 hover:bg-slate-50 transition-colors">
                         <svg className="w-4 h-4 text-slate-500 flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                           <path d="M4 19h16M4 5h16M7 12h10" />
                         </svg>
@@ -191,7 +191,7 @@ export function UnifiedNavigation({ showBackButton = false, onBackClick, current
                           <div className="text-[10px] text-slate-600 truncate">Counting, shapes, patterns free PDF</div>
                         </div>
                       </a>
-                      <a href="/worksheets/1st-grade-math-worksheets" className="flex items-center gap-3 px-3 py-2.5 rounded-lg text-slate-700 hover:bg-slate-50 transition-colors">
+                      <a href="/worksheets/1st-grade-math-worksheets" className="flex items-center gap-2.5 px-2.5 py-2 rounded-lg text-slate-700 hover:bg-slate-50 transition-colors">
                         <svg className="w-4 h-4 text-slate-500 flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                           <path d="M4 19h16M4 5h16M7 12h10" />
                         </svg>
@@ -200,7 +200,7 @@ export function UnifiedNavigation({ showBackButton = false, onBackClick, current
                           <div className="text-[10px] text-slate-600 truncate">Ten-frames, add/sub free PDF</div>
                         </div>
                       </a>
-                      <a href="/worksheets/2nd-grade-math-worksheets" className="flex items-center gap-3 px-3 py-2.5 rounded-lg text-slate-700 hover:bg-slate-50 transition-colors">
+                      <a href="/worksheets/2nd-grade-math-worksheets" className="flex items-center gap-2.5 px-2.5 py-2 rounded-lg text-slate-700 hover:bg-slate-50 transition-colors">
                         <svg className="w-4 h-4 text-slate-500 flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                           <path d="M4 19h16M4 5h16M7 12h10" />
                         </svg>
@@ -209,7 +209,7 @@ export function UnifiedNavigation({ showBackButton = false, onBackClick, current
                           <div className="text-[10px] text-slate-600 truncate">Place value, add/sub free PDF</div>
                         </div>
                       </a>
-                      <a href="/worksheets/3rd-grade-math-worksheets" className="flex items-center gap-3 px-3 py-2.5 rounded-lg text-slate-700 hover:bg-slate-50 transition-colors">
+                      <a href="/worksheets/3rd-grade-math-worksheets" className="flex items-center gap-2.5 px-2.5 py-2 rounded-lg text-slate-700 hover:bg-slate-50 transition-colors">
                         <svg className="w-4 h-4 text-slate-500 flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                           <path d="M4 19h16M4 5h16M7 12h10" />
                         </svg>
@@ -218,7 +218,7 @@ export function UnifiedNavigation({ showBackButton = false, onBackClick, current
                           <div className="text-[10px] text-slate-600 truncate">Fractions, division, word problems free PDF</div>
                         </div>
                       </a>
-                      <a href="/worksheets/4th-grade-math-worksheets" className="flex items-center gap-3 px-3 py-2.5 rounded-lg text-slate-700 hover:bg-slate-50 transition-colors">
+                      <a href="/worksheets/4th-grade-math-worksheets" className="flex items-center gap-2.5 px-2.5 py-2 rounded-lg text-slate-700 hover:bg-slate-50 transition-colors">
                         <svg className="w-4 h-4 text-slate-500 flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                           <path d="M4 19h16M4 5h16M7 12h10" />
                         </svg>
@@ -227,7 +227,7 @@ export function UnifiedNavigation({ showBackButton = false, onBackClick, current
                           <div className="text-[10px] text-slate-600 truncate">Decimals, geometry, measurement free PDF</div>
                         </div>
                       </a>
-                      <a href="/worksheets/5th-grade-math-worksheets" className="flex items-center gap-3 px-3 py-2.5 rounded-lg text-slate-700 hover:bg-slate-50 transition-colors">
+                      <a href="/worksheets/5th-grade-math-worksheets" className="flex items-center gap-2.5 px-2.5 py-2 rounded-lg text-slate-700 hover:bg-slate-50 transition-colors">
                         <svg className="w-4 h-4 text-slate-500 flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                           <path d="M4 19h16M4 5h16M7 12h10" />
                         </svg>
@@ -236,7 +236,7 @@ export function UnifiedNavigation({ showBackButton = false, onBackClick, current
                           <div className="text-[10px] text-slate-600 truncate">Algebra, advanced operations free PDF</div>
                         </div>
                       </a>
-                      <a href="/worksheets/reading-comprehension" className="flex items-center gap-3 px-3 py-2.5 rounded-lg text-slate-700 hover:bg-slate-50 transition-colors">
+                      <a href="/worksheets/reading-comprehension" className="flex items-center gap-2.5 px-2.5 py-2 rounded-lg text-slate-700 hover:bg-slate-50 transition-colors">
                         <svg className="w-4 h-4 text-slate-500 flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                           <path d="M4 19h16M4 5h16M7 12h10" />
                         </svg>
@@ -245,7 +245,7 @@ export function UnifiedNavigation({ showBackButton = false, onBackClick, current
                           <div className="text-[10px] text-slate-600 truncate">G1-G3 passages free PDF</div>
                         </div>
                       </a>
-                      <a href="/worksheets/fractions-to-decimals-worksheets" className="flex items-center gap-3 px-3 py-2.5 rounded-lg text-slate-700 hover:bg-slate-50 transition-colors">
+                      <a href="/worksheets/fractions-to-decimals-worksheets" className="flex items-center gap-2.5 px-2.5 py-2 rounded-lg text-slate-700 hover:bg-slate-50 transition-colors">
                         <svg className="w-4 h-4 text-slate-500 flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                           <path d="M4 19h16M4 5h16M7 12h10" />
                         </svg>
@@ -268,7 +268,7 @@ export function UnifiedNavigation({ showBackButton = false, onBackClick, current
                           <div className="text-[10px] text-slate-600 truncate">Editable name/date</div>
                         </div>
                       </a>
-                      <a href="/printables/name-tracing-generator" className="flex items-center gap-3 px-3 py-2.5 rounded-lg text-slate-700 hover:bg-slate-50 transition-colors">
+                      <a href="/printables/name-tracing-generator" className="flex items-center gap-2.5 px-2.5 py-2 rounded-lg text-slate-700 hover:bg-slate-50 transition-colors">
                         <svg className="w-4 h-4 text-slate-500 flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                           <path d="M12 20h9" />
                           <path d="M16.5 3.5a2.121 2.121 0 013 3L7 19l-4 1 1-4 12.5-12.5z" />
@@ -278,7 +278,7 @@ export function UnifiedNavigation({ showBackButton = false, onBackClick, current
                           <div className="text-[10px] text-slate-600 truncate">Personalized sheets</div>
                         </div>
                       </a>
-                      <a href="/worksheets/handwriting-worksheet-maker" className="flex items-center gap-3 px-3 py-2.5 rounded-lg text-slate-700 hover:bg-slate-50 transition-colors">
+                      <a href="/worksheets/handwriting-worksheet-maker" className="flex items-center gap-2.5 px-2.5 py-2 rounded-lg text-slate-700 hover:bg-slate-50 transition-colors">
                         <svg className="w-4 h-4 text-slate-500 flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                           <path d="M12 20h9" />
                           <path d="M16.5 3.5a2.121 2.121 0 013 3L7 19l-4 1 1-4 12.5-12.5z" />
