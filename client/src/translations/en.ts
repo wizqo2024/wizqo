@@ -1394,6 +1394,14 @@ export const en = {
           title: '⏱️ Fluency Practice: Fractions to Decimals',
           description: 'Build speed and accuracy with quick conversion practice covering all methods.',
         },
+        percentConversions: {
+          title: '🔄 Fractions, Decimals & Percents Conversions',
+          description: 'Convert between fractions, decimals, and percents. Master all three forms of representing numbers.',
+        },
+        percentWordProblems: {
+          title: '🧮 Percent Word Problems',
+          description: 'Solve real-world word problems involving percentages, discounts, and savings.',
+        },
       },
     },
     firstGrade: {
