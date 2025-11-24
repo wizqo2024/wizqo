@@ -594,23 +594,27 @@
             path.indexOf('fractions-to-decimals-worksheets') !== -1
           );
           
-          // Function to update content
+          // Function to update content - more aggressive, always update if on right page
           function updateContent() {
             try {
+              if (!isFractionsPage) return false;
+              
               var fallback = document.getElementById('seo-fallback');
-              if (fallback && isFractionsPage) {
-                var firstH1 = fallback.querySelector('h1');
-                // Only update if still has landing page content
-                if (firstH1 && firstH1.textContent && firstH1.textContent.indexOf('Free Math Worksheets for K-5') !== -1) {
-                  // Remove this script first
-                  var updateScript = document.getElementById('seo-update-script');
-                  if (updateScript && updateScript.parentNode) {
-                    updateScript.parentNode.removeChild(updateScript);
-                  }
-                  // Set the correct content
-                  fallback.innerHTML = '<h1 style="font-size: 2.5rem; font-weight: 900; color: #0f172a; margin-bottom: 1rem; line-height: 1.2;">Free Converting Fractions to Decimals Worksheets (PDF + Answer Key)</h1><p style="font-size: 1.125rem; color: #475569; margin-bottom: 2.5rem; line-height: 1.6;">Download free fractions-to-decimals worksheets with answer keys. Easy, clear, no-login math PDFs perfect for grades 3–5. Boost confidence with simple step-by-step practice.</p><section style="margin-bottom: 2rem;"><h2 style="font-size: 1.875rem; font-weight: 800; color: #1e293b; margin-bottom: 0.75rem;">Converting Fractions to Decimals Worksheets</h2><p style="color: #475569; line-height: 1.6; margin-bottom: 1.5rem;">Free printable fractions to decimals worksheets with step-by-step examples and answer keys. Perfect for 3rd, 4th, and 5th grade students learning to convert fractions to decimal form. Download PDF worksheets instantly for classroom or home practice.</p></section><section style="margin-bottom: 2rem;"><h2 style="font-size: 1.875rem; font-weight: 800; color: #1e293b; margin-bottom: 0.75rem;">Fractions to Decimals Practice Sheets</h2><p style="color: #475569; line-height: 1.6; margin-bottom: 1.5rem;">Comprehensive fractions to decimals conversion worksheets covering proper fractions, improper fractions, and mixed numbers. Each worksheet includes visual examples and detailed answer keys for easy learning and practice.</p></section><section style="margin-bottom: 2rem;"><h2 style="font-size: 1.875rem; font-weight: 800; color: #1e293b; margin-bottom: 0.75rem;">Free Fractions to Decimals Worksheets PDF</h2><p style="color: #475569; line-height: 1.6; margin-bottom: 1.5rem;">Download free printable fractions to decimals worksheets in PDF format. All worksheets include answer keys and are perfect for grades 3-5. No login required - instant download and printing.</p></section>';
-                  return true; // Success
+              if (!fallback) return false;
+              
+              var firstH1 = fallback.querySelector('h1');
+              // Check if still has landing page content OR if h1 doesn't exist (shouldn't happen but safety check)
+              var needsUpdate = !firstH1 || (firstH1.textContent && firstH1.textContent.indexOf('Free Math Worksheets for K-5') !== -1);
+              
+              if (needsUpdate) {
+                // Remove this script and any other scripts first
+                var scripts = fallback.getElementsByTagName('script');
+                for (var i = scripts.length - 1; i >= 0; i--) {
+                  scripts[i].parentNode.removeChild(scripts[i]);
                 }
+                // Set the correct content
+                fallback.innerHTML = '<h1 style="font-size: 2.5rem; font-weight: 900; color: #0f172a; margin-bottom: 1rem; line-height: 1.2;">Free Converting Fractions to Decimals Worksheets (PDF + Answer Key)</h1><p style="font-size: 1.125rem; color: #475569; margin-bottom: 2.5rem; line-height: 1.6;">Download free fractions-to-decimals worksheets with answer keys. Easy, clear, no-login math PDFs perfect for grades 3–5. Boost confidence with simple step-by-step practice.</p><section style="margin-bottom: 2rem;"><h2 style="font-size: 1.875rem; font-weight: 800; color: #1e293b; margin-bottom: 0.75rem;">Converting Fractions to Decimals Worksheets</h2><p style="color: #475569; line-height: 1.6; margin-bottom: 1.5rem;">Free printable fractions to decimals worksheets with step-by-step examples and answer keys. Perfect for 3rd, 4th, and 5th grade students learning to convert fractions to decimal form. Download PDF worksheets instantly for classroom or home practice.</p></section><section style="margin-bottom: 2rem;"><h2 style="font-size: 1.875rem; font-weight: 800; color: #1e293b; margin-bottom: 0.75rem;">Fractions to Decimals Practice Sheets</h2><p style="color: #475569; line-height: 1.6; margin-bottom: 1.5rem;">Comprehensive fractions to decimals conversion worksheets covering proper fractions, improper fractions, and mixed numbers. Each worksheet includes visual examples and detailed answer keys for easy learning and practice.</p></section><section style="margin-bottom: 2rem;"><h2 style="font-size: 1.875rem; font-weight: 800; color: #1e293b; margin-bottom: 0.75rem;">Free Fractions to Decimals Worksheets PDF</h2><p style="color: #475569; line-height: 1.6; margin-bottom: 1.5rem;">Download free printable fractions to decimals worksheets in PDF format. All worksheets include answer keys and are perfect for grades 3-5. No login required - instant download and printing.</p></section>';
+                return true; // Success
               }
             } catch(e) {
               // Silent fail
@@ -619,11 +623,13 @@
           }
           
           // Try immediately (content should be parsed by now)
-          updateContent();
-          
-          // Also try as fallback in case timing is off
-          setTimeout(updateContent, 0);
-          setTimeout(updateContent, 10);
+          if (!updateContent()) {
+            // If didn't work, try multiple times with delays
+            setTimeout(updateContent, 0);
+            setTimeout(updateContent, 10);
+            setTimeout(updateContent, 50);
+            setTimeout(updateContent, 100);
+          }
         })();
       </script>
     </main>
