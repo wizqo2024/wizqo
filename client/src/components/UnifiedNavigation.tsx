@@ -152,14 +152,14 @@ export function UnifiedNavigation({ showBackButton = false, onBackClick, current
                 {/* Dropdown: Worksheets */}
                 <div
                   ref={worksheetsMenuRef}
-                  className={`absolute right-0 top-full mt-2 ${showWorksheetsMenu ? 'opacity-100 translate-y-0 pointer-events-auto' : 'opacity-0 -translate-y-1 pointer-events-none'} transition-all duration-150 bg-white/95 backdrop-blur-sm border border-slate-200 rounded-2xl shadow-xl min-w-[320px] w-full md:w-auto md:min-w-[1600px] z-50 p-6`}
+                  className={`absolute left-0 top-full mt-2 ${showWorksheetsMenu ? 'opacity-100 translate-y-0 pointer-events-auto' : 'opacity-0 -translate-y-1 pointer-events-none'} transition-all duration-150 bg-white/95 backdrop-blur-sm border border-slate-200 rounded-2xl shadow-xl min-w-[320px] w-full md:w-auto md:max-w-[90vw] md:min-w-[1400px] z-50 p-6`}
                   role="menu"
                   aria-label="Worksheets menu"
                   onMouseEnter={() => { if (worksheetsMenuCloseTimer.current) { window.clearTimeout(worksheetsMenuCloseTimer.current); worksheetsMenuCloseTimer.current = null; }}}
                   onMouseLeave={() => { worksheetsMenuCloseTimer.current = window.setTimeout(() => setShowWorksheetsMenu(false), 200) as unknown as number; }}
                 >
                   {/* caret */}
-                  <div className="absolute -top-2 right-10 h-4 w-4 bg-white rotate-45 border-l border-t border-slate-200" aria-hidden />
+                  <div className="absolute -top-2 left-10 h-4 w-4 bg-white rotate-45 border-l border-t border-slate-200" aria-hidden />
                   <div className="grid gap-8 min-w-[320px] md:grid-cols-3 w-full">
                     {/* First Column: Free Worksheet PDFs */}
                     <div>
