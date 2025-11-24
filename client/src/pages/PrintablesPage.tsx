@@ -2037,21 +2037,42 @@ export function PrintablesPage() {
       }
       
       // Ensure element has minimum dimensions for capture
-      const finalHeight = finalContentElement.offsetHeight || finalContentElement.scrollHeight || 100
-      const finalWidth = finalContentElement.offsetWidth || finalContentElement.scrollWidth || contentWidth
+      // Use scrollHeight/scrollWidth to capture ALL content including overflow
+      const finalHeight = Math.max(
+        finalContentElement.offsetHeight || 0,
+        finalContentElement.scrollHeight || 0,
+        100
+      )
+      const finalWidth = Math.max(
+        finalContentElement.offsetWidth || 0,
+        finalContentElement.scrollWidth || 0,
+        printWidth
+      )
       
       if (finalHeight < 10) {
         throw new Error(`Content element height is too small: ${finalHeight}px. Minimum required: 10px.`)
       }
       
+      // Ensure element can show all content (remove overflow hidden if present)
+      const originalOverflow = finalContentElement.style.overflow
+      const originalOverflowY = finalContentElement.style.overflowY
+      finalContentElement.style.overflow = 'visible'
+      finalContentElement.style.overflowY = 'visible'
+      
+      // Force reflow to ensure dimensions are updated
+      void finalContentElement.offsetHeight
+      await new Promise(resolve => setTimeout(resolve, 100))
+      
       let canvas = await html2canvas(finalContentElement, {
-        scale: 4.5, // Higher scale for better print quality and larger file size (~1.5-2MB)
+        scale: 3.0, // Reduced scale to avoid memory issues and ensure complete capture
         useCORS: true,
         logging: false,
         backgroundColor: '#ffffff',
         allowTaint: false,
-        width: printWidth, // Capture outer container at full print width (794px)
-        windowWidth: printWidth, // Use full page width for proper rendering context
+        // Don't constrain dimensions - let html2canvas capture naturally to avoid cropping
+        // height and width parameters can cause cropping if content is larger
+        scrollX: 0,
+        scrollY: 0,
         onclone: (clonedDoc) => {
           // Apply print styles to cloned document
           const clonedHtml = clonedDoc.documentElement
@@ -2889,6 +2910,12 @@ export function PrintablesPage() {
       if (finalContentElement && originalContentWidth !== undefined) {
         finalContentElement.style.width = originalContentWidth
         finalContentElement.style.maxWidth = originalContentMaxWidth
+      }
+      
+      // Restore overflow styles
+      if (finalContentElement && originalOverflow !== undefined) {
+        finalContentElement.style.overflow = originalOverflow
+        finalContentElement.style.overflowY = originalOverflowY
       }
       
       // Restore inner div styles if we modified them
