@@ -169,52 +169,91 @@
       // Update SEO meta tags IMMEDIATELY based on URL (runs before anything else)
       // This ensures search engines see correct tags as early as possible
       (function() {
-        // Function to update or create meta tag
+        // Get path immediately
+        const path = window.location.pathname || (typeof window !== 'undefined' && window.location ? window.location.pathname : '');
+        
+        // Only proceed if on fractions-to-decimals page
+        if (!path || !path.includes('/worksheets/fractions-to-decimals-worksheets')) {
+          return; // Exit early if not on the target page
+        }
+        
+        // Function to update or create meta tag - more aggressive approach
         function updateMetaTag(name, content, isProperty) {
           try {
+            if (!document || !document.head) {
+              // If head doesn't exist yet, wait and retry
+              setTimeout(function() { updateMetaTag(name, content, isProperty); }, 10);
+              return;
+            }
+            
             const selector = isProperty ? `meta[property="${name}"]` : `meta[name="${name}"]`;
             let meta = document.querySelector(selector);
+            
             if (!meta) {
+              // Create new meta tag
               meta = document.createElement('meta');
               if (isProperty) {
                 meta.setAttribute('property', name);
               } else {
                 meta.setAttribute('name', name);
               }
-              if (document.head) {
-                document.head.appendChild(meta);
-              }
+              document.head.appendChild(meta);
             }
+            
+            // Force update the content attribute
             meta.setAttribute('content', content);
+            meta.content = content; // Also set property directly
+            
           } catch(e) {
-            // Silently fail if DOM not ready
+            console.error('Error updating meta tag:', e);
           }
         }
         
         // Function to update or create link tag
         function updateLinkTag(rel, href) {
           try {
+            if (!document || !document.head) {
+              setTimeout(function() { updateLinkTag(rel, href); }, 10);
+              return;
+            }
+            
             // Remove all existing canonical links
-            document.querySelectorAll(`link[rel="${rel}"]`).forEach(function(link) {
+            const existingLinks = document.querySelectorAll(`link[rel="${rel}"]`);
+            existingLinks.forEach(function(link) {
               link.remove();
             });
+            
+            // Create new link
             let link = document.createElement('link');
             link.setAttribute('rel', rel);
             link.setAttribute('href', href);
-            if (document.head) {
-              document.head.appendChild(link);
+            document.head.appendChild(link);
+            
+          } catch(e) {
+            console.error('Error updating link tag:', e);
+          }
+        }
+        
+        // Function to update title tag
+        function updateTitle(newTitle) {
+          try {
+            if (document.title !== undefined) {
+              document.title = newTitle;
+            }
+            // Also update title element if it exists
+            const titleElement = document.querySelector('title');
+            if (titleElement) {
+              titleElement.textContent = newTitle;
             }
           } catch(e) {
-            // Silently fail if DOM not ready
+            console.error('Error updating title:', e);
           }
         }
         
         // Function to update all SEO tags for fractions-to-decimals page
         function updateFractionsToDecimalsSEO() {
-          // Update title
-          if (document.title !== undefined) {
-            document.title = 'Free Converting Fractions to Decimals Worksheets (PDF + Answer Key)';
-          }
+          // Update title immediately
+          updateTitle('Free Converting Fractions to Decimals Worksheets (PDF + Answer Key)');
           
           // Update meta description
           updateMetaTag('description', 'Download free fractions-to-decimals worksheets with answer keys. Easy, clear, no-login math PDFs perfect for grades 3–5. Boost confidence with simple step-by-step practice.', false);
@@ -236,21 +275,28 @@
           updateLinkTag('canonical', 'https://wizqo.com/worksheets/fractions-to-decimals-worksheets');
         }
         
-        // Check path and update immediately if on fractions-to-decimals page
-        const path = window.location.pathname;
-        if (path.includes('/worksheets/fractions-to-decimals-worksheets')) {
-          // Try to update immediately
-          updateFractionsToDecimalsSEO();
-          
-          // Also update on DOM ready and load as backup
-          if (document.readyState === 'loading') {
-            document.addEventListener('DOMContentLoaded', updateFractionsToDecimalsSEO);
-          } else {
+        // Try to update immediately
+        updateFractionsToDecimalsSEO();
+        
+        // Also update on DOM ready and load as backup (multiple times to ensure it works)
+        if (document.readyState === 'loading') {
+          document.addEventListener('DOMContentLoaded', function() {
             updateFractionsToDecimalsSEO();
-          }
-          
-          window.addEventListener('load', updateFractionsToDecimalsSEO);
+            // Also update after a short delay to catch any late-loading elements
+            setTimeout(updateFractionsToDecimalsSEO, 100);
+          });
+        } else {
+          updateFractionsToDecimalsSEO();
+          setTimeout(updateFractionsToDecimalsSEO, 100);
         }
+        
+        window.addEventListener('load', function() {
+          updateFractionsToDecimalsSEO();
+          setTimeout(updateFractionsToDecimalsSEO, 200);
+        });
+        
+        // Also update on popstate (for SPA navigation)
+        window.addEventListener('popstate', updateFractionsToDecimalsSEO);
       })();
       
       // Safe SEO fallback hiding - only hide completely after React fully loads and renders
