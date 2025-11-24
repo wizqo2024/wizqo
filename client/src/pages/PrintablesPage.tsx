@@ -1921,15 +1921,28 @@ export function PrintablesPage() {
         finalContentElement = visibleElements[0]
       }
       
-      // Set content width to 698px to match print preview (794px page - 96px margins)
-      const contentWidth = 698 // Content width in pixels (matches print preview)
-      const printWidth = 794 // A4 width in pixels at 96dpi (for windowWidth to ensure proper rendering)
+      // CRITICAL: To match print preview exactly, we need to capture the OUTER container
+      // Print layout:
+      // - @page has margin: 0 (no page margins)
+      // - Outer container [data-worksheet-content] is 794px wide (matches A4 width)
+      // - Inner div has margin: 0.5in left/right and width: calc(100% - 1in) = 698px
+      // - Visually: 48px left margin + 698px content + 48px right margin = 794px total
+      // 
+      // html2canvas captures the element's bounding box. If we capture the inner div,
+      // it won't include margins. So we capture the OUTER container (794px) which
+      // already has the correct visual layout with margins included.
+      const printWidth = 794 // A4 width in pixels at 96dpi
       
-      // Ensure content element is exactly 698px wide
+      // Use the outer container for capture to get the exact print layout
+      finalContentElement = contentElement
+      
+      // Store original styles
       const originalContentWidth = finalContentElement.style.width
       const originalContentMaxWidth = finalContentElement.style.maxWidth
-      finalContentElement.style.width = `${contentWidth}px`
-      finalContentElement.style.maxWidth = `${contentWidth}px`
+      
+      // Ensure outer container is exactly 794px to match print preview
+      finalContentElement.style.width = `${printWidth}px`
+      finalContentElement.style.maxWidth = `${printWidth}px`
       finalContentElement.style.boxSizing = 'border-box'
       
       // Force reflow and wait for layout
@@ -1992,7 +2005,7 @@ export function PrintablesPage() {
         logging: false,
         backgroundColor: '#ffffff',
         allowTaint: false,
-        width: contentWidth, // Capture at content width (698px)
+        width: printWidth, // Capture outer container at full print width (794px)
         windowWidth: printWidth, // Use full page width for proper rendering context
         onclone: (clonedDoc) => {
           // Apply print styles to cloned document
@@ -2834,7 +2847,7 @@ export function PrintablesPage() {
         wrapperElement.style.padding = wrapperOriginalStyle.padding
       }
       
-      // Restore content element width
+      // Restore content element styles
       if (finalContentElement && originalContentWidth !== undefined) {
         finalContentElement.style.width = originalContentWidth
         finalContentElement.style.maxWidth = originalContentMaxWidth
@@ -2934,28 +2947,35 @@ export function PrintablesPage() {
       // Print layout analysis:
       // - @page has margin: 0 (no page margins)
       // - Outer container [data-worksheet-content] is 794px wide
-      // - Inner content div has margin: 0.5in left/right and width: calc(100% - 1in) = 698px
-      // - So visually: 48px left margin + 698px content + 48px right margin = 794px total
+      // - Inner content div has margin: 0.5in left/right/bottom (margin-top: 0) and width: calc(100% - 1in) = 698px
+      // - Canvas was captured with the element INCLUDING its margins (48px left + 698px content + 48px right = 794px total width)
+      // - But html2canvas captures the element's bounding box, which includes margins
       // A4 page: 210mm x 297mm (8.27in x 11.69in)
       // Print width: 794px at 96dpi = 210mm
       const pageWidthMm = 210 // A4 width in mm
       const pageHeight = 297 // A4 height in mm
-      const marginLeftMm = 12.7 // 0.5in in mm (0.5 * 25.4)
-      // Canvas was captured at content width (698px) * scale (scale: 2)
-      // So canvas.width = 698px * 2 = 1396px
       const scale = 2 // We're using scale: 2 in html2canvas
-      const contentWidthPx = canvas.width / scale // Should be 698px
-      // Convert to PDF: (698/794) * 210mm = 184.6mm
-      const contentWidthMm = (contentWidthPx / 794) * pageWidthMm // Should be ~184.6mm
-      const imgWidth = contentWidthMm
+      
+      // Calculate captured dimensions
+      // We captured the outer container at 794px width, so canvas.width = 794 * scale
+      const capturedWidthPx = canvas.width / scale // Should be 794px
+      
+      // Verify we captured the correct width
+      if (Math.abs(capturedWidthPx - printWidth) > 10) {
+        console.warn(`Unexpected captured width: ${capturedWidthPx}px (expected ${printWidth}px)`)
+      }
+      
+      // Convert to PDF dimensions: 794px = 210mm (full A4 width)
+      // Since @page has margin: 0, we place the image at x=0 (no left margin)
+      const imgWidth = pageWidthMm // 210mm (full page width)
       const imgHeight = (canvas.height * imgWidth) / canvas.width
       
       const imgData = canvas.toDataURL('image/jpeg', 0.9)
       const pdf = new jsPDF('p', 'mm', 'a4')
       
       if (imgHeight <= pageHeight) {
-        // Single page - place with left margin to match print preview
-        pdf.addImage(imgData, 'JPEG', marginLeftMm, 0, imgWidth, imgHeight)
+        // Single page - place at x=0 to match print preview (no page margins)
+        pdf.addImage(imgData, 'JPEG', 0, 0, imgWidth, imgHeight)
       } else {
         // Multiple pages - simple split with card protection
         const pixelsPerMm = canvas.width / imgWidth
@@ -3048,8 +3068,8 @@ export function PrintablesPage() {
               const pageImgData = pageCanvas.toDataURL('image/jpeg', 0.9)
               const pageImgHeight = (pageHeightActual * imgWidth) / canvas.width
               
-              // Use left margin to match print preview layout (Ctrl+P)
-              pdf.addImage(pageImgData, 'JPEG', marginLeftMm, 0, imgWidth, pageImgHeight)
+              // Place at x=0 to match print preview layout (Ctrl+P) - no page margins
+              pdf.addImage(pageImgData, 'JPEG', 0, 0, imgWidth, pageImgHeight)
               
               currentY = pageEndY
               if (currentY < canvas.height) {
