@@ -4311,7 +4311,9 @@ export function PrintablesPage() {
             
             if (imgHeight <= pageHeight) {
               // Use NO margin to match print layout (margin: 0)
-              pdf.addImage(imgData, 'JPEG', marginLeftMm, 0, imgWidth, imgHeight)
+              // Use PNG format if available, otherwise JPEG
+              const imageFormat = imgData.startsWith('data:image/png') ? 'PNG' : 'JPEG'
+              pdf.addImage(imgData, imageFormat, marginLeftMm, 0, imgWidth, imgHeight)
             } else {
               const pixelsPerMm = finalCanvas.width / imgWidth
               let currentY = 0
@@ -4328,7 +4330,9 @@ export function PrintablesPage() {
                   // Use PNG for better quality or high-quality JPEG
                   const pageImgData = pageCanvas.toDataURL('image/png') || pageCanvas.toDataURL('image/jpeg', 0.95)
                   const pageImgHeight = (pageHeightActual * imgWidth) / finalCanvas.width
-                  pdf.addImage(pageImgData, 'JPEG', marginLeftMm, 0, imgWidth, pageImgHeight)
+                  // Use PNG format if available, otherwise JPEG
+                  const imageFormat = pageImgData.startsWith('data:image/png') ? 'PNG' : 'JPEG'
+                  pdf.addImage(pageImgData, imageFormat, marginLeftMm, 0, imgWidth, pageImgHeight)
                   currentY = pageEndY
                   if (currentY < finalCanvas.height) {
                     pdf.addPage()
@@ -4692,7 +4696,9 @@ export function PrintablesPage() {
             const pdf = new jsPDF('p', 'mm', 'a4')
             
             if (imgHeight <= pageHeight) {
-              pdf.addImage(imgData, 'JPEG', marginLeftMm, 0, imgWidth, imgHeight)
+              // Use PNG format if available, otherwise JPEG
+              const imageFormat = imgData.startsWith('data:image/png') ? 'PNG' : 'JPEG'
+              pdf.addImage(imgData, imageFormat, marginLeftMm, 0, imgWidth, imgHeight)
             } else {
               const pixelsPerMm = viewportCanvas.width / imgWidth
               let currentY = 0
@@ -4709,7 +4715,9 @@ export function PrintablesPage() {
                   // Use PNG for better quality or high-quality JPEG
                   const pageImgData = pageCanvas.toDataURL('image/png') || pageCanvas.toDataURL('image/jpeg', 0.95) || pageCanvas.toDataURL('image/png')
                   const pageImgHeight = (pageHeightActual * imgWidth) / viewportCanvas.width
-                  pdf.addImage(pageImgData, 'JPEG', marginLeftMm, 0, imgWidth, pageImgHeight)
+                  // Use PNG format if available, otherwise JPEG
+                  const imageFormat = pageImgData.startsWith('data:image/png') ? 'PNG' : 'JPEG'
+                  pdf.addImage(pageImgData, imageFormat, marginLeftMm, 0, imgWidth, pageImgHeight)
                   currentY = pageEndY
                   if (currentY < viewportCanvas.height) {
                     pdf.addPage()
