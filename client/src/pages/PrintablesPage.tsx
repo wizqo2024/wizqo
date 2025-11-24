@@ -2846,7 +2846,9 @@ export function PrintablesPage() {
       if (imgHeight <= pageHeight) {
         // Single page - place at x=0 with full width (210mm) to match print layout exactly
         // Print layout: outer container is 794px (210mm) with no page margins, inner content has 0.5in margins
-        pdf.addImage(imgData, 'JPEG', marginLeftMm, 0, imgWidth, imgHeight)
+        // Use PNG format if available, otherwise JPEG
+        const imageFormat = imgData.startsWith('data:image/png') ? 'PNG' : 'JPEG'
+        pdf.addImage(imgData, imageFormat, marginLeftMm, 0, imgWidth, imgHeight)
       } else {
         // Multiple pages - simple split with card protection
         const pixelsPerMm = canvas.width / imgWidth
@@ -2942,7 +2944,9 @@ export function PrintablesPage() {
               
               // Use NO left margin (0mm) to match print layout exactly
               // Print layout: outer container is 794px (210mm) with no page margins
-              pdf.addImage(pageImgData, 'JPEG', marginLeftMm, 0, imgWidth, pageImgHeight)
+              // Use PNG format if available, otherwise JPEG
+              const imageFormat = pageImgData.startsWith('data:image/png') ? 'PNG' : 'JPEG'
+              pdf.addImage(pageImgData, imageFormat, marginLeftMm, 0, imgWidth, pageImgHeight)
               
               currentY = pageEndY
               if (currentY < canvas.height) {
