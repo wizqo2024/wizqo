@@ -2379,20 +2379,29 @@ export function PrintablesPage() {
             }
             /* Add padding to content container for proper spacing since @page has no margin */
             /* CRITICAL: This MUST match index.css print styles exactly */
-            /* Print layout: @page has margin: 0, but content container has 0.5in (48px) left/right margins */
+            /* CRITICAL: Use padding on outer container instead of margin on inner div for html2canvas */
+            /* html2canvas captures padding better than margins */
+            /* Print layout: @page has margin: 0, but content container has 0.5in (48px) left/right spacing */
             /* This makes content width = 794px - 96px = 698px (matching print preview) */
             /* Use explicit pixels for html2canvas to render correctly */
+            [data-worksheet-content="true"] {
+              padding: 0 48px !important;
+              padding-left: 48px !important;
+              padding-right: 48px !important;
+              padding-top: 0 !important;
+              padding-bottom: 0 !important;
+            }
             [data-worksheet-content="true"] > div:first-child {
-              margin: 0 48px !important;
+              margin: 0 !important;
               margin-top: 0 !important;
-              margin-left: 48px !important;
-              margin-right: 48px !important;
+              margin-left: 0 !important;
+              margin-right: 0 !important;
               padding: 0 !important;
               page-break-before: auto !important;
               overflow: visible !important;
               background-color: white !important;
               background: white !important;
-              /* Explicit width: 794px (A4 width) - 96px (48px * 2 margins) = 698px */
+              /* Explicit width: 794px (A4 width) - 96px (48px * 2 padding) = 698px */
               width: 698px !important;
               max-width: 698px !important;
               box-sizing: border-box !important;
@@ -3940,20 +3949,29 @@ export function PrintablesPage() {
             }
             /* Add padding to content container for proper spacing since @page has no margin */
             /* CRITICAL: This MUST match index.css print styles exactly */
-            /* Print layout: @page has margin: 0, but content container has 0.5in (48px) left/right margins */
+            /* CRITICAL: Use padding on outer container instead of margin on inner div for html2canvas */
+            /* html2canvas captures padding better than margins */
+            /* Print layout: @page has margin: 0, but content container has 0.5in (48px) left/right spacing */
             /* This makes content width = 794px - 96px = 698px (matching print preview) */
             /* Use explicit pixels for html2canvas to render correctly */
+            [data-worksheet-content="true"] {
+              padding: 0 48px !important;
+              padding-left: 48px !important;
+              padding-right: 48px !important;
+              padding-top: 0 !important;
+              padding-bottom: 0 !important;
+            }
             [data-worksheet-content="true"] > div:first-child {
-              margin: 0 48px !important;
+              margin: 0 !important;
               margin-top: 0 !important;
-              margin-left: 48px !important;
-              margin-right: 48px !important;
+              margin-left: 0 !important;
+              margin-right: 0 !important;
               padding: 0 !important;
               page-break-before: auto !important;
               overflow: visible !important;
               background-color: white !important;
               background: white !important;
-              /* Explicit width: 794px (A4 width) - 96px (48px * 2 margins) = 698px */
+              /* Explicit width: 794px (A4 width) - 96px (48px * 2 padding) = 698px */
               width: 698px !important;
               max-width: 698px !important;
               box-sizing: border-box !important;
