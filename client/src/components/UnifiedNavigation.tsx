@@ -152,7 +152,7 @@ export function UnifiedNavigation({ showBackButton = false, onBackClick, current
                 {/* Dropdown: Worksheets */}
                 <div
                   ref={worksheetsMenuRef}
-                  className={`absolute left-0 top-full mt-2 ${showWorksheetsMenu ? 'opacity-100 translate-y-0 pointer-events-auto' : 'opacity-0 -translate-y-1 pointer-events-none'} transition-all duration-150 bg-white/95 backdrop-blur-sm border border-slate-200 rounded-2xl shadow-xl min-w-[280px] max-w-[850px] z-50 p-2`}
+                  className={`absolute left-0 top-full mt-2 ${showWorksheetsMenu ? 'opacity-100 translate-y-0 pointer-events-auto' : 'opacity-0 -translate-y-1 pointer-events-none'} transition-all duration-150 bg-white/95 backdrop-blur-sm border border-slate-200 rounded-2xl shadow-xl min-w-[280px] md:max-w-[1000px] z-50 p-2`}
                   role="menu"
                   aria-label="Worksheets menu"
                   onMouseEnter={() => { if (worksheetsMenuCloseTimer.current) { window.clearTimeout(worksheetsMenuCloseTimer.current); worksheetsMenuCloseTimer.current = null; }}}
