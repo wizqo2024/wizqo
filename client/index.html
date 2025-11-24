@@ -179,8 +179,17 @@
           }
         } catch(e) {}
         
-        // Check if we're on fractions-to-decimals page
-        const isFractionsToDecimalsPage = path && path.includes('/worksheets/fractions-to-decimals-worksheets');
+        // Check if we're on fractions-to-decimals page (multiple checks for reliability)
+        const isFractionsToDecimalsPage = path && (
+          path.includes('/worksheets/fractions-to-decimals-worksheets') ||
+          path.includes('fractions-to-decimals-worksheets') ||
+          path.endsWith('/fractions-to-decimals-worksheets')
+        );
+        
+        // Set global flag for other scripts to use
+        if (isFractionsToDecimalsPage) {
+          window.__isFractionsToDecimalsPage = true;
+        }
         
         // Only proceed with meta tag updates if on fractions-to-decimals page
         if (!isFractionsToDecimalsPage) {
@@ -348,6 +357,65 @@
         
         // Also update on popstate (for SPA navigation)
         window.addEventListener('popstate', updateFractionsToDecimalsSEO);
+        
+        // Use MutationObserver to watch for seo-fallback element and update immediately
+        if (typeof MutationObserver !== 'undefined') {
+          var observer = new MutationObserver(function(mutations) {
+            if (window.__isFractionsToDecimalsPage) {
+              var fallback = document.getElementById('seo-fallback');
+              if (fallback && window.__fractionsToDecimalsSEOContent) {
+                // Check if content still has landing page content
+                var firstH1 = fallback.querySelector('h1');
+                if (firstH1 && firstH1.textContent.includes('Free Math Worksheets for K-5')) {
+                  // Still has landing page content, update it
+                  var scripts = fallback.getElementsByTagName('script');
+                  for (var i = scripts.length - 1; i >= 0; i--) {
+                    scripts[i].remove();
+                  }
+                  fallback.innerHTML = window.__fractionsToDecimalsSEOContent;
+                  observer.disconnect(); // Stop observing once updated
+                }
+              }
+            }
+          });
+          
+          // Start observing the body for when seo-fallback is added
+          if (document.body) {
+            observer.observe(document.body, {
+              childList: true,
+              subtree: true
+            });
+          } else {
+            // If body doesn't exist yet, wait for it
+            if (document.readyState === 'loading') {
+              document.addEventListener('DOMContentLoaded', function() {
+                if (document.body) {
+                  observer.observe(document.body, {
+                    childList: true,
+                    subtree: true
+                  });
+                }
+              });
+            }
+          }
+          
+          // Also try immediate update
+          setTimeout(function() {
+            if (window.__isFractionsToDecimalsPage) {
+              var fallback = document.getElementById('seo-fallback');
+              if (fallback && window.__fractionsToDecimalsSEOContent) {
+                var firstH1 = fallback.querySelector('h1');
+                if (firstH1 && firstH1.textContent.includes('Free Math Worksheets for K-5')) {
+                  var scripts = fallback.getElementsByTagName('script');
+                  for (var i = scripts.length - 1; i >= 0; i--) {
+                    scripts[i].remove();
+                  }
+                  fallback.innerHTML = window.__fractionsToDecimalsSEOContent;
+                }
+              }
+            }
+          }, 0);
+        }
       })();
       
       // Safe SEO fallback hiding - only hide completely after React fully loads and renders
@@ -385,47 +453,32 @@
     <!-- Script to update SEO fallback content immediately based on path -->
     <script>
       (function() {
-        // Get path immediately
-        let path = '';
+        // Get path immediately - check multiple sources (same logic as head script)
+        var path = '';
         try {
           if (typeof window !== 'undefined' && window.location) {
-            path = window.location.pathname || '';
-          } else if (typeof document !== 'undefined' && document.location) {
-            path = document.location.pathname || '';
+            path = window.location.pathname || (window.location.href ? window.location.href.split('?')[0] : '') || '';
+          }
+          if (!path && typeof document !== 'undefined' && document.location) {
+            path = document.location.pathname || (document.location.href ? document.location.href.split('?')[0] : '') || '';
+          }
+          // Also check if we can get it from the URL directly
+          if (!path && typeof location !== 'undefined') {
+            path = location.pathname || (location.href ? location.href.split('?')[0] : '') || '';
           }
         } catch(e) {}
         
-        // If on fractions-to-decimals page, prepare the correct content
-        if (path && path.includes('/worksheets/fractions-to-decimals-worksheets')) {
-          // Store the correct content
-          window.__fractionsToDecimalsSEOContent = `
-      <h1 style="font-size: 2.5rem; font-weight: 900; color: #0f172a; margin-bottom: 1rem; line-height: 1.2;">
-        Free Converting Fractions to Decimals Worksheets (PDF + Answer Key)
-      </h1>
-      <p style="font-size: 1.125rem; color: #475569; margin-bottom: 2.5rem; line-height: 1.6;">
-        Download free fractions-to-decimals worksheets with answer keys. Easy, clear, no-login math PDFs perfect for grades 3–5. Boost confidence with simple step-by-step practice.
-      </p>
-      
-      <section style="margin-bottom: 2rem;">
-        <h2 style="font-size: 1.875rem; font-weight: 800; color: #1e293b; margin-bottom: 0.75rem;">Converting Fractions to Decimals Worksheets</h2>
-        <p style="color: #475569; line-height: 1.6; margin-bottom: 1.5rem;">
-          Free printable fractions to decimals worksheets with step-by-step examples and answer keys. Perfect for 3rd, 4th, and 5th grade students learning to convert fractions to decimal form. Download PDF worksheets instantly for classroom or home practice.
-        </p>
-      </section>
-      
-      <section style="margin-bottom: 2rem;">
-        <h2 style="font-size: 1.875rem; font-weight: 800; color: #1e293b; margin-bottom: 0.75rem;">Fractions to Decimals Practice Sheets</h2>
-        <p style="color: #475569; line-height: 1.6; margin-bottom: 1.5rem;">
-          Comprehensive fractions to decimals conversion worksheets covering proper fractions, improper fractions, and mixed numbers. Each worksheet includes visual examples and detailed answer keys for easy learning and practice.
-        </p>
-      </section>
-      
-      <section style="margin-bottom: 2rem;">
-        <h2 style="font-size: 1.875rem; font-weight: 800; color: #1e293b; margin-bottom: 0.75rem;">Free Fractions to Decimals Worksheets PDF</h2>
-        <p style="color: #475569; line-height: 1.6; margin-bottom: 1.5rem;">
-          Download free printable fractions to decimals worksheets in PDF format. All worksheets include answer keys and are perfect for grades 3-5. No login required - instant download and printing.
-        </p>
-      </section>`;
+        // Check if we're on fractions-to-decimals page (multiple checks for reliability)
+        var isFractionsToDecimalsPage = path && (
+          path.indexOf('/worksheets/fractions-to-decimals-worksheets') !== -1 ||
+          path.indexOf('fractions-to-decimals-worksheets') !== -1 ||
+          (path.split('/').pop() === 'fractions-to-decimals-worksheets')
+        );
+        
+        // Store flag and content globally for immediate access
+        if (isFractionsToDecimalsPage) {
+          window.__isFractionsToDecimalsPage = true;
+          window.__fractionsToDecimalsSEOContent = '<h1 style="font-size: 2.5rem; font-weight: 900; color: #0f172a; margin-bottom: 1rem; line-height: 1.2;">Free Converting Fractions to Decimals Worksheets (PDF + Answer Key)</h1><p style="font-size: 1.125rem; color: #475569; margin-bottom: 2.5rem; line-height: 1.6;">Download free fractions-to-decimals worksheets with answer keys. Easy, clear, no-login math PDFs perfect for grades 3–5. Boost confidence with simple step-by-step practice.</p><section style="margin-bottom: 2rem;"><h2 style="font-size: 1.875rem; font-weight: 800; color: #1e293b; margin-bottom: 0.75rem;">Converting Fractions to Decimals Worksheets</h2><p style="color: #475569; line-height: 1.6; margin-bottom: 1.5rem;">Free printable fractions to decimals worksheets with step-by-step examples and answer keys. Perfect for 3rd, 4th, and 5th grade students learning to convert fractions to decimal form. Download PDF worksheets instantly for classroom or home practice.</p></section><section style="margin-bottom: 2rem;"><h2 style="font-size: 1.875rem; font-weight: 800; color: #1e293b; margin-bottom: 0.75rem;">Fractions to Decimals Practice Sheets</h2><p style="color: #475569; line-height: 1.6; margin-bottom: 1.5rem;">Comprehensive fractions to decimals conversion worksheets covering proper fractions, improper fractions, and mixed numbers. Each worksheet includes visual examples and detailed answer keys for easy learning and practice.</p></section><section style="margin-bottom: 2rem;"><h2 style="font-size: 1.875rem; font-weight: 800; color: #1e293b; margin-bottom: 0.75rem;">Free Fractions to Decimals Worksheets PDF</h2><p style="color: #475569; line-height: 1.6; margin-bottom: 1.5rem;">Download free printable fractions to decimals worksheets in PDF format. All worksheets include answer keys and are perfect for grades 3-5. No login required - instant download and printing.</p></section>';
         }
       })();
     </script>
@@ -433,31 +486,42 @@
     <!-- Visible SEO Content - Always crawlable, even without JavaScript -->
     <main id="seo-fallback" style="max-width: 1200px; margin: 0 auto; padding: 2rem 1rem; font-family: system-ui, -apple-system, sans-serif;">
       <script>
-        // Immediately update content if on fractions-to-decimals page
-        // This script runs synchronously as the page parses, ensuring search engines see correct content
+        // CRITICAL: Update content IMMEDIATELY before browser renders it
+        // This runs synchronously during HTML parsing
         (function() {
           try {
+            // Check if we have the content stored
             if (window.__fractionsToDecimalsSEOContent) {
-              // Find the parent main element
-              const script = document.currentScript || (function() {
-                const scripts = document.getElementsByTagName('script');
-                return scripts[scripts.length - 1];
-              })();
-              const fallback = script ? script.parentElement : document.getElementById('seo-fallback');
-              if (fallback && fallback.id === 'seo-fallback') {
-                fallback.innerHTML = window.__fractionsToDecimalsSEOContent;
+              // Get the current script's parent (the main element)
+              var currentScript = document.currentScript;
+              if (currentScript && currentScript.parentElement) {
+                var mainElement = currentScript.parentElement;
+                if (mainElement && mainElement.id === 'seo-fallback') {
+                  // Remove the script and replace all content
+                  mainElement.removeChild(currentScript);
+                  mainElement.innerHTML = window.__fractionsToDecimalsSEOContent;
+                  return; // Exit early
+                }
               }
             }
-          } catch(e) {
-            // Fallback: try to find by ID if currentScript doesn't work
-            try {
+            
+            // Fallback: If currentScript doesn't work, use getElementById
+            // This runs immediately after the element is created
+            setTimeout(function() {
               if (window.__fractionsToDecimalsSEOContent) {
-                const fallback = document.getElementById('seo-fallback');
+                var fallback = document.getElementById('seo-fallback');
                 if (fallback) {
+                  // Remove any scripts inside first
+                  var scripts = fallback.getElementsByTagName('script');
+                  for (var i = scripts.length - 1; i >= 0; i--) {
+                    scripts[i].remove();
+                  }
                   fallback.innerHTML = window.__fractionsToDecimalsSEOContent;
                 }
               }
-            } catch(e2) {}
+            }, 0);
+          } catch(e) {
+            // Silent fail - don't break the page
           }
         })();
       </script>
