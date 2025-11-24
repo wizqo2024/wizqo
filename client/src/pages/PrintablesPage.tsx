@@ -2020,7 +2020,7 @@ export function PrintablesPage() {
       }
       
       let canvas = await html2canvas(finalContentElement, {
-        scale: 2,
+        scale: 2.5, // Increased scale for better quality and larger file size (~1.5-2MB)
         useCORS: true,
         logging: false,
         backgroundColor: '#ffffff',
@@ -2979,7 +2979,7 @@ export function PrintablesPage() {
       // Print width: 794px at 96dpi = 210mm
       const pageWidthMm = 210 // A4 width in mm
       const pageHeight = 297 // A4 height in mm
-      const scale = 2 // We're using scale: 2 in html2canvas
+      const scale = 2.5 // We're using scale: 2.5 in html2canvas for better quality
       
       // Calculate captured dimensions
       // We captured the outer container at 794px width, so canvas.width = 794 * scale
@@ -2995,7 +2995,8 @@ export function PrintablesPage() {
       const imgWidth = pageWidthMm // 210mm (full page width)
       const imgHeight = (canvas.height * imgWidth) / canvas.width
       
-      const imgData = canvas.toDataURL('image/jpeg', 0.9)
+      // Use JPEG with higher quality (0.98) combined with scale 2.5 to target ~1.5-2MB file size
+      const imgData = canvas.toDataURL('image/jpeg', 0.98)
       const pdf = new jsPDF('p', 'mm', 'a4')
       
       if (imgHeight <= pageHeight) {
@@ -3090,7 +3091,8 @@ export function PrintablesPage() {
                 pageCanvas.width, pageCanvas.height
               )
               
-              const pageImgData = pageCanvas.toDataURL('image/jpeg', 0.9)
+              // Use JPEG with higher quality (0.98) for better print quality
+              const pageImgData = pageCanvas.toDataURL('image/jpeg', 0.98)
               const pageImgHeight = (pageHeightActual * imgWidth) / canvas.width
               
               // Place at x=0 to match print preview layout (Ctrl+P) - no page margins
