@@ -152,7 +152,7 @@ export function UnifiedNavigation({ showBackButton = false, onBackClick, current
                 {/* Dropdown: Worksheets */}
                 <div
                   ref={worksheetsMenuRef}
-                  className={`absolute left-0 top-full mt-2 ${showWorksheetsMenu ? 'opacity-100 translate-y-0 pointer-events-auto' : 'opacity-0 -translate-y-1 pointer-events-none'} transition-all duration-150 bg-white/95 backdrop-blur-sm border border-slate-200 rounded-2xl shadow-xl min-w-[320px] w-full md:w-auto md:max-w-[98vw] md:min-w-[950px] z-50 p-2`}
+                  className={`absolute left-0 top-full mt-2 ${showWorksheetsMenu ? 'opacity-100 translate-y-0 pointer-events-auto' : 'opacity-0 -translate-y-1 pointer-events-none'} transition-all duration-150 bg-white/95 backdrop-blur-sm border border-slate-200 rounded-2xl shadow-xl min-w-[320px] w-full md:w-auto md:max-w-[98vw] md:min-w-[950px] z-50 p-1.5`}
                   role="menu"
                   aria-label="Worksheets menu"
                   onMouseEnter={() => { if (worksheetsMenuCloseTimer.current) { window.clearTimeout(worksheetsMenuCloseTimer.current); worksheetsMenuCloseTimer.current = null; }}}
@@ -160,9 +160,9 @@ export function UnifiedNavigation({ showBackButton = false, onBackClick, current
                 >
                   {/* caret */}
                   <div className="absolute -top-2 left-10 h-4 w-4 bg-white rotate-45 border-l border-t border-slate-200" aria-hidden />
-                  <div className="grid gap-0 min-w-[320px] md:grid-cols-3 w-full">
+                  <div className="grid gap-0 min-w-[320px] md:grid-cols-3 w-full md:gap-0">
                     {/* First Column: Free Worksheet PDFs */}
-                    <div>
+                    <div className="-mx-1">
                       <div className="px-2 py-1.5 mb-2 text-xs uppercase tracking-wide text-slate-500 font-semibold border-b border-slate-200">Free Worksheet PDFs</div>
                       <a href="/worksheets/multiplication-worksheets" className="flex items-center gap-2.5 px-2.5 py-2 rounded-lg text-slate-700 hover:bg-slate-50 transition-colors">
                         <svg className="w-4 h-4 text-slate-500 flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
@@ -257,7 +257,7 @@ export function UnifiedNavigation({ showBackButton = false, onBackClick, current
                     </div>
 
                     {/* Second Column: Create Something Magical */}
-                    <div>
+                    <div className="-mx-1">
                       <div className="px-2 py-1.5 mb-2 text-xs uppercase tracking-wide text-slate-500 font-semibold border-b border-slate-200">Create Something Magical</div>
                       <a href="/printables/certificate-maker" className="flex items-center gap-2 px-2 py-1.5 rounded-lg text-slate-700 hover:bg-slate-50 transition-colors">
                         <svg className="w-4 h-4 text-slate-500 flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
@@ -291,7 +291,7 @@ export function UnifiedNavigation({ showBackButton = false, onBackClick, current
                     </div>
 
                     {/* Third Column: Worksheets & Quick Packs */}
-                    <div>
+                    <div className="-mx-1">
                       <div className="px-2 py-1.5 mb-2 text-xs uppercase tracking-wide text-slate-500 font-semibold border-b border-slate-200">Worksheets & Quick Packs</div>
                       <a href="/printables" className="flex items-center gap-2 px-2 py-1.5 rounded-lg text-slate-700 hover:bg-slate-50 transition-colors">
                         <svg className="w-4 h-4 text-slate-500 flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
