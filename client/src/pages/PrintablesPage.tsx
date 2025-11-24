@@ -2056,12 +2056,32 @@ export function PrintablesPage() {
       // Ensure element can show all content (remove overflow hidden if present)
       const originalOverflow = finalContentElement.style.overflow
       const originalOverflowY = finalContentElement.style.overflowY
+      const originalHeight = finalContentElement.style.height
+      const originalMaxHeight = finalContentElement.style.maxHeight
       finalContentElement.style.overflow = 'visible'
       finalContentElement.style.overflowY = 'visible'
+      finalContentElement.style.height = 'auto'
+      finalContentElement.style.maxHeight = 'none'
+      
+      // Also ensure all child elements are visible
+      const allChildren = finalContentElement.querySelectorAll('*')
+      allChildren.forEach((el: Element) => {
+        const htmlEl = el as HTMLElement
+        const computedStyle = window.getComputedStyle(htmlEl)
+        if (computedStyle.display === 'none' || computedStyle.visibility === 'hidden') {
+          htmlEl.style.display = 'block'
+          htmlEl.style.visibility = 'visible'
+        }
+        // Remove height constraints that might hide content
+        if (htmlEl.style.maxHeight && htmlEl.style.maxHeight !== 'none') {
+          htmlEl.style.maxHeight = 'none'
+        }
+      })
       
       // Force reflow to ensure dimensions are updated
       void finalContentElement.offsetHeight
-      await new Promise(resolve => setTimeout(resolve, 100))
+      void finalContentElement.scrollHeight
+      await new Promise(resolve => setTimeout(resolve, 200))
       
       let canvas = await html2canvas(finalContentElement, {
         scale: 3.0, // Reduced scale to avoid memory issues and ensure complete capture
@@ -2936,6 +2956,8 @@ export function PrintablesPage() {
       if (finalContentElement && originalOverflow !== undefined) {
         finalContentElement.style.overflow = originalOverflow
         finalContentElement.style.overflowY = originalOverflowY
+        if (originalHeight !== undefined) finalContentElement.style.height = originalHeight
+        if (originalMaxHeight !== undefined) finalContentElement.style.maxHeight = originalMaxHeight
       }
       
       // Restore inner div styles if we modified them
