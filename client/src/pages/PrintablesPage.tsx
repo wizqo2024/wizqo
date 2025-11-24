@@ -2867,15 +2867,15 @@ export function PrintablesPage() {
       }
       
       // Restore inner div styles if we modified them
-      const innerDiv = finalContentElement.querySelector('[data-worksheet-content="true"] > div:first-child') as HTMLElement || finalContentElement.querySelector('div:first-child') as HTMLElement
-      if (innerDiv) {
-        innerDiv.style.margin = ''
-        innerDiv.style.marginLeft = ''
-        innerDiv.style.marginRight = ''
-        innerDiv.style.marginTop = ''
-        innerDiv.style.marginBottom = ''
-        innerDiv.style.width = ''
-        innerDiv.style.maxWidth = ''
+      const innerDivToRestore = finalContentElement.querySelector('[data-worksheet-content="true"] > div:first-child') as HTMLElement || finalContentElement.querySelector('div:first-child') as HTMLElement
+      if (innerDivToRestore) {
+        innerDivToRestore.style.margin = ''
+        innerDivToRestore.style.marginLeft = ''
+        innerDivToRestore.style.marginRight = ''
+        innerDivToRestore.style.marginTop = ''
+        innerDivToRestore.style.marginBottom = ''
+        innerDivToRestore.style.width = ''
+        innerDivToRestore.style.maxWidth = ''
       }
       
       hiddenElements.forEach(({ element, originalDisplay }) => {
