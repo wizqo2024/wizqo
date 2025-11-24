@@ -1893,70 +1893,6 @@ export function PrintablesPage() {
       // Wait for styles to apply and verify content width
       await new Promise(resolve => setTimeout(resolve, 500))
       
-<<<<<<< HEAD
-      // Force reflow to ensure styles are applied
-      void contentElement.offsetWidth
-      void contentElement.offsetHeight
-      
-      // Verify content element is exactly 794px wide (matching print layout outer container)
-      const contentWidth = contentElement.offsetWidth
-      if (Math.abs(contentWidth - 794) > 2) {
-        console.warn(`Content width mismatch: ${contentWidth}px (expected 794px). Adjusting...`)
-        contentElement.style.width = '794px'
-        contentElement.style.maxWidth = '794px'
-        void contentElement.offsetWidth // Force reflow
-        await new Promise(resolve => setTimeout(resolve, 100))
-      }
-      
-      // Verify outer container padding and inner div dimensions (matching print layout exactly)
-      const innerDiv = contentElement.querySelector(':scope > div:first-child') as HTMLElement
-      if (innerDiv) {
-        const innerWidth = innerDiv.offsetWidth
-        const outerPaddingLeft = parseFloat(window.getComputedStyle(contentElement).paddingLeft) || 0
-        const outerPaddingRight = parseFloat(window.getComputedStyle(contentElement).paddingRight) || 0
-        const innerRect = innerDiv.getBoundingClientRect()
-        const outerRect = contentElement.getBoundingClientRect()
-        
-        if (Math.abs(innerWidth - 698) > 2) {
-          console.warn(`Inner div width mismatch: ${innerWidth}px (expected 698px). Adjusting...`)
-          innerDiv.style.width = '698px'
-          innerDiv.style.maxWidth = '698px'
-          void innerDiv.offsetWidth // Force reflow
-        }
-        
-        if (Math.abs(outerPaddingLeft - 48) > 2 || Math.abs(outerPaddingRight - 48) > 2) {
-          console.warn(`Outer container padding mismatch: left=${outerPaddingLeft}px, right=${outerPaddingRight}px (expected 48px each). Adjusting...`)
-          contentElement.style.paddingLeft = '48px'
-          contentElement.style.paddingRight = '48px'
-          void contentElement.offsetWidth // Force reflow
-        }
-        
-        // Verify the total width including padding matches 794px
-        // With box-sizing: border-box, offsetWidth should be 794px (includes padding)
-        const totalWidth = innerRect.width + outerPaddingLeft + outerPaddingRight
-        if (Math.abs(totalWidth - 794) > 2) {
-          console.warn(`Total width mismatch: ${totalWidth}px (expected 794px). Inner: ${innerRect.width}px, padding: ${outerPaddingLeft + outerPaddingRight}px`)
-        }
-        
-        // Final wait to ensure all styles are applied
-        await new Promise(resolve => setTimeout(resolve, 200))
-      }
-      
-      // Double-check outer container dimensions before capture
-      // CRITICAL: Outer container is 794px, inner div has 48px margins
-      const finalOuterWidth = contentElement.offsetWidth
-      const finalOuterHeight = contentElement.scrollHeight || contentElement.offsetHeight
-      
-      if (Math.abs(finalOuterWidth - 794) > 2) {
-        console.warn(`Final outer width mismatch: ${finalOuterWidth}px (expected 794px). Forcing...`)
-        contentElement.style.width = '794px'
-        contentElement.style.maxWidth = '794px'
-        void contentElement.offsetWidth // Force reflow
-        await new Promise(resolve => setTimeout(resolve, 100))
-      }
-      
-      // Get outer container padding for logging
-      const outerPaddingLeft = parseFloat(window.getComputedStyle(contentElement).paddingLeft) || 0
       // Capture the content with print dimensions
       // Find the inner content div that has the actual content (698px width with margins)
       const innerContentDiv = contentElement.querySelector('[data-worksheet-content="true"] > div:first-child') as HTMLElement || contentElement.querySelector('div:first-child') as HTMLElement || contentElement
@@ -2897,9 +2833,6 @@ export function PrintablesPage() {
       // Print width: 794px at 96dpi = 210mm
       const pageWidthMm = 210 // A4 width in mm
       const pageHeight = 297 // A4 height in mm
-<<<<<<< HEAD
-      const marginLeftMm = 0 // NO margin - outer container starts at page edge (matches @page margin: 0)
-      
       const marginLeftMm = 12.7 // 0.5in in mm (0.5 * 25.4)
       // Canvas was captured at content width (698px) * scale (scale: 2)
       // So canvas.width = 698px * 2 = 1396px
