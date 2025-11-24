@@ -2939,6 +2939,18 @@ export function PrintablesPage() {
         throw new Error('Failed to capture content: html2canvas returned null. The content element may not be visible or accessible.')
       }
       
+      // Verify canvas captured all content - check if height matches expected content height
+      const expectedHeight = Math.max(
+        finalContentElement.offsetHeight || 0,
+        finalContentElement.scrollHeight || 0
+      ) * 3.0 // Scale factor
+      const actualHeight = canvas.height
+      
+      // Allow 5% tolerance for rounding differences
+      if (actualHeight < expectedHeight * 0.95) {
+        console.warn(`Canvas height (${actualHeight}px) is less than expected (${expectedHeight}px). Content may be cropped.`)
+      }
+      
       let finalCanvas = canvas
       if (canvas.width === 0 || canvas.height === 0) {
         // If canvas has width but zero height, the element might be collapsed
