@@ -24689,7 +24689,7 @@ export function PrintablesPage() {
               'Extension: Create your own mystery with different division problems'
             ]}
           >
-            <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-red-400 to-pink-400 animate-gradient-x mb-2" />
+            <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-red-400 to-pink-400 mb-2" />
             {/* Worked Example */}
             <div className="mb-6 p-4 bg-blue-50 border-2 border-blue-200 rounded-lg print:border print:bg-white">
               <div className="font-semibold text-blue-900 mb-3 text-sm">📚 Example - Let's solve this together:</div>
