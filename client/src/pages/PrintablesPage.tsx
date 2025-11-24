@@ -1937,12 +1937,56 @@ export function PrintablesPage() {
       void finalContentElement.offsetHeight
       await new Promise(resolve => setTimeout(resolve, 200))
       
-      // Final validation before capture
-      if (finalContentElement.offsetHeight === 0 || finalContentElement.offsetWidth === 0) {
-        throw new Error(`Content element has zero dimensions: width=${finalContentElement.offsetWidth}px, height=${finalContentElement.offsetHeight}px. Element may not be visible or loaded yet.`)
+      // Final validation before capture - check both offsetHeight and scrollHeight
+      const elementHeight = finalContentElement.offsetHeight || finalContentElement.scrollHeight || 0
+      const elementWidth = finalContentElement.offsetWidth || finalContentElement.scrollWidth || 0
+      
+      // Check if element is actually visible
+      const computedStyle = window.getComputedStyle(finalContentElement)
+      const isVisible = computedStyle.display !== 'none' && 
+                       computedStyle.visibility !== 'hidden' && 
+                       computedStyle.opacity !== '0'
+      
+      if (!isVisible) {
+        console.warn('Content element is not visible, trying outer container...')
+        // Fallback to outer container
+        finalContentElement = contentElement
+        const outerHeight = contentElement.offsetHeight || contentElement.scrollHeight || 0
+        const outerWidth = contentElement.offsetWidth || contentElement.scrollWidth || 0
+        if (outerHeight === 0 || outerWidth === 0) {
+          throw new Error(`Content element is not visible (display: ${computedStyle.display}, visibility: ${computedStyle.visibility}, opacity: ${computedStyle.opacity}). Please ensure the content is loaded and visible.`)
+        }
+      } else if (elementHeight === 0 || elementWidth === 0) {
+        // Element is visible but has zero dimensions - might be collapsed
+        // Try using scrollHeight/scrollWidth which includes overflow content
+        const scrollHeight = finalContentElement.scrollHeight || 0
+        const scrollWidth = finalContentElement.scrollWidth || 0
+        
+        if (scrollHeight === 0 && scrollWidth === 0) {
+          // Last resort: try outer container
+          console.warn('Inner element has zero dimensions, trying outer container...')
+          finalContentElement = contentElement
+          const outerScrollHeight = contentElement.scrollHeight || 0
+          const outerScrollWidth = contentElement.scrollWidth || 0
+          
+          if (outerScrollHeight === 0 || outerScrollWidth === 0) {
+            throw new Error(`Content element has zero dimensions: width=${elementWidth}px (scroll: ${scrollWidth}px), height=${elementHeight}px (scroll: ${scrollHeight}px). Element may be collapsed or have no content.`)
+          }
+        } else {
+          // Use scroll dimensions if offset is zero but scroll has content
+          console.warn(`Using scroll dimensions: ${scrollWidth}x${scrollHeight} (offset was ${elementWidth}x${elementHeight})`)
+        }
       }
       
-      const canvas = await html2canvas(finalContentElement, {
+      // Ensure element has minimum dimensions for capture
+      const finalHeight = finalContentElement.offsetHeight || finalContentElement.scrollHeight || 100
+      const finalWidth = finalContentElement.offsetWidth || finalContentElement.scrollWidth || contentWidth
+      
+      if (finalHeight < 10) {
+        throw new Error(`Content element height is too small: ${finalHeight}px. Minimum required: 10px.`)
+      }
+      
+      let canvas = await html2canvas(finalContentElement, {
         scale: 2,
         useCORS: true,
         logging: false,
@@ -2804,8 +2848,38 @@ export function PrintablesPage() {
       if (!canvas) {
         throw new Error('Failed to capture content: html2canvas returned null. The content element may not be visible or accessible.')
       }
+      
+      let finalCanvas = canvas
       if (canvas.width === 0 || canvas.height === 0) {
-        throw new Error(`Failed to capture content: Canvas has zero dimensions (${canvas.width}x${canvas.height}). The content element may be hidden or have no visible content.`)
+        // If canvas has width but zero height, the element might be collapsed
+        // Try capturing the outer container as fallback
+        if (canvas.width > 0 && canvas.height === 0 && finalContentElement !== contentElement) {
+          console.warn('Canvas has zero height, retrying with outer container...')
+          // Retry with outer container
+          const retryCanvas = await html2canvas(contentElement, {
+            scale: 2,
+            useCORS: true,
+            logging: false,
+            backgroundColor: '#ffffff',
+            allowTaint: false,
+            width: 794, // Use full page width for outer container
+            windowWidth: 794,
+          })
+          
+          if (retryCanvas && retryCanvas.width > 0 && retryCanvas.height > 0) {
+            // Use the retry canvas
+            finalCanvas = retryCanvas
+          } else {
+            throw new Error(`Failed to capture content: Canvas has zero height (${canvas.width}x${canvas.height}). The content element appears to be collapsed. Try refreshing the page or ensuring all content is loaded.`)
+          }
+        } else {
+          throw new Error(`Failed to capture content: Canvas has zero dimensions (${canvas.width}x${canvas.height}). The content element may be hidden or have no visible content.`)
+        }
+      }
+      
+      // Use finalCanvas for the rest of the function
+      if (finalCanvas !== canvas) {
+        canvas = finalCanvas
       }
       
       // Find section positions BEFORE restoring styles (while print styles are applied)
