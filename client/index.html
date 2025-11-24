@@ -166,76 +166,92 @@
       }
     </style>
     <script>
-      // Update SEO meta tags immediately based on URL (before React loads)
-      // This ensures search engines see correct tags even in view-source
+      // Update SEO meta tags IMMEDIATELY based on URL (runs before anything else)
+      // This ensures search engines see correct tags as early as possible
       (function() {
-        const path = window.location.pathname;
-        
-        // Fractions to Decimals Worksheets page
-        if (path.includes('/worksheets/fractions-to-decimals-worksheets')) {
-          document.title = 'Free Converting Fractions to Decimals Worksheets (PDF + Answer Key)';
+        // Use document.readyState to ensure DOM is available
+        function updateSEOTags() {
+          const path = window.location.pathname;
           
-          // Update or create meta description
-          let metaDesc = document.querySelector('meta[name="description"]');
-          if (!metaDesc) {
-            metaDesc = document.createElement('meta');
-            metaDesc.setAttribute('name', 'description');
-            document.head.appendChild(metaDesc);
-          }
-          metaDesc.setAttribute('content', 'Download free fractions-to-decimals worksheets with answer keys. Easy, clear, no-login math PDFs perfect for grades 3–5. Boost confidence with simple step-by-step practice.');
-          
-          // Update or create meta keywords
-          let metaKeywords = document.querySelector('meta[name="keywords"]');
-          if (!metaKeywords) {
-            metaKeywords = document.createElement('meta');
-            metaKeywords.setAttribute('name', 'keywords');
-            document.head.appendChild(metaKeywords);
-          }
-          metaKeywords.setAttribute('content', 'converting fractions to decimals worksheets free printable, free fractions to decimals worksheets PDF, fractions to decimals worksheet with answer key, converting fractions to decimals step by step worksheet, fractions to decimals practice sheet grade 4, grade 5 converting fractions to decimals worksheets, turning fractions into decimals worksheets free, simple fractions to decimals worksheet for beginners, visual fractions to decimals worksheets PDF, fraction decimal conversion worksheet with examples, fractions to decimals worksheets, converting fractions to decimals, fractions to decimals worksheets with answer keys, fractions to decimals worksheets for 3rd grade, fractions to decimals worksheets for 4th grade, fractions to decimals worksheets for 5th grade, printable fractions to decimals worksheets, fractions to decimals practice sheets, fractions and decimals worksheets, decimal conversion worksheets');
-          
-          // Update Open Graph tags
-          ['og:title', 'og:description', 'og:url'].forEach(function(prop) {
-            let meta = document.querySelector('meta[property="' + prop + '"]');
-            if (!meta) {
-              meta = document.createElement('meta');
-              meta.setAttribute('property', prop);
-              document.head.appendChild(meta);
+          // Fractions to Decimals Worksheets page
+          if (path.includes('/worksheets/fractions-to-decimals-worksheets')) {
+            // Update title immediately
+            document.title = 'Free Converting Fractions to Decimals Worksheets (PDF + Answer Key)';
+            
+            // Update meta description
+            let metaDesc = document.getElementById('dynamic-description') || document.querySelector('meta[name="description"]');
+            if (metaDesc) {
+              metaDesc.setAttribute('content', 'Download free fractions-to-decimals worksheets with answer keys. Easy, clear, no-login math PDFs perfect for grades 3–5. Boost confidence with simple step-by-step practice.');
+            } else {
+              metaDesc = document.createElement('meta');
+              metaDesc.setAttribute('name', 'description');
+              metaDesc.setAttribute('content', 'Download free fractions-to-decimals worksheets with answer keys. Easy, clear, no-login math PDFs perfect for grades 3–5. Boost confidence with simple step-by-step practice.');
+              document.head.appendChild(metaDesc);
             }
-            if (prop === 'og:title') {
-              meta.setAttribute('content', 'Free Converting Fractions to Decimals Worksheets (PDF + Answer Key)');
-            } else if (prop === 'og:description') {
-              meta.setAttribute('content', 'Download free fractions-to-decimals worksheets with answer keys. Easy, clear, no-login math PDFs perfect for grades 3–5. Boost confidence with simple step-by-step practice.');
-            } else if (prop === 'og:url') {
-              meta.setAttribute('content', 'https://wizqo.com/worksheets/fractions-to-decimals-worksheets');
+            
+            // Update meta keywords
+            let metaKeywords = document.getElementById('dynamic-keywords') || document.querySelector('meta[name="keywords"]');
+            if (metaKeywords) {
+              metaKeywords.setAttribute('content', 'converting fractions to decimals worksheets free printable, free fractions to decimals worksheets PDF, fractions to decimals worksheet with answer key, converting fractions to decimals step by step worksheet, fractions to decimals practice sheet grade 4, grade 5 converting fractions to decimals worksheets, turning fractions into decimals worksheets free, simple fractions to decimals worksheet for beginners, visual fractions to decimals worksheets PDF, fraction decimal conversion worksheet with examples, fractions to decimals worksheets, converting fractions to decimals, fractions to decimals worksheets with answer keys, fractions to decimals worksheets for 3rd grade, fractions to decimals worksheets for 4th grade, fractions to decimals worksheets for 5th grade, printable fractions to decimals worksheets, fractions to decimals practice sheets, fractions and decimals worksheets, decimal conversion worksheets');
+            } else {
+              metaKeywords = document.createElement('meta');
+              metaKeywords.setAttribute('name', 'keywords');
+              metaKeywords.setAttribute('content', 'converting fractions to decimals worksheets free printable, free fractions to decimals worksheets PDF, fractions to decimals worksheet with answer key, converting fractions to decimals step by step worksheet, fractions to decimals practice sheet grade 4, grade 5 converting fractions to decimals worksheets, turning fractions into decimals worksheets free, simple fractions to decimals worksheet for beginners, visual fractions to decimals worksheets PDF, fraction decimal conversion worksheet with examples, fractions to decimals worksheets, converting fractions to decimals, fractions to decimals worksheets with answer keys, fractions to decimals worksheets for 3rd grade, fractions to decimals worksheets for 4th grade, fractions to decimals worksheets for 5th grade, printable fractions to decimals worksheets, fractions to decimals practice sheets, fractions and decimals worksheets, decimal conversion worksheets');
+              document.head.appendChild(metaKeywords);
             }
-          });
-          
-          // Update Twitter tags
-          ['twitter:title', 'twitter:description', 'twitter:url'].forEach(function(prop) {
-            let meta = document.querySelector('meta[property="' + prop + '"]');
-            if (!meta) {
-              meta = document.createElement('meta');
-              meta.setAttribute('property', prop);
-              document.head.appendChild(meta);
-            }
-            if (prop === 'twitter:title') {
-              meta.setAttribute('content', 'Free Converting Fractions to Decimals Worksheets (PDF + Answer Key)');
-            } else if (prop === 'twitter:description') {
-              meta.setAttribute('content', 'Download free fractions-to-decimals worksheets with answer keys. Easy, clear, no-login math PDFs perfect for grades 3–5. Boost confidence with simple step-by-step practice.');
-            } else if (prop === 'twitter:url') {
-              meta.setAttribute('content', 'https://wizqo.com/worksheets/fractions-to-decimals-worksheets');
-            }
-          });
-          
-          // Update canonical URL
-          let canonical = document.querySelector('link[rel="canonical"]');
-          if (!canonical) {
-            canonical = document.createElement('link');
+            
+            // Update Open Graph tags
+            const ogTags = {
+              'og:title': 'Free Converting Fractions to Decimals Worksheets (PDF + Answer Key)',
+              'og:description': 'Download free fractions-to-decimals worksheets with answer keys. Easy, clear, no-login math PDFs perfect for grades 3–5. Boost confidence with simple step-by-step practice.',
+              'og:url': 'https://wizqo.com/worksheets/fractions-to-decimals-worksheets'
+            };
+            Object.keys(ogTags).forEach(function(prop) {
+              let meta = document.querySelector('meta[property="' + prop + '"]');
+              if (!meta) {
+                meta = document.createElement('meta');
+                meta.setAttribute('property', prop);
+                document.head.appendChild(meta);
+              }
+              meta.setAttribute('content', ogTags[prop]);
+            });
+            
+            // Update Twitter tags
+            const twitterTags = {
+              'twitter:title': 'Free Converting Fractions to Decimals Worksheets (PDF + Answer Key)',
+              'twitter:description': 'Download free fractions-to-decimals worksheets with answer keys. Easy, clear, no-login math PDFs perfect for grades 3–5. Boost confidence with simple step-by-step practice.',
+              'twitter:url': 'https://wizqo.com/worksheets/fractions-to-decimals-worksheets'
+            };
+            Object.keys(twitterTags).forEach(function(prop) {
+              let meta = document.querySelector('meta[property="' + prop + '"]');
+              if (!meta) {
+                meta = document.createElement('meta');
+                meta.setAttribute('property', prop);
+                document.head.appendChild(meta);
+              }
+              meta.setAttribute('content', twitterTags[prop]);
+            });
+            
+            // Update canonical URL - remove all existing and add new one
+            document.querySelectorAll('link[rel="canonical"]').forEach(function(link) {
+              link.remove();
+            });
+            let canonical = document.createElement('link');
             canonical.setAttribute('rel', 'canonical');
+            canonical.setAttribute('href', 'https://wizqo.com/worksheets/fractions-to-decimals-worksheets');
             document.head.appendChild(canonical);
           }
-          canonical.setAttribute('href', 'https://wizqo.com/worksheets/fractions-to-decimals-worksheets');
         }
+        
+        // Run immediately if DOM is ready, otherwise wait
+        if (document.readyState === 'loading') {
+          document.addEventListener('DOMContentLoaded', updateSEOTags);
+        } else {
+          updateSEOTags();
+        }
+        
+        // Also run on page load as backup
+        window.addEventListener('load', updateSEOTags);
       })();
       
       // Safe SEO fallback hiding - only hide completely after React fully loads and renders
