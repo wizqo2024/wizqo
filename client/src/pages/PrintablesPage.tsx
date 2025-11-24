@@ -34459,7 +34459,7 @@ export function PrintablesPage() {
           if (unhandledDocIds.length === 0) return null
           
           return unhandledDocIds.map(docId => {
-            const title = resolveDocTitle(docId, { packTime, bundleCategory, t })
+            const title = resolveDocTitle(docId, { packTime, bundleCategory: bundleCategoryParam || undefined, t })
             return (
               <WorksheetSectionWrapper
                 key={docId}
