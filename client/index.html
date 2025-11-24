@@ -399,22 +399,37 @@
             }
           }
           
-          // Also try immediate update
-          setTimeout(function() {
-            if (window.__isFractionsToDecimalsPage) {
+          // Also try immediate update multiple times
+          function tryUpdateFallback() {
+            if (window.__isFractionsToDecimalsPage && window.__fractionsToDecimalsSEOContent) {
               var fallback = document.getElementById('seo-fallback');
-              if (fallback && window.__fractionsToDecimalsSEOContent) {
+              if (fallback) {
                 var firstH1 = fallback.querySelector('h1');
-                if (firstH1 && firstH1.textContent.includes('Free Math Worksheets for K-5')) {
+                if (firstH1 && firstH1.textContent && firstH1.textContent.indexOf('Free Math Worksheets for K-5') !== -1) {
+                  // Still has landing page content, update it
                   var scripts = fallback.getElementsByTagName('script');
                   for (var i = scripts.length - 1; i >= 0; i--) {
                     scripts[i].remove();
                   }
                   fallback.innerHTML = window.__fractionsToDecimalsSEOContent;
+                  return true;
                 }
               }
             }
-          }, 0);
+            return false;
+          }
+          
+          // Try immediately
+          setTimeout(tryUpdateFallback, 0);
+          setTimeout(tryUpdateFallback, 10);
+          setTimeout(tryUpdateFallback, 50);
+          
+          // Also on DOMContentLoaded
+          if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', tryUpdateFallback);
+          } else {
+            tryUpdateFallback();
+          }
         }
       })();
       
@@ -457,14 +472,14 @@
         var path = '';
         try {
           if (typeof window !== 'undefined' && window.location) {
-            path = window.location.pathname || (window.location.href ? window.location.href.split('?')[0] : '') || '';
+            path = window.location.pathname || (window.location.href ? window.location.href.split('?')[0].replace(/^https?:\/\/[^\/]+/, '') : '') || '';
           }
           if (!path && typeof document !== 'undefined' && document.location) {
-            path = document.location.pathname || (document.location.href ? document.location.href.split('?')[0] : '') || '';
+            path = document.location.pathname || (document.location.href ? document.location.href.split('?')[0].replace(/^https?:\/\/[^\/]+/, '') : '') || '';
           }
           // Also check if we can get it from the URL directly
           if (!path && typeof location !== 'undefined') {
-            path = location.pathname || (location.href ? location.href.split('?')[0] : '') || '';
+            path = location.pathname || (location.href ? location.href.split('?')[0].replace(/^https?:\/\/[^\/]+/, '') : '') || '';
           }
         } catch(e) {}
         
@@ -472,56 +487,76 @@
         var isFractionsToDecimalsPage = path && (
           path.indexOf('/worksheets/fractions-to-decimals-worksheets') !== -1 ||
           path.indexOf('fractions-to-decimals-worksheets') !== -1 ||
-          (path.split('/').pop() === 'fractions-to-decimals-worksheets')
+          path.endsWith('/fractions-to-decimals-worksheets') ||
+          path.endsWith('fractions-to-decimals-worksheets')
         );
         
         // Store flag and content globally for immediate access
         if (isFractionsToDecimalsPage) {
           window.__isFractionsToDecimalsPage = true;
           window.__fractionsToDecimalsSEOContent = '<h1 style="font-size: 2.5rem; font-weight: 900; color: #0f172a; margin-bottom: 1rem; line-height: 1.2;">Free Converting Fractions to Decimals Worksheets (PDF + Answer Key)</h1><p style="font-size: 1.125rem; color: #475569; margin-bottom: 2.5rem; line-height: 1.6;">Download free fractions-to-decimals worksheets with answer keys. Easy, clear, no-login math PDFs perfect for grades 3–5. Boost confidence with simple step-by-step practice.</p><section style="margin-bottom: 2rem;"><h2 style="font-size: 1.875rem; font-weight: 800; color: #1e293b; margin-bottom: 0.75rem;">Converting Fractions to Decimals Worksheets</h2><p style="color: #475569; line-height: 1.6; margin-bottom: 1.5rem;">Free printable fractions to decimals worksheets with step-by-step examples and answer keys. Perfect for 3rd, 4th, and 5th grade students learning to convert fractions to decimal form. Download PDF worksheets instantly for classroom or home practice.</p></section><section style="margin-bottom: 2rem;"><h2 style="font-size: 1.875rem; font-weight: 800; color: #1e293b; margin-bottom: 0.75rem;">Fractions to Decimals Practice Sheets</h2><p style="color: #475569; line-height: 1.6; margin-bottom: 1.5rem;">Comprehensive fractions to decimals conversion worksheets covering proper fractions, improper fractions, and mixed numbers. Each worksheet includes visual examples and detailed answer keys for easy learning and practice.</p></section><section style="margin-bottom: 2rem;"><h2 style="font-size: 1.875rem; font-weight: 800; color: #1e293b; margin-bottom: 0.75rem;">Free Fractions to Decimals Worksheets PDF</h2><p style="color: #475569; line-height: 1.6; margin-bottom: 1.5rem;">Download free printable fractions to decimals worksheets in PDF format. All worksheets include answer keys and are perfect for grades 3-5. No login required - instant download and printing.</p></section>';
+          
+          // Also try to update immediately if element already exists
+          setTimeout(function() {
+            try {
+              var fallback = document.getElementById('seo-fallback');
+              if (fallback && window.__fractionsToDecimalsSEOContent) {
+                var firstH1 = fallback.querySelector('h1');
+                if (firstH1 && firstH1.textContent && firstH1.textContent.indexOf('Free Math Worksheets for K-5') !== -1) {
+                  // Still has landing page content, update it
+                  var scripts = fallback.getElementsByTagName('script');
+                  for (var i = scripts.length - 1; i >= 0; i--) {
+                    if (scripts[i].id !== 'seo-update-script') {
+                      scripts[i].remove();
+                    }
+                  }
+                  fallback.innerHTML = window.__fractionsToDecimalsSEOContent;
+                }
+              }
+            } catch(e) {}
+          }, 0);
         }
       })();
     </script>
     
     <!-- Visible SEO Content - Always crawlable, even without JavaScript -->
     <main id="seo-fallback" style="max-width: 1200px; margin: 0 auto; padding: 2rem 1rem; font-family: system-ui, -apple-system, sans-serif;">
-      <script>
-        // CRITICAL: Update content IMMEDIATELY before browser renders it
-        // This runs synchronously during HTML parsing
+      <script id="seo-update-script">
+        // CRITICAL: Update content IMMEDIATELY - runs synchronously during HTML parsing
         (function() {
-          try {
-            // Check if we have the content stored
-            if (window.__fractionsToDecimalsSEOContent) {
-              // Get the current script's parent (the main element)
-              var currentScript = document.currentScript;
-              if (currentScript && currentScript.parentElement) {
-                var mainElement = currentScript.parentElement;
-                if (mainElement && mainElement.id === 'seo-fallback') {
-                  // Remove the script and replace all content
-                  mainElement.removeChild(currentScript);
-                  mainElement.innerHTML = window.__fractionsToDecimalsSEOContent;
-                  return; // Exit early
-                }
-              }
-            }
-            
-            // Fallback: If currentScript doesn't work, use getElementById
-            // This runs immediately after the element is created
-            setTimeout(function() {
+          // Function to update content
+          function updateContent() {
+            try {
               if (window.__fractionsToDecimalsSEOContent) {
                 var fallback = document.getElementById('seo-fallback');
                 if (fallback) {
-                  // Remove any scripts inside first
-                  var scripts = fallback.getElementsByTagName('script');
-                  for (var i = scripts.length - 1; i >= 0; i--) {
-                    scripts[i].remove();
+                  // Remove this script first
+                  var updateScript = document.getElementById('seo-update-script');
+                  if (updateScript && updateScript.parentNode) {
+                    updateScript.parentNode.removeChild(updateScript);
                   }
+                  // Now set the content
                   fallback.innerHTML = window.__fractionsToDecimalsSEOContent;
+                  return true; // Success
                 }
               }
-            }, 0);
-          } catch(e) {
-            // Silent fail - don't break the page
+            } catch(e) {
+              // Silent fail
+            }
+            return false;
+          }
+          
+          // Try immediately
+          if (!updateContent()) {
+            // If content not ready yet, try again immediately (script execution order issue)
+            var attempts = 0;
+            var maxAttempts = 10;
+            var checkInterval = setInterval(function() {
+              attempts++;
+              if (updateContent() || attempts >= maxAttempts) {
+                clearInterval(checkInterval);
+              }
+            }, 1); // Check every 1ms
           }
         })();
       </script>
