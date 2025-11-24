@@ -160,16 +160,112 @@ export function UnifiedNavigation({ showBackButton = false, onBackClick, current
                 >
                   {/* caret */}
                   <div className="absolute -top-2 left-10 h-4 w-4 bg-white rotate-45 border-l border-t border-slate-200" aria-hidden />
-                  <div className="grid gap-2 min-w-[280px] md:grid-cols-[1fr_2.8fr] md:max-w-[850px]">
+                  <div className="grid gap-2 min-w-[280px] md:grid-cols-3 md:max-w-[1000px]">
+                    {/* First Column: Free Worksheet PDFs */}
                     <div>
-                      <div className="px-2 py-1 text-[11px] uppercase tracking-wide text-slate-500 font-semibold">{t('navigation.createSomethingMagical')}</div>
+                      <div className="px-2 py-1 text-[11px] uppercase tracking-wide text-slate-500 font-semibold">Free Worksheet PDFs</div>
+                      <a href="/worksheets/multiplication-worksheets" className="flex items-center gap-2 px-2 py-1 rounded-lg text-slate-700 hover:bg-slate-50">
+                        <svg className="w-3.5 h-3.5 text-slate-500 flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                          <path d="M4 19h16M4 5h16M7 12h10" />
+                        </svg>
+                        <div className="min-w-0">
+                          <div className="text-xs font-semibold text-slate-800">Multiplication Worksheets</div>
+                          <div className="text-[10px] text-slate-600 truncate">2nd-5th grade free PDF</div>
+                        </div>
+                      </a>
+                      <a href="/worksheets/times-table-multiplication-worksheets" className="flex items-center gap-2 px-2 py-1 rounded-lg text-slate-700 hover:bg-slate-50">
+                        <svg className="w-3.5 h-3.5 text-slate-500 flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                          <path d="M4 19h16M4 5h16M7 12h10" />
+                        </svg>
+                        <div className="min-w-0">
+                          <div className="text-xs font-semibold text-slate-800">Times Table Multiplication Worksheets</div>
+                          <div className="text-[10px] text-slate-600 truncate">1-12 tables, confidence building free PDF</div>
+                        </div>
+                      </a>
+                      <a href="/worksheets/kindergarten-math-worksheets" className="flex items-center gap-2 px-2 py-1 rounded-lg text-slate-700 hover:bg-slate-50">
+                        <svg className="w-3.5 h-3.5 text-slate-500 flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                          <path d="M4 19h16M4 5h16M7 12h10" />
+                        </svg>
+                        <div className="min-w-0">
+                          <div className="text-xs font-semibold text-slate-800">Kindergarten Math Worksheets</div>
+                          <div className="text-[10px] text-slate-600 truncate">Counting, shapes, patterns free PDF</div>
+                        </div>
+                      </a>
+                      <a href="/worksheets/1st-grade-math-worksheets" className="flex items-center gap-2 px-2 py-1 rounded-lg text-slate-700 hover:bg-slate-50">
+                        <svg className="w-3.5 h-3.5 text-slate-500 flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                          <path d="M4 19h16M4 5h16M7 12h10" />
+                        </svg>
+                        <div className="min-w-0">
+                          <div className="text-xs font-semibold text-slate-800">1st Grade Math Worksheets</div>
+                          <div className="text-[10px] text-slate-600 truncate">Ten-frames, add/sub free PDF</div>
+                        </div>
+                      </a>
+                      <a href="/worksheets/2nd-grade-math-worksheets" className="flex items-center gap-2 px-2 py-1 rounded-lg text-slate-700 hover:bg-slate-50">
+                        <svg className="w-3.5 h-3.5 text-slate-500 flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                          <path d="M4 19h16M4 5h16M7 12h10" />
+                        </svg>
+                        <div className="min-w-0">
+                          <div className="text-xs font-semibold text-slate-800">2nd Grade Math Worksheets</div>
+                          <div className="text-[10px] text-slate-600 truncate">Place value, add/sub free PDF</div>
+                        </div>
+                      </a>
+                      <a href="/worksheets/3rd-grade-math-worksheets" className="flex items-center gap-2 px-2 py-1 rounded-lg text-slate-700 hover:bg-slate-50">
+                        <svg className="w-3.5 h-3.5 text-slate-500 flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                          <path d="M4 19h16M4 5h16M7 12h10" />
+                        </svg>
+                        <div className="min-w-0">
+                          <div className="text-xs font-semibold text-slate-800">3rd Grade Math Worksheets</div>
+                          <div className="text-[10px] text-slate-600 truncate">Fractions, division, word problems free PDF</div>
+                        </div>
+                      </a>
+                      <a href="/worksheets/4th-grade-math-worksheets" className="flex items-center gap-2 px-2 py-1 rounded-lg text-slate-700 hover:bg-slate-50">
+                        <svg className="w-3.5 h-3.5 text-slate-500 flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                          <path d="M4 19h16M4 5h16M7 12h10" />
+                        </svg>
+                        <div className="min-w-0">
+                          <div className="text-xs font-semibold text-slate-800">4th Grade Math Worksheets</div>
+                          <div className="text-[10px] text-slate-600 truncate">Decimals, geometry, measurement free PDF</div>
+                        </div>
+                      </a>
+                      <a href="/worksheets/5th-grade-math-worksheets" className="flex items-center gap-2 px-2 py-1 rounded-lg text-slate-700 hover:bg-slate-50">
+                        <svg className="w-3.5 h-3.5 text-slate-500 flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                          <path d="M4 19h16M4 5h16M7 12h10" />
+                        </svg>
+                        <div className="min-w-0">
+                          <div className="text-xs font-semibold text-slate-800">5th Grade Math Worksheets</div>
+                          <div className="text-[10px] text-slate-600 truncate">Algebra, advanced operations free PDF</div>
+                        </div>
+                      </a>
+                      <a href="/worksheets/reading-comprehension" className="flex items-center gap-2 px-2 py-1 rounded-lg text-slate-700 hover:bg-slate-50">
+                        <svg className="w-3.5 h-3.5 text-slate-500 flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                          <path d="M4 19h16M4 5h16M7 12h10" />
+                        </svg>
+                        <div className="min-w-0">
+                          <div className="text-xs font-semibold text-slate-800">Reading Comprehension Worksheets</div>
+                          <div className="text-[10px] text-slate-600 truncate">G1-G3 passages free PDF</div>
+                        </div>
+                      </a>
+                      <a href="/worksheets/fractions-to-decimals-worksheets" className="flex items-center gap-2 px-2 py-1 rounded-lg text-slate-700 hover:bg-slate-50">
+                        <svg className="w-3.5 h-3.5 text-slate-500 flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                          <path d="M4 19h16M4 5h16M7 12h10" />
+                        </svg>
+                        <div className="min-w-0">
+                          <div className="text-xs font-semibold text-slate-800">Converting Fractions to Decimals Worksheets</div>
+                          <div className="text-[10px] text-slate-600 truncate">3rd-5th grade free PDF</div>
+                        </div>
+                      </a>
+                    </div>
+
+                    {/* Second Column: Create Something Magical */}
+                    <div className="pl-4">
+                      <div className="px-2 py-1 text-[11px] uppercase tracking-wide text-slate-500 font-semibold">Create Something Magical</div>
                       <a href="/printables/certificate-maker" className="flex items-center gap-2 px-2 py-1 rounded-lg text-slate-700 hover:bg-slate-50">
                         <svg className="w-3.5 h-3.5 text-slate-500 flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                           <path d="M12 17l-5 3 1.9-5.9L4 9h6l2-6 2 6h6l-4.9 5.1L17 20z" />
                         </svg>
                         <div className="min-w-0">
-                          <div className="text-xs font-semibold text-slate-800">{t('navigation.certificateMaker')}</div>
-                          <div className="text-[10px] text-slate-600 truncate">{t('navigation.certificateMakerDesc')}</div>
+                          <div className="text-xs font-semibold text-slate-800">Certificate Maker</div>
+                          <div className="text-[10px] text-slate-600 truncate">Editable name/date</div>
                         </div>
                       </a>
                       <a href="/printables/name-tracing-generator" className="flex items-center gap-2 px-2 py-1 rounded-lg text-slate-700 hover:bg-slate-50">
@@ -178,8 +274,8 @@ export function UnifiedNavigation({ showBackButton = false, onBackClick, current
                           <path d="M16.5 3.5a2.121 2.121 0 013 3L7 19l-4 1 1-4 12.5-12.5z" />
                         </svg>
                         <div className="min-w-0">
-                          <div className="text-xs font-semibold text-slate-800">{t('navigation.nameTracing')}</div>
-                          <div className="text-[10px] text-slate-600 truncate">{t('navigation.nameTracingDesc')}</div>
+                          <div className="text-xs font-semibold text-slate-800">Name Tracing</div>
+                          <div className="text-[10px] text-slate-600 truncate">Personalized sheets</div>
                         </div>
                       </a>
                       <a href="/worksheets/handwriting-worksheet-maker" className="flex items-center gap-2 px-2 py-1 rounded-lg text-slate-700 hover:bg-slate-50">
@@ -188,108 +284,15 @@ export function UnifiedNavigation({ showBackButton = false, onBackClick, current
                           <path d="M16.5 3.5a2.121 2.121 0 013 3L7 19l-4 1 1-4 12.5-12.5z" />
                         </svg>
                         <div className="min-w-0">
-                          <div className="text-xs font-semibold text-slate-800">{t('navigation.handwritingMaker')}</div>
-                          <div className="text-[10px] text-slate-600 truncate">{t('navigation.handwritingMakerDesc')}</div>
+                          <div className="text-xs font-semibold text-slate-800">Handwriting Maker</div>
+                          <div className="text-[10px] text-slate-600 truncate">Letters, words, sentences</div>
                         </div>
                       </a>
-                      
-                      <div className="pt-2 mt-2 border-t border-slate-200">
-                        <div className="px-2 py-1 text-[11px] uppercase tracking-wide text-slate-500 font-semibold">{t('navigation.freeWorksheetPDFs')}</div>
-                      <a href="/worksheets/multiplication-worksheets" className="flex items-center gap-2 px-2 py-1 rounded-lg text-slate-700 hover:bg-slate-50">
-                        <svg className="w-3.5 h-3.5 text-slate-500 flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                          <path d="M4 19h16M4 5h16M7 12h10" />
-                        </svg>
-                        <div className="min-w-0">
-                          <div className="text-xs font-semibold text-slate-800">{t('navigation.multiplicationWorksheets')}</div>
-                          <div className="text-[10px] text-slate-600 truncate">{t('navigation.multiplicationWorksheetsDesc')}</div>
-                        </div>
-                      </a>
-                      <a href="/worksheets/times-table-multiplication-worksheets" className="flex items-center gap-2 px-2 py-1 rounded-lg text-slate-700 hover:bg-slate-50">
-                        <svg className="w-3.5 h-3.5 text-slate-500 flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                          <path d="M4 19h16M4 5h16M7 12h10" />
-                        </svg>
-                        <div className="min-w-0">
-                          <div className="text-xs font-semibold text-slate-800">{t('navigation.timesTableMultiplicationWorksheets')}</div>
-                          <div className="text-[10px] text-slate-600 truncate">{t('navigation.timesTableMultiplicationWorksheetsDesc')}</div>
-                        </div>
-                      </a>
-                      <a href="/worksheets/kindergarten-math-worksheets" className="flex items-center gap-2 px-2 py-1 rounded-lg text-slate-700 hover:bg-slate-50">
-                        <svg className="w-3.5 h-3.5 text-slate-500 flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                          <path d="M4 19h16M4 5h16M7 12h10" />
-                        </svg>
-                        <div className="min-w-0">
-                          <div className="text-xs font-semibold text-slate-800">{t('navigation.kindergartenMathWorksheets')}</div>
-                          <div className="text-[10px] text-slate-600 truncate">{t('navigation.kindergartenMathWorksheetsDesc')}</div>
-                        </div>
-                      </a>
-                      <a href="/worksheets/1st-grade-math-worksheets" className="flex items-center gap-2 px-2 py-1 rounded-lg text-slate-700 hover:bg-slate-50">
-                        <svg className="w-3.5 h-3.5 text-slate-500 flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                          <path d="M4 19h16M4 5h16M7 12h10" />
-                        </svg>
-                        <div className="min-w-0">
-                          <div className="text-xs font-semibold text-slate-800">{t('navigation.firstGradeMathWorksheets')}</div>
-                          <div className="text-[10px] text-slate-600 truncate">{t('navigation.firstGradeMathWorksheetsDesc')}</div>
-                        </div>
-                      </a>
-                      <a href="/worksheets/2nd-grade-math-worksheets" className="flex items-center gap-2 px-2 py-1 rounded-lg text-slate-700 hover:bg-slate-50">
-                        <svg className="w-3.5 h-3.5 text-slate-500 flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                          <path d="M4 19h16M4 5h16M7 12h10" />
-                        </svg>
-                        <div className="min-w-0">
-                          <div className="text-xs font-semibold text-slate-800">{t('navigation.secondGradeMathWorksheets')}</div>
-                          <div className="text-[10px] text-slate-600 truncate">{t('navigation.secondGradeMathWorksheetsDesc')}</div>
-                        </div>
-                      </a>
-                      <a href="/worksheets/3rd-grade-math-worksheets" className="flex items-center gap-2 px-2 py-1 rounded-lg text-slate-700 hover:bg-slate-50">
-                        <svg className="w-3.5 h-3.5 text-slate-500 flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                          <path d="M4 19h16M4 5h16M7 12h10" />
-                        </svg>
-                        <div className="min-w-0">
-                          <div className="text-xs font-semibold text-slate-800">{t('navigation.thirdGradeMathWorksheets')}</div>
-                          <div className="text-[10px] text-slate-600 truncate">{t('navigation.thirdGradeMathWorksheetsDesc')}</div>
-                        </div>
-                      </a>
-                      <a href="/worksheets/4th-grade-math-worksheets" className="flex items-center gap-2 px-2 py-1 rounded-lg text-slate-700 hover:bg-slate-50">
-                        <svg className="w-3.5 h-3.5 text-slate-500 flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                          <path d="M4 19h16M4 5h16M7 12h10" />
-                        </svg>
-                        <div className="min-w-0">
-                          <div className="text-xs font-semibold text-slate-800">{t('navigation.fourthGradeMathWorksheets')}</div>
-                          <div className="text-[10px] text-slate-600 truncate">{t('navigation.fourthGradeMathWorksheetsDesc')}</div>
-                        </div>
-                      </a>
-                      <a href="/worksheets/5th-grade-math-worksheets" className="flex items-center gap-2 px-2 py-1 rounded-lg text-slate-700 hover:bg-slate-50">
-                        <svg className="w-3.5 h-3.5 text-slate-500 flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                          <path d="M4 19h16M4 5h16M7 12h10" />
-                        </svg>
-                        <div className="min-w-0">
-                          <div className="text-xs font-semibold text-slate-800">{t('navigation.fifthGradeMathWorksheets')}</div>
-                          <div className="text-[10px] text-slate-600 truncate">{t('navigation.fifthGradeMathWorksheetsDesc')}</div>
-                        </div>
-                      </a>
-                      <a href="/worksheets/reading-comprehension" className="flex items-center gap-2 px-2 py-1 rounded-lg text-slate-700 hover:bg-slate-50">
-                        <svg className="w-3.5 h-3.5 text-slate-500 flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                          <path d="M4 19h16M4 5h16M7 12h10" />
-                        </svg>
-                        <div>
-                          <div className="text-xs font-semibold text-slate-800 whitespace-nowrap">{t('navigation.readingComprehensionWorksheets')}</div>
-                          <div className="text-[10px] text-slate-600 truncate">{t('navigation.readingComprehensionWorksheetsDesc')}</div>
-                        </div>
-                      </a>
-                      <a href="/worksheets/fractions-to-decimals-worksheets" className="flex items-center gap-2 px-2 py-1 rounded-lg text-slate-700 hover:bg-slate-50">
-                        <svg className="w-3.5 h-3.5 text-slate-500 flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                          <path d="M4 19h16M4 5h16M7 12h10" />
-                        </svg>
-                        <div className="min-w-0">
-                          <div className="text-xs font-semibold text-slate-800">{t('navigation.fractionsToDecimalsWorksheets')}</div>
-                          <div className="text-[10px] text-slate-600 truncate">{t('navigation.fractionsToDecimalsWorksheetsDesc')}</div>
-                        </div>
-                      </a>
-                      </div>
                     </div>
 
+                    {/* Third Column: Worksheets & Quick Packs */}
                     <div className="pl-4">
-                      <div className="px-2 py-1 text-[11px] uppercase tracking-wide text-slate-500 font-semibold">{t('navigation.worksheetsQuickPacks')}</div>
+                      <div className="px-2 py-1 text-[11px] uppercase tracking-wide text-slate-500 font-semibold">Worksheets & Quick Packs</div>
                       <a href="/printables" className="flex items-center gap-2 px-2 py-1 rounded-lg text-slate-700 hover:bg-slate-50">
                         <svg className="w-3.5 h-3.5 text-slate-500 flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                           <path d="M6 9V2h12v7" />
@@ -297,8 +300,8 @@ export function UnifiedNavigation({ showBackButton = false, onBackClick, current
                           <rect x="6" y="14" width="12" height="8" rx="1" />
                         </svg>
                         <div className="min-w-0">
-                          <div className="text-xs font-semibold text-slate-800">{t('navigation.printables')}</div>
-                          <div className="text-[10px] text-slate-600 truncate">{t('navigation.printablesDesc')}</div>
+                          <div className="text-xs font-semibold text-slate-800">Printables</div>
+                          <div className="text-[10px] text-slate-600 truncate">Puzzles, coloring, packs</div>
                         </div>
                       </a>
                     </div>
