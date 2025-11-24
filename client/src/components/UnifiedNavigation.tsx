@@ -293,7 +293,7 @@ export function UnifiedNavigation({ showBackButton = false, onBackClick, current
                     {/* Third Column: Worksheets & Quick Packs */}
                     <div className="-mx-1">
                       <div className="px-2 py-1.5 mb-2">
-                        <div className="text-xs uppercase tracking-wide text-slate-500 font-semibold border-b border-slate-200 inline-block">Worksheets & Quick Packs</div>
+                        <div className="text-xs uppercase tracking-wide text-slate-500 font-semibold border-b border-slate-200 w-fit">Worksheets & Quick Packs</div>
                       </div>
                       <a href="/printables" className="flex items-center gap-2 px-2 py-1.5 rounded-lg text-slate-700 hover:bg-slate-50 transition-colors">
                         <svg className="w-4 h-4 text-slate-500 flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
