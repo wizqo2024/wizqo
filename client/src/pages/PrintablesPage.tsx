@@ -3613,9 +3613,9 @@ export function PrintablesPage() {
             clonedContentContainer.style.marginBottom = '0.5in'
             clonedContentContainer.style.padding = '0'
             clonedContentContainer.style.boxSizing = 'border-box'
-            // Width should be 698px (794px - 96px) - use explicit pixels
-            clonedContentContainer.style.width = '698px'
-            clonedContentContainer.style.maxWidth = '698px'
+            // Width should be calc(100% - 1in) to match print CSS exactly
+            clonedContentContainer.style.width = 'calc(100% - 1in)'
+            clonedContentContainer.style.maxWidth = 'calc(100% - 1in)'
             clonedContentContainer.style.backgroundColor = 'white'
             clonedContentContainer.style.background = 'white'
             clonedContentContainer.style.position = 'relative'
