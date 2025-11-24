@@ -3087,10 +3087,10 @@ export function PrintablesPage() {
         // Single page - place at x=0 to match print preview (no page margins)
         pdf.addImage(imgData, 'JPEG', 0, 0, imgWidth, imgHeight)
       } else {
-        // Multiple pages - simple split with card protection
+        // Multiple pages - simple split with smart section protection
         const pixelsPerMm = canvas.width / imgWidth
         const pageHeightPx = pageHeight * pixelsPerMm
-        const scaleFactor = canvas.width / printWidth // html2canvas scale factor (should be 2.5)
+        const scaleFactor = scale // Use actual scale factor (3.0)
         
         // Convert section positions to canvas coordinates
         const canvasSections = sectionPositions.map(s => ({
@@ -3104,6 +3104,9 @@ export function PrintablesPage() {
         while (currentY < canvas.height) {
           let pageEndY = Math.min(currentY + pageHeightPx, canvas.height)
           
+          // For first page, try to fill it more (use at least 80% of page height)
+          const minFirstPageHeight = currentY === 0 ? pageHeightPx * 0.8 : 0
+          
           // Check if page break would split any section/header/image
           if (canvasSections.length > 0) {
             // Find sections that would be split by this page break
@@ -3112,8 +3115,8 @@ export function PrintablesPage() {
               // Use smaller margin for headers/images, larger for sections
               const isHeaderOrImage = section.type === 'header' || section.type === 'image'
               const margin = isHeaderOrImage 
-                ? Math.max(10, (section.bottom - section.top) * 0.05) // 5% margin for headers/images
-                : Math.max(20, (section.bottom - section.top) * 0.1)   // 10% margin for sections
+                ? Math.max(5, (section.bottom - section.top) * 0.03) // 3% margin for headers/images
+                : Math.max(10, (section.bottom - section.top) * 0.05)   // 5% margin for sections
               
               return pageEndY > section.top + margin && pageEndY < section.bottom - margin
             })
@@ -3126,27 +3129,50 @@ export function PrintablesPage() {
               
               if (sectionsBeforeBreak.length > 0) {
                 // Break after the last complete section
-                const suggestedBreak = sectionsBeforeBreak[0].bottom + 10 // 10px gap
-                // Use this break if it doesn't waste too much space (at least 30% of page used)
+                const suggestedBreak = sectionsBeforeBreak[0].bottom + 5 // 5px gap
+                // For first page, be more lenient - use at least 60% of page
+                // For other pages, use at least 40% to avoid blank pages
+                const minUsage = currentY === 0 ? 0.6 : 0.4
                 const pageUsage = (suggestedBreak - currentY) / pageHeightPx
-                if (pageUsage > 0.3 || currentY === 0) {
+                if (pageUsage > minUsage || (currentY === 0 && suggestedBreak >= minFirstPageHeight)) {
                   pageEndY = suggestedBreak
                 } else {
                   // Page would be too empty, move to next section start instead
                   const firstSplitSection = sectionsToProtect[0]
                   if (firstSplitSection.top > currentY) {
-                    pageEndY = firstSplitSection.top
+                    // For first page, ensure we have substantial content
+                    const pageUsageAtSectionStart = (firstSplitSection.top - currentY) / pageHeightPx
+                    if (pageUsageAtSectionStart > minUsage || (currentY === 0 && firstSplitSection.top >= minFirstPageHeight)) {
+                      pageEndY = firstSplitSection.top
+                    } else {
+                      // If we can't avoid splitting, just split it (better than blank page)
+                      pageEndY = Math.min(currentY + pageHeightPx, canvas.height)
+                    }
                   }
                 }
               } else {
                 // No complete sections before break - move page break to start of first split section
                 const firstSplitSection = sectionsToProtect[0]
                 if (firstSplitSection.top > currentY) {
-                  // Only move if we have some content on page (at least 20% filled)
+                  // For first page, ensure we have substantial content (at least 60%)
+                  // For other pages, use at least 30%
+                  const minUsage = currentY === 0 ? 0.6 : 0.3
                   const pageUsage = (firstSplitSection.top - currentY) / pageHeightPx
-                  if (pageUsage > 0.2 || currentY === 0) {
+                  if (pageUsage > minUsage || (currentY === 0 && firstSplitSection.top >= minFirstPageHeight)) {
                     pageEndY = firstSplitSection.top
+                  } else {
+                    // If we can't avoid splitting, just split it (better than blank page)
+                    pageEndY = Math.min(currentY + pageHeightPx, canvas.height)
                   }
+                }
+              }
+            } else {
+              // No sections to protect - ensure first page has good content
+              if (currentY === 0 && pageEndY < minFirstPageHeight) {
+                // Try to extend first page to at least 80% full
+                const extendedEndY = Math.min(minFirstPageHeight, canvas.height)
+                if (extendedEndY > pageEndY) {
+                  pageEndY = extendedEndY
                 }
               }
             }
