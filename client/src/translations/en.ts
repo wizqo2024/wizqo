@@ -4016,6 +4016,8 @@ export const en = {
     fifthGradeMathWorksheetsDesc: 'Algebra, advanced operations free PDF',
     readingComprehensionWorksheets: 'Reading Comprehension Worksheets',
     readingComprehensionWorksheetsDesc: 'G1-G3 passages free PDF',
+    fractionsToDecimalsWorksheets: 'Converting Fractions to Decimals Worksheets',
+    fractionsToDecimalsWorksheetsDesc: '3rd-5th grade free PDF',
     worksheetsQuickPacks: 'Worksheets & Quick Packs',
     printables: 'Printables',
     printablesDesc: 'Puzzles, coloring, packs',
