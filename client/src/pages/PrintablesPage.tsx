@@ -3413,8 +3413,6 @@ export function PrintablesPage() {
             clonedContentContainer.style.marginRight = '0'
             clonedContentContainer.style.padding = '0'
             clonedContentContainer.style.boxSizing = 'border-box'
-            clonedContentContainer.style.padding = '0'
-            clonedContentContainer.style.boxSizing = 'border-box'
           }
           
           // Apply ALL print styles as regular CSS (html2canvas doesn't respect @media print)
