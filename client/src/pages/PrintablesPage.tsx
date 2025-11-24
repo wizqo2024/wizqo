@@ -1775,18 +1775,28 @@ export function PrintablesPage() {
       await new Promise(resolve => setTimeout(resolve, 500))
       
       // Find the content element - use the same selector that print uses
-      let contentElement: HTMLElement | null = document.querySelector('[data-worksheet-content="true"]') as HTMLElement
+      let outerContainer: HTMLElement | null = document.querySelector('[data-worksheet-content="true"]') as HTMLElement
       
-      if (!contentElement || contentElement.offsetHeight === 0) {
-        contentElement = document.querySelector('.min-h-screen.bg-white') as HTMLElement
+      if (!outerContainer || outerContainer.offsetHeight === 0) {
+        outerContainer = document.querySelector('.min-h-screen.bg-white') as HTMLElement
       }
       
-      if (!contentElement || contentElement.offsetHeight === 0) {
-        contentElement = document.body
+      if (!outerContainer || outerContainer.offsetHeight === 0) {
+        outerContainer = document.body
       }
       
-      if (!contentElement || contentElement.offsetHeight === 0) {
+      if (!outerContainer || outerContainer.offsetHeight === 0) {
         throw new Error('Could not find content to download')
+      }
+      
+      // CRITICAL: Capture the INNER content div, not the outer container
+      // Print layout: outer container is 794px, but inner content div is 698px with 0.5in margins
+      // We need to capture just the inner content div (698px) to match print layout exactly
+      let contentElement: HTMLElement | null = outerContainer.querySelector(':scope > div:first-child') as HTMLElement
+      
+      // Fallback to outer container if inner div not found
+      if (!contentElement || contentElement.offsetHeight === 0) {
+        contentElement = outerContainer
       }
       
       // Apply print styles temporarily to match print layout exactly
@@ -1806,25 +1816,14 @@ export function PrintablesPage() {
       document.body.style.padding = '0'
       
       // Set content element to match print layout exactly
-      // Print: @page has margin: 0, but content container has 0.5in left/right margins
-      // So the outer container is 794px, but inner content is 698px (794 - 96px)
+      // Print: content div is 698px wide (794px - 96px margins)
       if (contentElement) {
-        // The outer [data-worksheet-content="true"] element should be 794px
-        contentElement.style.width = '794px'
-        contentElement.style.maxWidth = '794px'
+        // The content div should be exactly 698px wide (matching print layout)
+        contentElement.style.width = '698px'
+        contentElement.style.maxWidth = '698px'
         contentElement.style.margin = '0'
         contentElement.style.padding = '0'
         contentElement.style.boxSizing = 'border-box'
-        
-        // The inner div:first-child should have 0.5in margins (matching print layout)
-        const innerDiv = contentElement.querySelector(':scope > div:first-child') as HTMLElement
-        if (innerDiv) {
-          innerDiv.style.margin = '0 0.5in'
-          innerDiv.style.marginTop = '0'
-          innerDiv.style.width = 'calc(100% - 1in)' // 698px
-          innerDiv.style.maxWidth = 'calc(100% - 1in)'
-          innerDiv.style.boxSizing = 'border-box'
-        }
       }
       
       // Apply print styles to wrapper
@@ -1871,18 +1870,18 @@ export function PrintablesPage() {
       void contentElement.offsetWidth
       void contentElement.offsetHeight
       
-      // Verify content element is exactly 794px wide (matching print layout)
+      // Verify content element is exactly 698px wide (matching print layout content width)
       const actualWidth = contentElement.offsetWidth
-      if (Math.abs(actualWidth - 794) > 2) {
-        console.warn(`Content width mismatch: ${actualWidth}px (expected 794px). Adjusting...`)
-        contentElement.style.width = '794px'
-        contentElement.style.maxWidth = '794px'
+      if (Math.abs(actualWidth - 698) > 2) {
+        console.warn(`Content width mismatch: ${actualWidth}px (expected 698px). Adjusting...`)
+        contentElement.style.width = '698px'
+        contentElement.style.maxWidth = '698px'
         void contentElement.offsetWidth // Force reflow
         await new Promise(resolve => setTimeout(resolve, 100))
       }
       
-      // Capture the content with print dimensions (exactly 794px to match print layout)
-      const printWidth = 794 // A4 width in pixels at 96dpi
+      // Capture the content with print dimensions (exactly 698px to match print layout content width)
+      const printWidth = 698 // Content width in pixels (794px page - 96px margins)
       const canvas = await html2canvas(contentElement, {
         scale: 2,
         useCORS: true,
@@ -2778,19 +2777,19 @@ export function PrintablesPage() {
       // Create PDF with correct content width and margins to match print preview EXACTLY
       // Print layout analysis:
       // - @page has margin: 0 (no page margins)
-      // - But content container [data-worksheet-content="true"] > div:first-child has:
+      // - Content container [data-worksheet-content="true"] > div:first-child has:
       //   - margin: 0.5in left/right (12.7mm each side)
       //   - width: calc(100% - 1in) = 698px (794px - 96px)
       // - So content area is 698px wide, centered in 794px page
       // A4 page: 210mm x 297mm (8.27in x 11.69in)
       // Print width: 794px at 96dpi = 210mm
+      // Content width: 698px at 96dpi = 184.6mm
       const pageWidthMm = 210 // A4 width in mm
       const pageHeight = 297 // A4 height in mm
       const marginLeftMm = 12.7 // 0.5in in mm - matches print layout content margin
       
-      // Canvas was captured at outer container width (794px) with scale (2)
-      // So canvas.width = 794 * 2 = 1588px
-      // But the actual content inside is 698px wide (with 0.5in margins on each side)
+      // Canvas was captured at content width (698px) with scale (2)
+      // So canvas.width = 698 * 2 = 1396px
       // Content width in mm: 698px / 794px * 210mm = 184.6mm
       const contentWidthPx = 698 // Content width in print layout (794px - 96px margins)
       const contentWidthMm = (contentWidthPx / 794) * pageWidthMm // 184.6mm
@@ -2811,7 +2810,7 @@ export function PrintablesPage() {
         // Multiple pages - simple split with card protection
         const pixelsPerMm = canvas.width / imgWidth
         const pageHeightPx = pageHeight * pixelsPerMm
-        const scaleFactor = canvas.width / printWidth // html2canvas scale factor
+        const scaleFactor = canvas.width / printWidth // html2canvas scale factor (should be 2)
         
         // Convert section positions to canvas coordinates
         const canvasSections = sectionPositions.map(s => ({
