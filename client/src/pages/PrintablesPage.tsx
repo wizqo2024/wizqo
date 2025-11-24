@@ -1771,22 +1771,47 @@ export function PrintablesPage() {
         import('html2canvas').then(m => m.default || m)
       ])
       
-      // Wait for content to be fully rendered
-      await new Promise(resolve => setTimeout(resolve, 500))
+      // Wait for content to be fully rendered - increased wait time for iframe loads
+      await new Promise(resolve => setTimeout(resolve, 800))
       
-      // Find the content element - use the same selector that print uses
-      let outerContainer: HTMLElement | null = document.querySelector('[data-worksheet-content="true"]') as HTMLElement
+      // Retry mechanism: wait for worksheet content to appear
+      let outerContainer: HTMLElement | null = null
+      let retries = 0
+      const maxRetries = 10
       
+      while (retries < maxRetries && (!outerContainer || outerContainer.offsetHeight === 0)) {
+        outerContainer = document.querySelector('[data-worksheet-content="true"]') as HTMLElement
+        
+        if (!outerContainer || outerContainer.offsetHeight === 0) {
+          await new Promise(resolve => setTimeout(resolve, 200))
+          retries++
+        } else {
+          break
+        }
+      }
+      
+      // Fallback to other selectors if main one not found
       if (!outerContainer || outerContainer.offsetHeight === 0) {
         outerContainer = document.querySelector('.min-h-screen.bg-white') as HTMLElement
+      }
+      
+      if (!outerContainer || outerContainer.offsetHeight === 0) {
+        outerContainer = document.querySelector('main') as HTMLElement
       }
       
       if (!outerContainer || outerContainer.offsetHeight === 0) {
         outerContainer = document.body
       }
       
+      // Final check with better error message
       if (!outerContainer || outerContainer.offsetHeight === 0) {
-        throw new Error('Could not find content to download')
+        console.error('Download failed: Content element not found or has zero height', {
+          hasDataAttribute: !!document.querySelector('[data-worksheet-content="true"]'),
+          hasMain: !!document.querySelector('main'),
+          bodyHeight: document.body.offsetHeight,
+          doc: doc || 'unknown'
+        })
+        throw new Error('Could not find content to download. Please try refreshing the page and downloading again.')
       }
       
       // CRITICAL: Capture the OUTER container (794px) which includes the margins
