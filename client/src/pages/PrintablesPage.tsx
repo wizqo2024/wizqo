@@ -1798,12 +1798,21 @@ export function PrintablesPage() {
         padding: document.body.style.padding,
       }
       
-      // Set body to print dimensions (A4 width: 794px at 96dpi)
+      // Set body to print dimensions (A4 width: 794px at 96dpi) - NO margins to match print layout
       document.body.classList.add('pdf-export-mode')
       document.body.style.width = '794px'
       document.body.style.maxWidth = '794px'
-      document.body.style.margin = '0 auto'
+      document.body.style.margin = '0' // NO margin - matches print layout (margin: 0)
       document.body.style.padding = '0'
+      
+      // Set content element to exact print width (794px) - NO margins
+      if (contentElement) {
+        contentElement.style.width = '794px'
+        contentElement.style.maxWidth = '794px'
+        contentElement.style.margin = '0'
+        contentElement.style.padding = '0'
+        contentElement.style.boxSizing = 'border-box'
+      }
       
       // Apply print styles to wrapper
       const wrapperElement = document.querySelector('.max-w-4xl.mx-auto') as HTMLElement
@@ -1817,7 +1826,7 @@ export function PrintablesPage() {
       if (wrapperElement) {
         wrapperElement.style.width = '794px'
         wrapperElement.style.maxWidth = '794px'
-        wrapperElement.style.margin = '0 auto'
+        wrapperElement.style.margin = '0' // NO margin - matches print layout
         wrapperElement.style.padding = '0'
       }
       
@@ -1842,10 +1851,24 @@ export function PrintablesPage() {
         }
       })
       
-      // Wait for styles to apply
+      // Wait for styles to apply and verify content width
       await new Promise(resolve => setTimeout(resolve, 500))
       
-      // Capture the content with print dimensions
+      // Force reflow to ensure styles are applied
+      void contentElement.offsetWidth
+      void contentElement.offsetHeight
+      
+      // Verify content element is exactly 794px wide (matching print layout)
+      const actualWidth = contentElement.offsetWidth
+      if (Math.abs(actualWidth - 794) > 2) {
+        console.warn(`Content width mismatch: ${actualWidth}px (expected 794px). Adjusting...`)
+        contentElement.style.width = '794px'
+        contentElement.style.maxWidth = '794px'
+        void contentElement.offsetWidth // Force reflow
+        await new Promise(resolve => setTimeout(resolve, 100))
+      }
+      
+      // Capture the content with print dimensions (exactly 794px to match print layout)
       const printWidth = 794 // A4 width in pixels at 96dpi
       const canvas = await html2canvas(contentElement, {
         scale: 2,
@@ -2743,13 +2766,17 @@ export function PrintablesPage() {
       const pageWidthMm = 210 // A4 width in mm
       const pageHeight = 297 // A4 height in mm
       const marginLeftMm = 0 // NO MARGIN - matches print layout (margin: 0)
-      // Canvas was captured at print width (794px) * scale
-      // Determine actual scale from canvas width: if canvas.width is ~1588px, scale is 2 (794 * 2)
-      // If canvas.width is ~953px, scale is 1.2 (794 * 1.2)
-      const estimatedScale = canvas.width > 1000 ? 2 : 1.2
-      const contentWidthPx = canvas.width / estimatedScale
-      // Content should be full page width (794px = 210mm) when margin is 0
+      
+      // Canvas was captured at print width (794px) with scale (2)
+      // So canvas.width = 794 * 2 = 1588px
+      // We need to calculate the correct image dimensions to match print layout exactly
+      const actualScale = 2 // We're using scale: 2 in html2canvas
+      const capturedWidthPx = 794 // Content was captured at exactly 794px width
+      const capturedWidthMm = (capturedWidthPx / 794) * pageWidthMm // Should be 210mm
+      
+      // Use full page width (210mm) to match print layout with no margins
       const imgWidth = pageWidthMm // Full page width - no margins
+      // Calculate height maintaining aspect ratio: (canvas.height / canvas.width) * imgWidth
       const imgHeight = (canvas.height * imgWidth) / canvas.width
       
       const imgData = canvas.toDataURL('image/jpeg', 0.9)
@@ -3375,13 +3402,17 @@ export function PrintablesPage() {
           }
           
           // Ensure content container in cloned document is exactly 794px (full width, no margins - matches print layout)
-          // Margins will be added when placing in PDF to match print preview
+          // This must match the print layout exactly with margin: 0
           const clonedContentContainer = clonedDoc.querySelector('[data-worksheet-content="true"] > div:first-child') as HTMLElement
           if (clonedContentContainer) {
             clonedContentContainer.style.width = '794px'
             clonedContentContainer.style.maxWidth = '794px'
             clonedContentContainer.style.margin = '0'
             clonedContentContainer.style.marginTop = '0'
+            clonedContentContainer.style.marginLeft = '0'
+            clonedContentContainer.style.marginRight = '0'
+            clonedContentContainer.style.padding = '0'
+            clonedContentContainer.style.boxSizing = 'border-box'
             clonedContentContainer.style.padding = '0'
             clonedContentContainer.style.boxSizing = 'border-box'
           }
