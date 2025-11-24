@@ -2429,32 +2429,25 @@ export function PrintablesPage() {
               margin-bottom: 0.375rem !important;
             }
             /* Add padding to content container for proper spacing since @page has no margin */
-            /* CRITICAL: Use padding on outer container for html2canvas - it captures padding reliably */
-            /* Print layout: @page has margin: 0, but content container has 0.5in (48px) left/right spacing */
+            /* CRITICAL: Match print CSS exactly - use margin on inner div (not padding on outer) */
+            /* Print layout: @page has margin: 0, inner div has margin: 0.5in left/right/bottom */
             /* This makes content width = 794px - 96px = 698px (matching print preview) */
-            /* Use explicit pixels for html2canvas to render correctly */
             [data-worksheet-content="true"] {
-              padding: 0 48px !important;
-              padding-left: 48px !important;
-              padding-right: 48px !important;
-              padding-top: 0 !important;
-              padding-bottom: 0 !important;
-              box-sizing: border-box !important;
-            }
-            [data-worksheet-content="true"] > div:first-child {
+              padding: 0 !important;
               margin: 0 !important;
+            }
+            /* CRITICAL: This MUST match index.css print styles exactly */
+            [data-worksheet-content="true"] > div:first-child {
+              margin: 0.5in !important;
               margin-top: 0 !important;
-              margin-left: 0 !important;
-              margin-right: 0 !important;
-              margin-bottom: 0 !important;
               padding: 0 !important;
               page-break-before: auto !important;
               overflow: visible !important;
               background-color: white !important;
               background: white !important;
-              /* Explicit width: 794px (A4 width) - 96px (48px * 2 padding) = 698px */
-              width: 698px !important;
-              max-width: 698px !important;
+              /* Account for left and right margins: 794px (A4 width) - 1in (0.5in * 2) = 698px */
+              width: calc(100% - 1in) !important;
+              max-width: calc(100% - 1in) !important;
               box-sizing: border-box !important;
             }
             /* Ensure all divs inside worksheet content have white background */
@@ -4039,32 +4032,25 @@ export function PrintablesPage() {
               margin-bottom: 0.375rem !important;
             }
             /* Add padding to content container for proper spacing since @page has no margin */
-            /* CRITICAL: Use padding on outer container for html2canvas - it captures padding reliably */
-            /* Print layout: @page has margin: 0, but content container has 0.5in (48px) left/right spacing */
+            /* CRITICAL: Match print CSS exactly - use margin on inner div (not padding on outer) */
+            /* Print layout: @page has margin: 0, inner div has margin: 0.5in left/right/bottom */
             /* This makes content width = 794px - 96px = 698px (matching print preview) */
-            /* Use explicit pixels for html2canvas to render correctly */
             [data-worksheet-content="true"] {
-              padding: 0 48px !important;
-              padding-left: 48px !important;
-              padding-right: 48px !important;
-              padding-top: 0 !important;
-              padding-bottom: 0 !important;
-              box-sizing: border-box !important;
-            }
-            [data-worksheet-content="true"] > div:first-child {
+              padding: 0 !important;
               margin: 0 !important;
+            }
+            /* CRITICAL: This MUST match index.css print styles exactly */
+            [data-worksheet-content="true"] > div:first-child {
+              margin: 0.5in !important;
               margin-top: 0 !important;
-              margin-left: 0 !important;
-              margin-right: 0 !important;
-              margin-bottom: 0 !important;
               padding: 0 !important;
               page-break-before: auto !important;
               overflow: visible !important;
               background-color: white !important;
               background: white !important;
-              /* Explicit width: 794px (A4 width) - 96px (48px * 2 padding) = 698px */
-              width: 698px !important;
-              max-width: 698px !important;
+              /* Account for left and right margins: 794px (A4 width) - 1in (0.5in * 2) = 698px */
+              width: calc(100% - 1in) !important;
+              max-width: calc(100% - 1in) !important;
               box-sizing: border-box !important;
             }
             /* Ensure all divs inside worksheet content have white background */
