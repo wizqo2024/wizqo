@@ -1313,6 +1313,88 @@ export const en = {
         },
       },
     },
+    fractionsToDecimals: {
+      seoTitle: 'Free Converting Fractions to Decimals Worksheets (PDF + Answer Key)',
+      seoDescription: 'Download free fractions-to-decimals worksheets with answer keys. Easy, clear, no-login math PDFs perfect for grades 3–5. Boost confidence with simple step-by-step practice.',
+      seoKeywords: 'fractions to decimals worksheets, converting fractions to decimals, free fractions to decimals worksheets PDF, fractions to decimals worksheets with answer keys, fractions to decimals worksheets for 3rd grade, fractions to decimals worksheets for 4th grade, fractions to decimals worksheets for 5th grade, printable fractions to decimals worksheets, fractions to decimals practice sheets, converting fractions to decimals worksheet, fractions and decimals worksheets, decimal conversion worksheets',
+      title: 'Free Converting Fractions to Decimals Worksheets',
+      subtitle: 'Printable PDFs with Answer Keys',
+      description: 'Download free fractions-to-decimals worksheets with answer keys. Easy, clear, no-login math PDFs perfect for grades 3–5. Boost confidence with simple step-by-step practice.',
+      badge: '3rd-5th grade free PDF',
+      whatsInside: 'What\'s Inside',
+      whatsInsideDesc: 'Build fraction-to-decimal fluency: converting tenths and hundredths, mixed numbers, using division method, comparing fractions and decimals, word problems, and visual models. One page each—no prep.',
+      buildPack: '🧰 Build a 5‑Minute Print Pack',
+      buildPackDesc: 'Create a quick fractions-to-decimals practice set — perfect for warm‑ups, brain breaks, or homework helpers.',
+      buildPackTime: 'Time: 5 min',
+      buildPackAge: 'Age/Grade: 3rd-5th Grade',
+      buildPackFocus: 'Focus: Fractions & Decimals',
+      allGrades: 'All Grades',
+      noResults: 'No worksheets match the selected categories.',
+      clearFilters: 'Clear filters to show all worksheets',
+      categories: {
+        basic: 'Basic Conversion',
+        tenthsHundredths: 'Tenths & Hundredths',
+        mixedNumbers: 'Mixed Numbers',
+        division: 'Division Method',
+        wordProblems: 'Word Problems',
+        comparing: 'Comparing & Ordering',
+        visual: 'Visual Models',
+      },
+      worksheets: {
+        basicTenths: {
+          title: '🔢 Converting Fractions to Decimals: Tenths',
+          description: 'Convert fractions with denominator 10 to decimals. Practice with visual models and number lines.',
+        },
+        visualTenths: {
+          title: '👁️ Visual Models: Tenths to Decimals',
+          description: 'Use visual models and grids to convert fractions with denominator 10 to decimals.',
+        },
+        basicHundredths: {
+          title: '🔢 Converting Fractions to Decimals: Hundredths',
+          description: 'Convert fractions with denominator 100 to decimals. Build understanding of place value.',
+        },
+        mixedNumbersBasic: {
+          title: '🔀 Mixed Numbers to Decimals (Basic)',
+          description: 'Convert mixed numbers with denominators 10 and 100 to decimals. Step-by-step practice.',
+        },
+        comparingFractionsDecimals: {
+          title: '⚖️ Comparing Fractions and Decimals',
+          description: 'Compare fractions and decimals using >, <, or =. Convert to compare when needed.',
+        },
+        divisionMethod: {
+          title: '➗ Converting Fractions to Decimals: Division Method',
+          description: 'Use long division to convert fractions to decimals. Practice with various denominators.',
+        },
+        wordProblemsBasic: {
+          title: '🧮 Fractions to Decimals Word Problems',
+          description: 'Solve real-world word problems involving converting fractions to decimals.',
+        },
+        advancedMixedNumbers: {
+          title: '🔀 Mixed Numbers to Decimals (Advanced)',
+          description: 'Convert complex mixed numbers to decimals using division and place value understanding.',
+        },
+        repeatingDecimals: {
+          title: '🔄 Repeating Decimals from Fractions',
+          description: 'Convert fractions to repeating decimals and understand decimal patterns.',
+        },
+        complexWordProblems: {
+          title: '🧮 Advanced Fractions to Decimals Word Problems',
+          description: 'Solve multi-step word problems involving fractions, decimals, and real-world scenarios.',
+        },
+        orderingFractionsDecimals: {
+          title: '⚖️ Ordering Fractions and Decimals',
+          description: 'Order fractions and decimals from least to greatest by converting and comparing.',
+        },
+        mixedReview: {
+          title: '🔢 Mixed Review: Fractions to Decimals',
+          description: 'Comprehensive review of all fractions-to-decimals conversion methods and skills.',
+        },
+        fluencyPractice: {
+          title: '⏱️ Fluency Practice: Fractions to Decimals',
+          description: 'Build speed and accuracy with quick conversion practice covering all methods.',
+        },
+      },
+    },
     firstGrade: {
       seoTitle: '1st Grade Math Worksheets – Free Printable PDF',
       seoDescription: 'Free 1st grade math worksheets covering number sense, addition/subtraction within 10, ten‑frames, skip counting, and shapes. Print or save as PDF.',

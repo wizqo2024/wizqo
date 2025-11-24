@@ -31,6 +31,7 @@ import CertificateMakerPage from './pages/CertificateMakerPage';
 import KidsPage from './pages/KidsPage';
 import MultiplicationWorksheetsPage from './pages/MultiplicationWorksheetsPage';
 import TimesTableMultiplicationWorksheetsPage from './pages/TimesTableMultiplicationWorksheetsPage';
+import FractionsToDecimalsWorksheetsPage from './pages/FractionsToDecimalsWorksheetsPage';
 import { ErrorBoundary } from './components/ErrorBoundary';
 import { initAnalytics, trackPageView, trackUserFlow } from './utils/analytics';
 import { TranslationProvider } from './context/TranslationContext';
@@ -528,6 +529,20 @@ export default function App() {
                       canonicalUrl={`https://wizqo.com${canonical}`}
                     />
                     <TimesTableMultiplicationWorksheetsPage />
+                  </>
+                );
+              }
+              if (routeSubKey === 'fractions-to-decimals-worksheets') {
+                const canonical = addLocaleToPath('/worksheets/fractions-to-decimals-worksheets', currentLocale);
+                return (
+                  <>
+                    <SEOMetaTags 
+                      title="Free Converting Fractions to Decimals Worksheets (PDF + Answer Key)"
+                      description="Download free fractions-to-decimals worksheets with answer keys. Easy, clear, no-login math PDFs perfect for grades 3–5. Boost confidence with simple step-by-step practice."
+                      keywords="fractions to decimals worksheets, converting fractions to decimals, free fractions to decimals worksheets PDF, fractions to decimals worksheets with answer keys, fractions to decimals worksheets for 3rd grade, fractions to decimals worksheets for 4th grade, fractions to decimals worksheets for 5th grade, printable fractions to decimals worksheets, fractions to decimals practice sheets, converting fractions to decimals worksheet, fractions and decimals worksheets, decimal conversion worksheets"
+                      canonicalUrl={`https://wizqo.com${canonical}`}
+                    />
+                    <FractionsToDecimalsWorksheetsPage />
                   </>
                 );
               }

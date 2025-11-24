@@ -5418,6 +5418,9 @@ export function PrintablesPage() {
                 if (from === 'times-table') {
                   return '/worksheets/times-table-multiplication-worksheets'
                 }
+                if (from === 'fractions-to-decimals') {
+                  return '/worksheets/fractions-to-decimals-worksheets'
+                }
                 // Determine category anchor by doc or bundle selection
                 const cat = (() => {
                   if (doc === 'bundle') {
