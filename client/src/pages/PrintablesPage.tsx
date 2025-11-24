@@ -1892,9 +1892,9 @@ export function PrintablesPage() {
       void contentElement.offsetHeight
       
       // Verify content element is exactly 794px wide (matching print layout outer container)
-      const actualWidth = contentElement.offsetWidth
-      if (Math.abs(actualWidth - 794) > 2) {
-        console.warn(`Content width mismatch: ${actualWidth}px (expected 794px). Adjusting...`)
+      const contentWidth = contentElement.offsetWidth
+      if (Math.abs(contentWidth - 794) > 2) {
+        console.warn(`Content width mismatch: ${contentWidth}px (expected 794px). Adjusting...`)
         contentElement.style.width = '794px'
         contentElement.style.maxWidth = '794px'
         void contentElement.offsetWidth // Force reflow
@@ -2823,13 +2823,13 @@ export function PrintablesPage() {
       
       const sectionPositions: Array<{ top: number; bottom: number; type: string }> = []
       
-      // Get container rect for coordinate calculation
-      const containerRect = contentElement.getBoundingClientRect()
+      // Get container rect for coordinate calculation (different scope from html2canvas)
+      const contentRect = contentElement.getBoundingClientRect()
       
       // Add all sections
       sections.forEach((section) => {
         const rect = (section as HTMLElement).getBoundingClientRect()
-        const top = rect.top - containerRect.top
+        const top = rect.top - contentRect.top
         const bottom = top + rect.height
         sectionPositions.push({ top, bottom, type: 'section' })
       })
@@ -2837,7 +2837,7 @@ export function PrintablesPage() {
       // Add headers with their following content (next 200px or until next header)
       headers.forEach((header) => {
         const rect = (header as HTMLElement).getBoundingClientRect()
-        const top = rect.top - containerRect.top
+        const top = rect.top - contentRect.top
         // Find next header or section, or use 200px as default
         let bottom = top + 200 // Default: keep 200px with header
         const nextHeader = Array.from(headers).find(h => {
@@ -2846,7 +2846,7 @@ export function PrintablesPage() {
         })
         if (nextHeader) {
           const nextRect = (nextHeader as HTMLElement).getBoundingClientRect()
-          bottom = Math.min(bottom, nextRect.top - containerRect.top)
+          bottom = Math.min(bottom, nextRect.top - contentRect.top)
         }
         sectionPositions.push({ top, bottom, type: 'header' })
       })
@@ -2854,7 +2854,7 @@ export function PrintablesPage() {
       // Add images with small padding
       images.forEach((img) => {
         const rect = (img as HTMLElement).getBoundingClientRect()
-        const top = rect.top - containerRect.top
+        const top = rect.top - contentRect.top
         const bottom = top + rect.height + 20 // Add 20px padding below image
         sectionPositions.push({ top, bottom, type: 'image' })
       })
