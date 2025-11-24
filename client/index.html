@@ -189,6 +189,10 @@
         // Set global flag for other scripts to use
         if (isFractionsToDecimalsPage) {
           window.__isFractionsToDecimalsPage = true;
+          
+          // Use document.write to inject script that will replace seo-fallback content
+          // This runs during HTML parsing, so search engines will see correct content
+          document.write('<script id="fractions-seo-inject">(function(){var f=document.getElementById("seo-fallback");if(f){f.innerHTML=\'<h1 style="font-size: 2.5rem; font-weight: 900; color: #0f172a; margin-bottom: 1rem; line-height: 1.2;">Free Converting Fractions to Decimals Worksheets (PDF + Answer Key)</h1><p style="font-size: 1.125rem; color: #475569; margin-bottom: 2.5rem; line-height: 1.6;">Download free fractions-to-decimals worksheets with answer keys. Easy, clear, no-login math PDFs perfect for grades 3–5. Boost confidence with simple step-by-step practice.</p><section style="margin-bottom: 2rem;"><h2 style="font-size: 1.875rem; font-weight: 800; color: #1e293b; margin-bottom: 0.75rem;">Converting Fractions to Decimals Worksheets</h2><p style="color: #475569; line-height: 1.6; margin-bottom: 1.5rem;">Free printable fractions to decimals worksheets with step-by-step examples and answer keys. Perfect for 3rd, 4th, and 5th grade students learning to convert fractions to decimal form. Download PDF worksheets instantly for classroom or home practice.</p></section><section style="margin-bottom: 2rem;"><h2 style="font-size: 1.875rem; font-weight: 800; color: #1e293b; margin-bottom: 0.75rem;">Fractions to Decimals Practice Sheets</h2><p style="color: #475569; line-height: 1.6; margin-bottom: 1.5rem;">Comprehensive fractions to decimals conversion worksheets covering proper fractions, improper fractions, and mixed numbers. Each worksheet includes visual examples and detailed answer keys for easy learning and practice.</p></section><section style="margin-bottom: 2rem;"><h2 style="font-size: 1.875rem; font-weight: 800; color: #1e293b; margin-bottom: 0.75rem;">Free Fractions to Decimals Worksheets PDF</h2><p style="color: #475569; line-height: 1.6; margin-bottom: 1.5rem;">Download free printable fractions to decimals worksheets in PDF format. All worksheets include answer keys and are perfect for grades 3-5. No login required - instant download and printing.</p></section>\';var s=document.getElementById("fractions-seo-inject");if(s)s.remove();}})();<\/script>');
         }
         
         // Only proceed with meta tag updates if on fractions-to-decimals page
@@ -524,19 +528,39 @@
       <script id="seo-update-script">
         // CRITICAL: Update content IMMEDIATELY - runs synchronously during HTML parsing
         (function() {
+          // Get path directly (don't rely on external variable)
+          var path = '';
+          try {
+            if (typeof window !== 'undefined' && window.location) {
+              path = window.location.pathname || '';
+            } else if (typeof document !== 'undefined' && document.location) {
+              path = document.location.pathname || '';
+            } else if (typeof location !== 'undefined') {
+              path = location.pathname || '';
+            }
+          } catch(e) {}
+          
+          // Check if on fractions-to-decimals page
+          var isFractionsPage = path && (
+            path.indexOf('/worksheets/fractions-to-decimals-worksheets') !== -1 ||
+            path.indexOf('fractions-to-decimals-worksheets') !== -1
+          );
+          
           // Function to update content
           function updateContent() {
             try {
-              if (window.__fractionsToDecimalsSEOContent) {
-                var fallback = document.getElementById('seo-fallback');
-                if (fallback) {
+              var fallback = document.getElementById('seo-fallback');
+              if (fallback && isFractionsPage) {
+                var firstH1 = fallback.querySelector('h1');
+                // Only update if still has landing page content
+                if (firstH1 && firstH1.textContent && firstH1.textContent.indexOf('Free Math Worksheets for K-5') !== -1) {
                   // Remove this script first
                   var updateScript = document.getElementById('seo-update-script');
                   if (updateScript && updateScript.parentNode) {
                     updateScript.parentNode.removeChild(updateScript);
                   }
-                  // Now set the content
-                  fallback.innerHTML = window.__fractionsToDecimalsSEOContent;
+                  // Set the correct content
+                  fallback.innerHTML = '<h1 style="font-size: 2.5rem; font-weight: 900; color: #0f172a; margin-bottom: 1rem; line-height: 1.2;">Free Converting Fractions to Decimals Worksheets (PDF + Answer Key)</h1><p style="font-size: 1.125rem; color: #475569; margin-bottom: 2.5rem; line-height: 1.6;">Download free fractions-to-decimals worksheets with answer keys. Easy, clear, no-login math PDFs perfect for grades 3–5. Boost confidence with simple step-by-step practice.</p><section style="margin-bottom: 2rem;"><h2 style="font-size: 1.875rem; font-weight: 800; color: #1e293b; margin-bottom: 0.75rem;">Converting Fractions to Decimals Worksheets</h2><p style="color: #475569; line-height: 1.6; margin-bottom: 1.5rem;">Free printable fractions to decimals worksheets with step-by-step examples and answer keys. Perfect for 3rd, 4th, and 5th grade students learning to convert fractions to decimal form. Download PDF worksheets instantly for classroom or home practice.</p></section><section style="margin-bottom: 2rem;"><h2 style="font-size: 1.875rem; font-weight: 800; color: #1e293b; margin-bottom: 0.75rem;">Fractions to Decimals Practice Sheets</h2><p style="color: #475569; line-height: 1.6; margin-bottom: 1.5rem;">Comprehensive fractions to decimals conversion worksheets covering proper fractions, improper fractions, and mixed numbers. Each worksheet includes visual examples and detailed answer keys for easy learning and practice.</p></section><section style="margin-bottom: 2rem;"><h2 style="font-size: 1.875rem; font-weight: 800; color: #1e293b; margin-bottom: 0.75rem;">Free Fractions to Decimals Worksheets PDF</h2><p style="color: #475569; line-height: 1.6; margin-bottom: 1.5rem;">Download free printable fractions to decimals worksheets in PDF format. All worksheets include answer keys and are perfect for grades 3-5. No login required - instant download and printing.</p></section>';
                   return true; // Success
                 }
               }
@@ -547,17 +571,12 @@
           }
           
           // Try immediately
-          if (!updateContent()) {
-            // If content not ready yet, try again immediately (script execution order issue)
-            var attempts = 0;
-            var maxAttempts = 10;
-            var checkInterval = setInterval(function() {
-              attempts++;
-              if (updateContent() || attempts >= maxAttempts) {
-                clearInterval(checkInterval);
-              }
-            }, 1); // Check every 1ms
-          }
+          updateContent();
+          
+          // Also try multiple times as fallback
+          setTimeout(updateContent, 0);
+          setTimeout(updateContent, 10);
+          setTimeout(updateContent, 50);
         })();
       </script>
       <h1 style="font-size: 2.5rem; font-weight: 900; color: #0f172a; margin-bottom: 1rem; line-height: 1.2;">
