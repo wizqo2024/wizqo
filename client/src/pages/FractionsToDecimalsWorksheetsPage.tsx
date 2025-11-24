@@ -2,7 +2,6 @@ import React, { useState, useMemo } from 'react'
 import { UnifiedNavigation } from '@/components/UnifiedNavigation'
 import { Footer } from '@/components/Footer'
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion'
-import { SEOMetaTags } from '@/components/SEOMetaTags'
 import { CategoryFilter, type Category } from '@/components/CategoryFilter'
 import { trackCategoryFilter } from '@/utils/analytics'
 import { useTranslation } from '@/context/TranslationContext'
@@ -95,12 +94,7 @@ export default function FractionsToDecimalsWorksheetsPage() {
   }, [filteredWorksheets])
   return (
     <div className="min-h-screen bg-slate-50" dir={isRTL ? 'rtl' : 'ltr'}>
-      <SEOMetaTags
-        title={t('pages.fractionsToDecimals.seoTitle')}
-        description={t('pages.fractionsToDecimals.seoDescription')}
-        keywords={t('pages.fractionsToDecimals.seoKeywords')}
-        canonicalUrl="https://wizqo.com/worksheets/fractions-to-decimals-worksheets"
-      />
+      {/* SEO tags are set in App.tsx for this route */}
       {(() => {
         const canonical = "https://wizqo.com/worksheets/fractions-to-decimals-worksheets";
         const breadcrumbId = `${canonical}#breadcrumbs`;
