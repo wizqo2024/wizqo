@@ -24699,7 +24699,7 @@ export function PrintablesPage() {
                   <div><strong>Step 1:</strong> Think "how many groups of 4 make 24?"</div>
                   <div><strong>Step 2:</strong> Counting by fours: 4, 8, 12, 16, 20, 24. That's 6 groups!</div>
                   <div className="font-semibold text-blue-900"><strong>Answer:</strong> 6</div>
-                  <div className="text-xs text-blue-700 mt-1">💡 Clue: "If the answer is 6, the suspect is NOT wearing a hat." So, Sally Sunshine is innocent! Cross her off.</div>
+                  <div className="text-xs text-blue-700 mt-1">💡 Clue: If the answer is 6, the suspect is NOT wearing a hat. So, Sally Sunshine is innocent! Cross her off.</div>
                 </div>
               </div>
             </div>
@@ -24729,7 +24729,7 @@ export function PrintablesPage() {
                       <p className="font-semibold text-center text-sm">Sally Sunshine<br />(Hat)</p>
                     </div>
                     <div className="flex flex-col items-center">
-                      <div className="w-20 h-20 bg-slate-300 rounded-full mb-2 flex items-center justify-center text-2xl">👨‍🍳</div>
+                      <div className="w-20 h-20 bg-slate-300 rounded-full mb-2 flex items-center justify-center text-2xl">👨</div>
                       <p className="font-semibold text-center text-sm">Chef Pierre<br />(Mustache)</p>
                     </div>
                   </div>
@@ -24801,19 +24801,19 @@ export function PrintablesPage() {
                 <div className="space-y-3 text-sm text-emerald-800">
                   <div>
                     <div className="font-semibold mb-1">Problem 1: 24 {'÷'} 4 = 6</div>
-                    <div className="text-xs pl-4">Clue: Not wearing a hat → Eliminate Sally Sunshine</div>
+                    <div className="text-xs pl-4">Clue: Not wearing a hat - Eliminate Sally Sunshine</div>
                   </div>
                   <div>
                     <div className="font-semibold mb-1">Problem 2: 35 {'÷'} 5 = 7</div>
-                    <div className="text-xs pl-4">Clue: Has no beard → Eliminate Captain Hook</div>
+                    <div className="text-xs pl-4">Clue: Has no beard - Eliminate Captain Hook</div>
                   </div>
                   <div>
                     <div className="font-semibold mb-1">Problem 3: 18 {'÷'} 3 = 6</div>
-                    <div className="text-xs pl-4">Clue: Not a robot → Eliminate Robot Ralph</div>
+                    <div className="text-xs pl-4">Clue: Not a robot - Eliminate Robot Ralph</div>
                   </div>
                   <div>
                     <div className="font-semibold mb-1">Problem 4: 40 {'÷'} 8 = 5</div>
-                    <div className="text-xs pl-4">Clue: Has a mustache → This matches Chef Pierre!</div>
+                    <div className="text-xs pl-4">Clue: Has a mustache - This matches Chef Pierre!</div>
                   </div>
                   <div className="mt-4 p-3 bg-emerald-100 rounded">
                     <div className="font-bold text-base">🕵️ Culprit: Chef Pierre</div>
