@@ -2324,19 +2324,22 @@ export function PrintablesPage() {
             }
             /* Add padding to content container for proper spacing since @page has no margin */
             /* CRITICAL: This MUST match index.css print styles exactly */
-            /* Print layout: @page has margin: 0, but content container has 0.5in left/right margins */
-            /* This makes content width = 794px - 1in = 698px (matching print preview) */
+            /* Print layout: @page has margin: 0, but content container has 0.5in (48px) left/right margins */
+            /* This makes content width = 794px - 96px = 698px (matching print preview) */
+            /* Use explicit pixels for html2canvas to render correctly */
             [data-worksheet-content="true"] > div:first-child {
-              margin: 0.5in !important;
+              margin: 0 48px !important;
               margin-top: 0 !important;
+              margin-left: 48px !important;
+              margin-right: 48px !important;
               padding: 0 !important;
               page-break-before: auto !important;
               overflow: visible !important;
               background-color: white !important;
               background: white !important;
-              /* Account for left and right margins: 794px (A4 width) - 1in (0.5in * 2) = 698px */
-              width: calc(100% - 1in) !important;
-              max-width: calc(100% - 1in) !important;
+              /* Explicit width: 794px (A4 width) - 96px (48px * 2 margins) = 698px */
+              width: 698px !important;
+              max-width: 698px !important;
               box-sizing: border-box !important;
             }
             /* Ensure all divs inside worksheet content have white background */
@@ -3858,19 +3861,22 @@ export function PrintablesPage() {
             }
             /* Add padding to content container for proper spacing since @page has no margin */
             /* CRITICAL: This MUST match index.css print styles exactly */
-            /* Print layout: @page has margin: 0, but content container has 0.5in left/right margins */
-            /* This makes content width = 794px - 1in = 698px (matching print preview) */
+            /* Print layout: @page has margin: 0, but content container has 0.5in (48px) left/right margins */
+            /* This makes content width = 794px - 96px = 698px (matching print preview) */
+            /* Use explicit pixels for html2canvas to render correctly */
             [data-worksheet-content="true"] > div:first-child {
-              margin: 0.5in !important;
+              margin: 0 48px !important;
               margin-top: 0 !important;
+              margin-left: 48px !important;
+              margin-right: 48px !important;
               padding: 0 !important;
               page-break-before: auto !important;
               overflow: visible !important;
               background-color: white !important;
               background: white !important;
-              /* Account for left and right margins: 794px (A4 width) - 1in (0.5in * 2) = 698px */
-              width: calc(100% - 1in) !important;
-              max-width: calc(100% - 1in) !important;
+              /* Explicit width: 794px (A4 width) - 96px (48px * 2 margins) = 698px */
+              width: 698px !important;
+              max-width: 698px !important;
               box-sizing: border-box !important;
             }
             /* Ensure all divs inside worksheet content have white background */
