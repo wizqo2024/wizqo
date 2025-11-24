@@ -1893,6 +1893,7 @@ export function PrintablesPage() {
       // Wait for styles to apply and verify content width
       await new Promise(resolve => setTimeout(resolve, 500))
       
+<<<<<<< HEAD
       // Force reflow to ensure styles are applied
       void contentElement.offsetWidth
       void contentElement.offsetHeight
@@ -1956,37 +1957,34 @@ export function PrintablesPage() {
       
       // Get outer container padding for logging
       const outerPaddingLeft = parseFloat(window.getComputedStyle(contentElement).paddingLeft) || 0
-      const outerPaddingRight = parseFloat(window.getComputedStyle(contentElement).paddingRight) || 0
+      // Capture the content with print dimensions
+      // Find the inner content div that has the actual content (698px width with margins)
+      const innerContentDiv = contentElement.querySelector('[data-worksheet-content="true"] > div:first-child') as HTMLElement || contentElement.querySelector('div:first-child') as HTMLElement || contentElement
+      const actualContentElement = innerContentDiv || contentElement
       
-      // Capture the outer container with print dimensions (exactly 794px to match print layout)
-      // This includes the 48px padding visually (matches print layout with 48px spacing on each side)
-      // Higher quality setting: scale 2.5 with higher JPEG quality for better print quality
-      const printWidth = 794 // Outer container width in pixels (with box-sizing: border-box, includes padding)
+      // Set content width to 698px to match print preview (794px page - 96px margins)
+      const contentWidth = 698 // Content width in pixels (matches print preview)
+      const printWidth = 794 // A4 width in pixels at 96dpi (for windowWidth to ensure proper rendering)
       
-      // CRITICAL: Get the actual rendered dimensions
-      // With box-sizing: border-box, getBoundingClientRect().width should equal offsetWidth (794px)
-      const containerRect = contentElement.getBoundingClientRect()
-      const actualWidth = Math.max(containerRect.width, printWidth)
+      // Ensure content element is exactly 698px wide
+      const originalContentWidth = actualContentElement.style.width
+      const originalContentMaxWidth = actualContentElement.style.maxWidth
+      actualContentElement.style.width = `${contentWidth}px`
+      actualContentElement.style.maxWidth = `${contentWidth}px`
+      actualContentElement.style.boxSizing = 'border-box'
       
-      console.log(`PDF Capture: outer width=${finalOuterWidth}px, rect width=${containerRect.width}px, padding left=${outerPaddingLeft}px, padding right=${outerPaddingRight}px, actual capture width=${actualWidth}px`)
+      // Force reflow
+      void actualContentElement.offsetWidth
+      await new Promise(resolve => setTimeout(resolve, 100))
       
-      const canvas = await html2canvas(contentElement, {
-        scale: 2.5, // Increased scale for better quality and larger file size (~1.5-2MB)
+      const canvas = await html2canvas(actualContentElement, {
+        scale: 2,
         useCORS: true,
         logging: false,
         backgroundColor: '#ffffff',
         allowTaint: false,
-        width: actualWidth, // Use actual width (794px with box-sizing: border-box includes padding)
-        windowWidth: actualWidth,
-        height: contentElement.scrollHeight, // Capture full height
-        y: 0, // Start from top
-        x: 0, // Start from left
-        scrollX: 0, // No horizontal scroll
-        scrollY: 0, // No vertical scroll
-        ignoreElements: (element) => {
-          // Don't ignore any elements - we want to capture everything
-          return false
-        },
+        width: contentWidth, // Capture at content width (698px)
+        windowWidth: printWidth, // Use full page width for proper rendering context
         onclone: (clonedDoc) => {
           // Apply print styles to cloned document
           const clonedHtml = clonedDoc.documentElement
@@ -2827,6 +2825,12 @@ export function PrintablesPage() {
         wrapperElement.style.padding = wrapperOriginalStyle.padding
       }
       
+      // Restore content element width
+      if (actualContentElement && originalContentWidth !== undefined) {
+        actualContentElement.style.width = originalContentWidth
+        actualContentElement.style.maxWidth = originalContentMaxWidth
+      }
+      
       hiddenElements.forEach(({ element, originalDisplay }) => {
         element.style.display = originalDisplay
       })
@@ -2893,28 +2897,24 @@ export function PrintablesPage() {
       // Print width: 794px at 96dpi = 210mm
       const pageWidthMm = 210 // A4 width in mm
       const pageHeight = 297 // A4 height in mm
+<<<<<<< HEAD
       const marginLeftMm = 0 // NO margin - outer container starts at page edge (matches @page margin: 0)
       
-      // Canvas was captured at outer container width (794px) with scale (2.5)
-      // So canvas.width = 794 * 2.5 = 1985px
-      // Outer container width in mm: 794px / 794px * 210mm = 210mm (full page width)
-      const containerWidthPx = 794 // Outer container width in print layout
-      const containerWidthMm = (containerWidthPx / 794) * pageWidthMm // 210mm (full page)
-      
-      // Use full container width (210mm) with NO left margin to match print layout exactly
-      // The margins are INSIDE the container (in the inner div), so we place the whole container at x=0
-      const imgWidth = containerWidthMm // Full container width - matches print layout
-      // Calculate height maintaining aspect ratio: (canvas.height / canvas.width) * imgWidth
+      const marginLeftMm = 12.7 // 0.5in in mm (0.5 * 25.4)
+      // Canvas was captured at content width (698px) * scale (scale: 2)
+      // So canvas.width = 698px * 2 = 1396px
+      const scale = 2 // We're using scale: 2 in html2canvas
+      const contentWidthPx = canvas.width / scale // Should be 698px
+      // Convert to PDF: (698/794) * 210mm = 184.6mm
+      const contentWidthMm = (contentWidthPx / 794) * pageWidthMm // Should be ~184.6mm
+      const imgWidth = contentWidthMm
       const imgHeight = (canvas.height * imgWidth) / canvas.width
       
-      // Use JPEG with higher quality (0.98) combined with scale 2.5 to target ~1.5-2MB file size
-      const imgData = canvas.toDataURL('image/jpeg', 0.98)
+      const imgData = canvas.toDataURL('image/jpeg', 0.9)
       const pdf = new jsPDF('p', 'mm', 'a4')
       
       if (imgHeight <= pageHeight) {
-        // Single page - place at x=0 with full width (210mm) to match print layout exactly
-        // Print layout: outer container is 794px (210mm) with no page margins, inner content has 0.5in margins
-        // Use JPEG format for medium quality and reasonable file size
+        // Single page - place with left margin to match print preview
         pdf.addImage(imgData, 'JPEG', marginLeftMm, 0, imgWidth, imgHeight)
       } else {
         // Multiple pages - simple split with card protection
@@ -3005,13 +3005,10 @@ export function PrintablesPage() {
                 pageCanvas.width, pageCanvas.height
               )
               
-              // Use JPEG with higher quality (0.98) for better print quality
-              const pageImgData = pageCanvas.toDataURL('image/jpeg', 0.98)
+              const pageImgData = pageCanvas.toDataURL('image/jpeg', 0.9)
               const pageImgHeight = (pageHeightActual * imgWidth) / canvas.width
               
-              // Use NO left margin (0mm) to match print layout exactly
-              // Print layout: outer container is 794px (210mm) with no page margins
-              // Use JPEG format for medium quality and reasonable file size
+              // Use left margin to match print preview layout (Ctrl+P)
               pdf.addImage(pageImgData, 'JPEG', marginLeftMm, 0, imgWidth, pageImgHeight)
               
               currentY = pageEndY
