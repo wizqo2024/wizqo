@@ -469,14 +469,19 @@ function WorksheetPreviewCard({
           {(() => {
             const printUrl = pack?.printUrl ? onDownload(item.docId) : null
             return printUrl ? (
-              <a
-                href={printUrl}
-                target="_blank"
-                rel="noopener noreferrer"
+              <button
+                onClick={() => {
+                  const newWindow = window.open(printUrl, '_blank')
+                  if (newWindow) {
+                    setTimeout(() => {
+                      newWindow.print()
+                    }, 500)
+                  }
+                }}
                 className="text-xs font-medium text-purple-600 hover:text-purple-700 px-3 py-1 rounded-full border border-purple-200 hover:border-purple-300 transition-colors"
               >
                 Download
-              </a>
+              </button>
             ) : null
           })()}
         </div>

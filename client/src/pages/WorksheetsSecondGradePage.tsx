@@ -364,7 +364,20 @@ function ItemCard({ title, description, href }: { title: string; description: st
       <div className="text-base font-semibold text-slate-900">{title}</div>
       <p className="text-slate-600 text-sm mt-1">{description}</p>
       <div className="mt-3 flex items-center gap-2">
-        <a href={href + (href.includes('?') ? '&download=1' : '?download=1')} className={BUTTON_CLASS} aria-label={`${t('pages.secondGrade.downloadPDF')} ${title}`} target="_blank" rel="noopener noreferrer">⬇️ {t('pages.secondGrade.downloadPDF')}</a>
+        <button
+          onClick={() => {
+            const newWindow = window.open(href, '_blank')
+            if (newWindow) {
+              setTimeout(() => {
+                newWindow.print()
+              }, 500)
+            }
+          }}
+          className={BUTTON_CLASS}
+          aria-label={`${t('pages.secondGrade.downloadPDF')} ${title}`}
+        >
+          {t('pages.secondGrade.downloadPDF')}
+        </button>
       </div>
     </div>
   )

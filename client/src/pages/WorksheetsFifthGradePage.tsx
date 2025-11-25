@@ -349,22 +349,18 @@ export default function WorksheetsFifthGradePage() {
                   
                   {/* Action Buttons */}
                   <div className="mt-6 flex items-center gap-3">
-                    <a
-                      href={previewItem.href + (previewItem.href.includes('?') ? '&download=1' : '?download=1')}
-                      target="_blank"
-                      rel="noopener noreferrer"
+                    <button
+                      onClick={() => {
+                        const newWindow = window.open(previewItem.href, '_blank')
+                        if (newWindow) {
+                          setTimeout(() => {
+                            newWindow.print()
+                          }, 500)
+                        }
+                      }}
                       className="inline-flex items-center gap-2 px-4 py-2 rounded-lg border border-purple-200 bg-purple-600 hover:bg-purple-700 text-white text-sm font-medium shadow-sm"
                     >
                       Download
-                    </a>
-                    <button
-                      onClick={() => {
-                        window.open(previewItem.href, '_blank')
-                        setTimeout(() => window.print(), 500)
-                      }}
-                      className="inline-flex items-center gap-2 px-4 py-2 rounded-lg border border-slate-300 bg-white hover:bg-slate-50 text-slate-700 text-sm font-medium shadow-sm"
-                    >
-                      🖨️ Print
                     </button>
                   </div>
                 </div>
@@ -442,15 +438,20 @@ const WorksheetThumbnailCard = React.memo(function WorksheetThumbnailCard({ titl
       
       <div className="flex items-center justify-between">
         <div className="flex items-center gap-2">
-          <a
-            href={href + (href.includes('?') ? '&download=1' : '?download=1')}
-            target="_blank"
-            rel="noopener noreferrer"
+          <button
+            onClick={() => {
+              const newWindow = window.open(href, '_blank')
+              if (newWindow) {
+                setTimeout(() => {
+                  newWindow.print()
+                }, 500)
+              }
+            }}
             className="text-xs font-medium text-purple-600 hover:text-purple-700 px-3 py-1 rounded-full border border-purple-200 hover:border-purple-300 transition-colors"
             aria-label={t('pages.fifthGrade.downloadButton')}
           >
-            ⬇️ {t('pages.fifthGrade.downloadButton')}
-          </a>
+            {t('pages.fifthGrade.downloadButton')}
+          </button>
         </div>
       </div>
     </article>
