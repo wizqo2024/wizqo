@@ -135,17 +135,21 @@ function cloneForRoute(baseHtml, route, allPosts = [], allRoutes = []) {
   const canonical = `${SITE}${route.path}`;
   const ogImage = route.ogImage || `${SITE}/og-image.jpg`;
   
-  // For fractions-to-decimals page, remove ALL document.write scripts BEFORE setMeta
-  // so setMeta can properly insert hardcoded tags (no document.write needed in static files)
+  // For fractions-to-decimals page, remove ALL SEO-related scripts BEFORE setMeta
+  // Static HTML doesn't need any JavaScript for SEO - everything is hardcoded
   let workingHtml = baseHtml;
   if (route.path === '/worksheets/fractions-to-decimals-worksheets') {
-    // Remove ALL document.write scripts that write title/meta tags or SEO content
-    workingHtml = workingHtml.replace(/<script>[\s\S]*?CRITICAL: Write correct tags DURING parsing[\s\S]*?<\/script>/i, '');
-    workingHtml = workingHtml.replace(/<script>[\s\S]*?Write OG\/Twitter tags during parsing[\s\S]*?<\/script>/i, '');
-    // Remove the fractions-seo-inject document.write script
-    workingHtml = workingHtml.replace(/<script>[\s\S]*?fractions-seo-inject[\s\S]*?<\/script>/i, '');
-    // Remove the main SEO update script that contains document.write for fractions page
-    workingHtml = workingHtml.replace(/<script>[\s\S]*?Update SEO meta tags IMMEDIATELY[\s\S]*?<\/script>/i, '');
+    // Remove ALL document.write scripts
+    workingHtml = workingHtml.replace(/<script[^>]*>[\s\S]*?CRITICAL: Write correct tags DURING parsing[\s\S]*?<\/script>/gi, '');
+    workingHtml = workingHtml.replace(/<script[^>]*>[\s\S]*?Write OG\/Twitter tags during parsing[\s\S]*?<\/script>/gi, '');
+    workingHtml = workingHtml.replace(/<script[^>]*>[\s\S]*?fractions-seo-inject[\s\S]*?<\/script>/gi, '');
+    workingHtml = workingHtml.replace(/<script[^>]*>[\s\S]*?Update SEO meta tags IMMEDIATELY[\s\S]*?<\/script>/gi, '');
+    // Remove ALL SEO update scripts (MutationObserver, tryUpdateFallback, etc.)
+    workingHtml = workingHtml.replace(/<script[^>]*>[\s\S]*?MutationObserver[\s\S]*?fractions[\s\S]*?<\/script>/gi, '');
+    workingHtml = workingHtml.replace(/<script[^>]*>[\s\S]*?tryUpdateFallback[\s\S]*?<\/script>/gi, '');
+    workingHtml = workingHtml.replace(/<script[^>]*>[\s\S]*?Free Math Worksheets for K-5[\s\S]*?<\/script>/gi, '');
+    workingHtml = workingHtml.replace(/<script[^>]*>[\s\S]*?updateFractionsToDecimalsSEO[\s\S]*?<\/script>/gi, '');
+    workingHtml = workingHtml.replace(/<script[^>]*>[\s\S]*?updateSEOFallback[\s\S]*?<\/script>/gi, '');
   }
   
   let html = setMeta(workingHtml, {
@@ -312,15 +316,15 @@ ${gameLinks}
     // Replace the seo-fallback content
     html = html.replace(/<main id="seo-fallback"[^>]*>[\s\S]*?<\/main>/, timesTableContent);
   } else if (route.path === '/worksheets/fractions-to-decimals-worksheets') {
-    // document.write scripts already removed above before setMeta
-    // Also remove ALL remaining SEO update scripts in body/head that check for landing page content
-    // These scripts are unnecessary since static HTML already has correct content
+    // All SEO scripts already removed above before setMeta
+    // Remove ANY remaining scripts in body that might try to update SEO content
+    // This ensures 100% clean static HTML with no JavaScript interference
     html = html.replace(/<script[^>]*>[\s\S]*?Script to update SEO fallback content immediately[\s\S]*?<\/script>/gi, '');
     html = html.replace(/<script[^>]*id=["']seo-update-script["'][^>]*>[\s\S]*?<\/script>/gi, '');
-    html = html.replace(/<script[^>]*>[\s\S]*?Free Math Worksheets for K-5[\s\S]*?<\/script>/gi, '');
-    html = html.replace(/<script[^>]*>[\s\S]*?MutationObserver[\s\S]*?fractions-to-decimals[\s\S]*?<\/script>/gi, '');
-    html = html.replace(/<script[^>]*>[\s\S]*?tryUpdateFallback[\s\S]*?<\/script>/gi, '');
-    // Replace fallback content with fractions-to-decimals-specific content
+    html = html.replace(/<script[^>]*>[\s\S]*?isFractionsToDecimalsPage[\s\S]*?<\/script>/gi, '');
+    html = html.replace(/<script[^>]*>[\s\S]*?__isFractionsToDecimalsPage[\s\S]*?<\/script>/gi, '');
+    html = html.replace(/<script[^>]*>[\s\S]*?__fractionsToDecimalsSEOContent[\s\S]*?<\/script>/gi, '');
+    // Replace fallback content with fractions-to-decimals-specific content (already correct from prerender)
     const fractionsToDecimalsContent = `<main id="seo-fallback" style="display: none; max-width: 1200px; margin: 0 auto; padding: 2rem 1rem; font-family: system-ui, -apple-system, sans-serif;">
       <h1 style="font-size: 2.5rem; font-weight: 900; color: #0f172a; margin-bottom: 1rem; line-height: 1.2;">
         Free Converting Fractions to Decimals Worksheets (PDF + Answer Key)
