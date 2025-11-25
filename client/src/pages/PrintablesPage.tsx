@@ -2100,25 +2100,6 @@ export function PrintablesPage() {
         }
       })
       
-      // CRITICAL: Remove ALL style tags from original document before capture
-      // This prevents html2canvas from seeing any CSS text
-      // Store original style tags to restore later
-      const originalStyleTags = document.querySelectorAll('style')
-      const originalStyleTagsData: Array<{ element: HTMLStyleElement; parent: Node | null; nextSibling: Node | null; originalContent: string }> = []
-      originalStyleTags.forEach((styleTag) => {
-        const htmlStyleTag = styleTag as HTMLStyleElement
-        originalStyleTagsData.push({
-          element: htmlStyleTag,
-          parent: htmlStyleTag.parentNode,
-          nextSibling: htmlStyleTag.nextSibling,
-          originalContent: htmlStyleTag.textContent || htmlStyleTag.innerHTML || ''
-        })
-        // Clear content and remove
-        htmlStyleTag.textContent = ''
-        htmlStyleTag.innerHTML = ''
-        htmlStyleTag.remove()
-      })
-      
       // Force reflow to ensure dimensions are updated
       void finalContentElement.offsetHeight
       void finalContentElement.scrollHeight
@@ -2943,16 +2924,36 @@ export function PrintablesPage() {
           `
           clonedDoc.head.appendChild(style)
           
-          // CRITICAL: Clear and remove style tags to prevent CSS text in PDF
-          // First clear the textContent, then remove the tag
-          // This ensures html2canvas never sees the CSS text
+          // CRITICAL: Remove style tags from body/content area immediately
+          // Then clear and remove all style tags to prevent CSS text in PDF
+          const bodyStyleTags = clonedDoc.body.querySelectorAll('style')
+          bodyStyleTags.forEach((styleTag) => {
+            const htmlStyleTag = styleTag as HTMLStyleElement
+            htmlStyleTag.textContent = ''
+            htmlStyleTag.innerHTML = ''
+            styleTag.remove()
+          })
+          
+          // Remove from capture area
+          const captureArea = clonedDoc.querySelector('[data-worksheet-content="true"]')
+          if (captureArea) {
+            const areaStyleTags = captureArea.querySelectorAll('style')
+            areaStyleTags.forEach((styleTag) => {
+              const htmlStyleTag = styleTag as HTMLStyleElement
+              htmlStyleTag.textContent = ''
+              htmlStyleTag.innerHTML = ''
+              styleTag.remove()
+            })
+          }
+          
+          // Clear and remove ALL style tags (including in head) to prevent CSS text
           const allStyleTags = clonedDoc.querySelectorAll('style')
           allStyleTags.forEach((styleTag: Element) => {
             const htmlStyleTag = styleTag as HTMLStyleElement
-            // Clear textContent first (styles already applied)
+            // Clear textContent first (styles already applied by browser)
             htmlStyleTag.textContent = ''
             htmlStyleTag.innerHTML = ''
-            // Then remove from DOM
+            // Then remove from DOM completely
             styleTag.remove()
           })
           
@@ -3360,23 +3361,6 @@ export function PrintablesPage() {
         const from = params.get('from') || 'unknown'
         const grade = from.includes('grade') ? from.replace('-grade', '') : undefined
         trackWorksheetDownload(primaryDoc, docTitle, from, grade)
-      }
-      
-      // Restore original style tags if we removed them
-      if (originalStyleTagsData.length > 0) {
-        originalStyleTagsData.forEach(({ element, parent, nextSibling, originalContent }) => {
-          if (parent && element) {
-            // Restore original content
-            element.textContent = originalContent
-            element.innerHTML = originalContent
-            // Restore to original position
-            if (nextSibling && nextSibling.parentNode === parent) {
-              parent.insertBefore(element, nextSibling)
-            } else {
-              parent.appendChild(element)
-            }
-          }
-        })
       }
       
     } catch (error) {
