@@ -2923,46 +2923,48 @@ export function PrintablesPage() {
               break-inside: avoid !important;
             }
           `
-          // CRITICAL: Apply styles using ONLY stylesheet API - NEVER use textContent
-          // This prevents html2canvas from capturing CSS text
+          // CRITICAL: Apply styles using stylesheet API ONLY - style tag never has textContent
+          // Append to head first to get stylesheet access
           clonedDoc.head.appendChild(style)
           
-          // Apply styles using stylesheet API (no textContent = no CSS text in PDF)
+          // Apply styles via stylesheet API (no textContent = html2canvas can't capture CSS text)
           const sheet = style.sheet as CSSStyleSheet | null
-          if (sheet && sheet.insertRule) {
-            // Remove comments and split CSS into rules
-            const cleanCss = cssText.replace(/\/\*[\s\S]*?\*\//g, '').trim()
-            // Split by closing brace, but keep the brace
-            const parts = cleanCss.split(/(?<=})/)
-            let currentRule = ''
-            parts.forEach(part => {
-              currentRule += part
-              if (currentRule.trim().endsWith('}')) {
-                const rule = currentRule.trim()
-                if (rule.length > 2 && !rule.startsWith('@page')) {
-                  try {
-                    sheet.insertRule(rule, sheet.cssRules.length)
-                  } catch (e) {
-                    // Skip invalid rules (like @page which can't be inserted)
+          if (sheet && typeof sheet.insertRule === 'function') {
+            try {
+              // Remove all comments first
+              let cleanCss = cssText.replace(/\/\*[\s\S]*?\*\//g, '').trim()
+              // Split into individual CSS rules (split by } but keep it)
+              const ruleStrings: string[] = []
+              let current = ''
+              for (let i = 0; i < cleanCss.length; i++) {
+                current += cleanCss[i]
+                if (cleanCss[i] === '}' && (i === cleanCss.length - 1 || cleanCss[i + 1].match(/\s/))) {
+                  const rule = current.trim()
+                  if (rule && rule.length > 2 && !rule.startsWith('@page')) {
+                    ruleStrings.push(rule)
                   }
+                  current = ''
                 }
-                currentRule = ''
               }
-            })
-            // Style tag has no textContent, so html2canvas won't capture CSS text
+              // Insert each rule
+              ruleStrings.forEach(rule => {
+                try {
+                  sheet.insertRule(rule, sheet.cssRules.length)
+                } catch (e) {
+                  // Skip rules that can't be inserted (like @page, invalid selectors, etc.)
+                }
+              })
+            } catch (e) {
+              // If parsing fails, skip styles entirely
+            }
           }
-          // If stylesheet API fails, skip styles (better than showing CSS text)
+          // Style tag remains empty (no textContent), so html2canvas won't see CSS text
           
-          // Remove style tag completely - styles are already applied via stylesheet
+          // Remove style tag - styles are applied via stylesheet API
           style.remove()
           
-          // Remove ALL style tags from cloned document
-          clonedDoc.querySelectorAll('style').forEach(tag => {
-            const htmlTag = tag as HTMLStyleElement
-            htmlTag.textContent = ''
-            htmlTag.innerHTML = ''
-            tag.remove()
-          })
+          // Remove ALL style tags from cloned document (safety check)
+          clonedDoc.querySelectorAll('style').forEach(tag => tag.remove())
           
           // Process print: utility classes in cloned document
           const allClonedElements = clonedDoc.querySelectorAll('*')
@@ -4538,44 +4540,44 @@ export function PrintablesPage() {
               widows: 3 !important;
             }
           `
-          // CRITICAL: Apply styles using ONLY stylesheet API - NEVER use textContent
-          // This prevents html2canvas from capturing CSS text
+          // CRITICAL: Apply styles using stylesheet API ONLY - style tag never has textContent
           clonedDoc.head.appendChild(style)
           
-          // Apply styles using stylesheet API (no textContent = no CSS text in PDF)
+          // Apply styles via stylesheet API (no textContent = html2canvas can't capture CSS text)
           const sheet2 = style.sheet as CSSStyleSheet | null
-          if (sheet2 && sheet2.insertRule) {
-            const cleanCss2 = cssText2.replace(/\/\*[\s\S]*?\*\//g, '').trim()
-            const parts2 = cleanCss2.split(/(?<=})/)
-            let currentRule2 = ''
-            parts2.forEach(part => {
-              currentRule2 += part
-              if (currentRule2.trim().endsWith('}')) {
-                const rule = currentRule2.trim()
-                if (rule.length > 2 && !rule.startsWith('@page')) {
-                  try {
-                    sheet2.insertRule(rule, sheet2.cssRules.length)
-                  } catch (e) {
-                    // Skip invalid rules
+          if (sheet2 && typeof sheet2.insertRule === 'function') {
+            try {
+              let cleanCss2 = cssText2.replace(/\/\*[\s\S]*?\*\//g, '').trim()
+              const ruleStrings2: string[] = []
+              let current2 = ''
+              for (let i = 0; i < cleanCss2.length; i++) {
+                current2 += cleanCss2[i]
+                if (cleanCss2[i] === '}' && (i === cleanCss2.length - 1 || cleanCss2[i + 1].match(/\s/))) {
+                  const rule = current2.trim()
+                  if (rule && rule.length > 2 && !rule.startsWith('@page')) {
+                    ruleStrings2.push(rule)
                   }
+                  current2 = ''
                 }
-                currentRule2 = ''
               }
-            })
-            // Style tag has no textContent, so html2canvas won't capture CSS text
+              ruleStrings2.forEach(rule => {
+                try {
+                  sheet2.insertRule(rule, sheet2.cssRules.length)
+                } catch (e) {
+                  // Skip invalid rules
+                }
+              })
+            } catch (e) {
+              // If parsing fails, skip styles entirely
+            }
           }
-          // If stylesheet API fails, skip styles (better than showing CSS text)
+          // Style tag remains empty (no textContent), so html2canvas won't see CSS text
           
-          // Remove style tag completely - styles are already applied via stylesheet
+          // Remove style tag - styles are applied via stylesheet API
           style.remove()
           
-          // Remove ALL style tags from cloned document
-          clonedDoc.querySelectorAll('style').forEach(tag => {
-            const htmlTag = tag as HTMLStyleElement
-            htmlTag.textContent = ''
-            htmlTag.innerHTML = ''
-            tag.remove()
-          })
+          // Remove ALL style tags from cloned document (safety check)
+          clonedDoc.querySelectorAll('style').forEach(tag => tag.remove())
           
           // Helper function to safely get className as string
           const getClassName = (el: HTMLElement): string => {
