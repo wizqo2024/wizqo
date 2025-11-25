@@ -135,13 +135,17 @@ function cloneForRoute(baseHtml, route, allPosts = [], allRoutes = []) {
   const canonical = `${SITE}${route.path}`;
   const ogImage = route.ogImage || `${SITE}/og-image.jpg`;
   
-  // For fractions-to-decimals page, remove document.write scripts BEFORE setMeta
-  // so setMeta can properly insert hardcoded tags
+  // For fractions-to-decimals page, remove ALL document.write scripts BEFORE setMeta
+  // so setMeta can properly insert hardcoded tags (no document.write needed in static files)
   let workingHtml = baseHtml;
   if (route.path === '/worksheets/fractions-to-decimals-worksheets') {
-    // Remove document.write scripts that write title/meta tags
+    // Remove ALL document.write scripts that write title/meta tags or SEO content
     workingHtml = workingHtml.replace(/<script>[\s\S]*?CRITICAL: Write correct tags DURING parsing[\s\S]*?<\/script>/i, '');
     workingHtml = workingHtml.replace(/<script>[\s\S]*?Write OG\/Twitter tags during parsing[\s\S]*?<\/script>/i, '');
+    // Remove the fractions-seo-inject document.write script
+    workingHtml = workingHtml.replace(/<script>[\s\S]*?fractions-seo-inject[\s\S]*?<\/script>/i, '');
+    // Remove the main SEO update script that contains document.write for fractions page
+    workingHtml = workingHtml.replace(/<script>[\s\S]*?Update SEO meta tags IMMEDIATELY[\s\S]*?<\/script>/i, '');
   }
   
   let html = setMeta(workingHtml, {
@@ -309,6 +313,9 @@ ${gameLinks}
     html = html.replace(/<main id="seo-fallback"[^>]*>[\s\S]*?<\/main>/, timesTableContent);
   } else if (route.path === '/worksheets/fractions-to-decimals-worksheets') {
     // document.write scripts already removed above before setMeta
+    // Also remove any remaining SEO update scripts in body that use document.write
+    html = html.replace(/<script>[\s\S]*?Script to update SEO fallback content immediately[\s\S]*?<\/script>/i, '');
+    html = html.replace(/<script>[\s\S]*?seo-update-script[\s\S]*?<\/script>/i, '');
     // Replace fallback content with fractions-to-decimals-specific content
     const fractionsToDecimalsContent = `<main id="seo-fallback" style="display: none; max-width: 1200px; margin: 0 auto; padding: 2rem 1rem; font-family: system-ui, -apple-system, sans-serif;">
       <h1 style="font-size: 2.5rem; font-weight: 900; color: #0f172a; margin-bottom: 1rem; line-height: 1.2;">
