@@ -35323,6 +35323,9 @@ export function PrintablesPage() {
             'color-shapes', 'shape-sorting', 'color-recognition', 'draw-shape', 'color-patterns',
             'shape-patterns', 'what-comes-next', 'long-short', 'heavy-light', 'same-different',
             'line-tracing', 'curve-tracing', 'zigzag-lines', 'path-tracing',
+            // New Kindergarten worksheets (code-based)
+            'kindergarten-counting-1-10', 'kindergarten-number-recognition', 'kindergarten-shapes',
+            'kindergarten-patterns', 'kindergarten-addition-pictures', 'kindergarten-counting-visual',
             // 3rd Grade worksheets
             'mult-arrays', 'mult-word-problems', 'mult-by-10-100', 'mult-properties',
             'div-with-remainders', 'div-word-problems', 'div-by-10-100', 'fact-families-mult-div',
