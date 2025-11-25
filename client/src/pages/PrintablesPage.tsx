@@ -3053,6 +3053,30 @@ export function PrintablesPage() {
       // Use the element that was actually captured
       const sections = finalContentElement.querySelectorAll('section.break-inside-avoid, section[class*="break-inside-avoid"], section.worksheet-section, .worksheet-section, .challenge-section, .worked-example, [class*="example"]')
       const headers = finalContentElement.querySelectorAll('h1, h2, h3, h4, h5, h6')
+      // Wait for SVG elements to be fully rendered
+      const svgElements = finalContentElement.querySelectorAll('svg')
+      if (svgElements.length > 0) {
+        // Force SVG reflow and wait for rendering
+        svgElements.forEach((svg: Element) => {
+          const svgEl = svg as SVGSVGElement
+          void svgEl.offsetWidth
+          void svgEl.offsetHeight
+          // Ensure SVG has explicit dimensions if missing
+          if (!svgEl.hasAttribute('width') && !svgEl.hasAttribute('height')) {
+            const viewBox = svgEl.getAttribute('viewBox')
+            if (viewBox) {
+              const [, , width, height] = viewBox.split(' ').map(Number)
+              if (width && height) {
+                svgEl.setAttribute('width', String(width))
+                svgEl.setAttribute('height', String(height))
+              }
+            }
+          }
+        })
+        // Wait for SVG rendering
+        await new Promise(resolve => setTimeout(resolve, 300))
+      }
+      
       const images = finalContentElement.querySelectorAll('img, svg, picture, canvas')
       
       const sectionPositions: Array<{ top: number; bottom: number; type: string }> = []
