@@ -4515,14 +4515,22 @@ export function PrintablesPage() {
               widows: 3 !important;
             }
           `
+          // Append style tag to head to apply styles
           clonedDoc.head.appendChild(style)
+          style.textContent = cssText
           
-          // CRITICAL: Remove style tags entirely BEFORE html2canvas processes the document
-          // Styles are already applied when the style tag is added to head
-          // We must remove them immediately to prevent html2canvas from capturing CSS text
+          // CRITICAL: Immediately clear and remove style tag to prevent CSS text in PDF
+          // The browser has already parsed and applied the styles, so we can safely remove the tag
+          style.textContent = ''
+          style.innerHTML = ''
+          style.remove()
+          
+          // Also remove any other style tags that might exist
           const allStyleTags2 = clonedDoc.querySelectorAll('style')
           allStyleTags2.forEach((styleTag: Element) => {
-            // Remove from DOM completely
+            const htmlStyleTag = styleTag as HTMLStyleElement
+            htmlStyleTag.textContent = ''
+            htmlStyleTag.innerHTML = ''
             styleTag.remove()
           })
           
