@@ -218,285 +218,87 @@
       }
     </style>
     <script>
-      // Update SEO meta tags IMMEDIATELY based on URL (runs before anything else)
-      // This ensures search engines see correct tags as early as possible
+      // Simplified SEO update for fractions-to-decimals page (fallback only - prerendered pages don't need this)
+      // This is a clean, single script without document.write, duplicates, or wrong text checks
       (function() {
-        // Get path immediately - use multiple methods to ensure we get it
-        let path = '';
+        var path = '';
         try {
-          if (typeof window !== 'undefined' && window.location) {
-            path = window.location.pathname || '';
-          } else if (typeof document !== 'undefined' && document.location) {
-            path = document.location.pathname || '';
+          if (typeof location !== 'undefined') {
+            path = location.pathname || '';
           }
         } catch(e) {}
         
-        // Check if we're on fractions-to-decimals page (multiple checks for reliability)
-        const isFractionsToDecimalsPage = path && (
-          path.includes('/worksheets/fractions-to-decimals-worksheets') ||
-          path.includes('fractions-to-decimals-worksheets') ||
-          path.endsWith('/fractions-to-decimals-worksheets')
-        );
+        var isFractionsPage = path && path.includes('fractions-to-decimals-worksheets');
+        if (!isFractionsPage) return;
         
-        // Set global flag for other scripts to use
-        if (isFractionsToDecimalsPage) {
-          window.__isFractionsToDecimalsPage = true;
-          
-          // Use document.write to inject script that will replace seo-fallback content
-          // This runs during HTML parsing, so search engines will see correct content
-          document.write('<script id="fractions-seo-inject">(function(){var f=document.getElementById("seo-fallback");if(f){f.innerHTML=\'<h1 style="font-size: 2.5rem; font-weight: 900; color: #0f172a; margin-bottom: 1rem; line-height: 1.2;">Free Converting Fractions to Decimals Worksheets (PDF + Answer Key)</h1><p style="font-size: 1.125rem; color: #475569; margin-bottom: 2.5rem; line-height: 1.6;">Download free fractions-to-decimals worksheets with answer keys. Easy, clear, no-login math PDFs perfect for grades 3–5. Boost confidence with simple step-by-step practice.</p><section style="margin-bottom: 2rem;"><h2 style="font-size: 1.875rem; font-weight: 800; color: #1e293b; margin-bottom: 0.75rem;">Converting Fractions to Decimals Worksheets</h2><p style="color: #475569; line-height: 1.6; margin-bottom: 1.5rem;">Free printable fractions to decimals worksheets with step-by-step examples and answer keys. Perfect for 3rd, 4th, and 5th grade students learning to convert fractions to decimal form. Download PDF worksheets instantly for classroom or home practice.</p></section><section style="margin-bottom: 2rem;"><h2 style="font-size: 1.875rem; font-weight: 800; color: #1e293b; margin-bottom: 0.75rem;">Fractions to Decimals Practice Sheets</h2><p style="color: #475569; line-height: 1.6; margin-bottom: 1.5rem;">Comprehensive fractions to decimals conversion worksheets covering proper fractions, improper fractions, and mixed numbers. Each worksheet includes visual examples and detailed answer keys for easy learning and practice.</p></section><section style="margin-bottom: 2rem;"><h2 style="font-size: 1.875rem; font-weight: 800; color: #1e293b; margin-bottom: 0.75rem;">Free Fractions to Decimals Worksheets PDF</h2><p style="color: #475569; line-height: 1.6; margin-bottom: 1.5rem;">Download free printable fractions to decimals worksheets in PDF format. All worksheets include answer keys and are perfect for grades 3-5. No login required - instant download and printing.</p></section>\';var s=document.getElementById("fractions-seo-inject");if(s)s.remove();}})();<\/script>');
-        }
-        
-        // Only proceed with meta tag updates if on fractions-to-decimals page
-        if (!isFractionsToDecimalsPage) {
-          // Not on fractions-to-decimals page, keep default SEO
-          return; // Exit early if not on the target page
-        }
-        
-        // Function to update or create meta tag - more aggressive approach
-        function updateMetaTag(name, content, isProperty) {
+        // Single function to update all SEO elements
+        function updateSEO() {
           try {
-            if (!document || !document.head) {
-              // If head doesn't exist yet, wait and retry
-              setTimeout(function() { updateMetaTag(name, content, isProperty); }, 10);
-              return;
-            }
+            // Update title
+            var titleEl = document.querySelector('title');
+            if (titleEl) titleEl.textContent = 'Free Converting Fractions to Decimals Worksheets (PDF + Answer Key)';
             
-            const selector = isProperty ? `meta[property="${name}"]` : `meta[name="${name}"]`;
-            let meta = document.querySelector(selector);
-            
-            if (!meta) {
-              // Create new meta tag
-              meta = document.createElement('meta');
-              if (isProperty) {
-                meta.setAttribute('property', name);
+            // Update meta tags
+            function setMeta(name, content, isProperty) {
+              var selector = isProperty ? 'meta[property="' + name + '"]' : 'meta[name="' + name + '"]';
+              var meta = document.querySelector(selector);
+              if (meta) {
+                meta.setAttribute('content', content);
               } else {
-                meta.setAttribute('name', name);
+                meta = document.createElement('meta');
+                if (isProperty) meta.setAttribute('property', name);
+                else meta.setAttribute('name', name);
+                meta.setAttribute('content', content);
+                document.head.appendChild(meta);
               }
-              document.head.appendChild(meta);
             }
             
-            // Force update the content attribute
-            meta.setAttribute('content', content);
-            meta.content = content; // Also set property directly
+            setMeta('description', 'Download free fractions-to-decimals worksheets with answer keys. Easy, clear, no-login math PDFs perfect for grades 3–5. Boost confidence with simple step-by-step practice.', false);
+            setMeta('keywords', 'converting fractions to decimals worksheets free printable, free fractions to decimals worksheets PDF, fractions to decimals worksheet with answer key, converting fractions to decimals step by step worksheet, fractions to decimals practice sheet grade 4, grade 5 converting fractions to decimals worksheets, turning fractions into decimals worksheets free, simple fractions to decimals worksheet for beginners, visual fractions to decimals worksheets PDF, fraction decimal conversion worksheet with examples, fractions to decimals worksheets, converting fractions to decimals, fractions to decimals worksheets with answer keys, fractions to decimals worksheets for 3rd grade, fractions to decimals worksheets for 4th grade, fractions to decimals worksheets for 5th grade, printable fractions to decimals worksheets, fractions to decimals practice sheets, fractions and decimals worksheets, decimal conversion worksheets', false);
+            setMeta('og:title', 'Free Converting Fractions to Decimals Worksheets (PDF + Answer Key)', true);
+            setMeta('og:description', 'Download free fractions-to-decimals worksheets with answer keys. Easy, clear, no-login math PDFs perfect for grades 3–5. Boost confidence with simple step-by-step practice.', true);
+            setMeta('og:url', 'https://wizqo.com/worksheets/fractions-to-decimals-worksheets', true);
+            setMeta('twitter:title', 'Free Converting Fractions to Decimals Worksheets (PDF + Answer Key)', true);
+            setMeta('twitter:description', 'Download free fractions-to-decimals worksheets with answer keys. Easy, clear, no-login math PDFs perfect for grades 3–5. Boost confidence with simple step-by-step practice.', true);
+            setMeta('twitter:url', 'https://wizqo.com/worksheets/fractions-to-decimals-worksheets', true);
             
-          } catch(e) {
-            console.error('Error updating meta tag:', e);
-          }
-        }
-        
-        // Function to update or create link tag
-        function updateLinkTag(rel, href) {
-          try {
-            if (!document || !document.head) {
-              setTimeout(function() { updateLinkTag(rel, href); }, 10);
-              return;
+            // Update canonical
+            var canonical = document.querySelector('link[rel="canonical"]');
+            if (canonical) {
+              canonical.setAttribute('href', 'https://wizqo.com/worksheets/fractions-to-decimals-worksheets');
+            } else {
+              canonical = document.createElement('link');
+              canonical.setAttribute('rel', 'canonical');
+              canonical.setAttribute('href', 'https://wizqo.com/worksheets/fractions-to-decimals-worksheets');
+              document.head.appendChild(canonical);
             }
             
-            // Remove all existing canonical links
-            const existingLinks = document.querySelectorAll(`link[rel="${rel}"]`);
-            existingLinks.forEach(function(link) {
-              link.remove();
-            });
-            
-            // Create new link
-            let link = document.createElement('link');
-            link.setAttribute('rel', rel);
-            link.setAttribute('href', href);
-            document.head.appendChild(link);
-            
-          } catch(e) {
-            console.error('Error updating link tag:', e);
-          }
-        }
-        
-        // Function to update title tag
-        function updateTitle(newTitle) {
-          try {
-            if (document.title !== undefined) {
-              document.title = newTitle;
-            }
-            // Also update title element if it exists
-            const titleElement = document.querySelector('title');
-            if (titleElement) {
-              titleElement.textContent = newTitle;
-            }
-          } catch(e) {
-            console.error('Error updating title:', e);
-          }
-        }
-        
-        // Function to update seo-fallback content
-        function updateSEOFallback() {
-          try {
-            const fallback = document.getElementById('seo-fallback');
+            // Update fallback content - check for correct content, not wrong content
+            var fallback = document.getElementById('seo-fallback');
             if (fallback) {
-              fallback.innerHTML = `
-                <h1 style="font-size: 2.5rem; font-weight: 900; color: #0f172a; margin-bottom: 1rem; line-height: 1.2;">
-                  Free Converting Fractions to Decimals Worksheets (PDF + Answer Key)
-                </h1>
-                <p style="font-size: 1.125rem; color: #475569; margin-bottom: 2.5rem; line-height: 1.6;">
-                  Download free fractions-to-decimals worksheets with answer keys. Easy, clear, no-login math PDFs perfect for grades 3–5. Boost confidence with simple step-by-step practice.
-                </p>
-                <section style="margin-bottom: 2rem;">
-                  <h2 style="font-size: 1.875rem; font-weight: 800; color: #1e293b; margin-bottom: 0.75rem;">Converting Fractions to Decimals Worksheets</h2>
-                  <p style="color: #475569; line-height: 1.6; margin-bottom: 1.5rem;">
-                    Free printable fractions to decimals worksheets with step-by-step examples and answer keys. Perfect for 3rd, 4th, and 5th grade students learning to convert fractions to decimal form. Download PDF worksheets instantly for classroom or home practice.
-                  </p>
-                </section>
-                <section style="margin-bottom: 2rem;">
-                  <h2 style="font-size: 1.875rem; font-weight: 800; color: #1e293b; margin-bottom: 0.75rem;">Fractions to Decimals Practice Sheets</h2>
-                  <p style="color: #475569; line-height: 1.6; margin-bottom: 1.5rem;">
-                    Comprehensive fractions to decimals conversion worksheets covering proper fractions, improper fractions, and mixed numbers. Each worksheet includes visual examples and detailed answer keys for easy learning and practice.
-                  </p>
-                </section>
-                <section style="margin-bottom: 2rem;">
-                  <h2 style="font-size: 1.875rem; font-weight: 800; color: #1e293b; margin-bottom: 0.75rem;">Free Fractions to Decimals Worksheets PDF</h2>
-                  <p style="color: #475569; line-height: 1.6; margin-bottom: 1.5rem;">
-                    Download free printable fractions to decimals worksheets in PDF format. All worksheets include answer keys and are perfect for grades 3-5. No login required - instant download and printing.
-                  </p>
-                </section>
-              `;
+              var firstH1 = fallback.querySelector('h1');
+              // Only update if it has landing page content (not fractions content)
+              if (firstH1 && firstH1.textContent && firstH1.textContent.includes('Free Math Worksheets for K-5')) {
+                fallback.innerHTML = '<h1 style="font-size: 2.5rem; font-weight: 900; color: #0f172a; margin-bottom: 1rem; line-height: 1.2;">Free Converting Fractions to Decimals Worksheets (PDF + Answer Key)</h1><p style="font-size: 1.125rem; color: #475569; margin-bottom: 2.5rem; line-height: 1.6;">Download free fractions-to-decimals worksheets with answer keys. Easy, clear, no-login math PDFs perfect for grades 3–5. Boost confidence with simple step-by-step practice.</p><section style="margin-bottom: 2rem;"><h2 style="font-size: 1.875rem; font-weight: 800; color: #1e293b; margin-bottom: 0.75rem;">Converting Fractions to Decimals Worksheets</h2><p style="color: #475569; line-height: 1.6; margin-bottom: 1.5rem;">Free printable fractions to decimals worksheets with step-by-step examples and answer keys. Perfect for 3rd, 4th, and 5th grade students learning to convert fractions to decimal form. Download PDF worksheets instantly for classroom or home practice.</p></section><section style="margin-bottom: 2rem;"><h2 style="font-size: 1.875rem; font-weight: 800; color: #1e293b; margin-bottom: 0.75rem;">Fractions to Decimals Practice Sheets</h2><p style="color: #475569; line-height: 1.6; margin-bottom: 1.5rem;">Comprehensive fractions to decimals conversion worksheets covering proper fractions, improper fractions, and mixed numbers. Each worksheet includes visual examples and detailed answer keys for easy learning and practice.</p></section><section style="margin-bottom: 2rem;"><h2 style="font-size: 1.875rem; font-weight: 800; color: #1e293b; margin-bottom: 0.75rem;">Free Fractions to Decimals Worksheets PDF</h2><p style="color: #475569; line-height: 1.6; margin-bottom: 1.5rem;">Download free printable fractions to decimals worksheets in PDF format. All worksheets include answer keys and are perfect for grades 3-5. No login required - instant download and printing.</p></section>';
+              }
             }
-          } catch(e) {
-            console.error('Error updating SEO fallback:', e);
-          }
+          } catch(e) {}
         }
         
-        // Function to update all SEO tags for fractions-to-decimals page
-        function updateFractionsToDecimalsSEO() {
-          // Update title immediately
-          updateTitle('Free Converting Fractions to Decimals Worksheets (PDF + Answer Key)');
-          
-          // Update meta description
-          updateMetaTag('description', 'Download free fractions-to-decimals worksheets with answer keys. Easy, clear, no-login math PDFs perfect for grades 3–5. Boost confidence with simple step-by-step practice.', false);
-          
-          // Update meta keywords
-          updateMetaTag('keywords', 'converting fractions to decimals worksheets free printable, free fractions to decimals worksheets PDF, fractions to decimals worksheet with answer key, converting fractions to decimals step by step worksheet, fractions to decimals practice sheet grade 4, grade 5 converting fractions to decimals worksheets, turning fractions into decimals worksheets free, simple fractions to decimals worksheet for beginners, visual fractions to decimals worksheets PDF, fraction decimal conversion worksheet with examples, fractions to decimals worksheets, converting fractions to decimals, fractions to decimals worksheets with answer keys, fractions to decimals worksheets for 3rd grade, fractions to decimals worksheets for 4th grade, fractions to decimals worksheets for 5th grade, printable fractions to decimals worksheets, fractions to decimals practice sheets, fractions and decimals worksheets, decimal conversion worksheets', false);
-          
-          // Update Open Graph tags
-          updateMetaTag('og:title', 'Free Converting Fractions to Decimals Worksheets (PDF + Answer Key)', true);
-          updateMetaTag('og:description', 'Download free fractions-to-decimals worksheets with answer keys. Easy, clear, no-login math PDFs perfect for grades 3–5. Boost confidence with simple step-by-step practice.', true);
-          updateMetaTag('og:url', 'https://wizqo.com/worksheets/fractions-to-decimals-worksheets', true);
-          
-          // Update Twitter tags
-          updateMetaTag('twitter:title', 'Free Converting Fractions to Decimals Worksheets (PDF + Answer Key)', true);
-          updateMetaTag('twitter:description', 'Download free fractions-to-decimals worksheets with answer keys. Easy, clear, no-login math PDFs perfect for grades 3–5. Boost confidence with simple step-by-step practice.', true);
-          updateMetaTag('twitter:url', 'https://wizqo.com/worksheets/fractions-to-decimals-worksheets', true);
-          
-          // Update canonical URL
-          updateLinkTag('canonical', 'https://wizqo.com/worksheets/fractions-to-decimals-worksheets');
-          
-          // Update SEO fallback content
-          updateSEOFallback();
-        }
-        
-        // Try to update immediately
-        updateFractionsToDecimalsSEO();
-        
-        // Also update on DOM ready and load as backup (multiple times to ensure it works)
+        // Run on DOM ready and load
         if (document.readyState === 'loading') {
-          document.addEventListener('DOMContentLoaded', function() {
-            updateFractionsToDecimalsSEO();
-            // Also update after a short delay to catch any late-loading elements
-            setTimeout(updateFractionsToDecimalsSEO, 100);
-          });
+          document.addEventListener('DOMContentLoaded', updateSEO);
         } else {
-          updateFractionsToDecimalsSEO();
-          setTimeout(updateFractionsToDecimalsSEO, 100);
+          updateSEO();
         }
-        
-        window.addEventListener('load', function() {
-          updateFractionsToDecimalsSEO();
-          setTimeout(updateFractionsToDecimalsSEO, 200);
-        });
-        
-        // Also update on popstate (for SPA navigation)
-        window.addEventListener('popstate', updateFractionsToDecimalsSEO);
-        
-        // Use MutationObserver to watch for seo-fallback element and update immediately
-        if (typeof MutationObserver !== 'undefined') {
-          var observer = new MutationObserver(function(mutations) {
-            if (window.__isFractionsToDecimalsPage) {
-              var fallback = document.getElementById('seo-fallback');
-              if (fallback && window.__fractionsToDecimalsSEOContent) {
-                // Check if content still has landing page content
-                var firstH1 = fallback.querySelector('h1');
-                if (firstH1 && firstH1.textContent.includes('Free Math Worksheets for K-5')) {
-                  // Still has landing page content, update it
-                  var scripts = fallback.getElementsByTagName('script');
-                  for (var i = scripts.length - 1; i >= 0; i--) {
-                    scripts[i].remove();
-                  }
-                  fallback.innerHTML = window.__fractionsToDecimalsSEOContent;
-                  observer.disconnect(); // Stop observing once updated
-                }
-              }
-            }
-          });
-          
-          // Start observing the body for when seo-fallback is added
-          if (document.body) {
-            observer.observe(document.body, {
-              childList: true,
-              subtree: true
-            });
-          } else {
-            // If body doesn't exist yet, wait for it
-            if (document.readyState === 'loading') {
-              document.addEventListener('DOMContentLoaded', function() {
-                if (document.body) {
-                  observer.observe(document.body, {
-                    childList: true,
-                    subtree: true
-                  });
-                }
-              });
-            }
-          }
-          
-          // Also try immediate update multiple times
-          function tryUpdateFallback() {
-            if (window.__isFractionsToDecimalsPage && window.__fractionsToDecimalsSEOContent) {
-              var fallback = document.getElementById('seo-fallback');
-              if (fallback) {
-                var firstH1 = fallback.querySelector('h1');
-                if (firstH1 && firstH1.textContent && firstH1.textContent.indexOf('Free Math Worksheets for K-5') !== -1) {
-                  // Still has landing page content, update it
-                  var scripts = fallback.getElementsByTagName('script');
-                  for (var i = scripts.length - 1; i >= 0; i--) {
-                    scripts[i].remove();
-                  }
-                  fallback.innerHTML = window.__fractionsToDecimalsSEOContent;
-                  return true;
-                }
-              }
-            }
-            return false;
-          }
-          
-          // Try immediately
-          setTimeout(tryUpdateFallback, 0);
-          setTimeout(tryUpdateFallback, 10);
-          setTimeout(tryUpdateFallback, 50);
-          
-          // Also on DOMContentLoaded
-          if (document.readyState === 'loading') {
-            document.addEventListener('DOMContentLoaded', tryUpdateFallback);
-          } else {
-            tryUpdateFallback();
-          }
-        }
+        window.addEventListener('load', updateSEO);
       })();
       
-      // Safe SEO fallback hiding - only hide completely after React fully loads and renders
-      // This ensures Googlebot can see the fallback content for SEO (it's in DOM, just off-screen)
-      // Users won't see flash because it's positioned off-screen, not hidden with display:none
+      // Hide SEO fallback after React loads
       window.addEventListener('load', function() {
         setTimeout(function() {
-          const root = document.getElementById('root');
-          const fallback = document.getElementById('seo-fallback');
-          // Only hide fallback completely if React has rendered content (root has children)
+          var root = document.getElementById('root');
+          var fallback = document.getElementById('seo-fallback');
           if (root && root.children.length > 0 && fallback) {
             fallback.style.display = 'none';
           }
@@ -521,145 +323,56 @@
       <a href="/contact">Contact</a>
     </nav>
     
-    <!-- Script to update SEO fallback content immediately based on path -->
-    <script>
-      (function() {
-        // Get path immediately - check multiple sources (same logic as head script)
-        var path = '';
-        try {
-          if (typeof window !== 'undefined' && window.location) {
-            path = window.location.pathname || (window.location.href ? window.location.href.split('?')[0].replace(/^https?:\/\/[^\/]+/, '') : '') || '';
-          }
-          if (!path && typeof document !== 'undefined' && document.location) {
-            path = document.location.pathname || (document.location.href ? document.location.href.split('?')[0].replace(/^https?:\/\/[^\/]+/, '') : '') || '';
-          }
-          // Also check if we can get it from the URL directly
-          if (!path && typeof location !== 'undefined') {
-            path = location.pathname || (location.href ? location.href.split('?')[0].replace(/^https?:\/\/[^\/]+/, '') : '') || '';
-          }
-        } catch(e) {}
-        
-        // Check if we're on fractions-to-decimals page (multiple checks for reliability)
-        var isFractionsToDecimalsPage = path && (
-          path.indexOf('/worksheets/fractions-to-decimals-worksheets') !== -1 ||
-          path.indexOf('fractions-to-decimals-worksheets') !== -1 ||
-          path.endsWith('/fractions-to-decimals-worksheets') ||
-          path.endsWith('fractions-to-decimals-worksheets')
-        );
-        
-        // Store flag and content globally for immediate access
-        if (isFractionsToDecimalsPage) {
-          window.__isFractionsToDecimalsPage = true;
-          window.__fractionsToDecimalsSEOContent = '<h1 style="font-size: 2.5rem; font-weight: 900; color: #0f172a; margin-bottom: 1rem; line-height: 1.2;">Free Converting Fractions to Decimals Worksheets (PDF + Answer Key)</h1><p style="font-size: 1.125rem; color: #475569; margin-bottom: 2.5rem; line-height: 1.6;">Download free fractions-to-decimals worksheets with answer keys. Easy, clear, no-login math PDFs perfect for grades 3–5. Boost confidence with simple step-by-step practice.</p><section style="margin-bottom: 2rem;"><h2 style="font-size: 1.875rem; font-weight: 800; color: #1e293b; margin-bottom: 0.75rem;">Converting Fractions to Decimals Worksheets</h2><p style="color: #475569; line-height: 1.6; margin-bottom: 1.5rem;">Free printable fractions to decimals worksheets with step-by-step examples and answer keys. Perfect for 3rd, 4th, and 5th grade students learning to convert fractions to decimal form. Download PDF worksheets instantly for classroom or home practice.</p></section><section style="margin-bottom: 2rem;"><h2 style="font-size: 1.875rem; font-weight: 800; color: #1e293b; margin-bottom: 0.75rem;">Fractions to Decimals Practice Sheets</h2><p style="color: #475569; line-height: 1.6; margin-bottom: 1.5rem;">Comprehensive fractions to decimals conversion worksheets covering proper fractions, improper fractions, and mixed numbers. Each worksheet includes visual examples and detailed answer keys for easy learning and practice.</p></section><section style="margin-bottom: 2rem;"><h2 style="font-size: 1.875rem; font-weight: 800; color: #1e293b; margin-bottom: 0.75rem;">Free Fractions to Decimals Worksheets PDF</h2><p style="color: #475569; line-height: 1.6; margin-bottom: 1.5rem;">Download free printable fractions to decimals worksheets in PDF format. All worksheets include answer keys and are perfect for grades 3-5. No login required - instant download and printing.</p></section>';
-          
-          // Also try to update immediately if element already exists
-          setTimeout(function() {
-            try {
-              var fallback = document.getElementById('seo-fallback');
-              if (fallback && window.__fractionsToDecimalsSEOContent) {
-                var firstH1 = fallback.querySelector('h1');
-                if (firstH1 && firstH1.textContent && firstH1.textContent.indexOf('Free Math Worksheets for K-5') !== -1) {
-                  // Still has landing page content, update it
-                  var scripts = fallback.getElementsByTagName('script');
-                  for (var i = scripts.length - 1; i >= 0; i--) {
-                    if (scripts[i].id !== 'seo-update-script') {
-                      scripts[i].remove();
-                    }
-                  }
-                  fallback.innerHTML = window.__fractionsToDecimalsSEOContent;
-                }
-              }
-            } catch(e) {}
-          }, 0);
-        }
-      })();
-    </script>
-    
     <!-- Visible SEO Content - Always crawlable, even without JavaScript -->
     <main id="seo-fallback" style="max-width: 1200px; margin: 0 auto; padding: 2rem 1rem; font-family: system-ui, -apple-system, sans-serif;">
-      <script>
-        // IMMEDIATE: Set correct content based on path DURING parsing
-        (function() {
-          var path = '';
-          try {
-            if (typeof location !== 'undefined') {
-              path = location.pathname || '';
-            }
-          } catch(e) {}
-          
-          var isFractionsPage = path && (
-            path.indexOf('/worksheets/fractions-to-decimals-worksheets') !== -1 ||
-            path.indexOf('fractions-to-decimals-worksheets') !== -1
-          );
-          
-          if (isFractionsPage) {
-            // Write fractions-to-decimals content during parsing
-            document.write('<h1 style="font-size: 2.5rem; font-weight: 900; color: #0f172a; margin-bottom: 1rem; line-height: 1.2;">Free Converting Fractions to Decimals Worksheets (PDF + Answer Key)</h1><p style="font-size: 1.125rem; color: #475569; margin-bottom: 2.5rem; line-height: 1.6;">Download free fractions-to-decimals worksheets with answer keys. Easy, clear, no-login math PDFs perfect for grades 3–5. Boost confidence with simple step-by-step practice.</p><section style="margin-bottom: 2rem;"><h2 style="font-size: 1.875rem; font-weight: 800; color: #1e293b; margin-bottom: 0.75rem;">Converting Fractions to Decimals Worksheets</h2><p style="color: #475569; line-height: 1.6; margin-bottom: 1.5rem;">Free printable fractions to decimals worksheets with step-by-step examples and answer keys. Perfect for 3rd, 4th, and 5th grade students learning to convert fractions to decimal form. Download PDF worksheets instantly for classroom or home practice.</p></section><section style="margin-bottom: 2rem;"><h2 style="font-size: 1.875rem; font-weight: 800; color: #1e293b; margin-bottom: 0.75rem;">Fractions to Decimals Practice Sheets</h2><p style="color: #475569; line-height: 1.6; margin-bottom: 1.5rem;">Comprehensive fractions to decimals conversion worksheets covering proper fractions, improper fractions, and mixed numbers. Each worksheet includes visual examples and detailed answer keys for easy learning and practice.</p></section><section style="margin-bottom: 2rem;"><h2 style="font-size: 1.875rem; font-weight: 800; color: #1e293b; margin-bottom: 0.75rem;">Free Fractions to Decimals Worksheets PDF</h2><p style="color: #475569; line-height: 1.6; margin-bottom: 1.5rem;">Download free printable fractions to decimals worksheets in PDF format. All worksheets include answer keys and are perfect for grades 3-5. No login required - instant download and printing.</p></section>');
-          } else {
-            // Default landing page content
-            document.write('<h1 style="font-size: 2.5rem; font-weight: 900; color: #0f172a; margin-bottom: 1rem; line-height: 1.2;">Free Math Worksheets for K-5 | Multiplication & More | Wizqo</h1><p style="font-size: 1.125rem; color: #475569; margin-bottom: 2.5rem; line-height: 1.6;">Free PDF math and multiplication worksheets for Kindergarten to 5th grade. Download kindergarten math worksheets instantly – boost confidence!</p><section style="margin-bottom: 2rem;"><h2 style="font-size: 1.875rem; font-weight: 800; color: #1e293b; margin-bottom: 0.75rem;">1st Grade Math Worksheets</h2><p style="color: #475569; line-height: 1.6; margin-bottom: 1.5rem;">Free printable 1st grade math worksheets covering addition, subtraction, number sense, ten frames, and skip counting. Perfect for building foundational math skills with answer keys included. Download PDF worksheets instantly for classroom or home use.</p></section><section style="margin-bottom: 2rem;"><h2 style="font-size: 1.875rem; font-weight: 800; color: #1e293b; margin-bottom: 0.75rem;">2nd Grade Math Worksheets</h2><p style="color: #475569; line-height: 1.6; margin-bottom: 1.5rem;">Free 2nd grade math worksheets featuring multiplication, division, place value, and word problems. Download printable PDFs with answer keys for instant practice. Perfect for mastering multiplication tables and building math confidence.</p></section><section style="margin-bottom: 2rem;"><h2 style="font-size: 1.875rem; font-weight: 800; color: #1e293b; margin-bottom: 0.75rem;">3rd Grade Math Worksheets</h2><p style="color: #475569; line-height: 1.6; margin-bottom: 1.5rem;">Free 3rd grade math worksheets covering advanced multiplication, fractions, division, and multi-step word problems. Printable PDF worksheets with answer keys for comprehensive math practice. Perfect for building problem-solving skills.</p></section><section style="margin-bottom: 2rem;"><h2 style="font-size: 1.875rem; font-weight: 800; color: #1e293b; margin-bottom: 0.75rem;">Kindergarten Math Worksheets</h2><p style="color: #475569; line-height: 1.6; margin-bottom: 1.5rem;">Free printable kindergarten math worksheets for early learners. Download PDF worksheets covering counting, number recognition, basic shapes, and simple addition. Perfect for building math foundations with answer keys included.</p></section><section style="margin-bottom: 2rem;"><h2 style="font-size: 1.875rem; font-weight: 800; color: #1e293b; margin-bottom: 0.75rem;">4th Grade Math Worksheets</h2><p style="color: #475569; line-height: 1.6; margin-bottom: 1.5rem;">Free 4th grade math worksheets covering multiplication, division, fractions, decimals, and geometry. Download printable PDFs with answer keys for comprehensive math practice and skill building.</p></section><section style="margin-bottom: 2rem;"><h2 style="font-size: 1.875rem; font-weight: 800; color: #1e293b; margin-bottom: 0.75rem;">5th Grade Math Worksheets</h2><p style="color: #475569; line-height: 1.6; margin-bottom: 1.5rem;">Free 5th grade math worksheets covering advanced multiplication, division, fractions, decimals, and algebra basics. Download printable PDF worksheets with answer keys for comprehensive math practice.</p></section>');
-          }
-        })();
-      </script>
-      <script id="seo-update-script">
-        // CRITICAL: Update content IMMEDIATELY - runs after all content is parsed
-        (function() {
-          // Get path directly (don't rely on external variable)
-          var path = '';
-          try {
-            if (typeof window !== 'undefined' && window.location) {
-              path = window.location.pathname || '';
-            } else if (typeof document !== 'undefined' && document.location) {
-              path = document.location.pathname || '';
-            } else if (typeof location !== 'undefined') {
-              path = location.pathname || '';
-            }
-          } catch(e) {}
-          
-          // Check if on fractions-to-decimals page
-          var isFractionsPage = path && (
-            path.indexOf('/worksheets/fractions-to-decimals-worksheets') !== -1 ||
-            path.indexOf('fractions-to-decimals-worksheets') !== -1
-          );
-          
-          // Function to update content - more aggressive, always update if on right page
-          function updateContent() {
-            try {
-              if (!isFractionsPage) return false;
-              
-              var fallback = document.getElementById('seo-fallback');
-              if (!fallback) return false;
-              
-              var firstH1 = fallback.querySelector('h1');
-              // Check if still has landing page content OR if h1 doesn't exist (shouldn't happen but safety check)
-              var needsUpdate = !firstH1 || (firstH1.textContent && firstH1.textContent.indexOf('Free Math Worksheets for K-5') !== -1);
-              
-              if (needsUpdate) {
-                // Remove this script and any other scripts first
-                var scripts = fallback.getElementsByTagName('script');
-                for (var i = scripts.length - 1; i >= 0; i--) {
-                  scripts[i].parentNode.removeChild(scripts[i]);
-                }
-                // Set the correct content
-                fallback.innerHTML = '<h1 style="font-size: 2.5rem; font-weight: 900; color: #0f172a; margin-bottom: 1rem; line-height: 1.2;">Free Converting Fractions to Decimals Worksheets (PDF + Answer Key)</h1><p style="font-size: 1.125rem; color: #475569; margin-bottom: 2.5rem; line-height: 1.6;">Download free fractions-to-decimals worksheets with answer keys. Easy, clear, no-login math PDFs perfect for grades 3–5. Boost confidence with simple step-by-step practice.</p><section style="margin-bottom: 2rem;"><h2 style="font-size: 1.875rem; font-weight: 800; color: #1e293b; margin-bottom: 0.75rem;">Converting Fractions to Decimals Worksheets</h2><p style="color: #475569; line-height: 1.6; margin-bottom: 1.5rem;">Free printable fractions to decimals worksheets with step-by-step examples and answer keys. Perfect for 3rd, 4th, and 5th grade students learning to convert fractions to decimal form. Download PDF worksheets instantly for classroom or home practice.</p></section><section style="margin-bottom: 2rem;"><h2 style="font-size: 1.875rem; font-weight: 800; color: #1e293b; margin-bottom: 0.75rem;">Fractions to Decimals Practice Sheets</h2><p style="color: #475569; line-height: 1.6; margin-bottom: 1.5rem;">Comprehensive fractions to decimals conversion worksheets covering proper fractions, improper fractions, and mixed numbers. Each worksheet includes visual examples and detailed answer keys for easy learning and practice.</p></section><section style="margin-bottom: 2rem;"><h2 style="font-size: 1.875rem; font-weight: 800; color: #1e293b; margin-bottom: 0.75rem;">Free Fractions to Decimals Worksheets PDF</h2><p style="color: #475569; line-height: 1.6; margin-bottom: 1.5rem;">Download free printable fractions to decimals worksheets in PDF format. All worksheets include answer keys and are perfect for grades 3-5. No login required - instant download and printing.</p></section>';
-                return true; // Success
-              }
-            } catch(e) {
-              // Silent fail
-            }
-            return false;
-          }
-          
-          // Try immediately (content should be parsed by now)
-          if (!updateContent()) {
-            // If didn't work, try multiple times with delays
-            setTimeout(updateContent, 0);
-            setTimeout(updateContent, 10);
-            setTimeout(updateContent, 50);
-            setTimeout(updateContent, 100);
-          }
-        })();
-      </script>
+      <h1 style="font-size: 2.5rem; font-weight: 900; color: #0f172a; margin-bottom: 1rem; line-height: 1.2;">
+        Free Math Worksheets for K-5 | Multiplication & More | Wizqo
+      </h1>
+      <p style="font-size: 1.125rem; color: #475569; margin-bottom: 2.5rem; line-height: 1.6;">
+        Free PDF math and multiplication worksheets for Kindergarten to 5th grade. Download kindergarten math worksheets instantly – boost confidence!
+      </p>
+      
+      <section style="margin-bottom: 2rem;">
+        <h2 style="font-size: 1.875rem; font-weight: 800; color: #1e293b; margin-bottom: 0.75rem;">1st Grade Math Worksheets</h2>
+        <p style="color: #475569; line-height: 1.6; margin-bottom: 1.5rem;">
+          Free printable 1st grade math worksheets covering addition, subtraction, number sense, ten frames, and skip counting. Perfect for building foundational math skills with answer keys included. Download PDF worksheets instantly for classroom or home use.
+        </p>
+      </section>
+      
+      <section style="margin-bottom: 2rem;">
+        <h2 style="font-size: 1.875rem; font-weight: 800; color: #1e293b; margin-bottom: 0.75rem;">2nd Grade Math Worksheets</h2>
+        <p style="color: #475569; line-height: 1.6; margin-bottom: 1.5rem;">
+          Free 2nd grade math worksheets featuring multiplication, division, place value, and word problems. Download printable PDFs with answer keys for instant practice. Perfect for mastering multiplication tables and building math confidence.
+        </p>
+      </section>
+      
+      <section style="margin-bottom: 2rem;">
+        <h2 style="font-size: 1.875rem; font-weight: 800; color: #1e293b; margin-bottom: 0.75rem;">3rd Grade Math Worksheets</h2>
+        <p style="color: #475569; line-height: 1.6; margin-bottom: 1.5rem;">
+          Free 3rd grade math worksheets covering advanced multiplication, fractions, division, and multi-step word problems. Printable PDF worksheets with answer keys for comprehensive math practice. Perfect for building problem-solving skills.
+        </p>
+      </section>
+      
+      <section style="margin-bottom: 2rem;">
+        <h2 style="font-size: 1.875rem; font-weight: 800; color: #1e293b; margin-bottom: 0.75rem;">Kindergarten Math Worksheets</h2>
+        <p style="color: #475569; line-height: 1.6; margin-bottom: 1.5rem;">
+          Free printable kindergarten math worksheets for early learners. Download PDF worksheets covering counting, number recognition, basic shapes, and simple addition. Perfect for building math foundations with answer keys included.
+        </p>
+      </section>
+      
+      <section style="margin-bottom: 2rem;">
+        <h2 style="font-size: 1.875rem; font-weight: 800; color: #1e293b; margin-bottom: 0.75rem;">4th Grade Math Worksheets</h2>
+        <p style="color: #475569; line-height: 1.6; margin-bottom: 1.5rem;">
+          Free 4th grade math worksheets covering multiplication, division, fractions, decimals, and geometry. Download printable PDFs with answer keys for comprehensive math practice and skill building.
+        </p>
+      </section>
+      
+      <section style="margin-bottom: 2rem;">
+        <h2 style="font-size: 1.875rem; font-weight: 800; color: #1e293b; margin-bottom: 0.75rem;">5th Grade Math Worksheets</h2>
+        <p style="color: #475569; line-height: 1.6; margin-bottom: 1.5rem;">
+          Free 5th grade math worksheets covering advanced multiplication, division, fractions, decimals, and algebra basics. Download printable PDF worksheets with answer keys for comprehensive math practice.
+        </p>
+      </section>
     </main>
     
     <!-- React will render enhanced interactive content here -->
