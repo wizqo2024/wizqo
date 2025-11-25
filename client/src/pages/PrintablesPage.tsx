@@ -2925,24 +2925,15 @@ export function PrintablesPage() {
             areaStyleTags.forEach((styleTag) => styleTag.remove())
           }
           
-          // CRITICAL: Clear textContent of all style tags to prevent CSS text from appearing in PDF
-          // The styles are already applied, so we can safely clear the text content
-          const allStyleTags = clonedDoc.querySelectorAll('style')
-          allStyleTags.forEach((styleTag: Element) => {
-            const htmlStyleTag = styleTag as HTMLStyleElement
-            // Clear the text content - styles are already applied to elements
-            htmlStyleTag.textContent = ''
-            htmlStyleTag.innerHTML = ''
-            htmlStyleTag.setAttribute('data-pdf-ignore', 'true')
-            // Hide style tags in head visually
-            htmlStyleTag.style.display = 'none'
-            htmlStyleTag.style.visibility = 'hidden'
-            htmlStyleTag.style.position = 'absolute'
-            htmlStyleTag.style.left = '-9999px'
-            htmlStyleTag.style.width = '0'
-            htmlStyleTag.style.height = '0'
-            htmlStyleTag.style.opacity = '0'
-          })
+          // CRITICAL: Remove style tags entirely after styles are applied to prevent CSS text in PDF
+          // The styles are already applied to elements, so we can safely remove the style tags
+          // Use setTimeout to ensure styles are processed before removal
+          setTimeout(() => {
+            const allStyleTags = clonedDoc.querySelectorAll('style')
+            allStyleTags.forEach((styleTag: Element) => {
+              styleTag.remove()
+            })
+          }, 0)
           
           // Process print: utility classes in cloned document
           const allClonedElements = clonedDoc.querySelectorAll('*')
@@ -4529,24 +4520,15 @@ export function PrintablesPage() {
             areaStyleTags.forEach((styleTag) => styleTag.remove())
           }
           
-          // CRITICAL: Clear textContent of all style tags to prevent CSS text from appearing in PDF
-          // The styles are already applied, so we can safely clear the text content
-          const allStyleTags = clonedDoc.querySelectorAll('style')
-          allStyleTags.forEach((styleTag: Element) => {
-            const htmlStyleTag = styleTag as HTMLStyleElement
-            // Clear the text content - styles are already applied to elements
-            htmlStyleTag.textContent = ''
-            htmlStyleTag.innerHTML = ''
-            htmlStyleTag.setAttribute('data-pdf-ignore', 'true')
-            // Hide style tags in head visually
-            htmlStyleTag.style.display = 'none'
-            htmlStyleTag.style.visibility = 'hidden'
-            htmlStyleTag.style.position = 'absolute'
-            htmlStyleTag.style.left = '-9999px'
-            htmlStyleTag.style.width = '0'
-            htmlStyleTag.style.height = '0'
-            htmlStyleTag.style.opacity = '0'
-          })
+          // CRITICAL: Remove style tags entirely after styles are applied to prevent CSS text in PDF
+          // The styles are already applied to elements, so we can safely remove the style tags
+          // Use setTimeout to ensure styles are processed before removal
+          setTimeout(() => {
+            const allStyleTags = clonedDoc.querySelectorAll('style')
+            allStyleTags.forEach((styleTag: Element) => {
+              styleTag.remove()
+            })
+          }, 0)
           
           // Helper function to safely get className as string
           const getClassName = (el: HTMLElement): string => {
