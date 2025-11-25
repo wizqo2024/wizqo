@@ -313,9 +313,13 @@ ${gameLinks}
     html = html.replace(/<main id="seo-fallback"[^>]*>[\s\S]*?<\/main>/, timesTableContent);
   } else if (route.path === '/worksheets/fractions-to-decimals-worksheets') {
     // document.write scripts already removed above before setMeta
-    // Also remove any remaining SEO update scripts in body that use document.write
-    html = html.replace(/<script>[\s\S]*?Script to update SEO fallback content immediately[\s\S]*?<\/script>/i, '');
-    html = html.replace(/<script>[\s\S]*?seo-update-script[\s\S]*?<\/script>/i, '');
+    // Also remove ALL remaining SEO update scripts in body/head that check for landing page content
+    // These scripts are unnecessary since static HTML already has correct content
+    html = html.replace(/<script[^>]*>[\s\S]*?Script to update SEO fallback content immediately[\s\S]*?<\/script>/gi, '');
+    html = html.replace(/<script[^>]*id=["']seo-update-script["'][^>]*>[\s\S]*?<\/script>/gi, '');
+    html = html.replace(/<script[^>]*>[\s\S]*?Free Math Worksheets for K-5[\s\S]*?<\/script>/gi, '');
+    html = html.replace(/<script[^>]*>[\s\S]*?MutationObserver[\s\S]*?fractions-to-decimals[\s\S]*?<\/script>/gi, '');
+    html = html.replace(/<script[^>]*>[\s\S]*?tryUpdateFallback[\s\S]*?<\/script>/gi, '');
     // Replace fallback content with fractions-to-decimals-specific content
     const fractionsToDecimalsContent = `<main id="seo-fallback" style="display: none; max-width: 1200px; margin: 0 auto; padding: 2rem 1rem; font-family: system-ui, -apple-system, sans-serif;">
       <h1 style="font-size: 2.5rem; font-weight: 900; color: #0f172a; margin-bottom: 1rem; line-height: 1.2;">
