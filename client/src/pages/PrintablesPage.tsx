@@ -2120,6 +2120,18 @@ export function PrintablesPage() {
           return element.tagName === 'STYLE' || element.hasAttribute('data-pdf-ignore')
         },
         onclone: (clonedDoc) => {
+          // CRITICAL: Remove ALL style tags from body/content area BEFORE adding new ones
+          // This prevents CSS text from appearing in the PDF
+          const bodyStyleTags = clonedDoc.body.querySelectorAll('style')
+          bodyStyleTags.forEach((styleTag) => styleTag.remove())
+          
+          // Also remove any style tags that might be in the capture area
+          const captureArea = clonedDoc.querySelector('[data-worksheet-content="true"]')
+          if (captureArea) {
+            const areaStyleTags = captureArea.querySelectorAll('style')
+            areaStyleTags.forEach((styleTag) => styleTag.remove())
+          }
+          
           // Apply print styles to cloned document
           const clonedHtml = clonedDoc.documentElement
           const clonedBody = clonedDoc.body
@@ -2138,6 +2150,7 @@ export function PrintablesPage() {
           // Add ALL print styles to match print layout exactly (for PDF download)
           // These styles are EXACT copy of @media print from index.css to ensure perfect match
           const style = clonedDoc.createElement('style')
+          style.setAttribute('data-pdf-ignore', 'true')
           style.textContent = `
             /* Page setup - no margins for maximum content space (consistent across all browsers) */
             /* This ensures Ctrl+P (or Cmd+P) defaults to NO margins in all browsers */
@@ -2901,19 +2914,27 @@ export function PrintablesPage() {
           `
           clonedDoc.head.appendChild(style)
           
-          // Hide all style tags from html2canvas capture to prevent CSS text appearing in PDF
+          // CRITICAL: Remove ALL style tags from body/content area to prevent CSS text in PDF
+          const bodyStyleTags = clonedDoc.body.querySelectorAll('style')
+          bodyStyleTags.forEach((styleTag) => styleTag.remove())
+          
+          // Remove style tags from capture area
+          const captureArea = clonedDoc.querySelector('[data-worksheet-content="true"]')
+          if (captureArea) {
+            const areaStyleTags = captureArea.querySelectorAll('style')
+            areaStyleTags.forEach((styleTag) => styleTag.remove())
+          }
+          
+          // Mark all remaining style tags (in head) to be ignored
           const allStyleTags = clonedDoc.querySelectorAll('style')
           allStyleTags.forEach((styleTag: Element) => {
             const htmlStyleTag = styleTag as HTMLStyleElement
             htmlStyleTag.setAttribute('data-pdf-ignore', 'true')
-            // Remove style tags from body (they should only be in head)
-            if (htmlStyleTag.parentElement && htmlStyleTag.parentElement.tagName === 'BODY') {
-              htmlStyleTag.remove()
-            } else {
-              // Hide style tags in head visually
-              htmlStyleTag.style.display = 'none'
-              htmlStyleTag.style.visibility = 'hidden'
-            }
+            // Hide style tags in head visually
+            htmlStyleTag.style.display = 'none'
+            htmlStyleTag.style.visibility = 'hidden'
+            htmlStyleTag.style.position = 'absolute'
+            htmlStyleTag.style.left = '-9999px'
           })
           
           // Process print: utility classes in cloned document
@@ -4490,19 +4511,27 @@ export function PrintablesPage() {
           `
           clonedDoc.head.appendChild(style)
           
-          // Hide all style tags from html2canvas capture to prevent CSS text appearing in PDF
+          // CRITICAL: Remove ALL style tags from body/content area to prevent CSS text in PDF
+          const bodyStyleTags = clonedDoc.body.querySelectorAll('style')
+          bodyStyleTags.forEach((styleTag) => styleTag.remove())
+          
+          // Remove style tags from capture area
+          const captureArea = clonedDoc.querySelector('[data-worksheet-content="true"]')
+          if (captureArea) {
+            const areaStyleTags = captureArea.querySelectorAll('style')
+            areaStyleTags.forEach((styleTag) => styleTag.remove())
+          }
+          
+          // Mark all remaining style tags (in head) to be ignored
           const allStyleTags = clonedDoc.querySelectorAll('style')
           allStyleTags.forEach((styleTag: Element) => {
             const htmlStyleTag = styleTag as HTMLStyleElement
             htmlStyleTag.setAttribute('data-pdf-ignore', 'true')
-            // Remove style tags from body (they should only be in head)
-            if (htmlStyleTag.parentElement && htmlStyleTag.parentElement.tagName === 'BODY') {
-              htmlStyleTag.remove()
-            } else {
-              // Hide style tags in head visually
-              htmlStyleTag.style.display = 'none'
-              htmlStyleTag.style.visibility = 'hidden'
-            }
+            // Hide style tags in head visually
+            htmlStyleTag.style.display = 'none'
+            htmlStyleTag.style.visibility = 'hidden'
+            htmlStyleTag.style.position = 'absolute'
+            htmlStyleTag.style.left = '-9999px'
           })
           
           // Helper function to safely get className as string
