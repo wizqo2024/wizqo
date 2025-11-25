@@ -2923,44 +2923,46 @@ export function PrintablesPage() {
               break-inside: avoid !important;
             }
           `
-          // CRITICAL: Apply styles without using textContent to prevent html2canvas from capturing CSS text
-          // Method: Use a data attribute to store CSS, then apply via stylesheet API
-          style.setAttribute('data-css', '')
+          // CRITICAL: Apply styles using ONLY stylesheet API - NEVER use textContent
+          // This prevents html2canvas from capturing CSS text
           clonedDoc.head.appendChild(style)
           
           // Apply styles using stylesheet API (no textContent = no CSS text in PDF)
           const sheet = style.sheet as CSSStyleSheet | null
           if (sheet && sheet.insertRule) {
-            // Remove comments and split by } to get individual rules
+            // Remove comments and split CSS into rules
             const cleanCss = cssText.replace(/\/\*[\s\S]*?\*\//g, '').trim()
-            const rules = cleanCss.split('}').filter(r => r.trim())
-            rules.forEach(rule => {
-              const fullRule = rule.trim() + '}'
-              if (fullRule.length > 2) {
-                try {
-                  sheet.insertRule(fullRule, sheet.cssRules.length)
-                } catch (e) {
-                  // Some rules like @page can't be inserted, skip them
+            // Split by closing brace, but keep the brace
+            const parts = cleanCss.split(/(?<=})/)
+            let currentRule = ''
+            parts.forEach(part => {
+              currentRule += part
+              if (currentRule.trim().endsWith('}')) {
+                const rule = currentRule.trim()
+                if (rule.length > 2 && !rule.startsWith('@page')) {
+                  try {
+                    sheet.insertRule(rule, sheet.cssRules.length)
+                  } catch (e) {
+                    // Skip invalid rules (like @page which can't be inserted)
+                  }
                 }
+                currentRule = ''
               }
             })
-          } else {
-            // Fallback: temporarily set textContent, apply, then clear
-            const tempText = cssText
-            style.textContent = tempText
-            // Force browser to parse styles
-            void clonedDoc.documentElement.offsetHeight
-            // Immediately clear - styles are already applied
-            style.textContent = ''
-            style.innerHTML = ''
-            style.removeAttribute('data-css')
+            // Style tag has no textContent, so html2canvas won't capture CSS text
           }
+          // If stylesheet API fails, skip styles (better than showing CSS text)
           
-          // Remove style tag - styles are already applied
+          // Remove style tag completely - styles are already applied via stylesheet
           style.remove()
           
-          // Remove all other style tags
-          clonedDoc.querySelectorAll('style').forEach(tag => tag.remove())
+          // Remove ALL style tags from cloned document
+          clonedDoc.querySelectorAll('style').forEach(tag => {
+            const htmlTag = tag as HTMLStyleElement
+            htmlTag.textContent = ''
+            htmlTag.innerHTML = ''
+            tag.remove()
+          })
           
           // Process print: utility classes in cloned document
           const allClonedElements = clonedDoc.querySelectorAll('*')
@@ -4536,39 +4538,44 @@ export function PrintablesPage() {
               widows: 3 !important;
             }
           `
-          // CRITICAL: Apply styles without using textContent to prevent html2canvas from capturing CSS text
-          style.setAttribute('data-css', '')
+          // CRITICAL: Apply styles using ONLY stylesheet API - NEVER use textContent
+          // This prevents html2canvas from capturing CSS text
           clonedDoc.head.appendChild(style)
           
           // Apply styles using stylesheet API (no textContent = no CSS text in PDF)
           const sheet2 = style.sheet as CSSStyleSheet | null
           if (sheet2 && sheet2.insertRule) {
             const cleanCss2 = cssText2.replace(/\/\*[\s\S]*?\*\//g, '').trim()
-            const rules2 = cleanCss2.split('}').filter(r => r.trim())
-            rules2.forEach(rule => {
-              const fullRule = rule.trim() + '}'
-              if (fullRule.length > 2) {
-                try {
-                  sheet2.insertRule(fullRule, sheet2.cssRules.length)
-                } catch (e) {
-                  // Some rules like @page can't be inserted, skip them
+            const parts2 = cleanCss2.split(/(?<=})/)
+            let currentRule2 = ''
+            parts2.forEach(part => {
+              currentRule2 += part
+              if (currentRule2.trim().endsWith('}')) {
+                const rule = currentRule2.trim()
+                if (rule.length > 2 && !rule.startsWith('@page')) {
+                  try {
+                    sheet2.insertRule(rule, sheet2.cssRules.length)
+                  } catch (e) {
+                    // Skip invalid rules
+                  }
                 }
+                currentRule2 = ''
               }
             })
-          } else {
-            // Fallback: temporarily set textContent, apply, then clear
-            style.textContent = cssText2
-            void clonedDoc.documentElement.offsetHeight
-            style.textContent = ''
-            style.innerHTML = ''
-            style.removeAttribute('data-css')
+            // Style tag has no textContent, so html2canvas won't capture CSS text
           }
+          // If stylesheet API fails, skip styles (better than showing CSS text)
           
-          // Remove style tag - styles are already applied
+          // Remove style tag completely - styles are already applied via stylesheet
           style.remove()
           
-          // Remove all other style tags
-          clonedDoc.querySelectorAll('style').forEach(tag => tag.remove())
+          // Remove ALL style tags from cloned document
+          clonedDoc.querySelectorAll('style').forEach(tag => {
+            const htmlTag = tag as HTMLStyleElement
+            htmlTag.textContent = ''
+            htmlTag.innerHTML = ''
+            tag.remove()
+          })
           
           // Helper function to safely get className as string
           const getClassName = (el: HTMLElement): string => {
