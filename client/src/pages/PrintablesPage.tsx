@@ -2923,23 +2923,49 @@ export function PrintablesPage() {
               break-inside: avoid !important;
             }
           `
-          // Append style tag to head to apply styles
+          // Append empty style tag first
           clonedDoc.head.appendChild(style)
-          style.textContent = cssText
           
-          // CRITICAL: Immediately clear and remove style tag to prevent CSS text in PDF
-          // The browser has already parsed and applied the styles, so we can safely remove the tag
-          // Do this synchronously before html2canvas processes the document
-          style.textContent = ''
-          style.innerHTML = ''
+          // Use stylesheet API to add rules without textContent (html2canvas won't capture this)
+          try {
+            const sheet = style.sheet as CSSStyleSheet | null
+            if (sheet) {
+              // Split CSS into individual rules and add them via insertRule
+              const rules = cssText.split(/(?<=})\s*(?=\/\*|@|[\w.#[:\s])/).filter(r => r.trim() && !r.trim().startsWith('/*'))
+              rules.forEach(rule => {
+                const cleanRule = rule.trim()
+                if (cleanRule && cleanRule.endsWith('}')) {
+                  try {
+                    sheet.insertRule(cleanRule, sheet.cssRules.length)
+                  } catch (e) {
+                    // Ignore invalid rules
+                  }
+                }
+              })
+              // Style tag is empty (no textContent), so html2canvas won't capture CSS text
+            } else {
+              // Fallback: use textContent but clear immediately
+              style.textContent = cssText
+              // Force style application
+              void clonedDoc.documentElement.offsetHeight
+              // Clear immediately
+              style.textContent = ''
+              style.innerHTML = ''
+            }
+          } catch (e) {
+            // Fallback: use textContent but clear immediately
+            style.textContent = cssText
+            void clonedDoc.documentElement.offsetHeight
+            style.textContent = ''
+            style.innerHTML = ''
+          }
+          
+          // Remove style tag completely
           style.remove()
           
-          // Also remove any other style tags that might exist
+          // Remove any other style tags
           const allStyleTags = clonedDoc.querySelectorAll('style')
           allStyleTags.forEach((styleTag: Element) => {
-            const htmlStyleTag = styleTag as HTMLStyleElement
-            htmlStyleTag.textContent = ''
-            htmlStyleTag.innerHTML = ''
             styleTag.remove()
           })
           
@@ -4517,22 +4543,47 @@ export function PrintablesPage() {
               widows: 3 !important;
             }
           `
-          // Append style tag to head to apply styles
+          // Append empty style tag first
           clonedDoc.head.appendChild(style)
-          style.textContent = cssText2
           
-          // CRITICAL: Immediately clear and remove style tag to prevent CSS text in PDF
-          // The browser has already parsed and applied the styles, so we can safely remove the tag
-          style.textContent = ''
-          style.innerHTML = ''
+          // Use stylesheet API to add rules without textContent (html2canvas won't capture this)
+          try {
+            const sheet = style.sheet as CSSStyleSheet | null
+            if (sheet) {
+              // Split CSS into individual rules and add them via insertRule
+              const rules = cssText2.split(/(?<=})\s*(?=\/\*|@|[\w.#[:\s])/).filter(r => r.trim() && !r.trim().startsWith('/*'))
+              rules.forEach(rule => {
+                const cleanRule = rule.trim()
+                if (cleanRule && cleanRule.endsWith('}')) {
+                  try {
+                    sheet.insertRule(cleanRule, sheet.cssRules.length)
+                  } catch (e) {
+                    // Ignore invalid rules
+                  }
+                }
+              })
+              // Style tag is empty (no textContent), so html2canvas won't capture CSS text
+            } else {
+              // Fallback: use textContent but clear immediately
+              style.textContent = cssText2
+              void clonedDoc.documentElement.offsetHeight
+              style.textContent = ''
+              style.innerHTML = ''
+            }
+          } catch (e) {
+            // Fallback: use textContent but clear immediately
+            style.textContent = cssText2
+            void clonedDoc.documentElement.offsetHeight
+            style.textContent = ''
+            style.innerHTML = ''
+          }
+          
+          // Remove style tag completely
           style.remove()
           
-          // Also remove any other style tags that might exist
+          // Remove any other style tags
           const allStyleTags2 = clonedDoc.querySelectorAll('style')
           allStyleTags2.forEach((styleTag: Element) => {
-            const htmlStyleTag = styleTag as HTMLStyleElement
-            htmlStyleTag.textContent = ''
-            htmlStyleTag.innerHTML = ''
             styleTag.remove()
           })
           
