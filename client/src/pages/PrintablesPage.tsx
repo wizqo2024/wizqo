@@ -2122,8 +2122,8 @@ export function PrintablesPage() {
         onclone: (clonedDoc) => {
           // CRITICAL: Remove ALL style tags from body/content area BEFORE adding new ones
           // This prevents CSS text from appearing in the PDF
-          const bodyStyleTags = clonedDoc.body.querySelectorAll('style')
-          bodyStyleTags.forEach((styleTag) => {
+          const bodyStyleTagsBefore = clonedDoc.body.querySelectorAll('style')
+          bodyStyleTagsBefore.forEach((styleTag) => {
             const htmlStyleTag = styleTag as HTMLStyleElement
             htmlStyleTag.textContent = ''
             htmlStyleTag.innerHTML = ''
@@ -2131,9 +2131,9 @@ export function PrintablesPage() {
           })
           
           // Also remove any style tags that might be in the capture area
-          const captureArea = clonedDoc.querySelector('[data-worksheet-content="true"]')
-          if (captureArea) {
-            const areaStyleTags = captureArea.querySelectorAll('style')
+          const captureAreaBefore = clonedDoc.querySelector('[data-worksheet-content="true"]')
+          if (captureAreaBefore) {
+            const areaStyleTags = captureAreaBefore.querySelectorAll('style')
             areaStyleTags.forEach((styleTag) => {
               const htmlStyleTag = styleTag as HTMLStyleElement
               htmlStyleTag.textContent = ''
