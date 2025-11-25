@@ -5735,8 +5735,23 @@ export function PrintablesPage() {
               )}
             </button>
             <button
-              onClick={() => {
-                window.print()
+              onClick={(e) => {
+                e.preventDefault()
+                e.stopPropagation()
+                try {
+                  window.print()
+                } catch (error) {
+                  // Fallback: open print dialog using a different method
+                  setTimeout(() => {
+                    try {
+                      window.print()
+                    } catch (err) {
+                      console.error('Print failed:', err)
+                      // Last resort: show message to user
+                      alert('Please use your browser\'s print function (Ctrl+P or Cmd+P)')
+                    }
+                  }, 100)
+                }
               }}
               className="inline-flex items-center gap-2 px-4 py-2 rounded-lg border border-slate-300 bg-white hover:bg-slate-50 text-slate-700 text-sm font-medium shadow-sm focus:outline-none focus:ring-2 focus:ring-slate-400 focus:ring-offset-1 print:hidden"
             >
