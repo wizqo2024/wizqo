@@ -2925,15 +2925,13 @@ export function PrintablesPage() {
             areaStyleTags.forEach((styleTag) => styleTag.remove())
           }
           
-          // CRITICAL: Remove style tags entirely after styles are applied to prevent CSS text in PDF
-          // The styles are already applied to elements, so we can safely remove the style tags
-          // Use setTimeout to ensure styles are processed before removal
-          setTimeout(() => {
-            const allStyleTags = clonedDoc.querySelectorAll('style')
-            allStyleTags.forEach((styleTag: Element) => {
-              styleTag.remove()
-            })
-          }, 0)
+          // CRITICAL: Remove style tags entirely to prevent CSS text in PDF
+          // Styles are applied when the style tag is added to head, so we can remove it immediately
+          // This prevents html2canvas from capturing the CSS text content
+          const allStyleTags = clonedDoc.querySelectorAll('style')
+          allStyleTags.forEach((styleTag: Element) => {
+            styleTag.remove()
+          })
           
           // Process print: utility classes in cloned document
           const allClonedElements = clonedDoc.querySelectorAll('*')
@@ -4520,15 +4518,13 @@ export function PrintablesPage() {
             areaStyleTags.forEach((styleTag) => styleTag.remove())
           }
           
-          // CRITICAL: Remove style tags entirely after styles are applied to prevent CSS text in PDF
-          // The styles are already applied to elements, so we can safely remove the style tags
-          // Use setTimeout to ensure styles are processed before removal
-          setTimeout(() => {
-            const allStyleTags = clonedDoc.querySelectorAll('style')
-            allStyleTags.forEach((styleTag: Element) => {
-              styleTag.remove()
-            })
-          }, 0)
+          // CRITICAL: Remove style tags entirely to prevent CSS text in PDF
+          // Styles are applied when the style tag is added to head, so we can remove it immediately
+          // This prevents html2canvas from capturing the CSS text content
+          const allStyleTags = clonedDoc.querySelectorAll('style')
+          allStyleTags.forEach((styleTag: Element) => {
+            styleTag.remove()
+          })
           
           // Helper function to safely get className as string
           const getClassName = (el: HTMLElement): string => {
