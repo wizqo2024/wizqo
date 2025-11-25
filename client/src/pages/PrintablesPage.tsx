@@ -2102,14 +2102,16 @@ export function PrintablesPage() {
       
       // CRITICAL: Remove ALL style tags from original document before capture
       // This prevents html2canvas from seeing any CSS text
+      // Store original style tags to restore later
       const originalStyleTags = document.querySelectorAll('style')
-      const originalStyleTagsData: Array<{ element: HTMLStyleElement; parent: Node | null; nextSibling: Node | null }> = []
+      const originalStyleTagsData: Array<{ element: HTMLStyleElement; parent: Node | null; nextSibling: Node | null; originalContent: string }> = []
       originalStyleTags.forEach((styleTag) => {
         const htmlStyleTag = styleTag as HTMLStyleElement
         originalStyleTagsData.push({
           element: htmlStyleTag,
           parent: htmlStyleTag.parentNode,
-          nextSibling: htmlStyleTag.nextSibling
+          nextSibling: htmlStyleTag.nextSibling,
+          originalContent: htmlStyleTag.textContent || htmlStyleTag.innerHTML || ''
         })
         // Clear content and remove
         htmlStyleTag.textContent = ''
@@ -3362,9 +3364,13 @@ export function PrintablesPage() {
       
       // Restore original style tags if we removed them
       if (originalStyleTagsData.length > 0) {
-        originalStyleTagsData.forEach(({ element, parent, nextSibling }) => {
-          if (parent) {
-            if (nextSibling) {
+        originalStyleTagsData.forEach(({ element, parent, nextSibling, originalContent }) => {
+          if (parent && element) {
+            // Restore original content
+            element.textContent = originalContent
+            element.innerHTML = originalContent
+            // Restore to original position
+            if (nextSibling && nextSibling.parentNode === parent) {
               parent.insertBefore(element, nextSibling)
             } else {
               parent.appendChild(element)
