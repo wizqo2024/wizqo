@@ -3880,9 +3880,11 @@ export function PrintablesPage() {
           }
           
           // Apply ALL print styles as regular CSS (html2canvas doesn't respect @media print)
-          // EXACT copy of @media print from index.css to ensure perfect match with print preview
+          // CRITICAL: We'll add the style tag, apply styles, then immediately remove it
+          // to prevent html2canvas from capturing the CSS text
           const style = clonedDoc.createElement('style')
-          style.textContent = `
+          style.setAttribute('data-pdf-ignore', 'true')
+          const cssText2 = `
             /* Page setup - no margins for maximum content space (consistent across all browsers) */
             /* This ensures Ctrl+P (or Cmd+P) defaults to NO margins in all browsers */
             @page {
@@ -4517,7 +4519,7 @@ export function PrintablesPage() {
           `
           // Append style tag to head to apply styles
           clonedDoc.head.appendChild(style)
-          style.textContent = cssText
+          style.textContent = cssText2
           
           // CRITICAL: Immediately clear and remove style tag to prevent CSS text in PDF
           // The browser has already parsed and applied the styles, so we can safely remove the tag
