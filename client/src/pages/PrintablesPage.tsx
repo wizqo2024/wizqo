@@ -2100,6 +2100,23 @@ export function PrintablesPage() {
         }
       })
       
+      // CRITICAL: Remove ALL style tags from original document before capture
+      // This prevents html2canvas from seeing any CSS text
+      const originalStyleTags = document.querySelectorAll('style')
+      const originalStyleTagsData: Array<{ element: HTMLStyleElement; parent: Node | null; nextSibling: Node | null }> = []
+      originalStyleTags.forEach((styleTag) => {
+        const htmlStyleTag = styleTag as HTMLStyleElement
+        originalStyleTagsData.push({
+          element: htmlStyleTag,
+          parent: htmlStyleTag.parentNode,
+          nextSibling: htmlStyleTag.nextSibling
+        })
+        // Clear content and remove
+        htmlStyleTag.textContent = ''
+        htmlStyleTag.innerHTML = ''
+        htmlStyleTag.remove()
+      })
+      
       // Force reflow to ensure dimensions are updated
       void finalContentElement.offsetHeight
       void finalContentElement.scrollHeight
@@ -2123,13 +2140,23 @@ export function PrintablesPage() {
           // CRITICAL: Remove ALL style tags from body/content area BEFORE adding new ones
           // This prevents CSS text from appearing in the PDF
           const bodyStyleTags = clonedDoc.body.querySelectorAll('style')
-          bodyStyleTags.forEach((styleTag) => styleTag.remove())
+          bodyStyleTags.forEach((styleTag) => {
+            const htmlStyleTag = styleTag as HTMLStyleElement
+            htmlStyleTag.textContent = ''
+            htmlStyleTag.innerHTML = ''
+            styleTag.remove()
+          })
           
           // Also remove any style tags that might be in the capture area
           const captureArea = clonedDoc.querySelector('[data-worksheet-content="true"]')
           if (captureArea) {
             const areaStyleTags = captureArea.querySelectorAll('style')
-            areaStyleTags.forEach((styleTag) => styleTag.remove())
+            areaStyleTags.forEach((styleTag) => {
+              const htmlStyleTag = styleTag as HTMLStyleElement
+              htmlStyleTag.textContent = ''
+              htmlStyleTag.innerHTML = ''
+              styleTag.remove()
+            })
           }
           
           // Apply print styles to cloned document
@@ -3331,6 +3358,19 @@ export function PrintablesPage() {
         const from = params.get('from') || 'unknown'
         const grade = from.includes('grade') ? from.replace('-grade', '') : undefined
         trackWorksheetDownload(primaryDoc, docTitle, from, grade)
+      }
+      
+      // Restore original style tags if we removed them
+      if (originalStyleTagsData.length > 0) {
+        originalStyleTagsData.forEach(({ element, parent, nextSibling }) => {
+          if (parent) {
+            if (nextSibling) {
+              parent.insertBefore(element, nextSibling)
+            } else {
+              parent.appendChild(element)
+            }
+          }
+        })
       }
       
     } catch (error) {
