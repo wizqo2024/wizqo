@@ -497,6 +497,7 @@ const ANSWERABLE_BASE_DOC_IDS = [
   'kindergarten-shapes',
   'kindergarten-patterns',
   'kindergarten-addition-pictures',
+  'kindergarten-counting-visual',
   // 3rd Grade worksheets
   'mult-facts-0-12',
   'mult-arrays',
@@ -642,6 +643,8 @@ function resolveDocTitle(docId: string, context: { packTime: string; bundleCateg
       return getTranslatedWorksheetTitle(docId, t, '🔁 Patterns')
     case 'kindergarten-addition-pictures':
       return getTranslatedWorksheetTitle(docId, t, '➕ Addition with Pictures')
+    case 'kindergarten-counting-visual':
+      return getTranslatedWorksheetTitle(docId, t, '🐻 Counting with Cute Characters')
     case 'addition-subtraction-0-10':
       return getTranslatedWorksheetTitle(docId, t, '➕➖ Addition & Subtraction 0–10')
     case 'ten-frames-1-10':
@@ -22357,6 +22360,297 @@ export function PrintablesPage() {
                   </div>
                   <div className="text-xs text-emerald-700 mt-3">
                     💡 Remember: Count all the objects together to find the total!
+                  </div>
+                </div>
+              ))}
+            </WorksheetSectionWrapper>
+          );
+        })()}
+
+        {/* Visual Counting Worksheet with Cute Characters */}
+        {activeDocs.includes('kindergarten-counting-visual') && (() => {
+          // Cute character components
+          const CuteBear = ({ x, y, size = 60 }: { x: number; y: number; size?: number }) => (
+            <g transform={`translate(${x}, ${y})`}>
+              <circle cx={size / 2} cy={size / 2} r={size * 0.45} fill="#FF7F50" />
+              <circle cx={size * 0.25} cy={size * 0.25} r={size * 0.15} fill="#FF6347" />
+              <circle cx={size * 0.75} cy={size * 0.25} r={size * 0.15} fill="#FF6347" />
+              <circle cx={size / 2} cy={size * 0.55} r={size * 0.2} fill="#FFDAB9" />
+              <path d={`M${size * 0.5} ${size * 0.5} L${size * 0.45} ${size * 0.55} L${size * 0.55} ${size * 0.55} Z`} fill="#E91E63" />
+              <circle cx={size * 0.4} cy={size * 0.4} r={size * 0.05} fill="#000000" />
+              <circle cx={size * 0.6} cy={size * 0.4} r={size * 0.05} fill="#000000" />
+              <path
+                d={`M${size * 0.4} ${size * 0.65} Q${size * 0.5} ${size * 0.75}, ${size * 0.6} ${size * 0.65}`}
+                stroke="#B71C1C"
+                strokeWidth={size * 0.03}
+                fill="none"
+              />
+            </g>
+          );
+
+          const CuteStar = ({ x, y, size = 60 }: { x: number; y: number; size?: number }) => (
+            <g transform={`translate(${x}, ${y})`}>
+              <polygon
+                points={`
+                  ${size * 0.5},${size * 0.0}
+                  ${size * 0.61},${size * 0.35}
+                  ${size * 1.0},${size * 0.35}
+                  ${size * 0.68},${size * 0.57}
+                  ${size * 0.8},${size * 0.9}
+                  ${size * 0.5},${size * 0.7}
+                  ${size * 0.2},${size * 0.9}
+                  ${size * 0.32},${size * 0.57}
+                  ${size * 0.0},${size * 0.35}
+                  ${size * 0.39},${size * 0.35}
+                `}
+                fill="#FFEB3B"
+                stroke="#FFC107"
+                strokeWidth={size * 0.015}
+              />
+              <circle cx={size * 0.4} cy={size * 0.45} r={size * 0.05} fill="#000000" />
+              <circle cx={size * 0.6} cy={size * 0.45} r={size * 0.05} fill="#000000" />
+              <path
+                d={`M${size * 0.4} ${size * 0.6} Q${size * 0.5} ${size * 0.7}, ${size * 0.6} ${size * 0.6}`}
+                stroke="#000000"
+                strokeWidth={size * 0.03}
+                fill="none"
+              />
+            </g>
+          );
+
+          const CuteCat = ({ x, y, size = 60 }: { x: number; y: number; size?: number }) => (
+            <g transform={`translate(${x}, ${y})`}>
+              <circle cx={size / 2} cy={size / 2} r={size * 0.45} fill="#CE93D8" />
+              <path d={`M${size * 0.2} ${size * 0.2} L${size * 0.35} ${size * 0.05} L${size * 0.45} ${size * 0.25} Z`} fill="#F48FB1" />
+              <path d={`M${size * 0.8} ${size * 0.2} L${size * 0.65} ${size * 0.05} L${size * 0.55} ${size * 0.25} Z`} fill="#F48FB1" />
+              <path d={`M${size * 0.1} ${size * 0.4} L${size * 0.35} ${size * 0.05} L${size * 0.45} ${size * 0.3} C${size * 0.35} ${size * 0.4}, ${size * 0.2} ${size * 0.4} ${size * 0.1} ${size * 0.4} Z`} fill="#9C27B0" />
+              <path d={`M${size * 0.9} ${size * 0.4} L${size * 0.65} ${size * 0.05} L${size * 0.55} ${size * 0.3} C${size * 0.65} ${size * 0.4}, ${size * 0.8} ${size * 0.4} ${size * 0.9} ${size * 0.4} Z`} fill="#9C27B0" />
+              <circle cx={size * 0.4} cy={size * 0.4} r={size * 0.05} fill="#000000" />
+              <circle cx={size * 0.6} cy={size * 0.4} r={size * 0.05} fill="#000000" />
+              <path d={`M${size * 0.5} ${size * 0.5} L${size * 0.48} ${size * 0.55} L${size * 0.52} ${size * 0.55} Z`} fill="#F48FB1" />
+              <path
+                d={`M${size * 0.4} ${size * 0.65} Q${size * 0.5} ${size * 0.75}, ${size * 0.6} ${size * 0.65}`}
+                stroke="#4A148C"
+                strokeWidth={size * 0.03}
+                fill="none"
+              />
+            </g>
+          );
+
+          const CuteApple = ({ x, y, size = 60 }: { x: number; y: number; size?: number }) => (
+            <g transform={`translate(${x}, ${y})`}>
+              <path
+                d={`M${size * 0.5} 0 C0 0, 0 ${size * 1.0}, ${size * 0.5} ${size * 1.0} C${size * 1.0} ${size * 1.0}, ${size * 1.0} 0, ${size * 0.5} 0 Z`}
+                transform={`scale(0.8) translate(${size * 0.1}, ${size * 0.05})`}
+                fill="#F44336"
+                stroke="#D32F2F"
+                strokeWidth={size * 0.02}
+              />
+              <rect x={size * 0.47} y={size * 0.05} width={size * 0.06} height={size * 0.15} fill="#795548" />
+              <ellipse cx={size * 0.6} cy={size * 0.1} rx={size * 0.15} ry={size * 0.08} transform={`rotate(20 ${size * 0.6} ${size * 0.1})`} fill="#4CAF50" />
+              <circle cx={size * 0.4} cy={size * 0.45} r={size * 0.05} fill="#000000" />
+              <circle cx={size * 0.6} cy={size * 0.45} r={size * 0.05} fill="#000000" />
+              <path
+                d={`M${size * 0.4} ${size * 0.6} Q${size * 0.5} ${size * 0.7}, ${size * 0.6} ${size * 0.6}`}
+                stroke="#000000"
+                strokeWidth={size * 0.03}
+                fill="none"
+              />
+            </g>
+          );
+
+          const CuteFlower = ({ x, y, size = 60 }: { x: number; y: number; size?: number }) => (
+            <g transform={`translate(${x}, ${y})`}>
+              <circle cx={size / 2} cy={size / 2} r={size * 0.25} fill="#FF9800" />
+              <circle cx={size / 2} cy={size * 0.2} r={size * 0.2} fill="#E91E63" />
+              <circle cx={size / 2} cy={size * 0.8} r={size * 0.2} fill="#E91E63" />
+              <circle cx={size * 0.2} cy={size / 2} r={size * 0.2} fill="#E91E63" />
+              <circle cx={size * 0.8} cy={size / 2} r={size * 0.2} fill="#E91E63" />
+              <circle cx={size * 0.3} cy={size * 0.3} r={size * 0.2} fill="#F06292" />
+              <circle cx={size * 0.7} cy={size * 0.3} r={size * 0.2} fill="#F06292" />
+              <circle cx={size * 0.3} cy={size * 0.7} r={size * 0.2} fill="#F06292" />
+              <circle cx={size * 0.7} cy={size * 0.7} r={size * 0.2} fill="#F06292" />
+              <circle cx={size * 0.45} cy={size * 0.45} r={size * 0.03} fill="#000000" />
+              <circle cx={size * 0.55} cy={size * 0.45} r={size * 0.03} fill="#000000" />
+              <path
+                d={`M${size * 0.45} ${size * 0.55} Q${size * 0.5} ${size * 0.6}, ${size * 0.55} ${size * 0.55}`}
+                stroke="#000000"
+                strokeWidth={size * 0.02}
+                fill="none"
+              />
+            </g>
+          );
+
+          const rng = makeRng(`${effectiveSeed}|v${variant}|doc=${doc}`);
+          function nextInt(min: number, max: number) { return Math.floor(rng() * (max - min + 1)) + min; }
+          
+          const characterComponents = [
+            { Component: CuteBear, name: 'Bears', title: 'bears' },
+            { Component: CuteStar, name: 'Stars', title: 'stars' },
+            { Component: CuteCat, name: 'Cats', title: 'cats' },
+            { Component: CuteApple, name: 'Apples', title: 'apples' },
+            { Component: CuteFlower, name: 'Flowers', title: 'flowers' },
+          ];
+
+          const problems = Array.from({ length: 6 }, () => {
+            const count = nextInt(1, 10);
+            const charIndex = nextInt(0, characterComponents.length - 1);
+            const layout = count <= 5 ? 'row' : 'grid';
+            return { count, charIndex, layout };
+          });
+
+          const CountingProblemCard = ({ title, count, Component, layout }: { title: string; count: number; Component: React.ComponentType<{ x: number; y: number; size?: number }>; layout: 'row' | 'grid' }) => {
+            const charSize = 60;
+            const padding = 10;
+            let svgWidth = 650;
+            let svgHeight = 100;
+            const characterPositions: Array<{ x: number; y: number }> = [];
+
+            if (layout === 'row') {
+              svgWidth = count * (charSize + padding) + padding;
+              svgHeight = charSize + 2 * padding;
+              for (let i = 0; i < count; i++) {
+                characterPositions.push({ x: padding + i * (charSize + padding), y: padding });
+              }
+            } else if (layout === 'grid') {
+              const cols = 5;
+              const rows = Math.ceil(count / cols);
+              svgWidth = cols * (charSize + padding) + padding;
+              svgHeight = rows * (charSize + padding) + padding;
+              for (let i = 0; i < count; i++) {
+                const col = i % cols;
+                const row = Math.floor(i / cols);
+                characterPositions.push({
+                  x: padding + col * (charSize + padding),
+                  y: padding + row * (charSize + padding),
+                });
+              }
+            }
+
+            return (
+              <div className="border-4 border-pink-200 rounded-2xl p-5 my-4 bg-pink-50 flex items-center break-inside-avoid" style={{ boxShadow: '2px 2px 8px rgba(0,0,0,0.1)' }}>
+                <div className="min-w-[150px] font-bold text-2xl text-pink-900">
+                  How many {title}?
+                </div>
+                <div className="mx-5">
+                  <svg width={svgWidth} height={svgHeight} className="max-w-full h-auto">
+                    {characterPositions.map((pos, index) => (
+                      <Component key={index} x={pos.x} y={pos.y} size={charSize} />
+                    ))}
+                  </svg>
+                </div>
+                <div className="ml-auto min-w-[80px]">
+                  <svg width="80" height="80">
+                    <rect
+                      x="0"
+                      y="0"
+                      width="80"
+                      height="80"
+                      rx="10"
+                      ry="10"
+                      fill="#FFFFFF"
+                      stroke="#00BCD4"
+                      strokeWidth="4"
+                    />
+                  </svg>
+                </div>
+              </div>
+            );
+          };
+
+          return (
+            <WorksheetSectionWrapper 
+              docId="kindergarten-counting-visual" 
+              title="Counting with Cute Characters" 
+              emoji="🐻" 
+              description="Count the cute cartoon characters in each group. Write the number in the box."
+              problemCount={problems.length}
+              learningObjectives={[
+                'Count objects from 1 to 10',
+                'Recognize and write numbers 1–10',
+                'Match quantities to numbers',
+                'Build number sense with visual characters'
+              ]}
+              parentTeacherTips={[
+                'Point to each character as you count together',
+                'Encourage saying the number out loud',
+                'Practice writing numbers correctly',
+                'Extension: Count objects around the house'
+              ]}
+            >
+              <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-pink-400 to-rose-400 animate-gradient-x mb-2" />
+              {/* Worked Example */}
+              <div className="mb-6 p-4 bg-blue-50 border-2 border-blue-200 rounded-lg print:border print:bg-white">
+                <div className="font-semibold text-blue-900 mb-3 text-sm">📚 Example - Let's solve this together:</div>
+                <div className="space-y-2 text-sm">
+                  <div className="font-semibold text-base"><strong>Count the bears:</strong></div>
+                  <div className="flex gap-2 justify-center mb-3">
+                    <svg width="240" height="80">
+                      {Array.from({ length: 3 }).map((_, i) => (
+                        <CuteBear key={i} x={i * 70 + 10} y={10} size={60} />
+                      ))}
+                    </svg>
+                  </div>
+                  <div className="pl-4 border-l-2 border-blue-300 space-y-1">
+                    <div><strong>Step 1:</strong> Point to each bear and count: 1, 2, 3</div>
+                    <div className="font-semibold text-blue-900"><strong>Answer:</strong> 3</div>
+                    <div className="text-xs text-blue-700 mt-1">💡 Tip: Count slowly and point to each character. Don't skip any!</div>
+                  </div>
+                </div>
+              </div>
+              <div className="space-y-4 break-inside-avoid" style={{ pageBreakAfter: 'auto' }}>
+                {problems.map((p, i) => {
+                  const charData = characterComponents[p.charIndex];
+                  return (
+                    <CountingProblemCard
+                      key={i}
+                      title={charData.title}
+                      count={p.count}
+                      Component={charData.Component}
+                      layout={p.layout}
+                    />
+                  );
+                })}
+              </div>
+              {/* Extension/Challenge Problems */}
+              <div className="mt-6 print:mt-0 p-4 bg-purple-50 border-2 border-purple-200 rounded print:bg-white print:border" style={{ pageBreakBefore: 'always', pageBreakInside: 'avoid' }}>
+                <div className="font-semibold text-purple-900 mb-3 text-sm">🌟 More Fun (Optional):</div>
+                <div className="space-y-2 text-sm text-purple-800">
+                  <div>1. Count characters in your room. How many can you find?</div>
+                  <div>2. Draw your own cute characters and count them</div>
+                  <div>3. Practice counting backwards from 10 to 1</div>
+                </div>
+              </div>
+              {/* Self-Assessment */}
+              <div className="print:block hidden print:mt-0 mt-6 p-4 border-2 border-slate-300 rounded" style={{ pageBreakBefore: 'avoid', pageBreakInside: 'avoid' }}>
+                <div className="font-semibold text-slate-800 mb-3 text-sm">📊 {getTrans('common.howDidYouDo', 'How did you do?')}</div>
+                <div className="space-y-2 text-xs">
+                  <div>☐ I can count characters from 1 to 10</div>
+                  <div>☐ I can write numbers 1–10</div>
+                  <div>☐ I can match quantities to numbers</div>
+                </div>
+                <div className="mt-3 text-xs">
+                  <strong>{getTrans('common.myScore', 'My score:')}</strong> ___ / {problems.length}
+                </div>
+                <div className="mt-2 text-xs">
+                  <strong>{getTrans('common.whatWasHardest', 'What was hardest?')}</strong> _________________________
+                </div>
+              </div>
+              {showAnswersForDoc('kindergarten-counting-visual', () => (
+                <div className="mt-6 p-4 border-2 border-emerald-300 bg-emerald-50 rounded print:border print:bg-white print:page-break-before-always">
+                  <div className="font-bold text-emerald-900 mb-3 text-base">✅ {getTrans('common.answerKey', 'Answer Key')}</div>
+                  <div className="space-y-2 text-sm text-emerald-800">
+                    {problems.map((p, i) => {
+                      const charData = characterComponents[p.charIndex];
+                      return (
+                        <div key={i}>
+                          {i + 1}. <strong>{p.count}</strong> {charData.title}
+                        </div>
+                      );
+                    })}
+                  </div>
+                  <div className="text-xs text-emerald-700 mt-3">
+                    💡 Remember: Count each character carefully. Point to each one as you count!
                   </div>
                 </div>
               ))}
