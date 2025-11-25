@@ -2158,10 +2158,11 @@ export function PrintablesPage() {
           }
           
           // Add ALL print styles to match print layout exactly (for PDF download)
-          // These styles are EXACT copy of @media print from index.css to ensure perfect match
+          // CRITICAL: We'll add the style tag, apply styles, then immediately remove it
+          // to prevent html2canvas from capturing the CSS text
           const style = clonedDoc.createElement('style')
           style.setAttribute('data-pdf-ignore', 'true')
-          style.textContent = `
+          const cssText = `
             /* Page setup - no margins for maximum content space (consistent across all browsers) */
             /* This ensures Ctrl+P (or Cmd+P) defaults to NO margins in all browsers */
             @page {
@@ -2922,38 +2923,23 @@ export function PrintablesPage() {
               break-inside: avoid !important;
             }
           `
+          // Append style tag to head to apply styles
           clonedDoc.head.appendChild(style)
+          style.textContent = cssText
           
-          // CRITICAL: Remove style tags from body/content area immediately
-          // Then clear and remove all style tags to prevent CSS text in PDF
-          const bodyStyleTags = clonedDoc.body.querySelectorAll('style')
-          bodyStyleTags.forEach((styleTag) => {
-            const htmlStyleTag = styleTag as HTMLStyleElement
-            htmlStyleTag.textContent = ''
-            htmlStyleTag.innerHTML = ''
-            styleTag.remove()
-          })
+          // CRITICAL: Immediately clear and remove style tag to prevent CSS text in PDF
+          // The browser has already parsed and applied the styles, so we can safely remove the tag
+          // Do this synchronously before html2canvas processes the document
+          style.textContent = ''
+          style.innerHTML = ''
+          style.remove()
           
-          // Remove from capture area
-          const captureArea = clonedDoc.querySelector('[data-worksheet-content="true"]')
-          if (captureArea) {
-            const areaStyleTags = captureArea.querySelectorAll('style')
-            areaStyleTags.forEach((styleTag) => {
-              const htmlStyleTag = styleTag as HTMLStyleElement
-              htmlStyleTag.textContent = ''
-              htmlStyleTag.innerHTML = ''
-              styleTag.remove()
-            })
-          }
-          
-          // Clear and remove ALL style tags (including in head) to prevent CSS text
+          // Also remove any other style tags that might exist
           const allStyleTags = clonedDoc.querySelectorAll('style')
           allStyleTags.forEach((styleTag: Element) => {
             const htmlStyleTag = styleTag as HTMLStyleElement
-            // Clear textContent first (styles already applied by browser)
             htmlStyleTag.textContent = ''
             htmlStyleTag.innerHTML = ''
-            // Then remove from DOM completely
             styleTag.remove()
           })
           
