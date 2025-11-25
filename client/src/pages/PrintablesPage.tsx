@@ -2115,6 +2115,10 @@ export function PrintablesPage() {
         // height and width parameters can cause cropping if content is larger
         scrollX: 0,
         scrollY: 0,
+        ignoreElements: (element) => {
+          // Ignore style tags to prevent CSS text from appearing in PDF
+          return element.tagName === 'STYLE' || element.hasAttribute('data-pdf-ignore')
+        },
         onclone: (clonedDoc) => {
           // Apply print styles to cloned document
           const clonedHtml = clonedDoc.documentElement
@@ -2896,6 +2900,21 @@ export function PrintablesPage() {
             }
           `
           clonedDoc.head.appendChild(style)
+          
+          // Hide all style tags from html2canvas capture to prevent CSS text appearing in PDF
+          const allStyleTags = clonedDoc.querySelectorAll('style')
+          allStyleTags.forEach((styleTag: Element) => {
+            const htmlStyleTag = styleTag as HTMLStyleElement
+            htmlStyleTag.setAttribute('data-pdf-ignore', 'true')
+            // Remove style tags from body (they should only be in head)
+            if (htmlStyleTag.parentElement && htmlStyleTag.parentElement.tagName === 'BODY') {
+              htmlStyleTag.remove()
+            } else {
+              // Hide style tags in head visually
+              htmlStyleTag.style.display = 'none'
+              htmlStyleTag.style.visibility = 'hidden'
+            }
+          })
           
           // Process print: utility classes in cloned document
           const allClonedElements = clonedDoc.querySelectorAll('*')
@@ -4470,6 +4489,21 @@ export function PrintablesPage() {
             }
           `
           clonedDoc.head.appendChild(style)
+          
+          // Hide all style tags from html2canvas capture to prevent CSS text appearing in PDF
+          const allStyleTags = clonedDoc.querySelectorAll('style')
+          allStyleTags.forEach((styleTag: Element) => {
+            const htmlStyleTag = styleTag as HTMLStyleElement
+            htmlStyleTag.setAttribute('data-pdf-ignore', 'true')
+            // Remove style tags from body (they should only be in head)
+            if (htmlStyleTag.parentElement && htmlStyleTag.parentElement.tagName === 'BODY') {
+              htmlStyleTag.remove()
+            } else {
+              // Hide style tags in head visually
+              htmlStyleTag.style.display = 'none'
+              htmlStyleTag.style.visibility = 'hidden'
+            }
+          })
           
           // Helper function to safely get className as string
           const getClassName = (el: HTMLElement): string => {
