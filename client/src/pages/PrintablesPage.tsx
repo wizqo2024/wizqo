@@ -2925,16 +2925,23 @@ export function PrintablesPage() {
             areaStyleTags.forEach((styleTag) => styleTag.remove())
           }
           
-          // Mark all remaining style tags (in head) to be ignored
+          // CRITICAL: Clear textContent of all style tags to prevent CSS text from appearing in PDF
+          // The styles are already applied, so we can safely clear the text content
           const allStyleTags = clonedDoc.querySelectorAll('style')
           allStyleTags.forEach((styleTag: Element) => {
             const htmlStyleTag = styleTag as HTMLStyleElement
+            // Clear the text content - styles are already applied to elements
+            htmlStyleTag.textContent = ''
+            htmlStyleTag.innerHTML = ''
             htmlStyleTag.setAttribute('data-pdf-ignore', 'true')
             // Hide style tags in head visually
             htmlStyleTag.style.display = 'none'
             htmlStyleTag.style.visibility = 'hidden'
             htmlStyleTag.style.position = 'absolute'
             htmlStyleTag.style.left = '-9999px'
+            htmlStyleTag.style.width = '0'
+            htmlStyleTag.style.height = '0'
+            htmlStyleTag.style.opacity = '0'
           })
           
           // Process print: utility classes in cloned document
@@ -4522,16 +4529,23 @@ export function PrintablesPage() {
             areaStyleTags.forEach((styleTag) => styleTag.remove())
           }
           
-          // Mark all remaining style tags (in head) to be ignored
+          // CRITICAL: Clear textContent of all style tags to prevent CSS text from appearing in PDF
+          // The styles are already applied, so we can safely clear the text content
           const allStyleTags = clonedDoc.querySelectorAll('style')
           allStyleTags.forEach((styleTag: Element) => {
             const htmlStyleTag = styleTag as HTMLStyleElement
+            // Clear the text content - styles are already applied to elements
+            htmlStyleTag.textContent = ''
+            htmlStyleTag.innerHTML = ''
             htmlStyleTag.setAttribute('data-pdf-ignore', 'true')
             // Hide style tags in head visually
             htmlStyleTag.style.display = 'none'
             htmlStyleTag.style.visibility = 'hidden'
             htmlStyleTag.style.position = 'absolute'
             htmlStyleTag.style.left = '-9999px'
+            htmlStyleTag.style.width = '0'
+            htmlStyleTag.style.height = '0'
+            htmlStyleTag.style.opacity = '0'
           })
           
           // Helper function to safely get className as string
