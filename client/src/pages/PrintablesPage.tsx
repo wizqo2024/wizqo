@@ -2914,11 +2914,21 @@ export function PrintablesPage() {
           `
           clonedDoc.head.appendChild(style)
           
-          // CRITICAL: Remove style tags entirely to prevent CSS text in PDF
-          // Styles are applied when the style tag is added to head, so we can remove it immediately
-          // This prevents html2canvas from capturing the CSS text content
-          const allStyleTags = clonedDoc.querySelectorAll('style')
-          allStyleTags.forEach((styleTag: Element) => {
+          // CRITICAL: Remove style tags entirely BEFORE html2canvas processes the document
+          // Styles are already applied when the style tag is added to head
+          // We must remove them immediately to prevent html2canvas from capturing CSS text
+          // Use requestAnimationFrame to ensure removal happens before capture
+          requestAnimationFrame(() => {
+            const allStyleTags = clonedDoc.querySelectorAll('style')
+            allStyleTags.forEach((styleTag: Element) => {
+              // Remove from DOM completely
+              styleTag.remove()
+            })
+          })
+          
+          // Also remove immediately (synchronous) as backup
+          const allStyleTagsSync = clonedDoc.querySelectorAll('style')
+          allStyleTagsSync.forEach((styleTag: Element) => {
             styleTag.remove()
           })
           
@@ -4496,11 +4506,12 @@ export function PrintablesPage() {
           `
           clonedDoc.head.appendChild(style)
           
-          // CRITICAL: Remove style tags entirely to prevent CSS text in PDF
-          // Styles are applied when the style tag is added to head, so we can remove it immediately
-          // This prevents html2canvas from capturing the CSS text content
+          // CRITICAL: Remove style tags entirely BEFORE html2canvas processes the document
+          // Styles are already applied when the style tag is added to head
+          // We must remove them immediately to prevent html2canvas from capturing CSS text
           const allStyleTags2 = clonedDoc.querySelectorAll('style')
           allStyleTags2.forEach((styleTag: Element) => {
+            // Remove from DOM completely
             styleTag.remove()
           })
           
