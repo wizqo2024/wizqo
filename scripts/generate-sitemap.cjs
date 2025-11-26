@@ -138,6 +138,7 @@ function generate() {
   push(`${site}/worksheets/multiplication-worksheets`, today, 'weekly', '0.7');
   push(`${site}/worksheets/times-table-multiplication-worksheets`, today, 'weekly', '0.7');
   push(`${site}/worksheets/fractions-to-decimals-worksheets`, today, 'weekly', '0.7');
+  push(`${site}/worksheets/order-of-operations-worksheets`, today, 'weekly', '0.7');
   push(`${site}/worksheets/reading-comprehension`, today, 'weekly', '0.7');
   push(`${site}/worksheets/handwriting-worksheet-maker`, today, 'weekly', '0.7');
   
