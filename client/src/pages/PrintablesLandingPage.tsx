@@ -1071,7 +1071,7 @@ export function PrintablesLandingPage() {
                   {/* Worksheet Preview */}
                   <div className="bg-white shadow-lg rounded-lg p-8 print:shadow-none">
                     <iframe
-                      src={previewItem.href}
+                      src={previewItem.docId ? getWorksheetPrintURL(previewItem.docId, 'printables') + (getWorksheetPrintURL(previewItem.docId, 'printables').includes('?') ? '&preview=1' : '?preview=1') : previewItem.href}
                       className="w-full h-full min-h-[600px] border-0"
                       title={previewItem.title}
                       aria-label={`Preview of ${previewItem.title} worksheet`}
@@ -1086,6 +1086,13 @@ export function PrintablesLandingPage() {
                   
                   {/* Action Buttons */}
                   <div className="mt-6 flex items-center gap-3">
+                    <a
+                      href={previewItem.href}
+                      className="inline-flex items-center gap-2 px-4 py-2 rounded-lg border border-purple-200 bg-white text-purple-700 hover:bg-purple-50 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:ring-offset-2 text-sm font-medium shadow-sm"
+                      aria-label={`View full ${previewItem.title} worksheet page`}
+                    >
+                      View Full Worksheet
+                    </a>
                     <button
                       onClick={() => {
                         const printUrl = previewItem.docId ? getWorksheetPrintURL(previewItem.docId, 'printables') : previewItem.href
