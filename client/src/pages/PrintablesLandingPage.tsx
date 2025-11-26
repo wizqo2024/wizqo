@@ -3,7 +3,7 @@ import { UnifiedNavigation } from '@/components/UnifiedNavigation';
 import { Footer } from '@/components/Footer';
 import { useTranslation } from '@/context/TranslationContext';
 import { PRINTABLE_BUNDLE_SECTIONS, PRINTABLE_DOC_META } from '@/data/printableBundles';
-import { getWorksheetURL } from '@/utils/worksheetLinks';
+import { getWorksheetURL, getWorksheetPrintURL } from '@/utils/worksheetLinks';
 
 const BUTTON_CLASS = 'inline-flex items-center justify-center px-4 py-2 rounded-lg bg-purple-600 text-white hover:bg-purple-700 transition-colors';
 const OUTLINE_BUTTON = 'inline-flex items-center justify-center px-4 py-2 rounded-lg border border-purple-200 text-purple-700 hover:bg-purple-50 transition-colors';
@@ -82,7 +82,7 @@ const WorksheetThumbnailCard = React.memo(function WorksheetThumbnailCard({ titl
         <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-slate-50 pointer-events-none" />
         {/* Overlay on hover */}
         <div className="absolute inset-0 bg-black/0 group-hover:bg-black/5 transition-colors flex items-center justify-center pointer-events-none">
-          <div className="opacity-0 group-hover:opacity-100 transition-opacity bg-white/95 backdrop-blur-sm px-4 py-2 rounded-lg text-xs font-semibold text-purple-700 border-2 border-purple-300 shadow-lg pointer-events-auto">
+          <div className="opacity-0 group-hover:opacity-100 transition-opacity bg-white/95 backdrop-blur-sm px-4 py-2 rounded-lg text-xs font-semibold text-purple-700 border-2 border-purple-300 shadow-lg pointer-events-none">
             👁️ {t('pages.printables.clickToView')}
           </div>
         </div>
@@ -92,20 +92,15 @@ const WorksheetThumbnailCard = React.memo(function WorksheetThumbnailCard({ titl
       
       <div className="flex items-center justify-between">
         <div className="flex items-center gap-2">
-          <button
-            onClick={() => {
-              const newWindow = window.open(finalHref, '_blank')
-              if (newWindow) {
-                setTimeout(() => {
-                  newWindow.print()
-                }, 500)
-              }
-            }}
-            className="text-xs font-medium text-purple-600 hover:text-purple-700 px-3 py-1 rounded-full border border-purple-200 hover:border-purple-300 transition-colors"
+          <a
+            href={docId ? getWorksheetPrintURL(docId, 'printables') : finalHref}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-xs font-medium text-purple-600 hover:text-purple-700 px-3 py-1 rounded-full border border-purple-200 hover:border-purple-300 transition-colors inline-block"
             aria-label={`Download ${title} as PDF`}
           >
             {t('pages.printables.download')}
-          </button>
+          </a>
         </div>
       </div>
     </article>
@@ -1078,19 +1073,14 @@ export function PrintablesLandingPage() {
                   
                   {/* Action Buttons */}
                   <div className="mt-6 flex items-center gap-3">
-                    <button
-                      onClick={() => {
-                        const newWindow = window.open(previewItem.href, '_blank')
-                        if (newWindow) {
-                          setTimeout(() => {
-                            newWindow.print()
-                          }, 500)
-                        }
-                      }}
+                    <a
+                      href={previewItem.docId ? getWorksheetPrintURL(previewItem.docId, 'printables') : previewItem.href}
+                      target="_blank"
+                      rel="noopener noreferrer"
                       className="inline-flex items-center gap-2 px-4 py-2 rounded-lg border border-purple-200 bg-purple-600 hover:bg-purple-700 text-white text-sm font-medium shadow-sm"
                     >
                       Download
-                    </button>
+                    </a>
                   </div>
                 </div>
               </div>

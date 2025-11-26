@@ -6,7 +6,7 @@ import { SEOMetaTags } from '@/components/SEOMetaTags'
 import { CategoryFilter, type Category } from '@/components/CategoryFilter'
 import { trackPackGeneration, trackCategoryFilter } from '@/utils/analytics'
 import { useTranslation } from '@/context/TranslationContext'
-import { getWorksheetURL } from '@/utils/worksheetLinks'
+import { getWorksheetURL, getWorksheetPrintURL } from '@/utils/worksheetLinks'
 
 // TIMES_TABLE_CATEGORIES will be created inside component to use translations
 
@@ -434,7 +434,7 @@ const WorksheetThumbnailCard = React.memo(function WorksheetThumbnailCard({ titl
         <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-slate-50 pointer-events-none" />
         {/* Overlay on hover */}
         <div className="absolute inset-0 bg-black/0 group-hover:bg-black/5 transition-colors flex items-center justify-center pointer-events-none">
-          <div className="opacity-0 group-hover:opacity-100 transition-opacity bg-white/95 backdrop-blur-sm px-4 py-2 rounded-lg text-xs font-semibold text-purple-700 border-2 border-purple-300 shadow-lg pointer-events-auto">
+          <div className="opacity-0 group-hover:opacity-100 transition-opacity bg-white/95 backdrop-blur-sm px-4 py-2 rounded-lg text-xs font-semibold text-purple-700 border-2 border-purple-300 shadow-lg pointer-events-none">
             👁️ {t('pages.printables.clickToView')}
           </div>
         </div>
@@ -447,19 +447,14 @@ const WorksheetThumbnailCard = React.memo(function WorksheetThumbnailCard({ titl
           <span>{t('pages.timesTable.answerKeyIncluded')}</span>
         </div>
         <div className="flex items-center gap-2">
-          <button
-            onClick={() => {
-              const newWindow = window.open(href, '_blank')
-              if (newWindow) {
-                setTimeout(() => {
-                  newWindow.print()
-                }, 500)
-              }
-            }}
-            className="text-xs font-medium text-purple-600 hover:text-purple-700 px-3 py-1 rounded-full border border-purple-200 hover:border-purple-300 transition-colors"
+          <a
+            href={getWorksheetPrintURL(docId, 'times-table')}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-xs font-medium text-purple-600 hover:text-purple-700 px-3 py-1 rounded-full border border-purple-200 hover:border-purple-300 transition-colors inline-block"
           >
             {t('pages.printables.download')}
-          </button>
+          </a>
         </div>
       </div>
     </article>
