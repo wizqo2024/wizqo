@@ -135,10 +135,10 @@ function cloneForRoute(baseHtml, route, allPosts = [], allRoutes = []) {
   const canonical = `${SITE}${route.path}`;
   const ogImage = route.ogImage || `${SITE}/og-image.jpg`;
   
-  // For fractions-to-decimals page, remove ALL SEO-related scripts BEFORE setMeta
+  // For fractions-to-decimals and order-of-operations pages, remove ALL SEO-related scripts BEFORE setMeta
   // Static HTML doesn't need any JavaScript for SEO - everything is hardcoded
   let workingHtml = baseHtml;
-  if (route.path === '/worksheets/fractions-to-decimals-worksheets') {
+  if (route.path === '/worksheets/fractions-to-decimals-worksheets' || route.path === '/worksheets/order-of-operations-worksheets') {
     // Remove ALL document.write scripts
     workingHtml = workingHtml.replace(/<script[^>]*>[\s\S]*?CRITICAL: Write correct tags DURING parsing[\s\S]*?<\/script>/gi, '');
     workingHtml = workingHtml.replace(/<script[^>]*>[\s\S]*?Write OG\/Twitter tags during parsing[\s\S]*?<\/script>/gi, '');
@@ -378,6 +378,65 @@ ${gameLinks}
     
     // Replace the seo-fallback content
     html = html.replace(/<main id="seo-fallback"[^>]*>[\s\S]*?<\/main>/, fractionsToDecimalsContent);
+  } else if (route.path === '/worksheets/order-of-operations-worksheets') {
+    // All SEO scripts already removed above before setMeta
+    // Remove ANY remaining scripts in body that might try to update SEO content
+    html = html.replace(/<script[^>]*>[\s\S]*?Script to update SEO fallback content immediately[\s\S]*?<\/script>/gi, '');
+    html = html.replace(/<script[^>]*id=["']seo-update-script["'][^>]*>[\s\S]*?<\/script>/gi, '');
+    // Replace fallback content with order-of-operations-specific content
+    const orderOfOperationsContent = `<main id="seo-fallback" style="display: none; max-width: 1200px; margin: 0 auto; padding: 2rem 1rem; font-family: system-ui, -apple-system, sans-serif;">
+      <h1 style="font-size: 2.5rem; font-weight: 900; color: #0f172a; margin-bottom: 1rem; line-height: 1.2;">
+        Order of Operations Worksheets (PEMDAS) – Free PDF | Wizqo
+      </h1>
+      <p style="font-size: 1.125rem; color: #475569; margin-bottom: 2.5rem; line-height: 1.6;">
+        Make PEMDAS finally "click"! Download free Order of Operations worksheets (PDF) with step-by-step practice. Stress-free exercises that build confidence in 4th–6th grade students. No login — just print and learn.
+      </p>
+      
+      <section style="margin-bottom: 2rem;">
+        <h2 style="font-size: 1.875rem; font-weight: 800; color: #1e293b; margin-bottom: 0.75rem;">Free Order of Operations Worksheets (PEMDAS)</h2>
+        <p style="color: #475569; line-height: 1.6; margin-bottom: 1.5rem;">
+          Download and print these no-stress PEMDAS worksheets. Each page includes an answer key. Perfect for grades 4–6 (and even review for 7th). Understanding the order of operations is one of the big math milestones in upper-elementary grades.
+        </p>
+      </section>
+      
+      <section style="margin-bottom: 2rem;">
+        <h2 style="font-size: 1.875rem; font-weight: 800; color: #1e293b; margin-bottom: 0.75rem;">PEMDAS Worksheets with Answers</h2>
+        <p style="color: #475569; line-height: 1.6; margin-bottom: 1.5rem;">
+          Free printable order of operations worksheets with complete answer keys. Practice PEMDAS rules with step-by-step solutions. Worksheets cover basic PEMDAS, parentheses, exponents, multi-step problems, and word problems.
+        </p>
+      </section>
+      
+      <section style="margin-bottom: 2rem;">
+        <h2 style="font-size: 1.875rem; font-weight: 800; color: #1e293b; margin-bottom: 0.75rem;">4th Grade PEMDAS Worksheets</h2>
+        <p style="color: #475569; line-height: 1.6; margin-bottom: 1.5rem;">
+          Start with simple expressions using multiplication, division, addition, and subtraction. Perfect for building confidence in 4th grade students. Practice solving expressions with parentheses and basic order of operations.
+        </p>
+      </section>
+      
+      <section style="margin-bottom: 2rem;">
+        <h2 style="font-size: 1.875rem; font-weight: 800; color: #1e293b; margin-bottom: 0.75rem;">5th Grade PEMDAS Worksheets</h2>
+        <p style="color: #475569; line-height: 1.6; margin-bottom: 1.5rem;">
+          Master expressions with exponents and multi-step problems. Challenge yourself with complex expressions combining parentheses, exponents, and all operations. Perfect for 5th grade mastery.
+        </p>
+      </section>
+      
+      <section style="margin-bottom: 2rem;">
+        <h2 style="font-size: 1.875rem; font-weight: 800; color: #1e293b; margin-bottom: 0.75rem;">6th Grade PEMDAS Worksheets</h2>
+        <p style="color: #475569; line-height: 1.6; margin-bottom: 1.5rem;">
+          Master the most challenging order of operations problems. Perfect for 6th grade students ready for advanced practice. Comprehensive review of PEMDAS rules with step-by-step examples.
+        </p>
+      </section>
+      
+      <section style="margin-bottom: 2rem;">
+        <h2 style="font-size: 1.875rem; font-weight: 800; color: #1e293b; margin-bottom: 0.75rem;">Step-by-Step PEMDAS Practice</h2>
+        <p style="color: #475569; line-height: 1.6; margin-bottom: 1.5rem;">
+          Learn PEMDAS with clear step-by-step instructions and worked examples. Ideal for students who struggle with order of operations. Build confidence with guided practice and comprehensive answer keys.
+        </p>
+      </section>
+    </main>`;
+    
+    // Replace the seo-fallback content
+    html = html.replace(/<main id="seo-fallback"[^>]*>[\s\S]*?<\/main>/, orderOfOperationsContent);
   } else if (route.path === '/interactive-worksheets-generator') {
     // Replace fallback content with interactive worksheets-specific content
     const interactiveContent = `<main id="seo-fallback" style="display: none; max-width: 1200px; margin: 0 auto; padding: 2rem 1rem; font-family: system-ui, -apple-system, sans-serif;">
@@ -592,6 +651,7 @@ function main() {
   routes.push({ path: '/worksheets/multiplication-worksheets', title: 'Free Multiplication Worksheets - Printable PDFs with Answer Keys | Wizqo', description: 'Help your child master multiplication with our free multiplication worksheets for 2nd grade, 3rd grade, 4th grade, and 5th grade! Download printable PDFs instantly with answer keys. Practice multiplication facts, arrays, and word problems - perfect for building confidence and math fluency. No sign-up required!', keywords: 'multiplication worksheets, free multiplication worksheets, multiplication worksheets for 2nd grade, multiplication worksheets for 3rd grade, printable multiplication worksheets, multiplication facts worksheets, multiplication arrays worksheets, multiplication word problems, free multiplication worksheets PDF, multiplication practice sheets, multiplication worksheets with answer keys, 2nd grade multiplication worksheets, 3rd grade multiplication worksheets, multiplication tables worksheets, multiplication drills' });
   routes.push({ path: '/worksheets/times-table-multiplication-worksheets', title: 'Free Times Table Worksheets PDF | Math Practice | Wizqo', description: 'Print free time table multiplication worksheets (PDF) that boost confidence, speed, and accuracy. Fun, no-stress practice sheets for grades 1–5. Download and learn today!', keywords: 'times table multiplication worksheets free pdf, printable times table worksheets for kids, 1–12 multiplication table worksheets pdf, free times table practice sheets grade 1–5, multiplication drill worksheets printable, easy times table worksheets for struggling learners, fun multiplication worksheets for kids pdf, basic multiplication worksheets for beginners, multiplication worksheets with answers pdf, confidence-building multiplication worksheets pdf, stress-free times table worksheets for kids, fun and simple worksheets to make multiplication easier, no-tears times table practice sheets, gentle step-by-step multiplication worksheets, worksheets for kids who struggle with multiplication, printable worksheets to help kids overcome math fear, engaging multiplication worksheets that make learning fun, horizontal multiplication worksheets pdf, vertical multiplication worksheets printable, missing number multiplication worksheets, timed multiplication test sheets printable, multiplication color-by-number worksheets, multiplication worksheets for slow learners pdf, blank times table worksheets to fill in, memorize times tables, multiplication fluency, math fact practice, repeated addition worksheets, math confidence building' });
   routes.push({ path: '/worksheets/fractions-to-decimals-worksheets', title: 'Free Converting Fractions to Decimals Worksheets (PDF + Answer Key)', description: 'Download free fractions-to-decimals worksheets with answer keys. Easy, clear, no-login math PDFs perfect for grades 3–5. Boost confidence with simple step-by-step practice.', keywords: 'converting fractions to decimals worksheets free printable, free fractions to decimals worksheets PDF, fractions to decimals worksheet with answer key, converting fractions to decimals step by step worksheet, fractions to decimals practice sheet grade 4, grade 5 converting fractions to decimals worksheets, turning fractions into decimals worksheets free, simple fractions to decimals worksheet for beginners, visual fractions to decimals worksheets PDF, fraction decimal conversion worksheet with examples, fractions to decimals worksheets, converting fractions to decimals, fractions to decimals worksheets with answer keys, fractions to decimals worksheets for 3rd grade, fractions to decimals worksheets for 4th grade, fractions to decimals worksheets for 5th grade, printable fractions to decimals worksheets, fractions to decimals practice sheets, fractions and decimals worksheets, decimal conversion worksheets' });
+  routes.push({ path: '/worksheets/order-of-operations-worksheets', title: 'Order of Operations Worksheets (PEMDAS) – Free PDF | Wizqo', description: 'Make PEMDAS finally "click"! Download free Order of Operations worksheets (PDF) with step-by-step practice. Stress-free exercises that build confidence in 4th–6th grade students. No login — just print and learn.', keywords: 'order of operations worksheets pdf, pemdas worksheets with answers, free order of operations worksheets, order of operations practice sheets, pemdas worksheets 5th grade, pemdas worksheets 6th grade, order of operations problems with answers, printable order of operations worksheets, order of operations with parentheses worksheets, easy order of operations worksheet, multi-step pemdas worksheet, pemdas practice for kids, pemdas rules worksheet, step-by-step order of operations worksheet, order of operations worksheets to build confidence, worksheets to help kids understand pemdas, practice sheets that reduce math frustration, simple pemdas worksheets for struggling learners, step-by-step order of operations practice for kids' });
   routes.push({ path: '/interactive-worksheets-generator', title: 'Free Interactive Worksheets Generator | Create PDFs | Wizqo', description: 'Generate free interactive worksheets for math, reading, science, and SEL. Create printable PDF worksheets with answer keys for all grades (K-5). Daily refresh with new problems. No sign-up required!', keywords: 'interactive worksheets generator, free worksheet generator, printable worksheets generator, create worksheets online, math worksheet generator, reading worksheet generator, free worksheet maker, interactive math worksheets, printable PDF worksheets, worksheet generator with answer keys, grade-specific worksheets, K-5 worksheets' });
   // Print page (noIndex but still needs SEO for consistency)
   routes.push({ path: '/print', title: 'Printable Fun Learning Activities for Kids | Free Worksheets & Games', description: 'Download free printables for kids: word searches, Sudoku, coloring, and spot-the-difference. Print at home in seconds.', noIndex: true });
