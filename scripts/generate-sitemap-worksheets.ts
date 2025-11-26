@@ -52,7 +52,8 @@ function generateSitemap() {
 `
   
   // Write to public directory
-  const outputPath = path.join(__dirname, '../public/sitemap_worksheets.xml')
+  const currentDir = path.dirname(new URL(import.meta.url).pathname)
+  const outputPath = path.join(currentDir, '../public/sitemap_worksheets.xml')
   fs.writeFileSync(outputPath, xml, 'utf-8')
   
   console.log(`✅ Generated sitemap with ${worksheets.length} worksheet pages`)
@@ -63,7 +64,7 @@ function generateSitemap() {
 }
 
 // Run if executed directly
-if (require.main === module) {
+if (import.meta.url === `file://${process.argv[1]}` || process.argv[1]?.endsWith('generate-sitemap-worksheets.ts')) {
   try {
     generateSitemap()
   } catch (error) {
