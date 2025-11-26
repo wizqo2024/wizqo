@@ -25,3 +25,4 @@ User-agent: YandexBot
 Allow: /
 
 Sitemap: https://wizqo.com/sitemap.xml
+Sitemap: https://wizqo.com/sitemap_worksheets.xml

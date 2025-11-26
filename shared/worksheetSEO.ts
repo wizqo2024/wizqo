@@ -1,9 +1,10 @@
 /**
- * Worksheet SEO Mapping System
- * Maps all 254 worksheets to SEO-friendly URLs, titles, meta descriptions, and keywords
+ * Complete SEO Mapping for All 254 Worksheets
  * 
- * This file provides complete SEO metadata for each worksheet to enable
- * proper indexing without affecting existing category pages.
+ * This file provides SEO-friendly URLs, titles, meta descriptions, keywords,
+ * and content for each worksheet to enable proper indexing.
+ * 
+ * SAFE: Does not affect existing category pages or /print routes
  */
 
 export interface WorksheetSEO {
@@ -24,45 +25,201 @@ export interface WorksheetSEO {
 /**
  * Convert docId to SEO-friendly slug
  */
-function docIdToSlug(docId: string): string {
+function createSlug(docId: string): string {
+  // Special mappings for better SEO
+  const slugMap: Record<string, string> = {
+    'mult-facts-0-12': 'multiplication-facts-0-12',
+    'mult-arrays': 'multiplication-arrays',
+    'mult-word-problems': 'multiplication-word-problems',
+    'mult-by-10-100': 'multiplying-by-10-and-100',
+    'mult-properties': 'properties-of-multiplication',
+    'div-facts-1-12': 'division-facts-1-12',
+    'div-with-remainders': 'division-with-remainders',
+    'div-word-problems': 'division-word-problems',
+    'fact-families-mult-div': 'multiplication-division-fact-families',
+    'div-by-10-100': 'dividing-by-10-and-100',
+    'fractions-whole': 'fractions-parts-of-whole',
+    'comparing-fractions': 'comparing-fractions',
+    'equivalent-fractions': 'equivalent-fractions',
+    'fractions-number-line': 'fractions-on-number-line',
+    'add-sub-fractions': 'adding-subtracting-fractions',
+    'count-circle-1-10': 'count-circles-1-10',
+    'count-match-1-20': 'count-and-match-1-20',
+    'how-many-1-15': 'how-many-objects-1-15',
+    'count-color-1-10': 'count-and-color-1-10',
+    'counting-objects-20': 'counting-objects-to-20',
+    'addition-subtraction-0-10': 'addition-subtraction-within-10',
+    'ten-frames-1-10': 'ten-frames-1-10',
+    'number-tracing-1-20': 'number-tracing-1-20',
+    'number-bonds-10': 'number-bonds-to-10',
+    'count-write-30': 'count-and-write-to-30',
+    'missing-numbers-50': 'missing-numbers-to-50',
+    'skip-count-2s': 'skip-counting-by-2s',
+    'skip-count-5-10-120': 'skip-counting-by-5s-and-10s-to-120',
+    'order-of-operations': 'order-of-operations-pemdas',
+    'fractions-to-decimals': 'converting-fractions-to-decimals',
+  }
+  
+  if (slugMap[docId]) {
+    return slugMap[docId]
+  }
+  
+  // Auto-generate from docId
   return docId
-    .replace(/-/g, ' ')
-    .replace(/\b(\w)/g, (match) => match.toUpperCase())
-    .replace(/\s+/g, '-')
+    .replace(/([a-z])([A-Z])/g, '$1-$2')
+    .replace(/[_\s]+/g, '-')
     .toLowerCase()
     .replace(/[^a-z0-9-]/g, '')
+    .replace(/-+/g, '-')
+    .replace(/^-|-$/g, '')
+}
+
+/**
+ * Generate human-readable title from docId
+ */
+function createTitle(docId: string): string {
+  const titleMap: Record<string, string> = {
+    'mult-facts-0-12': 'Multiplication Facts 0-12',
+    'mult-arrays': 'Multiplication Arrays',
+    'mult-word-problems': 'Multiplication Word Problems',
+    'mult-by-10-100': 'Multiplying by 10 and 100',
+    'mult-properties': 'Properties of Multiplication',
+    'div-facts-1-12': 'Division Facts 1-12',
+    'div-with-remainders': 'Division with Remainders',
+    'div-word-problems': 'Division Word Problems',
+    'fact-families-mult-div': 'Multiplication and Division Fact Families',
+    'div-by-10-100': 'Dividing by 10 and 100',
+    'fractions-whole': 'Fractions Parts of a Whole',
+    'comparing-fractions': 'Comparing Fractions',
+    'equivalent-fractions': 'Equivalent Fractions',
+    'fractions-number-line': 'Fractions on a Number Line',
+    'add-sub-fractions': 'Adding and Subtracting Fractions',
+    'count-circle-1-10': 'Count Circles 1-10',
+    'count-match-1-20': 'Count and Match 1-20',
+    'how-many-1-15': 'How Many Objects 1-15',
+    'count-color-1-10': 'Count and Color 1-10',
+    'counting-objects-20': 'Counting Objects to 20',
+    'addition-subtraction-0-10': 'Addition and Subtraction Within 10',
+    'ten-frames-1-10': 'Ten Frames 1-10',
+    'number-tracing-1-20': 'Number Tracing 1-20',
+    'number-bonds-10': 'Number Bonds to 10',
+    'count-write-30': 'Count and Write to 30',
+    'missing-numbers-50': 'Missing Numbers to 50',
+    'skip-count-2s': 'Skip Counting by 2s',
+    'skip-count-5-10-120': 'Skip Counting by 5s and 10s to 120',
+    'order-of-operations': 'Order of Operations (PEMDAS)',
+    'fractions-to-decimals': 'Converting Fractions to Decimals',
+  }
+  
+  if (titleMap[docId]) {
+    return titleMap[docId]
+  }
+  
+  // Auto-generate from docId
+  return docId
+    .split('-')
+    .map(word => {
+      // Handle numbers
+      if (/^\d+$/.test(word)) return word
+      // Capitalize first letter
+      return word.charAt(0).toUpperCase() + word.slice(1)
+    })
+    .join(' ')
+}
+
+/**
+ * Infer grade from docId
+ */
+function inferGrade(docId: string): string[] {
+  if (docId.includes('kindergarten') || docId.includes('prek') || docId.includes('pre-k')) {
+    return ['Kindergarten', 'Pre-K']
+  }
+  if (docId.includes('1st-grade') || docId.includes('first-grade') || docId.includes('g1')) {
+    return ['1st Grade']
+  }
+  if (docId.includes('2nd-grade') || docId.includes('second-grade') || docId.includes('g2')) {
+    return ['2nd Grade']
+  }
+  if (docId.includes('3rd-grade') || docId.includes('third-grade') || docId.includes('g3')) {
+    return ['3rd Grade', '4th Grade']
+  }
+  if (docId.includes('4th-grade') || docId.includes('fourth-grade') || docId.includes('g4')) {
+    return ['4th Grade', '5th Grade']
+  }
+  if (docId.includes('5th-grade') || docId.includes('fifth-grade') || docId.includes('g5')) {
+    return ['5th Grade']
+  }
+  
+  // Default based on content
+  if (docId.includes('mult') || docId.includes('div') || docId.includes('fractions') || docId.includes('decimals')) {
+    return ['3rd Grade', '4th Grade']
+  }
+  if (docId.includes('count') || docId.includes('number') || docId.includes('shape') || docId.includes('pattern')) {
+    return ['Kindergarten', '1st Grade']
+  }
+  if (docId.includes('pemdas') || docId.includes('order-of-operations') || docId.includes('algebra')) {
+    return ['4th Grade', '5th Grade', '6th Grade']
+  }
+  
+  return ['Elementary']
+}
+
+/**
+ * Infer category from docId
+ */
+function inferCategory(docId: string): string[] {
+  const categories: string[] = []
+  
+  if (docId.includes('mult')) categories.push('multiplication')
+  if (docId.includes('div')) categories.push('division')
+  if (docId.includes('fraction')) categories.push('fractions')
+  if (docId.includes('decimal')) categories.push('decimals')
+  if (docId.includes('add') || docId.includes('sub')) categories.push('addition-subtraction')
+  if (docId.includes('count')) categories.push('counting')
+  if (docId.includes('number')) categories.push('number-sense')
+  if (docId.includes('word-problem')) categories.push('word-problems')
+  if (docId.includes('geometry') || docId.includes('shape') || docId.includes('area') || docId.includes('perimeter') || docId.includes('angle')) {
+    categories.push('geometry')
+  }
+  if (docId.includes('measurement') || docId.includes('time') || docId.includes('money') || docId.includes('length') || docId.includes('weight') || docId.includes('liquid')) {
+    categories.push('measurement')
+  }
+  if (docId.includes('reading') || docId.includes('comprehension')) {
+    categories.push('reading')
+  }
+  if (docId.includes('pemdas') || docId.includes('order-of-operations')) {
+    categories.push('order-of-operations')
+  }
+  if (docId.includes('pattern')) {
+    categories.push('patterns')
+  }
+  
+  return categories.length > 0 ? categories : ['math']
 }
 
 /**
  * Generate SEO title (60-70 chars)
  */
-function generateSEOTitle(name: string, grade?: string): string {
-  const gradeText = grade ? ` for ${grade}` : ''
+function generateSEOTitle(name: string, grade?: string[]): string {
+  const gradeText = grade && grade.length > 0 ? ` for ${grade[0]}` : ''
   return `${name} Worksheet${gradeText} - Free Printable PDF | Wizqo`
 }
 
 /**
  * Generate meta description (150-160 chars)
  */
-function generateMetaDescription(
-  name: string,
-  grade: string[],
-  benefits: string[]
-): string {
+function generateMetaDescription(name: string, grade: string[], category: string[]): string {
   const gradeText = grade.length > 0 ? `Perfect for ${grade.join(' and ')}. ` : ''
-  const benefitText = benefits.slice(0, 2).join(' and ')
-  return `Download free printable ${name.toLowerCase()} worksheet with answer key. ${gradeText}${benefitText}. Instant PDF download.`
+  const categoryText = category.length > 0 ? `${category[0]} practice. ` : ''
+  const benefits = ['Build math skills', 'Master key concepts', 'Practice with answer key']
+  return `Download free printable ${name.toLowerCase()} worksheet with answer key. ${gradeText}${categoryText}${benefits[0]}. Instant PDF download.`
 }
 
 /**
  * Generate keywords
  */
-function generateKeywords(
-  name: string,
-  category: string[],
-  grade: string[]
-): string {
-  const baseKeywords = [
+function generateKeywords(name: string, category: string[], grade: string[]): string {
+  const base = [
     name.toLowerCase(),
     `${name.toLowerCase()} worksheet`,
     `free ${name.toLowerCase()} worksheet`,
@@ -70,537 +227,179 @@ function generateKeywords(
     `${name.toLowerCase()} PDF`,
   ]
   
-  const categoryKeywords = category.map(cat => 
-    `${cat} worksheet`, `${cat} worksheets`
-  )
+  const cat = category.flatMap(c => [`${c} worksheet`, `${c} worksheets`])
+  const grd = grade.flatMap(g => [`${g} ${name.toLowerCase()}`, `${g} math worksheet`])
   
-  const gradeKeywords = grade.map(g => 
-    `${g} ${name.toLowerCase()}`, `${g} math worksheet`
-  )
-  
-  return [...baseKeywords, ...categoryKeywords, ...gradeKeywords].join(', ')
+  return [...base, ...cat, ...grd].slice(0, 15).join(', ')
 }
 
 /**
  * Generate intro content (120-200 words)
  */
-function generateIntro(
-  name: string,
-  description: string,
-  grade: string[],
-  learningObjectives: string[]
-): string {
+function generateIntro(name: string, grade: string[], category: string[]): string {
   const gradeText = grade.length > 0 
     ? `This ${name.toLowerCase()} worksheet is designed for ${grade.join(' and ')} students. `
     : `This ${name.toLowerCase()} worksheet helps students `
   
-  const objectivesText = learningObjectives.slice(0, 3).join(', ')
+  const categoryText = category.length > 0 
+    ? `practice ${category[0]} skills and build confidence. `
+    : 'build essential math skills. '
   
-  return `${gradeText}${description} Students will practice ${objectivesText}. This printable worksheet includes an answer key for easy checking and is perfect for classroom use, homework, or extra practice at home. Download the free PDF instantly and start practicing today!`
+  return `${gradeText}${categoryText}This printable worksheet includes an answer key for easy checking and is perfect for classroom use, homework, or extra practice at home. Download the free PDF instantly and start practicing today!`
 }
 
-// Complete SEO mapping for all 254 worksheets
-export const WORKSHEET_SEO_MAP: Record<string, WorksheetSEO> = {
-  // ========== MULTIPLICATION WORKSHEETS ==========
-  'mult-facts-0-12': {
-    docId: 'mult-facts-0-12',
-    slug: 'multiplication-facts-0-12',
-    title: generateSEOTitle('Multiplication Facts 0-12', '3rd Grade'),
-    metaDescription: generateMetaDescription(
-      'Multiplication Facts 0-12',
-      ['3rd Grade', '4th Grade'],
-      ['Build multiplication fluency', 'Master times tables', 'Practice all facts']
-    ),
-    keywords: generateKeywords('multiplication facts 0-12', ['multiplication'], ['3rd Grade', '4th Grade']),
-    h1: 'Multiplication Facts 0-12 Worksheet',
-    intro: generateIntro(
-      'Multiplication Facts 0-12',
-      'Practice multiplication facts from 0 to 12 with this comprehensive worksheet.',
-      ['3rd Grade', '4th Grade'],
-      ['memorizing multiplication facts', 'building multiplication fluency', 'mastering times tables']
-    ),
-    grade: ['3rd Grade', '4th Grade'],
-    category: ['multiplication'],
-    section: 'Multiplication',
-    learningObjectives: [
-      'Memorize multiplication facts from 0 to 12',
-      'Build multiplication fluency and speed',
-      'Master times tables through repeated practice',
-      'Reinforce fact families and number patterns'
-    ],
-    relatedDocIds: ['mult-arrays', 'mult-word-problems', 'mult-facts-1-5', 'mult-facts-6-12']
-  },
+/**
+ * Generate learning objectives
+ */
+function generateLearningObjectives(name: string, category: string[]): string[] {
+  const base = [
+    `Master ${name.toLowerCase()} skills`,
+    `Practice ${category[0] || 'math'} concepts`,
+    `Build confidence with ${name.toLowerCase()}`,
+  ]
   
-  'mult-arrays': {
-    docId: 'mult-arrays',
-    slug: 'multiplication-arrays',
-    title: generateSEOTitle('Multiplication Arrays', '3rd Grade'),
-    metaDescription: generateMetaDescription(
-      'Multiplication Arrays',
-      ['3rd Grade', '4th Grade'],
-      ['Visual multiplication practice', 'Understand arrays', 'Build conceptual understanding']
-    ),
-    keywords: generateKeywords('multiplication arrays', ['multiplication', 'geometry'], ['3rd Grade', '4th Grade']),
-    h1: 'Multiplication Arrays Worksheet',
-    intro: generateIntro(
-      'Multiplication Arrays',
-      'Learn multiplication through visual arrays. This worksheet helps students understand multiplication as repeated addition using rectangular arrays.',
-      ['3rd Grade', '4th Grade'],
-      ['understanding arrays', 'visual multiplication', 'repeated addition']
-    ),
-    grade: ['3rd Grade', '4th Grade'],
-    category: ['multiplication'],
-    section: 'Multiplication',
-    learningObjectives: [
-      'Understand multiplication as arrays',
-      'Count objects in rows and columns',
-      'Write multiplication equations from arrays',
-      'Visualize multiplication concepts'
-    ],
-    relatedDocIds: ['mult-facts-0-12', 'mult-arrays-2-5', 'mult-arrays-models']
-  },
+  // Add category-specific objectives
+  if (category.includes('multiplication')) {
+    base.push('Build multiplication fluency')
+  }
+  if (category.includes('division')) {
+    base.push('Master division facts')
+  }
+  if (category.includes('fractions')) {
+    base.push('Understand fraction concepts')
+  }
+  if (category.includes('counting')) {
+    base.push('Develop number recognition')
+  }
   
-  'mult-word-problems': {
-    docId: 'mult-word-problems',
-    slug: 'multiplication-word-problems',
-    title: generateSEOTitle('Multiplication Word Problems', '3rd Grade'),
-    metaDescription: generateMetaDescription(
-      'Multiplication Word Problems',
-      ['3rd Grade', '4th Grade'],
-      ['Real-world multiplication', 'Problem solving', 'Apply multiplication skills']
-    ),
-    keywords: generateKeywords('multiplication word problems', ['multiplication', 'word-problems'], ['3rd Grade', '4th Grade']),
-    h1: 'Multiplication Word Problems Worksheet',
-    intro: generateIntro(
-      'Multiplication Word Problems',
-      'Solve real-world multiplication problems with this engaging worksheet. Students will apply multiplication skills to everyday situations.',
-      ['3rd Grade', '4th Grade'],
-      ['solving word problems', 'applying multiplication', 'real-world math']
-    ),
-    grade: ['3rd Grade', '4th Grade'],
-    category: ['multiplication', 'word-problems'],
-    section: 'Multiplication',
-    learningObjectives: [
-      'Solve multiplication word problems',
-      'Identify multiplication in real-world situations',
-      'Apply multiplication facts to problems',
-      'Develop problem-solving strategies'
-    ],
-    relatedDocIds: ['mult-facts-0-12', 'multi-step-word-problems', 'mult-multi-step-word']
-  },
-  
-  'mult-by-10-100': {
-    docId: 'mult-by-10-100',
-    slug: 'multiplying-by-10-and-100',
-    title: generateSEOTitle('Multiplying by 10 and 100', '3rd Grade'),
-    metaDescription: generateMetaDescription(
-      'Multiplying by 10 and 100',
-      ['3rd Grade', '4th Grade'],
-      ['Place value patterns', 'Mental math', 'Quick multiplication']
-    ),
-    keywords: generateKeywords('multiplying by 10 and 100', ['multiplication', 'place-value'], ['3rd Grade', '4th Grade']),
-    h1: 'Multiplying by 10 and 100 Worksheet',
-    intro: generateIntro(
-      'Multiplying by 10 and 100',
-      'Master the pattern of multiplying by 10 and 100. This worksheet helps students understand place value patterns in multiplication.',
-      ['3rd Grade', '4th Grade'],
-      ['multiplying by 10', 'multiplying by 100', 'place value patterns']
-    ),
-    grade: ['3rd Grade', '4th Grade'],
-    category: ['multiplication'],
-    section: 'Multiplication',
-    learningObjectives: [
-      'Multiply numbers by 10 and 100',
-      'Understand place value patterns',
-      'Develop mental math strategies',
-      'Recognize multiplication patterns'
-    ],
-    relatedDocIds: ['mult-facts-0-12', 'powers-of-10', 'place-value-hto']
-  },
-  
-  'mult-properties': {
-    docId: 'mult-properties',
-    slug: 'properties-of-multiplication',
-    title: generateSEOTitle('Properties of Multiplication', '3rd Grade'),
-    metaDescription: generateMetaDescription(
-      'Properties of Multiplication',
-      ['3rd Grade', '4th Grade'],
-      ['Commutative property', 'Associative property', 'Distributive property']
-    ),
-    keywords: generateKeywords('properties of multiplication', ['multiplication'], ['3rd Grade', '4th Grade']),
-    h1: 'Properties of Multiplication Worksheet',
-    intro: generateIntro(
-      'Properties of Multiplication',
-      'Learn the commutative, associative, and distributive properties of multiplication. This worksheet helps students understand how multiplication works.',
-      ['3rd Grade', '4th Grade'],
-      ['commutative property', 'associative property', 'distributive property']
-    ),
-    grade: ['3rd Grade', '4th Grade'],
-    category: ['multiplication'],
-    section: 'Multiplication',
-    learningObjectives: [
-      'Understand commutative property of multiplication',
-      'Apply associative property',
-      'Use distributive property',
-      'Recognize multiplication patterns'
-    ],
-    relatedDocIds: ['mult-facts-0-12', 'fact-families-mult-div']
-  },
-  
-  // ========== DIVISION WORKSHEETS ==========
-  'div-facts-1-12': {
-    docId: 'div-facts-1-12',
-    slug: 'division-facts-1-12',
-    title: generateSEOTitle('Division Facts 1-12', '3rd Grade'),
-    metaDescription: generateMetaDescription(
-      'Division Facts 1-12',
-      ['3rd Grade', '4th Grade'],
-      ['Master division facts', 'Build division fluency', 'Practice division tables']
-    ),
-    keywords: generateKeywords('division facts 1-12', ['division'], ['3rd Grade', '4th Grade']),
-    h1: 'Division Facts 1-12 Worksheet',
-    intro: generateIntro(
-      'Division Facts 1-12',
-      'Practice division facts from 1 to 12 with this comprehensive worksheet. Perfect for building division fluency.',
-      ['3rd Grade', '4th Grade'],
-      ['memorizing division facts', 'building division fluency', 'mastering division tables']
-    ),
-    grade: ['3rd Grade', '4th Grade'],
-    category: ['division'],
-    section: 'Division',
-    learningObjectives: [
-      'Memorize division facts from 1 to 12',
-      'Build division fluency and speed',
-      'Master division tables',
-      'Connect division to multiplication'
-    ],
-    relatedDocIds: ['mult-facts-0-12', 'fact-families-mult-div', 'div-with-remainders']
-  },
-  
-  'div-with-remainders': {
-    docId: 'div-with-remainders',
-    slug: 'division-with-remainders',
-    title: generateSEOTitle('Division with Remainders', '3rd Grade'),
-    metaDescription: generateMetaDescription(
-      'Division with Remainders',
-      ['3rd Grade', '4th Grade'],
-      ['Long division practice', 'Understanding remainders', 'Division concepts']
-    ),
-    keywords: generateKeywords('division with remainders', ['division'], ['3rd Grade', '4th Grade']),
-    h1: 'Division with Remainders Worksheet',
-    intro: generateIntro(
-      'Division with Remainders',
-      'Learn division with remainders through engaging practice problems. This worksheet helps students understand when division doesn\'t result in whole numbers.',
-      ['3rd Grade', '4th Grade'],
-      ['dividing with remainders', 'understanding remainders', 'division concepts']
-    ),
-    grade: ['3rd Grade', '4th Grade'],
-    category: ['division'],
-    section: 'Division',
-    learningObjectives: [
-      'Divide numbers with remainders',
-      'Understand what remainders represent',
-      'Solve division problems accurately',
-      'Apply division strategies'
-    ],
-    relatedDocIds: ['div-facts-1-12', 'long-division-1digit', 'long-division-2digit']
-  },
-  
-  'div-word-problems': {
-    docId: 'div-word-problems',
-    slug: 'division-word-problems',
-    title: generateSEOTitle('Division Word Problems', '3rd Grade'),
-    metaDescription: generateMetaDescription(
-      'Division Word Problems',
-      ['3rd Grade', '4th Grade'],
-      ['Real-world division', 'Problem solving', 'Apply division skills']
-    ),
-    keywords: generateKeywords('division word problems', ['division', 'word-problems'], ['3rd Grade', '4th Grade']),
-    h1: 'Division Word Problems Worksheet',
-    intro: generateIntro(
-      'Division Word Problems',
-      'Solve real-world division problems with this engaging worksheet. Students will apply division skills to everyday situations.',
-      ['3rd Grade', '4th Grade'],
-      ['solving word problems', 'applying division', 'real-world math']
-    ),
-    grade: ['3rd Grade', '4th Grade'],
-    category: ['division', 'word-problems'],
-    section: 'Division',
-    learningObjectives: [
-      'Solve division word problems',
-      'Identify division in real-world situations',
-      'Apply division facts to problems',
-      'Develop problem-solving strategies'
-    ],
-    relatedDocIds: ['div-facts-1-12', 'multi-step-word-problems', 'mult-word-problems']
-  },
-  
-  'fact-families-mult-div': {
-    docId: 'fact-families-mult-div',
-    slug: 'multiplication-division-fact-families',
-    title: generateSEOTitle('Multiplication and Division Fact Families', '3rd Grade'),
-    metaDescription: generateMetaDescription(
-      'Multiplication and Division Fact Families',
-      ['3rd Grade', '4th Grade'],
-      ['Fact families', 'Inverse operations', 'Number relationships']
-    ),
-    keywords: generateKeywords('fact families multiplication division', ['multiplication', 'division'], ['3rd Grade', '4th Grade']),
-    h1: 'Multiplication and Division Fact Families Worksheet',
-    intro: generateIntro(
-      'Multiplication and Division Fact Families',
-      'Explore the relationship between multiplication and division through fact families. This worksheet helps students understand inverse operations.',
-      ['3rd Grade', '4th Grade'],
-      ['fact families', 'inverse operations', 'number relationships']
-    ),
-    grade: ['3rd Grade', '4th Grade'],
-    category: ['multiplication', 'division'],
-    section: 'Division',
-    learningObjectives: [
-      'Understand fact families',
-      'Connect multiplication and division',
-      'Recognize inverse operations',
-      'Build number sense'
-    ],
-    relatedDocIds: ['mult-facts-0-12', 'div-facts-1-12', 'fact-families-20']
-  },
-  
-  'div-by-10-100': {
-    docId: 'div-by-10-100',
-    slug: 'dividing-by-10-and-100',
-    title: generateSEOTitle('Dividing by 10 and 100', '3rd Grade'),
-    metaDescription: generateMetaDescription(
-      'Dividing by 10 and 100',
-      ['3rd Grade', '4th Grade'],
-      ['Place value patterns', 'Mental math', 'Quick division']
-    ),
-    keywords: generateKeywords('dividing by 10 and 100', ['division', 'place-value'], ['3rd Grade', '4th Grade']),
-    h1: 'Dividing by 10 and 100 Worksheet',
-    intro: generateIntro(
-      'Dividing by 10 and 100',
-      'Master the pattern of dividing by 10 and 100. This worksheet helps students understand place value patterns in division.',
-      ['3rd Grade', '4th Grade'],
-      ['dividing by 10', 'dividing by 100', 'place value patterns']
-    ),
-    grade: ['3rd Grade', '4th Grade'],
-    category: ['division'],
-    section: 'Division',
-    learningObjectives: [
-      'Divide numbers by 10 and 100',
-      'Understand place value patterns',
-      'Develop mental math strategies',
-      'Recognize division patterns'
-    ],
-    relatedDocIds: ['mult-by-10-100', 'powers-of-10', 'div-facts-1-12']
-  },
-  
-  // ========== FRACTIONS WORKSHEETS ==========
-  'fractions-whole': {
-    docId: 'fractions-whole',
-    slug: 'fractions-parts-of-whole',
-    title: generateSEOTitle('Fractions Parts of a Whole', '3rd Grade'),
-    metaDescription: generateMetaDescription(
-      'Fractions Parts of a Whole',
-      ['3rd Grade', '4th Grade'],
-      ['Understanding fractions', 'Parts and wholes', 'Fraction basics']
-    ),
-    keywords: generateKeywords('fractions parts of whole', ['fractions'], ['3rd Grade', '4th Grade']),
-    h1: 'Fractions Parts of a Whole Worksheet',
-    intro: generateIntro(
-      'Fractions Parts of a Whole',
-      'Learn fractions by understanding parts of a whole. This worksheet introduces students to basic fraction concepts through visual representations.',
-      ['3rd Grade', '4th Grade'],
-      ['understanding fractions', 'parts of a whole', 'fraction basics']
-    ),
-    grade: ['3rd Grade', '4th Grade'],
-    category: ['fractions'],
-    section: 'Fractions',
-    learningObjectives: [
-      'Understand fractions as parts of a whole',
-      'Identify numerator and denominator',
-      'Read and write fractions',
-      'Visualize fraction concepts'
-    ],
-    relatedDocIds: ['comparing-fractions', 'equivalent-fractions', 'fractions-halves-thirds-fourths']
-  },
-  
-  'comparing-fractions': {
-    docId: 'comparing-fractions',
-    slug: 'comparing-fractions',
-    title: generateSEOTitle('Comparing Fractions', '3rd Grade'),
-    metaDescription: generateMetaDescription(
-      'Comparing Fractions',
-      ['3rd Grade', '4th Grade'],
-      ['Compare fractions', 'Greater than less than', 'Fraction comparison']
-    ),
-    keywords: generateKeywords('comparing fractions', ['fractions'], ['3rd Grade', '4th Grade']),
-    h1: 'Comparing Fractions Worksheet',
-    intro: generateIntro(
-      'Comparing Fractions',
-      'Learn to compare fractions using greater than, less than, and equal to symbols. This worksheet helps students understand fraction relationships.',
-      ['3rd Grade', '4th Grade'],
-      ['comparing fractions', 'fraction relationships', 'greater than less than']
-    ),
-    grade: ['3rd Grade', '4th Grade'],
-    category: ['fractions'],
-    section: 'Fractions',
-    learningObjectives: [
-      'Compare fractions using symbols',
-      'Understand fraction relationships',
-      'Use visual models to compare',
-      'Order fractions from least to greatest'
-    ],
-    relatedDocIds: ['fractions-whole', 'equivalent-fractions', 'fractions-number-line']
-  },
-  
-  'equivalent-fractions': {
-    docId: 'equivalent-fractions',
-    slug: 'equivalent-fractions',
-    title: generateSEOTitle('Equivalent Fractions', '3rd Grade'),
-    metaDescription: generateMetaDescription(
-      'Equivalent Fractions',
-      ['3rd Grade', '4th Grade'],
-      ['Equal fractions', 'Fraction equivalence', 'Simplify fractions']
-    ),
-    keywords: generateKeywords('equivalent fractions', ['fractions'], ['3rd Grade', '4th Grade']),
-    h1: 'Equivalent Fractions Worksheet',
-    intro: generateIntro(
-      'Equivalent Fractions',
-      'Discover that different fractions can represent the same value. This worksheet helps students understand fraction equivalence.',
-      ['3rd Grade', '4th Grade'],
-      ['equivalent fractions', 'fraction equivalence', 'equal fractions']
-    ),
-    grade: ['3rd Grade', '4th Grade'],
-    category: ['fractions'],
-    section: 'Fractions',
-    learningObjectives: [
-      'Identify equivalent fractions',
-      'Understand fraction equivalence',
-      'Find equivalent fractions',
-      'Use visual models'
-    ],
-    relatedDocIds: ['fractions-whole', 'comparing-fractions', 'fractions-number-line']
-  },
-  
-  'fractions-number-line': {
-    docId: 'fractions-number-line',
-    slug: 'fractions-on-number-line',
-    title: generateSEOTitle('Fractions on a Number Line', '3rd Grade'),
-    metaDescription: generateMetaDescription(
-      'Fractions on a Number Line',
-      ['3rd Grade', '4th Grade'],
-      ['Number line fractions', 'Visual fractions', 'Fraction placement']
-    ),
-    keywords: generateKeywords('fractions on number line', ['fractions'], ['3rd Grade', '4th Grade']),
-    h1: 'Fractions on a Number Line Worksheet',
-    intro: generateIntro(
-      'Fractions on a Number Line',
-      'Place fractions on a number line to understand their position and value. This worksheet helps students visualize fractions.',
-      ['3rd Grade', '4th Grade'],
-      ['fractions on number line', 'visualizing fractions', 'fraction placement']
-    ),
-    grade: ['3rd Grade', '4th Grade'],
-    category: ['fractions'],
-    section: 'Fractions',
-    learningObjectives: [
-      'Place fractions on a number line',
-      'Understand fraction position',
-      'Compare fractions visually',
-      'Build number sense'
-    ],
-    relatedDocIds: ['fractions-whole', 'comparing-fractions', 'equivalent-fractions']
-  },
-  
-  'add-sub-fractions': {
-    docId: 'add-sub-fractions',
-    slug: 'adding-subtracting-fractions',
-    title: generateSEOTitle('Adding and Subtracting Fractions', '3rd Grade'),
-    metaDescription: generateMetaDescription(
-      'Adding and Subtracting Fractions',
-      ['3rd Grade', '4th Grade'],
-      ['Fraction operations', 'Add fractions', 'Subtract fractions']
-    ),
-    keywords: generateKeywords('adding subtracting fractions', ['fractions'], ['3rd Grade', '4th Grade']),
-    h1: 'Adding and Subtracting Fractions Worksheet',
-    intro: generateIntro(
-      'Adding and Subtracting Fractions',
-      'Practice adding and subtracting fractions with like denominators. This worksheet builds fraction operation skills.',
-      ['3rd Grade', '4th Grade'],
-      ['adding fractions', 'subtracting fractions', 'fraction operations']
-    ),
-    grade: ['3rd Grade', '4th Grade'],
-    category: ['fractions'],
-    section: 'Fractions',
-    learningObjectives: [
-      'Add fractions with like denominators',
-      'Subtract fractions with like denominators',
-      'Simplify fraction answers',
-      'Solve fraction problems'
-    ],
-    relatedDocIds: ['fractions-whole', 'equivalent-fractions', 'comparing-fractions']
-  },
-  
-  // ========== COUNTING WORKSHEETS (Kindergarten) ==========
-  'count-circle-1-10': {
-    docId: 'count-circle-1-10',
-    slug: 'count-circles-1-10',
-    title: generateSEOTitle('Count Circles 1-10', 'Kindergarten'),
-    metaDescription: generateMetaDescription(
-      'Count Circles 1-10',
-      ['Kindergarten', 'Pre-K'],
-      ['Counting practice', 'Number recognition', 'Early math skills']
-    ),
-    keywords: generateKeywords('count circles 1-10', ['counting'], ['Kindergarten', 'Pre-K']),
-    h1: 'Count Circles 1-10 Worksheet',
-    intro: generateIntro(
-      'Count Circles 1-10',
-      'Practice counting from 1 to 10 by counting circles. This worksheet helps young learners develop counting skills and number recognition.',
-      ['Kindergarten', 'Pre-K'],
-      ['counting to 10', 'number recognition', 'early math skills']
-    ),
-    grade: ['Kindergarten', 'Pre-K'],
-    category: ['counting'],
-    section: 'Counting',
-    learningObjectives: [
-      'Count objects from 1 to 10',
-      'Recognize numbers 1-10',
-      'Develop one-to-one correspondence',
-      'Build counting confidence'
-    ],
-    relatedDocIds: ['count-match-1-20', 'how-many-1-15', 'counting-objects-20']
-  },
-  
-  'count-match-1-20': {
-    docId: 'count-match-1-20',
-    slug: 'count-and-match-1-20',
-    title: generateSEOTitle('Count and Match 1-20', 'Kindergarten'),
-    metaDescription: generateMetaDescription(
-      'Count and Match 1-20',
-      ['Kindergarten', 'Pre-K'],
-      ['Counting to 20', 'Number matching', 'Early math']
-    ),
-    keywords: generateKeywords('count and match 1-20', ['counting'], ['Kindergarten', 'Pre-K']),
-    h1: 'Count and Match 1-20 Worksheet',
-    intro: generateIntro(
-      'Count and Match 1-20',
-      'Count objects and match them to the correct number. This worksheet helps students practice counting and number recognition up to 20.',
-      ['Kindergarten', 'Pre-K'],
-      ['counting to 20', 'number matching', 'number recognition']
-    ),
-    grade: ['Kindergarten', 'Pre-K'],
-    category: ['counting'],
-    section: 'Counting',
-    learningObjectives: [
-      'Count objects up to 20',
-      'Match quantities to numbers',
-      'Recognize numbers 1-20',
-      'Develop counting accuracy'
-    ],
-    relatedDocIds: ['count-circle-1-10', 'how-many-1-15', 'counting-objects-20']
-  },
-  
-  // Add more worksheets following the same pattern...
-  // This is a template - we'll need to generate all 254 worksheets
+  return base.slice(0, 4)
 }
+
+/**
+ * Complete SEO mapping for all 254 worksheets
+ * This is a comprehensive mapping - we'll generate the rest programmatically
+ */
+export const WORKSHEET_SEO_MAP: Record<string, WorksheetSEO> = {}
+
+/**
+ * Initialize SEO map with all worksheets
+ * This function generates SEO data for all 254 worksheets
+ */
+export function initializeWorksheetSEO() {
+  // List of all 254 worksheet docIds
+  const allDocIds = [
+    'ab-pattern', 'add-2digit-100', 'add-2digit-regrouping', 'addition-subtraction-0-10',
+    'add-sub-decimals', 'add-sub-fractions', 'add-sub-fractions-4th', 'add-sub-mixed-numbers',
+    'add-three-numbers', 'area-model-mult', 'area-perimeter-4th', 'area-rectangles',
+    'area-triangles-parallelograms', 'balance-equations-10', 'bar-graphs-data',
+    'bar-graphs-pictographs', 'big-small', 'classifying-angles', 'classifying-quadrilaterals',
+    'classifying-shapes', 'classifying-triangles', 'color-by-number', 'color-patterns',
+    'color-recognition', 'color-shapes', 'compare-2digit', 'comparing-decimals',
+    'comparing-fractions', 'comparing-fractions-4th', 'comparing-ordering-fractions-decimals',
+    'coordinate-graphing', 'count-circle-1-10', 'count-color-1-10', 'counting-objects-20',
+    'count-match-1-20', 'count-write-30', 'curve-tracing', 'customary-conversion',
+    'customary-units', 'cvc-words', 'decimals-place-value', 'decimal-to-percent',
+    'decimal-word-problems', 'decimal-word-problems-5th', 'div-by-10-100', 'div-facts-1-12',
+    'dividing-decimals', 'dividing-fractions', 'div-with-remainders', 'div-word-problems',
+    'dot-to-dot-1-20', 'doubles-facts', 'doubles-near-doubles', 'draw-shape',
+    'elapsed-time-4th', 'elapsed-time-word-problems', 'equivalent-fractions',
+    'equivalent-fractions-4th', 'estimating-sums-differences', 'evaluating-expressions',
+    'even-odd-100', 'expanded-form-200', 'fact-families-20', 'fact-families-mult-div',
+    'find-number-1-10', 'fractions-decimals-percents', 'fractions-decimals-percents-advanced',
+    'fractions-halves-thirds-fourths', 'fractions-number-line', 'fractions-out-of-100',
+    'fractions-to-decimals', 'fractions-to-decimals-basic-tenths', 'fractions-to-decimals-division',
+    'fractions-whole', 'fraction-word-problems', 'fraction-word-problems-5th',
+    'geometry-word-problems', 'heavy-light', 'how-many-1-15', 'identify-polygons',
+    'kindergarten-addition-pictures', 'kindergarten-counting-1-10', 'kindergarten-counting-visual',
+    'kindergarten-number-recognition', 'kindergarten-patterns', 'kindergarten-shapes',
+    'letter-tracing-az', 'line-graphs', 'line-plots', 'lines-angles-4th',
+    'lines-rays-angles', 'line-tracing', 'liquid-measurement', 'liquid-measurement-4th',
+    'long-division-1digit', 'long-division-2digit', 'long-division-multidigit',
+    'long-short', 'mass-weight', 'mass-weight-4th', 'math-maze', 'mean-median-mode',
+    'mean-median-mode-range', 'measurement-length', 'measurement-word-problems',
+    'mental-math-20', 'metric-conversion', 'metric-units', 'missing-addends',
+    'missing-numbers-50', 'missing-shape', 'mixed-improper-fractions', 'money-coins-bills',
+    'money-word-problems', 'more-less', 'more-less-equal-10', 'mult-2x1', 'mult-2x1-digit',
+    'mult-2x2', 'mult-2x2-digit', 'mult-3x2-digit', 'mult-area-model', 'mult-arrays',
+    'mult-arrays-2-5', 'mult-arrays-models', 'mult-by-10-100', 'mult-complex-word',
+    'mult-fact-families', 'mult-fact-fluency', 'mult-facts-0-12', 'mult-facts-1-5',
+    'mult-facts-6-12', 'multiplying-decimals', 'multiplying-fractions', 'multi-step-word-4th',
+    'multi-step-word-5th', 'multi-step-word-problems', 'mult-mixed-review',
+    'mult-multi-step-word', 'mult-patterns', 'mult-properties', 'mult-strategies',
+    'mult-word-problems', 'mult-word-problems-2-3', 'nets-3d-shapes', 'number-bonds-10',
+    'number-id-1-10', 'number-line-200', 'number-line-add', 'number-matching-1-15',
+    'number-order-1-20', 'number-patterns-200', 'number-tracing-1-10', 'number-tracing-1-20',
+    'ordering-fractions-decimals', 'order-of-operations', 'partial-products', 'path-tracing',
+    'pattern-complete', 'patterns-rules', 'pemdas-advanced', 'pemdas-basic', 'pemdas-complex',
+    'pemdas-exponents', 'pemdas-fluency', 'pemdas-mixed-review', 'pemdas-multistep',
+    'pemdas-parentheses', 'pemdas-practice', 'pemdas-rules', 'pemdas-step-by-step',
+    'pemdas-word-problems', 'percent-to-decimal', 'percent-word-problems',
+    'perimeter-area-word-problems', 'perimeter-shapes', 'picture-addition-10',
+    'place-value-hto', 'powers-of-10', 'probability', 'ratio-proportion-word-problems',
+    'reading-g1-ants', 'reading-g1-big-box', 'reading-g1-birthday-cake', 'reading-g1-bus-ride',
+    'reading-g1-garden-snail', 'reading-g1-lost-hat', 'reading-g1-pet-fish',
+    'reading-g1-red-balloon', 'reading-g2-bird-feeder', 'reading-g2-cookie-recipe',
+    'reading-g2-library-card', 'reading-g2-lost-and-found', 'reading-g2-paper-bridge',
+    'reading-g2-rainy-garden', 'reading-g2-tree-house', 'reading-g3-art-project',
+    'reading-g3-community-garden', 'reading-g3-lighthouse', 'reading-g3-school-play',
+    'reading-g3-science-fair', 'rhyming-words', 'rounding-decimals', 'rounding-nearest-10',
+    'same-different', 'sentence-building', 'shape-identification', 'shape-patterns',
+    'shapes-colors-sort', 'shape-sorting', 'sight-words-pre-primer', 'size-comparison',
+    'skip-count-2s', 'skip-count-5-10-120', 'skip-count-mult', 'solving-one-step-equations',
+    'spot-difference', 'stem-leaf-plots', 'sub-2digit-100', 'sub-2digit-regrouping',
+    'subtraction-stories', 'symmetry', 'symmetry-transformations', 'ten-frames-1-10',
+    'time-5min', 'times-table-blank-1-12', 'times-table-blank-1-5', 'times-table-blank-6-12',
+    'times-table-color-1-12', 'times-table-color-1-5', 'times-table-color-6-12',
+    'times-table-confidence-1-5', 'times-table-confidence-6-12', 'times-table-fluency-1-12',
+    'times-table-horizontal-1-12', 'times-table-horizontal-1-5', 'times-table-horizontal-6-12',
+    'times-table-missing-1-5', 'times-table-missing-6-12', 'times-table-missing-mixed',
+    'times-table-mixed-review', 'times-table-timed-1-12', 'times-table-timed-1-5',
+    'times-table-timed-6-12', 'times-table-vertical-1-12', 'times-table-vertical-1-5',
+    'times-table-vertical-6-12', 'time-to-minute', 'transformations-5th',
+    'volume-rectangular-prisms', 'what-comes-next', 'word-problems-100', 'writing-expressions',
+    'zigzag-lines'
+  ]
+  
+  // Generate SEO data for each worksheet
+  for (const docId of allDocIds) {
+    const name = createTitle(docId)
+    const slug = createSlug(docId)
+    const grade = inferGrade(docId)
+    const category = inferCategory(docId)
+    
+    WORKSHEET_SEO_MAP[docId] = {
+      docId,
+      slug,
+      title: generateSEOTitle(name, grade),
+      metaDescription: generateMetaDescription(name, grade, category),
+      keywords: generateKeywords(name, category, grade),
+      h1: `${name} Worksheet`,
+      intro: generateIntro(name, grade, category),
+      grade,
+      category,
+      section: category[0] || 'Math',
+      learningObjectives: generateLearningObjectives(name, category),
+      relatedDocIds: [], // Will be populated based on category/grade
+    }
+  }
+  
+  // Populate related worksheets
+  for (const docId in WORKSHEET_SEO_MAP) {
+    const seo = WORKSHEET_SEO_MAP[docId]
+    const related = Object.values(WORKSHEET_SEO_MAP)
+      .filter(w => 
+        w.docId !== docId &&
+        (w.category.some(c => seo.category.includes(c)) || 
+         w.grade.some(g => seo.grade.includes(g)))
+      )
+      .slice(0, 5)
+      .map(w => w.docId)
+    seo.relatedDocIds = related
+  }
+}
+
+// Initialize on module load
+initializeWorksheetSEO()
 
 /**
  * Get SEO data for a worksheet by docId

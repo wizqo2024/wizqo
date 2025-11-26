@@ -33,10 +33,12 @@ import MultiplicationWorksheetsPage from './pages/MultiplicationWorksheetsPage';
 import TimesTableMultiplicationWorksheetsPage from './pages/TimesTableMultiplicationWorksheetsPage';
 import FractionsToDecimalsWorksheetsPage from './pages/FractionsToDecimalsWorksheetsPage';
 import OrderOfOperationsWorksheetsPage from './pages/OrderOfOperationsWorksheetsPage';
+import WorksheetPage from './pages/WorksheetPage';
 import { ErrorBoundary } from './components/ErrorBoundary';
 import { initAnalytics, trackPageView, trackUserFlow } from './utils/analytics';
 import { TranslationProvider } from './context/TranslationContext';
 import { parseLocaleFromPath, addLocaleToPath, removeLocaleFromPath, getLocaleFromURL, shouldAddLocale } from './utils/locale';
+import { getWorksheetSEOBySlug } from '@shared/worksheetSEO';
 
 
 type QuizAnswers = {
@@ -505,6 +507,44 @@ export default function App() {
                 </>
               );
             case 'worksheets':
+              // Check if this is an individual worksheet page (slug-based)
+              // First, check if it's NOT a category page
+              const categoryPages = [
+                'multiplication-worksheets',
+                'times-table-multiplication-worksheets',
+                'fractions-to-decimals-worksheets',
+                'order-of-operations-worksheets',
+                '1st-grade-math-worksheets',
+                '2nd-grade-math-worksheets',
+                'handwriting-worksheet-maker',
+                'reading-comprehension',
+                'kindergarten-math-worksheets',
+                '3rd-grade-math-worksheets',
+                '4th-grade-math-worksheets',
+                '5th-grade-math-worksheets'
+              ];
+              
+              if (routeSubKey && !categoryPages.includes(routeSubKey)) {
+                // Try to get worksheet SEO data - if found, it's a worksheet page
+                const worksheetSEO = getWorksheetSEOBySlug(routeSubKey);
+                if (worksheetSEO) {
+                  const canonical = addLocaleToPath(`/worksheets/${routeSubKey}`, currentLocale);
+                  return (
+                    <>
+                      <SEOMetaTags
+                        title={worksheetSEO.title}
+                        description={worksheetSEO.metaDescription}
+                        keywords={worksheetSEO.keywords}
+                        canonicalUrl={`https://wizqo.com${canonical}`}
+                        noIndex={false}
+                        ogType="article"
+                      />
+                      <WorksheetPage slug={routeSubKey} />
+                    </>
+                  );
+                }
+              }
+              // Existing category page routes
               if (routeSubKey === 'multiplication-worksheets') {
                 const canonical = addLocaleToPath('/worksheets/multiplication-worksheets', currentLocale);
                 return (
