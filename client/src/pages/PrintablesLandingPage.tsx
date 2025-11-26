@@ -85,7 +85,7 @@ const WorksheetThumbnailCard = React.memo(function WorksheetThumbnailCard({ titl
         {/* Overlay on hover */}
         <div className="absolute inset-0 bg-black/0 group-hover:bg-black/5 transition-colors flex items-center justify-center pointer-events-none">
           <div className="opacity-0 group-hover:opacity-100 transition-opacity bg-white/95 backdrop-blur-sm px-4 py-2 rounded-lg text-xs font-semibold text-purple-700 border-2 border-purple-300 shadow-lg pointer-events-none">
-            👁️ {t('pages.printables.clickToView')}
+            {t(\'pages.printables.clickToView\')}
           </div>
         </div>
         {/* Corner fold effect */}
