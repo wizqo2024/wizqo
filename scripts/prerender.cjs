@@ -153,17 +153,25 @@ function cloneForRoute(baseHtml, route, allPosts = [], allRoutes = []) {
     workingHtml = workingHtml.replace(/<script[^>]*>[\s\S]*?updateSEOFallback[\s\S]*?<\/script>/gi, '');
     // Remove the entire client-side SEO update script block (the one that checks for fractions/order-of-operations)
     // This script dynamically updates SEO - we don't want it in prerendered static HTML
-    // Match the script that starts with the comment and includes both the updateSEO function and the hide fallback script
-    // The script contains: "Simplified SEO update" comment, then the IIFE with updateSEO, then "Hide SEO fallback" script
-    // Match from <script> to </script> that contains "Simplified SEO update" - this should catch the entire block
-    workingHtml = workingHtml.replace(/<script[^>]*>[\s\S]*?\/\/ Simplified SEO update[\s\S]*?<\/script>/gi, '');
-    workingHtml = workingHtml.replace(/<script[^>]*>[\s\S]*?Simplified SEO update[\s\S]*?<\/script>/gi, '');
-    // Also remove the "Hide SEO fallback" script if it's in a separate script tag
-    workingHtml = workingHtml.replace(/<script[^>]*>[\s\S]*?Hide SEO fallback after React loads[\s\S]*?<\/script>/gi, '');
-    // Remove any script containing isFractionsPage or isOrderOfOperationsPage checks
-    workingHtml = workingHtml.replace(/<script[^>]*>[\s\S]*?isFractionsPage[\s\S]*?<\/script>/gi, '');
-    workingHtml = workingHtml.replace(/<script[^>]*>[\s\S]*?isOrderOfOperationsPage[\s\S]*?<\/script>/gi, '');
-    workingHtml = workingHtml.replace(/<script[^>]*>[\s\S]*?function updateSEO[\s\S]*?<\/script>/gi, '');
+    // The script starts with "Simplified SEO update" comment and ends before the module script
+    // Use non-greedy matching to catch the entire script block up to the closing </script> tag
+    // Match: <script> ... "Simplified SEO update" ... "Hide SEO fallback" ... </script>
+    workingHtml = workingHtml.replace(/<script[^>]*>[\s\S]*?Simplified SEO update[^<]*?<\/script>/gi, '');
+    // Also catch if it's split across patterns - match any script with the key identifiers
+    workingHtml = workingHtml.replace(/<script[^>]*>[\s\S]*?isFractionsPage[^<]*?<\/script>/gi, '');
+    workingHtml = workingHtml.replace(/<script[^>]*>[\s\S]*?Hide SEO fallback[^<]*?<\/script>/gi, '');
+    // More aggressive: remove any script between the style tag and the module script that contains SEO update logic
+    // This catches the entire block even if it's formatted differently
+    const styleEnd = workingHtml.indexOf('</style>');
+    const moduleScriptStart = workingHtml.indexOf('<script type="module"');
+    if (styleEnd > -1 && moduleScriptStart > styleEnd) {
+      const betweenScripts = workingHtml.substring(styleEnd, moduleScriptStart);
+      const cleanedBetween = betweenScripts.replace(/<script[^>]*>[\s\S]*?Simplified SEO update[\s\S]*?<\/script>/gi, '');
+      const cleanedBetween2 = cleanedBetween.replace(/<script[^>]*>[\s\S]*?Hide SEO fallback[\s\S]*?<\/script>/gi, '');
+      if (cleanedBetween2 !== betweenScripts) {
+        workingHtml = workingHtml.substring(0, styleEnd) + cleanedBetween2 + workingHtml.substring(moduleScriptStart);
+      }
+    }
   }
   
   let html = setMeta(workingHtml, {
