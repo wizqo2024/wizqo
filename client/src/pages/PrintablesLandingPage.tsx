@@ -5,7 +5,7 @@ import { useTranslation } from '@/context/TranslationContext';
 import { PRINTABLE_BUNDLE_SECTIONS, PRINTABLE_DOC_META } from '@/data/printableBundles';
 import { getWorksheetURL, getWorksheetPrintURL } from '@/utils/worksheetLinks';
 
-const BUTTON_CLASS = 'inline-flex items-center justify-center px-4 py-2 rounded-lg bg-purple-600 text-white hover:bg-purple-700 transition-colors';
+const BUTTON_CLASS = 'inline-flex items-center justify-center px-4 py-2 rounded-lg bg-purple-600 text-white hover:bg-purple-700 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:ring-offset-2 transition-colors';
 const OUTLINE_BUTTON = 'inline-flex items-center justify-center px-4 py-2 rounded-lg border border-purple-200 text-purple-700 hover:bg-purple-50 transition-colors';
 const CARD_CLASS = 'bg-white rounded-xl border border-slate-200 shadow-sm hover:shadow transition-all overflow-hidden p-4';
 // DOWNLOAD_NOTE will be translated in component
@@ -60,7 +60,8 @@ const WorksheetThumbnailCard = React.memo(function WorksheetThumbnailCard({ titl
       {/* Worksheet Thumbnail Preview - Clickable to SEO page */}
       <a 
         href={href}
-        className="relative w-full bg-gradient-to-br from-slate-50 to-slate-100 rounded-lg border border-slate-200 overflow-hidden cursor-pointer group shadow-sm hover:shadow-md transition-shadow block"
+        className="relative w-full bg-gradient-to-br from-slate-50 to-slate-100 rounded-lg border border-slate-200 overflow-hidden cursor-pointer group shadow-sm hover:shadow-md focus:outline-none focus:ring-2 focus:ring-purple-500 focus:ring-offset-2 transition-shadow block"
+        aria-label={`View ${translatedTitle} worksheet`}
         style={{ 
           height: '140px',
           aspectRatio: '2.5/1',
@@ -78,6 +79,7 @@ const WorksheetThumbnailCard = React.memo(function WorksheetThumbnailCard({ titl
             pointerEvents: 'none',
           }}
           title={`Preview of ${title}`}
+          aria-label={`Preview thumbnail of ${title} worksheet`}
           loading="lazy"
         />
         {/* Gradient fade at bottom */}
@@ -104,7 +106,7 @@ const WorksheetThumbnailCard = React.memo(function WorksheetThumbnailCard({ titl
                 }, 500)
               }
             }}
-            className="text-xs font-medium text-purple-600 hover:text-purple-700 px-3 py-1 rounded-full border border-purple-200 hover:border-purple-300 transition-colors"
+            className="text-xs font-medium text-purple-600 hover:text-purple-700 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:ring-offset-2 px-3 py-1 rounded-full border border-purple-200 hover:border-purple-300 transition-colors"
             aria-label={`Download ${title} as PDF`}
           >
             {t('pages.printables.download')}
@@ -136,7 +138,7 @@ function BundleButton({ section, className }: { section: string; className?: str
           }, 500)
         }
       }}
-      className={`${BUTTON_CLASS} ${className ?? ''}`.trim()}
+      className={`${BUTTON_CLASS} focus:outline-none focus:ring-2 focus:ring-purple-500 focus:ring-offset-2 ${className ?? ''}`.trim()}
       aria-label={`Download the ${section} printable bundle`}
       title={t('pages.printables.downloadNote')}
     >
@@ -323,11 +325,11 @@ export function PrintablesLandingPage() {
           {/* Above-the-fold quick links to worksheets */}
           <nav aria-label={t('pages.printables.popularWorksheets')} className="mt-3">
             <ul className="flex flex-wrap gap-2 text-sm">
-              <li><a href="/worksheets/handwriting-worksheet-maker" className="inline-flex items-center px-3 py-1.5 rounded-full bg-white/10 border border-white/20 text-white hover:bg-white/15">✍️ Handwriting worksheets (PDF)</a></li>
-              <li><a href="/printables/name-tracing-generator" className="inline-flex items-center px-3 py-1.5 rounded-full bg-white/10 border border-white/20 text-white hover:bg-white/15">🖊️ Personalized name tracing</a></li>
-              <li><a href="/worksheets/1st-grade-math-worksheets" className="inline-flex items-center px-3 py-1.5 rounded-full bg-white/10 border border-white/20 text-white hover:bg-white/15">➕ 1st grade math – printable</a></li>
-              <li><a href="/worksheets/reading-comprehension" className="inline-flex items-center px-3 py-1.5 rounded-full bg-white/10 border border-white/20 text-white hover:bg-white/15">📖 Reading comprehension (free PDF)</a></li>
-              <li><a href="/printables/certificate-maker" className="inline-flex items-center px-3 py-1.5 rounded-full bg-white/10 border border-white/20 text-white hover:bg-white/15">🏅 Certificate maker (free)</a></li>
+              <li><a href="/worksheets/handwriting-worksheet-maker" className="inline-flex items-center px-3 py-1.5 rounded-full bg-white/10 border border-white/20 text-white hover:bg-white/15 focus:outline-none focus:ring-2 focus:ring-white/50 focus:ring-offset-2" aria-label="Handwriting worksheets PDF">✍️ Handwriting worksheets (PDF)</a></li>
+              <li><a href="/printables/name-tracing-generator" className="inline-flex items-center px-3 py-1.5 rounded-full bg-white/10 border border-white/20 text-white hover:bg-white/15 focus:outline-none focus:ring-2 focus:ring-white/50 focus:ring-offset-2" aria-label="Personalized name tracing">🖊️ Personalized name tracing</a></li>
+              <li><a href="/worksheets/1st-grade-math-worksheets" className="inline-flex items-center px-3 py-1.5 rounded-full bg-white/10 border border-white/20 text-white hover:bg-white/15 focus:outline-none focus:ring-2 focus:ring-white/50 focus:ring-offset-2" aria-label="1st grade math printable worksheets">➕ 1st grade math – printable</a></li>
+              <li><a href="/worksheets/reading-comprehension" className="inline-flex items-center px-3 py-1.5 rounded-full bg-white/10 border border-white/20 text-white hover:bg-white/15 focus:outline-none focus:ring-2 focus:ring-white/50 focus:ring-offset-2" aria-label="Reading comprehension free PDF">📖 Reading comprehension (free PDF)</a></li>
+              <li><a href="/printables/certificate-maker" className="inline-flex items-center px-3 py-1.5 rounded-full bg-white/10 border border-white/20 text-white hover:bg-white/15 focus:outline-none focus:ring-2 focus:ring-white/50 focus:ring-offset-2" aria-label="Certificate maker free">🏅 Certificate maker (free)</a></li>
             </ul>
           </nav>
           {/* Floating cards (desktop) */}
@@ -366,14 +368,15 @@ export function PrintablesLandingPage() {
         </div>
       </header>
 
-      <main className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 pb-12 mt-6 md:mt-10">
+      <main id="main-content" className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 pb-12 mt-6 md:mt-10">
         {/* Mobile sidebar toggle */}
         <div className="md:hidden mb-3 print:hidden">
           <button
-            className="inline-flex items-center gap-2 px-3 py-2 rounded-lg border border-slate-200 text-slate-700 hover:bg-slate-50 text-sm"
+            className="inline-flex items-center gap-2 px-3 py-2 rounded-lg border border-slate-200 text-slate-700 hover:bg-slate-50 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:ring-offset-2 text-sm"
             onClick={() => setShowSidebar(v => !v)}
             aria-expanded={showSidebar}
             aria-controls="printables-sidebar"
+            aria-label="Toggle categories menu"
           >
             ☰ {t('pages.printables.browseCategories')}
           </button>
@@ -382,7 +385,7 @@ export function PrintablesLandingPage() {
               <ul className="grid grid-cols-2 gap-2 text-sm">
                 {quickLinks.map((l) => (
                   <li key={l.label}>
-                    <button className="w-full text-left text-purple-700 hover:underline" onClick={() => scrollToSection(l.id)}>{l.label}</button>
+                    <button className="w-full text-left text-purple-700 hover:underline focus:outline-none focus:ring-2 focus:ring-purple-500 focus:ring-offset-1 rounded" onClick={() => scrollToSection(l.id)} aria-label={`Jump to ${l.label} section`}>{l.label}</button>
                   </li>
                 ))}
               </ul>
@@ -398,7 +401,7 @@ export function PrintablesLandingPage() {
               <ul className="space-y-1 text-sm">
                 {quickLinks.map((l) => (
                   <li key={l.label}>
-                    <button className="text-left text-purple-700 hover:underline" onClick={() => scrollToSection(l.id)}>{l.label}</button>
+                    <button className="text-left text-purple-700 hover:underline focus:outline-none focus:ring-2 focus:ring-purple-500 focus:ring-offset-1 rounded" onClick={() => scrollToSection(l.id)} aria-label={`Jump to ${l.label} section`}>{l.label}</button>
                   </li>
                 ))}
               </ul>
@@ -449,10 +452,10 @@ export function PrintablesLandingPage() {
             </div>
             <div className="flex items-center gap-2">
               {filterCategory !== 'All' && (
-                <button onClick={() => setFilterCategory('All')} className="px-3 py-2 text-sm bg-slate-100 hover:bg-slate-200 rounded-lg">{t('pages.printables.clearFilter')}</button>
+                <button onClick={() => setFilterCategory('All')} className="px-3 py-2 text-sm bg-slate-100 hover:bg-slate-200 focus:outline-none focus:ring-2 focus:ring-slate-500 focus:ring-offset-2 rounded-lg" aria-label="Clear category filter">{t('pages.printables.clearFilter')}</button>
               )}
               {searchQuery && (
-                <button onClick={() => setSearchQuery('')} className="px-3 py-2 text-sm bg-slate-100 hover:bg-slate-200 rounded-lg">{t('pages.printables.clearSearch')}</button>
+                <button onClick={() => setSearchQuery('')} className="px-3 py-2 text-sm bg-slate-100 hover:bg-slate-200 focus:outline-none focus:ring-2 focus:ring-slate-500 focus:ring-offset-2 rounded-lg" aria-label="Clear search query">{t('pages.printables.clearSearch')}</button>
               )}
             </div>
           </div>
@@ -494,7 +497,8 @@ export function PrintablesLandingPage() {
                 const url = `/print?doc=pack&time=${packTime}&age=${packAge}&skill=${packSkill}`;
                 try { window.location.href = url; } catch {}
               }}
-              className="px-4 py-2 bg-purple-600 text-white rounded-lg hover:bg-purple-700"
+              className="px-4 py-2 bg-purple-600 text-white rounded-lg hover:bg-purple-700 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:ring-offset-2"
+              aria-label="Build printable pack"
             >
               {t('pages.printables.buildPackButton')}
             </button>
@@ -578,14 +582,14 @@ export function PrintablesLandingPage() {
               <div className="text-base font-semibold text-slate-900">✍️ Handwriting Worksheet Maker</div>
               <p className="text-slate-600 text-sm mt-1">Generate dotted A–Z letters, words, or sentences with guidelines. Adjust size and spacing, then print or save as PDF.</p>
               <div className="mt-3 flex items-center gap-2">
-                <a href="/worksheets/handwriting-worksheet-maker" className={BUTTON_CLASS}>Open worksheet maker →</a>
+                <a href="/worksheets/handwriting-worksheet-maker" className={BUTTON_CLASS} aria-label="Open handwriting worksheet maker">Open worksheet maker →</a>
               </div>
             </div>
             <div className={CARD_CLASS}>
               <div className="text-base font-semibold text-slate-900">🖊️ Name Tracing Generator</div>
               <p className="text-slate-600 text-sm mt-1">Create personalized name tracing worksheets with dotted or bubble letters, friendly start dots, and printable guidelines.</p>
               <div className="mt-3 flex items-center gap-2">
-                <a href="/printables/name-tracing-generator" className={BUTTON_CLASS}>Open name tracing tool →</a>
+                <a href="/printables/name-tracing-generator" className={BUTTON_CLASS} aria-label="Open name tracing generator">Open name tracing tool →</a>
               </div>
             </div>
           </div>
@@ -690,7 +694,7 @@ export function PrintablesLandingPage() {
               { label: 'Grade 1', id: 'Math-G1' },
               { label: 'Grade 2', id: 'Math-G2' },
             ].map(g => (
-              <button key={g.id} onClick={() => scrollToSection(g.id)} className="px-3 py-1.5 rounded-full border border-slate-200 text-slate-700 hover:bg-slate-50 text-sm">{g.label}</button>
+              <button key={g.id} onClick={() => scrollToSection(g.id)} className="px-3 py-1.5 rounded-full border border-slate-200 text-slate-700 hover:bg-slate-50 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:ring-offset-2 text-sm" aria-label={`Jump to ${g.label} section`}>{g.label}</button>
             ))}
           </div>
         </section>
@@ -704,7 +708,7 @@ export function PrintablesLandingPage() {
             <WorksheetThumbnailCard title="Number Tracing 1–20" description="Trace digits with start points" skills="fine motor, counting" age="Grade 1" href={getWorksheetURL("number-tracing-1-20", "printables")} docId="number-tracing-1-20" onPreview={setPreviewItem} />
           </div>
           <div className="mt-3 print:hidden">
-            <a href={getWorksheetURL("pack&time=5&age=g1&skill=math", "printables")} className="inline-flex items-center gap-2 px-3 py-2 rounded-lg border border-purple-200 text-purple-700 hover:bg-purple-50 text-sm">Build Grade 1 Pack →</a>
+            <a href={getWorksheetURL("pack&time=5&age=g1&skill=math", "printables")} className="inline-flex items-center gap-2 px-3 py-2 rounded-lg border border-purple-200 text-purple-700 hover:bg-purple-50 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:ring-offset-2 text-sm" aria-label="Build Grade 1 printable pack">Build Grade 1 Pack →</a>
           </div>
         </section>
 
@@ -716,7 +720,7 @@ export function PrintablesLandingPage() {
             <WorksheetThumbnailCard title="Facts to 20" description="Add/sub within 20" skills="fact fluency" age="Grade 2" href={getWorksheetURL("addition-subtraction-0-10", "printables")} docId="addition-subtraction-0-10" onPreview={setPreviewItem} />
           </div>
           <div className="mt-3 print:hidden">
-            <a href={getWorksheetURL("pack&time=5&age=g2&skill=math", "printables")} className="inline-flex items-center gap-2 px-3 py-2 rounded-lg border border-purple-200 text-purple-700 hover:bg-purple-50 text-sm">Build Grade 2 Pack →</a>
+            <a href={getWorksheetURL("pack&time=5&age=g2&skill=math", "printables")} className="inline-flex items-center gap-2 px-3 py-2 rounded-lg border border-purple-200 text-purple-700 hover:bg-purple-50 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:ring-offset-2 text-sm" aria-label="Build Grade 2 printable pack">Build Grade 2 Pack →</a>
           </div>
         </section>
 
@@ -1052,7 +1056,7 @@ export function PrintablesLandingPage() {
                 </div>
                 <button
                   onClick={() => setPreviewItem(null)}
-                  className="ml-4 p-2 text-slate-400 hover:text-slate-600 rounded-lg hover:bg-slate-100 transition-colors"
+                  className="ml-4 p-2 text-slate-400 hover:text-slate-600 focus:outline-none focus:ring-2 focus:ring-slate-500 focus:ring-offset-2 rounded-lg hover:bg-slate-100 transition-colors"
                   aria-label="Close preview"
                 >
                   <svg className="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -1070,6 +1074,7 @@ export function PrintablesLandingPage() {
                       src={previewItem.href}
                       className="w-full h-full min-h-[600px] border-0"
                       title={previewItem.title}
+                      aria-label={`Preview of ${previewItem.title} worksheet`}
                     />
                   </div>
                   
@@ -1091,7 +1096,8 @@ export function PrintablesLandingPage() {
                           }, 500)
                         }
                       }}
-                      className="inline-flex items-center gap-2 px-4 py-2 rounded-lg border border-purple-200 bg-purple-600 hover:bg-purple-700 text-white text-sm font-medium shadow-sm"
+                      className="inline-flex items-center gap-2 px-4 py-2 rounded-lg border border-purple-200 bg-purple-600 hover:bg-purple-700 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:ring-offset-2 text-white text-sm font-medium shadow-sm"
+                      aria-label={`Download ${previewItem.title} as PDF`}
                     >
                       Download
                     </button>
