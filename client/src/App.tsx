@@ -32,6 +32,7 @@ import KidsPage from './pages/KidsPage';
 import MultiplicationWorksheetsPage from './pages/MultiplicationWorksheetsPage';
 import TimesTableMultiplicationWorksheetsPage from './pages/TimesTableMultiplicationWorksheetsPage';
 import FractionsToDecimalsWorksheetsPage from './pages/FractionsToDecimalsWorksheetsPage';
+import OrderOfOperationsWorksheetsPage from './pages/OrderOfOperationsWorksheetsPage';
 import { ErrorBoundary } from './components/ErrorBoundary';
 import { initAnalytics, trackPageView, trackUserFlow } from './utils/analytics';
 import { TranslationProvider } from './context/TranslationContext';
@@ -543,6 +544,20 @@ export default function App() {
                       canonicalUrl={`https://wizqo.com${canonical}`}
                     />
                     <FractionsToDecimalsWorksheetsPage />
+                  </>
+                );
+              }
+              if (routeSubKey === 'order-of-operations-worksheets') {
+                const canonical = addLocaleToPath('/worksheets/order-of-operations-worksheets', currentLocale);
+                return (
+                  <>
+                    <SEOMetaTags 
+                      title="Order of Operations Worksheets (PEMDAS) – Free PDF | Wizqo"
+                      description="Make PEMDAS finally "click"! Download free Order of Operations worksheets (PDF) with step-by-step practice. Stress-free exercises that build confidence in 4th–6th grade students. No login — just print and learn."
+                      keywords="order of operations worksheets pdf, pemdas worksheets with answers, free order of operations worksheets, order of operations practice sheets, pemdas worksheets 5th grade, pemdas worksheets 6th grade, order of operations problems with answers, printable order of operations worksheets, order of operations with parentheses worksheets, easy order of operations worksheet, multi-step pemdas worksheet, pemdas practice for kids, pemdas rules worksheet, step-by-step order of operations worksheet, order of operations worksheets to build confidence, worksheets to help kids understand pemdas, practice sheets that reduce math frustration, simple pemdas worksheets for struggling learners, step-by-step order of operations practice for kids"
+                      canonicalUrl={`https://wizqo.com${canonical}`}
+                    />
+                    <OrderOfOperationsWorksheetsPage />
                   </>
                 );
               }

@@ -566,6 +566,18 @@ const ANSWERABLE_BASE_DOC_IDS = [
   'mult-3x2-digit',
   'long-division-multidigit',
   'order-of-operations',
+  'pemdas-basic',
+  'pemdas-parentheses',
+  'pemdas-practice',
+  'pemdas-exponents',
+  'pemdas-multistep',
+  'pemdas-word-problems',
+  'pemdas-advanced',
+  'pemdas-complex',
+  'pemdas-rules',
+  'pemdas-mixed-review',
+  'pemdas-fluency',
+  'pemdas-step-by-step',
   'powers-of-10',
   'rounding-decimals',
   'estimating-sums-differences',
@@ -1280,6 +1292,30 @@ function resolveDocTitle(docId: string, context: { packTime: string; bundleCateg
       return getTranslatedWorksheetTitle(docId, t, '🔢 Long Division (Multi-Digit)')
     case 'order-of-operations':
       return getTranslatedWorksheetTitle(docId, t, '🔢 Order of Operations')
+    case 'pemdas-basic':
+      return getTranslatedWorksheetTitle(docId, t, 'Basic Order of Operations (PEMDAS)')
+    case 'pemdas-parentheses':
+      return getTranslatedWorksheetTitle(docId, t, 'PEMDAS with Parentheses')
+    case 'pemdas-practice':
+      return getTranslatedWorksheetTitle(docId, t, 'Order of Operations Practice Sheet')
+    case 'pemdas-exponents':
+      return getTranslatedWorksheetTitle(docId, t, 'PEMDAS with Exponents')
+    case 'pemdas-multistep':
+      return getTranslatedWorksheetTitle(docId, t, 'Multi-Step PEMDAS Problems')
+    case 'pemdas-word-problems':
+      return getTranslatedWorksheetTitle(docId, t, 'PEMDAS Word Problems')
+    case 'pemdas-advanced':
+      return getTranslatedWorksheetTitle(docId, t, 'Advanced Parentheses and Exponents')
+    case 'pemdas-complex':
+      return getTranslatedWorksheetTitle(docId, t, 'Complex PEMDAS Expressions')
+    case 'pemdas-rules':
+      return getTranslatedWorksheetTitle(docId, t, 'PEMDAS Rules and Practice')
+    case 'pemdas-mixed-review':
+      return getTranslatedWorksheetTitle(docId, t, 'Mixed PEMDAS Review')
+    case 'pemdas-fluency':
+      return getTranslatedWorksheetTitle(docId, t, 'PEMDAS Fluency Practice')
+    case 'pemdas-step-by-step':
+      return getTranslatedWorksheetTitle(docId, t, 'Step-by-Step PEMDAS Guide')
     case 'powers-of-10':
       return getTranslatedWorksheetTitle(docId, t, '🔢 Powers of 10')
     case 'rounding-decimals':
@@ -26381,6 +26417,822 @@ export function PrintablesPage() {
                             <div key={j}>Step {j + 1}: {step}</div>
                           ))}
                           <div className="font-semibold">Answer: {p.answer}</div>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              ))}
+            </WorksheetSectionWrapper>
+          );
+        })()}
+
+        {activeDocs.includes('pemdas-basic') && (() => {
+          const problems = [
+            { expr: '3 + 6 × 2', answer: 15, steps: ['6 × 2 = 12', '3 + 12 = 15'] },
+            { expr: '10 - 4 ÷ 2', answer: 8, steps: ['4 ÷ 2 = 2', '10 - 2 = 8'] },
+            { expr: '5 × 3 + 7', answer: 22, steps: ['5 × 3 = 15', '15 + 7 = 22'] },
+            { expr: '12 ÷ 3 + 5', answer: 9, steps: ['12 ÷ 3 = 4', '4 + 5 = 9'] },
+            { expr: '8 - 2 × 3', answer: 2, steps: ['2 × 3 = 6', '8 - 6 = 2'] },
+            { expr: '15 ÷ 5 + 3', answer: 6, steps: ['15 ÷ 5 = 3', '3 + 3 = 6'] },
+            { expr: '4 × 2 - 5', answer: 3, steps: ['4 × 2 = 8', '8 - 5 = 3'] },
+            { expr: '20 ÷ 4 + 6', answer: 11, steps: ['20 ÷ 4 = 5', '5 + 6 = 11'] },
+          ];
+          return (
+            <WorksheetSectionWrapper 
+              docId="pemdas-basic" 
+              title="Basic Order of Operations (PEMDAS)" 
+              emoji="" 
+              description="Start with simple expressions using multiplication, division, addition, and subtraction. Perfect for building confidence."
+              problemCount={problems.length}
+              learningObjectives={[
+                'Understand PEMDAS order: Multiply/Divide before Add/Subtract',
+                'Solve basic expressions step by step',
+                'Build confidence with simple problems'
+              ]}
+              parentTeacherTips={[
+                'Remember: Multiplication and Division come before Addition and Subtraction',
+                'Work from left to right when operations have the same priority',
+                'Encourage students to show their work step by step'
+              ]}
+            >
+              <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-purple-400 to-pink-400 animate-gradient-x mb-2" />
+              <div className="mb-6 p-4 bg-blue-50 border-2 border-blue-200 rounded-lg print:border print:bg-white">
+                <div className="font-semibold text-blue-900 mb-3 text-sm">Example - Let's solve this together:</div>
+                <div className="space-y-2 text-sm">
+                  <div className="font-mono text-base"><strong>Problem:</strong> 3 + 4 × 2 = ?</div>
+                  <div className="pl-4 border-l-2 border-blue-300 space-y-1">
+                    <div><strong>Step 1:</strong> Do multiplication first: 4 × 2 = 8</div>
+                    <div><strong>Step 2:</strong> Then addition: 3 + 8 = 11</div>
+                    <div className="font-semibold text-blue-900"><strong>Answer:</strong> 11</div>
+                    <div className="text-xs text-blue-700 mt-1">Tip: Always multiply or divide before adding or subtracting!</div>
+                  </div>
+                </div>
+              </div>
+              <div className="mb-4 p-3 bg-blue-50 border border-blue-200 rounded text-sm text-blue-900">
+                <strong>PEMDAS Order:</strong> 1) Parentheses, 2) Exponents, 3) Multiplication & Division (left to right), 4) Addition & Subtraction (left to right)
+              </div>
+              <div className="grid grid-cols-2 gap-4 break-inside-avoid" style={{ pageBreakAfter: 'auto' }}>
+                {problems.map((p, i) => (
+                  <div key={i} className="border border-slate-300 rounded-lg p-4 bg-white break-inside-avoid">
+                    <div className="text-center text-xl font-mono mb-2">{p.expr}</div>
+                    <div className="text-center text-lg font-mono mb-2">= ____</div>
+                    <div className="mt-2 text-xs text-slate-600">Show your work:</div>
+                    <div className="min-h-16 border border-dashed border-slate-300 rounded p-2 bg-slate-50 print:bg-white" />
+                  </div>
+                ))}
+              </div>
+              {showAnswersForDoc('pemdas-basic', () => (
+                <div className="mt-6 p-4 border-2 border-emerald-300 bg-emerald-50 rounded print:border print:bg-white print:page-break-before-always">
+                  <div className="font-bold text-emerald-900 mb-3 text-base">Answer Key (with steps)</div>
+                  <div className="space-y-3">
+                    {problems.map((p, i) => (
+                      <div key={i} className="border-b border-emerald-200 pb-3 last:border-b-0">
+                        <div className="font-semibold mb-2 text-sm">{i + 1}. {p.expr}</div>
+                        <div className="text-xs text-emerald-800 space-y-1 pl-4">
+                          {p.steps.map((step, j) => (
+                            <div key={j}>Step {j + 1}: {step}</div>
+                          ))}
+                          <div className="font-semibold">Answer: {p.answer}</div>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              ))}
+            </WorksheetSectionWrapper>
+          );
+        })()}
+
+        {activeDocs.includes('pemdas-parentheses') && (() => {
+          const problems = [
+            { expr: '(5 + 3) × 2', answer: 16, steps: ['5 + 3 = 8', '8 × 2 = 16'] },
+            { expr: '2 × (4 + 3)', answer: 14, steps: ['4 + 3 = 7', '2 × 7 = 14'] },
+            { expr: '(10 - 4) ÷ 2', answer: 3, steps: ['10 - 4 = 6', '6 ÷ 2 = 3'] },
+            { expr: '8 ÷ (4 - 2)', answer: 4, steps: ['4 - 2 = 2', '8 ÷ 2 = 4'] },
+            { expr: '(6 + 2) × 3', answer: 24, steps: ['6 + 2 = 8', '8 × 3 = 24'] },
+            { expr: '15 ÷ (5 - 2)', answer: 5, steps: ['5 - 2 = 3', '15 ÷ 3 = 5'] },
+            { expr: '(9 - 3) × 4', answer: 24, steps: ['9 - 3 = 6', '6 × 4 = 24'] },
+            { expr: '20 ÷ (8 - 3)', answer: 4, steps: ['8 - 3 = 5', '20 ÷ 5 = 4'] },
+          ];
+          return (
+            <WorksheetSectionWrapper 
+              docId="pemdas-parentheses" 
+              title="PEMDAS with Parentheses" 
+              emoji="" 
+              description="Practice solving expressions with parentheses. Step-by-step exercises that help kids understand which operations come first."
+              problemCount={problems.length}
+              learningObjectives={[
+                'Solve expressions with parentheses first',
+                'Understand that parentheses change the order',
+                'Apply PEMDAS correctly with parentheses'
+              ]}
+              parentTeacherTips={[
+                'Always solve what is inside parentheses first',
+                'After solving parentheses, follow the regular PEMDAS order',
+                'Use parentheses to show which operation to do first'
+              ]}
+            >
+              <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-purple-400 to-pink-400 animate-gradient-x mb-2" />
+              <div className="mb-6 p-4 bg-blue-50 border-2 border-blue-200 rounded-lg print:border print:bg-white">
+                <div className="font-semibold text-blue-900 mb-3 text-sm">Example - Let's solve this together:</div>
+                <div className="space-y-2 text-sm">
+                  <div className="font-mono text-base"><strong>Problem:</strong> (8 - 3) × 4 = ?</div>
+                  <div className="pl-4 border-l-2 border-blue-300 space-y-1">
+                    <div><strong>Step 1:</strong> Solve parentheses first: 8 - 3 = 5</div>
+                    <div><strong>Step 2:</strong> Then multiply: 5 × 4 = 20</div>
+                    <div className="font-semibold text-blue-900"><strong>Answer:</strong> 20</div>
+                    <div className="text-xs text-blue-700 mt-1">Tip: Parentheses always come first in PEMDAS!</div>
+                  </div>
+                </div>
+              </div>
+              <div className="grid grid-cols-2 gap-4 break-inside-avoid" style={{ pageBreakAfter: 'auto' }}>
+                {problems.map((p, i) => (
+                  <div key={i} className="border border-slate-300 rounded-lg p-4 bg-white break-inside-avoid">
+                    <div className="text-center text-xl font-mono mb-2">{p.expr}</div>
+                    <div className="text-center text-lg font-mono mb-2">= ____</div>
+                    <div className="mt-2 text-xs text-slate-600">Show your work:</div>
+                    <div className="min-h-16 border border-dashed border-slate-300 rounded p-2 bg-slate-50 print:bg-white" />
+                  </div>
+                ))}
+              </div>
+              {showAnswersForDoc('pemdas-parentheses', () => (
+                <div className="mt-6 p-4 border-2 border-emerald-300 bg-emerald-50 rounded print:border print:bg-white print:page-break-before-always">
+                  <div className="font-bold text-emerald-900 mb-3 text-base">Answer Key (with steps)</div>
+                  <div className="space-y-3">
+                    {problems.map((p, i) => (
+                      <div key={i} className="border-b border-emerald-200 pb-3 last:border-b-0">
+                        <div className="font-semibold mb-2 text-sm">{i + 1}. {p.expr}</div>
+                        <div className="text-xs text-emerald-800 space-y-1 pl-4">
+                          {p.steps.map((step, j) => (
+                            <div key={j}>Step {j + 1}: {step}</div>
+                          ))}
+                          <div className="font-semibold">Answer: {p.answer}</div>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              ))}
+            </WorksheetSectionWrapper>
+          );
+        })()}
+
+        {activeDocs.includes('pemdas-exponents') && (() => {
+          const problems = [
+            { expr: '2³ + 4', answer: 12, steps: ['2³ = 2 × 2 × 2 = 8', '8 + 4 = 12'] },
+            { expr: '3² × 2', answer: 18, steps: ['3² = 3 × 3 = 9', '9 × 2 = 18'] },
+            { expr: '5² - 10', answer: 15, steps: ['5² = 5 × 5 = 25', '25 - 10 = 15'] },
+            { expr: '4² + 8 ÷ 2', answer: 20, steps: ['4² = 16', '8 ÷ 2 = 4', '16 + 4 = 20'] },
+            { expr: '2 × 3²', answer: 18, steps: ['3² = 9', '2 × 9 = 18'] },
+            { expr: '10 - 2²', answer: 6, steps: ['2² = 4', '10 - 4 = 6'] },
+            { expr: '3² + 2²', answer: 13, steps: ['3² = 9', '2² = 4', '9 + 4 = 13'] },
+            { expr: '4² ÷ 2', answer: 8, steps: ['4² = 16', '16 ÷ 2 = 8'] },
+          ];
+          return (
+            <WorksheetSectionWrapper 
+              docId="pemdas-exponents" 
+              title="PEMDAS with Exponents" 
+              emoji="" 
+              description="Master expressions with exponents. Learn to solve problems like 2³ + 4 × 3 using the correct order of operations."
+              problemCount={problems.length}
+              learningObjectives={[
+                'Understand exponents in PEMDAS',
+                'Solve expressions with exponents correctly',
+                'Apply exponents before other operations'
+              ]}
+              parentTeacherTips={[
+                'Exponents come after parentheses but before multiplication/division',
+                'Remember: 2³ means 2 × 2 × 2 = 8',
+                'Work exponents first, then follow the rest of PEMDAS'
+              ]}
+            >
+              <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-purple-400 to-pink-400 animate-gradient-x mb-2" />
+              <div className="mb-6 p-4 bg-blue-50 border-2 border-blue-200 rounded-lg print:border print:bg-white">
+                <div className="font-semibold text-blue-900 mb-3 text-sm">Example - Let's solve this together:</div>
+                <div className="space-y-2 text-sm">
+                  <div className="font-mono text-base"><strong>Problem:</strong> 2² + 3 × 2 = ?</div>
+                  <div className="pl-4 border-l-2 border-blue-300 space-y-1">
+                    <div><strong>Step 1:</strong> Solve exponent first: 2² = 2 × 2 = 4</div>
+                    <div><strong>Step 2:</strong> Then multiply: 3 × 2 = 6</div>
+                    <div><strong>Step 3:</strong> Finally add: 4 + 6 = 10</div>
+                    <div className="font-semibold text-blue-900"><strong>Answer:</strong> 10</div>
+                    <div className="text-xs text-blue-700 mt-1">Tip: Exponents come right after parentheses in PEMDAS!</div>
+                  </div>
+                </div>
+              </div>
+              <div className="grid grid-cols-2 gap-4 break-inside-avoid" style={{ pageBreakAfter: 'auto' }}>
+                {problems.map((p, i) => (
+                  <div key={i} className="border border-slate-300 rounded-lg p-4 bg-white break-inside-avoid">
+                    <div className="text-center text-xl font-mono mb-2">{p.expr.replace(/(\d+)\²/g, '$1²').replace(/(\d+)\³/g, '$1³')}</div>
+                    <div className="text-center text-lg font-mono mb-2">= ____</div>
+                    <div className="mt-2 text-xs text-slate-600">Show your work:</div>
+                    <div className="min-h-16 border border-dashed border-slate-300 rounded p-2 bg-slate-50 print:bg-white" />
+                  </div>
+                ))}
+              </div>
+              {showAnswersForDoc('pemdas-exponents', () => (
+                <div className="mt-6 p-4 border-2 border-emerald-300 bg-emerald-50 rounded print:border print:bg-white print:page-break-before-always">
+                  <div className="font-bold text-emerald-900 mb-3 text-base">Answer Key (with steps)</div>
+                  <div className="space-y-3">
+                    {problems.map((p, i) => (
+                      <div key={i} className="border-b border-emerald-200 pb-3 last:border-b-0">
+                        <div className="font-semibold mb-2 text-sm">{i + 1}. {p.expr.replace(/(\d+)\²/g, '$1²').replace(/(\d+)\³/g, '$1³')}</div>
+                        <div className="text-xs text-emerald-800 space-y-1 pl-4">
+                          {p.steps.map((step, j) => (
+                            <div key={j}>Step {j + 1}: {step}</div>
+                          ))}
+                          <div className="font-semibold">Answer: {p.answer}</div>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              ))}
+            </WorksheetSectionWrapper>
+          );
+        })()}
+
+        {activeDocs.includes('pemdas-multistep') && (() => {
+          const problems = [
+            { expr: '6 + 3 × (4 - 1)', answer: 15, steps: ['4 - 1 = 3', '3 × 3 = 9', '6 + 9 = 15'] },
+            { expr: '(15 - 3) ÷ 4 + 2', answer: 5, steps: ['15 - 3 = 12', '12 ÷ 4 = 3', '3 + 2 = 5'] },
+            { expr: '2 × (3 + 5)²', answer: 128, steps: ['3 + 5 = 8', '8² = 64', '2 × 64 = 128'] },
+            { expr: '(10 ÷ 2) × (6 - 1)', answer: 25, steps: ['10 ÷ 2 = 5', '6 - 1 = 5', '5 × 5 = 25'] },
+            { expr: '9 + (12 ÷ 3) × 4', answer: 25, steps: ['12 ÷ 3 = 4', '4 × 4 = 16', '9 + 16 = 25'] },
+            { expr: '18 ÷ (3 × 2) + 1', answer: 4, steps: ['3 × 2 = 6', '18 ÷ 6 = 3', '3 + 1 = 4'] },
+            { expr: '5² - 4 × 2 + 1', answer: 18, steps: ['5² = 25', '4 × 2 = 8', '25 - 8 = 17', '17 + 1 = 18'] },
+            { expr: '100 ÷ 5² + 10', answer: 14, steps: ['5² = 25', '100 ÷ 25 = 4', '4 + 10 = 14'] },
+          ];
+          return (
+            <WorksheetSectionWrapper 
+              docId="pemdas-multistep" 
+              title="Multi-Step PEMDAS Problems" 
+              emoji="" 
+              description="Challenge yourself with complex expressions combining parentheses, exponents, and all operations. Perfect for 5th grade mastery."
+              problemCount={problems.length}
+              learningObjectives={[
+                'Solve complex multi-step PEMDAS problems',
+                'Combine parentheses, exponents, and all operations',
+                'Build mastery through challenging practice'
+              ]}
+              parentTeacherTips={[
+                'Work step by step: Parentheses first, then exponents, then multiply/divide, then add/subtract',
+                'Take your time and show all work',
+                'Double-check each step before moving to the next'
+              ]}
+            >
+              <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-purple-400 to-pink-400 animate-gradient-x mb-2" />
+              <div className="mb-6 p-4 bg-blue-50 border-2 border-blue-200 rounded-lg print:border print:bg-white">
+                <div className="font-semibold text-blue-900 mb-3 text-sm">Example - Let's solve this together:</div>
+                <div className="space-y-2 text-sm">
+                  <div className="font-mono text-base"><strong>Problem:</strong> 4 + (6 ÷ 2) × 3 = ?</div>
+                  <div className="pl-4 border-l-2 border-blue-300 space-y-1">
+                    <div><strong>Step 1:</strong> Solve parentheses: 6 ÷ 2 = 3</div>
+                    <div><strong>Step 2:</strong> Then multiply: 3 × 3 = 9</div>
+                    <div><strong>Step 3:</strong> Finally add: 4 + 9 = 13</div>
+                    <div className="font-semibold text-blue-900"><strong>Answer:</strong> 13</div>
+                    <div className="text-xs text-blue-700 mt-1">Tip: Follow PEMDAS order carefully for multi-step problems!</div>
+                  </div>
+                </div>
+              </div>
+              <div className="grid grid-cols-2 gap-4 break-inside-avoid" style={{ pageBreakAfter: 'auto' }}>
+                {problems.map((p, i) => (
+                  <div key={i} className="border border-slate-300 rounded-lg p-4 bg-white break-inside-avoid">
+                    <div className="text-center text-xl font-mono mb-2">{p.expr.replace(/(\d+)\²/g, '$1²')}</div>
+                    <div className="text-center text-lg font-mono mb-2">= ____</div>
+                    <div className="mt-2 text-xs text-slate-600">Show your work:</div>
+                    <div className="min-h-20 border border-dashed border-slate-300 rounded p-2 bg-slate-50 print:bg-white" />
+                  </div>
+                ))}
+              </div>
+              {showAnswersForDoc('pemdas-multistep', () => (
+                <div className="mt-6 p-4 border-2 border-emerald-300 bg-emerald-50 rounded print:border print:bg-white print:page-break-before-always">
+                  <div className="font-bold text-emerald-900 mb-3 text-base">Answer Key (with steps)</div>
+                  <div className="space-y-3">
+                    {problems.map((p, i) => (
+                      <div key={i} className="border-b border-emerald-200 pb-3 last:border-b-0">
+                        <div className="font-semibold mb-2 text-sm">{i + 1}. {p.expr.replace(/(\d+)\²/g, '$1²')}</div>
+                        <div className="text-xs text-emerald-800 space-y-1 pl-4">
+                          {p.steps.map((step, j) => (
+                            <div key={j}>Step {j + 1}: {step}</div>
+                          ))}
+                          <div className="font-semibold">Answer: {p.answer}</div>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              ))}
+            </WorksheetSectionWrapper>
+          );
+        })()}
+
+        {activeDocs.includes('pemdas-practice') && (() => {
+          const problems = [
+            { expr: '7 + 3 × 4', answer: 19, steps: ['3 × 4 = 12', '7 + 12 = 19'] },
+            { expr: '15 - 6 ÷ 2', answer: 12, steps: ['6 ÷ 2 = 3', '15 - 3 = 12'] },
+            { expr: '4 × 5 + 8', answer: 28, steps: ['4 × 5 = 20', '20 + 8 = 28'] },
+            { expr: '18 ÷ 3 - 2', answer: 4, steps: ['18 ÷ 3 = 6', '6 - 2 = 4'] },
+            { expr: '9 - 2 × 3', answer: 3, steps: ['2 × 3 = 6', '9 - 6 = 3'] },
+            { expr: '12 + 8 ÷ 4', answer: 14, steps: ['8 ÷ 4 = 2', '12 + 2 = 14'] },
+            { expr: '5 × 4 - 10', answer: 10, steps: ['5 × 4 = 20', '20 - 10 = 10'] },
+            { expr: '24 ÷ 6 + 5', answer: 9, steps: ['24 ÷ 6 = 4', '4 + 5 = 9'] },
+          ];
+          return (
+            <WorksheetSectionWrapper 
+              docId="pemdas-practice" 
+              title="Order of Operations Practice Sheet" 
+              emoji="" 
+              description="Mixed practice problems covering all basic operations. Build fluency with PEMDAS rules through repeated practice."
+              problemCount={problems.length}
+              learningObjectives={[
+                'Practice PEMDAS with mixed problems',
+                'Build speed and accuracy',
+                'Reinforce order of operations rules'
+              ]}
+              parentTeacherTips={[
+                'Use this sheet for daily practice',
+                'Time students to build fluency',
+                'Review mistakes to reinforce learning'
+              ]}
+            >
+              <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-purple-400 to-pink-400 animate-gradient-x mb-2" />
+              <div className="grid grid-cols-2 gap-4 break-inside-avoid" style={{ pageBreakAfter: 'auto' }}>
+                {problems.map((p, i) => (
+                  <div key={i} className="border border-slate-300 rounded-lg p-4 bg-white break-inside-avoid">
+                    <div className="text-center text-xl font-mono mb-2">{p.expr}</div>
+                    <div className="text-center text-lg font-mono mb-2">= ____</div>
+                    <div className="mt-2 text-xs text-slate-600">Show your work:</div>
+                    <div className="min-h-16 border border-dashed border-slate-300 rounded p-2 bg-slate-50 print:bg-white" />
+                  </div>
+                ))}
+              </div>
+              {showAnswersForDoc('pemdas-practice', () => (
+                <div className="mt-6 p-4 border-2 border-emerald-300 bg-emerald-50 rounded print:border print:bg-white print:page-break-before-always">
+                  <div className="font-bold text-emerald-900 mb-3 text-base">Answer Key (with steps)</div>
+                  <div className="space-y-3">
+                    {problems.map((p, i) => (
+                      <div key={i} className="border-b border-emerald-200 pb-3 last:border-b-0">
+                        <div className="font-semibold mb-2 text-sm">{i + 1}. {p.expr}</div>
+                        <div className="text-xs text-emerald-800 space-y-1 pl-4">
+                          {p.steps.map((step, j) => (
+                            <div key={j}>Step {j + 1}: {step}</div>
+                          ))}
+                          <div className="font-semibold">Answer: {p.answer}</div>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              ))}
+            </WorksheetSectionWrapper>
+          );
+        })()}
+
+        {activeDocs.includes('pemdas-word-problems') && (() => {
+          const problems = [
+            { expr: 'Sarah bought 3 packs of stickers. Each pack has 4 stickers. She also bought 5 extra stickers. How many stickers does she have?', answer: 17, steps: ['3 × 4 = 12', '12 + 5 = 17'] },
+            { expr: 'Tom had 20 apples. He gave away 4 apples to each of 3 friends. How many apples does he have left?', answer: 8, steps: ['4 × 3 = 12', '20 - 12 = 8'] },
+            { expr: 'A box has 24 cookies. If 6 friends share them equally, and then 2 more cookies are added, how many cookies are there?', answer: 6, steps: ['24 ÷ 6 = 4', '4 + 2 = 6'] },
+            { expr: 'Emma saved $15. She spent $3 each day for 4 days. How much money does she have left?', answer: 3, steps: ['3 × 4 = 12', '15 - 12 = 3'] },
+          ];
+          return (
+            <WorksheetSectionWrapper 
+              docId="pemdas-word-problems" 
+              title="PEMDAS Word Problems" 
+              emoji="" 
+              description="Apply order of operations to real-world scenarios. Solve word problems that require careful step-by-step thinking."
+              problemCount={problems.length}
+              learningObjectives={[
+                'Translate word problems into expressions',
+                'Apply PEMDAS to real-world situations',
+                'Solve multi-step word problems'
+              ]}
+              parentTeacherTips={[
+                'Help students identify the operations needed',
+                'Encourage writing the expression first',
+                'Check that the answer makes sense in context'
+              ]}
+            >
+              <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-purple-400 to-pink-400 animate-gradient-x mb-2" />
+              <div className="space-y-4 break-inside-avoid" style={{ pageBreakAfter: 'auto' }}>
+                {problems.map((p, i) => (
+                  <div key={i} className="border border-slate-300 rounded-lg p-4 bg-white break-inside-avoid">
+                    <div className="text-sm text-slate-700 mb-3">{i + 1}. {p.expr}</div>
+                    <div className="text-center text-lg font-mono mb-2">Expression: ____ = ____</div>
+                    <div className="mt-2 text-xs text-slate-600">Show your work:</div>
+                    <div className="min-h-20 border border-dashed border-slate-300 rounded p-2 bg-slate-50 print:bg-white" />
+                  </div>
+                ))}
+              </div>
+              {showAnswersForDoc('pemdas-word-problems', () => (
+                <div className="mt-6 p-4 border-2 border-emerald-300 bg-emerald-50 rounded print:border print:bg-white print:page-break-before-always">
+                  <div className="font-bold text-emerald-900 mb-3 text-base">Answer Key (with steps)</div>
+                  <div className="space-y-3">
+                    {problems.map((p, i) => (
+                      <div key={i} className="border-b border-emerald-200 pb-3 last:border-b-0">
+                        <div className="font-semibold mb-2 text-sm">{i + 1}. {p.expr}</div>
+                        <div className="text-xs text-emerald-800 space-y-1 pl-4">
+                          {p.steps.map((step, j) => (
+                            <div key={j}>Step {j + 1}: {step}</div>
+                          ))}
+                          <div className="font-semibold">Answer: {p.answer}</div>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              ))}
+            </WorksheetSectionWrapper>
+          );
+        })()}
+
+        {activeDocs.includes('pemdas-advanced') && (() => {
+          const problems = [
+            { expr: '(3 + 2)² - 5', answer: 20, steps: ['3 + 2 = 5', '5² = 25', '25 - 5 = 20'] },
+            { expr: '2 × (4 + 3)²', answer: 98, steps: ['4 + 3 = 7', '7² = 49', '2 × 49 = 98'] },
+            { expr: '(6 - 2)² + 8', answer: 24, steps: ['6 - 2 = 4', '4² = 16', '16 + 8 = 24'] },
+            { expr: '3² × (2 + 1)', answer: 27, steps: ['2 + 1 = 3', '3² = 9', '9 × 3 = 27'] },
+            { expr: '(5 + 1)² ÷ 3', answer: 12, steps: ['5 + 1 = 6', '6² = 36', '36 ÷ 3 = 12'] },
+            { expr: '2³ + (4 - 1)²', answer: 17, steps: ['4 - 1 = 3', '2³ = 8', '3² = 9', '8 + 9 = 17'] },
+            { expr: '(8 ÷ 2)² - 4', answer: 12, steps: ['8 ÷ 2 = 4', '4² = 16', '16 - 4 = 12'] },
+            { expr: '3 × (2 + 1)²', answer: 27, steps: ['2 + 1 = 3', '3² = 9', '3 × 9 = 27'] },
+          ];
+          return (
+            <WorksheetSectionWrapper 
+              docId="pemdas-advanced" 
+              title="Advanced Parentheses and Exponents" 
+              emoji="" 
+              description="Tackle challenging problems with nested parentheses and exponents. Build confidence in complex expressions."
+              problemCount={problems.length}
+              learningObjectives={[
+                'Master parentheses and exponents together',
+                'Solve advanced PEMDAS problems',
+                'Build confidence with complex expressions'
+              ]}
+              parentTeacherTips={[
+                'Always solve parentheses first, then exponents',
+                'Take time to work through each step carefully',
+                'Practice makes perfect with advanced problems'
+              ]}
+            >
+              <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-purple-400 to-pink-400 animate-gradient-x mb-2" />
+              <div className="grid grid-cols-2 gap-4 break-inside-avoid" style={{ pageBreakAfter: 'auto' }}>
+                {problems.map((p, i) => (
+                  <div key={i} className="border border-slate-300 rounded-lg p-4 bg-white break-inside-avoid">
+                    <div className="text-center text-xl font-mono mb-2">{p.expr.replace(/(\d+)\²/g, '$1²').replace(/(\d+)\³/g, '$1³')}</div>
+                    <div className="text-center text-lg font-mono mb-2">= ____</div>
+                    <div className="mt-2 text-xs text-slate-600">Show your work:</div>
+                    <div className="min-h-20 border border-dashed border-slate-300 rounded p-2 bg-slate-50 print:bg-white" />
+                  </div>
+                ))}
+              </div>
+              {showAnswersForDoc('pemdas-advanced', () => (
+                <div className="mt-6 p-4 border-2 border-emerald-300 bg-emerald-50 rounded print:border print:bg-white print:page-break-before-always">
+                  <div className="font-bold text-emerald-900 mb-3 text-base">Answer Key (with steps)</div>
+                  <div className="space-y-3">
+                    {problems.map((p, i) => (
+                      <div key={i} className="border-b border-emerald-200 pb-3 last:border-b-0">
+                        <div className="font-semibold mb-2 text-sm">{i + 1}. {p.expr.replace(/(\d+)\²/g, '$1²').replace(/(\d+)\³/g, '$1³')}</div>
+                        <div className="text-xs text-emerald-800 space-y-1 pl-4">
+                          {p.steps.map((step, j) => (
+                            <div key={j}>Step {j + 1}: {step}</div>
+                          ))}
+                          <div className="font-semibold">Answer: {p.answer}</div>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              ))}
+            </WorksheetSectionWrapper>
+          );
+        })()}
+
+        {activeDocs.includes('pemdas-complex') && (() => {
+          const problems = [
+            { expr: '2 × (3 + 4)² - 10', answer: 88, steps: ['3 + 4 = 7', '7² = 49', '2 × 49 = 98', '98 - 10 = 88'] },
+            { expr: '(12 ÷ 3)² + 5 × 2', answer: 26, steps: ['12 ÷ 3 = 4', '4² = 16', '5 × 2 = 10', '16 + 10 = 26'] },
+            { expr: '3² × (4 - 1) + 6', answer: 33, steps: ['4 - 1 = 3', '3² = 9', '9 × 3 = 27', '27 + 6 = 33'] },
+            { expr: '(8 - 2)² ÷ 4 + 3', answer: 12, steps: ['8 - 2 = 6', '6² = 36', '36 ÷ 4 = 9', '9 + 3 = 12'] },
+            { expr: '2³ + (5 + 1) × 2', answer: 20, steps: ['5 + 1 = 6', '2³ = 8', '6 × 2 = 12', '8 + 12 = 20'] },
+            { expr: '(15 ÷ 3)² - 2 × 3', answer: 19, steps: ['15 ÷ 3 = 5', '5² = 25', '2 × 3 = 6', '25 - 6 = 19'] },
+          ];
+          return (
+            <WorksheetSectionWrapper 
+              docId="pemdas-complex" 
+              title="Complex PEMDAS Expressions" 
+              emoji="" 
+              description="Master the most challenging order of operations problems. Perfect for 6th grade students ready for advanced practice."
+              problemCount={problems.length}
+              learningObjectives={[
+                'Solve the most complex PEMDAS problems',
+                'Combine all PEMDAS rules in one problem',
+                'Achieve mastery through challenging practice'
+              ]}
+              parentTeacherTips={[
+                'These are advanced problems - take your time',
+                'Work through each step methodically',
+                'Double-check your work at each stage'
+              ]}
+            >
+              <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-purple-400 to-pink-400 animate-gradient-x mb-2" />
+              <div className="grid grid-cols-2 gap-4 break-inside-avoid" style={{ pageBreakAfter: 'auto' }}>
+                {problems.map((p, i) => (
+                  <div key={i} className="border border-slate-300 rounded-lg p-4 bg-white break-inside-avoid">
+                    <div className="text-center text-xl font-mono mb-2">{p.expr.replace(/(\d+)\²/g, '$1²').replace(/(\d+)\³/g, '$1³')}</div>
+                    <div className="text-center text-lg font-mono mb-2">= ____</div>
+                    <div className="mt-2 text-xs text-slate-600">Show your work:</div>
+                    <div className="min-h-24 border border-dashed border-slate-300 rounded p-2 bg-slate-50 print:bg-white" />
+                  </div>
+                ))}
+              </div>
+              {showAnswersForDoc('pemdas-complex', () => (
+                <div className="mt-6 p-4 border-2 border-emerald-300 bg-emerald-50 rounded print:border print:bg-white print:page-break-before-always">
+                  <div className="font-bold text-emerald-900 mb-3 text-base">Answer Key (with steps)</div>
+                  <div className="space-y-3">
+                    {problems.map((p, i) => (
+                      <div key={i} className="border-b border-emerald-200 pb-3 last:border-b-0">
+                        <div className="font-semibold mb-2 text-sm">{i + 1}. {p.expr.replace(/(\d+)\²/g, '$1²').replace(/(\d+)\³/g, '$1³')}</div>
+                        <div className="text-xs text-emerald-800 space-y-1 pl-4">
+                          {p.steps.map((step, j) => (
+                            <div key={j}>Step {j + 1}: {step}</div>
+                          ))}
+                          <div className="font-semibold">Answer: {p.answer}</div>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              ))}
+            </WorksheetSectionWrapper>
+          );
+        })()}
+
+        {activeDocs.includes('pemdas-rules') && (() => {
+          const problems = [
+            { expr: '8 + 4 × 3', answer: 20, steps: ['4 × 3 = 12', '8 + 12 = 20'] },
+            { expr: '(6 + 2) × 5', answer: 40, steps: ['6 + 2 = 8', '8 × 5 = 40'] },
+            { expr: '3² + 5', answer: 14, steps: ['3² = 9', '9 + 5 = 14'] },
+            { expr: '12 ÷ 3 + 2 × 3', answer: 10, steps: ['12 ÷ 3 = 4', '2 × 3 = 6', '4 + 6 = 10'] },
+            { expr: '(10 - 4) ÷ 2', answer: 3, steps: ['10 - 4 = 6', '6 ÷ 2 = 3'] },
+            { expr: '2 × 3²', answer: 18, steps: ['3² = 9', '2 × 9 = 18'] },
+          ];
+          return (
+            <WorksheetSectionWrapper 
+              docId="pemdas-rules" 
+              title="PEMDAS Rules and Practice" 
+              emoji="" 
+              description="Comprehensive review of PEMDAS rules with step-by-step examples and practice problems. Great for test preparation."
+              problemCount={problems.length}
+              learningObjectives={[
+                'Review all PEMDAS rules',
+                'Practice with comprehensive examples',
+                'Prepare for tests and assessments'
+              ]}
+              parentTeacherTips={[
+                'Use this as a review before tests',
+                'Focus on understanding the rules, not just memorizing',
+                'Practice explaining the steps out loud'
+              ]}
+            >
+              <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-purple-400 to-pink-400 animate-gradient-x mb-2" />
+              <div className="mb-6 p-4 bg-blue-50 border-2 border-blue-200 rounded-lg print:border print:bg-white">
+                <div className="font-semibold text-blue-900 mb-3 text-sm">PEMDAS Rules Review:</div>
+                <div className="space-y-2 text-sm text-blue-800">
+                  <div><strong>P</strong>arentheses - Do these first</div>
+                  <div><strong>E</strong>xponents - Do these second</div>
+                  <div><strong>M</strong>ultiplication & <strong>D</strong>ivision - Left to right</div>
+                  <div><strong>A</strong>ddition & <strong>S</strong>ubtraction - Left to right</div>
+                </div>
+              </div>
+              <div className="grid grid-cols-2 gap-4 break-inside-avoid" style={{ pageBreakAfter: 'auto' }}>
+                {problems.map((p, i) => (
+                  <div key={i} className="border border-slate-300 rounded-lg p-4 bg-white break-inside-avoid">
+                    <div className="text-center text-xl font-mono mb-2">{p.expr.replace(/(\d+)\²/g, '$1²')}</div>
+                    <div className="text-center text-lg font-mono mb-2">= ____</div>
+                    <div className="mt-2 text-xs text-slate-600">Show your work:</div>
+                    <div className="min-h-16 border border-dashed border-slate-300 rounded p-2 bg-slate-50 print:bg-white" />
+                  </div>
+                ))}
+              </div>
+              {showAnswersForDoc('pemdas-rules', () => (
+                <div className="mt-6 p-4 border-2 border-emerald-300 bg-emerald-50 rounded print:border print:bg-white print:page-break-before-always">
+                  <div className="font-bold text-emerald-900 mb-3 text-base">Answer Key (with steps)</div>
+                  <div className="space-y-3">
+                    {problems.map((p, i) => (
+                      <div key={i} className="border-b border-emerald-200 pb-3 last:border-b-0">
+                        <div className="font-semibold mb-2 text-sm">{i + 1}. {p.expr.replace(/(\d+)\²/g, '$1²')}</div>
+                        <div className="text-xs text-emerald-800 space-y-1 pl-4">
+                          {p.steps.map((step, j) => (
+                            <div key={j}>Step {j + 1}: {step}</div>
+                          ))}
+                          <div className="font-semibold">Answer: {p.answer}</div>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              ))}
+            </WorksheetSectionWrapper>
+          );
+        })()}
+
+        {activeDocs.includes('pemdas-mixed-review') && (() => {
+          const problems = [
+            { expr: '6 + 2 × 5', answer: 16, steps: ['2 × 5 = 10', '6 + 10 = 16'] },
+            { expr: '(8 - 3) × 4', answer: 20, steps: ['8 - 3 = 5', '5 × 4 = 20'] },
+            { expr: '3² + 4 × 2', answer: 17, steps: ['3² = 9', '4 × 2 = 8', '9 + 8 = 17'] },
+            { expr: '15 ÷ 3 + 2', answer: 7, steps: ['15 ÷ 3 = 5', '5 + 2 = 7'] },
+            { expr: '(6 + 4) ÷ 2', answer: 5, steps: ['6 + 4 = 10', '10 ÷ 2 = 5'] },
+            { expr: '2 × 4²', answer: 32, steps: ['4² = 16', '2 × 16 = 32'] },
+            { expr: '10 - 3 × 2', answer: 4, steps: ['3 × 2 = 6', '10 - 6 = 4'] },
+            { expr: '(5 + 1)² - 8', answer: 28, steps: ['5 + 1 = 6', '6² = 36', '36 - 8 = 28'] },
+          ];
+          return (
+            <WorksheetSectionWrapper 
+              docId="pemdas-mixed-review" 
+              title="Mixed PEMDAS Review" 
+              emoji="" 
+              description="Review all PEMDAS concepts with mixed problems. Covers parentheses, exponents, and all operations for complete mastery."
+              problemCount={problems.length}
+              learningObjectives={[
+                'Review all PEMDAS concepts',
+                'Practice with mixed problem types',
+                'Achieve complete mastery'
+              ]}
+              parentTeacherTips={[
+                'This sheet mixes all types of PEMDAS problems',
+                'Use it as a final review before moving on',
+                'Celebrate progress and mastery!'
+              ]}
+            >
+              <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-purple-400 to-pink-400 animate-gradient-x mb-2" />
+              <div className="grid grid-cols-2 gap-4 break-inside-avoid" style={{ pageBreakAfter: 'auto' }}>
+                {problems.map((p, i) => (
+                  <div key={i} className="border border-slate-300 rounded-lg p-4 bg-white break-inside-avoid">
+                    <div className="text-center text-xl font-mono mb-2">{p.expr.replace(/(\d+)\²/g, '$1²')}</div>
+                    <div className="text-center text-lg font-mono mb-2">= ____</div>
+                    <div className="mt-2 text-xs text-slate-600">Show your work:</div>
+                    <div className="min-h-16 border border-dashed border-slate-300 rounded p-2 bg-slate-50 print:bg-white" />
+                  </div>
+                ))}
+              </div>
+              {showAnswersForDoc('pemdas-mixed-review', () => (
+                <div className="mt-6 p-4 border-2 border-emerald-300 bg-emerald-50 rounded print:border print:bg-white print:page-break-before-always">
+                  <div className="font-bold text-emerald-900 mb-3 text-base">Answer Key (with steps)</div>
+                  <div className="space-y-3">
+                    {problems.map((p, i) => (
+                      <div key={i} className="border-b border-emerald-200 pb-3 last:border-b-0">
+                        <div className="font-semibold mb-2 text-sm">{i + 1}. {p.expr.replace(/(\d+)\²/g, '$1²')}</div>
+                        <div className="text-xs text-emerald-800 space-y-1 pl-4">
+                          {p.steps.map((step, j) => (
+                            <div key={j}>Step {j + 1}: {step}</div>
+                          ))}
+                          <div className="font-semibold">Answer: {p.answer}</div>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              ))}
+            </WorksheetSectionWrapper>
+          );
+        })()}
+
+        {activeDocs.includes('pemdas-fluency') && (() => {
+          const problems = [
+            { expr: '5 + 3 × 2', answer: 11, steps: ['3 × 2 = 6', '5 + 6 = 11'] },
+            { expr: '12 - 4 ÷ 2', answer: 10, steps: ['4 ÷ 2 = 2', '12 - 2 = 10'] },
+            { expr: '4 × 3 + 5', answer: 17, steps: ['4 × 3 = 12', '12 + 5 = 17'] },
+            { expr: '18 ÷ 3 - 2', answer: 4, steps: ['18 ÷ 3 = 6', '6 - 2 = 4'] },
+            { expr: '7 - 2 × 3', answer: 1, steps: ['2 × 3 = 6', '7 - 6 = 1'] },
+            { expr: '15 + 9 ÷ 3', answer: 18, steps: ['9 ÷ 3 = 3', '15 + 3 = 18'] },
+            { expr: '6 × 2 - 8', answer: 4, steps: ['6 × 2 = 12', '12 - 8 = 4'] },
+            { expr: '20 ÷ 4 + 3', answer: 8, steps: ['20 ÷ 4 = 5', '5 + 3 = 8'] },
+            { expr: '8 + 4 × 2', answer: 16, steps: ['4 × 2 = 8', '8 + 8 = 16'] },
+            { expr: '14 - 6 ÷ 2', answer: 11, steps: ['6 ÷ 2 = 3', '14 - 3 = 11'] },
+          ];
+          return (
+            <WorksheetSectionWrapper 
+              docId="pemdas-fluency" 
+              title="PEMDAS Fluency Practice" 
+              emoji="" 
+              description="Build speed and accuracy with timed PEMDAS practice. Perfect for students who need extra repetition to master the order of operations."
+              problemCount={problems.length}
+              learningObjectives={[
+                'Build speed with PEMDAS problems',
+                'Improve accuracy through repetition',
+                'Develop automaticity with order of operations'
+              ]}
+              parentTeacherTips={[
+                'Time students to build fluency',
+                'Aim for accuracy first, then speed',
+                'Practice daily for best results'
+              ]}
+            >
+              <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-purple-400 to-pink-400 animate-gradient-x mb-2" />
+              <div className="mb-4 p-3 bg-yellow-50 border border-yellow-200 rounded text-sm text-yellow-900">
+                <strong>Fluency Challenge:</strong> Try to complete all problems quickly and accurately. Time yourself!
+              </div>
+              <div className="grid grid-cols-2 gap-4 break-inside-avoid" style={{ pageBreakAfter: 'auto' }}>
+                {problems.map((p, i) => (
+                  <div key={i} className="border border-slate-300 rounded-lg p-4 bg-white break-inside-avoid">
+                    <div className="text-center text-xl font-mono mb-2">{p.expr}</div>
+                    <div className="text-center text-lg font-mono mb-2">= ____</div>
+                    <div className="mt-2 text-xs text-slate-600">Show your work:</div>
+                    <div className="min-h-16 border border-dashed border-slate-300 rounded p-2 bg-slate-50 print:bg-white" />
+                  </div>
+                ))}
+              </div>
+              {showAnswersForDoc('pemdas-fluency', () => (
+                <div className="mt-6 p-4 border-2 border-emerald-300 bg-emerald-50 rounded print:border print:bg-white print:page-break-before-always">
+                  <div className="font-bold text-emerald-900 mb-3 text-base">Answer Key (with steps)</div>
+                  <div className="space-y-3">
+                    {problems.map((p, i) => (
+                      <div key={i} className="border-b border-emerald-200 pb-3 last:border-b-0">
+                        <div className="font-semibold mb-2 text-sm">{i + 1}. {p.expr}</div>
+                        <div className="text-xs text-emerald-800 space-y-1 pl-4">
+                          {p.steps.map((step, j) => (
+                            <div key={j}>Step {j + 1}: {step}</div>
+                          ))}
+                          <div className="font-semibold">Answer: {p.answer}</div>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              ))}
+            </WorksheetSectionWrapper>
+          );
+        })()}
+
+        {activeDocs.includes('pemdas-step-by-step') && (() => {
+          const problems = [
+            { expr: '3 + 4 × 2', answer: 11, steps: ['Step 1: Multiply first', '4 × 2 = 8', 'Step 2: Then add', '3 + 8 = 11'] },
+            { expr: '(5 + 3) × 2', answer: 16, steps: ['Step 1: Parentheses first', '5 + 3 = 8', 'Step 2: Then multiply', '8 × 2 = 16'] },
+            { expr: '2² + 5', answer: 9, steps: ['Step 1: Exponent first', '2² = 4', 'Step 2: Then add', '4 + 5 = 9'] },
+            { expr: '10 - 6 ÷ 2', answer: 7, steps: ['Step 1: Divide first', '6 ÷ 2 = 3', 'Step 2: Then subtract', '10 - 3 = 7'] },
+            { expr: '(8 - 2) × 3', answer: 18, steps: ['Step 1: Parentheses first', '8 - 2 = 6', 'Step 2: Then multiply', '6 × 3 = 18'] },
+            { expr: '3² × 2', answer: 18, steps: ['Step 1: Exponent first', '3² = 9', 'Step 2: Then multiply', '9 × 2 = 18'] },
+          ];
+          return (
+            <WorksheetSectionWrapper 
+              docId="pemdas-step-by-step" 
+              title="Step-by-Step PEMDAS Guide" 
+              emoji="" 
+              description="Learn PEMDAS with clear step-by-step instructions and worked examples. Ideal for students who struggle with order of operations."
+              problemCount={problems.length}
+              learningObjectives={[
+                'Understand each step of PEMDAS',
+                'Follow clear step-by-step instructions',
+                'Build confidence with guided practice'
+              ]}
+              parentTeacherTips={[
+                'This worksheet provides extra guidance',
+                'Perfect for students who need more support',
+                'Encourage students to read each step carefully'
+              ]}
+            >
+              <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-purple-400 to-pink-400 animate-gradient-x mb-2" />
+              <div className="mb-6 p-4 bg-blue-50 border-2 border-blue-200 rounded-lg print:border print:bg-white">
+                <div className="font-semibold text-blue-900 mb-3 text-sm">Step-by-Step Guide:</div>
+                <div className="space-y-2 text-sm text-blue-800">
+                  <div>1. Look for parentheses - solve these first</div>
+                  <div>2. Look for exponents - solve these second</div>
+                  <div>3. Do multiplication and division from left to right</div>
+                  <div>4. Do addition and subtraction from left to right</div>
+                </div>
+              </div>
+              <div className="space-y-4 break-inside-avoid" style={{ pageBreakAfter: 'auto' }}>
+                {problems.map((p, i) => (
+                  <div key={i} className="border border-slate-300 rounded-lg p-4 bg-white break-inside-avoid">
+                    <div className="text-center text-xl font-mono mb-3">{p.expr.replace(/(\d+)\²/g, '$1²')}</div>
+                    <div className="text-sm text-slate-700 mb-2">Follow the steps:</div>
+                    <div className="space-y-1 mb-3 text-xs text-slate-600">
+                      {p.steps.slice(0, 2).map((step, j) => (
+                        <div key={j}>{step}</div>
+                      ))}
+                    </div>
+                    <div className="text-center text-lg font-mono mb-2">= ____</div>
+                    <div className="mt-2 text-xs text-slate-600">Show your work:</div>
+                    <div className="min-h-16 border border-dashed border-slate-300 rounded p-2 bg-slate-50 print:bg-white" />
+                  </div>
+                ))}
+              </div>
+              {showAnswersForDoc('pemdas-step-by-step', () => (
+                <div className="mt-6 p-4 border-2 border-emerald-300 bg-emerald-50 rounded print:border print:bg-white print:page-break-before-always">
+                  <div className="font-bold text-emerald-900 mb-3 text-base">Answer Key (with steps)</div>
+                  <div className="space-y-3">
+                    {problems.map((p, i) => (
+                      <div key={i} className="border-b border-emerald-200 pb-3 last:border-b-0">
+                        <div className="font-semibold mb-2 text-sm">{i + 1}. {p.expr.replace(/(\d+)\²/g, '$1²')}</div>
+                        <div className="text-xs text-emerald-800 space-y-1 pl-4">
+                          {p.steps.map((step, j) => (
+                            <div key={j}>{step}</div>
+                          ))}
+                          <div className="font-semibold">Final Answer: {p.answer}</div>
                         </div>
                       </div>
                     ))}
