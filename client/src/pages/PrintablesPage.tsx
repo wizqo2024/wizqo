@@ -310,6 +310,7 @@ function WorksheetSectionWrapper({
           marginTop: 0
         } as React.CSSProperties}
       >
+        <WorksheetHeader problemCount={problemCount} />
         <h2 
           className={`text-xl font-bold ${theme.text} mb-2 flex items-center gap-2`}
           style={{ 
