@@ -451,14 +451,20 @@ const WorksheetThumbnailCard = React.memo(function WorksheetThumbnailCard({ titl
       
       <div className="flex items-center justify-between">
         <div className="flex items-center gap-2">
-          <a
-            href={href + (href.includes('?') ? '&download=1' : '?download=1')}
-            target="_blank"
-            rel="noopener noreferrer"
+          <button
+            onClick={() => {
+              const printUrl = getWorksheetPrintURL(docId, '2nd-grade')
+              const newWindow = window.open(printUrl, '_blank')
+              if (newWindow) {
+                setTimeout(() => {
+                  newWindow.print()
+                }, 500)
+              }
+            }}
             className="text-xs font-medium text-purple-600 hover:text-purple-700 px-3 py-1 rounded-full border border-purple-200 hover:border-purple-300 transition-colors"
           >
             ⬇️ {t('pages.secondGrade.download')}
-          </a>
+          </button>
         </div>
       </div>
     </article>

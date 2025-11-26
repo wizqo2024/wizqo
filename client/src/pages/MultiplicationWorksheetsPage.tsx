@@ -424,16 +424,20 @@ const WorksheetThumbnailCard = React.memo(function WorksheetThumbnailCard({ titl
           <span>Answer key included</span>
         </div>
         <div className="flex items-center gap-2">
-          <a
-            href={getWorksheetPrintURL(docId, 'multiplication')}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="text-xs font-medium text-purple-600 hover:text-purple-700 px-3 py-1 rounded-full border border-purple-200 hover:border-purple-300 transition-colors inline-block"
+          <button
+            onClick={() => {
+              const printUrl = getWorksheetPrintURL(docId, 'multiplication')
+              const newWindow = window.open(printUrl, '_blank')
+              if (newWindow) {
+                setTimeout(() => {
+                  newWindow.print()
+                }, 500)
+              }
+            }}
+            className="text-xs font-medium text-purple-600 hover:text-purple-700 px-3 py-1 rounded-full border border-purple-200 hover:border-purple-300 transition-colors"
           >
-            
             Download
-          
-          </a>
+          </button>
         </div>
       </div>
     </article>

@@ -485,7 +485,8 @@ const WorksheetThumbnailCard = React.memo(function WorksheetThumbnailCard({ titl
         <div className="flex items-center gap-2">
           <button
             onClick={() => {
-              const newWindow = window.open(href, '_blank')
+              const printUrl = getWorksheetPrintURL(docId, 'kindergarten')
+              const newWindow = window.open(printUrl, '_blank')
               if (newWindow) {
                 setTimeout(() => {
                   newWindow.print()

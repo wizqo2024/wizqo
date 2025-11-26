@@ -94,15 +94,21 @@ const WorksheetThumbnailCard = React.memo(function WorksheetThumbnailCard({ titl
       
       <div className="flex items-center justify-between">
         <div className="flex items-center gap-2">
-          <a
-            href={docId ? getWorksheetPrintURL(docId, 'printables') : finalHref}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="text-xs font-medium text-purple-600 hover:text-purple-700 px-3 py-1 rounded-full border border-purple-200 hover:border-purple-300 transition-colors inline-block"
+          <button
+            onClick={() => {
+              const printUrl = docId ? getWorksheetPrintURL(docId, 'printables') : finalHref
+              const newWindow = window.open(printUrl, '_blank')
+              if (newWindow) {
+                setTimeout(() => {
+                  newWindow.print()
+                }, 500)
+              }
+            }}
+            className="text-xs font-medium text-purple-600 hover:text-purple-700 px-3 py-1 rounded-full border border-purple-200 hover:border-purple-300 transition-colors"
             aria-label={`Download ${title} as PDF`}
           >
             {t('pages.printables.download')}
-          </a>
+          </button>
         </div>
       </div>
     </article>
@@ -1075,14 +1081,20 @@ export function PrintablesLandingPage() {
                   
                   {/* Action Buttons */}
                   <div className="mt-6 flex items-center gap-3">
-                    <a
-                      href={previewItem.docId ? getWorksheetPrintURL(previewItem.docId, 'printables') : previewItem.href}
-                      target="_blank"
-                      rel="noopener noreferrer"
+                    <button
+                      onClick={() => {
+                        const printUrl = previewItem.docId ? getWorksheetPrintURL(previewItem.docId, 'printables') : previewItem.href
+                        const newWindow = window.open(printUrl, '_blank')
+                        if (newWindow) {
+                          setTimeout(() => {
+                            newWindow.print()
+                          }, 500)
+                        }
+                      }}
                       className="inline-flex items-center gap-2 px-4 py-2 rounded-lg border border-purple-200 bg-purple-600 hover:bg-purple-700 text-white text-sm font-medium shadow-sm"
                     >
                       Download
-                    </a>
+                    </button>
                   </div>
                 </div>
               </div>
