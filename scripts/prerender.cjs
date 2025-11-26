@@ -724,6 +724,7 @@ function main() {
   }
 
   let count = 0;
+  let orderOfOpsGenerated = false;
   for (const r of routes) {
     const html = cloneForRoute(baseHtml, r, posts, routes);
     const out = routeOutPath(DIST, r.path);
@@ -733,11 +734,16 @@ function main() {
       console.log(`  Prerendered blog post: ${r.path} -> ${out}`);
     } else if (r.path.includes('order-of-operations') || r.path.includes('fractions-to-decimals')) {
       console.log(`  Prerendered special page: ${r.path} -> ${out}`);
+      if (r.path.includes('order-of-operations')) {
+        orderOfOpsGenerated = true;
+      }
       // Verify file was written
       if (!fs.existsSync(out)) {
         console.error(`  ERROR: File not created at ${out}!`);
+        process.exit(1);
       } else {
-        console.log(`  ✓ File verified at ${out}`);
+        const stats = fs.statSync(out);
+        console.log(`  ✓ File verified at ${out} (${stats.size} bytes)`);
       }
       // Verify script removal worked
       if (html.includes('Simplified SEO update')) {
@@ -750,10 +756,32 @@ function main() {
         console.log(`  ✓ SEO title verified: ${r.title.substring(0, 50)}...`);
       } else {
         console.error(`  ERROR: SEO title missing for ${r.path}!`);
+        process.exit(1);
+      }
+      // Verify canonical URL
+      if (html.includes(`canonical" href="https://wizqo.com${r.path}"`)) {
+        console.log(`  ✓ Canonical URL verified for ${r.path}`);
+      } else {
+        console.error(`  ERROR: Canonical URL missing or incorrect for ${r.path}!`);
       }
     }
   }
   console.log(`Prerendered ${count} routes into dist/`);
+  
+  // Critical check: ensure order-of-operations was generated
+  if (!orderOfOpsGenerated) {
+    console.error('CRITICAL ERROR: Order of Operations page was not prerendered!');
+    process.exit(1);
+  }
+  
+  // Final verification: check if the file exists on disk
+  const orderOfOpsPath = routeOutPath(DIST, '/worksheets/order-of-operations-worksheets');
+  if (!fs.existsSync(orderOfOpsPath)) {
+    console.error(`CRITICAL ERROR: Order of Operations file not found at ${orderOfOpsPath}!`);
+    process.exit(1);
+  } else {
+    console.log(`✓ Final verification: Order of Operations file exists at ${orderOfOpsPath}`);
+  }
 }
 
 main();
