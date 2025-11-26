@@ -151,18 +151,12 @@ function cloneForRoute(baseHtml, route, allPosts = [], allRoutes = []) {
     workingHtml = workingHtml.replace(/<script[^>]*>[\s\S]*?updateFractionsToDecimalsSEO[\s\S]*?<\/script>/gi, '');
     workingHtml = workingHtml.replace(/<script[^>]*>[\s\S]*?updateSEOFallback[\s\S]*?<\/script>/gi, '');
     // Remove the entire client-side SEO update script block (the one that checks for fractions/order-of-operations)
-    // This script contains both the SEO update logic AND the "Hide SEO fallback" script
-    // Match from "Simplified SEO update" to the end of the "Hide SEO fallback" script
-    workingHtml = workingHtml.replace(/<script[^>]*>[\s\S]*?Simplified SEO update[\s\S]*?Hide SEO fallback after React loads[\s\S]*?<\/script>/gi, '');
-    workingHtml = workingHtml.replace(/<script[^>]*>[\s\S]*?Simplified SEO update for fractions-to-decimals[\s\S]*?<\/script>/gi, '');
-    workingHtml = workingHtml.replace(/<script[^>]*>[\s\S]*?Simplified SEO update for fractions-to-decimals and order-of-operations[\s\S]*?<\/script>/gi, '');
-    workingHtml = workingHtml.replace(/<script[^>]*>[\s\S]*?isFractionsPage[\s\S]*?<\/script>/gi, '');
-    workingHtml = workingHtml.replace(/<script[^>]*>[\s\S]*?isOrderOfOperationsPage[\s\S]*?<\/script>/gi, '');
-    workingHtml = workingHtml.replace(/<script[^>]*>[\s\S]*?var isFractionsPage[\s\S]*?updateSEO[\s\S]*?<\/script>/gi, '');
-    // Remove any script that contains the updateSEO function and checks for page paths
-    workingHtml = workingHtml.replace(/<script[^>]*>[\s\S]*?function updateSEO\(\)[\s\S]*?<\/script>/gi, '');
-    // Remove the "Hide SEO fallback" script separately if it exists
-    workingHtml = workingHtml.replace(/<script[^>]*>[\s\S]*?Hide SEO fallback after React loads[\s\S]*?<\/script>/gi, '');
+    // Match the script that contains "Simplified SEO update" - this is a single script tag with both functions
+    // Pattern: from <script> to </script> that contains "Simplified SEO update" comment
+    workingHtml = workingHtml.replace(/<script(?:\s[^>]*)?>[\s\S]*?\/\/ Simplified SEO update[\s\S]*?<\/script>/gi, '');
+    workingHtml = workingHtml.replace(/<script(?:\s[^>]*)?>[\s\S]*?Simplified SEO update[\s\S]*?<\/script>/gi, '');
+    // Also remove the "Hide SEO fallback" script if it's separate
+    workingHtml = workingHtml.replace(/<script(?:\s[^>]*)?>[\s\S]*?Hide SEO fallback after React loads[\s\S]*?<\/script>/gi, '');
   }
   
   let html = setMeta(workingHtml, {
@@ -397,21 +391,11 @@ ${gameLinks}
     html = html.replace(/<main id="seo-fallback"[^>]*>[\s\S]*?<\/main>/, fractionsToDecimalsContent);
   } else if (route.path === '/worksheets/order-of-operations-worksheets') {
     // All SEO scripts already removed above before setMeta, but be extra aggressive here
-    // Remove the entire SEO update script block - match from start comment to end of hide script
-    html = html.replace(/<script[^>]*>[\s\S]*?Simplified SEO update[\s\S]*?Hide SEO fallback after React loads[\s\S]*?<\/script>/gi, '');
-    html = html.replace(/<script[^>]*>[\s\S]*?Simplified SEO update[\s\S]*?<\/script>/gi, '');
-    html = html.replace(/<script[^>]*>[\s\S]*?isFractionsPage[\s\S]*?<\/script>/gi, '');
-    html = html.replace(/<script[^>]*>[\s\S]*?isOrderOfOperationsPage[\s\S]*?<\/script>/gi, '');
-    html = html.replace(/<script[^>]*>[\s\S]*?var isFractionsPage[\s\S]*?<\/script>/gi, '');
-    html = html.replace(/<script[^>]*>[\s\S]*?var isOrderOfOperationsPage[\s\S]*?<\/script>/gi, '');
-    html = html.replace(/<script[^>]*>[\s\S]*?function updateSEO[\s\S]*?<\/script>/gi, '');
-    html = html.replace(/<script[^>]*>[\s\S]*?Script to update SEO fallback content immediately[\s\S]*?<\/script>/gi, '');
-    html = html.replace(/<script[^>]*id=["']seo-update-script["'][^>]*>[\s\S]*?<\/script>/gi, '');
-    html = html.replace(/<script[^>]*>[\s\S]*?updateSEO[\s\S]*?<\/script>/gi, '');
-    // Remove any script that contains order-of-operations path checks
-    html = html.replace(/<script[^>]*>[\s\S]*?order-of-operations-worksheets[\s\S]*?<\/script>/gi, '');
-    // Remove the "Hide SEO fallback" script separately
-    html = html.replace(/<script[^>]*>[\s\S]*?Hide SEO fallback after React loads[\s\S]*?<\/script>/gi, '');
+    // Remove any script that contains "Simplified SEO update" comment
+    html = html.replace(/<script(?:\s[^>]*)?>[\s\S]*?\/\/ Simplified SEO update[\s\S]*?<\/script>/gi, '');
+    html = html.replace(/<script(?:\s[^>]*)?>[\s\S]*?Simplified SEO update[\s\S]*?<\/script>/gi, '');
+    // Remove the "Hide SEO fallback" script
+    html = html.replace(/<script(?:\s[^>]*)?>[\s\S]*?Hide SEO fallback after React loads[\s\S]*?<\/script>/gi, '');
     // Replace fallback content with order-of-operations-specific content
     const orderOfOperationsContent = `<main id="seo-fallback" style="display: none; max-width: 1200px; margin: 0 auto; padding: 2rem 1rem; font-family: system-ui, -apple-system, sans-serif;">
       <h1 style="font-size: 2.5rem; font-weight: 900; color: #0f172a; margin-bottom: 1rem; line-height: 1.2;">
