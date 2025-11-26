@@ -153,14 +153,17 @@ function cloneForRoute(baseHtml, route, allPosts = [], allRoutes = []) {
     workingHtml = workingHtml.replace(/<script[^>]*>[\s\S]*?updateSEOFallback[\s\S]*?<\/script>/gi, '');
     // Remove the entire client-side SEO update script block (the one that checks for fractions/order-of-operations)
     // This script dynamically updates SEO - we don't want it in prerendered static HTML
-    // Match any script tag that contains the SEO update logic
-    // Use a more flexible pattern that matches the entire script block
-    const scriptPattern = /<script(?:\s[^>]*)?>[\s\S]*?(?:Simplified SEO update|isFractionsPage|isOrderOfOperationsPage|function updateSEO|Hide SEO fallback)[\s\S]*?<\/script>/gi;
-    workingHtml = workingHtml.replace(scriptPattern, '');
-    // Also try matching by the specific comment patterns
-    workingHtml = workingHtml.replace(/<script(?:\s[^>]*)?>[\s\S]*?\/\/ Simplified SEO update[\s\S]*?<\/script>/gi, '');
-    workingHtml = workingHtml.replace(/<script(?:\s[^>]*)?>[\s\S]*?Simplified SEO update[\s\S]*?<\/script>/gi, '');
-    workingHtml = workingHtml.replace(/<script(?:\s[^>]*)?>[\s\S]*?Hide SEO fallback[\s\S]*?<\/script>/gi, '');
+    // Match the script that starts with the comment and includes both the updateSEO function and the hide fallback script
+    // The script contains: "Simplified SEO update" comment, then the IIFE with updateSEO, then "Hide SEO fallback" script
+    // Match from <script> to </script> that contains "Simplified SEO update" - this should catch the entire block
+    workingHtml = workingHtml.replace(/<script[^>]*>[\s\S]*?\/\/ Simplified SEO update[\s\S]*?<\/script>/gi, '');
+    workingHtml = workingHtml.replace(/<script[^>]*>[\s\S]*?Simplified SEO update[\s\S]*?<\/script>/gi, '');
+    // Also remove the "Hide SEO fallback" script if it's in a separate script tag
+    workingHtml = workingHtml.replace(/<script[^>]*>[\s\S]*?Hide SEO fallback after React loads[\s\S]*?<\/script>/gi, '');
+    // Remove any script containing isFractionsPage or isOrderOfOperationsPage checks
+    workingHtml = workingHtml.replace(/<script[^>]*>[\s\S]*?isFractionsPage[\s\S]*?<\/script>/gi, '');
+    workingHtml = workingHtml.replace(/<script[^>]*>[\s\S]*?isOrderOfOperationsPage[\s\S]*?<\/script>/gi, '');
+    workingHtml = workingHtml.replace(/<script[^>]*>[\s\S]*?function updateSEO[\s\S]*?<\/script>/gi, '');
   }
   
   let html = setMeta(workingHtml, {
