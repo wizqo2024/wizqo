@@ -51,9 +51,9 @@ function generateSitemap() {
   xml += `</urlset>
 `
   
-  // Write to public directory
+  // Write to client/public directory so Vite copies it to build output
   const currentDir = path.dirname(new URL(import.meta.url).pathname)
-  const outputPath = path.join(currentDir, '../public/sitemap_worksheets.xml')
+  const outputPath = path.join(currentDir, '../client/public/sitemap_worksheets.xml')
   fs.writeFileSync(outputPath, xml, 'utf-8')
   
   console.log(`✅ Generated sitemap with ${worksheets.length} worksheet pages`)

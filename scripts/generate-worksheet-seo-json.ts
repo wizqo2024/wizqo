@@ -23,7 +23,8 @@ for (const [docId, seo] of Object.entries(WORKSHEET_SEO_MAP)) {
   }
 }
 
-const outputPath = join(__dirname, '../public/worksheet-seo-data.json')
+// Write to client/public directory so Vite copies it to build output
+const outputPath = join(__dirname, '../client/public/worksheet-seo-data.json')
 writeFileSync(outputPath, JSON.stringify(seoData, null, 2), 'utf-8')
 
 console.log(`Generated worksheet SEO data JSON with ${Object.keys(seoData).length} worksheets`)
