@@ -167,7 +167,7 @@
       }
     </style>
     <script>
-      // Simplified SEO update for fractions-to-decimals page (fallback only - prerendered pages don't need this)
+      // Simplified SEO update for fractions-to-decimals and order-of-operations pages (fallback only - prerendered pages don't need this)
       // This is a clean, single script without document.write, duplicates, or wrong text checks
       (function() {
         var path = '';
@@ -178,14 +178,33 @@
         } catch(e) {}
         
         var isFractionsPage = path && path.includes('fractions-to-decimals-worksheets');
-        if (!isFractionsPage) return;
+        var isOrderOfOperationsPage = path && path.includes('order-of-operations-worksheets');
+        if (!isFractionsPage && !isOrderOfOperationsPage) return;
         
         // Single function to update all SEO elements
         function updateSEO() {
           try {
+            var title, description, keywords, canonicalUrl, fallbackContent;
+            
+            if (isFractionsPage) {
+              title = 'Free Converting Fractions to Decimals Worksheets (PDF + Answer Key)';
+              description = 'Download free fractions-to-decimals worksheets with answer keys. Easy, clear, no-login math PDFs perfect for grades 3–5. Boost confidence with simple step-by-step practice.';
+              keywords = 'converting fractions to decimals worksheets free printable, free fractions to decimals worksheets PDF, fractions to decimals worksheet with answer key, converting fractions to decimals step by step worksheet, fractions to decimals practice sheet grade 4, grade 5 converting fractions to decimals worksheets, turning fractions into decimals worksheets free, simple fractions to decimals worksheet for beginners, visual fractions to decimals worksheets PDF, fraction decimal conversion worksheet with examples, fractions to decimals worksheets, converting fractions to decimals, fractions to decimals worksheets with answer keys, fractions to decimals worksheets for 3rd grade, fractions to decimals worksheets for 4th grade, fractions to decimals worksheets for 5th grade, printable fractions to decimals worksheets, fractions to decimals practice sheets, fractions and decimals worksheets, decimal conversion worksheets';
+              canonicalUrl = 'https://wizqo.com/worksheets/fractions-to-decimals-worksheets';
+              fallbackContent = '<h1 style="font-size: 2.5rem; font-weight: 900; color: #0f172a; margin-bottom: 1rem; line-height: 1.2;">Free Converting Fractions to Decimals Worksheets (PDF + Answer Key)</h1><p style="font-size: 1.125rem; color: #475569; margin-bottom: 2.5rem; line-height: 1.6;">Download free fractions-to-decimals worksheets with answer keys. Easy, clear, no-login math PDFs perfect for grades 3–5. Boost confidence with simple step-by-step practice.</p><section style="margin-bottom: 2rem;"><h2 style="font-size: 1.875rem; font-weight: 800; color: #1e293b; margin-bottom: 0.75rem;">Converting Fractions to Decimals Worksheets</h2><p style="color: #475569; line-height: 1.6; margin-bottom: 1.5rem;">Free printable fractions to decimals worksheets with step-by-step examples and answer keys. Perfect for 3rd, 4th, and 5th grade students learning to convert fractions to decimal form. Download PDF worksheets instantly for classroom or home practice.</p></section><section style="margin-bottom: 2rem;"><h2 style="font-size: 1.875rem; font-weight: 800; color: #1e293b; margin-bottom: 0.75rem;">Fractions to Decimals Practice Sheets</h2><p style="color: #475569; line-height: 1.6; margin-bottom: 1.5rem;">Comprehensive fractions to decimals conversion worksheets covering proper fractions, improper fractions, and mixed numbers. Each worksheet includes visual examples and detailed answer keys for easy learning and practice.</p></section><section style="margin-bottom: 2rem;"><h2 style="font-size: 1.875rem; font-weight: 800; color: #1e293b; margin-bottom: 0.75rem;">Free Fractions to Decimals Worksheets PDF</h2><p style="color: #475569; line-height: 1.6; margin-bottom: 1.5rem;">Download free printable fractions to decimals worksheets in PDF format. All worksheets include answer keys and are perfect for grades 3-5. No login required - instant download and printing.</p></section>';
+            } else if (isOrderOfOperationsPage) {
+              title = 'Order of Operations Worksheets (PEMDAS) – Free PDF | Wizqo';
+              description = 'Make PEMDAS finally "click"! Download free Order of Operations worksheets (PDF) with step-by-step practice. Stress-free exercises that build confidence in 4th–6th grade students. No login — just print and learn.';
+              keywords = 'order of operations worksheets pdf, pemdas worksheets with answers, free order of operations worksheets, order of operations practice sheets, pemdas worksheets 5th grade, pemdas worksheets 6th grade, order of operations problems with answers, printable order of operations worksheets, order of operations with parentheses worksheets, easy order of operations worksheet, multi-step pemdas worksheet, pemdas practice for kids, pemdas rules worksheet, step-by-step order of operations worksheet, order of operations worksheets to build confidence, worksheets to help kids understand pemdas, practice sheets that reduce math frustration, simple pemdas worksheets for struggling learners, step-by-step order of operations practice for kids';
+              canonicalUrl = 'https://wizqo.com/worksheets/order-of-operations-worksheets';
+              fallbackContent = '<h1 style="font-size: 2.5rem; font-weight: 900; color: #0f172a; margin-bottom: 1rem; line-height: 1.2;">Order of Operations Worksheets (PEMDAS) – Free PDF | Wizqo</h1><p style="font-size: 1.125rem; color: #475569; margin-bottom: 2.5rem; line-height: 1.6;">Make PEMDAS finally "click"! Download free Order of Operations worksheets (PDF) with step-by-step practice. Stress-free exercises that build confidence in 4th–6th grade students. No login — just print and learn.</p><section style="margin-bottom: 2rem;"><h2 style="font-size: 1.875rem; font-weight: 800; color: #1e293b; margin-bottom: 0.75rem;">Free Order of Operations Worksheets (PEMDAS)</h2><p style="color: #475569; line-height: 1.6; margin-bottom: 1.5rem;">Download and print these no-stress PEMDAS worksheets. Each page includes an answer key. Perfect for grades 4–6 (and even review for 7th). Understanding the order of operations is one of the big math milestones in upper-elementary grades.</p></section><section style="margin-bottom: 2rem;"><h2 style="font-size: 1.875rem; font-weight: 800; color: #1e293b; margin-bottom: 0.75rem;">PEMDAS Worksheets with Answers</h2><p style="color: #475569; line-height: 1.6; margin-bottom: 1.5rem;">Free printable order of operations worksheets with complete answer keys. Practice PEMDAS rules with step-by-step solutions. Worksheets cover basic PEMDAS, parentheses, exponents, multi-step problems, and word problems.</p></section><section style="margin-bottom: 2rem;"><h2 style="font-size: 1.875rem; font-weight: 800; color: #1e293b; margin-bottom: 0.75rem;">4th Grade PEMDAS Worksheets</h2><p style="color: #475569; line-height: 1.6; margin-bottom: 1.5rem;">Start with simple expressions using multiplication, division, addition, and subtraction. Perfect for building confidence in 4th grade students. Practice solving expressions with parentheses and basic order of operations.</p></section><section style="margin-bottom: 2rem;"><h2 style="font-size: 1.875rem; font-weight: 800; color: #1e293b; margin-bottom: 0.75rem;">5th Grade PEMDAS Worksheets</h2><p style="color: #475569; line-height: 1.6; margin-bottom: 1.5rem;">Master expressions with exponents and multi-step problems. Challenge yourself with complex expressions combining parentheses, exponents, and all operations. Perfect for 5th grade mastery.</p></section><section style="margin-bottom: 2rem;"><h2 style="font-size: 1.875rem; font-weight: 800; color: #1e293b; margin-bottom: 0.75rem;">6th Grade PEMDAS Worksheets</h2><p style="color: #475569; line-height: 1.6; margin-bottom: 1.5rem;">Master the most challenging order of operations problems. Perfect for 6th grade students ready for advanced practice. Comprehensive review of PEMDAS rules with step-by-step examples.</p></section>';
+            } else {
+              return;
+            }
+            
             // Update title
             var titleEl = document.querySelector('title');
-            if (titleEl) titleEl.textContent = 'Free Converting Fractions to Decimals Worksheets (PDF + Answer Key)';
+            if (titleEl) titleEl.textContent = title;
             
             // Update meta tags
             function setMeta(name, content, isProperty) {
@@ -202,33 +221,33 @@
               }
             }
             
-            setMeta('description', 'Download free fractions-to-decimals worksheets with answer keys. Easy, clear, no-login math PDFs perfect for grades 3–5. Boost confidence with simple step-by-step practice.', false);
-            setMeta('keywords', 'converting fractions to decimals worksheets free printable, free fractions to decimals worksheets PDF, fractions to decimals worksheet with answer key, converting fractions to decimals step by step worksheet, fractions to decimals practice sheet grade 4, grade 5 converting fractions to decimals worksheets, turning fractions into decimals worksheets free, simple fractions to decimals worksheet for beginners, visual fractions to decimals worksheets PDF, fraction decimal conversion worksheet with examples, fractions to decimals worksheets, converting fractions to decimals, fractions to decimals worksheets with answer keys, fractions to decimals worksheets for 3rd grade, fractions to decimals worksheets for 4th grade, fractions to decimals worksheets for 5th grade, printable fractions to decimals worksheets, fractions to decimals practice sheets, fractions and decimals worksheets, decimal conversion worksheets', false);
-            setMeta('og:title', 'Free Converting Fractions to Decimals Worksheets (PDF + Answer Key)', true);
-            setMeta('og:description', 'Download free fractions-to-decimals worksheets with answer keys. Easy, clear, no-login math PDFs perfect for grades 3–5. Boost confidence with simple step-by-step practice.', true);
-            setMeta('og:url', 'https://wizqo.com/worksheets/fractions-to-decimals-worksheets', true);
-            setMeta('twitter:title', 'Free Converting Fractions to Decimals Worksheets (PDF + Answer Key)', true);
-            setMeta('twitter:description', 'Download free fractions-to-decimals worksheets with answer keys. Easy, clear, no-login math PDFs perfect for grades 3–5. Boost confidence with simple step-by-step practice.', true);
-            setMeta('twitter:url', 'https://wizqo.com/worksheets/fractions-to-decimals-worksheets', true);
+            setMeta('description', description, false);
+            if (keywords) setMeta('keywords', keywords, false);
+            setMeta('og:title', title, true);
+            setMeta('og:description', description, true);
+            setMeta('og:url', canonicalUrl, true);
+            setMeta('twitter:title', title, true);
+            setMeta('twitter:description', description, true);
+            setMeta('twitter:url', canonicalUrl, true);
             
             // Update canonical
             var canonical = document.querySelector('link[rel="canonical"]');
             if (canonical) {
-              canonical.setAttribute('href', 'https://wizqo.com/worksheets/fractions-to-decimals-worksheets');
+              canonical.setAttribute('href', canonicalUrl);
             } else {
               canonical = document.createElement('link');
               canonical.setAttribute('rel', 'canonical');
-              canonical.setAttribute('href', 'https://wizqo.com/worksheets/fractions-to-decimals-worksheets');
+              canonical.setAttribute('href', canonicalUrl);
               document.head.appendChild(canonical);
             }
             
             // Update fallback content - check for correct content, not wrong content
             var fallback = document.getElementById('seo-fallback');
-            if (fallback) {
+            if (fallback && fallbackContent) {
               var firstH1 = fallback.querySelector('h1');
-              // Only update if it has landing page content (not fractions content)
+              // Only update if it has landing page content (not page-specific content)
               if (firstH1 && firstH1.textContent && firstH1.textContent.includes('Free Math Worksheets for K-5')) {
-                fallback.innerHTML = '<h1 style="font-size: 2.5rem; font-weight: 900; color: #0f172a; margin-bottom: 1rem; line-height: 1.2;">Free Converting Fractions to Decimals Worksheets (PDF + Answer Key)</h1><p style="font-size: 1.125rem; color: #475569; margin-bottom: 2.5rem; line-height: 1.6;">Download free fractions-to-decimals worksheets with answer keys. Easy, clear, no-login math PDFs perfect for grades 3–5. Boost confidence with simple step-by-step practice.</p><section style="margin-bottom: 2rem;"><h2 style="font-size: 1.875rem; font-weight: 800; color: #1e293b; margin-bottom: 0.75rem;">Converting Fractions to Decimals Worksheets</h2><p style="color: #475569; line-height: 1.6; margin-bottom: 1.5rem;">Free printable fractions to decimals worksheets with step-by-step examples and answer keys. Perfect for 3rd, 4th, and 5th grade students learning to convert fractions to decimal form. Download PDF worksheets instantly for classroom or home practice.</p></section><section style="margin-bottom: 2rem;"><h2 style="font-size: 1.875rem; font-weight: 800; color: #1e293b; margin-bottom: 0.75rem;">Fractions to Decimals Practice Sheets</h2><p style="color: #475569; line-height: 1.6; margin-bottom: 1.5rem;">Comprehensive fractions to decimals conversion worksheets covering proper fractions, improper fractions, and mixed numbers. Each worksheet includes visual examples and detailed answer keys for easy learning and practice.</p></section><section style="margin-bottom: 2rem;"><h2 style="font-size: 1.875rem; font-weight: 800; color: #1e293b; margin-bottom: 0.75rem;">Free Fractions to Decimals Worksheets PDF</h2><p style="color: #475569; line-height: 1.6; margin-bottom: 1.5rem;">Download free printable fractions to decimals worksheets in PDF format. All worksheets include answer keys and are perfect for grades 3-5. No login required - instant download and printing.</p></section>';
+                fallback.innerHTML = fallbackContent;
               }
             }
           } catch(e) {}
@@ -263,6 +282,7 @@
       <a href="/worksheets/2nd-grade-math-worksheets">2nd Grade Math Worksheets</a>
       <a href="/worksheets/times-table-multiplication-worksheets">Times Table Multiplication Worksheets</a>
       <a href="/worksheets/fractions-to-decimals-worksheets">Converting Fractions to Decimals Worksheets</a>
+      <a href="/worksheets/order-of-operations-worksheets">Order of Operations Worksheets (PEMDAS)</a>
       <a href="/worksheets/reading-comprehension">Reading Comprehension Worksheets</a>
       <a href="/worksheets/handwriting-worksheet-maker">Handwriting Worksheets</a>
       <a href="/printables/certificate-maker">Certificate Maker</a>
