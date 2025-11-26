@@ -81,3 +81,5 @@ backup-working-*/
 *_base64.txt
 docs/archives/core
 core.*
+# Core dump files (should never be committed)
+core
