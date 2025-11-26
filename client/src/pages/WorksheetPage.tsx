@@ -84,17 +84,17 @@ export default function WorksheetPage({ slug }: WorksheetPageProps) {
       
       <UnifiedNavigation />
       
-      <main className="container mx-auto px-4 py-8 max-w-4xl">
+      <main id="main-content" className="container mx-auto px-4 py-8 max-w-4xl">
         {/* Breadcrumbs */}
         <nav className="mb-6 text-sm text-slate-600" aria-label="Breadcrumb">
           <ol className="flex items-center space-x-2">
-            <li><a href="/" className="hover:text-blue-600">Home</a></li>
-            <li className="text-slate-400">/</li>
-            <li><a href="/worksheets" className="hover:text-blue-600">Worksheets</a></li>
-            <li className="text-slate-400">/</li>
-            <li><a href={categoryUrl} className="hover:text-blue-600">{seoData.section}</a></li>
-            <li className="text-slate-400">/</li>
-            <li className="text-slate-900 font-medium">{seoData.h1}</li>
+            <li><a href="/" className="hover:text-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-1 rounded" aria-label="Go to home page">Home</a></li>
+            <li className="text-slate-400" aria-hidden="true">/</li>
+            <li><a href="/worksheets" className="hover:text-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-1 rounded" aria-label="Browse all worksheets">Worksheets</a></li>
+            <li className="text-slate-400" aria-hidden="true">/</li>
+            <li><a href={categoryUrl} className="hover:text-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-1 rounded" aria-label={`Go to ${seoData.section} worksheets`}>{seoData.section}</a></li>
+            <li className="text-slate-400" aria-hidden="true">/</li>
+            <li className="text-slate-900 font-medium" aria-current="page">{seoData.h1}</li>
           </ol>
         </nav>
 
@@ -143,6 +143,7 @@ export default function WorksheetPage({ slug }: WorksheetPageProps) {
                 className="w-full border-0 rounded"
                 style={{ minHeight: '600px' }}
                 title={`Preview of ${seoData.h1}`}
+                aria-label={`Preview of ${seoData.h1} worksheet`}
               />
             </div>
             
@@ -150,7 +151,8 @@ export default function WorksheetPage({ slug }: WorksheetPageProps) {
             <div className="flex gap-4 justify-center">
               <button
                 onClick={handlePrintClick}
-                className="px-6 py-3 bg-blue-600 text-white rounded-lg font-semibold hover:bg-blue-700 transition-colors shadow-md hover:shadow-lg"
+                className="px-6 py-3 bg-blue-600 text-white rounded-lg font-semibold hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition-colors shadow-md hover:shadow-lg"
+                aria-label={`Print or download ${seoData.h1} as PDF`}
               >
                 📄 Print or Download PDF
               </button>
@@ -172,7 +174,8 @@ export default function WorksheetPage({ slug }: WorksheetPageProps) {
                     <a
                       key={relatedDocId}
                       href={`/worksheets/${related.slug}`}
-                      className="block p-4 bg-slate-50 rounded-lg border border-slate-200 hover:border-blue-300 hover:shadow-md transition-all"
+                      className="block p-4 bg-slate-50 rounded-lg border border-slate-200 hover:border-blue-300 hover:shadow-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition-all"
+                      aria-label={`View ${related.h1} worksheet`}
                     >
                       <h3 className="font-semibold text-slate-900 mb-1">{related.h1}</h3>
                       <p className="text-sm text-slate-600">{related.grade.join(', ')}</p>
@@ -188,7 +191,8 @@ export default function WorksheetPage({ slug }: WorksheetPageProps) {
         <div className="text-center mb-8">
           <a
             href={categoryUrl}
-            className="inline-flex items-center text-blue-600 hover:text-blue-800 font-medium"
+            className="inline-flex items-center text-blue-600 hover:text-blue-800 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 rounded font-medium"
+            aria-label={`Back to ${seoData.section} worksheets`}
           >
             ← Back to {seoData.section} Worksheets
           </a>

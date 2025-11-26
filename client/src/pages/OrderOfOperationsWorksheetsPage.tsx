@@ -218,7 +218,8 @@ export default function OrderOfOperationsWorksheetsPage() {
               <p className="text-lg">No worksheets found. Try adjusting your filters.</p>
               <button
                 onClick={clearCategories}
-                className="mt-4 text-purple-600 hover:text-purple-700 font-medium"
+                className="mt-4 text-purple-600 hover:text-purple-700 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:ring-offset-2 rounded font-medium"
+                aria-label="Clear all filters"
               >
                 Clear Filters
               </button>
@@ -301,7 +302,7 @@ export default function OrderOfOperationsWorksheetsPage() {
                 </div>
                 <button
                   onClick={() => setPreviewItem(null)}
-                  className="ml-4 p-2 text-slate-400 hover:text-slate-600 rounded-lg hover:bg-slate-100 transition-colors"
+                  className="ml-4 p-2 text-slate-400 hover:text-slate-600 focus:outline-none focus:ring-2 focus:ring-slate-500 focus:ring-offset-2 rounded-lg hover:bg-slate-100 transition-colors"
                   aria-label="Close preview"
                 >
                   <svg className="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -319,6 +320,7 @@ export default function OrderOfOperationsWorksheetsPage() {
                       src={previewItem.href}
                       className="w-full h-full min-h-[600px] border-0"
                       title={previewItem.title}
+                      aria-label={`Preview of ${previewItem.title} worksheet`}
                     />
                   </div>
                   
@@ -339,7 +341,8 @@ export default function OrderOfOperationsWorksheetsPage() {
                           }, 500)
                         }
                       }}
-                      className="inline-flex items-center gap-2 px-4 py-2 rounded-lg border border-purple-200 bg-purple-600 hover:bg-purple-700 text-white text-sm font-medium shadow-sm"
+                      className="inline-flex items-center gap-2 px-4 py-2 rounded-lg border border-purple-200 bg-purple-600 hover:bg-purple-700 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:ring-offset-2 text-white text-sm font-medium shadow-sm"
+                      aria-label={`Download ${previewItem.title} as PDF`}
                     >
                       Download
                     </button>

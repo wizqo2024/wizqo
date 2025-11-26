@@ -39,6 +39,7 @@ import { initAnalytics, trackPageView, trackUserFlow } from './utils/analytics';
 import { TranslationProvider } from './context/TranslationContext';
 import { parseLocaleFromPath, addLocaleToPath, removeLocaleFromPath, getLocaleFromURL, shouldAddLocale } from './utils/locale';
 import { getWorksheetSEOBySlug } from '@shared/worksheetSEO';
+import { SkipLink } from './components/SkipLink';
 
 
 type QuizAnswers = {
@@ -369,6 +370,7 @@ export default function App() {
     <AuthProvider>
       <TranslationProvider>
         <ErrorBoundary>
+          <SkipLink />
           <div className={`min-h-screen bg-slate-50 relative transition-opacity duration-200 ${isNavigating ? 'opacity-95' : 'opacity-100'}`}>
           {/* Loading overlay during navigation */}
           {isNavigating && (
