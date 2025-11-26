@@ -415,7 +415,7 @@ const WorksheetThumbnailCard = React.memo(function WorksheetThumbnailCard({ titl
         </div>
         {/* Corner fold effect */}
         <div className="absolute top-0 right-0 w-8 h-8 bg-gradient-to-br from-slate-200/50 to-transparent pointer-events-none" />
-      </div>
+      </a>
       
       <div className="flex items-center justify-between">
         <div className="flex items-center gap-4 text-xs text-slate-500">
