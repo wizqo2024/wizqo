@@ -42,8 +42,8 @@ export default function WorksheetPage({ slug }: WorksheetPageProps) {
     )
   }
 
-  // Get print URL (noindexed route)
-  const printUrl = `/print?doc=${seoData.docId}`
+  // Get print URL (noindexed route) - include 'from' parameter for tracking
+  const printUrl = `/print?doc=${seoData.docId}&from=${slug}`
   
   // Get category page URL
   const categoryUrl = seoData.category.includes('multiplication') 
