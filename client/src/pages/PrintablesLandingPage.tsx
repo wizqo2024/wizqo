@@ -20,7 +20,9 @@ interface WorksheetItem {
 const WorksheetThumbnailCard = React.memo(function WorksheetThumbnailCard({ title, description, skills, age, href, docId, onPreview }: { title: string; description: string; skills?: string; age?: string; href: string; docId?: string; onPreview?: (item: WorksheetItem) => void }) {
   const { t, language } = useTranslation();
   const level = docId ? PRINTABLE_DOC_META[docId]?.level : undefined;
-  const previewUrl = href + (href.includes('?') ? '&preview=1' : '?preview=1');
+  // Use print URL for preview (not SEO URL) to show actual worksheet content
+  const printUrl = docId ? getWorksheetPrintURL(docId, 'printables') : (href.includes('?') ? `${href}&from=printables` : `${href}?from=printables`)
+  const previewUrl = printUrl + (printUrl.includes('?') ? '&preview=1' : '?preview=1');
   const finalHref = href.includes('?') ? `${href}&from=printables` : `${href}?from=printables`;
   
   // Use translations if docId is provided - memoize to prevent re-renders

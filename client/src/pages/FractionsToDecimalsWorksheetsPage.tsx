@@ -355,7 +355,9 @@ export default function FractionsToDecimalsWorksheetsPage() {
 
 const WorksheetThumbnailCard = React.memo(function WorksheetThumbnailCard({ title, description, href, docId, onPreview }: { title: string; description: string; href: string; docId: string; onPreview?: (item: WorksheetItem) => void }) {
   const { t, language } = useTranslation();
-  const previewUrl = href + (href.includes('?') ? '&preview=1' : '?preview=1')
+  // Use print URL for preview (not SEO URL) to show actual worksheet content
+  const printUrl = getWorksheetPrintURL(docId, 'fractions-to-decimals')
+  const previewUrl = printUrl + (printUrl.includes('?') ? '&preview=1' : '?preview=1')
   
   // Use translations if available (fallback to provided title/description) - memoize to prevent re-renders
   // Use language instead of t in dependencies to avoid re-renders when t function reference changes
