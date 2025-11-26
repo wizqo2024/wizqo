@@ -382,10 +382,10 @@ const WorksheetThumbnailCard = React.memo(function WorksheetThumbnailCard({ titl
       
       <p className="text-sm text-slate-600 leading-relaxed">{translatedDescription}</p>
       
-      {/* Worksheet Thumbnail Preview */}
-      <div 
-        className="relative w-full bg-gradient-to-br from-slate-50 to-slate-100 rounded-lg border border-slate-200 overflow-hidden cursor-pointer group shadow-sm hover:shadow-md transition-shadow"
-        onClick={() => onPreview?.({ title: translatedTitle, description: translatedDescription, href, docId, categories: [], gradeRange: '' })}
+      {/* Worksheet Thumbnail Preview - Clickable to SEO page */}
+      <a 
+        href={href}
+        className="relative w-full bg-gradient-to-br from-slate-50 to-slate-100 rounded-lg border border-slate-200 overflow-hidden cursor-pointer group shadow-sm hover:shadow-md transition-shadow block"
         style={{ 
           height: '140px',
           aspectRatio: '2.5/1',

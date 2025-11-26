@@ -443,13 +443,11 @@ const WorksheetThumbnailCard = React.memo(function WorksheetThumbnailCard({ titl
       
       <p className="text-sm text-slate-600 leading-relaxed">{translatedDescription}</p>
       
-      {/* Worksheet Thumbnail Preview */}
-      <div 
-        className="relative w-full bg-gradient-to-br from-slate-50 to-slate-100 rounded-lg border border-slate-200 overflow-hidden cursor-pointer group shadow-sm hover:shadow-md transition-shadow"
-        onClick={() => {
-          handleClick()
-          onPreview?.({ title: translatedTitle, description: translatedDescription, href, docId, categories: [], section: '' })
-        }}
+      {/* Worksheet Thumbnail Preview - Clickable to SEO page */}
+      <a 
+        href={href}
+        onClick={handleClick}
+        className="relative w-full bg-gradient-to-br from-slate-50 to-slate-100 rounded-lg border border-slate-200 overflow-hidden cursor-pointer group shadow-sm hover:shadow-md transition-shadow block"
         style={{ 
           height: '140px',
           aspectRatio: '2.5/1',
@@ -474,12 +472,12 @@ const WorksheetThumbnailCard = React.memo(function WorksheetThumbnailCard({ titl
         {/* Overlay on hover */}
         <div className="absolute inset-0 bg-black/0 group-hover:bg-black/5 transition-colors flex items-center justify-center pointer-events-none">
           <div className="opacity-0 group-hover:opacity-100 transition-opacity bg-white/95 backdrop-blur-sm px-4 py-2 rounded-lg text-xs font-semibold text-purple-700 border-2 border-purple-300 shadow-lg pointer-events-auto">
-            {t('pages.grades.kindergarten.clickToView')}
+            👁️ {t('pages.grades.kindergarten.clickToView')}
           </div>
         </div>
         {/* Corner fold effect */}
         <div className="absolute top-0 right-0 w-8 h-8 bg-gradient-to-br from-slate-200/50 to-transparent pointer-events-none" />
-      </div>
+      </a>
       
       <div className="flex items-center justify-between">
         <div className="flex items-center gap-2">
