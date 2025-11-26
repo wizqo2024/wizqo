@@ -153,25 +153,23 @@ function cloneForRoute(baseHtml, route, allPosts = [], allRoutes = []) {
     workingHtml = workingHtml.replace(/<script[^>]*>[\s\S]*?updateSEOFallback[\s\S]*?<\/script>/gi, '');
     // Remove the entire client-side SEO update script block (the one that checks for fractions/order-of-operations)
     // This script dynamically updates SEO - we don't want it in prerendered static HTML
-    // Match the entire script block from <script> to </script> that contains "Simplified SEO update"
-    // Use [\s\S]*? to match everything including newlines and < characters within the script
-    workingHtml = workingHtml.replace(/<script[^>]*>[\s\S]*?Simplified SEO update[\s\S]*?<\/script>/gi, '');
-    // Also remove the "Hide SEO fallback" script if it's separate
-    workingHtml = workingHtml.replace(/<script[^>]*>[\s\S]*?Hide SEO fallback after React loads[\s\S]*?<\/script>/gi, '');
-    // More aggressive: target the section between </style> and <script type="module" to catch any SEO scripts
+    // Target the section between </style> and <script type="module"> - remove ALL non-JSON-LD scripts there
     const styleEnd = workingHtml.indexOf('</style>');
     const moduleScriptStart = workingHtml.indexOf('<script type="module"');
     if (styleEnd > -1 && moduleScriptStart > styleEnd) {
-      const betweenScripts = workingHtml.substring(styleEnd, moduleScriptStart);
-      // Remove any script tags in this section that contain SEO update logic
-      const cleanedBetween = betweenScripts.replace(/<script[^>]*>[\s\S]*?Simplified SEO update[\s\S]*?<\/script>/gi, '');
-      const cleanedBetween2 = cleanedBetween.replace(/<script[^>]*>[\s\S]*?Hide SEO fallback[\s\S]*?<\/script>/gi, '');
-      const cleanedBetween3 = cleanedBetween2.replace(/<script[^>]*>[\s\S]*?isFractionsPage[\s\S]*?<\/script>/gi, '');
-      const cleanedBetween4 = cleanedBetween3.replace(/<script[^>]*>[\s\S]*?isOrderOfOperationsPage[\s\S]*?<\/script>/gi, '');
-      if (cleanedBetween4 !== betweenScripts) {
-        workingHtml = workingHtml.substring(0, styleEnd) + cleanedBetween4 + workingHtml.substring(moduleScriptStart);
-      }
+      const beforeStyle = workingHtml.substring(0, styleEnd + 8); // Include </style>
+      const betweenScripts = workingHtml.substring(styleEnd + 8, moduleScriptStart);
+      const afterModuleScript = workingHtml.substring(moduleScriptStart);
+      
+      // Remove ALL script tags in the between section EXCEPT JSON-LD scripts (they have type="application/ld+json")
+      // This removes the SEO update script while keeping structured data
+      const cleanedBetween = betweenScripts.replace(/<script(?![^>]*type=["']application\/ld\+json["'])[^>]*>[\s\S]*?<\/script>/gi, '');
+      
+      workingHtml = beforeStyle + cleanedBetween + afterModuleScript;
     }
+    // Also do a global pass to catch any remaining SEO update scripts
+    workingHtml = workingHtml.replace(/<script(?![^>]*type=["']application\/ld\+json["'])[^>]*>[\s\S]*?Simplified SEO update[\s\S]*?<\/script>/gi, '');
+    workingHtml = workingHtml.replace(/<script(?![^>]*type=["']application\/ld\+json["'])[^>]*>[\s\S]*?Hide SEO fallback[\s\S]*?<\/script>/gi, '');
   }
   
   let html = setMeta(workingHtml, {
