@@ -291,31 +291,48 @@
           } catch(e) {}
         }
         
-        // Load worksheet SEO data if needed
+        // Load worksheet SEO data if needed - run immediately
         if (isWorksheetPage) {
-          // Fetch the JSON file with worksheet SEO data
-          fetch('/worksheet-seo-data.json')
-            .then(function(response) {
-              if (!response.ok) {
-                throw new Error('Failed to load worksheet SEO data');
+          // Try to fetch synchronously using XMLHttpRequest for faster execution
+          // This runs immediately, not waiting for DOM ready
+          (function() {
+            try {
+              var xhr = new XMLHttpRequest();
+              xhr.open('GET', '/worksheet-seo-data.json', false); // Synchronous
+              xhr.send(null);
+              if (xhr.status === 200) {
+                var data = JSON.parse(xhr.responseText);
+                var seoData = data[worksheetSlug];
+                if (seoData) {
+                  updateSEO(seoData);
+                }
               }
-              return response.json();
-            })
-            .then(function(data) {
-              var seoData = data[worksheetSlug];
-              if (seoData) {
-                updateSEO(seoData);
-              }
-            })
-            .catch(function(error) {
-              console.warn('Could not load worksheet SEO data:', error);
-            });
+            } catch(e) {
+              // Fallback to async fetch if sync fails
+              fetch('/worksheet-seo-data.json')
+                .then(function(response) {
+                  if (!response.ok) {
+                    throw new Error('Failed to load worksheet SEO data');
+                  }
+                  return response.json();
+                })
+                .then(function(data) {
+                  var seoData = data[worksheetSlug];
+                  if (seoData) {
+                    updateSEO(seoData);
+                  }
+                })
+                .catch(function(error) {
+                  console.warn('Could not load worksheet SEO data:', error);
+                });
+            }
+          })();
         } else {
           // For category pages, update immediately
           updateSEO(null);
         }
         
-        // Also run on DOM ready and load as fallback
+        // Also run on DOM ready and load as fallback (for async case)
         if (document.readyState === 'loading') {
           document.addEventListener('DOMContentLoaded', function() {
             if (isWorksheetPage) {
