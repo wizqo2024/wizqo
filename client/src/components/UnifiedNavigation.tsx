@@ -5,7 +5,7 @@ import { AuthModal } from './AuthModal';
 import { WizqoLogo } from './WizqoLogo';
 import { LanguageSelector } from './LanguageSelector';
 import { useTranslation } from '@/context/TranslationContext';
-import { ChevronDown, User, Settings, LogOut, LayoutDashboard, Menu, X, Puzzle } from 'lucide-react';
+import { ChevronDown, User, Settings, LogOut, LayoutDashboard, Menu, X, Puzzle, ShoppingBag } from 'lucide-react';
 
 interface UnifiedNavigationProps {
   showBackButton?: boolean;
@@ -437,6 +437,15 @@ export function UnifiedNavigation({ showBackButton = false, onBackClick, current
 
           {/* Right side - Account */}
           <div className="hidden md:flex items-center space-x-4" dir="ltr">
+            {/* Shopping Bag */}
+            <Button
+              variant="ghost"
+              className="relative flex items-center space-x-2 text-slate-600 hover:text-slate-800"
+              aria-label="Shopping bag"
+            >
+              <ShoppingBag className="w-5 h-5" />
+            </Button>
+            
             {user ? (
               <div className="relative">
                 <Button
