@@ -6,6 +6,7 @@ import { SEOMetaTags } from '@/components/SEOMetaTags'
 import { CategoryFilter, type Category } from '@/components/CategoryFilter'
 import { trackPackGeneration, trackCategoryFilter } from '@/utils/analytics'
 import { useTranslation } from '@/context/TranslationContext'
+import { getWorksheetURL } from '@/utils/worksheetLinks'
 
 interface WorksheetItem {
   title: string
@@ -55,25 +56,25 @@ export default function MultiplicationWorksheetsPage() {
   // Define all worksheets with their categories - using translation keys
   const allWorksheets: WorksheetItem[] = useMemo(() => [
     // 2nd & 3rd Grade
-    { title: t('pages.multiplication.worksheets.basicFacts1_5.title'), description: t('pages.multiplication.worksheets.basicFacts1_5.description'), href: '/print?doc=mult-facts-1-5&from=multiplication', docId: 'mult-facts-1-5', categories: ['facts'], gradeRange: '2nd-3rd' },
-    { title: t('pages.multiplication.worksheets.arrays2_5.title'), description: t('pages.multiplication.worksheets.arrays2_5.description'), href: '/print?doc=mult-arrays-2-5&from=multiplication', docId: 'mult-arrays-2-5', categories: ['arrays'], gradeRange: '2nd-3rd' },
-    { title: t('pages.multiplication.worksheets.skipCounting.title'), description: t('pages.multiplication.worksheets.skipCounting.description'), href: '/print?doc=skip-count-mult&from=multiplication', docId: 'skip-count-mult', categories: ['skip-counting'], gradeRange: '2nd-3rd' },
-    { title: t('pages.multiplication.worksheets.wordProblems2_3.title'), description: t('pages.multiplication.worksheets.wordProblems2_3.description'), href: '/print?doc=mult-word-problems-2-3&from=multiplication', docId: 'mult-word-problems-2-3', categories: ['word-problems'], gradeRange: '2nd-3rd' },
+    { title: t('pages.multiplication.worksheets.basicFacts1_5.title'), description: t('pages.multiplication.worksheets.basicFacts1_5.description'), href: getWorksheetURL('mult-facts-1-5', 'multiplication'), docId: 'mult-facts-1-5', categories: ['facts'], gradeRange: '2nd-3rd' },
+    { title: t('pages.multiplication.worksheets.arrays2_5.title'), description: t('pages.multiplication.worksheets.arrays2_5.description'), href: getWorksheetURL('mult-arrays-2-5', 'multiplication'), docId: 'mult-arrays-2-5', categories: ['arrays'], gradeRange: '2nd-3rd' },
+    { title: t('pages.multiplication.worksheets.skipCounting.title'), description: t('pages.multiplication.worksheets.skipCounting.description'), href: getWorksheetURL('skip-count-mult', 'multiplication'), docId: 'skip-count-mult', categories: ['skip-counting'], gradeRange: '2nd-3rd' },
+    { title: t('pages.multiplication.worksheets.wordProblems2_3.title'), description: t('pages.multiplication.worksheets.wordProblems2_3.description'), href: getWorksheetURL('mult-word-problems-2-3', 'multiplication'), docId: 'mult-word-problems-2-3', categories: ['word-problems'], gradeRange: '2nd-3rd' },
     // 3rd & 4th Grade
-    { title: t('pages.multiplication.worksheets.advancedFacts6_12.title'), description: t('pages.multiplication.worksheets.advancedFacts6_12.description'), href: '/print?doc=mult-facts-6-12&from=multiplication', docId: 'mult-facts-6-12', categories: ['facts'], gradeRange: '3rd-4th' },
-    { title: t('pages.multiplication.worksheets.arraysModels.title'), description: t('pages.multiplication.worksheets.arraysModels.description'), href: '/print?doc=mult-arrays-models&from=multiplication', docId: 'mult-arrays-models', categories: ['arrays'], gradeRange: '3rd-4th' },
-    { title: t('pages.multiplication.worksheets.multiStepWord.title'), description: t('pages.multiplication.worksheets.multiStepWord.description'), href: '/print?doc=mult-multi-step-word&from=multiplication', docId: 'mult-multi-step-word', categories: ['word-problems'], gradeRange: '3rd-4th' },
-    { title: t('pages.multiplication.worksheets.factFamilies.title'), description: t('pages.multiplication.worksheets.factFamilies.description'), href: '/print?doc=mult-fact-families&from=multiplication', docId: 'mult-fact-families', categories: ['fact-families'], gradeRange: '3rd-4th' },
+    { title: t('pages.multiplication.worksheets.advancedFacts6_12.title'), description: t('pages.multiplication.worksheets.advancedFacts6_12.description'), href: getWorksheetURL('mult-facts-6-12', 'multiplication'), docId: 'mult-facts-6-12', categories: ['facts'], gradeRange: '3rd-4th' },
+    { title: t('pages.multiplication.worksheets.arraysModels.title'), description: t('pages.multiplication.worksheets.arraysModels.description'), href: getWorksheetURL('mult-arrays-models', 'multiplication'), docId: 'mult-arrays-models', categories: ['arrays'], gradeRange: '3rd-4th' },
+    { title: t('pages.multiplication.worksheets.multiStepWord.title'), description: t('pages.multiplication.worksheets.multiStepWord.description'), href: getWorksheetURL('mult-multi-step-word', 'multiplication'), docId: 'mult-multi-step-word', categories: ['word-problems'], gradeRange: '3rd-4th' },
+    { title: t('pages.multiplication.worksheets.factFamilies.title'), description: t('pages.multiplication.worksheets.factFamilies.description'), href: getWorksheetURL('mult-fact-families', 'multiplication'), docId: 'mult-fact-families', categories: ['fact-families'], gradeRange: '3rd-4th' },
     // 4th & 5th Grade
-    { title: t('pages.multiplication.worksheets.multiDigit2x1.title'), description: t('pages.multiplication.worksheets.multiDigit2x1.description'), href: '/print?doc=mult-2x1&from=multiplication', docId: 'mult-2x1', categories: ['multi-digit'], gradeRange: '4th-5th' },
-    { title: t('pages.multiplication.worksheets.multiDigit2x2.title'), description: t('pages.multiplication.worksheets.multiDigit2x2.description'), href: '/print?doc=mult-2x2&from=multiplication', docId: 'mult-2x2', categories: ['multi-digit'], gradeRange: '4th-5th' },
-    { title: t('pages.multiplication.worksheets.areaModel.title'), description: t('pages.multiplication.worksheets.areaModel.description'), href: '/print?doc=mult-area-model&from=multiplication', docId: 'mult-area-model', categories: ['arrays', 'multi-digit'], gradeRange: '4th-5th' },
-    { title: t('pages.multiplication.worksheets.complexWord.title'), description: t('pages.multiplication.worksheets.complexWord.description'), href: '/print?doc=mult-complex-word&from=multiplication', docId: 'mult-complex-word', categories: ['word-problems'], gradeRange: '4th-5th' },
+    { title: t('pages.multiplication.worksheets.multiDigit2x1.title'), description: t('pages.multiplication.worksheets.multiDigit2x1.description'), href: getWorksheetURL('mult-2x1', 'multiplication'), docId: 'mult-2x1', categories: ['multi-digit'], gradeRange: '4th-5th' },
+    { title: t('pages.multiplication.worksheets.multiDigit2x2.title'), description: t('pages.multiplication.worksheets.multiDigit2x2.description'), href: getWorksheetURL('mult-2x2', 'multiplication'), docId: 'mult-2x2', categories: ['multi-digit'], gradeRange: '4th-5th' },
+    { title: t('pages.multiplication.worksheets.areaModel.title'), description: t('pages.multiplication.worksheets.areaModel.description'), href: getWorksheetURL('mult-area-model', 'multiplication'), docId: 'mult-area-model', categories: ['arrays', 'multi-digit'], gradeRange: '4th-5th' },
+    { title: t('pages.multiplication.worksheets.complexWord.title'), description: t('pages.multiplication.worksheets.complexWord.description'), href: getWorksheetURL('mult-complex-word', 'multiplication'), docId: 'mult-complex-word', categories: ['word-problems'], gradeRange: '4th-5th' },
     // Fluency & Practice
-    { title: t('pages.multiplication.worksheets.factFluency.title'), description: t('pages.multiplication.worksheets.factFluency.description'), href: '/print?doc=mult-fact-fluency&from=multiplication', docId: 'mult-fact-fluency', categories: ['facts', 'fluency'], gradeRange: 'All' },
-    { title: t('pages.multiplication.worksheets.mixedReview.title'), description: t('pages.multiplication.worksheets.mixedReview.description'), href: '/print?doc=mult-mixed-review&from=multiplication', docId: 'mult-mixed-review', categories: ['fluency'], gradeRange: 'All' },
-    { title: t('pages.multiplication.worksheets.strategies.title'), description: t('pages.multiplication.worksheets.strategies.description'), href: '/print?doc=mult-strategies&from=multiplication', docId: 'mult-strategies', categories: ['fluency', 'skip-counting'], gradeRange: 'All' },
-    { title: t('pages.multiplication.worksheets.patterns.title'), description: t('pages.multiplication.worksheets.patterns.description'), href: '/print?doc=mult-patterns&from=multiplication', docId: 'mult-patterns', categories: ['fluency', 'skip-counting'], gradeRange: 'All' },
+    { title: t('pages.multiplication.worksheets.factFluency.title'), description: t('pages.multiplication.worksheets.factFluency.description'), href: getWorksheetURL('mult-fact-fluency', 'multiplication'), docId: 'mult-fact-fluency', categories: ['facts', 'fluency'], gradeRange: 'All' },
+    { title: t('pages.multiplication.worksheets.mixedReview.title'), description: t('pages.multiplication.worksheets.mixedReview.description'), href: getWorksheetURL('mult-mixed-review', 'multiplication'), docId: 'mult-mixed-review', categories: ['fluency'], gradeRange: 'All' },
+    { title: t('pages.multiplication.worksheets.strategies.title'), description: t('pages.multiplication.worksheets.strategies.description'), href: getWorksheetURL('mult-strategies', 'multiplication'), docId: 'mult-strategies', categories: ['fluency', 'skip-counting'], gradeRange: 'All' },
+    { title: t('pages.multiplication.worksheets.patterns.title'), description: t('pages.multiplication.worksheets.patterns.description'), href: getWorksheetURL('mult-patterns', 'multiplication'), docId: 'mult-patterns', categories: ['fluency', 'skip-counting'], gradeRange: 'All' },
   ], [t])
 
   // Filter worksheets based on selected categories

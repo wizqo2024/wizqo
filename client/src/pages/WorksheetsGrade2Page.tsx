@@ -1,5 +1,6 @@
 import React from 'react'
 import { useTranslation } from '@/context/TranslationContext'
+import { getWorksheetURL } from '@/utils/worksheetLinks'
 
 export default function WorksheetsGrade2Page() {
   const { t, isRTL } = useTranslation();
@@ -50,22 +51,22 @@ export default function WorksheetsGrade2Page() {
         <div className="rounded-2xl border border-slate-200 bg-white p-4">
           <h2 className="text-lg font-semibold text-slate-900">{t('pages.grade2.numberSense')}</h2>
           <ul className="grid sm:grid-cols-2 gap-3 text-slate-800">
-            <li><a className="block border border-slate-200 rounded-lg p-3 bg-white hover:bg-slate-50" href="/print?doc=ten-frames-1-20">{t('pages.grade2.tenFrames')} →</a></li>
-            <li><a className="block border border-slate-200 rounded-lg p-3 bg-white hover:bg-slate-50" href="/print?doc=number-tracing-1-20">{t('pages.grade2.numberTracing')} →</a></li>
+            <li><a className="block border border-slate-200 rounded-lg p-3 bg-white hover:bg-slate-50" href={getWorksheetURL("ten-frames-1-20", "2nd-grade")}>{t('pages.grade2.tenFrames')} →</a></li>
+            <li><a className="block border border-slate-200 rounded-lg p-3 bg-white hover:bg-slate-50" href={getWorksheetURL("number-tracing-1-20", "2nd-grade")}>{t('pages.grade2.numberTracing')} →</a></li>
           </ul>
         </div>
         <div className="rounded-2xl border border-slate-200 bg-white p-4">
           <h2 className="text-lg font-semibold text-slate-900">{t('pages.grade2.additionSubtraction')}</h2>
           <ul className="grid sm:grid-cols-2 gap-3 text-slate-800">
-            <li><a className="block border border-slate-200 rounded-lg p-3 bg-white hover:bg-slate-50" href="/print?doc=addition-subtraction-0-10">{t('pages.grade2.addSubWithin10')} →</a></li>
-            <li><a className="block border border-slate-200 rounded-lg p-3 bg-white hover:bg-slate-50" href="/print?doc=math-maze">{t('pages.grade2.mathMaze')} →</a></li>
+            <li><a className="block border border-slate-200 rounded-lg p-3 bg-white hover:bg-slate-50" href={getWorksheetURL("addition-subtraction-0-10", "2nd-grade")}>{t('pages.grade2.addSubWithin10')} →</a></li>
+            <li><a className="block border border-slate-200 rounded-lg p-3 bg-white hover:bg-slate-50" href={getWorksheetURL("math-maze", "2nd-grade")}>{t('pages.grade2.mathMaze')} →</a></li>
           </ul>
         </div>
         <div className="rounded-2xl border border-slate-200 bg-white p-4">
           <h2 className="text-lg font-semibold text-slate-900">{t('pages.grade2.fluencyBoosters')}</h2>
           <ul className="grid sm:grid-cols-2 gap-3 text-slate-800">
-            <li><a className="block border border-slate-200 rounded-lg p-3 bg-white hover:bg-slate-50" href="/print?doc=dot-to-dot-1-20">{t('pages.grade2.skipCounting')} →</a></li>
-            <li><a className="block border border-slate-200 rounded-lg p-3 bg-white hover:bg-slate-50" href="/print?doc=spot-difference">{t('pages.grade2.spotDifference')} →</a></li>
+            <li><a className="block border border-slate-200 rounded-lg p-3 bg-white hover:bg-slate-50" href={getWorksheetURL("dot-to-dot-1-20", "2nd-grade")}>{t('pages.grade2.skipCounting')} →</a></li>
+            <li><a className="block border border-slate-200 rounded-lg p-3 bg-white hover:bg-slate-50" href={getWorksheetURL("spot-difference", "2nd-grade")}>{t('pages.grade2.spotDifference')} →</a></li>
           </ul>
         </div>
         

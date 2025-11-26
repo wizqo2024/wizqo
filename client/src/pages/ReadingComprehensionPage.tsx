@@ -6,6 +6,7 @@ import { Accordion, AccordionItem, AccordionTrigger, AccordionContent } from '@/
 import { CategoryFilter, type Category } from '@/components/CategoryFilter';
 import { trackCategoryFilter } from '@/utils/analytics';
 import { useTranslation } from '@/context/TranslationContext';
+import { getWorksheetURL } from '@/utils/worksheetLinks'
 
 // READING_CATEGORIES will be created inside component to use translations
 
@@ -63,7 +64,7 @@ export default function ReadingComprehensionPage() {
       description: t('worksheets.reading-g1-lost-hat.description') !== 'worksheets.reading-g1-lost-hat.description'
         ? t('worksheets.reading-g1-lost-hat.description')
         : 'Short passage + 4 questions — print‑ready PDF view.', 
-      href: '/print?doc=reading-g1-lost-hat&from=reading-comprehension', 
+      href: getWorksheetURL('reading-g1-lost-hat', 'reading-comprehension'), 
       docId: 'reading-g1-lost-hat', 
       categories: ['grade-1'], 
       grade: 'Grade 1' 
@@ -75,7 +76,7 @@ export default function ReadingComprehensionPage() {
       description: t('worksheets.reading-g1-ants.description') !== 'worksheets.reading-g1-ants.description'
         ? t('worksheets.reading-g1-ants.description')
         : 'Short passage + 4 questions — print‑ready PDF view.', 
-      href: '/print?doc=reading-g1-ants&from=reading-comprehension', 
+      href: getWorksheetURL('reading-g1-ants', 'reading-comprehension'), 
       docId: 'reading-g1-ants', 
       categories: ['grade-1'], 
       grade: 'Grade 1' 
@@ -87,7 +88,7 @@ export default function ReadingComprehensionPage() {
       description: t('worksheets.reading-g1-bus-ride.description') !== 'worksheets.reading-g1-bus-ride.description'
         ? t('worksheets.reading-g1-bus-ride.description')
         : 'Short passage + 4 questions — print‑ready PDF view.', 
-      href: '/print?doc=reading-g1-bus-ride&from=reading-comprehension', 
+      href: getWorksheetURL('reading-g1-bus-ride', 'reading-comprehension'), 
       docId: 'reading-g1-bus-ride', 
       categories: ['grade-1'], 
       grade: 'Grade 1' 
@@ -99,7 +100,7 @@ export default function ReadingComprehensionPage() {
       description: t('worksheets.reading-g1-pet-fish.description') !== 'worksheets.reading-g1-pet-fish.description'
         ? t('worksheets.reading-g1-pet-fish.description')
         : 'Short passage + 4 questions — print‑ready PDF view.', 
-      href: '/print?doc=reading-g1-pet-fish&from=reading-comprehension', 
+      href: getWorksheetURL('reading-g1-pet-fish', 'reading-comprehension'), 
       docId: 'reading-g1-pet-fish', 
       categories: ['grade-1'], 
       grade: 'Grade 1' 
@@ -111,7 +112,7 @@ export default function ReadingComprehensionPage() {
       description: t('worksheets.reading-g1-red-balloon.description') !== 'worksheets.reading-g1-red-balloon.description'
         ? t('worksheets.reading-g1-red-balloon.description')
         : 'Short passage + 4 questions — print‑ready PDF view.', 
-      href: '/print?doc=reading-g1-red-balloon&from=reading-comprehension', 
+      href: getWorksheetURL('reading-g1-red-balloon', 'reading-comprehension'), 
       docId: 'reading-g1-red-balloon', 
       categories: ['grade-1'], 
       grade: 'Grade 1' 
@@ -123,7 +124,7 @@ export default function ReadingComprehensionPage() {
       description: t('worksheets.reading-g1-big-box.description') !== 'worksheets.reading-g1-big-box.description'
         ? t('worksheets.reading-g1-big-box.description')
         : 'Short passage + 4 questions — print‑ready PDF view.', 
-      href: '/print?doc=reading-g1-big-box&from=reading-comprehension', 
+      href: getWorksheetURL('reading-g1-big-box', 'reading-comprehension'), 
       docId: 'reading-g1-big-box', 
       categories: ['grade-1'], 
       grade: 'Grade 1' 
@@ -135,7 +136,7 @@ export default function ReadingComprehensionPage() {
       description: t('worksheets.reading-g1-garden-snail.description') !== 'worksheets.reading-g1-garden-snail.description'
         ? t('worksheets.reading-g1-garden-snail.description')
         : 'Short passage + 4 questions — print‑ready PDF view.', 
-      href: '/print?doc=reading-g1-garden-snail&from=reading-comprehension', 
+      href: getWorksheetURL('reading-g1-garden-snail', 'reading-comprehension'), 
       docId: 'reading-g1-garden-snail', 
       categories: ['grade-1'], 
       grade: 'Grade 1' 
@@ -147,7 +148,7 @@ export default function ReadingComprehensionPage() {
       description: t('worksheets.reading-g1-birthday-cake.description') !== 'worksheets.reading-g1-birthday-cake.description'
         ? t('worksheets.reading-g1-birthday-cake.description')
         : 'Short passage + 4 questions — print‑ready PDF view.', 
-      href: '/print?doc=reading-g1-birthday-cake&from=reading-comprehension', 
+      href: getWorksheetURL('reading-g1-birthday-cake', 'reading-comprehension'), 
       docId: 'reading-g1-birthday-cake', 
       categories: ['grade-1'], 
       grade: 'Grade 1' 
@@ -160,7 +161,7 @@ export default function ReadingComprehensionPage() {
       description: t('worksheets.reading-g2-paper-bridge.description') !== 'worksheets.reading-g2-paper-bridge.description'
         ? t('worksheets.reading-g2-paper-bridge.description')
         : 'Short passage + questions — open to print‑ready PDF view.', 
-      href: '/print?doc=reading-g2-paper-bridge&from=reading-comprehension', 
+      href: getWorksheetURL('reading-g2-paper-bridge', 'reading-comprehension'), 
       docId: 'reading-g2-paper-bridge', 
       categories: ['grade-2'], 
       grade: 'Grade 2' 
@@ -172,7 +173,7 @@ export default function ReadingComprehensionPage() {
       description: t('worksheets.reading-g2-rainy-garden.description') !== 'worksheets.reading-g2-rainy-garden.description'
         ? t('worksheets.reading-g2-rainy-garden.description')
         : 'Short passage + questions — open to print‑ready PDF view.', 
-      href: '/print?doc=reading-g2-rainy-garden&from=reading-comprehension', 
+      href: getWorksheetURL('reading-g2-rainy-garden', 'reading-comprehension'), 
       docId: 'reading-g2-rainy-garden', 
       categories: ['grade-2'], 
       grade: 'Grade 2' 
@@ -184,7 +185,7 @@ export default function ReadingComprehensionPage() {
       description: t('worksheets.reading-g2-library-card.description') !== 'worksheets.reading-g2-library-card.description'
         ? t('worksheets.reading-g2-library-card.description')
         : 'Short passage + questions — open to print‑ready PDF view.', 
-      href: '/print?doc=reading-g2-library-card&from=reading-comprehension', 
+      href: getWorksheetURL('reading-g2-library-card', 'reading-comprehension'), 
       docId: 'reading-g2-library-card', 
       categories: ['grade-2'], 
       grade: 'Grade 2' 
@@ -196,7 +197,7 @@ export default function ReadingComprehensionPage() {
       description: t('worksheets.reading-g2-lost-and-found.description') !== 'worksheets.reading-g2-lost-and-found.description'
         ? t('worksheets.reading-g2-lost-and-found.description')
         : 'Short passage + questions — open to print‑ready PDF view.', 
-      href: '/print?doc=reading-g2-lost-and-found&from=reading-comprehension', 
+      href: getWorksheetURL('reading-g2-lost-and-found', 'reading-comprehension'), 
       docId: 'reading-g2-lost-and-found', 
       categories: ['grade-2'], 
       grade: 'Grade 2' 
@@ -208,7 +209,7 @@ export default function ReadingComprehensionPage() {
       description: t('worksheets.reading-g2-bird-feeder.description') !== 'worksheets.reading-g2-bird-feeder.description'
         ? t('worksheets.reading-g2-bird-feeder.description')
         : 'Short passage + questions — open to print‑ready PDF view.', 
-      href: '/print?doc=reading-g2-bird-feeder&from=reading-comprehension', 
+      href: getWorksheetURL('reading-g2-bird-feeder', 'reading-comprehension'), 
       docId: 'reading-g2-bird-feeder', 
       categories: ['grade-2'], 
       grade: 'Grade 2' 
@@ -220,7 +221,7 @@ export default function ReadingComprehensionPage() {
       description: t('worksheets.reading-g2-cookie-recipe.description') !== 'worksheets.reading-g2-cookie-recipe.description'
         ? t('worksheets.reading-g2-cookie-recipe.description')
         : 'Short passage + questions — open to print‑ready PDF view.', 
-      href: '/print?doc=reading-g2-cookie-recipe&from=reading-comprehension', 
+      href: getWorksheetURL('reading-g2-cookie-recipe', 'reading-comprehension'), 
       docId: 'reading-g2-cookie-recipe', 
       categories: ['grade-2'], 
       grade: 'Grade 2' 
@@ -232,7 +233,7 @@ export default function ReadingComprehensionPage() {
       description: t('worksheets.reading-g2-tree-house.description') !== 'worksheets.reading-g2-tree-house.description'
         ? t('worksheets.reading-g2-tree-house.description')
         : 'Short passage + questions — open to print‑ready PDF view.', 
-      href: '/print?doc=reading-g2-tree-house&from=reading-comprehension', 
+      href: getWorksheetURL('reading-g2-tree-house', 'reading-comprehension'), 
       docId: 'reading-g2-tree-house', 
       categories: ['grade-2'], 
       grade: 'Grade 2' 
@@ -245,7 +246,7 @@ export default function ReadingComprehensionPage() {
       description: t('worksheets.reading-g3-lighthouse.description') !== 'worksheets.reading-g3-lighthouse.description'
         ? t('worksheets.reading-g3-lighthouse.description')
         : 'Short passage + Q&A — open print‑ready PDF view.', 
-      href: '/print?doc=reading-g3-lighthouse&from=reading-comprehension', 
+      href: getWorksheetURL('reading-g3-lighthouse', 'reading-comprehension'), 
       docId: 'reading-g3-lighthouse', 
       categories: ['grade-3'], 
       grade: 'Grade 3' 
@@ -257,7 +258,7 @@ export default function ReadingComprehensionPage() {
       description: t('worksheets.reading-g3-science-fair.description') !== 'worksheets.reading-g3-science-fair.description'
         ? t('worksheets.reading-g3-science-fair.description')
         : 'Short passage + Q&A — open print‑ready PDF view.', 
-      href: '/print?doc=reading-g3-science-fair&from=reading-comprehension', 
+      href: getWorksheetURL('reading-g3-science-fair', 'reading-comprehension'), 
       docId: 'reading-g3-science-fair', 
       categories: ['grade-3'], 
       grade: 'Grade 3' 
@@ -269,7 +270,7 @@ export default function ReadingComprehensionPage() {
       description: t('worksheets.reading-g3-community-garden.description') !== 'worksheets.reading-g3-community-garden.description'
         ? t('worksheets.reading-g3-community-garden.description')
         : 'Short passage + Q&A — open print‑ready PDF view.', 
-      href: '/print?doc=reading-g3-community-garden&from=reading-comprehension', 
+      href: getWorksheetURL('reading-g3-community-garden', 'reading-comprehension'), 
       docId: 'reading-g3-community-garden', 
       categories: ['grade-3'], 
       grade: 'Grade 3' 
@@ -281,7 +282,7 @@ export default function ReadingComprehensionPage() {
       description: t('worksheets.reading-g3-school-play.description') !== 'worksheets.reading-g3-school-play.description'
         ? t('worksheets.reading-g3-school-play.description')
         : 'Short passage + Q&A — open print‑ready PDF view.', 
-      href: '/print?doc=reading-g3-school-play&from=reading-comprehension', 
+      href: getWorksheetURL('reading-g3-school-play', 'reading-comprehension'), 
       docId: 'reading-g3-school-play', 
       categories: ['grade-3'], 
       grade: 'Grade 3' 
@@ -293,7 +294,7 @@ export default function ReadingComprehensionPage() {
       description: t('worksheets.reading-g3-art-project.description') !== 'worksheets.reading-g3-art-project.description'
         ? t('worksheets.reading-g3-art-project.description')
         : 'Short passage + Q&A — open print‑ready PDF view.', 
-      href: '/print?doc=reading-g3-art-project&from=reading-comprehension', 
+      href: getWorksheetURL('reading-g3-art-project', 'reading-comprehension'), 
       docId: 'reading-g3-art-project', 
       categories: ['grade-3'], 
       grade: 'Grade 3' 

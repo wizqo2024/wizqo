@@ -6,6 +6,7 @@ import { SEOMetaTags } from '@/components/SEOMetaTags'
 import { CategoryFilter, type Category } from '@/components/CategoryFilter'
 import { trackPackGeneration, trackCategoryFilter } from '@/utils/analytics'
 import { useTranslation } from '@/context/TranslationContext'
+import { getWorksheetURL } from '@/utils/worksheetLinks'
 
 // TIMES_TABLE_CATEGORIES will be created inside component to use translations
 
@@ -60,42 +61,42 @@ export default function TimesTableMultiplicationWorksheetsPage() {
   // Define all times table worksheets with their categories
   const allWorksheets: WorksheetItem[] = useMemo(() => [
     // Horizontal Format Worksheets
-    { title: t('pages.timesTable.worksheets.horizontal1_5.title'), description: t('pages.timesTable.worksheets.horizontal1_5.description'), href: '/print?doc=times-table-horizontal-1-5&from=times-table', docId: 'times-table-horizontal-1-5', categories: ['horizontal', 'confidence'], gradeRange: '1st-2nd' },
-    { title: t('pages.timesTable.worksheets.horizontal6_12.title'), description: t('pages.timesTable.worksheets.horizontal6_12.description'), href: '/print?doc=times-table-horizontal-6-12&from=times-table', docId: 'times-table-horizontal-6-12', categories: ['horizontal', 'fluency'], gradeRange: '3rd-4th' },
-    { title: t('pages.timesTable.worksheets.horizontal1_12.title'), description: t('pages.timesTable.worksheets.horizontal1_12.description'), href: '/print?doc=times-table-horizontal-1-12&from=times-table', docId: 'times-table-horizontal-1-12', categories: ['horizontal', 'fluency'], gradeRange: 'All' },
+    { title: t('pages.timesTable.worksheets.horizontal1_5.title'), description: t('pages.timesTable.worksheets.horizontal1_5.description'), href: getWorksheetURL('times-table-horizontal-1-5', 'times-table'), docId: 'times-table-horizontal-1-5', categories: ['horizontal', 'confidence'], gradeRange: '1st-2nd' },
+    { title: t('pages.timesTable.worksheets.horizontal6_12.title'), description: t('pages.timesTable.worksheets.horizontal6_12.description'), href: getWorksheetURL('times-table-horizontal-6-12', 'times-table'), docId: 'times-table-horizontal-6-12', categories: ['horizontal', 'fluency'], gradeRange: '3rd-4th' },
+    { title: t('pages.timesTable.worksheets.horizontal1_12.title'), description: t('pages.timesTable.worksheets.horizontal1_12.description'), href: getWorksheetURL('times-table-horizontal-1-12', 'times-table'), docId: 'times-table-horizontal-1-12', categories: ['horizontal', 'fluency'], gradeRange: 'All' },
     
     // Vertical Format Worksheets
-    { title: t('pages.timesTable.worksheets.vertical1_5.title'), description: t('pages.timesTable.worksheets.vertical1_5.description'), href: '/print?doc=times-table-vertical-1-5&from=times-table', docId: 'times-table-vertical-1-5', categories: ['vertical', 'confidence'], gradeRange: '1st-2nd' },
-    { title: t('pages.timesTable.worksheets.vertical6_12.title'), description: t('pages.timesTable.worksheets.vertical6_12.description'), href: '/print?doc=times-table-vertical-6-12&from=times-table', docId: 'times-table-vertical-6-12', categories: ['vertical', 'fluency'], gradeRange: '3rd-4th' },
-    { title: t('pages.timesTable.worksheets.vertical1_12.title'), description: t('pages.timesTable.worksheets.vertical1_12.description'), href: '/print?doc=times-table-vertical-1-12&from=times-table', docId: 'times-table-vertical-1-12', categories: ['vertical', 'fluency'], gradeRange: 'All' },
+    { title: t('pages.timesTable.worksheets.vertical1_5.title'), description: t('pages.timesTable.worksheets.vertical1_5.description'), href: getWorksheetURL('times-table-vertical-1-5', 'times-table'), docId: 'times-table-vertical-1-5', categories: ['vertical', 'confidence'], gradeRange: '1st-2nd' },
+    { title: t('pages.timesTable.worksheets.vertical6_12.title'), description: t('pages.timesTable.worksheets.vertical6_12.description'), href: getWorksheetURL('times-table-vertical-6-12', 'times-table'), docId: 'times-table-vertical-6-12', categories: ['vertical', 'fluency'], gradeRange: '3rd-4th' },
+    { title: t('pages.timesTable.worksheets.vertical1_12.title'), description: t('pages.timesTable.worksheets.vertical1_12.description'), href: getWorksheetURL('times-table-vertical-1-12', 'times-table'), docId: 'times-table-vertical-1-12', categories: ['vertical', 'fluency'], gradeRange: 'All' },
     
     // Missing Number Worksheets
-    { title: t('pages.timesTable.worksheets.missing1_5.title'), description: t('pages.timesTable.worksheets.missing1_5.description'), href: '/print?doc=times-table-missing-1-5&from=times-table', docId: 'times-table-missing-1-5', categories: ['missing-number', 'confidence'], gradeRange: '1st-2nd' },
-    { title: t('pages.timesTable.worksheets.missing6_12.title'), description: t('pages.timesTable.worksheets.missing6_12.description'), href: '/print?doc=times-table-missing-6-12&from=times-table', docId: 'times-table-missing-6-12', categories: ['missing-number', 'fluency'], gradeRange: '3rd-4th' },
-    { title: t('pages.timesTable.worksheets.missingMixed.title'), description: t('pages.timesTable.worksheets.missingMixed.description'), href: '/print?doc=times-table-missing-mixed&from=times-table', docId: 'times-table-missing-mixed', categories: ['missing-number', 'fluency'], gradeRange: 'All' },
+    { title: t('pages.timesTable.worksheets.missing1_5.title'), description: t('pages.timesTable.worksheets.missing1_5.description'), href: getWorksheetURL('times-table-missing-1-5', 'times-table'), docId: 'times-table-missing-1-5', categories: ['missing-number', 'confidence'], gradeRange: '1st-2nd' },
+    { title: t('pages.timesTable.worksheets.missing6_12.title'), description: t('pages.timesTable.worksheets.missing6_12.description'), href: getWorksheetURL('times-table-missing-6-12', 'times-table'), docId: 'times-table-missing-6-12', categories: ['missing-number', 'fluency'], gradeRange: '3rd-4th' },
+    { title: t('pages.timesTable.worksheets.missingMixed.title'), description: t('pages.timesTable.worksheets.missingMixed.description'), href: getWorksheetURL('times-table-missing-mixed', 'times-table'), docId: 'times-table-missing-mixed', categories: ['missing-number', 'fluency'], gradeRange: 'All' },
     
     // Timed Test Worksheets
-    { title: t('pages.timesTable.worksheets.timed1_5.title'), description: t('pages.timesTable.worksheets.timed1_5.description'), href: '/print?doc=times-table-timed-1-5&from=times-table', docId: 'times-table-timed-1-5', categories: ['timed', 'fluency'], gradeRange: '2nd-3rd' },
-    { title: t('pages.timesTable.worksheets.timed6_12.title'), description: t('pages.timesTable.worksheets.timed6_12.description'), href: '/print?doc=times-table-timed-6-12&from=times-table', docId: 'times-table-timed-6-12', categories: ['timed', 'fluency'], gradeRange: '3rd-5th' },
-    { title: t('pages.timesTable.worksheets.timed1_12.title'), description: t('pages.timesTable.worksheets.timed1_12.description'), href: '/print?doc=times-table-timed-1-12&from=times-table', docId: 'times-table-timed-1-12', categories: ['timed', 'fluency'], gradeRange: 'All' },
+    { title: t('pages.timesTable.worksheets.timed1_5.title'), description: t('pages.timesTable.worksheets.timed1_5.description'), href: getWorksheetURL('times-table-timed-1-5', 'times-table'), docId: 'times-table-timed-1-5', categories: ['timed', 'fluency'], gradeRange: '2nd-3rd' },
+    { title: t('pages.timesTable.worksheets.timed6_12.title'), description: t('pages.timesTable.worksheets.timed6_12.description'), href: getWorksheetURL('times-table-timed-6-12', 'times-table'), docId: 'times-table-timed-6-12', categories: ['timed', 'fluency'], gradeRange: '3rd-5th' },
+    { title: t('pages.timesTable.worksheets.timed1_12.title'), description: t('pages.timesTable.worksheets.timed1_12.description'), href: getWorksheetURL('times-table-timed-1-12', 'times-table'), docId: 'times-table-timed-1-12', categories: ['timed', 'fluency'], gradeRange: 'All' },
     
     // Blank Times Table Worksheets
-    { title: t('pages.timesTable.worksheets.blank1_5.title'), description: t('pages.timesTable.worksheets.blank1_5.description'), href: '/print?doc=times-table-blank-1-5&from=times-table', docId: 'times-table-blank-1-5', categories: ['blank', 'confidence'], gradeRange: '1st-2nd' },
-    { title: t('pages.timesTable.worksheets.blank6_12.title'), description: t('pages.timesTable.worksheets.blank6_12.description'), href: '/print?doc=times-table-blank-6-12&from=times-table', docId: 'times-table-blank-6-12', categories: ['blank', 'fluency'], gradeRange: '3rd-4th' },
-    { title: t('pages.timesTable.worksheets.blank1_12.title'), description: t('pages.timesTable.worksheets.blank1_12.description'), href: '/print?doc=times-table-blank-1-12&from=times-table', docId: 'times-table-blank-1-12', categories: ['blank', 'fluency'], gradeRange: 'All' },
+    { title: t('pages.timesTable.worksheets.blank1_5.title'), description: t('pages.timesTable.worksheets.blank1_5.description'), href: getWorksheetURL('times-table-blank-1-5', 'times-table'), docId: 'times-table-blank-1-5', categories: ['blank', 'confidence'], gradeRange: '1st-2nd' },
+    { title: t('pages.timesTable.worksheets.blank6_12.title'), description: t('pages.timesTable.worksheets.blank6_12.description'), href: getWorksheetURL('times-table-blank-6-12', 'times-table'), docId: 'times-table-blank-6-12', categories: ['blank', 'fluency'], gradeRange: '3rd-4th' },
+    { title: t('pages.timesTable.worksheets.blank1_12.title'), description: t('pages.timesTable.worksheets.blank1_12.description'), href: getWorksheetURL('times-table-blank-1-12', 'times-table'), docId: 'times-table-blank-1-12', categories: ['blank', 'fluency'], gradeRange: 'All' },
     
     // Confidence Building Worksheets
-    { title: t('pages.timesTable.worksheets.confidence1_5.title'), description: t('pages.timesTable.worksheets.confidence1_5.description'), href: '/print?doc=times-table-confidence-1-5&from=times-table', docId: 'times-table-confidence-1-5', categories: ['confidence'], gradeRange: '1st-2nd' },
-    { title: t('pages.timesTable.worksheets.confidence6_12.title'), description: t('pages.timesTable.worksheets.confidence6_12.description'), href: '/print?doc=times-table-confidence-6-12&from=times-table', docId: 'times-table-confidence-6-12', categories: ['confidence'], gradeRange: '3rd-4th' },
+    { title: t('pages.timesTable.worksheets.confidence1_5.title'), description: t('pages.timesTable.worksheets.confidence1_5.description'), href: getWorksheetURL('times-table-confidence-1-5', 'times-table'), docId: 'times-table-confidence-1-5', categories: ['confidence'], gradeRange: '1st-2nd' },
+    { title: t('pages.timesTable.worksheets.confidence6_12.title'), description: t('pages.timesTable.worksheets.confidence6_12.description'), href: getWorksheetURL('times-table-confidence-6-12', 'times-table'), docId: 'times-table-confidence-6-12', categories: ['confidence'], gradeRange: '3rd-4th' },
     
     // Fluency Practice Worksheets
-    { title: t('pages.timesTable.worksheets.fluency1_12.title'), description: t('pages.timesTable.worksheets.fluency1_12.description'), href: '/print?doc=times-table-fluency-1-12&from=times-table', docId: 'times-table-fluency-1-12', categories: ['fluency'], gradeRange: 'All' },
-    { title: t('pages.timesTable.worksheets.mixedReview.title'), description: t('pages.timesTable.worksheets.mixedReview.description'), href: '/print?doc=times-table-mixed-review&from=times-table', docId: 'times-table-mixed-review', categories: ['fluency'], gradeRange: 'All' },
+    { title: t('pages.timesTable.worksheets.fluency1_12.title'), description: t('pages.timesTable.worksheets.fluency1_12.description'), href: getWorksheetURL('times-table-fluency-1-12', 'times-table'), docId: 'times-table-fluency-1-12', categories: ['fluency'], gradeRange: 'All' },
+    { title: t('pages.timesTable.worksheets.mixedReview.title'), description: t('pages.timesTable.worksheets.mixedReview.description'), href: getWorksheetURL('times-table-mixed-review', 'times-table'), docId: 'times-table-mixed-review', categories: ['fluency'], gradeRange: 'All' },
     
     // Color-by-Number Worksheets
-    { title: t('pages.timesTable.worksheets.color1_5.title'), description: t('pages.timesTable.worksheets.color1_5.description'), href: '/print?doc=times-table-color-1-5&from=times-table', docId: 'times-table-color-1-5', categories: ['fluency'], gradeRange: '1st-3rd' },
-    { title: t('pages.timesTable.worksheets.color6_12.title'), description: t('pages.timesTable.worksheets.color6_12.description'), href: '/print?doc=times-table-color-6-12&from=times-table', docId: 'times-table-color-6-12', categories: ['fluency'], gradeRange: '3rd-5th' },
-    { title: t('pages.timesTable.worksheets.color1_12.title'), description: t('pages.timesTable.worksheets.color1_12.description'), href: '/print?doc=times-table-color-1-12&from=times-table', docId: 'times-table-color-1-12', categories: ['fluency'], gradeRange: 'All' },
+    { title: t('pages.timesTable.worksheets.color1_5.title'), description: t('pages.timesTable.worksheets.color1_5.description'), href: getWorksheetURL('times-table-color-1-5', 'times-table'), docId: 'times-table-color-1-5', categories: ['fluency'], gradeRange: '1st-3rd' },
+    { title: t('pages.timesTable.worksheets.color6_12.title'), description: t('pages.timesTable.worksheets.color6_12.description'), href: getWorksheetURL('times-table-color-6-12', 'times-table'), docId: 'times-table-color-6-12', categories: ['fluency'], gradeRange: '3rd-5th' },
+    { title: t('pages.timesTable.worksheets.color1_12.title'), description: t('pages.timesTable.worksheets.color1_12.description'), href: getWorksheetURL('times-table-color-1-12', 'times-table'), docId: 'times-table-color-1-12', categories: ['fluency'], gradeRange: 'All' },
   ], [t])
 
   // Filter worksheets based on selected categories

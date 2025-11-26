@@ -4,6 +4,7 @@ import { UnifiedNavigation } from '@/components/UnifiedNavigation';
 import { Footer } from '@/components/Footer';
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
 import { useTranslation } from '@/context/TranslationContext';
+import { getWorksheetURL } from '@/utils/worksheetLinks';
 import MemoryMatch from '@/components/kids/MemoryMatch';
 import WordSearch from '@/components/kids/WordSearch';
 import PuzzleGame from '@/components/kids/PuzzleGame';
@@ -629,7 +630,7 @@ const PRINTABLES = [
     title: 'Word Search – Animals',
     subtitle: 'Find 12 animal names',
     chips: ['Ages 6–8', 'Easy'],
-    href: '/print?doc=ws-animals',
+    href: getWorksheetURL('ws-animals', 'kids'),
     cover: KID_SAFE.kidsWithAnimals
   },
   {
@@ -637,7 +638,7 @@ const PRINTABLES = [
     title: 'Word Search – Space',
     subtitle: 'Find 12 space words',
     chips: ['Ages 9–12', 'Moderate'],
-    href: '/print?doc=ws-space',
+    href: getWorksheetURL('ws-space', 'kids'),
     cover: KID_SAFE.planetsModel
   },
   {
@@ -645,7 +646,7 @@ const PRINTABLES = [
     title: 'Sudoku – 4×4 (Easy)',
     subtitle: 'Beginner logic puzzle',
     chips: ['Ages 6–8', 'Easy'],
-    href: '/print?doc=sudoku4',
+    href: getWorksheetURL('sudoku4', 'kids'),
     cover: KID_SAFE.puzzleJigsaw
   },
   {
@@ -653,7 +654,7 @@ const PRINTABLES = [
     title: 'Sudoku – 6×6 (Medium)',
     subtitle: 'A bit more challenge',
     chips: ['Ages 9–12', 'Medium'],
-    href: '/print?doc=sudoku6',
+    href: getWorksheetURL('sudoku6', 'kids'),
     cover: KID_SAFE.classroomHands
   },
   {
@@ -661,7 +662,7 @@ const PRINTABLES = [
     title: 'Coloring – Cute Animals',
     subtitle: 'Creative and calming',
     chips: ['Ages 6–8'],
-    href: '/print?doc=coloring',
+    href: getWorksheetURL('coloring', 'kids'),
     cover: KID_SAFE.coloringCrayons
   },
   
