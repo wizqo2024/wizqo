@@ -138,7 +138,8 @@ function cloneForRoute(baseHtml, route, allPosts = [], allRoutes = []) {
   // For fractions-to-decimals and order-of-operations pages, remove ALL SEO-related scripts BEFORE setMeta
   // Static HTML doesn't need any JavaScript for SEO - everything is hardcoded
   let workingHtml = baseHtml;
-  if (route.path === '/worksheets/fractions-to-decimals-worksheets' || route.path === '/worksheets/order-of-operations-worksheets') {
+  const isSpecialPage = route.path === '/worksheets/fractions-to-decimals-worksheets' || route.path === '/worksheets/order-of-operations-worksheets';
+  if (isSpecialPage) {
     // Remove ALL document.write scripts
     workingHtml = workingHtml.replace(/<script[^>]*>[\s\S]*?CRITICAL: Write correct tags DURING parsing[\s\S]*?<\/script>/gi, '');
     workingHtml = workingHtml.replace(/<script[^>]*>[\s\S]*?Write OG\/Twitter tags during parsing[\s\S]*?<\/script>/gi, '');
@@ -151,12 +152,15 @@ function cloneForRoute(baseHtml, route, allPosts = [], allRoutes = []) {
     workingHtml = workingHtml.replace(/<script[^>]*>[\s\S]*?updateFractionsToDecimalsSEO[\s\S]*?<\/script>/gi, '');
     workingHtml = workingHtml.replace(/<script[^>]*>[\s\S]*?updateSEOFallback[\s\S]*?<\/script>/gi, '');
     // Remove the entire client-side SEO update script block (the one that checks for fractions/order-of-operations)
-    // Match the script that contains "Simplified SEO update" - this is a single script tag with both functions
-    // Pattern: from <script> to </script> that contains "Simplified SEO update" comment
+    // This script dynamically updates SEO - we don't want it in prerendered static HTML
+    // Match any script tag that contains the SEO update logic
+    // Use a more flexible pattern that matches the entire script block
+    const scriptPattern = /<script(?:\s[^>]*)?>[\s\S]*?(?:Simplified SEO update|isFractionsPage|isOrderOfOperationsPage|function updateSEO|Hide SEO fallback)[\s\S]*?<\/script>/gi;
+    workingHtml = workingHtml.replace(scriptPattern, '');
+    // Also try matching by the specific comment patterns
     workingHtml = workingHtml.replace(/<script(?:\s[^>]*)?>[\s\S]*?\/\/ Simplified SEO update[\s\S]*?<\/script>/gi, '');
     workingHtml = workingHtml.replace(/<script(?:\s[^>]*)?>[\s\S]*?Simplified SEO update[\s\S]*?<\/script>/gi, '');
-    // Also remove the "Hide SEO fallback" script if it's separate
-    workingHtml = workingHtml.replace(/<script(?:\s[^>]*)?>[\s\S]*?Hide SEO fallback after React loads[\s\S]*?<\/script>/gi, '');
+    workingHtml = workingHtml.replace(/<script(?:\s[^>]*)?>[\s\S]*?Hide SEO fallback[\s\S]*?<\/script>/gi, '');
   }
   
   let html = setMeta(workingHtml, {
