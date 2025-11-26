@@ -733,9 +733,23 @@ function main() {
       console.log(`  Prerendered blog post: ${r.path} -> ${out}`);
     } else if (r.path.includes('order-of-operations') || r.path.includes('fractions-to-decimals')) {
       console.log(`  Prerendered special page: ${r.path} -> ${out}`);
+      // Verify file was written
+      if (!fs.existsSync(out)) {
+        console.error(`  ERROR: File not created at ${out}!`);
+      } else {
+        console.log(`  ✓ File verified at ${out}`);
+      }
       // Verify script removal worked
       if (html.includes('Simplified SEO update')) {
-        console.error(`  WARNING: Script removal failed for ${r.path}!`);
+        console.error(`  WARNING: Script removal failed for ${r.path}! Script still present in HTML.`);
+      } else {
+        console.log(`  ✓ Script removal verified for ${r.path}`);
+      }
+      // Verify SEO metadata
+      if (html.includes(r.title)) {
+        console.log(`  ✓ SEO title verified: ${r.title.substring(0, 50)}...`);
+      } else {
+        console.error(`  ERROR: SEO title missing for ${r.path}!`);
       }
     }
   }
