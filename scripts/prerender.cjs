@@ -404,11 +404,26 @@ ${gameLinks}
     html = html.replace(/<main id="seo-fallback"[^>]*>[\s\S]*?<\/main>/, fractionsToDecimalsContent);
   } else if (route.path === '/worksheets/order-of-operations-worksheets') {
     // All SEO scripts already removed above before setMeta, but be extra aggressive here
-    // Remove any script that contains "Simplified SEO update" comment
+    // Remove any script that contains "Simplified SEO update" comment (both old and new versions)
     html = html.replace(/<script(?:\s[^>]*)?>[\s\S]*?\/\/ Simplified SEO update[\s\S]*?<\/script>/gi, '');
     html = html.replace(/<script(?:\s[^>]*)?>[\s\S]*?Simplified SEO update[\s\S]*?<\/script>/gi, '');
+    // Remove scripts that check for order-of-operations or fractions-to-decimals
+    html = html.replace(/<script(?:\s[^>]*)?>[\s\S]*?isOrderOfOperationsPage[\s\S]*?<\/script>/gi, '');
+    html = html.replace(/<script(?:\s[^>]*)?>[\s\S]*?isFractionsPage[\s\S]*?<\/script>/gi, '');
+    html = html.replace(/<script(?:\s[^>]*)?>[\s\S]*?order-of-operations-worksheets[\s\S]*?<\/script>/gi, '');
+    html = html.replace(/<script(?:\s[^>]*)?>[\s\S]*?fractions-to-decimals-worksheets[\s\S]*?<\/script>/gi, '');
     // Remove the "Hide SEO fallback" script
     html = html.replace(/<script(?:\s[^>]*)?>[\s\S]*?Hide SEO fallback after React loads[\s\S]*?<\/script>/gi, '');
+    // Final pass: remove any script between </style> and <script type="module"> that isn't JSON-LD
+    const styleEnd = html.indexOf('</style>');
+    const moduleScriptStart = html.indexOf('<script type="module"');
+    if (styleEnd > -1 && moduleScriptStart > styleEnd) {
+      const beforeStyle = html.substring(0, styleEnd + 8);
+      const betweenScripts = html.substring(styleEnd + 8, moduleScriptStart);
+      const afterModuleScript = html.substring(moduleScriptStart);
+      const cleanedBetween = betweenScripts.replace(/<script(?![^>]*type=["']application\/ld\+json["'])[^>]*>[\s\S]*?<\/script>/gi, '');
+      html = beforeStyle + cleanedBetween + afterModuleScript;
+    }
     // Replace fallback content with order-of-operations-specific content
     const orderOfOperationsContent = `<main id="seo-fallback" style="display: none; max-width: 1200px; margin: 0 auto; padding: 2rem 1rem; font-family: system-ui, -apple-system, sans-serif;">
       <h1 style="font-size: 2.5rem; font-weight: 900; color: #0f172a; margin-bottom: 1rem; line-height: 1.2;">
@@ -716,6 +731,12 @@ function main() {
     count++;
     if (r.path.startsWith('/blog/')) {
       console.log(`  Prerendered blog post: ${r.path} -> ${out}`);
+    } else if (r.path.includes('order-of-operations') || r.path.includes('fractions-to-decimals')) {
+      console.log(`  Prerendered special page: ${r.path} -> ${out}`);
+      // Verify script removal worked
+      if (html.includes('Simplified SEO update')) {
+        console.error(`  WARNING: Script removal failed for ${r.path}!`);
+      }
     }
   }
   console.log(`Prerendered ${count} routes into dist/`);
