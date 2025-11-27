@@ -42,7 +42,7 @@ export function WorksheetFooter({
     >
       <div style={{ marginBottom: '4px' }}>
         <a 
-          href="https://wizqo.com" 
+          href="https://www.wizqo.com" 
           style={{ 
             color: '#666', 
             textDecoration: 'none',
