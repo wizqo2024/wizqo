@@ -238,6 +238,18 @@ export default function ReadingComprehensionPage() {
       categories: ['grade-2'], 
       grade: 'Grade 2' 
     },
+    { 
+      title: t('worksheets.reading-g2-magic-seeds.title') !== 'worksheets.reading-g2-magic-seeds.title' 
+        ? t('worksheets.reading-g2-magic-seeds.title') 
+        : '📖 The Magic Seeds (Grade 2)', 
+      description: t('worksheets.reading-g2-magic-seeds.description') !== 'worksheets.reading-g2-magic-seeds.description'
+        ? t('worksheets.reading-g2-magic-seeds.description')
+        : 'Short passage + questions — open to print‑ready PDF view.', 
+      href: getWorksheetURL('reading-g2-magic-seeds', 'reading-comprehension'), 
+      docId: 'reading-g2-magic-seeds', 
+      categories: ['grade-2'], 
+      grade: 'Grade 2' 
+    },
     // Grade 3
     { 
       title: t('worksheets.reading-g3-lighthouse.title') !== 'worksheets.reading-g3-lighthouse.title' 

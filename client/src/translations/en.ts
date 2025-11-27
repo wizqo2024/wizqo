@@ -322,6 +322,23 @@ export const en = {
         note: '💡 Remember: Always look back at the passage to find the answers. The information is in the text!',
       },
     },
+    'reading-g2-magic-seeds': {
+      title: 'Passage — The Magic Seeds (Grade 2)',
+      description: 'Short passage with 4 comprehension questions. Read carefully and answer in full sentences.',
+      learningObjectives: [
+        'Read and understand a short story',
+        'Answer comprehension questions about the text',
+        'Identify key details and sequence of events',
+        'Practice reading fluency and comprehension',
+      ],
+      parentTeacherTips: [
+        'Read the passage aloud first, then have the child read it',
+        'Ask questions to check understanding before answering',
+        'Encourage full sentence answers',
+        'Help identify key words in the questions that match the passage',
+        'Extension: Discuss gardening and patience with your child',
+      ],
+    },
     'count-circle-1-10': {
       title: 'Count & Circle 1–10',
       description: 'Count the objects in each box. Circle the correct number.',

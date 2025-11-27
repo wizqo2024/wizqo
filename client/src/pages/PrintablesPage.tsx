@@ -375,6 +375,7 @@ const ANSWERABLE_BASE_DOC_IDS = [
   'reading-g2-bird-feeder',
   'reading-g2-cookie-recipe',
   'reading-g2-tree-house',
+  'reading-g2-magic-seeds',
   'reading-g3-lighthouse',
   'reading-g3-science-fair',
   'reading-g3-community-garden',
@@ -715,6 +716,8 @@ function resolveDocTitle(docId: string, context: { packTime: string; bundleCateg
       return getTranslatedWorksheetTitle(docId, t, '📖 Grade 2 — The Cookie Recipe (Reading)')
     case 'reading-g2-tree-house':
       return getTranslatedWorksheetTitle(docId, t, '📖 Grade 2 — The Tree House (Reading)')
+    case 'reading-g2-magic-seeds':
+      return getTranslatedWorksheetTitle(docId, t, '📖 Grade 2 — The Magic Seeds (Reading)')
     case 'reading-g3-school-play':
       return getTranslatedWorksheetTitle(docId, t, '📖 Grade 3 — The School Play (Reading)')
     case 'reading-g3-art-project':
@@ -10475,6 +10478,89 @@ export function PrintablesPage() {
                   <li><strong>Wood planks and strong nails</strong> (They used wood planks and strong nails)</li>
                   <li><strong>The whole yard</strong> (He looked out the window and saw the whole yard)</li>
                   <li><strong>His secret hideout</strong> ("This is my secret hideout!" he said)</li>
+                </ol>
+                <div className="text-xs text-emerald-700 mt-3">💡 Remember: Always look back at the passage to find the answers. The information is in the text!</div>
+              </div>
+            ))}
+          </WorksheetSectionWrapper>
+        )}
+        {activeDocs.includes('reading-g2-magic-seeds') && (
+          <WorksheetSectionWrapper
+            docId="reading-g2-magic-seeds"
+            title="Passage — The Magic Seeds (Grade 2)"
+            emoji="📖"
+            description="Short passage with comprehension questions. Read carefully and answer in full sentences."
+            problemCount={4}
+            learningObjectives={[
+              'Read and understand a short story',
+              'Answer comprehension questions about the text',
+              'Identify key details and sequence of events',
+              'Practice reading fluency and comprehension'
+            ]}
+            parentTeacherTips={[
+              'Read the passage aloud first, then have the child read it',
+              'Ask questions to check understanding before answering',
+              'Encourage full sentence answers',
+              'Help identify key words in the questions that match the passage',
+              'Extension: Discuss gardening and patience with your child'
+            ]}
+          >
+            <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-green-400 to-emerald-400 animate-gradient-x mb-2" />
+            {/* Worked Example */}
+            <div className="mb-6 p-4 bg-green-50 border-2 border-green-200 rounded-lg print:border print:bg-white">
+              <div className="font-semibold text-green-900 mb-3 text-sm">📚 Example - Let's solve this together:</div>
+              <div className="space-y-2 text-sm">
+                <div className="font-semibold text-base"><strong>Question:</strong> What did Mia find in the garden?</div>
+                <div className="pl-4 border-l-2 border-green-300 space-y-1">
+                  <div><strong>Step 1:</strong> Read the passage carefully</div>
+                  <div><strong>Step 2:</strong> Look for what Mia found</div>
+                  <div><strong>Step 3:</strong> Find: "Mia found a small packet of seeds in her garden"</div>
+                  <div className="font-semibold text-green-900"><strong>Answer:</strong> Mia found a small packet of seeds.</div>
+                  <div className="text-xs text-green-700 mt-1">💡 Tip: Look for key words in the question (like "what") and find them in the passage!</div>
+                </div>
+              </div>
+            </div>
+            <div className="bg-white border border-slate-300 rounded p-4 break-inside-avoid" style={{ pageBreakAfter: 'auto' }}>
+              <p className="text-slate-800 text-base leading-relaxed">Mia found a small packet of seeds in her garden. The packet said "Magic Seeds" on it. She planted them in a sunny spot and watered them every day. After one week, tiny green sprouts appeared. Two weeks later, beautiful flowers bloomed in red, yellow, and purple. Mia smiled and said, "These really are magic seeds!"</p>
+              <ol className="list-decimal list-inside mt-4 text-slate-800 text-base space-y-2">
+                <li>What did Mia find in the garden?</li>
+                <li>What did the packet say?</li>
+                <li>What happened after one week?</li>
+                <li>What colors were the flowers?</li>
+              </ol>
+            </div>
+            {/* Extension/Challenge Problems */}
+            <div className="mt-6 print:mt-0 p-4 bg-purple-50 border-2 border-purple-200 rounded print:bg-white print:border" style={{ pageBreakBefore: 'always', pageBreakInside: 'avoid' }}>
+              <div className="font-semibold text-purple-900 mb-3 text-sm">🌟 {getTrans('common.challengeYourself', 'Challenge Yourself (Optional):')}</div>
+              <div className="space-y-2 text-sm text-purple-800">
+                <div>1. Can you retell the story in your own words?</div>
+                <div>2. Why do you think Mia called them "magic seeds"?</div>
+                <div>3. Draw a picture of Mia's garden with the flowers</div>
+              </div>
+            </div>
+            {/* Self-Assessment */}
+            <div className="print:block hidden print:mt-0 mt-6 p-4 border-2 border-slate-300 rounded" style={{ pageBreakBefore: 'avoid', pageBreakInside: 'avoid' }}>
+              <div className="font-semibold text-slate-800 mb-3 text-sm">📊 {getTrans('common.howDidYouDo', 'How did you do?')}</div>
+              <div className="space-y-2 text-xs">
+                <div>☐ I understood the story</div>
+                <div>☐ I answered all 4 questions</div>
+                <div>☐ I used full sentences in my answers</div>
+              </div>
+              <div className="mt-3 text-xs">
+                <strong>{getTrans('common.myScore', 'My score:')}</strong> ___ / 4
+              </div>
+              <div className="mt-2 text-xs">
+                <strong>{getTrans('common.whatWasHardest', 'What was hardest?')}</strong> _________________________
+              </div>
+            </div>
+            {showAnswersForDoc('reading-g2-magic-seeds', () => (
+              <div className="mt-6 p-4 border-2 border-emerald-300 bg-emerald-50 rounded print:border print:bg-white print:page-break-before-always">
+                <div className="font-bold text-emerald-900 mb-3 text-base">✅ {getTrans('common.answerKey', 'Answer Key')}</div>
+                <ol className="list-decimal list-inside space-y-2 text-sm text-emerald-800">
+                  <li><strong>A small packet of seeds</strong> (Mia found a small packet of seeds in her garden)</li>
+                  <li><strong>"Magic Seeds"</strong> (The packet said "Magic Seeds" on it)</li>
+                  <li><strong>Tiny green sprouts appeared</strong> (After one week, tiny green sprouts appeared)</li>
+                  <li><strong>Red, yellow, and purple</strong> (beautiful flowers bloomed in red, yellow, and purple)</li>
                 </ol>
                 <div className="text-xs text-emerald-700 mt-3">💡 Remember: Always look back at the passage to find the answers. The information is in the text!</div>
               </div>
