@@ -33,7 +33,7 @@ export default function WorksheetPage({ slug }: WorksheetPageProps) {
         <div className="container mx-auto px-4 py-16 text-center">
           <h1 className="text-3xl font-bold text-slate-900 mb-4">Worksheet Not Found</h1>
           <p className="text-slate-600 mb-8">The worksheet you're looking for doesn't exist.</p>
-          <a href="/worksheets" className="text-blue-600 hover:text-blue-800 underline">
+          <a href="/worksheets/all" className="text-blue-600 hover:text-blue-800 underline">
             Browse All Worksheets
           </a>
         </div>
@@ -90,7 +90,7 @@ export default function WorksheetPage({ slug }: WorksheetPageProps) {
           <ol className="flex items-center space-x-2">
             <li><a href="/" className="hover:text-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-1 rounded" aria-label="Go to home page">Home</a></li>
             <li className="text-slate-400" aria-hidden="true">/</li>
-            <li><a href="/worksheets" className="hover:text-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-1 rounded" aria-label="Browse all worksheets">Worksheets</a></li>
+            <li><a href="/worksheets/all" className="hover:text-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-1 rounded" aria-label="Browse all worksheets">Worksheets</a></li>
             <li className="text-slate-400" aria-hidden="true">/</li>
             <li><a href={categoryUrl} className="hover:text-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-1 rounded" aria-label={`Go to ${seoData.section} worksheets`}>{seoData.section}</a></li>
             <li className="text-slate-400" aria-hidden="true">/</li>

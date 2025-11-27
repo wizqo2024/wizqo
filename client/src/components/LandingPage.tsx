@@ -184,21 +184,7 @@ export function LandingPage({ onNavigateToGenerate }: LandingPageProps) {
             {/* CTA Buttons */}
             <div className="flex flex-wrap justify-center gap-4 mb-12 sm:mb-16 px-4">
               <a 
-                href="/worksheets/multiplication-worksheets"
-                className="inline-flex items-center gap-2 justify-center bg-gradient-to-r from-purple-500 to-pink-500 text-white px-6 sm:px-8 py-3 sm:py-4 text-base sm:text-lg font-bold rounded-2xl hover:from-purple-600 hover:to-pink-600 transform hover:scale-105 transition-all duration-300 shadow-2xl hover:shadow-purple-500/25 border-0"
-              >
-                <div className="w-8 h-8 sm:w-10 sm:h-10 flex items-center justify-center">
-                  <DotLottieReact
-                    src="https://lottie.host/765d5fff-4a5e-4cb5-a3a1-91f5413be22e/tpoLOKOFhP.json"
-                    loop
-                    autoplay
-                    className="w-full h-full"
-                  />
-                </div>
-                🔥 {t('home.hero.ctaMultiplication')}
-              </a>
-              <a 
-                href="/interactive-worksheets-generator"
+                href="/worksheets/all"
                 className="inline-flex items-center gap-2 justify-center bg-white/10 backdrop-blur-sm border-2 border-white/30 text-white px-6 sm:px-8 py-3 sm:py-4 text-base sm:text-lg font-bold rounded-2xl hover:bg-white/20 transform hover:scale-105 transition-all duration-300 shadow-xl"
               >
                 {t('home.hero.ctaBrowse')}
