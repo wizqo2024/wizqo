@@ -36185,7 +36185,7 @@ export function PrintablesPage() {
             'reading-mini-1', 'reading-g1-lost-hat', 'reading-g1-ants', 'reading-g1-bus-ride', 'reading-g1-pet-fish',
             'reading-g1-red-balloon', 'reading-g1-big-box', 'reading-g1-garden-snail', 'reading-g1-birthday-cake',
             'reading-g2-paper-bridge', 'reading-g2-rainy-garden', 'reading-g2-library-card', 'reading-g2-lost-and-found',
-            'reading-g2-bird-feeder', 'reading-g2-cookie-recipe', 'reading-g2-tree-house',
+            'reading-g2-bird-feeder', 'reading-g2-cookie-recipe', 'reading-g2-tree-house', 'reading-g2-magic-seeds',
             'reading-g3-lighthouse', 'reading-g3-science-fair', 'reading-g3-community-garden',
             'reading-g3-school-play', 'reading-g3-art-project', 'pack', 'math-maze',
             'spelling', 'science-match', 'grammar-detective', 'sudoku4', 'sudoku6', 'place-value-hto',
