@@ -923,4 +923,81 @@ html {
     border: none !important;
     border-radius: 0 !important;
   }
+  
+  /* ============================================================================
+   * UNIVERSAL WORKSHEET COMPONENTS - OPTIONAL HEADER, FOOTER, PROBLEM BOXES
+   * ============================================================================ */
+  
+  /* Optional Header Component */
+  .worksheet-header-optional {
+    margin-top: 0 !important;
+    padding-top: 0 !important;
+    margin-bottom: 20px !important;
+    padding-bottom: 12px !important;
+    border-bottom: 1px solid #e2e8f0 !important;
+    font-size: 13pt !important;
+    line-height: 1.4 !important;
+    color: #333 !important;
+    page-break-after: avoid !important;
+    break-after: avoid !important;
+  }
+  
+  /* Optional Footer Component */
+  .worksheet-footer-optional {
+    margin-top: 40px !important;
+    padding-top: 12px !important;
+    border-top: 1px solid #e2e8f0 !important;
+    text-align: center !important;
+    font-size: 10pt !important;
+    color: #666 !important;
+    page-break-before: avoid !important;
+    break-before: avoid !important;
+  }
+  
+  /* Problem Box Component */
+  .problem-box {
+    page-break-inside: avoid !important;
+    break-inside: avoid !important;
+    background-color: white !important;
+    margin-bottom: 20px !important;
+  }
+  
+  .problem-box-default {
+    border: 1px solid #d5d5d5 !important;
+    border-radius: 10px !important;
+    padding: 16px !important;
+  }
+  
+  .problem-box-highlight {
+    border: 1px solid #b3d9ff !important;
+    border-radius: 10px !important;
+    padding: 16px !important;
+    background-color: #eaf4ff !important;
+  }
+  
+  .problem-box-minimal {
+    border: 1px solid #e2e8f0 !important;
+    border-radius: 8px !important;
+    padding: 12px !important;
+    background-color: transparent !important;
+  }
+  
+  /* Layout Components */
+  .worksheet-layout-1col {
+    max-width: 100% !important;
+    margin: 0 auto !important;
+  }
+  
+  .worksheet-layout-2col {
+    display: grid !important;
+    grid-template-columns: 1fr 1fr !important;
+    gap: 24px !important;
+  }
+  
+  /* On small screens or print, 2col becomes 1col */
+  @media (max-width: 600px) {
+    .worksheet-layout-2col {
+      grid-template-columns: 1fr !important;
+    }
+  }
 }
