@@ -10577,6 +10577,13 @@ export function PrintablesPage() {
                 <div className="text-xs text-emerald-700 mt-3">💡 Remember: Always look back at the passage to find the answers. The information is in the text!</div>
               </div>
             ))}
+            
+            {/* ============================================
+                OPTIONAL FOOTER - Shows at BOTTOM of worksheet
+                Toggle: enabled={true} to show, enabled={false} to hide
+                Shows: www.wizqo.com, copyright, page numbers
+                ============================================ */}
+            <WorksheetFooter enabled={true} showCopyright={true} />
           </WorksheetSectionWrapper>
         )}
         {activeDocs.includes('reading-g3-school-play') && (
