@@ -333,7 +333,7 @@ function CategoryCard({ category }: { category: CategoryCard }) {
       
       {/* Icon & Title */}
       <div className="flex items-start gap-4 mb-3">
-        <div className="w-12 h-12 sm:w-14 sm:h-14 flex-shrink-0 flex items-center justify-center bg-gradient-to-br from-purple-100 to-pink-100 rounded-xl group-hover:scale-110 transition-transform duration-300">
+        <div className={`w-12 h-12 sm:w-14 sm:h-14 flex-shrink-0 flex items-center justify-center rounded-xl group-hover:scale-110 transition-transform duration-300 ${getIconBgClass(category.iconType)}`}>
           <CategoryIcon iconType={category.iconType} />
         </div>
         <div className="flex-1 min-w-0">
@@ -370,90 +370,172 @@ function CategoryCard({ category }: { category: CategoryCard }) {
   )
 }
 
+// Get background gradient class for icon container
+function getIconBgClass(iconType: string): string {
+  switch (iconType) {
+    case 'kindergarten':
+      return 'bg-gradient-to-br from-pink-100 to-rose-200'
+    case 'first-grade':
+      return 'bg-gradient-to-br from-blue-100 to-cyan-200'
+    case 'second-grade':
+      return 'bg-gradient-to-br from-green-100 to-emerald-200'
+    case 'third-grade':
+      return 'bg-gradient-to-br from-yellow-100 to-amber-200'
+    case 'fourth-grade':
+      return 'bg-gradient-to-br from-purple-100 to-indigo-200'
+    case 'fifth-grade':
+      return 'bg-gradient-to-br from-orange-100 to-red-200'
+    case 'multiplication':
+      return 'bg-gradient-to-br from-purple-100 to-pink-200'
+    case 'times-table':
+      return 'bg-gradient-to-br from-indigo-100 to-purple-200'
+    case 'fractions':
+      return 'bg-gradient-to-br from-cyan-100 to-blue-200'
+    case 'operations':
+      return 'bg-gradient-to-br from-teal-100 to-green-200'
+    case 'reading':
+      return 'bg-gradient-to-br from-emerald-100 to-teal-200'
+    case 'certificate':
+      return 'bg-gradient-to-br from-yellow-100 to-orange-200'
+    case 'tracing':
+      return 'bg-gradient-to-br from-pink-100 to-purple-200'
+    case 'handwriting':
+      return 'bg-gradient-to-br from-blue-100 to-indigo-200'
+    case 'generator':
+      return 'bg-gradient-to-br from-purple-100 to-pink-200'
+    case 'printables':
+      return 'bg-gradient-to-br from-amber-100 to-yellow-200'
+    default:
+      return 'bg-gradient-to-br from-purple-100 to-pink-100'
+  }
+}
+
 // Category Icon Component
 function CategoryIcon({ iconType }: { iconType: string }) {
-  const iconClass = "w-6 h-6 sm:w-7 sm:h-7 text-purple-600"
+  const iconClass = "w-6 h-6 sm:w-7 sm:h-7"
   
+  const getIconColor = (iconType: string): string => {
+    switch (iconType) {
+      case 'kindergarten': return 'text-pink-600'
+      case 'first-grade': return 'text-blue-600'
+      case 'second-grade': return 'text-green-600'
+      case 'third-grade': return 'text-yellow-600'
+      case 'fourth-grade': return 'text-purple-600'
+      case 'fifth-grade': return 'text-orange-600'
+      case 'multiplication': return 'text-purple-600'
+      case 'times-table': return 'text-indigo-600'
+      case 'fractions': return 'text-cyan-600'
+      case 'operations': return 'text-teal-600'
+      case 'reading': return 'text-emerald-600'
+      case 'certificate': return 'text-yellow-600'
+      case 'tracing': return 'text-pink-600'
+      case 'handwriting': return 'text-blue-600'
+      case 'generator': return 'text-purple-600'
+      case 'printables': return 'text-amber-600'
+      default: return 'text-purple-600'
+    }
+  }
+
   switch (iconType) {
     case 'kindergarten':
       return (
-        <svg className={iconClass} fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <svg className={`${iconClass} ${getIconColor(iconType)}`} fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
         </svg>
       )
     case 'first-grade':
+      return (
+        <svg className={`${iconClass} ${getIconColor(iconType)}`} fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+        </svg>
+      )
     case 'second-grade':
+      return (
+        <svg className={`${iconClass} ${getIconColor(iconType)}`} fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+        </svg>
+      )
     case 'third-grade':
+      return (
+        <svg className={`${iconClass} ${getIconColor(iconType)}`} fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+        </svg>
+      )
     case 'fourth-grade':
+      return (
+        <svg className={`${iconClass} ${getIconColor(iconType)}`} fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+        </svg>
+      )
     case 'fifth-grade':
       return (
-        <svg className={iconClass} fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <svg className={`${iconClass} ${getIconColor(iconType)}`} fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
         </svg>
       )
     case 'multiplication':
       return (
-        <svg className={iconClass} fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <svg className={`${iconClass} ${getIconColor(iconType)}`} fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
         </svg>
       )
     case 'times-table':
       return (
-        <svg className={iconClass} fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <svg className={`${iconClass} ${getIconColor(iconType)}`} fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 5a1 1 0 011-1h14a1 1 0 011 1v2a1 1 0 01-1 1H5a1 1 0 01-1-1V5zM4 13a1 1 0 011-1h6a1 1 0 011 1v6a1 1 0 01-1 1H5a1 1 0 01-1-1v-6zM16 13a1 1 0 011-1h2a1 1 0 011 1v6a1 1 0 01-1 1h-2a1 1 0 01-1-1v-6z" />
         </svg>
       )
     case 'fractions':
       return (
-        <svg className={iconClass} fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <svg className={`${iconClass} ${getIconColor(iconType)}`} fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M7 20l4-16m2 16l4-16M6 9h14M4 15h14" />
         </svg>
       )
     case 'operations':
       return (
-        <svg className={iconClass} fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <svg className={`${iconClass} ${getIconColor(iconType)}`} fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 7h6m0 10v-3m-3 3h.01M9 17h.01M9 14h.01M12 14h.01M15 11h.01M12 11h.01M9 11h.01M7 21h10a2 2 0 002-2V5a2 2 0 00-2-2H7a2 2 0 00-2 2v14a2 2 0 002 2z" />
         </svg>
       )
     case 'reading':
       return (
-        <svg className={iconClass} fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <svg className={`${iconClass} ${getIconColor(iconType)}`} fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
         </svg>
       )
     case 'certificate':
       return (
-        <svg className={iconClass} fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <svg className={`${iconClass} ${getIconColor(iconType)}`} fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z" />
         </svg>
       )
     case 'tracing':
       return (
-        <svg className={iconClass} fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <svg className={`${iconClass} ${getIconColor(iconType)}`} fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z" />
         </svg>
       )
     case 'handwriting':
       return (
-        <svg className={iconClass} fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <svg className={`${iconClass} ${getIconColor(iconType)}`} fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z" />
         </svg>
       )
     case 'generator':
       return (
-        <svg className={iconClass} fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <svg className={`${iconClass} ${getIconColor(iconType)}`} fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4v16m8-8H4" />
         </svg>
       )
     case 'printables':
       return (
-        <svg className={iconClass} fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <svg className={`${iconClass} ${getIconColor(iconType)}`} fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 9V2h12v7M6 18H5a3 3 0 01-3-3v-2a3 3 0 013-3h14a3 3 0 013 3v2a3 3 0 01-3 3h-1M6 18h12M6 18v-4m12 4v-4" />
         </svg>
       )
     default:
       return (
-        <svg className={iconClass} fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <svg className={`${iconClass} ${getIconColor(iconType)}`} fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
         </svg>
       )
