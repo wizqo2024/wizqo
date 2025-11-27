@@ -126,9 +126,10 @@ export function UnifiedNavigation({ showBackButton = false, onBackClick, current
 
               <div className="relative">
                 <div className="flex items-center">
-                  <a href="/interactive-worksheets-generator" className={`flex items-center space-x-2 px-3 py-2 rounded-md transition-colors whitespace-nowrap ${(() => {
-                    // Only show active on interactive-worksheets-generator, not on specific worksheet pages
-                    return currentPage === 'interactive-worksheets-generator' || 
+                  <a href="/worksheets/all" className={`flex items-center space-x-2 px-3 py-2 rounded-md transition-colors whitespace-nowrap ${(() => {
+                    // Show active on /worksheets/all or interactive-worksheets-generator
+                    const pathname = window.location.pathname;
+                    return pathname === '/worksheets/all' || currentPage === 'interactive-worksheets-generator' || 
                            getIsWorksheetsPageActive();
                   })() ? 'text-purple-600 bg-purple-50' : 'text-slate-600 hover:text-slate-800 hover:bg-slate-100'}`} aria-haspopup="true" aria-expanded={showWorksheetsMenu}>
                     <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -314,6 +315,15 @@ export function UnifiedNavigation({ showBackButton = false, onBackClick, current
                       <div className="px-2 py-1.5 mb-2">
                         <span className="text-xs uppercase tracking-wide text-slate-500 font-semibold border-b border-slate-200 pb-1.5 inline-block">Worksheets & Quick Packs</span>
                       </div>
+                      <a href="/interactive-worksheets-generator" className="flex items-center gap-2 px-2 py-1.5 rounded-lg text-slate-700 hover:bg-slate-50 transition-colors">
+                        <svg className="w-4 h-4 text-slate-500 flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                          <path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6" />
+                        </svg>
+                        <div className="min-w-0 flex-1">
+                          <div className="text-xs font-semibold text-slate-800 whitespace-nowrap">Interactive Worksheets Generator</div>
+                          <div className="text-[10px] text-slate-600 truncate">Create custom worksheets instantly</div>
+                        </div>
+                      </a>
                       <a href="/printables" className="flex items-center gap-2 px-2 py-1.5 rounded-lg text-slate-700 hover:bg-slate-50 transition-colors">
                         <svg className="w-4 h-4 text-slate-500 flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                           <path d="M6 9V2h12v7" />
