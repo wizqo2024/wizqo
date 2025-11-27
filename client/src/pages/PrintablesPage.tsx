@@ -231,7 +231,8 @@ function WorksheetSectionWrapper({
   children,
   problemCount,
   learningObjectives,
-  parentTeacherTips
+  parentTeacherTips,
+  hideDefaultHeader = false
 }: { 
   docId: string
   title: string
@@ -241,6 +242,7 @@ function WorksheetSectionWrapper({
   problemCount?: number
   learningObjectives?: string[]
   parentTeacherTips?: string[]
+  hideDefaultHeader?: boolean
 }) {
   const { t, isRTL, language } = useTranslation()
   const theme = getWorksheetTheme(docId)
@@ -311,7 +313,7 @@ function WorksheetSectionWrapper({
           marginTop: 0
         } as React.CSSProperties}
       >
-        <WorksheetHeader problemCount={problemCount} />
+        {!hideDefaultHeader && <WorksheetHeader problemCount={problemCount} />}
         <h2 
           className={`text-xl font-bold ${theme.text} mb-2 flex items-center gap-2`}
           style={{ 
@@ -10492,6 +10494,7 @@ export function PrintablesPage() {
             emoji="📖"
             description="Short passage with comprehension questions. Read carefully and answer in full sentences."
             problemCount={4}
+            hideDefaultHeader={true}
             learningObjectives={[
               'Read and understand a short story',
               'Answer comprehension questions about the text',

@@ -944,14 +944,37 @@ html {
   
   /* Optional Footer Component */
   .worksheet-footer-optional {
-    margin-top: 40px !important;
     padding-top: 12px !important;
     border-top: 1px solid #e2e8f0 !important;
     text-align: center !important;
     font-size: 10pt !important;
     color: #666 !important;
-    page-break-before: avoid !important;
-    break-before: avoid !important;
+    page-break-before: auto !important;
+    break-before: auto !important;
+    margin-top: 60px !important;
+  }
+  
+  /* Ensure footer appears at bottom of last page in print */
+  @media print {
+    /* Make the content container a flex column to push footer down */
+    .worksheet-section .relative {
+      display: flex !important;
+      flex-direction: column !important;
+    }
+    
+    /* All content except footer should not grow */
+    .worksheet-section .relative > *:not(.worksheet-footer-optional) {
+      flex: 0 0 auto !important;
+    }
+    
+    /* Footer should be pushed to bottom and stay on last page */
+    .worksheet-section .worksheet-footer-optional {
+      margin-top: auto !important;
+      margin-bottom: 0 !important;
+      padding-bottom: 0.5in !important;
+      page-break-inside: avoid !important;
+      break-inside: avoid !important;
+    }
   }
   
   /* Problem Box Component */

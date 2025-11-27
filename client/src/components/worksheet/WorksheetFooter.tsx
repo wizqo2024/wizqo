@@ -37,7 +37,9 @@ export function WorksheetFooter({
         textAlign: 'center',
         fontSize: '10pt',
         color: '#666',
-        lineHeight: '1.5'
+        lineHeight: '1.5',
+        pageBreakBefore: 'auto',
+        breakBefore: 'auto'
       }}
     >
       <div style={{ marginBottom: '4px' }}>
