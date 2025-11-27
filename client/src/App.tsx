@@ -34,6 +34,7 @@ import TimesTableMultiplicationWorksheetsPage from './pages/TimesTableMultiplica
 import FractionsToDecimalsWorksheetsPage from './pages/FractionsToDecimalsWorksheetsPage';
 import OrderOfOperationsWorksheetsPage from './pages/OrderOfOperationsWorksheetsPage';
 import WorksheetPage from './pages/WorksheetPage';
+import AllWorksheetsPage from './pages/AllWorksheetsPage';
 import { ErrorBoundary } from './components/ErrorBoundary';
 import { initAnalytics, trackPageView, trackUserFlow } from './utils/analytics';
 import { TranslationProvider } from './context/TranslationContext';
@@ -509,6 +510,16 @@ export default function App() {
                 </>
               );
             case 'worksheets':
+              // All worksheets master page
+              if (routeSubKey === 'all') {
+                const canonical = addLocaleToPath('/worksheets/all', currentLocale);
+                return (
+                  <>
+                    <AllWorksheetsPage />
+                  </>
+                );
+              }
+              
               // Check if this is an individual worksheet page (slug-based)
               // First, check if it's NOT a category page
               const categoryPages = [
@@ -523,7 +534,8 @@ export default function App() {
                 'kindergarten-math-worksheets',
                 '3rd-grade-math-worksheets',
                 '4th-grade-math-worksheets',
-                '5th-grade-math-worksheets'
+                '5th-grade-math-worksheets',
+                'all'
               ];
               
               if (routeSubKey && !categoryPages.includes(routeSubKey)) {
