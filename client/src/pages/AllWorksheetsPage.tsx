@@ -8,7 +8,7 @@ interface CategoryCard {
   title: string
   description: string
   href: string
-  emoji: string
+  iconType: string
   gradeRange?: string
   badge?: string
 }
@@ -22,7 +22,7 @@ export default function AllWorksheetsPage() {
       title: 'Kindergarten Math Worksheets',
       description: 'Counting, shapes, patterns free PDF',
       href: '/worksheets/kindergarten-math-worksheets',
-      emoji: '🎨',
+      iconType: 'kindergarten',
       gradeRange: 'Kindergarten',
       badge: 'Early Learning'
     },
@@ -30,7 +30,7 @@ export default function AllWorksheetsPage() {
       title: '1st Grade Math Worksheets',
       description: 'Ten-frames, add/sub free PDF',
       href: '/worksheets/1st-grade-math-worksheets',
-      emoji: '🌟',
+      iconType: 'first-grade',
       gradeRange: '1st Grade',
       badge: 'Foundations'
     },
@@ -38,7 +38,7 @@ export default function AllWorksheetsPage() {
       title: '2nd Grade Math Worksheets',
       description: 'Place value, add/sub free PDF',
       href: '/worksheets/2nd-grade-math-worksheets',
-      emoji: '🚀',
+      iconType: 'second-grade',
       gradeRange: '2nd Grade',
       badge: 'Building Skills'
     },
@@ -46,7 +46,7 @@ export default function AllWorksheetsPage() {
       title: '3rd Grade Math Worksheets',
       description: 'Fractions, division, word problems free PDF',
       href: '/worksheets/3rd-grade-math-worksheets',
-      emoji: '💪',
+      iconType: 'third-grade',
       gradeRange: '3rd Grade',
       badge: 'Growing Strong'
     },
@@ -54,7 +54,7 @@ export default function AllWorksheetsPage() {
       title: '4th Grade Math Worksheets',
       description: 'Decimals, geometry, measurement free PDF',
       href: '/worksheets/4th-grade-math-worksheets',
-      emoji: '🎯',
+      iconType: 'fourth-grade',
       gradeRange: '4th Grade',
       badge: 'Mastering Concepts'
     },
@@ -62,7 +62,7 @@ export default function AllWorksheetsPage() {
       title: '5th Grade Math Worksheets',
       description: 'Algebra, advanced operations free PDF',
       href: '/worksheets/5th-grade-math-worksheets',
-      emoji: '🏆',
+      iconType: 'fifth-grade',
       gradeRange: '5th Grade',
       badge: 'Advanced'
     },
@@ -71,7 +71,7 @@ export default function AllWorksheetsPage() {
       title: 'Multiplication Worksheets',
       description: '2nd-5th grade free PDF',
       href: '/worksheets/multiplication-worksheets',
-      emoji: '✖️',
+      iconType: 'multiplication',
       gradeRange: '2nd-5th',
       badge: 'Popular'
     },
@@ -79,7 +79,7 @@ export default function AllWorksheetsPage() {
       title: 'Times Table Multiplication Worksheets',
       description: '1-12 tables, confidence building free PDF',
       href: '/worksheets/times-table-multiplication-worksheets',
-      emoji: '📊',
+      iconType: 'times-table',
       gradeRange: '1st-5th',
       badge: 'Essential'
     },
@@ -88,7 +88,7 @@ export default function AllWorksheetsPage() {
       title: 'Converting Fractions to Decimals Worksheets',
       description: '3rd-5th grade free PDF',
       href: '/worksheets/fractions-to-decimals-worksheets',
-      emoji: '🔢',
+      iconType: 'fractions',
       gradeRange: '3rd-5th',
       badge: 'Specialized'
     },
@@ -96,7 +96,7 @@ export default function AllWorksheetsPage() {
       title: 'Order of Operations Worksheets (PEMDAS)',
       description: '4th-6th grade free PDF',
       href: '/worksheets/order-of-operations-worksheets',
-      emoji: '🧮',
+      iconType: 'operations',
       gradeRange: '4th-6th',
       badge: 'Advanced'
     },
@@ -105,7 +105,7 @@ export default function AllWorksheetsPage() {
       title: 'Reading Comprehension Worksheets',
       description: 'G1-G3 passages free PDF',
       href: '/worksheets/reading-comprehension',
-      emoji: '📚',
+      iconType: 'reading',
       gradeRange: '1st-3rd',
       badge: 'Language Arts'
     },
@@ -114,21 +114,21 @@ export default function AllWorksheetsPage() {
       title: 'Certificate Maker',
       description: 'Editable name/date',
       href: '/printables/certificate-maker',
-      emoji: '🏅',
+      iconType: 'certificate',
       badge: 'Create Something Magical'
     },
     {
       title: 'Name Tracing',
       description: 'Personalized sheets',
       href: '/printables/name-tracing-generator',
-      emoji: '✍️',
+      iconType: 'tracing',
       badge: 'Create Something Magical'
     },
     {
       title: 'Handwriting Maker',
       description: 'Letters, words, sentences',
       href: '/worksheets/handwriting-worksheet-maker',
-      emoji: '🖋️',
+      iconType: 'handwriting',
       badge: 'Create Something Magical'
     },
     // Quick Access
@@ -136,14 +136,14 @@ export default function AllWorksheetsPage() {
       title: 'Interactive Worksheets Generator',
       description: 'Create custom worksheets instantly',
       href: '/interactive-worksheets-generator',
-      emoji: '✨',
+      iconType: 'generator',
       badge: 'Worksheets & Quick Packs'
     },
     {
       title: 'Printables',
       description: 'Puzzles, coloring, packs',
       href: '/printables',
-      emoji: '🎁',
+      iconType: 'printables',
       badge: 'Worksheets & Quick Packs'
     }
   ]
@@ -179,12 +179,20 @@ export default function AllWorksheetsPage() {
       
       <main>
         {/* Hero Section */}
-        <section className="relative overflow-hidden bg-gradient-to-br from-purple-600 via-pink-500 to-orange-400">
-          <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA2MCA2MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48ZyBmaWxsPSJub25lIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiPjxnIGZpbGw9IiNmZmYiIGZpbGwtb3BhY2l0eT0iMC4xIj48Y2lyY2xlIGN4PSIzMCIgY3k9IjMwIiByPSIyIi8+PC9nPjwvZz48L3N2Zz4=')] opacity-20"></div>
+        <section className="relative overflow-hidden bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900">
+          {/* Animated Background */}
+          <div className="absolute inset-0">
+            <div className="absolute top-0 -left-4 w-72 h-72 bg-purple-500 rounded-full mix-blend-multiply filter blur-xl opacity-20 animate-blob"></div>
+            <div className="absolute top-0 -right-4 w-72 h-72 bg-yellow-500 rounded-full mix-blend-multiply filter blur-xl opacity-20 animate-blob animation-delay-2000"></div>
+            <div className="absolute -bottom-8 left-20 w-72 h-72 bg-pink-500 rounded-full mix-blend-multiply filter blur-xl opacity-20 animate-blob animation-delay-4000"></div>
+          </div>
           <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-16 sm:py-20 lg:py-24">
             <div className="text-center">
-              <div className="inline-flex items-center gap-2 rounded-full bg-white/20 backdrop-blur-sm border border-white/30 text-white px-4 py-2 mb-6 text-sm font-medium">
-                <span className="animate-pulse">✨</span> Every Worksheet You Need, All in One Place
+              <div className="inline-flex items-center gap-2 rounded-full bg-white/10 backdrop-blur-sm border border-white/20 text-white px-4 py-2 mb-6 text-sm font-medium">
+                <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+                  <path fillRule="evenodd" d="M11.3 1.046A1 1 0 0112 2v5h4a1 1 0 01.82 1.573l-7 10A1 1 0 018 18v-5H4a1 1 0 01-.82-1.573l7-10a1 1 0 011.12-.38z" clipRule="evenodd" />
+                </svg>
+                Every Worksheet You Need, All in One Place
               </div>
               <h1 className="text-4xl sm:text-5xl lg:text-6xl font-black text-white mb-6 leading-tight">
                 All Worksheet Categories
@@ -295,7 +303,9 @@ export default function AllWorksheetsPage() {
               href="/interactive-worksheets-generator"
               className="inline-flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-purple-600 to-pink-600 text-white font-semibold rounded-xl hover:from-purple-700 hover:to-pink-700 transition-all shadow-lg hover:shadow-xl transform hover:scale-105"
             >
-              <span>✨</span>
+              <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4v16m8-8H4" />
+              </svg>
               Create Custom Worksheets
             </a>
           </div>
@@ -321,10 +331,10 @@ function CategoryCard({ category }: { category: CategoryCard }) {
         </span>
       )}
       
-      {/* Emoji & Title */}
+      {/* Icon & Title */}
       <div className="flex items-start gap-4 mb-3">
-        <div className="text-4xl sm:text-5xl flex-shrink-0 group-hover:scale-110 transition-transform duration-300">
-          {category.emoji}
+        <div className="w-12 h-12 sm:w-14 sm:h-14 flex-shrink-0 flex items-center justify-center bg-gradient-to-br from-purple-100 to-pink-100 rounded-xl group-hover:scale-110 transition-transform duration-300">
+          <CategoryIcon iconType={category.iconType} />
         </div>
         <div className="flex-1 min-w-0">
           <h3 className="text-lg sm:text-xl font-bold text-slate-900 mb-2 group-hover:text-purple-600 transition-colors leading-tight">
@@ -358,4 +368,94 @@ function CategoryCard({ category }: { category: CategoryCard }) {
       <div className="absolute inset-0 rounded-2xl bg-gradient-to-br from-purple-50/0 to-pink-50/0 group-hover:from-purple-50/50 group-hover:to-pink-50/50 transition-all duration-300 pointer-events-none"></div>
     </a>
   )
+}
+
+// Category Icon Component
+function CategoryIcon({ iconType }: { iconType: string }) {
+  const iconClass = "w-6 h-6 sm:w-7 sm:h-7 text-purple-600"
+  
+  switch (iconType) {
+    case 'kindergarten':
+      return (
+        <svg className={iconClass} fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
+        </svg>
+      )
+    case 'first-grade':
+    case 'second-grade':
+    case 'third-grade':
+    case 'fourth-grade':
+    case 'fifth-grade':
+      return (
+        <svg className={iconClass} fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+        </svg>
+      )
+    case 'multiplication':
+      return (
+        <svg className={iconClass} fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+        </svg>
+      )
+    case 'times-table':
+      return (
+        <svg className={iconClass} fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 5a1 1 0 011-1h14a1 1 0 011 1v2a1 1 0 01-1 1H5a1 1 0 01-1-1V5zM4 13a1 1 0 011-1h6a1 1 0 011 1v6a1 1 0 01-1 1H5a1 1 0 01-1-1v-6zM16 13a1 1 0 011-1h2a1 1 0 011 1v6a1 1 0 01-1 1h-2a1 1 0 01-1-1v-6z" />
+        </svg>
+      )
+    case 'fractions':
+      return (
+        <svg className={iconClass} fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M7 20l4-16m2 16l4-16M6 9h14M4 15h14" />
+        </svg>
+      )
+    case 'operations':
+      return (
+        <svg className={iconClass} fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 7h6m0 10v-3m-3 3h.01M9 17h.01M9 14h.01M12 14h.01M15 11h.01M12 11h.01M9 11h.01M7 21h10a2 2 0 002-2V5a2 2 0 00-2-2H7a2 2 0 00-2 2v14a2 2 0 002 2z" />
+        </svg>
+      )
+    case 'reading':
+      return (
+        <svg className={iconClass} fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
+        </svg>
+      )
+    case 'certificate':
+      return (
+        <svg className={iconClass} fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z" />
+        </svg>
+      )
+    case 'tracing':
+      return (
+        <svg className={iconClass} fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z" />
+        </svg>
+      )
+    case 'handwriting':
+      return (
+        <svg className={iconClass} fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z" />
+        </svg>
+      )
+    case 'generator':
+      return (
+        <svg className={iconClass} fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4v16m8-8H4" />
+        </svg>
+      )
+    case 'printables':
+      return (
+        <svg className={iconClass} fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 9V2h12v7M6 18H5a3 3 0 01-3-3v-2a3 3 0 013-3h14a3 3 0 013 3v2a3 3 0 01-3 3h-1M6 18h12M6 18v-4m12 4v-4" />
+        </svg>
+      )
+    default:
+      return (
+        <svg className={iconClass} fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+        </svg>
+      )
+  }
 }
