@@ -148,7 +148,7 @@ function cloneForRoute(baseHtml, route, allPosts = [], allRoutes = []) {
     // Remove ALL SEO update scripts (MutationObserver, tryUpdateFallback, etc.)
     workingHtml = workingHtml.replace(/<script[^>]*>[\s\S]*?MutationObserver[\s\S]*?fractions[\s\S]*?<\/script>/gi, '');
     workingHtml = workingHtml.replace(/<script[^>]*>[\s\S]*?tryUpdateFallback[\s\S]*?<\/script>/gi, '');
-    workingHtml = workingHtml.replace(/<script[^>]*>[\s\S]*?Free Math Worksheets for K-5[\s\S]*?<\/script>/gi, '');
+    workingHtml = workingHtml.replace(/<script[^>]*>[\s\S]*?Free Worksheets for Kids \(K-5\)[\s\S]*?<\/script>/gi, '');
     workingHtml = workingHtml.replace(/<script[^>]*>[\s\S]*?updateFractionsToDecimalsSEO[\s\S]*?<\/script>/gi, '');
     workingHtml = workingHtml.replace(/<script[^>]*>[\s\S]*?updateSEOFallback[\s\S]*?<\/script>/gi, '');
     // Remove the entire client-side SEO update script block (the one that checks for fractions/order-of-operations)
@@ -650,8 +650,8 @@ function main() {
   // Homepage - MUST be first
   routes.push({ 
     path: '/', 
-    title: 'Free Math Worksheets for K-5 | Multiplication & More | Wizqo', 
-    description: "Free PDF math and multiplication worksheets for Kindergarten to 5th grade. Download kindergarten math worksheets instantly – boost confidence!",
+    title: 'Free Worksheets for Kids (K-5) | Math, Reading & More | Wizqo', 
+    description: "Download free printable worksheets for kids (K-5). Math, reading, writing, tracing, and multiplication worksheets with answer keys—100% free, ready to print.",
     ogImage: `${SITE}/og-image.jpg`
   });
   // Generate route (AI Learning Plan Generator)

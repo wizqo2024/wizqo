@@ -912,7 +912,7 @@ export const en = {
   home: {
     hero: {
       badge: 'Free • Printable • Answer Keys Included',
-      headline: 'Free Math Worksheets for K-5 | Multiplication & More',
+      headline: 'Free Worksheets for Kids (K-5) | Math, Reading & More',
       subheading: 'Create unlimited free printable worksheets for math, reading, writing, science, and more. Download PDFs instantly with answer keys included. Perfect for teachers, parents, and homeschoolers. No sign-up required — start generating worksheets for kindergarten through 5th grade right away!',
       ctaMultiplication: 'Multiplication Worksheets',
       ctaBrowse: 'Browse All Worksheets',
