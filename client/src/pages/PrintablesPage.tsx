@@ -6,6 +6,7 @@ import InteractiveBundleSections from '@/components/InteractiveBundleSections'
 import { PRINTABLE_BUNDLE_SECTIONS, getPrintableSectionForDoc } from '@/data/printableBundles'
 import { INTERACTIVE_CATEGORIES } from '@shared/interactive/interactiveWorksheets'
 import { formatNumber } from '@/utils/numbers'
+import { WorksheetHeader, WorksheetFooter, ProblemBox } from '@/components/worksheet'
 import { 
   trackWorksheetDownload, 
   trackWorksheetView, 
@@ -10505,6 +10506,12 @@ export function PrintablesPage() {
               'Extension: Discuss gardening and patience with your child'
             ]}
           >
+            {/* ============================================
+                OPTIONAL HEADER - Shows at TOP of worksheet
+                Toggle: enabled={true} to show, enabled={false} to hide
+                ============================================ */}
+            <WorksheetHeader enabled={true} showScore={true} />
+            
             <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-green-400 to-emerald-400 animate-gradient-x mb-2" />
             {/* Worked Example */}
             <div className="mb-6 p-4 bg-green-50 border-2 border-green-200 rounded-lg print:border print:bg-white">
@@ -10520,7 +10527,12 @@ export function PrintablesPage() {
                 </div>
               </div>
             </div>
-            <div className="bg-white border border-slate-300 rounded p-4 break-inside-avoid" style={{ pageBreakAfter: 'auto' }}>
+            {/* ============================================
+                OPTIONAL PROBLEM BOX - Wraps the passage & questions
+                Toggle: enabled={true} to show box, enabled={false} to hide box
+                Variants: "default" | "highlight" | "minimal"
+                ============================================ */}
+            <ProblemBox enabled={true} variant="default">
               <p className="text-slate-800 text-base leading-relaxed">Mia found a small packet of seeds in her garden. The packet said "Magic Seeds" on it. She planted them in a sunny spot and watered them every day. After one week, tiny green sprouts appeared. Two weeks later, beautiful flowers bloomed in red, yellow, and purple. Mia smiled and said, "These really are magic seeds!"</p>
               <ol className="list-decimal list-inside mt-4 text-slate-800 text-base space-y-2">
                 <li>What did Mia find in the garden?</li>
@@ -10528,7 +10540,7 @@ export function PrintablesPage() {
                 <li>What happened after one week?</li>
                 <li>What colors were the flowers?</li>
               </ol>
-            </div>
+            </ProblemBox>
             {/* Extension/Challenge Problems */}
             <div className="mt-6 print:mt-0 p-4 bg-purple-50 border-2 border-purple-200 rounded print:bg-white print:border" style={{ pageBreakBefore: 'always', pageBreakInside: 'avoid' }}>
               <div className="font-semibold text-purple-900 mb-3 text-sm">🌟 {getTrans('common.challengeYourself', 'Challenge Yourself (Optional):')}</div>
