@@ -232,7 +232,8 @@ function WorksheetSectionWrapper({
   problemCount,
   learningObjectives,
   parentTeacherTips,
-  hideDefaultHeader = false
+  hideDefaultHeader = false,
+  footer
 }: { 
   docId: string
   title: string
@@ -243,6 +244,7 @@ function WorksheetSectionWrapper({
   learningObjectives?: string[]
   parentTeacherTips?: string[]
   hideDefaultHeader?: boolean
+  footer?: ReactNode
 }) {
   const { t, isRTL, language } = useTranslation()
   const theme = getWorksheetTheme(docId)
@@ -350,6 +352,8 @@ function WorksheetSectionWrapper({
             <ParentTeacherTips tips={translatedTips} />
           </div>
         )}
+        {/* Footer - Always rendered last, after ParentTeacherTips */}
+        {footer}
       </div>
     </section>
   )
@@ -10508,6 +10512,14 @@ export function PrintablesPage() {
               'Help identify key words in the questions that match the passage',
               'Extension: Discuss gardening and patience with your child'
             ]}
+            footer={
+              /* ============================================
+                  OPTIONAL FOOTER - Shows at BOTTOM of worksheet
+                  Toggle: enabled={true} to show, enabled={false} to hide
+                  Shows: www.wizqo.com, copyright, page numbers
+                  ============================================ */
+              <WorksheetFooter enabled={true} showCopyright={true} />
+            }
           >
             {/* ============================================
                 OPTIONAL HEADER - Shows at TOP of worksheet
@@ -10580,13 +10592,6 @@ export function PrintablesPage() {
                 <div className="text-xs text-emerald-700 mt-3">💡 Remember: Always look back at the passage to find the answers. The information is in the text!</div>
               </div>
             ))}
-            
-            {/* ============================================
-                OPTIONAL FOOTER - Shows at BOTTOM of worksheet
-                Toggle: enabled={true} to show, enabled={false} to hide
-                Shows: www.wizqo.com, copyright, page numbers
-                ============================================ */}
-            <WorksheetFooter enabled={true} showCopyright={true} />
           </WorksheetSectionWrapper>
         )}
         {activeDocs.includes('reading-g3-school-play') && (
