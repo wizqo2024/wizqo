@@ -3589,10 +3589,6 @@ export const en = {
       title: 'Reset Your Password',
       subtitle: 'Reset your Wizqo account password securely and continue accessing free printable worksheets and learning resources.',
     },
-    dashboard: {
-      title: 'Your Learning Dashboard',
-      subtitle: 'Track your learning progress, manage your plans, and access your personalized educational resources and worksheets.',
-    },
   },
   worksheetDocs: {
     'addition-subtraction-0-10': {
