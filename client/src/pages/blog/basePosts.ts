@@ -723,7 +723,8 @@ Stop waiting for motivation to magically appear. Let Wizqo build your free 7-day
     readTime: "4 min read",
     category: "Mental Wellness",
     imageUrl: "https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?auto=format&fit=crop&w=1600&q=80",
-    imageAlt: "Notebook and pen for micro journaling"
+    imageAlt: "Notebook and pen for micro journaling",
+    keywords: "micro journaling, micro journaling 2025, 5 minute journaling, quick journaling habit, daily journaling prompts, mental clarity journaling, journaling for stress relief, micro journaling benefits, AI journaling prompts, journaling habit building, mindfulness journaling, emotional wellness journaling, journaling for beginners"
   },
   {
     id: "easy-watercolor-paintings",
