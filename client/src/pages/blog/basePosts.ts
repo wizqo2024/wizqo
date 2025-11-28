@@ -715,64 +715,9 @@ Stop waiting for motivation to magically appear. Let Wizqo build your free 7-day
   },
   {
     id: "micro-journaling-habit",
-    title: "Micro Journaling: The 5-Minute Habit That's Changing Lives in 2025",
-    excerpt: "Too busy to journal? Discover how micro journaling—just 5 minutes a day—can boost your mental clarity, reduce stress, and improve focus with AI-powered prompts.",
-    content: `Too busy to journal? You're not alone.
-
-In 2025, the world moves fast—so fast, we barely stop to think. But what if we told you that just 5 minutes of "micro journaling" could help you:
-• Feel calmer
-• Reduce decision fatigue
-• Understand your emotions
-• And even unlock creativity?
-
-This isn't the bulky "dear diary" you tried in school. This is modern. Light. Digital. And it fits into the life you actually live.
-
-What Is Micro Journaling?
-
-Micro journaling is the habit of writing short reflections—just 1 to 5 sentences—every day. Instead of pouring out your soul for an hour, you ask yourself one meaningful question. You answer in under 2 minutes. You move on—with more clarity.
-
-It's a micro habit that's exploding in popularity because it's:
-• Low effort – takes 2–5 minutes
-• Low pressure – no long essays or perfect grammar
-• High return – measurable mental clarity and stress relief
-
-Why It Works (Even When You're Burned Out)
-
-According to psychologists, the brain loves short reflection loops. They build emotional regulation, increase self-awareness, and help declutter your mental space.
-
-When you track a mood, name a thought, or celebrate a tiny win—you train your brain to feel safe, focused, and seen. And in 2025, tools like Wizqo let you do this with AI-powered journaling prompts—tailored to your mood and energy level.
-
-5 Micro Journaling Prompts to Try Today
-
-• What's one word to describe how I feel right now?
-• What moment stood out to me today?
-• What's one small thing I want to focus on tomorrow?
-• What am I overthinking right now?
-• What's something I'm quietly proud of?
-
-These take less than 30 seconds each. But over a week, they build mental muscle that lasts.
-
-Bonus: Pair Micro Journaling With AI
-
-Platforms like Wizqo make micro journaling even easier by:
-• Sending you 1 prompt per day based on your habits
-• Tracking your responses and mood over time
-• Helping you build a 7-day mental clarity plan
-
-In just a few minutes a day, you can go from scattered to centered.
-
-Micro Journaling = Micro Wins = Macro Peace
-
-This isn't about becoming a productivity machine or writing a memoir. Micro journaling is about one small win a day:
-• 1 idea captured
-• 1 thought cleared
-• 1 feeling named
-
-It's a tiny anchor in a stormy day. And that's more than enough.
-
-Ready to Try Micro Journaling?
-
-Let AI do the heavy lifting. Get a 7-day guided journaling plan with Wizqo. All you do is answer 1 daily question—no overthinking, no stress.`,
+    title: "Micro Journaling in 2025: 5-Minute Habit That Transforms Your Mind",
+    excerpt: "Discover how micro journaling in just 5 minutes can reduce stress, boost clarity, and change your day. Try emotional prompts, challenges, and a true story.",
+    content: `<MicroJournalingBlog />`,
     author: "Wizqo Team",
     date: "January 2025", 
     readTime: "4 min read",
