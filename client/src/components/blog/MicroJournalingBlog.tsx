@@ -363,37 +363,65 @@ export default function MicroJournalingBlog() {
       </section>
 
       {/* SECTION 6: THE CHALLENGE (PROCESS FLOW) */}
-      <section className="bg-white rounded-2xl shadow-xl p-8 border border-gray-200">
-        <h2 className="text-3xl font-bold text-[#264653] mb-8 text-center">The 48-Hour Challenge</h2>
-        <div className="flex flex-col md:flex-row justify-center items-center md:items-stretch gap-8">
-          <div className="flex-1 bg-gray-50 p-6 rounded-xl border border-gray-200 relative">
-            <div className="absolute -top-4 -left-4 bg-[#264653] text-white w-10 h-10 rounded-full flex items-center justify-center font-bold text-xl shadow">1</div>
-            <h3 className="text-xl font-bold text-[#264653] mb-2 mt-2">Day 1: The Reveal</h3>
-            <p className="text-gray-600 mb-4">Write 1 raw sentence about how you feel.</p>
-            <div className="bg-white p-3 rounded border border-gray-200 italic text-gray-500 text-sm">
+      <section className="bg-white rounded-2xl shadow-xl p-8 md:p-12 border border-gray-200">
+        <h2 className="text-3xl md:text-4xl font-bold text-[#264653] mb-12 text-center">The 48-Hour Challenge</h2>
+        <div className="flex flex-col md:flex-row justify-center items-stretch gap-6 md:gap-8">
+          {/* Step 1 */}
+          <div className="flex-1 bg-gray-50 p-8 md:p-10 rounded-xl border-2 border-gray-200 relative min-h-[280px] flex flex-col">
+            <div className="absolute -top-6 -left-6 bg-[#264653] text-white w-14 h-14 rounded-full flex items-center justify-center font-bold text-2xl shadow-lg z-10">1</div>
+            <h3 className="text-2xl md:text-3xl font-bold text-[#264653] mb-4 mt-4">Day 1: The Reveal</h3>
+            <p className="text-lg text-gray-700 mb-6 leading-relaxed">Write 1 raw sentence about how you feel.</p>
+            <div className="bg-white p-5 rounded-lg border-2 border-gray-200 italic text-gray-600 text-base mb-4 flex-grow flex items-center">
               "I feel overwhelmed by the project deadline..."
             </div>
-            <span className="inline-block mt-4 text-xs font-bold text-[#E76F51] uppercase tracking-wider">No Filters.</span>
+            <span className="inline-block text-sm font-bold text-[#E76F51] uppercase tracking-wider bg-red-50 px-4 py-2 rounded-full w-fit">No Filters.</span>
           </div>
-          <div className="hidden md:flex items-center text-[#2A9D8F] text-4xl">→</div>
-          <div className="md:hidden text-[#2A9D8F] text-4xl rotate-90">→</div>
-          <div className="flex-1 bg-gray-50 p-6 rounded-xl border border-gray-200 relative">
-            <div className="absolute -top-4 -left-4 bg-[#2A9D8F] text-white w-10 h-10 rounded-full flex items-center justify-center font-bold text-xl shadow">2</div>
-            <h3 className="text-xl font-bold text-[#264653] mb-2 mt-2">Day 2: The Shift</h3>
-            <p className="text-gray-600 mb-4">Write 1 sentence about something you're proud you handled.</p>
-            <div className="bg-white p-3 rounded border border-gray-200 italic text-gray-500 text-sm">
+
+          {/* Arrow Desktop */}
+          <div className="hidden md:flex items-center justify-center text-[#2A9D8F] text-5xl font-bold flex-shrink-0">
+            →
+          </div>
+          {/* Arrow Mobile */}
+          <div className="md:hidden flex items-center justify-center text-[#2A9D8F] text-5xl font-bold py-4">
+            ↓
+          </div>
+
+          {/* Step 2 */}
+          <div className="flex-1 bg-gray-50 p-8 md:p-10 rounded-xl border-2 border-gray-200 relative min-h-[280px] flex flex-col">
+            <div className="absolute -top-6 -left-6 bg-[#2A9D8F] text-white w-14 h-14 rounded-full flex items-center justify-center font-bold text-2xl shadow-lg z-10">2</div>
+            <h3 className="text-2xl md:text-3xl font-bold text-[#264653] mb-4 mt-4">Day 2: The Shift</h3>
+            <p className="text-lg text-gray-700 mb-6 leading-relaxed">Write 1 sentence about something you're proud you handled.</p>
+            <div className="bg-white p-5 rounded-lg border-2 border-gray-200 italic text-gray-600 text-base mb-4 flex-grow flex items-center">
               "I kept my cool during that meeting today."
             </div>
-            <span className="inline-block mt-4 text-xs font-bold text-[#2A9D8F] uppercase tracking-wider">Notice the win.</span>
+            <span className="inline-block text-sm font-bold text-[#2A9D8F] uppercase tracking-wider bg-teal-50 px-4 py-2 rounded-full w-fit">Notice the win.</span>
           </div>
-          <div className="hidden md:flex items-center text-[#2A9D8F] text-4xl">→</div>
-          <div className="md:hidden text-[#2A9D8F] text-4xl rotate-90">→</div>
-          <div className="flex-1 bg-[#2A9D8F] p-6 rounded-xl text-white flex flex-col justify-center text-center shadow-lg">
-            <h3 className="text-xl font-bold mb-2">The Result</h3>
-            <ul className="text-sm space-y-2 text-left mx-auto">
-              <li>✨ Better Focus</li>
-              <li>✨ Less Irritability</li>
-              <li>✨ A Quieter Mind</li>
+
+          {/* Arrow Desktop */}
+          <div className="hidden md:flex items-center justify-center text-[#2A9D8F] text-5xl font-bold flex-shrink-0">
+            →
+          </div>
+          {/* Arrow Mobile */}
+          <div className="md:hidden flex items-center justify-center text-[#2A9D8F] text-5xl font-bold py-4">
+            ↓
+          </div>
+
+          {/* Result */}
+          <div className="flex-1 bg-gradient-to-br from-[#2A9D8F] to-[#264653] p-8 md:p-10 rounded-xl text-white flex flex-col justify-center text-center shadow-lg min-h-[280px]">
+            <h3 className="text-2xl md:text-3xl font-bold mb-6">The Result</h3>
+            <ul className="space-y-4 text-left mx-auto text-lg">
+              <li className="flex items-center gap-3">
+                <span className="text-2xl">✨</span>
+                <span>Better Focus</span>
+              </li>
+              <li className="flex items-center gap-3">
+                <span className="text-2xl">✨</span>
+                <span>Less Irritability</span>
+              </li>
+              <li className="flex items-center gap-3">
+                <span className="text-2xl">✨</span>
+                <span>A Quieter Mind</span>
+              </li>
             </ul>
           </div>
         </div>
