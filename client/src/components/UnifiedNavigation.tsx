@@ -111,7 +111,7 @@ export function UnifiedNavigation({ showBackButton = false, onBackClick, current
             {/* Desktop Navigation */}
             <div className="hidden md:flex items-center space-x-6">
               <a href="/" className={`flex items-center space-x-2 px-3 py-2 rounded-md transition-colors ${currentPage === 'home' || currentPage === 'landing' ? 'text-purple-600 bg-purple-50' : 'text-slate-600 hover:text-slate-800 hover:bg-slate-100'}`}>
-                <svg className="w-4 h-4" viewBox="0 0 256 256" xmlns="http://www.w3.org/2000/svg">
+                <svg className="w-5 h-5" viewBox="0 0 256 256" xmlns="http://www.w3.org/2000/svg">
                   <path fill="#72C2E9" d="M252.334 253.197H3.667V83.8L128 2.8l124.334 81z"/>
                   <path fill="#C5E5FE" d="M239.334 242.697H34.684a2.5 2.5 0 1 1 0-5h202.149V90.847a2.5 2.5 0 1 1 5 0v149.351a2.498 2.498 0 0 1-2.499 2.499zm-214.65 0h-8.018a2.5 2.5 0 1 1 0-5h8.018a2.5 2.5 0 1 1 0 5z"/>
                   <circle fill="#FEB69F" cx="72.566" cy="149.895" r="21.155"/>
@@ -528,7 +528,7 @@ export function UnifiedNavigation({ showBackButton = false, onBackClick, current
               }} 
               className={`w-full flex items-center space-x-3 px-3 py-2 rounded-md transition-colors text-left ${currentPage === 'home' || currentPage === 'landing' ? 'text-purple-600 bg-purple-50' : 'text-slate-600 hover:text-slate-800 hover:bg-slate-100'}`}
             >
-              <svg className="w-4 h-4" viewBox="0 0 256 256" xmlns="http://www.w3.org/2000/svg">
+              <svg className="w-5 h-5" viewBox="0 0 256 256" xmlns="http://www.w3.org/2000/svg">
                 <path fill="#72C2E9" d="M252.334 253.197H3.667V83.8L128 2.8l124.334 81z"/>
                 <path fill="#C5E5FE" d="M239.334 242.697H34.684a2.5 2.5 0 1 1 0-5h202.149V90.847a2.5 2.5 0 1 1 5 0v149.351a2.498 2.498 0 0 1-2.499 2.499zm-214.65 0h-8.018a2.5 2.5 0 1 1 0-5h8.018a2.5 2.5 0 1 1 0 5z"/>
                 <circle fill="#FEB69F" cx="72.566" cy="149.895" r="21.155"/>
