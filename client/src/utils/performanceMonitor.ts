@@ -1,3 +1,4 @@
+import { logger } from './logger';
 
 // Performance monitoring utilities for mobile optimization
 export class PerformanceMonitor {
@@ -5,24 +6,24 @@ export class PerformanceMonitor {
   
   static startTiming(label: string): void {
     this.marks.set(label, performance.now());
-    console.log(`⏱️ PERF: Started timing ${label}`);
+    logger.debug(`Performance: Started timing ${label}`);
   }
   
   static endTiming(label: string): number {
     const startTime = this.marks.get(label);
     if (!startTime) {
-      console.warn(`⏱️ PERF: No start time found for ${label}`);
+      logger.warn(`Performance: No start time found for ${label}`);
       return 0;
     }
     
     const duration = performance.now() - startTime;
     this.marks.delete(label);
     
-    console.log(`⏱️ PERF: ${label} took ${duration.toFixed(2)}ms`);
+    logger.debug(`Performance: ${label} took ${duration.toFixed(2)}ms`);
     
     // Log slow operations
     if (duration > 1000) {
-      console.warn(`🐌 PERF: Slow operation detected - ${label} took ${duration.toFixed(2)}ms`);
+      logger.warn(`Performance: Slow operation detected - ${label} took ${duration.toFixed(2)}ms`);
     }
     
     return duration;
@@ -113,22 +114,22 @@ export class PerformanceMonitor {
 // Usage tracking for SEO and analytics
 export class UsageTracker {
   static trackPageView(page: string): void {
-    console.log(`📊 ANALYTICS: Page view - ${page}`);
+    logger.debug(`Analytics: Page view - ${page}`);
     // Add Google Analytics or other tracking here
   }
   
   static trackUserAction(action: string, category: string, label?: string): void {
-    console.log(`📊 ANALYTICS: Action - ${category}/${action}${label ? `/${label}` : ''}`);
+    logger.debug(`Analytics: Action - ${category}/${action}${label ? `/${label}` : ''}`);
     // Add event tracking here
   }
   
   static trackPerformance(metric: string, value: number, unit: string): void {
-    console.log(`📊 ANALYTICS: Performance - ${metric}: ${value}${unit}`);
+    logger.debug(`Analytics: Performance - ${metric}: ${value}${unit}`);
     // Add performance tracking here
   }
   
   static trackError(error: Error, context: string): void {
-    console.error(`📊 ANALYTICS: Error in ${context}:`, error);
+    logger.error(`Analytics: Error in ${context}:`, error);
     // Add error tracking here
   }
 }

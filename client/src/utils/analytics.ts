@@ -1,6 +1,8 @@
 // Analytics utility - loads asynchronously without affecting SEO
 // Only loads after page is interactive
 
+import { logger } from './logger';
+
 declare global {
   interface Window {
     gtag?: (...args: any[]) => void;
@@ -18,7 +20,7 @@ export function initAnalytics() {
   
   // Only load analytics if measurement ID is provided
   if (!GA_MEASUREMENT_ID) {
-    console.log('Analytics: No measurement ID provided, skipping initialization');
+    logger.debug('Analytics: No measurement ID provided, skipping initialization');
     return;
   }
 
@@ -61,7 +63,7 @@ function loadAnalytics() {
     // Track page view
     trackPageView(window.location.pathname);
   } catch (error) {
-    console.error('Analytics initialization error:', error);
+    logger.error('Analytics initialization error:', error);
   }
 }
 

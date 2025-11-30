@@ -220,7 +220,7 @@ export default function App() {
           }
         } catch (err) {
           // If URL parsing fails, let the browser handle it normally
-          console.warn('Navigation intercept error:', err);
+          // Silently fail - navigation will work normally
         }
       }
     };

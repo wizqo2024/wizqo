@@ -17,7 +17,7 @@ export function SEOMetaTags({
   title = "Free Printable Worksheets for Teachers & Kids | Wizqo",
   description = "Download free printable worksheets for math, reading, writing, and more. Generate unlimited worksheets with answer keys for grades K-5. No sign-up required!",
   keywords = "free printable worksheets, printable worksheets for teachers, free math worksheets, reading comprehension worksheets, handwriting worksheets, printable worksheets PDF, worksheets for kids, educational worksheets, free worksheets first grade, printable worksheets with answer keys, multiplication worksheets, 1st grade math worksheets, 2nd grade math worksheets, kindergarten math worksheets",
-  ogImage = "https://wizqo.com/og-image.jpg",
+  ogImage = "https://wizqo.com/favicon.svg",
   canonicalUrl,
   noIndex = false,
   ogType,

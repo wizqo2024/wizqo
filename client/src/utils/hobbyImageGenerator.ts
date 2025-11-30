@@ -1,6 +1,8 @@
 // Automated hobby image generation system
 // This system automatically generates unique, hobby-specific images without manual mapping
 
+import { logger } from './logger';
+
 export interface HobbyImageConfig {
   hobby: string;
   imageUrl: string;
@@ -122,7 +124,7 @@ const generateHobbyImageUrl = (hobby: string, category: string): string => {
 // Main function to get hobby image
 export const getAutomatedHobbyImage = (hobby: string): HobbyImageConfig => {
   if (!hobby || hobby.trim() === '') {
-    console.log('🚨 Empty hobby provided to image generator');
+    logger.warn('Empty hobby provided to image generator');
     return {
       hobby: 'unknown',
       imageUrl: 'https://images.unsplash.com/photo-1434030216411-0b793f4b4173?w=400&h=240&fit=crop',
@@ -138,7 +140,7 @@ export const getAutomatedHobbyImage = (hobby: string): HobbyImageConfig => {
   // Extract keywords for better categorization
   const keywords = normalizedHobby.split(/[\s-]+/).filter(word => word.length > 2);
   
-  console.log(`🎨 AUTO-GENERATED: "${hobby}" -> category: ${category} -> unique image`);
+  logger.debug(`Auto-generated image for hobby: "${hobby}" -> category: ${category}`);
   
   return {
     hobby: normalizedHobby,
@@ -160,13 +162,13 @@ export const getCachedHobbyImage = (hobby: string): HobbyImageConfig => {
   const cacheKey = hobby.toLowerCase().trim();
   
   if (imageCache.has(cacheKey)) {
-    console.log(`🎯 CACHE HIT: "${hobby}" -> using cached image`);
+    logger.debug(`Cache hit for hobby: "${hobby}"`);
     return imageCache.get(cacheKey)!;
   }
   
   const config = getAutomatedHobbyImage(hobby);
   imageCache.set(cacheKey, config);
-  console.log(`💾 CACHE STORE: "${hobby}" -> stored for future use`);
+  logger.debug(`Cached image for hobby: "${hobby}"`);
   
   return config;
 };

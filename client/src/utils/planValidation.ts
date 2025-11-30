@@ -1,6 +1,8 @@
 // Plan validation utilities
 // Extracted from SplitPlanInterface.tsx for better organization
 
+import { logger } from './logger';
+
 // Constants for hobby validation
 const SAFE_HOBBIES = Array.from(new Set([
   'photography','smartphone photography','photo editing','video editing',
@@ -89,11 +91,11 @@ export async function validateHobbyWithAI(input: string): Promise<{ isValid: boo
       const result = await response.json();
       return result;
     } else {
-      console.error(`❌ AI validation failed:`, response.status);
+      logger.error(`AI validation failed:`, response.status);
       return { isValid: false };
     }
   } catch (error) {
-    console.error(`❌ AI validation error:`, error);
+    logger.error(`AI validation error:`, error);
     return { isValid: false };
   }
 }
@@ -227,7 +229,7 @@ export async function validateAndProcessHobby(input: string): Promise<{ isValid:
   // Check if input matches any complex hobby patterns
   for (const [complexHobby, suggestions] of Object.entries(COMPLEX_HOBBY_SUGGESTIONS)) {
     if (normalizedText.includes(complexHobby) || editDistance(normalizedText, complexHobby) <= 2) {
-      console.log(`🎯 Complex hobby detected: "${input}" → suggesting alternatives:`, suggestions);
+      logger.debug(`Complex hobby detected: "${input}" → suggesting alternatives:`, suggestions);
       return { 
         isValid: false, 
         suggestions: suggestions,
@@ -267,7 +269,7 @@ export async function validateAndProcessHobby(input: string): Promise<{ isValid:
         };
       }
     } catch (aiError) {
-      console.error(`❌ AI validation error:`, aiError);
+      logger.error(`AI validation error:`, aiError);
     }
   }
 
