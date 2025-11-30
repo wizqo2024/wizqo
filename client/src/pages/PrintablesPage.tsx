@@ -5370,7 +5370,7 @@ export function PrintablesPage() {
           [data-worksheet-content="true"] > div:first-child,
           .max-w-4xl.mx-auto {
             margin: 0.5in !important;
-            margin-top: 0 !important;
+            margin-top: 0.2in !important;
             padding: 0.3in !important;
             /* Account for left and right margins: 794px (A4 width) - 1in (0.5in * 2) = 698px */
             width: calc(100% - 1in) !important;
