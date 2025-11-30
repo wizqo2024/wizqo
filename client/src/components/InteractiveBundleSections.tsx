@@ -5039,7 +5039,7 @@ const renderers: Record<string, Renderer> = {
     const shapes = pickMany(rng, ['circle', 'square', 'triangle', 'rectangle', 'star', 'heart'], 6)
     
     const renderShapeExample = (shape: string) => {
-      const size = 48
+      const size = 64
       const centerX = size / 2
       const centerY = size / 2
       const strokeColor = '#d1d5db' // gray-300
@@ -5048,38 +5048,38 @@ const renderers: Record<string, Renderer> = {
       switch (shape.toLowerCase()) {
         case 'circle':
           return (
-            <svg width={size} height={size} className="mx-auto">
-              <circle cx={centerX} cy={centerY} r={18} fill="none" stroke={strokeColor} strokeWidth={strokeWidth} />
+            <svg width={size} height={size} className="mx-auto" viewBox="0 0 64 64">
+              <circle cx={centerX} cy={centerY} r={20} fill="none" stroke={strokeColor} strokeWidth={strokeWidth} />
             </svg>
           )
         case 'square':
           return (
-            <svg width={size} height={size} className="mx-auto">
-              <rect x={centerX - 18} y={centerY - 18} width={36} height={36} fill="none" stroke={strokeColor} strokeWidth={strokeWidth} />
+            <svg width={size} height={size} className="mx-auto" viewBox="0 0 64 64">
+              <rect x={centerX - 20} y={centerY - 20} width={40} height={40} fill="none" stroke={strokeColor} strokeWidth={strokeWidth} />
             </svg>
           )
         case 'triangle':
           return (
-            <svg width={size} height={size} className="mx-auto">
-              <polygon points={`${centerX},${centerY - 18} ${centerX - 18},${centerY + 12} ${centerX + 18},${centerY + 12}`} fill="none" stroke={strokeColor} strokeWidth={strokeWidth} />
+            <svg width={size} height={size} className="mx-auto" viewBox="0 0 64 64">
+              <polygon points={`${centerX},${centerY - 18} ${centerX - 20},${centerY + 14} ${centerX + 20},${centerY + 14}`} fill="none" stroke={strokeColor} strokeWidth={strokeWidth} />
             </svg>
           )
         case 'rectangle':
           return (
-            <svg width={size} height={size} className="mx-auto">
-              <rect x={centerX - 20} y={centerY - 14} width={40} height={28} fill="none" stroke={strokeColor} strokeWidth={strokeWidth} />
+            <svg width={size} height={size} className="mx-auto" viewBox="0 0 64 64">
+              <rect x={centerX - 22} y={centerY - 14} width={44} height={28} fill="none" stroke={strokeColor} strokeWidth={strokeWidth} />
             </svg>
           )
         case 'star':
           return (
-            <svg width={size} height={size} className="mx-auto">
-              <path d={`M ${centerX} ${centerY - 18} L ${centerX + 5} ${centerY - 5} L ${centerX + 18} ${centerY - 5} L ${centerX + 7} ${centerY + 3} L ${centerX + 11} ${centerY + 16} L ${centerX} ${centerY + 8} L ${centerX - 11} ${centerY + 16} L ${centerX - 7} ${centerY + 3} L ${centerX - 18} ${centerY - 5} L ${centerX - 5} ${centerY - 5} Z`} fill="none" stroke={strokeColor} strokeWidth={strokeWidth} />
+            <svg width={size} height={size} className="mx-auto" viewBox="0 0 64 64">
+              <path d={`M ${centerX} ${centerY - 20} L ${centerX + 6} ${centerY - 6} L ${centerX + 20} ${centerY - 6} L ${centerX + 8} ${centerY + 2} L ${centerX + 12} ${centerY + 18} L ${centerX} ${centerY + 8} L ${centerX - 12} ${centerY + 18} L ${centerX - 8} ${centerY + 2} L ${centerX - 20} ${centerY - 6} L ${centerX - 6} ${centerY - 6} Z`} fill="none" stroke={strokeColor} strokeWidth={strokeWidth} />
             </svg>
           )
         case 'heart':
           return (
-            <svg width={size} height={size} className="mx-auto">
-              <path d={`M ${centerX} ${centerY + 8} C ${centerX} ${centerY + 2}, ${centerX - 12} ${centerY - 8}, ${centerX - 12} ${centerY - 2} C ${centerX - 12} ${centerY + 2}, ${centerX} ${centerY + 8}, ${centerX} ${centerY + 8} C ${centerX} ${centerY + 8}, ${centerX + 12} ${centerY + 2}, ${centerX + 12} ${centerY - 2} C ${centerX + 12} ${centerY - 8}, ${centerX} ${centerY + 2}, ${centerX} ${centerY + 8} Z`} fill="none" stroke={strokeColor} strokeWidth={strokeWidth} />
+            <svg width={size} height={size} className="mx-auto" viewBox="0 0 64 64">
+              <path d={`M ${centerX},${centerY + 10} C ${centerX - 8},${centerY + 4} ${centerX - 14},${centerY - 4} ${centerX - 8},${centerY - 8} C ${centerX - 5},${centerY - 10} ${centerX - 1},${centerY - 8} ${centerX},${centerY - 4} C ${centerX + 1},${centerY - 8} ${centerX + 5},${centerY - 10} ${centerX + 8},${centerY - 8} C ${centerX + 14},${centerY - 4} ${centerX + 8},${centerY + 4} ${centerX},${centerY + 10} Z`} fill="none" stroke={strokeColor} strokeWidth={strokeWidth} />
             </svg>
           )
         default:
