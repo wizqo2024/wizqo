@@ -5371,7 +5371,7 @@ export function PrintablesPage() {
           .max-w-4xl.mx-auto {
             margin: 0.5in !important;
             margin-top: 0 !important;
-            padding: 0 !important;
+            padding: 0.3in !important;
             /* Account for left and right margins: 794px (A4 width) - 1in (0.5in * 2) = 698px */
             width: calc(100% - 1in) !important;
             max-width: calc(100% - 1in) !important;
@@ -5380,6 +5380,43 @@ export function PrintablesPage() {
             overflow: visible !important;
             background-color: white !important;
             background: white !important;
+            position: relative !important;
+          }
+          /* Colorful kid-friendly border using multiple box-shadows for rainbow effect */
+          [data-worksheet-content="true"] > div:first-child,
+          .max-w-4xl.mx-auto {
+            /* Rainbow border effect - colorful and fun for kids */
+            box-shadow: 
+              /* Pink border */
+              -8px -8px 0 0 #f472b6,
+              8px -8px 0 0 #f472b6,
+              -8px 8px 0 0 #f472b6,
+              8px 8px 0 0 #f472b6,
+              /* Purple border */
+              -6px -6px 0 0 #a78bfa,
+              6px -6px 0 0 #a78bfa,
+              -6px 6px 0 0 #a78bfa,
+              6px 6px 0 0 #a78bfa,
+              /* Blue border */
+              -4px -4px 0 0 #60a5fa,
+              4px -4px 0 0 #60a5fa,
+              -4px 4px 0 0 #60a5fa,
+              4px 4px 0 0 #60a5fa,
+              /* Green border */
+              -2px -2px 0 0 #34d399,
+              2px -2px 0 0 #34d399,
+              -2px 2px 0 0 #34d399,
+              2px 2px 0 0 #34d399,
+              /* Yellow border */
+              0 -10px 0 -2px #fbbf24,
+              0 10px 0 -2px #fbbf24,
+              -10px 0 0 -2px #fbbf24,
+              10px 0 0 -2px #fbbf24,
+              /* Outer glow */
+              0 0 0 10px rgba(251, 191, 36, 0.1),
+              0 0 0 12px rgba(244, 114, 182, 0.1),
+              0 0 0 14px rgba(167, 139, 250, 0.1) !important;
+            border-radius: 12px !important;
           }
           /* Ensure all divs inside worksheet content have white background */
           [data-worksheet-content="true"] > div:first-child > * {
