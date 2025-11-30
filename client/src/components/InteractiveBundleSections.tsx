@@ -1899,9 +1899,10 @@ const renderers: Record<string, Renderer> = {
             <div key={idx} className="rounded-xl border border-purple-200 bg-white p-4">
               <p className="text-sm font-semibold text-slate-700 mb-1">{page.title}</p>
               <p className="text-xs text-slate-600 mb-3">{page.description}</p>
-              <div className="mt-3 min-h-[280px] rounded border-2 border-dashed border-purple-300 bg-white flex items-center justify-center p-4">
+              <div className="mb-2 flex items-center justify-center">
                 <ShapeSVG shape={page.shape} />
               </div>
+              <div className="mt-3 min-h-[280px] rounded border-2 border-dashed border-purple-300 bg-white"></div>
               <p className="mt-2 text-xs text-purple-600 text-center">{t('worksheets.artDesign.colorInsideShape')}</p>
             </div>
           ))}
@@ -1977,9 +1978,10 @@ const renderers: Record<string, Renderer> = {
               <div key={idx} className="rounded-xl border-2 border-slate-200 bg-white p-4 text-center">
                 <p className="text-sm font-semibold text-slate-700 capitalize mb-1">{itemText}</p>
                 <p className="text-xs text-slate-600 mb-2">{t('worksheets.artColorwheel.color')}: <span className="font-semibold capitalize" style={{ color: colorValue }}>{colorText}</span></p>
-                <div className="min-h-[240px] rounded border-2 border-dashed border-slate-300 bg-white flex items-center justify-center my-2 p-4">
+                <div className="mb-2 flex items-center justify-center">
                   <ColorShapeSVG shape={activity.shape} color={colorValue} />
                 </div>
+                <div className="min-h-[240px] rounded border-2 border-dashed border-slate-300 bg-white my-2"></div>
                 <p className="text-xs text-slate-500">{t('worksheets.artColorwheel.colorIt')}</p>
               </div>
             )
@@ -4385,10 +4387,9 @@ const renderers: Record<string, Renderer> = {
                   <p className="text-xs text-blue-600 mb-2 text-center">{t('worksheets.writingTrace.traceTheLetter')}</p>
                   <div className="flex items-center justify-center">
                     <span className="text-4xl text-blue-400 font-light" style={{ fontFamily: 'monospace' }}>{letter}</span>
-                    <div className="ml-2 flex-1 h-10 border-2 border-dashed border-blue-300 bg-white rounded flex items-center justify-center">
-                      <span className="text-xs text-blue-400">{t('worksheets.writingTrace.traceHere')}</span>
-                    </div>
+                    <div className="ml-2 flex-1 h-10 border-2 border-dashed border-blue-300 bg-white rounded"></div>
                   </div>
+                  <p className="mt-1 text-xs text-blue-400 italic text-center">{t('worksheets.writingTrace.traceHere')}</p>
                 </div>
                 <div className="bg-white rounded-lg p-3 border border-blue-200">
                   <p className="text-xs text-blue-600 mb-2 text-center">{t('worksheets.writingTrace.write3Times')}</p>
@@ -5223,12 +5224,11 @@ const renderers: Record<string, Renderer> = {
         <div className="grid gap-4 md:grid-cols-2">
           <div className="rounded-xl border border-pink-200 bg-pink-50 p-4">
             <p className="text-sm font-semibold text-pink-700 mb-2">{t('interactive.interactive-art-mandala.mandalaTemplate')}</p>
-            <div className="h-64 rounded border-2 border-pink-300 bg-white flex items-center justify-center">
-              <div className="text-center">
-                <p className="text-4xl mb-2">⭕</p>
-                <p className="text-xs text-pink-600">{t('interactive.interactive-art-mandala.drawMandalaHere')}</p>
-              </div>
+            <div className="mb-2 flex items-center justify-center">
+              <p className="text-4xl">⭕</p>
             </div>
+            <div className="h-64 rounded border-2 border-pink-300 bg-white"></div>
+            <p className="mt-1 text-xs text-pink-600 italic text-center">{t('interactive.interactive-art-mandala.drawMandalaHere')}</p>
             <p className="mt-2 text-xs text-pink-600">{t('interactive.interactive-art-mandala.startFromCenter')}</p>
           </div>
           <div className="rounded-xl border border-pink-200 bg-pink-50 p-4">
@@ -5266,9 +5266,8 @@ const renderers: Record<string, Renderer> = {
           {prompts.map((prompt, idx) => (
             <div key={idx} className="rounded-xl border border-purple-200 bg-purple-50 p-4">
               <p className="text-sm font-semibold text-purple-700 mb-2">{prompt}</p>
-              <div className="h-40 rounded border-2 border-dashed border-purple-300 bg-white flex items-center justify-center">
-                <p className="text-xs text-purple-500">{t('interactive.interactive-art-doodle.doodleHere')}</p>
-              </div>
+              <div className="h-40 rounded border-2 border-dashed border-purple-300 bg-white"></div>
+              <p className="mt-1 text-xs text-purple-500 italic text-center">{t('interactive.interactive-art-doodle.doodleHere')}</p>
             </div>
           ))}
         </div>
@@ -5302,12 +5301,11 @@ const renderers: Record<string, Renderer> = {
                   <p className="text-sm font-semibold text-green-700">{season.name} {t('interactive.interactive-art-seasonal.coloring')}</p>
                 </div>
                 <p className="text-xs text-green-600 mb-2">{t('interactive.interactive-art-seasonal.themes')} {season.themes.join(', ')}</p>
-                <div className="h-48 rounded border-2 border-green-300 bg-white flex items-center justify-center">
-                  <div className="text-center">
-                    <p className="text-3xl mb-2">{season.emoji}</p>
-                    <p className="text-xs text-green-600">{drawAndColorText}</p>
-                  </div>
+                <div className="mb-2 flex items-center justify-center">
+                  <p className="text-3xl">{season.emoji}</p>
                 </div>
+                <div className="h-48 rounded border-2 border-green-300 bg-white"></div>
+                <p className="mt-1 text-xs text-green-600 italic text-center">{drawAndColorText}</p>
                 <p className="mt-2 text-xs text-green-600 text-center">{useColorsText}</p>
               </div>
             )
@@ -5361,9 +5359,8 @@ const renderers: Record<string, Renderer> = {
         <p className="text-sm text-slate-600">{t('interactive.interactive-art-critique.description')}</p>
         <div className="rounded-xl border border-purple-200 bg-purple-50 p-4">
           <p className="text-sm font-semibold text-purple-700 mb-3">{t('interactive.interactive-art-critique.artworkAnalysis')}</p>
-          <div className="h-48 rounded border-2 border-purple-300 bg-white flex items-center justify-center mb-3">
-            <p className="text-purple-600 text-sm">{t('interactive.interactive-art-critique.artworkImage')}</p>
-          </div>
+          <div className="h-48 rounded border-2 border-purple-300 bg-white mb-3"></div>
+          <p className="mb-3 text-xs text-purple-600 italic text-center">{t('interactive.interactive-art-critique.artworkImage')}</p>
           <div className="space-y-2 text-sm">
             {artElements.map((element, idx) => (
               <div key={idx} className="bg-white rounded border border-purple-200 p-2">
