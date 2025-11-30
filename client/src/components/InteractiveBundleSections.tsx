@@ -4735,9 +4735,8 @@ const renderers: Record<string, Renderer> = {
           {senses.map((sense, idx) => (
             <div key={idx} className="rounded-xl border border-green-200 bg-green-50 p-4">
               <p className="text-sm font-semibold text-green-700 capitalize mb-2">{sense}</p>
-              <div className="mt-2 h-16 rounded border border-green-300 bg-white">
-                <p className="p-2 text-xs text-green-600">Draw something you {senseVerbs[sense]}</p>
-              </div>
+              <div className="mt-2 h-16 rounded border border-green-300 bg-white"></div>
+              <p className="mt-1 text-xs text-green-600 italic">Draw something you {senseVerbs[sense]}</p>
               <p className="mt-2 text-xs text-green-600">What do you {senseVerbs[sense]}? ________________</p>
             </div>
           ))}
@@ -4766,9 +4765,8 @@ const renderers: Record<string, Renderer> = {
         <p className="text-sm text-slate-600">Learn about plants, their parts, and how they grow through simple activities.</p>
         <div className="rounded-xl border border-green-200 bg-green-50 p-4 mb-4">
           <p className="text-sm font-semibold text-green-700 mb-2">Plant Parts</p>
-          <div className="h-32 rounded border border-green-300 bg-white mb-2">
-            <p className="p-2 text-xs text-green-600">Draw a plant and label its parts</p>
-          </div>
+          <div className="h-32 rounded border border-green-300 bg-white mb-2"></div>
+          <p className="mb-2 text-xs text-green-600 italic">Draw a plant and label its parts</p>
           <div className="grid gap-2 md:grid-cols-3">
             {plantParts.map((part, idx) => (
               <div key={idx} className="bg-white rounded border border-green-200 p-2">
@@ -4808,9 +4806,8 @@ const renderers: Record<string, Renderer> = {
           {animals.map((animal, idx) => (
             <div key={idx} className="rounded-xl border border-teal-200 bg-teal-50 p-4">
               <p className="text-sm font-semibold text-teal-700 capitalize mb-2">{animal.name}</p>
-              <div className="mt-2 h-20 rounded border border-teal-300 bg-white mb-2">
-                <p className="p-2 text-xs text-teal-600">Draw a {animal.name}</p>
-              </div>
+              <div className="mt-2 h-20 rounded border border-teal-300 bg-white"></div>
+              <p className="mt-1 text-xs text-teal-600 italic mb-2">Draw a {animal.name}</p>
               <p className="text-xs text-teal-600">Habitat: {animal.habitat}</p>
               <p className="text-xs text-teal-600">Feature: {animal.feature}</p>
               <div className="mt-2 h-8 border border-dashed border-teal-300 bg-white rounded"></div>
