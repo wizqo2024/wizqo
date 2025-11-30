@@ -5388,10 +5388,10 @@ export function PrintablesPage() {
           .max-w-4xl.mx-auto::before {
             content: '' !important;
             position: absolute !important;
-            top: -14px !important;
-            left: -14px !important;
-            right: -14px !important;
-            bottom: -14px !important;
+            top: -16px !important;
+            left: -16px !important;
+            right: -16px !important;
+            bottom: -16px !important;
             background: linear-gradient(
               135deg,
               #f472b6 0%,
@@ -5402,24 +5402,22 @@ export function PrintablesPage() {
               #fb7185 83.33%,
               #f472b6 100%
             ) !important;
-            border-radius: 16px !important;
+            border-radius: 18px !important;
             z-index: -1 !important;
-            padding: 2px !important;
-            background-clip: padding-box !important;
             -webkit-print-color-adjust: exact !important;
             print-color-adjust: exact !important;
           }
-          /* Inner white border to create the frame effect */
+          /* Inner white frame to create the border effect */
           [data-worksheet-content="true"] > div:first-child::after,
           .max-w-4xl.mx-auto::after {
             content: '' !important;
             position: absolute !important;
-            top: -12px !important;
-            left: -12px !important;
-            right: -12px !important;
-            bottom: -12px !important;
+            top: -14px !important;
+            left: -14px !important;
+            right: -14px !important;
+            bottom: -14px !important;
             background: white !important;
-            border-radius: 14px !important;
+            border-radius: 16px !important;
             z-index: -1 !important;
           }
           /* Ensure all divs inside worksheet content have white background */
