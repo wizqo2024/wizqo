@@ -2437,8 +2437,8 @@ const renderers: Record<string, Renderer> = {
         {observations.map((obs, idx) => (
           <div key={idx} className="rounded-xl border border-teal-200 bg-teal-50 p-4">
             <p className="text-sm font-semibold text-teal-700">{obs.topic}</p>
-            <div className="mt-2 h-20 rounded border border-teal-300 bg-white">
-              <p className="p-2 text-xs text-teal-600">{t('worksheets.sciencePrek.drawOrPaste')}</p>
+            <div className="mt-2 h-20 rounded border border-teal-300 bg-white relative flex items-center justify-center">
+              <p className="text-xs text-teal-400 italic pointer-events-none">{t('worksheets.sciencePrek.drawOrPaste')}</p>
             </div>
             <p className="mt-2 text-xs text-teal-700">{obs.question}</p>
             <div className="mt-1 flex flex-wrap gap-2">
