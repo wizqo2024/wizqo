@@ -5367,8 +5367,11 @@ export function PrintablesPage() {
           /* Add padding to content container for proper spacing since @page has no margin */
           /* CRITICAL: This MUST match index.css print styles exactly */
           /* Print layout: @page has margin: 0, but content container has 0.5in left/right margins */
+          /* Colorful border applied to ALL worksheets - comprehensive selectors */
           [data-worksheet-content="true"] > div:first-child,
-          .max-w-4xl.mx-auto {
+          [data-worksheet-content="true"] > div.max-w-4xl,
+          .max-w-4xl.mx-auto,
+          [data-worksheet-content="true"] .max-w-4xl {
             margin: 0.5in !important;
             margin-top: 0.2in !important;
             padding: 0.3in !important;
@@ -5382,7 +5385,7 @@ export function PrintablesPage() {
             background: white !important;
             position: relative !important;
             border-radius: 12px !important;
-            /* Thin colorful decorative border with emoji-style pattern */
+            /* Thin colorful decorative border with emoji-style pattern - applied to ALL worksheets */
             border: 4px solid transparent !important;
             border-image: linear-gradient(
               135deg,
@@ -5397,9 +5400,11 @@ export function PrintablesPage() {
             print-color-adjust: exact !important;
             color-adjust: exact !important;
           }
-          /* Decorative emoji-style border using CSS patterns */
+          /* Decorative emoji-style border using CSS patterns - applied to ALL worksheets */
           [data-worksheet-content="true"] > div:first-child::before,
-          .max-w-4xl.mx-auto::before {
+          [data-worksheet-content="true"] > div.max-w-4xl::before,
+          .max-w-4xl.mx-auto::before,
+          [data-worksheet-content="true"] .max-w-4xl::before {
             content: '' !important;
             position: absolute !important;
             top: -8px !important;
@@ -5423,9 +5428,11 @@ export function PrintablesPage() {
             -webkit-print-color-adjust: exact !important;
             print-color-adjust: exact !important;
           }
-          /* Decorative corner stars/hearts using Unicode characters */
+          /* Decorative emoji stars at top - applied to ALL worksheets */
           [data-worksheet-content="true"] > div:first-child::after,
-          .max-w-4xl.mx-auto::after {
+          [data-worksheet-content="true"] > div.max-w-4xl::after,
+          .max-w-4xl.mx-auto::after,
+          [data-worksheet-content="true"] .max-w-4xl::after {
             content: '⭐ ✨ 💫 🌟' !important;
             position: absolute !important;
             top: -8px !important;
