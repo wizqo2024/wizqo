@@ -2474,9 +2474,8 @@ const renderers: Record<string, Renderer> = {
           {planets.map((planet, idx) => (
             <div key={idx} className="rounded-xl border border-indigo-200 bg-indigo-50 p-4">
               <p className="text-sm font-semibold text-indigo-700">{planet.name}</p>
-              <div className="mt-2 h-16 rounded border border-indigo-300 bg-white">
-                <p className="p-2 text-xs text-indigo-600">{t('worksheets.answerKey.drawPicture')} {planet.name}</p>
-              </div>
+              <div className="mt-2 h-16 rounded border border-indigo-300 bg-white"></div>
+              <p className="mt-1 text-xs text-indigo-600 italic">{t('worksheets.answerKey.drawPicture')} {planet.name}</p>
               <p className="mt-2 text-xs text-indigo-700">{t('worksheets.scienceSpace.fact')} {planet.fact}</p>
               <p className="mt-1 text-xs text-indigo-600">{t('worksheets.scienceSpace.distanceFromSun')} {planet.distance}</p>
             </div>
@@ -2511,9 +2510,8 @@ const renderers: Record<string, Renderer> = {
           <div key={idx} className="rounded-xl border border-amber-200 bg-amber-50 p-4">
             <p className="text-sm font-semibold text-amber-700">{place.name}</p>
             <p className="text-xs text-amber-600">{place.type}</p>
-            <div className="mt-2 h-16 rounded border border-amber-300 bg-white">
-              <p className="p-2 text-xs text-amber-600">{t('worksheets.geographyPrek.drawSimpleMap')}</p>
-            </div>
+            <div className="mt-2 h-16 rounded border border-amber-300 bg-white"></div>
+            <p className="mt-1 text-xs text-amber-600 italic">{t('worksheets.geographyPrek.drawSimpleMap')}</p>
             <div className="mt-2 flex flex-wrap gap-2">
               {place.features.map((feature, featIdx) => (
                 <span key={featIdx} className="rounded border border-amber-300 bg-white px-2 py-1 text-xs text-amber-700">
@@ -2660,9 +2658,8 @@ const renderers: Record<string, Renderer> = {
                   <p className="text-xs text-pink-600">{t('worksheets.selPrek.color')} {t(`common.colors.${feeling.color}`) || feeling.color}</p>
                 </div>
               </div>
-              <div className="mt-2 h-12 rounded border border-dashed border-pink-300 bg-white">
-                <p className="p-2 text-xs text-pink-600">{t('worksheets.selPrek.drawTimeFelt').replace('{{feeling}}', t(`common.feelings.${feeling.feeling}`) || feeling.feeling)}</p>
-              </div>
+              <div className="mt-2 h-12 rounded border border-dashed border-pink-300 bg-white"></div>
+              <p className="mt-1 text-xs text-pink-600 italic">{t('worksheets.selPrek.drawTimeFelt').replace('{{feeling}}', t(`common.feelings.${feeling.feeling}`) || feeling.feeling)}</p>
             </div>
           ))}
         </div>
@@ -3759,9 +3756,8 @@ const renderers: Record<string, Renderer> = {
                   </p>
                 )}
               </div>
-              <div className="h-24 border-2 border-dashed border-purple-300 rounded-xl bg-white/80 flex items-center justify-center">
-                <p className="text-purple-600 text-sm font-semibold">{t('worksheets.multiplication.drawHere')}</p>
-              </div>
+              <div className="h-24 border-2 border-dashed border-purple-300 rounded-xl bg-white/80"></div>
+              <p className="mt-1 text-xs text-purple-600 italic text-center">{t('worksheets.multiplication.drawHere')}</p>
             </div>
           ))}
         </div>
@@ -3929,9 +3925,8 @@ const renderers: Record<string, Renderer> = {
             ))}
           </div>
         </div>
-        <div className="h-48 border border-purple-300 rounded bg-white">
-          <p className="p-2 text-xs text-slate-500">{t('worksheets.graphing.drawHere')}</p>
-        </div>
+        <div className="h-48 border border-purple-300 rounded bg-white"></div>
+        <p className="mt-1 text-xs text-slate-500 italic text-center">{t('worksheets.graphing.drawHere')}</p>
       </div>
     )
   },
@@ -4429,7 +4424,8 @@ const renderers: Record<string, Renderer> = {
           {prompts.map((prompt, idx) => (
             <div key={idx} className="rounded-xl border border-blue-200 bg-blue-50 p-4">
               <p className="text-sm font-semibold text-blue-700 mb-2">{prompt.picture}</p>
-              <div className="mt-2 h-24 rounded border border-dashed border-blue-300 bg-white"><p className="p-2 text-xs text-blue-600">{t('worksheets.writingPictures.drawPicture')}</p></div>
+              <div className="mt-2 h-24 rounded border border-dashed border-blue-300 bg-white"></div>
+              <p className="mt-1 text-xs text-blue-600 italic">{t('worksheets.writingPictures.drawPicture')}</p>
               <p className="mt-2 text-xs text-blue-700">{prompt.question}</p>
               <div className="mt-1 h-12 rounded border border-dashed border-blue-300 bg-white"></div>
               <p className="mt-2 text-xs text-blue-600">{t('worksheets.writingPictures.writeSentence')}</p>
@@ -4829,9 +4825,8 @@ const renderers: Record<string, Renderer> = {
           {seasons.map((season, idx) => (
             <div key={idx} className="rounded-xl border border-amber-200 bg-amber-50 p-4">
               <p className="text-sm font-semibold text-amber-700 capitalize mb-2">{season}</p>
-              <div className="mt-2 h-16 rounded border border-amber-300 bg-white mb-2">
-                <p className="p-2 text-xs text-amber-600">Draw {season} weather</p>
-              </div>
+              <div className="mt-2 h-16 rounded border border-amber-300 bg-white"></div>
+              <p className="mt-1 text-xs text-amber-600 italic mb-2">Draw {season} weather</p>
               <p className="text-xs text-amber-600">Weather: ________________</p>
               <p className="text-xs text-amber-600 mt-1">What do you wear? ________________</p>
             </div>
@@ -4865,9 +4860,8 @@ const renderers: Record<string, Renderer> = {
             <div key={idx} className="rounded-xl border border-amber-200 bg-amber-50 p-4">
               <p className="text-sm font-semibold text-amber-700 mb-1">{place.name}</p>
               <p className="text-xs text-amber-600 mb-2">{place.type}</p>
-              <div className="mt-2 h-16 rounded border border-amber-300 bg-white mb-2">
-                <p className="p-2 text-xs text-amber-600">Draw {place.name}</p>
-              </div>
+              <div className="mt-2 h-16 rounded border border-amber-300 bg-white"></div>
+              <p className="mt-1 text-xs text-amber-600 italic mb-2">Draw {place.name}</p>
               <p className="text-xs text-amber-600">We {place.activity} here.</p>
             </div>
           ))}
@@ -5030,9 +5024,8 @@ const renderers: Record<string, Renderer> = {
           {shapes.map((shape, idx) => (
             <div key={idx} className="rounded-xl border border-pink-200 bg-pink-50 p-4 text-center">
               <p className="text-sm font-semibold text-pink-700 capitalize mb-2">{shape}</p>
-              <div className="h-24 rounded border border-pink-300 bg-white mb-2">
-                <p className="p-2 text-xs text-pink-600">Draw a {shape}</p>
-              </div>
+              <div className="h-24 rounded border border-pink-300 bg-white"></div>
+              <p className="mt-1 text-xs text-pink-600 italic mb-2">Draw a {shape}</p>
               <p className="text-xs text-pink-600">Color it: ________________</p>
             </div>
           ))}
@@ -5040,9 +5033,8 @@ const renderers: Record<string, Renderer> = {
         <div className="rounded-xl border border-pink-200 bg-pink-50 p-4">
           <p className="text-sm font-semibold text-pink-700 mb-2">Create a Picture</p>
           <p className="text-xs text-pink-600 mb-2">Use shapes to draw:</p>
-          <div className="h-32 rounded border border-pink-300 bg-white">
-            <p className="p-2 text-xs text-pink-600">Draw a picture using shapes</p>
-          </div>
+          <div className="h-32 rounded border border-pink-300 bg-white"></div>
+          <p className="mt-1 text-xs text-pink-600 italic">Draw a picture using shapes</p>
         </div>
       </div>
     )
