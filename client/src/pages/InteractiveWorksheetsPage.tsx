@@ -520,6 +520,23 @@ function getFAQItems(t: (key: string) => string) {
 
 function useFaqSchema(t: (key: string) => string) {
   React.useEffect(() => {
+    // Remove ALL existing FAQPage schemas first to prevent duplicates
+    const allScripts = document.querySelectorAll('script[type="application/ld+json"]')
+    allScripts.forEach((script) => {
+      try {
+        const content = script.textContent
+        if (content) {
+          const parsed = JSON.parse(content)
+          // Remove any FAQPage schemas that aren't ours
+          if (parsed['@type'] === 'FAQPage' && script.id !== FAQ_SCRIPT_ID) {
+            script.remove()
+          }
+        }
+      } catch (e) {
+        // Ignore parse errors
+      }
+    })
+
     const faqItems = getFAQItems(t)
     const faqSchema = {
       '@context': 'https://schema.org',
