@@ -5037,6 +5037,56 @@ const renderers: Record<string, Renderer> = {
     const { seed, doc, variant, t } = ctx
     const rng = makeRng(`${seed}|${doc.id}|${variant}`)
     const shapes = pickMany(rng, ['circle', 'square', 'triangle', 'rectangle', 'star', 'heart'], 6)
+    
+    const renderShapeExample = (shape: string) => {
+      const size = 48
+      const centerX = size / 2
+      const centerY = size / 2
+      const strokeColor = '#d1d5db' // gray-300
+      const strokeWidth = 2
+      
+      switch (shape.toLowerCase()) {
+        case 'circle':
+          return (
+            <svg width={size} height={size} className="mx-auto">
+              <circle cx={centerX} cy={centerY} r={18} fill="none" stroke={strokeColor} strokeWidth={strokeWidth} />
+            </svg>
+          )
+        case 'square':
+          return (
+            <svg width={size} height={size} className="mx-auto">
+              <rect x={centerX - 18} y={centerY - 18} width={36} height={36} fill="none" stroke={strokeColor} strokeWidth={strokeWidth} />
+            </svg>
+          )
+        case 'triangle':
+          return (
+            <svg width={size} height={size} className="mx-auto">
+              <polygon points={`${centerX},${centerY - 18} ${centerX - 18},${centerY + 12} ${centerX + 18},${centerY + 12}`} fill="none" stroke={strokeColor} strokeWidth={strokeWidth} />
+            </svg>
+          )
+        case 'rectangle':
+          return (
+            <svg width={size} height={size} className="mx-auto">
+              <rect x={centerX - 20} y={centerY - 14} width={40} height={28} fill="none" stroke={strokeColor} strokeWidth={strokeWidth} />
+            </svg>
+          )
+        case 'star':
+          return (
+            <svg width={size} height={size} className="mx-auto">
+              <path d={`M ${centerX} ${centerY - 18} L ${centerX + 5} ${centerY - 5} L ${centerX + 18} ${centerY - 5} L ${centerX + 7} ${centerY + 3} L ${centerX + 11} ${centerY + 16} L ${centerX} ${centerY + 8} L ${centerX - 11} ${centerY + 16} L ${centerX - 7} ${centerY + 3} L ${centerX - 18} ${centerY - 5} L ${centerX - 5} ${centerY - 5} Z`} fill="none" stroke={strokeColor} strokeWidth={strokeWidth} />
+            </svg>
+          )
+        case 'heart':
+          return (
+            <svg width={size} height={size} className="mx-auto">
+              <path d={`M ${centerX} ${centerY + 8} C ${centerX} ${centerY + 2}, ${centerX - 12} ${centerY - 8}, ${centerX - 12} ${centerY - 2} C ${centerX - 12} ${centerY + 2}, ${centerX} ${centerY + 8}, ${centerX} ${centerY + 8} C ${centerX} ${centerY + 8}, ${centerX + 12} ${centerY + 2}, ${centerX + 12} ${centerY - 2} C ${centerX + 12} ${centerY - 8}, ${centerX} ${centerY + 2}, ${centerX} ${centerY + 8} Z`} fill="none" stroke={strokeColor} strokeWidth={strokeWidth} />
+            </svg>
+          )
+        default:
+          return null
+      }
+    }
+    
     return (
       <div className="space-y-4">
         <p className="text-sm text-slate-600">Create art using basic shapes. Draw and color shapes to make pictures.</p>
@@ -5044,7 +5094,9 @@ const renderers: Record<string, Renderer> = {
           {shapes.map((shape, idx) => (
             <div key={idx} className="rounded-xl border border-pink-200 bg-pink-50 p-4 text-center">
               <p className="text-sm font-semibold text-pink-700 capitalize mb-2">{shape}</p>
-              <div className="h-24 rounded border border-pink-300 bg-white"></div>
+              <div className="h-24 rounded border border-pink-300 bg-white flex items-center justify-center">
+                {renderShapeExample(shape)}
+              </div>
               <p className="mt-1 text-xs text-pink-600 italic mb-2">Draw a {shape}</p>
               <p className="text-xs text-pink-600">Color it: ________________</p>
             </div>
