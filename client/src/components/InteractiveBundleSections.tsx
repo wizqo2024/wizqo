@@ -5079,7 +5079,7 @@ const renderers: Record<string, Renderer> = {
         case 'heart':
           return (
             <svg width={size} height={size} className="mx-auto" viewBox="0 0 64 64">
-              <path d={`M ${centerX},${centerY + 10} C ${centerX - 8},${centerY + 4} ${centerX - 14},${centerY - 4} ${centerX - 8},${centerY - 8} C ${centerX - 5},${centerY - 10} ${centerX - 1},${centerY - 8} ${centerX},${centerY - 4} C ${centerX + 1},${centerY - 8} ${centerX + 5},${centerY - 10} ${centerX + 8},${centerY - 8} C ${centerX + 14},${centerY - 4} ${centerX + 8},${centerY + 4} ${centerX},${centerY + 10} Z`} fill="none" stroke={strokeColor} strokeWidth={strokeWidth} />
+              <path d={`M ${centerX},${centerY + 12} C ${centerX - 10},${centerY + 6} ${centerX - 16},${centerY - 2} ${centerX - 10},${centerY - 6} C ${centerX - 6},${centerY - 10} ${centerX - 2},${centerY - 8} ${centerX},${centerY - 4} C ${centerX + 2},${centerY - 8} ${centerX + 6},${centerY - 10} ${centerX + 10},${centerY - 6} C ${centerX + 16},${centerY - 2} ${centerX + 10},${centerY + 6} ${centerX},${centerY + 12} Z`} fill="none" stroke={strokeColor} strokeWidth={strokeWidth} />
             </svg>
           )
         default:
