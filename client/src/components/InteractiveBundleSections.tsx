@@ -71,6 +71,7 @@ type RenderContext = {
   language: 'en' | 'es' | 'ar'
   formatNum: (num: number | string) => string
   formatRange: (start: number | string, end: number | string) => string
+  showAnswers?: boolean
 }
 
 type Renderer = (ctx: RenderContext) => React.ReactNode
@@ -4707,7 +4708,7 @@ const renderers: Record<string, Renderer> = {
     )
   },
   'interactive-science-senses': (ctx) => {
-    const { seed, doc, variant, t } = ctx
+    const { seed, doc, variant, t, showAnswers } = ctx
     const rng = makeRng(`${seed}|${doc.id}|${variant}`)
     const senses = ['sight', 'hearing', 'touch', 'taste', 'smell']
     const senseVerbs: Record<string, string> = {
@@ -4743,8 +4744,17 @@ const renderers: Record<string, Renderer> = {
             {objects.map((obj, idx) => (
               <div key={idx} className="bg-white rounded border border-green-200 p-2 flex items-center gap-3">
                 <span className="text-xs text-green-700 font-semibold">{obj.name}:</span>
-                <span className="text-xs text-green-600">{obj.description}</span>
-                <span className="text-xs text-green-600 ml-auto">Sense: {obj.sense}</span>
+                {showAnswers ? (
+                  <>
+                    <span className="text-xs text-green-600">{obj.description}</span>
+                    <span className="text-xs text-green-600 ml-auto">Sense: {obj.sense}</span>
+                  </>
+                ) : (
+                  <>
+                    <span className="text-xs text-green-400 italic flex-1">________________</span>
+                    <span className="text-xs text-green-400 italic">Sense: ________</span>
+                  </>
+                )}
               </div>
             ))}
           </div>
@@ -7873,7 +7883,7 @@ function InteractiveWorksheetSection({
       })()}
       
       <div className="relative z-10">
-        {renderer({ doc, category, seed, variant, t, language, formatNum, formatRange })}
+        {renderer({ doc, category, seed, variant, t, language, formatNum, formatRange, showAnswers })}
       </div>
       
       {/* Challenge Section */}
