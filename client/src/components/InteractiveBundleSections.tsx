@@ -1410,7 +1410,7 @@ const renderers: Record<string, Renderer> = {
     )
   },
   'interactive-science-states': (ctx) => {
-    const { seed, doc, variant, t } = ctx
+    const { seed, doc, variant, t, showAnswers } = ctx
     const rng = makeRng(`${seed}|${doc.id}|${variant}`)
     const scenarios = pickMany(
       rng,
@@ -1441,7 +1441,13 @@ const renderers: Record<string, Renderer> = {
             {scenarios.map((scenario, idx) => (
               <tr key={idx} className="border-t border-slate-200">
                 <td className="px-3 py-2">{scenario.description}</td>
-                <td className="px-3 py-2">{scenario.answer}</td>
+                <td className="px-3 py-2">
+                  {showAnswers ? (
+                    <span className="text-slate-700">{scenario.answer}</span>
+                  ) : (
+                    <span className="text-slate-400 italic">________________</span>
+                  )}
+                </td>
                 <td className="px-3 py-2">
                   <div className="h-12 rounded border border-dashed border-slate-300 bg-white" />
                 </td>
@@ -2715,7 +2721,7 @@ const renderers: Record<string, Renderer> = {
     )
   },
   'interactive-logic-riddles': (ctx) => {
-    const { seed, doc, variant, t } = ctx
+    const { seed, doc, variant, t, showAnswers } = ctx
     const rng = makeRng(`${seed}|${doc.id}|${variant}`)
     const riddles = pickMany(
       rng,
@@ -2739,7 +2745,11 @@ const renderers: Record<string, Renderer> = {
               <p className="font-semibold text-slate-900">Riddle {idx + 1}</p>
               <p>{riddle}</p>
               <p className="mt-2 text-xs text-slate-500">My guess: __________________________</p>
-              <p className="mt-1 text-xs text-slate-500">{t('worksheets.logicRiddles.answer')} {answer}</p>
+              {showAnswers ? (
+                <p className="mt-1 text-xs text-slate-500">{t('worksheets.logicRiddles.answer')} {answer}</p>
+              ) : (
+                <p className="mt-1 text-xs text-slate-400 italic">{t('worksheets.logicRiddles.answer')} ________</p>
+              )}
             </div>
           ))}
         </div>
@@ -5378,7 +5388,7 @@ const renderers: Record<string, Renderer> = {
     )
   },
   'interactive-logic-analogies': (ctx) => {
-    const { seed, doc, variant, t } = ctx
+    const { seed, doc, variant, t, showAnswers } = ctx
     const rng = makeRng(`${seed}|${doc.id}|${variant}`)
     const analogies = pickMany(rng, [
       { first: 'cat', second: 'kitten', third: 'dog', answer: 'puppy' },
@@ -5401,7 +5411,11 @@ const renderers: Record<string, Renderer> = {
                 <span className="text-slate-400">{t('interactive.interactive-logic-analogies.isTo')}</span>
                 <div className="h-8 w-20 border border-dashed border-slate-400 bg-white rounded"></div>
               </div>
-              <p className="text-xs text-slate-600">{t('interactive.interactive-logic-analogies.answer')} {analogy.answer}</p>
+              {showAnswers ? (
+                <p className="text-xs text-slate-600">{t('interactive.interactive-logic-analogies.answer')} {analogy.answer}</p>
+              ) : (
+                <p className="text-xs text-slate-400 italic">{t('interactive.interactive-logic-analogies.answer')} ________</p>
+              )}
             </div>
           ))}
         </div>
