@@ -122,21 +122,6 @@ export default function WorksheetPage({ slug }: WorksheetPageProps) {
             <p className="text-lg text-slate-700 leading-relaxed">{seoData.intro}</p>
           </div>
 
-          {/* Visual Examples Section - Preview of Problem Format */}
-          {seoData.visualExamples && (
-            <div className="bg-gradient-to-r from-blue-50 to-purple-50 border-l-4 border-blue-500 p-6 rounded-lg mb-8">
-              <h2 className="text-xl font-semibold text-slate-900 mb-4">📝 Preview - What's Inside</h2>
-              <div className="bg-white p-5 rounded-lg border border-slate-200 shadow-sm">
-                <pre className="text-sm font-mono text-slate-700 whitespace-pre-wrap leading-relaxed font-normal">
-                  {seoData.visualExamples}
-                </pre>
-              </div>
-              <p className="text-sm text-slate-600 mt-3">
-                <strong>Note:</strong> Each worksheet includes a detailed worked example with step-by-step strategies inside the PDF.
-              </p>
-            </div>
-          )}
-
           {/* Learning Objectives */}
           <div className="bg-blue-50 border-l-4 border-blue-500 p-6 rounded mb-8">
             <h2 className="text-xl font-semibold text-slate-900 mb-4">📚 What You'll Practice</h2>

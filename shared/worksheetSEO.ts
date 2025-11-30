@@ -20,7 +20,6 @@ export interface WorksheetSEO {
   section: string
   learningObjectives: string[]
   relatedDocIds: string[]
-  visualExamples?: string // Visual examples with problems and diagrams
 }
 
 /**
@@ -660,7 +659,6 @@ export function initializeWorksheetSEO() {
       section: category[0] || 'Math',
       learningObjectives: generateLearningObjectives(name, category),
       relatedDocIds: [], // Will be populated based on category/grade
-      visualExamples: generateVisualExamples(docId, name, category),
     }
   }
   
