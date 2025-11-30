@@ -5428,7 +5428,7 @@ export function PrintablesPage() {
           .max-w-4xl.mx-auto::after {
             content: '⭐ ✨ 💫 🌟' !important;
             position: absolute !important;
-            top: -12px !important;
+            top: -8px !important;
             left: 50% !important;
             transform: translateX(-50%) !important;
             font-size: 16px !important;
