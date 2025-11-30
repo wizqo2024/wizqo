@@ -2236,7 +2236,8 @@ const renderers: Record<string, Renderer> = {
               <div className="mt-2 grid grid-cols-3 gap-2">
                 <div className="flex flex-col">
                   <p className="text-xs text-emerald-500">{t('worksheets.earlyNumbers.trace')}</p>
-                  <div className="mt-1 h-12 rounded border border-dashed border-emerald-300 bg-white text-center text-lg font-bold text-emerald-700">{formatNum ? formatNum(num) : num}</div>
+                  <p className="mt-1 text-center text-lg font-bold text-emerald-700">{formatNum ? formatNum(num) : num}</p>
+                  <div className="mt-1 h-12 rounded border border-dashed border-emerald-300 bg-white"></div>
                 </div>
                 <div className="flex flex-col">
                   <p className="text-xs text-emerald-500">{t('worksheets.earlyNumbers.write')}</p>
