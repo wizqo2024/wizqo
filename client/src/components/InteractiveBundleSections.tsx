@@ -5094,9 +5094,10 @@ const renderers: Record<string, Renderer> = {
           {shapes.map((shape, idx) => (
             <div key={idx} className="rounded-xl border border-pink-200 bg-pink-50 p-4 text-center">
               <p className="text-sm font-semibold text-pink-700 capitalize mb-2">{shape}</p>
-              <div className="h-24 rounded border border-pink-300 bg-white flex items-center justify-center">
+              <div className="mb-2 flex items-center justify-center">
                 {renderShapeExample(shape)}
               </div>
+              <div className="h-24 rounded border border-pink-300 bg-white"></div>
               <p className="mt-1 text-xs text-pink-600 italic mb-2">Draw a {shape}</p>
               <p className="text-xs text-pink-600">Color it: ________________</p>
             </div>
