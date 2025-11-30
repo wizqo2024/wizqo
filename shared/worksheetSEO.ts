@@ -20,6 +20,7 @@ export interface WorksheetSEO {
   section: string
   learningObjectives: string[]
   relatedDocIds: string[]
+  visualExamples?: string // Visual examples with problems and diagrams
 }
 
 /**
@@ -276,6 +277,227 @@ function generateLearningObjectives(name: string, category: string[]): string[] 
 }
 
 /**
+ * Generate visual examples based on worksheet type
+ */
+function generateVisualExamples(docId: string, name: string, category: string[]): string {
+  const lowerDocId = docId.toLowerCase()
+  const lowerName = name.toLowerCase()
+  
+  // Multiplication worksheets
+  if (category.includes('multiplication') || lowerDocId.includes('mult')) {
+    if (lowerDocId.includes('array') || lowerDocId.includes('arrays')) {
+      return `📊 Visual Example (Arrays):
+   Array:  ⬛⬛⬛
+           ⬛⬛⬛
+           ⬛⬛⬛
+           
+   This shows: 3 rows × 3 columns = 9
+
+📝 Example Problems:
+   [⬛⬛⬛]     = ? × ? = ?
+   [⬛⬛⬛]
+   [⬛⬛⬛]
+   
+   [⬛⬛⬛⬛]   = 2 × 4 = ?
+   [⬛⬛⬛⬛]`
+    } else if (lowerDocId.includes('times-table') || lowerDocId.includes('facts')) {
+      return `📝 Example Problems:
+   7 × 6 = ?     9 × 4 = ?     12 × 3 = ?
+
+📊 Visual Strategy (Arrays):
+   7 × 6 = 42
+   
+   ⬛⬛⬛⬛⬛⬛
+   ⬛⬛⬛⬛⬛⬛
+   ⬛⬛⬛⬛⬛⬛
+   ⬛⬛⬛⬛⬛⬛
+   ⬛⬛⬛⬛⬛⬛
+   ⬛⬛⬛⬛⬛⬛
+   ⬛⬛⬛⬛⬛⬛
+   
+   7 rows × 6 columns = 42`
+    } else if (lowerDocId.includes('word-problem')) {
+      return `📝 Example Problem:
+   "Sarah has 4 boxes. Each box has 6 apples. 
+   How many apples does Sarah have in total?"
+   
+   Solution:
+   • Draw:  [6] [6] [6] [6]
+   • Count: 6 + 6 + 6 + 6 = 24
+   • Or multiply: 4 × 6 = 24
+   • Answer: 24 apples`
+    }
+  }
+  
+  // Addition/Subtraction worksheets
+  if (category.includes('addition-subtraction') || lowerDocId.includes('add') || lowerDocId.includes('sub')) {
+    if (lowerDocId.includes('2digit') || lowerDocId.includes('regroup')) {
+      return `📝 Example Problems:
+   23 + 45 = ?     67 - 28 = ?
+
+🔢 Step-by-Step (Addition):
+   23 + 45 = ?
+   
+   Step 1: Add ones:     3 + 5 = 8
+   Step 2: Add tens:     20 + 40 = 60
+   Step 3: Combine:      60 + 8 = 68
+   
+   Answer: 68
+
+🔢 Step-by-Step (Subtraction):
+   67 - 28 = ?
+   
+   Step 1: Subtract ones: 7 - 8 (need to regroup)
+   Step 2: Regroup: 60 becomes 50, 7 becomes 17
+   Step 3: Subtract: 17 - 8 = 9, 50 - 20 = 30
+   Step 4: Combine: 30 + 9 = 39
+   
+   Answer: 39`
+    } else {
+      return `📝 Example Problems:
+   8 + 5 = ?     12 + 7 = ?     15 - 4 = ?
+
+🔢 Visual Strategy (Number Line):
+   0---5---10---15---20
+   8 + 5 = 13
+   
+   Or use ten frames:
+   [●●●●●●●●] [●●]  = 8 + 5 = 13
+   [●●●●●] [●●●●●]`
+    }
+  }
+  
+  // Fractions worksheets
+  if (category.includes('fractions') || lowerDocId.includes('fraction')) {
+    return `🍕 Visual Example:
+   Whole Circle:  [████████]
+   
+   Halves:        [████] [████]     = 1/2, 2/2
+   Thirds:        [███] [███] [███] = 1/3, 2/3, 3/3
+   Fourths:       [██] [██] [██] [██] = 1/4, 2/4, 3/4, 4/4
+
+📝 Example Problems:
+   1. Shade 3/4 of the shape
+   2. Which is larger: 1/2 or 1/4?
+   3. Color 2 parts out of 6 parts`
+  }
+  
+  // Place value worksheets
+  if (lowerDocId.includes('place-value') || lowerDocId.includes('expanded')) {
+    return `🔢 Visual Example:
+   Number: 247
+   
+   Hundreds | Tens | Ones
+   ---------|------|-----
+      2     |  4   |  7
+   (200)    | (40) | (7)
+   
+   Expanded form: 200 + 40 + 7 = 247
+
+📝 Example Problems:
+   1. What is the value of 5 in 357?  (Answer: 50)
+   2. Write 482 in expanded form: 400 + 80 + 2
+   3. Which digit is in the tens place in 129?  (Answer: 2)`
+  }
+  
+  // Counting worksheets
+  if (category.includes('counting') || lowerDocId.includes('count')) {
+    return `🔢 Visual Example:
+   Count the objects:
+   
+   ⭐⭐⭐⭐⭐
+   ⭐⭐⭐⭐⭐
+   ⭐⭐⭐
+   
+   Total: 13 stars
+
+📝 Example Problems:
+   1. Count and write: How many circles? ○○○○○○○○
+   2. Count by 2s: 2, 4, 6, 8, __, __
+   3. Count by 5s: 5, 10, 15, __, __`
+  }
+  
+  // Patterns worksheets
+  if (category.includes('patterns') || lowerDocId.includes('pattern')) {
+    return `🔢 Visual Example (AB Pattern):
+   Pattern: ⬛ ⬜ ⬛ ⬜ ⬛ ⬜
+   
+   Continue: ⬛ ⬜ ⬛ ⬜ ⬛ ⬜ __ __
+
+📝 Example Problems:
+   1. Complete the pattern: 🔴 🔵 🔴 🔵 __ __
+   2. What comes next? 2, 4, 6, 8, __, __
+   3. Create your own pattern`
+  }
+  
+  // Word problems
+  if (category.includes('word-problems') || lowerDocId.includes('word-problem')) {
+    return `📝 Example Problem:
+   "Emma has 15 stickers. She gives away 7 stickers. 
+   How many stickers does Emma have left?"
+   
+   Solution:
+   • What we know: Start with 15, give away 7
+   • Operation: Subtraction
+   • Solve: 15 - 7 = 8
+   • Answer: 8 stickers left`
+  }
+  
+  // Decimals worksheets
+  if (category.includes('decimals') || lowerDocId.includes('decimal')) {
+    return `🔢 Visual Example:
+   Decimal: 0.75
+   
+   Ones | Tenths | Hundredths
+   -----|--------|------------
+    0   |   7    |     5
+        | (0.7)  |  (0.05)
+   
+   0.75 = 7/10 + 5/100 = 75/100
+
+📝 Example Problems:
+   1. Write 0.5 as a fraction: 5/10 = 1/2
+   2. Compare: 0.3 ___ 0.30  (Answer: =)
+   3. Add: 0.4 + 0.2 = ?`
+  }
+  
+  // Order of operations (PEMDAS)
+  if (lowerDocId.includes('pemdas') || lowerDocId.includes('order-of-operations')) {
+    return `📝 Example Problem:
+   2 + 3 × 4 = ?
+   
+   Step 1: Multiplication first (PEMDAS)
+           3 × 4 = 12
+   
+   Step 2: Then addition
+           2 + 12 = 14
+   
+   Answer: 14
+
+📝 Another Example:
+   (5 + 3) × 2 = ?
+   
+   Step 1: Parentheses first
+           (5 + 3) = 8
+   
+   Step 2: Then multiplication
+           8 × 2 = 16
+   
+   Answer: 16`
+  }
+  
+  // Default fallback
+  return `📝 Example Problems:
+   This worksheet includes practice problems to help students 
+   master ${name.toLowerCase()} skills.
+   
+   ✨ Students will practice:
+   • Problem-solving
+   • Building confidence
+   • Mastering key concepts`
+}
+
+/**
  * Complete SEO mapping for all 254 worksheets
  * This is a comprehensive mapping - we'll generate the rest programmatically
  */
@@ -387,6 +609,7 @@ export function initializeWorksheetSEO() {
       section: category[0] || 'Math',
       learningObjectives: generateLearningObjectives(name, category),
       relatedDocIds: [], // Will be populated based on category/grade
+      visualExamples: generateVisualExamples(docId, name, category),
     }
   }
   
