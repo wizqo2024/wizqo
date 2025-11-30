@@ -301,19 +301,15 @@ function generateVisualExamples(docId: string, name: string, category: string[])
    [⬛⬛⬛⬛]   = 2 × 4 = ?
    [⬛⬛⬛⬛]`
     } else if (lowerDocId.includes('times-table') || lowerDocId.includes('facts') || lowerDocId === 'mult-facts-0-12' || lowerDocId === 'mult-facts-1-5' || lowerDocId === 'mult-facts-6-12') {
-      return `📝 Example Problems (Worksheet Format):
-     6         7         9
-   × 4      × 6      × 4
-   ----     ----     ----
-     ?        ?        ?
+      return `📝 Preview - Problems in this worksheet:
+     6         7         9         5         8
+   × 4      × 6      × 4      × 3      × 7
+   ----     ----     ----     ----     ----
+     ?        ?        ?        ?        ?
 
-🔢 Strategy Examples:
-   • 6 × 4: Count by 4s: 4, 8, 12, 16, 20, 24
-   • 7 × 6: Use arrays: 7 rows of 6 = 42
-   • 9 × 4: Use doubles: 9 × 2 = 18, so 9 × 4 = 36
-
-✨ This worksheet includes 20 multiplication problems 
-   from 0×0 to 12×12 with answer key included.`
+✨ Includes 20 multiplication problems (0×0 to 12×12)
+   Each worksheet includes a worked example with strategies
+   and a complete answer key.`
     } else if (lowerDocId.includes('word-problem')) {
       return `📝 Example Problem:
    "Sarah has 4 boxes. Each box has 6 apples. 
@@ -331,71 +327,45 @@ function generateVisualExamples(docId: string, name: string, category: string[])
   if (category.includes('addition-subtraction') || lowerDocId.includes('add') || lowerDocId.includes('sub')) {
     if (lowerDocId === 'add-2digit-100' || lowerDocId === 'add-2digit-regrouping' || lowerDocId === 'sub-2digit-100' || lowerDocId === 'sub-2digit-regrouping') {
       if (lowerDocId === 'add-2digit-100') {
-        return `📝 Example Problems (Worksheet Format):
-    23        45        67
-  + 15     + 32     + 28
-  ----     ----     ----
-    ?        ?        ?
+        return `📝 Preview - Problems in this worksheet:
+    23        45        67        38        52
+  + 15     + 32     + 28     + 41     + 26
+  ----     ----     ----     ----     ----
+    ?        ?        ?        ?        ?
 
-🔢 Step-by-Step Example (23 + 15):
-   Step 1: Add ones:     3 + 5 = 8
-   Step 2: Add tens:     20 + 10 = 30
-   Step 3: Combine:      30 + 8 = 38
-   
-   Answer: 38
-
-✨ This worksheet includes 10 problems with 2-digit 
-   numbers (no regrouping needed). Answer key included.`
+✨ Includes 10 addition problems (no regrouping)
+   Each worksheet includes a worked example with visual
+   place value blocks and step-by-step solution.`
       } else if (lowerDocId === 'add-2digit-regrouping') {
-        return `📝 Example Problems (Worksheet Format):
-    27        38        49
-  + 15     + 26     + 37
-  ----     ----     ----
-    ?        ?        ?
+        return `📝 Preview - Problems in this worksheet:
+    27        38        49        56        63
+  + 15     + 26     + 37     + 28     + 19
+  ----     ----     ----     ----     ----
+    ?        ?        ?        ?        ?
 
-🔢 Step-by-Step Example (27 + 15):
-   Step 1: Add ones:     7 + 5 = 12 (regroup!)
-   Step 2: Write 2, carry 1 to tens
-   Step 3: Add tens:     20 + 10 + 1 = 31
-   Step 4: Combine:      31 + 2 = 42
-   
-   Answer: 42
-
-✨ This worksheet includes problems WITH regrouping. 
-   Answer key included.`
+✨ Includes problems WITH regrouping (carrying)
+   Each worksheet includes a worked example showing
+   regrouping steps and visual place value blocks.`
       } else if (lowerDocId === 'sub-2digit-100') {
-        return `📝 Example Problems (Worksheet Format):
-    45        67        89
-  - 23     - 35     - 42
-  ----     ----     ----
-    ?        ?        ?
+        return `📝 Preview - Problems in this worksheet:
+    45        67        89        56        73
+  - 23     - 35     - 42     - 24     - 31
+  ----     ----     ----     ----     ----
+    ?        ?        ?        ?        ?
 
-🔢 Step-by-Step Example (45 - 23):
-   Step 1: Subtract ones:  5 - 3 = 2
-   Step 2: Subtract tens:  40 - 20 = 20
-   Step 3: Combine:        20 + 2 = 22
-   
-   Answer: 22
-
-✨ This worksheet includes 10 subtraction problems 
-   (no regrouping needed). Answer key included.`
+✨ Includes 10 subtraction problems (no regrouping)
+   Each worksheet includes a worked example with
+   step-by-step solution and visual strategies.`
       } else {
-        return `📝 Example Problems (Worksheet Format):
-    52        63        74
-  - 28     - 39     - 46
-  ----     ----     ----
-    ?        ?        ?
+        return `📝 Preview - Problems in this worksheet:
+    52        63        74        81        95
+  - 28     - 39     - 46     - 47     - 58
+  ----     ----     ----     ----     ----
+    ?        ?        ?        ?        ?
 
-🔢 Step-by-Step Example (52 - 28):
-   Step 1: Subtract ones:  2 - 8 (need to regroup!)
-   Step 2: Regroup: 50 becomes 40, 2 becomes 12
-   Step 3: Subtract: 12 - 8 = 4, 40 - 20 = 20
-   Step 4: Combine: 20 + 4 = 24
-   
-   Answer: 24
-
-✨ This worksheet includes problems WITH regrouping. 
-   Answer key included.`
+✨ Includes problems WITH regrouping (borrowing)
+   Each worksheet includes a worked example showing
+   regrouping steps and visual place value strategies.`
       }
     } else {
       return `📝 Example Problems:
@@ -429,17 +399,13 @@ function generateVisualExamples(docId: string, name: string, category: string[])
 ✨ This worksheet helps students understand fractions 
    as parts of a whole. Answer key included.`
     } else if (lowerDocId === 'adding-subtracting-fractions' || lowerDocId === 'add-sub-fractions') {
-      return `📝 Example Problems:
+      return `📝 Preview - Problems in this worksheet:
    1/4 + 1/4 = ?     3/5 - 1/5 = ?     2/3 + 1/3 = ?
+   4/6 + 1/6 = ?     5/8 - 2/8 = ?
 
-🔢 Step-by-Step Example (1/4 + 1/4):
-   Step 1: Same denominator, so add numerators
-   Step 2: 1 + 1 = 2
-   Step 3: Keep denominator: 4
-   Step 4: Answer: 2/4 = 1/2
-
-✨ This worksheet includes problems with same denominators. 
-   Answer key included.`
+✨ Includes problems with same denominators
+   Each worksheet includes visual examples and
+   step-by-step solutions in the answer key.`
     } else {
       return `🍕 Visual Example:
    Whole Circle:  [████████]
@@ -458,23 +424,15 @@ function generateVisualExamples(docId: string, name: string, category: string[])
   // Place value worksheets
   if (lowerDocId.includes('place-value') || lowerDocId === 'place-value-hto' || lowerDocId === 'expanded-form-200') {
     if (lowerDocId === 'expanded-form-200') {
-      return `📝 Example Problems:
-   1. Write 247 in expanded form: 200 + 40 + 7
-   2. Write 182 in expanded form: 100 + 80 + 2
-   3. What is 300 + 50 + 6?  (Answer: 356)
+      return `📝 Preview - Problems in this worksheet:
+   1. Write 247 in expanded form: ?
+   2. Write 182 in expanded form: ?
+   3. What is 300 + 50 + 6?  ?
+   4. Write 156 in expanded form: ?
 
-🔢 Visual Example:
-   Number: 247
-   
-   Hundreds | Tens | Ones
-   ---------|------|-----
-      2     |  4   |  7
-   (200)    | (40) | (7)
-   
-   Expanded form: 200 + 40 + 7 = 247
-
-✨ This worksheet helps students understand place value 
-   and expanded form up to 200. Answer key included.`
+✨ Includes place value and expanded form practice
+   Each worksheet includes visual place value charts
+   and complete answer key.`
     } else {
       return `🔢 Visual Example:
    Number: 247
