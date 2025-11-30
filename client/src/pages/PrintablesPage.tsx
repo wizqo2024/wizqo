@@ -5382,43 +5382,34 @@ export function PrintablesPage() {
             background: white !important;
             position: relative !important;
             border-radius: 12px !important;
-          }
-          /* Colorful kid-friendly border using pseudo-element for better print support */
-          [data-worksheet-content="true"] > div:first-child::before,
-          .max-w-4xl.mx-auto::before {
-            content: '' !important;
-            position: absolute !important;
-            top: -16px !important;
-            left: -16px !important;
-            right: -16px !important;
-            bottom: -16px !important;
-            background: linear-gradient(
+            /* Colorful kid-friendly border - rainbow effect using multiple borders */
+            border: 12px solid #f472b6 !important;
+            border-image: linear-gradient(
               135deg,
               #f472b6 0%,
-              #a78bfa 16.66%,
-              #60a5fa 33.33%,
-              #34d399 50%,
-              #fbbf24 66.66%,
-              #fb7185 83.33%,
-              #f472b6 100%
-            ) !important;
-            border-radius: 18px !important;
-            z-index: -1 !important;
+              #a78bfa 20%,
+              #60a5fa 40%,
+              #34d399 60%,
+              #fbbf24 80%,
+              #fb7185 100%
+            ) 1 !important;
             -webkit-print-color-adjust: exact !important;
             print-color-adjust: exact !important;
+            color-adjust: exact !important;
           }
-          /* Inner white frame to create the border effect */
-          [data-worksheet-content="true"] > div:first-child::after,
-          .max-w-4xl.mx-auto::after {
-            content: '' !important;
-            position: absolute !important;
-            top: -14px !important;
-            left: -14px !important;
-            right: -14px !important;
-            bottom: -14px !important;
-            background: white !important;
-            border-radius: 16px !important;
-            z-index: -1 !important;
+          /* Alternative colorful border using box-shadow layers for better print compatibility */
+          [data-worksheet-content="true"] > div:first-child,
+          .max-w-4xl.mx-auto {
+            box-shadow: 
+              /* Outer colorful border layers */
+              0 0 0 2px #f472b6,
+              0 0 0 4px #a78bfa,
+              0 0 0 6px #60a5fa,
+              0 0 0 8px #34d399,
+              0 0 0 10px #fbbf24,
+              0 0 0 12px #fb7185 !important;
+            border: none !important;
+            border-image: none !important;
           }
           /* Ensure all divs inside worksheet content have white background */
           [data-worksheet-content="true"] > div:first-child > * {
