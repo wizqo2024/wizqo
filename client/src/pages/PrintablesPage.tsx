@@ -5381,27 +5381,46 @@ export function PrintablesPage() {
             background-color: white !important;
             background: white !important;
             position: relative !important;
-            /* Colorful kid-friendly border - rainbow effect */
-            border: 16px solid transparent !important;
-            border-image: linear-gradient(
+            border-radius: 12px !important;
+          }
+          /* Colorful kid-friendly border using pseudo-element for better print support */
+          [data-worksheet-content="true"] > div:first-child::before,
+          .max-w-4xl.mx-auto::before {
+            content: '' !important;
+            position: absolute !important;
+            top: -14px !important;
+            left: -14px !important;
+            right: -14px !important;
+            bottom: -14px !important;
+            background: linear-gradient(
               135deg,
               #f472b6 0%,
-              #a78bfa 20%,
-              #60a5fa 40%,
-              #34d399 60%,
-              #fbbf24 80%,
-              #fb7185 100%
-            ) 1 !important;
-            border-image-slice: 1 !important;
+              #a78bfa 16.66%,
+              #60a5fa 33.33%,
+              #34d399 50%,
+              #fbbf24 66.66%,
+              #fb7185 83.33%,
+              #f472b6 100%
+            ) !important;
             border-radius: 16px !important;
-            /* Add decorative corner accents */
-            box-shadow: 
-              0 0 0 2px #f472b6,
-              0 0 0 4px #a78bfa,
-              0 0 0 6px #60a5fa,
-              0 0 0 8px #34d399,
-              0 0 0 10px #fbbf24,
-              0 0 0 12px #fb7185 !important;
+            z-index: -1 !important;
+            padding: 2px !important;
+            background-clip: padding-box !important;
+            -webkit-print-color-adjust: exact !important;
+            print-color-adjust: exact !important;
+          }
+          /* Inner white border to create the frame effect */
+          [data-worksheet-content="true"] > div:first-child::after,
+          .max-w-4xl.mx-auto::after {
+            content: '' !important;
+            position: absolute !important;
+            top: -12px !important;
+            left: -12px !important;
+            right: -12px !important;
+            bottom: -12px !important;
+            background: white !important;
+            border-radius: 14px !important;
+            z-index: -1 !important;
           }
           /* Ensure all divs inside worksheet content have white background */
           [data-worksheet-content="true"] > div:first-child > * {
