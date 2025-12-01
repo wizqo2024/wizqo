@@ -1943,13 +1943,12 @@ export function PrintablesPage() {
         }
         
         /* CRITICAL: Inner div - match print styles with colorful border and emoji stars */
-        /* No top border - emoji serves as top border */
+        /* Top border restored but will be clipped to show gaps for emoji */
         [data-worksheet-content="true"] > div:first-child,
         [data-worksheet-content="true"] .max-w-4xl {
           position: relative !important;
           border-radius: 12px !important;
           border: 4px solid transparent !important;
-          border-top: none !important;
           border-image: linear-gradient(
             135deg,
             #f472b6 0%,
@@ -1983,7 +1982,7 @@ export function PrintablesPage() {
         }
         
         /* Decorative emoji-style border using CSS patterns - applied to ALL worksheets */
-        /* Only left and right borders, no top border (emoji serves as top border) */
+        /* Top, left, and right borders that stop at emoji area */
         [data-worksheet-content="true"] > div:first-child::before,
         [data-worksheet-content="true"] > div.max-w-4xl::before,
         .max-w-4xl.mx-auto::before,
@@ -1995,6 +1994,8 @@ export function PrintablesPage() {
           right: -8px !important;
           bottom: -8px !important;
           background-image: 
+            /* Top border */
+            repeating-linear-gradient(0deg, transparent, transparent 20px, #fbbf24 20px, #fbbf24 21px),
             /* Right border */
             repeating-linear-gradient(90deg, transparent, transparent 20px, #f472b6 20px, #f472b6 21px),
             /* Bottom border */
@@ -2003,26 +2004,46 @@ export function PrintablesPage() {
             repeating-linear-gradient(135deg, transparent, transparent 15px, #34d399 15px, #34d399 16px),
             /* Base gradient */
             linear-gradient(135deg, #f472b6 0%, #a78bfa 20%, #60a5fa 40%, #34d399 60%, #fbbf24 80%, #fb7185 100%) !important;
-          background-size: 2px 100%, 100% 2px, 2px 100%, 100% 100% !important;
-          background-position: right, bottom, left, center !important;
-          background-repeat: repeat-y, repeat-x, repeat-y, no-repeat !important;
+          background-size: 100% 2px, 2px 100%, 100% 2px, 2px 100%, 100% 100% !important;
+          background-position: top, right, bottom, left, center !important;
+          background-repeat: repeat-x, repeat-y, repeat-x, repeat-y, no-repeat !important;
           border-radius: 14px !important;
           z-index: -1 !important;
           opacity: 0.3 !important;
-          clip-path: inset(20px 0 0 0) !important;
+          /* Clip to show: top border on left/right sides (gap in center for emoji), left/right borders from 20px down, bottom border */
+          clip-path: polygon(
+            /* Top-left corner */
+            0% 0%, 
+            /* Top border left side - stop before emoji area (approx 35% from left) */
+            calc(50% - 110px) 0%, 
+            calc(50% - 110px) 20px,
+            /* Left border starts at 20px */
+            0% 20px, 
+            /* Left border continues down */
+            0% 100%, 
+            /* Bottom border */
+            100% 100%, 
+            /* Right border starts at 20px */
+            100% 20px,
+            /* Top border right side - start after emoji area (approx 35% from right) */
+            calc(50% + 110px) 20px,
+            calc(50% + 110px) 0%,
+            /* Top-right corner */
+            100% 0%
+          ) !important;
           -webkit-print-color-adjust: exact !important;
           print-color-adjust: exact !important;
         }
         
         /* Decorative emoji stars at top - applied to ALL worksheets */
-        /* Centered at top, serves as the top border */
+        /* Centered at top, positioned to prevent cropping */
         [data-worksheet-content="true"] > div:first-child::after,
         [data-worksheet-content="true"] > div.max-w-4xl::after,
         .max-w-4xl.mx-auto::after,
         [data-worksheet-content="true"] .max-w-4xl::after {
           content: '⭐ ✨ 💫 🌟' !important;
           position: absolute !important;
-          top: 0px !important;
+          top: 4px !important;
           left: 50% !important;
           transform: translateX(-50%) translateY(-50%) !important;
           font-size: 18px !important;
@@ -2272,11 +2293,10 @@ export function PrintablesPage() {
           colorAdjust: innerDiv.style.colorAdjust
         })
         // Match print styles with colorful border and padding
-        // No top border - emoji serves as top border
+        // Top border restored but will be clipped to show gaps for emoji
         innerDiv.style.position = 'relative'
         innerDiv.style.borderRadius = '12px'
         innerDiv.style.border = '4px solid transparent'
-        innerDiv.style.borderTop = 'none'
         innerDiv.style.borderImage = 'linear-gradient(135deg, #f472b6 0%, #a78bfa 20%, #60a5fa 40%, #34d399 60%, #fbbf24 80%, #fb7185 100%) 1'
         innerDiv.style.borderImageSlice = '1'
         innerDiv.style.webkitPrintColorAdjust = 'exact'
@@ -2331,11 +2351,10 @@ export function PrintablesPage() {
             const clonedInnerDiv = clonedContentElement.querySelector(':scope > div:first-child') as HTMLElement
             if (clonedInnerDiv) {
               // Match print styles with colorful border, padding, and emoji stars
-              // No top border - emoji serves as top border
+              // Top border restored but will be clipped to show gaps for emoji
               clonedInnerDiv.style.position = 'relative'
               clonedInnerDiv.style.borderRadius = '12px'
               clonedInnerDiv.style.border = '4px solid transparent'
-              clonedInnerDiv.style.borderTop = 'none'
               clonedInnerDiv.style.borderImage = 'linear-gradient(135deg, #f472b6 0%, #a78bfa 20%, #60a5fa 40%, #34d399 60%, #fbbf24 80%, #fb7185 100%) 1'
               clonedInnerDiv.style.borderImageSlice = '1'
               clonedInnerDiv.style.webkitPrintColorAdjust = 'exact'
@@ -2864,7 +2883,7 @@ export function PrintablesPage() {
             line-height: 1.3 !important;
           }
           /* Decorative emoji-style border using CSS patterns - applied to ALL worksheets */
-          /* Only left and right borders, no top border (emoji serves as top border) */
+          /* Top, left, and right borders that stop at emoji area */
           [data-worksheet-content="true"] > div:first-child::before,
           [data-worksheet-content="true"] > div.max-w-4xl::before,
           .max-w-4xl.mx-auto::before,
@@ -2876,6 +2895,8 @@ export function PrintablesPage() {
             right: -8px !important;
             bottom: -8px !important;
             background-image: 
+              /* Top border */
+              repeating-linear-gradient(0deg, transparent, transparent 20px, #fbbf24 20px, #fbbf24 21px),
               /* Right border */
               repeating-linear-gradient(90deg, transparent, transparent 20px, #f472b6 20px, #f472b6 21px),
               /* Bottom border */
@@ -2884,25 +2905,45 @@ export function PrintablesPage() {
               repeating-linear-gradient(135deg, transparent, transparent 15px, #34d399 15px, #34d399 16px),
               /* Base gradient */
               linear-gradient(135deg, #f472b6 0%, #a78bfa 20%, #60a5fa 40%, #34d399 60%, #fbbf24 80%, #fb7185 100%) !important;
-            background-size: 2px 100%, 100% 2px, 2px 100%, 100% 100% !important;
-            background-position: right, bottom, left, center !important;
-            background-repeat: repeat-y, repeat-x, repeat-y, no-repeat !important;
+            background-size: 100% 2px, 2px 100%, 100% 2px, 2px 100%, 100% 100% !important;
+            background-position: top, right, bottom, left, center !important;
+            background-repeat: repeat-x, repeat-y, repeat-x, repeat-y, no-repeat !important;
             border-radius: 14px !important;
             z-index: -1 !important;
             opacity: 0.3 !important;
-            clip-path: inset(20px 0 0 0) !important;
+            /* Clip to show: top border on left/right sides (gap in center for emoji), left/right borders from 20px down, bottom border */
+            clip-path: polygon(
+              /* Top-left corner */
+              0% 0%, 
+              /* Top border left side - stop before emoji area (approx 35% from left) */
+              calc(50% - 110px) 0%, 
+              calc(50% - 110px) 20px,
+              /* Left border starts at 20px */
+              0% 20px, 
+              /* Left border continues down */
+              0% 100%, 
+              /* Bottom border */
+              100% 100%, 
+              /* Right border starts at 20px */
+              100% 20px,
+              /* Top border right side - start after emoji area (approx 35% from right) */
+              calc(50% + 110px) 20px,
+              calc(50% + 110px) 0%,
+              /* Top-right corner */
+              100% 0%
+            ) !important;
             -webkit-print-color-adjust: exact !important;
             print-color-adjust: exact !important;
           }
           /* Decorative emoji stars at top - applied to ALL worksheets */
-          /* Centered at top, serves as the top border */
+          /* Centered at top, positioned to prevent cropping */
           [data-worksheet-content="true"] > div:first-child::after,
           [data-worksheet-content="true"] > div.max-w-4xl::after,
           .max-w-4xl.mx-auto::after,
           [data-worksheet-content="true"] .max-w-4xl::after {
             content: '⭐ ✨ 💫 🌟' !important;
             position: absolute !important;
-            top: 0px !important;
+            top: 4px !important;
             left: 50% !important;
             transform: translateX(-50%) translateY(-50%) !important;
             font-size: 18px !important;
@@ -2920,13 +2961,12 @@ export function PrintablesPage() {
           }
           /* Thin colorful decorative border with emoji-style pattern - applied to ALL worksheets */
           /* CRITICAL: Match PDF download styles exactly to prevent content cropping */
-          /* No top border - emoji serves as top border */
+          /* Top border restored but will be clipped to show gaps for emoji */
           [data-worksheet-content="true"] > div:first-child,
           [data-worksheet-content="true"] .max-w-4xl {
             position: relative !important;
             border-radius: 12px !important;
             border: 4px solid transparent !important;
-            border-top: none !important;
             border-image: linear-gradient(
               135deg,
               #f472b6 0%,
