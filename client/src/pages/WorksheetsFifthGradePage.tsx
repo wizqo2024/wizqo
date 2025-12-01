@@ -356,7 +356,6 @@ export default function WorksheetsFifthGradePage() {
                         const newWindow = window.open(previewItem.href, '_blank')
                         if (newWindow) {
                           setTimeout(() => {
-                            newWindow.print()
                           }, 500)
                         }
                       }}

@@ -633,7 +633,6 @@ export default function ReadingComprehensionPage() {
                         const newWindow = window.open(previewItem.href, '_blank')
                         if (newWindow) {
                           setTimeout(() => {
-                            newWindow.print()
                           }, 500)
                         }
                       }}

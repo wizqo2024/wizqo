@@ -345,18 +345,28 @@ export default function WorksheetsFirstGradePage() {
                   
                   {/* Action Buttons */}
                   <div className="mt-6 flex items-center gap-3">
-                    <a
-                      href={previewItem.href + (previewItem.href.includes('?') ? '&download=1' : '?download=1')}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="inline-flex items-center gap-2 px-4 py-2 rounded-lg border border-purple-200 bg-purple-600 hover:bg-purple-700 text-white text-sm font-medium shadow-sm"
-                    >
-                      Download
-                    </a>
                     <button
                       onClick={() => {
-                        window.open(previewItem.href, '_blank')
-                        setTimeout(() => window.print(), 500)
+                        // Ensure autoprint=1 is in the URL
+                        let printUrl = previewItem.href
+                        if (!printUrl.includes('autoprint=1')) {
+                          printUrl = printUrl + (printUrl.includes('?') ? '&autoprint=1' : '?autoprint=1')
+                        }
+                        window.open(printUrl, '_blank')
+                      }}
+                      className="inline-flex items-center gap-2 px-4 py-2 rounded-lg border border-purple-200 bg-purple-600 hover:bg-purple-700 text-white text-sm font-medium shadow-sm"
+                      aria-label={`Download ${previewItem.title} as PDF`}
+                    >
+                      Download
+                    </button>
+                    <button
+                      onClick={() => {
+                        // Ensure autoprint=1 is in the URL
+                        let printUrl = previewItem.href
+                        if (!printUrl.includes('autoprint=1')) {
+                          printUrl = printUrl + (printUrl.includes('?') ? '&autoprint=1' : '?autoprint=1')
+                        }
+                        window.open(printUrl, '_blank')
                       }}
                       className="inline-flex items-center gap-2 px-4 py-2 rounded-lg border border-slate-300 bg-white hover:bg-slate-50 text-slate-700 text-sm font-medium shadow-sm"
                     >
@@ -473,12 +483,7 @@ const WorksheetThumbnailCard = React.memo(function WorksheetThumbnailCard({ titl
           <button
             onClick={() => {
               const printUrl = getWorksheetPrintURL(docId, '1st-grade')
-              const newWindow = window.open(printUrl, '_blank')
-              if (newWindow) {
-                setTimeout(() => {
-                  newWindow.print()
-                }, 500)
-              }
+              window.open(printUrl, '_blank')
             }}
             className="text-xs font-medium text-purple-600 hover:text-purple-700 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:ring-offset-2 px-3 py-1 rounded-full border border-purple-200 hover:border-purple-300 transition-colors"
             aria-label={`${t('pages.firstGrade.download')} ${title}`}

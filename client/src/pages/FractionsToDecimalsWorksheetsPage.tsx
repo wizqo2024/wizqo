@@ -336,7 +336,6 @@ export default function FractionsToDecimalsWorksheetsPage() {
                         const newWindow = window.open(previewItem.href, '_blank')
                         if (newWindow) {
                           setTimeout(() => {
-                            newWindow.print()
                           }, 500)
                         }
                       }}

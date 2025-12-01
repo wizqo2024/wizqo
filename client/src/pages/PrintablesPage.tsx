@@ -2395,26 +2395,37 @@ export function PrintablesPage() {
     return () => clearTimeout(t)
   }, [autoDownload, downloadPDF])
 
+  // Track if print has already been called to prevent multiple popups
+  const hasPrintedRef = React.useRef(false)
+  
   // Auto-open browser print dialog when requested (e.g., from "Download PDF" links)
   React.useEffect(() => {
     try {
-      if (!autoPrint || autoDownload) return // Skip if download is already handling it
+      if (!autoPrint || autoDownload || hasPrintedRef.current) return // Skip if download is already handling it or already printed
       // Defer a bit to let the view render fully
       const t = setTimeout(() => { 
         try { 
-          window.print()
-          // Track auto-print
-          if (doc && primaryDoc) {
-            const from = params.get('from') || 'unknown'
-            const grade = from.includes('grade') ? from.replace('-grade', '') : undefined
-            trackPrintDialog(primaryDoc, from)
-            trackWorksheetDownload(primaryDoc, docTitle, from, grade)
+          if (!hasPrintedRef.current) {
+            window.print()
+            hasPrintedRef.current = true
+            // Track auto-print
+            if (doc && primaryDoc) {
+              const from = params.get('from') || 'unknown'
+              const grade = from.includes('grade') ? from.replace('-grade', '') : undefined
+              trackPrintDialog(primaryDoc, from)
+              trackWorksheetDownload(primaryDoc, docTitle, from, grade)
+            }
           }
         } catch {} 
       }, 1200)
       return () => clearTimeout(t)
     } catch {}
   }, [autoPrint, autoDownload, doc, primaryDoc, docTitle, params])
+  
+  // Reset print flag when URL changes (new worksheet loaded)
+  React.useEffect(() => {
+    hasPrintedRef.current = false
+  }, [doc, urlSearch])
   return (
     <div className="min-h-screen bg-white" data-worksheet-content="true">
       <style>{`

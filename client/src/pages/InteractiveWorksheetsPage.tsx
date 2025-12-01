@@ -474,7 +474,6 @@ function WorksheetPreviewCard({
                   const newWindow = window.open(printUrl, '_blank')
                   if (newWindow) {
                     setTimeout(() => {
-                      newWindow.print()
                     }, 500)
                   }
                 }}

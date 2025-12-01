@@ -102,7 +102,6 @@ const WorksheetThumbnailCard = React.memo(function WorksheetThumbnailCard({ titl
               const newWindow = window.open(printUrl, '_blank')
               if (newWindow) {
                 setTimeout(() => {
-                  newWindow.print()
                 }, 500)
               }
             }}
@@ -1099,7 +1098,6 @@ export function PrintablesLandingPage() {
                         const newWindow = window.open(printUrl, '_blank')
                         if (newWindow) {
                           setTimeout(() => {
-                            newWindow.print()
                           }, 500)
                         }
                       }}
