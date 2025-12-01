@@ -1494,10 +1494,11 @@ export function PrintablesPage() {
   }, [urlSearch])
   
   const doc = params.get('doc') || ''
-  // Only calculate autoPrint if we're on the /print route - prevents popup on category pages
-  const autoPrint = isPrintRoute && ((params.get('autoprint') || '').toLowerCase() === '1' || (params.get('autoprint') || '').toLowerCase() === 'true')
-  const autoDownload = (params.get('download') || '').toLowerCase() === '1' || (params.get('download') || '').toLowerCase() === 'true'
   const isPreview = (params.get('preview') || '').toLowerCase() === '1' || (params.get('preview') || '').toLowerCase() === 'true'
+  // CRITICAL: Never trigger autoprint if preview=1 (used in iframes on category pages)
+  // Only calculate autoPrint if we're on the /print route AND not in preview mode - prevents popup on category pages
+  const autoPrint = !isPreview && isPrintRoute && ((params.get('autoprint') || '').toLowerCase() === '1' || (params.get('autoprint') || '').toLowerCase() === 'true')
+  const autoDownload = (params.get('download') || '').toLowerCase() === '1' || (params.get('download') || '').toLowerCase() === 'true'
   const packTime = params.get('time') || '5'
   const packAge = params.get('age') || 'k2'
   const packSkill = params.get('skill') || 'mixed'
@@ -2418,10 +2419,12 @@ export function PrintablesPage() {
   }, [autoDownload, downloadPDF])
 
   // Track if print has already been called to prevent multiple popups
+  // Use a more robust approach with timestamp to prevent repeated calls
   const hasPrintedRef = React.useRef(false)
+  const printCallTimeRef = React.useRef<number>(0)
   
   // Auto-open browser print dialog when requested (e.g., from "Download PDF" links)
-  // ONLY run on /print route, not on category pages like /printables
+  // ONLY run on /print route, not on category pages like /printables or in preview mode (iframes)
   React.useEffect(() => {
     try {
       // Early return if not on print route - prevents popup on category pages
@@ -2429,16 +2432,60 @@ export function PrintablesPage() {
         return // Don't run on category pages like /printables
       }
       
-      if (!autoPrint || autoDownload || hasPrintedRef.current) return // Skip if download is already handling it or already printed
+      // CRITICAL: Never trigger autoprint in preview mode (used in iframes on category pages)
+      if (isPreview) {
+        return // Don't run in preview mode (iframes)
+      }
+      
+      // Check if we're in an iframe and parent is not on /print route
+      const isInIframe = typeof window !== 'undefined' && window.self !== window.top
+      if (isInIframe) {
+        try {
+          // If parent window exists and is not on /print route, don't trigger print
+          const parentPath = window.top?.location?.pathname || ''
+          if (parentPath !== '/print' && !parentPath.startsWith('/print?')) {
+            return // Don't trigger print if parent is not on print route
+          }
+        } catch (e) {
+          // Cross-origin iframe - can't access parent, so don't trigger print to be safe
+          return
+        }
+      }
+      
+      if (!autoPrint || autoDownload) return // Skip if download is already handling it
+      
+      // Prevent multiple print calls - check both ref and time since last call
+      const now = Date.now()
+      const timeSinceLastCall = now - printCallTimeRef.current
+      if (hasPrintedRef.current && timeSinceLastCall < 5000) {
+        return // Don't call print again if we've called it recently (within 5 seconds)
+      }
       
       // Defer a bit to let the view render fully
       const t = setTimeout(() => { 
         try { 
           // Double-check we're still on the print page and haven't printed yet
           const stillOnPrintPage = typeof window !== 'undefined' && isPrintRoute && (window.location.pathname === '/print' || window.location.pathname.startsWith('/print?'))
-          if (stillOnPrintPage && !hasPrintedRef.current) {
+          // Double-check we're not in preview mode
+          const currentParams = new URLSearchParams(window.location.search)
+          const currentIsPreview = (currentParams.get('preview') || '').toLowerCase() === '1' || (currentParams.get('preview') || '').toLowerCase() === 'true'
+          // Double-check we're not in an iframe on a non-print page
+          const stillInIframe = typeof window !== 'undefined' && window.self !== window.top
+          if (stillInIframe) {
+            try {
+              const parentPath = window.top?.location?.pathname || ''
+              if (parentPath !== '/print' && !parentPath.startsWith('/print?')) {
+                return // Don't trigger print if parent is not on print route
+              }
+            } catch (e) {
+              return // Cross-origin iframe - don't trigger print
+            }
+          }
+          
+          if (stillOnPrintPage && !currentIsPreview && !hasPrintedRef.current) {
             window.print()
             hasPrintedRef.current = true
+            printCallTimeRef.current = Date.now()
             // Track auto-print
             if (doc && primaryDoc) {
               const from = params.get('from') || 'unknown'
@@ -2451,15 +2498,20 @@ export function PrintablesPage() {
       }, 1200)
       return () => clearTimeout(t)
     } catch {}
-  }, [isPrintRoute, autoPrint, autoDownload, doc, primaryDoc, docTitle, params])
+  }, [isPrintRoute, isPreview, autoPrint, autoDownload, doc, primaryDoc, docTitle, params])
   
   // Reset print flag when URL changes (new worksheet loaded)
   React.useEffect(() => {
     // Only reset on exact /print route, not /printables
-    if (isPrintRoute) {
+    // Also reset if we're in preview mode (iframes should never trigger print)
+    if (isPrintRoute && !isPreview) {
       hasPrintedRef.current = false
+      printCallTimeRef.current = 0
+    } else {
+      // If we're not on print route or in preview, ensure print is disabled
+      hasPrintedRef.current = true // Set to true to prevent any print calls
     }
-  }, [isPrintRoute, doc, urlSearch])
+  }, [isPrintRoute, isPreview, doc, urlSearch])
   return (
     <div className="min-h-screen bg-white" data-worksheet-content="true">
       <style>{`
