@@ -11,8 +11,9 @@ export function AboutPage() {
   return (
     <div className="min-h-screen bg-slate-50" dir={isRTL ? 'rtl' : 'ltr'}>
       <SEOMetaTags
-        title="About Wizqo - Free Printable Worksheets for Kids | Wizqo"
-        description="Learn about Wizqo - your source for free printable worksheets for kids K-5. Math, reading, writing, and more. 100% free, no sign-up required!"
+        title="About Wizqo - Free Printable Worksheets for Teachers & Parents"
+        description="Learn about Wizqo's mission to provide free printable worksheets for teachers, parents, and homeschoolers. High-quality worksheets for math, reading, writing, and more with answer keys included."
+        keywords="about wizqo, free worksheets, printable worksheets, educational resources, teachers worksheets, homeschool worksheets, free math worksheets"
         canonicalUrl="https://wizqo.com/about"
       />
       <UnifiedNavigation currentPage="about" />

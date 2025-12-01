@@ -84,8 +84,8 @@ export function ContactPage() {
   return (
     <div className="min-h-screen bg-slate-50" dir={isRTL ? 'rtl' : 'ltr'}>
       <SEOMetaTags
-        title="Contact Us - Wizqo Free Worksheets | Wizqo"
-        description="Get in touch with Wizqo! Have questions about our free printable worksheets? We'd love to hear from you. Contact us today!"
+        title="Contact Wizqo - Questions & Feedback Welcome"
+        description="Got a question or suggestion about our worksheets or learning tools? Reach out to Wizqo's team - we typically respond within 24 hours."
         canonicalUrl="https://wizqo.com/contact"
       />
       <UnifiedNavigation currentPage="contact" />

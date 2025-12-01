@@ -608,12 +608,6 @@ export default function App() {
                 const canonical = addLocaleToPath('/worksheets/order-of-operations-worksheets', currentLocale);
                 return (
                   <>
-                    <SEOMetaTags 
-                      title="Order of Operations Worksheets (PEMDAS) – Free PDF | Wizqo"
-                      description="Make PEMDAS finally &quot;click&quot;! Download free Order of Operations worksheets (PDF) with step-by-step practice. Stress-free exercises that build confidence in 4th–6th grade students. No login — just print and learn."
-                      keywords="order of operations worksheets pdf, pemdas worksheets with answers, free order of operations worksheets, order of operations practice sheets, pemdas worksheets 5th grade, pemdas worksheets 6th grade, order of operations problems with answers, printable order of operations worksheets, order of operations with parentheses worksheets, easy order of operations worksheet, multi-step pemdas worksheet, pemdas practice for kids, pemdas rules worksheet, step-by-step order of operations worksheet, order of operations worksheets to build confidence, worksheets to help kids understand pemdas, practice sheets that reduce math frustration, simple pemdas worksheets for struggling learners, step-by-step order of operations practice for kids"
-                      canonicalUrl={`https://wizqo.com${canonical}`}
-                    />
                     <OrderOfOperationsWorksheetsPage />
                   </>
                 );
@@ -744,23 +738,12 @@ export default function App() {
             case 'about':
               return (
                 <>
-                  <SEOMetaTags 
-                    title="About Wizqo - Free Printable Worksheets for Teachers & Parents"
-                    description="Learn about Wizqo's mission to provide free printable worksheets for teachers, parents, and homeschoolers. High-quality worksheets for math, reading, writing, and more with answer keys included."
-                    keywords="about wizqo, free worksheets, printable worksheets, educational resources, teachers worksheets, homeschool worksheets, free math worksheets"
-                    canonicalUrl="https://wizqo.com/about"
-                  />
                   <AboutPage />
                 </>
               );
             case 'contact':
               return (
                 <>
-                  <SEOMetaTags 
-                    title="Contact Wizqo - Questions & Feedback Welcome"
-                    description="Got a question or suggestion about our worksheets or learning tools? Reach out to Wizqo's team - we typically respond within 24 hours."
-                    canonicalUrl="https://wizqo.com/contact"
-                  />
                   <ContactPage />
                 </>
               );
