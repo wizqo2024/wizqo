@@ -2399,13 +2399,23 @@ export function PrintablesPage() {
   const hasPrintedRef = React.useRef(false)
   
   // Auto-open browser print dialog when requested (e.g., from "Download PDF" links)
+  // ONLY run on /print route, not on category pages
   React.useEffect(() => {
     try {
+      // Only run if we're actually on the /print route
+      const currentPath = typeof window !== 'undefined' ? window.location.pathname : ''
+      if (!currentPath.includes('/print')) {
+        return // Don't run on category pages
+      }
+      
       if (!autoPrint || autoDownload || hasPrintedRef.current) return // Skip if download is already handling it or already printed
+      
       // Defer a bit to let the view render fully
       const t = setTimeout(() => { 
         try { 
-          if (!hasPrintedRef.current) {
+          // Double-check we're still on the print page and haven't printed yet
+          const stillOnPrintPage = typeof window !== 'undefined' && window.location.pathname.includes('/print')
+          if (stillOnPrintPage && !hasPrintedRef.current) {
             window.print()
             hasPrintedRef.current = true
             // Track auto-print
@@ -2424,7 +2434,10 @@ export function PrintablesPage() {
   
   // Reset print flag when URL changes (new worksheet loaded)
   React.useEffect(() => {
-    hasPrintedRef.current = false
+    const currentPath = typeof window !== 'undefined' ? window.location.pathname : ''
+    if (currentPath.includes('/print')) {
+      hasPrintedRef.current = false
+    }
   }, [doc, urlSearch])
   return (
     <div className="min-h-screen bg-white" data-worksheet-content="true">

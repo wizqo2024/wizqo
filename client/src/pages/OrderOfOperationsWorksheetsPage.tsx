@@ -435,12 +435,7 @@ const WorksheetThumbnailCard = React.memo(function WorksheetThumbnailCard({ titl
           <button
             onClick={() => {
               const printUrl = getWorksheetPrintURL(docId, 'order-of-operations')
-              const newWindow = window.open(printUrl, '_blank')
-              if (newWindow) {
-                setTimeout(() => {
-                  newWindow.print()
-                }, 500)
-              }
+              window.open(printUrl, '_blank')
             }}
             className="text-xs font-medium text-purple-600 hover:text-purple-700 px-3 py-1 rounded-full border border-purple-200 hover:border-purple-300 transition-colors"
           >

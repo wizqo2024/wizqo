@@ -395,12 +395,12 @@ function ItemCard({ title, description, href }: { title: string; description: st
       <div className="mt-3 flex items-center gap-2">
         <button
           onClick={() => {
-            const newWindow = window.open(href, '_blank')
-            if (newWindow) {
-              setTimeout(() => {
-                newWindow.print()
-              }, 500)
+            // Ensure autoprint=1 is in the URL
+            let printUrl = href
+            if (!printUrl.includes('autoprint=1')) {
+              printUrl = printUrl + (printUrl.includes('?') ? '&autoprint=1' : '?autoprint=1')
             }
+            window.open(printUrl, '_blank')
           }}
           className={BUTTON_CLASS}
           aria-label={`${t('pages.firstGrade.downloadPDF')} ${title}`}

@@ -99,11 +99,12 @@ const WorksheetThumbnailCard = React.memo(function WorksheetThumbnailCard({ titl
           <button
             onClick={() => {
               const printUrl = docId ? getWorksheetPrintURL(docId, 'printables') : finalHref
-              const newWindow = window.open(printUrl, '_blank')
-              if (newWindow) {
-                setTimeout(() => {
-                }, 500)
+              // Ensure autoprint=1 is in the URL
+              let finalPrintUrl = printUrl
+              if (!finalPrintUrl.includes('autoprint=1')) {
+                finalPrintUrl = finalPrintUrl + (finalPrintUrl.includes('?') ? '&autoprint=1' : '?autoprint=1')
               }
+              window.open(finalPrintUrl, '_blank')
             }}
             className="text-xs font-medium text-purple-600 hover:text-purple-700 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:ring-offset-2 px-3 py-1 rounded-full border border-purple-200 hover:border-purple-300 transition-colors"
             aria-label={`Download ${title} as PDF`}
@@ -130,12 +131,12 @@ function BundleButton({ section, className }: { section: string; className?: str
   return (
     <button
       onClick={() => {
-        const newWindow = window.open(url, '_blank')
-        if (newWindow) {
-          setTimeout(() => {
-            newWindow.print()
-          }, 500)
+        // Ensure autoprint=1 is in the URL
+        let finalUrl = url
+        if (!finalUrl.includes('autoprint=1')) {
+          finalUrl = finalUrl + (finalUrl.includes('?') ? '&autoprint=1' : '?autoprint=1')
         }
+        window.open(finalUrl, '_blank')
       }}
       className={`${BUTTON_CLASS} focus:outline-none focus:ring-2 focus:ring-purple-500 focus:ring-offset-2 ${className ?? ''}`.trim()}
       aria-label={`Download the ${section} printable bundle`}
@@ -1095,11 +1096,12 @@ export function PrintablesLandingPage() {
                     <button
                       onClick={() => {
                         const printUrl = previewItem.docId ? getWorksheetPrintURL(previewItem.docId, 'printables') : previewItem.href
-                        const newWindow = window.open(printUrl, '_blank')
-                        if (newWindow) {
-                          setTimeout(() => {
-                          }, 500)
+                        // Ensure autoprint=1 is in the URL
+                        let finalPrintUrl = printUrl
+                        if (!finalPrintUrl.includes('autoprint=1')) {
+                          finalPrintUrl = finalPrintUrl + (finalPrintUrl.includes('?') ? '&autoprint=1' : '?autoprint=1')
                         }
+                        window.open(finalPrintUrl, '_blank')
                       }}
                       className="inline-flex items-center gap-2 px-4 py-2 rounded-lg border border-purple-200 bg-purple-600 hover:bg-purple-700 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:ring-offset-2 text-white text-sm font-medium shadow-sm"
                       aria-label={`Download ${previewItem.title} as PDF`}

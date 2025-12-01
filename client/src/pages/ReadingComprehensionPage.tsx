@@ -663,12 +663,12 @@ function ItemCard({ title, description, href }: { title: string; description: st
       <div className="mt-3 flex items-center gap-2">
         <button
           onClick={() => {
-            const newWindow = window.open(href, '_blank')
-            if (newWindow) {
-              setTimeout(() => {
-                newWindow.print()
-              }, 500)
+            // Ensure autoprint=1 is in the URL
+            let printUrl = href
+            if (!printUrl.includes('autoprint=1')) {
+              printUrl = printUrl + (printUrl.includes('?') ? '&autoprint=1' : '?autoprint=1')
             }
+            window.open(printUrl, '_blank')
           }}
           className={BUTTON_CLASS}
           aria-label={`Download ${title} as PDF`}
@@ -750,12 +750,7 @@ const WorksheetThumbnailCard = React.memo(function WorksheetThumbnailCard({ titl
           <button
             onClick={() => {
               const printUrl = getWorksheetPrintURL(docId, 'reading-comprehension')
-              const newWindow = window.open(printUrl, '_blank')
-              if (newWindow) {
-                setTimeout(() => {
-                  newWindow.print()
-                }, 500)
-              }
+              window.open(printUrl, '_blank')
             }}
             className="text-xs font-medium text-purple-600 hover:text-purple-700 px-3 py-1 rounded-full border border-purple-200 hover:border-purple-300 transition-colors"
           >

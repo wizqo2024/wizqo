@@ -488,12 +488,7 @@ const WorksheetThumbnailCard = React.memo(function WorksheetThumbnailCard({ titl
           <button
             onClick={() => {
               const printUrl = getWorksheetPrintURL(docId, 'kindergarten')
-              const newWindow = window.open(printUrl, '_blank')
-              if (newWindow) {
-                setTimeout(() => {
-                  newWindow.print()
-                }, 500)
-              }
+              window.open(printUrl, '_blank')
             }}
             className="text-xs font-medium text-purple-600 hover:text-purple-700 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:ring-offset-2 px-3 py-1 rounded-full border border-purple-200 hover:border-purple-300 transition-colors"
             aria-label={`${t('pages.grades.kindergarten.downloadButton')} ${title}`}
