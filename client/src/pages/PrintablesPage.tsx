@@ -2709,10 +2709,11 @@ export function PrintablesPage() {
             }
           }
           
-          // Final check using sessionStorage - only print if we haven't already attempted
-          const stillHasAlreadyAttempted = typeof window !== 'undefined' && sessionStorage.getItem(printKey) === 'true'
+          // Final check using sessionStorage - only print if we've scheduled it (flag is set)
+          // The flag is set before the timeout to prevent duplicate scheduling
+          const stillHasScheduledPrint = typeof window !== 'undefined' && sessionStorage.getItem(printKey) === 'true'
           
-          if (stillOnPrintPage && !currentIsPreview && stillHasAlreadyAttempted) {
+          if (stillOnPrintPage && !currentIsPreview && stillHasScheduledPrint) {
             window.print()
             // Track auto-print
             if (doc && primaryDoc) {
