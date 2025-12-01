@@ -403,7 +403,7 @@ export default function App() {
                 <>
                   <SEOMetaTags 
                     title="My Learning Plan Generator - Free AI-Powered 7-Day Plans | Wizqo"
-                    description="Create my learning plan instantly with AI! Generate personalized 7-day learning plans with daily lessons, videos, and practice prompts. Free tool for teachers, students, and hobby learners."
+                    description="Create personalized 7-day learning plans with AI! Generate daily lessons, videos, and practice prompts. Free tool for teachers, students, and hobby learners."
                     keywords="my learning plan, learning plan generator, create learning plan, personalized learning plan, 7-day learning plan, AI learning plan, free learning plan generator"
                     canonicalUrl={`https://wizqo.com${addLocaleToPath('/generate', currentLocale)}`}
                   />
@@ -443,7 +443,7 @@ export default function App() {
                 <>
                   <SEOMetaTags 
                     title="Kids Hub - Play Games & Download Free Printables"
-                    description="Play kid-safe mini-games and download free printables: puzzles, handwriting, and quick math warm-ups."
+                    description="Play kid-safe mini-games and download free printables: puzzles, handwriting practice, and quick math warm-ups. Fun learning activities for all kids!"
                     canonicalUrl={`https://wizqo.com${addLocaleToPath('/kids', currentLocale)}`}
                   />
                   <KidsPage />
@@ -466,7 +466,7 @@ export default function App() {
                   <>
                     <SEOMetaTags 
                       title="Free Interactive Worksheets Generator | Create PDFs | Wizqo"
-                      description="Generate free interactive worksheets for math, reading, science, and SEL. Create printable PDF worksheets with answer keys for all grades (K-5). Daily refresh with new problems. No sign-up required!"
+                      description="Generate free interactive worksheets for math, reading, science, and SEL. Create printable PDFs with answer keys for grades K-5. Daily refresh!"
                       keywords="interactive worksheets generator, free worksheet generator, printable worksheets generator, create worksheets online, math worksheet generator, reading worksheet generator, free worksheet maker, interactive math worksheets, printable PDF worksheets, worksheet generator with answer keys, grade-specific worksheets, K-5 worksheets"
                       canonicalUrl={`https://wizqo.com${addLocaleToPath('/interactive-worksheets-generator', currentLocale)}`}
                     />
@@ -480,7 +480,7 @@ export default function App() {
                   <>
                     <SEOMetaTags 
                       title="Free Name Tracing Generator - Create Personalized Handwriting Sheets"
-                      description="Create free personalized name tracing worksheets for kids! Customize font styles, sizes, and patterns. Perfect for teaching handwriting and name recognition. Print instantly!"
+                      description="Create free personalized name tracing worksheets for kids! Customize fonts, sizes, and patterns. Perfect for teaching handwriting and name recognition."
                       canonicalUrl={`https://wizqo.com${canonical}`}
                     />
                     <NameTracingGeneratorPage />
@@ -493,7 +493,7 @@ export default function App() {
                   <>
                     <SEOMetaTags 
                       title="How to Make a Certificate Online - Free Certificate Maker"
-                      description="Create your own certificate online for free! Learn how to make a certificate with editable names, cute themes, and instant download options."
+                      description="Create your own certificate online for free! Make certificates with editable names, cute themes, and instant download. Perfect for achievements!"
                       canonicalUrl={`https://wizqo.com${canonical}`}
                     />
                     <CertificateMakerPage />
@@ -504,7 +504,7 @@ export default function App() {
                 <>
                   <SEOMetaTags 
                     title="Free Printables Hub - Download Fun Learning Activities & Worksheets | Wizqo"
-                    description="Download free printable fun learning activities for kids — word searches, Sudoku, coloring pages, and spot-the-difference games. Perfect for home, school, or travel!"
+                    description="Download free printable fun learning activities for kids: word searches, Sudoku, coloring pages, and spot-the-difference games. Perfect for home or school!"
                     canonicalUrl={`https://wizqo.com${addLocaleToPath('/printables', currentLocale)}`}
                   />
                   <PrintablesLandingPage />
@@ -568,7 +568,7 @@ export default function App() {
                   <>
                     <SEOMetaTags 
                       title="Free Multiplication Worksheets - Printable PDFs with Answer Keys | Wizqo"
-                      description="Help your child master multiplication with our free multiplication worksheets for 2nd grade, 3rd grade, and beyond! Download printable PDFs instantly with answer keys. Practice multiplication facts, arrays, and word problems - perfect for building confidence and math fluency. No sign-up required!"
+                      description="Master multiplication with free worksheets for 2nd-3rd grade! Download printable PDFs with answer keys. Practice facts, arrays, and word problems."
                       keywords="multiplication worksheets, free multiplication worksheets, multiplication worksheets for 2nd grade, multiplication worksheets for 3rd grade, printable multiplication worksheets, multiplication facts worksheets, multiplication arrays worksheets, multiplication word problems, free multiplication worksheets PDF, multiplication practice sheets, multiplication worksheets with answer keys, 2rd grade multiplication worksheets, 3rd grade multiplication worksheets, multiplication tables worksheets, multiplication drills"
                       canonicalUrl={`https://wizqo.com${canonical}`}
                     />
@@ -582,7 +582,7 @@ export default function App() {
                   <>
                     <SEOMetaTags 
                       title="Free Times Table Worksheets PDF | Math Practice | Wizqo"
-                      description="Print free time table multiplication worksheets (PDF) that boost confidence, speed, and accuracy. Fun, no-stress practice sheets for grades 1–5. Download and learn today!"
+                      description="Print free times table multiplication worksheets (PDF) that boost confidence and accuracy. Fun, no-stress practice for grades 1–5. Download instantly!"
                       keywords="times table multiplication worksheets free pdf, printable times table worksheets for kids, 1–12 multiplication table worksheets pdf, free times table practice sheets grade 1–5, multiplication drill worksheets printable, easy times table worksheets for struggling learners, fun multiplication worksheets for kids pdf, basic multiplication worksheets for beginners, multiplication worksheets with answers pdf, confidence-building multiplication worksheets pdf, stress-free times table worksheets for kids, fun and simple worksheets to make multiplication easier, no-tears times table practice sheets, gentle step-by-step multiplication worksheets, worksheets for kids who struggle with multiplication, printable worksheets to help kids overcome math fear, engaging multiplication worksheets that make learning fun, horizontal multiplication worksheets pdf, vertical multiplication worksheets printable, missing number multiplication worksheets, timed multiplication test sheets printable, multiplication color-by-number worksheets, multiplication worksheets for slow learners pdf, blank times table worksheets to fill in, memorize times tables, multiplication fluency, math fact practice, repeated addition worksheets, math confidence building"
                       canonicalUrl={`https://wizqo.com${canonical}`}
                     />
@@ -596,7 +596,7 @@ export default function App() {
                   <>
                     <SEOMetaTags 
                       title="Free Converting Fractions to Decimals Worksheets (PDF + Answer Key)"
-                      description="Download free fractions-to-decimals worksheets with answer keys. Easy, clear, no-login math PDFs perfect for grades 3–5. Boost confidence with simple step-by-step practice."
+                      description="Download free fractions-to-decimals worksheets with answer keys. Easy, clear math PDFs perfect for grades 3–5. Boost confidence with step-by-step practice."
                       keywords="converting fractions to decimals worksheets free printable, free fractions to decimals worksheets PDF, fractions to decimals worksheet with answer key, converting fractions to decimals step by step worksheet, fractions to decimals practice sheet grade 4, grade 5 converting fractions to decimals worksheets, turning fractions into decimals worksheets free, simple fractions to decimals worksheet for beginners, visual fractions to decimals worksheets PDF, fraction decimal conversion worksheet with examples, fractions to decimals worksheets, converting fractions to decimals, fractions to decimals worksheets with answer keys, fractions to decimals worksheets for 3rd grade, fractions to decimals worksheets for 4th grade, fractions to decimals worksheets for 5th grade, printable fractions to decimals worksheets, fractions to decimals practice sheets, fractions and decimals worksheets, decimal conversion worksheets"
                       canonicalUrl={`https://wizqo.com${canonical}`}
                     />
@@ -618,7 +618,7 @@ export default function App() {
                   <>
                     <SEOMetaTags 
                       title="1st Grade Math Worksheets – Free Printable PDF"
-                      description="Free 1st grade math worksheets—number sense, addition/subtraction within 10, ten‑frames, skip counting, and shapes. Print or save as PDF."
+                      description="Free 1st grade math worksheets covering number sense, addition/subtraction within 10, ten-frames, skip counting, and shapes. Print or save as PDF instantly."
                       keywords="1st grade math worksheets, first grade math worksheets, free 1st grade math worksheets PDF, printable math worksheets grade 1, addition worksheets first grade, subtraction worksheets grade 1, number sense worksheets, ten frames worksheets, skip counting worksheets"
                       canonicalUrl={`https://wizqo.com${canonical}`}
                     />
@@ -646,7 +646,7 @@ export default function App() {
                   <>
                     <SEOMetaTags 
                       title="Free Printable Reading Comprehension Worksheets for Kids (PDF)"
-                      description="Download free printable reading comprehension worksheets for kids. Fun and engaging passages with questions, answers, and PDFs for grades 1–3."
+                      description="Download free printable reading comprehension worksheets for kids. Fun passages with questions and answers. Perfect PDFs for grades 1–3. Print instantly!"
                       keywords="reading comprehension worksheets, free reading comprehension worksheets PDF, reading comprehension for kids, reading passages with questions, reading worksheets grade 1, reading worksheets grade 2, reading worksheets grade 3, printable reading comprehension"
                       canonicalUrl={`https://wizqo.com${canonical}`}
                     />
@@ -660,7 +660,7 @@ export default function App() {
                   <>
                     <SEOMetaTags 
                       title="Kindergarten Math Worksheets – Free Printable PDF"
-                      description="Free printable kindergarten math worksheets for early learners. Download PDF worksheets covering counting, number recognition, basic shapes, and simple addition. Perfect for building math foundations with answer keys included."
+                      description="Free printable kindergarten math worksheets for early learners. Download PDFs covering counting, number recognition, shapes, and addition. Perfect for building math foundations!"
                       keywords="kindergarten math worksheets, free kindergarten worksheets, printable kindergarten worksheets, kindergarten counting worksheets, number recognition worksheets, shapes worksheets kindergarten, kindergarten patterns worksheets, free printable kindergarten math worksheets PDF"
                       canonicalUrl={`https://wizqo.com${canonical}`}
                     />
@@ -674,7 +674,7 @@ export default function App() {
                   <>
                     <SEOMetaTags 
                       title="3rd Grade Math Worksheets – Free Printable PDF"
-                      description="Free 3rd grade math worksheets covering advanced multiplication, fractions, division, and multi-step word problems. Printable PDF worksheets with answer keys for comprehensive math practice. Perfect for building problem-solving skills."
+                      description="Free 3rd grade math worksheets covering multiplication, fractions, division, and word problems. Download printable PDFs with answer keys for comprehensive practice."
                       keywords="3rd grade math worksheets, third grade math worksheets, free 3rd grade math worksheets PDF, printable math worksheets grade 3, multiplication worksheets 3rd grade, division worksheets 3rd grade, fractions worksheets 3rd grade, word problems 3rd grade, geometry worksheets 3rd grade"
                       canonicalUrl={`https://wizqo.com${canonical}`}
                     />
@@ -688,7 +688,7 @@ export default function App() {
                   <>
                     <SEOMetaTags 
                       title="4th Grade Math Worksheets – Free Printable PDF"
-                      description="Free 4th grade math worksheets covering multiplication, division, fractions, decimals, and geometry. Download printable PDFs with answer keys for comprehensive math practice and skill building."
+                      description="Free 4th grade math worksheets covering multiplication, division, fractions, decimals, and geometry. Download printable PDFs with answer keys for math practice."
                       keywords="4th grade math worksheets, fourth grade math worksheets, free 4th grade math worksheets PDF, printable math worksheets grade 4, multiplication worksheets 4th grade, division worksheets 4th grade, fractions worksheets 4th grade, decimals worksheets 4th grade, geometry worksheets 4th grade"
                       canonicalUrl={`https://wizqo.com${canonical}`}
                     />
@@ -702,7 +702,7 @@ export default function App() {
                   <>
                     <SEOMetaTags 
                       title="5th Grade Math Worksheets – Free Printable PDF"
-                      description="Free 5th grade math worksheets covering advanced multiplication, division, fractions, decimals, and algebra basics. Download printable PDF worksheets with answer keys for comprehensive math practice."
+                      description="Free 5th grade math worksheets covering multiplication, division, fractions, decimals, and algebra basics. Download printable PDFs with answer keys."
                       keywords="5th grade math worksheets, fifth grade math worksheets, free 5th grade math worksheets PDF, printable math worksheets grade 5, multiplication worksheets 5th grade, division worksheets 5th grade, fractions worksheets 5th grade, decimals worksheets 5th grade, algebra worksheets 5th grade, geometry worksheets 5th grade"
                       canonicalUrl={`https://wizqo.com${canonical}`}
                     />
@@ -716,7 +716,7 @@ export default function App() {
                 <>
                   <SEOMetaTags 
                     title="2nd Grade Math Worksheets – Free Printable PDF"
-                    description="Free 2nd grade math worksheets covering counting, place value, addition/subtraction within 20 and 100, and focus skills. Print or save as PDF."
+                    description="Free 2nd grade math worksheets covering counting, place value, addition/subtraction within 20 and 100, and focus skills. Print or save as PDF instantly."
                     keywords="2nd grade math worksheets, second grade math worksheets, free 2nd grade math worksheets PDF, printable math worksheets grade 2, addition worksheets second grade, subtraction worksheets grade 2, place value worksheets, counting worksheets grade 2"
                     canonicalUrl={`https://wizqo.com${canonical}`}
                   />
@@ -752,7 +752,7 @@ export default function App() {
                 <>
                   <SEOMetaTags 
                     title="Privacy Policy - Wizqo"
-                    description="Learn how Wizqo protects your privacy and handles your data while providing free printable worksheets and personalized learning experiences."
+                    description="Learn how Wizqo protects your privacy and handles your data while providing free printable worksheets and personalized learning experiences for all users."
                     canonicalUrl="https://wizqo.com/privacy"
                     noIndex={true}
                   />
@@ -764,7 +764,7 @@ export default function App() {
                 <>
                   <SEOMetaTags 
                     title="Terms of Service - Wizqo"
-                    description="Read Wizqo's terms of service and understand the rules and guidelines for using our educational platform and worksheet generator."
+                    description="Read Wizqo's terms of service and understand the rules and guidelines for using our educational platform, worksheet generator, and learning resources."
                     canonicalUrl="https://wizqo.com/terms"
                     noIndex={true}
                   />
