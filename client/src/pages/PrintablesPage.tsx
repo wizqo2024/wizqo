@@ -2890,6 +2890,7 @@ export function PrintablesPage() {
             white-space: nowrap !important;
           }
           /* Thin colorful decorative border with emoji-style pattern - applied to ALL worksheets */
+          /* CRITICAL: Match PDF download styles exactly to prevent content cropping */
           [data-worksheet-content="true"] > div:first-child,
           [data-worksheet-content="true"] .max-w-4xl {
             position: relative !important;
@@ -2909,6 +2910,13 @@ export function PrintablesPage() {
             color-adjust: exact !important;
             padding: 20px 24px 24px 24px !important;
             margin: 0.5in !important;
+            margin-top: 0 !important;
+            overflow: visible !important;
+            background-color: white !important;
+            background: white !important;
+            width: calc(100% - 1in) !important;
+            max-width: calc(100% - 1in) !important;
+            box-sizing: border-box !important;
           }
         }
       `}</style>
