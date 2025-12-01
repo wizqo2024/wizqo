@@ -2680,13 +2680,12 @@ export function PrintablesPage() {
       // Use a URL-based key with timestamp to ensure fresh prints on navigation
       const currentUrl = window.location.href
       const printKey = `autoprint_${currentUrl}`
+      const now = Date.now()
+      const PRINT_COOLDOWN = 2000 // 2 seconds - prevent duplicate prints within 2 seconds
       
       // Check if we've already printed for this exact URL in this session
       // Use a timestamp to allow re-printing if user navigates away and comes back
       const lastPrintTime = sessionStorage.getItem(printKey)
-      const now = Date.now()
-      const PRINT_COOLDOWN = 5000 // 5 seconds - prevent duplicate prints within 5 seconds
-      
       if (lastPrintTime) {
         const timeSinceLastPrint = now - parseInt(lastPrintTime, 10)
         if (timeSinceLastPrint < PRINT_COOLDOWN) {
@@ -2694,14 +2693,21 @@ export function PrintablesPage() {
         }
       }
       
-      // Check if we've already scheduled a print for this URL
-      if (hasScheduledPrintRef.current) {
-        // Double-check if it's for the same URL
-        const scheduledUrl = sessionStorage.getItem('autoprint_scheduled_url')
-        if (scheduledUrl === currentUrl) {
-          return // Already scheduled for this URL
+      // Check if we've already scheduled a print for this exact URL recently
+      // Only block if we've scheduled it very recently (within cooldown)
+      const scheduledUrl = sessionStorage.getItem('autoprint_scheduled_url')
+      if (scheduledUrl === currentUrl) {
+        const scheduledTime = sessionStorage.getItem(printKey)
+        if (scheduledTime) {
+          const timeSinceScheduled = now - parseInt(scheduledTime, 10)
+          if (timeSinceScheduled < PRINT_COOLDOWN) {
+            return // Too soon since last scheduled print for this URL
+          }
         }
+        // It's been long enough, allow re-printing
       }
+      
+      // If we get here, we should proceed with printing
       
       // Mark that we're scheduling a print for this URL
       hasScheduledPrintRef.current = true
@@ -2790,8 +2796,10 @@ export function PrintablesPage() {
     // Get current URL
     const currentUrl = window.location.href
     
-    // Only reset if URL actually changed (not on initial mount with same URL)
-    if (currentUrl !== previousUrlRef.current) {
+    // Only reset if URL actually changed from a previous URL (not on initial mount)
+    // On initial mount, previousUrlRef.current is '', so we check if it's not empty
+    if (previousUrlRef.current && currentUrl !== previousUrlRef.current) {
+      // URL actually changed from a previous URL - reset everything
       previousUrlRef.current = currentUrl
       
       // Clear the scheduled URL flag to allow autoprint to work for new URLs
@@ -2802,11 +2810,15 @@ export function PrintablesPage() {
       printCallTimeRef.current = 0
       hasScheduledPrintRef.current = false
       
-      // Clear any pending timeout
+      // Clear any pending timeout from previous URL
       if (printTimeoutRef.current) {
         clearTimeout(printTimeoutRef.current)
         printTimeoutRef.current = null
       }
+    } else if (!previousUrlRef.current) {
+      // Initial mount - just set the previous URL, don't clear anything
+      // This allows the autoprint effect to run and set up the print timeout
+      previousUrlRef.current = currentUrl
     }
   }, [urlSearch, doc])
   return (
