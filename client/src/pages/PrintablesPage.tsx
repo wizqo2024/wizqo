@@ -1994,14 +1994,19 @@ export function PrintablesPage() {
           right: -8px !important;
           bottom: -8px !important;
           background-image: 
-            /* Top border - continuous line with gap for emoji */
-            linear-gradient(to right, 
-              #fbbf24 0%, 
-              #fbbf24 calc(50% - 130px), 
-              transparent calc(50% - 130px), 
-              transparent calc(50% + 130px), 
-              #fbbf24 calc(50% + 130px), 
-              #fbbf24 100%
+            /* Top border left side - dashed pattern */
+            repeating-linear-gradient(to right, 
+              #fbbf24 0px, 
+              #fbbf24 8px, 
+              transparent 8px, 
+              transparent 12px
+            ),
+            /* Top border right side - dashed pattern */
+            repeating-linear-gradient(to right, 
+              #fbbf24 0px, 
+              #fbbf24 8px, 
+              transparent 8px, 
+              transparent 12px
             ),
             /* Right border */
             repeating-linear-gradient(90deg, transparent, transparent 20px, #f472b6 20px, #f472b6 21px),
@@ -2011,9 +2016,9 @@ export function PrintablesPage() {
             repeating-linear-gradient(135deg, transparent, transparent 15px, #34d399 15px, #34d399 16px),
             /* Base gradient */
             linear-gradient(135deg, #f472b6 0%, #a78bfa 20%, #60a5fa 40%, #34d399 60%, #fbbf24 80%, #fb7185 100%) !important;
-          background-size: 100% 2px, 2px 100%, 100% 2px, 2px 100%, 100% 100% !important;
-          background-position: top, right, bottom, left, center !important;
-          background-repeat: no-repeat, repeat-y, repeat-x, repeat-y, no-repeat !important;
+          background-size: calc(50% - 130px) 2px, calc(50% - 130px) 2px, 2px 100%, 100% 2px, 2px 100%, 100% 100% !important;
+          background-position: top left, top right, right, bottom, left, center !important;
+          background-repeat: no-repeat, no-repeat, repeat-y, repeat-x, repeat-y, no-repeat !important;
           border-radius: 14px !important;
           z-index: -1 !important;
           opacity: 0.3 !important;
@@ -2031,7 +2036,7 @@ export function PrintablesPage() {
         }
         
         /* Decorative emoji stars at top - COMPLETE REDESIGN */
-        /* Positioned at exact same level as border line (centered on 2px border) */
+        /* Positioned at exact same level as border line (centered, no border on sides) */
         [data-worksheet-content="true"] > div:first-child::after,
         [data-worksheet-content="true"] > div.max-w-4xl::after,
         .max-w-4xl.mx-auto::after,
@@ -2045,7 +2050,7 @@ export function PrintablesPage() {
           letter-spacing: 8px !important;
           z-index: 1000 !important;
           background: white !important;
-          padding: 0px 20px !important;
+          padding: 0px 15px !important;
           border: none !important;
           box-shadow: none !important;
           line-height: 18px !important;
@@ -2893,7 +2898,14 @@ export function PrintablesPage() {
             right: -8px !important;
             bottom: -8px !important;
           background-image: 
-            /* Top border - dashed line pattern */
+            /* Top border left side - dashed pattern */
+            repeating-linear-gradient(to right, 
+              #fbbf24 0px, 
+              #fbbf24 8px, 
+              transparent 8px, 
+              transparent 12px
+            ),
+            /* Top border right side - dashed pattern */
             repeating-linear-gradient(to right, 
               #fbbf24 0px, 
               #fbbf24 8px, 
@@ -2908,9 +2920,9 @@ export function PrintablesPage() {
               repeating-linear-gradient(135deg, transparent, transparent 15px, #34d399 15px, #34d399 16px),
               /* Base gradient */
               linear-gradient(135deg, #f472b6 0%, #a78bfa 20%, #60a5fa 40%, #34d399 60%, #fbbf24 80%, #fb7185 100%) !important;
-            background-size: 100% 2px, 2px 100%, 100% 2px, 2px 100%, 100% 100% !important;
-            background-position: top, right, bottom, left, center !important;
-            background-repeat: no-repeat, repeat-y, repeat-x, repeat-y, no-repeat !important;
+            background-size: calc(50% - 130px) 2px, calc(50% - 130px) 2px, 2px 100%, 100% 2px, 2px 100%, 100% 100% !important;
+            background-position: top left, top right, right, bottom, left, center !important;
+            background-repeat: no-repeat, no-repeat, repeat-y, repeat-x, repeat-y, no-repeat !important;
             border-radius: 14px !important;
             z-index: -1 !important;
             opacity: 0.3 !important;
@@ -2927,7 +2939,7 @@ export function PrintablesPage() {
             print-color-adjust: exact !important;
           }
           /* Decorative emoji stars at top - COMPLETE REDESIGN */
-          /* Positioned at exact same level as border line (centered on 2px border) */
+          /* Positioned at exact same level as border line (centered, no border on sides) */
           [data-worksheet-content="true"] > div:first-child::after,
           [data-worksheet-content="true"] > div.max-w-4xl::after,
           .max-w-4xl.mx-auto::after,
@@ -2941,7 +2953,7 @@ export function PrintablesPage() {
             letter-spacing: 8px !important;
             z-index: 1000 !important;
             background: white !important;
-            padding: 0px 20px !important;
+            padding: 0px 15px !important;
             border: none !important;
             box-shadow: none !important;
             line-height: 18px !important;
