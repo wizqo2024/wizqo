@@ -1,6 +1,7 @@
 import React from 'react';
 import { UnifiedNavigation } from '../components/UnifiedNavigation';
 import { Footer } from '../components/Footer';
+import { SEOMetaTags } from '../components/SEOMetaTags';
 import { useTranslation } from '@/context/TranslationContext';
 
 export function AboutPage() {
@@ -9,6 +10,11 @@ export function AboutPage() {
   
   return (
     <div className="min-h-screen bg-slate-50" dir={isRTL ? 'rtl' : 'ltr'}>
+      <SEOMetaTags
+        title="About Wizqo - Free Printable Worksheets for Kids | Wizqo"
+        description="Learn about Wizqo - your source for free printable worksheets for kids K-5. Math, reading, writing, and more. 100% free, no sign-up required!"
+        canonicalUrl="https://wizqo.com/about"
+      />
       <UnifiedNavigation currentPage="about" />
       
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-16">

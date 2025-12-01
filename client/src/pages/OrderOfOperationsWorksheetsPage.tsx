@@ -2,6 +2,7 @@ import React, { useState, useMemo } from 'react'
 import { UnifiedNavigation } from '@/components/UnifiedNavigation'
 import { Footer } from '@/components/Footer'
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion'
+import { SEOMetaTags } from '@/components/SEOMetaTags'
 import { CategoryFilter, type Category } from '@/components/CategoryFilter'
 import { trackCategoryFilter } from '@/utils/analytics'
 import { useTranslation } from '@/context/TranslationContext'
@@ -92,7 +93,12 @@ export default function OrderOfOperationsWorksheetsPage() {
   
   return (
     <div className="min-h-screen bg-slate-50" dir={isRTL ? 'rtl' : 'ltr'}>
-      {/* SEO tags are set in App.tsx for this route */}
+      <SEOMetaTags
+        title="Free Order of Operations Worksheets (PEMDAS) - Printable PDFs | Wizqo"
+        description="Download free Order of Operations worksheets (PEMDAS) with step-by-step practice. Printable PDFs for 4th-6th grade. No login required!"
+        keywords="order of operations worksheets, PEMDAS worksheets, free PEMDAS worksheets, order of operations practice, printable PEMDAS worksheets, PEMDAS worksheets PDF, order of operations 4th grade, order of operations 5th grade, order of operations 6th grade"
+        canonicalUrl="https://wizqo.com/worksheets/order-of-operations-worksheets"
+      />
       {(() => {
         const canonical = "https://wizqo.com/worksheets/order-of-operations-worksheets";
         const breadcrumbId = `${canonical}#breadcrumbs`;

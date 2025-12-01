@@ -1,4 +1,5 @@
 import React from 'react'
+import { SEOMetaTags } from '@/components/SEOMetaTags'
 import { useTranslation } from '@/context/TranslationContext'
 import { getWorksheetURL } from '@/utils/worksheetLinks'
 
@@ -12,6 +13,11 @@ export default function WorksheetsGrade2Page() {
   
   return (
     <main className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-10" dir={isRTL ? 'rtl' : 'ltr'}>
+      <SEOMetaTags
+        title={t('pages.grade2.seoTitle') || "2nd Grade Worksheets - Free Printable PDFs | Wizqo"}
+        description={t('pages.grade2.seoDescription') || "Free printable 2nd grade worksheets covering math, reading, and more. Download PDFs instantly. No sign-up required!"}
+        canonicalUrl="https://wizqo.com/worksheets/grade-2"
+      />
       <div className="mb-4 print:hidden">
         <a href="/printables" className="inline-flex items-center gap-2 px-3 py-1.5 rounded-lg border border-slate-200 text-slate-700 hover:bg-slate-50 text-sm" aria-label={t('pages.grade2.backToPrintablesAria')}>
           <span>←</span>

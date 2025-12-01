@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { UnifiedNavigation } from '../components/UnifiedNavigation';
 import { Footer } from '../components/Footer';
+import { SEOMetaTags } from '../components/SEOMetaTags';
 import { useToast } from '@/hooks/use-toast';
 import { useTranslation } from '@/context/TranslationContext';
 
@@ -82,6 +83,11 @@ export function ContactPage() {
 
   return (
     <div className="min-h-screen bg-slate-50" dir={isRTL ? 'rtl' : 'ltr'}>
+      <SEOMetaTags
+        title="Contact Us - Wizqo Free Worksheets | Wizqo"
+        description="Get in touch with Wizqo! Have questions about our free printable worksheets? We'd love to hear from you. Contact us today!"
+        canonicalUrl="https://wizqo.com/contact"
+      />
       <UnifiedNavigation currentPage="contact" />
       
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
