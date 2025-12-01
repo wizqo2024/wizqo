@@ -3747,6 +3747,7 @@ export const es = {
     connect: 'Conectar',
     followUsOnSocialMedia: 'Síguenos en las redes sociales',
     followUsOnLinkedIn: 'Síguenos en LinkedIn',
+    followUsOnFacebook: 'Síguenos en Facebook',
     seeUsOnTrustpilot: 'Véanos en Trustpilot',
     followUsOnPinterest: 'Síguenos en Pinterest',
     followUsOnInstagram: 'Síguenos en Instagram',

@@ -6297,6 +6297,7 @@ Zentangle، زراعة الأعشاب، تصميم الألعاب اللوحية
     connect: 'تواصل',
     followUsOnSocialMedia: 'تابعنا على وسائل التواصل الاجتماعي',
     followUsOnLinkedIn: 'تابعنا على لينكد إن',
+    followUsOnFacebook: 'تابعنا على Facebook',
     seeUsOnTrustpilot: 'شاهدنا على Trustpilot',
     followUsOnPinterest: 'تابعنا على Pinterest',
     followUsOnInstagram: 'تابعنا على Instagram',

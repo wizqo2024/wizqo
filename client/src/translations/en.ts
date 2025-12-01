@@ -4091,6 +4091,7 @@ export const en = {
     connect: 'Connect',
     followUsOnSocialMedia: 'Follow us on social media',
     followUsOnLinkedIn: 'Follow us on LinkedIn',
+    followUsOnFacebook: 'Follow us on Facebook',
     seeUsOnTrustpilot: 'See us on Trustpilot',
     followUsOnPinterest: 'Follow us on Pinterest',
     followUsOnInstagram: 'Follow us on Instagram',
