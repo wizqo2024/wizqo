@@ -2038,29 +2038,31 @@ export function PrintablesPage() {
         
         /* Decorative emoji stars at top - applied to ALL worksheets */
         /* Perfectly centered at top, aligned inline with border line */
+        /* Border line is at -8px (top of ::before) and is 2px thick, so center is at -7px */
         [data-worksheet-content="true"] > div:first-child::after,
         [data-worksheet-content="true"] > div.max-w-4xl::after,
         .max-w-4xl.mx-auto::after,
         [data-worksheet-content="true"] .max-w-4xl::after {
           content: '⭐ ✨ 💫 🌟' !important;
           position: absolute !important;
-          top: -1px !important;
+          top: -7px !important;
           left: 50% !important;
           transform: translateX(-50%) translateY(-50%) !important;
           font-size: 18px !important;
           letter-spacing: 10px !important;
           z-index: 1000 !important;
           background: white !important;
-          padding: 2px 30px !important;
+          padding: 1px 30px !important;
           border: none !important;
           box-shadow: none !important;
           line-height: 1 !important;
+          margin: 0 !important;
           -webkit-print-color-adjust: exact !important;
           print-color-adjust: exact !important;
           color: #f472b6 !important;
           display: inline-block !important;
           white-space: nowrap !important;
-          vertical-align: baseline !important;
+          vertical-align: middle !important;
         }
         
         /* Ensure all divs inside worksheet content have white background */
@@ -2941,29 +2943,31 @@ export function PrintablesPage() {
           }
           /* Decorative emoji stars at top - applied to ALL worksheets */
           /* Perfectly centered at top, aligned inline with border line */
+          /* Border line is at -8px (top of ::before) and is 2px thick, so center is at -7px */
           [data-worksheet-content="true"] > div:first-child::after,
           [data-worksheet-content="true"] > div.max-w-4xl::after,
           .max-w-4xl.mx-auto::after,
           [data-worksheet-content="true"] .max-w-4xl::after {
             content: '⭐ ✨ 💫 🌟' !important;
             position: absolute !important;
-            top: -1px !important;
+            top: -7px !important;
             left: 50% !important;
             transform: translateX(-50%) translateY(-50%) !important;
             font-size: 18px !important;
             letter-spacing: 10px !important;
             z-index: 1000 !important;
             background: white !important;
-            padding: 2px 30px !important;
+            padding: 1px 30px !important;
             border: none !important;
             box-shadow: none !important;
             line-height: 1 !important;
+            margin: 0 !important;
             -webkit-print-color-adjust: exact !important;
             print-color-adjust: exact !important;
             color: #f472b6 !important;
             display: inline-block !important;
             white-space: nowrap !important;
-            vertical-align: baseline !important;
+            vertical-align: middle !important;
           }
           /* Thin colorful decorative border with emoji-style pattern - applied to ALL worksheets */
           /* CRITICAL: Match PDF download styles exactly to prevent content cropping */
