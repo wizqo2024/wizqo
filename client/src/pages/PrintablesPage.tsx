@@ -1826,6 +1826,11 @@ export function PrintablesPage() {
   const downloadPDF = React.useCallback(async () => {
     let wrapperElement: HTMLElement | null = null
     let wrapperOriginalStyle: { width: string; maxWidth: string; margin: string; padding: string } | null = null
+    let printStyleTag: HTMLStyleElement | null = null
+    let hiddenElementsData: Array<{ element: HTMLElement; originalDisplay: string; originalVisibility: string }> = []
+    let blockElementsData: Array<{ element: HTMLElement; originalDisplay: string }> = []
+    let originalBodyClass = ''
+    let originalBodyStyle: { width: string; maxWidth: string; margin: string; padding: string } | null = null
     
     try {
       setIsDownloadingPDF(true)
@@ -1886,6 +1891,57 @@ export function PrintablesPage() {
       // We need to capture the full 794px container to match print layout exactly
       const contentElement = outerContainer
       
+      // CRITICAL: Apply print media query styles BEFORE capture to match Ctrl+P exactly
+      // Create a temporary style element with print media query rules
+      const printStyleTag = document.createElement('style')
+      printStyleTag.id = 'pdf-export-print-styles'
+      printStyleTag.textContent = `
+        /* Apply ALL print media query styles for PDF export */
+        * {
+          box-sizing: border-box;
+        }
+        html, body {
+          width: 794px !important;
+          max-width: 794px !important;
+          margin: 0 !important;
+          padding: 0 !important;
+          background: white !important;
+          font-size: 11pt !important;
+        }
+        /* Hide print:hidden elements */
+        [class*="print:hidden"],
+        .print\\:hidden {
+          display: none !important;
+          visibility: hidden !important;
+        }
+        /* Show print:block elements */
+        [class*="print:block"],
+        .print\\:block {
+          display: block !important;
+        }
+        /* Hide screen-only elements */
+        header.print\\:hidden,
+        .print\\:hidden {
+          display: none !important;
+        }
+        /* Apply print layout from index.css */
+        [data-worksheet-content="true"] {
+          width: 794px !important;
+          max-width: 794px !important;
+          margin: 0 !important;
+          padding: 0 !important;
+          background: white !important;
+        }
+        [data-worksheet-content="true"] > div:first-child {
+          margin: 0.5in !important;
+          margin-top: 0 !important;
+          width: calc(100% - 1in) !important;
+          max-width: calc(100% - 1in) !important;
+          background: white !important;
+        }
+      `
+      document.head.appendChild(printStyleTag)
+      
       // Apply print styles temporarily to match print layout exactly
       const originalBodyClass = document.body.className
       const originalBodyStyle = {
@@ -1901,6 +1957,36 @@ export function PrintablesPage() {
       document.body.style.maxWidth = '794px'
       document.body.style.margin = '0' // NO margin - matches print layout (margin: 0)
       document.body.style.padding = '0'
+      document.body.style.background = 'white'
+      
+      // Hide all print:hidden elements
+      const printHiddenElements = document.querySelectorAll('[class*="print:hidden"], .print\\:hidden')
+      const hiddenElementsData: Array<{ element: HTMLElement; originalDisplay: string; originalVisibility: string }> = []
+      printHiddenElements.forEach((el) => {
+        const htmlEl = el as HTMLElement
+        hiddenElementsData.push({
+          element: htmlEl,
+          originalDisplay: htmlEl.style.display || '',
+          originalVisibility: htmlEl.style.visibility || ''
+        })
+        htmlEl.style.display = 'none'
+        htmlEl.style.visibility = 'hidden'
+      })
+      
+      // Show all print:block elements
+      const printBlockElements = document.querySelectorAll('[class*="print:block"], .print\\:block')
+      const blockElementsData: Array<{ element: HTMLElement; originalDisplay: string }> = []
+      printBlockElements.forEach((el) => {
+        const htmlEl = el as HTMLElement
+        const computedStyle = window.getComputedStyle(htmlEl)
+        if (computedStyle.display === 'none') {
+          blockElementsData.push({
+            element: htmlEl,
+            originalDisplay: htmlEl.style.display || ''
+          })
+          htmlEl.style.display = 'block'
+        }
+      })
       
       // Set outer container to match print layout exactly (794px with inner content having spacing)
       // CRITICAL: html2canvas doesn't capture margins reliably, so use padding on outer container
@@ -5272,6 +5358,37 @@ export function PrintablesPage() {
       // Show user-friendly error message only if all fallbacks failed
       alert('Failed to generate PDF. Please try using the Print button and selecting "Save as PDF" instead.')
     } finally {
+      // Restore original styles
+      if (printStyleTag && printStyleTag.parentNode) {
+        printStyleTag.parentNode.removeChild(printStyleTag)
+      }
+      
+      // Restore hidden elements
+      if (hiddenElementsData) {
+        hiddenElementsData.forEach(({ element, originalDisplay, originalVisibility }) => {
+          element.style.display = originalDisplay || ''
+          element.style.visibility = originalVisibility || ''
+        })
+      }
+      
+      // Restore block elements
+      if (blockElementsData) {
+        blockElementsData.forEach(({ element, originalDisplay }) => {
+          element.style.display = originalDisplay || ''
+        })
+      }
+      
+      // Restore body styles
+      if (originalBodyClass) {
+        document.body.className = originalBodyClass
+      }
+      if (originalBodyStyle) {
+        document.body.style.width = originalBodyStyle.width
+        document.body.style.maxWidth = originalBodyStyle.maxWidth
+        document.body.style.margin = originalBodyStyle.margin
+        document.body.style.padding = originalBodyStyle.padding
+      }
+      
       setIsDownloadingPDF(false)
     }
   }, [showAnswers, doc, primaryDoc, docTitle, params, autoDownload])
@@ -5940,8 +6057,16 @@ export function PrintablesPage() {
             {/* Download PDF Button - Test for comparing-decimals only */}
             {doc === 'comparing-decimals' && !isPreview && (
               <button
-                onClick={() => {
+                onClick={(e) => {
+                  e.preventDefault()
+                  e.stopPropagation()
                   try {
+                    // Prevent autoprint from triggering
+                    const url = new URL(window.location.href)
+                    url.searchParams.delete('autoprint')
+                    window.history.replaceState({}, '', url.toString())
+                    
+                    // Call download function
                     downloadPDF()
                   } catch (error) {
                     console.error('Download failed:', error)
