@@ -2661,22 +2661,28 @@ export function PrintablesPage() {
       
       if (!autoPrint || autoDownload) return // Skip if download is already handling it
       
-      // Use sessionStorage to track if we've already printed for this URL
-      // This prevents duplicate print dialogs even if component re-renders
-      const printKey = `autoprint_${window.location.href}`
-      const hasAlreadyPrinted = typeof window !== 'undefined' && sessionStorage.getItem(printKey) === 'true'
+      // Use sessionStorage to track if we've already attempted to print for this URL
+      // This prevents duplicate print dialogs even if component re-renders or user cancels
+      const printKey = typeof window !== 'undefined' ? `autoprint_${window.location.href}` : ''
+      const hasAlreadyAttemptedPrint = typeof window !== 'undefined' && printKey && sessionStorage.getItem(printKey) === 'true'
       
-      // Prevent multiple print calls - check sessionStorage, ref, and time since last call
-      const now = Date.now()
-      const timeSinceLastCall = now - printCallTimeRef.current
-      if ((hasAlreadyPrinted || hasPrintedRef.current) && timeSinceLastCall < 10000) {
-        return // Don't call print again if we've called it recently (within 10 seconds) or already printed this URL
+      // If we've already attempted to print for this URL, don't try again
+      if (hasAlreadyAttemptedPrint) {
+        return // Already attempted print for this URL - don't try again
+      }
+      
+      // Mark immediately that we're attempting to print (before the timeout)
+      // This prevents the effect from running again if component re-renders
+      if (typeof window !== 'undefined' && printKey) {
+        sessionStorage.setItem(printKey, 'true')
+        hasPrintedRef.current = true
+        printCallTimeRef.current = Date.now()
       }
       
       // Defer a bit to let the view render fully
       const t = setTimeout(() => { 
         try { 
-          // Double-check we're still on the print page and haven't printed yet
+          // Double-check we're still on the print page
           const stillOnPrintPage = typeof window !== 'undefined' && isPrintRoute && (window.location.pathname === '/print' || window.location.pathname.startsWith('/print?'))
           // Double-check we're not in preview mode
           const currentParams = new URLSearchParams(window.location.search)
@@ -2694,17 +2700,11 @@ export function PrintablesPage() {
             }
           }
           
-          // Final check using sessionStorage
-          const stillHasAlreadyPrinted = typeof window !== 'undefined' && sessionStorage.getItem(printKey) === 'true'
+          // Final check using sessionStorage - if we've already attempted, don't try again
+          const stillHasAlreadyAttempted = typeof window !== 'undefined' && sessionStorage.getItem(printKey) === 'true'
           
-          if (stillOnPrintPage && !currentIsPreview && !hasPrintedRef.current && !stillHasAlreadyPrinted) {
+          if (stillOnPrintPage && !currentIsPreview && !stillHasAlreadyAttempted) {
             window.print()
-            hasPrintedRef.current = true
-            printCallTimeRef.current = Date.now()
-            // Mark in sessionStorage that we've printed for this URL
-            if (typeof window !== 'undefined') {
-              sessionStorage.setItem(printKey, 'true')
-            }
             // Track auto-print
             if (doc && primaryDoc) {
               const from = params.get('from') || 'unknown'
