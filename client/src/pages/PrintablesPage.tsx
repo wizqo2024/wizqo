@@ -2023,9 +2023,9 @@ export function PrintablesPage() {
           letter-spacing: 10px !important;
           z-index: 10 !important;
           background: white !important;
-          padding: 4px 20px !important;
+          padding: 8px 40px !important;
           border: none !important;
-          box-shadow: 0 0 0 8px white !important;
+          box-shadow: 0 -8px 0 0 white, 0 0 0 30px white !important;
           -webkit-print-color-adjust: exact !important;
           print-color-adjust: exact !important;
           color: #f472b6 !important;
@@ -2894,9 +2894,9 @@ export function PrintablesPage() {
             letter-spacing: 10px !important;
             z-index: 10 !important;
             background: white !important;
-            padding: 4px 20px !important;
+            padding: 8px 40px !important;
             border: none !important;
-            box-shadow: 0 0 0 8px white !important;
+            box-shadow: 0 -8px 0 0 white, 0 0 0 30px white !important;
             -webkit-print-color-adjust: exact !important;
             print-color-adjust: exact !important;
             color: #f472b6 !important;
