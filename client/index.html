@@ -351,20 +351,37 @@
       
       // Hide SEO fallback IMMEDIATELY (before React even loads) to prevent Bing from seeing it
       (function() {
-        var fallback = document.getElementById('seo-fallback');
-        if (fallback) {
-          // Hide with all possible methods immediately
-          fallback.style.display = 'none';
-          fallback.style.position = 'absolute';
-          fallback.style.left = '-9999px';
-          fallback.style.width = '1px';
-          fallback.style.height = '1px';
-          fallback.style.overflow = 'hidden';
-          fallback.style.visibility = 'hidden';
-          fallback.style.opacity = '0';
-          fallback.style.pointerEvents = 'none';
-          fallback.setAttribute('aria-hidden', 'true');
+        var path = '';
+        try {
+          if (typeof location !== 'undefined') {
+            path = location.pathname || '';
+          }
+        } catch(e) {}
+        
+        // For blog page and other non-worksheet pages, hide fallback immediately
+        var isBlogPage = path && (path === '/blog' || path.startsWith('/blog/'));
+        var isWorksheetPage = path && path.startsWith('/worksheets/');
+        var isSpecialPage = path && (path.includes('fractions-to-decimals-worksheets') || path.includes('order-of-operations-worksheets'));
+        
+        // Always hide fallback for blog and other non-worksheet pages
+        // For worksheet pages, we'll hide it after React loads
+        if (isBlogPage || (!isWorksheetPage && !isSpecialPage)) {
+          var fallback = document.getElementById('seo-fallback');
+          if (fallback) {
+            // Hide with all possible methods immediately for blog pages
+            fallback.style.display = 'none';
+            fallback.style.position = 'absolute';
+            fallback.style.left = '-9999px';
+            fallback.style.width = '1px';
+            fallback.style.height = '1px';
+            fallback.style.overflow = 'hidden';
+            fallback.style.visibility = 'hidden';
+            fallback.style.opacity = '0';
+            fallback.style.pointerEvents = 'none';
+            fallback.setAttribute('aria-hidden', 'true');
+          }
         }
+        
         // Mark body as React-loaded to trigger CSS hiding
         if (document.body) {
           document.body.classList.add('react-loaded');

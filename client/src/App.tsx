@@ -431,7 +431,7 @@ export default function App() {
                 <>
                   <SEOMetaTags 
                     title="Free Printable Worksheet Ideas, Teaching Tips & Learning Blog | Wizqo"
-                    description="Explore Wizqo's free educational blog — full of printable worksheet ideas, teaching hacks, learning tips, student hobbies, and classroom inspiration for teachers and parents."
+                    description="Explore Wizqo's free educational blog with printable worksheet ideas, teaching tips, learning strategies, and classroom inspiration for teachers and parents."
                     keywords="free printable worksheets, learning blog, educational tips, teaching ideas, classroom resources, student hobbies, homeschool worksheets"
                     canonicalUrl={`https://wizqo.com${addLocaleToPath('/blog', currentLocale)}`}
                   />
