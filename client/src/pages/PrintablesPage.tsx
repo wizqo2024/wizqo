@@ -1892,25 +1892,30 @@ export function PrintablesPage() {
       const contentElement = outerContainer
       
       // CRITICAL: Apply print media query styles BEFORE capture to match Ctrl+P exactly
-      // Create a temporary style element with print media query rules
+      // We need to apply ALL print styles from index.css to match Ctrl+P layout
+      // Create a temporary style element that applies print media query rules
       const printStyleTag = document.createElement('style')
       printStyleTag.id = 'pdf-export-print-styles'
+      
+      // Get all print styles from the stylesheet - we'll apply them directly
+      // Since we can't query @media print rules directly, we'll manually apply the key rules
       printStyleTag.textContent = `
-        /* Apply ALL print media query styles for PDF export */
+        /* Apply ALL print media query styles for PDF export - matching index.css @media print */
         * {
           box-sizing: border-box;
         }
-        html, body {
+        html, body, #root, [data-worksheet-content="true"] {
+          background-color: white !important;
+          background: white !important;
+          color: black !important;
           width: 794px !important;
           max-width: 794px !important;
           margin: 0 !important;
           padding: 0 !important;
-          background: white !important;
-          font-size: 11pt !important;
         }
-        /* Hide print:hidden elements */
+        /* Hide print:hidden elements - match Tailwind print:hidden */
         [class*="print:hidden"],
-        .print\\:hidden {
+        header.print\\:hidden {
           display: none !important;
           visibility: hidden !important;
         }
@@ -1919,25 +1924,47 @@ export function PrintablesPage() {
         .print\\:block {
           display: block !important;
         }
-        /* Hide screen-only elements */
-        header.print\\:hidden,
-        .print\\:hidden {
-          display: none !important;
-        }
-        /* Apply print layout from index.css */
+        /* Apply exact print layout from index.css */
         [data-worksheet-content="true"] {
           width: 794px !important;
           max-width: 794px !important;
           margin: 0 !important;
           padding: 0 !important;
           background: white !important;
+          min-height: auto !important;
+          height: auto !important;
         }
         [data-worksheet-content="true"] > div:first-child {
           margin: 0.5in !important;
           margin-top: 0 !important;
+          padding: 0 !important;
           width: calc(100% - 1in) !important;
           max-width: calc(100% - 1in) !important;
           background: white !important;
+          overflow: visible !important;
+        }
+        /* Hide screen-only header */
+        header.print\\:hidden {
+          display: none !important;
+        }
+        /* Show print-only logo */
+        .print\\:block {
+          display: block !important;
+        }
+        /* Apply section print styles */
+        section.worksheet-section,
+        .worksheet-section {
+          display: block !important;
+          break-inside: avoid !important;
+          page-break-inside: avoid !important;
+          background: white !important;
+          margin-bottom: 1.5rem !important;
+          padding: 0.5rem 0.5rem !important;
+        }
+        section:first-of-type,
+        .worksheet-section:first-of-type {
+          margin-top: 0 !important;
+          padding-top: 0 !important;
         }
       `
       document.head.appendChild(printStyleTag)
@@ -2066,8 +2093,15 @@ export function PrintablesPage() {
         }
       })
       
-      // Wait for styles to apply and verify content width
-      await new Promise(resolve => setTimeout(resolve, 500))
+      // CRITICAL: Wait for print styles to fully apply and layout to settle
+      // Force a reflow to ensure all styles are computed
+      void document.body.offsetHeight
+      void contentElement.offsetHeight
+      if (innerDiv) {
+        void innerDiv.offsetHeight
+      }
+      // Wait longer for styles to apply (print styles need time to take effect)
+      await new Promise(resolve => setTimeout(resolve, 800))
       
       // Capture the content with print dimensions
       // Find the inner content div that has the actual content (698px width with margins)
