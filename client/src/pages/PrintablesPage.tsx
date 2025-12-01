@@ -1834,7 +1834,12 @@ export function PrintablesPage() {
       ])
       
       // Wait for content to render
-      await new Promise(resolve => setTimeout(resolve, 500))
+      // If showAnswers is true, wait a bit longer for answers to render
+      if (showAnswers) {
+        await new Promise(resolve => setTimeout(resolve, 1500))
+      } else {
+        await new Promise(resolve => setTimeout(resolve, 500))
+      }
       
       // Find the worksheet content container
       const contentElement = document.querySelector('[data-worksheet-content="true"]') as HTMLElement
