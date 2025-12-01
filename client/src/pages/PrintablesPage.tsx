@@ -1437,6 +1437,27 @@ export function PrintablesPage() {
     }
   }, [t, language])
   
+  // CRITICAL: Early check to ensure we're on /print route, not /printables or other routes
+  // This prevents autoprint from triggering on category pages
+  const [isPrintRoute, setIsPrintRoute] = React.useState(() => {
+    if (typeof window === 'undefined') return false
+    const pathname = window.location.pathname
+    return pathname === '/print' || pathname.startsWith('/print?')
+  })
+  
+  // Update route check when location changes
+  React.useEffect(() => {
+    const checkRoute = () => {
+      if (typeof window === 'undefined') return
+      const pathname = window.location.pathname
+      const isPrint = pathname === '/print' || pathname.startsWith('/print?')
+      setIsPrintRoute(isPrint)
+    }
+    checkRoute()
+    window.addEventListener('popstate', checkRoute)
+    return () => window.removeEventListener('popstate', checkRoute)
+  }, [])
+  
   // Track URL search params in state so they update reactively when URL changes
   const [urlSearch, setUrlSearch] = React.useState(() => 
     typeof window !== 'undefined' ? window.location.search : ''
@@ -1473,7 +1494,8 @@ export function PrintablesPage() {
   }, [urlSearch])
   
   const doc = params.get('doc') || ''
-  const autoPrint = (params.get('autoprint') || '').toLowerCase() === '1' || (params.get('autoprint') || '').toLowerCase() === 'true'
+  // Only calculate autoPrint if we're on the /print route - prevents popup on category pages
+  const autoPrint = isPrintRoute && ((params.get('autoprint') || '').toLowerCase() === '1' || (params.get('autoprint') || '').toLowerCase() === 'true')
   const autoDownload = (params.get('download') || '').toLowerCase() === '1' || (params.get('download') || '').toLowerCase() === 'true'
   const isPreview = (params.get('preview') || '').toLowerCase() === '1' || (params.get('preview') || '').toLowerCase() === 'true'
   const packTime = params.get('time') || '5'
@@ -2402,10 +2424,7 @@ export function PrintablesPage() {
   // ONLY run on /print route, not on category pages like /printables
   React.useEffect(() => {
     try {
-      // Only run if we're actually on the /print route (not /printables)
-      const currentPath = typeof window !== 'undefined' ? window.location.pathname : ''
-      // Check for exact /print route, not /printables
-      const isPrintRoute = currentPath === '/print' || currentPath.startsWith('/print?')
+      // Early return if not on print route - prevents popup on category pages
       if (!isPrintRoute) {
         return // Don't run on category pages like /printables
       }
@@ -2416,7 +2435,7 @@ export function PrintablesPage() {
       const t = setTimeout(() => { 
         try { 
           // Double-check we're still on the print page and haven't printed yet
-          const stillOnPrintPage = typeof window !== 'undefined' && (window.location.pathname === '/print' || window.location.pathname.startsWith('/print?'))
+          const stillOnPrintPage = typeof window !== 'undefined' && isPrintRoute && (window.location.pathname === '/print' || window.location.pathname.startsWith('/print?'))
           if (stillOnPrintPage && !hasPrintedRef.current) {
             window.print()
             hasPrintedRef.current = true
@@ -2432,17 +2451,15 @@ export function PrintablesPage() {
       }, 1200)
       return () => clearTimeout(t)
     } catch {}
-  }, [autoPrint, autoDownload, doc, primaryDoc, docTitle, params])
+  }, [isPrintRoute, autoPrint, autoDownload, doc, primaryDoc, docTitle, params])
   
   // Reset print flag when URL changes (new worksheet loaded)
   React.useEffect(() => {
-    const currentPath = typeof window !== 'undefined' ? window.location.pathname : ''
     // Only reset on exact /print route, not /printables
-    const isPrintRoute = currentPath === '/print' || currentPath.startsWith('/print?')
     if (isPrintRoute) {
       hasPrintedRef.current = false
     }
-  }, [doc, urlSearch])
+  }, [isPrintRoute, doc, urlSearch])
   return (
     <div className="min-h-screen bg-white" data-worksheet-content="true">
       <style>{`
