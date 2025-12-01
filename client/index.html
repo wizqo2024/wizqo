@@ -367,8 +367,9 @@
         var isPrintablesPage = path && (path === '/printables' || path.startsWith('/printables/'));
         var isPrintPage = path && (path === '/print' || path.startsWith('/print/'));
         
-        // For non-worksheet pages, REMOVE the fallback element entirely to prevent Bing from seeing any H2 tags
-        if (isBlogPage || isInteractivePage || isKidsPage || isPrintablesPage || isPrintPage || (!isWorksheetPage && !isSpecialPage)) {
+        // For non-worksheet pages AND special pages (fractions, order-of-operations), REMOVE the fallback element entirely
+        // Special pages have their own H1 in React, so we don't need the fallback
+        if (isBlogPage || isInteractivePage || isKidsPage || isPrintablesPage || isPrintPage || isSpecialPage || (!isWorksheetPage && !isSpecialPage)) {
           // Try to remove immediately if DOM is ready
           function removeFallback() {
             var fallback = document.getElementById('seo-fallback');
@@ -431,8 +432,8 @@
             var isWorksheetPage = path && path.startsWith('/worksheets/');
             var isSpecialPage = path && (path.includes('fractions-to-decimals-worksheets') || path.includes('order-of-operations-worksheets'));
             
-            // For non-worksheet pages, remove entirely
-            if (isBlogPage || isInteractivePage || isKidsPage || isPrintablesPage || isPrintPage || (!isWorksheetPage && !isSpecialPage)) {
+            // For non-worksheet pages AND special pages, remove entirely (they have their own H1 in React)
+            if (isBlogPage || isInteractivePage || isKidsPage || isPrintablesPage || isPrintPage || isSpecialPage || (!isWorksheetPage && !isSpecialPage)) {
               fallback.remove();
             } else if (root && root.children.length > 0) {
               // For worksheet pages, just hide it
