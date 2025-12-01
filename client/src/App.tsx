@@ -660,7 +660,7 @@ export default function App() {
                   <>
                     <SEOMetaTags 
                       title="Kindergarten Math Worksheets – Free Printable PDF"
-                      description="Free printable kindergarten math worksheets for early learners. Download PDFs covering counting, number recognition, shapes, and addition. Perfect for building foundations!"
+                      description="Free printable kindergarten math worksheets for early learners. Download PDFs covering counting, number recognition, shapes, and addition. Perfect for building math foundations!"
                       keywords="kindergarten math worksheets, free kindergarten worksheets, printable kindergarten worksheets, kindergarten counting worksheets, number recognition worksheets, shapes worksheets kindergarten, kindergarten patterns worksheets, free printable kindergarten math worksheets PDF"
                       canonicalUrl={`https://wizqo.com${canonical}`}
                     />
