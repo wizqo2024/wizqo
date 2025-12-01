@@ -2637,7 +2637,11 @@ export function PrintablesPage() {
   React.useEffect(() => {
     try {
       // Early return if not on print route - prevents popup on category pages
-      if (!isPrintRoute) {
+      // Check pathname directly to ensure we're on /print route
+      const currentPathname = typeof window !== 'undefined' ? window.location.pathname : ''
+      const isActuallyOnPrintRoute = currentPathname === '/print'
+      
+      if (!isActuallyOnPrintRoute) {
         return // Don't run on category pages like /printables
       }
       
@@ -2652,7 +2656,7 @@ export function PrintablesPage() {
         try {
           // If parent window exists and is not on /print route, don't trigger print
           const parentPath = window.top?.location?.pathname || ''
-          if (parentPath !== '/print' && !parentPath.startsWith('/print?')) {
+          if (parentPath !== '/print') {
             return // Don't trigger print if parent is not on print route
           }
         } catch (e) {
@@ -2661,16 +2665,22 @@ export function PrintablesPage() {
         }
       }
       
-      if (!autoPrint || autoDownload) return // Skip if download is already handling it
+      // Check autoprint parameter directly from URL to ensure we have the latest value
+      const currentSearch = typeof window !== 'undefined' ? window.location.search : ''
+      const currentParams = new URLSearchParams(currentSearch)
+      const currentAutoPrint = !isPreview && ((currentParams.get('autoprint') || '').toLowerCase() === '1' || (currentParams.get('autoprint') || '').toLowerCase() === 'true')
+      const currentAutoDownload = (currentParams.get('download') || '').toLowerCase() === '1' || (currentParams.get('download') || '').toLowerCase() === 'true'
+      
+      if (!currentAutoPrint || currentAutoDownload) return // Skip if download is already handling it or autoprint is not set
       
       // Use sessionStorage to track if we've already attempted to print for this URL
       // This prevents duplicate print dialogs even if component re-renders or user cancels
       const currentUrl = typeof window !== 'undefined' ? window.location.href : ''
       const printKey = `autoprint_${currentUrl}`
       
-      // If we haven't scheduled a print yet (fresh page load), clear any existing sessionStorage entry
+      // Always clear the sessionStorage entry for this URL on fresh page loads
       // This ensures autoprint works when navigating from category pages or opening in new tabs
-      if (!hasScheduledPrintRef.current && typeof window !== 'undefined' && printKey) {
+      if (typeof window !== 'undefined' && printKey) {
         sessionStorage.removeItem(printKey)
       }
       
@@ -2699,16 +2709,25 @@ export function PrintablesPage() {
       printTimeoutRef.current = setTimeout(() => { 
         try { 
           // Double-check we're still on the print page
-          const stillOnPrintPage = typeof window !== 'undefined' && isPrintRoute && (window.location.pathname === '/print' || window.location.pathname.startsWith('/print?'))
+          const stillOnPrintPage = typeof window !== 'undefined' && window.location.pathname === '/print'
+          if (!stillOnPrintPage) {
+            return
+          }
+          
           // Double-check we're not in preview mode
-          const currentParams = new URLSearchParams(window.location.search)
-          const currentIsPreview = (currentParams.get('preview') || '').toLowerCase() === '1' || (currentParams.get('preview') || '').toLowerCase() === 'true'
+          const finalSearch = typeof window !== 'undefined' ? window.location.search : ''
+          const finalParams = new URLSearchParams(finalSearch)
+          const finalIsPreview = (finalParams.get('preview') || '').toLowerCase() === '1' || (finalParams.get('preview') || '').toLowerCase() === 'true'
+          if (finalIsPreview) {
+            return
+          }
+          
           // Double-check we're not in an iframe on a non-print page
           const stillInIframe = typeof window !== 'undefined' && window.self !== window.top
           if (stillInIframe) {
             try {
               const parentPath = window.top?.location?.pathname || ''
-              if (parentPath !== '/print' && !parentPath.startsWith('/print?')) {
+              if (parentPath !== '/print') {
                 return // Don't trigger print if parent is not on print route
               }
             } catch (e) {
@@ -2720,7 +2739,7 @@ export function PrintablesPage() {
           // The flag is set before the timeout to prevent duplicate scheduling
           const stillHasScheduledPrint = typeof window !== 'undefined' && sessionStorage.getItem(printKey) === 'true'
           
-          if (stillOnPrintPage && !currentIsPreview && stillHasScheduledPrint) {
+          if (stillOnPrintPage && !finalIsPreview && stillHasScheduledPrint) {
             window.print()
             // Track auto-print
             if (doc && primaryDoc) {
@@ -2740,37 +2759,43 @@ export function PrintablesPage() {
         }
       }
     } catch {}
-  }, [isPrintRoute, isPreview, autoPrint, autoDownload]) // Removed params, doc, primaryDoc, docTitle from dependencies to prevent re-runs
+  }, [isPrintRoute, isPreview, urlSearch]) // Include urlSearch to re-run when URL changes (e.g., when navigating from category pages)
   
   // Reset print flag when URL changes (new worksheet loaded)
+  // Use a ref to track the previous URL to only reset when URL actually changes
+  const previousUrlRef = React.useRef<string>('')
   React.useEffect(() => {
     // Only reset on exact /print route, not /printables
     // Also reset if we're in preview mode (iframes should never trigger print)
     if (isPrintRoute && !isPreview) {
       // Get current URL
       const currentUrl = typeof window !== 'undefined' ? window.location.href : ''
-      const currentPrintKey = `autoprint_${currentUrl}`
       
-      // Clear sessionStorage for ALL URLs including current one when navigating to a new worksheet
-      // This ensures autoprint works when clicking download from category pages or opening in new tabs
-      if (typeof window !== 'undefined') {
-        // Clear all autoprint flags (including current one) to allow fresh print on navigation
-        Object.keys(sessionStorage).forEach(key => {
-          if (key.startsWith('autoprint_')) {
-            sessionStorage.removeItem(key)
-          }
-        })
-      }
-      
-      // Reset refs for new worksheet
-      hasPrintedRef.current = false
-      printCallTimeRef.current = 0
-      hasScheduledPrintRef.current = false
-      
-      // Clear any pending timeout
-      if (printTimeoutRef.current) {
-        clearTimeout(printTimeoutRef.current)
-        printTimeoutRef.current = null
+      // Only reset if URL actually changed (not on initial mount with same URL)
+      if (currentUrl !== previousUrlRef.current) {
+        previousUrlRef.current = currentUrl
+        
+        // Clear sessionStorage for ALL URLs including current one when navigating to a new worksheet
+        // This ensures autoprint works when clicking download from category pages or opening in new tabs
+        if (typeof window !== 'undefined') {
+          // Clear all autoprint flags (including current one) to allow fresh print on navigation
+          Object.keys(sessionStorage).forEach(key => {
+            if (key.startsWith('autoprint_')) {
+              sessionStorage.removeItem(key)
+            }
+          })
+        }
+        
+        // Reset refs for new worksheet
+        hasPrintedRef.current = false
+        printCallTimeRef.current = 0
+        hasScheduledPrintRef.current = false
+        
+        // Clear any pending timeout
+        if (printTimeoutRef.current) {
+          clearTimeout(printTimeoutRef.current)
+          printTimeoutRef.current = null
+        }
       }
     } else {
       // If we're not on print route or in preview, ensure print is disabled
