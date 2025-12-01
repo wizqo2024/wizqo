@@ -2667,9 +2667,16 @@ export function PrintablesPage() {
       // This prevents duplicate print dialogs even if component re-renders or user cancels
       const currentUrl = typeof window !== 'undefined' ? window.location.href : ''
       const printKey = `autoprint_${currentUrl}`
+      
+      // If we haven't scheduled a print yet (fresh page load), clear any existing sessionStorage entry
+      // This ensures autoprint works when navigating from category pages or opening in new tabs
+      if (!hasScheduledPrintRef.current && typeof window !== 'undefined' && printKey) {
+        sessionStorage.removeItem(printKey)
+      }
+      
       const hasAlreadyAttemptedPrint = typeof window !== 'undefined' && printKey && sessionStorage.getItem(printKey) === 'true'
       
-      // If we've already attempted to print for this URL, don't try again
+      // If we've already attempted to print for this URL in this session, don't try again
       if (hasAlreadyAttemptedPrint || hasScheduledPrintRef.current) {
         return // Already attempted or scheduled print for this URL - don't try again
       }
@@ -2740,16 +2747,16 @@ export function PrintablesPage() {
     // Only reset on exact /print route, not /printables
     // Also reset if we're in preview mode (iframes should never trigger print)
     if (isPrintRoute && !isPreview) {
-      // Get current URL to clear only previous URLs, not current one
+      // Get current URL
       const currentUrl = typeof window !== 'undefined' ? window.location.href : ''
       const currentPrintKey = `autoprint_${currentUrl}`
       
-      // Clear sessionStorage for previous URLs when navigating to a new worksheet
-      // This allows autoprint to work for new worksheets while preventing duplicates for the same URL
+      // Clear sessionStorage for ALL URLs including current one when navigating to a new worksheet
+      // This ensures autoprint works when clicking download from category pages or opening in new tabs
       if (typeof window !== 'undefined') {
-        // Clear all autoprint flags except current one
+        // Clear all autoprint flags (including current one) to allow fresh print on navigation
         Object.keys(sessionStorage).forEach(key => {
-          if (key.startsWith('autoprint_') && key !== currentPrintKey) {
+          if (key.startsWith('autoprint_')) {
             sessionStorage.removeItem(key)
           }
         })
