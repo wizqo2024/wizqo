@@ -2009,13 +2009,14 @@ export function PrintablesPage() {
         }
         
         /* Decorative emoji stars at top - applied to ALL worksheets */
+        /* Centered within border, not overlapping */
         [data-worksheet-content="true"] > div:first-child::after,
         [data-worksheet-content="true"] > div.max-w-4xl::after,
         .max-w-4xl.mx-auto::after,
         [data-worksheet-content="true"] .max-w-4xl::after {
           content: '⭐ ✨ 💫 🌟' !important;
           position: absolute !important;
-          top: 0px !important;
+          top: -2px !important;
           left: 50% !important;
           transform: translateX(-50%) translateY(-50%) !important;
           font-size: 18px !important;
@@ -2023,6 +2024,7 @@ export function PrintablesPage() {
           z-index: 10 !important;
           background: white !important;
           padding: 4px 12px !important;
+          border: none !important;
           -webkit-print-color-adjust: exact !important;
           print-color-adjust: exact !important;
           color: #f472b6 !important;
@@ -2877,13 +2879,14 @@ export function PrintablesPage() {
             print-color-adjust: exact !important;
           }
           /* Decorative emoji stars at top - applied to ALL worksheets */
+          /* Centered within border, not overlapping */
           [data-worksheet-content="true"] > div:first-child::after,
           [data-worksheet-content="true"] > div.max-w-4xl::after,
           .max-w-4xl.mx-auto::after,
           [data-worksheet-content="true"] .max-w-4xl::after {
             content: '⭐ ✨ 💫 🌟' !important;
             position: absolute !important;
-            top: 0px !important;
+            top: -2px !important;
             left: 50% !important;
             transform: translateX(-50%) translateY(-50%) !important;
             font-size: 18px !important;
@@ -2891,6 +2894,7 @@ export function PrintablesPage() {
             z-index: 10 !important;
             background: white !important;
             padding: 4px 12px !important;
+            border: none !important;
             -webkit-print-color-adjust: exact !important;
             print-color-adjust: exact !important;
             color: #f472b6 !important;
