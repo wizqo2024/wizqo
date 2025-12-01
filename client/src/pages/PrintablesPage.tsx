@@ -1897,25 +1897,24 @@ export function PrintablesPage() {
       const printStyleTag = document.createElement('style')
       printStyleTag.id = 'pdf-export-print-styles'
       
-      // Get all print styles from the stylesheet - we'll apply them directly
-      // Since we can't query @media print rules directly, we'll manually apply the key rules
+      // Apply ALL print styles from index.css as regular styles (not @media print)
+      // This is critical because html2canvas doesn't respect @media print
+      // We need to match the exact layout that appears in Ctrl+P print preview
       printStyleTag.textContent = `
-        /* Apply ALL print media query styles for PDF export - matching index.css @media print */
+        /* Apply ALL print styles as regular styles for PDF export - matching index.css @media print exactly */
         * {
           box-sizing: border-box;
         }
-        html, body, #root, [data-worksheet-content="true"] {
+        html, body, #root {
           background-color: white !important;
           background: white !important;
           color: black !important;
-          width: 794px !important;
-          max-width: 794px !important;
-          margin: 0 !important;
-          padding: 0 !important;
         }
-        /* Hide print:hidden elements - match Tailwind print:hidden */
+        /* Hide print:hidden elements - match Tailwind print:hidden exactly */
         [class*="print:hidden"],
-        header.print\\:hidden {
+        header.print\\:hidden,
+        button.print\\:hidden,
+        nav.print\\:hidden {
           display: none !important;
           visibility: hidden !important;
         }
@@ -1924,16 +1923,18 @@ export function PrintablesPage() {
         .print\\:block {
           display: block !important;
         }
-        /* Apply exact print layout from index.css */
+        /* Apply exact print layout from index.css - CRITICAL: match Ctrl+P exactly */
         [data-worksheet-content="true"] {
           width: 794px !important;
           max-width: 794px !important;
-          margin: 0 !important;
+          margin: 0 auto !important;
           padding: 0 !important;
           background: white !important;
           min-height: auto !important;
           height: auto !important;
         }
+        /* CRITICAL: This MUST match index.css print styles exactly */
+        /* Print layout: @page has margin: 0, inner div has margin: 0.5in left/right/bottom */
         [data-worksheet-content="true"] > div:first-child {
           margin: 0.5in !important;
           margin-top: 0 !important;
@@ -1942,29 +1943,30 @@ export function PrintablesPage() {
           max-width: calc(100% - 1in) !important;
           background: white !important;
           overflow: visible !important;
+          box-sizing: border-box !important;
         }
-        /* Hide screen-only header */
-        header.print\\:hidden {
-          display: none !important;
-        }
-        /* Show print-only logo */
-        .print\\:block {
-          display: block !important;
-        }
-        /* Apply section print styles */
+        /* Apply section print styles - match index.css exactly */
         section.worksheet-section,
         .worksheet-section {
           display: block !important;
-          break-inside: avoid !important;
-          page-break-inside: avoid !important;
           background: white !important;
+          background-color: white !important;
           margin-bottom: 1.5rem !important;
-          padding: 0.5rem 0.5rem !important;
+          padding: 0.5rem !important;
+          border: 1px solid #e2e8f0 !important;
+          border-radius: 4px !important;
+          box-sizing: border-box !important;
         }
         section:first-of-type,
         .worksheet-section:first-of-type {
           margin-top: 0 !important;
           padding-top: 0 !important;
+        }
+        /* Ensure all backgrounds are white for print */
+        [data-worksheet-content="true"] section,
+        [data-worksheet-content="true"] div {
+          background-color: white !important;
+          background: white !important;
         }
       `
       document.head.appendChild(printStyleTag)
@@ -2015,40 +2017,32 @@ export function PrintablesPage() {
         }
       })
       
-      // Set outer container to match print layout exactly (794px with inner content having spacing)
-      // CRITICAL: html2canvas doesn't capture margins reliably, so use padding on outer container
-      // This creates the same visual result as margins but is captured correctly by html2canvas
-      // Print layout: outer 794px, inner 698px with 48px spacing on each side
+      // Set outer container to match print layout exactly
+      // CRITICAL: Match Ctrl+P print layout exactly
+      // Print layout: outer container is 794px, inner div has 0.5in margins (48px each side)
+      // We capture the OUTER container which includes the margins visually
       if (contentElement) {
-        // The outer container should be exactly 794px wide (matching print layout)
-        // Use padding to create the 48px white space (matches print visual layout)
-        // With box-sizing: border-box, padding is included in the 794px width
+        // Outer container: exactly 794px wide (A4 width at 96dpi)
         contentElement.style.width = '794px'
         contentElement.style.maxWidth = '794px'
-        contentElement.style.margin = '0'
-        contentElement.style.padding = '0 48px' // 48px padding = 0.5in (matches print margins)
-        contentElement.style.paddingLeft = '48px'
-        contentElement.style.paddingRight = '48px'
-        contentElement.style.paddingTop = '0'
-        contentElement.style.paddingBottom = '0'
-        contentElement.style.boxSizing = 'border-box' // Padding included in width
+        contentElement.style.margin = '0 auto' // Center it
+        contentElement.style.padding = '0' // No padding on outer container
+        contentElement.style.boxSizing = 'border-box'
         contentElement.style.backgroundColor = 'white'
         contentElement.style.background = 'white'
         contentElement.style.overflow = 'visible'
         contentElement.style.position = 'relative'
         
-        // Inner content div fills the content area (698px = 794px - 96px padding)
-        // No margins - padding is on parent (ensures html2canvas captures correctly)
+        // Inner content div: has margins (0.5in = 48px) as per print CSS
+        // This matches index.css: [data-worksheet-content="true"] > div:first-child { margin: 0.5in; margin-top: 0; }
         const innerDiv = contentElement.querySelector(':scope > div:first-child') as HTMLElement
         if (innerDiv) {
-          innerDiv.style.margin = '0'
+          // Apply print margins exactly as in index.css
+          innerDiv.style.margin = '0.5in'
           innerDiv.style.marginTop = '0'
-          innerDiv.style.marginLeft = '0'
-          innerDiv.style.marginRight = '0'
-          innerDiv.style.marginBottom = '0'
           innerDiv.style.padding = '0'
-          innerDiv.style.width = '698px' // Explicit: 794px - 96px (48px * 2) = 698px
-          innerDiv.style.maxWidth = '698px'
+          innerDiv.style.width = 'calc(100% - 1in)' // 794px - 96px (48px * 2) = 698px
+          innerDiv.style.maxWidth = 'calc(100% - 1in)'
           innerDiv.style.boxSizing = 'border-box'
           innerDiv.style.backgroundColor = 'white'
           innerDiv.style.background = 'white'
@@ -2131,49 +2125,37 @@ export function PrintablesPage() {
         finalContentElement = visibleElements[0]
       }
       
-      // CRITICAL: To match print preview exactly, we need to capture the OUTER container
-      // Print layout:
+      // CRITICAL: To match print preview exactly, we capture the OUTER container
+      // Print layout analysis:
       // - @page has margin: 0 (no page margins)
       // - Outer container [data-worksheet-content] is 794px wide (matches A4 width)
-      // - Inner div has margin: 0.5in left/right and width: calc(100% - 1in) = 698px
+      // - Inner div has margin: 0.5in left/right/bottom (margin-top: 0) and width: calc(100% - 1in) = 698px
       // - Visually: 48px left margin + 698px content + 48px right margin = 794px total
       // 
-      // html2canvas captures the element's bounding box. If we capture the inner div,
-      // it won't include margins. So we capture the OUTER container (794px) which
-      // already has the correct visual layout with margins included.
+      // html2canvas captures the element's bounding box INCLUDING margins
+      // So we capture the OUTER container (794px) which includes the margins visually
       const printWidth = 794 // A4 width in pixels at 96dpi
       
       // Use the outer container for capture to get the exact print layout
       finalContentElement = contentElement
       
-      // Store original styles
+      // Store original styles for restoration
       const originalContentWidth = finalContentElement.style.width
       const originalContentMaxWidth = finalContentElement.style.maxWidth
       
       // Ensure outer container is exactly 794px to match print preview
+      // This should already be set above, but ensure it's correct
       finalContentElement.style.width = `${printWidth}px`
       finalContentElement.style.maxWidth = `${printWidth}px`
       finalContentElement.style.boxSizing = 'border-box'
       
-      // CRITICAL: Ensure inner div has margins applied BEFORE capture
-      // This ensures html2canvas captures the margins as visible white space
-      const innerDiv = finalContentElement.querySelector('[data-worksheet-content="true"] > div:first-child') as HTMLElement || finalContentElement.querySelector('div:first-child') as HTMLElement
-      if (innerDiv) {
-        // Apply print margins to inner div to match print preview
-        const marginInPx = 48 // 0.5in = 48px at 96dpi
-        innerDiv.style.margin = '0'
-        innerDiv.style.marginLeft = `${marginInPx}px`
-        innerDiv.style.marginRight = `${marginInPx}px`
-        innerDiv.style.marginTop = '0'
-        innerDiv.style.marginBottom = `${marginInPx}px`
-        innerDiv.style.width = 'calc(100% - 96px)' // 794px - 96px = 698px
-        innerDiv.style.maxWidth = 'calc(100% - 96px)'
-        innerDiv.style.boxSizing = 'border-box'
-      }
+      // Inner div margins are already set above to match print CSS exactly
+      // No need to modify them again here - they're already correct
       
       // Force reflow and wait for layout to settle
       void finalContentElement.offsetWidth
       void finalContentElement.offsetHeight
+      const innerDiv = finalContentElement.querySelector('[data-worksheet-content="true"] > div:first-child') as HTMLElement || finalContentElement.querySelector('div:first-child') as HTMLElement
       if (innerDiv) {
         void innerDiv.offsetWidth
         void innerDiv.offsetHeight
