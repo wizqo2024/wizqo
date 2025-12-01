@@ -12,7 +12,7 @@ export function AboutPage() {
     <div className="min-h-screen bg-slate-50" dir={isRTL ? 'rtl' : 'ltr'}>
       <SEOMetaTags
         title="About Wizqo - Free Printable Worksheets for Teachers & Parents"
-        description="Learn about Wizqo's mission to provide free printable worksheets for teachers, parents, and homeschoolers. High-quality math, reading, and writing worksheets with answer keys."
+        description="Learn about Wizqo's mission to provide free printable worksheets for teachers, parents, and homeschoolers. High-quality math, reading, and writing worksheets included."
         keywords="about wizqo, free worksheets, printable worksheets, educational resources, teachers worksheets, homeschool worksheets, free math worksheets"
         canonicalUrl="https://wizqo.com/about"
       />
