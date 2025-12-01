@@ -1882,10 +1882,11 @@ export function PrintablesPage() {
         }
         
         /* CRITICAL: Match index.css print styles exactly */
-        [data-worksheet-content="true"] > div:first-child {
+        [data-worksheet-content="true"] > div:first-child,
+        [data-worksheet-content="true"] .max-w-4xl {
           margin: 0.5in !important;
           margin-top: 0 !important;
-          padding: 0 !important;
+          padding: 20px 24px 24px 24px !important;
           width: calc(100% - 1in) !important;
           max-width: calc(100% - 1in) !important;
           background: white !important;
@@ -2050,8 +2051,8 @@ export function PrintablesPage() {
         innerDiv.style.padding = '20px 24px 24px 24px'
       }
       
-      // Wait for styles to apply
-      await new Promise(resolve => setTimeout(resolve, 300))
+      // Wait for styles to apply (longer wait to ensure emoji stars and borders render)
+      await new Promise(resolve => setTimeout(resolve, 500))
       
       // Capture with html2canvas
       const canvas = await html2canvas(contentElement, {
@@ -2092,7 +2093,20 @@ export function PrintablesPage() {
               clonedInnerDiv.style.border = '4px solid transparent'
               clonedInnerDiv.style.borderImage = 'linear-gradient(135deg, #f472b6 0%, #a78bfa 20%, #60a5fa 40%, #34d399 60%, #fbbf24 80%, #fb7185 100%) 1'
               clonedInnerDiv.style.padding = '20px 24px 24px 24px'
+              clonedInnerDiv.style.margin = '0.5in'
+              clonedInnerDiv.style.marginTop = '0'
+              clonedInnerDiv.style.width = 'calc(100% - 1in)'
+              clonedInnerDiv.style.maxWidth = 'calc(100% - 1in)'
             }
+          }
+          
+          // Ensure print styles are in cloned document
+          const clonedStyleTag = clonedDoc.getElementById('pdf-export-print-styles')
+          if (!clonedStyleTag) {
+            const styleTag = clonedDoc.createElement('style')
+            styleTag.id = 'pdf-export-print-styles'
+            styleTag.textContent = printStyleTag.textContent
+            clonedDoc.head.appendChild(styleTag)
           }
           
           // Process print: utility classes
