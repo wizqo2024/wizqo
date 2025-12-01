@@ -2016,7 +2016,7 @@ export function PrintablesPage() {
             repeating-linear-gradient(135deg, transparent, transparent 15px, #34d399 15px, #34d399 16px),
             /* Base gradient */
             linear-gradient(135deg, #f472b6 0%, #a78bfa 20%, #60a5fa 40%, #34d399 60%, #fbbf24 80%, #fb7185 100%) !important;
-          background-size: calc(50% - 130px) 2px, calc(50% - 130px) 2px, 2px 100%, 100% 2px, 2px 100%, 100% 100% !important;
+          background-size: calc(50% - 150px) 2px, calc(50% - 150px) 2px, 2px 100%, 100% 2px, 2px 100%, 100% 100% !important;
           background-position: top left, top right, right, bottom, left, center !important;
           background-repeat: no-repeat, no-repeat, repeat-y, repeat-x, repeat-y, no-repeat !important;
           border-radius: 14px !important;
@@ -2048,19 +2048,21 @@ export function PrintablesPage() {
           transform: translateX(-50%) translateY(-50%) !important;
           font-size: 18px !important;
           letter-spacing: 8px !important;
-          z-index: 1000 !important;
+          z-index: 1001 !important;
           background: white !important;
-          padding: 0px 15px !important;
+          padding: 0px 20px !important;
           border: none !important;
           box-shadow: none !important;
           line-height: 18px !important;
-          height: 18px !important;
+          height: 20px !important;
           margin: 0 !important;
           display: inline-block !important;
           -webkit-print-color-adjust: exact !important;
           print-color-adjust: exact !important;
           color: #f472b6 !important;
           white-space: nowrap !important;
+          width: auto !important;
+          min-width: 120px !important;
         }
         
         /* Ensure all divs inside worksheet content have white background */
@@ -2920,7 +2922,7 @@ export function PrintablesPage() {
               repeating-linear-gradient(135deg, transparent, transparent 15px, #34d399 15px, #34d399 16px),
               /* Base gradient */
               linear-gradient(135deg, #f472b6 0%, #a78bfa 20%, #60a5fa 40%, #34d399 60%, #fbbf24 80%, #fb7185 100%) !important;
-            background-size: calc(50% - 130px) 2px, calc(50% - 130px) 2px, 2px 100%, 100% 2px, 2px 100%, 100% 100% !important;
+            background-size: calc(50% - 150px) 2px, calc(50% - 150px) 2px, 2px 100%, 100% 2px, 2px 100%, 100% 100% !important;
             background-position: top left, top right, right, bottom, left, center !important;
             background-repeat: no-repeat, no-repeat, repeat-y, repeat-x, repeat-y, no-repeat !important;
             border-radius: 14px !important;
@@ -2951,19 +2953,21 @@ export function PrintablesPage() {
             transform: translateX(-50%) translateY(-50%) !important;
             font-size: 18px !important;
             letter-spacing: 8px !important;
-            z-index: 1000 !important;
+            z-index: 1001 !important;
             background: white !important;
-            padding: 0px 15px !important;
+            padding: 0px 20px !important;
             border: none !important;
             box-shadow: none !important;
             line-height: 18px !important;
-            height: 18px !important;
+            height: 20px !important;
             margin: 0 !important;
             display: inline-block !important;
             -webkit-print-color-adjust: exact !important;
             print-color-adjust: exact !important;
             color: #f472b6 !important;
             white-space: nowrap !important;
+            width: auto !important;
+            min-width: 120px !important;
           }
           /* Thin colorful decorative border with emoji-style pattern - applied to ALL worksheets */
           /* CRITICAL: Match PDF download styles exactly to prevent content cropping */
