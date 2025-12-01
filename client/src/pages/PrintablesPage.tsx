@@ -2031,29 +2031,27 @@ export function PrintablesPage() {
         }
         
         /* Decorative emoji stars at top - COMPLETE REDESIGN */
-        /* Positioned at exact same level as border line (top: 0px, no translateY) */
+        /* Positioned at exact same level as border line (centered on 2px border) */
         [data-worksheet-content="true"] > div:first-child::after,
         [data-worksheet-content="true"] > div.max-w-4xl::after,
         .max-w-4xl.mx-auto::after,
         [data-worksheet-content="true"] .max-w-4xl::after {
           content: '⭐ ✨ 💫 🌟' !important;
           position: absolute !important;
-          top: 0px !important;
+          top: 1px !important;
           left: 50% !important;
-          transform: translateX(-50%) !important;
+          transform: translateX(-50%) translateY(-50%) !important;
           font-size: 18px !important;
-          letter-spacing: 10px !important;
+          letter-spacing: 8px !important;
           z-index: 1000 !important;
           background: white !important;
-          padding: 0px 30px !important;
+          padding: 0px 20px !important;
           border: none !important;
           box-shadow: none !important;
           line-height: 18px !important;
           height: 18px !important;
           margin: 0 !important;
-          display: flex !important;
-          align-items: center !important;
-          justify-content: center !important;
+          display: inline-block !important;
           -webkit-print-color-adjust: exact !important;
           print-color-adjust: exact !important;
           color: #f472b6 !important;
@@ -2894,12 +2892,14 @@ export function PrintablesPage() {
             left: -8px !important;
             right: -8px !important;
             bottom: -8px !important;
-            background-image: 
-              /* Top border - continuous line */
-              linear-gradient(to right, 
-                #fbbf24 0%, 
-                #fbbf24 100%
-              ),
+          background-image: 
+            /* Top border - dashed line pattern */
+            repeating-linear-gradient(to right, 
+              #fbbf24 0px, 
+              #fbbf24 8px, 
+              transparent 8px, 
+              transparent 12px
+            ),
               /* Right border */
               repeating-linear-gradient(90deg, transparent, transparent 20px, #f472b6 20px, #f472b6 21px),
               /* Bottom border */
@@ -2927,29 +2927,27 @@ export function PrintablesPage() {
             print-color-adjust: exact !important;
           }
           /* Decorative emoji stars at top - COMPLETE REDESIGN */
-          /* Positioned at exact same level as border line (top: 0px, no translateY) */
+          /* Positioned at exact same level as border line (centered on 2px border) */
           [data-worksheet-content="true"] > div:first-child::after,
           [data-worksheet-content="true"] > div.max-w-4xl::after,
           .max-w-4xl.mx-auto::after,
           [data-worksheet-content="true"] .max-w-4xl::after {
-            content: '-------------⭐ ✨ 💫 🌟-------------' !important;
+            content: '⭐ ✨ 💫 🌟' !important;
             position: absolute !important;
-            top: 0px !important;
-            left: 0px !important;
-            right: 0px !important;
-            width: 100% !important;
-            text-align: center !important;
+            top: 1px !important;
+            left: 50% !important;
+            transform: translateX(-50%) translateY(-50%) !important;
             font-size: 18px !important;
-            letter-spacing: 2px !important;
+            letter-spacing: 8px !important;
             z-index: 1000 !important;
             background: white !important;
-            padding: 0px !important;
+            padding: 0px 20px !important;
             border: none !important;
             box-shadow: none !important;
             line-height: 18px !important;
             height: 18px !important;
             margin: 0 !important;
-            display: block !important;
+            display: inline-block !important;
             -webkit-print-color-adjust: exact !important;
             print-color-adjust: exact !important;
             color: #f472b6 !important;
