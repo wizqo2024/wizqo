@@ -33476,7 +33476,7 @@ export function PrintablesPage() {
             'times-table-color-1-5', 'times-table-color-6-12', 'times-table-color-1-12',
             'long-division-1digit', 'long-division-2digit', 'area-model-mult', 'partial-products', 'comparing-fractions-4th',
             'add-sub-fractions-4th', 'mixed-improper-fractions', 'decimals-place-value', 'comparing-decimals', 'add-sub-decimals',
-            'fractions-to-decimals', 'classifying-angles', 'area-perimeter-4th', 'lines-angles-4th', 'classifying-triangles',
+            'fractions-to-decimals', 'fractions-to-decimals-basic-tenths', 'classifying-angles', 'area-perimeter-4th', 'lines-angles-4th', 'classifying-triangles',
             'classifying-quadrilaterals', 'symmetry-transformations', 'customary-conversion', 'metric-conversion', 'elapsed-time-4th',
             'liquid-measurement-4th', 'mass-weight-4th', 'multi-step-word-4th', 'fraction-word-problems', 'decimal-word-problems',
             'measurement-word-problems', 'geometry-word-problems', 'line-plots', 'bar-graphs-pictographs', 'mean-median-mode',
@@ -33505,43 +33505,8 @@ export function PrintablesPage() {
             'time-to-minute', 'customary-units', 'metric-units', 'liquid-measurement', 'mass-weight',
             'multi-step-word-problems', 'elapsed-time-word-problems', 'money-word-problems', 'perimeter-area-word-problems'
           ])
-          const unhandledDocIds = activeDocs.filter(id => answerableDocs.has(id) && !handledDocIds.has(id) && !id.startsWith('interactive-'))
-          if (unhandledDocIds.length === 0) return null
-          
-          return unhandledDocIds.map(docId => {
-            const title = resolveDocTitle(docId, { packTime, bundleCategory: bundleCategoryParam || undefined, t })
-            return (
-              <WorksheetSectionWrapper
-                key={docId}
-                docId={docId}
-                title={title}
-                emoji="📝"
-                description="Complete the worksheet. Check your answers using the answer key below."
-              >
-                <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-purple-400 to-pink-400 animate-gradient-x mb-2" />
-                <div className="border border-slate-300 rounded-lg p-6 bg-white">
-                  <div className="text-center text-slate-600 mb-4">
-                    <p className="text-lg font-semibold mb-2">{title}</p>
-                    <p className="text-sm">This worksheet is being generated. Content will be available soon.</p>
-                    <div className="mt-4 grid grid-cols-2 gap-4">
-                      {Array.from({ length: 6 }).map((_, i) => (
-                        <div key={i} className="border border-slate-200 rounded p-4">
-                          <div className="h-20 border-b-2 border-dashed border-slate-300" />
-                          <p className="text-xs text-slate-400 mt-2">Question {i + 1}</p>
-                        </div>
-                      ))}
-                    </div>
-                  </div>
-                </div>
-                {showAnswersForDoc(docId, () => (
-                  <div className="mt-3 rounded-lg border border-emerald-200 bg-emerald-50 p-3 text-emerald-900 text-sm">
-                    <div className="font-semibold mb-1">Answer key</div>
-                    <p className="text-sm">Answers will be provided when the worksheet content is fully implemented.</p>
-                  </div>
-                ))}
-              </WorksheetSectionWrapper>
-            )
-          })
+          // Removed fallback placeholder section - worksheets without handlers should not show placeholder content
+          return null
         })()}
 
         <footer className="text-center text-slate-500 text-xs print:hidden">
