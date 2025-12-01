@@ -2399,13 +2399,15 @@ export function PrintablesPage() {
   const hasPrintedRef = React.useRef(false)
   
   // Auto-open browser print dialog when requested (e.g., from "Download PDF" links)
-  // ONLY run on /print route, not on category pages
+  // ONLY run on /print route, not on category pages like /printables
   React.useEffect(() => {
     try {
-      // Only run if we're actually on the /print route
+      // Only run if we're actually on the /print route (not /printables)
       const currentPath = typeof window !== 'undefined' ? window.location.pathname : ''
-      if (!currentPath.includes('/print')) {
-        return // Don't run on category pages
+      // Check for exact /print route, not /printables
+      const isPrintRoute = currentPath === '/print' || currentPath.startsWith('/print?')
+      if (!isPrintRoute) {
+        return // Don't run on category pages like /printables
       }
       
       if (!autoPrint || autoDownload || hasPrintedRef.current) return // Skip if download is already handling it or already printed
@@ -2414,7 +2416,7 @@ export function PrintablesPage() {
       const t = setTimeout(() => { 
         try { 
           // Double-check we're still on the print page and haven't printed yet
-          const stillOnPrintPage = typeof window !== 'undefined' && window.location.pathname.includes('/print')
+          const stillOnPrintPage = typeof window !== 'undefined' && (window.location.pathname === '/print' || window.location.pathname.startsWith('/print?'))
           if (stillOnPrintPage && !hasPrintedRef.current) {
             window.print()
             hasPrintedRef.current = true
@@ -2435,7 +2437,9 @@ export function PrintablesPage() {
   // Reset print flag when URL changes (new worksheet loaded)
   React.useEffect(() => {
     const currentPath = typeof window !== 'undefined' ? window.location.pathname : ''
-    if (currentPath.includes('/print')) {
+    // Only reset on exact /print route, not /printables
+    const isPrintRoute = currentPath === '/print' || currentPath.startsWith('/print?')
+    if (isPrintRoute) {
       hasPrintedRef.current = false
     }
   }, [doc, urlSearch])
