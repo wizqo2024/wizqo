@@ -142,7 +142,7 @@ export default function KidsPage() {
         <UnifiedNavigation currentPage="kids" />
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
           <div className="flex items-center justify-between mb-6">
-            <h1 className="sr-only">{gameTitle}</h1>
+            <h2 className="sr-only">{gameTitle}</h2>
             <a className={OUTLINE_BUTTON} href="/kids">{t('pages.kids.backToHub')}</a>
           </div>
           {gameSlug === 'word-search' ? <WordSearch /> : gameSlug === 'puzzle' ? <PuzzleGame /> : gameSlug === 'typing' ? <TypingSafari /> : gameSlug === 'pattern' ? <PatternBuilder /> : <MemoryMatch />}

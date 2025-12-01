@@ -160,7 +160,7 @@ export default function AllWorksheetsPage() {
     <div className="min-h-screen bg-gradient-to-b from-slate-50 via-white to-slate-50" dir={isRTL ? 'rtl' : 'ltr'}>
       <SEOMetaTags
         title="All Worksheet Categories - Discover Every Learning Tool | Wizqo"
-        description="Explore our complete collection of free worksheet categories! From kindergarten math to 5th grade, multiplication practice to reading comprehension—find the perfect worksheets to inspire and empower every learner. 100% free, ready to print."
+        description="Explore our complete collection of free worksheet categories! From kindergarten math to 5th grade, multiplication to reading. 100% free, ready to print."
         keywords="worksheet categories, browse worksheets, all worksheet types, worksheet directory, worksheets by grade, worksheets by subject, complete worksheet list, free worksheet categories, math worksheets by grade, reading worksheets, handwriting worksheets"
         canonicalUrl="https://wizqo.com/worksheets/all"
       />
