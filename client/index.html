@@ -358,26 +358,42 @@
           }
         } catch(e) {}
         
-        // For blog page and other non-worksheet pages, hide fallback immediately
+        // For blog page and other non-worksheet pages, REMOVE fallback entirely from DOM
         var isBlogPage = path && (path === '/blog' || path.startsWith('/blog/'));
         var isWorksheetPage = path && path.startsWith('/worksheets/');
         var isSpecialPage = path && (path.includes('fractions-to-decimals-worksheets') || path.includes('order-of-operations-worksheets'));
+        var isInteractivePage = path && path.includes('interactive-worksheets-generator');
+        var isKidsPage = path && (path === '/kids' || path.startsWith('/kids/'));
+        var isPrintablesPage = path && (path === '/printables' || path.startsWith('/printables/'));
+        var isPrintPage = path && (path === '/print' || path.startsWith('/print/'));
         
-        // Always hide fallback for blog and other non-worksheet pages
-        // For worksheet pages, we'll hide it after React loads
-        if (isBlogPage || (!isWorksheetPage && !isSpecialPage)) {
+        // For non-worksheet pages, REMOVE the fallback element entirely to prevent Bing from seeing any H2 tags
+        if (isBlogPage || isInteractivePage || isKidsPage || isPrintablesPage || isPrintPage || (!isWorksheetPage && !isSpecialPage)) {
+          // Try to remove immediately if DOM is ready
+          function removeFallback() {
+            var fallback = document.getElementById('seo-fallback');
+            if (fallback) {
+              // Remove from DOM entirely - this is the most aggressive approach
+              fallback.remove();
+            }
+          }
+          
+          // Try immediately
+          removeFallback();
+          
+          // Also try on DOMContentLoaded
+          if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', removeFallback);
+          }
+          
+          // Also try after a short delay as backup
+          setTimeout(removeFallback, 0);
+        } else {
+          // For worksheet pages, just hide it (we'll hide it after React loads)
           var fallback = document.getElementById('seo-fallback');
           if (fallback) {
-            // Hide with all possible methods immediately for blog pages
             fallback.style.display = 'none';
-            fallback.style.position = 'absolute';
-            fallback.style.left = '-9999px';
-            fallback.style.width = '1px';
-            fallback.style.height = '1px';
-            fallback.style.overflow = 'hidden';
             fallback.style.visibility = 'hidden';
-            fallback.style.opacity = '0';
-            fallback.style.pointerEvents = 'none';
             fallback.setAttribute('aria-hidden', 'true');
           }
         }
@@ -392,24 +408,47 @@
         }
       })();
       
-      // Additional hiding after React loads (backup)
+      // Additional removal/hiding after React loads (backup)
       window.addEventListener('load', function() {
         setTimeout(function() {
           var root = document.getElementById('root');
           var fallback = document.getElementById('seo-fallback');
-          if (root && root.children.length > 0 && fallback) {
-            // Always hide fallback when React has loaded content
-            fallback.style.display = 'none';
-            fallback.style.position = 'absolute';
-            fallback.style.left = '-9999px';
-            fallback.style.width = '1px';
-            fallback.style.height = '1px';
-            fallback.style.overflow = 'hidden';
-            fallback.style.visibility = 'hidden';
-            fallback.style.opacity = '0';
-            fallback.style.pointerEvents = 'none';
-            fallback.setAttribute('aria-hidden', 'true');
+          
+          // If fallback still exists, check if we should remove it
+          if (fallback) {
+            var path = '';
+            try {
+              if (typeof location !== 'undefined') {
+                path = location.pathname || '';
+              }
+            } catch(e) {}
+            
+            var isBlogPage = path && (path === '/blog' || path.startsWith('/blog/'));
+            var isInteractivePage = path && path.includes('interactive-worksheets-generator');
+            var isKidsPage = path && (path === '/kids' || path.startsWith('/kids/'));
+            var isPrintablesPage = path && (path === '/printables' || path.startsWith('/printables/'));
+            var isPrintPage = path && (path === '/print' || path.startsWith('/print/'));
+            var isWorksheetPage = path && path.startsWith('/worksheets/');
+            var isSpecialPage = path && (path.includes('fractions-to-decimals-worksheets') || path.includes('order-of-operations-worksheets'));
+            
+            // For non-worksheet pages, remove entirely
+            if (isBlogPage || isInteractivePage || isKidsPage || isPrintablesPage || isPrintPage || (!isWorksheetPage && !isSpecialPage)) {
+              fallback.remove();
+            } else if (root && root.children.length > 0) {
+              // For worksheet pages, just hide it
+              fallback.style.display = 'none';
+              fallback.style.position = 'absolute';
+              fallback.style.left = '-9999px';
+              fallback.style.width = '1px';
+              fallback.style.height = '1px';
+              fallback.style.overflow = 'hidden';
+              fallback.style.visibility = 'hidden';
+              fallback.style.opacity = '0';
+              fallback.style.pointerEvents = 'none';
+              fallback.setAttribute('aria-hidden', 'true');
+            }
           }
+          
           if (document.body) {
             document.body.classList.add('react-loaded');
           }
