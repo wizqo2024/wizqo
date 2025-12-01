@@ -1822,16 +1822,8 @@ export function PrintablesPage() {
     return () => window.removeEventListener('scroll', handleScroll)
   }, [doc])
 
-  // PDF download function - generates and downloads PDF automatically
+  // PDF download function - completely rewritten from scratch to match Ctrl+P exactly
   const downloadPDF = React.useCallback(async () => {
-    let wrapperElement: HTMLElement | null = null
-    let wrapperOriginalStyle: { width: string; maxWidth: string; margin: string; padding: string } | null = null
-    let printStyleTag: HTMLStyleElement | null = null
-    let hiddenElementsData: Array<{ element: HTMLElement; originalDisplay: string; originalVisibility: string }> = []
-    let blockElementsData: Array<{ element: HTMLElement; originalDisplay: string }> = []
-    let originalBodyClass = ''
-    let originalBodyStyle: { width: string; maxWidth: string; margin: string; padding: string } | null = null
-    
     try {
       setIsDownloadingPDF(true)
       
@@ -1841,100 +1833,50 @@ export function PrintablesPage() {
         import('html2canvas').then(m => m.default || m)
       ])
       
-      // Wait for content to be fully rendered - increased wait time for iframe loads
-      await new Promise(resolve => setTimeout(resolve, 800))
+      // Wait for content to render
+      await new Promise(resolve => setTimeout(resolve, 500))
       
-      // Retry mechanism: wait for worksheet content to appear
-      let outerContainer: HTMLElement | null = null
-      let retries = 0
-      const maxRetries = 10
-      
-      while (retries < maxRetries && (!outerContainer || outerContainer.offsetHeight === 0)) {
-        outerContainer = document.querySelector('[data-worksheet-content="true"]') as HTMLElement
-        
-        if (!outerContainer || outerContainer.offsetHeight === 0) {
-          await new Promise(resolve => setTimeout(resolve, 200))
-          retries++
-        } else {
-          break
-        }
+      // Find the worksheet content container
+      const contentElement = document.querySelector('[data-worksheet-content="true"]') as HTMLElement
+      if (!contentElement) {
+        throw new Error('Could not find worksheet content. Please refresh the page and try again.')
       }
       
-      // Fallback to other selectors if main one not found
-      if (!outerContainer || outerContainer.offsetHeight === 0) {
-        outerContainer = document.querySelector('.min-h-screen.bg-white') as HTMLElement
-      }
+      // Store original styles for restoration
+      const originalStyles = new Map<HTMLElement, { [key: string]: string }>()
       
-      if (!outerContainer || outerContainer.offsetHeight === 0) {
-        outerContainer = document.querySelector('main') as HTMLElement
-      }
-      
-      if (!outerContainer || outerContainer.offsetHeight === 0) {
-        outerContainer = document.body
-      }
-      
-      // Final check with better error message
-      if (!outerContainer || outerContainer.offsetHeight === 0) {
-        console.error('Download failed: Content element not found or has zero height', {
-          hasDataAttribute: !!document.querySelector('[data-worksheet-content="true"]'),
-          hasMain: !!document.querySelector('main'),
-          bodyHeight: document.body.offsetHeight,
-          doc: doc || 'unknown'
-        })
-        throw new Error('Could not find content to download. Please try refreshing the page and downloading again.')
-      }
-      
-      // CRITICAL: Capture the OUTER container (794px) which includes the margins
-      // Print layout: outer container [data-worksheet-content] is 794px wide
-      // Inside it, the content div is 698px with 0.5in margins (48px each side)
-      // So visually: 48px margin + 698px content + 48px margin = 794px total
-      // We need to capture the full 794px container to match print layout exactly
-      const contentElement = outerContainer
-      
-      // CRITICAL: Apply print media query styles BEFORE capture to match Ctrl+P exactly
-      // We need to apply ALL print styles from index.css to match Ctrl+P layout
-      // Create a temporary style element that applies print media query rules
+      // Apply print styles by creating a style tag with ALL print CSS from index.css
       const printStyleTag = document.createElement('style')
       printStyleTag.id = 'pdf-export-print-styles'
-      
-      // Apply ALL print styles from index.css as regular styles (not @media print)
-      // This is critical because html2canvas doesn't respect @media print
-      // We need to match the exact layout that appears in Ctrl+P print preview
       printStyleTag.textContent = `
-        /* Apply ALL print styles as regular styles for PDF export - matching index.css @media print exactly */
-        * {
-          box-sizing: border-box;
-        }
+        /* Apply ALL print styles as regular styles (html2canvas doesn't respect @media print) */
         html, body, #root {
           background-color: white !important;
           background: white !important;
           color: black !important;
         }
-        /* Hide print:hidden elements - match Tailwind print:hidden exactly */
-        [class*="print:hidden"],
-        header.print\\:hidden,
-        button.print\\:hidden,
-        nav.print\\:hidden {
+        
+        /* Hide print:hidden elements */
+        [class*="print:hidden"] {
           display: none !important;
           visibility: hidden !important;
         }
+        
         /* Show print:block elements */
-        [class*="print:block"],
-        .print\\:block {
+        [class*="print:block"] {
           display: block !important;
         }
-        /* Apply exact print layout from index.css - CRITICAL: match Ctrl+P exactly */
+        
+        /* Apply exact print layout - match index.css @media print */
         [data-worksheet-content="true"] {
           width: 794px !important;
           max-width: 794px !important;
           margin: 0 auto !important;
           padding: 0 !important;
           background: white !important;
-          min-height: auto !important;
-          height: auto !important;
         }
-        /* CRITICAL: This MUST match index.css print styles exactly */
-        /* Print layout: @page has margin: 0, inner div has margin: 0.5in left/right/bottom */
+        
+        /* CRITICAL: Match index.css print styles exactly */
         [data-worksheet-content="true"] > div:first-child {
           margin: 0.5in !important;
           margin-top: 0 !important;
@@ -1942,1560 +1884,218 @@ export function PrintablesPage() {
           width: calc(100% - 1in) !important;
           max-width: calc(100% - 1in) !important;
           background: white !important;
-          overflow: visible !important;
-          box-sizing: border-box !important;
         }
-        /* Apply section print styles - match index.css exactly */
+        
+        /* Apply section print styles */
         section.worksheet-section,
         .worksheet-section {
           display: block !important;
           background: white !important;
-          background-color: white !important;
           margin-bottom: 1.5rem !important;
           padding: 0.5rem !important;
           border: 1px solid #e2e8f0 !important;
           border-radius: 4px !important;
-          box-sizing: border-box !important;
         }
+        
         section:first-of-type,
         .worksheet-section:first-of-type {
           margin-top: 0 !important;
           padding-top: 0 !important;
         }
-        /* Ensure all backgrounds are white for print */
-        [data-worksheet-content="true"] section,
-        [data-worksheet-content="true"] div {
-          background-color: white !important;
-          background: white !important;
-        }
       `
       document.head.appendChild(printStyleTag)
       
-      // Apply print styles temporarily to match print layout exactly
-      const originalBodyClass = document.body.className
+      // Hide print:hidden elements
+      const printHiddenElements = document.querySelectorAll('[class*="print:hidden"]')
+      printHiddenElements.forEach((el) => {
+        const htmlEl = el as HTMLElement
+        originalStyles.set(htmlEl, { display: htmlEl.style.display, visibility: htmlEl.style.visibility })
+        htmlEl.style.display = 'none'
+        htmlEl.style.visibility = 'hidden'
+      })
+      
+      // Show print:block elements
+      const printBlockElements = document.querySelectorAll('[class*="print:block"]')
+      printBlockElements.forEach((el) => {
+        const htmlEl = el as HTMLElement
+        const computedStyle = window.getComputedStyle(htmlEl)
+        if (computedStyle.display === 'none') {
+          originalStyles.set(htmlEl, { display: htmlEl.style.display })
+          htmlEl.style.display = 'block'
+        }
+      })
+      
+      // Set body to print dimensions
       const originalBodyStyle = {
         width: document.body.style.width,
         maxWidth: document.body.style.maxWidth,
         margin: document.body.style.margin,
         padding: document.body.style.padding,
+        background: document.body.style.background
       }
       
-      // Set body to print dimensions (A4 width: 794px at 96dpi) - NO margins to match print layout
-      document.body.classList.add('pdf-export-mode')
       document.body.style.width = '794px'
       document.body.style.maxWidth = '794px'
-      document.body.style.margin = '0' // NO margin - matches print layout (margin: 0)
+      document.body.style.margin = '0 auto'
       document.body.style.padding = '0'
       document.body.style.background = 'white'
       
-      // Hide all print:hidden elements
-      const printHiddenElements = document.querySelectorAll('[class*="print:hidden"], .print\\:hidden')
-      const hiddenElementsData: Array<{ element: HTMLElement; originalDisplay: string; originalVisibility: string }> = []
-      printHiddenElements.forEach((el) => {
-        const htmlEl = el as HTMLElement
-        hiddenElementsData.push({
-          element: htmlEl,
-          originalDisplay: htmlEl.style.display || '',
-          originalVisibility: htmlEl.style.visibility || ''
+      // Set content element to print dimensions
+      const originalContentStyle = {
+        width: contentElement.style.width,
+        maxWidth: contentElement.style.maxWidth,
+        margin: contentElement.style.margin,
+        padding: contentElement.style.padding,
+        background: contentElement.style.background
+      }
+      
+      contentElement.style.width = '794px'
+      contentElement.style.maxWidth = '794px'
+      contentElement.style.margin = '0 auto'
+      contentElement.style.padding = '0'
+      contentElement.style.background = 'white'
+      
+      // Set inner div to match print layout
+      const innerDiv = contentElement.querySelector(':scope > div:first-child') as HTMLElement
+      if (innerDiv) {
+        originalStyles.set(innerDiv, {
+          margin: innerDiv.style.margin,
+          marginTop: innerDiv.style.marginTop,
+          width: innerDiv.style.width,
+          maxWidth: innerDiv.style.maxWidth
         })
-        htmlEl.style.display = 'none'
-        htmlEl.style.visibility = 'hidden'
-      })
-      
-      // Show all print:block elements
-      const printBlockElements = document.querySelectorAll('[class*="print:block"], .print\\:block')
-      const blockElementsData: Array<{ element: HTMLElement; originalDisplay: string }> = []
-      printBlockElements.forEach((el) => {
-        const htmlEl = el as HTMLElement
-        const computedStyle = window.getComputedStyle(htmlEl)
-        if (computedStyle.display === 'none') {
-          blockElementsData.push({
-            element: htmlEl,
-            originalDisplay: htmlEl.style.display || ''
-          })
-          htmlEl.style.display = 'block'
-        }
-      })
-      
-      // Set outer container to match print layout exactly
-      // CRITICAL: Match Ctrl+P print layout exactly
-      // Print layout: outer container is 794px, inner div has 0.5in margins (48px each side)
-      // We capture the OUTER container which includes the margins visually
-      if (contentElement) {
-        // Outer container: exactly 794px wide (A4 width at 96dpi)
-        contentElement.style.width = '794px'
-        contentElement.style.maxWidth = '794px'
-        contentElement.style.margin = '0 auto' // Center it
-        contentElement.style.padding = '0' // No padding on outer container
-        contentElement.style.boxSizing = 'border-box'
-        contentElement.style.backgroundColor = 'white'
-        contentElement.style.background = 'white'
-        contentElement.style.overflow = 'visible'
-        contentElement.style.position = 'relative'
-        
-        // Inner content div: has margins (0.5in = 48px) as per print CSS
-        // This matches index.css: [data-worksheet-content="true"] > div:first-child { margin: 0.5in; margin-top: 0; }
-        const innerDiv = contentElement.querySelector(':scope > div:first-child') as HTMLElement
-        if (innerDiv) {
-          // Apply print margins exactly as in index.css
-          innerDiv.style.margin = '0.5in'
-          innerDiv.style.marginTop = '0'
-          innerDiv.style.padding = '0'
-          innerDiv.style.width = 'calc(100% - 1in)' // 794px - 96px (48px * 2) = 698px
-          innerDiv.style.maxWidth = 'calc(100% - 1in)'
-          innerDiv.style.boxSizing = 'border-box'
-          innerDiv.style.backgroundColor = 'white'
-          innerDiv.style.background = 'white'
-          innerDiv.style.position = 'relative'
-        }
+        innerDiv.style.margin = '0.5in'
+        innerDiv.style.marginTop = '0'
+        innerDiv.style.width = 'calc(100% - 1in)'
+        innerDiv.style.maxWidth = 'calc(100% - 1in)'
       }
       
-      // Apply print styles to wrapper
-      const wrapperElement = document.querySelector('.max-w-4xl.mx-auto') as HTMLElement
-      const wrapperOriginalStyle = wrapperElement ? {
-        width: wrapperElement.style.width,
-        maxWidth: wrapperElement.style.maxWidth,
-        margin: wrapperElement.style.margin,
-        padding: wrapperElement.style.padding,
-      } : null
-      
-      if (wrapperElement) {
-        wrapperElement.style.width = '794px'
-        wrapperElement.style.maxWidth = '794px'
-        wrapperElement.style.margin = '0' // NO margin - matches print layout
-        wrapperElement.style.padding = '0'
-      }
-      
-      // Show print-only elements
-      const allElements = document.querySelectorAll('*')
-      const hiddenElements: Array<{ element: HTMLElement; originalDisplay: string }> = []
-      
-      allElements.forEach((el) => {
-        const htmlEl = el as HTMLElement
-        const classList = Array.from(htmlEl.classList)
-        const hasPrintBlock = classList.some(cls => cls.includes('print:block'))
-        
-        if (hasPrintBlock) {
-          const computedStyle = window.getComputedStyle(htmlEl)
-          if (computedStyle.display === 'none') {
-            hiddenElements.push({
-              element: htmlEl,
-              originalDisplay: htmlEl.style.display || ''
-            })
-            htmlEl.style.display = 'block'
-          }
-        }
-      })
-      
-      // CRITICAL: Wait for print styles to fully apply and layout to settle
-      // Force a reflow to ensure all styles are computed
-      void document.body.offsetHeight
-      void contentElement.offsetHeight
-      if (innerDiv) {
-        void innerDiv.offsetHeight
-      }
-      // Wait longer for styles to apply (print styles need time to take effect)
-      await new Promise(resolve => setTimeout(resolve, 800))
-      
-      // Capture the content with print dimensions
-      // Find the inner content div that has the actual content (698px width with margins)
-      let innerContentDiv = contentElement.querySelector('[data-worksheet-content="true"] > div:first-child') as HTMLElement
-      if (!innerContentDiv || innerContentDiv.offsetHeight === 0) {
-        innerContentDiv = contentElement.querySelector('div:first-child') as HTMLElement
-      }
-      // Use inner div if it exists and has content, otherwise use outer container
-      const actualContentElement = (innerContentDiv && innerContentDiv.offsetHeight > 0) ? innerContentDiv : contentElement
-      
-      // Validate element is visible and has dimensions
-      let finalContentElement = actualContentElement
-      if (!finalContentElement || finalContentElement.offsetHeight === 0 || finalContentElement.offsetWidth === 0) {
-        // Try to find any visible content element
-        const visibleElements = [
-          document.querySelector('[data-worksheet-content="true"]'),
-          document.querySelector('.min-h-screen.bg-white'),
-          document.querySelector('main'),
-          document.body
-        ].filter(el => el && (el as HTMLElement).offsetHeight > 0) as HTMLElement[]
-        
-        if (visibleElements.length === 0) {
-          throw new Error('Could not find visible content to download. Please ensure the page has loaded completely.')
-        }
-        
-        // Use the first visible element
-        finalContentElement = visibleElements[0]
-      }
-      
-      // CRITICAL: To match print preview exactly, we capture the OUTER container
-      // Print layout analysis:
-      // - @page has margin: 0 (no page margins)
-      // - Outer container [data-worksheet-content] is 794px wide (matches A4 width)
-      // - Inner div has margin: 0.5in left/right/bottom (margin-top: 0) and width: calc(100% - 1in) = 698px
-      // - Visually: 48px left margin + 698px content + 48px right margin = 794px total
-      // 
-      // html2canvas captures the element's bounding box INCLUDING margins
-      // So we capture the OUTER container (794px) which includes the margins visually
-      const printWidth = 794 // A4 width in pixels at 96dpi
-      
-      // Use the outer container for capture to get the exact print layout
-      finalContentElement = contentElement
-      
-      // Store original styles for restoration
-      const originalContentWidth = finalContentElement.style.width
-      const originalContentMaxWidth = finalContentElement.style.maxWidth
-      
-      // Ensure outer container is exactly 794px to match print preview
-      // This should already be set above, but ensure it's correct
-      finalContentElement.style.width = `${printWidth}px`
-      finalContentElement.style.maxWidth = `${printWidth}px`
-      finalContentElement.style.boxSizing = 'border-box'
-      
-      // Inner div margins are already set above to match print CSS exactly
-      // No need to modify them again here - they're already correct
-      
-      // Force reflow and wait for layout to settle
-      void finalContentElement.offsetWidth
-      void finalContentElement.offsetHeight
-      const innerDiv = finalContentElement.querySelector('[data-worksheet-content="true"] > div:first-child') as HTMLElement || finalContentElement.querySelector('div:first-child') as HTMLElement
-      if (innerDiv) {
-        void innerDiv.offsetWidth
-        void innerDiv.offsetHeight
-      }
+      // Wait for styles to apply
       await new Promise(resolve => setTimeout(resolve, 300))
       
-      // Final validation before capture - check both offsetHeight and scrollHeight
-      const elementHeight = finalContentElement.offsetHeight || finalContentElement.scrollHeight || 0
-      const elementWidth = finalContentElement.offsetWidth || finalContentElement.scrollWidth || 0
-      
-      // Check if element is actually visible
-      const computedStyle = window.getComputedStyle(finalContentElement)
-      const isVisible = computedStyle.display !== 'none' && 
-                       computedStyle.visibility !== 'hidden' && 
-                       computedStyle.opacity !== '0'
-      
-      if (!isVisible) {
-        console.warn('Content element is not visible, trying outer container...')
-        // Fallback to outer container
-        finalContentElement = contentElement
-        const outerHeight = contentElement.offsetHeight || contentElement.scrollHeight || 0
-        const outerWidth = contentElement.offsetWidth || contentElement.scrollWidth || 0
-        if (outerHeight === 0 || outerWidth === 0) {
-          throw new Error(`Content element is not visible (display: ${computedStyle.display}, visibility: ${computedStyle.visibility}, opacity: ${computedStyle.opacity}). Please ensure the content is loaded and visible.`)
-        }
-      } else if (elementHeight === 0 || elementWidth === 0) {
-        // Element is visible but has zero dimensions - might be collapsed
-        // Try using scrollHeight/scrollWidth which includes overflow content
-        const scrollHeight = finalContentElement.scrollHeight || 0
-        const scrollWidth = finalContentElement.scrollWidth || 0
-        
-        if (scrollHeight === 0 && scrollWidth === 0) {
-          // Last resort: try outer container
-          console.warn('Inner element has zero dimensions, trying outer container...')
-          finalContentElement = contentElement
-          const outerScrollHeight = contentElement.scrollHeight || 0
-          const outerScrollWidth = contentElement.scrollWidth || 0
-          
-          if (outerScrollHeight === 0 || outerScrollWidth === 0) {
-            throw new Error(`Content element has zero dimensions: width=${elementWidth}px (scroll: ${scrollWidth}px), height=${elementHeight}px (scroll: ${scrollHeight}px). Element may be collapsed or have no content.`)
-          }
-        } else {
-          // Use scroll dimensions if offset is zero but scroll has content
-          console.warn(`Using scroll dimensions: ${scrollWidth}x${scrollHeight} (offset was ${elementWidth}x${elementHeight})`)
-        }
-      }
-      
-      // Ensure element has minimum dimensions for capture
-      // Use scrollHeight/scrollWidth to capture ALL content including overflow
-      const finalHeight = Math.max(
-        finalContentElement.offsetHeight || 0,
-        finalContentElement.scrollHeight || 0,
-        100
-      )
-      const finalWidth = Math.max(
-        finalContentElement.offsetWidth || 0,
-        finalContentElement.scrollWidth || 0,
-        printWidth
-      )
-      
-      if (finalHeight < 10) {
-        throw new Error(`Content element height is too small: ${finalHeight}px. Minimum required: 10px.`)
-      }
-      
-      // Ensure element can show all content (remove overflow hidden if present)
-      const originalOverflow = finalContentElement.style.overflow
-      const originalOverflowY = finalContentElement.style.overflowY
-      const originalHeight = finalContentElement.style.height
-      const originalMaxHeight = finalContentElement.style.maxHeight
-      finalContentElement.style.overflow = 'visible'
-      finalContentElement.style.overflowY = 'visible'
-      finalContentElement.style.height = 'auto'
-      finalContentElement.style.maxHeight = 'none'
-      
-      // Also ensure all child elements are visible
-      const allChildren = finalContentElement.querySelectorAll('*')
-      allChildren.forEach((el: Element) => {
-        const htmlEl = el as HTMLElement
-        const computedStyle = window.getComputedStyle(htmlEl)
-        if (computedStyle.display === 'none' || computedStyle.visibility === 'hidden') {
-          htmlEl.style.display = 'block'
-          htmlEl.style.visibility = 'visible'
-        }
-        // Remove height constraints that might hide content
-        if (htmlEl.style.maxHeight && htmlEl.style.maxHeight !== 'none') {
-          htmlEl.style.maxHeight = 'none'
-        }
-      })
-      
-      // Force reflow to ensure dimensions are updated
-      void finalContentElement.offsetHeight
-      void finalContentElement.scrollHeight
-      await new Promise(resolve => setTimeout(resolve, 200))
-      
-      let canvas = await html2canvas(finalContentElement, {
-        scale: 3.0, // Reduced scale to avoid memory issues and ensure complete capture
+      // Capture with html2canvas
+      const canvas = await html2canvas(contentElement, {
+        scale: 2.0,
         useCORS: true,
         logging: false,
         backgroundColor: '#ffffff',
         allowTaint: false,
-        // Don't constrain dimensions - let html2canvas capture naturally to avoid cropping
-        // height and width parameters can cause cropping if content is larger
         scrollX: 0,
         scrollY: 0,
-        ignoreElements: (element) => {
-          // Ignore style tags to prevent CSS text from appearing in PDF
-          return element.tagName === 'STYLE' || element.hasAttribute('data-pdf-ignore')
-        },
+        windowWidth: 794,
+        windowHeight: contentElement.scrollHeight,
         onclone: (clonedDoc) => {
-          // CRITICAL: Remove ALL style tags from body/content area BEFORE adding new ones
-          // This prevents CSS text from appearing in the PDF
-          const bodyStyleTagsBefore = clonedDoc.body.querySelectorAll('style')
-          bodyStyleTagsBefore.forEach((styleTag) => {
-            const htmlStyleTag = styleTag as HTMLStyleElement
-            htmlStyleTag.textContent = ''
-            htmlStyleTag.innerHTML = ''
-            styleTag.remove()
+          // Remove style tags
+          clonedDoc.querySelectorAll('style').forEach(tag => {
+            if (tag.id !== 'pdf-export-print-styles') {
+              tag.remove()
+            }
           })
           
-          // Also remove any style tags that might be in the capture area
-          const captureAreaBefore = clonedDoc.querySelector('[data-worksheet-content="true"]')
-          if (captureAreaBefore) {
-            const areaStyleTags = captureAreaBefore.querySelectorAll('style')
-            areaStyleTags.forEach((styleTag) => {
-              const htmlStyleTag = styleTag as HTMLStyleElement
-              htmlStyleTag.textContent = ''
-              htmlStyleTag.innerHTML = ''
-              styleTag.remove()
-            })
-          }
-          
           // Apply print styles to cloned document
-          const clonedHtml = clonedDoc.documentElement
           const clonedBody = clonedDoc.body
-          
-          if (clonedHtml) {
-            clonedHtml.style.width = '794px'
-            clonedHtml.style.maxWidth = '794px'
-          }
           if (clonedBody) {
             clonedBody.style.width = '794px'
             clonedBody.style.maxWidth = '794px'
             clonedBody.style.margin = '0'
             clonedBody.style.padding = '0'
+            clonedBody.style.background = 'white'
           }
           
-          // Add ALL print styles to match print layout exactly (for PDF download)
-          // CRITICAL: We'll add the style tag, apply styles, then immediately remove it
-          // to prevent html2canvas from capturing the CSS text
-          const style = clonedDoc.createElement('style')
-          style.setAttribute('data-pdf-ignore', 'true')
-          const cssText = `
-            /* Page setup - no margins for maximum content space (consistent across all browsers) */
-            /* This ensures Ctrl+P (or Cmd+P) defaults to NO margins in all browsers */
-            @page {
-              size: A4;
-              margin: 0 !important;
-              margin-top: 0 !important;
-              margin-right: 0 !important;
-              margin-bottom: 0 !important;
-              margin-left: 0 !important;
-            }
-            /* CRITICAL: Ensure all pages have white background - fix black pages */
-            html, body, #root, [data-worksheet-content="true"] {
-              background-color: white !important;
-              background: white !important;
-              color: black !important;
-              width: 794px !important;
-              max-width: 794px !important;
-              margin: 0 !important; 
-              padding: 0 !important; 
-              font-size: 11pt !important;
-              line-height: 1.3 !important;
-            }
-            /* Override dark backgrounds that cause black pages - target common dark classes */
-            [class*="bg-black"],
-            [class*="bg-slate-900"],
-            [class*="bg-gray-900"],
-            [class*="bg-zinc-900"],
-            [class*="bg-neutral-900"],
-            [class*="bg-stone-900"],
-            [class*="dark"],
-            .bg-black,
-            .bg-slate-900,
-            .bg-gray-900 {
-              background-color: white !important;
-              background: white !important;
-              color: black !important;
-            }
-            /* Ensure worksheet content has white background */
-            [data-worksheet-content="true"],
-            [data-worksheet-content="true"] section,
-            [data-worksheet-content="true"] div,
-            .worksheet-section {
-              background-color: white !important;
-              background: white !important;
-            }
-            /* Fix blank first page - remove margins and padding */
-            body, html {
-              margin: 0 !important;
-              padding: 0 !important;
-            }
-            /* Remove ALL top margin/padding from first page content - content starts at very top */
-            [data-worksheet-content="true"] > *:first-child,
-            [data-worksheet-content="true"] > section:first-child,
-            .worksheet-section:first-child {
-              margin-top: 0 !important;
-              padding-top: 0 !important;
-              background-color: white !important;
-            }
-            /* Compact header on first page - minimal spacing */
-            .worksheet-section:first-child .worksheet-header,
-            .worksheet-section:first-child > div:first-child {
-              margin-top: 0 !important;
-              padding-top: 0 !important;
-              page-break-after: avoid !important;
-              margin-bottom: 0.125rem !important;
-            }
-            /* Ensure first section content flows immediately after header - NO gaps */
-            .worksheet-section:first-child > div:not(.worksheet-header) {
-              margin-top: 0 !important;
-              padding-top: 0 !important;
-            }
-            /* CRITICAL: Ensure content inside first section flows immediately after header - minimal gap */
-            .worksheet-section:first-child .worksheet-header + *,
-            section:first-child .worksheet-header + * {
-              margin-top: 0.125rem !important;
-              padding-top: 0 !important;
-            }
-            /* Compact learning objectives - minimal spacing */
-            .worksheet-section:first-child .learning-objectives,
-            section:first-child .learning-objectives {
-              margin-top: 0.125rem !important;
-              margin-bottom: 0.25rem !important;
-              padding: 0.25rem !important;
-            }
-            /* Compact title and description on first page */
-            .worksheet-section:first-child h2,
-            .worksheet-section:first-child h3,
-            section:first-child h2,
-            section:first-child h3 {
-              margin-top: 0.125rem !important;
-              margin-bottom: 0.125rem !important;
-            }
-            .worksheet-section:first-child p,
-            section:first-child p {
-              margin-top: 0.125rem !important;
-              margin-bottom: 0.25rem !important;
-            }
-            /* CRITICAL: Ensure worksheet problems/content appear on first page immediately - minimal gap */
-            .worksheet-section:first-child .learning-objectives + *,
-            section:first-child .learning-objectives + *,
-            .worksheet-section:first-child h2 + *,
-            .worksheet-section:first-child h3 + *,
-            section:first-child h2 + *,
-            section:first-child h3 + * {
-              margin-top: 0.25rem !important;
-              padding-top: 0 !important;
-              page-break-before: auto !important;
-            }
-            /* Compact worked examples and tips on first page */
-            .worksheet-section:first-child .worked-example,
-            section:first-child .worked-example {
-              margin-top: 0.25rem !important;
-              margin-bottom: 0.25rem !important;
-              padding: 0.375rem !important;
-            }
-            /* Ensure problems flow immediately after examples */
-            .worksheet-section:first-child .worked-example + *,
-            section:first-child .worked-example + * {
-              margin-top: 0.25rem !important;
-              padding-top: 0 !important;
-            }
-            /* Ensure all content inside first section flows on first page */
-            .worksheet-section:first-child > div > *:not(.worksheet-header):not(.learning-objectives),
-            section:first-child > div > *:not(.worksheet-header):not(.learning-objectives) {
-              page-break-before: auto !important;
-              break-before: auto !important;
-            }
-            /* Remove any page breaks from first section content */
-            .worksheet-section:first-child [style*="page-break-before"],
-            section:first-child [style*="page-break-before"] {
-              page-break-before: auto !important;
-            }
-            /* Prevent root from forcing page break */
-            #root {
-              page-break-before: auto !important;
-              background-color: white !important;
-            }
-            /* Prevent first element from being pushed off-page */
-            #root > *:first-child {
-              page-break-before: avoid !important;
-            }
-            /* Fix blank first page - remove min-height constraints */
-            [data-worksheet-content="true"],
-            .min-h-screen {
-              min-height: auto !important;
-              height: auto !important;
-              margin: 0 !important;
-              padding: 0 !important;
-              background-color: white !important;
-            }
-            /* CRITICAL: Force sections to be block-level - allow breaking to avoid blank pages */
-            section.worksheet-section,
-            section[class*="worksheet-section"],
-            .worksheet-section {
-              display: block !important;
-              break-inside: auto !important;
-              page-break-inside: auto !important;
-              -webkit-region-break-inside: auto !important;
-              -webkit-column-break-inside: auto !important;
-              orphans: 2 !important;
-              widows: 2 !important;
-              overflow: visible !important;
-            }
-            /* Only prevent breaking of small cohesive units like headers and examples */
-            .worksheet-header,
-            .worked-example,
-            .learning-objectives {
-              break-inside: avoid !important;
-              page-break-inside: avoid !important;
-            }
-            /* Prevent page breaks inside worksheet sections - STRONG TARGETED approach */
-            section,
-            section.worksheet-section,
-            section[class*="worksheet-section"],
-            .worksheet-section,
-            [class*="worksheet-section"],
-            .break-inside-avoid,
-            section.worksheet-section > div,
-            section[class*="worksheet-section"] > div,
-            .worksheet-section > div,
-            .worked-example,
-            .worksheet-content,
-            [data-worksheet-content="true"] > section,
-            [data-worksheet-content="true"] > div[class*="section"],
-            div[class*="WorksheetSectionWrapper"],
-            div[class*="worksheet-wrapper"],
-            .learning-objectives,
-            .parent-teacher-tips,
-            .worksheet-header,
-            .problem-set,
-            .question-group,
-            .math-problem,
-            table,
-            figure {
-              break-inside: avoid !important;
-              page-break-inside: avoid !important;
-              -webkit-region-break-inside: avoid !important;
-              -webkit-column-break-inside: avoid !important;
-              orphans: 999 !important;
-              widows: 999 !important;
-            }
-            /* Prevent breaks in direct children of sections */
-            section.worksheet-section > div,
-            section[class*="worksheet-section"] > div,
-            .worksheet-section > div {
-              page-break-inside: avoid !important;
-              break-inside: avoid !important;
-            }
-            /* Keep worked examples together - header and content */
-            .worked-example,
-            .worked-example > * {
-              page-break-inside: avoid !important;
-              break-inside: avoid !important;
-            }
-            /* Keep example headers with their content */
-            .worked-example > div:first-child {
-              page-break-after: avoid !important;
-              break-after: avoid !important;
-            }
-            /* Prevent images, SVGs, and visual elements from breaking */
-            img, svg, picture, canvas, video {
-              page-break-inside: avoid !important;
-              break-inside: avoid !important;
-              page-break-after: avoid !important;
-              break-after: avoid !important;
-              max-height: 100vh !important;
-            }
-            /* Keep images with their captions/descriptions */
-            img + *, svg + *, picture + * {
-              page-break-before: avoid !important;
-              break-before: avoid !important;
-            }
-            /* Prevent cards and blocks from breaking */
-            [class*="card"],
-            [class*="Card"],
-            [class*="block"],
-            [class*="Block"],
-            .bg-white,
-            .rounded-lg,
-            .rounded-xl,
-            .border-2,
-            .border {
-              page-break-inside: avoid !important;
-              break-inside: avoid !important;
-            }
-            /* Keep math problems together */
-            .math-problem,
-            .math-problem + * {
-              page-break-inside: avoid !important;
-              break-inside: avoid !important;
-              page-break-before: avoid !important;
-              break-before: avoid !important;
-            }
-            /* Keep example blocks together */
-            [class*="example"],
-            [class*="Example"] {
-              page-break-inside: avoid !important;
-              break-inside: avoid !important;
-            }
-            /* Keep visual content blocks together */
-            .bg-white.p-4,
-            .bg-white.rounded-lg,
-            div[class*="bg-"].p-4 {
-              page-break-inside: avoid !important;
-              break-inside: avoid !important;
-            }
-            /* Keep headings with following content - STRONG rules (consolidated) */
-            h1, h2, h3, h4, h5, h6 {
-              page-break-after: avoid !important;
-              break-after: avoid !important;
-              page-break-inside: avoid !important;
-              break-inside: avoid !important;
-            }
-            /* Keep content immediately after headings */
-            h1 + *, h2 + *, h3 + *, h4 + *, h5 + *, h6 + * {
-              page-break-before: avoid !important;
-              break-before: avoid !important;
-            }
-            /* Keep paragraphs and divs after headings together */
-            h1 + p, h2 + p, h3 + p, h4 + p, h5 + p, h6 + p,
-            h1 + div, h2 + div, h3 + div, h4 + div, h5 + div, h6 + div {
-              page-break-before: avoid !important;
-              break-before: avoid !important;
-              page-break-inside: avoid !important;
-              break-inside: avoid !important;
-            }
-            /* Allow page breaks between sections when needed - but keep sections intact */
-            section.worksheet-section + section.worksheet-section,
-            section[class*="worksheet-section"] + section[class*="worksheet-section"],
-            .worksheet-section + .worksheet-section,
-            [class*="worksheet-section"] + [class*="worksheet-section"] {
-              page-break-before: auto;
-              break-before: auto;
-              page-break-after: auto;
-              break-after: auto;
-            }
-            /* Ensure sections can start on new page if they don't fit */
-            section.worksheet-section,
-            .worksheet-section {
-              page-break-before: auto;
-              break-before: auto;
-            }
-            /* Prevent breaks inside table rows and cells */
-            tr {
-              break-inside: avoid !important;
-              page-break-inside: avoid !important;
-            }
-            /* Fix blank first page - ensure first element starts at top with no forced breaks */
-            [data-worksheet-content="true"] > *:first-child,
-            [data-worksheet-content="true"] > section:first-child {
-              page-break-before: auto !important;
-              margin-top: 0 !important;
-              padding-top: 0 !important;
-            }
-            /* Remove all top margins from first section */
-            section.worksheet-section:first-child,
-            .worksheet-section:first-child {
-              margin-top: 0 !important;
-              padding-top: 0 !important;
-            }
-            /* Better spacing for print - readable and clean (matching Interactive Worksheets Generator) */
-            section { 
-              margin-bottom: 1.5rem !important; 
-              margin-top: 0 !important;
-              page-break-inside: avoid !important;
-              break-inside: avoid !important;
-              padding-left: 0.5rem !important;
-              padding-right: 0.5rem !important;
-              padding-top: 0.5rem !important;
-              padding-bottom: 0.5rem !important;
-              background-color: white !important;
-              background: white !important;
-              /* Ensure sections don't overflow container width */
-              max-width: 100% !important;
-              box-sizing: border-box !important;
-              overflow-x: hidden !important;
-            }
-            /* First section should have NO top padding/margin to fit on first page - matching Interactive Worksheets Generator */
-            section:first-of-type {
-              margin-top: 0 !important;
-              padding-top: 0 !important;
-              background-color: white !important;
-            }
-            /* Add spacing between worksheet sections */
-            .worksheet-section {
-              margin-bottom: 1.5rem !important;
-              padding: 0.5rem 0.5rem !important;
-              background-color: white !important;
-              /* Ensure sections don't overflow container width */
-              max-width: 100% !important;
-              box-sizing: border-box !important;
-              overflow-x: hidden !important;
-            }
-            /* First worksheet section should have NO top padding/margin - content starts immediately after header */
-            .worksheet-section:first-of-type {
-              padding-top: 0 !important;
-              margin-top: 0 !important;
-              background-color: white !important;
-            }
-            /* Add spacing between problems/equations */
-            .worksheet-section > div > * {
-              margin-bottom: 0.75rem !important;
-            }
-            .worksheet-section > div > *:last-child {
-              margin-bottom: 0 !important;
-            }
-            /* Add spacing between math problems */
-            [class*="math-problem"],
-            [class*="problem"],
-            .equation,
-            .puzzle {
-              margin-bottom: 1rem !important;
-              padding: 0.5rem 0 !important;
-            }
-            /* Make header compact */
-            .worksheet-header {
-              margin-bottom: 0.5rem !important;
-              padding-bottom: 0.25rem !important;
-              line-height: 1.2 !important;
-            }
-            /* First section header should be more compact */
-            .worksheet-section:first-of-type .worksheet-header {
-              margin-bottom: 0.25rem !important;
-              padding-bottom: 0.125rem !important;
-            }
-            /* Make title/description more compact in first section */
-            .worksheet-section:first-of-type h2,
-            .worksheet-section:first-of-type h3 {
-              margin-top: 0.25rem !important;
-              margin-bottom: 0.375rem !important;
-            }
-            .worksheet-section:first-of-type p {
-              margin-top: 0.25rem !important;
-              margin-bottom: 0.375rem !important;
-            }
-            /* Compact learning objectives */
-            .learning-objectives {
-              margin-bottom: 0.75rem !important;
-              padding: 0.5rem !important;
-            }
-            /* Prevent text merging and improve readability - comfortable spacing */
-            p { 
-              line-height: 1.5 !important; 
-              margin: 0.5rem 0 !important;
-            }
-            div, span { 
-              line-height: 1.4 !important; 
-            }
-            h1, h2, h3 { 
-              page-break-after: avoid !important; 
-              margin-bottom: 0.75rem !important;
-              margin-top: 1rem !important;
-              line-height: 1.3 !important;
-            }
-            /* First section headings should be more compact */
-            .worksheet-section:first-of-type h1,
-            .worksheet-section:first-of-type h2,
-            .worksheet-section:first-of-type h3 {
-              margin-top: 0.25rem !important;
-              margin-bottom: 0.375rem !important;
-            }
-            /* Add padding to content container for proper spacing since @page has no margin */
-            /* CRITICAL: Match print CSS exactly - use margin on inner div (not padding on outer) */
-            /* Print layout: @page has margin: 0, inner div has margin: 0.5in left/right/bottom */
-            /* This makes content width = 794px - 96px = 698px (matching print preview) */
-            [data-worksheet-content="true"] {
-              padding: 0 !important;
-              margin: 0 !important;
-            }
-            /* CRITICAL: This MUST match index.css print styles exactly */
-            [data-worksheet-content="true"] > div:first-child {
-              margin: 0.5in !important;
-              margin-top: 0 !important;
-              padding: 0 !important;
-              page-break-before: auto !important;
-              overflow: visible !important;
-              background-color: white !important;
-              background: white !important;
-              /* Account for left and right margins: 794px (A4 width) - 1in (0.5in * 2) = 698px */
-              width: calc(100% - 1in) !important;
-              max-width: calc(100% - 1in) !important;
-              box-sizing: border-box !important;
-            }
-            /* Ensure all divs inside worksheet content have white background */
-            [data-worksheet-content="true"] > div:first-child > * {
-              background-color: white !important;
-              background: white !important;
-            }
-            /* Preserve worksheet section borders and styling for readability */
-            section[class*="break-inside-avoid"],
-            section.worksheet-section,
-            .worksheet-section {
-              border: 1px solid #e2e8f0 !important;
-              border-radius: 4px !important;
-              background: white !important;
-              background-color: white !important;
-            }
-            /* Preserve content borders within worksheets */
-            section[class*="break-inside-avoid"] div[class*="border"],
-            section[class*="break-inside-avoid"] div[class*="rounded"] {
-              border: 1px solid #cbd5e1 !important;
-              border-radius: 4px !important;
-            }
-            /* Hide URLs in print */
-            a[href]::after { content: none !important; }
-            a { text-decoration: none !important; }
-            /* Remove backgrounds and borders in print for cleaner look - but preserve worksheet content */
-            * {
-              box-shadow: none !important;
-            }
-            /* Remove borders from navigation and UI elements, but keep worksheet content borders */
-            header, .print\\:hidden, nav, button {
-              border: none !important;
-              border-radius: 0 !important;
-            }
-            /* CRITICAL: Ensure worksheet problems/content appear on first page immediately after learning objectives */
-            .worksheet-section:first-of-type .learning-objectives + *,
-            section:first-of-type .learning-objectives + *,
-            .worksheet-section:first-of-type h2 + *,
-            .worksheet-section:first-of-type h3 + *,
-            section:first-of-type h2 + *,
-            section:first-of-type h3 + * {
-              margin-top: 0.5rem !important;
-              padding-top: 0 !important;
-              page-break-before: auto !important;
-            }
-            /* Ensure all content inside first section flows on first page */
-            .worksheet-section:first-of-type > div > *:not(.worksheet-header):not(.learning-objectives),
-            section:first-of-type > div > *:not(.worksheet-header):not(.learning-objectives) {
-              page-break-before: auto !important;
-              break-before: auto !important;
-            }
-            /* Remove any page breaks from first section content - override inline styles */
-            .worksheet-section:first-of-type [style*="page-break-before"],
-            .worksheet-section:first-of-type [style*="pageBreakBefore"],
-            section:first-of-type [style*="page-break-before"],
-            section:first-of-type [style*="pageBreakBefore"] {
-              page-break-before: auto !important;
-              break-before: auto !important;
-            }
-            /* Override any page-break-before: always on first section children */
-            .worksheet-section:first-of-type > div > div[style*="page-break-before"],
-            .worksheet-section:first-of-type > div > div[style*="pageBreakBefore"],
-            section:first-of-type > div > div[style*="page-break-before"],
-            section:first-of-type > div > div[style*="pageBreakBefore"] {
-              page-break-before: auto !important;
-              break-before: auto !important;
-            }
-            /* Prevent any element from forcing a page break before the first content */
-            [data-worksheet-content="true"] > div:first-child > *:first-child[style*="page-break-before"],
-            [data-worksheet-content="true"] > div:first-child > *:first-child[style*="pageBreakBefore"] {
-              page-break-before: auto !important;
-            }
-            /* Hide URLs in print */
-            a[href]::after { content: none !important; }
-            a { text-decoration: none !important; }
-            /* Remove backgrounds and borders in print for cleaner look - but preserve worksheet content */
-            * {
-              box-shadow: none !important;
-            }
-            /* Remove borders from navigation and UI elements, but keep worksheet content borders */
-            header, .print\\:hidden, nav, button {
-              border: none !important;
-              border-radius: 0 !important;
-            }
-            /* Preserve worksheet section borders and styling for readability */
-            section[class*="break-inside-avoid"],
-            section.worksheet-section,
-            .worksheet-section {
-              border: 1px solid #e2e8f0 !important;
-              border-radius: 4px !important;
-              background: white !important;
-              background-color: white !important;
-            }
-            /* Preserve content borders within worksheets */
-            section[class*="break-inside-avoid"] div[class*="border"],
-            section[class*="break-inside-avoid"] div[class*="rounded"] {
-              border: 1px solid #cbd5e1 !important;
-              border-radius: 4px !important;
-            }
-            /* Remove decorative corner accents in print */
-            section[class*="break-inside-avoid"] > div[class*="absolute"] {
-              display: none !important;
-            }
-            /* Customization header at top of page - only appears once */
-            .print-customization-header { 
-              display: block;
-              margin: 0 !important;
-              margin-bottom: 0.5rem !important;
-              padding: 0.25rem 0 !important;
-              border-bottom: 1px solid #e2e8f0;
-              font-size: 9pt; 
-              color: #1e293b; 
-              line-height: 1.3; 
-              font-weight: 500;
-              page-break-after: avoid;
-              page-break-before: auto !important;
-            }
-            .print-customization-header strong { font-weight: 600; color: #0f172a; }
-            /* Better spacing for print - readable and clean */
-            section { 
-              margin-bottom: 1.5rem !important; 
-              margin-top: 0 !important;
-              page-break-inside: auto !important;
-              break-inside: auto !important;
-              padding-left: 0.5rem !important;
-              padding-right: 0.5rem !important;
-              padding-top: 0.5rem !important;
-              padding-bottom: 0.5rem !important;
-              background-color: white !important;
-              background: white !important;
-            }
-            /* First section should have NO top padding/margin to fit on first page - matching Interactive Worksheets Generator */
-            section:first-of-type {
-              margin-top: 0 !important;
-              padding-top: 0 !important;
-              background-color: white !important;
-            }
-            /* Add spacing between worksheet sections */
-            .worksheet-section {
-              margin-bottom: 1.5rem !important;
-              padding: 0.5rem 0.5rem !important;
-              background-color: white !important;
-              /* Ensure sections don't overflow container width */
-              max-width: 100% !important;
-              box-sizing: border-box !important;
-              overflow-x: hidden !important;
-            }
-            /* First worksheet section should have NO top padding/margin - content starts immediately after header */
-            .worksheet-section:first-of-type {
-              padding-top: 0 !important;
-              margin-top: 0 !important;
-              background-color: white !important;
-            }
-            /* Add spacing between problems/equations */
-            .worksheet-section > div > * {
-              margin-bottom: 0.75rem !important;
-            }
-            .worksheet-section > div > *:last-child {
-              margin-bottom: 0 !important;
-            }
-            /* Add spacing between math problems */
-            [class*="math-problem"],
-            [class*="problem"],
-            .equation,
-            .puzzle {
-              margin-bottom: 1rem !important;
-              padding: 0.5rem 0 !important;
-            }
-            /* Allow sections to break across pages if needed, but try to keep them together */
-            .break-inside-avoid,
-            section.break-inside-avoid,
-            section[class*="break-inside-avoid"],
-            .worksheet-section {
-              page-break-inside: auto !important; 
-              break-inside: auto !important;
-              -webkit-region-break-inside: auto !important;
-            }
-            /* Allow content within sections to break across pages - only prevent breaking of small cohesive units */
-            section.break-inside-avoid > *,
-            .worksheet-section > * {
-              page-break-inside: auto !important;
-              break-inside: auto !important;
-            }
-            /* Only prevent breaking of headers, small problem groups, and images */
-            .worksheet-header,
-            h1, h2, h3, h4, h5, h6,
-            .math-problem,
-            .equation,
-            img, svg, picture, canvas {
-              page-break-inside: avoid !important;
-              break-inside: avoid !important;
-            }
-            /* Challenge section - must stay together, move to next page if no space */
-            .challenge-section {
-              page-break-inside: avoid !important;
-              break-inside: avoid !important;
-              -webkit-region-break-inside: avoid !important;
-              page-break-before: auto !important;
-              orphans: 3 !important; /* Keep at least 3 lines together */
-              widows: 3 !important; /* Keep at least 3 lines together */
-            }
-            .challenge-section > * {
-              page-break-inside: avoid !important;
-              break-inside: avoid !important;
-            }
-            /* Prevent text merging and improve readability - comfortable spacing */
-            p { 
-              line-height: 1.5 !important; 
-              margin: 0.5rem 0 !important;
-            }
-            div, span { 
-              line-height: 1.4 !important; 
-            }
-            h1, h2, h3 { 
-              page-break-after: avoid !important; 
-              margin-bottom: 0.75rem !important;
-              margin-top: 1rem !important;
-              line-height: 1.3 !important;
-            }
-            /* First section headings should be more compact - matching Interactive Worksheets Generator */
-            .worksheet-section:first-of-type h1,
-            .worksheet-section:first-of-type h2,
-            .worksheet-section:first-of-type h3 {
-              margin-top: 0 !important;
-              margin-bottom: 0.5rem !important;
-            }
-            /* Comfortable spacing for readability */
-            .mb-10 { margin-bottom: 1rem !important; }
-            .mb-4, .mb-6 { margin-bottom: 0.75rem !important; }
-            .mb-3 { margin-bottom: 0.5rem !important; }
-            .mb-2 { margin-bottom: 0.375rem !important; }
-            .p-4, .p-5, .p-6 { padding: 0.75rem !important; }
-            .p-3 { padding: 0.5rem !important; }
-            .py-10 { padding-top: 0.75rem !important; padding-bottom: 0.75rem !important; }
-            /* Section spacing for readability */
-            section { margin-bottom: 1.5rem !important; }
-            /* Add spacing between content blocks */
-            .worksheet-section > div {
-              padding: 0.5rem 0 !important;
-            }
-            /* Add spacing between learning objectives and content - matching Interactive Worksheets Generator */
-            .learning-objectives {
-              margin-bottom: 1rem !important;
-              padding: 0.75rem !important;
-            }
-            /* Add spacing between header and content - matching Interactive Worksheets Generator */
-            .worksheet-header {
-              margin-bottom: 1rem !important;
-              padding-bottom: 0 !important;
-            }
-            /* First section header should be more compact - matching Interactive Worksheets Generator */
-            .worksheet-section:first-of-type .worksheet-header {
-              margin-bottom: 1rem !important;
-              padding-bottom: 0 !important;
-            }
-            /* Make title/description more compact in first section - matching Interactive Worksheets Generator */
-            .worksheet-section:first-of-type h2,
-            .worksheet-section:first-of-type h3 {
-              margin-top: 0 !important;
-              margin-bottom: 0.5rem !important;
-            }
-            .worksheet-section:first-of-type p {
-              margin-top: 0.25rem !important;
-              margin-bottom: 1rem !important;
-            }
-            /* Apply print:block and print:hidden classes */
-            [class*="print:block"] { display: block !important; }
-            [class*="print:hidden"] { display: none !important; }
-            /* Apply print text size classes */
-            [class*="print:text-[8px]"] { font-size: 8px !important; }
-            [class*="print:text-[9px]"] { font-size: 9px !important; }
-            [class*="print:text-[10px]"] { font-size: 10px !important; }
-            /* Apply print spacing classes */
-            [class*="print:mb-0"] { margin-bottom: 0 !important; }
-            [class*="print:mb-0.5"] { margin-bottom: 0.125rem !important; }
-            [class*="print:mb-1"] { margin-bottom: 0.25rem !important; }
-            [class*="print:p-1"] { padding: 0.25rem !important; }
-            [class*="print:p-1.5"] { padding: 0.375rem !important; }
-            [class*="print:gap-0.5"] { gap: 0.125rem !important; }
-            [class*="print:gap-1"] { gap: 0.25rem !important; }
-            [class*="print:gap-2"] { gap: 0.5rem !important; }
-            [class*="print:space-y-0"] > * { margin-top: 0 !important; }
-            [class*="print:space-y-0.5"] > *:not(:first-child) { margin-top: 0.125rem !important; }
-            /* Page break rules */
-            h1, h2, h3, h4, h5, h6 {
-              page-break-after: avoid !important;
-              break-after: avoid !important;
-              page-break-inside: avoid !important;
-              break-inside: avoid !important;
-            }
-            h1 + *, h2 + *, h3 + *, h4 + *, h5 + *, h6 + * {
-              page-break-before: avoid !important;
-              break-before: avoid !important;
-            }
-            .worked-example,
-            .worked-example > * {
-              page-break-inside: avoid !important;
-              break-inside: avoid !important;
-            }
-            img, svg, picture, canvas, video {
-              page-break-inside: avoid !important;
-              break-inside: avoid !important;
-              page-break-after: avoid !important;
-              break-after: avoid !important;
-            }
-            /* Allow cards and blocks to break if they're large, but try to keep small ones together */
-            [class*="card"],
-            [class*="block"],
-            .bg-white.rounded-lg,
-            .bg-white.p-4 {
-              page-break-inside: auto !important;
-              break-inside: auto !important;
-            }
-            /* Only prevent breaking of individual math problems (small units) */
-            .math-problem {
-              page-break-inside: avoid !important;
-              break-inside: avoid !important;
-            }
-          `
-          // CRITICAL: Apply styles using stylesheet API ONLY - style tag never has textContent
-          // Append to head first to get stylesheet access
-          clonedDoc.head.appendChild(style)
-          
-          // Apply styles via stylesheet API (no textContent = html2canvas can't capture CSS text)
-          const sheet = style.sheet as CSSStyleSheet | null
-          if (sheet && typeof sheet.insertRule === 'function') {
-            try {
-              // Remove all comments first
-              let cleanCss = cssText.replace(/\/\*[\s\S]*?\*\//g, '').trim()
-              // Split into individual CSS rules (split by } but keep it)
-              const ruleStrings: string[] = []
-              let current = ''
-              for (let i = 0; i < cleanCss.length; i++) {
-                current += cleanCss[i]
-                if (cleanCss[i] === '}' && (i === cleanCss.length - 1 || cleanCss[i + 1].match(/\s/))) {
-                  const rule = current.trim()
-                  if (rule && rule.length > 2 && !rule.startsWith('@page')) {
-                    ruleStrings.push(rule)
-                  }
-                  current = ''
-                }
-              }
-              // Insert each rule
-              ruleStrings.forEach(rule => {
-                try {
-                  sheet.insertRule(rule, sheet.cssRules.length)
-                } catch (e) {
-                  // Skip rules that can't be inserted (like @page, invalid selectors, etc.)
-                }
-              })
-            } catch (e) {
-              // If parsing fails, skip styles entirely
-            }
-          }
-          // Style tag remains empty (no textContent), so html2canvas won't see CSS text
-          
-          // Remove style tag - styles are applied via stylesheet API
-          style.remove()
-          
-          // Remove ALL style tags from cloned document (safety check)
-          clonedDoc.querySelectorAll('style').forEach(tag => tag.remove())
-          
-          // Process print: utility classes in cloned document
-          const allClonedElements = clonedDoc.querySelectorAll('*')
-          allClonedElements.forEach((el) => {
+          // Process print: utility classes
+          const allElements = clonedDoc.querySelectorAll('*')
+          allElements.forEach((el) => {
             const htmlEl = el as HTMLElement
             const classList = Array.from(htmlEl.classList)
             
-            // Show print:block elements
             if (classList.some(cls => cls.includes('print:block'))) {
               htmlEl.style.display = 'block'
-              htmlEl.style.visibility = 'visible'
             }
-            // Hide print:hidden elements
             if (classList.some(cls => cls.includes('print:hidden'))) {
               htmlEl.style.display = 'none'
-            }
-            
-            // Apply print:text-* classes
-            classList.forEach(cls => {
-              const textMatch = cls.match(/print:text-\[(\d+)px\]/)
-              if (textMatch) {
-                htmlEl.style.fontSize = `${textMatch[1]}px`
-              }
-            })
-            
-            // Apply print spacing classes
-            if (classList.some(cls => cls.includes('print:mb-0'))) {
-              htmlEl.style.marginBottom = '0'
-            }
-            if (classList.some(cls => cls.includes('print:mb-0.5'))) {
-              htmlEl.style.marginBottom = '0.125rem'
-            }
-            if (classList.some(cls => cls.includes('print:mb-1'))) {
-              htmlEl.style.marginBottom = '0.25rem'
-            }
-            if (classList.some(cls => cls.includes('print:p-1'))) {
-              htmlEl.style.padding = '0.25rem'
-            }
-            if (classList.some(cls => cls.includes('print:p-1.5'))) {
-              htmlEl.style.padding = '0.375rem'
-            }
-            
-            // Apply print:gap-* classes (for flex/grid containers)
-            const gapMatch = classList.find(cls => cls.match(/print:gap-(\d+|0\.5)/))
-            if (gapMatch) {
-              const gapValue = gapMatch.match(/print:gap-(\d+|0\.5)/)?.[1]
-              if (gapValue === '0.5') {
-                htmlEl.style.gap = '0.125rem'
-              } else if (gapValue === '1') {
-                htmlEl.style.gap = '0.25rem'
-              } else if (gapValue === '2') {
-                htmlEl.style.gap = '0.5rem'
-              }
             }
           })
         }
       })
       
       // Restore original styles
-      document.body.className = originalBodyClass
       document.body.style.width = originalBodyStyle.width
       document.body.style.maxWidth = originalBodyStyle.maxWidth
       document.body.style.margin = originalBodyStyle.margin
       document.body.style.padding = originalBodyStyle.padding
+      document.body.style.background = originalBodyStyle.background
       
-      if (wrapperElement && wrapperOriginalStyle) {
-        wrapperElement.style.width = wrapperOriginalStyle.width
-        wrapperElement.style.maxWidth = wrapperOriginalStyle.maxWidth
-        wrapperElement.style.margin = wrapperOriginalStyle.margin
-        wrapperElement.style.padding = wrapperOriginalStyle.padding
-      }
+      contentElement.style.width = originalContentStyle.width
+      contentElement.style.maxWidth = originalContentStyle.maxWidth
+      contentElement.style.margin = originalContentStyle.margin
+      contentElement.style.padding = originalContentStyle.padding
+      contentElement.style.background = originalContentStyle.background
       
-      // Restore content element styles
-      if (finalContentElement && originalContentWidth !== undefined) {
-        finalContentElement.style.width = originalContentWidth
-        finalContentElement.style.maxWidth = originalContentMaxWidth
-      }
-      
-      // Restore overflow styles
-      if (finalContentElement && originalOverflow !== undefined) {
-        finalContentElement.style.overflow = originalOverflow
-        finalContentElement.style.overflowY = originalOverflowY
-        if (originalHeight !== undefined) finalContentElement.style.height = originalHeight
-        if (originalMaxHeight !== undefined) finalContentElement.style.maxHeight = originalMaxHeight
-      }
-      
-      // Restore inner div styles if we modified them
-      const innerDivToRestore = finalContentElement.querySelector('[data-worksheet-content="true"] > div:first-child') as HTMLElement || finalContentElement.querySelector('div:first-child') as HTMLElement
-      if (innerDivToRestore) {
-        innerDivToRestore.style.margin = ''
-        innerDivToRestore.style.marginLeft = ''
-        innerDivToRestore.style.marginRight = ''
-        innerDivToRestore.style.marginTop = ''
-        innerDivToRestore.style.marginBottom = ''
-        innerDivToRestore.style.width = ''
-        innerDivToRestore.style.maxWidth = ''
-      }
-      
-      hiddenElements.forEach(({ element, originalDisplay }) => {
-        element.style.display = originalDisplay
+      originalStyles.forEach((styles, element) => {
+        Object.entries(styles).forEach(([prop, value]) => {
+          (element.style as any)[prop] = value
+        })
       })
+      
+      printStyleTag.remove()
       
       // Validate canvas
-      if (!canvas) {
-        throw new Error('Failed to capture content: html2canvas returned null. The content element may not be visible or accessible.')
+      if (!canvas || canvas.width === 0 || canvas.height === 0) {
+        throw new Error('Failed to capture content. Please try again.')
       }
       
-      // Verify canvas captured all content - check if height matches expected content height
-      const expectedHeight = Math.max(
-        finalContentElement.offsetHeight || 0,
-        finalContentElement.scrollHeight || 0
-      ) * 3.0 // Scale factor
-      const actualHeight = canvas.height
-      
-      // Allow 5% tolerance for rounding differences
-      if (actualHeight < expectedHeight * 0.95) {
-        console.warn(`Canvas height (${actualHeight}px) is less than expected (${expectedHeight}px). Content may be cropped.`)
-      }
-      
-      let finalCanvas = canvas
-      if (canvas.width === 0 || canvas.height === 0) {
-        // If canvas has width but zero height, the element might be collapsed
-        // Try capturing the outer container as fallback
-        if (canvas.width > 0 && canvas.height === 0 && finalContentElement !== contentElement) {
-          console.warn('Canvas has zero height, retrying with outer container...')
-          // Retry with outer container
-          const retryCanvas = await html2canvas(contentElement, {
-            scale: 4.0,
-            useCORS: true,
-            logging: false,
-            backgroundColor: '#ffffff',
-            allowTaint: false,
-            width: 794, // Use full page width for outer container
-            windowWidth: 794,
-          })
-          
-          if (retryCanvas && retryCanvas.width > 0 && retryCanvas.height > 0) {
-            // Use the retry canvas
-            finalCanvas = retryCanvas
-          } else {
-            throw new Error(`Failed to capture content: Canvas has zero height (${canvas.width}x${canvas.height}). The content element appears to be collapsed. Try refreshing the page or ensuring all content is loaded.`)
-          }
-        } else {
-          throw new Error(`Failed to capture content: Canvas has zero dimensions (${canvas.width}x${canvas.height}). The content element may be hidden or have no visible content.`)
-        }
-      }
-      
-      // Use finalCanvas for the rest of the function
-      if (finalCanvas !== canvas) {
-        canvas = finalCanvas
-      }
-      
-      // Find section positions BEFORE restoring styles (while print styles are applied)
-      // Include worksheet sections, headers with content, worked examples, images, and other content blocks
-      // Use the element that was actually captured
-      const sections = finalContentElement.querySelectorAll('section.break-inside-avoid, section[class*="break-inside-avoid"], section.worksheet-section, .worksheet-section, .challenge-section, .worked-example, [class*="example"]')
-      const headers = finalContentElement.querySelectorAll('h1, h2, h3, h4, h5, h6')
-      // Wait for SVG elements to be fully rendered
-      const svgElements = finalContentElement.querySelectorAll('svg')
-      if (svgElements.length > 0) {
-        // Force SVG reflow and wait for rendering
-        svgElements.forEach((svg: Element) => {
-          const svgEl = svg as SVGSVGElement
-          void svgEl.offsetWidth
-          void svgEl.offsetHeight
-          // Ensure SVG has explicit dimensions if missing
-          if (!svgEl.hasAttribute('width') && !svgEl.hasAttribute('height')) {
-            const viewBox = svgEl.getAttribute('viewBox')
-            if (viewBox) {
-              const [, , width, height] = viewBox.split(' ').map(Number)
-              if (width && height) {
-                svgEl.setAttribute('width', String(width))
-                svgEl.setAttribute('height', String(height))
-              }
-            }
-          }
-        })
-        // Wait for SVG rendering
-        await new Promise(resolve => setTimeout(resolve, 300))
-      }
-      
-      const images = finalContentElement.querySelectorAll('img, svg, picture, canvas')
-      
-      const sectionPositions: Array<{ top: number; bottom: number; type: string }> = []
-      
-      // Get container rect for coordinate calculation (different scope from html2canvas)
-      const contentRect = finalContentElement.getBoundingClientRect()
-      
-      // Add all sections
-      sections.forEach((section) => {
-        const rect = (section as HTMLElement).getBoundingClientRect()
-        const top = rect.top - contentRect.top
-        const bottom = top + rect.height
-        sectionPositions.push({ top, bottom, type: 'section' })
-      })
-      
-      // Add headers with their following content (next 200px or until next header)
-      headers.forEach((header) => {
-        const rect = (header as HTMLElement).getBoundingClientRect()
-        const top = rect.top - contentRect.top
-        // Find next header or section, or use 200px as default
-        let bottom = top + 200 // Default: keep 200px with header
-        const nextHeader = Array.from(headers).find(h => {
-          const hRect = (h as HTMLElement).getBoundingClientRect()
-          return hRect.top > rect.top
-        })
-        if (nextHeader) {
-          const nextRect = (nextHeader as HTMLElement).getBoundingClientRect()
-          bottom = Math.min(bottom, nextRect.top - contentRect.top)
-        }
-        sectionPositions.push({ top, bottom, type: 'header' })
-      })
-      
-      // Add images with small padding
-      images.forEach((img) => {
-        const rect = (img as HTMLElement).getBoundingClientRect()
-        const top = rect.top - contentRect.top
-        const bottom = top + rect.height + 20 // Add 20px padding below image
-        sectionPositions.push({ top, bottom, type: 'image' })
-      })
-      
-      // Sort by top position
-      sectionPositions.sort((a, b) => a.top - b.top)
-      
-      // Create PDF with correct width and margins to match print preview EXACTLY
-      // Print layout analysis:
-      // - @page has margin: 0 (no page margins)
-      // - Outer container [data-worksheet-content] is 794px wide
-      // - Inner content div has margin: 0.5in left/right/bottom (margin-top: 0) and width: calc(100% - 1in) = 698px
-      // - Canvas was captured with the element INCLUDING its margins (48px left + 698px content + 48px right = 794px total width)
-      // - But html2canvas captures the element's bounding box, which includes margins
-      // A4 page: 210mm x 297mm (8.27in x 11.69in)
-      // Print width: 794px at 96dpi = 210mm
+      // Create PDF - A4 size (210mm x 297mm)
       const pageWidthMm = 210 // A4 width in mm
-      const pageHeight = 297 // A4 height in mm
-      const scale = 3.0 // We're using scale: 3.0 in html2canvas for higher quality
-      
-      // Calculate captured dimensions
-      // We captured the outer container at 794px width, so canvas.width = 794 * scale
-      const capturedWidthPx = canvas.width / scale // Should be 794px
-      
-      // Verify we captured the correct width
-      if (Math.abs(capturedWidthPx - printWidth) > 10) {
-        console.warn(`Unexpected captured width: ${capturedWidthPx}px (expected ${printWidth}px)`)
-      }
-      
-      // Convert to PDF dimensions: 794px = 210mm (full A4 width)
-      // Since @page has margin: 0, we place the image at x=0 (no left margin)
-      const imgWidth = pageWidthMm // 210mm (full page width)
-      const imgHeight = (canvas.height * imgWidth) / canvas.width
-      
-      // Use maximum JPEG quality (1.0) combined with scale 3.0 for best print quality (~2-3MB file size)
-      const imgData = canvas.toDataURL('image/jpeg', 1.0)
+      const pageHeightMm = 297 // A4 height in mm
       const pdf = new jsPDF('p', 'mm', 'a4')
       
-      if (imgHeight <= pageHeight) {
-        // Single page - place at x=0 to match print preview (no page margins)
+      // Calculate image dimensions
+      const imgWidth = pageWidthMm
+      const imgHeight = (canvas.height * imgWidth) / canvas.width
+      
+      // Convert canvas to image
+      const imgData = canvas.toDataURL('image/jpeg', 0.95)
+      
+      if (imgHeight <= pageHeightMm) {
+        // Single page
         pdf.addImage(imgData, 'JPEG', 0, 0, imgWidth, imgHeight)
       } else {
-        // Multiple pages - simple split with smart section protection
+        // Multiple pages - split canvas into pages
         const pixelsPerMm = canvas.width / imgWidth
-        const pageHeightPx = pageHeight * pixelsPerMm
-        const scaleFactor = scale // Use actual scale factor (3.0)
-        
-        // Convert section positions to canvas coordinates
-        const canvasSections = sectionPositions.map(s => ({
-          top: s.top * scaleFactor,
-          bottom: s.bottom * scaleFactor,
-          type: s.type
-        }))
-        
+        const pageHeightPx = pageHeightMm * pixelsPerMm
         let currentY = 0
         
         while (currentY < canvas.height) {
-          let pageEndY = Math.min(currentY + pageHeightPx, canvas.height)
+          const pageHeightActual = Math.min(pageHeightPx, canvas.height - currentY)
           
-          // For first page, try to fill it more (use at least 80% of page height)
-          const minFirstPageHeight = currentY === 0 ? pageHeightPx * 0.8 : 0
+          // Create a canvas for this page
+          const pageCanvas = document.createElement('canvas')
+          pageCanvas.width = canvas.width
+          pageCanvas.height = pageHeightActual
+          const pageCtx = pageCanvas.getContext('2d')
           
-          // Check if page break would split any section/header/image
-          if (canvasSections.length > 0) {
-            // Find sections that would be split by this page break
-            const sectionsToProtect = canvasSections.filter(section => {
-              // Check if page break is in the middle of section (not at edges)
-              // Use smaller margin for headers/images, larger for sections
-              const isHeaderOrImage = section.type === 'header' || section.type === 'image'
-              const margin = isHeaderOrImage 
-                ? Math.max(5, (section.bottom - section.top) * 0.03) // 3% margin for headers/images
-                : Math.max(10, (section.bottom - section.top) * 0.05)   // 5% margin for sections
-              
-              return pageEndY > section.top + margin && pageEndY < section.bottom - margin
-            })
+          if (pageCtx) {
+            // Fill white background
+            pageCtx.fillStyle = '#ffffff'
+            pageCtx.fillRect(0, 0, pageCanvas.width, pageCanvas.height)
             
-            if (sectionsToProtect.length > 0) {
-              // Find the last complete section that ends before this page break
-              const sectionsBeforeBreak = canvasSections
-                .filter(s => s.bottom <= pageEndY && s.top >= currentY)
-                .sort((a, b) => b.bottom - a.bottom)
-              
-              if (sectionsBeforeBreak.length > 0) {
-                // Break after the last complete section
-                const suggestedBreak = sectionsBeforeBreak[0].bottom + 5 // 5px gap
-                // For first page, be more lenient - use at least 60% of page
-                // For other pages, use at least 40% to avoid blank pages
-                const minUsage = currentY === 0 ? 0.6 : 0.4
-                const pageUsage = (suggestedBreak - currentY) / pageHeightPx
-                if (pageUsage > minUsage || (currentY === 0 && suggestedBreak >= minFirstPageHeight)) {
-                  pageEndY = suggestedBreak
-                } else {
-                  // Page would be too empty, move to next section start instead
-                  const firstSplitSection = sectionsToProtect[0]
-                  if (firstSplitSection.top > currentY) {
-                    // For first page, ensure we have substantial content
-                    const pageUsageAtSectionStart = (firstSplitSection.top - currentY) / pageHeightPx
-                    if (pageUsageAtSectionStart > minUsage || (currentY === 0 && firstSplitSection.top >= minFirstPageHeight)) {
-                      pageEndY = firstSplitSection.top
-                    } else {
-                      // If we can't avoid splitting, just split it (better than blank page)
-                      pageEndY = Math.min(currentY + pageHeightPx, canvas.height)
-                    }
-                  }
-                }
-              } else {
-                // No complete sections before break - move page break to start of first split section
-                const firstSplitSection = sectionsToProtect[0]
-                if (firstSplitSection.top > currentY) {
-                  // For first page, ensure we have substantial content (at least 60%)
-                  // For other pages, use at least 30%
-                  const minUsage = currentY === 0 ? 0.6 : 0.3
-                  const pageUsage = (firstSplitSection.top - currentY) / pageHeightPx
-                  if (pageUsage > minUsage || (currentY === 0 && firstSplitSection.top >= minFirstPageHeight)) {
-                    pageEndY = firstSplitSection.top
-                  } else {
-                    // If we can't avoid splitting, just split it (better than blank page)
-                    pageEndY = Math.min(currentY + pageHeightPx, canvas.height)
-                  }
-                }
-              }
-            } else {
-              // No sections to protect - ensure first page has good content
-              if (currentY === 0 && pageEndY < minFirstPageHeight) {
-                // Try to extend first page to at least 80% full
-                const extendedEndY = Math.min(minFirstPageHeight, canvas.height)
-                if (extendedEndY > pageEndY) {
-                  pageEndY = extendedEndY
-                }
-              }
-            }
-          }
-          
-          const pageHeightActual = Math.min(pageEndY - currentY, canvas.height - currentY)
-          
-          if (pageHeightActual > 0) {
-            // Create page canvas
-            const pageCanvas = document.createElement('canvas')
-            pageCanvas.width = canvas.width
-            pageCanvas.height = pageHeightActual
-            const pageCtx = pageCanvas.getContext('2d')
+            // Draw portion of original canvas
+            pageCtx.drawImage(
+              canvas,
+              0, currentY,
+              canvas.width, pageHeightActual,
+              0, 0,
+              pageCanvas.width, pageCanvas.height
+            )
             
-            if (pageCtx) {
-              // Fill white background
-              pageCtx.fillStyle = '#ffffff'
-              pageCtx.fillRect(0, 0, pageCanvas.width, pageCanvas.height)
-              
-              // Draw portion of original canvas
-              pageCtx.drawImage(
-                canvas,
-                0, currentY,
-                canvas.width, pageHeightActual,
-                0, 0,
-                pageCanvas.width, pageCanvas.height
-              )
-              
-              // Use maximum JPEG quality (1.0) for best print quality
-              const pageImgData = pageCanvas.toDataURL('image/jpeg', 1.0)
-              const pageImgHeight = (pageHeightActual * imgWidth) / canvas.width
-              
-              // Place at x=0 to match print preview layout (Ctrl+P) - no page margins
-              pdf.addImage(pageImgData, 'JPEG', 0, 0, imgWidth, pageImgHeight)
-              
-              currentY = pageEndY
-              if (currentY < canvas.height) {
-                pdf.addPage()
-              }
-            } else {
-              break
+            const pageImgData = pageCanvas.toDataURL('image/jpeg', 0.95)
+            const pageImgHeight = (pageHeightActual * imgWidth) / canvas.width
+            
+            pdf.addImage(pageImgData, 'JPEG', 0, 0, imgWidth, pageImgHeight)
+            
+            currentY += pageHeightActual
+            if (currentY < canvas.height) {
+              pdf.addPage()
             }
           } else {
             break
@@ -3519,18 +2119,164 @@ export function PrintablesPage() {
       
     } catch (error) {
       console.error('PDF download failed:', error)
-      console.error('Error details:', {
-        message: error instanceof Error ? error.message : String(error),
-        stack: error instanceof Error ? error.stack : undefined,
-        error
-      })
-      // Show error message to user instead of falling back to print
       const errorMessage = error instanceof Error ? error.message : String(error)
-      alert(`PDF download failed: ${errorMessage}\n\nPlease try using the Print button and select "Save as PDF" instead, or check the browser console for more details.`)
+      alert(`PDF download failed: ${errorMessage}\n\nPlease try using the Print button and select "Save as PDF" instead.`)
     } finally {
       setIsDownloadingPDF(false)
     }
   }, [doc, primaryDoc, docTitle, params, showAnswers])
+
+  // OLD PDF download function - kept for reference but not used
+  // This was causing blank pages, so we now use browser print dialog instead
+  const downloadPDF_OLD = React.useCallback(async () => {
+    let wrapperElement: HTMLElement | null = null
+    let wrapperOriginalStyle: { width: string; maxWidth: string; margin: string; padding: string } | null = null
+    
+    try {
+      setIsDownloadingPDF(true)
+      
+      // Import jsPDF and html2canvas dynamically
+      const [{ default: jsPDF }, html2canvas] = await Promise.all([
+        import('jspdf'),
+        import('html2canvas').then(m => m.default || m)
+      ])
+      
+      // If showAnswers is true, wait a bit longer for answers to render
+      if (showAnswers) {
+        await new Promise(resolve => setTimeout(resolve, 1500))
+      }
+      
+      // Wait for content to be fully rendered
+      await new Promise(resolve => setTimeout(resolve, 500))
+      
+      // Find the worksheet content container
+      const contentElement = document.querySelector('[data-worksheet-content="true"]') as HTMLElement
+      if (!contentElement) {
+        throw new Error('Could not find worksheet content. Please refresh the page and try again.')
+      }
+      
+      // Apply print styles temporarily
+      const printStyleTag = document.createElement('style')
+      printStyleTag.id = 'pdf-export-print-styles'
+      printStyleTag.textContent = `
+        /* Apply print styles */
+        [data-worksheet-content="true"] {
+          width: 794px !important;
+          max-width: 794px !important;
+        }
+      `
+      document.head.appendChild(printStyleTag)
+      
+      // Capture with html2canvas
+      const canvas = await html2canvas(contentElement, {
+        scale: 2.0,
+        useCORS: true,
+        logging: false,
+        backgroundColor: '#ffffff',
+        allowTaint: false
+      })
+      
+      // Remove print styles
+      printStyleTag.remove()
+      
+      // Create PDF
+      const pdf = new jsPDF('p', 'mm', 'a4')
+      const imgData = canvas.toDataURL('image/jpeg', 0.95)
+      const imgWidth = 210 // A4 width in mm
+      const imgHeight = (canvas.height * imgWidth) / canvas.width
+      
+      pdf.addImage(imgData, 'JPEG', 0, 0, imgWidth, imgHeight)
+      
+      // Generate filename and download
+      const filename = docTitle 
+        ? `${docTitle.replace(/[^a-z0-9]/gi, '_').toLowerCase()}.pdf`
+        : `worksheet_${doc || 'download'}.pdf`
+      
+      pdf.save(filename)
+      
+    } catch (error) {
+      console.error('PDF download failed:', error)
+      alert('PDF download failed. Please try using the Print button instead.')
+    } finally {
+      setIsDownloadingPDF(false)
+    }
+  }, [doc, docTitle, showAnswers])
+
+  // OLD PDF download function - kept for reference but not used
+  // This was causing blank pages, so we now use browser print dialog instead
+  const downloadPDF_OLD2 = React.useCallback(async () => {
+    let wrapperElement: HTMLElement | null = null
+    let wrapperOriginalStyle: { width: string; maxWidth: string; margin: string; padding: string } | null = null
+    
+    try {
+      setIsDownloadingPDF(true)
+      
+      // Import jsPDF and html2canvas dynamically
+      const [{ default: jsPDF }, html2canvas] = await Promise.all([
+        import('jspdf'),
+        import('html2canvas').then(m => m.default || m)
+      ])
+      
+      // If showAnswers is true, wait a bit longer for answers to render
+      if (showAnswers) {
+        await new Promise(resolve => setTimeout(resolve, 1500))
+      }
+      
+      // Wait for content to be fully rendered
+      await new Promise(resolve => setTimeout(resolve, 500))
+      
+      // Find the worksheet content container
+      const contentElement = document.querySelector('[data-worksheet-content="true"]') as HTMLElement
+      if (!contentElement) {
+        throw new Error('Could not find worksheet content. Please refresh the page and try again.')
+      }
+      
+      // Apply print styles temporarily
+      const printStyleTag = document.createElement('style')
+      printStyleTag.id = 'pdf-export-print-styles'
+      printStyleTag.textContent = `
+        /* Apply print styles */
+        [data-worksheet-content="true"] {
+          width: 794px !important;
+          max-width: 794px !important;
+        }
+      `
+      document.head.appendChild(printStyleTag)
+      
+      // Capture with html2canvas
+      const canvas = await html2canvas(contentElement, {
+        scale: 2.0,
+        useCORS: true,
+        logging: false,
+        backgroundColor: '#ffffff',
+        allowTaint: false
+      })
+      
+      // Remove print styles
+      printStyleTag.remove()
+      
+      // Create PDF
+      const pdf = new jsPDF('p', 'mm', 'a4')
+      const imgData = canvas.toDataURL('image/jpeg', 0.95)
+      const imgWidth = 210 // A4 width in mm
+      const imgHeight = (canvas.height * imgWidth) / canvas.width
+      
+      pdf.addImage(imgData, 'JPEG', 0, 0, imgWidth, imgHeight)
+      
+      // Generate filename and download
+      const filename = docTitle 
+        ? `${docTitle.replace(/[^a-z0-9]/gi, '_').toLowerCase()}.pdf`
+        : `worksheet_${doc || 'download'}.pdf`
+      
+      pdf.save(filename)
+      
+    } catch (error) {
+      console.error('PDF download failed:', error)
+      alert('PDF download failed. Please try using the Print button instead.')
+    } finally {
+      setIsDownloadingPDF(false)
+    }
+  }, [doc, docTitle, showAnswers])
 
   // OLD PDF download function - kept for reference but not used
   // This was causing blank pages, so we now use browser print dialog instead
