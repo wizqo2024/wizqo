@@ -332,7 +332,14 @@
           var root = document.getElementById('root');
           var fallback = document.getElementById('seo-fallback');
           if (root && root.children.length > 0 && fallback) {
+            // Always hide fallback when React has loaded content
             fallback.style.display = 'none';
+            // Also ensure it's off-screen via CSS
+            fallback.style.position = 'absolute';
+            fallback.style.left = '-9999px';
+            fallback.style.width = '1px';
+            fallback.style.height = '1px';
+            fallback.style.overflow = 'hidden';
           }
         }, 150);
       });
