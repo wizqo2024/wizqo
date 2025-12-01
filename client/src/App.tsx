@@ -35,6 +35,7 @@ import FractionsToDecimalsWorksheetsPage from './pages/FractionsToDecimalsWorksh
 import OrderOfOperationsWorksheetsPage from './pages/OrderOfOperationsWorksheetsPage';
 import WorksheetPage from './pages/WorksheetPage';
 import AllWorksheetsPage from './pages/AllWorksheetsPage';
+import NotFoundPage from './pages/NotFoundPage';
 import { ErrorBoundary } from './components/ErrorBoundary';
 import { initAnalytics, trackPageView, trackUserFlow } from './utils/analytics';
 import { TranslationProvider } from './context/TranslationContext';
@@ -557,6 +558,8 @@ export default function App() {
                     </>
                   );
                 }
+                // If routeSubKey exists but no worksheet found, show 404
+                return <NotFoundPage />;
               }
               // Existing category page routes
               if (routeSubKey === 'multiplication-worksheets') {
@@ -810,17 +813,23 @@ export default function App() {
                 </>
               );
             default:
-              return (
-                <>
-                  <SEOMetaTags 
-                    title="Free Printable Worksheets for Teachers & Kids | Wizqo"
-                    description="Download free printable worksheets for math, reading, writing, and more. Generate unlimited worksheets with answer keys for grades K-5. No sign-up required!"
-                    keywords="free printable worksheets, printable worksheets for teachers, free math worksheets, reading comprehension worksheets, handwriting worksheets, printable worksheets PDF, worksheets for kids, educational worksheets, free worksheets first grade, printable worksheets with answer keys, multiplication worksheets, 1st grade math worksheets, 2nd grade math worksheets, kindergarten math worksheets"
-                    canonicalUrl="https://wizqo.com/"
-                  />
-                  <LandingPage onNavigateToGenerate={() => navigateTo('/generate')} />
-                </>
-              );
+              // Check if this is a truly invalid route (not just empty/home)
+              // If routeKey is empty, it's the homepage - show LandingPage
+              if (!routeKey || routeKey === '') {
+                return (
+                  <>
+                    <SEOMetaTags 
+                      title="Free Printable Worksheets for Teachers & Kids | Wizqo"
+                      description="Download free printable worksheets for math, reading, writing, and more. Generate unlimited worksheets with answer keys for grades K-5. No sign-up required!"
+                      keywords="free printable worksheets, printable worksheets for teachers, free math worksheets, reading comprehension worksheets, handwriting worksheets, printable worksheets PDF, worksheets for kids, educational worksheets, free worksheets first grade, printable worksheets with answer keys, multiplication worksheets, 1st grade math worksheets, 2nd grade math worksheets, kindergarten math worksheets"
+                      canonicalUrl="https://wizqo.com/"
+                    />
+                    <LandingPage onNavigateToGenerate={() => navigateTo('/generate')} />
+                  </>
+                );
+              }
+              // For any other unmatched route, show 404
+              return <NotFoundPage />;
           }
           })()}
           <Toaster />
