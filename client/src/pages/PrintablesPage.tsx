@@ -1874,14 +1874,155 @@ export function PrintablesPage() {
       const originalStyles = new Map<HTMLElement, { [key: string]: string }>()
       
       // Apply print styles by creating a style tag with ALL print CSS from index.css
+      // CRITICAL: html2canvas doesn't respect @media print, so we must apply ALL print styles as regular styles
       const printStyleTag = document.createElement('style')
       printStyleTag.id = 'pdf-export-print-styles'
       printStyleTag.textContent = `
-        /* Apply ALL print styles as regular styles (html2canvas doesn't respect @media print) */
-        html, body, #root {
+        /* ============================================================================
+         * EXACT MATCH: All print styles from index.css @media print
+         * Applied as regular styles for html2canvas compatibility
+         * ============================================================================ */
+        
+        /* Base backgrounds - match index.css exactly */
+        html, body, #root, [data-worksheet-content="true"] {
           background-color: white !important;
           background: white !important;
           color: black !important;
+        }
+        
+        /* Override dark backgrounds */
+        [class*="bg-black"],
+        [class*="bg-slate-900"],
+        [class*="bg-gray-900"],
+        [class*="bg-zinc-900"],
+        [class*="bg-neutral-900"],
+        [class*="bg-stone-900"],
+        [class*="dark"],
+        .bg-black,
+        .bg-slate-900,
+        .bg-gray-900 {
+          background-color: white !important;
+          background: white !important;
+          color: black !important;
+        }
+        
+        /* Worksheet content backgrounds */
+        [data-worksheet-content="true"],
+        [data-worksheet-content="true"] section,
+        [data-worksheet-content="true"] div,
+        .worksheet-section {
+          background-color: white !important;
+          background: white !important;
+        }
+        
+        /* Body and HTML - match index.css exactly */
+        body, html {
+          margin: 0 !important;
+          padding: 0 !important;
+        }
+        
+        /* Fix blank first page - remove min-height constraints */
+        [data-worksheet-content="true"],
+        .min-h-screen {
+          min-height: auto !important;
+          height: auto !important;
+          margin: 0 !important;
+          padding: 0 !important;
+          background-color: white !important;
+        }
+        
+        /* CRITICAL: Main content container - match index.css @media print exactly */
+        [data-worksheet-content="true"] {
+          width: 794px !important;
+          max-width: 794px !important;
+          margin: 0 auto !important;
+          padding: 0 !important;
+          background: white !important;
+        }
+        
+        /* CRITICAL: Inner div - match index.css line 875-887 exactly */
+        [data-worksheet-content="true"] > div:first-child {
+          margin: 0.5in !important;
+          margin-top: 0 !important;
+          padding: 0 !important;
+          page-break-before: auto !important;
+          overflow: visible !important;
+          background-color: white !important;
+          background: white !important;
+          width: calc(100% - 1in) !important;
+          max-width: calc(100% - 1in) !important;
+          box-sizing: border-box !important;
+          position: relative !important;
+        }
+        
+        /* Ensure all divs inside worksheet content have white background */
+        [data-worksheet-content="true"] > div:first-child > * {
+          background-color: white !important;
+          background: white !important;
+        }
+        
+        /* Remove top margin/padding from first page content */
+        [data-worksheet-content="true"] > *:first-child,
+        [data-worksheet-content="true"] > section:first-child,
+        .worksheet-section:first-child {
+          margin-top: 0.25rem !important;
+          padding-top: 0.25rem !important;
+          background-color: white !important;
+        }
+        
+        /* Fix blank first page - ensure first element starts at top */
+        [data-worksheet-content="true"] > *:first-child,
+        [data-worksheet-content="true"] > section:first-child {
+          page-break-before: auto !important;
+        }
+        
+        /* Remove all top margins from first section */
+        section.worksheet-section:first-child,
+        .worksheet-section:first-child {
+          margin-top: 0 !important;
+          padding-top: 0 !important;
+        }
+        
+        /* Section styles - match index.css exactly */
+        section.worksheet-section,
+        section[class*="worksheet-section"],
+        .worksheet-section {
+          display: block !important;
+          break-inside: avoid !important;
+          page-break-inside: avoid !important;
+          -webkit-region-break-inside: avoid !important;
+          -webkit-column-break-inside: avoid !important;
+          orphans: 999 !important;
+          widows: 999 !important;
+          overflow: visible !important;
+          margin-bottom: 1.5rem !important;
+          margin-top: 0 !important;
+          padding-left: 0.5rem !important;
+          padding-right: 0.5rem !important;
+          padding-top: 0.5rem !important;
+          padding-bottom: 0.5rem !important;
+          background-color: white !important;
+          background: white !important;
+          max-width: 100% !important;
+          box-sizing: border-box !important;
+          overflow-x: hidden !important;
+          border: 1px solid #e2e8f0 !important;
+          border-radius: 4px !important;
+        }
+        
+        /* First section should have NO top padding/margin */
+        section:first-of-type,
+        .worksheet-section:first-of-type {
+          margin-top: 0 !important;
+          padding-top: 0 !important;
+          background-color: white !important;
+        }
+        
+        /* Preserve content borders within worksheets */
+        section[class*="break-inside-avoid"] div[class*="border"],
+        section[class*="break-inside-avoid"] div[class*="rounded"] {
+          border: 1px solid #cbd5e1 !important;
+          border-radius: 4px !important;
         }
         
         /* Hide print:hidden elements */
@@ -1895,107 +2036,81 @@ export function PrintablesPage() {
           display: block !important;
         }
         
-        /* Apply exact print layout - match index.css @media print */
-        [data-worksheet-content="true"] {
-          width: 794px !important;
-          max-width: 794px !important;
-          margin: 0 auto !important;
-          padding: 0 !important;
-          background: white !important;
+        /* Hide URLs in print */
+        a[href]::after { content: none !important; }
+        a { text-decoration: none !important; }
+        
+        /* Remove box shadows */
+        * {
+          box-shadow: none !important;
         }
         
-        /* CRITICAL: Match index.css print styles exactly */
-        [data-worksheet-content="true"] > div:first-child,
-        [data-worksheet-content="true"] .max-w-4xl {
-          margin: 0.5in !important;
-          margin-top: 0 !important;
-          padding: 20px 24px 24px 24px !important;
-          width: calc(100% - 1in) !important;
-          max-width: calc(100% - 1in) !important;
-          background: white !important;
-          position: relative !important;
-          border-radius: 12px !important;
-          border: 4px solid transparent !important;
-          border-image: linear-gradient(
-            135deg,
-            #f472b6 0%,
-            #a78bfa 20%,
-            #60a5fa 40%,
-            #34d399 60%,
-            #fbbf24 80%,
-            #fb7185 100%
-          ) 1 !important;
-          -webkit-print-color-adjust: exact !important;
-          print-color-adjust: exact !important;
-          color-adjust: exact !important;
+        /* Typography - match index.css */
+        p { 
+          line-height: 1.5 !important; 
+          margin: 0.5rem 0 !important;
         }
         
-        /* Decorative emoji-style border using CSS patterns - applied to ALL worksheets */
-        [data-worksheet-content="true"] > div:first-child::before,
-        [data-worksheet-content="true"] > div.max-w-4xl::before,
-        .max-w-4xl.mx-auto::before,
-        [data-worksheet-content="true"] .max-w-4xl::before {
-          content: '' !important;
-          position: absolute !important;
-          top: -8px !important;
-          left: -8px !important;
-          right: -8px !important;
-          bottom: -8px !important;
-          background-image: 
-            /* Stars pattern */
-            repeating-linear-gradient(0deg, transparent, transparent 20px, #fbbf24 20px, #fbbf24 21px),
-            repeating-linear-gradient(90deg, transparent, transparent 20px, #f472b6 20px, #f472b6 21px),
-            repeating-linear-gradient(45deg, transparent, transparent 15px, #60a5fa 15px, #60a5fa 16px),
-            repeating-linear-gradient(135deg, transparent, transparent 15px, #34d399 15px, #34d399 16px),
-            /* Base gradient */
-            linear-gradient(135deg, #f472b6 0%, #a78bfa 20%, #60a5fa 40%, #34d399 60%, #fbbf24 80%, #fb7185 100%) !important;
-          background-size: 100% 2px, 2px 100%, 100% 2px, 2px 100%, 100% 100% !important;
-          background-position: top, right, bottom, left, center !important;
-          background-repeat: repeat-x, repeat-y, repeat-x, repeat-y, no-repeat !important;
-          border-radius: 14px !important;
-          z-index: -1 !important;
-          opacity: 0.3 !important;
-          -webkit-print-color-adjust: exact !important;
-          print-color-adjust: exact !important;
+        div, span { 
+          line-height: 1.4 !important; 
         }
         
-        /* Decorative emoji stars at top - applied to ALL worksheets */
-        [data-worksheet-content="true"] > div:first-child::after,
-        [data-worksheet-content="true"] > div.max-w-4xl::after,
-        .max-w-4xl.mx-auto::after,
-        [data-worksheet-content="true"] .max-w-4xl::after {
-          content: '⭐ ✨ 💫 🌟' !important;
-          position: absolute !important;
-          top: 0px !important;
-          left: 50% !important;
-          transform: translateX(-50%) translateY(-50%) !important;
-          font-size: 18px !important;
-          letter-spacing: 10px !important;
-          z-index: 10 !important;
-          background: white !important;
-          padding: 4px 12px !important;
-          -webkit-print-color-adjust: exact !important;
-          print-color-adjust: exact !important;
-          color: #f472b6 !important;
-          display: block !important;
-          white-space: nowrap !important;
+        h1, h2, h3 { 
+          page-break-after: avoid !important; 
+          margin-bottom: 0.75rem !important;
+          margin-top: 1rem !important;
+          line-height: 1.3 !important;
         }
         
-        /* Apply section print styles */
-        section.worksheet-section,
-        .worksheet-section {
-          display: block !important;
-          background: white !important;
-          margin-bottom: 1.5rem !important;
-          padding: 0.5rem !important;
+        /* First section headings should be more compact */
+        .worksheet-section:first-of-type h1,
+        .worksheet-section:first-of-type h2,
+        .worksheet-section:first-of-type h3 {
+          margin-top: 0.25rem !important;
+          margin-bottom: 0.375rem !important;
+        }
+        
+        /* Keep headings with following content */
+        h1 + *, h2 + *, h3 + *, h4 + *, h5 + *, h6 + * {
+          page-break-before: avoid !important;
+          break-before: avoid !important;
+        }
+        
+        /* Prevent breaks in images and visual elements */
+        img, svg, picture, canvas, video {
+          page-break-inside: avoid !important;
+          break-inside: avoid !important;
+          page-break-after: avoid !important;
+          break-after: avoid !important;
+          max-height: 100vh !important;
+        }
+        
+        /* Problem Box Component */
+        .problem-box {
+          page-break-inside: avoid !important;
+          break-inside: avoid !important;
+          background-color: white !important;
+          margin-bottom: 20px !important;
+        }
+        
+        .problem-box-default {
+          border: 1px solid #d5d5d5 !important;
+          border-radius: 10px !important;
+          padding: 16px !important;
+        }
+        
+        .problem-box-highlight {
+          border: 1px solid #b3d9ff !important;
+          border-radius: 10px !important;
+          padding: 16px !important;
+          background-color: #eaf4ff !important;
+        }
+        
+        .problem-box-minimal {
           border: 1px solid #e2e8f0 !important;
-          border-radius: 4px !important;
-        }
-        
-        section:first-of-type,
-        .worksheet-section:first-of-type {
-          margin-top: 0 !important;
-          padding-top: 0 !important;
+          border-radius: 8px !important;
+          padding: 12px !important;
+          background-color: transparent !important;
         }
       `
       document.head.appendChild(printStyleTag)
@@ -2050,7 +2165,8 @@ export function PrintablesPage() {
       contentElement.style.padding = '0'
       contentElement.style.background = 'white'
       
-      // Set inner div to match print layout
+      // Set inner div to match print layout EXACTLY - match index.css @media print
+      // CRITICAL: Print styles show padding: 0, not 20px 24px - match Ctrl+P exactly
       const innerDiv = contentElement.querySelector(':scope > div:first-child') as HTMLElement
       if (innerDiv) {
         originalStyles.set(innerDiv, {
@@ -2058,24 +2174,28 @@ export function PrintablesPage() {
           marginTop: innerDiv.style.marginTop,
           width: innerDiv.style.width,
           maxWidth: innerDiv.style.maxWidth,
+          padding: innerDiv.style.padding,
           position: innerDiv.style.position,
-          borderRadius: innerDiv.style.borderRadius,
-          border: innerDiv.style.border,
-          borderImage: innerDiv.style.borderImage
+          overflow: innerDiv.style.overflow,
+          backgroundColor: innerDiv.style.backgroundColor,
+          background: innerDiv.style.background,
+          boxSizing: innerDiv.style.boxSizing
         })
+        // Match index.css line 875-887 EXACTLY
         innerDiv.style.margin = '0.5in'
         innerDiv.style.marginTop = '0'
+        innerDiv.style.padding = '0' // Print styles show padding: 0, not 20px 24px
         innerDiv.style.width = 'calc(100% - 1in)'
         innerDiv.style.maxWidth = 'calc(100% - 1in)'
         innerDiv.style.position = 'relative'
-        innerDiv.style.borderRadius = '12px'
-        innerDiv.style.border = '4px solid transparent'
-        innerDiv.style.borderImage = 'linear-gradient(135deg, #f472b6 0%, #a78bfa 20%, #60a5fa 40%, #34d399 60%, #fbbf24 80%, #fb7185 100%) 1'
-        innerDiv.style.padding = '20px 24px 24px 24px'
+        innerDiv.style.overflow = 'visible'
+        innerDiv.style.backgroundColor = 'white'
+        innerDiv.style.background = 'white'
+        innerDiv.style.boxSizing = 'border-box'
       }
       
-      // Wait for styles to apply (longer wait to ensure emoji stars and borders render)
-      await new Promise(resolve => setTimeout(resolve, 500))
+      // Wait for styles to apply - ensure all print styles are rendered
+      await new Promise(resolve => setTimeout(resolve, 800))
       
       // Capture with html2canvas
       const canvas = await html2canvas(contentElement, {
@@ -2106,20 +2226,22 @@ export function PrintablesPage() {
             clonedBody.style.background = 'white'
           }
           
-          // Apply emoji border styles to cloned inner div
+          // Apply print styles to cloned inner div - match index.css EXACTLY
           const clonedContentElement = clonedDoc.querySelector('[data-worksheet-content="true"]') as HTMLElement
           if (clonedContentElement) {
             const clonedInnerDiv = clonedContentElement.querySelector(':scope > div:first-child') as HTMLElement
             if (clonedInnerDiv) {
-              clonedInnerDiv.style.position = 'relative'
-              clonedInnerDiv.style.borderRadius = '12px'
-              clonedInnerDiv.style.border = '4px solid transparent'
-              clonedInnerDiv.style.borderImage = 'linear-gradient(135deg, #f472b6 0%, #a78bfa 20%, #60a5fa 40%, #34d399 60%, #fbbf24 80%, #fb7185 100%) 1'
-              clonedInnerDiv.style.padding = '20px 24px 24px 24px'
+              // Match index.css line 875-887 EXACTLY - no padding, no colorful border
               clonedInnerDiv.style.margin = '0.5in'
               clonedInnerDiv.style.marginTop = '0'
+              clonedInnerDiv.style.padding = '0' // Print styles show padding: 0
               clonedInnerDiv.style.width = 'calc(100% - 1in)'
               clonedInnerDiv.style.maxWidth = 'calc(100% - 1in)'
+              clonedInnerDiv.style.position = 'relative'
+              clonedInnerDiv.style.overflow = 'visible'
+              clonedInnerDiv.style.backgroundColor = 'white'
+              clonedInnerDiv.style.background = 'white'
+              clonedInnerDiv.style.boxSizing = 'border-box'
             }
           }
           
