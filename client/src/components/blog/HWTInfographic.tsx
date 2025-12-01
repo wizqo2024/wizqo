@@ -199,8 +199,8 @@ export default function HWTInfographic() {
     <div className="space-y-16">
       {/* Header + Intro */}
       <header className="text-center">
-        <h1 className="text-4xl md:text-5xl font-extrabold text-slate-900 mb-3">{t('pages.blog.components.hwtInfographic.headerTitle')}</h1>
-        <h2 className="text-xl md:text-2xl font-semibold text-slate-700 max-w-4xl mx-auto">{t('pages.blog.components.hwtInfographic.headerSubtitle')}</h2>
+        <h2 className="text-4xl md:text-5xl font-extrabold text-slate-900 mb-3">{t('pages.blog.components.hwtInfographic.headerTitle')}</h2>
+        <h3 className="text-xl md:text-2xl font-semibold text-slate-700 max-w-4xl mx-auto">{t('pages.blog.components.hwtInfographic.headerSubtitle')}</h3>
         <p className="mt-6 text-lg text-slate-700 max-w-3xl mx-auto">
           {t('pages.blog.components.hwtInfographic.headerDescription')}
         </p>

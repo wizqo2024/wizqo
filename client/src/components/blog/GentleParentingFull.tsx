@@ -207,9 +207,9 @@ export function GentleParentingFull() {
     <div className="space-y-16" dir={isRTL ? 'rtl' : 'ltr'}>
       {/* Header */}
       <header className="text-center">
-        <h1 className="text-4xl md:text-5xl font-black text-green-700 mb-3">
+        <h2 className="text-4xl md:text-5xl font-black text-green-700 mb-3">
           {t('pages.blog.components.gentleParentingFull.headerTitle')}
-        </h1>
+        </h2>
         <p className="text-lg text-green-800">
           {t('pages.blog.components.gentleParentingFull.headerSubtitle')}
         </p>

@@ -209,7 +209,7 @@ export default function MicroJournalingBlog() {
       {/* HEADER / HERO */}
       <header className="bg-[#264653] text-white py-12 px-4 shadow-lg rounded-2xl">
         <div className="max-w-6xl mx-auto text-center">
-          <h1 className="text-4xl md:text-6xl font-extrabold mb-4 tracking-tight">Micro Journaling in 2025</h1>
+          <h2 className="text-4xl md:text-6xl font-extrabold mb-4 tracking-tight">Micro Journaling in 2025</h2>
           <p className="text-xl md:text-2xl text-[#E9C46A] font-light">The 5-Minute Habit That Transforms Your Mind</p>
           <div className="mt-8 mx-auto w-24 h-1 bg-[#E76F51] rounded"></div>
         </div>

@@ -155,9 +155,9 @@ export default function CognitiveSkillsBlog() {
   return (
     <div className="w-full py-8">
       <header className="text-center mb-12 md:mb-16">
-        <h1 className="text-4xl md:text-5xl lg:text-6xl font-extrabold mb-6 text-gray-900 leading-tight">
+        <h2 className="text-4xl md:text-5xl lg:text-6xl font-extrabold mb-6 text-gray-900 leading-tight">
           {t('pages.blog.components.cognitiveSkillsBlog.headerTitle')}
-        </h1>
+        </h2>
         <p className="text-xl md:text-2xl italic text-gray-600 mb-8 max-w-4xl mx-auto">
           {t('pages.blog.components.cognitiveSkillsBlog.headerQuote')}
         </p>
