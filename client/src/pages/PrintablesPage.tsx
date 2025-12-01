@@ -2895,13 +2895,9 @@ export function PrintablesPage() {
             right: -8px !important;
             bottom: -8px !important;
             background-image: 
-              /* Top border - continuous line with gap for emoji */
+              /* Top border - continuous line */
               linear-gradient(to right, 
                 #fbbf24 0%, 
-                #fbbf24 calc(50% - 130px), 
-                transparent calc(50% - 130px), 
-                transparent calc(50% + 130px), 
-                #fbbf24 calc(50% + 130px), 
                 #fbbf24 100%
               ),
               /* Right border */
@@ -2936,24 +2932,24 @@ export function PrintablesPage() {
           [data-worksheet-content="true"] > div.max-w-4xl::after,
           .max-w-4xl.mx-auto::after,
           [data-worksheet-content="true"] .max-w-4xl::after {
-            content: '⭐ ✨ 💫 🌟' !important;
+            content: '-------------⭐ ✨ 💫 🌟-------------' !important;
             position: absolute !important;
             top: 0px !important;
-            left: 50% !important;
-            transform: translateX(-50%) !important;
+            left: 0px !important;
+            right: 0px !important;
+            width: 100% !important;
+            text-align: center !important;
             font-size: 18px !important;
-            letter-spacing: 10px !important;
+            letter-spacing: 2px !important;
             z-index: 1000 !important;
             background: white !important;
-            padding: 0px 30px !important;
+            padding: 0px !important;
             border: none !important;
             box-shadow: none !important;
             line-height: 18px !important;
             height: 18px !important;
             margin: 0 !important;
-            display: flex !important;
-            align-items: center !important;
-            justify-content: center !important;
+            display: block !important;
             -webkit-print-color-adjust: exact !important;
             print-color-adjust: exact !important;
             color: #f472b6 !important;
