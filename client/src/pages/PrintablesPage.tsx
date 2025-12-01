@@ -2009,7 +2009,7 @@ export function PrintablesPage() {
         }
         
         /* Decorative emoji stars at top - applied to ALL worksheets */
-        /* Centered within border, not overlapping */
+        /* Centered within border, with white background covering top border line */
         [data-worksheet-content="true"] > div:first-child::after,
         [data-worksheet-content="true"] > div.max-w-4xl::after,
         .max-w-4xl.mx-auto::after,
@@ -2023,8 +2023,9 @@ export function PrintablesPage() {
           letter-spacing: 10px !important;
           z-index: 10 !important;
           background: white !important;
-          padding: 4px 12px !important;
+          padding: 4px 20px !important;
           border: none !important;
+          box-shadow: 0 0 0 8px white !important;
           -webkit-print-color-adjust: exact !important;
           print-color-adjust: exact !important;
           color: #f472b6 !important;
@@ -2879,7 +2880,7 @@ export function PrintablesPage() {
             print-color-adjust: exact !important;
           }
           /* Decorative emoji stars at top - applied to ALL worksheets */
-          /* Centered within border, not overlapping */
+          /* Centered within border, with white background covering top border line */
           [data-worksheet-content="true"] > div:first-child::after,
           [data-worksheet-content="true"] > div.max-w-4xl::after,
           .max-w-4xl.mx-auto::after,
@@ -2893,8 +2894,9 @@ export function PrintablesPage() {
             letter-spacing: 10px !important;
             z-index: 10 !important;
             background: white !important;
-            padding: 4px 12px !important;
+            padding: 4px 20px !important;
             border: none !important;
+            box-shadow: 0 0 0 8px white !important;
             -webkit-print-color-adjust: exact !important;
             print-color-adjust: exact !important;
             color: #f472b6 !important;
