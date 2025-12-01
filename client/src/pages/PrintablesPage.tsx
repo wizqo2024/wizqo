@@ -1994,8 +1994,15 @@ export function PrintablesPage() {
           right: -8px !important;
           bottom: -8px !important;
           background-image: 
-            /* Top border */
-            repeating-linear-gradient(0deg, transparent, transparent 20px, #fbbf24 20px, #fbbf24 21px),
+            /* Top border - continuous line */
+            linear-gradient(to right, 
+              #fbbf24 0%, 
+              #fbbf24 calc(50% - 130px), 
+              transparent calc(50% - 130px), 
+              transparent calc(50% + 130px), 
+              #fbbf24 calc(50% + 130px), 
+              #fbbf24 100%
+            ),
             /* Right border */
             repeating-linear-gradient(90deg, transparent, transparent 20px, #f472b6 20px, #f472b6 21px),
             /* Bottom border */
@@ -2006,29 +2013,23 @@ export function PrintablesPage() {
             linear-gradient(135deg, #f472b6 0%, #a78bfa 20%, #60a5fa 40%, #34d399 60%, #fbbf24 80%, #fb7185 100%) !important;
           background-size: 100% 2px, 2px 100%, 100% 2px, 2px 100%, 100% 100% !important;
           background-position: top, right, bottom, left, center !important;
-          background-repeat: repeat-x, repeat-y, repeat-x, repeat-y, no-repeat !important;
+          background-repeat: no-repeat, repeat-y, repeat-x, repeat-y, no-repeat !important;
           border-radius: 14px !important;
           z-index: -1 !important;
           opacity: 0.3 !important;
-          /* Clip to show: continuous top border on left/right sides (gap in center for emoji), left/right borders from 20px down, bottom border */
+          /* Clip to show: left/right borders from top, bottom border */
           clip-path: polygon(
-            /* Top-left corner - top border starts */
+            /* Top-left corner */
             0% 0%, 
-            /* Top border left side continues until emoji area (gap in center) */
-            calc(50% - 120px) 0%, 
-            calc(50% - 120px) 2px,
-            /* Left border starts at 2px (just below top border) */
+            /* Top area (border handled by background) */
             0% 2px, 
             /* Left border continues down */
             0% 100%, 
             /* Bottom border */
             100% 100%, 
-            /* Right border starts at 2px */
+            /* Right border continues up */
             100% 2px,
-            /* Top border right side continues after emoji area */
-            calc(50% + 120px) 2px,
-            calc(50% + 120px) 0%,
-            /* Top-right corner - top border ends */
+            /* Top area */
             100% 0%
           ) !important;
           -webkit-print-color-adjust: exact !important;
@@ -2895,8 +2896,15 @@ export function PrintablesPage() {
             right: -8px !important;
             bottom: -8px !important;
             background-image: 
-              /* Top border */
-              repeating-linear-gradient(0deg, transparent, transparent 20px, #fbbf24 20px, #fbbf24 21px),
+              /* Top border - continuous line with gap for emoji */
+              linear-gradient(to right, 
+                #fbbf24 0%, 
+                #fbbf24 calc(50% - 130px), 
+                transparent calc(50% - 130px), 
+                transparent calc(50% + 130px), 
+                #fbbf24 calc(50% + 130px), 
+                #fbbf24 100%
+              ),
               /* Right border */
               repeating-linear-gradient(90deg, transparent, transparent 20px, #f472b6 20px, #f472b6 21px),
               /* Bottom border */
@@ -2907,29 +2915,23 @@ export function PrintablesPage() {
               linear-gradient(135deg, #f472b6 0%, #a78bfa 20%, #60a5fa 40%, #34d399 60%, #fbbf24 80%, #fb7185 100%) !important;
             background-size: 100% 2px, 2px 100%, 100% 2px, 2px 100%, 100% 100% !important;
             background-position: top, right, bottom, left, center !important;
-            background-repeat: repeat-x, repeat-y, repeat-x, repeat-y, no-repeat !important;
+            background-repeat: no-repeat, repeat-y, repeat-x, repeat-y, no-repeat !important;
             border-radius: 14px !important;
             z-index: -1 !important;
             opacity: 0.3 !important;
-            /* Clip to show: continuous top border on left/right sides (gap in center for emoji), left/right borders from 2px down, bottom border */
+            /* Clip to show: left/right borders from top, bottom border */
             clip-path: polygon(
-              /* Top-left corner - top border starts */
+              /* Top-left corner */
               0% 0%, 
-              /* Top border left side continues until emoji area (gap in center) */
-              calc(50% - 120px) 0%, 
-              calc(50% - 120px) 2px,
-              /* Left border starts at 2px (just below top border) */
+              /* Top area (border handled by background) */
               0% 2px, 
               /* Left border continues down */
               0% 100%, 
               /* Bottom border */
               100% 100%, 
-              /* Right border starts at 2px */
+              /* Right border continues up */
               100% 2px,
-              /* Top border right side continues after emoji area */
-              calc(50% + 120px) 2px,
-              calc(50% + 120px) 0%,
-              /* Top-right corner - top border ends */
+              /* Top area */
               100% 0%
             ) !important;
             -webkit-print-color-adjust: exact !important;
