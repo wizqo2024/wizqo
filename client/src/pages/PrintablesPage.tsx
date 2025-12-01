@@ -2729,9 +2729,11 @@ export function PrintablesPage() {
             return
           }
           
-          // Check if still scheduled for this URL
+          // Check if still scheduled for this URL - but don't block print if not set
+          // The sessionStorage flag was set earlier to prevent duplicate attempts
           const stillScheduledUrl = sessionStorage.getItem('autoprint_scheduled_url')
-          if (stillScheduledUrl !== currentUrl) {
+          // Only check if the scheduled URL exists and doesn't match - this allows first-time prints
+          if (stillScheduledUrl && stillScheduledUrl !== currentUrl) {
             return
           }
           
