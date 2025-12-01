@@ -443,7 +443,7 @@ export default function App() {
                 <>
                   <SEOMetaTags 
                     title="Kids Hub - Play Games & Download Free Printables"
-                    description="Play kid-safe mini-games and download free printables: puzzles, handwriting practice, and quick math warm-ups. Fun learning activities for all kids of all ages!"
+                    description="Play kid-safe mini-games and download free printables: puzzles, handwriting practice, and quick math warm-ups. Fun learning activities for kids of all ages!"
                     canonicalUrl={`https://wizqo.com${addLocaleToPath('/kids', currentLocale)}`}
                   />
                   <KidsPage />
@@ -466,7 +466,7 @@ export default function App() {
                   <>
                     <SEOMetaTags 
                       title="Free Interactive Worksheets Generator | Create PDFs | Wizqo"
-                      description="Generate free interactive worksheets for math, reading, science, and SEL. Create printable PDFs with answer keys for grades K-5. Daily refresh with new problems!"
+                      description="Generate free interactive worksheets for math, reading, science, and SEL. Create printable PDFs with answer keys for grades K-5. Daily refresh with new content!"
                       keywords="interactive worksheets generator, free worksheet generator, printable worksheets generator, create worksheets online, math worksheet generator, reading worksheet generator, free worksheet maker, interactive math worksheets, printable PDF worksheets, worksheet generator with answer keys, grade-specific worksheets, K-5 worksheets"
                       canonicalUrl={`https://wizqo.com${addLocaleToPath('/interactive-worksheets-generator', currentLocale)}`}
                     />
@@ -493,7 +493,7 @@ export default function App() {
                   <>
                     <SEOMetaTags 
                       title="How to Make a Certificate Online - Free Certificate Maker"
-                      description="Create your own certificate online for free! Make certificates with editable names, cute themes, and instant download. Perfect for achievements and recognition!"
+                      description="Create your own certificate online for free! Make certificates with editable names, cute themes, and instant download. Perfect for achievements!"
                       canonicalUrl={`https://wizqo.com${canonical}`}
                     />
                     <CertificateMakerPage />
@@ -660,7 +660,7 @@ export default function App() {
                   <>
                     <SEOMetaTags 
                       title="Kindergarten Math Worksheets – Free Printable PDF"
-                      description="Free printable kindergarten math worksheets for early learners. Download PDFs covering counting, number recognition, shapes, and simple addition. Perfect for building foundations!"
+                      description="Free printable kindergarten math worksheets for early learners. Download PDFs covering counting, number recognition, shapes, and addition. Perfect for building foundations!"
                       keywords="kindergarten math worksheets, free kindergarten worksheets, printable kindergarten worksheets, kindergarten counting worksheets, number recognition worksheets, shapes worksheets kindergarten, kindergarten patterns worksheets, free printable kindergarten math worksheets PDF"
                       canonicalUrl={`https://wizqo.com${canonical}`}
                     />
@@ -702,7 +702,7 @@ export default function App() {
                   <>
                     <SEOMetaTags 
                       title="5th Grade Math Worksheets – Free Printable PDF"
-                      description="Free 5th grade math worksheets covering multiplication, division, fractions, decimals, and algebra basics. Download printable PDFs with answer keys for practice."
+                      description="Free 5th grade math worksheets covering multiplication, division, fractions, decimals, and algebra. Download printable PDFs with answer keys for practice."
                       keywords="5th grade math worksheets, fifth grade math worksheets, free 5th grade math worksheets PDF, printable math worksheets grade 5, multiplication worksheets 5th grade, division worksheets 5th grade, fractions worksheets 5th grade, decimals worksheets 5th grade, algebra worksheets 5th grade, geometry worksheets 5th grade"
                       canonicalUrl={`https://wizqo.com${canonical}`}
                     />
