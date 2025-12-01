@@ -551,6 +551,7 @@ const ANSWERABLE_BASE_DOC_IDS = [
   'comparing-decimals',
   'add-sub-decimals',
   'fractions-to-decimals',
+  'fractions-to-decimals-basic-tenths',
   'classifying-angles',
   'area-perimeter-4th',
   'lines-angles-4th',
@@ -23045,6 +23046,104 @@ export function PrintablesPage() {
                   </div>
                   <div className="mt-4 p-3 bg-emerald-100 rounded text-xs text-emerald-900">
                     <strong>💡 Study Tip:</strong> Great job! Remember: to convert a fraction to a decimal, divide the numerator by the denominator!
+                  </div>
+                </div>
+              ))}
+            </WorksheetSectionWrapper>
+          );
+        })()}
+
+        {activeDocs.includes('fractions-to-decimals-basic-tenths') && (() => {
+          const rng = makeRng(`${effectiveSeed}|v${variant}|doc=${doc}`);
+          function nextInt(min: number, max: number) { return Math.floor(rng() * (max - min + 1)) + min; }
+          const problems = Array.from({length: 10}, () => {
+            const num = nextInt(1, 9);
+            const denom = 10;
+            return { num, denom, decimal: (num / denom).toFixed(1) };
+          });
+          return (
+            <WorksheetSectionWrapper 
+              docId="fractions-to-decimals-basic-tenths" 
+              title="Fractions to Decimals: Basic Tenths" 
+              emoji="🍕" 
+              description="Convert each fraction with denominator 10 to a decimal."
+              problemCount={problems.length}
+              learningObjectives={[
+                'Convert fractions with denominator 10 to decimals',
+                'Understand that tenths are one decimal place',
+                'Recognize the pattern: 1/10 = 0.1, 2/10 = 0.2, etc.'
+              ]}
+              parentTeacherTips={[
+                'Fractions with denominator 10 convert to decimals with one decimal place',
+                'The numerator becomes the digit after the decimal point',
+                'For example: 3/10 = 0.3, 7/10 = 0.7',
+                'Extension: Try with hundredths (denominator 100)'
+              ]}
+            >
+              <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-purple-400 to-pink-400 animate-gradient-x mb-2" />
+              {/* Worked Example */}
+              <div className="mb-6 p-4 bg-blue-50 border-2 border-blue-200 rounded-lg print:border print:bg-white">
+                <div className="font-semibold text-blue-900 mb-3 text-sm">📚 Example - Let's solve this together:</div>
+                <div className="space-y-2 text-sm">
+                  <div className="font-mono text-base"><strong>Problem:</strong> 3/10 = ?</div>
+                  <div className="pl-4 border-l-2 border-blue-300 space-y-1">
+                    <div><strong>Step 1:</strong> Divide numerator by denominator: 3 ÷ 10</div>
+                    <div><strong>Step 2:</strong> 3 ÷ 10 = 0.3</div>
+                    <div className="font-semibold text-blue-900"><strong>Answer:</strong> 0.3</div>
+                    <div className="text-xs text-blue-700 mt-1">💡 Tip: When the denominator is 10, the numerator becomes the digit after the decimal point!</div>
+                  </div>
+                </div>
+              </div>
+              <div className="grid grid-cols-2 gap-4 break-inside-avoid" style={{ pageBreakAfter: 'auto' }}>
+                {problems.map((p, i) => (
+                  <div key={i} className="border border-slate-300 rounded-lg p-4 bg-white break-inside-avoid">
+                    <div className="text-center text-xl font-bold mb-2">{p.num}/{p.denom}</div>
+                    <div className="text-center text-lg font-mono mb-2">= ____</div>
+                    <div className="mt-2 text-xs text-slate-600">Show your work:</div>
+                    <div className="min-h-16 border border-dashed border-slate-300 rounded p-2 bg-slate-50 print:bg-white" />
+                  </div>
+                ))}
+              </div>
+              {/* Extension/Challenge Problems */}
+              <div className="mt-6 print:mt-0 p-4 bg-purple-50 border-2 border-purple-200 rounded print:bg-white print:border" style={{ pageBreakBefore: 'always', pageBreakInside: 'avoid' }}>
+                <div className="font-semibold text-purple-900 mb-3 text-sm">🌟 {getTrans('common.challengeYourself', 'Challenge Yourself (Optional):')}</div>
+                <div className="space-y-2 text-sm text-purple-800">
+                  <div>1. Convert 9/10 to a decimal</div>
+                  <div>2. Convert 5/10 to a decimal</div>
+                  <div>3. Create your own tenths fraction-to-decimal problem</div>
+                </div>
+              </div>
+              {/* Self-Assessment */}
+              <div className="print:block hidden print:mt-0 mt-6 p-4 border-2 border-slate-300 rounded" style={{ pageBreakBefore: 'avoid', pageBreakInside: 'avoid' }}>
+                <div className="font-semibold text-slate-800 mb-3 text-sm">📊 {getTrans('common.howDidYouDo', 'How did you do?')}</div>
+                <div className="space-y-2 text-xs">
+                  <div>☐ I can convert tenths fractions to decimals</div>
+                  <div>☐ I understand that 10 in the denominator means one decimal place</div>
+                  <div>☐ I can recognize the pattern</div>
+                </div>
+                <div className="mt-3 text-xs">
+                  <strong>{getTrans('common.myScore', 'My score:')}</strong> ___ / {problems.length}
+                </div>
+                <div className="mt-2 text-xs">
+                  <strong>{getTrans('common.whatWasHardest', 'What was hardest?')}</strong> _________________________
+                </div>
+              </div>
+              {showAnswersForDoc('fractions-to-decimals-basic-tenths', () => (
+                <div className="mt-6 p-4 border-2 border-emerald-300 bg-emerald-50 rounded print:border print:bg-white print:page-break-before-always">
+                  <div className="font-bold text-emerald-900 mb-3 text-base">✅ Answer Key (with steps)</div>
+                  <div className="space-y-3">
+                    {problems.map((p, i) => (
+                      <div key={i} className="border-b border-emerald-200 pb-3 last:border-b-0">
+                        <div className="font-semibold mb-2 text-sm">{i + 1}. {p.num}/{p.denom}</div>
+                        <div className="text-xs text-emerald-800 space-y-1 pl-4">
+                          <div>Step 1: Divide {p.num} ÷ {p.denom}</div>
+                          <div className="font-semibold">Answer: {p.decimal}</div>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                  <div className="mt-4 p-3 bg-emerald-100 rounded text-xs text-emerald-900">
+                    <strong>💡 Study Tip:</strong> Great job! Remember: when the denominator is 10, the numerator becomes the digit after the decimal point. For example, 3/10 = 0.3!
                   </div>
                 </div>
               ))}
