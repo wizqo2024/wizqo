@@ -134,15 +134,23 @@
         min-height: 100vh;
         background-color: #f8fafc;
       }
-      /* Hide SEO fallback visually for users (prevents flash) but keep in DOM for Googlebot */
-      /* Using off-screen positioning instead of display:none so crawlers can still access it */
-      /* Note: Changed H1 to H2 in fallback to avoid duplicate H1 when React loads */
+      /* Hide SEO fallback immediately - Bing is seeing it before React loads */
+      /* CRITICAL: Must hide completely to prevent duplicate H1 detection */
       #seo-fallback {
-        position: absolute;
-        left: -9999px;
-        width: 1px;
-        height: 1px;
-        overflow: hidden;
+        display: none !important;
+        position: absolute !important;
+        left: -9999px !important;
+        width: 1px !important;
+        height: 1px !important;
+        overflow: hidden !important;
+        visibility: hidden !important;
+        opacity: 0 !important;
+        pointer-events: none !important;
+      }
+      
+      /* Ensure it stays hidden even if React hasn't loaded */
+      body:not(.react-loaded) #seo-fallback {
+        display: none !important;
       }
     </style>
     <script>
@@ -259,12 +267,17 @@
             }
             
             // Update fallback content - check for correct content, not wrong content
+            // NOTE: We hide the fallback immediately, so this is mainly for Googlebot
             var fallback = document.getElementById('seo-fallback');
             if (fallback && fallbackContent) {
-              var firstH1 = fallback.querySelector('h1');
+              var firstH2 = fallback.querySelector('h2');
               // Only update if it has landing page content (not page-specific content)
-              if (firstH1 && firstH1.textContent && firstH1.textContent.includes('Free Worksheets for Kids (K-5)')) {
+              if (firstH2 && firstH2.textContent && firstH2.textContent.includes('Free Worksheets for Kids (K-5)')) {
                 fallback.innerHTML = fallbackContent;
+                // Immediately hide after updating
+                fallback.style.display = 'none';
+                fallback.style.visibility = 'hidden';
+                fallback.setAttribute('aria-hidden', 'true');
               }
             }
           } catch(e) {}
@@ -326,7 +339,33 @@
         });
       })();
       
-      // Hide SEO fallback after React loads
+      // Hide SEO fallback IMMEDIATELY (before React even loads) to prevent Bing from seeing it
+      (function() {
+        var fallback = document.getElementById('seo-fallback');
+        if (fallback) {
+          // Hide with all possible methods immediately
+          fallback.style.display = 'none';
+          fallback.style.position = 'absolute';
+          fallback.style.left = '-9999px';
+          fallback.style.width = '1px';
+          fallback.style.height = '1px';
+          fallback.style.overflow = 'hidden';
+          fallback.style.visibility = 'hidden';
+          fallback.style.opacity = '0';
+          fallback.style.pointerEvents = 'none';
+          fallback.setAttribute('aria-hidden', 'true');
+        }
+        // Mark body as React-loaded to trigger CSS hiding
+        if (document.body) {
+          document.body.classList.add('react-loaded');
+        } else {
+          document.addEventListener('DOMContentLoaded', function() {
+            document.body.classList.add('react-loaded');
+          });
+        }
+      })();
+      
+      // Additional hiding after React loads (backup)
       window.addEventListener('load', function() {
         setTimeout(function() {
           var root = document.getElementById('root');
@@ -334,14 +373,20 @@
           if (root && root.children.length > 0 && fallback) {
             // Always hide fallback when React has loaded content
             fallback.style.display = 'none';
-            // Also ensure it's off-screen via CSS
             fallback.style.position = 'absolute';
             fallback.style.left = '-9999px';
             fallback.style.width = '1px';
             fallback.style.height = '1px';
             fallback.style.overflow = 'hidden';
+            fallback.style.visibility = 'hidden';
+            fallback.style.opacity = '0';
+            fallback.style.pointerEvents = 'none';
+            fallback.setAttribute('aria-hidden', 'true');
           }
-        }, 150);
+          if (document.body) {
+            document.body.classList.add('react-loaded');
+          }
+        }, 50);
       });
     </script>
   </head>
@@ -421,7 +466,13 @@
     <script type="module" src="/src/main.tsx"></script>
     <noscript>
       <style>
-        #seo-fallback { display: block !important; }
+        /* Only show fallback in print mode - never for screen or crawlers */
+        @media screen {
+          #seo-fallback { display: none !important; visibility: hidden !important; }
+        }
+        @media print {
+          #seo-fallback { display: block !important; }
+        }
         #root { display: none; }
       </style>
     </noscript>
