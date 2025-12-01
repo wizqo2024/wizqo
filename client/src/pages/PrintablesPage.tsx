@@ -2332,6 +2332,71 @@ export function PrintablesPage() {
             font-size: 11pt !important;
             line-height: 1.3 !important;
           }
+          /* Decorative emoji-style border using CSS patterns - applied to ALL worksheets */
+          [data-worksheet-content="true"] > div:first-child::before,
+          [data-worksheet-content="true"] > div.max-w-4xl::before,
+          .max-w-4xl.mx-auto::before,
+          [data-worksheet-content="true"] .max-w-4xl::before {
+            content: '' !important;
+            position: absolute !important;
+            top: -8px !important;
+            left: -8px !important;
+            right: -8px !important;
+            bottom: -8px !important;
+            background-image: 
+              /* Stars pattern */
+              repeating-linear-gradient(0deg, transparent, transparent 20px, #fbbf24 20px, #fbbf24 21px),
+              repeating-linear-gradient(90deg, transparent, transparent 20px, #f472b6 20px, #f472b6 21px),
+              repeating-linear-gradient(45deg, transparent, transparent 15px, #60a5fa 15px, #60a5fa 16px),
+              repeating-linear-gradient(135deg, transparent, transparent 15px, #34d399 15px, #34d399 16px),
+              /* Base gradient */
+              linear-gradient(135deg, #f472b6 0%, #a78bfa 20%, #60a5fa 40%, #34d399 60%, #fbbf24 80%, #fb7185 100%) !important;
+            background-size: 100% 2px, 2px 100%, 100% 2px, 2px 100%, 100% 100% !important;
+            background-position: top, right, bottom, left, center !important;
+            background-repeat: repeat-x, repeat-y, repeat-x, repeat-y, no-repeat !important;
+            border-radius: 14px !important;
+            z-index: -1 !important;
+            opacity: 0.3 !important;
+            -webkit-print-color-adjust: exact !important;
+            print-color-adjust: exact !important;
+          }
+          /* Decorative emoji stars at top - applied to ALL worksheets */
+          [data-worksheet-content="true"] > div:first-child::after,
+          [data-worksheet-content="true"] > div.max-w-4xl::after,
+          .max-w-4xl.mx-auto::after,
+          [data-worksheet-content="true"] .max-w-4xl::after {
+            content: '⭐ ✨ 💫 🌟' !important;
+            position: absolute !important;
+            top: -8px !important;
+            left: 50% !important;
+            transform: translateX(-50%) !important;
+            font-size: 16px !important;
+            letter-spacing: 8px !important;
+            z-index: 1 !important;
+            background: white !important;
+            padding: 0 8px !important;
+            -webkit-print-color-adjust: exact !important;
+            print-color-adjust: exact !important;
+            color: #f472b6 !important;
+          }
+          /* Thin colorful decorative border with emoji-style pattern - applied to ALL worksheets */
+          [data-worksheet-content="true"] > div:first-child {
+            position: relative !important;
+            border-radius: 12px !important;
+            border: 4px solid transparent !important;
+            border-image: linear-gradient(
+              135deg,
+              #f472b6 0%,
+              #a78bfa 20%,
+              #60a5fa 40%,
+              #34d399 60%,
+              #fbbf24 80%,
+              #fb7185 100%
+            ) 1 !important;
+            -webkit-print-color-adjust: exact !important;
+            print-color-adjust: exact !important;
+            color-adjust: exact !important;
+          }
         }
       `}</style>
       {/* Print layout optimized - updated 2025-01-11 */}
