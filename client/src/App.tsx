@@ -479,8 +479,8 @@ export default function App() {
                 return (
                   <>
                     <SEOMetaTags 
-                      title="Free Name Tracing Generator - Create Personalized Handwriting Sheets"
-                      description="Create free personalized name tracing worksheets for kids! Customize fonts, sizes, and patterns. Perfect for teaching handwriting and name recognition."
+                      title="Free Name Tracing Generator - Personalized Handwriting"
+                      description="Create free personalized name tracing worksheets for kids! Customize fonts, sizes, and patterns. Perfect for teaching handwriting and name recognition skills."
                       canonicalUrl={`https://wizqo.com${canonical}`}
                     />
                     <NameTracingGeneratorPage />
