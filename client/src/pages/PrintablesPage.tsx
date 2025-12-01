@@ -552,6 +552,7 @@ const ANSWERABLE_BASE_DOC_IDS = [
   'add-sub-decimals',
   'fractions-to-decimals',
   'fractions-to-decimals-basic-tenths',
+  'fractions-to-decimals-division',
   'classifying-angles',
   'area-perimeter-4th',
   'lines-angles-4th',
@@ -23151,6 +23152,105 @@ export function PrintablesPage() {
           );
         })()}
 
+        {activeDocs.includes('fractions-to-decimals-division') && (() => {
+          const rng = makeRng(`${effectiveSeed}|v${variant}|doc=${doc}`);
+          function nextInt(min: number, max: number) { return Math.floor(rng() * (max - min + 1)) + min; }
+          const problems = Array.from({length: 8}, () => {
+            const denom = [3, 4, 5, 6, 7, 8, 9, 10, 12, 16, 20][nextInt(0, 10)];
+            const num = nextInt(1, denom - 1);
+            const decimal = (num / denom).toFixed(3);
+            return { num, denom, decimal };
+          });
+          return (
+            <WorksheetSectionWrapper 
+              docId="fractions-to-decimals-division" 
+              title="Fractions to Decimals: Division Method" 
+              emoji="🍕" 
+              description="Convert each fraction to a decimal using long division."
+              problemCount={problems.length}
+              learningObjectives={[
+                'Use long division to convert fractions to decimals',
+                'Understand that fractions are division problems',
+                'Recognize terminating and repeating decimals'
+              ]}
+              parentTeacherTips={[
+                'To convert a fraction to a decimal, divide the numerator by the denominator using long division',
+                'Some fractions result in terminating decimals (like 1/4 = 0.25)',
+                'Some fractions result in repeating decimals (like 1/3 = 0.333...)',
+                'Extension: Identify patterns in repeating decimals'
+              ]}
+            >
+              <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-purple-400 to-pink-400 animate-gradient-x mb-2" />
+              {/* Worked Example */}
+              <div className="mb-6 p-4 bg-blue-50 border-2 border-blue-200 rounded-lg print:border print:bg-white">
+                <div className="font-semibold text-blue-900 mb-3 text-sm">📚 Example - Let's solve this together:</div>
+                <div className="space-y-2 text-sm">
+                  <div className="font-mono text-base"><strong>Problem:</strong> 5/8 = ?</div>
+                  <div className="pl-4 border-l-2 border-blue-300 space-y-1">
+                    <div><strong>Step 1:</strong> Set up long division: 5 ÷ 8</div>
+                    <div><strong>Step 2:</strong> 8 goes into 5.0 → 0.625</div>
+                    <div className="font-semibold text-blue-900"><strong>Answer:</strong> 0.625</div>
+                    <div className="text-xs text-blue-700 mt-1">💡 Tip: Use long division! Divide the numerator by the denominator!</div>
+                  </div>
+                </div>
+              </div>
+              <div className="grid grid-cols-2 gap-4 break-inside-avoid" style={{ pageBreakAfter: 'auto' }}>
+                {problems.map((p, i) => (
+                  <div key={i} className="border border-slate-300 rounded-lg p-4 bg-white break-inside-avoid">
+                    <div className="text-center text-xl font-bold mb-2">{p.num}/{p.denom}</div>
+                    <div className="text-center text-lg font-mono mb-2">= ____</div>
+                    <div className="mt-2 text-xs text-slate-600">Show your work (long division):</div>
+                    <div className="min-h-20 border border-dashed border-slate-300 rounded p-2 bg-slate-50 print:bg-white" />
+                  </div>
+                ))}
+              </div>
+              {/* Extension/Challenge Problems */}
+              <div className="mt-6 print:mt-0 p-4 bg-purple-50 border-2 border-purple-200 rounded print:bg-white print:border" style={{ pageBreakBefore: 'always', pageBreakInside: 'avoid' }}>
+                <div className="font-semibold text-purple-900 mb-3 text-sm">🌟 {getTrans('common.challengeYourself', 'Challenge Yourself (Optional):')}</div>
+                <div className="space-y-2 text-sm text-purple-800">
+                  <div>1. Convert 7/9 to a decimal (hint: it repeats!)</div>
+                  <div>2. Convert 3/16 to a decimal</div>
+                  <div>3. Create your own fraction-to-decimal problem using long division</div>
+                </div>
+              </div>
+              {/* Self-Assessment */}
+              <div className="print:block hidden print:mt-0 mt-6 p-4 border-2 border-slate-300 rounded" style={{ pageBreakBefore: 'avoid', pageBreakInside: 'avoid' }}>
+                <div className="font-semibold text-slate-800 mb-3 text-sm">📊 {getTrans('common.howDidYouDo', 'How did you do?')}</div>
+                <div className="space-y-2 text-xs">
+                  <div>☐ I can use long division to convert fractions</div>
+                  <div>☐ I understand terminating decimals</div>
+                  <div>☐ I understand repeating decimals</div>
+                </div>
+                <div className="mt-3 text-xs">
+                  <strong>{getTrans('common.myScore', 'My score:')}</strong> ___ / {problems.length}
+                </div>
+                <div className="mt-2 text-xs">
+                  <strong>{getTrans('common.whatWasHardest', 'What was hardest?')}</strong> _________________________
+                </div>
+              </div>
+              {showAnswersForDoc('fractions-to-decimals-division', () => (
+                <div className="mt-6 p-4 border-2 border-emerald-300 bg-emerald-50 rounded print:border print:bg-white print:page-break-before-always">
+                  <div className="font-bold text-emerald-900 mb-3 text-base">✅ Answer Key (with steps)</div>
+                  <div className="space-y-3">
+                    {problems.map((p, i) => (
+                      <div key={i} className="border-b border-emerald-200 pb-3 last:border-b-0">
+                        <div className="font-semibold mb-2 text-sm">{i + 1}. {p.num}/{p.denom}</div>
+                        <div className="text-xs text-emerald-800 space-y-1 pl-4">
+                          <div>Step 1: Set up long division: {p.num} ÷ {p.denom}</div>
+                          <div className="font-semibold">Answer: {p.decimal}</div>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                  <div className="mt-4 p-3 bg-emerald-100 rounded text-xs text-emerald-900">
+                    <strong>💡 Study Tip:</strong> Great job! Remember: use long division to convert fractions to decimals. Some decimals terminate (end), while others repeat!
+                  </div>
+                </div>
+              ))}
+            </WorksheetSectionWrapper>
+          );
+        })()}
+
         {activeDocs.includes('multiplying-fractions') && (() => {
           const rng = makeRng(`${effectiveSeed}|v${variant}|doc=${doc}`);
           function nextInt(min: number, max: number) { return Math.floor(rng() * (max - min + 1)) + min; }
@@ -33476,7 +33576,7 @@ export function PrintablesPage() {
             'times-table-color-1-5', 'times-table-color-6-12', 'times-table-color-1-12',
             'long-division-1digit', 'long-division-2digit', 'area-model-mult', 'partial-products', 'comparing-fractions-4th',
             'add-sub-fractions-4th', 'mixed-improper-fractions', 'decimals-place-value', 'comparing-decimals', 'add-sub-decimals',
-            'fractions-to-decimals', 'fractions-to-decimals-basic-tenths', 'classifying-angles', 'area-perimeter-4th', 'lines-angles-4th', 'classifying-triangles',
+            'fractions-to-decimals', 'fractions-to-decimals-basic-tenths', 'fractions-to-decimals-division', 'classifying-angles', 'area-perimeter-4th', 'lines-angles-4th', 'classifying-triangles',
             'classifying-quadrilaterals', 'symmetry-transformations', 'customary-conversion', 'metric-conversion', 'elapsed-time-4th',
             'liquid-measurement-4th', 'mass-weight-4th', 'multi-step-word-4th', 'fraction-word-problems', 'decimal-word-problems',
             'measurement-word-problems', 'geometry-word-problems', 'line-plots', 'bar-graphs-pictographs', 'mean-median-mode',
