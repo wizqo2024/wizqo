@@ -1962,7 +1962,7 @@ export function PrintablesPage() {
           color-adjust: exact !important;
           padding: 20px 24px 24px 24px !important;
           margin: 0.5in !important;
-          margin-top: 0 !important;
+          margin-top: 0.25in !important;
           overflow: hidden !important;
           overflow-x: hidden !important;
           background-color: white !important;
@@ -2918,7 +2918,7 @@ export function PrintablesPage() {
             color-adjust: exact !important;
             padding: 20px 24px 24px 24px !important;
             margin: 0.5in !important;
-            margin-top: 0 !important;
+            margin-top: 0.25in !important;
             overflow: hidden !important;
             overflow-x: hidden !important;
             background-color: white !important;
