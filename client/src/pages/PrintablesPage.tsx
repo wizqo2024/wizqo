@@ -2010,25 +2010,25 @@ export function PrintablesPage() {
           border-radius: 14px !important;
           z-index: -1 !important;
           opacity: 0.3 !important;
-          /* Clip to show: top border on left/right sides (gap in center for emoji), left/right borders from 20px down, bottom border */
+          /* Clip to show: continuous top border on left/right sides (gap in center for emoji), left/right borders from 20px down, bottom border */
           clip-path: polygon(
-            /* Top-left corner */
+            /* Top-left corner - top border starts */
             0% 0%, 
-            /* Top border left side - stop before emoji area (approx 35% from left) */
-            calc(50% - 110px) 0%, 
-            calc(50% - 110px) 20px,
-            /* Left border starts at 20px */
-            0% 20px, 
+            /* Top border left side continues until emoji area (gap in center) */
+            calc(50% - 120px) 0%, 
+            calc(50% - 120px) 2px,
+            /* Left border starts at 2px (just below top border) */
+            0% 2px, 
             /* Left border continues down */
             0% 100%, 
             /* Bottom border */
             100% 100%, 
-            /* Right border starts at 20px */
-            100% 20px,
-            /* Top border right side - start after emoji area (approx 35% from right) */
-            calc(50% + 110px) 20px,
-            calc(50% + 110px) 0%,
-            /* Top-right corner */
+            /* Right border starts at 2px */
+            100% 2px,
+            /* Top border right side continues after emoji area */
+            calc(50% + 120px) 2px,
+            calc(50% + 120px) 0%,
+            /* Top-right corner - top border ends */
             100% 0%
           ) !important;
           -webkit-print-color-adjust: exact !important;
@@ -2036,21 +2036,21 @@ export function PrintablesPage() {
         }
         
         /* Decorative emoji stars at top - applied to ALL worksheets */
-        /* Centered at top, positioned to prevent cropping */
+        /* Perfectly centered at top, positioned to prevent cropping */
         [data-worksheet-content="true"] > div:first-child::after,
         [data-worksheet-content="true"] > div.max-w-4xl::after,
         .max-w-4xl.mx-auto::after,
         [data-worksheet-content="true"] .max-w-4xl::after {
           content: '⭐ ✨ 💫 🌟' !important;
           position: absolute !important;
-          top: 4px !important;
+          top: 0px !important;
           left: 50% !important;
           transform: translateX(-50%) translateY(-50%) !important;
           font-size: 18px !important;
           letter-spacing: 10px !important;
           z-index: 1000 !important;
           background: white !important;
-          padding: 8px 40px !important;
+          padding: 6px 30px !important;
           border: none !important;
           box-shadow: none !important;
           -webkit-print-color-adjust: exact !important;
@@ -2911,46 +2911,46 @@ export function PrintablesPage() {
             border-radius: 14px !important;
             z-index: -1 !important;
             opacity: 0.3 !important;
-            /* Clip to show: top border on left/right sides (gap in center for emoji), left/right borders from 20px down, bottom border */
+            /* Clip to show: continuous top border on left/right sides (gap in center for emoji), left/right borders from 2px down, bottom border */
             clip-path: polygon(
-              /* Top-left corner */
+              /* Top-left corner - top border starts */
               0% 0%, 
-              /* Top border left side - stop before emoji area (approx 35% from left) */
-              calc(50% - 110px) 0%, 
-              calc(50% - 110px) 20px,
-              /* Left border starts at 20px */
-              0% 20px, 
+              /* Top border left side continues until emoji area (gap in center) */
+              calc(50% - 120px) 0%, 
+              calc(50% - 120px) 2px,
+              /* Left border starts at 2px (just below top border) */
+              0% 2px, 
               /* Left border continues down */
               0% 100%, 
               /* Bottom border */
               100% 100%, 
-              /* Right border starts at 20px */
-              100% 20px,
-              /* Top border right side - start after emoji area (approx 35% from right) */
-              calc(50% + 110px) 20px,
-              calc(50% + 110px) 0%,
-              /* Top-right corner */
+              /* Right border starts at 2px */
+              100% 2px,
+              /* Top border right side continues after emoji area */
+              calc(50% + 120px) 2px,
+              calc(50% + 120px) 0%,
+              /* Top-right corner - top border ends */
               100% 0%
             ) !important;
             -webkit-print-color-adjust: exact !important;
             print-color-adjust: exact !important;
           }
           /* Decorative emoji stars at top - applied to ALL worksheets */
-          /* Centered at top, positioned to prevent cropping */
+          /* Perfectly centered at top, positioned to prevent cropping */
           [data-worksheet-content="true"] > div:first-child::after,
           [data-worksheet-content="true"] > div.max-w-4xl::after,
           .max-w-4xl.mx-auto::after,
           [data-worksheet-content="true"] .max-w-4xl::after {
             content: '⭐ ✨ 💫 🌟' !important;
             position: absolute !important;
-            top: 4px !important;
+            top: 0px !important;
             left: 50% !important;
             transform: translateX(-50%) translateY(-50%) !important;
             font-size: 18px !important;
             letter-spacing: 10px !important;
             z-index: 1000 !important;
             background: white !important;
-            padding: 8px 40px !important;
+            padding: 6px 30px !important;
             border: none !important;
             box-shadow: none !important;
             -webkit-print-color-adjust: exact !important;
