@@ -2626,7 +2626,7 @@ export function PrintablesPage() {
   }, [autoDownload, downloadPDF])
 
   // Track if print has already been called to prevent multiple popups
-  // Use a more robust approach with timestamp to prevent repeated calls
+  // Use a more robust approach with sessionStorage to persist across re-renders
   const hasPrintedRef = React.useRef(false)
   const printCallTimeRef = React.useRef<number>(0)
   
@@ -2661,11 +2661,16 @@ export function PrintablesPage() {
       
       if (!autoPrint || autoDownload) return // Skip if download is already handling it
       
-      // Prevent multiple print calls - check both ref and time since last call
+      // Use sessionStorage to track if we've already printed for this URL
+      // This prevents duplicate print dialogs even if component re-renders
+      const printKey = `autoprint_${window.location.href}`
+      const hasAlreadyPrinted = typeof window !== 'undefined' && sessionStorage.getItem(printKey) === 'true'
+      
+      // Prevent multiple print calls - check sessionStorage, ref, and time since last call
       const now = Date.now()
       const timeSinceLastCall = now - printCallTimeRef.current
-      if (hasPrintedRef.current && timeSinceLastCall < 5000) {
-        return // Don't call print again if we've called it recently (within 5 seconds)
+      if ((hasAlreadyPrinted || hasPrintedRef.current) && timeSinceLastCall < 10000) {
+        return // Don't call print again if we've called it recently (within 10 seconds) or already printed this URL
       }
       
       // Defer a bit to let the view render fully
@@ -2689,10 +2694,17 @@ export function PrintablesPage() {
             }
           }
           
-          if (stillOnPrintPage && !currentIsPreview && !hasPrintedRef.current) {
+          // Final check using sessionStorage
+          const stillHasAlreadyPrinted = typeof window !== 'undefined' && sessionStorage.getItem(printKey) === 'true'
+          
+          if (stillOnPrintPage && !currentIsPreview && !hasPrintedRef.current && !stillHasAlreadyPrinted) {
             window.print()
             hasPrintedRef.current = true
             printCallTimeRef.current = Date.now()
+            // Mark in sessionStorage that we've printed for this URL
+            if (typeof window !== 'undefined') {
+              sessionStorage.setItem(printKey, 'true')
+            }
             // Track auto-print
             if (doc && primaryDoc) {
               const from = params.get('from') || 'unknown'
@@ -2714,6 +2726,16 @@ export function PrintablesPage() {
     if (isPrintRoute && !isPreview) {
       hasPrintedRef.current = false
       printCallTimeRef.current = 0
+      // Clear sessionStorage for previous URLs when navigating to a new worksheet
+      // This allows autoprint to work for new worksheets while preventing duplicates for the same URL
+      if (typeof window !== 'undefined') {
+        // Clear all autoprint flags (they'll be set again for the current URL if needed)
+        Object.keys(sessionStorage).forEach(key => {
+          if (key.startsWith('autoprint_')) {
+            sessionStorage.removeItem(key)
+          }
+        })
+      }
     } else {
       // If we're not on print route or in preview, ensure print is disabled
       hasPrintedRef.current = true // Set to true to prevent any print calls
@@ -33593,7 +33615,7 @@ export function PrintablesPage() {
             // Kindergarten worksheets
             'color-shapes', 'shape-sorting', 'color-recognition', 'draw-shape', 'color-patterns',
             'shape-patterns', 'what-comes-next', 'long-short', 'heavy-light', 'same-different',
-            'line-tracing', 'curve-tracing', 'zigzag-lines', 'path-tracing',
+            'line-tracing', 'curve-tracing', 'zigzag-lines', 'path-tracing', 'logic-grid',
             // New Kindergarten worksheets (code-based)
             'kindergarten-counting-1-10', 'kindergarten-number-recognition', 'kindergarten-shapes',
             'kindergarten-patterns', 'kindergarten-addition-pictures', 'kindergarten-counting-visual',
