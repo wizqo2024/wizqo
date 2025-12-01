@@ -2016,12 +2016,12 @@ export function PrintablesPage() {
         [data-worksheet-content="true"] .max-w-4xl::after {
           content: '⭐ ✨ 💫 🌟' !important;
           position: absolute !important;
-          top: -4px !important;
+          top: 0px !important;
           left: 50% !important;
           transform: translateX(-50%) translateY(-50%) !important;
           font-size: 18px !important;
           letter-spacing: 10px !important;
-          z-index: 10 !important;
+          z-index: 1000 !important;
           background: white !important;
           padding: 8px 40px !important;
           border: none !important;
@@ -2887,12 +2887,12 @@ export function PrintablesPage() {
           [data-worksheet-content="true"] .max-w-4xl::after {
             content: '⭐ ✨ 💫 🌟' !important;
             position: absolute !important;
-            top: -4px !important;
+            top: 0px !important;
             left: 50% !important;
             transform: translateX(-50%) translateY(-50%) !important;
             font-size: 18px !important;
             letter-spacing: 10px !important;
-            z-index: 10 !important;
+            z-index: 1000 !important;
             background: white !important;
             padding: 8px 40px !important;
             border: none !important;
