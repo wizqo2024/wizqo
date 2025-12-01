@@ -1943,11 +1943,13 @@ export function PrintablesPage() {
         }
         
         /* CRITICAL: Inner div - match print styles with colorful border and emoji stars */
+        /* No top border - emoji serves as top border */
         [data-worksheet-content="true"] > div:first-child,
         [data-worksheet-content="true"] .max-w-4xl {
           position: relative !important;
           border-radius: 12px !important;
           border: 4px solid transparent !important;
+          border-top: none !important;
           border-image: linear-gradient(
             135deg,
             #f472b6 0%,
@@ -1957,6 +1959,7 @@ export function PrintablesPage() {
             #fbbf24 80%,
             #fb7185 100%
           ) 1 !important;
+          border-image-slice: 1 !important;
           -webkit-print-color-adjust: exact !important;
           print-color-adjust: exact !important;
           color-adjust: exact !important;
@@ -2269,10 +2272,13 @@ export function PrintablesPage() {
           colorAdjust: innerDiv.style.colorAdjust
         })
         // Match print styles with colorful border and padding
+        // No top border - emoji serves as top border
         innerDiv.style.position = 'relative'
         innerDiv.style.borderRadius = '12px'
         innerDiv.style.border = '4px solid transparent'
+        innerDiv.style.borderTop = 'none'
         innerDiv.style.borderImage = 'linear-gradient(135deg, #f472b6 0%, #a78bfa 20%, #60a5fa 40%, #34d399 60%, #fbbf24 80%, #fb7185 100%) 1'
+        innerDiv.style.borderImageSlice = '1'
         innerDiv.style.webkitPrintColorAdjust = 'exact'
         innerDiv.style.printColorAdjust = 'exact'
         innerDiv.style.colorAdjust = 'exact'
@@ -2325,10 +2331,13 @@ export function PrintablesPage() {
             const clonedInnerDiv = clonedContentElement.querySelector(':scope > div:first-child') as HTMLElement
             if (clonedInnerDiv) {
               // Match print styles with colorful border, padding, and emoji stars
+              // No top border - emoji serves as top border
               clonedInnerDiv.style.position = 'relative'
               clonedInnerDiv.style.borderRadius = '12px'
               clonedInnerDiv.style.border = '4px solid transparent'
+              clonedInnerDiv.style.borderTop = 'none'
               clonedInnerDiv.style.borderImage = 'linear-gradient(135deg, #f472b6 0%, #a78bfa 20%, #60a5fa 40%, #34d399 60%, #fbbf24 80%, #fb7185 100%) 1'
+              clonedInnerDiv.style.borderImageSlice = '1'
               clonedInnerDiv.style.webkitPrintColorAdjust = 'exact'
               clonedInnerDiv.style.printColorAdjust = 'exact'
               clonedInnerDiv.style.colorAdjust = 'exact'
@@ -2911,11 +2920,13 @@ export function PrintablesPage() {
           }
           /* Thin colorful decorative border with emoji-style pattern - applied to ALL worksheets */
           /* CRITICAL: Match PDF download styles exactly to prevent content cropping */
+          /* No top border - emoji serves as top border */
           [data-worksheet-content="true"] > div:first-child,
           [data-worksheet-content="true"] .max-w-4xl {
             position: relative !important;
             border-radius: 12px !important;
             border: 4px solid transparent !important;
+            border-top: none !important;
             border-image: linear-gradient(
               135deg,
               #f472b6 0%,
@@ -2925,6 +2936,7 @@ export function PrintablesPage() {
               #fbbf24 80%,
               #fb7185 100%
             ) 1 !important;
+            border-image-slice: 1 !important;
             -webkit-print-color-adjust: exact !important;
             print-color-adjust: exact !important;
             color-adjust: exact !important;
