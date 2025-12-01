@@ -5937,6 +5937,36 @@ export function PrintablesPage() {
             <p className="text-slate-600 mt-2 print:mt-1 text-sm">{t('pages.printables.printInstructions')}</p>
           </div>
           <div className="flex items-center gap-3">
+            {/* Download PDF Button - Test for comparing-decimals only */}
+            {doc === 'comparing-decimals' && !isPreview && (
+              <button
+                onClick={() => {
+                  try {
+                    downloadPDF()
+                  } catch (error) {
+                    console.error('Download failed:', error)
+                    alert('Download failed. Please use the Print button and select "Save as PDF" instead.')
+                  }
+                }}
+                disabled={isDownloadingPDF}
+                className="inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-blue-600 text-white hover:bg-blue-700 disabled:bg-blue-400 disabled:cursor-not-allowed text-sm font-medium shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-1 print:hidden"
+                title="Download as PDF (same layout as print)"
+                aria-label="Download worksheet as PDF"
+              >
+                {isDownloadingPDF ? (
+                  <>
+                    <span className="animate-spin">⏳</span>
+                    <span>Downloading...</span>
+                  </>
+                ) : (
+                  <>
+                    <span>📥</span>
+                    <span>Download PDF</span>
+                  </>
+                )}
+              </button>
+            )}
+            
             <a
               href={pinHref}
               target="_blank"
