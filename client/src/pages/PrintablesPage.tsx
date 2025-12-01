@@ -2022,14 +2022,17 @@ export function PrintablesPage() {
           border-radius: 14px !important;
           z-index: -1 !important;
           opacity: 0.3 !important;
-          /* Clip to show: left/right borders from top, bottom border */
+          /* Clip to show only left/right border segments at top, not full top border */
           clip-path: polygon(
             0% 0%, 
             0% 2px, 
-            0% 100%, 
-            100% 100%, 
+            80px 2px,
+            80px 0%,
+            calc(100% - 80px) 0%,
+            calc(100% - 80px) 2px,
             100% 2px,
-            100% 0%
+            100% 100%, 
+            0% 100%
           ) !important;
           -webkit-print-color-adjust: exact !important;
           print-color-adjust: exact !important;
@@ -2927,14 +2930,17 @@ export function PrintablesPage() {
             border-radius: 14px !important;
             z-index: -1 !important;
             opacity: 0.3 !important;
-            /* Clip to show: left/right borders from top, bottom border */
+            /* Clip to show only left/right border segments at top, not full top border */
             clip-path: polygon(
               0% 0%, 
               0% 2px, 
-              0% 100%, 
-              100% 100%, 
+              80px 2px,
+              80px 0%,
+              calc(100% - 80px) 0%,
+              calc(100% - 80px) 2px,
               100% 2px,
-              100% 0%
+              100% 100%, 
+              0% 100%
             ) !important;
             -webkit-print-color-adjust: exact !important;
             print-color-adjust: exact !important;
