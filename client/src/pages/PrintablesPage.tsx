@@ -1940,19 +1940,84 @@ export function PrintablesPage() {
           background: white !important;
         }
         
-        /* CRITICAL: Inner div - match index.css line 875-887 exactly */
-        [data-worksheet-content="true"] > div:first-child {
+        /* CRITICAL: Inner div - match print styles with colorful border and emoji stars */
+        [data-worksheet-content="true"] > div:first-child,
+        [data-worksheet-content="true"] .max-w-4xl {
+          position: relative !important;
+          border-radius: 12px !important;
+          border: 4px solid transparent !important;
+          border-image: linear-gradient(
+            135deg,
+            #f472b6 0%,
+            #a78bfa 20%,
+            #60a5fa 40%,
+            #34d399 60%,
+            #fbbf24 80%,
+            #fb7185 100%
+          ) 1 !important;
+          -webkit-print-color-adjust: exact !important;
+          print-color-adjust: exact !important;
+          color-adjust: exact !important;
+          padding: 20px 24px 24px 24px !important;
           margin: 0.5in !important;
           margin-top: 0 !important;
-          padding: 0 !important;
-          page-break-before: auto !important;
           overflow: visible !important;
           background-color: white !important;
           background: white !important;
           width: calc(100% - 1in) !important;
           max-width: calc(100% - 1in) !important;
           box-sizing: border-box !important;
-          position: relative !important;
+        }
+        
+        /* Decorative emoji-style border using CSS patterns - applied to ALL worksheets */
+        [data-worksheet-content="true"] > div:first-child::before,
+        [data-worksheet-content="true"] > div.max-w-4xl::before,
+        .max-w-4xl.mx-auto::before,
+        [data-worksheet-content="true"] .max-w-4xl::before {
+          content: '' !important;
+          position: absolute !important;
+          top: -8px !important;
+          left: -8px !important;
+          right: -8px !important;
+          bottom: -8px !important;
+          background-image: 
+            /* Stars pattern */
+            repeating-linear-gradient(0deg, transparent, transparent 20px, #fbbf24 20px, #fbbf24 21px),
+            repeating-linear-gradient(90deg, transparent, transparent 20px, #f472b6 20px, #f472b6 21px),
+            repeating-linear-gradient(45deg, transparent, transparent 15px, #60a5fa 15px, #60a5fa 16px),
+            repeating-linear-gradient(135deg, transparent, transparent 15px, #34d399 15px, #34d399 16px),
+            /* Base gradient */
+            linear-gradient(135deg, #f472b6 0%, #a78bfa 20%, #60a5fa 40%, #34d399 60%, #fbbf24 80%, #fb7185 100%) !important;
+          background-size: 100% 2px, 2px 100%, 100% 2px, 2px 100%, 100% 100% !important;
+          background-position: top, right, bottom, left, center !important;
+          background-repeat: repeat-x, repeat-y, repeat-x, repeat-y, no-repeat !important;
+          border-radius: 14px !important;
+          z-index: -1 !important;
+          opacity: 0.3 !important;
+          -webkit-print-color-adjust: exact !important;
+          print-color-adjust: exact !important;
+        }
+        
+        /* Decorative emoji stars at top - applied to ALL worksheets */
+        [data-worksheet-content="true"] > div:first-child::after,
+        [data-worksheet-content="true"] > div.max-w-4xl::after,
+        .max-w-4xl.mx-auto::after,
+        [data-worksheet-content="true"] .max-w-4xl::after {
+          content: '⭐ ✨ 💫 🌟' !important;
+          position: absolute !important;
+          top: 0px !important;
+          left: 50% !important;
+          transform: translateX(-50%) translateY(-50%) !important;
+          font-size: 18px !important;
+          letter-spacing: 10px !important;
+          z-index: 10 !important;
+          background: white !important;
+          padding: 4px 12px !important;
+          -webkit-print-color-adjust: exact !important;
+          print-color-adjust: exact !important;
+          color: #f472b6 !important;
+          display: block !important;
+          white-space: nowrap !important;
         }
         
         /* Ensure all divs inside worksheet content have white background */
@@ -2165,8 +2230,8 @@ export function PrintablesPage() {
       contentElement.style.padding = '0'
       contentElement.style.background = 'white'
       
-      // Set inner div to match print layout EXACTLY - match index.css @media print
-      // CRITICAL: Print styles show padding: 0, not 20px 24px - match Ctrl+P exactly
+      // Set inner div to match print layout EXACTLY - with colorful border and emoji stars
+      // CRITICAL: Print styles show colorful border, padding 20px 24px, and emoji stars - match Ctrl+P exactly
       const innerDiv = contentElement.querySelector(':scope > div:first-child') as HTMLElement
       if (innerDiv) {
         originalStyles.set(innerDiv, {
@@ -2179,25 +2244,37 @@ export function PrintablesPage() {
           overflow: innerDiv.style.overflow,
           backgroundColor: innerDiv.style.backgroundColor,
           background: innerDiv.style.background,
-          boxSizing: innerDiv.style.boxSizing
+          boxSizing: innerDiv.style.boxSizing,
+          borderRadius: innerDiv.style.borderRadius,
+          border: innerDiv.style.border,
+          borderImage: innerDiv.style.borderImage,
+          webkitPrintColorAdjust: innerDiv.style.webkitPrintColorAdjust,
+          printColorAdjust: innerDiv.style.printColorAdjust,
+          colorAdjust: innerDiv.style.colorAdjust
         })
-        // Match index.css line 875-887 EXACTLY
+        // Match print styles with colorful border and padding
+        innerDiv.style.position = 'relative'
+        innerDiv.style.borderRadius = '12px'
+        innerDiv.style.border = '4px solid transparent'
+        innerDiv.style.borderImage = 'linear-gradient(135deg, #f472b6 0%, #a78bfa 20%, #60a5fa 40%, #34d399 60%, #fbbf24 80%, #fb7185 100%) 1'
+        innerDiv.style.webkitPrintColorAdjust = 'exact'
+        innerDiv.style.printColorAdjust = 'exact'
+        innerDiv.style.colorAdjust = 'exact'
+        innerDiv.style.padding = '20px 24px 24px 24px' // Print styles show padding, not 0
         innerDiv.style.margin = '0.5in'
         innerDiv.style.marginTop = '0'
-        innerDiv.style.padding = '0' // Print styles show padding: 0, not 20px 24px
         innerDiv.style.width = 'calc(100% - 1in)'
         innerDiv.style.maxWidth = 'calc(100% - 1in)'
-        innerDiv.style.position = 'relative'
         innerDiv.style.overflow = 'visible'
         innerDiv.style.backgroundColor = 'white'
         innerDiv.style.background = 'white'
         innerDiv.style.boxSizing = 'border-box'
       }
       
-      // Wait for styles to apply - ensure all print styles are rendered
-      await new Promise(resolve => setTimeout(resolve, 800))
+      // Wait for styles to apply - ensure colorful border, emoji stars, and all print styles are rendered
+      await new Promise(resolve => setTimeout(resolve, 1000))
       
-      // Capture with html2canvas
+      // Capture with html2canvas - ensure colors are captured correctly
       const canvas = await html2canvas(contentElement, {
         scale: 2.0,
         useCORS: true,
@@ -2226,18 +2303,24 @@ export function PrintablesPage() {
             clonedBody.style.background = 'white'
           }
           
-          // Apply print styles to cloned inner div - match index.css EXACTLY
+          // Apply print styles to cloned inner div - with colorful border and emoji stars
           const clonedContentElement = clonedDoc.querySelector('[data-worksheet-content="true"]') as HTMLElement
           if (clonedContentElement) {
             const clonedInnerDiv = clonedContentElement.querySelector(':scope > div:first-child') as HTMLElement
             if (clonedInnerDiv) {
-              // Match index.css line 875-887 EXACTLY - no padding, no colorful border
+              // Match print styles with colorful border, padding, and emoji stars
+              clonedInnerDiv.style.position = 'relative'
+              clonedInnerDiv.style.borderRadius = '12px'
+              clonedInnerDiv.style.border = '4px solid transparent'
+              clonedInnerDiv.style.borderImage = 'linear-gradient(135deg, #f472b6 0%, #a78bfa 20%, #60a5fa 40%, #34d399 60%, #fbbf24 80%, #fb7185 100%) 1'
+              clonedInnerDiv.style.webkitPrintColorAdjust = 'exact'
+              clonedInnerDiv.style.printColorAdjust = 'exact'
+              clonedInnerDiv.style.colorAdjust = 'exact'
+              clonedInnerDiv.style.padding = '20px 24px 24px 24px' // Print styles show padding
               clonedInnerDiv.style.margin = '0.5in'
               clonedInnerDiv.style.marginTop = '0'
-              clonedInnerDiv.style.padding = '0' // Print styles show padding: 0
               clonedInnerDiv.style.width = 'calc(100% - 1in)'
               clonedInnerDiv.style.maxWidth = 'calc(100% - 1in)'
-              clonedInnerDiv.style.position = 'relative'
               clonedInnerDiv.style.overflow = 'visible'
               clonedInnerDiv.style.backgroundColor = 'white'
               clonedInnerDiv.style.background = 'white'
