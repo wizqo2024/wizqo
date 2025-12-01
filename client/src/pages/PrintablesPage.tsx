@@ -2626,9 +2626,11 @@ export function PrintablesPage() {
   }, [autoDownload, downloadPDF])
 
   // Track if print has already been called to prevent multiple popups
-  // Use a more robust approach with sessionStorage to persist across re-renders
+  // Use a more robust approach with sessionStorage and ref to persist across re-renders
   const hasPrintedRef = React.useRef(false)
   const printCallTimeRef = React.useRef<number>(0)
+  const printTimeoutRef = React.useRef<NodeJS.Timeout | null>(null)
+  const hasScheduledPrintRef = React.useRef(false)
   
   // Auto-open browser print dialog when requested (e.g., from "Download PDF" links)
   // ONLY run on /print route, not on category pages like /printables or in preview mode (iframes)
@@ -2663,24 +2665,31 @@ export function PrintablesPage() {
       
       // Use sessionStorage to track if we've already attempted to print for this URL
       // This prevents duplicate print dialogs even if component re-renders or user cancels
-      const printKey = typeof window !== 'undefined' ? `autoprint_${window.location.href}` : ''
+      const currentUrl = typeof window !== 'undefined' ? window.location.href : ''
+      const printKey = `autoprint_${currentUrl}`
       const hasAlreadyAttemptedPrint = typeof window !== 'undefined' && printKey && sessionStorage.getItem(printKey) === 'true'
       
       // If we've already attempted to print for this URL, don't try again
-      if (hasAlreadyAttemptedPrint) {
-        return // Already attempted print for this URL - don't try again
+      if (hasAlreadyAttemptedPrint || hasScheduledPrintRef.current) {
+        return // Already attempted or scheduled print for this URL - don't try again
       }
       
-      // Mark immediately that we're attempting to print (before the timeout)
+      // Mark immediately that we're scheduling a print (before the timeout)
       // This prevents the effect from running again if component re-renders
+      hasScheduledPrintRef.current = true
       if (typeof window !== 'undefined' && printKey) {
         sessionStorage.setItem(printKey, 'true')
         hasPrintedRef.current = true
         printCallTimeRef.current = Date.now()
       }
       
+      // Clear any existing timeout
+      if (printTimeoutRef.current) {
+        clearTimeout(printTimeoutRef.current)
+      }
+      
       // Defer a bit to let the view render fully
-      const t = setTimeout(() => { 
+      printTimeoutRef.current = setTimeout(() => { 
         try { 
           // Double-check we're still on the print page
           const stillOnPrintPage = typeof window !== 'undefined' && isPrintRoute && (window.location.pathname === '/print' || window.location.pathname.startsWith('/print?'))
@@ -2700,10 +2709,10 @@ export function PrintablesPage() {
             }
           }
           
-          // Final check using sessionStorage - if we've already attempted, don't try again
+          // Final check using sessionStorage - only print if we haven't already attempted
           const stillHasAlreadyAttempted = typeof window !== 'undefined' && sessionStorage.getItem(printKey) === 'true'
           
-          if (stillOnPrintPage && !currentIsPreview && !stillHasAlreadyAttempted) {
+          if (stillOnPrintPage && !currentIsPreview && stillHasAlreadyAttempted) {
             window.print()
             // Track auto-print
             if (doc && primaryDoc) {
@@ -2715,30 +2724,50 @@ export function PrintablesPage() {
           }
         } catch {} 
       }, 1200)
-      return () => clearTimeout(t)
+      
+      return () => {
+        if (printTimeoutRef.current) {
+          clearTimeout(printTimeoutRef.current)
+          printTimeoutRef.current = null
+        }
+      }
     } catch {}
-  }, [isPrintRoute, isPreview, autoPrint, autoDownload, doc, primaryDoc, docTitle, params])
+  }, [isPrintRoute, isPreview, autoPrint, autoDownload]) // Removed params, doc, primaryDoc, docTitle from dependencies to prevent re-runs
   
   // Reset print flag when URL changes (new worksheet loaded)
   React.useEffect(() => {
     // Only reset on exact /print route, not /printables
     // Also reset if we're in preview mode (iframes should never trigger print)
     if (isPrintRoute && !isPreview) {
-      hasPrintedRef.current = false
-      printCallTimeRef.current = 0
+      // Get current URL to clear only previous URLs, not current one
+      const currentUrl = typeof window !== 'undefined' ? window.location.href : ''
+      const currentPrintKey = `autoprint_${currentUrl}`
+      
       // Clear sessionStorage for previous URLs when navigating to a new worksheet
       // This allows autoprint to work for new worksheets while preventing duplicates for the same URL
       if (typeof window !== 'undefined') {
-        // Clear all autoprint flags (they'll be set again for the current URL if needed)
+        // Clear all autoprint flags except current one
         Object.keys(sessionStorage).forEach(key => {
-          if (key.startsWith('autoprint_')) {
+          if (key.startsWith('autoprint_') && key !== currentPrintKey) {
             sessionStorage.removeItem(key)
           }
         })
       }
+      
+      // Reset refs for new worksheet
+      hasPrintedRef.current = false
+      printCallTimeRef.current = 0
+      hasScheduledPrintRef.current = false
+      
+      // Clear any pending timeout
+      if (printTimeoutRef.current) {
+        clearTimeout(printTimeoutRef.current)
+        printTimeoutRef.current = null
+      }
     } else {
       // If we're not on print route or in preview, ensure print is disabled
       hasPrintedRef.current = true // Set to true to prevent any print calls
+      hasScheduledPrintRef.current = true
     }
   }, [isPrintRoute, isPreview, doc, urlSearch])
   return (
