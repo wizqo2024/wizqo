@@ -136,6 +136,7 @@
       }
       /* Hide SEO fallback visually for users (prevents flash) but keep in DOM for Googlebot */
       /* Using off-screen positioning instead of display:none so crawlers can still access it */
+      /* Note: Changed H1 to H2 in fallback to avoid duplicate H1 when React loads */
       #seo-fallback {
         position: absolute;
         left: -9999px;
@@ -356,10 +357,11 @@
     </nav>
     
     <!-- Visible SEO Content - Always crawlable, even without JavaScript -->
+    <!-- Note: Using H2 here instead of H1 to avoid duplicate H1 when React loads -->
     <main id="seo-fallback" style="max-width: 1200px; margin: 0 auto; padding: 2rem 1rem; font-family: system-ui, -apple-system, sans-serif;">
-      <h1 style="font-size: 2.5rem; font-weight: 900; color: #0f172a; margin-bottom: 1rem; line-height: 1.2;">
+      <h2 style="font-size: 2.5rem; font-weight: 900; color: #0f172a; margin-bottom: 1rem; line-height: 1.2;">
         Free Worksheets for Kids (K-5) | Math, Reading & More | Wizqo
-      </h1>
+      </h2>
       <p style="font-size: 1.125rem; color: #475569; margin-bottom: 2.5rem; line-height: 1.6;">
         Download free printable worksheets for kids (K-5). Math, reading, writing, tracing, and multiplication worksheets with answer keys—100% free, ready to print.
       </p>
