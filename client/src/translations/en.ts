@@ -3574,16 +3574,158 @@ export const en = {
       },
     },
     privacy: {
-      title: 'Privacy Policy',
-      subtitle: 'Learn how Wizqo protects your privacy and handles your data while providing free printable worksheets and personalized learning experiences.',
+      seoTitle: 'Privacy Policy – Wizqo',
+      seoDescription: 'Learn how Wizqo collects, uses, and protects your personal information. Our privacy policy explains your rights and our commitment to data security.',
+      title: 'Privacy',
+      policy: 'Policy',
+      lastUpdated: 'Last updated',
+      section1: {
+        title: '1. Who We Are',
+        content: 'Wizqo is an AI-powered platform that delivers personalized 7-day hobby learning plans. This Privacy Policy explains how we collect, use, and safeguard your data while using our services.',
+      },
+      section2: {
+        title: '2. Information We Collect',
+        intro: 'We collect the following types of data:',
+        item1: 'Personal Information: name, email address, hobby preferences',
+        item2: 'Usage Data: pages visited, session duration, click behavior',
+        item3: 'Technical Data: browser type, device info, IP address',
+        item4: 'Cookies and similar technologies for personalization and analytics',
+      },
+      section3: {
+        title: '3. How We Use Your Information',
+        intro: 'We use your information to:',
+        item1: 'Personalize your 7-day hobby learning experience',
+        item2: 'Improve platform performance and user experience',
+        item3: 'Communicate updates, tips, or new features (only if you opt in)',
+        item4: 'Monitor usage trends and troubleshoot issues',
+      },
+      section4: {
+        title: '4. Sharing Your Information',
+        content: 'We do not sell your data. We may share limited information with trusted third parties (e.g., analytics, hosting) only to support service delivery. All partners are contractually bound to data protection standards.',
+      },
+      section5: {
+        title: '5. International Transfers',
+        content: 'If your data is transferred outside your country, we ensure appropriate safeguards are in place such as Standard Contractual Clauses or equivalent measures.',
+      },
+      section6: {
+        title: '6. Data Retention',
+        content: 'We retain personal data as long as necessary to fulfill our services and legal obligations. You may request deletion at any time.',
+      },
+      section7: {
+        title: '7. Security',
+        content: 'We implement SSL encryption, secure server hosting, and access control to protect your information. No system is 100% secure, so we encourage strong passwords and cautious use.',
+      },
+      section8: {
+        title: '8. Your Rights',
+        intro: 'You may:',
+        item1: 'Access, update, or delete your data',
+        item2: 'Withdraw consent at any time',
+        item3: 'Request data portability',
+        item4: 'Opt out of marketing communications',
+        contact: 'To exercise these rights, contact us at',
+      },
+      section9: {
+        title: '9. Children\'s Privacy',
+        content: 'Wizqo is not intended for children under 13. If we learn we\'ve collected data from a minor, we will delete it promptly.',
+      },
+      section10: {
+        title: '10. Policy Updates',
+        content: 'We may update this Privacy Policy periodically. Material changes will be posted here and, if applicable, emailed to you.',
+      },
+      section11: {
+        title: '11. Contact Us',
+        content: 'If you have any questions or requests about your data or this policy, please contact us at',
+      },
     },
     terms: {
-      title: 'Terms of Service',
-      subtitle: 'Read Wizqo\'s terms of service and understand the rules and guidelines for using our educational platform and worksheet generator.',
+      seoTitle: 'Terms of Service – Wizqo',
+      seoDescription: 'Read Wizqo\'s Terms of Service to understand the rules and guidelines for using our platform and services.',
+      title: 'Terms of',
+      service: 'Service',
+      lastUpdated: 'Last updated',
+      section1: {
+        title: '1. Acceptance of Terms',
+        content: 'By accessing Wizqo, you agree to be bound by these Terms of Service and our Privacy Policy. If you do not agree, please discontinue use.',
+      },
+      section2: {
+        title: '2. Use of Service',
+        content: 'You must be 13 years or older to use Wizqo. You agree not to use the platform for any unlawful purpose or to violate any applicable laws.',
+      },
+      section3: {
+        title: '3. User Content',
+        content: 'You retain ownership of any data or content you submit. You grant us a non-exclusive license to use that content for delivering and improving our services.',
+      },
+      section4: {
+        title: '4. Modifications',
+        content: 'We may update or modify these terms at any time. Continued use of the service after changes implies acceptance of the new terms.',
+      },
+      section5: {
+        title: '5. Disclaimer of Warranty',
+        content: 'Wizqo is provided "as is" without warranties of any kind. We do not guarantee the accuracy or completeness of any learning material.',
+      },
+      section6: {
+        title: '6. Limitation of Liability',
+        content: 'Wizqo shall not be liable for any indirect, incidental, or consequential damages arising from your use of the service.',
+      },
+      section7: {
+        title: '7. Termination',
+        content: 'We reserve the right to terminate or suspend your account for violations of these terms, with or without notice.',
+      },
+      section8: {
+        title: '8. Governing Law',
+        content: 'These terms are governed by the laws of [Insert Your Jurisdiction, e.g., UAE]. Any disputes shall be resolved in the courts of that jurisdiction.',
+      },
+      section9: {
+        title: '9. Contact',
+        content: 'For questions about these Terms, contact us at',
+      },
     },
     cookies: {
-      title: 'Cookie Policy',
-      subtitle: 'Understand how Wizqo uses cookies to enhance your learning experience. Comprehensive cookie policy covering types, purposes, and your control options.',
+      seoTitle: 'Cookie Policy – Wizqo',
+      seoDescription: 'Learn about how Wizqo uses cookies to enhance your experience and improve our services.',
+      title: 'Cookie',
+      policy: 'Policy',
+      lastUpdated: 'Last updated',
+      section1: {
+        title: '1. What Are Cookies?',
+        content: 'Cookies are small text files placed on your device when you visit a website. They help us remember your preferences, enhance your experience, and analyze site performance.',
+      },
+      section2: {
+        title: '2. How We Use Cookies',
+        intro: 'Wizqo uses cookies to:',
+        item1: 'Remember your preferences and settings',
+        item2: 'Enable core functionality (e.g., user login)',
+        item3: 'Analyze user behavior and improve performance',
+        item4: 'Provide relevant content and recommendations',
+      },
+      section3: {
+        title: '3. Types of Cookies We Use',
+        essentialTitle: 'Essential Cookies',
+        essentialDesc: 'Required for basic functionality like navigation and login.',
+        analyticsTitle: 'Analytics Cookies',
+        analyticsDesc: 'Help us understand how users interact with our site (e.g., Google Analytics).',
+        functionalTitle: 'Functional Cookies',
+        functionalDesc: 'Remember user choices and enhance personalization.',
+        marketingTitle: 'Marketing Cookies',
+        marketingDesc: 'Used to deliver relevant advertising, if applicable.',
+      },
+      section4: {
+        title: '4. Managing Cookies',
+        content1: 'Most browsers allow you to control or disable cookies via settings. Please note that disabling cookies may impact your experience on Wizqo.',
+        content2: 'You can also use opt-out tools from advertising platforms and analytics providers to manage tracking preferences.',
+      },
+      section5: {
+        title: '5. Third-Party Cookies',
+        content: 'We may allow trusted third parties to set cookies for analytics or performance. These third parties have their own privacy policies and cookie management options.',
+      },
+      section6: {
+        title: '6. Updates to This Policy',
+        content: 'We may update this Cookie Policy from time to time. Changes will be posted here with an updated revision date.',
+      },
+      section7: {
+        title: '7. Contact Us',
+        content: 'If you have any questions about this Cookie Policy, please contact us at',
+      },
     },
     resetPassword: {
       title: 'Reset Your Password',
@@ -3804,160 +3946,6 @@ export const en = {
         score: 'My score:',
         hardest: 'What was hardest?'
       }
-    },
-    privacy: {
-      seoTitle: 'Privacy Policy – Wizqo',
-      seoDescription: 'Learn how Wizqo collects, uses, and protects your personal information. Our privacy policy explains your rights and our commitment to data security.',
-      title: 'Privacy',
-      policy: 'Policy',
-      lastUpdated: 'Last updated',
-      section1: {
-        title: '1. Who We Are',
-        content: 'Wizqo is an AI-powered platform that delivers personalized 7-day hobby learning plans. This Privacy Policy explains how we collect, use, and safeguard your data while using our services.',
-      },
-      section2: {
-        title: '2. Information We Collect',
-        intro: 'We collect the following types of data:',
-        item1: 'Personal Information: name, email address, hobby preferences',
-        item2: 'Usage Data: pages visited, session duration, click behavior',
-        item3: 'Technical Data: browser type, device info, IP address',
-        item4: 'Cookies and similar technologies for personalization and analytics',
-      },
-      section3: {
-        title: '3. How We Use Your Information',
-        intro: 'We use your information to:',
-        item1: 'Personalize your 7-day hobby learning experience',
-        item2: 'Improve platform performance and user experience',
-        item3: 'Communicate updates, tips, or new features (only if you opt in)',
-        item4: 'Monitor usage trends and troubleshoot issues',
-      },
-      section4: {
-        title: '4. Sharing Your Information',
-        content: 'We do not sell your data. We may share limited information with trusted third parties (e.g., analytics, hosting) only to support service delivery. All partners are contractually bound to data protection standards.',
-      },
-      section5: {
-        title: '5. International Transfers',
-        content: 'If your data is transferred outside your country, we ensure appropriate safeguards are in place such as Standard Contractual Clauses or equivalent measures.',
-      },
-      section6: {
-        title: '6. Data Retention',
-        content: 'We retain personal data as long as necessary to fulfill our services and legal obligations. You may request deletion at any time.',
-      },
-      section7: {
-        title: '7. Security',
-        content: 'We implement SSL encryption, secure server hosting, and access control to protect your information. No system is 100% secure, so we encourage strong passwords and cautious use.',
-      },
-      section8: {
-        title: '8. Your Rights',
-        intro: 'You may:',
-        item1: 'Access, update, or delete your data',
-        item2: 'Withdraw consent at any time',
-        item3: 'Request data portability',
-        item4: 'Opt out of marketing communications',
-        contact: 'To exercise these rights, contact us at',
-      },
-      section9: {
-        title: '9. Children\'s Privacy',
-        content: 'Wizqo is not intended for children under 13. If we learn we\'ve collected data from a minor, we will delete it promptly.',
-      },
-      section10: {
-        title: '10. Policy Updates',
-        content: 'We may update this Privacy Policy periodically. Material changes will be posted here and, if applicable, emailed to you.',
-      },
-      section11: {
-        title: '11. Contact Us',
-        content: 'If you have any questions or requests about your data or this policy, please contact us at',
-      },
-    },
-    terms: {
-      seoTitle: 'Terms of Service – Wizqo',
-      seoDescription: 'Read Wizqo\'s Terms of Service to understand the rules and guidelines for using our platform and services.',
-      title: 'Terms of',
-      service: 'Service',
-      lastUpdated: 'Last updated',
-      section1: {
-        title: '1. Acceptance of Terms',
-        content: 'By accessing Wizqo, you agree to be bound by these Terms of Service and our Privacy Policy. If you do not agree, please discontinue use.',
-      },
-      section2: {
-        title: '2. Use of Service',
-        content: 'You must be 13 years or older to use Wizqo. You agree not to use the platform for any unlawful purpose or to violate any applicable laws.',
-      },
-      section3: {
-        title: '3. User Content',
-        content: 'You retain ownership of any data or content you submit. You grant us a non-exclusive license to use that content for delivering and improving our services.',
-      },
-      section4: {
-        title: '4. Modifications',
-        content: 'We may update or modify these terms at any time. Continued use of the service after changes implies acceptance of the new terms.',
-      },
-      section5: {
-        title: '5. Disclaimer of Warranty',
-        content: 'Wizqo is provided "as is" without warranties of any kind. We do not guarantee the accuracy or completeness of any learning material.',
-      },
-      section6: {
-        title: '6. Limitation of Liability',
-        content: 'Wizqo shall not be liable for any indirect, incidental, or consequential damages arising from your use of the service.',
-      },
-      section7: {
-        title: '7. Termination',
-        content: 'We reserve the right to terminate or suspend your account for violations of these terms, with or without notice.',
-      },
-      section8: {
-        title: '8. Governing Law',
-        content: 'These terms are governed by the laws of [Insert Your Jurisdiction, e.g., UAE]. Any disputes shall be resolved in the courts of that jurisdiction.',
-      },
-      section9: {
-        title: '9. Contact',
-        content: 'For questions about these Terms, contact us at',
-      },
-    },
-    cookies: {
-      seoTitle: 'Cookie Policy – Wizqo',
-      seoDescription: 'Learn about how Wizqo uses cookies to enhance your experience and improve our services.',
-      title: 'Cookie',
-      policy: 'Policy',
-      lastUpdated: 'Last updated',
-      section1: {
-        title: '1. What Are Cookies?',
-        content: 'Cookies are small text files placed on your device when you visit a website. They help us remember your preferences, enhance your experience, and analyze site performance.',
-      },
-      section2: {
-        title: '2. How We Use Cookies',
-        intro: 'Wizqo uses cookies to:',
-        item1: 'Remember your preferences and settings',
-        item2: 'Enable core functionality (e.g., user login)',
-        item3: 'Analyze user behavior and improve performance',
-        item4: 'Provide relevant content and recommendations',
-      },
-      section3: {
-        title: '3. Types of Cookies We Use',
-        essentialTitle: 'Essential Cookies',
-        essentialDesc: 'Required for basic functionality like navigation and login.',
-        analyticsTitle: 'Analytics Cookies',
-        analyticsDesc: 'Help us understand how users interact with our site (e.g., Google Analytics).',
-        functionalTitle: 'Functional Cookies',
-        functionalDesc: 'Remember user choices and enhance personalization.',
-        marketingTitle: 'Marketing Cookies',
-        marketingDesc: 'Used to deliver relevant advertising, if applicable.',
-      },
-      section4: {
-        title: '4. Managing Cookies',
-        content1: 'Most browsers allow you to control or disable cookies via settings. Please note that disabling cookies may impact your experience on Wizqo.',
-        content2: 'You can also use opt-out tools from advertising platforms and analytics providers to manage tracking preferences.',
-      },
-      section5: {
-        title: '5. Third-Party Cookies',
-        content: 'We may allow trusted third parties to set cookies for analytics or performance. These third parties have their own privacy policies and cookie management options.',
-      },
-      section6: {
-        title: '6. Updates to This Policy',
-        content: 'We may update this Cookie Policy from time to time. Changes will be posted here with an updated revision date.',
-      },
-      section7: {
-        title: '7. Contact Us',
-        content: 'If you have any questions about this Cookie Policy, please contact us at',
-      },
     },
     resetPassword: {
       title: 'Reset Your Password',
