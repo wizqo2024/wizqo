@@ -1942,17 +1942,19 @@ export function PrintablesPage() {
         [data-worksheet-content="true"] .max-w-4xl::after {
           content: '⭐ ✨ 💫 🌟' !important;
           position: absolute !important;
-          top: -8px !important;
+          top: 0px !important;
           left: 50% !important;
-          transform: translateX(-50%) !important;
-          font-size: 16px !important;
-          letter-spacing: 8px !important;
-          z-index: 1 !important;
+          transform: translateX(-50%) translateY(-50%) !important;
+          font-size: 18px !important;
+          letter-spacing: 10px !important;
+          z-index: 10 !important;
           background: white !important;
-          padding: 0 8px !important;
+          padding: 4px 12px !important;
           -webkit-print-color-adjust: exact !important;
           print-color-adjust: exact !important;
           color: #f472b6 !important;
+          display: block !important;
+          white-space: nowrap !important;
         }
         
         /* Apply section print styles */
@@ -2045,6 +2047,7 @@ export function PrintablesPage() {
         innerDiv.style.borderRadius = '12px'
         innerDiv.style.border = '4px solid transparent'
         innerDiv.style.borderImage = 'linear-gradient(135deg, #f472b6 0%, #a78bfa 20%, #60a5fa 40%, #34d399 60%, #fbbf24 80%, #fb7185 100%) 1'
+        innerDiv.style.paddingTop = '20px'
       }
       
       // Wait for styles to apply
@@ -2088,6 +2091,7 @@ export function PrintablesPage() {
               clonedInnerDiv.style.borderRadius = '12px'
               clonedInnerDiv.style.border = '4px solid transparent'
               clonedInnerDiv.style.borderImage = 'linear-gradient(135deg, #f472b6 0%, #a78bfa 20%, #60a5fa 40%, #34d399 60%, #fbbf24 80%, #fb7185 100%) 1'
+              clonedInnerDiv.style.paddingTop = '20px'
             }
           }
           
@@ -2451,20 +2455,23 @@ export function PrintablesPage() {
           [data-worksheet-content="true"] .max-w-4xl::after {
             content: '⭐ ✨ 💫 🌟' !important;
             position: absolute !important;
-            top: -8px !important;
+            top: 0px !important;
             left: 50% !important;
-            transform: translateX(-50%) !important;
-            font-size: 16px !important;
-            letter-spacing: 8px !important;
-            z-index: 1 !important;
+            transform: translateX(-50%) translateY(-50%) !important;
+            font-size: 18px !important;
+            letter-spacing: 10px !important;
+            z-index: 10 !important;
             background: white !important;
-            padding: 0 8px !important;
+            padding: 4px 12px !important;
             -webkit-print-color-adjust: exact !important;
             print-color-adjust: exact !important;
             color: #f472b6 !important;
+            display: block !important;
+            white-space: nowrap !important;
           }
           /* Thin colorful decorative border with emoji-style pattern - applied to ALL worksheets */
-          [data-worksheet-content="true"] > div:first-child {
+          [data-worksheet-content="true"] > div:first-child,
+          [data-worksheet-content="true"] .max-w-4xl {
             position: relative !important;
             border-radius: 12px !important;
             border: 4px solid transparent !important;
@@ -2480,6 +2487,7 @@ export function PrintablesPage() {
             -webkit-print-color-adjust: exact !important;
             print-color-adjust: exact !important;
             color-adjust: exact !important;
+            padding-top: 20px !important;
           }
         }
       `}</style>
