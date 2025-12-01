@@ -1963,11 +1963,19 @@ export function PrintablesPage() {
           padding: 20px 24px 24px 24px !important;
           margin: 0.5in !important;
           margin-top: 0 !important;
-          overflow: visible !important;
+          overflow: hidden !important;
+          overflow-x: hidden !important;
           background-color: white !important;
           background: white !important;
           width: calc(100% - 1in) !important;
           max-width: calc(100% - 1in) !important;
+          box-sizing: border-box !important;
+        }
+        
+        /* Ensure content inside respects container boundaries */
+        [data-worksheet-content="true"] > div:first-child > *,
+        [data-worksheet-content="true"] .max-w-4xl > * {
+          max-width: 100% !important;
           box-sizing: border-box !important;
         }
         
@@ -2911,11 +2919,19 @@ export function PrintablesPage() {
             padding: 20px 24px 24px 24px !important;
             margin: 0.5in !important;
             margin-top: 0 !important;
-            overflow: visible !important;
+            overflow: hidden !important;
+            overflow-x: hidden !important;
             background-color: white !important;
             background: white !important;
             width: calc(100% - 1in) !important;
             max-width: calc(100% - 1in) !important;
+            box-sizing: border-box !important;
+          }
+          
+          /* Ensure content inside respects container boundaries */
+          [data-worksheet-content="true"] > div:first-child > *,
+          [data-worksheet-content="true"] .max-w-4xl > * {
+            max-width: 100% !important;
             box-sizing: border-box !important;
           }
         }
