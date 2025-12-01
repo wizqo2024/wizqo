@@ -2047,7 +2047,7 @@ export function PrintablesPage() {
         innerDiv.style.borderRadius = '12px'
         innerDiv.style.border = '4px solid transparent'
         innerDiv.style.borderImage = 'linear-gradient(135deg, #f472b6 0%, #a78bfa 20%, #60a5fa 40%, #34d399 60%, #fbbf24 80%, #fb7185 100%) 1'
-        innerDiv.style.paddingTop = '20px'
+        innerDiv.style.padding = '20px 24px 24px 24px'
       }
       
       // Wait for styles to apply
@@ -2091,7 +2091,7 @@ export function PrintablesPage() {
               clonedInnerDiv.style.borderRadius = '12px'
               clonedInnerDiv.style.border = '4px solid transparent'
               clonedInnerDiv.style.borderImage = 'linear-gradient(135deg, #f472b6 0%, #a78bfa 20%, #60a5fa 40%, #34d399 60%, #fbbf24 80%, #fb7185 100%) 1'
-              clonedInnerDiv.style.paddingTop = '20px'
+              clonedInnerDiv.style.padding = '20px 24px 24px 24px'
             }
           }
           
@@ -2487,7 +2487,8 @@ export function PrintablesPage() {
             -webkit-print-color-adjust: exact !important;
             print-color-adjust: exact !important;
             color-adjust: exact !important;
-            padding-top: 20px !important;
+            padding: 20px 24px 24px 24px !important;
+            margin: 0.5in !important;
           }
         }
       `}</style>
