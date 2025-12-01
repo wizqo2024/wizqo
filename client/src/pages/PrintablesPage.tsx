@@ -2016,7 +2016,7 @@ export function PrintablesPage() {
         [data-worksheet-content="true"] .max-w-4xl::after {
           content: '⭐ ✨ 💫 🌟' !important;
           position: absolute !important;
-          top: -12px !important;
+          top: -4px !important;
           left: 50% !important;
           transform: translateX(-50%) translateY(-50%) !important;
           font-size: 18px !important;
@@ -2887,7 +2887,7 @@ export function PrintablesPage() {
           [data-worksheet-content="true"] .max-w-4xl::after {
             content: '⭐ ✨ 💫 🌟' !important;
             position: absolute !important;
-            top: -12px !important;
+            top: -4px !important;
             left: 50% !important;
             transform: translateX(-50%) translateY(-50%) !important;
             font-size: 18px !important;
