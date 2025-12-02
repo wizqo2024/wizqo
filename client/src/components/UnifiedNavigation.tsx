@@ -519,8 +519,8 @@ export function UnifiedNavigation({ showBackButton = false, onBackClick, current
 
       {/* Mobile Menu */}
       {showMobileMenu && (
-        <div className="md:hidden bg-white border-t border-slate-200">
-          <div className="px-4 py-2 space-y-1">
+        <div className="md:hidden bg-white border-t border-slate-200 shadow-lg">
+          <div className="px-4 py-3 space-y-1 max-h-[calc(100vh-4rem)] overflow-y-auto">
             <button 
               onClick={() => {
                 window.location.href = '/';
@@ -572,140 +572,140 @@ export function UnifiedNavigation({ showBackButton = false, onBackClick, current
                 <span className="font-medium">{t('navigation.worksheets')}</span>
               </button>
               
-              <div className="pl-7 pt-1 space-y-1">
-                <div className="px-3 pb-1 text-[11px] uppercase tracking-wide text-slate-500 font-semibold">{t('navigation.createSomethingMagical')}</div>
+              <div className="pl-7 pt-2 space-y-1">
+                <div className="px-3 pb-2 text-[11px] uppercase tracking-wide font-bold bg-gradient-to-r from-purple-600 to-pink-600 bg-clip-text text-transparent border-b border-purple-100">{t('navigation.createSomethingMagical')}</div>
                 <button 
                   onClick={() => {
                     window.location.href = '/printables/certificate-maker';
                     setShowMobileMenu(false);
                   }} 
-                  className="w-full flex items-center space-x-3 px-3 py-2 rounded-md transition-colors text-left text-slate-600 hover:text-slate-800 hover:bg-slate-100"
+                  className="w-full flex items-center space-x-3 px-3 py-2.5 rounded-lg transition-colors text-left text-slate-700 hover:text-purple-700 hover:bg-purple-50 active:bg-purple-100"
                 >
-                  <span className="text-sm">{t('navigation.certificateMaker')}</span>
+                  <span className="text-sm font-medium">{t('navigation.certificateMaker')}</span>
                 </button>
                 <button 
                   onClick={() => {
                     window.location.href = '/printables/name-tracing-generator';
                     setShowMobileMenu(false);
                   }} 
-                  className="w-full flex items-center space-x-3 px-3 py-2 rounded-md transition-colors text-left text-slate-600 hover:text-slate-800 hover:bg-slate-100"
+                  className="w-full flex items-center space-x-3 px-3 py-2.5 rounded-lg transition-colors text-left text-slate-700 hover:text-purple-700 hover:bg-purple-50 active:bg-purple-100"
                 >
-                  <span className="text-sm">{t('navigation.nameTracingGenerator')}</span>
+                  <span className="text-sm font-medium">{t('navigation.nameTracingGenerator')}</span>
                 </button>
                 <button 
                   onClick={() => {
                     window.location.href = '/worksheets/handwriting-worksheet-maker';
                     setShowMobileMenu(false);
                   }} 
-                  className="w-full flex items-center space-x-3 px-3 py-2 rounded-md transition-colors text-left text-slate-600 hover:text-slate-800 hover:bg-slate-100"
+                  className="w-full flex items-center space-x-3 px-3 py-2.5 rounded-lg transition-colors text-left text-slate-700 hover:text-purple-700 hover:bg-purple-50 active:bg-purple-100"
                 >
-                  <span className="text-sm">{t('navigation.handwritingWorksheetMaker')}</span>
+                  <span className="text-sm font-medium">{t('navigation.handwritingWorksheetMaker')}</span>
                 </button>
                 
-                <div className="pt-2">
-                  <div className="px-3 pb-1 text-[11px] uppercase tracking-wide text-slate-500 font-semibold">{t('navigation.freeWorksheetPDFs')}</div>
+                <div className="pt-3 mt-2">
+                  <div className="px-3 pb-2 text-[11px] uppercase tracking-wide font-bold bg-gradient-to-r from-blue-600 to-cyan-600 bg-clip-text text-transparent border-b border-blue-100">{t('navigation.freeWorksheetPDFs')}</div>
                 <button 
                   onClick={() => {
                     window.location.href = '/worksheets/multiplication-worksheets';
                     setShowMobileMenu(false);
                   }} 
-                  className="w-full flex items-center space-x-3 px-3 py-2 rounded-md transition-colors text-left text-slate-600 hover:text-slate-800 hover:bg-slate-100"
+                  className="w-full flex items-center space-x-3 px-3 py-2.5 rounded-lg transition-colors text-left text-slate-700 hover:text-blue-700 hover:bg-blue-50 active:bg-blue-100"
                 >
-                  <span className="text-sm">{t('navigation.multiplicationWorksheets')}</span>
+                  <span className="text-sm font-medium">{t('navigation.multiplicationWorksheets')}</span>
                 </button>
                 <button 
                   onClick={() => {
                     window.location.href = '/worksheets/times-table-multiplication-worksheets';
                     setShowMobileMenu(false);
                   }} 
-                  className="w-full flex items-center space-x-3 px-3 py-2 rounded-md transition-colors text-left text-slate-600 hover:text-slate-800 hover:bg-slate-100"
+                  className="w-full flex items-center space-x-3 px-3 py-2.5 rounded-lg transition-colors text-left text-slate-700 hover:text-blue-700 hover:bg-blue-50 active:bg-blue-100"
                 >
-                  <span className="text-sm">{t('navigation.timesTableMultiplicationWorksheets')}</span>
+                  <span className="text-sm font-medium">{t('navigation.timesTableMultiplicationWorksheets')}</span>
                 </button>
                 <button 
                   onClick={() => {
                     window.location.href = '/worksheets/kindergarten-math-worksheets';
                     setShowMobileMenu(false);
                   }} 
-                  className="w-full flex items-center space-x-3 px-3 py-2 rounded-md transition-colors text-left text-slate-600 hover:text-slate-800 hover:bg-slate-100"
+                  className="w-full flex items-center space-x-3 px-3 py-2.5 rounded-lg transition-colors text-left text-slate-700 hover:text-blue-700 hover:bg-blue-50 active:bg-blue-100"
                 >
-                  <span className="text-sm">{t('navigation.kindergartenMathWorksheets')}</span>
+                  <span className="text-sm font-medium">{t('navigation.kindergartenMathWorksheets')}</span>
                 </button>
                 <button 
                   onClick={() => {
                     window.location.href = '/worksheets/1st-grade-math-worksheets';
                     setShowMobileMenu(false);
                   }} 
-                  className="w-full flex items-center space-x-3 px-3 py-2 rounded-md transition-colors text-left text-slate-600 hover:text-slate-800 hover:bg-slate-100"
+                  className="w-full flex items-center space-x-3 px-3 py-2.5 rounded-lg transition-colors text-left text-slate-700 hover:text-blue-700 hover:bg-blue-50 active:bg-blue-100"
                 >
-                  <span className="text-sm">{t('navigation.firstGradeMathWorksheets')}</span>
+                  <span className="text-sm font-medium">{t('navigation.firstGradeMathWorksheets')}</span>
                 </button>
                 <button 
                   onClick={() => {
                     window.location.href = '/worksheets/2nd-grade-math-worksheets';
                     setShowMobileMenu(false);
                   }} 
-                  className="w-full flex items-center space-x-3 px-3 py-2 rounded-md transition-colors text-left text-slate-600 hover:text-slate-800 hover:bg-slate-100"
+                  className="w-full flex items-center space-x-3 px-3 py-2.5 rounded-lg transition-colors text-left text-slate-700 hover:text-blue-700 hover:bg-blue-50 active:bg-blue-100"
                 >
-                  <span className="text-sm">{t('navigation.secondGradeMathWorksheets')}</span>
+                  <span className="text-sm font-medium">{t('navigation.secondGradeMathWorksheets')}</span>
                 </button>
                 <button 
                   onClick={() => {
                     window.location.href = '/worksheets/3rd-grade-math-worksheets';
                     setShowMobileMenu(false);
                   }} 
-                  className="w-full flex items-center space-x-3 px-3 py-2 rounded-md transition-colors text-left text-slate-600 hover:text-slate-800 hover:bg-slate-100"
+                  className="w-full flex items-center space-x-3 px-3 py-2.5 rounded-lg transition-colors text-left text-slate-700 hover:text-blue-700 hover:bg-blue-50 active:bg-blue-100"
                 >
-                  <span className="text-sm">{t('navigation.thirdGradeMathWorksheets')}</span>
+                  <span className="text-sm font-medium">{t('navigation.thirdGradeMathWorksheets')}</span>
                 </button>
                 <button 
                   onClick={() => {
                     window.location.href = '/worksheets/4th-grade-math-worksheets';
                     setShowMobileMenu(false);
                   }} 
-                  className="w-full flex items-center space-x-3 px-3 py-2 rounded-md transition-colors text-left text-slate-600 hover:text-slate-800 hover:bg-slate-100"
+                  className="w-full flex items-center space-x-3 px-3 py-2.5 rounded-lg transition-colors text-left text-slate-700 hover:text-blue-700 hover:bg-blue-50 active:bg-blue-100"
                 >
-                  <span className="text-sm">{t('navigation.fourthGradeMathWorksheets')}</span>
+                  <span className="text-sm font-medium">{t('navigation.fourthGradeMathWorksheets')}</span>
                 </button>
                 <button 
                   onClick={() => {
                     window.location.href = '/worksheets/5th-grade-math-worksheets';
                     setShowMobileMenu(false);
                   }} 
-                  className="w-full flex items-center space-x-3 px-3 py-2 rounded-md transition-colors text-left text-slate-600 hover:text-slate-800 hover:bg-slate-100"
+                  className="w-full flex items-center space-x-3 px-3 py-2.5 rounded-lg transition-colors text-left text-slate-700 hover:text-blue-700 hover:bg-blue-50 active:bg-blue-100"
                 >
-                  <span className="text-sm">{t('navigation.fifthGradeMathWorksheets')}</span>
+                  <span className="text-sm font-medium">{t('navigation.fifthGradeMathWorksheets')}</span>
                 </button>
                 <button
                   onClick={() => {
                     window.location.href = '/worksheets/reading-comprehension';
                     setShowMobileMenu(false);
                   }}
-                  className="w-full flex items-center space-x-3 px-3 py-2 rounded-md transition-colors text-left text-slate-600 hover:text-slate-800 hover:bg-slate-100"
+                  className="w-full flex items-center space-x-3 px-3 py-2.5 rounded-lg transition-colors text-left text-slate-700 hover:text-blue-700 hover:bg-blue-50 active:bg-blue-100"
                 >
-                  <span className="text-sm">{t('navigation.readingComprehensionWorksheets')}</span>
+                  <span className="text-sm font-medium">{t('navigation.readingComprehensionWorksheets')}</span>
                 </button>
                 <button
                   onClick={() => {
                     window.location.href = '/worksheets/fractions-to-decimals-worksheets';
                     setShowMobileMenu(false);
                   }}
-                  className="w-full flex items-center space-x-3 px-3 py-2 rounded-md transition-colors text-left text-slate-600 hover:text-slate-800 hover:bg-slate-100"
+                  className="w-full flex items-center space-x-3 px-3 py-2.5 rounded-lg transition-colors text-left text-slate-700 hover:text-blue-700 hover:bg-blue-50 active:bg-blue-100"
                 >
-                  <span className="text-sm">{t('navigation.fractionsToDecimalsWorksheets')}</span>
+                  <span className="text-sm font-medium">{t('navigation.fractionsToDecimalsWorksheets')}</span>
                 </button>
                 </div>
                 
-                <div className="pt-2">
-                  <div className="px-3 pb-1 text-[11px] uppercase tracking-wide text-slate-500 font-semibold">{t('navigation.worksheetsQuickPacks')}</div>
+                <div className="pt-3 mt-2">
+                  <div className="px-3 pb-2 text-[11px] uppercase tracking-wide font-bold bg-gradient-to-r from-green-600 to-emerald-600 bg-clip-text text-transparent border-b border-green-100">{t('navigation.worksheetsQuickPacks')}</div>
                   <button 
                     onClick={() => {
                       window.location.href = '/printables';
                       setShowMobileMenu(false);
                     }} 
-                    className="w-full flex items-center space-x-3 px-3 py-2 rounded-md transition-colors text-left text-slate-600 hover:text-slate-800 hover:bg-slate-100"
+                    className="w-full flex items-center space-x-3 px-3 py-2.5 rounded-lg transition-colors text-left text-slate-700 hover:text-green-700 hover:bg-green-50 active:bg-green-100"
                   >
-                    <span className="text-sm">{t('navigation.printables')}</span>
+                    <span className="text-sm font-medium">{t('navigation.printables')}</span>
                   </button>
                 </div>
               </div>
@@ -736,8 +736,8 @@ export function UnifiedNavigation({ showBackButton = false, onBackClick, current
                 <span className="font-medium">{t('navigation.kidsHub')}</span>
               </button>
               
-              <div className="pl-7 pt-1 space-y-1">
-                <div className="px-3 pb-1 text-[11px] uppercase tracking-wide text-slate-500 font-semibold">{t('navigation.kidsGames')}</div>
+              <div className="pl-7 pt-2 space-y-1">
+                <div className="px-3 pb-2 text-[11px] uppercase tracking-wide font-bold bg-gradient-to-r from-orange-500 to-yellow-500 bg-clip-text text-transparent border-b border-orange-100">{t('navigation.kidsGames')}</div>
                 {[
                   { href: '/kids/games/memory', label: t('navigation.memoryMatch') },
                   { href: '/kids/games/word-search', label: t('navigation.wordSearchGame') },
@@ -751,9 +751,9 @@ export function UnifiedNavigation({ showBackButton = false, onBackClick, current
                       window.location.href = href;
                       setShowMobileMenu(false);
                     }}
-                    className="w-full flex items-center space-x-3 px-3 py-2 rounded-md transition-colors text-left text-slate-600 hover:text-slate-800 hover:bg-slate-100"
+                    className="w-full flex items-center space-x-3 px-3 py-2.5 rounded-lg transition-colors text-left text-slate-700 hover:text-orange-700 hover:bg-orange-50 active:bg-orange-100"
                   >
-                    <span className="text-sm">{label}</span>
+                    <span className="text-sm font-medium">{label}</span>
                   </button>
                 ))}
               </div>
