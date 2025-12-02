@@ -9,6 +9,7 @@ import { getPostImage, getPostRating, translateCategory, translateReadTime } fro
 import { CATEGORY_IMAGES, GENERIC_BLOG_IMAGE } from '../constants';
 import { MarkdownRenderer } from './MarkdownRenderer';
 import { trackBlogPostView } from '@/utils/analytics';
+import { ErrorBoundary } from '@/components/ErrorBoundary';
 
 interface BlogPostViewProps {
   post: BlogPost;
@@ -228,7 +229,9 @@ export function BlogPostView({
               </div>
             </div>
             
-            <MarkdownRenderer post={post} usedImageUrls={usedImageUrls} pickFallback={pickFallback} />
+            <ErrorBoundary>
+              <MarkdownRenderer post={post} usedImageUrls={usedImageUrls} pickFallback={pickFallback} />
+            </ErrorBoundary>
           </article>
         </div>
 
