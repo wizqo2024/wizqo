@@ -1,5 +1,6 @@
 import React from 'react';
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
+import { ErrorBoundary } from '@/components/ErrorBoundary';
 import GentleParentingFull from '@/components/blog/GentleParentingFull';
 import HWTInfographic from '@/components/blog/HWTInfographic';
 import MultiplicationWorksheetsBlog from '@/components/blog/MultiplicationWorksheetsBlog';
@@ -218,27 +219,51 @@ export function MarkdownRenderer({ post, usedImageUrls, pickFallback }: Markdown
     if (trimmed === '') continue;
     
     if (post.id === 'gentle-parenting-techniques' && trimmed === '<GentleParentingFull />') {
-      elements.push(<GentleParentingFull key={`gp-full-${i}`} />);
+      elements.push(
+        <ErrorBoundary key={`gp-full-${i}`}>
+          <GentleParentingFull />
+        </ErrorBoundary>
+      );
       continue;
     }
     if (post.id === 'handwriting-without-tears-infographic' && trimmed === '<HWTInfographic />') {
-      elements.push(<HWTInfographic key={`hwt-full-${i}`} />);
+      elements.push(
+        <ErrorBoundary key={`hwt-full-${i}`}>
+          <HWTInfographic />
+        </ErrorBoundary>
+      );
       continue;
     }
     if (post.id === 'free-multiplication-worksheets-pdf' && trimmed === '<MultiplicationWorksheetsBlog />') {
-      elements.push(<MultiplicationWorksheetsBlog key={`multiplication-blog-${i}`} />);
+      elements.push(
+        <ErrorBoundary key={`multiplication-blog-${i}`}>
+          <MultiplicationWorksheetsBlog />
+        </ErrorBoundary>
+      );
       continue;
     }
     if (post.id === 'what-are-cognitive-skills' && trimmed === '<CognitiveSkillsBlog />') {
-      elements.push(<CognitiveSkillsBlog key={`cognitive-skills-blog-${i}`} />);
+      elements.push(
+        <ErrorBoundary key={`cognitive-skills-blog-${i}`}>
+          <CognitiveSkillsBlog />
+        </ErrorBoundary>
+      );
       continue;
     }
     if (post.id === 'free-grade-2-math-worksheets-pdf' && trimmed === '<Grade2MathWorksheetsBlog />') {
-      elements.push(<Grade2MathWorksheetsBlog key={`grade2-math-blog-${i}`} />);
+      elements.push(
+        <ErrorBoundary key={`grade2-math-blog-${i}`}>
+          <Grade2MathWorksheetsBlog />
+        </ErrorBoundary>
+      );
       continue;
     }
     if (post.id === 'micro-journaling-habit' && trimmed === '<MicroJournalingBlog />') {
-      elements.push(<MicroJournalingBlog key={`micro-journaling-blog-${i}`} />);
+      elements.push(
+        <ErrorBoundary key={`micro-journaling-blog-${i}`}>
+          <MicroJournalingBlog />
+        </ErrorBoundary>
+      );
       continue;
     }
     

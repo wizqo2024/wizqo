@@ -187,7 +187,9 @@ export default function HWTInfographic() {
             }
           });
         }
-      } catch {}
+      } catch (error) {
+        console.error('Failed to load Chart.js or create charts:', error);
+      }
     })();
     return () => {
       mounted = false;
