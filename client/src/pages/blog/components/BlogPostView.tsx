@@ -78,8 +78,22 @@ export function BlogPostView({
     headline: post.title,
     description: post.excerpt,
     image: [image],
-    author: { "@type": "Organization", name: "Wizqo" },
-    publisher: { "@type": "Organization", name: "Wizqo" },
+    author: { 
+      "@type": "Organization", 
+      name: "Wizqo",
+      logo: {
+        "@type": "ImageObject",
+        "url": "https://wizqo.com/logo.svg"
+      }
+    },
+    publisher: { 
+      "@type": "Organization", 
+      name: "Wizqo",
+      logo: {
+        "@type": "ImageObject",
+        "url": "https://wizqo.com/logo.svg"
+      }
+    },
     datePublished: post.date,
     dateModified: post.date,
     mainEntityOfPage: { "@type": "WebPage", "@id": canonical }
