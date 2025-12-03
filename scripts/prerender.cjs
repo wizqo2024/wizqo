@@ -51,30 +51,62 @@ function extractH1FromTitle(title) {
   // Remove emojis and special characters at the start
   let h1 = title.replace(/^[\u{1F300}-\u{1F9FF}\u{2600}-\u{26FF}\u{2700}-\u{27BF}\s]+/gu, '');
   
-  // Remove " | Wizqo" or similar branding
-  h1 = h1.replace(/\s*\|\s*Wizqo.*$/i, '');
-  h1 = h1.replace(/\s*–\s*Free\s+PDF.*$/i, '');
-  h1 = h1.replace(/\s*–\s*Free\s+Printable.*$/i, '');
-  h1 = h1.replace(/\s*\(PDF\s*\+\s*Answer\s+Key\).*$/i, '');
-  h1 = h1.replace(/\s*\(PDF\).*$/i, '');
-  h1 = h1.replace(/\s*–\s*Free.*$/i, '');
+  // Remove everything after separators (|, –, -) - these usually contain branding/descriptors
+  h1 = h1.replace(/\s*\|\s*.*$/i, '');
+  h1 = h1.replace(/\s*–\s*.*$/i, '');
+  h1 = h1.replace(/\s*-\s*.*$/i, '');
   
-  // Remove extra descriptive text after main topic (keep first meaningful phrase)
-  // For titles like "Free Converting Fractions to Decimals Worksheets (PDF + Answer Key)"
-  // Keep "Converting Fractions to Decimals Worksheets"
+  // Remove parenthetical content like "(PDF + Answer Key)", "(PDF)", "(Backed by Psychology)", etc.
+  h1 = h1.replace(/\s*\([^)]*\).*$/i, '');
+  
+  // Remove common suffixes and descriptive phrases
+  h1 = h1.replace(/\s*Free\s+PDF.*$/i, '');
+  h1 = h1.replace(/\s*Free\s+Printable.*$/i, '');
+  h1 = h1.replace(/\s*Free.*$/i, '');
+  h1 = h1.replace(/\s*for\s+Kids.*$/i, '');
+  h1 = h1.replace(/\s*for\s+Teachers.*$/i, '');
+  h1 = h1.replace(/\s*for\s+Students.*$/i, '');
+  h1 = h1.replace(/\s*Online.*$/i, '');
+  h1 = h1.replace(/\s*Welcome.*$/i, '');
+  h1 = h1.replace(/\s*Questions\s+&\s+Feedback.*$/i, '');
+  h1 = h1.replace(/\s*Teaching\s+Tips.*$/i, '');
+  h1 = h1.replace(/\s*Learning\s+Blog.*$/i, '');
+  h1 = h1.replace(/\s*Play\s+Games.*$/i, '');
+  h1 = h1.replace(/\s*Download.*$/i, '');
+  
+  // Remove "Free" from the beginning
   h1 = h1.replace(/^Free\s+/i, '');
   
-  // For blog posts with emojis, remove them and keep main text
+  // For titles with multiple phrases, keep only the first main phrase
+  // Example: "Free Printable Worksheet Ideas, Teaching Tips & Learning Blog" 
+  // Should become just "Printable Worksheet Ideas" or even shorter
+  const phrases = h1.split(/[,&]/);
+  if (phrases.length > 1) {
+    // Take first phrase and clean it
+    h1 = phrases[0].trim();
+    // Remove "Free" again if it appears
+    h1 = h1.replace(/^Free\s+/i, '');
+  }
+  
+  // Clean up extra whitespace
   h1 = h1.trim();
   
-  // If H1 would be too short or empty, use a simplified version
-  if (h1.length < 10) {
-    // Fallback: use first 50 chars or up to first dash/parenthesis
-    h1 = title.replace(/[\u{1F300}-\u{1F9FF}\u{2600}-\u{26FF}\u{2700}-\u{27BF}]/gu, '').trim();
-    const match = h1.match(/^([^|–(]+)/);
-    if (match) {
-      h1 = match[1].trim();
-    }
+  // If H1 is still too long or similar to title, extract just the core topic
+  // Take first 2-4 meaningful words (skip "Free", "How to", etc.)
+  if (h1.length > 50 || h1 === title.replace(/[\u{1F300}-\u{1F9FF}\u{2600}-\u{26FF}\u{2700}-\u{27BF}]/gu, '').trim()) {
+    const words = h1.split(/\s+/).filter(w => 
+      w.length > 0 && 
+      !/^(Free|How|to|Be|The|A|An|And|Or|But|For|With|From|About|Get|Make|Create|Download|Play|Learn|Find|Try|Easy|Best|Top|New|Old|Good|Bad|Online|PDF|Printable|Worksheets?|Games?|Kids?|Students?|Teachers?|Parents?)$/i.test(w)
+    );
+    h1 = words.slice(0, 5).join(' ').trim();
+  }
+  
+  // Final fallback if still too short or empty
+  if (!h1 || h1.length < 5) {
+    // Use first 3-4 meaningful words of original title
+    const words = title.replace(/[\u{1F300}-\u{1F9FF}\u{2600}-\u{26FF}\u{2700}-\u{27BF}]/gu, '').split(/\s+/).filter(w => w.length > 0);
+    h1 = words.slice(0, 4).join(' ').replace(/[|–\-\(].*$/, '').trim();
+    h1 = h1.replace(/^Free\s+/i, '');
   }
   
   return h1 || title; // Fallback to original if all else fails
