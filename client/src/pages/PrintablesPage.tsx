@@ -3058,109 +3058,20 @@ export function PrintablesPage() {
             -webkit-print-color-adjust: exact !important;
             print-color-adjust: exact !important;
           }
-          /* Layout fixes for kindergarten-counting-visual worksheet only */
-          [data-worksheet-content="true"][data-doc="kindergarten-counting-visual"] * {
-            box-sizing: border-box !important;
-            overflow: visible !important;
+          /* Print layout fix for kindergarten-counting-visual worksheet - USE ONLY THESE STYLES */
+          [data-worksheet-content="true"][data-doc="kindergarten-counting-visual"] .question-section {
+            page-break-inside: avoid !important;
+            break-inside: avoid !important;
           }
+
           [data-worksheet-content="true"][data-doc="kindergarten-counting-visual"] img,
-          [data-worksheet-content="true"][data-doc="kindergarten-counting-visual"] svg,
-          [data-worksheet-content="true"][data-doc="kindergarten-counting-visual"] .emoji,
-          [data-worksheet-content="true"][data-doc="kindergarten-counting-visual"] .icon {
-            max-width: 100% !important;
-            height: auto !important;
-            object-fit: contain !important;
-            overflow: visible !important;
-          }
-          [data-worksheet-content="true"][data-doc="kindergarten-counting-visual"] .flex,
-          [data-worksheet-content="true"][data-doc="kindergarten-counting-visual"] [class*="flex"] {
-            flex-wrap: wrap !important;
-            align-items: flex-start !important;
-            overflow: visible !important;
-          }
-          [data-worksheet-content="true"][data-doc="kindergarten-counting-visual"] *[class*="h-"],
-          [data-worksheet-content="true"][data-doc="kindergarten-counting-visual"] *[class*="min-h-"],
-          [data-worksheet-content="true"][data-doc="kindergarten-counting-visual"] *[class*="max-h-"],
-          [data-worksheet-content="true"][data-doc="kindergarten-counting-visual"] *[style*="height"] {
-            height: auto !important;
-            min-height: auto !important;
-            max-height: none !important;
-          }
-          [data-worksheet-content="true"][data-doc="kindergarten-counting-visual"] .border-4,
-          [data-worksheet-content="true"][data-doc="kindergarten-counting-visual"] .border-2,
-          [data-worksheet-content="true"][data-doc="kindergarten-counting-visual"] [class*="border"] {
-            overflow: visible !important;
-          }
-          [data-worksheet-content="true"][data-doc="kindergarten-counting-visual"] .max-w-4xl {
-            padding: 0 !important;
-            margin: 0.95in 0.5in 0.5in 0.5in !important;
-            page-break-inside: auto !important;
-            min-height: auto !important;
-            height: auto !important;
-          }
-          [data-worksheet-content="true"][data-doc="kindergarten-counting-visual"] .break-inside-avoid {
-            page-break-inside: auto !important;
-            overflow: visible !important;
-          }
-          /* Fix empty gaps between worksheet sections */
-          [data-worksheet-content="true"] .worksheet-section + .worksheet-section {
-            margin-top: 0 !important;
-            padding-top: 0 !important;
-          }
-          /* Ensure sections stack tightly without gaps */
-          [data-worksheet-content="true"] section,
-          [data-worksheet-content="true"] .worksheet-section {
-            margin: 0 !important;
-            padding: 0.25rem !important;
-            page-break-before: auto !important;
-            page-break-after: auto !important;
-            page-break-inside: auto !important;
-          }
-          /* SUPER STRONG ANTI PAGE-BREAK FIX - Prevent question sections from breaking */
-          .question-section,
-          .question-block,
-          .counting-item,
-          .count-group,
-          .question-section-wrapper {
-            page-break-inside: avoid !important;
-            break-inside: avoid !important;
-            -webkit-region-break-inside: avoid !important;
-            -webkit-column-break-inside: avoid !important;
-            overflow: hidden !important;
-            display: block !important;
-            padding: 10px 0 !important;
-            padding-bottom: 15px !important;
-            margin-bottom: 0.5rem !important;
-            min-height: auto !important;
-            height: auto !important;
-            max-height: 90vh !important;
-          }
-          /* Prevent images/SVG from breaking away from questions */
-          .question-section img,
-          .question-section svg,
-          .question-section picture,
-          .count-group img,
-          .count-group svg,
-          img {
-            page-break-inside: avoid !important;
-            break-inside: avoid !important;
-            -webkit-region-break-inside: avoid !important;
-            -webkit-column-break-inside: avoid !important;
-            max-width: 100% !important;
-            height: auto !important;
-            margin: 2px !important;
-          }
-          /* Keep answer boxes with questions */
-          .question-section .answer-box,
-          .question-section [class*="answer"],
-          .question-section [class*="border-purple"],
-          .question-section [class*="border-pink"] {
+          [data-worksheet-content="true"][data-doc="kindergarten-counting-visual"] svg {
             page-break-inside: avoid !important;
             break-inside: avoid !important;
           }
-          /* Fix box-sizing for all elements */
-          * {
-            box-sizing: border-box !important;
+
+          [data-worksheet-content="true"][data-doc="kindergarten-counting-visual"] .question-section > * {
+            page-break-inside: avoid !important;
           }
         }
       `}</style>
