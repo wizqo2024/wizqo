@@ -3675,7 +3675,7 @@ const renderers: Record<string, Renderer> = {
             const emoji = objectEmojis[prob.objects[0]] || '⭐'
             const objectName = t(`worksheets.objectNames.${prob.objects[0]}`) || prob.objects[0]
             return (
-              <div key={idx} className="rounded-xl border-2 border-purple-300 bg-gradient-to-br from-purple-100 via-pink-100 to-indigo-100 p-5 shadow-md hover:shadow-lg transition-shadow">
+              <div key={idx} className="question-section rounded-xl border-2 border-purple-300 bg-gradient-to-br from-purple-100 via-pink-100 to-indigo-100 p-5 shadow-md hover:shadow-lg transition-shadow">
                 <p className="text-base font-bold text-purple-800 mb-3 flex items-center gap-2">
                   <span className="text-2xl">{emoji}</span>
                   <span>{t('worksheets.countThe').replace('{{object}}', objectName)}</span>

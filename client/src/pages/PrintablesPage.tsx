@@ -1984,6 +1984,35 @@ export function PrintablesPage() {
           page-break-inside: auto !important;
         }
         
+        /* Prevent question sections from breaking across pages */
+        .question-section {
+          page-break-inside: avoid !important;
+          break-inside: avoid !important;
+          -webkit-region-break-inside: avoid !important;
+          -webkit-column-break-inside: avoid !important;
+          padding: 20px 0 !important;
+          margin-bottom: 1rem !important;
+        }
+        
+        /* Prevent images from breaking away from questions */
+        .question-section img,
+        .question-section svg,
+        .question-section picture,
+        img {
+          page-break-inside: avoid !important;
+          break-inside: avoid !important;
+          -webkit-region-break-inside: avoid !important;
+          -webkit-column-break-inside: avoid !important;
+        }
+        
+        /* Keep answer boxes with questions */
+        .question-section .answer-box,
+        .question-section [class*="answer"],
+        .question-section [class*="border-purple"] {
+          page-break-inside: avoid !important;
+          break-inside: avoid !important;
+        }
+        
         /* CRITICAL: Main content container - match index.css @media print exactly */
         [data-worksheet-content="true"] {
           width: 794px !important;
@@ -3065,6 +3094,32 @@ export function PrintablesPage() {
             page-break-before: auto !important;
             page-break-after: auto !important;
             page-break-inside: auto !important;
+          }
+          /* Prevent question sections from breaking across pages */
+          .question-section {
+            page-break-inside: avoid !important;
+            break-inside: avoid !important;
+            -webkit-region-break-inside: avoid !important;
+            -webkit-column-break-inside: avoid !important;
+            padding: 20px 0 !important;
+            margin-bottom: 1rem !important;
+          }
+          /* Prevent images from breaking away from questions */
+          .question-section img,
+          .question-section svg,
+          .question-section picture,
+          img {
+            page-break-inside: avoid !important;
+            break-inside: avoid !important;
+            -webkit-region-break-inside: avoid !important;
+            -webkit-column-break-inside: avoid !important;
+          }
+          /* Keep answer boxes with questions */
+          .question-section .answer-box,
+          .question-section [class*="answer"],
+          .question-section [class*="border-purple"] {
+            page-break-inside: avoid !important;
+            break-inside: avoid !important;
           }
         }
       `}</style>
