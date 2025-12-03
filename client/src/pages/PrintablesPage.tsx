@@ -2895,16 +2895,8 @@ export function PrintablesPage() {
             padding: 20px 24px 24px 24px !important;
             margin: 0.5in !important;
           }
-          /* Extra top margin for kindergarten-counting-1-10 to accommodate logo above border and prevent cropping */
-          [data-worksheet-content="true"][data-doc="kindergarten-counting-1-10"] > div:first-child,
-          [data-worksheet-content="true"][data-doc="kindergarten-counting-1-10"] .max-w-4xl {
-            margin-top: 0.95in !important;
-            margin-bottom: 0.5in !important;
-            margin-left: 0.5in !important;
-            margin-right: 0.5in !important;
-          }
-          /* Logo and domain for kindergarten-counting-1-10 worksheet only - positioned above border */
-          [data-worksheet-content="true"][data-doc="kindergarten-counting-1-10"] .wizqo-logo-print {
+          /* Logo and domain for all worksheets - positioned above border */
+          [data-worksheet-content="true"] .wizqo-logo-print {
             position: absolute !important;
             top: -65px !important;
             left: 0px !important;
@@ -2919,14 +2911,14 @@ export function PrintablesPage() {
             -webkit-print-color-adjust: exact !important;
             print-color-adjust: exact !important;
           }
-          [data-worksheet-content="true"][data-doc="kindergarten-counting-1-10"] .wizqo-logo-print img {
+          [data-worksheet-content="true"] .wizqo-logo-print img {
             width: 45px !important;
             height: 45px !important;
             object-fit: contain !important;
             -webkit-print-color-adjust: exact !important;
             print-color-adjust: exact !important;
           }
-          [data-worksheet-content="true"][data-doc="kindergarten-counting-1-10"] .wizqo-logo-print .domain-text {
+          [data-worksheet-content="true"] .wizqo-logo-print .domain-text {
             font-size: 11px !important;
             font-weight: 600 !important;
             color: #4845D2 !important;
@@ -2934,6 +2926,11 @@ export function PrintablesPage() {
             letter-spacing: 0.5px !important;
             -webkit-print-color-adjust: exact !important;
             print-color-adjust: exact !important;
+          }
+          /* Extra top margin for all worksheets to accommodate logo above border and prevent cropping */
+          [data-worksheet-content="true"] > div:first-child,
+          [data-worksheet-content="true"] .max-w-4xl {
+            margin-top: 0.95in !important;
           }
         }
       `}</style>
