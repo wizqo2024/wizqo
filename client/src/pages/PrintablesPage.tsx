@@ -299,8 +299,12 @@ function WorksheetSectionWrapper({
         WebkitRegionBreakInside: 'auto',
         pageBreakBefore: 'auto', // Ensure no forced page break
         breakBefore: 'auto',
+        pageBreakAfter: 'auto', // Allow natural page breaks
+        breakAfter: 'auto',
         marginTop: 0,
-        marginBottom: 0
+        marginBottom: 0,
+        minHeight: 'auto', // Remove min-height restrictions in print
+        height: 'auto' // Remove height restrictions in print
       } as React.CSSProperties}
     >
       {/* Decorative corner accent */}
@@ -1933,6 +1937,53 @@ export function PrintablesPage() {
           background-color: white !important;
         }
         
+        /* Universal print reset - fix empty gaps */
+        * {
+          box-shadow: none !important;
+          overflow: visible !important;
+        }
+        
+        /* Disable flex/grid layouts in print - use block layout */
+        .flex, .grid, [class*="flex"], [class*="grid"] {
+          display: block !important;
+        }
+        
+        /* Remove all min-height/height restrictions */
+        [class*="min-h-"], [class*="h-"], [style*="min-height"], [style*="height"] {
+          min-height: auto !important;
+          height: auto !important;
+        }
+        
+        /* Remove forced page breaks */
+        [style*="page-break-before"], [style*="page-break-after"], [style*="page-break-inside"] {
+          page-break-before: auto !important;
+          page-break-after: auto !important;
+          page-break-inside: auto !important;
+        }
+        
+        /* Reduce margins/padding that expand on print */
+        [class*="mb-"], [class*="mt-"], [class*="p-"], [class*="m-"] {
+          margin-bottom: 0.25rem !important;
+          margin-top: 0.25rem !important;
+          padding: 0.25rem !important;
+        }
+        
+        /* Fix empty gaps between worksheet sections */
+        [data-worksheet-content="true"] .worksheet-section + .worksheet-section {
+          margin-top: 0 !important;
+          padding-top: 0 !important;
+        }
+        
+        /* Ensure sections stack tightly without gaps */
+        [data-worksheet-content="true"] section,
+        [data-worksheet-content="true"] .worksheet-section {
+          margin: 0 !important;
+          padding: 0.25rem !important;
+          page-break-before: auto !important;
+          page-break-after: auto !important;
+          page-break-inside: auto !important;
+        }
+        
         /* CRITICAL: Main content container - match index.css @media print exactly */
         [data-worksheet-content="true"] {
           width: 794px !important;
@@ -2048,19 +2099,19 @@ export function PrintablesPage() {
         section[class*="worksheet-section"],
         .worksheet-section {
           display: block !important;
-          break-inside: avoid !important;
-          page-break-inside: avoid !important;
-          -webkit-region-break-inside: avoid !important;
-          -webkit-column-break-inside: avoid !important;
-          orphans: 999 !important;
-          widows: 999 !important;
+          break-inside: auto !important;
+          page-break-inside: auto !important;
+          -webkit-region-break-inside: auto !important;
+          -webkit-column-break-inside: auto !important;
+          orphans: 2 !important;
+          widows: 2 !important;
           overflow: visible !important;
-          margin-bottom: 1.5rem !important;
+          margin-bottom: 0.5rem !important;
           margin-top: 0 !important;
-          padding-left: 0.5rem !important;
-          padding-right: 0.5rem !important;
-          padding-top: 0.5rem !important;
-          padding-bottom: 0.5rem !important;
+          padding-left: 0.25rem !important;
+          padding-right: 0.25rem !important;
+          padding-top: 0.25rem !important;
+          padding-bottom: 0.25rem !important;
           background-color: white !important;
           background: white !important;
           max-width: 100% !important;
@@ -2068,6 +2119,8 @@ export function PrintablesPage() {
           overflow-x: hidden !important;
           border: 1px solid #e2e8f0 !important;
           border-radius: 4px !important;
+          min-height: auto !important;
+          height: auto !important;
         }
         
         /* First section should have NO top padding/margin */
@@ -2814,6 +2867,11 @@ export function PrintablesPage() {
             size: A4;
             margin: 0 !important;
           }
+          /* Universal print reset - fix 90% of spacing problems */
+          * {
+            box-shadow: none !important;
+            overflow: visible !important;
+          }
           html, body, #root, [data-worksheet-content="true"] {
             background-color: white !important;
             background: white !important;
@@ -2824,6 +2882,29 @@ export function PrintablesPage() {
             padding: 0 !important; 
             font-size: 11pt !important;
             line-height: 1.3 !important;
+            min-height: auto !important;
+            height: auto !important;
+          }
+          /* Disable flex/grid layouts in print - use block layout */
+          .flex, .grid, [class*="flex"], [class*="grid"] {
+            display: block !important;
+          }
+          /* Remove all min-height/height restrictions */
+          [class*="min-h-"], [class*="h-"], [style*="min-height"], [style*="height"] {
+            min-height: auto !important;
+            height: auto !important;
+          }
+          /* Remove forced page breaks */
+          [style*="page-break-before"], [style*="page-break-after"], [style*="page-break-inside"] {
+            page-break-before: auto !important;
+            page-break-after: auto !important;
+            page-break-inside: auto !important;
+          }
+          /* Reduce margins/padding that expand on print */
+          [class*="mb-"], [class*="mt-"], [class*="p-"], [class*="m-"] {
+            margin-bottom: 0.25rem !important;
+            margin-top: 0.25rem !important;
+            padding: 0.25rem !important;
           }
           /* Decorative emoji-style border using CSS patterns - applied to ALL worksheets */
           [data-worksheet-content="true"] > div:first-child::before,
@@ -2963,11 +3044,27 @@ export function PrintablesPage() {
           [data-worksheet-content="true"][data-doc="kindergarten-counting-visual"] .max-w-4xl {
             padding: 0 !important;
             margin: 0.95in 0.5in 0.5in 0.5in !important;
-            page-break-inside: avoid !important;
+            page-break-inside: auto !important;
+            min-height: auto !important;
+            height: auto !important;
           }
           [data-worksheet-content="true"][data-doc="kindergarten-counting-visual"] .break-inside-avoid {
-            page-break-inside: avoid !important;
+            page-break-inside: auto !important;
             overflow: visible !important;
+          }
+          /* Fix empty gaps between worksheet sections */
+          [data-worksheet-content="true"] .worksheet-section + .worksheet-section {
+            margin-top: 0 !important;
+            padding-top: 0 !important;
+          }
+          /* Ensure sections stack tightly without gaps */
+          [data-worksheet-content="true"] section,
+          [data-worksheet-content="true"] .worksheet-section {
+            margin: 0 !important;
+            padding: 0.25rem !important;
+            page-break-before: auto !important;
+            page-break-after: auto !important;
+            page-break-inside: auto !important;
           }
         }
       `}</style>
