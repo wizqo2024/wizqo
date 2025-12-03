@@ -2807,7 +2807,7 @@ export function PrintablesPage() {
     }
   }, [urlSearch, doc])
   return (
-    <div className="min-h-screen bg-white" data-worksheet-content="true">
+    <div className="min-h-screen bg-white" data-worksheet-content="true" data-doc={doc || primaryDoc || ''}>
       <style>{`
         @media print {
           @page { 
@@ -2895,10 +2895,48 @@ export function PrintablesPage() {
             padding: 20px 24px 24px 24px !important;
             margin: 0.5in !important;
           }
+          /* Logo and domain for kindergarten-counting-1-10 worksheet only */
+          [data-worksheet-content="true"][data-doc="kindergarten-counting-1-10"] .wizqo-logo-print {
+            position: absolute !important;
+            top: -12px !important;
+            left: -12px !important;
+            z-index: 20 !important;
+            display: flex !important;
+            flex-direction: column !important;
+            align-items: flex-start !important;
+            background: white !important;
+            padding: 4px 6px !important;
+            border-radius: 4px !important;
+            -webkit-print-color-adjust: exact !important;
+            print-color-adjust: exact !important;
+          }
+          [data-worksheet-content="true"][data-doc="kindergarten-counting-1-10"] .wizqo-logo-print img {
+            width: 60px !important;
+            height: 60px !important;
+            object-fit: contain !important;
+            margin-bottom: 4px !important;
+            -webkit-print-color-adjust: exact !important;
+            print-color-adjust: exact !important;
+          }
+          [data-worksheet-content="true"][data-doc="kindergarten-counting-1-10"] .wizqo-logo-print .domain-text {
+            font-size: 9px !important;
+            font-weight: 600 !important;
+            color: #4845D2 !important;
+            white-space: nowrap !important;
+            -webkit-print-color-adjust: exact !important;
+            print-color-adjust: exact !important;
+          }
         }
       `}</style>
       {/* Print layout optimized - updated 2025-01-11 */}
       <div className={`max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-10 print:p-0 print:py-0 print:mt-0 ${isPreview ? 'preview-mode' : ''}`}>
+        {/* Logo and domain for kindergarten-counting-1-10 worksheet only */}
+        {(doc === 'kindergarten-counting-1-10' || primaryDoc === 'kindergarten-counting-1-10') && (
+          <div className="hidden print:block wizqo-logo-print">
+            <img src="/logo.svg" alt="Wizqo Logo" />
+            <span className="domain-text">www.wizqo.com</span>
+          </div>
+        )}
         {/* Customization header (print view - appears once at top) */}
         {(teacherName || className || studentNames.length > 0) && !isPreview && (
           <div className="hidden print:block print-customization-header" aria-hidden>
