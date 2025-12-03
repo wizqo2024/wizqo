@@ -2898,7 +2898,7 @@ export function PrintablesPage() {
           /* Extra top margin for kindergarten-counting-1-10 to accommodate logo above border and prevent cropping */
           [data-worksheet-content="true"][data-doc="kindergarten-counting-1-10"] > div:first-child,
           [data-worksheet-content="true"][data-doc="kindergarten-counting-1-10"] .max-w-4xl {
-            margin-top: 0.85in !important;
+            margin-top: 0.95in !important;
             margin-bottom: 0.5in !important;
             margin-left: 0.5in !important;
             margin-right: 0.5in !important;
