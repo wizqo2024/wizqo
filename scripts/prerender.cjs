@@ -47,9 +47,30 @@ function escapeHtml(s) {
     .replace(/>/g, '&gt;');
 }
 
+function ensureViewport(html) {
+  // Ensure viewport meta tag is always present
+  const viewportPattern = /<meta\s+name=["']viewport["'][^>]*>/i;
+  if (!viewportPattern.test(html)) {
+    // Add viewport tag right after charset meta tag
+    const charsetMatch = html.match(/<meta\s+charset=["'][^"']*["'][^>]*>/i);
+    if (charsetMatch) {
+      const viewportTag = '    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes" />';
+      return html.replace(charsetMatch[0], charsetMatch[0] + '\n' + viewportTag);
+    } else {
+      // If no charset found, add it before </head>
+      const viewportTag = '    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes" />';
+      return html.replace(/<\/head>/i, `${viewportTag}\n</head>`);
+    }
+  }
+  return html;
+}
+
 function setMeta(html, { title, description, canonical, ogImage, ogType = 'website', twitterCard = 'summary_large_image', robots = 'index, follow', keywords }) {
   let out = html;
   out = setTitle(out, title);
+  
+  // Ensure viewport tag is present
+  out = ensureViewport(out);
   
   // More aggressive replacement - replace entire tag including content
   // description
@@ -402,6 +423,8 @@ ${gameLinks}
     
     // Replace the seo-fallback content
     html = html.replace(/<main id="seo-fallback"[^>]*>[\s\S]*?<\/main>/, fractionsToDecimalsContent);
+    // Ensure viewport tag is present (double-check after all processing)
+    html = ensureViewport(html);
   } else if (route.path === '/worksheets/order-of-operations-worksheets') {
     // All SEO scripts already removed above before setMeta, but be extra aggressive here
     // Remove any script that contains "Simplified SEO update" comment (both old and new versions)
@@ -478,6 +501,8 @@ ${gameLinks}
     
     // Replace the seo-fallback content
     html = html.replace(/<main id="seo-fallback"[^>]*>[\s\S]*?<\/main>/, orderOfOperationsContent);
+    // Ensure viewport tag is present (double-check after all processing)
+    html = ensureViewport(html);
   } else if (route.path === '/interactive-worksheets-generator') {
     // Replace fallback content with interactive worksheets-specific content
     const interactiveContent = `<main id="seo-fallback" style="display: none; max-width: 1200px; margin: 0 auto; padding: 2rem 1rem; font-family: system-ui, -apple-system, sans-serif;">
@@ -529,6 +554,9 @@ ${gameLinks}
     // Keep it hidden but with minimal content
     html = html.replace(/<main id="seo-fallback"[^>]*>[\s\S]*?<\/main>/, `<main id="seo-fallback" style="display: none;"><h1>${escapeHtml(route.title.replace(' | Wizqo', ''))}</h1><p>${escapeHtml(route.description)}</p></main>`);
   }
+  
+  // Final check: ensure viewport tag is always present
+  html = ensureViewport(html);
   
   return html;
 }
