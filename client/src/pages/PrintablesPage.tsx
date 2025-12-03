@@ -3058,20 +3058,79 @@ export function PrintablesPage() {
             -webkit-print-color-adjust: exact !important;
             print-color-adjust: exact !important;
           }
-          /* Print layout fix for kindergarten-counting-visual worksheet - USE ONLY THESE STYLES */
+          /* --------------------------------------------------------------
+             PERFECT PRINT CONTROL FOR kindergarten-counting-visual WORKSHEET
+             Fixes all page break issues - keeps questions together
+          --------------------------------------------------------------- */
+          
+          /* RESET BROWSER WEIRDNESS */
+          [data-worksheet-content="true"][data-doc="kindergarten-counting-visual"] *,
+          [data-worksheet-content="true"][data-doc="kindergarten-counting-visual"] *::before,
+          [data-worksheet-content="true"][data-doc="kindergarten-counting-visual"] *::after {
+            box-shadow: none !important;
+            overflow: visible !important;
+          }
+
+          /* --------------------------------------------------------------------
+             THE FIX: ENSURE ENTIRE QUESTION BLOCKS NEVER BREAK ACROSS PAGES
+          -------------------------------------------------------------------- */
+
+          /* Disable Tailwind flex/grid during print (THIS FIXES BREAKING!) */
+          [data-worksheet-content="true"][data-doc="kindergarten-counting-visual"] .question-section,
+          [data-worksheet-content="true"][data-doc="kindergarten-counting-visual"] .question-section-wrapper,
+          [data-worksheet-content="true"][data-doc="kindergarten-counting-visual"] .question-block,
+          [data-worksheet-content="true"][data-doc="kindergarten-counting-visual"] .count-group {
+            display: block !important;
+          }
+
+          /* Prevent breaks at all levels */
+          [data-worksheet-content="true"][data-doc="kindergarten-counting-visual"] .question-section,
+          [data-worksheet-content="true"][data-doc="kindergarten-counting-visual"] .question-section-wrapper,
+          [data-worksheet-content="true"][data-doc="kindergarten-counting-visual"] .question-block,
+          [data-worksheet-content="true"][data-doc="kindergarten-counting-visual"] .count-group,
+          [data-worksheet-content="true"][data-doc="kindergarten-counting-visual"] .question-section > *,
+          [data-worksheet-content="true"][data-doc="kindergarten-counting-visual"] .question-section svg,
+          [data-worksheet-content="true"][data-doc="kindergarten-counting-visual"] .question-section img {
+            break-inside: avoid !important;
+            page-break-inside: avoid !important;
+            page-break-before: auto !important;
+            page-break-after: auto !important;
+            overflow: visible !important;
+          }
+
+          /* Force questions to behave like full atomic blocks */
           [data-worksheet-content="true"][data-doc="kindergarten-counting-visual"] .question-section {
-            page-break-inside: avoid !important;
-            break-inside: avoid !important;
+            width: 100% !important;
+            float: none !important;
+            clear: both !important;
+            margin: 8px 0 !important;
+            padding: 12px !important;
+            break-before: auto !important;
+            break-after: auto !important;
           }
 
-          [data-worksheet-content="true"][data-doc="kindergarten-counting-visual"] img,
+          /* SVGs should never break */
           [data-worksheet-content="true"][data-doc="kindergarten-counting-visual"] svg {
-            page-break-inside: avoid !important;
+            max-width: 100% !important;
+            height: auto !important;
+            display: block !important;
             break-inside: avoid !important;
           }
 
-          [data-worksheet-content="true"][data-doc="kindergarten-counting-visual"] .question-section > * {
-            page-break-inside: avoid !important;
+          /* --------------------------------------------------------------------
+             SPACING FIXES
+          -------------------------------------------------------------------- */
+
+          [data-worksheet-content="true"][data-doc="kindergarten-counting-visual"] .space-y-2 > *,
+          [data-worksheet-content="true"][data-doc="kindergarten-counting-visual"] .space-y-1 > * {
+            margin-top: 0 !important;
+            margin-bottom: 6px !important;
+          }
+
+          [data-worksheet-content="true"][data-doc="kindergarten-counting-visual"] .worksheet-section {
+            margin: 0 !important;
+            padding: 8px !important;
+            page-break-inside: auto !important;
           }
         }
       `}</style>
