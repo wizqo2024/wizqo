@@ -1984,33 +1984,54 @@ export function PrintablesPage() {
           page-break-inside: auto !important;
         }
         
-        /* Prevent question sections from breaking across pages */
-        .question-section {
+        /* SUPER STRONG ANTI PAGE-BREAK FIX - Prevent question sections from breaking */
+        .question-section,
+        .question-block,
+        .counting-item,
+        .count-group,
+        .question-section-wrapper {
           page-break-inside: avoid !important;
           break-inside: avoid !important;
           -webkit-region-break-inside: avoid !important;
           -webkit-column-break-inside: avoid !important;
-          padding: 20px 0 !important;
-          margin-bottom: 1rem !important;
+          overflow: hidden !important;
+          display: block !important;
+          padding: 10px 0 !important;
+          padding-bottom: 15px !important;
+          margin-bottom: 0.5rem !important;
+          min-height: auto !important;
+          height: auto !important;
+          max-height: 90vh !important;
         }
         
-        /* Prevent images from breaking away from questions */
+        /* Prevent images/SVG from breaking away from questions */
         .question-section img,
         .question-section svg,
         .question-section picture,
+        .count-group img,
+        .count-group svg,
         img {
           page-break-inside: avoid !important;
           break-inside: avoid !important;
           -webkit-region-break-inside: avoid !important;
           -webkit-column-break-inside: avoid !important;
+          max-width: 100% !important;
+          height: auto !important;
+          margin: 2px !important;
         }
         
         /* Keep answer boxes with questions */
         .question-section .answer-box,
         .question-section [class*="answer"],
-        .question-section [class*="border-purple"] {
+        .question-section [class*="border-purple"],
+        .question-section [class*="border-pink"] {
           page-break-inside: avoid !important;
           break-inside: avoid !important;
+        }
+        
+        /* Fix box-sizing for all elements */
+        * {
+          box-sizing: border-box !important;
         }
         
         /* CRITICAL: Main content container - match index.css @media print exactly */
@@ -3095,31 +3116,51 @@ export function PrintablesPage() {
             page-break-after: auto !important;
             page-break-inside: auto !important;
           }
-          /* Prevent question sections from breaking across pages */
-          .question-section {
+          /* SUPER STRONG ANTI PAGE-BREAK FIX - Prevent question sections from breaking */
+          .question-section,
+          .question-block,
+          .counting-item,
+          .count-group,
+          .question-section-wrapper {
             page-break-inside: avoid !important;
             break-inside: avoid !important;
             -webkit-region-break-inside: avoid !important;
             -webkit-column-break-inside: avoid !important;
-            padding: 20px 0 !important;
-            margin-bottom: 1rem !important;
+            overflow: hidden !important;
+            display: block !important;
+            padding: 10px 0 !important;
+            padding-bottom: 15px !important;
+            margin-bottom: 0.5rem !important;
+            min-height: auto !important;
+            height: auto !important;
+            max-height: 90vh !important;
           }
-          /* Prevent images from breaking away from questions */
+          /* Prevent images/SVG from breaking away from questions */
           .question-section img,
           .question-section svg,
           .question-section picture,
+          .count-group img,
+          .count-group svg,
           img {
             page-break-inside: avoid !important;
             break-inside: avoid !important;
             -webkit-region-break-inside: avoid !important;
             -webkit-column-break-inside: avoid !important;
+            max-width: 100% !important;
+            height: auto !important;
+            margin: 2px !important;
           }
           /* Keep answer boxes with questions */
           .question-section .answer-box,
           .question-section [class*="answer"],
-          .question-section [class*="border-purple"] {
+          .question-section [class*="border-purple"],
+          .question-section [class*="border-pink"] {
             page-break-inside: avoid !important;
             break-inside: avoid !important;
+          }
+          /* Fix box-sizing for all elements */
+          * {
+            box-sizing: border-box !important;
           }
         }
       `}</style>
@@ -20219,19 +20260,19 @@ export function PrintablesPage() {
             }
 
             return (
-              <div className="border-4 border-pink-200 rounded-2xl p-5 my-4 bg-pink-50 flex flex-wrap items-start break-inside-avoid" style={{ boxShadow: '2px 2px 8px rgba(0,0,0,0.1)', overflow: 'visible', height: 'auto', minHeight: 'auto' }}>
-                <div className="min-w-[150px] font-bold text-2xl text-pink-900 mb-2 md:mb-0">
+              <div className="question-section question-block count-group border-4 border-pink-200 rounded-2xl print:p-3 p-5 print:my-2 my-4 bg-pink-50 print:flex-col flex flex-wrap items-start break-inside-avoid" style={{ boxShadow: '2px 2px 8px rgba(0,0,0,0.1)', overflow: 'hidden', height: 'auto', minHeight: 'auto', display: 'block' }}>
+                <div className="min-w-[150px] font-bold text-2xl print:text-xl text-pink-900 mb-2 md:mb-0 print:mb-1">
                   How many {title}?
                 </div>
-                <div className="mx-5 flex-1 min-w-0" style={{ overflow: 'visible' }}>
-                  <svg width={svgWidth} height={svgHeight} className="max-w-full h-auto" style={{ maxWidth: '100%', height: 'auto', overflow: 'visible' }} viewBox={`0 0 ${svgWidth} ${svgHeight}`} preserveAspectRatio="xMidYMid meet">
+                <div className="mx-5 print:mx-0 flex-1 min-w-0 print:w-full" style={{ overflow: 'visible' }}>
+                  <svg width={svgWidth} height={svgHeight} className="max-w-full h-auto print:max-h-[120px]" style={{ maxWidth: '100%', height: 'auto', overflow: 'visible' }} viewBox={`0 0 ${svgWidth} ${svgHeight}`} preserveAspectRatio="xMidYMid meet">
                     {characterPositions.map((pos, index) => (
                       <Component key={index} x={pos.x} y={pos.y} size={charSize} />
                     ))}
                   </svg>
                 </div>
-                <div className="ml-auto min-w-[80px] mt-2 md:mt-0" style={{ flexShrink: 0 }}>
-                  <svg width="80" height="80" viewBox="0 0 80 80" style={{ maxWidth: '100%', height: 'auto' }} preserveAspectRatio="xMidYMid meet">
+                <div className="ml-auto print:ml-0 print:mt-1 min-w-[80px] mt-2 md:mt-0" style={{ flexShrink: 0 }}>
+                  <svg width="80" height="80" viewBox="0 0 80 80" className="print:w-16 print:h-16" style={{ maxWidth: '100%', height: 'auto' }} preserveAspectRatio="xMidYMid meet">
                     <rect
                       x="0"
                       y="0"
@@ -20289,17 +20330,18 @@ export function PrintablesPage() {
                   </div>
                 </div>
               </div>
-              <div className="space-y-4 break-inside-avoid" style={{ pageBreakAfter: 'auto' }}>
+              <div className="space-y-2 print:space-y-1" style={{ pageBreakAfter: 'auto' }}>
                 {problems.map((p, i) => {
                   const charData = characterComponents[p.charIndex];
                   return (
-                    <CountingProblemCard
-                      key={i}
-                      title={charData.title}
-                      count={p.count}
-                      Component={charData.Component}
-                      layout={p.layout}
-                    />
+                    <div key={i} className="question-section-wrapper">
+                      <CountingProblemCard
+                        title={charData.title}
+                        count={p.count}
+                        Component={charData.Component}
+                        layout={p.layout}
+                      />
+                    </div>
                   );
                 })}
               </div>
