@@ -2927,6 +2927,48 @@ export function PrintablesPage() {
             -webkit-print-color-adjust: exact !important;
             print-color-adjust: exact !important;
           }
+          /* Layout fixes for kindergarten-counting-visual worksheet only */
+          [data-worksheet-content="true"][data-doc="kindergarten-counting-visual"] * {
+            box-sizing: border-box !important;
+            overflow: visible !important;
+          }
+          [data-worksheet-content="true"][data-doc="kindergarten-counting-visual"] img,
+          [data-worksheet-content="true"][data-doc="kindergarten-counting-visual"] svg,
+          [data-worksheet-content="true"][data-doc="kindergarten-counting-visual"] .emoji,
+          [data-worksheet-content="true"][data-doc="kindergarten-counting-visual"] .icon {
+            max-width: 100% !important;
+            height: auto !important;
+            object-fit: contain !important;
+            overflow: visible !important;
+          }
+          [data-worksheet-content="true"][data-doc="kindergarten-counting-visual"] .flex,
+          [data-worksheet-content="true"][data-doc="kindergarten-counting-visual"] [class*="flex"] {
+            flex-wrap: wrap !important;
+            align-items: flex-start !important;
+            overflow: visible !important;
+          }
+          [data-worksheet-content="true"][data-doc="kindergarten-counting-visual"] *[class*="h-"],
+          [data-worksheet-content="true"][data-doc="kindergarten-counting-visual"] *[class*="min-h-"],
+          [data-worksheet-content="true"][data-doc="kindergarten-counting-visual"] *[class*="max-h-"],
+          [data-worksheet-content="true"][data-doc="kindergarten-counting-visual"] *[style*="height"] {
+            height: auto !important;
+            min-height: auto !important;
+            max-height: none !important;
+          }
+          [data-worksheet-content="true"][data-doc="kindergarten-counting-visual"] .border-4,
+          [data-worksheet-content="true"][data-doc="kindergarten-counting-visual"] .border-2,
+          [data-worksheet-content="true"][data-doc="kindergarten-counting-visual"] [class*="border"] {
+            overflow: visible !important;
+          }
+          [data-worksheet-content="true"][data-doc="kindergarten-counting-visual"] .max-w-4xl {
+            padding: 0 !important;
+            margin: 0.95in 0.5in 0.5in 0.5in !important;
+            page-break-inside: avoid !important;
+          }
+          [data-worksheet-content="true"][data-doc="kindergarten-counting-visual"] .break-inside-avoid {
+            page-break-inside: avoid !important;
+            overflow: visible !important;
+          }
         }
       `}</style>
       {/* Print layout optimized - updated 2025-01-11 */}
@@ -20025,19 +20067,19 @@ export function PrintablesPage() {
             }
 
             return (
-              <div className="border-4 border-pink-200 rounded-2xl p-5 my-4 bg-pink-50 flex items-center break-inside-avoid" style={{ boxShadow: '2px 2px 8px rgba(0,0,0,0.1)' }}>
-                <div className="min-w-[150px] font-bold text-2xl text-pink-900">
+              <div className="border-4 border-pink-200 rounded-2xl p-5 my-4 bg-pink-50 flex flex-wrap items-start break-inside-avoid" style={{ boxShadow: '2px 2px 8px rgba(0,0,0,0.1)', overflow: 'visible', height: 'auto', minHeight: 'auto' }}>
+                <div className="min-w-[150px] font-bold text-2xl text-pink-900 mb-2 md:mb-0">
                   How many {title}?
                 </div>
-                <div className="mx-5">
-                  <svg width={svgWidth} height={svgHeight} className="max-w-full h-auto">
+                <div className="mx-5 flex-1 min-w-0" style={{ overflow: 'visible' }}>
+                  <svg width={svgWidth} height={svgHeight} className="max-w-full h-auto" style={{ maxWidth: '100%', height: 'auto', overflow: 'visible' }} viewBox={`0 0 ${svgWidth} ${svgHeight}`} preserveAspectRatio="xMidYMid meet">
                     {characterPositions.map((pos, index) => (
                       <Component key={index} x={pos.x} y={pos.y} size={charSize} />
                     ))}
                   </svg>
                 </div>
-                <div className="ml-auto min-w-[80px]">
-                  <svg width="80" height="80">
+                <div className="ml-auto min-w-[80px] mt-2 md:mt-0" style={{ flexShrink: 0 }}>
+                  <svg width="80" height="80" viewBox="0 0 80 80" style={{ maxWidth: '100%', height: 'auto' }} preserveAspectRatio="xMidYMid meet">
                     <rect
                       x="0"
                       y="0"
