@@ -3010,6 +3010,39 @@ export function PrintablesPage() {
             padding-bottom: 0 !important;
           }
 
+          /* Name and Date fields styling */
+          [data-worksheet-content="true"] .print-name-date-header {
+            display: flex !important;
+            justify-content: space-between !important;
+            align-items: center !important;
+            margin-top: 4px !important;
+            margin-bottom: 8px !important;
+            padding-bottom: 4px !important;
+            border-bottom: 1px solid #cbd5e1 !important;
+            font-size: 12pt !important;
+          }
+
+          [data-worksheet-content="true"] .print-name-date-header strong {
+            font-weight: 600 !important;
+            color: #1e293b !important;
+            margin-right: 4px !important;
+          }
+
+          [data-worksheet-content="true"] .print-name-date-header span[style*="border-bottom"],
+          [data-worksheet-content="true"] .print-name-date-header span[class*="border-b"] {
+            border-bottom: 1px solid #94a3b8 !important;
+            min-width: 120px !important;
+            display: inline-block !important;
+            margin-left: 4px !important;
+            height: 16px !important;
+          }
+
+          [data-worksheet-content="true"] .print-name-date-header > div {
+            display: flex !important;
+            align-items: center !important;
+            gap: 8px !important;
+          }
+
           /* Remove empty space from customization header */
           [data-worksheet-content="true"] .print-customization-header {
             margin-top: 0 !important;
@@ -3286,6 +3319,19 @@ export function PrintablesPage() {
         <div className="hidden print:block wizqo-logo-print">
           <img src="/logo.svg" alt="Wizqo Logo" />
           <span className="domain-text">www.wizqo.com</span>
+        </div>
+        {/* Name and Date fields for all worksheets */}
+        <div className="hidden print:block print-name-date-header" style={{ marginBottom: '8px', marginTop: '4px', paddingBottom: '4px', display: 'flex', justifyContent: 'space-between', alignItems: 'center', borderBottom: '1px solid #cbd5e1' }}>
+          <div className="print:flex print:items-center print:gap-4">
+            <div className="print:text-sm">
+              <strong>Name:</strong> <span className="print:border-b print:border-slate-400 print:inline-block" style={{ minWidth: '150px', borderBottom: '1px solid #94a3b8', display: 'inline-block' }}>&nbsp;</span>
+            </div>
+          </div>
+          <div className="print:flex print:items-center print:gap-4">
+            <div className="print:text-sm">
+              <strong>Date:</strong> <span className="print:border-b print:border-slate-400 print:inline-block" style={{ minWidth: '100px', borderBottom: '1px solid #94a3b8', display: 'inline-block' }}>&nbsp;</span>
+            </div>
+          </div>
         </div>
         {/* Customization header (print view - appears once at top) */}
         {(teacherName || className || studentNames.length > 0) && !isPreview && (
