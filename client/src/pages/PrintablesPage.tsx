@@ -2893,7 +2893,7 @@ export function PrintablesPage() {
             print-color-adjust: exact !important;
             color-adjust: exact !important;
             padding: 20px 24px 24px 24px !important;
-            margin: 0.5in !important;
+            margin: 0.95in 0.5in 0.5in 0.5in !important;
           }
           /* Logo and domain for all worksheets - positioned above border */
           [data-worksheet-content="true"] .wizqo-logo-print {
@@ -2926,11 +2926,6 @@ export function PrintablesPage() {
             letter-spacing: 0.5px !important;
             -webkit-print-color-adjust: exact !important;
             print-color-adjust: exact !important;
-          }
-          /* Extra top margin for all worksheets to accommodate logo above border and prevent cropping */
-          [data-worksheet-content="true"] > div:first-child,
-          [data-worksheet-content="true"] .max-w-4xl {
-            margin-top: 0.95in !important;
           }
         }
       `}</style>
