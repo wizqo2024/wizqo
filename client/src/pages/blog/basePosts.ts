@@ -820,7 +820,7 @@ Take 15 minutes today. Grab your brush. See where the paint takes you. You don't
   },
   {
     id: "what-are-cognitive-skills",
-    title: "🧠 What Are Cognitive Skills? How to Strengthen Your Mind and Unlock Your True Potential",
+    title: "What Are Cognitive Skills? Strengthen Your Mind | Wizqo",
     excerpt: "Discover how cognitive skills shape focus, memory, and confidence — plus free printable brain games and a 7-day challenge to help you think sharper and feel stronger.",
     content: "<CognitiveSkillsBlog />",
     author: "Wizqo Team",
@@ -833,7 +833,7 @@ Take 15 minutes today. Grab your brush. See where the paint takes you. You don't
   },
   {
     id: "handwriting-without-tears-infographic",
-    title: "✍️ What Is Handwriting Without Tears? A Gentle, Science-Backed Way to Bring Joy Back to Writing",
+    title: "Handwriting Without Tears: Science-Backed Method | Wizqo",
     excerpt: "Writing used to be an art — not an anxiety. Handwriting Without Tears turns handwriting into a calm, structured, evidence-based practice that rebuilds confidence one letter at a time.",
     content: "<HWTInfographic />",
     author: "Wizqo Team",

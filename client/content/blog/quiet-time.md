@@ -1,5 +1,5 @@
 ---
-title: "🌿 Quiet Time for Busy Minds: 5 Simple Practices to Find Peace, Purpose, and Clarity"
+title: "Quiet Time: 5 Practices for Peace & Clarity | Wizqo"
 slug: quiet-time
 excerpt: "Discover how quiet time can transform your busy mind. Learn five simple daily practices backed by science and stories to help you find peace, focus, and a deeper life purpose."
 category: Mental Wellness
