@@ -2939,13 +2939,11 @@ export function PrintablesPage() {
       `}</style>
       {/* Print layout optimized - updated 2025-01-11 */}
       <div className={`max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-10 print:p-0 print:py-0 print:mt-0 ${isPreview ? 'preview-mode' : ''}`}>
-        {/* Logo and domain for kindergarten-counting-1-10 worksheet only */}
-        {(doc === 'kindergarten-counting-1-10' || primaryDoc === 'kindergarten-counting-1-10') && (
-          <div className="hidden print:block wizqo-logo-print">
-            <img src="/logo.svg" alt="Wizqo Logo" />
-            <span className="domain-text">www.wizqo.com</span>
-          </div>
-        )}
+        {/* Logo and domain for all worksheets */}
+        <div className="hidden print:block wizqo-logo-print">
+          <img src="/logo.svg" alt="Wizqo Logo" />
+          <span className="domain-text">www.wizqo.com</span>
+        </div>
         {/* Customization header (print view - appears once at top) */}
         {(teacherName || className || studentNames.length > 0) && !isPreview && (
           <div className="hidden print:block print-customization-header" aria-hidden>
