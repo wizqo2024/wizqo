@@ -2036,9 +2036,9 @@ export function PrintablesPage() {
         
         /* CRITICAL: Main content container - match index.css @media print exactly */
         [data-worksheet-content="true"] {
-          width: 794px !important;
-          max-width: 794px !important;
-          margin: 0 auto !important;
+          width: 100% !important;
+          max-width: 100% !important;
+          margin: 0 !important;
           padding: 0 !important;
           background: white !important;
         }
@@ -2307,13 +2307,13 @@ export function PrintablesPage() {
         background: document.body.style.background
       }
       
-      document.body.style.width = '794px'
-      document.body.style.maxWidth = '794px'
-      document.body.style.margin = '0 auto'
+      document.body.style.width = '100%'
+      document.body.style.maxWidth = '100%'
+      document.body.style.margin = '0'
       document.body.style.padding = '0'
       document.body.style.background = 'white'
       
-      // Set content element to print dimensions
+      // Set content element to use full width
       const originalContentStyle = {
         width: contentElement.style.width,
         maxWidth: contentElement.style.maxWidth,
@@ -2322,9 +2322,9 @@ export function PrintablesPage() {
         background: contentElement.style.background
       }
       
-      contentElement.style.width = '794px'
-      contentElement.style.maxWidth = '794px'
-      contentElement.style.margin = '0 auto'
+      contentElement.style.width = '100%'
+      contentElement.style.maxWidth = '100%'
+      contentElement.style.margin = '0'
       contentElement.style.padding = '0'
       contentElement.style.background = 'white'
       
@@ -2387,11 +2387,11 @@ export function PrintablesPage() {
             }
           })
           
-          // Apply print styles to cloned document
+          // Apply print styles to cloned document - use full width
           const clonedBody = clonedDoc.body
           if (clonedBody) {
-            clonedBody.style.width = '794px'
-            clonedBody.style.maxWidth = '794px'
+            clonedBody.style.width = '100%'
+            clonedBody.style.maxWidth = '100%'
             clonedBody.style.margin = '0'
             clonedBody.style.padding = '0'
             clonedBody.style.background = 'white'
@@ -2584,10 +2584,10 @@ export function PrintablesPage() {
       const printStyleTag = document.createElement('style')
       printStyleTag.id = 'pdf-export-print-styles'
       printStyleTag.textContent = `
-        /* Apply print styles */
+        /* Apply print styles - use full width */
         [data-worksheet-content="true"] {
-          width: 794px !important;
-          max-width: 794px !important;
+          width: 100% !important;
+          max-width: 100% !important;
         }
       `
       document.head.appendChild(printStyleTag)
@@ -2660,10 +2660,10 @@ export function PrintablesPage() {
       const printStyleTag = document.createElement('style')
       printStyleTag.id = 'pdf-export-print-styles'
       printStyleTag.textContent = `
-        /* Apply print styles */
+        /* Apply print styles - use full width */
         [data-worksheet-content="true"] {
-          width: 794px !important;
-          max-width: 794px !important;
+          width: 100% !important;
+          max-width: 100% !important;
         }
       `
       document.head.appendChild(printStyleTag)
@@ -2915,7 +2915,7 @@ export function PrintablesPage() {
         @media print {
           @page { 
             size: A4;
-            margin: 0 !important;
+            margin: 0.25in !important;
           }
           /* Universal print reset - fix 90% of spacing problems */
           * {
@@ -2931,8 +2931,8 @@ export function PrintablesPage() {
             background-color: white !important;
             background: white !important;
             color: black !important;
-            width: 794px !important;
-            max-width: 794px !important;
+            width: 100% !important;
+            max-width: 100% !important;
             margin: 0 !important; 
             padding: 0 !important; 
             font-size: 11pt !important;
@@ -2947,6 +2947,13 @@ export function PrintablesPage() {
           [data-worksheet-content="true"] .worksheet-container > section:first-child {
             margin-top: 0 !important;
             padding-top: 0 !important;
+          }
+
+          /* Ensure content uses full available width when page is split */
+          [data-worksheet-content="true"] {
+            width: 100% !important;
+            max-width: 100% !important;
+            box-sizing: border-box !important;
           }
 
           /* Remove all gap spacing from flex/grid */
@@ -3125,13 +3132,13 @@ export function PrintablesPage() {
             margin: 0 !important;
           }
           /* Thin colorful decorative border with emoji-style pattern - applied to ALL worksheets */
-          /* Worksheet container - perfect width for A4 print at 96dpi */
+          /* Worksheet container - responsive width to utilize full page space */
           .worksheet-container,
           [data-worksheet-content="true"] > div:first-child,
           [data-worksheet-content="true"] .max-w-4xl {
-            width: 794px !important;
-            max-width: 794px !important;
-            margin: 0 auto !important;
+            width: 100% !important;
+            max-width: 100% !important;
+            margin: 0 !important;
             position: relative !important;
             border-radius: 12px !important;
             border: 4px solid transparent !important;
@@ -3148,9 +3155,25 @@ export function PrintablesPage() {
             print-color-adjust: exact !important;
             color-adjust: exact !important;
             padding: 8px 12px 12px 12px !important;
-            margin: 0.1in 0.5in 0.5in 0.5in !important;
+            margin: 0.1in 0.15in 0.5in 0.15in !important;
             page-break-inside: avoid !important;
             break-inside: avoid !important;
+            box-sizing: border-box !important;
+          }
+
+          /* Better space utilization for split pages - allow content to flow */
+          [data-worksheet-content="true"] .worksheet-section {
+            width: 100% !important;
+            max-width: 100% !important;
+            box-sizing: border-box !important;
+          }
+
+          /* Questions should use available width */
+          [data-worksheet-content="true"] .question-section,
+          [data-worksheet-content="true"] .question-section-wrapper {
+            width: 100% !important;
+            max-width: 100% !important;
+            box-sizing: border-box !important;
           }
 
           /* Hide all buttons, navigation, and non-print elements */
