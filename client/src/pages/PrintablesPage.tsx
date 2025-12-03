@@ -2895,34 +2895,42 @@ export function PrintablesPage() {
             padding: 20px 24px 24px 24px !important;
             margin: 0.5in !important;
           }
-          /* Logo and domain for kindergarten-counting-1-10 worksheet only */
+          /* Extra top margin for kindergarten-counting-1-10 to accommodate logo above border */
+          [data-worksheet-content="true"][data-doc="kindergarten-counting-1-10"] > div:first-child,
+          [data-worksheet-content="true"][data-doc="kindergarten-counting-1-10"] .max-w-4xl {
+            margin-top: 0.75in !important;
+          }
+          /* Logo and domain for kindergarten-counting-1-10 worksheet only - positioned above border */
           [data-worksheet-content="true"][data-doc="kindergarten-counting-1-10"] .wizqo-logo-print {
             position: absolute !important;
-            top: -12px !important;
-            left: -12px !important;
+            top: -50px !important;
+            left: 0px !important;
             z-index: 20 !important;
             display: flex !important;
-            flex-direction: column !important;
-            align-items: flex-start !important;
+            flex-direction: row !important;
+            align-items: center !important;
+            gap: 8px !important;
             background: white !important;
-            padding: 4px 6px !important;
+            padding: 4px 8px !important;
             border-radius: 4px !important;
             -webkit-print-color-adjust: exact !important;
             print-color-adjust: exact !important;
           }
           [data-worksheet-content="true"][data-doc="kindergarten-counting-1-10"] .wizqo-logo-print img {
-            width: 60px !important;
-            height: 60px !important;
+            width: 50px !important;
+            height: 50px !important;
             object-fit: contain !important;
-            margin-bottom: 4px !important;
             -webkit-print-color-adjust: exact !important;
             print-color-adjust: exact !important;
           }
           [data-worksheet-content="true"][data-doc="kindergarten-counting-1-10"] .wizqo-logo-print .domain-text {
-            font-size: 9px !important;
+            font-size: 10px !important;
             font-weight: 600 !important;
             color: #4845D2 !important;
-            white-space: nowrap !important;
+            writing-mode: vertical-rl !important;
+            text-orientation: mixed !important;
+            transform: rotate(180deg) !important;
+            letter-spacing: 1px !important;
             -webkit-print-color-adjust: exact !important;
             print-color-adjust: exact !important;
           }
