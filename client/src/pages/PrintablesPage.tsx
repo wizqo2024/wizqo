@@ -2922,6 +2922,11 @@ export function PrintablesPage() {
             box-shadow: none !important;
             overflow: visible !important;
           }
+          html, body {
+            margin: 0 !important;
+            padding: 0 !important;
+          }
+
           html, body, #root, [data-worksheet-content="true"] {
             background-color: white !important;
             background: white !important;
@@ -2934,6 +2939,12 @@ export function PrintablesPage() {
             line-height: 1.3 !important;
             min-height: auto !important;
             height: auto !important;
+          }
+
+          /* Scale content to fit page - prevents overflow issues */
+          body {
+            transform: scale(0.95) !important;
+            transform-origin: top left !important;
           }
           /* Disable flex/grid layouts in print - use block layout */
           .flex, .grid, [class*="flex"], [class*="grid"] {
@@ -3006,8 +3017,13 @@ export function PrintablesPage() {
             white-space: nowrap !important;
           }
           /* Thin colorful decorative border with emoji-style pattern - applied to ALL worksheets */
+          /* Worksheet container - perfect width for A4 print at 96dpi */
+          .worksheet-container,
           [data-worksheet-content="true"] > div:first-child,
           [data-worksheet-content="true"] .max-w-4xl {
+            width: 794px !important;
+            max-width: 794px !important;
+            margin: 0 auto !important;
             position: relative !important;
             border-radius: 12px !important;
             border: 4px solid transparent !important;
@@ -3025,6 +3041,14 @@ export function PrintablesPage() {
             color-adjust: exact !important;
             padding: 20px 24px 24px 24px !important;
             margin: 0.95in 0.5in 0.5in 0.5in !important;
+            page-break-inside: avoid !important;
+            break-inside: avoid !important;
+          }
+
+          /* Avoid elements breaking across pages */
+          table, tr, td {
+            page-break-inside: avoid !important;
+            break-inside: avoid !important;
           }
           /* Logo and domain for all worksheets - positioned above border */
           [data-worksheet-content="true"] .wizqo-logo-print {
@@ -3107,6 +3131,15 @@ export function PrintablesPage() {
             padding: 12px !important;
             break-before: auto !important;
             break-after: auto !important;
+            page-break-inside: avoid !important;
+            break-inside: avoid !important;
+          }
+
+          /* Ensure worksheet container for this specific worksheet */
+          [data-worksheet-content="true"][data-doc="kindergarten-counting-visual"] .worksheet-container,
+          [data-worksheet-content="true"][data-doc="kindergarten-counting-visual"] > div:first-child {
+            page-break-inside: avoid !important;
+            break-inside: avoid !important;
           }
 
           /* SVGs should never break */
@@ -3135,7 +3168,7 @@ export function PrintablesPage() {
         }
       `}</style>
       {/* Print layout optimized - updated 2025-01-11 */}
-      <div className={`max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-10 print:p-0 print:py-0 print:mt-0 ${isPreview ? 'preview-mode' : ''}`}>
+      <div className={`worksheet-container max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-10 print:p-0 print:py-0 print:mt-0 ${isPreview ? 'preview-mode' : ''}`}>
         {/* Logo and domain for all worksheets */}
         <div className="hidden print:block wizqo-logo-print">
           <img src="/logo.svg" alt="Wizqo Logo" />
