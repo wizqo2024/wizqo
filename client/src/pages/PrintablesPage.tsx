@@ -2906,7 +2906,7 @@ export function PrintablesPage() {
           /* Logo and domain for kindergarten-counting-1-10 worksheet only - positioned above border */
           [data-worksheet-content="true"][data-doc="kindergarten-counting-1-10"] .wizqo-logo-print {
             position: absolute !important;
-            top: -55px !important;
+            top: -65px !important;
             left: 0px !important;
             z-index: 20 !important;
             display: flex !important;
