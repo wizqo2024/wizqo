@@ -2915,7 +2915,7 @@ export function PrintablesPage() {
         @media print {
           @page { 
             size: A4;
-            margin: 0.25in !important;
+            margin: 0.1in !important;
           }
           /* Universal print reset - fix 90% of spacing problems */
           * {
@@ -3017,14 +3017,15 @@ export function PrintablesPage() {
             padding-bottom: 0 !important;
           }
 
-          /* Name and Date fields styling */
+          /* Name and Date fields styling - MINIMAL SPACING */
           [data-worksheet-content="true"] .print-name-date-header {
             display: flex !important;
             justify-content: space-between !important;
             align-items: center !important;
-            margin-top: 4px !important;
-            margin-bottom: 8px !important;
-            padding-bottom: 4px !important;
+            margin-top: 0 !important;
+            margin-bottom: 4px !important;
+            padding-top: 0 !important;
+            padding-bottom: 2px !important;
             border-bottom: 1px solid #cbd5e1 !important;
             font-size: 12pt !important;
           }
@@ -3154,8 +3155,8 @@ export function PrintablesPage() {
             -webkit-print-color-adjust: exact !important;
             print-color-adjust: exact !important;
             color-adjust: exact !important;
-            padding: 8px 12px 12px 12px !important;
-            margin: 0.1in 0.15in 0.5in 0.15in !important;
+            padding: 4px 8px 8px 8px !important;
+            margin: 0 0.1in 0.3in 0.1in !important;
             page-break-inside: avoid !important;
             break-inside: avoid !important;
             box-sizing: border-box !important;
@@ -3168,12 +3169,53 @@ export function PrintablesPage() {
             box-sizing: border-box !important;
           }
 
-          /* Questions should use available width */
+          /* Questions should use available width and distribute evenly */
           [data-worksheet-content="true"] .question-section,
           [data-worksheet-content="true"] .question-section-wrapper {
             width: 100% !important;
             max-width: 100% !important;
             box-sizing: border-box !important;
+          }
+
+          /* Remove empty space at very top of page - AGGRESSIVE */
+          [data-worksheet-content="true"] .worksheet-container > *:first-child,
+          [data-worksheet-content="true"] .wizqo-logo-print,
+          [data-worksheet-content="true"] .print-name-date-header {
+            margin-top: 0 !important;
+            padding-top: 0 !important;
+          }
+
+          /* Ensure content container uses full width - no left alignment constraint */
+          [data-worksheet-content="true"] .worksheet-container {
+            margin-left: 0 !important;
+            margin-right: 0 !important;
+            padding-left: 0.1in !important;
+            padding-right: 0.1in !important;
+          }
+
+          /* Force questions container to use full width */
+          [data-worksheet-content="true"] .space-y-2,
+          [data-worksheet-content="true"] .space-y-1,
+          [data-worksheet-content="true"] div[class*="space-y"] {
+            width: 100% !important;
+            max-width: 100% !important;
+            margin-left: 0 !important;
+            margin-right: 0 !important;
+          }
+
+          /* Remove any max-width constraints that limit content to left side */
+          [data-worksheet-content="true"] .max-w-4xl,
+          [data-worksheet-content="true"] [class*="max-w"] {
+            max-width: 100% !important;
+            width: 100% !important;
+          }
+
+          /* Ensure questions themselves use full available width */
+          [data-worksheet-content="true"] .question-section {
+            width: 100% !important;
+            max-width: 100% !important;
+            margin-left: 0 !important;
+            margin-right: 0 !important;
           }
 
           /* Hide all buttons, navigation, and non-print elements */
@@ -3210,9 +3252,10 @@ export function PrintablesPage() {
             align-items: center !important;
             gap: 4px !important;
             background: white !important;
-            padding: 2px 4px !important;
+            padding: 0 4px 2px 4px !important;
             margin-bottom: 0 !important;
             margin-top: 0 !important;
+            padding-top: 0 !important;
             border-radius: 4px !important;
             -webkit-print-color-adjust: exact !important;
             print-color-adjust: exact !important;
@@ -3273,9 +3316,10 @@ export function PrintablesPage() {
             overflow: visible !important;
           }
 
-          /* Force questions to behave like full atomic blocks - MINIMAL SPACING */
+          /* Force questions to behave like full atomic blocks - MINIMAL SPACING - USE FULL WIDTH */
           [data-worksheet-content="true"][data-doc="kindergarten-counting-visual"] .question-section {
             width: 100% !important;
+            max-width: 100% !important;
             float: none !important;
             clear: both !important;
             margin: 2px 0 !important;
@@ -3284,6 +3328,15 @@ export function PrintablesPage() {
             break-after: auto !important;
             page-break-inside: avoid !important;
             break-inside: avoid !important;
+            margin-left: 0 !important;
+            margin-right: 0 !important;
+            box-sizing: border-box !important;
+          }
+
+          /* Ensure question content uses full width */
+          [data-worksheet-content="true"][data-doc="kindergarten-counting-visual"] .question-section > * {
+            max-width: 100% !important;
+            box-sizing: border-box !important;
           }
 
           /* Remove empty space between questions for this worksheet */
