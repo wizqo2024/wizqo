@@ -2941,16 +2941,81 @@ export function PrintablesPage() {
             height: auto !important;
           }
 
-          /* Remove empty spaces at top - ensure content starts immediately */
-          [data-worksheet-content="true"] > *:first-child {
+          /* AGGRESSIVE: Remove ALL empty spaces - comprehensive spacing cleanup */
+          [data-worksheet-content="true"] > *:first-child,
+          [data-worksheet-content="true"] .worksheet-container > *:first-child,
+          [data-worksheet-content="true"] .worksheet-container > section:first-child {
             margin-top: 0 !important;
             padding-top: 0 !important;
           }
 
-          /* Remove any empty space before first content */
-          [data-worksheet-content="true"] .worksheet-container > *:first-child {
+          /* Remove all gap spacing from flex/grid */
+          [class*="gap-"],
+          [class*="space-"],
+          .gap-1, .gap-2, .gap-3, .gap-4,
+          .space-y-1, .space-y-2, .space-y-3, .space-y-4,
+          .space-x-1, .space-x-2, .space-x-3, .space-x-4 {
+            gap: 0 !important;
+          }
+
+          /* Remove margins from space-y classes */
+          [class*="space-y"] > * + * {
+            margin-top: 0 !important;
+          }
+
+          /* Remove all vertical margins that create empty spaces */
+          [class*="mb-"],
+          [class*="mt-"],
+          [class*="my-"],
+          [class*="py-"] {
+            margin-top: 0 !important;
+            margin-bottom: 0 !important;
+            padding-top: 0 !important;
+            padding-bottom: 0 !important;
+          }
+
+          /* Remove padding from containers that create empty spaces */
+          [class*="p-"],
+          [class*="px-"],
+          [class*="pt-"],
+          [class*="pb-"] {
+            padding: 0 !important;
+          }
+
+          /* Keep only essential padding for readability */
+          [data-worksheet-content="true"] .worksheet-container {
+            padding-top: 0 !important;
+            padding-bottom: 0 !important;
+          }
+
+          /* Remove empty space from worksheet sections */
+          [data-worksheet-content="true"] .worksheet-section,
+          [data-worksheet-content="true"] section {
+            margin-top: 0 !important;
+            margin-bottom: 0 !important;
+            padding-top: 0 !important;
+            padding-bottom: 0 !important;
+          }
+
+          /* Remove empty space between questions */
+          [data-worksheet-content="true"] .question-section-wrapper + .question-section-wrapper,
+          [data-worksheet-content="true"] .question-section + .question-section {
             margin-top: 0 !important;
             padding-top: 0 !important;
+          }
+
+          /* Remove empty space from logo area */
+          [data-worksheet-content="true"] .wizqo-logo-print {
+            margin-bottom: 0 !important;
+            padding-bottom: 0 !important;
+          }
+
+          /* Remove empty space from customization header */
+          [data-worksheet-content="true"] .print-customization-header {
+            margin-top: 0 !important;
+            margin-bottom: 0 !important;
+            padding-top: 0 !important;
+            padding-bottom: 0 !important;
           }
 
           /* Remove transform scale - causes empty spaces and alignment issues */
@@ -3004,7 +3069,7 @@ export function PrintablesPage() {
             -webkit-print-color-adjust: exact !important;
             print-color-adjust: exact !important;
           }
-          /* Decorative emoji stars at top - applied to ALL worksheets */
+          /* Decorative emoji stars at top - applied to ALL worksheets - REDUCED SIZE */
           [data-worksheet-content="true"] > div:first-child::after,
           [data-worksheet-content="true"] > div.max-w-4xl::after,
           .max-w-4xl.mx-auto::after,
@@ -3014,16 +3079,17 @@ export function PrintablesPage() {
             top: 0px !important;
             left: 50% !important;
             transform: translateX(-50%) translateY(-50%) !important;
-            font-size: 18px !important;
-            letter-spacing: 10px !important;
+            font-size: 12px !important;
+            letter-spacing: 4px !important;
             z-index: 10 !important;
             background: white !important;
-            padding: 4px 12px !important;
+            padding: 2px 6px !important;
             -webkit-print-color-adjust: exact !important;
             print-color-adjust: exact !important;
             color: #f472b6 !important;
             display: block !important;
             white-space: nowrap !important;
+            margin: 0 !important;
           }
           /* Thin colorful decorative border with emoji-style pattern - applied to ALL worksheets */
           /* Worksheet container - perfect width for A4 print at 96dpi */
@@ -3048,8 +3114,8 @@ export function PrintablesPage() {
             -webkit-print-color-adjust: exact !important;
             print-color-adjust: exact !important;
             color-adjust: exact !important;
-            padding: 20px 24px 24px 24px !important;
-            margin: 0.25in 0.5in 0.5in 0.5in !important;
+            padding: 8px 12px 12px 12px !important;
+            margin: 0.1in 0.5in 0.5in 0.5in !important;
             page-break-inside: avoid !important;
             break-inside: avoid !important;
           }
@@ -3077,7 +3143,7 @@ export function PrintablesPage() {
             page-break-inside: avoid !important;
             break-inside: avoid !important;
           }
-          /* Logo and domain for all worksheets - FIXED: Position inside page, not outside */
+          /* Logo and domain for all worksheets - FIXED: Position inside page, not outside - MINIMAL SPACING */
           [data-worksheet-content="true"] .wizqo-logo-print {
             position: relative !important;
             top: 0 !important;
@@ -3086,10 +3152,11 @@ export function PrintablesPage() {
             display: flex !important;
             flex-direction: row !important;
             align-items: center !important;
-            gap: 8px !important;
+            gap: 4px !important;
             background: white !important;
-            padding: 4px 8px !important;
-            margin-bottom: 8px !important;
+            padding: 2px 4px !important;
+            margin-bottom: 0 !important;
+            margin-top: 0 !important;
             border-radius: 4px !important;
             -webkit-print-color-adjust: exact !important;
             print-color-adjust: exact !important;
@@ -3150,17 +3217,29 @@ export function PrintablesPage() {
             overflow: visible !important;
           }
 
-          /* Force questions to behave like full atomic blocks */
+          /* Force questions to behave like full atomic blocks - MINIMAL SPACING */
           [data-worksheet-content="true"][data-doc="kindergarten-counting-visual"] .question-section {
             width: 100% !important;
             float: none !important;
             clear: both !important;
-            margin: 8px 0 !important;
-            padding: 12px !important;
+            margin: 2px 0 !important;
+            padding: 4px !important;
             break-before: auto !important;
             break-after: auto !important;
             page-break-inside: avoid !important;
             break-inside: avoid !important;
+          }
+
+          /* Remove empty space between questions for this worksheet */
+          [data-worksheet-content="true"][data-doc="kindergarten-counting-visual"] .question-section-wrapper {
+            margin: 0 !important;
+            padding: 0 !important;
+          }
+
+          [data-worksheet-content="true"][data-doc="kindergarten-counting-visual"] .question-section-wrapper + .question-section-wrapper,
+          [data-worksheet-content="true"][data-doc="kindergarten-counting-visual"] .question-section + .question-section {
+            margin-top: 0 !important;
+            padding-top: 0 !important;
           }
 
           /* Ensure worksheet container for this specific worksheet */
@@ -3185,7 +3264,13 @@ export function PrintablesPage() {
           [data-worksheet-content="true"][data-doc="kindergarten-counting-visual"] .space-y-2 > *,
           [data-worksheet-content="true"][data-doc="kindergarten-counting-visual"] .space-y-1 > * {
             margin-top: 0 !important;
-            margin-bottom: 6px !important;
+            margin-bottom: 0 !important;
+          }
+
+          /* Remove all spacing from questions container */
+          [data-worksheet-content="true"][data-doc="kindergarten-counting-visual"] .space-y-2,
+          [data-worksheet-content="true"][data-doc="kindergarten-counting-visual"] .space-y-1 {
+            gap: 0 !important;
           }
 
           [data-worksheet-content="true"][data-doc="kindergarten-counting-visual"] .worksheet-section {
