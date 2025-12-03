@@ -3356,6 +3356,8 @@ export function PrintablesPage() {
           [data-worksheet-content="true"][data-doc="kindergarten-counting-visual"] > div:first-child {
             page-break-inside: avoid !important;
             break-inside: avoid !important;
+            padding-top: 0 !important;
+            margin-top: 0 !important;
           }
 
           /* SVGs should never break */
@@ -3386,6 +3388,29 @@ export function PrintablesPage() {
             margin: 0 !important;
             padding: 8px !important;
             page-break-inside: auto !important;
+          }
+
+          /* Fix empty space after header for kindergarten-counting-visual */
+          [data-worksheet-content="true"][data-doc="kindergarten-counting-visual"] .print-name-date-header {
+            margin-bottom: 2px !important;
+            padding-bottom: 2px !important;
+          }
+
+          [data-worksheet-content="true"][data-doc="kindergarten-counting-visual"] .worksheet-section {
+            margin-top: 0 !important;
+            padding-top: 0 !important;
+          }
+
+          /* Ensure worksheet content starts immediately after header */
+          [data-worksheet-content="true"][data-doc="kindergarten-counting-visual"] .worksheet-container > .worksheet-section:first-of-type {
+            margin-top: 0 !important;
+            padding-top: 0 !important;
+          }
+
+          /* Remove any spacing from the wrapper div */
+          [data-worksheet-content="true"][data-doc="kindergarten-counting-visual"] .worksheet-container > *:not(.wizqo-logo-print):not(.print-name-date-header):not(.print-customization-header) {
+            margin-top: 0 !important;
+            padding-top: 0 !important;
           }
         }
       `}</style>
