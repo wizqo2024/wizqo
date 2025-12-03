@@ -43,6 +43,21 @@ export function Footer() {
                 </a>
               </li>
               <li>
+                <a href="/generate" className="text-slate-400 hover:text-white transition-colors text-sm">
+                  Learning Plan Generator
+                </a>
+              </li>
+              <li>
+                <a href="/kids" className="text-slate-400 hover:text-white transition-colors text-sm">
+                  Kids Hub
+                </a>
+              </li>
+              <li>
+                <a href="/printables" className="text-slate-400 hover:text-white transition-colors text-sm">
+                  Printables
+                </a>
+              </li>
+              <li>
                 <a href="/contact" className="text-slate-400 hover:text-white transition-colors text-sm">
                   {t('footer.contact')}
                 </a>

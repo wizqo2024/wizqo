@@ -344,22 +344,69 @@ ${gameLinks}
     }
   }
   
-  // Add links to other important pages (generate, about, printables) on homepage
-  if (route.path === '/') {
+  // Add links to important pages (generate, about, printables, kids games) on multiple pages for better internal linking
+  // This helps pages that only have one incoming link get more links
+  if (route.path === '/' || route.path.startsWith('/blog/') || route.path.startsWith('/worksheets/') || route.path === '/about' || route.path === '/generate') {
     const importantPages = allRoutes.filter(r => 
       r.path === '/generate' || 
       r.path === '/about' || 
       r.path === '/printables' ||
       r.path === '/printables/name-tracing-generator' ||
       r.path === '/printables/certificate-maker' ||
-      r.path === '/interactive-worksheets-generator'
+      r.path === '/interactive-worksheets-generator' ||
+      r.path === '/kids' ||
+      r.path.startsWith('/kids/games/')
     );
     const importantLinks = importantPages.map(r => 
       `    <a href="${SITE}${r.path}" style="display: block; padding: 0.5rem 0; color: #3b82f6; text-decoration: underline;">${escapeHtml(r.title)}</a>`
     ).join('\n');
     const existingNav = html.match(/<nav class="seo-hidden-links"[^>]*>[\s\S]*?<\/nav>/);
     if (existingNav && importantLinks) {
-      const updatedNav = existingNav[0].replace('</nav>', `  <h2>Important Pages</h2>\n${importantLinks}\n</nav>`);
+      const sectionTitle = route.path === '/' ? 'Important Pages' : 'Related Pages';
+      const updatedNav = existingNav[0].replace('</nav>', `  <h2>${sectionTitle}</h2>\n${importantLinks}\n</nav>`);
+      html = html.replace(existingNav[0], updatedNav);
+    }
+  }
+  
+  // Add links to blog posts on blog listing page and individual blog posts
+  if (route.path.startsWith('/blog/')) {
+    const blogLinks = allPosts.map(p => 
+      `    <a href="${SITE}/blog/${p.id}" style="display: block; padding: 0.5rem 0; color: #3b82f6; text-decoration: underline;">${escapeHtml(p.title)}</a>`
+    ).join('\n');
+    const existingNav = html.match(/<nav class="seo-hidden-links"[^>]*>[\s\S]*?<\/nav>/);
+    if (existingNav && blogLinks) {
+      const updatedNav = existingNav[0].replace('</nav>', `  <h2>More Blog Posts</h2>\n${blogLinks}\n</nav>`);
+      html = html.replace(existingNav[0], updatedNav);
+    }
+  }
+  
+  // Add links to kids games on kids hub and individual game pages
+  if (route.path.startsWith('/kids/games/')) {
+    const kidsGames = allRoutes.filter(r => r.path.startsWith('/kids/games/'));
+    const gameLinks = kidsGames.map(r => 
+      `    <a href="${SITE}${r.path}" style="display: block; padding: 0.5rem 0; color: #3b82f6; text-decoration: underline;">${escapeHtml(r.title.replace('Kids Hub – ', ''))}</a>`
+    ).join('\n');
+    const existingNav = html.match(/<nav class="seo-hidden-links"[^>]*>[\s\S]*?<\/nav>/);
+    if (existingNav && gameLinks) {
+      const updatedNav = existingNav[0].replace('</nav>', `  <h2>All Kids Games</h2>\n${gameLinks}\n</nav>`);
+      html = html.replace(existingNav[0], updatedNav);
+    }
+  }
+  
+  // Add links to printables pages on printables and related pages
+  if (route.path === '/printables' || route.path.startsWith('/printables/')) {
+    const printablesPages = allRoutes.filter(r => 
+      r.path === '/printables' ||
+      r.path === '/printables/name-tracing-generator' ||
+      r.path === '/printables/certificate-maker'
+    );
+    const printablesLinks = printablesPages.map(r => 
+      `    <a href="${SITE}${r.path}" style="display: block; padding: 0.5rem 0; color: #3b82f6; text-decoration: underline;">${escapeHtml(r.title)}</a>`
+    ).join('\n');
+    const existingNav = html.match(/<nav class="seo-hidden-links"[^>]*>[\s\S]*?<\/nav>/);
+    if (existingNav && printablesLinks) {
+      const sectionTitle = route.path === '/printables' ? 'All Printables' : 'More Printables';
+      const updatedNav = existingNav[0].replace('</nav>', `  <h2>${sectionTitle}</h2>\n${printablesLinks}\n</nav>`);
       html = html.replace(existingNav[0], updatedNav);
     }
   }
