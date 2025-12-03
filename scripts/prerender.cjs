@@ -47,6 +47,39 @@ function escapeHtml(s) {
     .replace(/>/g, '&gt;');
 }
 
+function extractH1FromTitle(title) {
+  // Remove emojis and special characters at the start
+  let h1 = title.replace(/^[\u{1F300}-\u{1F9FF}\u{2600}-\u{26FF}\u{2700}-\u{27BF}\s]+/gu, '');
+  
+  // Remove " | Wizqo" or similar branding
+  h1 = h1.replace(/\s*\|\s*Wizqo.*$/i, '');
+  h1 = h1.replace(/\s*–\s*Free\s+PDF.*$/i, '');
+  h1 = h1.replace(/\s*–\s*Free\s+Printable.*$/i, '');
+  h1 = h1.replace(/\s*\(PDF\s*\+\s*Answer\s+Key\).*$/i, '');
+  h1 = h1.replace(/\s*\(PDF\).*$/i, '');
+  h1 = h1.replace(/\s*–\s*Free.*$/i, '');
+  
+  // Remove extra descriptive text after main topic (keep first meaningful phrase)
+  // For titles like "Free Converting Fractions to Decimals Worksheets (PDF + Answer Key)"
+  // Keep "Converting Fractions to Decimals Worksheets"
+  h1 = h1.replace(/^Free\s+/i, '');
+  
+  // For blog posts with emojis, remove them and keep main text
+  h1 = h1.trim();
+  
+  // If H1 would be too short or empty, use a simplified version
+  if (h1.length < 10) {
+    // Fallback: use first 50 chars or up to first dash/parenthesis
+    h1 = title.replace(/[\u{1F300}-\u{1F9FF}\u{2600}-\u{26FF}\u{2700}-\u{27BF}]/gu, '').trim();
+    const match = h1.match(/^([^|–(]+)/);
+    if (match) {
+      h1 = match[1].trim();
+    }
+  }
+  
+  return h1 || title; // Fallback to original if all else fails
+}
+
 function ensureViewport(html) {
   // Ensure viewport meta tag is always present
   const viewportPattern = /<meta\s+name=["']viewport["'][^>]*>/i;
@@ -262,9 +295,10 @@ ${gameLinks}
   // Update SEO fallback content for specific pages
   if (route.path === '/worksheets/multiplication-worksheets') {
     // Replace fallback content with multiplication-specific content
+    // H1 should be shorter than title to avoid duplicate
     const multiplicationContent = `<main id="seo-fallback" style="display: none; max-width: 1200px; margin: 0 auto; padding: 2rem 1rem; font-family: system-ui, -apple-system, sans-serif;">
       <h1 style="font-size: 2.5rem; font-weight: 900; color: #0f172a; margin-bottom: 1rem; line-height: 1.2;">
-        Free Multiplication Worksheets - Printable PDFs with Answer Keys
+        Free Multiplication Worksheets
       </h1>
       <p style="font-size: 1.125rem; color: #475569; margin-bottom: 2.5rem; line-height: 1.6;">
         Help your child master multiplication with our free multiplication worksheets for 2nd grade, 3rd grade, 4th grade, and 5th grade! Download printable PDFs instantly with answer keys. Practice multiplication facts, arrays, and word problems - perfect for building confidence and math fluency.
@@ -303,9 +337,10 @@ ${gameLinks}
     html = html.replace(/<main id="seo-fallback"[^>]*>[\s\S]*?<\/main>/, multiplicationContent);
   } else if (route.path === '/worksheets/times-table-multiplication-worksheets') {
     // Replace fallback content with times table-specific content
+    // H1 should be shorter than title to avoid duplicate
     const timesTableContent = `<main id="seo-fallback" style="display: none; max-width: 1200px; margin: 0 auto; padding: 2rem 1rem; font-family: system-ui, -apple-system, sans-serif;">
       <h1 style="font-size: 2.5rem; font-weight: 900; color: #0f172a; margin-bottom: 1rem; line-height: 1.2;">
-        Free Times Table Multiplication Worksheets (PDF) to Boost Your Child's Confidence
+        Free Times Table Multiplication Worksheets
       </h1>
       <p style="font-size: 1.125rem; color: #475569; margin-bottom: 2.5rem; line-height: 1.6;">
         Print free time table multiplication worksheets (PDF) that boost confidence, speed, and accuracy. Fun, no-stress practice sheets for grades 1–5 covering all times tables 1-12. Download horizontal, vertical, missing number, and timed test worksheets with answer keys included.
@@ -370,9 +405,10 @@ ${gameLinks}
     html = html.replace(/<script[^>]*>[\s\S]*?__fractionsToDecimalsSEOContent[\s\S]*?<\/script>/gi, '');
     html = html.replace(/<script[^>]*>[\s\S]*?updateSEO[\s\S]*?fractions[\s\S]*?<\/script>/gi, '');
     // Replace fallback content with fractions-to-decimals-specific content (already correct from prerender)
+    // H1 should be shorter than title to avoid duplicate
     const fractionsToDecimalsContent = `<main id="seo-fallback" style="display: none; max-width: 1200px; margin: 0 auto; padding: 2rem 1rem; font-family: system-ui, -apple-system, sans-serif;">
       <h1 style="font-size: 2.5rem; font-weight: 900; color: #0f172a; margin-bottom: 1rem; line-height: 1.2;">
-        Free Converting Fractions to Decimals Worksheets (PDF + Answer Key)
+        Converting Fractions to Decimals Worksheets
       </h1>
       <p style="font-size: 1.125rem; color: #475569; margin-bottom: 2.5rem; line-height: 1.6;">
         Download free fractions-to-decimals worksheets with answer keys. Easy, clear, no-login math PDFs perfect for grades 3–5. Boost confidence with simple step-by-step practice.
@@ -448,9 +484,10 @@ ${gameLinks}
       html = beforeStyle + cleanedBetween + afterModuleScript;
     }
     // Replace fallback content with order-of-operations-specific content
+    // H1 should be shorter than title to avoid duplicate
     const orderOfOperationsContent = `<main id="seo-fallback" style="display: none; max-width: 1200px; margin: 0 auto; padding: 2rem 1rem; font-family: system-ui, -apple-system, sans-serif;">
       <h1 style="font-size: 2.5rem; font-weight: 900; color: #0f172a; margin-bottom: 1rem; line-height: 1.2;">
-        Order of Operations Worksheets (PEMDAS) – Free PDF | Wizqo
+        Order of Operations Worksheets (PEMDAS)
       </h1>
       <p style="font-size: 1.125rem; color: #475569; margin-bottom: 2.5rem; line-height: 1.6;">
         Make PEMDAS finally "click"! Download free Order of Operations worksheets (PDF) with step-by-step practice. Stress-free exercises that build confidence in 4th–6th grade students. No login — just print and learn.
@@ -505,9 +542,10 @@ ${gameLinks}
     html = ensureViewport(html);
   } else if (route.path === '/interactive-worksheets-generator') {
     // Replace fallback content with interactive worksheets-specific content
+    // H1 should be shorter than title to avoid duplicate
     const interactiveContent = `<main id="seo-fallback" style="display: none; max-width: 1200px; margin: 0 auto; padding: 2rem 1rem; font-family: system-ui, -apple-system, sans-serif;">
       <h1 style="font-size: 2.5rem; font-weight: 900; color: #0f172a; margin-bottom: 1rem; line-height: 1.2;">
-        Free Interactive Worksheets Generator | Create Printable PDF Worksheets Online
+        Free Interactive Worksheets Generator
       </h1>
       <p style="font-size: 1.125rem; color: #475569; margin-bottom: 2.5rem; line-height: 1.6;">
         Generate free interactive worksheets for math, reading, science, and SEL. Create printable PDF worksheets with answer keys for all grades (K-5). Daily refresh with new problems. No sign-up required!
@@ -552,7 +590,9 @@ ${gameLinks}
   } else {
     // For other pages, remove or minimize the fallback content to avoid duplicate content issues
     // Keep it hidden but with minimal content
-    html = html.replace(/<main id="seo-fallback"[^>]*>[\s\S]*?<\/main>/, `<main id="seo-fallback" style="display: none;"><h1>${escapeHtml(route.title.replace(' | Wizqo', ''))}</h1><p>${escapeHtml(route.description)}</p></main>`);
+    // Use shorter H1 that differs from title
+    const h1Text = extractH1FromTitle(route.title);
+    html = html.replace(/<main id="seo-fallback"[^>]*>[\s\S]*?<\/main>/, `<main id="seo-fallback" style="display: none;"><h1>${escapeHtml(h1Text)}</h1><p>${escapeHtml(route.description)}</p></main>`);
   }
   
   // Final check: ensure viewport tag is always present

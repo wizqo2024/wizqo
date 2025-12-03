@@ -169,7 +169,7 @@ export function BlogPostView({
                 </span>
               </div>
               <h1 className="text-3xl lg:text-4xl font-black text-slate-900 mb-4 leading-tight">
-                {post.title}
+                {post.title.replace(/^[\u{1F300}-\u{1F9FF}\u{2600}-\u{26FF}\u{2700}-\u{27BF}\s]+/gu, '').trim() || post.title}
               </h1>
               {(['easy-hobbies-that-make-you-smarter','easy-watercolor-paintings'].includes(post.id)) && (
                 <nav aria-label={t('pages.blog.quickWorksheetLinks')} className="mb-4">
