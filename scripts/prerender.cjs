@@ -15,6 +15,34 @@ const ROOT = process.cwd();
 const DIST = path.join(ROOT, 'dist', 'public');
 const SITE = 'https://wizqo.com';
 
+// Load worksheet SEO data to get all individual worksheet URLs
+function getAllWorksheetURLs() {
+  try {
+    // Try to read from the generated worksheet SEO data
+    const worksheetSEOFile = path.join(ROOT, 'public', 'worksheet-seo-data.json');
+    if (!fs.existsSync(worksheetSEOFile)) {
+      // Also try client/public as fallback
+      const altFile = path.join(ROOT, 'client', 'public', 'worksheet-seo-data.json');
+      if (fs.existsSync(altFile)) {
+        const data = JSON.parse(fs.readFileSync(altFile, 'utf8'));
+        return Object.entries(data).map(([slug, seo]) => ({
+          url: seo.canonicalUrl || `${SITE}/worksheets/${slug}`,
+          title: seo.title || slug
+        })).filter(w => w.url && w.url.includes('/worksheets/'));
+      }
+      return [];
+    }
+    const data = JSON.parse(fs.readFileSync(worksheetSEOFile, 'utf8'));
+    return Object.entries(data).map(([slug, seo]) => ({
+      url: seo.canonicalUrl || `${SITE}/worksheets/${slug}`,
+      title: seo.title || slug
+    })).filter(w => w.url && w.url.includes('/worksheets/'));
+  } catch (e) {
+    console.warn('Could not load worksheet SEO data:', e.message);
+    return [];
+  }
+}
+
 function ensureDir(p) {
   fs.mkdirSync(p, { recursive: true });
 }
@@ -292,14 +320,26 @@ ${gameLinks}
 </nav>`;
     html = html.replace(/<nav class="seo-hidden-links"[^>]*>[\s\S]*?<\/nav>/, seoLinksSection);
   } else if (route.path === '/' || route.path.startsWith('/worksheets/')) {
-    // Add links to worksheet pages on homepage and worksheet pages
-    const worksheetPages = allRoutes.filter(r => r.path.startsWith('/worksheets/'));
+    // Add links to worksheet category pages
+    const worksheetPages = allRoutes.filter(r => r.path.startsWith('/worksheets/') && 
+      !r.path.match(/\/worksheets\/[^/]+$/)); // Only category pages, not individual worksheets
     const worksheetLinks = worksheetPages.map(r => 
       `    <a href="${SITE}${r.path}" style="display: block; padding: 0.5rem 0; color: #3b82f6; text-decoration: underline;">${escapeHtml(r.title)}</a>`
     ).join('\n');
+    
+    // Add links to ALL individual worksheet pages to fix orphaned pages issue
+    const allWorksheets = getAllWorksheetURLs();
+    const individualWorksheetLinks = allWorksheets.map(w => 
+      `    <a href="${w.url}" style="display: block; padding: 0.5rem 0; color: #3b82f6; text-decoration: underline;">${escapeHtml(w.title || w.url)}</a>`
+    ).join('\n');
+    
     const existingNav = html.match(/<nav class="seo-hidden-links"[^>]*>[\s\S]*?<\/nav>/);
     if (existingNav) {
-      const updatedNav = existingNav[0].replace('</nav>', `  <h2>Worksheet Pages</h2>\n${worksheetLinks}\n</nav>`);
+      let navContent = `  <h2>Worksheet Category Pages</h2>\n${worksheetLinks}`;
+      if (individualWorksheetLinks) {
+        navContent += `\n  <h2>All Individual Worksheets</h2>\n${individualWorksheetLinks}`;
+      }
+      const updatedNav = existingNav[0].replace('</nav>', `${navContent}\n</nav>`);
       html = html.replace(existingNav[0], updatedNav);
     }
   }
