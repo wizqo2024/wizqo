@@ -2941,11 +2941,20 @@ export function PrintablesPage() {
             height: auto !important;
           }
 
-          /* Scale content to fit page - prevents overflow issues */
-          body {
-            transform: scale(0.95) !important;
-            transform-origin: top left !important;
+          /* Remove empty spaces at top - ensure content starts immediately */
+          [data-worksheet-content="true"] > *:first-child {
+            margin-top: 0 !important;
+            padding-top: 0 !important;
           }
+
+          /* Remove any empty space before first content */
+          [data-worksheet-content="true"] .worksheet-container > *:first-child {
+            margin-top: 0 !important;
+            padding-top: 0 !important;
+          }
+
+          /* Remove transform scale - causes empty spaces and alignment issues */
+          /* Content will fit naturally with proper margins */
           /* Disable flex/grid layouts in print - use block layout */
           .flex, .grid, [class*="flex"], [class*="grid"] {
             display: block !important;
@@ -3040,9 +3049,27 @@ export function PrintablesPage() {
             print-color-adjust: exact !important;
             color-adjust: exact !important;
             padding: 20px 24px 24px 24px !important;
-            margin: 0.95in 0.5in 0.5in 0.5in !important;
+            margin: 0.25in 0.5in 0.5in 0.5in !important;
             page-break-inside: avoid !important;
             break-inside: avoid !important;
+          }
+
+          /* Hide all buttons, navigation, and non-print elements */
+          [class*="print:hidden"],
+          .print\\:hidden,
+          /* Explicitly hide back button, print button, pin button, header */
+          a[href*="worksheets"]:not([href*="print"]),
+          button[onclick*="print"],
+          a[href*="pinterest"],
+          header[class*="print:hidden"],
+          header.print\\:hidden,
+          div[class*="mb-4"][class*="print:hidden"],
+          div[class*="flex"][class*="justify-between"] {
+            display: none !important;
+            visibility: hidden !important;
+            height: 0 !important;
+            margin: 0 !important;
+            padding: 0 !important;
           }
 
           /* Avoid elements breaking across pages */
@@ -3050,11 +3077,11 @@ export function PrintablesPage() {
             page-break-inside: avoid !important;
             break-inside: avoid !important;
           }
-          /* Logo and domain for all worksheets - positioned above border */
+          /* Logo and domain for all worksheets - FIXED: Position inside page, not outside */
           [data-worksheet-content="true"] .wizqo-logo-print {
-            position: absolute !important;
-            top: -65px !important;
-            left: 0px !important;
+            position: relative !important;
+            top: 0 !important;
+            left: 0 !important;
             z-index: 20 !important;
             display: flex !important;
             flex-direction: row !important;
@@ -3062,6 +3089,7 @@ export function PrintablesPage() {
             gap: 8px !important;
             background: white !important;
             padding: 4px 8px !important;
+            margin-bottom: 8px !important;
             border-radius: 4px !important;
             -webkit-print-color-adjust: exact !important;
             print-color-adjust: exact !important;
