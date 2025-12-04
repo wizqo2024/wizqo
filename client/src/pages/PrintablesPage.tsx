@@ -2106,34 +2106,28 @@ export function PrintablesPage() {
           background: white !important;
         }
         
-        /* CRITICAL: Inner div - with gradient border and emoji stars */
+        /* Inner wrapper maintains padding + gradient accent */
         [data-worksheet-content="true"] > div:first-child,
-        [data-worksheet-content="true"] .max-w-4xl {
+        [data-worksheet-content="true"] .worksheet-container {
           position: relative !important;
-          border-radius: 0 !important;
-          border: none !important;
-          border-image: none !important;
-          -webkit-print-color-adjust: exact !important;
-          print-color-adjust: exact !important;
-          color-adjust: exact !important;
-          padding: 0.1in !important;
-          padding-top: 0 !important; /* No padding - emoji is absolutely positioned */
+          width: 100% !important;
+          max-width: 100% !important;
           margin: 0 !important;
+          padding: 0 0.5in 0.5in 0.5in !important;
+          padding-top: 0 !important;
+          background: white !important;
+          box-sizing: border-box !important;
         }
         
-        /* RESTORED: Decorative colorful gradient border at top */
+        /* Decorative colorful gradient border at top */
         [data-worksheet-content="true"] > div:first-child::before,
-        [data-worksheet-content="true"] > div.max-w-4xl::before,
-        .max-w-4xl.mx-auto::before,
-        [data-worksheet-content="true"] .max-w-4xl::before,
         [data-worksheet-content="true"] .worksheet-container::before {
           content: '' !important;
-          display: block !important;
           position: absolute !important;
           top: 0 !important;
           left: 0 !important;
           right: 0 !important;
-          height: 4px !important;
+          height: 3px !important;
           background: linear-gradient(
             135deg,
             #f472b6 0%,
@@ -2143,57 +2137,32 @@ export function PrintablesPage() {
             #fbbf24 80%,
             #fb7185 100%
           ) !important;
-          z-index: 10 !important;
-          -webkit-print-color-adjust: exact !important;
-          print-color-adjust: exact !important;
+          z-index: 1 !important;
         }
         
-        /* RESTORED: Decorative emoji stars at top */
+        /* Decorative emoji stars at top */
         [data-worksheet-content="true"] > div:first-child::after,
-        [data-worksheet-content="true"] > div.max-w-4xl::after,
-        .max-w-4xl.mx-auto::after,
-        [data-worksheet-content="true"] .max-w-4xl::after,
         [data-worksheet-content="true"] .worksheet-container::after {
           content: '⭐ ✨ ⭐ ✨ ⭐' !important;
-          display: block !important;
           position: absolute !important;
-          top: 4px !important;
+          top: 0 !important;
           left: 0 !important;
           right: 0 !important;
           text-align: center !important;
-          font-size: 10px !important;
-          line-height: 1 !important;
-          padding: 2px 0 !important;
+          font-size: 9px !important;
+          line-height: 1.2 !important;
           color: #fbbf24 !important;
-          z-index: 10 !important;
-          -webkit-print-color-adjust: exact !important;
-          print-color-adjust: exact !important;
+          z-index: 1 !important;
         }
         
-        /* Ensure all divs inside worksheet content have white background */
-        [data-worksheet-content="true"] > div:first-child > * {
-          background-color: white !important;
-          background: white !important;
-        }
-        
-        /* CRITICAL: Remove ALL top spacing - FIX BLANK FIRST PAGE */
+        /* Remove ALL top spacing - FIX BLANK FIRST PAGE */
         html, body, #root {
           margin-top: 0 !important;
           padding-top: 0 !important;
         }
         
-        /* Ensure content flows immediately after header - no empty first page - FIX BLANK FIRST PAGE */
-        [data-worksheet-content="true"] {
+        [data-worksheet-content="true"] .worksheet-container > *:first-child {
           margin-top: 0 !important;
-          padding-top: 0 !important;
-          margin: 0 !important;
-          padding: 0 !important;
-        }
-        
-        [data-worksheet-content="true"] .worksheet-container {
-          padding-top: 0 !important; /* No padding - emoji is absolutely positioned */
-          margin-top: 0 !important;
-          margin: 0 !important;
         }
         
         [data-worksheet-content="true"] .wizqo-logo-print {
@@ -3147,8 +3116,8 @@ export function PrintablesPage() {
       <div 
         data-worksheet-content="true" 
         data-doc={resolvedDocId || undefined}
-        className={`worksheet-container max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-10 print:p-0 print:py-0 print:mt-0 ${isPreview ? 'preview-mode' : ''}`}
       >
+        <div className={`worksheet-container max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-10 print:p-0 print:py-0 print:mt-0 ${isPreview ? 'preview-mode' : ''}`}>
         {/* Logo and domain for all worksheets */}
         <div className="hidden print:block wizqo-logo-print">
           <img src="/logo.svg" alt="Wizqo Logo" />
@@ -33930,6 +33899,7 @@ export function PrintablesPage() {
         <footer className="text-center text-slate-500 text-xs print:hidden">
           {t('common.printTip', 'Tip: Use your browser menu → Print → Save as PDF.')}
         </footer>
+        </div>
       </div>
     </>
   )
