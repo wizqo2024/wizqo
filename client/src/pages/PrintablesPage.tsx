@@ -2165,10 +2165,14 @@ export function PrintablesPage() {
         
         /* Ensure content flows immediately after header - no empty first page */
         [data-worksheet-content="true"] .worksheet-container {
-          padding-top: 0.18in !important; /* Space for gradient + emoji */
+          padding-top: 18px !important; /* Space for gradient + emoji */
         }
         
         [data-worksheet-content="true"] .wizqo-logo-print {
+          display: flex !important;
+          flex-direction: row !important;
+          align-items: center !important;
+          gap: 6px !important;
           margin-top: 0 !important;
           padding-top: 0 !important;
           margin-bottom: 4px !important;
@@ -3069,7 +3073,7 @@ export function PrintablesPage() {
             padding-top: 0 !important;
           }
 
-          /* Logo and domain - HORIZONTAL layout */
+          /* Logo and domain - HORIZONTAL layout - CRITICAL: Must be row, not column */
           [data-worksheet-content="true"] .wizqo-logo-print {
             position: relative !important;
             display: flex !important;
@@ -3077,37 +3081,40 @@ export function PrintablesPage() {
             flex-wrap: nowrap !important;
             align-items: center !important;
             justify-content: flex-start !important;
-            gap: 4px !important;
+            gap: 6px !important;
             background: white !important;
-            padding: 0 4px 2px 4px !important;
-            margin-bottom: 0 !important;
+            padding: 0 !important;
+            margin-bottom: 4px !important;
             margin-top: 0 !important;
             padding-top: 0 !important;
-            border-radius: 4px !important;
+            width: 100% !important;
             -webkit-print-color-adjust: exact !important;
             print-color-adjust: exact !important;
           }
           
           [data-worksheet-content="true"] .wizqo-logo-print img {
-            width: 45px !important;
-            height: 45px !important;
+            width: 32px !important;
+            height: 32px !important;
             object-fit: contain !important;
             flex-shrink: 0 !important;
-            display: inline-block !important;
+            display: block !important;
+            margin: 0 !important;
+            padding: 0 !important;
             -webkit-print-color-adjust: exact !important;
             print-color-adjust: exact !important;
           }
           
           [data-worksheet-content="true"] .wizqo-logo-print .domain-text {
-            font-size: 11px !important;
+            font-size: 10px !important;
             font-weight: 600 !important;
             color: #4845D2 !important;
             white-space: nowrap !important;
-            letter-spacing: 0.5px !important;
+            letter-spacing: 0.3px !important;
             display: inline-block !important;
             line-height: 1 !important;
             margin: 0 !important;
             padding: 0 !important;
+            vertical-align: middle !important;
             -webkit-print-color-adjust: exact !important;
             print-color-adjust: exact !important;
           }
@@ -3258,7 +3265,7 @@ export function PrintablesPage() {
             -webkit-print-color-adjust: exact !important;
             print-color-adjust: exact !important;
             color-adjust: exact !important;
-            padding: 4px 8px 8px 8px !important;
+            padding: 0 0.1in 0.1in 0.1in !important;
             padding-top: 18px !important; /* Space for gradient (4px) + emoji (~14px) */
             margin: 0 0.1in 0.3in 0.1in !important;
             margin-top: 0 !important;
@@ -3290,6 +3297,21 @@ export function PrintablesPage() {
           [data-worksheet-content="true"] .print-name-date-header {
             margin-top: 0 !important;
             padding-top: 0 !important;
+          }
+          
+          /* CRITICAL: Force logo to be horizontal - override any column layout */
+          [data-worksheet-content="true"] .wizqo-logo-print {
+            display: flex !important;
+            flex-direction: row !important;
+            flex-wrap: nowrap !important;
+            align-items: center !important;
+            gap: 6px !important;
+          }
+          
+          [data-worksheet-content="true"] .wizqo-logo-print img,
+          [data-worksheet-content="true"] .wizqo-logo-print .domain-text {
+            display: inline-block !important;
+            vertical-align: middle !important;
           }
 
           /* Ensure content container uses full width - no left alignment constraint */
@@ -3348,41 +3370,6 @@ export function PrintablesPage() {
           table, tr, td {
             page-break-inside: avoid !important;
             break-inside: avoid !important;
-          }
-          /* Logo and domain for all worksheets - FIXED: Position inside page, not outside - MINIMAL SPACING */
-          [data-worksheet-content="true"] .wizqo-logo-print {
-            position: relative !important;
-            top: 0 !important;
-            left: 0 !important;
-            z-index: 20 !important;
-            display: flex !important;
-            flex-direction: row !important;
-            align-items: center !important;
-            gap: 4px !important;
-            background: white !important;
-            padding: 0 4px 2px 4px !important;
-            margin-bottom: 0 !important;
-            margin-top: 0 !important;
-            padding-top: 0 !important;
-            border-radius: 4px !important;
-            -webkit-print-color-adjust: exact !important;
-            print-color-adjust: exact !important;
-          }
-          [data-worksheet-content="true"] .wizqo-logo-print img {
-            width: 45px !important;
-            height: 45px !important;
-            object-fit: contain !important;
-            -webkit-print-color-adjust: exact !important;
-            print-color-adjust: exact !important;
-          }
-          [data-worksheet-content="true"] .wizqo-logo-print .domain-text {
-            font-size: 11px !important;
-            font-weight: 600 !important;
-            color: #4845D2 !important;
-            white-space: nowrap !important;
-            letter-spacing: 0.5px !important;
-            -webkit-print-color-adjust: exact !important;
-            print-color-adjust: exact !important;
           }
           /* --------------------------------------------------------------
              PERFECT PRINT CONTROL FOR kindergarten-counting-visual WORKSHEET
