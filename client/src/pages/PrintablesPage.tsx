@@ -2216,7 +2216,7 @@ export function PrintablesPage() {
           padding-top: 0 !important;
         }
         
-        /* Section styles - prevent overlapping - COLORFUL GRADIENT BORDERS */
+        /* Section styles - prevent overlapping - SOLID COLOR BORDERS */
         section.worksheet-section,
         section[class*="worksheet-section"],
         .worksheet-section {
@@ -2239,9 +2239,7 @@ export function PrintablesPage() {
           max-width: 100% !important;
           box-sizing: border-box !important;
           overflow-x: visible !important;
-          border: 2px solid transparent !important; /* Transparent border for gradient */
-          border-image: linear-gradient(90deg, #f472b6, #a78bfa, #60a5fa, #34d399, #fbbf24, #fb7185) 1 !important;
-          border-image-slice: 1 !important;
+          border: 2px solid #60a5fa !important; /* Solid blue border */
           border-radius: 0 !important;
           min-height: auto !important;
           height: auto !important;
@@ -2250,7 +2248,7 @@ export function PrintablesPage() {
           print-color-adjust: exact !important;
         }
         
-        /* First section should have NO top padding/margin - FIX BLANK FIRST PAGE - COLORFUL GRADIENT BORDER */
+        /* First section should have NO top padding/margin - FIX BLANK FIRST PAGE - SOLID COLOR BORDER */
         section:first-of-type,
         .worksheet-section:first-of-type,
         [data-worksheet-content="true"] .worksheet-container > section:first-of-type,
@@ -2258,9 +2256,7 @@ export function PrintablesPage() {
           margin-top: 0 !important;
           padding-top: 0 !important;
           background-color: white !important;
-          border: 2px solid transparent !important; /* Transparent border for gradient */
-          border-image: linear-gradient(90deg, #f472b6, #a78bfa, #60a5fa, #34d399, #fbbf24, #fb7185) 1 !important;
-          border-image-slice: 1 !important;
+          border: 2px solid #60a5fa !important; /* Solid blue border */
           -webkit-print-color-adjust: exact !important;
           print-color-adjust: exact !important;
         }
@@ -3203,7 +3199,7 @@ export function PrintablesPage() {
             margin-top: 0 !important;
           }
 
-          /* Remove empty space from worksheet sections - COLORFUL GRADIENT BORDERS */
+          /* Remove empty space from worksheet sections - SOLID COLOR BORDERS */
           [data-worksheet-content="true"] .worksheet-section,
           [data-worksheet-content="true"] section {
             margin-top: 0 !important;
@@ -3212,21 +3208,17 @@ export function PrintablesPage() {
             padding-bottom: 0.5rem !important;
             padding-left: 0.5rem !important;
             padding-right: 0.5rem !important;
-            border: 2px solid transparent !important; /* Transparent border for gradient */
-            border-image: linear-gradient(90deg, #f472b6, #a78bfa, #60a5fa, #34d399, #fbbf24, #fb7185) 1 !important;
-            border-image-slice: 1 !important;
+            border: 2px solid #60a5fa !important; /* Solid blue border */
             -webkit-print-color-adjust: exact !important;
             print-color-adjust: exact !important;
           }
           
-          /* Override print:border-0 classes to show colorful gradient borders */
+          /* Override print:border-0 classes to show solid color borders */
           [data-worksheet-content="true"] .worksheet-section[class*="print:border-0"],
           [data-worksheet-content="true"] section[class*="print:border-0"],
           [data-worksheet-content="true"] .worksheet-section.print\\:border-0,
           [data-worksheet-content="true"] section.print\\:border-0 {
-            border: 2px solid transparent !important; /* Transparent border for gradient */
-            border-image: linear-gradient(90deg, #f472b6, #a78bfa, #60a5fa, #34d399, #fbbf24, #fb7185) 1 !important;
-            border-image-slice: 1 !important;
+            border: 2px solid #60a5fa !important; /* Solid blue border */
             -webkit-print-color-adjust: exact !important;
             print-color-adjust: exact !important;
           }
@@ -3416,25 +3408,21 @@ export function PrintablesPage() {
             box-sizing: border-box !important;
           }
 
-          /* Better space utilization for split pages - allow content to flow - COLORFUL GRADIENT BORDERS */
+          /* Better space utilization for split pages - allow content to flow - SOLID COLOR BORDERS */
           [data-worksheet-content="true"] .worksheet-section {
             width: 100% !important;
             max-width: 100% !important;
             box-sizing: border-box !important;
-            border: 2px solid transparent !important; /* Transparent border for gradient */
-            border-image: linear-gradient(90deg, #f472b6, #a78bfa, #60a5fa, #34d399, #fbbf24, #fb7185) 1 !important;
-            border-image-slice: 1 !important;
+            border: 2px solid #60a5fa !important; /* Solid blue border */
             padding: 0.375rem 0.5rem 0.5rem 0.5rem !important;
             margin-bottom: 0.5rem !important;
             -webkit-print-color-adjust: exact !important;
             print-color-adjust: exact !important;
           }
           
-          /* Ensure all sections have colorful gradient borders */
+          /* Ensure all sections have solid color borders */
           [data-worksheet-content="true"] section:not(.wizqo-logo-print):not(.print-name-date-header):not(.print-customization-header) {
-            border: 2px solid transparent !important; /* Transparent border for gradient */
-            border-image: linear-gradient(90deg, #f472b6, #a78bfa, #60a5fa, #34d399, #fbbf24, #fb7185) 1 !important;
-            border-image-slice: 1 !important;
+            border: 2px solid #60a5fa !important; /* Solid blue border */
             -webkit-print-color-adjust: exact !important;
             print-color-adjust: exact !important;
           }

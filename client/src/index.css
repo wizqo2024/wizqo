@@ -548,15 +548,13 @@ html {
     font-size: 10pt;
   }
   
-  /* Sections - COLORFUL GRADIENT BORDERS */
+  /* Sections - SOLID COLOR BORDERS */
   .worksheet-section,
   section {
     margin: 0 0 16px 0;
     padding: 8px;
     background: white;
-    border: 2px solid transparent !important; /* Transparent border for gradient */
-    border-image: linear-gradient(90deg, #f472b6, #a78bfa, #60a5fa, #34d399, #fbbf24, #fb7185) 1 !important;
-    border-image-slice: 1 !important;
+    border: 2px solid #60a5fa !important; /* Solid blue border */
     page-break-inside: avoid;
     break-inside: avoid;
     -webkit-print-color-adjust: exact;
