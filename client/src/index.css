@@ -455,14 +455,16 @@ html {
     display: none !important;
   }
   
-  /* Worksheet container - clean and simple */
+  /* Worksheet container - clean and simple - ZERO TOP SPACING */
   [data-worksheet-content="true"] {
     background: white;
     color: black;
     width: 100%;
     max-width: 100%;
-    margin: 0;
-    padding: 0;
+    margin: 0 !important;
+    padding: 0 !important;
+    margin-top: 0 !important;
+    padding-top: 0 !important;
   }
   
   /* Gradient border at top */
@@ -479,44 +481,45 @@ html {
     z-index: 1;
   }
   
-  /* Emoji stars below gradient */
+  /* Emoji stars below gradient - positioned at top */
   [data-worksheet-content="true"] > div:first-child::after,
   [data-worksheet-content="true"] .worksheet-container::after {
     content: '⭐ ✨ ⭐ ✨ ⭐';
     display: block;
     position: absolute;
-    top: 3px;
+    top: 0 !important; /* At absolute top - no spacing */
     left: 0;
     right: 0;
     text-align: center;
     font-size: 9px;
     line-height: 1.2;
-    padding: 2px 0;
+    padding: 0 !important; /* No padding */
     color: #fbbf24;
     z-index: 1;
   }
   
-  /* Main container */
+  /* Main container - ZERO TOP PADDING TO FIX BLANK FIRST PAGE */
   .worksheet-container,
   [data-worksheet-content="true"] > div:first-child {
     position: relative;
     width: 100%;
     max-width: 100%;
-    margin: 0;
-    padding: 0.5in;
-    padding-top: 0.6in; /* Space for gradient + emoji */
+    margin: 0 !important;
+    padding: 0 0.5in 0.5in 0.5in !important;
+    padding-top: 0 !important; /* ZERO - gradient/emoji are absolutely positioned */
     background: white;
     box-sizing: border-box;
   }
   
-  /* Logo and domain - horizontal */
+  /* Logo and domain - horizontal - ZERO TOP MARGIN TO FIX BLANK FIRST PAGE */
   .wizqo-logo-print {
     display: flex;
     flex-direction: row;
     align-items: center;
     gap: 8px;
-    margin: 0 0 8px 0;
-    padding: 0;
+    margin: 0 0 4px 0 !important;
+    margin-top: 0 !important; /* ZERO top margin */
+    padding: 0 !important;
   }
   
   .wizqo-logo-print img {
@@ -532,13 +535,15 @@ html {
     line-height: 1;
   }
   
-  /* Name/Date header */
+  /* Name/Date header - ZERO TOP MARGIN TO FIX BLANK FIRST PAGE */
   .print-name-date-header {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin: 0 0 12px 0;
-    padding: 0 0 6px 0;
+    margin: 0 0 4px 0 !important;
+    margin-top: 0 !important; /* ZERO top margin */
+    padding: 0 0 2px 0 !important;
+    padding-top: 0 !important; /* ZERO top padding */
     border-bottom: 1px solid #cbd5e1;
     font-size: 10pt;
   }
