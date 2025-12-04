@@ -548,15 +548,19 @@ html {
     font-size: 10pt;
   }
   
-  /* Sections - ADD BORDERS */
+  /* Sections - COLORFUL GRADIENT BORDERS */
   .worksheet-section,
   section {
     margin: 0 0 16px 0;
     padding: 8px;
     background: white;
-    border: 1px solid #cbd5e1 !important; /* Add border to each section */
+    border: 2px solid transparent !important; /* Transparent border for gradient */
+    border-image: linear-gradient(90deg, #f472b6, #a78bfa, #60a5fa, #34d399, #fbbf24, #fb7185) 1 !important;
+    border-image-slice: 1 !important;
     page-break-inside: avoid;
     break-inside: avoid;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
   }
   
   /* Headings */

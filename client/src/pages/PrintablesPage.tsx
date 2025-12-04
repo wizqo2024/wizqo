@@ -2216,7 +2216,7 @@ export function PrintablesPage() {
           padding-top: 0 !important;
         }
         
-        /* Section styles - prevent overlapping - ADD BORDERS */
+        /* Section styles - prevent overlapping - COLORFUL GRADIENT BORDERS */
         section.worksheet-section,
         section[class*="worksheet-section"],
         .worksheet-section {
@@ -2239,14 +2239,18 @@ export function PrintablesPage() {
           max-width: 100% !important;
           box-sizing: border-box !important;
           overflow-x: visible !important;
-          border: 1px solid #cbd5e1 !important; /* Add border to each section */
+          border: 2px solid transparent !important; /* Transparent border for gradient */
+          border-image: linear-gradient(90deg, #f472b6, #a78bfa, #60a5fa, #34d399, #fbbf24, #fb7185) 1 !important;
+          border-image-slice: 1 !important;
           border-radius: 0 !important;
           min-height: auto !important;
           height: auto !important;
           clear: both !important;
+          -webkit-print-color-adjust: exact !important;
+          print-color-adjust: exact !important;
         }
         
-        /* First section should have NO top padding/margin - FIX BLANK FIRST PAGE - BUT KEEP BORDER */
+        /* First section should have NO top padding/margin - FIX BLANK FIRST PAGE - COLORFUL GRADIENT BORDER */
         section:first-of-type,
         .worksheet-section:first-of-type,
         [data-worksheet-content="true"] .worksheet-container > section:first-of-type,
@@ -2254,7 +2258,11 @@ export function PrintablesPage() {
           margin-top: 0 !important;
           padding-top: 0 !important;
           background-color: white !important;
-          border: 1px solid #cbd5e1 !important; /* Add border to first section too */
+          border: 2px solid transparent !important; /* Transparent border for gradient */
+          border-image: linear-gradient(90deg, #f472b6, #a78bfa, #60a5fa, #34d399, #fbbf24, #fb7185) 1 !important;
+          border-image-slice: 1 !important;
+          -webkit-print-color-adjust: exact !important;
+          print-color-adjust: exact !important;
         }
         
         /* Preserve content borders within worksheets */
@@ -3195,7 +3203,7 @@ export function PrintablesPage() {
             margin-top: 0 !important;
           }
 
-          /* Remove empty space from worksheet sections - ADD BORDERS */
+          /* Remove empty space from worksheet sections - COLORFUL GRADIENT BORDERS */
           [data-worksheet-content="true"] .worksheet-section,
           [data-worksheet-content="true"] section {
             margin-top: 0 !important;
@@ -3204,15 +3212,23 @@ export function PrintablesPage() {
             padding-bottom: 0.5rem !important;
             padding-left: 0.5rem !important;
             padding-right: 0.5rem !important;
-            border: 1px solid #cbd5e1 !important; /* Add border to each section */
+            border: 2px solid transparent !important; /* Transparent border for gradient */
+            border-image: linear-gradient(90deg, #f472b6, #a78bfa, #60a5fa, #34d399, #fbbf24, #fb7185) 1 !important;
+            border-image-slice: 1 !important;
+            -webkit-print-color-adjust: exact !important;
+            print-color-adjust: exact !important;
           }
           
-          /* Override print:border-0 classes to show borders */
+          /* Override print:border-0 classes to show colorful gradient borders */
           [data-worksheet-content="true"] .worksheet-section[class*="print:border-0"],
           [data-worksheet-content="true"] section[class*="print:border-0"],
           [data-worksheet-content="true"] .worksheet-section.print\\:border-0,
           [data-worksheet-content="true"] section.print\\:border-0 {
-            border: 1px solid #cbd5e1 !important; /* Force border to show */
+            border: 2px solid transparent !important; /* Transparent border for gradient */
+            border-image: linear-gradient(90deg, #f472b6, #a78bfa, #60a5fa, #34d399, #fbbf24, #fb7185) 1 !important;
+            border-image-slice: 1 !important;
+            -webkit-print-color-adjust: exact !important;
+            print-color-adjust: exact !important;
           }
 
           /* Remove empty space between questions */
@@ -3400,19 +3416,27 @@ export function PrintablesPage() {
             box-sizing: border-box !important;
           }
 
-          /* Better space utilization for split pages - allow content to flow - ADD BORDERS */
+          /* Better space utilization for split pages - allow content to flow - COLORFUL GRADIENT BORDERS */
           [data-worksheet-content="true"] .worksheet-section {
             width: 100% !important;
             max-width: 100% !important;
             box-sizing: border-box !important;
-            border: 1px solid #cbd5e1 !important; /* Add border to each section */
+            border: 2px solid transparent !important; /* Transparent border for gradient */
+            border-image: linear-gradient(90deg, #f472b6, #a78bfa, #60a5fa, #34d399, #fbbf24, #fb7185) 1 !important;
+            border-image-slice: 1 !important;
             padding: 0.375rem 0.5rem 0.5rem 0.5rem !important;
             margin-bottom: 0.5rem !important;
+            -webkit-print-color-adjust: exact !important;
+            print-color-adjust: exact !important;
           }
           
-          /* Ensure all sections have borders */
+          /* Ensure all sections have colorful gradient borders */
           [data-worksheet-content="true"] section:not(.wizqo-logo-print):not(.print-name-date-header):not(.print-customization-header) {
-            border: 1px solid #cbd5e1 !important;
+            border: 2px solid transparent !important; /* Transparent border for gradient */
+            border-image: linear-gradient(90deg, #f472b6, #a78bfa, #60a5fa, #34d399, #fbbf24, #fb7185) 1 !important;
+            border-image-slice: 1 !important;
+            -webkit-print-color-adjust: exact !important;
+            print-color-adjust: exact !important;
           }
 
           /* Questions should use available width and distribute evenly */
