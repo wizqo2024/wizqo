@@ -2070,7 +2070,7 @@ export function PrintablesPage() {
         [data-worksheet-content="true"] .worksheet-section {
           border: 4px solid transparent !important;
           border-radius: 24px !important;
-          border-image: linear-gradient(135deg, #f472b6, #a78bfa, #60a5fa, #34d399, #fbbf24, #fb7185) 1 !important;
+          border-image: linear-gradient(120deg, #f472b6 0%, #ec4899 20%, #a855f7 40%, #6366f1 60%, #0ea5e9 80%, #14b8a6 100%) 1 !important;
           padding: 1rem !important;
           box-shadow: 0 18px 35px rgba(15, 23, 42, 0.12) !important;
           background: white !important;
@@ -2145,13 +2145,13 @@ export function PrintablesPage() {
           right: 0 !important;
           height: 3px !important;
           background: linear-gradient(
-            135deg,
+            120deg,
             #f472b6 0%,
-            #a78bfa 20%,
-            #60a5fa 40%,
-            #34d399 60%,
-            #fbbf24 80%,
-            #fb7185 100%
+            #ec4899 20%,
+            #a855f7 40%,
+            #6366f1 60%,
+            #0ea5e9 80%,
+            #14b8a6 100%
           ) !important;
           z-index: 1 !important;
         }
@@ -2439,7 +2439,7 @@ export function PrintablesPage() {
         innerDiv.style.position = 'relative'
         innerDiv.style.borderRadius = '12px'
         innerDiv.style.border = '4px solid transparent'
-        innerDiv.style.borderImage = 'linear-gradient(135deg, #f472b6 0%, #a78bfa 20%, #60a5fa 40%, #34d399 60%, #fbbf24 80%, #fb7185 100%) 1'
+        innerDiv.style.borderImage = 'linear-gradient(120deg, #f472b6 0%, #ec4899 20%, #a855f7 40%, #6366f1 60%, #0ea5e9 80%, #14b8a6 100%) 1'
         innerDiv.style.borderImageSlice = '1'
         innerDiv.style.webkitPrintColorAdjust = 'exact'
         innerDiv.style.printColorAdjust = 'exact'
@@ -2491,7 +2491,7 @@ export function PrintablesPage() {
               clonedInnerDiv.style.position = 'relative'
               clonedInnerDiv.style.borderRadius = '12px'
               clonedInnerDiv.style.border = '4px solid transparent'
-              clonedInnerDiv.style.borderImage = 'linear-gradient(135deg, #f472b6 0%, #a78bfa 20%, #60a5fa 40%, #34d399 60%, #fbbf24 80%, #fb7185 100%) 1'
+              clonedInnerDiv.style.borderImage = 'linear-gradient(120deg, #f472b6 0%, #ec4899 20%, #a855f7 40%, #6366f1 60%, #0ea5e9 80%, #14b8a6 100%) 1'
               clonedInnerDiv.style.borderImageSlice = '1'
               clonedInnerDiv.style.webkitPrintColorAdjust = 'exact'
               clonedInnerDiv.style.printColorAdjust = 'exact'
