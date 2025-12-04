@@ -450,7 +450,7 @@ html {
     margin: 0 !important; 
     padding: 0 !important; 
     font-size: 11pt !important;
-    line-height: 1.3 !important;
+    line-height: 1.5 !important;
     min-height: auto !important;
     height: auto !important;
   }
@@ -515,23 +515,28 @@ html {
     margin-top: 0 !important;
   }
 
-  /* Remove all vertical margins that create empty spaces */
+  /* Reduce vertical margins but keep minimal for readability - FIXED CONFLICT */
   [class*="mb-"],
   [class*="mt-"],
   [class*="my-"],
   [class*="py-"] {
-    margin-top: 0 !important;
-    margin-bottom: 0 !important;
-    padding-top: 0 !important;
-    padding-bottom: 0 !important;
+    margin-top: 0.25rem !important;
+    margin-bottom: 0.25rem !important;
+    padding-top: 0.25rem !important;
+    padding-bottom: 0.25rem !important;
   }
 
-  /* Remove padding from containers that create empty spaces */
+  /* Reduce padding but keep minimal for readability - FIXED CONFLICT */
   [class*="p-"],
   [class*="px-"],
   [class*="pt-"],
   [class*="pb-"] {
-    padding: 0 !important;
+    padding: 0.25rem !important;
+  }
+
+  /* But allow worksheet content to have proper spacing */
+  [data-worksheet-content="true"] [class*="p-"] {
+    padding: 0.5rem !important;
   }
 
   /* Keep only essential padding for readability */
@@ -540,13 +545,15 @@ html {
     padding-bottom: 0 !important;
   }
 
-  /* Remove empty space from worksheet sections - allow breaking */
+  /* Worksheet sections - proper spacing for readability - FIXED CONFLICT */
   [data-worksheet-content="true"] .worksheet-section,
   [data-worksheet-content="true"] section {
     margin-top: 0 !important;
-    margin-bottom: 0 !important;
-    padding-top: 0 !important;
-    padding-bottom: 0 !important;
+    margin-bottom: 0.5rem !important;
+    padding-top: 0.25rem !important;
+    padding-bottom: 0.5rem !important;
+    padding-left: 0.5rem !important;
+    padding-right: 0.5rem !important;
     page-break-inside: auto !important;
     break-inside: auto !important;
     display: block !important;
@@ -557,15 +564,15 @@ html {
   [data-worksheet-content="true"] .worksheet-section:first-child,
   [data-worksheet-content="true"] section:first-child {
     margin-top: 0 !important;
-    padding-top: 0 !important;
+    padding-top: 0.25rem !important;
     page-break-before: auto !important;
     break-before: auto !important;
   }
 
-  /* Remove empty space between questions */
+  /* Proper spacing between questions for readability */
   [data-worksheet-content="true"] .question-section-wrapper + .question-section-wrapper,
   [data-worksheet-content="true"] .question-section + .question-section {
-    margin-top: 0 !important;
+    margin-top: 0.5rem !important;
     padding-top: 0 !important;
   }
 
@@ -899,18 +906,32 @@ html {
     visibility: visible !important;
   }
 
-  /* Ensure all content is visible */
+  /* Ensure all content is visible - but preserve inline elements */
   [data-worksheet-content="true"] * {
     visibility: visible !important;
   }
 
-  [data-worksheet-content="true"] .worksheet-section *,
-  [data-worksheet-content="true"] section * {
+  /* Only block-level elements should be block, preserve inline/spans */
+  [data-worksheet-content="true"] .worksheet-section > *,
+  [data-worksheet-content="true"] section > *,
+  [data-worksheet-content="true"] .worksheet-section div,
+  [data-worksheet-content="true"] section div,
+  [data-worksheet-content="true"] .worksheet-section p,
+  [data-worksheet-content="true"] section p {
     display: block !important;
     visibility: visible !important;
   }
+
+  /* Preserve inline elements */
+  [data-worksheet-content="true"] span,
+  [data-worksheet-content="true"] strong,
+  [data-worksheet-content="true"] em,
+  [data-worksheet-content="true"] a {
+    display: inline !important;
+    visibility: visible !important;
+  }
   
-  /* Better spacing for print - readable and clean */
+  /* Consistent section spacing - FIXED CONFLICT */
   section { 
     margin-bottom: 0.5rem !important; 
     margin-top: 0 !important;
@@ -922,7 +943,6 @@ html {
     padding-bottom: 0.5rem !important;
     background-color: white !important;
     background: white !important;
-    /* Ensure sections don't overflow container width */
     max-width: 100% !important;
     box-sizing: border-box !important;
     overflow-x: visible !important;
@@ -936,20 +956,20 @@ html {
     background-color: white !important;
   }
   
-  /* Add spacing between worksheet sections */
+  /* Worksheet sections - consistent with above rules - FIXED CONFLICT */
   .worksheet-section {
-    margin-bottom: 1.5rem !important;
-    padding: 0.5rem 0.5rem !important;
+    margin-bottom: 0.5rem !important;
+    padding: 0.25rem 0.5rem 0.5rem 0.5rem !important;
     background-color: white !important;
-    /* Ensure sections don't overflow container width */
     max-width: 100% !important;
     box-sizing: border-box !important;
-    overflow-x: hidden !important;
+    overflow-x: visible !important;
+    overflow-y: visible !important;
   }
   
-  /* First worksheet section should have NO top padding/margin - content starts immediately after header */
+  /* First worksheet section should have minimal top padding */
   .worksheet-section:first-of-type {
-    padding-top: 0 !important;
+    padding-top: 0.25rem !important;
     margin-top: 0 !important;
     background-color: white !important;
   }
@@ -1109,12 +1129,7 @@ html {
     page-break-after: auto !important;
     page-break-inside: auto !important;
   }
-  /* Reduce margins/padding that expand on print */
-  [class*="mb-"], [class*="mt-"], [class*="p-"], [class*="m-"] {
-    margin-bottom: 0.25rem !important;
-    margin-top: 0.25rem !important;
-    padding: 0.25rem !important;
-  }
+  /* Consistent spacing - already handled above, remove duplicate */
   /* Remove decorative colorful border - clean print layout */
   [data-worksheet-content="true"] > div:first-child::before,
   [data-worksheet-content="true"] > div.max-w-4xl::before,
@@ -1147,9 +1162,9 @@ html {
     -webkit-print-color-adjust: exact !important;
     print-color-adjust: exact !important;
     color-adjust: exact !important;
-    padding: 4px 8px 8px 8px !important;
-    padding-top: 4px !important;
-    margin: 0 0.1in 0.3in 0.1in !important;
+    padding: 0.1in !important;
+    padding-top: 0.05in !important;
+    margin: 0 !important;
     margin-top: 0 !important;
     page-break-inside: auto !important;
     break-inside: auto !important;
@@ -1201,12 +1216,14 @@ html {
     padding-top: 0 !important;
   }
 
-  /* Ensure content container uses full width - no left alignment constraint */
+  /* Ensure content container uses full width - consistent padding */
   [data-worksheet-content="true"] .worksheet-container {
     margin-left: 0 !important;
     margin-right: 0 !important;
     padding-left: 0.1in !important;
     padding-right: 0.1in !important;
+    padding-top: 0.05in !important;
+    padding-bottom: 0.1in !important;
   }
 
   /* Force questions container to use full width */
@@ -1278,21 +1295,21 @@ html {
     background: white !important;
   }
   
-  /* Preserve worksheet section borders and styling for readability */
+  /* Clean worksheet sections - no decorative borders for print */
   section[class*="break-inside-avoid"],
   section.worksheet-section,
   .worksheet-section {
-    border: 1px solid #e2e8f0 !important;
-    border-radius: 4px !important;
+    border: none !important;
+    border-radius: 0 !important;
     background: white !important;
     background-color: white !important;
   }
   
-  /* Preserve content borders within worksheets */
+  /* Clean content borders within worksheets */
   section[class*="break-inside-avoid"] div[class*="border"],
   section[class*="break-inside-avoid"] div[class*="rounded"] {
-    border: 1px solid #cbd5e1 !important;
-    border-radius: 4px !important;
+    border: none !important;
+    border-radius: 0 !important;
   }
   
   /* Hide URLs in print */

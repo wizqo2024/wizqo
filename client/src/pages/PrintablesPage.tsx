@@ -1961,11 +1961,18 @@ export function PrintablesPage() {
           page-break-inside: auto !important;
         }
         
-        /* Reduce margins/padding that expand on print */
-        [class*="mb-"], [class*="mt-"], [class*="p-"], [class*="m-"] {
+        /* Consistent spacing - match index.css */
+        [class*="mb-"], [class*="mt-"], [class*="my-"], [class*="py-"] {
           margin-bottom: 0.25rem !important;
           margin-top: 0.25rem !important;
+          padding-top: 0.25rem !important;
+          padding-bottom: 0.25rem !important;
+        }
+        [class*="p-"], [class*="px-"], [class*="pt-"], [class*="pb-"] {
           padding: 0.25rem !important;
+        }
+        [data-worksheet-content="true"] [class*="p-"] {
+          padding: 0.5rem !important;
         }
         
         /* Fix empty gaps between worksheet sections */
@@ -2043,26 +2050,19 @@ export function PrintablesPage() {
           background: white !important;
         }
         
-        /* CRITICAL: Inner div - match print styles with colorful border and emoji stars */
+        /* CRITICAL: Inner div - clean print layout - match index.css */
         [data-worksheet-content="true"] > div:first-child,
         [data-worksheet-content="true"] .max-w-4xl {
           position: relative !important;
-          border-radius: 12px !important;
-          border: 4px solid transparent !important;
-          border-image: linear-gradient(
-            135deg,
-            #f472b6 0%,
-            #a78bfa 20%,
-            #60a5fa 40%,
-            #34d399 60%,
-            #fbbf24 80%,
-            #fb7185 100%
-          ) 1 !important;
+          border-radius: 0 !important;
+          border: none !important;
+          border-image: none !important;
           -webkit-print-color-adjust: exact !important;
           print-color-adjust: exact !important;
           color-adjust: exact !important;
-          padding: 20px 24px 24px 24px !important;
-          margin: 0.5in !important;
+          padding: 0.1in !important;
+          padding-top: 0.05in !important;
+          margin: 0 !important;
         }
         
         /* Remove decorative colorful border - clean print layout */
@@ -2111,7 +2111,7 @@ export function PrintablesPage() {
           padding-top: 0 !important;
         }
         
-        /* Section styles - match index.css exactly */
+        /* Section styles - match index.css exactly - clean borders */
         section.worksheet-section,
         section[class*="worksheet-section"],
         .worksheet-section {
@@ -2125,17 +2125,17 @@ export function PrintablesPage() {
           overflow: visible !important;
           margin-bottom: 0.5rem !important;
           margin-top: 0 !important;
-          padding-left: 0.25rem !important;
-          padding-right: 0.25rem !important;
+          padding-left: 0.5rem !important;
+          padding-right: 0.5rem !important;
           padding-top: 0.25rem !important;
-          padding-bottom: 0.25rem !important;
+          padding-bottom: 0.5rem !important;
           background-color: white !important;
           background: white !important;
           max-width: 100% !important;
           box-sizing: border-box !important;
-          overflow-x: hidden !important;
-          border: 1px solid #e2e8f0 !important;
-          border-radius: 4px !important;
+          overflow-x: visible !important;
+          border: none !important;
+          border-radius: 0 !important;
           min-height: auto !important;
           height: auto !important;
         }
