@@ -2131,8 +2131,17 @@ export function PrintablesPage() {
           margin: 0 !important;
           padding: 0 0.5in 0.5in 0.5in !important;
           padding-top: 0 !important;
-          background: white !important;
+          border: 6px solid transparent !important;
+          border-radius: 28px !important;
+          background:
+            linear-gradient(white, white) padding-box,
+            linear-gradient(120deg, #f472b6 0%, #ec4899 20%, #a855f7 40%, #6366f1 60%, #0ea5e9 80%, #14b8a6 100%) border-box !important;
+          box-shadow: 0 18px 55px rgba(15, 23, 42, 0.18) !important;
           box-sizing: border-box !important;
+          isolation: isolate !important;
+          -webkit-print-color-adjust: exact !important;
+          print-color-adjust: exact !important;
+          color-adjust: exact !important;
         }
         
         /* Decorative colorful gradient border at top */
@@ -2271,6 +2280,25 @@ export function PrintablesPage() {
         section[class*="break-inside-avoid"] div[class*="rounded"] {
           border: 1px solid #cbd5e1 !important;
           border-radius: 4px !important;
+        }
+        
+        /* Inner borders for every worksheet block */
+        [data-worksheet-content="true"] .worksheet-section > div:not(.print-ignore-inner-border):not([class*="border-"]):not([class*="print:border"]):not([class*="no-border"]),
+        [data-worksheet-content="true"] .worksheet-card > div:not(.print-ignore-inner-border):not([class*="border-"]):not([class*="print:border"]):not([class*="no-border"]),
+        [data-worksheet-content="true"] .question-section > div:not(.print-ignore-inner-border):not([class*="border-"]):not([class*="print:border"]):not([class*="no-border"]),
+        [data-worksheet-content="true"] .question-section-wrapper > div:not(.print-ignore-inner-border):not([class*="border-"]):not([class*="print:border"]):not([class*="no-border"]) {
+          border: 1px solid rgba(15, 23, 42, 0.12) !important;
+          border-radius: 12px !important;
+          padding: 0.35rem 0.5rem !important;
+          margin-bottom: 0.4rem !important;
+          background: white !important;
+        }
+        
+        [data-worksheet-content="true"] .worksheet-section > div:not(.print-ignore-inner-border):last-child,
+        [data-worksheet-content="true"] .worksheet-card > div:not(.print-ignore-inner-border):last-child,
+        [data-worksheet-content="true"] .question-section > div:not(.print-ignore-inner-border):last-child,
+        [data-worksheet-content="true"] .question-section-wrapper > div:not(.print-ignore-inner-border):last-child {
+          margin-bottom: 0 !important;
         }
         
         /* Hide print:hidden elements */
@@ -2489,17 +2517,15 @@ export function PrintablesPage() {
             if (clonedInnerDiv) {
               // Match print styles with colorful border, padding, and emoji stars
               clonedInnerDiv.style.position = 'relative'
-              clonedInnerDiv.style.borderRadius = '12px'
-              clonedInnerDiv.style.border = '4px solid transparent'
-              clonedInnerDiv.style.borderImage = 'linear-gradient(120deg, #f472b6 0%, #ec4899 20%, #a855f7 40%, #6366f1 60%, #0ea5e9 80%, #14b8a6 100%) 1'
-              clonedInnerDiv.style.borderImageSlice = '1'
+              clonedInnerDiv.style.borderRadius = '28px'
+              clonedInnerDiv.style.border = '6px solid transparent'
+              clonedInnerDiv.style.background = 'linear-gradient(white, white) padding-box, linear-gradient(120deg, #f472b6 0%, #ec4899 20%, #a855f7 40%, #6366f1 60%, #0ea5e9 80%, #14b8a6 100%) border-box'
               clonedInnerDiv.style.webkitPrintColorAdjust = 'exact'
               clonedInnerDiv.style.printColorAdjust = 'exact'
               clonedInnerDiv.style.colorAdjust = 'exact'
-              clonedInnerDiv.style.padding = '20px 24px 24px 24px'
+              clonedInnerDiv.style.boxShadow = '0 18px 55px rgba(15, 23, 42, 0.18)'
+              clonedInnerDiv.style.padding = '0 0.5in 0.5in 0.5in'
               clonedInnerDiv.style.margin = '0.5in'
-              clonedInnerDiv.style.backgroundColor = 'white'
-              clonedInnerDiv.style.background = 'white'
             }
           }
           
@@ -3042,6 +3068,18 @@ export function PrintablesPage() {
             padding: 0 0.5in 0.5in 0.5in;
             padding-top: 0;
             position: relative;
+            max-width: 100%;
+            border: 6px solid transparent !important;
+            border-radius: 28px !important;
+            background:
+              linear-gradient(white, white) padding-box,
+              linear-gradient(120deg, #f472b6 0%, #ec4899 20%, #a855f7 40%, #6366f1 60%, #0ea5e9 80%, #14b8a6 100%) border-box !important;
+            box-shadow: 0 18px 55px rgba(15, 23, 42, 0.18) !important;
+            box-sizing: border-box;
+            isolation: isolate;
+            -webkit-print-color-adjust: exact;
+            print-color-adjust: exact;
+            color-adjust: exact;
           }
           
           /* Combined header */
@@ -3120,6 +3158,24 @@ export function PrintablesPage() {
             padding: 8px;
             background: white;
             page-break-inside: auto;
+          }
+          
+          [data-worksheet-content="true"] .worksheet-section > div:not(.print-ignore-inner-border):not([class*="border-"]):not([class*="print:border"]):not([class*="no-border"]),
+          [data-worksheet-content="true"] .worksheet-card > div:not(.print-ignore-inner-border):not([class*="border-"]):not([class*="print:border"]):not([class*="no-border"]),
+          [data-worksheet-content="true"] .question-section > div:not(.print-ignore-inner-border):not([class*="border-"]):not([class*="print:border"]):not([class*="no-border"]),
+          [data-worksheet-content="true"] .question-section-wrapper > div:not(.print-ignore-inner-border):not([class*="border-"]):not([class*="print:border"]):not([class*="no-border"]) {
+            border: 1px solid rgba(15, 23, 42, 0.12) !important;
+            border-radius: 12px !important;
+            padding: 0.35rem 0.5rem !important;
+            margin-bottom: 0.4rem !important;
+            background: white !important;
+          }
+          
+          [data-worksheet-content="true"] .worksheet-section > div:not(.print-ignore-inner-border):last-child,
+          [data-worksheet-content="true"] .worksheet-card > div:not(.print-ignore-inner-border):last-child,
+          [data-worksheet-content="true"] .question-section > div:not(.print-ignore-inner-border):last-child,
+          [data-worksheet-content="true"] .question-section-wrapper > div:not(.print-ignore-inner-border):last-child {
+            margin-bottom: 0 !important;
           }
           
           /* Hide non-print elements */
