@@ -425,7 +425,7 @@ html {
   /* Page setup */
   @page {
     size: A4;
-    margin: 0.5in;
+    margin: 0.05in 0.5in 0.5in 0.5in; /* Top: 0.05in (minimal for gradient/emoji), others: 0.5in */
   }
   
   /* Reset everything */

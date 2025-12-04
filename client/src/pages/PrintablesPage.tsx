@@ -3259,7 +3259,7 @@ export function PrintablesPage() {
             print-color-adjust: exact !important;
             color-adjust: exact !important;
             padding: 4px 8px 8px 8px !important;
-            padding-top: 4px !important;
+            padding-top: 18px !important; /* Space for gradient (4px) + emoji (~14px) */
             margin: 0 0.1in 0.3in 0.1in !important;
             margin-top: 0 !important;
             page-break-inside: auto !important;
