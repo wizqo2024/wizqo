@@ -14203,7 +14203,7 @@ export function PrintablesPage() {
             >
               <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-blue-400 to-cyan-400 animate-gradient-x mb-2" />
               {/* Worked Example */}
-              <div className="mb-6 p-4 bg-blue-50 border-2 border-blue-200 rounded-lg print:border print:bg-white">
+              <div className="worksheet-card mb-6 p-4 bg-blue-50 border-2 border-blue-200 rounded-lg print:border print:bg-white">
                 <div className="font-semibold text-blue-900 mb-3 text-sm">📚 Example - Let's solve this together:</div>
                 <div className="space-y-2 text-sm">
                   <div className="font-semibold text-base"><strong>Problem:</strong> Locate 35 on a number line from 0 to 50</div>
@@ -14249,7 +14249,7 @@ export function PrintablesPage() {
                 ))}
               </div>
               {/* Extension/Challenge Problems */}
-              <div className="mt-6 print:mt-0 p-4 bg-purple-50 border-2 border-purple-200 rounded print:bg-white print:border" style={{ pageBreakBefore: 'always', pageBreakInside: 'avoid' }}>
+              <div className="worksheet-card mt-6 print:mt-0 p-4 bg-purple-50 border-2 border-purple-200 rounded print:bg-white print:border" style={{ pageBreakBefore: 'always', pageBreakInside: 'avoid' }}>
                 <div className="font-semibold text-purple-900 mb-3 text-sm">🌟 {getTrans('common.challengeYourself', 'Challenge Yourself (Optional):')}</div>
                 <div className="space-y-2 text-sm text-purple-800">
                   <div>1. Can you locate 125 on a number line from 100 to 200?</div>
@@ -14258,7 +14258,7 @@ export function PrintablesPage() {
                 </div>
               </div>
               {/* Self-Assessment */}
-              <div className="print:block hidden print:mt-0 mt-6 p-4 border-2 border-slate-300 rounded" style={{ pageBreakBefore: 'avoid', pageBreakInside: 'avoid' }}>
+              <div className="worksheet-card print:block hidden print:mt-0 mt-6 p-4 border-2 border-slate-300 rounded" style={{ pageBreakBefore: 'avoid', pageBreakInside: 'avoid' }}>
                 <div className="font-semibold text-slate-800 mb-3 text-sm">📊 {getTrans('common.howDidYouDo', 'How did you do?')}</div>
                 <div className="space-y-2 text-xs">
                   <div>☐ I can locate numbers on a number line</div>
@@ -14273,7 +14273,7 @@ export function PrintablesPage() {
                 </div>
               </div>
               {showAnswersForDoc('number-line-200', () => (
-                <div className="mt-6 p-4 border-2 border-emerald-300 bg-emerald-50 rounded print:border print:bg-white print:page-break-before-always">
+                <div className="worksheet-card mt-6 p-4 border-2 border-emerald-300 bg-emerald-50 rounded print:border print:bg-white print:page-break-before-always">
                   <div className="font-bold text-emerald-900 mb-3 text-base">✅ {getTrans('common.answerKey', 'Answer Key')}</div>
                   <ul className="list-disc list-inside space-y-2 text-sm text-emerald-800">
                     {problems.map(({ target, start, end }, idx) => (
