@@ -34126,7 +34126,7 @@ export function PrintablesPage() {
           {t('common.printTip', 'Tip: Use your browser menu → Print → Save as PDF.')}
         </footer>
       </div>
-    </div>
+    </>
   )
 }
 
