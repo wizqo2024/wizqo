@@ -2141,31 +2141,27 @@ export function PrintablesPage() {
           -webkit-print-color-adjust: exact !important;
           print-color-adjust: exact !important;
           color-adjust: exact !important;
-        }
-        
-        /* Decorative colorful gradient border at top */
-        [data-worksheet-content="true"] .worksheet-container::before {
-          content: '' !important;
-          position: absolute !important;
-          top: 0 !important;
-          left: 0 !important;
-          right: 0 !important;
-          height: 3px !important;
-          background: linear-gradient(
-            120deg,
-            #f472b6 0%,
-            #ec4899 20%,
-            #a855f7 40%,
-            #6366f1 60%,
-            #0ea5e9 80%,
-            #14b8a6 100%
-          ) !important;
-          z-index: 1 !important;
+          page-break-before: avoid !important;
+          break-before: avoid-page !important;
+          page-break-after: auto !important;
+          break-after: auto !important;
+          page-break-inside: auto !important;
+          break-inside: avoid !important;
         }
         
         [data-worksheet-content="true"] .print-header-floating {
           padding: 0 0.5in !important;
           margin: 0 0 0.12in 0 !important;
+          page-break-before: avoid !important;
+          break-before: avoid-page !important;
+          page-break-after: avoid !important;
+          break-after: avoid-page !important;
+          page-break-inside: avoid !important;
+          break-inside: avoid !important;
+        }
+        
+        [data-worksheet-content="true"] .print-header-floating + .worksheet-container {
+          page-break-before: avoid !important;
         }
         
         /* Remove ALL top spacing - FIX BLANK FIRST PAGE */
@@ -3076,6 +3072,12 @@ export function PrintablesPage() {
             -webkit-print-color-adjust: exact;
             print-color-adjust: exact;
             color-adjust: exact;
+            page-break-before: avoid !important;
+            break-before: avoid-page !important;
+            page-break-after: auto !important;
+            break-after: auto !important;
+            page-break-inside: auto !important;
+            break-inside: avoid !important;
           }
           
           /* Combined header */
@@ -3158,6 +3160,16 @@ export function PrintablesPage() {
           [data-worksheet-content="true"] .print-header-floating {
             padding: 0 0.5in;
             margin: 0 0 0.12in 0;
+            page-break-before: avoid;
+            break-before: avoid-page;
+            page-break-after: avoid;
+            break-after: avoid-page;
+            page-break-inside: avoid;
+            break-inside: avoid;
+          }
+          
+          [data-worksheet-content="true"] .print-header-floating + .worksheet-container {
+            page-break-before: avoid;
           }
           
           [data-worksheet-content="true"] .worksheet-section > div:not(.print-ignore-inner-border):not([class*="border-"]):not([class*="print:border"]):not([class*="no-border"]),
