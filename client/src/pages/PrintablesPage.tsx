@@ -2977,10 +2977,56 @@ export function PrintablesPage() {
         @media print {
           @page { 
             size: A4;
-            margin: 0 0.5in 0.5in 0.5in !important; /* Top: 0 (no margin - gradient border is on page), others: 0.5in */
+            margin: 0 0.5in 0.5in 0.5in !important;
             border-top: 4px solid transparent !important;
             border-image: linear-gradient(90deg, #f472b6, #a78bfa, #60a5fa, #34d399, #fbbf24, #fb7185) 1 !important;
             border-image-slice: 1 !important;
+          }
+          
+          /* CONTAINER - ZERO TOP SPACING */
+          [data-worksheet-content="true"] .worksheet-container {
+            margin-top: 0 !important;
+            padding-top: 0 !important;
+            padding: 0 0.1in 0.1in 0.1in !important;
+            position: relative !important;
+          }
+          
+          /* EMOJI - Positioned at top */
+          [data-worksheet-content="true"] .worksheet-container::after {
+            content: '⭐ ✨ ⭐ ✨ ⭐' !important;
+            position: absolute !important;
+            top: 4px !important;
+            left: 0 !important;
+            right: 0 !important;
+            text-align: center !important;
+            font-size: 9px !important;
+            line-height: 1.2 !important;
+            color: #fbbf24 !important;
+            z-index: 10 !important;
+            -webkit-print-color-adjust: exact !important;
+            print-color-adjust: exact !important;
+          }
+          
+          /* LOGO - Horizontal, right after emoji */
+          [data-worksheet-content="true"] .wizqo-logo-print {
+            display: flex !important;
+            flex-direction: row !important;
+            align-items: center !important;
+            gap: 6px !important;
+            margin-top: 10px !important;
+            margin-bottom: 4px !important;
+            padding: 0 !important;
+          }
+          
+          [data-worksheet-content="true"] .wizqo-logo-print img {
+            width: 32px !important;
+            height: 32px !important;
+          }
+          
+          [data-worksheet-content="true"] .wizqo-logo-print .domain-text {
+            font-size: 10px !important;
+            font-weight: 600 !important;
+            color: #4845D2 !important;
           }
           /* Universal print reset - fix 90% of spacing problems */
           * {
@@ -3269,29 +3315,6 @@ export function PrintablesPage() {
             box-sizing: border-box !important;
           }
 
-          /* Remove empty space at very top of page - but keep logo margin for emoji clearance */
-          [data-worksheet-content="true"] .worksheet-container > *:first-child:not(.wizqo-logo-print),
-          [data-worksheet-content="true"] .print-name-date-header {
-            margin-top: 0 !important;
-            padding-top: 0 !important;
-          }
-          
-          /* CRITICAL: Force logo to be horizontal - override any column layout */
-          [data-worksheet-content="true"] .wizqo-logo-print {
-            display: flex !important;
-            flex-direction: row !important;
-            flex-wrap: nowrap !important;
-            align-items: center !important;
-            gap: 6px !important;
-            margin-top: 12px !important; /* Push logo down to clear emoji (4px gradient + ~8px emoji) */
-            padding-top: 0 !important;
-          }
-          
-          [data-worksheet-content="true"] .wizqo-logo-print img,
-          [data-worksheet-content="true"] .wizqo-logo-print .domain-text {
-            display: inline-block !important;
-            vertical-align: middle !important;
-          }
 
           /* Ensure content container uses full width - no left alignment constraint */
           [data-worksheet-content="true"] .worksheet-container {
