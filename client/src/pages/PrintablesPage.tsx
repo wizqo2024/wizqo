@@ -2063,25 +2063,24 @@ export function PrintablesPage() {
           box-shadow: 0 6px 18px rgba(244, 114, 182, 0.18) !important;
         }
         
-        [data-worksheet-content="true"][data-doc="kindergarten-counting-visual"] .question-section svg {
+        [data-worksheet-content="true"] .question-section svg {
           max-height: 1.8in !important;
         }
         
-        [data-worksheet-content="true"][data-doc="kindergarten-counting-visual"] .worksheet-section {
+        [data-worksheet-content="true"] .worksheet-section {
           border: 4px solid transparent !important;
           border-radius: 24px !important;
-          border-image: linear-gradient(135deg, #f472b6, #f97316, #fb7185) 1 !important;
-          padding: 1.25rem !important;
-          box-shadow: 0 18px 35px rgba(249, 168, 212, 0.25) !important;
+          border-image: linear-gradient(135deg, #f472b6, #a78bfa, #60a5fa, #34d399, #fbbf24, #fb7185) 1 !important;
+          padding: 1rem !important;
+          box-shadow: 0 18px 35px rgba(15, 23, 42, 0.12) !important;
           background: white !important;
         }
         
-        [data-worksheet-content="true"][data-doc="kindergarten-counting-visual"] .kc-border-block,
-        [data-worksheet-content="true"][data-doc="kindergarten-counting-visual"] .print\\:block.hidden {
-          border: 2px solid #fdb7d9 !important;
+        .worksheet-card {
+          border: 2px solid #f2c6e9 !important;
           border-radius: 16px !important;
-          background: #fffefc !important;
-          box-shadow: 0 10px 24px rgba(249, 168, 212, 0.35) !important;
+          background: white !important;
+          box-shadow: 0 10px 24px rgba(15, 23, 42, 0.08) !important;
         }
         
         /* Prevent images/SVG from breaking away from questions */
@@ -19894,7 +19893,7 @@ export function PrintablesPage() {
             >
               <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-pink-400 to-rose-400 animate-gradient-x mb-2" />
               {/* Worked Example */}
-              <div className="kc-border-block mb-6 p-4 bg-blue-50 border-2 border-blue-200 rounded-lg print:border print:bg-white">
+              <div className="worksheet-card mb-6 p-4 bg-blue-50 border-2 border-blue-200 rounded-lg print:border print:bg-white">
                 <div className="font-semibold text-blue-900 mb-3 text-sm">📚 Example - Let's solve this together:</div>
                 <div className="space-y-2 text-sm">
                   <div className="font-semibold text-base"><strong>Pattern:</strong> 🔴 🔵 🔴 🔵 ___</div>
@@ -20338,7 +20337,7 @@ export function PrintablesPage() {
                   </div>
                 </div>
               </div>
-              <div className="kc-border-block space-y-2 print:space-y-1" style={{ pageBreakAfter: 'auto' }}>
+              <div className="worksheet-card space-y-2 print:space-y-1" style={{ pageBreakAfter: 'auto' }}>
                 {problems.map((p, i) => {
                   const charData = characterComponents[p.charIndex];
                   return (
@@ -20354,7 +20353,7 @@ export function PrintablesPage() {
                 })}
               </div>
               {/* Extension/Challenge Problems */}
-              <div className="kc-border-block mt-6 print:mt-0 p-4 bg-purple-50 border-2 border-purple-200 rounded print:bg-white print:border" style={{ pageBreakBefore: 'always', pageBreakInside: 'avoid' }}>
+              <div className="worksheet-card mt-6 print:mt-0 p-4 bg-purple-50 border-2 border-purple-200 rounded print:bg-white print:border" style={{ pageBreakBefore: 'always', pageBreakInside: 'avoid' }}>
                 <div className="font-semibold text-purple-900 mb-3 text-sm">🌟 More Fun (Optional):</div>
                 <div className="space-y-2 text-sm text-purple-800">
                   <div>1. Count characters in your room. How many can you find?</div>
@@ -20363,7 +20362,7 @@ export function PrintablesPage() {
                 </div>
               </div>
               {/* Self-Assessment */}
-              <div className="kc-border-block print:block hidden print:mt-0 mt-6 p-4 border-2 border-slate-300 rounded" style={{ pageBreakBefore: 'avoid', pageBreakInside: 'avoid' }}>
+              <div className="worksheet-card print:block hidden print:mt-0 mt-6 p-4 border-2 border-slate-300 rounded" style={{ pageBreakBefore: 'avoid', pageBreakInside: 'avoid' }}>
                 <div className="font-semibold text-slate-800 mb-3 text-sm">📊 {getTrans('common.howDidYouDo', 'How did you do?')}</div>
                 <div className="space-y-2 text-xs">
                   <div>☐ I can count characters from 1 to 10</div>
