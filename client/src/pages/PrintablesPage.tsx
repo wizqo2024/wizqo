@@ -3041,6 +3041,18 @@ export function PrintablesPage() {
             z-index: 10;
           }
           
+          /* Combined header */
+          [data-worksheet-content="true"] .wizqo-print-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 12px;
+            margin: 0 0 6px 0;
+            page-break-after: avoid;
+            break-after: avoid;
+            page-break-inside: avoid;
+          }
+          
           /* Logo - horizontal layout */
           [data-worksheet-content="true"] .wizqo-logo-print {
             display: flex;
@@ -3068,11 +3080,11 @@ export function PrintablesPage() {
           /* Name/Date header */
           [data-worksheet-content="true"] .print-name-date-header {
             display: flex;
-            justify-content: space-between;
+            justify-content: flex-end;
             align-items: center;
-            margin: 0 0 4px 0;
-            padding: 0 0 2px 0;
-            border-bottom: 1px solid #cbd5e1;
+            gap: 12px;
+            margin: 0;
+            padding: 0;
             font-size: 12pt;
             page-break-after: avoid;
             break-after: avoid;
@@ -3136,21 +3148,20 @@ export function PrintablesPage() {
         data-doc={resolvedDocId || undefined}
       >
         <div className={`worksheet-container max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-10 print:p-0 print:py-0 print:mt-0 ${isPreview ? 'preview-mode' : ''}`}>
-        {/* Logo and domain for all worksheets */}
-        <div className="hidden print:block wizqo-logo-print">
-          <img src="/logo.svg" alt="Wizqo Logo" />
-          <span className="domain-text">www.wizqo.com</span>
-        </div>
-        {/* Name and Date fields for all worksheets */}
-        <div className="hidden print:block print-name-date-header" style={{ marginBottom: '0px', marginTop: '0px', paddingBottom: '1px', display: 'flex', justifyContent: 'space-between', alignItems: 'center', borderBottom: '1px solid #cbd5e1' }}>
-          <div className="print:flex print:items-center print:gap-4">
-            <div className="print:text-sm">
-              <strong>Name:</strong> <span className="print:border-b print:border-slate-400 print:inline-block" style={{ minWidth: '150px', borderBottom: '1px solid #94a3b8', display: 'inline-block' }}>&nbsp;</span>
-            </div>
+        {/* Logo + Name/Date header */}
+        <div className="hidden print:flex wizqo-print-header">
+          <div className="wizqo-logo-print">
+            <img src="/logo.svg" alt="Wizqo Logo" />
+            <span className="domain-text">www.wizqo.com</span>
           </div>
-          <div className="print:flex print:items-center print:gap-4">
-            <div className="print:text-sm">
-              <strong>Date:</strong> <span className="print:border-b print:border-slate-400 print:inline-block" style={{ minWidth: '100px', borderBottom: '1px solid #94a3b8', display: 'inline-block' }}>&nbsp;</span>
+          <div className="print-name-date-header" style={{ marginBottom: '0px', marginTop: '0px', paddingBottom: '0px', borderBottom: '1px solid #cbd5e1' }}>
+            <div className="print:flex print:items-center print:gap-6">
+              <div className="print:text-sm flex items-center gap-2">
+                <strong>Name:</strong> <span className="print:border-b print:border-slate-400 print:inline-block" style={{ minWidth: '150px', borderBottom: '1px solid #94a3b8', display: 'inline-block' }}>&nbsp;</span>
+              </div>
+              <div className="print:text-sm flex items-center gap-2">
+                <strong>Date:</strong> <span className="print:border-b print:border-slate-400 print:inline-block" style={{ minWidth: '100px', borderBottom: '1px solid #94a3b8', display: 'inline-block' }}>&nbsp;</span>
+              </div>
             </div>
           </div>
         </div>
@@ -20292,6 +20303,7 @@ export function PrintablesPage() {
                 'Practice writing numbers correctly',
                 'Extension: Count objects around the house'
               ]}
+              hideDefaultHeader
             >
               <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-pink-400 to-rose-400 animate-gradient-x mb-2" />
               {/* Worked Example */}
