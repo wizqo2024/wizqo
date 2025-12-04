@@ -232,7 +232,7 @@ function WorksheetSectionWrapper({
   problemCount,
   learningObjectives,
   parentTeacherTips,
-  hideDefaultHeader = false,
+  hideDefaultHeader = true,
   footer
 }: { 
   docId: string
