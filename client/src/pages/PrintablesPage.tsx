@@ -2879,6 +2879,11 @@ export function PrintablesPage() {
   return (
     <div className="min-h-screen bg-white" data-worksheet-content="true" data-doc={doc || primaryDoc || ''}>
       <style>{`
+        /* Hide style tag itself in print */
+        style {
+          display: none !important;
+          visibility: hidden !important;
+        }
         @media print {
           @page { 
             size: A4;

@@ -411,6 +411,15 @@ html {
  * - Prevents worksheet sections from breaking across pages
  * ============================================================================ */
 @media print {
+  /* Hide style tags in print - prevent CSS code from appearing as text */
+  style {
+    display: none !important;
+    visibility: hidden !important;
+    height: 0 !important;
+    width: 0 !important;
+    overflow: hidden !important;
+  }
+  
   /* ============================================================================
    * DEFAULT PRINT MARGINS: NONE (0) - Applies to ALL browsers and ALL pages
    * ============================================================================
