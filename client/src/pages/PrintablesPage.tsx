@@ -3133,13 +3133,14 @@ export function PrintablesPage() {
             margin: 0 !important;
           }
           /* Thin colorful decorative border with emoji-style pattern - applied to ALL worksheets */
-          /* Worksheet container - responsive width to utilize full page space */
+          /* Worksheet container - responsive width to utilize full page space - ALLOW BREAKING */
           .worksheet-container,
           [data-worksheet-content="true"] > div:first-child,
           [data-worksheet-content="true"] .max-w-4xl {
             width: 100% !important;
             max-width: 100% !important;
             margin: 0 !important;
+            margin-top: 0 !important;
             position: relative !important;
             border-radius: 12px !important;
             border: 4px solid transparent !important;
@@ -3156,9 +3157,13 @@ export function PrintablesPage() {
             print-color-adjust: exact !important;
             color-adjust: exact !important;
             padding: 4px 8px 8px 8px !important;
+            padding-top: 4px !important;
             margin: 0 0.1in 0.3in 0.1in !important;
-            page-break-inside: avoid !important;
-            break-inside: avoid !important;
+            margin-top: 0 !important;
+            page-break-inside: auto !important;
+            break-inside: auto !important;
+            page-break-before: auto !important;
+            break-before: auto !important;
             box-sizing: border-box !important;
           }
 
