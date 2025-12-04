@@ -2123,7 +2123,6 @@ export function PrintablesPage() {
         }
         
         /* Inner wrapper maintains padding + gradient accent */
-        [data-worksheet-content="true"] > div:first-child,
         [data-worksheet-content="true"] .worksheet-container {
           position: relative !important;
           width: 100% !important;
@@ -2131,7 +2130,7 @@ export function PrintablesPage() {
           margin: 0 !important;
           padding: 0 0.5in 0.5in 0.5in !important;
           padding-top: 0 !important;
-          border: 6px solid transparent !important;
+          border: 3px solid transparent !important;
           border-radius: 28px !important;
           background:
             linear-gradient(white, white) padding-box,
@@ -2145,7 +2144,6 @@ export function PrintablesPage() {
         }
         
         /* Decorative colorful gradient border at top */
-        [data-worksheet-content="true"] > div:first-child::before,
         [data-worksheet-content="true"] .worksheet-container::before {
           content: '' !important;
           position: absolute !important;
@@ -2166,7 +2164,6 @@ export function PrintablesPage() {
         }
         
         /* Decorative emoji stars at top */
-        [data-worksheet-content="true"] > div:first-child::after,
         [data-worksheet-content="true"] .worksheet-container::after {
           content: '⭐ ✨ ⭐ ✨ ⭐' !important;
           position: absolute !important;
@@ -2178,6 +2175,11 @@ export function PrintablesPage() {
           line-height: 1.2 !important;
           color: #fbbf24 !important;
           z-index: 1 !important;
+        }
+        
+        [data-worksheet-content="true"] .print-header-floating {
+          padding: 0 0.5in !important;
+          margin: 0 0 0.12in 0 !important;
         }
         
         /* Remove ALL top spacing - FIX BLANK FIRST PAGE */
@@ -2443,7 +2445,7 @@ export function PrintablesPage() {
       
       // Set inner div to match print layout EXACTLY - with colorful border and emoji stars
       // CRITICAL: Print styles show colorful border, padding 20px 24px, and emoji stars - match Ctrl+P exactly
-      const innerDiv = contentElement.querySelector(':scope > div:first-child') as HTMLElement
+      const innerDiv = contentElement.querySelector(':scope > .worksheet-container') as HTMLElement
       if (innerDiv) {
         originalStyles.set(innerDiv, {
           margin: innerDiv.style.margin,
@@ -2465,17 +2467,15 @@ export function PrintablesPage() {
         })
         // Match print styles with colorful border and padding
         innerDiv.style.position = 'relative'
-        innerDiv.style.borderRadius = '12px'
-        innerDiv.style.border = '4px solid transparent'
-        innerDiv.style.borderImage = 'linear-gradient(120deg, #f472b6 0%, #ec4899 20%, #a855f7 40%, #6366f1 60%, #0ea5e9 80%, #14b8a6 100%) 1'
-        innerDiv.style.borderImageSlice = '1'
+        innerDiv.style.borderRadius = '28px'
+        innerDiv.style.border = '3px solid transparent'
+        innerDiv.style.background = 'linear-gradient(white, white) padding-box, linear-gradient(120deg, #f472b6 0%, #ec4899 20%, #a855f7 40%, #6366f1 60%, #0ea5e9 80%, #14b8a6 100%) border-box'
         innerDiv.style.webkitPrintColorAdjust = 'exact'
         innerDiv.style.printColorAdjust = 'exact'
         innerDiv.style.colorAdjust = 'exact'
-        innerDiv.style.padding = '20px 24px 24px 24px'
-        innerDiv.style.margin = '0.5in'
-        innerDiv.style.backgroundColor = 'white'
-        innerDiv.style.background = 'white'
+        innerDiv.style.boxShadow = '0 18px 55px rgba(15, 23, 42, 0.18)'
+        innerDiv.style.padding = '0 0.5in 0.5in 0.5in'
+        innerDiv.style.margin = '0 0.5in 0.5in 0.5in'
       }
       
       // Wait for styles to apply - ensure colorful border, emoji stars, and all print styles are rendered
@@ -2513,19 +2513,26 @@ export function PrintablesPage() {
           // Apply print styles to cloned inner div - with colorful border and emoji stars
           const clonedContentElement = clonedDoc.querySelector('[data-worksheet-content="true"]') as HTMLElement
           if (clonedContentElement) {
-            const clonedInnerDiv = clonedContentElement.querySelector(':scope > div:first-child') as HTMLElement
+            const clonedInnerDiv = clonedContentElement.querySelector(':scope > .worksheet-container') as HTMLElement
             if (clonedInnerDiv) {
               // Match print styles with colorful border, padding, and emoji stars
               clonedInnerDiv.style.position = 'relative'
               clonedInnerDiv.style.borderRadius = '28px'
-              clonedInnerDiv.style.border = '6px solid transparent'
+              clonedInnerDiv.style.border = '3px solid transparent'
               clonedInnerDiv.style.background = 'linear-gradient(white, white) padding-box, linear-gradient(120deg, #f472b6 0%, #ec4899 20%, #a855f7 40%, #6366f1 60%, #0ea5e9 80%, #14b8a6 100%) border-box'
               clonedInnerDiv.style.webkitPrintColorAdjust = 'exact'
               clonedInnerDiv.style.printColorAdjust = 'exact'
               clonedInnerDiv.style.colorAdjust = 'exact'
               clonedInnerDiv.style.boxShadow = '0 18px 55px rgba(15, 23, 42, 0.18)'
               clonedInnerDiv.style.padding = '0 0.5in 0.5in 0.5in'
-              clonedInnerDiv.style.margin = '0.5in'
+              clonedInnerDiv.style.margin = '0 0.5in 0.5in 0.5in'
+            }
+            
+            const clonedHeader = clonedContentElement.querySelector('.print-header-floating') as HTMLElement
+            if (clonedHeader) {
+              clonedHeader.style.display = 'flex'
+              clonedHeader.style.padding = '0 0.5in'
+              clonedHeader.style.margin = '0.5in 0.5in 0.12in 0.5in'
             }
           }
           
@@ -2546,6 +2553,9 @@ export function PrintablesPage() {
             
             if (classList.some(cls => cls.includes('print:block'))) {
               htmlEl.style.display = 'block'
+            }
+            if (classList.some(cls => cls.includes('print:flex'))) {
+              htmlEl.style.display = 'flex'
             }
             if (classList.some(cls => cls.includes('print:hidden'))) {
               htmlEl.style.display = 'none'
@@ -3069,7 +3079,7 @@ export function PrintablesPage() {
             padding-top: 0;
             position: relative;
             max-width: 100%;
-            border: 6px solid transparent !important;
+            border: 3px solid transparent !important;
             border-radius: 28px !important;
             background:
               linear-gradient(white, white) padding-box,
@@ -3160,6 +3170,11 @@ export function PrintablesPage() {
             page-break-inside: auto;
           }
           
+          [data-worksheet-content="true"] .print-header-floating {
+            padding: 0 0.5in;
+            margin: 0 0 0.12in 0;
+          }
+          
           [data-worksheet-content="true"] .worksheet-section > div:not(.print-ignore-inner-border):not([class*="border-"]):not([class*="print:border"]):not([class*="no-border"]),
           [data-worksheet-content="true"] .worksheet-card > div:not(.print-ignore-inner-border):not([class*="border-"]):not([class*="print:border"]):not([class*="no-border"]),
           [data-worksheet-content="true"] .question-section > div:not(.print-ignore-inner-border):not([class*="border-"]):not([class*="print:border"]):not([class*="no-border"]),
@@ -3217,9 +3232,7 @@ export function PrintablesPage() {
         data-worksheet-content="true" 
         data-doc={resolvedDocId || undefined}
       >
-        <div className={`worksheet-container max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-10 print:p-0 print:py-0 print:mt-0 ${isPreview ? 'preview-mode' : ''}`}>
-        {/* Logo + Name/Date header */}
-        <div className="hidden print:flex wizqo-print-header">
+        <div className="hidden print:flex wizqo-print-header print-header-floating">
           <div className="print-name-field">
             <strong>Name:</strong>
             <span className="print:border-b print:border-slate-400 print:inline-block" style={{ minWidth: '150px', borderBottom: '1px solid #94a3b8', display: 'inline-block' }}>&nbsp;</span>
@@ -3233,6 +3246,7 @@ export function PrintablesPage() {
             <span className="print:border-b print:border-slate-400 print:inline-block" style={{ minWidth: '100px', borderBottom: '1px solid #94a3b8', display: 'inline-block' }}>&nbsp;</span>
           </div>
         </div>
+        <div className={`worksheet-container max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-10 print:p-0 print:py-0 print:mt-0 ${isPreview ? 'preview-mode' : ''}`}>
         {/* Customization header (print view - appears once at top) */}
         {(teacherName || className || studentNames.length > 0) && !isPreview && (
           <div className="hidden print:block print-customization-header" aria-hidden>
