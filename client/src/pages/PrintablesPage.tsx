@@ -293,6 +293,7 @@ function WorksheetSectionWrapper({
     <section 
       className={`mb-10 break-inside-avoid rounded-xl border-2 ${theme.border} ${theme.background} p-6 print:border-0 print:p-0 print:bg-white print:mt-0 print:mb-0 print:pt-0 shadow-lg relative overflow-hidden worksheet-section`}
       dir={isRTL ? 'rtl' : 'ltr'}
+      data-doc-id={docId}
       style={{ 
         pageBreakInside: 'auto', // Allow section to break across pages if needed
         breakInside: 'auto',
@@ -313,8 +314,8 @@ function WorksheetSectionWrapper({
       <div 
         className="relative z-10 print:p-0"
         style={{ 
-          pageBreakInside: 'avoid',
-          breakInside: 'avoid',
+          pageBreakInside: 'auto',
+          breakInside: 'auto',
           paddingTop: 0,
           marginTop: 0
         } as React.CSSProperties}
@@ -4143,7 +4144,7 @@ export function PrintablesPage() {
                   </div>
                 </div>
               </div>
-              <div className="grid grid-cols-2 gap-4 break-inside-avoid" style={{ pageBreakAfter: 'auto' }}>
+              <div className="grid grid-cols-2 print:grid-cols-3 gap-4 break-inside-avoid" style={{ pageBreakAfter: 'auto' }}>
                 {numbers.map((n) => (
                   <div key={n} className="break-inside-avoid">
                     <svg viewBox="0 0 400 200" className="w-full h-auto bg-white border border-slate-300 rounded">
@@ -4211,7 +4212,7 @@ export function PrintablesPage() {
                 </div>
               </div>
               {/* Self-Assessment */}
-              <div className="print:block hidden print:mt-0 mt-6 p-4 border-2 border-slate-300 rounded" style={{ pageBreakBefore: 'avoid', pageBreakInside: 'avoid' }}>
+              <div className="print:block hidden print:mt-0 mt-6 p-4 border-2 border-slate-300 rounded self-assessment-block" style={{ pageBreakBefore: 'avoid', pageBreakInside: 'avoid' }}>
                 <div className="font-semibold text-slate-800 mb-3 text-sm">{getTrans(`worksheets.${docId}.selfAssessment.title`, '📊 How did you do?')}</div>
                 <div className="space-y-2 text-xs">
                   {(() => {
@@ -4724,7 +4725,7 @@ export function PrintablesPage() {
                   </div>
                 </div>
               </div>
-              <div className="grid grid-cols-2 gap-4 break-inside-avoid" style={{ pageBreakAfter: 'auto' }}>
+              <div className="grid grid-cols-2 print:grid-cols-3 gap-4 break-inside-avoid" style={{ pageBreakAfter: 'auto' }}>
                 {numbers.map((n)=> (
                   <div key={n} className="break-inside-avoid bg-gradient-to-br from-teal-50 to-cyan-50 p-3 rounded-lg border-2 border-teal-200">
                     <div className="flex flex-col items-center gap-2 bg-white border border-slate-300 rounded p-2">
@@ -5061,7 +5062,7 @@ export function PrintablesPage() {
                 </div>
               </div>
               {/* Extension/Challenge Problems */}
-              <div className="mt-6 print:mt-0 p-4 bg-purple-50 border-2 border-purple-200 rounded print:bg-white print:border" style={{ pageBreakBefore: 'always', pageBreakInside: 'avoid' }}>
+              <div className="mt-6 print:mt-0 p-4 bg-purple-50 border-2 border-purple-200 rounded print:bg-white print:border print-flexible-break" style={{ pageBreakInside: 'avoid' }}>
                 <div className="font-semibold text-purple-900 mb-3 text-sm">🌟 {getTrans('common.challengeYourself', 'Challenge Yourself (Optional):')}</div>
                 <div className="space-y-2 text-sm text-purple-800">
                   <div>1. Skip count backwards by 5s from 50: 50, ___, ___, ___, ___</div>
@@ -5209,7 +5210,7 @@ export function PrintablesPage() {
                 ))}
               </div>
               {/* Extension/Challenge Problems */}
-              <div className="mt-6 print:mt-0 p-4 bg-purple-50 border-2 border-purple-200 rounded print:bg-white print:border" style={{ pageBreakBefore: 'always', pageBreakInside: 'avoid' }}>
+              <div className="mt-6 print:mt-0 p-4 bg-purple-50 border-2 border-purple-200 rounded print:bg-white print:border print-flexible-break" style={{ pageBreakInside: 'avoid' }}>
                 <div className="font-semibold text-purple-900 mb-3 text-sm">🌟 {getTrans('common.challengeYourself', 'Challenge Yourself (Optional):')}</div>
                 <div className="space-y-2 text-sm text-purple-800">
                   <div>1. Create your own 2-digit addition problem: ___ + ___ = ?</div>
@@ -5354,7 +5355,7 @@ export function PrintablesPage() {
                 ))}
               </div>
               {/* Extension/Challenge Problems */}
-              <div className="mt-6 print:mt-0 p-4 bg-purple-50 border-2 border-purple-200 rounded print:bg-white print:border" style={{ pageBreakBefore: 'always', pageBreakInside: 'avoid' }}>
+              <div className="mt-6 print:mt-0 p-4 bg-purple-50 border-2 border-purple-200 rounded print:bg-white print:border print-flexible-break" style={{ pageBreakInside: 'avoid' }}>
                 <div className="font-semibold text-purple-900 mb-3 text-sm">🌟 {getTrans('common.challengeYourself', 'Challenge Yourself (Optional):')}</div>
                 <div className="space-y-2 text-sm text-purple-800">
                   <div>1. Create your own 2-digit subtraction problem: ___ − ___ = ?</div>
@@ -5526,7 +5527,7 @@ export function PrintablesPage() {
                 })}
               </div>
               {/* Extension/Challenge Problems */}
-              <div className="mt-6 print:mt-0 p-4 bg-purple-50 border-2 border-purple-200 rounded print:bg-white print:border" style={{ pageBreakBefore: 'always', pageBreakInside: 'avoid' }}>
+              <div className="mt-6 print:mt-0 p-4 bg-purple-50 border-2 border-purple-200 rounded print:bg-white print:border challenge-section" style={{ pageBreakBefore: 'always', pageBreakInside: 'avoid' }}>
                 <div className="font-semibold text-purple-900 mb-3 text-sm">🌟 {getTrans('common.challengeYourself', 'Challenge Yourself (Optional):')}</div>
                 <div className="space-y-2 text-sm text-purple-800">
                   <div>1. Create your own word problem using addition</div>
@@ -5904,7 +5905,7 @@ export function PrintablesPage() {
                   </div>
                 </div>
               </div>
-              <div className="grid grid-cols-2 gap-4 break-inside-avoid" style={{ pageBreakAfter: 'auto' }}>
+              <div className="grid grid-cols-2 print:grid-cols-3 gap-4 break-inside-avoid" style={{ pageBreakAfter: 'auto' }}>
                 {numbers.map((n)=> (
                   <div key={n} className="break-inside-avoid">
                     <svg viewBox="0 0 400 160" className="w-full h-auto bg-white border border-slate-300 rounded">
@@ -5926,7 +5927,7 @@ export function PrintablesPage() {
                 ))}
               </div>
               {/* Extension/Challenge Problems */}
-              <div className="mt-6 print:mt-0 p-4 bg-purple-50 border-2 border-purple-200 rounded print:bg-white print:border" style={{ pageBreakBefore: 'always', pageBreakInside: 'avoid' }}>
+              <div className="mt-6 print:mt-0 p-4 bg-purple-50 border-2 border-purple-200 rounded print:bg-white print:border print-flexible-break" style={{ pageBreakInside: 'avoid' }}>
                 <div className="font-semibold text-purple-900 mb-3 text-sm">🌟 More Fun (Optional):</div>
                 <div className="space-y-2 text-sm text-purple-800">
                   <div>1. Can you show 15 using ten frames? Color it!</div>
@@ -15133,7 +15134,7 @@ export function PrintablesPage() {
                   </div>
                 </div>
               </div>
-              <div className="grid grid-cols-2 gap-4 break-inside-avoid" style={{ pageBreakAfter: 'auto' }}>
+              <div className="grid grid-cols-2 print:grid-cols-3 gap-4 break-inside-avoid" style={{ pageBreakAfter: 'auto' }}>
                 {arrays.map(([rows, cols], i) => (
                   <div key={i} className="border border-slate-300 rounded p-4 bg-white break-inside-avoid">
                     <div className="text-center mb-2 font-semibold text-slate-800">{rows} × {cols} = <span className="inline-block w-20 h-10 border-b-[3px] border-slate-600 mx-1 align-middle" /></div>
