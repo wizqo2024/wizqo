@@ -3269,9 +3269,8 @@ export function PrintablesPage() {
             box-sizing: border-box !important;
           }
 
-          /* Remove empty space at very top of page - AGGRESSIVE */
-          [data-worksheet-content="true"] .worksheet-container > *:first-child,
-          [data-worksheet-content="true"] .wizqo-logo-print,
+          /* Remove empty space at very top of page - but keep logo margin for emoji clearance */
+          [data-worksheet-content="true"] .worksheet-container > *:first-child:not(.wizqo-logo-print),
           [data-worksheet-content="true"] .print-name-date-header {
             margin-top: 0 !important;
             padding-top: 0 !important;
@@ -3284,6 +3283,8 @@ export function PrintablesPage() {
             flex-wrap: nowrap !important;
             align-items: center !important;
             gap: 6px !important;
+            margin-top: 12px !important; /* Push logo down to clear emoji (4px gradient + ~8px emoji) */
+            padding-top: 0 !important;
           }
           
           [data-worksheet-content="true"] .wizqo-logo-print img,
