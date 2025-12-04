@@ -741,6 +741,17 @@ html {
     margin-right: 0 !important;
   }
 
+  .print-flexible-break {
+    page-break-before: auto !important;
+    break-before: auto !important;
+  }
+
+  [data-worksheet-content="true"] [style*="page-break-before: always"],
+  [data-worksheet-content="true"] .print\:page-break-before-always {
+    page-break-before: auto !important;
+    break-before: auto !important;
+  }
+
   /* Allow grid wrappers to break across pages, but keep child cards intact */
   [data-worksheet-content="true"] .grid[class*="break-inside"],
   [data-worksheet-content="true"] .grid.break-inside-avoid,

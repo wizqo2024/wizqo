@@ -1574,6 +1574,24 @@ export function PrintablesPage() {
     }
   }, [docTitle])
 
+  // Relax forced page breaks for sections that previously set page-break-before: always
+  React.useEffect(() => {
+    try {
+      const container = document.querySelector('[data-worksheet-content="true"]')
+      if (!container) return
+      const forcedBreakNodes = container.querySelectorAll<HTMLElement>('[style*="page-break-before"]')
+      forcedBreakNodes.forEach(node => {
+        const inlineValue = node.style?.getPropertyValue('page-break-before')
+        if (inlineValue && inlineValue.trim() === 'always') {
+          node.style.setProperty('page-break-before', 'auto', 'important')
+          node.style.setProperty('break-before', 'auto', 'important')
+        }
+      })
+    } catch (error) {
+      console.warn('Failed to relax print page breaks', error)
+    }
+  }, [activeDocs, showAnswers, doc, variant, effectiveSeed])
+
   // Build a daily/variant seed: today if none provided
   const todaySeed = React.useMemo(() => {
     try {
@@ -1592,7 +1610,13 @@ export function PrintablesPage() {
   const bundleAnswerSections: Array<{ docId: string; title: string; content: ReactNode }> = []
   const showAnswersForDoc = (docId: string, factory: () => ReactNode) => {
     if (!showAnswers) return null
-    const content = factory()
+    let content = factory()
+    if (React.isValidElement(content) && typeof content.type === 'string') {
+      const existingClassName = content.props.className || ''
+      content = React.cloneElement(content, {
+        className: `${existingClassName} print-flexible-break`.trim()
+      })
+    }
     if (doc === 'bundle') {
       const title = resolveDocTitle(docId, { packTime, bundleCategory: bundleCategoryParam || undefined, t })
       let summaryContent = content
@@ -4187,7 +4211,7 @@ export function PrintablesPage() {
                 ))}
               </div>
               {/* Extension/Challenge Problems */}
-              <div className="mt-6 print:mt-0 p-4 bg-purple-50 border-2 border-purple-200 rounded print:bg-white print:border" style={{ pageBreakBefore: 'always', pageBreakInside: 'avoid' }}>
+              <div className="mt-6 print:mt-0 p-4 bg-purple-50 border-2 border-purple-200 rounded print:bg-white print:border print-flexible-break" style={{ pageBreakInside: 'avoid' } as React.CSSProperties}>
                 <div className="font-semibold text-purple-900 mb-3 text-sm">{getTrans(`worksheets.${docId}.challenge.title`, '🌟 More Fun (Optional):')}</div>
                 <div className="space-y-2 text-sm text-purple-800">
                   {(() => {
@@ -4743,7 +4767,7 @@ export function PrintablesPage() {
                 ))}
               </div>
               {/* Extension/Challenge Problems */}
-              <div className="mt-6 print:mt-0 p-4 bg-purple-50 border-2 border-purple-200 rounded print:bg-white print:border" style={{ pageBreakBefore: 'always', pageBreakInside: 'avoid' }}>
+              <div className="mt-6 print:mt-0 p-4 bg-purple-50 border-2 border-purple-200 rounded print:bg-white print:border print-flexible-break" style={{ pageBreakInside: 'avoid' } as React.CSSProperties}>
                 <div className="font-semibold text-purple-900 mb-3 text-sm">🌟 More Fun (Optional):</div>
                 <div className="space-y-2 text-sm text-purple-800">
                   <div>1. Can you show 10 using the ten frame? Color it!</div>
