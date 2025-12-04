@@ -2104,7 +2104,7 @@ export function PrintablesPage() {
           print-color-adjust: exact !important;
           color-adjust: exact !important;
           padding: 0.1in !important;
-          padding-top: 0.18in !important; /* Space for gradient + emoji */
+          padding-top: 14px !important; /* Space for emoji only (gradient is on @page border) */
           margin: 0 !important;
         }
         
@@ -2165,7 +2165,7 @@ export function PrintablesPage() {
         
         /* Ensure content flows immediately after header - no empty first page */
         [data-worksheet-content="true"] .worksheet-container {
-          padding-top: 18px !important; /* Space for gradient + emoji */
+          padding-top: 14px !important; /* Space for emoji only (gradient is on @page border) */
         }
         
         [data-worksheet-content="true"] .wizqo-logo-print {
@@ -2977,7 +2977,7 @@ export function PrintablesPage() {
         @media print {
           @page { 
             size: A4;
-            margin: 0.05in 0.5in 0.5in 0.5in !important; /* Top: 0.05in (minimal for gradient/emoji), others: 0.5in */
+            margin: 0 0.5in 0.5in 0.5in !important; /* Top: 0 (no margin - gradient border is on page), others: 0.5in */
             border-top: 4px solid transparent !important;
             border-image: linear-gradient(90deg, #f472b6, #a78bfa, #60a5fa, #34d399, #fbbf24, #fb7185) 1 !important;
             border-image-slice: 1 !important;
@@ -3232,7 +3232,7 @@ export function PrintablesPage() {
             -webkit-print-color-adjust: exact !important;
             print-color-adjust: exact !important;
           }
-          /* RESTORED: Decorative emoji stars at top */
+          /* RESTORED: Decorative emoji stars at top - positioned right after gradient border */
           [data-worksheet-content="true"] > div:first-child::after,
           [data-worksheet-content="true"] > div.max-w-4xl::after,
           .max-w-4xl.mx-auto::after,
@@ -3241,7 +3241,7 @@ export function PrintablesPage() {
             content: '⭐ ✨ ⭐ ✨ ⭐' !important;
             display: block !important;
             position: absolute !important;
-            top: 4px !important;
+            top: 4px !important; /* Right after the 4px gradient border */
             left: 0 !important;
             right: 0 !important;
             text-align: center !important;
@@ -3269,7 +3269,7 @@ export function PrintablesPage() {
             print-color-adjust: exact !important;
             color-adjust: exact !important;
             padding: 0 0.1in 0.1in 0.1in !important;
-            padding-top: 18px !important; /* Space for gradient (4px) + emoji (~14px) */
+            padding-top: 14px !important; /* Space for emoji only (gradient is on @page border) */
             margin: 0 0.1in 0.3in 0.1in !important;
             margin-top: 0 !important;
             page-break-inside: auto !important;
