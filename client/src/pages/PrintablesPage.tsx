@@ -2987,9 +2987,6 @@ export function PrintablesPage() {
           @page { 
             size: A4;
             margin: 0 0.5in 0.5in 0.5in;
-            border-top: 4px solid transparent;
-            border-image: linear-gradient(90deg, #f472b6, #a78bfa, #60a5fa, #34d399, #fbbf24, #fb7185) 1;
-            border-image-slice: 1;
           }
           
           /* ============================================================
