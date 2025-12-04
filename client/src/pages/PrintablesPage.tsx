@@ -1574,24 +1574,6 @@ export function PrintablesPage() {
     }
   }, [docTitle])
 
-  // Relax forced page breaks for sections that previously set page-break-before: always
-  React.useEffect(() => {
-    try {
-      const container = document.querySelector('[data-worksheet-content="true"]')
-      if (!container) return
-      const forcedBreakNodes = container.querySelectorAll<HTMLElement>('[style*="page-break-before"]')
-      forcedBreakNodes.forEach(node => {
-        const inlineValue = node.style?.getPropertyValue('page-break-before')
-        if (inlineValue && inlineValue.trim() === 'always') {
-          node.style.setProperty('page-break-before', 'auto', 'important')
-          node.style.setProperty('break-before', 'auto', 'important')
-        }
-      })
-    } catch (error) {
-      console.warn('Failed to relax print page breaks', error)
-    }
-  }, [activeDocs, showAnswers, doc, variant, effectiveSeed])
-
   // Build a daily/variant seed: today if none provided
   const todaySeed = React.useMemo(() => {
     try {
