@@ -3164,24 +3164,54 @@ export function PrintablesPage() {
             margin-top: 0.25rem !important;
             padding: 0.25rem !important;
           }
-          /* Remove decorative colorful border - clean print layout */
+          /* RESTORED: Decorative colorful gradient border at top */
           [data-worksheet-content="true"] > div:first-child::before,
           [data-worksheet-content="true"] > div.max-w-4xl::before,
           .max-w-4xl.mx-auto::before,
-          [data-worksheet-content="true"] .max-w-4xl::before {
+          [data-worksheet-content="true"] .max-w-4xl::before,
+          [data-worksheet-content="true"] .worksheet-container::before {
             content: '' !important;
-            display: none !important;
+            display: block !important;
+            position: absolute !important;
+            top: 0 !important;
+            left: 0 !important;
+            right: 0 !important;
+            height: 4px !important;
+            background: linear-gradient(
+              135deg,
+              #f472b6 0%,
+              #a78bfa 20%,
+              #60a5fa 40%,
+              #34d399 60%,
+              #fbbf24 80%,
+              #fb7185 100%
+            ) !important;
+            z-index: 10 !important;
+            -webkit-print-color-adjust: exact !important;
+            print-color-adjust: exact !important;
           }
-          /* Remove decorative emoji stars - clean print layout */
+          /* RESTORED: Decorative emoji stars at top */
           [data-worksheet-content="true"] > div:first-child::after,
           [data-worksheet-content="true"] > div.max-w-4xl::after,
           .max-w-4xl.mx-auto::after,
-          [data-worksheet-content="true"] .max-w-4xl::after {
-            content: '' !important;
-            display: none !important;
+          [data-worksheet-content="true"] .max-w-4xl::after,
+          [data-worksheet-content="true"] .worksheet-container::after {
+            content: '⭐ ✨ ⭐ ✨ ⭐' !important;
+            display: block !important;
+            position: absolute !important;
+            top: 4px !important;
+            left: 0 !important;
+            right: 0 !important;
+            text-align: center !important;
+            font-size: 10px !important;
+            line-height: 1 !important;
+            padding: 2px 0 !important;
+            color: #fbbf24 !important;
+            z-index: 10 !important;
+            -webkit-print-color-adjust: exact !important;
+            print-color-adjust: exact !important;
           }
-          /* Thin colorful decorative border with emoji-style pattern - applied to ALL worksheets */
-          /* Worksheet container - responsive width to utilize full page space - ALLOW BREAKING - CLEAN BORDER */
+          /* Worksheet container - responsive width to utilize full page space - ALLOW BREAKING - WITH GRADIENT BORDER */
           .worksheet-container,
           [data-worksheet-content="true"] > div:first-child,
           [data-worksheet-content="true"] .max-w-4xl {
@@ -3196,8 +3226,8 @@ export function PrintablesPage() {
             -webkit-print-color-adjust: exact !important;
             print-color-adjust: exact !important;
             color-adjust: exact !important;
-            padding: 4px 8px 8px 8px !important;
-            padding-top: 4px !important;
+            padding: 0.18in 0.1in 0.1in 0.1in !important; /* Space for gradient + emoji at top */
+            padding-top: 0.18in !important; /* Space for gradient (4px) + emoji (~14px) */
             margin: 0 0.1in 0.3in 0.1in !important;
             margin-top: 0 !important;
             page-break-inside: auto !important;
@@ -3222,12 +3252,16 @@ export function PrintablesPage() {
             box-sizing: border-box !important;
           }
 
-          /* Remove empty space at very top of page - AGGRESSIVE */
-          [data-worksheet-content="true"] .worksheet-container > *:first-child,
-          [data-worksheet-content="true"] .wizqo-logo-print,
+          /* Logo and header positioning - minimal spacing after gradient/emoji */
+          [data-worksheet-content="true"] .wizqo-logo-print {
+            margin-top: 0 !important;
+            padding-top: 0 !important;
+            margin-bottom: 4px !important;
+          }
           [data-worksheet-content="true"] .print-name-date-header {
             margin-top: 0 !important;
             padding-top: 0 !important;
+            margin-bottom: 8px !important;
           }
 
           /* Ensure content container uses full width - no left alignment constraint */
