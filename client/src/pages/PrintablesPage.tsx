@@ -2163,20 +2163,6 @@ export function PrintablesPage() {
           z-index: 1 !important;
         }
         
-        /* Decorative emoji stars at top */
-        [data-worksheet-content="true"] .worksheet-container::after {
-          content: '⭐ ✨ ⭐ ✨ ⭐' !important;
-          position: absolute !important;
-          top: 0 !important;
-          left: 0 !important;
-          right: 0 !important;
-          text-align: center !important;
-          font-size: 9px !important;
-          line-height: 1.2 !important;
-          color: #fbbf24 !important;
-          z-index: 1 !important;
-        }
-        
         [data-worksheet-content="true"] .print-header-floating {
           padding: 0 0.5in !important;
           margin: 0 0 0.12in 0 !important;
@@ -3100,7 +3086,6 @@ export function PrintablesPage() {
             gap: 16px;
             margin: 0 0 6px 0;
             padding-bottom: 4px;
-            border-bottom: 1px solid #cbd5e1;
             page-break-after: avoid;
             break-after: avoid;
             page-break-inside: avoid;

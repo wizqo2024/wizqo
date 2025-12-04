@@ -464,19 +464,6 @@ html {
     padding-top: 0 !important;
   }
   
-  /* Gradient border at top */
-  [data-worksheet-content="true"] .worksheet-container::before {
-    content: '';
-    display: block;
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    height: 3px;
-    background: linear-gradient(120deg, #f472b6 0%, #ec4899 20%, #a855f7 40%, #6366f1 60%, #0ea5e9 80%, #14b8a6 100%);
-    z-index: 1;
-  }
-  
   /* Main container - clean layout */
   .worksheet-container {
     position: relative;
@@ -506,7 +493,6 @@ html {
     gap: 16px;
     margin: 0 0 6px 0;
     padding-bottom: 4px;
-    border-bottom: 1px solid #cbd5e1;
     page-break-after: avoid;
     break-after: avoid;
     page-break-inside: avoid;
