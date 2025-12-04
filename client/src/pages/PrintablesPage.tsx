@@ -1919,7 +1919,6 @@ export function PrintablesPage() {
         .worksheet-section {
           background-color: white !important;
           background: white !important;
-          border: 2px solid #60a5fa !important; /* Add border to each section */
         }
         
         /* Body and HTML - match index.css exactly */
@@ -2032,7 +2031,6 @@ export function PrintablesPage() {
           padding: 0.25rem !important;
           page-break-before: auto !important;
           page-break-after: auto !important;
-          border: 2px solid #60a5fa !important; /* Add border to each section */
           page-break-inside: auto !important;
         }
         
@@ -2218,7 +2216,7 @@ export function PrintablesPage() {
           padding-top: 0 !important;
         }
         
-        /* Section styles - prevent overlapping - SOLID COLOR BORDERS */
+        /* Section styles - prevent overlapping - KEEP ORIGINAL BORDERS */
         section.worksheet-section,
         section[class*="worksheet-section"],
         .worksheet-section {
@@ -2241,16 +2239,13 @@ export function PrintablesPage() {
           max-width: 100% !important;
           box-sizing: border-box !important;
           overflow-x: visible !important;
-          border: 2px solid #60a5fa !important; /* Solid blue border */
           border-radius: 0 !important;
           min-height: auto !important;
           height: auto !important;
           clear: both !important;
-          -webkit-print-color-adjust: exact !important;
-          print-color-adjust: exact !important;
         }
         
-        /* First section should have NO top padding/margin - FIX BLANK FIRST PAGE - SOLID COLOR BORDER */
+        /* First section should have NO top padding/margin - FIX BLANK FIRST PAGE */
         section:first-of-type,
         .worksheet-section:first-of-type,
         [data-worksheet-content="true"] .worksheet-container > section:first-of-type,
@@ -2258,9 +2253,6 @@ export function PrintablesPage() {
           margin-top: 0 !important;
           padding-top: 0 !important;
           background-color: white !important;
-          border: 2px solid #60a5fa !important; /* Solid blue border */
-          -webkit-print-color-adjust: exact !important;
-          print-color-adjust: exact !important;
         }
         
         /* Preserve content borders within worksheets */
@@ -3201,7 +3193,7 @@ export function PrintablesPage() {
             margin-top: 0 !important;
           }
 
-          /* Remove empty space from worksheet sections - SOLID COLOR BORDERS */
+          /* Remove empty space from worksheet sections - KEEP ORIGINAL BORDERS */
           [data-worksheet-content="true"] .worksheet-section,
           [data-worksheet-content="true"] section {
             margin-top: 0 !important;
@@ -3210,19 +3202,6 @@ export function PrintablesPage() {
             padding-bottom: 0.5rem !important;
             padding-left: 0.5rem !important;
             padding-right: 0.5rem !important;
-            border: 2px solid #60a5fa !important; /* Solid blue border */
-            -webkit-print-color-adjust: exact !important;
-            print-color-adjust: exact !important;
-          }
-          
-          /* Override print:border-0 classes to show solid color borders */
-          [data-worksheet-content="true"] .worksheet-section[class*="print:border-0"],
-          [data-worksheet-content="true"] section[class*="print:border-0"],
-          [data-worksheet-content="true"] .worksheet-section.print\\:border-0,
-          [data-worksheet-content="true"] section.print\\:border-0 {
-            border: 2px solid #60a5fa !important; /* Solid blue border */
-            -webkit-print-color-adjust: exact !important;
-            print-color-adjust: exact !important;
           }
 
           /* Remove empty space between questions */
@@ -3410,23 +3389,13 @@ export function PrintablesPage() {
             box-sizing: border-box !important;
           }
 
-          /* Better space utilization for split pages - allow content to flow - SOLID COLOR BORDERS */
+          /* Better space utilization for split pages - allow content to flow - KEEP ORIGINAL BORDERS */
           [data-worksheet-content="true"] .worksheet-section {
             width: 100% !important;
             max-width: 100% !important;
             box-sizing: border-box !important;
-            border: 2px solid #60a5fa !important; /* Solid blue border */
             padding: 0.375rem 0.5rem 0.5rem 0.5rem !important;
             margin-bottom: 0.5rem !important;
-            -webkit-print-color-adjust: exact !important;
-            print-color-adjust: exact !important;
-          }
-          
-          /* Ensure all sections have solid color borders */
-          [data-worksheet-content="true"] section:not(.wizqo-logo-print):not(.print-name-date-header):not(.print-customization-header) {
-            border: 2px solid #60a5fa !important; /* Solid blue border */
-            -webkit-print-color-adjust: exact !important;
-            print-color-adjust: exact !important;
           }
 
           /* Questions should use available width and distribute evenly */
