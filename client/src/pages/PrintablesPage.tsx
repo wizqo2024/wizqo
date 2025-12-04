@@ -1540,6 +1540,7 @@ export function PrintablesPage() {
     [activeDocs]
   )
   const primaryDoc = activeDocs[0] || doc || ''
+  const resolvedDocId = doc && doc !== 'bundle' ? doc : primaryDoc
   const answerableDocs = React.useMemo(
     () => new Set([...ANSWERABLE_BASE_DOC_IDS, ...INTERACTIVE_DOC_IDS]),
     []
@@ -2054,6 +2055,18 @@ export function PrintablesPage() {
           max-height: 90vh !important;
         }
         
+        [data-worksheet-content="true"][data-doc="kindergarten-counting-visual"] .question-section {
+          border: 2px solid #fbcfe8 !important;
+          border-radius: 18px !important;
+          background: #fff8fb !important;
+          padding: 0.18in !important;
+          box-shadow: 0 6px 18px rgba(244, 114, 182, 0.18) !important;
+        }
+        
+        [data-worksheet-content="true"][data-doc="kindergarten-counting-visual"] .question-section svg {
+          max-height: 1.8in !important;
+        }
+        
         /* Prevent images/SVG from breaking away from questions */
         .question-section img,
         .question-section svg,
@@ -2084,44 +2097,28 @@ export function PrintablesPage() {
           box-sizing: border-box !important;
         }
         
-        /* CRITICAL: Main content container - match index.css @media print exactly */
+        /* CRITICAL: Main content container - gradient frame + emoji accent */
         [data-worksheet-content="true"] {
           width: 100% !important;
-          max-width: 100% !important;
           margin: 0 !important;
           padding: 0 !important;
-          background: white !important;
+          background: transparent !important;
+          display: block !important;
         }
         
-        /* CRITICAL: Inner div - with gradient border and emoji stars */
+        [data-worksheet-content="true"] > .worksheet-container,
         [data-worksheet-content="true"] > div:first-child,
         [data-worksheet-content="true"] .max-w-4xl {
           position: relative !important;
-          border-radius: 0 !important;
-          border: none !important;
-          border-image: none !important;
-          -webkit-print-color-adjust: exact !important;
-          print-color-adjust: exact !important;
-          color-adjust: exact !important;
-          padding: 0.1in !important;
-          padding-top: 0 !important; /* No padding - emoji is absolutely positioned */
-          margin: 0 !important;
-        }
-        
-        /* RESTORED: Decorative colorful gradient border at top */
-        [data-worksheet-content="true"] > div:first-child::before,
-        [data-worksheet-content="true"] > div.max-w-4xl::before,
-        .max-w-4xl.mx-auto::before,
-        [data-worksheet-content="true"] .max-w-4xl::before,
-        [data-worksheet-content="true"] .worksheet-container::before {
-          content: '' !important;
-          display: block !important;
-          position: absolute !important;
-          top: 0 !important;
-          left: 0 !important;
-          right: 0 !important;
-          height: 4px !important;
-          background: linear-gradient(
+          width: 100% !important;
+          max-width: 8.25in !important;
+          margin: 0.15in auto 0.5in !important;
+          padding: 0.3in 0.45in 0.5in !important;
+          background: white !important;
+          color: black !important;
+          border: 4px solid transparent !important;
+          border-radius: 20px !important;
+          border-image: linear-gradient(
             135deg,
             #f472b6 0%,
             #a78bfa 20%,
@@ -2129,58 +2126,45 @@ export function PrintablesPage() {
             #34d399 60%,
             #fbbf24 80%,
             #fb7185 100%
-          ) !important;
-          z-index: 10 !important;
-          -webkit-print-color-adjust: exact !important;
-          print-color-adjust: exact !important;
+          ) 1 !important;
+          box-shadow: 0 12px 32px rgba(72, 69, 210, 0.08) !important;
+          box-sizing: border-box !important;
         }
         
-        /* RESTORED: Decorative emoji stars at top */
-        [data-worksheet-content="true"] > div:first-child::after,
-        [data-worksheet-content="true"] > div.max-w-4xl::after,
-        .max-w-4xl.mx-auto::after,
-        [data-worksheet-content="true"] .max-w-4xl::after,
-        [data-worksheet-content="true"] .worksheet-container::after {
-          content: '⭐ ✨ ⭐ ✨ ⭐' !important;
-          display: block !important;
+        [data-worksheet-content="true"] > .worksheet-container::before,
+        [data-worksheet-content="true"] > div:first-child::before,
+        [data-worksheet-content="true"] .max-w-4xl::before {
+          content: '' !important;
           position: absolute !important;
-          top: 4px !important;
+          inset: 0.2in !important;
+          border-radius: 12px !important;
+          border: 1px solid rgba(148, 163, 184, 0.45) !important;
+          pointer-events: none !important;
+        }
+        
+        [data-worksheet-content="true"] > .worksheet-container::after,
+        [data-worksheet-content="true"] > div:first-child::after,
+        [data-worksheet-content="true"] .max-w-4xl::after {
+          content: '⭐ ✨ ⭐ ✨ ⭐' !important;
+          position: absolute !important;
+          top: 0.18in !important;
           left: 0 !important;
           right: 0 !important;
           text-align: center !important;
-          font-size: 10px !important;
-          line-height: 1 !important;
-          padding: 2px 0 !important;
+          font-size: 9px !important;
+          letter-spacing: 0.2em !important;
           color: #fbbf24 !important;
-          z-index: 10 !important;
-          -webkit-print-color-adjust: exact !important;
-          print-color-adjust: exact !important;
+          pointer-events: none !important;
         }
         
-        /* Ensure all divs inside worksheet content have white background */
-        [data-worksheet-content="true"] > div:first-child > * {
-          background-color: white !important;
-          background: white !important;
-        }
-        
-        /* CRITICAL: Remove ALL top spacing - FIX BLANK FIRST PAGE */
+        /* Ensure headers hug the top of the frame */
         html, body, #root {
           margin-top: 0 !important;
           padding-top: 0 !important;
         }
         
-        /* Ensure content flows immediately after header - no empty first page - FIX BLANK FIRST PAGE */
-        [data-worksheet-content="true"] {
+        [data-worksheet-content="true"] > .worksheet-container > *:first-child {
           margin-top: 0 !important;
-          padding-top: 0 !important;
-          margin: 0 !important;
-          padding: 0 !important;
-        }
-        
-        [data-worksheet-content="true"] .worksheet-container {
-          padding-top: 0 !important; /* No padding - emoji is absolutely positioned */
-          margin-top: 0 !important;
-          margin: 0 !important;
         }
         
         [data-worksheet-content="true"] .wizqo-logo-print {
@@ -3131,7 +3115,11 @@ export function PrintablesPage() {
   return (
     <>
       {/* Print layout optimized - updated 2025-01-11 */}
-      <div data-worksheet-content="true" className={`worksheet-container max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-10 print:p-0 print:py-0 print:mt-0 ${isPreview ? 'preview-mode' : ''}`}>
+      <div 
+        data-worksheet-content="true" 
+        data-doc={resolvedDocId || undefined}
+      >
+        <div className={`worksheet-container max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-10 print:p-0 print:py-0 print:mt-0 ${isPreview ? 'preview-mode' : ''}`}>
         {/* Logo and domain for all worksheets */}
         <div className="hidden print:block wizqo-logo-print">
           <img src="/logo.svg" alt="Wizqo Logo" />
@@ -33913,6 +33901,7 @@ export function PrintablesPage() {
         <footer className="text-center text-slate-500 text-xs print:hidden">
           {t('common.printTip', 'Tip: Use your browser menu → Print → Save as PDF.')}
         </footer>
+        </div>
       </div>
     </>
   )
