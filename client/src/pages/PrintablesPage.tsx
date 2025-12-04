@@ -2065,55 +2065,22 @@ export function PrintablesPage() {
           margin: 0.5in !important;
         }
         
-        /* Decorative emoji-style border using CSS patterns - applied to ALL worksheets */
+        /* Remove decorative colorful border - clean print layout */
         [data-worksheet-content="true"] > div:first-child::before,
         [data-worksheet-content="true"] > div.max-w-4xl::before,
         .max-w-4xl.mx-auto::before,
         [data-worksheet-content="true"] .max-w-4xl::before {
           content: '' !important;
-          position: absolute !important;
-          top: -8px !important;
-          left: -8px !important;
-          right: -8px !important;
-          bottom: -8px !important;
-          background-image: 
-            /* Stars pattern */
-            repeating-linear-gradient(0deg, transparent, transparent 20px, #fbbf24 20px, #fbbf24 21px),
-            repeating-linear-gradient(90deg, transparent, transparent 20px, #f472b6 20px, #f472b6 21px),
-            repeating-linear-gradient(45deg, transparent, transparent 15px, #60a5fa 15px, #60a5fa 16px),
-            repeating-linear-gradient(135deg, transparent, transparent 15px, #34d399 15px, #34d399 16px),
-            /* Base gradient */
-            linear-gradient(135deg, #f472b6 0%, #a78bfa 20%, #60a5fa 40%, #34d399 60%, #fbbf24 80%, #fb7185 100%) !important;
-          background-size: 100% 2px, 2px 100%, 100% 2px, 2px 100%, 100% 100% !important;
-          background-position: top, right, bottom, left, center !important;
-          background-repeat: repeat-x, repeat-y, repeat-x, repeat-y, no-repeat !important;
-          border-radius: 14px !important;
-          z-index: -1 !important;
-          opacity: 0.3 !important;
-          -webkit-print-color-adjust: exact !important;
-          print-color-adjust: exact !important;
+          display: none !important;
         }
         
-        /* Decorative emoji stars at top - applied to ALL worksheets */
+        /* Remove decorative emoji stars - clean print layout */
         [data-worksheet-content="true"] > div:first-child::after,
         [data-worksheet-content="true"] > div.max-w-4xl::after,
         .max-w-4xl.mx-auto::after,
         [data-worksheet-content="true"] .max-w-4xl::after {
-          content: '⭐ ✨ 💫 🌟' !important;
-          position: absolute !important;
-          top: 0px !important;
-          left: 50% !important;
-          transform: translateX(-50%) translateY(-50%) !important;
-          font-size: 18px !important;
-          letter-spacing: 10px !important;
-          z-index: 10 !important;
-          background: white !important;
-          padding: 4px 12px !important;
-          -webkit-print-color-adjust: exact !important;
-          print-color-adjust: exact !important;
-          color: #f472b6 !important;
-          display: block !important;
-          white-space: nowrap !important;
+          content: '' !important;
+          display: none !important;
         }
         
         /* Ensure all divs inside worksheet content have white background */
