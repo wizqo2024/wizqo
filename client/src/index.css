@@ -548,12 +548,13 @@ html {
     font-size: 10pt;
   }
   
-  /* Sections */
+  /* Sections - ADD BORDERS */
   .worksheet-section,
   section {
     margin: 0 0 16px 0;
-    padding: 0;
+    padding: 8px;
     background: white;
+    border: 1px solid #cbd5e1 !important; /* Add border to each section */
     page-break-inside: avoid;
     break-inside: avoid;
   }

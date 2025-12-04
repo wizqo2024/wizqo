@@ -2216,7 +2216,7 @@ export function PrintablesPage() {
           padding-top: 0 !important;
         }
         
-        /* Section styles - prevent overlapping */
+        /* Section styles - prevent overlapping - ADD BORDERS */
         section.worksheet-section,
         section[class*="worksheet-section"],
         .worksheet-section {
@@ -2239,14 +2239,14 @@ export function PrintablesPage() {
           max-width: 100% !important;
           box-sizing: border-box !important;
           overflow-x: visible !important;
-          border: none !important;
+          border: 1px solid #cbd5e1 !important; /* Add border to each section */
           border-radius: 0 !important;
           min-height: auto !important;
           height: auto !important;
           clear: both !important;
         }
         
-        /* First section should have NO top padding/margin - FIX BLANK FIRST PAGE */
+        /* First section should have NO top padding/margin - FIX BLANK FIRST PAGE - BUT KEEP BORDER */
         section:first-of-type,
         .worksheet-section:first-of-type,
         [data-worksheet-content="true"] .worksheet-container > section:first-of-type,
@@ -2254,6 +2254,7 @@ export function PrintablesPage() {
           margin-top: 0 !important;
           padding-top: 0 !important;
           background-color: white !important;
+          border: 1px solid #cbd5e1 !important; /* Add border to first section too */
         }
         
         /* Preserve content borders within worksheets */
@@ -3194,13 +3195,24 @@ export function PrintablesPage() {
             margin-top: 0 !important;
           }
 
-          /* Remove empty space from worksheet sections */
+          /* Remove empty space from worksheet sections - ADD BORDERS */
           [data-worksheet-content="true"] .worksheet-section,
           [data-worksheet-content="true"] section {
             margin-top: 0 !important;
-            margin-bottom: 0 !important;
-            padding-top: 0 !important;
-            padding-bottom: 0 !important;
+            margin-bottom: 0.5rem !important;
+            padding-top: 0.375rem !important;
+            padding-bottom: 0.5rem !important;
+            padding-left: 0.5rem !important;
+            padding-right: 0.5rem !important;
+            border: 1px solid #cbd5e1 !important; /* Add border to each section */
+          }
+          
+          /* Override print:border-0 classes to show borders */
+          [data-worksheet-content="true"] .worksheet-section[class*="print:border-0"],
+          [data-worksheet-content="true"] section[class*="print:border-0"],
+          [data-worksheet-content="true"] .worksheet-section.print\\:border-0,
+          [data-worksheet-content="true"] section.print\\:border-0 {
+            border: 1px solid #cbd5e1 !important; /* Force border to show */
           }
 
           /* Remove empty space between questions */
@@ -3388,11 +3400,19 @@ export function PrintablesPage() {
             box-sizing: border-box !important;
           }
 
-          /* Better space utilization for split pages - allow content to flow */
+          /* Better space utilization for split pages - allow content to flow - ADD BORDERS */
           [data-worksheet-content="true"] .worksheet-section {
             width: 100% !important;
             max-width: 100% !important;
             box-sizing: border-box !important;
+            border: 1px solid #cbd5e1 !important; /* Add border to each section */
+            padding: 0.375rem 0.5rem 0.5rem 0.5rem !important;
+            margin-bottom: 0.5rem !important;
+          }
+          
+          /* Ensure all sections have borders */
+          [data-worksheet-content="true"] section:not(.wizqo-logo-print):not(.print-name-date-header):not(.print-customization-header) {
+            border: 1px solid #cbd5e1 !important;
           }
 
           /* Questions should use available width and distribute evenly */
