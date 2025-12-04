@@ -2876,14 +2876,20 @@ export function PrintablesPage() {
       previousUrlRef.current = currentUrl
     }
   }, [urlSearch, doc])
-  return (
-    <div className="min-h-screen bg-white" data-worksheet-content="true" data-doc={doc || primaryDoc || ''}>
-      <style>{`
-        /* Hide style tag itself in print */
-        style {
-          display: none !important;
-          visibility: hidden !important;
-        }
+  
+  // Inject styles into head to prevent CSS from appearing as text in print
+  React.useEffect(() => {
+    const styleId = 'print-worksheet-styles'
+    let styleTag = document.getElementById(styleId) as HTMLStyleElement
+    
+    if (!styleTag) {
+      styleTag = document.createElement('style')
+      styleTag.id = styleId
+      styleTag.setAttribute('media', 'print')
+      document.head.appendChild(styleTag)
+    }
+    
+    styleTag.textContent = `
         @media print {
           @page { 
             size: A4;
@@ -3323,7 +3329,19 @@ export function PrintablesPage() {
             page-break-inside: auto !important;
           }
         }
-      `}</style>
+      `
+    
+    return () => {
+      // Cleanup: remove style tag when component unmounts
+      const existingTag = document.getElementById(styleId)
+      if (existingTag) {
+        existingTag.remove()
+      }
+    }
+  }, [doc, primaryDoc])
+  
+  return (
+    <>
       {/* Print layout optimized - updated 2025-01-11 */}
       <div className={`worksheet-container max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-10 print:p-0 print:py-0 print:mt-0 ${isPreview ? 'preview-mode' : ''}`}>
         {/* Logo and domain for all worksheets */}
