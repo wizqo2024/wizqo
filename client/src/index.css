@@ -411,1096 +411,218 @@ html {
  * - Prevents worksheet sections from breaking across pages
  * ============================================================================ */
 @media print {
-  /* Hide style tags in print - prevent CSS code from appearing as text */
+  /* ============================================================================
+   * CLEAN PRINT LAYOUT - FROM SCRATCH
+   * Simple, minimal, print-friendly styles
+   * ============================================================================ */
+  
+  /* Hide style tags */
   style {
     display: none !important;
     visibility: hidden !important;
-    height: 0 !important;
-    width: 0 !important;
-    overflow: hidden !important;
   }
   
-  /* ============================================================================
-   * DEFAULT PRINT MARGINS: NONE (0) - Applies to ALL browsers and ALL pages
-   * ============================================================================
-   * This ensures that when users press Ctrl+P (or Cmd+P on Mac), the print
-   * layout defaults to NO margins across all browsers (Chrome, Firefox, Safari, Edge).
-   * Users get maximum content space by default.
-   * ============================================================================ */
-  @page { 
+  /* Page setup */
+  @page {
     size: A4;
-    margin: 0.1in !important;
+    margin: 0.5in;
   }
-  /* Universal print reset - fix 90% of spacing problems */
+  
+  /* Reset everything */
   * {
     box-shadow: none !important;
-    overflow: visible !important;
-  }
-  html, body {
-    margin: 0 !important;
-    padding: 0 !important;
-  }
-
-  html, body, #root, [data-worksheet-content="true"] {
-    background-color: white !important;
-    background: white !important;
-    color: black !important;
-    width: 100% !important;
-    max-width: 100% !important;
-    margin: 0 !important; 
-    padding: 0 !important; 
-    font-size: 10pt !important;
-    line-height: 1.4 !important;
-    min-height: auto !important;
-    height: auto !important;
+    text-shadow: none !important;
   }
   
-  /* Override dark backgrounds that cause black pages - target common dark classes */
+  html, body {
+    margin: 0;
+    padding: 0;
+    background: white;
+    color: black;
+    font-size: 11pt;
+    line-height: 1.4;
+  }
+  
+  /* Hide non-print elements */
+  .print\\:hidden,
+  [class*="print:hidden"],
+  button,
+  nav,
+  header:not(.print-header) {
+    display: none !important;
+  }
+  
+  /* Worksheet container - clean and simple */
+  [data-worksheet-content="true"] {
+    background: white;
+    color: black;
+    width: 100%;
+    max-width: 100%;
+    margin: 0;
+    padding: 0;
+  }
+  
+  /* Gradient border at top */
+  [data-worksheet-content="true"] > div:first-child::before,
+  [data-worksheet-content="true"] .worksheet-container::before {
+    content: '';
+    display: block;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, #f472b6, #a78bfa, #60a5fa, #34d399, #fbbf24, #fb7185);
+    z-index: 1;
+  }
+  
+  /* Emoji stars below gradient */
+  [data-worksheet-content="true"] > div:first-child::after,
+  [data-worksheet-content="true"] .worksheet-container::after {
+    content: '⭐ ✨ ⭐ ✨ ⭐';
+    display: block;
+    position: absolute;
+    top: 3px;
+    left: 0;
+    right: 0;
+    text-align: center;
+    font-size: 9px;
+    line-height: 1.2;
+    padding: 2px 0;
+    color: #fbbf24;
+    z-index: 1;
+  }
+  
+  /* Main container */
+  .worksheet-container,
+  [data-worksheet-content="true"] > div:first-child {
+    position: relative;
+    width: 100%;
+    max-width: 100%;
+    margin: 0;
+    padding: 0.5in;
+    padding-top: 0.6in; /* Space for gradient + emoji */
+    background: white;
+    box-sizing: border-box;
+  }
+  
+  /* Logo and domain - horizontal */
+  .wizqo-logo-print {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 8px;
+    margin: 0 0 8px 0;
+    padding: 0;
+  }
+  
+  .wizqo-logo-print img {
+    width: 28px;
+    height: 28px;
+    display: block;
+  }
+  
+  .wizqo-logo-print .domain-text {
+    font-size: 9pt;
+    font-weight: 600;
+    color: #4845D2;
+    line-height: 1;
+  }
+  
+  /* Name/Date header */
+  .print-name-date-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 0 0 12px 0;
+    padding: 0 0 6px 0;
+    border-bottom: 1px solid #cbd5e1;
+    font-size: 10pt;
+  }
+  
+  /* Sections */
+  .worksheet-section,
+  section {
+    margin: 0 0 16px 0;
+    padding: 0;
+    background: white;
+    page-break-inside: avoid;
+    break-inside: avoid;
+  }
+  
+  /* Headings */
+  h1, h2, h3, h4, h5, h6 {
+    margin: 12px 0 8px 0;
+    padding: 0;
+    page-break-after: avoid;
+    break-after: avoid;
+    font-weight: 600;
+    color: black;
+  }
+  
+  h1 { font-size: 16pt; }
+  h2 { font-size: 14pt; }
+  h3 { font-size: 12pt; }
+  
+  /* Paragraphs */
+  p {
+    margin: 8px 0;
+    padding: 0;
+    font-size: 11pt;
+    line-height: 1.5;
+    color: black;
+  }
+  
+  /* Questions */
+  .question-section,
+  .question-section-wrapper {
+    margin: 12px 0;
+    padding: 8px 0;
+    page-break-inside: avoid;
+    break-inside: avoid;
+  }
+  
+  /* Images */
+  img, svg {
+    max-width: 100%;
+    height: auto;
+    page-break-inside: avoid;
+    break-inside: avoid;
+  }
+  
+  /* Tables */
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 12px 0;
+    page-break-inside: avoid;
+    break-inside: avoid;
+  }
+  
+  /* Remove decorative elements */
+  [class*="shadow"],
+  [class*="rounded"],
+  [class*="border-2"],
+  [class*="border-4"] {
+    box-shadow: none !important;
+    border-radius: 0 !important;
+    border: none !important;
+  }
+  
+  /* Ensure content is visible */
+  [data-worksheet-content="true"] * {
+    visibility: visible !important;
+    color: black !important;
+    background: white !important;
+  }
+  
+  /* Override dark backgrounds */
   [class*="bg-black"],
   [class*="bg-slate-900"],
   [class*="bg-gray-900"],
-  [class*="bg-zinc-900"],
-  [class*="bg-neutral-900"],
-  [class*="bg-stone-900"],
-  [class*="dark"],
-  .bg-black,
-  .bg-slate-900,
-  .bg-gray-900 {
-    background-color: white !important;
+  [class*="dark"] {
     background: white !important;
     color: black !important;
-  }
-  
-  /* Ensure worksheet content has white background */
-  [data-worksheet-content="true"],
-  [data-worksheet-content="true"] section,
-  [data-worksheet-content="true"] div,
-  .worksheet-section {
-    background-color: white !important;
-    background: white !important;
-  }
-  
-  /* Fix blank first page - remove margins and padding */
-  body, html {
-    margin: 0 !important;
-    padding: 0 !important;
-  }
-  
-  /* AGGRESSIVE: Remove ALL empty spaces - comprehensive spacing cleanup */
-  [data-worksheet-content="true"] > *:first-child,
-  [data-worksheet-content="true"] .worksheet-container > *:first-child,
-  [data-worksheet-content="true"] .worksheet-container > section:first-child {
-    margin-top: 0 !important;
-    padding-top: 0 !important;
-  }
-
-  /* Ensure content uses full available width when page is split */
-  [data-worksheet-content="true"] {
-    width: 100% !important;
-    max-width: 100% !important;
-    box-sizing: border-box !important;
-  }
-
-  /* Remove all gap spacing from flex/grid */
-  [class*="gap-"],
-  [class*="space-"],
-  .gap-1, .gap-2, .gap-3, .gap-4,
-  .space-y-1, .space-y-2, .space-y-3, .space-y-4,
-  .space-x-1, .space-x-2, .space-x-3, .space-x-4 {
-    gap: 0 !important;
-  }
-
-  /* Remove margins from space-y classes */
-  [class*="space-y"] > * + * {
-    margin-top: 0 !important;
-  }
-
-  /* Reduce vertical margins but keep minimal for readability - FIXED CONFLICT */
-  [class*="mb-"],
-  [class*="mt-"],
-  [class*="my-"],
-  [class*="py-"] {
-    margin-top: 0.25rem !important;
-    margin-bottom: 0.25rem !important;
-    padding-top: 0.25rem !important;
-    padding-bottom: 0.25rem !important;
-  }
-
-  /* Reduce padding but keep minimal for readability - FIXED CONFLICT */
-  [class*="p-"],
-  [class*="px-"],
-  [class*="pt-"],
-  [class*="pb-"] {
-    padding: 0.25rem !important;
-  }
-
-  /* But allow worksheet content to have proper spacing */
-  [data-worksheet-content="true"] [class*="p-"] {
-    padding: 0.5rem !important;
-  }
-
-  /* Keep only essential padding for readability */
-  [data-worksheet-content="true"] .worksheet-container {
-    padding-top: 0 !important;
-    padding-bottom: 0 !important;
-  }
-
-  /* Worksheet sections - proper spacing to prevent overlapping */
-  [data-worksheet-content="true"] .worksheet-section,
-  [data-worksheet-content="true"] section {
-    margin-top: 0 !important;
-    margin-bottom: 0.5rem !important;
-    padding-top: 0.375rem !important;
-    padding-bottom: 0.5rem !important;
-    padding-left: 0.5rem !important;
-    padding-right: 0.5rem !important;
-    page-break-inside: auto !important;
-    break-inside: auto !important;
-    display: block !important;
-    visibility: visible !important;
-    overflow: visible !important;
-    clear: both !important;
-  }
-
-  /* First section should start immediately */
-  [data-worksheet-content="true"] .worksheet-section:first-child,
-  [data-worksheet-content="true"] section:first-child {
-    margin-top: 0 !important;
-    padding-top: 0.25rem !important;
-    page-break-before: auto !important;
-    break-before: auto !important;
-  }
-
-  /* Proper spacing between questions - prevent overlapping */
-  [data-worksheet-content="true"] .question-section-wrapper,
-  [data-worksheet-content="true"] .question-section {
-    margin-top: 0.5rem !important;
-    margin-bottom: 0.5rem !important;
-    padding-top: 0.25rem !important;
-    padding-bottom: 0.25rem !important;
-    clear: both !important;
-    overflow: visible !important;
-  }
-  
-  [data-worksheet-content="true"] .question-section-wrapper + .question-section-wrapper,
-  [data-worksheet-content="true"] .question-section + .question-section {
-    margin-top: 0.75rem !important;
-    padding-top: 0 !important;
-  }
-
-  /* Remove empty space from logo area */
-  [data-worksheet-content="true"] .wizqo-logo-print {
-    margin-bottom: 0 !important;
-    padding-bottom: 0 !important;
-  }
-
-  /* Remove top margin/padding from first page content - ensure content starts at top */
-  [data-worksheet-content="true"] > *:first-child,
-  [data-worksheet-content="true"] > section:first-child,
-  .worksheet-section:first-child {
-    margin-top: 0 !important;
-    padding-top: 0 !important;
-    background-color: white !important;
-  }
-  
-  /* Compact header on first page - keep header and content together */
-  .worksheet-section:first-child .worksheet-header,
-  .worksheet-section:first-child > div:first-child {
-    margin-top: 0 !important;
-    padding-top: 0 !important;
-    page-break-after: avoid !important;
-    margin-bottom: 0.25rem !important;
-  }
-  
-  /* Ensure first section content flows immediately after header */
-  .worksheet-section:first-child > div:not(.worksheet-header) {
-    margin-top: 0 !important;
-    padding-top: 0 !important;
-  }
-  
-  /* CRITICAL: Ensure content inside first section flows immediately after header */
-  .worksheet-section:first-child .worksheet-header + *,
-  section:first-child .worksheet-header + * {
-    margin-top: 0.25rem !important;
-    padding-top: 0 !important;
-  }
-  
-  /* Ensure LearningObjectives and other content appear on first page */
-  .worksheet-section:first-child .learning-objectives,
-  section:first-child .learning-objectives {
-    margin-top: 0.25rem !important;
-    margin-bottom: 0.5rem !important;
-    padding: 0.5rem !important;
-  }
-  
-  /* Ensure title and description appear on first page */
-  .worksheet-section:first-child h2,
-  .worksheet-section:first-child h3,
-  section:first-child h2,
-  section:first-child h3 {
-    margin-top: 0.25rem !important;
-    margin-bottom: 0.25rem !important;
-  }
-  
-  .worksheet-section:first-child p,
-  section:first-child p {
-    margin-top: 0.25rem !important;
-    margin-bottom: 0.5rem !important;
-  }
-  
-  /* CRITICAL: Ensure worksheet problems/content appear on first page immediately after learning objectives */
-  .worksheet-section:first-child .learning-objectives + *,
-  section:first-child .learning-objectives + *,
-  .worksheet-section:first-child h2 + *,
-  .worksheet-section:first-child h3 + *,
-  section:first-child h2 + *,
-  section:first-child h3 + * {
-    margin-top: 0.5rem !important;
-    padding-top: 0 !important;
-    page-break-before: auto !important;
-    display: block !important;
-    visibility: visible !important;
-  }
-
-  /* Ensure all content in first section is visible and flows */
-  [data-worksheet-content="true"] .worksheet-section:first-child *,
-  [data-worksheet-content="true"] section:first-child * {
-    display: block !important;
-    visibility: visible !important;
-    opacity: 1 !important;
-  }
-
-  /* Questions and problems should be visible */
-  [data-worksheet-content="true"] .question-section,
-  [data-worksheet-content="true"] .question-section-wrapper,
-  [data-worksheet-content="true"] .problem-set,
-  [data-worksheet-content="true"] .math-problem {
-    display: block !important;
-    visibility: visible !important;
-    margin-bottom: 0.5rem !important;
-    padding: 0.5rem !important;
-  }
-  
-  /* Ensure all content inside first section flows on first page */
-  .worksheet-section:first-child > div > *:not(.worksheet-header):not(.learning-objectives),
-  section:first-child > div > *:not(.worksheet-header):not(.learning-objectives) {
-    page-break-before: auto !important;
-    break-before: auto !important;
-  }
-  
-  /* Remove any page breaks from first section content */
-  .worksheet-section:first-child [style*="page-break-before"],
-  section:first-child [style*="page-break-before"] {
-    page-break-before: auto !important;
-  }
-
-  /* Prevent root from forcing page break - allow content on first page */
-  #root {
-    page-break-before: auto !important;
-    background-color: white !important;
-    margin: 0 !important;
-    padding: 0 !important;
-  }
-
-  /* Allow first element to appear on first page */
-  #root > *:first-child {
-    page-break-before: auto !important;
-    margin-top: 0 !important;
-    padding-top: 0 !important;
-  }
-
-  /* Fix blank first page - remove min-height constraints */
-  [data-worksheet-content="true"],
-  .min-h-screen {
-    min-height: auto !important;
-    height: auto !important;
-    margin: 0 !important;
-    padding: 0 !important;
-    background-color: white !important;
-  }
-
-  /* CRITICAL: Force sections to be block-level - ALLOW BREAKING for first page content flow */
-  section.worksheet-section,
-  section[class*="worksheet-section"],
-  .worksheet-section {
-    display: block !important;
-    visibility: visible !important;
-    break-inside: auto !important;
-    page-break-inside: auto !important;
-    -webkit-region-break-inside: auto !important;
-    -webkit-column-break-inside: auto !important;
-    orphans: 2 !important;
-    widows: 2 !important;
-    overflow: visible !important;
-    page-break-before: auto !important;
-    break-before: auto !important;
-  }
-
-  /* First section should start immediately - no top spacing */
-  section.worksheet-section:first-child,
-  .worksheet-section:first-child {
-    margin-top: 0 !important;
-    padding-top: 0 !important;
-    break-inside: auto !important;
-    page-break-inside: auto !important;
-    page-break-before: auto !important;
-    break-before: auto !important;
-    display: block !important;
-    visibility: visible !important;
-  }
-  
-  /* Allow content to flow naturally - only prevent breaks in small atomic elements */
-  /* Small content blocks that should stay together */
-  .learning-objectives,
-  .parent-teacher-tips,
-  .worksheet-header,
-  /* Problem sets and question groups - allow breaking if needed */
-  .problem-set,
-  .question-group,
-  .math-problem {
-    break-inside: auto !important;
-    page-break-inside: auto !important;
-    orphans: 2 !important;
-    widows: 2 !important;
-    margin-bottom: 0.5rem !important;
-    padding: 0.5rem !important;
-  }
-
-  /* Tables and figures - keep together if possible */
-  table,
-  figure {
-    break-inside: avoid !important;
-    page-break-inside: avoid !important;
-    orphans: 2 !important;
-    widows: 2 !important;
-  }
-  
-  /* Prevent breaks in direct children of sections */
-  section.worksheet-section > div,
-  section[class*="worksheet-section"] > div,
-  .worksheet-section > div {
-    page-break-inside: avoid !important;
-    break-inside: avoid !important;
-  }
-  
-  /* Keep worked examples together - header and content */
-  .worked-example,
-  .worked-example > * {
-    page-break-inside: avoid !important;
-    break-inside: avoid !important;
-  }
-  
-  /* Keep example headers with their content */
-  .worked-example > div:first-child {
-    page-break-after: avoid !important;
-    break-after: avoid !important;
-  }
-  
-  /* Prevent images, SVGs, and visual elements from breaking */
-  img, svg, picture, canvas, video {
-    page-break-inside: avoid !important;
-    break-inside: avoid !important;
-    page-break-after: avoid !important;
-    break-after: avoid !important;
-    max-height: 100vh !important;
-  }
-  
-  /* Keep images with their captions/descriptions */
-  img + *, svg + *, picture + * {
-    page-break-before: avoid !important;
-    break-before: avoid !important;
-  }
-  
-  /* Prevent cards and blocks from breaking */
-  [class*="card"],
-  [class*="Card"],
-  [class*="block"],
-  [class*="Block"],
-  .bg-white,
-  .rounded-lg,
-  .rounded-xl,
-  .border-2,
-  .border {
-    page-break-inside: avoid !important;
-    break-inside: avoid !important;
-  }
-  
-  /* Keep math problems together */
-  .math-problem,
-  .math-problem + * {
-    page-break-inside: avoid !important;
-    break-inside: avoid !important;
-    page-break-before: avoid !important;
-    break-before: avoid !important;
-  }
-  
-  /* Keep example blocks together */
-  [class*="example"],
-  [class*="Example"] {
-    page-break-inside: avoid !important;
-    break-inside: avoid !important;
-  }
-  
-  /* Keep visual content blocks together */
-  .bg-white.p-4,
-  .bg-white.rounded-lg,
-  div[class*="bg-"].p-4 {
-    page-break-inside: avoid !important;
-    break-inside: avoid !important;
-  }
-
-  /* Keep headings with following content - STRONG rules (consolidated) */
-  h1, h2, h3, h4, h5, h6 {
-    page-break-after: avoid !important;
-    break-after: avoid !important;
-    page-break-inside: avoid !important;
-    break-inside: avoid !important;
-  }
-  
-  /* Keep content immediately after headings */
-  h1 + *, h2 + *, h3 + *, h4 + *, h5 + *, h6 + * {
-    page-break-before: avoid !important;
-    break-before: avoid !important;
-  }
-  
-  /* Keep paragraphs and divs after headings together */
-  h1 + p, h2 + p, h3 + p, h4 + p, h5 + p, h6 + p,
-  h1 + div, h2 + div, h3 + div, h4 + div, h5 + div, h6 + div {
-    page-break-before: avoid !important;
-    break-before: avoid !important;
-    page-break-inside: avoid !important;
-    break-inside: avoid !important;
-  }
-
-  /* Allow page breaks between sections when needed - but keep sections intact */
-  section.worksheet-section + section.worksheet-section,
-  section[class*="worksheet-section"] + section[class*="worksheet-section"],
-  .worksheet-section + .worksheet-section,
-  [class*="worksheet-section"] + [class*="worksheet-section"] {
-    page-break-before: auto;
-    break-before: auto;
-    page-break-after: auto;
-    break-after: auto;
-  }
-  
-  /* Ensure sections can start on new page if they don't fit */
-  section.worksheet-section,
-  .worksheet-section {
-    page-break-before: auto;
-    break-before: auto;
-  }
-
-  /* Prevent breaks inside table rows and cells */
-  tr {
-    break-inside: avoid !important;
-    page-break-inside: avoid !important;
-  }
-
-  /* Fix blank first page - ensure first element starts at top with no forced breaks */
-  [data-worksheet-content="true"] > *:first-child,
-  [data-worksheet-content="true"] > section:first-child {
-    page-break-before: auto !important;
-    break-before: auto !important;
-    margin-top: 0 !important;
-    padding-top: 0 !important;
-    display: block !important;
-    visibility: visible !important;
-  }
-  
-  /* Remove all top margins from first section - ensure it appears on first page */
-  section.worksheet-section:first-child,
-  .worksheet-section:first-child {
-    margin-top: 0 !important;
-    padding-top: 0 !important;
-    page-break-before: auto !important;
-    break-before: auto !important;
-    display: block !important;
-    visibility: visible !important;
-  }
-
-  /* Ensure all content is visible - but preserve inline elements */
-  [data-worksheet-content="true"] * {
-    visibility: visible !important;
-  }
-
-  /* Only block-level elements should be block, preserve inline/spans */
-  [data-worksheet-content="true"] .worksheet-section > *,
-  [data-worksheet-content="true"] section > *,
-  [data-worksheet-content="true"] .worksheet-section div,
-  [data-worksheet-content="true"] section div,
-  [data-worksheet-content="true"] .worksheet-section p,
-  [data-worksheet-content="true"] section p {
-    display: block !important;
-    visibility: visible !important;
-  }
-
-  /* Preserve inline elements */
-  [data-worksheet-content="true"] span,
-  [data-worksheet-content="true"] strong,
-  [data-worksheet-content="true"] em,
-  [data-worksheet-content="true"] a {
-    display: inline !important;
-    visibility: visible !important;
-  }
-  
-  /* Consistent section spacing - prevent overlapping */
-  section { 
-    margin-bottom: 0.5rem !important; 
-    margin-top: 0 !important;
-    page-break-inside: auto !important;
-    break-inside: auto !important;
-    padding-left: 0.5rem !important;
-    padding-right: 0.5rem !important;
-    padding-top: 0.375rem !important;
-    padding-bottom: 0.5rem !important;
-    background-color: white !important;
-    background: white !important;
-    max-width: 100% !important;
-    box-sizing: border-box !important;
-    overflow-x: visible !important;
-    overflow-y: visible !important;
-    clear: both !important;
-  }
-  
-  /* First section should start immediately after header */
-  section:first-of-type {
-    margin-top: 0 !important;
-    padding-top: 0.375rem !important;
-    background-color: white !important;
-  }
-  
-  /* Worksheet sections - consistent spacing */
-  .worksheet-section {
-    margin-bottom: 0.5rem !important;
-    padding: 0.375rem 0.5rem 0.5rem 0.5rem !important;
-    background-color: white !important;
-    max-width: 100% !important;
-    box-sizing: border-box !important;
-    overflow-x: visible !important;
-    overflow-y: visible !important;
-    clear: both !important;
-  }
-  
-  /* First worksheet section should have minimal top padding */
-  .worksheet-section:first-of-type {
-    padding-top: 0.375rem !important;
-    margin-top: 0 !important;
-    background-color: white !important;
-  }
-  
-  /* Add spacing between problems/equations */
-  .worksheet-section > div > * {
-    margin-bottom: 0.75rem !important;
-  }
-  
-  .worksheet-section > div > *:last-child {
-    margin-bottom: 0 !important;
-  }
-  
-  /* Add spacing between math problems */
-  [class*="math-problem"],
-  [class*="problem"],
-  .equation,
-  .puzzle {
-    margin-bottom: 1rem !important;
-    padding: 0.5rem 0 !important;
-  }
-  
-  /* Make header compact */
-  .worksheet-header {
-    margin-bottom: 0.5rem !important;
-    padding-bottom: 0.25rem !important;
-    line-height: 1.2 !important;
-  }
-  
-  /* First section header should be more compact */
-  .worksheet-section:first-of-type .worksheet-header {
-    margin-bottom: 0.25rem !important;
-    padding-bottom: 0.125rem !important;
-  }
-  
-  /* Make title/description more compact in first section */
-  .worksheet-section:first-of-type h2,
-  .worksheet-section:first-of-type h3 {
-    margin-top: 0.25rem !important;
-    margin-bottom: 0.375rem !important;
-  }
-  
-  .worksheet-section:first-of-type p {
-    margin-top: 0.25rem !important;
-    margin-bottom: 0.375rem !important;
-  }
-  
-  /* Compact learning objectives */
-  .learning-objectives {
-    margin-bottom: 0.75rem !important;
-    padding: 0.5rem !important;
-  }
-  
-  /* Prevent text merging and improve readability - proper sizing to prevent stretching */
-  p { 
-    line-height: 1.4 !important; 
-    margin: 0.375rem 0 !important;
-    padding: 0 !important;
-    color: black !important;
-    font-size: 10pt !important;
-  }
-  
-  div, span { 
-    line-height: 1.3 !important; 
-    color: black !important;
-    font-size: inherit !important;
-  }
-  
-  h1, h2, h3 { 
-    page-break-after: avoid !important; 
-    margin-bottom: 0.375rem !important;
-    margin-top: 0.375rem !important;
-    line-height: 1.3 !important;
-    color: black !important;
-    font-weight: 600 !important;
-    font-size: 12pt !important;
-  }
-  
-  h1 { font-size: 14pt !important; }
-  h2 { font-size: 12pt !important; }
-  h3 { font-size: 11pt !important; }
-  
-  /* First section headings should be compact */
-  .worksheet-section:first-of-type h1,
-  .worksheet-section:first-of-type h2,
-  .worksheet-section:first-of-type h3 {
-    margin-top: 0.25rem !important;
-    margin-bottom: 0.375rem !important;
-  }
-
-  /* Ensure content doesn't overlap */
-  [data-worksheet-content="true"] * {
-    position: relative !important;
-    z-index: auto !important;
-  }
-
-  /* Prevent cropping - ensure content fits */
-  [data-worksheet-content="true"] {
-    overflow: visible !important;
-  }
-
-  [data-worksheet-content="true"] * {
-    overflow: visible !important;
-    text-overflow: clip !important;
-  }
-  
-  /* Name and Date fields styling - MINIMAL SPACING */
-  [data-worksheet-content="true"] .print-name-date-header {
-    display: flex !important;
-    justify-content: space-between !important;
-    align-items: center !important;
-    margin-top: 0 !important;
-    margin-bottom: 4px !important;
-    padding-top: 0 !important;
-    padding-bottom: 2px !important;
-    border-bottom: 1px solid #cbd5e1 !important;
-    font-size: 12pt !important;
-  }
-
-  [data-worksheet-content="true"] .print-name-date-header strong {
-    font-weight: 600 !important;
-    color: #1e293b !important;
-    margin-right: 4px !important;
-  }
-
-  [data-worksheet-content="true"] .print-name-date-header span[style*="border-bottom"],
-  [data-worksheet-content="true"] .print-name-date-header span[class*="border-b"] {
-    border-bottom: 1px solid #94a3b8 !important;
-    min-width: 120px !important;
-    display: inline-block !important;
-    margin-left: 4px !important;
-    height: 16px !important;
-  }
-
-  [data-worksheet-content="true"] .print-name-date-header > div {
-    display: flex !important;
-    align-items: center !important;
-    gap: 8px !important;
-  }
-
-  /* Remove empty space from customization header */
-  [data-worksheet-content="true"] .print-customization-header {
-    margin-top: 0 !important;
-    margin-bottom: 0 !important;
-    padding-top: 0 !important;
-    padding-bottom: 0 !important;
-  }
-
-  /* Disable flex/grid layouts in print - use block layout */
-  .flex, .grid, [class*="flex"], [class*="grid"] {
-    display: block !important;
-  }
-
-  /* Remove all min-height/height restrictions */
-  [class*="min-h-"], [class*="h-"], [style*="min-height"], [style*="height"] {
-    min-height: auto !important;
-    height: auto !important;
-  }
-
-  /* Remove forced page breaks */
-  [style*="page-break-before"], [style*="page-break-after"], [style*="page-break-inside"] {
-    page-break-before: auto !important;
-    page-break-after: auto !important;
-    page-break-inside: auto !important;
-  }
-  /* Consistent spacing - already handled above, remove duplicate */
-  /* RESTORED: Decorative colorful gradient border at top */
-  [data-worksheet-content="true"] > div:first-child::before,
-  [data-worksheet-content="true"] > div.max-w-4xl::before,
-  .max-w-4xl.mx-auto::before,
-  [data-worksheet-content="true"] .max-w-4xl::before,
-  [data-worksheet-content="true"] .worksheet-container::before {
-    content: '' !important;
-    display: block !important;
-    position: absolute !important;
-    top: 0 !important;
-    left: 0 !important;
-    right: 0 !important;
-    height: 4px !important;
-    background: linear-gradient(
-      135deg,
-      #f472b6 0%,
-      #a78bfa 20%,
-      #60a5fa 40%,
-      #34d399 60%,
-      #fbbf24 80%,
-      #fb7185 100%
-    ) !important;
-    z-index: 10 !important;
-    -webkit-print-color-adjust: exact !important;
-    print-color-adjust: exact !important;
-  }
-  
-  /* RESTORED: Decorative emoji stars at top */
-  [data-worksheet-content="true"] > div:first-child::after,
-  [data-worksheet-content="true"] > div.max-w-4xl::after,
-  .max-w-4xl.mx-auto::after,
-  [data-worksheet-content="true"] .max-w-4xl::after,
-  [data-worksheet-content="true"] .worksheet-container::after {
-    content: '⭐ ✨ ⭐ ✨ ⭐' !important;
-    display: block !important;
-    position: absolute !important;
-    top: 4px !important;
-    left: 0 !important;
-    right: 0 !important;
-    text-align: center !important;
-    font-size: 10px !important;
-    line-height: 1 !important;
-    padding: 2px 0 !important;
-    color: #fbbf24 !important;
-    z-index: 10 !important;
-    -webkit-print-color-adjust: exact !important;
-    print-color-adjust: exact !important;
-  }
-  /* Thin colorful decorative border with emoji-style pattern - applied to ALL worksheets */
-  /* Worksheet container - responsive width with gradient border and emoji stars */
-  .worksheet-container,
-  [data-worksheet-content="true"] > div:first-child,
-  [data-worksheet-content="true"] .max-w-4xl {
-    width: 100% !important;
-    max-width: 100% !important;
-    margin: 0 !important;
-    margin-top: 0 !important;
-    position: relative !important;
-    border-radius: 0 !important;
-    border: none !important;
-    border-image: none !important;
-    -webkit-print-color-adjust: exact !important;
-    print-color-adjust: exact !important;
-    color-adjust: exact !important;
-    padding: 0.1in !important;
-    padding-top: 0.18in !important; /* Extra space for gradient border + emoji stars */
-    margin: 0 !important;
-    margin-top: 0 !important;
-    page-break-inside: auto !important;
-    break-inside: auto !important;
-    page-break-before: auto !important;
-    break-before: auto !important;
-    box-sizing: border-box !important;
-  }
-
-  /* Better space utilization for split pages - allow content to flow */
-  [data-worksheet-content="true"] .worksheet-section {
-    width: 100% !important;
-    max-width: 100% !important;
-    box-sizing: border-box !important;
-  }
-
-  /* Questions should use available width and distribute evenly */
-  [data-worksheet-content="true"] .question-section,
-  [data-worksheet-content="true"] .question-section-wrapper {
-    width: 100% !important;
-    max-width: 100% !important;
-    box-sizing: border-box !important;
-  }
-
-  /* Ensure content flows immediately after header - no empty first page */
-  [data-worksheet-content="true"] .worksheet-container {
-    padding-top: 0.18in !important; /* Space for gradient + emoji */
-  }
-  
-  [data-worksheet-content="true"] .wizqo-logo-print {
-    margin-top: 0 !important;
-    padding-top: 0 !important;
-    margin-bottom: 4px !important;
-  }
-  
-  [data-worksheet-content="true"] .print-name-date-header {
-    margin-top: 0 !important;
-    padding-top: 0 !important;
-    margin-bottom: 6px !important;
-  }
-  
-  /* First section should start immediately after header */
-  [data-worksheet-content="true"] .worksheet-section:first-child,
-  [data-worksheet-content="true"] section:first-child {
-    margin-top: 0 !important;
-    padding-top: 0.25rem !important;
-  }
-
-  /* CRITICAL: Ensure worksheet container and content start on first page */
-  [data-worksheet-content="true"] > div:first-child,
-  [data-worksheet-content="true"] .worksheet-container {
-    page-break-before: auto !important;
-    break-before: auto !important;
-    margin-top: 0 !important;
-    padding-top: 0 !important;
-  }
-
-  /* Ensure root doesn't force page break */
-  #root {
-    page-break-before: auto !important;
-  }
-
-  #root > *:first-child {
-    page-break-before: auto !important;
-    margin-top: 0 !important;
-    padding-top: 0 !important;
-  }
-
-  /* Ensure content container uses full width - consistent padding */
-  [data-worksheet-content="true"] .worksheet-container {
-    margin-left: 0 !important;
-    margin-right: 0 !important;
-    padding-left: 0.1in !important;
-    padding-right: 0.1in !important;
-    padding-top: 0.05in !important;
-    padding-bottom: 0.1in !important;
-  }
-
-  /* Force questions container to use full width */
-  [data-worksheet-content="true"] .space-y-2,
-  [data-worksheet-content="true"] .space-y-1,
-  [data-worksheet-content="true"] div[class*="space-y"] {
-    width: 100% !important;
-    max-width: 100% !important;
-    margin-left: 0 !important;
-    margin-right: 0 !important;
-  }
-
-  /* Remove any max-width constraints that limit content to left side */
-  [data-worksheet-content="true"] .max-w-4xl,
-  [data-worksheet-content="true"] [class*="max-w"] {
-    max-width: 100% !important;
-    width: 100% !important;
-  }
-
-  /* Ensure questions themselves use full available width */
-  [data-worksheet-content="true"] .question-section {
-    width: 100% !important;
-    max-width: 100% !important;
-    margin-left: 0 !important;
-    margin-right: 0 !important;
-  }
-
-  /* Logo and domain - HORIZONTAL layout - positioned after gradient border */
-  [data-worksheet-content="true"] .wizqo-logo-print {
-    position: relative !important;
-    top: 0 !important;
-    left: 0 !important;
-    z-index: 20 !important;
-    display: flex !important;
-    flex-direction: row !important;
-    flex-wrap: nowrap !important;
-    align-items: center !important;
-    justify-content: flex-start !important;
-    gap: 6px !important;
-    background: white !important;
-    padding: 4px 0 2px 0 !important;
-    margin-bottom: 4px !important;
-    margin-top: 0 !important;
-    padding-top: 0 !important;
-    border-radius: 0 !important;
-    width: 100% !important;
-    -webkit-print-color-adjust: exact !important;
-    print-color-adjust: exact !important;
-  }
-
-  [data-worksheet-content="true"] .wizqo-logo-print img {
-    width: 32px !important;
-    height: 32px !important;
-    object-fit: contain !important;
-    flex-shrink: 0 !important;
-    display: inline-block !important;
-    -webkit-print-color-adjust: exact !important;
-    print-color-adjust: exact !important;
-  }
-
-  [data-worksheet-content="true"] .wizqo-logo-print .domain-text {
-    font-size: 10px !important;
-    font-weight: 600 !important;
-    color: #4845D2 !important;
-    white-space: nowrap !important;
-    letter-spacing: 0.3px !important;
-    display: inline-block !important;
-    line-height: 1 !important;
-    margin: 0 !important;
-    padding: 0 !important;
-    -webkit-print-color-adjust: exact !important;
-    print-color-adjust: exact !important;
-  }
-  
-  /* Ensure all divs inside worksheet content have white background */
-  [data-worksheet-content="true"] > div:first-child > * {
-    background-color: white !important;
-    background: white !important;
-  }
-  
-  /* Clean worksheet sections - no decorative borders for print */
-  section[class*="break-inside-avoid"],
-  section.worksheet-section,
-  .worksheet-section {
-    border: none !important;
-    border-radius: 0 !important;
-    background: white !important;
-    background-color: white !important;
-  }
-  
-  /* Clean content borders within worksheets */
-  section[class*="break-inside-avoid"] div[class*="border"],
-  section[class*="break-inside-avoid"] div[class*="rounded"] {
-    border: none !important;
-    border-radius: 0 !important;
-  }
-  
-  /* Hide URLs in print */
-  a[href]::after { content: none !important; }
-  a { text-decoration: none !important; }
-  
-  /* Remove backgrounds and borders in print for cleaner look - but preserve worksheet content */
-  * {
-    box-shadow: none !important;
-  }
-  
-  /* Remove borders from navigation and UI elements, but keep worksheet content borders */
-  header, .print\\:hidden, nav, button {
-    border: none !important;
-    border-radius: 0 !important;
-  }
-  
-  /* ============================================================================
-   * UNIVERSAL WORKSHEET COMPONENTS - OPTIONAL HEADER, FOOTER, PROBLEM BOXES
-   * ============================================================================ */
-  
-  /* Optional Header Component */
-  .worksheet-header-optional {
-    margin-top: 0 !important;
-    padding-top: 0 !important;
-    margin-bottom: 20px !important;
-    padding-bottom: 12px !important;
-    border-bottom: 1px solid #e2e8f0 !important;
-    font-size: 13pt !important;
-    line-height: 1.4 !important;
-    color: #333 !important;
-    page-break-after: avoid !important;
-    break-after: avoid !important;
-  }
-  
-  /* Optional Footer Component */
-  .worksheet-footer-optional {
-    padding-top: 12px !important;
-    border-top: 1px solid #e2e8f0 !important;
-    text-align: center !important;
-    font-size: 10pt !important;
-    color: #666 !important;
-    page-break-before: auto !important;
-    break-before: auto !important;
-    margin-top: 60px !important;
-  }
-  
-  /* Ensure footer appears at bottom of last page in print */
-  @media print {
-    /* Make the content container a flex column to push footer down */
-    .worksheet-section .relative {
-      display: flex !important;
-      flex-direction: column !important;
-    }
-    
-    /* All content except footer should not grow */
-    .worksheet-section .relative > *:not(.worksheet-footer-optional) {
-      flex: 0 0 auto !important;
-    }
-    
-    /* Footer should be pushed to bottom and stay on last page */
-    .worksheet-section .worksheet-footer-optional {
-      margin-top: auto !important;
-      margin-bottom: 0 !important;
-      padding-bottom: 0.5in !important;
-      page-break-inside: avoid !important;
-      break-inside: avoid !important;
-    }
-  }
-  
-  /* Problem Box Component */
-  .problem-box {
-    page-break-inside: avoid !important;
-    break-inside: avoid !important;
-    background-color: white !important;
-    margin-bottom: 20px !important;
-  }
-  
-  .problem-box-default {
-    border: 1px solid #d5d5d5 !important;
-    border-radius: 10px !important;
-    padding: 16px !important;
-  }
-  
-  .problem-box-highlight {
-    border: 1px solid #b3d9ff !important;
-    border-radius: 10px !important;
-    padding: 16px !important;
-    background-color: #eaf4ff !important;
-  }
-  
-  .problem-box-minimal {
-    border: 1px solid #e2e8f0 !important;
-    border-radius: 8px !important;
-    padding: 12px !important;
-    background-color: transparent !important;
-  }
-  
-  /* Layout Components */
-  .worksheet-layout-1col {
-    max-width: 100% !important;
-    margin: 0 auto !important;
-  }
-  
-  .worksheet-layout-2col {
-    display: grid !important;
-    grid-template-columns: 1fr 1fr !important;
-    gap: 24px !important;
-  }
-  
-  /* On small screens or print, 2col becomes 1col */
-  @media (max-width: 600px) {
-    .worksheet-layout-2col {
-      grid-template-columns: 1fr !important;
-    }
   }
 }
+
