@@ -2977,7 +2977,10 @@ export function PrintablesPage() {
         @media print {
           @page { 
             size: A4;
-            margin: 0.1in !important;
+            margin: 0.05in 0.5in 0.5in 0.5in !important; /* Top: 0.05in (minimal for gradient/emoji), others: 0.5in */
+            border-top: 4px solid transparent !important;
+            border-image: linear-gradient(90deg, #f472b6, #a78bfa, #60a5fa, #34d399, #fbbf24, #fb7185) 1 !important;
+            border-image-slice: 1 !important;
           }
           /* Universal print reset - fix 90% of spacing problems */
           * {
