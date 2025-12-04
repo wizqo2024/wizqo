@@ -1186,6 +1186,8 @@ html {
     margin-top: 0 !important;
     page-break-inside: auto !important;
     break-inside: auto !important;
+    page-break-before: auto !important;
+    break-before: auto !important;
     box-sizing: border-box !important;
   }
 
