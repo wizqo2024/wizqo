@@ -2173,12 +2173,18 @@ export function PrintablesPage() {
           margin-top: 0 !important; /* ZERO margin to fix blank first page */
           padding-top: 0 !important;
           margin-bottom: 0 !important;
+          page-break-after: avoid !important;
+          break-after: avoid !important;
+          page-break-inside: avoid !important;
         }
         
         [data-worksheet-content="true"] .print-name-date-header {
           margin-top: 0 !important;
           padding-top: 0 !important;
           margin-bottom: 0 !important; /* ZERO margin to fix blank first page */
+          page-break-after: avoid !important;
+          break-after: avoid !important;
+          page-break-inside: avoid !important;
         }
         
         /* First section should start immediately after header - FIX BLANK FIRST PAGE */
@@ -2196,6 +2202,12 @@ export function PrintablesPage() {
         [data-worksheet-content="true"] .worksheet-container > section:first-of-type {
           margin-top: 0 !important;
           padding-top: 0 !important;
+        }
+        
+        [data-worksheet-content="true"] .print-customization-header {
+          page-break-after: avoid !important;
+          break-after: avoid !important;
+          page-break-inside: avoid !important;
         }
         
         /* Section styles - prevent overlapping - KEEP ORIGINAL BORDERS */
@@ -3037,6 +3049,9 @@ export function PrintablesPage() {
             gap: 6px;
             margin: 0 0 4px 0;
             padding: 0;
+            page-break-after: avoid;
+            break-after: avoid;
+            page-break-inside: avoid;
           }
           
           [data-worksheet-content="true"] .wizqo-logo-print img {
@@ -3059,12 +3074,18 @@ export function PrintablesPage() {
             padding: 0 0 2px 0;
             border-bottom: 1px solid #cbd5e1;
             font-size: 12pt;
+            page-break-after: avoid;
+            break-after: avoid;
+            page-break-inside: avoid;
           }
           
           /* Customization header */
           [data-worksheet-content="true"] .print-customization-header {
             margin: 0 0 4px 0;
             padding: 0;
+            page-break-after: avoid;
+            break-after: avoid;
+            page-break-inside: avoid;
           }
           
           /* Worksheet sections - keep original borders */
