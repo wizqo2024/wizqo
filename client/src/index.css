@@ -675,6 +675,71 @@ html {
     border-radius: 0 !important;
     border: none !important;
   }
+
+  /* Allow CSS grids to break naturally across printed pages */
+  [data-worksheet-content="true"] .grid {
+    display: block !important;
+    width: 100% !important;
+  }
+
+  [data-worksheet-content="true"] .grid::after {
+    content: '' !important;
+    display: block !important;
+    clear: both !important;
+  }
+
+  [data-worksheet-content="true"] .grid > * {
+    float: left !important;
+    display: block !important;
+    vertical-align: top;
+    width: 100% !important;
+    margin: 0 0 0.5rem 0 !important;
+  }
+
+  [data-worksheet-content="true"] .grid[class*="grid-cols-2"] > * {
+    width: calc(50% - 0.4rem) !important;
+    margin-right: 0.4rem !important;
+  }
+
+  [data-worksheet-content="true"] .grid[class*="grid-cols-2"] > *:nth-of-type(2n) {
+    margin-right: 0 !important;
+  }
+
+  [data-worksheet-content="true"] .grid[class*="grid-cols-3"] > * {
+    width: calc((100% / 3) - 0.45rem) !important;
+    margin-right: 0.45rem !important;
+  }
+
+  [data-worksheet-content="true"] .grid[class*="grid-cols-3"] > *:nth-of-type(3n) {
+    margin-right: 0 !important;
+  }
+
+  [data-worksheet-content="true"] .grid[class*="grid-cols-4"] > * {
+    width: calc(25% - 0.45rem) !important;
+    margin-right: 0.45rem !important;
+  }
+
+  [data-worksheet-content="true"] .grid[class*="grid-cols-4"] > *:nth-of-type(4n) {
+    margin-right: 0 !important;
+  }
+
+  [data-worksheet-content="true"] .grid[class*="grid-cols-5"] > * {
+    width: calc(20% - 0.45rem) !important;
+    margin-right: 0.45rem !important;
+  }
+
+  [data-worksheet-content="true"] .grid[class*="grid-cols-5"] > *:nth-of-type(5n) {
+    margin-right: 0 !important;
+  }
+
+  [data-worksheet-content="true"] .grid[class*="grid-cols-6"] > * {
+    width: calc((100% / 6) - 0.45rem) !important;
+    margin-right: 0.45rem !important;
+  }
+
+  [data-worksheet-content="true"] .grid[class*="grid-cols-6"] > *:nth-of-type(6n) {
+    margin-right: 0 !important;
+  }
   
   /* Ensure content is visible */
   [data-worksheet-content="true"] * {
