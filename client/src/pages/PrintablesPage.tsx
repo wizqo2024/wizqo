@@ -2195,7 +2195,8 @@ export function PrintablesPage() {
           page-break-inside: avoid !important;
         }
         
-        [data-worksheet-content="true"] .print-name-date-header {
+        [data-worksheet-content="true"] .print-name-field,
+        [data-worksheet-content="true"] .print-date-field {
           margin-top: 0 !important;
           padding-top: 0 !important;
           margin-bottom: 0 !important; /* ZERO margin to fix blank first page */
@@ -2215,7 +2216,7 @@ export function PrintablesPage() {
         }
         
         /* CRITICAL: First content section after header elements - no top spacing */
-        [data-worksheet-content="true"] .worksheet-container > *:first-of-type:not(.wizqo-logo-print):not(.print-name-date-header):not(.print-customization-header),
+        [data-worksheet-content="true"] .worksheet-container > *:first-of-type:not(.wizqo-logo-print):not(.print-name-field):not(.print-date-field):not(.print-customization-header),
         [data-worksheet-content="true"] .worksheet-container > section:first-of-type {
           margin-top: 0 !important;
           padding-top: 0 !important;
@@ -3063,8 +3064,10 @@ export function PrintablesPage() {
             display: flex;
             align-items: center;
             justify-content: space-between;
-            gap: 12px;
+            gap: 16px;
             margin: 0 0 6px 0;
+            padding-bottom: 4px;
+            border-bottom: 1px solid #cbd5e1;
             page-break-after: avoid;
             break-after: avoid;
             page-break-inside: avoid;
@@ -3075,9 +3078,11 @@ export function PrintablesPage() {
             display: flex;
             flex-direction: row;
             align-items: center;
+            justify-content: center;
             gap: 6px;
-            margin: 0 0 4px 0;
+            margin: 0;
             padding: 0;
+            flex-shrink: 0;
             page-break-after: avoid;
             break-after: avoid;
             page-break-inside: avoid;
@@ -3095,17 +3100,24 @@ export function PrintablesPage() {
           }
           
           /* Name/Date header */
-          [data-worksheet-content="true"] .print-name-date-header {
+          [data-worksheet-content="true"] .print-name-field,
+          [data-worksheet-content="true"] .print-date-field {
+            flex: 1;
             display: flex;
-            justify-content: flex-end;
             align-items: center;
-            gap: 12px;
-            margin: 0;
-            padding: 0;
+            gap: 8px;
             font-size: 12pt;
             page-break-after: avoid;
             break-after: avoid;
             page-break-inside: avoid;
+          }
+          
+          [data-worksheet-content="true"] .print-name-field {
+            justify-content: flex-start;
+          }
+          
+          [data-worksheet-content="true"] .print-date-field {
+            justify-content: flex-end;
           }
           
           /* Customization header */
@@ -3167,19 +3179,17 @@ export function PrintablesPage() {
         <div className={`worksheet-container max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-10 print:p-0 print:py-0 print:mt-0 ${isPreview ? 'preview-mode' : ''}`}>
         {/* Logo + Name/Date header */}
         <div className="hidden print:flex wizqo-print-header">
+          <div className="print-name-field">
+            <strong>Name:</strong>
+            <span className="print:border-b print:border-slate-400 print:inline-block" style={{ minWidth: '150px', borderBottom: '1px solid #94a3b8', display: 'inline-block' }}>&nbsp;</span>
+          </div>
           <div className="wizqo-logo-print">
             <img src="/logo.svg" alt="Wizqo Logo" />
             <span className="domain-text">www.wizqo.com</span>
           </div>
-          <div className="print-name-date-header" style={{ marginBottom: '0px', marginTop: '0px', paddingBottom: '0px', borderBottom: '1px solid #cbd5e1' }}>
-            <div className="print:flex print:items-center print:gap-6">
-              <div className="print:text-sm flex items-center gap-2">
-                <strong>Name:</strong> <span className="print:border-b print:border-slate-400 print:inline-block" style={{ minWidth: '150px', borderBottom: '1px solid #94a3b8', display: 'inline-block' }}>&nbsp;</span>
-              </div>
-              <div className="print:text-sm flex items-center gap-2">
-                <strong>Date:</strong> <span className="print:border-b print:border-slate-400 print:inline-block" style={{ minWidth: '100px', borderBottom: '1px solid #94a3b8', display: 'inline-block' }}>&nbsp;</span>
-              </div>
-            </div>
+          <div className="print-date-field">
+            <strong>Date:</strong>
+            <span className="print:border-b print:border-slate-400 print:inline-block" style={{ minWidth: '100px', borderBottom: '1px solid #94a3b8', display: 'inline-block' }}>&nbsp;</span>
           </div>
         </div>
         {/* Customization header (print view - appears once at top) */}
