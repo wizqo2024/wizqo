@@ -2998,582 +2998,123 @@ export function PrintablesPage() {
     
     styleTag.textContent = `
         @media print {
+          /* ============================================================
+             CLEAN PRINT LAYOUT - SIMPLE AND EFFECTIVE
+          ============================================================ */
+          
           @page { 
             size: A4;
-            margin: 0 0.5in 0.5in 0.5in !important;
-            border-top: 4px solid transparent !important;
-            border-image: linear-gradient(90deg, #f472b6, #a78bfa, #60a5fa, #34d399, #fbbf24, #fb7185) 1 !important;
-            border-image-slice: 1 !important;
+            margin: 0 0.5in 0.5in 0.5in;
+            border-top: 4px solid transparent;
+            border-image: linear-gradient(90deg, #f472b6, #a78bfa, #60a5fa, #34d399, #fbbf24, #fb7185) 1;
+            border-image-slice: 1;
           }
           
-          /* CRITICAL: Remove ALL top spacing from body/html/root to fix blank first page */
+          /* ============================================================
+             CLEAN PRINT LAYOUT - SIMPLE AND EFFECTIVE
+          ============================================================ */
+          
+          /* Base reset */
           html, body, #root {
-            margin-top: 0 !important;
-            padding-top: 0 !important;
+            margin: 0;
+            padding: 0;
+            background: white;
+            color: black;
           }
           
-          /* CONTAINER - ABSOLUTE ZERO TOP SPACING - CRITICAL FIX FOR BLANK FIRST PAGE */
+          /* Main container - zero top spacing */
           [data-worksheet-content="true"] {
-            margin-top: 0 !important;
-            padding-top: 0 !important;
-            margin: 0 !important;
-            padding: 0 !important;
+            margin: 0;
+            padding: 0;
+            background: white;
           }
           
           [data-worksheet-content="true"] .worksheet-container {
-            margin-top: 0 !important;
-            padding-top: 0 !important;
-            margin: 0 !important;
-            padding: 0 0.1in 0.1in 0.1in !important;
-            position: relative !important;
+            margin: 0;
+            padding: 0 0.5in 0.5in 0.5in;
+            padding-top: 0;
+            position: relative;
           }
           
-          /* CRITICAL: Override ANY Tailwind classes that add top spacing */
-          [data-worksheet-content="true"].worksheet-container,
-          [data-worksheet-content="true"] .worksheet-container.py-10,
-          [data-worksheet-content="true"] .worksheet-container[class*="py-"],
-          [data-worksheet-content="true"] .worksheet-container[class*="pt-"],
-          [data-worksheet-content="true"] .worksheet-container[class*="mt-"] {
-            padding-top: 0 !important;
-            margin-top: 0 !important;
-          }
-          
-          /* EMOJI - Positioned at absolute top */
+          /* Emoji stars at top */
           [data-worksheet-content="true"] .worksheet-container::after {
-            content: '⭐ ✨ ⭐ ✨ ⭐' !important;
-            position: absolute !important;
-            top: 0 !important;
-            left: 0 !important;
-            right: 0 !important;
-            text-align: center !important;
-            font-size: 9px !important;
-            line-height: 1.2 !important;
-            color: #fbbf24 !important;
-            z-index: 10 !important;
-            -webkit-print-color-adjust: exact !important;
-            print-color-adjust: exact !important;
+            content: '⭐ ✨ ⭐ ✨ ⭐';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            text-align: center;
+            font-size: 9px;
+            line-height: 1.2;
+            color: #fbbf24;
+            z-index: 10;
           }
           
-          /* LOGO - Horizontal, MINIMAL spacing - FIX BLANK FIRST PAGE */
+          /* Logo - horizontal layout */
           [data-worksheet-content="true"] .wizqo-logo-print {
-            display: flex !important;
-            flex-direction: row !important;
-            align-items: center !important;
-            gap: 6px !important;
-            margin-top: 0 !important;
-            margin-bottom: 0 !important;
-            padding: 0 !important;
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            gap: 6px;
+            margin: 0 0 4px 0;
+            padding: 0;
           }
           
           [data-worksheet-content="true"] .wizqo-logo-print img {
-            width: 32px !important;
-            height: 32px !important;
+            width: 32px;
+            height: 32px;
           }
           
           [data-worksheet-content="true"] .wizqo-logo-print .domain-text {
-            font-size: 10px !important;
-            font-weight: 600 !important;
-            color: #4845D2 !important;
+            font-size: 10px;
+            font-weight: 600;
+            color: #4845D2;
           }
-          /* Universal print reset - fix 90% of spacing problems */
+          
+          /* Name/Date header */
+          [data-worksheet-content="true"] .print-name-date-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin: 0 0 4px 0;
+            padding: 0 0 2px 0;
+            border-bottom: 1px solid #cbd5e1;
+            font-size: 12pt;
+          }
+          
+          /* Customization header */
+          [data-worksheet-content="true"] .print-customization-header {
+            margin: 0 0 4px 0;
+            padding: 0;
+          }
+          
+          /* Worksheet sections - keep original borders */
+          [data-worksheet-content="true"] .worksheet-section {
+            margin: 0 0 12px 0;
+            padding: 8px;
+            background: white;
+            page-break-inside: auto;
+          }
+          
+          /* Hide non-print elements */
+          [class*="print:hidden"],
+          .print\\:hidden {
+            display: none !important;
+          }
+          
+          /* Show print-only elements */
+          [class*="print:block"] {
+            display: block !important;
+          }
+          
+          /* Remove shadows */
           * {
             box-shadow: none !important;
-            overflow: visible !important;
-          }
-          html, body {
-            margin: 0 !important;
-            padding: 0 !important;
-          }
-
-          html, body, #root, [data-worksheet-content="true"] {
-            background-color: white !important;
-            background: white !important;
-            color: black !important;
-            width: 100% !important;
-            max-width: 100% !important;
-            margin: 0 !important; 
-            padding: 0 !important; 
-            font-size: 11pt !important;
-            line-height: 1.3 !important;
-            min-height: auto !important;
-            height: auto !important;
-          }
-
-          /* AGGRESSIVE: Remove ALL empty spaces - comprehensive spacing cleanup - FIX BLANK FIRST PAGE */
-          [data-worksheet-content="true"] > *:first-child,
-          [data-worksheet-content="true"] .worksheet-container > *:first-child,
-          [data-worksheet-content="true"] .worksheet-container > section:first-child {
-            margin-top: 0 !important;
-            padding-top: 0 !important;
           }
           
-          /* CRITICAL: Remove spacing from ALL header elements */
-          [data-worksheet-content="true"] .wizqo-logo-print,
-          [data-worksheet-content="true"] .print-name-date-header,
-          [data-worksheet-content="true"] .print-customization-header {
-            margin-top: 0 !important;
-            padding-top: 0 !important;
-          }
-          
-          /* CRITICAL: Ensure first content section starts immediately - no blank first page */
-          [data-worksheet-content="true"] .worksheet-container > *:first-of-type:not(.wizqo-logo-print):not(.print-name-date-header):not(.print-customization-header),
-          [data-worksheet-content="true"] .worksheet-container > section:first-of-type,
-          [data-worksheet-content="true"] .worksheet-container > .worksheet-section:first-of-type {
-            margin-top: 0 !important;
-            padding-top: 0 !important;
-          }
-          
-          /* Remove any min-height that could cause blank space */
-          [data-worksheet-content="true"],
-          [data-worksheet-content="true"] .worksheet-container,
-          [data-worksheet-content="true"] .worksheet-container > * {
-            min-height: auto !important;
-            height: auto !important;
-          }
-
-          /* Ensure content uses full available width when page is split */
-          [data-worksheet-content="true"] {
-            width: 100% !important;
-            max-width: 100% !important;
-            box-sizing: border-box !important;
-          }
-
-          /* Remove all gap spacing from flex/grid */
-          [class*="gap-"],
-          [class*="space-"],
-          .gap-1, .gap-2, .gap-3, .gap-4,
-          .space-y-1, .space-y-2, .space-y-3, .space-y-4,
-          .space-x-1, .space-x-2, .space-x-3, .space-x-4 {
-            gap: 0 !important;
-          }
-
-          /* Remove margins from space-y classes */
-          [class*="space-y"] > * + * {
-            margin-top: 0 !important;
-          }
-
-          /* Remove all vertical margins that create empty spaces */
-          [class*="mb-"],
-          [class*="mt-"],
-          [class*="my-"],
-          [class*="py-"] {
-            margin-top: 0 !important;
-            margin-bottom: 0 !important;
-            padding-top: 0 !important;
-            padding-bottom: 0 !important;
-          }
-
-          /* CRITICAL: Remove ALL padding/margin classes that could cause blank first page */
-          [class*="p-"],
-          [class*="px-"],
-          [class*="pt-"],
-          [class*="pb-"],
-          [class*="py-"],
-          [class*="m-"],
-          [class*="mx-"],
-          [class*="mt-"],
-          [class*="mb-"],
-          [class*="my-"] {
-            padding-top: 0 !important;
-            margin-top: 0 !important;
-          }
-          
-          /* Specifically target py-10 and other large padding classes */
-          .py-10, .py-8, .py-6, .py-4,
-          .pt-10, .pt-8, .pt-6, .pt-4,
-          .mt-10, .mt-8, .mt-6, .mt-4 {
-            padding-top: 0 !important;
-            margin-top: 0 !important;
-          }
-
-          /* Keep only essential padding for readability - ZERO top padding */
-          [data-worksheet-content="true"] .worksheet-container {
-            padding-top: 0 !important;
-            padding-bottom: 0 !important;
-            margin-top: 0 !important;
-          }
-
-          /* Remove empty space from worksheet sections - KEEP ORIGINAL BORDERS */
-          [data-worksheet-content="true"] .worksheet-section,
-          [data-worksheet-content="true"] section {
-            margin-top: 0 !important;
-            margin-bottom: 0.5rem !important;
-            padding-top: 0.375rem !important;
-            padding-bottom: 0.5rem !important;
-            padding-left: 0.5rem !important;
-            padding-right: 0.5rem !important;
-          }
-
-          /* Remove empty space between questions */
-          [data-worksheet-content="true"] .question-section-wrapper + .question-section-wrapper,
-          [data-worksheet-content="true"] .question-section + .question-section {
-            margin-top: 0 !important;
-            padding-top: 0 !important;
-          }
-
-          /* Logo and domain - HORIZONTAL layout - CRITICAL: Must be row, not column */
-          [data-worksheet-content="true"] .wizqo-logo-print {
-            position: relative !important;
-            display: flex !important;
-            flex-direction: row !important;
-            flex-wrap: nowrap !important;
-            align-items: center !important;
-            justify-content: flex-start !important;
-            gap: 6px !important;
-            background: white !important;
-            padding: 0 !important;
-            margin-bottom: 4px !important;
-            margin-top: 0 !important;
-            padding-top: 0 !important;
-            width: 100% !important;
-            -webkit-print-color-adjust: exact !important;
-            print-color-adjust: exact !important;
-          }
-          
-          [data-worksheet-content="true"] .wizqo-logo-print img {
-            width: 32px !important;
-            height: 32px !important;
-            object-fit: contain !important;
-            flex-shrink: 0 !important;
-            display: block !important;
-            margin: 0 !important;
-            padding: 0 !important;
-            -webkit-print-color-adjust: exact !important;
-            print-color-adjust: exact !important;
-          }
-          
-          [data-worksheet-content="true"] .wizqo-logo-print .domain-text {
-            font-size: 10px !important;
-            font-weight: 600 !important;
-            color: #4845D2 !important;
-            white-space: nowrap !important;
-            letter-spacing: 0.3px !important;
-            display: inline-block !important;
-            line-height: 1 !important;
-            margin: 0 !important;
-            padding: 0 !important;
-            vertical-align: middle !important;
-            -webkit-print-color-adjust: exact !important;
-            print-color-adjust: exact !important;
-          }
-
-          /* Name and Date fields styling - ZERO TOP SPACING - FIX BLANK FIRST PAGE */
-          [data-worksheet-content="true"] .print-name-date-header {
-            display: flex !important;
-            justify-content: space-between !important;
-            align-items: center !important;
-            margin-top: 0 !important;
-            margin-bottom: 0 !important;
-            padding-top: 0 !important;
-            padding-bottom: 1px !important;
-            border-bottom: 1px solid #cbd5e1 !important;
-            font-size: 12pt !important;
-          }
-
-          [data-worksheet-content="true"] .print-name-date-header strong {
-            font-weight: 600 !important;
-            color: #1e293b !important;
-            margin-right: 4px !important;
-          }
-
-          [data-worksheet-content="true"] .print-name-date-header span[style*="border-bottom"],
-          [data-worksheet-content="true"] .print-name-date-header span[class*="border-b"] {
-            border-bottom: 1px solid #94a3b8 !important;
-            min-width: 120px !important;
-            display: inline-block !important;
-            margin-left: 4px !important;
-            height: 16px !important;
-          }
-
-          [data-worksheet-content="true"] .print-name-date-header > div {
-            display: flex !important;
-            align-items: center !important;
-            gap: 8px !important;
-          }
-          
-          /* Remove empty space from customization header */
-          [data-worksheet-content="true"] .print-customization-header {
-            margin-top: 0 !important;
-            margin-bottom: 0 !important;
-            padding-top: 0 !important;
-            padding-bottom: 0 !important;
-          }
-          
-          /* Disable flex/grid layouts in print - use block layout */
-          .flex, .grid, [class*="flex"], [class*="grid"] {
-            display: block !important;
-          }
-          
-          /* Remove all min-height/height restrictions */
-          [data-worksheet-content="true"] * {
-            min-height: auto !important;
-            height: auto !important;
-          }
-
-          /* Remove empty space from customization header */
-          [data-worksheet-content="true"] .print-customization-header {
-            margin-top: 0 !important;
-            margin-bottom: 0 !important;
-            padding-top: 0 !important;
-            padding-bottom: 0 !important;
-          }
-
-          /* Remove transform scale - causes empty spaces and alignment issues */
-          /* Content will fit naturally with proper margins */
-          /* Disable flex/grid layouts in print - use block layout */
-          .flex, .grid, [class*="flex"], [class*="grid"] {
-            display: block !important;
-          }
-          /* Remove all min-height/height restrictions */
-          [class*="min-h-"], [class*="h-"], [style*="min-height"], [style*="height"] {
-            min-height: auto !important;
-            height: auto !important;
-          }
-          /* Remove forced page breaks */
-          [style*="page-break-before"], [style*="page-break-after"], [style*="page-break-inside"] {
-            page-break-before: auto !important;
-            page-break-after: auto !important;
-            page-break-inside: auto !important;
-          }
-          /* Reduce margins/padding that expand on print */
-          [class*="mb-"], [class*="mt-"], [class*="p-"], [class*="m-"] {
-            margin-bottom: 0.25rem !important;
-            margin-top: 0.25rem !important;
-            padding: 0.25rem !important;
-          }
-          /* Gradient border is now on @page border - no need for ::before */
-          /* RESTORED: Decorative emoji stars at top - positioned right after gradient border (on @page) */
-          [data-worksheet-content="true"] > div:first-child::after,
-          [data-worksheet-content="true"] > div.max-w-4xl::after,
-          .max-w-4xl.mx-auto::after,
-          [data-worksheet-content="true"] .max-w-4xl::after,
-          [data-worksheet-content="true"] .worksheet-container::after {
-            content: '⭐ ✨ ⭐ ✨ ⭐' !important;
-            display: block !important;
-            position: absolute !important;
-            top: 4px !important; /* Right after the 4px gradient border (on @page) */
-            left: 0 !important;
-            right: 0 !important;
-            text-align: center !important;
-            font-size: 9px !important; /* Slightly smaller */
-            line-height: 1.2 !important;
-            padding: 1px 0 !important; /* Reduced padding */
-            color: #fbbf24 !important;
-            z-index: 10 !important;
-            -webkit-print-color-adjust: exact !important;
-            print-color-adjust: exact !important;
-          }
-          /* Worksheet container - responsive width to utilize full page space - ALLOW BREAKING - WITH GRADIENT BORDER */
-          .worksheet-container,
-          [data-worksheet-content="true"] > div:first-child,
-          [data-worksheet-content="true"] .max-w-4xl {
-            width: 100% !important;
-            max-width: 100% !important;
-            margin: 0 !important;
-            margin-top: 0 !important;
-            position: relative !important;
-            border-radius: 0 !important;
-            border: none !important;
-            border-image: none !important;
-            -webkit-print-color-adjust: exact !important;
-            print-color-adjust: exact !important;
-            color-adjust: exact !important;
-            padding: 0 0.1in 0.1in 0.1in !important;
-            padding-top: 0 !important; /* No padding - emoji is absolutely positioned */
-            margin: 0 0.1in 0.3in 0.1in !important;
-            margin-top: 0 !important;
-            page-break-inside: auto !important;
-            break-inside: auto !important;
-            page-break-before: auto !important;
-            break-before: auto !important;
-            box-sizing: border-box !important;
-          }
-
-          /* Better space utilization for split pages - allow content to flow - KEEP ORIGINAL BORDERS */
-          [data-worksheet-content="true"] .worksheet-section {
-            width: 100% !important;
-            max-width: 100% !important;
-            box-sizing: border-box !important;
-            padding: 0.375rem 0.5rem 0.5rem 0.5rem !important;
-            margin-bottom: 0.5rem !important;
-          }
-
-          /* Questions should use available width and distribute evenly */
-          [data-worksheet-content="true"] .question-section,
-          [data-worksheet-content="true"] .question-section-wrapper {
-            width: 100% !important;
-            max-width: 100% !important;
-            box-sizing: border-box !important;
-          }
-
-
-          /* Ensure content container uses full width - no left alignment constraint */
-          [data-worksheet-content="true"] .worksheet-container {
-            margin-left: 0 !important;
-            margin-right: 0 !important;
-            padding-left: 0.1in !important;
-            padding-right: 0.1in !important;
-          }
-
-          /* Force questions container to use full width */
-          [data-worksheet-content="true"] .space-y-2,
-          [data-worksheet-content="true"] .space-y-1,
-          [data-worksheet-content="true"] div[class*="space-y"] {
-            width: 100% !important;
-            max-width: 100% !important;
-            margin-left: 0 !important;
-            margin-right: 0 !important;
-          }
-
-          /* Remove any max-width constraints that limit content to left side */
-          [data-worksheet-content="true"] .max-w-4xl,
-          [data-worksheet-content="true"] [class*="max-w"] {
-            max-width: 100% !important;
-            width: 100% !important;
-          }
-
-          /* Ensure questions themselves use full available width */
-          [data-worksheet-content="true"] .question-section {
-            width: 100% !important;
-            max-width: 100% !important;
-            margin-left: 0 !important;
-            margin-right: 0 !important;
-          }
-
-
-          /* Hide all buttons, navigation, and non-print elements */
-          [class*="print:hidden"],
-          .print\\:hidden,
-          /* Explicitly hide back button, print button, pin button, header */
-          a[href*="worksheets"]:not([href*="print"]),
-          button[onclick*="print"],
-          a[href*="pinterest"],
-          header[class*="print:hidden"],
-          header.print\\:hidden,
-          div[class*="mb-4"][class*="print:hidden"],
-          div[class*="flex"][class*="justify-between"] {
-            display: none !important;
-            visibility: hidden !important;
-            height: 0 !important;
-            margin: 0 !important;
-            padding: 0 !important;
-          }
-
-          /* Avoid elements breaking across pages */
+          /* Page breaks */
           table, tr, td {
-            page-break-inside: avoid !important;
-            break-inside: avoid !important;
-          }
-          /* --------------------------------------------------------------
-             PERFECT PRINT CONTROL FOR kindergarten-counting-visual WORKSHEET
-             Fixes all page break issues - keeps questions together
-          --------------------------------------------------------------- */
-          
-          /* RESET BROWSER WEIRDNESS */
-          [data-worksheet-content="true"][data-doc="kindergarten-counting-visual"] *,
-          [data-worksheet-content="true"][data-doc="kindergarten-counting-visual"] *::before,
-          [data-worksheet-content="true"][data-doc="kindergarten-counting-visual"] *::after {
-            box-shadow: none !important;
-            overflow: visible !important;
-          }
-
-          /* --------------------------------------------------------------------
-             THE FIX: ENSURE ENTIRE QUESTION BLOCKS NEVER BREAK ACROSS PAGES
-          -------------------------------------------------------------------- */
-
-          /* Disable Tailwind flex/grid during print (THIS FIXES BREAKING!) */
-          [data-worksheet-content="true"][data-doc="kindergarten-counting-visual"] .question-section,
-          [data-worksheet-content="true"][data-doc="kindergarten-counting-visual"] .question-section-wrapper,
-          [data-worksheet-content="true"][data-doc="kindergarten-counting-visual"] .question-block,
-          [data-worksheet-content="true"][data-doc="kindergarten-counting-visual"] .count-group {
-            display: block !important;
-          }
-
-          /* Prevent breaks at all levels */
-          [data-worksheet-content="true"][data-doc="kindergarten-counting-visual"] .question-section,
-          [data-worksheet-content="true"][data-doc="kindergarten-counting-visual"] .question-section-wrapper,
-          [data-worksheet-content="true"][data-doc="kindergarten-counting-visual"] .question-block,
-          [data-worksheet-content="true"][data-doc="kindergarten-counting-visual"] .count-group,
-          [data-worksheet-content="true"][data-doc="kindergarten-counting-visual"] .question-section > *,
-          [data-worksheet-content="true"][data-doc="kindergarten-counting-visual"] .question-section svg,
-          [data-worksheet-content="true"][data-doc="kindergarten-counting-visual"] .question-section img {
-            break-inside: avoid !important;
-            page-break-inside: avoid !important;
-            page-break-before: auto !important;
-            page-break-after: auto !important;
-            overflow: visible !important;
-          }
-
-          /* Force questions to behave like full atomic blocks - MINIMAL SPACING - USE FULL WIDTH */
-          [data-worksheet-content="true"][data-doc="kindergarten-counting-visual"] .question-section {
-            width: 100% !important;
-            max-width: 100% !important;
-            float: none !important;
-            clear: both !important;
-            margin: 2px 0 !important;
-            padding: 4px !important;
-            break-before: auto !important;
-            break-after: auto !important;
-            page-break-inside: avoid !important;
-            break-inside: avoid !important;
-            margin-left: 0 !important;
-            margin-right: 0 !important;
-            box-sizing: border-box !important;
-          }
-
-          /* Ensure question content uses full width */
-          [data-worksheet-content="true"][data-doc="kindergarten-counting-visual"] .question-section > * {
-            max-width: 100% !important;
-            box-sizing: border-box !important;
-          }
-
-          /* Remove empty space between questions for this worksheet */
-          [data-worksheet-content="true"][data-doc="kindergarten-counting-visual"] .question-section-wrapper {
-            margin: 0 !important;
-            padding: 0 !important;
-          }
-
-          [data-worksheet-content="true"][data-doc="kindergarten-counting-visual"] .question-section-wrapper + .question-section-wrapper,
-          [data-worksheet-content="true"][data-doc="kindergarten-counting-visual"] .question-section + .question-section {
-            margin-top: 0 !important;
-            padding-top: 0 !important;
-          }
-
-          /* Ensure worksheet container for this specific worksheet */
-          [data-worksheet-content="true"][data-doc="kindergarten-counting-visual"] .worksheet-container,
-          [data-worksheet-content="true"][data-doc="kindergarten-counting-visual"] > div:first-child {
-            page-break-inside: avoid !important;
-            break-inside: avoid !important;
-          }
-
-          /* SVGs should never break */
-          [data-worksheet-content="true"][data-doc="kindergarten-counting-visual"] svg {
-            max-width: 100% !important;
-            height: auto !important;
-            display: block !important;
-            break-inside: avoid !important;
-          }
-
-          /* --------------------------------------------------------------------
-             SPACING FIXES
-          -------------------------------------------------------------------- */
-
-          [data-worksheet-content="true"][data-doc="kindergarten-counting-visual"] .space-y-2 > *,
-          [data-worksheet-content="true"][data-doc="kindergarten-counting-visual"] .space-y-1 > * {
-            margin-top: 0 !important;
-            margin-bottom: 0 !important;
-          }
-
-          /* Remove all spacing from questions container */
-          [data-worksheet-content="true"][data-doc="kindergarten-counting-visual"] .space-y-2,
-          [data-worksheet-content="true"][data-doc="kindergarten-counting-visual"] .space-y-1 {
-            gap: 0 !important;
-          }
-
-          [data-worksheet-content="true"][data-doc="kindergarten-counting-visual"] .worksheet-section {
-            margin: 0 !important;
-            padding: 8px !important;
-            page-break-inside: auto !important;
+            page-break-inside: avoid;
           }
         }
       `

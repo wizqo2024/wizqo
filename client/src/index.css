@@ -498,28 +498,27 @@ html {
     z-index: 1;
   }
   
-  /* Main container - ZERO TOP PADDING TO FIX BLANK FIRST PAGE */
+  /* Main container - clean layout */
   .worksheet-container,
   [data-worksheet-content="true"] > div:first-child {
     position: relative;
     width: 100%;
     max-width: 100%;
-    margin: 0 !important;
-    padding: 0 0.5in 0.5in 0.5in !important;
-    padding-top: 0 !important; /* ZERO - gradient/emoji are absolutely positioned */
+    margin: 0;
+    padding: 0 0.5in 0.5in 0.5in;
+    padding-top: 0;
     background: white;
     box-sizing: border-box;
   }
   
-  /* Logo and domain - horizontal - ZERO TOP MARGIN TO FIX BLANK FIRST PAGE */
+  /* Logo and domain - horizontal */
   .wizqo-logo-print {
     display: flex;
     flex-direction: row;
     align-items: center;
     gap: 8px;
-    margin: 0 0 4px 0 !important;
-    margin-top: 0 !important; /* ZERO top margin */
-    padding: 0 !important;
+    margin: 0 0 4px 0;
+    padding: 0;
   }
   
   .wizqo-logo-print img {
@@ -535,20 +534,18 @@ html {
     line-height: 1;
   }
   
-  /* Name/Date header - ZERO TOP MARGIN TO FIX BLANK FIRST PAGE */
+  /* Name/Date header */
   .print-name-date-header {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin: 0 0 4px 0 !important;
-    margin-top: 0 !important; /* ZERO top margin */
-    padding: 0 0 2px 0 !important;
-    padding-top: 0 !important; /* ZERO top padding */
+    margin: 0 0 4px 0;
+    padding: 0 0 2px 0;
     border-bottom: 1px solid #cbd5e1;
     font-size: 10pt;
   }
   
-  /* Sections - KEEP ORIGINAL BORDERS */
+  /* Sections - keep original borders */
   .worksheet-section,
   section {
     margin: 0 0 16px 0;
