@@ -127,7 +127,7 @@ function WorksheetHeader({ problemCount }: { problemCount?: number }) {
 // Learning objectives component - matching Interactive Worksheets Generator
 function LearningObjectives({ objectives }: { objectives: string[] }) {
   return (
-    <div className="print:block hidden mb-4 p-3 bg-slate-50 border-l-4 border-blue-500 rounded">
+    <div className="worksheet-card print:block hidden mb-4 p-3 bg-slate-50 border-l-4 border-blue-500 rounded">
       <div className="text-sm font-semibold text-slate-800 mb-2">📚 What You'll Practice:</div>
       <ul className="text-xs text-slate-700 space-y-1 list-disc list-inside">
         {objectives.map((obj, i) => (
@@ -141,7 +141,7 @@ function LearningObjectives({ objectives }: { objectives: string[] }) {
 // Parent/Teacher tips component
 function ParentTeacherTips({ tips }: { tips: string[] }) {
   return (
-    <div className="print:block hidden print:mt-0 mt-6 p-4 bg-yellow-50 border border-yellow-200 rounded text-xs">
+    <div className="worksheet-card print:block hidden print:mt-0 mt-6 p-4 bg-yellow-50 border border-yellow-200 rounded text-xs">
       <div className="font-semibold text-yellow-900 mb-2">💡 Tips for Parents/Teachers:</div>
       <ul className="space-y-1 text-yellow-800 list-disc list-inside">
         {tips.map((tip, i) => (
@@ -159,7 +159,7 @@ function WorkedExampleContent() {
   React.useEffect(() => {}, [language])
   return (
     <div 
-      className="mb-6 p-4 bg-gradient-to-br from-blue-50 to-indigo-50 border-2 border-blue-200 rounded-lg print:border print:bg-white worked-example"
+      className="worksheet-card mb-6 p-4 bg-gradient-to-br from-blue-50 to-indigo-50 border-2 border-blue-200 rounded-lg print:border print:bg-white worked-example"
       style={{ 
         pageBreakInside: 'avoid',
         breakInside: 'avoid',
