@@ -1919,6 +1919,7 @@ export function PrintablesPage() {
         .worksheet-section {
           background-color: white !important;
           background: white !important;
+          border: 2px solid #60a5fa !important; /* Add border to each section */
         }
         
         /* Body and HTML - match index.css exactly */
@@ -2031,6 +2032,7 @@ export function PrintablesPage() {
           padding: 0.25rem !important;
           page-break-before: auto !important;
           page-break-after: auto !important;
+          border: 2px solid #60a5fa !important; /* Add border to each section */
           page-break-inside: auto !important;
         }
         
