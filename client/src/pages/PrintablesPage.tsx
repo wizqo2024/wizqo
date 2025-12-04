@@ -3045,20 +3045,6 @@ export function PrintablesPage() {
             position: relative;
           }
           
-          /* Emoji stars at top */
-          [data-worksheet-content="true"] .worksheet-container::after {
-            content: '⭐ ✨ ⭐ ✨ ⭐';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            text-align: center;
-            font-size: 9px;
-            line-height: 1.2;
-            color: #fbbf24;
-            z-index: 10;
-          }
-          
           /* Combined header */
           [data-worksheet-content="true"] .wizqo-print-header {
             display: flex;
