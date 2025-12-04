@@ -457,52 +457,58 @@ html {
   
   /* Worksheet container - clean and simple - ZERO TOP SPACING */
   [data-worksheet-content="true"] {
-    display: block;
-    width: 100%;
-    margin: 0;
-    padding: 0;
-    background: transparent;
-  }
-  
-  /* Gradient frame + playful top accents */
-  [data-worksheet-content="true"] > .worksheet-container,
-  [data-worksheet-content="true"] > div:first-child {
-    position: relative;
-    width: 100%;
-    max-width: 8.25in;
-    margin: 0.15in auto 0.5in;
-    padding: 0.3in 0.45in 0.5in;
     background: white;
     color: black;
-    border: 4px solid transparent;
-    border-radius: 20px;
-    border-image: linear-gradient(135deg, #f472b6 0%, #a78bfa 20%, #60a5fa 40%, #34d399 60%, #fbbf24 80%, #fb7185 100%) 1;
-    box-shadow: 0 12px 32px rgba(72, 69, 210, 0.08);
-    box-sizing: border-box;
+    width: 100%;
+    max-width: 100%;
+    margin: 0 !important;
+    padding: 0 !important;
+    margin-top: 0 !important;
+    padding-top: 0 !important;
   }
   
-  [data-worksheet-content="true"] > .worksheet-container::before,
-  [data-worksheet-content="true"] > div:first-child::before {
+  /* Gradient border at top */
+  [data-worksheet-content="true"] > div:first-child::before,
+  [data-worksheet-content="true"] .worksheet-container::before {
     content: '';
+    display: block;
     position: absolute;
-    inset: 0.2in;
-    border-radius: 12px;
-    border: 1px solid rgba(148, 163, 184, 0.45);
-    pointer-events: none;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, #f472b6, #a78bfa, #60a5fa, #34d399, #fbbf24, #fb7185);
+    z-index: 1;
   }
   
-  [data-worksheet-content="true"] > .worksheet-container::after,
-  [data-worksheet-content="true"] > div:first-child::after {
+  /* Emoji stars below gradient - positioned at top */
+  [data-worksheet-content="true"] > div:first-child::after,
+  [data-worksheet-content="true"] .worksheet-container::after {
     content: '⭐ ✨ ⭐ ✨ ⭐';
+    display: block;
     position: absolute;
-    top: 0.18in;
+    top: 0 !important; /* At absolute top - no spacing */
     left: 0;
     right: 0;
     text-align: center;
     font-size: 9px;
-    letter-spacing: 0.2em;
+    line-height: 1.2;
+    padding: 0 !important; /* No padding */
     color: #fbbf24;
-    pointer-events: none;
+    z-index: 1;
+  }
+  
+  /* Main container - clean layout */
+  .worksheet-container,
+  [data-worksheet-content="true"] > div:first-child {
+    position: relative;
+    width: 100%;
+    max-width: 100%;
+    margin: 0;
+    padding: 0 0.5in 0.5in 0.5in;
+    padding-top: 0;
+    background: white;
+    box-sizing: border-box;
   }
   
   /* Logo and domain - horizontal */
@@ -545,8 +551,8 @@ html {
     margin: 0 0 16px 0;
     padding: 8px;
     background: white;
-    page-break-inside: auto;
-    break-inside: auto;
+    page-break-inside: avoid;
+    break-inside: avoid;
   }
   
   /* Headings */
@@ -590,7 +596,7 @@ html {
   }
   
   [data-worksheet-content="true"][data-doc="kindergarten-counting-visual"] .question-section svg {
-    max-height: 1.8in;
+    max-height: 1.8in !important;
   }
   
   /* Images */
