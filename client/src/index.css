@@ -426,6 +426,11 @@ html {
     margin-bottom: 0.1in !important;
     margin-left: 0.1in !important;
   }
+
+  /* First page: minimal top margin to reduce empty space */
+  @page:first {
+    margin-top: 0.05in !important;
+  }
   
   /* Universal print reset - fix 90% of spacing problems */
   * {
@@ -1028,6 +1033,7 @@ html {
     width: 100% !important;
     max-width: 100% !important;
     margin: 0 !important;
+    margin-top: 0 !important;
     position: relative !important;
     border-radius: 12px !important;
     border: 4px solid transparent !important;
@@ -1043,8 +1049,10 @@ html {
     -webkit-print-color-adjust: exact !important;
     print-color-adjust: exact !important;
     color-adjust: exact !important;
-    padding: 4px 8px 8px 8px !important;
+    padding: 0 8px 8px 8px !important;
+    padding-top: 0 !important;
     margin: 0 0.1in 0.3in 0.1in !important;
+    margin-top: 0 !important;
     page-break-inside: avoid !important;
     break-inside: avoid !important;
     box-sizing: border-box !important;
@@ -1073,12 +1081,42 @@ html {
     padding-top: 0 !important;
   }
 
+  /* CRITICAL: Remove ALL top spacing from first page - fix empty space */
+  [data-worksheet-content="true"] > div:first-child,
+  [data-worksheet-content="true"] .worksheet-container:first-child,
+  [data-worksheet-content="true"] > *:first-child {
+    margin-top: 0 !important;
+    padding-top: 0 !important;
+  }
+
+  /* Remove top spacing from root and body on first page */
+  #root > *:first-child,
+  body > *:first-child {
+    margin-top: 0 !important;
+    padding-top: 0 !important;
+  }
+
+  /* Ensure worksheet container starts at very top of page */
+  [data-worksheet-content="true"] {
+    margin-top: 0 !important;
+    padding-top: 0 !important;
+  }
+
+  /* Remove any top margin from the first worksheet container */
+  [data-worksheet-content="true"] > div:first-child.worksheet-container,
+  [data-worksheet-content="true"] > div:first-child {
+    margin-top: 0 !important;
+    padding-top: 0 !important;
+  }
+
   /* Ensure content container uses full width - no left alignment constraint */
   [data-worksheet-content="true"] .worksheet-container {
     margin-left: 0 !important;
     margin-right: 0 !important;
+    margin-top: 0 !important;
     padding-left: 0.1in !important;
     padding-right: 0.1in !important;
+    padding-top: 0 !important;
   }
 
   /* Force questions container to use full width */
