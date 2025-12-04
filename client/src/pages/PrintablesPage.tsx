@@ -2033,6 +2033,7 @@ export function PrintablesPage() {
           page-break-before: auto !important;
           page-break-after: auto !important;
           border: 2px solid #60a5fa !important; /* Add border to each section */
+          border: 2px solid #60a5fa !important; /* Add border to each section */
           page-break-inside: auto !important;
         }
         
