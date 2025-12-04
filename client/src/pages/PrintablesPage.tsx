@@ -2163,7 +2163,12 @@ export function PrintablesPage() {
           background: white !important;
         }
         
-        /* Ensure content flows immediately after header - no empty first page */
+        /* Ensure content flows immediately after header - no empty first page - FIX BLANK FIRST PAGE */
+        [data-worksheet-content="true"] {
+          margin-top: 0 !important;
+          padding-top: 0 !important;
+        }
+        
         [data-worksheet-content="true"] .worksheet-container {
           padding-top: 0 !important; /* No padding - emoji is absolutely positioned */
         }
@@ -2173,25 +2178,32 @@ export function PrintablesPage() {
           flex-direction: row !important;
           align-items: center !important;
           gap: 6px !important;
-          margin-top: 12px !important; /* Push logo down to clear emoji (4px gradient + ~8px emoji) */
+          margin-top: 4px !important; /* Reduced from 12px to fix blank first page */
           padding-top: 0 !important;
-          margin-bottom: 4px !important;
+          margin-bottom: 2px !important; /* Reduced from 4px */
         }
         
         [data-worksheet-content="true"] .print-name-date-header {
           margin-top: 0 !important;
           padding-top: 0 !important;
-          margin-bottom: 6px !important;
+          margin-bottom: 2px !important; /* Reduced from 6px */
         }
         
-        /* First section should start immediately after header */
+        /* First section should start immediately after header - FIX BLANK FIRST PAGE */
         [data-worksheet-content="true"] > *:first-child,
         [data-worksheet-content="true"] > section:first-child,
         .worksheet-section:first-child {
           margin-top: 0 !important;
-          padding-top: 0.375rem !important;
+          padding-top: 0 !important; /* Changed from 0.375rem to 0 to fix blank first page */
           background-color: white !important;
           page-break-before: auto !important;
+        }
+        
+        /* CRITICAL: First content section after header elements - no top spacing */
+        [data-worksheet-content="true"] .worksheet-container > *:first-of-type:not(.wizqo-logo-print):not(.print-name-date-header):not(.print-customization-header),
+        [data-worksheet-content="true"] .worksheet-container > section:first-of-type {
+          margin-top: 0 !important;
+          padding-top: 0 !important;
         }
         
         /* Section styles - prevent overlapping */
@@ -2224,9 +2236,11 @@ export function PrintablesPage() {
           clear: both !important;
         }
         
-        /* First section should have NO top padding/margin */
+        /* First section should have NO top padding/margin - FIX BLANK FIRST PAGE */
         section:first-of-type,
-        .worksheet-section:first-of-type {
+        .worksheet-section:first-of-type,
+        [data-worksheet-content="true"] .worksheet-container > section:first-of-type,
+        [data-worksheet-content="true"] .worksheet-container > .worksheet-section:first-of-type {
           margin-top: 0 !important;
           padding-top: 0 !important;
           background-color: white !important;
@@ -2983,7 +2997,12 @@ export function PrintablesPage() {
             border-image-slice: 1 !important;
           }
           
-          /* CONTAINER - ZERO TOP SPACING */
+          /* CONTAINER - ZERO TOP SPACING - CRITICAL FIX FOR BLANK FIRST PAGE */
+          [data-worksheet-content="true"] {
+            margin-top: 0 !important;
+            padding-top: 0 !important;
+          }
+          
           [data-worksheet-content="true"] .worksheet-container {
             margin-top: 0 !important;
             padding-top: 0 !important;
@@ -3007,14 +3026,14 @@ export function PrintablesPage() {
             print-color-adjust: exact !important;
           }
           
-          /* LOGO - Horizontal, right after emoji */
+          /* LOGO - Horizontal, right after emoji - REDUCED MARGIN TO FIX BLANK FIRST PAGE */
           [data-worksheet-content="true"] .wizqo-logo-print {
             display: flex !important;
             flex-direction: row !important;
             align-items: center !important;
             gap: 6px !important;
-            margin-top: 10px !important;
-            margin-bottom: 4px !important;
+            margin-top: 4px !important;
+            margin-bottom: 2px !important;
             padding: 0 !important;
           }
           
@@ -3052,10 +3071,17 @@ export function PrintablesPage() {
             height: auto !important;
           }
 
-          /* AGGRESSIVE: Remove ALL empty spaces - comprehensive spacing cleanup */
+          /* AGGRESSIVE: Remove ALL empty spaces - comprehensive spacing cleanup - FIX BLANK FIRST PAGE */
           [data-worksheet-content="true"] > *:first-child,
           [data-worksheet-content="true"] .worksheet-container > *:first-child,
           [data-worksheet-content="true"] .worksheet-container > section:first-child {
+            margin-top: 0 !important;
+            padding-top: 0 !important;
+          }
+          
+          /* CRITICAL: Ensure first content section starts immediately - no blank first page */
+          [data-worksheet-content="true"] .worksheet-container > *:first-of-type:not(.wizqo-logo-print):not(.print-name-date-header):not(.print-customization-header),
+          [data-worksheet-content="true"] .worksheet-container > section:first-of-type {
             margin-top: 0 !important;
             padding-top: 0 !important;
           }
@@ -3168,15 +3194,15 @@ export function PrintablesPage() {
             print-color-adjust: exact !important;
           }
 
-          /* Name and Date fields styling - MINIMAL SPACING */
+          /* Name and Date fields styling - MINIMAL SPACING - FIX BLANK FIRST PAGE */
           [data-worksheet-content="true"] .print-name-date-header {
             display: flex !important;
             justify-content: space-between !important;
             align-items: center !important;
             margin-top: 0 !important;
-            margin-bottom: 4px !important;
+            margin-bottom: 2px !important;
             padding-top: 0 !important;
-            padding-bottom: 2px !important;
+            padding-bottom: 1px !important;
             border-bottom: 1px solid #cbd5e1 !important;
             font-size: 12pt !important;
           }
@@ -3499,7 +3525,7 @@ export function PrintablesPage() {
   return (
     <>
       {/* Print layout optimized - updated 2025-01-11 */}
-      <div className={`worksheet-container max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-10 print:p-0 print:py-0 print:mt-0 ${isPreview ? 'preview-mode' : ''}`}>
+      <div data-worksheet-content="true" className={`worksheet-container max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-10 print:p-0 print:py-0 print:mt-0 ${isPreview ? 'preview-mode' : ''}`}>
         {/* Logo and domain for all worksheets */}
         <div className="hidden print:block wizqo-logo-print">
           <img src="/logo.svg" alt="Wizqo Logo" />
