@@ -2078,11 +2078,11 @@ const renderers: Record<string, Renderer> = {
             return (
               <div key={idx} className="rounded border border-emerald-200 bg-emerald-50 p-3">
                 <p className="font-semibold text-emerald-800">{t('worksheets.countThe').replace('{{object}}', `${formatNum ? formatNum(row.count) : row.count} ${objectName}`)}</p>
-              <div className="mt-2 grid grid-cols-10 gap-1">
+              <div className="visual-grid grid grid-cols-10 gap-1">
                 {Array.from({ length: 10 }).map((_, boxIdx) => (
                   <div
                     key={boxIdx}
-                    className={`h-8 border ${boxIdx < row.count ? 'bg-emerald-200 border-emerald-400' : 'border-emerald-200'}`}
+                    className={`worksheet-box h-8 border ${boxIdx < row.count ? 'bg-emerald-200 border-emerald-400' : 'border-emerald-200'}`}
                   />
                 ))}
               </div>
@@ -2200,10 +2200,10 @@ const renderers: Record<string, Renderer> = {
           {letters.map((letter) => (
             <div key={letter} className="rounded-xl border border-blue-200 bg-blue-50 p-4">
               <p className="text-lg font-semibold text-blue-700">{letter} / {letter.toLowerCase()}</p>
-              <div className="mt-2 grid grid-cols-3 gap-2">
+              <div className="visual-grid grid grid-cols-3 gap-2">
                 <div className="flex flex-col">
                   <p className="text-xs text-blue-500">{t('worksheets.earlyLetters.trace')}</p>
-                  <div className="mt-1 h-16 rounded border border-dashed border-blue-300 bg-white" />
+                  <div className="worksheet-box mt-1 h-16 rounded border border-dashed border-blue-300 bg-white" />
                 </div>
                 <div className="flex flex-col">
                   <p className="text-xs text-blue-500">{t('worksheets.earlyLetters.write')}</p>
@@ -2233,11 +2233,11 @@ const renderers: Record<string, Renderer> = {
           {numbers.map((num) => (
             <div key={num} className="rounded-xl border border-emerald-200 bg-emerald-50 p-4">
               <p className="text-lg font-semibold text-emerald-700">{t('worksheets.numberLabel')}: {formatNum ? formatNum(num) : num}</p>
-              <div className="mt-2 grid grid-cols-3 gap-2">
+              <div className="visual-grid grid grid-cols-3 gap-2">
                 <div className="flex flex-col">
                   <p className="text-xs text-emerald-500">{t('worksheets.earlyNumbers.trace')}</p>
                   <p className="mt-1 text-center text-lg font-bold text-emerald-700">{formatNum ? formatNum(num) : num}</p>
-                  <div className="mt-1 h-12 rounded border border-dashed border-emerald-300 bg-white"></div>
+                  <div className="worksheet-box mt-1 h-12 rounded border border-dashed border-emerald-300 bg-white"></div>
                 </div>
                 <div className="flex flex-col">
                   <p className="text-xs text-emerald-500">{t('worksheets.earlyNumbers.write')}</p>
@@ -2863,9 +2863,9 @@ const renderers: Record<string, Renderer> = {
           <p className="text-sm font-semibold text-blue-700 mb-2">Visual Scanning Challenge</p>
           <p className="text-xs text-blue-600 mb-3" dangerouslySetInnerHTML={{ __html: t('worksheets.cognitiveAttention.findAndCircle').replace('{{items}}', targetItems) }}></p>
           <div className="bg-white rounded-lg p-3 border border-blue-200">
-            <div className="grid grid-cols-5 gap-1">
+            <div className="visual-grid grid grid-cols-5 gap-1">
               {gridItems.map((item, idx) => (
-                <div key={idx} className="aspect-square border border-blue-200 rounded flex items-center justify-center text-xs">
+                <div key={idx} className="worksheet-box aspect-square border border-blue-200 rounded flex items-center justify-center text-xs">
                   {item === targetItems ? <span className="font-bold text-blue-700">{item}</span> : <span className="text-blue-400">{item}</span>}
                 </div>
               ))}
