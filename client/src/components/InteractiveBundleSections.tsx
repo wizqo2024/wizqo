@@ -3749,7 +3749,7 @@ const renderers: Record<string, Renderer> = {
                   .replace('{{total}}', String(total))
                   .replace('{{missing}}', String(prob.missing))
             return (
-              <div key={idx} className="rounded-xl bg-gradient-to-br from-purple-100 via-indigo-100 to-pink-100 p-4" style={{
+              <div key={idx} className="rounded-xl bg-purple-50 p-4" style={{
                 WebkitPrintColorAdjust: 'exact',
                 printColorAdjust: 'exact',
                 colorAdjust: 'exact',
@@ -3758,7 +3758,8 @@ const renderers: Record<string, Renderer> = {
                 borderStyle: 'none',
                 borderColor: 'transparent',
                 outline: 'none',
-                boxShadow: 'none'
+                boxShadow: 'none',
+                background: 'white'
               }}>
                 <p className="text-sm font-semibold text-purple-700 mb-2">
                   {instruction}
