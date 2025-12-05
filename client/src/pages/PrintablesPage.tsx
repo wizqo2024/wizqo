@@ -2033,6 +2033,8 @@ export function PrintablesPage() {
           page-break-before: auto !important;
           page-break-after: auto !important;
           page-break-inside: auto !important;
+          background: white !important;
+          background-image: none !important;
         }
         
         /* SUPER STRONG ANTI PAGE-BREAK FIX - Prevent question sections from breaking */
@@ -2073,6 +2075,7 @@ export function PrintablesPage() {
           padding: 0.75rem !important;
           box-shadow: none !important;
           background: white !important;
+          background-image: none !important;
         }
         
         .worksheet-card {
@@ -3134,7 +3137,8 @@ export function PrintablesPage() {
           [data-worksheet-content="true"] .worksheet-section {
             margin: 0 0 12px 0;
             padding: 0.75rem !important;
-            background: white;
+            background: white !important;
+            background-image: none !important;
             page-break-inside: auto;
             border: none !important;
             border-radius: 0 !important;
