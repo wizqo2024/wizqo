@@ -3761,7 +3761,7 @@ const renderers: Record<string, Renderer> = {
                   {Array.from({ length: 10 }).map((_, i) => (
                     <div 
                       key={i} 
-                      className={`tens-frame-box aspect-square border-2 border-purple-300 rounded print:border-preserve ${i < showFilled ? 'bg-purple-400 print:bg-preserve' : 'bg-white print:bg-preserve'}`} 
+                      className={`tens-frame-box aspect-square rounded ${i < showFilled ? 'bg-purple-400 print:bg-preserve' : 'bg-white print:bg-preserve'}`} 
                       style={{ 
                         WebkitPrintColorAdjust: 'exact',
                         printColorAdjust: 'exact',
@@ -3771,10 +3771,14 @@ const renderers: Record<string, Renderer> = {
                         opacity: 1,
                         minWidth: '20px',
                         minHeight: '20px',
-                        border: i < showFilled ? '2px solid #a855f7' : '2px solid #6b21a8', // Very dark border for empty boxes
+                        border: i < showFilled ? '2px solid #9333ea' : '2px solid #6b21a8', // Single border - dark purple for filled, very dark for empty
                         borderStyle: 'solid',
                         borderWidth: '2px',
-                        backgroundColor: i < showFilled ? '#a855f7' : '#fefefe' // Very light gray for empty boxes
+                        borderColor: i < showFilled ? '#9333ea' : '#6b21a8',
+                        backgroundColor: i < showFilled ? '#a855f7' : '#fefefe', // Very light gray for empty boxes
+                        borderRadius: '4px',
+                        boxShadow: 'none',
+                        outline: 'none'
                       }}
                     >&nbsp;</div>
                   ))}

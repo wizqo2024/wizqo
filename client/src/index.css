@@ -849,22 +849,23 @@ html {
     color-adjust: exact !important;
   }
   
-  /* CRITICAL: Tens frame boxes - filled boxes (with purple background) - SINGLE BORDER */
+  /* CRITICAL: Tens frame boxes - let inline styles handle borders to avoid conflicts */
+  /* Only set background and layout properties, not borders (inline styles handle borders) */
   .tens-frame-box[class*="bg-purple-400"],
   .tens-frame-box[class*="bg-purple"],
   [data-worksheet-content="true"] .tens-frame-box[class*="bg-purple-400"],
   [data-worksheet-content="true"] .tens-frame-box[class*="bg-purple"],
   section .tens-frame-box[class*="bg-purple-400"],
   section .tens-frame-box[class*="bg-purple"] {
-    border: 2px solid #9333ea !important; /* Single border - dark purple, NO inherit */
-    border-style: solid !important;
-    border-width: 2px !important;
-    border-color: #9333ea !important;
+    background-color: #a855f7 !important; /* Purple background for filled boxes */
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+    color-adjust: exact !important;
     outline: none !important;
     box-shadow: none !important;
   }
   
-  /* CRITICAL: Empty/white tens frame boxes - SINGLE BORDER, must override filled box rule */
+  /* CRITICAL: Empty/white tens frame boxes - ensure visibility */
   .tens-frame-box.bg-white,
   .tens-frame-box[class*="bg-white"],
   [data-worksheet-content="true"] .tens-frame-box.bg-white,
@@ -876,11 +877,6 @@ html {
   [data-worksheet-content="true"] .tens-frame-box:not([class*="bg-purple-400"]):not([class*="bg-purple"]):not([class*="bg-indigo"]):not([class*="bg-pink"]):not([class*="bg-emerald"]):not([class*="bg-blue"]),
   section .tens-frame-box:not([class*="bg-purple-400"]):not([class*="bg-purple"]):not([class*="bg-indigo"]):not([class*="bg-pink"]):not([class*="bg-emerald"]):not([class*="bg-blue"]) {
     background-color: #fefefe !important; /* Light gray for visibility */
-    border: 2px solid #6b21a8 !important; /* Single border - very dark purple, NO inherit */
-    border-style: solid !important;
-    border-width: 2px !important;
-    border-color: #6b21a8 !important;
-    border-radius: 4px !important;
     -webkit-print-color-adjust: exact !important;
     print-color-adjust: exact !important;
     color-adjust: exact !important;
@@ -891,6 +887,7 @@ html {
     opacity: 1 !important;
     outline: none !important;
     box-shadow: none !important;
+    /* Border is handled by inline styles - don't override here to avoid double borders */
   }
   
   /* Ensure all worksheet boxes with white backgrounds are visible in print */
@@ -1156,7 +1153,7 @@ html {
     color-adjust: exact !important;
   }
   
-  /* CRITICAL: Empty/white tens-frame-box elements - must override base rule */
+  /* CRITICAL: Empty/white tens-frame-box elements - background only, borders handled by inline styles */
   .tens-frame-box.bg-white,
   .tens-frame-box[class*="bg-white"],
   [data-worksheet-content="true"] .tens-frame-box.bg-white,
@@ -1168,11 +1165,6 @@ html {
   [data-worksheet-content="true"] .tens-frame-box:not([class*="bg-purple-400"]):not([class*="bg-purple"]):not([class*="bg-indigo"]):not([class*="bg-pink"]):not([class*="bg-emerald"]):not([class*="bg-blue"]),
   section .tens-frame-box:not([class*="bg-purple-400"]):not([class*="bg-purple"]):not([class*="bg-indigo"]):not([class*="bg-pink"]):not([class*="bg-emerald"]):not([class*="bg-blue"]) {
     background-color: #fefefe !important; /* Light gray for visibility */
-    border: 2px solid #6b21a8 !important; /* Single border - very dark purple, NO inherit */
-    border-color: #6b21a8 !important;
-    border-width: 2px !important;
-    border-style: solid !important;
-    border-radius: 4px !important;
     -webkit-print-color-adjust: exact !important;
     print-color-adjust: exact !important;
     color-adjust: exact !important;
@@ -1183,6 +1175,7 @@ html {
     opacity: 1 !important;
     outline: none !important;
     box-shadow: none !important;
+    /* Border is handled by inline styles - don't override here to avoid double borders */
   }
 
   /* Preserve visual grids (grids with borders or used for visual layouts) */
