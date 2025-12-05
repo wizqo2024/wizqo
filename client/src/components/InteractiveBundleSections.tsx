@@ -2078,12 +2078,24 @@ const renderers: Record<string, Renderer> = {
             return (
               <div key={idx} className="rounded border border-emerald-200 bg-emerald-50 p-3">
                 <p className="font-semibold text-emerald-800">{t('worksheets.countThe').replace('{{object}}', `${formatNum ? formatNum(row.count) : row.count} ${objectName}`)}</p>
-              <div className="visual-grid grid grid-cols-10 gap-1">
+              <div className="visual-grid grid grid-cols-10 gap-1" style={{
+                WebkitPrintColorAdjust: 'exact',
+                printColorAdjust: 'exact',
+                colorAdjust: 'exact'
+              }}>
                 {Array.from({ length: 10 }).map((_, boxIdx) => (
                   <div
                     key={boxIdx}
                     className={`worksheet-box h-8 border ${boxIdx < row.count ? 'bg-emerald-200 border-emerald-400' : 'border-emerald-200'}`}
-                  />
+                    style={{
+                      WebkitPrintColorAdjust: 'exact',
+                      printColorAdjust: 'exact',
+                      colorAdjust: 'exact',
+                      display: 'block',
+                      visibility: 'visible',
+                      opacity: 1
+                    }}
+                  >&nbsp;</div>
                 ))}
               </div>
               <p className="mt-2 text-xs text-emerald-700">{t('worksheets.numberLabel')}: ______ • {t('worksheets.wordLabel')}: __________________</p>
@@ -2863,9 +2875,24 @@ const renderers: Record<string, Renderer> = {
           <p className="text-sm font-semibold text-blue-700 mb-2">Visual Scanning Challenge</p>
           <p className="text-xs text-blue-600 mb-3" dangerouslySetInnerHTML={{ __html: t('worksheets.cognitiveAttention.findAndCircle').replace('{{items}}', targetItems) }}></p>
           <div className="bg-white rounded-lg p-3 border border-blue-200">
-            <div className="visual-grid grid grid-cols-5 gap-1">
+            <div className="visual-grid grid grid-cols-5 gap-1" style={{
+              WebkitPrintColorAdjust: 'exact',
+              printColorAdjust: 'exact',
+              colorAdjust: 'exact'
+            }}>
               {gridItems.map((item, idx) => (
-                <div key={idx} className="worksheet-box aspect-square border border-blue-200 rounded flex items-center justify-center text-xs">
+                <div 
+                  key={idx} 
+                  className="worksheet-box aspect-square border border-blue-200 rounded flex items-center justify-center text-xs"
+                  style={{
+                    WebkitPrintColorAdjust: 'exact',
+                    printColorAdjust: 'exact',
+                    colorAdjust: 'exact',
+                    display: 'flex',
+                    visibility: 'visible',
+                    opacity: 1
+                  }}
+                >
                   {item === targetItems ? <span className="font-bold text-blue-700">{item}</span> : <span className="text-blue-400">{item}</span>}
                 </div>
               ))}
@@ -3718,13 +3745,26 @@ const renderers: Record<string, Renderer> = {
                 <p className="text-sm font-semibold text-purple-700 mb-2">
                   {instruction}
                 </p>
-                <div className="tens-frames-grid grid grid-cols-5 gap-1 mb-3 w-32 print:w-auto print:max-w-xs">
+                <div className="tens-frames-grid grid grid-cols-5 gap-1 mb-3 w-32 print:w-auto print:max-w-xs" style={{
+                  WebkitPrintColorAdjust: 'exact',
+                  printColorAdjust: 'exact',
+                  colorAdjust: 'exact'
+                }}>
                   {Array.from({ length: 10 }).map((_, i) => (
-                    <div key={i} className={`tens-frame-box aspect-square border-2 border-purple-300 rounded print:border-preserve ${i < showFilled ? 'bg-purple-400 print:bg-preserve' : 'bg-white print:bg-preserve'}`} style={{ 
-                      WebkitPrintColorAdjust: 'exact',
-                      printColorAdjust: 'exact',
-                      colorAdjust: 'exact'
-                    }}></div>
+                    <div 
+                      key={i} 
+                      className={`tens-frame-box aspect-square border-2 border-purple-300 rounded print:border-preserve ${i < showFilled ? 'bg-purple-400 print:bg-preserve' : 'bg-white print:bg-preserve'}`} 
+                      style={{ 
+                        WebkitPrintColorAdjust: 'exact',
+                        printColorAdjust: 'exact',
+                        colorAdjust: 'exact',
+                        display: 'block',
+                        visibility: 'visible',
+                        opacity: 1,
+                        minWidth: '20px',
+                        minHeight: '20px'
+                      }}
+                    >&nbsp;</div>
                   ))}
                 </div>
                 <p className="text-sm text-purple-800">{t('worksheets.answerLabel')}: {prob.operation === '+' ? `${prob.filled} + ${prob.missing}` : `${total} - ${prob.missing}`} = ________</p>

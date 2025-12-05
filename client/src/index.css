@@ -758,15 +758,53 @@ html {
   .worksheet-box,
   .visual-grid,
   .math-box,
-  .frame-box {
+  .frame-box,
+  [data-worksheet-content="true"] .worksheet-box,
+  [data-worksheet-content="true"] .visual-grid,
+  section .worksheet-box,
+  section .visual-grid {
     -webkit-print-color-adjust: exact !important;
     print-color-adjust: exact !important;
     color-adjust: exact !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+  }
+  
+  /* Ensure worksheet boxes are displayed */
+  .worksheet-box,
+  [data-worksheet-content="true"] .worksheet-box,
+  section .worksheet-box {
+    display: block !important;
+    min-height: 1px !important;
+    min-width: 1px !important;
+  }
+  
+  .worksheet-box[class*="flex"],
+  [data-worksheet-content="true"] .worksheet-box[class*="flex"],
+  section .worksheet-box[class*="flex"] {
+    display: flex !important;
+    min-height: 1px !important;
+    min-width: 1px !important;
+  }
+  
+  /* Prevent empty visual boxes from collapsing - add content if empty */
+  .worksheet-box:empty::before,
+  .tens-frame-box:empty::before,
+  [data-worksheet-content="true"] .worksheet-box:empty::before,
+  [data-worksheet-content="true"] .tens-frame-box:empty::before,
+  section .worksheet-box:empty::before,
+  section .tens-frame-box:empty::before {
+    content: '\00a0' !important; /* Non-breaking space */
+    display: inline-block !important;
   }
 
-  /* Preserve tens frames boxes in print */
+  /* Preserve tens frames boxes in print - CRITICAL: Must be very specific */
   .tens-frames-grid,
-  .tens-frames-grid.grid {
+  .tens-frames-grid.grid,
+  [data-worksheet-content="true"] .tens-frames-grid,
+  [data-worksheet-content="true"] .tens-frames-grid.grid,
+  section .tens-frames-grid,
+  section .tens-frames-grid.grid {
     display: grid !important;
     grid-template-columns: repeat(5, 1fr) !important;
     gap: 0.25rem !important;
@@ -775,23 +813,37 @@ html {
     color-adjust: exact !important;
     width: auto !important;
     max-width: 12rem !important;
+    visibility: visible !important;
+    opacity: 1 !important;
   }
   
-  .tens-frame-box {
+  .tens-frame-box,
+  [data-worksheet-content="true"] .tens-frame-box,
+  section .tens-frame-box {
+    display: block !important;
+    visibility: visible !important;
+    opacity: 1 !important;
     border: 2px solid #c084fc !important;
     border-radius: 4px !important;
-    aspect-ratio: 1 !important;
+    aspect-ratio: 1 / 1 !important;
+    width: 100% !important;
     min-width: 20px !important;
     min-height: 20px !important;
+    height: auto !important;
     -webkit-print-color-adjust: exact !important;
     print-color-adjust: exact !important;
     color-adjust: exact !important;
     box-shadow: none !important;
+    background-clip: padding-box !important;
   }
   
   /* Preserve background colors for filled tens frame boxes */
   .tens-frame-box.bg-purple-400,
-  .tens-frame-box[class*="bg-purple-400"] {
+  .tens-frame-box[class*="bg-purple-400"],
+  [data-worksheet-content="true"] .tens-frame-box.bg-purple-400,
+  [data-worksheet-content="true"] .tens-frame-box[class*="bg-purple-400"],
+  section .tens-frame-box.bg-purple-400,
+  section .tens-frame-box[class*="bg-purple-400"] {
     background-color: #a855f7 !important;
     -webkit-print-color-adjust: exact !important;
     print-color-adjust: exact !important;
@@ -799,9 +851,15 @@ html {
   }
   
   .tens-frame-box.bg-white,
-  .tens-frame-box[class*="bg-white"] {
+  .tens-frame-box[class*="bg-white"],
+  [data-worksheet-content="true"] .tens-frame-box.bg-white,
+  [data-worksheet-content="true"] .tens-frame-box[class*="bg-white"],
+  section .tens-frame-box.bg-white,
+  section .tens-frame-box[class*="bg-white"] {
     background-color: white !important;
     border-color: #c084fc !important;
+    border-width: 2px !important;
+    border-style: solid !important;
     -webkit-print-color-adjust: exact !important;
     print-color-adjust: exact !important;
     color-adjust: exact !important;
