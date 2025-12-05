@@ -867,10 +867,12 @@ html {
   [data-worksheet-content="true"] .grid[class*="grid-cols-10"] [class*="border"],
   [data-worksheet-content="true"] .grid[class*="grid-cols-3"] [class*="border"],
   [data-worksheet-content="true"] .grid[class*="grid-cols-2"] [class*="border"],
+  [data-worksheet-content="true"] .grid[class*="grid-cols-4"] [class*="border"],
   [data-worksheet-content="true"] section .grid[class*="grid-cols-5"] [class*="border"],
   [data-worksheet-content="true"] section .grid[class*="grid-cols-10"] [class*="border"],
   [data-worksheet-content="true"] section .grid[class*="grid-cols-3"] [class*="border"],
-  [data-worksheet-content="true"] section .grid[class*="grid-cols-2"] [class*="border"] {
+  [data-worksheet-content="true"] section .grid[class*="grid-cols-2"] [class*="border"],
+  [data-worksheet-content="true"] section .grid[class*="grid-cols-4"] [class*="border"] {
     border: inherit !important;
     border-radius: inherit !important;
     -webkit-print-color-adjust: exact !important;
@@ -883,10 +885,12 @@ html {
   [data-worksheet-content="true"] .grid[class*="grid-cols-10"] [class*="bg-"],
   [data-worksheet-content="true"] .grid[class*="grid-cols-3"] [class*="bg-"],
   [data-worksheet-content="true"] .grid[class*="grid-cols-2"] [class*="bg-"],
+  [data-worksheet-content="true"] .grid[class*="grid-cols-4"] [class*="bg-"],
   [data-worksheet-content="true"] section .grid[class*="grid-cols-5"] [class*="bg-"],
   [data-worksheet-content="true"] section .grid[class*="grid-cols-10"] [class*="bg-"],
   [data-worksheet-content="true"] section .grid[class*="grid-cols-3"] [class*="bg-"],
-  [data-worksheet-content="true"] section .grid[class*="grid-cols-2"] [class*="bg-"] {
+  [data-worksheet-content="true"] section .grid[class*="grid-cols-2"] [class*="bg-"],
+  [data-worksheet-content="true"] section .grid[class*="grid-cols-4"] [class*="bg-"] {
     -webkit-print-color-adjust: exact !important;
     print-color-adjust: exact !important;
     color-adjust: exact !important;
