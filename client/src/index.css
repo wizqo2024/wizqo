@@ -614,23 +614,30 @@ html {
   }
   
   /* Remove all inner borders in print so only outer frame remains */
-  [data-worksheet-content="true"] .border:not(.worksheet-container):not(.print-section-outline),
-  [data-worksheet-content="true"] [class*="border-"]:not(.worksheet-container):not(.print-section-outline),
-  [data-worksheet-content="true"] [class*="print:border"]:not(.worksheet-container):not(.print-section-outline),
-  [data-worksheet-content="true"] *:not(.worksheet-container):not(.print-section-outline)[style*="border"] {
+[data-worksheet-content="true"] .border:not(.worksheet-container):not(.print-section-outline):not(.print-block-outline),
+[data-worksheet-content="true"] [class*="border-"]:not(.worksheet-container):not(.print-section-outline):not(.print-block-outline),
+[data-worksheet-content="true"] [class*="print:border"]:not(.worksheet-container):not(.print-section-outline):not(.print-block-outline),
+[data-worksheet-content="true"] *:not(.worksheet-container):not(.print-section-outline):not(.print-block-outline)[style*="border"] {
     border: none !important;
     border-width: 0 !important;
     border-color: transparent !important;
     box-shadow: none !important;
   }
   
-  [data-worksheet-content="true"] .print-section-outline {
+[data-worksheet-content="true"] .print-section-outline {
     border: 1px solid rgba(15, 23, 42, 0.15) !important;
     border-radius: 14px !important;
     padding: 0.75rem !important;
     background: white !important;
     box-shadow: none !important;
   }
+
+[data-worksheet-content="true"] .print-block-outline {
+  border: 1px solid rgba(15, 23, 42, 0.12) !important;
+  border-radius: 10px !important;
+  background: white !important;
+  box-shadow: none !important;
+}
   
   [data-worksheet-content="true"] .worksheet-section > div:not(.print-ignore-inner-border):not([class*="border-"]):not([class*="print:border"]):not([class*="no-border"]),
   /* REMOVED: This rule was adding borders to all question-section divs - causing unwanted borders */

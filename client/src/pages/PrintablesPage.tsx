@@ -286,6 +286,7 @@ function WorksheetSectionWrapper({
 
   return (
     <section 
+      data-doc={docId}
       className={`mb-10 break-inside-avoid rounded-xl ${theme.background} p-6 print:border-0 print:p-0 print:bg-white print:mt-0 print:mb-0 print:pt-0 shadow-lg relative overflow-hidden worksheet-section ${enablePrintOutline ? 'print-section-outline' : ''}`}
       dir={isRTL ? 'rtl' : 'ltr'}
       style={{ 
@@ -2088,10 +2089,10 @@ export function PrintablesPage() {
         }
         
         /* Remove all inner borders so only outer frame renders */
-        [data-worksheet-content="true"] .border:not(.worksheet-container):not(.print-section-outline),
-        [data-worksheet-content="true"] [class*="border-"]:not(.worksheet-container):not(.print-section-outline),
-        [data-worksheet-content="true"] [class*="print:border"]:not(.worksheet-container):not(.print-section-outline),
-        [data-worksheet-content="true"] *:not(.worksheet-container):not(.print-section-outline)[style*="border"] {
+        [data-worksheet-content="true"] .border:not(.worksheet-container):not(.print-section-outline):not(.print-block-outline),
+        [data-worksheet-content="true"] [class*="border-"]:not(.worksheet-container):not(.print-section-outline):not(.print-block-outline),
+        [data-worksheet-content="true"] [class*="print:border"]:not(.worksheet-container):not(.print-section-outline):not(.print-block-outline),
+        [data-worksheet-content="true"] *:not(.worksheet-container):not(.print-section-outline):not(.print-block-outline)[style*="border"] {
           border: none !important;
           border-width: 0 !important;
           border-color: transparent !important;
@@ -2102,6 +2103,13 @@ export function PrintablesPage() {
           border: 1px solid rgba(15, 23, 42, 0.15) !important;
           border-radius: 14px !important;
           padding: 0.75rem !important;
+          background: white !important;
+          box-shadow: none !important;
+        }
+        
+        [data-worksheet-content="true"] .print-block-outline {
+          border: 1px solid rgba(15, 23, 42, 0.12) !important;
+          border-radius: 10px !important;
           background: white !important;
           box-shadow: none !important;
         }
@@ -3186,10 +3194,10 @@ export function PrintablesPage() {
             background: white !important;
           }
           
-          [data-worksheet-content="true"] .border:not(.worksheet-container):not(.print-section-outline),
-          [data-worksheet-content="true"] [class*="border-"]:not(.worksheet-container):not(.print-section-outline),
-          [data-worksheet-content="true"] [class*="print:border"]:not(.worksheet-container):not(.print-section-outline),
-          [data-worksheet-content="true"] *:not(.worksheet-container):not(.print-section-outline)[style*="border"] {
+          [data-worksheet-content="true"] .border:not(.worksheet-container):not(.print-section-outline):not(.print-block-outline),
+          [data-worksheet-content="true"] [class*="border-"]:not(.worksheet-container):not(.print-section-outline):not(.print-block-outline),
+          [data-worksheet-content="true"] [class*="print:border"]:not(.worksheet-container):not(.print-section-outline):not(.print-block-outline),
+          [data-worksheet-content="true"] *:not(.worksheet-container):not(.print-section-outline):not(.print-block-outline)[style*="border"] {
             border: none !important;
             border-width: 0 !important;
             border-color: transparent !important;
@@ -3200,6 +3208,13 @@ export function PrintablesPage() {
             border: 1px solid rgba(15, 23, 42, 0.15) !important;
             border-radius: 14px !important;
             padding: 0.75rem !important;
+            background: white !important;
+            box-shadow: none !important;
+          }
+          
+          [data-worksheet-content="true"] .print-block-outline {
+            border: 1px solid rgba(15, 23, 42, 0.12) !important;
+            border-radius: 10px !important;
             background: white !important;
             box-shadow: none !important;
           }
@@ -4836,6 +4851,7 @@ export function PrintablesPage() {
 
         {activeDocs.includes('place-value-hto') && (() => {
           const docId = 'place-value-hto'
+          const blockOutline = 'print-block-outline'
           const nums = [12, 27, 45, 63, 84, 99, 30, 51];
           const isColor = true; // default colorful visuals
           return (
@@ -4868,7 +4884,7 @@ export function PrintablesPage() {
             >
               <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-violet-400 to-pink-400 animate-gradient-x mb-2" />
               {/* Worked Example */}
-              <div className="mb-6 print:mb-1 p-4 print:p-1.5 bg-gradient-to-br from-violet-50 to-pink-50 border-2 border-violet-200 rounded-lg print:border print:bg-white">
+              <div className={`mb-6 print:mb-1 p-4 print:p-1.5 bg-gradient-to-br from-violet-50 to-pink-50 border-2 border-violet-200 rounded-lg print:border print:bg-white ${blockOutline}`}>
                 <div className="font-semibold text-violet-900 mb-3 print:mb-0.5 text-sm print:text-[9px] flex items-center gap-2 print:gap-1">
                   <span className="text-2xl print:text-sm">📚</span>
                   <span>{getTrans(`worksheets.${docId}.example.title`, 'Example - Let\'s solve this together:')}</span>
@@ -4915,7 +4931,7 @@ export function PrintablesPage() {
                 </div>
               </div>
               {/* Visual legend */}
-              <div className="mb-4 print:mb-0.5 flex flex-wrap items-center gap-4 print:gap-1 text-sm print:text-[8px] bg-violet-50 p-3 print:p-1 rounded-lg border border-violet-200">
+              <div className={`mb-4 print:mb-0.5 flex flex-wrap items-center gap-4 print:gap-1 text-sm print:text-[8px] bg-violet-50 p-3 print:p-1 rounded-lg border border-violet-200 ${blockOutline}`}>
                 <div className="flex items-center gap-2 print:gap-1">
                   <svg viewBox="0 0 25 50" className="h-12 print:h-4 w-auto flex-shrink-0">
                     <rect x="10" y="10" width="15" height="30" rx="3" fill="#22c55e" stroke="#16a34a" strokeWidth="2" />
@@ -4931,12 +4947,12 @@ export function PrintablesPage() {
                   <span className="text-blue-700 font-bold whitespace-nowrap">{getTrans(`worksheets.${docId}.legend.oneLabel`, '= 1 One')}</span>
                 </div>
               </div>
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 print:gap-1 break-inside-avoid" style={{ pageBreakAfter: 'auto' }}>
+              <div className={`grid grid-cols-1 sm:grid-cols-2 gap-4 print:gap-1 break-inside-avoid ${blockOutline}`} style={{ pageBreakAfter: 'auto' }}>
                 {nums.map((n,i)=> {
                   const tens = Math.floor(n/10);
                   const ones = n%10;
                   return (
-                    <div key={i} className="border-2 border-violet-200 rounded-lg p-4 print:p-1.5 bg-gradient-to-br from-violet-50 to-pink-50 break-inside-avoid">
+                    <div key={i} className={`border-2 border-violet-200 rounded-lg p-4 print:p-1.5 bg-gradient-to-br from-violet-50 to-pink-50 break-inside-avoid ${blockOutline}`}>
                       <div className="text-violet-900 font-semibold mb-3 print:mb-0.5 text-lg print:text-sm">{getTrans(`worksheets.${docId}.labels.number`, 'Number:')} <span className="text-2xl print:text-lg">{n}</span></div>
                       {/* Visual base-10 blocks */}
                       <div className="mb-4 print:mb-1 bg-white p-3 print:p-1 rounded border border-violet-300">
@@ -4977,7 +4993,7 @@ export function PrintablesPage() {
                 })}
               </div>
               {/* Extension/Challenge Problems */}
-              <div className="mt-6 print:mt-2 p-4 print:p-2 bg-purple-50 border-2 border-purple-200 rounded print:bg-white print:border" style={{ pageBreakBefore: 'auto', pageBreakInside: 'avoid' }}>
+              <div className={`mt-6 print:mt-2 p-4 print:p-2 bg-purple-50 border-2 border-purple-200 rounded print:bg-white print:border ${blockOutline}`} style={{ pageBreakBefore: 'auto', pageBreakInside: 'avoid' }}>
                 <div className="font-semibold text-purple-900 mb-3 print:mb-1 text-sm print:text-xs">{getTrans(`worksheets.${docId}.challenge.title`, '🌟 Challenge Yourself (Optional):')}</div>
                 <div className="space-y-2 print:space-y-1 text-sm print:text-xs text-purple-800">
                   {(() => {
@@ -4995,7 +5011,7 @@ export function PrintablesPage() {
                 </div>
               </div>
               {/* Self-Assessment */}
-              <div className="print:block hidden print:mt-0 mt-6 p-4 print:p-2 border-2 border-slate-300 rounded" style={{ pageBreakBefore: 'avoid', pageBreakInside: 'avoid' }}>
+              <div className={`print:block hidden print:mt-0 mt-6 p-4 print:p-2 border-2 border-slate-300 rounded ${blockOutline}`} style={{ pageBreakBefore: 'avoid', pageBreakInside: 'avoid' }}>
                 <div className="font-semibold text-slate-800 mb-3 print:mb-1 text-sm print:text-xs">{getTrans(`worksheets.${docId}.selfAssessment.title`, '📊 How did you do?')}</div>
                 <div className="space-y-2 text-xs">
                   {(() => {
