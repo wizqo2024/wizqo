@@ -6,7 +6,7 @@ import InteractiveBundleSections from '@/components/InteractiveBundleSections'
 import { PRINTABLE_BUNDLE_SECTIONS, getPrintableSectionForDoc } from '@/data/printableBundles'
 import { INTERACTIVE_CATEGORIES } from '@shared/interactive/interactiveWorksheets'
 import { formatNumber } from '@/utils/numbers'
-import { WorksheetHeader, WorksheetFooter, ProblemBox } from '@/components/worksheet'
+import { WorksheetHeader, WorksheetFooter, ProblemBox, VerticalEquation } from '@/components/worksheet'
 import { 
   trackWorksheetDownload, 
   trackWorksheetView, 
@@ -5253,13 +5253,18 @@ export function PrintablesPage() {
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 break-inside-avoid" style={{ pageBreakAfter: 'auto' }}>
                 {pairs.map(([a,b],i)=> (
                   <div key={i} className="border-2 border-emerald-200 rounded-lg p-4 bg-gradient-to-br from-emerald-50 to-sky-50 w-full break-inside-avoid print:p-3">
-                    <div className="font-mono text-2xl leading-7 text-right mb-2">
-                      <div className="text-emerald-700">{a}</div>
-                      <div className="text-sky-700">+ {b}</div>
-                      <div className="border-t-[3px] border-emerald-600 mt-2 pt-2 h-12 flex items-center justify-end">
-                        <span className="inline-block w-20 h-10 border-b-[3px] border-emerald-600" />
-                      </div>
-                    </div>
+                    <VerticalEquation
+                      top={a}
+                      bottom={b}
+                      operator="+"
+                      topClassName="text-emerald-700"
+                      bottomClassName="text-sky-700"
+                      borderColorClass="border-emerald-600"
+                      answerWidthClass="w-20"
+                      answerHeightClass="h-10"
+                      printAnswerWidthClass="min-w-[1.6in]"
+                      className="mb-2"
+                    />
                   </div>
                 ))}
               </div>
@@ -5398,13 +5403,18 @@ export function PrintablesPage() {
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 break-inside-avoid" style={{ pageBreakAfter: 'auto' }}>
                 {pairs.map(([a,b],i)=> (
                   <div key={i} className="border-2 border-rose-200 rounded-lg p-4 bg-gradient-to-br from-rose-50 to-fuchsia-50 w-full break-inside-avoid print:p-3">
-                    <div className="font-mono text-2xl leading-7 text-right mb-2">
-                      <div className="text-rose-700">{a}</div>
-                      <div className="text-fuchsia-700">− {b}</div>
-                      <div className="border-t-[3px] border-rose-600 mt-2 pt-2 h-12 flex items-center justify-end">
-                        <span className="inline-block w-20 h-10 border-b-[3px] border-rose-600" />
-                      </div>
-                    </div>
+                    <VerticalEquation
+                      top={a}
+                      bottom={b}
+                      operator="−"
+                      topClassName="text-rose-700"
+                      bottomClassName="text-fuchsia-700"
+                      borderColorClass="border-rose-600"
+                      answerWidthClass="w-20"
+                      answerHeightClass="h-10"
+                      printAnswerWidthClass="min-w-[1.6in]"
+                      className="mb-2"
+                    />
                   </div>
                 ))}
               </div>
@@ -14832,11 +14842,15 @@ export function PrintablesPage() {
               <div className="grid grid-cols-2 gap-3">
                 {pairs.map(([a, b], i) => (
                   <div key={i} className="border border-slate-300 rounded p-3 bg-white w-full">
-                    <div className="font-mono text-2xl leading-7 text-right">
-                      <div>{a}</div>
-                      <div>+ {b}</div>
-                      <div className="border-t-[3px] border-slate-600 mt-2 pt-2 h-12 flex items-center"><span className="inline-block w-20 h-10 border-b-[3px] border-slate-600" /></div>
-                    </div>
+                    <VerticalEquation
+                      top={a}
+                      bottom={b}
+                      operator="+"
+                      borderColorClass="border-slate-600"
+                      answerWidthClass="w-20"
+                      answerHeightClass="h-10"
+                      printAnswerWidthClass="min-w-[1.6in]"
+                    />
                   </div>
                 ))}
               </div>
@@ -14882,11 +14896,15 @@ export function PrintablesPage() {
               <div className="grid grid-cols-2 gap-3">
                 {pairs.map(([a, b], i) => (
                   <div key={i} className="border border-slate-300 rounded p-3 bg-white w-full">
-                    <div className="font-mono text-2xl leading-7 text-right">
-                      <div>{a}</div>
-                      <div>− {b}</div>
-                      <div className="border-t-[3px] border-slate-600 mt-2 pt-2 h-12 flex items-center"><span className="inline-block w-20 h-10 border-b-[3px] border-slate-600" /></div>
-                    </div>
+                    <VerticalEquation
+                      top={a}
+                      bottom={b}
+                      operator="−"
+                      borderColorClass="border-slate-600"
+                      answerWidthClass="w-20"
+                      answerHeightClass="h-10"
+                      printAnswerWidthClass="min-w-[1.6in]"
+                    />
                   </div>
                 ))}
               </div>
@@ -15865,11 +15883,15 @@ export function PrintablesPage() {
               <div className="grid grid-cols-2 gap-3 break-inside-avoid" style={{ pageBreakAfter: 'auto' }}>
                 {problems.map(([a, b], i) => (
                   <div key={i} className="border border-slate-300 rounded p-3 bg-white w-full break-inside-avoid">
-                    <div className="font-mono text-2xl leading-7 text-right">
-                      <div>{a}</div>
-                      <div>× {b}</div>
-                      <div className="border-t-[3px] border-slate-600 mt-2 pt-2 h-12 flex items-center"><span className="inline-block w-20 h-10 border-b-[3px] border-slate-600" /></div>
-                    </div>
+                    <VerticalEquation
+                      top={a}
+                      bottom={b}
+                      operator="×"
+                      borderColorClass="border-slate-600"
+                      answerWidthClass="w-20"
+                      answerHeightClass="h-10"
+                      printAnswerWidthClass="min-w-[1.75in]"
+                    />
                     <div className="mt-2 text-xs text-slate-600">{getTrans(`worksheets.${docId}.showWork`, 'Show your work:')}</div>
                     <div className="min-h-16 border border-dashed border-slate-300 rounded p-2 bg-slate-50 print:bg-white" />
                   </div>
@@ -15987,11 +16009,15 @@ export function PrintablesPage() {
               <div className="grid grid-cols-2 gap-3 break-inside-avoid" style={{ pageBreakAfter: 'auto' }}>
                 {problems.map(([a, b], i) => (
                   <div key={i} className="border border-slate-300 rounded p-3 bg-white w-full break-inside-avoid">
-                    <div className="font-mono text-2xl leading-7 text-right">
-                      <div>{a}</div>
-                      <div>× {b}</div>
-                      <div className="border-t-[3px] border-slate-600 mt-2 pt-2 h-12 flex items-center"><span className="inline-block w-20 h-10 border-b-[3px] border-slate-600" /></div>
-                    </div>
+                    <VerticalEquation
+                      top={a}
+                      bottom={b}
+                      operator="×"
+                      borderColorClass="border-slate-600"
+                      answerWidthClass="w-20"
+                      answerHeightClass="h-10"
+                      printAnswerWidthClass="min-w-[1.75in]"
+                    />
                     <div className="mt-2 text-xs text-slate-600">Show your work:</div>
                     <div className="min-h-16 border border-dashed border-slate-300 rounded p-2 bg-slate-50 print:bg-white" />
                   </div>
@@ -16093,11 +16119,16 @@ export function PrintablesPage() {
               <div className="grid grid-cols-2 gap-3 break-inside-avoid" style={{ pageBreakAfter: 'auto' }}>
                 {problems.map(([a, b], i) => (
                   <div key={i} className="border border-slate-300 rounded p-3 bg-white w-full break-inside-avoid">
-                    <div className="font-mono text-xl leading-7 text-right">
-                      <div>{a}</div>
-                      <div>× {b}</div>
-                      <div className="border-t-[3px] border-slate-600 mt-2 pt-2 h-12 flex items-center"><span className="inline-block w-20 h-10 border-b-[3px] border-slate-600" /></div>
-                    </div>
+                    <VerticalEquation
+                      top={a}
+                      bottom={b}
+                      operator="×"
+                      borderColorClass="border-slate-600"
+                      answerWidthClass="w-20"
+                      answerHeightClass="h-10"
+                      printAnswerWidthClass="min-w-[1.85in]"
+                      sizeClassName="text-xl"
+                    />
                     <div className="mt-2 text-xs text-slate-600">Show your work:</div>
                     <div className="min-h-20 border border-dashed border-slate-300 rounded p-2 bg-slate-50 print:bg-white" />
                   </div>
@@ -16196,11 +16227,16 @@ export function PrintablesPage() {
               <div className="grid grid-cols-2 gap-3 break-inside-avoid" style={{ pageBreakAfter: 'auto' }}>
                 {problems.map(([a, b], i) => (
                   <div key={i} className="border border-slate-300 rounded p-3 bg-white w-full break-inside-avoid">
-                    <div className="font-mono text-xl leading-7 text-right">
-                      <div>{a}</div>
-                      <div>× {b}</div>
-                      <div className="border-t-[3px] border-slate-600 mt-2 pt-2 h-12 flex items-center"><span className="inline-block w-20 h-10 border-b-[3px] border-slate-600" /></div>
-                    </div>
+                    <VerticalEquation
+                      top={a}
+                      bottom={b}
+                      operator="×"
+                      borderColorClass="border-slate-600"
+                      answerWidthClass="w-20"
+                      answerHeightClass="h-10"
+                      printAnswerWidthClass="min-w-[1.85in]"
+                      sizeClassName="text-xl"
+                    />
                     <div className="mt-2 text-xs text-slate-600">Show your work:</div>
                     <div className="min-h-20 border border-dashed border-slate-300 rounded p-2 bg-slate-50 print:bg-white" />
                   </div>
@@ -16299,11 +16335,16 @@ export function PrintablesPage() {
               <div className="grid grid-cols-2 gap-3 break-inside-avoid" style={{ pageBreakAfter: 'auto' }}>
                 {problems.map(([a, b], i) => (
                   <div key={i} className="border border-slate-300 rounded p-3 bg-white w-full break-inside-avoid">
-                    <div className="font-mono text-lg leading-7 text-right">
-                      <div>{a}</div>
-                      <div>× {b}</div>
-                      <div className="border-t-[3px] border-slate-600 mt-2 pt-2 h-12 flex items-center"><span className="inline-block w-20 h-10 border-b-[3px] border-slate-600" /></div>
-                    </div>
+                    <VerticalEquation
+                      top={a}
+                      bottom={b}
+                      operator="×"
+                      borderColorClass="border-slate-600"
+                      answerWidthClass="w-20"
+                      answerHeightClass="h-10"
+                      printAnswerWidthClass="min-w-[2in]"
+                      sizeClassName="text-lg"
+                    />
                     <div className="mt-2 text-xs text-slate-600">Show your work:</div>
                     <div className="min-h-24 border border-dashed border-slate-300 rounded p-2 bg-slate-50 print:bg-white" />
                   </div>
@@ -17464,16 +17505,16 @@ export function PrintablesPage() {
               <div className="grid grid-cols-2 gap-4 break-inside-avoid" style={{ pageBreakAfter: 'auto' }}>
                 {facts.map(([a, b], i) => (
                   <div key={i} className="border-2 border-slate-300 rounded-lg p-4 bg-white break-inside-avoid">
-                    <div className="font-mono text-2xl leading-7">
-                      <div className="text-right mb-1">{a}</div>
-                      <div className="flex items-center mb-1">
-                        <span className="mr-2">×</span>
-                        <span className="flex-1 text-right">{b}</span>
-                      </div>
-                      <div className="border-t-[3px] border-slate-600 mt-2 pt-3 h-14 print:h-16 flex items-center justify-end">
-                        <span className="inline-block w-24 h-12 print:w-28 print:h-14 border-b-[3px] border-slate-600" />
-                      </div>
-                    </div>
+                    <VerticalEquation
+                      top={a}
+                      bottom={b}
+                      operator="×"
+                      borderColorClass="border-slate-600"
+                      answerWidthClass="w-24"
+                      answerHeightClass="h-12"
+                      answerContainerClassName="h-14 print:h-16"
+                      printAnswerWidthClass="min-w-[2.5in]"
+                    />
                   </div>
                 ))}
               </div>
@@ -17568,13 +17609,16 @@ export function PrintablesPage() {
               <div className="grid grid-cols-2 gap-4 break-inside-avoid" style={{ pageBreakAfter: 'auto' }}>
                 {facts.map(([a, b], i) => (
                   <div key={i} className="border border-slate-300 rounded p-3 bg-white break-inside-avoid">
-                    <div className="font-mono text-2xl leading-7 text-right">
-                      <div>{a}</div>
-                      <div>× {b}</div>
-                      <div className="border-t-[3px] border-slate-600 mt-2 pt-2 h-10 flex items-center justify-end">
-                        <span className="inline-block w-20 h-8 border-b-[3px] border-slate-600" />
-                      </div>
-                    </div>
+                    <VerticalEquation
+                      top={a}
+                      bottom={b}
+                      operator="×"
+                      borderColorClass="border-slate-600"
+                      answerWidthClass="w-20"
+                      answerHeightClass="h-8"
+                      answerContainerClassName="h-10"
+                      printAnswerWidthClass="min-w-[2.1in]"
+                    />
                   </div>
                 ))}
               </div>
@@ -17670,13 +17714,16 @@ export function PrintablesPage() {
               <div className="grid grid-cols-2 gap-4 break-inside-avoid" style={{ pageBreakAfter: 'auto' }}>
                 {facts.map(([a, b], i) => (
                   <div key={i} className="border border-slate-300 rounded p-3 bg-white break-inside-avoid">
-                    <div className="font-mono text-2xl leading-7 text-right">
-                      <div>{a}</div>
-                      <div>× {b}</div>
-                      <div className="border-t-[3px] border-slate-600 mt-2 pt-2 h-10 flex items-center justify-end">
-                        <span className="inline-block w-20 h-8 border-b-[3px] border-slate-600" />
-                      </div>
-                    </div>
+                    <VerticalEquation
+                      top={a}
+                      bottom={b}
+                      operator="×"
+                      borderColorClass="border-slate-600"
+                      answerWidthClass="w-20"
+                      answerHeightClass="h-8"
+                      answerContainerClassName="h-10"
+                      printAnswerWidthClass="min-w-[2.1in]"
+                    />
                   </div>
                 ))}
               </div>
@@ -21829,11 +21876,15 @@ export function PrintablesPage() {
               <div className="grid grid-cols-2 gap-3 break-inside-avoid" style={{ pageBreakAfter: 'auto' }}>
                 {problems.map((p, i) => (
                   <div key={i} className="border border-slate-300 rounded p-3 bg-white">
-                    <div className="font-mono text-2xl leading-7 text-right">
-                      <div>{p.a}</div>
-                      <div>× {p.b}</div>
-                      <div className="border-t-[3px] border-slate-600 mt-2 pt-2 h-12 flex items-center"><span className="inline-block w-20 h-10 border-b-[3px] border-slate-600" /></div>
-                    </div>
+                    <VerticalEquation
+                      top={p.a}
+                      bottom={p.b}
+                      operator="×"
+                      borderColorClass="border-slate-600"
+                      answerWidthClass="w-20"
+                      answerHeightClass="h-10"
+                      printAnswerWidthClass="min-w-[1.8in]"
+                    />
                   </div>
                 ))}
               </div>
@@ -21942,11 +21993,15 @@ export function PrintablesPage() {
               <div className="grid grid-cols-2 gap-3 break-inside-avoid" style={{ pageBreakAfter: 'auto' }}>
                 {problems.map((p, i) => (
                   <div key={i} className="border border-slate-300 rounded p-3 bg-white break-inside-avoid">
-                    <div className="font-mono text-2xl leading-7 text-right">
-                      <div>{p.dividend}</div>
-                      <div>÷ {p.b}</div>
-                      <div className="border-t-[3px] border-slate-600 mt-2 pt-2 h-12 flex items-center"><span className="inline-block w-20 h-10 border-b-[3px] border-slate-600" /></div>
-                    </div>
+                    <VerticalEquation
+                      top={p.dividend}
+                      bottom={p.b}
+                      operator="÷"
+                      borderColorClass="border-slate-600"
+                      answerWidthClass="w-20"
+                      answerHeightClass="h-10"
+                      printAnswerWidthClass="min-w-[1.8in]"
+                    />
                   </div>
                 ))}
               </div>
