@@ -4851,11 +4851,7 @@ export function PrintablesPage() {
 
         {activeDocs.includes('place-value-hto') && (() => {
           const docId = 'place-value-hto'
-<<<<<<< HEAD
           const blockOutline = 'print-block-outline'
-=======
-          const blockOutline = usesColorfulPrintLayout ? 'place-value-hto-block' : 'print-block-outline'
->>>>>>> parent of 1b48d692 (Refactor: Simplify place-value-hto print layout classes)
           const nums = [12, 27, 45, 63, 84, 99, 30, 51];
           const isColor = true; // default colorful visuals
           return (
