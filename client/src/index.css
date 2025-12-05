@@ -849,8 +849,8 @@ html {
     color-adjust: exact !important;
   }
   
-  /* CRITICAL: Tens frame boxes - let inline styles handle borders to avoid conflicts */
-  /* Only set background and layout properties, not borders (inline styles handle borders) */
+  /* CRITICAL: Tens frame boxes - no inner borders, only outer gradient border on parent */
+  /* Only set background and layout properties, no borders */
   .tens-frame-box[class*="bg-purple-400"],
   .tens-frame-box[class*="bg-purple"],
   [data-worksheet-content="true"] .tens-frame-box[class*="bg-purple-400"],
@@ -858,6 +858,7 @@ html {
   section .tens-frame-box[class*="bg-purple-400"],
   section .tens-frame-box[class*="bg-purple"] {
     background-color: #a855f7 !important; /* Purple background for filled boxes */
+    border: none !important; /* Remove inner border - keep only outer gradient border */
     -webkit-print-color-adjust: exact !important;
     print-color-adjust: exact !important;
     color-adjust: exact !important;
@@ -865,7 +866,7 @@ html {
     box-shadow: none !important;
   }
   
-  /* CRITICAL: Empty/white tens frame boxes - ensure visibility */
+  /* CRITICAL: Empty/white tens frame boxes - ensure visibility, no inner borders */
   .tens-frame-box.bg-white,
   .tens-frame-box[class*="bg-white"],
   [data-worksheet-content="true"] .tens-frame-box.bg-white,
@@ -877,6 +878,7 @@ html {
   [data-worksheet-content="true"] .tens-frame-box:not([class*="bg-purple-400"]):not([class*="bg-purple"]):not([class*="bg-indigo"]):not([class*="bg-pink"]):not([class*="bg-emerald"]):not([class*="bg-blue"]),
   section .tens-frame-box:not([class*="bg-purple-400"]):not([class*="bg-purple"]):not([class*="bg-indigo"]):not([class*="bg-pink"]):not([class*="bg-emerald"]):not([class*="bg-blue"]) {
     background-color: #fefefe !important; /* Light gray for visibility */
+    border: none !important; /* Remove inner border - keep only outer gradient border */
     -webkit-print-color-adjust: exact !important;
     print-color-adjust: exact !important;
     color-adjust: exact !important;
@@ -887,7 +889,6 @@ html {
     opacity: 1 !important;
     outline: none !important;
     box-shadow: none !important;
-    /* Border is handled by inline styles - don't override here to avoid double borders */
   }
   
   /* Ensure all worksheet boxes with white backgrounds are visible in print */

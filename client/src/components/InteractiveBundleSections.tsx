@@ -3749,41 +3749,44 @@ const renderers: Record<string, Renderer> = {
                   .replace('{{total}}', String(total))
                   .replace('{{missing}}', String(prob.missing))
             return (
-              <div key={idx} className="rounded-xl border border-purple-200 bg-purple-50 p-4">
-                <p className="text-sm font-semibold text-purple-700 mb-2">
-                  {instruction}
-                </p>
-                <div className="tens-frames-grid grid grid-cols-5 gap-1 mb-3 w-32 print:w-auto print:max-w-xs" style={{
-                  WebkitPrintColorAdjust: 'exact',
-                  printColorAdjust: 'exact',
-                  colorAdjust: 'exact'
-                }}>
-                  {Array.from({ length: 10 }).map((_, i) => (
-                    <div 
-                      key={i} 
-                      className={`tens-frame-box aspect-square rounded ${i < showFilled ? 'bg-purple-400 print:bg-preserve' : 'bg-white print:bg-preserve'}`} 
-                      style={{ 
-                        WebkitPrintColorAdjust: 'exact',
-                        printColorAdjust: 'exact',
-                        colorAdjust: 'exact',
-                        display: 'block',
-                        visibility: 'visible',
-                        opacity: 1,
-                        minWidth: '20px',
-                        minHeight: '20px',
-                        border: i < showFilled ? '2px solid #9333ea' : '2px solid #6b21a8', // Single border - dark purple for filled, very dark for empty
-                        borderStyle: 'solid',
-                        borderWidth: '2px',
-                        borderColor: i < showFilled ? '#9333ea' : '#6b21a8',
-                        backgroundColor: i < showFilled ? '#a855f7' : '#fefefe', // Very light gray for empty boxes
-                        borderRadius: '4px',
-                        boxShadow: 'none',
-                        outline: 'none'
-                      }}
-                    >&nbsp;</div>
-                  ))}
+              <div key={idx} className="rounded-xl p-[2px] bg-gradient-to-br from-purple-400 via-indigo-400 to-pink-400" style={{
+                WebkitPrintColorAdjust: 'exact',
+                printColorAdjust: 'exact',
+                colorAdjust: 'exact'
+              }}>
+                <div className="rounded-xl bg-gradient-to-br from-purple-100 via-indigo-100 to-pink-100 p-4">
+                  <p className="text-sm font-semibold text-purple-700 mb-2">
+                    {instruction}
+                  </p>
+                  <div className="tens-frames-grid grid grid-cols-5 gap-1 mb-3 w-32 print:w-auto print:max-w-xs" style={{
+                    WebkitPrintColorAdjust: 'exact',
+                    printColorAdjust: 'exact',
+                    colorAdjust: 'exact'
+                  }}>
+                    {Array.from({ length: 10 }).map((_, i) => (
+                      <div 
+                        key={i} 
+                        className={`tens-frame-box aspect-square rounded ${i < showFilled ? 'bg-purple-400 print:bg-preserve' : 'bg-white print:bg-preserve'}`} 
+                        style={{ 
+                          WebkitPrintColorAdjust: 'exact',
+                          printColorAdjust: 'exact',
+                          colorAdjust: 'exact',
+                          display: 'block',
+                          visibility: 'visible',
+                          opacity: 1,
+                          minWidth: '20px',
+                          minHeight: '20px',
+                          border: 'none', // Remove inner border - keep only outer gradient border
+                          backgroundColor: i < showFilled ? '#a855f7' : '#fefefe', // Very light gray for empty boxes
+                          borderRadius: '4px',
+                          boxShadow: 'none',
+                          outline: 'none'
+                        }}
+                      >&nbsp;</div>
+                    ))}
+                  </div>
+                  <p className="text-sm text-purple-800">{t('worksheets.answerLabel')}: {prob.operation === '+' ? `${prob.filled} + ${prob.missing}` : `${total} - ${prob.missing}`} = ________</p>
                 </div>
-                <p className="text-sm text-purple-800">{t('worksheets.answerLabel')}: {prob.operation === '+' ? `${prob.filled} + ${prob.missing}` : `${total} - ${prob.missing}`} = ________</p>
               </div>
             )
           })}
