@@ -462,6 +462,18 @@ html {
     padding: 0 !important;
     margin-top: 0 !important;
     padding-top: 0 !important;
+    overflow: visible !important;
+  }
+  
+  /* Ensure content isn't cut off in print */
+  [data-worksheet-content="true"] section,
+  [data-worksheet-content="true"] .worksheet-section {
+    overflow: visible !important;
+  }
+  
+  /* Preserve visual content that might be clipped */
+  [data-worksheet-content="true"] [class*="overflow-hidden"] {
+    overflow: visible !important;
   }
   
   /* Main container - clean layout */
@@ -655,6 +667,17 @@ html {
     height: auto;
     page-break-inside: avoid;
     break-inside: avoid;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+    color-adjust: exact;
+  }
+  
+  /* Preserve SVG colors and fills */
+  svg,
+  svg * {
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+    color-adjust: exact !important;
   }
   
   /* Tables */
@@ -664,6 +687,29 @@ html {
     margin: 12px 0;
     page-break-inside: avoid;
     break-inside: avoid;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+    color-adjust: exact;
+  }
+  
+  /* Preserve table borders and backgrounds */
+  table[class*="border"],
+  table th,
+  table td {
+    border: inherit !important;
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+    color-adjust: exact !important;
+  }
+  
+  table thead[class*="bg-"],
+  table tbody[class*="bg-"],
+  table th[class*="bg-"],
+  table td[class*="bg-"],
+  table tr[class*="bg-"] {
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+    color-adjust: exact !important;
   }
   
   /* Remove decorative elements - but preserve visual worksheet elements */
@@ -804,14 +850,42 @@ html {
   [data-worksheet-content="true"] .visual-grid [class*="bg-"],
   [data-worksheet-content="true"] .worksheet-box [class*="bg-"],
   [data-worksheet-content="true"] .math-box [class*="bg-"],
-  [data-worksheet-content="true"] .frame-box [class*="bg-"] {
+  [data-worksheet-content="true"] .frame-box [class*="bg-"],
+  section .worksheet-visual [class*="bg-"],
+  section .visual-grid [class*="bg-"],
+  section .worksheet-box [class*="bg-"] {
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+    color-adjust: exact !important;
+  }
+  
+  /* Preserve dashed borders (used for input fields and drawing areas) */
+  [data-worksheet-content="true"] [class*="border-dashed"],
+  section [class*="border-dashed"] {
+    border-style: dashed !important;
+    border-color: inherit !important;
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+    color-adjust: exact !important;
+  }
+  
+  /* Preserve aspect ratios for visual elements */
+  [data-worksheet-content="true"] [class*="aspect-square"],
+  section [class*="aspect-square"] {
+    aspect-ratio: 1 / 1 !important;
+  }
+  
+  /* Preserve gradients */
+  [data-worksheet-content="true"] [class*="bg-gradient"],
+  section [class*="bg-gradient"] {
     -webkit-print-color-adjust: exact !important;
     print-color-adjust: exact !important;
     color-adjust: exact !important;
   }
 
   /* Allow CSS grids to break naturally across printed pages - but preserve visual grids */
-  [data-worksheet-content="true"] .grid:not(.tens-frames-grid):not(.worksheet-visual):not(.visual-grid):not([class*="grid-cols-5"]):not([class*="grid-cols-10"]) {
+  [data-worksheet-content="true"] .grid:not(.tens-frames-grid):not(.worksheet-visual):not(.visual-grid):not([class*="grid-cols-5"]):not([class*="grid-cols-10"]):not([class*="grid-cols-3"]):not([class*="grid-cols-2"]),
+  section .grid:not(.tens-frames-grid):not(.worksheet-visual):not(.visual-grid):not([class*="grid-cols-5"]):not([class*="grid-cols-10"]):not([class*="grid-cols-3"]):not([class*="grid-cols-2"]) {
     display: block !important;
     width: 100% !important;
   }
