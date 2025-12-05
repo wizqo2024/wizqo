@@ -3942,7 +3942,7 @@ const renderers: Record<string, Renderer> = {
                       const isHighlighted = i === placeIndex
                       const formattedDigit = language === 'ar' ? formatNum(parseInt(digit, 10)) : digit
                       return (
-                        <div key={i} className={`text-center ${isHighlighted ? 'bg-purple-300 border-2 border-purple-600' : 'bg-white border border-purple-200'} rounded p-1 min-w-[50px]`}>
+                        <div key={i} className={`text-center ${isHighlighted ? 'bg-purple-300' : 'bg-white'} rounded p-1 min-w-[50px]`} style={{ border: 'none', borderWidth: 0 }}>
                           <div className="text-xs text-purple-600">{placeName}</div>
                           <div className={`text-lg font-bold ${isHighlighted ? 'text-purple-900' : 'text-purple-700'}`}>{formattedDigit}</div>
                         </div>
