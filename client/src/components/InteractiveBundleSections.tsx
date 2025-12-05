@@ -3931,9 +3931,9 @@ const renderers: Record<string, Renderer> = {
             const placeOrder = ['ones', 'tens', 'hundreds', 'thousands']
             const placeIndex = placeOrder.indexOf(prob.place)
             return (
-              <div key={idx} className="rounded-xl border border-purple-200 bg-white p-4">
+              <div key={idx} className="rounded-xl bg-white p-4" style={{ border: 'none', borderWidth: 0 }}>
                 <p className="text-lg font-bold text-purple-800 mb-2">{formatNum(prob.number)}</p>
-                <div className="mb-2 p-2 bg-purple-50 rounded border border-purple-200">
+                <div className="mb-2 p-2 bg-purple-50 rounded" style={{ border: 'none', borderWidth: 0 }}>
                   <p className="text-xs text-purple-700 mb-1 font-semibold">{t('worksheets.placeValue.placeValueChart')}</p>
                   <div className="flex gap-1 justify-start items-end">
                     {numStr.split('').reverse().map((digit, i) => {
