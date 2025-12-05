@@ -3923,9 +3923,9 @@ const renderers: Record<string, Renderer> = {
     const { seed, doc, variant, t, formatNum, language } = ctx
     const problems = buildMathPlaceValue(seed, doc.id, variant)
     return (
-      <div className="space-y-4">
+      <div className="space-y-4" style={{ border: 'none' }}>
         <p className="text-sm text-slate-600">{t('worksheets.placeValue.instructions')}</p>
-        <div className="space-y-3">
+        <div className="space-y-3" style={{ border: 'none' }}>
           {problems.map((prob, idx) => {
             const numStr = String(prob.number)
             const placeOrder = ['ones', 'tens', 'hundreds', 'thousands']

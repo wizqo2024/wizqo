@@ -645,7 +645,12 @@ html {
   [data-worksheet-content="true"] div[class*="rounded-xl"][class*="bg-white"]:has(div[class*="bg-purple-50"]),
   section div[class*="rounded-xl"][class*="bg-white"]:has(div[class*="bg-purple-50"]),
   [data-worksheet-content="true"] div[class*="bg-purple-50"],
-  section div[class*="bg-purple-50"] {
+  section div[class*="bg-purple-50"],
+  /* Also target any divs that might have gradient borders */
+  [data-worksheet-content="true"] div[class*="space-y-3"]:has(div[class*="bg-purple-50"]),
+  section div[class*="space-y-3"]:has(div[class*="bg-purple-50"]),
+  [data-worksheet-content="true"] div[class*="space-y-4"]:has(div[class*="bg-purple-50"]),
+  section div[class*="space-y-4"]:has(div[class*="bg-purple-50"]) {
     border: none !important;
     border-width: 0 !important;
     border-style: none !important;
