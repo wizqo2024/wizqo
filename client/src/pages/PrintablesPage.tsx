@@ -157,6 +157,12 @@ const PLACE_VALUE_PRINT_COLOR_RULES = `
           [data-worksheet-content="true"][data-doc="place-value-hto"] .place-value-hto-print-section [class*="border-emerald-300"] {
             border-color: #6ee7b7 !important;
           }
+          [data-worksheet-content="true"][data-doc="place-value-hto"] .place-value-hto-print-section .grid {
+            display: grid !important;
+          }
+          [data-worksheet-content="true"][data-doc="place-value-hto"] .place-value-hto-print-section .flex {
+            display: flex !important;
+          }
 `
 
 // Professional header component for print worksheets - matching Interactive Worksheets Generator
