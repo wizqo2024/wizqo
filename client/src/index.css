@@ -640,7 +640,12 @@ html {
   section .question-section > div.rounded-xl.print-ignore-inner-border.no-border.border-0,
   /* Also target any div containing tens-frames-grid */
   [data-worksheet-content="true"] .question-section > div:has(.tens-frames-grid),
-  section .question-section > div:has(.tens-frames-grid) {
+  section .question-section > div:has(.tens-frames-grid),
+  /* CRITICAL: Remove all borders from place-value containers and their children */
+  [data-worksheet-content="true"] div[class*="rounded-xl"][class*="bg-white"]:has(div[class*="bg-purple-50"]),
+  section div[class*="rounded-xl"][class*="bg-white"]:has(div[class*="bg-purple-50"]),
+  [data-worksheet-content="true"] div[class*="bg-purple-50"],
+  section div[class*="bg-purple-50"] {
     border: none !important;
     border-width: 0 !important;
     border-style: none !important;
