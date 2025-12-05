@@ -7112,18 +7112,11 @@ const answerRenderers: Record<string, AnswerRenderer> = {
 function WorksheetHeader({ problemCount }: { problemCount?: number }) {
   return (
     <div className="print:block hidden print:mb-4 pb-3 mb-4">
-      <div className="flex justify-between items-start">
-        <div className="flex-1">
-          <div className="text-sm mb-2"><strong>Name:</strong> _________________________</div>
-          <div className="text-sm mb-2"><strong>Date:</strong> ___________  <strong>Grade:</strong> _____</div>
-          <div className="text-sm"><strong>Teacher/Parent:</strong> _________________</div>
+      {problemCount && (
+        <div className="text-right text-xs text-slate-600">
+          <div>Score: ___ / {problemCount}</div>
         </div>
-        {problemCount && (
-          <div className="text-right text-xs text-slate-600">
-            <div>Score: ___ / {problemCount}</div>
-          </div>
-        )}
-      </div>
+      )}
     </div>
   )
 }
