@@ -1632,12 +1632,32 @@ html {
     border-color: #6ee7b7 !important;
   }
 
+  [data-worksheet-content="true"][data-doc="place-value-hto"] .place-value-hto-block {
+    border: 2px solid rgba(139, 92, 246, 0.35) !important;
+    border-radius: 0.9rem !important;
+    background-color: inherit !important;
+  }
+
   [data-worksheet-content="true"][data-doc="place-value-hto"] .place-value-hto-print-section .grid {
     display: grid !important;
   }
 
   [data-worksheet-content="true"][data-doc="place-value-hto"] .place-value-hto-print-section .flex {
     display: flex !important;
+  }
+
+  [data-worksheet-content="true"][data-doc="place-value-hto"] .place-value-hto-question-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+    gap: 1rem !important;
+  }
+
+  [data-worksheet-content="true"][data-doc="place-value-hto"] .place-value-hto-answer-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
+    gap: 0.75rem !important;
+  }
+
+  [data-worksheet-content="true"][data-doc="place-value-hto"] .place-value-hto-answer-grid > div {
+    min-height: 1.6in !important;
   }
 }
 
