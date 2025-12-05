@@ -745,13 +745,15 @@ html {
   [data-worksheet-content="true"] .tens-frame-box.bg-white,
   section .tens-frame-box:not([class*="bg-purple"]):not([class*="bg-indigo"]):not([class*="bg-pink"]),
   section .tens-frame-box.bg-white {
-    border: 2px solid #7c3aed !important; /* Even darker purple for empty boxes */
-    border-color: #7c3aed !important;
+    border: 2px solid #6b21a8 !important; /* Very dark purple for maximum visibility */
+    border-color: #6b21a8 !important;
     border-width: 2px !important;
     border-style: solid !important;
-    background-color: white !important;
-    /* Add subtle background to make box visible */
-    background-image: linear-gradient(to bottom, #ffffff 0%, #fafafa 100%) !important;
+    background-color: #fefefe !important; /* Very light gray instead of pure white */
+    /* Ensure it's visible */
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+    color-adjust: exact !important;
   }
 
   /* Preserve borders and styles for elements inside visual grids (grid-cols-5, grid-cols-10, etc.) */

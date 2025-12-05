@@ -3763,10 +3763,10 @@ const renderers: Record<string, Renderer> = {
                         opacity: 1,
                         minWidth: '20px',
                         minHeight: '20px',
-                        border: i < showFilled ? '2px solid #a855f7' : '2px solid #9333ea', // Darker border for empty boxes
+                        border: i < showFilled ? '2px solid #a855f7' : '2px solid #6b21a8', // Very dark border for empty boxes
                         borderStyle: 'solid',
                         borderWidth: '2px',
-                        backgroundColor: i < showFilled ? '#a855f7' : 'white'
+                        backgroundColor: i < showFilled ? '#a855f7' : '#fefefe' // Very light gray for empty boxes
                       }}
                     >&nbsp;</div>
                   ))}
