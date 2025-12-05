@@ -612,14 +612,27 @@ html {
   }
   
   [data-worksheet-content="true"] .worksheet-section > div:not(.print-ignore-inner-border):not([class*="border-"]):not([class*="print:border"]):not([class*="no-border"]),
-  [data-worksheet-content="true"] .worksheet-card > div:not(.print-ignore-inner-border):not([class*="border-"]):not([class*="print:border"]):not([class*="no-border"]),
-  [data-worksheet-content="true"] .question-section > div:not(.print-ignore-inner-border):not([class*="border-"]):not([class*="print:border"]):not([class*="no-border"]),
-  [data-worksheet-content="true"] .question-section-wrapper > div:not(.print-ignore-inner-border):not([class*="border-"]):not([class*="print:border"]):not([class*="no-border"]) {
+  [data-worksheet-content="true"] .worksheet-card > div:not(.print-ignore-inner-border):not([class*="border-"]):not([class*="print:border"]):not([class*="no-border"]):not(.rounded-xl[class*="bg-purple-50"]),
+  [data-worksheet-content="true"] .question-section > div:not(.print-ignore-inner-border):not([class*="border-"]):not([class*="print:border"]):not([class*="no-border"]):not(.rounded-xl[class*="bg-purple-50"]),
+  [data-worksheet-content="true"] .question-section-wrapper > div:not(.print-ignore-inner-border):not([class*="border-"]):not([class*="print:border"]):not([class*="no-border"]):not(.rounded-xl[class*="bg-purple-50"]) {
     border: 1px solid rgba(15, 23, 42, 0.12) !important;
     border-radius: 12px !important;
     padding: 0.35rem 0.5rem !important;
     margin-bottom: 0.4rem !important;
     background: white !important;
+  }
+  
+  /* CRITICAL: Ensure tens frame containers have NO borders */
+  [data-worksheet-content="true"] .question-section > div.print-ignore-inner-border,
+  [data-worksheet-content="true"] .question-section > div.no-border,
+  [data-worksheet-content="true"] .question-section > div.rounded-xl[class*="bg-purple-50"],
+  section .question-section > div.print-ignore-inner-border,
+  section .question-section > div.no-border,
+  section .question-section > div.rounded-xl[class*="bg-purple-50"] {
+    border: none !important;
+    border-width: 0 !important;
+    border-style: none !important;
+    border-color: transparent !important;
   }
   
   /* Override white background for elements with colored backgrounds */
