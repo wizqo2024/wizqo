@@ -807,20 +807,22 @@ html {
   /* Preserve rounded corners on worksheet content boxes */
   [data-worksheet-content="true"] [class*="rounded-xl"][class*="border"],
   [data-worksheet-content="true"] [class*="rounded-lg"][class*="border"],
-  [data-worksheet-content="true"] [class*="rounded"][class*="border"],
-  section [class*="rounded-xl"][class*="border"],
-  section [class*="rounded-lg"][class*="border"],
-  section [class*="rounded"][class*="border"] {
+  [data-worksheet-content="true"] [class*="rounded"][class*="border"]:not(.tens-frame-box),
+  section [class*="rounded-xl"][class*="border"]:not(.tens-frame-box),
+  section [class*="rounded-lg"][class*="border"]:not(.tens-frame-box),
+  section [class*="rounded"][class*="border"]:not(.tens-frame-box) {
     border-radius: inherit !important;
-    border: inherit !important;
+    /* Don't use border: inherit - it causes double borders */
+    border-style: solid !important;
   }
   
-  /* CRITICAL: Preserve borders on all worksheet content elements */
-  [data-worksheet-content="true"] [class*="border"]:not([class*="border-0"]):not([class*="border-none"]):not(button):not(nav):not(header:not(.print-header)),
-  section [class*="border"]:not([class*="border-0"]):not([class*="border-none"]):not(button):not(nav):not(header:not(.print-header)) {
-    border-style: inherit !important;
-    border-width: inherit !important;
-    border-color: inherit !important;
+  /* CRITICAL: Preserve borders on all worksheet content elements - but don't use inherit to avoid double borders */
+  /* Only preserve border style and color, not inherit full border */
+  [data-worksheet-content="true"] [class*="border"]:not([class*="border-0"]):not([class*="border-none"]):not(button):not(nav):not(header:not(.print-header)):not(.tens-frame-box),
+  section [class*="border"]:not([class*="border-0"]):not([class*="border-none"]):not(button):not(nav):not(header:not(.print-header)):not(.tens-frame-box) {
+    /* Don't use border: inherit - it causes double borders */
+    /* Just ensure border-style is preserved */
+    border-style: solid !important;
     -webkit-print-color-adjust: exact !important;
     print-color-adjust: exact !important;
     color-adjust: exact !important;
@@ -847,37 +849,48 @@ html {
     color-adjust: exact !important;
   }
   
-  /* CRITICAL: Override border removal for tens frame boxes - must come after removal rule */
-  .tens-frame-box,
-  .tens-frame-box[class*="border-2"],
-  [data-worksheet-content="true"] .tens-frame-box,
-  [data-worksheet-content="true"] .tens-frame-box[class*="border-2"],
-  section .tens-frame-box,
-  section .tens-frame-box[class*="border-2"] {
-    border: 2px solid #9333ea !important; /* Dark purple - highly visible */
+  /* CRITICAL: Tens frame boxes - filled boxes (with purple background) - SINGLE BORDER */
+  .tens-frame-box[class*="bg-purple-400"],
+  .tens-frame-box[class*="bg-purple"],
+  [data-worksheet-content="true"] .tens-frame-box[class*="bg-purple-400"],
+  [data-worksheet-content="true"] .tens-frame-box[class*="bg-purple"],
+  section .tens-frame-box[class*="bg-purple-400"],
+  section .tens-frame-box[class*="bg-purple"] {
+    border: 2px solid #9333ea !important; /* Single border - dark purple, NO inherit */
     border-style: solid !important;
     border-width: 2px !important;
     border-color: #9333ea !important;
-    outline: none !important; /* Remove outline, use border */
+    outline: none !important;
+    box-shadow: none !important;
   }
   
-  /* Ensure empty/white boxes are especially visible */
-  .tens-frame-box:not([class*="bg-purple"]):not([class*="bg-indigo"]):not([class*="bg-pink"]),
+  /* CRITICAL: Empty/white tens frame boxes - SINGLE BORDER, must override filled box rule */
   .tens-frame-box.bg-white,
   .tens-frame-box[class*="bg-white"],
-  [data-worksheet-content="true"] .tens-frame-box:not([class*="bg-purple"]):not([class*="bg-indigo"]):not([class*="bg-pink"]),
   [data-worksheet-content="true"] .tens-frame-box.bg-white,
-  section .tens-frame-box:not([class*="bg-purple"]):not([class*="bg-indigo"]):not([class*="bg-pink"]),
-  section .tens-frame-box.bg-white {
-    border: 2px solid #6b21a8 !important; /* Very dark purple for maximum visibility */
-    border-color: #6b21a8 !important;
-    border-width: 2px !important;
+  [data-worksheet-content="true"] .tens-frame-box[class*="bg-white"],
+  section .tens-frame-box.bg-white,
+  section .tens-frame-box[class*="bg-white"],
+  /* Catch empty boxes (no bg-purple class) */
+  .tens-frame-box:not([class*="bg-purple-400"]):not([class*="bg-purple"]):not([class*="bg-indigo"]):not([class*="bg-pink"]):not([class*="bg-emerald"]):not([class*="bg-blue"]),
+  [data-worksheet-content="true"] .tens-frame-box:not([class*="bg-purple-400"]):not([class*="bg-purple"]):not([class*="bg-indigo"]):not([class*="bg-pink"]):not([class*="bg-emerald"]):not([class*="bg-blue"]),
+  section .tens-frame-box:not([class*="bg-purple-400"]):not([class*="bg-purple"]):not([class*="bg-indigo"]):not([class*="bg-pink"]):not([class*="bg-emerald"]):not([class*="bg-blue"]) {
+    background-color: #fefefe !important; /* Light gray for visibility */
+    border: 2px solid #6b21a8 !important; /* Single border - very dark purple, NO inherit */
     border-style: solid !important;
-    background-color: #fefefe !important; /* Very light gray instead of pure white */
-    /* Ensure it's visible */
+    border-width: 2px !important;
+    border-color: #6b21a8 !important;
+    border-radius: 4px !important;
     -webkit-print-color-adjust: exact !important;
     print-color-adjust: exact !important;
     color-adjust: exact !important;
+    min-width: 20px !important;
+    min-height: 20px !important;
+    display: block !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+    outline: none !important;
+    box-shadow: none !important;
   }
   
   /* Ensure all worksheet boxes with white backgrounds are visible in print */
@@ -943,12 +956,13 @@ html {
   [data-worksheet-content="true"] .grid[class*="grid-cols-2"] [class*="border"],
   [data-worksheet-content="true"] .grid[class*="grid-cols-4"] [class*="border"],
   [data-worksheet-content="true"] section .grid[class*="grid-cols-5"] [class*="border"],
-  [data-worksheet-content="true"] section .grid[class*="grid-cols-10"] [class*="border"],
-  [data-worksheet-content="true"] section .grid[class*="grid-cols-3"] [class*="border"],
-  [data-worksheet-content="true"] section .grid[class*="grid-cols-2"] [class*="border"],
-  [data-worksheet-content="true"] section .grid[class*="grid-cols-4"] [class*="border"] {
-    border: inherit !important;
+  [data-worksheet-content="true"] section .grid[class*="grid-cols-10"] [class*="border"]:not(.tens-frame-box),
+  [data-worksheet-content="true"] section .grid[class*="grid-cols-3"] [class*="border"]:not(.tens-frame-box),
+  [data-worksheet-content="true"] section .grid[class*="grid-cols-2"] [class*="border"]:not(.tens-frame-box),
+  [data-worksheet-content="true"] section .grid[class*="grid-cols-4"] [class*="border"]:not(.tens-frame-box) {
+    /* Don't use border: inherit - it causes double borders */
     border-radius: inherit !important;
+    border-style: solid !important;
     -webkit-print-color-adjust: exact !important;
     print-color-adjust: exact !important;
     color-adjust: exact !important;
@@ -1107,13 +1121,13 @@ html {
     opacity: 1 !important;
   }
   
+  /* General tens-frame-box layout properties - border rules are above */
   .tens-frame-box,
   [data-worksheet-content="true"] .tens-frame-box,
   section .tens-frame-box {
     display: block !important;
     visibility: visible !important;
     opacity: 1 !important;
-    border: 2px solid #9333ea !important; /* Darker purple for better print visibility */
     border-radius: 4px !important;
     aspect-ratio: 1 / 1 !important;
     width: 100% !important;
@@ -1125,9 +1139,8 @@ html {
     color-adjust: exact !important;
     box-shadow: none !important;
     background-clip: padding-box !important;
-    /* Force border to be visible */
-    border-style: solid !important;
-    border-width: 2px !important;
+    outline: none !important;
+    /* Border is set by specific rules above - don't duplicate here */
   }
   
   /* Preserve background colors for filled tens frame boxes */
@@ -1143,14 +1156,19 @@ html {
     color-adjust: exact !important;
   }
   
+  /* CRITICAL: Empty/white tens-frame-box elements - must override base rule */
   .tens-frame-box.bg-white,
   .tens-frame-box[class*="bg-white"],
   [data-worksheet-content="true"] .tens-frame-box.bg-white,
   [data-worksheet-content="true"] .tens-frame-box[class*="bg-white"],
   section .tens-frame-box.bg-white,
-  section .tens-frame-box[class*="bg-white"] {
+  section .tens-frame-box[class*="bg-white"],
+  /* Also catch empty tens-frame-box elements (no bg-purple class means empty) */
+  .tens-frame-box:not([class*="bg-purple-400"]):not([class*="bg-purple"]):not([class*="bg-indigo"]):not([class*="bg-pink"]):not([class*="bg-emerald"]):not([class*="bg-blue"]),
+  [data-worksheet-content="true"] .tens-frame-box:not([class*="bg-purple-400"]):not([class*="bg-purple"]):not([class*="bg-indigo"]):not([class*="bg-pink"]):not([class*="bg-emerald"]):not([class*="bg-blue"]),
+  section .tens-frame-box:not([class*="bg-purple-400"]):not([class*="bg-purple"]):not([class*="bg-indigo"]):not([class*="bg-pink"]):not([class*="bg-emerald"]):not([class*="bg-blue"]) {
     background-color: #fefefe !important; /* Light gray for visibility */
-    border: 2px solid #6b21a8 !important; /* Very dark purple for maximum visibility */
+    border: 2px solid #6b21a8 !important; /* Single border - very dark purple, NO inherit */
     border-color: #6b21a8 !important;
     border-width: 2px !important;
     border-style: solid !important;
@@ -1158,12 +1176,13 @@ html {
     -webkit-print-color-adjust: exact !important;
     print-color-adjust: exact !important;
     color-adjust: exact !important;
-    /* Ensure box is visible even if empty */
     min-width: 20px !important;
     min-height: 20px !important;
     display: block !important;
     visibility: visible !important;
     opacity: 1 !important;
+    outline: none !important;
+    box-shadow: none !important;
   }
 
   /* Preserve visual grids (grids with borders or used for visual layouts) */
@@ -1193,22 +1212,20 @@ html {
     color-adjust: exact !important;
   }
 
-  /* Preserve borders on visual elements within grids */
-  [data-worksheet-content="true"] .grid.visual-grid [class*="border"],
-  [data-worksheet-content="true"] .grid[class*="grid-cols-5"] [class*="border"],
-  [data-worksheet-content="true"] .grid[class*="grid-cols-10"] [class*="border"],
-  [data-worksheet-content="true"] .grid[class*="grid-cols-3"] [class*="border"],
-  [data-worksheet-content="true"] .grid:has([class*="border"]) [class*="border"],
-  section .grid.visual-grid [class*="border"],
-  section .grid[class*="grid-cols-5"] [class*="border"],
-  section .grid[class*="grid-cols-10"] [class*="border"],
-  section .grid[class*="grid-cols-3"] [class*="border"],
-  section .grid:has([class*="border"]) [class*="border"] {
-    border: inherit !important;
+  /* Preserve borders on visual elements within grids - but don't use inherit to avoid double borders */
+  [data-worksheet-content="true"] .grid.visual-grid [class*="border"]:not(.tens-frame-box),
+  [data-worksheet-content="true"] .grid[class*="grid-cols-5"] [class*="border"]:not(.tens-frame-box),
+  [data-worksheet-content="true"] .grid[class*="grid-cols-10"] [class*="border"]:not(.tens-frame-box),
+  [data-worksheet-content="true"] .grid[class*="grid-cols-3"] [class*="border"]:not(.tens-frame-box),
+  section .grid.visual-grid [class*="border"]:not(.tens-frame-box),
+  section .grid[class*="grid-cols-5"] [class*="border"]:not(.tens-frame-box),
+  section .grid[class*="grid-cols-10"] [class*="border"]:not(.tens-frame-box),
+  section .grid[class*="grid-cols-3"] [class*="border"]:not(.tens-frame-box) {
     border-radius: inherit !important;
     -webkit-print-color-adjust: exact !important;
     print-color-adjust: exact !important;
     color-adjust: exact !important;
+    /* Don't use border: inherit - it causes double borders */
   }
 
   /* Preserve background colors in visual elements */
