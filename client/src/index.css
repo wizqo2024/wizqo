@@ -608,6 +608,13 @@ html {
     margin-bottom: 0.4rem !important;
     background: white !important;
   }
+  
+  /* Override white background for elements with colored backgrounds */
+  [data-worksheet-content="true"] .worksheet-section > div:not(.print-ignore-inner-border):not([class*="bg-"]):not([class*="bg-gradient"]),
+  [data-worksheet-content="true"] .worksheet-card > div:not(.print-ignore-inner-border):not([class*="bg-"]):not([class*="bg-gradient"]),
+  [data-worksheet-content="true"] .question-section > div:not(.print-ignore-inner-border):not([class*="bg-"]):not([class*="bg-gradient"]) {
+    background: white !important;
+  }
 
   [data-worksheet-content="true"] .worksheet-section > div:not(.print-ignore-inner-border):last-child,
   [data-worksheet-content="true"] .worksheet-card > div:not(.print-ignore-inner-border):last-child,
@@ -713,14 +720,57 @@ html {
   }
   
   /* Remove decorative elements - but preserve visual worksheet elements */
-  /* Exclude elements inside visual grids from border removal */
-  [class*="shadow"]:not(.worksheet-visual):not(.tens-frame-box):not(.tens-frames-grid):not(.worksheet-box):not(.visual-grid):not(.math-box):not(.frame-box),
-  [class*="rounded"]:not(.worksheet-visual):not(.tens-frame-box):not(.tens-frames-grid):not(.worksheet-box):not(.visual-grid):not(.math-box):not(.frame-box),
-  [class*="border-2"]:not(.worksheet-visual):not(.tens-frame-box):not(.tens-frames-grid):not(.worksheet-box):not(.visual-grid):not(.math-box):not(.frame-box),
-  [class*="border-4"]:not(.worksheet-visual):not(.tens-frame-box):not(.tens-frames-grid):not(.worksheet-box):not(.visual-grid):not(.math-box):not(.frame-box) {
+  /* Exclude elements inside visual grids, tables, and worksheet content from border removal */
+  [class*="shadow"]:not(.worksheet-visual):not(.tens-frame-box):not(.tens-frames-grid):not(.worksheet-box):not(.visual-grid):not(.math-box):not(.frame-box):not(table *):not([data-worksheet-content="true"] [class*="border"]):not(section [class*="border"]):not([class*="rounded-xl"]):not([class*="rounded-lg"]),
+  [class*="rounded"]:not(.worksheet-visual):not(.tens-frame-box):not(.tens-frames-grid):not(.worksheet-box):not(.visual-grid):not(.math-box):not(.frame-box):not(table *):not([data-worksheet-content="true"] [class*="border"]):not(section [class*="border"]):not([class*="rounded-full"]):not([class*="rounded-xl"]):not([class*="rounded-lg"]),
+  [class*="border-2"]:not(.worksheet-visual):not(.tens-frame-box):not(.tens-frames-grid):not(.worksheet-box):not(.visual-grid):not(.math-box):not(.frame-box):not(table *):not([data-worksheet-content="true"] [class*="border"]):not(section [class*="border"]):not([class*="rounded-xl"]):not([class*="rounded-lg"]),
+  [class*="border-4"]:not(.worksheet-visual):not(.tens-frame-box):not(.tens-frames-grid):not(.worksheet-box):not(.visual-grid):not(.math-box):not(.frame-box):not(table *):not([data-worksheet-content="true"] [class*="border"]):not(section [class*="border"]):not([class*="rounded-xl"]):not([class*="rounded-lg"]) {
     box-shadow: none !important;
     border-radius: 0 !important;
     border: none !important;
+  }
+  
+  /* Preserve rounded corners on worksheet content boxes */
+  [data-worksheet-content="true"] [class*="rounded-xl"][class*="border"],
+  [data-worksheet-content="true"] [class*="rounded-lg"][class*="border"],
+  [data-worksheet-content="true"] [class*="rounded"][class*="border"],
+  section [class*="rounded-xl"][class*="border"],
+  section [class*="rounded-lg"][class*="border"],
+  section [class*="rounded"][class*="border"] {
+    border-radius: inherit !important;
+    border: inherit !important;
+  }
+  
+  /* CRITICAL: Preserve borders on all worksheet content elements */
+  [data-worksheet-content="true"] [class*="border"]:not([class*="border-0"]):not([class*="border-none"]):not(button):not(nav):not(header:not(.print-header)),
+  section [class*="border"]:not([class*="border-0"]):not([class*="border-none"]):not(button):not(nav):not(header:not(.print-header)) {
+    border-style: inherit !important;
+    border-width: inherit !important;
+    border-color: inherit !important;
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+    color-adjust: exact !important;
+  }
+  
+  /* Ensure all white boxes in worksheet content are visible */
+  [data-worksheet-content="true"] [class*="bg-white"]:not(button):not(nav):not(header:not(.print-header)),
+  section [class*="bg-white"]:not(button):not(nav):not(header:not(.print-header)) {
+    background-color: #fefefe !important; /* Light gray for visibility */
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+    color-adjust: exact !important;
+  }
+  
+  /* Ensure borders on white boxes are visible - override any border removal */
+  [data-worksheet-content="true"] [class*="bg-white"][class*="border"],
+  [data-worksheet-content="true"] [class*="border"][class*="bg-white"],
+  section [class*="bg-white"][class*="border"],
+  section [class*="border"][class*="bg-white"] {
+    border-style: solid !important;
+    border-width: 1px !important;
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+    color-adjust: exact !important;
   }
   
   /* CRITICAL: Override border removal for tens frame boxes - must come after removal rule */
@@ -892,13 +942,72 @@ html {
   }
   
   /* General rule: All boxes with borders should have visible borders in print */
-  [data-worksheet-content="true"] [class*="border"]:not([class*="bg-purple"]):not([class*="bg-emerald"]):not([class*="bg-blue"]):not([class*="bg-indigo"]):not([class*="bg-pink"]):not([class*="bg-yellow"]):not([class*="bg-green"]):not([class*="bg-red"]):not([class*="bg-orange"]),
-  section [class*="border"]:not([class*="bg-purple"]):not([class*="bg-emerald"]):not([class*="bg-blue"]):not([class*="bg-indigo"]):not([class*="bg-pink"]):not([class*="bg-yellow"]):not([class*="bg-green"]):not([class*="bg-red"]):not([class*="bg-orange"]) {
+  [data-worksheet-content="true"] [class*="border"]:not([class*="bg-purple"]):not([class*="bg-emerald"]):not([class*="bg-blue"]):not([class*="bg-indigo"]):not([class*="bg-pink"]):not([class*="bg-yellow"]):not([class*="bg-green"]):not([class*="bg-red"]):not([class*="bg-orange"]):not([class*="bg-amber"]):not([class*="bg-rose"]):not([class*="bg-slate"]):not([class*="bg-gray"]),
+  section [class*="border"]:not([class*="bg-purple"]):not([class*="bg-emerald"]):not([class*="bg-blue"]):not([class*="bg-indigo"]):not([class*="bg-pink"]):not([class*="bg-yellow"]):not([class*="bg-green"]):not([class*="bg-red"]):not([class*="bg-orange"]):not([class*="bg-amber"]):not([class*="bg-rose"]):not([class*="bg-slate"]):not([class*="bg-gray"]) {
     border-style: solid !important;
     border-width: inherit !important;
     -webkit-print-color-adjust: exact !important;
     print-color-adjust: exact !important;
     color-adjust: exact !important;
+  }
+  
+  /* CRITICAL: Make ALL white boxes with borders visible in print */
+  [data-worksheet-content="true"] [class*="bg-white"][class*="border"],
+  [data-worksheet-content="true"] [class*="border"][class*="bg-white"],
+  section [class*="bg-white"][class*="border"],
+  section [class*="border"][class*="bg-white"],
+  /* Also catch elements that have border but no explicit background (defaults to white) */
+  [data-worksheet-content="true"] [class*="border"]:not([class*="bg-"]):not([class*="bg-gradient"]),
+  section [class*="border"]:not([class*="bg-"]):not([class*="bg-gradient"]) {
+    background-color: #fefefe !important; /* Light gray for visibility */
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+    color-adjust: exact !important;
+  }
+  
+  /* Ensure borders on white boxes are dark and visible */
+  [data-worksheet-content="true"] [class*="bg-white"][class*="border-slate"],
+  [data-worksheet-content="true"] [class*="border-slate"][class*="bg-white"],
+  [data-worksheet-content="true"] [class*="border-slate"]:not([class*="bg-"]),
+  section [class*="bg-white"][class*="border-slate"],
+  section [class*="border-slate"][class*="bg-white"],
+  section [class*="border-slate"]:not([class*="bg-"]) {
+    border-color: #334155 !important; /* Dark slate */
+    border-width: 1px !important;
+    border-style: solid !important;
+  }
+  
+  [data-worksheet-content="true"] [class*="bg-white"][class*="border-purple"],
+  [data-worksheet-content="true"] [class*="border-purple"][class*="bg-white"],
+  [data-worksheet-content="true"] [class*="border-purple"]:not([class*="bg-"]),
+  section [class*="bg-white"][class*="border-purple"],
+  section [class*="border-purple"][class*="bg-white"],
+  section [class*="border-purple"]:not([class*="bg-"]) {
+    border-color: #6b21a8 !important; /* Dark purple */
+    border-width: 1px !important;
+    border-style: solid !important;
+  }
+  
+  [data-worksheet-content="true"] [class*="bg-white"][class*="border-emerald"],
+  [data-worksheet-content="true"] [class*="border-emerald"][class*="bg-white"],
+  [data-worksheet-content="true"] [class*="border-emerald"]:not([class*="bg-"]),
+  section [class*="bg-white"][class*="border-emerald"],
+  section [class*="border-emerald"][class*="bg-white"],
+  section [class*="border-emerald"]:not([class*="bg-"]) {
+    border-color: #065f46 !important; /* Dark green */
+    border-width: 1px !important;
+    border-style: solid !important;
+  }
+  
+  [data-worksheet-content="true"] [class*="bg-white"][class*="border-indigo"],
+  [data-worksheet-content="true"] [class*="border-indigo"][class*="bg-white"],
+  [data-worksheet-content="true"] [class*="border-indigo"]:not([class*="bg-"]),
+  section [class*="bg-white"][class*="border-indigo"],
+  section [class*="border-indigo"][class*="bg-white"],
+  section [class*="border-indigo"]:not([class*="bg-"]) {
+    border-color: #312e81 !important; /* Dark indigo */
+    border-width: 1px !important;
+    border-style: solid !important;
   }
 
   /* Preserve tens frames boxes in print - CRITICAL: Must be very specific */
@@ -962,9 +1071,9 @@ html {
   [data-worksheet-content="true"] .tens-frame-box[class*="bg-white"],
   section .tens-frame-box.bg-white,
   section .tens-frame-box[class*="bg-white"] {
-    background-color: white !important;
-    border: 2px solid #9333ea !important; /* Darker purple for better visibility */
-    border-color: #9333ea !important;
+    background-color: #fefefe !important; /* Light gray for visibility */
+    border: 2px solid #6b21a8 !important; /* Very dark purple for maximum visibility */
+    border-color: #6b21a8 !important;
     border-width: 2px !important;
     border-style: solid !important;
     border-radius: 4px !important;
@@ -983,6 +1092,8 @@ html {
   [data-worksheet-content="true"] .grid[class*="grid-cols-5"],
   [data-worksheet-content="true"] .grid[class*="grid-cols-10"],
   [data-worksheet-content="true"] .grid[class*="grid-cols-3"],
+  [data-worksheet-content="true"] .grid[class*="grid-cols-2"],
+  [data-worksheet-content="true"] .grid[class*="grid-cols-4"],
   [data-worksheet-content="true"] .grid.worksheet-visual,
   [data-worksheet-content="true"] .grid.visual-grid,
   [data-worksheet-content="true"] .grid.tens-frames-grid,
@@ -990,9 +1101,14 @@ html {
   section .grid[class*="grid-cols-5"],
   section .grid[class*="grid-cols-10"],
   section .grid[class*="grid-cols-3"],
+  section .grid[class*="grid-cols-2"],
+  section .grid[class*="grid-cols-4"],
   /* Preserve grids that contain bordered elements (visual layouts) */
   [data-worksheet-content="true"] .grid:has([class*="border"]),
-  section .grid:has([class*="border"]) {
+  section .grid:has([class*="border"]),
+  /* Preserve grids that contain worksheet-box elements */
+  [data-worksheet-content="true"] .grid:has(.worksheet-box),
+  section .grid:has(.worksheet-box) {
     display: grid !important;
     -webkit-print-color-adjust: exact !important;
     print-color-adjust: exact !important;
@@ -1025,10 +1141,31 @@ html {
   [data-worksheet-content="true"] .frame-box [class*="bg-"],
   section .worksheet-visual [class*="bg-"],
   section .visual-grid [class*="bg-"],
-  section .worksheet-box [class*="bg-"] {
+  section .worksheet-box [class*="bg-"],
+  /* Preserve progress bars and fraction bars */
+  [data-worksheet-content="true"] [class*="rounded-full"][class*="bg-"],
+  [data-worksheet-content="true"] [class*="h-3"][class*="bg-"],
+  [data-worksheet-content="true"] [class*="h-4"][class*="bg-"],
+  section [class*="rounded-full"][class*="bg-"],
+  section [class*="h-3"][class*="bg-"],
+  section [class*="h-4"][class*="bg-"] {
     -webkit-print-color-adjust: exact !important;
     print-color-adjust: exact !important;
     color-adjust: exact !important;
+  }
+  
+  /* Preserve progress bars (fraction bars, etc.) */
+  [data-worksheet-content="true"] [class*="rounded-full"][class*="bg-slate-100"],
+  [data-worksheet-content="true"] [class*="rounded-full"][class*="bg-purple-400"],
+  [data-worksheet-content="true"] [class*="rounded-full"][class*="bg-emerald"],
+  section [class*="rounded-full"][class*="bg-slate-100"],
+  section [class*="rounded-full"][class*="bg-purple-400"],
+  section [class*="rounded-full"][class*="bg-emerald"] {
+    background-color: inherit !important;
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+    color-adjust: exact !important;
+    border: inherit !important;
   }
   
   /* Preserve dashed borders (used for input fields and drawing areas) */
@@ -1105,19 +1242,20 @@ html {
   }
 
   /* Allow CSS grids to break naturally across printed pages - but preserve visual grids */
-  [data-worksheet-content="true"] .grid:not(.tens-frames-grid):not(.worksheet-visual):not(.visual-grid):not([class*="grid-cols-5"]):not([class*="grid-cols-10"]):not([class*="grid-cols-3"]):not([class*="grid-cols-2"]),
-  section .grid:not(.tens-frames-grid):not(.worksheet-visual):not(.visual-grid):not([class*="grid-cols-5"]):not([class*="grid-cols-10"]):not([class*="grid-cols-3"]):not([class*="grid-cols-2"]) {
+  [data-worksheet-content="true"] .grid:not(.tens-frames-grid):not(.worksheet-visual):not(.visual-grid):not([class*="grid-cols-5"]):not([class*="grid-cols-10"]):not([class*="grid-cols-3"]):not([class*="grid-cols-2"]):not([class*="grid-cols-4"]):not(:has([class*="border"])):not(:has(.worksheet-box)),
+  section .grid:not(.tens-frames-grid):not(.worksheet-visual):not(.visual-grid):not([class*="grid-cols-5"]):not([class*="grid-cols-10"]):not([class*="grid-cols-3"]):not([class*="grid-cols-2"]):not([class*="grid-cols-4"]):not(:has([class*="border"])):not(:has(.worksheet-box)) {
     display: block !important;
     width: 100% !important;
   }
 
-  [data-worksheet-content="true"] .grid::after {
+  /* Don't apply float rules to visual grids */
+  [data-worksheet-content="true"] .grid:not(.tens-frames-grid):not(.worksheet-visual):not(.visual-grid):not([class*="grid-cols-5"]):not([class*="grid-cols-10"]):not([class*="grid-cols-3"]):not([class*="grid-cols-2"]):not([class*="grid-cols-4"]):not(:has([class*="border"])):not(:has(.worksheet-box))::after {
     content: '' !important;
     display: block !important;
     clear: both !important;
   }
 
-  [data-worksheet-content="true"] .grid > * {
+  [data-worksheet-content="true"] .grid:not(.tens-frames-grid):not(.worksheet-visual):not(.visual-grid):not([class*="grid-cols-5"]):not([class*="grid-cols-10"]):not([class*="grid-cols-3"]):not([class*="grid-cols-2"]):not([class*="grid-cols-4"]):not(:has([class*="border"])):not(:has(.worksheet-box)) > * {
     float: left !important;
     display: block !important;
     vertical-align: top;
@@ -1192,11 +1330,46 @@ html {
     -webkit-region-break-inside: auto !important;
   }
   
-  /* Ensure content is visible */
-  [data-worksheet-content="true"] * {
+  /* Ensure content is visible - but preserve colored backgrounds */
+  [data-worksheet-content="true"] *:not([class*="bg-"]):not([class*="bg-gradient"]):not(table):not(table *):not(.worksheet-box):not(.tens-frame-box):not([class*="bg-purple"]):not([class*="bg-emerald"]):not([class*="bg-blue"]):not([class*="bg-indigo"]):not([class*="bg-pink"]):not([class*="bg-yellow"]):not([class*="bg-green"]):not([class*="bg-red"]):not([class*="bg-orange"]):not([class*="bg-amber"]):not([class*="bg-rose"]):not([class*="bg-slate"]):not([class*="bg-gray"]) {
     visibility: visible !important;
     color: black !important;
-    background: white !important;
+  }
+  
+  /* CRITICAL: Preserve colored backgrounds - override any white background rules */
+  [data-worksheet-content="true"] [class*="bg-purple"],
+  [data-worksheet-content="true"] [class*="bg-emerald"],
+  [data-worksheet-content="true"] [class*="bg-blue"],
+  [data-worksheet-content="true"] [class*="bg-indigo"],
+  [data-worksheet-content="true"] [class*="bg-pink"],
+  [data-worksheet-content="true"] [class*="bg-yellow"],
+  [data-worksheet-content="true"] [class*="bg-green"],
+  [data-worksheet-content="true"] [class*="bg-red"],
+  [data-worksheet-content="true"] [class*="bg-orange"],
+  [data-worksheet-content="true"] [class*="bg-amber"],
+  [data-worksheet-content="true"] [class*="bg-rose"],
+  [data-worksheet-content="true"] [class*="bg-slate"],
+  [data-worksheet-content="true"] [class*="bg-gray"],
+  [data-worksheet-content="true"] [class*="bg-gradient"],
+  section [class*="bg-purple"],
+  section [class*="bg-emerald"],
+  section [class*="bg-blue"],
+  section [class*="bg-indigo"],
+  section [class*="bg-pink"],
+  section [class*="bg-yellow"],
+  section [class*="bg-green"],
+  section [class*="bg-red"],
+  section [class*="bg-orange"],
+  section [class*="bg-amber"],
+  section [class*="bg-rose"],
+  section [class*="bg-slate"],
+  section [class*="bg-gray"],
+  section [class*="bg-gradient"] {
+    background-color: inherit !important;
+    background-image: inherit !important;
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+    color-adjust: exact !important;
   }
   
   /* Override dark backgrounds */
