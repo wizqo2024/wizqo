@@ -2068,11 +2068,10 @@ export function PrintablesPage() {
         }
         
         [data-worksheet-content="true"] .worksheet-section {
-          border: 4px solid transparent !important;
-          border-radius: 24px !important;
-          border-image: linear-gradient(120deg, #f472b6 0%, #ec4899 20%, #a855f7 40%, #6366f1 60%, #0ea5e9 80%, #14b8a6 100%) 1 !important;
-          padding: 1rem !important;
-          box-shadow: 0 18px 35px rgba(15, 23, 42, 0.12) !important;
+          border: 2px solid rgba(15, 23, 42, 0.12) !important;
+          border-radius: 20px !important;
+          padding: 0.85rem !important;
+          box-shadow: 0 8px 20px rgba(15, 23, 42, 0.08) !important;
           background: white !important;
         }
         
