@@ -2068,10 +2068,10 @@ export function PrintablesPage() {
         }
         
         [data-worksheet-content="true"] .worksheet-section {
-          border: 2px solid rgba(15, 23, 42, 0.12) !important;
-          border-radius: 20px !important;
-          padding: 0.85rem !important;
-          box-shadow: 0 8px 20px rgba(15, 23, 42, 0.08) !important;
+          border: none !important;
+          border-radius: 0 !important;
+          padding: 0.75rem !important;
+          box-shadow: none !important;
           background: white !important;
         }
         
@@ -3133,9 +3133,12 @@ export function PrintablesPage() {
           /* Worksheet sections - keep original borders */
           [data-worksheet-content="true"] .worksheet-section {
             margin: 0 0 12px 0;
-            padding: 8px;
+            padding: 0.75rem !important;
             background: white;
             page-break-inside: auto;
+            border: none !important;
+            border-radius: 0 !important;
+            box-shadow: none !important;
           }
           
           [data-worksheet-content="true"] .print-header-floating {
