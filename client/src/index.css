@@ -867,11 +867,19 @@ html {
     box-shadow: none !important;
   }
   
-  /* Ensure gradient border wrapper has no additional borders - exclude from all border rules */
+  /* CRITICAL: Ensure gradient border wrapper has NO borders at all - gradient is created by padding only */
+  /* Target all possible selectors for the gradient wrapper */
   [data-worksheet-content="true"] .rounded-xl.p-\[2px\][class*="bg-gradient-to-br"],
   [data-worksheet-content="true"] .rounded-xl[class*="bg-gradient-to-br"][class*="from-purple-400"],
+  [data-worksheet-content="true"] .rounded-xl[class*="bg-gradient-to-br"][class*="via-indigo-400"],
+  [data-worksheet-content="true"] .rounded-xl[class*="bg-gradient-to-br"][class*="to-pink-400"],
   section .rounded-xl.p-\[2px\][class*="bg-gradient-to-br"],
-  section .rounded-xl[class*="bg-gradient-to-br"][class*="from-purple-400"] {
+  section .rounded-xl[class*="bg-gradient-to-br"][class*="from-purple-400"],
+  section .rounded-xl[class*="bg-gradient-to-br"][class*="via-indigo-400"],
+  section .rounded-xl[class*="bg-gradient-to-br"][class*="to-pink-400"],
+  /* Also catch any rounded-xl with gradient that might have borders */
+  [data-worksheet-content="true"] .rounded-xl[class*="bg-gradient-to-br"]:not([class*="border"]),
+  section .rounded-xl[class*="bg-gradient-to-br"]:not([class*="border"]) {
     border: none !important; /* No border - gradient is created by padding only */
     border-width: 0 !important;
     border-style: none !important;
