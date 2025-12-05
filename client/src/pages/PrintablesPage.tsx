@@ -4892,7 +4892,7 @@ export function PrintablesPage() {
                 <div className="space-y-3 print:space-y-0.5 text-sm print:text-[8px]">
                   <div className="font-semibold text-base print:text-[9px] text-violet-900"><strong>{getTrans(`worksheets.${docId}.example.number`, 'Number:')}</strong> <span className="text-3xl print:text-lg text-violet-700 ml-2">47</span></div>
                   {/* Visual base-10 blocks with proper spacing */}
-                  <div className="bg-white p-4 print:p-1 rounded-lg border-2 border-violet-300">
+              <div className={`bg-white p-4 print:p-1 rounded-lg border-2 border-violet-300 ${blockOutline}`}>
                     <div className="flex flex-wrap items-center gap-4 print:gap-1">
                       {/* Tens blocks with label */}
                       <div className="flex flex-col items-center gap-2 print:gap-0.5">
@@ -4955,7 +4955,7 @@ export function PrintablesPage() {
                     <div key={i} className={`border-2 border-violet-200 rounded-lg p-4 print:p-1.5 bg-gradient-to-br from-violet-50 to-pink-50 break-inside-avoid ${blockOutline}`}>
                       <div className="text-violet-900 font-semibold mb-3 print:mb-0.5 text-lg print:text-sm">{getTrans(`worksheets.${docId}.labels.number`, 'Number:')} <span className="text-2xl print:text-lg">{n}</span></div>
                       {/* Visual base-10 blocks */}
-                      <div className="mb-4 print:mb-1 bg-white p-3 print:p-1 rounded border border-violet-300">
+                      <div className={`mb-4 print:mb-1 bg-white p-3 print:p-1 rounded border border-violet-300 ${blockOutline}`}>
                         <div className="flex flex-col items-center gap-2">
                           <svg viewBox="0 0 280 70" className="w-full h-auto max-h-16" preserveAspectRatio="xMidYMid meet">
                             {/* Tens rods */}
@@ -4975,15 +4975,15 @@ export function PrintablesPage() {
                         </div>
                       </div>
                       <div className="grid grid-cols-3 gap-3 print:gap-1.5 text-sm print:text-xs">
-                        <div className="border-2 border-violet-300 rounded p-2.5 print:p-1.5 bg-white">
+                        <div className={`border-2 border-violet-300 rounded p-2.5 print:p-1.5 bg-white ${blockOutline}`}>
                           <div className="text-xs print:text-[10px] text-violet-600 mb-1.5 print:mb-0.5">{getTrans(`worksheets.${docId}.labels.tens`, 'Tens:')}</div>
                           <div className="text-violet-900 font-mono text-base print:text-sm">______</div>
                         </div>
-                        <div className="border-2 border-violet-300 rounded p-2.5 print:p-1.5 bg-white">
+                        <div className={`border-2 border-violet-300 rounded p-2.5 print:p-1.5 bg-white ${blockOutline}`}>
                           <div className="text-xs print:text-[10px] text-violet-600 mb-1.5 print:mb-0.5">{getTrans(`worksheets.${docId}.labels.ones`, 'Ones:')}</div>
                           <div className="text-violet-900 font-mono text-base print:text-sm">______</div>
                         </div>
-                        <div className="border-2 border-violet-300 rounded p-2.5 print:p-1.5 bg-white">
+                        <div className={`border-2 border-violet-300 rounded p-2.5 print:p-1.5 bg-white ${blockOutline}`}>
                           <div className="text-xs print:text-[10px] text-violet-600 mb-1.5 print:mb-0.5">{getTrans(`worksheets.${docId}.labels.expanded`, 'Expanded:')}</div>
                           <div className="text-violet-900 font-mono text-xs print:text-[10px] leading-tight">___ + ___</div>
                         </div>
@@ -5035,7 +5035,7 @@ export function PrintablesPage() {
                 </div>
               </div>
               {showAnswersForDoc(docId, () => (
-                <div className="mt-6 p-4 border-2 border-emerald-300 bg-emerald-50 rounded print:border print:bg-white print:page-break-before-always">
+                <div className={`mt-6 p-4 border-2 border-emerald-300 bg-emerald-50 rounded print:border print:bg-white print:page-break-before-always ${blockOutline}`}>
                   <div className="font-bold text-emerald-900 mb-3 text-base">{getTrans(`worksheets.${docId}.answerKey.title`, '✅ Answer Key')}</div>
                   <div className="space-y-2">
                     {nums.map((n,i)=> {
