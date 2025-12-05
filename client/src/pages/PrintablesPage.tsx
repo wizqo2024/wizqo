@@ -104,83 +104,6 @@ function getWorksheetTheme(docId: string): {
   }
 }
 
-const PLACE_VALUE_PRINT_COLOR_RULES = `
-          /* Full-color overrides for place-value-hto worksheet */
-          [data-worksheet-content="true"][data-doc="place-value-hto"] .place-value-hto-print-section {
-            background-image: linear-gradient(135deg, #faf5ff 0%, #eef2ff 45%, #fdf2f8 100%) !important;
-            border: 2px solid rgba(139, 92, 246, 0.35) !important;
-            border-radius: 1.25rem !important;
-            box-shadow: 0 18px 42px rgba(76, 29, 149, 0.18) !important;
-            padding: 1.5rem !important;
-          }
-          [data-worksheet-content="true"][data-doc="place-value-hto"] .place-value-hto-print-section [class*="bg-gradient-to-br"] {
-            background-image: linear-gradient(to bottom right, var(--tw-gradient-stops)) !important;
-          }
-          [data-worksheet-content="true"][data-doc="place-value-hto"] .place-value-hto-print-section [class*="bg-violet-50"] {
-            background-color: #f5f3ff !important;
-          }
-          [data-worksheet-content="true"][data-doc="place-value-hto"] .place-value-hto-print-section [class*="bg-purple-50"] {
-            background-color: #faf5ff !important;
-          }
-          [data-worksheet-content="true"][data-doc="place-value-hto"] .place-value-hto-print-section [class*="bg-pink-50"] {
-            background-color: #fdf2f8 !important;
-          }
-          [data-worksheet-content="true"][data-doc="place-value-hto"] .place-value-hto-print-section [class*="bg-emerald-50"] {
-            background-color: #ecfdf5 !important;
-          }
-          [data-worksheet-content="true"][data-doc="place-value-hto"] .place-value-hto-print-section .border,
-          [data-worksheet-content="true"][data-doc="place-value-hto"] .place-value-hto-print-section [class~="border"],
-          [data-worksheet-content="true"][data-doc="place-value-hto"] .place-value-hto-print-section [class*="print:border"] {
-            border-style: solid !important;
-            border-width: 1px !important;
-            border-color: rgba(148, 163, 184, 0.35) !important;
-          }
-          [data-worksheet-content="true"][data-doc="place-value-hto"] .place-value-hto-print-section [class~="border-2"],
-          [data-worksheet-content="true"][data-doc="place-value-hto"] .place-value-hto-print-section [class*="border-2"] {
-            border-width: 2px !important;
-          }
-          [data-worksheet-content="true"][data-doc="place-value-hto"] .place-value-hto-print-section [class*="border-violet-200"] {
-            border-color: #ddd6fe !important;
-          }
-          [data-worksheet-content="true"][data-doc="place-value-hto"] .place-value-hto-print-section [class*="border-violet-300"] {
-            border-color: #c4b5fd !important;
-          }
-          [data-worksheet-content="true"][data-doc="place-value-hto"] .place-value-hto-print-section [class*="border-purple-200"] {
-            border-color: #e9d5ff !important;
-          }
-          [data-worksheet-content="true"][data-doc="place-value-hto"] .place-value-hto-print-section [class*="border-purple-300"] {
-            border-color: #d8b4fe !important;
-          }
-          [data-worksheet-content="true"][data-doc="place-value-hto"] .place-value-hto-print-section [class*="border-slate-300"] {
-            border-color: #cbd5f5 !important;
-          }
-          [data-worksheet-content="true"][data-doc="place-value-hto"] .place-value-hto-print-section [class*="border-emerald-300"] {
-            border-color: #6ee7b7 !important;
-          }
-          [data-worksheet-content="true"][data-doc="place-value-hto"] .place-value-hto-block {
-            border: 2px solid rgba(139, 92, 246, 0.35) !important;
-            border-radius: 0.9rem !important;
-            background-color: inherit !important;
-          }
-          [data-worksheet-content="true"][data-doc="place-value-hto"] .place-value-hto-print-section .grid {
-            display: grid !important;
-          }
-          [data-worksheet-content="true"][data-doc="place-value-hto"] .place-value-hto-print-section .flex {
-            display: flex !important;
-          }
-          [data-worksheet-content="true"][data-doc="place-value-hto"] .place-value-hto-question-grid {
-            grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
-            gap: 1rem !important;
-          }
-          [data-worksheet-content="true"][data-doc="place-value-hto"] .place-value-hto-answer-grid {
-            grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
-            gap: 0.75rem !important;
-          }
-          [data-worksheet-content="true"][data-doc="place-value-hto"] .place-value-hto-answer-grid > div {
-            min-height: 1.6in !important;
-          }
-`
-
 // Professional header component for print worksheets - matching Interactive Worksheets Generator
 function WorksheetHeader({ problemCount }: { problemCount?: number }) {
   return (
@@ -359,13 +282,12 @@ function WorksheetSectionWrapper({
     })
   }, [t, docId, parentTeacherTips, language])
   
-  const usesColorfulPrintLayout = docId === 'place-value-hto'
-  const enablePrintOutline = docId === 'place-value-hto' && !usesColorfulPrintLayout
+  const enablePrintOutline = docId === 'place-value-hto'
 
   return (
     <section 
       data-doc={docId}
-      className={`mb-10 break-inside-avoid rounded-xl ${theme.background} p-6 print:border-0 print:p-0 print:bg-white print:mt-0 print:mb-0 print:pt-0 shadow-lg relative overflow-hidden worksheet-section ${enablePrintOutline ? 'print-section-outline' : ''} ${usesColorfulPrintLayout ? 'place-value-hto-print-section' : ''}`}
+      className={`mb-10 break-inside-avoid rounded-xl ${theme.background} p-6 print:border-0 print:p-0 print:bg-white print:mt-0 print:mb-0 print:pt-0 shadow-lg relative overflow-hidden worksheet-section ${enablePrintOutline ? 'print-section-outline' : ''}`}
       dir={isRTL ? 'rtl' : 'ltr'}
       style={{ 
         pageBreakInside: 'auto', // Allow section to break across pages if needed
@@ -1615,7 +1537,6 @@ export function PrintablesPage() {
   )
   const primaryDoc = activeDocs[0] || doc || ''
   const resolvedDocId = doc && doc !== 'bundle' ? doc : primaryDoc
-  const isPlaceValuePrintDoc = resolvedDocId === 'place-value-hto'
   const answerableDocs = React.useMemo(
     () => new Set([...ANSWERABLE_BASE_DOC_IDS, ...INTERACTIVE_DOC_IDS]),
     []
@@ -1966,7 +1887,7 @@ export function PrintablesPage() {
       // CRITICAL: html2canvas doesn't respect @media print, so we must apply ALL print styles as regular styles
       const printStyleTag = document.createElement('style')
       printStyleTag.id = 'pdf-export-print-styles'
-      let pdfPrintStyles = `
+      printStyleTag.textContent = `
         /* ============================================================================
          * EXACT MATCH: All print styles from index.css @media print
          * Applied as regular styles for html2canvas compatibility
@@ -2209,7 +2130,7 @@ export function PrintablesPage() {
           margin: 2px !important;
         }
         
-          /* Keep answer boxes with questions */
+        /* Keep answer boxes with questions */
         .question-section .answer-box,
         .question-section [class*="answer"],
         .question-section [class*="border-purple"],
@@ -2471,10 +2392,6 @@ export function PrintablesPage() {
           background-color: transparent !important;
         }
       `
-      if (isPlaceValuePrintDoc) {
-        pdfPrintStyles += PLACE_VALUE_PRINT_COLOR_RULES
-      }
-      printStyleTag.textContent = pdfPrintStyles
       document.head.appendChild(printStyleTag)
       
       // Hide print:hidden elements
@@ -3127,7 +3044,6 @@ export function PrintablesPage() {
       document.head.appendChild(styleTag)
     }
     
-    const docSpecificPrintStyles = isPlaceValuePrintDoc ? PLACE_VALUE_PRINT_COLOR_RULES : ''
     styleTag.textContent = `
         @media print {
           /* ============================================================
@@ -3330,7 +3246,6 @@ export function PrintablesPage() {
           table, tr, td {
             page-break-inside: avoid;
           }
-${docSpecificPrintStyles}
         }
       `
     
@@ -4936,7 +4851,7 @@ ${docSpecificPrintStyles}
 
         {activeDocs.includes('place-value-hto') && (() => {
           const docId = 'place-value-hto'
-          const blockOutline = 'place-value-hto-block'
+          const blockOutline = 'print-block-outline'
           const nums = [12, 27, 45, 63, 84, 99, 30, 51];
           const isColor = true; // default colorful visuals
           return (
@@ -5032,7 +4947,7 @@ ${docSpecificPrintStyles}
                   <span className="text-blue-700 font-bold whitespace-nowrap">{getTrans(`worksheets.${docId}.legend.oneLabel`, '= 1 One')}</span>
                 </div>
               </div>
-              <div className={`grid grid-cols-1 sm:grid-cols-2 gap-4 print:gap-1 break-inside-avoid ${blockOutline} place-value-hto-question-grid`} style={{ pageBreakAfter: 'auto' }}>
+              <div className={`grid grid-cols-1 sm:grid-cols-2 gap-4 print:gap-1 break-inside-avoid ${blockOutline}`} style={{ pageBreakAfter: 'auto' }}>
                 {nums.map((n,i)=> {
                   const tens = Math.floor(n/10);
                   const ones = n%10;
@@ -5059,7 +4974,7 @@ ${docSpecificPrintStyles}
                           )}
                         </div>
                       </div>
-                      <div className="grid grid-cols-3 gap-3 print:gap-1.5 text-sm print:text-xs place-value-hto-answer-grid">
+                      <div className="grid grid-cols-3 gap-3 print:gap-1.5 text-sm print:text-xs">
                         <div className={`border-2 border-violet-300 rounded p-2.5 print:p-1.5 bg-white ${blockOutline}`}>
                           <div className="text-xs print:text-[10px] text-violet-600 mb-1.5 print:mb-0.5">{getTrans(`worksheets.${docId}.labels.tens`, 'Tens:')}</div>
                           <div className="text-violet-900 font-mono text-base print:text-sm">______</div>
