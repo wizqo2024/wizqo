@@ -3776,7 +3776,7 @@ const renderers: Record<string, Renderer> = {
                           opacity: 1,
                           minWidth: '20px',
                           minHeight: '20px',
-                          border: 'none', // Remove inner border - keep only outer gradient border
+                          border: i < showFilled ? 'none' : '1px solid #d1d5db', // Light border for empty boxes to make them visible
                           backgroundColor: i < showFilled ? '#a855f7' : '#fefefe', // Very light gray for empty boxes
                           borderRadius: '4px',
                           boxShadow: 'none',

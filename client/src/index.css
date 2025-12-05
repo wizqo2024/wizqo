@@ -849,7 +849,7 @@ html {
     color-adjust: exact !important;
   }
   
-  /* CRITICAL: Tens frame boxes - no inner borders, only outer gradient border on parent */
+  /* CRITICAL: Tens frame boxes - no inner borders for filled boxes, only outer gradient border on parent */
   /* Only set background and layout properties, no borders */
   .tens-frame-box[class*="bg-purple-400"],
   .tens-frame-box[class*="bg-purple"],
@@ -858,7 +858,7 @@ html {
   section .tens-frame-box[class*="bg-purple-400"],
   section .tens-frame-box[class*="bg-purple"] {
     background-color: #a855f7 !important; /* Purple background for filled boxes */
-    border: none !important; /* Remove inner border - keep only outer gradient border */
+    border: none !important; /* No border for filled boxes - keep only outer gradient border */
     -webkit-print-color-adjust: exact !important;
     print-color-adjust: exact !important;
     color-adjust: exact !important;
@@ -866,7 +866,16 @@ html {
     box-shadow: none !important;
   }
   
-  /* CRITICAL: Empty/white tens frame boxes - ensure visibility, no inner borders */
+  /* Ensure gradient border wrapper has no additional borders */
+  [data-worksheet-content="true"] .rounded-xl.p-\[2px\][class*="bg-gradient-to-br"],
+  section .rounded-xl.p-\[2px\][class*="bg-gradient-to-br"] {
+    border: none !important; /* No additional border - gradient is created by padding */
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+    color-adjust: exact !important;
+  }
+  
+  /* CRITICAL: Empty/white tens frame boxes - ensure visibility with subtle border */
   .tens-frame-box.bg-white,
   .tens-frame-box[class*="bg-white"],
   [data-worksheet-content="true"] .tens-frame-box.bg-white,
@@ -878,7 +887,7 @@ html {
   [data-worksheet-content="true"] .tens-frame-box:not([class*="bg-purple-400"]):not([class*="bg-purple"]):not([class*="bg-indigo"]):not([class*="bg-pink"]):not([class*="bg-emerald"]):not([class*="bg-blue"]),
   section .tens-frame-box:not([class*="bg-purple-400"]):not([class*="bg-purple"]):not([class*="bg-indigo"]):not([class*="bg-pink"]):not([class*="bg-emerald"]):not([class*="bg-blue"]) {
     background-color: #fefefe !important; /* Light gray for visibility */
-    border: none !important; /* Remove inner border - keep only outer gradient border */
+    border: 1px solid #d1d5db !important; /* Subtle border for empty boxes to make them visible */
     -webkit-print-color-adjust: exact !important;
     print-color-adjust: exact !important;
     color-adjust: exact !important;
