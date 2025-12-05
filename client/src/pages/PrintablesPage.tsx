@@ -1539,7 +1539,8 @@ export function PrintablesPage() {
     []
   )
   const bundleHasAnswers = doc === 'bundle' && activeDocs.some(id => answerableDocs.has(id))
-  const shouldShowAnswerToggle = (activeDocs.length === 1 && answerableDocs.has(primaryDoc)) || bundleHasAnswers
+  // Show answer button for all worksheets - showAnswersForDoc will handle cases where answers don't exist
+  const shouldShowAnswerToggle = activeDocs.length > 0
   const docTitle = React.useMemo(() => {
     // If single worksheet, show its title instead of "Bundle"
     if (doc === 'bundle' && activeDocs.length === 1 && activeDocs[0].startsWith('interactive-')) {
