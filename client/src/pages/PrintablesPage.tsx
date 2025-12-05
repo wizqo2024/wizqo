@@ -4936,7 +4936,7 @@ ${docSpecificPrintStyles}
 
         {activeDocs.includes('place-value-hto') && (() => {
           const docId = 'place-value-hto'
-          const blockOutline = usesColorfulPrintLayout ? 'place-value-hto-block' : 'print-block-outline'
+          const blockOutline = 'place-value-hto-block'
           const nums = [12, 27, 45, 63, 84, 99, 30, 51];
           const isColor = true; // default colorful visuals
           return (
@@ -5032,7 +5032,7 @@ ${docSpecificPrintStyles}
                   <span className="text-blue-700 font-bold whitespace-nowrap">{getTrans(`worksheets.${docId}.legend.oneLabel`, '= 1 One')}</span>
                 </div>
               </div>
-              <div className={`grid grid-cols-1 sm:grid-cols-2 gap-4 print:gap-1 break-inside-avoid ${blockOutline} ${usesColorfulPrintLayout ? 'place-value-hto-question-grid' : ''}`} style={{ pageBreakAfter: 'auto' }}>
+              <div className={`grid grid-cols-1 sm:grid-cols-2 gap-4 print:gap-1 break-inside-avoid ${blockOutline} place-value-hto-question-grid`} style={{ pageBreakAfter: 'auto' }}>
                 {nums.map((n,i)=> {
                   const tens = Math.floor(n/10);
                   const ones = n%10;
@@ -5059,7 +5059,7 @@ ${docSpecificPrintStyles}
                           )}
                         </div>
                       </div>
-                      <div className={`grid grid-cols-3 gap-3 print:gap-1.5 text-sm print:text-xs ${usesColorfulPrintLayout ? 'place-value-hto-answer-grid' : ''}`}>
+                      <div className="grid grid-cols-3 gap-3 print:gap-1.5 text-sm print:text-xs place-value-hto-answer-grid">
                         <div className={`border-2 border-violet-300 rounded p-2.5 print:p-1.5 bg-white ${blockOutline}`}>
                           <div className="text-xs print:text-[10px] text-violet-600 mb-1.5 print:mb-0.5">{getTrans(`worksheets.${docId}.labels.tens`, 'Tens:')}</div>
                           <div className="text-violet-900 font-mono text-base print:text-sm">______</div>
