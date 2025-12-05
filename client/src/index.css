@@ -612,7 +612,8 @@ html {
   }
   
   [data-worksheet-content="true"] .worksheet-section > div:not(.print-ignore-inner-border):not([class*="border-"]):not([class*="print:border"]):not([class*="no-border"]),
-  [data-worksheet-content="true"] .worksheet-card > div:not(.print-ignore-inner-border):not([class*="border-"]):not([class*="print:border"]):not([class*="no-border"]):not(.rounded-xl[class*="bg-purple-50"]),
+  /* REMOVED: This rule was adding borders to all question-section divs - causing unwanted borders */
+  /* [data-worksheet-content="true"] .worksheet-card > div:not(.print-ignore-inner-border):not([class*="border-"]):not([class*="print:border"]):not([class*="no-border"]):not(.rounded-xl[class*="bg-purple-50"]),
   [data-worksheet-content="true"] .question-section > div:not(.print-ignore-inner-border):not([class*="border-"]):not([class*="print:border"]):not([class*="no-border"]):not(.rounded-xl[class*="bg-purple-50"]),
   [data-worksheet-content="true"] .question-section-wrapper > div:not(.print-ignore-inner-border):not([class*="border-"]):not([class*="print:border"]):not([class*="no-border"]):not(.rounded-xl[class*="bg-purple-50"]) {
     border: 1px solid rgba(15, 23, 42, 0.12) !important;
@@ -620,7 +621,7 @@ html {
     padding: 0.35rem 0.5rem !important;
     margin-bottom: 0.4rem !important;
     background: white !important;
-  }
+  } */
   
   /* CRITICAL: Ensure tens frame containers have NO borders - very specific override with maximum specificity */
   [data-worksheet-content="true"] .question-section > div.print-ignore-inner-border,
