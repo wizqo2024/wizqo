@@ -755,6 +755,62 @@ html {
     print-color-adjust: exact !important;
     color-adjust: exact !important;
   }
+  
+  /* Ensure all worksheet boxes with white backgrounds are visible in print */
+  .worksheet-box.bg-white,
+  .worksheet-box[class*="bg-white"],
+  [data-worksheet-content="true"] .worksheet-box.bg-white,
+  [data-worksheet-content="true"] .worksheet-box[class*="bg-white"],
+  section .worksheet-box.bg-white,
+  section .worksheet-box[class*="bg-white"],
+  /* Empty boxes (no background color class means white/default) */
+  .worksheet-box:not([class*="bg-emerald"]):not([class*="bg-purple"]):not([class*="bg-blue"]):not([class*="bg-indigo"]):not([class*="bg-pink"]):not([class*="bg-"]),
+  [data-worksheet-content="true"] .worksheet-box:not([class*="bg-emerald"]):not([class*="bg-purple"]):not([class*="bg-blue"]):not([class*="bg-indigo"]):not([class*="bg-pink"]):not([class*="bg-"]),
+  section .worksheet-box:not([class*="bg-emerald"]):not([class*="bg-purple"]):not([class*="bg-blue"]):not([class*="bg-indigo"]):not([class*="bg-pink"]):not([class*="bg-"]) {
+    background-color: #fefefe !important; /* Light gray for visibility */
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+    color-adjust: exact !important;
+  }
+  
+  /* Ensure borders on white boxes are dark and visible */
+  .worksheet-box[class*="border-emerald"]:not([class*="bg-emerald"]),
+  .worksheet-box[class*="border-blue"]:not([class*="bg-blue"]),
+  .worksheet-box[class*="border-purple"]:not([class*="bg-purple"]),
+  .worksheet-box[class*="border-slate"]:not([class*="bg-slate"]),
+  [data-worksheet-content="true"] .worksheet-box[class*="border-emerald"]:not([class*="bg-emerald"]),
+  [data-worksheet-content="true"] .worksheet-box[class*="border-blue"]:not([class*="bg-blue"]),
+  [data-worksheet-content="true"] .worksheet-box[class*="border-purple"]:not([class*="bg-purple"]),
+  [data-worksheet-content="true"] .worksheet-box[class*="border-slate"]:not([class*="bg-slate"]),
+  section .worksheet-box[class*="border-emerald"]:not([class*="bg-emerald"]),
+  section .worksheet-box[class*="border-blue"]:not([class*="bg-blue"]),
+  section .worksheet-box[class*="border-purple"]:not([class*="bg-purple"]),
+  section .worksheet-box[class*="border-slate"]:not([class*="bg-slate"]) {
+    border-color: inherit !important;
+    border-width: 1px !important;
+    border-style: solid !important;
+    /* Darken border colors for empty boxes */
+    border-color: #065f46 !important; /* Dark green for emerald borders */
+  }
+  
+  /* Specific border color overrides for better visibility */
+  .worksheet-box[class*="border-blue"]:not([class*="bg-blue"]),
+  [data-worksheet-content="true"] .worksheet-box[class*="border-blue"]:not([class*="bg-blue"]),
+  section .worksheet-box[class*="border-blue"]:not([class*="bg-blue"]) {
+    border-color: #1e40af !important; /* Dark blue */
+  }
+  
+  .worksheet-box[class*="border-purple"]:not([class*="bg-purple"]),
+  [data-worksheet-content="true"] .worksheet-box[class*="border-purple"]:not([class*="bg-purple"]),
+  section .worksheet-box[class*="border-purple"]:not([class*="bg-purple"]) {
+    border-color: #6b21a8 !important; /* Dark purple */
+  }
+  
+  .worksheet-box[class*="border-slate"]:not([class*="bg-slate"]),
+  [data-worksheet-content="true"] .worksheet-box[class*="border-slate"]:not([class*="bg-slate"]),
+  section .worksheet-box[class*="border-slate"]:not([class*="bg-slate"]) {
+    border-color: #334155 !important; /* Dark slate */
+  }
 
   /* Preserve borders and styles for elements inside visual grids (grid-cols-5, grid-cols-10, etc.) */
   [data-worksheet-content="true"] .grid[class*="grid-cols-5"] [class*="border"],
@@ -810,6 +866,8 @@ html {
     display: block !important;
     min-height: 1px !important;
     min-width: 1px !important;
+    visibility: visible !important;
+    opacity: 1 !important;
   }
   
   .worksheet-box[class*="flex"],
@@ -818,6 +876,8 @@ html {
     display: flex !important;
     min-height: 1px !important;
     min-width: 1px !important;
+    visibility: visible !important;
+    opacity: 1 !important;
   }
   
   /* Prevent empty visual boxes from collapsing - add content if empty */
@@ -829,6 +889,16 @@ html {
   section .tens-frame-box:empty::before {
     content: '\00a0' !important; /* Non-breaking space */
     display: inline-block !important;
+  }
+  
+  /* General rule: All boxes with borders should have visible borders in print */
+  [data-worksheet-content="true"] [class*="border"]:not([class*="bg-purple"]):not([class*="bg-emerald"]):not([class*="bg-blue"]):not([class*="bg-indigo"]):not([class*="bg-pink"]):not([class*="bg-yellow"]):not([class*="bg-green"]):not([class*="bg-red"]):not([class*="bg-orange"]),
+  section [class*="border"]:not([class*="bg-purple"]):not([class*="bg-emerald"]):not([class*="bg-blue"]):not([class*="bg-indigo"]):not([class*="bg-pink"]):not([class*="bg-yellow"]):not([class*="bg-green"]):not([class*="bg-red"]):not([class*="bg-orange"]) {
+    border-style: solid !important;
+    border-width: inherit !important;
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+    color-adjust: exact !important;
   }
 
   /* Preserve tens frames boxes in print - CRITICAL: Must be very specific */
@@ -969,6 +1039,55 @@ html {
     -webkit-print-color-adjust: exact !important;
     print-color-adjust: exact !important;
     color-adjust: exact !important;
+  }
+  
+  /* Ensure dashed border boxes with white backgrounds are visible */
+  [class*="border-dashed"][class*="bg-white"],
+  [class*="bg-white"][class*="border-dashed"],
+  [data-worksheet-content="true"] [class*="border-dashed"][class*="bg-white"],
+  [data-worksheet-content="true"] [class*="bg-white"][class*="border-dashed"],
+  section [class*="border-dashed"][class*="bg-white"],
+  section [class*="bg-white"][class*="border-dashed"] {
+    background-color: #fefefe !important; /* Light gray for visibility */
+    border-style: dashed !important;
+    border-width: 1px !important;
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+    color-adjust: exact !important;
+  }
+  
+  /* Darken dashed border colors for better visibility */
+  [class*="border-dashed"][class*="border-emerald"]:not([class*="bg-emerald"]),
+  [class*="border-dashed"][class*="border-blue"]:not([class*="bg-blue"]),
+  [class*="border-dashed"][class*="border-purple"]:not([class*="bg-purple"]),
+  [class*="border-dashed"][class*="border-slate"]:not([class*="bg-slate"]),
+  [data-worksheet-content="true"] [class*="border-dashed"][class*="border-emerald"]:not([class*="bg-emerald"]),
+  [data-worksheet-content="true"] [class*="border-dashed"][class*="border-blue"]:not([class*="bg-blue"]),
+  [data-worksheet-content="true"] [class*="border-dashed"][class*="border-purple"]:not([class*="bg-purple"]),
+  [data-worksheet-content="true"] [class*="border-dashed"][class*="border-slate"]:not([class*="bg-slate"]),
+  section [class*="border-dashed"][class*="border-emerald"]:not([class*="bg-emerald"]),
+  section [class*="border-dashed"][class*="border-blue"]:not([class*="bg-blue"]),
+  section [class*="border-dashed"][class*="border-purple"]:not([class*="bg-purple"]),
+  section [class*="border-dashed"][class*="border-slate"]:not([class*="bg-slate"]) {
+    border-color: #065f46 !important; /* Dark green for emerald */
+  }
+  
+  [class*="border-dashed"][class*="border-blue"]:not([class*="bg-blue"]),
+  [data-worksheet-content="true"] [class*="border-dashed"][class*="border-blue"]:not([class*="bg-blue"]),
+  section [class*="border-dashed"][class*="border-blue"]:not([class*="bg-blue"]) {
+    border-color: #1e40af !important; /* Dark blue */
+  }
+  
+  [class*="border-dashed"][class*="border-purple"]:not([class*="bg-purple"]),
+  [data-worksheet-content="true"] [class*="border-dashed"][class*="border-purple"]:not([class*="bg-purple"]),
+  section [class*="border-dashed"][class*="border-purple"]:not([class*="bg-purple"]) {
+    border-color: #6b21a8 !important; /* Dark purple */
+  }
+  
+  [class*="border-dashed"][class*="border-slate"]:not([class*="bg-slate"]),
+  [data-worksheet-content="true"] [class*="border-dashed"][class*="border-slate"]:not([class*="bg-slate"]),
+  section [class*="border-dashed"][class*="border-slate"]:not([class*="bg-slate"]) {
+    border-color: #334155 !important; /* Dark slate */
   }
   
   /* Preserve aspect ratios for visual elements */

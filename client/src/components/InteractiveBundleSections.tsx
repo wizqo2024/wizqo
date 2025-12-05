@@ -2093,7 +2093,11 @@ const renderers: Record<string, Renderer> = {
                       colorAdjust: 'exact',
                       display: 'block',
                       visibility: 'visible',
-                      opacity: 1
+                      opacity: 1,
+                      border: boxIdx < row.count ? '1px solid #10b981' : '1px solid #065f46', // Darker border for empty boxes
+                      borderStyle: 'solid',
+                      borderWidth: boxIdx < row.count ? '1px' : '1px',
+                      backgroundColor: boxIdx < row.count ? '#a7f3d0' : '#fefefe' // Light gray for empty boxes
                     }}
                   >&nbsp;</div>
                 ))}
@@ -2890,7 +2894,11 @@ const renderers: Record<string, Renderer> = {
                     colorAdjust: 'exact',
                     display: 'flex',
                     visibility: 'visible',
-                    opacity: 1
+                    opacity: 1,
+                    border: '1px solid #1e40af', // Darker blue border for visibility
+                    borderStyle: 'solid',
+                    borderWidth: '1px',
+                    backgroundColor: '#fefefe' // Light gray background
                   }}
                 >
                   {item === targetItems ? <span className="font-bold text-blue-700">{item}</span> : <span className="text-blue-400">{item}</span>}
