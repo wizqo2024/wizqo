@@ -3762,7 +3762,11 @@ const renderers: Record<string, Renderer> = {
                         visibility: 'visible',
                         opacity: 1,
                         minWidth: '20px',
-                        minHeight: '20px'
+                        minHeight: '20px',
+                        border: i < showFilled ? '2px solid #a855f7' : '2px solid #9333ea', // Darker border for empty boxes
+                        borderStyle: 'solid',
+                        borderWidth: '2px',
+                        backgroundColor: i < showFilled ? '#a855f7' : 'white'
                       }}
                     >&nbsp;</div>
                   ))}

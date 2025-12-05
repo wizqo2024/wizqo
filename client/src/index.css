@@ -722,6 +722,37 @@ html {
     border-radius: 0 !important;
     border: none !important;
   }
+  
+  /* CRITICAL: Override border removal for tens frame boxes - must come after removal rule */
+  .tens-frame-box,
+  .tens-frame-box[class*="border-2"],
+  [data-worksheet-content="true"] .tens-frame-box,
+  [data-worksheet-content="true"] .tens-frame-box[class*="border-2"],
+  section .tens-frame-box,
+  section .tens-frame-box[class*="border-2"] {
+    border: 2px solid #9333ea !important; /* Dark purple - highly visible */
+    border-style: solid !important;
+    border-width: 2px !important;
+    border-color: #9333ea !important;
+    outline: none !important; /* Remove outline, use border */
+  }
+  
+  /* Ensure empty/white boxes are especially visible */
+  .tens-frame-box:not([class*="bg-purple"]):not([class*="bg-indigo"]):not([class*="bg-pink"]),
+  .tens-frame-box.bg-white,
+  .tens-frame-box[class*="bg-white"],
+  [data-worksheet-content="true"] .tens-frame-box:not([class*="bg-purple"]):not([class*="bg-indigo"]):not([class*="bg-pink"]),
+  [data-worksheet-content="true"] .tens-frame-box.bg-white,
+  section .tens-frame-box:not([class*="bg-purple"]):not([class*="bg-indigo"]):not([class*="bg-pink"]),
+  section .tens-frame-box.bg-white {
+    border: 2px solid #7c3aed !important; /* Even darker purple for empty boxes */
+    border-color: #7c3aed !important;
+    border-width: 2px !important;
+    border-style: solid !important;
+    background-color: white !important;
+    /* Add subtle background to make box visible */
+    background-image: linear-gradient(to bottom, #ffffff 0%, #fafafa 100%) !important;
+  }
 
   /* Preserve borders and styles for elements inside visual grids (grid-cols-5, grid-cols-10, etc.) */
   [data-worksheet-content="true"] .grid[class*="grid-cols-5"] [class*="border"],
@@ -823,7 +854,7 @@ html {
     display: block !important;
     visibility: visible !important;
     opacity: 1 !important;
-    border: 2px solid #c084fc !important;
+    border: 2px solid #9333ea !important; /* Darker purple for better print visibility */
     border-radius: 4px !important;
     aspect-ratio: 1 / 1 !important;
     width: 100% !important;
@@ -835,6 +866,9 @@ html {
     color-adjust: exact !important;
     box-shadow: none !important;
     background-clip: padding-box !important;
+    /* Force border to be visible */
+    border-style: solid !important;
+    border-width: 2px !important;
   }
   
   /* Preserve background colors for filled tens frame boxes */
@@ -857,12 +891,20 @@ html {
   section .tens-frame-box.bg-white,
   section .tens-frame-box[class*="bg-white"] {
     background-color: white !important;
-    border-color: #c084fc !important;
+    border: 2px solid #9333ea !important; /* Darker purple for better visibility */
+    border-color: #9333ea !important;
     border-width: 2px !important;
     border-style: solid !important;
+    border-radius: 4px !important;
     -webkit-print-color-adjust: exact !important;
     print-color-adjust: exact !important;
     color-adjust: exact !important;
+    /* Ensure box is visible even if empty */
+    min-width: 20px !important;
+    min-height: 20px !important;
+    display: block !important;
+    visibility: visible !important;
+    opacity: 1 !important;
   }
 
   /* Preserve visual grids (grids with borders or used for visual layouts) */
