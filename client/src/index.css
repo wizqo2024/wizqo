@@ -666,18 +666,60 @@ html {
     break-inside: avoid;
   }
   
-  /* Remove decorative elements */
-  [class*="shadow"],
-  [class*="rounded"],
-  [class*="border-2"],
-  [class*="border-4"] {
+  /* Remove decorative elements - but preserve tens frames */
+  [class*="shadow"]:not(.tens-frame-box):not(.tens-frames-grid),
+  [class*="rounded"]:not(.tens-frame-box):not(.tens-frames-grid),
+  [class*="border-2"]:not(.tens-frame-box):not(.tens-frames-grid),
+  [class*="border-4"]:not(.tens-frame-box):not(.tens-frames-grid) {
     box-shadow: none !important;
     border-radius: 0 !important;
     border: none !important;
   }
 
+  /* Preserve tens frames boxes in print */
+  .tens-frames-grid {
+    display: grid !important;
+    grid-template-columns: repeat(5, 1fr) !important;
+    gap: 0.25rem !important;
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+    color-adjust: exact !important;
+    width: auto !important;
+    max-width: 12rem !important;
+  }
+  
+  .tens-frame-box {
+    border: 2px solid #c084fc !important;
+    border-radius: 4px !important;
+    aspect-ratio: 1 !important;
+    min-width: 20px !important;
+    min-height: 20px !important;
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+    color-adjust: exact !important;
+    box-shadow: none !important;
+  }
+  
+  /* Preserve background colors for filled tens frame boxes */
+  .tens-frame-box.bg-purple-400,
+  .tens-frame-box[class*="bg-purple-400"] {
+    background-color: #a855f7 !important;
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+    color-adjust: exact !important;
+  }
+  
+  .tens-frame-box.bg-white,
+  .tens-frame-box[class*="bg-white"] {
+    background-color: white !important;
+    border-color: #c084fc !important;
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+    color-adjust: exact !important;
+  }
+
   /* Allow CSS grids to break naturally across printed pages */
-  [data-worksheet-content="true"] .grid {
+  [data-worksheet-content="true"] .grid:not(.tens-frames-grid) {
     display: block !important;
     width: 100% !important;
   }

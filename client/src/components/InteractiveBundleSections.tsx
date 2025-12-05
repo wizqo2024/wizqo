@@ -3718,9 +3718,13 @@ const renderers: Record<string, Renderer> = {
                 <p className="text-sm font-semibold text-purple-700 mb-2">
                   {instruction}
                 </p>
-                <div className="grid grid-cols-5 gap-1 mb-3 w-32">
+                <div className="tens-frames-grid grid grid-cols-5 gap-1 mb-3 w-32 print:w-auto print:max-w-xs">
                   {Array.from({ length: 10 }).map((_, i) => (
-                    <div key={i} className={`aspect-square border-2 border-purple-300 rounded ${i < showFilled ? 'bg-purple-400' : 'bg-white'}`}></div>
+                    <div key={i} className={`tens-frame-box aspect-square border-2 border-purple-300 rounded print:border-preserve ${i < showFilled ? 'bg-purple-400 print:bg-preserve' : 'bg-white print:bg-preserve'}`} style={{ 
+                      WebkitPrintColorAdjust: 'exact',
+                      printColorAdjust: 'exact',
+                      colorAdjust: 'exact'
+                    }}></div>
                   ))}
                 </div>
                 <p className="text-sm text-purple-800">{t('worksheets.answerLabel')}: {prob.operation === '+' ? `${prob.filled} + ${prob.missing}` : `${total} - ${prob.missing}`} = ________</p>
