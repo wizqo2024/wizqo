@@ -7889,7 +7889,9 @@ function InteractiveWorksheetSection({
             </div>
           )}
         </div>
-        <h2 className={`text-lg font-semibold ${theme.text}`}>{category.icon} {t(`interactive.${doc.id}.title`) || doc.title}</h2>
+        <header className="print-header">
+          <h2 className={`text-lg font-semibold ${theme.text}`}>{category.icon} {t(`interactive.${doc.id}.title`) || doc.title}</h2>
+        </header>
         <p className="text-sm text-slate-600">{t('common.comingSoon')}</p>
         {showAnswers && (
           <div className="mt-4 rounded-xl border border-emerald-200 bg-emerald-50 p-4 text-sm text-emerald-900">
@@ -7903,15 +7905,15 @@ function InteractiveWorksheetSection({
   return (
     <section className={`mb-10 break-inside-avoid rounded-xl border-2 ${theme.border} ${theme.background} p-6 print:border-0 print:p-0 print:bg-white shadow-lg relative overflow-hidden`}>
       {/* Decorative corner accent */}
-      <div className="absolute top-0 right-0 w-32 h-32 bg-gradient-to-br rounded-bl-full pointer-events-none" style={{ backgroundColor: cornerColors.topRight }} />
-      <div className="absolute bottom-0 left-0 w-24 h-24 bg-gradient-to-tr rounded-tr-full pointer-events-none" style={{ backgroundColor: cornerColors.bottomLeft }} />
+      <div className="absolute top-0 right-0 w-32 h-32 bg-gradient-to-br rounded-bl-full pointer-events-none print:hidden" style={{ backgroundColor: cornerColors.topRight }} />
+      <div className="absolute bottom-0 left-0 w-24 h-24 bg-gradient-to-tr rounded-tr-full pointer-events-none print:hidden" style={{ backgroundColor: cornerColors.bottomLeft }} />
       
       {/* Worksheet header for print/PDF */}
       <div className="relative z-10">
         <WorksheetHeader />
       </div>
       
-      <header className="mb-4 flex items-start justify-between gap-3 relative z-10">
+      <header className="print-header mb-4 flex items-start justify-between gap-3 relative z-10">
         <div>
           <p className={`text-xs uppercase tracking-wide font-bold ${theme.text} opacity-80`}>{t(`categories.${category.id}`) || category.label}</p>
           <h2 className={`text-xl font-bold ${theme.text} mt-1 flex items-center gap-2`}>
