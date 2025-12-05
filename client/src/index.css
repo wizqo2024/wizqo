@@ -807,10 +807,10 @@ html {
   /* Preserve rounded corners on worksheet content boxes */
   [data-worksheet-content="true"] [class*="rounded-xl"][class*="border"],
   [data-worksheet-content="true"] [class*="rounded-lg"][class*="border"],
-  [data-worksheet-content="true"] [class*="rounded"][class*="border"]:not(.tens-frame-box),
-  section [class*="rounded-xl"][class*="border"]:not(.tens-frame-box),
-  section [class*="rounded-lg"][class*="border"]:not(.tens-frame-box),
-  section [class*="rounded"][class*="border"]:not(.tens-frame-box) {
+  [data-worksheet-content="true"] [class*="rounded"][class*="border"]:not(.tens-frame-box):not([class*="bg-gradient-to-br"][class*="from-purple-400"]),
+  section [class*="rounded-xl"][class*="border"]:not(.tens-frame-box):not([class*="bg-gradient-to-br"][class*="from-purple-400"]),
+  section [class*="rounded-lg"][class*="border"]:not(.tens-frame-box):not([class*="bg-gradient-to-br"][class*="from-purple-400"]),
+  section [class*="rounded"][class*="border"]:not(.tens-frame-box):not([class*="bg-gradient-to-br"][class*="from-purple-400"]) {
     border-radius: inherit !important;
     /* Don't use border: inherit - it causes double borders */
     border-style: solid !important;
@@ -818,8 +818,9 @@ html {
   
   /* CRITICAL: Preserve borders on all worksheet content elements - but don't use inherit to avoid double borders */
   /* Only preserve border style and color, not inherit full border */
-  [data-worksheet-content="true"] [class*="border"]:not([class*="border-0"]):not([class*="border-none"]):not(button):not(nav):not(header:not(.print-header)):not(.tens-frame-box),
-  section [class*="border"]:not([class*="border-0"]):not([class*="border-none"]):not(button):not(nav):not(header:not(.print-header)):not(.tens-frame-box) {
+  /* Exclude gradient border wrappers - they use padding, not borders */
+  [data-worksheet-content="true"] [class*="border"]:not([class*="border-0"]):not([class*="border-none"]):not(button):not(nav):not(header:not(.print-header)):not(.tens-frame-box):not([class*="bg-gradient-to-br"][class*="from-purple-400"]),
+  section [class*="border"]:not([class*="border-0"]):not([class*="border-none"]):not(button):not(nav):not(header:not(.print-header)):not(.tens-frame-box):not([class*="bg-gradient-to-br"][class*="from-purple-400"]) {
     /* Don't use border: inherit - it causes double borders */
     /* Just ensure border-style is preserved */
     border-style: solid !important;
@@ -866,10 +867,17 @@ html {
     box-shadow: none !important;
   }
   
-  /* Ensure gradient border wrapper has no additional borders */
+  /* Ensure gradient border wrapper has no additional borders - exclude from all border rules */
   [data-worksheet-content="true"] .rounded-xl.p-\[2px\][class*="bg-gradient-to-br"],
-  section .rounded-xl.p-\[2px\][class*="bg-gradient-to-br"] {
-    border: none !important; /* No additional border - gradient is created by padding */
+  [data-worksheet-content="true"] .rounded-xl[class*="bg-gradient-to-br"][class*="from-purple-400"],
+  section .rounded-xl.p-\[2px\][class*="bg-gradient-to-br"],
+  section .rounded-xl[class*="bg-gradient-to-br"][class*="from-purple-400"] {
+    border: none !important; /* No border - gradient is created by padding only */
+    border-width: 0 !important;
+    border-style: none !important;
+    border-color: transparent !important;
+    outline: none !important;
+    box-shadow: none !important;
     -webkit-print-color-adjust: exact !important;
     print-color-adjust: exact !important;
     color-adjust: exact !important;
