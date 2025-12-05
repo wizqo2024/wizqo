@@ -2085,6 +2085,17 @@ export function PrintablesPage() {
           box-shadow: 0 10px 24px rgba(15, 23, 42, 0.08) !important;
         }
         
+        /* Remove all inner borders so only outer frame renders */
+        [data-worksheet-content="true"] .border:not(.worksheet-container),
+        [data-worksheet-content="true"] [class*="border-"]:not(.worksheet-container),
+        [data-worksheet-content="true"] [class*="print:border"]:not(.worksheet-container),
+        [data-worksheet-content="true"] *:not(.worksheet-container)[style*="border"] {
+          border: none !important;
+          border-width: 0 !important;
+          border-color: transparent !important;
+          box-shadow: none !important;
+        }
+        
         /* Prevent images/SVG from breaking away from questions */
         .question-section img,
         .question-section svg,
@@ -3163,6 +3174,16 @@ export function PrintablesPage() {
             padding: 0.35rem 0.5rem !important;
             margin-bottom: 0.4rem !important;
             background: white !important;
+          }
+          
+          [data-worksheet-content="true"] .border:not(.worksheet-container),
+          [data-worksheet-content="true"] [class*="border-"]:not(.worksheet-container),
+          [data-worksheet-content="true"] [class*="print:border"]:not(.worksheet-container),
+          [data-worksheet-content="true"] *:not(.worksheet-container)[style*="border"] {
+            border: none !important;
+            border-width: 0 !important;
+            border-color: transparent !important;
+            box-shadow: none !important;
           }
           
           [data-worksheet-content="true"] .worksheet-section > div:not(.print-ignore-inner-border):last-child,

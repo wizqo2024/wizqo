@@ -613,6 +613,17 @@ html {
     box-shadow: 0 10px 24px rgba(15, 23, 42, 0.08);
   }
   
+  /* Remove all inner borders in print so only outer frame remains */
+  [data-worksheet-content="true"] .border:not(.worksheet-container),
+  [data-worksheet-content="true"] [class*="border-"]:not(.worksheet-container),
+  [data-worksheet-content="true"] [class*="print:border"]:not(.worksheet-container),
+  [data-worksheet-content="true"] *:not(.worksheet-container)[style*="border"] {
+    border: none !important;
+    border-width: 0 !important;
+    border-color: transparent !important;
+    box-shadow: none !important;
+  }
+  
   [data-worksheet-content="true"] .worksheet-section > div:not(.print-ignore-inner-border):not([class*="border-"]):not([class*="print:border"]):not([class*="no-border"]),
   /* REMOVED: This rule was adding borders to all question-section divs - causing unwanted borders */
   /* [data-worksheet-content="true"] .worksheet-card > div:not(.print-ignore-inner-border):not([class*="border-"]):not([class*="print:border"]):not([class*="no-border"]):not(.rounded-xl[class*="bg-purple-50"]),
