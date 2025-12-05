@@ -3752,7 +3752,13 @@ const renderers: Record<string, Renderer> = {
               <div key={idx} className="rounded-xl p-[2px] bg-gradient-to-br from-purple-400 via-indigo-400 to-pink-400" style={{
                 WebkitPrintColorAdjust: 'exact',
                 printColorAdjust: 'exact',
-                colorAdjust: 'exact'
+                colorAdjust: 'exact',
+                border: 'none',
+                borderWidth: 0,
+                borderStyle: 'none',
+                borderColor: 'transparent',
+                outline: 'none',
+                boxShadow: 'none'
               }}>
                 <div className="rounded-xl bg-gradient-to-br from-purple-100 via-indigo-100 to-pink-100 p-4">
                   <p className="text-sm font-semibold text-purple-700 mb-2">

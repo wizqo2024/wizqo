@@ -804,13 +804,13 @@ html {
     border: none !important;
   }
   
-  /* Preserve rounded corners on worksheet content boxes */
-  [data-worksheet-content="true"] [class*="rounded-xl"][class*="border"],
-  [data-worksheet-content="true"] [class*="rounded-lg"][class*="border"],
-  [data-worksheet-content="true"] [class*="rounded"][class*="border"]:not(.tens-frame-box):not([class*="bg-gradient-to-br"][class*="from-purple-400"]),
-  section [class*="rounded-xl"][class*="border"]:not(.tens-frame-box):not([class*="bg-gradient-to-br"][class*="from-purple-400"]),
+  /* Preserve rounded corners on worksheet content boxes - exclude gradient wrappers */
+  [data-worksheet-content="true"] [class*="rounded-xl"][class*="border"]:not([class*="bg-gradient-to-br"][class*="from-purple-400"]):not([class*="bg-gradient-to-br"][class*="via-indigo-400"]),
+  [data-worksheet-content="true"] [class*="rounded-lg"][class*="border"]:not([class*="bg-gradient-to-br"][class*="from-purple-400"]),
+  [data-worksheet-content="true"] [class*="rounded"][class*="border"]:not(.tens-frame-box):not([class*="bg-gradient-to-br"][class*="from-purple-400"]):not([class*="bg-gradient-to-br"][class*="via-indigo-400"]),
+  section [class*="rounded-xl"][class*="border"]:not(.tens-frame-box):not([class*="bg-gradient-to-br"][class*="from-purple-400"]):not([class*="bg-gradient-to-br"][class*="via-indigo-400"]),
   section [class*="rounded-lg"][class*="border"]:not(.tens-frame-box):not([class*="bg-gradient-to-br"][class*="from-purple-400"]),
-  section [class*="rounded"][class*="border"]:not(.tens-frame-box):not([class*="bg-gradient-to-br"][class*="from-purple-400"]) {
+  section [class*="rounded"][class*="border"]:not(.tens-frame-box):not([class*="bg-gradient-to-br"][class*="from-purple-400"]):not([class*="bg-gradient-to-br"][class*="via-indigo-400"]) {
     border-radius: inherit !important;
     /* Don't use border: inherit - it causes double borders */
     border-style: solid !important;
