@@ -471,9 +471,22 @@ html {
     overflow: visible !important;
   }
   
-  /* Preserve visual content that might be clipped */
-  [data-worksheet-content="true"] [class*="overflow-hidden"] {
+  /* Preserve visual content that might be clipped - but keep overflow-hidden for progress bars */
+  [data-worksheet-content="true"] [class*="overflow-hidden"]:not([class*="rounded-full"]):not([class*="h-3"]):not([class*="h-4"]),
+  section [class*="overflow-hidden"]:not([class*="rounded-full"]):not([class*="h-3"]):not([class*="h-4"]) {
     overflow: visible !important;
+  }
+  
+  /* Tables should not have overflow-hidden in print */
+  [data-worksheet-content="true"] table[class*="overflow-hidden"],
+  section table[class*="overflow-hidden"] {
+    overflow: visible !important;
+  }
+  
+  /* Ensure opacity doesn't make text too faint in print */
+  [data-worksheet-content="true"] [class*="opacity-"]:not([class*="opacity-100"]):not([class*="opacity-0"]),
+  section [class*="opacity-"]:not([class*="opacity-100"]):not([class*="opacity-0"]) {
+    opacity: 1 !important; /* Make all text fully visible in print */
   }
   
   /* Main container - clean layout */
@@ -644,6 +657,67 @@ html {
     font-size: 11pt;
     line-height: 1.5;
     color: black;
+  }
+  
+  /* Lists */
+  ul, ol {
+    margin: 8px 0;
+    padding-left: 24px;
+    color: black;
+  }
+  
+  li {
+    margin: 4px 0;
+    color: black;
+  }
+  
+  /* Ensure small text is readable in print */
+  [data-worksheet-content="true"] .text-xs,
+  [data-worksheet-content="true"] [class*="text-xs"],
+  section .text-xs,
+  section [class*="text-xs"] {
+    font-size: 9pt !important; /* Minimum readable size */
+    line-height: 1.4 !important;
+    color: black !important;
+  }
+  
+  [data-worksheet-content="true"] .text-sm,
+  [data-worksheet-content="true"] [class*="text-sm"],
+  section .text-sm,
+  section [class*="text-sm"] {
+    font-size: 10pt !important;
+    line-height: 1.4 !important;
+    color: black !important;
+  }
+  
+  /* Ensure light text colors are dark enough for print readability */
+  [data-worksheet-content="true"] [class*="text-slate-400"],
+  [data-worksheet-content="true"] [class*="text-slate-500"],
+  [data-worksheet-content="true"] [class*="text-slate-600"],
+  [data-worksheet-content="true"] [class*="text-gray-400"],
+  [data-worksheet-content="true"] [class*="text-gray-500"],
+  [data-worksheet-content="true"] [class*="text-gray-600"],
+  section [class*="text-slate-400"],
+  section [class*="text-slate-500"],
+  section [class*="text-slate-600"],
+  section [class*="text-gray-400"],
+  section [class*="text-gray-500"],
+  section [class*="text-gray-600"] {
+    color: #1e293b !important; /* Dark slate for readability */
+  }
+  
+  /* Ensure medium text colors are readable */
+  [data-worksheet-content="true"] [class*="text-slate-700"],
+  [data-worksheet-content="true"] [class*="text-gray-700"],
+  section [class*="text-slate-700"],
+  section [class*="text-gray-700"] {
+    color: #0f172a !important; /* Very dark for maximum readability */
+  }
+  
+  /* Ensure all text in worksheet content is visible and readable */
+  [data-worksheet-content="true"] *:not(button):not(nav):not(header:not(.print-header)),
+  section *:not(button):not(nav):not(header:not(.print-header)) {
+    visibility: visible !important;
   }
   
   /* Questions */
