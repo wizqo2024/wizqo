@@ -622,17 +622,25 @@ html {
     background: white !important;
   }
   
-  /* CRITICAL: Ensure tens frame containers have NO borders */
+  /* CRITICAL: Ensure tens frame containers have NO borders - very specific override */
   [data-worksheet-content="true"] .question-section > div.print-ignore-inner-border,
   [data-worksheet-content="true"] .question-section > div.no-border,
-  [data-worksheet-content="true"] .question-section > div.rounded-xl[class*="bg-purple-50"],
+  [data-worksheet-content="true"] .question-section > div.border-0,
+  [data-worksheet-content="true"] .question-section > div.rounded-xl.print-ignore-inner-border,
+  [data-worksheet-content="true"] .question-section > div.rounded-xl.no-border,
+  [data-worksheet-content="true"] .question-section > div.rounded-xl.border-0,
   section .question-section > div.print-ignore-inner-border,
   section .question-section > div.no-border,
-  section .question-section > div.rounded-xl[class*="bg-purple-50"] {
+  section .question-section > div.border-0,
+  section .question-section > div.rounded-xl.print-ignore-inner-border,
+  section .question-section > div.rounded-xl.no-border,
+  section .question-section > div.rounded-xl.border-0 {
     border: none !important;
     border-width: 0 !important;
     border-style: none !important;
     border-color: transparent !important;
+    outline: none !important;
+    box-shadow: none !important;
   }
   
   /* Override white background for elements with colored backgrounds */
