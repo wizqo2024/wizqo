@@ -282,9 +282,11 @@ function WorksheetSectionWrapper({
     })
   }, [t, docId, parentTeacherTips, language])
   
+  const enablePrintOutline = docId === 'place-value-hto'
+
   return (
     <section 
-      className={`mb-10 break-inside-avoid rounded-xl ${theme.background} p-6 print:border-0 print:p-0 print:bg-white print:mt-0 print:mb-0 print:pt-0 shadow-lg relative overflow-hidden worksheet-section`}
+      className={`mb-10 break-inside-avoid rounded-xl ${theme.background} p-6 print:border-0 print:p-0 print:bg-white print:mt-0 print:mb-0 print:pt-0 shadow-lg relative overflow-hidden worksheet-section ${enablePrintOutline ? 'print-section-outline' : ''}`}
       dir={isRTL ? 'rtl' : 'ltr'}
       style={{ 
         pageBreakInside: 'auto', // Allow section to break across pages if needed
@@ -2086,13 +2088,21 @@ export function PrintablesPage() {
         }
         
         /* Remove all inner borders so only outer frame renders */
-        [data-worksheet-content="true"] .border:not(.worksheet-container),
-        [data-worksheet-content="true"] [class*="border-"]:not(.worksheet-container),
-        [data-worksheet-content="true"] [class*="print:border"]:not(.worksheet-container),
-        [data-worksheet-content="true"] *:not(.worksheet-container)[style*="border"] {
+        [data-worksheet-content="true"] .border:not(.worksheet-container):not(.print-section-outline),
+        [data-worksheet-content="true"] [class*="border-"]:not(.worksheet-container):not(.print-section-outline),
+        [data-worksheet-content="true"] [class*="print:border"]:not(.worksheet-container):not(.print-section-outline),
+        [data-worksheet-content="true"] *:not(.worksheet-container):not(.print-section-outline)[style*="border"] {
           border: none !important;
           border-width: 0 !important;
           border-color: transparent !important;
+          box-shadow: none !important;
+        }
+        
+        [data-worksheet-content="true"] .print-section-outline {
+          border: 1px solid rgba(15, 23, 42, 0.15) !important;
+          border-radius: 14px !important;
+          padding: 0.75rem !important;
+          background: white !important;
           box-shadow: none !important;
         }
         
@@ -3176,13 +3186,21 @@ export function PrintablesPage() {
             background: white !important;
           }
           
-          [data-worksheet-content="true"] .border:not(.worksheet-container),
-          [data-worksheet-content="true"] [class*="border-"]:not(.worksheet-container),
-          [data-worksheet-content="true"] [class*="print:border"]:not(.worksheet-container),
-          [data-worksheet-content="true"] *:not(.worksheet-container)[style*="border"] {
+          [data-worksheet-content="true"] .border:not(.worksheet-container):not(.print-section-outline),
+          [data-worksheet-content="true"] [class*="border-"]:not(.worksheet-container):not(.print-section-outline),
+          [data-worksheet-content="true"] [class*="print:border"]:not(.worksheet-container):not(.print-section-outline),
+          [data-worksheet-content="true"] *:not(.worksheet-container):not(.print-section-outline)[style*="border"] {
             border: none !important;
             border-width: 0 !important;
             border-color: transparent !important;
+            box-shadow: none !important;
+          }
+          
+          [data-worksheet-content="true"] .print-section-outline {
+            border: 1px solid rgba(15, 23, 42, 0.15) !important;
+            border-radius: 14px !important;
+            padding: 0.75rem !important;
+            background: white !important;
             box-shadow: none !important;
           }
           
