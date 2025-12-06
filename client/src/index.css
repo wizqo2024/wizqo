@@ -2461,16 +2461,83 @@ section[data-interactive-section="true"].preserve-print-styling [class*="h-48"] 
     min-height: 20px !important;
   }
   
-  /* Force all shape backgrounds to be visible - catch any missed colors */
-  [data-worksheet-content="true"] .pattern-shape-container span[style*="backgroundColor"],
-  [data-worksheet-content="true"] .pattern-shape-container span[style*="background-color"],
-  section .pattern-shape-container span[style*="backgroundColor"],
-  section .pattern-shape-container span[style*="background-color"] {
+  /* CRITICAL: Force green circle shapes to be visible - use specific class selectors */
+  [data-worksheet-content="true"] .green-circle-shape,
+  [data-worksheet-content="true"] span.green-circle-shape,
+  [data-worksheet-content="true"] [class*="green-circle-shape"],
+  section .green-circle-shape,
+  section span.green-circle-shape,
+  section [class*="green-circle-shape"] {
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+    display: inline-flex !important;
+    width: 24px !important;
+    height: 24px !important;
+    min-width: 24px !important;
+    min-height: 24px !important;
+  }
+  
+  [data-worksheet-content="true"] .green-circle-inner,
+  [data-worksheet-content="true"] span.green-circle-inner,
+  [data-worksheet-content="true"] [class*="green-circle-inner"],
+  section .green-circle-inner,
+  section span.green-circle-inner,
+  section [class*="green-circle-inner"] {
+    background-color: #6ee7b7 !important; /* emerald-300 - green */
+    border-color: #059669 !important; /* emerald-600 - green border */
+    border-width: 1px !important;
+    border-style: solid !important;
     -webkit-print-color-adjust: exact !important;
     print-color-adjust: exact !important;
     visibility: visible !important;
     opacity: 1 !important;
     display: block !important;
+    width: 20px !important;
+    height: 20px !important;
+    min-width: 20px !important;
+    min-height: 20px !important;
+    border-radius: 50% !important;
+  }
+  
+  /* Force all shape backgrounds to be visible - catch any missed colors */
+  [data-worksheet-content="true"] .pattern-shape-container span[style*="backgroundColor"],
+  [data-worksheet-content="true"] .pattern-shape-container span[style*="background-color"],
+  [data-worksheet-content="true"] .pattern-shape-container span[style*="#6ee7b7"],
+  section .pattern-shape-container span[style*="backgroundColor"],
+  section .pattern-shape-container span[style*="background-color"],
+  section .pattern-shape-container span[style*="#6ee7b7"] {
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+    display: block !important;
+  }
+  
+  /* CRITICAL: Target green circles by style attribute value */
+  [data-worksheet-content="true"] span[style*="backgroundColor: '#6ee7b7'"],
+  [data-worksheet-content="true"] span[style*="background-color: '#6ee7b7'"],
+  [data-worksheet-content="true"] span[style*="backgroundColor: \"#6ee7b7\""],
+  [data-worksheet-content="true"] span[style*="background-color: \"#6ee7b7\""],
+  section span[style*="backgroundColor: '#6ee7b7'"],
+  section span[style*="background-color: '#6ee7b7'"],
+  section span[style*="backgroundColor: \"#6ee7b7\""],
+  section span[style*="background-color: \"#6ee7b7\""] {
+    background-color: #6ee7b7 !important;
+    border-color: #059669 !important;
+    border-width: 1px !important;
+    border-style: solid !important;
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+    display: block !important;
+    width: 20px !important;
+    height: 20px !important;
+    min-width: 20px !important;
+    min-height: 20px !important;
+    border-radius: 50% !important;
   }
   
   /* CRITICAL: Force pattern shape colors using style attribute targeting */

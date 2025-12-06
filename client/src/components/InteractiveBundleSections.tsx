@@ -381,8 +381,8 @@ const SHAPE_TOKENS: ShapeToken[] = [
     key: 'circle-green',
     label: 'green circle',
     render: (
-      <span className="inline-flex h-6 w-6 items-center justify-center print:inline-flex print:h-6 print:w-6 print:items-center print:justify-center" aria-hidden style={{ WebkitPrintColorAdjust: 'exact', printColorAdjust: 'exact', display: 'inline-flex', alignItems: 'center', justifyContent: 'center' }}>
-        <span className="block h-4 w-4 rounded-full border border-emerald-600 bg-emerald-300 print:block print:h-4 print:w-4 print:rounded-full print:border print:border-emerald-600 print:bg-emerald-300" style={{ WebkitPrintColorAdjust: 'exact', printColorAdjust: 'exact', backgroundColor: '#6ee7b7', borderColor: '#059669', borderWidth: '1px', borderStyle: 'solid', display: 'block', width: '16px', height: '16px', borderRadius: '50%' }} />
+      <span className="inline-flex h-6 w-6 items-center justify-center print:inline-flex print:h-6 print:w-6 print:items-center print:justify-center green-circle-shape" aria-hidden style={{ WebkitPrintColorAdjust: 'exact', printColorAdjust: 'exact', display: 'inline-flex', alignItems: 'center', justifyContent: 'center', visibility: 'visible', opacity: 1 }}>
+        <span className="block h-4 w-4 rounded-full border border-emerald-600 bg-emerald-300 print:block print:h-4 print:w-4 print:rounded-full print:border print:border-emerald-600 print:bg-emerald-300 green-circle-inner" style={{ WebkitPrintColorAdjust: 'exact', printColorAdjust: 'exact', backgroundColor: '#6ee7b7', borderColor: '#059669', borderWidth: '1px', borderStyle: 'solid', display: 'block', width: '16px', height: '16px', borderRadius: '50%', visibility: 'visible', opacity: 1, minWidth: '16px', minHeight: '16px' }} />
       </span>
     ),
   },
