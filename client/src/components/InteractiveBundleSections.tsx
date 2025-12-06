@@ -1297,7 +1297,7 @@ const renderers: Record<string, Renderer> = {
           <p className="font-semibold">{t('worksheets.writingPoetry.wordBank')}</p>
           <p className="mt-1 uppercase tracking-wide text-xs">{wordBank.join(' • ')}</p>
         </div>
-        <div className="grid gap-4 md:grid-cols-2">
+        <div className="grid gap-4 md:grid-cols-2 print-season-grid">
           <div className="rounded-xl border border-slate-200 bg-white p-4 text-sm text-slate-700">
             <p className="font-semibold">{t('worksheets.writingPoetry.haiku')}</p>
             <p>{t('worksheets.writingPoetry.line').replace('{{number}}', formatNum ? formatNum('1') : '1')}: ___________________________</p>

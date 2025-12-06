@@ -2139,6 +2139,21 @@ export function PrintablesPage() {
           color-adjust: exact !important;
         }
         
+        [data-worksheet-content="true"] .print-season-grid {
+          display: grid !important;
+          grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+          gap: 1rem !important;
+          column-gap: 1rem !important;
+          row-gap: 1rem !important;
+          break-inside: avoid !important;
+          page-break-inside: avoid !important;
+        }
+        
+        [data-worksheet-content="true"] .print-season-grid > * {
+          break-inside: avoid !important;
+          page-break-inside: avoid !important;
+        }
+        
         /* Prevent images/SVG from breaking away from questions */
         .question-section img,
         .question-section svg,
@@ -3260,6 +3275,21 @@ export function PrintablesPage() {
             -webkit-print-color-adjust: exact !important;
             print-color-adjust: exact !important;
             color-adjust: exact !important;
+          }
+          
+          [data-worksheet-content="true"] .print-season-grid {
+            display: grid !important;
+            grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+            gap: 1rem !important;
+            column-gap: 1rem !important;
+            row-gap: 1rem !important;
+            break-inside: avoid !important;
+            page-break-inside: avoid !important;
+          }
+          
+          [data-worksheet-content="true"] .print-season-grid > * {
+            break-inside: avoid !important;
+            page-break-inside: avoid !important;
           }
           
           [data-worksheet-content="true"] .worksheet-section > div:not(.print-ignore-inner-border):last-child,
