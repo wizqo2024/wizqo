@@ -1367,17 +1367,23 @@ section[data-interactive-section="true"].preserve-print-styling [class*="h-48"] 
     box-sizing: border-box !important;
   }
   
-  /* Remove excessive gaps on first page */
+  /* Remove excessive gaps on first page - aggressive overrides */
   @media print {
+    /* Override section padding for first page - reduce top padding significantly */
     section[data-interactive-section="true"].preserve-print-styling:first-child {
       margin-top: 0 !important;
-      padding-top: 0 !important;
+      padding-top: 8px !important;
+      padding-left: 24px !important;
+      padding-right: 24px !important;
+      padding-bottom: 24px !important;
     }
     
+    /* Remove all top margins and padding from header on first page */
     section[data-interactive-section="true"].preserve-print-styling:first-child .print-header {
       margin-top: 0 !important;
-      margin-bottom: 8px !important;
+      margin-bottom: 6px !important;
       padding-top: 0 !important;
+      padding-bottom: 0 !important;
     }
     
     section[data-interactive-section="true"].preserve-print-styling .print-header {
@@ -1385,30 +1391,41 @@ section[data-interactive-section="true"].preserve-print-styling [class*="h-48"] 
       margin-bottom: 12px !important;
     }
     
-    /* Reduce WorksheetHeader spacing on first page */
+    /* Remove WorksheetHeader spacing completely on first page */
     section[data-interactive-section="true"].preserve-print-styling:first-child .print\\:mb-2,
-    section[data-interactive-section="true"].preserve-print-styling:first-child .print\\:mb-4 {
-      margin-bottom: 4px !important;
+    section[data-interactive-section="true"].preserve-print-styling:first-child .print\\:mb-4,
+    section[data-interactive-section="true"].preserve-print-styling:first-child [class*="print:mb"] {
+      margin-bottom: 0 !important;
       padding-bottom: 0 !important;
     }
     
+    /* Remove spacing from header wrapper div */
     section[data-interactive-section="true"].preserve-print-styling:first-child > div:first-child {
       margin-top: 0 !important;
       padding-top: 0 !important;
       margin-bottom: 0 !important;
+      padding-bottom: 0 !important;
     }
     
-    /* Reduce top spacing for first content element */
-    section[data-interactive-section="true"].preserve-print-styling:first-child > div > div:first-child {
+    /* Remove all top spacing from first content element */
+    section[data-interactive-section="true"].preserve-print-styling:first-child > div > div:first-child,
+    section[data-interactive-section="true"].preserve-print-styling:first-child > div > div:first-child > * {
       margin-top: 0 !important;
       padding-top: 0 !important;
     }
     
-    /* Reduce space before first grid/list */
+    /* Remove space before first grid/list/paragraph */
     section[data-interactive-section="true"].preserve-print-styling:first-child .space-y-3,
-    section[data-interactive-section="true"].preserve-print-styling:first-child .space-y-4 {
+    section[data-interactive-section="true"].preserve-print-styling:first-child .space-y-4,
+    section[data-interactive-section="true"].preserve-print-styling:first-child p:first-child {
       margin-top: 0 !important;
       padding-top: 0 !important;
+    }
+    
+    /* Remove margin from first paragraph in content */
+    section[data-interactive-section="true"].preserve-print-styling:first-child p.text-sm {
+      margin-top: 0 !important;
+      margin-bottom: 8px !important;
     }
   }
   

@@ -8146,7 +8146,7 @@ function InteractiveWorksheetSection({
       <div className="absolute bottom-0 left-0 w-24 h-24 bg-gradient-to-tr rounded-tr-full pointer-events-none print:hidden" style={{ backgroundColor: cornerColors.bottomLeft }} />
       
       {/* Worksheet header for print/PDF */}
-      <div className="relative z-10">
+      <div className="relative z-10 print:mb-0">
         <WorksheetHeader />
       </div>
       
