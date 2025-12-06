@@ -432,6 +432,7 @@ html {
   @page {
     size: A4;
     margin: 0 0.5in 0.5in 0.5in; /* Top: 0 (gradient drawn inside content), others: 0.5in */
+    margin-top: 0 !important;
   }
   
   /* Reset everything */
@@ -1454,6 +1455,11 @@ section[data-interactive-section="true"].preserve-print-styling [class*="h-48"] 
     }
     
     /* Ensure first section starts at the very top - remove all top spacing */
+    body, html {
+      margin-top: 0 !important;
+      padding-top: 0 !important;
+    }
+    
     [data-worksheet-content="true"] {
       margin-top: 0 !important;
       padding-top: 0 !important;
@@ -1467,6 +1473,8 @@ section[data-interactive-section="true"].preserve-print-styling [class*="h-48"] 
     [data-worksheet-content="true"] section[data-interactive-section="true"].preserve-print-styling:first-child {
       margin-top: 0 !important;
       padding-top: 0 !important;
+      position: relative;
+      top: 0 !important;
     }
     
     /* Remove spacing from section's mb-10 class on first page */
