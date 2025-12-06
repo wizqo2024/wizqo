@@ -422,6 +422,13 @@ html {
    * Simple, minimal, print-friendly styles
    * ============================================================================ */
   
+  /* CRITICAL: Force all colors to print - override any browser defaults */
+  * {
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+    color-adjust: exact !important;
+  }
+  
   /* Hide style tags */
   style {
     display: none !important;
@@ -2576,15 +2583,22 @@ section[data-interactive-section="true"].preserve-print-styling [class*="h-48"] 
     display: block !important;
   }
   
-  /* CRITICAL: Target green circles by style attribute value */
+  /* CRITICAL: Target green circles by style attribute value - multiple variations */
   [data-worksheet-content="true"] span[style*="backgroundColor: '#6ee7b7'"],
   [data-worksheet-content="true"] span[style*="background-color: '#6ee7b7'"],
   [data-worksheet-content="true"] span[style*="backgroundColor: \"#6ee7b7\""],
   [data-worksheet-content="true"] span[style*="background-color: \"#6ee7b7\""],
+  [data-worksheet-content="true"] span[style*="#6ee7b7"],
   section span[style*="backgroundColor: '#6ee7b7'"],
   section span[style*="background-color: '#6ee7b7'"],
   section span[style*="backgroundColor: \"#6ee7b7\""],
-  section span[style*="background-color: \"#6ee7b7\""] {
+  section span[style*="background-color: \"#6ee7b7\""],
+  section span[style*="#6ee7b7"],
+  /* Target any span with emerald colors */
+  [data-worksheet-content="true"] span[class*="emerald"][class*="bg-"],
+  [data-worksheet-content="true"] span[class*="emerald"][class*="border-"],
+  section span[class*="emerald"][class*="bg-"],
+  section span[class*="emerald"][class*="border-"] {
     background-color: #6ee7b7 !important;
     border-color: #059669 !important;
     border-width: 1px !important;
@@ -2599,6 +2613,18 @@ section[data-interactive-section="true"].preserve-print-styling [class*="h-48"] 
     min-width: 20px !important;
     min-height: 20px !important;
     border-radius: 50% !important;
+  }
+  
+  /* CRITICAL: Universal rule for all pattern shape backgrounds - catch everything */
+  [data-worksheet-content="true"] .pattern-shape-container span span[class*="bg-"],
+  [data-worksheet-content="true"] .pattern-shape span span[class*="bg-"],
+  section .pattern-shape-container span span[class*="bg-"],
+  section .pattern-shape span span[class*="bg-"] {
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+    display: block !important;
   }
   
   /* CRITICAL: Force pattern shape colors using style attribute targeting */
