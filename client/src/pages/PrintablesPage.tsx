@@ -2096,14 +2096,24 @@ export function PrintablesPage() {
         }
         
         /* Remove all inner borders so only outer frame renders */
-        [data-worksheet-content="true"] .border:not(.worksheet-container):not(.print-section-outline):not(.print-block-outline):not(.worksheet-section),
-        [data-worksheet-content="true"] [class*="border-"]:not(.worksheet-container):not(.print-section-outline):not(.print-block-outline):not(.worksheet-section),
-        [data-worksheet-content="true"] [class*="print:border"]:not(.worksheet-container):not(.print-section-outline):not(.print-block-outline):not(.worksheet-section),
-        [data-worksheet-content="true"] *:not(.worksheet-container):not(.print-section-outline):not(.print-block-outline):not(.worksheet-section)[style*="border"] {
+        /* EXCLUDE worksheet-section from border removal - they need borders! */
+        [data-worksheet-content="true"] .border:not(.worksheet-container):not(.print-section-outline):not(.print-block-outline):not(.worksheet-section):not(section.worksheet-section):not([class*="worksheet-section"]),
+        [data-worksheet-content="true"] [class*="border-"]:not(.worksheet-container):not(.print-section-outline):not(.print-block-outline):not(.worksheet-section):not(section.worksheet-section):not([class*="worksheet-section"]),
+        [data-worksheet-content="true"] [class*="print:border"]:not(.worksheet-container):not(.print-section-outline):not(.print-block-outline):not(.worksheet-section):not(section.worksheet-section):not([class*="worksheet-section"]),
+        [data-worksheet-content="true"] *:not(.worksheet-container):not(.print-section-outline):not(.print-block-outline):not(.worksheet-section):not(section.worksheet-section):not([class*="worksheet-section"])[style*="border"] {
           border: none !important;
           border-width: 0 !important;
           border-color: transparent !important;
           box-shadow: none !important;
+        }
+        
+        /* CRITICAL: Force border on worksheet sections BEFORE any other rules */
+        [data-worksheet-content="true"] section.worksheet-section,
+        [data-worksheet-content="true"] .worksheet-section {
+          border: 1px solid #cbd5e1 !important;
+          border-width: 1px !important;
+          border-color: #cbd5e1 !important;
+          border-style: solid !important;
         }
         
         /* Ensure worksheet sections have visible borders in print - must come after border removal */
