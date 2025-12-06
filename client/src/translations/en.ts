@@ -4286,6 +4286,7 @@ export const en = {
       answerKey: 'Student responses may vary. There are no wrong answers in doodling! Evaluate based on creativity, engagement, and willingness to experiment. Encourage free expression.',
     },
     'interactive-art-seasonal': {
+      title: 'Seasonal Coloring Pages',
       description: 'Color these seasonal pictures! Each season has its own special themes and colors.',
       coloring: 'Coloring',
       themes: 'Themes:',

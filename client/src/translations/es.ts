@@ -4086,6 +4086,7 @@ export const es = {
       answerKey: 'Las respuestas de los estudiantes pueden variar. ¡No hay respuestas incorrectas en los garabatos! Evalúa basándote en la creatividad, el compromiso y la disposición a experimentar. Anima la expresión libre.',
     },
     'interactive-art-seasonal': {
+      title: 'Páginas para Colorear Estacionales',
       description: '¡Colorea estas imágenes estacionales! Cada estación tiene sus propios temas y colores especiales.',
       coloring: 'Colorear',
       themes: 'Temas:',
