@@ -2345,12 +2345,22 @@ section[data-interactive-section="true"].preserve-print-styling [class*="h-48"] 
   [data-worksheet-content="true"] .bg-emerald-300,
   [data-worksheet-content="true"] span.bg-emerald-300,
   [data-worksheet-content="true"] span[class*="bg-emerald-300"],
+  [data-worksheet-content="true"] [class*="bg-emerald-300"],
   section .bg-emerald-300,
   section span.bg-emerald-300,
-  section span[class*="bg-emerald-300"] {
-    background-color: #6ee7b7 !important; /* emerald-300 */
+  section span[class*="bg-emerald-300"],
+  section [class*="bg-emerald-300"],
+  /* Target green circles specifically */
+  [data-worksheet-content="true"] span[class*="circle-green"],
+  [data-worksheet-content="true"] [class*="circle-green"],
+  section span[class*="circle-green"],
+  section [class*="circle-green"] {
+    background-color: #6ee7b7 !important; /* emerald-300 - green */
     -webkit-print-color-adjust: exact !important;
     print-color-adjust: exact !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+    display: block !important;
   }
   [data-worksheet-content="true"] .bg-pink-400,
   [data-worksheet-content="true"] span.bg-pink-400,
@@ -2422,12 +2432,45 @@ section[data-interactive-section="true"].preserve-print-styling [class*="h-48"] 
   [data-worksheet-content="true"] .border-emerald-600,
   [data-worksheet-content="true"] span.border-emerald-600,
   [data-worksheet-content="true"] span[class*="border-emerald-600"],
+  [data-worksheet-content="true"] [class*="border-emerald-600"],
   section .border-emerald-600,
   section span.border-emerald-600,
-  section span[class*="border-emerald-600"] {
-    border-color: #059669 !important; /* emerald-600 */
+  section span[class*="border-emerald-600"],
+  section [class*="border-emerald-600"] {
+    border-color: #059669 !important; /* emerald-600 - green border */
+    border-width: 1px !important;
+    border-style: solid !important;
     -webkit-print-color-adjust: exact !important;
     print-color-adjust: exact !important;
+  }
+  
+  /* CRITICAL: Ensure ALL pattern shapes are visible - target by key attribute or data attribute */
+  [data-worksheet-content="true"] span[class*="pattern-shape-container"] span,
+  [data-worksheet-content="true"] .pattern-shape-container .pattern-shape span,
+  section span[class*="pattern-shape-container"] span,
+  section .pattern-shape-container .pattern-shape span {
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+    color-adjust: exact !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+    display: block !important;
+    width: 20px !important;
+    height: 20px !important;
+    min-width: 20px !important;
+    min-height: 20px !important;
+  }
+  
+  /* Force all shape backgrounds to be visible - catch any missed colors */
+  [data-worksheet-content="true"] .pattern-shape-container span[style*="backgroundColor"],
+  [data-worksheet-content="true"] .pattern-shape-container span[style*="background-color"],
+  section .pattern-shape-container span[style*="backgroundColor"],
+  section .pattern-shape-container span[style*="background-color"] {
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+    display: block !important;
   }
   
   /* CRITICAL: Force pattern shape colors using style attribute targeting */
