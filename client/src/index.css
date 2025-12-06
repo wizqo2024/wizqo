@@ -1384,6 +1384,51 @@ section[data-interactive-section="true"].preserve-print-styling [class*="h-48"] 
     box-sizing: border-box !important;
   }
   
+  /* Ensure drawing boxes show in print with borders and backgrounds */
+  section[data-interactive-section="true"].preserve-print-styling .drawing-box,
+  section[data-interactive-section="true"].preserve-print-styling [data-drawing-box="true"],
+  [data-worksheet-content="true"] .drawing-box,
+  [data-worksheet-content="true"] [data-drawing-box="true"] {
+    display: block !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+    border: 1px solid #fcd34d !important;
+    background-color: #ffffff !important;
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+    border-color: #fcd34d !important;
+    border-width: 1px !important;
+    border-style: solid !important;
+  }
+  
+  /* Ensure amber background colors show in print */
+  section[data-interactive-section="true"].preserve-print-styling [class*="bg-amber-50"],
+  section[data-interactive-section="true"].preserve-print-styling [class*="bg-amber-100"],
+  [data-worksheet-content="true"] [class*="bg-amber-50"],
+  [data-worksheet-content="true"] [class*="bg-amber-100"] {
+    background-color: #fffbeb !important;
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+  }
+  
+  section[data-interactive-section="true"].preserve-print-styling [class*="bg-amber-100"] {
+    background-color: #fef3c7 !important;
+  }
+  
+  /* Ensure amber borders show in print */
+  section[data-interactive-section="true"].preserve-print-styling [class*="border-amber-200"],
+  section[data-interactive-section="true"].preserve-print-styling [class*="border-amber-300"],
+  [data-worksheet-content="true"] [class*="border-amber-200"],
+  [data-worksheet-content="true"] [class*="border-amber-300"] {
+    border-color: #fde68a !important;
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+  }
+  
+  section[data-interactive-section="true"].preserve-print-styling [class*="border-amber-300"] {
+    border-color: #fcd34d !important;
+  }
+  
   /* Remove excessive gaps on first page - FINAL COMPREHENSIVE FIX */
   @media print {
     /* Reset ALL top spacing */
