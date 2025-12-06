@@ -5409,15 +5409,10 @@ const renderers: Record<string, Renderer> = {
               'interactive.interactive-art-seasonal.drawAreaLabel',
               'Drawing area outline'
             )
-            const drawHereLabel = translateWithFallback(
-              t,
-              'interactive.interactive-art-seasonal.drawHere',
-              'Draw Here!'
-            )
             const drawAndColorText = drawAndColorTemplate.replace('{{season}}', seasonName)
             const useColorsText = useColorsTemplate.replace('{{season}}', seasonName)
             return (
-              <div key={idx} className="rounded-xl border border-green-200 bg-green-50 p-4">
+              <div key={idx} className="rounded-xl border border-green-200 bg-green-50 p-4 print-keep-card-bg">
                 <div className="flex items-center gap-2 mb-2">
                   <span className="text-2xl">{season.emoji}</span>
                   <p className="text-sm font-semibold text-green-700">{season.name} {coloringLabel}</p>
@@ -5462,17 +5457,6 @@ const renderers: Record<string, Renderer> = {
                       strokeWidth="3"
                       strokeDasharray="12 10"
                     />
-                    <text
-                      x="200"
-                      y="140"
-                      textAnchor="middle"
-                      fontSize="32"
-                      fill="currentColor"
-                      fillOpacity="0.5"
-                      fontFamily="'Comic Neue', 'Patrick Hand', cursive"
-                    >
-                      {drawHereLabel}
-                    </text>
                   </svg>
                 </div>
                 <p className="mt-1 text-xs text-green-600 italic text-center">{drawAndColorText}</p>

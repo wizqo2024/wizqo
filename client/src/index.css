@@ -654,6 +654,14 @@ html {
   print-color-adjust: exact !important;
   color-adjust: exact !important;
 }
+
+[data-worksheet-content="true"] .print-keep-card-bg {
+  background: #ecfdf5 !important;
+  border-color: #86efac !important;
+  -webkit-print-color-adjust: exact !important;
+  print-color-adjust: exact !important;
+  color-adjust: exact !important;
+}
   
   [data-worksheet-content="true"] .worksheet-section > div:not(.print-ignore-inner-border):not([class*="border-"]):not([class*="print:border"]):not([class*="no-border"]),
   /* REMOVED: This rule was adding borders to all question-section divs - causing unwanted borders */
