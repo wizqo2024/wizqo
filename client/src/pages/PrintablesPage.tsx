@@ -1955,7 +1955,7 @@ export function PrintablesPage() {
         }
         
         /* Disable flex/grid layouts in print - use block layout */
-        .flex, .grid, [class*="flex"], [class*="grid"] {
+        .flex, .grid:not(.print-season-grid), [class*="flex"], [class*="grid"]:not(.print-season-grid) {
           display: block !important;
         }
         

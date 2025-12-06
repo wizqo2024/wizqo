@@ -1465,20 +1465,20 @@ html {
   }
 
   /* Allow CSS grids to break naturally across printed pages - but preserve visual grids */
-  [data-worksheet-content="true"] .grid:not(.tens-frames-grid):not(.worksheet-visual):not(.visual-grid):not([class*="grid-cols-5"]):not([class*="grid-cols-10"]):not([class*="grid-cols-3"]):not([class*="grid-cols-2"]):not([class*="grid-cols-4"]):not(:has([class*="border"])):not(:has(.worksheet-box)),
-  section .grid:not(.tens-frames-grid):not(.worksheet-visual):not(.visual-grid):not([class*="grid-cols-5"]):not([class*="grid-cols-10"]):not([class*="grid-cols-3"]):not([class*="grid-cols-2"]):not([class*="grid-cols-4"]):not(:has([class*="border"])):not(:has(.worksheet-box)) {
+  [data-worksheet-content="true"] .grid:not(.tens-frames-grid):not(.worksheet-visual):not(.visual-grid):not([class*="grid-cols-5"]):not([class*="grid-cols-10"]):not([class*="grid-cols-3"]):not([class*="grid-cols-2"]):not([class*="grid-cols-4"]):not(.print-season-grid):not(:has([class*="border"])):not(:has(.worksheet-box)),
+  section .grid:not(.tens-frames-grid):not(.worksheet-visual):not(.visual-grid):not([class*="grid-cols-5"]):not([class*="grid-cols-10"]):not([class*="grid-cols-3"]):not([class*="grid-cols-2"]):not([class*="grid-cols-4"]):not(.print-season-grid):not(:has([class*="border"])):not(:has(.worksheet-box)) {
     display: block !important;
     width: 100% !important;
   }
 
   /* Don't apply float rules to visual grids */
-  [data-worksheet-content="true"] .grid:not(.tens-frames-grid):not(.worksheet-visual):not(.visual-grid):not([class*="grid-cols-5"]):not([class*="grid-cols-10"]):not([class*="grid-cols-3"]):not([class*="grid-cols-2"]):not([class*="grid-cols-4"]):not(:has([class*="border"])):not(:has(.worksheet-box))::after {
+  [data-worksheet-content="true"] .grid:not(.tens-frames-grid):not(.worksheet-visual):not(.visual-grid):not([class*="grid-cols-5"]):not([class*="grid-cols-10"]):not([class*="grid-cols-3"]):not([class*="grid-cols-2"]):not([class*="grid-cols-4"]):not(.print-season-grid):not(:has([class*="border"])):not(:has(.worksheet-box))::after {
     content: '' !important;
     display: block !important;
     clear: both !important;
   }
 
-  [data-worksheet-content="true"] .grid:not(.tens-frames-grid):not(.worksheet-visual):not(.visual-grid):not([class*="grid-cols-5"]):not([class*="grid-cols-10"]):not([class*="grid-cols-3"]):not([class*="grid-cols-2"]):not([class*="grid-cols-4"]):not(:has([class*="border"])):not(:has(.worksheet-box)) > * {
+  [data-worksheet-content="true"] .grid:not(.tens-frames-grid):not(.worksheet-visual):not(.visual-grid):not([class*="grid-cols-5"]):not([class*="grid-cols-10"]):not([class*="grid-cols-3"]):not([class*="grid-cols-2"]):not([class*="grid-cols-4"]):not(.print-season-grid):not(:has([class*="border"])):not(:has(.worksheet-box)) > * {
     float: left !important;
     display: block !important;
     vertical-align: top;
