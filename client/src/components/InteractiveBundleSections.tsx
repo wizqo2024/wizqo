@@ -1903,7 +1903,7 @@ const renderers: Record<string, Renderer> = {
     
     return (
       <div className="space-y-3 print:space-y-3" style={{ fontSize: '16px', lineHeight: '24px', marginTop: '0', marginBottom: '0' }}>
-        <p className="text-sm text-slate-600 print:text-sm print:text-slate-600" style={{ fontSize: '14px', lineHeight: '20px', margin: '0 0 12px 0' }}>
+        <p className="text-sm text-slate-600 print:text-sm print:text-slate-600" style={{ fontSize: '14px', lineHeight: '20px', margin: '0 0 8px 0' }}>
           {t('worksheets.artDesign.instructions')}
         </p>
         <div className="grid gap-4 md:grid-cols-2 print:grid print:grid-cols-1 print:gap-6 break-inside-avoid" style={{ gap: '16px', display: 'grid', gridTemplateColumns: 'repeat(2, minmax(0, 1fr))', pageBreakInside: 'avoid', breakInside: 'avoid' }}>
