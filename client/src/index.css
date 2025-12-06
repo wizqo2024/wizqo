@@ -2212,10 +2212,22 @@ section[data-interactive-section="true"].preserve-print-styling [class*="h-48"] 
   
   /* CRITICAL: Ensure colored shape boxes in pattern worksheets are visible in print */
   /* Pattern shapes: sky (blue), rose (red), amber (yellow), emerald (green), pink, etc. */
-  /* Target pattern shape containers */
+  /* Target pattern shape containers - make them larger in print for visibility */
   [data-worksheet-content="true"] .pattern-shape-container,
+  section .pattern-shape-container {
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+    color-adjust: exact !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+    display: inline-flex !important;
+    width: 32px !important;
+    height: 32px !important;
+    min-width: 32px !important;
+    min-height: 32px !important;
+  }
+  
   [data-worksheet-content="true"] .pattern-shape,
-  section .pattern-shape-container,
   section .pattern-shape {
     -webkit-print-color-adjust: exact !important;
     print-color-adjust: exact !important;
@@ -2223,6 +2235,29 @@ section[data-interactive-section="true"].preserve-print-styling [class*="h-48"] 
     visibility: visible !important;
     opacity: 1 !important;
     display: inline-flex !important;
+    width: 100% !important;
+    height: 100% !important;
+  }
+  
+  /* Make the actual shape boxes larger in print */
+  [data-worksheet-content="true"] .pattern-shape span[class*="h-4"][class*="w-4"],
+  [data-worksheet-content="true"] .pattern-shape span[class*="h-6"][class*="w-6"],
+  section .pattern-shape span[class*="h-4"][class*="w-4"],
+  section .pattern-shape span[class*="h-6"][class*="w-6"] {
+    width: 24px !important;
+    height: 24px !important;
+    min-width: 24px !important;
+    min-height: 24px !important;
+  }
+  
+  [data-worksheet-content="true"] .pattern-shape span[class*="h-4"][class*="w-4"] span,
+  [data-worksheet-content="true"] .pattern-shape span[class*="h-6"][class*="w-6"] span,
+  section .pattern-shape span[class*="h-4"][class*="w-4"] span,
+  section .pattern-shape span[class*="h-6"][class*="w-6"] span {
+    width: 20px !important;
+    height: 20px !important;
+    min-width: 20px !important;
+    min-height: 20px !important;
   }
   
   /* Target all possible selectors for pattern shapes */
