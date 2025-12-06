@@ -287,6 +287,11 @@ const pickMany = <T,>(rng: () => number, list: T[], count: number): T[] => {
   return results
 }
 
+const translateWithFallback = (translate: (key: string) => any, key: string, fallback: string) => {
+  const value = translate(key)
+  return typeof value === 'string' && value !== key ? value : fallback
+}
+
 type MathSequence = { values: number[]; blankIndices: number[] }
 type MathFact = { first: number; second: number; op: '+' | '-'; answer: number }
 type MathPuzzle = { prompt: string; answer: number }
@@ -4413,6 +4418,7 @@ const renderers: Record<string, Renderer> = {
     const rng = makeRng(`${seed}|${doc.id}|${variant}`)
     const letters = pickMany(rng, ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'], 4)
     const words = pickMany(rng, ['cat', 'dog', 'sun', 'moon', 'star', 'tree', 'car', 'bus'], 3)
+    const write3TimesText = translateWithFallback(t, 'worksheets.writingTrace.write3Times', 'Write 3 times:')
     return (
       <div className="space-y-4">
         <p className="text-sm text-slate-600">Trace each letter, then write it 3 times. Then trace and write the words.</p>
@@ -4425,7 +4431,7 @@ const renderers: Record<string, Renderer> = {
                   <span className="text-2xl text-green-600 font-light">{letter}</span>
                   <div className="flex-1 h-8 border border-dashed border-green-300 bg-white rounded"></div>
                 </div>
-                <p className="text-xs text-green-600">{t('worksheets.writingTrace.write3Times')}</p>
+                <p className="text-xs text-green-600">{write3TimesText}</p>
                 <div className="flex gap-2">
                   <div className="flex-1 h-8 border border-dashed border-green-300 bg-white rounded"></div>
                   <div className="flex-1 h-8 border border-dashed border-green-300 bg-white rounded"></div>
@@ -4453,24 +4459,35 @@ const renderers: Record<string, Renderer> = {
     const { seed, doc, variant, t } = ctx
     const rng = makeRng(`${seed}|${doc.id}|${variant}`)
     const lowercaseLetters = pickMany(rng, ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z'], 6)
+    const practiceTracingText = translateWithFallback(
+      t,
+      'worksheets.writingTrace.practiceTracing',
+      'Practice tracing lowercase letters neatly. Follow the dotted lines, then write each letter 3 times on your own.'
+    )
+    const letterLabel = translateWithFallback(t, 'worksheets.writingTrace.letter', 'Letter:')
+    const traceLetterText = translateWithFallback(t, 'worksheets.writingTrace.traceTheLetter', 'Trace the letter:')
+    const traceHereText = translateWithFallback(t, 'worksheets.writingTrace.traceHere', 'Trace here')
+    const write3TimesText = translateWithFallback(t, 'worksheets.writingTrace.write3Times', 'Write 3 times:')
+    const practiceAllLettersText = translateWithFallback(t, 'worksheets.writingTrace.practiceAllLetters', 'Practice all letters')
+    const writeAlphabetText = translateWithFallback(t, 'worksheets.writingTrace.writeEntireAlphabet', 'Write the entire lowercase alphabet:')
     return (
       <div className="space-y-4">
-        <p className="text-sm text-slate-600">{t('worksheets.writingTrace.practiceTracing')}</p>
+        <p className="text-sm text-slate-600">{practiceTracingText}</p>
         <div className="grid gap-4 md:grid-cols-3">
           {lowercaseLetters.map((letter, idx) => (
             <div key={idx} className="rounded-xl border border-blue-200 bg-blue-50 p-4">
-              <p className="text-sm font-semibold text-blue-700 mb-3 text-center">{t('worksheets.writingTrace.letter')} {letter}</p>
+              <p className="text-sm font-semibold text-blue-700 mb-3 text-center">{letterLabel} {letter}</p>
               <div className="space-y-3">
                 <div className="bg-white rounded-lg p-3 border border-blue-200">
-                  <p className="text-xs text-blue-600 mb-2 text-center">{t('worksheets.writingTrace.traceTheLetter')}</p>
+                  <p className="text-xs text-blue-600 mb-2 text-center">{traceLetterText}</p>
                   <div className="flex items-center justify-center">
                     <span className="text-4xl text-blue-400 font-light" style={{ fontFamily: 'monospace' }}>{letter}</span>
                     <div className="ml-2 flex-1 h-10 border-2 border-dashed border-blue-300 bg-white rounded"></div>
                   </div>
-                  <p className="mt-1 text-xs text-blue-400 italic text-center">{t('worksheets.writingTrace.traceHere')}</p>
+                  <p className="mt-1 text-xs text-blue-400 italic text-center">{traceHereText}</p>
                 </div>
                 <div className="bg-white rounded-lg p-3 border border-blue-200">
-                  <p className="text-xs text-blue-600 mb-2 text-center">{t('worksheets.writingTrace.write3Times')}</p>
+                  <p className="text-xs text-blue-600 mb-2 text-center">{write3TimesText}</p>
                   <div className="flex gap-2">
                     <div className="flex-1 h-8 border border-dashed border-blue-300 bg-white rounded"></div>
                     <div className="flex-1 h-8 border border-dashed border-blue-300 bg-white rounded"></div>
@@ -4482,8 +4499,8 @@ const renderers: Record<string, Renderer> = {
           ))}
         </div>
         <div className="rounded-xl border border-blue-200 bg-blue-50 p-4 mt-4">
-          <p className="text-sm font-semibold text-blue-700 mb-2">{t('worksheets.writingTrace.practiceAllLetters')}</p>
-          <p className="text-xs text-blue-600 mb-3">{t('worksheets.writingTrace.writeEntireAlphabet')}</p>
+          <p className="text-sm font-semibold text-blue-700 mb-2">{practiceAllLettersText}</p>
+          <p className="text-xs text-blue-600 mb-3">{writeAlphabetText}</p>
           <div className="bg-white rounded-lg p-3 border border-blue-200">
             <div className="flex flex-wrap gap-2">
               {['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z'].map((ltr, idx) => (
