@@ -8098,7 +8098,7 @@ function InteractiveWorksheetSection({
   return (
     <section
       data-interactive-section="true"
-      className={`mb-10 break-inside-avoid rounded-xl border-2 ${theme.border} ${theme.background} p-6 ${preservePrintStyling ? 'print:border-2 print:p-6' : 'print:border-0 print:p-0'} ${preservePrintStyling ? '' : 'print:bg-white'} print:overflow-visible shadow-lg relative overflow-hidden`}
+      className={`mb-10 break-inside-avoid rounded-xl border-2 ${theme.border} ${theme.background} p-6 ${preservePrintStyling ? 'preserve-print-styling print:border-2 print:p-6' : 'print:border-0 print:p-0'} ${preservePrintStyling ? '' : 'print:bg-white'} print:overflow-visible shadow-lg relative overflow-hidden`}
       style={getPrintBackgroundStyle()}
     >
       {/* Decorative corner accent */}
