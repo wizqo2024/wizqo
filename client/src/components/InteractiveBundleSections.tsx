@@ -5193,7 +5193,7 @@ const renderers: Record<string, Renderer> = {
               <div className="mb-2 flex items-center justify-center">
                 {renderShapeExample(shape)}
               </div>
-              <div className="h-24 rounded border border-pink-300 bg-white"></div>
+              <div className="h-24 rounded border border-pink-300 bg-white print:border print:border-pink-300 print:bg-white" style={{ borderColor: '#f9a8d4', backgroundColor: '#ffffff', WebkitPrintColorAdjust: 'exact', printColorAdjust: 'exact' }}></div>
               <p className="mt-1 text-xs text-pink-600 italic mb-2">Draw a {shape}</p>
               <p className="text-xs text-pink-600">Color it: ________________</p>
             </div>
@@ -5202,7 +5202,7 @@ const renderers: Record<string, Renderer> = {
         <div className="rounded-xl border border-pink-200 bg-pink-50 p-4">
           <p className="text-sm font-semibold text-pink-700 mb-2">Create a Picture</p>
           <p className="text-xs text-pink-600 mb-2">Use shapes to draw:</p>
-          <div className="h-32 rounded border border-pink-300 bg-white"></div>
+          <div className="h-32 rounded border border-pink-300 bg-white print:border print:border-pink-300 print:bg-white" style={{ borderColor: '#f9a8d4', backgroundColor: '#ffffff', WebkitPrintColorAdjust: 'exact', printColorAdjust: 'exact' }}></div>
           <p className="mt-1 text-xs text-pink-600 italic">Draw a picture using shapes</p>
         </div>
       </div>
@@ -5221,18 +5221,18 @@ const renderers: Record<string, Renderer> = {
               <p className="text-sm font-semibold text-pink-700 mb-2">Pattern {pattern}</p>
               <div className="flex gap-2 mb-2">
                 {pattern.split('').map((char, cIdx) => (
-                  <div key={cIdx} className="h-12 w-12 rounded border border-pink-300 bg-white"></div>
+                  <div key={cIdx} className="h-12 w-12 rounded border border-pink-300 bg-white print:border print:border-pink-300 print:bg-white" style={{ borderColor: '#f9a8d4', backgroundColor: '#ffffff', WebkitPrintColorAdjust: 'exact', printColorAdjust: 'exact' }}></div>
                 ))}
-                <div className="h-12 w-12 rounded border border-dashed border-pink-400 bg-pink-100"></div>
+                <div className="h-12 w-12 rounded border border-dashed border-pink-400 bg-pink-100 print:border print:border-dashed print:border-pink-400 print:bg-pink-100" style={{ borderColor: '#f472b6', backgroundColor: '#fce7f3', WebkitPrintColorAdjust: 'exact', printColorAdjust: 'exact' }}></div>
               </div>
               <p className="text-xs text-pink-600">Continue the pattern:</p>
-              <div className="h-12 border border-dashed border-pink-300 bg-white rounded mt-2"></div>
+              <div className="h-12 border border-dashed border-pink-300 bg-white rounded mt-2 print:border print:border-dashed print:border-pink-300 print:bg-white" style={{ borderColor: '#f9a8d4', backgroundColor: '#ffffff', WebkitPrintColorAdjust: 'exact', printColorAdjust: 'exact' }}></div>
             </div>
           ))}
         </div>
         <div className="rounded-xl border border-pink-200 bg-pink-50 p-4">
           <p className="text-sm font-semibold text-pink-700 mb-2">Symmetry</p>
-          <div className="h-32 rounded border border-pink-300 bg-white">
+          <div className="h-32 rounded border border-pink-300 bg-white print:border print:border-pink-300 print:bg-white" style={{ borderColor: '#f9a8d4', backgroundColor: '#ffffff', WebkitPrintColorAdjust: 'exact', printColorAdjust: 'exact' }}>
             <p className="p-2 text-xs text-pink-600">Draw a symmetrical design</p>
           </div>
         </div>
@@ -5250,7 +5250,7 @@ const renderers: Record<string, Renderer> = {
           {techniques.map((technique, idx) => (
             <div key={idx} className="rounded-xl border border-pink-200 bg-pink-50 p-4">
               <p className="text-sm font-semibold text-pink-700 capitalize mb-2">{technique}</p>
-              <div className="h-24 rounded border border-pink-300 bg-white mb-2">
+              <div className="h-24 rounded border border-pink-300 bg-white mb-2 print:border print:border-pink-300 print:bg-white" style={{ borderColor: '#f9a8d4', backgroundColor: '#ffffff', WebkitPrintColorAdjust: 'exact', printColorAdjust: 'exact' }}>
                 <p className="p-2 text-xs text-pink-600">Practice {technique}</p>
               </div>
               <p className="text-xs text-pink-600">Notes: ________________________________</p>
