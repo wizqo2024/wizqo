@@ -1324,6 +1324,24 @@ section[data-interactive-section="true"].preserve-print-styling [class*="h-48"] 
     aspect-ratio: 1 / 1 !important;
   }
   
+  /* Ensure SVG shapes in art-colorwheel worksheet fit within container but stay large (3-column layout) */
+  section[data-interactive-section="true"].preserve-print-styling svg[viewBox="0 0 200 200"],
+  [data-worksheet-content="true"] svg[viewBox="0 0 200 200"] {
+    width: 100% !important;
+    height: auto !important;
+    max-width: 280px !important;
+    max-height: 280px !important;
+    min-width: 200px !important;
+    min-height: 200px !important;
+    display: block !important;
+    margin: 0 auto !important;
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+    transform: scale(1) !important;
+    zoom: 1 !important;
+    aspect-ratio: 1 / 1 !important;
+  }
+  
   /* Container for coloring shapes - keep images inside with proper padding */
   section[data-interactive-section="true"].preserve-print-styling [style*="minHeight"][style*="400px"],
   [data-worksheet-content="true"] [style*="minHeight"][style*="400px"] {

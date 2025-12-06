@@ -1934,25 +1934,25 @@ const renderers: Record<string, Renderer> = {
     ], 6)
     
     const ColorShapeSVG = ({ shape, color }: { shape: string; color: string }) => {
-      const size = 200
-      const strokeWidth = 4
+      const size = 280 // Increased from 200 to 280 for better coloring experience in 3-column layout
+      const strokeWidth = 5 // Increased from 4 to 5 for better visibility
       if (shape === 'circle') {
         return (
-          <svg width={size} height={size} viewBox="0 0 200 200" className="mx-auto">
+          <svg width={size} height={size} viewBox="0 0 200 200" className="mx-auto" style={{ width: '100%', maxWidth: '280px', height: 'auto', display: 'block', WebkitPrintColorAdjust: 'exact', printColorAdjust: 'exact', aspectRatio: '1 / 1' }}>
             <circle cx="100" cy="100" r="80" fill="none" stroke="#333" strokeWidth={strokeWidth} />
           </svg>
         )
       }
       if (shape === 'rectangle') {
         return (
-          <svg width={size} height={size} viewBox="0 0 200 200" className="mx-auto">
+          <svg width={size} height={size} viewBox="0 0 200 200" className="mx-auto" style={{ width: '100%', maxWidth: '280px', height: 'auto', display: 'block', WebkitPrintColorAdjust: 'exact', printColorAdjust: 'exact', aspectRatio: '1 / 1' }}>
             <rect x="20" y="20" width="160" height="160" rx="10" fill="none" stroke="#333" strokeWidth={strokeWidth} />
           </svg>
         )
       }
       if (shape === 'leaf') {
         return (
-          <svg width={size} height={size} viewBox="0 0 200 200" className="mx-auto">
+          <svg width={size} height={size} viewBox="0 0 200 200" className="mx-auto" style={{ width: '100%', maxWidth: '280px', height: 'auto', display: 'block', WebkitPrintColorAdjust: 'exact', printColorAdjust: 'exact', aspectRatio: '1 / 1' }}>
             <path d="M 100 20 Q 60 60, 40 100 Q 20 140, 60 170 Q 100 160, 100 180 Q 100 160, 140 170 Q 180 140, 160 100 Q 140 60, 100 20 Z" 
               fill="none" stroke="#333" strokeWidth={strokeWidth} />
             <line x1="100" y1="20" x2="100" y2="180" stroke="#333" strokeWidth={strokeWidth} />
@@ -1963,7 +1963,7 @@ const renderers: Record<string, Renderer> = {
       }
       if (shape === 'flower') {
         return (
-          <svg width={size} height={size} viewBox="0 0 200 200" className="mx-auto">
+          <svg width={size} height={size} viewBox="0 0 200 200" className="mx-auto" style={{ width: '100%', maxWidth: '280px', height: 'auto', display: 'block', WebkitPrintColorAdjust: 'exact', printColorAdjust: 'exact', aspectRatio: '1 / 1' }}>
             <circle cx="100" cy="100" r="40" fill="none" stroke="#333" strokeWidth={strokeWidth} />
             <ellipse cx="100" cy="50" rx="24" ry="30" fill="none" stroke="#333" strokeWidth={strokeWidth} />
             <ellipse cx="100" cy="150" rx="24" ry="30" fill="none" stroke="#333" strokeWidth={strokeWidth} />
@@ -1989,7 +1989,7 @@ const renderers: Record<string, Renderer> = {
               <div key={idx} className="rounded-xl border-2 border-slate-200 bg-white p-4 text-center print:rounded-xl print:border-2 print:border-slate-200 print:bg-white print:p-4 print:text-center break-inside-avoid" style={{ WebkitPrintColorAdjust: 'exact', printColorAdjust: 'exact', backgroundColor: '#ffffff', borderColor: '#e2e8f0', borderWidth: '2px', borderStyle: 'solid', padding: '16px', borderRadius: '12px', marginBottom: '12px', pageBreakInside: 'avoid', breakInside: 'avoid' }}>
                 <p className="text-sm font-semibold text-slate-700 capitalize mb-1 print:text-sm print:font-semibold print:text-slate-700 print:capitalize print:mb-1" style={{ fontSize: '14px', fontWeight: '600', margin: '0 0 4px 0' }}>{itemText}</p>
                 <p className="text-xs text-slate-600 mb-2 print:text-xs print:text-slate-600 print:mb-2" style={{ fontSize: '12px', lineHeight: '16px', margin: '0 0 8px 0' }}>{t('worksheets.artColorwheel.color')}: <span className="font-semibold capitalize print:font-semibold print:capitalize" style={{ fontWeight: '600', color: colorValue }}>{colorText}</span></p>
-                <div className="mb-2 flex items-center justify-center print:mb-2 print:flex print:items-center print:justify-center" style={{ marginBottom: '8px', display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '16px', backgroundColor: '#ffffff', borderRadius: '8px', border: '1px solid #e2e8f0' }}>
+                <div className="mb-2 flex items-center justify-center print:mb-2 print:flex print:items-center print:justify-center" style={{ marginBottom: '8px', display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '16px', backgroundColor: '#ffffff', borderRadius: '8px', border: '1px solid #e2e8f0', width: '100%', maxWidth: '100%', overflow: 'hidden', WebkitPrintColorAdjust: 'exact', printColorAdjust: 'exact' }}>
                   <ColorShapeSVG shape={activity.shape} color={colorValue} />
                 </div>
                 <p className="text-xs text-slate-500 print:text-xs print:text-slate-500" style={{ fontSize: '12px', lineHeight: '16px', margin: '8px 0 0 0', color: '#64748b' }}>{t('worksheets.artColorwheel.colorIt')}</p>
