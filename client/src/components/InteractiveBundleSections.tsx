@@ -803,23 +803,24 @@ const renderers: Record<string, Renderer> = {
     const { doc, category, seed, variant, t, formatNum } = ctx
     const problems = buildMathRace(seed, doc.id, variant)
     return (
-      <div className="space-y-3">
-        <p className="text-sm text-slate-600">
+      <div className="space-y-3 print:space-y-3" style={{ fontSize: '16px', lineHeight: '24px', marginTop: '0', marginBottom: '0' }}>
+        <p className="text-sm text-slate-600 print:text-slate-600" style={{ fontSize: '14px', lineHeight: '20px', margin: '0 0 12px 0' }}>
           {t('worksheets.mathRace.instructions')}
         </p>
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 print:grid print:grid-cols-3 print:gap-3" style={{ gap: '12px', display: 'grid', gridTemplateColumns: 'repeat(3, minmax(0, 1fr))', pageBreakInside: 'avoid', breakInside: 'avoid' }}>
           {problems.map((prob, idx) => (
             <div
               key={idx}
-              className="rounded-lg border border-slate-200 bg-white px-3 py-2 text-center text-lg font-semibold tracking-wide whitespace-nowrap min-w-[140px]"
+              className="rounded-lg border border-slate-200 bg-white px-3 py-2 text-center text-lg font-semibold tracking-wide whitespace-nowrap min-w-[140px] print:rounded-lg print:border print:border-slate-200 print:bg-white print:px-3 print:py-2 print:text-center print:text-lg print:font-semibold"
+              style={{ WebkitPrintColorAdjust: 'exact', printColorAdjust: 'exact', backgroundColor: '#ffffff', borderColor: '#e2e8f0', padding: '8px 12px', borderRadius: '8px', borderWidth: '1px', borderStyle: 'solid', fontSize: '18px', fontWeight: '600', margin: '0' }}
             >
               {formatNum(prob.first)} {prob.op} {formatNum(prob.second)} = ______
             </div>
           ))}
         </div>
-          <div className="rounded-lg border border-purple-200 bg-purple-50 px-4 py-3 text-sm text-purple-800">
-            <p className="font-semibold">{t('worksheets.reflection.title')}</p>
-            <p>{t('worksheets.reflection.mathRaceQuestions')}</p>
+          <div className="rounded-lg border border-purple-200 bg-purple-50 px-4 py-3 text-sm text-purple-800 print:rounded-lg print:border print:border-purple-200 print:bg-purple-50 print:px-4 print:py-3 print:text-sm print:text-purple-800 break-inside-avoid" style={{ WebkitPrintColorAdjust: 'exact', printColorAdjust: 'exact', backgroundColor: '#faf5ff', borderColor: '#e9d5ff', padding: '12px 16px', borderRadius: '8px', borderWidth: '1px', borderStyle: 'solid', fontSize: '14px', marginTop: '12px', pageBreakInside: 'avoid', breakInside: 'avoid' }}>
+            <p className="font-semibold print:font-semibold" style={{ fontWeight: '600', margin: '0 0 4px 0' }}>{t('worksheets.reflection.title')}</p>
+            <p style={{ margin: '0' }}>{t('worksheets.reflection.mathRaceQuestions')}</p>
           </div>
       </div>
     )
@@ -828,11 +829,11 @@ const renderers: Record<string, Renderer> = {
     const { doc, seed, variant, t, formatNum, language } = ctx
     const puzzles = buildMathPuzzle(seed, doc.id, variant)
     return (
-      <div className="space-y-3">
-        <p className="text-sm text-slate-600">
+      <div className="space-y-3 print:space-y-3" style={{ fontSize: '16px', lineHeight: '24px', marginTop: '0', marginBottom: '0' }}>
+        <p className="text-sm text-slate-600 print:text-slate-600" style={{ fontSize: '14px', lineHeight: '20px', margin: '0 0 12px 0' }}>
           {t('worksheets.mathPuzzle.instructions')}
         </p>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 print:grid print:grid-cols-2 print:gap-4" style={{ gap: '16px', display: 'grid', gridTemplateColumns: 'repeat(2, minmax(0, 1fr))', pageBreakInside: 'avoid', breakInside: 'avoid' }}>
           {puzzles.map((puzzle, idx) => {
             // Format numbers in the prompt for Arabic - replace all digits with formatted versions
             let formattedPrompt = puzzle.prompt
@@ -844,7 +845,7 @@ const renderers: Record<string, Renderer> = {
               })
             }
             return (
-              <div key={idx} className="rounded-xl border border-amber-200 bg-amber-50 px-4 py-5 text-center text-lg font-semibold text-amber-800">
+              <div key={idx} className="rounded-xl border border-amber-200 bg-amber-50 px-4 py-5 text-center text-lg font-semibold text-amber-800 print:rounded-xl print:border print:border-amber-200 print:bg-amber-50 print:px-4 print:py-5 print:text-center print:text-lg print:font-semibold print:text-amber-800 break-inside-avoid" style={{ WebkitPrintColorAdjust: 'exact', printColorAdjust: 'exact', backgroundColor: '#fffbeb', borderColor: '#fde68a', padding: '20px 16px', borderRadius: '12px', borderWidth: '1px', borderStyle: 'solid', fontSize: '18px', fontWeight: '600', pageBreakInside: 'avoid', breakInside: 'avoid' }}>
                 {formattedPrompt}
               </div>
             )
@@ -857,28 +858,28 @@ const renderers: Record<string, Renderer> = {
     const { seed, doc, variant, t, formatNum } = ctx
     const rows = buildMathShapes(seed, doc.id, variant)
     return (
-      <div className="space-y-3">
-        <p className="text-sm text-slate-600">
+      <div className="space-y-3 print:space-y-3" style={{ fontSize: '16px', lineHeight: '24px', marginTop: '0', marginBottom: '0' }}>
+        <p className="text-sm text-slate-600 print:text-slate-600" style={{ fontSize: '14px', lineHeight: '20px', margin: '0 0 12px 0' }}>
           {t('worksheets.mathShapes.instructions')}
         </p>
-        <table className="w-full border border-slate-300 text-sm">
-          <thead className="bg-slate-100 text-left">
+        <table className="w-full border border-slate-300 text-sm print:border print:border-slate-300 print:text-sm break-inside-avoid" style={{ WebkitPrintColorAdjust: 'exact', printColorAdjust: 'exact', borderColor: '#cbd5e1', borderWidth: '1px', borderStyle: 'solid', width: '100%', fontSize: '14px', pageBreakInside: 'avoid', breakInside: 'avoid' }}>
+          <thead className="bg-slate-100 text-left print:bg-slate-100 print:text-left" style={{ backgroundColor: '#f1f5f9', WebkitPrintColorAdjust: 'exact', printColorAdjust: 'exact' }}>
             <tr>
-              <th className="px-3 py-2">{t('worksheets.mathShapes.shape')}</th>
-              <th className="px-3 py-2">{t('worksheets.mathShapes.color')}</th>
-              <th className="px-3 py-2">{t('worksheets.mathShapes.howMany')}</th>
-              <th className="px-3 py-2">{t('worksheets.mathShapes.flatOrSolid')}</th>
-              <th className="px-3 py-2">{t('worksheets.mathShapes.numberOfSides')}</th>
+              <th className="px-3 py-2 print:px-3 print:py-2" style={{ padding: '8px 12px' }}>{t('worksheets.mathShapes.shape')}</th>
+              <th className="px-3 py-2 print:px-3 print:py-2" style={{ padding: '8px 12px' }}>{t('worksheets.mathShapes.color')}</th>
+              <th className="px-3 py-2 print:px-3 print:py-2" style={{ padding: '8px 12px' }}>{t('worksheets.mathShapes.howMany')}</th>
+              <th className="px-3 py-2 print:px-3 print:py-2" style={{ padding: '8px 12px' }}>{t('worksheets.mathShapes.flatOrSolid')}</th>
+              <th className="px-3 py-2 print:px-3 print:py-2" style={{ padding: '8px 12px' }}>{t('worksheets.mathShapes.numberOfSides')}</th>
             </tr>
           </thead>
           <tbody>
             {rows.map((row, idx) => (
-              <tr key={idx} className="border-t border-slate-200">
-                <td className="px-3 py-2 capitalize">{row.shape}</td>
-                <td className="px-3 py-2 capitalize">{row.color}</td>
-                <td className="px-3 py-2">{formatNum ? formatNum(row.count) : row.count}</td>
-                <td className="px-3 py-2">________________</td>
-                <td className="px-3 py-2">________</td>
+              <tr key={idx} className="border-t border-slate-200 print:border-t print:border-slate-200" style={{ borderTopColor: '#e2e8f0', borderTopWidth: '1px', borderTopStyle: 'solid' }}>
+                <td className="px-3 py-2 capitalize print:px-3 print:py-2 print:capitalize" style={{ padding: '8px 12px' }}>{row.shape}</td>
+                <td className="px-3 py-2 capitalize print:px-3 print:py-2 print:capitalize" style={{ padding: '8px 12px' }}>{row.color}</td>
+                <td className="px-3 py-2 print:px-3 print:py-2" style={{ padding: '8px 12px' }}>{formatNum ? formatNum(row.count) : row.count}</td>
+                <td className="px-3 py-2 print:px-3 print:py-2" style={{ padding: '8px 12px' }}>________________</td>
+                <td className="px-3 py-2 print:px-3 print:py-2" style={{ padding: '8px 12px' }}>________</td>
               </tr>
             ))}
           </tbody>
@@ -890,21 +891,21 @@ const renderers: Record<string, Renderer> = {
     const { seed, doc, variant, t, formatNum } = ctx
     const prompts = buildMathMoney(seed, doc.id, variant)
     return (
-      <div className="space-y-3">
-        <p className="text-sm text-slate-600">
+      <div className="space-y-3 print:space-y-3" style={{ fontSize: '16px', lineHeight: '24px', marginTop: '0', marginBottom: '0' }}>
+        <p className="text-sm text-slate-600 print:text-slate-600" style={{ fontSize: '14px', lineHeight: '20px', margin: '0 0 12px 0' }}>
           {t('worksheets.mathMoney.instructions')}
         </p>
-        <ol className="space-y-3 text-sm text-slate-700 list-decimal list-inside">
+        <ol className="space-y-3 text-sm text-slate-700 list-decimal list-inside print:space-y-3 print:text-sm print:text-slate-700 print:list-decimal print:list-inside" style={{ fontSize: '14px', lineHeight: '20px', paddingLeft: '1.5em' }}>
           {prompts.map((prompt, idx) => (
-            <li key={idx} className="rounded-lg border border-emerald-200 bg-emerald-50 px-4 py-3">
-              <p>
+            <li key={idx} className="rounded-lg border border-emerald-200 bg-emerald-50 px-4 py-3 print:rounded-lg print:border print:border-emerald-200 print:bg-emerald-50 print:px-4 print:py-3 break-inside-avoid" style={{ WebkitPrintColorAdjust: 'exact', printColorAdjust: 'exact', backgroundColor: '#ecfdf5', borderColor: '#a7f3d0', padding: '12px 16px', borderRadius: '8px', borderWidth: '1px', borderStyle: 'solid', marginBottom: '12px', pageBreakInside: 'avoid', breakInside: 'avoid' }}>
+              <p style={{ margin: '0 0 8px 0' }}>
                 {t('worksheets.mathMoney.costs')
                   .replace('{{item}}', prompt.item)
                   .replace('{{amount}}', formatNum ? formatNum((prompt.amount / 100).toFixed(2)) : (prompt.amount / 100).toFixed(2))
                   .replace('{{coin}}', prompt.coin)}
               </p>
-              <div className="mt-2 h-16 rounded border border-dashed border-emerald-300 bg-white" />
-              <div className="mt-2 text-xs text-emerald-700">
+              <div className="mt-2 h-16 rounded border border-dashed border-emerald-300 bg-white print:mt-2 print:h-16 print:rounded print:border print:border-dashed print:border-emerald-300 print:bg-white" style={{ WebkitPrintColorAdjust: 'exact', printColorAdjust: 'exact', backgroundColor: '#ffffff', borderColor: '#6ee7b7', borderWidth: '1px', borderStyle: 'dashed', height: '64px', borderRadius: '8px', marginTop: '8px' }} />
+              <div className="mt-2 text-xs text-emerald-700 print:mt-2 print:text-xs print:text-emerald-700" style={{ fontSize: '12px', lineHeight: '16px', marginTop: '8px', color: '#047857' }}>
                 {t('worksheets.mathMoney.total')} ________ • {t('worksheets.mathMoney.change')} ________
               </div>
             </li>
@@ -917,25 +918,25 @@ const renderers: Record<string, Renderer> = {
     const { seed, doc, variant, t, formatNum } = ctx
     const pairs = buildMathFractions(seed, doc.id, variant)
     return (
-      <div className="space-y-3">
-        <p className="text-sm text-slate-600">
+      <div className="space-y-3 print:space-y-3" style={{ fontSize: '16px', lineHeight: '24px', marginTop: '0', marginBottom: '0' }}>
+        <p className="text-sm text-slate-600 print:text-slate-600" style={{ fontSize: '14px', lineHeight: '20px', margin: '0 0 12px 0' }}>
           {t('worksheets.mathFractions.instructions')}
         </p>
-        <div className="space-y-4">
+        <div className="space-y-4 print:space-y-4" style={{ marginTop: '0', marginBottom: '0' }}>
           {pairs.map(({ left: a, right: b }, idx) => (
-            <div key={idx} className="rounded-xl border border-purple-200 bg-white p-4">
-              <div className="flex items-center justify-between text-lg font-semibold text-purple-800">
+            <div key={idx} className="rounded-xl border border-purple-200 bg-white p-4 print:rounded-xl print:border print:border-purple-200 print:bg-white print:p-4 break-inside-avoid" style={{ WebkitPrintColorAdjust: 'exact', printColorAdjust: 'exact', backgroundColor: '#ffffff', borderColor: '#e9d5ff', padding: '16px', borderRadius: '12px', borderWidth: '1px', borderStyle: 'solid', marginBottom: '16px', pageBreakInside: 'avoid', breakInside: 'avoid' }}>
+              <div className="flex items-center justify-between text-lg font-semibold text-purple-800 print:flex print:items-center print:justify-between print:text-lg print:font-semibold print:text-purple-800" style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', fontSize: '18px', fontWeight: '600', marginBottom: '12px' }}>
                 <span>{formatNum ? formatNum(a.num) : a.num}/{formatNum ? formatNum(a.den) : a.den}</span>
-                <span className="text-slate-400">__________</span>
+                <span className="text-slate-400 print:text-slate-400" style={{ color: '#94a3b8' }}>__________</span>
                 <span>{formatNum ? formatNum(b.num) : b.num}/{formatNum ? formatNum(b.den) : b.den}</span>
               </div>
-              <div className="mt-3 grid grid-cols-2 gap-3">
+              <div className="mt-3 grid grid-cols-2 gap-3 print:mt-3 print:grid print:grid-cols-2 print:gap-3" style={{ gap: '12px', display: 'grid', gridTemplateColumns: 'repeat(2, minmax(0, 1fr))', marginTop: '12px' }}>
                 {[a, b].map((frac, barIdx) => (
-                  <div key={barIdx} className="space-y-1 text-xs text-slate-600">
-                    <div className="h-3 w-full overflow-hidden rounded-full border border-slate-300 bg-slate-100">
-                      <div className="h-full bg-purple-400" style={{ width: `${(frac.num / frac.den) * 100}%` }} />
+                  <div key={barIdx} className="space-y-1 text-xs text-slate-600 print:space-y-1 print:text-xs print:text-slate-600" style={{ fontSize: '12px', lineHeight: '16px' }}>
+                    <div className="h-3 w-full overflow-hidden rounded-full border border-slate-300 bg-slate-100 print:h-3 print:rounded-full print:border print:border-slate-300 print:bg-slate-100" style={{ WebkitPrintColorAdjust: 'exact', printColorAdjust: 'exact', backgroundColor: '#f1f5f9', borderColor: '#cbd5e1', borderWidth: '1px', borderStyle: 'solid', height: '12px', borderRadius: '9999px' }}>
+                      <div className="h-full bg-purple-400 print:bg-purple-400" style={{ WebkitPrintColorAdjust: 'exact', printColorAdjust: 'exact', backgroundColor: '#a78bfa', width: `${(frac.num / frac.den) * 100}%`, height: '100%' }} />
                     </div>
-                    <p>{t('worksheets.mathFractions.shade').replace('{{num}}', formatNum ? formatNum(frac.num) : String(frac.num)).replace('{{den}}', formatNum ? formatNum(frac.den) : String(frac.den))}</p>
+                    <p style={{ margin: '4px 0 0 0' }}>{t('worksheets.mathFractions.shade').replace('{{num}}', formatNum ? formatNum(frac.num) : String(frac.num)).replace('{{den}}', formatNum ? formatNum(frac.den) : String(frac.den))}</p>
                   </div>
                 ))}
               </div>
@@ -949,25 +950,25 @@ const renderers: Record<string, Renderer> = {
     const { seed, doc, variant, t, formatNum } = ctx
     const problems = buildMathMeasurement(seed, doc.id, variant)
     return (
-      <div className="space-y-3">
-        <p className="text-sm text-slate-600">
+      <div className="space-y-3 print:space-y-3" style={{ fontSize: '16px', lineHeight: '24px', marginTop: '0', marginBottom: '0' }}>
+        <p className="text-sm text-slate-600 print:text-slate-600" style={{ fontSize: '14px', lineHeight: '20px', margin: '0 0 12px 0' }}>
           {t('worksheets.mathMeasurement.instructions')}
         </p>
-        <table className="w-full border border-slate-300 text-left text-sm">
-          <thead className="bg-slate-100">
+        <table className="w-full border border-slate-300 text-left text-sm print:border print:border-slate-300 print:text-left print:text-sm break-inside-avoid" style={{ WebkitPrintColorAdjust: 'exact', printColorAdjust: 'exact', borderColor: '#cbd5e1', borderWidth: '1px', borderStyle: 'solid', width: '100%', fontSize: '14px', pageBreakInside: 'avoid', breakInside: 'avoid' }}>
+          <thead className="bg-slate-100 print:bg-slate-100" style={{ backgroundColor: '#f1f5f9', WebkitPrintColorAdjust: 'exact', printColorAdjust: 'exact' }}>
             <tr>
-              <th className="px-3 py-2">{t('worksheets.mathMeasurement.given')}</th>
-              <th className="px-3 py-2">{t('worksheets.mathMeasurement.convertTo')}</th>
-              <th className="px-3 py-2">{t('worksheets.mathMeasurement.workSpace')}</th>
+              <th className="px-3 py-2 print:px-3 print:py-2" style={{ padding: '8px 12px' }}>{t('worksheets.mathMeasurement.given')}</th>
+              <th className="px-3 py-2 print:px-3 print:py-2" style={{ padding: '8px 12px' }}>{t('worksheets.mathMeasurement.convertTo')}</th>
+              <th className="px-3 py-2 print:px-3 print:py-2" style={{ padding: '8px 12px' }}>{t('worksheets.mathMeasurement.workSpace')}</th>
             </tr>
           </thead>
           <tbody>
             {problems.map((problem, idx) => (
-              <tr key={idx} className="border-t border-slate-200">
-                <td className="px-3 py-2">{formatNum ? formatNum(problem.amount) : problem.amount} {problem.from}</td>
-                <td className="px-3 py-2">_____ {problem.to}</td>
-                <td className="px-3 py-2">
-                  <div className="h-12 rounded border border-dashed border-slate-300 bg-white" />
+              <tr key={idx} className="border-t border-slate-200 print:border-t print:border-slate-200" style={{ borderTopColor: '#e2e8f0', borderTopWidth: '1px', borderTopStyle: 'solid' }}>
+                <td className="px-3 py-2 print:px-3 print:py-2" style={{ padding: '8px 12px' }}>{formatNum ? formatNum(problem.amount) : problem.amount} {problem.from}</td>
+                <td className="px-3 py-2 print:px-3 print:py-2" style={{ padding: '8px 12px' }}>_____ {problem.to}</td>
+                <td className="px-3 py-2 print:px-3 print:py-2" style={{ padding: '8px 12px' }}>
+                  <div className="h-12 rounded border border-dashed border-slate-300 bg-white print:h-12 print:rounded print:border print:border-dashed print:border-slate-300 print:bg-white" style={{ WebkitPrintColorAdjust: 'exact', printColorAdjust: 'exact', backgroundColor: '#ffffff', borderColor: '#cbd5e1', borderWidth: '1px', borderStyle: 'dashed', height: '48px', borderRadius: '8px' }} />
                 </td>
               </tr>
             ))}
@@ -987,26 +988,26 @@ const renderers: Record<string, Renderer> = {
     const setting = pick(rng, settings)
     const quest = pick(rng, quests)
     return (
-      <div className="space-y-3">
-        <p className="text-sm leading-relaxed text-slate-700">
+      <div className="space-y-3 print:space-y-3" style={{ fontSize: '16px', lineHeight: '24px', marginTop: '0', marginBottom: '0' }}>
+        <p className="text-sm leading-relaxed text-slate-700 print:text-sm print:leading-relaxed print:text-slate-700" style={{ fontSize: '14px', lineHeight: '20px', margin: '0 0 12px 0' }}>
           {t('worksheets.readingAdventure.story')
             .replace('{{hero}}', hero)
             .replace('{{partner}}', partner)
             .replace('{{setting}}', setting)
             .replace('{{quest}}', quest)}
         </p>
-        <div className="space-y-2 text-sm text-slate-700">
-          <p className="font-semibold text-slate-900">{t('worksheets.readingAdventure.comprehensionChecks')}</p>
-          <ol className="list-decimal list-inside space-y-1">
-            <li>{t('worksheets.readingAdventure.whatProblem').replace('{{hero}}', hero).replace('{{partner}}', partner)}</li>
-            <li>{t('worksheets.readingAdventure.describeClue')}</li>
-            <li>{t('worksheets.readingAdventure.howSetting')}</li>
+        <div className="space-y-2 text-sm text-slate-700 print:space-y-2 print:text-sm print:text-slate-700" style={{ fontSize: '14px', lineHeight: '20px' }}>
+          <p className="font-semibold text-slate-900 print:font-semibold print:text-slate-900" style={{ fontWeight: '600', margin: '0 0 8px 0' }}>{t('worksheets.readingAdventure.comprehensionChecks')}</p>
+          <ol className="list-decimal list-inside space-y-1 print:list-decimal print:list-inside print:space-y-1" style={{ paddingLeft: '1.5em', fontSize: '14px' }}>
+            <li style={{ marginBottom: '4px' }}>{t('worksheets.readingAdventure.whatProblem').replace('{{hero}}', hero).replace('{{partner}}', partner)}</li>
+            <li style={{ marginBottom: '4px' }}>{t('worksheets.readingAdventure.describeClue')}</li>
+            <li style={{ marginBottom: '4px' }}>{t('worksheets.readingAdventure.howSetting')}</li>
           </ol>
         </div>
-        <div className="rounded-xl border border-slate-200 bg-white p-4">
-          <p className="text-xs uppercase tracking-wide text-slate-500">{t('worksheets.readingAdventure.creativeExtension')}</p>
-          <p className="text-sm text-slate-700">{t('worksheets.readingAdventure.sketchScene')}</p>
-          <div className="mt-2 h-32 rounded border border-dashed border-slate-300" />
+        <div className="rounded-xl border border-slate-200 bg-white p-4 print:rounded-xl print:border print:border-slate-200 print:bg-white print:p-4 break-inside-avoid" style={{ WebkitPrintColorAdjust: 'exact', printColorAdjust: 'exact', backgroundColor: '#ffffff', borderColor: '#e2e8f0', padding: '16px', borderRadius: '12px', borderWidth: '1px', borderStyle: 'solid', marginTop: '12px', pageBreakInside: 'avoid', breakInside: 'avoid' }}>
+          <p className="text-xs uppercase tracking-wide text-slate-500 print:text-xs print:uppercase print:tracking-wide print:text-slate-500" style={{ fontSize: '12px', letterSpacing: '0.05em', margin: '0 0 8px 0' }}>{t('worksheets.readingAdventure.creativeExtension')}</p>
+          <p className="text-sm text-slate-700 print:text-sm print:text-slate-700" style={{ fontSize: '14px', lineHeight: '20px', margin: '0 0 8px 0' }}>{t('worksheets.readingAdventure.sketchScene')}</p>
+          <div className="mt-2 h-32 rounded border border-dashed border-slate-300 print:mt-2 print:h-32 print:rounded print:border print:border-dashed print:border-slate-300" style={{ borderColor: '#cbd5e1', borderWidth: '1px', borderStyle: 'dashed', height: '128px', borderRadius: '8px', marginTop: '8px' }} />
         </div>
       </div>
     )
@@ -1032,19 +1033,19 @@ const renderers: Record<string, Renderer> = {
       .replace('{{clue}}', caseFile.clue)
     const explainWhy = t('worksheets.readingDetective.explainWhy').replace('{{culprit}}', caseFile.culprit)
     return (
-      <div className="space-y-3">
-        <p className="text-sm text-slate-700 font-semibold">{t('worksheets.readingDetective.caseFile')}: {caseFile.title}</p>
-        <p className="text-sm text-slate-600">
+      <div className="space-y-3 print:space-y-3" style={{ fontSize: '16px', lineHeight: '24px', marginTop: '0', marginBottom: '0' }}>
+        <p className="text-sm text-slate-700 font-semibold print:text-sm print:text-slate-700 print:font-semibold" style={{ fontSize: '14px', fontWeight: '600', margin: '0 0 8px 0' }}>{t('worksheets.readingDetective.caseFile')}: {caseFile.title}</p>
+        <p className="text-sm text-slate-600 print:text-sm print:text-slate-600" style={{ fontSize: '14px', lineHeight: '20px', margin: '0 0 12px 0' }}>
           {detectiveNotes}
         </p>
-        <ul className="list-disc list-inside space-y-1 text-sm text-slate-700">
-          <li>{t('worksheets.readingDetective.writeThreeInferences')}</li>
-          <li>{explainWhy}</li>
-          <li>{t('worksheets.readingDetective.proveOrDisprove')}</li>
+        <ul className="list-disc list-inside space-y-1 text-sm text-slate-700 print:list-disc print:list-inside print:space-y-1 print:text-sm print:text-slate-700" style={{ paddingLeft: '1.5em', fontSize: '14px' }}>
+          <li style={{ marginBottom: '4px' }}>{t('worksheets.readingDetective.writeThreeInferences')}</li>
+          <li style={{ marginBottom: '4px' }}>{explainWhy}</li>
+          <li style={{ marginBottom: '4px' }}>{t('worksheets.readingDetective.proveOrDisprove')}</li>
         </ul>
-        <div className="rounded-lg border border-dashed border-indigo-300 bg-indigo-50 px-4 py-3 text-sm text-indigo-800">
+        <div className="rounded-lg border border-dashed border-indigo-300 bg-indigo-50 px-4 py-3 text-sm text-indigo-800 print:rounded-lg print:border print:border-dashed print:border-indigo-300 print:bg-indigo-50 print:px-4 print:py-3 print:text-sm print:text-indigo-800 break-inside-avoid" style={{ WebkitPrintColorAdjust: 'exact', printColorAdjust: 'exact', backgroundColor: '#eef2ff', borderColor: '#a5b4fc', borderWidth: '1px', borderStyle: 'dashed', padding: '12px 16px', borderRadius: '8px', marginTop: '12px', pageBreakInside: 'avoid', breakInside: 'avoid' }}>
           {t('worksheets.readingDetective.drawEvidenceBoard')}
-          <div className="mt-2 h-28 rounded border border-indigo-200 bg-white" />
+          <div className="mt-2 h-28 rounded border border-indigo-200 bg-white print:mt-2 print:h-28 print:rounded print:border print:border-indigo-200 print:bg-white" style={{ WebkitPrintColorAdjust: 'exact', printColorAdjust: 'exact', backgroundColor: '#ffffff', borderColor: '#c7d2fe', borderWidth: '1px', borderStyle: 'solid', height: '112px', borderRadius: '8px', marginTop: '8px' }} />
         </div>
       </div>
     )
@@ -1053,48 +1054,48 @@ const renderers: Record<string, Renderer> = {
     const { seed, doc, variant, t, formatNum } = ctx
     const story = buildReadingStoryMap(seed, doc.id, variant)
     return (
-      <div className="space-y-3">
-        <p className="text-sm leading-relaxed text-slate-700">
+      <div className="space-y-3 print:space-y-3" style={{ fontSize: '16px', lineHeight: '24px', marginTop: '0', marginBottom: '0' }}>
+        <p className="text-sm leading-relaxed text-slate-700 print:text-sm print:leading-relaxed print:text-slate-700" style={{ fontSize: '14px', lineHeight: '20px', margin: '0 0 12px 0' }}>
           {story.beginning} {story.middle} {story.ending}
         </p>
-        <div className="grid gap-3 md:grid-cols-3">
+        <div className="grid gap-3 md:grid-cols-3 print:grid print:grid-cols-3 print:gap-3 break-inside-avoid" style={{ gap: '12px', display: 'grid', gridTemplateColumns: 'repeat(3, minmax(0, 1fr))', pageBreakInside: 'avoid', breakInside: 'avoid' }}>
           {[
             { title: t('worksheets.storyMap.beginning'), prompt: t('worksheets.storyMap.beginningPrompt') },
             { title: t('worksheets.storyMap.middle'), prompt: t('worksheets.storyMap.middlePrompt') },
             { title: t('worksheets.storyMap.ending'), prompt: t('worksheets.storyMap.endingPrompt') },
           ].map((section) => (
-            <div key={section.title} className="rounded-xl border border-slate-200 bg-white p-4 text-sm text-slate-700">
-              <p className="font-semibold text-slate-900">{section.title}</p>
-              <p className="text-xs text-slate-500">{section.prompt}</p>
-              <div className="mt-3 h-24 rounded border border-dashed border-slate-300" />
+            <div key={section.title} className="rounded-xl border border-slate-200 bg-white p-4 text-sm text-slate-700 print:rounded-xl print:border print:border-slate-200 print:bg-white print:p-4 print:text-sm print:text-slate-700" style={{ WebkitPrintColorAdjust: 'exact', printColorAdjust: 'exact', backgroundColor: '#ffffff', borderColor: '#e2e8f0', padding: '16px', borderRadius: '12px', borderWidth: '1px', borderStyle: 'solid', fontSize: '14px' }}>
+              <p className="font-semibold text-slate-900 print:font-semibold print:text-slate-900" style={{ fontWeight: '600', margin: '0 0 8px 0' }}>{section.title}</p>
+              <p className="text-xs text-slate-500 print:text-xs print:text-slate-500" style={{ fontSize: '12px', lineHeight: '16px', margin: '0 0 12px 0' }}>{section.prompt}</p>
+              <div className="mt-3 h-24 rounded border border-dashed border-slate-300 print:mt-3 print:h-24 print:rounded print:border print:border-dashed print:border-slate-300" style={{ borderColor: '#cbd5e1', borderWidth: '1px', borderStyle: 'dashed', height: '96px', borderRadius: '8px', marginTop: '12px' }} />
             </div>
           ))}
         </div>
-        <div className="grid gap-3 md:grid-cols-2">
-          <div className="rounded-xl border border-purple-200 bg-purple-50 p-4 text-sm text-purple-800">
-            <p className="font-semibold">{t('worksheets.storyMap.clueLog')}</p>
-            <p className="text-xs uppercase tracking-wide text-purple-500">{t('worksheets.storyMap.lookBackAtStory')}</p>
-            <ol className="mt-2 list-decimal list-inside space-y-2 text-purple-900">
-              <li>{t('worksheets.storyMap.clue').replace('{{number}}', formatNum ? formatNum('1') : '1')}: _____________________________________________</li>
-              <li>{t('worksheets.storyMap.clue').replace('{{number}}', formatNum ? formatNum('2') : '2')}: _____________________________________________</li>
+        <div className="grid gap-3 md:grid-cols-2 print:grid print:grid-cols-2 print:gap-3 break-inside-avoid" style={{ gap: '12px', display: 'grid', gridTemplateColumns: 'repeat(2, minmax(0, 1fr))', marginTop: '12px', pageBreakInside: 'avoid', breakInside: 'avoid' }}>
+          <div className="rounded-xl border border-purple-200 bg-purple-50 p-4 text-sm text-purple-800 print:rounded-xl print:border print:border-purple-200 print:bg-purple-50 print:p-4 print:text-sm print:text-purple-800" style={{ WebkitPrintColorAdjust: 'exact', printColorAdjust: 'exact', backgroundColor: '#faf5ff', borderColor: '#e9d5ff', padding: '16px', borderRadius: '12px', borderWidth: '1px', borderStyle: 'solid', fontSize: '14px' }}>
+            <p className="font-semibold print:font-semibold" style={{ fontWeight: '600', margin: '0 0 8px 0' }}>{t('worksheets.storyMap.clueLog')}</p>
+            <p className="text-xs uppercase tracking-wide text-purple-500 print:text-xs print:uppercase print:tracking-wide print:text-purple-500" style={{ fontSize: '12px', letterSpacing: '0.05em', margin: '0 0 8px 0' }}>{t('worksheets.storyMap.lookBackAtStory')}</p>
+            <ol className="mt-2 list-decimal list-inside space-y-2 text-purple-900 print:mt-2 print:list-decimal print:list-inside print:space-y-2 print:text-purple-900" style={{ paddingLeft: '1.5em', fontSize: '14px' }}>
+              <li style={{ marginBottom: '8px' }}>{t('worksheets.storyMap.clue').replace('{{number}}', formatNum ? formatNum('1') : '1')}: _____________________________________________</li>
+              <li style={{ marginBottom: '8px' }}>{t('worksheets.storyMap.clue').replace('{{number}}', formatNum ? formatNum('2') : '2')}: _____________________________________________</li>
             </ol>
           </div>
-          <div className="rounded-xl border border-slate-200 bg-white p-4 text-sm text-slate-700">
-            <p className="font-semibold text-slate-900">{t('worksheets.storyMap.retellInOwnWords')}</p>
-            <p className="text-xs text-slate-500">{t('worksheets.storyMap.retellPrompt')}</p>
-            <div className="mt-3 space-y-2">
-              <div className="h-10 rounded border border-dashed border-slate-300" />
-              <div className="h-10 rounded border border-dashed border-slate-300" />
-              <div className="h-10 rounded border border-dashed border-slate-300" />
+          <div className="rounded-xl border border-slate-200 bg-white p-4 text-sm text-slate-700 print:rounded-xl print:border print:border-slate-200 print:bg-white print:p-4 print:text-sm print:text-slate-700" style={{ WebkitPrintColorAdjust: 'exact', printColorAdjust: 'exact', backgroundColor: '#ffffff', borderColor: '#e2e8f0', padding: '16px', borderRadius: '12px', borderWidth: '1px', borderStyle: 'solid', fontSize: '14px' }}>
+            <p className="font-semibold text-slate-900 print:font-semibold print:text-slate-900" style={{ fontWeight: '600', margin: '0 0 8px 0' }}>{t('worksheets.storyMap.retellInOwnWords')}</p>
+            <p className="text-xs text-slate-500 print:text-xs print:text-slate-500" style={{ fontSize: '12px', lineHeight: '16px', margin: '0 0 12px 0' }}>{t('worksheets.storyMap.retellPrompt')}</p>
+            <div className="mt-3 space-y-2 print:mt-3 print:space-y-2" style={{ marginTop: '12px' }}>
+              <div className="h-10 rounded border border-dashed border-slate-300 print:h-10 print:rounded print:border print:border-dashed print:border-slate-300" style={{ borderColor: '#cbd5e1', borderWidth: '1px', borderStyle: 'dashed', height: '40px', borderRadius: '8px', marginBottom: '8px' }} />
+              <div className="h-10 rounded border border-dashed border-slate-300 print:h-10 print:rounded print:border print:border-dashed print:border-slate-300" style={{ borderColor: '#cbd5e1', borderWidth: '1px', borderStyle: 'dashed', height: '40px', borderRadius: '8px', marginBottom: '8px' }} />
+              <div className="h-10 rounded border border-dashed border-slate-300 print:h-10 print:rounded print:border print:border-dashed print:border-slate-300" style={{ borderColor: '#cbd5e1', borderWidth: '1px', borderStyle: 'dashed', height: '40px', borderRadius: '8px', marginBottom: '8px' }} />
             </div>
           </div>
         </div>
-        <div className="space-y-2 text-sm text-slate-700">
-          <p className="font-semibold text-slate-900">{t('worksheets.storyMap.comprehensionChecks')}</p>
-          <ol className="list-decimal list-inside space-y-1">
-            <li>{t('worksheets.storyMap.whyDidVisit').replace('{{hero}}', story.hero).replace('{{friend}}', story.friend).replace('{{setting}}', story.setting)}</li>
-            <li>{t('worksheets.storyMap.whatProblem')}</li>
-            <li>{t('worksheets.storyMap.howDidHelper').replace('{{helper}}', story.helper)}</li>
+        <div className="space-y-2 text-sm text-slate-700 print:space-y-2 print:text-sm print:text-slate-700" style={{ fontSize: '14px', lineHeight: '20px', marginTop: '12px' }}>
+          <p className="font-semibold text-slate-900 print:font-semibold print:text-slate-900" style={{ fontWeight: '600', margin: '0 0 8px 0' }}>{t('worksheets.storyMap.comprehensionChecks')}</p>
+          <ol className="list-decimal list-inside space-y-1 print:list-decimal print:list-inside print:space-y-1" style={{ paddingLeft: '1.5em' }}>
+            <li style={{ marginBottom: '4px' }}>{t('worksheets.storyMap.whyDidVisit').replace('{{hero}}', story.hero).replace('{{friend}}', story.friend).replace('{{setting}}', story.setting)}</li>
+            <li style={{ marginBottom: '4px' }}>{t('worksheets.storyMap.whatProblem')}</li>
+            <li style={{ marginBottom: '4px' }}>{t('worksheets.storyMap.howDidHelper').replace('{{helper}}', story.helper)}</li>
           </ol>
         </div>
       </div>
@@ -1107,24 +1108,24 @@ const renderers: Record<string, Renderer> = {
     const contexts = ['after-school announcement', 'nature discovery', 'space mission', 'friendship moment', 'STEM experiment', 'art showcase']
     const context = pick(rng, contexts)
     return (
-      <div className="space-y-3">
-        <p className="text-sm text-slate-600">
+      <div className="space-y-3 print:space-y-3" style={{ fontSize: '16px', lineHeight: '24px', marginTop: '0', marginBottom: '0' }}>
+        <p className="text-sm text-slate-600 print:text-sm print:text-slate-600" style={{ fontSize: '14px', lineHeight: '20px', margin: '0 0 12px 0' }}>
           {t('worksheets.vocab.instructions').replace('{{context}}', context)}
         </p>
-        <table className="w-full border border-slate-300 text-sm">
-          <thead className="bg-slate-100">
+        <table className="w-full border border-slate-300 text-sm print:border print:border-slate-300 print:text-sm break-inside-avoid" style={{ WebkitPrintColorAdjust: 'exact', printColorAdjust: 'exact', borderColor: '#cbd5e1', borderWidth: '1px', borderStyle: 'solid', width: '100%', fontSize: '14px', pageBreakInside: 'avoid', breakInside: 'avoid' }}>
+          <thead className="bg-slate-100 print:bg-slate-100" style={{ backgroundColor: '#f1f5f9', WebkitPrintColorAdjust: 'exact', printColorAdjust: 'exact' }}>
             <tr>
-              <th className="px-3 py-2">{t('worksheets.vocab.word')}</th>
-              <th className="px-3 py-2">{t('worksheets.vocab.matchMeaning')}</th>
-              <th className="px-3 py-2">{t('worksheets.vocab.sentenceInContext')}</th>
+              <th className="px-3 py-2 print:px-3 print:py-2" style={{ padding: '8px 12px' }}>{t('worksheets.vocab.word')}</th>
+              <th className="px-3 py-2 print:px-3 print:py-2" style={{ padding: '8px 12px' }}>{t('worksheets.vocab.matchMeaning')}</th>
+              <th className="px-3 py-2 print:px-3 print:py-2" style={{ padding: '8px 12px' }}>{t('worksheets.vocab.sentenceInContext')}</th>
             </tr>
           </thead>
           <tbody>
             {words.map((word, idx) => (
-              <tr key={idx} className="border-t border-slate-200">
-                <td className="px-3 py-2 capitalize">{word}</td>
-                <td className="px-3 py-2">________________________</td>
-                <td className="px-3 py-2">__________________________________________________</td>
+              <tr key={idx} className="border-t border-slate-200 print:border-t print:border-slate-200" style={{ borderTopColor: '#e2e8f0', borderTopWidth: '1px', borderTopStyle: 'solid' }}>
+                <td className="px-3 py-2 capitalize print:px-3 print:py-2 print:capitalize" style={{ padding: '8px 12px' }}>{word}</td>
+                <td className="px-3 py-2 print:px-3 print:py-2" style={{ padding: '8px 12px' }}>________________________</td>
+                <td className="px-3 py-2 print:px-3 print:py-2" style={{ padding: '8px 12px' }}>__________________________________________________</td>
               </tr>
             ))}
           </tbody>
@@ -1138,30 +1139,30 @@ const renderers: Record<string, Renderer> = {
     const topics = ['community garden', 'solar-powered bus', 'classroom pet adoption', 'school makerspace', 'reading marathon']
     const topic = pick(rng, topics)
     return (
-      <div className="space-y-3">
-        <p className="text-sm leading-relaxed text-slate-700">
+      <div className="space-y-3 print:space-y-3" style={{ fontSize: '16px', lineHeight: '24px', marginTop: '0', marginBottom: '0' }}>
+        <p className="text-sm leading-relaxed text-slate-700 print:text-sm print:leading-relaxed print:text-slate-700" style={{ fontSize: '14px', lineHeight: '20px', margin: '0 0 12px 0' }}>
           {t('worksheets.summary.instructions').replace('{{topic}}', topic)}
         </p>
-        <div className="grid gap-3 md:grid-cols-2">
-          <div className="rounded-xl border border-slate-200 bg-white p-4 text-sm text-slate-600">
-            <p>
+        <div className="grid gap-3 md:grid-cols-2 print:grid print:grid-cols-2 print:gap-3 break-inside-avoid" style={{ gap: '12px', display: 'grid', gridTemplateColumns: 'repeat(2, minmax(0, 1fr))', pageBreakInside: 'avoid', breakInside: 'avoid' }}>
+          <div className="rounded-xl border border-slate-200 bg-white p-4 text-sm text-slate-600 print:rounded-xl print:border print:border-slate-200 print:bg-white print:p-4 print:text-sm print:text-slate-600" style={{ WebkitPrintColorAdjust: 'exact', printColorAdjust: 'exact', backgroundColor: '#ffffff', borderColor: '#e2e8f0', padding: '16px', borderRadius: '12px', borderWidth: '1px', borderStyle: 'solid', fontSize: '14px' }}>
+            <p style={{ margin: '0 0 8px 0' }}>
               {t('worksheets.summary.paragraph').replace('{{number}}', formatNum ? formatNum('1') : '1')}: {t('worksheets.summary.paragraph1Intro').replace('{{topic}}', topic)}
             </p>
-            <p className="mt-2">
+            <p className="mt-2 print:mt-2" style={{ marginTop: '8px', marginBottom: '8px' }}>
               {t('worksheets.summary.paragraph').replace('{{number}}', formatNum ? formatNum('2') : '2')}: {t('worksheets.summary.paragraph2Intro')}
             </p>
-            <p className="mt-2">
+            <p className="mt-2 print:mt-2" style={{ marginTop: '8px', marginBottom: '0' }}>
               {t('worksheets.summary.paragraph').replace('{{number}}', formatNum ? formatNum('3') : '3')}: {t('worksheets.summary.paragraph3Intro')}
             </p>
           </div>
-          <div className="rounded-xl border border-purple-200 bg-purple-50 p-4 text-sm text-purple-800">
-            <p className="font-semibold">{t('worksheets.summary.summaryBox')}</p>
-            <ul className="mt-2 space-y-2 text-purple-900">
-              <li>{t('worksheets.summary.keyPoint').replace('{{number}}', formatNum ? formatNum('1') : '1')}: __________________________</li>
-              <li>{t('worksheets.summary.keyPoint').replace('{{number}}', formatNum ? formatNum('2') : '2')}: __________________________</li>
-              <li>{t('worksheets.summary.keyPoint').replace('{{number}}', formatNum ? formatNum('3') : '3')}: __________________________</li>
+          <div className="rounded-xl border border-purple-200 bg-purple-50 p-4 text-sm text-purple-800 print:rounded-xl print:border print:border-purple-200 print:bg-purple-50 print:p-4 print:text-sm print:text-purple-800" style={{ WebkitPrintColorAdjust: 'exact', printColorAdjust: 'exact', backgroundColor: '#faf5ff', borderColor: '#e9d5ff', padding: '16px', borderRadius: '12px', borderWidth: '1px', borderStyle: 'solid', fontSize: '14px' }}>
+            <p className="font-semibold print:font-semibold" style={{ fontWeight: '600', margin: '0 0 8px 0' }}>{t('worksheets.summary.summaryBox')}</p>
+            <ul className="mt-2 space-y-2 text-purple-900 print:mt-2 print:space-y-2 print:text-purple-900" style={{ paddingLeft: '1.5em', fontSize: '14px', marginTop: '8px' }}>
+              <li style={{ marginBottom: '8px' }}>{t('worksheets.summary.keyPoint').replace('{{number}}', formatNum ? formatNum('1') : '1')}: __________________________</li>
+              <li style={{ marginBottom: '8px' }}>{t('worksheets.summary.keyPoint').replace('{{number}}', formatNum ? formatNum('2') : '2')}: __________________________</li>
+              <li style={{ marginBottom: '8px' }}>{t('worksheets.summary.keyPoint').replace('{{number}}', formatNum ? formatNum('3') : '3')}: __________________________</li>
             </ul>
-            <p className="mt-3 text-xs text-purple-700">{t('worksheets.summary.closingSentence')}</p>
+            <p className="mt-3 text-xs text-purple-700 print:mt-3 print:text-xs print:text-purple-700" style={{ fontSize: '12px', lineHeight: '16px', marginTop: '12px', marginBottom: '0' }}>{t('worksheets.summary.closingSentence')}</p>
           </div>
         </div>
       </div>
@@ -1185,24 +1186,24 @@ const renderers: Record<string, Renderer> = {
     }
     const [topicA, topicB] = pick(rng, topics)
     return (
-      <div className="space-y-3">
-        <p className="text-sm text-slate-600">
+      <div className="space-y-3 print:space-y-3" style={{ fontSize: '16px', lineHeight: '24px', marginTop: '0', marginBottom: '0' }}>
+        <p className="text-sm text-slate-600 print:text-sm print:text-slate-600" style={{ fontSize: '14px', lineHeight: '20px', margin: '0 0 12px 0' }}>
           {t('worksheets.compare.instructions').replace('{{topicA}}', topicA).replace('{{topicB}}', topicB)}
         </p>
-        <div className="grid gap-4">
-          <div className="rounded-xl border border-slate-200 bg-white p-4 text-sm text-slate-700">
-            <p className="font-semibold">{t('worksheets.compare.text1').replace('{{topic}}', topicA)}</p>
-            <p>{t('worksheets.compare.keyDetails')} ______________________________</p>
-            <p>{t('worksheets.compare.whatProblem')} __________________</p>
+        <div className="grid gap-4 print:grid print:gap-4 break-inside-avoid" style={{ gap: '16px', display: 'grid', gridTemplateColumns: 'repeat(1, minmax(0, 1fr))', pageBreakInside: 'avoid', breakInside: 'avoid' }}>
+          <div className="rounded-xl border border-slate-200 bg-white p-4 text-sm text-slate-700 print:rounded-xl print:border print:border-slate-200 print:bg-white print:p-4 print:text-sm print:text-slate-700" style={{ WebkitPrintColorAdjust: 'exact', printColorAdjust: 'exact', backgroundColor: '#ffffff', borderColor: '#e2e8f0', padding: '16px', borderRadius: '12px', borderWidth: '1px', borderStyle: 'solid', fontSize: '14px', marginBottom: '16px' }}>
+            <p className="font-semibold print:font-semibold" style={{ fontWeight: '600', margin: '0 0 8px 0' }}>{t('worksheets.compare.text1').replace('{{topic}}', topicA)}</p>
+            <p style={{ margin: '0 0 4px 0' }}>{t('worksheets.compare.keyDetails')} ______________________________</p>
+            <p style={{ margin: '0' }}>{t('worksheets.compare.whatProblem')} __________________</p>
           </div>
-          <div className="rounded-xl border border-slate-200 bg-white p-4 text-sm text-slate-700">
-            <p className="font-semibold">{t('worksheets.compare.text2').replace('{{topic}}', topicB)}</p>
-            <p>{t('worksheets.compare.keyDetails')} ______________________________</p>
-            <p>{t('worksheets.compare.whatProblem')} __________________</p>
+          <div className="rounded-xl border border-slate-200 bg-white p-4 text-sm text-slate-700 print:rounded-xl print:border print:border-slate-200 print:bg-white print:p-4 print:text-sm print:text-slate-700" style={{ WebkitPrintColorAdjust: 'exact', printColorAdjust: 'exact', backgroundColor: '#ffffff', borderColor: '#e2e8f0', padding: '16px', borderRadius: '12px', borderWidth: '1px', borderStyle: 'solid', fontSize: '14px', marginBottom: '16px' }}>
+            <p className="font-semibold print:font-semibold" style={{ fontWeight: '600', margin: '0 0 8px 0' }}>{t('worksheets.compare.text2').replace('{{topic}}', topicB)}</p>
+            <p style={{ margin: '0 0 4px 0' }}>{t('worksheets.compare.keyDetails')} ______________________________</p>
+            <p style={{ margin: '0' }}>{t('worksheets.compare.whatProblem')} __________________</p>
           </div>
-          <div className="rounded-xl border border-emerald-200 bg-emerald-50 p-4 text-sm text-emerald-900">
-            <p className="font-semibold">{t('worksheets.compare.compareContrastParagraph')}</p>
-            <p className="mt-2">
+          <div className="rounded-xl border border-emerald-200 bg-emerald-50 p-4 text-sm text-emerald-900 print:rounded-xl print:border print:border-emerald-200 print:bg-emerald-50 print:p-4 print:text-sm print:text-emerald-900" style={{ WebkitPrintColorAdjust: 'exact', printColorAdjust: 'exact', backgroundColor: '#ecfdf5', borderColor: '#a7f3d0', padding: '16px', borderRadius: '12px', borderWidth: '1px', borderStyle: 'solid', fontSize: '14px' }}>
+            <p className="font-semibold print:font-semibold" style={{ fontWeight: '600', margin: '0 0 8px 0' }}>{t('worksheets.compare.compareContrastParagraph')}</p>
+            <p className="mt-2 print:mt-2" style={{ marginTop: '8px', marginBottom: '0' }}>
               {t('worksheets.compare.alikeBecause').replace('{{topicA}}', topicA).replace('{{topicB}}', topicB)} _______________________________. {t('worksheets.compare.differentBecause')} _______________________________.
             </p>
           </div>
@@ -1230,22 +1231,22 @@ const renderers: Record<string, Renderer> = {
     }
     const chosen = pickMany(rng, prompts, 3)
     return (
-      <div className="space-y-3">
-        <p className="text-sm text-slate-600">
+      <div className="space-y-3 print:space-y-3" style={{ fontSize: '16px', lineHeight: '24px', marginTop: '0', marginBottom: '0' }}>
+        <p className="text-sm text-slate-600 print:text-sm print:text-slate-600" style={{ fontSize: '14px', lineHeight: '20px', margin: '0 0 12px 0' }}>
           {t('worksheets.writingPrompts.instructions')}
         </p>
-        <ul className="space-y-2 text-sm text-slate-700">
+        <ul className="space-y-2 text-sm text-slate-700 print:space-y-2 print:text-sm print:text-slate-700" style={{ paddingLeft: '1.5em', fontSize: '14px' }}>
           {chosen.map((prompt, idx) => (
-            <li key={idx} className="rounded-lg border border-slate-200 bg-white px-4 py-3">
-              <span className="font-semibold text-purple-700">{t('worksheets.writingPrompts.prompt').replace('{{number}}', formatNum ? formatNum(idx + 1) : String(idx + 1))}:</span> {prompt}
+            <li key={idx} className="rounded-lg border border-slate-200 bg-white px-4 py-3 print:rounded-lg print:border print:border-slate-200 print:bg-white print:px-4 print:py-3 break-inside-avoid" style={{ WebkitPrintColorAdjust: 'exact', printColorAdjust: 'exact', backgroundColor: '#ffffff', borderColor: '#e2e8f0', padding: '12px 16px', borderRadius: '8px', borderWidth: '1px', borderStyle: 'solid', marginBottom: '8px', pageBreakInside: 'avoid', breakInside: 'avoid' }}>
+              <span className="font-semibold text-purple-700 print:font-semibold print:text-purple-700" style={{ fontWeight: '600', color: '#7c3aed' }}>{t('worksheets.writingPrompts.prompt').replace('{{number}}', formatNum ? formatNum(idx + 1) : String(idx + 1))}:</span> {prompt}
             </li>
           ))}
         </ul>
-        <div className="space-y-1 text-xs text-slate-500">
-          <p>{t('worksheets.writingPrompts.brainstorm')} ________________________________</p>
-          <p>{t('worksheets.writingPrompts.beginning')} _________________________________</p>
-          <p>{t('worksheets.writingPrompts.middle')} ___________________________________</p>
-          <p>{t('worksheets.writingPrompts.end')} ______________________________________</p>
+        <div className="space-y-1 text-xs text-slate-500 print:space-y-1 print:text-xs print:text-slate-500 break-inside-avoid" style={{ fontSize: '12px', lineHeight: '16px', marginTop: '12px', pageBreakInside: 'avoid', breakInside: 'avoid' }}>
+          <p style={{ margin: '0 0 4px 0' }}>{t('worksheets.writingPrompts.brainstorm')} ________________________________</p>
+          <p style={{ margin: '0 0 4px 0' }}>{t('worksheets.writingPrompts.beginning')} _________________________________</p>
+          <p style={{ margin: '0 0 4px 0' }}>{t('worksheets.writingPrompts.middle')} ___________________________________</p>
+          <p style={{ margin: '0' }}>{t('worksheets.writingPrompts.end')} ______________________________________</p>
         </div>
       </div>
     )
@@ -1257,20 +1258,20 @@ const renderers: Record<string, Renderer> = {
     const actions = pickMany(rng, ['we built a domino tower', 'the lights flickered', 'a secret message appeared', 'someone whispered a clue', 'the class cheered', 'the cat jumped on the desk'], 4)
     const sentences = starters.map((start, idx) => `${start}, ____________________.`)
     return (
-      <div className="space-y-3">
-        <p className="text-sm text-slate-600">
+      <div className="space-y-3 print:space-y-3" style={{ fontSize: '16px', lineHeight: '24px', marginTop: '0', marginBottom: '0' }}>
+        <p className="text-sm text-slate-600 print:text-sm print:text-slate-600" style={{ fontSize: '14px', lineHeight: '20px', margin: '0 0 12px 0' }}>
           {t('worksheets.writingSentences.instructions')}
         </p>
-        <ul className="space-y-2 text-sm text-slate-700">
+        <ul className="space-y-2 text-sm text-slate-700 print:space-y-2 print:text-sm print:text-slate-700" style={{ paddingLeft: '1.5em', fontSize: '14px' }}>
           {sentences.map((sentence, idx) => (
-            <li key={idx} className="rounded border border-amber-200 bg-amber-50 px-4 py-3 font-semibold text-amber-800">
+            <li key={idx} className="rounded border border-amber-200 bg-amber-50 px-4 py-3 font-semibold text-amber-800 print:rounded print:border print:border-amber-200 print:bg-amber-50 print:px-4 print:py-3 print:font-semibold print:text-amber-800 break-inside-avoid" style={{ WebkitPrintColorAdjust: 'exact', printColorAdjust: 'exact', backgroundColor: '#fffbeb', borderColor: '#fde68a', padding: '12px 16px', borderRadius: '8px', borderWidth: '1px', borderStyle: 'solid', fontWeight: '600', marginBottom: '8px', pageBreakInside: 'avoid', breakInside: 'avoid' }}>
               {sentence}
             </li>
           ))}
         </ul>
-        <div className="rounded-lg border border-slate-200 bg-white px-4 py-3 text-sm text-slate-600">
-          <p className="font-semibold text-slate-900">{t('worksheets.writingSentences.compoundSentenceChallenge')}</p>
-          <p>{t('worksheets.writingSentences.combineWithConjunction')} _______________________________________________________</p>
+        <div className="rounded-lg border border-slate-200 bg-white px-4 py-3 text-sm text-slate-600 print:rounded-lg print:border print:border-slate-200 print:bg-white print:px-4 print:py-3 print:text-sm print:text-slate-600 break-inside-avoid" style={{ WebkitPrintColorAdjust: 'exact', printColorAdjust: 'exact', backgroundColor: '#ffffff', borderColor: '#e2e8f0', padding: '12px 16px', borderRadius: '8px', borderWidth: '1px', borderStyle: 'solid', fontSize: '14px', marginTop: '12px', pageBreakInside: 'avoid', breakInside: 'avoid' }}>
+          <p className="font-semibold text-slate-900 print:font-semibold print:text-slate-900" style={{ fontWeight: '600', margin: '0 0 8px 0' }}>{t('worksheets.writingSentences.compoundSentenceChallenge')}</p>
+          <p style={{ margin: '0' }}>{t('worksheets.writingSentences.combineWithConjunction')} _______________________________________________________</p>
         </div>
       </div>
     )
@@ -1289,27 +1290,27 @@ const renderers: Record<string, Renderer> = {
     const theme = pick(rng, themes)
     const wordBank = pickMany(rng, ['glimmer', 'echo', 'whirl', 'rustle', 'shimmer', 'spark', 'twirl', 'glide', 'bloom', 'glisten'], 6)
     return (
-      <div className="space-y-3">
-        <p className="text-sm text-slate-600">
+      <div className="space-y-3 print:space-y-3" style={{ fontSize: '16px', lineHeight: '24px', marginTop: '0', marginBottom: '0' }}>
+        <p className="text-sm text-slate-600 print:text-sm print:text-slate-600" style={{ fontSize: '14px', lineHeight: '20px', margin: '0 0 12px 0' }}>
           {t('worksheets.writingPoetry.instructions').replace('{{theme}}', theme)}
         </p>
-        <div className="rounded-xl border border-purple-200 bg-purple-50 p-4 text-sm text-purple-800">
-          <p className="font-semibold">{t('worksheets.writingPoetry.wordBank')}</p>
-          <p className="mt-1 uppercase tracking-wide text-xs">{wordBank.join(' • ')}</p>
+        <div className="rounded-xl border border-purple-200 bg-purple-50 p-4 text-sm text-purple-800 print:rounded-xl print:border print:border-purple-200 print:bg-purple-50 print:p-4 print:text-sm print:text-purple-800 break-inside-avoid" style={{ WebkitPrintColorAdjust: 'exact', printColorAdjust: 'exact', backgroundColor: '#faf5ff', borderColor: '#e9d5ff', padding: '16px', borderRadius: '12px', borderWidth: '1px', borderStyle: 'solid', fontSize: '14px', marginBottom: '12px', pageBreakInside: 'avoid', breakInside: 'avoid' }}>
+          <p className="font-semibold print:font-semibold" style={{ fontWeight: '600', margin: '0 0 8px 0' }}>{t('worksheets.writingPoetry.wordBank')}</p>
+          <p className="mt-1 uppercase tracking-wide text-xs print:mt-1 print:uppercase print:tracking-wide print:text-xs" style={{ fontSize: '12px', letterSpacing: '0.05em', marginTop: '4px', marginBottom: '0' }}>{wordBank.join(' • ')}</p>
         </div>
-        <div className="grid gap-4 md:grid-cols-2 print-season-grid">
-          <div className="rounded-xl border border-slate-200 bg-white p-4 text-sm text-slate-700">
-            <p className="font-semibold">{t('worksheets.writingPoetry.haiku')}</p>
-            <p>{t('worksheets.writingPoetry.line').replace('{{number}}', formatNum ? formatNum('1') : '1')}: ___________________________</p>
-            <p>{t('worksheets.writingPoetry.line').replace('{{number}}', formatNum ? formatNum('2') : '2')}: ___________________________</p>
-            <p>{t('worksheets.writingPoetry.line').replace('{{number}}', formatNum ? formatNum('3') : '3')}: ___________________________</p>
+        <div className="grid gap-4 md:grid-cols-2 print-season-grid print:grid print:grid-cols-2 print:gap-4 break-inside-avoid" style={{ gap: '16px', display: 'grid', gridTemplateColumns: 'repeat(2, minmax(0, 1fr))', pageBreakInside: 'avoid', breakInside: 'avoid' }}>
+          <div className="rounded-xl border border-slate-200 bg-white p-4 text-sm text-slate-700 print:rounded-xl print:border print:border-slate-200 print:bg-white print:p-4 print:text-sm print:text-slate-700" style={{ WebkitPrintColorAdjust: 'exact', printColorAdjust: 'exact', backgroundColor: '#ffffff', borderColor: '#e2e8f0', padding: '16px', borderRadius: '12px', borderWidth: '1px', borderStyle: 'solid', fontSize: '14px' }}>
+            <p className="font-semibold print:font-semibold" style={{ fontWeight: '600', margin: '0 0 8px 0' }}>{t('worksheets.writingPoetry.haiku')}</p>
+            <p style={{ margin: '0 0 4px 0' }}>{t('worksheets.writingPoetry.line').replace('{{number}}', formatNum ? formatNum('1') : '1')}: ___________________________</p>
+            <p style={{ margin: '0 0 4px 0' }}>{t('worksheets.writingPoetry.line').replace('{{number}}', formatNum ? formatNum('2') : '2')}: ___________________________</p>
+            <p style={{ margin: '0' }}>{t('worksheets.writingPoetry.line').replace('{{number}}', formatNum ? formatNum('3') : '3')}: ___________________________</p>
           </div>
-          <div className="rounded-xl border border-slate-200 bg-white p-4 text-sm text-slate-700">
-            <p className="font-semibold">{t('worksheets.writingPoetry.freeVerseStanza')}</p>
-            <p>{t('worksheets.writingPoetry.line').replace('{{number}}', formatNum ? formatNum('1') : '1')}: ___________________________</p>
-            <p>{t('worksheets.writingPoetry.line').replace('{{number}}', formatNum ? formatNum('2') : '2')}: ___________________________</p>
-            <p>{t('worksheets.writingPoetry.line').replace('{{number}}', formatNum ? formatNum('3') : '3')}: ___________________________</p>
-            <p>{t('worksheets.writingPoetry.line').replace('{{number}}', formatNum ? formatNum('4') : '4')}: ___________________________</p>
+          <div className="rounded-xl border border-slate-200 bg-white p-4 text-sm text-slate-700 print:rounded-xl print:border print:border-slate-200 print:bg-white print:p-4 print:text-sm print:text-slate-700" style={{ WebkitPrintColorAdjust: 'exact', printColorAdjust: 'exact', backgroundColor: '#ffffff', borderColor: '#e2e8f0', padding: '16px', borderRadius: '12px', borderWidth: '1px', borderStyle: 'solid', fontSize: '14px' }}>
+            <p className="font-semibold print:font-semibold" style={{ fontWeight: '600', margin: '0 0 8px 0' }}>{t('worksheets.writingPoetry.freeVerseStanza')}</p>
+            <p style={{ margin: '0 0 4px 0' }}>{t('worksheets.writingPoetry.line').replace('{{number}}', formatNum ? formatNum('1') : '1')}: ___________________________</p>
+            <p style={{ margin: '0 0 4px 0' }}>{t('worksheets.writingPoetry.line').replace('{{number}}', formatNum ? formatNum('2') : '2')}: ___________________________</p>
+            <p style={{ margin: '0 0 4px 0' }}>{t('worksheets.writingPoetry.line').replace('{{number}}', formatNum ? formatNum('3') : '3')}: ___________________________</p>
+            <p style={{ margin: '0' }}>{t('worksheets.writingPoetry.line').replace('{{number}}', formatNum ? formatNum('4') : '4')}: ___________________________</p>
           </div>
         </div>
       </div>
@@ -1328,23 +1329,23 @@ const renderers: Record<string, Renderer> = {
     }
     const topic = pick(rng, topics)
     return (
-      <div className="space-y-3">
-        <p className="text-sm text-slate-600">
-          {t('worksheets.writingOpinion.instructions')} <span className="font-semibold text-purple-700">{topic}</span>
+      <div className="space-y-3 print:space-y-3" style={{ fontSize: '16px', lineHeight: '24px', marginTop: '0', marginBottom: '0' }}>
+        <p className="text-sm text-slate-600 print:text-sm print:text-slate-600" style={{ fontSize: '14px', lineHeight: '20px', margin: '0 0 12px 0' }}>
+          {t('worksheets.writingOpinion.instructions')} <span className="font-semibold text-purple-700 print:font-semibold print:text-purple-700" style={{ fontWeight: '600', color: '#7c3aed' }}>{topic}</span>
         </p>
-        <div className="grid gap-4 md:grid-cols-2 print-season-grid">
-          <div className="rounded-xl border border-slate-200 bg-white p-4 text-sm text-slate-700">
-            <p className="font-semibold">{t('worksheets.writingOpinion.reasonsAndEvidence')}</p>
-            <p>{t('worksheets.writingOpinion.reason').replace('{{number}}', formatNum ? formatNum('1') : '1')} ____________________________________</p>
-            <p>{t('worksheets.writingOpinion.evidence')} _____________________________________</p>
-            <p className="mt-3">{t('worksheets.writingOpinion.reason').replace('{{number}}', formatNum ? formatNum('2') : '2')} ____________________________________</p>
-            <p>{t('worksheets.writingOpinion.evidence')} _____________________________________</p>
+        <div className="grid gap-4 md:grid-cols-2 print-season-grid print:grid print:grid-cols-2 print:gap-4 break-inside-avoid" style={{ gap: '16px', display: 'grid', gridTemplateColumns: 'repeat(2, minmax(0, 1fr))', pageBreakInside: 'avoid', breakInside: 'avoid' }}>
+          <div className="rounded-xl border border-slate-200 bg-white p-4 text-sm text-slate-700 print:rounded-xl print:border print:border-slate-200 print:bg-white print:p-4 print:text-sm print:text-slate-700" style={{ WebkitPrintColorAdjust: 'exact', printColorAdjust: 'exact', backgroundColor: '#ffffff', borderColor: '#e2e8f0', padding: '16px', borderRadius: '12px', borderWidth: '1px', borderStyle: 'solid', fontSize: '14px' }}>
+            <p className="font-semibold print:font-semibold" style={{ fontWeight: '600', margin: '0 0 8px 0' }}>{t('worksheets.writingOpinion.reasonsAndEvidence')}</p>
+            <p style={{ margin: '0 0 4px 0' }}>{t('worksheets.writingOpinion.reason').replace('{{number}}', formatNum ? formatNum('1') : '1')} ____________________________________</p>
+            <p style={{ margin: '0 0 12px 0' }}>{t('worksheets.writingOpinion.evidence')} _____________________________________</p>
+            <p className="mt-3 print:mt-3" style={{ marginTop: '12px', marginBottom: '4px' }}>{t('worksheets.writingOpinion.reason').replace('{{number}}', formatNum ? formatNum('2') : '2')} ____________________________________</p>
+            <p style={{ margin: '0' }}>{t('worksheets.writingOpinion.evidence')} _____________________________________</p>
           </div>
-          <div className="rounded-xl border border-emerald-200 bg-emerald-50 p-4 text-sm text-emerald-800">
-            <p className="font-semibold">{t('worksheets.writingOpinion.paragraphPlanner')}</p>
-            <p>{t('worksheets.writingOpinion.hookSentence')} ___________________________________</p>
-            <p>{t('worksheets.writingOpinion.opinionStatement')} _______________________________</p>
-            <p>{t('worksheets.writingOpinion.closingSentence')} ________________________________</p>
+          <div className="rounded-xl border border-emerald-200 bg-emerald-50 p-4 text-sm text-emerald-800 print:rounded-xl print:border print:border-emerald-200 print:bg-emerald-50 print:p-4 print:text-sm print:text-emerald-800" style={{ WebkitPrintColorAdjust: 'exact', printColorAdjust: 'exact', backgroundColor: '#ecfdf5', borderColor: '#a7f3d0', padding: '16px', borderRadius: '12px', borderWidth: '1px', borderStyle: 'solid', fontSize: '14px' }}>
+            <p className="font-semibold print:font-semibold" style={{ fontWeight: '600', margin: '0 0 8px 0' }}>{t('worksheets.writingOpinion.paragraphPlanner')}</p>
+            <p style={{ margin: '0 0 4px 0' }}>{t('worksheets.writingOpinion.hookSentence')} ___________________________________</p>
+            <p style={{ margin: '0 0 4px 0' }}>{t('worksheets.writingOpinion.opinionStatement')} _______________________________</p>
+            <p style={{ margin: '0' }}>{t('worksheets.writingOpinion.closingSentence')} ________________________________</p>
           </div>
         </div>
       </div>
@@ -1356,28 +1357,28 @@ const renderers: Record<string, Renderer> = {
     const focuses = ['plants', 'weather', 'animal behavior', 'STEM gadgets', 'rocks & minerals']
     const focus = pick(rng, focuses)
     return (
-      <div className="space-y-3">
-        <p className="text-sm text-slate-600">
+      <div className="space-y-3 print:space-y-3" style={{ fontSize: '16px', lineHeight: '24px', marginTop: '0', marginBottom: '0' }}>
+        <p className="text-sm text-slate-600 print:text-sm print:text-slate-600" style={{ fontSize: '14px', lineHeight: '20px', margin: '0 0 12px 0' }}>
           {t('worksheets.scienceObservation.instructions').replace('{{focus}}', focus)}
         </p>
-        <table className="w-full border border-slate-300 text-left text-sm">
-          <thead className="bg-slate-100">
+        <table className="w-full border border-slate-300 text-left text-sm print:border print:border-slate-300 print:text-left print:text-sm break-inside-avoid" style={{ WebkitPrintColorAdjust: 'exact', printColorAdjust: 'exact', borderColor: '#cbd5e1', borderWidth: '1px', borderStyle: 'solid', width: '100%', fontSize: '14px', pageBreakInside: 'avoid', breakInside: 'avoid' }}>
+          <thead className="bg-slate-100 print:bg-slate-100" style={{ backgroundColor: '#f1f5f9', WebkitPrintColorAdjust: 'exact', printColorAdjust: 'exact' }}>
             <tr>
-              <th className="px-3 py-2">{t('worksheets.scienceObservation.dateAndTime')}</th>
-              <th className="px-3 py-2">{t('worksheets.scienceObservation.observationSketch')}</th>
-              <th className="px-3 py-2">{t('worksheets.scienceObservation.whatINoticed')}</th>
-              <th className="px-3 py-2">{t('worksheets.scienceObservation.questionsNextSteps')}</th>
+              <th className="px-3 py-2 print:px-3 print:py-2" style={{ padding: '8px 12px' }}>{t('worksheets.scienceObservation.dateAndTime')}</th>
+              <th className="px-3 py-2 print:px-3 print:py-2" style={{ padding: '8px 12px' }}>{t('worksheets.scienceObservation.observationSketch')}</th>
+              <th className="px-3 py-2 print:px-3 print:py-2" style={{ padding: '8px 12px' }}>{t('worksheets.scienceObservation.whatINoticed')}</th>
+              <th className="px-3 py-2 print:px-3 print:py-2" style={{ padding: '8px 12px' }}>{t('worksheets.scienceObservation.questionsNextSteps')}</th>
             </tr>
           </thead>
           <tbody>
             {Array.from({ length: 4 }).map((_, idx) => (
-              <tr key={idx} className="border-t border-slate-200">
-                <td className="px-3 py-2">__________</td>
-                <td className="px-3 py-2">
-                  <div className="h-16 w-full rounded border border-dashed border-slate-300" />
+              <tr key={idx} className="border-t border-slate-200 print:border-t print:border-slate-200" style={{ borderTopColor: '#e2e8f0', borderTopWidth: '1px', borderTopStyle: 'solid' }}>
+                <td className="px-3 py-2 print:px-3 print:py-2" style={{ padding: '8px 12px' }}>__________</td>
+                <td className="px-3 py-2 print:px-3 print:py-2" style={{ padding: '8px 12px' }}>
+                  <div className="h-16 w-full rounded border border-dashed border-slate-300 print:h-16 print:rounded print:border print:border-dashed print:border-slate-300" style={{ borderColor: '#cbd5e1', borderWidth: '1px', borderStyle: 'dashed', height: '64px', borderRadius: '8px' }} />
                 </td>
-                <td className="px-3 py-2">____________________________________</td>
-                <td className="px-3 py-2">____________________________________</td>
+                <td className="px-3 py-2 print:px-3 print:py-2" style={{ padding: '8px 12px' }}>____________________________________</td>
+                <td className="px-3 py-2 print:px-3 print:py-2" style={{ padding: '8px 12px' }}>____________________________________</td>
               </tr>
             ))}
           </tbody>
@@ -1400,17 +1401,17 @@ const renderers: Record<string, Renderer> = {
     const stages = stagesMap[cycle]
     const numberWords = ['first', 'second', 'third', 'fourth']
     return (
-      <div className="space-y-3">
-        <p className="text-sm text-slate-600">
+      <div className="space-y-3 print:space-y-3" style={{ fontSize: '16px', lineHeight: '24px', marginTop: '0', marginBottom: '0' }}>
+        <p className="text-sm text-slate-600 print:text-sm print:text-slate-600" style={{ fontSize: '14px', lineHeight: '20px', margin: '0 0 12px 0' }}>
           {t('worksheets.scienceLifecycle.instructions').replace('{{cycle}}', cycle)}
         </p>
-        <div className="grid gap-4 md:grid-cols-4">
+        <div className="grid gap-4 md:grid-cols-4 print:grid print:grid-cols-4 print:gap-4 break-inside-avoid" style={{ gap: '16px', display: 'grid', gridTemplateColumns: 'repeat(4, minmax(0, 1fr))', pageBreakInside: 'avoid', breakInside: 'avoid' }}>
           {stages.map((stage, idx) => (
-            <div key={stage} className="rounded-xl border border-emerald-200 bg-emerald-50 p-3 text-center text-sm text-emerald-800">
-              <p className="font-semibold">{t('worksheets.scienceLifecycle.stage').replace('{{number}}', formatNum ? formatNum(idx + 1) : String(idx + 1))}</p>
-              <p className="mt-1 font-bold text-emerald-900">{stage}</p>
-              <div className="mt-2 h-16 rounded border border-dashed border-emerald-300 bg-white" />
-              <p className="mt-2 text-xs text-emerald-700">{t('worksheets.scienceLifecycle.notes')} __________________</p>
+            <div key={stage} className="rounded-xl border border-emerald-200 bg-emerald-50 p-3 text-center text-sm text-emerald-800 print:rounded-xl print:border print:border-emerald-200 print:bg-emerald-50 print:p-3 print:text-center print:text-sm print:text-emerald-800" style={{ WebkitPrintColorAdjust: 'exact', printColorAdjust: 'exact', backgroundColor: '#ecfdf5', borderColor: '#a7f3d0', padding: '12px', borderRadius: '12px', borderWidth: '1px', borderStyle: 'solid', fontSize: '14px' }}>
+              <p className="font-semibold print:font-semibold" style={{ fontWeight: '600', margin: '0 0 4px 0' }}>{t('worksheets.scienceLifecycle.stage').replace('{{number}}', formatNum ? formatNum(idx + 1) : String(idx + 1))}</p>
+              <p className="mt-1 font-bold text-emerald-900 print:mt-1 print:font-bold print:text-emerald-900" style={{ fontWeight: '700', marginTop: '4px', marginBottom: '8px' }}>{stage}</p>
+              <div className="mt-2 h-16 rounded border border-dashed border-emerald-300 bg-white print:mt-2 print:h-16 print:rounded print:border print:border-dashed print:border-emerald-300 print:bg-white" style={{ WebkitPrintColorAdjust: 'exact', printColorAdjust: 'exact', backgroundColor: '#ffffff', borderColor: '#6ee7b7', borderWidth: '1px', borderStyle: 'dashed', height: '64px', borderRadius: '8px', marginTop: '8px' }} />
+              <p className="mt-2 text-xs text-emerald-700 print:mt-2 print:text-xs print:text-emerald-700" style={{ fontSize: '12px', lineHeight: '16px', marginTop: '8px', marginBottom: '0' }}>{t('worksheets.scienceLifecycle.notes')} __________________</p>
             </div>
           ))}
         </div>
