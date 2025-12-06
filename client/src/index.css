@@ -2350,19 +2350,27 @@ section[data-interactive-section="true"].preserve-print-styling [class*="h-48"] 
     print-color-adjust: exact !important;
   }
   [data-worksheet-content="true"] .bg-emerald-300,
+  [data-worksheet-content="true"] .bg-emerald-400,
   [data-worksheet-content="true"] span.bg-emerald-300,
+  [data-worksheet-content="true"] span.bg-emerald-400,
   [data-worksheet-content="true"] span[class*="bg-emerald-300"],
+  [data-worksheet-content="true"] span[class*="bg-emerald-400"],
   [data-worksheet-content="true"] [class*="bg-emerald-300"],
+  [data-worksheet-content="true"] [class*="bg-emerald-400"],
   section .bg-emerald-300,
+  section .bg-emerald-400,
   section span.bg-emerald-300,
+  section span.bg-emerald-400,
   section span[class*="bg-emerald-300"],
+  section span[class*="bg-emerald-400"],
   section [class*="bg-emerald-300"],
+  section [class*="bg-emerald-400"],
   /* Target green circles specifically */
   [data-worksheet-content="true"] span[class*="circle-green"],
   [data-worksheet-content="true"] [class*="circle-green"],
   section span[class*="circle-green"],
   section [class*="circle-green"] {
-    background-color: #6ee7b7 !important; /* emerald-300 - green */
+    background-color: #34d399 !important; /* emerald-400 - darker green for better print visibility */
     -webkit-print-color-adjust: exact !important;
     print-color-adjust: exact !important;
     visibility: visible !important;
@@ -2486,10 +2494,10 @@ section[data-interactive-section="true"].preserve-print-styling [class*="h-48"] 
     visibility: visible !important;
     opacity: 1 !important;
     display: inline-flex !important;
-    width: 24px !important;
-    height: 24px !important;
-    min-width: 24px !important;
-    min-height: 24px !important;
+    width: 28px !important;
+    height: 28px !important;
+    min-width: 28px !important;
+    min-height: 28px !important;
   }
   
   [data-worksheet-content="true"] .green-circle-inner,
@@ -2498,25 +2506,29 @@ section[data-interactive-section="true"].preserve-print-styling [class*="h-48"] 
   [data-worksheet-content="true"] span.pattern-green-circle-inner,
   [data-worksheet-content="true"] [class*="green-circle-inner"],
   [data-worksheet-content="true"] [data-shape-inner="green-circle"],
+  [data-worksheet-content="true"] [class*="bg-emerald-400"],
+  [data-worksheet-content="true"] [class*="bg-emerald-300"],
   section .green-circle-inner,
   section .pattern-green-circle-inner,
   section span.green-circle-inner,
   section span.pattern-green-circle-inner,
   section [class*="green-circle-inner"],
-  section [data-shape-inner="green-circle"] {
-    background-color: #6ee7b7 !important; /* emerald-300 - green */
-    border-color: #059669 !important; /* emerald-600 - green border */
-    border-width: 1px !important;
+  section [data-shape-inner="green-circle"],
+  section [class*="bg-emerald-400"],
+  section [class*="bg-emerald-300"] {
+    background-color: #34d399 !important; /* emerald-400 - darker green for better visibility */
+    border-color: #047857 !important; /* emerald-700 - darker green border */
+    border-width: 2px !important;
     border-style: solid !important;
     -webkit-print-color-adjust: exact !important;
     print-color-adjust: exact !important;
     visibility: visible !important;
     opacity: 1 !important;
     display: block !important;
-    width: 20px !important;
-    height: 20px !important;
-    min-width: 20px !important;
-    min-height: 20px !important;
+    width: 24px !important;
+    height: 24px !important;
+    min-width: 24px !important;
+    min-height: 24px !important;
     border-radius: 50% !important;
     box-sizing: border-box !important;
   }
