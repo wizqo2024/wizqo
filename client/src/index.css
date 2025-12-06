@@ -1306,7 +1306,7 @@ section[data-interactive-section="true"].preserve-print-styling [class*="h-48"] 
     opacity: 0 !important;
   }
   
-  /* Ensure SVG shapes in art-design worksheet fit within container but stay large */
+  /* Ensure SVG shapes in art-design worksheet fit within container but stay large - no cropping */
   section[data-interactive-section="true"].preserve-print-styling svg[viewBox="0 0 250 250"],
   [data-worksheet-content="true"] svg[viewBox="0 0 250 250"] {
     width: 100% !important;
@@ -1322,6 +1322,8 @@ section[data-interactive-section="true"].preserve-print-styling [class*="h-48"] 
     transform: scale(1) !important;
     zoom: 1 !important;
     aspect-ratio: 1 / 1 !important;
+    object-fit: contain !important;
+    overflow: visible !important;
   }
   
   /* Ensure SVG shapes in art-colorwheel worksheet fit within container but stay large (3-column layout) */
@@ -1342,24 +1344,26 @@ section[data-interactive-section="true"].preserve-print-styling [class*="h-48"] 
     aspect-ratio: 1 / 1 !important;
   }
   
-  /* Container for coloring shapes - keep images inside with proper padding */
+  /* Container for coloring shapes - keep images inside with proper padding, no cropping */
+  section[data-interactive-section="true"].preserve-print-styling [style*="minHeight"][style*="440px"],
   section[data-interactive-section="true"].preserve-print-styling [style*="minHeight"][style*="400px"],
+  [data-worksheet-content="true"] [style*="minHeight"][style*="440px"],
   [data-worksheet-content="true"] [style*="minHeight"][style*="400px"] {
-    min-height: 400px !important;
+    min-height: 440px !important;
     width: 100% !important;
     max-width: 100% !important;
-    padding: 16px !important;
+    padding: 20px !important;
     display: flex !important;
     align-items: center !important;
     justify-content: center !important;
-    overflow: hidden !important;
+    overflow: visible !important;
     box-sizing: border-box !important;
   }
   
-  /* Ensure parent container properly contains content */
+  /* Ensure parent container properly contains content without cropping */
   section[data-interactive-section="true"].preserve-print-styling [class*="border-purple-200"][class*="bg-white"][class*="p-4"] {
     padding: 16px !important;
-    overflow: hidden !important;
+    overflow: visible !important;
     box-sizing: border-box !important;
   }
   

@@ -1827,7 +1827,7 @@ const renderers: Record<string, Renderer> = {
       const strokeWidth = 5 // Slightly thicker lines for better visibility
       if (shape === 'star') {
         return (
-          <svg width={size} height={size} viewBox="0 0 250 250" className="mx-auto" style={{ width: '400px', height: '400px', maxWidth: '100%', display: 'block', WebkitPrintColorAdjust: 'exact', printColorAdjust: 'exact' }}>
+          <svg width={size} height={size} viewBox="0 0 250 250" className="mx-auto" style={{ width: '100%', maxWidth: '400px', height: 'auto', display: 'block', WebkitPrintColorAdjust: 'exact', printColorAdjust: 'exact', aspectRatio: '1 / 1' }}>
             <polygon points="125,20 145,90 220,90 160,135 175,210 125,170 75,210 90,135 30,90 105,90" 
               fill="none" stroke="#333" strokeWidth={strokeWidth} />
           </svg>
@@ -1835,7 +1835,7 @@ const renderers: Record<string, Renderer> = {
       }
       if (shape === 'flower') {
         return (
-          <svg width={size} height={size} viewBox="0 0 250 250" className="mx-auto" style={{ width: '400px', height: '400px', maxWidth: '100%', display: 'block', WebkitPrintColorAdjust: 'exact', printColorAdjust: 'exact' }}>
+          <svg width={size} height={size} viewBox="0 0 250 250" className="mx-auto" style={{ width: '100%', maxWidth: '400px', height: 'auto', display: 'block', WebkitPrintColorAdjust: 'exact', printColorAdjust: 'exact', aspectRatio: '1 / 1' }}>
             <circle cx="125" cy="125" r="50" fill="none" stroke="#333" strokeWidth={strokeWidth} />
             <ellipse cx="125" cy="60" rx="30" ry="40" fill="none" stroke="#333" strokeWidth={strokeWidth} />
             <ellipse cx="125" cy="190" rx="30" ry="40" fill="none" stroke="#333" strokeWidth={strokeWidth} />
@@ -1850,7 +1850,7 @@ const renderers: Record<string, Renderer> = {
       }
       if (shape === 'rainbow') {
         return (
-          <svg width={size} height={size} viewBox="0 0 250 250" className="mx-auto" style={{ width: '400px', height: '400px', maxWidth: '100%', display: 'block', WebkitPrintColorAdjust: 'exact', printColorAdjust: 'exact' }}>
+          <svg width={size} height={size} viewBox="0 0 250 250" className="mx-auto" style={{ width: '100%', maxWidth: '400px', height: 'auto', display: 'block', WebkitPrintColorAdjust: 'exact', printColorAdjust: 'exact', aspectRatio: '1 / 1' }}>
             <path d="M 40 170 Q 125 40, 210 170" fill="none" stroke="#333" strokeWidth={strokeWidth} />
             <path d="M 50 160 Q 125 50, 200 160" fill="none" stroke="#333" strokeWidth={strokeWidth} />
             <path d="M 60 150 Q 125 60, 190 150" fill="none" stroke="#333" strokeWidth={strokeWidth} />
@@ -1862,7 +1862,7 @@ const renderers: Record<string, Renderer> = {
       }
       if (shape === 'heart') {
         return (
-          <svg width={size} height={size} viewBox="0 0 250 250" className="mx-auto" style={{ width: '400px', height: '400px', maxWidth: '100%', display: 'block', WebkitPrintColorAdjust: 'exact', printColorAdjust: 'exact' }}>
+          <svg width={size} height={size} viewBox="0 0 250 250" className="mx-auto" style={{ width: '100%', maxWidth: '400px', height: 'auto', display: 'block', WebkitPrintColorAdjust: 'exact', printColorAdjust: 'exact', aspectRatio: '1 / 1' }}>
             <path d="M 125 210 C 125 210, 40 145, 40 105 C 40 75, 70 60, 105 85 C 115 50, 145 40, 165 60 C 195 40, 210 75, 210 105 C 210 145, 125 210, 125 210 Z" 
               fill="none" stroke="#333" strokeWidth={strokeWidth} />
             <path d="M 85 105 C 85 105, 105 95, 115 105 C 125 95, 145 105, 145 105" 
@@ -1872,7 +1872,7 @@ const renderers: Record<string, Renderer> = {
       }
       if (shape === 'mandala') {
         return (
-          <svg width={size} height={size} viewBox="0 0 250 250" className="mx-auto" style={{ width: '400px', height: '400px', maxWidth: '100%', display: 'block', WebkitPrintColorAdjust: 'exact', printColorAdjust: 'exact' }}>
+          <svg width={size} height={size} viewBox="0 0 250 250" className="mx-auto" style={{ width: '100%', maxWidth: '400px', height: 'auto', display: 'block', WebkitPrintColorAdjust: 'exact', printColorAdjust: 'exact', aspectRatio: '1 / 1' }}>
             <circle cx="125" cy="125" r="105" fill="none" stroke="#333" strokeWidth={strokeWidth} />
             <circle cx="125" cy="125" r="85" fill="none" stroke="#333" strokeWidth={strokeWidth} />
             <circle cx="125" cy="125" r="65" fill="none" stroke="#333" strokeWidth={strokeWidth} />
@@ -1887,7 +1887,7 @@ const renderers: Record<string, Renderer> = {
       }
       if (shape === 'leaf') {
         return (
-          <svg width={size} height={size} viewBox="0 0 250 250" className="mx-auto" style={{ width: '400px', height: '400px', maxWidth: '100%', display: 'block', WebkitPrintColorAdjust: 'exact', printColorAdjust: 'exact' }}>
+          <svg width={size} height={size} viewBox="0 0 250 250" className="mx-auto" style={{ width: '100%', maxWidth: '400px', height: 'auto', display: 'block', WebkitPrintColorAdjust: 'exact', printColorAdjust: 'exact', aspectRatio: '1 / 1' }}>
             <path d="M 125 40 Q 85 85, 60 125 Q 40 165, 85 210 Q 125 190, 125 210 Q 125 190, 165 210 Q 210 165, 190 125 Q 170 85, 125 40 Z" 
               fill="none" stroke="#333" strokeWidth={strokeWidth} />
             <line x1="125" y1="40" x2="125" y2="210" stroke="#333" strokeWidth={strokeWidth} />
@@ -1911,7 +1911,7 @@ const renderers: Record<string, Renderer> = {
             <div key={idx} className="rounded-xl border border-purple-200 bg-white p-4 print:rounded-xl print:border print:border-purple-200 print:bg-white print:p-4 print:w-full break-inside-avoid" style={{ WebkitPrintColorAdjust: 'exact', printColorAdjust: 'exact', backgroundColor: '#ffffff', borderColor: '#e9d5ff', padding: '16px', borderRadius: '12px', borderWidth: '1px', borderStyle: 'solid', marginBottom: '16px', pageBreakInside: 'avoid', breakInside: 'avoid', width: '100%' }}>
               <p className="text-sm font-semibold text-slate-700 mb-1 print:text-sm print:font-semibold print:text-slate-700 print:mb-1" style={{ fontSize: '14px', fontWeight: '600', margin: '0 0 4px 0' }}>{page.title}</p>
               <p className="text-xs text-slate-600 mb-3 print:text-xs print:text-slate-600 print:mb-3" style={{ fontSize: '12px', lineHeight: '16px', margin: '0 0 12px 0' }}>{page.description}</p>
-              <div className="mb-2 flex items-center justify-center print:mb-2 print:flex print:items-center print:justify-center" style={{ marginBottom: '8px', display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '16px', backgroundColor: '#ffffff', borderRadius: '8px', border: '1px solid #e9d5ff', minHeight: '400px', width: '100%', maxWidth: '100%', overflow: 'hidden', WebkitPrintColorAdjust: 'exact', printColorAdjust: 'exact' }}>
+              <div className="mb-2 flex items-center justify-center print:mb-2 print:flex print:items-center print:justify-center" style={{ marginBottom: '8px', display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '20px', backgroundColor: '#ffffff', borderRadius: '8px', border: '1px solid #e9d5ff', minHeight: '440px', width: '100%', maxWidth: '100%', overflow: 'visible', boxSizing: 'border-box', WebkitPrintColorAdjust: 'exact', printColorAdjust: 'exact' }}>
                 <ShapeSVG shape={page.shape} />
               </div>
               <p className="mt-2 text-xs text-purple-600 text-center print:mt-2 print:text-xs print:text-purple-600 print:text-center" style={{ fontSize: '12px', lineHeight: '16px', marginTop: '8px', marginBottom: '0', color: '#9333ea', textAlign: 'center' }}>{t('worksheets.artDesign.colorInsideShape')}</p>
