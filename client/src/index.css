@@ -2299,6 +2299,111 @@ section[data-interactive-section="true"].preserve-print-styling [class*="h-48"] 
     color-adjust: exact !important;
   }
   
+  /* CRITICAL: Ensure all SVGs are visible and properly sized in print */
+  [data-worksheet-content="true"] svg,
+  [data-worksheet-content="true"] svg *,
+  section svg,
+  section svg * {
+    display: block !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+    color-adjust: exact !important;
+  }
+  
+  /* Preserve SVG sizing and prevent clipping */
+  [data-worksheet-content="true"] svg[viewBox],
+  [data-worksheet-content="true"] svg[width],
+  [data-worksheet-content="true"] svg[height],
+  section svg[viewBox],
+  section svg[width],
+  section svg[height] {
+    width: 100% !important;
+    height: auto !important;
+    max-width: 100% !important;
+    overflow: visible !important;
+  }
+  
+  /* Preserve SVG paths, circles, rectangles, and all shapes */
+  [data-worksheet-content="true"] svg path,
+  [data-worksheet-content="true"] svg circle,
+  [data-worksheet-content="true"] svg rect,
+  [data-worksheet-content="true"] svg polygon,
+  [data-worksheet-content="true"] svg polyline,
+  [data-worksheet-content="true"] svg line,
+  [data-worksheet-content="true"] svg ellipse,
+  [data-worksheet-content="true"] svg text,
+  [data-worksheet-content="true"] svg g {
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+    color-adjust: exact !important;
+    fill: inherit !important;
+    stroke: inherit !important;
+  }
+  
+  /* Preserve SVG fills and strokes */
+  [data-worksheet-content="true"] svg [fill],
+  [data-worksheet-content="true"] svg [stroke],
+  section svg [fill],
+  section svg [stroke] {
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+    color-adjust: exact !important;
+  }
+  
+  /* Ensure emojis and icons are visible and properly sized */
+  [data-worksheet-content="true"] [class*="text-4xl"],
+  [data-worksheet-content="true"] [class*="text-2xl"],
+  [data-worksheet-content="true"] [class*="text-xl"],
+  [data-worksheet-content="true"] span[class*="text-"],
+  section [class*="text-4xl"],
+  section [class*="text-2xl"],
+  section [class*="text-xl"] {
+    font-size: inherit !important;
+    line-height: inherit !important;
+    display: inline-block !important;
+    visibility: visible !important;
+  }
+  
+  /* Preserve emoji sizing */
+  [data-worksheet-content="true"] .text-4xl {
+    font-size: 2.25rem !important;
+    line-height: 2.5rem !important;
+  }
+  
+  [data-worksheet-content="true"] .text-2xl {
+    font-size: 1.5rem !important;
+    line-height: 2rem !important;
+  }
+  
+  [data-worksheet-content="true"] .text-xl {
+    font-size: 1.25rem !important;
+    line-height: 1.75rem !important;
+  }
+  
+  /* Ensure emojis render properly */
+  [data-worksheet-content="true"] span:has-text("🌟"),
+  [data-worksheet-content="true"] span:has-text("📋"),
+  [data-worksheet-content="true"] span:has-text("✅"),
+  [data-worksheet-content="true"] span:has-text("💡"),
+  [data-worksheet-content="true"] span:has-text("📚"),
+  [data-worksheet-content="true"] span:has-text("📊") {
+    display: inline-block !important;
+    visibility: visible !important;
+  }
+  
+  /* Preserve all icons and symbols */
+  [data-worksheet-content="true"] [role="img"],
+  [data-worksheet-content="true"] [aria-label],
+  [data-worksheet-content="true"] .icon,
+  [data-worksheet-content="true"] [class*="icon"] {
+    display: inline-block !important;
+    visibility: visible !important;
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+  }
+  
   /* Tables */
   table {
     width: 100%;
@@ -3670,6 +3775,156 @@ section[data-interactive-section="true"].preserve-print-styling [class*="h-48"] 
   [data-worksheet-content="true"] div[class*="bg-gradient-to-tr"][class*="print:hidden"] {
     display: block !important;
     visibility: visible !important;
+  }
+  
+  /* ============================================================================
+   * PRESERVE SVGs, ICONS, AND EMOJIS IN PRINT
+   * Ensure all visual elements are visible and properly rendered
+   * ============================================================================ */
+  
+  /* CRITICAL: Ensure all SVGs are visible, properly sized, and colored */
+  [data-worksheet-content="true"] svg,
+  section svg {
+    display: block !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+    width: 100% !important;
+    height: auto !important;
+    max-width: 100% !important;
+    overflow: visible !important;
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+    color-adjust: exact !important;
+  }
+  
+  /* Preserve SVG viewBox and dimensions */
+  [data-worksheet-content="true"] svg[viewBox],
+  section svg[viewBox] {
+    width: 100% !important;
+    height: auto !important;
+    aspect-ratio: attr(width) / attr(height) !important;
+  }
+  
+  /* Preserve all SVG elements and their styles */
+  [data-worksheet-content="true"] svg path,
+  [data-worksheet-content="true"] svg circle,
+  [data-worksheet-content="true"] svg rect,
+  [data-worksheet-content="true"] svg polygon,
+  [data-worksheet-content="true"] svg polyline,
+  [data-worksheet-content="true"] svg line,
+  [data-worksheet-content="true"] svg ellipse,
+  [data-worksheet-content="true"] svg text,
+  [data-worksheet-content="true"] svg g,
+  [data-worksheet-content="true"] svg use {
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+    color-adjust: exact !important;
+    fill: inherit !important;
+    stroke: inherit !important;
+    visibility: visible !important;
+    display: block !important;
+  }
+  
+  /* Preserve SVG fills and strokes - ensure colors print */
+  [data-worksheet-content="true"] svg [fill]:not([fill="none"]),
+  [data-worksheet-content="true"] svg [stroke]:not([stroke="none"]),
+  section svg [fill]:not([fill="none"]),
+  section svg [stroke]:not([stroke="none"]) {
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+    color-adjust: exact !important;
+  }
+  
+  /* Preserve SVG with specific viewBox sizes */
+  [data-worksheet-content="true"] svg[viewBox="0 0 500 120"],
+  [data-worksheet-content="true"] svg[viewBox="0 0 800 500"],
+  [data-worksheet-content="true"] svg[viewBox="0 0 250 250"],
+  [data-worksheet-content="true"] svg[viewBox="0 0 200 200"] {
+    width: 100% !important;
+    height: auto !important;
+    max-width: 100% !important;
+  }
+  
+  /* CRITICAL: Ensure emojis and Unicode characters are visible and properly sized */
+  /* Target elements that commonly contain emojis */
+  [data-worksheet-content="true"] span,
+  [data-worksheet-content="true"] div,
+  [data-worksheet-content="true"] p,
+  [data-worksheet-content="true"] h1,
+  [data-worksheet-content="true"] h2,
+  [data-worksheet-content="true"] h3,
+  [data-worksheet-content="true"] h4,
+  [data-worksheet-content="true"] h5,
+  [data-worksheet-content="true"] h6 {
+    display: block !important;
+    visibility: visible !important;
+    font-size: inherit !important;
+    unicode-bidi: embed !important;
+  }
+  
+  /* Ensure inline elements with emojis are visible */
+  [data-worksheet-content="true"] span,
+  [data-worksheet-content="true"] [class*="text-"] {
+    display: inline-block !important;
+    visibility: visible !important;
+  }
+  
+  /* Preserve emoji and icon font sizes */
+  [data-worksheet-content="true"] .text-4xl,
+  [data-worksheet-content="true"] [class*="text-4xl"] {
+    font-size: 2.25rem !important;
+    line-height: 2.5rem !important;
+    display: inline-block !important;
+  }
+  
+  [data-worksheet-content="true"] .text-2xl,
+  [data-worksheet-content="true"] [class*="text-2xl"] {
+    font-size: 1.5rem !important;
+    line-height: 2rem !important;
+    display: inline-block !important;
+  }
+  
+  [data-worksheet-content="true"] .text-xl,
+  [data-worksheet-content="true"] [class*="text-xl"] {
+    font-size: 1.25rem !important;
+    line-height: 1.75rem !important;
+    display: inline-block !important;
+  }
+  
+  /* Preserve all icons - ensure they're visible */
+  [data-worksheet-content="true"] [role="img"],
+  [data-worksheet-content="true"] [aria-label],
+  [data-worksheet-content="true"] .icon,
+  [data-worksheet-content="true"] [class*="icon"],
+  [data-worksheet-content="true"] img[alt],
+  [data-worksheet-content="true"] img[src*=".svg"],
+  [data-worksheet-content="true"] img[src*=".png"],
+  [data-worksheet-content="true"] img[src*=".jpg"] {
+    display: inline-block !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+    color-adjust: exact !important;
+  }
+  
+  /* Preserve images and ensure they print */
+  [data-worksheet-content="true"] img,
+  section img {
+    max-width: 100% !important;
+    height: auto !important;
+    display: block !important;
+    visibility: visible !important;
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+    color-adjust: exact !important;
+  }
+  
+  /* Ensure Unicode characters and emojis render properly */
+  [data-worksheet-content="true"] * {
+    font-family: inherit !important;
+    -webkit-font-feature-settings: normal !important;
+    font-feature-settings: normal !important;
   }
 }
 
