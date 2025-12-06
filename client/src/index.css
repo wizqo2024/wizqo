@@ -488,15 +488,31 @@ html {
   
   /* Hide non-print elements - BUT preserve decorative UI elements */
   /* CRITICAL: Hide all print:hidden elements including back links and print buttons */
-  .print\\:hidden:not([class*="corner"]):not([class*="accent"]):not([class*="decoration"]),
-  [class*="print:hidden"]:not([class*="corner"]):not([class*="accent"]):not([class*="decoration"]),
-  [class*="print:hidden"],
-  .print\\:hidden,
+  /* BUT show elements with print:block hidden (they should be visible in print) */
+  .print\\:hidden:not([class*="corner"]):not([class*="accent"]):not([class*="decoration"]):not([class*="print:block"]),
+  [class*="print:hidden"]:not([class*="corner"]):not([class*="accent"]):not([class*="decoration"]):not([class*="print:block"]),
   button:not([class*="print:block"]):not([class*="print:flex"]),
   nav,
   header:not(.print-header):not(.wizqo-print-header) {
     display: none !important;
     visibility: hidden !important;
+  }
+  
+  /* CRITICAL: Show elements with print:block hidden - these should be visible in print */
+  /* These elements are hidden in live view but should show in print */
+  [class*="print:block"][class*="hidden"],
+  .print\\:block.hidden,
+  div[class*="print:block"][class*="hidden"],
+  div.print\\:block.hidden {
+    display: block !important;
+    visibility: visible !important;
+  }
+  
+  /* Specifically show Learning Objectives and Tips in print */
+  [data-worksheet-content="true"] div.worksheet-card.print\\:block.hidden,
+  [data-worksheet-content="true"] div[class*="worksheet-card"][class*="print:block"][class*="hidden"] {
+    display: block !important;
+    visibility: visible !important;
   }
   
   /* Specifically hide back links and print buttons in print */
@@ -1236,8 +1252,15 @@ html {
     border-radius: 12px;
     padding: 0.75rem;
     box-shadow: none;
-    background: white !important;
-    background-image: none !important;
+    /* DON'T force white background - preserve gradient backgrounds */
+  }
+  
+  /* CRITICAL: Override print:bg-white for worksheet sections to preserve gradients */
+  [data-worksheet-content="true"] .worksheet-section[class*="print:bg-white"],
+  [data-worksheet-content="true"] section.worksheet-section[class*="print:bg-white"] {
+    background: inherit !important;
+    background-color: inherit !important;
+    background-image: inherit !important;
   }
   
   .worksheet-card {
@@ -1636,6 +1659,7 @@ html {
   }
   
   /* CRITICAL: Force border on worksheet sections IMMEDIATELY after border removal */
+  /* BUT preserve gradient backgrounds - don't force white */
   [data-worksheet-content="true"] section.worksheet-section,
   [data-worksheet-content="true"] .worksheet-section {
     border: 1px solid #cbd5e1 !important;
@@ -1646,6 +1670,18 @@ html {
     -webkit-print-color-adjust: exact !important;
     print-color-adjust: exact !important;
     color-adjust: exact !important;
+    /* Preserve background gradients */
+    background: inherit !important;
+    background-color: inherit !important;
+    background-image: inherit !important;
+  }
+  
+  /* Override print:bg-white to preserve gradient backgrounds */
+  [data-worksheet-content="true"] section.worksheet-section[class*="print:bg-white"],
+  [data-worksheet-content="true"] .worksheet-section[class*="print:bg-white"] {
+    background: inherit !important;
+    background-color: inherit !important;
+    background-image: inherit !important;
   }
   
   /* Override any border removal that might affect worksheet sections */
@@ -3896,7 +3932,69 @@ section[data-interactive-section="true"].preserve-print-styling [class*="h-48"] 
     border: 1px solid #cbd5e1 !important;
   }
   
-  /* Preserve component-specific styling with full UI design */
+  /* ============================================================================
+   * PRESERVE WORKSHEET SECTION STYLING - Match Live View Exactly
+   * ============================================================================ */
+  
+  /* CRITICAL: Preserve worksheet section backgrounds - override print:bg-white */
+  [data-worksheet-content="true"] .worksheet-section,
+  [data-worksheet-content="true"] section.worksheet-section {
+    background: inherit !important;
+    background-color: inherit !important;
+    background-image: inherit !important;
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+    color-adjust: exact !important;
+  }
+  
+  /* Preserve gradient backgrounds for worksheet sections */
+  [data-worksheet-content="true"] .worksheet-section[class*="bg-gradient-to-br"],
+  [data-worksheet-content="true"] section.worksheet-section[class*="bg-gradient-to-br"],
+  [data-worksheet-content="true"] .worksheet-section[class*="from-purple-50"],
+  [data-worksheet-content="true"] section.worksheet-section[class*="from-purple-50"] {
+    background: linear-gradient(to bottom right, #faf5ff, #eef2ff, #fdf4ff) !important;
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+  }
+  
+  /* Preserve worksheet section borders - override print:border */
+  [data-worksheet-content="true"] .worksheet-section[class*="print:border"],
+  [data-worksheet-content="true"] section.worksheet-section[class*="print:border"] {
+    border: 1px solid #cbd5e1 !important;
+    border-radius: 0.75rem !important;
+  }
+  
+  /* Preserve worksheet section shadows */
+  [data-worksheet-content="true"] .worksheet-section[class*="shadow-lg"],
+  [data-worksheet-content="true"] section.worksheet-section[class*="shadow-lg"] {
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05) !important;
+  }
+  
+  /* Show Learning Objectives in print - override print:block hidden */
+  [data-worksheet-content="true"] .worksheet-card[class*="print:block"][class*="hidden"],
+  [data-worksheet-content="true"] div[class*="worksheet-card"][class*="print:block"][class*="hidden"]:has([class*="What You'll Practice"]) {
+    display: block !important;
+    visibility: visible !important;
+    background-color: #f8fafc !important;
+    border-left: 4px solid #3b82f6 !important;
+    border-radius: 0.5rem !important;
+    padding: 0.75rem !important;
+    margin-bottom: 1rem !important;
+  }
+  
+  /* Show Parent/Teacher Tips in print - override print:block hidden */
+  [data-worksheet-content="true"] div[class*="worksheet-card"][class*="print:block"][class*="hidden"]:has([class*="Tips for Parents"]),
+  [data-worksheet-content="true"] div[class*="bg-yellow-50"][class*="print:block"][class*="hidden"] {
+    display: block !important;
+    visibility: visible !important;
+    background-color: #fefce8 !important;
+    border: 1px solid #fde047 !important;
+    border-radius: 0.5rem !important;
+    padding: 1rem !important;
+    margin-top: 1.5rem !important;
+  }
+  
+  /* Preserve challenge section styling */
   [data-worksheet-content="true"] .challenge-section {
     background-color: #faf5ff !important;
     border: 2px solid #e9d5ff !important;
@@ -3925,7 +4023,8 @@ section[data-interactive-section="true"].preserve-print-styling [class*="h-48"] 
   
   /* Preserve self-assessment section styling */
   [data-worksheet-content="true"] .self-assessment,
-  [data-worksheet-content="true"] div[class*="self-assessment"] {
+  [data-worksheet-content="true"] div[class*="self-assessment"],
+  [data-worksheet-content="true"] div[class*="print:block"][class*="hidden"]:has([class*="How did you do"]) {
     background-color: #ffffff !important;
     border: 2px solid #cbd5e1 !important;
     border-radius: 0.5rem !important;
@@ -3945,6 +4044,22 @@ section[data-interactive-section="true"].preserve-print-styling [class*="h-48"] 
   
   [data-worksheet-content="true"] .self-assessment div:last-child {
     margin-bottom: 0 !important;
+  }
+  
+  /* Preserve worked example section styling */
+  [data-worksheet-content="true"] .worked-example,
+  [data-worksheet-content="true"] div[class*="worked-example"] {
+    background: linear-gradient(to bottom right, #eff6ff, #eef2ff) !important;
+    border: 2px solid #bfdbfe !important;
+    border-radius: 0.5rem !important;
+    padding: 1rem !important;
+    margin-bottom: 1.5rem !important;
+  }
+  
+  /* Override print:bg-white for worked example */
+  [data-worksheet-content="true"] .worked-example[class*="print:bg-white"],
+  [data-worksheet-content="true"] div[class*="bg-blue-50"][class*="print:bg-white"] {
+    background: linear-gradient(to bottom right, #eff6ff, #eef2ff) !important;
   }
   
   /* CRITICAL: Answer Key section - preserve emerald styling exactly as live view */
@@ -4361,6 +4476,45 @@ section[data-interactive-section="true"].preserve-print-styling [class*="h-48"] 
     border-color: #1e293b !important;
   }
   
+  /* ============================================================================
+   * COMPREHENSIVE FIX: Make print layout match live view 100%
+   * ============================================================================ */
+  
+  /* CRITICAL: Preserve worksheet section gradient backgrounds */
+  [data-worksheet-content="true"] .worksheet-section[class*="from-purple-50"],
+  [data-worksheet-content="true"] section.worksheet-section[class*="from-purple-50"],
+  [data-worksheet-content="true"] .worksheet-section[class*="bg-gradient-to-br"],
+  [data-worksheet-content="true"] section.worksheet-section[class*="bg-gradient-to-br"] {
+    background: linear-gradient(to bottom right, #faf5ff, #eef2ff, #fdf4ff) !important;
+    background-color: transparent !important;
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+  }
+  
+  /* Show Learning Objectives in print - target by bg-slate-50 and border-l-4 */
+  [data-worksheet-content="true"] div[class*="worksheet-card"][class*="print:block"][class*="hidden"][class*="bg-slate-50"],
+  [data-worksheet-content="true"] div[class*="bg-slate-50"][class*="border-l-4"][class*="border-blue-500"] {
+    display: block !important;
+    visibility: visible !important;
+    background-color: #f8fafc !important;
+    border-left: 4px solid #3b82f6 !important;
+    border-radius: 0.5rem !important;
+    padding: 0.75rem !important;
+    margin-bottom: 1rem !important;
+  }
+  
+  /* Show Parent/Teacher Tips in print - target by bg-yellow-50 */
+  [data-worksheet-content="true"] div[class*="worksheet-card"][class*="print:block"][class*="hidden"][class*="bg-yellow-50"],
+  [data-worksheet-content="true"] div[class*="bg-yellow-50"][class*="border"][class*="border-yellow-200"] {
+    display: block !important;
+    visibility: visible !important;
+    background-color: #fefce8 !important;
+    border: 1px solid #fde047 !important;
+    border-radius: 0.5rem !important;
+    padding: 1rem !important;
+    margin-top: 1.5rem !important;
+  }
+  
   /* Fix challenge and self-assessment sections formatting */
   [data-worksheet-content="true"] .challenge-section,
   [data-worksheet-content="true"] div[class*="challenge-section"] {
@@ -4373,7 +4527,8 @@ section[data-interactive-section="true"].preserve-print-styling [class*="h-48"] 
   }
   
   [data-worksheet-content="true"] .self-assessment,
-  [data-worksheet-content="true"] div[class*="self-assessment"] {
+  [data-worksheet-content="true"] div[class*="self-assessment"],
+  [data-worksheet-content="true"] div[class*="print:block"][class*="hidden"][class*="border-2"][class*="border-slate-300"] {
     background-color: #ffffff !important;
     border: 2px solid #cbd5e1 !important;
     border-radius: 0.5rem !important;
@@ -4381,11 +4536,14 @@ section[data-interactive-section="true"].preserve-print-styling [class*="h-48"] 
     margin-top: 1.5rem !important;
     margin-bottom: 1.5rem !important;
     display: block !important;
+    visibility: visible !important;
   }
   
   /* Ensure challenge and self-assessment content is properly spaced */
   [data-worksheet-content="true"] .challenge-section [class*="space-y-2"] > div,
-  [data-worksheet-content="true"] .self-assessment [class*="space-y-2"] > div {
+  [data-worksheet-content="true"] .self-assessment [class*="space-y-2"] > div,
+  [data-worksheet-content="true"] .challenge-section [class*="space-y"] > div,
+  [data-worksheet-content="true"] .self-assessment [class*="space-y"] > div {
     margin-bottom: 0.5rem !important;
     display: block !important;
   }
@@ -4393,6 +4551,42 @@ section[data-interactive-section="true"].preserve-print-styling [class*="h-48"] 
   [data-worksheet-content="true"] .challenge-section [class*="space-y-2"] > div:last-child,
   [data-worksheet-content="true"] .self-assessment [class*="space-y-2"] > div:last-child {
     margin-bottom: 0 !important;
+  }
+  
+  /* Preserve worksheet section title and description styling */
+  [data-worksheet-content="true"] .worksheet-section h2,
+  [data-worksheet-content="true"] section.worksheet-section h2 {
+    font-size: 1.25rem !important;
+    font-weight: 700 !important;
+    margin-bottom: 0.5rem !important;
+    display: flex !important;
+    align-items: center !important;
+    gap: 0.5rem !important;
+  }
+  
+  [data-worksheet-content="true"] .worksheet-section h2 span[class*="text-4xl"] {
+    font-size: 2.25rem !important;
+  }
+  
+  [data-worksheet-content="true"] .worksheet-section p {
+    font-size: 0.875rem !important;
+    margin-bottom: 1rem !important;
+    line-height: 1.5 !important;
+  }
+  
+  /* Preserve list formatting */
+  [data-worksheet-content="true"] ul,
+  [data-worksheet-content="true"] ol {
+    list-style-type: disc !important;
+    list-style-position: inside !important;
+    margin-left: 0 !important;
+    padding-left: 0 !important;
+  }
+  
+  [data-worksheet-content="true"] ul li,
+  [data-worksheet-content="true"] ol li {
+    margin-bottom: 0.25rem !important;
+    display: list-item !important;
   }
 }
 
