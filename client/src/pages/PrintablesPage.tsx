@@ -294,18 +294,18 @@ function WorksheetSectionWrapper({
   return (
     <section 
       data-doc={docId}
-      className={`mb-10 break-inside-avoid rounded-xl ${theme.background} p-6 print:p-0 print:bg-white print:mt-0 print:mb-0 print:pt-0 shadow-lg relative overflow-hidden worksheet-section ${enablePrintOutline ? 'print-section-outline' : ''}`}
+      className={`mb-10 break-inside-avoid rounded-xl ${theme.background} p-6 print:p-4 print:bg-white print:mt-0 print:mb-2 print:shadow-none shadow-lg relative overflow-hidden worksheet-section print:border print:border-slate-200 ${enablePrintOutline ? 'print-section-outline' : ''}`}
       dir={isRTL ? 'rtl' : 'ltr'}
       style={{ 
-        pageBreakInside: 'auto', // Allow section to break across pages if needed
-        breakInside: 'auto',
-        WebkitRegionBreakInside: 'auto',
+        pageBreakInside: 'avoid', // Prevent section from breaking across pages
+        breakInside: 'avoid',
+        WebkitRegionBreakInside: 'avoid',
         pageBreakBefore: 'auto', // Ensure no forced page break
         breakBefore: 'auto',
         pageBreakAfter: 'auto', // Allow natural page breaks
         breakAfter: 'auto',
         marginTop: 0,
-        marginBottom: 0,
+        marginBottom: '0.5rem',
         minHeight: 'auto', // Remove min-height restrictions in print
         height: 'auto' // Remove height restrictions in print
       } as React.CSSProperties}
@@ -2320,19 +2320,20 @@ export function PrintablesPage() {
         section[class*="worksheet-section"],
         .worksheet-section {
           display: block !important;
-          break-inside: auto !important;
-          page-break-inside: auto !important;
-          -webkit-region-break-inside: auto !important;
-          -webkit-column-break-inside: auto !important;
+          break-inside: avoid !important;
+          page-break-inside: avoid !important;
+          -webkit-region-break-inside: avoid !important;
+          -webkit-column-break-inside: avoid !important;
           orphans: 2 !important;
           widows: 2 !important;
           overflow: visible !important;
           margin-bottom: 0.5rem !important;
           margin-top: 0 !important;
-          padding-left: 0.5rem !important;
-          padding-right: 0.5rem !important;
-          padding-top: 0.375rem !important;
-          padding-bottom: 0.5rem !important;
+          padding: 1rem !important;
+          padding-left: 1rem !important;
+          padding-right: 1rem !important;
+          padding-top: 1rem !important;
+          padding-bottom: 1rem !important;
           background-color: white !important;
           background: white !important;
           max-width: 100% !important;
