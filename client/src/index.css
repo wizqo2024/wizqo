@@ -436,6 +436,12 @@ html {
     padding: 0 !important;
   }
   
+  /* Override browser default margins - force zero top margin even with default print settings */
+  @page:first {
+    margin-top: 0 !important;
+    padding-top: 0 !important;
+  }
+  
   /* Reset everything */
   * {
     box-shadow: none !important;
