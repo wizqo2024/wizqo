@@ -433,6 +433,7 @@ html {
     size: A4;
     margin: 0 0.5in 0.5in 0.5in; /* Top: 0 (gradient drawn inside content), others: 0.5in */
     margin-top: 0 !important;
+    padding: 0 !important;
   }
   
   /* Reset everything */
