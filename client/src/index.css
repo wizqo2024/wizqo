@@ -1275,7 +1275,7 @@ html {
   /* CRITICAL: Restore ALL table cell borders - override border removal with MAXIMUM specificity */
   /* Target ALL possible combinations: elements, classes, and attributes */
   /* These rules MUST come after the border removal rule to override it */
-  /* Use darker borders to match live view - slate-400 is #94a3b8, but we need darker/black for visibility */
+  /* Use BLACK/DARK borders to match live view exactly - slate-400 appears darker in live view */
   [data-worksheet-content="true"] table td,
   [data-worksheet-content="true"] table th,
   [data-worksheet-content="true"] table td.border,
@@ -1292,49 +1292,49 @@ html {
   [data-worksheet-content="true"] table tbody th,
   [data-worksheet-content="true"] table thead td,
   [data-worksheet-content="true"] table thead th {
-    border: 1px solid #475569 !important;
+    border: 1px solid #1e293b !important;
     border-width: 1px !important;
     border-style: solid !important;
-    border-color: #475569 !important;
+    border-color: #1e293b !important;
     -webkit-print-color-adjust: exact !important;
     print-color-adjust: exact !important;
     color-adjust: exact !important;
   }
   
-  /* Preserve specific border colors from classes (e.g., border-slate-400) - use darker color for visibility */
+  /* Preserve specific border colors from classes (e.g., border-slate-400) - use BLACK for maximum visibility */
   [data-worksheet-content="true"] table td.border-slate-400,
   [data-worksheet-content="true"] table th.border-slate-400,
   [data-worksheet-content="true"] table td.border.border-slate-400,
   [data-worksheet-content="true"] table th.border.border-slate-400 {
-    border-color: #475569 !important;
+    border-color: #1e293b !important;
     border-width: 1px !important;
     border-style: solid !important;
   }
   
-  /* Ensure table borders are dark/black for maximum visibility - match live view */
+  /* Ensure table borders are BLACK for maximum visibility - match live view */
   [data-worksheet-content="true"] table[class*="border-collapse"] td,
   [data-worksheet-content="true"] table[class*="border-collapse"] th,
   [data-worksheet-content="true"] table.border-collapse td,
   [data-worksheet-content="true"] table.border-collapse th {
-    border: 1px solid #334155 !important;
-    border-color: #334155 !important;
+    border: 1px solid #1e293b !important;
+    border-color: #1e293b !important;
     border-width: 1px !important;
     border-style: solid !important;
   }
   
   /* ULTRA-SPECIFIC: Force borders on table cells with .border class - override ANY border removal */
   /* This targets the exact case: table cells with className="border border-slate-400" */
-  /* Use darker borders (#475569 = slate-600) for better visibility in print */
+  /* Use BLACK borders (#1e293b = slate-800) for maximum visibility in print - match live view */
   [data-worksheet-content="true"] table.border-collapse td.border,
   [data-worksheet-content="true"] table.border-collapse th.border,
   [data-worksheet-content="true"] table[class*="border-collapse"] td.border,
   [data-worksheet-content="true"] table[class*="border-collapse"] th.border,
   [data-worksheet-content="true"] table td.border[class*="border-"],
   [data-worksheet-content="true"] table th.border[class*="border-"] {
-    border: 1px solid #475569 !important;
+    border: 1px solid #1e293b !important;
     border-width: 1px !important;
     border-style: solid !important;
-    border-color: #475569 !important;
+    border-color: #1e293b !important;
     -webkit-print-color-adjust: exact !important;
     print-color-adjust: exact !important;
     color-adjust: exact !important;
@@ -3901,7 +3901,50 @@ section[data-interactive-section="true"].preserve-print-styling [class*="h-48"] 
     background-color: #faf5ff !important;
     border: 2px solid #e9d5ff !important;
     border-radius: 0.5rem !important;
+    padding: 1rem !important;
+    margin-top: 1.5rem !important;
+    margin-bottom: 1.5rem !important;
     box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06) !important;
+  }
+  
+  /* Override print:bg-white and print:border for challenge section */
+  [data-worksheet-content="true"] .challenge-section[class*="print:bg-white"],
+  [data-worksheet-content="true"] .challenge-section[class*="print:border"],
+  [data-worksheet-content="true"] .challenge-section.print\\:bg-white,
+  [data-worksheet-content="true"] .challenge-section.print\\:border {
+    background-color: #faf5ff !important;
+    border: 2px solid #e9d5ff !important;
+  }
+  
+  /* Preserve challenge section content formatting */
+  [data-worksheet-content="true"] .challenge-section div,
+  [data-worksheet-content="true"] .challenge-section [class*="space-y"] {
+    display: block !important;
+    margin-bottom: 0.5rem !important;
+  }
+  
+  /* Preserve self-assessment section styling */
+  [data-worksheet-content="true"] .self-assessment,
+  [data-worksheet-content="true"] div[class*="self-assessment"] {
+    background-color: #ffffff !important;
+    border: 2px solid #cbd5e1 !important;
+    border-radius: 0.5rem !important;
+    padding: 1rem !important;
+    margin-top: 1.5rem !important;
+    margin-bottom: 1.5rem !important;
+    display: block !important;
+    visibility: visible !important;
+  }
+  
+  /* Ensure self-assessment content is properly formatted */
+  [data-worksheet-content="true"] .self-assessment div,
+  [data-worksheet-content="true"] .self-assessment [class*="space-y"] {
+    display: block !important;
+    margin-bottom: 0.5rem !important;
+  }
+  
+  [data-worksheet-content="true"] .self-assessment div:last-child {
+    margin-bottom: 0 !important;
   }
   
   /* CRITICAL: Answer Key section - preserve emerald styling exactly as live view */
@@ -4290,11 +4333,11 @@ section[data-interactive-section="true"].preserve-print-styling [class*="h-48"] 
    * FINAL OVERRIDE: Table borders - ensure dark/black borders match live view
    * ============================================================================ */
   
-  /* CRITICAL: Force dark borders on all table cells - match live view exactly */
+  /* CRITICAL: Force BLACK borders on all table cells - match live view exactly */
   [data-worksheet-content="true"] table td,
   [data-worksheet-content="true"] table th {
-    border: 1px solid #334155 !important;
-    border-color: #334155 !important;
+    border: 1px solid #1e293b !important;
+    border-color: #1e293b !important;
     border-width: 1px !important;
     border-style: solid !important;
     -webkit-print-color-adjust: exact !important;
@@ -4302,20 +4345,54 @@ section[data-interactive-section="true"].preserve-print-styling [class*="h-48"] 
     color-adjust: exact !important;
   }
   
-  /* Ensure border-slate-400 uses darker color for visibility */
+  /* Ensure border-slate-400 uses BLACK color for maximum visibility */
   [data-worksheet-content="true"] table td.border-slate-400,
   [data-worksheet-content="true"] table th.border-slate-400,
   [data-worksheet-content="true"] table td.border.border-slate-400,
   [data-worksheet-content="true"] table th.border.border-slate-400 {
-    border-color: #334155 !important;
+    border-color: #1e293b !important;
     border-width: 1px !important;
     border-style: solid !important;
   }
   
   /* Ensure table container box border is visible */
   [data-worksheet-content="true"] div[class*="border-slate-300"][class*="bg-white"] {
-    border: 1px solid #334155 !important;
-    border-color: #334155 !important;
+    border: 1px solid #1e293b !important;
+    border-color: #1e293b !important;
+  }
+  
+  /* Fix challenge and self-assessment sections formatting */
+  [data-worksheet-content="true"] .challenge-section,
+  [data-worksheet-content="true"] div[class*="challenge-section"] {
+    background-color: #faf5ff !important;
+    border: 2px solid #e9d5ff !important;
+    border-radius: 0.5rem !important;
+    padding: 1rem !important;
+    margin-top: 1.5rem !important;
+    margin-bottom: 1.5rem !important;
+  }
+  
+  [data-worksheet-content="true"] .self-assessment,
+  [data-worksheet-content="true"] div[class*="self-assessment"] {
+    background-color: #ffffff !important;
+    border: 2px solid #cbd5e1 !important;
+    border-radius: 0.5rem !important;
+    padding: 1rem !important;
+    margin-top: 1.5rem !important;
+    margin-bottom: 1.5rem !important;
+    display: block !important;
+  }
+  
+  /* Ensure challenge and self-assessment content is properly spaced */
+  [data-worksheet-content="true"] .challenge-section [class*="space-y-2"] > div,
+  [data-worksheet-content="true"] .self-assessment [class*="space-y-2"] > div {
+    margin-bottom: 0.5rem !important;
+    display: block !important;
+  }
+  
+  [data-worksheet-content="true"] .challenge-section [class*="space-y-2"] > div:last-child,
+  [data-worksheet-content="true"] .self-assessment [class*="space-y-2"] > div:last-child {
+    margin-bottom: 0 !important;
   }
 }
 
