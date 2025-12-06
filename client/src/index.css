@@ -1306,29 +1306,50 @@ section[data-interactive-section="true"].preserve-print-styling [class*="h-48"] 
     opacity: 0 !important;
   }
   
-  /* Ensure SVG shapes in art-design worksheet match live view size in print */
+  /* Ensure SVG shapes in art-design worksheet match live view size in print - full size */
   section[data-interactive-section="true"].preserve-print-styling svg[viewBox="0 0 250 250"],
   [data-worksheet-content="true"] svg[viewBox="0 0 250 250"] {
     width: 400px !important;
     height: 400px !important;
-    max-width: 100% !important;
+    min-width: 400px !important;
+    min-height: 400px !important;
+    max-width: none !important;
     display: block !important;
     margin: 0 auto !important;
     -webkit-print-color-adjust: exact !important;
     print-color-adjust: exact !important;
     transform: scale(1) !important;
     zoom: 1 !important;
+    flex-shrink: 0 !important;
   }
   
-  /* Ensure container for coloring shapes matches live view */
+  /* Remove container constraints for coloring shapes in print - allow full size */
   section[data-interactive-section="true"].preserve-print-styling [style*="minHeight"][style*="400px"],
   [data-worksheet-content="true"] [style*="minHeight"][style*="400px"] {
     min-height: 400px !important;
     width: 100% !important;
-    padding: 24px !important;
+    max-width: none !important;
+    padding: 0 !important;
     display: flex !important;
     align-items: center !important;
     justify-content: center !important;
+    border: none !important;
+    background: transparent !important;
+    overflow: visible !important;
+  }
+  
+  /* Ensure parent container doesn't constrain SVG size */
+  section[data-interactive-section="true"].preserve-print-styling [class*="border-purple-200"][class*="bg-white"][class*="p-4"] {
+    padding: 16px !important;
+    overflow: visible !important;
+  }
+  
+  /* Allow SVG to be full size - override any max-width constraints */
+  section[data-interactive-section="true"].preserve-print-styling [class*="border-purple-200"] svg,
+  [data-worksheet-content="true"] [class*="border-purple-200"] svg {
+    max-width: none !important;
+    width: 400px !important;
+    height: 400px !important;
   }
   
   /* Ensure drawing area is clean white space in print */
