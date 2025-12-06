@@ -981,10 +981,11 @@ html {
   }
   
   /* Remove all inner borders in print so only outer frame remains */
-[data-worksheet-content="true"] .border:not(.worksheet-container):not(.print-section-outline):not(.print-block-outline),
-[data-worksheet-content="true"] [class*="border-"]:not(.worksheet-container):not(.print-section-outline):not(.print-block-outline),
-[data-worksheet-content="true"] [class*="print:border"]:not(.worksheet-container):not(.print-section-outline):not(.print-block-outline),
-[data-worksheet-content="true"] *:not(.worksheet-container):not(.print-section-outline):not(.print-block-outline)[style*="border"] {
+  /* EXCLUDE drawing boxes from border removal */
+[data-worksheet-content="true"] .border:not(.worksheet-container):not(.print-section-outline):not(.print-block-outline):not(.drawing-box):not(.drawing-box-large):not([data-drawing-box]),
+[data-worksheet-content="true"] [class*="border-"]:not(.worksheet-container):not(.print-section-outline):not(.print-block-outline):not(.drawing-box):not(.drawing-box-large):not([data-drawing-box]),
+[data-worksheet-content="true"] [class*="print:border"]:not(.worksheet-container):not(.print-section-outline):not(.print-block-outline):not(.drawing-box):not(.drawing-box-large):not([data-drawing-box]),
+[data-worksheet-content="true"] *:not(.worksheet-container):not(.print-section-outline):not(.print-block-outline):not(.drawing-box):not(.drawing-box-large):not([data-drawing-box])[style*="border"] {
     border: none !important;
     border-width: 0 !important;
     border-color: transparent !important;
@@ -1008,6 +1009,21 @@ html {
   
   section.preserve-print-styling [class*="border-pink-300"] {
     border-color: #f9a8d4 !important;
+  }
+  
+  /* CRITICAL: Force drawing box borders to be visible - highest specificity after border removal */
+  [data-worksheet-content="true"] section[data-interactive-section="true"].preserve-print-styling [data-drawing-box],
+  [data-worksheet-content="true"] section[data-interactive-section="true"].preserve-print-styling .drawing-box,
+  [data-worksheet-content="true"] section[data-interactive-section="true"].preserve-print-styling .drawing-box-large,
+  [data-worksheet-content="true"] section.preserve-print-styling [data-drawing-box],
+  [data-worksheet-content="true"] section.preserve-print-styling .drawing-box,
+  [data-worksheet-content="true"] section.preserve-print-styling .drawing-box-large {
+    border: 1px solid #f9a8d4 !important;
+    border-width: 1px !important;
+    border-style: solid !important;
+    border-color: #f9a8d4 !important;
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
   }
   
 [data-worksheet-content="true"] .print-section-outline {
