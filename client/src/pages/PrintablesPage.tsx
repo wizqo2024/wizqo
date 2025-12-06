@@ -2338,12 +2338,21 @@ export function PrintablesPage() {
           max-width: 100% !important;
           box-sizing: border-box !important;
           overflow-x: visible !important;
-          /* CRITICAL: Add visible border for worksheet sections */
+          /* CRITICAL: Add visible border for worksheet sections - use multiple methods */
           border: 1px solid #cbd5e1 !important;
           border-width: 1px !important;
           border-color: #cbd5e1 !important;
           border-style: solid !important;
+          border-top: 1px solid #cbd5e1 !important;
+          border-right: 1px solid #cbd5e1 !important;
+          border-bottom: 1px solid #cbd5e1 !important;
+          border-left: 1px solid #cbd5e1 !important;
           border-radius: 12px !important;
+          /* Fallback: use outline if border doesn't work */
+          outline: 1px solid #cbd5e1 !important;
+          outline-offset: 0 !important;
+          /* Fallback: use box-shadow to simulate border */
+          box-shadow: 0 0 0 1px #cbd5e1 !important;
           min-height: auto !important;
           height: auto !important;
           clear: both !important;
