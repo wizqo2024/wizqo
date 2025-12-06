@@ -446,10 +446,35 @@ html {
     margin-top: 0 !important;
   }
   
-  /* Reset everything */
+  /* Reset everything - BUT preserve shadows for UI design elements */
   * {
-    box-shadow: none !important;
     text-shadow: none !important;
+  }
+  
+  /* Preserve box shadows for UI design - override the general removal */
+  [data-worksheet-content="true"] .worksheet-section,
+  [data-worksheet-content="true"] .worksheet-card,
+  [data-worksheet-content="true"] [class*="shadow-lg"],
+  [data-worksheet-content="true"] [class*="shadow-md"],
+  [data-worksheet-content="true"] [class*="shadow"]:not([class*="shadow-none"]) {
+    box-shadow: inherit !important;
+  }
+  
+  /* Preserve specific shadow styles */
+  [data-worksheet-content="true"] .shadow-lg,
+  [data-worksheet-content="true"] [class*="shadow-lg"]:not([class*="shadow-none"]) {
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05) !important;
+  }
+  
+  [data-worksheet-content="true"] .shadow-md,
+  [data-worksheet-content="true"] [class*="shadow-md"]:not([class*="shadow-none"]) {
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06) !important;
+  }
+  
+  /* Override print:shadow-none to restore shadows */
+  [data-worksheet-content="true"] [class*="shadow-lg"][class*="print:shadow-none"],
+  [data-worksheet-content="true"] .shadow-lg.print\\:shadow-none {
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05) !important;
   }
   
   html, body {
@@ -461,13 +486,34 @@ html {
     line-height: 1.4;
   }
   
-  /* Hide non-print elements */
-  .print\\:hidden,
-  [class*="print:hidden"],
+  /* Hide non-print elements - BUT preserve decorative UI elements */
+  .print\\:hidden:not([class*="corner"]):not([class*="accent"]):not([class*="decoration"]),
+  [class*="print:hidden"]:not([class*="corner"]):not([class*="accent"]):not([class*="decoration"]),
   button,
   nav,
   header:not(.print-header) {
     display: none !important;
+  }
+  
+  /* CRITICAL: Show decorative corner accents in print - they're part of the UI design */
+  /* Override print:hidden for decorative corner accent elements */
+  /* Target absolute positioned divs with backgroundColor that are decorative accents */
+  [data-worksheet-content="true"] .worksheet-section > div.absolute[class*="print:hidden"][style*="backgroundColor"],
+  [data-worksheet-content="true"] .worksheet-section div.absolute[class*="print:hidden"][style*="backgroundColor"],
+  [data-worksheet-content="true"] div.absolute[class*="print:hidden"][style*="backgroundColor"][class*="rounded-bl-full"],
+  [data-worksheet-content="true"] div.absolute[class*="print:hidden"][style*="backgroundColor"][class*="rounded-tr-full"] {
+    display: block !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+    color-adjust: exact !important;
+  }
+  
+  /* Override print:hidden class specifically for decorative elements */
+  /* Use attribute selector to target elements with inline backgroundColor styles */
+  [data-worksheet-content="true"] div[class*="print:hidden"][style*="backgroundColor"][class*="absolute"] {
+    display: block !important;
   }
   
   /* Worksheet container - clean and simple - ZERO TOP SPACING */
@@ -3532,31 +3578,98 @@ section[data-interactive-section="true"].preserve-print-styling [class*="h-48"] 
     border: 1px solid #cbd5e1 !important;
   }
   
-  /* Preserve component-specific styling */
+  /* Preserve component-specific styling with full UI design */
   [data-worksheet-content="true"] .challenge-section {
     background-color: #faf5ff !important;
     border: 2px solid #e9d5ff !important;
     border-radius: 0.5rem !important;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06) !important;
   }
   
   [data-worksheet-content="true"] .answer-key {
     background-color: #ecfdf5 !important;
     border: 2px solid #6ee7b7 !important;
     border-radius: 0.5rem !important;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06) !important;
   }
   
   [data-worksheet-content="true"] .worked-example {
     background: linear-gradient(to bottom right, #eff6ff, #eef2ff) !important;
     border: 2px solid #bfdbfe !important;
     border-radius: 0.5rem !important;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06) !important;
   }
   
-  /* Preserve table container boxes */
+  /* Preserve worksheet sections with full UI design */
+  [data-worksheet-content="true"] .worksheet-section {
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05) !important;
+    border-radius: 0.75rem !important;
+  }
+  
+  /* Preserve table container boxes with shadows */
   [data-worksheet-content="true"] div[class*="border-slate-300"][class*="bg-white"],
   [data-worksheet-content="true"] div.border.border-slate-300.bg-white {
     background-color: #ffffff !important;
     border: 1px solid #cbd5e1 !important;
     border-radius: 0.5rem !important;
+    box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06) !important;
+  }
+  
+  /* Preserve rounded corners for all UI elements */
+  [data-worksheet-content="true"] .rounded-xl,
+  [data-worksheet-content="true"] [class*="rounded-xl"] {
+    border-radius: 0.75rem !important;
+  }
+  
+  [data-worksheet-content="true"] .rounded-lg,
+  [data-worksheet-content="true"] [class*="rounded-lg"] {
+    border-radius: 0.5rem !important;
+  }
+  
+  [data-worksheet-content="true"] .rounded,
+  [data-worksheet-content="true"] [class*="rounded"]:not([class*="rounded-full"]):not([class*="rounded-xl"]):not([class*="rounded-lg"]) {
+    border-radius: 0.25rem !important;
+  }
+  
+  /* Preserve padding and spacing for UI design */
+  [data-worksheet-content="true"] .p-6,
+  [data-worksheet-content="true"] [class*="p-6"] {
+    padding: 1.5rem !important;
+  }
+  
+  [data-worksheet-content="true"] .p-4,
+  [data-worksheet-content="true"] [class*="p-4"] {
+    padding: 1rem !important;
+  }
+  
+  /* Preserve relative positioning for decorative elements */
+  [data-worksheet-content="true"] .relative {
+    position: relative !important;
+  }
+  
+  /* Preserve overflow-hidden for proper clipping of decorative elements */
+  [data-worksheet-content="true"] .overflow-hidden {
+    overflow: hidden !important;
+  }
+  
+  /* FINAL OVERRIDE: Show decorative corner accents - override print:hidden */
+  /* These decorative elements are part of the UI design and should be visible */
+  [data-worksheet-content="true"] .worksheet-section > div.absolute.print\\:hidden,
+  [data-worksheet-content="true"] .worksheet-section div.absolute[class*="print:hidden"],
+  [data-worksheet-content="true"] div.absolute[class*="print:hidden"][style*="backgroundColor"] {
+    display: block !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+    color-adjust: exact !important;
+  }
+  
+  /* Ensure corner accent gradients are visible */
+  [data-worksheet-content="true"] div[class*="bg-gradient-to-br"][class*="print:hidden"],
+  [data-worksheet-content="true"] div[class*="bg-gradient-to-tr"][class*="print:hidden"] {
+    display: block !important;
+    visibility: visible !important;
   }
 }
 
