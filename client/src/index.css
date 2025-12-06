@@ -2461,13 +2461,19 @@ section[data-interactive-section="true"].preserve-print-styling [class*="h-48"] 
     min-height: 20px !important;
   }
   
-  /* CRITICAL: Force green circle shapes to be visible - use specific class selectors */
+  /* CRITICAL: Force green circle shapes to be visible - use specific class selectors and data attributes */
   [data-worksheet-content="true"] .green-circle-shape,
+  [data-worksheet-content="true"] .pattern-green-circle,
   [data-worksheet-content="true"] span.green-circle-shape,
+  [data-worksheet-content="true"] span.pattern-green-circle,
   [data-worksheet-content="true"] [class*="green-circle-shape"],
+  [data-worksheet-content="true"] [data-shape="green-circle"],
   section .green-circle-shape,
+  section .pattern-green-circle,
   section span.green-circle-shape,
-  section [class*="green-circle-shape"] {
+  section span.pattern-green-circle,
+  section [class*="green-circle-shape"],
+  section [data-shape="green-circle"] {
     -webkit-print-color-adjust: exact !important;
     print-color-adjust: exact !important;
     visibility: visible !important;
@@ -2480,13 +2486,68 @@ section[data-interactive-section="true"].preserve-print-styling [class*="h-48"] 
   }
   
   [data-worksheet-content="true"] .green-circle-inner,
+  [data-worksheet-content="true"] .pattern-green-circle-inner,
   [data-worksheet-content="true"] span.green-circle-inner,
+  [data-worksheet-content="true"] span.pattern-green-circle-inner,
   [data-worksheet-content="true"] [class*="green-circle-inner"],
+  [data-worksheet-content="true"] [data-shape-inner="green-circle"],
   section .green-circle-inner,
+  section .pattern-green-circle-inner,
   section span.green-circle-inner,
-  section [class*="green-circle-inner"] {
+  section span.pattern-green-circle-inner,
+  section [class*="green-circle-inner"],
+  section [data-shape-inner="green-circle"] {
     background-color: #6ee7b7 !important; /* emerald-300 - green */
     border-color: #059669 !important; /* emerald-600 - green border */
+    border-width: 1px !important;
+    border-style: solid !important;
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+    display: block !important;
+    width: 20px !important;
+    height: 20px !important;
+    min-width: 20px !important;
+    min-height: 20px !important;
+    border-radius: 50% !important;
+    box-sizing: border-box !important;
+  }
+  
+  /* CRITICAL: Target green circles inside pattern shape containers */
+  [data-worksheet-content="true"] .pattern-shape-container .green-circle-shape,
+  [data-worksheet-content="true"] .pattern-shape-container .pattern-green-circle,
+  [data-worksheet-content="true"] .pattern-shape-container [data-shape="green-circle"],
+  [data-worksheet-content="true"] .pattern-shape .green-circle-shape,
+  [data-worksheet-content="true"] .pattern-shape .pattern-green-circle,
+  [data-worksheet-content="true"] .pattern-shape [data-shape="green-circle"],
+  section .pattern-shape-container .green-circle-shape,
+  section .pattern-shape-container .pattern-green-circle,
+  section .pattern-shape-container [data-shape="green-circle"],
+  section .pattern-shape .green-circle-shape,
+  section .pattern-shape .pattern-green-circle,
+  section .pattern-shape [data-shape="green-circle"] {
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+    display: inline-flex !important;
+  }
+  
+  [data-worksheet-content="true"] .pattern-shape-container .green-circle-inner,
+  [data-worksheet-content="true"] .pattern-shape-container .pattern-green-circle-inner,
+  [data-worksheet-content="true"] .pattern-shape-container [data-shape-inner="green-circle"],
+  [data-worksheet-content="true"] .pattern-shape .green-circle-inner,
+  [data-worksheet-content="true"] .pattern-shape .pattern-green-circle-inner,
+  [data-worksheet-content="true"] .pattern-shape [data-shape-inner="green-circle"],
+  section .pattern-shape-container .green-circle-inner,
+  section .pattern-shape-container .pattern-green-circle-inner,
+  section .pattern-shape-container [data-shape-inner="green-circle"],
+  section .pattern-shape .green-circle-inner,
+  section .pattern-shape .pattern-green-circle-inner,
+  section .pattern-shape [data-shape-inner="green-circle"] {
+    background-color: #6ee7b7 !important;
+    border-color: #059669 !important;
     border-width: 1px !important;
     border-style: solid !important;
     -webkit-print-color-adjust: exact !important;
