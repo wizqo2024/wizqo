@@ -354,8 +354,8 @@ const SHAPE_TOKENS: ShapeToken[] = [
     key: 'diamond-blue',
     label: 'blue diamond',
     render: (
-      <span className="inline-flex h-6 w-6 items-center justify-center" aria-hidden>
-        <span className="block h-4 w-4 rotate-45 rounded-sm border border-sky-600 bg-sky-300" />
+      <span className="inline-flex h-6 w-6 items-center justify-center print:inline-flex print:h-6 print:w-6 print:items-center print:justify-center" aria-hidden style={{ WebkitPrintColorAdjust: 'exact', printColorAdjust: 'exact', display: 'inline-flex', alignItems: 'center', justifyContent: 'center' }}>
+        <span className="block h-4 w-4 rotate-45 rounded-sm border border-sky-600 bg-sky-300 print:block print:h-4 print:w-4 print:rotate-45 print:rounded-sm print:border print:border-sky-600 print:bg-sky-300" style={{ WebkitPrintColorAdjust: 'exact', printColorAdjust: 'exact', backgroundColor: '#7dd3fc', borderColor: '#0284c7', borderWidth: '1px', borderStyle: 'solid', display: 'block', width: '16px', height: '16px', transform: 'rotate(45deg)', borderRadius: '2px' }} />
       </span>
     ),
   },
@@ -363,8 +363,8 @@ const SHAPE_TOKENS: ShapeToken[] = [
     key: 'circle-red',
     label: 'red circle',
     render: (
-      <span className="inline-flex h-6 w-6 items-center justify-center" aria-hidden>
-        <span className="block h-4 w-4 rounded-full border border-rose-600 bg-rose-400" />
+      <span className="inline-flex h-6 w-6 items-center justify-center print:inline-flex print:h-6 print:w-6 print:items-center print:justify-center" aria-hidden style={{ WebkitPrintColorAdjust: 'exact', printColorAdjust: 'exact', display: 'inline-flex', alignItems: 'center', justifyContent: 'center' }}>
+        <span className="block h-4 w-4 rounded-full border border-rose-600 bg-rose-400 print:block print:h-4 print:w-4 print:rounded-full print:border print:border-rose-600 print:bg-rose-400" style={{ WebkitPrintColorAdjust: 'exact', printColorAdjust: 'exact', backgroundColor: '#fb7185', borderColor: '#e11d48', borderWidth: '1px', borderStyle: 'solid', display: 'block', width: '16px', height: '16px', borderRadius: '50%' }} />
       </span>
     ),
   },
@@ -372,8 +372,8 @@ const SHAPE_TOKENS: ShapeToken[] = [
     key: 'square-yellow',
     label: 'yellow square',
     render: (
-      <span className="inline-flex h-6 w-6 items-center justify-center" aria-hidden>
-        <span className="block h-4 w-4 rounded-sm border border-amber-500 bg-amber-300" />
+      <span className="inline-flex h-6 w-6 items-center justify-center print:inline-flex print:h-6 print:w-6 print:items-center print:justify-center" aria-hidden style={{ WebkitPrintColorAdjust: 'exact', printColorAdjust: 'exact', display: 'inline-flex', alignItems: 'center', justifyContent: 'center' }}>
+        <span className="block h-4 w-4 rounded-sm border border-amber-500 bg-amber-300 print:block print:h-4 print:w-4 print:rounded-sm print:border print:border-amber-500 print:bg-amber-300" style={{ WebkitPrintColorAdjust: 'exact', printColorAdjust: 'exact', backgroundColor: '#fcd34d', borderColor: '#f59e0b', borderWidth: '1px', borderStyle: 'solid', display: 'block', width: '16px', height: '16px', borderRadius: '2px' }} />
       </span>
     ),
   },
@@ -381,8 +381,8 @@ const SHAPE_TOKENS: ShapeToken[] = [
     key: 'circle-green',
     label: 'green circle',
     render: (
-      <span className="inline-flex h-6 w-6 items-center justify-center" aria-hidden>
-        <span className="block h-4 w-4 rounded-full border border-emerald-600 bg-emerald-300" />
+      <span className="inline-flex h-6 w-6 items-center justify-center print:inline-flex print:h-6 print:w-6 print:items-center print:justify-center" aria-hidden style={{ WebkitPrintColorAdjust: 'exact', printColorAdjust: 'exact', display: 'inline-flex', alignItems: 'center', justifyContent: 'center' }}>
+        <span className="block h-4 w-4 rounded-full border border-emerald-600 bg-emerald-300 print:block print:h-4 print:w-4 print:rounded-full print:border print:border-emerald-600 print:bg-emerald-300" style={{ WebkitPrintColorAdjust: 'exact', printColorAdjust: 'exact', backgroundColor: '#6ee7b7', borderColor: '#059669', borderWidth: '1px', borderStyle: 'solid', display: 'block', width: '16px', height: '16px', borderRadius: '50%' }} />
       </span>
     ),
   },
@@ -390,7 +390,7 @@ const SHAPE_TOKENS: ShapeToken[] = [
     key: 'star-yellow',
     label: 'yellow star',
     render: (
-      <span className="inline-flex h-6 w-6 items-center justify-center text-lg text-amber-400" aria-hidden>
+      <span className="inline-flex h-6 w-6 items-center justify-center text-lg text-amber-400 print:inline-flex print:h-6 print:w-6 print:items-center print:justify-center print:text-lg print:text-amber-400" aria-hidden style={{ WebkitPrintColorAdjust: 'exact', printColorAdjust: 'exact', display: 'inline-flex', alignItems: 'center', justifyContent: 'center', fontSize: '18px', color: '#fbbf24' }}>
         ?
       </span>
     ),
@@ -399,7 +399,7 @@ const SHAPE_TOKENS: ShapeToken[] = [
     key: 'heart-pink',
     label: 'pink heart',
     render: (
-      <span className="inline-flex h-6 w-6 items-center justify-center text-lg text-pink-400" aria-hidden>
+      <span className="inline-flex h-6 w-6 items-center justify-center text-lg text-pink-400 print:inline-flex print:h-6 print:w-6 print:items-center print:justify-center print:text-lg print:text-pink-400" aria-hidden style={{ WebkitPrintColorAdjust: 'exact', printColorAdjust: 'exact', display: 'inline-flex', alignItems: 'center', justifyContent: 'center', fontSize: '18px', color: '#f472b6' }}>
         ?
       </span>
     ),
@@ -2164,7 +2164,9 @@ const renderers: Record<string, Renderer> = {
                         style={{ position: 'relative', display: 'inline-flex', alignItems: 'center', justifyContent: 'center', WebkitPrintColorAdjust: 'exact', printColorAdjust: 'exact' }}
                       >
                         <span className="sr-only print:sr-only">{translatedLabel}</span>
-                        {token.render}
+                        <span style={{ WebkitPrintColorAdjust: 'exact', printColorAdjust: 'exact', display: 'inline-flex', alignItems: 'center', justifyContent: 'center' }}>
+                          {token.render}
+                        </span>
                       </span>
                     )
                   })}

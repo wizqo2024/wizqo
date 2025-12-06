@@ -2210,6 +2210,94 @@ section[data-interactive-section="true"].preserve-print-styling [class*="h-48"] 
     opacity: 1 !important;
   }
   
+  /* CRITICAL: Ensure colored shape boxes in pattern worksheets are visible in print */
+  /* Pattern shapes: sky (blue), rose (red), amber (yellow), emerald (green), pink, etc. */
+  [data-worksheet-content="true"] [class*="bg-sky-300"],
+  [data-worksheet-content="true"] [class*="bg-sky-400"],
+  [data-worksheet-content="true"] [class*="bg-rose-400"],
+  [data-worksheet-content="true"] [class*="bg-rose-300"],
+  [data-worksheet-content="true"] [class*="bg-amber-300"],
+  [data-worksheet-content="true"] [class*="bg-amber-400"],
+  [data-worksheet-content="true"] [class*="bg-emerald-300"],
+  [data-worksheet-content="true"] [class*="bg-emerald-400"],
+  [data-worksheet-content="true"] [class*="bg-pink-400"],
+  [data-worksheet-content="true"] [class*="bg-pink-300"],
+  section [class*="bg-sky-300"],
+  section [class*="bg-sky-400"],
+  section [class*="bg-rose-400"],
+  section [class*="bg-rose-300"],
+  section [class*="bg-amber-300"],
+  section [class*="bg-amber-400"],
+  section [class*="bg-emerald-300"],
+  section [class*="bg-emerald-400"],
+  section [class*="bg-pink-400"],
+  section [class*="bg-pink-300"] {
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+    color-adjust: exact !important;
+    background-color: inherit !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+    display: block !important;
+  }
+  
+  /* Force specific hex colors for pattern shapes in print */
+  [data-worksheet-content="true"] .bg-sky-300,
+  section .bg-sky-300 {
+    background-color: #7dd3fc !important; /* sky-300 */
+  }
+  [data-worksheet-content="true"] .bg-rose-400,
+  section .bg-rose-400 {
+    background-color: #fb7185 !important; /* rose-400 */
+  }
+  [data-worksheet-content="true"] .bg-amber-300,
+  section .bg-amber-300 {
+    background-color: #fcd34d !important; /* amber-300 */
+  }
+  [data-worksheet-content="true"] .bg-emerald-300,
+  section .bg-emerald-300 {
+    background-color: #6ee7b7 !important; /* emerald-300 */
+  }
+  [data-worksheet-content="true"] .bg-pink-400,
+  section .bg-pink-400 {
+    background-color: #f472b6 !important; /* pink-400 */
+  }
+  
+  /* Ensure shape borders are visible in print */
+  [data-worksheet-content="true"] [class*="border-sky-600"],
+  [data-worksheet-content="true"] [class*="border-rose-600"],
+  [data-worksheet-content="true"] [class*="border-amber-500"],
+  [data-worksheet-content="true"] [class*="border-emerald-600"],
+  section [class*="border-sky-600"],
+  section [class*="border-rose-600"],
+  section [class*="border-amber-500"],
+  section [class*="border-emerald-600"] {
+    border-color: inherit !important;
+    border-width: 1px !important;
+    border-style: solid !important;
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+    color-adjust: exact !important;
+  }
+  
+  /* Force specific border colors for pattern shapes */
+  [data-worksheet-content="true"] .border-sky-600,
+  section .border-sky-600 {
+    border-color: #0284c7 !important; /* sky-600 */
+  }
+  [data-worksheet-content="true"] .border-rose-600,
+  section .border-rose-600 {
+    border-color: #e11d48 !important; /* rose-600 */
+  }
+  [data-worksheet-content="true"] .border-amber-500,
+  section .border-amber-500 {
+    border-color: #f59e0b !important; /* amber-500 */
+  }
+  [data-worksheet-content="true"] .border-emerald-600,
+  section .border-emerald-600 {
+    border-color: #059669 !important; /* emerald-600 */
+  }
+  
   /* Ensure worksheet boxes are displayed */
   .worksheet-box,
   [data-worksheet-content="true"] .worksheet-box,
