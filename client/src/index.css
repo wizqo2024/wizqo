@@ -607,15 +607,18 @@ html {
   
   /* Combined print header */
   .wizqo-print-header {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 16px;
-    margin: 0 0 6px 0;
-    padding-bottom: 4px;
-    page-break-after: avoid;
-    break-after: avoid;
-    page-break-inside: avoid;
+    display: flex !important;
+    flex-direction: row !important;
+    align-items: center !important;
+    justify-content: space-between !important;
+    gap: 16px !important;
+    margin: 0 0 6px 0 !important;
+    padding-bottom: 4px !important;
+    page-break-after: avoid !important;
+    break-after: avoid !important;
+    page-break-inside: avoid !important;
+    flex-wrap: nowrap !important;
+    white-space: nowrap !important;
   }
   
   .print-header-floating {
@@ -667,22 +670,37 @@ html {
   
   .print-name-field,
   .print-date-field {
-    flex: 1;
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    font-size: 10pt;
-    page-break-after: avoid;
-    break-after: avoid;
-    page-break-inside: avoid;
+    flex: 0 1 auto !important;
+    display: flex !important;
+    flex-direction: row !important;
+    align-items: center !important;
+    gap: 8px !important;
+    font-size: 10pt !important;
+    page-break-after: avoid !important;
+    break-after: avoid !important;
+    page-break-inside: avoid !important;
+    white-space: nowrap !important;
+    flex-wrap: nowrap !important;
   }
   
   .print-name-field {
-    justify-content: flex-start;
+    justify-content: flex-start !important;
   }
   
   .print-date-field {
-    justify-content: flex-end;
+    justify-content: flex-end !important;
+  }
+  
+  /* Ensure logo/domain stays inline */
+  .wizqo-logo-print {
+    flex: 0 0 auto !important;
+    display: flex !important;
+    flex-direction: row !important;
+    align-items: center !important;
+    justify-content: center !important;
+    gap: 8px !important;
+    white-space: nowrap !important;
+    flex-wrap: nowrap !important;
   }
   
   .print-customization-header {
@@ -2019,8 +2037,14 @@ section[data-interactive-section="true"].preserve-print-styling [class*="h-48"] 
       padding-top: 0 !important;
     }
     
-    /* Minimize print header to absolute zero */
+    /* Minimize print header to absolute zero - ensure horizontal layout */
     .wizqo-print-header {
+      display: flex !important;
+      flex-direction: row !important;
+      align-items: center !important;
+      justify-content: space-between !important;
+      flex-wrap: nowrap !important;
+      white-space: nowrap !important;
       margin-top: 0 !important;
       margin-bottom: 0 !important;
       padding-top: 2px !important;
@@ -2028,6 +2052,35 @@ section[data-interactive-section="true"].preserve-print-styling [class*="h-48"] 
       height: auto !important;
       min-height: 0 !important;
       line-height: 1 !important;
+      gap: 12px !important;
+    }
+    
+    /* Ensure all header fields stay on one line */
+    .wizqo-print-header .print-name-field,
+    .wizqo-print-header .wizqo-logo-print,
+    .wizqo-print-header .print-date-field {
+      display: flex !important;
+      flex-direction: row !important;
+      align-items: center !important;
+      flex-wrap: nowrap !important;
+      white-space: nowrap !important;
+      flex-shrink: 0 !important;
+    }
+    
+    .wizqo-print-header .print-name-field {
+      flex: 0 1 auto !important;
+      justify-content: flex-start !important;
+    }
+    
+    .wizqo-print-header .wizqo-logo-print {
+      flex: 0 0 auto !important;
+      justify-content: center !important;
+      margin: 0 8px !important;
+    }
+    
+    .wizqo-print-header .print-date-field {
+      flex: 0 1 auto !important;
+      justify-content: flex-end !important;
     }
     
     .print-header-floating {
