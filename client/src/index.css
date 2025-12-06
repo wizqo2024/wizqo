@@ -1389,6 +1389,13 @@ section[data-interactive-section="true"].preserve-print-styling [class*="h-48"] 
       padding-left: 24px !important;
       padding-right: 24px !important;
       padding-bottom: 24px !important;
+      border-top-width: 0 !important;
+    }
+    
+    /* Remove any gap from section border */
+    section[data-interactive-section="true"].preserve-print-styling:first-child::before {
+      display: none !important;
+      content: none !important;
     }
     
     /* Remove all top margins and padding from header on first page */
@@ -1410,6 +1417,16 @@ section[data-interactive-section="true"].preserve-print-styling [class*="h-48"] 
       margin-bottom: 12px !important;
     }
     
+    /* Hide WorksheetHeader completely on first page to remove gap */
+    section[data-interactive-section="true"].preserve-print-styling:first-child .print\\:first-page-hidden,
+    section[data-interactive-section="true"].preserve-print-styling:first-child [class*="print:first-page-hidden"] {
+      display: none !important;
+      height: 0 !important;
+      margin: 0 !important;
+      padding: 0 !important;
+      visibility: hidden !important;
+    }
+    
     /* Remove WorksheetHeader spacing completely on first page */
     section[data-interactive-section="true"].preserve-print-styling:first-child .print\\:mb-2,
     section[data-interactive-section="true"].preserve-print-styling:first-child .print\\:mb-4,
@@ -1418,12 +1435,16 @@ section[data-interactive-section="true"].preserve-print-styling [class*="h-48"] 
       padding-bottom: 0 !important;
     }
     
-    /* Remove spacing from header wrapper div */
+    /* Remove spacing from header wrapper div - make it zero height */
     section[data-interactive-section="true"].preserve-print-styling:first-child > div:first-child {
       margin-top: 0 !important;
       padding-top: 0 !important;
       margin-bottom: 0 !important;
       padding-bottom: 0 !important;
+      height: 0 !important;
+      min-height: 0 !important;
+      max-height: 0 !important;
+      overflow: hidden !important;
     }
     
     /* Remove all top spacing from first content element */
@@ -1482,11 +1503,20 @@ section[data-interactive-section="true"].preserve-print-styling [class*="h-48"] 
       padding-top: 0 !important;
     }
     
+    /* Target the first section more specifically */
+    [data-worksheet-content="true"] > div > section[data-interactive-section="true"].preserve-print-styling:first-child,
     [data-worksheet-content="true"] section[data-interactive-section="true"].preserve-print-styling:first-child {
       margin-top: 0 !important;
       padding-top: 0 !important;
       position: relative;
       top: 0 !important;
+      transform: translateY(0) !important;
+    }
+    
+    /* Remove any spacing from print header that might be above section */
+    .wizqo-print-header + [data-worksheet-content="true"],
+    .wizqo-print-header + * {
+      margin-top: 0 !important;
     }
     
     /* Remove spacing from section's mb-10 class on first page */
