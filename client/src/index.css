@@ -982,15 +982,21 @@ html {
   }
   
   /* Remove all inner borders in print so only outer frame remains */
-  /* EXCLUDE drawing boxes from border removal */
-[data-worksheet-content="true"] .border:not(.worksheet-container):not(.print-section-outline):not(.print-block-outline):not(.drawing-box):not(.drawing-box-large):not([data-drawing-box]),
-[data-worksheet-content="true"] [class*="border-"]:not(.worksheet-container):not(.print-section-outline):not(.print-block-outline):not(.drawing-box):not(.drawing-box-large):not([data-drawing-box]),
-[data-worksheet-content="true"] [class*="print:border"]:not(.worksheet-container):not(.print-section-outline):not(.print-block-outline):not(.drawing-box):not(.drawing-box-large):not([data-drawing-box]),
-[data-worksheet-content="true"] *:not(.worksheet-container):not(.print-section-outline):not(.print-block-outline):not(.drawing-box):not(.drawing-box-large):not([data-drawing-box])[style*="border"] {
+  /* EXCLUDE drawing boxes and worksheet sections from border removal */
+[data-worksheet-content="true"] .border:not(.worksheet-container):not(.print-section-outline):not(.print-block-outline):not(.drawing-box):not(.drawing-box-large):not([data-drawing-box]):not(.worksheet-section),
+[data-worksheet-content="true"] [class*="border-"]:not(.worksheet-container):not(.print-section-outline):not(.print-block-outline):not(.drawing-box):not(.drawing-box-large):not([data-drawing-box]):not(.worksheet-section),
+[data-worksheet-content="true"] [class*="print:border"]:not(.worksheet-container):not(.print-section-outline):not(.print-block-outline):not(.drawing-box):not(.drawing-box-large):not([data-drawing-box]):not(.worksheet-section),
+[data-worksheet-content="true"] *:not(.worksheet-container):not(.print-section-outline):not(.print-block-outline):not(.drawing-box):not(.drawing-box-large):not([data-drawing-box]):not(.worksheet-section)[style*="border"] {
     border: none !important;
     border-width: 0 !important;
     border-color: transparent !important;
     box-shadow: none !important;
+  }
+  
+  /* Ensure worksheet sections have visible borders in print */
+  [data-worksheet-content="true"] .worksheet-section {
+    border: 1px solid rgba(15, 23, 42, 0.2) !important;
+    border-radius: 12px !important;
   }
   
   /* Preserve borders and backgrounds for art worksheets - must come after border removal */

@@ -294,7 +294,7 @@ function WorksheetSectionWrapper({
   return (
     <section 
       data-doc={docId}
-      className={`mb-10 break-inside-avoid rounded-xl ${theme.background} p-6 print:border-0 print:p-0 print:bg-white print:mt-0 print:mb-0 print:pt-0 shadow-lg relative overflow-hidden worksheet-section ${enablePrintOutline ? 'print-section-outline' : ''}`}
+      className={`mb-10 break-inside-avoid rounded-xl ${theme.background} p-6 print:p-0 print:bg-white print:mt-0 print:mb-0 print:pt-0 shadow-lg relative overflow-hidden worksheet-section ${enablePrintOutline ? 'print-section-outline' : ''}`}
       dir={isRTL ? 'rtl' : 'ltr'}
       style={{ 
         pageBreakInside: 'auto', // Allow section to break across pages if needed
@@ -2096,14 +2096,20 @@ export function PrintablesPage() {
         }
         
         /* Remove all inner borders so only outer frame renders */
-        [data-worksheet-content="true"] .border:not(.worksheet-container):not(.print-section-outline):not(.print-block-outline),
-        [data-worksheet-content="true"] [class*="border-"]:not(.worksheet-container):not(.print-section-outline):not(.print-block-outline),
-        [data-worksheet-content="true"] [class*="print:border"]:not(.worksheet-container):not(.print-section-outline):not(.print-block-outline),
-        [data-worksheet-content="true"] *:not(.worksheet-container):not(.print-section-outline):not(.print-block-outline)[style*="border"] {
+        [data-worksheet-content="true"] .border:not(.worksheet-container):not(.print-section-outline):not(.print-block-outline):not(.worksheet-section),
+        [data-worksheet-content="true"] [class*="border-"]:not(.worksheet-container):not(.print-section-outline):not(.print-block-outline):not(.worksheet-section),
+        [data-worksheet-content="true"] [class*="print:border"]:not(.worksheet-container):not(.print-section-outline):not(.print-block-outline):not(.worksheet-section),
+        [data-worksheet-content="true"] *:not(.worksheet-container):not(.print-section-outline):not(.print-block-outline):not(.worksheet-section)[style*="border"] {
           border: none !important;
           border-width: 0 !important;
           border-color: transparent !important;
           box-shadow: none !important;
+        }
+        
+        /* Ensure worksheet sections have visible borders in print */
+        [data-worksheet-content="true"] .worksheet-section {
+          border: 1px solid rgba(15, 23, 42, 0.2) !important;
+          border-radius: 12px !important;
         }
         
         [data-worksheet-content="true"] .print-section-outline {
