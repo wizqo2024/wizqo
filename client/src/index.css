@@ -432,14 +432,6 @@ html {
   @page {
     size: A4;
     margin: 0 0.5in 0.5in 0.5in; /* Top: 0 (gradient drawn inside content), others: 0.5in */
-    margin-top: 0 !important;
-    padding: 0 !important;
-  }
-  
-  /* Override browser default margins - force zero top margin even with default print settings */
-  @page:first {
-    margin-top: 0 !important;
-    padding-top: 0 !important;
   }
   
   /* Reset everything */
