@@ -610,52 +610,105 @@ html {
     border: 2px solid #f9a8d4 !important;
     border-radius: 12px !important;
     padding: 24px !important;
-    font-size: 16px !important; /* Match live view base font size */
+    font-size: 16px !important; /* Match live view base font size - override 11pt */
+    line-height: 1.5 !important;
     -webkit-print-color-adjust: exact !important;
     print-color-adjust: exact !important;
+    transform: scale(1) !important;
+    zoom: 1 !important;
+    box-sizing: border-box !important;
+  }
+  
+  /* Override global font-size reduction for art worksheets - force exact sizes */
+  section[data-interactive-section="true"].preserve-print-styling,
+  section[data-interactive-section="true"].preserve-print-styling * {
+    font-size: inherit !important;
+    transform: scale(1) !important;
+    zoom: 1 !important;
+  }
+  
+  /* Force exact pixel values - override any rem/em/pt conversions */
+  section[data-interactive-section="true"].preserve-print-styling [style*="fontSize"],
+  section[data-interactive-section="true"].preserve-print-styling [style*="padding"],
+  section[data-interactive-section="true"].preserve-print-styling [style*="height"],
+  section[data-interactive-section="true"].preserve-print-styling [style*="gap"],
+  section[data-interactive-section="true"].preserve-print-styling [style*="margin"] {
+    transform: scale(1) !important;
+    zoom: 1 !important;
   }
   
   /* Preserve exact font sizes for art worksheets - match live view */
-  section[data-interactive-section="true"].preserve-print-styling .text-sm {
-    font-size: 0.875rem !important; /* 14px - match Tailwind text-sm */
-    line-height: 1.25rem !important;
+  section[data-interactive-section="true"].preserve-print-styling .text-sm,
+  section[data-interactive-section="true"].preserve-print-styling [class*="text-sm"] {
+    font-size: 14px !important; /* Exact 14px - match Tailwind text-sm */
+    line-height: 20px !important;
   }
   
-  section[data-interactive-section="true"].preserve-print-styling .text-xs {
-    font-size: 0.75rem !important; /* 12px - match Tailwind text-xs */
-    line-height: 1rem !important;
+  section[data-interactive-section="true"].preserve-print-styling .text-xs,
+  section[data-interactive-section="true"].preserve-print-styling [class*="text-xs"] {
+    font-size: 12px !important; /* Exact 12px - match Tailwind text-xs */
+    line-height: 16px !important;
   }
   
-  /* Preserve exact padding and spacing */
-  section[data-interactive-section="true"].preserve-print-styling .p-4 {
-    padding: 1rem !important; /* 16px - match Tailwind p-4 */
+  /* Preserve exact padding and spacing - use px values */
+  section[data-interactive-section="true"].preserve-print-styling .p-4,
+  section[data-interactive-section="true"].preserve-print-styling [class*="p-4"] {
+    padding: 16px !important; /* Exact 16px - match Tailwind p-4 */
   }
   
-  section[data-interactive-section="true"].preserve-print-styling .gap-3 {
-    gap: 0.75rem !important; /* 12px - match Tailwind gap-3 */
+  section[data-interactive-section="true"].preserve-print-styling .gap-3,
+  section[data-interactive-section="true"].preserve-print-styling [class*="gap-3"] {
+    gap: 12px !important; /* Exact 12px - match Tailwind gap-3 */
   }
   
   section[data-interactive-section="true"].preserve-print-styling .space-y-4 > * + * {
-    margin-top: 1rem !important; /* 16px - match Tailwind space-y-4 */
+    margin-top: 16px !important; /* Exact 16px - match Tailwind space-y-4 */
   }
   
-  section[data-interactive-section="true"].preserve-print-styling .mb-2 {
-    margin-bottom: 0.5rem !important; /* 8px - match Tailwind mb-2 */
+  section[data-interactive-section="true"].preserve-print-styling .mb-2,
+  section[data-interactive-section="true"].preserve-print-styling [class*="mb-2"] {
+    margin-bottom: 8px !important; /* Exact 8px - match Tailwind mb-2 */
   }
   
-  section[data-interactive-section="true"].preserve-print-styling .mt-1 {
-    margin-top: 0.25rem !important; /* 4px - match Tailwind mt-1 */
+  section[data-interactive-section="true"].preserve-print-styling .mt-1,
+  section[data-interactive-section="true"].preserve-print-styling [class*="mt-1"] {
+    margin-top: 4px !important; /* Exact 4px - match Tailwind mt-1 */
   }
   
-  /* Preserve exact heights */
-  section[data-interactive-section="true"].preserve-print-styling .h-24 {
-    height: 6rem !important; /* 96px - match Tailwind h-24 */
-    min-height: 6rem !important;
+  /* Preserve exact heights - use px values */
+  section[data-interactive-section="true"].preserve-print-styling .h-24,
+  section[data-interactive-section="true"].preserve-print-styling [class*="h-24"] {
+    height: 96px !important; /* Exact 96px - match Tailwind h-24 */
+    min-height: 96px !important;
+    max-height: 96px !important;
   }
   
-  section[data-interactive-section="true"].preserve-print-styling .h-32 {
-    height: 8rem !important; /* 128px - match Tailwind h-32 */
-    min-height: 8rem !important;
+  section[data-interactive-section="true"].preserve-print-styling .h-32,
+  section[data-interactive-section="true"].preserve-print-styling [class*="h-32"] {
+    height: 128px !important; /* Exact 128px - match Tailwind h-32 */
+    min-height: 128px !important;
+    max-height: 128px !important;
+  }
+  
+  /* Preserve SVG sizes */
+  section[data-interactive-section="true"].preserve-print-styling svg {
+    width: 64px !important;
+    height: 64px !important;
+    min-width: 64px !important;
+    min-height: 64px !important;
+    max-width: 64px !important;
+    max-height: 64px !important;
+  }
+  
+  /* Preserve border radius */
+  section[data-interactive-section="true"].preserve-print-styling .rounded-xl,
+  section[data-interactive-section="true"].preserve-print-styling [class*="rounded-xl"] {
+    border-radius: 12px !important;
+  }
+  
+  section[data-interactive-section="true"].preserve-print-styling .rounded,
+  section[data-interactive-section="true"].preserve-print-styling [class*="rounded"]:not([class*="rounded-xl"]):not([class*="rounded-full"]) {
+    border-radius: 8px !important;
   }
   
   /* Preserve borders and backgrounds for art worksheet content */
