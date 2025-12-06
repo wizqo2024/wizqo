@@ -690,6 +690,79 @@ html {
     max-height: 128px !important;
   }
   
+  /* Force drawing boxes to exact sizes - target bg-white + border-pink-300 */
+  section[data-interactive-section="true"].preserve-print-styling [class*="bg-white"][class*="border-pink-300"],
+  section[data-interactive-section="true"].preserve-print-styling [class*="border-pink-300"][class*="bg-white"],
+  section[data-interactive-section="true"].preserve-print-styling [style*="backgroundColor"][style*="#ffffff"][style*="borderColor"][style*="#f9a8d4"] {
+    height: 96px !important;
+    min-height: 96px !important;
+    max-height: 96px !important;
+    width: 100% !important;
+    box-sizing: border-box !important;
+    border-width: 1px !important;
+    border-style: solid !important;
+    border-color: #f9a8d4 !important;
+    background-color: #ffffff !important;
+    transform: scale(1) !important;
+    zoom: 1 !important;
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+  }
+  
+  /* Force larger drawing box (h-32) to exact size */
+  section[data-interactive-section="true"].preserve-print-styling [class*="bg-white"][class*="border-pink-300"][class*="h-32"],
+  section[data-interactive-section="true"].preserve-print-styling [class*="h-32"][class*="bg-white"][class*="border-pink-300"],
+  section[data-interactive-section="true"].preserve-print-styling [style*="height"][style*="128px"] {
+    height: 128px !important;
+    min-height: 128px !important;
+    max-height: 128px !important;
+    width: 100% !important;
+    box-sizing: border-box !important;
+    border-width: 1px !important;
+    border-style: solid !important;
+    border-color: #f9a8d4 !important;
+    background-color: #ffffff !important;
+    transform: scale(1) !important;
+    zoom: 1 !important;
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+  }
+  
+  /* Force drawing box classes to exact sizes */
+  section[data-interactive-section="true"].preserve-print-styling .drawing-box {
+    height: 96px !important;
+    min-height: 96px !important;
+    max-height: 96px !important;
+    width: 100% !important;
+    box-sizing: border-box !important;
+    border-width: 1px !important;
+    border-style: solid !important;
+    border-color: #f9a8d4 !important;
+    background-color: #ffffff !important;
+    transform: scale(1) !important;
+    zoom: 1 !important;
+    flex-shrink: 0 !important;
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+  }
+  
+  section[data-interactive-section="true"].preserve-print-styling .drawing-box-large {
+    height: 128px !important;
+    min-height: 128px !important;
+    max-height: 128px !important;
+    width: 100% !important;
+    box-sizing: border-box !important;
+    border-width: 1px !important;
+    border-style: solid !important;
+    border-color: #f9a8d4 !important;
+    background-color: #ffffff !important;
+    transform: scale(1) !important;
+    zoom: 1 !important;
+    flex-shrink: 0 !important;
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+  }
+  
   /* Preserve SVG sizes */
   section[data-interactive-section="true"].preserve-print-styling svg {
     width: 64px !important;
