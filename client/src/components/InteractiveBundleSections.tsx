@@ -2508,25 +2508,25 @@ const renderers: Record<string, Renderer> = {
       4
     )
     return (
-      <div className="space-y-3">
-        <p className="text-sm text-slate-600">
+      <div className="space-y-3 print:space-y-3" style={{ fontSize: '16px', lineHeight: '24px', marginTop: '0', marginBottom: '0' }}>
+        <p className="text-sm text-slate-600 print:text-sm print:text-slate-600" style={{ fontSize: '14px', lineHeight: '20px', margin: '0 0 12px 0' }}>
           {t('worksheets.scienceSpace.instructions')}
         </p>
-        <div className="grid gap-4 md:grid-cols-2">
+        <div className="grid gap-4 md:grid-cols-2 print:grid print:grid-cols-2 print:gap-4" style={{ gap: '16px', display: 'grid', gridTemplateColumns: 'repeat(2, minmax(0, 1fr))' }}>
           {planets.map((planet, idx) => (
-            <div key={idx} className="rounded-xl border border-indigo-200 bg-indigo-50 p-4">
-              <p className="text-sm font-semibold text-indigo-700">{planet.name}</p>
-              <div className="mt-2 h-16 rounded border border-indigo-300 bg-white"></div>
-              <p className="mt-1 text-xs text-indigo-600 italic">{t('worksheets.answerKey.drawPicture')} {planet.name}</p>
-              <p className="mt-2 text-xs text-indigo-700">{t('worksheets.scienceSpace.fact')} {planet.fact}</p>
-              <p className="mt-1 text-xs text-indigo-600">{t('worksheets.scienceSpace.distanceFromSun')} {planet.distance}</p>
+            <div key={idx} className="rounded-xl border border-indigo-200 bg-indigo-50 p-4 print:rounded-xl print:border print:border-indigo-200 print:bg-indigo-50 print:p-4" style={{ WebkitPrintColorAdjust: 'exact', printColorAdjust: 'exact', backgroundColor: '#eef2ff', borderColor: '#c7d2fe', padding: '16px', borderRadius: '12px', borderWidth: '1px', borderStyle: 'solid' }}>
+              <p className="text-sm font-semibold text-indigo-700 print:text-sm print:font-semibold print:text-indigo-700" style={{ fontSize: '14px', fontWeight: '600', marginBottom: '8px', lineHeight: '20px', marginTop: '0' }}>{planet.name}</p>
+              <div className="mt-2 h-16 rounded border border-indigo-300 bg-white print:mt-2 print:h-16 print:rounded print:border print:border-indigo-300 print:bg-white drawing-box" data-drawing-box="true" style={{ borderColor: '#a5b4fc', backgroundColor: '#ffffff', WebkitPrintColorAdjust: 'exact', printColorAdjust: 'exact', height: '64px', minHeight: '64px', maxHeight: '64px', borderRadius: '8px', borderWidth: '1px', borderStyle: 'solid', width: '100%', boxSizing: 'border-box', display: 'block', flexShrink: '0', flexGrow: '0', marginTop: '8px' }}></div>
+              <p className="mt-1 text-xs text-indigo-600 italic print:mt-1 print:text-xs print:text-indigo-600 print:italic" style={{ fontSize: '12px', marginTop: '4px', marginBottom: '8px', lineHeight: '16px', fontStyle: 'italic' }}>{t('worksheets.answerKey.drawPicture')} {planet.name}</p>
+              <p className="mt-2 text-xs text-indigo-700 print:mt-2 print:text-xs print:text-indigo-700" style={{ fontSize: '12px', lineHeight: '16px', marginTop: '8px', marginBottom: '4px' }}>{t('worksheets.scienceSpace.fact')} {planet.fact}</p>
+              <p className="mt-1 text-xs text-indigo-600 print:mt-1 print:text-xs print:text-indigo-600" style={{ fontSize: '12px', lineHeight: '16px', marginTop: '4px', marginBottom: '0' }}>{t('worksheets.scienceSpace.distanceFromSun')} {planet.distance}</p>
             </div>
           ))}
         </div>
-        <div className="rounded-xl border border-indigo-200 bg-indigo-50 p-4">
-          <p className="text-sm font-semibold text-indigo-700">{t('worksheets.scienceSpace.spaceQuestions')}</p>
-          <p className="mt-2 text-xs text-indigo-700">{t('worksheets.scienceSpace.whatIsStar')} ________________________</p>
-          <p className="mt-1 text-xs text-indigo-700">{t('worksheets.scienceSpace.nameOnePlanet')} ________________________</p>
+        <div className="rounded-xl border border-indigo-200 bg-indigo-50 p-4 print:rounded-xl print:border print:border-indigo-200 print:bg-indigo-50 print:p-4" style={{ WebkitPrintColorAdjust: 'exact', printColorAdjust: 'exact', backgroundColor: '#eef2ff', borderColor: '#c7d2fe', padding: '16px', borderRadius: '12px', borderWidth: '1px', borderStyle: 'solid' }}>
+          <p className="text-sm font-semibold text-indigo-700 print:text-sm print:font-semibold print:text-indigo-700" style={{ fontSize: '14px', fontWeight: '600', marginBottom: '8px', lineHeight: '20px', marginTop: '0' }}>{t('worksheets.scienceSpace.spaceQuestions')}</p>
+          <p className="mt-2 text-xs text-indigo-700 print:mt-2 print:text-xs print:text-indigo-700" style={{ fontSize: '12px', lineHeight: '16px', marginTop: '8px', marginBottom: '4px' }}>{t('worksheets.scienceSpace.whatIsStar')} ________________________</p>
+          <p className="mt-1 text-xs text-indigo-700 print:mt-1 print:text-xs print:text-indigo-700" style={{ fontSize: '12px', lineHeight: '16px', marginTop: '4px', marginBottom: '0' }}>{t('worksheets.scienceSpace.nameOnePlanet')} ________________________</p>
         </div>
       </div>
     )

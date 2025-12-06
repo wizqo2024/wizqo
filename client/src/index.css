@@ -1525,6 +1525,48 @@ section[data-interactive-section="true"].preserve-print-styling [class*="h-48"] 
     print-color-adjust: exact !important;
   }
   
+  section[data-interactive-section="true"].preserve-print-styling [class*="bg-indigo-50"],
+  [data-worksheet-content="true"] [class*="bg-indigo-50"] {
+    background-color: #eef2ff !important;
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+  }
+  
+  section[data-interactive-section="true"].preserve-print-styling [class*="border-indigo-200"],
+  [data-worksheet-content="true"] [class*="border-indigo-200"] {
+    border-color: #c7d2fe !important;
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+  }
+  
+  section[data-interactive-section="true"].preserve-print-styling [class*="border-indigo-300"],
+  [data-worksheet-content="true"] [class*="border-indigo-300"] {
+    border-color: #a5b4fc !important;
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+  }
+  
+  section[data-interactive-section="true"].preserve-print-styling [class*="bg-emerald-50"],
+  [data-worksheet-content="true"] [class*="bg-emerald-50"] {
+    background-color: #ecfdf5 !important;
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+  }
+  
+  section[data-interactive-section="true"].preserve-print-styling [class*="border-emerald-200"],
+  [data-worksheet-content="true"] [class*="border-emerald-200"] {
+    border-color: #a7f3d0 !important;
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+  }
+  
+  section[data-interactive-section="true"].preserve-print-styling [class*="border-emerald-300"],
+  [data-worksheet-content="true"] [class*="border-emerald-300"] {
+    border-color: #6ee7b7 !important;
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+  }
+  
   /* Remove excessive gaps on first page - FINAL COMPREHENSIVE FIX */
   @media print {
     /* Reset ALL top spacing */
