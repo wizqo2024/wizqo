@@ -503,7 +503,8 @@ html {
     margin: 0;
     padding: 0 0.5in 0.5in 0.5in;
     padding-top: 0;
-    border: 3px solid transparent;
+    /* Visible border for print - solid color that matches gradient theme */
+    border: 2px solid #a855f7;
     border-radius: 28px;
     background:
       linear-gradient(white, white) padding-box,

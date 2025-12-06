@@ -2204,7 +2204,8 @@ export function PrintablesPage() {
           margin: 0 !important;
           padding: 0 0.5in 0.5in 0.5in !important;
           padding-top: 0 !important;
-          border: 3px solid transparent !important;
+          /* Visible border for print - solid color that matches gradient theme */
+          border: 2px solid #a855f7 !important;
           border-radius: 28px !important;
           background:
             linear-gradient(white, white) padding-box,
