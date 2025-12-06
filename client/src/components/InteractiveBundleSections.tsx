@@ -8096,12 +8096,13 @@ function InteractiveWorksheetSection({
     )
   }
 
-  // Preserve styling for art worksheets in print mode
-  const preservePrintStyling = docId === 'interactive-art-shapes' || docId === 'interactive-art-patterns' || docId === 'interactive-art-perspective'
+  // Preserve styling for ALL interactive worksheets in print mode - match live view 90%
+  const preservePrintStyling = true // Enable for all worksheets to match live view
   
-  // Get background color for art worksheets
+  // Get background color for worksheets based on category
   const getPrintBackgroundStyle = () => {
-    if (preservePrintStyling && category.id === 'art') {
+    // Art worksheets get pink gradient background
+    if (category.id === 'art') {
       return {
         WebkitPrintColorAdjust: 'exact' as const,
         printColorAdjust: 'exact' as const,
@@ -8109,13 +8110,17 @@ function InteractiveWorksheetSection({
         backgroundImage: 'linear-gradient(to bottom right, #fdf2f8, #faf5ff, #fdf4ff)', // pink-50 via purple-50 to fuchsia-50
       }
     }
-    return preservePrintStyling ? { WebkitPrintColorAdjust: 'exact' as const, printColorAdjust: 'exact' as const } : undefined
+    // All other worksheets preserve their category theme background
+    return {
+      WebkitPrintColorAdjust: 'exact' as const,
+      printColorAdjust: 'exact' as const,
+    }
   }
   
   return (
     <section
       data-interactive-section="true"
-      className={`mb-10 break-inside-avoid rounded-xl border-2 ${theme.border} ${theme.background} p-6 ${preservePrintStyling ? 'preserve-print-styling print:border-2 print:p-6' : 'print:border-0 print:p-0'} ${preservePrintStyling ? '' : 'print:bg-white'} print:overflow-visible shadow-lg relative overflow-hidden`}
+      className={`mb-10 break-inside-avoid rounded-xl border-2 ${theme.border} ${theme.background} p-6 preserve-print-styling print:border-2 print:p-6 print:overflow-visible shadow-lg relative overflow-hidden`}
       style={getPrintBackgroundStyle()}
     >
       {/* Decorative corner accent */}
