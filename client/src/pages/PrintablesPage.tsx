@@ -4698,8 +4698,8 @@ export function PrintablesPage() {
                     <div className="text-center text-sm text-slate-600 mt-2">
                       Answer: <span className="font-bold text-blue-700">?</span>
                     </div>
-                    <div className="mt-2 text-xs text-center text-slate-600">
-                      {num1} {isAdd ? '+' : '−'} {num2} = <span className="font-bold text-blue-700">___</span>
+                    <div className="mt-2 text-xs text-center text-slate-600 font-mono">
+                      {num1} {isAdd ? '+' : '−'} {num2} = <span className="font-bold text-blue-700 font-mono">___</span>
                     </div>
                   </div>
                 );
@@ -5084,7 +5084,7 @@ export function PrintablesPage() {
               <div className="mb-6 p-4 bg-blue-50 border-2 border-blue-200 rounded-lg print:border print:bg-white">
                 <div className="font-semibold text-blue-900 mb-3 text-sm">📚 Example - Let's solve this together:</div>
                 <div className="space-y-2 text-sm">
-                  <div className="font-semibold text-base"><strong>Count by 5s:</strong> 5, 10, ___, 20, 25</div>
+              <div className="font-semibold text-base font-mono"><strong>Count by 5s:</strong> 5, 10, ___, 20, 25</div>
                   <div className="pl-4 border-l-2 border-blue-300 space-y-1">
                     <div><strong>Step 1:</strong> Look at the pattern: 5, 10, ___, 20, 25</div>
                     <div><strong>Step 2:</strong> Each number is 5 more than the previous: 5 + 5 = 10, 10 + 5 = 15</div>
@@ -8573,7 +8573,7 @@ export function PrintablesPage() {
                     <div className="grid grid-cols-2 gap-3">
                       {arrays.map(([rows, cols], i) => (
                         <div key={i} className="border border-slate-300 rounded p-3">
-                          <div className="text-center mb-2 font-semibold">{rows} × {cols} = <span className="inline-block w-12 h-5 border-b-2 border-slate-600 mx-1" /></div>
+                    <div className="text-center mb-2 font-semibold font-mono">{rows} × {cols} = <span className="inline-block w-12 h-5 border-b-2 border-slate-600 mx-1" /></div>
                           <div className="grid gap-1" style={{gridTemplateColumns: `repeat(${cols}, 1fr)`, maxWidth: '120px', margin: '0 auto'}}>
                             {Array.from({length: rows * cols}).map((_, idx) => (
                               <div key={idx} className="aspect-square border border-slate-400 rounded bg-slate-100" />
@@ -12298,7 +12298,7 @@ export function PrintablesPage() {
             <div className="mb-6 p-4 bg-blue-50 border-2 border-blue-200 rounded-lg print:border print:bg-white">
               <div className="font-semibold text-blue-900 mb-3 text-sm">📚 Example - Let's solve this together:</div>
               <div className="space-y-2 text-sm">
-                <div className="font-semibold text-base"><strong>Number Line:</strong> 1, 2, ___, 4, 5</div>
+              <div className="font-semibold text-base font-mono"><strong>Number Line:</strong> 1, 2, ___, 4, 5</div>
                 <div className="pl-4 border-l-2 border-blue-300 space-y-1">
                   <div><strong>Step 1:</strong> Look at the numbers before and after the blank: 2 and 4</div>
                   <div><strong>Step 2:</strong> Count forward from 2: 2, 3, 4</div>
@@ -15209,7 +15209,7 @@ export function PrintablesPage() {
               <div className="grid grid-cols-2 gap-4 break-inside-avoid" style={{ pageBreakAfter: 'auto' }}>
                 {arrays.map(([rows, cols], i) => (
                   <div key={i} className="border border-slate-300 rounded p-4 bg-white break-inside-avoid">
-                    <div className="text-center mb-2 font-semibold text-slate-800">{rows} × {cols} = <span className="inline-block w-20 h-10 border-b-[3px] border-slate-600 mx-1 align-middle" /></div>
+                    <div className="text-center mb-2 font-semibold text-slate-800 font-mono">{rows} × {cols} = <span className="inline-block w-20 h-10 border-b-[3px] border-slate-600 mx-1 align-middle" /></div>
                     <div className="grid gap-1" style={{gridTemplateColumns: `repeat(${cols}, 1fr)`, maxWidth: '200px', margin: '0 auto'}}>
                       {Array.from({length: rows * cols}).map((_, idx) => (
                         <div key={idx} className="aspect-square border border-slate-400 rounded bg-slate-100 print:bg-white" />
@@ -15537,7 +15537,7 @@ export function PrintablesPage() {
               <div className="grid grid-cols-2 gap-4 break-inside-avoid" style={{ pageBreakAfter: 'auto' }}>
                 {arrays.map(([rows, cols], i) => (
                   <div key={i} className="border border-slate-300 rounded p-4 bg-white break-inside-avoid">
-                    <div className="text-center mb-2 font-semibold text-slate-800">{rows} × {cols} = <span className="inline-block w-20 h-10 border-b-[3px] border-slate-600 mx-1 align-middle" /></div>
+                    <div className="text-center mb-2 font-semibold text-slate-800 font-mono">{rows} × {cols} = <span className="inline-block w-20 h-10 border-b-[3px] border-slate-600 mx-1 align-middle" /></div>
                     <div className="grid gap-1" style={{gridTemplateColumns: `repeat(${cols}, 1fr)`, maxWidth: '200px', margin: '0 auto'}}>
                       {Array.from({length: rows * cols}).map((_, idx) => (
                         <div key={idx} className="aspect-square border border-slate-400 rounded bg-slate-100 print:bg-white" />
@@ -16454,7 +16454,7 @@ export function PrintablesPage() {
                   const bTens = Math.floor(b / 10); const bOnes = b % 10;
                   return (
                     <div key={i} className="border-2 border-slate-300 rounded-lg p-5 bg-white break-inside-avoid">
-                      <div className="text-lg font-semibold mb-4 text-slate-800 text-center">
+                      <div className="text-lg font-semibold mb-4 text-slate-800 text-center font-mono">
                         {a} × {b} = <span className="inline-block w-24 h-12 print:w-28 print:h-14 border-b-[3px] border-slate-600 mx-2 align-middle" />
                       </div>
                       <div className="grid grid-cols-2 gap-3 max-w-lg mx-auto mb-4">
@@ -16604,7 +16604,7 @@ export function PrintablesPage() {
                     <div className="mb-2">{q}</div>
                     <div className="mb-2 text-xs text-slate-600">Show your work step by step:</div>
                     <div className="min-h-24 border border-dashed border-slate-300 rounded p-2 bg-slate-50 print:bg-white mb-2" />
-                    <div className="text-xs text-slate-600">Final answer: _________________________</div>
+                    <div className="text-xs text-slate-600 font-mono">Final answer: _________________________</div>
                   </li>
                 ))}
               </ol>
@@ -16892,7 +16892,7 @@ export function PrintablesPage() {
                 ];
                 return problems.map((item, idx) => (
                 <div key={idx} className="border-2 border-slate-300 rounded-lg p-5 bg-white">
-                  <div className="text-lg font-semibold text-slate-800 mb-3">
+                  <div className="text-lg font-semibold text-slate-800 mb-3 font-mono">
                     {item.problem} = <span className="inline-block w-24 h-12 print:w-28 print:h-14 border-b-[3px] border-slate-600 mx-2 align-middle" />
                   </div>
                   <div className="mb-3">
@@ -19750,7 +19750,7 @@ export function PrintablesPage() {
                       <div className="text-center">
                         <p className="text-slate-600 text-sm mb-2">How many?</p>
                         <div className="inline-block border-2 border-slate-400 rounded px-6 py-2">
-                          <span className="text-3xl font-bold text-slate-900">___</span>
+              <span className="text-3xl font-bold text-slate-900 font-mono">___</span>
                         </div>
                       </div>
                     </div>
@@ -20047,7 +20047,7 @@ export function PrintablesPage() {
               <div className="worksheet-card mb-6 p-4 bg-blue-50 border-2 border-blue-200 rounded-lg print:border print:bg-white">
                 <div className="font-semibold text-blue-900 mb-3 text-sm">📚 Example - Let's solve this together:</div>
                 <div className="space-y-2 text-sm">
-                  <div className="font-semibold text-base"><strong>Pattern:</strong> 🔴 🔵 🔴 🔵 ___</div>
+              <div className="font-semibold text-base font-mono"><strong>Pattern:</strong> 🔴 🔵 🔴 🔵 ___</div>
                   <div className="pl-4 border-l-2 border-blue-300 space-y-1">
                     <div><strong>Step 1:</strong> Look at the pattern: red, blue, red, blue</div>
                     <div><strong>Step 2:</strong> The pattern repeats: red, blue, red, blue</div>
@@ -20063,7 +20063,7 @@ export function PrintablesPage() {
                       <div className="text-sm font-semibold text-slate-700 mb-2">Pattern {p.type}</div>
                       <div className="flex flex-wrap gap-2 justify-center items-center mb-2">
                         {p.pattern.map((item, idx) => (
-                          <span key={idx} className={item === '___' ? 'text-2xl text-slate-400 border-2 border-dashed border-slate-300 rounded px-2 py-1' : 'text-4xl'}>
+                        <span key={idx} className={item === '___' ? 'text-2xl text-slate-400 border-2 border-dashed border-slate-300 rounded px-2 py-1 font-mono' : 'text-4xl'}>
                             {item}
                           </span>
                         ))}
@@ -20201,7 +20201,7 @@ export function PrintablesPage() {
                           </div>
                           <div className="text-2xl font-bold">=</div>
                           <div className="border-2 border-slate-400 rounded px-3 py-1">
-                            <span className="text-2xl font-bold text-slate-900">___</span>
+                <span className="text-2xl font-bold text-slate-900 font-mono">___</span>
                           </div>
                         </div>
                         <div className="text-sm text-slate-600">Count and add</div>
@@ -21521,7 +21521,7 @@ export function PrintablesPage() {
               <div className="mb-6 p-4 bg-blue-50 border-2 border-blue-200 rounded-lg print:border print:bg-white">
                 <div className="font-semibold text-blue-900 mb-3 text-sm">📚 Example - Let's solve this together:</div>
                 <div className="space-y-2 text-sm">
-                  <div className="font-semibold text-base"><strong>Pattern:</strong> 🔴, 🔵, 🔴, 🔵, 🔴, ___</div>
+              <div className="font-semibold text-base font-mono"><strong>Pattern:</strong> 🔴, 🔵, 🔴, 🔵, 🔴, ___</div>
                   <div className="pl-4 border-l-2 border-blue-300 space-y-1">
                     <div><strong>Step 1:</strong> Identify the pattern: red, blue, red, blue, red...</div>
                     <div><strong>Step 2:</strong> This is an AB pattern: A = red, B = blue</div>
@@ -22310,7 +22310,7 @@ export function PrintablesPage() {
                   <div key={i} className="border border-slate-300 rounded p-4 bg-white break-inside-avoid">
                     <div className="font-mono text-xl text-right mb-2">
                       <div>{p.divisor} ) {p.dividend}</div>
-                      <div className="border-t border-slate-400 mt-2 pt-2 min-h-12">____</div>
+                      <div className="border-t border-slate-400 mt-2 pt-2 min-h-12 font-mono">____</div>
                     </div>
                     <div className="mt-2 text-xs text-slate-600">Show your work:</div>
                     <div className="min-h-20 border border-dashed border-slate-300 rounded p-2 bg-slate-50 print:bg-white" />
@@ -22417,7 +22417,7 @@ export function PrintablesPage() {
                   <div key={i} className="border border-slate-300 rounded p-4 bg-white break-inside-avoid">
                     <div className="font-mono text-lg text-right mb-2">
                       <div>{p.divisor} ) {p.dividend}</div>
-                      <div className="border-t border-slate-400 mt-2 pt-2 min-h-12">____</div>
+                      <div className="border-t border-slate-400 mt-2 pt-2 min-h-12 font-mono">____</div>
                     </div>
                     <div className="mt-2 text-xs text-slate-600">Show your work:</div>
                     <div className="min-h-20 border border-dashed border-slate-300 rounded p-2 bg-slate-50 print:bg-white" />
@@ -22520,7 +22520,7 @@ export function PrintablesPage() {
               <div className="grid grid-cols-2 gap-4 break-inside-avoid" style={{ pageBreakAfter: 'auto' }}>
                 {problems.map((p, i) => (
                   <div key={i} className="border border-slate-300 rounded p-4 bg-white break-inside-avoid">
-                    <div className="text-center mb-2 font-semibold">{p.a} × {p.b} = ____</div>
+                    <div className="text-center mb-2 font-semibold font-mono">{p.a} × {p.b} = ____</div>
                     <div className="border-2 border-slate-400 rounded mb-2" style={{width: '120px', height: '80px', margin: '0 auto'}}>
                       <div className="grid grid-cols-2 h-full">
                         <div className="border-r border-b border-slate-400"></div>
@@ -22643,7 +22643,7 @@ export function PrintablesPage() {
                       <div>({Math.floor(p.a/10)*10} × {p.b%10}) = ____</div>
                       <div>({p.a%10} × {Math.floor(p.b/10)*10}) = ____</div>
                       <div>({p.a%10} × {p.b%10}) = ____</div>
-                      <div className="border-t border-slate-400 mt-1 pt-1 font-semibold">Total: ____</div>
+                      <div className="border-t border-slate-400 mt-1 pt-1 font-semibold font-mono">Total: ____</div>
                     </div>
                     <div className="mt-2 text-xs text-slate-600">Show your work:</div>
                     <div className="min-h-12 border border-dashed border-slate-300 rounded p-2 bg-slate-50 print:bg-white" />
@@ -22724,7 +22724,7 @@ export function PrintablesPage() {
               <div className="mb-6 p-4 bg-blue-50 border-2 border-blue-200 rounded-lg print:border print:bg-white">
                 <div className="font-semibold text-blue-900 mb-3 text-sm">📚 Example - Let's solve this together:</div>
                 <div className="space-y-2 text-sm">
-                  <div className="font-semibold text-base"><strong>Problem:</strong> 1/2 ____ 1/3</div>
+                  <div className="font-semibold text-base font-mono"><strong>Problem:</strong> 1/2 ____ 1/3</div>
                   <div className="pl-4 border-l-2 border-blue-300 space-y-1">
                     <div><strong>Step 1:</strong> Find common denominator: 2 and 3 → 6</div>
                     <div><strong>Step 2:</strong> Convert: 1/2 = 3/6, 1/3 = 2/6</div>
@@ -22778,7 +22778,7 @@ export function PrintablesPage() {
                       const symbolText = p.val1 > p.val2 ? '>' : p.val1 < p.val2 ? '<' : '=';
                       return (
                         <div key={i} className="border-b border-emerald-200 pb-3 last:border-b-0">
-                          <div className="font-semibold mb-2 text-sm">{i + 1}. {p.frac1} ____ {p.frac2}</div>
+                          <div className="font-semibold mb-2 text-sm font-mono">{i + 1}. {p.frac1} ____ {p.frac2}</div>
                           <div className="text-xs text-emerald-800 space-y-1 pl-4">
                             <div>Step 1: Convert to decimals: {p.frac1} = {p.val1.toFixed(2)}, {p.frac2} = {p.val2.toFixed(2)}</div>
                             <div>Step 2: Compare: {p.val1.toFixed(2)} {symbolText} {p.val2.toFixed(2)}</div>
@@ -22830,7 +22830,7 @@ export function PrintablesPage() {
               <div className="mb-6 p-4 bg-blue-50 border-2 border-blue-200 rounded-lg print:border print:bg-white">
                 <div className="font-semibold text-blue-900 mb-3 text-sm">📚 Example - Let's solve this together:</div>
                 <div className="space-y-2 text-sm">
-                  <div className="font-semibold text-base"><strong>Problem:</strong> 2/5 + 1/5 = ____</div>
+                  <div className="font-semibold text-base font-mono"><strong>Problem:</strong> 2/5 + 1/5 = ____</div>
                   <div className="pl-4 border-l-2 border-blue-300 space-y-1">
                     <div><strong>Step 1:</strong> Denominators are the same (5), so keep it</div>
                     <div><strong>Step 2:</strong> Add numerators: 2 + 1 = 3</div>
@@ -23059,7 +23059,7 @@ export function PrintablesPage() {
               <div className="mb-6 p-4 bg-blue-50 border-2 border-blue-200 rounded-lg print:border print:bg-white">
                 <div className="font-semibold text-blue-900 mb-3 text-sm">📚 Example - Let's solve this together:</div>
                 <div className="space-y-2 text-sm">
-                  <div className="font-semibold text-base"><strong>Problem:</strong> 2 1/3 + 1 2/3 = ____</div>
+                  <div className="font-semibold text-base font-mono"><strong>Problem:</strong> 2 1/3 + 1 2/3 = ____</div>
                   <div className="pl-4 border-l-2 border-blue-300 space-y-1">
                     <div><strong>Step 1:</strong> Add whole numbers: 2 + 1 = 3</div>
                     <div><strong>Step 2:</strong> Add fractions: 1/3 + 2/3 = 3/3 = 1</div>
@@ -23193,7 +23193,7 @@ export function PrintablesPage() {
                 {problems.map((p, i) => (
                   <div key={i} className="border border-slate-300 rounded-lg p-4 bg-white break-inside-avoid">
                     <div className="text-center text-xl font-mono mb-2">{p.value}</div>
-                    <div className="text-center text-sm text-slate-600 mb-2">Tenths: ____ Hundredths: ____</div>
+                    <div className="text-center text-sm text-slate-600 mb-2 font-mono">Tenths: ____ Hundredths: ____</div>
                     <div className="mt-2 text-xs text-slate-600">Show your work:</div>
                     <div className="min-h-12 border border-dashed border-slate-300 rounded p-2 bg-slate-50 print:bg-white" />
                   </div>
@@ -23288,7 +23288,7 @@ export function PrintablesPage() {
               <div className="grid grid-cols-2 gap-4 break-inside-avoid" style={{ pageBreakAfter: 'auto' }}>
                 {problems.map((p, i) => (
                   <div key={i} className="border border-slate-300 rounded-lg p-4 bg-white break-inside-avoid">
-                    <div className="text-center text-xl font-bold mb-2">{p.d1} ____ {p.d2}</div>
+                    <div className="text-center text-xl font-bold mb-2 font-mono">{p.d1} ____ {p.d2}</div>
                     <div className="mt-2 text-xs text-slate-600">Show your work:</div>
                     <div className="min-h-12 border border-dashed border-slate-300 rounded p-2 bg-slate-50 print:bg-white" />
                   </div>
@@ -24202,7 +24202,7 @@ export function PrintablesPage() {
                   <div key={i} className="border border-slate-300 rounded p-4 bg-white break-inside-avoid">
                     <div className="font-mono text-lg text-right mb-2">
                       <div>{p.divisor} ) {p.dividend}</div>
-                      <div className="border-t border-slate-400 mt-2 pt-2 min-h-20">____</div>
+                      <div className="border-t border-slate-400 mt-2 pt-2 min-h-20 font-mono">____</div>
                     </div>
                     <div className="mt-2 text-xs text-slate-600">Show your work:</div>
                     <div className="min-h-32 border border-dashed border-slate-300 rounded p-2 bg-slate-50 print:bg-white" />
@@ -25328,7 +25328,7 @@ export function PrintablesPage() {
                 {problems.map((p, i) => (
                   <div key={i} className="border border-slate-300 rounded-lg p-4 bg-white break-inside-avoid">
                     <div className="text-center text-xl font-mono mb-2">{p.num}</div>
-                    <div className="text-center text-sm text-slate-600 mb-2">Round to nearest {p.place}: ____</div>
+                    <div className="text-center text-sm text-slate-600 mb-2 font-mono">Round to nearest {p.place}: ____</div>
                     <div className="mt-2 text-xs text-slate-600">Show your work:</div>
                     <div className="min-h-12 border border-dashed border-slate-300 rounded p-2 bg-slate-50 print:bg-white" />
                   </div>
@@ -25556,7 +25556,7 @@ export function PrintablesPage() {
                 {problems.map((p, i) => (
                   <div key={i} className="border border-slate-300 rounded-lg p-4 bg-white break-inside-avoid">
                     <div className="text-center mb-2 font-semibold">Length: {p.length} units, Width: {p.width} units</div>
-                    <div className="text-center text-sm text-slate-600 mb-2">Area: ____ Perimeter: ____</div>
+                    <div className="text-center text-sm text-slate-600 mb-2 font-mono">Area: ____ Perimeter: ____</div>
                     <div className="mt-2 text-xs text-slate-600">Show your work:</div>
                     <div className="min-h-16 border border-dashed border-slate-300 rounded p-2 bg-slate-50 print:bg-white" />
                   </div>
@@ -25675,7 +25675,7 @@ export function PrintablesPage() {
                   <div key={i} className="border border-slate-300 rounded-lg p-4 bg-white break-inside-avoid">
                     {renderShape(p.base, p.height, p.isTriangle)}
                     <div className="text-center mb-2 text-sm font-semibold">{p.isTriangle ? 'Triangle' : 'Parallelogram'}: Base: {p.base} units, Height: {p.height} units</div>
-                    <div className="text-center text-sm text-slate-600 mb-2">Area: ____</div>
+                    <div className="text-center text-sm text-slate-600 mb-2 font-mono">Area: ____</div>
                     <div className="mt-2 text-xs text-slate-600">Show your work:</div>
                     <div className="min-h-16 border border-dashed border-slate-300 rounded p-2 bg-slate-50 print:bg-white" />
                   </div>
@@ -25773,7 +25773,7 @@ export function PrintablesPage() {
                 {problems.map((p, i) => (
                   <div key={i} className="border border-slate-300 rounded-lg p-4 bg-white break-inside-avoid">
                     <div className="text-center mb-2 font-semibold">L: {p.length}, W: {p.width}, H: {p.height}</div>
-                    <div className="text-center text-sm text-slate-600 mb-2">Volume: ____</div>
+                    <div className="text-center text-sm text-slate-600 mb-2 font-mono">Volume: ____</div>
                     <div className="mt-2 text-xs text-slate-600">Show your work:</div>
                     <div className="min-h-16 border border-dashed border-slate-300 rounded p-2 bg-slate-50 print:bg-white" />
                   </div>
@@ -25876,7 +25876,7 @@ export function PrintablesPage() {
                 {angles.map((a, i) => (
                   <div key={i} className="border border-slate-300 rounded-lg p-4 bg-white break-inside-avoid">
                     <div className="text-center text-xl font-bold mb-2">{a.measure}°</div>
-                    <div className="text-center text-sm text-slate-600 mb-2">Type: ____</div>
+                    <div className="text-center text-sm text-slate-600 mb-2 font-mono">Type: ____</div>
                     <div className="mt-2 text-xs text-slate-600">Explain your thinking:</div>
                     <div className="min-h-12 border border-dashed border-slate-300 rounded p-2 bg-slate-50 print:bg-white" />
                   </div>
@@ -25997,7 +25997,7 @@ export function PrintablesPage() {
                   <div key={i} className="border border-slate-300 rounded-lg p-4 bg-white break-inside-avoid">
                     {renderTriangle(t.type)}
                     <div className="text-center mb-2 text-sm font-semibold">Sides: {t.sides.join(', ')}</div>
-                    <div className="text-center text-sm text-slate-600 mb-2">Type: ____</div>
+                    <div className="text-center text-sm text-slate-600 mb-2 font-mono">Type: ____</div>
                     <div className="mt-2 text-xs text-slate-600">Show your work:</div>
                     <div className="min-h-12 border border-dashed border-slate-300 rounded p-2 bg-slate-50 print:bg-white" />
                   </div>
@@ -26095,7 +26095,7 @@ export function PrintablesPage() {
                 {shapes.map((s, i) => (
                   <div key={i} className="border border-slate-300 rounded-lg p-4 bg-white break-inside-avoid">
                     <div className="text-center mb-2 font-semibold">{s}</div>
-                    <div className="text-center text-sm text-slate-600 mb-2">Draw and label: ____</div>
+                    <div className="text-center text-sm text-slate-600 mb-2 font-mono">Draw and label: ____</div>
                     <div className="mt-2 text-xs text-slate-600">Show your work:</div>
                     <div className="min-h-20 border border-dashed border-slate-300 rounded p-2 bg-slate-50 print:bg-white" />
                   </div>
@@ -26232,7 +26232,7 @@ export function PrintablesPage() {
                   <div key={i} className="border border-slate-300 rounded-lg p-4 bg-white break-inside-avoid">
                     {renderPolygon(s)}
                     <div className="text-center mb-2 font-semibold">{s}</div>
-                    <div className="text-center text-sm text-slate-600 mb-2">Sides: ____</div>
+                    <div className="text-center text-sm text-slate-600 mb-2 font-mono">Sides: ____</div>
                     <div className="mt-2 text-xs text-slate-600">Count the sides:</div>
                     <div className="min-h-12 border border-dashed border-slate-300 rounded p-2 bg-slate-50 print:bg-white" />
                   </div>
@@ -26316,7 +26316,7 @@ export function PrintablesPage() {
               <div className="mb-6 p-4 bg-blue-50 border-2 border-blue-200 rounded-lg print:border print:bg-white">
                 <div className="font-semibold text-blue-900 mb-3 text-sm">📚 Example - Let's solve this together:</div>
                 <div className="space-y-2 text-sm">
-                  <div className="font-semibold text-base"><strong>Problem:</strong> 2 feet = ____ inches</div>
+                  <div className="font-semibold text-base font-mono"><strong>Problem:</strong> 2 feet = ____ inches</div>
                   <div className="pl-4 border-l-2 border-blue-300 space-y-1">
                     <div><strong>Step 1:</strong> Remember: 1 foot = 12 inches</div>
                     <div><strong>Step 2:</strong> Multiply: 2 feet × 12 inches/foot = 24 inches</div>
@@ -26331,7 +26331,7 @@ export function PrintablesPage() {
               <div className="grid grid-cols-2 gap-4 break-inside-avoid" style={{ pageBreakAfter: 'auto' }}>
                 {problems.map((p, i) => (
                   <div key={i} className="border border-slate-300 rounded-lg p-4 bg-white break-inside-avoid">
-                    <div className="text-center mb-2 font-semibold">{p.feet} feet = ____ inches</div>
+                    <div className="text-center mb-2 font-semibold font-mono">{p.feet} feet = ____ inches</div>
                     <div className="mt-2 text-xs text-slate-600">Show your work:</div>
                     <div className="min-h-16 border border-dashed border-slate-300 rounded p-2 bg-slate-50 print:bg-white" />
                   </div>
@@ -26367,7 +26367,7 @@ export function PrintablesPage() {
                   <div className="space-y-3">
                     {problems.map((p, i) => (
                       <div key={i} className="border-b border-emerald-200 pb-3 last:border-b-0">
-                        <div className="font-semibold mb-2 text-sm">{i + 1}. {p.feet} feet = ____ inches</div>
+                        <div className="font-semibold mb-2 text-sm font-mono">{i + 1}. {p.feet} feet = ____ inches</div>
                         <div className="text-xs text-emerald-800 space-y-1 pl-4">
                           <div>Step 1: 1 foot = 12 inches</div>
                           <div>Step 2: {p.feet} feet × 12 inches/foot = {p.inches} inches</div>
@@ -26414,7 +26414,7 @@ export function PrintablesPage() {
               <div className="mb-6 p-4 bg-blue-50 border-2 border-blue-200 rounded-lg print:border print:bg-white">
                 <div className="font-semibold text-blue-900 mb-3 text-sm">📚 Example - Let's solve this together:</div>
                 <div className="space-y-2 text-sm">
-                  <div className="font-semibold text-base"><strong>Problem:</strong> 3 meters = ____ centimeters</div>
+                  <div className="font-semibold text-base font-mono"><strong>Problem:</strong> 3 meters = ____ centimeters</div>
                   <div className="pl-4 border-l-2 border-blue-300 space-y-1">
                     <div><strong>Step 1:</strong> Remember: 1 meter = 100 centimeters</div>
                     <div><strong>Step 2:</strong> Multiply: 3 meters × 100 cm/meter = 300 centimeters</div>
@@ -26429,7 +26429,7 @@ export function PrintablesPage() {
               <div className="grid grid-cols-2 gap-4 break-inside-avoid" style={{ pageBreakAfter: 'auto' }}>
                 {problems.map((p, i) => (
                   <div key={i} className="border border-slate-300 rounded-lg p-4 bg-white break-inside-avoid">
-                    <div className="text-center mb-2 font-semibold">{p.meters} meters = ____ centimeters</div>
+                    <div className="text-center mb-2 font-semibold font-mono">{p.meters} meters = ____ centimeters</div>
                     <div className="mt-2 text-xs text-slate-600">Show your work:</div>
                     <div className="min-h-16 border border-dashed border-slate-300 rounded p-2 bg-slate-50 print:bg-white" />
                   </div>
@@ -26465,7 +26465,7 @@ export function PrintablesPage() {
                   <div className="space-y-3">
                     {problems.map((p, i) => (
                       <div key={i} className="border-b border-emerald-200 pb-3 last:border-b-0">
-                        <div className="font-semibold mb-2 text-sm">{i + 1}. {p.meters} meters = ____ centimeters</div>
+                        <div className="font-semibold mb-2 text-sm font-mono">{i + 1}. {p.meters} meters = ____ centimeters</div>
                         <div className="text-xs text-emerald-800 space-y-1 pl-4">
                           <div>Step 1: 1 meter = 100 centimeters</div>
                           <div>Step 2: {p.meters} meters × 100 cm/meter = {p.centimeters} centimeters</div>
@@ -26527,7 +26527,7 @@ export function PrintablesPage() {
                 {times.map((t, i) => (
                   <div key={i} className="border border-slate-300 rounded-lg p-4 bg-white break-inside-avoid">
                     <div className="text-center mb-2 font-semibold">Start: {t.start}, End: {t.end}</div>
-                    <div className="text-center text-sm text-slate-600 mb-2">Elapsed: ____</div>
+                    <div className="text-center text-sm text-slate-600 mb-2 font-mono">Elapsed: ____</div>
                     <div className="mt-2 text-xs text-slate-600">Show your work:</div>
                     <div className="min-h-16 border border-dashed border-slate-300 rounded p-2 bg-slate-50 print:bg-white" />
                   </div>
@@ -26608,7 +26608,7 @@ export function PrintablesPage() {
               <div className="mb-6 p-4 bg-blue-50 border-2 border-blue-200 rounded-lg print:border print:bg-white">
                 <div className="font-semibold text-blue-900 mb-3 text-sm">📚 Example - Let's solve this together:</div>
                 <div className="space-y-2 text-sm">
-                  <div className="font-semibold text-base"><strong>Problem:</strong> 3 quarts = ____ cups</div>
+                  <div className="font-semibold text-base font-mono"><strong>Problem:</strong> 3 quarts = ____ cups</div>
                   <div className="pl-4 border-l-2 border-blue-300 space-y-1">
                     <div><strong>Step 1:</strong> Remember: 1 quart = 4 cups</div>
                     <div><strong>Step 2:</strong> Multiply: 3 quarts × 4 cups/quart = 12 cups</div>
@@ -26623,7 +26623,7 @@ export function PrintablesPage() {
               <div className="grid grid-cols-2 gap-4 break-inside-avoid" style={{ pageBreakAfter: 'auto' }}>
                 {problems.map((p, i) => (
                   <div key={i} className="border border-slate-300 rounded-lg p-4 bg-white break-inside-avoid">
-                    <div className="text-center mb-2 font-semibold">{p.quarts} quarts = ____ cups</div>
+                    <div className="text-center mb-2 font-semibold font-mono">{p.quarts} quarts = ____ cups</div>
                     <div className="mt-2 text-xs text-slate-600">Show your work:</div>
                     <div className="min-h-16 border border-dashed border-slate-300 rounded p-2 bg-slate-50 print:bg-white" />
                   </div>
@@ -26659,7 +26659,7 @@ export function PrintablesPage() {
                   <div className="space-y-3">
                     {problems.map((p, i) => (
                       <div key={i} className="border-b border-emerald-200 pb-3 last:border-b-0">
-                        <div className="font-semibold mb-2 text-sm">{i + 1}. {p.quarts} quarts = ____ cups</div>
+                        <div className="font-semibold mb-2 text-sm font-mono">{i + 1}. {p.quarts} quarts = ____ cups</div>
                         <div className="text-xs text-emerald-800 space-y-1 pl-4">
                           <div>Step 1: 1 quart = 4 cups</div>
                           <div>Step 2: {p.quarts} quarts × 4 cups/quart = {p.cups} cups</div>
@@ -26705,7 +26705,7 @@ export function PrintablesPage() {
               <div className="mb-6 p-4 bg-blue-50 border-2 border-blue-200 rounded-lg print:border print:bg-white">
                 <div className="font-semibold text-blue-900 mb-3 text-sm">📚 Example - Let's solve this together:</div>
                 <div className="space-y-2 text-sm">
-                  <div className="font-semibold text-base"><strong>Problem:</strong> 2 pounds = ____ ounces</div>
+                  <div className="font-semibold text-base font-mono"><strong>Problem:</strong> 2 pounds = ____ ounces</div>
                   <div className="pl-4 border-l-2 border-blue-300 space-y-1">
                     <div><strong>Step 1:</strong> Remember: 1 pound = 16 ounces</div>
                     <div><strong>Step 2:</strong> Multiply: 2 pounds × 16 oz/pound = 32 ounces</div>
@@ -26720,7 +26720,7 @@ export function PrintablesPage() {
               <div className="grid grid-cols-2 gap-4 break-inside-avoid" style={{ pageBreakAfter: 'auto' }}>
                 {problems.map((p, i) => (
                   <div key={i} className="border border-slate-300 rounded-lg p-4 bg-white break-inside-avoid">
-                    <div className="text-center mb-2 font-semibold">{p.pounds} pounds = ____ ounces</div>
+                    <div className="text-center mb-2 font-semibold font-mono">{p.pounds} pounds = ____ ounces</div>
                     <div className="mt-2 text-xs text-slate-600">Show your work:</div>
                     <div className="min-h-16 border border-dashed border-slate-300 rounded p-2 bg-slate-50 print:bg-white" />
                   </div>
@@ -26756,7 +26756,7 @@ export function PrintablesPage() {
                   <div className="space-y-3">
                     {problems.map((p, i) => (
                       <div key={i} className="border-b border-emerald-200 pb-3 last:border-b-0">
-                        <div className="font-semibold mb-2 text-sm">{i + 1}. {p.pounds} pounds = ____ ounces</div>
+                        <div className="font-semibold mb-2 text-sm font-mono">{i + 1}. {p.pounds} pounds = ____ ounces</div>
                         <div className="text-xs text-emerald-800 space-y-1 pl-4">
                           <div>Step 1: 1 pound = 16 ounces</div>
                           <div>Step 2: {p.pounds} pounds × 16 oz/pound = {p.ounces} ounces</div>
@@ -26820,7 +26820,7 @@ export function PrintablesPage() {
                 {lines.map((l, i) => (
                   <div key={i} className="border border-slate-300 rounded-lg p-4 bg-white break-inside-avoid">
                     <div className="text-center mb-2 text-sm font-semibold">{l.desc}</div>
-                    <div className="text-center text-sm text-slate-600 mb-2">Type: ____</div>
+                    <div className="text-center text-sm text-slate-600 mb-2 font-mono">Type: ____</div>
                     <div className="mt-2 text-xs text-slate-600">Show your work:</div>
                     <div className="min-h-12 border border-dashed border-slate-300 rounded p-2 bg-slate-50 print:bg-white" />
                   </div>
@@ -26913,7 +26913,7 @@ export function PrintablesPage() {
                 {shapes.map((s, i) => (
                   <div key={i} className="border border-slate-300 rounded-lg p-4 bg-white break-inside-avoid">
                     <div className="text-center mb-2 font-semibold">{s}</div>
-                    <div className="text-center text-sm text-slate-600 mb-2">Lines of symmetry: ____</div>
+                    <div className="text-center text-sm text-slate-600 mb-2 font-mono">Lines of symmetry: ____</div>
                     <div className="mt-2 text-xs text-slate-600">Show your work:</div>
                     <div className="min-h-16 border border-dashed border-slate-300 rounded p-2 bg-slate-50 print:bg-white" />
                   </div>
@@ -27018,7 +27018,7 @@ export function PrintablesPage() {
                 {transformations.map((t, i) => (
                   <div key={i} className="border border-slate-300 rounded-lg p-4 bg-white break-inside-avoid">
                     <div className="text-center mb-2 font-semibold">{t}</div>
-                    <div className="text-center text-sm text-slate-600 mb-2">Draw example: ____</div>
+                    <div className="text-center text-sm text-slate-600 mb-2 font-mono">Draw example: ____</div>
                     <div className="mt-2 text-xs text-slate-600">Show your work:</div>
                     <div className="min-h-20 border border-dashed border-slate-300 rounded p-2 bg-slate-50 print:bg-white" />
                   </div>
@@ -27118,7 +27118,7 @@ export function PrintablesPage() {
                 {shapes.map((s, i) => (
                   <div key={i} className="border border-slate-300 rounded-lg p-4 bg-white break-inside-avoid">
                     <div className="text-center mb-2 font-semibold">{s}</div>
-                    <div className="text-center text-sm text-slate-600 mb-2">Draw net: ____</div>
+                    <div className="text-center text-sm text-slate-600 mb-2 font-mono">Draw net: ____</div>
                     <div className="mt-2 text-xs text-slate-600">Show your work:</div>
                     <div className="min-h-24 border border-dashed border-slate-300 rounded p-2 bg-slate-50 print:bg-white" />
                   </div>
@@ -27225,7 +27225,7 @@ export function PrintablesPage() {
                 {problems.map((p, i) => (
                   <div key={i} className="border border-slate-300 rounded-lg p-4 bg-white break-inside-avoid">
                     <div className="text-center mb-2 font-mono">{p.expr} when x = {p.x}</div>
-                    <div className="text-center text-sm text-slate-600 mb-2">Answer: ____</div>
+                    <div className="text-center text-sm text-slate-600 mb-2 font-mono">Answer: ____</div>
                     <div className="mt-2 text-xs text-slate-600">Show your work:</div>
                     <div className="min-h-16 border border-dashed border-slate-300 rounded p-2 bg-slate-50 print:bg-white" />
                   </div>
@@ -27327,7 +27327,7 @@ export function PrintablesPage() {
                 {phrases.map((p, i) => (
                   <div key={i} className="border border-slate-300 rounded-lg p-4 bg-white break-inside-avoid">
                     <div className="text-center mb-2 font-semibold">{p.phrase}</div>
-                    <div className="text-center text-sm text-slate-600 mb-2">Expression: ____</div>
+                    <div className="text-center text-sm text-slate-600 mb-2 font-mono">Expression: ____</div>
                     <div className="mt-2 text-xs text-slate-600">Show your thinking:</div>
                     <div className="min-h-12 border border-dashed border-slate-300 rounded p-2 bg-slate-50 print:bg-white" />
                   </div>
@@ -27425,7 +27425,7 @@ export function PrintablesPage() {
                 {problems.map((p, i) => (
                   <div key={i} className="border border-slate-300 rounded-lg p-4 bg-white break-inside-avoid">
                     <div className="text-center mb-2 font-mono">x {p.op} {p.a} = {p.b}</div>
-                    <div className="text-center text-sm text-slate-600 mb-2">x = ____</div>
+                    <div className="text-center text-sm text-slate-600 mb-2 font-mono">x = ____</div>
                     <div className="mt-2 text-xs text-slate-600">Show your work:</div>
                     <div className="min-h-16 border border-dashed border-slate-300 rounded p-2 bg-slate-50 print:bg-white" />
                   </div>
@@ -27532,7 +27532,7 @@ export function PrintablesPage() {
                 {patterns.map((p, i) => (
                   <div key={i} className="border border-slate-300 rounded-lg p-4 bg-white break-inside-avoid">
                     <div className="text-center mb-2 font-mono">{p.seq.join(', ')}</div>
-                    <div className="text-center text-sm text-slate-600 mb-2">Missing: ____ Rule: ____</div>
+                    <div className="text-center text-sm text-slate-600 mb-2 font-mono">Missing: ____ Rule: ____</div>
                     <div className="mt-2 text-xs text-slate-600">Show your thinking:</div>
                     <div className="min-h-16 border border-dashed border-slate-300 rounded p-2 bg-slate-50 print:bg-white" />
                   </div>
@@ -27655,7 +27655,7 @@ export function PrintablesPage() {
                   <div key={i} className="border border-slate-300 rounded-lg p-4 bg-white break-inside-avoid">
                     {renderCoordinateGrid(p)}
                     <div className="text-center mb-2 font-mono">({p.x}, {p.y})</div>
-                    <div className="text-center text-sm text-slate-600 mb-2">Plot on grid: ____</div>
+                    <div className="text-center text-sm text-slate-600 mb-2 font-mono">Plot on grid: ____</div>
                     <div className="mt-2 text-xs text-slate-600">Show your steps:</div>
                     <div className="min-h-12 border border-dashed border-slate-300 rounded p-2 bg-slate-50 print:bg-white" />
                   </div>
@@ -27739,7 +27739,7 @@ export function PrintablesPage() {
               <div className="mb-6 p-4 bg-blue-50 border-2 border-blue-200 rounded-lg print:border print:bg-white">
                 <div className="font-semibold text-blue-900 mb-3 text-sm">📚 Example - Let's solve this together:</div>
                 <div className="space-y-2 text-sm">
-                  <div className="font-semibold text-base"><strong>Problem:</strong> 1/2 ____ 0.5</div>
+                  <div className="font-semibold text-base font-mono"><strong>Problem:</strong> 1/2 ____ 0.5</div>
                   <div className="pl-4 border-l-2 border-blue-300 space-y-1">
                     <div><strong>Step 1:</strong> Convert 1/2 to decimal: 1 ÷ 2 = 0.5</div>
                     <div><strong>Step 2:</strong> Compare: 0.5 and 0.5</div>
@@ -27752,7 +27752,7 @@ export function PrintablesPage() {
               <div className="grid grid-cols-2 gap-4 break-inside-avoid" style={{ pageBreakAfter: 'auto' }}>
                 {problems.map((p, i) => (
                   <div key={i} className="border border-slate-300 rounded-lg p-4 bg-white break-inside-avoid">
-                    <div className="text-center text-xl font-bold mb-2">{p.frac} ____ {p.decimal}</div>
+                    <div className="text-center text-xl font-bold mb-2 font-mono">{p.frac} ____ {p.decimal}</div>
                     <div className="mt-2 text-xs text-slate-600">Show your work (convert fraction first):</div>
                     <div className="min-h-16 border border-dashed border-slate-300 rounded p-2 bg-slate-50 print:bg-white" />
                   </div>
@@ -27792,7 +27792,7 @@ export function PrintablesPage() {
                       const symbol = val > parseFloat(p.decimal) ? '&gt;' : val < parseFloat(p.decimal) ? '&lt;' : '=';
                       return (
                         <div key={i} className="border-b border-emerald-200 pb-3 last:border-b-0">
-                          <div className="font-semibold mb-2 text-sm">{i + 1}. {p.frac} ____ {p.decimal}</div>
+                          <div className="font-semibold mb-2 text-sm font-mono">{i + 1}. {p.frac} ____ {p.decimal}</div>
                           <div className="text-xs text-emerald-800 space-y-1 pl-4">
                             <div>Step 1: Convert {p.frac} to decimal: {num} ÷ {den} = {val.toFixed(2)}</div>
                             <div>Step 2: Compare {val.toFixed(2)} and {p.decimal}</div>
@@ -27854,7 +27854,7 @@ export function PrintablesPage() {
                 {conversions.map((c, i) => (
                   <div key={i} className="border border-slate-300 rounded-lg p-4 bg-white break-inside-avoid">
                     <div className="text-center mb-2 font-bold">{c.frac}</div>
-                    <div className="text-center text-sm text-slate-600 mb-2">Decimal: ____ Percent: ____</div>
+                    <div className="text-center text-sm text-slate-600 mb-2 font-mono">Decimal: ____ Percent: ____</div>
                     <div className="mt-2 text-xs text-slate-600">Show your work:</div>
                     <div className="min-h-16 border border-dashed border-slate-300 rounded p-2 bg-slate-50 print:bg-white" />
                   </div>
@@ -27949,7 +27949,7 @@ export function PrintablesPage() {
               <div className="space-y-4 break-inside-avoid" style={{ pageBreakAfter: 'auto' }}>
                 <div className="border border-slate-300 rounded-lg p-4 bg-white break-inside-avoid">
                   <div className="mb-2 font-semibold">Data: {data.join(', ')}</div>
-                  <div className="text-sm text-slate-600 mb-2">Create line plot and find: Mode = ____, Range = ____</div>
+                  <div className="text-sm text-slate-600 mb-2 font-mono">Create line plot and find: Mode = ____, Range = ____</div>
                   <div className="mt-2 text-xs text-slate-600">Draw your line plot here:</div>
                   <div className="min-h-32 border border-dashed border-slate-300 rounded p-2 bg-slate-50 print:bg-white" />
                 </div>
@@ -28143,7 +28143,7 @@ export function PrintablesPage() {
                   {data.map((d, i) => (
                     <div key={i} className="text-sm mb-1">{d.day}: {d.temp}°F</div>
                   ))}
-                  <div className="text-sm text-slate-600 mt-2 mb-2">Create line graph: ____</div>
+                  <div className="text-sm text-slate-600 mt-2 mb-2 font-mono">Create line graph: ____</div>
                   <div className="mt-2 text-xs text-slate-600">Show your work:</div>
                   <div className="min-h-32 border border-dashed border-slate-300 rounded p-2 bg-slate-50 print:bg-white" />
                 </div>
@@ -28289,7 +28289,7 @@ export function PrintablesPage() {
                 {datasets.map((d, i) => (
                   <div key={i} className="border border-slate-300 rounded-lg p-4 bg-white break-inside-avoid">
                     <div className="mb-2 font-semibold">Data: {d.data.join(', ')}</div>
-                    <div className="text-sm text-slate-600 mb-2">Mean: ____ Median: ____ Mode: ____</div>
+                    <div className="text-sm text-slate-600 mb-2 font-mono">Mean: ____ Median: ____ Mode: ____</div>
                     <div className="mt-2 text-xs text-slate-600">Show your work:</div>
                     <div className="min-h-20 border border-dashed border-slate-300 rounded p-2 bg-slate-50 print:bg-white" />
                   </div>
@@ -28392,7 +28392,7 @@ export function PrintablesPage() {
                 {datasets.map((d, i) => (
                   <div key={i} className="border border-slate-300 rounded-lg p-4 bg-white break-inside-avoid">
                     <div className="mb-2 font-semibold">Data: {d.data.join(', ')}</div>
-                    <div className="text-sm text-slate-600 mb-2">Mean: ____ Median: ____ Mode: ____ Range: ____</div>
+                    <div className="text-sm text-slate-600 mb-2 font-mono">Mean: ____ Median: ____ Mode: ____ Range: ____</div>
                     <div className="mt-2 text-xs text-slate-600">Show your work:</div>
                     <div className="min-h-24 border border-dashed border-slate-300 rounded p-2 bg-slate-50 print:bg-white" />
                   </div>
@@ -28587,7 +28587,7 @@ export function PrintablesPage() {
                 {scenarios.map((s, i) => (
                   <div key={i} className="border border-slate-300 rounded-lg p-4 bg-white break-inside-avoid">
                     <div className="text-center mb-2 text-sm font-semibold">{s.event}</div>
-                    <div className="text-center text-sm text-slate-600 mb-2">Probability: ____</div>
+                    <div className="text-center text-sm text-slate-600 mb-2 font-mono">Probability: ____</div>
                     <div className="mt-2 text-xs text-slate-600">Show your work:</div>
                     <div className="min-h-16 border border-dashed border-slate-300 rounded p-2 bg-slate-50 print:bg-white" />
                   </div>
@@ -31249,7 +31249,7 @@ export function PrintablesPage() {
               <div className="grid grid-cols-1 gap-6 break-inside-avoid" style={{ pageBreakAfter: 'auto' }}>
                 {problems.map((p, i) => (
                   <div key={i} className="border border-slate-300 rounded-lg p-4 bg-white break-inside-avoid">
-                    <div className="text-center mb-3 font-semibold text-lg">{p.rows} × {p.cols} = ____</div>
+                    <div className="text-center mb-3 font-semibold text-lg font-mono">{p.rows} × {p.cols} = ____</div>
                     <div className="mb-2">
                       <p className="text-center text-sm text-slate-600 mb-2">Draw array:</p>
                       <div className="flex justify-center">
@@ -31405,7 +31405,7 @@ export function PrintablesPage() {
                 {problems.map((p, i) => (
                   <li key={i} className="border border-slate-300 rounded-lg p-4 bg-white break-inside-avoid">
                     <div className="mb-2">{p}</div>
-                    <div className="mb-2 text-xs text-slate-600">Equation: ____ × ____ = ?</div>
+                    <div className="mb-2 text-xs text-slate-600 font-mono">Equation: ____ × ____ = ?</div>
                     <div className="h-12 border-b border-slate-400" />
                     <div className="mt-2 text-xs text-slate-600">Show your work:</div>
                     <div className="min-h-16 border border-dashed border-slate-300 rounded p-2 bg-slate-50 print:bg-white" />
@@ -31600,7 +31600,7 @@ export function PrintablesPage() {
                   <div key={i} className="border border-slate-300 rounded-lg p-4 bg-white">
                     <div className="text-center mb-2 font-mono">{p.expr}</div>
                     <div className="text-center text-sm text-slate-600 mb-2">Property: {p.prop}</div>
-                    <div className="text-center text-sm text-slate-600">Answer: ____</div>
+                    <div className="text-center text-sm text-slate-600 font-mono">Answer: ____</div>
                     <div className="mt-2 text-xs text-slate-600">Show your work:</div>
                     <div className="min-h-12 border border-dashed border-slate-300 rounded p-2 bg-slate-50 print:bg-white" />
                   </div>
@@ -31671,7 +31671,7 @@ export function PrintablesPage() {
                 {problems.map((p, i) => (
                   <div key={i} className="border border-slate-300 rounded-lg p-4 bg-white">
                     <div className="text-center mb-2 font-mono text-xl">{p.dividend} ÷ {p.divisor}</div>
-                    <div className="text-center text-sm text-slate-600 mb-2">Answer: ____ R ____</div>
+                    <div className="text-center text-sm text-slate-600 mb-2 font-mono">Answer: ____ R ____</div>
                     <div className="mt-2 text-xs text-slate-600">Show your work:</div>
                     <div className="min-h-16 border border-dashed border-slate-300 rounded p-2 bg-slate-50 print:bg-white" />
                   </div>
@@ -31756,7 +31756,7 @@ export function PrintablesPage() {
                 {problems.map((p, i) => (
                   <li key={i} className="border border-slate-300 rounded-lg p-4 bg-white break-inside-avoid">
                     <div className="mb-2">{p}</div>
-                    <div className="mb-2 text-xs text-slate-600">Equation: ____ ÷ ____ = ?</div>
+                    <div className="mb-2 text-xs text-slate-600 font-mono">Equation: ____ ÷ ____ = ?</div>
                     <div className="h-12 border-b border-slate-400" />
                     <div className="mt-2 text-xs text-slate-600">Show your work:</div>
                     <div className="min-h-16 border border-dashed border-slate-300 rounded p-2 bg-slate-50 print:bg-white" />
@@ -31946,10 +31946,10 @@ export function PrintablesPage() {
                   <div key={i} className="border border-slate-300 rounded-lg p-4 bg-white">
                     <div className="mb-2 font-semibold">Fact Family: {f.a}, {f.b}, {f.product}</div>
                     <div className="space-y-1 text-sm">
-                      <div className="border-b border-slate-200 pb-1">{f.a} × {f.b} = <span className="inline-block w-12 border-b-2 border-slate-400"></span></div>
-                      <div className="border-b border-slate-200 pb-1">{f.b} × {f.a} = <span className="inline-block w-12 border-b-2 border-slate-400"></span></div>
-                      <div className="border-b border-slate-200 pb-1">{f.product} ÷ {f.a} = <span className="inline-block w-12 border-b-2 border-slate-400"></span></div>
-                      <div className="border-b border-slate-200 pb-1">{f.product} ÷ {f.b} = <span className="inline-block w-12 border-b-2 border-slate-400"></span></div>
+                      <div className="border-b border-slate-200 pb-1 font-mono">{f.a} × {f.b} = <span className="inline-block w-12 border-b-2 border-slate-400"></span></div>
+                      <div className="border-b border-slate-200 pb-1 font-mono">{f.b} × {f.a} = <span className="inline-block w-12 border-b-2 border-slate-400"></span></div>
+                      <div className="border-b border-slate-200 pb-1 font-mono">{f.product} ÷ {f.a} = <span className="inline-block w-12 border-b-2 border-slate-400"></span></div>
+                      <div className="border-b border-slate-200 pb-1 font-mono">{f.product} ÷ {f.b} = <span className="inline-block w-12 border-b-2 border-slate-400"></span></div>
                     </div>
                   </div>
                 ))}
@@ -32030,7 +32030,7 @@ export function PrintablesPage() {
               <div className="grid grid-cols-2 gap-4">
                 {problems.map((p, i) => (
                   <div key={i} className="border border-slate-300 rounded-lg p-4 bg-white">
-                    <div className="text-center text-xl font-bold">{p.frac1} ____ {p.frac2}</div>
+                    <div className="text-center text-xl font-bold font-mono">{p.frac1} ____ {p.frac2}</div>
                   </div>
                 ))}
               </div>
@@ -32111,7 +32111,7 @@ export function PrintablesPage() {
                 {problems.map((p, i) => (
                   <div key={i} className="border border-slate-300 rounded-lg p-4 bg-white break-inside-avoid">
                     <div className="text-center text-xl font-bold mb-2">{p.original}</div>
-                    <div className="text-center text-sm text-slate-600 mb-2">Equivalent: ____</div>
+                    <div className="text-center text-sm text-slate-600 mb-2 font-mono">Equivalent: ____</div>
                     <div className="mt-2 text-xs text-slate-600">Show your work:</div>
                     <div className="min-h-12 border border-dashed border-slate-300 rounded p-2 bg-slate-50 print:bg-white" />
                   </div>
@@ -32311,7 +32311,7 @@ export function PrintablesPage() {
                   <div key={i} className="border border-slate-300 rounded-lg p-4 bg-white break-inside-avoid">
                     <div className="text-center mb-2 font-bold text-xl">{f}</div>
                     <div className="border-t-2 border-slate-400 mt-2 pt-2 text-center text-sm text-slate-600">0 —————— 1</div>
-                    <div className="text-center text-sm text-slate-600 mt-1">Plot: ____</div>
+                    <div className="text-center text-sm text-slate-600 mt-1 font-mono">Plot: ____</div>
                     <div className="mt-2 text-xs text-slate-600">Show your work:</div>
                     <div className="min-h-12 border border-dashed border-slate-300 rounded p-2 bg-slate-50 print:bg-white" />
                   </div>
@@ -32434,7 +32434,7 @@ export function PrintablesPage() {
                   <div key={i} className="border border-slate-300 rounded-lg p-4 bg-white break-inside-avoid">
                     {renderRectangle(p.length, p.width)}
                     <div className="text-center mb-2 text-sm font-semibold">Length: {p.length}, Width: {p.width}</div>
-                    <div className="text-center text-sm text-slate-600 mb-2">Perimeter: ____</div>
+                    <div className="text-center text-sm text-slate-600 mb-2 font-mono">Perimeter: ____</div>
                     <div className="mt-2 text-xs text-slate-600">Show your work:</div>
                     <div className="min-h-16 border border-dashed border-slate-300 rounded p-2 bg-slate-50 print:bg-white" />
                   </div>
@@ -32548,7 +32548,7 @@ export function PrintablesPage() {
                   <div key={i} className="border border-slate-300 rounded-lg p-4 bg-white break-inside-avoid">
                     {renderRectangle(p.length, p.width)}
                     <div className="text-center mb-2 text-sm font-semibold">Length: {p.length}, Width: {p.width}</div>
-                    <div className="text-center text-sm text-slate-600 mb-2">Area: ____</div>
+                    <div className="text-center text-sm text-slate-600 mb-2 font-mono">Area: ____</div>
                     <div className="mt-2 text-xs text-slate-600">Show your work:</div>
                     <div className="min-h-16 border border-dashed border-slate-300 rounded p-2 bg-slate-50 print:bg-white" />
                   </div>
@@ -32666,7 +32666,7 @@ export function PrintablesPage() {
                   <div key={i} className="border border-slate-300 rounded-lg p-4 bg-white break-inside-avoid">
                     {renderPolygon(p.name, p.sides)}
                     <div className="text-center mb-2 font-semibold">{p.name}</div>
-                    <div className="text-center text-sm text-slate-600 mb-2">Sides: ____</div>
+                    <div className="text-center text-sm text-slate-600 mb-2 font-mono">Sides: ____</div>
                     <div className="mt-2 text-xs text-slate-600">Count the sides:</div>
                     <div className="min-h-12 border border-dashed border-slate-300 rounded p-2 bg-slate-50 print:bg-white" />
                   </div>
@@ -32819,7 +32819,7 @@ export function PrintablesPage() {
                   <div key={idx} className="border border-slate-300 rounded-lg p-4 bg-white break-inside-avoid">
                     {renderGeometric(i.type)}
                     <div className="text-center mb-2 text-sm">{i.desc}</div>
-                    <div className="text-center text-sm text-slate-600 mb-2">Name: ____</div>
+                    <div className="text-center text-sm text-slate-600 mb-2 font-mono">Name: ____</div>
                     <div className="mt-2 text-xs text-slate-600">Explain:</div>
                     <div className="min-h-12 border border-dashed border-slate-300 rounded p-2 bg-slate-50 print:bg-white" />
                   </div>
@@ -32967,7 +32967,7 @@ export function PrintablesPage() {
                   <div key={i} className="border border-slate-300 rounded-lg p-4 bg-white break-inside-avoid">
                     {renderShape(s)}
                     <div className="text-center mb-2 font-semibold">{s}</div>
-                    <div className="text-center text-sm text-slate-600 mb-2">Lines of symmetry: ____</div>
+                    <div className="text-center text-sm text-slate-600 mb-2 font-mono">Lines of symmetry: ____</div>
                     <div className="mt-2 text-xs text-slate-600">Draw the lines:</div>
                     <div className="min-h-16 border border-dashed border-slate-300 rounded p-2 bg-slate-50 print:bg-white" />
                   </div>
@@ -33089,7 +33089,7 @@ export function PrintablesPage() {
                   <div key={i} className="border border-slate-300 rounded-lg p-4 bg-white break-inside-avoid">
                     {renderClock(t)}
                     <div className="text-center text-xl font-mono mb-2">{t}</div>
-                    <div className="text-center text-sm text-slate-600 mb-2">Draw clock hands: ____</div>
+                    <div className="text-center text-sm text-slate-600 mb-2 font-mono">Draw clock hands: ____</div>
                     <div className="mt-2 text-xs text-slate-600">Show your thinking:</div>
                     <div className="min-h-12 border border-dashed border-slate-300 rounded p-2 bg-slate-50 print:bg-white" />
                   </div>
@@ -33174,7 +33174,7 @@ export function PrintablesPage() {
               <div className="mb-6 p-4 bg-blue-50 border-2 border-blue-200 rounded-lg print:border print:bg-white">
                 <div className="font-semibold text-blue-900 mb-3 text-sm">📚 Example - Let's solve this together:</div>
                 <div className="space-y-2 text-sm">
-                  <div className="font-semibold text-base"><strong>Problem:</strong> 3 feet = ____ inches</div>
+                  <div className="font-semibold text-base font-mono"><strong>Problem:</strong> 3 feet = ____ inches</div>
                   <div className="pl-4 border-l-2 border-blue-300 space-y-1">
                     <div><strong>Step 1:</strong> Remember: 1 foot = 12 inches</div>
                     <div><strong>Step 2:</strong> Multiply: 3 feet × 12 inches/foot = 36 inches</div>
@@ -33189,7 +33189,7 @@ export function PrintablesPage() {
               <div className="grid grid-cols-2 gap-4 break-inside-avoid" style={{ pageBreakAfter: 'auto' }}>
                 {problems.map((p, i) => (
                   <div key={i} className="border border-slate-300 rounded-lg p-4 bg-white break-inside-avoid">
-                    <div className="text-center mb-2 font-semibold">{p.feet} feet = ____ inches</div>
+                    <div className="text-center mb-2 font-semibold font-mono">{p.feet} feet = ____ inches</div>
                     <div className="mt-2 text-xs text-slate-600">Show your work:</div>
                     <div className="min-h-16 border border-dashed border-slate-300 rounded p-2 bg-slate-50 print:bg-white" />
                   </div>
@@ -33225,7 +33225,7 @@ export function PrintablesPage() {
                   <div className="space-y-3">
                     {problems.map((p, i) => (
                       <div key={i} className="border-b border-emerald-200 pb-3 last:border-b-0">
-                        <div className="font-semibold mb-2 text-sm">{i + 1}. {p.feet} feet = ____ inches</div>
+                        <div className="font-semibold mb-2 text-sm font-mono">{i + 1}. {p.feet} feet = ____ inches</div>
                         <div className="text-xs text-emerald-800 space-y-1 pl-4">
                           <div>Step 1: 1 foot = 12 inches</div>
                           <div>Step 2: {p.feet} feet × 12 inches/foot = {p.inches} inches</div>
@@ -33271,7 +33271,7 @@ export function PrintablesPage() {
               <div className="mb-6 p-4 bg-blue-50 border-2 border-blue-200 rounded-lg print:border print:bg-white">
                 <div className="font-semibold text-blue-900 mb-3 text-sm">📚 Example - Let's solve this together:</div>
                 <div className="space-y-2 text-sm">
-                  <div className="font-semibold text-base"><strong>Problem:</strong> 2 meters = ____ centimeters</div>
+                  <div className="font-semibold text-base font-mono"><strong>Problem:</strong> 2 meters = ____ centimeters</div>
                   <div className="pl-4 border-l-2 border-blue-300 space-y-1">
                     <div><strong>Step 1:</strong> Remember: 1 meter = 100 centimeters</div>
                     <div><strong>Step 2:</strong> Multiply: 2 meters × 100 cm/meter = 200 centimeters</div>
@@ -33286,7 +33286,7 @@ export function PrintablesPage() {
               <div className="grid grid-cols-2 gap-4 break-inside-avoid" style={{ pageBreakAfter: 'auto' }}>
                 {problems.map((p, i) => (
                   <div key={i} className="border border-slate-300 rounded-lg p-4 bg-white break-inside-avoid">
-                    <div className="text-center mb-2 font-semibold">{p.meters} meters = ____ centimeters</div>
+                    <div className="text-center mb-2 font-semibold font-mono">{p.meters} meters = ____ centimeters</div>
                     <div className="mt-2 text-xs text-slate-600">Show your work:</div>
                     <div className="min-h-16 border border-dashed border-slate-300 rounded p-2 bg-slate-50 print:bg-white" />
                   </div>
@@ -33322,7 +33322,7 @@ export function PrintablesPage() {
                   <div className="space-y-3">
                     {problems.map((p, i) => (
                       <div key={i} className="border-b border-emerald-200 pb-3 last:border-b-0">
-                        <div className="font-semibold mb-2 text-sm">{i + 1}. {p.meters} meters = ____ centimeters</div>
+                        <div className="font-semibold mb-2 text-sm font-mono">{i + 1}. {p.meters} meters = ____ centimeters</div>
                         <div className="text-xs text-emerald-800 space-y-1 pl-4">
                           <div>Step 1: 1 meter = 100 centimeters</div>
                           <div>Step 2: {p.meters} meters × 100 cm/meter = {p.centimeters} centimeters</div>
@@ -33368,7 +33368,7 @@ export function PrintablesPage() {
               <div className="mb-6 p-4 bg-blue-50 border-2 border-blue-200 rounded-lg print:border print:bg-white">
                 <div className="font-semibold text-blue-900 mb-3 text-sm">📚 Example - Let's solve this together:</div>
                 <div className="space-y-2 text-sm">
-                  <div className="font-semibold text-base"><strong>Problem:</strong> 2 quarts = ____ cups</div>
+                  <div className="font-semibold text-base font-mono"><strong>Problem:</strong> 2 quarts = ____ cups</div>
                   <div className="pl-4 border-l-2 border-blue-300 space-y-1">
                     <div><strong>Step 1:</strong> Remember: 1 quart = 2 pints, 1 pint = 2 cups</div>
                     <div><strong>Step 2:</strong> So 1 quart = 4 cups</div>
@@ -33384,7 +33384,7 @@ export function PrintablesPage() {
               <div className="grid grid-cols-2 gap-4 break-inside-avoid" style={{ pageBreakAfter: 'auto' }}>
                 {problems.map((p, i) => (
                   <div key={i} className="border border-slate-300 rounded-lg p-4 bg-white break-inside-avoid">
-                    <div className="text-center mb-2 font-semibold">{p.quarts} quarts = ____ cups</div>
+                    <div className="text-center mb-2 font-semibold font-mono">{p.quarts} quarts = ____ cups</div>
                     <div className="mt-2 text-xs text-slate-600">Show your work:</div>
                     <div className="min-h-16 border border-dashed border-slate-300 rounded p-2 bg-slate-50 print:bg-white" />
                   </div>
@@ -33420,7 +33420,7 @@ export function PrintablesPage() {
                   <div className="space-y-3">
                     {problems.map((p, i) => (
                       <div key={i} className="border-b border-emerald-200 pb-3 last:border-b-0">
-                        <div className="font-semibold mb-2 text-sm">{i + 1}. {p.quarts} quarts = ____ cups</div>
+                        <div className="font-semibold mb-2 text-sm font-mono">{i + 1}. {p.quarts} quarts = ____ cups</div>
                         <div className="text-xs text-emerald-800 space-y-1 pl-4">
                           <div>Step 1: 1 quart = 4 cups</div>
                           <div>Step 2: {p.quarts} quarts × 4 cups/quart = {p.cups} cups</div>
@@ -33466,7 +33466,7 @@ export function PrintablesPage() {
               <div className="mb-6 p-4 bg-blue-50 border-2 border-blue-200 rounded-lg print:border print:bg-white">
                 <div className="font-semibold text-blue-900 mb-3 text-sm">📚 Example - Let's solve this together:</div>
                 <div className="space-y-2 text-sm">
-                  <div className="font-semibold text-base"><strong>Problem:</strong> 2 pounds = ____ ounces</div>
+                  <div className="font-semibold text-base font-mono"><strong>Problem:</strong> 2 pounds = ____ ounces</div>
                   <div className="pl-4 border-l-2 border-blue-300 space-y-1">
                     <div><strong>Step 1:</strong> Remember: 1 pound = 16 ounces</div>
                     <div><strong>Step 2:</strong> Multiply: 2 pounds × 16 oz/pound = 32 ounces</div>
@@ -33481,7 +33481,7 @@ export function PrintablesPage() {
               <div className="grid grid-cols-2 gap-4 break-inside-avoid" style={{ pageBreakAfter: 'auto' }}>
                 {problems.map((p, i) => (
                   <div key={i} className="border border-slate-300 rounded-lg p-4 bg-white break-inside-avoid">
-                    <div className="text-center mb-2 font-semibold">{p.pounds} pounds = ____ ounces</div>
+                    <div className="text-center mb-2 font-semibold font-mono">{p.pounds} pounds = ____ ounces</div>
                     <div className="mt-2 text-xs text-slate-600">Show your work:</div>
                     <div className="min-h-16 border border-dashed border-slate-300 rounded p-2 bg-slate-50 print:bg-white" />
                   </div>
@@ -33517,7 +33517,7 @@ export function PrintablesPage() {
                   <div className="space-y-3">
                     {problems.map((p, i) => (
                       <div key={i} className="border-b border-emerald-200 pb-3 last:border-b-0">
-                        <div className="font-semibold mb-2 text-sm">{i + 1}. {p.pounds} pounds = ____ ounces</div>
+                        <div className="font-semibold mb-2 text-sm font-mono">{i + 1}. {p.pounds} pounds = ____ ounces</div>
                         <div className="text-xs text-emerald-800 space-y-1 pl-4">
                           <div>Step 1: 1 pound = 16 ounces</div>
                           <div>Step 2: {p.pounds} pounds × 16 oz/pound = {p.ounces} ounces</div>

@@ -3819,7 +3819,7 @@ const renderers: Record<string, Renderer> = {
             <div key={idx} className="rounded-xl border-2 border-purple-300 bg-gradient-to-br from-purple-100 via-indigo-100 to-pink-100 p-5 shadow-md hover:shadow-lg transition-shadow">
               <div className="flex items-center gap-3 mb-3">
                 <span className="text-3xl">✖️</span>
-                <p className="text-lg font-bold text-purple-900">{prob.factor1} × {prob.factor2} = <span className="border-b-2 border-purple-400 border-dashed inline-block min-w-[60px]">________</span></p>
+                <p className="text-lg font-bold text-purple-900 font-mono">{prob.factor1} × {prob.factor2} = <span className="border-b-2 border-purple-400 border-dashed inline-block min-w-[60px]">________</span></p>
               </div>
               <p className="text-sm font-semibold text-purple-700 mb-3">
                 {t('worksheets.multiplication.drawArray')
@@ -6550,7 +6550,10 @@ const answerRenderers: Record<string, AnswerRenderer> = {
             }
             return (
               <li key={idx} className="mb-3">
-                <span className="font-semibold">{(problemLabel && problemLabel !== 'worksheets.tensFrame.answerKey.problem' ? problemLabel : t('common.problem'))} {formatNum(idx + 1)}:</span> {prob.operation === '+' ? `${formatNum(prob.filled)} + ${formatNum(prob.missing)}` : `${formatNum(total)} - ${formatNum(prob.missing)}`} = <span className="text-emerald-700 font-bold">{formatNum(answer)}</span>
+                <span className="font-semibold">{(problemLabel && problemLabel !== 'worksheets.tensFrame.answerKey.problem' ? problemLabel : t('common.problem'))} {formatNum(idx + 1)}:</span>{' '}
+                <span className="font-mono">
+                  {prob.operation === '+' ? `${formatNum(prob.filled)} + ${formatNum(prob.missing)}` : `${formatNum(total)} - ${formatNum(prob.missing)}`} = <span className="text-emerald-700 font-bold">{formatNum(answer)}</span>
+                </span>
                 <p className="text-xs text-slate-600 mt-1 ml-4">
                   {strategy}
                 </p>
@@ -6595,7 +6598,10 @@ const answerRenderers: Record<string, AnswerRenderer> = {
             
             return (
               <li key={idx} className="mb-3">
-                <span className="font-semibold">{(problemLabel && problemLabel !== 'worksheets.multiplication.answerKey.problem' ? problemLabel : t('common.problem'))} {formatNum(idx + 1)}:</span> {formatNum(prob.factor1)} × {formatNum(prob.factor2)} = <span className="text-emerald-700 font-bold">{formatNum(prob.answer)}</span>
+                <span className="font-semibold">{(problemLabel && problemLabel !== 'worksheets.multiplication.answerKey.problem' ? problemLabel : t('common.problem'))} {formatNum(idx + 1)}:</span>{' '}
+                <span className="font-mono">
+                  {formatNum(prob.factor1)} × {formatNum(prob.factor2)} = <span className="text-emerald-700 font-bold">{formatNum(prob.answer)}</span>
+                </span>
                 <p className="text-xs text-slate-600 mt-1 ml-4">
                   <span className="font-semibold">{(solutionLabel && solutionLabel !== 'worksheets.multiplication.answerKey.solution' ? solutionLabel : t('common.solution'))}</span> {solution}
                   <span className="block mt-1">{altStrategies}</span>
@@ -6669,7 +6675,10 @@ const answerRenderers: Record<string, AnswerRenderer> = {
             
             return (
               <li key={idx} className="mb-3">
-                <span className="font-semibold">{(isTranslationFound(problemLabel, 'worksheets.division.answerKey.problem') ? problemLabel : t('common.problem'))} {formatNum(idx + 1)}:</span> {formatNum(prob.dividend)} ÷ {formatNum(prob.divisor)} = <span className="text-emerald-700 font-bold">{formatNum(prob.quotient)}</span>
+                <span className="font-semibold">{(isTranslationFound(problemLabel, 'worksheets.division.answerKey.problem') ? problemLabel : t('common.problem'))} {formatNum(idx + 1)}:</span>{' '}
+                <span className="font-mono">
+                  {formatNum(prob.dividend)} ÷ {formatNum(prob.divisor)} = <span className="text-emerald-700 font-bold">{formatNum(prob.quotient)}</span>
+                </span>
                 {prob.remainder > 0 && <span className="text-emerald-700"> ({isTranslationFound(remainderLabel, 'worksheets.division.answerKey.remainderLabel') ? remainderLabel : (isTranslationFound(t('worksheets.division.remainder'), 'worksheets.division.remainder') ? t('worksheets.division.remainder') : 'الباقي:')} {formatNum(prob.remainder)})</span>}
                 <p className="text-xs text-slate-600 mt-1 ml-4">
                   <span className="font-semibold">{(isTranslationFound(solutionLabel, 'worksheets.division.answerKey.solution') ? solutionLabel : t('common.solution'))}</span> {solution}
@@ -6704,7 +6713,10 @@ const answerRenderers: Record<string, AnswerRenderer> = {
             const formattedProblemNum = formatNum(idx + 1)
             return (
               <li key={idx} className="mb-3">
-                <span className="font-semibold">{t('common.problem', 'Problem')} {formattedProblemNum}:</span> {formattedNumber}: {placeName} {t('common.place', 'place')} = <span className="text-emerald-700 font-bold">{formattedDigit}</span>
+                <span className="font-semibold">{t('common.problem', 'Problem')} {formattedProblemNum}:</span>{' '}
+                <span className="font-mono">
+                  {formattedNumber}: {placeName} {t('common.place', 'place')} = <span className="text-emerald-700 font-bold">{formattedDigit}</span>
+                </span>
                 <p className="text-xs text-slate-600 mt-1 ml-4">
                   <span className="font-semibold">{t('common.explanation', 'Explanation')}:</span> {t('worksheets.placeValue.explanation', 'In the number {{number}}, read from right to left: ones place, tens place, hundreds place, etc. The digit in the {{place}} place is {{digit}}.').replace('{{number}}', formattedNumber).replace('{{place}}', placeName).replace('{{digit}}', formattedDigit)}
                   <span className="block mt-1"><span className="font-semibold">{t('worksheets.placeValue.expandedForm')}:</span> {expandedForm} = {formattedNumber}</span>
@@ -6805,7 +6817,10 @@ const answerRenderers: Record<string, AnswerRenderer> = {
             }
             return (
               <li key={idx} className="mb-3">
-                <span className="font-semibold">{(problemLabel && problemLabel !== 'worksheets.rounding.answerKey.problem' ? problemLabel : t('common.problem'))} {formatNum(idx + 1)}:</span> {formatNum(prob.number)} {t('worksheets.rounding.roundedTo')} {prob.roundTo} = <span className="text-emerald-700 font-bold">{formatNum(prob.answer)}</span>
+                <span className="font-semibold">{(problemLabel && problemLabel !== 'worksheets.rounding.answerKey.problem' ? problemLabel : t('common.problem'))} {formatNum(idx + 1)}:</span>{' '}
+                <span className="font-mono">
+                  {formatNum(prob.number)} {t('worksheets.rounding.roundedTo')} {prob.roundTo} = <span className="text-emerald-700 font-bold">{formatNum(prob.answer)}</span>
+                </span>
                 <p className="text-xs text-slate-600 mt-1 ml-4">
                   <span className="font-semibold">{(ruleLabel && ruleLabel !== 'worksheets.rounding.answerKey.rule' ? ruleLabel : t('common.rule'))}</span> {roundingRule}
                   <span className="block mt-1"><span className="font-semibold">{(stepByStepLabel && stepByStepLabel !== 'worksheets.rounding.answerKey.stepByStep' ? stepByStepLabel : t('worksheets.rounding.answerKey.stepByStep'))}</span> {stepByStep}</span>
@@ -6861,7 +6876,10 @@ const answerRenderers: Record<string, AnswerRenderer> = {
             const solutionLabel = t('worksheets.decimals.answerKey.solution')
             return (
               <li key={idx} className="mb-3">
-                <span className="font-semibold">{(problemLabel && problemLabel !== 'worksheets.decimals.answerKey.problem' ? problemLabel : t('common.problem'))} {formatNum(idx + 1)}:</span> {formatNum(prob.num1)} {prob.op} {formatNum(prob.num2)} = <span className="text-emerald-700 font-bold">{formatNum(prob.answer)}</span>
+                <span className="font-semibold">{(problemLabel && problemLabel !== 'worksheets.decimals.answerKey.problem' ? problemLabel : t('common.problem'))} {formatNum(idx + 1)}:</span>{' '}
+                <span className="font-mono">
+                  {formatNum(prob.num1)} {prob.op} {formatNum(prob.num2)} = <span className="text-emerald-700 font-bold">{formatNum(prob.answer)}</span>
+                </span>
                 <p className="text-xs text-slate-600 mt-1 ml-4">
                   <span className="font-semibold">{(solutionLabel && solutionLabel !== 'worksheets.decimals.answerKey.solution' ? solutionLabel : t('common.solution'))}</span> {explanation}
                 </p>
@@ -6896,7 +6914,10 @@ const answerRenderers: Record<string, AnswerRenderer> = {
             }
             return (
               <li key={idx} className="mb-3">
-                <span className="font-semibold">{t('common.problem')} {formatNum(idx + 1)}:</span> {prob.num1 < 0 ? `(${formatNum(prob.num1)})` : formatNum(prob.num1)} {prob.op} {prob.num2 < 0 ? `(${formatNum(prob.num2)})` : formatNum(prob.num2)} = <span className="text-emerald-700 font-bold">{formatNum(prob.answer)}</span>
+                <span className="font-semibold">{t('common.problem')} {formatNum(idx + 1)}:</span>{' '}
+                <span className="font-mono">
+                  {prob.num1 < 0 ? `(${formatNum(prob.num1)})` : formatNum(prob.num1)} {prob.op} {prob.num2 < 0 ? `(${formatNum(prob.num2)})` : formatNum(prob.num2)} = <span className="text-emerald-700 font-bold">{formatNum(prob.answer)}</span>
+                </span>
                 <p className="text-xs text-slate-600 mt-1 ml-4">
                   <span className="font-semibold">{t('common.solution')}</span> {explanation}
                 </p>
@@ -6917,7 +6938,10 @@ const answerRenderers: Record<string, AnswerRenderer> = {
             const expansion = Array(prob.exponent).fill(prob.base).join(' × ')
             return (
               <li key={idx} className="mb-3">
-                <span className="font-semibold">{t('common.problem')} {formatNum(idx + 1)}:</span> {formatNum(prob.base)}<sup>{formatNum(prob.exponent)}</sup> = <span className="text-emerald-700 font-bold">{formatNum(prob.answer)}</span>
+                <span className="font-semibold">{t('common.problem')} {formatNum(idx + 1)}:</span>{' '}
+                <span className="font-mono">
+                  {formatNum(prob.base)}<sup>{formatNum(prob.exponent)}</sup> = <span className="text-emerald-700 font-bold">{formatNum(prob.answer)}</span>
+                </span>
                 <p className="text-xs text-slate-600 mt-1 ml-4">
                   <span className="font-semibold">{t('common.solution')}</span> {formatNum(prob.base)}<sup>{formatNum(prob.exponent)}</sup> {t('worksheets.exponents.answerKey.means')} {formatNum(prob.base)} {t('worksheets.exponents.answerKey.byItself')} {formatNum(prob.exponent)} {t('worksheets.exponents.answerKey.times')}.
                   <span className="block mt-1"><span className="font-semibold">{t('common.expansion')}</span> {expansion} = {formatNum(prob.answer)}</span>
@@ -7980,7 +8004,10 @@ function InteractiveWorksheetSection({
   }
 
   return (
-    <section className={`mb-10 break-inside-avoid rounded-xl border-2 ${theme.border} ${theme.background} p-6 print:border-0 print:p-0 print:bg-white print:overflow-visible shadow-lg relative overflow-hidden`}>
+    <section
+      data-interactive-section="true"
+      className={`mb-10 break-inside-avoid rounded-xl border-2 ${theme.border} ${theme.background} p-6 print:border-0 print:p-0 print:bg-white print:overflow-visible shadow-lg relative overflow-hidden`}
+    >
       {/* Decorative corner accent */}
       <div className="absolute top-0 right-0 w-32 h-32 bg-gradient-to-br rounded-bl-full pointer-events-none print:hidden" style={{ backgroundColor: cornerColors.topRight }} />
       <div className="absolute bottom-0 left-0 w-24 h-24 bg-gradient-to-tr rounded-tr-full pointer-events-none print:hidden" style={{ backgroundColor: cornerColors.bottomLeft }} />

@@ -400,6 +400,12 @@ html {
   line-height: 1.4;
 }
 
+[data-worksheet-content="true"] .font-mono,
+[data-interactive-section] .font-mono {
+  white-space: nowrap;
+  word-break: keep-all;
+}
+
 /* ============================================================================
  * UNIVERSAL PRINT/PDF STYLES FOR ALL WORKSHEETS
  * ============================================================================
