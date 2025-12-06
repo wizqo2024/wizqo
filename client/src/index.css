@@ -661,6 +661,25 @@ html {
     gap: 12px !important; /* Exact 12px - match Tailwind gap-3 */
   }
   
+  /* Prevent grid items from shrinking - override any width calculations */
+  section[data-interactive-section="true"].preserve-print-styling .grid > *,
+  section[data-interactive-section="true"].preserve-print-styling [class*="grid"] > * {
+    min-width: 0 !important;
+    flex-shrink: 0 !important;
+    flex-grow: 1 !important;
+    width: auto !important; /* Override any calc() width rules */
+  }
+  
+  /* Override grid-cols-3 width calculations for art worksheets */
+  section[data-interactive-section="true"].preserve-print-styling .grid[class*="grid-cols-3"] > * {
+    width: calc((100% / 3) - 8px) !important; /* Use exact gap calculation */
+    margin-right: 0 !important;
+  }
+  
+  section[data-interactive-section="true"].preserve-print-styling .grid[class*="grid-cols-3"] > *:not(:last-child) {
+    margin-right: 12px !important; /* Exact 12px gap */
+  }
+  
   section[data-interactive-section="true"].preserve-print-styling .space-y-4 > * + * {
     margin-top: 16px !important; /* Exact 16px - match Tailwind space-y-4 */
   }
