@@ -2839,37 +2839,37 @@ const renderers: Record<string, Renderer> = {
       { type: 'shapes', items: pickMany(rng, ['circle', 'square', 'triangle', 'star', 'heart', 'diamond'], 4) },
     ]
     return (
-      <div className="space-y-4">
-        <p className="text-sm text-slate-600">
+      <div className="space-y-4 print:space-y-4" style={{ fontSize: '16px', lineHeight: '24px', marginTop: '0', marginBottom: '0' }}>
+        <p className="text-sm text-slate-600 print:text-sm print:text-slate-600" style={{ fontSize: '14px', lineHeight: '20px', margin: '0 0 16px 0' }}>
           Study each sequence carefully, then cover it and write what you remember. This strengthens your working memory!
         </p>
-        <div className="space-y-4">
+        <div className="space-y-4 print:space-y-4" style={{ marginTop: '0', marginBottom: '0' }}>
           {sequences.map((seq, idx) => (
-            <div key={idx} className="rounded-xl border border-purple-200 bg-purple-50 p-4">
-              <p className="text-sm font-semibold text-purple-700 mb-2">Sequence {idx + 1}: {seq.type.charAt(0).toUpperCase() + seq.type.slice(1)}</p>
-              <div className="bg-white rounded-lg p-3 border border-purple-200 mb-2">
-                <div className="flex gap-2 flex-wrap">
+            <div key={idx} className="rounded-xl border border-purple-200 bg-purple-50 p-4 print:rounded-xl print:border print:border-purple-200 print:bg-purple-50 print:p-4 break-inside-avoid" style={{ WebkitPrintColorAdjust: 'exact', printColorAdjust: 'exact', backgroundColor: '#faf5ff', borderColor: '#e9d5ff', padding: '16px', borderRadius: '12px', borderWidth: '1px', borderStyle: 'solid', marginBottom: '16px', pageBreakInside: 'avoid', breakInside: 'avoid' }}>
+              <p className="text-sm font-semibold text-purple-700 mb-2 print:text-sm print:font-semibold print:text-purple-700 print:mb-2" style={{ fontSize: '14px', fontWeight: '600', margin: '0 0 8px 0', color: '#7c3aed' }}>Sequence {idx + 1}: {seq.type.charAt(0).toUpperCase() + seq.type.slice(1)}</p>
+              <div className="bg-white rounded-lg p-3 border border-purple-200 mb-2 print:bg-white print:rounded-lg print:p-3 print:border print:border-purple-200 print:mb-2" style={{ WebkitPrintColorAdjust: 'exact', printColorAdjust: 'exact', backgroundColor: '#ffffff', borderColor: '#e9d5ff', padding: '12px', borderRadius: '8px', borderWidth: '1px', borderStyle: 'solid', marginBottom: '8px' }}>
+                <div className="flex gap-2 flex-wrap print:flex print:gap-2 print:flex-wrap" style={{ display: 'flex', gap: '8px', flexWrap: 'wrap' }}>
                   {seq.items.map((item, i) => (
-                    <span key={i} className="px-3 py-1 bg-purple-100 rounded text-sm font-semibold text-purple-800">{item}</span>
+                    <span key={i} className="px-3 py-1 bg-purple-100 rounded text-sm font-semibold text-purple-800 print:px-3 print:py-1 print:bg-purple-100 print:rounded print:text-sm print:font-semibold print:text-purple-800" style={{ WebkitPrintColorAdjust: 'exact', printColorAdjust: 'exact', backgroundColor: '#f3e8ff', padding: '4px 12px', borderRadius: '8px', fontSize: '14px', fontWeight: '600', color: '#6b21a8' }}>{item}</span>
                   ))}
                 </div>
               </div>
-              <p className="text-xs text-purple-600 mb-1">Now cover the sequence above and write what you remember:</p>
-              <div className="flex gap-2 flex-wrap">
+              <p className="text-xs text-purple-600 mb-1 print:text-xs print:text-purple-600 print:mb-1" style={{ fontSize: '12px', lineHeight: '16px', margin: '0 0 4px 0', color: '#9333ea' }}>Now cover the sequence above and write what you remember:</p>
+              <div className="flex gap-2 flex-wrap print:flex print:gap-2 print:flex-wrap" style={{ display: 'flex', gap: '8px', flexWrap: 'wrap' }}>
                 {seq.items.map((_, i) => (
-                  <div key={i} className="flex-1 min-w-[80px] h-8 border border-dashed border-purple-300 bg-white rounded"></div>
+                  <div key={i} className="flex-1 min-w-[80px] h-8 border border-dashed border-purple-300 bg-white rounded print:flex-1 print:min-w-[80px] print:h-8 print:border print:border-dashed print:border-purple-300 print:bg-white print:rounded" style={{ WebkitPrintColorAdjust: 'exact', printColorAdjust: 'exact', backgroundColor: '#ffffff', borderColor: '#c084fc', borderWidth: '1px', borderStyle: 'dashed', height: '32px', minWidth: '80px', borderRadius: '8px', flex: '1' }}></div>
                 ))}
               </div>
             </div>
           ))}
         </div>
-        <div className="rounded-lg border border-purple-200 bg-white px-4 py-3 text-xs text-purple-700">
-          <p className="font-semibold mb-1">Memory Challenge:</p>
-          <p>{t('worksheets.cognitiveMemory.instructions')}</p>
-          <div className="mt-2 space-y-1">
-            <p>Sequence 1: ________________________________________________</p>
-            <p>Sequence 2: ________________________________________________</p>
-            <p>Sequence 3: ________________________________________________</p>
+        <div className="rounded-lg border border-purple-200 bg-white px-4 py-3 text-xs text-purple-700 print:rounded-lg print:border print:border-purple-200 print:bg-white print:px-4 print:py-3 print:text-xs print:text-purple-700 break-inside-avoid" style={{ WebkitPrintColorAdjust: 'exact', printColorAdjust: 'exact', backgroundColor: '#ffffff', borderColor: '#e9d5ff', padding: '12px 16px', borderRadius: '8px', borderWidth: '1px', borderStyle: 'solid', marginTop: '16px', pageBreakInside: 'avoid', breakInside: 'avoid' }}>
+          <p className="font-semibold mb-1 print:font-semibold print:mb-1" style={{ fontWeight: '600', margin: '0 0 4px 0' }}>Memory Challenge:</p>
+          <p style={{ margin: '0 0 8px 0' }}>{t('worksheets.cognitiveMemory.instructions')}</p>
+          <div className="mt-2 space-y-1 print:mt-2 print:space-y-1" style={{ marginTop: '8px' }}>
+            <p style={{ margin: '0 0 4px 0' }}>Sequence 1: ________________________________________________</p>
+            <p style={{ margin: '0 0 4px 0' }}>Sequence 2: ________________________________________________</p>
+            <p style={{ margin: '0' }}>Sequence 3: ________________________________________________</p>
           </div>
         </div>
       </div>
@@ -2889,23 +2889,26 @@ const renderers: Record<string, Renderer> = {
       { image1: 'A house with 2 windows', image2: 'A house with 3 windows' },
     ]
     return (
-      <div className="space-y-4">
-        <p className="text-sm text-slate-600">
+      <div className="space-y-4 print:space-y-4" style={{ fontSize: '16px', lineHeight: '24px', marginTop: '0', marginBottom: '0' }}>
+        <p className="text-sm text-slate-600 print:text-sm print:text-slate-600" style={{ fontSize: '14px', lineHeight: '20px', margin: '0 0 16px 0' }}>
           {t('worksheets.cognitiveAttention.instructions')}
         </p>
-        <div className="rounded-xl border border-blue-200 bg-blue-50 p-4">
-          <p className="text-sm font-semibold text-blue-700 mb-2">Visual Scanning Challenge</p>
-          <p className="text-xs text-blue-600 mb-3" dangerouslySetInnerHTML={{ __html: t('worksheets.cognitiveAttention.findAndCircle').replace('{{items}}', targetItems) }}></p>
-          <div className="bg-white rounded-lg p-3 border border-blue-200">
-            <div className="visual-grid grid grid-cols-5 gap-1" style={{
+        <div className="rounded-xl border border-blue-200 bg-blue-50 p-4 print:rounded-xl print:border print:border-blue-200 print:bg-blue-50 print:p-4 break-inside-avoid" style={{ WebkitPrintColorAdjust: 'exact', printColorAdjust: 'exact', backgroundColor: '#eff6ff', borderColor: '#bfdbfe', padding: '16px', borderRadius: '12px', borderWidth: '1px', borderStyle: 'solid', marginBottom: '16px', pageBreakInside: 'avoid', breakInside: 'avoid' }}>
+          <p className="text-sm font-semibold text-blue-700 mb-2 print:text-sm print:font-semibold print:text-blue-700 print:mb-2" style={{ fontSize: '14px', fontWeight: '600', margin: '0 0 8px 0', color: '#1e40af' }}>Visual Scanning Challenge</p>
+          <p className="text-xs text-blue-600 mb-3 print:text-xs print:text-blue-600 print:mb-3" style={{ fontSize: '12px', lineHeight: '16px', margin: '0 0 12px 0', color: '#3b82f6' }} dangerouslySetInnerHTML={{ __html: t('worksheets.cognitiveAttention.findAndCircle').replace('{{items}}', targetItems) }}></p>
+          <div className="bg-white rounded-lg p-3 border border-blue-200 print:bg-white print:rounded-lg print:p-3 print:border print:border-blue-200" style={{ WebkitPrintColorAdjust: 'exact', printColorAdjust: 'exact', backgroundColor: '#ffffff', borderColor: '#bfdbfe', padding: '12px', borderRadius: '8px', borderWidth: '1px', borderStyle: 'solid', marginBottom: '8px' }}>
+            <div className="visual-grid grid grid-cols-5 gap-1 print:grid print:grid-cols-5 print:gap-1" style={{
               WebkitPrintColorAdjust: 'exact',
               printColorAdjust: 'exact',
-              colorAdjust: 'exact'
+              colorAdjust: 'exact',
+              display: 'grid',
+              gridTemplateColumns: 'repeat(5, minmax(0, 1fr))',
+              gap: '4px'
             }}>
               {gridItems.map((item, idx) => (
                 <div 
                   key={idx} 
-                  className="worksheet-box aspect-square border border-blue-200 rounded flex items-center justify-center text-xs"
+                  className="worksheet-box aspect-square border border-blue-200 rounded flex items-center justify-center text-xs print:aspect-square print:border print:border-blue-200 print:rounded print:flex print:items-center print:justify-center print:text-xs"
                   style={{
                     WebkitPrintColorAdjust: 'exact',
                     printColorAdjust: 'exact',
@@ -2913,40 +2916,44 @@ const renderers: Record<string, Renderer> = {
                     display: 'flex',
                     visibility: 'visible',
                     opacity: 1,
-                    border: '1px solid #1e40af', // Darker blue border for visibility
+                    border: '1px solid #1e40af',
                     borderStyle: 'solid',
                     borderWidth: '1px',
-                    backgroundColor: '#fefefe' // Light gray background
+                    backgroundColor: '#fefefe',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    fontSize: '12px',
+                    aspectRatio: '1 / 1'
                   }}
                 >
-                  {item === targetItems ? <span className="font-bold text-blue-700">{item}</span> : <span className="text-blue-400">{item}</span>}
+                  {item === targetItems ? <span className="font-bold text-blue-700 print:font-bold print:text-blue-700" style={{ fontWeight: '700', color: '#1e40af' }}>{item}</span> : <span className="text-blue-400 print:text-blue-400" style={{ color: '#60a5fa' }}>{item}</span>}
                 </div>
               ))}
             </div>
           </div>
-          <p className="text-xs text-blue-600 mt-2">{t('worksheets.cognitiveAttention.countHowMany').replace('{{items}}', targetItems)}</p>
+          <p className="text-xs text-blue-600 mt-2 print:text-xs print:text-blue-600 print:mt-2" style={{ fontSize: '12px', lineHeight: '16px', marginTop: '8px', marginBottom: '0', color: '#3b82f6' }}>{t('worksheets.cognitiveAttention.countHowMany').replace('{{items}}', targetItems)}</p>
         </div>
-        <div className="rounded-xl border border-green-200 bg-green-50 p-4">
-          <p className="text-sm font-semibold text-green-700 mb-2">Spot the Difference</p>
-          <p className="text-xs text-green-600 mb-3">{t('worksheets.cognitiveAttention.compareImages')}</p>
-          <div className="space-y-3">
+        <div className="rounded-xl border border-green-200 bg-green-50 p-4 print:rounded-xl print:border print:border-green-200 print:bg-green-50 print:p-4 break-inside-avoid" style={{ WebkitPrintColorAdjust: 'exact', printColorAdjust: 'exact', backgroundColor: '#f0fdf4', borderColor: '#bbf7d0', padding: '16px', borderRadius: '12px', borderWidth: '1px', borderStyle: 'solid', pageBreakInside: 'avoid', breakInside: 'avoid' }}>
+          <p className="text-sm font-semibold text-green-700 mb-2 print:text-sm print:font-semibold print:text-green-700 print:mb-2" style={{ fontSize: '14px', fontWeight: '600', margin: '0 0 8px 0', color: '#15803d' }}>Spot the Difference</p>
+          <p className="text-xs text-green-600 mb-3 print:text-xs print:text-green-600 print:mb-3" style={{ fontSize: '12px', lineHeight: '16px', margin: '0 0 12px 0', color: '#22c55e' }}>{t('worksheets.cognitiveAttention.compareImages')}</p>
+          <div className="space-y-3 print:space-y-3" style={{ marginTop: '0', marginBottom: '0' }}>
             {differences.map((diff, idx) => (
-              <div key={idx} className="bg-white rounded-lg p-3 border border-green-200">
-                <div className="grid grid-cols-2 gap-3 mb-2">
+              <div key={idx} className="bg-white rounded-lg p-3 border border-green-200 print:bg-white print:rounded-lg print:p-3 print:border print:border-green-200 break-inside-avoid" style={{ WebkitPrintColorAdjust: 'exact', printColorAdjust: 'exact', backgroundColor: '#ffffff', borderColor: '#bbf7d0', padding: '12px', borderRadius: '8px', borderWidth: '1px', borderStyle: 'solid', marginBottom: '12px', pageBreakInside: 'avoid', breakInside: 'avoid' }}>
+                <div className="grid grid-cols-2 gap-3 mb-2 print:grid print:grid-cols-2 print:gap-3 print:mb-2" style={{ display: 'grid', gridTemplateColumns: 'repeat(2, minmax(0, 1fr))', gap: '12px', marginBottom: '8px' }}>
                   <div>
-                    <p className="text-xs text-green-600 mb-1">Image 1:</p>
-                    <div className="h-20 border border-dashed border-green-300 rounded flex items-center justify-center text-xs text-green-500">
+                    <p className="text-xs text-green-600 mb-1 print:text-xs print:text-green-600 print:mb-1" style={{ fontSize: '12px', lineHeight: '16px', margin: '0 0 4px 0', color: '#22c55e' }}>Image 1:</p>
+                    <div className="h-20 border border-dashed border-green-300 rounded flex items-center justify-center text-xs text-green-500 print:h-20 print:rounded print:flex print:items-center print:justify-center print:text-xs print:text-green-500" style={{ WebkitPrintColorAdjust: 'exact', printColorAdjust: 'exact', borderColor: '#86efac', borderWidth: '1px', borderStyle: 'dashed', height: '80px', borderRadius: '8px', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '12px', color: '#16a34a' }}>
                       {diff.image1}
                     </div>
                   </div>
                   <div>
-                    <p className="text-xs text-green-600 mb-1">Image 2:</p>
-                    <div className="h-20 border border-dashed border-green-300 rounded flex items-center justify-center text-xs text-green-500">
+                    <p className="text-xs text-green-600 mb-1 print:text-xs print:text-green-600 print:mb-1" style={{ fontSize: '12px', lineHeight: '16px', margin: '0 0 4px 0', color: '#22c55e' }}>Image 2:</p>
+                    <div className="h-20 border border-dashed border-green-300 rounded flex items-center justify-center text-xs text-green-500 print:h-20 print:rounded print:flex print:items-center print:justify-center print:text-xs print:text-green-500" style={{ WebkitPrintColorAdjust: 'exact', printColorAdjust: 'exact', borderColor: '#86efac', borderWidth: '1px', borderStyle: 'dashed', height: '80px', borderRadius: '8px', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '12px', color: '#16a34a' }}>
                       {diff.image2}
                     </div>
                   </div>
                 </div>
-                <p className="text-xs text-green-600">Difference: ________________________________</p>
+                <p className="text-xs text-green-600 print:text-xs print:text-green-600" style={{ fontSize: '12px', lineHeight: '16px', margin: '0', color: '#22c55e' }}>Difference: ________________________________</p>
               </div>
             ))}
           </div>
