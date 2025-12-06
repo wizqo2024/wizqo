@@ -532,7 +532,7 @@ html {
   
   .print-header-floating {
     padding: 0 0.5in;
-    margin: 0 0 0.12in 0;
+    margin: 0 0 0.06in 0;
     page-break-after: avoid;
     break-after: avoid-page;
     page-break-inside: avoid;
@@ -1438,7 +1438,12 @@ section[data-interactive-section="true"].preserve-print-styling [class*="h-48"] 
     .wizqo-print-header {
       margin-top: 0 !important;
       padding-top: 0 !important;
-      margin-bottom: 4px !important;
+      margin-bottom: 2px !important;
+    }
+    
+    /* Ensure first section starts at the very top */
+    [data-worksheet-content="true"] section[data-interactive-section="true"].preserve-print-styling:first-child {
+      margin-top: -2px !important;
     }
   }
   
