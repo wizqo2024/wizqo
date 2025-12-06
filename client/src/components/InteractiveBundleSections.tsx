@@ -2152,8 +2152,8 @@ const renderers: Record<string, Renderer> = {
               return `${t(`common.colors.${colorKey}`) || colorKey} ${t(`common.shapes.${shapeKey}`) || shapeKey}`
             }
             return (
-              <div key={idx} className="rounded-xl border border-slate-200 bg-white p-4 print:rounded-xl print:border print:border-slate-200 print:bg-white print:p-4 break-inside-avoid" style={{ WebkitPrintColorAdjust: 'exact', printColorAdjust: 'exact', backgroundColor: '#ffffff', borderColor: '#e2e8f0', padding: '16px', borderRadius: '12px', borderWidth: '1px', borderStyle: 'solid', marginBottom: '12px', pageBreakInside: 'avoid', breakInside: 'avoid' }}>
-                <p className="text-xs uppercase text-slate-500 print:text-xs print:uppercase print:text-slate-500" style={{ fontSize: '12px', letterSpacing: '0.05em', margin: '0 0 12px 0', color: '#64748b' }}>{t('worksheets.earlyPatterns.pattern')} {pattern}</p>
+              <div key={idx} className="rounded-xl border border-amber-200 bg-amber-50 p-4 print:rounded-xl print:border print:border-amber-200 print:bg-amber-50 print:p-4 break-inside-avoid" style={{ WebkitPrintColorAdjust: 'exact', printColorAdjust: 'exact', backgroundColor: '#fffbeb', borderColor: '#fde68a', padding: '16px', borderRadius: '12px', borderWidth: '1px', borderStyle: 'solid', marginBottom: '12px', pageBreakInside: 'avoid', breakInside: 'avoid' }}>
+                <p className="text-xs uppercase text-amber-700 print:text-xs print:uppercase print:text-amber-700" style={{ fontSize: '12px', letterSpacing: '0.05em', margin: '0 0 12px 0', color: '#b45309' }}>{t('worksheets.earlyPatterns.pattern')} {pattern}</p>
                 <div className="mt-3 flex items-center gap-2 print:mt-3 print:flex print:items-center print:gap-2" style={{ marginTop: '12px', display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '8px' }}>
                   {previewTokens.map((token, tokenIdx) => {
                     const translatedLabel = getTranslatedLabel(token)
@@ -2161,19 +2161,19 @@ const renderers: Record<string, Renderer> = {
                       <span
                         key={`${token.key}-${tokenIdx}`}
                         className="relative inline-flex items-center justify-center print:relative print:inline-flex print:items-center print:justify-center"
-                        style={{ position: 'relative', display: 'inline-flex', alignItems: 'center', justifyContent: 'center' }}
+                        style={{ position: 'relative', display: 'inline-flex', alignItems: 'center', justifyContent: 'center', WebkitPrintColorAdjust: 'exact', printColorAdjust: 'exact' }}
                       >
                         <span className="sr-only print:sr-only">{translatedLabel}</span>
                         {token.render}
                       </span>
                     )
                   })}
-                  <span className="text-lg font-semibold text-slate-400 print:text-lg print:font-semibold print:text-slate-400" style={{ fontSize: '18px', fontWeight: '600', color: '#94a3b8' }}>?</span>
+                  <span className="text-lg font-semibold text-amber-500 print:text-lg print:font-semibold print:text-amber-500" style={{ fontSize: '18px', fontWeight: '600', color: '#f59e0b', WebkitPrintColorAdjust: 'exact', printColorAdjust: 'exact' }}>?</span>
                 </div>
-                <div className="mt-2 h-10 rounded border border-dashed border-slate-300 print:mt-2 print:h-10 print:rounded print:border print:border-dashed print:border-slate-300" style={{ borderColor: '#cbd5e1', borderWidth: '1px', borderStyle: 'dashed', height: '40px', borderRadius: '8px', marginTop: '8px' }} />
-                <p className="mt-2 text-xs text-slate-500 print:mt-2 print:text-xs print:text-slate-500" style={{ fontSize: '12px', lineHeight: '16px', marginTop: '8px', marginBottom: '0', color: '#64748b' }}>
+                <div className="mt-2 h-10 rounded border border-dashed border-amber-300 bg-white print:mt-2 print:h-10 print:rounded print:border print:border-dashed print:border-amber-300 print:bg-white" style={{ WebkitPrintColorAdjust: 'exact', printColorAdjust: 'exact', backgroundColor: '#ffffff', borderColor: '#fcd34d', borderWidth: '1px', borderStyle: 'dashed', height: '40px', borderRadius: '8px', marginTop: '8px' }} />
+                <p className="mt-2 text-xs text-amber-700 print:mt-2 print:text-xs print:text-amber-700" style={{ fontSize: '12px', lineHeight: '16px', marginTop: '8px', marginBottom: '0', color: '#b45309' }}>
                   {t('worksheets.earlyPatterns.tryBuilding')}{' '}
-                  <span className="font-medium text-slate-700 print:font-medium print:text-slate-700" style={{ fontWeight: '500', color: '#334155' }}>
+                  <span className="font-medium text-amber-800 print:font-medium print:text-amber-800" style={{ fontWeight: '500', color: '#92400e', WebkitPrintColorAdjust: 'exact', printColorAdjust: 'exact' }}>
                     {getTranslatedLabel(first)}, {getTranslatedLabel(second)}
                     {previewTokens.length > 2 ? `, ${getTranslatedLabel(third)}` : ''}
                   </span>
@@ -2296,27 +2296,27 @@ const renderers: Record<string, Renderer> = {
       { type: 'shape', items: pickMany(rng, ['circle', 'square', 'triangle', 'star'], 4) },
     ]
     return (
-      <div className="space-y-3">
-        <p className="text-sm text-slate-600">
+      <div className="space-y-3 print:space-y-3" style={{ fontSize: '16px', lineHeight: '24px', marginTop: '0', marginBottom: '0' }}>
+        <p className="text-sm text-slate-600 print:text-sm print:text-slate-600" style={{ fontSize: '14px', lineHeight: '20px', margin: '0 0 12px 0' }}>
           {t('worksheets.earlyFoundations.instructions')}
         </p>
         {activities.map((activity, actIdx) => (
-          <div key={actIdx} className="rounded-xl border border-amber-200 bg-amber-50 p-4">
-            <p className="text-sm font-semibold text-amber-700">{t('worksheets.earlyFoundations.review')} {activity.type}s</p>
-            <div className="mt-2 flex flex-wrap gap-3">
+          <div key={actIdx} className="rounded-xl border border-amber-200 bg-amber-50 p-4 print:rounded-xl print:border print:border-amber-200 print:bg-amber-50 print:p-4 break-inside-avoid" style={{ WebkitPrintColorAdjust: 'exact', printColorAdjust: 'exact', backgroundColor: '#fffbeb', borderColor: '#fde68a', padding: '16px', borderRadius: '12px', borderWidth: '1px', borderStyle: 'solid', marginBottom: '12px', pageBreakInside: 'avoid', breakInside: 'avoid' }}>
+            <p className="text-sm font-semibold text-amber-700 print:text-sm print:font-semibold print:text-amber-700" style={{ fontSize: '14px', fontWeight: '600', margin: '0 0 8px 0', color: '#b45309' }}>{t('worksheets.earlyFoundations.review')} {activity.type}s</p>
+            <div className="mt-2 flex flex-wrap gap-3 print:mt-2 print:flex print:flex-wrap print:gap-3" style={{ marginTop: '8px', display: 'flex', flexWrap: 'wrap', gap: '12px' }}>
               {activity.items.map((item, idx) => (
-                <div key={idx} className="rounded border border-amber-300 bg-white px-4 py-2 text-center">
-                  <p className="font-semibold text-amber-800">{item}</p>
-                  <p className="mt-1 text-xs text-amber-600">{t('worksheets.earlyFoundations.identify')} ______</p>
+                <div key={idx} className="rounded border border-amber-300 bg-white px-4 py-2 text-center print:rounded print:border print:border-amber-300 print:bg-white print:px-4 print:py-2 print:text-center" style={{ WebkitPrintColorAdjust: 'exact', printColorAdjust: 'exact', backgroundColor: '#ffffff', borderColor: '#fcd34d', borderWidth: '1px', borderStyle: 'solid', padding: '8px 16px', borderRadius: '8px', textAlign: 'center' }}>
+                  <p className="font-semibold text-amber-800 print:font-semibold print:text-amber-800" style={{ fontWeight: '600', margin: '0 0 4px 0', color: '#92400e' }}>{item}</p>
+                  <p className="mt-1 text-xs text-amber-600 print:mt-1 print:text-xs print:text-amber-600" style={{ fontSize: '12px', lineHeight: '16px', marginTop: '4px', marginBottom: '0', color: '#d97706' }}>{t('worksheets.earlyFoundations.identify')} ______</p>
                 </div>
               ))}
             </div>
           </div>
         ))}
-        <div className="rounded-xl border border-amber-200 bg-amber-50 p-4">
-          <p className="text-sm font-semibold text-amber-700">{t('worksheets.earlyFoundations.practiceWriting')}</p>
-          <p className="mt-2 text-xs text-amber-600">{t('worksheets.earlyFoundations.writeName')} ________________________</p>
-          <p className="mt-1 text-xs text-amber-600">{t('worksheets.earlyFoundations.countTo10')} ________________________________</p>
+        <div className="rounded-xl border border-amber-200 bg-amber-50 p-4 print:rounded-xl print:border print:border-amber-200 print:bg-amber-50 print:p-4 break-inside-avoid" style={{ WebkitPrintColorAdjust: 'exact', printColorAdjust: 'exact', backgroundColor: '#fffbeb', borderColor: '#fde68a', padding: '16px', borderRadius: '12px', borderWidth: '1px', borderStyle: 'solid', marginBottom: '12px', pageBreakInside: 'avoid', breakInside: 'avoid' }}>
+          <p className="text-sm font-semibold text-amber-700 print:text-sm print:font-semibold print:text-amber-700" style={{ fontSize: '14px', fontWeight: '600', margin: '0 0 8px 0', color: '#b45309' }}>{t('worksheets.earlyFoundations.practiceWriting')}</p>
+          <p className="mt-2 text-xs text-amber-600 print:mt-2 print:text-xs print:text-amber-600" style={{ fontSize: '12px', lineHeight: '16px', marginTop: '8px', marginBottom: '4px', color: '#d97706' }}>{t('worksheets.earlyFoundations.writeName')} ________________________</p>
+          <p className="mt-1 text-xs text-amber-600 print:mt-1 print:text-xs print:text-amber-600" style={{ fontSize: '12px', lineHeight: '16px', marginTop: '4px', marginBottom: '0', color: '#d97706' }}>{t('worksheets.earlyFoundations.countTo10')} ________________________________</p>
         </div>
       </div>
     )
@@ -2330,18 +2330,18 @@ const renderers: Record<string, Renderer> = {
       { skill: 'Patterns', examples: pickMany(rng, ['AB pattern', 'ABC pattern', 'Color patterns'], 3) },
     ]
     return (
-      <div className="space-y-3">
-        <p className="text-sm text-slate-600">
+      <div className="space-y-3 print:space-y-3" style={{ fontSize: '16px', lineHeight: '24px', marginTop: '0', marginBottom: '0' }}>
+        <p className="text-sm text-slate-600 print:text-sm print:text-slate-600" style={{ fontSize: '14px', lineHeight: '20px', margin: '0 0 12px 0' }}>
           {t('worksheets.earlyBasics.instructions')}
         </p>
         {skills.map((skillGroup, idx) => (
-          <div key={idx} className="rounded-xl border border-indigo-200 bg-indigo-50 p-4">
-            <p className="text-sm font-semibold text-indigo-700">{skillGroup.skill}</p>
-            <div className="mt-2 space-y-2">
+          <div key={idx} className="rounded-xl border border-indigo-200 bg-indigo-50 p-4 print:rounded-xl print:border print:border-indigo-200 print:bg-indigo-50 print:p-4 break-inside-avoid" style={{ WebkitPrintColorAdjust: 'exact', printColorAdjust: 'exact', backgroundColor: '#eef2ff', borderColor: '#c7d2fe', padding: '16px', borderRadius: '12px', borderWidth: '1px', borderStyle: 'solid', marginBottom: '12px', pageBreakInside: 'avoid', breakInside: 'avoid' }}>
+            <p className="text-sm font-semibold text-indigo-700 print:text-sm print:font-semibold print:text-indigo-700" style={{ fontSize: '14px', fontWeight: '600', margin: '0 0 8px 0', color: '#4338ca' }}>{skillGroup.skill}</p>
+            <div className="mt-2 space-y-2 print:mt-2 print:space-y-2" style={{ marginTop: '8px', display: 'flex', flexDirection: 'column', gap: '8px' }}>
               {skillGroup.examples.map((example, exIdx) => (
-                <div key={exIdx} className="rounded border border-indigo-300 bg-white px-3 py-2">
-                  <p className="text-xs text-indigo-800">{example}</p>
-                  <div className="mt-1 h-8 rounded border border-dashed border-indigo-300" />
+                <div key={exIdx} className="rounded border border-indigo-300 bg-white px-3 py-2 print:rounded print:border print:border-indigo-300 print:bg-white print:px-3 print:py-2" style={{ WebkitPrintColorAdjust: 'exact', printColorAdjust: 'exact', backgroundColor: '#ffffff', borderColor: '#a5b4fc', borderWidth: '1px', borderStyle: 'solid', padding: '8px 12px', borderRadius: '8px' }}>
+                  <p className="text-xs text-indigo-800 print:text-xs print:text-indigo-800" style={{ fontSize: '12px', lineHeight: '16px', margin: '0 0 4px 0', color: '#3730a3' }}>{example}</p>
+                  <div className="mt-1 h-8 rounded border border-dashed border-indigo-300 print:mt-1 print:h-8 print:rounded print:border print:border-dashed print:border-indigo-300" style={{ WebkitPrintColorAdjust: 'exact', printColorAdjust: 'exact', backgroundColor: '#ffffff', borderColor: '#818cf8', borderWidth: '1px', borderStyle: 'dashed', height: '32px', borderRadius: '8px', marginTop: '4px' }} />
                 </div>
               ))}
             </div>
