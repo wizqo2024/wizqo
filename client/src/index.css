@@ -487,12 +487,40 @@ html {
   }
   
   /* Hide non-print elements - BUT preserve decorative UI elements */
+  /* CRITICAL: Hide all print:hidden elements including back links and print buttons */
   .print\\:hidden:not([class*="corner"]):not([class*="accent"]):not([class*="decoration"]),
   [class*="print:hidden"]:not([class*="corner"]):not([class*="accent"]):not([class*="decoration"]),
-  button,
+  [class*="print:hidden"],
+  .print\\:hidden,
+  button:not([class*="print:block"]):not([class*="print:flex"]),
   nav,
-  header:not(.print-header) {
+  header:not(.print-header):not(.wizqo-print-header) {
     display: none !important;
+    visibility: hidden !important;
+  }
+  
+  /* Specifically hide back links and print buttons in print */
+  /* Hide navigation links and print buttons that should not appear in print */
+  [data-worksheet-content="true"] div[class*="print:hidden"] a,
+  [data-worksheet-content="true"] div[class*="print:hidden"] button,
+  [data-worksheet-content="true"] header[class*="print:hidden"],
+  [data-worksheet-content="true"] header[class*="print:hidden"] a,
+  [data-worksheet-content="true"] header[class*="print:hidden"] button,
+  [data-worksheet-content="true"] a[href*="times-table-multiplication-worksheets"],
+  [data-worksheet-content="true"] a[href*="worksheets"],
+  [data-worksheet-content="true"] a[href*="printables"],
+  [data-worksheet-content="true"] button[onclick*="print"],
+  [data-worksheet-content="true"] button[onclick*="window.print"] {
+    display: none !important;
+    visibility: hidden !important;
+    opacity: 0 !important;
+  }
+  
+  /* Hide the entire container div that holds back link and print button */
+  [data-worksheet-content="true"] div.mb-4[class*="print:hidden"],
+  [data-worksheet-content="true"] div[class*="mb-4"][class*="print:hidden"] {
+    display: none !important;
+    visibility: hidden !important;
   }
   
   /* CRITICAL: Show decorative corner accents in print - they're part of the UI design */
@@ -4102,6 +4130,39 @@ section[data-interactive-section="true"].preserve-print-styling [class*="h-48"] 
   [data-worksheet-content="true"] .answer-key span,
   [data-worksheet-content="true"] .answer-key [class*="text-"] {
     display: inline-block !important;
+  }
+  
+  /* ============================================================================
+   * FINAL OVERRIDE: Hide navigation and print buttons in print
+   * These should NEVER appear in print layout
+   * ============================================================================ */
+  
+  /* Hide back links and print buttons - ultimate override */
+  /* Target all elements with print:hidden class that contain navigation */
+  [data-worksheet-content="true"] div[class*="print:hidden"],
+  [data-worksheet-content="true"] header[class*="print:hidden"],
+  [data-worksheet-content="true"] a[href*="times-table"],
+  [data-worksheet-content="true"] a[href*="multiplication-worksheets"],
+  [data-worksheet-content="true"] a[href*="worksheets"],
+  [data-worksheet-content="true"] a[href*="printables"]:not([href="#"]),
+  [data-worksheet-content="true"] button[onclick*="window.print"],
+  [data-worksheet-content="true"] button[onclick*="print"] {
+    display: none !important;
+    visibility: hidden !important;
+    opacity: 0 !important;
+    height: 0 !important;
+    width: 0 !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    overflow: hidden !important;
+  }
+  
+  /* Hide parent containers - target by class patterns */
+  [data-worksheet-content="true"] > div.mb-4[class*="print:hidden"],
+  [data-worksheet-content="true"] > div[class*="mb-4"][class*="print:hidden"],
+  [data-worksheet-content="true"] > header[class*="print:hidden"] {
+    display: none !important;
+    visibility: hidden !important;
   }
 }
 
