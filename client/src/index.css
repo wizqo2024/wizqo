@@ -1280,21 +1280,44 @@ section[data-interactive-section="true"].preserve-print-styling [class*="h-48"] 
   box-sizing: border-box !important;
 }
 
-/* Preserve spacing in seasonal cards */
-section[data-interactive-section="true"].preserve-print-styling .print-season-card .mb-2,
-section[data-interactive-section="true"].preserve-print-styling .print-season-card [class*="mb-2"] {
-  margin-bottom: 8px !important;
-}
+  /* Preserve spacing in seasonal cards */
+  section[data-interactive-section="true"].preserve-print-styling .print-season-card .mb-2,
+  section[data-interactive-section="true"].preserve-print-styling .print-season-card [class*="mb-2"] {
+    margin-bottom: 8px !important;
+  }
 
-section[data-interactive-section="true"].preserve-print-styling .print-season-card .mt-1,
-section[data-interactive-section="true"].preserve-print-styling .print-season-card [class*="mt-1"] {
-  margin-top: 4px !important;
-}
+  section[data-interactive-section="true"].preserve-print-styling .print-season-card .mt-1,
+  section[data-interactive-section="true"].preserve-print-styling .print-season-card [class*="mt-1"] {
+    margin-top: 4px !important;
+  }
 
-section[data-interactive-section="true"].preserve-print-styling .print-season-card .mt-2,
-section[data-interactive-section="true"].preserve-print-styling .print-season-card [class*="mt-2"] {
-  margin-top: 8px !important;
-}
+  section[data-interactive-section="true"].preserve-print-styling .print-season-card .mt-2,
+  section[data-interactive-section="true"].preserve-print-styling .print-season-card [class*="mt-2"] {
+    margin-top: 8px !important;
+  }
+  
+  /* Hide SVG dotted boxes in seasonal worksheet drawing areas in print */
+  section[data-interactive-section="true"].preserve-print-styling .print-season-card svg,
+  section[data-interactive-section="true"].preserve-print-styling .print-season-card [class*="print:hidden"] svg,
+  [data-worksheet-content="true"] .print-season-card svg,
+  [data-worksheet-content="true"] .print-season-card [class*="print:hidden"] svg {
+    display: none !important;
+    visibility: hidden !important;
+    opacity: 0 !important;
+  }
+  
+  /* Ensure drawing area is clean white space in print */
+  section[data-interactive-section="true"].preserve-print-styling .print-season-card [class*="h-48"],
+  [data-worksheet-content="true"] .print-season-card [class*="h-48"] {
+    background-color: #ffffff !important;
+    border: 2px solid #86efac !important;
+    border-radius: 8px !important;
+  }
+  
+  section[data-interactive-section="true"].preserve-print-styling .print-season-card [class*="h-48"] svg,
+  [data-worksheet-content="true"] .print-season-card [class*="h-48"] svg {
+    display: none !important;
+  }
   
   [data-worksheet-content="true"] .worksheet-section > div:not(.print-ignore-inner-border):not([class*="border-"]):not([class*="print:border"]):not([class*="no-border"]),
   /* REMOVED: This rule was adding borders to all question-section divs - causing unwanted borders */

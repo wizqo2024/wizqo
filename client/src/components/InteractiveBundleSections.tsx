@@ -5439,7 +5439,7 @@ const renderers: Record<string, Renderer> = {
                   <p className="text-3xl" style={{ fontSize: '30px', lineHeight: '1', margin: '0' }}>{season.emoji}</p>
                 </div>
                 <div
-                  className="h-48 rounded border-2 border-green-300 bg-white print-block-outline print-block-outline-strong flex items-center justify-center"
+                  className="h-48 rounded border-2 border-green-300 bg-white print-block-outline print-block-outline-strong"
                   style={{ 
                     pageBreakInside: 'avoid', 
                     breakInside: 'avoid', 
@@ -5455,14 +5455,12 @@ const renderers: Record<string, Renderer> = {
                     backgroundColor: '#ffffff',
                     borderRadius: '8px',
                     WebkitPrintColorAdjust: 'exact',
-                    printColorAdjust: 'exact',
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'center'
+                    printColorAdjust: 'exact'
                   }}
                 >
-                  {/* Drawing area - SVG outline removed for clean print layout */}
-                  <div className="print:hidden">
+                  {/* Drawing area - clean white space for drawing, no SVG outline in print */}
+                  <div className="hidden print:block" style={{ width: '100%', height: '100%' }} aria-label={drawAreaLabel}></div>
+                  <div className="print:hidden flex items-center justify-center" style={{ width: '100%', height: '100%' }}>
                     <svg
                       viewBox="0 0 400 260"
                       className="w-full h-full text-green-400"
