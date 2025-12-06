@@ -5381,21 +5381,38 @@ const renderers: Record<string, Renderer> = {
       { name: 'Fall', nameKey: 'fall', themes: ['leaves', 'pumpkins', 'apples'], emoji: '🍂' },
       { name: 'Winter', nameKey: 'winter', themes: ['snowflakes', 'snowman', 'mittens'], emoji: '❄️' },
     ], 2)
+    const descriptionText = translateWithFallback(
+      t,
+      'interactive.interactive-art-seasonal.description',
+      'Color these seasonal pictures! Each season has its own special themes and colors.'
+    )
+    const coloringLabel = translateWithFallback(t, 'interactive.interactive-art-seasonal.coloring', 'Coloring')
+    const themesLabel = translateWithFallback(t, 'interactive.interactive-art-seasonal.themes', 'Themes:')
     return (
       <div className="space-y-4">
-        <p className="text-sm text-slate-600">{t('interactive.interactive-art-seasonal.description')}</p>
+        <p className="text-sm text-slate-600">{descriptionText}</p>
         <div className="grid gap-4 md:grid-cols-2">
           {seasons.map((season, idx) => {
-            const seasonName = t(`interactive.interactive-art-seasonal.seasons.${season.nameKey}`)
-            const drawAndColorText = t('interactive.interactive-art-seasonal.drawAndColor').replace('{{season}}', seasonName)
-            const useColorsText = t('interactive.interactive-art-seasonal.useColors').replace('{{season}}', seasonName)
+            const seasonName = translateWithFallback(t, `interactive.interactive-art-seasonal.seasons.${season.nameKey}`, season.name.toLowerCase())
+            const drawAndColorTemplate = translateWithFallback(
+              t,
+              'interactive.interactive-art-seasonal.drawAndColor',
+              'Draw and color a {{season}} scene!'
+            )
+            const useColorsTemplate = translateWithFallback(
+              t,
+              'interactive.interactive-art-seasonal.useColors',
+              'Use colors that remind you of {{season}}!'
+            )
+            const drawAndColorText = drawAndColorTemplate.replace('{{season}}', seasonName)
+            const useColorsText = useColorsTemplate.replace('{{season}}', seasonName)
             return (
               <div key={idx} className="rounded-xl border border-green-200 bg-green-50 p-4">
                 <div className="flex items-center gap-2 mb-2">
                   <span className="text-2xl">{season.emoji}</span>
-                  <p className="text-sm font-semibold text-green-700">{season.name} {t('interactive.interactive-art-seasonal.coloring')}</p>
+                  <p className="text-sm font-semibold text-green-700">{season.name} {coloringLabel}</p>
                 </div>
-                <p className="text-xs text-green-600 mb-2">{t('interactive.interactive-art-seasonal.themes')} {season.themes.join(', ')}</p>
+                <p className="text-xs text-green-600 mb-2">{themesLabel} {season.themes.join(', ')}</p>
                 <div className="mb-2 flex items-center justify-center">
                   <p className="text-3xl">{season.emoji}</p>
                 </div>
