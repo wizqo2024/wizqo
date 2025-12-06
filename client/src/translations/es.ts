@@ -2355,503 +2355,503 @@ export const es = {
           button: 'Crear hojas de trabajo',
         },
     'interactive-art-colorwheel': {
-            title: 'ممارسة نظرية الألوان',
-            description: 'لون الصور بالألوان الصحيحة. تعلم الألوان أثناء الاستمتاع!',
+            title: 'Práctica de Teoría del Color',
+            description: 'Colorea imágenes con los colores correctos. ¡Aprende colores mientras te diviertes!',
           },
 
     'interactive-art-design': {
-            title: 'تحدي التصميم الإبداعي',
-            description: 'صفحات تلوين ممتعة مع صور بسيطة للتلوين. مثالي للفنانين الصغار!',
+            title: 'Desafío de Diseño Creativo',
+            description: 'Páginas de colorear divertidas con imágenes simples para colorear. ¡Perfecto para artistas jóvenes!',
           },
 
     'interactive-art-patterns': {
-            title: 'فن الأنماط والتماثل',
-            description: 'أنشئ أنماطاً واستكشف التماثل من خلال أنشطة الرسم والتلوين.',
+            title: 'Arte de Patrones y Simetría',
+            description: 'Crea patrones y explora la simetría a través de actividades de dibujo y coloreado.',
           },
 
     'interactive-art-perspective': {
-            title: 'ممارسة الفن والمنظور',
-            description: 'تعلم عن المنظور والتظليل والتقنيات الفنية من خلال التمارين الموجهة.',
+            title: 'Práctica de Arte y Perspectiva',
+            description: 'Aprende sobre perspectiva, sombreado y técnicas artísticas a través de ejercicios guiados.',
           },
 
     'interactive-art-shapes': {
-            title: 'فن الأشكال والرسم',
-            description: 'أنشئ فناً باستخدام الأشكال الأساسية. ارسم ولون الأشكال لصنع صور.',
+            title: 'Arte y Dibujo de Formas',
+            description: 'Crea arte usando formas básicas. Dibuja y colorea formas para hacer imágenes.',
           },
 
     'interactive-art-sketch': {
-            title: 'الرسم والمراقبة',
-            description: 'مطالبات رسم بسيطة مع تلميحات مفيدة. ارسم واستمتع!',
+            title: 'Boceto y Observación',
+            description: 'Indicadores de dibujo simples con pistas útiles. ¡Dibuja y diviértete!',
           },
 
     'interactive-cognitive-attention': {
-            title: 'باني الانتباه والتركيز',
-            description: 'طور الانتباه والتركيز المستدام من خلال المسح البصري وتمارين البحث عن الاختلافات والتركيز.',
+            title: 'Constructor de Atención y Enfoque',
+            description: 'Desarrolla atención sostenida y enfoque a través de escaneo visual, busca las diferencias y ejercicios de concentración.',
           },
 
     'interactive-cognitive-executive': {
-            title: 'ممارسة الوظيفة التنفيذية',
-            description: 'ابنِ مهارات التخطيط والتنظيم وإكمال المهام مع الأنشطة المنظمة وتمارين تحديد الأهداف.',
+            title: 'Práctica de Función Ejecutiva',
+            description: 'Desarrolla habilidades de planificación, organización y finalización de tareas con actividades estructuradas y ejercicios de establecimiento de metas.',
           },
 
     'interactive-cognitive-flexibility': {
-            title: 'ممارسة المرونة المعرفية',
-            description: 'طور المرونة العقلية بالتبديل بين المهام والتكيف مع القواعد الجديدة والتفكير من وجهات نظر متعددة.',
+            title: 'Práctica de Flexibilidad Cognitiva',
+            description: 'Desarrolla flexibilidad mental cambiando entre tareas, adaptándote a nuevas reglas y pensando desde múltiples perspectivas.',
           },
 
     'interactive-cognitive-memory': {
-            title: 'تحدي الذاكرة العاملة',
-            description: 'تدرب على تذكر التسلسلات والأنماط والمعلومات. يقوي الذاكرة العاملة ومهارات الاستدعاء.',
+            title: 'Desafío de Memoria de Trabajo',
+            description: 'Practica recordar secuencias, patrones e información. Fortalece la memoria de trabajo y las habilidades de recuperación.',
           },
 
     'interactive-cognitive-processing': {
-            title: 'تحدي سرعة المعالجة',
-            description: 'حسّن التعرف السريع ووقت الاستجابة من خلال الأنشطة الموقوتة وتمارين التعرف السريع.',
+            title: 'Desafío de Velocidad de Procesamiento',
+            description: 'Mejora el reconocimiento rápido y el tiempo de respuesta a través de actividades cronometradas y ejercicios de identificación rápida.',
           },
 
     'interactive-cognitive-visual': {
-            title: 'مهارات المعالجة البصرية',
-            description: 'عزز التمييز البصري والاستدلال المكاني والتكامل الحركي البصري من خلال مطابقة الأنماط والمهام المكانية.',
+            title: 'Habilidades de Procesamiento Visual',
+            description: 'Mejora la discriminación visual, el razonamiento espacial y la integración visomotora a través de tareas de coincidencia de patrones y espaciales.',
           },
 
     'interactive-early-basics': {
-            title: 'ممارسة المهارات الأساسية',
-            description: 'مهارات التعلم المبكر الأساسية بما في ذلك أصوات الحروف والعد والأنماط الأساسية.',
+            title: 'Práctica de Habilidades Básicas',
+            description: 'Habilidades esenciales de aprendizaje temprano que incluyen sonidos de letras, conteo y patrones básicos.',
           },
 
     'interactive-early-counting': {
-            title: 'العد والتعرف على الأرقام',
-            description: 'تمارين عد تفاعلية مع ممارسة المراسلة واحد لواحد.',
+            title: 'Conteo y Reconocimiento de Números',
+            description: 'Ejercicios de conteo interactivos con práctica de correspondencia uno a uno.',
           },
 
     'interactive-early-foundations': {
-            title: 'مراجعة المهارات الأساسية',
-            description: 'راجع مهارات التعرف الأساسية على الحروف والأرقام والأشكال. مثالي للمعالجة أو المراجعة.',
+            title: 'Revisión de Habilidades Fundamentales',
+            description: 'Revisa habilidades básicas de reconocimiento de letras, números y formas. Perfecto para remediación o revisión.',
           },
 
     'interactive-early-letters': {
-            title: 'ممارسة تكوين الحروف',
-            description: 'تتبع واكتب الأحرف الكبيرة والصغيرة مع ممارسة موجهة.',
+            title: 'Práctica de Formación de Letras',
+            description: 'Traza y escribe letras mayúsculas y minúsculas con práctica guiada.',
           },
 
     'interactive-early-numbers': {
-            title: 'كتابة الأرقام والتعرف عليها',
-            description: 'تدرب على كتابة الأرقام من 1 إلى 20 ومطابقة الكميات بالأرقام.',
+            title: 'Escritura y Reconocimiento de Números',
+            description: 'Practica escribir números del 1 al 20 y emparejar cantidades con numerales.',
           },
 
     'interactive-early-patterns': {
-            title: 'مستكشف التعرف على الأنماط',
-            description: 'أكمل وأنشئ أنماطاً بالألوان والأشكال والأرقام.',
+            title: 'Explorador de Reconocimiento de Patrones',
+            description: 'Completa y crea patrones con colores, formas y números.',
           },
 
     'interactive-early-phonics': {
-            title: 'ممارسة ممتعة للفونيكس',
-            description: 'أصوات الحروف والأصوات الأولية وممارسة كلمات CVC. كل ورقة تركز على أصوات مختلفة.',
+            title: 'Práctica Divertida de Fonética',
+            description: 'Sonidos de letras, sonidos iniciales y práctica de palabras CVC. Cada hoja se enfoca en diferentes sonidos.',
           },
 
     'interactive-early-shapes': {
-            title: 'مستكشف الأشكال والألوان',
-            description: 'حدد وطابق الأشكال والألوان مع أنشطة التصنيف التفاعلية.',
+            title: 'Explorador de Formas y Colores',
+            description: 'Identifica y empareja formas y colores con actividades de clasificación interactivas.',
           },
 
     'interactive-geography-continents': {
-            title: 'مستكشف القارات والمحيطات',
-            description: 'تعلم عن القارات السبع والمحيطات الخمسة مع الخرائط والأنشطة.',
+            title: 'Explorador de Continentes y Océanos',
+            description: 'Aprende sobre los siete continentes y cinco océanos con mapas y actividades.',
           },
 
     'interactive-geography-culture': {
-            title: 'مستكشف الثقافات',
-            description: 'تعلم عن الثقافات والتقاليد والمجتمعات المختلفة حول العالم.',
+            title: 'Explorador de Culturas',
+            description: 'Aprende sobre diferentes culturas, tradiciones y comunidades alrededor del mundo.',
           },
 
     'interactive-geography-economics': {
-            title: 'أساسيات الاقتصاد',
-            description: 'استكشف العرض والطلب والميزانية والثقافة المالية والأنظمة الاقتصادية.',
+            title: 'Fundamentos de Economía',
+            description: 'Explora oferta y demanda, presupuesto, alfabetización financiera y sistemas económicos.',
           },
 
     'interactive-geography-government': {
-            title: 'مستكشف المواطنة والحكومة',
-            description: 'تعلم عن هيكل الحكومة والمواطنة والحقوق والمسؤوليات.',
+            title: 'Explorador de Civismo y Gobierno',
+            description: 'Aprende sobre la estructura del gobierno, ciudadanía, derechos y responsabilidades.',
           },
 
     'interactive-geography-history': {
-            title: 'باني الخط الزمني التاريخي',
-            description: 'أنشئ خطوطاً زمنية وتعلم عن الأحداث والشخصيات التاريخية.',
+            title: 'Constructor de Línea de Tiempo Histórica',
+            description: 'Crea líneas de tiempo y aprende sobre eventos históricos y figuras.',
           },
 
     'interactive-geography-map': {
-            title: 'مهارات الخرائط التفاعلية',
-            description: 'تدرب على قراءة الخرائط واستخدام المفاتيح وتحديد المواقع. كل ورقة تتميز بخرائط مختلفة.',
+            title: 'Habilidades de Mapas Interactivos',
+            description: 'Practica leer mapas, usar leyendas e identificar ubicaciones. Cada hoja presenta diferentes mapas.',
           },
 
     'interactive-geography-places': {
-            title: 'الأماكن والمعالم',
-            description: 'تعلم عن الأماكن والمعالم والمواقع المهمة في مجتمعك وبلدك.',
+            title: 'Lugares y Puntos de Referencia',
+            description: 'Aprende sobre lugares importantes, puntos de referencia y ubicaciones en tu comunidad y país.',
           },
 
     'interactive-geography-prek': {
-            title: 'مستكشف مجتمعي',
-            description: 'تعلم عن الأماكن في المجتمع والمنزل والمدرسة مع خرائط وصور بسيطة.',
+            title: 'Explorador de Mi Comunidad',
+            description: 'Aprende sobre lugares en la comunidad, el hogar y la escuela con mapas simples e imágenes.',
           },
 
     'interactive-geography-seasons': {
-            title: 'الفصول والطقس حول العالم',
-            description: 'تعلم عن الفصول المختلفة وأنماط الطقس وكيف تختلف في أماكن مختلفة.',
+            title: 'Estaciones y Clima Alrededor del Mundo',
+            description: 'Aprende sobre diferentes estaciones, patrones climáticos y cómo varían en diferentes lugares.',
           },
 
     'interactive-grammar-advanced': {
-            title: 'ممارسة النحو المتقدمة',
-            description: 'تدرب على تراكيب الجمل المعقدة والعبارات والجمل وعلامات الترقيم المتقدمة.',
+            title: 'Práctica Avanzada de Gramática',
+            description: 'Practica estructuras de oraciones complejas, cláusulas, frases y puntuación avanzada.',
           },
 
     'interactive-grammar-antonyms': {
-            title: 'تحدي المرادفات والمتضادات',
-            description: 'طابق الكلمات مع المرادفات والمتضادات لتوسيع المفردات.',
+            title: 'Desafío de Sinónimos y Antónimos',
+            description: 'Empareja palabras con sinónimos y antónimos para expandir el vocabulario.',
           },
 
     'interactive-grammar-capitalization': {
-            title: 'الحروف الكبيرة وعلامات الترقيم',
-            description: 'تدرب على الاستخدام الصحيح للحروف الكبيرة وعلامات الترقيم في الجمل.',
+            title: 'Mayúsculas y Puntuación',
+            description: 'Practica el uso correcto de mayúsculas y puntuación en oraciones.',
           },
 
     'interactive-grammar-parts': {
-            title: 'ممارسة أجزاء الكلام',
-            description: 'حدد الأسماء والأفعال والصفات والظروف في الجمل. كل ورقة تحتوي على جمل جديدة.',
+            title: 'Práctica de Partes de la Oración',
+            description: 'Identifica sustantivos, verbos, adjetivos y adverbios en oraciones. Cada hoja tiene nuevas oraciones.',
           },
 
     'interactive-grammar-plurals': {
-            title: 'الجمع والملكية',
-            description: 'تعلم تكوين الجمع والملكية بشكل صحيح.',
+            title: 'Plurales y Posesivos',
+            description: 'Aprende a formar plurales y posesivos correctamente.',
           },
 
     'interactive-grammar-prek': {
-            title: 'مطابقة الكلمات والصور',
-            description: 'طابق الكلمات البسيطة مع الصور وحدد أنواع الكلمات الأساسية.',
+            title: 'Emparejamiento de Palabras e Imágenes',
+            description: 'Empareja palabras simples con imágenes e identifica tipos básicos de palabras.',
           },
 
     'interactive-grammar-rhyming': {
-            title: 'ممارسة الكلمات المقفاة',
-            description: 'حدد وطابق الكلمات المقفاة من خلال أنشطة ممتعة.',
+            title: 'Práctica de Palabras que Riman',
+            description: 'Identifica y empareja palabras que riman a través de actividades divertidas.',
           },
 
     'interactive-grammar-tenses': {
-            title: 'إتقان أزمنة الأفعال',
-            description: 'تدرب على الأزمنة الماضية والحاضرة والمستقبلية مع تمارين تصريف الأفعال.',
+            title: 'Dominio de Tiempos Verbales',
+            description: 'Practica tiempos pasado, presente y futuro con ejercicios de conjugación de verbos.',
           },
 
     'interactive-grammar-vocab': {
-            title: 'باني المفردات الأكاديمية',
-            description: 'تعلم ومارس كلمات المفردات الأكاديمية مع أدلة السياق وتمارين الاستخدام.',
+            title: 'Constructor de Vocabulario Académico',
+            description: 'Aprende y practica palabras de vocabulario académico con pistas de contexto y ejercicios de uso.',
           },
 
     'interactive-logic-deduction': {
-            title: 'مهمة الاستدلال الاستنتاجي',
-            description: 'استخدم الأدلة لحل الألغاز والأحاجي المنطقية.',
+            title: 'Búsqueda de Razonamiento Deductivo',
+            description: 'Usa pistas para resolver misterios y rompecabezas lógicos.',
           },
 
     'interactive-logic-prek': {
-            title: 'الأنماط والتصنيف البسيطة',
-            description: 'أكمل الأنماط البسيطة وصنف الكائنات حسب اللون أو الحجم أو النوع.',
+            title: 'Patrones y Clasificación Simples',
+            description: 'Completa patrones simples y clasifica objetos por color, tamaño o tipo.',
           },
 
     'interactive-logic-riddles': {
-            title: 'الألغاز والأحاجي',
-            description: 'حل الألغاز والأحاجي بمستويات صعوبة مختلفة.',
+            title: 'Adivinanzas y Acertijos',
+            description: 'Resuelve adivinanzas y acertijos con niveles de dificultad variables.',
           },
 
     'interactive-logic-sequence': {
-            title: 'تحدي التسلسل',
-            description: 'رتب الأحداث والخطوات والأنماط منطقياً. كل ورقة تحتوي على تسلسلات فريدة.',
+            title: 'Desafío de Secuenciación',
+            description: 'Ordena eventos, pasos y patrones lógicamente. Cada hoja tiene secuencias únicas.',
           },
 
     'interactive-math-algebra': {
-            title: 'ممارسة أساسيات الجبر',
-            description: 'حل المعادلات واعمل مع المتغيرات ومارس التعبيرات الجبرية.',
+            title: 'Práctica de Fundamentos de Álgebra',
+            description: 'Resuelve ecuaciones, trabaja con variables y practica expresiones algebraicas.',
           },
 
     'interactive-math-decimals': {
-            title: 'عمليات الكسور العشرية',
-            description: 'اجمع واطرح واضرب واقسم الكسور العشرية مع تطبيقات من العالم الحقيقي.',
+            title: 'Operaciones con Decimales',
+            description: 'Suma, resta, multiplica y divide decimales con aplicaciones del mundo real.',
           },
 
     'interactive-math-division': {
-            title: 'ممارسة القسمة',
-            description: 'تعلم حقائق القسمة واستخدم المصفوفات وحل مسائل القسمة اللفظية.',
+            title: 'Práctica de División',
+            description: 'Aprende hechos de división, usa matrices y resuelve problemas de palabras de división.',
           },
 
     'interactive-math-exponents': {
-            title: 'الأسس والقوى',
-            description: 'افهم الأسس والقوى والتدوين العلمي.',
+            title: 'Exponentes y Potencias',
+            description: 'Comprende exponentes, potencias y notación científica.',
           },
 
     'interactive-math-fractions': {
-            title: 'ممارسة ممتعة للكسور',
-            description: 'قارن الكسور وابحث عن المكافئات وحل عمليات الكسور.',
+            title: 'Práctica Divertida de Fracciones',
+            description: 'Compara fracciones, encuentra equivalentes y resuelve operaciones con fracciones.',
           },
 
     'interactive-math-geometry': {
-            title: 'تحدي الهندسة المتقدمة',
-            description: 'احسب المساحة والمحيط والحجم واعمل مع الزوايا والتحويلات.',
+            title: 'Desafío Avanzado de Geometría',
+            description: 'Calcula área, perímetro, volumen y trabaja con ángulos y transformaciones.',
           },
 
     'interactive-math-graphing': {
-            title: 'ممارسة البيانات والرسوم البيانية',
-            description: 'أنشئ رسوم بيانية شريطية ورسوم بيانية مصورة ومخططات خطية من مجموعات البيانات.',
+            title: 'Práctica de Datos y Gráficos',
+            description: 'Crea gráficos de barras, pictogramas y gráficos de líneas a partir de conjuntos de datos.',
           },
 
     'interactive-math-integers': {
-            title: 'الأعداد الصحيحة وخط الأعداد',
-            description: 'اعمل مع الأعداد الموجبة والسالبة والقيمة المطلقة ومستوى الإحداثيات.',
+            title: 'Enteros y Recta Numérica',
+            description: 'Trabaja con números positivos y negativos, valor absoluto y plano de coordenadas.',
           },
 
     'interactive-math-measurement': {
-            title: 'مهمة القياس',
-            description: 'تدرب على تحويلات قياس الطول والوزن والحجم والوقت.',
+            title: 'Misión de Medición',
+            description: 'Practica conversiones de medida de longitud, peso, volumen y tiempo.',
           },
 
     'interactive-math-money': {
-            title: 'إتقان رياضيات المال',
-            description: 'عد العملات المعدنية واصنع الباقي وحل مسائل المال اللفظية.',
+            title: 'Dominio de Matemáticas con Dinero',
+            description: 'Cuenta monedas, haz cambio y resuelve problemas de palabras con dinero.',
           },
 
     'interactive-math-multiplication': {
-            title: 'إتقان الضرب',
-            description: 'تدرب على حقائق الضرب والمصفوفات ومسائل الضرب اللفظية.',
+            title: 'Dominio de Multiplicación',
+            description: 'Practica hechos de multiplicación, matrices y problemas de palabras de multiplicación.',
           },
 
     'interactive-math-percentages': {
-            title: 'إتقان النسب المئوية والنسب',
-            description: 'احسب النسب المئوية واعمل مع النسب وحل مسائل التناسب.',
+            title: 'Dominio de Porcentajes y Razones',
+            description: 'Calcula porcentajes, trabaja con razones y resuelve problemas de proporción.',
           },
 
     'interactive-math-rhythm': {
-            title: 'إيقاع الأنماط الرقمية',
-            description: 'أكمل الأنماط الرقمية مع تسلسلات العد بالقفز. كل ورقة تولد أنماطاً فريدة.',
+            title: 'Ritmo de Patrones Numéricos',
+            description: 'Completa patrones numéricos con secuencias de conteo saltado. Cada hoja genera patrones únicos.',
           },
 
     'interactive-math-rounding': {
-            title: 'تقريب الأرقام',
-            description: 'قرّب الأرقام لأقرب عشرة ومئة وألف.',
+            title: 'Redondeo de Números',
+            description: 'Redondea números a la decena, centena y millar más cercanos.',
           },
 
     'interactive-math-shapes': {
-            title: 'تحدي الأشكال الهندسية',
-            description: 'حدد وعد وصنف الأشكال مع تمارين تفاعلية.',
+            title: 'Desafío de Formas Geométricas',
+            description: 'Identifica, cuenta y clasifica formas con ejercicios interactivos.',
           },
 
     'interactive-math-statistics': {
-            title: 'مستكشف البيانات والإحصاءات',
-            description: 'حلل مجموعات البيانات وأنشئ رسوم بيانية واحسب المتوسط والوسيط والمنوال وفسر الإحصاءات.',
+            title: 'Explorador de Datos y Estadísticas',
+            description: 'Analiza conjuntos de datos, crea gráficos, calcula media, mediana, moda e interpreta estadísticas.',
           },
 
     'interactive-math-tens-frames': {
-            title: 'ممارسة إطارات العشرة',
-            description: 'استخدم إطارات العشرة لفهم الأرقام والجمع والطرح بصرياً.',
+            title: 'Práctica de Marcos de Diez',
+            description: 'Usa marcos de diez para entender números, suma y resta visualmente.',
           },
 
     'interactive-math-time': {
-            title: 'ممارسة الوقت والساعة',
-            description: 'اقرأ الساعات التناظرية والرقمية واحسب الوقت المنقضي وحل مسائل الوقت اللفظية.',
+            title: 'Práctica de Tiempo y Reloj',
+            description: 'Lee relojes analógicos y digitales, calcula tiempo transcurrido y resuelve problemas de palabras de tiempo.',
           },
 
     'interactive-math-word-problems': {
-            title: 'مسائل متعددة الخطوات',
-            description: 'حل مسائل لفظية معقدة تتطلب خطوات متعددة والتفكير النقدي.',
+            title: 'Problemas de Palabras Multi-Paso',
+            description: 'Resuelve problemas de palabras complejos que requieren múltiples pasos y pensamiento crítico.',
           },
 
     'interactive-reading-adventure': {
-            title: 'مهمة مغامرة القراءة',
-            description: 'مقتطفات قصص تفاعلية مع أسئلة الاختيار من متعدد والإجابة القصيرة. كل ورقة تتميز بقصة جديدة.',
+            title: 'Búsqueda de Aventura de Lectura',
+            description: 'Pasajes de historias interactivas con preguntas de opción múltiple y respuesta corta. Cada hoja presenta una nueva historia.',
           },
 
     'interactive-reading-character': {
-            title: 'ورشة تحليل الشخصيات',
-            description: 'حلل سمات الشخصيات والدوافع والتطور في القصص.',
+            title: 'Taller de Análisis de Personajes',
+            description: 'Analiza rasgos de personajes, motivaciones y desarrollo en historias.',
           },
 
     'interactive-reading-compare': {
-            title: 'مقتطفات المقارنة والتباين',
-            description: 'اقرأ نصوصاً متعددة وقارن المواضيع أو الشخصيات أو المعلومات.',
+            title: 'Pasajes de Comparar y Contrastar',
+            description: 'Lee múltiples textos y compara temas, personajes o información.',
           },
 
     'interactive-reading-detective': {
-            title: 'تحدي المحقق القارئ',
-            description: 'ابحث عن الأدلة في النص للإجابة على أسئلة الغموض. ألغاز جديدة في كل مرة.',
+            title: 'Desafío de Detective de Lectura',
+            description: 'Encuentra pistas en el texto para responder preguntas misteriosas. Nuevos misterios cada vez.',
           },
 
     'interactive-reading-fluency': {
-            title: 'ممارسة طلاقة القراءة',
-            description: 'تدرب على القراءة بالتعبير والدقة والسرعة المناسبة. يتضمن تمارين القراءة المتكررة.',
+            title: 'Práctica de Fluidez de Lectura',
+            description: 'Practica leer con expresión, precisión y ritmo apropiado. Incluye ejercicios de lectura repetida.',
           },
 
     'interactive-reading-literary-analysis': {
-            title: 'ورشة التحليل الأدبي',
-            description: 'حلل العناصر الأدبية والمواضيع والرمزية والغرض من المؤلف في النصوص الخيالية.',
+            title: 'Taller de Análisis Literario',
+            description: 'Analiza elementos literarios, temas, simbolismo y propósito del autor en textos de ficción.',
           },
 
     'interactive-reading-prek': {
-            title: 'وقت قصة الصور',
-            description: 'قصص بسيطة قائمة على الصور مع أسئلة نعم/لا وأنشطة فهم أساسية.',
+            title: 'Hora de Cuentos con Imágenes',
+            description: 'Historias simples basadas en imágenes con preguntas de sí/no y actividades básicas de comprensión.',
           },
 
     'interactive-reading-research': {
-            title: 'باني البحث والأدلة',
-            description: 'تدرب على العثور على المصادر وتقييمها واستشهاد الأدلة وبناء الحجج من نصوص متعددة.',
+            title: 'Constructor de Investigación y Evidencia',
+            description: 'Practica encontrar y evaluar fuentes, citar evidencia y construir argumentos a partir de múltiples textos.',
           },
 
     'interactive-reading-sightwords': {
-            title: 'ممارسة كلمات البصر',
-            description: 'تدرب على قراءة وكتابة كلمات البصر الشائعة مع أنشطة ممتعة.',
+            title: 'Práctica de Palabras de Vista',
+            description: 'Practica leer y escribir palabras de vista comunes con actividades divertidas.',
           },
 
     'interactive-reading-storymap': {
-            title: 'بناة خريطة القصة',
-            description: 'أعد سرد قصص خيالية مع منظمات البداية والوسط والنهاية بالإضافة إلى ممارسة جمع الأدلة.',
+            title: 'Constructores de Mapa de Historia',
+            description: 'Reconstruye historias de ficción con organizadores de inicio, medio y final más práctica de recopilación de pistas.',
           },
 
     'interactive-reading-summary': {
-            title: 'الملخص والفكرة الرئيسية',
-            description: 'تدرب على تحديد الأفكار الرئيسية وكتابة ملخصات موجزة.',
+            title: 'Resumen e Idea Principal',
+            description: 'Practica identificar ideas principales y escribir resúmenes concisos.',
           },
 
     'interactive-reading-vocab': {
-            title: 'ورشة باني المفردات',
-            description: 'تمارين أدلة السياق مع مطابقة الكلمات وإكمال الجمل.',
+            title: 'Taller Constructor de Vocabulario',
+            description: 'Ejercicios de pistas de contexto con emparejamiento de palabras y completar oraciones.',
           },
 
     'interactive-science-animals': {
-            title: 'تصنيف الحيوانات',
-            description: 'تعلم عن أنواع الحيوانات المختلفة وموائلها وخصائصها.',
+            title: 'Clasificación de Animales',
+            description: 'Aprende sobre diferentes tipos de animales, sus hábitats y características.',
           },
 
     'interactive-science-chemistry': {
-            title: 'مختبر أساسيات الكيمياء',
-            description: 'استكشف الذرات والجزيئات والتفاعلات الكيميائية والجدول الدوري.',
+            title: 'Laboratorio de Fundamentos de Química',
+            description: 'Explora átomos, moléculas, reacciones químicas y la tabla periódica.',
           },
 
     'interactive-science-ecology': {
-            title: 'دراسة البيئة والبيئة',
-            description: 'استكشف النظم البيئية وشبكات الغذاء والقضايا البيئية والحفظ.',
+            title: 'Estudio de Ecología y Medio Ambiente',
+            description: 'Explora ecosistemas, redes alimentarias, problemas ambientales y conservación.',
           },
 
     'interactive-science-lifecycle': {
-            title: 'مستكشف دورة الحياة',
-            description: 'أوراق عمل تفاعلية تستكشف دورات حياة النباتات والحيوانات.',
+            title: 'Explorador de Ciclo de Vida',
+            description: 'Hojas de trabajo interactivas que exploran ciclos de vida de plantas y animales.',
           },
 
     'interactive-science-observation': {
-            title: 'مجلة المراقبة العلمية',
-            description: 'سجلات مراقبة يومية للتجارب ودراسات الطبيعة. كل ورقة تتميز بمطالبات جديدة.',
+            title: 'Diario de Observación Científica',
+            description: 'Registros de observación diarios para experimentos y estudios de la naturaleza. Cada hoja presenta nuevos indicadores.',
           },
 
     'interactive-science-physics': {
-            title: 'أساسيات الفيزياء',
-            description: 'تعلم عن القوى والحركة والطاقة والآلات البسيطة مع أنشطة عملية.',
+            title: 'Fundamentos de Física',
+            description: 'Aprende sobre fuerzas, movimiento, energía y máquinas simples con actividades prácticas.',
           },
 
     'interactive-science-plants': {
-            title: 'مستكشف النباتات',
-            description: 'تعلم عن النباتات وأجزائها وكيف تنمو من خلال أنشطة بسيطة.',
+            title: 'Explorador de Plantas',
+            description: 'Aprende sobre plantas, sus partes y cómo crecen a través de actividades simples.',
           },
 
     'interactive-science-prek': {
-            title: 'مستكشف الطبيعة',
-            description: 'أنشطة بسيطة لمراقبة الطبيعة مع الصور والأسئلة الأساسية حول النباتات والحيوانات والطقس.',
+            title: 'Explorador de la Naturaleza',
+            description: 'Actividades simples de observación de la naturaleza con imágenes y preguntas básicas sobre plantas, animales y clima.',
           },
 
     'interactive-science-senses': {
-            title: 'مستكشف الحواس الخمس',
-            description: 'استكشف الحواس الخمس من خلال الأنشطة العملية وتمارين المراقبة.',
+            title: 'Explorador de los Cinco Sentidos',
+            description: 'Explora los cinco sentidos a través de actividades prácticas y ejercicios de observación.',
           },
 
     'interactive-science-space': {
-            title: 'مستكشف الفضاء وعلم الفلك',
-            description: 'تعلم عن الكواكب والنجوم وظواهر الفضاء مع الأنشطة التفاعلية.',
+            title: 'Explorador del Espacio y la Astronomía',
+            description: 'Aprende sobre planetas, estrellas y fenómenos espaciales con actividades interactivas.',
           },
 
     'interactive-science-states': {
-            title: 'مختبر حالات المادة',
-            description: 'أنشطة عملية تستكشف الصلب والسائل والغاز مع مخططات المراقبة.',
+            title: 'Laboratorio de Estados de la Materia',
+            description: 'Actividades prácticas que exploran sólido, líquido, gas con gráficos de observación.',
           },
 
     'interactive-science-weather': {
-            title: 'مجلة مراقب الطقس',
-            description: 'تتبع أنماط الطقس ودرجة الحرارة والملاحظات بمرور الوقت.',
+            title: 'Diario Observador del Clima',
+            description: 'Rastrea patrones climáticos, temperatura y observaciones a lo largo del tiempo.',
           },
 
     'interactive-sel-goals': {
-            title: 'تحديد الأهداف والنمو',
-            description: 'حدد وتتبع الأهداف الشخصية والأكاديمية مع خطط العمل.',
+            title: 'Establecimiento de Metas y Crecimiento',
+            description: 'Establece y rastrea metas personales y académicas con planes de acción.',
           },
 
     'interactive-sel-prek': {
-            title: 'مستكشف المشاعر والعواطف',
-            description: 'حدد وعبّر عن المشاعر من خلال الصور والكلمات البسيطة والأنشطة.',
+            title: 'Explorador de Sentimientos y Emociones',
+            description: 'Identifica y expresa sentimientos a través de imágenes, palabras simples y actividades.',
           },
 
     'interactive-writing-argumentative': {
-            title: 'ممارسة الكتابة الجدلية',
-            description: 'طور الحجج مع الادعاءات والأدلة والمنطق. تدرب على مهارات الكتابة الإقناعية.',
+            title: 'Práctica de Escritura Argumentativa',
+            description: 'Desarrolla argumentos con afirmaciones, evidencia y razonamiento. Practica habilidades de escritura persuasiva.',
           },
 
     'interactive-writing-essay': {
-            title: 'ورشة كتابة المقالات',
-            description: 'تدرب على كتابة مقالات منظمة مع بيانات الأطروحة والفقرات الأساسية والاستنتاجات.',
+            title: 'Taller de Escritura de Ensayos',
+            description: 'Practica escribir ensayos estructurados con declaraciones de tesis, párrafos del cuerpo y conclusiones.',
           },
 
     'interactive-writing-informative': {
-            title: 'دليل الكتابة الإعلامية',
-            description: 'تعلم كتابة الفقرات والمقالات الإعلامية مع الحقائق والتفاصيل والتفسيرات.',
+            title: 'Guía de Escritura Informativa',
+            description: 'Aprende a escribir párrafos y ensayos informativos con hechos, detalles y explicaciones.',
           },
 
     'interactive-writing-lowercase-trace': {
-            title: 'ممارسة الخط المرتب – تتبع الأبجدية الصغيرة',
-            description: 'تدرب على تتبع الأحرف الصغيرة مع خطوط إرشادية. مثالي لتطوير مهارات الخط المرتب.',
+            title: 'Práctica de Escritura Ordenada – Trazado del Alfabeto en Minúsculas',
+            description: 'Practica trazar letras minúsculas con líneas guía. Perfecto para desarrollar habilidades de escritura ordenada.',
           },
 
     'interactive-writing-narrative': {
-            title: 'ممارسة الكتابة السردية',
-            description: 'اكتب قصصاً قصيرة مع البداية والوسط والنهاية. يتضمن قوالب تخطيط القصة.',
+            title: 'Práctica de Escritura Narrativa',
+            description: 'Escribe historias cortas con inicio, medio y final. Incluye plantillas de planificación de historias.',
           },
 
     'interactive-writing-opinion': {
-            title: 'إطار كتابة الرأي',
-            description: 'قوالب منظمة لكتابة الرأي مع مطالبات وجمع الأدلة.',
+            title: 'Marco de Escritura de Opinión',
+            description: 'Plantillas estructuradas para escritura de opinión con indicadores y recopilación de evidencia.',
           },
 
     'interactive-writing-pictures': {
-            title: 'مبتدئو قصص الصور',
-            description: 'ارسم صوراً بناءً على مطالبات واكتب جمل بسيطة عما تراه.',
+            title: 'Iniciadores de Historias con Imágenes',
+            description: 'Dibuja imágenes basadas en indicadores y escribe oraciones simples sobre lo que ves.',
           },
 
     'interactive-writing-poetry': {
-            title: 'ممارسة كتابة الشعر',
-            description: 'تمارين شعرية موجهة مع مطالبات القافية والهايكو والقصيدة الحرة.',
+            title: 'Práctica de Escritura de Poesía',
+            description: 'Ejercicios de poesía guiados con indicadores de rima, haiku y verso libre.',
           },
 
     'interactive-writing-prek': {
-            title: 'الرسم والتسمية',
-            description: 'ارسم الصور وضع عليها تسميات بكلمات بسيطة. مثالي للفنانين المبتدئين!',
+            title: 'Dibujo y Etiquetado',
+            description: 'Dibuja imágenes y etiquétalas con palabras simples. ¡Perfecto para artistas principiantes!',
           },
 
     'interactive-writing-prompts': {
-            title: 'مطالبات الكتابة الإبداعية',
-            description: 'مبتدئو قصص فريدون ومطالبات كتابة إبداعية تتغير مع كل جيل.',
+            title: 'Indicadores de Escritura Creativa',
+            description: 'Iniciadores de historias únicos e indicadores de escritura creativa que cambian con cada generación.',
           },
 
     'interactive-writing-research': {
-            title: 'مخطط ورقة البحث',
-            description: 'نظم البحث وأنشئ الخطوط العريضة وبنِ أوراق البحث مع الاستشهادات المناسبة.',
+            title: 'Planificador de Trabajo de Investigación',
+            description: 'Organiza investigación, crea esquemas y estructura trabajos de investigación con citas apropiadas.',
           },
 
     'interactive-writing-sentences': {
-            title: 'ورشة بناء الجمل',
-            description: 'تدرب على بناء جمل كاملة مع تراكيب متنوعة وعلامات الترقيم.',
+            title: 'Taller Constructor de Oraciones',
+            description: 'Practica construir oraciones completas con estructuras variadas y puntuación.',
           },
 
     'interactive-writing-trace': {
-            title: 'تتبع الحروف والكلمات',
-            description: 'تتبع الحروف والكلمات البسيطة لبناء مهارات الكتابة والتعرف على الحروف.',
+            title: 'Trazado de Letras y Palabras',
+            description: 'Traza letras y palabras simples para desarrollar habilidades de escritura y reconocimiento de letras.',
           },
 
       },
@@ -4536,7 +4536,7 @@ export const es = {
       answerKey: 'Las respuestas de los estudiantes pueden variar. Verifica la comprensión de habilidades de amistad, empatía, bondad y respuestas sociales apropiadas a diferentes situaciones.',
     },
     'interactive-sel-gratitude': {
-      title: 'الامتنان والتقدير',
+      title: 'Gratitud y Apreciación',
       description: 'Practica la gratitud a través de actividades de escritura, dibujo y reflexión.',
       gratitudeJournal: 'Diario de Gratitud',
       todayGrateful: 'Hoy estoy agradecido por:',
@@ -4575,8 +4575,8 @@ export const es = {
       answerKey: 'Las respuestas de los estudiantes pueden variar. Evalúa basándote en la simetría, consistencia de patrones, creatividad y reflexión de atención plena. Anima a los estudiantes a comenzar desde el centro y trabajar hacia afuera.',
     },
     'interactive-art-doodle': {
-      title: 'تحدي فن الخربشة',
-      description: '¡Garabatos de forma libre! Sin reglas, solo creatividad. Deja fluir tu imaginación.',
+      title: 'Desafío de Arte Garabateado',
+      description: 'Indicadores de garabateo de forma libre que despiertan la creatividad y la imaginación. ¡Sin reglas, solo diversión!',
       doodleHere: '¡Garabatea aquí!',
       tip: '💡 Consejo: ¡No hay errores en los garabatos! Solo mantén tu lápiz moviéndose y ve qué emerge.',
       prompts: {
@@ -4590,8 +4590,8 @@ export const es = {
       answerKey: 'Las respuestas de los estudiantes pueden variar. ¡No hay respuestas incorrectas en los garabatos! Evalúa basándote en la creatividad, el compromiso y la disposición a experimentar. Anima la expresión libre.',
     },
     'interactive-art-seasonal': {
-      title: 'Páginas para Colorear Estacionales',
-      description: '¡Colorea estas imágenes estacionales! Cada estación tiene sus propios temas y colores especiales.',
+      title: 'Páginas de Colorear Estacionales',
+      description: 'Páginas de colorear temáticas para diferentes estaciones y festividades. Cada hoja presenta diseños estacionales únicos.',
       coloring: 'Colorear',
       themes: 'Temas:',
       drawAndColor: '¡Dibuja y colorea una escena de {{season}}!',
@@ -4605,8 +4605,8 @@ export const es = {
       answerKey: 'Las respuestas de los estudiantes pueden variar. Verifica temas estacionales apropiados, elecciones de color que coincidan con la estación y expresión creativa. Anima a los estudiantes a pensar en lo que hace especial cada estación.',
     },
     'interactive-art-comic': {
-      title: 'منشئ القصص المصورة',
-      description: '¡Crea tu propia tira cómica! Cuenta una historia con imágenes, globos de diálogo y acción.',
+      title: 'Creador de Tiras Cómicas',
+      description: 'Crea tus propias tiras cómicas con paneles, globos de diálogo y personajes. ¡Cuenta una historia visual!',
       comicStrip: 'Tira Cómica: historia de {{theme}}',
       panel: 'Panel {{number}}',
       speechBubble: '💬 Globo de diálogo',
@@ -4618,8 +4618,8 @@ export const es = {
       answerKey: 'Las respuestas de los estudiantes pueden variar. Evalúa basándote en la estructura de la historia (inicio/medio/fin), desarrollo de personajes, uso de globos de diálogo, flujo narrativo visual y creatividad. Verifica que los paneles cuenten una historia coherente.',
     },
     'interactive-art-critique': {
-      title: 'نقد وتحليل الفن',
-      description: 'Observa y analiza obras de arte usando vocabulario artístico. Mira de cerca y describe lo que ves.',
+      title: 'Crítica y Análisis de Arte',
+      description: 'Aprende a observar, describir y analizar obras de arte usando vocabulario artístico y pensamiento crítico.',
       artworkAnalysis: 'Análisis de Obra de Arte',
       artworkImage: '[Imagen o descripción de obra de arte]',
       describeHowUsed: 'Describe cómo se usa {{element}}: ________________________________',
@@ -4634,13 +4634,13 @@ export const es = {
       answerKey: 'Los estudiantes deben emparejar correctamente elementos relacionados (p. ej., manzana-fruta, coche-vehículo). Verifica la comprensión de relaciones y categorización.',
     },
     'interactive-logic-classification': {
-      title: 'التصنيف والفئات',
-      description: 'Clasifica y agrupa objetos, imágenes y conceptos en grupos.',
+      title: 'Clasificación y Categorización',
+      description: 'Clasifica y categoriza objetos, imágenes y conceptos en grupos.',
       addMore: 'Agrega más {{category}}: ________________',
       answerKey: 'Los estudiantes deben clasificar correctamente elementos en categorías (animales, comida, colores, etc.). Verifica la comprensión de habilidades de clasificación y categorización.',
     },
     'interactive-logic-analogies': {
-      title: 'القياسات والعلاقات',
+      title: 'Analogías y Relaciones',
       description: 'Practica identificar relaciones y completar analogías.',
       analogy: 'Analogía {{number}}',
       isTo: 'es a',
@@ -4649,8 +4649,8 @@ export const es = {
       answerKey: 'Los estudiantes deben completar correctamente las analogías identificando relaciones. Verifica la comprensión de relaciones entre palabras y pensamiento lógico.',
     },
     'interactive-sel-mindfulness': {
-      title: 'اليقظة والتأمل',
-      description: 'Practica tres estrategias de respiración. Rastrea cómo se siente tu cuerpo antes y después.',
+      title: 'Atención Plena y Reflexión',
+      description: 'Ejercicios diarios de atención plena con técnicas de respiración e indicadores de reflexión.',
       breathingStrategy: 'Estrategia de Respiración',
       beforeIFeel: '¿Antes me siento?',
       afterIFeel: '¿Después me siento?',
@@ -4664,8 +4664,8 @@ export const es = {
       answerKey: 'Las respuestas de los estudiantes pueden variar. Verifica la comprensión de técnicas de respiración, capacidad de identificar sentimientos antes y después de la práctica, y uso consistente de estrategias.',
     },
     'interactive-sel-empathy': {
-      title: 'باني التعاطف',
-      description: 'Imagina cada escenario. ¿Cómo podría sentirse la persona? ¿Qué palabras o acciones mostrarían empatía?',
+      title: 'Constructor de Empatía',
+      description: 'Practica tomar perspectiva y entender los sentimientos y experiencias de otros.',
       scenario: 'Escenario {{number}}',
       feelingsINotice: 'Sentimientos que noto: ______________________________',
       wordsOrActions: 'Palabras o acciones para mostrar empatía: ______________________',
@@ -4678,7 +4678,7 @@ export const es = {
       answerKey: 'Las respuestas de los estudiantes pueden variar. Verifica la comprensión de la empatía, capacidad de identificar sentimientos en otros y respuestas empáticas apropiadas.',
     },
     'interactive-sel-conflict': {
-      title: 'مهارات حل النزاعات',
+      title: 'Habilidades de Resolución de Conflictos',
       description: 'Aprende estrategias para resolver conflictos pacíficamente y comunicarte efectivamente con otros.',
       scenario: 'Escenario {{number}}:',
       whatAreFeelings: '¿Cuáles son tus sentimientos? ______________________________',
@@ -4695,7 +4695,7 @@ export const es = {
       answerKey: 'Las respuestas de los estudiantes pueden variar. Verifica la comprensión de estrategias de resolución de conflictos, uso de declaraciones "Yo", identificación de sentimientos y capacidad de proponer soluciones pacíficas. Anima la empatía y la comunicación efectiva.',
     },
     'interactive-sel-regulation': {
-      title: 'استراتيجيات التنظيم الذاتي',
+      title: 'Estrategias de Autorregulación',
       description: 'Practica técnicas para manejar emociones, mantener la calma y tomar decisiones reflexivas.',
       whenITried: 'Cuando probé esto, me sentí: ________________',
       practiceTip: '💡 ¡Practica estas estrategias cuando te sientas tranquilo, para que sean más fáciles de usar cuando las necesites!',
@@ -4731,7 +4731,7 @@ export const es = {
       answerKey: 'Las respuestas de los estudiantes pueden variar. Verifica la reflexión cuidadosa sobre actos de bondad, comprensión de cómo la bondad afecta a otros y a uno mismo, y participación genuina con desafíos de bondad.',
     },
     'interactive-sel-growth-mindset': {
-      title: 'ممارسة عقلية النمو',
+      title: 'Práctica de Mentalidad de Crecimiento',
       description: 'Desarrolla una mentalidad de crecimiento aprendiendo a abrazar desafíos, aprender de errores y persistir.',
       fixedMindset: 'Mentalidad Fija:',
       growthMindset: 'Mentalidad de Crecimiento:',
@@ -4748,7 +4748,7 @@ export const es = {
       answerKey: 'Las respuestas de los estudiantes pueden variar. Verifica la comprensión de conceptos de mentalidad de crecimiento, capacidad de reformular declaraciones de mentalidad fija y reconocimiento de que los desafíos y errores son oportunidades de aprendizaje.',
     },
     'interactive-sel-stress': {
-      title: 'إدارة التوتر والمواجهة',
+      title: 'Manejo del Estrés y Afrontamiento',
       description: 'Identifica desencadenantes del estrés y practica estrategias saludables de afrontamiento para manejar ansiedad y estrés.',
       stressTriggers: 'Desencadenantes del Estrés:',
       healthyCoping: 'Estrategias Saludables de Afrontamiento:',
@@ -4773,7 +4773,7 @@ export const es = {
       answerKey: 'Las respuestas de los estudiantes pueden variar. Verifica la comprensión de desencadenantes del estrés, estrategias saludables de afrontamiento y capacidad de identificar cuándo y cómo usar técnicas de afrontamiento.',
     },
     'interactive-sel-character': {
-      title: 'بناء الشخصية والقيم',
+      title: 'Construcción de Carácter y Valores',
       description: 'Explora rasgos de carácter importantes como honestidad, respeto, responsabilidad e integridad.',
       howCanShow: '¿Cómo puedo mostrar {{trait}}? ________________',
       whenSeen: '¿Cuándo he visto a alguien mostrar {{trait}}? ________________',
