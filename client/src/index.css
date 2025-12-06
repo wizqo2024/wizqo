@@ -966,8 +966,8 @@ html {
   }
   
   .worksheet-section {
-    border: none;
-    border-radius: 0;
+    /* Border is set by more specific rule below - don't remove it here */
+    border-radius: 12px;
     padding: 0.75rem;
     box-shadow: none;
     background: white !important;

@@ -2328,10 +2328,18 @@ export function PrintablesPage() {
           max-width: 100% !important;
           box-sizing: border-box !important;
           overflow-x: visible !important;
-          border-radius: 0 !important;
+          /* CRITICAL: Add visible border for worksheet sections */
+          border: 1px solid #cbd5e1 !important;
+          border-width: 1px !important;
+          border-color: #cbd5e1 !important;
+          border-style: solid !important;
+          border-radius: 12px !important;
           min-height: auto !important;
           height: auto !important;
           clear: both !important;
+          -webkit-print-color-adjust: exact !important;
+          print-color-adjust: exact !important;
+          color-adjust: exact !important;
         }
         
         /* First section should have NO top padding/margin - FIX BLANK FIRST PAGE */
@@ -2391,7 +2399,10 @@ export function PrintablesPage() {
         }
         
         /* CRITICAL: Worksheet section borders - must be last to override all other rules */
+        /* Use maximum specificity to ensure this rule wins */
+        [data-worksheet-content="true"] section.worksheet-section.worksheet-section,
         [data-worksheet-content="true"] section.worksheet-section,
+        [data-worksheet-content="true"] .worksheet-section.worksheet-section,
         [data-worksheet-content="true"] .worksheet-section {
           border: 1px solid #cbd5e1 !important;
           border-width: 1px !important;
@@ -2401,6 +2412,15 @@ export function PrintablesPage() {
           -webkit-print-color-adjust: exact !important;
           print-color-adjust: exact !important;
           color-adjust: exact !important;
+        }
+        
+        /* Force border even if other rules try to remove it */
+        [data-worksheet-content="true"] section[class*="worksheet-section"],
+        [data-worksheet-content="true"] [class*="worksheet-section"][class*="break-inside-avoid"] {
+          border: 1px solid #cbd5e1 !important;
+          border-width: 1px !important;
+          border-color: #cbd5e1 !important;
+          border-style: solid !important;
         }
         
         /* Typography - match index.css */
