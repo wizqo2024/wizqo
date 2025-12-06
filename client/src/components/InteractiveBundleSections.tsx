@@ -2973,57 +2973,57 @@ const renderers: Record<string, Renderer> = {
       'Call grandma',
     ], 4)
     return (
-      <div className="space-y-4">
-        <p className="text-sm text-slate-600">
+      <div className="space-y-4 print:space-y-4" style={{ fontSize: '16px', lineHeight: '24px', marginTop: '0', marginBottom: '0' }}>
+        <p className="text-sm text-slate-600 print:text-sm print:text-slate-600" style={{ fontSize: '14px', lineHeight: '20px', margin: '0 0 16px 0' }}>
           {t('worksheets.cognitiveExecutive.instructions')}
         </p>
-        <div className="rounded-xl border border-indigo-200 bg-indigo-50 p-4">
-          <p className="text-sm font-semibold text-indigo-700 mb-3">{t('worksheets.cognitiveExecutive.taskPlanning')}</p>
-          <p className="text-xs text-indigo-600 mb-3">{t('worksheets.cognitiveExecutive.planTasksToday')}</p>
-          <div className="space-y-3">
+        <div className="rounded-xl border border-indigo-200 bg-indigo-50 p-4 print:rounded-xl print:border print:border-indigo-200 print:bg-indigo-50 print:p-4 break-inside-avoid" style={{ WebkitPrintColorAdjust: 'exact', printColorAdjust: 'exact', backgroundColor: '#eef2ff', borderColor: '#c7d2fe', padding: '16px', borderRadius: '12px', borderWidth: '1px', borderStyle: 'solid', marginBottom: '16px', pageBreakInside: 'avoid', breakInside: 'avoid' }}>
+          <p className="text-sm font-semibold text-indigo-700 mb-3 print:text-sm print:font-semibold print:text-indigo-700 print:mb-3" style={{ fontSize: '14px', fontWeight: '600', margin: '0 0 12px 0', color: '#4338ca' }}>{t('worksheets.cognitiveExecutive.taskPlanning')}</p>
+          <p className="text-xs text-indigo-600 mb-3 print:text-xs print:text-indigo-600 print:mb-3" style={{ fontSize: '12px', lineHeight: '16px', margin: '0 0 12px 0', color: '#6366f1' }}>{t('worksheets.cognitiveExecutive.planTasksToday')}</p>
+          <div className="space-y-3 print:space-y-3" style={{ marginTop: '0', marginBottom: '0' }}>
             {tasks.map((task, idx) => (
-              <div key={idx} className="bg-white rounded-lg p-3 border border-indigo-200">
-                <p className="text-sm font-semibold text-indigo-800 mb-2">{t('worksheets.answerKey.task').replace('{{number}}', String(idx + 1))} {task}</p>
-                <p className="text-xs text-indigo-600 mb-1">Steps to complete:</p>
-                <div className="space-y-1">
-                  <p className="text-xs text-slate-500">Step 1: ________________________________</p>
-                  <p className="text-xs text-slate-500">Step 2: ________________________________</p>
-                  <p className="text-xs text-slate-500">Step 3: ________________________________</p>
+              <div key={idx} className="bg-white rounded-lg p-3 border border-indigo-200 print:bg-white print:rounded-lg print:p-3 print:border print:border-indigo-200 break-inside-avoid" style={{ WebkitPrintColorAdjust: 'exact', printColorAdjust: 'exact', backgroundColor: '#ffffff', borderColor: '#c7d2fe', padding: '12px', borderRadius: '8px', borderWidth: '1px', borderStyle: 'solid', marginBottom: '12px', pageBreakInside: 'avoid', breakInside: 'avoid' }}>
+                <p className="text-sm font-semibold text-indigo-800 mb-2 print:text-sm print:font-semibold print:text-indigo-800 print:mb-2" style={{ fontSize: '14px', fontWeight: '600', margin: '0 0 8px 0', color: '#3730a3' }}>{t('worksheets.answerKey.task').replace('{{number}}', String(idx + 1))} {task}</p>
+                <p className="text-xs text-indigo-600 mb-1 print:text-xs print:text-indigo-600 print:mb-1" style={{ fontSize: '12px', lineHeight: '16px', margin: '0 0 4px 0', color: '#6366f1' }}>Steps to complete:</p>
+                <div className="space-y-1 print:space-y-1" style={{ marginTop: '0', marginBottom: '8px' }}>
+                  <p className="text-xs text-slate-500 print:text-xs print:text-slate-500" style={{ fontSize: '12px', lineHeight: '16px', margin: '0 0 2px 0', color: '#64748b' }}>Step 1: ________________________________</p>
+                  <p className="text-xs text-slate-500 print:text-xs print:text-slate-500" style={{ fontSize: '12px', lineHeight: '16px', margin: '0 0 2px 0', color: '#64748b' }}>Step 2: ________________________________</p>
+                  <p className="text-xs text-slate-500 print:text-xs print:text-slate-500" style={{ fontSize: '12px', lineHeight: '16px', margin: '0', color: '#64748b' }}>Step 3: ________________________________</p>
                 </div>
-                <div className="mt-2 flex items-center gap-2">
-                  <span className="text-xs text-indigo-600">Priority:</span>
-                  <div className="flex gap-1">
-                    <span className="text-xs px-2 py-1 border border-indigo-300 rounded">High</span>
-                    <span className="text-xs px-2 py-1 border border-indigo-300 rounded">Medium</span>
-                    <span className="text-xs px-2 py-1 border border-indigo-300 rounded">Low</span>
+                <div className="mt-2 flex items-center gap-2 print:mt-2 print:flex print:items-center print:gap-2" style={{ marginTop: '8px', display: 'flex', alignItems: 'center', gap: '8px' }}>
+                  <span className="text-xs text-indigo-600 print:text-xs print:text-indigo-600" style={{ fontSize: '12px', color: '#6366f1' }}>Priority:</span>
+                  <div className="flex gap-1 print:flex print:gap-1" style={{ display: 'flex', gap: '4px' }}>
+                    <span className="text-xs px-2 py-1 border border-indigo-300 rounded print:text-xs print:px-2 print:py-1 print:border print:border-indigo-300 print:rounded" style={{ fontSize: '12px', padding: '4px 8px', borderColor: '#a5b4fc', borderWidth: '1px', borderStyle: 'solid', borderRadius: '4px' }}>High</span>
+                    <span className="text-xs px-2 py-1 border border-indigo-300 rounded print:text-xs print:px-2 print:py-1 print:border print:border-indigo-300 print:rounded" style={{ fontSize: '12px', padding: '4px 8px', borderColor: '#a5b4fc', borderWidth: '1px', borderStyle: 'solid', borderRadius: '4px' }}>Medium</span>
+                    <span className="text-xs px-2 py-1 border border-indigo-300 rounded print:text-xs print:px-2 print:py-1 print:border print:border-indigo-300 print:rounded" style={{ fontSize: '12px', padding: '4px 8px', borderColor: '#a5b4fc', borderWidth: '1px', borderStyle: 'solid', borderRadius: '4px' }}>Low</span>
                   </div>
                 </div>
               </div>
             ))}
           </div>
         </div>
-        <div className="rounded-xl border border-indigo-200 bg-white p-4">
-          <p className="text-sm font-semibold text-indigo-700 mb-2">Daily Schedule</p>
-          <p className="text-xs text-indigo-600 mb-3">Organize your tasks into a schedule:</p>
-          <div className="space-y-2 text-xs">
-            <div className="flex gap-2">
-              <span className="w-20 font-semibold">Morning:</span>
-              <div className="flex-1 border border-dashed border-indigo-300 rounded p-1"></div>
+        <div className="rounded-xl border border-indigo-200 bg-white p-4 print:rounded-xl print:border print:border-indigo-200 print:bg-white print:p-4 break-inside-avoid" style={{ WebkitPrintColorAdjust: 'exact', printColorAdjust: 'exact', backgroundColor: '#ffffff', borderColor: '#c7d2fe', padding: '16px', borderRadius: '12px', borderWidth: '1px', borderStyle: 'solid', marginBottom: '16px', pageBreakInside: 'avoid', breakInside: 'avoid' }}>
+          <p className="text-sm font-semibold text-indigo-700 mb-2 print:text-sm print:font-semibold print:text-indigo-700 print:mb-2" style={{ fontSize: '14px', fontWeight: '600', margin: '0 0 8px 0', color: '#4338ca' }}>Daily Schedule</p>
+          <p className="text-xs text-indigo-600 mb-3 print:text-xs print:text-indigo-600 print:mb-3" style={{ fontSize: '12px', lineHeight: '16px', margin: '0 0 12px 0', color: '#6366f1' }}>Organize your tasks into a schedule:</p>
+          <div className="space-y-2 text-xs print:space-y-2 print:text-xs" style={{ fontSize: '12px', lineHeight: '16px' }}>
+            <div className="flex gap-2 print:flex print:gap-2" style={{ display: 'flex', gap: '8px', marginBottom: '8px' }}>
+              <span className="w-20 font-semibold print:w-20 print:font-semibold" style={{ width: '80px', fontWeight: '600' }}>Morning:</span>
+              <div className="flex-1 border border-dashed border-indigo-300 rounded p-1 print:flex-1 print:border print:border-dashed print:border-indigo-300 print:rounded print:p-1" style={{ flex: '1', borderColor: '#a5b4fc', borderWidth: '1px', borderStyle: 'dashed', borderRadius: '4px', padding: '4px' }}></div>
             </div>
-            <div className="flex gap-2">
-              <span className="w-20 font-semibold">Afternoon:</span>
-              <div className="flex-1 border border-dashed border-indigo-300 rounded p-1"></div>
+            <div className="flex gap-2 print:flex print:gap-2" style={{ display: 'flex', gap: '8px', marginBottom: '8px' }}>
+              <span className="w-20 font-semibold print:w-20 print:font-semibold" style={{ width: '80px', fontWeight: '600' }}>Afternoon:</span>
+              <div className="flex-1 border border-dashed border-indigo-300 rounded p-1 print:flex-1 print:border print:border-dashed print:border-indigo-300 print:rounded print:p-1" style={{ flex: '1', borderColor: '#a5b4fc', borderWidth: '1px', borderStyle: 'dashed', borderRadius: '4px', padding: '4px' }}></div>
             </div>
-            <div className="flex gap-2">
-              <span className="w-20 font-semibold">Evening:</span>
-              <div className="flex-1 border border-dashed border-indigo-300 rounded p-1"></div>
+            <div className="flex gap-2 print:flex print:gap-2" style={{ display: 'flex', gap: '8px', marginBottom: '0' }}>
+              <span className="w-20 font-semibold print:w-20 print:font-semibold" style={{ width: '80px', fontWeight: '600' }}>Evening:</span>
+              <div className="flex-1 border border-dashed border-indigo-300 rounded p-1 print:flex-1 print:border print:border-dashed print:border-indigo-300 print:rounded print:p-1" style={{ flex: '1', borderColor: '#a5b4fc', borderWidth: '1px', borderStyle: 'dashed', borderRadius: '4px', padding: '4px' }}></div>
             </div>
           </div>
         </div>
-        <div className="rounded-lg border border-indigo-200 bg-indigo-50 px-4 py-3 text-xs text-indigo-700">
-          <p className="font-semibold mb-1">{t('worksheets.reflection.title')}:</p>
-          <p>{t('worksheets.reflection.generalQuestions')}</p>
-          <div className="mt-2 h-16 border border-dashed border-indigo-300 bg-white rounded"></div>
+        <div className="rounded-lg border border-indigo-200 bg-indigo-50 px-4 py-3 text-xs text-indigo-700 print:rounded-lg print:border print:border-indigo-200 print:bg-indigo-50 print:px-4 print:py-3 print:text-xs print:text-indigo-700 break-inside-avoid" style={{ WebkitPrintColorAdjust: 'exact', printColorAdjust: 'exact', backgroundColor: '#eef2ff', borderColor: '#c7d2fe', padding: '12px 16px', borderRadius: '8px', borderWidth: '1px', borderStyle: 'solid', marginTop: '16px', pageBreakInside: 'avoid', breakInside: 'avoid' }}>
+          <p className="font-semibold mb-1 print:font-semibold print:mb-1" style={{ fontWeight: '600', margin: '0 0 4px 0' }}>{t('worksheets.reflection.title')}:</p>
+          <p style={{ margin: '0 0 8px 0' }}>{t('worksheets.reflection.generalQuestions')}</p>
+          <div className="mt-2 h-16 border border-dashed border-indigo-300 bg-white rounded print:mt-2 print:h-16 print:border print:border-dashed print:border-indigo-300 print:bg-white print:rounded" style={{ WebkitPrintColorAdjust: 'exact', printColorAdjust: 'exact', backgroundColor: '#ffffff', borderColor: '#a5b4fc', borderWidth: '1px', borderStyle: 'dashed', height: '64px', borderRadius: '8px', marginTop: '8px' }}></div>
         </div>
       </div>
     )
@@ -3035,39 +3035,39 @@ const renderers: Record<string, Renderer> = {
     const quickItems = Array.from({ length: 20 }, () => pick(rng, symbols))
     const words = pickMany(rng, ['cat', 'dog', 'bird', 'fish', 'tree', 'car', 'book', 'star'], 8)
     return (
-      <div className="space-y-4">
-        <p className="text-sm text-slate-600">
+      <div className="space-y-4 print:space-y-4" style={{ fontSize: '16px', lineHeight: '24px', marginTop: '0', marginBottom: '0' }}>
+        <p className="text-sm text-slate-600 print:text-sm print:text-slate-600" style={{ fontSize: '14px', lineHeight: '20px', margin: '0 0 16px 0' }}>
           {t('worksheets.cognitiveProcessing.instructions')}
         </p>
-        <div className="rounded-xl border border-orange-200 bg-orange-50 p-4">
-          <p className="text-sm font-semibold text-orange-700 mb-2">{t('worksheets.cognitiveProcessing.quickSymbolRecognition')}</p>
-          <p className="text-xs text-orange-600 mb-3">{t('worksheets.cognitiveProcessing.circleAllStars')}</p>
-          <div className="bg-white rounded-lg p-3 border border-orange-200">
-            <div className="flex flex-wrap gap-2">
+        <div className="rounded-xl border border-orange-200 bg-orange-50 p-4 print:rounded-xl print:border print:border-orange-200 print:bg-orange-50 print:p-4 break-inside-avoid" style={{ WebkitPrintColorAdjust: 'exact', printColorAdjust: 'exact', backgroundColor: '#fff7ed', borderColor: '#fed7aa', padding: '16px', borderRadius: '12px', borderWidth: '1px', borderStyle: 'solid', marginBottom: '16px', pageBreakInside: 'avoid', breakInside: 'avoid' }}>
+          <p className="text-sm font-semibold text-orange-700 mb-2 print:text-sm print:font-semibold print:text-orange-700 print:mb-2" style={{ fontSize: '14px', fontWeight: '600', margin: '0 0 8px 0', color: '#c2410c' }}>{t('worksheets.cognitiveProcessing.quickSymbolRecognition')}</p>
+          <p className="text-xs text-orange-600 mb-3 print:text-xs print:text-orange-600 print:mb-3" style={{ fontSize: '12px', lineHeight: '16px', margin: '0 0 12px 0', color: '#ea580c' }}>{t('worksheets.cognitiveProcessing.circleAllStars')}</p>
+          <div className="bg-white rounded-lg p-3 border border-orange-200 print:bg-white print:rounded-lg print:p-3 print:border print:border-orange-200" style={{ WebkitPrintColorAdjust: 'exact', printColorAdjust: 'exact', backgroundColor: '#ffffff', borderColor: '#fed7aa', padding: '12px', borderRadius: '8px', borderWidth: '1px', borderStyle: 'solid', marginBottom: '8px' }}>
+            <div className="flex flex-wrap gap-2 print:flex print:flex-wrap print:gap-2" style={{ display: 'flex', flexWrap: 'wrap', gap: '8px' }}>
               {quickItems.map((symbol, idx) => (
-                <span key={idx} className="text-2xl">{symbol === '★' ? <span className="font-bold text-orange-700">{symbol}</span> : <span className="text-orange-300">{symbol}</span>}</span>
+                <span key={idx} className="text-2xl print:text-2xl" style={{ fontSize: '24px' }}>{symbol === '★' ? <span className="font-bold text-orange-700 print:font-bold print:text-orange-700" style={{ fontWeight: '700', color: '#c2410c' }}>{symbol}</span> : <span className="text-orange-300 print:text-orange-300" style={{ color: '#fdba74' }}>{symbol}</span>}</span>
               ))}
             </div>
           </div>
-          <p className="text-xs text-orange-600 mt-2">{t('worksheets.cognitiveProcessing.timeYourself')}</p>
+          <p className="text-xs text-orange-600 mt-2 print:text-xs print:text-orange-600 print:mt-2" style={{ fontSize: '12px', lineHeight: '16px', marginTop: '8px', marginBottom: '0', color: '#ea580c' }}>{t('worksheets.cognitiveProcessing.timeYourself')}</p>
         </div>
-        <div className="rounded-xl border border-orange-200 bg-orange-50 p-4">
-          <p className="text-sm font-semibold text-orange-700 mb-2">{t('worksheets.cognitiveProcessing.rapidWordIdentification')}</p>
-          <p className="text-xs text-orange-600 mb-3">{t('worksheets.cognitiveProcessing.quicklyFindAndCircle').replace('{{letter}}', 'b')}</p>
-          <div className="bg-white rounded-lg p-3 border border-orange-200">
-            <div className="flex flex-wrap gap-2">
+        <div className="rounded-xl border border-orange-200 bg-orange-50 p-4 print:rounded-xl print:border print:border-orange-200 print:bg-orange-50 print:p-4 break-inside-avoid" style={{ WebkitPrintColorAdjust: 'exact', printColorAdjust: 'exact', backgroundColor: '#fff7ed', borderColor: '#fed7aa', padding: '16px', borderRadius: '12px', borderWidth: '1px', borderStyle: 'solid', marginBottom: '16px', pageBreakInside: 'avoid', breakInside: 'avoid' }}>
+          <p className="text-sm font-semibold text-orange-700 mb-2 print:text-sm print:font-semibold print:text-orange-700 print:mb-2" style={{ fontSize: '14px', fontWeight: '600', margin: '0 0 8px 0', color: '#c2410c' }}>{t('worksheets.cognitiveProcessing.rapidWordIdentification')}</p>
+          <p className="text-xs text-orange-600 mb-3 print:text-xs print:text-orange-600 print:mb-3" style={{ fontSize: '12px', lineHeight: '16px', margin: '0 0 12px 0', color: '#ea580c' }}>{t('worksheets.cognitiveProcessing.quicklyFindAndCircle').replace('{{letter}}', 'b')}</p>
+          <div className="bg-white rounded-lg p-3 border border-orange-200 print:bg-white print:rounded-lg print:p-3 print:border print:border-orange-200" style={{ WebkitPrintColorAdjust: 'exact', printColorAdjust: 'exact', backgroundColor: '#ffffff', borderColor: '#fed7aa', padding: '12px', borderRadius: '8px', borderWidth: '1px', borderStyle: 'solid', marginBottom: '8px' }}>
+            <div className="flex flex-wrap gap-2 print:flex print:flex-wrap print:gap-2" style={{ display: 'flex', flexWrap: 'wrap', gap: '8px' }}>
               {words.map((word, idx) => (
-                <span key={idx} className={`px-2 py-1 rounded text-sm ${word.startsWith('b') ? 'bg-orange-200 font-bold text-orange-800' : 'text-orange-400'}`}>
+                <span key={idx} className={`px-2 py-1 rounded text-sm print:px-2 print:py-1 print:rounded print:text-sm ${word.startsWith('b') ? 'bg-orange-200 font-bold text-orange-800 print:bg-orange-200 print:font-bold print:text-orange-800' : 'text-orange-400 print:text-orange-400'}`} style={{ WebkitPrintColorAdjust: 'exact', printColorAdjust: 'exact', padding: '4px 8px', borderRadius: '4px', fontSize: '14px', ...(word.startsWith('b') ? { backgroundColor: '#fed7aa', fontWeight: '700', color: '#9a3412' } : { color: '#fb923c' }) }}>
                   {word}
                 </span>
               ))}
             </div>
           </div>
-          <p className="text-xs text-orange-600 mt-2">{t('worksheets.cognitiveProcessing.howManyWordsFound').replace('{{letter}}', 'b')}</p>
+          <p className="text-xs text-orange-600 mt-2 print:text-xs print:text-orange-600 print:mt-2" style={{ fontSize: '12px', lineHeight: '16px', marginTop: '8px', marginBottom: '0', color: '#ea580c' }}>{t('worksheets.cognitiveProcessing.howManyWordsFound').replace('{{letter}}', 'b')}</p>
         </div>
-        <div className="rounded-lg border border-orange-200 bg-white px-4 py-3 text-xs text-orange-700">
-          <p className="font-semibold mb-1">{t('worksheets.cognitiveProcessing.speedChallenge')}</p>
-          <p>{t('worksheets.cognitiveProcessing.tryToCompleteFaster')}</p>
+        <div className="rounded-lg border border-orange-200 bg-white px-4 py-3 text-xs text-orange-700 print:rounded-lg print:border print:border-orange-200 print:bg-white print:px-4 print:py-3 print:text-xs print:text-orange-700 break-inside-avoid" style={{ WebkitPrintColorAdjust: 'exact', printColorAdjust: 'exact', backgroundColor: '#ffffff', borderColor: '#fed7aa', padding: '12px 16px', borderRadius: '8px', borderWidth: '1px', borderStyle: 'solid', marginTop: '16px', pageBreakInside: 'avoid', breakInside: 'avoid' }}>
+          <p className="font-semibold mb-1 print:font-semibold print:mb-1" style={{ fontWeight: '600', margin: '0 0 4px 0' }}>{t('worksheets.cognitiveProcessing.speedChallenge')}</p>
+          <p style={{ margin: '0' }}>{t('worksheets.cognitiveProcessing.tryToCompleteFaster')}</p>
         </div>
       </div>
     )
