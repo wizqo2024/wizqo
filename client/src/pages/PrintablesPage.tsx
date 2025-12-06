@@ -2147,11 +2147,30 @@ export function PrintablesPage() {
           row-gap: 1rem !important;
           break-inside: avoid !important;
           page-break-inside: avoid !important;
+          font-size: 0 !important;
         }
         
         [data-worksheet-content="true"] .print-season-grid > * {
           break-inside: avoid !important;
           page-break-inside: avoid !important;
+          font-size: initial !important;
+        }
+        
+        [data-worksheet-content="true"] .print-season-card {
+          display: inline-block !important;
+          width: calc(50% - 0.6rem) !important;
+          vertical-align: top !important;
+          margin: 0 0.3rem 0.8rem !important;
+          page-break-inside: avoid !important;
+          break-inside: avoid !important;
+        }
+        
+        [data-worksheet-content="true"] .print-season-card:nth-of-type(odd) {
+          margin-right: 0.6rem !important;
+        }
+        
+        [data-worksheet-content="true"] .print-season-card:nth-of-type(even) {
+          margin-left: 0.6rem !important;
         }
         
         /* Prevent images/SVG from breaking away from questions */
@@ -3285,11 +3304,30 @@ export function PrintablesPage() {
             row-gap: 1rem !important;
             break-inside: avoid !important;
             page-break-inside: avoid !important;
+            font-size: 0 !important;
           }
           
           [data-worksheet-content="true"] .print-season-grid > * {
             break-inside: avoid !important;
             page-break-inside: avoid !important;
+            font-size: initial !important;
+          }
+          
+          [data-worksheet-content="true"] .print-season-card {
+            display: inline-block !important;
+            width: calc(50% - 0.6rem) !important;
+            vertical-align: top !important;
+            margin: 0 0.3rem 0.8rem !important;
+            page-break-inside: avoid !important;
+            break-inside: avoid !important;
+          }
+          
+          [data-worksheet-content="true"] .print-season-card:nth-of-type(odd) {
+            margin-right: 0.6rem !important;
+          }
+          
+          [data-worksheet-content="true"] .print-season-card:nth-of-type(even) {
+            margin-left: 0.6rem !important;
           }
           
           [data-worksheet-content="true"] .worksheet-section > div:not(.print-ignore-inner-border):last-child,

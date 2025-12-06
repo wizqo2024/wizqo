@@ -1332,7 +1332,7 @@ const renderers: Record<string, Renderer> = {
         <p className="text-sm text-slate-600">
           {t('worksheets.writingOpinion.instructions')} <span className="font-semibold text-purple-700">{topic}</span>
         </p>
-        <div className="grid gap-4 md:grid-cols-2">
+        <div className="grid gap-4 md:grid-cols-2 print-season-grid">
           <div className="rounded-xl border border-slate-200 bg-white p-4 text-sm text-slate-700">
             <p className="font-semibold">{t('worksheets.writingOpinion.reasonsAndEvidence')}</p>
             <p>{t('worksheets.writingOpinion.reason').replace('{{number}}', formatNum ? formatNum('1') : '1')} ____________________________________</p>
@@ -5412,7 +5412,7 @@ const renderers: Record<string, Renderer> = {
             const drawAndColorText = drawAndColorTemplate.replace('{{season}}', seasonName)
             const useColorsText = useColorsTemplate.replace('{{season}}', seasonName)
             return (
-              <div key={idx} className="rounded-xl border border-green-200 bg-green-50 p-4 print-keep-card-bg">
+              <div key={idx} className="rounded-xl border border-green-200 bg-green-50 p-4 print-keep-card-bg print-season-card">
                 <div className="flex items-center gap-2 mb-2">
                   <span className="text-2xl">{season.emoji}</span>
                   <p className="text-sm font-semibold text-green-700">{season.name} {coloringLabel}</p>
