@@ -434,6 +434,11 @@ html {
     margin: 0 0.5in 0.5in 0.5in; /* Top: 0 (gradient drawn inside content), others: 0.5in */
   }
   
+  /* Override browser default margins on first page - works with "default" margin setting */
+  @page:first {
+    margin-top: 0 !important;
+  }
+  
   /* Reset everything */
   * {
     box-shadow: none !important;
