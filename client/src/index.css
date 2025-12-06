@@ -622,12 +622,18 @@ html {
   }
   
   .print-header-floating {
-    padding: 0 0.5in;
-    margin: 0 0 0.06in 0;
-    page-break-after: avoid;
-    break-after: avoid-page;
-    page-break-inside: avoid;
-    break-inside: avoid;
+    padding: 0 0.5in !important;
+    margin: 0 0 0.06in 0 !important;
+    page-break-after: avoid !important;
+    break-after: avoid-page !important;
+    page-break-inside: avoid !important;
+    break-inside: avoid !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    display: flex !important;
+    flex-direction: row !important;
+    flex-wrap: nowrap !important;
+    white-space: nowrap !important;
   }
   
   /* Remove print header spacing on first page if it's causing gap */
@@ -671,7 +677,7 @@ html {
   .print-name-field,
   .print-date-field {
     flex: 0 1 auto !important;
-    display: flex !important;
+    display: inline-flex !important;
     flex-direction: row !important;
     align-items: center !important;
     gap: 8px !important;
@@ -681,6 +687,15 @@ html {
     page-break-inside: avoid !important;
     white-space: nowrap !important;
     flex-wrap: nowrap !important;
+    overflow: hidden !important;
+  }
+  
+  .print-name-field strong,
+  .print-name-field span,
+  .print-date-field strong,
+  .print-date-field span {
+    display: inline !important;
+    white-space: nowrap !important;
   }
   
   .print-name-field {
@@ -694,13 +709,21 @@ html {
   /* Ensure logo/domain stays inline */
   .wizqo-logo-print {
     flex: 0 0 auto !important;
-    display: flex !important;
+    display: inline-flex !important;
     flex-direction: row !important;
     align-items: center !important;
     justify-content: center !important;
     gap: 8px !important;
     white-space: nowrap !important;
     flex-wrap: nowrap !important;
+    overflow: hidden !important;
+  }
+  
+  .wizqo-logo-print img,
+  .wizqo-logo-print .domain-text {
+    display: inline !important;
+    white-space: nowrap !important;
+    flex-shrink: 0 !important;
   }
   
   .print-customization-header {
@@ -2053,34 +2076,65 @@ section[data-interactive-section="true"].preserve-print-styling [class*="h-48"] 
       min-height: 0 !important;
       line-height: 1 !important;
       gap: 12px !important;
+      width: 100% !important;
+      max-width: 100% !important;
+      overflow: hidden !important;
     }
     
-    /* Ensure all header fields stay on one line */
+    /* Ensure all header fields stay on one line - no wrapping */
     .wizqo-print-header .print-name-field,
     .wizqo-print-header .wizqo-logo-print,
     .wizqo-print-header .print-date-field {
-      display: flex !important;
+      display: inline-flex !important;
       flex-direction: row !important;
       align-items: center !important;
       flex-wrap: nowrap !important;
       white-space: nowrap !important;
       flex-shrink: 0 !important;
+      overflow: hidden !important;
     }
     
+    /* Name field - left side */
     .wizqo-print-header .print-name-field {
       flex: 0 1 auto !important;
       justify-content: flex-start !important;
+      min-width: 0 !important;
     }
     
+    .wizqo-print-header .print-name-field strong,
+    .wizqo-print-header .print-name-field span {
+      display: inline !important;
+      white-space: nowrap !important;
+      flex-shrink: 0 !important;
+    }
+    
+    /* Logo/domain - center */
     .wizqo-print-header .wizqo-logo-print {
       flex: 0 0 auto !important;
       justify-content: center !important;
       margin: 0 8px !important;
+      white-space: nowrap !important;
     }
     
+    .wizqo-print-header .wizqo-logo-print img,
+    .wizqo-print-header .wizqo-logo-print .domain-text {
+      display: inline !important;
+      white-space: nowrap !important;
+      flex-shrink: 0 !important;
+    }
+    
+    /* Date field - right side */
     .wizqo-print-header .print-date-field {
       flex: 0 1 auto !important;
       justify-content: flex-end !important;
+      min-width: 0 !important;
+    }
+    
+    .wizqo-print-header .print-date-field strong,
+    .wizqo-print-header .print-date-field span {
+      display: inline !important;
+      white-space: nowrap !important;
+      flex-shrink: 0 !important;
     }
     
     .print-header-floating {
