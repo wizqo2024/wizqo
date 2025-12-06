@@ -2390,6 +2390,19 @@ export function PrintablesPage() {
           box-shadow: none !important;
         }
         
+        /* CRITICAL: Worksheet section borders - must be last to override all other rules */
+        [data-worksheet-content="true"] section.worksheet-section,
+        [data-worksheet-content="true"] .worksheet-section {
+          border: 1px solid #cbd5e1 !important;
+          border-width: 1px !important;
+          border-color: #cbd5e1 !important;
+          border-style: solid !important;
+          border-radius: 12px !important;
+          -webkit-print-color-adjust: exact !important;
+          print-color-adjust: exact !important;
+          color-adjust: exact !important;
+        }
+        
         /* Typography - match index.css */
         p { 
           line-height: 1.5 !important; 
