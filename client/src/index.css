@@ -1466,9 +1466,26 @@ section[data-interactive-section="true"].preserve-print-styling [class*="h-48"] 
       padding-top: 0 !important;
     }
     
-    /* Ensure no gap between print header and section */
+    /* Ensure no gap between print header and section - override browser default margins */
     .wizqo-print-header + *,
-    .wizqo-print-header ~ section {
+    .wizqo-print-header ~ section,
+    .wizqo-print-header ~ [data-worksheet-content="true"] {
+      margin-top: 0 !important;
+      padding-top: 0 !important;
+    }
+    
+    /* Override browser default spacing on first child elements */
+    [data-worksheet-content="true"] > *:first-child,
+    [data-worksheet-content="true"] > div > *:first-child {
+      margin-top: 0 !important;
+      padding-top: 0 !important;
+    }
+    
+    /* Force position to top to override browser margins */
+    body > *:first-child,
+    [data-worksheet-content="true"] > *:first-child {
+      position: relative;
+      top: 0 !important;
       margin-top: 0 !important;
     }
     
