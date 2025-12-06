@@ -4478,6 +4478,84 @@ section[data-interactive-section="true"].preserve-print-styling [class*="h-48"] 
     border-color: #1e293b !important;
   }
   
+  /* CRITICAL: Ensure table structure is fully visible - thead, tbody, rows, cells */
+  [data-worksheet-content="true"] table thead {
+    display: table-header-group !important;
+    visibility: visible !important;
+  }
+  
+  [data-worksheet-content="true"] table tbody {
+    display: table-row-group !important;
+    visibility: visible !important;
+  }
+  
+  [data-worksheet-content="true"] table thead tr,
+  [data-worksheet-content="true"] table tbody tr {
+    display: table-row !important;
+    visibility: visible !important;
+    page-break-inside: avoid !important;
+    break-inside: avoid !important;
+  }
+  
+  /* CRITICAL: Ensure header cells (th) are visible with background and borders */
+  [data-worksheet-content="true"] table thead th,
+  [data-worksheet-content="true"] table tbody td[class*="bg-slate-100"] {
+    display: table-cell !important;
+    visibility: visible !important;
+    background-color: #f1f5f9 !important;
+    border: 1px solid #1e293b !important;
+    border-color: #1e293b !important;
+    border-width: 1px !important;
+    border-style: solid !important;
+    padding: 0.5rem !important;
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+    color-adjust: exact !important;
+  }
+  
+  /* CRITICAL: Ensure all table cells (td) are visible with borders */
+  [data-worksheet-content="true"] table tbody td {
+    display: table-cell !important;
+    visibility: visible !important;
+    border: 1px solid #1e293b !important;
+    border-color: #1e293b !important;
+    border-width: 1px !important;
+    border-style: solid !important;
+    padding: 0.5rem !important;
+    text-align: center !important;
+  }
+  
+  /* CRITICAL: Ensure table cells with input lines (border-b spans) are visible */
+  [data-worksheet-content="true"] table tbody td span[class*="border-b"],
+  [data-worksheet-content="true"] table tbody td span[class*="inline-block"] {
+    display: inline-block !important;
+    visibility: visible !important;
+    border-bottom: 2px solid #475569 !important;
+    width: 2.5rem !important;
+    height: 1.25rem !important;
+  }
+  
+  /* CRITICAL: Ensure table maintains proper structure and spacing */
+  [data-worksheet-content="true"] table {
+    border-collapse: collapse !important;
+    border-spacing: 0 !important;
+    width: 100% !important;
+    table-layout: auto !important;
+    display: table !important;
+    visibility: visible !important;
+  }
+  
+  /* CRITICAL: Ensure table container maintains proper structure */
+  [data-worksheet-content="true"] div[class*="border-slate-300"][class*="bg-white"][class*="rounded"][class*="p-4"] {
+    display: block !important;
+    visibility: visible !important;
+    border: 1px solid #1e293b !important;
+    border-radius: 0.5rem !important;
+    padding: 1rem !important;
+    background-color: #ffffff !important;
+    margin-bottom: 1rem !important;
+  }
+  
   /* ============================================================================
    * COMPREHENSIVE FIX: Make print layout match live view 100%
    * ============================================================================ */
@@ -4519,13 +4597,18 @@ section[data-interactive-section="true"].preserve-print-styling [class*="h-48"] 
   
   /* Fix challenge and self-assessment sections formatting */
   [data-worksheet-content="true"] .challenge-section,
-  [data-worksheet-content="true"] div[class*="challenge-section"] {
+  [data-worksheet-content="true"] div[class*="challenge-section"],
+  [data-worksheet-content="true"] div[class*="bg-purple-50"][class*="border-2"][class*="border-purple-200"] {
     background-color: #faf5ff !important;
     border: 2px solid #e9d5ff !important;
     border-radius: 0.5rem !important;
     padding: 1rem !important;
     margin-top: 1.5rem !important;
     margin-bottom: 1.5rem !important;
+    display: block !important;
+    visibility: visible !important;
+    page-break-inside: avoid !important;
+    break-inside: avoid !important;
   }
   
   [data-worksheet-content="true"] .self-assessment,
@@ -4539,20 +4622,54 @@ section[data-interactive-section="true"].preserve-print-styling [class*="h-48"] 
     margin-bottom: 1.5rem !important;
     display: block !important;
     visibility: visible !important;
+    page-break-inside: avoid !important;
+    break-inside: avoid !important;
   }
   
   /* Ensure challenge and self-assessment content is properly spaced */
   [data-worksheet-content="true"] .challenge-section [class*="space-y-2"] > div,
   [data-worksheet-content="true"] .self-assessment [class*="space-y-2"] > div,
   [data-worksheet-content="true"] .challenge-section [class*="space-y"] > div,
-  [data-worksheet-content="true"] .self-assessment [class*="space-y"] > div {
+  [data-worksheet-content="true"] .self-assessment [class*="space-y"] > div,
+  [data-worksheet-content="true"] div[class*="bg-purple-50"] [class*="space-y-2"] > div,
+  [data-worksheet-content="true"] div[class*="bg-purple-50"] [class*="space-y"] > div {
     margin-bottom: 0.5rem !important;
     display: block !important;
+    visibility: visible !important;
   }
   
   [data-worksheet-content="true"] .challenge-section [class*="space-y-2"] > div:last-child,
-  [data-worksheet-content="true"] .self-assessment [class*="space-y-2"] > div:last-child {
+  [data-worksheet-content="true"] .self-assessment [class*="space-y-2"] > div:last-child,
+  [data-worksheet-content="true"] div[class*="bg-purple-50"] [class*="space-y-2"] > div:last-child {
     margin-bottom: 0 !important;
+  }
+  
+  /* Ensure challenge section title and content are visible */
+  [data-worksheet-content="true"] div[class*="bg-purple-50"] [class*="font-semibold"],
+  [data-worksheet-content="true"] div[class*="bg-purple-50"] [class*="text-purple-900"],
+  [data-worksheet-content="true"] div[class*="bg-purple-50"] [class*="text-purple-800"] {
+    display: block !important;
+    visibility: visible !important;
+    color: #581c87 !important;
+    font-weight: 600 !important;
+    margin-bottom: 0.75rem !important;
+  }
+  
+  /* Ensure self-assessment section title and content are visible */
+  [data-worksheet-content="true"] div[class*="border-slate-300"][class*="print:block"] [class*="font-semibold"],
+  [data-worksheet-content="true"] div[class*="border-slate-300"][class*="print:block"] [class*="text-slate-800"],
+  [data-worksheet-content="true"] div[class*="border-slate-300"][class*="print:block"] [class*="text-xs"] {
+    display: block !important;
+    visibility: visible !important;
+    color: #1e293b !important;
+  }
+  
+  /* Ensure checkboxes and text in self-assessment are visible */
+  [data-worksheet-content="true"] div[class*="border-slate-300"][class*="print:block"] div[class*="space-y-2"] > div {
+    display: block !important;
+    visibility: visible !important;
+    margin-bottom: 0.5rem !important;
+    line-height: 1.5 !important;
   }
   
   /* Preserve worksheet section title and description styling */
