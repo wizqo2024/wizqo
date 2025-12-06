@@ -2212,6 +2212,19 @@ section[data-interactive-section="true"].preserve-print-styling [class*="h-48"] 
   
   /* CRITICAL: Ensure colored shape boxes in pattern worksheets are visible in print */
   /* Pattern shapes: sky (blue), rose (red), amber (yellow), emerald (green), pink, etc. */
+  /* Target pattern shape containers */
+  [data-worksheet-content="true"] .pattern-shape-container,
+  [data-worksheet-content="true"] .pattern-shape,
+  section .pattern-shape-container,
+  section .pattern-shape {
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+    color-adjust: exact !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+    display: inline-flex !important;
+  }
+  
   /* Target all possible selectors for pattern shapes */
   [data-worksheet-content="true"] [class*="bg-sky-300"],
   [data-worksheet-content="true"] [class*="bg-sky-400"],
@@ -2243,7 +2256,18 @@ section[data-interactive-section="true"].preserve-print-styling [class*="h-48"] 
   section span[class*="inline-flex"][class*="h-6"][class*="w-6"] span[class*="bg-rose"],
   section span[class*="inline-flex"][class*="h-6"][class*="w-6"] span[class*="bg-amber"],
   section span[class*="inline-flex"][class*="h-6"][class*="w-6"] span[class*="bg-emerald"],
-  section span[class*="inline-flex"][class*="h-6"][class*="w-6"] span[class*="bg-pink"] {
+  section span[class*="inline-flex"][class*="h-6"][class*="w-6"] span[class*="bg-pink"],
+  /* Target nested spans inside pattern shapes */
+  [data-worksheet-content="true"] .pattern-shape [class*="bg-sky"],
+  [data-worksheet-content="true"] .pattern-shape [class*="bg-rose"],
+  [data-worksheet-content="true"] .pattern-shape [class*="bg-amber"],
+  [data-worksheet-content="true"] .pattern-shape [class*="bg-emerald"],
+  [data-worksheet-content="true"] .pattern-shape [class*="bg-pink"],
+  section .pattern-shape [class*="bg-sky"],
+  section .pattern-shape [class*="bg-rose"],
+  section .pattern-shape [class*="bg-amber"],
+  section .pattern-shape [class*="bg-emerald"],
+  section .pattern-shape [class*="bg-pink"] {
     -webkit-print-color-adjust: exact !important;
     print-color-adjust: exact !important;
     color-adjust: exact !important;

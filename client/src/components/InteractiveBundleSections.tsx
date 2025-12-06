@@ -2154,17 +2154,17 @@ const renderers: Record<string, Renderer> = {
             return (
               <div key={idx} className="rounded-xl border border-amber-200 bg-amber-50 p-4 print:rounded-xl print:border print:border-amber-200 print:bg-amber-50 print:p-4 break-inside-avoid" style={{ WebkitPrintColorAdjust: 'exact', printColorAdjust: 'exact', backgroundColor: '#fffbeb', borderColor: '#fde68a', padding: '16px', borderRadius: '12px', borderWidth: '1px', borderStyle: 'solid', marginBottom: '12px', pageBreakInside: 'avoid', breakInside: 'avoid' }}>
                 <p className="text-xs uppercase text-amber-700 print:text-xs print:uppercase print:text-amber-700" style={{ fontSize: '12px', letterSpacing: '0.05em', margin: '0 0 12px 0', color: '#b45309' }}>{t('worksheets.earlyPatterns.pattern')} {pattern}</p>
-                <div className="mt-3 flex items-center gap-2 print:mt-3 print:flex print:items-center print:gap-2" style={{ marginTop: '12px', display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '8px' }}>
+                <div className="mt-3 flex items-center gap-2 print:mt-3 print:flex print:items-center print:gap-2" style={{ marginTop: '12px', display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '8px', WebkitPrintColorAdjust: 'exact', printColorAdjust: 'exact' }}>
                   {previewTokens.map((token, tokenIdx) => {
                     const translatedLabel = getTranslatedLabel(token)
                     return (
                       <span
                         key={`${token.key}-${tokenIdx}`}
-                        className="relative inline-flex items-center justify-center print:relative print:inline-flex print:items-center print:justify-center"
-                        style={{ position: 'relative', display: 'inline-flex', alignItems: 'center', justifyContent: 'center', WebkitPrintColorAdjust: 'exact', printColorAdjust: 'exact' }}
+                        className="relative inline-flex items-center justify-center print:relative print:inline-flex print:items-center print:justify-center pattern-shape-container"
+                        style={{ position: 'relative', display: 'inline-flex', alignItems: 'center', justifyContent: 'center', WebkitPrintColorAdjust: 'exact', printColorAdjust: 'exact', width: '24px', height: '24px', minWidth: '24px', minHeight: '24px' }}
                       >
                         <span className="sr-only print:sr-only">{translatedLabel}</span>
-                        <span style={{ WebkitPrintColorAdjust: 'exact', printColorAdjust: 'exact', display: 'inline-flex', alignItems: 'center', justifyContent: 'center' }}>
+                        <span className="pattern-shape" style={{ WebkitPrintColorAdjust: 'exact', printColorAdjust: 'exact', display: 'inline-flex', alignItems: 'center', justifyContent: 'center', width: '100%', height: '100%' }}>
                           {token.render}
                         </span>
                       </span>
