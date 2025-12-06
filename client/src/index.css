@@ -1235,6 +1235,214 @@ html {
     border-collapse: collapse !important;
   }
   
+  /* ============================================================================
+   * PRESERVE LIVE VIEW UI IN PRINT MODE
+   * Override print:bg-white and print:border classes to maintain original styling
+   * ============================================================================ */
+  
+  /* CRITICAL: Preserve all background colors in print - override print:bg-white */
+  /* Preserve colored backgrounds for sections, boxes, and components */
+  [data-worksheet-content="true"] [class*="bg-purple-50"][class*="print:bg-white"],
+  [data-worksheet-content="true"] [class*="bg-blue-50"][class*="print:bg-white"],
+  [data-worksheet-content="true"] [class*="bg-emerald-50"][class*="print:bg-white"],
+  [data-worksheet-content="true"] [class*="bg-indigo-50"][class*="print:bg-white"],
+  [data-worksheet-content="true"] [class*="bg-slate-50"][class*="print:bg-white"],
+  [data-worksheet-content="true"] [class*="bg-gradient-to-br"][class*="print:bg-white"],
+  [data-worksheet-content="true"] .bg-purple-50.print\\:bg-white,
+  [data-worksheet-content="true"] .bg-blue-50.print\\:bg-white,
+  [data-worksheet-content="true"] .bg-emerald-50.print\\:bg-white,
+  [data-worksheet-content="true"] .bg-indigo-50.print\\:bg-white {
+    background-color: inherit !important;
+    background: inherit !important;
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+    color-adjust: exact !important;
+  }
+  
+  /* Preserve specific background colors */
+  [data-worksheet-content="true"] .bg-purple-50,
+  [data-worksheet-content="true"] [class*="bg-purple-50"]:not([class*="bg-white"]) {
+    background-color: #faf5ff !important;
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+  }
+  
+  [data-worksheet-content="true"] .bg-blue-50,
+  [data-worksheet-content="true"] [class*="bg-blue-50"]:not([class*="bg-white"]) {
+    background-color: #eff6ff !important;
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+  }
+  
+  [data-worksheet-content="true"] .bg-emerald-50,
+  [data-worksheet-content="true"] [class*="bg-emerald-50"]:not([class*="bg-white"]) {
+    background-color: #ecfdf5 !important;
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+  }
+  
+  [data-worksheet-content="true"] .bg-indigo-50,
+  [data-worksheet-content="true"] [class*="bg-indigo-50"]:not([class*="bg-white"]) {
+    background-color: #eef2ff !important;
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+  }
+  
+  /* Preserve gradient backgrounds */
+  [data-worksheet-content="true"] [class*="bg-gradient-to-br"][class*="from-blue-50"],
+  [data-worksheet-content="true"] [class*="bg-gradient-to-br"][class*="from-indigo-50"] {
+    background: linear-gradient(to bottom right, #eff6ff, #eef2ff) !important;
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+  }
+  
+  /* CRITICAL: Preserve all borders in print - override print:border class */
+  /* Preserve border-2, border-purple-200, border-blue-200, etc. */
+  [data-worksheet-content="true"] [class*="border-2"][class*="print:border"],
+  [data-worksheet-content="true"] [class*="border-purple-200"][class*="print:border"],
+  [data-worksheet-content="true"] [class*="border-blue-200"][class*="print:border"],
+  [data-worksheet-content="true"] [class*="border-emerald-300"][class*="print:border"],
+  [data-worksheet-content="true"] [class*="border-slate-300"][class*="print:border"],
+  [data-worksheet-content="true"] .border-2.print\\:border,
+  [data-worksheet-content="true"] .border-purple-200.print\\:border,
+  [data-worksheet-content="true"] .border-blue-200.print\\:border,
+  [data-worksheet-content="true"] .border-emerald-300.print\\:border {
+    border: inherit !important;
+    border-width: inherit !important;
+    border-style: inherit !important;
+    border-color: inherit !important;
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+  }
+  
+  /* Preserve specific border styles */
+  [data-worksheet-content="true"] .border-2.border-purple-200,
+  [data-worksheet-content="true"] [class*="border-2"][class*="border-purple-200"] {
+    border: 2px solid #e9d5ff !important;
+    border-width: 2px !important;
+    border-style: solid !important;
+    border-color: #e9d5ff !important;
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+  }
+  
+  [data-worksheet-content="true"] .border-2.border-blue-200,
+  [data-worksheet-content="true"] [class*="border-2"][class*="border-blue-200"] {
+    border: 2px solid #bfdbfe !important;
+    border-width: 2px !important;
+    border-style: solid !important;
+    border-color: #bfdbfe !important;
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+  }
+  
+  [data-worksheet-content="true"] .border-2.border-emerald-300,
+  [data-worksheet-content="true"] [class*="border-2"][class*="border-emerald-300"] {
+    border: 2px solid #6ee7b7 !important;
+    border-width: 2px !important;
+    border-style: solid !important;
+    border-color: #6ee7b7 !important;
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+  }
+  
+  [data-worksheet-content="true"] .border-2.border-slate-300,
+  [data-worksheet-content="true"] [class*="border-2"][class*="border-slate-300"] {
+    border: 2px solid #cbd5e1 !important;
+    border-width: 2px !important;
+    border-style: solid !important;
+    border-color: #cbd5e1 !important;
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+  }
+  
+  /* Preserve border-slate-300 on boxes and containers */
+  [data-worksheet-content="true"] .border.border-slate-300,
+  [data-worksheet-content="true"] [class*="border"][class*="border-slate-300"] {
+    border: 1px solid #cbd5e1 !important;
+    border-width: 1px !important;
+    border-style: solid !important;
+    border-color: #cbd5e1 !important;
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+  }
+  
+  /* Preserve rounded corners */
+  [data-worksheet-content="true"] .rounded,
+  [data-worksheet-content="true"] .rounded-lg,
+  [data-worksheet-content="true"] .rounded-xl {
+    border-radius: inherit !important;
+  }
+  
+  /* Preserve padding on colored sections */
+  [data-worksheet-content="true"] [class*="bg-purple-50"][class*="p-4"],
+  [data-worksheet-content="true"] [class*="bg-blue-50"][class*="p-4"],
+  [data-worksheet-content="true"] [class*="bg-emerald-50"][class*="p-4"] {
+    padding: 1rem !important;
+  }
+  
+  /* Preserve component section styling - challenge sections, answer keys, worked examples */
+  [data-worksheet-content="true"] .challenge-section,
+  [data-worksheet-content="true"] .answer-key,
+  [data-worksheet-content="true"] .worked-example {
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+    color-adjust: exact !important;
+  }
+  
+  /* Preserve challenge section (purple background) */
+  [data-worksheet-content="true"] .challenge-section[class*="bg-purple-50"] {
+    background-color: #faf5ff !important;
+    border: 2px solid #e9d5ff !important;
+    border-width: 2px !important;
+    border-style: solid !important;
+    border-color: #e9d5ff !important;
+    border-radius: 0.5rem !important;
+    padding: 1rem !important;
+  }
+  
+  /* Preserve answer key section (emerald background) */
+  [data-worksheet-content="true"] .answer-key[class*="bg-emerald-50"] {
+    background-color: #ecfdf5 !important;
+    border: 2px solid #6ee7b7 !important;
+    border-width: 2px !important;
+    border-style: solid !important;
+    border-color: #6ee7b7 !important;
+    border-radius: 0.5rem !important;
+    padding: 1rem !important;
+  }
+  
+  /* Preserve worked example section (blue background) */
+  [data-worksheet-content="true"] .worked-example[class*="bg-blue-50"],
+  [data-worksheet-content="true"] .worked-example[class*="bg-gradient-to-br"] {
+    background: linear-gradient(to bottom right, #eff6ff, #eef2ff) !important;
+    border: 2px solid #bfdbfe !important;
+    border-width: 2px !important;
+    border-style: solid !important;
+    border-color: #bfdbfe !important;
+    border-radius: 0.5rem !important;
+    padding: 1rem !important;
+  }
+  
+  /* Preserve table container box (white background with border) */
+  [data-worksheet-content="true"] div[class*="border-slate-300"][class*="bg-white"] {
+    background-color: #ffffff !important;
+    border: 1px solid #cbd5e1 !important;
+    border-width: 1px !important;
+    border-style: solid !important;
+    border-color: #cbd5e1 !important;
+    border-radius: 0.5rem !important;
+    padding: 1rem !important;
+  }
+  
+  /* Override Tailwind print:bg-white - restore original backgrounds */
+  /* Target elements that have both color class and print:bg-white */
+  [data-worksheet-content="true"] [class*="bg-purple-50"]:has([class*="print:bg-white"]),
+  [data-worksheet-content="true"] [class*="bg-blue-50"]:has([class*="print:bg-white"]),
+  [data-worksheet-content="true"] [class*="bg-emerald-50"]:has([class*="print:bg-white"]) {
+    background-color: inherit !important;
+  }
+  
   /* CRITICAL: Force border on worksheet sections IMMEDIATELY after border removal */
   [data-worksheet-content="true"] section.worksheet-section,
   [data-worksheet-content="true"] .worksheet-section {
@@ -3244,6 +3452,111 @@ section[data-interactive-section="true"].preserve-print-styling [class*="h-48"] 
   [class*="dark"] {
     background: white !important;
     color: black !important;
+  }
+  
+  /* ============================================================================
+   * FINAL OVERRIDE: Preserve Live View UI in Print Mode
+   * These rules MUST come at the end to override Tailwind's print: classes
+   * ============================================================================ */
+  
+  /* CRITICAL: Override print:bg-white for colored sections - restore original backgrounds */
+  /* Target elements that have color classes - these rules override print:bg-white */
+  [data-worksheet-content="true"] [class*="bg-purple-50"],
+  [data-worksheet-content="true"] [class*="bg-blue-50"],
+  [data-worksheet-content="true"] [class*="bg-emerald-50"],
+  [data-worksheet-content="true"] [class*="bg-indigo-50"] {
+    background-color: inherit !important;
+    background-image: inherit !important;
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+    color-adjust: exact !important;
+  }
+  
+  /* Force specific background colors - override any print:bg-white */
+  [data-worksheet-content="true"] .bg-purple-50,
+  [data-worksheet-content="true"] [class*="bg-purple-50"]:not([class*="bg-white"]) {
+    background-color: #faf5ff !important;
+  }
+  
+  [data-worksheet-content="true"] .bg-blue-50,
+  [data-worksheet-content="true"] [class*="bg-blue-50"]:not([class*="bg-white"]) {
+    background-color: #eff6ff !important;
+  }
+  
+  [data-worksheet-content="true"] .bg-emerald-50,
+  [data-worksheet-content="true"] [class*="bg-emerald-50"]:not([class*="bg-white"]) {
+    background-color: #ecfdf5 !important;
+  }
+  
+  [data-worksheet-content="true"] .bg-indigo-50,
+  [data-worksheet-content="true"] [class*="bg-indigo-50"]:not([class*="bg-white"]) {
+    background-color: #eef2ff !important;
+  }
+  
+  /* Preserve gradient backgrounds */
+  [data-worksheet-content="true"] [class*="bg-gradient-to-br"][class*="from-blue-50"],
+  [data-worksheet-content="true"] [class*="bg-gradient-to-br"][class*="from-indigo-50"] {
+    background: linear-gradient(to bottom right, #eff6ff, #eef2ff) !important;
+  }
+  
+  /* CRITICAL: Override print:border - restore original borders */
+  /* Preserve all border-2 styles */
+  [data-worksheet-content="true"] [class*="border-2"] {
+    border-width: 2px !important;
+    border-style: solid !important;
+  }
+  
+  [data-worksheet-content="true"] [class*="border-2"][class*="border-purple-200"],
+  [data-worksheet-content="true"] .border-2.border-purple-200 {
+    border: 2px solid #e9d5ff !important;
+  }
+  
+  [data-worksheet-content="true"] [class*="border-2"][class*="border-blue-200"],
+  [data-worksheet-content="true"] .border-2.border-blue-200 {
+    border: 2px solid #bfdbfe !important;
+  }
+  
+  [data-worksheet-content="true"] [class*="border-2"][class*="border-emerald-300"],
+  [data-worksheet-content="true"] .border-2.border-emerald-300 {
+    border: 2px solid #6ee7b7 !important;
+  }
+  
+  [data-worksheet-content="true"] [class*="border-2"][class*="border-slate-300"],
+  [data-worksheet-content="true"] .border-2.border-slate-300 {
+    border: 2px solid #cbd5e1 !important;
+  }
+  
+  /* Preserve single borders */
+  [data-worksheet-content="true"] .border.border-slate-300,
+  [data-worksheet-content="true"] [class*="border"][class*="border-slate-300"]:not([class*="border-2"]) {
+    border: 1px solid #cbd5e1 !important;
+  }
+  
+  /* Preserve component-specific styling */
+  [data-worksheet-content="true"] .challenge-section {
+    background-color: #faf5ff !important;
+    border: 2px solid #e9d5ff !important;
+    border-radius: 0.5rem !important;
+  }
+  
+  [data-worksheet-content="true"] .answer-key {
+    background-color: #ecfdf5 !important;
+    border: 2px solid #6ee7b7 !important;
+    border-radius: 0.5rem !important;
+  }
+  
+  [data-worksheet-content="true"] .worked-example {
+    background: linear-gradient(to bottom right, #eff6ff, #eef2ff) !important;
+    border: 2px solid #bfdbfe !important;
+    border-radius: 0.5rem !important;
+  }
+  
+  /* Preserve table container boxes */
+  [data-worksheet-content="true"] div[class*="border-slate-300"][class*="bg-white"],
+  [data-worksheet-content="true"] div.border.border-slate-300.bg-white {
+    background-color: #ffffff !important;
+    border: 1px solid #cbd5e1 !important;
+    border-radius: 0.5rem !important;
   }
 }
 
