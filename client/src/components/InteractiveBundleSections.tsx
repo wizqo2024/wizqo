@@ -1911,10 +1911,9 @@ const renderers: Record<string, Renderer> = {
             <div key={idx} className="rounded-xl border border-purple-200 bg-white p-4 print:rounded-xl print:border print:border-purple-200 print:bg-white print:p-4 break-inside-avoid" style={{ WebkitPrintColorAdjust: 'exact', printColorAdjust: 'exact', backgroundColor: '#ffffff', borderColor: '#e9d5ff', padding: '16px', borderRadius: '12px', borderWidth: '1px', borderStyle: 'solid', marginBottom: '16px', pageBreakInside: 'avoid', breakInside: 'avoid' }}>
               <p className="text-sm font-semibold text-slate-700 mb-1 print:text-sm print:font-semibold print:text-slate-700 print:mb-1" style={{ fontSize: '14px', fontWeight: '600', margin: '0 0 4px 0' }}>{page.title}</p>
               <p className="text-xs text-slate-600 mb-3 print:text-xs print:text-slate-600 print:mb-3" style={{ fontSize: '12px', lineHeight: '16px', margin: '0 0 12px 0' }}>{page.description}</p>
-              <div className="mb-2 flex items-center justify-center print:mb-2 print:flex print:items-center print:justify-center" style={{ marginBottom: '8px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+              <div className="mb-2 flex items-center justify-center print:mb-2 print:flex print:items-center print:justify-center" style={{ marginBottom: '8px', display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '16px', backgroundColor: '#ffffff', borderRadius: '8px', border: '1px solid #e9d5ff' }}>
                 <ShapeSVG shape={page.shape} />
               </div>
-              <div className="mt-3 min-h-[280px] rounded border-2 border-dashed border-purple-300 bg-white print:mt-3 print:min-h-[280px] print:rounded print:border-2 print:border-dashed print:border-purple-300 print:bg-white" style={{ WebkitPrintColorAdjust: 'exact', printColorAdjust: 'exact', backgroundColor: '#ffffff', borderColor: '#c084fc', borderWidth: '2px', borderStyle: 'dashed', minHeight: '280px', borderRadius: '8px', marginTop: '12px' }}></div>
               <p className="mt-2 text-xs text-purple-600 text-center print:mt-2 print:text-xs print:text-purple-600 print:text-center" style={{ fontSize: '12px', lineHeight: '16px', marginTop: '8px', marginBottom: '0', color: '#9333ea', textAlign: 'center' }}>{t('worksheets.artDesign.colorInsideShape')}</p>
             </div>
           ))}
