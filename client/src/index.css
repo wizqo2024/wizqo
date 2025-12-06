@@ -1381,9 +1381,15 @@ section[data-interactive-section="true"].preserve-print-styling [class*="h-48"] 
     /* Remove all top margins and padding from header on first page */
     section[data-interactive-section="true"].preserve-print-styling:first-child .print-header {
       margin-top: 0 !important;
-      margin-bottom: 6px !important;
+      margin-bottom: 4px !important;
       padding-top: 0 !important;
       padding-bottom: 0 !important;
+    }
+    
+    /* Remove mb-4 class spacing on first page */
+    section[data-interactive-section="true"].preserve-print-styling:first-child .mb-4,
+    section[data-interactive-section="true"].preserve-print-styling:first-child [class*="mb-4"] {
+      margin-bottom: 4px !important;
     }
     
     section[data-interactive-section="true"].preserve-print-styling .print-header {
@@ -1414,6 +1420,12 @@ section[data-interactive-section="true"].preserve-print-styling [class*="h-48"] 
       padding-top: 0 !important;
     }
     
+    /* Remove mt-1 spacing from header elements on first page */
+    section[data-interactive-section="true"].preserve-print-styling:first-child .mt-1,
+    section[data-interactive-section="true"].preserve-print-styling:first-child [class*="mt-1"] {
+      margin-top: 0 !important;
+    }
+    
     /* Remove space before first grid/list/paragraph */
     section[data-interactive-section="true"].preserve-print-styling:first-child .space-y-3,
     section[data-interactive-section="true"].preserve-print-styling:first-child .space-y-4,
@@ -1441,9 +1453,27 @@ section[data-interactive-section="true"].preserve-print-styling [class*="h-48"] 
       margin-bottom: 2px !important;
     }
     
-    /* Ensure first section starts at the very top */
+    /* Ensure first section starts at the very top - remove all top spacing */
+    [data-worksheet-content="true"] {
+      margin-top: 0 !important;
+      padding-top: 0 !important;
+    }
+    
+    [data-worksheet-content="true"] > *:first-child {
+      margin-top: 0 !important;
+      padding-top: 0 !important;
+    }
+    
     [data-worksheet-content="true"] section[data-interactive-section="true"].preserve-print-styling:first-child {
-      margin-top: -2px !important;
+      margin-top: 0 !important;
+      padding-top: 0 !important;
+    }
+    
+    /* Remove spacing from section's mb-10 class on first page */
+    section[data-interactive-section="true"].preserve-print-styling:first-child.mb-10,
+    section[data-interactive-section="true"].preserve-print-styling:first-child[class*="mb-10"] {
+      margin-top: 0 !important;
+      margin-bottom: 40px !important;
     }
   }
   

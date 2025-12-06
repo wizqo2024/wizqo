@@ -8150,7 +8150,7 @@ function InteractiveWorksheetSection({
         <WorksheetHeader />
       </div>
       
-      <header className="print-header mb-4 flex items-start justify-between gap-3 relative z-10">
+      <header className="print-header mb-4 print:mb-2 flex items-start justify-between gap-3 relative z-10">
         <div>
           <p className={`text-xs uppercase tracking-wide font-bold ${theme.text} opacity-80`}>{t(`categories.${category.id}`) || category.label}</p>
           <h2 className={`text-xl font-bold ${theme.text} mt-1 flex items-center gap-2`}>
