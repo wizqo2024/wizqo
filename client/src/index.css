@@ -1026,6 +1026,20 @@ html {
     print-color-adjust: exact !important;
   }
   
+  /* Preserve borders on inner white boxes - match interactive worksheets */
+  [data-worksheet-content="true"] div[class*="border"][class*="bg-white"],
+  [data-worksheet-content="true"] div[class*="border-slate"],
+  [data-worksheet-content="true"] .border-slate-300,
+  [data-worksheet-content="true"] .border-slate-200 {
+    border: 1px solid #cbd5e1 !important;
+    border-color: #cbd5e1 !important;
+    border-width: 1px !important;
+    border-style: solid !important;
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+    color-adjust: exact !important;
+  }
+  
   section.preserve-print-styling [class*="border-pink-200"] {
     border-color: #fbcfe8 !important;
   }

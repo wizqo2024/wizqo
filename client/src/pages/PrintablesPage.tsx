@@ -314,7 +314,7 @@ function WorksheetSectionWrapper({
       <div className="absolute top-0 right-0 w-32 h-32 bg-gradient-to-br rounded-bl-full pointer-events-none print:hidden" style={{ backgroundColor: theme.cornerAccent }} />
       <div className="absolute bottom-0 left-0 w-24 h-24 bg-gradient-to-tr rounded-tr-full pointer-events-none print:hidden" style={{ backgroundColor: theme.cornerAccent2 }} />
       <div 
-        className="relative z-10 print:p-0"
+        className="relative z-10 print:p-4"
         style={{ 
           pageBreakInside: 'avoid',
           breakInside: 'avoid',
@@ -2372,18 +2372,36 @@ export function PrintablesPage() {
           background-color: white !important;
         }
         
-        /* Preserve content borders within worksheets */
+        /* Preserve content borders within worksheets - match interactive worksheets */
         section[class*="break-inside-avoid"] div[class*="border"],
-        section[class*="break-inside-avoid"] div[class*="rounded"] {
+        section[class*="break-inside-avoid"] div[class*="rounded"],
+        [data-worksheet-content="true"] div[class*="border"][class*="bg-white"],
+        [data-worksheet-content="true"] div[class*="border-slate"] {
           border: 1px solid #cbd5e1 !important;
+          border-color: #cbd5e1 !important;
+          border-width: 1px !important;
+          border-style: solid !important;
           border-radius: 4px !important;
+          -webkit-print-color-adjust: exact !important;
+          print-color-adjust: exact !important;
+          color-adjust: exact !important;
         }
         
-        /* Inner borders for every worksheet block */
-        [data-worksheet-content="true"] .worksheet-section > div:not(.print-ignore-inner-border):not([class*="border-"]):not([class*="print:border"]):not([class*="no-border"]),
-        [data-worksheet-content="true"] .worksheet-card > div:not(.print-ignore-inner-border):not([class*="border-"]):not([class*="print:border"]):not([class*="no-border"]),
-        [data-worksheet-content="true"] .question-section > div:not(.print-ignore-inner-border):not([class*="border-"]):not([class*="print:border"]):not([class*="no-border"]),
-        [data-worksheet-content="true"] .question-section-wrapper > div:not(.print-ignore-inner-border):not([class*="border-"]):not([class*="print:border"]):not([class*="no-border"]) {
+        /* Preserve borders on boxes with explicit border classes */
+        [data-worksheet-content="true"] .border-slate-300,
+        [data-worksheet-content="true"] .border-slate-200,
+        [data-worksheet-content="true"] [class*="border-slate"] {
+          border: 1px solid #cbd5e1 !important;
+          border-color: #cbd5e1 !important;
+          border-width: 1px !important;
+          border-style: solid !important;
+        }
+        
+        /* Inner borders for every worksheet block - but preserve if they have border classes */
+        [data-worksheet-content="true"] .worksheet-section > div:not(.print-ignore-inner-border):not([class*="border-"]):not([class*="print:border"]):not([class*="no-border"]):not([class*="border-slate"]),
+        [data-worksheet-content="true"] .worksheet-card > div:not(.print-ignore-inner-border):not([class*="border-"]):not([class*="print:border"]):not([class*="no-border"]):not([class*="border-slate"]),
+        [data-worksheet-content="true"] .question-section > div:not(.print-ignore-inner-border):not([class*="border-"]):not([class*="print:border"]):not([class*="no-border"]):not([class*="border-slate"]),
+        [data-worksheet-content="true"] .question-section-wrapper > div:not(.print-ignore-inner-border):not([class*="border-"]):not([class*="print:border"]):not([class*="no-border"]):not([class*="border-slate"]) {
           border: none !important;
           border-radius: 0 !important;
           padding: 0.35rem 0.5rem !important;
