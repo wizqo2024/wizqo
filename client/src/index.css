@@ -747,8 +747,12 @@ html {
     print-color-adjust: exact !important;
   }
   
-  /* Force drawing box classes to exact sizes */
-  section[data-interactive-section="true"].preserve-print-styling .drawing-box {
+  /* Force drawing box classes to exact sizes - highest specificity */
+  section[data-interactive-section="true"].preserve-print-styling .drawing-box,
+  section[data-interactive-section="true"].preserve-print-styling div.drawing-box,
+  section[data-interactive-section="true"].preserve-print-styling [class*="h-24"].drawing-box,
+  section[data-interactive-section="true"].preserve-print-styling [class*="bg-white"].drawing-box,
+  section[data-interactive-section="true"].preserve-print-styling [class*="border-pink-300"].drawing-box {
     height: 96px !important;
     min-height: 96px !important;
     max-height: 96px !important;
@@ -761,11 +765,18 @@ html {
     transform: scale(1) !important;
     zoom: 1 !important;
     flex-shrink: 0 !important;
+    flex-grow: 0 !important;
     -webkit-print-color-adjust: exact !important;
     print-color-adjust: exact !important;
+    display: block !important;
+    overflow: visible !important;
   }
   
-  section[data-interactive-section="true"].preserve-print-styling .drawing-box-large {
+  section[data-interactive-section="true"].preserve-print-styling .drawing-box-large,
+  section[data-interactive-section="true"].preserve-print-styling div.drawing-box-large,
+  section[data-interactive-section="true"].preserve-print-styling [class*="h-32"].drawing-box-large,
+  section[data-interactive-section="true"].preserve-print-styling [class*="bg-white"].drawing-box-large,
+  section[data-interactive-section="true"].preserve-print-styling [class*="border-pink-300"].drawing-box-large {
     height: 128px !important;
     min-height: 128px !important;
     max-height: 128px !important;
@@ -778,8 +789,61 @@ html {
     transform: scale(1) !important;
     zoom: 1 !important;
     flex-shrink: 0 !important;
+    flex-grow: 0 !important;
     -webkit-print-color-adjust: exact !important;
     print-color-adjust: exact !important;
+    display: block !important;
+    overflow: visible !important;
+  }
+  
+  /* Target drawing boxes by data attribute for maximum specificity */
+  section[data-interactive-section="true"].preserve-print-styling [data-drawing-box="true"] {
+    height: 96px !important;
+    min-height: 96px !important;
+    max-height: 96px !important;
+    width: 100% !important;
+    box-sizing: border-box !important;
+    border-width: 1px !important;
+    border-style: solid !important;
+    border-color: #f9a8d4 !important;
+    background-color: #ffffff !important;
+    transform: scale(1) !important;
+    zoom: 1 !important;
+    flex-shrink: 0 !important;
+    flex-grow: 0 !important;
+    display: block !important;
+    overflow: visible !important;
+  }
+  
+  section[data-interactive-section="true"].preserve-print-styling [data-drawing-box="large"] {
+    height: 128px !important;
+    min-height: 128px !important;
+    max-height: 128px !important;
+    width: 100% !important;
+    box-sizing: border-box !important;
+    border-width: 1px !important;
+    border-style: solid !important;
+    border-color: #f9a8d4 !important;
+    background-color: #ffffff !important;
+    transform: scale(1) !important;
+    zoom: 1 !important;
+    flex-shrink: 0 !important;
+    flex-grow: 0 !important;
+    display: block !important;
+    overflow: visible !important;
+  }
+  
+  /* Override ANY height rules that might affect drawing boxes */
+  section[data-interactive-section="true"].preserve-print-styling [data-drawing-box] {
+    height: inherit !important;
+  }
+  
+  section[data-interactive-section="true"].preserve-print-styling [data-drawing-box="true"] {
+    height: 96px !important;
+  }
+  
+  section[data-interactive-section="true"].preserve-print-styling [data-drawing-box="large"] {
+    height: 128px !important;
   }
   
   /* Preserve SVG sizes */
