@@ -2106,10 +2106,26 @@ export function PrintablesPage() {
           box-shadow: none !important;
         }
         
-        /* Ensure worksheet sections have visible borders in print */
+        /* Ensure worksheet sections have visible borders in print - must come after border removal */
+        [data-worksheet-content="true"] section.worksheet-section,
         [data-worksheet-content="true"] .worksheet-section {
-          border: 1px solid rgba(15, 23, 42, 0.2) !important;
+          border: 1px solid #cbd5e1 !important;
+          border-width: 1px !important;
+          border-color: #cbd5e1 !important;
+          border-style: solid !important;
           border-radius: 12px !important;
+          -webkit-print-color-adjust: exact !important;
+          print-color-adjust: exact !important;
+          color-adjust: exact !important;
+        }
+        
+        /* Override any border removal that might affect worksheet sections */
+        [data-worksheet-content="true"] section.worksheet-section[style*="border"],
+        [data-worksheet-content="true"] .worksheet-section[style*="border"] {
+          border: 1px solid #cbd5e1 !important;
+          border-width: 1px !important;
+          border-color: #cbd5e1 !important;
+          border-style: solid !important;
         }
         
         [data-worksheet-content="true"] .print-section-outline {
