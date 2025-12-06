@@ -4550,7 +4550,7 @@ export const es = {
       answerKey: 'Las respuestas de los estudiantes pueden variar. Verifica la reflexión cuidadosa, la expresión genuina de gratitud y la comprensión del pensamiento positivo y la apreciación.',
     },
     'interactive-art-color-by-number': {
-      title: 'فن التلوين بالأرقام',
+      title: 'Arte de Colorear por Números',
       colorThePicture: '¡Colorea la imagen usando los códigos numéricos a continuación. ¡Haz coincidir cada número con su color!',
       colorKey: 'Clave de Colores:',
       drawDesign: 'Dibuja un diseño de {{design}} con números 1-{{count}}',
@@ -4559,7 +4559,7 @@ export const es = {
       answerKey: 'Los estudiantes deben colorear cada sección según el código numérico proporcionado. Verifica que los colores coincidan con la clave (1=rojo, 2=azul, etc.) y que los estudiantes sigan las instrucciones con precisión.',
     },
     'interactive-art-mandala': {
-      title: 'فن الماندالا والأنماط',
+      title: 'Arte de Mandala y Patrones',
       createMandala: 'Crea un hermoso diseño de mandala con patrones {{pattern}}. Enfócate en la simetría y la atención plena.',
       mandalaTemplate: 'Plantilla de Mandala',
       drawMandalaHere: 'Dibuja tu mandala aquí',

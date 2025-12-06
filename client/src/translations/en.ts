@@ -4750,7 +4750,7 @@ export const en = {
       answerKey: 'Student responses may vary. Check for thoughtful reflection, genuine gratitude expression, and understanding of positive thinking and appreciation.',
     },
     'interactive-art-color-by-number': {
-      title: 'فن التلوين بالأرقام',
+      title: 'Color-by-Number Art',
       colorThePicture: 'Color the picture using the number codes below. Match each number to its color!',
       colorKey: 'Color Key:',
       drawDesign: 'Draw a {{design}} design with numbers 1-{{count}}',
@@ -4759,7 +4759,7 @@ export const en = {
       answerKey: 'Students should color each section according to the number code provided. Check that colors match the key (1=red, 2=blue, etc.) and that students follow directions accurately.',
     },
     'interactive-art-mandala': {
-      title: 'فن الماندالا والأنماط',
+      title: 'Mandala Art & Patterns',
       createMandala: 'Create a beautiful mandala design with {{pattern}} patterns. Focus on symmetry and mindfulness.',
       mandalaTemplate: 'Mandala Template',
       drawMandalaHere: 'Draw your mandala here',
