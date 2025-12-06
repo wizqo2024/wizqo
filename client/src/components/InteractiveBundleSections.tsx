@@ -5416,7 +5416,10 @@ const renderers: Record<string, Renderer> = {
                 <div className="mb-2 flex items-center justify-center">
                   <p className="text-3xl">{season.emoji}</p>
                 </div>
-                <div className="h-48 rounded border-2 border-green-300 bg-white print-block-outline"></div>
+                <div
+                  className="h-48 rounded border-2 border-green-300 bg-white print-block-outline print:border-2 print:border-slate-600 print:bg-white print:min-h-[10rem] print:flex print:items-center print:justify-center print:shadow-none"
+                  style={{ pageBreakInside: 'avoid', breakInside: 'avoid', WebkitRegionBreakInside: 'avoid' }}
+                ></div>
                 <p className="mt-1 text-xs text-green-600 italic text-center">{drawAndColorText}</p>
                 <p className="mt-2 text-xs text-green-600 text-center">{useColorsText}</p>
               </div>
