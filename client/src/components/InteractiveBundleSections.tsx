@@ -5406,9 +5406,9 @@ const renderers: Record<string, Renderer> = {
     const coloringLabel = translateWithFallback(t, 'interactive.interactive-art-seasonal.coloring', 'Coloring')
     const themesLabel = translateWithFallback(t, 'interactive.interactive-art-seasonal.themes', 'Themes:')
     return (
-      <div className="space-y-4">
-        <p className="text-sm text-slate-600">{descriptionText}</p>
-        <div className="grid gap-4 md:grid-cols-2">
+      <div className="space-y-4" style={{ fontSize: '16px', lineHeight: '24px' }}>
+        <p className="text-sm text-slate-600" style={{ fontSize: '14px', lineHeight: '20px', color: '#475569', margin: '0 0 16px 0' }}>{descriptionText}</p>
+        <div className="grid gap-4 md:grid-cols-2 print:grid print:grid-cols-2 print:gap-4" style={{ display: 'grid', gridTemplateColumns: 'repeat(2, minmax(0, 1fr))', gap: '16px', width: '100%' }}>
           {seasons.map((season, idx) => {
             const seasonName = translateWithFallback(t, `interactive.interactive-art-seasonal.seasons.${season.nameKey}`, season.name.toLowerCase())
             const drawAndColorTemplate = translateWithFallback(
@@ -5429,18 +5429,37 @@ const renderers: Record<string, Renderer> = {
             const drawAndColorText = drawAndColorTemplate.replace('{{season}}', seasonName)
             const useColorsText = useColorsTemplate.replace('{{season}}', seasonName)
             return (
-              <div key={idx} className="rounded-xl border border-green-200 bg-green-50 p-4 print-keep-card-bg print-season-card">
-                <div className="flex items-center gap-2 mb-2">
-                  <span className="text-2xl">{season.emoji}</span>
-                  <p className="text-sm font-semibold text-green-700">{season.name} {coloringLabel}</p>
+              <div key={idx} className="rounded-xl border border-green-200 bg-green-50 p-4 print-keep-card-bg print-season-card" style={{ WebkitPrintColorAdjust: 'exact', printColorAdjust: 'exact', backgroundColor: '#f0fdf4', borderColor: '#bbf7d0', padding: '16px', borderRadius: '12px', borderWidth: '1px', borderStyle: 'solid' }}>
+                <div className="flex items-center gap-2 mb-2" style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '8px' }}>
+                  <span className="text-2xl" style={{ fontSize: '24px', lineHeight: '1' }}>{season.emoji}</span>
+                  <p className="text-sm font-semibold text-green-700" style={{ fontSize: '14px', fontWeight: '600', color: '#15803d', margin: '0', lineHeight: '20px' }}>{season.name} {coloringLabel}</p>
                 </div>
-                <p className="text-xs text-green-600 mb-2">{themesLabel} {season.themes.join(', ')}</p>
-                <div className="mb-2 flex items-center justify-center">
-                  <p className="text-3xl">{season.emoji}</p>
+                <p className="text-xs text-green-600 mb-2" style={{ fontSize: '12px', color: '#16a34a', marginBottom: '8px', lineHeight: '16px', marginTop: '0' }}>{themesLabel} {season.themes.join(', ')}</p>
+                <div className="mb-2 flex items-center justify-center" style={{ marginBottom: '8px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                  <p className="text-3xl" style={{ fontSize: '30px', lineHeight: '1', margin: '0' }}>{season.emoji}</p>
                 </div>
                 <div
                   className="h-48 rounded border-2 border-green-300 bg-white print-block-outline print-block-outline-strong flex items-center justify-center"
-                  style={{ pageBreakInside: 'avoid', breakInside: 'avoid', WebkitRegionBreakInside: 'avoid' }}
+                  style={{ 
+                    pageBreakInside: 'avoid', 
+                    breakInside: 'avoid', 
+                    WebkitRegionBreakInside: 'avoid',
+                    height: '192px',
+                    minHeight: '192px',
+                    maxHeight: '192px',
+                    width: '100%',
+                    boxSizing: 'border-box',
+                    borderWidth: '2px',
+                    borderStyle: 'solid',
+                    borderColor: '#86efac',
+                    backgroundColor: '#ffffff',
+                    borderRadius: '8px',
+                    WebkitPrintColorAdjust: 'exact',
+                    printColorAdjust: 'exact',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center'
+                  }}
                 >
                   <svg
                     viewBox="0 0 400 260"
@@ -5476,8 +5495,8 @@ const renderers: Record<string, Renderer> = {
                     />
                   </svg>
                 </div>
-                <p className="mt-1 text-xs text-green-600 italic text-center">{drawAndColorText}</p>
-                <p className="mt-2 text-xs text-green-600 text-center">{useColorsText}</p>
+                <p className="mt-1 text-xs text-green-600 italic text-center" style={{ fontSize: '12px', marginTop: '4px', color: '#16a34a', fontStyle: 'italic', textAlign: 'center', lineHeight: '16px', marginBottom: '0' }}>{drawAndColorText}</p>
+                <p className="mt-2 text-xs text-green-600 text-center" style={{ fontSize: '12px', marginTop: '8px', color: '#16a34a', textAlign: 'center', lineHeight: '16px', marginBottom: '0' }}>{useColorsText}</p>
               </div>
             )
           })}

@@ -1223,22 +1223,77 @@ html {
   color-adjust: exact !important;
 }
 
-[data-worksheet-content="true"] .print-season-grid {
-  display: flex !important;
-  flex-wrap: wrap !important;
-  gap: 1rem !important;
-  column-gap: 1rem !important;
-  row-gap: 1rem !important;
-  break-inside: avoid !important;
-  page-break-inside: avoid !important;
+/* Seasonal worksheet grid - preserve grid layout in print */
+[data-worksheet-content="true"] .grid[class*="md:grid-cols-2"],
+section[data-interactive-section="true"].preserve-print-styling .grid[class*="md:grid-cols-2"],
+section[data-interactive-section="true"].preserve-print-styling .grid {
+  display: grid !important;
+  grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+  gap: 16px !important;
+  width: 100% !important;
+  box-sizing: border-box !important;
 }
 
-[data-worksheet-content="true"] .print-season-card {
-  flex: 0 0 calc(50% - 0.6rem) !important;
-  max-width: calc(50% - 0.6rem) !important;
+[data-worksheet-content="true"] .print-season-grid {
+  display: grid !important;
+  grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+  gap: 16px !important;
+  column-gap: 16px !important;
+  row-gap: 16px !important;
+  break-inside: avoid !important;
+  page-break-inside: avoid !important;
+  width: 100% !important;
+}
+
+[data-worksheet-content="true"] .print-season-card,
+section[data-interactive-section="true"].preserve-print-styling .print-season-card {
+  width: 100% !important;
+  min-width: 0 !important;
+  max-width: none !important;
   box-sizing: border-box !important;
   page-break-inside: avoid !important;
   break-inside: avoid !important;
+  padding: 16px !important;
+  margin: 0 !important;
+  flex: none !important;
+}
+
+/* Preserve seasonal card backgrounds and borders */
+[data-worksheet-content="true"] .print-keep-card-bg,
+section[data-interactive-section="true"].preserve-print-styling .print-keep-card-bg {
+  background-color: #f0fdf4 !important; /* green-50 */
+  border-color: #bbf7d0 !important; /* green-200 */
+  border-width: 1px !important;
+  border-style: solid !important;
+  -webkit-print-color-adjust: exact !important;
+  print-color-adjust: exact !important;
+  color-adjust: exact !important;
+}
+
+/* Preserve seasonal drawing box sizes */
+section[data-interactive-section="true"].preserve-print-styling .print-block-outline-strong,
+section[data-interactive-section="true"].preserve-print-styling [class*="h-48"] {
+  height: 192px !important; /* Exact 192px - match Tailwind h-48 */
+  min-height: 192px !important;
+  max-height: 192px !important;
+  width: 100% !important;
+  box-sizing: border-box !important;
+}
+
+/* Preserve spacing in seasonal cards */
+section[data-interactive-section="true"].preserve-print-styling .print-season-card .mb-2,
+section[data-interactive-section="true"].preserve-print-styling .print-season-card [class*="mb-2"] {
+  margin-bottom: 8px !important;
+}
+
+section[data-interactive-section="true"].preserve-print-styling .print-season-card .mt-1,
+section[data-interactive-section="true"].preserve-print-styling .print-season-card [class*="mt-1"] {
+  margin-top: 4px !important;
+}
+
+section[data-interactive-section="true"].preserve-print-styling .print-season-card .mt-2,
+section[data-interactive-section="true"].preserve-print-styling .print-season-card [class*="mt-2"] {
+  margin-top: 8px !important;
 }
   
   [data-worksheet-content="true"] .worksheet-section > div:not(.print-ignore-inner-border):not([class*="border-"]):not([class*="print:border"]):not([class*="no-border"]),
