@@ -857,6 +857,7 @@ html {
     max-height: 96px !important;
     width: 100% !important;
     box-sizing: border-box !important;
+    border: 1px solid #f9a8d4 !important;
     border-width: 1px !important;
     border-style: solid !important;
     border-color: #f9a8d4 !important;
@@ -867,6 +868,8 @@ html {
     flex-grow: 0 !important;
     display: block !important;
     overflow: visible !important;
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
   }
   
   section[data-interactive-section="true"].preserve-print-styling [data-drawing-box="large"] {
@@ -875,6 +878,7 @@ html {
     max-height: 128px !important;
     width: 100% !important;
     box-sizing: border-box !important;
+    border: 1px solid #f9a8d4 !important;
     border-width: 1px !important;
     border-style: solid !important;
     border-color: #f9a8d4 !important;
@@ -885,6 +889,20 @@ html {
     flex-grow: 0 !important;
     display: block !important;
     overflow: visible !important;
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+  }
+  
+  /* Ensure drawing box borders are visible - override any border removal rules */
+  section[data-interactive-section="true"].preserve-print-styling [data-drawing-box],
+  section[data-interactive-section="true"].preserve-print-styling .drawing-box,
+  section[data-interactive-section="true"].preserve-print-styling .drawing-box-large {
+    border: 1px solid #f9a8d4 !important;
+    border-width: 1px !important;
+    border-style: solid !important;
+    border-color: #f9a8d4 !important;
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
   }
   
   /* Override ANY height rules that might affect drawing boxes */
@@ -929,6 +947,19 @@ html {
   section[data-interactive-section="true"].preserve-print-styling [style*="borderColor"][style*="#fbcfe8"] {
     border: inherit !important;
     background: inherit !important;
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+  }
+  
+  /* Override any border removal rules for drawing boxes - ensure thin border is visible */
+  section[data-interactive-section="true"].preserve-print-styling [data-drawing-box],
+  section[data-interactive-section="true"].preserve-print-styling .drawing-box,
+  section[data-interactive-section="true"].preserve-print-styling .drawing-box-large,
+  section[data-interactive-section="true"].preserve-print-styling [class*="bg-white"][class*="border-pink-300"] {
+    border: 1px solid #f9a8d4 !important;
+    border-width: 1px !important;
+    border-style: solid !important;
+    border-color: #f9a8d4 !important;
     -webkit-print-color-adjust: exact !important;
     print-color-adjust: exact !important;
   }
