@@ -5184,26 +5184,26 @@ const renderers: Record<string, Renderer> = {
     }
     
     return (
-      <div className="space-y-4">
-        <p className="text-sm text-slate-600">Create art using basic shapes. Draw and color shapes to make pictures.</p>
-        <div className="grid gap-3 md:grid-cols-3">
+      <div className="space-y-4 print:space-y-4">
+        <p className="text-sm text-slate-600 print:text-slate-600">Create art using basic shapes. Draw and color shapes to make pictures.</p>
+        <div className="grid gap-3 md:grid-cols-3 print:grid print:grid-cols-3 print:gap-3">
           {shapes.map((shape, idx) => (
-            <div key={idx} className="rounded-xl border border-pink-200 bg-pink-50 p-4 text-center">
-              <p className="text-sm font-semibold text-pink-700 capitalize mb-2">{shape}</p>
-              <div className="mb-2 flex items-center justify-center">
+            <div key={idx} className="rounded-xl border border-pink-200 bg-pink-50 p-4 text-center print:rounded-xl print:border print:border-pink-200 print:bg-pink-50 print:p-4 print:text-center" style={{ WebkitPrintColorAdjust: 'exact', printColorAdjust: 'exact', backgroundColor: '#fdf2f8', borderColor: '#fbcfe8' }}>
+              <p className="text-sm font-semibold text-pink-700 capitalize mb-2 print:text-sm print:font-semibold print:text-pink-700 print:mb-2">{shape}</p>
+              <div className="mb-2 flex items-center justify-center print:mb-2 print:flex print:items-center print:justify-center">
                 {renderShapeExample(shape)}
               </div>
-              <div className="h-24 rounded border border-pink-300 bg-white print:border print:border-pink-300 print:bg-white" style={{ borderColor: '#f9a8d4', backgroundColor: '#ffffff', WebkitPrintColorAdjust: 'exact', printColorAdjust: 'exact' }}></div>
-              <p className="mt-1 text-xs text-pink-600 italic mb-2">Draw a {shape}</p>
-              <p className="text-xs text-pink-600">Color it: ________________</p>
+              <div className="h-24 rounded border border-pink-300 bg-white print:h-24 print:rounded print:border print:border-pink-300 print:bg-white" style={{ borderColor: '#f9a8d4', backgroundColor: '#ffffff', WebkitPrintColorAdjust: 'exact', printColorAdjust: 'exact', minHeight: '96px' }}></div>
+              <p className="mt-1 text-xs text-pink-600 italic mb-2 print:mt-1 print:text-xs print:text-pink-600 print:italic print:mb-2">Draw a {shape}</p>
+              <p className="text-xs text-pink-600 print:text-xs print:text-pink-600">Color it: ________________</p>
             </div>
           ))}
         </div>
-        <div className="rounded-xl border border-pink-200 bg-pink-50 p-4">
-          <p className="text-sm font-semibold text-pink-700 mb-2">Create a Picture</p>
-          <p className="text-xs text-pink-600 mb-2">Use shapes to draw:</p>
-          <div className="h-32 rounded border border-pink-300 bg-white print:border print:border-pink-300 print:bg-white" style={{ borderColor: '#f9a8d4', backgroundColor: '#ffffff', WebkitPrintColorAdjust: 'exact', printColorAdjust: 'exact' }}></div>
-          <p className="mt-1 text-xs text-pink-600 italic">Draw a picture using shapes</p>
+        <div className="rounded-xl border border-pink-200 bg-pink-50 p-4 print:rounded-xl print:border print:border-pink-200 print:bg-pink-50 print:p-4" style={{ WebkitPrintColorAdjust: 'exact', printColorAdjust: 'exact', backgroundColor: '#fdf2f8', borderColor: '#fbcfe8' }}>
+          <p className="text-sm font-semibold text-pink-700 mb-2 print:text-sm print:font-semibold print:text-pink-700 print:mb-2">Create a Picture</p>
+          <p className="text-xs text-pink-600 mb-2 print:text-xs print:text-pink-600 print:mb-2">Use shapes to draw:</p>
+          <div className="h-32 rounded border border-pink-300 bg-white print:h-32 print:rounded print:border print:border-pink-300 print:bg-white" style={{ borderColor: '#f9a8d4', backgroundColor: '#ffffff', WebkitPrintColorAdjust: 'exact', printColorAdjust: 'exact', minHeight: '128px' }}></div>
+          <p className="mt-1 text-xs text-pink-600 italic print:mt-1 print:text-xs print:text-pink-600 print:italic">Draw a picture using shapes</p>
         </div>
       </div>
     )
@@ -8079,10 +8079,27 @@ function InteractiveWorksheetSection({
     )
   }
 
+  // Preserve styling for art worksheets in print mode
+  const preservePrintStyling = docId === 'interactive-art-shapes' || docId === 'interactive-art-patterns' || docId === 'interactive-art-perspective'
+  
+  // Get background color for art worksheets
+  const getPrintBackgroundStyle = () => {
+    if (preservePrintStyling && category.id === 'art') {
+      return {
+        WebkitPrintColorAdjust: 'exact' as const,
+        printColorAdjust: 'exact' as const,
+        backgroundColor: '#fdf2f8', // pink-50
+        backgroundImage: 'linear-gradient(to bottom right, #fdf2f8, #faf5ff, #fdf4ff)', // pink-50 via purple-50 to fuchsia-50
+      }
+    }
+    return preservePrintStyling ? { WebkitPrintColorAdjust: 'exact' as const, printColorAdjust: 'exact' as const } : undefined
+  }
+  
   return (
     <section
       data-interactive-section="true"
-      className={`mb-10 break-inside-avoid rounded-xl border-2 ${theme.border} ${theme.background} p-6 print:border-0 print:p-0 print:bg-white print:overflow-visible shadow-lg relative overflow-hidden`}
+      className={`mb-10 break-inside-avoid rounded-xl border-2 ${theme.border} ${theme.background} p-6 ${preservePrintStyling ? 'print:border-2 print:p-6' : 'print:border-0 print:p-0'} ${preservePrintStyling ? '' : 'print:bg-white'} print:overflow-visible shadow-lg relative overflow-hidden`}
+      style={getPrintBackgroundStyle()}
     >
       {/* Decorative corner accent */}
       <div className="absolute top-0 right-0 w-32 h-32 bg-gradient-to-br rounded-bl-full pointer-events-none print:hidden" style={{ backgroundColor: cornerColors.topRight }} />
