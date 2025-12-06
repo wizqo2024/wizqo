@@ -4863,9 +4863,9 @@ export const en = {
       },
       answerKey: 'Student responses may vary. Check for understanding of breathing techniques, ability to identify feelings before and after practice, and consistent use of strategies.',
     },
-    'interactive-sel-empathy': {
-      title: 'Empathy Builder',
-      description: 'Practice perspective-taking and understanding others\',
+      'interactive-sel-empathy': {
+        title: 'Empathy Builder',
+        description: 'Practice perspective-taking and understanding others\' feelings and experiences.',
       scenario: 'Scenario {{number}}',
       feelingsINotice: 'Feelings I notice: ______________________________',
       wordsOrActions: 'Words or actions to show empathy: ______________________',
