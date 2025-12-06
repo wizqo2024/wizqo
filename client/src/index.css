@@ -644,6 +644,16 @@ html {
   background: white !important;
   box-shadow: none !important;
 }
+
+[data-worksheet-content="true"] .print-block-outline-strong {
+  border: 2px solid #0f172a !important;
+  border-radius: 12px !important;
+  background: white !important;
+  min-height: 10rem !important;
+  -webkit-print-color-adjust: exact !important;
+  print-color-adjust: exact !important;
+  color-adjust: exact !important;
+}
   
   [data-worksheet-content="true"] .worksheet-section > div:not(.print-ignore-inner-border):not([class*="border-"]):not([class*="print:border"]):not([class*="no-border"]),
   /* REMOVED: This rule was adding borders to all question-section divs - causing unwanted borders */

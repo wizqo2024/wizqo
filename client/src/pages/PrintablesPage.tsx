@@ -2121,6 +2121,16 @@ export function PrintablesPage() {
           box-shadow: none !important;
         }
         
+        [data-worksheet-content="true"] .print-block-outline-strong {
+          border: 2px solid #0f172a !important;
+          border-radius: 12px !important;
+          background: white !important;
+          min-height: 10rem !important;
+          -webkit-print-color-adjust: exact !important;
+          print-color-adjust: exact !important;
+          color-adjust: exact !important;
+        }
+        
         /* Prevent images/SVG from breaking away from questions */
         .question-section img,
         .question-section svg,
@@ -3224,6 +3234,16 @@ export function PrintablesPage() {
             border-radius: 10px !important;
             background: white !important;
             box-shadow: none !important;
+          }
+          
+          [data-worksheet-content="true"] .print-block-outline-strong {
+            border: 2px solid #0f172a !important;
+            border-radius: 12px !important;
+            background: white !important;
+            min-height: 10rem !important;
+            -webkit-print-color-adjust: exact !important;
+            print-color-adjust: exact !important;
+            color-adjust: exact !important;
           }
           
           [data-worksheet-content="true"] .worksheet-section > div:not(.print-ignore-inner-border):last-child,
