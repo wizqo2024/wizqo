@@ -1384,12 +1384,13 @@ section[data-interactive-section="true"].preserve-print-styling [class*="h-48"] 
   @media print {
     /* Override section padding for first page - remove top padding completely */
     section[data-interactive-section="true"].preserve-print-styling:first-child {
-      margin-top: 0 !important;
+      margin-top: -4px !important;
       padding-top: 0 !important;
       padding-left: 24px !important;
       padding-right: 24px !important;
       padding-bottom: 24px !important;
       border-top-width: 0 !important;
+      border-top: none !important;
     }
     
     /* Remove any gap from section border */
@@ -1401,9 +1402,10 @@ section[data-interactive-section="true"].preserve-print-styling [class*="h-48"] 
     /* Remove all top margins and padding from header on first page */
     section[data-interactive-section="true"].preserve-print-styling:first-child .print-header {
       margin-top: 0 !important;
-      margin-bottom: 4px !important;
+      margin-bottom: 2px !important;
       padding-top: 0 !important;
       padding-bottom: 0 !important;
+      line-height: 1.2 !important;
     }
     
     /* Remove mb-4 class spacing on first page */
