@@ -1473,13 +1473,6 @@ section[data-interactive-section="true"].preserve-print-styling [class*="h-48"] 
       padding-top: 0 !important;
     }
     
-    /* Force position to top to override browser margins */
-    body > *:first-child,
-    [data-worksheet-content="true"] > *:first-child {
-      position: relative;
-      top: 0 !important;
-      margin-top: 0 !important;
-    }
     
     /* Remove all top spacing from first content element */
     section[data-interactive-section="true"].preserve-print-styling:first-child > div > div:first-child,
