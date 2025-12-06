@@ -4950,24 +4950,24 @@ const renderers: Record<string, Renderer> = {
     const seasons = ['spring', 'summer', 'fall', 'winter']
     const weatherTypes = pickMany(rng, ['sunny', 'rainy', 'snowy', 'windy', 'cloudy'], 4)
     return (
-      <div className="space-y-4">
-        <p className="text-sm text-slate-600">Learn about different seasons, weather patterns, and how they vary in different places.</p>
-        <div className="grid gap-3 md:grid-cols-2">
+      <div className="space-y-4 print:space-y-4" style={{ fontSize: '16px', lineHeight: '24px', marginTop: '0', marginBottom: '0' }}>
+        <p className="text-sm text-slate-600 print:text-sm print:text-slate-600" style={{ fontSize: '14px', lineHeight: '20px', margin: '0 0 16px 0' }}>Learn about different seasons, weather patterns, and how they vary in different places.</p>
+        <div className="grid gap-3 md:grid-cols-2 print:grid print:grid-cols-2 print:gap-3" style={{ gap: '12px', display: 'grid', gridTemplateColumns: 'repeat(2, minmax(0, 1fr))' }}>
           {seasons.map((season, idx) => (
-            <div key={idx} className="rounded-xl border border-amber-200 bg-amber-50 p-4">
-              <p className="text-sm font-semibold text-amber-700 capitalize mb-2">{season}</p>
-              <div className="mt-2 h-16 rounded border border-amber-300 bg-white"></div>
-              <p className="mt-1 text-xs text-amber-600 italic mb-2">Draw {season} weather</p>
-              <p className="text-xs text-amber-600">Weather: ________________</p>
-              <p className="text-xs text-amber-600 mt-1">What do you wear? ________________</p>
+            <div key={idx} className="rounded-xl border border-amber-200 bg-amber-50 p-4 print:rounded-xl print:border print:border-amber-200 print:bg-amber-50 print:p-4" style={{ WebkitPrintColorAdjust: 'exact', printColorAdjust: 'exact', backgroundColor: '#fffbeb', borderColor: '#fde68a', padding: '16px', borderRadius: '12px', borderWidth: '1px', borderStyle: 'solid' }}>
+              <p className="text-sm font-semibold text-amber-700 capitalize mb-2 print:text-sm print:font-semibold print:text-amber-700 print:capitalize print:mb-2" style={{ fontSize: '14px', fontWeight: '600', marginBottom: '8px', lineHeight: '20px', marginTop: '0' }}>{season}</p>
+              <div className="mt-2 h-16 rounded border border-amber-300 bg-white print:mt-2 print:h-16 print:rounded print:border print:border-amber-300 print:bg-white" style={{ borderColor: '#fcd34d', backgroundColor: '#ffffff', WebkitPrintColorAdjust: 'exact', printColorAdjust: 'exact', height: '64px', minHeight: '64px', maxHeight: '64px', borderRadius: '8px', borderWidth: '1px', borderStyle: 'solid', width: '100%', boxSizing: 'border-box', marginTop: '8px' }}></div>
+              <p className="mt-1 text-xs text-amber-600 italic mb-2 print:mt-1 print:text-xs print:text-amber-600 print:italic print:mb-2" style={{ fontSize: '12px', marginTop: '4px', marginBottom: '8px', lineHeight: '16px', fontStyle: 'italic' }}>Draw {season} weather</p>
+              <p className="text-xs text-amber-600 print:text-xs print:text-amber-600" style={{ fontSize: '12px', lineHeight: '16px', margin: '0' }}>Weather: ________________</p>
+              <p className="text-xs text-amber-600 mt-1 print:text-xs print:text-amber-600 print:mt-1" style={{ fontSize: '12px', lineHeight: '16px', marginTop: '4px', marginBottom: '0' }}>What do you wear? ________________</p>
             </div>
           ))}
         </div>
-        <div className="rounded-xl border border-amber-200 bg-amber-50 p-4">
-          <p className="text-sm font-semibold text-amber-700 mb-2">Weather Types</p>
-          <div className="flex flex-wrap gap-2">
+        <div className="rounded-xl border border-amber-200 bg-amber-50 p-4 print:rounded-xl print:border print:border-amber-200 print:bg-amber-50 print:p-4" style={{ WebkitPrintColorAdjust: 'exact', printColorAdjust: 'exact', backgroundColor: '#fffbeb', borderColor: '#fde68a', padding: '16px', borderRadius: '12px', borderWidth: '1px', borderStyle: 'solid' }}>
+          <p className="text-sm font-semibold text-amber-700 mb-2 print:text-sm print:font-semibold print:text-amber-700 print:mb-2" style={{ fontSize: '14px', fontWeight: '600', marginBottom: '8px', lineHeight: '20px', marginTop: '0' }}>Weather Types</p>
+          <div className="flex flex-wrap gap-2 print:flex print:flex-wrap print:gap-2" style={{ display: 'flex', flexWrap: 'wrap', gap: '8px' }}>
             {weatherTypes.map((weather, idx) => (
-              <span key={idx} className="text-xs px-2 py-1 bg-amber-100 rounded border border-amber-300 text-amber-700 capitalize">{weather}</span>
+              <span key={idx} className="text-xs px-2 py-1 bg-amber-100 rounded border border-amber-300 text-amber-700 capitalize print:text-xs print:px-2 print:py-1 print:bg-amber-100 print:rounded print:border print:border-amber-300 print:text-amber-700 print:capitalize" style={{ fontSize: '12px', padding: '4px 8px', backgroundColor: '#fef3c7', borderColor: '#fcd34d', color: '#92400e', borderRadius: '6px', borderWidth: '1px', borderStyle: 'solid', WebkitPrintColorAdjust: 'exact', printColorAdjust: 'exact' }}>{weather}</span>
             ))}
           </div>
         </div>
@@ -4984,16 +4984,16 @@ const renderers: Record<string, Renderer> = {
       { name: 'Hospital', type: 'Health place', activity: 'get help' },
     ], 4)
     return (
-      <div className="space-y-4">
-        <p className="text-sm text-slate-600">Learn about important places, landmarks, and locations in your community and country.</p>
-        <div className="grid gap-3 md:grid-cols-2">
+      <div className="space-y-4 print:space-y-4" style={{ fontSize: '16px', lineHeight: '24px', marginTop: '0', marginBottom: '0' }}>
+        <p className="text-sm text-slate-600 print:text-sm print:text-slate-600" style={{ fontSize: '14px', lineHeight: '20px', margin: '0 0 16px 0' }}>Learn about important places, landmarks, and locations in your community and country.</p>
+        <div className="grid gap-3 md:grid-cols-2 print:grid print:grid-cols-2 print:gap-3" style={{ gap: '12px', display: 'grid', gridTemplateColumns: 'repeat(2, minmax(0, 1fr))' }}>
           {places.map((place, idx) => (
-            <div key={idx} className="rounded-xl border border-amber-200 bg-amber-50 p-4">
-              <p className="text-sm font-semibold text-amber-700 mb-1">{place.name}</p>
-              <p className="text-xs text-amber-600 mb-2">{place.type}</p>
-              <div className="mt-2 h-16 rounded border border-amber-300 bg-white"></div>
-              <p className="mt-1 text-xs text-amber-600 italic mb-2">Draw {place.name}</p>
-              <p className="text-xs text-amber-600">We {place.activity} here.</p>
+            <div key={idx} className="rounded-xl border border-amber-200 bg-amber-50 p-4 print:rounded-xl print:border print:border-amber-200 print:bg-amber-50 print:p-4" style={{ WebkitPrintColorAdjust: 'exact', printColorAdjust: 'exact', backgroundColor: '#fffbeb', borderColor: '#fde68a', padding: '16px', borderRadius: '12px', borderWidth: '1px', borderStyle: 'solid' }}>
+              <p className="text-sm font-semibold text-amber-700 mb-1 print:text-sm print:font-semibold print:text-amber-700 print:mb-1" style={{ fontSize: '14px', fontWeight: '600', marginBottom: '4px', lineHeight: '20px', marginTop: '0' }}>{place.name}</p>
+              <p className="text-xs text-amber-600 mb-2 print:text-xs print:text-amber-600 print:mb-2" style={{ fontSize: '12px', lineHeight: '16px', marginBottom: '8px', marginTop: '0' }}>{place.type}</p>
+              <div className="mt-2 h-16 rounded border border-amber-300 bg-white print:mt-2 print:h-16 print:rounded print:border print:border-amber-300 print:bg-white" style={{ borderColor: '#fcd34d', backgroundColor: '#ffffff', WebkitPrintColorAdjust: 'exact', printColorAdjust: 'exact', height: '64px', minHeight: '64px', maxHeight: '64px', borderRadius: '8px', borderWidth: '1px', borderStyle: 'solid', width: '100%', boxSizing: 'border-box', marginTop: '8px' }}></div>
+              <p className="mt-1 text-xs text-amber-600 italic mb-2 print:mt-1 print:text-xs print:text-amber-600 print:italic print:mb-2" style={{ fontSize: '12px', marginTop: '4px', marginBottom: '8px', lineHeight: '16px', fontStyle: 'italic' }}>Draw {place.name}</p>
+              <p className="text-xs text-amber-600 print:text-xs print:text-amber-600" style={{ fontSize: '12px', lineHeight: '16px', margin: '0' }}>We {place.activity} here.</p>
             </div>
           ))}
         </div>
