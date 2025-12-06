@@ -2164,7 +2164,7 @@ const renderers: Record<string, Renderer> = {
                         style={{ position: 'relative', display: 'inline-flex', alignItems: 'center', justifyContent: 'center', WebkitPrintColorAdjust: 'exact', printColorAdjust: 'exact', width: '24px', height: '24px', minWidth: '24px', minHeight: '24px' }}
                       >
                         <span className="sr-only print:sr-only">{translatedLabel}</span>
-                        <span className="pattern-shape" style={{ WebkitPrintColorAdjust: 'exact', printColorAdjust: 'exact', display: 'inline-flex', alignItems: 'center', justifyContent: 'center', width: '100%', height: '100%' }}>
+                        <span className="pattern-shape" style={{ WebkitPrintColorAdjust: 'exact', printColorAdjust: 'exact', display: 'inline-flex', alignItems: 'center', justifyContent: 'center', width: '100%', height: '100%', visibility: 'visible', opacity: 1 }}>
                           {token.render}
                         </span>
                       </span>
