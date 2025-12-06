@@ -5461,39 +5461,42 @@ const renderers: Record<string, Renderer> = {
                     justifyContent: 'center'
                   }}
                 >
-                  <svg
-                    viewBox="0 0 400 260"
-                    className="w-full h-full text-green-400 print:text-slate-800"
-                    preserveAspectRatio="none"
-                    role="img"
-                    aria-label={drawAreaLabel}
-                  >
-                    <rect
-                      x="12"
-                      y="12"
-                      width="376"
-                      height="236"
-                      rx="22"
-                      ry="22"
-                      fill="none"
-                      stroke="currentColor"
-                      strokeWidth="6"
-                      strokeDasharray="18 12"
-                    />
-                    <rect
-                      x="34"
-                      y="34"
-                      width="332"
-                      height="192"
-                      rx="18"
-                      ry="18"
-                      fill="none"
-                      stroke="currentColor"
-                      strokeOpacity="0.35"
-                      strokeWidth="3"
-                      strokeDasharray="12 10"
-                    />
-                  </svg>
+                  {/* Drawing area - SVG outline removed for clean print layout */}
+                  <div className="print:hidden">
+                    <svg
+                      viewBox="0 0 400 260"
+                      className="w-full h-full text-green-400"
+                      preserveAspectRatio="none"
+                      role="img"
+                      aria-label={drawAreaLabel}
+                    >
+                      <rect
+                        x="12"
+                        y="12"
+                        width="376"
+                        height="236"
+                        rx="22"
+                        ry="22"
+                        fill="none"
+                        stroke="currentColor"
+                        strokeWidth="6"
+                        strokeDasharray="18 12"
+                      />
+                      <rect
+                        x="34"
+                        y="34"
+                        width="332"
+                        height="192"
+                        rx="18"
+                        ry="18"
+                        fill="none"
+                        stroke="currentColor"
+                        strokeOpacity="0.35"
+                        strokeWidth="3"
+                        strokeDasharray="12 10"
+                      />
+                    </svg>
+                  </div>
                 </div>
                 <p className="mt-1 text-xs text-green-600 italic text-center" style={{ fontSize: '12px', marginTop: '4px', color: '#16a34a', fontStyle: 'italic', textAlign: 'center', lineHeight: '16px', marginBottom: '0' }}>{drawAndColorText}</p>
                 <p className="mt-2 text-xs text-green-600 text-center" style={{ fontSize: '12px', marginTop: '8px', color: '#16a34a', textAlign: 'center', lineHeight: '16px', marginBottom: '0' }}>{useColorsText}</p>
