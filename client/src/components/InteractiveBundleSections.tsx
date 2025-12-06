@@ -5404,6 +5404,16 @@ const renderers: Record<string, Renderer> = {
               'interactive.interactive-art-seasonal.useColors',
               'Use colors that remind you of {{season}}!'
             )
+            const drawAreaLabel = translateWithFallback(
+              t,
+              'interactive.interactive-art-seasonal.drawAreaLabel',
+              'Drawing area outline'
+            )
+            const drawHereLabel = translateWithFallback(
+              t,
+              'interactive.interactive-art-seasonal.drawHere',
+              'Draw Here!'
+            )
             const drawAndColorText = drawAndColorTemplate.replace('{{season}}', seasonName)
             const useColorsText = useColorsTemplate.replace('{{season}}', seasonName)
             return (
@@ -5419,8 +5429,52 @@ const renderers: Record<string, Renderer> = {
                 <div
                   className="h-48 rounded border-2 border-green-300 bg-white print-block-outline print-block-outline-strong flex items-center justify-center"
                   style={{ pageBreakInside: 'avoid', breakInside: 'avoid', WebkitRegionBreakInside: 'avoid' }}
-                  aria-hidden="true"
-                ></div>
+                >
+                  <svg
+                    viewBox="0 0 400 260"
+                    className="w-full h-full text-green-400 print:text-slate-800"
+                    preserveAspectRatio="none"
+                    role="img"
+                    aria-label={drawAreaLabel}
+                  >
+                    <rect
+                      x="12"
+                      y="12"
+                      width="376"
+                      height="236"
+                      rx="22"
+                      ry="22"
+                      fill="none"
+                      stroke="currentColor"
+                      strokeWidth="6"
+                      strokeDasharray="18 12"
+                    />
+                    <rect
+                      x="34"
+                      y="34"
+                      width="332"
+                      height="192"
+                      rx="18"
+                      ry="18"
+                      fill="none"
+                      stroke="currentColor"
+                      strokeOpacity="0.35"
+                      strokeWidth="3"
+                      strokeDasharray="12 10"
+                    />
+                    <text
+                      x="200"
+                      y="140"
+                      textAnchor="middle"
+                      fontSize="32"
+                      fill="currentColor"
+                      fillOpacity="0.5"
+                      fontFamily="'Comic Neue', 'Patrick Hand', cursive"
+                    >
+                      {drawHereLabel}
+                    </text>
+                  </svg>
+                </div>
                 <p className="mt-1 text-xs text-green-600 italic text-center">{drawAndColorText}</p>
                 <p className="mt-2 text-xs text-green-600 text-center">{useColorsText}</p>
               </div>
