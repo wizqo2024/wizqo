@@ -1434,31 +1434,31 @@ const renderers: Record<string, Renderer> = {
       5
     )
     return (
-      <div className="space-y-3">
-        <p className="text-sm text-slate-600">
+      <div className="space-y-3 print:space-y-3" style={{ fontSize: '16px', lineHeight: '24px', marginTop: '0', marginBottom: '0' }}>
+        <p className="text-sm text-slate-600 print:text-sm print:text-slate-600" style={{ fontSize: '14px', lineHeight: '20px', margin: '0 0 12px 0' }}>
           {t('worksheets.scienceStates.instructions')}
         </p>
-        <table className="w-full border border-slate-300 text-left text-sm">
-          <thead className="bg-slate-100">
+        <table className="w-full border border-slate-300 text-left text-sm print:border print:border-slate-300 print:text-left print:text-sm break-inside-avoid" style={{ WebkitPrintColorAdjust: 'exact', printColorAdjust: 'exact', borderColor: '#cbd5e1', borderWidth: '1px', borderStyle: 'solid', width: '100%', fontSize: '14px', pageBreakInside: 'avoid', breakInside: 'avoid' }}>
+          <thead className="bg-slate-100 print:bg-slate-100" style={{ backgroundColor: '#f1f5f9', WebkitPrintColorAdjust: 'exact', printColorAdjust: 'exact' }}>
             <tr>
-              <th className="px-3 py-2">{t('worksheets.scienceStates.scenario')}</th>
-              <th className="px-3 py-2">{t('worksheets.scienceStates.stateChange')}</th>
-              <th className="px-3 py-2">{t('worksheets.scienceStates.particleDiagram')}</th>
+              <th className="px-3 py-2 print:px-3 print:py-2" style={{ padding: '8px 12px' }}>{t('worksheets.scienceStates.scenario')}</th>
+              <th className="px-3 py-2 print:px-3 print:py-2" style={{ padding: '8px 12px' }}>{t('worksheets.scienceStates.stateChange')}</th>
+              <th className="px-3 py-2 print:px-3 print:py-2" style={{ padding: '8px 12px' }}>{t('worksheets.scienceStates.particleDiagram')}</th>
             </tr>
           </thead>
           <tbody>
             {scenarios.map((scenario, idx) => (
-              <tr key={idx} className="border-t border-slate-200">
-                <td className="px-3 py-2">{scenario.description}</td>
-                <td className="px-3 py-2">
+              <tr key={idx} className="border-t border-slate-200 print:border-t print:border-slate-200" style={{ borderTopColor: '#e2e8f0', borderTopWidth: '1px', borderTopStyle: 'solid' }}>
+                <td className="px-3 py-2 print:px-3 print:py-2" style={{ padding: '8px 12px' }}>{scenario.description}</td>
+                <td className="px-3 py-2 print:px-3 print:py-2" style={{ padding: '8px 12px' }}>
                   {showAnswers ? (
-                    <span className="text-slate-700">{scenario.answer}</span>
+                    <span className="text-slate-700 print:text-slate-700" style={{ color: '#334155' }}>{scenario.answer}</span>
                   ) : (
-                    <span className="text-slate-400 italic">________________</span>
+                    <span className="text-slate-400 italic print:text-slate-400 print:italic" style={{ color: '#94a3b8', fontStyle: 'italic' }}>________________</span>
                   )}
                 </td>
-                <td className="px-3 py-2">
-                  <div className="h-12 rounded border border-dashed border-slate-300 bg-white" />
+                <td className="px-3 py-2 print:px-3 print:py-2" style={{ padding: '8px 12px' }}>
+                  <div className="h-12 rounded border border-dashed border-slate-300 bg-white print:h-12 print:rounded print:border print:border-dashed print:border-slate-300 print:bg-white" style={{ WebkitPrintColorAdjust: 'exact', printColorAdjust: 'exact', backgroundColor: '#ffffff', borderColor: '#cbd5e1', borderWidth: '1px', borderStyle: 'dashed', height: '48px', borderRadius: '8px' }} />
                 </td>
               </tr>
             ))}
@@ -1474,29 +1474,29 @@ const renderers: Record<string, Renderer> = {
     const conditions = ['sunny', 'windy', 'rainy', 'stormy', 'foggy', 'partly cloudy', 'snowy']
     const tracker = days.map((day) => ({ day, condition: pick(rng, conditions), temp: Math.floor(rng() * 31) + 45 }) )
     return (
-      <div className="space-y-3">
-        <p className="text-sm text-slate-600">
+      <div className="space-y-3 print:space-y-3" style={{ fontSize: '16px', lineHeight: '24px', marginTop: '0', marginBottom: '0' }}>
+        <p className="text-sm text-slate-600 print:text-sm print:text-slate-600" style={{ fontSize: '14px', lineHeight: '20px', margin: '0 0 12px 0' }}>
           {t('worksheets.scienceWeather.instructions')}
         </p>
-        <table className="w-full border border-slate-300 text-sm">
-          <thead className="bg-slate-100">
+        <table className="w-full border border-slate-300 text-sm print:border print:border-slate-300 print:text-sm break-inside-avoid" style={{ WebkitPrintColorAdjust: 'exact', printColorAdjust: 'exact', borderColor: '#cbd5e1', borderWidth: '1px', borderStyle: 'solid', width: '100%', fontSize: '14px', pageBreakInside: 'avoid', breakInside: 'avoid' }}>
+          <thead className="bg-slate-100 print:bg-slate-100" style={{ backgroundColor: '#f1f5f9', WebkitPrintColorAdjust: 'exact', printColorAdjust: 'exact' }}>
             <tr>
-              <th className="px-3 py-2">{t('worksheets.scienceWeather.day')}</th>
-              <th className="px-3 py-2">{t('worksheets.scienceWeather.temperature')}</th>
-              <th className="px-3 py-2">{t('worksheets.scienceWeather.skySketch')}</th>
-              <th className="px-3 py-2">{t('worksheets.scienceWeather.safetyTip')}</th>
+              <th className="px-3 py-2 print:px-3 print:py-2" style={{ padding: '8px 12px' }}>{t('worksheets.scienceWeather.day')}</th>
+              <th className="px-3 py-2 print:px-3 print:py-2" style={{ padding: '8px 12px' }}>{t('worksheets.scienceWeather.temperature')}</th>
+              <th className="px-3 py-2 print:px-3 print:py-2" style={{ padding: '8px 12px' }}>{t('worksheets.scienceWeather.skySketch')}</th>
+              <th className="px-3 py-2 print:px-3 print:py-2" style={{ padding: '8px 12px' }}>{t('worksheets.scienceWeather.safetyTip')}</th>
             </tr>
           </thead>
           <tbody>
             {tracker.map((entry, idx) => (
-              <tr key={idx} className="border-t border-slate-200">
-                <td className="px-3 py-2">{entry.day}</td>
-                <td className="px-3 py-2">{formatNum ? formatNum(entry.temp) : entry.temp}°F</td>
-                <td className="px-3 py-2">
-                  <div className="h-12 rounded border border-dashed border-slate-300 bg-white" />
-                  <p className="text-xs text-slate-500">{entry.condition}</p>
+              <tr key={idx} className="border-t border-slate-200 print:border-t print:border-slate-200" style={{ borderTopColor: '#e2e8f0', borderTopWidth: '1px', borderTopStyle: 'solid' }}>
+                <td className="px-3 py-2 print:px-3 print:py-2" style={{ padding: '8px 12px' }}>{entry.day}</td>
+                <td className="px-3 py-2 print:px-3 print:py-2" style={{ padding: '8px 12px' }}>{formatNum ? formatNum(entry.temp) : entry.temp}°F</td>
+                <td className="px-3 py-2 print:px-3 print:py-2" style={{ padding: '8px 12px' }}>
+                  <div className="h-12 rounded border border-dashed border-slate-300 bg-white print:h-12 print:rounded print:border print:border-dashed print:border-slate-300 print:bg-white" style={{ WebkitPrintColorAdjust: 'exact', printColorAdjust: 'exact', backgroundColor: '#ffffff', borderColor: '#cbd5e1', borderWidth: '1px', borderStyle: 'dashed', height: '48px', borderRadius: '8px', marginBottom: '4px' }} />
+                  <p className="text-xs text-slate-500 print:text-xs print:text-slate-500" style={{ fontSize: '12px', lineHeight: '16px', color: '#64748b', margin: '0' }}>{entry.condition}</p>
                 </td>
-                <td className="px-3 py-2">____________________________________</td>
+                <td className="px-3 py-2 print:px-3 print:py-2" style={{ padding: '8px 12px' }}>____________________________________</td>
               </tr>
             ))}
           </tbody>
@@ -1539,40 +1539,41 @@ const renderers: Record<string, Renderer> = {
     }
 
     return (
-      <div className="space-y-3">
-        <p className="text-sm text-slate-600">
+      <div className="space-y-3 print:space-y-3" style={{ fontSize: '16px', lineHeight: '24px', marginTop: '0', marginBottom: '0' }}>
+        <p className="text-sm text-slate-600 print:text-sm print:text-slate-600" style={{ fontSize: '14px', lineHeight: '20px', margin: '0 0 12px 0' }}>
           {t('worksheets.geographyMap.instructions')}
         </p>
-        <table className="w-full border border-slate-300 text-sm">
-          <thead className="bg-slate-100">
+        <table className="w-full border border-slate-300 text-sm print:border print:border-slate-300 print:text-sm break-inside-avoid" style={{ WebkitPrintColorAdjust: 'exact', printColorAdjust: 'exact', borderColor: '#cbd5e1', borderWidth: '1px', borderStyle: 'solid', width: '100%', fontSize: '14px', pageBreakInside: 'avoid', breakInside: 'avoid', marginBottom: '16px' }}>
+          <thead className="bg-slate-100 print:bg-slate-100" style={{ backgroundColor: '#f1f5f9', WebkitPrintColorAdjust: 'exact', printColorAdjust: 'exact' }}>
             <tr>
-              <th className="px-3 py-2">{t('worksheets.geographyMap.coordinate')}</th>
-              <th className="px-3 py-2">{t('worksheets.geographyMap.place')}</th>
-              <th className="px-3 py-2">{t('worksheets.geographyMap.whatDoYouNotice')}</th>
+              <th className="px-3 py-2 print:px-3 print:py-2" style={{ padding: '8px 12px' }}>{t('worksheets.geographyMap.coordinate')}</th>
+              <th className="px-3 py-2 print:px-3 print:py-2" style={{ padding: '8px 12px' }}>{t('worksheets.geographyMap.place')}</th>
+              <th className="px-3 py-2 print:px-3 print:py-2" style={{ padding: '8px 12px' }}>{t('worksheets.geographyMap.whatDoYouNotice')}</th>
             </tr>
           </thead>
           <tbody>
             {coordinates.map((row, idx) => (
-              <tr key={idx} className="border-t border-slate-200">
-                <td className="px-3 py-2">{row.letter}{formatNum ? formatNum(row.number) : row.number}</td>
-                <td className="px-3 py-2 capitalize">{row.place}</td>
-                <td className="px-3 py-2">____________________________________</td>
+              <tr key={idx} className="border-t border-slate-200 print:border-t print:border-slate-200" style={{ borderTopColor: '#e2e8f0', borderTopWidth: '1px', borderTopStyle: 'solid' }}>
+                <td className="px-3 py-2 print:px-3 print:py-2" style={{ padding: '8px 12px' }}>{row.letter}{formatNum ? formatNum(row.number) : row.number}</td>
+                <td className="px-3 py-2 capitalize print:px-3 print:py-2 print:capitalize" style={{ padding: '8px 12px' }}>{row.place}</td>
+                <td className="px-3 py-2 print:px-3 print:py-2" style={{ padding: '8px 12px' }}>____________________________________</td>
               </tr>
             ))}
           </tbody>
         </table>
-        <div className="grid gap-4 md:grid-cols-2">
+        <div className="grid gap-4 md:grid-cols-2 print:grid print:grid-cols-2 print:gap-4 break-inside-avoid" style={{ gap: '16px', display: 'grid', gridTemplateColumns: 'repeat(2, minmax(0, 1fr))', pageBreakInside: 'avoid', breakInside: 'avoid' }}>
           <div>
-            <p className="text-xs font-semibold uppercase tracking-wide text-slate-500 mb-2">{t('worksheets.geographyMap.exampleMap')}</p>
-            <div className="overflow-hidden rounded-2xl border border-slate-300">
-              <table className="w-full border-collapse text-xs">
-                <thead className="bg-slate-100">
+            <p className="text-xs font-semibold uppercase tracking-wide text-slate-500 mb-2 print:text-xs print:font-semibold print:uppercase print:tracking-wide print:text-slate-500 print:mb-2" style={{ fontSize: '12px', fontWeight: '600', letterSpacing: '0.05em', margin: '0 0 8px 0' }}>{t('worksheets.geographyMap.exampleMap')}</p>
+            <div className="overflow-hidden rounded-2xl border border-slate-300 print:rounded-2xl print:border print:border-slate-300" style={{ WebkitPrintColorAdjust: 'exact', printColorAdjust: 'exact', borderColor: '#cbd5e1', borderWidth: '1px', borderStyle: 'solid', borderRadius: '16px', marginBottom: '4px' }}>
+              <table className="w-full border-collapse text-xs print:text-xs" style={{ fontSize: '12px', borderCollapse: 'collapse', width: '100%' }}>
+                <thead className="bg-slate-100 print:bg-slate-100" style={{ backgroundColor: '#f1f5f9', WebkitPrintColorAdjust: 'exact', printColorAdjust: 'exact' }}>
                   <tr>
-                    <th className="w-10 border border-slate-200 px-2 py-2" />
+                    <th className="w-10 border border-slate-200 px-2 py-2 print:border print:border-slate-200 print:px-2 print:py-2" style={{ width: '40px', padding: '8px', borderColor: '#e2e8f0', borderWidth: '1px', borderStyle: 'solid' }} />
                     {letters.map((letter) => (
                       <th
                         key={`ex-head-${letter}`}
-                        className="border border-slate-200 px-2 py-2 text-center font-semibold"
+                        className="border border-slate-200 px-2 py-2 text-center font-semibold print:border print:border-slate-200 print:px-2 print:py-2 print:text-center print:font-semibold"
+                        style={{ padding: '8px', borderColor: '#e2e8f0', borderWidth: '1px', borderStyle: 'solid', fontWeight: '600', textAlign: 'center' }}
                       >
                         {letter}
                       </th>
@@ -1582,7 +1583,7 @@ const renderers: Record<string, Renderer> = {
                 <tbody>
                   {numbers.map((num) => (
                     <tr key={`ex-row-${num}`}>
-                      <th className="border border-slate-200 px-2 py-2 text-center font-semibold bg-slate-50">
+                      <th className="border border-slate-200 px-2 py-2 text-center font-semibold bg-slate-50 print:border print:border-slate-200 print:px-2 print:py-2 print:text-center print:font-semibold print:bg-slate-50" style={{ WebkitPrintColorAdjust: 'exact', printColorAdjust: 'exact', backgroundColor: '#f8fafc', padding: '8px', borderColor: '#e2e8f0', borderWidth: '1px', borderStyle: 'solid', fontWeight: '600', textAlign: 'center' }}>
                         {num}
                       </th>
                       {letters.map((letter) => {
@@ -1592,7 +1593,8 @@ const renderers: Record<string, Renderer> = {
                         return (
                           <td
                             key={`ex-cell-${letter}${num}`}
-                            className="h-10 border border-slate-200 text-center align-middle text-lg"
+                            className="h-10 border border-slate-200 text-center align-middle text-lg print:h-10 print:border print:border-slate-200 print:text-center print:align-middle print:text-lg"
+                            style={{ height: '40px', padding: '0', borderColor: '#e2e8f0', borderWidth: '1px', borderStyle: 'solid', textAlign: 'center', verticalAlign: 'middle', fontSize: '18px' }}
                           >
                             {match ? <span aria-label={match.place}>{match.icon}</span> : ''}
                           </td>
@@ -1603,21 +1605,22 @@ const renderers: Record<string, Renderer> = {
                 </tbody>
               </table>
             </div>
-            <p className="mt-1 text-xs text-slate-500">
+            <p className="mt-1 text-xs text-slate-500 print:mt-1 print:text-xs print:text-slate-500" style={{ fontSize: '12px', lineHeight: '16px', marginTop: '4px', marginBottom: '0', color: '#64748b' }}>
               {t('worksheets.geographyMap.useSampleToCheck')}
             </p>
           </div>
           <div>
-            <p className="text-xs font-semibold uppercase tracking-wide text-slate-500 mb-2">{t('worksheets.geographyMap.yourMapGrid')}</p>
-            <div className="overflow-hidden rounded-2xl border border-slate-300">
-              <table className="w-full border-collapse text-xs">
-                <thead className="bg-slate-100">
+            <p className="text-xs font-semibold uppercase tracking-wide text-slate-500 mb-2 print:text-xs print:font-semibold print:uppercase print:tracking-wide print:text-slate-500 print:mb-2" style={{ fontSize: '12px', fontWeight: '600', letterSpacing: '0.05em', margin: '0 0 8px 0' }}>{t('worksheets.geographyMap.yourMapGrid')}</p>
+            <div className="overflow-hidden rounded-2xl border border-slate-300 print:rounded-2xl print:border print:border-slate-300" style={{ WebkitPrintColorAdjust: 'exact', printColorAdjust: 'exact', borderColor: '#cbd5e1', borderWidth: '1px', borderStyle: 'solid', borderRadius: '16px', marginBottom: '4px' }}>
+              <table className="w-full border-collapse text-xs print:text-xs" style={{ fontSize: '12px', borderCollapse: 'collapse', width: '100%' }}>
+                <thead className="bg-slate-100 print:bg-slate-100" style={{ backgroundColor: '#f1f5f9', WebkitPrintColorAdjust: 'exact', printColorAdjust: 'exact' }}>
                   <tr>
-                    <th className="w-10 border border-slate-200 px-2 py-2" />
+                    <th className="w-10 border border-slate-200 px-2 py-2 print:border print:border-slate-200 print:px-2 print:py-2" style={{ width: '40px', padding: '8px', borderColor: '#e2e8f0', borderWidth: '1px', borderStyle: 'solid' }} />
                     {letters.map((letter) => (
                       <th
                         key={`student-head-${letter}`}
-                        className="border border-slate-200 px-2 py-2 text-center font-semibold"
+                        className="border border-slate-200 px-2 py-2 text-center font-semibold print:border print:border-slate-200 print:px-2 print:py-2 print:text-center print:font-semibold"
+                        style={{ padding: '8px', borderColor: '#e2e8f0', borderWidth: '1px', borderStyle: 'solid', fontWeight: '600', textAlign: 'center' }}
                       >
                         {letter}
                       </th>
@@ -1627,18 +1630,18 @@ const renderers: Record<string, Renderer> = {
                 <tbody>
                   {numbers.map((num) => (
                     <tr key={`student-row-${num}`}>
-                      <th className="border border-slate-200 px-2 py-2 text-center font-semibold bg-slate-50">
+                      <th className="border border-slate-200 px-2 py-2 text-center font-semibold bg-slate-50 print:border print:border-slate-200 print:px-2 print:py-2 print:text-center print:font-semibold print:bg-slate-50" style={{ WebkitPrintColorAdjust: 'exact', printColorAdjust: 'exact', backgroundColor: '#f8fafc', padding: '8px', borderColor: '#e2e8f0', borderWidth: '1px', borderStyle: 'solid', fontWeight: '600', textAlign: 'center' }}>
                         {num}
                       </th>
                       {letters.map((letter) => (
-                        <td key={`student-cell-${letter}${num}`} className="h-10 border border-slate-200" />
+                        <td key={`student-cell-${letter}${num}`} className="h-10 border border-slate-200 print:h-10 print:border print:border-slate-200" style={{ height: '40px', padding: '0', borderColor: '#e2e8f0', borderWidth: '1px', borderStyle: 'solid' }} />
                       ))}
                     </tr>
                   ))}
                 </tbody>
               </table>
             </div>
-            <p className="mt-1 text-xs text-slate-500">{t('worksheets.geographyMap.drawLandmarks')}</p>
+            <p className="mt-1 text-xs text-slate-500 print:mt-1 print:text-xs print:text-slate-500" style={{ fontSize: '12px', lineHeight: '16px', marginTop: '4px', marginBottom: '0', color: '#64748b' }}>{t('worksheets.geographyMap.drawLandmarks')}</p>
           </div>
         </div>
       </div>
@@ -1649,26 +1652,26 @@ const renderers: Record<string, Renderer> = {
     const rng = makeRng(`${seed}|${doc.id}|${variant}`)
     const regions = pickMany(rng, ['Kenya', 'Peru', 'Japan', 'Norway', 'India', 'Brazil', 'Egypt', 'Canada'], 3)
     return (
-      <div className="space-y-3">
-        <p className="text-sm text-slate-600">
+      <div className="space-y-3 print:space-y-3" style={{ fontSize: '16px', lineHeight: '24px', marginTop: '0', marginBottom: '0' }}>
+        <p className="text-sm text-slate-600 print:text-sm print:text-slate-600" style={{ fontSize: '14px', lineHeight: '20px', margin: '0 0 12px 0' }}>
           {t('worksheets.geographyCulture.instructions')}
         </p>
-        <table className="w-full border border-slate-300 text-sm">
-          <thead className="bg-slate-100">
+        <table className="w-full border border-slate-300 text-sm print:border print:border-slate-300 print:text-sm break-inside-avoid" style={{ WebkitPrintColorAdjust: 'exact', printColorAdjust: 'exact', borderColor: '#cbd5e1', borderWidth: '1px', borderStyle: 'solid', width: '100%', fontSize: '14px', pageBreakInside: 'avoid', breakInside: 'avoid' }}>
+          <thead className="bg-slate-100 print:bg-slate-100" style={{ backgroundColor: '#f1f5f9', WebkitPrintColorAdjust: 'exact', printColorAdjust: 'exact' }}>
             <tr>
-              <th className="px-3 py-2">{t('worksheets.geographyCulture.region')}</th>
-              <th className="px-3 py-2">{t('worksheets.geographyCulture.food')}</th>
-              <th className="px-3 py-2">{t('worksheets.geographyCulture.celebration')}</th>
-              <th className="px-3 py-2">{t('worksheets.geographyCulture.interestingFact')}</th>
+              <th className="px-3 py-2 print:px-3 print:py-2" style={{ padding: '8px 12px' }}>{t('worksheets.geographyCulture.region')}</th>
+              <th className="px-3 py-2 print:px-3 print:py-2" style={{ padding: '8px 12px' }}>{t('worksheets.geographyCulture.food')}</th>
+              <th className="px-3 py-2 print:px-3 print:py-2" style={{ padding: '8px 12px' }}>{t('worksheets.geographyCulture.celebration')}</th>
+              <th className="px-3 py-2 print:px-3 print:py-2" style={{ padding: '8px 12px' }}>{t('worksheets.geographyCulture.interestingFact')}</th>
             </tr>
           </thead>
           <tbody>
             {regions.map((region, idx) => (
-              <tr key={idx} className="border-t border-slate-200">
-                <td className="px-3 py-2">{region}</td>
-                <td className="px-3 py-2">__________________</td>
-                <td className="px-3 py-2">__________________</td>
-                <td className="px-3 py-2">__________________</td>
+              <tr key={idx} className="border-t border-slate-200 print:border-t print:border-slate-200" style={{ borderTopColor: '#e2e8f0', borderTopWidth: '1px', borderTopStyle: 'solid' }}>
+                <td className="px-3 py-2 print:px-3 print:py-2" style={{ padding: '8px 12px' }}>{region}</td>
+                <td className="px-3 py-2 print:px-3 print:py-2" style={{ padding: '8px 12px' }}>__________________</td>
+                <td className="px-3 py-2 print:px-3 print:py-2" style={{ padding: '8px 12px' }}>__________________</td>
+                <td className="px-3 py-2 print:px-3 print:py-2" style={{ padding: '8px 12px' }}>__________________</td>
               </tr>
             ))}
           </tbody>
@@ -1693,17 +1696,17 @@ const renderers: Record<string, Renderer> = {
       4
     ).sort((a, b) => a.year - b.year)
     return (
-      <div className="space-y-3">
-        <p className="text-sm text-slate-600">
+      <div className="space-y-3 print:space-y-3" style={{ fontSize: '16px', lineHeight: '24px', marginTop: '0', marginBottom: '0' }}>
+        <p className="text-sm text-slate-600 print:text-sm print:text-slate-600" style={{ fontSize: '14px', lineHeight: '20px', margin: '0 0 12px 0' }}>
           {t('worksheets.geographyHistory.instructions').replace('{{theme}}', themes[0])}
         </p>
-        <div className="space-y-4">
+        <div className="space-y-4 print:space-y-4" style={{ marginTop: '0', marginBottom: '0' }}>
           {events.map((entry, idx) => (
-            <div key={idx} className="rounded border border-slate-200 bg-white p-4 text-sm text-slate-700">
-              <p className="font-semibold text-slate-900">
+            <div key={idx} className="rounded border border-slate-200 bg-white p-4 text-sm text-slate-700 print:rounded print:border print:border-slate-200 print:bg-white print:p-4 print:text-sm print:text-slate-700 break-inside-avoid" style={{ WebkitPrintColorAdjust: 'exact', printColorAdjust: 'exact', backgroundColor: '#ffffff', borderColor: '#e2e8f0', padding: '16px', borderRadius: '8px', borderWidth: '1px', borderStyle: 'solid', fontSize: '14px', marginBottom: '16px', pageBreakInside: 'avoid', breakInside: 'avoid' }}>
+              <p className="font-semibold text-slate-900 print:font-semibold print:text-slate-900" style={{ fontWeight: '600', margin: '0 0 8px 0' }}>
                 {formatNum ? formatNum(entry.year) : entry.year}: {entry.event}
               </p>
-              <p>{t('worksheets.geographyHistory.impact')} ________________________________________</p>
+              <p style={{ margin: '0' }}>{t('worksheets.geographyHistory.impact')} ________________________________________</p>
             </div>
           ))}
         </div>
@@ -1718,15 +1721,15 @@ const renderers: Record<string, Renderer> = {
     const adjectives = ['curious', 'brave', 'glowing', 'silent', 'mysterious', 'playful']
     const sentences = Array.from({ length: 4 }).map(() => `${pick(rng, adjectives)} ${pick(rng, nouns)} ${pick(rng, verbs)} ___.`)
     return (
-      <div className="space-y-3">
-        <p className="text-sm text-slate-600">
+      <div className="space-y-3 print:space-y-3" style={{ fontSize: '16px', lineHeight: '24px', marginTop: '0', marginBottom: '0' }}>
+        <p className="text-sm text-slate-600 print:text-sm print:text-slate-600" style={{ fontSize: '14px', lineHeight: '20px', margin: '0 0 12px 0' }}>
           {t('worksheets.grammarParts.instructions')}
         </p>
-        <ul className="space-y-2 text-sm text-slate-700">
+        <ul className="space-y-2 text-sm text-slate-700 print:space-y-2 print:text-sm print:text-slate-700" style={{ paddingLeft: '1.5em', fontSize: '14px' }}>
           {sentences.map((sentence, idx) => (
-            <li key={idx} className="rounded border border-slate-200 bg-white px-4 py-3">
+            <li key={idx} className="rounded border border-slate-200 bg-white px-4 py-3 print:rounded print:border print:border-slate-200 print:bg-white print:px-4 print:py-3 break-inside-avoid" style={{ WebkitPrintColorAdjust: 'exact', printColorAdjust: 'exact', backgroundColor: '#ffffff', borderColor: '#e2e8f0', padding: '12px 16px', borderRadius: '8px', borderWidth: '1px', borderStyle: 'solid', marginBottom: '8px', pageBreakInside: 'avoid', breakInside: 'avoid' }}>
               {sentence}
-              <div className="mt-1 text-xs text-slate-500">{t('worksheets.grammarParts.label')} __________ • {t('worksheets.grammarParts.extraWord')} __________</div>
+              <div className="mt-1 text-xs text-slate-500 print:mt-1 print:text-xs print:text-slate-500" style={{ fontSize: '12px', lineHeight: '16px', marginTop: '4px', color: '#64748b' }}>{t('worksheets.grammarParts.label')} __________ • {t('worksheets.grammarParts.extraWord')} __________</div>
             </li>
           ))}
         </ul>
@@ -1738,31 +1741,31 @@ const renderers: Record<string, Renderer> = {
     const rng = makeRng(`${seed}|${doc.id}|${variant}`)
     const verbs = pickMany(rng, ['explore', 'finish', 'design', 'listen', 'organize', 'travel', 'collect'], 6)
     return (
-      <div className="space-y-3">
-        <p className="text-sm text-slate-600">
+      <div className="space-y-3 print:space-y-3" style={{ fontSize: '16px', lineHeight: '24px', marginTop: '0', marginBottom: '0' }}>
+        <p className="text-sm text-slate-600 print:text-sm print:text-slate-600" style={{ fontSize: '14px', lineHeight: '20px', margin: '0 0 12px 0' }}>
           {t('worksheets.grammarTenses.instructions')}
         </p>
-        <table className="w-full border border-slate-300 text-left text-sm">
-          <thead className="bg-slate-100">
+        <table className="w-full border border-slate-300 text-left text-sm print:border print:border-slate-300 print:text-left print:text-sm break-inside-avoid" style={{ WebkitPrintColorAdjust: 'exact', printColorAdjust: 'exact', borderColor: '#cbd5e1', borderWidth: '1px', borderStyle: 'solid', width: '100%', fontSize: '14px', pageBreakInside: 'avoid', breakInside: 'avoid', marginBottom: '8px' }}>
+          <thead className="bg-slate-100 print:bg-slate-100" style={{ backgroundColor: '#f1f5f9', WebkitPrintColorAdjust: 'exact', printColorAdjust: 'exact' }}>
             <tr>
-              <th className="px-3 py-2">{t('worksheets.grammarTenses.verb')}</th>
-              <th className="px-3 py-2">{t('worksheets.grammarTenses.past')}</th>
-              <th className="px-3 py-2">{t('worksheets.grammarTenses.present')}</th>
-              <th className="px-3 py-2">{t('worksheets.grammarTenses.future')}</th>
+              <th className="px-3 py-2 print:px-3 print:py-2" style={{ padding: '8px 12px' }}>{t('worksheets.grammarTenses.verb')}</th>
+              <th className="px-3 py-2 print:px-3 print:py-2" style={{ padding: '8px 12px' }}>{t('worksheets.grammarTenses.past')}</th>
+              <th className="px-3 py-2 print:px-3 print:py-2" style={{ padding: '8px 12px' }}>{t('worksheets.grammarTenses.present')}</th>
+              <th className="px-3 py-2 print:px-3 print:py-2" style={{ padding: '8px 12px' }}>{t('worksheets.grammarTenses.future')}</th>
             </tr>
           </thead>
           <tbody>
             {verbs.map((verb, idx) => (
-              <tr key={idx} className="border-t border-slate-200">
-                <td className="px-3 py-2">{verb}</td>
-                <td className="px-3 py-2">________________</td>
-                <td className="px-3 py-2">________________</td>
-                <td className="px-3 py-2">________________</td>
+              <tr key={idx} className="border-t border-slate-200 print:border-t print:border-slate-200" style={{ borderTopColor: '#e2e8f0', borderTopWidth: '1px', borderTopStyle: 'solid' }}>
+                <td className="px-3 py-2 print:px-3 print:py-2" style={{ padding: '8px 12px' }}>{verb}</td>
+                <td className="px-3 py-2 print:px-3 print:py-2" style={{ padding: '8px 12px' }}>________________</td>
+                <td className="px-3 py-2 print:px-3 print:py-2" style={{ padding: '8px 12px' }}>________________</td>
+                <td className="px-3 py-2 print:px-3 print:py-2" style={{ padding: '8px 12px' }}>________________</td>
               </tr>
             ))}
           </tbody>
         </table>
-        <p className="text-xs text-slate-500">{t('worksheets.grammarTenses.writeSentence')}</p>
+        <p className="text-xs text-slate-500 print:text-xs print:text-slate-500" style={{ fontSize: '12px', lineHeight: '16px', margin: '0', color: '#64748b' }}>{t('worksheets.grammarTenses.writeSentence')}</p>
       </div>
     )
   },
@@ -1782,24 +1785,24 @@ const renderers: Record<string, Renderer> = {
       5
     )
     return (
-      <div className="space-y-3">
-        <p className="text-sm text-slate-600">
+      <div className="space-y-3 print:space-y-3" style={{ fontSize: '16px', lineHeight: '24px', marginTop: '0', marginBottom: '0' }}>
+        <p className="text-sm text-slate-600 print:text-sm print:text-slate-600" style={{ fontSize: '14px', lineHeight: '20px', margin: '0 0 12px 0' }}>
           {t('worksheets.grammarAntonyms.instructions')}
         </p>
-        <table className="w-full border border-slate-300 text-sm">
-          <thead className="bg-slate-100">
+        <table className="w-full border border-slate-300 text-sm print:border print:border-slate-300 print:text-sm break-inside-avoid" style={{ WebkitPrintColorAdjust: 'exact', printColorAdjust: 'exact', borderColor: '#cbd5e1', borderWidth: '1px', borderStyle: 'solid', width: '100%', fontSize: '14px', pageBreakInside: 'avoid', breakInside: 'avoid' }}>
+          <thead className="bg-slate-100 print:bg-slate-100" style={{ backgroundColor: '#f1f5f9', WebkitPrintColorAdjust: 'exact', printColorAdjust: 'exact' }}>
             <tr>
-              <th className="px-3 py-2">{t('worksheets.grammarAntonyms.word')}</th>
-              <th className="px-3 py-2">{t('worksheets.grammarAntonyms.antonym')}</th>
-              <th className="px-3 py-2">{t('worksheets.grammarAntonyms.sentence')}</th>
+              <th className="px-3 py-2 print:px-3 print:py-2" style={{ padding: '8px 12px' }}>{t('worksheets.grammarAntonyms.word')}</th>
+              <th className="px-3 py-2 print:px-3 print:py-2" style={{ padding: '8px 12px' }}>{t('worksheets.grammarAntonyms.antonym')}</th>
+              <th className="px-3 py-2 print:px-3 print:py-2" style={{ padding: '8px 12px' }}>{t('worksheets.grammarAntonyms.sentence')}</th>
             </tr>
           </thead>
           <tbody>
             {pairs.map(([word, antonym], idx) => (
-              <tr key={idx} className="border-t border-slate-200">
-                <td className="px-3 py-2">{word}</td>
-                <td className="px-3 py-2">{antonym}</td>
-                <td className="px-3 py-2">________________________________________</td>
+              <tr key={idx} className="border-t border-slate-200 print:border-t print:border-slate-200" style={{ borderTopColor: '#e2e8f0', borderTopWidth: '1px', borderTopStyle: 'solid' }}>
+                <td className="px-3 py-2 print:px-3 print:py-2" style={{ padding: '8px 12px' }}>{word}</td>
+                <td className="px-3 py-2 print:px-3 print:py-2" style={{ padding: '8px 12px' }}>{antonym}</td>
+                <td className="px-3 py-2 print:px-3 print:py-2" style={{ padding: '8px 12px' }}>________________________________________</td>
               </tr>
             ))}
           </tbody>
