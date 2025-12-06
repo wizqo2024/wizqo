@@ -1369,10 +1369,10 @@ section[data-interactive-section="true"].preserve-print-styling [class*="h-48"] 
   
   /* Remove excessive gaps on first page - aggressive overrides */
   @media print {
-    /* Override section padding for first page - reduce top padding significantly */
+    /* Override section padding for first page - remove top padding completely */
     section[data-interactive-section="true"].preserve-print-styling:first-child {
       margin-top: 0 !important;
-      padding-top: 8px !important;
+      padding-top: 0 !important;
       padding-left: 24px !important;
       padding-right: 24px !important;
       padding-bottom: 24px !important;
@@ -1426,6 +1426,19 @@ section[data-interactive-section="true"].preserve-print-styling [class*="h-48"] 
     section[data-interactive-section="true"].preserve-print-styling:first-child p.text-sm {
       margin-top: 0 !important;
       margin-bottom: 8px !important;
+    }
+    
+    /* Remove any spacing from the worksheet content wrapper on first page */
+    [data-worksheet-content="true"] > div:first-child {
+      margin-top: 0 !important;
+      padding-top: 0 !important;
+    }
+    
+    /* Remove spacing from print header if it exists */
+    .wizqo-print-header {
+      margin-top: 0 !important;
+      padding-top: 0 !important;
+      margin-bottom: 4px !important;
     }
   }
   
