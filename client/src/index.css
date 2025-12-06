@@ -1371,7 +1371,13 @@ section[data-interactive-section="true"].preserve-print-styling [class*="h-48"] 
   @media print {
     section[data-interactive-section="true"].preserve-print-styling:first-child {
       margin-top: 0 !important;
-      padding-top: 12px !important;
+      padding-top: 0 !important;
+    }
+    
+    section[data-interactive-section="true"].preserve-print-styling:first-child .print-header {
+      margin-top: 0 !important;
+      margin-bottom: 8px !important;
+      padding-top: 0 !important;
     }
     
     section[data-interactive-section="true"].preserve-print-styling .print-header {
@@ -1380,11 +1386,27 @@ section[data-interactive-section="true"].preserve-print-styling [class*="h-48"] 
     }
     
     /* Reduce WorksheetHeader spacing on first page */
+    section[data-interactive-section="true"].preserve-print-styling:first-child .print\\:mb-2,
     section[data-interactive-section="true"].preserve-print-styling:first-child .print\\:mb-4 {
-      margin-bottom: 8px !important;
+      margin-bottom: 4px !important;
+      padding-bottom: 0 !important;
     }
     
     section[data-interactive-section="true"].preserve-print-styling:first-child > div:first-child {
+      margin-top: 0 !important;
+      padding-top: 0 !important;
+      margin-bottom: 0 !important;
+    }
+    
+    /* Reduce top spacing for first content element */
+    section[data-interactive-section="true"].preserve-print-styling:first-child > div > div:first-child {
+      margin-top: 0 !important;
+      padding-top: 0 !important;
+    }
+    
+    /* Reduce space before first grid/list */
+    section[data-interactive-section="true"].preserve-print-styling:first-child .space-y-3,
+    section[data-interactive-section="true"].preserve-print-styling:first-child .space-y-4 {
       margin-top: 0 !important;
       padding-top: 0 !important;
     }
