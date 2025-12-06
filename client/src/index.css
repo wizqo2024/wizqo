@@ -1134,6 +1134,7 @@ html {
   
   /* Remove all inner borders in print so only outer frame remains */
   /* EXCLUDE drawing boxes and worksheet sections from border removal */
+  /* NOTE: Tables are handled separately below - they need borders preserved */
 [data-worksheet-content="true"] .border:not(.worksheet-container):not(.print-section-outline):not(.print-block-outline):not(.drawing-box):not(.drawing-box-large):not([data-drawing-box]):not(.worksheet-section):not(section.worksheet-section):not([class*="worksheet-section"]),
 [data-worksheet-content="true"] [class*="border-"]:not(.worksheet-container):not(.print-section-outline):not(.print-block-outline):not(.drawing-box):not(.drawing-box-large):not([data-drawing-box]):not(.worksheet-section):not(section.worksheet-section):not([class*="worksheet-section"]),
 [data-worksheet-content="true"] [class*="print:border"]:not(.worksheet-container):not(.print-section-outline):not(.print-block-outline):not(.drawing-box):not(.drawing-box-large):not([data-drawing-box]):not(.worksheet-section):not(section.worksheet-section):not([class*="worksheet-section"]),
@@ -1142,6 +1143,57 @@ html {
     border-width: 0 !important;
     border-color: transparent !important;
     box-shadow: none !important;
+  }
+  
+  /* CRITICAL: Preserve table borders in print mode - MUST come after border removal with higher specificity */
+  /* This ensures tables display correctly with all borders visible, matching the live view */
+  [data-worksheet-content="true"] table,
+  [data-worksheet-content="true"] table td,
+  [data-worksheet-content="true"] table th,
+  [data-worksheet-content="true"] table tr {
+    border-collapse: collapse !important;
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+    color-adjust: exact !important;
+  }
+  
+  /* Restore table cell borders - override border removal with higher specificity */
+  [data-worksheet-content="true"] table td,
+  [data-worksheet-content="true"] table th {
+    border: 1px solid #94a3b8 !important;
+    border-width: 1px !important;
+    border-style: solid !important;
+    border-color: #94a3b8 !important;
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+    color-adjust: exact !important;
+  }
+  
+  /* Preserve specific border colors from classes (e.g., border-slate-400) */
+  [data-worksheet-content="true"] table td.border-slate-400,
+  [data-worksheet-content="true"] table th.border-slate-400 {
+    border-color: #94a3b8 !important;
+  }
+  
+  /* Preserve table header backgrounds */
+  [data-worksheet-content="true"] table th[class*="bg-"],
+  [data-worksheet-content="true"] table th[class*="bg-slate-100"],
+  [data-worksheet-content="true"] table th[style*="background"] {
+    background-color: inherit !important;
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+    color-adjust: exact !important;
+  }
+  
+  /* Ensure table cells with bg-slate-100 show background */
+  [data-worksheet-content="true"] table th.bg-slate-100 {
+    background-color: #f1f5f9 !important;
+  }
+  
+  /* Preserve table structure - ensure proper spacing */
+  [data-worksheet-content="true"] table {
+    width: 100% !important;
+    border-collapse: collapse !important;
   }
   
   /* CRITICAL: Force border on worksheet sections IMMEDIATELY after border removal */
