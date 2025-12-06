@@ -802,10 +802,13 @@ const renderers: Record<string, Renderer> = {
         <p className="text-sm text-slate-600">
           {t('worksheets.mathRace.instructions')}
         </p>
-        <div className="grid grid-cols-3 gap-3">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
           {problems.map((prob, idx) => (
-            <div key={idx} className="rounded-lg border border-slate-200 bg-white px-3 py-2 text-center text-lg font-semibold tracking-wide">
-              {formatNum(prob.first)} {prob.op} {formatNum(prob.second)} =
+            <div
+              key={idx}
+              className="rounded-lg border border-slate-200 bg-white px-3 py-2 text-center text-lg font-semibold tracking-wide whitespace-nowrap min-w-[140px]"
+            >
+              {formatNum(prob.first)} {prob.op} {formatNum(prob.second)} = ______
             </div>
           ))}
         </div>
@@ -824,7 +827,7 @@ const renderers: Record<string, Renderer> = {
         <p className="text-sm text-slate-600">
           {t('worksheets.mathPuzzle.instructions')}
         </p>
-        <div className="grid grid-cols-2 gap-4">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           {puzzles.map((puzzle, idx) => {
             // Format numbers in the prompt for Arabic - replace all digits with formatted versions
             let formattedPrompt = puzzle.prompt
