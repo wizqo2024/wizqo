@@ -610,8 +610,52 @@ html {
     border: 2px solid #f9a8d4 !important;
     border-radius: 12px !important;
     padding: 24px !important;
+    font-size: 16px !important; /* Match live view base font size */
     -webkit-print-color-adjust: exact !important;
     print-color-adjust: exact !important;
+  }
+  
+  /* Preserve exact font sizes for art worksheets - match live view */
+  section[data-interactive-section="true"].preserve-print-styling .text-sm {
+    font-size: 0.875rem !important; /* 14px - match Tailwind text-sm */
+    line-height: 1.25rem !important;
+  }
+  
+  section[data-interactive-section="true"].preserve-print-styling .text-xs {
+    font-size: 0.75rem !important; /* 12px - match Tailwind text-xs */
+    line-height: 1rem !important;
+  }
+  
+  /* Preserve exact padding and spacing */
+  section[data-interactive-section="true"].preserve-print-styling .p-4 {
+    padding: 1rem !important; /* 16px - match Tailwind p-4 */
+  }
+  
+  section[data-interactive-section="true"].preserve-print-styling .gap-3 {
+    gap: 0.75rem !important; /* 12px - match Tailwind gap-3 */
+  }
+  
+  section[data-interactive-section="true"].preserve-print-styling .space-y-4 > * + * {
+    margin-top: 1rem !important; /* 16px - match Tailwind space-y-4 */
+  }
+  
+  section[data-interactive-section="true"].preserve-print-styling .mb-2 {
+    margin-bottom: 0.5rem !important; /* 8px - match Tailwind mb-2 */
+  }
+  
+  section[data-interactive-section="true"].preserve-print-styling .mt-1 {
+    margin-top: 0.25rem !important; /* 4px - match Tailwind mt-1 */
+  }
+  
+  /* Preserve exact heights */
+  section[data-interactive-section="true"].preserve-print-styling .h-24 {
+    height: 6rem !important; /* 96px - match Tailwind h-24 */
+    min-height: 6rem !important;
+  }
+  
+  section[data-interactive-section="true"].preserve-print-styling .h-32 {
+    height: 8rem !important; /* 128px - match Tailwind h-32 */
+    min-height: 8rem !important;
   }
   
   /* Preserve borders and backgrounds for art worksheet content */

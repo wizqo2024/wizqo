@@ -5144,37 +5144,37 @@ const renderers: Record<string, Renderer> = {
       switch (shape.toLowerCase()) {
         case 'circle':
           return (
-            <svg width={size} height={size} className="mx-auto" viewBox="0 0 64 64">
+            <svg width={size} height={size} className="mx-auto" viewBox="0 0 64 64" style={{ width: '64px', height: '64px', display: 'block', margin: '0 auto' }}>
               <circle cx={centerX} cy={centerY} r={20} fill="none" stroke={strokeColor} strokeWidth={strokeWidth} />
             </svg>
           )
         case 'square':
           return (
-            <svg width={size} height={size} className="mx-auto" viewBox="0 0 64 64">
+            <svg width={size} height={size} className="mx-auto" viewBox="0 0 64 64" style={{ width: '64px', height: '64px', display: 'block', margin: '0 auto' }}>
               <rect x={centerX - 20} y={centerY - 20} width={40} height={40} fill="none" stroke={strokeColor} strokeWidth={strokeWidth} />
             </svg>
           )
         case 'triangle':
           return (
-            <svg width={size} height={size} className="mx-auto" viewBox="0 0 64 64">
+            <svg width={size} height={size} className="mx-auto" viewBox="0 0 64 64" style={{ width: '64px', height: '64px', display: 'block', margin: '0 auto' }}>
               <polygon points={`${centerX},${centerY - 18} ${centerX - 20},${centerY + 14} ${centerX + 20},${centerY + 14}`} fill="none" stroke={strokeColor} strokeWidth={strokeWidth} />
             </svg>
           )
         case 'rectangle':
           return (
-            <svg width={size} height={size} className="mx-auto" viewBox="0 0 64 64">
+            <svg width={size} height={size} className="mx-auto" viewBox="0 0 64 64" style={{ width: '64px', height: '64px', display: 'block', margin: '0 auto' }}>
               <rect x={centerX - 22} y={centerY - 14} width={44} height={28} fill="none" stroke={strokeColor} strokeWidth={strokeWidth} />
             </svg>
           )
         case 'star':
           return (
-            <svg width={size} height={size} className="mx-auto" viewBox="0 0 64 64">
+            <svg width={size} height={size} className="mx-auto" viewBox="0 0 64 64" style={{ width: '64px', height: '64px', display: 'block', margin: '0 auto' }}>
               <path d={`M ${centerX} ${centerY - 20} L ${centerX + 6} ${centerY - 6} L ${centerX + 20} ${centerY - 6} L ${centerX + 8} ${centerY + 2} L ${centerX + 12} ${centerY + 18} L ${centerX} ${centerY + 8} L ${centerX - 12} ${centerY + 18} L ${centerX - 8} ${centerY + 2} L ${centerX - 20} ${centerY - 6} L ${centerX - 6} ${centerY - 6} Z`} fill="none" stroke={strokeColor} strokeWidth={strokeWidth} />
             </svg>
           )
         case 'heart':
           return (
-            <svg width={size} height={size} className="mx-auto" viewBox="0 0 64 64">
+            <svg width={size} height={size} className="mx-auto" viewBox="0 0 64 64" style={{ width: '64px', height: '64px', display: 'block', margin: '0 auto' }}>
               <path d={`M ${centerX},${centerY + 12} C ${centerX - 10},${centerY + 6} ${centerX - 16},${centerY - 2} ${centerX - 10},${centerY - 6} C ${centerX - 6},${centerY - 10} ${centerX - 2},${centerY - 8} ${centerX},${centerY - 4} C ${centerX + 2},${centerY - 8} ${centerX + 6},${centerY - 10} ${centerX + 10},${centerY - 6} C ${centerX + 16},${centerY - 2} ${centerX + 10},${centerY + 6} ${centerX},${centerY + 12} Z`} fill="none" stroke={strokeColor} strokeWidth={strokeWidth} />
             </svg>
           )
@@ -5184,26 +5184,26 @@ const renderers: Record<string, Renderer> = {
     }
     
     return (
-      <div className="space-y-4 print:space-y-4">
-        <p className="text-sm text-slate-600 print:text-slate-600">Create art using basic shapes. Draw and color shapes to make pictures.</p>
-        <div className="grid gap-3 md:grid-cols-3 print:grid print:grid-cols-3 print:gap-3">
+      <div className="space-y-4 print:space-y-4" style={{ fontSize: '16px' }}>
+        <p className="text-sm text-slate-600 print:text-slate-600" style={{ fontSize: '14px', lineHeight: '20px' }}>Create art using basic shapes. Draw and color shapes to make pictures.</p>
+        <div className="grid gap-3 md:grid-cols-3 print:grid print:grid-cols-3 print:gap-3" style={{ gap: '12px' }}>
           {shapes.map((shape, idx) => (
-            <div key={idx} className="rounded-xl border border-pink-200 bg-pink-50 p-4 text-center print:rounded-xl print:border print:border-pink-200 print:bg-pink-50 print:p-4 print:text-center" style={{ WebkitPrintColorAdjust: 'exact', printColorAdjust: 'exact', backgroundColor: '#fdf2f8', borderColor: '#fbcfe8' }}>
-              <p className="text-sm font-semibold text-pink-700 capitalize mb-2 print:text-sm print:font-semibold print:text-pink-700 print:mb-2">{shape}</p>
-              <div className="mb-2 flex items-center justify-center print:mb-2 print:flex print:items-center print:justify-center">
+            <div key={idx} className="rounded-xl border border-pink-200 bg-pink-50 p-4 text-center print:rounded-xl print:border print:border-pink-200 print:bg-pink-50 print:p-4 print:text-center" style={{ WebkitPrintColorAdjust: 'exact', printColorAdjust: 'exact', backgroundColor: '#fdf2f8', borderColor: '#fbcfe8', padding: '16px', borderRadius: '12px' }}>
+              <p className="text-sm font-semibold text-pink-700 capitalize mb-2 print:text-sm print:font-semibold print:text-pink-700 print:mb-2" style={{ fontSize: '14px', fontWeight: '600', marginBottom: '8px', lineHeight: '20px' }}>{shape}</p>
+              <div className="mb-2 flex items-center justify-center print:mb-2 print:flex print:items-center print:justify-center" style={{ marginBottom: '8px' }}>
                 {renderShapeExample(shape)}
               </div>
-              <div className="h-24 rounded border border-pink-300 bg-white print:h-24 print:rounded print:border print:border-pink-300 print:bg-white" style={{ borderColor: '#f9a8d4', backgroundColor: '#ffffff', WebkitPrintColorAdjust: 'exact', printColorAdjust: 'exact', minHeight: '96px' }}></div>
-              <p className="mt-1 text-xs text-pink-600 italic mb-2 print:mt-1 print:text-xs print:text-pink-600 print:italic print:mb-2">Draw a {shape}</p>
-              <p className="text-xs text-pink-600 print:text-xs print:text-pink-600">Color it: ________________</p>
+              <div className="h-24 rounded border border-pink-300 bg-white print:h-24 print:rounded print:border print:border-pink-300 print:bg-white" style={{ borderColor: '#f9a8d4', backgroundColor: '#ffffff', WebkitPrintColorAdjust: 'exact', printColorAdjust: 'exact', height: '96px', minHeight: '96px', borderRadius: '8px', borderWidth: '1px' }}></div>
+              <p className="mt-1 text-xs text-pink-600 italic mb-2 print:mt-1 print:text-xs print:text-pink-600 print:italic print:mb-2" style={{ fontSize: '12px', marginTop: '4px', marginBottom: '8px', lineHeight: '16px' }}>Draw a {shape}</p>
+              <p className="text-xs text-pink-600 print:text-xs print:text-pink-600" style={{ fontSize: '12px', lineHeight: '16px' }}>Color it: ________________</p>
             </div>
           ))}
         </div>
-        <div className="rounded-xl border border-pink-200 bg-pink-50 p-4 print:rounded-xl print:border print:border-pink-200 print:bg-pink-50 print:p-4" style={{ WebkitPrintColorAdjust: 'exact', printColorAdjust: 'exact', backgroundColor: '#fdf2f8', borderColor: '#fbcfe8' }}>
-          <p className="text-sm font-semibold text-pink-700 mb-2 print:text-sm print:font-semibold print:text-pink-700 print:mb-2">Create a Picture</p>
-          <p className="text-xs text-pink-600 mb-2 print:text-xs print:text-pink-600 print:mb-2">Use shapes to draw:</p>
-          <div className="h-32 rounded border border-pink-300 bg-white print:h-32 print:rounded print:border print:border-pink-300 print:bg-white" style={{ borderColor: '#f9a8d4', backgroundColor: '#ffffff', WebkitPrintColorAdjust: 'exact', printColorAdjust: 'exact', minHeight: '128px' }}></div>
-          <p className="mt-1 text-xs text-pink-600 italic print:mt-1 print:text-xs print:text-pink-600 print:italic">Draw a picture using shapes</p>
+        <div className="rounded-xl border border-pink-200 bg-pink-50 p-4 print:rounded-xl print:border print:border-pink-200 print:bg-pink-50 print:p-4" style={{ WebkitPrintColorAdjust: 'exact', printColorAdjust: 'exact', backgroundColor: '#fdf2f8', borderColor: '#fbcfe8', padding: '16px', borderRadius: '12px' }}>
+          <p className="text-sm font-semibold text-pink-700 mb-2 print:text-sm print:font-semibold print:text-pink-700 print:mb-2" style={{ fontSize: '14px', fontWeight: '600', marginBottom: '8px', lineHeight: '20px' }}>Create a Picture</p>
+          <p className="text-xs text-pink-600 mb-2 print:text-xs print:text-pink-600 print:mb-2" style={{ fontSize: '12px', marginBottom: '8px', lineHeight: '16px' }}>Use shapes to draw:</p>
+          <div className="h-32 rounded border border-pink-300 bg-white print:h-32 print:rounded print:border print:border-pink-300 print:bg-white" style={{ borderColor: '#f9a8d4', backgroundColor: '#ffffff', WebkitPrintColorAdjust: 'exact', printColorAdjust: 'exact', height: '128px', minHeight: '128px', borderRadius: '8px', borderWidth: '1px' }}></div>
+          <p className="mt-1 text-xs text-pink-600 italic print:mt-1 print:text-xs print:text-pink-600 print:italic" style={{ fontSize: '12px', marginTop: '4px', lineHeight: '16px' }}>Draw a picture using shapes</p>
         </div>
       </div>
     )
