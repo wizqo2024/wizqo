@@ -3097,68 +3097,68 @@ const renderers: Record<string, Renderer> = {
       { position: 'right', itemKey: 'square', textKey: 'toTheRightOf' },
     ]
     return (
-      <div className="space-y-4">
-        <p className="text-sm text-slate-600">
+      <div className="space-y-4 print:space-y-4" style={{ fontSize: '16px', lineHeight: '24px', marginTop: '0', marginBottom: '0' }}>
+        <p className="text-sm text-slate-600 print:text-sm print:text-slate-600" style={{ fontSize: '14px', lineHeight: '20px', margin: '0 0 16px 0' }}>
           {t('worksheets.cognitiveVisual.visualPatternMatching')}
         </p>
-        <div className="rounded-xl border border-pink-200 bg-pink-50 p-4">
-          <p className="text-sm font-semibold text-pink-700 mb-3">{t('worksheets.cognitiveVisual.visualPatternMatching')}</p>
-          <p className="text-xs text-pink-600 mb-3">{t('worksheets.cognitiveVisual.comparePatterns')}</p>
-          <div className="space-y-3">
+        <div className="rounded-xl border border-pink-200 bg-pink-50 p-4 print:rounded-xl print:border print:border-pink-200 print:bg-pink-50 print:p-4 break-inside-avoid" style={{ WebkitPrintColorAdjust: 'exact', printColorAdjust: 'exact', backgroundColor: '#fdf2f8', borderColor: '#fbcfe8', padding: '16px', borderRadius: '12px', borderWidth: '1px', borderStyle: 'solid', marginBottom: '16px', pageBreakInside: 'avoid', breakInside: 'avoid' }}>
+          <p className="text-sm font-semibold text-pink-700 mb-3 print:text-sm print:font-semibold print:text-pink-700 print:mb-3" style={{ fontSize: '14px', fontWeight: '600', margin: '0 0 12px 0', color: '#be185d' }}>{t('worksheets.cognitiveVisual.visualPatternMatching')}</p>
+          <p className="text-xs text-pink-600 mb-3 print:text-xs print:text-pink-600 print:mb-3" style={{ fontSize: '12px', lineHeight: '16px', margin: '0 0 12px 0', color: '#db2777' }}>{t('worksheets.cognitiveVisual.comparePatterns')}</p>
+          <div className="space-y-3 print:space-y-3" style={{ marginTop: '0', marginBottom: '0' }}>
             {patterns.map((pattern, idx) => (
-              <div key={idx} className="bg-white rounded-lg p-3 border border-pink-200">
-                <p className="text-xs text-pink-600 mb-2">{t('worksheets.cognitiveVisual.pattern').replace('{{number}}', String(idx + 1))}</p>
-                <div className="flex gap-4 mb-2">
+              <div key={idx} className="bg-white rounded-lg p-3 border border-pink-200 print:bg-white print:rounded-lg print:p-3 print:border print:border-pink-200 break-inside-avoid" style={{ WebkitPrintColorAdjust: 'exact', printColorAdjust: 'exact', backgroundColor: '#ffffff', borderColor: '#fbcfe8', padding: '12px', borderRadius: '8px', borderWidth: '1px', borderStyle: 'solid', marginBottom: '12px', pageBreakInside: 'avoid', breakInside: 'avoid' }}>
+                <p className="text-xs text-pink-600 mb-2 print:text-xs print:text-pink-600 print:mb-2" style={{ fontSize: '12px', lineHeight: '16px', margin: '0 0 8px 0', color: '#db2777' }}>{t('worksheets.cognitiveVisual.pattern').replace('{{number}}', String(idx + 1))}</p>
+                <div className="flex gap-4 mb-2 print:flex print:gap-4 print:mb-2" style={{ display: 'flex', gap: '16px', marginBottom: '8px' }}>
                   <div>
-                    <p className="text-xs text-pink-600 mb-1">{t('worksheets.cognitiveVisual.original')}</p>
-                    <div className="flex gap-1">
+                    <p className="text-xs text-pink-600 mb-1 print:text-xs print:text-pink-600 print:mb-1" style={{ fontSize: '12px', lineHeight: '16px', margin: '0 0 4px 0', color: '#db2777' }}>{t('worksheets.cognitiveVisual.original')}</p>
+                    <div className="flex gap-1 print:flex print:gap-1" style={{ display: 'flex', gap: '4px' }}>
                       {pattern.original.map((item, i) => (
-                        <span key={i} className="px-2 py-1 bg-pink-100 rounded text-xs font-semibold text-pink-800">{item}</span>
+                        <span key={i} className="px-2 py-1 bg-pink-100 rounded text-xs font-semibold text-pink-800 print:px-2 print:py-1 print:bg-pink-100 print:rounded print:text-xs print:font-semibold print:text-pink-800" style={{ WebkitPrintColorAdjust: 'exact', printColorAdjust: 'exact', backgroundColor: '#fce7f3', padding: '4px 8px', borderRadius: '4px', fontSize: '12px', fontWeight: '600', color: '#9f1239' }}>{item}</span>
                       ))}
                     </div>
                   </div>
                   <div>
-                    <p className="text-xs text-pink-600 mb-1">{t('worksheets.cognitiveVisual.match')}</p>
-                    <div className="flex gap-1">
+                    <p className="text-xs text-pink-600 mb-1 print:text-xs print:text-pink-600 print:mb-1" style={{ fontSize: '12px', lineHeight: '16px', margin: '0 0 4px 0', color: '#db2777' }}>{t('worksheets.cognitiveVisual.match')}</p>
+                    <div className="flex gap-1 print:flex print:gap-1" style={{ display: 'flex', gap: '4px' }}>
                       {pattern.match.map((item, i) => (
-                        <span key={i} className={`px-2 py-1 rounded text-xs font-semibold ${item !== pattern.original[i] ? 'bg-pink-200 text-pink-900 border-2 border-pink-500' : 'bg-pink-100 text-pink-800'}`}>{item}</span>
+                        <span key={i} className={`px-2 py-1 rounded text-xs font-semibold print:px-2 print:py-1 print:rounded print:text-xs print:font-semibold ${item !== pattern.original[i] ? 'bg-pink-200 text-pink-900 border-2 border-pink-500 print:bg-pink-200 print:text-pink-900 print:border-2 print:border-pink-500' : 'bg-pink-100 text-pink-800 print:bg-pink-100 print:text-pink-800'}`} style={{ WebkitPrintColorAdjust: 'exact', printColorAdjust: 'exact', padding: '4px 8px', borderRadius: '4px', fontSize: '12px', fontWeight: '600', ...(item !== pattern.original[i] ? { backgroundColor: '#fbcfe8', color: '#831843', borderWidth: '2px', borderStyle: 'solid', borderColor: '#ec4899' } : { backgroundColor: '#fce7f3', color: '#9f1239' }) }}>{item}</span>
                       ))}
                     </div>
                   </div>
                 </div>
-                <p className="text-xs text-pink-600">{t('worksheets.cognitiveVisual.whatsDifferent')}</p>
+                <p className="text-xs text-pink-600 print:text-xs print:text-pink-600" style={{ fontSize: '12px', lineHeight: '16px', margin: '0', color: '#db2777' }}>{t('worksheets.cognitiveVisual.whatsDifferent')}</p>
               </div>
             ))}
           </div>
         </div>
-        <div className="rounded-xl border border-pink-200 bg-pink-50 p-4">
-          <p className="text-sm font-semibold text-pink-700 mb-3">{t('worksheets.cognitiveVisual.spatialReasoning')}</p>
-          <p className="text-xs text-pink-600 mb-3">{t('worksheets.cognitiveVisual.drawItemPosition')}</p>
-          <div className="bg-white rounded-lg p-3 border border-pink-200">
-            <div className="grid grid-cols-2 gap-4">
+        <div className="rounded-xl border border-pink-200 bg-pink-50 p-4 print:rounded-xl print:border print:border-pink-200 print:bg-pink-50 print:p-4 break-inside-avoid" style={{ WebkitPrintColorAdjust: 'exact', printColorAdjust: 'exact', backgroundColor: '#fdf2f8', borderColor: '#fbcfe8', padding: '16px', borderRadius: '12px', borderWidth: '1px', borderStyle: 'solid', pageBreakInside: 'avoid', breakInside: 'avoid' }}>
+          <p className="text-sm font-semibold text-pink-700 mb-3 print:text-sm print:font-semibold print:text-pink-700 print:mb-3" style={{ fontSize: '14px', fontWeight: '600', margin: '0 0 12px 0', color: '#be185d' }}>{t('worksheets.cognitiveVisual.spatialReasoning')}</p>
+          <p className="text-xs text-pink-600 mb-3 print:text-xs print:text-pink-600 print:mb-3" style={{ fontSize: '12px', lineHeight: '16px', margin: '0 0 12px 0', color: '#db2777' }}>{t('worksheets.cognitiveVisual.drawItemPosition')}</p>
+          <div className="bg-white rounded-lg p-3 border border-pink-200 print:bg-white print:rounded-lg print:p-3 print:border print:border-pink-200" style={{ WebkitPrintColorAdjust: 'exact', printColorAdjust: 'exact', backgroundColor: '#ffffff', borderColor: '#fbcfe8', padding: '12px', borderRadius: '8px', borderWidth: '1px', borderStyle: 'solid' }}>
+            <div className="grid grid-cols-2 gap-4 print:grid print:grid-cols-2 print:gap-4" style={{ display: 'grid', gridTemplateColumns: 'repeat(2, minmax(0, 1fr))', gap: '16px' }}>
               {spatialItems.map((item, idx) => {
                 const itemText = t(`common.shapes.${item.itemKey}`)
                 return (
-                  <div key={idx} className="border border-dashed border-pink-300 rounded p-3">
-                    <p className="text-xs text-pink-600 mb-2">{t('worksheets.cognitiveVisual.drawItemText').replace('{{item}}', itemText).replace('{{text}}', t(`worksheets.cognitiveVisual.${item.textKey}`))}</p>
+                  <div key={idx} className="border border-dashed border-pink-300 rounded p-3 print:border print:border-dashed print:border-pink-300 print:rounded print:p-3" style={{ WebkitPrintColorAdjust: 'exact', printColorAdjust: 'exact', borderColor: '#f9a8d4', borderWidth: '1px', borderStyle: 'dashed', borderRadius: '8px', padding: '12px' }}>
+                    <p className="text-xs text-pink-600 mb-2 print:text-xs print:text-pink-600 print:mb-2" style={{ fontSize: '12px', lineHeight: '16px', margin: '0 0 8px 0', color: '#db2777' }}>{t('worksheets.cognitiveVisual.drawItemText').replace('{{item}}', itemText).replace('{{text}}', t(`worksheets.cognitiveVisual.${item.textKey}`))}</p>
                     {item.position === 'above' && (
-                      <div className="h-20 border border-pink-200 rounded relative">
-                        <div className="absolute bottom-0 left-0 right-0 h-0.5 bg-pink-600"></div>
+                      <div className="h-20 border border-pink-200 rounded relative print:h-20 print:border print:border-pink-200 print:rounded print:relative" style={{ WebkitPrintColorAdjust: 'exact', printColorAdjust: 'exact', borderColor: '#fbcfe8', borderWidth: '1px', borderStyle: 'solid', height: '80px', borderRadius: '8px', position: 'relative' }}>
+                        <div className="absolute bottom-0 left-0 right-0 h-0.5 bg-pink-600 print:absolute print:bottom-0 print:left-0 print:right-0 print:h-0.5 print:bg-pink-600" style={{ position: 'absolute', bottom: '0', left: '0', right: '0', height: '2px', backgroundColor: '#db2777' }}></div>
                       </div>
                     )}
                     {item.position === 'below' && (
-                      <div className="h-20 border border-pink-200 rounded relative">
-                        <div className="absolute top-0 left-0 right-0 h-0.5 bg-pink-600"></div>
+                      <div className="h-20 border border-pink-200 rounded relative print:h-20 print:border print:border-pink-200 print:rounded print:relative" style={{ WebkitPrintColorAdjust: 'exact', printColorAdjust: 'exact', borderColor: '#fbcfe8', borderWidth: '1px', borderStyle: 'solid', height: '80px', borderRadius: '8px', position: 'relative' }}>
+                        <div className="absolute top-0 left-0 right-0 h-0.5 bg-pink-600 print:absolute print:top-0 print:left-0 print:right-0 print:h-0.5 print:bg-pink-600" style={{ position: 'absolute', top: '0', left: '0', right: '0', height: '2px', backgroundColor: '#db2777' }}></div>
                       </div>
                     )}
                     {item.position === 'left' && (
-                      <div className="h-20 border border-pink-200 rounded relative">
-                        <div className="absolute top-0 bottom-0 right-0 w-0.5 bg-pink-600"></div>
+                      <div className="h-20 border border-pink-200 rounded relative print:h-20 print:border print:border-pink-200 print:rounded print:relative" style={{ WebkitPrintColorAdjust: 'exact', printColorAdjust: 'exact', borderColor: '#fbcfe8', borderWidth: '1px', borderStyle: 'solid', height: '80px', borderRadius: '8px', position: 'relative' }}>
+                        <div className="absolute top-0 bottom-0 right-0 w-0.5 bg-pink-600 print:absolute print:top-0 print:bottom-0 print:right-0 print:w-0.5 print:bg-pink-600" style={{ position: 'absolute', top: '0', bottom: '0', right: '0', width: '2px', backgroundColor: '#db2777' }}></div>
                       </div>
                     )}
                     {item.position === 'right' && (
-                      <div className="h-20 border border-pink-200 rounded relative">
-                        <div className="absolute top-0 bottom-0 left-0 w-0.5 bg-pink-600"></div>
+                      <div className="h-20 border border-pink-200 rounded relative print:h-20 print:border print:border-pink-200 print:rounded print:relative" style={{ WebkitPrintColorAdjust: 'exact', printColorAdjust: 'exact', borderColor: '#fbcfe8', borderWidth: '1px', borderStyle: 'solid', height: '80px', borderRadius: '8px', position: 'relative' }}>
+                        <div className="absolute top-0 bottom-0 left-0 w-0.5 bg-pink-600 print:absolute print:top-0 print:bottom-0 print:left-0 print:w-0.5 print:bg-pink-600" style={{ position: 'absolute', top: '0', bottom: '0', left: '0', width: '2px', backgroundColor: '#db2777' }}></div>
                       </div>
                     )}
                   </div>
@@ -3197,48 +3197,48 @@ const renderers: Record<string, Renderer> = {
     ]
     const perspectives = pickMany(rng, allPerspectives, 2)
     return (
-      <div className="space-y-4">
-        <p className="text-sm text-slate-600">
+      <div className="space-y-4 print:space-y-4" style={{ fontSize: '16px', lineHeight: '24px', marginTop: '0', marginBottom: '0' }}>
+        <p className="text-sm text-slate-600 print:text-sm print:text-slate-600" style={{ fontSize: '14px', lineHeight: '20px', margin: '0 0 16px 0' }}>
           {t('worksheets.cognitiveFlexibility.instructions')}
         </p>
-        <div className="rounded-xl border border-teal-200 bg-teal-50 p-4">
-          <p className="text-sm font-semibold text-teal-700 mb-3">{t('worksheets.cognitiveFlexibility.taskSwitchingChallenge')}</p>
-          <p className="text-xs text-teal-600 mb-3">{t('worksheets.cognitiveFlexibility.completeEachTask')}</p>
-          <div className="space-y-3">
+        <div className="rounded-xl border border-teal-200 bg-teal-50 p-4 print:rounded-xl print:border print:border-teal-200 print:bg-teal-50 print:p-4 break-inside-avoid" style={{ WebkitPrintColorAdjust: 'exact', printColorAdjust: 'exact', backgroundColor: '#f0fdfa', borderColor: '#99f6e4', padding: '16px', borderRadius: '12px', borderWidth: '1px', borderStyle: 'solid', marginBottom: '16px', pageBreakInside: 'avoid', breakInside: 'avoid' }}>
+          <p className="text-sm font-semibold text-teal-700 mb-3 print:text-sm print:font-semibold print:text-teal-700 print:mb-3" style={{ fontSize: '14px', fontWeight: '600', margin: '0 0 12px 0', color: '#0f766e' }}>{t('worksheets.cognitiveFlexibility.taskSwitchingChallenge')}</p>
+          <p className="text-xs text-teal-600 mb-3 print:text-xs print:text-teal-600 print:mb-3" style={{ fontSize: '12px', lineHeight: '16px', margin: '0 0 12px 0', color: '#14b8a6' }}>{t('worksheets.cognitiveFlexibility.completeEachTask')}</p>
+          <div className="space-y-3 print:space-y-3" style={{ marginTop: '0', marginBottom: '0' }}>
             {tasks.map((taskItem, idx) => (
-              <div key={idx} className="bg-white rounded-lg p-3 border border-teal-200">
-                <p className="text-sm font-semibold text-teal-800 mb-2">{t('worksheets.cognitiveFlexibility.tasks.' + taskItem.taskKey)}</p>
-                <div className="mb-2">
-                  <p className="text-xs text-teal-600 mb-1">{t('worksheets.cognitiveFlexibility.firstRule')} {t('worksheets.cognitiveFlexibility.tasks.' + taskItem.ruleKey)}</p>
-                  <div className="h-12 border border-dashed border-teal-300 rounded bg-teal-50"></div>
+              <div key={idx} className="bg-white rounded-lg p-3 border border-teal-200 print:bg-white print:rounded-lg print:p-3 print:border print:border-teal-200 break-inside-avoid" style={{ WebkitPrintColorAdjust: 'exact', printColorAdjust: 'exact', backgroundColor: '#ffffff', borderColor: '#99f6e4', padding: '12px', borderRadius: '8px', borderWidth: '1px', borderStyle: 'solid', marginBottom: '12px', pageBreakInside: 'avoid', breakInside: 'avoid' }}>
+                <p className="text-sm font-semibold text-teal-800 mb-2 print:text-sm print:font-semibold print:text-teal-800 print:mb-2" style={{ fontSize: '14px', fontWeight: '600', margin: '0 0 8px 0', color: '#115e59' }}>{t('worksheets.cognitiveFlexibility.tasks.' + taskItem.taskKey)}</p>
+                <div className="mb-2 print:mb-2" style={{ marginBottom: '8px' }}>
+                  <p className="text-xs text-teal-600 mb-1 print:text-xs print:text-teal-600 print:mb-1" style={{ fontSize: '12px', lineHeight: '16px', margin: '0 0 4px 0', color: '#14b8a6' }}>{t('worksheets.cognitiveFlexibility.firstRule')} {t('worksheets.cognitiveFlexibility.tasks.' + taskItem.ruleKey)}</p>
+                  <div className="h-12 border border-dashed border-teal-300 rounded bg-teal-50 print:h-12 print:border print:border-dashed print:border-teal-300 print:rounded print:bg-teal-50" style={{ WebkitPrintColorAdjust: 'exact', printColorAdjust: 'exact', backgroundColor: '#f0fdfa', borderColor: '#5eead4', borderWidth: '1px', borderStyle: 'dashed', height: '48px', borderRadius: '8px' }}></div>
                 </div>
                 <div>
-                  <p className="text-xs text-teal-600 mb-1">{t('worksheets.cognitiveFlexibility.switchNewRule')} {t('worksheets.cognitiveFlexibility.tasks.' + taskItem.switchKey)}</p>
-                  <div className="h-12 border border-dashed border-teal-300 rounded bg-teal-50"></div>
+                  <p className="text-xs text-teal-600 mb-1 print:text-xs print:text-teal-600 print:mb-1" style={{ fontSize: '12px', lineHeight: '16px', margin: '0 0 4px 0', color: '#14b8a6' }}>{t('worksheets.cognitiveFlexibility.switchNewRule')} {t('worksheets.cognitiveFlexibility.tasks.' + taskItem.switchKey)}</p>
+                  <div className="h-12 border border-dashed border-teal-300 rounded bg-teal-50 print:h-12 print:border print:border-dashed print:border-teal-300 print:rounded print:bg-teal-50" style={{ WebkitPrintColorAdjust: 'exact', printColorAdjust: 'exact', backgroundColor: '#f0fdfa', borderColor: '#5eead4', borderWidth: '1px', borderStyle: 'dashed', height: '48px', borderRadius: '8px' }}></div>
                 </div>
               </div>
             ))}
           </div>
         </div>
-        <div className="rounded-xl border border-teal-200 bg-teal-50 p-4">
-          <p className="text-sm font-semibold text-teal-700 mb-3">{t('worksheets.cognitiveFlexibility.perspectiveTakingPractice')}</p>
-          <p className="text-xs text-teal-600 mb-3">{t('worksheets.cognitiveFlexibility.thinkAboutSituation')}</p>
-          <div className="space-y-3">
+        <div className="rounded-xl border border-teal-200 bg-teal-50 p-4 print:rounded-xl print:border print:border-teal-200 print:bg-teal-50 print:p-4 break-inside-avoid" style={{ WebkitPrintColorAdjust: 'exact', printColorAdjust: 'exact', backgroundColor: '#f0fdfa', borderColor: '#99f6e4', padding: '16px', borderRadius: '12px', borderWidth: '1px', borderStyle: 'solid', pageBreakInside: 'avoid', breakInside: 'avoid' }}>
+          <p className="text-sm font-semibold text-teal-700 mb-3 print:text-sm print:font-semibold print:text-teal-700 print:mb-3" style={{ fontSize: '14px', fontWeight: '600', margin: '0 0 12px 0', color: '#0f766e' }}>{t('worksheets.cognitiveFlexibility.perspectiveTakingPractice')}</p>
+          <p className="text-xs text-teal-600 mb-3 print:text-xs print:text-teal-600 print:mb-3" style={{ fontSize: '12px', lineHeight: '16px', margin: '0 0 12px 0', color: '#14b8a6' }}>{t('worksheets.cognitiveFlexibility.thinkAboutSituation')}</p>
+          <div className="space-y-3 print:space-y-3" style={{ marginTop: '0', marginBottom: '0' }}>
             {perspectives.map((perspectiveKey, idx) => (
-              <div key={idx} className="bg-white rounded-lg p-3 border border-teal-200">
-                <p className="text-sm font-semibold text-teal-800 mb-2">{t('worksheets.cognitiveFlexibility.situation')} {t('worksheets.cognitiveFlexibility.perspectives.' + perspectiveKey)}</p>
-                <div className="space-y-2 text-xs">
+              <div key={idx} className="bg-white rounded-lg p-3 border border-teal-200 print:bg-white print:rounded-lg print:p-3 print:border print:border-teal-200 break-inside-avoid" style={{ WebkitPrintColorAdjust: 'exact', printColorAdjust: 'exact', backgroundColor: '#ffffff', borderColor: '#99f6e4', padding: '12px', borderRadius: '8px', borderWidth: '1px', borderStyle: 'solid', marginBottom: '12px', pageBreakInside: 'avoid', breakInside: 'avoid' }}>
+                <p className="text-sm font-semibold text-teal-800 mb-2 print:text-sm print:font-semibold print:text-teal-800 print:mb-2" style={{ fontSize: '14px', fontWeight: '600', margin: '0 0 8px 0', color: '#115e59' }}>{t('worksheets.cognitiveFlexibility.situation')} {t('worksheets.cognitiveFlexibility.perspectives.' + perspectiveKey)}</p>
+                <div className="space-y-2 text-xs print:space-y-2 print:text-xs" style={{ fontSize: '12px', lineHeight: '16px' }}>
                   <div>
-                    <p className="text-teal-600 mb-1">{t('worksheets.cognitiveFlexibility.yourPerspective')}</p>
-                    <div className="h-10 border border-dashed border-teal-300 rounded"></div>
+                    <p className="text-teal-600 mb-1 print:text-teal-600 print:mb-1" style={{ fontSize: '12px', lineHeight: '16px', margin: '0 0 4px 0', color: '#14b8a6' }}>{t('worksheets.cognitiveFlexibility.yourPerspective')}</p>
+                    <div className="h-10 border border-dashed border-teal-300 rounded print:h-10 print:border print:border-dashed print:border-teal-300 print:rounded" style={{ borderColor: '#5eead4', borderWidth: '1px', borderStyle: 'dashed', height: '40px', borderRadius: '8px' }}></div>
                   </div>
                   <div>
-                    <p className="text-teal-600 mb-1">{t('worksheets.cognitiveFlexibility.anotherPerspective')}</p>
-                    <div className="h-10 border border-dashed border-teal-300 rounded"></div>
+                    <p className="text-teal-600 mb-1 print:text-teal-600 print:mb-1" style={{ fontSize: '12px', lineHeight: '16px', margin: '0 0 4px 0', color: '#14b8a6' }}>{t('worksheets.cognitiveFlexibility.anotherPerspective')}</p>
+                    <div className="h-10 border border-dashed border-teal-300 rounded print:h-10 print:border print:border-dashed print:border-teal-300 print:rounded" style={{ borderColor: '#5eead4', borderWidth: '1px', borderStyle: 'dashed', height: '40px', borderRadius: '8px' }}></div>
                   </div>
                   <div>
-                    <p className="text-teal-600 mb-1">{t('worksheets.cognitiveFlexibility.solutionForBoth')}</p>
-                    <div className="h-10 border border-dashed border-teal-300 rounded"></div>
+                    <p className="text-teal-600 mb-1 print:text-teal-600 print:mb-1" style={{ fontSize: '12px', lineHeight: '16px', margin: '0 0 4px 0', color: '#14b8a6' }}>{t('worksheets.cognitiveFlexibility.solutionForBoth')}</p>
+                    <div className="h-10 border border-dashed border-teal-300 rounded print:h-10 print:border print:border-dashed print:border-teal-300 print:rounded" style={{ borderColor: '#5eead4', borderWidth: '1px', borderStyle: 'dashed', height: '40px', borderRadius: '8px' }}></div>
                   </div>
                 </div>
               </div>
@@ -3254,29 +3254,29 @@ const renderers: Record<string, Renderer> = {
     const breathKeys = ['rainbowBreathing', 'boxBreathing', 'fiveFingerBreathing', 'balloonBreath']
     const selectedBreaths = pickMany(rng, breathKeys, 3)
     return (
-      <div className="space-y-3">
-        <p className="text-sm text-slate-600">
+      <div className="space-y-3 print:space-y-3" style={{ fontSize: '16px', lineHeight: '24px', marginTop: '0', marginBottom: '0' }}>
+        <p className="text-sm text-slate-600 print:text-sm print:text-slate-600" style={{ fontSize: '14px', lineHeight: '20px', margin: '0 0 12px 0' }}>
           {t('interactive.interactive-sel-mindfulness.description')}
         </p>
-        <table className="w-full border border-slate-300 text-sm">
-          <thead className="bg-slate-100">
+        <table className="w-full border border-slate-300 text-sm print:border print:border-slate-300 print:text-sm break-inside-avoid" style={{ WebkitPrintColorAdjust: 'exact', printColorAdjust: 'exact', borderColor: '#cbd5e1', borderWidth: '1px', borderStyle: 'solid', width: '100%', fontSize: '14px', pageBreakInside: 'avoid', breakInside: 'avoid' }}>
+          <thead className="bg-slate-100 print:bg-slate-100" style={{ backgroundColor: '#f1f5f9', WebkitPrintColorAdjust: 'exact', printColorAdjust: 'exact' }}>
             <tr>
-              <th className="px-3 py-2">{t('interactive.interactive-sel-mindfulness.breathingStrategy')}</th>
-              <th className="px-3 py-2">{t('interactive.interactive-sel-mindfulness.beforeIFeel')}</th>
-              <th className="px-3 py-2">{t('interactive.interactive-sel-mindfulness.afterIFeel')}</th>
+              <th className="px-3 py-2 print:px-3 print:py-2" style={{ padding: '8px 12px' }}>{t('interactive.interactive-sel-mindfulness.breathingStrategy')}</th>
+              <th className="px-3 py-2 print:px-3 print:py-2" style={{ padding: '8px 12px' }}>{t('interactive.interactive-sel-mindfulness.beforeIFeel')}</th>
+              <th className="px-3 py-2 print:px-3 print:py-2" style={{ padding: '8px 12px' }}>{t('interactive.interactive-sel-mindfulness.afterIFeel')}</th>
             </tr>
           </thead>
           <tbody>
             {selectedBreaths.map((breathKey, idx) => (
-              <tr key={idx} className="border-t border-slate-200">
-                <td className="px-3 py-2">{t(`interactive.interactive-sel-mindfulness.strategies.${breathKey}`)}</td>
-                <td className="px-3 py-2">_______________________</td>
-                <td className="px-3 py-2">_______________________</td>
+              <tr key={idx} className="border-t border-slate-200 print:border-t print:border-slate-200" style={{ borderTopColor: '#e2e8f0', borderTopWidth: '1px', borderTopStyle: 'solid' }}>
+                <td className="px-3 py-2 print:px-3 print:py-2" style={{ padding: '8px 12px' }}>{t(`interactive.interactive-sel-mindfulness.strategies.${breathKey}`)}</td>
+                <td className="px-3 py-2 print:px-3 print:py-2" style={{ padding: '8px 12px' }}>_______________________</td>
+                <td className="px-3 py-2 print:px-3 print:py-2" style={{ padding: '8px 12px' }}>_______________________</td>
               </tr>
             ))}
           </tbody>
         </table>
-        <div className="rounded-lg border border-blue-200 bg-blue-50 px-4 py-3 text-xs text-blue-700">
+        <div className="rounded-lg border border-blue-200 bg-blue-50 px-4 py-3 text-xs text-blue-700 print:rounded-lg print:border print:border-blue-200 print:bg-blue-50 print:px-4 print:py-3 print:text-xs print:text-blue-700 break-inside-avoid" style={{ WebkitPrintColorAdjust: 'exact', printColorAdjust: 'exact', backgroundColor: '#eff6ff', borderColor: '#bfdbfe', padding: '12px 16px', borderRadius: '8px', borderWidth: '1px', borderStyle: 'solid', marginTop: '12px', pageBreakInside: 'avoid', breakInside: 'avoid' }}>
           {t('interactive.interactive-sel-mindfulness.repeatFavorite')}
         </div>
       </div>
