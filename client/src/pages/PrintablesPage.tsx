@@ -14198,13 +14198,13 @@ export function PrintablesPage() {
                   </div>
                 </div>
               </div>
-              <div className="grid grid-cols-3 gap-3 break-inside-avoid" style={{ pageBreakAfter: 'auto' }}>
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 break-inside-avoid" style={{ pageBreakAfter: 'auto' }}>
                 {[
                   '7+5', '9+4', '8+6', '12-5', '15-7', '18-9',
                   '6+7', '5+8', '11-4', '14-6', '16-8', '20-9'
                 ].map((prob, idx) => (
                   <div key={idx} className="border border-slate-300 rounded p-3 bg-white text-center">
-                    <p className="text-slate-900 text-lg font-semibold">{prob} = __</p>
+                    <p className="text-slate-900 text-lg font-semibold whitespace-nowrap">{prob} = __</p>
                   </div>
                 ))}
               </div>
