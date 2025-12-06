@@ -661,23 +661,60 @@ html {
     gap: 12px !important; /* Exact 12px - match Tailwind gap-3 */
   }
   
+  /* Force grid layout to stay as grid in print - override block conversion */
+  section[data-interactive-section="true"].preserve-print-styling .grid,
+  section[data-interactive-section="true"].preserve-print-styling [class*="grid"][class*="grid-cols-3"],
+  section[data-interactive-section="true"].preserve-print-styling .art-shapes-grid {
+    display: grid !important;
+    grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
+    gap: 12px !important;
+    width: 100% !important;
+  }
+  
+  /* Override any rules that convert grid to block */
+  section[data-interactive-section="true"].preserve-print-styling .art-shapes-grid::after {
+    display: none !important;
+    content: none !important;
+  }
+  
   /* Prevent grid items from shrinking - override any width calculations */
   section[data-interactive-section="true"].preserve-print-styling .grid > *,
   section[data-interactive-section="true"].preserve-print-styling [class*="grid"] > * {
     min-width: 0 !important;
     flex-shrink: 0 !important;
-    flex-grow: 1 !important;
-    width: auto !important; /* Override any calc() width rules */
+    flex-grow: 0 !important;
+    width: auto !important; /* Let grid handle width */
+    float: none !important; /* Override float rules */
+    display: block !important;
   }
   
   /* Override grid-cols-3 width calculations for art worksheets */
   section[data-interactive-section="true"].preserve-print-styling .grid[class*="grid-cols-3"] > * {
-    width: calc((100% / 3) - 8px) !important; /* Use exact gap calculation */
+    width: auto !important; /* Let CSS Grid handle width */
     margin-right: 0 !important;
+    margin-bottom: 0 !important;
   }
   
-  section[data-interactive-section="true"].preserve-print-styling .grid[class*="grid-cols-3"] > *:not(:last-child) {
-    margin-right: 12px !important; /* Exact 12px gap */
+  /* Prevent text breaking weirdly */
+  section[data-interactive-section="true"].preserve-print-styling .text-center,
+  section[data-interactive-section="true"].preserve-print-styling [class*="text-center"] {
+    text-align: center !important;
+    white-space: normal !important;
+    word-break: normal !important;
+  }
+  
+  /* Ensure shape names don't break */
+  section[data-interactive-section="true"].preserve-print-styling p[class*="text-sm"][class*="font-semibold"],
+  section[data-interactive-section="true"].preserve-print-styling .shape-name {
+    white-space: nowrap !important;
+    overflow: visible !important;
+    text-overflow: clip !important;
+  }
+  
+  /* Ensure drawing instructions stay on one line */
+  section[data-interactive-section="true"].preserve-print-styling p[class*="text-xs"][class*="italic"] {
+    white-space: normal !important;
+    line-height: 16px !important;
   }
   
   section[data-interactive-section="true"].preserve-print-styling .space-y-4 > * + * {

@@ -5186,10 +5186,10 @@ const renderers: Record<string, Renderer> = {
     return (
       <div className="space-y-4 print:space-y-4" style={{ fontSize: '16px', lineHeight: '24px', marginTop: '0', marginBottom: '0' }}>
         <p className="text-sm text-slate-600 print:text-slate-600" style={{ fontSize: '14px', lineHeight: '20px', margin: '0 0 16px 0' }}>Create art using basic shapes. Draw and color shapes to make pictures.</p>
-        <div className="grid gap-3 md:grid-cols-3 print:grid print:grid-cols-3 print:gap-3" style={{ gap: '12px', display: 'grid', gridTemplateColumns: 'repeat(3, minmax(0, 1fr))' }}>
+        <div className="grid gap-3 md:grid-cols-3 print:grid print:grid-cols-3 print:gap-3 art-shapes-grid" style={{ gap: '12px', display: 'grid', gridTemplateColumns: 'repeat(3, minmax(0, 1fr))' }}>
           {shapes.map((shape, idx) => (
             <div key={idx} className="rounded-xl border border-pink-200 bg-pink-50 p-4 text-center print:rounded-xl print:border print:border-pink-200 print:bg-pink-50 print:p-4 print:text-center" style={{ WebkitPrintColorAdjust: 'exact', printColorAdjust: 'exact', backgroundColor: '#fdf2f8', borderColor: '#fbcfe8', padding: '16px', borderRadius: '12px', borderWidth: '1px', borderStyle: 'solid', fontSize: '16px' }}>
-              <p className="text-sm font-semibold text-pink-700 capitalize mb-2 print:text-sm print:font-semibold print:text-pink-700 print:mb-2" style={{ fontSize: '14px', fontWeight: '600', marginBottom: '8px', lineHeight: '20px', marginTop: '0' }}>{shape}</p>
+              <p className="text-sm font-semibold text-pink-700 capitalize mb-2 print:text-sm print:font-semibold print:text-pink-700 print:mb-2 shape-name" style={{ fontSize: '14px', fontWeight: '600', marginBottom: '8px', lineHeight: '20px', marginTop: '0', whiteSpace: 'nowrap' }}>{shape}</p>
               <div className="mb-2 flex items-center justify-center print:mb-2 print:flex print:items-center print:justify-center" style={{ marginBottom: '8px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
                 {renderShapeExample(shape)}
               </div>
