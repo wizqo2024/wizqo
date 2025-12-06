@@ -1275,6 +1275,7 @@ html {
   /* CRITICAL: Restore ALL table cell borders - override border removal with MAXIMUM specificity */
   /* Target ALL possible combinations: elements, classes, and attributes */
   /* These rules MUST come after the border removal rule to override it */
+  /* Use darker borders to match live view - slate-400 is #94a3b8, but we need darker/black for visibility */
   [data-worksheet-content="true"] table td,
   [data-worksheet-content="true"] table th,
   [data-worksheet-content="true"] table td.border,
@@ -1291,37 +1292,49 @@ html {
   [data-worksheet-content="true"] table tbody th,
   [data-worksheet-content="true"] table thead td,
   [data-worksheet-content="true"] table thead th {
-    border: 1px solid #94a3b8 !important;
+    border: 1px solid #475569 !important;
     border-width: 1px !important;
     border-style: solid !important;
-    border-color: #94a3b8 !important;
+    border-color: #475569 !important;
     -webkit-print-color-adjust: exact !important;
     print-color-adjust: exact !important;
     color-adjust: exact !important;
   }
   
-  /* Preserve specific border colors from classes (e.g., border-slate-400) */
+  /* Preserve specific border colors from classes (e.g., border-slate-400) - use darker color for visibility */
   [data-worksheet-content="true"] table td.border-slate-400,
   [data-worksheet-content="true"] table th.border-slate-400,
   [data-worksheet-content="true"] table td.border.border-slate-400,
   [data-worksheet-content="true"] table th.border.border-slate-400 {
-    border-color: #94a3b8 !important;
+    border-color: #475569 !important;
+    border-width: 1px !important;
+    border-style: solid !important;
+  }
+  
+  /* Ensure table borders are dark/black for maximum visibility - match live view */
+  [data-worksheet-content="true"] table[class*="border-collapse"] td,
+  [data-worksheet-content="true"] table[class*="border-collapse"] th,
+  [data-worksheet-content="true"] table.border-collapse td,
+  [data-worksheet-content="true"] table.border-collapse th {
+    border: 1px solid #334155 !important;
+    border-color: #334155 !important;
     border-width: 1px !important;
     border-style: solid !important;
   }
   
   /* ULTRA-SPECIFIC: Force borders on table cells with .border class - override ANY border removal */
   /* This targets the exact case: table cells with className="border border-slate-400" */
+  /* Use darker borders (#475569 = slate-600) for better visibility in print */
   [data-worksheet-content="true"] table.border-collapse td.border,
   [data-worksheet-content="true"] table.border-collapse th.border,
   [data-worksheet-content="true"] table[class*="border-collapse"] td.border,
   [data-worksheet-content="true"] table[class*="border-collapse"] th.border,
   [data-worksheet-content="true"] table td.border[class*="border-"],
   [data-worksheet-content="true"] table th.border[class*="border-"] {
-    border: 1px solid #94a3b8 !important;
+    border: 1px solid #475569 !important;
     border-width: 1px !important;
     border-style: solid !important;
-    border-color: #94a3b8 !important;
+    border-color: #475569 !important;
     -webkit-print-color-adjust: exact !important;
     print-color-adjust: exact !important;
     color-adjust: exact !important;
@@ -2075,7 +2088,7 @@ section[data-interactive-section="true"].preserve-print-styling [class*="h-48"] 
       height: auto !important;
       min-height: 0 !important;
       line-height: 1 !important;
-      gap: 12px !important;
+      gap: 32px !important;
       width: 100% !important;
       max-width: 100% !important;
       overflow: hidden !important;
@@ -2112,7 +2125,7 @@ section[data-interactive-section="true"].preserve-print-styling [class*="h-48"] 
     .wizqo-print-header .wizqo-logo-print {
       flex: 0 0 auto !important;
       justify-content: center !important;
-      margin: 0 8px !important;
+      margin: 0 32px !important;
       white-space: nowrap !important;
     }
     
@@ -2123,11 +2136,12 @@ section[data-interactive-section="true"].preserve-print-styling [class*="h-48"] 
       flex-shrink: 0 !important;
     }
     
-    /* Date field - right side */
+    /* Date field - right side - add more spacing from logo */
     .wizqo-print-header .print-date-field {
       flex: 0 1 auto !important;
       justify-content: flex-end !important;
       min-width: 0 !important;
+      margin-left: 32px !important;
     }
     
     .wizqo-print-header .print-date-field strong,
@@ -4270,6 +4284,38 @@ section[data-interactive-section="true"].preserve-print-styling [class*="h-48"] 
   [data-worksheet-content="true"] > header[class*="print:hidden"] {
     display: none !important;
     visibility: hidden !important;
+  }
+  
+  /* ============================================================================
+   * FINAL OVERRIDE: Table borders - ensure dark/black borders match live view
+   * ============================================================================ */
+  
+  /* CRITICAL: Force dark borders on all table cells - match live view exactly */
+  [data-worksheet-content="true"] table td,
+  [data-worksheet-content="true"] table th {
+    border: 1px solid #334155 !important;
+    border-color: #334155 !important;
+    border-width: 1px !important;
+    border-style: solid !important;
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+    color-adjust: exact !important;
+  }
+  
+  /* Ensure border-slate-400 uses darker color for visibility */
+  [data-worksheet-content="true"] table td.border-slate-400,
+  [data-worksheet-content="true"] table th.border-slate-400,
+  [data-worksheet-content="true"] table td.border.border-slate-400,
+  [data-worksheet-content="true"] table th.border.border-slate-400 {
+    border-color: #334155 !important;
+    border-width: 1px !important;
+    border-style: solid !important;
+  }
+  
+  /* Ensure table container box border is visible */
+  [data-worksheet-content="true"] div[class*="border-slate-300"][class*="bg-white"] {
+    border: 1px solid #334155 !important;
+    border-color: #334155 !important;
   }
 }
 
