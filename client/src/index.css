@@ -542,6 +542,16 @@ html {
     break-inside: avoid;
   }
   
+  /* Remove print header spacing on first page if it's causing gap */
+  @media print {
+    .wizqo-print-header:first-child {
+      margin-top: 0 !important;
+      margin-bottom: 2px !important;
+      padding-top: 0 !important;
+      padding-bottom: 2px !important;
+    }
+  }
+  
   /* Logo and domain - horizontal */
   .wizqo-logo-print {
     display: flex;
