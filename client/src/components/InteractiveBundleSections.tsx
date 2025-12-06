@@ -1989,11 +1989,10 @@ const renderers: Record<string, Renderer> = {
               <div key={idx} className="rounded-xl border-2 border-slate-200 bg-white p-4 text-center print:rounded-xl print:border-2 print:border-slate-200 print:bg-white print:p-4 print:text-center break-inside-avoid" style={{ WebkitPrintColorAdjust: 'exact', printColorAdjust: 'exact', backgroundColor: '#ffffff', borderColor: '#e2e8f0', borderWidth: '2px', borderStyle: 'solid', padding: '16px', borderRadius: '12px', marginBottom: '12px', pageBreakInside: 'avoid', breakInside: 'avoid' }}>
                 <p className="text-sm font-semibold text-slate-700 capitalize mb-1 print:text-sm print:font-semibold print:text-slate-700 print:capitalize print:mb-1" style={{ fontSize: '14px', fontWeight: '600', margin: '0 0 4px 0' }}>{itemText}</p>
                 <p className="text-xs text-slate-600 mb-2 print:text-xs print:text-slate-600 print:mb-2" style={{ fontSize: '12px', lineHeight: '16px', margin: '0 0 8px 0' }}>{t('worksheets.artColorwheel.color')}: <span className="font-semibold capitalize print:font-semibold print:capitalize" style={{ fontWeight: '600', color: colorValue }}>{colorText}</span></p>
-                <div className="mb-2 flex items-center justify-center print:mb-2 print:flex print:items-center print:justify-center" style={{ marginBottom: '8px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                <div className="mb-2 flex items-center justify-center print:mb-2 print:flex print:items-center print:justify-center" style={{ marginBottom: '8px', display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '16px', backgroundColor: '#ffffff', borderRadius: '8px', border: '1px solid #e2e8f0' }}>
                   <ColorShapeSVG shape={activity.shape} color={colorValue} />
                 </div>
-                <div className="min-h-[240px] rounded border-2 border-dashed border-slate-300 bg-white my-2 print:min-h-[240px] print:rounded print:border-2 print:border-dashed print:border-slate-300 print:bg-white print:my-2" style={{ WebkitPrintColorAdjust: 'exact', printColorAdjust: 'exact', backgroundColor: '#ffffff', borderColor: '#cbd5e1', borderWidth: '2px', borderStyle: 'dashed', minHeight: '240px', borderRadius: '8px', margin: '8px 0' }}></div>
-                <p className="text-xs text-slate-500 print:text-xs print:text-slate-500" style={{ fontSize: '12px', lineHeight: '16px', margin: '0', color: '#64748b' }}>{t('worksheets.artColorwheel.colorIt')}</p>
+                <p className="text-xs text-slate-500 print:text-xs print:text-slate-500" style={{ fontSize: '12px', lineHeight: '16px', margin: '8px 0 0 0', color: '#64748b' }}>{t('worksheets.artColorwheel.colorIt')}</p>
               </div>
             )
           })}
