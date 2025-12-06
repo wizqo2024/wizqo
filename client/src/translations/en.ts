@@ -3019,10 +3019,10 @@ export const en = {
             description: 'Practice reading with expression, accuracy, and appropriate pacing. Includes repeated reading exercises.',
           },
 
-    'interactive-reading-literary-analysis': {
-            title: 'Literary Analysis Workshop',
-            description: 'Analyze literary elements, themes, symbolism, and author\',
-          },
+      'interactive-reading-literary-analysis': {
+              title: 'Literary Analysis Workshop',
+              description: 'Analyze literary elements, themes, symbolism, and author\'s purpose in fiction texts.',
+            },
 
     'interactive-reading-prek': {
             title: 'Picture Story Time',
