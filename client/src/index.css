@@ -1380,73 +1380,71 @@ section[data-interactive-section="true"].preserve-print-styling [class*="h-48"] 
     box-sizing: border-box !important;
   }
   
-  /* Remove excessive gaps on first page - aggressive overrides */
+  /* Remove excessive gaps on first page - COMPREHENSIVE FIX */
   @media print {
-    /* Override section padding for first page - remove top padding completely */
+    /* Reset body/html and wrapper spacing */
+    body, html, [data-worksheet-content="true"] {
+      margin-top: 0 !important;
+      padding-top: 0 !important;
+    }
+    
+    /* Minimize print header */
+    .wizqo-print-header {
+      margin-top: 0 !important;
+      margin-bottom: 1px !important;
+      padding-top: 0 !important;
+      padding-bottom: 1px !important;
+      height: auto !important;
+      min-height: 0 !important;
+    }
+    
+    /* First section - ZERO top spacing */
     section[data-interactive-section="true"].preserve-print-styling:first-child {
-      margin-top: -4px !important;
+      margin-top: 0 !important;
       padding-top: 0 !important;
       padding-left: 24px !important;
       padding-right: 24px !important;
       padding-bottom: 24px !important;
-      border-top-width: 0 !important;
       border-top: none !important;
     }
     
-    /* Remove any gap from section border */
-    section[data-interactive-section="true"].preserve-print-styling:first-child::before {
-      display: none !important;
-      content: none !important;
-    }
-    
-    /* Remove all top margins and padding from header on first page */
-    section[data-interactive-section="true"].preserve-print-styling:first-child .print-header {
-      margin-top: 0 !important;
-      margin-bottom: 2px !important;
-      padding-top: 0 !important;
-      padding-bottom: 0 !important;
-      line-height: 1.2 !important;
-    }
-    
-    /* Remove mb-4 class spacing on first page */
-    section[data-interactive-section="true"].preserve-print-styling:first-child .mb-4,
-    section[data-interactive-section="true"].preserve-print-styling:first-child [class*="mb-4"] {
-      margin-bottom: 4px !important;
-    }
-    
-    section[data-interactive-section="true"].preserve-print-styling .print-header {
-      margin-top: 0 !important;
-      margin-bottom: 12px !important;
-    }
-    
-    /* Hide WorksheetHeader completely on first page to remove gap */
-    section[data-interactive-section="true"].preserve-print-styling:first-child .print\\:first-page-hidden,
-    section[data-interactive-section="true"].preserve-print-styling:first-child [class*="print:first-page-hidden"] {
+    /* Hide WorksheetHeader wrapper completely */
+    section[data-interactive-section="true"].preserve-print-styling:first-child > div:first-child[class*="relative"] {
       display: none !important;
       height: 0 !important;
       margin: 0 !important;
       padding: 0 !important;
       visibility: hidden !important;
-    }
-    
-    /* Remove WorksheetHeader spacing completely on first page */
-    section[data-interactive-section="true"].preserve-print-styling:first-child .print\\:mb-2,
-    section[data-interactive-section="true"].preserve-print-styling:first-child .print\\:mb-4,
-    section[data-interactive-section="true"].preserve-print-styling:first-child [class*="print:mb"] {
-      margin-bottom: 0 !important;
-      padding-bottom: 0 !important;
-    }
-    
-    /* Remove spacing from header wrapper div - make it zero height */
-    section[data-interactive-section="true"].preserve-print-styling:first-child > div:first-child {
-      margin-top: 0 !important;
-      padding-top: 0 !important;
-      margin-bottom: 0 !important;
-      padding-bottom: 0 !important;
-      height: 0 !important;
-      min-height: 0 !important;
-      max-height: 0 !important;
       overflow: hidden !important;
+    }
+    
+    /* Minimize header spacing */
+    section[data-interactive-section="true"].preserve-print-styling:first-child .print-header {
+      margin-top: 0 !important;
+      margin-bottom: 1px !important;
+      padding-top: 0 !important;
+      padding-bottom: 0 !important;
+      line-height: 1.1 !important;
+    }
+    
+    /* Remove all spacing classes */
+    section[data-interactive-section="true"].preserve-print-styling:first-child .mt-1,
+    section[data-interactive-section="true"].preserve-print-styling:first-child [class*="mt-1"],
+    section[data-interactive-section="true"].preserve-print-styling:first-child .mb-4,
+    section[data-interactive-section="true"].preserve-print-styling:first-child [class*="mb-4"],
+    section[data-interactive-section="true"].preserve-print-styling:first-child .space-y-3,
+    section[data-interactive-section="true"].preserve-print-styling:first-child .space-y-4 {
+      margin-top: 0 !important;
+      margin-bottom: 1px !important;
+      padding-top: 0 !important;
+      padding-bottom: 0 !important;
+    }
+    
+    /* First paragraph minimal spacing */
+    section[data-interactive-section="true"].preserve-print-styling:first-child p:first-child {
+      margin-top: 0 !important;
+      margin-bottom: 2px !important;
+      padding-top: 0 !important;
     }
     
     /* Remove all top spacing from first content element */
