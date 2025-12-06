@@ -1133,8 +1133,9 @@ html {
   }
   
   /* Remove all inner borders in print so only outer frame remains */
-  /* EXCLUDE drawing boxes and worksheet sections from border removal */
-  /* NOTE: Tables are handled separately below - they need borders preserved */
+  /* EXCLUDE drawing boxes, worksheet sections, and ALL TABLE ELEMENTS from border removal */
+  /* CRITICAL: Tables need their borders preserved - exclude table descendants from border removal */
+  /* Use :not() to exclude elements that are descendants of table elements */
 [data-worksheet-content="true"] .border:not(.worksheet-container):not(.print-section-outline):not(.print-block-outline):not(.drawing-box):not(.drawing-box-large):not([data-drawing-box]):not(.worksheet-section):not(section.worksheet-section):not([class*="worksheet-section"]),
 [data-worksheet-content="true"] [class*="border-"]:not(.worksheet-container):not(.print-section-outline):not(.print-block-outline):not(.drawing-box):not(.drawing-box-large):not([data-drawing-box]):not(.worksheet-section):not(section.worksheet-section):not([class*="worksheet-section"]),
 [data-worksheet-content="true"] [class*="print:border"]:not(.worksheet-container):not(.print-section-outline):not(.print-block-outline):not(.drawing-box):not(.drawing-box-large):not([data-drawing-box]):not(.worksheet-section):not(section.worksheet-section):not([class*="worksheet-section"]),
@@ -1145,21 +1146,36 @@ html {
     box-shadow: none !important;
   }
   
-  /* CRITICAL: Preserve table borders in print mode - MUST come after border removal with higher specificity */
+  /* CRITICAL: Preserve table borders in print mode - MUST come after border removal with maximum specificity */
   /* This ensures tables display correctly with all borders visible, matching the live view */
-  [data-worksheet-content="true"] table,
-  [data-worksheet-content="true"] table td,
-  [data-worksheet-content="true"] table th,
-  [data-worksheet-content="true"] table tr {
+  /* Use maximum specificity to override border removal rules */
+  [data-worksheet-content="true"] table {
+    width: 100% !important;
     border-collapse: collapse !important;
     -webkit-print-color-adjust: exact !important;
     print-color-adjust: exact !important;
     color-adjust: exact !important;
   }
   
-  /* Restore table cell borders - override border removal with higher specificity */
+  /* CRITICAL: Restore ALL table cell borders - override border removal with MAXIMUM specificity */
+  /* Target ALL possible combinations: elements, classes, and attributes */
+  /* These rules MUST come after the border removal rule to override it */
   [data-worksheet-content="true"] table td,
-  [data-worksheet-content="true"] table th {
+  [data-worksheet-content="true"] table th,
+  [data-worksheet-content="true"] table td.border,
+  [data-worksheet-content="true"] table th.border,
+  [data-worksheet-content="true"] table td.border.border-slate-400,
+  [data-worksheet-content="true"] table th.border.border-slate-400,
+  [data-worksheet-content="true"] table td[class*="border"],
+  [data-worksheet-content="true"] table th[class*="border"],
+  [data-worksheet-content="true"] table td[class*="border-"],
+  [data-worksheet-content="true"] table th[class*="border-"],
+  [data-worksheet-content="true"] table td[class*="border"][class*="border-"],
+  [data-worksheet-content="true"] table th[class*="border"][class*="border-"],
+  [data-worksheet-content="true"] table tbody td,
+  [data-worksheet-content="true"] table tbody th,
+  [data-worksheet-content="true"] table thead td,
+  [data-worksheet-content="true"] table thead th {
     border: 1px solid #94a3b8 !important;
     border-width: 1px !important;
     border-style: solid !important;
@@ -1171,28 +1187,51 @@ html {
   
   /* Preserve specific border colors from classes (e.g., border-slate-400) */
   [data-worksheet-content="true"] table td.border-slate-400,
-  [data-worksheet-content="true"] table th.border-slate-400 {
+  [data-worksheet-content="true"] table th.border-slate-400,
+  [data-worksheet-content="true"] table td.border.border-slate-400,
+  [data-worksheet-content="true"] table th.border.border-slate-400 {
     border-color: #94a3b8 !important;
+    border-width: 1px !important;
+    border-style: solid !important;
+  }
+  
+  /* ULTRA-SPECIFIC: Force borders on table cells with .border class - override ANY border removal */
+  /* This targets the exact case: table cells with className="border border-slate-400" */
+  [data-worksheet-content="true"] table.border-collapse td.border,
+  [data-worksheet-content="true"] table.border-collapse th.border,
+  [data-worksheet-content="true"] table[class*="border-collapse"] td.border,
+  [data-worksheet-content="true"] table[class*="border-collapse"] th.border,
+  [data-worksheet-content="true"] table td.border[class*="border-"],
+  [data-worksheet-content="true"] table th.border[class*="border-"] {
+    border: 1px solid #94a3b8 !important;
+    border-width: 1px !important;
+    border-style: solid !important;
+    border-color: #94a3b8 !important;
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+    color-adjust: exact !important;
   }
   
   /* Preserve table header backgrounds */
   [data-worksheet-content="true"] table th[class*="bg-"],
   [data-worksheet-content="true"] table th[class*="bg-slate-100"],
-  [data-worksheet-content="true"] table th[style*="background"] {
-    background-color: inherit !important;
+  [data-worksheet-content="true"] table th[style*="background"],
+  [data-worksheet-content="true"] table td[class*="bg-slate-100"] {
     -webkit-print-color-adjust: exact !important;
     print-color-adjust: exact !important;
     color-adjust: exact !important;
   }
   
   /* Ensure table cells with bg-slate-100 show background */
-  [data-worksheet-content="true"] table th.bg-slate-100 {
+  [data-worksheet-content="true"] table th.bg-slate-100,
+  [data-worksheet-content="true"] table td.bg-slate-100 {
     background-color: #f1f5f9 !important;
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
   }
   
-  /* Preserve table structure - ensure proper spacing */
-  [data-worksheet-content="true"] table {
-    width: 100% !important;
+  /* Ensure table rows maintain structure */
+  [data-worksheet-content="true"] table tr {
     border-collapse: collapse !important;
   }
   
@@ -2019,13 +2058,24 @@ section[data-interactive-section="true"].preserve-print-styling [class*="h-48"] 
   }
   
   /* Preserve table borders and backgrounds */
-  table[class*="border"],
-  table th,
-  table td {
+  /* NOTE: More specific rules above handle [data-worksheet-content="true"] tables */
+  /* This rule applies to tables outside worksheet content */
+  table[class*="border"]:not([data-worksheet-content="true"] table),
+  table th:not([data-worksheet-content="true"] table th),
+  table td:not([data-worksheet-content="true"] table td) {
     border: inherit !important;
     -webkit-print-color-adjust: exact !important;
     print-color-adjust: exact !important;
     color-adjust: exact !important;
+  }
+  
+  /* CRITICAL: Ensure worksheet tables use explicit borders, not inherit */
+  [data-worksheet-content="true"] table th,
+  [data-worksheet-content="true"] table td {
+    border: 1px solid #94a3b8 !important;
+    border-width: 1px !important;
+    border-style: solid !important;
+    border-color: #94a3b8 !important;
   }
   
   table thead[class*="bg-"],
