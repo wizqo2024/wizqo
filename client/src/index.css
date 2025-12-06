@@ -1447,8 +1447,11 @@ html {
     padding: 1rem !important;
   }
   
-  /* Preserve answer key section (emerald background) */
-  [data-worksheet-content="true"] .answer-key[class*="bg-emerald-50"] {
+  /* Preserve answer key section (emerald background) - comprehensive styling */
+  [data-worksheet-content="true"] .answer-key,
+  [data-worksheet-content="true"] .answer-key[class*="bg-emerald-50"],
+  [data-worksheet-content="true"] div[class*="border-emerald-300"][class*="bg-emerald-50"]:has([class*="answerKey"]),
+  [data-worksheet-content="true"] div[class*="border-emerald-300"][class*="bg-emerald-50"]:has([class*="Answer Key"]) {
     background-color: #ecfdf5 !important;
     border: 2px solid #6ee7b7 !important;
     border-width: 2px !important;
@@ -1456,6 +1459,67 @@ html {
     border-color: #6ee7b7 !important;
     border-radius: 0.5rem !important;
     padding: 1rem !important;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06) !important;
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+    color-adjust: exact !important;
+  }
+  
+  /* Override print:bg-white and print:border for answer key - MUST override Tailwind */
+  [data-worksheet-content="true"] .answer-key[class*="print:bg-white"],
+  [data-worksheet-content="true"] .answer-key.print\\:bg-white,
+  [data-worksheet-content="true"] div[class*="border-emerald-300"][class*="bg-emerald-50"][class*="print:bg-white"],
+  [data-worksheet-content="true"] div[class*="border-emerald-300"][class*="bg-emerald-50"].print\\:bg-white {
+    background-color: #ecfdf5 !important;
+  }
+  
+  [data-worksheet-content="true"] .answer-key[class*="print:border"],
+  [data-worksheet-content="true"] .answer-key.print\\:border,
+  [data-worksheet-content="true"] div[class*="border-emerald-300"][class*="bg-emerald-50"][class*="print:border"],
+  [data-worksheet-content="true"] div[class*="border-emerald-300"][class*="bg-emerald-50"].print\\:border {
+    border: 2px solid #6ee7b7 !important;
+    border-width: 2px !important;
+    border-style: solid !important;
+    border-color: #6ee7b7 !important;
+  }
+  
+  /* Preserve answer key inner sections (study tips with bg-emerald-100) */
+  [data-worksheet-content="true"] .answer-key [class*="bg-emerald-100"],
+  [data-worksheet-content="true"] .answer-key div[class*="bg-emerald-100"],
+  [data-worksheet-content="true"] div[class*="border-emerald-300"][class*="bg-emerald-50"] [class*="bg-emerald-100"],
+  [data-worksheet-content="true"] div[class*="border-emerald-300"][class*="bg-emerald-50"] div[class*="bg-emerald-100"] {
+    background-color: #d1fae5 !important;
+    border-radius: 0.375rem !important;
+    padding: 0.75rem !important;
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+    color-adjust: exact !important;
+  }
+  
+  /* Preserve answer key text colors - emerald text */
+  [data-worksheet-content="true"] .answer-key [class*="text-emerald-900"],
+  [data-worksheet-content="true"] .answer-key [class*="text-emerald-800"],
+  [data-worksheet-content="true"] .answer-key [class*="text-emerald-700"],
+  [data-worksheet-content="true"] div[class*="border-emerald-300"][class*="bg-emerald-50"] [class*="text-emerald-900"],
+  [data-worksheet-content="true"] div[class*="border-emerald-300"][class*="bg-emerald-50"] [class*="text-emerald-800"],
+  [data-worksheet-content="true"] div[class*="border-emerald-300"][class*="bg-emerald-50"] [class*="text-emerald-700"] {
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+    color-adjust: exact !important;
+  }
+  
+  /* Ensure answer key emojis (✅, 💡) are visible */
+  [data-worksheet-content="true"] .answer-key span,
+  [data-worksheet-content="true"] .answer-key div,
+  [data-worksheet-content="true"] div[class*="border-emerald-300"][class*="bg-emerald-50"] span,
+  [data-worksheet-content="true"] div[class*="border-emerald-300"][class*="bg-emerald-50"] div {
+    display: block !important;
+    visibility: visible !important;
+  }
+  
+  [data-worksheet-content="true"] .answer-key span[class*="text-"],
+  [data-worksheet-content="true"] div[class*="border-emerald-300"][class*="bg-emerald-50"] span[class*="text-"] {
+    display: inline-block !important;
   }
   
   /* Preserve worked example section (blue background) */
@@ -3691,11 +3755,65 @@ section[data-interactive-section="true"].preserve-print-styling [class*="h-48"] 
     box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06) !important;
   }
   
-  [data-worksheet-content="true"] .answer-key {
+  /* CRITICAL: Answer Key section - preserve emerald styling exactly as live view */
+  [data-worksheet-content="true"] .answer-key,
+  [data-worksheet-content="true"] [class*="answer-key"],
+  [data-worksheet-content="true"] div[class*="border-emerald-300"][class*="bg-emerald-50"] {
     background-color: #ecfdf5 !important;
     border: 2px solid #6ee7b7 !important;
+    border-width: 2px !important;
+    border-style: solid !important;
+    border-color: #6ee7b7 !important;
     border-radius: 0.5rem !important;
+    padding: 1rem !important;
     box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06) !important;
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+    color-adjust: exact !important;
+  }
+  
+  /* Override print:bg-white and print:border for answer key sections */
+  [data-worksheet-content="true"] .answer-key[class*="print:bg-white"],
+  [data-worksheet-content="true"] .answer-key[class*="print:border"],
+  [data-worksheet-content="true"] div[class*="border-emerald-300"][class*="bg-emerald-50"][class*="print:bg-white"],
+  [data-worksheet-content="true"] div[class*="border-emerald-300"][class*="bg-emerald-50"][class*="print:border"] {
+    background-color: #ecfdf5 !important;
+    border: 2px solid #6ee7b7 !important;
+    border-width: 2px !important;
+    border-style: solid !important;
+    border-color: #6ee7b7 !important;
+  }
+  
+  /* Preserve answer key inner sections (study tips, etc.) */
+  [data-worksheet-content="true"] .answer-key [class*="bg-emerald-100"],
+  [data-worksheet-content="true"] .answer-key div[class*="bg-emerald-100"],
+  [data-worksheet-content="true"] div[class*="border-emerald-300"][class*="bg-emerald-50"] [class*="bg-emerald-100"] {
+    background-color: #d1fae5 !important;
+    border-radius: 0.375rem !important;
+    padding: 0.75rem !important;
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+  }
+  
+  /* Preserve answer key text colors */
+  [data-worksheet-content="true"] .answer-key [class*="text-emerald-900"],
+  [data-worksheet-content="true"] .answer-key [class*="text-emerald-800"],
+  [data-worksheet-content="true"] .answer-key [class*="text-emerald-700"],
+  [data-worksheet-content="true"] div[class*="border-emerald-300"][class*="bg-emerald-50"] [class*="text-emerald-900"],
+  [data-worksheet-content="true"] div[class*="border-emerald-300"][class*="bg-emerald-50"] [class*="text-emerald-800"],
+  [data-worksheet-content="true"] div[class*="border-emerald-300"][class*="bg-emerald-50"] [class*="text-emerald-700"] {
+    color: inherit !important;
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+  }
+  
+  /* Ensure answer key emojis are visible */
+  [data-worksheet-content="true"] .answer-key span:contains("✅"),
+  [data-worksheet-content="true"] .answer-key span:contains("💡"),
+  [data-worksheet-content="true"] .answer-key div:contains("✅"),
+  [data-worksheet-content="true"] .answer-key div:contains("💡") {
+    display: inline-block !important;
+    visibility: visible !important;
   }
   
   [data-worksheet-content="true"] .worked-example {
@@ -3925,6 +4043,65 @@ section[data-interactive-section="true"].preserve-print-styling [class*="h-48"] 
     font-family: inherit !important;
     -webkit-font-feature-settings: normal !important;
     font-feature-settings: normal !important;
+  }
+  
+  /* ============================================================================
+   * FINAL OVERRIDE: Answer Key UI - Ensure exact match with live view
+   * These rules come at the very end to override all other rules
+   * ============================================================================ */
+  
+  /* Answer Key - Ultimate override to match live view exactly */
+  [data-worksheet-content="true"] .answer-key,
+  [data-worksheet-content="true"] div[class*="border-emerald-300"][class*="bg-emerald-50"]:not([class*="bg-white"]) {
+    background-color: #ecfdf5 !important;
+    border: 2px solid #6ee7b7 !important;
+    border-width: 2px !important;
+    border-style: solid !important;
+    border-color: #6ee7b7 !important;
+    border-radius: 0.5rem !important;
+    padding: 1rem !important;
+    margin-top: 1.5rem !important;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06) !important;
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+    color-adjust: exact !important;
+  }
+  
+  /* Answer key inner sections - study tips with darker background */
+  [data-worksheet-content="true"] .answer-key [class*="bg-emerald-100"],
+  [data-worksheet-content="true"] div[class*="border-emerald-300"][class*="bg-emerald-50"] [class*="bg-emerald-100"],
+  [data-worksheet-content="true"] div[class*="border-emerald-300"][class*="bg-emerald-50"] div[class*="bg-emerald-100"] {
+    background-color: #d1fae5 !important;
+    border-radius: 0.375rem !important;
+    padding: 0.75rem !important;
+    margin-top: 1rem !important;
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+    color-adjust: exact !important;
+  }
+  
+  /* Answer key text styling */
+  [data-worksheet-content="true"] .answer-key [class*="text-emerald-900"] {
+    color: #064e3b !important;
+  }
+  
+  [data-worksheet-content="true"] .answer-key [class*="text-emerald-800"] {
+    color: #065f46 !important;
+  }
+  
+  [data-worksheet-content="true"] .answer-key [class*="text-emerald-700"] {
+    color: #047857 !important;
+  }
+  
+  /* Ensure answer key content is visible */
+  [data-worksheet-content="true"] .answer-key * {
+    visibility: visible !important;
+    display: block !important;
+  }
+  
+  [data-worksheet-content="true"] .answer-key span,
+  [data-worksheet-content="true"] .answer-key [class*="text-"] {
+    display: inline-block !important;
   }
 }
 
