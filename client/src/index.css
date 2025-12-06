@@ -2212,6 +2212,7 @@ section[data-interactive-section="true"].preserve-print-styling [class*="h-48"] 
   
   /* CRITICAL: Ensure colored shape boxes in pattern worksheets are visible in print */
   /* Pattern shapes: sky (blue), rose (red), amber (yellow), emerald (green), pink, etc. */
+  /* Target all possible selectors for pattern shapes */
   [data-worksheet-content="true"] [class*="bg-sky-300"],
   [data-worksheet-content="true"] [class*="bg-sky-400"],
   [data-worksheet-content="true"] [class*="bg-rose-400"],
@@ -2231,36 +2232,76 @@ section[data-interactive-section="true"].preserve-print-styling [class*="h-48"] 
   section [class*="bg-emerald-300"],
   section [class*="bg-emerald-400"],
   section [class*="bg-pink-400"],
-  section [class*="bg-pink-300"] {
+  section [class*="bg-pink-300"],
+  /* Target inline-flex containers that hold shapes */
+  [data-worksheet-content="true"] span[class*="inline-flex"][class*="h-6"][class*="w-6"] span[class*="bg-sky"],
+  [data-worksheet-content="true"] span[class*="inline-flex"][class*="h-6"][class*="w-6"] span[class*="bg-rose"],
+  [data-worksheet-content="true"] span[class*="inline-flex"][class*="h-6"][class*="w-6"] span[class*="bg-amber"],
+  [data-worksheet-content="true"] span[class*="inline-flex"][class*="h-6"][class*="w-6"] span[class*="bg-emerald"],
+  [data-worksheet-content="true"] span[class*="inline-flex"][class*="h-6"][class*="w-6"] span[class*="bg-pink"],
+  section span[class*="inline-flex"][class*="h-6"][class*="w-6"] span[class*="bg-sky"],
+  section span[class*="inline-flex"][class*="h-6"][class*="w-6"] span[class*="bg-rose"],
+  section span[class*="inline-flex"][class*="h-6"][class*="w-6"] span[class*="bg-amber"],
+  section span[class*="inline-flex"][class*="h-6"][class*="w-6"] span[class*="bg-emerald"],
+  section span[class*="inline-flex"][class*="h-6"][class*="w-6"] span[class*="bg-pink"] {
     -webkit-print-color-adjust: exact !important;
     print-color-adjust: exact !important;
     color-adjust: exact !important;
-    background-color: inherit !important;
     visibility: visible !important;
     opacity: 1 !important;
     display: block !important;
   }
   
-  /* Force specific hex colors for pattern shapes in print */
+  /* Force specific hex colors for pattern shapes in print - use most specific selectors */
   [data-worksheet-content="true"] .bg-sky-300,
-  section .bg-sky-300 {
+  [data-worksheet-content="true"] span.bg-sky-300,
+  [data-worksheet-content="true"] span[class*="bg-sky-300"],
+  section .bg-sky-300,
+  section span.bg-sky-300,
+  section span[class*="bg-sky-300"] {
     background-color: #7dd3fc !important; /* sky-300 */
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
   }
   [data-worksheet-content="true"] .bg-rose-400,
-  section .bg-rose-400 {
+  [data-worksheet-content="true"] span.bg-rose-400,
+  [data-worksheet-content="true"] span[class*="bg-rose-400"],
+  section .bg-rose-400,
+  section span.bg-rose-400,
+  section span[class*="bg-rose-400"] {
     background-color: #fb7185 !important; /* rose-400 */
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
   }
   [data-worksheet-content="true"] .bg-amber-300,
-  section .bg-amber-300 {
+  [data-worksheet-content="true"] span.bg-amber-300,
+  [data-worksheet-content="true"] span[class*="bg-amber-300"],
+  section .bg-amber-300,
+  section span.bg-amber-300,
+  section span[class*="bg-amber-300"] {
     background-color: #fcd34d !important; /* amber-300 */
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
   }
   [data-worksheet-content="true"] .bg-emerald-300,
-  section .bg-emerald-300 {
+  [data-worksheet-content="true"] span.bg-emerald-300,
+  [data-worksheet-content="true"] span[class*="bg-emerald-300"],
+  section .bg-emerald-300,
+  section span.bg-emerald-300,
+  section span[class*="bg-emerald-300"] {
     background-color: #6ee7b7 !important; /* emerald-300 */
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
   }
   [data-worksheet-content="true"] .bg-pink-400,
-  section .bg-pink-400 {
+  [data-worksheet-content="true"] span.bg-pink-400,
+  [data-worksheet-content="true"] span[class*="bg-pink-400"],
+  section .bg-pink-400,
+  section span.bg-pink-400,
+  section span[class*="bg-pink-400"] {
     background-color: #f472b6 !important; /* pink-400 */
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
   }
   
   /* Ensure shape borders are visible in print */
@@ -2271,7 +2312,15 @@ section[data-interactive-section="true"].preserve-print-styling [class*="h-48"] 
   section [class*="border-sky-600"],
   section [class*="border-rose-600"],
   section [class*="border-amber-500"],
-  section [class*="border-emerald-600"] {
+  section [class*="border-emerald-600"],
+  [data-worksheet-content="true"] span[class*="border-sky-600"],
+  [data-worksheet-content="true"] span[class*="border-rose-600"],
+  [data-worksheet-content="true"] span[class*="border-amber-500"],
+  [data-worksheet-content="true"] span[class*="border-emerald-600"],
+  section span[class*="border-sky-600"],
+  section span[class*="border-rose-600"],
+  section span[class*="border-amber-500"],
+  section span[class*="border-emerald-600"] {
     border-color: inherit !important;
     border-width: 1px !important;
     border-style: solid !important;
@@ -2282,20 +2331,78 @@ section[data-interactive-section="true"].preserve-print-styling [class*="h-48"] 
   
   /* Force specific border colors for pattern shapes */
   [data-worksheet-content="true"] .border-sky-600,
-  section .border-sky-600 {
+  [data-worksheet-content="true"] span.border-sky-600,
+  [data-worksheet-content="true"] span[class*="border-sky-600"],
+  section .border-sky-600,
+  section span.border-sky-600,
+  section span[class*="border-sky-600"] {
     border-color: #0284c7 !important; /* sky-600 */
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
   }
   [data-worksheet-content="true"] .border-rose-600,
-  section .border-rose-600 {
+  [data-worksheet-content="true"] span.border-rose-600,
+  [data-worksheet-content="true"] span[class*="border-rose-600"],
+  section .border-rose-600,
+  section span.border-rose-600,
+  section span[class*="border-rose-600"] {
     border-color: #e11d48 !important; /* rose-600 */
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
   }
   [data-worksheet-content="true"] .border-amber-500,
-  section .border-amber-500 {
+  [data-worksheet-content="true"] span.border-amber-500,
+  [data-worksheet-content="true"] span[class*="border-amber-500"],
+  section .border-amber-500,
+  section span.border-amber-500,
+  section span[class*="border-amber-500"] {
     border-color: #f59e0b !important; /* amber-500 */
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
   }
   [data-worksheet-content="true"] .border-emerald-600,
-  section .border-emerald-600 {
+  [data-worksheet-content="true"] span.border-emerald-600,
+  [data-worksheet-content="true"] span[class*="border-emerald-600"],
+  section .border-emerald-600,
+  section span.border-emerald-600,
+  section span[class*="border-emerald-600"] {
     border-color: #059669 !important; /* emerald-600 */
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+  }
+  
+  /* CRITICAL: Force pattern shape colors using style attribute targeting */
+  [data-worksheet-content="true"] span[style*="backgroundColor: '#7dd3fc'"],
+  [data-worksheet-content="true"] span[style*="background-color: '#7dd3fc'"],
+  section span[style*="backgroundColor: '#7dd3fc'"],
+  section span[style*="background-color: '#7dd3fc'"] {
+    background-color: #7dd3fc !important;
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+  }
+  [data-worksheet-content="true"] span[style*="backgroundColor: '#fb7185'"],
+  [data-worksheet-content="true"] span[style*="background-color: '#fb7185'"],
+  section span[style*="backgroundColor: '#fb7185'"],
+  section span[style*="background-color: '#fb7185'"] {
+    background-color: #fb7185 !important;
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+  }
+  [data-worksheet-content="true"] span[style*="backgroundColor: '#fcd34d'"],
+  [data-worksheet-content="true"] span[style*="background-color: '#fcd34d'"],
+  section span[style*="backgroundColor: '#fcd34d'"],
+  section span[style*="background-color: '#fcd34d'"] {
+    background-color: #fcd34d !important;
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+  }
+  [data-worksheet-content="true"] span[style*="backgroundColor: '#6ee7b7'"],
+  [data-worksheet-content="true"] span[style*="background-color: '#6ee7b7'"],
+  section span[style*="backgroundColor: '#6ee7b7'"],
+  section span[style*="background-color: '#6ee7b7'"] {
+    background-color: #6ee7b7 !important;
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
   }
   
   /* Ensure worksheet boxes are displayed */
