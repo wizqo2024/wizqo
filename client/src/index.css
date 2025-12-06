@@ -1384,7 +1384,7 @@ section[data-interactive-section="true"].preserve-print-styling [class*="h-48"] 
     box-sizing: border-box !important;
   }
   
-  /* Ensure drawing boxes show in print with borders and backgrounds */
+  /* Ensure drawing boxes show in print with borders and backgrounds - all colors */
   section[data-interactive-section="true"].preserve-print-styling .drawing-box,
   section[data-interactive-section="true"].preserve-print-styling [data-drawing-box="true"],
   [data-worksheet-content="true"] .drawing-box,
@@ -1392,41 +1392,137 @@ section[data-interactive-section="true"].preserve-print-styling [class*="h-48"] 
     display: block !important;
     visibility: visible !important;
     opacity: 1 !important;
-    border: 1px solid #fcd34d !important;
     background-color: #ffffff !important;
     -webkit-print-color-adjust: exact !important;
     print-color-adjust: exact !important;
-    border-color: #fcd34d !important;
-    border-width: 1px !important;
-    border-style: solid !important;
   }
   
-  /* Ensure amber background colors show in print */
+  /* Ensure all background colors show in print */
   section[data-interactive-section="true"].preserve-print-styling [class*="bg-amber-50"],
-  section[data-interactive-section="true"].preserve-print-styling [class*="bg-amber-100"],
-  [data-worksheet-content="true"] [class*="bg-amber-50"],
-  [data-worksheet-content="true"] [class*="bg-amber-100"] {
+  [data-worksheet-content="true"] [class*="bg-amber-50"] {
     background-color: #fffbeb !important;
     -webkit-print-color-adjust: exact !important;
     print-color-adjust: exact !important;
   }
   
-  section[data-interactive-section="true"].preserve-print-styling [class*="bg-amber-100"] {
+  section[data-interactive-section="true"].preserve-print-styling [class*="bg-amber-100"],
+  [data-worksheet-content="true"] [class*="bg-amber-100"] {
     background-color: #fef3c7 !important;
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
   }
   
-  /* Ensure amber borders show in print */
+  section[data-interactive-section="true"].preserve-print-styling [class*="bg-teal-50"],
+  [data-worksheet-content="true"] [class*="bg-teal-50"] {
+    background-color: #f0fdfa !important;
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+  }
+  
+  section[data-interactive-section="true"].preserve-print-styling [class*="bg-rose-50"],
+  [data-worksheet-content="true"] [class*="bg-rose-50"] {
+    background-color: #fff1f2 !important;
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+  }
+  
+  section[data-interactive-section="true"].preserve-print-styling [class*="bg-purple-50"],
+  [data-worksheet-content="true"] [class*="bg-purple-50"] {
+    background-color: #faf5ff !important;
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+  }
+  
+  section[data-interactive-section="true"].preserve-print-styling [class*="bg-pink-50"],
+  [data-worksheet-content="true"] [class*="bg-pink-50"] {
+    background-color: #fdf2f8 !important;
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+  }
+  
+  /* Ensure all borders show in print */
   section[data-interactive-section="true"].preserve-print-styling [class*="border-amber-200"],
-  section[data-interactive-section="true"].preserve-print-styling [class*="border-amber-300"],
-  [data-worksheet-content="true"] [class*="border-amber-200"],
-  [data-worksheet-content="true"] [class*="border-amber-300"] {
+  [data-worksheet-content="true"] [class*="border-amber-200"] {
     border-color: #fde68a !important;
     -webkit-print-color-adjust: exact !important;
     print-color-adjust: exact !important;
   }
   
-  section[data-interactive-section="true"].preserve-print-styling [class*="border-amber-300"] {
+  section[data-interactive-section="true"].preserve-print-styling [class*="border-amber-300"],
+  [data-worksheet-content="true"] [class*="border-amber-300"] {
     border-color: #fcd34d !important;
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+  }
+  
+  section[data-interactive-section="true"].preserve-print-styling [class*="border-teal-200"],
+  [data-worksheet-content="true"] [class*="border-teal-200"] {
+    border-color: #99f6e4 !important;
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+  }
+  
+  section[data-interactive-section="true"].preserve-print-styling [class*="border-teal-300"],
+  [data-worksheet-content="true"] [class*="border-teal-300"] {
+    border-color: #5eead4 !important;
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+  }
+  
+  section[data-interactive-section="true"].preserve-print-styling [class*="border-rose-200"],
+  [data-worksheet-content="true"] [class*="border-rose-200"] {
+    border-color: #fecdd3 !important;
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+  }
+  
+  section[data-interactive-section="true"].preserve-print-styling [class*="border-rose-300"],
+  [data-worksheet-content="true"] [class*="border-rose-300"] {
+    border-color: #fda4af !important;
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+  }
+  
+  section[data-interactive-section="true"].preserve-print-styling [class*="border-purple-200"],
+  [data-worksheet-content="true"] [class*="border-purple-200"] {
+    border-color: #e9d5ff !important;
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+  }
+  
+  section[data-interactive-section="true"].preserve-print-styling [class*="border-purple-300"],
+  [data-worksheet-content="true"] [class*="border-purple-300"] {
+    border-color: #c4b5fd !important;
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+  }
+  
+  section[data-interactive-section="true"].preserve-print-styling [class*="border-pink-200"],
+  [data-worksheet-content="true"] [class*="border-pink-200"] {
+    border-color: #fbcfe8 !important;
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+  }
+  
+  section[data-interactive-section="true"].preserve-print-styling [class*="border-pink-300"],
+  [data-worksheet-content="true"] [class*="border-pink-300"] {
+    border-color: #f9a8d4 !important;
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+  }
+  
+  section[data-interactive-section="true"].preserve-print-styling [class*="border-slate-200"],
+  [data-worksheet-content="true"] [class*="border-slate-200"] {
+    border-color: #e2e8f0 !important;
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+  }
+  
+  section[data-interactive-section="true"].preserve-print-styling [class*="border-slate-300"],
+  [data-worksheet-content="true"] [class*="border-slate-300"] {
+    border-color: #cbd5e1 !important;
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
   }
   
   /* Remove excessive gaps on first page - FINAL COMPREHENSIVE FIX */

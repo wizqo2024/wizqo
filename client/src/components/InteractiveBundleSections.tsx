@@ -2399,27 +2399,27 @@ const renderers: Record<string, Renderer> = {
       3
     )
     return (
-      <div className="space-y-4">
-        <p className="text-sm text-slate-600">
+      <div className="space-y-4 print:space-y-4" style={{ fontSize: '16px', lineHeight: '24px', marginTop: '0', marginBottom: '0' }}>
+        <p className="text-sm text-slate-600 print:text-sm print:text-slate-600" style={{ fontSize: '14px', lineHeight: '20px', margin: '0 0 16px 0' }}>
           {t('worksheets.readingPrek.instructions')}
         </p>
         {stories.map((story, idx) => (
-          <div key={idx} className="rounded-xl border border-rose-200 bg-rose-50 p-4">
-            <p className="text-sm font-semibold text-rose-700 mb-3">{story.title}</p>
-            <div className="mt-2 flex gap-3 justify-center flex-wrap">
+          <div key={idx} className="rounded-xl border border-rose-200 bg-rose-50 p-4 print:rounded-xl print:border print:border-rose-200 print:bg-rose-50 print:p-4" style={{ WebkitPrintColorAdjust: 'exact', printColorAdjust: 'exact', backgroundColor: '#fff1f2', borderColor: '#fecdd3', padding: '16px', borderRadius: '12px', borderWidth: '1px', borderStyle: 'solid' }}>
+            <p className="text-sm font-semibold text-rose-700 mb-3 print:text-sm print:font-semibold print:text-rose-700 print:mb-3" style={{ fontSize: '14px', fontWeight: '600', marginBottom: '12px', lineHeight: '20px', marginTop: '0' }}>{story.title}</p>
+            <div className="mt-2 flex gap-3 justify-center flex-wrap print:mt-2 print:flex print:gap-3 print:justify-center print:flex-wrap" style={{ display: 'flex', gap: '12px', justifyContent: 'center', flexWrap: 'wrap', marginTop: '8px' }}>
               {story.images.map((img, imgIdx) => (
-                <div key={imgIdx} className="flex flex-col items-center">
-                  <div className="h-20 w-20 rounded border-2 border-rose-300 bg-white flex items-center justify-center p-2">
+                <div key={imgIdx} className="flex flex-col items-center print:flex print:flex-col print:items-center">
+                  <div className="h-20 w-20 rounded border-2 border-rose-300 bg-white flex items-center justify-center p-2 print:h-20 print:w-20 print:rounded print:border-2 print:border-rose-300 print:bg-white print:flex print:items-center print:justify-center print:p-2" style={{ borderColor: '#fda4af', backgroundColor: '#ffffff', WebkitPrintColorAdjust: 'exact', printColorAdjust: 'exact', height: '80px', width: '80px', borderRadius: '8px', borderWidth: '2px', borderStyle: 'solid', display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '8px' }}>
                     {img.svg}
                   </div>
-                  <p className="text-xs text-rose-600 mt-1">{img.name}</p>
+                  <p className="text-xs text-rose-600 mt-1 print:text-xs print:text-rose-600 print:mt-1" style={{ fontSize: '12px', lineHeight: '16px', marginTop: '4px', marginBottom: '0' }}>{img.name}</p>
                 </div>
               ))}
             </div>
-            <div className="mt-4 space-y-2">
+            <div className="mt-4 space-y-2 print:mt-4 print:space-y-2" style={{ marginTop: '16px', display: 'flex', flexDirection: 'column', gap: '8px' }}>
               {story.questions.map((q, qIdx) => (
-                <div key={qIdx} className="text-xs text-rose-700">
-                  {q.text} <span className="text-rose-500 font-semibold">{t('worksheets.readingPrek.yesNo')}</span>
+                <div key={qIdx} className="text-xs text-rose-700 print:text-xs print:text-rose-700" style={{ fontSize: '12px', lineHeight: '16px', margin: '0' }}>
+                  {q.text} <span className="text-rose-500 font-semibold print:text-rose-500 print:font-semibold" style={{ color: '#f43f5e', fontWeight: '600' }}>{t('worksheets.readingPrek.yesNo')}</span>
                 </div>
               ))}
             </div>
@@ -2472,19 +2472,19 @@ const renderers: Record<string, Renderer> = {
       3
     )
     return (
-      <div className="space-y-3">
-        <p className="text-sm text-slate-600">
+      <div className="space-y-3 print:space-y-3" style={{ fontSize: '16px', lineHeight: '24px', marginTop: '0', marginBottom: '0' }}>
+        <p className="text-sm text-slate-600 print:text-sm print:text-slate-600" style={{ fontSize: '14px', lineHeight: '20px', margin: '0 0 12px 0' }}>
           {t('worksheets.sciencePrek.instructions')}
         </p>
         {observations.map((obs, idx) => (
-          <div key={idx} className="rounded-xl border border-teal-200 bg-teal-50 p-4">
-            <p className="text-sm font-semibold text-teal-700">{obs.topic}</p>
-            <div className="mt-2 h-20 rounded border border-teal-300 bg-white"></div>
-            <p className="mt-1 text-xs text-teal-600 italic">{t('worksheets.sciencePrek.drawOrPaste')}</p>
-            <p className="mt-2 text-xs text-teal-700">{obs.question}</p>
-            <div className="mt-1 flex flex-wrap gap-2">
+          <div key={idx} className="rounded-xl border border-teal-200 bg-teal-50 p-4 print:rounded-xl print:border print:border-teal-200 print:bg-teal-50 print:p-4" style={{ WebkitPrintColorAdjust: 'exact', printColorAdjust: 'exact', backgroundColor: '#f0fdfa', borderColor: '#99f6e4', padding: '16px', borderRadius: '12px', borderWidth: '1px', borderStyle: 'solid' }}>
+            <p className="text-sm font-semibold text-teal-700 print:text-sm print:font-semibold print:text-teal-700" style={{ fontSize: '14px', fontWeight: '600', marginBottom: '8px', lineHeight: '20px', marginTop: '0' }}>{obs.topic}</p>
+            <div className="mt-2 h-20 rounded border border-teal-300 bg-white print:mt-2 print:h-20 print:rounded print:border print:border-teal-300 print:bg-white drawing-box" data-drawing-box="true" style={{ borderColor: '#5eead4', backgroundColor: '#ffffff', WebkitPrintColorAdjust: 'exact', printColorAdjust: 'exact', height: '80px', minHeight: '80px', maxHeight: '80px', borderRadius: '8px', borderWidth: '1px', borderStyle: 'solid', width: '100%', boxSizing: 'border-box', display: 'block', flexShrink: '0', flexGrow: '0', marginTop: '8px' }}></div>
+            <p className="mt-1 text-xs text-teal-600 italic print:mt-1 print:text-xs print:text-teal-600 print:italic" style={{ fontSize: '12px', marginTop: '4px', marginBottom: '8px', lineHeight: '16px', fontStyle: 'italic' }}>{t('worksheets.sciencePrek.drawOrPaste')}</p>
+            <p className="mt-2 text-xs text-teal-700 print:mt-2 print:text-xs print:text-teal-700" style={{ fontSize: '12px', lineHeight: '16px', marginTop: '8px', marginBottom: '4px' }}>{obs.question}</p>
+            <div className="mt-1 flex flex-wrap gap-2 print:mt-1 print:flex print:flex-wrap print:gap-2" style={{ display: 'flex', flexWrap: 'wrap', gap: '8px', marginTop: '4px' }}>
               {obs.options.map((opt, optIdx) => (
-                <span key={optIdx} className="rounded border border-teal-300 bg-white px-2 py-1 text-xs text-teal-700">
+                <span key={optIdx} className="rounded border border-teal-300 bg-white px-2 py-1 text-xs text-teal-700 print:rounded print:border print:border-teal-300 print:bg-white print:px-2 print:py-1 print:text-xs print:text-teal-700" style={{ fontSize: '12px', padding: '4px 8px', backgroundColor: '#ffffff', borderColor: '#5eead4', color: '#134e4a', borderRadius: '6px', borderWidth: '1px', borderStyle: 'solid', WebkitPrintColorAdjust: 'exact', printColorAdjust: 'exact' }}>
                   {opt}
                 </span>
               ))}
@@ -2544,19 +2544,19 @@ const renderers: Record<string, Renderer> = {
       3
     )
     return (
-      <div className="space-y-3">
-        <p className="text-sm text-slate-600">
+      <div className="space-y-3 print:space-y-3" style={{ fontSize: '16px', lineHeight: '24px', marginTop: '0', marginBottom: '0' }}>
+        <p className="text-sm text-slate-600 print:text-sm print:text-slate-600" style={{ fontSize: '14px', lineHeight: '20px', margin: '0 0 12px 0' }}>
           {t('worksheets.geographyPrek.instructions')}
         </p>
         {places.map((place, idx) => (
-          <div key={idx} className="rounded-xl border border-amber-200 bg-amber-50 p-4">
-            <p className="text-sm font-semibold text-amber-700">{place.name}</p>
-            <p className="text-xs text-amber-600">{place.type}</p>
-            <div className="mt-2 h-16 rounded border border-amber-300 bg-white"></div>
-            <p className="mt-1 text-xs text-amber-600 italic">{t('worksheets.geographyPrek.drawSimpleMap')}</p>
-            <div className="mt-2 flex flex-wrap gap-2">
+          <div key={idx} className="rounded-xl border border-amber-200 bg-amber-50 p-4 print:rounded-xl print:border print:border-amber-200 print:bg-amber-50 print:p-4" style={{ WebkitPrintColorAdjust: 'exact', printColorAdjust: 'exact', backgroundColor: '#fffbeb', borderColor: '#fde68a', padding: '16px', borderRadius: '12px', borderWidth: '1px', borderStyle: 'solid' }}>
+            <p className="text-sm font-semibold text-amber-700 print:text-sm print:font-semibold print:text-amber-700" style={{ fontSize: '14px', fontWeight: '600', marginBottom: '4px', lineHeight: '20px', marginTop: '0' }}>{place.name}</p>
+            <p className="text-xs text-amber-600 print:text-xs print:text-amber-600" style={{ fontSize: '12px', lineHeight: '16px', marginBottom: '8px', marginTop: '0' }}>{place.type}</p>
+            <div className="mt-2 h-16 rounded border border-amber-300 bg-white print:mt-2 print:h-16 print:rounded print:border print:border-amber-300 print:bg-white drawing-box" data-drawing-box="true" style={{ borderColor: '#fcd34d', backgroundColor: '#ffffff', WebkitPrintColorAdjust: 'exact', printColorAdjust: 'exact', height: '64px', minHeight: '64px', maxHeight: '64px', borderRadius: '8px', borderWidth: '1px', borderStyle: 'solid', width: '100%', boxSizing: 'border-box', display: 'block', flexShrink: '0', flexGrow: '0', marginTop: '8px' }}></div>
+            <p className="mt-1 text-xs text-amber-600 italic print:mt-1 print:text-xs print:text-amber-600 print:italic" style={{ fontSize: '12px', marginTop: '4px', marginBottom: '8px', lineHeight: '16px', fontStyle: 'italic' }}>{t('worksheets.geographyPrek.drawSimpleMap')}</p>
+            <div className="mt-2 flex flex-wrap gap-2 print:mt-2 print:flex print:flex-wrap print:gap-2" style={{ display: 'flex', flexWrap: 'wrap', gap: '8px', marginTop: '8px' }}>
               {place.features.map((feature, featIdx) => (
-                <span key={featIdx} className="rounded border border-amber-300 bg-white px-2 py-1 text-xs text-amber-700">
+                <span key={featIdx} className="rounded border border-amber-300 bg-white px-2 py-1 text-xs text-amber-700 print:rounded print:border print:border-amber-300 print:bg-white print:px-2 print:py-1 print:text-xs print:text-amber-700" style={{ fontSize: '12px', padding: '4px 8px', backgroundColor: '#ffffff', borderColor: '#fcd34d', color: '#92400e', borderRadius: '6px', borderWidth: '1px', borderStyle: 'solid', WebkitPrintColorAdjust: 'exact', printColorAdjust: 'exact' }}>
                   {feature}
                 </span>
               ))}
@@ -2582,30 +2582,30 @@ const renderers: Record<string, Renderer> = {
       4
     )
     return (
-      <div className="space-y-3">
-        <p className="text-sm text-slate-600">
+      <div className="space-y-3 print:space-y-3" style={{ fontSize: '16px', lineHeight: '24px', marginTop: '0', marginBottom: '0' }}>
+        <p className="text-sm text-slate-600 print:text-sm print:text-slate-600" style={{ fontSize: '14px', lineHeight: '20px', margin: '0 0 12px 0' }}>
           {t('worksheets.grammarPrek.instructions')}
         </p>
-        <div className="grid gap-4 md:grid-cols-2">
+        <div className="grid gap-4 md:grid-cols-2 print:grid print:grid-cols-2 print:gap-4" style={{ gap: '16px', display: 'grid', gridTemplateColumns: 'repeat(2, minmax(0, 1fr))' }}>
           {words.map((item, idx) => (
-            <div key={idx} className="rounded-xl border border-purple-200 bg-purple-50 p-4">
-              <div className="flex items-center gap-3">
-                <span className="text-3xl">{item.picture}</span>
-                <div className="flex-1">
-                  <p className="text-sm font-semibold text-purple-700">{t('worksheets.grammarPrek.word')} {item.word}</p>
-                  <p className="mt-1 text-xs text-purple-600">{t('worksheets.grammarPrek.match')} <span className="font-semibold">{item.word}</span></p>
-                  <div className="mt-1 h-8 rounded border border-dashed border-purple-300 bg-white" />
+            <div key={idx} className="rounded-xl border border-purple-200 bg-purple-50 p-4 print:rounded-xl print:border print:border-purple-200 print:bg-purple-50 print:p-4" style={{ WebkitPrintColorAdjust: 'exact', printColorAdjust: 'exact', backgroundColor: '#faf5ff', borderColor: '#e9d5ff', padding: '16px', borderRadius: '12px', borderWidth: '1px', borderStyle: 'solid' }}>
+              <div className="flex items-center gap-3 print:flex print:items-center print:gap-3" style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
+                <span className="text-3xl print:text-3xl" style={{ fontSize: '30px', lineHeight: '1' }}>{item.picture}</span>
+                <div className="flex-1 print:flex-1">
+                  <p className="text-sm font-semibold text-purple-700 print:text-sm print:font-semibold print:text-purple-700" style={{ fontSize: '14px', fontWeight: '600', marginBottom: '4px', lineHeight: '20px', marginTop: '0' }}>{t('worksheets.grammarPrek.word')} {item.word}</p>
+                  <p className="mt-1 text-xs text-purple-600 print:mt-1 print:text-xs print:text-purple-600" style={{ fontSize: '12px', lineHeight: '16px', marginTop: '4px', marginBottom: '4px' }}>{t('worksheets.grammarPrek.match')} <span className="font-semibold print:font-semibold" style={{ fontWeight: '600' }}>{item.word}</span></p>
+                  <div className="mt-1 h-8 rounded border border-dashed border-purple-300 bg-white print:mt-1 print:h-8 print:rounded print:border print:border-dashed print:border-purple-300 print:bg-white" style={{ borderColor: '#c4b5fd', backgroundColor: '#ffffff', WebkitPrintColorAdjust: 'exact', printColorAdjust: 'exact', height: '32px', minHeight: '32px', maxHeight: '32px', borderRadius: '8px', borderWidth: '1px', borderStyle: 'dashed', width: '100%', boxSizing: 'border-box', marginTop: '4px' }} />
                 </div>
               </div>
             </div>
           ))}
         </div>
-        <div className="rounded-xl border border-purple-200 bg-purple-50 p-4">
-          <p className="text-sm font-semibold text-purple-700">{t('worksheets.grammarPrek.wordPractice')}</p>
-          <p className="mt-2 text-xs text-purple-700">{t('worksheets.grammarPrek.circleWordMatches')}</p>
-          <div className="mt-1 flex flex-wrap gap-2">
+        <div className="rounded-xl border border-purple-200 bg-purple-50 p-4 print:rounded-xl print:border print:border-purple-200 print:bg-purple-50 print:p-4" style={{ WebkitPrintColorAdjust: 'exact', printColorAdjust: 'exact', backgroundColor: '#faf5ff', borderColor: '#e9d5ff', padding: '16px', borderRadius: '12px', borderWidth: '1px', borderStyle: 'solid' }}>
+          <p className="text-sm font-semibold text-purple-700 print:text-sm print:font-semibold print:text-purple-700" style={{ fontSize: '14px', fontWeight: '600', marginBottom: '8px', lineHeight: '20px', marginTop: '0' }}>{t('worksheets.grammarPrek.wordPractice')}</p>
+          <p className="mt-2 text-xs text-purple-700 print:mt-2 print:text-xs print:text-purple-700" style={{ fontSize: '12px', lineHeight: '16px', marginTop: '8px', marginBottom: '4px' }}>{t('worksheets.grammarPrek.circleWordMatches')}</p>
+          <div className="mt-1 flex flex-wrap gap-2 print:mt-1 print:flex print:flex-wrap print:gap-2" style={{ display: 'flex', flexWrap: 'wrap', gap: '8px', marginTop: '4px' }}>
             {words.map((item, idx) => (
-              <span key={idx} className="rounded border border-purple-300 bg-white px-3 py-1 text-xs text-purple-700">
+              <span key={idx} className="rounded border border-purple-300 bg-white px-3 py-1 text-xs text-purple-700 print:rounded print:border print:border-purple-300 print:bg-white print:px-3 print:py-1 print:text-xs print:text-purple-700" style={{ fontSize: '12px', padding: '4px 12px', backgroundColor: '#ffffff', borderColor: '#c4b5fd', color: '#6b21a8', borderRadius: '6px', borderWidth: '1px', borderStyle: 'solid', WebkitPrintColorAdjust: 'exact', printColorAdjust: 'exact' }}>
                 {item.word}
               </span>
             ))}
@@ -2630,44 +2630,44 @@ const renderers: Record<string, Renderer> = {
       return item
     })
     return (
-      <div className="space-y-3">
-        <p className="text-sm text-slate-600">
+      <div className="space-y-3 print:space-y-3" style={{ fontSize: '16px', lineHeight: '24px', marginTop: '0', marginBottom: '0' }}>
+        <p className="text-sm text-slate-600 print:text-sm print:text-slate-600" style={{ fontSize: '14px', lineHeight: '20px', margin: '0 0 12px 0' }}>
           {t('worksheets.logicPrek.instructions')}
         </p>
-        <div className="space-y-3">
+        <div className="space-y-3 print:space-y-3" style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
           {patterns.map((pattern, idx) => {
             const first = pick(rng, SHAPE_TOKENS)
             const second = pick(rng, SHAPE_TOKENS.filter((token) => token.key !== first.key))
             const third = pattern === 'ABC' ? pick(rng, SHAPE_TOKENS.filter((token) => token.key !== first.key && token.key !== second.key)) : second
             const previewTokens = pattern.split('').map((char) => (char === 'A' ? first : char === 'B' ? second : third))
             return (
-              <div key={idx} className="rounded-xl border border-slate-200 bg-white p-4">
-                <p className="text-xs uppercase text-slate-500">{t('worksheets.logicPrek.pattern')} {pattern}</p>
-                <div className="mt-3 flex items-center gap-2">
+              <div key={idx} className="rounded-xl border border-slate-200 bg-white p-4 print:rounded-xl print:border print:border-slate-200 print:bg-white print:p-4" style={{ WebkitPrintColorAdjust: 'exact', printColorAdjust: 'exact', backgroundColor: '#ffffff', borderColor: '#e2e8f0', padding: '16px', borderRadius: '12px', borderWidth: '1px', borderStyle: 'solid' }}>
+                <p className="text-xs uppercase text-slate-500 print:text-xs print:uppercase print:text-slate-500" style={{ fontSize: '12px', letterSpacing: '0.05em', marginBottom: '12px', marginTop: '0' }}>{t('worksheets.logicPrek.pattern')} {pattern}</p>
+                <div className="mt-3 flex items-center gap-2 print:mt-3 print:flex print:items-center print:gap-2" style={{ display: 'flex', alignItems: 'center', gap: '8px', marginTop: '12px' }}>
                   {previewTokens.map((token, tokenIdx) => {
                     const parts = token.key.split('-')
                     const shapeKey = parts[0] === 'diamond' || parts[0] === 'circle' || parts[0] === 'square' || parts[0] === 'star' || parts[0] === 'heart' ? parts[0] : parts[1]
                     const colorKey = parts[0] === 'diamond' || parts[0] === 'circle' || parts[0] === 'square' || parts[0] === 'star' || parts[0] === 'heart' ? parts[1] : parts[0]
                     const translatedLabel = `${t(`common.colors.${colorKey}`) || colorKey} ${t(`common.shapes.${shapeKey}`) || shapeKey}`
                     return (
-                      <span key={`${token.key}-${tokenIdx}`} className="relative inline-flex items-center justify-center">
+                      <span key={`${token.key}-${tokenIdx}`} className="relative inline-flex items-center justify-center print:relative print:inline-flex print:items-center print:justify-center">
                         <span className="sr-only">{translatedLabel}</span>
                         {token.render}
                       </span>
                     )
                   })}
-                  <span className="text-lg font-semibold text-slate-400">?</span>
+                  <span className="text-lg font-semibold text-slate-400 print:text-lg print:font-semibold print:text-slate-400" style={{ fontSize: '18px', fontWeight: '600', color: '#94a3b8' }}>?</span>
                 </div>
-                <div className="mt-2 h-10 rounded border border-dashed border-slate-300" />
+                <div className="mt-2 h-10 rounded border border-dashed border-slate-300 print:mt-2 print:h-10 print:rounded print:border print:border-dashed print:border-slate-300" style={{ borderColor: '#cbd5e1', backgroundColor: '#ffffff', WebkitPrintColorAdjust: 'exact', printColorAdjust: 'exact', height: '40px', minHeight: '40px', maxHeight: '40px', borderRadius: '8px', borderWidth: '1px', borderStyle: 'dashed', width: '100%', boxSizing: 'border-box', marginTop: '8px' }} />
               </div>
             )
           })}
         </div>
-        <div className="rounded-xl border border-slate-200 bg-white p-4">
-          <p className="text-sm font-semibold text-slate-700">{t('worksheets.earlyShapes.sortingActivity')}</p>
-          <p className="mt-2 text-xs text-slate-600">{t('worksheets.earlyShapes.sortByColor')} {sortingItems.slice(0, 3).join(', ')}</p>
-          <p className="mt-1 text-xs text-slate-600">{t('worksheets.earlyShapes.sortBySize')} {sortingItems.slice(3, 5).join(', ')}</p>
-          <p className="mt-1 text-xs text-slate-600">{t('worksheets.earlyShapes.sortByShape')} {sortingItems.slice(5).join(', ')}</p>
+        <div className="rounded-xl border border-slate-200 bg-white p-4 print:rounded-xl print:border print:border-slate-200 print:bg-white print:p-4" style={{ WebkitPrintColorAdjust: 'exact', printColorAdjust: 'exact', backgroundColor: '#ffffff', borderColor: '#e2e8f0', padding: '16px', borderRadius: '12px', borderWidth: '1px', borderStyle: 'solid' }}>
+          <p className="text-sm font-semibold text-slate-700 print:text-sm print:font-semibold print:text-slate-700" style={{ fontSize: '14px', fontWeight: '600', marginBottom: '8px', lineHeight: '20px', marginTop: '0' }}>{t('worksheets.earlyShapes.sortingActivity')}</p>
+          <p className="mt-2 text-xs text-slate-600 print:mt-2 print:text-xs print:text-slate-600" style={{ fontSize: '12px', lineHeight: '16px', marginTop: '8px', marginBottom: '4px' }}>{t('worksheets.earlyShapes.sortByColor')} {sortingItems.slice(0, 3).join(', ')}</p>
+          <p className="mt-1 text-xs text-slate-600 print:mt-1 print:text-xs print:text-slate-600" style={{ fontSize: '12px', lineHeight: '16px', marginTop: '4px', marginBottom: '4px' }}>{t('worksheets.earlyShapes.sortBySize')} {sortingItems.slice(3, 5).join(', ')}</p>
+          <p className="mt-1 text-xs text-slate-600 print:mt-1 print:text-xs print:text-slate-600" style={{ fontSize: '12px', lineHeight: '16px', marginTop: '4px', marginBottom: '0' }}>{t('worksheets.earlyShapes.sortByShape')} {sortingItems.slice(5).join(', ')}</p>
         </div>
       </div>
     )
@@ -2686,32 +2686,32 @@ const renderers: Record<string, Renderer> = {
       4
     )
     return (
-      <div className="space-y-3">
-        <p className="text-sm text-slate-600">
+      <div className="space-y-3 print:space-y-3" style={{ fontSize: '16px', lineHeight: '24px', marginTop: '0', marginBottom: '0' }}>
+        <p className="text-sm text-slate-600 print:text-sm print:text-slate-600" style={{ fontSize: '14px', lineHeight: '20px', margin: '0 0 12px 0' }}>
           {t('worksheets.selPrek.instructions')}
         </p>
-        <div className="grid gap-4 md:grid-cols-2">
+        <div className="grid gap-4 md:grid-cols-2 print:grid print:grid-cols-2 print:gap-4" style={{ gap: '16px', display: 'grid', gridTemplateColumns: 'repeat(2, minmax(0, 1fr))' }}>
           {feelings.map((feeling, idx) => (
-            <div key={idx} className="rounded-xl border border-pink-200 bg-pink-50 p-4">
-              <div className="flex items-center gap-3">
-                <span className="text-3xl">{feeling.emoji}</span>
-                <div className="flex-1">
-                  <p className="text-sm font-semibold text-pink-700">{t('worksheets.selPrek.feeling')} {t(`common.feelings.${feeling.feeling}`) || feeling.feeling}</p>
-                  <p className="text-xs text-pink-600">{t('worksheets.selPrek.color')} {t(`common.colors.${feeling.color}`) || feeling.color}</p>
+            <div key={idx} className="rounded-xl border border-pink-200 bg-pink-50 p-4 print:rounded-xl print:border print:border-pink-200 print:bg-pink-50 print:p-4" style={{ WebkitPrintColorAdjust: 'exact', printColorAdjust: 'exact', backgroundColor: '#fdf2f8', borderColor: '#fbcfe8', padding: '16px', borderRadius: '12px', borderWidth: '1px', borderStyle: 'solid' }}>
+              <div className="flex items-center gap-3 print:flex print:items-center print:gap-3" style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '8px' }}>
+                <span className="text-3xl print:text-3xl" style={{ fontSize: '30px', lineHeight: '1' }}>{feeling.emoji}</span>
+                <div className="flex-1 print:flex-1">
+                  <p className="text-sm font-semibold text-pink-700 print:text-sm print:font-semibold print:text-pink-700" style={{ fontSize: '14px', fontWeight: '600', marginBottom: '4px', lineHeight: '20px', marginTop: '0' }}>{t('worksheets.selPrek.feeling')} {t(`common.feelings.${feeling.feeling}`) || feeling.feeling}</p>
+                  <p className="text-xs text-pink-600 print:text-xs print:text-pink-600" style={{ fontSize: '12px', lineHeight: '16px', margin: '0' }}>{t('worksheets.selPrek.color')} {t(`common.colors.${feeling.color}`) || feeling.color}</p>
                 </div>
               </div>
-              <div className="mt-2 h-12 rounded border border-dashed border-pink-300 bg-white"></div>
-              <p className="mt-1 text-xs text-pink-600 italic">{t('worksheets.selPrek.drawTimeFelt').replace('{{feeling}}', t(`common.feelings.${feeling.feeling}`) || feeling.feeling)}</p>
+              <div className="mt-2 h-12 rounded border border-dashed border-pink-300 bg-white print:mt-2 print:h-12 print:rounded print:border print:border-dashed print:border-pink-300 print:bg-white drawing-box" data-drawing-box="true" style={{ borderColor: '#f9a8d4', backgroundColor: '#ffffff', WebkitPrintColorAdjust: 'exact', printColorAdjust: 'exact', height: '48px', minHeight: '48px', maxHeight: '48px', borderRadius: '8px', borderWidth: '1px', borderStyle: 'dashed', width: '100%', boxSizing: 'border-box', display: 'block', flexShrink: '0', flexGrow: '0', marginTop: '8px' }}></div>
+              <p className="mt-1 text-xs text-pink-600 italic print:mt-1 print:text-xs print:text-pink-600 print:italic" style={{ fontSize: '12px', marginTop: '4px', marginBottom: '0', lineHeight: '16px', fontStyle: 'italic' }}>{t('worksheets.selPrek.drawTimeFelt').replace('{{feeling}}', t(`common.feelings.${feeling.feeling}`) || feeling.feeling)}</p>
             </div>
           ))}
         </div>
-        <div className="rounded-xl border border-pink-200 bg-pink-50 p-4">
-          <p className="text-sm font-semibold text-pink-700">{t('worksheets.selPrek.howIFeelToday')}</p>
-          <div className="mt-2 flex gap-2">
+        <div className="rounded-xl border border-pink-200 bg-pink-50 p-4 print:rounded-xl print:border print:border-pink-200 print:bg-pink-50 print:p-4" style={{ WebkitPrintColorAdjust: 'exact', printColorAdjust: 'exact', backgroundColor: '#fdf2f8', borderColor: '#fbcfe8', padding: '16px', borderRadius: '12px', borderWidth: '1px', borderStyle: 'solid' }}>
+          <p className="text-sm font-semibold text-pink-700 print:text-sm print:font-semibold print:text-pink-700" style={{ fontSize: '14px', fontWeight: '600', marginBottom: '8px', lineHeight: '20px', marginTop: '0' }}>{t('worksheets.selPrek.howIFeelToday')}</p>
+          <div className="mt-2 flex gap-2 print:mt-2 print:flex print:gap-2" style={{ display: 'flex', gap: '8px', marginTop: '8px' }}>
             {feelings.map((feeling, idx) => (
-              <div key={idx} className="flex flex-col items-center">
-                <span className="text-2xl">{feeling.emoji}</span>
-                <div className="mt-1 h-4 w-4 rounded border border-pink-300" />
+              <div key={idx} className="flex flex-col items-center print:flex print:flex-col print:items-center">
+                <span className="text-2xl print:text-2xl" style={{ fontSize: '24px', lineHeight: '1' }}>{feeling.emoji}</span>
+                <div className="mt-1 h-4 w-4 rounded border border-pink-300 print:mt-1 print:h-4 print:w-4 print:rounded print:border print:border-pink-300" style={{ borderColor: '#f9a8d4', backgroundColor: '#ffffff', WebkitPrintColorAdjust: 'exact', printColorAdjust: 'exact', height: '16px', width: '16px', borderRadius: '4px', borderWidth: '1px', borderStyle: 'solid', marginTop: '4px' }} />
               </div>
             ))}
           </div>
