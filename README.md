@@ -181,5 +181,5 @@ MIT License - see LICENSE file for details
 - Open PRs for review before merging to `main`
 
 ---
-*Last updated: Deployment ready*
+*Last updated: Deployment trigger - $(date +%Y-%m-%d\ %H:%M:%S)*
 
