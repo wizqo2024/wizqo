@@ -180,3 +180,6 @@ MIT License - see LICENSE file for details
 - Default: work on feature branches; avoid pushing directly to `main`
 - Open PRs for review before merging to `main`
 
+---
+*Last updated: Deployment ready*
+
