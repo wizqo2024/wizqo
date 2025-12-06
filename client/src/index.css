@@ -9,6 +9,8 @@
 @tailwind components;
 @tailwind utilities;
 
+/* Print layout fixes - updated to match live view exactly */
+
 /* Hide scrollbar on mobile day selector */
 .no-scrollbar::-webkit-scrollbar { display: none; }
 .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
