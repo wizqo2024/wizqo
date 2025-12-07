@@ -5430,9 +5430,14 @@ section[data-interactive-section="true"].preserve-print-styling [class*="h-48"] 
   [data-worksheet-content="true"] table tbody,
   [data-worksheet-content="true"] table tr,
   [data-worksheet-content="true"] table td,
-  [data-worksheet-content="true"] table th {
-    /* Ensure borders are NEVER removed */
-    border: inherit !important;
+  [data-worksheet-content="true"] table th,
+  [data-worksheet-content="true"] table td {
+    /* Ensure borders are NEVER removed - set explicit borders instead of inherit */
+    border: 1px solid #1e293b !important;
+    border-top: 1px solid #1e293b !important;
+    border-right: 1px solid #1e293b !important;
+    border-bottom: 1px solid #1e293b !important;
+    border-left: 1px solid #1e293b !important;
   }
   
   /* Force borders on all table cells - final override */
@@ -6289,6 +6294,32 @@ section[data-interactive-section="true"].preserve-print-styling [class*="h-48"] 
   /* Override any rule that might set border to none or 0 */
   [data-worksheet-content="true"] div.space-y-4.break-inside-avoid > div.border.border-slate-300.rounded.p-4.bg-white > table th[style*="border"],
   [data-worksheet-content="true"] div.space-y-4.break-inside-avoid > div.border.border-slate-300.rounded.p-4.bg-white > table td[style*="border"] {
+    border: 1px solid #1e293b !important;
+    border-top: 1px solid #1e293b !important;
+    border-right: 1px solid #1e293b !important;
+    border-bottom: 1px solid #1e293b !important;
+    border-left: 1px solid #1e293b !important;
+  }
+  
+  /* CRITICAL: Override border-collapse to ensure borders show - use separate borders */
+  [data-worksheet-content="true"] div.space-y-4.break-inside-avoid > div.border.border-slate-300.rounded.p-4.bg-white > table[class*="border-collapse"] {
+    border-collapse: separate !important;
+    border-spacing: 0 !important;
+  }
+  
+  /* Force borders on cells even with border-collapse: separate */
+  [data-worksheet-content="true"] div.space-y-4.break-inside-avoid > div.border.border-slate-300.rounded.p-4.bg-white > table[class*="border-collapse"] th,
+  [data-worksheet-content="true"] div.space-y-4.break-inside-avoid > div.border.border-slate-300.rounded.p-4.bg-white > table[class*="border-collapse"] td {
+    border: 1px solid #1e293b !important;
+    border-top: 1px solid #1e293b !important;
+    border-right: 1px solid #1e293b !important;
+    border-bottom: 1px solid #1e293b !important;
+    border-left: 1px solid #1e293b !important;
+  }
+  
+  /* Alternative: Keep border-collapse but force all borders */
+  [data-worksheet-content="true"] div.space-y-4.break-inside-avoid > div.border.border-slate-300.rounded.p-4.bg-white > table.border-collapse th,
+  [data-worksheet-content="true"] div.space-y-4.break-inside-avoid > div.border.border-slate-300.rounded.p-4.bg-white > table.border-collapse td {
     border: 1px solid #1e293b !important;
     border-top: 1px solid #1e293b !important;
     border-right: 1px solid #1e293b !important;
