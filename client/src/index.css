@@ -5283,8 +5283,16 @@ section[data-interactive-section="true"].preserve-print-styling [class*="h-48"] 
   /* Force borders on all table cells - final override */
   table td,
   table th,
+  table tbody td,
+  table tbody th,
+  table thead td,
+  table thead th,
   [data-worksheet-content="true"] table td,
-  [data-worksheet-content="true"] table th {
+  [data-worksheet-content="true"] table th,
+  [data-worksheet-content="true"] table tbody td,
+  [data-worksheet-content="true"] table tbody th,
+  [data-worksheet-content="true"] table thead td,
+  [data-worksheet-content="true"] table thead th {
     border: 1px solid #1e293b !important;
     border-color: #1e293b !important;
     border-width: 1px !important;
@@ -5292,6 +5300,44 @@ section[data-interactive-section="true"].preserve-print-styling [class*="h-48"] 
     display: table-cell !important;
     visibility: visible !important;
     opacity: 1 !important;
+    padding: 0.5rem !important;
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+    color-adjust: exact !important;
+  }
+  
+  /* ABSOLUTE FINAL: Ensure table rows and cells are visible */
+  table tr,
+  table thead tr,
+  table tbody tr,
+  [data-worksheet-content="true"] table tr,
+  [data-worksheet-content="true"] table thead tr,
+  [data-worksheet-content="true"] table tbody tr {
+    display: table-row !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+  }
+  
+  /* ABSOLUTE FINAL: Ensure table structure is complete */
+  table,
+  table thead,
+  table tbody,
+  [data-worksheet-content="true"] table,
+  [data-worksheet-content="true"] table thead,
+  [data-worksheet-content="true"] table tbody {
+    display: table !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+  }
+  
+  table thead,
+  [data-worksheet-content="true"] table thead {
+    display: table-header-group !important;
+  }
+  
+  table tbody,
+  [data-worksheet-content="true"] table tbody {
+    display: table-row-group !important;
   }
 }
 
