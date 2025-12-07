@@ -6130,6 +6130,22 @@ section[data-interactive-section="true"].preserve-print-styling [class*="h-48"] 
     visibility: visible !important;
     opacity: 1 !important;
     border: 1px solid #1e293b !important;
+    border-top: 1px solid #1e293b !important;
+    border-right: 1px solid #1e293b !important;
+    border-bottom: 1px solid #1e293b !important;
+    border-left: 1px solid #1e293b !important;
+    border-top-width: 1px !important;
+    border-right-width: 1px !important;
+    border-bottom-width: 1px !important;
+    border-left-width: 1px !important;
+    border-top-style: solid !important;
+    border-right-style: solid !important;
+    border-bottom-style: solid !important;
+    border-left-style: solid !important;
+    border-top-color: #1e293b !important;
+    border-right-color: #1e293b !important;
+    border-bottom-color: #1e293b !important;
+    border-left-color: #1e293b !important;
     padding: 0.5rem !important;
     height: 2.5rem !important;
     min-height: 2.5rem !important;
@@ -6141,6 +6157,47 @@ section[data-interactive-section="true"].preserve-print-styling [class*="h-48"] 
     content: " " !important;
     white-space: normal !important;
     overflow: visible !important;
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+  }
+  
+  /* CRITICAL: Force borders on ALL table cells including header */
+  [data-worksheet-content="true"] div.space-y-4.break-inside-avoid > div.border.border-slate-300.rounded.p-4.bg-white > table th,
+  [data-worksheet-content="true"] div.space-y-4.break-inside-avoid > div.border.border-slate-300.rounded.p-4.bg-white > table td,
+  [data-worksheet-content="true"] div.space-y-4.break-inside-avoid > div.border.border-slate-300.rounded.p-4.bg-white > table thead th,
+  [data-worksheet-content="true"] div.space-y-4.break-inside-avoid > div.border.border-slate-300.rounded.p-4.bg-white > table tbody td,
+  [data-worksheet-content="true"] div.space-y-4.break-inside-avoid > div.border.border-slate-300.rounded.p-4.bg-white > table tbody tr td:first-child {
+    border: 1px solid #1e293b !important;
+    border-top: 1px solid #1e293b !important;
+    border-right: 1px solid #1e293b !important;
+    border-bottom: 1px solid #1e293b !important;
+    border-left: 1px solid #1e293b !important;
+    border-top-width: 1px !important;
+    border-right-width: 1px !important;
+    border-bottom-width: 1px !important;
+    border-left-width: 1px !important;
+    border-top-style: solid !important;
+    border-right-style: solid !important;
+    border-bottom-style: solid !important;
+    border-left-style: solid !important;
+    border-top-color: #1e293b !important;
+    border-right-color: #1e293b !important;
+    border-bottom-color: #1e293b !important;
+    border-left-color: #1e293b !important;
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+  }
+  
+  /* Ensure table itself has proper border-collapse */
+  [data-worksheet-content="true"] div.space-y-4.break-inside-avoid > div.border.border-slate-300.rounded.p-4.bg-white > table {
+    border-collapse: collapse !important;
+    border-spacing: 0 !important;
+  }
+  
+  /* Force borders on table rows to ensure grid lines */
+  [data-worksheet-content="true"] div.space-y-4.break-inside-avoid > div.border.border-slate-300.rounded.p-4.bg-white > table tr {
+    border-top: 1px solid #1e293b !important;
+    border-bottom: 1px solid #1e293b !important;
   }
   
   /* Force spans to render with explicit content */
