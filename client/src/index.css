@@ -6034,8 +6034,66 @@ section[data-interactive-section="true"].preserve-print-styling [class*="h-48"] 
     border-left: 1px solid #1e293b !important;
     padding: 0.5rem !important;
     min-height: 2.5rem !important;
-    height: auto !important;
+    height: 2.5rem !important;
     width: auto !important;
+    min-width: 3rem !important;
+  }
+  
+  /* CRITICAL: Force empty cells (cells with only spans) to be visible and maintain size */
+  [data-worksheet-content="true"] div.space-y-4.break-inside-avoid > div.border.border-slate-300.rounded.p-4.bg-white > table tbody td:not(:first-child) {
+    display: table-cell !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+    border: 1px solid #1e293b !important;
+    border-top: 1px solid #1e293b !important;
+    border-right: 1px solid #1e293b !important;
+    border-bottom: 1px solid #1e293b !important;
+    border-left: 1px solid #1e293b !important;
+    padding: 0.5rem !important;
+    min-height: 2.5rem !important;
+    height: 2.5rem !important;
+    min-width: 3rem !important;
+    width: auto !important;
+    text-align: center !important;
+    vertical-align: middle !important;
+    background-color: transparent !important;
+    content: " " !important;
+  }
+  
+  /* Force spans inside empty cells to be visible - these create the underline */
+  [data-worksheet-content="true"] div.space-y-4.break-inside-avoid > div.border.border-slate-300.rounded.p-4.bg-white > table tbody td:not(:first-child) > span,
+  [data-worksheet-content="true"] div.space-y-4.break-inside-avoid > div.border.border-slate-300.rounded.p-4.bg-white > table tbody td > span[class*="inline-block"],
+  [data-worksheet-content="true"] div.space-y-4.break-inside-avoid > div.border.border-slate-300.rounded.p-4.bg-white > table tbody td > span[class*="border-b"] {
+    display: inline-block !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+    width: 2.5rem !important;
+    min-width: 2.5rem !important;
+    max-width: 2.5rem !important;
+    height: 1.25rem !important;
+    min-height: 1.25rem !important;
+    max-height: 1.25rem !important;
+    border-bottom: 2px solid #475569 !important;
+    border-bottom-width: 2px !important;
+    border-bottom-style: solid !important;
+    border-bottom-color: #475569 !important;
+    background-color: transparent !important;
+    margin: 0 auto !important;
+    position: relative !important;
+    z-index: 10 !important;
+    content: "" !important;
+  }
+  
+  /* Ensure cells maintain their width even when content is minimal */
+  [data-worksheet-content="true"] div.space-y-4.break-inside-avoid > div.border.border-slate-300.rounded.p-4.bg-white > table {
+    table-layout: auto !important;
+    width: 100% !important;
+  }
+  
+  [data-worksheet-content="true"] div.space-y-4.break-inside-avoid > div.border.border-slate-300.rounded.p-4.bg-white > table tbody td:not(:first-child) {
+    width: auto !important;
+    min-width: 3rem !important;
+    max-width: none !important;
   }
 }
 
