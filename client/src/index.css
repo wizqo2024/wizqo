@@ -5485,6 +5485,114 @@ section[data-interactive-section="true"].preserve-print-styling [class*="h-48"] 
     opacity: 1 !important;
   }
   
+  /* ULTRA-CRITICAL FIX FOR TIMES-TABLE-BLANK-6-12: Ensure ALL table elements are fully visible */
+  /* Target the exact structure: div.space-y-4.break-inside-avoid > div.border.border-slate-300 > table */
+  [data-worksheet-content="true"] div.space-y-4[class*="break-inside-avoid"] > div[class*="border-slate-300"] > table,
+  [data-worksheet-content="true"] div[class*="break-inside-avoid"] > div[class*="border-slate-300"] > table {
+    display: table !important;
+    width: 100% !important;
+    border-collapse: collapse !important;
+    table-layout: auto !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+    margin: 0 !important;
+  }
+  
+  /* Ensure table header row is visible */
+  [data-worksheet-content="true"] div[class*="break-inside-avoid"] > div[class*="border-slate-300"] > table > thead,
+  [data-worksheet-content="true"] div[class*="break-inside-avoid"] > div[class*="border-slate-300"] > table thead {
+    display: table-header-group !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+  }
+  
+  /* Ensure table body is visible */
+  [data-worksheet-content="true"] div[class*="break-inside-avoid"] > div[class*="border-slate-300"] > table > tbody,
+  [data-worksheet-content="true"] div[class*="break-inside-avoid"] > div[class*="border-slate-300"] > table tbody {
+    display: table-row-group !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+  }
+  
+  /* Ensure ALL table rows are visible with proper height */
+  [data-worksheet-content="true"] div[class*="break-inside-avoid"] > div[class*="border-slate-300"] > table > thead > tr,
+  [data-worksheet-content="true"] div[class*="break-inside-avoid"] > div[class*="border-slate-300"] > table > tbody > tr,
+  [data-worksheet-content="true"] div[class*="break-inside-avoid"] > div[class*="border-slate-300"] > table thead tr,
+  [data-worksheet-content="true"] div[class*="break-inside-avoid"] > div[class*="border-slate-300"] > table tbody tr {
+    display: table-row !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+    height: auto !important;
+    min-height: 2rem !important;
+  }
+  
+  /* Ensure ALL table header cells are visible with content */
+  [data-worksheet-content="true"] div[class*="break-inside-avoid"] > div[class*="border-slate-300"] > table > thead > tr > th,
+  [data-worksheet-content="true"] div[class*="break-inside-avoid"] > div[class*="border-slate-300"] > table thead th {
+    display: table-cell !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+    border: 1px solid #1e293b !important;
+    padding: 0.5rem !important;
+    background-color: #f1f5f9 !important;
+    color: #000000 !important;
+    font-weight: 600 !important;
+    text-align: center !important;
+    height: auto !important;
+    min-height: 2rem !important;
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+  }
+  
+  /* Ensure ALL table body cells are visible with content and proper height */
+  [data-worksheet-content="true"] div[class*="break-inside-avoid"] > div[class*="border-slate-300"] > table > tbody > tr > td,
+  [data-worksheet-content="true"] div[class*="break-inside-avoid"] > div[class*="border-slate-300"] > table tbody td {
+    display: table-cell !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+    border: 1px solid #1e293b !important;
+    padding: 0.5rem !important;
+    color: #000000 !important;
+    text-align: center !important;
+    height: auto !important;
+    min-height: 2rem !important;
+    vertical-align: middle !important;
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+  }
+  
+  /* Ensure first column cells (row numbers) have background */
+  [data-worksheet-content="true"] div[class*="break-inside-avoid"] > div[class*="border-slate-300"] > table > tbody > tr > td:first-child,
+  [data-worksheet-content="true"] div[class*="break-inside-avoid"] > div[class*="border-slate-300"] > table tbody tr td:first-child {
+    background-color: #f1f5f9 !important;
+    font-weight: 600 !important;
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+  }
+  
+  /* CRITICAL: Ensure spans inside table cells are visible with proper size */
+  [data-worksheet-content="true"] div[class*="break-inside-avoid"] > div[class*="border-slate-300"] > table td span,
+  [data-worksheet-content="true"] div[class*="break-inside-avoid"] > div[class*="border-slate-300"] > table tbody td span {
+    display: inline-block !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+    width: 2.5rem !important;
+    min-width: 2.5rem !important;
+    height: 1.25rem !important;
+    min-height: 1.25rem !important;
+    border-bottom: 2px solid #475569 !important;
+    border-bottom-width: 2px !important;
+    border-bottom-style: solid !important;
+    border-bottom-color: #475569 !important;
+  }
+  
+  /* Ensure table cell content (text nodes) are visible */
+  [data-worksheet-content="true"] div[class*="break-inside-avoid"] > div[class*="border-slate-300"] > table th,
+  [data-worksheet-content="true"] div[class*="break-inside-avoid"] > div[class*="border-slate-300"] > table td {
+    color: #000000 !important;
+    font-size: inherit !important;
+  }
+  
   table thead,
   [data-worksheet-content="true"] table thead {
     display: table-header-group !important;
