@@ -6380,5 +6380,56 @@ section[data-interactive-section="true"].preserve-print-styling [class*="h-48"] 
     border: 1px solid #1e293b !important;
     min-height: 2rem !important;
   }
+  
+  /* GENERAL FIX: Ensure all tables with border-slate-300 or border-slate-400 have visible borders */
+  [data-worksheet-content="true"] table th[class*="border-slate-300"],
+  [data-worksheet-content="true"] table td[class*="border-slate-300"],
+  [data-worksheet-content="true"] table th[class*="border-slate-400"],
+  [data-worksheet-content="true"] table td[class*="border-slate-400"] {
+    border: 1px solid #1e293b !important;
+    border-top: 1px solid #1e293b !important;
+    border-right: 1px solid #1e293b !important;
+    border-bottom: 1px solid #1e293b !important;
+    border-left: 1px solid #1e293b !important;
+  }
+  
+  /* Ensure all table cells with border class have visible borders */
+  [data-worksheet-content="true"] table th.border,
+  [data-worksheet-content="true"] table td.border {
+    border: 1px solid #1e293b !important;
+    border-top: 1px solid #1e293b !important;
+    border-right: 1px solid #1e293b !important;
+    border-bottom: 1px solid #1e293b !important;
+    border-left: 1px solid #1e293b !important;
+  }
+  
+  /* Ensure table wrapper divs maintain their borders */
+  [data-worksheet-content="true"] div[class*="border-slate-300"][class*="rounded"][class*="p-4"][class*="bg-white"] {
+    border: 1px solid #cbd5e1 !important;
+    border-width: 1px !important;
+    border-style: solid !important;
+    border-color: #cbd5e1 !important;
+  }
+  
+  /* Ensure spans with border-bottom in tables are visible (for all worksheets) */
+  [data-worksheet-content="true"] table td span[class*="border-b"],
+  [data-worksheet-content="true"] table td span[class*="inline-block"][class*="border"] {
+    display: inline-block !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+  }
+  
+  /* Prevent duplicate lines - ensure ::before and ::after don't add extra borders */
+  [data-worksheet-content="true"] table td span[class*="border-b"]::before,
+  [data-worksheet-content="true"] table td span[class*="border-b"]::after {
+    border-bottom: none !important;
+  }
+  
+  /* Ensure table cells maintain proper height */
+  [data-worksheet-content="true"] table td[class*="h-"],
+  [data-worksheet-content="true"] table th[class*="h-"] {
+    height: auto !important;
+    min-height: 2rem !important;
+  }
 }
 
