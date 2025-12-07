@@ -16192,7 +16192,23 @@ export function PrintablesPage() {
                       printAnswerWidthClass="min-w-[1.75in]"
                     />
                     <div className="mt-2 text-xs text-slate-600">Show your work:</div>
-                    <div className="min-h-16 border border-dashed border-slate-300 rounded p-2 bg-slate-50 print:bg-white" />
+                    <div 
+                      className="min-h-16 border border-dashed border-slate-300 rounded p-2 bg-slate-50 print:bg-white"
+                      style={{
+                        minHeight: '4rem',
+                        height: '4rem',
+                        border: '2px dashed #cbd5e1',
+                        borderStyle: 'dashed',
+                        borderWidth: '2px',
+                        borderColor: '#cbd5e1',
+                        display: 'block',
+                        visibility: 'visible',
+                        opacity: 1,
+                        backgroundColor: '#ffffff',
+                        padding: '0.5rem',
+                        marginTop: '0.5rem'
+                      }}
+                    />
                   </div>
                 ))}
               </div>
@@ -22703,7 +22719,23 @@ export function PrintablesPage() {
                       </div>
                     </div>
                     <div className="mt-2 text-xs text-slate-600">Show your work:</div>
-                    <div className="min-h-16 border border-dashed border-slate-300 rounded p-2 bg-slate-50 print:bg-white" />
+                    <div 
+                      className="min-h-16 border border-dashed border-slate-300 rounded p-2 bg-slate-50 print:bg-white"
+                      style={{
+                        minHeight: '4rem',
+                        height: '4rem',
+                        border: '2px dashed #cbd5e1',
+                        borderStyle: 'dashed',
+                        borderWidth: '2px',
+                        borderColor: '#cbd5e1',
+                        display: 'block',
+                        visibility: 'visible',
+                        opacity: 1,
+                        backgroundColor: '#ffffff',
+                        padding: '0.5rem',
+                        marginTop: '0.5rem'
+                      }}
+                    />
                   </div>
                 ))}
               </div>
@@ -22914,7 +22946,23 @@ export function PrintablesPage() {
                       {p.frac1} ____ {p.frac2}
                     </div>
                     <div className="mt-2 text-xs text-slate-600">Show your work:</div>
-                    <div className="min-h-16 border border-dashed border-slate-300 rounded p-2 bg-slate-50 print:bg-white" />
+                    <div 
+                      className="min-h-16 border border-dashed border-slate-300 rounded p-2 bg-slate-50 print:bg-white"
+                      style={{
+                        minHeight: '4rem',
+                        height: '4rem',
+                        border: '2px dashed #cbd5e1',
+                        borderStyle: 'dashed',
+                        borderWidth: '2px',
+                        borderColor: '#cbd5e1',
+                        display: 'block',
+                        visibility: 'visible',
+                        opacity: 1,
+                        backgroundColor: '#ffffff',
+                        padding: '0.5rem',
+                        marginTop: '0.5rem'
+                      }}
+                    />
                   </div>
                 ))}
               </div>
@@ -23020,7 +23068,23 @@ export function PrintablesPage() {
                       {p.num1}/{p.denom} {p.op} {p.num2}/{p.denom} = ____
                     </div>
                     <div className="mt-2 text-xs text-slate-600">Show your work:</div>
-                    <div className="min-h-16 border border-dashed border-slate-300 rounded p-2 bg-slate-50 print:bg-white" />
+                    <div 
+                      className="min-h-16 border border-dashed border-slate-300 rounded p-2 bg-slate-50 print:bg-white"
+                      style={{
+                        minHeight: '4rem',
+                        height: '4rem',
+                        border: '2px dashed #cbd5e1',
+                        borderStyle: 'dashed',
+                        borderWidth: '2px',
+                        borderColor: '#cbd5e1',
+                        display: 'block',
+                        visibility: 'visible',
+                        opacity: 1,
+                        backgroundColor: '#ffffff',
+                        padding: '0.5rem',
+                        marginTop: '0.5rem'
+                      }}
+                    />
                   </div>
                 ))}
               </div>
@@ -23128,7 +23192,23 @@ export function PrintablesPage() {
                     <div className="text-center text-sm text-slate-600 mb-2">Convert to: {i % 2 === 0 ? 'improper fraction' : 'mixed number'}</div>
                     <div className="text-center text-xl font-mono mb-2">____</div>
                     <div className="mt-2 text-xs text-slate-600">Show your work:</div>
-                    <div className="min-h-16 border border-dashed border-slate-300 rounded p-2 bg-slate-50 print:bg-white" />
+                    <div 
+                      className="min-h-16 border border-dashed border-slate-300 rounded p-2 bg-slate-50 print:bg-white"
+                      style={{
+                        minHeight: '4rem',
+                        height: '4rem',
+                        border: '2px dashed #cbd5e1',
+                        borderStyle: 'dashed',
+                        borderWidth: '2px',
+                        borderColor: '#cbd5e1',
+                        display: 'block',
+                        visibility: 'visible',
+                        opacity: 1,
+                        backgroundColor: '#ffffff',
+                        padding: '0.5rem',
+                        marginTop: '0.5rem'
+                      }}
+                    />
                   </div>
                 ))}
               </div>
@@ -23762,7 +23842,23 @@ export function PrintablesPage() {
                     <div className="text-center text-xl font-bold mb-2">{p.num}/{p.denom}</div>
                     <div className="text-center text-lg font-mono mb-2">= ____</div>
                     <div className="mt-2 text-xs text-slate-600">Show your work:</div>
-                    <div className="min-h-16 border border-dashed border-slate-300 rounded p-2 bg-slate-50 print:bg-white" />
+                    <div 
+                      className="min-h-16 border border-dashed border-slate-300 rounded p-2 bg-slate-50 print:bg-white"
+                      style={{
+                        minHeight: '4rem',
+                        height: '4rem',
+                        border: '2px dashed #cbd5e1',
+                        borderStyle: 'dashed',
+                        borderWidth: '2px',
+                        borderColor: '#cbd5e1',
+                        display: 'block',
+                        visibility: 'visible',
+                        opacity: 1,
+                        backgroundColor: '#ffffff',
+                        padding: '0.5rem',
+                        marginTop: '0.5rem'
+                      }}
+                    />
                   </div>
                 ))}
               </div>
@@ -23960,7 +24056,23 @@ export function PrintablesPage() {
                   <div key={i} className="border border-slate-300 rounded-lg p-4 bg-white break-inside-avoid">
                     <div className="text-center text-xl font-mono mb-2">{p.num1}/{p.denom1} × {p.num2}/{p.denom2} = ____</div>
                     <div className="mt-2 text-xs text-slate-600">Show your work:</div>
-                    <div className="min-h-16 border border-dashed border-slate-300 rounded p-2 bg-slate-50 print:bg-white" />
+                    <div 
+                      className="min-h-16 border border-dashed border-slate-300 rounded p-2 bg-slate-50 print:bg-white"
+                      style={{
+                        minHeight: '4rem',
+                        height: '4rem',
+                        border: '2px dashed #cbd5e1',
+                        borderStyle: 'dashed',
+                        borderWidth: '2px',
+                        borderColor: '#cbd5e1',
+                        display: 'block',
+                        visibility: 'visible',
+                        opacity: 1,
+                        backgroundColor: '#ffffff',
+                        padding: '0.5rem',
+                        marginTop: '0.5rem'
+                      }}
+                    />
                   </div>
                 ))}
               </div>
@@ -24172,7 +24284,23 @@ export function PrintablesPage() {
                   <div key={i} className="border border-slate-300 rounded-lg p-4 bg-white break-inside-avoid">
                     <div className="text-center text-xl font-mono mb-2">{p.d1} × {p.d2} = ____</div>
                     <div className="mt-2 text-xs text-slate-600">Show your work:</div>
-                    <div className="min-h-16 border border-dashed border-slate-300 rounded p-2 bg-slate-50 print:bg-white" />
+                    <div 
+                      className="min-h-16 border border-dashed border-slate-300 rounded p-2 bg-slate-50 print:bg-white"
+                      style={{
+                        minHeight: '4rem',
+                        height: '4rem',
+                        border: '2px dashed #cbd5e1',
+                        borderStyle: 'dashed',
+                        borderWidth: '2px',
+                        borderColor: '#cbd5e1',
+                        display: 'block',
+                        visibility: 'visible',
+                        opacity: 1,
+                        backgroundColor: '#ffffff',
+                        padding: '0.5rem',
+                        marginTop: '0.5rem'
+                      }}
+                    />
                   </div>
                 ))}
               </div>
@@ -24485,7 +24613,23 @@ export function PrintablesPage() {
                     <div className="text-center text-xl font-mono mb-2">{p.expr}</div>
                     <div className="text-center text-lg font-mono mb-2">= ____</div>
                     <div className="mt-2 text-xs text-slate-600">Show your work:</div>
-                    <div className="min-h-16 border border-dashed border-slate-300 rounded p-2 bg-slate-50 print:bg-white" />
+                    <div 
+                      className="min-h-16 border border-dashed border-slate-300 rounded p-2 bg-slate-50 print:bg-white"
+                      style={{
+                        minHeight: '4rem',
+                        height: '4rem',
+                        border: '2px dashed #cbd5e1',
+                        borderStyle: 'dashed',
+                        borderWidth: '2px',
+                        borderColor: '#cbd5e1',
+                        display: 'block',
+                        visibility: 'visible',
+                        opacity: 1,
+                        backgroundColor: '#ffffff',
+                        padding: '0.5rem',
+                        marginTop: '0.5rem'
+                      }}
+                    />
                   </div>
                 ))}
               </div>
@@ -24586,7 +24730,23 @@ export function PrintablesPage() {
                     <div className="text-center text-xl font-mono mb-2">{p.expr}</div>
                     <div className="text-center text-lg font-mono mb-2">= ____</div>
                     <div className="mt-2 text-xs text-slate-600">Show your work:</div>
-                    <div className="min-h-16 border border-dashed border-slate-300 rounded p-2 bg-slate-50 print:bg-white" />
+                    <div 
+                      className="min-h-16 border border-dashed border-slate-300 rounded p-2 bg-slate-50 print:bg-white"
+                      style={{
+                        minHeight: '4rem',
+                        height: '4rem',
+                        border: '2px dashed #cbd5e1',
+                        borderStyle: 'dashed',
+                        borderWidth: '2px',
+                        borderColor: '#cbd5e1',
+                        display: 'block',
+                        visibility: 'visible',
+                        opacity: 1,
+                        backgroundColor: '#ffffff',
+                        padding: '0.5rem',
+                        marginTop: '0.5rem'
+                      }}
+                    />
                   </div>
                 ))}
               </div>
@@ -24660,7 +24820,23 @@ export function PrintablesPage() {
                     <div className="text-center text-xl font-mono mb-2">{p.expr}</div>
                     <div className="text-center text-lg font-mono mb-2">= ____</div>
                     <div className="mt-2 text-xs text-slate-600">Show your work:</div>
-                    <div className="min-h-16 border border-dashed border-slate-300 rounded p-2 bg-slate-50 print:bg-white" />
+                    <div 
+                      className="min-h-16 border border-dashed border-slate-300 rounded p-2 bg-slate-50 print:bg-white"
+                      style={{
+                        minHeight: '4rem',
+                        height: '4rem',
+                        border: '2px dashed #cbd5e1',
+                        borderStyle: 'dashed',
+                        borderWidth: '2px',
+                        borderColor: '#cbd5e1',
+                        display: 'block',
+                        visibility: 'visible',
+                        opacity: 1,
+                        backgroundColor: '#ffffff',
+                        padding: '0.5rem',
+                        marginTop: '0.5rem'
+                      }}
+                    />
                   </div>
                 ))}
               </div>
@@ -24735,7 +24911,23 @@ export function PrintablesPage() {
                     <div className="text-center text-xl font-mono mb-2">{p.expr.replace(/(\d+)\²/g, '$1²').replace(/(\d+)\³/g, '$1³')}</div>
                     <div className="text-center text-lg font-mono mb-2">= ____</div>
                     <div className="mt-2 text-xs text-slate-600">Show your work:</div>
-                    <div className="min-h-16 border border-dashed border-slate-300 rounded p-2 bg-slate-50 print:bg-white" />
+                    <div 
+                      className="min-h-16 border border-dashed border-slate-300 rounded p-2 bg-slate-50 print:bg-white"
+                      style={{
+                        minHeight: '4rem',
+                        height: '4rem',
+                        border: '2px dashed #cbd5e1',
+                        borderStyle: 'dashed',
+                        borderWidth: '2px',
+                        borderColor: '#cbd5e1',
+                        display: 'block',
+                        visibility: 'visible',
+                        opacity: 1,
+                        backgroundColor: '#ffffff',
+                        padding: '0.5rem',
+                        marginTop: '0.5rem'
+                      }}
+                    />
                   </div>
                 ))}
               </div>
@@ -24872,7 +25064,23 @@ export function PrintablesPage() {
                     <div className="text-center text-xl font-mono mb-2">{p.expr}</div>
                     <div className="text-center text-lg font-mono mb-2">= ____</div>
                     <div className="mt-2 text-xs text-slate-600">Show your work:</div>
-                    <div className="min-h-16 border border-dashed border-slate-300 rounded p-2 bg-slate-50 print:bg-white" />
+                    <div 
+                      className="min-h-16 border border-dashed border-slate-300 rounded p-2 bg-slate-50 print:bg-white"
+                      style={{
+                        minHeight: '4rem',
+                        height: '4rem',
+                        border: '2px dashed #cbd5e1',
+                        borderStyle: 'dashed',
+                        borderWidth: '2px',
+                        borderColor: '#cbd5e1',
+                        display: 'block',
+                        visibility: 'visible',
+                        opacity: 1,
+                        backgroundColor: '#ffffff',
+                        padding: '0.5rem',
+                        marginTop: '0.5rem'
+                      }}
+                    />
                   </div>
                 ))}
               </div>
@@ -25121,7 +25329,23 @@ export function PrintablesPage() {
                     <div className="text-center text-xl font-mono mb-2">{p.expr.replace(/(\d+)\²/g, '$1²')}</div>
                     <div className="text-center text-lg font-mono mb-2">= ____</div>
                     <div className="mt-2 text-xs text-slate-600">Show your work:</div>
-                    <div className="min-h-16 border border-dashed border-slate-300 rounded p-2 bg-slate-50 print:bg-white" />
+                    <div 
+                      className="min-h-16 border border-dashed border-slate-300 rounded p-2 bg-slate-50 print:bg-white"
+                      style={{
+                        minHeight: '4rem',
+                        height: '4rem',
+                        border: '2px dashed #cbd5e1',
+                        borderStyle: 'dashed',
+                        borderWidth: '2px',
+                        borderColor: '#cbd5e1',
+                        display: 'block',
+                        visibility: 'visible',
+                        opacity: 1,
+                        backgroundColor: '#ffffff',
+                        padding: '0.5rem',
+                        marginTop: '0.5rem'
+                      }}
+                    />
                   </div>
                 ))}
               </div>
@@ -25183,7 +25407,23 @@ export function PrintablesPage() {
                     <div className="text-center text-xl font-mono mb-2">{p.expr.replace(/(\d+)\²/g, '$1²')}</div>
                     <div className="text-center text-lg font-mono mb-2">= ____</div>
                     <div className="mt-2 text-xs text-slate-600">Show your work:</div>
-                    <div className="min-h-16 border border-dashed border-slate-300 rounded p-2 bg-slate-50 print:bg-white" />
+                    <div 
+                      className="min-h-16 border border-dashed border-slate-300 rounded p-2 bg-slate-50 print:bg-white"
+                      style={{
+                        minHeight: '4rem',
+                        height: '4rem',
+                        border: '2px dashed #cbd5e1',
+                        borderStyle: 'dashed',
+                        borderWidth: '2px',
+                        borderColor: '#cbd5e1',
+                        display: 'block',
+                        visibility: 'visible',
+                        opacity: 1,
+                        backgroundColor: '#ffffff',
+                        padding: '0.5rem',
+                        marginTop: '0.5rem'
+                      }}
+                    />
                   </div>
                 ))}
               </div>
@@ -25250,7 +25490,23 @@ export function PrintablesPage() {
                     <div className="text-center text-xl font-mono mb-2">{p.expr}</div>
                     <div className="text-center text-lg font-mono mb-2">= ____</div>
                     <div className="mt-2 text-xs text-slate-600">Show your work:</div>
-                    <div className="min-h-16 border border-dashed border-slate-300 rounded p-2 bg-slate-50 print:bg-white" />
+                    <div 
+                      className="min-h-16 border border-dashed border-slate-300 rounded p-2 bg-slate-50 print:bg-white"
+                      style={{
+                        minHeight: '4rem',
+                        height: '4rem',
+                        border: '2px dashed #cbd5e1',
+                        borderStyle: 'dashed',
+                        borderWidth: '2px',
+                        borderColor: '#cbd5e1',
+                        display: 'block',
+                        visibility: 'visible',
+                        opacity: 1,
+                        backgroundColor: '#ffffff',
+                        padding: '0.5rem',
+                        marginTop: '0.5rem'
+                      }}
+                    />
                   </div>
                 ))}
               </div>
@@ -25325,7 +25581,23 @@ export function PrintablesPage() {
                     </div>
                     <div className="text-center text-lg font-mono mb-2">= ____</div>
                     <div className="mt-2 text-xs text-slate-600">Show your work:</div>
-                    <div className="min-h-16 border border-dashed border-slate-300 rounded p-2 bg-slate-50 print:bg-white" />
+                    <div 
+                      className="min-h-16 border border-dashed border-slate-300 rounded p-2 bg-slate-50 print:bg-white"
+                      style={{
+                        minHeight: '4rem',
+                        height: '4rem',
+                        border: '2px dashed #cbd5e1',
+                        borderStyle: 'dashed',
+                        borderWidth: '2px',
+                        borderColor: '#cbd5e1',
+                        display: 'block',
+                        visibility: 'visible',
+                        opacity: 1,
+                        backgroundColor: '#ffffff',
+                        padding: '0.5rem',
+                        marginTop: '0.5rem'
+                      }}
+                    />
                   </div>
                 ))}
               </div>
@@ -25399,7 +25671,23 @@ export function PrintablesPage() {
                       {p.num} × 10<sup>{p.power}</sup> = ____
                     </div>
                     <div className="mt-2 text-xs text-slate-600">Show your work:</div>
-                    <div className="min-h-16 border border-dashed border-slate-300 rounded p-2 bg-slate-50 print:bg-white" />
+                    <div 
+                      className="min-h-16 border border-dashed border-slate-300 rounded p-2 bg-slate-50 print:bg-white"
+                      style={{
+                        minHeight: '4rem',
+                        height: '4rem',
+                        border: '2px dashed #cbd5e1',
+                        borderStyle: 'dashed',
+                        borderWidth: '2px',
+                        borderColor: '#cbd5e1',
+                        display: 'block',
+                        visibility: 'visible',
+                        opacity: 1,
+                        backgroundColor: '#ffffff',
+                        padding: '0.5rem',
+                        marginTop: '0.5rem'
+                      }}
+                    />
                   </div>
                 ))}
               </div>
@@ -25731,7 +26019,23 @@ export function PrintablesPage() {
                     <div className="text-center mb-2 font-semibold">Length: {p.length} units, Width: {p.width} units</div>
                     <div className="text-center text-sm text-slate-600 mb-2 font-mono">Area: ____ Perimeter: ____</div>
                     <div className="mt-2 text-xs text-slate-600">Show your work:</div>
-                    <div className="min-h-16 border border-dashed border-slate-300 rounded p-2 bg-slate-50 print:bg-white" />
+                    <div 
+                      className="min-h-16 border border-dashed border-slate-300 rounded p-2 bg-slate-50 print:bg-white"
+                      style={{
+                        minHeight: '4rem',
+                        height: '4rem',
+                        border: '2px dashed #cbd5e1',
+                        borderStyle: 'dashed',
+                        borderWidth: '2px',
+                        borderColor: '#cbd5e1',
+                        display: 'block',
+                        visibility: 'visible',
+                        opacity: 1,
+                        backgroundColor: '#ffffff',
+                        padding: '0.5rem',
+                        marginTop: '0.5rem'
+                      }}
+                    />
                   </div>
                 ))}
               </div>
@@ -25850,7 +26154,23 @@ export function PrintablesPage() {
                     <div className="text-center mb-2 text-sm font-semibold">{p.isTriangle ? 'Triangle' : 'Parallelogram'}: Base: {p.base} units, Height: {p.height} units</div>
                     <div className="text-center text-sm text-slate-600 mb-2 font-mono">Area: ____</div>
                     <div className="mt-2 text-xs text-slate-600">Show your work:</div>
-                    <div className="min-h-16 border border-dashed border-slate-300 rounded p-2 bg-slate-50 print:bg-white" />
+                    <div 
+                      className="min-h-16 border border-dashed border-slate-300 rounded p-2 bg-slate-50 print:bg-white"
+                      style={{
+                        minHeight: '4rem',
+                        height: '4rem',
+                        border: '2px dashed #cbd5e1',
+                        borderStyle: 'dashed',
+                        borderWidth: '2px',
+                        borderColor: '#cbd5e1',
+                        display: 'block',
+                        visibility: 'visible',
+                        opacity: 1,
+                        backgroundColor: '#ffffff',
+                        padding: '0.5rem',
+                        marginTop: '0.5rem'
+                      }}
+                    />
                   </div>
                 ))}
               </div>
@@ -25948,7 +26268,23 @@ export function PrintablesPage() {
                     <div className="text-center mb-2 font-semibold">L: {p.length}, W: {p.width}, H: {p.height}</div>
                     <div className="text-center text-sm text-slate-600 mb-2 font-mono">Volume: ____</div>
                     <div className="mt-2 text-xs text-slate-600">Show your work:</div>
-                    <div className="min-h-16 border border-dashed border-slate-300 rounded p-2 bg-slate-50 print:bg-white" />
+                    <div 
+                      className="min-h-16 border border-dashed border-slate-300 rounded p-2 bg-slate-50 print:bg-white"
+                      style={{
+                        minHeight: '4rem',
+                        height: '4rem',
+                        border: '2px dashed #cbd5e1',
+                        borderStyle: 'dashed',
+                        borderWidth: '2px',
+                        borderColor: '#cbd5e1',
+                        display: 'block',
+                        visibility: 'visible',
+                        opacity: 1,
+                        backgroundColor: '#ffffff',
+                        padding: '0.5rem',
+                        marginTop: '0.5rem'
+                      }}
+                    />
                   </div>
                 ))}
               </div>
@@ -26506,7 +26842,23 @@ export function PrintablesPage() {
                   <div key={i} className="border border-slate-300 rounded-lg p-4 bg-white break-inside-avoid">
                     <div className="text-center mb-2 font-semibold font-mono">{p.feet} feet = ____ inches</div>
                     <div className="mt-2 text-xs text-slate-600">Show your work:</div>
-                    <div className="min-h-16 border border-dashed border-slate-300 rounded p-2 bg-slate-50 print:bg-white" />
+                    <div 
+                      className="min-h-16 border border-dashed border-slate-300 rounded p-2 bg-slate-50 print:bg-white"
+                      style={{
+                        minHeight: '4rem',
+                        height: '4rem',
+                        border: '2px dashed #cbd5e1',
+                        borderStyle: 'dashed',
+                        borderWidth: '2px',
+                        borderColor: '#cbd5e1',
+                        display: 'block',
+                        visibility: 'visible',
+                        opacity: 1,
+                        backgroundColor: '#ffffff',
+                        padding: '0.5rem',
+                        marginTop: '0.5rem'
+                      }}
+                    />
                   </div>
                 ))}
               </div>
@@ -26604,7 +26956,23 @@ export function PrintablesPage() {
                   <div key={i} className="border border-slate-300 rounded-lg p-4 bg-white break-inside-avoid">
                     <div className="text-center mb-2 font-semibold font-mono">{p.meters} meters = ____ centimeters</div>
                     <div className="mt-2 text-xs text-slate-600">Show your work:</div>
-                    <div className="min-h-16 border border-dashed border-slate-300 rounded p-2 bg-slate-50 print:bg-white" />
+                    <div 
+                      className="min-h-16 border border-dashed border-slate-300 rounded p-2 bg-slate-50 print:bg-white"
+                      style={{
+                        minHeight: '4rem',
+                        height: '4rem',
+                        border: '2px dashed #cbd5e1',
+                        borderStyle: 'dashed',
+                        borderWidth: '2px',
+                        borderColor: '#cbd5e1',
+                        display: 'block',
+                        visibility: 'visible',
+                        opacity: 1,
+                        backgroundColor: '#ffffff',
+                        padding: '0.5rem',
+                        marginTop: '0.5rem'
+                      }}
+                    />
                   </div>
                 ))}
               </div>
@@ -26702,7 +27070,23 @@ export function PrintablesPage() {
                     <div className="text-center mb-2 font-semibold">Start: {t.start}, End: {t.end}</div>
                     <div className="text-center text-sm text-slate-600 mb-2 font-mono">Elapsed: ____</div>
                     <div className="mt-2 text-xs text-slate-600">Show your work:</div>
-                    <div className="min-h-16 border border-dashed border-slate-300 rounded p-2 bg-slate-50 print:bg-white" />
+                    <div 
+                      className="min-h-16 border border-dashed border-slate-300 rounded p-2 bg-slate-50 print:bg-white"
+                      style={{
+                        minHeight: '4rem',
+                        height: '4rem',
+                        border: '2px dashed #cbd5e1',
+                        borderStyle: 'dashed',
+                        borderWidth: '2px',
+                        borderColor: '#cbd5e1',
+                        display: 'block',
+                        visibility: 'visible',
+                        opacity: 1,
+                        backgroundColor: '#ffffff',
+                        padding: '0.5rem',
+                        marginTop: '0.5rem'
+                      }}
+                    />
                   </div>
                 ))}
               </div>
@@ -26798,7 +27182,23 @@ export function PrintablesPage() {
                   <div key={i} className="border border-slate-300 rounded-lg p-4 bg-white break-inside-avoid">
                     <div className="text-center mb-2 font-semibold font-mono">{p.quarts} quarts = ____ cups</div>
                     <div className="mt-2 text-xs text-slate-600">Show your work:</div>
-                    <div className="min-h-16 border border-dashed border-slate-300 rounded p-2 bg-slate-50 print:bg-white" />
+                    <div 
+                      className="min-h-16 border border-dashed border-slate-300 rounded p-2 bg-slate-50 print:bg-white"
+                      style={{
+                        minHeight: '4rem',
+                        height: '4rem',
+                        border: '2px dashed #cbd5e1',
+                        borderStyle: 'dashed',
+                        borderWidth: '2px',
+                        borderColor: '#cbd5e1',
+                        display: 'block',
+                        visibility: 'visible',
+                        opacity: 1,
+                        backgroundColor: '#ffffff',
+                        padding: '0.5rem',
+                        marginTop: '0.5rem'
+                      }}
+                    />
                   </div>
                 ))}
               </div>
@@ -26895,7 +27295,23 @@ export function PrintablesPage() {
                   <div key={i} className="border border-slate-300 rounded-lg p-4 bg-white break-inside-avoid">
                     <div className="text-center mb-2 font-semibold font-mono">{p.pounds} pounds = ____ ounces</div>
                     <div className="mt-2 text-xs text-slate-600">Show your work:</div>
-                    <div className="min-h-16 border border-dashed border-slate-300 rounded p-2 bg-slate-50 print:bg-white" />
+                    <div 
+                      className="min-h-16 border border-dashed border-slate-300 rounded p-2 bg-slate-50 print:bg-white"
+                      style={{
+                        minHeight: '4rem',
+                        height: '4rem',
+                        border: '2px dashed #cbd5e1',
+                        borderStyle: 'dashed',
+                        borderWidth: '2px',
+                        borderColor: '#cbd5e1',
+                        display: 'block',
+                        visibility: 'visible',
+                        opacity: 1,
+                        backgroundColor: '#ffffff',
+                        padding: '0.5rem',
+                        marginTop: '0.5rem'
+                      }}
+                    />
                   </div>
                 ))}
               </div>
@@ -27088,7 +27504,23 @@ export function PrintablesPage() {
                     <div className="text-center mb-2 font-semibold">{s}</div>
                     <div className="text-center text-sm text-slate-600 mb-2 font-mono">Lines of symmetry: ____</div>
                     <div className="mt-2 text-xs text-slate-600">Show your work:</div>
-                    <div className="min-h-16 border border-dashed border-slate-300 rounded p-2 bg-slate-50 print:bg-white" />
+                    <div 
+                      className="min-h-16 border border-dashed border-slate-300 rounded p-2 bg-slate-50 print:bg-white"
+                      style={{
+                        minHeight: '4rem',
+                        height: '4rem',
+                        border: '2px dashed #cbd5e1',
+                        borderStyle: 'dashed',
+                        borderWidth: '2px',
+                        borderColor: '#cbd5e1',
+                        display: 'block',
+                        visibility: 'visible',
+                        opacity: 1,
+                        backgroundColor: '#ffffff',
+                        padding: '0.5rem',
+                        marginTop: '0.5rem'
+                      }}
+                    />
                   </div>
                 ))}
               </div>
@@ -27400,7 +27832,23 @@ export function PrintablesPage() {
                     <div className="text-center mb-2 font-mono">{p.expr} when x = {p.x}</div>
                     <div className="text-center text-sm text-slate-600 mb-2 font-mono">Answer: ____</div>
                     <div className="mt-2 text-xs text-slate-600">Show your work:</div>
-                    <div className="min-h-16 border border-dashed border-slate-300 rounded p-2 bg-slate-50 print:bg-white" />
+                    <div 
+                      className="min-h-16 border border-dashed border-slate-300 rounded p-2 bg-slate-50 print:bg-white"
+                      style={{
+                        minHeight: '4rem',
+                        height: '4rem',
+                        border: '2px dashed #cbd5e1',
+                        borderStyle: 'dashed',
+                        borderWidth: '2px',
+                        borderColor: '#cbd5e1',
+                        display: 'block',
+                        visibility: 'visible',
+                        opacity: 1,
+                        backgroundColor: '#ffffff',
+                        padding: '0.5rem',
+                        marginTop: '0.5rem'
+                      }}
+                    />
                   </div>
                 ))}
               </div>
@@ -27600,7 +28048,23 @@ export function PrintablesPage() {
                     <div className="text-center mb-2 font-mono">x {p.op} {p.a} = {p.b}</div>
                     <div className="text-center text-sm text-slate-600 mb-2 font-mono">x = ____</div>
                     <div className="mt-2 text-xs text-slate-600">Show your work:</div>
-                    <div className="min-h-16 border border-dashed border-slate-300 rounded p-2 bg-slate-50 print:bg-white" />
+                    <div 
+                      className="min-h-16 border border-dashed border-slate-300 rounded p-2 bg-slate-50 print:bg-white"
+                      style={{
+                        minHeight: '4rem',
+                        height: '4rem',
+                        border: '2px dashed #cbd5e1',
+                        borderStyle: 'dashed',
+                        borderWidth: '2px',
+                        borderColor: '#cbd5e1',
+                        display: 'block',
+                        visibility: 'visible',
+                        opacity: 1,
+                        backgroundColor: '#ffffff',
+                        padding: '0.5rem',
+                        marginTop: '0.5rem'
+                      }}
+                    />
                   </div>
                 ))}
               </div>
@@ -28029,7 +28493,23 @@ export function PrintablesPage() {
                     <div className="text-center mb-2 font-bold">{c.frac}</div>
                     <div className="text-center text-sm text-slate-600 mb-2 font-mono">Decimal: ____ Percent: ____</div>
                     <div className="mt-2 text-xs text-slate-600">Show your work:</div>
-                    <div className="min-h-16 border border-dashed border-slate-300 rounded p-2 bg-slate-50 print:bg-white" />
+                    <div 
+                      className="min-h-16 border border-dashed border-slate-300 rounded p-2 bg-slate-50 print:bg-white"
+                      style={{
+                        minHeight: '4rem',
+                        height: '4rem',
+                        border: '2px dashed #cbd5e1',
+                        borderStyle: 'dashed',
+                        borderWidth: '2px',
+                        borderColor: '#cbd5e1',
+                        display: 'block',
+                        visibility: 'visible',
+                        opacity: 1,
+                        backgroundColor: '#ffffff',
+                        padding: '0.5rem',
+                        marginTop: '0.5rem'
+                      }}
+                    />
                   </div>
                 ))}
               </div>
@@ -28762,7 +29242,23 @@ export function PrintablesPage() {
                     <div className="text-center mb-2 text-sm font-semibold">{s.event}</div>
                     <div className="text-center text-sm text-slate-600 mb-2 font-mono">Probability: ____</div>
                     <div className="mt-2 text-xs text-slate-600">Show your work:</div>
-                    <div className="min-h-16 border border-dashed border-slate-300 rounded p-2 bg-slate-50 print:bg-white" />
+                    <div 
+                      className="min-h-16 border border-dashed border-slate-300 rounded p-2 bg-slate-50 print:bg-white"
+                      style={{
+                        minHeight: '4rem',
+                        height: '4rem',
+                        border: '2px dashed #cbd5e1',
+                        borderStyle: 'dashed',
+                        borderWidth: '2px',
+                        borderColor: '#cbd5e1',
+                        display: 'block',
+                        visibility: 'visible',
+                        opacity: 1,
+                        backgroundColor: '#ffffff',
+                        padding: '0.5rem',
+                        marginTop: '0.5rem'
+                      }}
+                    />
                   </div>
                 ))}
               </div>
@@ -31581,7 +32077,23 @@ export function PrintablesPage() {
                     <div className="mb-2 text-xs text-slate-600 font-mono">Equation: ____ × ____ = ?</div>
                     <div className="h-12 border-b border-slate-400" />
                     <div className="mt-2 text-xs text-slate-600">Show your work:</div>
-                    <div className="min-h-16 border border-dashed border-slate-300 rounded p-2 bg-slate-50 print:bg-white" />
+                    <div 
+                      className="min-h-16 border border-dashed border-slate-300 rounded p-2 bg-slate-50 print:bg-white"
+                      style={{
+                        minHeight: '4rem',
+                        height: '4rem',
+                        border: '2px dashed #cbd5e1',
+                        borderStyle: 'dashed',
+                        borderWidth: '2px',
+                        borderColor: '#cbd5e1',
+                        display: 'block',
+                        visibility: 'visible',
+                        opacity: 1,
+                        backgroundColor: '#ffffff',
+                        padding: '0.5rem',
+                        marginTop: '0.5rem'
+                      }}
+                    />
                   </li>
                 ))}
               </ol>
@@ -31676,7 +32188,23 @@ export function PrintablesPage() {
                   <div key={i} className="border border-slate-300 rounded-lg p-4 bg-white break-inside-avoid">
                     <div className="text-center text-xl font-mono mb-2">{p.num} × {p.multiplier} = ____</div>
                     <div className="mt-2 text-xs text-slate-600">Show your work:</div>
-                    <div className="min-h-16 border border-dashed border-slate-300 rounded p-2 bg-slate-50 print:bg-white" />
+                    <div 
+                      className="min-h-16 border border-dashed border-slate-300 rounded p-2 bg-slate-50 print:bg-white"
+                      style={{
+                        minHeight: '4rem',
+                        height: '4rem',
+                        border: '2px dashed #cbd5e1',
+                        borderStyle: 'dashed',
+                        borderWidth: '2px',
+                        borderColor: '#cbd5e1',
+                        display: 'block',
+                        visibility: 'visible',
+                        opacity: 1,
+                        backgroundColor: '#ffffff',
+                        padding: '0.5rem',
+                        marginTop: '0.5rem'
+                      }}
+                    />
                   </div>
                 ))}
               </div>
@@ -31846,7 +32374,23 @@ export function PrintablesPage() {
                     <div className="text-center mb-2 font-mono text-xl">{p.dividend} ÷ {p.divisor}</div>
                     <div className="text-center text-sm text-slate-600 mb-2 font-mono">Answer: ____ R ____</div>
                     <div className="mt-2 text-xs text-slate-600">Show your work:</div>
-                    <div className="min-h-16 border border-dashed border-slate-300 rounded p-2 bg-slate-50 print:bg-white" />
+                    <div 
+                      className="min-h-16 border border-dashed border-slate-300 rounded p-2 bg-slate-50 print:bg-white"
+                      style={{
+                        minHeight: '4rem',
+                        height: '4rem',
+                        border: '2px dashed #cbd5e1',
+                        borderStyle: 'dashed',
+                        borderWidth: '2px',
+                        borderColor: '#cbd5e1',
+                        display: 'block',
+                        visibility: 'visible',
+                        opacity: 1,
+                        backgroundColor: '#ffffff',
+                        padding: '0.5rem',
+                        marginTop: '0.5rem'
+                      }}
+                    />
                   </div>
                 ))}
               </div>
@@ -31932,7 +32476,23 @@ export function PrintablesPage() {
                     <div className="mb-2 text-xs text-slate-600 font-mono">Equation: ____ ÷ ____ = ?</div>
                     <div className="h-12 border-b border-slate-400" />
                     <div className="mt-2 text-xs text-slate-600">Show your work:</div>
-                    <div className="min-h-16 border border-dashed border-slate-300 rounded p-2 bg-slate-50 print:bg-white" />
+                    <div 
+                      className="min-h-16 border border-dashed border-slate-300 rounded p-2 bg-slate-50 print:bg-white"
+                      style={{
+                        minHeight: '4rem',
+                        height: '4rem',
+                        border: '2px dashed #cbd5e1',
+                        borderStyle: 'dashed',
+                        borderWidth: '2px',
+                        borderColor: '#cbd5e1',
+                        display: 'block',
+                        visibility: 'visible',
+                        opacity: 1,
+                        backgroundColor: '#ffffff',
+                        padding: '0.5rem',
+                        marginTop: '0.5rem'
+                      }}
+                    />
                   </li>
                 ))}
               </ol>
@@ -32609,7 +33169,23 @@ export function PrintablesPage() {
                     <div className="text-center mb-2 text-sm font-semibold">Length: {p.length}, Width: {p.width}</div>
                     <div className="text-center text-sm text-slate-600 mb-2 font-mono">Perimeter: ____</div>
                     <div className="mt-2 text-xs text-slate-600">Show your work:</div>
-                    <div className="min-h-16 border border-dashed border-slate-300 rounded p-2 bg-slate-50 print:bg-white" />
+                    <div 
+                      className="min-h-16 border border-dashed border-slate-300 rounded p-2 bg-slate-50 print:bg-white"
+                      style={{
+                        minHeight: '4rem',
+                        height: '4rem',
+                        border: '2px dashed #cbd5e1',
+                        borderStyle: 'dashed',
+                        borderWidth: '2px',
+                        borderColor: '#cbd5e1',
+                        display: 'block',
+                        visibility: 'visible',
+                        opacity: 1,
+                        backgroundColor: '#ffffff',
+                        padding: '0.5rem',
+                        marginTop: '0.5rem'
+                      }}
+                    />
                   </div>
                 ))}
               </div>
@@ -32723,7 +33299,23 @@ export function PrintablesPage() {
                     <div className="text-center mb-2 text-sm font-semibold">Length: {p.length}, Width: {p.width}</div>
                     <div className="text-center text-sm text-slate-600 mb-2 font-mono">Area: ____</div>
                     <div className="mt-2 text-xs text-slate-600">Show your work:</div>
-                    <div className="min-h-16 border border-dashed border-slate-300 rounded p-2 bg-slate-50 print:bg-white" />
+                    <div 
+                      className="min-h-16 border border-dashed border-slate-300 rounded p-2 bg-slate-50 print:bg-white"
+                      style={{
+                        minHeight: '4rem',
+                        height: '4rem',
+                        border: '2px dashed #cbd5e1',
+                        borderStyle: 'dashed',
+                        borderWidth: '2px',
+                        borderColor: '#cbd5e1',
+                        display: 'block',
+                        visibility: 'visible',
+                        opacity: 1,
+                        backgroundColor: '#ffffff',
+                        padding: '0.5rem',
+                        marginTop: '0.5rem'
+                      }}
+                    />
                   </div>
                 ))}
               </div>
@@ -33364,7 +33956,23 @@ export function PrintablesPage() {
                   <div key={i} className="border border-slate-300 rounded-lg p-4 bg-white break-inside-avoid">
                     <div className="text-center mb-2 font-semibold font-mono">{p.feet} feet = ____ inches</div>
                     <div className="mt-2 text-xs text-slate-600">Show your work:</div>
-                    <div className="min-h-16 border border-dashed border-slate-300 rounded p-2 bg-slate-50 print:bg-white" />
+                    <div 
+                      className="min-h-16 border border-dashed border-slate-300 rounded p-2 bg-slate-50 print:bg-white"
+                      style={{
+                        minHeight: '4rem',
+                        height: '4rem',
+                        border: '2px dashed #cbd5e1',
+                        borderStyle: 'dashed',
+                        borderWidth: '2px',
+                        borderColor: '#cbd5e1',
+                        display: 'block',
+                        visibility: 'visible',
+                        opacity: 1,
+                        backgroundColor: '#ffffff',
+                        padding: '0.5rem',
+                        marginTop: '0.5rem'
+                      }}
+                    />
                   </div>
                 ))}
               </div>
@@ -33461,7 +34069,23 @@ export function PrintablesPage() {
                   <div key={i} className="border border-slate-300 rounded-lg p-4 bg-white break-inside-avoid">
                     <div className="text-center mb-2 font-semibold font-mono">{p.meters} meters = ____ centimeters</div>
                     <div className="mt-2 text-xs text-slate-600">Show your work:</div>
-                    <div className="min-h-16 border border-dashed border-slate-300 rounded p-2 bg-slate-50 print:bg-white" />
+                    <div 
+                      className="min-h-16 border border-dashed border-slate-300 rounded p-2 bg-slate-50 print:bg-white"
+                      style={{
+                        minHeight: '4rem',
+                        height: '4rem',
+                        border: '2px dashed #cbd5e1',
+                        borderStyle: 'dashed',
+                        borderWidth: '2px',
+                        borderColor: '#cbd5e1',
+                        display: 'block',
+                        visibility: 'visible',
+                        opacity: 1,
+                        backgroundColor: '#ffffff',
+                        padding: '0.5rem',
+                        marginTop: '0.5rem'
+                      }}
+                    />
                   </div>
                 ))}
               </div>
@@ -33559,7 +34183,23 @@ export function PrintablesPage() {
                   <div key={i} className="border border-slate-300 rounded-lg p-4 bg-white break-inside-avoid">
                     <div className="text-center mb-2 font-semibold font-mono">{p.quarts} quarts = ____ cups</div>
                     <div className="mt-2 text-xs text-slate-600">Show your work:</div>
-                    <div className="min-h-16 border border-dashed border-slate-300 rounded p-2 bg-slate-50 print:bg-white" />
+                    <div 
+                      className="min-h-16 border border-dashed border-slate-300 rounded p-2 bg-slate-50 print:bg-white"
+                      style={{
+                        minHeight: '4rem',
+                        height: '4rem',
+                        border: '2px dashed #cbd5e1',
+                        borderStyle: 'dashed',
+                        borderWidth: '2px',
+                        borderColor: '#cbd5e1',
+                        display: 'block',
+                        visibility: 'visible',
+                        opacity: 1,
+                        backgroundColor: '#ffffff',
+                        padding: '0.5rem',
+                        marginTop: '0.5rem'
+                      }}
+                    />
                   </div>
                 ))}
               </div>
@@ -33656,7 +34296,23 @@ export function PrintablesPage() {
                   <div key={i} className="border border-slate-300 rounded-lg p-4 bg-white break-inside-avoid">
                     <div className="text-center mb-2 font-semibold font-mono">{p.pounds} pounds = ____ ounces</div>
                     <div className="mt-2 text-xs text-slate-600">Show your work:</div>
-                    <div className="min-h-16 border border-dashed border-slate-300 rounded p-2 bg-slate-50 print:bg-white" />
+                    <div 
+                      className="min-h-16 border border-dashed border-slate-300 rounded p-2 bg-slate-50 print:bg-white"
+                      style={{
+                        minHeight: '4rem',
+                        height: '4rem',
+                        border: '2px dashed #cbd5e1',
+                        borderStyle: 'dashed',
+                        borderWidth: '2px',
+                        borderColor: '#cbd5e1',
+                        display: 'block',
+                        visibility: 'visible',
+                        opacity: 1,
+                        backgroundColor: '#ffffff',
+                        padding: '0.5rem',
+                        marginTop: '0.5rem'
+                      }}
+                    />
                   </div>
                 ))}
               </div>
