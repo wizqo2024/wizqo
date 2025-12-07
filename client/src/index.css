@@ -6537,5 +6537,122 @@ section[data-interactive-section="true"].preserve-print-styling [class*="h-48"] 
     visibility: visible !important;
     opacity: 1 !important;
   }
+  
+  /* Ensure images are visible in print */
+  [data-worksheet-content="true"] img {
+    display: block !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+    max-width: 100% !important;
+    height: auto !important;
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+  }
+  
+  /* Ensure images don't break across pages */
+  [data-worksheet-content="true"] img {
+    page-break-inside: avoid !important;
+    break-inside: avoid !important;
+  }
+  
+  /* Ensure worksheet cards are visible */
+  [data-worksheet-content="true"] .worksheet-card {
+    display: block !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+    page-break-inside: avoid !important;
+    break-inside: avoid !important;
+  }
+  
+  /* Ensure question sections are visible */
+  [data-worksheet-content="true"] .question-section,
+  [data-worksheet-content="true"] .question-block {
+    display: block !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+    page-break-inside: avoid !important;
+    break-inside: avoid !important;
+  }
+  
+  /* Ensure count-group elements are visible */
+  [data-worksheet-content="true"] .count-group {
+    display: block !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+    page-break-inside: avoid !important;
+    break-inside: avoid !important;
+  }
+  
+  /* Ensure all list items are visible */
+  [data-worksheet-content="true"] ul,
+  [data-worksheet-content="true"] ol {
+    display: block !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+  }
+  
+  [data-worksheet-content="true"] li {
+    display: list-item !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+  }
+  
+  /* Ensure headings are visible */
+  [data-worksheet-content="true"] h1,
+  [data-worksheet-content="true"] h2,
+  [data-worksheet-content="true"] h3,
+  [data-worksheet-content="true"] h4,
+  [data-worksheet-content="true"] h5,
+  [data-worksheet-content="true"] h6 {
+    display: block !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+    color: #000000 !important;
+  }
+  
+  /* Ensure all text content is visible and readable */
+  [data-worksheet-content="true"] * {
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+  }
+  
+  /* Ensure elements with inline-block display are visible */
+  [data-worksheet-content="true"] [class*="inline-block"] {
+    display: inline-block !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+  }
+  
+  /* Ensure flex containers are visible */
+  [data-worksheet-content="true"] [class*="flex"] {
+    display: flex !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+  }
+  
+  /* Ensure grid containers are visible */
+  [data-worksheet-content="true"] [class*="grid"] {
+    display: grid !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+  }
+  
+  /* Ensure spacing is preserved */
+  [data-worksheet-content="true"] [class*="space-y-"],
+  [data-worksheet-content="true"] [class*="space-x-"] {
+    display: block !important;
+    visibility: visible !important;
+  }
+  
+  /* Ensure padding and margins are preserved */
+  [data-worksheet-content="true"] [class*="p-"],
+  [data-worksheet-content="true"] [class*="m-"],
+  [data-worksheet-content="true"] [class*="px-"],
+  [data-worksheet-content="true"] [class*="py-"],
+  [data-worksheet-content="true"] [class*="mx-"],
+  [data-worksheet-content="true"] [class*="my-"] {
+    visibility: visible !important;
+    opacity: 1 !important;
+  }
 }
 
