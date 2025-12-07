@@ -1274,51 +1274,56 @@ html {
   
   /* Remove all inner borders in print so only outer frame remains */
   /* CRITICAL: EXCLUDE ALL TABLE ELEMENTS AND THEIR DESCENDANTS from border removal */
-  /* Tables MUST keep their borders - use :not() with descendant selector to exclude table content */
-  /* Target only elements that are NOT inside a table element */
-  [data-worksheet-content="true"] .border:not(.worksheet-container):not(.print-section-outline):not(.print-block-outline):not(.drawing-box):not(.drawing-box-large):not([data-drawing-box]):not(.worksheet-section):not(section.worksheet-section):not([class*="worksheet-section"]),
-  [data-worksheet-content="true"] [class*="border-"]:not(.worksheet-container):not(.print-section-outline):not(.print-block-outline):not(.drawing-box):not(.drawing-box-large):not([data-drawing-box]):not(.worksheet-section):not(section.worksheet-section):not([class*="worksheet-section"]),
-  [data-worksheet-content="true"] [class*="print:border"]:not(.worksheet-container):not(.print-section-outline):not(.print-block-outline):not(.drawing-box):not(.drawing-box-large):not([data-drawing-box]):not(.worksheet-section):not(section.worksheet-section):not([class*="worksheet-section"]),
-  [data-worksheet-content="true"] *:not(.worksheet-container):not(.print-section-outline):not(.print-block-outline):not(.drawing-box):not(.drawing-box-large):not([data-drawing-box]):not(.worksheet-section):not(section.worksheet-section):not([class*="worksheet-section"])[style*="border"] {
+  /* Tables MUST keep their borders - target only elements OUTSIDE of tables */
+  /* Use :not() to exclude table elements, but also add explicit table rules AFTER this */
+  [data-worksheet-content="true"] .border:not(.worksheet-container):not(.print-section-outline):not(.print-block-outline):not(.drawing-box):not(.drawing-box-large):not([data-drawing-box]):not(.worksheet-section):not(section.worksheet-section):not([class*="worksheet-section"]):not(table):not(thead):not(tbody):not(tr):not(td):not(th),
+  [data-worksheet-content="true"] [class*="border-"]:not(.worksheet-container):not(.print-section-outline):not(.print-block-outline):not(.drawing-box):not(.drawing-box-large):not([data-drawing-box]):not(.worksheet-section):not(section.worksheet-section):not([class*="worksheet-section"]):not(table):not(thead):not(tbody):not(tr):not(td):not(th),
+  [data-worksheet-content="true"] [class*="print:border"]:not(.worksheet-container):not(.print-section-outline):not(.print-block-outline):not(.drawing-box):not(.drawing-box-large):not([data-drawing-box]):not(.worksheet-section):not(section.worksheet-section):not([class*="worksheet-section"]):not(table):not(thead):not(tbody):not(tr):not(td):not(th),
+  [data-worksheet-content="true"] *:not(.worksheet-container):not(.print-section-outline):not(.print-block-outline):not(.drawing-box):not(.drawing-box-large):not([data-drawing-box]):not(.worksheet-section):not(section.worksheet-section):not([class*="worksheet-section"]):not(table):not(thead):not(tbody):not(tr):not(td):not(th)[style*="border"] {
     border: none !important;
     border-width: 0 !important;
     border-color: transparent !important;
     box-shadow: none !important;
   }
   
-  /* CRITICAL: Explicitly EXCLUDE all table elements from border removal */
-  /* This must come BEFORE the border removal rule to prevent it from affecting tables */
-  /* Use a more specific selector to ensure table elements are never affected */
-  [data-worksheet-content="true"] table,
-  [data-worksheet-content="true"] table *,
-  [data-worksheet-content="true"] table thead,
-  [data-worksheet-content="true"] table tbody,
-  [data-worksheet-content="true"] table tr,
+  /* CRITICAL: IMMEDIATELY after border removal, restore borders for ALL table elements */
+  /* This MUST come right after border removal to override it */
+  /* Target EVERY possible table element combination */
   [data-worksheet-content="true"] table td,
   [data-worksheet-content="true"] table th,
-  table,
-  table *,
-  table thead,
-  table tbody,
-  table tr,
-  table td,
-  table th {
-    /* Explicitly prevent border removal - borders will be set by rules below */
-    /* Do NOT set border: none here - let the specific table border rules handle it */
-  }
-  
-  /* CRITICAL: Override border removal for table elements - must come after border removal */
-  /* This ensures table borders are NEVER removed */
+  [data-worksheet-content="true"] table td.border,
+  [data-worksheet-content="true"] table th.border,
   [data-worksheet-content="true"] table td[class*="border"],
   [data-worksheet-content="true"] table th[class*="border"],
   [data-worksheet-content="true"] table td[class*="border-"],
   [data-worksheet-content="true"] table th[class*="border-"],
+  [data-worksheet-content="true"] table tbody td,
+  [data-worksheet-content="true"] table tbody th,
+  [data-worksheet-content="true"] table thead td,
+  [data-worksheet-content="true"] table thead th,
+  table td,
+  table th,
+  table td.border,
+  table th.border,
   table td[class*="border"],
   table th[class*="border"],
   table td[class*="border-"],
-  table th[class*="border-"] {
-    /* Override border removal - borders will be set explicitly below */
-    border: inherit !important;
+  table th[class*="border-"],
+  table tbody td,
+  table tbody th,
+  table thead td,
+  table thead th {
+    border: 1px solid #1e293b !important;
+    border-color: #1e293b !important;
+    border-width: 1px !important;
+    border-style: solid !important;
+    display: table-cell !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+    padding: 0.5rem !important;
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+    color-adjust: exact !important;
   }
   
   /* CRITICAL: Preserve table borders in print mode - MUST come after border removal with maximum specificity */
