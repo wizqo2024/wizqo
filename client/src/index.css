@@ -5880,13 +5880,11 @@ section[data-interactive-section="true"].preserve-print-styling [class*="h-48"] 
   }
   
   /* Ensure table cells have content area even when "empty" */
+  /* Removed ::before border-bottom to avoid duplicate lines - span already provides the line */
   [data-worksheet-content="true"] div.space-y-4.break-inside-avoid > div.border.border-slate-300.rounded.p-4.bg-white > table > tbody > tr > td:not(:first-child):empty::before,
   [data-worksheet-content="true"] div[class*="space-y-4"][class*="break-inside-avoid"] > div[class*="border-slate-300"] > table > tbody > tr > td:not(:first-child):empty::before {
-    content: " " !important;
-    display: inline-block !important;
-    width: 2.5rem !important;
-    height: 1.25rem !important;
-    border-bottom: 2px solid #475569 !important;
+    content: "" !important;
+    display: none !important;
   }
   
   /* Alternative: Force empty cells to show borders and maintain structure */
