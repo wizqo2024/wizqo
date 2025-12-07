@@ -1280,22 +1280,41 @@ html {
   /* CRITICAL: EXCLUDE ALL TABLE ELEMENTS AND THEIR DESCENDANTS from border removal */
   /* Tables MUST keep their borders - ONLY target div, span, p, section - NEVER table elements */
   /* Use element selectors to ensure table elements are NEVER matched */
-  [data-worksheet-content="true"] div.border:not(.worksheet-container):not(.print-section-outline):not(.print-block-outline):not(.drawing-box):not(.drawing-box-large):not([data-drawing-box]):not(.worksheet-section):not(section.worksheet-section):not([class*="worksheet-section"]):not(table):not(thead):not(tbody):not(tr):not(td):not(th),
-  [data-worksheet-content="true"] div[class*="border-"]:not(.worksheet-container):not(.print-section-outline):not(.print-block-outline):not(.drawing-box):not(.drawing-box-large):not([data-drawing-box]):not(.worksheet-section):not(section.worksheet-section):not([class*="worksheet-section"]):not(table):not(thead):not(tbody):not(tr):not(td):not(th),
-  [data-worksheet-content="true"] span[class*="border-"]:not(.worksheet-container):not(.print-section-outline):not(.print-block-outline):not(.drawing-box):not(.drawing-box-large):not([data-drawing-box]):not(.worksheet-section):not(section.worksheet-section):not([class*="worksheet-section"]):not(table):not(thead):not(tbody):not(tr):not(td):not(th),
-  [data-worksheet-content="true"] p[class*="border-"]:not(.worksheet-container):not(.print-section-outline):not(.print-block-outline):not(.drawing-box):not(.drawing-box-large):not([data-drawing-box]):not(.worksheet-section):not(section.worksheet-section):not([class*="worksheet-section"]):not(table):not(thead):not(tbody):not(tr):not(td):not(th),
-  [data-worksheet-content="true"] section[class*="border-"]:not(.worksheet-container):not(.print-section-outline):not(.print-block-outline):not(.drawing-box):not(.drawing-box-large):not([data-drawing-box]):not(.worksheet-section):not(section.worksheet-section):not([class*="worksheet-section"]):not(table):not(thead):not(tbody):not(tr):not(td):not(th),
-  [data-worksheet-content="true"] div[class*="print:border"]:not(.worksheet-container):not(.print-section-outline):not(.print-block-outline):not(.drawing-box):not(.drawing-box-large):not([data-drawing-box]):not(.worksheet-section):not(section.worksheet-section):not([class*="worksheet-section"]):not(table):not(thead):not(tbody):not(tr):not(td):not(th),
-  [data-worksheet-content="true"] span[class*="print:border"]:not(.worksheet-container):not(.print-section-outline):not(.print-block-outline):not(.drawing-box):not(.drawing-box-large):not([data-drawing-box]):not(.worksheet-section):not(section.worksheet-section):not([class*="worksheet-section"]):not(table):not(thead):not(tbody):not(tr):not(td):not(th),
-  [data-worksheet-content="true"] p[class*="print:border"]:not(.worksheet-container):not(.print-section-outline):not(.print-block-outline):not(.drawing-box):not(.drawing-box-large):not([data-drawing-box]):not(.worksheet-section):not(section.worksheet-section):not([class*="worksheet-section"]):not(table):not(thead):not(tbody):not(tr):not(td):not(th),
-  [data-worksheet-content="true"] section[class*="print:border"]:not(.worksheet-container):not(.print-section-outline):not(.print-block-outline):not(.drawing-box):not(.drawing-box-large):not([data-drawing-box]):not(.worksheet-section):not(section.worksheet-section):not([class*="worksheet-section"]):not(table):not(thead):not(tbody):not(tr):not(td):not(th),
-  [data-worksheet-content="true"] div[style*="border"]:not(.worksheet-container):not(.print-section-outline):not(.print-block-outline):not(.drawing-box):not(.drawing-box-large):not([data-drawing-box]):not(.worksheet-section):not(section.worksheet-section):not([class*="worksheet-section"]):not(table):not(thead):not(tbody):not(tr):not(td):not(th),
-  [data-worksheet-content="true"] span[style*="border"]:not(.worksheet-container):not(.print-section-outline):not(.print-block-outline):not(.drawing-box):not(.drawing-box-large):not([data-drawing-box]):not(.worksheet-section):not(section.worksheet-section):not([class*="worksheet-section"]):not(table):not(thead):not(tbody):not(tr):not(td):not(th),
-  [data-worksheet-content="true"] p[style*="border"]:not(.worksheet-container):not(.print-section-outline):not(.print-block-outline):not(.drawing-box):not(.drawing-box-large):not([data-drawing-box]):not(.worksheet-section):not(section.worksheet-section):not([class*="worksheet-section"]):not(table):not(thead):not(tbody):not(tr):not(td):not(th) {
+  /* CRITICAL: Also exclude ANY element inside a table (table td span, table th span, etc.) */
+  [data-worksheet-content="true"] div.border:not(.worksheet-container):not(.print-section-outline):not(.print-block-outline):not(.drawing-box):not(.drawing-box-large):not([data-drawing-box]):not(.worksheet-section):not(section.worksheet-section):not([class*="worksheet-section"]):not(table):not(thead):not(tbody):not(tr):not(td):not(th):not(table *),
+  [data-worksheet-content="true"] div[class*="border-"]:not(.worksheet-container):not(.print-section-outline):not(.print-block-outline):not(.drawing-box):not(.drawing-box-large):not([data-drawing-box]):not(.worksheet-section):not(section.worksheet-section):not([class*="worksheet-section"]):not(table):not(thead):not(tbody):not(tr):not(td):not(th):not(table *),
+  [data-worksheet-content="true"] span[class*="border-"]:not(.worksheet-container):not(.print-section-outline):not(.print-block-outline):not(.drawing-box):not(.drawing-box-large):not([data-drawing-box]):not(.worksheet-section):not(section.worksheet-section):not([class*="worksheet-section"]):not(table):not(thead):not(tbody):not(tr):not(td):not(th):not(table *):not(table td *):not(table th *):not(table tbody *):not(table thead *),
+  [data-worksheet-content="true"] p[class*="border-"]:not(.worksheet-container):not(.print-section-outline):not(.print-block-outline):not(.drawing-box):not(.drawing-box-large):not([data-drawing-box]):not(.worksheet-section):not(section.worksheet-section):not([class*="worksheet-section"]):not(table):not(thead):not(tbody):not(tr):not(td):not(th):not(table *),
+  [data-worksheet-content="true"] section[class*="border-"]:not(.worksheet-container):not(.print-section-outline):not(.print-block-outline):not(.drawing-box):not(.drawing-box-large):not([data-drawing-box]):not(.worksheet-section):not(section.worksheet-section):not([class*="worksheet-section"]):not(table):not(thead):not(tbody):not(tr):not(td):not(th):not(table *),
+  [data-worksheet-content="true"] div[class*="print:border"]:not(.worksheet-container):not(.print-section-outline):not(.print-block-outline):not(.drawing-box):not(.drawing-box-large):not([data-drawing-box]):not(.worksheet-section):not(section.worksheet-section):not([class*="worksheet-section"]):not(table):not(thead):not(tbody):not(tr):not(td):not(th):not(table *),
+  [data-worksheet-content="true"] span[class*="print:border"]:not(.worksheet-container):not(.print-section-outline):not(.print-block-outline):not(.drawing-box):not(.drawing-box-large):not([data-drawing-box]):not(.worksheet-section):not(section.worksheet-section):not([class*="worksheet-section"]):not(table):not(thead):not(tbody):not(tr):not(td):not(th):not(table *):not(table td *):not(table th *):not(table tbody *):not(table thead *),
+  [data-worksheet-content="true"] p[class*="print:border"]:not(.worksheet-container):not(.print-section-outline):not(.print-block-outline):not(.drawing-box):not(.drawing-box-large):not([data-drawing-box]):not(.worksheet-section):not(section.worksheet-section):not([class*="worksheet-section"]):not(table):not(thead):not(tbody):not(tr):not(td):not(th):not(table *),
+  [data-worksheet-content="true"] section[class*="print:border"]:not(.worksheet-container):not(.print-section-outline):not(.print-block-outline):not(.drawing-box):not(.drawing-box-large):not([data-drawing-box]):not(.worksheet-section):not(section.worksheet-section):not([class*="worksheet-section"]):not(table):not(thead):not(tbody):not(tr):not(td):not(th):not(table *),
+  [data-worksheet-content="true"] div[style*="border"]:not(.worksheet-container):not(.print-section-outline):not(.print-block-outline):not(.drawing-box):not(.drawing-box-large):not([data-drawing-box]):not(.worksheet-section):not(section.worksheet-section):not([class*="worksheet-section"]):not(table):not(thead):not(tbody):not(tr):not(td):not(th):not(table *),
+  [data-worksheet-content="true"] span[style*="border"]:not(.worksheet-container):not(.print-section-outline):not(.print-block-outline):not(.drawing-box):not(.drawing-box-large):not([data-drawing-box]):not(.worksheet-section):not(section.worksheet-section):not([class*="worksheet-section"]):not(table):not(thead):not(tbody):not(tr):not(td):not(th):not(table *):not(table td *):not(table th *):not(table tbody *):not(table thead *),
+  [data-worksheet-content="true"] p[style*="border"]:not(.worksheet-container):not(.print-section-outline):not(.print-block-outline):not(.drawing-box):not(.drawing-box-large):not([data-drawing-box]):not(.worksheet-section):not(section.worksheet-section):not([class*="worksheet-section"]):not(table):not(thead):not(tbody):not(tr):not(td):not(th):not(table *) {
     border: none !important;
     border-width: 0 !important;
     border-color: transparent !important;
     box-shadow: none !important;
+  }
+  
+  /* CRITICAL: Explicitly PRESERVE borders for ALL elements inside tables */
+  /* This ensures that spans, divs, and other elements inside table cells keep their borders */
+  table td *,
+  table th *,
+  table tbody td *,
+  table tbody th *,
+  table thead td *,
+  table thead th *,
+  [data-worksheet-content="true"] table td *,
+  [data-worksheet-content="true"] table th *,
+  [data-worksheet-content="true"] table tbody td *,
+  [data-worksheet-content="true"] table tbody th *,
+  [data-worksheet-content="true"] table thead td *,
+  [data-worksheet-content="true"] table thead th * {
+    /* Do NOT remove borders from elements inside table cells */
+    /* Their borders are part of the table design */
   }
   
   /* CRITICAL: Explicitly EXCLUDE table elements from border removal - safety net */
@@ -2873,15 +2892,74 @@ section[data-interactive-section="true"].preserve-print-styling [class*="h-48"] 
   }
   
   /* Tables */
+  /* CRITICAL: Ensure ALL tables are fully visible with borders - override everything */
   table {
-    width: 100%;
-    border-collapse: collapse;
-    margin: 12px 0;
-    page-break-inside: avoid;
-    break-inside: avoid;
-    -webkit-print-color-adjust: exact;
-    print-color-adjust: exact;
-    color-adjust: exact;
+    width: 100% !important;
+    border-collapse: collapse !important;
+    border-spacing: 0 !important;
+    margin: 12px 0 !important;
+    page-break-inside: avoid !important;
+    break-inside: avoid !important;
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+    color-adjust: exact !important;
+    display: table !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+  }
+  
+  /* CRITICAL: Ensure ALL table elements are visible */
+  table thead {
+    display: table-header-group !important;
+    visibility: visible !important;
+  }
+  
+  table tbody {
+    display: table-row-group !important;
+    visibility: visible !important;
+  }
+  
+  table tr {
+    display: table-row !important;
+    visibility: visible !important;
+  }
+  
+  /* CRITICAL: Force ALL table cells to have borders and be visible - ABSOLUTE FINAL OVERRIDE */
+  table td,
+  table th,
+  table tbody td,
+  table tbody th,
+  table thead td,
+  table thead th,
+  [data-worksheet-content="true"] table td,
+  [data-worksheet-content="true"] table th,
+  [data-worksheet-content="true"] table tbody td,
+  [data-worksheet-content="true"] table tbody th,
+  [data-worksheet-content="true"] table thead td,
+  [data-worksheet-content="true"] table thead th {
+    display: table-cell !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+    border: 1px solid #1e293b !important;
+    border-color: #1e293b !important;
+    border-width: 1px !important;
+    border-style: solid !important;
+    padding: 0.5rem !important;
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+    color-adjust: exact !important;
+    min-height: 1.5rem !important;
+    height: auto !important;
+  }
+  
+  /* CRITICAL: Ensure cells with span elements inside are visible */
+  table td span,
+  table td > span,
+  [data-worksheet-content="true"] table td span,
+  [data-worksheet-content="true"] table td > span {
+    display: inline-block !important;
+    visibility: visible !important;
+    opacity: 1 !important;
   }
   
   /* Preserve table borders and backgrounds */
@@ -5338,6 +5416,51 @@ section[data-interactive-section="true"].preserve-print-styling [class*="h-48"] 
   table tbody,
   [data-worksheet-content="true"] table tbody {
     display: table-row-group !important;
+  }
+  
+  /* ABSOLUTE FINAL OVERRIDE: Ensure ALL table cells are visible with borders - highest specificity */
+  /* This must be the LAST rule in the print block to override everything */
+  table td,
+  table th,
+  table tbody td,
+  table tbody th,
+  table thead td,
+  table thead th,
+  table tr td,
+  table tr th,
+  [data-worksheet-content="true"] table td,
+  [data-worksheet-content="true"] table th,
+  [data-worksheet-content="true"] table tbody td,
+  [data-worksheet-content="true"] table tbody th,
+  [data-worksheet-content="true"] table thead td,
+  [data-worksheet-content="true"] table thead th,
+  [data-worksheet-content="true"] table tr td,
+  [data-worksheet-content="true"] table tr th {
+    display: table-cell !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+    border: 1px solid #1e293b !important;
+    border-color: #1e293b !important;
+    border-width: 1px !important;
+    border-style: solid !important;
+    padding: 0.5rem !important;
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+    color-adjust: exact !important;
+    min-height: 1.5rem !important;
+    height: auto !important;
+    width: auto !important;
+    max-width: none !important;
+  }
+  
+  /* Ensure content inside table cells is visible */
+  table td *,
+  table th *,
+  [data-worksheet-content="true"] table td *,
+  [data-worksheet-content="true"] table th * {
+    visibility: visible !important;
+    opacity: 1 !important;
+    display: inline-block !important;
   }
 }
 
