@@ -6803,7 +6803,36 @@ section[data-interactive-section="true"].preserve-print-styling [class*="h-48"] 
     visibility: visible !important;
     opacity: 1 !important;
     overflow: visible !important;
-    content: '' !important;
+  }
+  
+  /* ULTIMATE OVERRIDE: Target exact class combination from PEMDAS worksheet */
+  /* This matches: min-h-16 border border-dashed border-slate-300 rounded p-2 bg-slate-50 print:bg-white */
+  [data-worksheet-content="true"] div[class*="min-h-16"][class*="border"][class*="border-dashed"][class*="border-slate-300"][class*="rounded"][class*="p-2"],
+  [data-worksheet-content="true"] div.min-h-16.border.border-dashed.border-slate-300.rounded.p-2,
+  [data-worksheet-content="true"] .border.border-dashed.border-slate-300.rounded.p-2[class*="min-h-16"] {
+    display: block !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+    border: 2px dashed #cbd5e1 !important;
+    border-style: dashed !important;
+    border-color: #cbd5e1 !important;
+    border-width: 2px !important;
+    min-height: 4rem !important;
+    height: 4rem !important;
+    padding: 0.5rem !important;
+    background-color: #ffffff !important;
+    background: #ffffff !important;
+    margin-top: 0.5rem !important;
+    margin-bottom: 0 !important;
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+  }
+  
+  /* Force visibility even if parent has display:none or visibility:hidden */
+  [data-worksheet-content="true"] * div[class*="border-dashed"] {
+    display: block !important;
+    visibility: visible !important;
+    opacity: 1 !important;
   }
 }
 
