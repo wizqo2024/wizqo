@@ -8238,7 +8238,9 @@ section[data-interactive-section="true"].preserve-print-styling [class*="h-48"] 
   
   /* CRITICAL: Ensure all parts of VerticalEquation render in print */
   [data-worksheet-content="true"] .vertical-equation div[class*="print:flex"] span,
-  [data-worksheet-content="true"] .vertical-equation div[class*="print:flex"] > span {
+  [data-worksheet-content="true"] .vertical-equation div[class*="print:flex"] > span,
+  [data-worksheet-content="true"] .vertical-equation div.hidden[class*="print:flex"] span,
+  [data-worksheet-content="true"] .vertical-equation div.hidden[class*="print:flex"] > span {
     display: inline-block !important;
     visibility: visible !important;
     opacity: 1 !important;
@@ -8246,13 +8248,30 @@ section[data-interactive-section="true"].preserve-print-styling [class*="h-48"] 
     font-family: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, "Liberation Mono", monospace !important;
     -webkit-print-color-adjust: exact !important;
     print-color-adjust: exact !important;
+    white-space: nowrap !important;
   }
   
   /* Ensure multiplication and equals signs render correctly */
   [data-worksheet-content="true"] .vertical-equation div[class*="print:flex"] span:nth-child(2),
-  [data-worksheet-content="true"] .vertical-equation div[class*="print:flex"] span:nth-child(4) {
+  [data-worksheet-content="true"] .vertical-equation div[class*="print:flex"] span:nth-child(4),
+  [data-worksheet-content="true"] .vertical-equation div.hidden[class*="print:flex"] span:nth-child(2),
+  [data-worksheet-content="true"] .vertical-equation div.hidden[class*="print:flex"] span:nth-child(4) {
     margin: 0 0.25rem !important;
     font-size: inherit !important;
+    display: inline-block !important;
+    visibility: visible !important;
+  }
+  
+  /* CRITICAL: Ensure ALL 5 spans in VerticalEquation print view are visible */
+  [data-worksheet-content="true"] .vertical-equation div[class*="print:flex"] span:nth-child(1),
+  [data-worksheet-content="true"] .vertical-equation div[class*="print:flex"] span:nth-child(2),
+  [data-worksheet-content="true"] .vertical-equation div[class*="print:flex"] span:nth-child(3),
+  [data-worksheet-content="true"] .vertical-equation div[class*="print:flex"] span:nth-child(4),
+  [data-worksheet-content="true"] .vertical-equation div[class*="print:flex"] span:nth-child(5) {
+    display: inline-block !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+    color: #000000 !important;
   }
   
   /* Ensure example section text renders correctly */
@@ -8262,12 +8281,14 @@ section[data-interactive-section="true"].preserve-print-styling [class*="h-48"] 
   
   /* Ensure work boxes are always visible - maximum specificity */
   @media print {
-    [data-worksheet-content="true"] div[data-work-box="true"] {
+    [data-worksheet-content="true"] div[data-work-box="true"],
+    [data-worksheet-content="true"] div.min-h-24.border.border-dashed,
+    [data-worksheet-content="true"] div[class*="min-h-24"].border.border-dashed {
       display: block !important;
       visibility: visible !important;
       opacity: 1 !important;
-      min-height: 4rem !important;
-      height: 4rem !important;
+      min-height: 6rem !important;
+      height: 6rem !important;
       border: 1px dashed #000000 !important;
       border-style: dashed !important;
       border-width: 1px !important;
