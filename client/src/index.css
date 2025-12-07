@@ -6784,5 +6784,26 @@ section[data-interactive-section="true"].preserve-print-styling [class*="h-48"] 
     min-height: 4rem !important;
     height: 4rem !important;
   }
+  
+  /* CRITICAL: Use ::before pseudo-element to ensure empty work boxes have content */
+  [data-worksheet-content="true"] div[class*="border-dashed"]:empty::before,
+  [data-worksheet-content="true"] div[class*="border"][class*="dashed"]:empty::before {
+    content: '\00a0\00a0\00a0\00a0' !important; /* Multiple non-breaking spaces to force height */
+    display: inline-block !important;
+    width: 100% !important;
+    height: 100% !important;
+    min-height: 4rem !important;
+  }
+  
+  /* Ensure work boxes are never collapsed - force block display */
+  [data-worksheet-content="true"] div[class*="min-h-16"][class*="border-dashed"],
+  [data-worksheet-content="true"] div[class*="min-h-24"][class*="border-dashed"],
+  [data-worksheet-content="true"] div[class*="min-h-32"][class*="border-dashed"] {
+    display: block !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+    overflow: visible !important;
+    content: '' !important;
+  }
 }
 
