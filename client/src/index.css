@@ -425,7 +425,7 @@ html {
    * ============================================================================ */
   
   /* CRITICAL: Force all colors to print - override any browser defaults */
-  /* BUT exclude images and SVGs - they should render normally */
+  /* BUT exclude images and SVGs - they should render normally (for coloring pages) */
   *:not(img):not(svg):not(image):not([class*="svg"]):not([class*="image"]):not(path):not(circle):not(rect):not(polygon):not(ellipse) {
     -webkit-print-color-adjust: exact !important;
     print-color-adjust: exact !important;
