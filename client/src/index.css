@@ -7453,5 +7453,154 @@ section[data-interactive-section="true"].preserve-print-styling [class*="h-48"] 
     -webkit-print-color-adjust: exact !important;
     print-color-adjust: exact !important;
   }
+  
+  /* ============================================================================
+   * CRITICAL FIX: Text Overflow and Wrapping
+   * ============================================================================ */
+  
+  /* Prevent text from being cut off */
+  [data-worksheet-content="true"] p,
+  [data-worksheet-content="true"] span,
+  [data-worksheet-content="true"] div,
+  [data-worksheet-content="true"] [class*="text-"] {
+    overflow: visible !important;
+    text-overflow: clip !important;
+    white-space: normal !important;
+    word-wrap: break-word !important;
+    word-break: break-word !important;
+    overflow-wrap: break-word !important;
+    max-width: 100% !important;
+  }
+  
+  /* Ensure text in grid columns doesn't get cut off */
+  [data-worksheet-content="true"] .grid [class*="text-"],
+  [data-worksheet-content="true"] .grid p,
+  [data-worksheet-content="true"] .grid span,
+  [data-worksheet-content="true"] .grid div,
+  [data-worksheet-content="true"] [class*="grid-cols-2"] [class*="text-"],
+  [data-worksheet-content="true"] [class*="grid-cols-2"] p,
+  [data-worksheet-content="true"] [class*="grid-cols-2"] span {
+    overflow: visible !important;
+    text-overflow: clip !important;
+    white-space: normal !important;
+    word-wrap: break-word !important;
+    word-break: break-word !important;
+    overflow-wrap: break-word !important;
+    min-width: 0 !important; /* Allow text to shrink in grid */
+  }
+  
+  /* Ensure small text (text-xs) is readable and doesn't get cut off */
+  [data-worksheet-content="true"] [class*="text-xs"],
+  [data-worksheet-content="true"] .text-xs {
+    font-size: 12px !important;
+    line-height: 1.5 !important;
+    overflow: visible !important;
+    text-overflow: clip !important;
+    white-space: normal !important;
+    word-wrap: break-word !important;
+    word-break: break-word !important;
+    min-width: 0 !important;
+  }
+  
+  /* Ensure grid containers allow text to wrap */
+  [data-worksheet-content="true"] .grid,
+  [data-worksheet-content="true"] [class*="grid-cols-"] {
+    min-width: 0 !important; /* Allow grid items to shrink */
+  }
+  
+  /* Grid items should allow text wrapping */
+  [data-worksheet-content="true"] .grid > *,
+  [data-worksheet-content="true"] [class*="grid-cols-"] > * {
+    min-width: 0 !important;
+    overflow: visible !important;
+  }
+  
+  /* Ensure interactive worksheet sections don't cut off text */
+  [data-worksheet-content="true"] [class*="border-dashed"],
+  [data-worksheet-content="true"] [class*="border"][class*="rounded"] {
+    overflow: visible !important;
+  }
+  
+  /* Pattern matching text - ensure it's visible */
+  [data-worksheet-content="true"] [class*="pattern"],
+  [data-worksheet-content="true"] [class*="spatial"] {
+    overflow: visible !important;
+    text-overflow: clip !important;
+    white-space: normal !important;
+  }
+  
+  /* ============================================================================
+   * CRITICAL FIX: Interactive Worksheet Sections - Text and UI Visibility
+   * ============================================================================ */
+  
+  /* Ensure all text in interactive sections is visible */
+  [data-worksheet-content="true"] [class*="pink-"],
+  [data-worksheet-content="true"] [class*="bg-pink-50"],
+  [data-worksheet-content="true"] [class*="border-pink"] {
+    overflow: visible !important;
+  }
+  
+  /* Pattern matching boxes - ensure text doesn't get cut off */
+  [data-worksheet-content="true"] [class*="bg-white"][class*="border-pink-200"] p,
+  [data-worksheet-content="true"] [class*="bg-white"][class*="border-pink-200"] span {
+    overflow: visible !important;
+    text-overflow: clip !important;
+    white-space: normal !important;
+    word-wrap: break-word !important;
+    max-width: 100% !important;
+  }
+  
+  /* Spatial reasoning grid items - ensure text wraps properly */
+  [data-worksheet-content="true"] [class*="grid-cols-2"][class*="border-dashed"] p,
+  [data-worksheet-content="true"] [class*="grid-cols-2"][class*="border-dashed"] span {
+    overflow: visible !important;
+    text-overflow: clip !important;
+    white-space: normal !important;
+    word-wrap: break-word !important;
+    word-break: break-word !important;
+    min-width: 0 !important;
+  }
+  
+  /* Ensure "What's different" text is visible */
+  [data-worksheet-content="true"] p[class*="text-xs"][class*="text-pink-600"] {
+    overflow: visible !important;
+    text-overflow: clip !important;
+    white-space: normal !important;
+    word-wrap: break-word !important;
+  }
+  
+  /* Ensure "Position" and "Item" labels are visible */
+  [data-worksheet-content="true"] [class*="text-xs"]:has-text("Position"),
+  [data-worksheet-content="true"] [class*="text-xs"]:has-text("Item") {
+    overflow: visible !important;
+    white-space: normal !important;
+  }
+  
+  /* Pattern badges (red, blue, circle, square, etc.) - ensure visible */
+  [data-worksheet-content="true"] span[class*="bg-pink-100"],
+  [data-worksheet-content="true"] span[class*="bg-pink-200"] {
+    display: inline-block !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+    overflow: visible !important;
+  }
+  
+  /* Drawing instruction boxes - ensure they're visible */
+  [data-worksheet-content="true"] [class*="h-20"][class*="border-pink-200"] {
+    display: block !important;
+    visibility: visible !important;
+    overflow: visible !important;
+    min-height: 80px !important;
+  }
+  
+  /* Reference lines in spatial reasoning boxes - ensure visible */
+  [data-worksheet-content="true"] [class*="absolute"][class*="bg-pink-600"],
+  [data-worksheet-content="true"] div[class*="absolute"][style*="backgroundColor"][style*="#db2777"] {
+    display: block !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+  }
 }
 
