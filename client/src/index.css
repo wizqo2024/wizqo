@@ -3942,7 +3942,11 @@ section[data-interactive-section="true"].preserve-print-styling [class*="h-48"] 
   [data-worksheet-content="true"] [class*="border-dashed"],
   section [class*="border-dashed"] {
     border-style: dashed !important;
-    border-color: inherit !important;
+    border-color: #cbd5e1 !important;
+    border-width: 2px !important;
+    display: block !important;
+    visibility: visible !important;
+    opacity: 1 !important;
     -webkit-print-color-adjust: exact !important;
     print-color-adjust: exact !important;
     color-adjust: exact !important;
@@ -3955,9 +3959,14 @@ section[data-interactive-section="true"].preserve-print-styling [class*="h-48"] 
   [data-worksheet-content="true"] [class*="bg-white"][class*="border-dashed"],
   section [class*="border-dashed"][class*="bg-white"],
   section [class*="bg-white"][class*="border-dashed"] {
-    background-color: #fefefe !important; /* Light gray for visibility */
+    background-color: #ffffff !important;
     border-style: dashed !important;
-    border-width: 1px !important;
+    border-width: 2px !important;
+    border-color: #cbd5e1 !important;
+    display: block !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+    min-height: 4rem !important;
     -webkit-print-color-adjust: exact !important;
     print-color-adjust: exact !important;
     color-adjust: exact !important;
@@ -6703,23 +6712,24 @@ section[data-interactive-section="true"].preserve-print-styling [class*="h-48"] 
     border-radius: 0.25rem !important;
   }
   
-  /* Ensure text labels above work boxes are visible */
-  [data-worksheet-content="true"] div:has(+ div[class*="border-dashed"]) {
-    display: block !important;
-    visibility: visible !important;
-    opacity: 1 !important;
-    color: #475569 !important;
-  }
-  
-  /* Ensure "Show your work" text is visible */
-  [data-worksheet-content="true"] div[class*="text-xs"][class*="text-slate-600"]:has(+ div[class*="border-dashed"]),
-  [data-worksheet-content="true"] div:contains("Show your work") {
+  /* Ensure text labels above work boxes are visible - target divs that come before border-dashed */
+  [data-worksheet-content="true"] div[class*="text-xs"][class*="text-slate-600"] {
     display: block !important;
     visibility: visible !important;
     opacity: 1 !important;
     color: #475569 !important;
     font-size: 0.75rem !important;
     margin-top: 0.5rem !important;
+  }
+  
+  /* Ensure all empty divs with border-dashed are visible (work boxes) */
+  [data-worksheet-content="true"] div[class*="border-dashed"]:empty,
+  [data-worksheet-content="true"] div[class*="border"][class*="dashed"]:empty {
+    display: block !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+    min-height: 4rem !important;
+    height: 4rem !important;
   }
 }
 
