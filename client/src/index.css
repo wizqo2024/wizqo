@@ -1273,28 +1273,52 @@ html {
   }
   
   /* Remove all inner borders in print so only outer frame remains */
-  /* EXCLUDE drawing boxes, worksheet sections, and ALL TABLE ELEMENTS from border removal */
-  /* CRITICAL: Tables need their borders preserved - exclude table descendants from border removal */
-  /* Use :not() to exclude elements that are descendants of table elements */
-[data-worksheet-content="true"] .border:not(.worksheet-container):not(.print-section-outline):not(.print-block-outline):not(.drawing-box):not(.drawing-box-large):not([data-drawing-box]):not(.worksheet-section):not(section.worksheet-section):not([class*="worksheet-section"]):not(table):not(thead):not(tbody):not(tr):not(td):not(th),
-[data-worksheet-content="true"] [class*="border-"]:not(.worksheet-container):not(.print-section-outline):not(.print-block-outline):not(.drawing-box):not(.drawing-box-large):not([data-drawing-box]):not(.worksheet-section):not(section.worksheet-section):not([class*="worksheet-section"]):not(table):not(thead):not(tbody):not(tr):not(td):not(th),
-[data-worksheet-content="true"] [class*="print:border"]:not(.worksheet-container):not(.print-section-outline):not(.print-block-outline):not(.drawing-box):not(.drawing-box-large):not([data-drawing-box]):not(.worksheet-section):not(section.worksheet-section):not([class*="worksheet-section"]):not(table):not(thead):not(tbody):not(tr):not(td):not(th),
-[data-worksheet-content="true"] *:not(.worksheet-container):not(.print-section-outline):not(.print-block-outline):not(.drawing-box):not(.drawing-box-large):not([data-drawing-box]):not(.worksheet-section):not(section.worksheet-section):not([class*="worksheet-section"]):not(table):not(thead):not(tbody):not(tr):not(td):not(th)[style*="border"] {
+  /* CRITICAL: EXCLUDE ALL TABLE ELEMENTS AND THEIR DESCENDANTS from border removal */
+  /* Tables MUST keep their borders - use :not() with descendant selector to exclude table content */
+  /* Target only elements that are NOT inside a table element */
+  [data-worksheet-content="true"] .border:not(.worksheet-container):not(.print-section-outline):not(.print-block-outline):not(.drawing-box):not(.drawing-box-large):not([data-drawing-box]):not(.worksheet-section):not(section.worksheet-section):not([class*="worksheet-section"]),
+  [data-worksheet-content="true"] [class*="border-"]:not(.worksheet-container):not(.print-section-outline):not(.print-block-outline):not(.drawing-box):not(.drawing-box-large):not([data-drawing-box]):not(.worksheet-section):not(section.worksheet-section):not([class*="worksheet-section"]),
+  [data-worksheet-content="true"] [class*="print:border"]:not(.worksheet-container):not(.print-section-outline):not(.print-block-outline):not(.drawing-box):not(.drawing-box-large):not([data-drawing-box]):not(.worksheet-section):not(section.worksheet-section):not([class*="worksheet-section"]),
+  [data-worksheet-content="true"] *:not(.worksheet-container):not(.print-section-outline):not(.print-block-outline):not(.drawing-box):not(.drawing-box-large):not([data-drawing-box]):not(.worksheet-section):not(section.worksheet-section):not([class*="worksheet-section"])[style*="border"] {
     border: none !important;
     border-width: 0 !important;
     border-color: transparent !important;
     box-shadow: none !important;
   }
   
-  /* CRITICAL: Exclude ALL table descendants from border removal - must come before border removal */
+  /* CRITICAL: Explicitly EXCLUDE all table elements from border removal */
+  /* This must come BEFORE the border removal rule to prevent it from affecting tables */
+  /* Use a more specific selector to ensure table elements are never affected */
   [data-worksheet-content="true"] table,
   [data-worksheet-content="true"] table *,
   [data-worksheet-content="true"] table thead,
   [data-worksheet-content="true"] table tbody,
   [data-worksheet-content="true"] table tr,
   [data-worksheet-content="true"] table td,
-  [data-worksheet-content="true"] table th {
-    /* Do not apply border removal to table elements - borders will be set explicitly below */
+  [data-worksheet-content="true"] table th,
+  table,
+  table *,
+  table thead,
+  table tbody,
+  table tr,
+  table td,
+  table th {
+    /* Explicitly prevent border removal - borders will be set by rules below */
+    /* Do NOT set border: none here - let the specific table border rules handle it */
+  }
+  
+  /* CRITICAL: Override border removal for table elements - must come after border removal */
+  /* This ensures table borders are NEVER removed */
+  [data-worksheet-content="true"] table td[class*="border"],
+  [data-worksheet-content="true"] table th[class*="border"],
+  [data-worksheet-content="true"] table td[class*="border-"],
+  [data-worksheet-content="true"] table th[class*="border-"],
+  table td[class*="border"],
+  table th[class*="border"],
+  table td[class*="border-"],
+  table th[class*="border-"] {
+    /* Override border removal - borders will be set explicitly below */
+    border: inherit !important;
   }
   
   /* CRITICAL: Preserve table borders in print mode - MUST come after border removal with maximum specificity */
@@ -4962,18 +4986,31 @@ section[data-interactive-section="true"].preserve-print-styling [class*="h-48"] 
   
   /* ABSOLUTE FINAL RULE: Force borders on ALL table cells - no exceptions */
   /* This MUST come at the very end to override ALL previous rules including border removal */
+  /* Use maximum specificity and !important to ensure these rules ALWAYS win */
   table td,
   table th,
   table thead td,
   table thead th,
   table tbody td,
   table tbody th,
+  table td.border,
+  table th.border,
+  table td[class*="border"],
+  table th[class*="border"],
+  table td[class*="border-"],
+  table th[class*="border-"],
   [data-worksheet-content="true"] table td,
   [data-worksheet-content="true"] table th,
   [data-worksheet-content="true"] table thead td,
   [data-worksheet-content="true"] table thead th,
   [data-worksheet-content="true"] table tbody td,
-  [data-worksheet-content="true"] table tbody th {
+  [data-worksheet-content="true"] table tbody th,
+  [data-worksheet-content="true"] table td.border,
+  [data-worksheet-content="true"] table th.border,
+  [data-worksheet-content="true"] table td[class*="border"],
+  [data-worksheet-content="true"] table th[class*="border"],
+  [data-worksheet-content="true"] table td[class*="border-"],
+  [data-worksheet-content="true"] table th[class*="border-"] {
     border: 1px solid #1e293b !important;
     border-color: #1e293b !important;
     border-width: 1px !important;
@@ -4985,28 +5022,49 @@ section[data-interactive-section="true"].preserve-print-styling [class*="h-48"] 
     -webkit-print-color-adjust: exact !important;
     print-color-adjust: exact !important;
     color-adjust: exact !important;
+    box-shadow: none !important;
   }
   
   /* Ensure table structure is visible */
   table,
   table thead,
   table tbody,
-  table tr {
+  table tr,
+  [data-worksheet-content="true"] table,
+  [data-worksheet-content="true"] table thead,
+  [data-worksheet-content="true"] table tbody,
+  [data-worksheet-content="true"] table tr {
     display: table !important;
     visibility: visible !important;
     opacity: 1 !important;
   }
   
-  table thead {
+  table thead,
+  [data-worksheet-content="true"] table thead {
     display: table-header-group !important;
   }
   
-  table tbody {
+  table tbody,
+  [data-worksheet-content="true"] table tbody {
     display: table-row-group !important;
   }
   
-  table tr {
+  table tr,
+  [data-worksheet-content="true"] table tr {
     display: table-row !important;
+  }
+  
+  /* Ensure table cells with input lines are visible */
+  table tbody td span[class*="border-b"],
+  table tbody td span[class*="inline-block"],
+  [data-worksheet-content="true"] table tbody td span[class*="border-b"],
+  [data-worksheet-content="true"] table tbody td span[class*="inline-block"] {
+    display: inline-block !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+    border-bottom: 2px solid #475569 !important;
+    width: 2.5rem !important;
+    height: 1.25rem !important;
   }
 }
 
