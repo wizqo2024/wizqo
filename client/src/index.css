@@ -424,6 +424,15 @@ html {
    * Simple, minimal, print-friendly styles
    * ============================================================================ */
   
+  /* CRITICAL: Override Tailwind's .hidden class for print:flex elements FIRST */
+  /* This must come before other rules to ensure print:flex works */
+  .hidden.print\\:flex,
+  div.hidden.print\\:flex,
+  [class*="hidden"][class*="print:flex"],
+  div[class*="hidden"][class*="print:flex"] {
+    display: flex !important;
+  }
+  
   /* CRITICAL: Force all colors to print - override any browser defaults */
   /* BUT exclude images and SVGs - they should render normally (for coloring pages) */
   *:not(img):not(svg):not(image):not([class*="svg"]):not([class*="image"]):not(path):not(circle):not(rect):not(polygon):not(ellipse) {
@@ -567,6 +576,7 @@ html {
   /* CRITICAL: Show elements with print:flex hidden - these should be visible in print */
   /* Used by VerticalEquation component for print layout */
   /* Must override Tailwind's .hidden class which has display: none !important */
+  /* Use maximum specificity - target every possible combination */
   [class*="print:flex"][class*="hidden"],
   .print\\:flex.hidden,
   div[class*="print:flex"][class*="hidden"],
@@ -579,7 +589,10 @@ html {
   [data-worksheet-content="true"] div[class*="vertical-equation"] div.hidden.print\\:flex,
   /* ULTRA-SPECIFIC: Target VerticalEquation print container with maximum specificity */
   [data-worksheet-content="true"] .vertical-equation > div.hidden[class*="print:flex"],
-  [data-worksheet-content="true"] div[class*="vertical-equation"] > div.hidden[class*="print:flex"] {
+  [data-worksheet-content="true"] div[class*="vertical-equation"] > div.hidden[class*="print:flex"],
+  /* ABSOLUTE FINAL: Target ANY div with both hidden and print:flex classes */
+  [data-worksheet-content="true"] div.hidden[class*="print:flex"],
+  [data-worksheet-content="true"] div[class*="hidden"][class*="print:flex"] {
     display: flex !important;
     visibility: visible !important;
     opacity: 1 !important;
@@ -587,7 +600,19 @@ html {
   
   /* CRITICAL: Ensure ALL children of print:flex container are visible */
   [data-worksheet-content="true"] .vertical-equation div[class*="print:flex"] > *,
-  [data-worksheet-content="true"] div[class*="vertical-equation"] div[class*="print:flex"] > * {
+  [data-worksheet-content="true"] div[class*="vertical-equation"] div[class*="print:flex"] > *,
+  [data-worksheet-content="true"] .vertical-equation div.hidden[class*="print:flex"] > *,
+  [data-worksheet-content="true"] div[class*="vertical-equation"] div.hidden[class*="print:flex"] > * {
+    display: inline-block !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+  }
+  
+  /* CRITICAL: Ensure all spans inside print:flex are visible - target each span individually */
+  [data-worksheet-content="true"] .vertical-equation div[class*="print:flex"] span,
+  [data-worksheet-content="true"] div[class*="vertical-equation"] div[class*="print:flex"] span,
+  [data-worksheet-content="true"] .vertical-equation div.hidden[class*="print:flex"] span,
+  [data-worksheet-content="true"] div[class*="vertical-equation"] div.hidden[class*="print:flex"] span {
     display: inline-block !important;
     visibility: visible !important;
     opacity: 1 !important;
@@ -1382,6 +1407,7 @@ html {
   
   /* CRITICAL: Explicitly PRESERVE borders for work boxes - must come AFTER border removal */
   /* Use class selectors for maximum specificity to override border removal */
+  /* This rule MUST override the border removal rule at line 1363-1377 */
   [data-worksheet-content="true"] div.border.border-dashed,
   [data-worksheet-content="true"] div.border[class*="border-dashed"],
   [data-worksheet-content="true"] div.border-dashed,
@@ -1389,7 +1415,10 @@ html {
   [data-worksheet-content="true"] div.min-h-24.border,
   [data-worksheet-content="true"] div[class*="min-h-24"].border,
   [data-worksheet-content="true"] div.min-h-24.border.border-dashed,
-  [data-worksheet-content="true"] div[class*="min-h-24"].border.border-dashed {
+  [data-worksheet-content="true"] div[class*="min-h-24"].border.border-dashed,
+  [data-worksheet-content="true"] div.border.border-dashed[class*="border-slate-300"],
+  [data-worksheet-content="true"] div.min-h-24.border.border-dashed[class*="border-slate-300"],
+  [data-worksheet-content="true"] div[class*="min-h-24"].border.border-dashed[class*="border-slate-300"] {
     /* Override border removal - explicitly set dashed borders */
     border: 1px dashed #334155 !important;
     border-top: 1px dashed #334155 !important;
@@ -1399,6 +1428,13 @@ html {
     border-style: dashed !important;
     border-width: 1px !important;
     border-color: #334155 !important;
+    display: block !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+    min-height: 6rem !important;
+    height: 6rem !important;
+    width: 100% !important;
+    background-color: #ffffff !important;
   }
   
   /* CRITICAL: Explicitly PRESERVE borders for ALL elements inside tables */
@@ -7294,10 +7330,17 @@ section[data-interactive-section="true"].preserve-print-styling [class*="h-48"] 
   
   /* CRITICAL: Ensure VerticalEquation print flex container maintains proper alignment */
   /* This MUST override any other rules and ensure the container is visible */
+  /* ABSOLUTE OVERRIDE: Target ANY div with print:flex class - maximum coverage */
   [data-worksheet-content="true"] .vertical-equation div[class*="print:flex"],
   [data-worksheet-content="true"] div[class*="vertical-equation"] div[class*="print:flex"],
   [data-worksheet-content="true"] .vertical-equation > div[class*="print:flex"],
-  [data-worksheet-content="true"] div[class*="vertical-equation"] > div[class*="print:flex"] {
+  [data-worksheet-content="true"] div[class*="vertical-equation"] > div[class*="print:flex"],
+  /* CRITICAL: Override .hidden class - target divs with both hidden and print:flex */
+  [data-worksheet-content="true"] .vertical-equation div.hidden[class*="print:flex"],
+  [data-worksheet-content="true"] div[class*="vertical-equation"] div.hidden[class*="print:flex"],
+  /* FINAL CATCH-ALL: Any div with print:flex inside vertical-equation */
+  [data-worksheet-content="true"] .vertical-equation div[class*="print\\:flex"],
+  [data-worksheet-content="true"] div[class*="vertical-equation"] div[class*="print\\:flex"] {
     display: flex !important;
     align-items: center !important; /* Maintain items-center */
     justify-content: flex-end !important; /* Maintain justify-end - content on right */
@@ -8054,7 +8097,10 @@ section[data-interactive-section="true"].preserve-print-styling [class*="h-48"] 
   [data-worksheet-content="true"] div[class*="min-h-24"].border.border-dashed[class*="border-slate-300"],
   /* FINAL CATCH-ALL: Any div with border-dashed - must be visible */
   [data-worksheet-content="true"] div.border-dashed,
-  [data-worksheet-content="true"] div[class*="border-dashed"] {
+  [data-worksheet-content="true"] div[class*="border-dashed"],
+  /* ABSOLUTE FINAL: Target by exact class combination from HTML */
+  [data-worksheet-content="true"] div.min-h-24.border.border-dashed.border-slate-300,
+  [data-worksheet-content="true"] div[class*="min-h-24"].border.border-dashed[class*="border-slate-300"] {
     /* CRITICAL: Override border removal rule completely - set ALL border properties */
     border: 1px dashed #334155 !important;
     border-top: 1px dashed #334155 !important;
@@ -8092,11 +8138,18 @@ section[data-interactive-section="true"].preserve-print-styling [class*="h-48"] 
   /* ============================================================================
    * FINAL COMPREHENSIVE OVERRIDE: Ensure work boxes are ALWAYS visible
    * This rule targets the exact HTML structure from mult-3x2-digit
+   * This is the ABSOLUTE LAST rule - it overrides EVERYTHING
    * ============================================================================ */
   [data-worksheet-content="true"] div.min-h-24.border.border-dashed.border-slate-300,
   [data-worksheet-content="true"] div[class*="min-h-24"].border.border-dashed[class*="border-slate-300"],
   [data-worksheet-content="true"] div.border.border-dashed[class*="min-h-24"],
-  [data-worksheet-content="true"] div.border.border-dashed[class*="border-slate-300"] {
+  [data-worksheet-content="true"] div.border.border-dashed[class*="border-slate-300"],
+  /* FINAL CATCH-ALL: Match ANY div with these classes in ANY order */
+  [data-worksheet-content="true"] div[class*="min-h-24"][class*="border"][class*="border-dashed"],
+  [data-worksheet-content="true"] div[class*="border"][class*="border-dashed"][class*="min-h-24"],
+  /* ABSOLUTE FINAL: Any empty div after "Show your work:" text */
+  [data-worksheet-content="true"] div[class*="min-h-24"]:empty,
+  [data-worksheet-content="true"] div.border-dashed:empty {
     /* Override border removal - set borders explicitly */
     border: 1px dashed #334155 !important;
     border-top: 1px dashed #334155 !important;
@@ -8116,6 +8169,22 @@ section[data-interactive-section="true"].preserve-print-styling [class*="h-48"] 
     -webkit-print-color-adjust: exact !important;
     print-color-adjust: exact !important;
     color-adjust: exact !important;
+  }
+  
+  /* ============================================================================
+   * ABSOLUTE FINAL: Ensure VerticalEquation content is visible and aligned
+   * This is the LAST rule for equations - overrides everything
+   * ============================================================================ */
+  [data-worksheet-content="true"] .vertical-equation div[class*="print:flex"] span:first-child,
+  [data-worksheet-content="true"] .vertical-equation div[class*="print:flex"] span:nth-child(2),
+  [data-worksheet-content="true"] .vertical-equation div[class*="print:flex"] span:nth-child(3),
+  [data-worksheet-content="true"] .vertical-equation div[class*="print:flex"] span:nth-child(4),
+  [data-worksheet-content="true"] .vertical-equation div[class*="print:flex"] span:nth-child(5),
+  [data-worksheet-content="true"] div[class*="vertical-equation"] div[class*="print:flex"] span {
+    display: inline-block !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+    white-space: nowrap !important;
   }
 }
 
