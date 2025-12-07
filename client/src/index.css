@@ -2625,15 +2625,16 @@ section[data-interactive-section="true"].preserve-print-styling [class*="h-48"] 
   [data-worksheet-content="true"] .question-section > div:has(.tens-frames-grid),
   section .question-section > div:has(.tens-frames-grid),
   /* CRITICAL: Remove all borders from place-value containers and their children */
-  [data-worksheet-content="true"] div[class*="rounded-xl"][class*="bg-white"]:has(div[class*="bg-purple-50"]),
-  section div[class*="rounded-xl"][class*="bg-white"]:has(div[class*="bg-purple-50"]),
-  [data-worksheet-content="true"] div[class*="bg-purple-50"],
-  section div[class*="bg-purple-50"],
+  /* BUT EXCLUDE work boxes with border-dashed */
+  [data-worksheet-content="true"] div[class*="rounded-xl"][class*="bg-white"]:has(div[class*="bg-purple-50"]):not([class*="border-dashed"]),
+  section div[class*="rounded-xl"][class*="bg-white"]:has(div[class*="bg-purple-50"]):not([class*="border-dashed"]),
+  [data-worksheet-content="true"] div[class*="bg-purple-50"]:not([class*="border-dashed"]),
+  section div[class*="bg-purple-50"]:not([class*="border-dashed"]),
   /* Also target any divs that might have gradient borders */
-  [data-worksheet-content="true"] div[class*="space-y-3"]:has(div[class*="bg-purple-50"]),
-  section div[class*="space-y-3"]:has(div[class*="bg-purple-50"]),
-  [data-worksheet-content="true"] div[class*="space-y-4"]:has(div[class*="bg-purple-50"]),
-  section div[class*="space-y-4"]:has(div[class*="bg-purple-50"]) {
+  [data-worksheet-content="true"] div[class*="space-y-3"]:has(div[class*="bg-purple-50"]):not([class*="border-dashed"]),
+  section div[class*="space-y-3"]:has(div[class*="bg-purple-50"]):not([class*="border-dashed"]),
+  [data-worksheet-content="true"] div[class*="space-y-4"]:has(div[class*="bg-purple-50"]):not([class*="border-dashed"]),
+  section div[class*="space-y-4"]:has(div[class*="bg-purple-50"]):not([class*="border-dashed"]) {
     border: none !important;
     border-width: 0 !important;
     border-style: none !important;
@@ -3019,10 +3020,11 @@ section[data-interactive-section="true"].preserve-print-styling [class*="h-48"] 
   /* CRITICAL: Preserve borders on all worksheet content elements - but don't use inherit to avoid double borders */
   /* Only preserve border style and color, not inherit full border */
   /* Exclude gradient border wrappers - they use padding, not borders */
-  [data-worksheet-content="true"] [class*="border"]:not([class*="border-0"]):not([class*="border-none"]):not(button):not(nav):not(header:not(.print-header)):not(.tens-frame-box):not([class*="bg-gradient-to-br"][class*="from-purple-400"]),
-  section [class*="border"]:not([class*="border-0"]):not([class*="border-none"]):not(button):not(nav):not(header:not(.print-header)):not(.tens-frame-box):not([class*="bg-gradient-to-br"][class*="from-purple-400"]) {
+  [data-worksheet-content="true"] [class*="border"]:not([class*="border-0"]):not([class*="border-none"]):not([class*="border-dashed"]):not(button):not(nav):not(header:not(.print-header)):not(.tens-frame-box):not([class*="bg-gradient-to-br"][class*="from-purple-400"]),
+  section [class*="border"]:not([class*="border-0"]):not([class*="border-none"]):not([class*="border-dashed"]):not(button):not(nav):not(header:not(.print-header)):not(.tens-frame-box):not([class*="bg-gradient-to-br"][class*="from-purple-400"]) {
     /* Don't use border: inherit - it causes double borders */
     /* Just ensure border-style is preserved */
+    /* EXCLUDE border-dashed elements - they need to stay dashed */
     border-style: solid !important;
     -webkit-print-color-adjust: exact !important;
     print-color-adjust: exact !important;
@@ -6833,6 +6835,36 @@ section[data-interactive-section="true"].preserve-print-styling [class*="h-48"] 
     display: block !important;
     visibility: visible !important;
     opacity: 1 !important;
+  }
+  
+  /* ABSOLUTE FINAL OVERRIDE - Must be at the very end */
+  /* Target work boxes with ALL possible class combinations */
+  [data-worksheet-content="true"] div.border.border-dashed,
+  [data-worksheet-content="true"] div[class*="border"][class*="dashed"],
+  [data-worksheet-content="true"] div.min-h-16.border.border-dashed.border-slate-300,
+  [data-worksheet-content="true"] div[class*="min-h-16"][class*="border"][class*="border-dashed"][class*="border-slate-300"],
+  [data-worksheet-content="true"] div[class*="min-h-24"][class*="border-dashed"],
+  [data-worksheet-content="true"] div[class*="min-h-32"][class*="border-dashed"] {
+    display: block !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+    border: 2px dashed #cbd5e1 !important;
+    border-style: dashed !important;
+    border-color: #cbd5e1 !important;
+    border-width: 2px !important;
+    min-height: 4rem !important;
+    height: 4rem !important;
+    padding: 0.5rem !important;
+    background-color: #ffffff !important;
+    background: #ffffff !important;
+    margin-top: 0.5rem !important;
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+    /* Override ANY conflicting rules */
+    border-top: 2px dashed #cbd5e1 !important;
+    border-right: 2px dashed #cbd5e1 !important;
+    border-bottom: 2px dashed #cbd5e1 !important;
+    border-left: 2px dashed #cbd5e1 !important;
   }
 }
 
