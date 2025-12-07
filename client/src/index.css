@@ -453,7 +453,7 @@ html {
     text-shadow: none !important;
   }
   
-  /* Preserve box shadows for UI design - override the general removal */
+  /* Preserve box shadows for UI design - override the general removal and print:shadow-none */
   [data-worksheet-content="true"] .worksheet-section,
   [data-worksheet-content="true"] .worksheet-card,
   [data-worksheet-content="true"] [class*="shadow-lg"],
@@ -462,20 +462,24 @@ html {
     box-shadow: inherit !important;
   }
   
-  /* Preserve specific shadow styles */
+  /* Preserve specific shadow styles - override print:shadow-none */
   [data-worksheet-content="true"] .shadow-lg,
-  [data-worksheet-content="true"] [class*="shadow-lg"]:not([class*="shadow-none"]) {
+  [data-worksheet-content="true"] [class*="shadow-lg"]:not([class*="shadow-none"]),
+  [data-worksheet-content="true"] [class*="shadow-lg"][class*="print:shadow-none"],
+  [data-worksheet-content="true"] .shadow-lg.print\\:shadow-none {
     box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05) !important;
   }
   
   [data-worksheet-content="true"] .shadow-md,
-  [data-worksheet-content="true"] [class*="shadow-md"]:not([class*="shadow-none"]) {
+  [data-worksheet-content="true"] [class*="shadow-md"]:not([class*="shadow-none"]),
+  [data-worksheet-content="true"] [class*="shadow-md"][class*="print:shadow-none"],
+  [data-worksheet-content="true"] .shadow-md.print\\:shadow-none {
     box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06) !important;
   }
   
-  /* Override print:shadow-none to restore shadows */
-  [data-worksheet-content="true"] [class*="shadow-lg"][class*="print:shadow-none"],
-  [data-worksheet-content="true"] .shadow-lg.print\\:shadow-none {
+  /* Override print:shadow-none for worksheet sections */
+  [data-worksheet-content="true"] .worksheet-section[class*="print:shadow-none"],
+  [data-worksheet-content="true"] .worksheet-section.print\\:shadow-none {
     box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05) !important;
   }
   
@@ -1312,15 +1316,19 @@ html {
   
   /* CRITICAL: IMMEDIATELY after border removal, restore borders for ALL table elements */
   /* This MUST come right after border removal to override it */
-  /* Target EVERY possible table element combination */
+  /* Target EVERY possible table element combination - ULTRA-SPECIFIC to override border removal */
   [data-worksheet-content="true"] table td,
   [data-worksheet-content="true"] table th,
   [data-worksheet-content="true"] table td.border,
   [data-worksheet-content="true"] table th.border,
+  [data-worksheet-content="true"] table td.border.border-slate-400,
+  [data-worksheet-content="true"] table th.border.border-slate-400,
   [data-worksheet-content="true"] table td[class*="border"],
   [data-worksheet-content="true"] table th[class*="border"],
   [data-worksheet-content="true"] table td[class*="border-"],
   [data-worksheet-content="true"] table th[class*="border-"],
+  [data-worksheet-content="true"] table td[class*="border"][class*="border-"],
+  [data-worksheet-content="true"] table th[class*="border"][class*="border-"],
   [data-worksheet-content="true"] table tbody td,
   [data-worksheet-content="true"] table tbody th,
   [data-worksheet-content="true"] table thead td,
@@ -1329,10 +1337,14 @@ html {
   table th,
   table td.border,
   table th.border,
+  table td.border.border-slate-400,
+  table th.border.border-slate-400,
   table td[class*="border"],
   table th[class*="border"],
   table td[class*="border-"],
   table th[class*="border-"],
+  table td[class*="border"][class*="border-"],
+  table th[class*="border"][class*="border-"],
   table tbody td,
   table tbody th,
   table thead td,
@@ -1348,6 +1360,19 @@ html {
     -webkit-print-color-adjust: exact !important;
     print-color-adjust: exact !important;
     color-adjust: exact !important;
+    box-shadow: none !important;
+  }
+  
+  /* CRITICAL: Ensure table cells with border classes are NEVER affected by border removal */
+  /* This is a safety net to ensure borders are ALWAYS visible */
+  [data-worksheet-content="true"] table td.border.border-slate-400,
+  [data-worksheet-content="true"] table th.border.border-slate-400,
+  table td.border.border-slate-400,
+  table th.border.border-slate-400 {
+    border: 1px solid #1e293b !important;
+    border-color: #1e293b !important;
+    border-width: 1px !important;
+    border-style: solid !important;
   }
   
   /* CRITICAL: Preserve table borders in print mode - MUST come after border removal with maximum specificity */
@@ -1559,33 +1584,56 @@ html {
     color-adjust: exact !important;
   }
   
-  /* Preserve specific background colors */
+  /* Preserve specific background colors - override print:bg-white */
   [data-worksheet-content="true"] .bg-purple-50,
-  [data-worksheet-content="true"] [class*="bg-purple-50"]:not([class*="bg-white"]) {
+  [data-worksheet-content="true"] [class*="bg-purple-50"]:not([class*="bg-white"]),
+  [data-worksheet-content="true"] [class*="bg-purple-50"][class*="print:bg-white"],
+  [data-worksheet-content="true"] .bg-purple-50.print\\:bg-white {
     background-color: #faf5ff !important;
     -webkit-print-color-adjust: exact !important;
     print-color-adjust: exact !important;
+    color-adjust: exact !important;
   }
   
   [data-worksheet-content="true"] .bg-blue-50,
-  [data-worksheet-content="true"] [class*="bg-blue-50"]:not([class*="bg-white"]) {
+  [data-worksheet-content="true"] [class*="bg-blue-50"]:not([class*="bg-white"]),
+  [data-worksheet-content="true"] [class*="bg-blue-50"][class*="print:bg-white"],
+  [data-worksheet-content="true"] .bg-blue-50.print\\:bg-white {
     background-color: #eff6ff !important;
     -webkit-print-color-adjust: exact !important;
     print-color-adjust: exact !important;
+    color-adjust: exact !important;
   }
   
   [data-worksheet-content="true"] .bg-emerald-50,
-  [data-worksheet-content="true"] [class*="bg-emerald-50"]:not([class*="bg-white"]) {
+  [data-worksheet-content="true"] [class*="bg-emerald-50"]:not([class*="bg-white"]),
+  [data-worksheet-content="true"] [class*="bg-emerald-50"][class*="print:bg-white"],
+  [data-worksheet-content="true"] .bg-emerald-50.print\\:bg-white {
     background-color: #ecfdf5 !important;
     -webkit-print-color-adjust: exact !important;
     print-color-adjust: exact !important;
+    color-adjust: exact !important;
   }
   
   [data-worksheet-content="true"] .bg-indigo-50,
-  [data-worksheet-content="true"] [class*="bg-indigo-50"]:not([class*="bg-white"]) {
+  [data-worksheet-content="true"] [class*="bg-indigo-50"]:not([class*="bg-white"]),
+  [data-worksheet-content="true"] [class*="bg-indigo-50"][class*="print:bg-white"],
+  [data-worksheet-content="true"] .bg-indigo-50.print\\:bg-white {
     background-color: #eef2ff !important;
     -webkit-print-color-adjust: exact !important;
     print-color-adjust: exact !important;
+    color-adjust: exact !important;
+  }
+  
+  /* Preserve bg-slate-100 for table headers */
+  [data-worksheet-content="true"] .bg-slate-100,
+  [data-worksheet-content="true"] [class*="bg-slate-100"],
+  table th.bg-slate-100,
+  table td.bg-slate-100 {
+    background-color: #f1f5f9 !important;
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+    color-adjust: exact !important;
   }
   
   /* Preserve gradient backgrounds */
@@ -5042,10 +5090,14 @@ section[data-interactive-section="true"].preserve-print-styling [class*="h-48"] 
   table tbody th,
   table td.border,
   table th.border,
+  table td.border.border-slate-400,
+  table th.border.border-slate-400,
   table td[class*="border"],
   table th[class*="border"],
   table td[class*="border-"],
   table th[class*="border-"],
+  table td[class*="border"][class*="border-"],
+  table th[class*="border"][class*="border-"],
   [data-worksheet-content="true"] table td,
   [data-worksheet-content="true"] table th,
   [data-worksheet-content="true"] table thead td,
@@ -5054,10 +5106,14 @@ section[data-interactive-section="true"].preserve-print-styling [class*="h-48"] 
   [data-worksheet-content="true"] table tbody th,
   [data-worksheet-content="true"] table td.border,
   [data-worksheet-content="true"] table th.border,
+  [data-worksheet-content="true"] table td.border.border-slate-400,
+  [data-worksheet-content="true"] table th.border.border-slate-400,
   [data-worksheet-content="true"] table td[class*="border"],
   [data-worksheet-content="true"] table th[class*="border"],
   [data-worksheet-content="true"] table td[class*="border-"],
-  [data-worksheet-content="true"] table th[class*="border-"] {
+  [data-worksheet-content="true"] table th[class*="border-"],
+  [data-worksheet-content="true"] table td[class*="border"][class*="border-"],
+  [data-worksheet-content="true"] table th[class*="border"][class*="border-"] {
     border: 1px solid #1e293b !important;
     border-color: #1e293b !important;
     border-width: 1px !important;
@@ -5070,6 +5126,19 @@ section[data-interactive-section="true"].preserve-print-styling [class*="h-48"] 
     print-color-adjust: exact !important;
     color-adjust: exact !important;
     box-shadow: none !important;
+  }
+  
+  /* CRITICAL: Ensure table cells with input lines are visible */
+  table tbody td span[class*="border-b"],
+  table tbody td span[class*="inline-block"],
+  [data-worksheet-content="true"] table tbody td span[class*="border-b"],
+  [data-worksheet-content="true"] table tbody td span[class*="inline-block"] {
+    display: inline-block !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+    border-bottom: 2px solid #475569 !important;
+    width: 2.5rem !important;
+    height: 1.25rem !important;
   }
   
   /* Ensure table structure is visible */
