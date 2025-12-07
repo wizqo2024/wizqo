@@ -1349,8 +1349,10 @@ html {
   /* Tables MUST keep their borders - ONLY target div, span, p, section - NEVER table elements */
   /* Use element selectors to ensure table elements are NEVER matched */
   /* CRITICAL: Also exclude ANY element inside a table (table td span, table th span, etc.) */
-  [data-worksheet-content="true"] div.border:not(.worksheet-container):not(.print-section-outline):not(.print-block-outline):not(.drawing-box):not(.drawing-box-large):not([data-drawing-box]):not(.worksheet-section):not(section.worksheet-section):not([class*="worksheet-section"]):not(table):not(thead):not(tbody):not(tr):not(td):not(th):not(table *):not([data-work-box]):not([data-work-box="true"]):not([class*="border-dashed"]):not([class*="min-h-24"]):not([class*="min-h-20"]),
-  [data-worksheet-content="true"] div[class*="border-"]:not(.worksheet-container):not(.print-section-outline):not(.print-block-outline):not(.drawing-box):not(.drawing-box-large):not([data-drawing-box]):not(.worksheet-section):not(section.worksheet-section):not([class*="worksheet-section"]):not(table):not(thead):not(tbody):not(tr):not(td):not(th):not(table *):not([data-work-box]):not([data-work-box="true"]):not([class*="border-dashed"]):not([class*="min-h-24"]):not([class*="min-h-20"]),
+  [data-worksheet-content="true"] div.border:not(.worksheet-container):not(.print-section-outline):not(.print-block-outline):not(.drawing-box):not(.drawing-box-large):not([data-drawing-box]):not(.worksheet-section):not(section.worksheet-section):not([class*="worksheet-section"]):not(table):not(thead):not(tbody):not(tr):not(td):not(th):not(table *):not([data-work-box]):not([data-work-box="true"]):not([class*="border-dashed"]):not([class*="min-h-24"]):not([class*="min-h-20"]):not([class*="border-slate-300"][class*="border-dashed"]),
+  [data-worksheet-content="true"] div[class*="border-"]:not(.worksheet-container):not(.print-section-outline):not(.print-block-outline):not(.drawing-box):not(.drawing-box-large):not([data-drawing-box]):not(.worksheet-section):not(section.worksheet-section):not([class*="worksheet-section"]):not(table):not(thead):not(tbody):not(tr):not(td):not(th):not(table *):not([data-work-box]):not([data-work-box="true"]):not([class*="border-dashed"]):not([class*="min-h-24"]):not([class*="min-h-20"]):not([class*="border-slate-300"][class*="border-dashed"]),
+  /* CRITICAL: Also exclude divs that have both border class AND border-dashed */
+  [data-worksheet-content="true"] div[class*="border"][class*="border-dashed"]:not(.worksheet-container):not(.print-section-outline):not(.print-block-outline):not(.drawing-box):not(.drawing-box-large):not([data-drawing-box]):not(.worksheet-section):not(section.worksheet-section):not([class*="worksheet-section"]):not(table):not(thead):not(tbody):not(tr):not(td):not(th):not(table *),
   [data-worksheet-content="true"] span[class*="border-"]:not(.worksheet-container):not(.print-section-outline):not(.print-block-outline):not(.drawing-box):not(.drawing-box-large):not([data-drawing-box]):not(.worksheet-section):not(section.worksheet-section):not([class*="worksheet-section"]):not(table):not(thead):not(tbody):not(tr):not(td):not(th):not(table *):not(table td *):not(table th *):not(table tbody *):not(table thead *):not(.vertical-equation span):not([class*="vertical-equation"] span),
   [data-worksheet-content="true"] p[class*="border-"]:not(.worksheet-container):not(.print-section-outline):not(.print-block-outline):not(.drawing-box):not(.drawing-box-large):not([data-drawing-box]):not(.worksheet-section):not(section.worksheet-section):not([class*="worksheet-section"]):not(table):not(thead):not(tbody):not(tr):not(td):not(th):not(table *),
   [data-worksheet-content="true"] section[class*="border-"]:not(.worksheet-container):not(.print-section-outline):not(.print-block-outline):not(.drawing-box):not(.drawing-box-large):not([data-drawing-box]):not(.worksheet-section):not(section.worksheet-section):not([class*="worksheet-section"]):not(table):not(thead):not(tbody):not(tr):not(td):not(th):not(table *),
@@ -1358,7 +1360,7 @@ html {
   [data-worksheet-content="true"] span[class*="print:border"]:not(.worksheet-container):not(.print-section-outline):not(.print-block-outline):not(.drawing-box):not(.drawing-box-large):not([data-drawing-box]):not(.worksheet-section):not(section.worksheet-section):not([class*="worksheet-section"]):not(table):not(thead):not(tbody):not(tr):not(td):not(th):not(table *):not(table td *):not(table th *):not(table tbody *):not(table thead *),
   [data-worksheet-content="true"] p[class*="print:border"]:not(.worksheet-container):not(.print-section-outline):not(.print-block-outline):not(.drawing-box):not(.drawing-box-large):not([data-drawing-box]):not(.worksheet-section):not(section.worksheet-section):not([class*="worksheet-section"]):not(table):not(thead):not(tbody):not(tr):not(td):not(th):not(table *),
   [data-worksheet-content="true"] section[class*="print:border"]:not(.worksheet-container):not(.print-section-outline):not(.print-block-outline):not(.drawing-box):not(.drawing-box-large):not([data-drawing-box]):not(.worksheet-section):not(section.worksheet-section):not([class*="worksheet-section"]):not(table):not(thead):not(tbody):not(tr):not(td):not(th):not(table *),
-  [data-worksheet-content="true"] div[style*="border"]:not(.worksheet-container):not(.print-section-outline):not(.print-block-outline):not(.drawing-box):not(.drawing-box-large):not([data-drawing-box]):not(.worksheet-section):not(section.worksheet-section):not([class*="worksheet-section"]):not(table):not(thead):not(tbody):not(tr):not(td):not(th):not(table *),
+  [data-worksheet-content="true"] div[style*="border"]:not(.worksheet-container):not(.print-section-outline):not(.print-block-outline):not(.drawing-box):not(.drawing-box-large):not([data-drawing-box]):not(.worksheet-section):not(section.worksheet-section):not([class*="worksheet-section"]):not(table):not(thead):not(tbody):not(tr):not(td):not(th):not(table *):not([data-work-box]):not([data-work-box="true"]):not([class*="border-dashed"]):not([class*="min-h-24"]):not([class*="min-h-20"]),
   [data-worksheet-content="true"] span[style*="border"]:not(.worksheet-container):not(.print-section-outline):not(.print-block-outline):not(.drawing-box):not(.drawing-box-large):not([data-drawing-box]):not(.worksheet-section):not(section.worksheet-section):not([class*="worksheet-section"]):not(table):not(thead):not(tbody):not(tr):not(td):not(th):not(table *):not(table td *):not(table th *):not(table tbody *):not(table thead *),
   [data-worksheet-content="true"] p[style*="border"]:not(.worksheet-container):not(.print-section-outline):not(.print-block-outline):not(.drawing-box):not(.drawing-box-large):not([data-drawing-box]):not(.worksheet-section):not(section.worksheet-section):not([class*="worksheet-section"]):not(table):not(thead):not(tbody):not(tr):not(td):not(th):not(table *) {
     border: none !important;
@@ -7800,6 +7802,8 @@ section[data-interactive-section="true"].preserve-print-styling [class*="h-48"] 
   /* Empty divs with borders (work boxes, answer boxes) */
   /* CRITICAL: Must override border removal rule - these are work boxes */
   /* Target the exact structure: min-h-24 border border-dashed border-slate-300 */
+  /* ULTRA-SPECIFIC: Use class selectors for higher specificity than attribute selectors */
+  /* MUST come AFTER border removal rule and use higher specificity */
   [data-worksheet-content="true"] div[class*="border"][class*="dashed"]:empty,
   [data-worksheet-content="true"] div[class*="border-dashed"]:empty,
   [data-worksheet-content="true"] div[class*="border"][class*="rounded"]:empty,
@@ -7808,13 +7812,22 @@ section[data-interactive-section="true"].preserve-print-styling [class*="h-48"] 
   [data-worksheet-content="true"] div[class*="min-h-20"][class*="border"],
   [data-worksheet-content="true"] div[class*="min-h-24"][class*="border"],
   [data-worksheet-content="true"] div[class*="min-h-32"][class*="border"],
-  /* CRITICAL: Target work boxes with specific class combinations */
+  /* CRITICAL: Use class selectors for higher specificity - match div.border specificity */
+  [data-worksheet-content="true"] div.min-h-24.border-dashed,
   [data-worksheet-content="true"] div.min-h-24[class*="border-dashed"],
-  [data-worksheet-content="true"] div[class*="min-h-24"][class*="border-dashed"],
-  [data-worksheet-content="true"] div[class*="min-h-24"][class*="border"][class*="border-dashed"],
-  [data-worksheet-content="true"] div[class*="min-h-24"][class*="border-slate-300"][class*="border-dashed"],
-  [data-worksheet-content="true"] div.min-h-20[class*="border-dashed"],
-  [data-worksheet-content="true"] div[class*="min-h-20"][class*="border-dashed"] {
+  [data-worksheet-content="true"] div[class*="min-h-24"].border-dashed,
+  [data-worksheet-content="true"] div.min-h-24.border.border-dashed,
+  [data-worksheet-content="true"] div[class*="min-h-24"].border.border-dashed,
+  [data-worksheet-content="true"] div.min-h-20.border-dashed,
+  [data-worksheet-content="true"] div[class*="min-h-20"].border-dashed,
+  /* CRITICAL: Target div.border (singular class) with border-dashed - HIGH SPECIFICITY */
+  [data-worksheet-content="true"] div.border.border-dashed,
+  [data-worksheet-content="true"] div.border[class*="min-h-24"],
+  [data-worksheet-content="true"] div.border[class*="min-h-20"],
+  /* Target the exact combination from mult-3x2-digit: border border-dashed border-slate-300 */
+  [data-worksheet-content="true"] div.border.border-dashed[class*="border-slate-300"],
+  [data-worksheet-content="true"] div.min-h-24.border.border-dashed[class*="border-slate-300"],
+  [data-worksheet-content="true"] div[class*="min-h-24"].border.border-dashed[class*="border-slate-300"] {
     display: block !important;
     visibility: visible !important;
     opacity: 1 !important;
@@ -7834,29 +7847,54 @@ section[data-interactive-section="true"].preserve-print-styling [class*="h-48"] 
   }
   
   /* Add pseudo-content to empty work boxes to ensure they render */
+  /* CRITICAL: Use class selectors for higher specificity */
   [data-worksheet-content="true"] div[class*="border-dashed"]:empty::before,
   [data-worksheet-content="true"] div[class*="min-h-20"][class*="border"]:empty::before,
   [data-worksheet-content="true"] div[class*="min-h-24"][class*="border"]:empty::before,
-  [data-worksheet-content="true"] div[class*="min-h-24"][class*="border-dashed"]:empty::before {
+  [data-worksheet-content="true"] div[class*="min-h-24"][class*="border-dashed"]:empty::before,
+  [data-worksheet-content="true"] div.min-h-24.border-dashed:empty::before,
+  [data-worksheet-content="true"] div.min-h-24.border.border-dashed:empty::before,
+  [data-worksheet-content="true"] div.border.border-dashed:empty::before {
     content: '\00a0' !important; /* Non-breaking space */
     display: block !important;
     height: 6rem !important; /* Match min-h-24 */
+    width: 100% !important;
   }
   
   /* ULTRA-SPECIFIC: Empty work boxes must be visible - override everything */
+  /* CRITICAL: This must override the border removal rule - use maximum specificity */
+  /* Use class selectors (.border.border-dashed) for higher specificity than attribute selectors */
   [data-worksheet-content="true"] div.min-h-24[class*="border-dashed"]:empty,
   [data-worksheet-content="true"] div[class*="min-h-24"][class*="border-dashed"]:empty,
-  [data-worksheet-content="true"] div[class*="min-h-24"][class*="border"][class*="border-dashed"]:empty {
+  [data-worksheet-content="true"] div[class*="min-h-24"][class*="border"][class*="border-dashed"]:empty,
+  /* Target div.border (singular class) with border-dashed - HIGH SPECIFICITY */
+  [data-worksheet-content="true"] div.border[class*="border-dashed"]:empty,
+  [data-worksheet-content="true"] div.border[class*="min-h-24"]:empty,
+  [data-worksheet-content="true"] div.border.border-dashed:empty,
+  [data-worksheet-content="true"] div.border.border-dashed[class*="min-h-24"]:empty,
+  [data-worksheet-content="true"] div.border.border-dashed[class*="border-slate-300"]:empty,
+  /* Target exact structure from mult-3x2-digit - MAXIMUM SPECIFICITY */
+  [data-worksheet-content="true"] div.min-h-24.border.border-dashed:empty,
+  [data-worksheet-content="true"] div.min-h-24.border.border-dashed[class*="border-slate-300"]:empty,
+  [data-worksheet-content="true"] div[class*="min-h-24"].border.border-dashed:empty,
+  [data-worksheet-content="true"] div[class*="min-h-24"].border.border-dashed[class*="border-slate-300"]:empty,
+  /* FINAL CATCH-ALL: Any empty div with border-dashed class */
+  [data-worksheet-content="true"] div.border-dashed:empty {
     display: block !important;
     visibility: visible !important;
     opacity: 1 !important;
     min-height: 6rem !important;
     height: 6rem !important;
     width: 100% !important;
+    /* CRITICAL: Override border removal - explicitly set all border properties */
     border: 1px dashed #334155 !important;
     border-style: dashed !important;
     border-width: 1px !important;
     border-color: #334155 !important;
+    border-top: 1px dashed #334155 !important;
+    border-right: 1px dashed #334155 !important;
+    border-bottom: 1px dashed #334155 !important;
+    border-left: 1px dashed #334155 !important;
     background-color: #ffffff !important;
     -webkit-print-color-adjust: exact !important;
     print-color-adjust: exact !important;
