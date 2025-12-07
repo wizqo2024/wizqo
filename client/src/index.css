@@ -5647,5 +5647,113 @@ section[data-interactive-section="true"].preserve-print-styling [class*="h-48"] 
     opacity: 1 !important;
     display: inline-block !important;
   }
+  
+  /* ULTRA-AGGRESSIVE FIX: Force times-table-blank-6-12 table to render completely */
+  /* Target every possible combination to ensure table displays */
+  [data-worksheet-content="true"][data-doc="times-table-blank-6-12"] table,
+  [data-worksheet-content="true"] table[class*="border-collapse"][class*="text-sm"],
+  [data-worksheet-content="true"] div[class*="border-slate-300"] table[class*="border-collapse"] {
+    display: table !important;
+    table-layout: auto !important;
+    width: 100% !important;
+    border-collapse: collapse !important;
+    border-spacing: 0 !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+    margin: 0 !important;
+    padding: 0 !important;
+  }
+  
+  /* Force ALL table rows to be visible with minimum height */
+  [data-worksheet-content="true"][data-doc="times-table-blank-6-12"] table tr,
+  [data-worksheet-content="true"] div[class*="border-slate-300"] table tr,
+  [data-worksheet-content="true"] table[class*="border-collapse"] tr {
+    display: table-row !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+    height: auto !important;
+    min-height: 2.5rem !important;
+  }
+  
+  /* Force ALL table cells to be visible with content */
+  [data-worksheet-content="true"][data-doc="times-table-blank-6-12"] table td,
+  [data-worksheet-content="true"][data-doc="times-table-blank-6-12"] table th,
+  [data-worksheet-content="true"] div[class*="border-slate-300"] table td,
+  [data-worksheet-content="true"] div[class*="border-slate-300"] table th,
+  [data-worksheet-content="true"] table[class*="border-collapse"] td,
+  [data-worksheet-content="true"] table[class*="border-collapse"] th {
+    display: table-cell !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+    border: 1px solid #1e293b !important;
+    padding: 0.5rem !important;
+    min-height: 2.5rem !important;
+    height: auto !important;
+    vertical-align: middle !important;
+    color: #000000 !important;
+    background-color: transparent !important;
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+  }
+  
+  /* Force header cells background */
+  [data-worksheet-content="true"][data-doc="times-table-blank-6-12"] table th[class*="bg-slate-100"],
+  [data-worksheet-content="true"] div[class*="border-slate-300"] table th[class*="bg-slate-100"],
+  [data-worksheet-content="true"] table[class*="border-collapse"] th[class*="bg-slate-100"] {
+    background-color: #f1f5f9 !important;
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+  }
+  
+  /* Force first column cells background */
+  [data-worksheet-content="true"][data-doc="times-table-blank-6-12"] table tbody td:first-child,
+  [data-worksheet-content="true"] div[class*="border-slate-300"] table tbody td:first-child,
+  [data-worksheet-content="true"] table[class*="border-collapse"] tbody td:first-child {
+    background-color: #f1f5f9 !important;
+    font-weight: 600 !important;
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+  }
+  
+  /* CRITICAL: Force ALL spans inside table cells to be visible - match border-b-[2px] class */
+  [data-worksheet-content="true"][data-doc="times-table-blank-6-12"] table td span,
+  [data-worksheet-content="true"] div[class*="border-slate-300"] table td span,
+  [data-worksheet-content="true"] table[class*="border-collapse"] td span,
+  [data-worksheet-content="true"] table td span[class*="inline-block"],
+  [data-worksheet-content="true"] table td span[class*="border-b"],
+  [data-worksheet-content="true"] table td span[class*="border-slate-600"] {
+    display: inline-block !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+    width: 2.5rem !important;
+    min-width: 2.5rem !important;
+    max-width: 2.5rem !important;
+    height: 1.25rem !important;
+    min-height: 1.25rem !important;
+    max-height: 1.25rem !important;
+    border-bottom: 2px solid #475569 !important;
+    border-bottom-width: 2px !important;
+    border-bottom-style: solid !important;
+    border-bottom-color: #475569 !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    background-color: transparent !important;
+  }
+  
+  /* Ensure table header text is visible */
+  [data-worksheet-content="true"][data-doc="times-table-blank-6-12"] table th,
+  [data-worksheet-content="true"] div[class*="border-slate-300"] table th {
+    color: #000000 !important;
+    font-weight: 600 !important;
+    text-align: center !important;
+  }
+  
+  /* Ensure table body cell text (row numbers) is visible */
+  [data-worksheet-content="true"][data-doc="times-table-blank-6-12"] table tbody td:first-child,
+  [data-worksheet-content="true"] div[class*="border-slate-300"] table tbody td:first-child {
+    color: #000000 !important;
+    font-weight: 600 !important;
+    text-align: center !important;
+  }
 }
 
