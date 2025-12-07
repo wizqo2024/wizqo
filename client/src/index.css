@@ -7040,6 +7040,7 @@ section[data-interactive-section="true"].preserve-print-styling [class*="h-48"] 
   /* ============================================================================
    * CRITICAL: Ensure horizontal answer lines (border-bottom/border-top) are visible
    * These are used for answer input fields in worksheets
+   * Fixed: All border types (top, bottom, left, right) now visible in print
    * ============================================================================ */
   
   /* Ensure all border-bottom answer lines are visible */
