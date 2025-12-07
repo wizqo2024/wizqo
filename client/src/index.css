@@ -1336,6 +1336,7 @@ html {
   /* Target ALL possible combinations: elements, classes, and attributes */
   /* These rules MUST come after the border removal rule to override it */
   /* Use BLACK/DARK borders to match live view exactly - slate-400 appears darker in live view */
+  /* ULTRA-SPECIFIC: Target every possible table cell combination to ensure borders are visible */
   [data-worksheet-content="true"] table td,
   [data-worksheet-content="true"] table th,
   [data-worksheet-content="true"] table td.border,
@@ -1351,7 +1352,22 @@ html {
   [data-worksheet-content="true"] table tbody td,
   [data-worksheet-content="true"] table tbody th,
   [data-worksheet-content="true"] table thead td,
-  [data-worksheet-content="true"] table thead th {
+  [data-worksheet-content="true"] table thead th,
+  /* Also target without data-worksheet-content for maximum coverage */
+  table td,
+  table th,
+  table td.border,
+  table th.border,
+  table td.border.border-slate-400,
+  table th.border.border-slate-400,
+  table td[class*="border"],
+  table th[class*="border"],
+  table td[class*="border-"],
+  table th[class*="border-"],
+  table tbody td,
+  table tbody th,
+  table thead td,
+  table thead th {
     border: 1px solid #1e293b !important;
     border-width: 1px !important;
     border-style: solid !important;
@@ -1359,6 +1375,9 @@ html {
     -webkit-print-color-adjust: exact !important;
     print-color-adjust: exact !important;
     color-adjust: exact !important;
+    display: table-cell !important;
+    visibility: visible !important;
+    opacity: 1 !important;
   }
   
   /* Preserve specific border colors from classes (e.g., border-slate-400) - use BLACK for maximum visibility */
@@ -4589,10 +4608,24 @@ section[data-interactive-section="true"].preserve-print-styling [class*="h-48"] 
     font-weight: 600 !important;
   }
   
-  /* CRITICAL: Ensure all table cells (td) are visible with borders */
+  /* CRITICAL: Ensure all table cells (td) are visible with borders - ULTRA-SPECIFIC */
   [data-worksheet-content="true"] table tbody td,
+  [data-worksheet-content="true"] table tbody td.border,
+  [data-worksheet-content="true"] table tbody td[class*="border"],
+  [data-worksheet-content="true"] table tbody td[class*="border-"],
   table[class*="border-collapse"] tbody td,
-  table.border-collapse tbody td {
+  table[class*="border-collapse"] tbody td.border,
+  table[class*="border-collapse"] tbody td[class*="border"],
+  table[class*="border-collapse"] tbody td[class*="border-"],
+  table.border-collapse tbody td,
+  table.border-collapse tbody td.border,
+  table.border-collapse tbody td[class*="border"],
+  table.border-collapse tbody td[class*="border-"],
+  /* Also target all table tbody td without any class restrictions */
+  table tbody td,
+  table tbody td.border,
+  table tbody td[class*="border"],
+  table tbody td[class*="border-"] {
     display: table-cell !important;
     visibility: visible !important;
     opacity: 1 !important;
@@ -4686,18 +4719,30 @@ section[data-interactive-section="true"].preserve-print-styling [class*="h-48"] 
   }
   
   /* ULTRA-CRITICAL: Force ALL table cells to have borders - override EVERYTHING including border removal */
+  /* This is the FINAL override that must win over border removal rules */
   table[class*="border-collapse"] thead th,
   table[class*="border-collapse"] tbody td,
   table[class*="border-collapse"] tbody th,
+  table[class*="border-collapse"] thead td,
   table.border-collapse thead th,
   table.border-collapse tbody td,
   table.border-collapse tbody th,
+  table.border-collapse thead td,
   [data-worksheet-content="true"] table[class*="border-collapse"] thead th,
   [data-worksheet-content="true"] table[class*="border-collapse"] tbody td,
   [data-worksheet-content="true"] table[class*="border-collapse"] tbody th,
+  [data-worksheet-content="true"] table[class*="border-collapse"] thead td,
   [data-worksheet-content="true"] table.border-collapse thead th,
   [data-worksheet-content="true"] table.border-collapse tbody td,
-  [data-worksheet-content="true"] table.border-collapse tbody th {
+  [data-worksheet-content="true"] table.border-collapse tbody th,
+  [data-worksheet-content="true"] table.border-collapse thead td,
+  /* Target ALL table cells regardless of classes - maximum coverage */
+  table thead th,
+  table tbody td,
+  table tbody th,
+  table thead td,
+  table td,
+  table th {
     border: 1px solid #1e293b !important;
     border-color: #1e293b !important;
     border-width: 1px !important;
