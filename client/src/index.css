@@ -6166,7 +6166,9 @@ section[data-interactive-section="true"].preserve-print-styling [class*="h-48"] 
   [data-worksheet-content="true"] div.space-y-4.break-inside-avoid > div.border.border-slate-300.rounded.p-4.bg-white > table td,
   [data-worksheet-content="true"] div.space-y-4.break-inside-avoid > div.border.border-slate-300.rounded.p-4.bg-white > table thead th,
   [data-worksheet-content="true"] div.space-y-4.break-inside-avoid > div.border.border-slate-300.rounded.p-4.bg-white > table tbody td,
-  [data-worksheet-content="true"] div.space-y-4.break-inside-avoid > div.border.border-slate-300.rounded.p-4.bg-white > table tbody tr td:first-child {
+  [data-worksheet-content="true"] div.space-y-4.break-inside-avoid > div.border.border-slate-300.rounded.p-4.bg-white > table tbody tr td:first-child,
+  [data-worksheet-content="true"] div.space-y-4.break-inside-avoid > div.border.border-slate-300.rounded.p-4.bg-white > table thead th:last-child,
+  [data-worksheet-content="true"] div.space-y-4.break-inside-avoid > div.border.border-slate-300.rounded.p-4.bg-white > table tbody td:last-child {
     border: 1px solid #1e293b !important;
     border-top: 1px solid #1e293b !important;
     border-right: 1px solid #1e293b !important;
@@ -6186,6 +6188,25 @@ section[data-interactive-section="true"].preserve-print-styling [class*="h-48"] 
     border-left-color: #1e293b !important;
     -webkit-print-color-adjust: exact !important;
     print-color-adjust: exact !important;
+  }
+  
+  /* CRITICAL: Force right border on last column cells */
+  [data-worksheet-content="true"] div.space-y-4.break-inside-avoid > div.border.border-slate-300.rounded.p-4.bg-white > table thead th:last-child,
+  [data-worksheet-content="true"] div.space-y-4.break-inside-avoid > div.border.border-slate-300.rounded.p-4.bg-white > table tbody tr td:last-child,
+  [data-worksheet-content="true"] div.space-y-4.break-inside-avoid > div.border.border-slate-300.rounded.p-4.bg-white > table tbody td:last-child {
+    border-right: 1px solid #1e293b !important;
+    border-right-width: 1px !important;
+    border-right-style: solid !important;
+    border-right-color: #1e293b !important;
+  }
+  
+  /* Force right border on ALL cells - override any rule that might remove it */
+  [data-worksheet-content="true"] div.space-y-4.break-inside-avoid > div.border.border-slate-300.rounded.p-4.bg-white > table th,
+  [data-worksheet-content="true"] div.space-y-4.break-inside-avoid > div.border.border-slate-300.rounded.p-4.bg-white > table td {
+    border-right: 1px solid #1e293b !important;
+    border-right-width: 1px !important;
+    border-right-style: solid !important;
+    border-right-color: #1e293b !important;
   }
   
   /* Ensure table itself has proper border-collapse */
