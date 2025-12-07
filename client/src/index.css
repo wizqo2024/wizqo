@@ -6098,13 +6098,10 @@ section[data-interactive-section="true"].preserve-print-styling [class*="h-48"] 
   }
   
   /* CRITICAL: Ensure cells maintain size even if spans don't render */
+  /* Removed ::after border-bottom to avoid duplicate lines - span already has border-bottom */
   [data-worksheet-content="true"] div.space-y-4.break-inside-avoid > div.border.border-slate-300.rounded.p-4.bg-white > table tbody td:not(:first-child)::after {
-    content: "\00a0" !important; /* Non-breaking space to ensure cell has content */
-    display: inline-block !important;
-    width: 2.5rem !important;
-    height: 1.25rem !important;
-    border-bottom: 2px solid #475569 !important;
-    visibility: visible !important;
+    content: "" !important;
+    display: none !important;
   }
   
   /* Force cells to show even if content is minimal */
@@ -6226,14 +6223,11 @@ section[data-interactive-section="true"].preserve-print-styling [class*="h-48"] 
     border-bottom: 1px solid #1e293b !important;
   }
   
-  /* Force spans to render with explicit content */
+  /* Force spans to render with explicit content - but don't add duplicate border */
+  /* The span itself already has border-bottom, so ::before should not add another */
   [data-worksheet-content="true"] div.space-y-4.break-inside-avoid > div.border.border-slate-300.rounded.p-4.bg-white > table tbody tr td:not(:first-child) > span::before {
     content: "" !important;
-    display: inline-block !important;
-    width: 2.5rem !important;
-    height: 1.25rem !important;
-    border-bottom: 2px solid #475569 !important;
-    visibility: visible !important;
+    display: none !important;
   }
   
   /* ABSOLUTE FINAL OVERRIDE: Force right borders on ALL table cells - override ANY rule that removes them */
