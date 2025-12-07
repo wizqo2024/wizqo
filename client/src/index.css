@@ -3947,6 +3947,8 @@ section[data-interactive-section="true"].preserve-print-styling [class*="h-48"] 
     display: block !important;
     visibility: visible !important;
     opacity: 1 !important;
+    min-height: 4rem !important;
+    height: auto !important;
     -webkit-print-color-adjust: exact !important;
     print-color-adjust: exact !important;
     color-adjust: exact !important;
@@ -6728,6 +6730,57 @@ section[data-interactive-section="true"].preserve-print-styling [class*="h-48"] 
     display: block !important;
     visibility: visible !important;
     opacity: 1 !important;
+    min-height: 4rem !important;
+    height: 4rem !important;
+  }
+  
+  /* ABSOLUTE FINAL OVERRIDE: Force work boxes to be visible - highest specificity */
+  [data-worksheet-content="true"] div.min-h-16.border.border-dashed.border-slate-300.rounded.p-2,
+  [data-worksheet-content="true"] div[class*="min-h-16"][class*="border"][class*="border-dashed"][class*="border-slate-300"][class*="rounded"][class*="p-2"],
+  [data-worksheet-content="true"] div[class*="min-h-16"][class*="border-dashed"][class*="border-slate-300"],
+  [data-worksheet-content="true"] div[class*="min-h-24"][class*="border-dashed"][class*="border-slate-300"],
+  [data-worksheet-content="true"] div[class*="min-h-32"][class*="border-dashed"][class*="border-slate-300"],
+  [data-worksheet-content="true"] div[class*="min-h-16"][class*="border-dashed"][class*="border-slate-400"] {
+    display: block !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+    border: 2px dashed #cbd5e1 !important;
+    border-style: dashed !important;
+    border-color: #cbd5e1 !important;
+    border-width: 2px !important;
+    min-height: 4rem !important;
+    height: 4rem !important;
+    padding: 0.5rem !important;
+    background-color: #ffffff !important;
+    background: #ffffff !important;
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+    margin-top: 0.5rem !important;
+    margin-bottom: 0 !important;
+  }
+  
+  /* Force work boxes even if they have print:bg-white class */
+  [data-worksheet-content="true"] div[class*="border-dashed"][class*="print:bg-white"],
+  [data-worksheet-content="true"] div[class*="border-dashed"].print\\:bg-white {
+    display: block !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+    border: 2px dashed #cbd5e1 !important;
+    border-style: dashed !important;
+    border-color: #cbd5e1 !important;
+    border-width: 2px !important;
+    min-height: 4rem !important;
+    height: 4rem !important;
+    padding: 0.5rem !important;
+    background-color: #ffffff !important;
+    background: #ffffff !important;
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+  }
+  
+  /* Override any rules that might set height to 0 or auto for work boxes */
+  [data-worksheet-content="true"] div[class*="border-dashed"][style*="height"],
+  [data-worksheet-content="true"] div[class*="border-dashed"][style*="min-height"] {
     min-height: 4rem !important;
     height: 4rem !important;
   }
