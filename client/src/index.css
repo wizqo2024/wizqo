@@ -5755,5 +5755,79 @@ section[data-interactive-section="true"].preserve-print-styling [class*="h-48"] 
     font-weight: 600 !important;
     text-align: center !important;
   }
+  
+  /* FINAL ABSOLUTE OVERRIDE: Force table structure for times-table worksheets - highest specificity */
+  /* This MUST be the absolute last rule to override everything else */
+  [data-worksheet-content="true"] div.space-y-4.break-inside-avoid > div.border.border-slate-300.rounded.p-4.bg-white > table,
+  [data-worksheet-content="true"] div[class*="space-y-4"][class*="break-inside-avoid"] > div[class*="border"][class*="border-slate-300"] > table {
+    display: table !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+    width: 100% !important;
+    border-collapse: collapse !important;
+  }
+  
+  [data-worksheet-content="true"] div.space-y-4.break-inside-avoid > div.border.border-slate-300.rounded.p-4.bg-white > table > thead,
+  [data-worksheet-content="true"] div[class*="space-y-4"][class*="break-inside-avoid"] > div[class*="border-slate-300"] > table > thead {
+    display: table-header-group !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+  }
+  
+  [data-worksheet-content="true"] div.space-y-4.break-inside-avoid > div.border.border-slate-300.rounded.p-4.bg-white > table > tbody,
+  [data-worksheet-content="true"] div[class*="space-y-4"][class*="break-inside-avoid"] > div[class*="border-slate-300"] > table > tbody {
+    display: table-row-group !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+  }
+  
+  [data-worksheet-content="true"] div.space-y-4.break-inside-avoid > div.border.border-slate-300.rounded.p-4.bg-white > table > thead > tr,
+  [data-worksheet-content="true"] div.space-y-4.break-inside-avoid > div.border.border-slate-300.rounded.p-4.bg-white > table > tbody > tr,
+  [data-worksheet-content="true"] div[class*="space-y-4"][class*="break-inside-avoid"] > div[class*="border-slate-300"] > table > thead > tr,
+  [data-worksheet-content="true"] div[class*="space-y-4"][class*="break-inside-avoid"] > div[class*="border-slate-300"] > table > tbody > tr {
+    display: table-row !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+    height: auto !important;
+    min-height: 2.5rem !important;
+  }
+  
+  [data-worksheet-content="true"] div.space-y-4.break-inside-avoid > div.border.border-slate-300.rounded.p-4.bg-white > table > thead > tr > th,
+  [data-worksheet-content="true"] div.space-y-4.break-inside-avoid > div.border.border-slate-300.rounded.p-4.bg-white > table > tbody > tr > td,
+  [data-worksheet-content="true"] div[class*="space-y-4"][class*="break-inside-avoid"] > div[class*="border-slate-300"] > table > thead > tr > th,
+  [data-worksheet-content="true"] div[class*="space-y-4"][class*="break-inside-avoid"] > div[class*="border-slate-300"] > table > tbody > tr > td {
+    display: table-cell !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+    border: 1px solid #1e293b !important;
+    padding: 0.5rem !important;
+    min-height: 2.5rem !important;
+    height: auto !important;
+    color: #000000 !important;
+    vertical-align: middle !important;
+  }
+  
+  [data-worksheet-content="true"] div.space-y-4.break-inside-avoid > div.border.border-slate-300.rounded.p-4.bg-white > table > thead > tr > th[class*="bg-slate-100"],
+  [data-worksheet-content="true"] div.space-y-4.break-inside-avoid > div.border.border-slate-300.rounded.p-4.bg-white > table > tbody > tr > td[class*="bg-slate-100"],
+  [data-worksheet-content="true"] div.space-y-4.break-inside-avoid > div.border.border-slate-300.rounded.p-4.bg-white > table > tbody > tr > td:first-child {
+    background-color: #f1f5f9 !important;
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+  }
+  
+  [data-worksheet-content="true"] div.space-y-4.break-inside-avoid > div.border.border-slate-300.rounded.p-4.bg-white > table > tbody > tr > td > span,
+  [data-worksheet-content="true"] div[class*="space-y-4"][class*="break-inside-avoid"] > div[class*="border-slate-300"] > table > tbody > tr > td > span {
+    display: inline-block !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+    width: 2.5rem !important;
+    min-width: 2.5rem !important;
+    height: 1.25rem !important;
+    min-height: 1.25rem !important;
+    border-bottom: 2px solid #475569 !important;
+    border-bottom-width: 2px !important;
+    border-bottom-style: solid !important;
+    border-bottom-color: #475569 !important;
+  }
 }
 
