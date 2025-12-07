@@ -6230,5 +6230,28 @@ section[data-interactive-section="true"].preserve-print-styling [class*="h-48"] 
     border-bottom: 2px solid #475569 !important;
     visibility: visible !important;
   }
+  
+  /* ABSOLUTE FINAL OVERRIDE: Force right borders on ALL table cells - override ANY rule that removes them */
+  /* This must be the absolute last rule to ensure right borders are always visible */
+  [data-worksheet-content="true"] div.space-y-4.break-inside-avoid > div.border.border-slate-300.rounded.p-4.bg-white > table > thead > tr > th,
+  [data-worksheet-content="true"] div.space-y-4.break-inside-avoid > div.border.border-slate-300.rounded.p-4.bg-white > table > tbody > tr > td,
+  [data-worksheet-content="true"] div.space-y-4.break-inside-avoid > div.border.border-slate-300.rounded.p-4.bg-white > table thead th,
+  [data-worksheet-content="true"] div.space-y-4.break-inside-avoid > div.border.border-slate-300.rounded.p-4.bg-white > table tbody td,
+  [data-worksheet-content="true"] div.space-y-4.break-inside-avoid > div.border.border-slate-300.rounded.p-4.bg-white > table th,
+  [data-worksheet-content="true"] div.space-y-4.break-inside-avoid > div.border.border-slate-300.rounded.p-4.bg-white > table td {
+    border-right: 1px solid #1e293b !important;
+    border-right-width: 1px !important;
+    border-right-style: solid !important;
+    border-right-color: #1e293b !important;
+  }
+  
+  /* Specifically target last column to ensure right border */
+  [data-worksheet-content="true"] div.space-y-4.break-inside-avoid > div.border.border-slate-300.rounded.p-4.bg-white > table > thead > tr > th:last-child,
+  [data-worksheet-content="true"] div.space-y-4.break-inside-avoid > div.border.border-slate-300.rounded.p-4.bg-white > table > tbody > tr > td:last-child {
+    border-right: 1px solid #1e293b !important;
+    border-right-width: 1px !important;
+    border-right-style: solid !important;
+    border-right-color: #1e293b !important;
+  }
 }
 
