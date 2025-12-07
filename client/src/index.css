@@ -3882,11 +3882,20 @@ section[data-interactive-section="true"].preserve-print-styling [class*="h-48"] 
   section .grid:has([class*="border"]),
   /* Preserve grids that contain worksheet-box elements */
   [data-worksheet-content="true"] .grid:has(.worksheet-box),
-  section .grid:has(.worksheet-box) {
+  section .grid:has(.worksheet-box),
+  /* CRITICAL: Preserve grids that contain work boxes - highest priority */
+  [data-worksheet-content="true"] .grid:has([data-work-box="true"]),
+  section .grid:has([data-work-box="true"]) {
     display: grid !important;
     -webkit-print-color-adjust: exact !important;
     print-color-adjust: exact !important;
     color-adjust: exact !important;
+  }
+  
+  /* Ensure grid-cols-2 grids with work boxes maintain proper grid template */
+  [data-worksheet-content="true"] .grid[class*="grid-cols-2"]:has([data-work-box="true"]) {
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+    gap: 1rem !important;
   }
 
   /* Preserve borders on visual elements within grids - but don't use inherit to avoid double borders */
@@ -4046,12 +4055,20 @@ section[data-interactive-section="true"].preserve-print-styling [class*="h-48"] 
     margin: 0 0 0.5rem 0 !important;
   }
 
-  [data-worksheet-content="true"] .grid[class*="grid-cols-2"] > * {
+  /* Float-based layout for grid-cols-2 - BUT exclude grids with work boxes */
+  [data-worksheet-content="true"] .grid[class*="grid-cols-2"]:not(:has([data-work-box="true"])) > * {
     width: calc(50% - 0.4rem) !important;
     margin-right: 0.4rem !important;
   }
 
-  [data-worksheet-content="true"] .grid[class*="grid-cols-2"] > *:nth-of-type(2n) {
+  [data-worksheet-content="true"] .grid[class*="grid-cols-2"]:not(:has([data-work-box="true"])) > *:nth-of-type(2n) {
+    margin-right: 0 !important;
+  }
+  
+  /* Grid children with work boxes should NOT use float layout */
+  [data-worksheet-content="true"] .grid:has([data-work-box="true"]) > * {
+    float: none !important;
+    width: auto !important;
     margin-right: 0 !important;
   }
 
@@ -6901,6 +6918,73 @@ section[data-interactive-section="true"].preserve-print-styling [class*="h-48"] 
     display: block !important;
     visibility: visible !important;
     overflow: visible !important;
+  }
+  
+  /* CRITICAL FIX: Ensure grids containing work boxes maintain grid layout */
+  /* Override float-based layouts when grid contains work boxes */
+  [data-worksheet-content="true"] .grid:has([data-work-box="true"]),
+  [data-worksheet-content="true"] .grid[class*="grid-cols-2"]:has([data-work-box="true"]),
+  [data-worksheet-content="true"] .grid[class*="grid-cols-3"]:has([data-work-box="true"]) {
+    display: grid !important;
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+    gap: 1rem !important;
+  }
+  
+  /* Override float rules for grid children that contain work boxes */
+  [data-worksheet-content="true"] .grid:has([data-work-box="true"]) > *,
+  [data-worksheet-content="true"] .grid[class*="grid-cols-2"]:has([data-work-box="true"]) > * {
+    float: none !important;
+    width: auto !important;
+    margin-right: 0 !important;
+    display: block !important;
+  }
+  
+  /* ULTIMATE OVERRIDE: Work boxes must be visible regardless of parent layout */
+  /* This rule has maximum specificity and overrides everything */
+  [data-worksheet-content="true"] div[data-work-box="true"],
+  [data-worksheet-content="true"] [data-work-box="true"],
+  [data-worksheet-content="true"] .grid div[data-work-box="true"],
+  [data-worksheet-content="true"] .grid[class*="grid-cols-2"] div[data-work-box="true"],
+  [data-worksheet-content="true"] div[class*="border-dashed"][data-work-box="true"] {
+    display: block !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+    border: 2px dashed #334155 !important; /* Darker color for better print visibility */
+    border-style: dashed !important;
+    border-width: 2px !important;
+    border-color: #334155 !important; /* Dark slate for better contrast */
+    min-height: 4rem !important;
+    height: 4rem !important;
+    padding: 0.5rem !important;
+    background-color: #ffffff !important;
+    background: #ffffff !important;
+    margin-top: 0.5rem !important;
+    margin-bottom: 0 !important;
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+    color-adjust: exact !important;
+    /* Force all border sides */
+    border-top: 2px dashed #334155 !important;
+    border-right: 2px dashed #334155 !important;
+    border-bottom: 2px dashed #334155 !important;
+    border-left: 2px dashed #334155 !important;
+    /* Prevent collapse */
+    overflow: visible !important;
+    position: relative !important;
+    z-index: 1 !important;
+  }
+  
+  /* Ensure work boxes are never hidden by parent overflow or display rules */
+  [data-worksheet-content="true"] div:has([data-work-box="true"]) {
+    overflow: visible !important;
+  }
+  
+  /* Force work box borders to be darker for print visibility */
+  [data-worksheet-content="true"] [data-work-box="true"],
+  [data-worksheet-content="true"] div[class*="border-dashed"][data-work-box="true"] {
+    border-color: #334155 !important; /* Dark slate - better print contrast */
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
   }
 }
 
