@@ -5338,6 +5338,83 @@ section[data-interactive-section="true"].preserve-print-styling [class*="h-48"] 
     height: 1.25rem !important;
   }
   
+  /* CRITICAL FIX: Ensure table wrapper div border is preserved - override border removal */
+  /* Target the exact wrapper div structure used in times-table worksheets */
+  [data-worksheet-content="true"] div[class*="break-inside-avoid"] > div[class*="border"][class*="border-slate-300"][class*="rounded"][class*="p-4"][class*="bg-white"],
+  [data-worksheet-content="true"] div[class*="break-inside-avoid"] > div.border.border-slate-300.rounded.p-4.bg-white,
+  [data-worksheet-content="true"] div.space-y-4[class*="break-inside-avoid"] > div[class*="border-slate-300"],
+  div[class*="break-inside-avoid"] > div[class*="border-slate-300"][class*="bg-white"] {
+    border: 1px solid #cbd5e1 !important;
+    border-color: #cbd5e1 !important;
+    border-width: 1px !important;
+    border-style: solid !important;
+    border-radius: 0.25rem !important;
+    display: block !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+    padding: 1rem !important;
+    background-color: #ffffff !important;
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+  }
+  
+  /* CRITICAL FIX: Ensure table inside wrapper div is fully visible */
+  [data-worksheet-content="true"] div[class*="border-slate-300"] > table,
+  [data-worksheet-content="true"] div[class*="border-slate-300"][class*="bg-white"] > table,
+  div[class*="border-slate-300"] > table {
+    display: table !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+    width: 100% !important;
+    border-collapse: collapse !important;
+    table-layout: auto !important;
+  }
+  
+  /* CRITICAL FIX: Ensure ALL table rows and cells are visible - maximum specificity */
+  /* Fix display properties for table structure elements */
+  [data-worksheet-content="true"] div[class*="border-slate-300"] table thead {
+    display: table-header-group !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+  }
+  
+  [data-worksheet-content="true"] div[class*="border-slate-300"] table tbody {
+    display: table-row-group !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+  }
+  
+  [data-worksheet-content="true"] div[class*="border-slate-300"] table tr {
+    display: table-row !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+  }
+  
+  [data-worksheet-content="true"] div[class*="border-slate-300"] table td,
+  [data-worksheet-content="true"] div[class*="border-slate-300"] table th {
+    display: table-cell !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+    border: 1px solid #1e293b !important;
+    padding: 0.5rem !important;
+  }
+  
+  /* CRITICAL FIX: Ensure spans inside table cells are visible with borders */
+  [data-worksheet-content="true"] div[class*="border-slate-300"] table td span[class*="border-b"],
+  [data-worksheet-content="true"] div[class*="border-slate-300"] table td span[class*="inline-block"],
+  [data-worksheet-content="true"] div[class*="border-slate-300"] table td span[class*="border-b-"],
+  div[class*="border-slate-300"] table td span[class*="border-b"],
+  div[class*="border-slate-300"] table td span[class*="inline-block"] {
+    display: inline-block !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+    border-bottom: 2px solid #475569 !important;
+    width: 2.5rem !important;
+    min-width: 2.5rem !important;
+    height: 1.25rem !important;
+    min-height: 1.25rem !important;
+  }
+  
   /* FINAL FINAL OVERRIDE: Ensure table structure is 100% visible */
   /* This must be the absolute last rule to override everything */
   table,
