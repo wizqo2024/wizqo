@@ -15827,6 +15827,7 @@ export function PrintablesPage() {
                   <div className="mb-3">
                     <div className="text-sm font-semibold text-slate-600 mb-2">Show your work (use the space below):</div>
                     <div 
+                      data-work-box="true"
                       className="min-h-24 print:min-h-32 border-2 border-dashed border-slate-400 rounded p-3 bg-slate-50"
                       style={{
                         minHeight: '6rem',
@@ -15841,7 +15842,9 @@ export function PrintablesPage() {
                         backgroundColor: '#ffffff',
                         padding: '0.75rem'
                       }}
-                    />
+                    >
+                      {'\u00A0'}
+                    </div>
                   </div>
                   <div>
                     <div className="text-sm font-semibold text-slate-600 mb-2">Final answer:</div>
@@ -16208,6 +16211,7 @@ export function PrintablesPage() {
                     />
                     <div className="mt-2 text-xs text-slate-600">Show your work:</div>
                     <div 
+                      data-work-box="true"
                       className="min-h-16 border border-dashed border-slate-300 rounded p-2 bg-slate-50 print:bg-white"
                       style={{
                         minHeight: '4rem',
@@ -16223,7 +16227,9 @@ export function PrintablesPage() {
                         padding: '0.5rem',
                         marginTop: '0.5rem'
                       }}
-                    />
+                    >
+                      {'\u00A0'}
+                    </div>
                   </div>
                 ))}
               </div>
@@ -22735,6 +22741,7 @@ export function PrintablesPage() {
                     </div>
                     <div className="mt-2 text-xs text-slate-600">Show your work:</div>
                     <div 
+                      data-work-box="true"
                       className="min-h-16 border border-dashed border-slate-300 rounded p-2 bg-slate-50 print:bg-white"
                       style={{
                         minHeight: '4rem',
@@ -22750,7 +22757,9 @@ export function PrintablesPage() {
                         padding: '0.5rem',
                         marginTop: '0.5rem'
                       }}
-                    />
+                    >
+                      {'\u00A0'}
+                    </div>
                   </div>
                 ))}
               </div>
@@ -22962,6 +22971,7 @@ export function PrintablesPage() {
                     </div>
                     <div className="mt-2 text-xs text-slate-600">Show your work:</div>
                     <div 
+                      data-work-box="true"
                       className="min-h-16 border border-dashed border-slate-300 rounded p-2 bg-slate-50 print:bg-white"
                       style={{
                         minHeight: '4rem',
@@ -22977,7 +22987,9 @@ export function PrintablesPage() {
                         padding: '0.5rem',
                         marginTop: '0.5rem'
                       }}
-                    />
+                    >
+                      {'\u00A0'}
+                    </div>
                   </div>
                 ))}
               </div>
@@ -23084,6 +23096,7 @@ export function PrintablesPage() {
                     </div>
                     <div className="mt-2 text-xs text-slate-600">Show your work:</div>
                     <div 
+                      data-work-box="true"
                       className="min-h-16 border border-dashed border-slate-300 rounded p-2 bg-slate-50 print:bg-white"
                       style={{
                         minHeight: '4rem',
@@ -23099,7 +23112,9 @@ export function PrintablesPage() {
                         padding: '0.5rem',
                         marginTop: '0.5rem'
                       }}
-                    />
+                    >
+                      {'\u00A0'}
+                    </div>
                   </div>
                 ))}
               </div>
@@ -23208,6 +23223,7 @@ export function PrintablesPage() {
                     <div className="text-center text-xl font-mono mb-2">____</div>
                     <div className="mt-2 text-xs text-slate-600">Show your work:</div>
                     <div 
+                      data-work-box="true"
                       className="min-h-16 border border-dashed border-slate-300 rounded p-2 bg-slate-50 print:bg-white"
                       style={{
                         minHeight: '4rem',
@@ -23223,7 +23239,9 @@ export function PrintablesPage() {
                         padding: '0.5rem',
                         marginTop: '0.5rem'
                       }}
-                    />
+                    >
+                      {'\u00A0'}
+                    </div>
                   </div>
                 ))}
               </div>
@@ -23858,6 +23876,7 @@ export function PrintablesPage() {
                     <div className="text-center text-lg font-mono mb-2">= ____</div>
                     <div className="mt-2 text-xs text-slate-600">Show your work:</div>
                     <div 
+                      data-work-box="true"
                       className="min-h-16 border border-dashed border-slate-300 rounded p-2 bg-slate-50 print:bg-white"
                       style={{
                         minHeight: '4rem',
@@ -23873,7 +23892,9 @@ export function PrintablesPage() {
                         padding: '0.5rem',
                         marginTop: '0.5rem'
                       }}
-                    />
+                    >
+                      {'\u00A0'}
+                    </div>
                   </div>
                 ))}
               </div>
@@ -24072,6 +24093,7 @@ export function PrintablesPage() {
                     <div className="text-center text-xl font-mono mb-2">{p.num1}/{p.denom1} × {p.num2}/{p.denom2} = ____</div>
                     <div className="mt-2 text-xs text-slate-600">Show your work:</div>
                     <div 
+                      data-work-box="true"
                       className="min-h-16 border border-dashed border-slate-300 rounded p-2 bg-slate-50 print:bg-white"
                       style={{
                         minHeight: '4rem',
@@ -24087,7 +24109,9 @@ export function PrintablesPage() {
                         padding: '0.5rem',
                         marginTop: '0.5rem'
                       }}
-                    />
+                    >
+                      {'\u00A0'}
+                    </div>
                   </div>
                 ))}
               </div>
@@ -24300,6 +24324,7 @@ export function PrintablesPage() {
                     <div className="text-center text-xl font-mono mb-2">{p.d1} × {p.d2} = ____</div>
                     <div className="mt-2 text-xs text-slate-600">Show your work:</div>
                     <div 
+                      data-work-box="true"
                       className="min-h-16 border border-dashed border-slate-300 rounded p-2 bg-slate-50 print:bg-white"
                       style={{
                         minHeight: '4rem',
@@ -24315,7 +24340,9 @@ export function PrintablesPage() {
                         padding: '0.5rem',
                         marginTop: '0.5rem'
                       }}
-                    />
+                    >
+                      {'\u00A0'}
+                    </div>
                   </div>
                 ))}
               </div>
@@ -24629,6 +24656,7 @@ export function PrintablesPage() {
                     <div className="text-center text-lg font-mono mb-2">= ____</div>
                     <div className="mt-2 text-xs text-slate-600">Show your work:</div>
                     <div 
+                      data-work-box="true"
                       className="min-h-16 border border-dashed border-slate-300 rounded p-2 bg-slate-50 print:bg-white"
                       style={{
                         minHeight: '4rem',
@@ -24644,7 +24672,9 @@ export function PrintablesPage() {
                         padding: '0.5rem',
                         marginTop: '0.5rem'
                       }}
-                    />
+                    >
+                      {'\u00A0'}
+                    </div>
                   </div>
                 ))}
               </div>
@@ -24746,6 +24776,7 @@ export function PrintablesPage() {
                     <div className="text-center text-lg font-mono mb-2">= ____</div>
                     <div className="mt-2 text-xs text-slate-600">Show your work:</div>
                     <div 
+                      data-work-box="true"
                       className="min-h-16 border border-dashed border-slate-300 rounded p-2 bg-slate-50 print:bg-white"
                       style={{
                         minHeight: '4rem',
@@ -24761,7 +24792,9 @@ export function PrintablesPage() {
                         padding: '0.5rem',
                         marginTop: '0.5rem'
                       }}
-                    />
+                    >
+                      {'\u00A0'}
+                    </div>
                   </div>
                 ))}
               </div>
@@ -24836,6 +24869,7 @@ export function PrintablesPage() {
                     <div className="text-center text-lg font-mono mb-2">= ____</div>
                     <div className="mt-2 text-xs text-slate-600">Show your work:</div>
                     <div 
+                      data-work-box="true"
                       className="min-h-16 border border-dashed border-slate-300 rounded p-2 bg-slate-50 print:bg-white"
                       style={{
                         minHeight: '4rem',
@@ -24851,7 +24885,9 @@ export function PrintablesPage() {
                         padding: '0.5rem',
                         marginTop: '0.5rem'
                       }}
-                    />
+                    >
+                      {'\u00A0'}
+                    </div>
                   </div>
                 ))}
               </div>
@@ -24927,6 +24963,7 @@ export function PrintablesPage() {
                     <div className="text-center text-lg font-mono mb-2">= ____</div>
                     <div className="mt-2 text-xs text-slate-600">Show your work:</div>
                     <div 
+                      data-work-box="true"
                       className="min-h-16 border border-dashed border-slate-300 rounded p-2 bg-slate-50 print:bg-white"
                       style={{
                         minHeight: '4rem',
@@ -24942,7 +24979,9 @@ export function PrintablesPage() {
                         padding: '0.5rem',
                         marginTop: '0.5rem'
                       }}
-                    />
+                    >
+                      {'\u00A0'}
+                    </div>
                   </div>
                 ))}
               </div>
@@ -25080,6 +25119,7 @@ export function PrintablesPage() {
                     <div className="text-center text-lg font-mono mb-2">= ____</div>
                     <div className="mt-2 text-xs text-slate-600">Show your work:</div>
                     <div 
+                      data-work-box="true"
                       className="min-h-16 border border-dashed border-slate-300 rounded p-2 bg-slate-50 print:bg-white"
                       style={{
                         minHeight: '4rem',
@@ -25095,7 +25135,9 @@ export function PrintablesPage() {
                         padding: '0.5rem',
                         marginTop: '0.5rem'
                       }}
-                    />
+                    >
+                      {'\u00A0'}
+                    </div>
                   </div>
                 ))}
               </div>
@@ -25345,6 +25387,7 @@ export function PrintablesPage() {
                     <div className="text-center text-lg font-mono mb-2">= ____</div>
                     <div className="mt-2 text-xs text-slate-600">Show your work:</div>
                     <div 
+                      data-work-box="true"
                       className="min-h-16 border border-dashed border-slate-300 rounded p-2 bg-slate-50 print:bg-white"
                       style={{
                         minHeight: '4rem',
@@ -25360,7 +25403,9 @@ export function PrintablesPage() {
                         padding: '0.5rem',
                         marginTop: '0.5rem'
                       }}
-                    />
+                    >
+                      {'\u00A0'}
+                    </div>
                   </div>
                 ))}
               </div>
@@ -25423,6 +25468,7 @@ export function PrintablesPage() {
                     <div className="text-center text-lg font-mono mb-2">= ____</div>
                     <div className="mt-2 text-xs text-slate-600">Show your work:</div>
                     <div 
+                      data-work-box="true"
                       className="min-h-16 border border-dashed border-slate-300 rounded p-2 bg-slate-50 print:bg-white"
                       style={{
                         minHeight: '4rem',
@@ -25438,7 +25484,9 @@ export function PrintablesPage() {
                         padding: '0.5rem',
                         marginTop: '0.5rem'
                       }}
-                    />
+                    >
+                      {'\u00A0'}
+                    </div>
                   </div>
                 ))}
               </div>
@@ -25506,6 +25554,7 @@ export function PrintablesPage() {
                     <div className="text-center text-lg font-mono mb-2">= ____</div>
                     <div className="mt-2 text-xs text-slate-600">Show your work:</div>
                     <div 
+                      data-work-box="true"
                       className="min-h-16 border border-dashed border-slate-300 rounded p-2 bg-slate-50 print:bg-white"
                       style={{
                         minHeight: '4rem',
@@ -25521,7 +25570,9 @@ export function PrintablesPage() {
                         padding: '0.5rem',
                         marginTop: '0.5rem'
                       }}
-                    />
+                    >
+                      {'\u00A0'}
+                    </div>
                   </div>
                 ))}
               </div>
@@ -25597,6 +25648,7 @@ export function PrintablesPage() {
                     <div className="text-center text-lg font-mono mb-2">= ____</div>
                     <div className="mt-2 text-xs text-slate-600">Show your work:</div>
                     <div 
+                      data-work-box="true"
                       className="min-h-16 border border-dashed border-slate-300 rounded p-2 bg-slate-50 print:bg-white"
                       style={{
                         minHeight: '4rem',
@@ -25612,7 +25664,9 @@ export function PrintablesPage() {
                         padding: '0.5rem',
                         marginTop: '0.5rem'
                       }}
-                    />
+                    >
+                      {'\u00A0'}
+                    </div>
                   </div>
                 ))}
               </div>
@@ -25687,6 +25741,7 @@ export function PrintablesPage() {
                     </div>
                     <div className="mt-2 text-xs text-slate-600">Show your work:</div>
                     <div 
+                      data-work-box="true"
                       className="min-h-16 border border-dashed border-slate-300 rounded p-2 bg-slate-50 print:bg-white"
                       style={{
                         minHeight: '4rem',
@@ -25702,7 +25757,9 @@ export function PrintablesPage() {
                         padding: '0.5rem',
                         marginTop: '0.5rem'
                       }}
-                    />
+                    >
+                      {'\u00A0'}
+                    </div>
                   </div>
                 ))}
               </div>
@@ -26035,6 +26092,7 @@ export function PrintablesPage() {
                     <div className="text-center text-sm text-slate-600 mb-2 font-mono">Area: ____ Perimeter: ____</div>
                     <div className="mt-2 text-xs text-slate-600">Show your work:</div>
                     <div 
+                      data-work-box="true"
                       className="min-h-16 border border-dashed border-slate-300 rounded p-2 bg-slate-50 print:bg-white"
                       style={{
                         minHeight: '4rem',
@@ -26050,7 +26108,9 @@ export function PrintablesPage() {
                         padding: '0.5rem',
                         marginTop: '0.5rem'
                       }}
-                    />
+                    >
+                      {'\u00A0'}
+                    </div>
                   </div>
                 ))}
               </div>
@@ -26170,6 +26230,7 @@ export function PrintablesPage() {
                     <div className="text-center text-sm text-slate-600 mb-2 font-mono">Area: ____</div>
                     <div className="mt-2 text-xs text-slate-600">Show your work:</div>
                     <div 
+                      data-work-box="true"
                       className="min-h-16 border border-dashed border-slate-300 rounded p-2 bg-slate-50 print:bg-white"
                       style={{
                         minHeight: '4rem',
@@ -26185,7 +26246,9 @@ export function PrintablesPage() {
                         padding: '0.5rem',
                         marginTop: '0.5rem'
                       }}
-                    />
+                    >
+                      {'\u00A0'}
+                    </div>
                   </div>
                 ))}
               </div>
@@ -26284,6 +26347,7 @@ export function PrintablesPage() {
                     <div className="text-center text-sm text-slate-600 mb-2 font-mono">Volume: ____</div>
                     <div className="mt-2 text-xs text-slate-600">Show your work:</div>
                     <div 
+                      data-work-box="true"
                       className="min-h-16 border border-dashed border-slate-300 rounded p-2 bg-slate-50 print:bg-white"
                       style={{
                         minHeight: '4rem',
@@ -26299,7 +26363,9 @@ export function PrintablesPage() {
                         padding: '0.5rem',
                         marginTop: '0.5rem'
                       }}
-                    />
+                    >
+                      {'\u00A0'}
+                    </div>
                   </div>
                 ))}
               </div>
@@ -26858,6 +26924,7 @@ export function PrintablesPage() {
                     <div className="text-center mb-2 font-semibold font-mono">{p.feet} feet = ____ inches</div>
                     <div className="mt-2 text-xs text-slate-600">Show your work:</div>
                     <div 
+                      data-work-box="true"
                       className="min-h-16 border border-dashed border-slate-300 rounded p-2 bg-slate-50 print:bg-white"
                       style={{
                         minHeight: '4rem',
@@ -26873,7 +26940,9 @@ export function PrintablesPage() {
                         padding: '0.5rem',
                         marginTop: '0.5rem'
                       }}
-                    />
+                    >
+                      {'\u00A0'}
+                    </div>
                   </div>
                 ))}
               </div>
@@ -26972,6 +27041,7 @@ export function PrintablesPage() {
                     <div className="text-center mb-2 font-semibold font-mono">{p.meters} meters = ____ centimeters</div>
                     <div className="mt-2 text-xs text-slate-600">Show your work:</div>
                     <div 
+                      data-work-box="true"
                       className="min-h-16 border border-dashed border-slate-300 rounded p-2 bg-slate-50 print:bg-white"
                       style={{
                         minHeight: '4rem',
@@ -26987,7 +27057,9 @@ export function PrintablesPage() {
                         padding: '0.5rem',
                         marginTop: '0.5rem'
                       }}
-                    />
+                    >
+                      {'\u00A0'}
+                    </div>
                   </div>
                 ))}
               </div>
@@ -27086,6 +27158,7 @@ export function PrintablesPage() {
                     <div className="text-center text-sm text-slate-600 mb-2 font-mono">Elapsed: ____</div>
                     <div className="mt-2 text-xs text-slate-600">Show your work:</div>
                     <div 
+                      data-work-box="true"
                       className="min-h-16 border border-dashed border-slate-300 rounded p-2 bg-slate-50 print:bg-white"
                       style={{
                         minHeight: '4rem',
@@ -27101,7 +27174,9 @@ export function PrintablesPage() {
                         padding: '0.5rem',
                         marginTop: '0.5rem'
                       }}
-                    />
+                    >
+                      {'\u00A0'}
+                    </div>
                   </div>
                 ))}
               </div>
@@ -27198,6 +27273,7 @@ export function PrintablesPage() {
                     <div className="text-center mb-2 font-semibold font-mono">{p.quarts} quarts = ____ cups</div>
                     <div className="mt-2 text-xs text-slate-600">Show your work:</div>
                     <div 
+                      data-work-box="true"
                       className="min-h-16 border border-dashed border-slate-300 rounded p-2 bg-slate-50 print:bg-white"
                       style={{
                         minHeight: '4rem',
@@ -27213,7 +27289,9 @@ export function PrintablesPage() {
                         padding: '0.5rem',
                         marginTop: '0.5rem'
                       }}
-                    />
+                    >
+                      {'\u00A0'}
+                    </div>
                   </div>
                 ))}
               </div>
@@ -27311,6 +27389,7 @@ export function PrintablesPage() {
                     <div className="text-center mb-2 font-semibold font-mono">{p.pounds} pounds = ____ ounces</div>
                     <div className="mt-2 text-xs text-slate-600">Show your work:</div>
                     <div 
+                      data-work-box="true"
                       className="min-h-16 border border-dashed border-slate-300 rounded p-2 bg-slate-50 print:bg-white"
                       style={{
                         minHeight: '4rem',
@@ -27326,7 +27405,9 @@ export function PrintablesPage() {
                         padding: '0.5rem',
                         marginTop: '0.5rem'
                       }}
-                    />
+                    >
+                      {'\u00A0'}
+                    </div>
                   </div>
                 ))}
               </div>
@@ -27520,6 +27601,7 @@ export function PrintablesPage() {
                     <div className="text-center text-sm text-slate-600 mb-2 font-mono">Lines of symmetry: ____</div>
                     <div className="mt-2 text-xs text-slate-600">Show your work:</div>
                     <div 
+                      data-work-box="true"
                       className="min-h-16 border border-dashed border-slate-300 rounded p-2 bg-slate-50 print:bg-white"
                       style={{
                         minHeight: '4rem',
@@ -27535,7 +27617,9 @@ export function PrintablesPage() {
                         padding: '0.5rem',
                         marginTop: '0.5rem'
                       }}
-                    />
+                    >
+                      {'\u00A0'}
+                    </div>
                   </div>
                 ))}
               </div>
@@ -27848,6 +27932,7 @@ export function PrintablesPage() {
                     <div className="text-center text-sm text-slate-600 mb-2 font-mono">Answer: ____</div>
                     <div className="mt-2 text-xs text-slate-600">Show your work:</div>
                     <div 
+                      data-work-box="true"
                       className="min-h-16 border border-dashed border-slate-300 rounded p-2 bg-slate-50 print:bg-white"
                       style={{
                         minHeight: '4rem',
@@ -27863,7 +27948,9 @@ export function PrintablesPage() {
                         padding: '0.5rem',
                         marginTop: '0.5rem'
                       }}
-                    />
+                    >
+                      {'\u00A0'}
+                    </div>
                   </div>
                 ))}
               </div>
@@ -28064,6 +28151,7 @@ export function PrintablesPage() {
                     <div className="text-center text-sm text-slate-600 mb-2 font-mono">x = ____</div>
                     <div className="mt-2 text-xs text-slate-600">Show your work:</div>
                     <div 
+                      data-work-box="true"
                       className="min-h-16 border border-dashed border-slate-300 rounded p-2 bg-slate-50 print:bg-white"
                       style={{
                         minHeight: '4rem',
@@ -28079,7 +28167,9 @@ export function PrintablesPage() {
                         padding: '0.5rem',
                         marginTop: '0.5rem'
                       }}
-                    />
+                    >
+                      {'\u00A0'}
+                    </div>
                   </div>
                 ))}
               </div>
@@ -28509,6 +28599,7 @@ export function PrintablesPage() {
                     <div className="text-center text-sm text-slate-600 mb-2 font-mono">Decimal: ____ Percent: ____</div>
                     <div className="mt-2 text-xs text-slate-600">Show your work:</div>
                     <div 
+                      data-work-box="true"
                       className="min-h-16 border border-dashed border-slate-300 rounded p-2 bg-slate-50 print:bg-white"
                       style={{
                         minHeight: '4rem',
@@ -28524,7 +28615,9 @@ export function PrintablesPage() {
                         padding: '0.5rem',
                         marginTop: '0.5rem'
                       }}
-                    />
+                    >
+                      {'\u00A0'}
+                    </div>
                   </div>
                 ))}
               </div>
@@ -29258,6 +29351,7 @@ export function PrintablesPage() {
                     <div className="text-center text-sm text-slate-600 mb-2 font-mono">Probability: ____</div>
                     <div className="mt-2 text-xs text-slate-600">Show your work:</div>
                     <div 
+                      data-work-box="true"
                       className="min-h-16 border border-dashed border-slate-300 rounded p-2 bg-slate-50 print:bg-white"
                       style={{
                         minHeight: '4rem',
@@ -29273,7 +29367,9 @@ export function PrintablesPage() {
                         padding: '0.5rem',
                         marginTop: '0.5rem'
                       }}
-                    />
+                    >
+                      {'\u00A0'}
+                    </div>
                   </div>
                 ))}
               </div>
@@ -32093,6 +32189,7 @@ export function PrintablesPage() {
                     <div className="h-12 border-b border-slate-400" />
                     <div className="mt-2 text-xs text-slate-600">Show your work:</div>
                     <div 
+                      data-work-box="true"
                       className="min-h-16 border border-dashed border-slate-300 rounded p-2 bg-slate-50 print:bg-white"
                       style={{
                         minHeight: '4rem',
@@ -32108,7 +32205,9 @@ export function PrintablesPage() {
                         padding: '0.5rem',
                         marginTop: '0.5rem'
                       }}
-                    />
+                    >
+                      {'\u00A0'}
+                    </div>
                   </li>
                 ))}
               </ol>
@@ -32204,6 +32303,7 @@ export function PrintablesPage() {
                     <div className="text-center text-xl font-mono mb-2">{p.num} × {p.multiplier} = ____</div>
                     <div className="mt-2 text-xs text-slate-600">Show your work:</div>
                     <div 
+                      data-work-box="true"
                       className="min-h-16 border border-dashed border-slate-300 rounded p-2 bg-slate-50 print:bg-white"
                       style={{
                         minHeight: '4rem',
@@ -32219,7 +32319,9 @@ export function PrintablesPage() {
                         padding: '0.5rem',
                         marginTop: '0.5rem'
                       }}
-                    />
+                    >
+                      {'\u00A0'}
+                    </div>
                   </div>
                 ))}
               </div>
@@ -32390,6 +32492,7 @@ export function PrintablesPage() {
                     <div className="text-center text-sm text-slate-600 mb-2 font-mono">Answer: ____ R ____</div>
                     <div className="mt-2 text-xs text-slate-600">Show your work:</div>
                     <div 
+                      data-work-box="true"
                       className="min-h-16 border border-dashed border-slate-300 rounded p-2 bg-slate-50 print:bg-white"
                       style={{
                         minHeight: '4rem',
@@ -32405,7 +32508,9 @@ export function PrintablesPage() {
                         padding: '0.5rem',
                         marginTop: '0.5rem'
                       }}
-                    />
+                    >
+                      {'\u00A0'}
+                    </div>
                   </div>
                 ))}
               </div>
@@ -32492,6 +32597,7 @@ export function PrintablesPage() {
                     <div className="h-12 border-b border-slate-400" />
                     <div className="mt-2 text-xs text-slate-600">Show your work:</div>
                     <div 
+                      data-work-box="true"
                       className="min-h-16 border border-dashed border-slate-300 rounded p-2 bg-slate-50 print:bg-white"
                       style={{
                         minHeight: '4rem',
@@ -32507,7 +32613,9 @@ export function PrintablesPage() {
                         padding: '0.5rem',
                         marginTop: '0.5rem'
                       }}
-                    />
+                    >
+                      {'\u00A0'}
+                    </div>
                   </li>
                 ))}
               </ol>
@@ -33185,6 +33293,7 @@ export function PrintablesPage() {
                     <div className="text-center text-sm text-slate-600 mb-2 font-mono">Perimeter: ____</div>
                     <div className="mt-2 text-xs text-slate-600">Show your work:</div>
                     <div 
+                      data-work-box="true"
                       className="min-h-16 border border-dashed border-slate-300 rounded p-2 bg-slate-50 print:bg-white"
                       style={{
                         minHeight: '4rem',
@@ -33200,7 +33309,9 @@ export function PrintablesPage() {
                         padding: '0.5rem',
                         marginTop: '0.5rem'
                       }}
-                    />
+                    >
+                      {'\u00A0'}
+                    </div>
                   </div>
                 ))}
               </div>
@@ -33315,6 +33426,7 @@ export function PrintablesPage() {
                     <div className="text-center text-sm text-slate-600 mb-2 font-mono">Area: ____</div>
                     <div className="mt-2 text-xs text-slate-600">Show your work:</div>
                     <div 
+                      data-work-box="true"
                       className="min-h-16 border border-dashed border-slate-300 rounded p-2 bg-slate-50 print:bg-white"
                       style={{
                         minHeight: '4rem',
@@ -33330,7 +33442,9 @@ export function PrintablesPage() {
                         padding: '0.5rem',
                         marginTop: '0.5rem'
                       }}
-                    />
+                    >
+                      {'\u00A0'}
+                    </div>
                   </div>
                 ))}
               </div>
@@ -33972,6 +34086,7 @@ export function PrintablesPage() {
                     <div className="text-center mb-2 font-semibold font-mono">{p.feet} feet = ____ inches</div>
                     <div className="mt-2 text-xs text-slate-600">Show your work:</div>
                     <div 
+                      data-work-box="true"
                       className="min-h-16 border border-dashed border-slate-300 rounded p-2 bg-slate-50 print:bg-white"
                       style={{
                         minHeight: '4rem',
@@ -33987,7 +34102,9 @@ export function PrintablesPage() {
                         padding: '0.5rem',
                         marginTop: '0.5rem'
                       }}
-                    />
+                    >
+                      {'\u00A0'}
+                    </div>
                   </div>
                 ))}
               </div>
@@ -34085,6 +34202,7 @@ export function PrintablesPage() {
                     <div className="text-center mb-2 font-semibold font-mono">{p.meters} meters = ____ centimeters</div>
                     <div className="mt-2 text-xs text-slate-600">Show your work:</div>
                     <div 
+                      data-work-box="true"
                       className="min-h-16 border border-dashed border-slate-300 rounded p-2 bg-slate-50 print:bg-white"
                       style={{
                         minHeight: '4rem',
@@ -34100,7 +34218,9 @@ export function PrintablesPage() {
                         padding: '0.5rem',
                         marginTop: '0.5rem'
                       }}
-                    />
+                    >
+                      {'\u00A0'}
+                    </div>
                   </div>
                 ))}
               </div>
@@ -34199,6 +34319,7 @@ export function PrintablesPage() {
                     <div className="text-center mb-2 font-semibold font-mono">{p.quarts} quarts = ____ cups</div>
                     <div className="mt-2 text-xs text-slate-600">Show your work:</div>
                     <div 
+                      data-work-box="true"
                       className="min-h-16 border border-dashed border-slate-300 rounded p-2 bg-slate-50 print:bg-white"
                       style={{
                         minHeight: '4rem',
@@ -34214,7 +34335,9 @@ export function PrintablesPage() {
                         padding: '0.5rem',
                         marginTop: '0.5rem'
                       }}
-                    />
+                    >
+                      {'\u00A0'}
+                    </div>
                   </div>
                 ))}
               </div>
@@ -34312,6 +34435,7 @@ export function PrintablesPage() {
                     <div className="text-center mb-2 font-semibold font-mono">{p.pounds} pounds = ____ ounces</div>
                     <div className="mt-2 text-xs text-slate-600">Show your work:</div>
                     <div 
+                      data-work-box="true"
                       className="min-h-16 border border-dashed border-slate-300 rounded p-2 bg-slate-50 print:bg-white"
                       style={{
                         minHeight: '4rem',
@@ -34327,7 +34451,9 @@ export function PrintablesPage() {
                         padding: '0.5rem',
                         marginTop: '0.5rem'
                       }}
-                    />
+                    >
+                      {'\u00A0'}
+                    </div>
                   </div>
                 ))}
               </div>

@@ -6838,7 +6838,35 @@ section[data-interactive-section="true"].preserve-print-styling [class*="h-48"] 
   }
   
   /* ABSOLUTE FINAL OVERRIDE - Must be at the very end */
-  /* Target work boxes with ALL possible class combinations */
+  /* Target work boxes with data attribute - highest priority */
+  [data-worksheet-content="true"] div[data-work-box="true"],
+  [data-worksheet-content="true"] [data-work-box="true"],
+  div[data-work-box="true"] {
+    display: block !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+    border: 2px dashed #cbd5e1 !important;
+    border-style: dashed !important;
+    border-color: #cbd5e1 !important;
+    border-width: 2px !important;
+    min-height: 4rem !important;
+    height: 4rem !important;
+    padding: 0.5rem !important;
+    background-color: #ffffff !important;
+    background: #ffffff !important;
+    margin-top: 0.5rem !important;
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+    /* Override ANY conflicting rules */
+    border-top: 2px dashed #cbd5e1 !important;
+    border-right: 2px dashed #cbd5e1 !important;
+    border-bottom: 2px dashed #cbd5e1 !important;
+    border-left: 2px dashed #cbd5e1 !important;
+    /* Force content to prevent collapse */
+    content: '\00a0' !important;
+  }
+  
+  /* Also target by class combinations as fallback */
   [data-worksheet-content="true"] div.border.border-dashed,
   [data-worksheet-content="true"] div[class*="border"][class*="dashed"],
   [data-worksheet-content="true"] div.min-h-16.border.border-dashed.border-slate-300,
@@ -6865,6 +6893,14 @@ section[data-interactive-section="true"].preserve-print-styling [class*="h-48"] 
     border-right: 2px dashed #cbd5e1 !important;
     border-bottom: 2px dashed #cbd5e1 !important;
     border-left: 2px dashed #cbd5e1 !important;
+  }
+  
+  /* Ensure parent containers don't hide work boxes */
+  [data-worksheet-content="true"] *:has([data-work-box="true"]),
+  [data-worksheet-content="true"] div:has([data-work-box="true"]) {
+    display: block !important;
+    visibility: visible !important;
+    overflow: visible !important;
   }
 }
 
