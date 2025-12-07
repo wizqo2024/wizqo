@@ -16530,15 +16530,15 @@ export function PrintablesPage() {
             >
               <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-purple-400 to-pink-400 animate-gradient-x mb-2" />
               {/* Worked Example */}
-              <div className="mb-6 p-4 bg-blue-50 border-2 border-blue-200 rounded-lg print:border print:bg-white">
-                <div className="font-semibold text-blue-900 mb-3 text-sm">📚 Example - Let's solve this together:</div>
-                <div className="space-y-2 text-sm">
-                  <div className="font-mono text-base"><strong>Problem:</strong> 234 × 12 = ?</div>
-                  <div className="pl-4 border-l-2 border-blue-300 space-y-1">
+              <div className="mb-6 p-4 bg-blue-50 border-2 border-blue-200 rounded-lg print:border print:bg-white print:mb-2">
+                <div className="font-semibold text-blue-900 mb-3 text-sm print:text-xs print:mb-1">📚 Example - Let's solve this together:</div>
+                <div className="space-y-2 text-sm print:space-y-1 print:text-xs">
+                  <div className="font-mono text-base print:text-sm"><strong>Problem:</strong> 234 × 12 = ?</div>
+                  <div className="pl-4 print:pl-0 border-l-2 print:border-l-0 border-blue-300 space-y-1 print:space-y-0.5">
                     <div><strong>Step 1:</strong> Multiply by ones: 234 × 2 = 468</div>
                     <div><strong>Step 2:</strong> Multiply by tens: 234 × 10 = 2340 (shift left one place)</div>
                     <div><strong>Step 3:</strong> Add partial products: 468 + 2340 = 2808</div>
-                    <div className="font-semibold text-blue-900"><strong>Answer:</strong> 2808</div>
+                    <div className="font-semibold text-blue-900 print:text-slate-900"><strong>Answer:</strong> 2808</div>
                   </div>
                 </div>
               </div>
@@ -16554,9 +16554,19 @@ export function PrintablesPage() {
                       answerHeightClass="h-10"
                       printAnswerWidthClass="min-w-[2in]"
                       sizeClassName="text-lg"
+                      printSizeClassName="text-base"
                     />
-                    <div className="mt-2 text-xs text-slate-600">Show your work:</div>
-                    <div className="min-h-24 border border-dashed border-slate-300 rounded p-2 bg-slate-50 print:bg-white" />
+                    <div className="mt-2 text-xs text-slate-600 print:text-[10px]">Show your work:</div>
+                    <div 
+                      data-work-box="true"
+                      className="min-h-24 border border-dashed border-slate-300 rounded p-2 bg-slate-50 print:bg-white"
+                      style={{
+                        minHeight: '6rem',
+                        border: '1px dashed #334155',
+                        display: 'block',
+                        visibility: 'visible'
+                      }}
+                    />
                   </div>
                 ))}
               </div>

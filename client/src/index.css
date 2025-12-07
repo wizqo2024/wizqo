@@ -8185,6 +8185,51 @@ section[data-interactive-section="true"].preserve-print-styling [class*="h-48"] 
     visibility: visible !important;
     opacity: 1 !important;
     white-space: nowrap !important;
+    color: #000000 !important;
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+  }
+  
+  /* CRITICAL: Ensure work boxes with data-work-box attribute are visible */
+  [data-worksheet-content="true"] div[data-work-box="true"],
+  [data-worksheet-content="true"] div[data-work-box="true"].min-h-24,
+  [data-worksheet-content="true"] div[data-work-box="true"][class*="border-dashed"] {
+    display: block !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+    min-height: 6rem !important;
+    height: 6rem !important;
+    border: 1px dashed #334155 !important;
+    border-style: dashed !important;
+    border-width: 1px !important;
+    border-color: #334155 !important;
+    background-color: #ffffff !important;
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+  }
+  
+  /* Hide left border in print for example sections */
+  [data-worksheet-content="true"] div[class*="border-l-2"][class*="print:border-l-0"],
+  [data-worksheet-content="true"] div.print\\:border-l-0,
+  [data-worksheet-content="true"] div[class*="print:border-l-0"] {
+    border-left: none !important;
+    padding-left: 0 !important;
+  }
+  
+  /* Ensure example section text doesn't get cut off */
+  [data-worksheet-content="true"] div[class*="space-y-1"] div,
+  [data-worksheet-content="true"] div[class*="space-y-0.5"] div {
+    white-space: normal !important;
+    word-wrap: break-word !important;
+    overflow: visible !important;
+    text-overflow: clip !important;
+  }
+  
+  /* Ensure VerticalEquation print container shows all content */
+  [data-worksheet-content="true"] .vertical-equation div[class*="print:flex"] {
+    width: 100% !important;
+    max-width: 100% !important;
+    overflow: visible !important;
   }
 }
 
