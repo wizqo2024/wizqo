@@ -6253,12 +6253,18 @@ section[data-interactive-section="true"].preserve-print-styling [class*="h-48"] 
   
   /* NUCLEAR OPTION: Force ALL borders on ALL table cells - override EVERYTHING */
   /* This uses the highest possible specificity and comes at the absolute end */
+  /* Apply to ALL times-table worksheets and similar table structures */
   [data-worksheet-content="true"] div.space-y-4.break-inside-avoid > div.border.border-slate-300.rounded.p-4.bg-white > table > thead > tr > th,
   [data-worksheet-content="true"] div.space-y-4.break-inside-avoid > div.border.border-slate-300.rounded.p-4.bg-white > table > tbody > tr > td,
   [data-worksheet-content="true"] div.space-y-4.break-inside-avoid > div.border.border-slate-300.rounded.p-4.bg-white > table thead th,
   [data-worksheet-content="true"] div.space-y-4.break-inside-avoid > div.border.border-slate-300.rounded.p-4.bg-white > table tbody td,
   [data-worksheet-content="true"] div.space-y-4.break-inside-avoid > div.border.border-slate-300.rounded.p-4.bg-white > table th,
-  [data-worksheet-content="true"] div.space-y-4.break-inside-avoid > div.border.border-slate-300.rounded.p-4.bg-white > table td {
+  [data-worksheet-content="true"] div.space-y-4.break-inside-avoid > div.border.border-slate-300.rounded.p-4.bg-white > table td,
+  /* Also target times-table-blank-1-5 and times-table-blank-1-12 */
+  [data-worksheet-content="true"][data-doc="times-table-blank-1-5"] div.space-y-4.break-inside-avoid > div.border.border-slate-300.rounded.p-4.bg-white > table th,
+  [data-worksheet-content="true"][data-doc="times-table-blank-1-5"] div.space-y-4.break-inside-avoid > div.border.border-slate-300.rounded.p-4.bg-white > table td,
+  [data-worksheet-content="true"][data-doc="times-table-blank-1-12"] div.space-y-4.break-inside-avoid > div.border.border-slate-300.rounded.p-4.bg-white > table th,
+  [data-worksheet-content="true"][data-doc="times-table-blank-1-12"] div.space-y-4.break-inside-avoid > div.border.border-slate-300.rounded.p-4.bg-white > table td {
     border: 1px solid #1e293b !important;
     border-top: 1px solid #1e293b !important;
     border-right: 1px solid #1e293b !important;
@@ -6283,6 +6289,31 @@ section[data-interactive-section="true"].preserve-print-styling [class*="h-48"] 
     print-color-adjust: exact !important;
   }
   
+  /* Apply same fixes to all times-table-blank worksheets - ensure spans are visible */
+  [data-worksheet-content="true"][data-doc="times-table-blank-1-5"] div.space-y-4.break-inside-avoid > div.border.border-slate-300.rounded.p-4.bg-white > table tbody td:not(:first-child) > span,
+  [data-worksheet-content="true"][data-doc="times-table-blank-1-12"] div.space-y-4.break-inside-avoid > div.border.border-slate-300.rounded.p-4.bg-white > table tbody td:not(:first-child) > span {
+    display: inline-block !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+    border-bottom: 2px solid #475569 !important;
+    border-bottom-width: 2px !important;
+    border-bottom-style: solid !important;
+    border-bottom-color: #475569 !important;
+  }
+  
+  /* Remove duplicate lines for other blank worksheets */
+  [data-worksheet-content="true"][data-doc="times-table-blank-1-5"] div.space-y-4.break-inside-avoid > div.border.border-slate-300.rounded.p-4.bg-white > table tbody td:not(:first-child)::after,
+  [data-worksheet-content="true"][data-doc="times-table-blank-1-12"] div.space-y-4.break-inside-avoid > div.border.border-slate-300.rounded.p-4.bg-white > table tbody td:not(:first-child)::after {
+    content: "" !important;
+    display: none !important;
+  }
+  
+  [data-worksheet-content="true"][data-doc="times-table-blank-1-5"] div.space-y-4.break-inside-avoid > div.border.border-slate-300.rounded.p-4.bg-white > table tbody tr td:not(:first-child) > span::before,
+  [data-worksheet-content="true"][data-doc="times-table-blank-1-12"] div.space-y-4.break-inside-avoid > div.border.border-slate-300.rounded.p-4.bg-white > table tbody tr td:not(:first-child) > span::before {
+    content: "" !important;
+    display: none !important;
+  }
+  
   /* Override any rule that might set border to none or 0 */
   [data-worksheet-content="true"] div.space-y-4.break-inside-avoid > div.border.border-slate-300.rounded.p-4.bg-white > table th[style*="border"],
   [data-worksheet-content="true"] div.space-y-4.break-inside-avoid > div.border.border-slate-300.rounded.p-4.bg-white > table td[style*="border"] {
@@ -6294,14 +6325,20 @@ section[data-interactive-section="true"].preserve-print-styling [class*="h-48"] 
   }
   
   /* CRITICAL: Override border-collapse to ensure borders show - use separate borders */
-  [data-worksheet-content="true"] div.space-y-4.break-inside-avoid > div.border.border-slate-300.rounded.p-4.bg-white > table[class*="border-collapse"] {
+  [data-worksheet-content="true"] div.space-y-4.break-inside-avoid > div.border.border-slate-300.rounded.p-4.bg-white > table[class*="border-collapse"],
+  [data-worksheet-content="true"] div[class*="break-inside-avoid"] > div[class*="border-slate-300"] > table[class*="border-collapse"],
+  [data-worksheet-content="true"] table[class*="border-collapse"] {
     border-collapse: separate !important;
     border-spacing: 0 !important;
   }
   
   /* Force borders on cells even with border-collapse: separate */
   [data-worksheet-content="true"] div.space-y-4.break-inside-avoid > div.border.border-slate-300.rounded.p-4.bg-white > table[class*="border-collapse"] th,
-  [data-worksheet-content="true"] div.space-y-4.break-inside-avoid > div.border.border-slate-300.rounded.p-4.bg-white > table[class*="border-collapse"] td {
+  [data-worksheet-content="true"] div.space-y-4.break-inside-avoid > div.border.border-slate-300.rounded.p-4.bg-white > table[class*="border-collapse"] td,
+  [data-worksheet-content="true"] div[class*="break-inside-avoid"] > div[class*="border-slate-300"] > table[class*="border-collapse"] th,
+  [data-worksheet-content="true"] div[class*="break-inside-avoid"] > div[class*="border-slate-300"] > table[class*="border-collapse"] td,
+  [data-worksheet-content="true"] table[class*="border-collapse"] th,
+  [data-worksheet-content="true"] table[class*="border-collapse"] td {
     border: 1px solid #1e293b !important;
     border-top: 1px solid #1e293b !important;
     border-right: 1px solid #1e293b !important;
@@ -6311,12 +6348,37 @@ section[data-interactive-section="true"].preserve-print-styling [class*="h-48"] 
   
   /* Alternative: Keep border-collapse but force all borders */
   [data-worksheet-content="true"] div.space-y-4.break-inside-avoid > div.border.border-slate-300.rounded.p-4.bg-white > table.border-collapse th,
-  [data-worksheet-content="true"] div.space-y-4.break-inside-avoid > div.border.border-slate-300.rounded.p-4.bg-white > table.border-collapse td {
+  [data-worksheet-content="true"] div.space-y-4.break-inside-avoid > div.border.border-slate-300.rounded.p-4.bg-white > table.border-collapse td,
+  [data-worksheet-content="true"] table.border-collapse th,
+  [data-worksheet-content="true"] table.border-collapse td {
     border: 1px solid #1e293b !important;
     border-top: 1px solid #1e293b !important;
     border-right: 1px solid #1e293b !important;
     border-bottom: 1px solid #1e293b !important;
     border-left: 1px solid #1e293b !important;
+  }
+  
+  /* GENERAL FIX: Ensure ALL tables in worksheets have visible borders */
+  /* This covers mood-tracker, calendar tables, and any other tables */
+  [data-worksheet-content="true"] table th[class*="border"],
+  [data-worksheet-content="true"] table td[class*="border"],
+  [data-worksheet-content="true"] table th[class*="border-slate"],
+  [data-worksheet-content="true"] table td[class*="border-slate"] {
+    border: 1px solid #1e293b !important;
+    border-top: 1px solid #1e293b !important;
+    border-right: 1px solid #1e293b !important;
+    border-bottom: 1px solid #1e293b !important;
+    border-left: 1px solid #1e293b !important;
+    border-width: 1px !important;
+    border-style: solid !important;
+    border-color: #1e293b !important;
+  }
+  
+  /* Ensure empty table cells maintain borders */
+  [data-worksheet-content="true"] table td:empty,
+  [data-worksheet-content="true"] table th:empty {
+    border: 1px solid #1e293b !important;
+    min-height: 2rem !important;
   }
 }
 
