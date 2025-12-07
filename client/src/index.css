@@ -566,10 +566,17 @@ html {
   
   /* CRITICAL: Show elements with print:flex hidden - these should be visible in print */
   /* Used by VerticalEquation component for print layout */
+  /* Must override Tailwind's .hidden class which has display: none !important */
   [class*="print:flex"][class*="hidden"],
   .print\\:flex.hidden,
   div[class*="print:flex"][class*="hidden"],
-  div.print\\:flex.hidden {
+  div.print\\:flex.hidden,
+  [data-worksheet-content="true"] .hidden[class*="print:flex"],
+  [data-worksheet-content="true"] div.hidden[class*="print:flex"],
+  [data-worksheet-content="true"] .vertical-equation .hidden[class*="print:flex"],
+  [data-worksheet-content="true"] div[class*="vertical-equation"] .hidden[class*="print:flex"],
+  [data-worksheet-content="true"] .vertical-equation div.hidden.print\\:flex,
+  [data-worksheet-content="true"] div[class*="vertical-equation"] div.hidden.print\\:flex {
     display: flex !important;
     visibility: visible !important;
     opacity: 1 !important;
@@ -7152,9 +7159,9 @@ section[data-interactive-section="true"].preserve-print-styling [class*="h-48"] 
     visibility: visible !important;
     opacity: 1 !important;
     min-width: 1.5rem !important; /* Minimum width for empty answer lines */
+    width: 1.5rem !important; /* Force width for empty spans */
     min-height: 0.5rem !important; /* Minimum height to show border */
-    width: auto !important;
-    height: auto !important;
+    height: 0.5rem !important; /* Force height for empty spans */
     /* CRITICAL: Override border removal rule - explicitly set border-bottom */
     border: none !important; /* Reset first */
     border-bottom: 2px solid #334155 !important; /* Then set bottom border */
@@ -7169,8 +7176,17 @@ section[data-interactive-section="true"].preserve-print-styling [class*="h-48"] 
     color-adjust: exact !important;
   }
   
+  /* Add content to empty answer line spans via pseudo-element */
+  [data-worksheet-content="true"] span[class*="border-b"]:empty::before,
+  [data-worksheet-content="true"] span[class*="border-b-2"]:empty::before,
+  [data-worksheet-content="true"] span[class*="border-b-[3px]"]:empty::before {
+    content: '\00a0' !important; /* Non-breaking space */
+    display: inline-block !important;
+  }
+  
   /* Specific fix for VerticalEquation print layout - ensure answer spans are visible */
   /* CRITICAL: Must override border removal rule - these spans are answer lines */
+  /* Also must override Tailwind's .hidden class and ensure empty spans render */
   [data-worksheet-content="true"] .vertical-equation span[class*="border-b"],
   [data-worksheet-content="true"] .vertical-equation span[class*="border-b-2"],
   [data-worksheet-content="true"] div[class*="vertical-equation"] span[class*="border-b"],
@@ -7178,14 +7194,18 @@ section[data-interactive-section="true"].preserve-print-styling [class*="h-48"] 
   [data-worksheet-content="true"] .vertical-equation span[class*="min-w-"],
   [data-worksheet-content="true"] div[class*="vertical-equation"] span[class*="min-w-"],
   [data-worksheet-content="true"] span.vertical-equation span[class*="border-b"],
-  [data-worksheet-content="true"] span[class*="vertical-equation"] span[class*="border-b"] {
+  [data-worksheet-content="true"] span[class*="vertical-equation"] span[class*="border-b"],
+  [data-worksheet-content="true"] .vertical-equation span.inline-block[class*="border-b-2"],
+  [data-worksheet-content="true"] div[class*="vertical-equation"] span.inline-block[class*="border-b-2"],
+  [data-worksheet-content="true"] .vertical-equation span[class*="border-slate-600"][class*="border-b"],
+  [data-worksheet-content="true"] div[class*="vertical-equation"] span[class*="border-slate-600"][class*="border-b"] {
     display: inline-block !important;
     visibility: visible !important;
     opacity: 1 !important;
     min-width: 1.75in !important; /* Match printAnswerWidthClass default */
-    width: auto !important;
+    width: 1.75in !important; /* Force width for empty spans */
     min-height: 1.5rem !important; /* Match printAnswerHeightClass default (h-6 = 1.5rem) */
-    height: 1.5rem !important;
+    height: 1.5rem !important; /* Force height for empty spans */
     /* CRITICAL: Override border removal rule - explicitly set all border properties */
     border: none !important; /* Reset first */
     border-bottom: 2px solid #334155 !important; /* Then set bottom border */
@@ -7200,22 +7220,78 @@ section[data-interactive-section="true"].preserve-print-styling [class*="h-48"] 
     color-adjust: exact !important;
   }
   
+  /* CRITICAL: Empty spans in VerticalEquation need content to render */
+  [data-worksheet-content="true"] .vertical-equation span[class*="border-b"]:empty::before,
+  [data-worksheet-content="true"] div[class*="vertical-equation"] span[class*="border-b"]:empty::before {
+    content: '\00a0' !important; /* Non-breaking space */
+    display: inline-block !important;
+    width: 100% !important;
+    height: 100% !important;
+  }
+  
+  /* CATCH-ALL: Any span inside VerticalEquation print container with border-b */
+  /* This ensures we catch all variations of the answer line span */
+  [data-worksheet-content="true"] .vertical-equation div[class*="print:flex"] span[class*="border-b"],
+  [data-worksheet-content="true"] div[class*="vertical-equation"] div[class*="print:flex"] span[class*="border-b"],
+  [data-worksheet-content="true"] .vertical-equation div[class*="print:flex"] span.inline-block,
+  [data-worksheet-content="true"] div[class*="vertical-equation"] div[class*="print:flex"] span.inline-block {
+    display: inline-block !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+    min-width: 1.75in !important;
+    width: 1.75in !important;
+    min-height: 1.5rem !important;
+    height: 1.5rem !important;
+    border-bottom: 2px solid #334155 !important;
+    border-bottom-style: solid !important;
+    border-bottom-width: 2px !important;
+    border-bottom-color: #334155 !important;
+  }
+  
   /* Override for specific width classes used in VerticalEquation */
+  /* CRITICAL: Must respect the actual width classes passed as props */
   [data-worksheet-content="true"] .vertical-equation span[class*="min-w-[1.75in]"],
   [data-worksheet-content="true"] .vertical-equation span[class*="min-w-[1.85in]"],
   [data-worksheet-content="true"] .vertical-equation span[class*="min-w-[2in]"],
   [data-worksheet-content="true"] div[class*="vertical-equation"] span[class*="min-w-[1.75in]"],
   [data-worksheet-content="true"] div[class*="vertical-equation"] span[class*="min-w-[1.85in]"],
   [data-worksheet-content="true"] div[class*="vertical-equation"] span[class*="min-w-[2in]"] {
-    min-width: 1.75in !important; /* Ensure minimum width */
-    width: auto !important;
+    min-width: 1.75in !important; /* Default minimum width */
+    width: 1.75in !important; /* Force width for empty spans */
+  }
+  
+  /* Specific width overrides for different worksheet types */
+  [data-worksheet-content="true"] .vertical-equation span[class*="min-w-[2in]"],
+  [data-worksheet-content="true"] div[class*="vertical-equation"] span[class*="min-w-[2in]"] {
+    min-width: 2in !important; /* For mult-3x2-digit */
+    width: 2in !important;
+  }
+  
+  [data-worksheet-content="true"] .vertical-equation span[class*="min-w-[1.85in]"],
+  [data-worksheet-content="true"] div[class*="vertical-equation"] span[class*="min-w-[1.85in]"] {
+    min-width: 1.85in !important; /* For mult-2x2-digit */
+    width: 1.85in !important;
   }
   
   /* Ensure VerticalEquation print container is visible */
+  /* CRITICAL: Must override Tailwind's .hidden class with maximum specificity */
   [data-worksheet-content="true"] .vertical-equation [class*="print:flex"],
   [data-worksheet-content="true"] .vertical-equation.print\\:flex,
-  [data-worksheet-content="true"] div[class*="vertical-equation"] [class*="print:flex"] {
+  [data-worksheet-content="true"] div[class*="vertical-equation"] [class*="print:flex"],
+  [data-worksheet-content="true"] .vertical-equation div[class*="print:flex"],
+  [data-worksheet-content="true"] .vertical-equation div.hidden[class*="print:flex"],
+  [data-worksheet-content="true"] div[class*="vertical-equation"] div.hidden[class*="print:flex"],
+  [data-worksheet-content="true"] .vertical-equation div.hidden.print\\:flex,
+  [data-worksheet-content="true"] div[class*="vertical-equation"] div.hidden.print\\:flex {
     display: flex !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+  }
+  
+  /* CRITICAL: Ensure all children of VerticalEquation print container are visible */
+  [data-worksheet-content="true"] .vertical-equation div[class*="print:flex"] > *,
+  [data-worksheet-content="true"] div[class*="vertical-equation"] div[class*="print:flex"] > * {
+    display: inline-block !important;
     visibility: visible !important;
     opacity: 1 !important;
   }
@@ -7702,16 +7778,24 @@ section[data-interactive-section="true"].preserve-print-styling [class*="h-48"] 
    * ============================================================================ */
   
   /* Empty divs with borders (work boxes, answer boxes) */
+  /* CRITICAL: Must override border removal rule - these are work boxes */
   [data-worksheet-content="true"] div[class*="border"][class*="dashed"]:empty,
   [data-worksheet-content="true"] div[class*="border-dashed"]:empty,
   [data-worksheet-content="true"] div[class*="border"][class*="rounded"]:empty,
   [data-worksheet-content="true"] div[class*="min-h-"][class*="border"]:empty,
-  [data-worksheet-content="true"] div[class*="border-slate-300"][class*="rounded"]:empty {
+  [data-worksheet-content="true"] div[class*="border-slate-300"][class*="rounded"]:empty,
+  [data-worksheet-content="true"] div[class*="min-h-20"][class*="border"],
+  [data-worksheet-content="true"] div[class*="min-h-24"][class*="border"],
+  [data-worksheet-content="true"] div[class*="min-h-32"][class*="border"] {
     display: block !important;
     visibility: visible !important;
     opacity: 1 !important;
     min-height: 4rem !important; /* Ensure minimum height for empty boxes */
+    height: 4rem !important; /* Force height for empty boxes */
     min-width: 1rem !important; /* Ensure minimum width */
+    width: 100% !important; /* Full width for work boxes */
+    /* CRITICAL: Override border removal rule - explicitly set all border properties */
+    border: 1px dashed #334155 !important; /* Set all borders */
     border-style: dashed !important;
     border-width: 1px !important;
     border-color: #334155 !important; /* Dark slate for visibility */
@@ -7719,6 +7803,15 @@ section[data-interactive-section="true"].preserve-print-styling [class*="h-48"] 
     -webkit-print-color-adjust: exact !important;
     print-color-adjust: exact !important;
     color-adjust: exact !important;
+  }
+  
+  /* Add pseudo-content to empty work boxes to ensure they render */
+  [data-worksheet-content="true"] div[class*="border-dashed"]:empty::before,
+  [data-worksheet-content="true"] div[class*="min-h-20"][class*="border"]:empty::before,
+  [data-worksheet-content="true"] div[class*="min-h-24"][class*="border"]:empty::before {
+    content: '\00a0' !important; /* Non-breaking space */
+    display: block !important;
+    height: 4rem !important;
   }
   
   /* Specific fix for work boxes with min-h- classes */
@@ -7732,14 +7825,42 @@ section[data-interactive-section="true"].preserve-print-styling [class*="h-48"] 
   }
   
   /* Ensure work boxes maintain their dashed border style */
+  /* CRITICAL: Target the exact work box structure from mult-3x2-digit and other worksheets */
   [data-worksheet-content="true"] div[class*="border-dashed"][class*="border-slate-300"],
-  [data-worksheet-content="true"] div[class*="border-dashed"][class*="rounded"] {
+  [data-worksheet-content="true"] div[class*="border-dashed"][class*="rounded"],
+  [data-worksheet-content="true"] div[class*="min-h-24"][class*="border-dashed"],
+  [data-worksheet-content="true"] div[class*="min-h-20"][class*="border-dashed"],
+  [data-worksheet-content="true"] div[class*="min-h-24"][class*="border"][class*="border-dashed"],
+  [data-worksheet-content="true"] div[class*="min-h-20"][class*="border"][class*="border-dashed"],
+  [data-worksheet-content="true"] div.min-h-24[class*="border-dashed"],
+  [data-worksheet-content="true"] div.min-h-20[class*="border-dashed"] {
     border-style: dashed !important;
     border-width: 1px !important;
     border-color: #334155 !important; /* Dark slate for better print visibility */
     display: block !important;
     visibility: visible !important;
     opacity: 1 !important;
+    min-height: 6rem !important; /* min-h-24 = 6rem */
+    height: 6rem !important; /* Force height */
+    width: 100% !important; /* Full width */
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+  }
+  
+  /* Specific fix for work boxes with min-h-24 class (most common) */
+  [data-worksheet-content="true"] div.min-h-24[class*="border"][class*="dashed"]:empty,
+  [data-worksheet-content="true"] div[class*="min-h-24"][class*="border"][class*="dashed"]:empty {
+    display: block !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+    min-height: 6rem !important;
+    height: 6rem !important;
+    width: 100% !important;
+    border: 1px dashed #334155 !important;
+    border-style: dashed !important;
+    border-width: 1px !important;
+    border-color: #334155 !important;
+    background-color: #ffffff !important;
     -webkit-print-color-adjust: exact !important;
     print-color-adjust: exact !important;
   }
