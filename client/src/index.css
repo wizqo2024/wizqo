@@ -6463,5 +6463,79 @@ section[data-interactive-section="true"].preserve-print-styling [class*="h-48"] 
     height: auto !important;
     min-height: 2.5rem !important;
   }
+  
+  /* CRITICAL: Ensure SVG elements are visible in print */
+  [data-worksheet-content="true"] svg {
+    display: block !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+    max-width: 100% !important;
+    height: auto !important;
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+  }
+  
+  /* Ensure SVG with viewBox maintain aspect ratio */
+  [data-worksheet-content="true"] svg[viewBox] {
+    width: 100% !important;
+    height: auto !important;
+    max-width: 100% !important;
+    preserveAspectRatio: xMidYMid meet !important;
+  }
+  
+  /* Ensure borders on divs with border classes are visible */
+  [data-worksheet-content="true"] div[class*="border"][class*="rounded"][class*="p-"] {
+    border: 1px solid #cbd5e1 !important;
+    border-width: 1px !important;
+    border-style: solid !important;
+    border-color: #cbd5e1 !important;
+  }
+  
+  /* Ensure background colors show in print */
+  [data-worksheet-content="true"] div[class*="bg-"]:not([class*="bg-white"]):not([class*="bg-transparent"]) {
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+  }
+  
+  /* Ensure text is visible - override any opacity that might make it too faint */
+  [data-worksheet-content="true"] p,
+  [data-worksheet-content="true"] div,
+  [data-worksheet-content="true"] span,
+  [data-worksheet-content="true"] li {
+    color: #000000 !important;
+    opacity: 1 !important;
+  }
+  
+  /* Ensure elements with print:block hidden are visible */
+  [data-worksheet-content="true"] [class*="print:block"][class*="hidden"] {
+    display: block !important;
+    visibility: visible !important;
+  }
+  
+  /* Ensure challenge and answer key sections are visible */
+  [data-worksheet-content="true"] .challenge-section,
+  [data-worksheet-content="true"] .answer-key {
+    display: block !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+    border: 2px solid !important;
+    padding: 1rem !important;
+  }
+  
+  /* Ensure worked example sections are visible */
+  [data-worksheet-content="true"] .worked-example {
+    display: block !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+    border: 2px solid !important;
+    padding: 1rem !important;
+  }
+  
+  /* Ensure self-assessment sections are visible */
+  [data-worksheet-content="true"] .self-assessment {
+    display: block !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+  }
 }
 
