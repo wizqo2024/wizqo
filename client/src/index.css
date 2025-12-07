@@ -5883,6 +5883,33 @@ section[data-interactive-section="true"].preserve-print-styling [class*="h-48"] 
     line-height: 2.5rem !important;
     vertical-align: middle !important;
     text-align: center !important;
+    border: 1px solid #1e293b !important;
+    border-width: 1px !important;
+    border-style: solid !important;
+    border-color: #1e293b !important;
+  }
+  
+  /* ABSOLUTE FINAL: Force ALL tbody cells to have visible borders - highest priority */
+  [data-worksheet-content="true"] div.space-y-4.break-inside-avoid > div.border.border-slate-300.rounded.p-4.bg-white > table tbody tr td,
+  [data-worksheet-content="true"] div.space-y-4.break-inside-avoid > div.border.border-slate-300.rounded.p-4.bg-white > table tbody td,
+  [data-worksheet-content="true"] div[class*="space-y-4"][class*="break-inside-avoid"] > div[class*="border-slate-300"] > table tbody tr td,
+  [data-worksheet-content="true"] div[class*="space-y-4"][class*="break-inside-avoid"] > div[class*="border-slate-300"] > table tbody td {
+    border: 1px solid #1e293b !important;
+    border-top-color: #1e293b !important;
+    border-right-color: #1e293b !important;
+    border-bottom-color: #1e293b !important;
+    border-left-color: #1e293b !important;
+    border-top-width: 1px !important;
+    border-right-width: 1px !important;
+    border-bottom-width: 1px !important;
+    border-left-width: 1px !important;
+    border-top-style: solid !important;
+    border-right-style: solid !important;
+    border-bottom-style: solid !important;
+    border-left-style: solid !important;
+    display: table-cell !important;
+    visibility: visible !important;
+    opacity: 1 !important;
   }
   
   /* Ensure all spans are rendered - target by class attributes */
