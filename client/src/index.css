@@ -7265,8 +7265,24 @@ section[data-interactive-section="true"].preserve-print-styling [class*="h-48"] 
   [data-worksheet-content="true"] div[class*="vertical-equation"] div[class*="print:flex"] {
     display: flex !important;
     align-items: center !important; /* Maintain items-center */
-    justify-content: flex-end !important; /* Maintain justify-end */
+    justify-content: flex-end !important; /* Maintain justify-end - content on right */
     gap: 0.5rem !important; /* Maintain gap-2 */
+    text-align: right !important; /* Ensure right alignment */
+    width: 100% !important; /* Full width container */
+  }
+  
+  /* CRITICAL: Ensure parent vertical-equation container maintains right alignment */
+  [data-worksheet-content="true"] .vertical-equation,
+  [data-worksheet-content="true"] div[class*="vertical-equation"] {
+    text-align: right !important;
+    width: 100% !important;
+  }
+  
+  /* CRITICAL: Ensure all spans in print flex maintain proper display */
+  [data-worksheet-content="true"] .vertical-equation div[class*="print:flex"] > span,
+  [data-worksheet-content="true"] div[class*="vertical-equation"] div[class*="print:flex"] > span {
+    display: inline-block !important;
+    text-align: left !important; /* Text inside spans should be left-aligned */
   }
   
   /* Override for specific width classes used in VerticalEquation */
@@ -7804,6 +7820,7 @@ section[data-interactive-section="true"].preserve-print-styling [class*="h-48"] 
   /* Target the exact structure: min-h-24 border border-dashed border-slate-300 */
   /* ULTRA-SPECIFIC: Use class selectors for higher specificity than attribute selectors */
   /* MUST come AFTER border removal rule and use higher specificity */
+  /* CRITICAL: Target ALL possible combinations - be exhaustive */
   [data-worksheet-content="true"] div[class*="border"][class*="dashed"]:empty,
   [data-worksheet-content="true"] div[class*="border-dashed"]:empty,
   [data-worksheet-content="true"] div[class*="border"][class*="rounded"]:empty,
@@ -7827,7 +7844,16 @@ section[data-interactive-section="true"].preserve-print-styling [class*="h-48"] 
   /* Target the exact combination from mult-3x2-digit: border border-dashed border-slate-300 */
   [data-worksheet-content="true"] div.border.border-dashed[class*="border-slate-300"],
   [data-worksheet-content="true"] div.min-h-24.border.border-dashed[class*="border-slate-300"],
-  [data-worksheet-content="true"] div[class*="min-h-24"].border.border-dashed[class*="border-slate-300"] {
+  [data-worksheet-content="true"] div[class*="min-h-24"].border.border-dashed[class*="border-slate-300"],
+  /* FINAL CATCH-ALL: Any div with border-dashed class - maximum coverage */
+  /* This rule applies to ALL divs with border-dashed, not just empty ones */
+  /* CRITICAL: This MUST override the border removal rule - use maximum specificity */
+  [data-worksheet-content="true"] div.border-dashed,
+  [data-worksheet-content="true"] div[class*="border-dashed"],
+  [data-worksheet-content="true"] div.border.border-dashed,
+  [data-worksheet-content="true"] div[class*="border"].border-dashed,
+  [data-worksheet-content="true"] div.border-dashed[class*="min-h-24"],
+  [data-worksheet-content="true"] div[class*="border-dashed"][class*="min-h-24"] {
     display: block !important;
     visibility: visible !important;
     opacity: 1 !important;
@@ -7840,6 +7866,10 @@ section[data-interactive-section="true"].preserve-print-styling [class*="h-48"] 
     border-style: dashed !important;
     border-width: 1px !important;
     border-color: #334155 !important; /* Dark slate for visibility */
+    border-top: 1px dashed #334155 !important;
+    border-right: 1px dashed #334155 !important;
+    border-bottom: 1px dashed #334155 !important;
+    border-left: 1px dashed #334155 !important;
     background-color: #ffffff !important;
     -webkit-print-color-adjust: exact !important;
     print-color-adjust: exact !important;
@@ -7966,6 +7996,38 @@ section[data-interactive-section="true"].preserve-print-styling [class*="h-48"] 
     background-color: #ffffff !important;
     -webkit-print-color-adjust: exact !important;
     print-color-adjust: exact !important;
+  }
+  
+  /* ============================================================================
+   * ABSOLUTE FINAL OVERRIDE: Work boxes MUST be visible - maximum specificity
+   * This rule comes LAST and overrides EVERYTHING including border removal
+   * Target exact structure: min-h-24 border border-dashed border-slate-300
+   * ============================================================================ */
+  [data-worksheet-content="true"] div.min-h-24.border.border-dashed,
+  [data-worksheet-content="true"] div[class*="min-h-24"].border.border-dashed,
+  [data-worksheet-content="true"] div.border.border-dashed[class*="min-h-24"],
+  [data-worksheet-content="true"] div.border.border-dashed[class*="border-slate-300"],
+  [data-worksheet-content="true"] div.min-h-24.border.border-dashed[class*="border-slate-300"],
+  [data-worksheet-content="true"] div[class*="min-h-24"].border.border-dashed[class*="border-slate-300"] {
+    /* CRITICAL: Override border removal rule completely - set ALL border properties */
+    border: 1px dashed #334155 !important;
+    border-top: 1px dashed #334155 !important;
+    border-right: 1px dashed #334155 !important;
+    border-bottom: 1px dashed #334155 !important;
+    border-left: 1px dashed #334155 !important;
+    border-style: dashed !important;
+    border-width: 1px !important;
+    border-color: #334155 !important;
+    display: block !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+    min-height: 6rem !important;
+    height: 6rem !important;
+    width: 100% !important;
+    background-color: #ffffff !important;
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+    color-adjust: exact !important;
   }
 }
 
