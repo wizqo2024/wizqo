@@ -576,8 +576,19 @@ html {
   [data-worksheet-content="true"] .vertical-equation .hidden[class*="print:flex"],
   [data-worksheet-content="true"] div[class*="vertical-equation"] .hidden[class*="print:flex"],
   [data-worksheet-content="true"] .vertical-equation div.hidden.print\\:flex,
-  [data-worksheet-content="true"] div[class*="vertical-equation"] div.hidden.print\\:flex {
+  [data-worksheet-content="true"] div[class*="vertical-equation"] div.hidden.print\\:flex,
+  /* ULTRA-SPECIFIC: Target VerticalEquation print container with maximum specificity */
+  [data-worksheet-content="true"] .vertical-equation > div.hidden[class*="print:flex"],
+  [data-worksheet-content="true"] div[class*="vertical-equation"] > div.hidden[class*="print:flex"] {
     display: flex !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+  }
+  
+  /* CRITICAL: Ensure ALL children of print:flex container are visible */
+  [data-worksheet-content="true"] .vertical-equation div[class*="print:flex"] > *,
+  [data-worksheet-content="true"] div[class*="vertical-equation"] div[class*="print:flex"] > * {
+    display: inline-block !important;
     visibility: visible !important;
     opacity: 1 !important;
   }
@@ -1367,6 +1378,27 @@ html {
     border-width: 0 !important;
     border-color: transparent !important;
     box-shadow: none !important;
+  }
+  
+  /* CRITICAL: Explicitly PRESERVE borders for work boxes - must come AFTER border removal */
+  /* Use class selectors for maximum specificity to override border removal */
+  [data-worksheet-content="true"] div.border.border-dashed,
+  [data-worksheet-content="true"] div.border[class*="border-dashed"],
+  [data-worksheet-content="true"] div.border-dashed,
+  [data-worksheet-content="true"] div[class*="border-dashed"],
+  [data-worksheet-content="true"] div.min-h-24.border,
+  [data-worksheet-content="true"] div[class*="min-h-24"].border,
+  [data-worksheet-content="true"] div.min-h-24.border.border-dashed,
+  [data-worksheet-content="true"] div[class*="min-h-24"].border.border-dashed {
+    /* Override border removal - explicitly set dashed borders */
+    border: 1px dashed #334155 !important;
+    border-top: 1px dashed #334155 !important;
+    border-right: 1px dashed #334155 !important;
+    border-bottom: 1px dashed #334155 !important;
+    border-left: 1px dashed #334155 !important;
+    border-style: dashed !important;
+    border-width: 1px !important;
+    border-color: #334155 !important;
   }
   
   /* CRITICAL: Explicitly PRESERVE borders for ALL elements inside tables */
@@ -7261,14 +7293,20 @@ section[data-interactive-section="true"].preserve-print-styling [class*="h-48"] 
   }
   
   /* CRITICAL: Ensure VerticalEquation print flex container maintains proper alignment */
+  /* This MUST override any other rules and ensure the container is visible */
   [data-worksheet-content="true"] .vertical-equation div[class*="print:flex"],
-  [data-worksheet-content="true"] div[class*="vertical-equation"] div[class*="print:flex"] {
+  [data-worksheet-content="true"] div[class*="vertical-equation"] div[class*="print:flex"],
+  [data-worksheet-content="true"] .vertical-equation > div[class*="print:flex"],
+  [data-worksheet-content="true"] div[class*="vertical-equation"] > div[class*="print:flex"] {
     display: flex !important;
     align-items: center !important; /* Maintain items-center */
     justify-content: flex-end !important; /* Maintain justify-end - content on right */
     gap: 0.5rem !important; /* Maintain gap-2 */
     text-align: right !important; /* Ensure right alignment */
     width: 100% !important; /* Full width container */
+    visibility: visible !important;
+    opacity: 1 !important;
+    flex-direction: row !important; /* Ensure horizontal layout */
   }
   
   /* CRITICAL: Ensure parent vertical-equation container maintains right alignment */
@@ -7278,11 +7316,16 @@ section[data-interactive-section="true"].preserve-print-styling [class*="h-48"] 
     width: 100% !important;
   }
   
-  /* CRITICAL: Ensure all spans in print flex maintain proper display */
+  /* CRITICAL: Ensure all spans in print flex are visible and properly displayed */
   [data-worksheet-content="true"] .vertical-equation div[class*="print:flex"] > span,
-  [data-worksheet-content="true"] div[class*="vertical-equation"] div[class*="print:flex"] > span {
+  [data-worksheet-content="true"] div[class*="vertical-equation"] div[class*="print:flex"] > span,
+  [data-worksheet-content="true"] .vertical-equation div[class*="print:flex"] span,
+  [data-worksheet-content="true"] div[class*="vertical-equation"] div[class*="print:flex"] span {
     display: inline-block !important;
+    visibility: visible !important;
+    opacity: 1 !important;
     text-align: left !important; /* Text inside spans should be left-aligned */
+    white-space: nowrap !important; /* Prevent wrapping */
   }
   
   /* Override for specific width classes used in VerticalEquation */
@@ -8008,8 +8051,53 @@ section[data-interactive-section="true"].preserve-print-styling [class*="h-48"] 
   [data-worksheet-content="true"] div.border.border-dashed[class*="min-h-24"],
   [data-worksheet-content="true"] div.border.border-dashed[class*="border-slate-300"],
   [data-worksheet-content="true"] div.min-h-24.border.border-dashed[class*="border-slate-300"],
-  [data-worksheet-content="true"] div[class*="min-h-24"].border.border-dashed[class*="border-slate-300"] {
+  [data-worksheet-content="true"] div[class*="min-h-24"].border.border-dashed[class*="border-slate-300"],
+  /* FINAL CATCH-ALL: Any div with border-dashed - must be visible */
+  [data-worksheet-content="true"] div.border-dashed,
+  [data-worksheet-content="true"] div[class*="border-dashed"] {
     /* CRITICAL: Override border removal rule completely - set ALL border properties */
+    border: 1px dashed #334155 !important;
+    border-top: 1px dashed #334155 !important;
+    border-right: 1px dashed #334155 !important;
+    border-bottom: 1px dashed #334155 !important;
+    border-left: 1px dashed #334155 !important;
+    border-style: dashed !important;
+    border-width: 1px !important;
+    border-color: #334155 !important;
+    display: block !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+    min-height: 6rem !important;
+    height: 6rem !important;
+    width: 100% !important;
+    background-color: #ffffff !important;
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+    color-adjust: exact !important;
+  }
+  
+  /* CRITICAL: Ensure font-mono renders special characters (×, =) correctly */
+  [data-worksheet-content="true"] .font-mono,
+  [data-worksheet-content="true"] div[class*="font-mono"],
+  [data-worksheet-content="true"] .vertical-equation,
+  [data-worksheet-content="true"] div[class*="vertical-equation"],
+  [data-worksheet-content="true"] .vertical-equation *,
+  [data-worksheet-content="true"] div[class*="vertical-equation"] * {
+    font-family: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, "Liberation Mono", monospace !important;
+    font-variant-numeric: normal !important;
+    -webkit-font-feature-settings: normal !important;
+    font-feature-settings: normal !important;
+  }
+  
+  /* ============================================================================
+   * FINAL COMPREHENSIVE OVERRIDE: Ensure work boxes are ALWAYS visible
+   * This rule targets the exact HTML structure from mult-3x2-digit
+   * ============================================================================ */
+  [data-worksheet-content="true"] div.min-h-24.border.border-dashed.border-slate-300,
+  [data-worksheet-content="true"] div[class*="min-h-24"].border.border-dashed[class*="border-slate-300"],
+  [data-worksheet-content="true"] div.border.border-dashed[class*="min-h-24"],
+  [data-worksheet-content="true"] div.border.border-dashed[class*="border-slate-300"] {
+    /* Override border removal - set borders explicitly */
     border: 1px dashed #334155 !important;
     border-top: 1px dashed #334155 !important;
     border-right: 1px dashed #334155 !important;
