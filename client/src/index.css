@@ -6654,5 +6654,72 @@ section[data-interactive-section="true"].preserve-print-styling [class*="h-48"] 
     visibility: visible !important;
     opacity: 1 !important;
   }
+  
+  /* CRITICAL: Ensure "Show your work" boxes are visible in print */
+  /* These are dashed border boxes used for student work areas */
+  [data-worksheet-content="true"] div[class*="border-dashed"],
+  [data-worksheet-content="true"] div[class*="border"][class*="dashed"],
+  [data-worksheet-content="true"] div.border-dashed {
+    display: block !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+    border: 2px dashed #cbd5e1 !important;
+    border-style: dashed !important;
+    border-color: #cbd5e1 !important;
+    border-width: 2px !important;
+    min-height: 4rem !important;
+    height: auto !important;
+    padding: 0.5rem !important;
+    background-color: #ffffff !important;
+    background: #ffffff !important;
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+  }
+  
+  /* Ensure work boxes with specific height classes maintain their height */
+  [data-worksheet-content="true"] div[class*="min-h-16"][class*="border-dashed"],
+  [data-worksheet-content="true"] div[class*="min-h-16"][class*="border"][class*="dashed"],
+  [data-worksheet-content="true"] div[class*="min-h-24"][class*="border-dashed"],
+  [data-worksheet-content="true"] div[class*="min-h-24"][class*="border"][class*="dashed"],
+  [data-worksheet-content="true"] div[class*="min-h-32"][class*="border-dashed"],
+  [data-worksheet-content="true"] div[class*="min-h-32"][class*="border"][class*="dashed"] {
+    min-height: 4rem !important;
+    height: auto !important;
+  }
+  
+  /* Ensure work boxes with bg-slate-50 show white background in print */
+  [data-worksheet-content="true"] div[class*="bg-slate-50"][class*="border-dashed"],
+  [data-worksheet-content="true"] div[class*="bg-slate-50"][class*="border"][class*="dashed"],
+  [data-worksheet-content="true"] div[class*="bg-slate-50"][class*="print:bg-white"] {
+    background-color: #ffffff !important;
+    background: #ffffff !important;
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+  }
+  
+  /* Ensure rounded corners are preserved */
+  [data-worksheet-content="true"] div[class*="border-dashed"][class*="rounded"],
+  [data-worksheet-content="true"] div[class*="border"][class*="dashed"][class*="rounded"] {
+    border-radius: 0.25rem !important;
+  }
+  
+  /* Ensure text labels above work boxes are visible */
+  [data-worksheet-content="true"] div:has(+ div[class*="border-dashed"]) {
+    display: block !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+    color: #475569 !important;
+  }
+  
+  /* Ensure "Show your work" text is visible */
+  [data-worksheet-content="true"] div[class*="text-xs"][class*="text-slate-600"]:has(+ div[class*="border-dashed"]),
+  [data-worksheet-content="true"] div:contains("Show your work") {
+    display: block !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+    color: #475569 !important;
+    font-size: 0.75rem !important;
+    margin-top: 0.5rem !important;
+  }
 }
 
