@@ -6253,5 +6253,47 @@ section[data-interactive-section="true"].preserve-print-styling [class*="h-48"] 
     border-right-style: solid !important;
     border-right-color: #1e293b !important;
   }
+  
+  /* NUCLEAR OPTION: Force ALL borders on ALL table cells - override EVERYTHING */
+  /* This uses the highest possible specificity and comes at the absolute end */
+  [data-worksheet-content="true"] div.space-y-4.break-inside-avoid > div.border.border-slate-300.rounded.p-4.bg-white > table > thead > tr > th,
+  [data-worksheet-content="true"] div.space-y-4.break-inside-avoid > div.border.border-slate-300.rounded.p-4.bg-white > table > tbody > tr > td,
+  [data-worksheet-content="true"] div.space-y-4.break-inside-avoid > div.border.border-slate-300.rounded.p-4.bg-white > table thead th,
+  [data-worksheet-content="true"] div.space-y-4.break-inside-avoid > div.border.border-slate-300.rounded.p-4.bg-white > table tbody td,
+  [data-worksheet-content="true"] div.space-y-4.break-inside-avoid > div.border.border-slate-300.rounded.p-4.bg-white > table th,
+  [data-worksheet-content="true"] div.space-y-4.break-inside-avoid > div.border.border-slate-300.rounded.p-4.bg-white > table td {
+    border: 1px solid #1e293b !important;
+    border-top: 1px solid #1e293b !important;
+    border-right: 1px solid #1e293b !important;
+    border-bottom: 1px solid #1e293b !important;
+    border-left: 1px solid #1e293b !important;
+    border-width: 1px !important;
+    border-style: solid !important;
+    border-color: #1e293b !important;
+    border-top-width: 1px !important;
+    border-right-width: 1px !important;
+    border-bottom-width: 1px !important;
+    border-left-width: 1px !important;
+    border-top-style: solid !important;
+    border-right-style: solid !important;
+    border-bottom-style: solid !important;
+    border-left-style: solid !important;
+    border-top-color: #1e293b !important;
+    border-right-color: #1e293b !important;
+    border-bottom-color: #1e293b !important;
+    border-left-color: #1e293b !important;
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+  }
+  
+  /* Override any rule that might set border to none or 0 */
+  [data-worksheet-content="true"] div.space-y-4.break-inside-avoid > div.border.border-slate-300.rounded.p-4.bg-white > table th[style*="border"],
+  [data-worksheet-content="true"] div.space-y-4.break-inside-avoid > div.border.border-slate-300.rounded.p-4.bg-white > table td[style*="border"] {
+    border: 1px solid #1e293b !important;
+    border-top: 1px solid #1e293b !important;
+    border-right: 1px solid #1e293b !important;
+    border-bottom: 1px solid #1e293b !important;
+    border-left: 1px solid #1e293b !important;
+  }
 }
 
