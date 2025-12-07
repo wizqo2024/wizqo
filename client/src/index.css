@@ -425,10 +425,24 @@ html {
    * ============================================================================ */
   
   /* CRITICAL: Force all colors to print - override any browser defaults */
-  * {
+  /* BUT exclude images and SVGs - they should render normally */
+  *:not(img):not(svg):not(image):not([class*="svg"]):not([class*="image"]) {
     -webkit-print-color-adjust: exact !important;
     print-color-adjust: exact !important;
     color-adjust: exact !important;
+  }
+  
+  /* Images and SVGs should render normally without color adjustment */
+  img,
+  svg,
+  image,
+  [class*="svg"],
+  [class*="image"] {
+    -webkit-print-color-adjust: auto !important;
+    print-color-adjust: auto !important;
+    color-adjust: auto !important;
+    background: transparent !important;
+    background-color: transparent !important;
   }
   
   /* Hide style tags */
@@ -7184,10 +7198,27 @@ section[data-interactive-section="true"].preserve-print-styling [class*="h-48"] 
    * ============================================================================ */
   
   /* Ensure all colored backgrounds are visible (override print:bg-white) */
-  [data-worksheet-content="true"] [class*="bg-"]:not([class*="bg-white"]):not([class*="bg-transparent"]):not(button):not(nav):not(header) {
+  /* Exclude images, SVGs, and their containers from background color rules */
+  [data-worksheet-content="true"] [class*="bg-"]:not([class*="bg-white"]):not([class*="bg-transparent"]):not(button):not(nav):not(header):not(img):not(svg):not(image):not([class*="svg"]):not([class*="image"]):not(:has(img)):not(:has(svg)):not(:has(image)) {
     -webkit-print-color-adjust: exact !important;
     print-color-adjust: exact !important;
     color-adjust: exact !important;
+  }
+  
+  /* Ensure images and SVGs don't get backgrounds */
+  [data-worksheet-content="true"] img,
+  [data-worksheet-content="true"] svg,
+  [data-worksheet-content="true"] image,
+  [data-worksheet-content="true"] [class*="svg"],
+  [data-worksheet-content="true"] [class*="image"],
+  [data-worksheet-content="true"] div:has(img),
+  [data-worksheet-content="true"] div:has(svg) {
+    background: transparent !important;
+    background-color: transparent !important;
+    background-image: none !important;
+    -webkit-print-color-adjust: auto !important;
+    print-color-adjust: auto !important;
+    color-adjust: auto !important;
   }
   
   /* Specific background colors that need to be preserved */
