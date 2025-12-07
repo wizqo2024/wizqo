@@ -6986,5 +6986,95 @@ section[data-interactive-section="true"].preserve-print-styling [class*="h-48"] 
     -webkit-print-color-adjust: exact !important;
     print-color-adjust: exact !important;
   }
+  
+  /* ============================================================================
+   * CRITICAL: Ensure horizontal answer lines (border-bottom/border-top) are visible
+   * These are used for answer input fields in worksheets
+   * ============================================================================ */
+  
+  /* Ensure all border-bottom answer lines are visible */
+  [data-worksheet-content="true"] span[class*="border-b"],
+  [data-worksheet-content="true"] span[class*="border-b-"],
+  [data-worksheet-content="true"] span[class*="border-b-["],
+  [data-worksheet-content="true"] div[class*="border-b"],
+  [data-worksheet-content="true"] div[class*="border-b-"],
+  [data-worksheet-content="true"] div[class*="border-b-["],
+  [data-worksheet-content="true"] [class*="inline-block"][class*="border-b"],
+  [data-worksheet-content="true"] [class*="inline-block"][class*="border-b-"],
+  [data-worksheet-content="true"] [class*="inline-block"][class*="border-b-["] {
+    border-bottom-style: solid !important;
+    border-bottom-width: 2px !important;
+    border-bottom-color: #334155 !important; /* Dark slate for visibility */
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+    color-adjust: exact !important;
+    display: inline-block !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+  }
+  
+  /* Specific rules for border-b-[3px] (thicker answer lines) */
+  [data-worksheet-content="true"] span[class*="border-b-[3px]"],
+  [data-worksheet-content="true"] div[class*="border-b-[3px]"],
+  [data-worksheet-content="true"] [class*="border-b-[3px]"] {
+    border-bottom-width: 3px !important;
+    border-bottom-style: solid !important;
+    border-bottom-color: #334155 !important; /* Dark slate */
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+  }
+  
+  /* Specific rules for border-b-2 (standard answer lines) */
+  [data-worksheet-content="true"] span[class*="border-b-2"],
+  [data-worksheet-content="true"] div[class*="border-b-2"],
+  [data-worksheet-content="true"] [class*="border-b-2"] {
+    border-bottom-width: 2px !important;
+    border-bottom-style: solid !important;
+    border-bottom-color: #334155 !important;
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+  }
+  
+  /* Preserve colored border-bottom (blue-600, slate-600, etc.) */
+  [data-worksheet-content="true"] span[class*="border-blue-600"][class*="border-b"],
+  [data-worksheet-content="true"] span[class*="border-slate-600"][class*="border-b"],
+  [data-worksheet-content="true"] span[class*="border-amber-600"][class*="border-b"],
+  [data-worksheet-content="true"] div[class*="border-blue-600"][class*="border-b"],
+  [data-worksheet-content="true"] div[class*="border-slate-600"][class*="border-b"],
+  [data-worksheet-content="true"] div[class*="border-amber-600"][class*="border-b"] {
+    border-bottom-color: inherit !important;
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+  }
+  
+  /* Ensure border-top answer lines are also visible */
+  [data-worksheet-content="true"] span[class*="border-t"],
+  [data-worksheet-content="true"] span[class*="border-t-"],
+  [data-worksheet-content="true"] span[class*="border-t-["],
+  [data-worksheet-content="true"] div[class*="border-t"],
+  [data-worksheet-content="true"] div[class*="border-t-"],
+  [data-worksheet-content="true"] div[class*="border-t-["],
+  [data-worksheet-content="true"] [class*="border-t-2"] {
+    border-top-style: solid !important;
+    border-top-width: 2px !important;
+    border-top-color: #334155 !important;
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+    color-adjust: exact !important;
+    display: block !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+  }
+  
+  /* Ensure inline-block elements with borders maintain their display */
+  [data-worksheet-content="true"] span.inline-block[class*="border-b"],
+  [data-worksheet-content="true"] span[class*="inline-block"][class*="border-b"],
+  [data-worksheet-content="true"] div.inline-block[class*="border-b"],
+  [data-worksheet-content="true"] div[class*="inline-block"][class*="border-b"] {
+    display: inline-block !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+    min-width: 1rem !important; /* Ensure minimum width for visibility */
+  }
 }
 
