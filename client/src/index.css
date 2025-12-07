@@ -1329,7 +1329,8 @@ html {
   /* CRITICAL: Preserve table borders in print mode - MUST come after border removal with maximum specificity */
   /* This ensures tables display correctly with all borders visible, matching the live view */
   /* Use maximum specificity to override border removal rules */
-  [data-worksheet-content="true"] table {
+  [data-worksheet-content="true"] table,
+  table {
     width: 100% !important;
     border-collapse: collapse !important;
     border-spacing: 0 !important;
@@ -1343,20 +1344,37 @@ html {
   }
   
   /* CRITICAL: Ensure table structure elements are visible */
-  [data-worksheet-content="true"] table thead {
+  [data-worksheet-content="true"] table thead,
+  table thead {
     display: table-header-group !important;
     visibility: visible !important;
     opacity: 1 !important;
   }
   
-  [data-worksheet-content="true"] table tbody {
+  [data-worksheet-content="true"] table tbody,
+  table tbody {
     display: table-row-group !important;
     visibility: visible !important;
     opacity: 1 !important;
   }
   
-  [data-worksheet-content="true"] table tr {
+  [data-worksheet-content="true"] table tr,
+  table tr {
     display: table-row !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+  }
+  
+  /* CRITICAL: Ensure ALL table cells maintain borders - repeat for emphasis */
+  [data-worksheet-content="true"] table td,
+  [data-worksheet-content="true"] table th,
+  table td,
+  table th {
+    border: 1px solid #1e293b !important;
+    border-color: #1e293b !important;
+    border-width: 1px !important;
+    border-style: solid !important;
+    display: table-cell !important;
     visibility: visible !important;
     opacity: 1 !important;
   }
