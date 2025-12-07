@@ -1274,16 +1274,40 @@ html {
   
   /* Remove all inner borders in print so only outer frame remains */
   /* CRITICAL: EXCLUDE ALL TABLE ELEMENTS AND THEIR DESCENDANTS from border removal */
-  /* Tables MUST keep their borders - target only elements OUTSIDE of tables */
-  /* Use :not() to exclude table elements, but also add explicit table rules AFTER this */
-  [data-worksheet-content="true"] .border:not(.worksheet-container):not(.print-section-outline):not(.print-block-outline):not(.drawing-box):not(.drawing-box-large):not([data-drawing-box]):not(.worksheet-section):not(section.worksheet-section):not([class*="worksheet-section"]):not(table):not(thead):not(tbody):not(tr):not(td):not(th),
-  [data-worksheet-content="true"] [class*="border-"]:not(.worksheet-container):not(.print-section-outline):not(.print-block-outline):not(.drawing-box):not(.drawing-box-large):not([data-drawing-box]):not(.worksheet-section):not(section.worksheet-section):not([class*="worksheet-section"]):not(table):not(thead):not(tbody):not(tr):not(td):not(th),
+  /* Tables MUST keep their borders - use a different approach: target specific elements, not tables */
+  /* Only target div, span, p, section, etc. - NOT table elements */
+  [data-worksheet-content="true"] div.border:not(.worksheet-container):not(.print-section-outline):not(.print-block-outline):not(.drawing-box):not(.drawing-box-large):not([data-drawing-box]):not(.worksheet-section):not(section.worksheet-section):not([class*="worksheet-section"]),
+  [data-worksheet-content="true"] div[class*="border-"]:not(.worksheet-container):not(.print-section-outline):not(.print-block-outline):not(.drawing-box):not(.drawing-box-large):not([data-drawing-box]):not(.worksheet-section):not(section.worksheet-section):not([class*="worksheet-section"]),
+  [data-worksheet-content="true"] span[class*="border-"]:not(.worksheet-container):not(.print-section-outline):not(.print-block-outline):not(.drawing-box):not(.drawing-box-large):not([data-drawing-box]):not(.worksheet-section):not(section.worksheet-section):not([class*="worksheet-section"]),
+  [data-worksheet-content="true"] p[class*="border-"]:not(.worksheet-container):not(.print-section-outline):not(.print-block-outline):not(.drawing-box):not(.drawing-box-large):not([data-drawing-box]):not(.worksheet-section):not(section.worksheet-section):not([class*="worksheet-section"]),
+  [data-worksheet-content="true"] section[class*="border-"]:not(.worksheet-container):not(.print-section-outline):not(.print-block-outline):not(.drawing-box):not(.drawing-box-large):not([data-drawing-box]):not(.worksheet-section):not(section.worksheet-section):not([class*="worksheet-section"]),
   [data-worksheet-content="true"] [class*="print:border"]:not(.worksheet-container):not(.print-section-outline):not(.print-block-outline):not(.drawing-box):not(.drawing-box-large):not([data-drawing-box]):not(.worksheet-section):not(section.worksheet-section):not([class*="worksheet-section"]):not(table):not(thead):not(tbody):not(tr):not(td):not(th),
-  [data-worksheet-content="true"] *:not(.worksheet-container):not(.print-section-outline):not(.print-block-outline):not(.drawing-box):not(.drawing-box-large):not([data-drawing-box]):not(.worksheet-section):not(section.worksheet-section):not([class*="worksheet-section"]):not(table):not(thead):not(tbody):not(tr):not(td):not(th)[style*="border"] {
+  [data-worksheet-content="true"] div[style*="border"]:not(.worksheet-container):not(.print-section-outline):not(.print-block-outline):not(.drawing-box):not(.drawing-box-large):not([data-drawing-box]):not(.worksheet-section):not(section.worksheet-section):not([class*="worksheet-section"]),
+  [data-worksheet-content="true"] span[style*="border"]:not(.worksheet-container):not(.print-section-outline):not(.print-block-outline):not(.drawing-box):not(.drawing-box-large):not([data-drawing-box]):not(.worksheet-section):not(section.worksheet-section):not([class*="worksheet-section"]),
+  [data-worksheet-content="true"] p[style*="border"]:not(.worksheet-container):not(.print-section-outline):not(.print-block-outline):not(.drawing-box):not(.drawing-box-large):not([data-drawing-box]):not(.worksheet-section):not(section.worksheet-section):not([class*="worksheet-section"]) {
     border: none !important;
     border-width: 0 !important;
     border-color: transparent !important;
     box-shadow: none !important;
+  }
+  
+  /* CRITICAL: Explicitly PREVENT border removal on ALL table elements */
+  /* This must come BEFORE border removal to ensure tables are never affected */
+  [data-worksheet-content="true"] table,
+  [data-worksheet-content="true"] table *,
+  [data-worksheet-content="true"] table thead,
+  [data-worksheet-content="true"] table tbody,
+  [data-worksheet-content="true"] table tr,
+  [data-worksheet-content="true"] table td,
+  [data-worksheet-content="true"] table th,
+  table,
+  table *,
+  table thead,
+  table tbody,
+  table tr,
+  table td,
+  table th {
+    /* Do NOT apply border removal - tables keep their borders */
   }
   
   /* CRITICAL: IMMEDIATELY after border removal, restore borders for ALL table elements */
