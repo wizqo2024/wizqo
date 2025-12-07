@@ -7076,5 +7076,283 @@ section[data-interactive-section="true"].preserve-print-styling [class*="h-48"] 
     opacity: 1 !important;
     min-width: 1rem !important; /* Ensure minimum width for visibility */
   }
+  
+  /* ============================================================================
+   * COMPREHENSIVE FIX: All Border Types (Left, Right, X, Y)
+   * ============================================================================ */
+  
+  /* Border-left answer lines */
+  [data-worksheet-content="true"] span[class*="border-l"],
+  [data-worksheet-content="true"] span[class*="border-l-"],
+  [data-worksheet-content="true"] div[class*="border-l"],
+  [data-worksheet-content="true"] div[class*="border-l-"] {
+    border-left-style: solid !important;
+    border-left-width: 2px !important;
+    border-left-color: #334155 !important;
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+    visibility: visible !important;
+  }
+  
+  /* Border-right answer lines */
+  [data-worksheet-content="true"] span[class*="border-r"],
+  [data-worksheet-content="true"] span[class*="border-r-"],
+  [data-worksheet-content="true"] div[class*="border-r"],
+  [data-worksheet-content="true"] div[class*="border-r-"] {
+    border-right-style: solid !important;
+    border-right-width: 2px !important;
+    border-right-color: #334155 !important;
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+    visibility: visible !important;
+  }
+  
+  /* Border-x (horizontal) - ensure both left and right */
+  [data-worksheet-content="true"] [class*="border-x"],
+  [data-worksheet-content="true"] [class*="border-x-"] {
+    border-left-style: solid !important;
+    border-right-style: solid !important;
+    border-left-width: 2px !important;
+    border-right-width: 2px !important;
+    border-left-color: #334155 !important;
+    border-right-color: #334155 !important;
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+  }
+  
+  /* Border-y (vertical) - ensure both top and bottom */
+  [data-worksheet-content="true"] [class*="border-y"],
+  [data-worksheet-content="true"] [class*="border-y-"] {
+    border-top-style: solid !important;
+    border-bottom-style: solid !important;
+    border-top-width: 2px !important;
+    border-bottom-width: 2px !important;
+    border-top-color: #334155 !important;
+    border-bottom-color: #334155 !important;
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+  }
+  
+  /* ============================================================================
+   * COMPREHENSIVE FIX: All Height/Min-Height Patterns
+   * ============================================================================ */
+  
+  /* Ensure all elements with height classes maintain their height in print */
+  [data-worksheet-content="true"] [class*="h-"],
+  [data-worksheet-content="true"] [class*="min-h-"],
+  [data-worksheet-content="true"] [class*="max-h-"],
+  [data-worksheet-content="true"] [style*="height"],
+  [data-worksheet-content="true"] [style*="min-height"] {
+    /* Don't override height - let it be preserved */
+    /* But ensure visibility */
+    visibility: visible !important;
+    opacity: 1 !important;
+    display: block !important;
+  }
+  
+  /* Specific fix for common height patterns that might collapse */
+  [data-worksheet-content="true"] [class*="h-4"],
+  [data-worksheet-content="true"] [class*="h-6"],
+  [data-worksheet-content="true"] [class*="h-8"],
+  [data-worksheet-content="true"] [class*="h-10"],
+  [data-worksheet-content="true"] [class*="h-12"],
+  [data-worksheet-content="true"] [class*="h-16"],
+  [data-worksheet-content="true"] [class*="h-20"],
+  [data-worksheet-content="true"] [class*="h-24"],
+  [data-worksheet-content="true"] [class*="h-32"] {
+    min-height: inherit !important;
+    height: inherit !important;
+    visibility: visible !important;
+  }
+  
+  /* Ensure min-height is preserved */
+  [data-worksheet-content="true"] [class*="min-h-4"],
+  [data-worksheet-content="true"] [class*="min-h-6"],
+  [data-worksheet-content="true"] [class*="min-h-8"],
+  [data-worksheet-content="true"] [class*="min-h-10"],
+  [data-worksheet-content="true"] [class*="min-h-12"],
+  [data-worksheet-content="true"] [class*="min-h-16"],
+  [data-worksheet-content="true"] [class*="min-h-20"],
+  [data-worksheet-content="true"] [class*="min-h-24"],
+  [data-worksheet-content="true"] [class*="min-h-32"] {
+    min-height: inherit !important;
+    visibility: visible !important;
+  }
+  
+  /* ============================================================================
+   * COMPREHENSIVE FIX: All Background Colors
+   * ============================================================================ */
+  
+  /* Ensure all colored backgrounds are visible (override print:bg-white) */
+  [data-worksheet-content="true"] [class*="bg-"]:not([class*="bg-white"]):not([class*="bg-transparent"]):not(button):not(nav):not(header) {
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+    color-adjust: exact !important;
+  }
+  
+  /* Specific background colors that need to be preserved */
+  [data-worksheet-content="true"] [class*="bg-slate-50"],
+  [data-worksheet-content="true"] [class*="bg-blue-50"],
+  [data-worksheet-content="true"] [class*="bg-emerald-50"],
+  [data-worksheet-content="true"] [class*="bg-purple-50"],
+  [data-worksheet-content="true"] [class*="bg-indigo-50"],
+  [data-worksheet-content="true"] [class*="bg-yellow-50"],
+  [data-worksheet-content="true"] [class*="bg-pink-50"],
+  [data-worksheet-content="true"] [class*="bg-amber-50"],
+  [data-worksheet-content="true"] [class*="bg-violet-50"],
+  [data-worksheet-content="true"] [class*="bg-teal-50"],
+  [data-worksheet-content="true"] [class*="bg-cyan-50"] {
+    background-color: inherit !important;
+    background: inherit !important;
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+    color-adjust: exact !important;
+  }
+  
+  /* Gradient backgrounds */
+  [data-worksheet-content="true"] [class*="bg-gradient-to"],
+  [data-worksheet-content="true"] [class*="bg-gradient"] {
+    background-image: inherit !important;
+    background: inherit !important;
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+    color-adjust: exact !important;
+  }
+  
+  /* ============================================================================
+   * COMPREHENSIVE FIX: All Border Patterns
+   * ============================================================================ */
+  
+  /* Ensure all border classes create visible borders */
+  [data-worksheet-content="true"] [class*="border-"]:not([class*="border-0"]):not([class*="border-none"]):not([class*="border-transparent"]):not(button):not(nav):not(header) {
+    border-style: solid !important;
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+    color-adjust: exact !important;
+  }
+  
+  /* Border width variations */
+  [data-worksheet-content="true"] [class*="border-2"],
+  [data-worksheet-content="true"] [class*="border-4"],
+  [data-worksheet-content="true"] [class*="border-8"] {
+    border-width: inherit !important;
+    border-style: solid !important;
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+  }
+  
+  /* Border color variations - ensure they're visible */
+  [data-worksheet-content="true"] [class*="border-slate-"]:not([class*="border-slate-50"]):not([class*="border-slate-100"]),
+  [data-worksheet-content="true"] [class*="border-blue-"]:not([class*="border-blue-50"]):not([class*="border-blue-100"]),
+  [data-worksheet-content="true"] [class*="border-emerald-"]:not([class*="border-emerald-50"]):not([class*="border-emerald-100"]),
+  [data-worksheet-content="true"] [class*="border-purple-"]:not([class*="border-purple-50"]):not([class*="border-purple-100"]),
+  [data-worksheet-content="true"] [class*="border-indigo-"]:not([class*="border-indigo-50"]):not([class*="border-indigo-100"]),
+  [data-worksheet-content="true"] [class*="border-yellow-"]:not([class*="border-yellow-50"]):not([class*="border-yellow-100"]),
+  [data-worksheet-content="true"] [class*="border-pink-"]:not([class*="border-pink-50"]):not([class*="border-pink-100"]),
+  [data-worksheet-content="true"] [class*="border-amber-"]:not([class*="border-amber-50"]):not([class*="border-amber-100"]),
+  [data-worksheet-content="true"] [class*="border-violet-"]:not([class*="border-violet-50"]):not([class*="border-violet-100"]),
+  [data-worksheet-content="true"] [class*="border-teal-"]:not([class*="border-teal-50"]):not([class*="border-teal-100"]),
+  [data-worksheet-content="true"] [class*="border-cyan-"]:not([class*="border-cyan-50"]):not([class*="border-cyan-100"]) {
+    border-color: inherit !important;
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+    color-adjust: exact !important;
+  }
+  
+  /* ============================================================================
+   * COMPREHENSIVE FIX: Rounded Corners
+   * ============================================================================ */
+  
+  /* Ensure rounded corners are preserved */
+  [data-worksheet-content="true"] [class*="rounded"],
+  [data-worksheet-content="true"] [class*="rounded-"] {
+    border-radius: inherit !important;
+  }
+  
+  /* ============================================================================
+   * COMPREHENSIVE FIX: Empty Elements with Borders
+   * ============================================================================ */
+  
+  /* Prevent empty elements with borders from collapsing */
+  [data-worksheet-content="true"] [class*="border"]:empty,
+  [data-worksheet-content="true"] span[class*="border"]:empty,
+  [data-worksheet-content="true"] div[class*="border"]:empty {
+    min-height: 0.5rem !important;
+    min-width: 0.5rem !important;
+    display: inline-block !important;
+    visibility: visible !important;
+  }
+  
+  /* Empty elements with specific height classes */
+  [data-worksheet-content="true"] [class*="h-"][class*="border"]:empty {
+    min-height: inherit !important;
+    height: inherit !important;
+  }
+  
+  /* ============================================================================
+   * COMPREHENSIVE FIX: Inline Elements
+   * ============================================================================ */
+  
+  /* Ensure inline and inline-block elements maintain display */
+  [data-worksheet-content="true"] span[class*="border"],
+  [data-worksheet-content="true"] span[class*="bg-"],
+  [data-worksheet-content="true"] [class*="inline"][class*="border"],
+  [data-worksheet-content="true"] [class*="inline-block"][class*="border"] {
+    display: inline-block !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+  }
+  
+  /* ============================================================================
+   * COMPREHENSIVE FIX: Table Cells with Borders
+   * ============================================================================ */
+  
+  /* Ensure table borders are visible */
+  [data-worksheet-content="true"] table[class*="border"],
+  [data-worksheet-content="true"] td[class*="border"],
+  [data-worksheet-content="true"] th[class*="border"],
+  [data-worksheet-content="true"] table td,
+  [data-worksheet-content="true"] table th {
+    border-style: solid !important;
+    border-color: #334155 !important;
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+  }
+  
+  /* Table cells with border-bottom (answer lines in tables) */
+  [data-worksheet-content="true"] td[class*="border-b"],
+  [data-worksheet-content="true"] th[class*="border-b"],
+  [data-worksheet-content="true"] table td span[class*="border-b"],
+  [data-worksheet-content="true"] table th span[class*="border-b"] {
+    border-bottom-style: solid !important;
+    border-bottom-width: 2px !important;
+    border-bottom-color: #334155 !important;
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+  }
+  
+  /* ============================================================================
+   * COMPREHENSIVE FIX: Text Elements
+   * ============================================================================ */
+  
+  /* Ensure text is visible */
+  [data-worksheet-content="true"] [class*="text-"],
+  [data-worksheet-content="true"] p,
+  [data-worksheet-content="true"] span,
+  [data-worksheet-content="true"] div {
+    color: inherit !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+  }
+  
+  /* Text with light colors - ensure visibility */
+  [data-worksheet-content="true"] [class*="text-slate-400"],
+  [data-worksheet-content="true"] [class*="text-slate-500"],
+  [data-worksheet-content="true"] [class*="text-gray-400"],
+  [data-worksheet-content="true"] [class*="text-gray-500"] {
+    color: #334155 !important; /* Darker for print visibility */
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+  }
 }
 
