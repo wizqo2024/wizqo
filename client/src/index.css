@@ -8193,12 +8193,15 @@ section[data-interactive-section="true"].preserve-print-styling [class*="h-48"] 
   /* CRITICAL: Ensure work boxes with data-work-box attribute are visible */
   [data-worksheet-content="true"] div[data-work-box="true"],
   [data-worksheet-content="true"] div[data-work-box="true"].min-h-24,
-  [data-worksheet-content="true"] div[data-work-box="true"][class*="border-dashed"] {
+  [data-worksheet-content="true"] div[data-work-box="true"][class*="border-dashed"],
+  [data-worksheet-content="true"] div[data-work-box="true"][class*="min-h-24"],
+  [data-worksheet-content="true"] div[data-work-box="true"].print\\:min-h-\\[4rem\\],
+  [data-worksheet-content="true"] div[data-work-box="true"][class*="print:min-h"] {
     display: block !important;
     visibility: visible !important;
     opacity: 1 !important;
-    min-height: 6rem !important;
-    height: 6rem !important;
+    min-height: 4rem !important;
+    height: 4rem !important;
     border: 1px dashed #334155 !important;
     border-style: dashed !important;
     border-width: 1px !important;
@@ -8206,6 +8209,7 @@ section[data-interactive-section="true"].preserve-print-styling [class*="h-48"] 
     background-color: #ffffff !important;
     -webkit-print-color-adjust: exact !important;
     print-color-adjust: exact !important;
+    color-adjust: exact !important;
   }
   
   /* Hide left border in print for example sections */
@@ -8230,6 +8234,47 @@ section[data-interactive-section="true"].preserve-print-styling [class*="h-48"] 
     width: 100% !important;
     max-width: 100% !important;
     overflow: visible !important;
+  }
+  
+  /* CRITICAL: Ensure all parts of VerticalEquation render in print */
+  [data-worksheet-content="true"] .vertical-equation div[class*="print:flex"] span,
+  [data-worksheet-content="true"] .vertical-equation div[class*="print:flex"] > span {
+    display: inline-block !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+    color: #000000 !important;
+    font-family: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, "Liberation Mono", monospace !important;
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+  }
+  
+  /* Ensure multiplication and equals signs render correctly */
+  [data-worksheet-content="true"] .vertical-equation div[class*="print:flex"] span:nth-child(2),
+  [data-worksheet-content="true"] .vertical-equation div[class*="print:flex"] span:nth-child(4) {
+    margin: 0 0.25rem !important;
+    font-size: inherit !important;
+  }
+  
+  /* Ensure example section text renders correctly */
+  [data-worksheet-content="true"] div[class*="print:font-sans"] {
+    font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif !important;
+  }
+  
+  /* Ensure work boxes are always visible - maximum specificity */
+  @media print {
+    [data-worksheet-content="true"] div[data-work-box="true"] {
+      display: block !important;
+      visibility: visible !important;
+      opacity: 1 !important;
+      min-height: 4rem !important;
+      height: 4rem !important;
+      border: 1px dashed #000000 !important;
+      border-style: dashed !important;
+      border-width: 1px !important;
+      background-color: #ffffff !important;
+      -webkit-print-color-adjust: exact !important;
+      print-color-adjust: exact !important;
+    }
   }
 }
 
