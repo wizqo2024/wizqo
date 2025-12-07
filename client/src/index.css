@@ -4955,5 +4955,58 @@ section[data-interactive-section="true"].preserve-print-styling [class*="h-48"] 
     margin-bottom: 0.25rem !important;
     display: list-item !important;
   }
+  
+  /* ============================================================================
+   * FINAL FINAL OVERRIDE: Table borders - MUST be last to override everything
+   * ============================================================================ */
+  
+  /* ABSOLUTE FINAL RULE: Force borders on ALL table cells - no exceptions */
+  /* This MUST come at the very end to override ALL previous rules including border removal */
+  table td,
+  table th,
+  table thead td,
+  table thead th,
+  table tbody td,
+  table tbody th,
+  [data-worksheet-content="true"] table td,
+  [data-worksheet-content="true"] table th,
+  [data-worksheet-content="true"] table thead td,
+  [data-worksheet-content="true"] table thead th,
+  [data-worksheet-content="true"] table tbody td,
+  [data-worksheet-content="true"] table tbody th {
+    border: 1px solid #1e293b !important;
+    border-color: #1e293b !important;
+    border-width: 1px !important;
+    border-style: solid !important;
+    display: table-cell !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+    padding: 0.5rem !important;
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+    color-adjust: exact !important;
+  }
+  
+  /* Ensure table structure is visible */
+  table,
+  table thead,
+  table tbody,
+  table tr {
+    display: table !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+  }
+  
+  table thead {
+    display: table-header-group !important;
+  }
+  
+  table tbody {
+    display: table-row-group !important;
+  }
+  
+  table tr {
+    display: table-row !important;
+  }
 }
 
