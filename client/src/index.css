@@ -1342,9 +1342,9 @@ html {
   /* Tables MUST keep their borders - ONLY target div, span, p, section - NEVER table elements */
   /* Use element selectors to ensure table elements are NEVER matched */
   /* CRITICAL: Also exclude ANY element inside a table (table td span, table th span, etc.) */
-  [data-worksheet-content="true"] div.border:not(.worksheet-container):not(.print-section-outline):not(.print-block-outline):not(.drawing-box):not(.drawing-box-large):not([data-drawing-box]):not(.worksheet-section):not(section.worksheet-section):not([class*="worksheet-section"]):not(table):not(thead):not(tbody):not(tr):not(td):not(th):not(table *),
-  [data-worksheet-content="true"] div[class*="border-"]:not(.worksheet-container):not(.print-section-outline):not(.print-block-outline):not(.drawing-box):not(.drawing-box-large):not([data-drawing-box]):not(.worksheet-section):not(section.worksheet-section):not([class*="worksheet-section"]):not(table):not(thead):not(tbody):not(tr):not(td):not(th):not(table *),
-  [data-worksheet-content="true"] span[class*="border-"]:not(.worksheet-container):not(.print-section-outline):not(.print-block-outline):not(.drawing-box):not(.drawing-box-large):not([data-drawing-box]):not(.worksheet-section):not(section.worksheet-section):not([class*="worksheet-section"]):not(table):not(thead):not(tbody):not(tr):not(td):not(th):not(table *):not(table td *):not(table th *):not(table tbody *):not(table thead *),
+  [data-worksheet-content="true"] div.border:not(.worksheet-container):not(.print-section-outline):not(.print-block-outline):not(.drawing-box):not(.drawing-box-large):not([data-drawing-box]):not(.worksheet-section):not(section.worksheet-section):not([class*="worksheet-section"]):not(table):not(thead):not(tbody):not(tr):not(td):not(th):not(table *):not([data-work-box]):not([data-work-box="true"]),
+  [data-worksheet-content="true"] div[class*="border-"]:not(.worksheet-container):not(.print-section-outline):not(.print-block-outline):not(.drawing-box):not(.drawing-box-large):not([data-drawing-box]):not(.worksheet-section):not(section.worksheet-section):not([class*="worksheet-section"]):not(table):not(thead):not(tbody):not(tr):not(td):not(th):not(table *):not([data-work-box]):not([data-work-box="true"]),
+  [data-worksheet-content="true"] span[class*="border-"]:not(.worksheet-container):not(.print-section-outline):not(.print-block-outline):not(.drawing-box):not(.drawing-box-large):not([data-drawing-box]):not(.worksheet-section):not(section.worksheet-section):not([class*="worksheet-section"]):not(table):not(thead):not(tbody):not(tr):not(td):not(th):not(table *):not(table td *):not(table th *):not(table tbody *):not(table thead *):not(.vertical-equation span):not([class*="vertical-equation"] span),
   [data-worksheet-content="true"] p[class*="border-"]:not(.worksheet-container):not(.print-section-outline):not(.print-block-outline):not(.drawing-box):not(.drawing-box-large):not([data-drawing-box]):not(.worksheet-section):not(section.worksheet-section):not([class*="worksheet-section"]):not(table):not(thead):not(tbody):not(tr):not(td):not(th):not(table *),
   [data-worksheet-content="true"] section[class*="border-"]:not(.worksheet-container):not(.print-section-outline):not(.print-block-outline):not(.drawing-box):not(.drawing-box-large):not([data-drawing-box]):not(.worksheet-section):not(section.worksheet-section):not([class*="worksheet-section"]):not(table):not(thead):not(tbody):not(tr):not(td):not(th):not(table *),
   [data-worksheet-content="true"] div[class*="print:border"]:not(.worksheet-container):not(.print-section-outline):not(.print-block-outline):not(.drawing-box):not(.drawing-box-large):not([data-drawing-box]):not(.worksheet-section):not(section.worksheet-section):not([class*="worksheet-section"]):not(table):not(thead):not(tbody):not(tr):not(td):not(th):not(table *),
@@ -7141,6 +7141,7 @@ section[data-interactive-section="true"].preserve-print-styling [class*="h-48"] 
   
   /* CRITICAL: Empty spans with borders (answer lines) must have minimum dimensions */
   /* This fixes VerticalEquation and other empty answer line elements */
+  /* Must override border removal rule - these are answer input lines */
   [data-worksheet-content="true"] span[class*="border-b"]:empty,
   [data-worksheet-content="true"] span[class*="border-b-"]:empty,
   [data-worksheet-content="true"] span[class*="border-b-2"]:empty,
@@ -7154,21 +7155,30 @@ section[data-interactive-section="true"].preserve-print-styling [class*="h-48"] 
     min-height: 0.5rem !important; /* Minimum height to show border */
     width: auto !important;
     height: auto !important;
+    /* CRITICAL: Override border removal rule - explicitly set border-bottom */
+    border: none !important; /* Reset first */
+    border-bottom: 2px solid #334155 !important; /* Then set bottom border */
     border-bottom-style: solid !important;
     border-bottom-width: 2px !important;
     border-bottom-color: #334155 !important;
+    border-top: none !important;
+    border-left: none !important;
+    border-right: none !important;
     -webkit-print-color-adjust: exact !important;
     print-color-adjust: exact !important;
     color-adjust: exact !important;
   }
   
   /* Specific fix for VerticalEquation print layout - ensure answer spans are visible */
+  /* CRITICAL: Must override border removal rule - these spans are answer lines */
   [data-worksheet-content="true"] .vertical-equation span[class*="border-b"],
   [data-worksheet-content="true"] .vertical-equation span[class*="border-b-2"],
   [data-worksheet-content="true"] div[class*="vertical-equation"] span[class*="border-b"],
   [data-worksheet-content="true"] div[class*="vertical-equation"] span[class*="border-b-2"],
   [data-worksheet-content="true"] .vertical-equation span[class*="min-w-"],
-  [data-worksheet-content="true"] div[class*="vertical-equation"] span[class*="min-w-"] {
+  [data-worksheet-content="true"] div[class*="vertical-equation"] span[class*="min-w-"],
+  [data-worksheet-content="true"] span.vertical-equation span[class*="border-b"],
+  [data-worksheet-content="true"] span[class*="vertical-equation"] span[class*="border-b"] {
     display: inline-block !important;
     visibility: visible !important;
     opacity: 1 !important;
@@ -7176,9 +7186,15 @@ section[data-interactive-section="true"].preserve-print-styling [class*="h-48"] 
     width: auto !important;
     min-height: 1.5rem !important; /* Match printAnswerHeightClass default (h-6 = 1.5rem) */
     height: 1.5rem !important;
+    /* CRITICAL: Override border removal rule - explicitly set all border properties */
+    border: none !important; /* Reset first */
+    border-bottom: 2px solid #334155 !important; /* Then set bottom border */
     border-bottom-style: solid !important;
     border-bottom-width: 2px !important;
     border-bottom-color: #334155 !important;
+    border-top: none !important;
+    border-left: none !important;
+    border-right: none !important;
     -webkit-print-color-adjust: exact !important;
     print-color-adjust: exact !important;
     color-adjust: exact !important;
