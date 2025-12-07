@@ -6431,5 +6431,37 @@ section[data-interactive-section="true"].preserve-print-styling [class*="h-48"] 
     height: auto !important;
     min-height: 2rem !important;
   }
+  
+  /* Fix empty table cells (cells with no content or only whitespace) */
+  [data-worksheet-content="true"] table td:empty,
+  [data-worksheet-content="true"] table td:not(:has(*)):not(:has(text)) {
+    min-height: 2rem !important;
+    height: 2rem !important;
+    border: 1px solid #1e293b !important;
+  }
+  
+  /* Ensure mood-tracker and calendar tables have visible borders */
+  [data-worksheet-content="true"] table[class*="border"][class*="border-slate-300"] th,
+  [data-worksheet-content="true"] table[class*="border"][class*="border-slate-300"] td {
+    border: 1px solid #1e293b !important;
+    border-top: 1px solid #1e293b !important;
+    border-right: 1px solid #1e293b !important;
+    border-bottom: 1px solid #1e293b !important;
+    border-left: 1px solid #1e293b !important;
+  }
+  
+  /* Ensure all table rows are visible */
+  [data-worksheet-content="true"] table tbody tr {
+    display: table-row !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+  }
+  
+  /* Ensure table cells with explicit height classes maintain that height */
+  [data-worksheet-content="true"] table td[class*="h-10"],
+  [data-worksheet-content="true"] table td[class*="h-8"] {
+    height: auto !important;
+    min-height: 2.5rem !important;
+  }
 }
 
