@@ -15826,7 +15826,22 @@ export function PrintablesPage() {
                   </div>
                   <div className="mb-3">
                     <div className="text-sm font-semibold text-slate-600 mb-2">Show your work (use the space below):</div>
-                    <div className="min-h-24 print:min-h-32 border-2 border-dashed border-slate-400 rounded p-3 bg-slate-50" />
+                    <div 
+                      className="min-h-24 print:min-h-32 border-2 border-dashed border-slate-400 rounded p-3 bg-slate-50"
+                      style={{
+                        minHeight: '6rem',
+                        height: '6rem',
+                        border: '2px dashed #94a3b8',
+                        borderStyle: 'dashed',
+                        borderWidth: '2px',
+                        borderColor: '#94a3b8',
+                        display: 'block',
+                        visibility: 'visible',
+                        opacity: 1,
+                        backgroundColor: '#ffffff',
+                        padding: '0.75rem'
+                      }}
+                    />
                   </div>
                   <div>
                     <div className="text-sm font-semibold text-slate-600 mb-2">Final answer:</div>
