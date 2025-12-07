@@ -1349,8 +1349,8 @@ html {
   /* Tables MUST keep their borders - ONLY target div, span, p, section - NEVER table elements */
   /* Use element selectors to ensure table elements are NEVER matched */
   /* CRITICAL: Also exclude ANY element inside a table (table td span, table th span, etc.) */
-  [data-worksheet-content="true"] div.border:not(.worksheet-container):not(.print-section-outline):not(.print-block-outline):not(.drawing-box):not(.drawing-box-large):not([data-drawing-box]):not(.worksheet-section):not(section.worksheet-section):not([class*="worksheet-section"]):not(table):not(thead):not(tbody):not(tr):not(td):not(th):not(table *):not([data-work-box]):not([data-work-box="true"]),
-  [data-worksheet-content="true"] div[class*="border-"]:not(.worksheet-container):not(.print-section-outline):not(.print-block-outline):not(.drawing-box):not(.drawing-box-large):not([data-drawing-box]):not(.worksheet-section):not(section.worksheet-section):not([class*="worksheet-section"]):not(table):not(thead):not(tbody):not(tr):not(td):not(th):not(table *):not([data-work-box]):not([data-work-box="true"]),
+  [data-worksheet-content="true"] div.border:not(.worksheet-container):not(.print-section-outline):not(.print-block-outline):not(.drawing-box):not(.drawing-box-large):not([data-drawing-box]):not(.worksheet-section):not(section.worksheet-section):not([class*="worksheet-section"]):not(table):not(thead):not(tbody):not(tr):not(td):not(th):not(table *):not([data-work-box]):not([data-work-box="true"]):not([class*="border-dashed"]):not([class*="min-h-24"]):not([class*="min-h-20"]),
+  [data-worksheet-content="true"] div[class*="border-"]:not(.worksheet-container):not(.print-section-outline):not(.print-block-outline):not(.drawing-box):not(.drawing-box-large):not([data-drawing-box]):not(.worksheet-section):not(section.worksheet-section):not([class*="worksheet-section"]):not(table):not(thead):not(tbody):not(tr):not(td):not(th):not(table *):not([data-work-box]):not([data-work-box="true"]):not([class*="border-dashed"]):not([class*="min-h-24"]):not([class*="min-h-20"]),
   [data-worksheet-content="true"] span[class*="border-"]:not(.worksheet-container):not(.print-section-outline):not(.print-block-outline):not(.drawing-box):not(.drawing-box-large):not([data-drawing-box]):not(.worksheet-section):not(section.worksheet-section):not([class*="worksheet-section"]):not(table):not(thead):not(tbody):not(tr):not(td):not(th):not(table *):not(table td *):not(table th *):not(table tbody *):not(table thead *):not(.vertical-equation span):not([class*="vertical-equation"] span),
   [data-worksheet-content="true"] p[class*="border-"]:not(.worksheet-container):not(.print-section-outline):not(.print-block-outline):not(.drawing-box):not(.drawing-box-large):not([data-drawing-box]):not(.worksheet-section):not(section.worksheet-section):not([class*="worksheet-section"]):not(table):not(thead):not(tbody):not(tr):not(td):not(th):not(table *),
   [data-worksheet-content="true"] section[class*="border-"]:not(.worksheet-container):not(.print-section-outline):not(.print-block-outline):not(.drawing-box):not(.drawing-box-large):not([data-drawing-box]):not(.worksheet-section):not(section.worksheet-section):not([class*="worksheet-section"]):not(table):not(thead):not(tbody):not(tr):not(td):not(th):not(table *),
@@ -7231,6 +7231,7 @@ section[data-interactive-section="true"].preserve-print-styling [class*="h-48"] 
   
   /* CATCH-ALL: Any span inside VerticalEquation print container with border-b */
   /* This ensures we catch all variations of the answer line span */
+  /* CRITICAL: Maintain alignment with flex container - don't break flex layout */
   [data-worksheet-content="true"] .vertical-equation div[class*="print:flex"] span[class*="border-b"],
   [data-worksheet-content="true"] div[class*="vertical-equation"] div[class*="print:flex"] span[class*="border-b"],
   [data-worksheet-content="true"] .vertical-equation div[class*="print:flex"] span.inline-block,
@@ -7248,33 +7249,46 @@ section[data-interactive-section="true"].preserve-print-styling [class*="h-48"] 
     width: 1.75in !important;
     min-height: 1.5rem !important;
     height: 1.5rem !important;
+    /* Maintain alignment - align-middle behavior */
+    vertical-align: middle !important;
+    align-self: center !important;
     border-bottom: 2px solid #334155 !important;
     border-bottom-style: solid !important;
     border-bottom-width: 2px !important;
     border-bottom-color: #334155 !important;
   }
   
+  /* CRITICAL: Ensure VerticalEquation print flex container maintains proper alignment */
+  [data-worksheet-content="true"] .vertical-equation div[class*="print:flex"],
+  [data-worksheet-content="true"] div[class*="vertical-equation"] div[class*="print:flex"] {
+    display: flex !important;
+    align-items: center !important; /* Maintain items-center */
+    justify-content: flex-end !important; /* Maintain justify-end */
+    gap: 0.5rem !important; /* Maintain gap-2 */
+  }
+  
   /* Override for specific width classes used in VerticalEquation */
   /* CRITICAL: Must respect the actual width classes passed as props */
+  /* These rules must come AFTER the catch-all to override default width */
   [data-worksheet-content="true"] .vertical-equation span[class*="min-w-[1.75in]"],
-  [data-worksheet-content="true"] .vertical-equation span[class*="min-w-[1.85in]"],
-  [data-worksheet-content="true"] .vertical-equation span[class*="min-w-[2in]"],
-  [data-worksheet-content="true"] div[class*="vertical-equation"] span[class*="min-w-[1.75in]"],
-  [data-worksheet-content="true"] div[class*="vertical-equation"] span[class*="min-w-[1.85in]"],
-  [data-worksheet-content="true"] div[class*="vertical-equation"] span[class*="min-w-[2in]"] {
+  [data-worksheet-content="true"] div[class*="vertical-equation"] span[class*="min-w-[1.75in]"] {
     min-width: 1.75in !important; /* Default minimum width */
     width: 1.75in !important; /* Force width for empty spans */
   }
   
   /* Specific width overrides for different worksheet types */
   [data-worksheet-content="true"] .vertical-equation span[class*="min-w-[2in]"],
-  [data-worksheet-content="true"] div[class*="vertical-equation"] span[class*="min-w-[2in]"] {
+  [data-worksheet-content="true"] div[class*="vertical-equation"] span[class*="min-w-[2in]"],
+  [data-worksheet-content="true"] .vertical-equation div[class*="print:flex"] span[class*="min-w-[2in]"],
+  [data-worksheet-content="true"] div[class*="vertical-equation"] div[class*="print:flex"] span[class*="min-w-[2in]"] {
     min-width: 2in !important; /* For mult-3x2-digit */
     width: 2in !important;
   }
   
   [data-worksheet-content="true"] .vertical-equation span[class*="min-w-[1.85in]"],
-  [data-worksheet-content="true"] div[class*="vertical-equation"] span[class*="min-w-[1.85in]"] {
+  [data-worksheet-content="true"] div[class*="vertical-equation"] span[class*="min-w-[1.85in]"],
+  [data-worksheet-content="true"] .vertical-equation div[class*="print:flex"] span[class*="min-w-[1.85in]"],
+  [data-worksheet-content="true"] div[class*="vertical-equation"] div[class*="print:flex"] span[class*="min-w-[1.85in]"] {
     min-width: 1.85in !important; /* For mult-2x2-digit */
     width: 1.85in !important;
   }
@@ -7785,6 +7799,7 @@ section[data-interactive-section="true"].preserve-print-styling [class*="h-48"] 
   
   /* Empty divs with borders (work boxes, answer boxes) */
   /* CRITICAL: Must override border removal rule - these are work boxes */
+  /* Target the exact structure: min-h-24 border border-dashed border-slate-300 */
   [data-worksheet-content="true"] div[class*="border"][class*="dashed"]:empty,
   [data-worksheet-content="true"] div[class*="border-dashed"]:empty,
   [data-worksheet-content="true"] div[class*="border"][class*="rounded"]:empty,
@@ -7792,12 +7807,19 @@ section[data-interactive-section="true"].preserve-print-styling [class*="h-48"] 
   [data-worksheet-content="true"] div[class*="border-slate-300"][class*="rounded"]:empty,
   [data-worksheet-content="true"] div[class*="min-h-20"][class*="border"],
   [data-worksheet-content="true"] div[class*="min-h-24"][class*="border"],
-  [data-worksheet-content="true"] div[class*="min-h-32"][class*="border"] {
+  [data-worksheet-content="true"] div[class*="min-h-32"][class*="border"],
+  /* CRITICAL: Target work boxes with specific class combinations */
+  [data-worksheet-content="true"] div.min-h-24[class*="border-dashed"],
+  [data-worksheet-content="true"] div[class*="min-h-24"][class*="border-dashed"],
+  [data-worksheet-content="true"] div[class*="min-h-24"][class*="border"][class*="border-dashed"],
+  [data-worksheet-content="true"] div[class*="min-h-24"][class*="border-slate-300"][class*="border-dashed"],
+  [data-worksheet-content="true"] div.min-h-20[class*="border-dashed"],
+  [data-worksheet-content="true"] div[class*="min-h-20"][class*="border-dashed"] {
     display: block !important;
     visibility: visible !important;
     opacity: 1 !important;
-    min-height: 4rem !important; /* Ensure minimum height for empty boxes */
-    height: 4rem !important; /* Force height for empty boxes */
+    min-height: 6rem !important; /* min-h-24 = 6rem */
+    height: 6rem !important; /* Force height for empty boxes */
     min-width: 1rem !important; /* Ensure minimum width */
     width: 100% !important; /* Full width for work boxes */
     /* CRITICAL: Override border removal rule - explicitly set all border properties */
@@ -7814,17 +7836,54 @@ section[data-interactive-section="true"].preserve-print-styling [class*="h-48"] 
   /* Add pseudo-content to empty work boxes to ensure they render */
   [data-worksheet-content="true"] div[class*="border-dashed"]:empty::before,
   [data-worksheet-content="true"] div[class*="min-h-20"][class*="border"]:empty::before,
-  [data-worksheet-content="true"] div[class*="min-h-24"][class*="border"]:empty::before {
+  [data-worksheet-content="true"] div[class*="min-h-24"][class*="border"]:empty::before,
+  [data-worksheet-content="true"] div[class*="min-h-24"][class*="border-dashed"]:empty::before {
     content: '\00a0' !important; /* Non-breaking space */
     display: block !important;
-    height: 4rem !important;
+    height: 6rem !important; /* Match min-h-24 */
+  }
+  
+  /* ULTRA-SPECIFIC: Empty work boxes must be visible - override everything */
+  [data-worksheet-content="true"] div.min-h-24[class*="border-dashed"]:empty,
+  [data-worksheet-content="true"] div[class*="min-h-24"][class*="border-dashed"]:empty,
+  [data-worksheet-content="true"] div[class*="min-h-24"][class*="border"][class*="border-dashed"]:empty {
+    display: block !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+    min-height: 6rem !important;
+    height: 6rem !important;
+    width: 100% !important;
+    border: 1px dashed #334155 !important;
+    border-style: dashed !important;
+    border-width: 1px !important;
+    border-color: #334155 !important;
+    background-color: #ffffff !important;
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+    color-adjust: exact !important;
   }
   
   /* Specific fix for work boxes with min-h- classes */
-  [data-worksheet-content="true"] div[class*="min-h-20"][class*="border"],
-  [data-worksheet-content="true"] div[class*="min-h-24"][class*="border"],
+  /* CRITICAL: Preserve the actual min-height values from Tailwind */
+  [data-worksheet-content="true"] div[class*="min-h-20"][class*="border"]:not([class*="min-h-24"]):not([class*="min-h-32"]) {
+    min-height: 5rem !important; /* min-h-20 = 5rem */
+    height: 5rem !important;
+    display: block !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+  }
+  
+  [data-worksheet-content="true"] div[class*="min-h-24"][class*="border"] {
+    min-height: 6rem !important; /* min-h-24 = 6rem */
+    height: 6rem !important;
+    display: block !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+  }
+  
   [data-worksheet-content="true"] div[class*="min-h-32"][class*="border"] {
-    min-height: inherit !important;
+    min-height: 8rem !important; /* min-h-32 = 8rem */
+    height: 8rem !important;
     display: block !important;
     visibility: visible !important;
     opacity: 1 !important;
