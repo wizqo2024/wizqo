@@ -8281,50 +8281,66 @@ section[data-interactive-section="true"].preserve-print-styling [class*="h-48"] 
   
   /* Ensure work boxes are always visible - maximum specificity */
   @media print {
-    /* CRITICAL: Override Tailwind's .hidden class - MUST come first */
+    /* CRITICAL: Override Tailwind's .hidden class - MUST come first with maximum specificity */
     .hidden.print\:flex,
+    div.hidden.print\:flex,
+    .hidden[class*="print:flex"],
     div.hidden[class*="print:flex"],
+    [class*="hidden"][class*="print:flex"],
+    div[class*="hidden"][class*="print:flex"],
     [data-worksheet-content="true"] .hidden[class*="print:flex"],
     [data-worksheet-content="true"] div.hidden[class*="print:flex"],
     [data-worksheet-content="true"] .vertical-equation .hidden[class*="print:flex"],
     [data-worksheet-content="true"] .vertical-equation div.hidden[class*="print:flex"],
     [data-worksheet-content="true"] div[class*="vertical-equation"] div.hidden[class*="print:flex"],
-    [data-worksheet-content="true"] .vertical-equation > div.hidden[class*="print:flex"] {
+    [data-worksheet-content="true"] .vertical-equation > div.hidden[class*="print:flex"],
+    [data-worksheet-content="true"] .vertical-equation div.hidden.print\:flex {
       display: flex !important;
       visibility: visible !important;
       opacity: 1 !important;
+      width: 100% !important;
     }
     
-    /* CRITICAL: Ensure ALL spans in VerticalEquation are visible */
+    /* CRITICAL: Ensure ALL spans in VerticalEquation are visible - target every possible combination */
     [data-worksheet-content="true"] .vertical-equation div[class*="print:flex"] span,
     [data-worksheet-content="true"] .vertical-equation div.hidden[class*="print:flex"] span,
     [data-worksheet-content="true"] .vertical-equation div[class*="print:flex"] > span,
-    [data-worksheet-content="true"] .vertical-equation div.hidden[class*="print:flex"] > span {
+    [data-worksheet-content="true"] .vertical-equation div.hidden[class*="print:flex"] > span,
+    [data-worksheet-content="true"] .vertical-equation div.hidden.print\:flex span,
+    [data-worksheet-content="true"] .vertical-equation div.hidden.print\:flex > span {
       display: inline-block !important;
       visibility: visible !important;
       opacity: 1 !important;
       color: #000000 !important;
       font-size: inherit !important;
+      white-space: nowrap !important;
     }
     
-    /* Ensure each specific span renders */
+    /* Ensure each specific span renders - target by position */
     [data-worksheet-content="true"] .vertical-equation div[class*="print:flex"] span:nth-child(1),
     [data-worksheet-content="true"] .vertical-equation div[class*="print:flex"] span:nth-child(2),
     [data-worksheet-content="true"] .vertical-equation div[class*="print:flex"] span:nth-child(3),
     [data-worksheet-content="true"] .vertical-equation div[class*="print:flex"] span:nth-child(4),
-    [data-worksheet-content="true"] .vertical-equation div[class*="print:flex"] span:nth-child(5) {
+    [data-worksheet-content="true"] .vertical-equation div[class*="print:flex"] span:nth-child(5),
+    [data-worksheet-content="true"] .vertical-equation div.hidden[class*="print:flex"] span:nth-child(1),
+    [data-worksheet-content="true"] .vertical-equation div.hidden[class*="print:flex"] span:nth-child(2),
+    [data-worksheet-content="true"] .vertical-equation div.hidden[class*="print:flex"] span:nth-child(3),
+    [data-worksheet-content="true"] .vertical-equation div.hidden[class*="print:flex"] span:nth-child(4),
+    [data-worksheet-content="true"] .vertical-equation div.hidden[class*="print:flex"] span:nth-child(5) {
       display: inline-block !important;
       visibility: visible !important;
       opacity: 1 !important;
       color: #000000 !important;
+      content: attr(data-content) !important;
     }
     
-    /* Work boxes visibility */
+    /* Work boxes visibility - maximum specificity */
     [data-worksheet-content="true"] div[data-work-box="true"],
     [data-worksheet-content="true"] div.min-h-24.border.border-dashed,
     [data-worksheet-content="true"] div[class*="min-h-24"].border.border-dashed,
     [data-worksheet-content="true"] div.min-h-24.border.border-dashed.border-slate-300,
-    [data-worksheet-content="true"] div.border.border-dashed[class*="min-h-24"] {
+    [data-worksheet-content="true"] div.border.border-dashed[class*="min-h-24"],
+    [data-worksheet-content="true"] div.min-h-24.border.border-dashed.border-slate-300.rounded {
       display: block !important;
       visibility: visible !important;
       opacity: 1 !important;
