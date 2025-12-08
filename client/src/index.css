@@ -462,6 +462,7 @@ html {
   }
   
   /* SVG paths and shapes should render normally (for coloring pages) */
+  /* Note: Don't force inherit - let explicit fills/strokes work */
   svg path,
   svg circle,
   svg rect,
@@ -469,8 +470,7 @@ html {
   svg ellipse,
   svg line,
   svg polyline {
-    fill: inherit !important;
-    stroke: inherit !important;
+    /* Don't override explicit fill/stroke values - they should render as specified */
     -webkit-print-color-adjust: auto !important;
     print-color-adjust: auto !important;
     color-adjust: auto !important;
@@ -8376,7 +8376,7 @@ section[data-interactive-section="true"].preserve-print-styling [class*="h-48"] 
       background: transparent !important;
     }
     
-    /* Ensure SVG paths and elements render with proper colors - override any dark filters */
+    /* Ensure SVG paths and elements render with proper colors - preserve explicit fills/strokes */
     [data-worksheet-content="true"] svg path,
     [data-worksheet-content="true"] svg circle,
     [data-worksheet-content="true"] svg rect,
@@ -8384,20 +8384,46 @@ section[data-interactive-section="true"].preserve-print-styling [class*="h-48"] 
     [data-worksheet-content="true"] svg line,
     [data-worksheet-content="true"] svg text,
     [data-worksheet-content="true"] svg g,
+    [data-worksheet-content="true"] svg ellipse,
     svg path,
     svg circle,
     svg rect,
     svg polygon,
     svg line,
     svg text,
-    svg g {
+    svg g,
+    svg ellipse {
       -webkit-print-color-adjust: exact !important;
       print-color-adjust: exact !important;
       color-adjust: exact !important;
       filter: none !important;
+      -webkit-filter: none !important;
       opacity: 1 !important;
-      fill: inherit !important;
-      stroke: inherit !important;
+      /* Don't override explicit fill/stroke - let them render as specified */
+    }
+    
+    /* Ensure SVG elements with explicit fill colors render correctly */
+    [data-worksheet-content="true"] svg path[fill],
+    [data-worksheet-content="true"] svg circle[fill],
+    [data-worksheet-content="true"] svg rect[fill],
+    [data-worksheet-content="true"] svg polygon[fill],
+    svg path[fill],
+    svg circle[fill],
+    svg rect[fill],
+    svg polygon[fill] {
+      fill: attr(fill) !important;
+    }
+    
+    /* Ensure SVG elements with explicit stroke colors render correctly */
+    [data-worksheet-content="true"] svg path[stroke],
+    [data-worksheet-content="true"] svg circle[stroke],
+    [data-worksheet-content="true"] svg rect[stroke],
+    [data-worksheet-content="true"] svg line[stroke],
+    svg path[stroke],
+    svg circle[stroke],
+    svg rect[stroke],
+    svg line[stroke] {
+      stroke: attr(stroke) !important;
     }
     
     /* Override any dark mode filters that might affect images */
