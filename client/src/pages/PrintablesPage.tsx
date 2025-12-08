@@ -16557,10 +16557,11 @@ export function PrintablesPage() {
                     />
                     <div className="mt-2 text-xs text-slate-600">Show your work:</div>
                     <div 
+                      data-work-box="true"
                       className="min-h-24 border border-dashed border-slate-300 rounded p-2 bg-slate-50 print:bg-white"
                       style={{
                         minHeight: '6rem',
-                        border: '1px dashed #cbd5e1',
+                        border: '1px dashed #334155',
                         display: 'block',
                         visibility: 'visible'
                       }}
