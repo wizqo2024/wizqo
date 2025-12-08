@@ -20480,15 +20480,18 @@ export function PrintablesPage() {
             // Cute character components
             const CuteBear = ({ x, y, size = 60 }: { x: number; y: number; size?: number }) => (
               <g transform={`translate(${x}, ${y})`}>
-                <circle cx={size / 2} cy={size / 2} r={size * 0.45} style={{ fill: "#FF7F50" }} />
-                <circle cx={size * 0.25} cy={size * 0.25} r={size * 0.15} style={{ fill: "#FF6347" }} />
-                <circle cx={size * 0.75} cy={size * 0.25} r={size * 0.15} style={{ fill: "#FF6347" }} />
-                <circle cx={size / 2} cy={size * 0.55} r={size * 0.2} style={{ fill: "#FFDAB9" }} />
-                <path d={`M${size * 0.5} ${size * 0.5} L${size * 0.45} ${size * 0.55} L${size * 0.55} ${size * 0.55} Z`} style={{ fill: "#E91E63" }} />
-                <circle cx={size * 0.4} cy={size * 0.4} r={size * 0.05} style={{ fill: "#000000" }} />
-                <circle cx={size * 0.6} cy={size * 0.4} r={size * 0.05} style={{ fill: "#000000" }} />
+                <circle cx={size / 2} cy={size / 2} r={size * 0.45} fill="#FF7F50" style={{ fill: "#FF7F50" }} />
+                <circle cx={size * 0.25} cy={size * 0.25} r={size * 0.15} fill="#FF6347" style={{ fill: "#FF6347" }} />
+                <circle cx={size * 0.75} cy={size * 0.25} r={size * 0.15} fill="#FF6347" style={{ fill: "#FF6347" }} />
+                <circle cx={size / 2} cy={size * 0.55} r={size * 0.2} fill="#FFDAB9" style={{ fill: "#FFDAB9" }} />
+                <path d={`M${size * 0.5} ${size * 0.5} L${size * 0.45} ${size * 0.55} L${size * 0.55} ${size * 0.55} Z`} fill="#E91E63" style={{ fill: "#E91E63" }} />
+                <circle cx={size * 0.4} cy={size * 0.4} r={size * 0.05} fill="#000000" style={{ fill: "#000000" }} />
+                <circle cx={size * 0.6} cy={size * 0.4} r={size * 0.05} fill="#000000" style={{ fill: "#000000" }} />
                 <path
                   d={`M${size * 0.4} ${size * 0.65} Q${size * 0.5} ${size * 0.75}, ${size * 0.6} ${size * 0.65}`}
+                  stroke="#B71C1C"
+                  strokeWidth={size * 0.03}
+                  fill="none"
                   style={{ fill: "none", stroke: "#B71C1C", strokeWidth: size * 0.03 }}
                 />
               </g>
@@ -20509,12 +20512,18 @@ export function PrintablesPage() {
                   ${size * 0.0},${size * 0.35}
                   ${size * 0.39},${size * 0.35}
                 `}
+                  fill="#FFEB3B"
+                  stroke="#FFC107"
+                  strokeWidth={size * 0.015}
                   style={{ fill: "#FFEB3B", stroke: "#FFC107", strokeWidth: size * 0.015 }}
                 />
-                <circle cx={size * 0.4} cy={size * 0.45} r={size * 0.05} style={{ fill: "#000000" }} />
-                <circle cx={size * 0.6} cy={size * 0.45} r={size * 0.05} style={{ fill: "#000000" }} />
+                <circle cx={size * 0.4} cy={size * 0.45} r={size * 0.05} fill="#000000" style={{ fill: "#000000" }} />
+                <circle cx={size * 0.6} cy={size * 0.45} r={size * 0.05} fill="#000000" style={{ fill: "#000000" }} />
                 <path
                   d={`M${size * 0.4} ${size * 0.6} Q${size * 0.5} ${size * 0.7}, ${size * 0.6} ${size * 0.6}`}
+                  stroke="#000000"
+                  strokeWidth={size * 0.03}
+                  fill="none"
                   style={{ fill: "none", stroke: "#000000", strokeWidth: size * 0.03 }}
                 />
               </g>
@@ -20522,16 +20531,19 @@ export function PrintablesPage() {
 
             const CuteCat = ({ x, y, size = 60 }: { x: number; y: number; size?: number }) => (
               <g transform={`translate(${x}, ${y})`}>
-                <circle cx={size / 2} cy={size / 2} r={size * 0.45} style={{ fill: "#CE93D8" }} />
-                <path d={`M${size * 0.2} ${size * 0.2} L${size * 0.35} ${size * 0.05} L${size * 0.45} ${size * 0.25} Z`} style={{ fill: "#F48FB1" }} />
-                <path d={`M${size * 0.8} ${size * 0.2} L${size * 0.65} ${size * 0.05} L${size * 0.55} ${size * 0.25} Z`} style={{ fill: "#F48FB1" }} />
-                <path d={`M${size * 0.1} ${size * 0.4} L${size * 0.35} ${size * 0.05} L${size * 0.45} ${size * 0.3} C${size * 0.35} ${size * 0.4}, ${size * 0.2} ${size * 0.4} ${size * 0.1} ${size * 0.4} Z`} style={{ fill: "#9C27B0" }} />
-                <path d={`M${size * 0.9} ${size * 0.4} L${size * 0.65} ${size * 0.05} L${size * 0.55} ${size * 0.3} C${size * 0.65} ${size * 0.4}, ${size * 0.8} ${size * 0.4} ${size * 0.9} ${size * 0.4} Z`} style={{ fill: "#9C27B0" }} />
-                <circle cx={size * 0.4} cy={size * 0.4} r={size * 0.05} style={{ fill: "#000000" }} />
-                <circle cx={size * 0.6} cy={size * 0.4} r={size * 0.05} style={{ fill: "#000000" }} />
-                <path d={`M${size * 0.5} ${size * 0.5} L${size * 0.48} ${size * 0.55} L${size * 0.52} ${size * 0.55} Z`} style={{ fill: "#F48FB1" }} />
+                <circle cx={size / 2} cy={size / 2} r={size * 0.45} fill="#CE93D8" style={{ fill: "#CE93D8" }} />
+                <path d={`M${size * 0.2} ${size * 0.2} L${size * 0.35} ${size * 0.05} L${size * 0.45} ${size * 0.25} Z`} fill="#F48FB1" style={{ fill: "#F48FB1" }} />
+                <path d={`M${size * 0.8} ${size * 0.2} L${size * 0.65} ${size * 0.05} L${size * 0.55} ${size * 0.25} Z`} fill="#F48FB1" style={{ fill: "#F48FB1" }} />
+                <path d={`M${size * 0.1} ${size * 0.4} L${size * 0.35} ${size * 0.05} L${size * 0.45} ${size * 0.3} C${size * 0.35} ${size * 0.4}, ${size * 0.2} ${size * 0.4} ${size * 0.1} ${size * 0.4} Z`} fill="#9C27B0" style={{ fill: "#9C27B0" }} />
+                <path d={`M${size * 0.9} ${size * 0.4} L${size * 0.65} ${size * 0.05} L${size * 0.55} ${size * 0.3} C${size * 0.65} ${size * 0.4}, ${size * 0.8} ${size * 0.4} ${size * 0.9} ${size * 0.4} Z`} fill="#9C27B0" style={{ fill: "#9C27B0" }} />
+                <circle cx={size * 0.4} cy={size * 0.4} r={size * 0.05} fill="#000000" style={{ fill: "#000000" }} />
+                <circle cx={size * 0.6} cy={size * 0.4} r={size * 0.05} fill="#000000" style={{ fill: "#000000" }} />
+                <path d={`M${size * 0.5} ${size * 0.5} L${size * 0.48} ${size * 0.55} L${size * 0.52} ${size * 0.55} Z`} fill="#F48FB1" style={{ fill: "#F48FB1" }} />
                 <path
                   d={`M${size * 0.4} ${size * 0.65} Q${size * 0.5} ${size * 0.75}, ${size * 0.6} ${size * 0.65}`}
+                  stroke="#4A148C"
+                  strokeWidth={size * 0.03}
+                  fill="none"
                   style={{ fill: "none", stroke: "#4A148C", strokeWidth: size * 0.03 }}
                 />
               </g>
@@ -20542,14 +20554,20 @@ export function PrintablesPage() {
                 <path
                   d={`M${size * 0.5} 0 C0 0, 0 ${size * 1.0}, ${size * 0.5} ${size * 1.0} C${size * 1.0} ${size * 1.0}, ${size * 1.0} 0, ${size * 0.5} 0 Z`}
                   transform={`scale(0.8) translate(${size * 0.1}, ${size * 0.05})`}
+                  fill="#F44336"
+                  stroke="#D32F2F"
+                  strokeWidth={size * 0.02}
                   style={{ fill: "#F44336", stroke: "#D32F2F", strokeWidth: size * 0.02 }}
                 />
-                <rect x={size * 0.47} y={size * 0.05} width={size * 0.06} height={size * 0.15} style={{ fill: "#795548" }} />
-                <ellipse cx={size * 0.6} cy={size * 0.1} rx={size * 0.15} ry={size * 0.08} transform={`rotate(20 ${size * 0.6} ${size * 0.1})`} style={{ fill: "#4CAF50" }} />
-                <circle cx={size * 0.4} cy={size * 0.45} r={size * 0.05} style={{ fill: "#000000" }} />
-                <circle cx={size * 0.6} cy={size * 0.45} r={size * 0.05} style={{ fill: "#000000" }} />
+                <rect x={size * 0.47} y={size * 0.05} width={size * 0.06} height={size * 0.15} fill="#795548" style={{ fill: "#795548" }} />
+                <ellipse cx={size * 0.6} cy={size * 0.1} rx={size * 0.15} ry={size * 0.08} transform={`rotate(20 ${size * 0.6} ${size * 0.1})`} fill="#4CAF50" style={{ fill: "#4CAF50" }} />
+                <circle cx={size * 0.4} cy={size * 0.45} r={size * 0.05} fill="#000000" style={{ fill: "#000000" }} />
+                <circle cx={size * 0.6} cy={size * 0.45} r={size * 0.05} fill="#000000" style={{ fill: "#000000" }} />
                 <path
                   d={`M${size * 0.4} ${size * 0.6} Q${size * 0.5} ${size * 0.7}, ${size * 0.6} ${size * 0.6}`}
+                  stroke="#000000"
+                  strokeWidth={size * 0.03}
+                  fill="none"
                   style={{ fill: "none", stroke: "#000000", strokeWidth: size * 0.03 }}
                 />
               </g>
@@ -20557,19 +20575,22 @@ export function PrintablesPage() {
 
             const CuteFlower = ({ x, y, size = 60 }: { x: number; y: number; size?: number }) => (
               <g transform={`translate(${x}, ${y})`}>
-                <circle cx={size / 2} cy={size / 2} r={size * 0.25} style={{ fill: "#FF9800" }} />
-                <circle cx={size / 2} cy={size * 0.2} r={size * 0.2} style={{ fill: "#E91E63" }} />
-                <circle cx={size / 2} cy={size * 0.8} r={size * 0.2} style={{ fill: "#E91E63" }} />
-                <circle cx={size * 0.2} cy={size / 2} r={size * 0.2} style={{ fill: "#E91E63" }} />
-                <circle cx={size * 0.8} cy={size / 2} r={size * 0.2} style={{ fill: "#E91E63" }} />
-                <circle cx={size * 0.3} cy={size * 0.3} r={size * 0.2} style={{ fill: "#F06292" }} />
-                <circle cx={size * 0.7} cy={size * 0.3} r={size * 0.2} style={{ fill: "#F06292" }} />
-                <circle cx={size * 0.3} cy={size * 0.7} r={size * 0.2} style={{ fill: "#F06292" }} />
-                <circle cx={size * 0.7} cy={size * 0.7} r={size * 0.2} style={{ fill: "#F06292" }} />
-                <circle cx={size * 0.45} cy={size * 0.45} r={size * 0.03} style={{ fill: "#000000" }} />
-                <circle cx={size * 0.55} cy={size * 0.45} r={size * 0.03} style={{ fill: "#000000" }} />
+                <circle cx={size / 2} cy={size / 2} r={size * 0.25} fill="#FF9800" style={{ fill: "#FF9800" }} />
+                <circle cx={size / 2} cy={size * 0.2} r={size * 0.2} fill="#E91E63" style={{ fill: "#E91E63" }} />
+                <circle cx={size / 2} cy={size * 0.8} r={size * 0.2} fill="#E91E63" style={{ fill: "#E91E63" }} />
+                <circle cx={size * 0.2} cy={size / 2} r={size * 0.2} fill="#E91E63" style={{ fill: "#E91E63" }} />
+                <circle cx={size * 0.8} cy={size / 2} r={size * 0.2} fill="#E91E63" style={{ fill: "#E91E63" }} />
+                <circle cx={size * 0.3} cy={size * 0.3} r={size * 0.2} fill="#F06292" style={{ fill: "#F06292" }} />
+                <circle cx={size * 0.7} cy={size * 0.3} r={size * 0.2} fill="#F06292" style={{ fill: "#F06292" }} />
+                <circle cx={size * 0.3} cy={size * 0.7} r={size * 0.2} fill="#F06292" style={{ fill: "#F06292" }} />
+                <circle cx={size * 0.7} cy={size * 0.7} r={size * 0.2} fill="#F06292" style={{ fill: "#F06292" }} />
+                <circle cx={size * 0.45} cy={size * 0.45} r={size * 0.03} fill="#000000" style={{ fill: "#000000" }} />
+                <circle cx={size * 0.55} cy={size * 0.45} r={size * 0.03} fill="#000000" style={{ fill: "#000000" }} />
                 <path
                   d={`M${size * 0.45} ${size * 0.55} Q${size * 0.5} ${size * 0.6}, ${size * 0.55} ${size * 0.55}`}
+                  stroke="#000000"
+                  strokeWidth={size * 0.02}
+                  fill="none"
                   style={{ fill: "none", stroke: "#000000", strokeWidth: size * 0.02 }}
                 />
               </g>
