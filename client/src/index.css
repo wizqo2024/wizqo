@@ -514,18 +514,7 @@ html {
     /* Explicit fill attribute value will be preserved - don't override */
   }
   
-  /* Specific fix for kindergarten-counting-visual worksheet */
-  [data-worksheet-content="true"][data-doc="kindergarten-counting-visual"] svg path[fill],
-  [data-worksheet-content="true"][data-doc="kindergarten-counting-visual"] svg circle[fill],
-  [data-worksheet-content="true"][data-doc="kindergarten-counting-visual"] svg rect[fill],
-  [data-worksheet-content="true"][data-doc="kindergarten-counting-visual"] svg polygon[fill],
-  [data-worksheet-content="true"][data-doc="kindergarten-counting-visual"] svg ellipse[fill],
-  [data-worksheet-content="true"][data-doc="kindergarten-counting-visual"] svg g[fill] {
-    -webkit-print-color-adjust: exact !important;
-    print-color-adjust: exact !important;
-    color-adjust: exact !important;
-    /* Force preservation of explicit fill colors */
-  }
+
   
   /* Ensure coloring page images don't get filled backgrounds */
   [data-worksheet-content="true"] img[src*="coloring"],
@@ -3018,15 +3007,16 @@ section[data-interactive-section="true"].preserve-print-styling [class*="h-48"] 
   /* Preserve SVG paths, circles, rectangles, and all shapes */
   /* CRITICAL: Only apply fill:inherit to elements WITHOUT explicit fill attributes */
   /* Elements with explicit fill attributes should preserve their colors */
-  [data-worksheet-content="true"] svg path:not([fill]),
-  [data-worksheet-content="true"] svg circle:not([fill]),
-  [data-worksheet-content="true"] svg rect:not([fill]),
-  [data-worksheet-content="true"] svg polygon:not([fill]),
-  [data-worksheet-content="true"] svg polyline:not([fill]),
-  [data-worksheet-content="true"] svg line:not([fill]),
-  [data-worksheet-content="true"] svg ellipse:not([fill]),
-  [data-worksheet-content="true"] svg text:not([fill]),
-  [data-worksheet-content="true"] svg g:not([fill]) {
+  /* EXCLUDE kindergarten-counting-visual which relies on explicit attributes that selectors might miss */
+  [data-worksheet-content="true"]:not([data-doc="kindergarten-counting-visual"]) svg path:not([fill]),
+  [data-worksheet-content="true"]:not([data-doc="kindergarten-counting-visual"]) svg circle:not([fill]),
+  [data-worksheet-content="true"]:not([data-doc="kindergarten-counting-visual"]) svg rect:not([fill]),
+  [data-worksheet-content="true"]:not([data-doc="kindergarten-counting-visual"]) svg polygon:not([fill]),
+  [data-worksheet-content="true"]:not([data-doc="kindergarten-counting-visual"]) svg polyline:not([fill]),
+  [data-worksheet-content="true"]:not([data-doc="kindergarten-counting-visual"]) svg line:not([fill]),
+  [data-worksheet-content="true"]:not([data-doc="kindergarten-counting-visual"]) svg ellipse:not([fill]),
+  [data-worksheet-content="true"]:not([data-doc="kindergarten-counting-visual"]) svg text:not([fill]),
+  [data-worksheet-content="true"]:not([data-doc="kindergarten-counting-visual"]) svg g:not([fill]) {
     -webkit-print-color-adjust: exact !important;
     print-color-adjust: exact !important;
     color-adjust: exact !important;
