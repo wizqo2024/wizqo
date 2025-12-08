@@ -8421,8 +8421,8 @@ section[data-interactive-section="true"].preserve-print-styling [class*="h-48"] 
       opacity: 1 !important;
     }
     
-    /* CRITICAL: Don't override explicit fill/stroke in print - let SVG colors render naturally */
-    /* Remove any fill/stroke overrides that might be causing black images */
+    /* CRITICAL: Override ALL fill:inherit rules in print - SVG colors must render */
+    /* Force removal of inherit so explicit fill/stroke values work */
     [data-worksheet-content="true"] svg path,
     [data-worksheet-content="true"] svg circle,
     [data-worksheet-content="true"] svg rect,
@@ -8431,6 +8431,9 @@ section[data-interactive-section="true"].preserve-print-styling [class*="h-48"] 
     [data-worksheet-content="true"] svg text,
     [data-worksheet-content="true"] svg g,
     [data-worksheet-content="true"] svg ellipse,
+    [data-worksheet-content="true"] svg path:not([fill]),
+    [data-worksheet-content="true"] svg circle:not([fill]),
+    [data-worksheet-content="true"] svg rect:not([fill]),
     svg path,
     svg circle,
     svg rect,
@@ -8438,11 +8441,45 @@ section[data-interactive-section="true"].preserve-print-styling [class*="h-48"] 
     svg line,
     svg text,
     svg g,
-    svg ellipse {
-      /* Don't set fill or stroke - let the SVG's explicit values work */
+    svg ellipse,
+    svg path:not([fill]),
+    svg circle:not([fill]),
+    svg rect:not([fill]) {
+      /* CRITICAL: Remove fill:inherit override - let browser use SVG's native fill/stroke */
+      fill: unset !important;
+      stroke: unset !important;
       -webkit-print-color-adjust: exact !important;
       print-color-adjust: exact !important;
       color-adjust: exact !important;
+    }
+    
+    /* For SVG elements WITH explicit fill/stroke attributes, ensure they're not overridden */
+    [data-worksheet-content="true"] svg path[fill],
+    [data-worksheet-content="true"] svg circle[fill],
+    [data-worksheet-content="true"] svg rect[fill],
+    [data-worksheet-content="true"] svg polygon[fill],
+    [data-worksheet-content="true"] svg ellipse[fill],
+    svg path[fill],
+    svg circle[fill],
+    svg rect[fill],
+    svg polygon[fill],
+    svg ellipse[fill] {
+      fill: unset !important; /* Let the fill attribute work */
+      -webkit-print-color-adjust: exact !important;
+      print-color-adjust: exact !important;
+    }
+    
+    [data-worksheet-content="true"] svg path[stroke],
+    [data-worksheet-content="true"] svg circle[stroke],
+    [data-worksheet-content="true"] svg rect[stroke],
+    [data-worksheet-content="true"] svg line[stroke],
+    svg path[stroke],
+    svg circle[stroke],
+    svg rect[stroke],
+    svg line[stroke] {
+      stroke: unset !important; /* Let the stroke attribute work */
+      -webkit-print-color-adjust: exact !important;
+      print-color-adjust: exact !important;
     }
     
     /* Override any dark mode filters that might affect images */
@@ -8452,6 +8489,31 @@ section[data-interactive-section="true"].preserve-print-styling [class*="h-48"] 
     svg[style*="filter"] {
       filter: none !important;
       -webkit-filter: none !important;
+    }
+    
+    /* ABSOLUTE FINAL: Override any fill:inherit rules that might be causing black SVGs */
+    /* This must come last to override everything */
+    svg * {
+      -webkit-print-color-adjust: exact !important;
+      print-color-adjust: exact !important;
+      color-adjust: exact !important;
+    }
+    
+    /* Remove fill:inherit for elements without explicit fill - use browser default */
+    svg path:not([fill]),
+    svg circle:not([fill]),
+    svg rect:not([fill]),
+    svg polygon:not([fill]),
+    svg ellipse:not([fill]) {
+      fill: unset !important;
+    }
+    
+    svg path:not([stroke]),
+    svg circle:not([stroke]),
+    svg rect:not([stroke]),
+    svg line:not([stroke]),
+    svg polyline:not([stroke]) {
+      stroke: unset !important;
     }
   }
 }
