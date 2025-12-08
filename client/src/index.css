@@ -8409,6 +8409,20 @@ section[data-interactive-section="true"].preserve-print-styling [class*="h-48"] 
     }
     
     /* Ensure SVG paths and elements render with proper colors - preserve explicit fills/strokes */
+    [data-worksheet-content="true"] svg,
+    [data-worksheet-content="true"] svg *,
+    svg,
+    svg * {
+      -webkit-print-color-adjust: exact !important;
+      print-color-adjust: exact !important;
+      color-adjust: exact !important;
+      filter: none !important;
+      -webkit-filter: none !important;
+      opacity: 1 !important;
+    }
+    
+    /* CRITICAL: Don't override explicit fill/stroke in print - let SVG colors render naturally */
+    /* Remove any fill/stroke overrides that might be causing black images */
     [data-worksheet-content="true"] svg path,
     [data-worksheet-content="true"] svg circle,
     [data-worksheet-content="true"] svg rect,
@@ -8425,17 +8439,11 @@ section[data-interactive-section="true"].preserve-print-styling [class*="h-48"] 
     svg text,
     svg g,
     svg ellipse {
+      /* Don't set fill or stroke - let the SVG's explicit values work */
       -webkit-print-color-adjust: exact !important;
       print-color-adjust: exact !important;
       color-adjust: exact !important;
-      filter: none !important;
-      -webkit-filter: none !important;
-      opacity: 1 !important;
-      /* Don't override explicit fill/stroke - let them render as specified */
     }
-    
-    /* CRITICAL: Don't override explicit fill/stroke - let browser use the SVG's native colors */
-    /* The fill and stroke attributes in the SVG should be preserved */
     
     /* Override any dark mode filters that might affect images */
     [data-worksheet-content="true"] img[style*="filter"],
