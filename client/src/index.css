@@ -494,6 +494,39 @@ html {
     color-adjust: auto !important;
   }
   
+  /* CRITICAL: Preserve explicit fill colors in SVG elements - don't override with inherit */
+  /* This fixes the issue where SVGs with explicit fill attributes were becoming black */
+  svg path[fill],
+  svg circle[fill],
+  svg rect[fill],
+  svg polygon[fill],
+  svg ellipse[fill],
+  svg g[fill],
+  [data-worksheet-content="true"] svg path[fill],
+  [data-worksheet-content="true"] svg circle[fill],
+  [data-worksheet-content="true"] svg rect[fill],
+  [data-worksheet-content="true"] svg polygon[fill],
+  [data-worksheet-content="true"] svg ellipse[fill],
+  [data-worksheet-content="true"] svg g[fill] {
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+    color-adjust: exact !important;
+    /* Explicit fill attribute value will be preserved - don't override */
+  }
+  
+  /* Specific fix for kindergarten-counting-visual worksheet */
+  [data-worksheet-content="true"][data-doc="kindergarten-counting-visual"] svg path[fill],
+  [data-worksheet-content="true"][data-doc="kindergarten-counting-visual"] svg circle[fill],
+  [data-worksheet-content="true"][data-doc="kindergarten-counting-visual"] svg rect[fill],
+  [data-worksheet-content="true"][data-doc="kindergarten-counting-visual"] svg polygon[fill],
+  [data-worksheet-content="true"][data-doc="kindergarten-counting-visual"] svg ellipse[fill],
+  [data-worksheet-content="true"][data-doc="kindergarten-counting-visual"] svg g[fill] {
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+    color-adjust: exact !important;
+    /* Force preservation of explicit fill colors */
+  }
+  
   /* Ensure coloring page images don't get filled backgrounds */
   [data-worksheet-content="true"] img[src*="coloring"],
   [data-worksheet-content="true"] img[alt*="coloring"],
@@ -2923,6 +2956,19 @@ section[data-interactive-section="true"].preserve-print-styling [class*="h-48"] 
     max-height: 1.8in !important;
   }
   
+  /* CRITICAL FIX: Preserve explicit SVG fill colors for kindergarten-counting-visual */
+  /* Ensure SVG elements with explicit fill attributes maintain their colors in print */
+  [data-worksheet-content="true"][data-doc="kindergarten-counting-visual"] svg path[fill],
+  [data-worksheet-content="true"][data-doc="kindergarten-counting-visual"] svg circle[fill],
+  [data-worksheet-content="true"][data-doc="kindergarten-counting-visual"] svg rect[fill],
+  [data-worksheet-content="true"][data-doc="kindergarten-counting-visual"] svg polygon[fill],
+  [data-worksheet-content="true"][data-doc="kindergarten-counting-visual"] svg ellipse[fill],
+  [data-worksheet-content="true"][data-doc="kindergarten-counting-visual"] svg g[fill] {
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+    color-adjust: exact !important;
+    /* Explicit fill attribute will be preserved - don't override */
+  }
   
   /* Images */
   img, svg {
@@ -2970,19 +3016,46 @@ section[data-interactive-section="true"].preserve-print-styling [class*="h-48"] 
   }
   
   /* Preserve SVG paths, circles, rectangles, and all shapes */
-  [data-worksheet-content="true"] svg path,
-  [data-worksheet-content="true"] svg circle,
-  [data-worksheet-content="true"] svg rect,
-  [data-worksheet-content="true"] svg polygon,
-  [data-worksheet-content="true"] svg polyline,
-  [data-worksheet-content="true"] svg line,
-  [data-worksheet-content="true"] svg ellipse,
-  [data-worksheet-content="true"] svg text,
-  [data-worksheet-content="true"] svg g {
+  /* CRITICAL: Only apply fill:inherit to elements WITHOUT explicit fill attributes */
+  /* Elements with explicit fill attributes should preserve their colors */
+  [data-worksheet-content="true"] svg path:not([fill]),
+  [data-worksheet-content="true"] svg circle:not([fill]),
+  [data-worksheet-content="true"] svg rect:not([fill]),
+  [data-worksheet-content="true"] svg polygon:not([fill]),
+  [data-worksheet-content="true"] svg polyline:not([fill]),
+  [data-worksheet-content="true"] svg line:not([fill]),
+  [data-worksheet-content="true"] svg ellipse:not([fill]),
+  [data-worksheet-content="true"] svg text:not([fill]),
+  [data-worksheet-content="true"] svg g:not([fill]) {
     -webkit-print-color-adjust: exact !important;
     print-color-adjust: exact !important;
     color-adjust: exact !important;
     fill: inherit !important;
+  }
+  
+  /* Preserve explicit fill colors - don't override them */
+  [data-worksheet-content="true"] svg path[fill],
+  [data-worksheet-content="true"] svg circle[fill],
+  [data-worksheet-content="true"] svg rect[fill],
+  [data-worksheet-content="true"] svg polygon[fill],
+  [data-worksheet-content="true"] svg polyline[fill],
+  [data-worksheet-content="true"] svg ellipse[fill],
+  [data-worksheet-content="true"] svg g[fill] {
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+    color-adjust: exact !important;
+    /* Don't override explicit fill - let the attribute value be used */
+  }
+  
+  /* Apply stroke inherit only when no explicit stroke */
+  [data-worksheet-content="true"] svg path:not([stroke]),
+  [data-worksheet-content="true"] svg circle:not([stroke]),
+  [data-worksheet-content="true"] svg rect:not([stroke]),
+  [data-worksheet-content="true"] svg polygon:not([stroke]),
+  [data-worksheet-content="true"] svg polyline:not([stroke]),
+  [data-worksheet-content="true"] svg line:not([stroke]),
+  [data-worksheet-content="true"] svg ellipse:not([stroke]),
+  [data-worksheet-content="true"] svg g:not([stroke]) {
     stroke: inherit !important;
   }
   
