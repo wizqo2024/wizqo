@@ -8353,6 +8353,61 @@ section[data-interactive-section="true"].preserve-print-styling [class*="h-48"] 
       -webkit-print-color-adjust: exact !important;
       print-color-adjust: exact !important;
     }
+    
+    /* CRITICAL: Fix dark images and SVGs in print - ensure they render with proper colors */
+    [data-worksheet-content="true"] img,
+    [data-worksheet-content="true"] svg,
+    [data-worksheet-content="true"] img[src*=".svg"],
+    [data-worksheet-content="true"] svg *,
+    [data-worksheet-content="true"] img[src*=".png"],
+    [data-worksheet-content="true"] img[src*=".jpg"],
+    [data-worksheet-content="true"] img[src*=".jpeg"],
+    [data-worksheet-content="true"] img[src*=".gif"],
+    [data-worksheet-content="true"] img[src*=".webp"],
+    img,
+    svg {
+      -webkit-print-color-adjust: exact !important;
+      print-color-adjust: exact !important;
+      color-adjust: exact !important;
+      filter: none !important;
+      opacity: 1 !important;
+      visibility: visible !important;
+      display: inline-block !important;
+      background: transparent !important;
+    }
+    
+    /* Ensure SVG paths and elements render with proper colors - override any dark filters */
+    [data-worksheet-content="true"] svg path,
+    [data-worksheet-content="true"] svg circle,
+    [data-worksheet-content="true"] svg rect,
+    [data-worksheet-content="true"] svg polygon,
+    [data-worksheet-content="true"] svg line,
+    [data-worksheet-content="true"] svg text,
+    [data-worksheet-content="true"] svg g,
+    svg path,
+    svg circle,
+    svg rect,
+    svg polygon,
+    svg line,
+    svg text,
+    svg g {
+      -webkit-print-color-adjust: exact !important;
+      print-color-adjust: exact !important;
+      color-adjust: exact !important;
+      filter: none !important;
+      opacity: 1 !important;
+      fill: inherit !important;
+      stroke: inherit !important;
+    }
+    
+    /* Override any dark mode filters that might affect images */
+    [data-worksheet-content="true"] img[style*="filter"],
+    [data-worksheet-content="true"] svg[style*="filter"],
+    img[style*="filter"],
+    svg[style*="filter"] {
+      filter: none !important;
+      -webkit-filter: none !important;
+    }
   }
 }
 
