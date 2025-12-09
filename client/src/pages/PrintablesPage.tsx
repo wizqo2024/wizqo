@@ -1522,6 +1522,7 @@ export function PrintablesPage() {
   })
   const [copiedLink, setCopiedLink] = React.useState(false)
   const [isDownloadingPDF, setIsDownloadingPDF] = React.useState(false)
+  const [isDownloadingPNG, setIsDownloadingPNG] = React.useState(false)
   const bundleItemsParam = params.get('items') || ''
   const bundleCategoryParam = params.get('category') || ''
   // Customization parameters
@@ -2810,6 +2811,57 @@ export function PrintablesPage() {
     }
   }, [doc, primaryDoc, docTitle, params, showAnswers])
 
+  // PNG download function - captures exact live view
+  const downloadPNG = React.useCallback(async () => {
+    try {
+      setIsDownloadingPNG(true)
+
+      // Import html2canvas dynamically
+      const { default: html2canvas } = await import('html2canvas')
+
+      // Wait for content to render
+      await new Promise(resolve => setTimeout(resolve, 500))
+
+      // Find the worksheet content container
+      const contentElement = document.querySelector('[data-worksheet-content="true"]') as HTMLElement
+      if (!contentElement) {
+        throw new Error('Could not find worksheet content. Please refresh the page and try again.')
+      }
+
+      // Capture with html2canvas - use 2x scale for better quality
+      const canvas = await html2canvas(contentElement, {
+        scale: 2.0,
+        useCORS: true,
+        logging: false,
+        backgroundColor: '#ffffff',
+        allowTaint: false,
+        scrollX: 0,
+        scrollY: 0,
+      })
+
+      // Convert to blob and download
+      canvas.toBlob((blob) => {
+        if (!blob) throw new Error('Could not generate image')
+        const url = URL.createObjectURL(blob)
+        const link = document.createElement('a')
+        link.href = url
+        link.download = docTitle
+          ? `${docTitle.replace(/[^a-z0-9]/gi, '_').toLowerCase()}.png`
+          : `worksheet_${doc || 'download'}.png`
+        document.body.appendChild(link)
+        link.click()
+        document.body.removeChild(link)
+        URL.revokeObjectURL(url)
+      }, 'image/png')
+
+    } catch (error) {
+      console.error('PNG download failed:', error)
+      alert('Image download failed. Please try again.')
+    } finally {
+      setIsDownloadingPNG(false)
+    }
+  }, [doc, docTitle])
+
   // OLD PDF download function - kept for reference but not used
   // This was causing blank pages, so we now use browser print dialog instead
   const downloadPDF_OLD = React.useCallback(async () => {
@@ -3595,6 +3647,14 @@ export function PrintablesPage() {
                   className="inline-flex items-center gap-2 px-4 py-2 rounded-lg border border-slate-300 bg-white hover:bg-slate-50 text-slate-700 text-sm font-medium shadow-sm focus:outline-none focus:ring-2 focus:ring-slate-400 focus:ring-offset-1 print:hidden"
                 >
                   🖨️ Print
+                </button>
+                <button
+                  onClick={downloadPNG}
+                  disabled={isDownloadingPNG}
+                  className="inline-flex items-center gap-2 px-4 py-2 rounded-lg border border-slate-300 bg-white hover:bg-slate-50 text-slate-700 text-sm font-medium shadow-sm focus:outline-none focus:ring-2 focus:ring-slate-400 focus:ring-offset-1 print:hidden disabled:opacity-50 disabled:cursor-wait"
+                  title="Download as Image (Best for preserving colors)"
+                >
+                  {isDownloadingPNG ? '⌛ Generating...' : '🖼️ Download Image'}
                 </button>
               </div>
             </div>
