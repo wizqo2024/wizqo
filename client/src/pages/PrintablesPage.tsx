@@ -25562,20 +25562,22 @@ export function PrintablesPage() {
                       <div className="mt-2 text-xs text-slate-600">Show your work:</div>
                       <div
                         data-work-box="true"
-                        className="min-h-16 border border-dashed border-slate-300 rounded p-2 bg-slate-50 print:bg-white"
+                        className="min-h-16 border border-dashed border-slate-300 rounded p-2 bg-slate-50"
                         style={{
                           minHeight: '4rem',
                           height: '4rem',
-                          border: '2px dashed #cbd5e1',
-                          borderStyle: 'dashed',
-                          borderWidth: '2px',
-                          borderColor: '#cbd5e1',
+                          border: '2px dashed #cbd5e1 !important',
+                          borderStyle: 'dashed !important',
+                          borderWidth: '2px !important',
+                          borderColor: '#cbd5e1 !important',
                           display: 'block',
                           visibility: 'visible',
                           opacity: 1,
-                          backgroundColor: '#ffffff',
+                          backgroundColor: '#f8fafc !important', /* light gray */
                           padding: '0.5rem',
-                          marginTop: '0.5rem'
+                          marginTop: '0.5rem',
+                          printColorAdjust: 'exact',
+                          WebkitPrintColorAdjust: 'exact'
                         }}
                       >
                         {'\u00A0'}
@@ -25648,20 +25650,22 @@ export function PrintablesPage() {
                       <div className="mt-2 text-xs text-slate-600">Show your work:</div>
                       <div
                         data-work-box="true"
-                        className="min-h-16 border border-dashed border-slate-300 rounded p-2 bg-slate-50 print:bg-white"
+                        className="min-h-16 border border-dashed border-slate-300 rounded p-2 bg-slate-50"
                         style={{
                           minHeight: '4rem',
                           height: '4rem',
-                          border: '2px dashed #cbd5e1',
-                          borderStyle: 'dashed',
-                          borderWidth: '2px',
-                          borderColor: '#cbd5e1',
+                          border: '2px dashed #cbd5e1 !important',
+                          borderStyle: 'dashed !important',
+                          borderWidth: '2px !important',
+                          borderColor: '#cbd5e1 !important',
                           display: 'block',
                           visibility: 'visible',
                           opacity: 1,
-                          backgroundColor: '#ffffff',
+                          backgroundColor: '#f8fafc !important', /* light gray */
                           padding: '0.5rem',
-                          marginTop: '0.5rem'
+                          marginTop: '0.5rem',
+                          printColorAdjust: 'exact',
+                          WebkitPrintColorAdjust: 'exact'
                         }}
                       >
                         {'\u00A0'}
