@@ -8663,9 +8663,6 @@ html {
     [data-worksheet-content="true"] svg text,
     [data-worksheet-content="true"] svg g,
     [data-worksheet-content="true"] svg polyline {
-      /* CRITICAL: Use revert to restore SVG's fill/stroke attribute values */
-      fill: revert !important;
-      stroke: revert !important;
       -webkit-print-color-adjust: exact !important;
       print-color-adjust: exact !important;
       color-adjust: exact !important;
@@ -8690,8 +8687,6 @@ html {
 
     /* Final override: Use revert for ALL SVG elements in print to restore attribute values */
     svg * {
-      fill: revert !important;
-      stroke: revert !important;
       -webkit-print-color-adjust: exact !important;
       print-color-adjust: exact !important;
       color-adjust: exact !important;
