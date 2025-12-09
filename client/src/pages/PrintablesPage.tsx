@@ -2837,6 +2837,23 @@ export function PrintablesPage() {
         allowTaint: false,
         scrollX: 0,
         scrollY: 0,
+        onclone: (clonedDoc) => {
+          // Hide UI elements that shouldn't be in the downloaded image
+          const elementsToHide = clonedDoc.querySelectorAll(
+            'header, button, .print\\:hidden, a[href^="/"]'
+          )
+          elementsToHide.forEach((el) => {
+            if (el instanceof HTMLElement) {
+              el.style.display = 'none'
+            }
+          })
+
+          // Ensure the answer key toggle is also hidden (it's often inside .print:hidden but safer to be explicit)
+          const answerToggle = clonedDoc.querySelector('[aria-label="Toggle Answer Key"]')
+          if (answerToggle instanceof HTMLElement) {
+            answerToggle.style.display = 'none'
+          }
+        }
       })
 
       // Convert to blob and download
