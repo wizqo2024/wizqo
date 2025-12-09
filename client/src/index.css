@@ -4883,16 +4883,16 @@ html {
   }
 
   /* Preserve all SVG elements and their styles */
-  [data-worksheet-content="true"] svg path,
-  [data-worksheet-content="true"] svg circle,
-  [data-worksheet-content="true"] svg rect,
-  [data-worksheet-content="true"] svg polygon,
-  [data-worksheet-content="true"] svg polyline,
-  [data-worksheet-content="true"] svg line,
-  [data-worksheet-content="true"] svg ellipse,
-  [data-worksheet-content="true"] svg text,
-  [data-worksheet-content="true"] svg g,
-  [data-worksheet-content="true"] svg use {
+  [data-worksheet-content="true"] section:not([data-doc="kindergarten-counting-visual"]) svg path,
+  [data-worksheet-content="true"] section:not([data-doc="kindergarten-counting-visual"]) svg circle,
+  [data-worksheet-content="true"] section:not([data-doc="kindergarten-counting-visual"]) svg rect,
+  [data-worksheet-content="true"] section:not([data-doc="kindergarten-counting-visual"]) svg polygon,
+  [data-worksheet-content="true"] section:not([data-doc="kindergarten-counting-visual"]) svg polyline,
+  [data-worksheet-content="true"] section:not([data-doc="kindergarten-counting-visual"]) svg line,
+  [data-worksheet-content="true"] section:not([data-doc="kindergarten-counting-visual"]) svg ellipse,
+  [data-worksheet-content="true"] section:not([data-doc="kindergarten-counting-visual"]) svg text,
+  [data-worksheet-content="true"] section:not([data-doc="kindergarten-counting-visual"]) svg g,
+  [data-worksheet-content="true"] section:not([data-doc="kindergarten-counting-visual"]) svg use {
     -webkit-print-color-adjust: exact !important;
     print-color-adjust: exact !important;
     color-adjust: exact !important;
