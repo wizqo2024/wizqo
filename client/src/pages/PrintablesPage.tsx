@@ -24870,20 +24870,22 @@ export function PrintablesPage() {
                       <div className="mt-2 text-xs text-slate-600">Show your work:</div>
                       <div
                         data-work-box="true"
-                        className="min-h-16 border border-dashed border-slate-300 rounded p-2 bg-slate-50 print:bg-white"
+                        className="min-h-16 border border-dashed border-slate-300 rounded p-2 bg-slate-50"
                         style={{
                           minHeight: '4rem',
                           height: '4rem',
-                          border: '2px dashed #cbd5e1',
-                          borderStyle: 'dashed',
-                          borderWidth: '2px',
-                          borderColor: '#cbd5e1',
+                          border: '2px dashed #cbd5e1 !important',
+                          borderStyle: 'dashed !important',
+                          borderWidth: '2px !important',
+                          borderColor: '#cbd5e1 !important',
                           display: 'block',
                           visibility: 'visible',
                           opacity: 1,
-                          backgroundColor: '#ffffff',
+                          backgroundColor: '#f8fafc !important',
                           padding: '0.5rem',
-                          marginTop: '0.5rem'
+                          marginTop: '0.5rem',
+                          printColorAdjust: 'exact',
+                          WebkitPrintColorAdjust: 'exact'
                         }}
                       >
                         {'\u00A0'}
@@ -24963,20 +24965,22 @@ export function PrintablesPage() {
                       <div className="mt-2 text-xs text-slate-600">Show your work:</div>
                       <div
                         data-work-box="true"
-                        className="min-h-16 border border-dashed border-slate-300 rounded p-2 bg-slate-50 print:bg-white"
+                        className="min-h-16 border border-dashed border-slate-300 rounded p-2 bg-slate-50"
                         style={{
                           minHeight: '4rem',
                           height: '4rem',
-                          border: '2px dashed #cbd5e1',
-                          borderStyle: 'dashed',
-                          borderWidth: '2px',
-                          borderColor: '#cbd5e1',
+                          border: '2px dashed #cbd5e1 !important',
+                          borderStyle: 'dashed !important',
+                          borderWidth: '2px !important',
+                          borderColor: '#cbd5e1 !important',
                           display: 'block',
                           visibility: 'visible',
                           opacity: 1,
-                          backgroundColor: '#ffffff',
+                          backgroundColor: '#f8fafc !important',
                           padding: '0.5rem',
-                          marginTop: '0.5rem'
+                          marginTop: '0.5rem',
+                          printColorAdjust: 'exact',
+                          WebkitPrintColorAdjust: 'exact'
                         }}
                       >
                         {'\u00A0'}
@@ -25057,20 +25061,22 @@ export function PrintablesPage() {
                       <div className="mt-2 text-xs text-slate-600">Show your work:</div>
                       <div
                         data-work-box="true"
-                        className="min-h-16 border border-dashed border-slate-300 rounded p-2 bg-slate-50 print:bg-white"
+                        className="min-h-16 border border-dashed border-slate-300 rounded p-2 bg-slate-50"
                         style={{
                           minHeight: '4rem',
                           height: '4rem',
-                          border: '2px dashed #cbd5e1',
-                          borderStyle: 'dashed',
-                          borderWidth: '2px',
-                          borderColor: '#cbd5e1',
+                          border: '2px dashed #cbd5e1 !important',
+                          borderStyle: 'dashed !important',
+                          borderWidth: '2px !important',
+                          borderColor: '#cbd5e1 !important',
                           display: 'block',
                           visibility: 'visible',
                           opacity: 1,
-                          backgroundColor: '#ffffff',
+                          backgroundColor: '#f8fafc !important',
                           padding: '0.5rem',
-                          marginTop: '0.5rem'
+                          marginTop: '0.5rem',
+                          printColorAdjust: 'exact',
+                          WebkitPrintColorAdjust: 'exact'
                         }}
                       >
                         {'\u00A0'}
@@ -25149,7 +25155,20 @@ export function PrintablesPage() {
                       <div className="text-center text-xl font-mono mb-2">{p.expr.replace(/(\d+)\²/g, '$1²')}</div>
                       <div className="text-center text-lg font-mono mb-2">= ____</div>
                       <div className="mt-2 text-xs text-slate-600">Show your work:</div>
-                      <div className="min-h-20 border border-dashed border-slate-300 rounded p-2 bg-slate-50 print:bg-white" />
+                      <div 
+                        className="min-h-20 border border-dashed border-slate-300 rounded p-2 bg-slate-50"
+                        style={{
+                          minHeight: '5rem',
+                          height: '5rem',
+                          border: '2px dashed #cbd5e1 !important',
+                          borderStyle: 'dashed !important',
+                          borderWidth: '2px !important',
+                          borderColor: '#cbd5e1 !important',
+                          backgroundColor: '#f8fafc !important',
+                          printColorAdjust: 'exact',
+                          WebkitPrintColorAdjust: 'exact'
+                        }}
+                      />
                     </div>
                   ))}
                 </div>
@@ -25213,20 +25232,22 @@ export function PrintablesPage() {
                       <div className="mt-2 text-xs text-slate-600">Show your work:</div>
                       <div
                         data-work-box="true"
-                        className="min-h-16 border border-dashed border-slate-300 rounded p-2 bg-slate-50 print:bg-white"
+                        className="min-h-16 border border-dashed border-slate-300 rounded p-2 bg-slate-50"
                         style={{
                           minHeight: '4rem',
                           height: '4rem',
-                          border: '2px dashed #cbd5e1',
-                          borderStyle: 'dashed',
-                          borderWidth: '2px',
-                          borderColor: '#cbd5e1',
+                          border: '2px dashed #cbd5e1 !important',
+                          borderStyle: 'dashed !important',
+                          borderWidth: '2px !important',
+                          borderColor: '#cbd5e1 !important',
                           display: 'block',
                           visibility: 'visible',
                           opacity: 1,
-                          backgroundColor: '#ffffff',
+                          backgroundColor: '#f8fafc !important',
                           padding: '0.5rem',
-                          marginTop: '0.5rem'
+                          marginTop: '0.5rem',
+                          printColorAdjust: 'exact',
+                          WebkitPrintColorAdjust: 'exact'
                         }}
                       >
                         {'\u00A0'}
@@ -25288,7 +25309,20 @@ export function PrintablesPage() {
                       <div className="text-sm text-slate-700 mb-3">{i + 1}. {p.expr}</div>
                       <div className="text-center text-lg font-mono mb-2">Expression: ____ = ____</div>
                       <div className="mt-2 text-xs text-slate-600">Show your work:</div>
-                      <div className="min-h-20 border border-dashed border-slate-300 rounded p-2 bg-slate-50 print:bg-white" />
+                      <div 
+                        className="min-h-20 border border-dashed border-slate-300 rounded p-2 bg-slate-50"
+                        style={{
+                          minHeight: '5rem',
+                          height: '5rem',
+                          border: '2px dashed #cbd5e1 !important',
+                          borderStyle: 'dashed !important',
+                          borderWidth: '2px !important',
+                          borderColor: '#cbd5e1 !important',
+                          backgroundColor: '#f8fafc !important',
+                          printColorAdjust: 'exact',
+                          WebkitPrintColorAdjust: 'exact'
+                        }}
+                      />
                     </div>
                   ))}
                 </div>
@@ -25350,7 +25384,20 @@ export function PrintablesPage() {
                       <div className="text-center text-xl font-mono mb-2">{p.expr.replace(/(\d+)\²/g, '$1²').replace(/(\d+)\³/g, '$1³')}</div>
                       <div className="text-center text-lg font-mono mb-2">= ____</div>
                       <div className="mt-2 text-xs text-slate-600">Show your work:</div>
-                      <div className="min-h-20 border border-dashed border-slate-300 rounded p-2 bg-slate-50 print:bg-white" />
+                      <div 
+                        className="min-h-20 border border-dashed border-slate-300 rounded p-2 bg-slate-50"
+                        style={{
+                          minHeight: '5rem',
+                          height: '5rem',
+                          border: '2px dashed #cbd5e1 !important',
+                          borderStyle: 'dashed !important',
+                          borderWidth: '2px !important',
+                          borderColor: '#cbd5e1 !important',
+                          backgroundColor: '#f8fafc !important',
+                          printColorAdjust: 'exact',
+                          WebkitPrintColorAdjust: 'exact'
+                        }}
+                      />
                     </div>
                   ))}
                 </div>
@@ -25410,7 +25457,20 @@ export function PrintablesPage() {
                       <div className="text-center text-xl font-mono mb-2">{p.expr.replace(/(\d+)\²/g, '$1²').replace(/(\d+)\³/g, '$1³')}</div>
                       <div className="text-center text-lg font-mono mb-2">= ____</div>
                       <div className="mt-2 text-xs text-slate-600">Show your work:</div>
-                      <div className="min-h-24 border border-dashed border-slate-300 rounded p-2 bg-slate-50 print:bg-white" />
+                      <div 
+                        className="min-h-24 border border-dashed border-slate-300 rounded p-2 bg-slate-50"
+                        style={{
+                          minHeight: '6rem',
+                          height: '6rem',
+                          border: '2px dashed #cbd5e1 !important',
+                          borderStyle: 'dashed !important',
+                          borderWidth: '2px !important',
+                          borderColor: '#cbd5e1 !important',
+                          backgroundColor: '#f8fafc !important',
+                          printColorAdjust: 'exact',
+                          WebkitPrintColorAdjust: 'exact'
+                        }}
+                      />
                     </div>
                   ))}
                 </div>
@@ -25481,20 +25541,22 @@ export function PrintablesPage() {
                       <div className="mt-2 text-xs text-slate-600">Show your work:</div>
                       <div
                         data-work-box="true"
-                        className="min-h-16 border border-dashed border-slate-300 rounded p-2 bg-slate-50 print:bg-white"
+                        className="min-h-16 border border-dashed border-slate-300 rounded p-2 bg-slate-50"
                         style={{
                           minHeight: '4rem',
                           height: '4rem',
-                          border: '2px dashed #cbd5e1',
-                          borderStyle: 'dashed',
-                          borderWidth: '2px',
-                          borderColor: '#cbd5e1',
+                          border: '2px dashed #cbd5e1 !important',
+                          borderStyle: 'dashed !important',
+                          borderWidth: '2px !important',
+                          borderColor: '#cbd5e1 !important',
                           display: 'block',
                           visibility: 'visible',
                           opacity: 1,
-                          backgroundColor: '#ffffff',
+                          backgroundColor: '#f8fafc !important',
                           padding: '0.5rem',
-                          marginTop: '0.5rem'
+                          marginTop: '0.5rem',
+                          printColorAdjust: 'exact',
+                          WebkitPrintColorAdjust: 'exact'
                         }}
                       >
                         {'\u00A0'}
