@@ -294,7 +294,7 @@ function WorksheetSectionWrapper({
   return (
     <section
       data-doc={docId}
-      className={`mb-10 break-inside-avoid rounded-xl ${theme.background} p-6 print:p-4 print:bg-white print:mt-0 print:mb-2 print:shadow-none shadow-lg relative overflow-hidden worksheet-section print:border print:border-slate-200 ${enablePrintOutline ? 'print-section-outline' : ''}`}
+      className={`mb-10 break-inside-avoid rounded-xl ${theme.background} p-6 print:p-4 print:mt-0 print:mb-2 shadow-lg relative overflow-hidden worksheet-section ${enablePrintOutline ? 'print-section-outline' : ''}`}
       dir={isRTL ? 'rtl' : 'ltr'}
       style={{
         pageBreakInside: 'avoid', // Prevent section from breaking across pages

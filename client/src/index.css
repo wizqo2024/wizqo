@@ -3069,15 +3069,15 @@ html {
   /* Elements with explicit fill attributes should preserve their colors */
   /* EXCLUDE kindergarten-counting-visual which relies on explicit attributes (or inline styles) */
   /* We use :where() to keep specificity low, but target SECTIONS specifically */
-  [data-worksheet-content="true"] section:not([data-doc="kindergarten-counting-visual"]) svg path:not([fill]),
-  [data-worksheet-content="true"] section:not([data-doc="kindergarten-counting-visual"]) svg circle:not([fill]),
-  [data-worksheet-content="true"] section:not([data-doc="kindergarten-counting-visual"]) svg rect:not([fill]),
-  [data-worksheet-content="true"] section:not([data-doc="kindergarten-counting-visual"]) svg polygon:not([fill]),
-  [data-worksheet-content="true"] section:not([data-doc="kindergarten-counting-visual"]) svg polyline:not([fill]),
-  [data-worksheet-content="true"] section:not([data-doc="kindergarten-counting-visual"]) svg line:not([fill]),
-  [data-worksheet-content="true"] section:not([data-doc="kindergarten-counting-visual"]) svg ellipse:not([fill]),
-  [data-worksheet-content="true"] section:not([data-doc="kindergarten-counting-visual"]) svg text:not([fill]),
-  [data-worksheet-content="true"] section:not([data-doc="kindergarten-counting-visual"]) svg g:not([fill]) {
+  [data-worksheet-content="true"] section:not([data-doc="kindergarten-counting-visual"]) svg path:not([fill]):not([style*="fill"]),
+  [data-worksheet-content="true"] section:not([data-doc="kindergarten-counting-visual"]) svg circle:not([fill]):not([style*="fill"]),
+  [data-worksheet-content="true"] section:not([data-doc="kindergarten-counting-visual"]) svg rect:not([fill]):not([style*="fill"]),
+  [data-worksheet-content="true"] section:not([data-doc="kindergarten-counting-visual"]) svg polygon:not([fill]):not([style*="fill"]),
+  [data-worksheet-content="true"] section:not([data-doc="kindergarten-counting-visual"]) svg polyline:not([fill]):not([style*="fill"]),
+  [data-worksheet-content="true"] section:not([data-doc="kindergarten-counting-visual"]) svg line:not([fill]):not([style*="fill"]),
+  [data-worksheet-content="true"] section:not([data-doc="kindergarten-counting-visual"]) svg ellipse:not([fill]):not([style*="fill"]),
+  [data-worksheet-content="true"] section:not([data-doc="kindergarten-counting-visual"]) svg text:not([fill]):not([style*="fill"]),
+  [data-worksheet-content="true"] section:not([data-doc="kindergarten-counting-visual"]) svg g:not([fill]):not([style*="fill"]) {
     -webkit-print-color-adjust: exact !important;
     print-color-adjust: exact !important;
     color-adjust: exact !important;
@@ -3112,14 +3112,14 @@ html {
   }
 
   /* Apply stroke inherit only when no explicit stroke */
-  [data-worksheet-content="true"] svg path:not([stroke]),
-  [data-worksheet-content="true"] svg circle:not([stroke]),
-  [data-worksheet-content="true"] svg rect:not([stroke]),
-  [data-worksheet-content="true"] svg polygon:not([stroke]),
-  [data-worksheet-content="true"] svg polyline:not([stroke]),
-  [data-worksheet-content="true"] svg line:not([stroke]),
-  [data-worksheet-content="true"] svg ellipse:not([stroke]),
-  [data-worksheet-content="true"] svg g:not([stroke]) {
+  [data-worksheet-content="true"] svg path:not([stroke]):not([style*="stroke"]),
+  [data-worksheet-content="true"] svg circle:not([stroke]):not([style*="stroke"]),
+  [data-worksheet-content="true"] svg rect:not([stroke]):not([style*="stroke"]),
+  [data-worksheet-content="true"] svg polygon:not([stroke]):not([style*="stroke"]),
+  [data-worksheet-content="true"] svg polyline:not([stroke]):not([style*="stroke"]),
+  [data-worksheet-content="true"] svg line:not([stroke]):not([style*="stroke"]),
+  [data-worksheet-content="true"] svg ellipse:not([stroke]):not([style*="stroke"]),
+  [data-worksheet-content="true"] svg g:not([stroke]):not([style*="stroke"]) {
     stroke: inherit !important;
   }
 
