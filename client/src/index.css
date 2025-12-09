@@ -3084,18 +3084,7 @@ html {
     fill: inherit !important;
   }
 
-  /* FORCE revert for the problematic document to ensure inline styles work */
-  /* This handles cases where :not([fill]) matches because we used inline styles */
-  [data-worksheet-content="true"] section[data-doc="kindergarten-counting-visual"] svg path,
-  [data-worksheet-content="true"] section[data-doc="kindergarten-counting-visual"] svg circle,
-  [data-worksheet-content="true"] section[data-doc="kindergarten-counting-visual"] svg rect,
-  [data-worksheet-content="true"] section[data-doc="kindergarten-counting-visual"] svg polygon,
-  [data-worksheet-content="true"] section[data-doc="kindergarten-counting-visual"] svg ellipse,
-  [data-worksheet-content="true"] section[data-doc="kindergarten-counting-visual"] svg g {
-    fill: revert !important;
-    /* Allow inline styles and attributes to take precedence */
-    stroke: revert !important;
-  }
+
 
   /* Preserve explicit fill colors - don't override them */
   [data-worksheet-content="true"] svg path[fill],
