@@ -4923,7 +4923,6 @@ html {
   /* CRITICAL: Ensure emojis and Unicode characters are visible and properly sized */
   /* Target elements that commonly contain emojis */
   [data-worksheet-content="true"] span,
-  [data-worksheet-content="true"] div,
   [data-worksheet-content="true"] p,
   [data-worksheet-content="true"] h1,
   [data-worksheet-content="true"] h2,
@@ -4931,7 +4930,6 @@ html {
   [data-worksheet-content="true"] h4,
   [data-worksheet-content="true"] h5,
   [data-worksheet-content="true"] h6 {
-    display: block !important;
     visibility: visible !important;
     font-size: inherit !important;
     unicode-bidi: embed !important;
@@ -4940,7 +4938,6 @@ html {
   /* Ensure inline elements with emojis are visible */
   [data-worksheet-content="true"] span,
   [data-worksheet-content="true"] [class*="text-"] {
-    display: inline-block !important;
     visibility: visible !important;
   }
 
