@@ -4896,8 +4896,6 @@ html {
     -webkit-print-color-adjust: exact !important;
     print-color-adjust: exact !important;
     color-adjust: exact !important;
-    fill: inherit !important;
-    stroke: inherit !important;
     visibility: visible !important;
     display: block !important;
   }
