@@ -14,14 +14,14 @@ interface LandingPageProps {
 export function LandingPage({ onNavigateToGenerate }: LandingPageProps) {
   const { t, language, isRTL } = useTranslation()
   // Force re-render when language changes
-  React.useEffect(() => {}, [language])
+  React.useEffect(() => { }, [language])
   // JSON-LD Structured Data for Organization
   const organizationSchema = {
     "@context": "https://schema.org",
     "@type": "Organization",
     "name": "Wizqo",
     "url": "https://wizqo.com",
-    "logo": "https://wizqo.com/og-image.jpg",
+    "logo": "https://wizqo.com/logo-720x720.png",
     "description": "AI-powered worksheet generator and learning tools. Create personalized worksheets for math, reading, writing, and more.",
     "sameAs": [],
     "contactPoint": {
@@ -145,7 +145,7 @@ export function LandingPage({ onNavigateToGenerate }: LandingPageProps) {
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(websiteSchema) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }} />
-      
+
       {/* Unified Navigation */}
       <UnifiedNavigation currentPage="home" />
 
@@ -157,7 +157,7 @@ export function LandingPage({ onNavigateToGenerate }: LandingPageProps) {
           <div className="absolute top-0 -right-4 w-72 h-72 bg-yellow-500 rounded-full mix-blend-multiply filter blur-xl opacity-20 animate-blob animation-delay-2000"></div>
           <div className="absolute -bottom-8 left-20 w-72 h-72 bg-pink-500 rounded-full mix-blend-multiply filter blur-xl opacity-20 animate-blob animation-delay-4000"></div>
         </div>
-        
+
         <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 sm:py-24 lg:py-32">
           <div className="text-center">
             {/* Trendy Badge */}
@@ -165,25 +165,25 @@ export function LandingPage({ onNavigateToGenerate }: LandingPageProps) {
               <div className="w-2 h-2 bg-green-400 rounded-full mr-3 animate-pulse"></div>
               <span className="text-sm font-medium"><span aria-hidden="true">✨</span> {t('home.hero.badge')}</span>
             </div>
-            
+
             {/* Main Headline */}
             <h1 className="text-3xl sm:text-4xl lg:text-6xl font-black mb-6 sm:mb-8 leading-tight px-2 sm:px-0">
-              <GradientText 
+              <GradientText
                 colors={['#a855f7', '#ec4899', '#8b5cf6', '#f472b6', '#a855f7']}
                 animationSpeed={8}
               >
                 {t('home.hero.headline')}
               </GradientText>
             </h1>
-            
+
             {/* Subheading */}
             <p className="text-base sm:text-lg lg:text-xl text-gray-300 mb-8 sm:mb-12 max-w-4xl mx-auto leading-relaxed px-4 sm:px-0">
               {t('home.hero.subheading')}
             </p>
-            
+
             {/* CTA Buttons */}
             <div className="flex flex-wrap justify-center gap-4 mb-12 sm:mb-16 px-4">
-              <a 
+              <a
                 href="/worksheets/all"
                 className="inline-flex items-center gap-2 justify-center bg-white/10 backdrop-blur-sm border-2 border-white/30 text-white px-6 sm:px-8 py-3 sm:py-4 text-base sm:text-lg font-bold rounded-2xl hover:bg-white/20 transform hover:scale-105 transition-all duration-300 shadow-xl"
               >
@@ -193,8 +193,8 @@ export function LandingPage({ onNavigateToGenerate }: LandingPageProps) {
             {/* Above-the-fold internal links to worksheets (SEO-safe) - Card Layout */}
             <nav aria-label={t('home.popularWorksheets')} className="px-4 sm:px-0 mb-8">
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-6 gap-4 max-w-7xl mx-auto">
-                <a 
-                  href="/worksheets/kindergarten-math-worksheets" 
+                <a
+                  href="/worksheets/kindergarten-math-worksheets"
                   className="group bg-white rounded-xl p-6 shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-1 border border-gray-100"
                 >
                   <div className="flex flex-col items-center text-center">
@@ -205,8 +205,8 @@ export function LandingPage({ onNavigateToGenerate }: LandingPageProps) {
                     <p className="text-xs text-gray-600">{t('home.gradeCards.kindergarten.description')}</p>
                   </div>
                 </a>
-                <a 
-                  href="/worksheets/1st-grade-math-worksheets" 
+                <a
+                  href="/worksheets/1st-grade-math-worksheets"
                   className="group bg-white rounded-xl p-6 shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-1 border border-gray-100"
                 >
                   <div className="flex flex-col items-center text-center">
@@ -225,8 +225,8 @@ export function LandingPage({ onNavigateToGenerate }: LandingPageProps) {
                     <p className="text-xs text-gray-600">{t('home.gradeCards.firstGrade.description')}</p>
                   </div>
                 </a>
-                <a 
-                  href="/worksheets/2nd-grade-math-worksheets" 
+                <a
+                  href="/worksheets/2nd-grade-math-worksheets"
                   className="group bg-white rounded-xl p-6 shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-1 border border-gray-100"
                 >
                   <div className="flex flex-col items-center text-center">
@@ -245,8 +245,8 @@ export function LandingPage({ onNavigateToGenerate }: LandingPageProps) {
                     <p className="text-xs text-gray-600">{t('home.gradeCards.secondGrade.description')}</p>
                   </div>
                 </a>
-                <a 
-                  href="/worksheets/3rd-grade-math-worksheets" 
+                <a
+                  href="/worksheets/3rd-grade-math-worksheets"
                   className="group bg-white rounded-xl p-6 shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-1 border border-gray-100"
                 >
                   <div className="flex flex-col items-center text-center">
@@ -257,8 +257,8 @@ export function LandingPage({ onNavigateToGenerate }: LandingPageProps) {
                     <p className="text-xs text-gray-600">{t('home.gradeCards.thirdGrade.description')}</p>
                   </div>
                 </a>
-                <a 
-                  href="/worksheets/4th-grade-math-worksheets" 
+                <a
+                  href="/worksheets/4th-grade-math-worksheets"
                   className="group bg-white rounded-xl p-6 shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-1 border border-gray-100"
                 >
                   <div className="flex flex-col items-center text-center">
@@ -269,8 +269,8 @@ export function LandingPage({ onNavigateToGenerate }: LandingPageProps) {
                     <p className="text-xs text-gray-600">{t('home.gradeCards.fourthGrade.description')}</p>
                   </div>
                 </a>
-                <a 
-                  href="/worksheets/5th-grade-math-worksheets" 
+                <a
+                  href="/worksheets/5th-grade-math-worksheets"
                   className="group bg-white rounded-xl p-6 shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-1 border border-gray-100"
                 >
                   <div className="flex flex-col items-center text-center">
@@ -283,7 +283,7 @@ export function LandingPage({ onNavigateToGenerate }: LandingPageProps) {
                 </a>
               </div>
             </nav>
-            
+
             {/* Feature highlights */}
             <div className="flex flex-wrap justify-center items-center gap-6 sm:gap-8 lg:gap-12 text-gray-200 px-4 mt-8">
               <div className="flex items-center gap-3">
@@ -309,7 +309,7 @@ export function LandingPage({ onNavigateToGenerate }: LandingPageProps) {
             </div>
           </div>
         </div>
-        
+
         {/* Floating Elements */}
         <div className="absolute top-1/4 left-10 hidden lg:block">
           <div className="bg-white/10 backdrop-blur-sm rounded-2xl p-4 transform rotate-12 hover:rotate-6 transition-transform duration-300" aria-label="Math worksheets example">
@@ -437,7 +437,7 @@ export function LandingPage({ onNavigateToGenerate }: LandingPageProps) {
               {t('home.grades.subtitle')}
             </p>
           </div>
-          
+
           {/* Grade-Specific H2 Sections with SEO Content */}
           <div className="space-y-16 mb-16">
             {/* 1st Grade Math Worksheets H2 */}
@@ -446,7 +446,7 @@ export function LandingPage({ onNavigateToGenerate }: LandingPageProps) {
               <p className="text-lg text-slate-700 mb-6 leading-relaxed">
                 {t('home.grades.firstGrade.description')}
               </p>
-              <a 
+              <a
                 href="/worksheets/1st-grade-math-worksheets"
                 className="inline-flex items-center gap-2 px-6 py-3 bg-blue-600 text-white font-bold rounded-xl hover:bg-blue-700 transition-all"
               >
@@ -460,7 +460,7 @@ export function LandingPage({ onNavigateToGenerate }: LandingPageProps) {
               <p className="text-lg text-slate-700 mb-6 leading-relaxed">
                 {t('home.grades.secondGrade.description')}
               </p>
-              <a 
+              <a
                 href="/worksheets/2nd-grade-math-worksheets"
                 className="inline-flex items-center gap-2 px-6 py-3 bg-green-600 text-white font-bold rounded-xl hover:bg-green-700 transition-all"
               >
@@ -474,7 +474,7 @@ export function LandingPage({ onNavigateToGenerate }: LandingPageProps) {
               <p className="text-lg text-slate-700 mb-6 leading-relaxed">
                 {t('home.grades.kindergarten.description')}
               </p>
-              <a 
+              <a
                 href="/worksheets/kindergarten-math-worksheets"
                 className="inline-flex items-center gap-2 px-6 py-3 bg-purple-600 text-white font-bold rounded-xl hover:bg-purple-700 transition-all"
               >
@@ -488,7 +488,7 @@ export function LandingPage({ onNavigateToGenerate }: LandingPageProps) {
               <p className="text-lg text-slate-700 mb-6 leading-relaxed">
                 {t('home.grades.thirdGrade.description')}
               </p>
-              <a 
+              <a
                 href="/worksheets/3rd-grade-math-worksheets"
                 className="inline-flex items-center gap-2 px-6 py-3 bg-yellow-600 text-white font-bold rounded-xl hover:bg-yellow-700 transition-all"
               >
@@ -502,7 +502,7 @@ export function LandingPage({ onNavigateToGenerate }: LandingPageProps) {
               <p className="text-lg text-slate-700 mb-6 leading-relaxed">
                 {t('home.grades.fourthGrade.description')}
               </p>
-              <a 
+              <a
                 href="/worksheets/4th-grade-math-worksheets"
                 className="inline-flex items-center gap-2 px-6 py-3 bg-teal-600 text-white font-bold rounded-xl hover:bg-teal-700 transition-all"
               >
@@ -516,7 +516,7 @@ export function LandingPage({ onNavigateToGenerate }: LandingPageProps) {
               <p className="text-lg text-slate-700 mb-6 leading-relaxed">
                 {t('home.grades.fifthGrade.description')}
               </p>
-              <a 
+              <a
                 href="/worksheets/5th-grade-math-worksheets"
                 className="inline-flex items-center gap-2 px-6 py-3 bg-indigo-600 text-white font-bold rounded-xl hover:bg-indigo-700 transition-all"
               >
@@ -524,10 +524,10 @@ export function LandingPage({ onNavigateToGenerate }: LandingPageProps) {
               </a>
             </div>
           </div>
-          
+
           {/* Grade Levels Grid */}
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-6 gap-6 mb-12">
-            <a 
+            <a
               href="/worksheets/kindergarten-math-worksheets"
               className="text-center p-6 rounded-2xl bg-gradient-to-br from-purple-50 to-pink-50 border border-purple-100 hover:border-purple-200 hover:shadow-md transition-all block"
             >
@@ -535,7 +535,7 @@ export function LandingPage({ onNavigateToGenerate }: LandingPageProps) {
               <h3 className="font-bold text-slate-900 mb-2">{t('home.gradeGridCards.kindergarten.title')}</h3>
               <p className="text-slate-600 text-sm">{t('home.gradeGridCards.kindergarten.description')}</p>
             </a>
-            <a 
+            <a
               href="/worksheets/1st-grade-math-worksheets"
               className="text-center p-6 rounded-2xl bg-gradient-to-br from-blue-50 to-indigo-50 border border-blue-100 hover:border-blue-200 hover:shadow-md transition-all block"
             >
@@ -543,7 +543,7 @@ export function LandingPage({ onNavigateToGenerate }: LandingPageProps) {
               <h3 className="font-bold text-slate-900 mb-2">{t('home.gradeGridCards.firstGrade.title')}</h3>
               <p className="text-slate-600 text-sm">{t('home.gradeGridCards.firstGrade.description')}</p>
             </a>
-            <a 
+            <a
               href="/worksheets/2nd-grade-math-worksheets"
               className="text-center p-6 rounded-2xl bg-gradient-to-br from-green-50 to-emerald-50 border border-green-100 hover:border-green-200 hover:shadow-md transition-all block"
             >
@@ -551,7 +551,7 @@ export function LandingPage({ onNavigateToGenerate }: LandingPageProps) {
               <h3 className="font-bold text-slate-900 mb-2">{t('home.gradeGridCards.secondGrade.title')}</h3>
               <p className="text-slate-600 text-sm">{t('home.gradeGridCards.secondGrade.description')}</p>
             </a>
-            <a 
+            <a
               href="/worksheets/3rd-grade-math-worksheets"
               className="text-center p-6 rounded-2xl bg-gradient-to-br from-yellow-50 to-orange-50 border border-yellow-100 hover:border-yellow-200 hover:shadow-md transition-all block"
             >
@@ -559,7 +559,7 @@ export function LandingPage({ onNavigateToGenerate }: LandingPageProps) {
               <h3 className="font-bold text-slate-900 mb-2">{t('home.gradeGridCards.thirdGrade.title')}</h3>
               <p className="text-slate-600 text-sm">{t('home.gradeGridCards.thirdGrade.description')}</p>
             </a>
-            <a 
+            <a
               href="/worksheets/4th-grade-math-worksheets"
               className="text-center p-6 rounded-2xl bg-gradient-to-br from-teal-50 to-cyan-50 border border-teal-100 hover:border-teal-200 hover:shadow-md transition-all block"
             >
@@ -567,7 +567,7 @@ export function LandingPage({ onNavigateToGenerate }: LandingPageProps) {
               <h3 className="font-bold text-slate-900 mb-2">{t('home.gradeGridCards.fourthGrade.title')}</h3>
               <p className="text-slate-600 text-sm">{t('home.gradeGridCards.fourthGrade.description')}</p>
             </a>
-            <a 
+            <a
               href="/worksheets/5th-grade-math-worksheets"
               className="text-center p-6 rounded-2xl bg-gradient-to-br from-indigo-50 to-blue-50 border border-indigo-100 hover:border-indigo-200 hover:shadow-md transition-all block"
             >
@@ -576,7 +576,7 @@ export function LandingPage({ onNavigateToGenerate }: LandingPageProps) {
               <p className="text-slate-600 text-sm">{t('home.gradeGridCards.fifthGrade.description')}</p>
             </a>
           </div>
-          
+
           {/* Multiplication Worksheets Highlight Section */}
           <div className="bg-gradient-to-r from-purple-100 via-pink-100 to-purple-100 rounded-3xl p-8 mb-12 border-2 border-purple-200">
             <div className="text-center">
@@ -586,8 +586,8 @@ export function LandingPage({ onNavigateToGenerate }: LandingPageProps) {
               <p className="text-lg text-slate-700 mb-6 max-w-3xl mx-auto">
                 {t('home.grades.multiplicationHighlight.description')}
               </p>
-              <a 
-                href="/worksheets/multiplication-worksheets" 
+              <a
+                href="/worksheets/multiplication-worksheets"
                 className="inline-flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-purple-600 to-pink-600 text-white font-bold rounded-xl hover:from-purple-700 hover:to-pink-700 transition-all transform hover:scale-105 shadow-lg"
               >
                 {t('home.grades.multiplicationHighlight.cta')}
@@ -628,7 +628,7 @@ export function LandingPage({ onNavigateToGenerate }: LandingPageProps) {
               {t('home.whyChoose.subtitle')}
             </p>
           </div>
-          
+
           {/* Benefits Grid */}
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             <div className="bg-white rounded-2xl p-8 shadow-lg hover:shadow-xl transition-shadow duration-300">
@@ -662,7 +662,7 @@ export function LandingPage({ onNavigateToGenerate }: LandingPageProps) {
               <p className="text-slate-600 leading-relaxed">{t('home.whyChoose.trustedByTeachers.description')}</p>
             </div>
           </div>
-          
+
           {/* Bento Grid Layout */}
           <div className="grid grid-cols-1 lg:grid-cols-4 gap-6">
             {/* AI Personalization - Large Card */}
@@ -692,7 +692,7 @@ export function LandingPage({ onNavigateToGenerate }: LandingPageProps) {
                 </div>
               </div>
             </div>
-            
+
             {/* Grade Levels Card */}
             <div className="lg:col-span-2 bg-gradient-to-br from-blue-50 to-indigo-50 rounded-3xl p-8 relative overflow-hidden group hover:scale-105 transition-all duration-300">
               <div className="absolute -top-10 -right-10 w-24 h-24 bg-gradient-to-br from-blue-400 to-indigo-400 rounded-full opacity-20"></div>
@@ -713,7 +713,7 @@ export function LandingPage({ onNavigateToGenerate }: LandingPageProps) {
                 </div>
               </div>
             </div>
-            
+
             {/* Progress Tracking */}
             <div className="bg-gradient-to-br from-green-50 to-emerald-50 rounded-3xl p-8 relative overflow-hidden group hover:scale-105 transition-all duration-300">
               <div className="absolute top-0 left-0 w-20 h-20 bg-gradient-to-br from-green-400 to-emerald-400 rounded-full blur-2xl opacity-30"></div>
@@ -726,11 +726,11 @@ export function LandingPage({ onNavigateToGenerate }: LandingPageProps) {
                   {t('home.answerKeysIncludedDescription')}
                 </p>
                 <div className="mt-4 bg-white/60 rounded-lg p-2">
-                  <div className="bg-green-400 h-2 rounded-full" style={{width: '70%'}}></div>
+                  <div className="bg-green-400 h-2 rounded-full" style={{ width: '70%' }}></div>
                 </div>
               </div>
             </div>
-            
+
             {/* Community */}
             <div className="bg-gradient-to-br from-yellow-50 to-orange-50 rounded-3xl p-8 relative overflow-hidden group hover:scale-105 transition-all duration-300">
               <div className="absolute -bottom-5 -right-5 w-16 h-16 bg-gradient-to-br from-yellow-400 to-orange-400 rounded-full opacity-30"></div>
@@ -767,14 +767,14 @@ export function LandingPage({ onNavigateToGenerate }: LandingPageProps) {
               {t('home.howItWorks.subtitle')}
             </p>
           </div>
-          
+
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8 lg:gap-12">
             {/* Step 1: Choose Grade & Subject */}
             <div className="bg-white rounded-3xl p-8 shadow-lg hover:shadow-xl transition-all duration-300 group">
               <div className="w-12 h-12 bg-gradient-to-r from-purple-500 to-pink-500 rounded-2xl flex items-center justify-center text-white text-xl font-bold mb-6 group-hover:scale-110 transition-transform duration-300">
                 1
               </div>
-              
+
               <div className="bg-gradient-to-br from-purple-50 to-pink-50 rounded-2xl p-6 mb-6 relative overflow-hidden">
                 <div className="absolute top-4 right-4 w-16 h-16 bg-gradient-to-br from-purple-400 to-pink-400 rounded-full opacity-20"></div>
                 <div className="relative z-10">
@@ -793,7 +793,7 @@ export function LandingPage({ onNavigateToGenerate }: LandingPageProps) {
                   </div>
                 </div>
               </div>
-              
+
               <h3 className="text-xl font-bold text-slate-900 mb-4">{t('home.howItWorks.step1.title')}</h3>
               <p className="text-slate-600 leading-relaxed mb-4">
                 {t('home.howItWorks.step1.description')}
@@ -811,27 +811,27 @@ export function LandingPage({ onNavigateToGenerate }: LandingPageProps) {
               <div className="w-12 h-12 bg-gradient-to-r from-blue-500 to-indigo-500 rounded-2xl flex items-center justify-center text-white text-xl font-bold mb-6 group-hover:scale-110 transition-transform duration-300">
                 2
               </div>
-              
+
               <div className="bg-gradient-to-br from-blue-50 to-indigo-50 rounded-2xl p-6 mb-6 relative overflow-hidden">
                 <div className="absolute top-4 right-4 w-16 h-16 bg-gradient-to-br from-blue-400 to-indigo-400 rounded-full opacity-20"></div>
                 <div className="relative z-10">
                   <div className="w-16 h-16 bg-gradient-to-r from-blue-500 to-indigo-500 rounded-2xl flex items-center justify-center mb-4 mx-auto">
                     <span className="text-2xl" aria-hidden="true">🤖</span>
                   </div>
-              <div className="bg-white/60 rounded-lg p-3">
-                <div className="flex items-center mb-2 text-sm">
-                  <div className="w-3 h-1 bg-blue-400 rounded mr-2"></div>
-                  <div className="w-6 h-1 bg-blue-400 rounded mr-2"></div>
-                  <div className="w-4 h-1 bg-blue-300 rounded"></div>
-                </div>
-                <div className="flex items-center text-sm">
-                  <div className="w-4 h-1 bg-blue-300 rounded mr-2"></div>
-                  <div className="w-5 h-1 bg-blue-400 rounded"></div>
+                  <div className="bg-white/60 rounded-lg p-3">
+                    <div className="flex items-center mb-2 text-sm">
+                      <div className="w-3 h-1 bg-blue-400 rounded mr-2"></div>
+                      <div className="w-6 h-1 bg-blue-400 rounded mr-2"></div>
+                      <div className="w-4 h-1 bg-blue-300 rounded"></div>
+                    </div>
+                    <div className="flex items-center text-sm">
+                      <div className="w-4 h-1 bg-blue-300 rounded mr-2"></div>
+                      <div className="w-5 h-1 bg-blue-400 rounded"></div>
+                    </div>
+                  </div>
                 </div>
               </div>
-                </div>
-              </div>
-              
+
               <h3 className="text-xl font-bold text-slate-900 mb-4">{t('home.howItWorks.step2.title')}</h3>
               <p className="text-slate-600 leading-relaxed mb-4">
                 {t('home.howItWorks.step2.description')}
@@ -849,7 +849,7 @@ export function LandingPage({ onNavigateToGenerate }: LandingPageProps) {
               <div className="w-12 h-12 bg-gradient-to-r from-green-500 to-emerald-500 rounded-2xl flex items-center justify-center text-white text-xl font-bold mb-6 group-hover:scale-110 transition-transform duration-300">
                 3
               </div>
-              
+
               <div className="bg-gradient-to-br from-green-50 to-emerald-50 rounded-2xl p-6 mb-6 relative overflow-hidden">
                 <div className="absolute top-4 right-4 w-16 h-16 bg-gradient-to-br from-green-400 to-emerald-400 rounded-full opacity-20"></div>
                 <div className="relative z-10">
@@ -867,7 +867,7 @@ export function LandingPage({ onNavigateToGenerate }: LandingPageProps) {
                   </div>
                 </div>
               </div>
-              
+
               <h3 className="text-xl font-bold text-slate-900 mb-4">{t('home.howItWorks.step3.title')}</h3>
               <p className="text-slate-600 leading-relaxed mb-4">
                 {t('home.howItWorks.step3.description')}
@@ -894,7 +894,7 @@ export function LandingPage({ onNavigateToGenerate }: LandingPageProps) {
               {t('home.testimonials.subtitle')}
             </p>
           </div>
-          
+
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
             <div className="bg-white rounded-2xl p-8 shadow-lg">
               <div className="flex items-center mb-4">
@@ -939,7 +939,7 @@ export function LandingPage({ onNavigateToGenerate }: LandingPageProps) {
               {t('home.faq.subtitle')}
             </p>
           </div>
-          
+
           <div className="space-y-8">
             <div className="bg-slate-50 rounded-2xl p-8">
               <h3 className="text-xl font-bold text-slate-900 mb-4">{t('home.faq.free.question')}</h3>
@@ -985,10 +985,10 @@ export function LandingPage({ onNavigateToGenerate }: LandingPageProps) {
             <div className="absolute bottom-1/4 left-1/3 w-96 h-96 bg-pink-500 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-blob animation-delay-4000"></div>
           </div>
         </div>
-        
+
         <div className="relative max-w-6xl mx-auto text-center px-4 sm:px-6 lg:px-8">
           {/* Floating badges */}
-            <div className="flex flex-wrap justify-center gap-4 mb-12">
+          <div className="flex flex-wrap justify-center gap-4 mb-12">
             <div className="bg-white/10 backdrop-blur-sm border border-white/20 rounded-full px-4 py-2 text-white text-sm">
               <span aria-hidden="true">📚</span> {t('home.cta.badges.free')}
             </div>
@@ -999,7 +999,7 @@ export function LandingPage({ onNavigateToGenerate }: LandingPageProps) {
               <span aria-hidden="true">🖨️</span> {t('home.cta.badges.printable')}
             </div>
           </div>
-          
+
           <h2 className="text-4xl lg:text-5xl font-black text-white mb-8 leading-tight">
             {t('home.cta.title')}
             <br />
@@ -1007,14 +1007,14 @@ export function LandingPage({ onNavigateToGenerate }: LandingPageProps) {
               {t('home.cta.titleHighlight')}
             </span>
           </h2>
-          
+
           <p className="text-lg lg:text-xl text-gray-300 mb-12 max-w-4xl mx-auto leading-relaxed">
             {t('home.cta.description')}
           </p>
-          
+
           {/* CTA Buttons */}
           <div className="flex flex-col sm:flex-row gap-6 justify-center items-center mb-12">
-            <a 
+            <a
               href="/interactive-worksheets-generator"
               className="inline-flex items-center justify-center bg-gradient-to-r from-yellow-400 to-orange-500 text-black px-12 py-6 text-lg font-black rounded-3xl hover:from-yellow-300 hover:to-orange-400 transform hover:scale-110 transition-all duration-300 shadow-2xl hover:shadow-yellow-500/25 border-0"
             >
@@ -1026,7 +1026,7 @@ export function LandingPage({ onNavigateToGenerate }: LandingPageProps) {
               </p>
             </div>
           </div>
-          
+
           {/* Success Stories Preview */}
           <div className="bg-white/5 backdrop-blur-sm border border-white/10 rounded-3xl p-8 max-w-4xl mx-auto">
             <div className="grid md:grid-cols-3 gap-6 text-center">
