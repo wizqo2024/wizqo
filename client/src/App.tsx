@@ -36,7 +36,7 @@ import OrderOfOperationsWorksheetsPage from './pages/OrderOfOperationsWorksheets
 import WorksheetPage from './pages/WorksheetPage';
 import AllWorksheetsPage from './pages/AllWorksheetsPage';
 
-const CosmicMathWorksheet = lazy(() => import('./components/worksheets/CosmicMathWorksheet'));
+
 import NotFoundPage from './pages/NotFoundPage';
 import { ErrorBoundary } from './components/ErrorBoundary';
 import { initAnalytics, trackPageView, trackUserFlow } from './utils/analytics';
@@ -513,22 +513,7 @@ export default function App() {
                     </>
                   );
                 case 'worksheets':
-                  // Special Showcase: Cosmic Math Adventure
-                  if (routeSubKey === 'cosmic-math-challenge') {
-                    return (
-                      <>
-                        <SEOMetaTags
-                          title="Cosmic Math Adventure | Wizqo"
-                          description="Blast off with this interactive, space-themed multiplication worksheet. A visual masterpiece for learning."
-                          keywords="math game, space math, cosmic multiplication, interactive worksheet"
-                          canonicalUrl="https://wizqo.com/worksheets/cosmic-math-challenge"
-                        />
-                        <Suspense fallback={<div className="min-h-screen bg-slate-900" />}>
-                          <CosmicMathWorksheet />
-                        </Suspense>
-                      </>
-                    );
-                  }
+
 
                   // All worksheets master page
                   if (routeSubKey === 'all') {

@@ -172,35 +172,7 @@ export default function WorksheetsThirdGradePage() {
           </div>
         </section>
 
-        {/* Featured Masterpiece Section */}
-        <section className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8 mt-[-30px] mb-10 relative z-10">
-          <a href="/worksheets/cosmic-math-challenge" className="block group">
-            <div className="relative overflow-hidden rounded-2xl bg-[#0f172a] p-8 shadow-2xl transition-all duration-300 hover:scale-[1.01] hover:shadow-purple-500/20 border border-purple-500/30">
-              {/* Animated background elements */}
-              <div className="absolute inset-0 bg-gradient-to-r from-purple-900/20 to-blue-900/20" />
-              <div className="absolute -right-20 -top-20 w-64 h-64 bg-purple-500/30 blur-[100px] rounded-full group-hover:bg-purple-500/40 transition-colors" />
 
-              <div className="relative flex flex-col md:flex-row items-center justify-between gap-6">
-                <div>
-                  <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-purple-500/20 border border-purple-500/30 text-purple-300 text-xs font-bold uppercase tracking-wider mb-3">
-                    ✨ New Feature
-                  </div>
-                  <h2 className="text-3xl font-black text-white mb-2">
-                    Take the <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-pink-400">Cosmic Math Challenge</span> 🚀
-                  </h2>
-                  <p className="text-slate-300 max-w-xl">
-                    Experience our most visually stunning worksheet yet. Blast through multiplication problems in deep space.
-                  </p>
-                </div>
-                <div className="flex-shrink-0">
-                  <span className="inline-flex items-center justify-center px-6 py-3 rounded-xl bg-white text-slate-900 font-bold hover:bg-purple-50 transition-colors">
-                    Launch Mission →
-                  </span>
-                </div>
-              </div>
-            </div>
-          </a>
-        </section>
 
         <div className="mx-auto max-w-6xl px-4 pb-16 sm:px-6 lg:px-8 space-y-10">
           <section className="bg-white border border-slate-200 rounded-2xl p-5">
