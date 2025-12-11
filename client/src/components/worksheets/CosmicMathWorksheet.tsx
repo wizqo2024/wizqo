@@ -1,12 +1,10 @@
 
 import React, { useState, useEffect } from 'react';
-import { useTranslation } from 'react-i18next';
 
 // Utility for random numbers
 const randomInt = (min: number, max: number) => Math.floor(Math.random() * (max - min + 1)) + min;
 
 export const CosmicMathWorksheet = () => {
-  const { t } = useTranslation();
   const [problems, setProblems] = useState<{ a: number; b: number; op: string }[]>([]);
   const [score, setScore] = useState(0);
   const [showConfetti, setShowConfetti] = useState(false);
@@ -51,53 +49,53 @@ export const CosmicMathWorksheet = () => {
         <div className="bg-slate-900/50 backdrop-blur-xl border border-white/10 rounded-3xl p-8md:p-12 shadow-[0_0_50px_rgba(0,0,0,0.3)] relative overflow-hidden group">
           {/* Glass Gloss */}
           <div className="absolute inset-0 bg-gradient-to-br from-white/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none" />
-          
+
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12">
-             {/* Problems List */}
-             <div className="space-y-6">
-                {problems.map((p, i) => (
-                  <div key={i} className="flex items-center justify-between p-4 rounded-xl bg-white/5 border border-white/5 hover:bg-white/10 hover:border-purple-500/30 transition-all duration-300 group/item">
-                    <span className="text-2xl font-bold text-slate-400 w-8">{i + 1}.</span>
-                    <div className="flex items-center gap-4 text-3xl font-mono text-white">
-                      <span className="text-blue-400">{p.a}</span>
-                      <span className="text-slate-500">{p.op}</span>
-                      <span className="text-pink-400">{p.b}</span>
-                      <span className="text-slate-500">=</span>
-                    </div>
-                    <div className="w-20 h-10 bg-black/30 rounded-lg border border-white/10 group-hover/item:border-purple-500/50 transition-colors" />
+            {/* Problems List */}
+            <div className="space-y-6">
+              {problems.map((p, i) => (
+                <div key={i} className="flex items-center justify-between p-4 rounded-xl bg-white/5 border border-white/5 hover:bg-white/10 hover:border-purple-500/30 transition-all duration-300 group/item">
+                  <span className="text-2xl font-bold text-slate-400 w-8">{i + 1}.</span>
+                  <div className="flex items-center gap-4 text-3xl font-mono text-white">
+                    <span className="text-blue-400">{p.a}</span>
+                    <span className="text-slate-500">{p.op}</span>
+                    <span className="text-pink-400">{p.b}</span>
+                    <span className="text-slate-500">=</span>
                   </div>
-                ))}
-             </div>
-
-             {/* Sidebar Info */}
-             <div className="flex flex-col gap-6">
-                <div className="p-6 rounded-2xl bg-gradient-to-br from-purple-900/40 to-blue-900/40 border border-white/10">
-                  <h3 className="text-xl font-bold text-white mb-2">🧑‍🚀 Cadet Profile</h3>
-                  <div className="space-y-3">
-                    <div className="h-8 bg-white/5 rounded w-3/4 animate-pulse" />
-                    <div className="h-8 bg-white/5 rounded w-1/2 animate-pulse" />
-                  </div>
+                  <div className="w-20 h-10 bg-black/30 rounded-lg border border-white/10 group-hover/item:border-purple-500/50 transition-colors" />
                 </div>
+              ))}
+            </div>
 
-                <div className="p-6 rounded-2xl bg-gradient-to-br from-pink-900/40 to-orange-900/40 border border-white/10">
-                   <h3 className="text-xl font-bold text-white mb-2">🏆 Mission Status</h3>
-                   <p className="text-slate-300 text-sm mb-4">Complete all equations to unlock hyper-drive.</p>
-                   <div className="w-full bg-black/50 rounded-full h-4 overflow-hidden">
-                      <div className="w-[0%] h-full bg-gradient-to-r from-pink-500 to-yellow-500" />
-                   </div>
+            {/* Sidebar Info */}
+            <div className="flex flex-col gap-6">
+              <div className="p-6 rounded-2xl bg-gradient-to-br from-purple-900/40 to-blue-900/40 border border-white/10">
+                <h3 className="text-xl font-bold text-white mb-2">🧑‍🚀 Cadet Profile</h3>
+                <div className="space-y-3">
+                  <div className="h-8 bg-white/5 rounded w-3/4 animate-pulse" />
+                  <div className="h-8 bg-white/5 rounded w-1/2 animate-pulse" />
                 </div>
+              </div>
 
-                <div className="mt-auto">
-                    <button 
-                      onClick={() => window.print()}
-                      className="w-full py-4 rounded-xl bg-gradient-to-r from-blue-600 via-purple-600 to-pink-600 text-white font-bold text-lg tracking-wider hover:scale-[1.02] active:scale-[0.98] transition-transform shadow-[0_0_20px_rgba(147,51,234,0.5)] flex items-center justify-center gap-2 group/btn"
-                    >
-                      <span>PRINT MISSION</span>
-                      <svg className="w-6 h-6 group-hover/btn:translate-y-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" /></svg>
-                    </button>
-                    <p className="text-center text-slate-500 text-sm mt-3">Ready for launch? 3... 2... 1...</p>
+              <div className="p-6 rounded-2xl bg-gradient-to-br from-pink-900/40 to-orange-900/40 border border-white/10">
+                <h3 className="text-xl font-bold text-white mb-2">🏆 Mission Status</h3>
+                <p className="text-slate-300 text-sm mb-4">Complete all equations to unlock hyper-drive.</p>
+                <div className="w-full bg-black/50 rounded-full h-4 overflow-hidden">
+                  <div className="w-[0%] h-full bg-gradient-to-r from-pink-500 to-yellow-500" />
                 </div>
-             </div>
+              </div>
+
+              <div className="mt-auto">
+                <button
+                  onClick={() => window.print()}
+                  className="w-full py-4 rounded-xl bg-gradient-to-r from-blue-600 via-purple-600 to-pink-600 text-white font-bold text-lg tracking-wider hover:scale-[1.02] active:scale-[0.98] transition-transform shadow-[0_0_20px_rgba(147,51,234,0.5)] flex items-center justify-center gap-2 group/btn"
+                >
+                  <span>PRINT MISSION</span>
+                  <svg className="w-6 h-6 group-hover/btn:translate-y-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" /></svg>
+                </button>
+                <p className="text-center text-slate-500 text-sm mt-3">Ready for launch? 3... 2... 1...</p>
+              </div>
+            </div>
           </div>
         </div>
 
@@ -106,7 +104,7 @@ export const CosmicMathWorksheet = () => {
           <p className="text-sm text-slate-400 font-mono tracking-widest">WIZQO INTERSTELLAR ACADEMY • 2024</p>
         </div>
       </div>
-      
+
       {/* Print Styles */}
       <style>{`
         @media print {
