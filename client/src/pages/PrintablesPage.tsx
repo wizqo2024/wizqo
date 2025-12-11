@@ -3143,7 +3143,26 @@ export function PrintablesPage() {
                         useCORS: true,
                         logging: false,
                         backgroundColor: '#ffffff',
-                        allowTaint: false
+                        allowTaint: false,
+                        ignoreElements: (element) => {
+                          // Explicitly ignore elements with data-html2canvas-ignore
+                          if (element.hasAttribute('data-html2canvas-ignore')) return true
+                          // Ignore elements that are hidden in print
+                          if (element.classList.contains('print:hidden')) return true
+                          return false
+                        },
+                        onclone: (clonedDoc) => {
+                          // Double safety: find any print:hidden elements in the clone and remove them
+                          const printHidden = clonedDoc.querySelectorAll('.print\\:hidden')
+                          printHidden.forEach(el => {
+                            if (el.parentNode) el.parentNode.removeChild(el)
+                          })
+                          // Also remove the specific button container if strictly needed
+                          const ignoreEls = clonedDoc.querySelectorAll('[data-html2canvas-ignore="true"]')
+                          ignoreEls.forEach(el => {
+                            if (el.parentNode) el.parentNode.removeChild(el)
+                          })
+                        }
                       }).then(canvas => {
                         const imgData = canvas.toDataURL('image/png')
                         const link = document.createElement('a')
