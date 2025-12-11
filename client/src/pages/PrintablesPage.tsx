@@ -2995,7 +2995,7 @@ export function PrintablesPage() {
         )}
         {/* Doc-specific back link and download button */}
         {!isPreview && (
-          <div className="mb-4 print:hidden flex justify-between items-center">
+          <div className="mb-4 print:hidden flex justify-between items-center" data-html2canvas-ignore="true">
             <a
               href={(() => {
                 try {
