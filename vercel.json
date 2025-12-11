@@ -345,6 +345,18 @@
     {
       "source": "/:locale(es|ar)/reset-password",
       "destination": "/index.html"
+    },
+    {
+      "source": "/worksheets/:slug",
+      "destination": "/index.html"
+    },
+    {
+      "source": "/worksheets/:slug/",
+      "destination": "/index.html"
+    },
+    {
+      "source": "/:locale(es|ar)/worksheets/:slug",
+      "destination": "/index.html"
     }
   ]
 }
