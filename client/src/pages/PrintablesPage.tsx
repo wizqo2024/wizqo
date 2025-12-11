@@ -7,10 +7,10 @@ import { PRINTABLE_BUNDLE_SECTIONS, getPrintableSectionForDoc } from '@/data/pri
 import { INTERACTIVE_CATEGORIES } from '@shared/interactive/interactiveWorksheets'
 import { formatNumber } from '@/utils/numbers'
 import { WorksheetHeader, WorksheetFooter, ProblemBox } from '@/components/worksheet'
-import { 
-  trackWorksheetDownload, 
-  trackWorksheetView, 
-  trackPrintDialog, 
+import {
+  trackWorksheetDownload,
+  trackWorksheetView,
+  trackPrintDialog,
   trackAnswerKeyToggle,
   trackTimeOnPage,
   trackScrollDepth,
@@ -28,13 +28,13 @@ function getWorksheetTheme(docId: string): {
   cornerAccent2: string
 } {
   // Math worksheets
-  if (docId.includes('math') || docId.includes('number') || docId.includes('addition') || docId.includes('subtraction') || 
-      docId.includes('place-value') || docId.includes('counting') || docId.includes('skip-count') || docId.includes('expanded') ||
-      docId.includes('rounding') || docId.includes('fact') || docId.includes('mental-math') || docId.includes('doubles') ||
-      docId.includes('compare') || docId.includes('word-problems') || docId.includes('number-line') || docId.includes('number-patterns') ||
-      docId.includes('missing-addends') || docId.includes('add-three') || docId.includes('balance-equations') || docId.includes('picture-addition') ||
-      docId.includes('subtraction-stories') || docId.includes('number-bonds') || docId.includes('count-write') || docId.includes('missing-numbers') ||
-      docId.includes('ten-frames') || docId.includes('number-tracing') || docId.includes('dot-to-dot') || docId.includes('color-by-number')) {
+  if (docId.includes('math') || docId.includes('number') || docId.includes('addition') || docId.includes('subtraction') ||
+    docId.includes('place-value') || docId.includes('counting') || docId.includes('skip-count') || docId.includes('expanded') ||
+    docId.includes('rounding') || docId.includes('fact') || docId.includes('mental-math') || docId.includes('doubles') ||
+    docId.includes('compare') || docId.includes('word-problems') || docId.includes('number-line') || docId.includes('number-patterns') ||
+    docId.includes('missing-addends') || docId.includes('add-three') || docId.includes('balance-equations') || docId.includes('picture-addition') ||
+    docId.includes('subtraction-stories') || docId.includes('number-bonds') || docId.includes('count-write') || docId.includes('missing-numbers') ||
+    docId.includes('ten-frames') || docId.includes('number-tracing') || docId.includes('dot-to-dot') || docId.includes('color-by-number')) {
     return {
       background: 'bg-gradient-to-br from-purple-50 via-indigo-50 to-pink-50',
       border: 'border-purple-300',
@@ -84,8 +84,8 @@ function getWorksheetTheme(docId: string): {
     }
   }
   // Logic/Focus worksheets
-  if (docId.includes('logic') || docId.includes('spot-difference') || docId.includes('pattern') || docId.includes('maze') || 
-      docId.includes('missing-shape') || docId.includes('size-comparison') || docId.includes('shapes-colors-sort')) {
+  if (docId.includes('logic') || docId.includes('spot-difference') || docId.includes('pattern') || docId.includes('maze') ||
+    docId.includes('missing-shape') || docId.includes('size-comparison') || docId.includes('shapes-colors-sort')) {
     return {
       background: 'bg-gradient-to-br from-slate-50 via-gray-50 to-zinc-50',
       border: 'border-slate-300',
@@ -156,19 +156,19 @@ function ParentTeacherTips({ tips }: { tips: string[] }) {
 function WorkedExampleContent() {
   const { t, language } = useTranslation()
   // Force re-render when language changes
-  React.useEffect(() => {}, [language])
+  React.useEffect(() => { }, [language])
   return (
-    <div 
+    <div
       className="mb-6 p-4 bg-gradient-to-br from-blue-50 to-indigo-50 border-2 border-blue-200 rounded-lg print:border print:bg-white worked-example"
-      style={{ 
+      style={{
         pageBreakInside: 'avoid',
         breakInside: 'avoid',
         WebkitRegionBreakInside: 'avoid'
       } as React.CSSProperties}
     >
-      <div 
+      <div
         className="font-semibold text-blue-900 mb-3 text-sm flex items-center gap-2"
-        style={{ 
+        style={{
           pageBreakAfter: 'avoid',
           breakAfter: 'avoid'
         } as React.CSSProperties}
@@ -223,18 +223,18 @@ function WorkedExampleContent() {
 
 // Helper component to wrap worksheet sections with nice styling
 // Remove memo to ensure re-renders when language changes
-function WorksheetSectionWrapper({ 
-  docId, 
-  title, 
-  emoji, 
-  description, 
+function WorksheetSectionWrapper({
+  docId,
+  title,
+  emoji,
+  description,
   children,
   problemCount,
   learningObjectives,
   parentTeacherTips,
   hideDefaultHeader = false,
   footer
-}: { 
+}: {
   docId: string
   title: string
   emoji?: string
@@ -248,7 +248,7 @@ function WorksheetSectionWrapper({
 }) {
   const { t, isRTL, language } = useTranslation()
   const theme = getWorksheetTheme(docId)
-  
+
   // Try to get translated title/description if available
   // Use language in dependency to force re-render when language changes
   // Only try to translate if the title/description looks like a translation key (starts with 'worksheets.')
@@ -260,7 +260,7 @@ function WorksheetSectionWrapper({
     const translated = t(`worksheets.${docId}.title`)
     return translated !== `worksheets.${docId}.title` ? translated : title
   }, [t, docId, title, language])
-  
+
   const translatedDescription = React.useMemo(() => {
     if (!description) return description
     // If description is already a translated string (doesn't start with 'worksheets.'), use it as-is
@@ -270,7 +270,7 @@ function WorksheetSectionWrapper({
     const translated = t(`worksheets.${docId}.description`)
     return translated !== `worksheets.${docId}.description` ? translated : description
   }, [t, docId, description, language])
-  
+
   const translatedObjectives = React.useMemo(() => {
     if (!learningObjectives) return undefined
     return learningObjectives.map((obj, idx) => {
@@ -279,7 +279,7 @@ function WorksheetSectionWrapper({
       return translated !== key ? translated : obj
     })
   }, [t, docId, learningObjectives, language])
-  
+
   const translatedTips = React.useMemo(() => {
     if (!parentTeacherTips) return undefined
     return parentTeacherTips.map((tip, idx) => {
@@ -288,12 +288,12 @@ function WorksheetSectionWrapper({
       return translated !== key ? translated : tip
     })
   }, [t, docId, parentTeacherTips, language])
-  
+
   return (
-    <section 
+    <section
       className={`mb-10 break-inside-avoid rounded-xl border-2 ${theme.border} ${theme.background} p-6 print:border-0 print:p-0 print:bg-white print:mt-0 print:mb-0 print:pt-0 shadow-lg relative overflow-hidden worksheet-section`}
       dir={isRTL ? 'rtl' : 'ltr'}
-      style={{ 
+      style={{
         pageBreakInside: 'auto', // Allow section to break across pages if needed
         breakInside: 'auto',
         WebkitRegionBreakInside: 'auto',
@@ -306,9 +306,9 @@ function WorksheetSectionWrapper({
       {/* Decorative corner accent */}
       <div className="absolute top-0 right-0 w-32 h-32 bg-gradient-to-br rounded-bl-full pointer-events-none print:hidden" style={{ backgroundColor: theme.cornerAccent }} />
       <div className="absolute bottom-0 left-0 w-24 h-24 bg-gradient-to-tr rounded-tr-full pointer-events-none print:hidden" style={{ backgroundColor: theme.cornerAccent2 }} />
-      <div 
+      <div
         className="relative z-10 print:p-0"
-        style={{ 
+        style={{
           pageBreakInside: 'avoid',
           breakInside: 'avoid',
           paddingTop: 0,
@@ -316,9 +316,9 @@ function WorksheetSectionWrapper({
         } as React.CSSProperties}
       >
         {!hideDefaultHeader && <WorksheetHeader problemCount={problemCount} />}
-        <h2 
+        <h2
           className={`text-xl font-bold ${theme.text} mb-2 flex items-center gap-2`}
-          style={{ 
+          style={{
             pageBreakAfter: 'avoid',
             breakAfter: 'avoid',
             pageBreakInside: 'avoid',
@@ -331,9 +331,9 @@ function WorksheetSectionWrapper({
           <span>{translatedTitle}</span>
         </h2>
         {translatedDescription && (
-          <p 
+          <p
             className={`text-sm ${theme.text} opacity-70 mb-4`}
-            style={{ 
+            style={{
               pageBreakAfter: 'avoid',
               breakAfter: 'avoid',
               marginTop: '0.25rem'
@@ -1399,7 +1399,7 @@ const BUNDLE_DOC_ALLOWLIST = new Set<string>([
 
 export function PrintablesPage() {
   const { t, language } = useTranslation()
-  
+
   // Force re-render when language changes (important for /print route with ?lang=ar)
   // Use a state update to ensure component re-renders when language changes
   const [, forceUpdate] = React.useReducer(x => x + 1, 0)
@@ -1407,7 +1407,7 @@ export function PrintablesPage() {
     // Force re-render when language changes to ensure translations update
     forceUpdate()
   }, [language])
-  
+
   // Helper function to get translations with fallback
   // Include language in dependencies to ensure it updates when language changes
   const getTrans = React.useCallback((key: string, fallback: string) => {
@@ -1417,8 +1417,8 @@ export function PrintablesPage() {
       }
       const result = t(key)
       // Debug: Log if translation is missing
-      if (typeof window !== 'undefined' && process.env.NODE_ENV === 'development' && 
-          key.includes('number-id-1-10') && (result === key || (typeof result === 'string' && result.startsWith('worksheets.')))) {
+      if (typeof window !== 'undefined' && process.env.NODE_ENV === 'development' &&
+        key.includes('number-id-1-10') && (result === key || (typeof result === 'string' && result.startsWith('worksheets.')))) {
         console.warn(`[PrintablesPage] Translation missing for key: ${key}, language: ${language}, result: ${result}`)
       }
       // If result is the key itself, translation is missing - use fallback
@@ -1438,7 +1438,7 @@ export function PrintablesPage() {
       return fallback
     }
   }, [t, language])
-  
+
   // CRITICAL: Early check to ensure we're on /print route, not /printables or other routes
   // This prevents autoprint from triggering on category pages
   const [isPrintRoute, setIsPrintRoute] = React.useState(() => {
@@ -1446,7 +1446,7 @@ export function PrintablesPage() {
     const pathname = window.location.pathname
     return pathname === '/print' || pathname.startsWith('/print?')
   })
-  
+
   // Update route check when location changes
   React.useEffect(() => {
     const checkRoute = () => {
@@ -1459,12 +1459,12 @@ export function PrintablesPage() {
     window.addEventListener('popstate', checkRoute)
     return () => window.removeEventListener('popstate', checkRoute)
   }, [])
-  
+
   // Track URL search params in state so they update reactively when URL changes
-  const [urlSearch, setUrlSearch] = React.useState(() => 
+  const [urlSearch, setUrlSearch] = React.useState(() =>
     typeof window !== 'undefined' ? window.location.search : ''
   )
-  
+
   // Update URL search when location changes (for language changes)
   React.useEffect(() => {
     const updateSearch = () => {
@@ -1473,28 +1473,28 @@ export function PrintablesPage() {
         setUrlSearch(currentSearch)
       }
     }
-    
+
     // Check immediately
     updateSearch()
-    
+
     // Listen for URL changes
     window.addEventListener('popstate', updateSearch)
     window.addEventListener('hashchange', updateSearch)
-    
+
     // Also check periodically for programmatic URL changes (e.g., when lang param is added)
     const interval = setInterval(updateSearch, 100)
-    
+
     return () => {
       window.removeEventListener('popstate', updateSearch)
       window.removeEventListener('hashchange', updateSearch)
       clearInterval(interval)
     }
   }, [urlSearch])
-  
+
   const params = React.useMemo(() => {
     return new URLSearchParams(urlSearch)
   }, [urlSearch])
-  
+
   const doc = params.get('doc') || ''
   const isPreview = (params.get('preview') || '').toLowerCase() === '1' || (params.get('preview') || '').toLowerCase() === 'true'
   // CRITICAL: Never trigger autoprint if preview=1 (used in iframes on category pages)
@@ -1515,6 +1515,7 @@ export function PrintablesPage() {
   })
   const [copiedLink, setCopiedLink] = React.useState(false)
   const [isDownloadingPDF, setIsDownloadingPDF] = React.useState(false)
+  const [isDownloadingPNG, setIsDownloadingPNG] = React.useState(false)
   const bundleItemsParam = params.get('items') || ''
   const bundleCategoryParam = params.get('category') || ''
   // Customization parameters
@@ -1642,15 +1643,15 @@ export function PrintablesPage() {
     )
   }, [t, language, showAnswersForDoc])
 
-  const friendlyAge = (v: string) => 
+  const friendlyAge = (v: string) =>
     v === 'k1' ? 'K–1'
-    : v === 'k2' ? 'K–2'
-    : v === 'g1' ? '1st Grade'
-    : v === 'g2' ? '2nd Grade'
-    : v === '25' ? '2nd-5th Grade'
-    : v === '35' ? '3–5'
-    : v === '68' ? '6–8'
-    : v
+      : v === 'k2' ? 'K–2'
+        : v === 'g1' ? '1st Grade'
+          : v === 'g2' ? '2nd Grade'
+            : v === '25' ? '2nd-5th Grade'
+              : v === '35' ? '3–5'
+                : v === '68' ? '6–8'
+                  : v
   const friendlyFocus = (v: string) => ({ mixed: 'Mixed', focus: 'Focus', reading: 'Reading', stem: 'STEM', creativity: 'Creativity', math: 'Math' } as any)[v] || v
 
   // Deterministic tiny RNG for repeatable print packs
@@ -1675,24 +1676,24 @@ export function PrintablesPage() {
   function buildWords(theme: string, age: string): string[] {
     if (theme === 'sight') {
       return age === 'k2'
-        ? ['THE','AND','IS','YOU','ARE','IT','IN','TO','WE','GO']
+        ? ['THE', 'AND', 'IS', 'YOU', 'ARE', 'IT', 'IN', 'TO', 'WE', 'GO']
         : age === '25' || age === '35'
-          ? ['THIS','THAT','WHEN','YOUR','WHICH','WHERE','THEIR','COULD','WOULD','SHOULD']
-          : ['BECAUSE','THROUGH','BEFORE','BETWEEN','AROUND','ANOTHER','ALREADY','THOUGHT','ENOUGH','FAMILY']
+          ? ['THIS', 'THAT', 'WHEN', 'YOUR', 'WHICH', 'WHERE', 'THEIR', 'COULD', 'WOULD', 'SHOULD']
+          : ['BECAUSE', 'THROUGH', 'BEFORE', 'BETWEEN', 'AROUND', 'ANOTHER', 'ALREADY', 'THOUGHT', 'ENOUGH', 'FAMILY']
     }
     if (theme === 'space') {
       return age === 'k2'
-        ? ['MOON','STAR','SKY','SUN','ROCK','DUST','SHIP','RING']
+        ? ['MOON', 'STAR', 'SKY', 'SUN', 'ROCK', 'DUST', 'SHIP', 'RING']
         : age === '25' || age === '35'
-          ? ['MARS','COMET','ORBIT','ROVER','VENUS','SATURN','PLUTO','CRATER']
-          : ['NEBULA','GALAXY','ROCKET','ASTRO','QUASAR','ECLIPSE','METEOR','COSMOS']
+          ? ['MARS', 'COMET', 'ORBIT', 'ROVER', 'VENUS', 'SATURN', 'PLUTO', 'CRATER']
+          : ['NEBULA', 'GALAXY', 'ROCKET', 'ASTRO', 'QUASAR', 'ECLIPSE', 'METEOR', 'COSMOS']
     }
     // animals
     return age === 'k2'
-      ? ['CAT','DOG','OWL','PIG','ANT','FOX','BEE','COW','BAT','HEN']
+      ? ['CAT', 'DOG', 'OWL', 'PIG', 'ANT', 'FOX', 'BEE', 'COW', 'BAT', 'HEN']
       : age === '25' || age === '35'
-        ? ['HORSE','TIGER','EAGLE','WHALE','MOUSE','OTTER','CAMEL','ZEBRA','GORILLA']
-        : ['LLAMA','ORCA','PANDA','LYNX','HYENA','JAGUAR','RHINO','DOLPHIN','BUFFALO']
+        ? ['HORSE', 'TIGER', 'EAGLE', 'WHALE', 'MOUSE', 'OTTER', 'CAMEL', 'ZEBRA', 'GORILLA']
+        : ['LLAMA', 'ORCA', 'PANDA', 'LYNX', 'HYENA', 'JAGUAR', 'RHINO', 'DOLPHIN', 'BUFFALO']
   }
   function buildGridLetters(words: string[], size: number, seedStr: string): string[] {
     const rng = makeRng(seedStr)
@@ -1804,10 +1805,10 @@ export function PrintablesPage() {
   React.useEffect(() => {
     if (doc && primaryDoc) {
       const from = params.get('from') || 'unknown'
-      const grade = from.includes('grade') ? from.replace('-grade', '') : 
-                    from.includes('kindergarten') ? 'kindergarten' :
-                    from.includes('multiplication') ? 'multiplication' :
-                    from.includes('reading') ? 'reading' : undefined
+      const grade = from.includes('grade') ? from.replace('-grade', '') :
+        from.includes('kindergarten') ? 'kindergarten' :
+          from.includes('multiplication') ? 'multiplication' :
+            from.includes('reading') ? 'reading' : undefined
       trackWorksheetView(primaryDoc, docTitle, from, grade)
     }
   }, [doc, primaryDoc, docTitle])
@@ -1851,13 +1852,13 @@ export function PrintablesPage() {
   const downloadPDF = React.useCallback(async () => {
     try {
       setIsDownloadingPDF(true)
-      
+
       // Import jsPDF and html2canvas dynamically
       const [{ default: jsPDF }, html2canvas] = await Promise.all([
         import('jspdf'),
         import('html2canvas').then(m => m.default || m)
       ])
-      
+
       // Wait for content to render
       // If showAnswers is true, wait a bit longer for answers to render
       if (showAnswers) {
@@ -1865,16 +1866,16 @@ export function PrintablesPage() {
       } else {
         await new Promise(resolve => setTimeout(resolve, 500))
       }
-      
+
       // Find the worksheet content container
       const contentElement = document.querySelector('[data-worksheet-content="true"]') as HTMLElement
       if (!contentElement) {
         throw new Error('Could not find worksheet content. Please refresh the page and try again.')
       }
-      
+
       // Store original styles for restoration
       const originalStyles = new Map<HTMLElement, { [key: string]: string }>()
-      
+
       // Apply print styles by creating a style tag with ALL print CSS from index.css
       // CRITICAL: html2canvas doesn't respect @media print, so we must apply ALL print styles as regular styles
       const printStyleTag = document.createElement('style')
@@ -2174,7 +2175,7 @@ export function PrintablesPage() {
         }
       `
       document.head.appendChild(printStyleTag)
-      
+
       // Hide print:hidden elements
       const printHiddenElements = document.querySelectorAll('[class*="print:hidden"]')
       printHiddenElements.forEach((el) => {
@@ -2183,7 +2184,7 @@ export function PrintablesPage() {
         htmlEl.style.display = 'none'
         htmlEl.style.visibility = 'hidden'
       })
-      
+
       // Show print:block elements
       const printBlockElements = document.querySelectorAll('[class*="print:block"]')
       printBlockElements.forEach((el) => {
@@ -2194,7 +2195,7 @@ export function PrintablesPage() {
           htmlEl.style.display = 'block'
         }
       })
-      
+
       // Set body to print dimensions
       const originalBodyStyle = {
         width: document.body.style.width,
@@ -2203,13 +2204,13 @@ export function PrintablesPage() {
         padding: document.body.style.padding,
         background: document.body.style.background
       }
-      
+
       document.body.style.width = '794px'
       document.body.style.maxWidth = '794px'
       document.body.style.margin = '0 auto'
       document.body.style.padding = '0'
       document.body.style.background = 'white'
-      
+
       // Set content element to print dimensions
       const originalContentStyle = {
         width: contentElement.style.width,
@@ -2218,13 +2219,13 @@ export function PrintablesPage() {
         padding: contentElement.style.padding,
         background: contentElement.style.background
       }
-      
+
       contentElement.style.width = '794px'
       contentElement.style.maxWidth = '794px'
       contentElement.style.margin = '0 auto'
       contentElement.style.padding = '0'
       contentElement.style.background = 'white'
-      
+
       // Set inner div to match print layout EXACTLY - with colorful border and emoji stars
       // CRITICAL: Print styles show colorful border, padding 20px 24px, and emoji stars - match Ctrl+P exactly
       const innerDiv = contentElement.querySelector(':scope > div:first-child') as HTMLElement
@@ -2261,10 +2262,10 @@ export function PrintablesPage() {
         innerDiv.style.backgroundColor = 'white'
         innerDiv.style.background = 'white'
       }
-      
+
       // Wait for styles to apply - ensure colorful border, emoji stars, and all print styles are rendered
       await new Promise(resolve => setTimeout(resolve, 1000))
-      
+
       // Capture with html2canvas - ensure colors are captured correctly
       const canvas = await html2canvas(contentElement, {
         scale: 2.0,
@@ -2283,7 +2284,7 @@ export function PrintablesPage() {
               tag.remove()
             }
           })
-          
+
           // Apply print styles to cloned document
           const clonedBody = clonedDoc.body
           if (clonedBody) {
@@ -2293,7 +2294,7 @@ export function PrintablesPage() {
             clonedBody.style.padding = '0'
             clonedBody.style.background = 'white'
           }
-          
+
           // Apply print styles to cloned inner div - with colorful border and emoji stars
           const clonedContentElement = clonedDoc.querySelector('[data-worksheet-content="true"]') as HTMLElement
           if (clonedContentElement) {
@@ -2314,7 +2315,7 @@ export function PrintablesPage() {
               clonedInnerDiv.style.background = 'white'
             }
           }
-          
+
           // Ensure print styles are in cloned document
           const clonedStyleTag = clonedDoc.getElementById('pdf-export-print-styles')
           if (!clonedStyleTag) {
@@ -2323,13 +2324,13 @@ export function PrintablesPage() {
             styleTag.textContent = printStyleTag.textContent
             clonedDoc.head.appendChild(styleTag)
           }
-          
+
           // Process print: utility classes
           const allElements = clonedDoc.querySelectorAll('*')
           allElements.forEach((el) => {
             const htmlEl = el as HTMLElement
             const classList = Array.from(htmlEl.classList)
-            
+
             if (classList.some(cls => cls.includes('print:block'))) {
               htmlEl.style.display = 'block'
             }
@@ -2339,45 +2340,45 @@ export function PrintablesPage() {
           })
         }
       })
-      
+
       // Restore original styles
       document.body.style.width = originalBodyStyle.width
       document.body.style.maxWidth = originalBodyStyle.maxWidth
       document.body.style.margin = originalBodyStyle.margin
       document.body.style.padding = originalBodyStyle.padding
       document.body.style.background = originalBodyStyle.background
-      
+
       contentElement.style.width = originalContentStyle.width
       contentElement.style.maxWidth = originalContentStyle.maxWidth
       contentElement.style.margin = originalContentStyle.margin
       contentElement.style.padding = originalContentStyle.padding
       contentElement.style.background = originalContentStyle.background
-      
+
       originalStyles.forEach((styles, element) => {
         Object.entries(styles).forEach(([prop, value]) => {
           (element.style as any)[prop] = value
         })
       })
-      
+
       printStyleTag.remove()
-      
+
       // Validate canvas
       if (!canvas || canvas.width === 0 || canvas.height === 0) {
         throw new Error('Failed to capture content. Please try again.')
       }
-      
+
       // Create PDF - A4 size (210mm x 297mm)
       const pageWidthMm = 210 // A4 width in mm
       const pageHeightMm = 297 // A4 height in mm
       const pdf = new jsPDF('p', 'mm', 'a4')
-      
+
       // Calculate image dimensions
       const imgWidth = pageWidthMm
       const imgHeight = (canvas.height * imgWidth) / canvas.width
-      
+
       // Convert canvas to image
       const imgData = canvas.toDataURL('image/jpeg', 0.95)
-      
+
       if (imgHeight <= pageHeightMm) {
         // Single page
         pdf.addImage(imgData, 'JPEG', 0, 0, imgWidth, imgHeight)
@@ -2386,21 +2387,21 @@ export function PrintablesPage() {
         const pixelsPerMm = canvas.width / imgWidth
         const pageHeightPx = pageHeightMm * pixelsPerMm
         let currentY = 0
-        
+
         while (currentY < canvas.height) {
           const pageHeightActual = Math.min(pageHeightPx, canvas.height - currentY)
-          
+
           // Create a canvas for this page
           const pageCanvas = document.createElement('canvas')
           pageCanvas.width = canvas.width
           pageCanvas.height = pageHeightActual
           const pageCtx = pageCanvas.getContext('2d')
-          
+
           if (pageCtx) {
             // Fill white background
             pageCtx.fillStyle = '#ffffff'
             pageCtx.fillRect(0, 0, pageCanvas.width, pageCanvas.height)
-            
+
             // Draw portion of original canvas
             pageCtx.drawImage(
               canvas,
@@ -2409,12 +2410,12 @@ export function PrintablesPage() {
               0, 0,
               pageCanvas.width, pageCanvas.height
             )
-            
+
             const pageImgData = pageCanvas.toDataURL('image/jpeg', 0.95)
             const pageImgHeight = (pageHeightActual * imgWidth) / canvas.width
-            
+
             pdf.addImage(pageImgData, 'JPEG', 0, 0, imgWidth, pageImgHeight)
-            
+
             currentY += pageHeightActual
             if (currentY < canvas.height) {
               pdf.addPage()
@@ -2424,21 +2425,21 @@ export function PrintablesPage() {
           }
         }
       }
-      
+
       // Generate filename and download
-      const filename = docTitle 
+      const filename = docTitle
         ? `${docTitle.replace(/[^a-z0-9]/gi, '_').toLowerCase()}.pdf`
         : `worksheet_${doc || 'download'}.pdf`
-      
+
       pdf.save(filename)
-      
+
       // Track download
       if (doc && primaryDoc) {
         const from = params.get('from') || 'unknown'
         const grade = from.includes('grade') ? from.replace('-grade', '') : undefined
         trackWorksheetDownload(primaryDoc, docTitle, from, grade)
       }
-      
+
     } catch (error) {
       console.error('PDF download failed:', error)
       const errorMessage = error instanceof Error ? error.message : String(error)
@@ -2453,30 +2454,30 @@ export function PrintablesPage() {
   const downloadPDF_OLD = React.useCallback(async () => {
     let wrapperElement: HTMLElement | null = null
     let wrapperOriginalStyle: { width: string; maxWidth: string; margin: string; padding: string } | null = null
-    
+
     try {
       setIsDownloadingPDF(true)
-      
+
       // Import jsPDF and html2canvas dynamically
       const [{ default: jsPDF }, html2canvas] = await Promise.all([
         import('jspdf'),
         import('html2canvas').then(m => m.default || m)
       ])
-      
+
       // If showAnswers is true, wait a bit longer for answers to render
       if (showAnswers) {
         await new Promise(resolve => setTimeout(resolve, 1500))
       }
-      
+
       // Wait for content to be fully rendered
       await new Promise(resolve => setTimeout(resolve, 500))
-      
+
       // Find the worksheet content container
       const contentElement = document.querySelector('[data-worksheet-content="true"]') as HTMLElement
       if (!contentElement) {
         throw new Error('Could not find worksheet content. Please refresh the page and try again.')
       }
-      
+
       // Apply print styles temporarily
       const printStyleTag = document.createElement('style')
       printStyleTag.id = 'pdf-export-print-styles'
@@ -2488,7 +2489,7 @@ export function PrintablesPage() {
         }
       `
       document.head.appendChild(printStyleTag)
-      
+
       // Capture with html2canvas
       const canvas = await html2canvas(contentElement, {
         scale: 2.0,
@@ -2497,25 +2498,25 @@ export function PrintablesPage() {
         backgroundColor: '#ffffff',
         allowTaint: false
       })
-      
+
       // Remove print styles
       printStyleTag.remove()
-      
+
       // Create PDF
       const pdf = new jsPDF('p', 'mm', 'a4')
       const imgData = canvas.toDataURL('image/jpeg', 0.95)
       const imgWidth = 210 // A4 width in mm
       const imgHeight = (canvas.height * imgWidth) / canvas.width
-      
+
       pdf.addImage(imgData, 'JPEG', 0, 0, imgWidth, imgHeight)
-      
+
       // Generate filename and download
-      const filename = docTitle 
+      const filename = docTitle
         ? `${docTitle.replace(/[^a-z0-9]/gi, '_').toLowerCase()}.pdf`
         : `worksheet_${doc || 'download'}.pdf`
-      
+
       pdf.save(filename)
-      
+
     } catch (error) {
       console.error('PDF download failed:', error)
       alert('PDF download failed. Please try using the Print button instead.')
@@ -2529,30 +2530,30 @@ export function PrintablesPage() {
   const downloadPDF_OLD2 = React.useCallback(async () => {
     let wrapperElement: HTMLElement | null = null
     let wrapperOriginalStyle: { width: string; maxWidth: string; margin: string; padding: string } | null = null
-    
+
     try {
       setIsDownloadingPDF(true)
-      
+
       // Import jsPDF and html2canvas dynamically
       const [{ default: jsPDF }, html2canvas] = await Promise.all([
         import('jspdf'),
         import('html2canvas').then(m => m.default || m)
       ])
-      
+
       // If showAnswers is true, wait a bit longer for answers to render
       if (showAnswers) {
         await new Promise(resolve => setTimeout(resolve, 1500))
       }
-      
+
       // Wait for content to be fully rendered
       await new Promise(resolve => setTimeout(resolve, 500))
-      
+
       // Find the worksheet content container
       const contentElement = document.querySelector('[data-worksheet-content="true"]') as HTMLElement
       if (!contentElement) {
         throw new Error('Could not find worksheet content. Please refresh the page and try again.')
       }
-      
+
       // Apply print styles temporarily
       const printStyleTag = document.createElement('style')
       printStyleTag.id = 'pdf-export-print-styles'
@@ -2564,7 +2565,7 @@ export function PrintablesPage() {
         }
       `
       document.head.appendChild(printStyleTag)
-      
+
       // Capture with html2canvas
       const canvas = await html2canvas(contentElement, {
         scale: 2.0,
@@ -2573,25 +2574,25 @@ export function PrintablesPage() {
         backgroundColor: '#ffffff',
         allowTaint: false
       })
-      
+
       // Remove print styles
       printStyleTag.remove()
-      
+
       // Create PDF
       const pdf = new jsPDF('p', 'mm', 'a4')
       const imgData = canvas.toDataURL('image/jpeg', 0.95)
       const imgWidth = 210 // A4 width in mm
       const imgHeight = (canvas.height * imgWidth) / canvas.width
-      
+
       pdf.addImage(imgData, 'JPEG', 0, 0, imgWidth, imgHeight)
-      
+
       // Generate filename and download
-      const filename = docTitle 
+      const filename = docTitle
         ? `${docTitle.replace(/[^a-z0-9]/gi, '_').toLowerCase()}.pdf`
         : `worksheet_${doc || 'download'}.pdf`
-      
+
       pdf.save(filename)
-      
+
     } catch (error) {
       console.error('PDF download failed:', error)
       alert('PDF download failed. Please try using the Print button instead.')
@@ -2616,20 +2617,20 @@ export function PrintablesPage() {
   const printCallTimeRef = React.useRef<number>(0)
   const printTimeoutRef = React.useRef<NodeJS.Timeout | null>(null)
   const hasScheduledPrintRef = React.useRef(false)
-  
+
   // Auto-open browser print dialog when requested (e.g., from "Download PDF" links)
   // ONLY run on /print route, not on category pages like /printables or in preview mode (iframes)
   React.useEffect(() => {
     // Skip if not in browser
     if (typeof window === 'undefined') return
-    
+
     try {
       // Check pathname directly to ensure we're on /print route
       const currentPathname = window.location.pathname
       if (currentPathname !== '/print') {
         return // Don't run on category pages like /printables
       }
-      
+
       // Check autoprint parameter directly from URL
       const currentSearch = window.location.search
       const currentParams = new URLSearchParams(currentSearch)
@@ -2637,17 +2638,17 @@ export function PrintablesPage() {
       const hasAutoprint = autoprintParam === '1' || autoprintParam === 'true'
       const isPreviewParam = (currentParams.get('preview') || '').toLowerCase() === '1' || (currentParams.get('preview') || '').toLowerCase() === 'true'
       const hasAutoDownload = (currentParams.get('download') || '').toLowerCase() === '1' || (currentParams.get('download') || '').toLowerCase() === 'true'
-      
+
       // CRITICAL: Never trigger autoprint in preview mode (used in iframes on category pages)
       if (isPreviewParam) {
         return // Don't run in preview mode (iframes)
       }
-      
+
       // Skip if autoprint is not set or download is handling it
       if (!hasAutoprint || hasAutoDownload) {
         return
       }
-      
+
       // Check if we're in an iframe and parent is not on /print route
       const isInIframe = window.self !== window.top
       if (isInIframe) {
@@ -2661,13 +2662,13 @@ export function PrintablesPage() {
           return
         }
       }
-      
+
       // Use a URL-based key with timestamp to ensure fresh prints on navigation
       const currentUrl = window.location.href
       const printKey = `autoprint_${currentUrl}`
       const now = Date.now()
       const PRINT_COOLDOWN = 2000 // 2 seconds - prevent duplicate prints within 2 seconds
-      
+
       // Check if we've already printed for this exact URL in this session
       // Use a timestamp to allow re-printing if user navigates away and comes back
       const lastPrintTime = sessionStorage.getItem(printKey)
@@ -2677,7 +2678,7 @@ export function PrintablesPage() {
           return // Too soon since last print attempt
         }
       }
-      
+
       // Check if we've already scheduled a print for this exact URL recently
       // Only block if we've scheduled it very recently (within cooldown)
       const scheduledUrl = sessionStorage.getItem('autoprint_scheduled_url')
@@ -2691,35 +2692,35 @@ export function PrintablesPage() {
         }
         // It's been long enough, allow re-printing
       }
-      
+
       // If we get here, we should proceed with printing
-      
+
       // Mark that we're scheduling a print for this URL
       hasScheduledPrintRef.current = true
       sessionStorage.setItem('autoprint_scheduled_url', currentUrl)
       sessionStorage.setItem(printKey, now.toString())
-      
+
       // Clear any existing timeout
       if (printTimeoutRef.current) {
         clearTimeout(printTimeoutRef.current)
       }
-      
+
       // Defer a bit to let the view render fully
-      printTimeoutRef.current = setTimeout(() => { 
-        try { 
+      printTimeoutRef.current = setTimeout(() => {
+        try {
           // Final checks before printing
           const finalPathname = window.location.pathname
           if (finalPathname !== '/print') {
             return
           }
-          
+
           const finalSearch = window.location.search
           const finalParams = new URLSearchParams(finalSearch)
           const finalIsPreview = (finalParams.get('preview') || '').toLowerCase() === '1' || (finalParams.get('preview') || '').toLowerCase() === 'true'
           if (finalIsPreview) {
             return
           }
-          
+
           // Check if still scheduled for this URL - but don't block print if not set
           // The sessionStorage flag was set earlier to prevent duplicate attempts
           const stillScheduledUrl = sessionStorage.getItem('autoprint_scheduled_url')
@@ -2727,10 +2728,10 @@ export function PrintablesPage() {
           if (stillScheduledUrl && stillScheduledUrl !== currentUrl) {
             return
           }
-          
+
           // All checks passed - trigger print
           window.print()
-          
+
           // Track auto-print
           if (doc && primaryDoc) {
             const from = params.get('from') || 'unknown'
@@ -2740,9 +2741,9 @@ export function PrintablesPage() {
           }
         } catch (e) {
           console.error('Error in autoprint timeout:', e)
-        } 
+        }
       }, 1200)
-      
+
       return () => {
         if (printTimeoutRef.current) {
           clearTimeout(printTimeoutRef.current)
@@ -2753,13 +2754,13 @@ export function PrintablesPage() {
       console.error('Error in autoprint effect:', e)
     }
   }, [urlSearch, doc, primaryDoc, docTitle, params]) // Re-run when URL or doc changes
-  
+
   // Reset print flag when URL changes (new worksheet loaded)
   // Use a ref to track the previous URL to only reset when URL actually changes
   const previousUrlRef = React.useRef<string>('')
   React.useEffect(() => {
     if (typeof window === 'undefined') return
-    
+
     // Only reset on exact /print route, not /printables
     const currentPathname = window.location.pathname
     if (currentPathname !== '/print') {
@@ -2767,34 +2768,34 @@ export function PrintablesPage() {
       hasScheduledPrintRef.current = true
       return
     }
-    
+
     // Check preview mode
     const currentSearch = window.location.search
     const currentParams = new URLSearchParams(currentSearch)
     const isPreviewParam = (currentParams.get('preview') || '').toLowerCase() === '1' || (currentParams.get('preview') || '').toLowerCase() === 'true'
-    
+
     if (isPreviewParam) {
       hasScheduledPrintRef.current = true
       return
     }
-    
+
     // Get current URL
     const currentUrl = window.location.href
-    
+
     // Only reset if URL actually changed from a previous URL (not on initial mount)
     // On initial mount, previousUrlRef.current is '', so we check if it's not empty
     if (previousUrlRef.current && currentUrl !== previousUrlRef.current) {
       // URL actually changed from a previous URL - reset everything
       previousUrlRef.current = currentUrl
-      
+
       // Clear the scheduled URL flag to allow autoprint to work for new URLs
       sessionStorage.removeItem('autoprint_scheduled_url')
-      
+
       // Reset refs for new worksheet
       hasPrintedRef.current = false
       printCallTimeRef.current = 0
       hasScheduledPrintRef.current = false
-      
+
       // Clear any pending timeout from previous URL
       if (printTimeoutRef.current) {
         clearTimeout(printTimeoutRef.current)
@@ -2994,210 +2995,240 @@ export function PrintablesPage() {
         )}
         {/* Doc-specific back link and download button */}
         {!isPreview && (
-        <div className="mb-4 print:hidden flex justify-between items-center">
-          <a
-            href={(() => {
-              try {
-                const u = new URL(typeof window !== 'undefined' ? window.location.href : 'https://wizqo.com/print')
-                const from = u.searchParams.get('from')
-                // If coming from interactive worksheets generator, go back there
-                if (from === 'interactive') {
-                  return '/interactive-worksheets-generator'
-                }
-                // If coming from grade pages, go back to the appropriate grade page
-                if (from === 'kindergarten') {
-                  return '/worksheets/kindergarten-math-worksheets'
-                }
-                if (from === '1st-grade') {
-                  return '/worksheets/1st-grade-math-worksheets'
-                }
-                if (from === '2nd-grade') {
-                  return '/worksheets/2nd-grade-math-worksheets'
-                }
-                if (from === '3rd-grade') {
-                  return '/worksheets/3rd-grade-math-worksheets'
-                }
-                if (from === '4th-grade') {
-                  return '/worksheets/4th-grade-math-worksheets'
-                }
-                if (from === '5th-grade') {
-                  return '/worksheets/5th-grade-math-worksheets'
-                }
-                if (from === 'reading-comprehension') {
-                  return '/worksheets/reading-comprehension'
-                }
-                if (from === 'multiplication') {
-                  return '/worksheets/multiplication-worksheets'
-                }
-                if (from === 'times-table') {
-                  return '/worksheets/times-table-multiplication-worksheets'
-                }
-                if (from === 'fractions-to-decimals') {
-                  return '/worksheets/fractions-to-decimals-worksheets'
-                }
-                // Determine category anchor by doc or bundle selection
-                const cat = (() => {
-                  if (doc === 'bundle') {
-                    if (bundleCategoryParam) return bundleCategoryParam
-                    if (primaryDoc) {
-                      return getPrintableSectionForDoc(primaryDoc) || (primaryDoc.startsWith('coloring') ? 'Coloring' : primaryDoc.startsWith('geo-') ? 'Geography' : '')
-                    }
-                    return ''
-                  }
-                  if (!doc) return ''
-                  return getPrintableSectionForDoc(doc) || (doc.startsWith('coloring') ? 'Coloring' : doc.startsWith('geo-') ? 'Geography' : '')
-                })()
-                const hash = cat ? `#${encodeURIComponent(cat)}` : ''
-                return from === 'printables' ? `/printables${hash}` : '/printables'
-              } catch {
-                return '/printables'
-              }
-            })()}
-            className="inline-flex items-center gap-2 px-3 py-1.5 rounded-lg border border-slate-200 text-slate-700 hover:bg-slate-50 text-sm"
-            aria-label={t('pages.printables.backPrintablePage')}
-          >
-            <span>←</span>
-            <span>{(() => {
-              try {
-                const u = new URL(typeof window !== 'undefined' ? window.location.href : 'https://wizqo.com/print')
-                const from = u.searchParams.get('from')
-                if (from === 'interactive') {
-                  return t('pages.printables.backToInteractive')
-                }
-                if (from === 'kindergarten') {
-                  return t('pages.printables.backToKindergarten')
-                }
-                if (from === '1st-grade') {
-                  return t('pages.printables.backToFirstGrade')
-                }
-                if (from === '2nd-grade') {
-                  return t('pages.printables.backToSecondGrade')
-                }
-                if (from === '3rd-grade') {
-                  return t('pages.printables.backToThirdGrade')
-                }
-                if (from === '4th-grade') {
-                  return t('pages.printables.backToFourthGrade')
-                }
-                if (from === '5th-grade') {
-                  return t('pages.printables.backToFifthGrade')
-                }
-                if (from === 'reading-comprehension') {
-                  return t('pages.printables.backToReadingComprehension')
-                }
-                if (from === 'multiplication') {
-                  return t('pages.printables.backToMultiplication')
-                }
-                if (from === 'times-table') {
-                  return t('pages.printables.backToTimesTable')
-                }
-                return t('pages.printables.backPrintablePage')
-              } catch {
-                return t('pages.printables.backPrintablePage')
-              }
-            })()}</span>
-          </a>
-          <div className="flex items-center gap-2">
-            <button
-              onClick={(e) => {
-                e.preventDefault()
-                e.stopPropagation()
-                try {
-                  window.print()
-                } catch (error) {
-                  // Fallback: open print dialog using a different method
-                  setTimeout(() => {
-                    try {
-                      window.print()
-                    } catch (err) {
-                      console.error('Print failed:', err)
-                      // Last resort: show message to user
-                      alert('Please use your browser\'s print function (Ctrl+P or Cmd+P)')
-                    }
-                  }, 100)
-                }
-              }}
-              className="inline-flex items-center gap-2 px-4 py-2 rounded-lg border border-slate-300 bg-white hover:bg-slate-50 text-slate-700 text-sm font-medium shadow-sm focus:outline-none focus:ring-2 focus:ring-slate-400 focus:ring-offset-1 print:hidden"
-            >
-              🖨️ Print
-            </button>
-            <button
-              onClick={(e) => {
-                e.preventDefault()
-                e.stopPropagation()
-                const contentElement = document.querySelector('[data-worksheet-content="true"]') as HTMLElement
-                if (!contentElement) return
-                
-                import('html2canvas').then(m => m.default || m).then(html2canvas => {
-                  html2canvas(contentElement, {
-                    scale: 2.0,
-                    useCORS: true,
-                    logging: false,
-                    backgroundColor: '#ffffff',
-                    allowTaint: false
-                  }).then(canvas => {
-                    const imgData = canvas.toDataURL('image/png')
-                    const link = document.createElement('a')
-                    link.download = docTitle 
-                      ? `${docTitle.replace(/[^a-z0-9]/gi, '_').toLowerCase()}.png`
-                      : `worksheet_${doc || 'download'}.png`
-                    link.href = imgData
-                    link.click()
-                  })
-                })
-              }}
-              className="inline-flex items-center gap-2 px-4 py-2 rounded-lg border border-slate-300 bg-white hover:bg-slate-50 text-slate-700 text-sm font-medium shadow-sm focus:outline-none focus:ring-2 focus:ring-slate-400 focus:ring-offset-1 print:hidden"
-            >
-              🖼️ PNG Image
-            </button>
-          </div>
-        </div>
-        )}
-        {!isPreview && (
-        <header className="relative mb-6 flex items-center justify-between border-b border-slate-200 pb-3 print:hidden">
-          <div className="print:hidden absolute -top-3 right-0 flex items-center gap-2 opacity-70 pointer-events-none">
-            <span className="animate-bounce">➕</span>
-            <span className="animate-bounce animation-delay-2000">🔢</span>
-            <span className="animate-bounce animation-delay-4000">🕒</span>
-          </div>
-          <div>
-            <h1 className="text-2xl font-extrabold text-slate-900">{docTitle}</h1>
-            <p className="text-slate-600 mt-2 print:mt-1 text-sm">{t('pages.printables.printInstructions')}</p>
-          </div>
-          <div className="flex items-center gap-3">
+          <div className="mb-4 print:hidden flex justify-between items-center">
             <a
-              href={pinHref}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="hidden print:hidden sm:inline-flex items-center gap-2 px-3 py-1.5 rounded-lg border border-rose-200 bg-rose-50 text-rose-700 hover:bg-rose-100 text-sm"
-              title={t('pages.printables.pinThisPrintable')}
-              aria-label={t('pages.printables.pinThisPrintableAria')}
+              href={(() => {
+                try {
+                  const u = new URL(typeof window !== 'undefined' ? window.location.href : 'https://wizqo.com/print')
+                  const from = u.searchParams.get('from')
+                  // If coming from interactive worksheets generator, go back there
+                  if (from === 'interactive') {
+                    return '/interactive-worksheets-generator'
+                  }
+                  // If coming from grade pages, go back to the appropriate grade page
+                  if (from === 'kindergarten') {
+                    return '/worksheets/kindergarten-math-worksheets'
+                  }
+                  if (from === '1st-grade') {
+                    return '/worksheets/1st-grade-math-worksheets'
+                  }
+                  if (from === '2nd-grade') {
+                    return '/worksheets/2nd-grade-math-worksheets'
+                  }
+                  if (from === '3rd-grade') {
+                    return '/worksheets/3rd-grade-math-worksheets'
+                  }
+                  if (from === '4th-grade') {
+                    return '/worksheets/4th-grade-math-worksheets'
+                  }
+                  if (from === '5th-grade') {
+                    return '/worksheets/5th-grade-math-worksheets'
+                  }
+                  if (from === 'reading-comprehension') {
+                    return '/worksheets/reading-comprehension'
+                  }
+                  if (from === 'multiplication') {
+                    return '/worksheets/multiplication-worksheets'
+                  }
+                  if (from === 'times-table') {
+                    return '/worksheets/times-table-multiplication-worksheets'
+                  }
+                  if (from === 'fractions-to-decimals') {
+                    return '/worksheets/fractions-to-decimals-worksheets'
+                  }
+                  // Determine category anchor by doc or bundle selection
+                  const cat = (() => {
+                    if (doc === 'bundle') {
+                      if (bundleCategoryParam) return bundleCategoryParam
+                      if (primaryDoc) {
+                        return getPrintableSectionForDoc(primaryDoc) || (primaryDoc.startsWith('coloring') ? 'Coloring' : primaryDoc.startsWith('geo-') ? 'Geography' : '')
+                      }
+                      return ''
+                    }
+                    if (!doc) return ''
+                    return getPrintableSectionForDoc(doc) || (doc.startsWith('coloring') ? 'Coloring' : doc.startsWith('geo-') ? 'Geography' : '')
+                  })()
+                  const hash = cat ? `#${encodeURIComponent(cat)}` : ''
+                  return from === 'printables' ? `/printables${hash}` : '/printables'
+                } catch {
+                  return '/printables'
+                }
+              })()}
+              className="inline-flex items-center gap-2 px-3 py-1.5 rounded-lg border border-slate-200 text-slate-700 hover:bg-slate-50 text-sm"
+              aria-label={t('pages.printables.backPrintablePage')}
             >
-              <span>📌</span>
-              <span>{t('pages.printables.pinThis')}</span>
+              <span>←</span>
+              <span>{(() => {
+                try {
+                  const u = new URL(typeof window !== 'undefined' ? window.location.href : 'https://wizqo.com/print')
+                  const from = u.searchParams.get('from')
+                  if (from === 'interactive') {
+                    return t('pages.printables.backToInteractive')
+                  }
+                  if (from === 'kindergarten') {
+                    return t('pages.printables.backToKindergarten')
+                  }
+                  if (from === '1st-grade') {
+                    return t('pages.printables.backToFirstGrade')
+                  }
+                  if (from === '2nd-grade') {
+                    return t('pages.printables.backToSecondGrade')
+                  }
+                  if (from === '3rd-grade') {
+                    return t('pages.printables.backToThirdGrade')
+                  }
+                  if (from === '4th-grade') {
+                    return t('pages.printables.backToFourthGrade')
+                  }
+                  if (from === '5th-grade') {
+                    return t('pages.printables.backToFifthGrade')
+                  }
+                  if (from === 'reading-comprehension') {
+                    return t('pages.printables.backToReadingComprehension')
+                  }
+                  if (from === 'multiplication') {
+                    return t('pages.printables.backToMultiplication')
+                  }
+                  if (from === 'times-table') {
+                    return t('pages.printables.backToTimesTable')
+                  }
+                  return t('pages.printables.backPrintablePage')
+                } catch {
+                  return t('pages.printables.backPrintablePage')
+                }
+              })()}</span>
             </a>
-            
-            {shouldShowAnswerToggle && (
-              <div className="print:hidden">
-                <button
-                  onClick={() => {
-                    const newValue = !showAnswers
-                    setShowAnswers(newValue)
-                    trackAnswerKeyToggle(primaryDoc, newValue ? 'show' : 'hide')
-                  }}
-                  aria-pressed={showAnswers}
-                  className={`inline-flex items-center gap-2 px-3 py-1.5 rounded-lg border text-sm shadow-sm focus:outline-none focus:ring-2 focus:ring-emerald-400 focus:ring-offset-1 ${showAnswers ? 'bg-emerald-700 hover:bg-emerald-800 text-white border-emerald-700' : 'bg-emerald-600 hover:bg-emerald-700 text-white border-emerald-600'}`}
-                  title={t('pages.printables.toggleAnswerKey')}
-                >
-                  {showAnswers ? t('pages.printables.hideAnswers') : t('pages.printables.showAnswers')}
-                </button>
-              </div>
-            )}
-            <div className="print:block">
-              <WizqoLogo className="w-20 h-auto opacity-80" />
+            <div className="flex items-center gap-2">
+              <button
+                onClick={(e) => {
+                  e.preventDefault()
+                  e.stopPropagation()
+                  try {
+                    window.print()
+                  } catch (error) {
+                    // Fallback: open print dialog using a different method
+                    setTimeout(() => {
+                      try {
+                        window.print()
+                      } catch (err) {
+                        console.error('Print failed:', err)
+                        // Last resort: show message to user
+                        alert('Please use your browser\'s print function (Ctrl+P or Cmd+P)')
+                      }
+                    }, 100)
+                  }
+                }}
+                className="inline-flex items-center gap-2 px-4 py-2 rounded-lg border border-slate-300 bg-white hover:bg-slate-50 text-slate-700 text-sm font-medium shadow-sm focus:outline-none focus:ring-2 focus:ring-slate-400 focus:ring-offset-1 print:hidden"
+              >
+                🖨️ Print
+              </button>
+              <button
+                onClick={(e) => {
+                  e.preventDefault()
+                  e.stopPropagation()
+                  if (isDownloadingPNG) return
+
+                  setIsDownloadingPNG(true)
+                  const contentElement = document.querySelector('[data-worksheet-content="true"]') as HTMLElement
+                  if (!contentElement) {
+                    setIsDownloadingPNG(false)
+                    return
+                  }
+
+                  // Small timeout to allow UI to update
+                  setTimeout(() => {
+                    import('html2canvas').then(m => m.default || m).then(html2canvas => {
+                      html2canvas(contentElement, {
+                        scale: 2.0,
+                        useCORS: true,
+                        logging: false,
+                        backgroundColor: '#ffffff',
+                        allowTaint: false
+                      }).then(canvas => {
+                        const imgData = canvas.toDataURL('image/png')
+                        const link = document.createElement('a')
+                        link.download = docTitle
+                          ? `${docTitle.replace(/[^a-z0-9]/gi, '_').toLowerCase()}.png`
+                          : `worksheet_${doc || 'download'}.png`
+                        link.href = imgData
+                        link.click()
+                        setIsDownloadingPNG(false)
+                      }).catch(error => {
+                        console.error('PNG capture failed:', error)
+                        setIsDownloadingPNG(false)
+                      })
+                    }).catch(error => {
+                      console.error('Failed to load html2canvas:', error)
+                      setIsDownloadingPNG(false)
+                    })
+                  }, 50)
+                }}
+                disabled={isDownloadingPNG}
+                className={`inline-flex items-center gap-2 px-4 py-2 rounded-lg border border-slate-300 bg-white hover:bg-slate-50 text-slate-700 text-sm font-medium shadow-sm focus:outline-none focus:ring-2 focus:ring-slate-400 focus:ring-offset-1 print:hidden ${isDownloadingPNG ? 'opacity-75 cursor-not-allowed' : ''}`}
+              >
+                {isDownloadingPNG ? (
+                  <>
+                    <svg className="animate-spin h-4 w-4 text-slate-500" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                      <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                      <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                    </svg>
+                    <span>Generating...</span>
+                  </>
+                ) : (
+                  <>
+                    <span>🖼️</span>
+                    <span>Download Worksheet</span>
+                  </>
+                )}
+              </button>
             </div>
           </div>
-        </header>
+        )}
+        {!isPreview && (
+          <header className="relative mb-6 flex items-center justify-between border-b border-slate-200 pb-3 print:hidden">
+            <div className="print:hidden absolute -top-3 right-0 flex items-center gap-2 opacity-70 pointer-events-none">
+              <span className="animate-bounce">➕</span>
+              <span className="animate-bounce animation-delay-2000">🔢</span>
+              <span className="animate-bounce animation-delay-4000">🕒</span>
+            </div>
+            <div>
+              <h1 className="text-2xl font-extrabold text-slate-900">{docTitle}</h1>
+              <p className="text-slate-600 mt-2 print:mt-1 text-sm">{t('pages.printables.printInstructions')}</p>
+            </div>
+            <div className="flex items-center gap-3">
+              <a
+                href={pinHref}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="hidden print:hidden sm:inline-flex items-center gap-2 px-3 py-1.5 rounded-lg border border-rose-200 bg-rose-50 text-rose-700 hover:bg-rose-100 text-sm"
+                title={t('pages.printables.pinThisPrintable')}
+                aria-label={t('pages.printables.pinThisPrintableAria')}
+              >
+                <span>📌</span>
+                <span>{t('pages.printables.pinThis')}</span>
+              </a>
+
+              {shouldShowAnswerToggle && (
+                <div className="print:hidden">
+                  <button
+                    onClick={() => {
+                      const newValue = !showAnswers
+                      setShowAnswers(newValue)
+                      trackAnswerKeyToggle(primaryDoc, newValue ? 'show' : 'hide')
+                    }}
+                    aria-pressed={showAnswers}
+                    className={`inline-flex items-center gap-2 px-3 py-1.5 rounded-lg border text-sm shadow-sm focus:outline-none focus:ring-2 focus:ring-emerald-400 focus:ring-offset-1 ${showAnswers ? 'bg-emerald-700 hover:bg-emerald-800 text-white border-emerald-700' : 'bg-emerald-600 hover:bg-emerald-700 text-white border-emerald-600'}`}
+                    title={t('pages.printables.toggleAnswerKey')}
+                  >
+                    {showAnswers ? t('pages.printables.hideAnswers') : t('pages.printables.showAnswers')}
+                  </button>
+                </div>
+              )}
+              <div className="print:block">
+                <WizqoLogo className="w-20 h-auto opacity-80" />
+              </div>
+            </div>
+          </header>
         )}
 
         {/* Doc-specific sections (unique content per topic) */}
@@ -3298,8 +3329,8 @@ export function PrintablesPage() {
               <div className="border border-slate-200 rounded-lg p-3">
                 <div className="text-slate-900 font-semibold mb-1">Write the Names</div>
                 <ol className="text-slate-700 text-sm space-y-1">
-                  {Array.from({ length: 7 }).map((_,i)=> (
-                    <li key={i} className="flex items-center gap-2"><span className="font-semibold">{i+1}.</span> <span className="flex-1 border-b border-slate-300 inline-block" style={{ minWidth: '10rem' }} /></li>
+                  {Array.from({ length: 7 }).map((_, i) => (
+                    <li key={i} className="flex items-center gap-2"><span className="font-semibold">{i + 1}.</span> <span className="flex-1 border-b border-slate-300 inline-block" style={{ minWidth: '10rem' }} /></li>
                   ))}
                 </ol>
               </div>
@@ -3349,7 +3380,7 @@ export function PrintablesPage() {
         {activeDocs.includes('geo-compass-rose') && (
           <WorksheetSectionWrapper
             docId="geo-compass-rose"
-              title="Compass Rose & Directions"
+            title="Compass Rose & Directions"
             emoji="🧭"
             description="Color the compass and label cardinal (N, E, S, W) and intercardinal (NE, SE, SW, NW) directions."
             problemCount={8}
@@ -3568,9 +3599,9 @@ export function PrintablesPage() {
               <div className="bg-slate-50 border border-slate-200 rounded-lg p-3">
                 <div className="text-slate-900 font-semibold mb-1">Words</div>
                 <ol className="text-slate-700 text-sm space-y-1">
-                  {['Mountain','Valley','Island','Lake','River'].map((w,i)=> (
+                  {['Mountain', 'Valley', 'Island', 'Lake', 'River'].map((w, i) => (
                     <li key={w} className="flex items-center gap-2">
-                      <span className="inline-block w-5 text-slate-500">{i+1}.</span>
+                      <span className="inline-block w-5 text-slate-500">{i + 1}.</span>
                       <span className="flex-1">{w}</span>
                       <span className="inline-block w-10 text-slate-400 border-b border-slate-300" />
                     </li>
@@ -3632,7 +3663,7 @@ export function PrintablesPage() {
         {activeDocs.includes('geo-latlong') && (
           <WorksheetSectionWrapper
             docId="geo-latlong"
-              title="Latitude & Longitude Basics"
+            title="Latitude & Longitude Basics"
             emoji="🗺️"
             description="Read grid lines and plot simple coordinates. Practice with a minimal world grid. Tip: Latitude is horizontal (N/S). Longitude is vertical (E/W)."
             problemCount={2}
@@ -3645,7 +3676,7 @@ export function PrintablesPage() {
               'Latitude is horizontal (runs east-west), measures north-south',
               'Longitude is vertical (runs north-south), measures east-west',
               'Remember: Latitude = flat (like ladder rungs), Longitude = long (up and down)',
-                'Extension: Find coordinates of your city'
+              'Extension: Find coordinates of your city'
             ]}
           >
             <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-blue-400 to-green-400 animate-gradient-x mb-2" />
@@ -3667,8 +3698,8 @@ export function PrintablesPage() {
               <svg viewBox="0 0 800 500" className="w-full h-auto" role="img" aria-labelledby="latlong-title">
                 <title id="latlong-title">Latitude and longitude grid</title>
                 <g fill="none" stroke="#94a3b8" strokeWidth="2">
-                  {Array.from({ length: 10 }).map((_,i)=> (<line key={`h-${i}`} x1="40" y1={50+i*40} x2="760" y2={50+i*40} />))}
-                  {Array.from({ length: 16 }).map((_,i)=> (<line key={`v-${i}`} x1={40+i*45} y1="50" x2={40+i*45} y2="450" />))}
+                  {Array.from({ length: 10 }).map((_, i) => (<line key={`h-${i}`} x1="40" y1={50 + i * 40} x2="760" y2={50 + i * 40} />))}
+                  {Array.from({ length: 16 }).map((_, i) => (<line key={`v-${i}`} x1={40 + i * 45} y1="50" x2={40 + i * 45} y2="450" />))}
                 </g>
                 {/* Axes labels */}
                 <g fill="#111827" fontSize="12">
@@ -3676,13 +3707,13 @@ export function PrintablesPage() {
                   <text x="380" y="46">Equator (0°)</text>
                   <text x="36" y="260" transform="rotate(-90 36,260)">Prime Meridian (0°)</text>
                   {/* Latitude tick labels */}
-                  {([-60,-30,0,30,60] as number[]).map((lat) => {
+                  {([-60, -30, 0, 30, 60] as number[]).map((lat) => {
                     const y = 50 + ((90 - lat) / 180) * 400; // map -90..90 to 50..450
                     const label = lat === 0 ? '0°' : (Math.abs(lat) + '°' + (lat > 0 ? 'N' : 'S'));
-                    return (<text key={`lat-${lat}`} x={30} y={y+4} textAnchor="end">{label}</text>);
+                    return (<text key={`lat-${lat}`} x={30} y={y + 4} textAnchor="end">{label}</text>);
                   })}
                   {/* Longitude tick labels */}
-                  {([-120,-90,-60,-30,0,30,60,90,120] as number[]).map((lon) => {
+                  {([-120, -90, -60, -30, 0, 30, 60, 90, 120] as number[]).map((lon) => {
                     const x = 40 + ((lon + 120) / 240) * 720; // map -120..120 to 40..760
                     const label = lon === 0 ? '0°' : (Math.abs(lon) + '°' + (lon > 0 ? 'E' : 'W'));
                     return (<text key={`lon-${lon}`} x={x} y={468} textAnchor="middle">{label}</text>);
@@ -3791,38 +3822,38 @@ export function PrintablesPage() {
               </div>
             </div>
             <div className="grid grid-cols-2 gap-4 break-inside-avoid" style={{ pageBreakAfter: 'auto' }}>
-              {[1,2,3,4,5,6,7,8,9,10].map((n) => (
+              {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map((n) => (
                 <div key={n} className="break-inside-avoid">
                   <svg viewBox="0 0 400 200" className="w-full h-auto bg-white border border-slate-300 rounded">
                     <g fill="none" stroke="#94a3b8" strokeWidth="3">
                       <path strokeDasharray="6 6" d={`M40 160 H360`} />
                     </g>
                     <g fill="none" stroke="#111827" strokeWidth="5" strokeLinecap="round">
-                      {n===1 && <path d="M120 150 L120 60" />}
-                      {n===2 && <path d="M90 90 Q120 60, 150 90 Q180 120, 90 150 H180" />}
-                      {n===3 && <path d="M105 85 C135 65,170 85,150 100 C170 115,135 135,105 115" />}
-                      {n===4 && (
+                      {n === 1 && <path d="M120 150 L120 60" />}
+                      {n === 2 && <path d="M90 90 Q120 60, 150 90 Q180 120, 90 150 H180" />}
+                      {n === 3 && <path d="M105 85 C135 65,170 85,150 100 C170 115,135 135,105 115" />}
+                      {n === 4 && (
                         <g>
                           <path d="M160 60 L100 110 H170" />
                           <path d="M160 60 V150" />
                         </g>
                       )}
-                      {n===5 && <path d="M170 70 H100 V110 Q130 90, 160 110 Q170 140, 120 150" />}
-                      {n===6 && <path d="M160 80 Q100 80, 110 120 Q140 160, 170 130 Q150 110, 120 120" />}
-                      {n===7 && <path d="M90 70 H170 L110 150" />}
-                      {n===8 && (
+                      {n === 5 && <path d="M170 70 H100 V110 Q130 90, 160 110 Q170 140, 120 150" />}
+                      {n === 6 && <path d="M160 80 Q100 80, 110 120 Q140 160, 170 130 Q150 110, 120 120" />}
+                      {n === 7 && <path d="M90 70 H170 L110 150" />}
+                      {n === 8 && (
                         <g>
                           <circle cx="120" cy="95" r="26" fill="none" />
                           <circle cx="120" cy="135" r="26" fill="none" />
                         </g>
                       )}
-                      {n===9 && (
+                      {n === 9 && (
                         <g>
                           <circle cx="135" cy="100" r="28" fill="none" />
                           <path d="M162 120 Q150 150, 120 150" />
                         </g>
                       )}
-                      {n===10 && (
+                      {n === 10 && (
                         <g>
                           <path d="M90 150 L90 80" />
                           <circle cx="140" cy="115" r="30" fill="none" />
@@ -3932,31 +3963,31 @@ export function PrintablesPage() {
                         <path strokeDasharray="6 6" d={`M40 160 H360`} />
                       </g>
                       <g fill="none" stroke="#111827" strokeWidth="5" strokeLinecap="round">
-                        {n===1 && <path d="M120 150 L120 60" />}
-                        {n===2 && <path d="M90 90 Q120 60, 150 90 Q180 120, 90 150 H180" />}
-                        {n===3 && <path d="M105 85 C135 65,170 85,150 100 C170 115,135 135,105 115" />}
-                        {n===4 && (
+                        {n === 1 && <path d="M120 150 L120 60" />}
+                        {n === 2 && <path d="M90 90 Q120 60, 150 90 Q180 120, 90 150 H180" />}
+                        {n === 3 && <path d="M105 85 C135 65,170 85,150 100 C170 115,135 135,105 115" />}
+                        {n === 4 && (
                           <g>
                             <path d="M160 60 L100 110 H170" />
                             <path d="M160 60 V150" />
                           </g>
                         )}
-                        {n===5 && <path d="M170 70 H100 V110 Q130 90, 160 110 Q170 140, 120 150" />}
-                        {n===6 && <path d="M160 80 Q100 80, 110 120 Q140 160, 170 130 Q150 110, 120 120" />}
-                        {n===7 && <path d="M90 70 H170 L110 150" />}
-                        {n===8 && (
+                        {n === 5 && <path d="M170 70 H100 V110 Q130 90, 160 110 Q170 140, 120 150" />}
+                        {n === 6 && <path d="M160 80 Q100 80, 110 120 Q140 160, 170 130 Q150 110, 120 120" />}
+                        {n === 7 && <path d="M90 70 H170 L110 150" />}
+                        {n === 8 && (
                           <g>
                             <circle cx="120" cy="95" r="26" fill="none" />
                             <circle cx="120" cy="135" r="26" fill="none" />
                           </g>
                         )}
-                        {n===9 && (
+                        {n === 9 && (
                           <g>
                             <circle cx="135" cy="100" r="28" fill="none" />
                             <path d="M162 120 Q150 150, 120 150" />
                           </g>
                         )}
-                        {n===10 && (
+                        {n === 10 && (
                           <g>
                             <path d="M90 150 L90 80" />
                             <circle cx="140" cy="115" r="30" fill="none" />
@@ -4093,7 +4124,7 @@ export function PrintablesPage() {
               </div>
             </div>
             <div className="grid grid-cols-2 gap-4 break-inside-avoid" style={{ pageBreakAfter: 'auto' }}>
-              {[['A','a'],['B','b'],['C','c'],['D','d'],['E','e'],['F','f'],['G','g'],['H','h'],['I','i'],['J','j'],['K','k'],['L','l'],['M','m']].map(([U,l]) => (
+              {[['A', 'a'], ['B', 'b'], ['C', 'c'], ['D', 'd'], ['E', 'e'], ['F', 'f'], ['G', 'g'], ['H', 'h'], ['I', 'i'], ['J', 'j'], ['K', 'k'], ['L', 'l'], ['M', 'm']].map(([U, l]) => (
                 <svg key={U} viewBox="0 0 400 120" className="w-full h-auto bg-white border border-slate-300 rounded">
                   <circle cx="48" cy="40" r="4" fill="#ef4444" />
                   <line x1="48" y1="40" x2="70" y2="40" stroke="#ef4444" strokeWidth="2.5" strokeLinecap="round" />
@@ -4111,7 +4142,7 @@ export function PrintablesPage() {
               ))}
             </div>
             <div className="grid grid-cols-2 gap-4">
-              {[['N','n'],['O','o'],['P','p'],['Q','q'],['R','r'],['S','s'],['T','t'],['U','u'],['V','v'],['W','w'],['X','x'],['Y','y'],['Z','z']].map(([U,l]) => (
+              {[['N', 'n'], ['O', 'o'], ['P', 'p'], ['Q', 'q'], ['R', 'r'], ['S', 's'], ['T', 't'], ['U', 'u'], ['V', 'v'], ['W', 'w'], ['X', 'x'], ['Y', 'y'], ['Z', 'z']].map(([U, l]) => (
                 <svg key={U} viewBox="0 0 400 120" className="w-full h-auto bg-white border border-slate-300 rounded">
                   <circle cx="48" cy="40" r="4" fill="#ef4444" />
                   <line x1="48" y1="40" x2="70" y2="40" stroke="#ef4444" strokeWidth="2.5" strokeLinecap="round" />
@@ -4153,7 +4184,7 @@ export function PrintablesPage() {
               </div>
             </div>
             {showAnswersForDoc('uppercase-lowercase-match', () => {
-              const letters = [['A','a'],['B','b'],['C','c'],['D','d'],['E','e'],['F','f'],['G','g'],['H','h'],['I','i'],['J','j'],['K','k'],['L','l'],['M','m'],['N','n'],['O','o'],['P','p'],['Q','q'],['R','r'],['S','s'],['T','t'],['U','u'],['V','v'],['W','w'],['X','x'],['Y','y'],['Z','z']];
+              const letters = [['A', 'a'], ['B', 'b'], ['C', 'c'], ['D', 'd'], ['E', 'e'], ['F', 'f'], ['G', 'g'], ['H', 'h'], ['I', 'i'], ['J', 'j'], ['K', 'k'], ['L', 'l'], ['M', 'm'], ['N', 'n'], ['O', 'o'], ['P', 'p'], ['Q', 'q'], ['R', 'r'], ['S', 's'], ['T', 't'], ['U', 'u'], ['V', 'v'], ['W', 'w'], ['X', 'x'], ['Y', 'y'], ['Z', 'z']];
               return (
                 <div className="mt-6 p-4 border-2 border-emerald-300 bg-emerald-50 rounded print:border print:bg-white print:page-break-before-always">
                   <div className="font-bold text-emerald-900 mb-3 text-base">✅ {getTrans('common.answerKey', 'Answer Key')}</div>
@@ -4238,35 +4269,35 @@ export function PrintablesPage() {
             </div>
             <div className="grid grid-cols-2 gap-4 break-inside-avoid" style={{ pageBreakAfter: 'auto' }}>
               {(() => {
-                const rows: Array<[string,string,string,string]> = [
-                  ['A','🍎','✈️','🦋'],
-                  ['B','🐝','🚲','🍌'],
-                  ['C','🐱','🚗','☕'],
-                  ['D','🐶','🦆','🍩'],
-                  ['E','🥚','🦅','👂'],
-                  ['F','🐟','🦊','🏁'],
-                  ['G','🦒','👓','🦎'],
-                  ['H','🏠','🐹','🥅'],
-                  ['I','🍦','🏝️','🧊'],
-                  ['J','🤹','🧃','🕹️'],
-                  ['K','🔑','🌋','🪁'],
-                  ['L','🦁','🍋','🌿'],
-                  ['M','🐭','🌙','🍄'],
-                  ['N','🥜','巛','📓'],
-                  ['O','🐙','🧅','🍊'],
-                  ['P','🐼','🥧','🖊️'],
-                  ['Q','👸','🧶','🧭'],
-                  ['R','🐰','🚀','🌧️'],
-                  ['S','🐍','⭐','🌞'],
-                  ['T','🐯','🌮','🌳'],
-                  ['U','☂️','🦄','⛽'],
-                  ['V','🎻','🚐','🌋'],
-                  ['W','🐳','🍉','🚶'],
-                  ['X','🪓','📦','🧪'],
-                  ['Y','🛶','🪀','🍠'],
-                  ['Z','🦓','⚡','👟'],
+                const rows: Array<[string, string, string, string]> = [
+                  ['A', '🍎', '✈️', '🦋'],
+                  ['B', '🐝', '🚲', '🍌'],
+                  ['C', '🐱', '🚗', '☕'],
+                  ['D', '🐶', '🦆', '🍩'],
+                  ['E', '🥚', '🦅', '👂'],
+                  ['F', '🐟', '🦊', '🏁'],
+                  ['G', '🦒', '👓', '🦎'],
+                  ['H', '🏠', '🐹', '🥅'],
+                  ['I', '🍦', '🏝️', '🧊'],
+                  ['J', '🤹', '🧃', '🕹️'],
+                  ['K', '🔑', '🌋', '🪁'],
+                  ['L', '🦁', '🍋', '🌿'],
+                  ['M', '🐭', '🌙', '🍄'],
+                  ['N', '🥜', '巛', '📓'],
+                  ['O', '🐙', '🧅', '🍊'],
+                  ['P', '🐼', '🥧', '🖊️'],
+                  ['Q', '👸', '🧶', '🧭'],
+                  ['R', '🐰', '🚀', '🌧️'],
+                  ['S', '🐍', '⭐', '🌞'],
+                  ['T', '🐯', '🌮', '🌳'],
+                  ['U', '☂️', '🦄', '⛽'],
+                  ['V', '🎻', '🚐', '🌋'],
+                  ['W', '🐳', '🍉', '🚶'],
+                  ['X', '🪓', '📦', '🧪'],
+                  ['Y', '🛶', '🪀', '🍠'],
+                  ['Z', '🦓', '⚡', '👟'],
                 ]
-                return rows.map(([L,a,b,c]) => (
+                return rows.map(([L, a, b, c]) => (
                   <svg key={L} viewBox="0 0 400 160" className="w-full h-auto bg-white border border-slate-300 rounded">
                     <text x="40" y="60" fontSize="40" fill="#111827">{L}</text>
                     <text x="140" y="60" fontSize="36">{a}</text>
@@ -4360,80 +4391,80 @@ export function PrintablesPage() {
                 ]
               })()}
             >
-            <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-blue-400 to-indigo-400 animate-gradient-x mb-2" />
-            {/* Worked Example */}
-            <WorkedExampleContent />
-            <div className="grid grid-cols-2 gap-4 break-inside-avoid" style={{ pageBreakAfter: 'auto' }}>
-              {Array.from({ length: 12 }).map((_,i)=> {
-                const isAdd = i%2===0;
-                const num1 = 2 + (i%4);
-                const num2 = 1 + (i%3);
-                const answer = isAdd ? num1 + num2 : num1 - num2;
-                return (
-                  <div key={i} className="break-inside-avoid bg-gradient-to-br from-blue-50 to-indigo-50 p-3 rounded-lg border-2 border-blue-200">
-                    <svg viewBox="0 0 400 200" className="w-full h-auto bg-white border border-slate-300 rounded">
-                      {/* Visual objects for counting */}
-                      <g>
-                        {/* First group of objects */}
-                        {Array.from({ length: num1 }).map((_, j) => {
-                          const col = j % 3;
-                          const row = Math.floor(j / 3);
-                          const x = 40 + col * 35;
-                          const y = 30 + row * 35;
-                          return (
-                            <g key={j}>
-                              <circle cx={x} cy={y} r="12" fill="#3b82f6" stroke="#1e40af" strokeWidth="2" />
-                              <circle cx={x-3} cy={y-3} r="2" fill="#ffffff" />
-                            </g>
-                          );
-                        })}
-                        {/* Plus or minus sign */}
-                        <text x={isAdd ? "140" : "140"} y="50" fontSize="36" fill="#1e40af" fontWeight="bold">
-                          {isAdd ? '+' : '−'}
-                        </text>
-                        {/* Second group of objects */}
-                        {Array.from({ length: num2 }).map((_, j) => {
-                          const col = j % 3;
-                          const row = Math.floor(j / 3);
-                          const x = 180 + col * 35;
-                          const y = 30 + row * 35;
-                          return (
-                            <g key={j}>
-                              <circle cx={x} cy={y} r="12" fill={isAdd ? "#10b981" : "#ef4444"} stroke={isAdd ? "#059669" : "#dc2626"} strokeWidth="2" />
-                              <circle cx={x-3} cy={y-3} r="2" fill="#ffffff" />
-                            </g>
-                          );
-                        })}
-                        {/* Equals sign */}
-                        <text x="280" y="50" fontSize="36" fill="#1e40af" fontWeight="bold">=</text>
-                        {/* Answer box */}
-                        <rect x="310" y="20" width="60" height="50" rx="4" fill="white" stroke="#94a3b8" strokeWidth="2" strokeDasharray="4 4" />
-                        <text x="340" y="50" fontSize="24" fill="#64748b" textAnchor="middle">?</text>
-                      </g>
-                      {/* Number line below */}
-                      <g fill="none" stroke="#94a3b8" strokeWidth="2" opacity="0.6">
-                        <path d="M40 140 H360" />
-                        {Array.from({ length: 11 }).map((__,k)=> (
-                          <line key={k} x1={40 + k*32} y1={140} x2={40 + k*32} y2={130} />
-                        ))}
-                        {Array.from({ length: 11 }).map((__,k)=> (
-                          <text key={k} x={40 + k*32} y="155" fontSize="12" fill="#64748b" textAnchor="middle">{k}</text>
-                        ))}
-                      </g>
-                    </svg>
-                    {/* Answer label below - moved outside SVG to prevent overlap */}
-                    <div className="text-center text-sm text-slate-600 mt-2">
-                      Answer: <span className="font-bold text-blue-700">?</span>
+              <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-blue-400 to-indigo-400 animate-gradient-x mb-2" />
+              {/* Worked Example */}
+              <WorkedExampleContent />
+              <div className="grid grid-cols-2 gap-4 break-inside-avoid" style={{ pageBreakAfter: 'auto' }}>
+                {Array.from({ length: 12 }).map((_, i) => {
+                  const isAdd = i % 2 === 0;
+                  const num1 = 2 + (i % 4);
+                  const num2 = 1 + (i % 3);
+                  const answer = isAdd ? num1 + num2 : num1 - num2;
+                  return (
+                    <div key={i} className="break-inside-avoid bg-gradient-to-br from-blue-50 to-indigo-50 p-3 rounded-lg border-2 border-blue-200">
+                      <svg viewBox="0 0 400 200" className="w-full h-auto bg-white border border-slate-300 rounded">
+                        {/* Visual objects for counting */}
+                        <g>
+                          {/* First group of objects */}
+                          {Array.from({ length: num1 }).map((_, j) => {
+                            const col = j % 3;
+                            const row = Math.floor(j / 3);
+                            const x = 40 + col * 35;
+                            const y = 30 + row * 35;
+                            return (
+                              <g key={j}>
+                                <circle cx={x} cy={y} r="12" fill="#3b82f6" stroke="#1e40af" strokeWidth="2" />
+                                <circle cx={x - 3} cy={y - 3} r="2" fill="#ffffff" />
+                              </g>
+                            );
+                          })}
+                          {/* Plus or minus sign */}
+                          <text x={isAdd ? "140" : "140"} y="50" fontSize="36" fill="#1e40af" fontWeight="bold">
+                            {isAdd ? '+' : '−'}
+                          </text>
+                          {/* Second group of objects */}
+                          {Array.from({ length: num2 }).map((_, j) => {
+                            const col = j % 3;
+                            const row = Math.floor(j / 3);
+                            const x = 180 + col * 35;
+                            const y = 30 + row * 35;
+                            return (
+                              <g key={j}>
+                                <circle cx={x} cy={y} r="12" fill={isAdd ? "#10b981" : "#ef4444"} stroke={isAdd ? "#059669" : "#dc2626"} strokeWidth="2" />
+                                <circle cx={x - 3} cy={y - 3} r="2" fill="#ffffff" />
+                              </g>
+                            );
+                          })}
+                          {/* Equals sign */}
+                          <text x="280" y="50" fontSize="36" fill="#1e40af" fontWeight="bold">=</text>
+                          {/* Answer box */}
+                          <rect x="310" y="20" width="60" height="50" rx="4" fill="white" stroke="#94a3b8" strokeWidth="2" strokeDasharray="4 4" />
+                          <text x="340" y="50" fontSize="24" fill="#64748b" textAnchor="middle">?</text>
+                        </g>
+                        {/* Number line below */}
+                        <g fill="none" stroke="#94a3b8" strokeWidth="2" opacity="0.6">
+                          <path d="M40 140 H360" />
+                          {Array.from({ length: 11 }).map((__, k) => (
+                            <line key={k} x1={40 + k * 32} y1={140} x2={40 + k * 32} y2={130} />
+                          ))}
+                          {Array.from({ length: 11 }).map((__, k) => (
+                            <text key={k} x={40 + k * 32} y="155" fontSize="12" fill="#64748b" textAnchor="middle">{k}</text>
+                          ))}
+                        </g>
+                      </svg>
+                      {/* Answer label below - moved outside SVG to prevent overlap */}
+                      <div className="text-center text-sm text-slate-600 mt-2">
+                        Answer: <span className="font-bold text-blue-700">?</span>
+                      </div>
+                      <div className="mt-2 text-xs text-center text-slate-600">
+                        {num1} {isAdd ? '+' : '−'} {num2} = <span className="font-bold text-blue-700">___</span>
+                      </div>
                     </div>
-                    <div className="mt-2 text-xs text-center text-slate-600">
-                      {num1} {isAdd ? '+' : '−'} {num2} = <span className="font-bold text-blue-700">___</span>
-                    </div>
-                  </div>
-                );
-              })}
-            </div>
-            {/* Extension/Challenge Problems */}
-            {ChallengeAndAssessmentContent()}
+                  );
+                })}
+              </div>
+              {/* Extension/Challenge Problems */}
+              {ChallengeAndAssessmentContent()}
             </WorksheetSectionWrapper>
           )
         })()}
@@ -4506,13 +4537,13 @@ export function PrintablesPage() {
                 </div>
               </div>
               <div className="grid grid-cols-2 gap-4 break-inside-avoid" style={{ pageBreakAfter: 'auto' }}>
-                {numbers.map((n)=> (
+                {numbers.map((n) => (
                   <div key={n} className="break-inside-avoid bg-gradient-to-br from-teal-50 to-cyan-50 p-3 rounded-lg border-2 border-teal-200">
                     <div className="flex flex-col items-center gap-2 bg-white border border-slate-300 rounded p-2">
                       <div className="text-3xl font-bold text-teal-700">{n}</div>
                       <svg viewBox="0 0 200 100" className="w-full h-auto max-h-24">
                         <rect x="0" y="0" width="200" height="100" rx="6" fill="white" stroke="#14b8a6" strokeWidth="3" />
-                        {Array.from({ length: 10 }).map((__,i)=> {
+                        {Array.from({ length: 10 }).map((__, i) => {
                           const col = i % 5;
                           const row = Math.floor(i / 5);
                           const x = 20 + col * 36;
@@ -4666,17 +4697,17 @@ export function PrintablesPage() {
                 </div>
                 <div className="flex items-center gap-2 print:gap-1">
                   <svg viewBox="0 0 60 30" className="h-8 print:h-3 w-auto flex-shrink-0">
-                    {Array.from({length:3}).map((_,i)=> (
-                      <rect key={i} x={10 + i*18} y="10" width="12" height="12" rx="2" fill="#60a5fa" stroke="#2563eb" strokeWidth="1.5" />
+                    {Array.from({ length: 3 }).map((_, i) => (
+                      <rect key={i} x={10 + i * 18} y="10" width="12" height="12" rx="2" fill="#60a5fa" stroke="#2563eb" strokeWidth="1.5" />
                     ))}
                   </svg>
                   <span className="text-blue-700 font-bold whitespace-nowrap">{getTrans(`worksheets.${docId}.legend.oneLabel`, '= 1 One')}</span>
                 </div>
               </div>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 print:gap-1 break-inside-avoid" style={{ pageBreakAfter: 'auto' }}>
-                {nums.map((n,i)=> {
-                  const tens = Math.floor(n/10);
-                  const ones = n%10;
+                {nums.map((n, i) => {
+                  const tens = Math.floor(n / 10);
+                  const ones = n % 10;
                   return (
                     <div key={i} className="border-2 border-violet-200 rounded-lg p-4 print:p-1.5 bg-gradient-to-br from-violet-50 to-pink-50 break-inside-avoid">
                       <div className="text-violet-900 font-semibold mb-3 print:mb-0.5 text-lg print:text-sm">{getTrans(`worksheets.${docId}.labels.number`, 'Number:')} <span className="text-2xl print:text-lg">{n}</span></div>
@@ -4695,7 +4726,7 @@ export function PrintablesPage() {
                           </svg>
                           {tens > 5 && (
                             <div className="text-xs font-semibold text-green-700 whitespace-nowrap">
-                              {t('worksheets.place-value-hto.labels.more', '+{count} more').replace('{count}', String(tens-5))}
+                              {t('worksheets.place-value-hto.labels.more', '+{count} more').replace('{count}', String(tens - 5))}
                             </div>
                           )}
                         </div>
@@ -4764,11 +4795,11 @@ export function PrintablesPage() {
                 <div className="mt-6 p-4 border-2 border-emerald-300 bg-emerald-50 rounded print:border print:bg-white print:page-break-before-always">
                   <div className="font-bold text-emerald-900 mb-3 text-base">{getTrans(`worksheets.${docId}.answerKey.title`, '✅ Answer Key')}</div>
                   <div className="space-y-2">
-                    {nums.map((n,i)=> {
-                      const tens = Math.floor(n/10); const ones = n%10;
+                    {nums.map((n, i) => {
+                      const tens = Math.floor(n / 10); const ones = n % 10;
                       return (
                         <div key={i} className="text-sm text-emerald-800">
-                          {i + 1}. {n}: {getTrans(`worksheets.${docId}.answerKey.tensLabel`, 'Tens')} <strong>{tens}</strong>, {getTrans(`worksheets.${docId}.answerKey.onesLabel`, 'Ones')} <strong>{ones}</strong>, {getTrans(`worksheets.${docId}.answerKey.expandedLabel`, 'Expanded')} <strong>{tens*10} + {ones}</strong>
+                          {i + 1}. {n}: {getTrans(`worksheets.${docId}.answerKey.tensLabel`, 'Tens')} <strong>{tens}</strong>, {getTrans(`worksheets.${docId}.answerKey.onesLabel`, 'Ones')} <strong>{ones}</strong>, {getTrans(`worksheets.${docId}.answerKey.expandedLabel`, 'Expanded')} <strong>{tens * 10} + {ones}</strong>
                         </div>
                       )
                     })}
@@ -4898,7 +4929,7 @@ export function PrintablesPage() {
             while (out.length < count && guard < 10000) {
               const a = nextInt(10, 99);
               const b = nextInt(10, 99);
-              if ((a%10) + (b%10) < 10 && a + b <= 100) out.push([a,b]);
+              if ((a % 10) + (b % 10) < 10 && a + b <= 100) out.push([a, b]);
               guard++;
             }
             return out;
@@ -4977,7 +5008,7 @@ export function PrintablesPage() {
                 </div>
               </div>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 break-inside-avoid" style={{ pageBreakAfter: 'auto' }}>
-                {pairs.map(([a,b],i)=> (
+                {pairs.map(([a, b], i) => (
                   <div key={i} className="border-2 border-emerald-200 rounded-lg p-4 bg-gradient-to-br from-emerald-50 to-sky-50 w-full break-inside-avoid print:p-3">
                     <div className="font-mono text-2xl leading-7 text-right mb-2">
                       <div className="text-emerald-700">{a}</div>
@@ -5017,9 +5048,9 @@ export function PrintablesPage() {
                 <div className="mt-6 p-4 border-2 border-emerald-300 bg-emerald-50 rounded print:border print:bg-white print:page-break-before-always">
                   <div className="font-bold text-emerald-900 mb-3 text-base">✅ {getTrans('common.answerKey', 'Answer Key')}</div>
                   <div className="space-y-2">
-                    {pairs.map(([a,b],i)=> (
+                    {pairs.map(([a, b], i) => (
                       <div key={i} className="text-sm text-emerald-800">
-                        {i + 1}. {a} + {b} = <strong>{a+b}</strong>
+                        {i + 1}. {a} + {b} = <strong>{a + b}</strong>
                       </div>
                     ))}
                   </div>
@@ -5040,7 +5071,7 @@ export function PrintablesPage() {
             while (out.length < count && guard < 10000) {
               const a = nextInt(10, 99);
               const b = nextInt(10, 99);
-              if ((a%10) >= (b%10) && a >= b) out.push([a,b]);
+              if ((a % 10) >= (b % 10) && a >= b) out.push([a, b]);
               guard++;
             }
             return out;
@@ -5122,7 +5153,7 @@ export function PrintablesPage() {
                 </div>
               </div>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 break-inside-avoid" style={{ pageBreakAfter: 'auto' }}>
-                {pairs.map(([a,b],i)=> (
+                {pairs.map(([a, b], i) => (
                   <div key={i} className="border-2 border-rose-200 rounded-lg p-4 bg-gradient-to-br from-rose-50 to-fuchsia-50 w-full break-inside-avoid print:p-3">
                     <div className="font-mono text-2xl leading-7 text-right mb-2">
                       <div className="text-rose-700">{a}</div>
@@ -5162,9 +5193,9 @@ export function PrintablesPage() {
                 <div className="mt-6 p-4 border-2 border-emerald-300 bg-emerald-50 rounded print:border print:bg-white print:page-break-before-always">
                   <div className="font-bold text-emerald-900 mb-3 text-base">✅ {getTrans('common.answerKey', 'Answer Key')}</div>
                   <div className="space-y-2">
-                    {pairs.map(([a,b],i)=> (
+                    {pairs.map(([a, b], i) => (
                       <div key={i} className="text-sm text-emerald-800">
-                        {i + 1}. {a} − {b} = <strong>{a-b}</strong>
+                        {i + 1}. {a} − {b} = <strong>{a - b}</strong>
                       </div>
                     ))}
                   </div>
@@ -5258,10 +5289,10 @@ export function PrintablesPage() {
                   const nums = item.equation.match(/\d+/g) || [];
                   const num1 = parseInt(nums[0] || '0');
                   const num2 = parseInt(nums[1] || '0');
-                  const emoji = item.problem.includes('marbles') ? '🔴' : 
-                               item.problem.includes('books') ? '📚' :
-                               item.problem.includes('stickers') ? '⭐' :
-                               item.problem.includes('pencils') ? '✏️' : '📄';
+                  const emoji = item.problem.includes('marbles') ? '🔴' :
+                    item.problem.includes('books') ? '📚' :
+                      item.problem.includes('stickers') ? '⭐' :
+                        item.problem.includes('pencils') ? '✏️' : '📄';
                   return (
                     <div key={i} className="border-2 border-amber-200 rounded-lg p-4 bg-gradient-to-br from-amber-50 to-lime-50 break-inside-avoid">
                       <div className="text-base font-semibold text-amber-900 mb-3 flex items-start gap-2">
@@ -5349,8 +5380,8 @@ export function PrintablesPage() {
         {activeDocs.includes('compare-2digit') && (() => {
           const rng = makeRng(`${effectiveSeed}|v${variant}|doc=${doc}`);
           function nextInt(min: number, max: number) { return Math.floor(rng() * (max - min + 1)) + min; }
-          const pairs: Array<[number, number]> = Array.from({length:10}).map(()=> {
-            const a = nextInt(10,99); const b = nextInt(10,99); return [a,b];
+          const pairs: Array<[number, number]> = Array.from({ length: 10 }).map(() => {
+            const a = nextInt(10, 99); const b = nextInt(10, 99); return [a, b];
           });
           return (
             <WorksheetSectionWrapper
@@ -5396,7 +5427,7 @@ export function PrintablesPage() {
                 </div>
               )}
               <div className="grid grid-cols-2 gap-3 text-xl font-mono break-inside-avoid" style={{ pageBreakAfter: 'auto' }}>
-                {pairs.map(([a,b],i)=> (
+                {pairs.map(([a, b], i) => (
                   <div key={i} className="border border-slate-300 rounded p-3 bg-white w-full flex items-center justify-between break-inside-avoid">
                     <span>{a}</span>
                     <span className="mx-2 inline-block w-16 h-10 border-b-[3px] border-slate-600 align-middle" aria-label="comparison symbol box" />
@@ -5419,7 +5450,7 @@ export function PrintablesPage() {
                 <div className="space-y-2 text-xs">
                   <div>☐ I can compare 2-digit numbers correctly</div>
                   <div>☐ I know to compare tens first</div>
-                    <div>☐ I can use &gt;, &lt;, and = symbols correctly</div>
+                  <div>☐ I can use &gt;, &lt;, and = symbols correctly</div>
                 </div>
                 <div className="mt-3 text-xs">
                   <strong>{getTrans('common.myScore', 'My score:')}</strong> ___ / {pairs.length}
@@ -5429,14 +5460,14 @@ export function PrintablesPage() {
                 </div>
               </div>
               {showAnswersForDoc('compare-2digit', () => (
-              <div className="mt-6 p-4 border-2 border-emerald-300 bg-emerald-50 rounded print:border print:bg-white print:page-break-before-always">
-                <div className="font-bold text-emerald-900 mb-3 text-base">✅ {getTrans('common.answerKey', 'Answer Key')} ({getTrans('common.withExplanations', 'with explanations')})</div>
+                <div className="mt-6 p-4 border-2 border-emerald-300 bg-emerald-50 rounded print:border print:bg-white print:page-break-before-always">
+                  <div className="font-bold text-emerald-900 mb-3 text-base">✅ {getTrans('common.answerKey', 'Answer Key')} ({getTrans('common.withExplanations', 'with explanations')})</div>
                   <div className="space-y-2">
                     {pairs.map(([a, b], i) => {
                       const symbol = a > b ? '>' : a < b ? '<' : '=';
                       const aTens = Math.floor(a / 10);
                       const bTens = Math.floor(b / 10);
-                      const explanation = aTens !== bTens 
+                      const explanation = aTens !== bTens
                         ? `${aTens} tens ${symbol === '>' ? '>' : '<'} ${bTens} tens`
                         : `${a} and ${b} have the same tens, so compare ones: ${a % 10} ${symbol} ${b % 10}`;
                       return (
@@ -5454,7 +5485,7 @@ export function PrintablesPage() {
 
         {activeDocs.includes('even-odd-100') && (() => {
           const rng = makeRng(`${effectiveSeed}|v${variant}|doc=${doc}`);
-          const nums = Array.from({length:20}).map(()=> Math.floor(rng()*100));
+          const nums = Array.from({ length: 20 }).map(() => Math.floor(rng() * 100));
           return (
             <WorksheetSectionWrapper
               docId="even-odd-100"
@@ -5491,7 +5522,7 @@ export function PrintablesPage() {
                 </div>
               </div>
               <div className="grid grid-cols-2 gap-3 text-xl font-mono break-inside-avoid" style={{ pageBreakAfter: 'auto' }}>
-                {nums.map((n,i)=> (
+                {nums.map((n, i) => (
                   <div key={i} className="border border-slate-300 rounded p-3 bg-white w-full flex items-center justify-between break-inside-avoid">
                     <span>{n}</span>
                     <span className="mx-2">Even ☐  Odd ☐</span>
@@ -5528,7 +5559,7 @@ export function PrintablesPage() {
                   <div className="space-y-2">
                     {nums.map((n, i) => (
                       <div key={i} className="text-sm text-emerald-800">
-                        {i + 1}. {n} is <strong>{n%2===0 ? 'Even' : 'Odd'}</strong> (ones digit is {n % 10})
+                        {i + 1}. {n} is <strong>{n % 2 === 0 ? 'Even' : 'Odd'}</strong> (ones digit is {n % 10})
                       </div>
                     ))}
                   </div>
@@ -5539,7 +5570,7 @@ export function PrintablesPage() {
         })()}
 
         {activeDocs.includes('time-5min') && (() => {
-          const times = ['3:25','9:40','12:05','6:30','1:55','10:10','7:45','2:20'];
+          const times = ['3:25', '9:40', '12:05', '6:30', '1:55', '10:10', '7:45', '2:20'];
           return (
             <WorksheetSectionWrapper
               docId="time-5min"
@@ -5577,12 +5608,12 @@ export function PrintablesPage() {
                 </div>
               </div>
               <div className="grid grid-cols-2 gap-3 break-inside-avoid" style={{ pageBreakAfter: 'auto' }}>
-                {times.map((t,i)=> (
+                {times.map((t, i) => (
                   <div key={i} className="break-inside-avoid">
                     <svg viewBox="0 0 200 200" className="w-full h-auto bg-white border border-slate-300 rounded">
                       <circle cx="100" cy="100" r="80" fill="none" stroke="#111827" strokeWidth="3" />
                       {/* hour marks */}
-                      {Array.from({length:12}).map((_,k)=> { const a=(k/12)*Math.PI*2; const x1=100+Math.cos(a)*70; const y1=100+Math.sin(a)*70; const x2=100+Math.cos(a)*80; const y2=100+Math.sin(a)*80; return <line key={k} x1={x1} y1={y1} x2={x2} y2={y2} stroke="#111827" /> })}
+                      {Array.from({ length: 12 }).map((_, k) => { const a = (k / 12) * Math.PI * 2; const x1 = 100 + Math.cos(a) * 70; const y1 = 100 + Math.sin(a) * 70; const x2 = 100 + Math.cos(a) * 80; const y2 = 100 + Math.sin(a) * 80; return <line key={k} x1={x1} y1={y1} x2={x2} y2={y2} stroke="#111827" /> })}
                       <text x="100" y="180" textAnchor="middle" fontSize="16" fill="#111827">{t}</text>
                       {/* student draws hands */}
                     </svg>
@@ -5686,19 +5717,19 @@ export function PrintablesPage() {
                 </div>
               </div>
               <div className="grid grid-cols-2 gap-4 break-inside-avoid" style={{ pageBreakAfter: 'auto' }}>
-                {numbers.map((n)=> (
+                {numbers.map((n) => (
                   <div key={n} className="break-inside-avoid">
                     <svg viewBox="0 0 400 160" className="w-full h-auto bg-white border border-slate-300 rounded">
                       <text x="40" y="50" fontSize="36" fill="#111827">{n}</text>
                       <g transform="translate(120,60)">
-                        {Array.from({ length: 10 }).map((__,i)=> (
-                          <rect key={i} x={(i%5)*40} y={Math.floor(i/5)*40} width="36" height="36" fill="none" stroke="#111827" />
+                        {Array.from({ length: 10 }).map((__, i) => (
+                          <rect key={i} x={(i % 5) * 40} y={Math.floor(i / 5) * 40} width="36" height="36" fill="none" stroke="#111827" />
                         ))}
                       </g>
                       {n > 10 && (
                         <g transform="translate(120,120)">
-                          {Array.from({ length: 10 }).map((__,i)=> (
-                            <rect key={i} x={(i%5)*40} y={Math.floor(i/5)*40} width="36" height="36" fill="none" stroke="#111827" />
+                          {Array.from({ length: 10 }).map((__, i) => (
+                            <rect key={i} x={(i % 5) * 40} y={Math.floor(i / 5) * 40} width="36" height="36" fill="none" stroke="#111827" />
                           ))}
                         </g>
                       )}
@@ -5741,7 +5772,7 @@ export function PrintablesPage() {
                       const secondEmpty = n > 10 ? 10 - (n - 10) : 0;
                       return (
                         <div key={i}>
-                          {i + 1}. <strong>{n}:</strong> {n <= 10 
+                          {i + 1}. <strong>{n}:</strong> {n <= 10
                             ? `${filled} filled, ${empty} empty (in one ten frame)`
                             : `First ten frame: 10 filled. Second ten frame: ${secondFilled} filled, ${secondEmpty} empty`}
                         </div>
@@ -5895,10 +5926,10 @@ export function PrintablesPage() {
               </div>
               <div className="break-inside-avoid" style={{ pageBreakAfter: 'auto' }}>
                 <svg viewBox="0 0 800 400" className="w-full h-auto bg-white border border-slate-300 rounded">
-                  {Array.from({ length: dotCount }).map((_,i)=> (
+                  {Array.from({ length: dotCount }).map((_, i) => (
                     <g key={i}>
-                      <circle cx={60 + i*35} cy={200 + (i%2===0? -30:30)} r="4" fill="#111827" />
-                      <text x={60 + i*35 + 6} y={200 + (i%2===0? -30:30) - 6} fontSize="12">{i+1}</text>
+                      <circle cx={60 + i * 35} cy={200 + (i % 2 === 0 ? -30 : 30)} r="4" fill="#111827" />
+                      <text x={60 + i * 35 + 6} y={200 + (i % 2 === 0 ? -30 : 30) - 6} fontSize="12">{i + 1}</text>
                     </g>
                   ))}
                 </svg>
@@ -6297,11 +6328,11 @@ export function PrintablesPage() {
             <svg viewBox="0 0 800 400" className="w-full h-auto bg-white border border-slate-300 rounded">
               <g fill="none" stroke="#111827" strokeWidth="3.5">
                 <rect x="100" y="80" width="600" height="220" />
-                {Array.from({ length: 5 }).map((_,r)=> (
-                  <line key={r} x1="100" y1={80 + (r+1)*44} x2="700" y2={80 + (r+1)*44} />
+                {Array.from({ length: 5 }).map((_, r) => (
+                  <line key={r} x1="100" y1={80 + (r + 1) * 44} x2="700" y2={80 + (r + 1) * 44} />
                 ))}
-                {Array.from({ length: 6 }).map((_,c)=> (
-                  <line key={c} x1={100 + (c+1)*100} y1="80" x2={100 + (c+1)*100} y2="300" />
+                {Array.from({ length: 6 }).map((_, c) => (
+                  <line key={c} x1={100 + (c + 1) * 100} y1="80" x2={100 + (c + 1) * 100} y2="300" />
                 ))}
               </g>
               <text x="120" y="70" fontSize="16">Mon</text>
@@ -6457,78 +6488,78 @@ export function PrintablesPage() {
                 ]
               })()}
             >
-            <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-blue-400 to-indigo-400 animate-gradient-x mb-2" />
-            {/* Worked Example */}
-            <div className="mb-6 p-4 bg-blue-50 border-2 border-blue-200 rounded-lg print:border print:bg-white">
-              <div className="font-semibold text-blue-900 mb-3 text-sm">{getTrans(`worksheets.${docId}.example.title`, '📚 Example - Let\'s solve this together:')}</div>
-              <div className="space-y-2 text-sm">
-                <div className="font-semibold text-base"><strong>{getTrans(`worksheets.${docId}.example.question`, 'Question:')}</strong> {getTrans(`worksheets.${docId}.example.questionText`, 'Where did Mia go?')}</div>
-                <div className="pl-4 border-l-2 border-blue-300 space-y-1">
-                  <div><strong>{getTrans(`worksheets.${docId}.example.step1`, 'Step 1:')}</strong> {getTrans(`worksheets.${docId}.example.step1Text`, 'Read the passage carefully')}</div>
-                  <div><strong>{getTrans(`worksheets.${docId}.example.step2`, 'Step 2:')}</strong> {getTrans(`worksheets.${docId}.example.step2Text`, 'Look for the answer to "Where did Mia go?"')}</div>
-                  <div><strong>{getTrans(`worksheets.${docId}.example.step3`, 'Step 3:')}</strong> {getTrans(`worksheets.${docId}.example.step3Text`, 'Find: "Mia ran to the park"')}</div>
-                  <div className="font-semibold text-blue-900"><strong>{getTrans(`worksheets.${docId}.example.answer`, 'Answer:')}</strong> {getTrans(`worksheets.${docId}.example.answerText`, 'Mia went to the park.')}</div>
-                  <div className="text-xs text-blue-700 mt-1">{getTrans(`worksheets.${docId}.example.tip`, '💡 Tip: Look for key words in the question (like "where") and find them in the passage!')}</div>
+              <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-blue-400 to-indigo-400 animate-gradient-x mb-2" />
+              {/* Worked Example */}
+              <div className="mb-6 p-4 bg-blue-50 border-2 border-blue-200 rounded-lg print:border print:bg-white">
+                <div className="font-semibold text-blue-900 mb-3 text-sm">{getTrans(`worksheets.${docId}.example.title`, '📚 Example - Let\'s solve this together:')}</div>
+                <div className="space-y-2 text-sm">
+                  <div className="font-semibold text-base"><strong>{getTrans(`worksheets.${docId}.example.question`, 'Question:')}</strong> {getTrans(`worksheets.${docId}.example.questionText`, 'Where did Mia go?')}</div>
+                  <div className="pl-4 border-l-2 border-blue-300 space-y-1">
+                    <div><strong>{getTrans(`worksheets.${docId}.example.step1`, 'Step 1:')}</strong> {getTrans(`worksheets.${docId}.example.step1Text`, 'Read the passage carefully')}</div>
+                    <div><strong>{getTrans(`worksheets.${docId}.example.step2`, 'Step 2:')}</strong> {getTrans(`worksheets.${docId}.example.step2Text`, 'Look for the answer to "Where did Mia go?"')}</div>
+                    <div><strong>{getTrans(`worksheets.${docId}.example.step3`, 'Step 3:')}</strong> {getTrans(`worksheets.${docId}.example.step3Text`, 'Find: "Mia ran to the park"')}</div>
+                    <div className="font-semibold text-blue-900"><strong>{getTrans(`worksheets.${docId}.example.answer`, 'Answer:')}</strong> {getTrans(`worksheets.${docId}.example.answerText`, 'Mia went to the park.')}</div>
+                    <div className="text-xs text-blue-700 mt-1">{getTrans(`worksheets.${docId}.example.tip`, '💡 Tip: Look for key words in the question (like "where") and find them in the passage!')}</div>
+                  </div>
                 </div>
               </div>
-            </div>
-            <div className="bg-white border border-slate-300 rounded p-4">
-              <p className="text-slate-800 text-base">{getTrans(`worksheets.${docId}.passage`, 'Mia ran to the park. The wind was strong. Her red hat flew off! She looked under the slide and behind a tree. A dog found the hat by the bench. Mia laughed and waved. "Thank you!"')}</p>
-              <ol className="list-decimal list-inside mt-3 text-slate-800 text-base space-y-1">
-                {(() => {
-                  const questions = t(`worksheets.${docId}.questions`)
-                  const qArray = Array.isArray(questions) && questions.length > 0 ? questions : [
-                    'Where did Mia go?',
-                    'What color was the hat?',
-                    'Who found the hat?',
-                    'Why did the hat fly off?'
-                  ]
-                  return qArray.map((q, i) => (
-                    <li key={i}>{q}</li>
-                  ))
-                })()}
-              </ol>
-            </div>
-            {/* Extension/Challenge Problems */}
-            <div className="mt-6 print:mt-0 p-4 bg-purple-50 border-2 border-purple-200 rounded print:bg-white print:border" style={{ pageBreakBefore: 'always', pageBreakInside: 'avoid' }}>
-              <div className="font-semibold text-purple-900 mb-3 text-sm">{getTrans(`worksheets.${docId}.challenge.title`, '🌟 Challenge Yourself (Optional):')}</div>
-              <div className="space-y-2 text-sm text-purple-800">
-                {(() => {
-                  const items = t(`worksheets.${docId}.challenge.items`)
-                  const itemsArray = Array.isArray(items) && items.length > 0 ? items : [
-                    'Can you retell the story in your own words?',
-                    'What do you think happened after Mia said "Thank you"?',
-                    'Draw a picture of what happened in the story'
-                  ]
-                  return itemsArray.map((item, i) => (
-                    <div key={i}>{i + 1}. {item}</div>
-                  ))
-                })()}
+              <div className="bg-white border border-slate-300 rounded p-4">
+                <p className="text-slate-800 text-base">{getTrans(`worksheets.${docId}.passage`, 'Mia ran to the park. The wind was strong. Her red hat flew off! She looked under the slide and behind a tree. A dog found the hat by the bench. Mia laughed and waved. "Thank you!"')}</p>
+                <ol className="list-decimal list-inside mt-3 text-slate-800 text-base space-y-1">
+                  {(() => {
+                    const questions = t(`worksheets.${docId}.questions`)
+                    const qArray = Array.isArray(questions) && questions.length > 0 ? questions : [
+                      'Where did Mia go?',
+                      'What color was the hat?',
+                      'Who found the hat?',
+                      'Why did the hat fly off?'
+                    ]
+                    return qArray.map((q, i) => (
+                      <li key={i}>{q}</li>
+                    ))
+                  })()}
+                </ol>
               </div>
-            </div>
-            {/* Self-Assessment */}
-            <div className="print:block hidden print:mt-0 mt-6 p-4 border-2 border-slate-300 rounded" style={{ pageBreakBefore: 'avoid', pageBreakInside: 'avoid' }}>
-              <div className="font-semibold text-slate-800 mb-3 text-sm">{getTrans(`worksheets.${docId}.selfAssessment.title`, '📊 How did you do?')}</div>
-              <div className="space-y-2 text-xs">
-                {(() => {
-                  const items = t(`worksheets.${docId}.selfAssessment.items`)
-                  const itemsArray = Array.isArray(items) && items.length > 0 ? items : [
-                    'I understood the story',
-                    'I answered all 4 questions',
-                    'I used full sentences in my answers'
-                  ]
-                  return itemsArray.map((item, i) => (
-                    <div key={i}>☐ {item}</div>
-                  ))
-                })()}
+              {/* Extension/Challenge Problems */}
+              <div className="mt-6 print:mt-0 p-4 bg-purple-50 border-2 border-purple-200 rounded print:bg-white print:border" style={{ pageBreakBefore: 'always', pageBreakInside: 'avoid' }}>
+                <div className="font-semibold text-purple-900 mb-3 text-sm">{getTrans(`worksheets.${docId}.challenge.title`, '🌟 Challenge Yourself (Optional):')}</div>
+                <div className="space-y-2 text-sm text-purple-800">
+                  {(() => {
+                    const items = t(`worksheets.${docId}.challenge.items`)
+                    const itemsArray = Array.isArray(items) && items.length > 0 ? items : [
+                      'Can you retell the story in your own words?',
+                      'What do you think happened after Mia said "Thank you"?',
+                      'Draw a picture of what happened in the story'
+                    ]
+                    return itemsArray.map((item, i) => (
+                      <div key={i}>{i + 1}. {item}</div>
+                    ))
+                  })()}
+                </div>
               </div>
-              <div className="mt-3 text-xs">
-                <strong>{getTrans(`worksheets.${docId}.selfAssessment.score`, 'My score:')}</strong> ___ / 4
+              {/* Self-Assessment */}
+              <div className="print:block hidden print:mt-0 mt-6 p-4 border-2 border-slate-300 rounded" style={{ pageBreakBefore: 'avoid', pageBreakInside: 'avoid' }}>
+                <div className="font-semibold text-slate-800 mb-3 text-sm">{getTrans(`worksheets.${docId}.selfAssessment.title`, '📊 How did you do?')}</div>
+                <div className="space-y-2 text-xs">
+                  {(() => {
+                    const items = t(`worksheets.${docId}.selfAssessment.items`)
+                    const itemsArray = Array.isArray(items) && items.length > 0 ? items : [
+                      'I understood the story',
+                      'I answered all 4 questions',
+                      'I used full sentences in my answers'
+                    ]
+                    return itemsArray.map((item, i) => (
+                      <div key={i}>☐ {item}</div>
+                    ))
+                  })()}
+                </div>
+                <div className="mt-3 text-xs">
+                  <strong>{getTrans(`worksheets.${docId}.selfAssessment.score`, 'My score:')}</strong> ___ / 4
+                </div>
+                <div className="mt-2 text-xs">
+                  <strong>{getTrans(`worksheets.${docId}.selfAssessment.hardest`, 'What was hardest?')}</strong> _________________________
+                </div>
               </div>
-              <div className="mt-2 text-xs">
-                <strong>{getTrans(`worksheets.${docId}.selfAssessment.hardest`, 'What was hardest?')}</strong> _________________________
-              </div>
-            </div>
               {showAnswersForDoc(docId, () => (
                 <div className="mt-6 p-4 border-2 border-emerald-300 bg-emerald-50 rounded print:border print:bg-white print:page-break-before-always">
                   <div className="font-bold text-emerald-900 mb-3 text-base">{getTrans(`worksheets.${docId}.answerKey.title`, '✅ Answer Key')}</div>
@@ -7820,7 +7851,7 @@ export function PrintablesPage() {
                 Toggle: enabled={true} to show, enabled={false} to hide
                 ============================================ */}
             <WorksheetHeader enabled={true} showScore={true} />
-            
+
             <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-green-400 to-emerald-400 animate-gradient-x mb-2" />
             {/* Worked Example */}
             <div className="mb-6 p-4 bg-green-50 border-2 border-green-200 rounded-lg print:border print:bg-white">
@@ -8095,14 +8126,14 @@ export function PrintablesPage() {
               : 'Draw your favorite animal and write one fact.';
 
           const items: ReactNode[] = [];
-          
+
           // Add page-specific worksheet content based on 'from' parameter
           function pushPageSpecificWorksheet() {
             if (!fromParam || !treatAsMath) return; // Only for math packs with from parameter
-            
+
             const pageRng = makeRng(`${seedStr}|page-specific`);
             function pageNextInt(min: number, max: number) { return Math.floor(pageRng() * (max - min + 1)) + min; }
-            
+
             // Times Table page - include times-table worksheets
             if (fromParam === 'times-table') {
               const timesTableTypes = [
@@ -8121,12 +8152,12 @@ export function PrintablesPage() {
                 'times-table-mixed-review'
               ];
               const selectedType = timesTableTypes[Math.floor(pageRng() * timesTableTypes.length)];
-              
+
               // Generate worksheet content based on type
               if (selectedType.startsWith('times-table-horizontal')) {
                 const range = selectedType.includes('1-5') ? [1, 5] : selectedType.includes('6-12') ? [6, 12] : [1, 12];
                 const count = selectedType.includes('1-12') ? 12 : 10;
-                const facts: Array<[number, number]> = Array.from({length: count}).map(() => {
+                const facts: Array<[number, number]> = Array.from({ length: count }).map(() => {
                   const a = pageNextInt(range[0], range[1]);
                   const b = pageNextInt(range[0], range[1]);
                   return [a, b];
@@ -8146,7 +8177,7 @@ export function PrintablesPage() {
               } else if (selectedType.startsWith('times-table-vertical')) {
                 const range = selectedType.includes('1-5') ? [1, 5] : selectedType.includes('6-12') ? [6, 12] : [1, 12];
                 const count = 8;
-                const facts: Array<[number, number]> = Array.from({length: count}).map(() => {
+                const facts: Array<[number, number]> = Array.from({ length: count }).map(() => {
                   const a = pageNextInt(range[0], range[1]);
                   const b = pageNextInt(range[0], range[1]);
                   return [a, b];
@@ -8172,7 +8203,7 @@ export function PrintablesPage() {
               } else if (selectedType.startsWith('times-table-missing')) {
                 const range = selectedType.includes('1-5') ? [1, 5] : [6, 12];
                 const count = 8;
-                const problems = Array.from({length: count}).map(() => {
+                const problems = Array.from({ length: count }).map(() => {
                   const type = pageNextInt(1, 3);
                   const a = pageNextInt(range[0], range[1]);
                   const b = pageNextInt(range[0], range[1]);
@@ -8188,8 +8219,8 @@ export function PrintablesPage() {
                       {problems.map((p, i) => (
                         <div key={i} className="border border-slate-300 rounded p-2 text-center">
                           <div className="font-mono">
-                            {p.a !== undefined ? p.a : <span className="inline-block w-10 h-5 border-b-2 border-slate-600 mx-1" />} × 
-                            {p.b !== undefined ? p.b : <span className="inline-block w-10 h-5 border-b-2 border-slate-600 mx-1" />} = 
+                            {p.a !== undefined ? p.a : <span className="inline-block w-10 h-5 border-b-2 border-slate-600 mx-1" />} ×
+                            {p.b !== undefined ? p.b : <span className="inline-block w-10 h-5 border-b-2 border-slate-600 mx-1" />} =
                             {p.answer !== undefined ? p.answer : <span className="inline-block w-10 h-5 border-b-2 border-slate-600 mx-1" />}
                           </div>
                         </div>
@@ -8200,7 +8231,7 @@ export function PrintablesPage() {
               } else if (selectedType.startsWith('times-table-timed')) {
                 const range = selectedType.includes('1-5') ? [1, 5] : [6, 12];
                 const count = 12;
-                const facts: Array<[number, number]> = Array.from({length: count}).map(() => {
+                const facts: Array<[number, number]> = Array.from({ length: count }).map(() => {
                   const a = pageNextInt(range[0], range[1]);
                   const b = pageNextInt(range[0], range[1]);
                   return [a, b];
@@ -8222,7 +8253,7 @@ export function PrintablesPage() {
                 // Confidence or fluency - use horizontal format
                 const range = selectedType.includes('1-5') ? [1, 5] : selectedType.includes('6-12') ? [6, 12] : [1, 12];
                 const count = 10;
-                const facts: Array<[number, number]> = Array.from({length: count}).map(() => {
+                const facts: Array<[number, number]> = Array.from({ length: count }).map(() => {
                   const a = pageNextInt(range[0], range[1]);
                   const b = pageNextInt(range[0], range[1]);
                   return [a, b];
@@ -8255,11 +8286,11 @@ export function PrintablesPage() {
                 'mult-fact-fluency'
               ];
               const selectedType = multTypes[Math.floor(pageRng() * multTypes.length)];
-              
+
               if (selectedType.startsWith('mult-facts')) {
                 const range = selectedType.includes('1-5') ? [1, 5] : [6, 12];
                 const count = 12;
-                const facts: Array<[number, number]> = Array.from({length: count}).map(() => {
+                const facts: Array<[number, number]> = Array.from({ length: count }).map(() => {
                   const a = pageNextInt(range[0], range[1]);
                   const b = pageNextInt(range[0], range[1]);
                   return [a, b];
@@ -8278,7 +8309,7 @@ export function PrintablesPage() {
                 );
               } else if (selectedType.includes('arrays')) {
                 const count = 4;
-                const arrays: Array<[number, number]> = Array.from({length: count}).map(() => {
+                const arrays: Array<[number, number]> = Array.from({ length: count }).map(() => {
                   const rows = pageNextInt(2, 5);
                   const cols = pageNextInt(2, 5);
                   return [rows, cols];
@@ -8290,8 +8321,8 @@ export function PrintablesPage() {
                       {arrays.map(([rows, cols], i) => (
                         <div key={i} className="border border-slate-300 rounded p-3">
                           <div className="text-center mb-2 font-semibold">{rows} × {cols} = <span className="inline-block w-12 h-5 border-b-2 border-slate-600 mx-1" /></div>
-                          <div className="grid gap-1" style={{gridTemplateColumns: `repeat(${cols}, 1fr)`, maxWidth: '120px', margin: '0 auto'}}>
-                            {Array.from({length: rows * cols}).map((_, idx) => (
+                          <div className="grid gap-1" style={{ gridTemplateColumns: `repeat(${cols}, 1fr)`, maxWidth: '120px', margin: '0 auto' }}>
+                            {Array.from({ length: rows * cols }).map((_, idx) => (
                               <div key={idx} className="aspect-square border border-slate-400 rounded bg-slate-100" />
                             ))}
                           </div>
@@ -8319,7 +8350,7 @@ export function PrintablesPage() {
               } else {
                 // Fact families or fluency
                 const count = 6;
-                const facts: Array<[number, number]> = Array.from({length: count}).map(() => {
+                const facts: Array<[number, number]> = Array.from({ length: count }).map(() => {
                   const a = pageNextInt(2, 6);
                   const b = pageNextInt(2, 6);
                   return [a, b];
@@ -8339,11 +8370,11 @@ export function PrintablesPage() {
               }
             }
             // Grade-specific pages - include grade-appropriate worksheets
-            else if (fromParam === '1st-grade' || fromParam === '2nd-grade' || fromParam === '3rd-grade' || 
-                     fromParam === '4th-grade' || fromParam === '5th-grade' || fromParam === 'kindergarten') {
+            else if (fromParam === '1st-grade' || fromParam === '2nd-grade' || fromParam === '3rd-grade' ||
+              fromParam === '4th-grade' || fromParam === '5th-grade' || fromParam === 'kindergarten') {
               const grade = fromParam.replace('-grade', '');
               const count = 8;
-              const facts: Array<[number, number]> = Array.from({length: count}).map(() => {
+              const facts: Array<[number, number]> = Array.from({ length: count }).map(() => {
                 let range: [number, number];
                 if (grade === 'kindergarten' || grade === '1st') range = [1, 5];
                 else if (grade === '2nd') range = [1, 10];
@@ -8367,7 +8398,7 @@ export function PrintablesPage() {
               );
             }
           }
-          
+
           // Helpers for extra activities
           function scrambleWordLocal(w: string) {
             const a = w.split('');
@@ -8385,23 +8416,23 @@ export function PrintablesPage() {
               const b = Math.floor(rng() * (isSimple ? 9 : 12)) + 1;
               const useAdd = isSimple ? true : rng() < 0.6;
               if (useAdd) out.push(`${a} + ${b} = ____`);
-              else out.push(`${Math.max(a,b)} - ${Math.min(a,b)} = ____`);
+              else out.push(`${Math.max(a, b)} - ${Math.min(a, b)} = ____`);
             }
             return out;
           }
           function buildMiniSudoku() {
             const base = [
-              [1,2,3,4],
-              [3,4,1,2],
-              [2,1,4,3],
-              [4,3,2,1],
+              [1, 2, 3, 4],
+              [3, 4, 1, 2],
+              [2, 1, 4, 3],
+              [4, 3, 2, 1],
             ];
-            const removals = 6 + Math.floor(rng()*3);
-            const grid: number[][] = base.map(r=>r.slice());
+            const removals = 6 + Math.floor(rng() * 3);
+            const grid: number[][] = base.map(r => r.slice());
             let removed = 0;
             while (removed < removals) {
-              const r = Math.floor(rng()*4);
-              const c = Math.floor(rng()*4);
+              const r = Math.floor(rng() * 4);
+              const c = Math.floor(rng() * 4);
               if (grid[r][c] !== 0) { grid[r][c] = 0; removed++; }
             }
             return grid;
@@ -8412,43 +8443,43 @@ export function PrintablesPage() {
             const poolG1 = [
               {
                 text: 'Liam had a blue kite. On a windy day, he ran to the park. The kite rose high. Liam laughed and waved at it.',
-                qs: ['What color was the kite?','Where did Liam go?','Why did the kite rise?']
+                qs: ['What color was the kite?', 'Where did Liam go?', 'Why did the kite rise?']
               },
               {
                 text: 'Nina put seeds in a pot. She set it by the sunny window. Each morning, she gave it water. A small leaf popped up!',
-                qs: ['What did Nina put in the pot?','Where did she place the pot?','What popped up?']
+                qs: ['What did Nina put in the pot?', 'Where did she place the pot?', 'What popped up?']
               },
               {
                 text: 'The class made a bird feeder from a cup. They filled it with seeds and hung it on a tree. A red bird came to snack.',
-                qs: ['What did the class make?','What did they put in it?','Who came to snack?']
+                qs: ['What did the class make?', 'What did they put in it?', 'Who came to snack?']
               }
             ];
             const poolG2 = [
               {
                 text: 'Omar wanted to fix his squeaky bike wheel. He watched a quick video and learned to add oil to the axle. After two tries, the squeak was gone.',
-                qs: ['What was Omar trying to fix?','What did he add to the axle?','What happened after two tries?']
+                qs: ['What was Omar trying to fix?', 'What did he add to the axle?', 'What happened after two tries?']
               },
               {
                 text: 'Maya kept a weather chart on her wall. She drew a sun for hot days, a cloud for cool days, and a raindrop for storms. After a week, her chart had many symbols.',
-                qs: ['What did Maya keep on her wall?','What symbol did she draw for storms?','How long did she track the weather?']
+                qs: ['What did Maya keep on her wall?', 'What symbol did she draw for storms?', 'How long did she track the weather?']
               },
               {
                 text: 'Leo and his sister built a pillow fort. They tested two roof designs until one stayed up. They read books inside with a small lamp.',
-                qs: ['What did they build?','How many roof designs did they test?','What did they do inside the fort?']
+                qs: ['What did they build?', 'How many roof designs did they test?', 'What did they do inside the fort?']
               }
             ];
             const poolG3 = [
               {
                 text: 'A town near the river held an early‑morning clean‑up. People wore gloves and filled bags with plastic and paper. By noon, the river path looked new. One volunteer wrote, “Teamwork made a big job smaller.”',
-                qs: ['What problem were people solving?','When did they work?','What does the note tell us about the work?']
+                qs: ['What problem were people solving?', 'When did they work?', 'What does the note tell us about the work?']
               },
               {
                 text: 'The lighthouse keeper tested the backup lamp once a month. During a thick fog, the main lamp flickered. The keeper calmly switched to the backup, and ships stayed safe.',
-                qs: ['How often was the backup lamp tested?','What happened during the fog?','Why did ships stay safe?']
+                qs: ['How often was the backup lamp tested?', 'What happened during the fog?', 'Why did ships stay safe?']
               },
               {
                 text: 'At the garden market, prices were lower near closing time. Jae waited, then bought apples and carrots with the same coins. He saved money by being patient.',
-                qs: ['Where did Jae shop?','When were prices lower?','How did Jae save money?']
+                qs: ['Where did Jae shop?', 'When were prices lower?', 'How did Jae save money?']
               }
             ];
             // For '25' (2nd-5th grade), use a mix of g2 and g3 passages
@@ -8485,25 +8516,25 @@ export function PrintablesPage() {
           function pushSequenceTask() {
             const seqPools: Record<string, string[][]> = {
               g1: [
-                ['Put on boots.','Open the door.','Play in the snow.'],
-                ['Crack the egg.','Stir in a bowl.','Cook in a pan.']
+                ['Put on boots.', 'Open the door.', 'Play in the snow.'],
+                ['Crack the egg.', 'Stir in a bowl.', 'Cook in a pan.']
               ],
               g2: [
-                ['Pick a book.','Find a quiet seat.','Read for ten minutes.'],
-                ['Mix soil and water.','Press seeds into soil.','Label the pot.']
+                ['Pick a book.', 'Find a quiet seat.', 'Read for ten minutes.'],
+                ['Mix soil and water.', 'Press seeds into soil.', 'Label the pot.']
               ],
               '35': [
-                ['Plan the route.','Pack supplies.','Start the hike.'],
-                ['List choices.','Compare costs.','Choose the best value.']
+                ['Plan the route.', 'Pack supplies.', 'Start the hike.'],
+                ['List choices.', 'Compare costs.', 'Choose the best value.']
               ]
             };
-            const pool = seqPools[packAge as 'g1'|'g2'|'25'|'35'] || (is25 ? seqPools.g2 : seqPools.g1);
-            const choice = pool[Math.floor(rng()*pool.length)];
+            const pool = seqPools[packAge as 'g1' | 'g2' | '25' | '35'] || (is25 ? seqPools.g2 : seqPools.g1);
+            const choice = pool[Math.floor(rng() * pool.length)];
             items.push(
               <div key={`sequence-${variant}`} className="border border-slate-200 rounded-lg p-4">
                 <div className="font-semibold text-xl mb-2">Sequence the Steps (1–3)</div>
                 <ol className="list-decimal list-inside space-y-1 text-lg text-slate-800">
-                  {choice.map((s, i)=> (<li key={i}><span className="opacity-0">{i+1}. </span>{s}</li>))}
+                  {choice.map((s, i) => (<li key={i}><span className="opacity-0">{i + 1}. </span>{s}</li>))}
                 </ol>
               </div>
             );
@@ -8519,14 +8550,14 @@ export function PrintablesPage() {
               distractorB
             ];
             // Shuffle options deterministically
-            const order = [0,1,2].sort(()=> (rng() < 0.5 ? -1 : 1));
+            const order = [0, 1, 2].sort(() => (rng() < 0.5 ? -1 : 1));
             items.push(
               <div key={`main-idea-${variant}`} className="border border-slate-200 rounded-lg p-4">
                 <div className="font-semibold text-xl mb-2">Main Idea — Choose the Best Title</div>
                 <p className="text-base text-slate-800 mb-3">{p.text}</p>
                 <ul className="space-y-1 text-lg text-slate-800">
-                  {order.map((i)=> (
-                    <li key={i}><span className="inline-block w-4 h-4 border border-slate-400 mr-2 align-middle"/> {options[i]}</li>
+                  {order.map((i) => (
+                    <li key={i}><span className="inline-block w-4 h-4 border border-slate-400 mr-2 align-middle" /> {options[i]}</li>
                   ))}
                 </ul>
               </div>
@@ -8534,14 +8565,14 @@ export function PrintablesPage() {
           }
           // 0) Add page-specific worksheet if from parameter is set
           pushPageSpecificWorksheet();
-          
+
           // 1) Word Search or Reading prompt
           if (!treatAsMath && packSkill !== 'creativity') {
             items.push(
               <div key="ws" className="border border-slate-200 rounded-lg p-4">
                 <div className="font-semibold text-xl mb-3">Mini Word Search — {theme === 'sight' ? 'Sight Words' : theme === 'space' ? 'Space' : 'Animals'}</div>
                 <div className={`grid grid-cols-8 gap-2 font-mono text-lg`}>
-                  {grid.map((c,i)=> (
+                  {grid.map((c, i) => (
                     <div key={i} className="w-10 h-10 border border-slate-300 rounded-sm flex items-center justify-center">{c}</div>
                   ))}
                 </div>
@@ -8632,15 +8663,15 @@ export function PrintablesPage() {
           // Build an extras pool; prioritize by focus
           const extras: ReactNode[] = [];
           const pushColoring = () => {
-            const letter = (words[Math.floor(rng()*words.length)] || 'A').slice(0, 1).toUpperCase();
+            const letter = (words[Math.floor(rng() * words.length)] || 'A').slice(0, 1).toUpperCase();
             const isSpace = theme === 'space';
             const isSight = theme === 'sight';
             const isAnimals = theme === 'animals';
             // Seeded extras for variety
             const stars = Array.from({ length: 18 }, () => ({ x: Math.floor(rng() * 760) + 20, y: Math.floor(rng() * 520) + 40 }));
-            const planet = { cx: 140 + Math.floor(rng()*160), cy: 120 + Math.floor(rng()*160), r: 32 + Math.floor(rng()*24) };
-            const animalTypes = ['Fish','Turtle','Butterfly','Bird','Dino'] as const;
-            const animalPick = animalTypes[Math.floor(rng()*animalTypes.length)];
+            const planet = { cx: 140 + Math.floor(rng() * 160), cy: 120 + Math.floor(rng() * 160), r: 32 + Math.floor(rng() * 24) };
+            const animalTypes = ['Fish', 'Turtle', 'Butterfly', 'Bird', 'Dino'] as const;
+            const animalPick = animalTypes[Math.floor(rng() * animalTypes.length)];
             extras.push(
               <div key="coloring-sheet" className="border border-slate-200 rounded-lg p-4 sm:col-span-2">
                 <div className="font-semibold text-xl mb-2">Coloring Sheet — {isSpace ? 'Rocket' : isSight ? `Letter ${letter}` : animalPick}</div>
@@ -8649,74 +8680,74 @@ export function PrintablesPage() {
                   {isSpace && (
                     <g>
                       {/* Rocket body */}
-                      <path d="M400 100 Q420 60 440 100 L440 360 Q420 400 400 360 Z"/>
+                      <path d="M400 100 Q420 60 440 100 L440 360 Q420 400 400 360 Z" />
                       {/* Window */}
                       <circle cx="420" cy="200" r="24" />
                       {/* Fins */}
-                      <path d="M440 300 L500 340 L440 340 Z"/>
-                      <path d="M400 300 L340 340 L400 340 Z"/>
+                      <path d="M440 300 L500 340 L440 340 Z" />
+                      <path d="M400 300 L340 340 L400 340 Z" />
                       {/* Flame */}
-                      <path d="M400 360 Q420 420 440 360"/>
+                      <path d="M400 360 Q420 420 440 360" />
                       {/* Planet and ring */}
                       <circle cx={planet.cx} cy={planet.cy} r={planet.r} />
                       <ellipse cx={planet.cx} cy={planet.cy} rx={planet.r + 24} ry={planet.r / 2 + 8} />
                       {/* Stars */}
-                      {stars.slice(0,12).map((s, i) => (<circle key={i} cx={s.x} cy={s.y} r={6 + (i%3)} />))}
+                      {stars.slice(0, 12).map((s, i) => (<circle key={i} cx={s.x} cy={s.y} r={6 + (i % 3)} />))}
                     </g>
                   )}
                   {isAnimals && (
                     <g>
                       {animalPick === 'Fish' && (
                         <g>
-                          <ellipse cx="420" cy="280" rx={140 + Math.floor(rng()*20)} ry={80 + Math.floor(rng()*20)}/>
-                          <polygon points={`540,280 ${580 + Math.floor(rng()*60)},${240 + Math.floor(rng()*40)} ${580 + Math.floor(rng()*60)},${320 - Math.floor(rng()*40)}`}/>
-                          <circle cx={350 + Math.floor(rng()*30)} cy={250 + Math.floor(rng()*30)} r="10" />
-                          <path d={`M${320 + Math.floor(rng()*10)} 280 Q${360 + Math.floor(rng()*10)} ${300 + Math.floor(rng()*10)} ${400 + Math.floor(rng()*10)} 280`}/>
-                          <path d={`M${320 + Math.floor(rng()*10)} 240 Q${360 + Math.floor(rng()*10)} ${260 + Math.floor(rng()*10)} ${400 + Math.floor(rng()*10)} 240`}/>
-                          {stars.slice(0,6).map((s, i) => (<circle key={i} cx={280 + i*20} cy={160 + i*22} r={8} />))}
+                          <ellipse cx="420" cy="280" rx={140 + Math.floor(rng() * 20)} ry={80 + Math.floor(rng() * 20)} />
+                          <polygon points={`540,280 ${580 + Math.floor(rng() * 60)},${240 + Math.floor(rng() * 40)} ${580 + Math.floor(rng() * 60)},${320 - Math.floor(rng() * 40)}`} />
+                          <circle cx={350 + Math.floor(rng() * 30)} cy={250 + Math.floor(rng() * 30)} r="10" />
+                          <path d={`M${320 + Math.floor(rng() * 10)} 280 Q${360 + Math.floor(rng() * 10)} ${300 + Math.floor(rng() * 10)} ${400 + Math.floor(rng() * 10)} 280`} />
+                          <path d={`M${320 + Math.floor(rng() * 10)} 240 Q${360 + Math.floor(rng() * 10)} ${260 + Math.floor(rng() * 10)} ${400 + Math.floor(rng() * 10)} 240`} />
+                          {stars.slice(0, 6).map((s, i) => (<circle key={i} cx={280 + i * 20} cy={160 + i * 22} r={8} />))}
                         </g>
                       )}
                       {animalPick === 'Turtle' && (
                         <g>
-                          <circle cx="420" cy="300" r={100 + Math.floor(rng()*20)} />
+                          <circle cx="420" cy="300" r={100 + Math.floor(rng() * 20)} />
                           <circle cx="340" cy="300" r="22" />
-                          <ellipse cx="380" cy="360" rx="28" ry="16"/>
-                          <ellipse cx="460" cy="360" rx="28" ry="16"/>
-                          <ellipse cx="380" cy="240" rx="28" ry="16"/>
-                          <ellipse cx="460" cy="240" rx="28" ry="16"/>
-                          <path d="M360 300 H480"/>
-                          <path d="M420 240 V360"/>
-                          <path d="M380 260 L460 340"/>
-                          <path d="M460 260 L380 340"/>
+                          <ellipse cx="380" cy="360" rx="28" ry="16" />
+                          <ellipse cx="460" cy="360" rx="28" ry="16" />
+                          <ellipse cx="380" cy="240" rx="28" ry="16" />
+                          <ellipse cx="460" cy="240" rx="28" ry="16" />
+                          <path d="M360 300 H480" />
+                          <path d="M420 240 V360" />
+                          <path d="M380 260 L460 340" />
+                          <path d="M460 260 L380 340" />
                         </g>
                       )}
                       {animalPick === 'Butterfly' && (
                         <g>
-                          <line x1="420" y1="220" x2="420" y2="360"/>
-                          <path d="M420 260 Q360 220 300 260 Q360 300 420 280"/>
-                          <path d="M420 260 Q480 220 540 260 Q480 300 420 280"/>
-                          <path d="M420 300 Q360 340 300 320 Q360 300 420 320"/>
-                          <path d="M420 300 Q480 340 540 320 Q480 300 420 320"/>
-                          <circle cx="340" cy="260" r="10"/>
-                          <circle cx="500" cy="260" r="10"/>
+                          <line x1="420" y1="220" x2="420" y2="360" />
+                          <path d="M420 260 Q360 220 300 260 Q360 300 420 280" />
+                          <path d="M420 260 Q480 220 540 260 Q480 300 420 280" />
+                          <path d="M420 300 Q360 340 300 320 Q360 300 420 320" />
+                          <path d="M420 300 Q480 340 540 320 Q480 300 420 320" />
+                          <circle cx="340" cy="260" r="10" />
+                          <circle cx="500" cy="260" r="10" />
                         </g>
                       )}
                       {animalPick === 'Bird' && (
                         <g>
-                          <ellipse cx="420" cy="300" rx="120" ry="70"/>
-                          <polygon points="520,300 560,280 560,320"/>
+                          <ellipse cx="420" cy="300" rx="120" ry="70" />
+                          <polygon points="520,300 560,280 560,320" />
                           <circle cx="360" cy="280" r="8" />
-                          <path d="M420 290 Q380 320 340 310"/>
-                          <line x1="400" y1="360" x2="390" y2="390"/>
-                          <line x1="440" y1="360" x2="450" y2="390"/>
+                          <path d="M420 290 Q380 320 340 310" />
+                          <line x1="400" y1="360" x2="390" y2="390" />
+                          <line x1="440" y1="360" x2="450" y2="390" />
                         </g>
                       )}
                       {animalPick === 'Dino' && (
                         <g>
-                          <ellipse cx="420" cy="340" rx="140" ry="60"/>
-                          <path d="M360 240 Q380 200 420 220 Q460 240 460 280"/>
+                          <ellipse cx="420" cy="340" rx="140" ry="60" />
+                          <path d="M360 240 Q380 200 420 220 Q460 240 460 280" />
                           <circle cx="380" cy="220" r="8" />
-                          <path d="M500 340 Q560 320 580 300"/>
+                          <path d="M500 340 Q560 320 580 300" />
                         </g>
                       )}
                     </g>
@@ -8726,10 +8757,10 @@ export function PrintablesPage() {
                       {/* Giant letter outline */}
                       <text x="260" y="360" fontSize="280" stroke="#334155" fill="none">{letter}</text>
                       {/* Book */}
-                      <rect x="520" y="220" width="160" height="120" rx="8"/>
-                      <line x1="600" y1="220" x2="600" y2="340"/>
-                      <path d="M520 240 Q560 260 600 240"/>
-                      <path d="M600 240 Q640 260 680 240"/>
+                      <rect x="520" y="220" width="160" height="120" rx="8" />
+                      <line x1="600" y1="220" x2="600" y2="340" />
+                      <path d="M520 240 Q560 260 600 240" />
+                      <path d="M600 240 Q640 260 680 240" />
                     </g>
                   )}
                 </svg>
@@ -8747,7 +8778,7 @@ export function PrintablesPage() {
             <div key="mini-math" className="border border-slate-200 rounded-lg p-4">
               <div className="font-semibold text-xl mb-2">Mini Math — Quick Sums</div>
               <div className="grid sm:grid-cols-2 gap-2 text-lg text-slate-800">
-                {buildMiniMathProblems(8).map((p, i)=> (
+                {buildMiniMathProblems(8).map((p, i) => (
                   <div key={i} className="flex items-center justify-between">
                     <span>{p}</span>
                     <span className="ml-3 flex-1 border-b border-slate-300" />
@@ -8760,9 +8791,9 @@ export function PrintablesPage() {
             <div key="place-value" className="border border-slate-200 rounded-lg p-4">
               <div className="font-semibold text-xl mb-2">Place Value — Tens & Ones</div>
               <div className="grid sm:grid-cols-2 gap-3 text-lg text-slate-800">
-                {Array.from({length:6}).map((_,i)=>{
-                  const n = 10 + Math.floor(rng()*89);
-                  const tens = Math.floor(n/10);
+                {Array.from({ length: 6 }).map((_, i) => {
+                  const n = 10 + Math.floor(rng() * 89);
+                  const tens = Math.floor(n / 10);
                   const ones = n % 10;
                   return (
                     <div key={i} className="border border-slate-200 rounded p-2">
@@ -8779,26 +8810,26 @@ export function PrintablesPage() {
             <div key="ten-frames-mini" className="border border-slate-200 rounded-lg p-4">
               <div className="font-semibold text-xl mb-2">Ten Frames — Fill the Counters</div>
               <div className="grid sm:grid-cols-2 gap-3">
-                {Array.from({length:2}).map((_,i)=>{
+                {Array.from({ length: 2 }).map((_, i) => {
                   // Grade-appropriate targets: up to 10 for K–2 pack, to 20 for Grade 2, higher for 2-5
-                  const raw = packAge === 'k2' ? (4 + Math.floor(rng()*7)) : (packAge === 'g2' ? (11 + Math.floor(rng()*10)) : (packAge === '25' ? (11 + Math.floor(rng()*10)) : (6 + Math.floor(rng()*14))));
+                  const raw = packAge === 'k2' ? (4 + Math.floor(rng() * 7)) : (packAge === 'g2' ? (11 + Math.floor(rng() * 10)) : (packAge === '25' ? (11 + Math.floor(rng() * 10)) : (6 + Math.floor(rng() * 14))));
                   const target = Math.max(1, Math.min(raw, 20));
                   const frames = target > 10 ? 2 : 1;
                   const viewW = frames === 2 ? 440 : 220;
                   return (
                     <svg key={i} viewBox={`0 0 ${viewW} 110`} className="w-full h-auto bg-white border border-slate-300 rounded">
                       <text x="10" y="20" fontSize="14" fill="#111827">Make {target}</text>
-                      {Array.from({length:frames}).map((__,fIdx)=> (
-                        <g key={fIdx} transform={`translate(${10 + fIdx*210},30)`}>
-                          {Array.from({length:10}).map((__,j)=> (
-                            <rect key={j} x={(j%5)*40} y={Math.floor(j/5)*40} width="36" height="36" fill="none" stroke="#111827" />
+                      {Array.from({ length: frames }).map((__, fIdx) => (
+                        <g key={fIdx} transform={`translate(${10 + fIdx * 210},30)`}>
+                          {Array.from({ length: 10 }).map((__, j) => (
+                            <rect key={j} x={(j % 5) * 40} y={Math.floor(j / 5) * 40} width="36" height="36" fill="none" stroke="#111827" />
                           ))}
                           {(() => {
-                            const start = fIdx*10;
-                            const end = Math.min(target, (fIdx+1)*10);
+                            const start = fIdx * 10;
+                            const end = Math.min(target, (fIdx + 1) * 10);
                             const count = Math.max(0, end - start);
-                            return Array.from({length:count}).map((__,k)=> (
-                              <circle key={k} cx={18 + (k%5)*40} cy={18 + Math.floor(k/5)*40} r="10" fill="#7c3aed" />
+                            return Array.from({ length: count }).map((__, k) => (
+                              <circle key={k} cx={18 + (k % 5) * 40} cy={18 + Math.floor(k / 5) * 40} r="10" fill="#7c3aed" />
                             ));
                           })()}
                         </g>
@@ -8815,7 +8846,7 @@ export function PrintablesPage() {
               <div key="scramble" className="border border-slate-200 rounded-lg p-4">
                 <div className="font-semibold text-xl mb-2">Word Scramble</div>
                 <div className="space-y-2 text-lg text-slate-800">
-                  {scrambleWords.map((w,i)=> (
+                  {scrambleWords.map((w, i) => (
                     <div key={i} className="flex items-center justify-between">
                       <span>Unscramble: {scrambleWordLocal(w)}</span>
                       <span className="ml-3 flex-1 border-b border-slate-300" />
@@ -8830,7 +8861,7 @@ export function PrintablesPage() {
               'A fox saw the moon in the pond. It tried to catch it, but the water rippled and the moon danced away.',
               'Sara planted a tiny seed. Every day she gave it water and a song. One morning, a green leaf waved hello.'
             ];
-            const reading = readingSnippets[Math.floor(rng()*readingSnippets.length)];
+            const reading = readingSnippets[Math.floor(rng() * readingSnippets.length)];
             extras.push(
               <div key="reading" className="border border-slate-200 rounded-lg p-4">
                 <div className="font-semibold text-xl mb-2">Mini Reading</div>
@@ -8848,7 +8879,7 @@ export function PrintablesPage() {
               <div key="mini-sudoku" className="border border-slate-200 rounded-lg p-4">
                 <div className="font-semibold text-xl mb-2">Mini Sudoku — 4×4</div>
                 <div className="inline-grid grid-cols-4 gap-[3px] text-lg font-mono">
-                  {miniS.flat().map((v, i)=> (
+                  {miniS.flat().map((v, i) => (
                     <div key={i} className="w-12 h-12 border border-slate-300 rounded-sm flex items-center justify-center bg-white">
                       {v === 0 ? '' : v}
                     </div>
@@ -8926,8 +8957,8 @@ export function PrintablesPage() {
             try {
               await navigator.clipboard.writeText(shareUrl)
               setCopiedLink(true)
-              setTimeout(()=> setCopiedLink(false), 1500)
-            } catch {}
+              setTimeout(() => setCopiedLink(false), 1500)
+            } catch { }
           }
 
           const nextVariantUrl = buildLink(variant + 1)
@@ -9177,94 +9208,94 @@ export function PrintablesPage() {
                 ]
               })()}
             >
-            <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-green-400 to-emerald-400 animate-gradient-x mb-2" />
-            {/* Worked Example */}
-            <div className="mb-6 p-4 bg-blue-50 border-2 border-blue-200 rounded-lg print:border print:bg-white">
-              <div className="font-semibold text-blue-900 mb-3 text-sm">{getTrans(`worksheets.${docId}.example.title`, '📚 Example - Let\'s solve this together:')}</div>
-              <div className="space-y-2 text-sm">
-                <div className="font-semibold text-base"><strong>{getTrans(`worksheets.${docId}.example.problem`, 'Problem:')}</strong> {getTrans(`worksheets.${docId}.example.problemText`, 'Find a path from S to F')}</div>
-                <div className="pl-4 border-l-2 border-blue-300 space-y-1">
-                  <div><strong>{getTrans(`worksheets.${docId}.example.step1`, 'Step 1:')}</strong> {getTrans(`worksheets.${docId}.example.step1Text`, 'Choose target numbers for each row (e.g., Row 1 = 6, Row 2 = 8, Row 3 = 10)')}</div>
-                  <div><strong>{getTrans(`worksheets.${docId}.example.step2`, 'Step 2:')}</strong> {getTrans(`worksheets.${docId}.example.step2Text`, 'Find tiles in Row 1 that equal 6: 4+2=6, 8-2=6, etc.')}</div>
-                  <div><strong>{getTrans(`worksheets.${docId}.example.step3`, 'Step 3:')}</strong> {getTrans(`worksheets.${docId}.example.step3Text`, 'Move to Row 2 and find tiles that equal 8: 6+2=8, 9-1=8, etc.')}</div>
-                  <div><strong>{getTrans(`worksheets.${docId}.example.step4`, 'Step 4:')}</strong> {getTrans(`worksheets.${docId}.example.step4Text`, 'Continue to Row 3 and find tiles that equal 10: 7+3=10, 12-2=10, etc.')}</div>
-                  <div><strong>{getTrans(`worksheets.${docId}.example.step5`, 'Step 5:')}</strong> {getTrans(`worksheets.${docId}.example.step5Text`, 'Draw your path from S to F following valid tiles')}</div>
-                  <div className="text-xs text-blue-700 mt-1">{getTrans(`worksheets.${docId}.example.tip`, '💡 Tip: Check each equation before moving onto that tile!')}</div>
+              <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-green-400 to-emerald-400 animate-gradient-x mb-2" />
+              {/* Worked Example */}
+              <div className="mb-6 p-4 bg-blue-50 border-2 border-blue-200 rounded-lg print:border print:bg-white">
+                <div className="font-semibold text-blue-900 mb-3 text-sm">{getTrans(`worksheets.${docId}.example.title`, '📚 Example - Let\'s solve this together:')}</div>
+                <div className="space-y-2 text-sm">
+                  <div className="font-semibold text-base"><strong>{getTrans(`worksheets.${docId}.example.problem`, 'Problem:')}</strong> {getTrans(`worksheets.${docId}.example.problemText`, 'Find a path from S to F')}</div>
+                  <div className="pl-4 border-l-2 border-blue-300 space-y-1">
+                    <div><strong>{getTrans(`worksheets.${docId}.example.step1`, 'Step 1:')}</strong> {getTrans(`worksheets.${docId}.example.step1Text`, 'Choose target numbers for each row (e.g., Row 1 = 6, Row 2 = 8, Row 3 = 10)')}</div>
+                    <div><strong>{getTrans(`worksheets.${docId}.example.step2`, 'Step 2:')}</strong> {getTrans(`worksheets.${docId}.example.step2Text`, 'Find tiles in Row 1 that equal 6: 4+2=6, 8-2=6, etc.')}</div>
+                    <div><strong>{getTrans(`worksheets.${docId}.example.step3`, 'Step 3:')}</strong> {getTrans(`worksheets.${docId}.example.step3Text`, 'Move to Row 2 and find tiles that equal 8: 6+2=8, 9-1=8, etc.')}</div>
+                    <div><strong>{getTrans(`worksheets.${docId}.example.step4`, 'Step 4:')}</strong> {getTrans(`worksheets.${docId}.example.step4Text`, 'Continue to Row 3 and find tiles that equal 10: 7+3=10, 12-2=10, etc.')}</div>
+                    <div><strong>{getTrans(`worksheets.${docId}.example.step5`, 'Step 5:')}</strong> {getTrans(`worksheets.${docId}.example.step5Text`, 'Draw your path from S to F following valid tiles')}</div>
+                    <div className="text-xs text-blue-700 mt-1">{getTrans(`worksheets.${docId}.example.tip`, '💡 Tip: Check each equation before moving onto that tile!')}</div>
+                  </div>
                 </div>
               </div>
-            </div>
-            <div className="flex items-start gap-4">
-              <div className="inline-grid grid-cols-7 gap-[2px] text-sm font-mono">
-                {mathMazeCells.map((t,i)=> (
-                  <div key={i} className="w-10 h-10 border border-slate-300 rounded-sm flex items-center justify-center bg-white">{t}</div>
-                ))}
-              </div>
-              <div className="text-xs text-slate-600">
-                <div className="font-semibold mb-1">How to play</div>
-                <ol className="list-decimal list-inside space-y-1">
-                  <li>Choose a target number per row (e.g., row 1 = 6).</li>
-                  <li>Step only on equations that equal that row’s target.</li>
-                  <li>Draw your path from S to F without diagonal moves.</li>
-                </ol>
-              </div>
-            </div>
-            {/* Extension/Challenge Problems */}
-            <div className="mt-6 print:mt-0 p-4 bg-purple-50 border-2 border-purple-200 rounded print:bg-white print:border" style={{ pageBreakBefore: 'always', pageBreakInside: 'avoid' }}>
-              <div className="font-semibold text-purple-900 mb-3 text-sm">{getTrans(`worksheets.${docId}.challenge.title`, '🌟 Challenge Yourself (Optional):')}</div>
-              <div className="space-y-2 text-sm text-purple-800">
-                {(() => {
-                  const items = t(`worksheets.${docId}.challenge.items`)
-                  const fallbackItems = [
-                    'Can you find a different path using different target numbers?',
-                    'Try using only addition equations (no subtraction)',
-                    'Create your own math maze with 3 rows and 5 columns',
-                  ]
-                  const itemsArray = Array.isArray(items) && items.length > 0 && typeof items[0] === 'string' && items[0] !== `worksheets.${docId}.challenge.items` ? items : fallbackItems
-                  return itemsArray.map((item, i) => (
-                    <div key={i}>{i + 1}. {item}</div>
-                  ))
-                })()}
-              </div>
-            </div>
-            {/* Self-Assessment */}
-            <div className="print:block hidden print:mt-0 mt-6 p-4 border-2 border-slate-300 rounded" style={{ pageBreakBefore: 'avoid', pageBreakInside: 'avoid' }}>
-              <div className="font-semibold text-slate-800 mb-3 text-sm">{getTrans(`worksheets.${docId}.selfAssessment.title`, '📊 How did you do?')}</div>
-              <div className="space-y-2 text-xs">
-                {(() => {
-                  const items = t(`worksheets.${docId}.selfAssessment.items`)
-                  const fallbackItems = [
-                    'I can solve addition and subtraction equations',
-                    'I found a valid path from S to F',
-                    'I checked my math as I went',
-                  ]
-                  const itemsArray = Array.isArray(items) && items.length > 0 && typeof items[0] === 'string' && items[0] !== `worksheets.${docId}.selfAssessment.items` ? items : fallbackItems
-                  return itemsArray.map((item, i) => (
-                    <div key={i}>☐ {item}</div>
-                  ))
-                })()}
-              </div>
-              <div className="mt-3 text-xs">
-                <strong>{getTrans(`worksheets.${docId}.selfAssessment.targetNumbers`, 'My target numbers:')}</strong> {getTrans(`worksheets.${docId}.selfAssessment.targetNumbersFormat`, 'Row 1: ___, Row 2: ___, Row 3: ___')}
-              </div>
-              <div className="mt-2 text-xs">
-                <strong>{getTrans(`worksheets.${docId}.selfAssessment.hardest`, 'What was hardest?')}</strong> _________________________
-              </div>
-            </div>
-            {showAnswersForDoc(docId, () => (
-              <div className="mt-6 p-4 border-2 border-emerald-300 bg-emerald-50 rounded print:border print:bg-white print:page-break-before-always">
-                <div className="font-bold text-emerald-900 mb-3 text-base">{getTrans(`worksheets.${docId}.answerKey.title`, '✅ Answer Key')}</div>
-                <div className="space-y-2 text-sm text-emerald-800">
-                  <div><strong>{getTrans(`worksheets.${docId}.answerKey.exampleTargetPlan`, 'Example target plan:')}</strong></div>
-                  <ul className="list-disc list-inside space-y-1 ml-4">
-                    <li>{getTrans(`worksheets.${docId}.answerKey.row1`, 'Row 1 target: 6 → valid tiles: 4+2, 8-2, 3+3, etc.')}</li>
-                    <li>{getTrans(`worksheets.${docId}.answerKey.row2`, 'Row 2 target: 8 → valid tiles: 6+2, 9-1, 5+3, etc.')}</li>
-                    <li>{getTrans(`worksheets.${docId}.answerKey.row3`, 'Row 3 target: 10 → valid tiles: 7+3, 12-2, 5+5, etc.')}</li>
-                  </ul>
-                  <div className="text-xs text-emerald-700 mt-3">{getTrans(`worksheets.${docId}.answerKey.remember`, '💡 Remember: Any path that follows the row targets is correct! Choose your own target numbers and find a valid path from S to F.')}</div>
+              <div className="flex items-start gap-4">
+                <div className="inline-grid grid-cols-7 gap-[2px] text-sm font-mono">
+                  {mathMazeCells.map((t, i) => (
+                    <div key={i} className="w-10 h-10 border border-slate-300 rounded-sm flex items-center justify-center bg-white">{t}</div>
+                  ))}
+                </div>
+                <div className="text-xs text-slate-600">
+                  <div className="font-semibold mb-1">How to play</div>
+                  <ol className="list-decimal list-inside space-y-1">
+                    <li>Choose a target number per row (e.g., row 1 = 6).</li>
+                    <li>Step only on equations that equal that row’s target.</li>
+                    <li>Draw your path from S to F without diagonal moves.</li>
+                  </ol>
                 </div>
               </div>
-            ))}
-          </WorksheetSectionWrapper>
+              {/* Extension/Challenge Problems */}
+              <div className="mt-6 print:mt-0 p-4 bg-purple-50 border-2 border-purple-200 rounded print:bg-white print:border" style={{ pageBreakBefore: 'always', pageBreakInside: 'avoid' }}>
+                <div className="font-semibold text-purple-900 mb-3 text-sm">{getTrans(`worksheets.${docId}.challenge.title`, '🌟 Challenge Yourself (Optional):')}</div>
+                <div className="space-y-2 text-sm text-purple-800">
+                  {(() => {
+                    const items = t(`worksheets.${docId}.challenge.items`)
+                    const fallbackItems = [
+                      'Can you find a different path using different target numbers?',
+                      'Try using only addition equations (no subtraction)',
+                      'Create your own math maze with 3 rows and 5 columns',
+                    ]
+                    const itemsArray = Array.isArray(items) && items.length > 0 && typeof items[0] === 'string' && items[0] !== `worksheets.${docId}.challenge.items` ? items : fallbackItems
+                    return itemsArray.map((item, i) => (
+                      <div key={i}>{i + 1}. {item}</div>
+                    ))
+                  })()}
+                </div>
+              </div>
+              {/* Self-Assessment */}
+              <div className="print:block hidden print:mt-0 mt-6 p-4 border-2 border-slate-300 rounded" style={{ pageBreakBefore: 'avoid', pageBreakInside: 'avoid' }}>
+                <div className="font-semibold text-slate-800 mb-3 text-sm">{getTrans(`worksheets.${docId}.selfAssessment.title`, '📊 How did you do?')}</div>
+                <div className="space-y-2 text-xs">
+                  {(() => {
+                    const items = t(`worksheets.${docId}.selfAssessment.items`)
+                    const fallbackItems = [
+                      'I can solve addition and subtraction equations',
+                      'I found a valid path from S to F',
+                      'I checked my math as I went',
+                    ]
+                    const itemsArray = Array.isArray(items) && items.length > 0 && typeof items[0] === 'string' && items[0] !== `worksheets.${docId}.selfAssessment.items` ? items : fallbackItems
+                    return itemsArray.map((item, i) => (
+                      <div key={i}>☐ {item}</div>
+                    ))
+                  })()}
+                </div>
+                <div className="mt-3 text-xs">
+                  <strong>{getTrans(`worksheets.${docId}.selfAssessment.targetNumbers`, 'My target numbers:')}</strong> {getTrans(`worksheets.${docId}.selfAssessment.targetNumbersFormat`, 'Row 1: ___, Row 2: ___, Row 3: ___')}
+                </div>
+                <div className="mt-2 text-xs">
+                  <strong>{getTrans(`worksheets.${docId}.selfAssessment.hardest`, 'What was hardest?')}</strong> _________________________
+                </div>
+              </div>
+              {showAnswersForDoc(docId, () => (
+                <div className="mt-6 p-4 border-2 border-emerald-300 bg-emerald-50 rounded print:border print:bg-white print:page-break-before-always">
+                  <div className="font-bold text-emerald-900 mb-3 text-base">{getTrans(`worksheets.${docId}.answerKey.title`, '✅ Answer Key')}</div>
+                  <div className="space-y-2 text-sm text-emerald-800">
+                    <div><strong>{getTrans(`worksheets.${docId}.answerKey.exampleTargetPlan`, 'Example target plan:')}</strong></div>
+                    <ul className="list-disc list-inside space-y-1 ml-4">
+                      <li>{getTrans(`worksheets.${docId}.answerKey.row1`, 'Row 1 target: 6 → valid tiles: 4+2, 8-2, 3+3, etc.')}</li>
+                      <li>{getTrans(`worksheets.${docId}.answerKey.row2`, 'Row 2 target: 8 → valid tiles: 6+2, 9-1, 5+3, etc.')}</li>
+                      <li>{getTrans(`worksheets.${docId}.answerKey.row3`, 'Row 3 target: 10 → valid tiles: 7+3, 12-2, 5+5, etc.')}</li>
+                    </ul>
+                    <div className="text-xs text-emerald-700 mt-3">{getTrans(`worksheets.${docId}.answerKey.remember`, '💡 Remember: Any path that follows the row targets is correct! Choose your own target numbers and find a valid path from S to F.')}</div>
+                  </div>
+                </div>
+              ))}
+            </WorksheetSectionWrapper>
           );
         })()}
 
@@ -9303,18 +9334,18 @@ export function PrintablesPage() {
               </div>
             </div>
             <div className="break-inside-avoid" style={{ pageBreakAfter: 'auto' }}>
-            {[
-              ['elefant','elephant','elephent'],
-              ['becaus','because','becuase'],
-              ['skool','school','scool'],
-              ['butterflie','butterfly','buterfly'],
-              ['tommorow','tomorrow','tommorrow']
-            ].map((row, i) => (
-              <div key={i} className="flex items-center justify-between gap-3 mb-2">
-                <div className="text-sm font-mono">{i+1}.) {row.join('   ')}</div>
-                <div className="flex-1 border-b border-slate-300 ml-3" />
-              </div>
-            ))}
+              {[
+                ['elefant', 'elephant', 'elephent'],
+                ['becaus', 'because', 'becuase'],
+                ['skool', 'school', 'scool'],
+                ['butterflie', 'butterfly', 'buterfly'],
+                ['tommorow', 'tomorrow', 'tommorrow']
+              ].map((row, i) => (
+                <div key={i} className="flex items-center justify-between gap-3 mb-2">
+                  <div className="text-sm font-mono">{i + 1}.) {row.join('   ')}</div>
+                  <div className="flex-1 border-b border-slate-300 ml-3" />
+                </div>
+              ))}
             </div>
             {/* Extension/Challenge Problems */}
             <div className="mt-6 print:mt-0 p-4 bg-purple-50 border-2 border-purple-200 rounded print:bg-white print:border" style={{ pageBreakBefore: 'always', pageBreakInside: 'avoid' }}>
@@ -9459,18 +9490,18 @@ export function PrintablesPage() {
               </div>
             </div>
             <div className="break-inside-avoid" style={{ pageBreakAfter: 'auto' }}>
-            {[
-              'we goes to the park every saturday.',
-              'The cats is sleeping under the table.',
-              'i can run faster then my friend.',
-              'There is two pencils on the desk.',
-              'She dont like broccoli.'
-            ].map((s, i) => (
-              <div key={i} className="mb-3">
-                <div className="text-sm">{i+1}.) {s}</div>
-                <div className="border-b border-slate-300 mt-2" />
-              </div>
-            ))}
+              {[
+                'we goes to the park every saturday.',
+                'The cats is sleeping under the table.',
+                'i can run faster then my friend.',
+                'There is two pencils on the desk.',
+                'She dont like broccoli.'
+              ].map((s, i) => (
+                <div key={i} className="mb-3">
+                  <div className="text-sm">{i + 1}.) {s}</div>
+                  <div className="border-b border-slate-300 mt-2" />
+                </div>
+              ))}
             </div>
             {/* Extension/Challenge Problems */}
             <div className="mt-6 print:mt-0 p-4 bg-purple-50 border-2 border-purple-200 rounded print:bg-white print:border" style={{ pageBreakBefore: 'always', pageBreakInside: 'avoid' }}>
@@ -9526,19 +9557,19 @@ export function PrintablesPage() {
             3: 'bg-green-300',
             4: 'bg-red-300'
           };
-          
+
           // Generate a pattern (star/smiley face design)
-          const grid: number[] = Array.from({length: size * size}, () => 1); // Default: Yellow background
+          const grid: number[] = Array.from({ length: size * size }, () => 1); // Default: Yellow background
           const centerX = size / 2 - 0.5;
           const centerY = size / 2 - 0.5;
-          
+
           for (let y = 0; y < size; y++) {
             for (let x = 0; x < size; x++) {
               const idx = y * size + x;
               const dx = x - centerX;
               const dy = y - centerY;
               const dist = Math.sqrt(dx * dx + dy * dy);
-              
+
               // Create a circular pattern with star-like features
               if (dist < 2) {
                 grid[idx] = 4; // Red center
@@ -9549,7 +9580,7 @@ export function PrintablesPage() {
               } else if (dist < 7.5) {
                 grid[idx] = 3; // Green outer ring
               }
-              
+
               // Add star points (diagonal lines)
               const angle = Math.atan2(dy, dx);
               const starDist = dist;
@@ -9561,7 +9592,7 @@ export function PrintablesPage() {
               }
             }
           }
-          
+
           return (
             <WorksheetSectionWrapper
               docId="color-by-number"
@@ -9601,8 +9632,8 @@ export function PrintablesPage() {
                   {grid.map((num, i) => {
                     const showColored = showAnswers && activeDocs.includes('color-by-number');
                     return (
-                      <div 
-                        key={i} 
+                      <div
+                        key={i}
                         className={`w-5 h-5 border border-slate-300 rounded-[2px] flex items-center justify-center ${showColored ? colorClasses[num] : 'bg-white'}`}
                       >
                         {!showColored ? num : ''}
@@ -9678,7 +9709,7 @@ export function PrintablesPage() {
           >
             <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-pink-400 to-purple-400 animate-gradient-x mb-2" />
             <div className="grid grid-cols-3 gap-4 break-inside-avoid" style={{ pageBreakAfter: 'auto' }}>
-              {['Be Kind','Keep Reading','Dream Big'].map((t,i)=> (
+              {['Be Kind', 'Keep Reading', 'Dream Big'].map((t, i) => (
                 <div key={i} className="relative h-64 border border-slate-400 rounded bg-white">
                   <div className="absolute inset-0 border-2 border-dashed border-slate-300 m-2 rounded" />
                   <div className="flex items-center justify-center h-full text-slate-700 font-semibold">{t}</div>
@@ -9721,8 +9752,8 @@ export function PrintablesPage() {
               <div>
                 <div className="font-semibold text-slate-800 mb-1">Features</div>
                 <div className="grid grid-cols-2 gap-1 text-slate-700">
-                  {['Horns','Spots','Stripes','Furry','Scales','One eye','Three eyes','Big teeth'].map((f)=> (
-                    <label key={f} className="inline-flex items-center gap-2"><span className="w-3 h-3 border border-slate-400 inline-block"/> {f}</label>
+                  {['Horns', 'Spots', 'Stripes', 'Furry', 'Scales', 'One eye', 'Three eyes', 'Big teeth'].map((f) => (
+                    <label key={f} className="inline-flex items-center gap-2"><span className="w-3 h-3 border border-slate-400 inline-block" /> {f}</label>
                   ))}
                 </div>
               </div>
@@ -9911,16 +9942,16 @@ export function PrintablesPage() {
                 <thead>
                   <tr>
                     <th className="border border-slate-400 px-2 py-1 text-sm bg-slate-50"></th>
-                    {['Cat','Dog','Fish'].map((h)=> (
+                    {['Cat', 'Dog', 'Fish'].map((h) => (
                       <th key={h} className="border border-slate-400 px-2 py-1 text-sm bg-slate-50">{h}</th>
                     ))}
                   </tr>
                 </thead>
                 <tbody>
-                  {['Liam','Ava','Noah'].map((n)=> (
+                  {['Liam', 'Ava', 'Noah'].map((n) => (
                     <tr key={n}>
                       <td className="border border-slate-400 px-2 py-1 text-sm bg-slate-50">{n}</td>
-                      {Array.from({length:3}).map((_,i)=> (
+                      {Array.from({ length: 3 }).map((_, i) => (
                         <td key={i} className="border border-slate-400 w-10 h-10"></td>
                       ))}
                     </tr>
@@ -10010,7 +10041,7 @@ export function PrintablesPage() {
               <HiddenObjectsSceneSVGA />
             </div>
             <ul className="grid grid-cols-2 gap-2 text-sm text-slate-700">
-              {['Key','Apple','Star','Leaf','Car','Book','Shell','Cloud','Ball','Hat'].map((x)=> (<li key={x}>☐ {x}</li>))}
+              {['Key', 'Apple', 'Star', 'Leaf', 'Car', 'Book', 'Shell', 'Cloud', 'Ball', 'Hat'].map((x) => (<li key={x}>☐ {x}</li>))}
             </ul>
             {/* Extension/Challenge Problems */}
             <div className="mt-6 print:mt-0 p-4 bg-purple-50 border-2 border-purple-200 rounded print:bg-white print:border" style={{ pageBreakBefore: 'always', pageBreakInside: 'avoid' }}>
@@ -10070,8 +10101,8 @@ export function PrintablesPage() {
           >
             <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-indigo-400 to-purple-400 animate-gradient-x mb-2" />
             <div className="grid grid-cols-4 gap-2 text-sm break-inside-avoid" style={{ pageBreakAfter: 'auto' }}>
-              {['START','Deep breath','Phone buzz (skip)','One step','Snack break','Water sip','Chit‑chat (skip)','Stretch','Refocus','Tiny goal','Timer 10 min','FINISH','⭐ Great job!'].map((t,i)=> (
-                <div key={i} className={`h-12 border rounded flex items-center justify-center ${/skip/i.test(t)?'bg-slate-50 text-slate-400':'bg-white'}`}>{t}</div>
+              {['START', 'Deep breath', 'Phone buzz (skip)', 'One step', 'Snack break', 'Water sip', 'Chit‑chat (skip)', 'Stretch', 'Refocus', 'Tiny goal', 'Timer 10 min', 'FINISH', '⭐ Great job!'].map((t, i) => (
+                <div key={i} className={`h-12 border rounded flex items-center justify-center ${/skip/i.test(t) ? 'bg-slate-50 text-slate-400' : 'bg-white'}`}>{t}</div>
               ))}
             </div>
             <div className="mt-4 grid md:grid-cols-3 gap-3 text-sm">
@@ -10135,11 +10166,11 @@ export function PrintablesPage() {
                 <path d="M140 70 C140 40, 260 40, 260 70" />
                 <path d="M130 70 C120 140, 120 320, 200 360 C280 320, 280 140, 270 70" />
               </g>
-              {Array.from({length:18}).map((_,i)=> {
-                const col = i%6
-                const row = Math.floor(i/6)
-                const cx = 70 + col*50
-                const cy = 110 + row*60
+              {Array.from({ length: 18 }).map((_, i) => {
+                const col = i % 6
+                const row = Math.floor(i / 6)
+                const cx = 70 + col * 50
+                const cy = 110 + row * 60
                 return <circle key={i} cx={cx} cy={cy} r={18} stroke="#9ca3af" fill="none" vectorEffect="non-scaling-stroke" />
               })}
             </svg>
@@ -10183,7 +10214,7 @@ export function PrintablesPage() {
                 </tr>
               </thead>
               <tbody>
-                {['Mon','Tue','Wed','Thu','Fri','Sat','Sun'].map((d)=> (
+                {['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'].map((d) => (
                   <tr key={d} className="h-10">
                     <td className="border border-slate-300 px-2">{d}</td>
                     <td className="border border-slate-300" />
@@ -10215,33 +10246,33 @@ export function PrintablesPage() {
               'Develop focus and attention',
               'Express creativity through coloring'
             ]}
-              parentTeacherTips={[
-                'Start from the center and work outward',
-                'Take your time - there is no rush',
-                'Use colors that make you feel calm',
-                'Extension: Create your own mandala design'
-              ]}
+            parentTeacherTips={[
+              'Start from the center and work outward',
+              'Take your time - there is no rush',
+              'Use colors that make you feel calm',
+              'Extension: Create your own mandala design'
+            ]}
           >
             <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-pink-400 to-purple-400 animate-gradient-x mb-2" />
             <svg viewBox="0 0 400 400" className="w-full h-auto bg-white border border-slate-300">
               <g fill="none" stroke="#111827" strokeWidth="2">
-                {Array.from({length:6}).map((_,i)=> (
-                  <circle key={i} cx={200} cy={200} r={30 + i*25} />
+                {Array.from({ length: 6 }).map((_, i) => (
+                  <circle key={i} cx={200} cy={200} r={30 + i * 25} />
                 ))}
-                {Array.from({length:12}).map((_,i)=> {
-                  const ang = (i/12)*Math.PI*2
-                  const x1 = 200 + Math.cos(ang)*40
-                  const y1 = 200 + Math.sin(ang)*40
-                  const x2 = 200 + Math.cos(ang)*160
-                  const y2 = 200 + Math.sin(ang)*160
+                {Array.from({ length: 12 }).map((_, i) => {
+                  const ang = (i / 12) * Math.PI * 2
+                  const x1 = 200 + Math.cos(ang) * 40
+                  const y1 = 200 + Math.sin(ang) * 40
+                  const x2 = 200 + Math.cos(ang) * 160
+                  const y2 = 200 + Math.sin(ang) * 160
                   return <line key={i} x1={x1} y1={y1} x2={x2} y2={y2} />
                 })}
-                {Array.from({length:8}).map((_,i)=> {
-                  const ang = (i/8)*Math.PI*2
-                  const r=110
-                  const x = 200 + Math.cos(ang)*r
-                  const y = 200 + Math.sin(ang)*r
-                  return <polygon key={i} points={`${x},${y} ${x+8},${y+14} ${x-8},${y+14}`} />
+                {Array.from({ length: 8 }).map((_, i) => {
+                  const ang = (i / 8) * Math.PI * 2
+                  const r = 110
+                  const x = 200 + Math.cos(ang) * r
+                  const y = 200 + Math.sin(ang) * r
+                  return <polygon key={i} points={`${x},${y} ${x + 8},${y + 14} ${x - 8},${y + 14}`} />
                 })}
               </g>
             </svg>
@@ -10278,7 +10309,7 @@ export function PrintablesPage() {
             <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-pink-400 to-purple-400 animate-gradient-x mb-2" />
             <h2 className="text-lg font-bold text-slate-900">🗓️ My Goals for the Week</h2>
             <p className="text-slate-600 text-sm mb-3">Write 3 goals, 1 thing to try, and 1 thing you’re proud of.</p>
-            {['Goal 1','Goal 2','Goal 3','Try this','Proud of'].map((t,i)=> (
+            {['Goal 1', 'Goal 2', 'Goal 3', 'Try this', 'Proud of'].map((t, i) => (
               <div key={i} className="mb-3">
                 <div className="text-sm font-semibold text-slate-800">{t}</div>
                 <div className="h-10 border-b-3 border-slate-600" />
@@ -10319,7 +10350,7 @@ export function PrintablesPage() {
               <div>
                 <div className="font-semibold mb-1">Spooky Word List</div>
                 <ul className="list-disc list-inside space-y-1">
-                  {['ghost','pumpkin','witch','bat','candy','mask','moon','owl'].map(w=> <li key={w}>{w}</li>)}
+                  {['ghost', 'pumpkin', 'witch', 'bat', 'candy', 'mask', 'moon', 'owl'].map(w => <li key={w}>{w}</li>)}
                 </ul>
               </div>
               <div>
@@ -10348,7 +10379,7 @@ export function PrintablesPage() {
                   const cur = stack[stack.length - 1];
                   const cx = cur % cols;
                   const cy = Math.floor(cur / cols);
-                  const order: Array<{ x: number; y: number; dir: 't'|'r'|'b'|'l' }> = [
+                  const order: Array<{ x: number; y: number; dir: 't' | 'r' | 'b' | 'l' }> = [
                     { x: cx, y: cy - 1, dir: 't' },
                     { x: cx + 1, y: cy, dir: 'r' },
                     { x: cx, y: cy + 1, dir: 'b' },
@@ -10485,8 +10516,8 @@ export function PrintablesPage() {
           >
             <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-blue-400 to-cyan-400 animate-gradient-x mb-2" />
             <div className="grid grid-cols-5 gap-2">
-              {Array.from({length:25}).map((_,i)=> (
-                <div key={i} className="h-10 border border-slate-300 rounded text-[10px] p-1">Act #{i+1}</div>
+              {Array.from({ length: 25 }).map((_, i) => (
+                <div key={i} className="h-10 border border-slate-300 rounded text-[10px] p-1">Act #{i + 1}</div>
               ))}
             </div>
             {showAnswersForDoc('winter-kindness', () => (
@@ -10521,7 +10552,7 @@ export function PrintablesPage() {
           >
             <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-pink-400 to-green-400 animate-gradient-x mb-2" />
             <ul className="grid grid-cols-2 gap-2 text-sm text-slate-700">
-              {['Leaf with spots','Pink flower','Three smooth stones','Ant trail','Bird feather','Cloud shaped like an animal','Two kinds of grass','Buzzing insect','Tiny pinecone','Something yellow'].map(x=> <li key={x}>☐ {x}</li>)}
+              {['Leaf with spots', 'Pink flower', 'Three smooth stones', 'Ant trail', 'Bird feather', 'Cloud shaped like an animal', 'Two kinds of grass', 'Buzzing insect', 'Tiny pinecone', 'Something yellow'].map(x => <li key={x}>☐ {x}</li>)}
             </ul>
             {showAnswersForDoc('spring-scavenger', () => (
               <div className="mt-6 p-4 border-2 border-emerald-300 bg-emerald-50 rounded print:border print:bg-white print:page-break-before-always">
@@ -10556,7 +10587,7 @@ export function PrintablesPage() {
             <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-yellow-400 to-orange-400 animate-gradient-x mb-2" />
             <div className="grid grid-cols-3 gap-4 text-sm">
               <ul className="list-disc list-inside space-y-1">
-                {['beach','shell','sand','wave','sun','boat','crab','icecream'].map(w=> <li key={w}>{w}</li>)}
+                {['beach', 'shell', 'sand', 'wave', 'sun', 'boat', 'crab', 'icecream'].map(w => <li key={w}>{w}</li>)}
               </ul>
               <div className="h-24 border border-dashed border-slate-400 rounded" />
               <div>
@@ -10598,21 +10629,21 @@ export function PrintablesPage() {
           >
             <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-purple-400 to-pink-400 animate-gradient-x mb-2" />
             <ol className="list-decimal list-inside space-y-1 text-sm">
-              {['Memory pairs','Word jumble','Counting maze','Pattern copy','Quick sudoku','Riddle time','Spot the change'].map((t,i)=> <li key={i}>{t}</li>)}
+              {['Memory pairs', 'Word jumble', 'Counting maze', 'Pattern copy', 'Quick sudoku', 'Riddle time', 'Spot the change'].map((t, i) => <li key={i}>{t}</li>)}
             </ol>
             <div className="mt-4">
               <div className="text-sm font-semibold text-slate-800 mb-2">Streak tracker</div>
               <table className="w-full border border-slate-300 text-sm">
                 <thead>
                   <tr className="bg-slate-50">
-                    {['Mon','Tue','Wed','Thu','Fri','Sat','Sun'].map(d => (
+                    {['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'].map(d => (
                       <th key={d} className="border border-slate-300 px-2 py-1 text-center">{d}</th>
                     ))}
                   </tr>
                 </thead>
                 <tbody>
                   <tr>
-                    {Array.from({length:7}).map((_,i)=> (
+                    {Array.from({ length: 7 }).map((_, i) => (
                       <td key={i} className="border border-slate-300 h-8 text-center align-middle">☐</td>
                     ))}
                   </tr>
@@ -10663,7 +10694,7 @@ export function PrintablesPage() {
           >
             <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-pink-400 to-purple-400 animate-gradient-x mb-2" />
             <ol className="list-decimal list-inside space-y-1 text-sm">
-              {['Draw a robot pet','Design a flag','Invent a snack package','Doodle your name in 3 styles','Sketch a tiny house','Create a new animal','Make a comic in 3 panels'].map((t,i)=> <li key={i}>{t}</li>)}
+              {['Draw a robot pet', 'Design a flag', 'Invent a snack package', 'Doodle your name in 3 styles', 'Sketch a tiny house', 'Create a new animal', 'Make a comic in 3 panels'].map((t, i) => <li key={i}>{t}</li>)}
             </ol>
             {showAnswersForDoc('creative-challenge', () => (
               <div className="mt-6 p-4 border-2 border-emerald-300 bg-emerald-50 rounded print:border print:bg-white print:page-break-before-always">
@@ -10697,12 +10728,12 @@ export function PrintablesPage() {
           >
             <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-blue-400 to-green-400 animate-gradient-x mb-2" />
             {(() => {
-              const words = ['PARIS','NILE','AFRICA','ASIA','ALPS','TOKYO','ITALY','NORTH','SOUTH','RIO','BERLIN']
+              const words = ['PARIS', 'NILE', 'AFRICA', 'ASIA', 'ALPS', 'TOKYO', 'ITALY', 'NORTH', 'SOUTH', 'RIO', 'BERLIN']
               return (
                 <div className="md:flex md:items-start md:gap-6">
                   <div className="flex-1">
                     <div className="grid grid-cols-12 gap-[2px] font-mono text-sm bg-slate-50 p-3 rounded-lg print:bg-transparent print:p-0">
-                    {generateWordSearchGrid(12, [...words], makeRng(`${effectiveSeed}|ws-world|main|v${variant}`)).map((row, r) => (
+                      {generateWordSearchGrid(12, [...words], makeRng(`${effectiveSeed}|ws-world|main|v${variant}`)).map((row, r) => (
                         <React.Fragment key={r}>
                           {row.map((ch, c) => (
                             <div key={c} className="w-6 h-6 border border-slate-300 flex items-center justify-center rounded-sm">{ch}</div>
@@ -10773,7 +10804,7 @@ export function PrintablesPage() {
                   while (stack.length) {
                     const cur = stack[stack.length - 1];
                     const cx = cur % cols; const cy = Math.floor(cur / cols);
-                    const order: Array<{ x: number; y: number; dir: 't'|'r'|'b'|'l' }> = [
+                    const order: Array<{ x: number; y: number; dir: 't' | 'r' | 'b' | 'l' }> = [
                       { x: cx, y: cy - 1, dir: 't' },
                       { x: cx + 1, y: cy, dir: 'r' },
                       { x: cx, y: cy + 1, dir: 'b' },
@@ -10879,7 +10910,7 @@ export function PrintablesPage() {
                 <div className="text-sm font-semibold text-slate-800 mb-2">Word list</div>
                 <div className="border border-slate-200 rounded-lg p-3 bg-white print:bg-transparent print:border-0">
                   <ul className="text-sm text-slate-700 space-y-1 columns-2 md:columns-1">
-                    {['lion','zebra','panda','eagle','whale','koala'].map(w => (
+                    {['lion', 'zebra', 'panda', 'eagle', 'whale', 'koala'].map(w => (
                       <li key={w}>☐ {w}</li>
                     ))}
                   </ul>
@@ -10937,23 +10968,23 @@ export function PrintablesPage() {
             ]}
           >
             <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-orange-400 to-pink-400 animate-gradient-x mb-2" />
-          <div className="grid grid-cols-12 gap-[2px] font-mono text-sm bg-slate-50 p-3 rounded-lg print:bg-transparent print:p-0">
-            {generateWordSearchGrid(12, ["DOG","CAT","LION","BEAR","WOLF","SEAL","FROG","EAGLE","MOUSE","HORSE","ZEBRA","SNAKE"], makeRng(`${effectiveSeed}|ws-animals|main|v${variant}`)).map((row, r) => (
-              <React.Fragment key={r}>
-                {row.map((ch, c) => (
-                  <div key={c} className="w-6 h-6 border border-slate-300 flex items-center justify-center rounded-sm">{ch}</div>
-                ))}
-              </React.Fragment>
-            ))}
-          </div>
-          {showAnswersForDoc('ws-animals', () => (
-            <div className="mt-6 p-4 border-2 border-emerald-300 bg-emerald-50 rounded print:border print:bg-white print:page-break-before-always">
-              <div className="font-bold text-emerald-900 mb-3 text-base">✅ Answer Key</div>
-              <div className="text-sm text-emerald-800">
-                Find all 12 animal words: DOG, CAT, LION, BEAR, WOLF, SEAL, FROG, EAGLE, MOUSE, HORSE, ZEBRA, SNAKE. Words can be found horizontally, vertically, or diagonally. Circle each word as you find it!
-              </div>
+            <div className="grid grid-cols-12 gap-[2px] font-mono text-sm bg-slate-50 p-3 rounded-lg print:bg-transparent print:p-0">
+              {generateWordSearchGrid(12, ["DOG", "CAT", "LION", "BEAR", "WOLF", "SEAL", "FROG", "EAGLE", "MOUSE", "HORSE", "ZEBRA", "SNAKE"], makeRng(`${effectiveSeed}|ws-animals|main|v${variant}`)).map((row, r) => (
+                <React.Fragment key={r}>
+                  {row.map((ch, c) => (
+                    <div key={c} className="w-6 h-6 border border-slate-300 flex items-center justify-center rounded-sm">{ch}</div>
+                  ))}
+                </React.Fragment>
+              ))}
             </div>
-          ))}
+            {showAnswersForDoc('ws-animals', () => (
+              <div className="mt-6 p-4 border-2 border-emerald-300 bg-emerald-50 rounded print:border print:bg-white print:page-break-before-always">
+                <div className="font-bold text-emerald-900 mb-3 text-base">✅ Answer Key</div>
+                <div className="text-sm text-emerald-800">
+                  Find all 12 animal words: DOG, CAT, LION, BEAR, WOLF, SEAL, FROG, EAGLE, MOUSE, HORSE, ZEBRA, SNAKE. Words can be found horizontally, vertically, or diagonally. Circle each word as you find it!
+                </div>
+              </div>
+            ))}
           </WorksheetSectionWrapper>
         )}
 
@@ -10977,23 +11008,23 @@ export function PrintablesPage() {
             ]}
           >
             <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-purple-400 to-blue-400 animate-gradient-x mb-2" />
-          <div className="grid grid-cols-12 gap-1 font-mono text-sm">
-            {generateWordSearchGrid(12, ["STAR","MOON","SUN","COMET","ORBIT","SPACE","ALIEN","ROVER","MARS","VENUS","NEBULA","ASTRO"], makeRng(`${effectiveSeed}|ws-space|main|v${variant}`)).map((row, r) => (
-              <React.Fragment key={r}>
-                {row.map((ch, c) => (
-                  <div key={c} className="w-6 h-6 border border-slate-300 flex items-center justify-center">{ch}</div>
-                ))}
-              </React.Fragment>
-            ))}
-          </div>
-          {showAnswersForDoc('ws-space', () => (
-            <div className="mt-6 p-4 border-2 border-emerald-300 bg-emerald-50 rounded print:border print:bg-white print:page-break-before-always">
-              <div className="font-bold text-emerald-900 mb-3 text-base">✅ Answer Key</div>
-              <div className="text-sm text-emerald-800">
-                Find all 12 space words: STAR, MOON, SUN, COMET, ORBIT, SPACE, ALIEN, ROVER, MARS, VENUS, NEBULA, ASTRO. Words can be found horizontally, vertically, or diagonally. Circle each word as you find it!
-              </div>
+            <div className="grid grid-cols-12 gap-1 font-mono text-sm">
+              {generateWordSearchGrid(12, ["STAR", "MOON", "SUN", "COMET", "ORBIT", "SPACE", "ALIEN", "ROVER", "MARS", "VENUS", "NEBULA", "ASTRO"], makeRng(`${effectiveSeed}|ws-space|main|v${variant}`)).map((row, r) => (
+                <React.Fragment key={r}>
+                  {row.map((ch, c) => (
+                    <div key={c} className="w-6 h-6 border border-slate-300 flex items-center justify-center">{ch}</div>
+                  ))}
+                </React.Fragment>
+              ))}
             </div>
-          ))}
+            {showAnswersForDoc('ws-space', () => (
+              <div className="mt-6 p-4 border-2 border-emerald-300 bg-emerald-50 rounded print:border print:bg-white print:page-break-before-always">
+                <div className="font-bold text-emerald-900 mb-3 text-base">✅ Answer Key</div>
+                <div className="text-sm text-emerald-800">
+                  Find all 12 space words: STAR, MOON, SUN, COMET, ORBIT, SPACE, ALIEN, ROVER, MARS, VENUS, NEBULA, ASTRO. Words can be found horizontally, vertically, or diagonally. Circle each word as you find it!
+                </div>
+              </div>
+            ))}
           </WorksheetSectionWrapper>
         )}
 
@@ -11075,43 +11106,43 @@ export function PrintablesPage() {
             ]}
           >
             <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-purple-400 to-pink-400 animate-gradient-x mb-2" />
-          <div className="inline-grid grid-cols-6 gap-0 bg-slate-50 p-3 rounded-lg print:bg-transparent print:p-0 relative">
-            {/* visual subgrid lines (3×2 boxes) */}
-            <div className="pointer-events-none absolute inset-3 grid grid-cols-3 grid-rows-2">
-              <div className="border-2 border-slate-400/60" />
-              <div className="border-2 border-slate-400/60" />
-              <div className="border-2 border-slate-400/60" />
-              <div className="border-2 border-slate-400/60" />
-              <div className="border-2 border-slate-400/60" />
-              <div className="border-2 border-slate-400/60" />
-            </div>
-            {(() => {
-              const rng = makeRng(`${effectiveSeed}|s6|v${variant}`)
-              const data = genSudoku(6, 2, 3, rng, 18, 24)
-              const grid = (showAnswers ? data.solution : data.puzzle).flat()
-              return grid.map((val: number | null, i: number) => (
-                <div key={i} className="w-10 h-10 border border-slate-400 flex items-center justify-center">
-                  {val != null ? <span className="font-semibold text-slate-900">{val}</span> : null}
-                </div>
-              ))
-            })()}
-          </div>
-          <div className="mt-3 text-slate-700 text-sm">
-            <div className="font-medium mb-1">Clues</div>
-            <ul className="list-disc list-inside space-y-0.5">
-              <li>Check each 3×2 box: fill the only spot a number can go.</li>
-              <li>Scan for singles: if a row is missing only “5”, place it.</li>
-              <li>Use pencil marks lightly (mentally) to eliminate options.</li>
-            </ul>
-          </div>
-          {showAnswersForDoc('sudoku6', () => (
-            <div className="mt-6 p-4 border-2 border-emerald-300 bg-emerald-50 rounded print:border print:bg-white print:page-break-before-always">
-              <div className="font-bold text-emerald-900 mb-3 text-base">✅ Answer Key</div>
-              <div className="text-sm text-emerald-800">
-                The completed sudoku grid shows the solution. Each row, column, and 3×2 box contains the numbers 1-6 exactly once. Use the clues provided to solve step by step!
+            <div className="inline-grid grid-cols-6 gap-0 bg-slate-50 p-3 rounded-lg print:bg-transparent print:p-0 relative">
+              {/* visual subgrid lines (3×2 boxes) */}
+              <div className="pointer-events-none absolute inset-3 grid grid-cols-3 grid-rows-2">
+                <div className="border-2 border-slate-400/60" />
+                <div className="border-2 border-slate-400/60" />
+                <div className="border-2 border-slate-400/60" />
+                <div className="border-2 border-slate-400/60" />
+                <div className="border-2 border-slate-400/60" />
+                <div className="border-2 border-slate-400/60" />
               </div>
+              {(() => {
+                const rng = makeRng(`${effectiveSeed}|s6|v${variant}`)
+                const data = genSudoku(6, 2, 3, rng, 18, 24)
+                const grid = (showAnswers ? data.solution : data.puzzle).flat()
+                return grid.map((val: number | null, i: number) => (
+                  <div key={i} className="w-10 h-10 border border-slate-400 flex items-center justify-center">
+                    {val != null ? <span className="font-semibold text-slate-900">{val}</span> : null}
+                  </div>
+                ))
+              })()}
             </div>
-          ))}
+            <div className="mt-3 text-slate-700 text-sm">
+              <div className="font-medium mb-1">Clues</div>
+              <ul className="list-disc list-inside space-y-0.5">
+                <li>Check each 3×2 box: fill the only spot a number can go.</li>
+                <li>Scan for singles: if a row is missing only “5”, place it.</li>
+                <li>Use pencil marks lightly (mentally) to eliminate options.</li>
+              </ul>
+            </div>
+            {showAnswersForDoc('sudoku6', () => (
+              <div className="mt-6 p-4 border-2 border-emerald-300 bg-emerald-50 rounded print:border print:bg-white print:page-break-before-always">
+                <div className="font-bold text-emerald-900 mb-3 text-base">✅ Answer Key</div>
+                <div className="text-sm text-emerald-800">
+                  The completed sudoku grid shows the solution. Each row, column, and 3×2 box contains the numbers 1-6 exactly once. Use the clues provided to solve step by step!
+                </div>
+              </div>
+            ))}
           </WorksheetSectionWrapper>
         )}
 
@@ -11385,7 +11416,7 @@ export function PrintablesPage() {
                 <svg viewBox="0 0 400 300" className="w-full h-auto" aria-hidden>
                   <g fill="none" stroke="#111827" strokeWidth="3.5">
                     <circle cx="200" cy="140" r="24" />
-                    {Array.from({length:12}).map((_,i)=>{const a=i*Math.PI*2/12;return <line key={i} x1={200} y1={140} x2={200+Math.cos(a)*50} y2={140+Math.sin(a)*50} />})}
+                    {Array.from({ length: 12 }).map((_, i) => { const a = i * Math.PI * 2 / 12; return <line key={i} x1={200} y1={140} x2={200 + Math.cos(a) * 50} y2={140 + Math.sin(a) * 50} /> })}
                   </g>
                 </svg>
               </div>
@@ -11826,7 +11857,7 @@ export function PrintablesPage() {
                       {Array.from({ length: n }).map((_, i) => (
                         <text key={i} x={100 + i * 15} y="185" fontSize="16">{i < 5 ? '🍎' : ''}</text>
                       ))}
-                      {n > 5 && <text x={175} y="185" fontSize="12" fill="#3b82f6">+{n-5}</text>}
+                      {n > 5 && <text x={175} y="185" fontSize="12" fill="#3b82f6">+{n - 5}</text>}
                     </g>
                   </svg>
                 </div>
@@ -12387,19 +12418,19 @@ export function PrintablesPage() {
         {activeDocs.includes('balance-equations-10') && (() => {
           const rng = makeRng(`${effectiveSeed}|v${variant}|doc=${doc}`);
           function nextInt(min: number, max: number) { return Math.floor(rng() * (max - min + 1)) + min; }
-          
+
           // Generate balanced equations
           const equations: Array<{ left: string; right: string; answer: number }> = [];
           const types = ['add-left', 'add-right', 'sub-left', 'sub-right'];
-          
+
           for (let i = 0; i < 4; i++) {
             const type = types[i % types.length];
             let left: string, right: string, answer: number;
             let attempts = 0;
-            
+
             while (attempts < 50) {
               attempts++;
-              
+
               if (type === 'add-left') {
                 // Left side: a + b, Right side: __ + c (where a + b = __ + c)
                 const a = nextInt(1, 8);
@@ -12450,7 +12481,7 @@ export function PrintablesPage() {
                 }
               }
             }
-            
+
             // Fallback if generation failed
             if (attempts >= 50) {
               if (type.startsWith('add')) {
@@ -12463,10 +12494,10 @@ export function PrintablesPage() {
                 answer = 4;
               }
             }
-            
+
             equations.push({ left, right, answer });
           }
-          
+
           return (
             <WorksheetSectionWrapper
               docId="balance-equations-10"
@@ -12595,9 +12626,9 @@ export function PrintablesPage() {
                   <div className="font-bold text-emerald-900 mb-3 text-base">✅ {getTrans('common.answerKey', 'Answer Key')}</div>
                   <ul className="list-disc list-inside space-y-2 text-sm text-emerald-800">
                     {equations.map((eq, idx) => {
-                      const leftValue = eq.left.includes('+') 
+                      const leftValue = eq.left.includes('+')
                         ? eq.left.split('+').map(x => parseInt(x.trim())).reduce((a, b) => a + b, 0)
-                        : eq.left.includes('__') 
+                        : eq.left.includes('__')
                           ? eq.answer
                           : eq.left.split('-').map(x => parseInt(x.trim())).reduce((a, b) => a - b);
                       return (
@@ -12741,7 +12772,7 @@ export function PrintablesPage() {
         {activeDocs.includes('number-line-add') && (() => {
           const rng = makeRng(`${effectiveSeed}|v${variant}|doc=${doc}`);
           function nextInt(min: number, max: number) { return Math.floor(rng() * (max - min + 1)) + min; }
-          
+
           // Generate 4 addition problems where sum is <= 15
           const problems: Array<[number, number]> = [];
           for (let i = 0; i < 4; i++) {
@@ -12749,13 +12780,13 @@ export function PrintablesPage() {
             const b = nextInt(1, Math.min(9, 15 - a));
             problems.push([a, b]);
           }
-          
+
           const maxNum = Math.max(...problems.map(([a, b]) => a + b), 15);
           const lineLength = 500;
           const startX = 50;
           const endX = startX + lineLength;
           const step = lineLength / maxNum;
-          
+
           return (
             <WorksheetSectionWrapper
               docId="number-line-add"
@@ -12859,14 +12890,14 @@ export function PrintablesPage() {
                           {/* Starting point circle */}
                           <circle cx={startX + a * step} cy="50" r="6" fill="#3b82f6" />
                           {/* Arrow showing addition */}
-                          <path 
-                            d={`M${startX + a * step} 50 L${startX + (a + b) * step} 50`} 
-                            stroke="#3b82f6" 
-                            strokeWidth="3" 
+                          <path
+                            d={`M${startX + a * step} 50 L${startX + (a + b) * step} 50`}
+                            stroke="#3b82f6"
+                            strokeWidth="3"
                             markerEnd={`url(#arrowhead-${idx})`}
                           />
                           {/* Label for the jump */}
-                          <text x={startX + (a + b/2) * step} y="35" fontSize="12" fill="#3b82f6" textAnchor="middle" fontWeight="bold">+{b}</text>
+                          <text x={startX + (a + b / 2) * step} y="35" fontSize="12" fill="#3b82f6" textAnchor="middle" fontWeight="bold">+{b}</text>
                         </>
                       )}
                     </svg>
@@ -13995,7 +14026,7 @@ export function PrintablesPage() {
         {activeDocs.includes('number-line-200') && (() => {
           const rng = makeRng(`${effectiveSeed}|v${variant}|doc=${doc}`);
           function nextInt(min: number, max: number) { return Math.floor(rng() * (max - min + 1)) + min; }
-          
+
           // Generate numbers to locate for each number line
           const ranges = [
             { start: 0, end: 50, label: '0-50' },
@@ -14003,13 +14034,13 @@ export function PrintablesPage() {
             { start: 100, end: 150, label: '100-150' },
             { start: 150, end: 200, label: '150-200' }
           ];
-          
+
           const problems = ranges.map(({ start, end }) => {
             // Generate a number within the range (not on the endpoints)
             const target = nextInt(start + 5, end - 5);
             return { start, end, target };
           });
-          
+
           return (
             <WorksheetSectionWrapper
               docId="number-line-200"
@@ -14132,10 +14163,10 @@ export function PrintablesPage() {
             ]}
             parentTeacherTips={[
               'Doubles are when you add a number to itself (6+6, 7+7)',
-                'Near doubles are one more than doubles (6+7 = 6+6+1)',
-                'If you know 6+6=12, then 6+7=13 (just add 1 more)',
-                'Practice with manipulatives: If I have 6 blocks and 6 blocks, that\'s 12. If I have 6 and 7, that\'s 13!',
-                'Extension: Try doubles to 20 (10+10, 11+11, etc.)'
+              'Near doubles are one more than doubles (6+7 = 6+6+1)',
+              'If you know 6+6=12, then 6+7=13 (just add 1 more)',
+              'Practice with manipulatives: If I have 6 blocks and 6 blocks, that\'s 12. If I have 6 and 7, that\'s 13!',
+              'Extension: Try doubles to 20 (10+10, 11+11, etc.)'
             ]}
           >
             <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-orange-400 to-red-400 animate-gradient-x mb-2" />
@@ -14527,7 +14558,7 @@ export function PrintablesPage() {
         )}
 
         {/* NEW CRITICAL WORKSHEETS - Fresh and Unique, No Duplicates */}
-        
+
         {activeDocs.includes('add-2digit-regrouping') && (() => {
           const rng = makeRng(`${effectiveSeed}|v${variant}|doc=${doc}`);
           function nextInt(min: number, max: number) {
@@ -14703,12 +14734,12 @@ export function PrintablesPage() {
                   <p className="text-center text-slate-600 text-sm mt-1">
                     Write: "{showAnswers && activeDocs.includes('fractions-halves-thirds-fourths') ? (
                       <span className="text-emerald-700 font-semibold">
-                        {frac.label === '1/2' ? 'one half' : 
-                         frac.label === '1/3' ? 'one third' : 
-                         frac.label === '2/3' ? 'two thirds' : 
-                         frac.label === '1/4' ? 'one fourth' : 
-                         frac.label === '2/4' ? 'two fourths' : 
-                         'three fourths'}
+                        {frac.label === '1/2' ? 'one half' :
+                          frac.label === '1/3' ? 'one third' :
+                            frac.label === '2/3' ? 'two thirds' :
+                              frac.label === '1/4' ? 'one fourth' :
+                                frac.label === '2/4' ? 'two fourths' :
+                                  'three fourths'}
                       </span>
                     ) : '____'}"
                   </p>
@@ -14761,7 +14792,7 @@ export function PrintablesPage() {
           const docId = 'mult-facts-1-5'
           const rng = makeRng(`${effectiveSeed}|v${variant}|doc=${doc}`);
           function nextInt(min: number, max: number) { return Math.floor(rng() * (max - min + 1)) + min; }
-          const facts: Array<[number, number]> = Array.from({length: 12}).map(() => {
+          const facts: Array<[number, number]> = Array.from({ length: 12 }).map(() => {
             const a = nextInt(1, 5); const b = nextInt(1, 5); return [a, b];
           });
           return (
@@ -14877,7 +14908,7 @@ export function PrintablesPage() {
         {activeDocs.includes('mult-arrays-2-5') && (() => {
           const rng = makeRng(`${effectiveSeed}|v${variant}|doc=${doc}`);
           function nextInt(min: number, max: number) { return Math.floor(rng() * (max - min + 1)) + min; }
-          const arrays: Array<[number, number]> = Array.from({length: 6}).map(() => {
+          const arrays: Array<[number, number]> = Array.from({ length: 6 }).map(() => {
             const rows = nextInt(2, 5); const cols = nextInt(2, 5); return [rows, cols];
           });
           return (
@@ -14918,8 +14949,8 @@ export function PrintablesPage() {
                 {arrays.map(([rows, cols], i) => (
                   <div key={i} className="border border-slate-300 rounded p-4 bg-white break-inside-avoid">
                     <div className="text-center mb-2 font-semibold text-slate-800">{rows} × {cols} = <span className="inline-block w-20 h-10 border-b-[3px] border-slate-600 mx-1 align-middle" /></div>
-                    <div className="grid gap-1" style={{gridTemplateColumns: `repeat(${cols}, 1fr)`, maxWidth: '200px', margin: '0 auto'}}>
-                      {Array.from({length: rows * cols}).map((_, idx) => (
+                    <div className="grid gap-1" style={{ gridTemplateColumns: `repeat(${cols}, 1fr)`, maxWidth: '200px', margin: '0 auto' }}>
+                      {Array.from({ length: rows * cols }).map((_, idx) => (
                         <div key={idx} className="aspect-square border border-slate-400 rounded bg-slate-100 print:bg-white" />
                       ))}
                     </div>
@@ -14971,7 +15002,7 @@ export function PrintablesPage() {
             docId="skip-count-mult"
             title="Skip Counting for Multiplication"
             emoji="➡️"
-              description="Skip count to find the missing numbers in each pattern. Then write the complete multiplication fact in the blank."
+            description="Skip count to find the missing numbers in each pattern. Then write the complete multiplication fact in the blank."
           >
             <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-green-400 to-teal-400 animate-gradient-x mb-2" />
             <div className="space-y-4">
@@ -15112,7 +15143,7 @@ export function PrintablesPage() {
         {activeDocs.includes('mult-facts-6-12') && (() => {
           const rng = makeRng(`${effectiveSeed}|v${variant}|doc=${doc}`);
           function nextInt(min: number, max: number) { return Math.floor(rng() * (max - min + 1)) + min; }
-          const facts: Array<[number, number]> = Array.from({length: 12}).map(() => {
+          const facts: Array<[number, number]> = Array.from({ length: 12 }).map(() => {
             const a = nextInt(6, 12); const b = nextInt(6, 12); return [a, b];
           });
           return (
@@ -15205,7 +15236,7 @@ export function PrintablesPage() {
         {activeDocs.includes('mult-arrays-models') && (() => {
           const rng = makeRng(`${effectiveSeed}|v${variant}|doc=${doc}`);
           function nextInt(min: number, max: number) { return Math.floor(rng() * (max - min + 1)) + min; }
-          const arrays: Array<[number, number]> = Array.from({length: 6}).map(() => {
+          const arrays: Array<[number, number]> = Array.from({ length: 6 }).map(() => {
             const rows = nextInt(3, 6); const cols = nextInt(3, 6); return [rows, cols];
           });
           return (
@@ -15246,8 +15277,8 @@ export function PrintablesPage() {
                 {arrays.map(([rows, cols], i) => (
                   <div key={i} className="border border-slate-300 rounded p-4 bg-white break-inside-avoid">
                     <div className="text-center mb-2 font-semibold text-slate-800">{rows} × {cols} = <span className="inline-block w-20 h-10 border-b-[3px] border-slate-600 mx-1 align-middle" /></div>
-                    <div className="grid gap-1" style={{gridTemplateColumns: `repeat(${cols}, 1fr)`, maxWidth: '200px', margin: '0 auto'}}>
-                      {Array.from({length: rows * cols}).map((_, idx) => (
+                    <div className="grid gap-1" style={{ gridTemplateColumns: `repeat(${cols}, 1fr)`, maxWidth: '200px', margin: '0 auto' }}>
+                      {Array.from({ length: rows * cols }).map((_, idx) => (
                         <div key={idx} className="aspect-square border border-slate-400 rounded bg-slate-100 print:bg-white" />
                       ))}
                     </div>
@@ -15339,37 +15370,37 @@ export function PrintablesPage() {
               </div>
               <div className="space-y-5 break-inside-avoid" style={{ pageBreakAfter: 'auto' }}>
                 {problems.map((item, i) => (
-                <div key={i} className="border-2 border-slate-300 rounded-lg p-5 bg-white">
-                  <div className="text-base font-semibold text-slate-800 mb-4">
-                    {i + 1}. {item.problem}
+                  <div key={i} className="border-2 border-slate-300 rounded-lg p-5 bg-white">
+                    <div className="text-base font-semibold text-slate-800 mb-4">
+                      {i + 1}. {item.problem}
+                    </div>
+                    <div className="mb-4 space-y-3">
+                      {item.steps.map((step, stepIdx) => (
+                        <div key={stepIdx} className="flex items-center gap-2">
+                          <span className="text-sm font-semibold text-slate-700 whitespace-nowrap">{step.label}</span>
+                          {step.prev && (
+                            <>
+                              <div className="w-16 h-8 border-b-[2px] border-slate-600" />
+                              <span className="text-base font-mono">{step.op}</span>
+                              <span className="text-base">{step.num}</span>
+                              <span className="text-base">=</span>
+                            </>
+                          )}
+                          <div className="w-20 h-10 print:w-24 print:h-12 border-b-[3px] border-slate-600" />
+                        </div>
+                      ))}
+                    </div>
+                    <div className="mb-3">
+                      <div className="text-sm font-semibold text-slate-600 mb-2">Show your work (use the space below):</div>
+                      <div className="min-h-24 print:min-h-32 border-2 border-dashed border-slate-400 rounded p-3 bg-slate-50" />
+                    </div>
+                    <div>
+                      <div className="text-sm font-semibold text-slate-600 mb-2">Final answer:</div>
+                      <div className="h-16 print:h-20 border-b-[3px] border-slate-600 w-full" />
+                    </div>
                   </div>
-                  <div className="mb-4 space-y-3">
-                    {item.steps.map((step, stepIdx) => (
-                      <div key={stepIdx} className="flex items-center gap-2">
-                        <span className="text-sm font-semibold text-slate-700 whitespace-nowrap">{step.label}</span>
-                        {step.prev && (
-                          <>
-                            <div className="w-16 h-8 border-b-[2px] border-slate-600" />
-                            <span className="text-base font-mono">{step.op}</span>
-                            <span className="text-base">{step.num}</span>
-                            <span className="text-base">=</span>
-                          </>
-                        )}
-                        <div className="w-20 h-10 print:w-24 print:h-12 border-b-[3px] border-slate-600" />
-                      </div>
-                    ))}
-                  </div>
-                  <div className="mb-3">
-                    <div className="text-sm font-semibold text-slate-600 mb-2">Show your work (use the space below):</div>
-                    <div className="min-h-24 print:min-h-32 border-2 border-dashed border-slate-400 rounded p-3 bg-slate-50" />
-                  </div>
-                  <div>
-                    <div className="text-sm font-semibold text-slate-600 mb-2">Final answer:</div>
-                    <div className="h-16 print:h-20 border-b-[3px] border-slate-600 w-full" />
-                  </div>
-                </div>
-              ))}
-            </div>
+                ))}
+              </div>
               {/* Extension/Challenge Problems */}
               <div className="mt-6 print:mt-0 p-4 bg-purple-50 border-2 border-purple-200 rounded print:bg-white print:border" style={{ pageBreakBefore: 'always', pageBreakInside: 'avoid' }}>
                 <div className="font-semibold text-purple-900 mb-3 text-sm">🌟 {getTrans('common.challengeYourself', 'Challenge Yourself (Optional):')}</div>
@@ -15439,7 +15470,7 @@ export function PrintablesPage() {
         {activeDocs.includes('mult-fact-families') && (() => {
           const rng = makeRng(`${effectiveSeed}|v${variant}|doc=${doc}`);
           function nextInt(min: number, max: number) { return Math.floor(rng() * (max - min + 1)) + min; }
-          const families: Array<[number, number]> = Array.from({length: 6}).map(() => {
+          const families: Array<[number, number]> = Array.from({ length: 6 }).map(() => {
             const a = nextInt(2, 6); const b = nextInt(2, 6); return [a, b];
           });
           return (
@@ -15546,7 +15577,7 @@ export function PrintablesPage() {
           const docId = 'mult-2x1'
           const rng = makeRng(`${effectiveSeed}|v${variant}|doc=${doc}`);
           function nextInt(min: number, max: number) { return Math.floor(rng() * (max - min + 1)) + min; }
-          const problems: Array<[number, number]> = Array.from({length: 8}).map(() => {
+          const problems: Array<[number, number]> = Array.from({ length: 8 }).map(() => {
             const a = nextInt(10, 99); const b = nextInt(2, 9); return [a, b];
           });
           return (
@@ -15674,7 +15705,7 @@ export function PrintablesPage() {
         {activeDocs.includes('mult-2x1-digit') && (() => {
           const rng = makeRng(`${effectiveSeed}|v${variant}|doc=${doc}`);
           function nextInt(min: number, max: number) { return Math.floor(rng() * (max - min + 1)) + min; }
-          const problems: Array<[number, number]> = Array.from({length: 8}).map(() => {
+          const problems: Array<[number, number]> = Array.from({ length: 8 }).map(() => {
             const a = nextInt(10, 99); const b = nextInt(2, 9); return [a, b];
           });
           return (
@@ -15780,7 +15811,7 @@ export function PrintablesPage() {
         {activeDocs.includes('mult-2x2') && (() => {
           const rng = makeRng(`${effectiveSeed}|v${variant}|doc=${doc}`);
           function nextInt(min: number, max: number) { return Math.floor(rng() * (max - min + 1)) + min; }
-          const problems: Array<[number, number]> = Array.from({length: 6}).map(() => {
+          const problems: Array<[number, number]> = Array.from({ length: 6 }).map(() => {
             const a = nextInt(10, 99); const b = nextInt(10, 99); return [a, b];
           });
           return (
@@ -15883,7 +15914,7 @@ export function PrintablesPage() {
         {activeDocs.includes('mult-2x2-digit') && (() => {
           const rng = makeRng(`${effectiveSeed}|v${variant}|doc=${doc}`);
           function nextInt(min: number, max: number) { return Math.floor(rng() * (max - min + 1)) + min; }
-          const problems: Array<[number, number]> = Array.from({length: 6}).map(() => {
+          const problems: Array<[number, number]> = Array.from({ length: 6 }).map(() => {
             const a = nextInt(10, 99); const b = nextInt(10, 99); return [a, b];
           });
           return (
@@ -15986,7 +16017,7 @@ export function PrintablesPage() {
         {activeDocs.includes('mult-3x2-digit') && (() => {
           const rng = makeRng(`${effectiveSeed}|v${variant}|doc=${doc}`);
           function nextInt(min: number, max: number) { return Math.floor(rng() * (max - min + 1)) + min; }
-          const problems: Array<[number, number]> = Array.from({length: 6}).map(() => {
+          const problems: Array<[number, number]> = Array.from({ length: 6 }).map(() => {
             const a = nextInt(100, 999); const b = nextInt(10, 99); return [a, b];
           });
           return (
@@ -16089,7 +16120,7 @@ export function PrintablesPage() {
         {activeDocs.includes('mult-area-model') && (() => {
           const rng = makeRng(`${effectiveSeed}|v${variant}|doc=${doc}`);
           function nextInt(min: number, max: number) { return Math.floor(rng() * (max - min + 1)) + min; }
-          const problems: Array<[number, number]> = Array.from({length: 4}).map(() => {
+          const problems: Array<[number, number]> = Array.from({ length: 4 }).map(() => {
             const a = nextInt(12, 35); const b = nextInt(12, 35); return [a, b];
           });
           return (
@@ -16342,7 +16373,7 @@ export function PrintablesPage() {
         {activeDocs.includes('mult-fact-fluency') && (() => {
           const rng = makeRng(`${effectiveSeed}|v${variant}|doc=${doc}`);
           function nextInt(min: number, max: number) { return Math.floor(rng() * (max - min + 1)) + min; }
-          const facts: Array<[number, number]> = Array.from({length: 20}).map(() => {
+          const facts: Array<[number, number]> = Array.from({ length: 20 }).map(() => {
             const a = nextInt(1, 12); const b = nextInt(1, 12); return [a, b];
           });
           return (
@@ -16437,7 +16468,7 @@ export function PrintablesPage() {
         {activeDocs.includes('mult-mixed-review') && (() => {
           const rng = makeRng(`${effectiveSeed}|v${variant}|doc=${doc}`);
           function nextInt(min: number, max: number) { return Math.floor(rng() * (max - min + 1)) + min; }
-          const facts: Array<[number, number]> = Array.from({length: 16}).map(() => {
+          const facts: Array<[number, number]> = Array.from({ length: 16 }).map(() => {
             const a = nextInt(1, 12); const b = nextInt(1, 12); return [a, b];
           });
           return (
@@ -16576,73 +16607,73 @@ export function PrintablesPage() {
                   { problem: '6 × 9', strategy: 'break-apart', strategyText: 'Break apart:', blanks: [2], answer: 54, answerDetail: '6 × 10 = 60, so 6 × 9 = 54' },
                 ];
                 return problems.map((item, idx) => (
-                <div key={idx} className="border-2 border-slate-300 rounded-lg p-5 bg-white">
-                  <div className="text-lg font-semibold text-slate-800 mb-3">
-                    {item.problem} = <span className="inline-block w-24 h-12 print:w-28 print:h-14 border-b-[3px] border-slate-600 mx-2 align-middle" />
-                  </div>
-                  <div className="mb-3">
-                    <div className="text-sm font-semibold text-slate-700 mb-2">{item.strategyText}</div>
-                    {item.strategy === 'skip-count' && (
-                      <div className="flex items-center gap-2 flex-wrap">
-                        <span className="text-sm text-slate-600">Count:</span>
-                        {Array.from({ length: 4 }).map((_, i) => (
-                          <React.Fragment key={i}>
-                            <span className="inline-block w-12 h-10 print:w-16 print:h-12 border-b-[3px] border-slate-600 align-middle" />
-                            {i < 3 && <span className="text-sm text-slate-400">,</span>}
-                          </React.Fragment>
-                        ))}
-                      </div>
-                    )}
-                    {item.strategy === 'array' && (
-                      <div className="flex items-center gap-2">
-                        <span className="text-sm text-slate-600">Array:</span>
-                        <span className="inline-block w-12 h-10 print:w-16 print:h-12 border-b-[3px] border-slate-600 align-middle" />
-                        <span className="text-sm">rows ×</span>
-                        <span className="inline-block w-12 h-10 print:w-16 print:h-12 border-b-[3px] border-slate-600 align-middle" />
-                        <span className="text-sm">columns</span>
-                      </div>
-                    )}
-                    {item.strategy === 'repeated' && (
-                      <div className="space-y-2">
+                  <div key={idx} className="border-2 border-slate-300 rounded-lg p-5 bg-white">
+                    <div className="text-lg font-semibold text-slate-800 mb-3">
+                      {item.problem} = <span className="inline-block w-24 h-12 print:w-28 print:h-14 border-b-[3px] border-slate-600 mx-2 align-middle" />
+                    </div>
+                    <div className="mb-3">
+                      <div className="text-sm font-semibold text-slate-700 mb-2">{item.strategyText}</div>
+                      {item.strategy === 'skip-count' && (
                         <div className="flex items-center gap-2 flex-wrap">
-                          <span className="text-sm text-slate-600">Add:</span>
-                          {Array.from({ length: item.blanks[0] }).map((_, i) => (
+                          <span className="text-sm text-slate-600">Count:</span>
+                          {Array.from({ length: 4 }).map((_, i) => (
                             <React.Fragment key={i}>
-                              <span className="inline-block w-10 h-8 print:w-12 print:h-10 border-b-[2px] border-slate-600 align-middle" />
-                              {i < item.blanks[0] - 1 && <span className="text-sm font-semibold">+</span>}
+                              <span className="inline-block w-12 h-10 print:w-16 print:h-12 border-b-[3px] border-slate-600 align-middle" />
+                              {i < 3 && <span className="text-sm text-slate-400">,</span>}
                             </React.Fragment>
                           ))}
-                          <span className="text-sm font-semibold">=</span>
-                          <span className="inline-block w-16 h-10 print:w-20 print:h-12 border-b-[3px] border-slate-600 align-middle" />
                         </div>
-                      </div>
-                    )}
-                    {item.strategy === 'doubles' && (
-                      <div className="space-y-2">
+                      )}
+                      {item.strategy === 'array' && (
                         <div className="flex items-center gap-2">
-                          <span className="text-sm text-slate-600">Step 1: 5 × 4 =</span>
-                          <span className="inline-block w-16 h-10 print:w-20 print:h-12 border-b-[3px] border-slate-600 align-middle" />
+                          <span className="text-sm text-slate-600">Array:</span>
+                          <span className="inline-block w-12 h-10 print:w-16 print:h-12 border-b-[3px] border-slate-600 align-middle" />
+                          <span className="text-sm">rows ×</span>
+                          <span className="inline-block w-12 h-10 print:w-16 print:h-12 border-b-[3px] border-slate-600 align-middle" />
+                          <span className="text-sm">columns</span>
                         </div>
-                        <div className="flex items-center gap-2">
-                          <span className="text-sm text-slate-600">Step 2: so 5 × 8 =</span>
-                          <span className="inline-block w-16 h-10 print:w-20 print:h-12 border-b-[3px] border-slate-600 align-middle" />
+                      )}
+                      {item.strategy === 'repeated' && (
+                        <div className="space-y-2">
+                          <div className="flex items-center gap-2 flex-wrap">
+                            <span className="text-sm text-slate-600">Add:</span>
+                            {Array.from({ length: item.blanks[0] }).map((_, i) => (
+                              <React.Fragment key={i}>
+                                <span className="inline-block w-10 h-8 print:w-12 print:h-10 border-b-[2px] border-slate-600 align-middle" />
+                                {i < item.blanks[0] - 1 && <span className="text-sm font-semibold">+</span>}
+                              </React.Fragment>
+                            ))}
+                            <span className="text-sm font-semibold">=</span>
+                            <span className="inline-block w-16 h-10 print:w-20 print:h-12 border-b-[3px] border-slate-600 align-middle" />
+                          </div>
                         </div>
-                      </div>
-                    )}
-                    {item.strategy === 'break-apart' && (
-                      <div className="space-y-2">
-                        <div className="flex items-center gap-2">
-                          <span className="text-sm text-slate-600">Step 1: 6 × 10 =</span>
-                          <span className="inline-block w-16 h-10 print:w-20 print:h-12 border-b-[3px] border-slate-600 align-middle" />
+                      )}
+                      {item.strategy === 'doubles' && (
+                        <div className="space-y-2">
+                          <div className="flex items-center gap-2">
+                            <span className="text-sm text-slate-600">Step 1: 5 × 4 =</span>
+                            <span className="inline-block w-16 h-10 print:w-20 print:h-12 border-b-[3px] border-slate-600 align-middle" />
+                          </div>
+                          <div className="flex items-center gap-2">
+                            <span className="text-sm text-slate-600">Step 2: so 5 × 8 =</span>
+                            <span className="inline-block w-16 h-10 print:w-20 print:h-12 border-b-[3px] border-slate-600 align-middle" />
+                          </div>
                         </div>
-                        <div className="flex items-center gap-2">
-                          <span className="text-sm text-slate-600">Step 2: so 6 × 9 =</span>
-                          <span className="inline-block w-16 h-10 print:w-20 print:h-12 border-b-[3px] border-slate-600 align-middle" />
+                      )}
+                      {item.strategy === 'break-apart' && (
+                        <div className="space-y-2">
+                          <div className="flex items-center gap-2">
+                            <span className="text-sm text-slate-600">Step 1: 6 × 10 =</span>
+                            <span className="inline-block w-16 h-10 print:w-20 print:h-12 border-b-[3px] border-slate-600 align-middle" />
+                          </div>
+                          <div className="flex items-center gap-2">
+                            <span className="text-sm text-slate-600">Step 2: so 6 × 9 =</span>
+                            <span className="inline-block w-16 h-10 print:w-20 print:h-12 border-b-[3px] border-slate-600 align-middle" />
+                          </div>
                         </div>
-                      </div>
-                    )}
+                      )}
+                    </div>
                   </div>
-                </div>
                 ));
               })()}
             </div>
@@ -16827,7 +16858,7 @@ export function PrintablesPage() {
           // This ensures translations update when language changes
           const rng = makeRng(`${effectiveSeed}|v${variant}|doc=${doc}`);
           function nextInt(min: number, max: number) { return Math.floor(rng() * (max - min + 1)) + min; }
-          const facts: Array<[number, number]> = Array.from({length: 15}).map(() => {
+          const facts: Array<[number, number]> = Array.from({ length: 15 }).map(() => {
             const a = nextInt(1, 5); const b = nextInt(1, 5); return [a, b];
           });
           return (
@@ -16953,7 +16984,7 @@ export function PrintablesPage() {
         {activeDocs.includes('times-table-horizontal-6-12') && (() => {
           const rng = makeRng(`${effectiveSeed}|v${variant}|doc=${doc}`);
           function nextInt(min: number, max: number) { return Math.floor(rng() * (max - min + 1)) + min; }
-          const facts: Array<[number, number]> = Array.from({length: 15}).map(() => {
+          const facts: Array<[number, number]> = Array.from({ length: 15 }).map(() => {
             const a = nextInt(6, 12); const b = nextInt(6, 12); return [a, b];
           });
           return (
@@ -17049,7 +17080,7 @@ export function PrintablesPage() {
         {activeDocs.includes('times-table-horizontal-1-12') && (() => {
           const rng = makeRng(`${effectiveSeed}|v${variant}|doc=${doc}`);
           function nextInt(min: number, max: number) { return Math.floor(rng() * (max - min + 1)) + min; }
-          const facts: Array<[number, number]> = Array.from({length: 20}).map(() => {
+          const facts: Array<[number, number]> = Array.from({ length: 20 }).map(() => {
             const a = nextInt(1, 12); const b = nextInt(1, 12); return [a, b];
           });
           return (
@@ -17145,7 +17176,7 @@ export function PrintablesPage() {
         {activeDocs.includes('times-table-vertical-1-5') && (() => {
           const rng = makeRng(`${effectiveSeed}|v${variant}|doc=${doc}`);
           function nextInt(min: number, max: number) { return Math.floor(rng() * (max - min + 1)) + min; }
-          const facts: Array<[number, number]> = Array.from({length: 12}).map(() => {
+          const facts: Array<[number, number]> = Array.from({ length: 12 }).map(() => {
             const a = nextInt(1, 5); const b = nextInt(1, 5); return [a, b];
           });
           return (
@@ -17249,7 +17280,7 @@ export function PrintablesPage() {
         {activeDocs.includes('times-table-vertical-6-12') && (() => {
           const rng = makeRng(`${effectiveSeed}|v${variant}|doc=${doc}`);
           function nextInt(min: number, max: number) { return Math.floor(rng() * (max - min + 1)) + min; }
-          const facts: Array<[number, number]> = Array.from({length: 12}).map(() => {
+          const facts: Array<[number, number]> = Array.from({ length: 12 }).map(() => {
             const a = nextInt(6, 12); const b = nextInt(6, 12); return [a, b];
           });
           return (
@@ -17350,7 +17381,7 @@ export function PrintablesPage() {
         {activeDocs.includes('times-table-vertical-1-12') && (() => {
           const rng = makeRng(`${effectiveSeed}|v${variant}|doc=${doc}`);
           function nextInt(min: number, max: number) { return Math.floor(rng() * (max - min + 1)) + min; }
-          const facts: Array<[number, number]> = Array.from({length: 16}).map(() => {
+          const facts: Array<[number, number]> = Array.from({ length: 16 }).map(() => {
             const a = nextInt(1, 12); const b = nextInt(1, 12); return [a, b];
           });
           return (
@@ -17456,7 +17487,7 @@ export function PrintablesPage() {
         {activeDocs.includes('times-table-missing-1-5') && (() => {
           const rng = makeRng(`${effectiveSeed}|v${variant}|doc=${doc}`);
           function nextInt(min: number, max: number) { return Math.floor(rng() * (max - min + 1)) + min; }
-          const problems: Array<{a?: number, b?: number, answer?: number, missingType: 'answer' | 'a' | 'b'}> = Array.from({length: 12}).map(() => {
+          const problems: Array<{ a?: number, b?: number, answer?: number, missingType: 'answer' | 'a' | 'b' }> = Array.from({ length: 12 }).map(() => {
             const type = nextInt(1, 3);
             const a = nextInt(1, 5);
             const b = nextInt(1, 5);
@@ -17576,7 +17607,7 @@ export function PrintablesPage() {
         {activeDocs.includes('times-table-missing-6-12') && (() => {
           const rng = makeRng(`${effectiveSeed}|v${variant}|doc=${doc}`);
           function nextInt(min: number, max: number) { return Math.floor(rng() * (max - min + 1)) + min; }
-          const problems: Array<{a?: number, b?: number, answer?: number, missingType: 'answer' | 'a' | 'b'}> = Array.from({length: 12}).map(() => {
+          const problems: Array<{ a?: number, b?: number, answer?: number, missingType: 'answer' | 'a' | 'b' }> = Array.from({ length: 12 }).map(() => {
             const type = nextInt(1, 3);
             const a = nextInt(6, 12);
             const b = nextInt(6, 12);
@@ -17697,7 +17728,7 @@ export function PrintablesPage() {
         {activeDocs.includes('times-table-missing-mixed') && (() => {
           const rng = makeRng(`${effectiveSeed}|v${variant}|doc=${doc}`);
           function nextInt(min: number, max: number) { return Math.floor(rng() * (max - min + 1)) + min; }
-          const problems: Array<{a?: number, b?: number, answer?: number, missingType: 'answer' | 'a' | 'b'}> = Array.from({length: 16}).map(() => {
+          const problems: Array<{ a?: number, b?: number, answer?: number, missingType: 'answer' | 'a' | 'b' }> = Array.from({ length: 16 }).map(() => {
             const type = nextInt(1, 3);
             const a = nextInt(1, 12);
             const b = nextInt(1, 12);
@@ -17818,7 +17849,7 @@ export function PrintablesPage() {
         {activeDocs.includes('times-table-timed-1-5') && (() => {
           const rng = makeRng(`${effectiveSeed}|v${variant}|doc=${doc}`);
           function nextInt(min: number, max: number) { return Math.floor(rng() * (max - min + 1)) + min; }
-          const facts: Array<[number, number]> = Array.from({length: 20}).map(() => {
+          const facts: Array<[number, number]> = Array.from({ length: 20 }).map(() => {
             const a = nextInt(1, 5); const b = nextInt(1, 5); return [a, b];
           });
           return (
@@ -17914,7 +17945,7 @@ export function PrintablesPage() {
         {activeDocs.includes('times-table-timed-6-12') && (() => {
           const rng = makeRng(`${effectiveSeed}|v${variant}|doc=${doc}`);
           function nextInt(min: number, max: number) { return Math.floor(rng() * (max - min + 1)) + min; }
-          const facts: Array<[number, number]> = Array.from({length: 20}).map(() => {
+          const facts: Array<[number, number]> = Array.from({ length: 20 }).map(() => {
             const a = nextInt(6, 12); const b = nextInt(6, 12); return [a, b];
           });
           return (
@@ -18010,7 +18041,7 @@ export function PrintablesPage() {
         {activeDocs.includes('times-table-timed-1-12') && (() => {
           const rng = makeRng(`${effectiveSeed}|v${variant}|doc=${doc}`);
           function nextInt(min: number, max: number) { return Math.floor(rng() * (max - min + 1)) + min; }
-          const facts: Array<[number, number]> = Array.from({length: 30}).map(() => {
+          const facts: Array<[number, number]> = Array.from({ length: 30 }).map(() => {
             const a = nextInt(1, 12); const b = nextInt(1, 12); return [a, b];
           });
           return (
@@ -18422,7 +18453,7 @@ export function PrintablesPage() {
         {activeDocs.includes('times-table-confidence-1-5') && (() => {
           const rng = makeRng(`${effectiveSeed}|v${variant}|doc=${doc}`);
           function nextInt(min: number, max: number) { return Math.floor(rng() * (max - min + 1)) + min; }
-          const facts: Array<[number, number]> = Array.from({length: 10}).map(() => {
+          const facts: Array<[number, number]> = Array.from({ length: 10 }).map(() => {
             const a = nextInt(1, 5); const b = nextInt(1, 5); return [a, b];
           });
           return (
@@ -18518,7 +18549,7 @@ export function PrintablesPage() {
         {activeDocs.includes('times-table-confidence-6-12') && (() => {
           const rng = makeRng(`${effectiveSeed}|v${variant}|doc=${doc}`);
           function nextInt(min: number, max: number) { return Math.floor(rng() * (max - min + 1)) + min; }
-          const facts: Array<[number, number]> = Array.from({length: 10}).map(() => {
+          const facts: Array<[number, number]> = Array.from({ length: 10 }).map(() => {
             const a = nextInt(6, 12); const b = nextInt(6, 12); return [a, b];
           });
           return (
@@ -18614,7 +18645,7 @@ export function PrintablesPage() {
         {activeDocs.includes('times-table-fluency-1-12') && (() => {
           const rng = makeRng(`${effectiveSeed}|v${variant}|doc=${doc}`);
           function nextInt(min: number, max: number) { return Math.floor(rng() * (max - min + 1)) + min; }
-          const facts: Array<[number, number]> = Array.from({length: 25}).map(() => {
+          const facts: Array<[number, number]> = Array.from({ length: 25 }).map(() => {
             const a = nextInt(1, 12); const b = nextInt(1, 12); return [a, b];
           });
           return (
@@ -18708,7 +18739,7 @@ export function PrintablesPage() {
         {activeDocs.includes('times-table-mixed-review') && (() => {
           const rng = makeRng(`${effectiveSeed}|v${variant}|doc=${doc}`);
           function nextInt(min: number, max: number) { return Math.floor(rng() * (max - min + 1)) + min; }
-          const facts: Array<[number, number]> = Array.from({length: 30}).map(() => {
+          const facts: Array<[number, number]> = Array.from({ length: 30 }).map(() => {
             const a = nextInt(1, 12); const b = nextInt(1, 12); return [a, b];
           });
           return (
@@ -18807,7 +18838,7 @@ export function PrintablesPage() {
             6: 'Purple', 8: 'Pink', 9: 'Brown', 10: 'Gray', 12: 'Cyan',
             15: 'Magenta', 16: 'Lime', 20: 'Teal', 25: 'Coral'
           };
-          const facts: Array<[number, number, number]> = Array.from({length: 12}).map(() => {
+          const facts: Array<[number, number, number]> = Array.from({ length: 12 }).map(() => {
             const a = nextInt(1, 5); const b = nextInt(1, 5); return [a, b, a * b];
           });
           return (
@@ -18875,7 +18906,7 @@ export function PrintablesPage() {
             }
           }
           // Select 12 random problems from valid pairs
-          const facts: Array<[number, number, number]> = Array.from({length: 12}).map(() => {
+          const facts: Array<[number, number, number]> = Array.from({ length: 12 }).map(() => {
             const idx = nextInt(0, validPairs.length - 1);
             return validPairs[idx];
           });
@@ -18944,7 +18975,7 @@ export function PrintablesPage() {
             }
           }
           // Select 15 random problems from valid pairs
-          const facts: Array<[number, number, number]> = Array.from({length: 15}).map(() => {
+          const facts: Array<[number, number, number]> = Array.from({ length: 15 }).map(() => {
             const idx = nextInt(0, validPairs.length - 1);
             return validPairs[idx];
           });
@@ -19380,10 +19411,10 @@ export function PrintablesPage() {
             return { count, objectType };
           });
           return (
-            <WorksheetSectionWrapper 
-              docId="kindergarten-counting-1-10" 
-              title="Counting 1–10" 
-              emoji="🔢" 
+            <WorksheetSectionWrapper
+              docId="kindergarten-counting-1-10"
+              title="Counting 1–10"
+              emoji="🔢"
               description="Count the objects in each group. Write the number in the box."
               problemCount={problems.length}
               learningObjectives={[
@@ -19485,10 +19516,10 @@ export function PrintablesPage() {
           const numbers = Array.from({ length: 8 }, () => nextInt(1, 10));
           const objectTypes = ['🐱', '🐶', '🐰', '🐻', '🐸', '🦁', '🐯', '🐨', '🐼', '🐷'];
           return (
-            <WorksheetSectionWrapper 
-              docId="kindergarten-number-recognition" 
-              title="Number Recognition" 
-              emoji="🔢" 
+            <WorksheetSectionWrapper
+              docId="kindergarten-number-recognition"
+              title="Number Recognition"
+              emoji="🔢"
               description="Match each number to the group with the same amount. Draw a line to connect them."
               problemCount={numbers.length}
               learningObjectives={[
@@ -19603,10 +19634,10 @@ export function PrintablesPage() {
             { name: 'Heart', emoji: '❤️', color: 'pink', instruction: 'Color the heart pink' },
           ];
           return (
-            <WorksheetSectionWrapper 
-              docId="kindergarten-shapes" 
-              title="Shapes" 
-              emoji="🔷" 
+            <WorksheetSectionWrapper
+              docId="kindergarten-shapes"
+              title="Shapes"
+              emoji="🔷"
               description="Color each shape according to the instructions. Say the shape name out loud."
               problemCount={shapes.length}
               learningObjectives={[
@@ -19702,10 +19733,10 @@ export function PrintablesPage() {
             { type: 'AAB', items: ['🍎', '🍌'], pattern: ['🍎', '🍎', '🍌', '🍎', '🍎', '___'], answer: ['🍌'] },
           ];
           return (
-            <WorksheetSectionWrapper 
-              docId="kindergarten-patterns" 
-              title="Patterns" 
-              emoji="🔁" 
+            <WorksheetSectionWrapper
+              docId="kindergarten-patterns"
+              title="Patterns"
+              emoji="🔁"
               description="Complete each pattern. Look at what comes before and continue the pattern."
               problemCount={patterns.length}
               learningObjectives={[
@@ -19811,10 +19842,10 @@ export function PrintablesPage() {
           });
           const objectTypes = ['🍎', '⭐', '🔴', '🟢', '🔵', '🟡'];
           return (
-            <WorksheetSectionWrapper 
-              docId="kindergarten-addition-pictures" 
-              title="Addition with Pictures" 
-              emoji="➕" 
+            <WorksheetSectionWrapper
+              docId="kindergarten-addition-pictures"
+              title="Addition with Pictures"
+              emoji="➕"
               description="Count the objects in each group. Add them together and write the answer."
               problemCount={problems.length}
               learningObjectives={[
@@ -20051,7 +20082,7 @@ export function PrintablesPage() {
 
           const rng = makeRng(`${effectiveSeed}|v${variant}|doc=${doc}`);
           function nextInt(min: number, max: number) { return Math.floor(rng() * (max - min + 1)) + min; }
-          
+
           const characterComponents = [
             { Component: CuteBear, name: 'Bears', title: 'bears' },
             { Component: CuteStar, name: 'Stars', title: 'stars' },
@@ -20127,10 +20158,10 @@ export function PrintablesPage() {
           };
 
           return (
-            <WorksheetSectionWrapper 
-              docId="kindergarten-counting-visual" 
-              title="Counting with Cute Characters" 
-              emoji="🐻" 
+            <WorksheetSectionWrapper
+              docId="kindergarten-counting-visual"
+              title="Counting with Cute Characters"
+              emoji="🐻"
               description="Count the cute cartoon characters in each group. Write the number in the box."
               problemCount={problems.length}
               learningObjectives={[
@@ -20246,124 +20277,124 @@ export function PrintablesPage() {
           try {
             const docId = 'count-circle-1-10'
             const rng = makeRng(`${effectiveSeed}|v${variant}|doc=${doc}`)
-          const problems = Array.from({ length: 8 }, () => {
-            const count = Math.floor(rng() * 10) + 1
-            return { count, objects: Array.from({ length: count }, (_, i) => i) }
-          })
-          return (
-            <WorksheetSectionWrapper
-              docId={docId}
-              title={getTrans(`worksheets.${docId}.title`, 'Count & Circle 1–10')}
-              emoji="🔢"
-              description={getTrans(`worksheets.${docId}.description`, 'Count the objects in each box. Circle the correct number.')}
-              problemCount={problems.length}
-              learningObjectives={(() => {
-                const objectives = t(`worksheets.${docId}.learningObjectives`)
-                return Array.isArray(objectives) && objectives.length > 0 ? objectives : [
-                  'Count objects accurately up to 10',
-                  'Match quantities to numerals',
-                  'Develop one-to-one correspondence',
-                  'Build number recognition skills'
-                ]
-              })()}
-              parentTeacherTips={(() => {
-                const tips = t(`worksheets.${docId}.parentTeacherTips`)
-                return Array.isArray(tips) && tips.length > 0 ? tips : [
-                  'Encourage students to point to each object as they count',
-                  'Use one-to-one correspondence: one object = one number',
-                  'Help students recognize that the last number counted is the total',
-                  'Practice counting aloud: 1, 2, 3, 4, 5...',
-                  'Extension: Try counting larger groups or counting backwards'
-                ]
-              })()}
-            >
-              <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-purple-400 to-pink-400 animate-gradient-x mb-2" />
-              {/* Worked Example */}
-              <div className="mb-6 p-4 bg-blue-50 border-2 border-blue-200 rounded-lg print:border print:bg-white">
-                <div className="font-semibold text-blue-900 mb-3 text-sm">{getTrans(`worksheets.${docId}.example.title`, '📚 Example - Let\'s solve this together:')}</div>
-                <div className="space-y-2 text-sm">
-                  <div className="font-semibold text-base"><strong>{getTrans(`worksheets.${docId}.example.problem`, 'Problem:')}</strong> {getTrans(`worksheets.${docId}.example.problemText`, 'Count the circles and circle the correct number')}</div>
-                  <div className="pl-4 border-l-2 border-blue-300 space-y-1">
-                    <div><strong>{getTrans(`worksheets.${docId}.example.step1`, 'Step 1:')}</strong> {getTrans(`worksheets.${docId}.example.step1Text`, 'Point to each circle and count: 1, 2, 3, 4, 5')}</div>
-                    <div><strong>{getTrans(`worksheets.${docId}.example.step2`, 'Step 2:')}</strong> {getTrans(`worksheets.${docId}.example.step2Text`, 'The last number counted is 5, so there are 5 circles')}</div>
-                    <div><strong>{getTrans(`worksheets.${docId}.example.step3`, 'Step 3:')}</strong> {getTrans(`worksheets.${docId}.example.step3Text`, 'Circle the number 5')}</div>
-                    <div className="font-semibold text-blue-900"><strong>{getTrans(`worksheets.${docId}.example.answer`, 'Answer:')}</strong> {getTrans(`worksheets.${docId}.example.answerText`, 'Circle 5')}</div>
-                    <div className="text-xs text-blue-700 mt-1">{getTrans(`worksheets.${docId}.example.tip`, '💡 Tip: Count each object once, and the last number you say is the total!')}</div>
+            const problems = Array.from({ length: 8 }, () => {
+              const count = Math.floor(rng() * 10) + 1
+              return { count, objects: Array.from({ length: count }, (_, i) => i) }
+            })
+            return (
+              <WorksheetSectionWrapper
+                docId={docId}
+                title={getTrans(`worksheets.${docId}.title`, 'Count & Circle 1–10')}
+                emoji="🔢"
+                description={getTrans(`worksheets.${docId}.description`, 'Count the objects in each box. Circle the correct number.')}
+                problemCount={problems.length}
+                learningObjectives={(() => {
+                  const objectives = t(`worksheets.${docId}.learningObjectives`)
+                  return Array.isArray(objectives) && objectives.length > 0 ? objectives : [
+                    'Count objects accurately up to 10',
+                    'Match quantities to numerals',
+                    'Develop one-to-one correspondence',
+                    'Build number recognition skills'
+                  ]
+                })()}
+                parentTeacherTips={(() => {
+                  const tips = t(`worksheets.${docId}.parentTeacherTips`)
+                  return Array.isArray(tips) && tips.length > 0 ? tips : [
+                    'Encourage students to point to each object as they count',
+                    'Use one-to-one correspondence: one object = one number',
+                    'Help students recognize that the last number counted is the total',
+                    'Practice counting aloud: 1, 2, 3, 4, 5...',
+                    'Extension: Try counting larger groups or counting backwards'
+                  ]
+                })()}
+              >
+                <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-purple-400 to-pink-400 animate-gradient-x mb-2" />
+                {/* Worked Example */}
+                <div className="mb-6 p-4 bg-blue-50 border-2 border-blue-200 rounded-lg print:border print:bg-white">
+                  <div className="font-semibold text-blue-900 mb-3 text-sm">{getTrans(`worksheets.${docId}.example.title`, '📚 Example - Let\'s solve this together:')}</div>
+                  <div className="space-y-2 text-sm">
+                    <div className="font-semibold text-base"><strong>{getTrans(`worksheets.${docId}.example.problem`, 'Problem:')}</strong> {getTrans(`worksheets.${docId}.example.problemText`, 'Count the circles and circle the correct number')}</div>
+                    <div className="pl-4 border-l-2 border-blue-300 space-y-1">
+                      <div><strong>{getTrans(`worksheets.${docId}.example.step1`, 'Step 1:')}</strong> {getTrans(`worksheets.${docId}.example.step1Text`, 'Point to each circle and count: 1, 2, 3, 4, 5')}</div>
+                      <div><strong>{getTrans(`worksheets.${docId}.example.step2`, 'Step 2:')}</strong> {getTrans(`worksheets.${docId}.example.step2Text`, 'The last number counted is 5, so there are 5 circles')}</div>
+                      <div><strong>{getTrans(`worksheets.${docId}.example.step3`, 'Step 3:')}</strong> {getTrans(`worksheets.${docId}.example.step3Text`, 'Circle the number 5')}</div>
+                      <div className="font-semibold text-blue-900"><strong>{getTrans(`worksheets.${docId}.example.answer`, 'Answer:')}</strong> {getTrans(`worksheets.${docId}.example.answerText`, 'Circle 5')}</div>
+                      <div className="text-xs text-blue-700 mt-1">{getTrans(`worksheets.${docId}.example.tip`, '💡 Tip: Count each object once, and the last number you say is the total!')}</div>
+                    </div>
                   </div>
                 </div>
-              </div>
-              <div className="grid grid-cols-2 gap-4 break-inside-avoid" style={{ pageBreakAfter: 'auto' }}>
-                {problems.map((p, i) => (
-                  <div key={i} className="border border-slate-300 rounded-lg p-4 bg-white">
-                    <div className="flex gap-2 mb-3 flex-wrap">
-                      {p.objects.map((_, j) => (
-                        <div key={j} className="w-12 h-12 print:w-16 print:h-16 rounded-full border-4 border-slate-400 bg-white" />
-                      ))}
+                <div className="grid grid-cols-2 gap-4 break-inside-avoid" style={{ pageBreakAfter: 'auto' }}>
+                  {problems.map((p, i) => (
+                    <div key={i} className="border border-slate-300 rounded-lg p-4 bg-white">
+                      <div className="flex gap-2 mb-3 flex-wrap">
+                        {p.objects.map((_, j) => (
+                          <div key={j} className="w-12 h-12 print:w-16 print:h-16 rounded-full border-4 border-slate-400 bg-white" />
+                        ))}
+                      </div>
+                      <div className="flex gap-2 justify-center">
+                        {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map(n => (
+                          <button key={n} className="w-10 h-10 border-2 border-slate-300 rounded-full text-lg font-semibold text-slate-700 hover:border-purple-500">
+                            {n}
+                          </button>
+                        ))}
+                      </div>
                     </div>
-                    <div className="flex gap-2 justify-center">
-                      {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map(n => (
-                        <button key={n} className="w-10 h-10 border-2 border-slate-300 rounded-full text-lg font-semibold text-slate-700 hover:border-purple-500">
-                          {n}
-                        </button>
+                  ))}
+                </div>
+                {/* Extension/Challenge Problems */}
+                <div className="mt-6 print:mt-0 p-4 bg-purple-50 border-2 border-purple-200 rounded print:bg-white print:border" style={{ pageBreakBefore: 'always', pageBreakInside: 'avoid' }}>
+                  <div className="font-semibold text-purple-900 mb-3 text-sm">{getTrans(`worksheets.${docId}.challenge.title`, '🌟 Challenge Yourself (Optional):')}</div>
+                  <div className="space-y-2 text-sm text-purple-800">
+                    {(() => {
+                      const challengeItems = t(`worksheets.${docId}.challenge.items`)
+                      const items = Array.isArray(challengeItems) && challengeItems.length > 0 ? challengeItems : [
+                        'Count objects around you: How many pencils? How many books?',
+                        'Draw your own group of objects and count them',
+                        'Try counting backwards from 10: 10, 9, 8, 7...'
+                      ]
+                      return items.map((item, idx) => (
+                        <div key={idx}>{idx + 1}. {item}</div>
+                      ))
+                    })()}
+                  </div>
+                </div>
+                {/* Self-Assessment */}
+                <div className="print:block hidden print:mt-0 mt-6 p-4 border-2 border-slate-300 rounded" style={{ pageBreakBefore: 'avoid', pageBreakInside: 'avoid' }}>
+                  <div className="font-semibold text-slate-800 mb-3 text-sm">{getTrans(`worksheets.${docId}.selfAssessment.title`, '📊 How did you do?')}</div>
+                  <div className="space-y-2 text-xs">
+                    {(() => {
+                      const assessmentItems = t(`worksheets.${docId}.selfAssessment.items`)
+                      const items = Array.isArray(assessmentItems) && assessmentItems.length > 0 ? assessmentItems : [
+                        'I can count objects accurately',
+                        'I can match quantities to numbers',
+                        `I circled all ${problems.length} correct numbers`
+                      ]
+                      return items.map((item, idx) => {
+                        const itemText = typeof item === 'string' ? item.replace('{count}', String(problems.length)) : item
+                        return <div key={idx}>☐ {itemText}</div>
+                      })
+                    })()}
+                  </div>
+                  <div className="mt-3 text-xs">
+                    <strong>{getTrans(`worksheets.${docId}.selfAssessment.score`, 'My score:')}</strong> ___ / {problems.length}
+                  </div>
+                  <div className="mt-2 text-xs">
+                    <strong>{getTrans(`worksheets.${docId}.selfAssessment.hardest`, 'What was hardest?')}</strong> _________________________
+                  </div>
+                </div>
+                {showAnswersForDoc('count-circle-1-10', () => (
+                  <div className="mt-6 p-4 border-2 border-emerald-300 bg-emerald-50 rounded print:border print:bg-white print:page-break-before-always">
+                    <div className="font-bold text-emerald-900 mb-3 text-base">{getTrans(`worksheets.${docId}.answerKey.title`, '✅ Answer Key')}</div>
+                    <ul className="list-disc list-inside space-y-2 text-sm text-emerald-800">
+                      {problems.map((p, i) => (
+                        <li key={i}><strong>{getTrans(`worksheets.${docId}.answerKey.boxLabel`, 'Box')} {i + 1}:</strong> {getTrans(`worksheets.${docId}.answerKey.circleLabel`, 'Circle')} {p.count} ({getTrans(`worksheets.${docId}.answerKey.thereAre`, 'There are')} {p.count} {getTrans(`worksheets.${docId}.answerKey.circlesInBox`, 'circles in the box')})</li>
                       ))}
-                    </div>
+                    </ul>
+                    <div className="text-xs text-emerald-700 mt-3">{getTrans(`worksheets.${docId}.answerKey.note`, '💡 Remember: Count each object once, and the last number you say is the total. Then circle that number!')}</div>
                   </div>
                 ))}
-              </div>
-              {/* Extension/Challenge Problems */}
-              <div className="mt-6 print:mt-0 p-4 bg-purple-50 border-2 border-purple-200 rounded print:bg-white print:border" style={{ pageBreakBefore: 'always', pageBreakInside: 'avoid' }}>
-                <div className="font-semibold text-purple-900 mb-3 text-sm">{getTrans(`worksheets.${docId}.challenge.title`, '🌟 Challenge Yourself (Optional):')}</div>
-                <div className="space-y-2 text-sm text-purple-800">
-                  {(() => {
-                    const challengeItems = t(`worksheets.${docId}.challenge.items`)
-                    const items = Array.isArray(challengeItems) && challengeItems.length > 0 ? challengeItems : [
-                      'Count objects around you: How many pencils? How many books?',
-                      'Draw your own group of objects and count them',
-                      'Try counting backwards from 10: 10, 9, 8, 7...'
-                    ]
-                    return items.map((item, idx) => (
-                      <div key={idx}>{idx + 1}. {item}</div>
-                    ))
-                  })()}
-                </div>
-              </div>
-              {/* Self-Assessment */}
-              <div className="print:block hidden print:mt-0 mt-6 p-4 border-2 border-slate-300 rounded" style={{ pageBreakBefore: 'avoid', pageBreakInside: 'avoid' }}>
-                <div className="font-semibold text-slate-800 mb-3 text-sm">{getTrans(`worksheets.${docId}.selfAssessment.title`, '📊 How did you do?')}</div>
-                <div className="space-y-2 text-xs">
-                  {(() => {
-                    const assessmentItems = t(`worksheets.${docId}.selfAssessment.items`)
-                    const items = Array.isArray(assessmentItems) && assessmentItems.length > 0 ? assessmentItems : [
-                      'I can count objects accurately',
-                      'I can match quantities to numbers',
-                      `I circled all ${problems.length} correct numbers`
-                    ]
-                    return items.map((item, idx) => {
-                      const itemText = typeof item === 'string' ? item.replace('{count}', String(problems.length)) : item
-                      return <div key={idx}>☐ {itemText}</div>
-                    })
-                  })()}
-                </div>
-                <div className="mt-3 text-xs">
-                  <strong>{getTrans(`worksheets.${docId}.selfAssessment.score`, 'My score:')}</strong> ___ / {problems.length}
-                </div>
-                <div className="mt-2 text-xs">
-                  <strong>{getTrans(`worksheets.${docId}.selfAssessment.hardest`, 'What was hardest?')}</strong> _________________________
-                </div>
-              </div>
-              {showAnswersForDoc('count-circle-1-10', () => (
-                <div className="mt-6 p-4 border-2 border-emerald-300 bg-emerald-50 rounded print:border print:bg-white print:page-break-before-always">
-                  <div className="font-bold text-emerald-900 mb-3 text-base">{getTrans(`worksheets.${docId}.answerKey.title`, '✅ Answer Key')}</div>
-                  <ul className="list-disc list-inside space-y-2 text-sm text-emerald-800">
-                    {problems.map((p, i) => (
-                      <li key={i}><strong>{getTrans(`worksheets.${docId}.answerKey.boxLabel`, 'Box')} {i + 1}:</strong> {getTrans(`worksheets.${docId}.answerKey.circleLabel`, 'Circle')} {p.count} ({getTrans(`worksheets.${docId}.answerKey.thereAre`, 'There are')} {p.count} {getTrans(`worksheets.${docId}.answerKey.circlesInBox`, 'circles in the box')})</li>
-                    ))}
-                  </ul>
-                  <div className="text-xs text-emerald-700 mt-3">{getTrans(`worksheets.${docId}.answerKey.note`, '💡 Remember: Count each object once, and the last number you say is the total. Then circle that number!')}</div>
-                </div>
-              ))}
-            </WorksheetSectionWrapper>
-          )
+              </WorksheetSectionWrapper>
+            )
           } catch (error) {
             console.error('Error rendering count-circle-1-10:', error)
             return (
@@ -21047,10 +21078,10 @@ export function PrintablesPage() {
         {activeDocs.includes('shape-identification') && (() => {
           const renderShape = (type: string, size: number = 60, x: number = 0, y: number = 0) => {
             const svgMap: Record<string, JSX.Element> = {
-              circle: <circle cx={x + size/2} cy={y + size/2} r={size*0.375} fill="none" stroke="#475569" strokeWidth="3" />,
-              square: <rect x={x + size*0.125} y={y + size*0.125} width={size*0.75} height={size*0.75} fill="none" stroke="#475569" strokeWidth="3" />,
-              triangle: <polygon points={`${x + size/2},${y + size*0.125} ${x + size*0.125},${y + size*0.875} ${x + size*0.875},${y + size*0.875}`} fill="none" stroke="#475569" strokeWidth="3" />,
-              rectangle: <rect x={x + size*0.1875} y={y + size*0.25} width={size*0.625} height={size*0.5} fill="none" stroke="#475569" strokeWidth="3" />,
+              circle: <circle cx={x + size / 2} cy={y + size / 2} r={size * 0.375} fill="none" stroke="#475569" strokeWidth="3" />,
+              square: <rect x={x + size * 0.125} y={y + size * 0.125} width={size * 0.75} height={size * 0.75} fill="none" stroke="#475569" strokeWidth="3" />,
+              triangle: <polygon points={`${x + size / 2},${y + size * 0.125} ${x + size * 0.125},${y + size * 0.875} ${x + size * 0.875},${y + size * 0.875}`} fill="none" stroke="#475569" strokeWidth="3" />,
+              rectangle: <rect x={x + size * 0.1875} y={y + size * 0.25} width={size * 0.625} height={size * 0.5} fill="none" stroke="#475569" strokeWidth="3" />,
             };
             return svgMap[type] || null;
           };
@@ -21480,11 +21511,11 @@ export function PrintablesPage() {
                   <ul className="list-disc list-inside space-y-2 text-sm text-emerald-800">
                     {problems.map((p, i) => {
                       const answer = p.left > p.right ? 'Left' : p.right > p.left ? 'Right' : 'Equal'
-                      const explanation = p.left > p.right 
-                        ? `${p.left} is more than ${p.right}` 
-                        : p.right > p.left 
-                        ? `${p.right} is more than ${p.left}` 
-                        : `${p.left} equals ${p.right} (both have the same)`
+                      const explanation = p.left > p.right
+                        ? `${p.left} is more than ${p.right}`
+                        : p.right > p.left
+                          ? `${p.right} is more than ${p.left}`
+                          : `${p.left} equals ${p.right} (both have the same)`
                       return (
                         <li key={i}><strong>Row {i + 1}:</strong> Circle {answer} group ({p.left} vs {p.right}) - {explanation}</li>
                       )
@@ -21930,17 +21961,17 @@ export function PrintablesPage() {
         {activeDocs.includes('long-division-1digit') && (() => {
           const rng = makeRng(`${effectiveSeed}|v${variant}|doc=${doc}`);
           function nextInt(min: number, max: number) { return Math.floor(rng() * (max - min + 1)) + min; }
-          const problems = Array.from({length: 6}, () => {
+          const problems = Array.from({ length: 6 }, () => {
             const divisor = nextInt(2, 9);
             const quotient = nextInt(10, 99);
             const dividend = divisor * quotient + nextInt(0, divisor - 1);
             return { dividend, divisor, quotient, remainder: dividend % divisor };
           });
           return (
-            <WorksheetSectionWrapper 
-              docId="long-division-1digit" 
-              title="Long Division (1-Digit Divisor)" 
-              emoji="🔢" 
+            <WorksheetSectionWrapper
+              docId="long-division-1digit"
+              title="Long Division (1-Digit Divisor)"
+              emoji="🔢"
               description="Divide each number. Show your work and write any remainder."
               problemCount={problems.length}
               learningObjectives={[
@@ -22037,17 +22068,17 @@ export function PrintablesPage() {
         {activeDocs.includes('long-division-2digit') && (() => {
           const rng = makeRng(`${effectiveSeed}|v${variant}|doc=${doc}`);
           function nextInt(min: number, max: number) { return Math.floor(rng() * (max - min + 1)) + min; }
-          const problems = Array.from({length: 4}, () => {
+          const problems = Array.from({ length: 4 }, () => {
             const divisor = nextInt(11, 25);
             const quotient = nextInt(10, 50);
             const dividend = divisor * quotient + nextInt(0, divisor - 1);
             return { dividend, divisor, quotient, remainder: dividend % divisor };
           });
           return (
-            <WorksheetSectionWrapper 
-              docId="long-division-2digit" 
-              title="Long Division (2-Digit Divisor)" 
-              emoji="🔢" 
+            <WorksheetSectionWrapper
+              docId="long-division-2digit"
+              title="Long Division (2-Digit Divisor)"
+              emoji="🔢"
               description="Divide each number. Show your work and write any remainder."
               problemCount={problems.length}
               learningObjectives={[
@@ -22145,15 +22176,15 @@ export function PrintablesPage() {
         {activeDocs.includes('area-model-mult') && (() => {
           const rng = makeRng(`${effectiveSeed}|v${variant}|doc=${doc}`);
           function nextInt(min: number, max: number) { return Math.floor(rng() * (max - min + 1)) + min; }
-          const problems = Array.from({length: 4}, () => {
+          const problems = Array.from({ length: 4 }, () => {
             const a = nextInt(12, 35); const b = nextInt(12, 35);
             return { a, b, product: a * b };
           });
           return (
-            <WorksheetSectionWrapper 
-              docId="area-model-mult" 
-              title="Area Model Multiplication" 
-              emoji="📊" 
+            <WorksheetSectionWrapper
+              docId="area-model-mult"
+              title="Area Model Multiplication"
+              emoji="📊"
               description="Use the area model to solve each multiplication problem."
               problemCount={problems.length}
               learningObjectives={[
@@ -22190,7 +22221,7 @@ export function PrintablesPage() {
                 {problems.map((p, i) => (
                   <div key={i} className="border border-slate-300 rounded p-4 bg-white break-inside-avoid">
                     <div className="text-center mb-2 font-semibold">{p.a} × {p.b} = ____</div>
-                    <div className="border-2 border-slate-400 rounded mb-2" style={{width: '120px', height: '80px', margin: '0 auto'}}>
+                    <div className="border-2 border-slate-400 rounded mb-2" style={{ width: '120px', height: '80px', margin: '0 auto' }}>
                       <div className="grid grid-cols-2 h-full">
                         <div className="border-r border-b border-slate-400"></div>
                         <div className="border-b border-slate-400"></div>
@@ -22258,15 +22289,15 @@ export function PrintablesPage() {
         {activeDocs.includes('partial-products') && (() => {
           const rng = makeRng(`${effectiveSeed}|v${variant}|doc=${doc}`);
           function nextInt(min: number, max: number) { return Math.floor(rng() * (max - min + 1)) + min; }
-          const problems = Array.from({length: 4}, () => {
+          const problems = Array.from({ length: 4 }, () => {
             const a = nextInt(12, 35); const b = nextInt(12, 35);
             return { a, b, product: a * b };
           });
           return (
-            <WorksheetSectionWrapper 
-              docId="partial-products" 
-              title="Partial Products Multiplication" 
-              emoji="🔢" 
+            <WorksheetSectionWrapper
+              docId="partial-products"
+              title="Partial Products Multiplication"
+              emoji="🔢"
               description="Break down each multiplication into partial products."
               problemCount={problems.length}
               learningObjectives={[
@@ -22308,10 +22339,10 @@ export function PrintablesPage() {
                   <div key={i} className="border border-slate-300 rounded p-4 bg-white">
                     <div className="font-mono text-xl mb-2">{p.a} × {p.b}</div>
                     <div className="space-y-1 text-sm">
-                      <div>({Math.floor(p.a/10)*10} × {Math.floor(p.b/10)*10}) = ____</div>
-                      <div>({Math.floor(p.a/10)*10} × {p.b%10}) = ____</div>
-                      <div>({p.a%10} × {Math.floor(p.b/10)*10}) = ____</div>
-                      <div>({p.a%10} × {p.b%10}) = ____</div>
+                      <div>({Math.floor(p.a / 10) * 10} × {Math.floor(p.b / 10) * 10}) = ____</div>
+                      <div>({Math.floor(p.a / 10) * 10} × {p.b % 10}) = ____</div>
+                      <div>({p.a % 10} × {Math.floor(p.b / 10) * 10}) = ____</div>
+                      <div>({p.a % 10} × {p.b % 10}) = ____</div>
                       <div className="border-t border-slate-400 mt-1 pt-1 font-semibold">Total: ____</div>
                     </div>
                     <div className="mt-2 text-xs text-slate-600">Show your work:</div>
@@ -22324,10 +22355,10 @@ export function PrintablesPage() {
                   <div className="font-bold text-emerald-900 mb-3 text-base">✅ Answer Key (with steps)</div>
                   <div className="space-y-4">
                     {problems.map((p, i) => {
-                      const tensA = Math.floor(p.a/10)*10;
-                      const onesA = p.a%10;
-                      const tensB = Math.floor(p.b/10)*10;
-                      const onesB = p.b%10;
+                      const tensA = Math.floor(p.a / 10) * 10;
+                      const onesA = p.a % 10;
+                      const tensB = Math.floor(p.b / 10) * 10;
+                      const onesB = p.b % 10;
                       const part1 = tensA * tensB;
                       const part2 = tensA * onesB;
                       const part3 = onesA * tensB;
@@ -22358,7 +22389,7 @@ export function PrintablesPage() {
         {activeDocs.includes('comparing-fractions-4th') && (() => {
           const rng = makeRng(`${effectiveSeed}|v${variant}|doc=${doc}`);
           function nextInt(min: number, max: number) { return Math.floor(rng() * (max - min + 1)) + min; }
-          const problems = Array.from({length: 8}, () => {
+          const problems = Array.from({ length: 8 }, () => {
             const denom1 = [2, 3, 4, 5, 6, 8][nextInt(0, 5)];
             const num1 = nextInt(1, denom1 - 1);
             const denom2 = [2, 3, 4, 5, 6, 8][nextInt(0, 5)];
@@ -22368,10 +22399,10 @@ export function PrintablesPage() {
             return { frac1: `${num1}/${denom1}`, frac2: `${num2}/${denom2}`, val1, val2 };
           });
           return (
-            <WorksheetSectionWrapper 
-              docId="comparing-fractions-4th" 
-              title="Comparing Fractions" 
-              emoji="🍕" 
+            <WorksheetSectionWrapper
+              docId="comparing-fractions-4th"
+              title="Comparing Fractions"
+              emoji="🍕"
               description="Compare each pair of fractions using >, <, or =."
               problemCount={problems.length}
               learningObjectives={[
@@ -22466,7 +22497,7 @@ export function PrintablesPage() {
         {activeDocs.includes('add-sub-fractions-4th') && (() => {
           const rng = makeRng(`${effectiveSeed}|v${variant}|doc=${doc}`);
           function nextInt(min: number, max: number) { return Math.floor(rng() * (max - min + 1)) + min; }
-          const problems = Array.from({length: 6}, () => {
+          const problems = Array.from({ length: 6 }, () => {
             const denom = [2, 3, 4, 5, 6, 8][nextInt(0, 5)];
             const num1 = nextInt(1, denom - 1);
             const num2 = nextInt(1, denom - 1);
@@ -22474,10 +22505,10 @@ export function PrintablesPage() {
             return { num1, num2, denom, op };
           });
           return (
-            <WorksheetSectionWrapper 
-              docId="add-sub-fractions-4th" 
-              title="Adding & Subtracting Fractions" 
-              emoji="🍕" 
+            <WorksheetSectionWrapper
+              docId="add-sub-fractions-4th"
+              title="Adding & Subtracting Fractions"
+              emoji="🍕"
               description="Add or subtract each pair of fractions with like denominators."
               problemCount={problems.length}
               learningObjectives={[
@@ -22571,7 +22602,7 @@ export function PrintablesPage() {
         {activeDocs.includes('mixed-improper-fractions') && (() => {
           const rng = makeRng(`${effectiveSeed}|v${variant}|doc=${doc}`);
           function nextInt(min: number, max: number) { return Math.floor(rng() * (max - min + 1)) + min; }
-          const problems = Array.from({length: 6}, () => {
+          const problems = Array.from({ length: 6 }, () => {
             const whole = nextInt(1, 3);
             const num = nextInt(1, 3);
             const denom = nextInt(2, 4);
@@ -22579,10 +22610,10 @@ export function PrintablesPage() {
             return { whole, num, denom, improper: `${improper}/${denom}`, mixed: `${whole} ${num}/${denom}` };
           });
           return (
-            <WorksheetSectionWrapper 
-              docId="mixed-improper-fractions" 
-              title="Mixed Numbers & Improper Fractions" 
-              emoji="🍕" 
+            <WorksheetSectionWrapper
+              docId="mixed-improper-fractions"
+              title="Mixed Numbers & Improper Fractions"
+              emoji="🍕"
               description="Convert between mixed numbers and improper fractions."
               problemCount={problems.length}
               learningObjectives={[
@@ -22692,7 +22723,7 @@ export function PrintablesPage() {
         {activeDocs.includes('add-sub-mixed-numbers') && (() => {
           const rng = makeRng(`${effectiveSeed}|v${variant}|doc=${doc}`);
           function nextInt(min: number, max: number) { return Math.floor(rng() * (max - min + 1)) + min; }
-          const problems = Array.from({length: 6}, () => {
+          const problems = Array.from({ length: 6 }, () => {
             const whole1 = nextInt(1, 3);
             const num1 = nextInt(1, 3);
             const denom1 = nextInt(2, 4);
@@ -22703,10 +22734,10 @@ export function PrintablesPage() {
             return { whole1, num1, denom1, whole2, num2, denom2, op };
           });
           return (
-            <WorksheetSectionWrapper 
-              docId="add-sub-mixed-numbers" 
-              title="Adding & Subtracting Mixed Numbers" 
-              emoji="🍕" 
+            <WorksheetSectionWrapper
+              docId="add-sub-mixed-numbers"
+              title="Adding & Subtracting Mixed Numbers"
+              emoji="🍕"
               description="Add or subtract each pair of mixed numbers. Regroup when needed."
               problemCount={problems.length}
               learningObjectives={[
@@ -22816,17 +22847,17 @@ export function PrintablesPage() {
         {activeDocs.includes('decimals-place-value') && (() => {
           const rng = makeRng(`${effectiveSeed}|v${variant}|doc=${doc}`);
           function nextInt(min: number, max: number) { return Math.floor(rng() * (max - min + 1)) + min; }
-          const problems = Array.from({length: 8}, () => {
+          const problems = Array.from({ length: 8 }, () => {
             const whole = nextInt(1, 99);
             const tenths = nextInt(0, 9);
             const hundredths = nextInt(0, 9);
             return { value: `${whole}.${tenths}${hundredths}`, whole, tenths, hundredths };
           });
           return (
-            <WorksheetSectionWrapper 
-              docId="decimals-place-value" 
-              title="Decimals: Place Value" 
-              emoji="🍕" 
+            <WorksheetSectionWrapper
+              docId="decimals-place-value"
+              title="Decimals: Place Value"
+              emoji="🍕"
               description="Write the place value of each underlined digit."
               problemCount={problems.length}
               learningObjectives={[
@@ -22915,16 +22946,16 @@ export function PrintablesPage() {
         {activeDocs.includes('comparing-decimals') && (() => {
           const rng = makeRng(`${effectiveSeed}|v${variant}|doc=${doc}`);
           function nextInt(min: number, max: number) { return Math.floor(rng() * (max - min + 1)) + min; }
-          const problems = Array.from({length: 8}, () => {
+          const problems = Array.from({ length: 8 }, () => {
             const d1 = (nextInt(1, 99) / 10).toFixed(1);
             const d2 = (nextInt(1, 99) / 10).toFixed(1);
             return { d1: parseFloat(d1), d2: parseFloat(d2) };
           });
           return (
-            <WorksheetSectionWrapper 
-              docId="comparing-decimals" 
-              title="Comparing & Ordering Decimals" 
-              emoji="🍕" 
+            <WorksheetSectionWrapper
+              docId="comparing-decimals"
+              title="Comparing & Ordering Decimals"
+              emoji="🍕"
               description="Compare each pair using >, <, or =."
               problemCount={problems.length}
               learningObjectives={[
@@ -23014,17 +23045,17 @@ export function PrintablesPage() {
         {activeDocs.includes('add-sub-decimals') && (() => {
           const rng = makeRng(`${effectiveSeed}|v${variant}|doc=${doc}`);
           function nextInt(min: number, max: number) { return Math.floor(rng() * (max - min + 1)) + min; }
-          const problems = Array.from({length: 6}, () => {
+          const problems = Array.from({ length: 6 }, () => {
             const d1 = (nextInt(10, 99) / 10).toFixed(1);
             const d2 = (nextInt(10, 99) / 10).toFixed(1);
             const op = nextInt(0, 1) === 0 ? '+' : '-';
             return { d1: parseFloat(d1), d2: parseFloat(d2), op };
           });
           return (
-            <WorksheetSectionWrapper 
-              docId="add-sub-decimals" 
-              title="Adding & Subtracting Decimals" 
-              emoji="🍕" 
+            <WorksheetSectionWrapper
+              docId="add-sub-decimals"
+              title="Adding & Subtracting Decimals"
+              emoji="🍕"
               description="Add or subtract each pair of decimals. Line up decimal points."
               problemCount={problems.length}
               learningObjectives={[
@@ -23116,16 +23147,16 @@ export function PrintablesPage() {
         {activeDocs.includes('fractions-to-decimals') && (() => {
           const rng = makeRng(`${effectiveSeed}|v${variant}|doc=${doc}`);
           function nextInt(min: number, max: number) { return Math.floor(rng() * (max - min + 1)) + min; }
-          const problems = Array.from({length: 8}, () => {
+          const problems = Array.from({ length: 8 }, () => {
             const denom = [2, 4, 5, 10][nextInt(0, 3)];
             const num = nextInt(1, denom - 1);
             return { num, denom, decimal: (num / denom).toFixed(2) };
           });
           return (
-            <WorksheetSectionWrapper 
-              docId="fractions-to-decimals" 
-              title="Fractions to Decimals" 
-              emoji="🍕" 
+            <WorksheetSectionWrapper
+              docId="fractions-to-decimals"
+              title="Fractions to Decimals"
+              emoji="🍕"
               description="Convert each fraction to a decimal."
               problemCount={problems.length}
               learningObjectives={[
@@ -23214,16 +23245,16 @@ export function PrintablesPage() {
         {activeDocs.includes('fractions-to-decimals-basic-tenths') && (() => {
           const rng = makeRng(`${effectiveSeed}|v${variant}|doc=${doc}`);
           function nextInt(min: number, max: number) { return Math.floor(rng() * (max - min + 1)) + min; }
-          const problems = Array.from({length: 10}, () => {
+          const problems = Array.from({ length: 10 }, () => {
             const num = nextInt(1, 9);
             const denom = 10;
             return { num, denom, decimal: (num / denom).toFixed(1) };
           });
           return (
-            <WorksheetSectionWrapper 
-              docId="fractions-to-decimals-basic-tenths" 
-              title="Fractions to Decimals: Basic Tenths" 
-              emoji="🍕" 
+            <WorksheetSectionWrapper
+              docId="fractions-to-decimals-basic-tenths"
+              title="Fractions to Decimals: Basic Tenths"
+              emoji="🍕"
               description="Convert each fraction with denominator 10 to a decimal."
               problemCount={problems.length}
               learningObjectives={[
@@ -23312,17 +23343,17 @@ export function PrintablesPage() {
         {activeDocs.includes('fractions-to-decimals-division') && (() => {
           const rng = makeRng(`${effectiveSeed}|v${variant}|doc=${doc}`);
           function nextInt(min: number, max: number) { return Math.floor(rng() * (max - min + 1)) + min; }
-          const problems = Array.from({length: 8}, () => {
+          const problems = Array.from({ length: 8 }, () => {
             const denom = [3, 4, 5, 6, 7, 8, 9, 10, 12, 16, 20][nextInt(0, 10)];
             const num = nextInt(1, denom - 1);
             const decimal = (num / denom).toFixed(3);
             return { num, denom, decimal };
           });
           return (
-            <WorksheetSectionWrapper 
-              docId="fractions-to-decimals-division" 
-              title="Fractions to Decimals: Division Method" 
-              emoji="🍕" 
+            <WorksheetSectionWrapper
+              docId="fractions-to-decimals-division"
+              title="Fractions to Decimals: Division Method"
+              emoji="🍕"
               description="Convert each fraction to a decimal using long division."
               problemCount={problems.length}
               learningObjectives={[
@@ -23411,16 +23442,16 @@ export function PrintablesPage() {
         {activeDocs.includes('multiplying-fractions') && (() => {
           const rng = makeRng(`${effectiveSeed}|v${variant}|doc=${doc}`);
           function nextInt(min: number, max: number) { return Math.floor(rng() * (max - min + 1)) + min; }
-          const problems = Array.from({length: 6}, () => {
+          const problems = Array.from({ length: 6 }, () => {
             const num1 = nextInt(1, 5); const denom1 = nextInt(2, 6);
             const num2 = nextInt(1, 5); const denom2 = nextInt(2, 6);
             return { num1, denom1, num2, denom2, productNum: num1 * num2, productDenom: denom1 * denom2 };
           });
           return (
-            <WorksheetSectionWrapper 
-              docId="multiplying-fractions" 
-              title="Multiplying Fractions" 
-              emoji="🍕" 
+            <WorksheetSectionWrapper
+              docId="multiplying-fractions"
+              title="Multiplying Fractions"
+              emoji="🍕"
               description="Multiply each pair of fractions. Simplify your answer."
               problemCount={problems.length}
               learningObjectives={[
@@ -23516,16 +23547,16 @@ export function PrintablesPage() {
         {activeDocs.includes('dividing-fractions') && (() => {
           const rng = makeRng(`${effectiveSeed}|v${variant}|doc=${doc}`);
           function nextInt(min: number, max: number) { return Math.floor(rng() * (max - min + 1)) + min; }
-          const problems = Array.from({length: 6}, () => {
+          const problems = Array.from({ length: 6 }, () => {
             const num1 = nextInt(1, 5); const denom1 = nextInt(2, 6);
             const num2 = nextInt(1, 5); const denom2 = nextInt(2, 6);
             return { num1, denom1, num2, denom2, quotientNum: num1 * denom2, quotientDenom: denom1 * num2 };
           });
           return (
-            <WorksheetSectionWrapper 
-              docId="dividing-fractions" 
-              title="Dividing Fractions" 
-              emoji="🍕" 
+            <WorksheetSectionWrapper
+              docId="dividing-fractions"
+              title="Dividing Fractions"
+              emoji="🍕"
               description="Divide each pair of fractions. Use keep, change, flip."
               problemCount={problems.length}
               learningObjectives={[
@@ -23624,16 +23655,16 @@ export function PrintablesPage() {
         {activeDocs.includes('multiplying-decimals') && (() => {
           const rng = makeRng(`${effectiveSeed}|v${variant}|doc=${doc}`);
           function nextInt(min: number, max: number) { return Math.floor(rng() * (max - min + 1)) + min; }
-          const problems = Array.from({length: 6}, () => {
+          const problems = Array.from({ length: 6 }, () => {
             const d1 = (nextInt(10, 99) / 10).toFixed(1);
             const d2 = (nextInt(10, 99) / 10).toFixed(1);
             return { d1: parseFloat(d1), d2: parseFloat(d2), product: (parseFloat(d1) * parseFloat(d2)).toFixed(2) };
           });
           return (
-            <WorksheetSectionWrapper 
-              docId="multiplying-decimals" 
-              title="Multiplying Decimals" 
-              emoji="🍕" 
+            <WorksheetSectionWrapper
+              docId="multiplying-decimals"
+              title="Multiplying Decimals"
+              emoji="🍕"
               description="Multiply each pair of decimals. Count decimal places."
               problemCount={problems.length}
               learningObjectives={[
@@ -23725,16 +23756,16 @@ export function PrintablesPage() {
         {activeDocs.includes('dividing-decimals') && (() => {
           const rng = makeRng(`${effectiveSeed}|v${variant}|doc=${doc}`);
           function nextInt(min: number, max: number) { return Math.floor(rng() * (max - min + 1)) + min; }
-          const problems = Array.from({length: 6}, () => {
+          const problems = Array.from({ length: 6 }, () => {
             const d1 = (nextInt(20, 99) / 10).toFixed(1);
             const d2 = (nextInt(2, 9) / 10).toFixed(1);
             return { d1: parseFloat(d1), d2: parseFloat(d2), quotient: (parseFloat(d1) / parseFloat(d2)).toFixed(2) };
           });
           return (
-            <WorksheetSectionWrapper 
-              docId="dividing-decimals" 
-              title="Dividing Decimals" 
-              emoji="🍕" 
+            <WorksheetSectionWrapper
+              docId="dividing-decimals"
+              title="Dividing Decimals"
+              emoji="🍕"
               description="Divide each pair of decimals. Move decimal points correctly."
               problemCount={problems.length}
               learningObjectives={[
@@ -23824,17 +23855,17 @@ export function PrintablesPage() {
         {activeDocs.includes('long-division-multidigit') && (() => {
           const rng = makeRng(`${effectiveSeed}|v${variant}|doc=${doc}`);
           function nextInt(min: number, max: number) { return Math.floor(rng() * (max - min + 1)) + min; }
-          const problems = Array.from({length: 4}, () => {
+          const problems = Array.from({ length: 4 }, () => {
             const divisor = nextInt(12, 25);
             const quotient = nextInt(20, 50);
             const dividend = divisor * quotient + nextInt(0, divisor - 1);
             return { dividend, divisor, quotient, remainder: dividend % divisor };
           });
           return (
-            <WorksheetSectionWrapper 
-              docId="long-division-multidigit" 
-              title="Long Division (Multi-Digit)" 
-              emoji="🔢" 
+            <WorksheetSectionWrapper
+              docId="long-division-multidigit"
+              title="Long Division (Multi-Digit)"
+              emoji="🔢"
               description="Divide each number. Show your work and write any remainder."
               problemCount={problems.length}
               learningObjectives={[
@@ -23940,10 +23971,10 @@ export function PrintablesPage() {
             { expr: '15 - 3 × 2 + 1', answer: 10, steps: ['3 × 2 = 6', '15 - 6 = 9', '9 + 1 = 10'] },
           ];
           return (
-            <WorksheetSectionWrapper 
-              docId="order-of-operations" 
-              title="Order of Operations" 
-              emoji="🔢" 
+            <WorksheetSectionWrapper
+              docId="order-of-operations"
+              title="Order of Operations"
+              emoji="🔢"
               description="Solve each expression using PEMDAS (parentheses, exponents, multiplication, division, addition, subtraction)."
               problemCount={problems.length}
               learningObjectives={[
@@ -24043,10 +24074,10 @@ export function PrintablesPage() {
             { expr: '20 ÷ 4 + 6', answer: 11, steps: ['20 ÷ 4 = 5', '5 + 6 = 11'] },
           ];
           return (
-            <WorksheetSectionWrapper 
-              docId="pemdas-basic" 
-              title="Basic Order of Operations (PEMDAS)" 
-              emoji="" 
+            <WorksheetSectionWrapper
+              docId="pemdas-basic"
+              title="Basic Order of Operations (PEMDAS)"
+              emoji=""
               description="Start with simple expressions using multiplication, division, addition, and subtraction. Perfect for building confidence."
               problemCount={problems.length}
               learningObjectives={[
@@ -24120,10 +24151,10 @@ export function PrintablesPage() {
             { expr: '20 ÷ (8 - 3)', answer: 4, steps: ['8 - 3 = 5', '20 ÷ 5 = 4'] },
           ];
           return (
-            <WorksheetSectionWrapper 
-              docId="pemdas-parentheses" 
-              title="PEMDAS with Parentheses" 
-              emoji="" 
+            <WorksheetSectionWrapper
+              docId="pemdas-parentheses"
+              title="PEMDAS with Parentheses"
+              emoji=""
               description="Practice solving expressions with parentheses. Step-by-step exercises that help kids understand which operations come first."
               problemCount={problems.length}
               learningObjectives={[
@@ -24194,10 +24225,10 @@ export function PrintablesPage() {
             { expr: '4² ÷ 2', answer: 8, steps: ['4² = 16', '16 ÷ 2 = 8'] },
           ];
           return (
-            <WorksheetSectionWrapper 
-              docId="pemdas-exponents" 
-              title="PEMDAS with Exponents" 
-              emoji="" 
+            <WorksheetSectionWrapper
+              docId="pemdas-exponents"
+              title="PEMDAS with Exponents"
+              emoji=""
               description="Master expressions with exponents. Learn to solve problems like 2³ + 4 × 3 using the correct order of operations."
               problemCount={problems.length}
               learningObjectives={[
@@ -24269,10 +24300,10 @@ export function PrintablesPage() {
             { expr: '100 ÷ 5² + 10', answer: 14, steps: ['5² = 25', '100 ÷ 25 = 4', '4 + 10 = 14'] },
           ];
           return (
-            <WorksheetSectionWrapper 
-              docId="pemdas-multistep" 
-              title="Multi-Step PEMDAS Problems" 
-              emoji="" 
+            <WorksheetSectionWrapper
+              docId="pemdas-multistep"
+              title="Multi-Step PEMDAS Problems"
+              emoji=""
               description="Challenge yourself with complex expressions combining parentheses, exponents, and all operations. Perfect for 5th grade mastery."
               problemCount={problems.length}
               learningObjectives={[
@@ -24344,10 +24375,10 @@ export function PrintablesPage() {
             { expr: '24 ÷ 6 + 5', answer: 9, steps: ['24 ÷ 6 = 4', '4 + 5 = 9'] },
           ];
           return (
-            <WorksheetSectionWrapper 
-              docId="pemdas-practice" 
-              title="Order of Operations Practice Sheet" 
-              emoji="" 
+            <WorksheetSectionWrapper
+              docId="pemdas-practice"
+              title="Order of Operations Practice Sheet"
+              emoji=""
               description="Mixed practice problems covering all basic operations. Build fluency with PEMDAS rules through repeated practice."
               problemCount={problems.length}
               learningObjectives={[
@@ -24402,10 +24433,10 @@ export function PrintablesPage() {
             { expr: 'Emma saved $15. She spent $3 each day for 4 days. How much money does she have left?', answer: 3, steps: ['3 × 4 = 12', '15 - 12 = 3'] },
           ];
           return (
-            <WorksheetSectionWrapper 
-              docId="pemdas-word-problems" 
-              title="PEMDAS Word Problems" 
-              emoji="" 
+            <WorksheetSectionWrapper
+              docId="pemdas-word-problems"
+              title="PEMDAS Word Problems"
+              emoji=""
               description="Apply order of operations to real-world scenarios. Solve word problems that require careful step-by-step thinking."
               problemCount={problems.length}
               learningObjectives={[
@@ -24464,10 +24495,10 @@ export function PrintablesPage() {
             { expr: '3 × (2 + 1)²', answer: 27, steps: ['2 + 1 = 3', '3² = 9', '3 × 9 = 27'] },
           ];
           return (
-            <WorksheetSectionWrapper 
-              docId="pemdas-advanced" 
-              title="Advanced Parentheses and Exponents" 
-              emoji="" 
+            <WorksheetSectionWrapper
+              docId="pemdas-advanced"
+              title="Advanced Parentheses and Exponents"
+              emoji=""
               description="Tackle challenging problems with nested parentheses and exponents. Build confidence in complex expressions."
               problemCount={problems.length}
               learningObjectives={[
@@ -24524,10 +24555,10 @@ export function PrintablesPage() {
             { expr: '(15 ÷ 3)² - 2 × 3', answer: 19, steps: ['15 ÷ 3 = 5', '5² = 25', '2 × 3 = 6', '25 - 6 = 19'] },
           ];
           return (
-            <WorksheetSectionWrapper 
-              docId="pemdas-complex" 
-              title="Complex PEMDAS Expressions" 
-              emoji="" 
+            <WorksheetSectionWrapper
+              docId="pemdas-complex"
+              title="Complex PEMDAS Expressions"
+              emoji=""
               description="Master the most challenging order of operations problems. Perfect for 6th grade students ready for advanced practice."
               problemCount={problems.length}
               learningObjectives={[
@@ -24584,10 +24615,10 @@ export function PrintablesPage() {
             { expr: '2 × 3²', answer: 18, steps: ['3² = 9', '2 × 9 = 18'] },
           ];
           return (
-            <WorksheetSectionWrapper 
-              docId="pemdas-rules" 
-              title="PEMDAS Rules and Practice" 
-              emoji="" 
+            <WorksheetSectionWrapper
+              docId="pemdas-rules"
+              title="PEMDAS Rules and Practice"
+              emoji=""
               description="Comprehensive review of PEMDAS rules with step-by-step examples and practice problems. Great for test preparation."
               problemCount={problems.length}
               learningObjectives={[
@@ -24655,10 +24686,10 @@ export function PrintablesPage() {
             { expr: '(5 + 1)² - 8', answer: 28, steps: ['5 + 1 = 6', '6² = 36', '36 - 8 = 28'] },
           ];
           return (
-            <WorksheetSectionWrapper 
-              docId="pemdas-mixed-review" 
-              title="Mixed PEMDAS Review" 
-              emoji="" 
+            <WorksheetSectionWrapper
+              docId="pemdas-mixed-review"
+              title="Mixed PEMDAS Review"
+              emoji=""
               description="Review all PEMDAS concepts with mixed problems. Covers parentheses, exponents, and all operations for complete mastery."
               problemCount={problems.length}
               learningObjectives={[
@@ -24719,10 +24750,10 @@ export function PrintablesPage() {
             { expr: '14 - 6 ÷ 2', answer: 11, steps: ['6 ÷ 2 = 3', '14 - 3 = 11'] },
           ];
           return (
-            <WorksheetSectionWrapper 
-              docId="pemdas-fluency" 
-              title="PEMDAS Fluency Practice" 
-              emoji="" 
+            <WorksheetSectionWrapper
+              docId="pemdas-fluency"
+              title="PEMDAS Fluency Practice"
+              emoji=""
               description="Build speed and accuracy with timed PEMDAS practice. Perfect for students who need extra repetition to master the order of operations."
               problemCount={problems.length}
               learningObjectives={[
@@ -24782,10 +24813,10 @@ export function PrintablesPage() {
             { expr: '3² × 2', answer: 18, steps: ['Step 1: Exponent first', '3² = 9', 'Step 2: Then multiply', '9 × 2 = 18'] },
           ];
           return (
-            <WorksheetSectionWrapper 
-              docId="pemdas-step-by-step" 
-              title="Step-by-Step PEMDAS Guide" 
-              emoji="" 
+            <WorksheetSectionWrapper
+              docId="pemdas-step-by-step"
+              title="Step-by-Step PEMDAS Guide"
+              emoji=""
               description="Learn PEMDAS with clear step-by-step instructions and worked examples. Ideal for students who struggle with order of operations."
               problemCount={problems.length}
               learningObjectives={[
@@ -24850,16 +24881,16 @@ export function PrintablesPage() {
         {activeDocs.includes('powers-of-10') && (() => {
           const rng = makeRng(`${effectiveSeed}|v${variant}|doc=${doc}`);
           function nextInt(min: number, max: number) { return Math.floor(rng() * (max - min + 1)) + min; }
-          const problems = Array.from({length: 8}, () => {
+          const problems = Array.from({ length: 8 }, () => {
             const num = nextInt(1, 9);
             const power = nextInt(1, 3);
             return { num, power, result: num * Math.pow(10, power) };
           });
           return (
-            <WorksheetSectionWrapper 
-              docId="powers-of-10" 
-              title="Powers of 10" 
-              emoji="🔢" 
+            <WorksheetSectionWrapper
+              docId="powers-of-10"
+              title="Powers of 10"
+              emoji="🔢"
               description="Multiply or divide each number by a power of 10."
               problemCount={problems.length}
               learningObjectives={[
@@ -24950,7 +24981,7 @@ export function PrintablesPage() {
         {activeDocs.includes('rounding-decimals') && (() => {
           const rng = makeRng(`${effectiveSeed}|v${variant}|doc=${doc}`);
           function nextInt(min: number, max: number) { return Math.floor(rng() * (max - min + 1)) + min; }
-          const problems = Array.from({length: 8}, () => {
+          const problems = Array.from({ length: 8 }, () => {
             const num = (nextInt(100, 999) / 100).toFixed(2);
             const place = ['whole', 'tenth', 'hundredth'][nextInt(0, 2)];
             let rounded;
@@ -24960,10 +24991,10 @@ export function PrintablesPage() {
             return { num, place, rounded };
           });
           return (
-            <WorksheetSectionWrapper 
-              docId="rounding-decimals" 
-              title="Rounding Decimals" 
-              emoji="🔢" 
+            <WorksheetSectionWrapper
+              docId="rounding-decimals"
+              title="Rounding Decimals"
+              emoji="🔢"
               description="Round each decimal to the specified place value."
               problemCount={problems.length}
               learningObjectives={[
@@ -25077,18 +25108,18 @@ export function PrintablesPage() {
         {activeDocs.includes('estimating-sums-differences') && (() => {
           const rng = makeRng(`${effectiveSeed}|v${variant}|doc=${doc}`);
           function nextInt(min: number, max: number) { return Math.floor(rng() * (max - min + 1)) + min; }
-          const problems = Array.from({length: 6}, () => {
+          const problems = Array.from({ length: 6 }, () => {
             const a = nextInt(100, 999);
             const b = nextInt(100, 999);
             const op = nextInt(0, 1) === 0 ? '+' : '-';
-            const estimate = op === '+' ? Math.round(a/10)*10 + Math.round(b/10)*10 : Math.round(a/10)*10 - Math.round(b/10)*10;
+            const estimate = op === '+' ? Math.round(a / 10) * 10 + Math.round(b / 10) * 10 : Math.round(a / 10) * 10 - Math.round(b / 10) * 10;
             return { a, b, op, estimate };
           });
           return (
-            <WorksheetSectionWrapper 
-              docId="estimating-sums-differences" 
-              title="Estimating Sums & Differences" 
-              emoji="🔢" 
+            <WorksheetSectionWrapper
+              docId="estimating-sums-differences"
+              title="Estimating Sums & Differences"
+              emoji="🔢"
               description="Estimate each sum or difference by rounding to the nearest ten."
               problemCount={problems.length}
               learningObjectives={[
@@ -25182,16 +25213,16 @@ export function PrintablesPage() {
         {activeDocs.includes('area-perimeter-4th') && (() => {
           const rng = makeRng(`${effectiveSeed}|v${variant}|doc=${doc}`);
           function nextInt(min: number, max: number) { return Math.floor(rng() * (max - min + 1)) + min; }
-          const problems = Array.from({length: 6}, () => {
+          const problems = Array.from({ length: 6 }, () => {
             const length = nextInt(5, 15);
             const width = nextInt(3, 10);
             return { length, width, area: length * width, perimeter: 2 * (length + width) };
           });
           return (
-            <WorksheetSectionWrapper 
-              docId="area-perimeter-4th" 
-              title="Area & Perimeter" 
-              emoji="📐" 
+            <WorksheetSectionWrapper
+              docId="area-perimeter-4th"
+              title="Area & Perimeter"
+              emoji="📐"
               description="Find the area and perimeter of each rectangle."
               problemCount={problems.length}
               learningObjectives={[
@@ -25279,7 +25310,7 @@ export function PrintablesPage() {
         {activeDocs.includes('area-triangles-parallelograms') && (() => {
           const rng = makeRng(`${effectiveSeed}|v${variant}|doc=${doc}`);
           function nextInt(min: number, max: number) { return Math.floor(rng() * (max - min + 1)) + min; }
-          const problems = Array.from({length: 6}, () => {
+          const problems = Array.from({ length: 6 }, () => {
             const base = nextInt(4, 12);
             const height = nextInt(3, 10);
             const isTriangle = nextInt(0, 1) === 0;
@@ -25293,13 +25324,13 @@ export function PrintablesPage() {
             const viewBoxHeight = Math.max(shapeHeight, 60) + 20;
             const x = (viewBoxWidth - shapeWidth) / 2;
             const y = (viewBoxHeight - shapeHeight) / 2;
-            
+
             return (
               <svg viewBox={`0 0 ${viewBoxWidth} ${viewBoxHeight}`} className="w-24 h-24 mx-auto mb-2">
                 {isTriangle ? (
-                  <polygon points={`${x + shapeWidth/2},${y} ${x},${y + shapeHeight} ${x + shapeWidth},${y + shapeHeight}`} fill="none" stroke="#3b82f6" strokeWidth="2"/>
+                  <polygon points={`${x + shapeWidth / 2},${y} ${x},${y + shapeHeight} ${x + shapeWidth},${y + shapeHeight}`} fill="none" stroke="#3b82f6" strokeWidth="2" />
                 ) : (
-                  <polygon points={`${x},${y} ${x + shapeWidth},${y} ${x + shapeWidth},${y + shapeHeight} ${x},${y + shapeHeight}`} fill="none" stroke="#3b82f6" strokeWidth="2"/>
+                  <polygon points={`${x},${y} ${x + shapeWidth},${y} ${x + shapeWidth},${y + shapeHeight} ${x},${y + shapeHeight}`} fill="none" stroke="#3b82f6" strokeWidth="2" />
                 )}
                 <text x={x + shapeWidth / 2} y={y - 5} textAnchor="middle" fontSize="8" fill="#64748b">{base}</text>
                 <text x={x - 8} y={y + shapeHeight / 2} textAnchor="middle" fontSize="8" fill="#64748b" transform={`rotate(-90 ${x - 8} ${y + shapeHeight / 2})`}>{height}</text>
@@ -25307,10 +25338,10 @@ export function PrintablesPage() {
             );
           };
           return (
-            <WorksheetSectionWrapper 
-              docId="area-triangles-parallelograms" 
-              title="Area of Triangles & Parallelograms" 
-              emoji="📐" 
+            <WorksheetSectionWrapper
+              docId="area-triangles-parallelograms"
+              title="Area of Triangles & Parallelograms"
+              emoji="📐"
               description="Find the area. Triangles: Area = (base × height) ÷ 2. Parallelograms: Area = base × height."
               problemCount={problems.length}
               learningObjectives={[
@@ -25398,17 +25429,17 @@ export function PrintablesPage() {
         {activeDocs.includes('volume-rectangular-prisms') && (() => {
           const rng = makeRng(`${effectiveSeed}|v${variant}|doc=${doc}`);
           function nextInt(min: number, max: number) { return Math.floor(rng() * (max - min + 1)) + min; }
-          const problems = Array.from({length: 6}, () => {
+          const problems = Array.from({ length: 6 }, () => {
             const length = nextInt(3, 8);
             const width = nextInt(3, 8);
             const height = nextInt(3, 8);
             return { length, width, height, volume: length * width * height };
           });
           return (
-            <WorksheetSectionWrapper 
-              docId="volume-rectangular-prisms" 
-              title="Volume of Rectangular Prisms" 
-              emoji="📐" 
+            <WorksheetSectionWrapper
+              docId="volume-rectangular-prisms"
+              title="Volume of Rectangular Prisms"
+              emoji="📐"
               description="Find the volume using V = l × w × h."
               problemCount={problems.length}
               learningObjectives={[
@@ -25504,10 +25535,10 @@ export function PrintablesPage() {
             { measure: 180, type: 'straight' },
           ];
           return (
-            <WorksheetSectionWrapper 
-              docId="classifying-angles" 
-              title="Classifying Angles" 
-              emoji="📐" 
+            <WorksheetSectionWrapper
+              docId="classifying-angles"
+              title="Classifying Angles"
+              emoji="📐"
               description="Classify each angle as acute, right, obtuse, or straight."
               problemCount={angles.length}
               learningObjectives={[
@@ -25608,28 +25639,28 @@ export function PrintablesPage() {
             if (type === 'equilateral') {
               return (
                 <svg viewBox="0 0 100 87" className="w-24 h-24 mx-auto mb-2">
-                  <polygon points="50,5 95,82 5,82" fill="none" stroke="#3b82f6" strokeWidth="2"/>
+                  <polygon points="50,5 95,82 5,82" fill="none" stroke="#3b82f6" strokeWidth="2" />
                 </svg>
               );
             } else if (type === 'isosceles') {
               return (
                 <svg viewBox="0 0 100 87" className="w-24 h-24 mx-auto mb-2">
-                  <polygon points="30,5 70,5 95,82 5,82" fill="none" stroke="#3b82f6" strokeWidth="2"/>
+                  <polygon points="30,5 70,5 95,82 5,82" fill="none" stroke="#3b82f6" strokeWidth="2" />
                 </svg>
               );
             } else {
               return (
                 <svg viewBox="0 0 100 87" className="w-24 h-24 mx-auto mb-2">
-                  <polygon points="20,5 80,5 95,82 5,82" fill="none" stroke="#3b82f6" strokeWidth="2"/>
+                  <polygon points="20,5 80,5 95,82 5,82" fill="none" stroke="#3b82f6" strokeWidth="2" />
                 </svg>
               );
             }
           };
           return (
-            <WorksheetSectionWrapper 
-              docId="classifying-triangles" 
-              title="Classifying Triangles" 
-              emoji="📐" 
+            <WorksheetSectionWrapper
+              docId="classifying-triangles"
+              title="Classifying Triangles"
+              emoji="📐"
               description="Classify each triangle by its sides."
               problemCount={triangles.length}
               learningObjectives={[
@@ -25701,8 +25732,8 @@ export function PrintablesPage() {
                   <div className="font-bold text-emerald-900 mb-3 text-base">✅ Answer Key (with steps)</div>
                   <div className="space-y-3">
                     {triangles.map((t, i) => {
-                      const equalCount = t.sides[0] === t.sides[1] && t.sides[1] === t.sides[2] ? 3 : 
-                                        t.sides[0] === t.sides[1] || t.sides[1] === t.sides[2] || t.sides[0] === t.sides[2] ? 2 : 0;
+                      const equalCount = t.sides[0] === t.sides[1] && t.sides[1] === t.sides[2] ? 3 :
+                        t.sides[0] === t.sides[1] || t.sides[1] === t.sides[2] || t.sides[0] === t.sides[2] ? 2 : 0;
                       return (
                         <div key={i} className="border-b border-emerald-200 pb-3 last:border-b-0">
                           <div className="font-semibold mb-2 text-sm">{i + 1}. Sides: {t.sides.join(', ')}</div>
@@ -25724,10 +25755,10 @@ export function PrintablesPage() {
         {activeDocs.includes('classifying-quadrilaterals') && (() => {
           const shapes = ['square', 'rectangle', 'parallelogram', 'trapezoid', 'rhombus', 'quadrilateral'];
           return (
-            <WorksheetSectionWrapper 
-              docId="classifying-quadrilaterals" 
-              title="Classifying Quadrilaterals" 
-              emoji="📐" 
+            <WorksheetSectionWrapper
+              docId="classifying-quadrilaterals"
+              title="Classifying Quadrilaterals"
+              emoji="📐"
               description="Identify each quadrilateral."
               problemCount={shapes.length}
               learningObjectives={[
@@ -25840,34 +25871,34 @@ export function PrintablesPage() {
             const centerY = 50;
             const radius = 35;
             const points: string[] = [];
-            
+
             for (let i = 0; i < sides; i++) {
               const angle = (Math.PI * 2 * i) / sides - Math.PI / 2;
               const x = centerX + radius * Math.cos(angle);
               const y = centerY + radius * Math.sin(angle);
               points.push(`${x},${y}`);
             }
-            
+
             // Special handling for rectangle (make it look rectangular)
             if (name === 'rectangle') {
               return (
                 <svg viewBox="0 0 100 100" className="w-20 h-20 mx-auto mb-2">
-                  <rect x="20" y="30" width="60" height="40" fill="none" stroke="#3b82f6" strokeWidth="2"/>
+                  <rect x="20" y="30" width="60" height="40" fill="none" stroke="#3b82f6" strokeWidth="2" />
                 </svg>
               );
             }
-            
+
             return (
               <svg viewBox="0 0 100 100" className="w-20 h-20 mx-auto mb-2">
-                <polygon points={points.join(' ')} fill="none" stroke="#3b82f6" strokeWidth="2"/>
+                <polygon points={points.join(' ')} fill="none" stroke="#3b82f6" strokeWidth="2" />
               </svg>
             );
           };
           return (
-            <WorksheetSectionWrapper 
-              docId="classifying-shapes" 
-              title="Classifying 2D & 3D Shapes" 
-              emoji="📐" 
+            <WorksheetSectionWrapper
+              docId="classifying-shapes"
+              title="Classifying 2D & 3D Shapes"
+              emoji="📐"
               description="Identify and classify each shape."
               problemCount={shapes.length}
               learningObjectives={[
@@ -25957,15 +25988,15 @@ export function PrintablesPage() {
         {activeDocs.includes('customary-conversion') && (() => {
           const rng = makeRng(`${effectiveSeed}|v${variant}|doc=${doc}`);
           function nextInt(min: number, max: number) { return Math.floor(rng() * (max - min + 1)) + min; }
-          const problems = Array.from({length: 6}, () => {
+          const problems = Array.from({ length: 6 }, () => {
             const feet = nextInt(1, 10);
             return { feet, inches: feet * 12 };
           });
           return (
-            <WorksheetSectionWrapper 
-              docId="customary-conversion" 
-              title="Customary Units Conversion" 
-              emoji="📏" 
+            <WorksheetSectionWrapper
+              docId="customary-conversion"
+              title="Customary Units Conversion"
+              emoji="📏"
               description="Convert between inches, feet, and yards."
               problemCount={problems.length}
               learningObjectives={[
@@ -26054,15 +26085,15 @@ export function PrintablesPage() {
         {activeDocs.includes('metric-conversion') && (() => {
           const rng = makeRng(`${effectiveSeed}|v${variant}|doc=${doc}`);
           function nextInt(min: number, max: number) { return Math.floor(rng() * (max - min + 1)) + min; }
-          const problems = Array.from({length: 6}, () => {
+          const problems = Array.from({ length: 6 }, () => {
             const meters = nextInt(1, 10);
             return { meters, centimeters: meters * 100 };
           });
           return (
-            <WorksheetSectionWrapper 
-              docId="metric-conversion" 
-              title="Metric Units Conversion" 
-              emoji="📏" 
+            <WorksheetSectionWrapper
+              docId="metric-conversion"
+              title="Metric Units Conversion"
+              emoji="📏"
               description="Convert between millimeters, centimeters, meters, and kilometers."
               problemCount={problems.length}
               learningObjectives={[
@@ -26159,10 +26190,10 @@ export function PrintablesPage() {
             { start: '3:20', end: '4:50', elapsed: '1 hour 30 minutes' },
           ];
           return (
-            <WorksheetSectionWrapper 
-              docId="elapsed-time-4th" 
-              title="Elapsed Time" 
-              emoji="🕒" 
+            <WorksheetSectionWrapper
+              docId="elapsed-time-4th"
+              title="Elapsed Time"
+              emoji="🕒"
               description="Calculate the elapsed time between start and end times."
               problemCount={times.length}
               learningObjectives={[
@@ -26249,15 +26280,15 @@ export function PrintablesPage() {
         {activeDocs.includes('liquid-measurement-4th') && (() => {
           const rng = makeRng(`${effectiveSeed}|v${variant}|doc=${doc}`);
           function nextInt(min: number, max: number) { return Math.floor(rng() * (max - min + 1)) + min; }
-          const problems = Array.from({length: 6}, () => {
+          const problems = Array.from({ length: 6 }, () => {
             const quarts = nextInt(1, 5);
             return { quarts, cups: quarts * 4 };
           });
           return (
-            <WorksheetSectionWrapper 
-              docId="liquid-measurement-4th" 
-              title="Liquid Measurement" 
-              emoji="📏" 
+            <WorksheetSectionWrapper
+              docId="liquid-measurement-4th"
+              title="Liquid Measurement"
+              emoji="📏"
               description="Convert between cups, pints, quarts, and gallons."
               problemCount={problems.length}
               learningObjectives={[
@@ -26346,15 +26377,15 @@ export function PrintablesPage() {
         {activeDocs.includes('mass-weight-4th') && (() => {
           const rng = makeRng(`${effectiveSeed}|v${variant}|doc=${doc}`);
           function nextInt(min: number, max: number) { return Math.floor(rng() * (max - min + 1)) + min; }
-          const problems = Array.from({length: 6}, () => {
+          const problems = Array.from({ length: 6 }, () => {
             const pounds = nextInt(1, 5);
             return { pounds, ounces: pounds * 16 };
           });
           return (
-            <WorksheetSectionWrapper 
-              docId="mass-weight-4th" 
-              title="Mass and Weight" 
-              emoji="📏" 
+            <WorksheetSectionWrapper
+              docId="mass-weight-4th"
+              title="Mass and Weight"
+              emoji="📏"
               description="Convert between ounces, pounds, grams, and kilograms."
               problemCount={problems.length}
               learningObjectives={[
@@ -26450,10 +26481,10 @@ export function PrintablesPage() {
             { type: 'intersecting', desc: 'Lines that share a point' },
           ];
           return (
-            <WorksheetSectionWrapper 
-              docId="lines-angles-4th" 
-              title="Lines & Angles" 
-              emoji="📐" 
+            <WorksheetSectionWrapper
+              docId="lines-angles-4th"
+              title="Lines & Angles"
+              emoji="📐"
               description="Identify parallel, perpendicular, and intersecting lines."
               problemCount={lines.length}
               learningObjectives={[
@@ -26543,10 +26574,10 @@ export function PrintablesPage() {
         {activeDocs.includes('symmetry-transformations') && (() => {
           const shapes = ['square', 'circle', 'rectangle', 'triangle', 'hexagon', 'star'];
           return (
-            <WorksheetSectionWrapper 
-              docId="symmetry-transformations" 
-              title="Symmetry & Transformations" 
-              emoji="📐" 
+            <WorksheetSectionWrapper
+              docId="symmetry-transformations"
+              title="Symmetry & Transformations"
+              emoji="📐"
               description="Find lines of symmetry and identify transformations."
               problemCount={shapes.length}
               learningObjectives={[
@@ -26648,10 +26679,10 @@ export function PrintablesPage() {
         {activeDocs.includes('transformations-5th') && (() => {
           const transformations = ['translation', 'rotation', 'reflection', 'translation', 'rotation', 'reflection'];
           return (
-            <WorksheetSectionWrapper 
-              docId="transformations-5th" 
-              title="Transformations" 
-              emoji="📐" 
+            <WorksheetSectionWrapper
+              docId="transformations-5th"
+              title="Transformations"
+              emoji="📐"
               description="Identify translations, rotations, and reflections."
               problemCount={transformations.length}
               learningObjectives={[
@@ -26747,10 +26778,10 @@ export function PrintablesPage() {
         {activeDocs.includes('nets-3d-shapes') && (() => {
           const shapes = ['cube', 'rectangular prism', 'cylinder', 'cone', 'pyramid', 'sphere'];
           return (
-            <WorksheetSectionWrapper 
-              docId="nets-3d-shapes" 
-              title="Nets of 3D Shapes" 
-              emoji="📐" 
+            <WorksheetSectionWrapper
+              docId="nets-3d-shapes"
+              title="Nets of 3D Shapes"
+              emoji="📐"
               description="Identify which net forms each 3D shape."
               problemCount={shapes.length}
               learningObjectives={[
@@ -26850,17 +26881,17 @@ export function PrintablesPage() {
         {activeDocs.includes('evaluating-expressions') && (() => {
           const rng = makeRng(`${effectiveSeed}|v${variant}|doc=${doc}`);
           function nextInt(min: number, max: number) { return Math.floor(rng() * (max - min + 1)) + min; }
-          const problems = Array.from({length: 6}, () => {
+          const problems = Array.from({ length: 6 }, () => {
             const x = nextInt(2, 10);
             const a = nextInt(1, 5);
             const b = nextInt(1, 5);
             return { expr: `${a}x + ${b}`, x, answer: a * x + b };
           });
           return (
-            <WorksheetSectionWrapper 
-              docId="evaluating-expressions" 
-              title="Evaluating Expressions" 
-              emoji="📐" 
+            <WorksheetSectionWrapper
+              docId="evaluating-expressions"
+              title="Evaluating Expressions"
+              emoji="📐"
               description="Substitute the value for x and evaluate each expression."
               problemCount={problems.length}
               learningObjectives={[
@@ -26960,10 +26991,10 @@ export function PrintablesPage() {
             { phrase: 'x plus 7', expr: 'x + 7', explanation: 'Plus means add' },
           ];
           return (
-            <WorksheetSectionWrapper 
-              docId="writing-expressions" 
-              title="Writing Expressions" 
-              emoji="📐" 
+            <WorksheetSectionWrapper
+              docId="writing-expressions"
+              title="Writing Expressions"
+              emoji="📐"
               description="Write an algebraic expression for each phrase."
               problemCount={phrases.length}
               learningObjectives={[
@@ -27049,7 +27080,7 @@ export function PrintablesPage() {
         {activeDocs.includes('solving-one-step-equations') && (() => {
           const rng = makeRng(`${effectiveSeed}|v${variant}|doc=${doc}`);
           function nextInt(min: number, max: number) { return Math.floor(rng() * (max - min + 1)) + min; }
-          const problems = Array.from({length: 6}, () => {
+          const problems = Array.from({ length: 6 }, () => {
             const x = nextInt(5, 20);
             const a = nextInt(3, 15);
             const op = nextInt(0, 1) === 0 ? '+' : '-';
@@ -27057,10 +27088,10 @@ export function PrintablesPage() {
             return { a, b, op, x };
           });
           return (
-            <WorksheetSectionWrapper 
-              docId="solving-one-step-equations" 
-              title="Solving One-Step Equations" 
-              emoji="📐" 
+            <WorksheetSectionWrapper
+              docId="solving-one-step-equations"
+              title="Solving One-Step Equations"
+              emoji="📐"
               description="Solve for x in each equation."
               problemCount={problems.length}
               learningObjectives={[
@@ -27164,10 +27195,10 @@ export function PrintablesPage() {
             { seq: [1, 3, 5, 7, '__', 11], rule: 'Add 2 (odd numbers)', missing: 9 },
           ];
           return (
-            <WorksheetSectionWrapper 
-              docId="patterns-rules" 
-              title="Patterns & Rules" 
-              emoji="📐" 
+            <WorksheetSectionWrapper
+              docId="patterns-rules"
+              title="Patterns & Rules"
+              emoji="📐"
               description="Find the missing number and write the rule."
               problemCount={patterns.length}
               learningObjectives={[
@@ -27269,15 +27300,15 @@ export function PrintablesPage() {
                 {/* Grid lines */}
                 {Array.from({ length: 8 }, (_, i) => (
                   <g key={i}>
-                    <line x1={10 + i * cellSize} y1={10} x2={10 + i * cellSize} y2={90} stroke="#e2e8f0" strokeWidth="0.5"/>
-                    <line x1={10} y1={10 + i * cellSize} x2={90} y2={10 + i * cellSize} stroke="#e2e8f0" strokeWidth="0.5"/>
+                    <line x1={10 + i * cellSize} y1={10} x2={10 + i * cellSize} y2={90} stroke="#e2e8f0" strokeWidth="0.5" />
+                    <line x1={10} y1={10 + i * cellSize} x2={90} y2={10 + i * cellSize} stroke="#e2e8f0" strokeWidth="0.5" />
                   </g>
                 ))}
                 {/* Axes */}
-                <line x1={10} y1={90} x2={90} y2={90} stroke="#475569" strokeWidth="1.5"/>
-                <line x1={10} y1={10} x2={10} y2={90} stroke="#475569" strokeWidth="1.5"/>
+                <line x1={10} y1={90} x2={90} y2={90} stroke="#475569" strokeWidth="1.5" />
+                <line x1={10} y1={10} x2={10} y2={90} stroke="#475569" strokeWidth="1.5" />
                 {/* Point */}
-                <circle cx={10 + point.x * cellSize} cy={90 - point.y * cellSize} r="2" fill="#3b82f6" stroke="white" strokeWidth="1"/>
+                <circle cx={10 + point.x * cellSize} cy={90 - point.y * cellSize} r="2" fill="#3b82f6" stroke="white" strokeWidth="1" />
                 {/* Labels */}
                 <text x={10 + point.x * cellSize} y={95} fontSize="6" fill="#64748b" textAnchor="middle">{point.x}</text>
                 <text x={5} y={90 - point.y * cellSize + 2} fontSize="6" fill="#64748b" textAnchor="middle">{point.y}</text>
@@ -27285,10 +27316,10 @@ export function PrintablesPage() {
             );
           };
           return (
-            <WorksheetSectionWrapper 
-              docId="coordinate-graphing" 
-              title="Coordinate Graphing" 
-              emoji="📐" 
+            <WorksheetSectionWrapper
+              docId="coordinate-graphing"
+              title="Coordinate Graphing"
+              emoji="📐"
               description="Plot each point on the coordinate plane."
               problemCount={points.length}
               learningObjectives={[
@@ -27379,16 +27410,16 @@ export function PrintablesPage() {
         {activeDocs.includes('comparing-ordering-fractions-decimals') && (() => {
           const rng = makeRng(`${effectiveSeed}|v${variant}|doc=${doc}`);
           function nextInt(min: number, max: number) { return Math.floor(rng() * (max - min + 1)) + min; }
-          const problems = Array.from({length: 6}, () => {
+          const problems = Array.from({ length: 6 }, () => {
             const frac = `${nextInt(1, 3)}/${nextInt(2, 4)}`;
             const decimal = (nextInt(1, 9) / 10).toFixed(1);
             return { frac, decimal };
           });
           return (
-            <WorksheetSectionWrapper 
-              docId="comparing-ordering-fractions-decimals" 
-              title="Comparing & Ordering Fractions/Decimals" 
-              emoji="🍕" 
+            <WorksheetSectionWrapper
+              docId="comparing-ordering-fractions-decimals"
+              title="Comparing & Ordering Fractions/Decimals"
+              emoji="🍕"
               description="Compare each fraction and decimal using &gt;, &lt;, or =."
               problemCount={problems.length}
               learningObjectives={[
@@ -27487,10 +27518,10 @@ export function PrintablesPage() {
             { frac: '1/3', decimal: '0.33', percent: '33%' },
           ];
           return (
-            <WorksheetSectionWrapper 
-              docId="fractions-decimals-percents" 
-              title="Fractions, Decimals, & Percents" 
-              emoji="🍕" 
+            <WorksheetSectionWrapper
+              docId="fractions-decimals-percents"
+              title="Fractions, Decimals, & Percents"
+              emoji="🍕"
               description="Convert between fractions, decimals, and percents."
               problemCount={conversions.length}
               learningObjectives={[
@@ -27582,10 +27613,10 @@ export function PrintablesPage() {
           const mode = 5;
           const range = 7 - 3;
           return (
-            <WorksheetSectionWrapper 
-              docId="line-plots" 
-              title="Line Plots" 
-              emoji="📊" 
+            <WorksheetSectionWrapper
+              docId="line-plots"
+              title="Line Plots"
+              emoji="📊"
               description="Create a line plot from the data and answer questions."
               problemCount={1}
               learningObjectives={[
@@ -27675,10 +27706,10 @@ export function PrintablesPage() {
             { item: 'Grapes', count: 10 },
           ];
           return (
-            <WorksheetSectionWrapper 
-              docId="bar-graphs-pictographs" 
-              title="Bar Graphs & Pictographs" 
-              emoji="📊" 
+            <WorksheetSectionWrapper
+              docId="bar-graphs-pictographs"
+              title="Bar Graphs & Pictographs"
+              emoji="📊"
               description="Create a bar graph from the data."
               problemCount={1}
               learningObjectives={[
@@ -27771,10 +27802,10 @@ export function PrintablesPage() {
             { day: 'Fri', temp: 76 },
           ];
           return (
-            <WorksheetSectionWrapper 
-              docId="line-graphs" 
-              title="Line Graphs" 
-              emoji="📊" 
+            <WorksheetSectionWrapper
+              docId="line-graphs"
+              title="Line Graphs"
+              emoji="📊"
               description="Create a line graph showing temperature over time."
               problemCount={1}
               learningObjectives={[
@@ -27852,15 +27883,15 @@ export function PrintablesPage() {
                 const plotHeight = graphHeight - 2 * padding;
                 const xStep = plotWidth / (data.length - 1);
                 const tempScale = plotHeight / tempRange;
-                
+
                 const points = data.map((d, i) => {
                   const x = padding + i * xStep;
                   const y = padding + (maxTemp - d.temp) * tempScale;
                   return { x, y, day: d.day, temp: d.temp };
                 });
-                
+
                 const pathData = points.map((p, i) => `${i === 0 ? 'M' : 'L'} ${p.x} ${p.y}`).join(' ');
-                
+
                 return (
                   <div className="mt-6 p-4 border-2 border-emerald-300 bg-emerald-50 rounded print:border print:bg-white print:page-break-before-always">
                     <div className="font-bold text-emerald-900 mb-3 text-base">✅ Answer Key (with graph)</div>
@@ -27878,7 +27909,7 @@ export function PrintablesPage() {
                           const temp = maxTemp - (i * tempRange) / 5;
                           return (
                             <g key={i}>
-                              <line x1={padding} y1={y} x2={graphWidth - padding} y2={y} stroke="#e2e8f0" strokeWidth="1" strokeDasharray="2,2"/>
+                              <line x1={padding} y1={y} x2={graphWidth - padding} y2={y} stroke="#e2e8f0" strokeWidth="1" strokeDasharray="2,2" />
                               <text x={padding - 10} y={y + 4} fontSize="10" fill="#64748b" textAnchor="end">{Math.round(temp)}</text>
                             </g>
                           );
@@ -27891,14 +27922,14 @@ export function PrintablesPage() {
                           );
                         })}
                         {/* Axes */}
-                        <line x1={padding} y1={padding} x2={padding} y2={graphHeight - padding} stroke="#475569" strokeWidth="2"/>
-                        <line x1={padding} y1={graphHeight - padding} x2={graphWidth - padding} y2={graphHeight - padding} stroke="#475569" strokeWidth="2"/>
+                        <line x1={padding} y1={padding} x2={padding} y2={graphHeight - padding} stroke="#475569" strokeWidth="2" />
+                        <line x1={padding} y1={graphHeight - padding} x2={graphWidth - padding} y2={graphHeight - padding} stroke="#475569" strokeWidth="2" />
                         {/* Line graph */}
-                        <path d={pathData} fill="none" stroke="#3b82f6" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"/>
+                        <path d={pathData} fill="none" stroke="#3b82f6" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" />
                         {/* Data points */}
                         {points.map((p, i) => (
                           <g key={i}>
-                            <circle cx={p.x} cy={p.y} r="5" fill="#3b82f6" stroke="white" strokeWidth="2"/>
+                            <circle cx={p.x} cy={p.y} r="5" fill="#3b82f6" stroke="white" strokeWidth="2" />
                             <text x={p.x} y={p.y - 10} fontSize="9" fill="#1e40af" textAnchor="middle" fontWeight="bold">{p.temp}°</text>
                           </g>
                         ))}
@@ -27921,10 +27952,10 @@ export function PrintablesPage() {
             { data: [1, 3, 5, 5, 7, 9], mean: 5, median: 5, mode: 5 },
           ];
           return (
-            <WorksheetSectionWrapper 
-              docId="mean-median-mode" 
-              title="Mean, Median, Mode" 
-              emoji="📊" 
+            <WorksheetSectionWrapper
+              docId="mean-median-mode"
+              title="Mean, Median, Mode"
+              emoji="📊"
               description="Calculate mean, median, and mode for each dataset."
               problemCount={datasets.length}
               learningObjectives={[
@@ -28022,10 +28053,10 @@ export function PrintablesPage() {
             { data: [3, 6, 6, 9, 12], mean: 7.2, median: 6, mode: 6, range: 9 },
           ];
           return (
-            <WorksheetSectionWrapper 
-              docId="mean-median-mode-range" 
-              title="Mean, Median, Mode, Range" 
-              emoji="📊" 
+            <WorksheetSectionWrapper
+              docId="mean-median-mode-range"
+              title="Mean, Median, Mode, Range"
+              emoji="📊"
               description="Calculate all four measures for each dataset."
               problemCount={datasets.length}
               learningObjectives={[
@@ -28124,10 +28155,10 @@ export function PrintablesPage() {
         {activeDocs.includes('stem-leaf-plots') && (() => {
           const data = [12, 15, 18, 21, 23, 25, 28, 31, 34];
           return (
-            <WorksheetSectionWrapper 
-              docId="stem-leaf-plots" 
-              title="Stem-and-Leaf Plots" 
-              emoji="📊" 
+            <WorksheetSectionWrapper
+              docId="stem-leaf-plots"
+              title="Stem-and-Leaf Plots"
+              emoji="📊"
               description="Create a stem-and-leaf plot from the data."
               problemCount={1}
               learningObjectives={[
@@ -28219,10 +28250,10 @@ export function PrintablesPage() {
             { event: 'Flipping tails on a coin', prob: '1/2', explanation: '1 favorable outcome out of 2 total' },
           ];
           return (
-            <WorksheetSectionWrapper 
-              docId="probability" 
-              title="Probability" 
-              emoji="📊" 
+            <WorksheetSectionWrapper
+              docId="probability"
+              title="Probability"
+              emoji="📊"
               description="Find the probability of each event."
               problemCount={scenarios.length}
               learningObjectives={[
@@ -28316,10 +28347,10 @@ export function PrintablesPage() {
             'A classroom has 30 students. 12 students are boys. How many students are girls?',
           ];
           return (
-            <WorksheetSectionWrapper 
-              docId="multi-step-word-4th" 
-              title="Multi-Step Word Problems" 
-              emoji="🧮" 
+            <WorksheetSectionWrapper
+              docId="multi-step-word-4th"
+              title="Multi-Step Word Problems"
+              emoji="🧮"
               description="Solve each word problem. Show all your work."
               problemCount={problems.length}
               learningObjectives={[
@@ -28450,10 +28481,10 @@ export function PrintablesPage() {
             'There are 48 students. 1/3 are in the band and 1/4 are in the choir. How many students are in neither?',
           ];
           return (
-            <WorksheetSectionWrapper 
-              docId="multi-step-word-5th" 
-              title="Multi-Step Word Problems" 
-              emoji="🧮" 
+            <WorksheetSectionWrapper
+              docId="multi-step-word-5th"
+              title="Multi-Step Word Problems"
+              emoji="🧮"
               description="Solve each complex word problem. Show all your work."
               problemCount={problems.length}
               learningObjectives={[
@@ -28589,10 +28620,10 @@ export function PrintablesPage() {
             'A pie is cut into 8 equal pieces. 3 pieces are eaten. What fraction of the pie remains?',
           ];
           return (
-            <WorksheetSectionWrapper 
-              docId="fraction-word-problems" 
-              title="Fraction Word Problems" 
-              emoji="🧮" 
+            <WorksheetSectionWrapper
+              docId="fraction-word-problems"
+              title="Fraction Word Problems"
+              emoji="🧮"
               description="Solve each word problem involving fractions."
               problemCount={problems.length}
               learningObjectives={[
@@ -28722,10 +28753,10 @@ export function PrintablesPage() {
             'Jake runs 3/4 of a mile each day for 5 days. How many miles does he run in total?',
           ];
           return (
-            <WorksheetSectionWrapper 
-              docId="fraction-word-problems-5th" 
-              title="Fraction Word Problems" 
-              emoji="🧮" 
+            <WorksheetSectionWrapper
+              docId="fraction-word-problems-5th"
+              title="Fraction Word Problems"
+              emoji="🧮"
               description="Solve each word problem involving fraction operations."
               problemCount={problems.length}
               learningObjectives={[
@@ -28857,10 +28888,10 @@ export function PrintablesPage() {
             'Lisa has $20.00. She spends $8.75. How much money does she have left?',
           ];
           return (
-            <WorksheetSectionWrapper 
-              docId="decimal-word-problems" 
-              title="Decimal Word Problems" 
-              emoji="🧮" 
+            <WorksheetSectionWrapper
+              docId="decimal-word-problems"
+              title="Decimal Word Problems"
+              emoji="🧮"
               description="Solve each word problem involving decimals."
               problemCount={problems.length}
               learningObjectives={[
@@ -28994,10 +29025,10 @@ export function PrintablesPage() {
             'A tank holds 25.5 gallons. It is 0.6 full. How many gallons are in the tank?',
           ];
           return (
-            <WorksheetSectionWrapper 
-              docId="decimal-word-problems-5th" 
-              title="Decimal Word Problems" 
-              emoji="🧮" 
+            <WorksheetSectionWrapper
+              docId="decimal-word-problems-5th"
+              title="Decimal Word Problems"
+              emoji="🧮"
               description="Solve each word problem involving decimal operations."
               problemCount={problems.length}
               learningObjectives={[
@@ -29131,10 +29162,10 @@ export function PrintablesPage() {
             'A box is 2 feet long, 1.5 feet wide, and 1 foot tall. What is the volume?',
           ];
           return (
-            <WorksheetSectionWrapper 
-              docId="measurement-word-problems" 
-              title="Measurement Word Problems" 
-              emoji="🧮" 
+            <WorksheetSectionWrapper
+              docId="measurement-word-problems"
+              title="Measurement Word Problems"
+              emoji="🧮"
               description="Solve each word problem involving measurement and unit conversions."
               problemCount={problems.length}
               learningObjectives={[
@@ -29267,10 +29298,10 @@ export function PrintablesPage() {
             'A rectangular room is 12 feet by 9 feet. How many square feet of carpet are needed?',
           ];
           return (
-            <WorksheetSectionWrapper 
-              docId="geometry-word-problems" 
-              title="Geometry Word Problems" 
-              emoji="🧮" 
+            <WorksheetSectionWrapper
+              docId="geometry-word-problems"
+              title="Geometry Word Problems"
+              emoji="🧮"
               description="Solve each word problem involving area, perimeter, and geometry."
               problemCount={problems.length}
               learningObjectives={[
@@ -29404,10 +29435,10 @@ export function PrintablesPage() {
             'The ratio of cats to dogs is 2:1. If there are 8 cats, how many dogs are there?',
           ];
           return (
-            <WorksheetSectionWrapper 
-              docId="ratio-proportion-word-problems" 
-              title="Ratio & Proportion Word Problems" 
-              emoji="🧮" 
+            <WorksheetSectionWrapper
+              docId="ratio-proportion-word-problems"
+              title="Ratio & Proportion Word Problems"
+              emoji="🧮"
               description="Solve each word problem involving ratios and proportions."
               problemCount={problems.length}
               learningObjectives={[
@@ -29546,10 +29577,10 @@ export function PrintablesPage() {
             'Sarah got 24 out of 30 questions correct. What percent did she get?',
           ];
           return (
-            <WorksheetSectionWrapper 
-              docId="percent-word-problems" 
-              title="Percent Word Problems" 
-              emoji="🧮" 
+            <WorksheetSectionWrapper
+              docId="percent-word-problems"
+              title="Percent Word Problems"
+              emoji="🧮"
               description="Solve each word problem involving percents, discounts, and percentages."
               problemCount={problems.length}
               learningObjectives={[
@@ -29684,20 +29715,20 @@ export function PrintablesPage() {
           ];
           const renderShape = (shape: typeof shapeData[0], size: number = 80) => {
             const svgMap: Record<string, JSX.Element> = {
-              circle: <circle cx={size/2} cy={size/2} r={size*0.375} fill="none" stroke="#475569" strokeWidth="4" />,
-              square: <rect x={size*0.125} y={size*0.125} width={size*0.75} height={size*0.75} fill="none" stroke="#475569" strokeWidth="4" />,
-              triangle: <polygon points={`${size/2},${size*0.125} ${size*0.125},${size*0.875} ${size*0.875},${size*0.875}`} fill="none" stroke="#475569" strokeWidth="4" />,
-              rectangle: <rect x={size*0.1875} y={size*0.25} width={size*0.625} height={size*0.5} fill="none" stroke="#475569" strokeWidth="4" />,
-              oval: <ellipse cx={size/2} cy={size/2} rx={size*0.375} ry={size*0.25} fill="none" stroke="#475569" strokeWidth="4" />,
-              diamond: <polygon points={`${size/2},${size*0.125} ${size*0.875},${size/2} ${size/2},${size*0.875} ${size*0.125},${size/2}`} fill="none" stroke="#475569" strokeWidth="4" />,
+              circle: <circle cx={size / 2} cy={size / 2} r={size * 0.375} fill="none" stroke="#475569" strokeWidth="4" />,
+              square: <rect x={size * 0.125} y={size * 0.125} width={size * 0.75} height={size * 0.75} fill="none" stroke="#475569" strokeWidth="4" />,
+              triangle: <polygon points={`${size / 2},${size * 0.125} ${size * 0.125},${size * 0.875} ${size * 0.875},${size * 0.875}`} fill="none" stroke="#475569" strokeWidth="4" />,
+              rectangle: <rect x={size * 0.1875} y={size * 0.25} width={size * 0.625} height={size * 0.5} fill="none" stroke="#475569" strokeWidth="4" />,
+              oval: <ellipse cx={size / 2} cy={size / 2} rx={size * 0.375} ry={size * 0.25} fill="none" stroke="#475569" strokeWidth="4" />,
+              diamond: <polygon points={`${size / 2},${size * 0.125} ${size * 0.875},${size / 2} ${size / 2},${size * 0.875} ${size * 0.125},${size / 2}`} fill="none" stroke="#475569" strokeWidth="4" />,
             };
             return svgMap[shape.name] || null;
           };
           return (
-            <WorksheetSectionWrapper 
-              docId="color-shapes" 
-              title="Color the Shapes" 
-              emoji="🟩" 
+            <WorksheetSectionWrapper
+              docId="color-shapes"
+              title="Color the Shapes"
+              emoji="🟩"
               description="Color each shape with the correct color shown below."
               problemCount={shapeData.length}
               learningObjectives={[
@@ -29773,18 +29804,18 @@ export function PrintablesPage() {
           ];
           const renderShape = (shape: typeof shapes[0], size: number = 80) => {
             const svgMap: Record<string, JSX.Element> = {
-              circle: <circle cx={size/2} cy={size/2} r={size*0.375} fill="none" stroke={shape.color} strokeWidth="3" />,
-              square: <rect x={size*0.125} y={size*0.125} width={size*0.75} height={size*0.75} fill="none" stroke={shape.color} strokeWidth="3" />,
-              triangle: <polygon points={`${size/2},${size*0.125} ${size*0.125},${size*0.875} ${size*0.875},${size*0.875}`} fill="none" stroke={shape.color} strokeWidth="3" />,
-              rectangle: <rect x={size*0.1875} y={size*0.25} width={size*0.625} height={size*0.5} fill="none" stroke={shape.color} strokeWidth="3" />,
+              circle: <circle cx={size / 2} cy={size / 2} r={size * 0.375} fill="none" stroke={shape.color} strokeWidth="3" />,
+              square: <rect x={size * 0.125} y={size * 0.125} width={size * 0.75} height={size * 0.75} fill="none" stroke={shape.color} strokeWidth="3" />,
+              triangle: <polygon points={`${size / 2},${size * 0.125} ${size * 0.125},${size * 0.875} ${size * 0.875},${size * 0.875}`} fill="none" stroke={shape.color} strokeWidth="3" />,
+              rectangle: <rect x={size * 0.1875} y={size * 0.25} width={size * 0.625} height={size * 0.5} fill="none" stroke={shape.color} strokeWidth="3" />,
             };
             return svgMap[shape.name] || null;
           };
           return (
-            <WorksheetSectionWrapper 
-              docId="shape-sorting" 
-              title="Shape Sorting" 
-              emoji="🟩" 
+            <WorksheetSectionWrapper
+              docId="shape-sorting"
+              title="Shape Sorting"
+              emoji="🟩"
               description="Cut out shapes and sort them into groups."
               problemCount={shapes.length}
               learningObjectives={[
@@ -29883,10 +29914,10 @@ export function PrintablesPage() {
             { item: 'grape', color: 'purple', emoji: '🍇', shape: 'circle' },
           ];
           return (
-            <WorksheetSectionWrapper 
-              docId="color-recognition" 
-              title="Color Recognition" 
-              emoji="🟩" 
+            <WorksheetSectionWrapper
+              docId="color-recognition"
+              title="Color Recognition"
+              emoji="🟩"
               description="Color each item with the correct color."
               problemCount={items.length}
               learningObjectives={[
@@ -29955,10 +29986,10 @@ export function PrintablesPage() {
         {activeDocs.includes('draw-shape') && (() => {
           const shapes = ['circle', 'square', 'triangle', 'rectangle', 'oval', 'diamond'];
           return (
-            <WorksheetSectionWrapper 
-              docId="draw-shape" 
-              title="Draw the Shape" 
-              emoji="🟩" 
+            <WorksheetSectionWrapper
+              docId="draw-shape"
+              title="Draw the Shape"
+              emoji="🟩"
               description="Look at the shape name. Draw the shape in the box below."
               problemCount={shapes.length}
               learningObjectives={[
@@ -30029,10 +30060,10 @@ export function PrintablesPage() {
             { colors: ['🔴', '🟡', '🔴', '🟡'], next: '🔴', name: 'red, yellow' },
           ];
           return (
-            <WorksheetSectionWrapper 
-              docId="color-patterns" 
-              title="Color Patterns" 
-              emoji="🧩" 
+            <WorksheetSectionWrapper
+              docId="color-patterns"
+              title="Color Patterns"
+              emoji="🧩"
               description="Complete the color pattern. What comes next?"
               problemCount={patterns.length}
               learningObjectives={[
@@ -30111,10 +30142,10 @@ export function PrintablesPage() {
             { shapes: ['🔺', '⬜', '🔺', '⬜'], next: '🔺', name: 'triangle, square' },
           ];
           return (
-            <WorksheetSectionWrapper 
-              docId="shape-patterns" 
-              title="Shape Patterns" 
-              emoji="🧩" 
+            <WorksheetSectionWrapper
+              docId="shape-patterns"
+              title="Shape Patterns"
+              emoji="🧩"
               description="Continue the pattern. Draw the next shape."
               problemCount={patterns.length}
               learningObjectives={[
@@ -30193,10 +30224,10 @@ export function PrintablesPage() {
             { items: ['🍎', '🍌', '🍎', '🍌'], next: '🍎', name: 'apple, banana' },
           ];
           return (
-            <WorksheetSectionWrapper 
-              docId="what-comes-next" 
-              title="What Comes Next?" 
-              emoji="🧩" 
+            <WorksheetSectionWrapper
+              docId="what-comes-next"
+              title="What Comes Next?"
+              emoji="🧩"
               description="Look at the pattern. Draw what comes next in each row."
               problemCount={patterns.length}
               learningObjectives={[
@@ -30275,10 +30306,10 @@ export function PrintablesPage() {
             { long: { name: 'rope', length: 90 }, short: { name: 'key', length: 28 } },
           ];
           return (
-            <WorksheetSectionWrapper 
-              docId="long-short" 
-              title="Long and Short" 
-              emoji="📏" 
+            <WorksheetSectionWrapper
+              docId="long-short"
+              title="Long and Short"
+              emoji="📏"
               description="Look at each pair. Color the long object red. Color the short object blue."
               problemCount={pairs.length}
               learningObjectives={[
@@ -30368,10 +30399,10 @@ export function PrintablesPage() {
             { heavy: { name: 'backpack', emoji: '🎒', size: 54 }, light: { name: 'paper', emoji: '📄', size: 24 } },
           ];
           return (
-            <WorksheetSectionWrapper 
-              docId="heavy-light" 
-              title="Heavy and Light" 
-              emoji="⚖️" 
+            <WorksheetSectionWrapper
+              docId="heavy-light"
+              title="Heavy and Light"
+              emoji="⚖️"
               description="Circle the heavy object. Put an X on the light object."
               problemCount={pairs.length}
               learningObjectives={[
@@ -30462,10 +30493,10 @@ export function PrintablesPage() {
             { items: ['🟢', '🟢', '🟢', '🟡'], different: 3 },
           ];
           return (
-            <WorksheetSectionWrapper 
-              docId="same-different" 
-              title="Same and Different" 
-              emoji="⚖️" 
+            <WorksheetSectionWrapper
+              docId="same-different"
+              title="Same and Different"
+              emoji="⚖️"
               description="Find the object that is different. Circle it."
               problemCount={sets.length}
               learningObjectives={[
@@ -30532,10 +30563,10 @@ export function PrintablesPage() {
             { x1: 10, y1: 10, x2: 90, y2: 70, label: 'Diagonal line' },
           ];
           return (
-            <WorksheetSectionWrapper 
-              docId="line-tracing" 
-              title="Line Tracing" 
-              emoji="✏️" 
+            <WorksheetSectionWrapper
+              docId="line-tracing"
+              title="Line Tracing"
+              emoji="✏️"
               description="Trace the lines from left to right."
               problemCount={lines.length}
               learningObjectives={[
@@ -30622,10 +30653,10 @@ export function PrintablesPage() {
           ];
           const totalItems = curves.length + circles.length;
           return (
-            <WorksheetSectionWrapper 
-              docId="curve-tracing" 
-              title="Curve Tracing" 
-              emoji="✏️" 
+            <WorksheetSectionWrapper
+              docId="curve-tracing"
+              title="Curve Tracing"
+              emoji="✏️"
               description="Trace the curves and circles."
               problemCount={totalItems}
               learningObjectives={[
@@ -30719,10 +30750,10 @@ export function PrintablesPage() {
             'M 10 35 L 22 55 L 34 35 L 46 55 L 58 35 L 70 55 L 82 35',
           ];
           return (
-            <WorksheetSectionWrapper 
-              docId="zigzag-lines" 
-              title="Zigzag Lines" 
-              emoji="✏️" 
+            <WorksheetSectionWrapper
+              docId="zigzag-lines"
+              title="Zigzag Lines"
+              emoji="✏️"
               description="Trace the zigzag lines from left to right."
               problemCount={zigzagPaths.length}
               learningObjectives={[
@@ -30799,10 +30830,10 @@ export function PrintablesPage() {
             { d: 'M 20 20 L 30 30 L 20 40 L 30 50 L 20 60 L 30 70 L 20 80 L 30 90 L 20 100', label: 'Diagonal path' },
           ];
           return (
-            <WorksheetSectionWrapper 
-              docId="path-tracing" 
-              title="Path Tracing" 
-              emoji="✏️" 
+            <WorksheetSectionWrapper
+              docId="path-tracing"
+              title="Path Tracing"
+              emoji="✏️"
               description="Follow the path from start to finish. Trace along the dashed line with your pencil."
               problemCount={paths.length}
               learningObjectives={[
@@ -30877,15 +30908,15 @@ export function PrintablesPage() {
         {activeDocs.includes('mult-arrays') && (() => {
           const rng = makeRng(`${effectiveSeed}|v${variant}|doc=${doc}`);
           function nextInt(min: number, max: number) { return Math.floor(rng() * (max - min + 1)) + min; }
-          const problems = Array.from({length: 6}, () => {
+          const problems = Array.from({ length: 6 }, () => {
             const rows = nextInt(2, 5); const cols = nextInt(2, 5);
             return { rows, cols, product: rows * cols };
           });
           return (
-            <WorksheetSectionWrapper 
-              docId="mult-arrays" 
-              title="Multiplication Arrays" 
-              emoji="✖️" 
+            <WorksheetSectionWrapper
+              docId="mult-arrays"
+              title="Multiplication Arrays"
+              emoji="✖️"
               description="Draw arrays to solve multiplication problems."
               problemCount={problems.length}
               learningObjectives={[
@@ -31038,10 +31069,10 @@ export function PrintablesPage() {
             { problem: problems[5], equation: '4 × 7', answer: 28, unit: 'chapters' },
           ];
           return (
-            <WorksheetSectionWrapper 
-              docId="mult-word-problems" 
-              title="Multiplication Word Problems" 
-              emoji="✖️" 
+            <WorksheetSectionWrapper
+              docId="mult-word-problems"
+              title="Multiplication Word Problems"
+              emoji="✖️"
               description="Solve each multiplication word problem."
               problemCount={problems.length}
               learningObjectives={[
@@ -31126,16 +31157,16 @@ export function PrintablesPage() {
         {activeDocs.includes('mult-by-10-100') && (() => {
           const rng = makeRng(`${effectiveSeed}|v${variant}|doc=${doc}`);
           function nextInt(min: number, max: number) { return Math.floor(rng() * (max - min + 1)) + min; }
-          const problems = Array.from({length: 8}, () => {
+          const problems = Array.from({ length: 8 }, () => {
             const num = nextInt(2, 9);
             const multiplier = [10, 100][nextInt(0, 1)];
             return { num, multiplier, answer: num * multiplier };
           });
           return (
-            <WorksheetSectionWrapper 
-              docId="mult-by-10-100" 
-              title="Multiplying by 10, 100" 
-              emoji="✖️" 
+            <WorksheetSectionWrapper
+              docId="mult-by-10-100"
+              title="Multiplying by 10, 100"
+              emoji="✖️"
               description="Multiply each number by 10 or 100."
               problemCount={problems.length}
               learningObjectives={[
@@ -31230,10 +31261,10 @@ export function PrintablesPage() {
             { expr: '3 × (4 + 5) = (3 × 4) + (3 × ?)', answer: 5, prop: 'Distributive' },
           ];
           return (
-            <WorksheetSectionWrapper 
-              docId="mult-properties" 
-              title="Properties of Multiplication" 
-              emoji="✖️" 
+            <WorksheetSectionWrapper
+              docId="mult-properties"
+              title="Properties of Multiplication"
+              emoji="✖️"
               description="Use properties to solve each problem."
               problemCount={problems.length}
               learningObjectives={[
@@ -31295,17 +31326,17 @@ export function PrintablesPage() {
         {activeDocs.includes('div-with-remainders') && (() => {
           const rng = makeRng(`${effectiveSeed}|v${variant}|doc=${doc}`);
           function nextInt(min: number, max: number) { return Math.floor(rng() * (max - min + 1)) + min; }
-          const problems = Array.from({length: 6}, () => {
+          const problems = Array.from({ length: 6 }, () => {
             const divisor = nextInt(2, 9);
             const quotient = nextInt(5, 12);
             const dividend = divisor * quotient + nextInt(0, divisor - 1);
             return { dividend, divisor, quotient, remainder: dividend % divisor };
           });
           return (
-            <WorksheetSectionWrapper 
-              docId="div-with-remainders" 
-              title="Division with Remainders" 
-              emoji="➗" 
+            <WorksheetSectionWrapper
+              docId="div-with-remainders"
+              title="Division with Remainders"
+              emoji="➗"
               description="Divide and find the remainder."
               problemCount={problems.length}
               learningObjectives={[
@@ -31389,10 +31420,10 @@ export function PrintablesPage() {
             { problem: problems[5], equation: '21 ÷ 7', answer: 3, unit: 'marbles' },
           ];
           return (
-            <WorksheetSectionWrapper 
-              docId="div-word-problems" 
-              title="Division Word Problems" 
-              emoji="➗" 
+            <WorksheetSectionWrapper
+              docId="div-word-problems"
+              title="Division Word Problems"
+              emoji="➗"
               description="Solve each division word problem."
               problemCount={problems.length}
               learningObjectives={[
@@ -31477,16 +31508,16 @@ export function PrintablesPage() {
         {activeDocs.includes('div-by-10-100') && (() => {
           const rng = makeRng(`${effectiveSeed}|v${variant}|doc=${doc}`);
           function nextInt(min: number, max: number) { return Math.floor(rng() * (max - min + 1)) + min; }
-          const problems = Array.from({length: 8}, () => {
+          const problems = Array.from({ length: 8 }, () => {
             const num = nextInt(20, 90);
             const divisor = [10, 100][nextInt(0, 1)];
             return { num, divisor, answer: num / divisor };
           });
           return (
-            <WorksheetSectionWrapper 
-              docId="div-by-10-100" 
-              title="Dividing by 10, 100" 
-              emoji="➗" 
+            <WorksheetSectionWrapper
+              docId="div-by-10-100"
+              title="Dividing by 10, 100"
+              emoji="➗"
               description="Divide each number by 10 or 100."
               problemCount={problems.length}
               learningObjectives={[
@@ -31575,10 +31606,10 @@ export function PrintablesPage() {
             { a: 3, b: 6, product: 18 },
           ];
           return (
-            <WorksheetSectionWrapper 
-              docId="fact-families-mult-div" 
-              title="Fact Families (Mult/Div)" 
-              emoji="➗" 
+            <WorksheetSectionWrapper
+              docId="fact-families-mult-div"
+              title="Fact Families (Mult/Div)"
+              emoji="➗"
               description="Complete the multiplication and division fact families."
               problemCount={families.length}
               learningObjectives={[
@@ -31648,7 +31679,7 @@ export function PrintablesPage() {
         {activeDocs.includes('comparing-fractions') && (() => {
           const rng = makeRng(`${effectiveSeed}|v${variant}|doc=${doc}`);
           function nextInt(min: number, max: number) { return Math.floor(rng() * (max - min + 1)) + min; }
-          const problems = Array.from({length: 8}, () => {
+          const problems = Array.from({ length: 8 }, () => {
             const denom1 = [2, 3, 4, 5, 6, 8][nextInt(0, 5)];
             const num1 = nextInt(1, denom1 - 1);
             const denom2 = [2, 3, 4, 5, 6, 8][nextInt(0, 5)];
@@ -31658,10 +31689,10 @@ export function PrintablesPage() {
             return { frac1: `${num1}/${denom1}`, frac2: `${num2}/${denom2}`, val1, val2 };
           });
           return (
-            <WorksheetSectionWrapper 
-              docId="comparing-fractions" 
-              title="Comparing Fractions" 
-              emoji="🍕" 
+            <WorksheetSectionWrapper
+              docId="comparing-fractions"
+              title="Comparing Fractions"
+              emoji="🍕"
               description="Compare each pair of fractions using >, <, or =."
               problemCount={problems.length}
               learningObjectives={[
@@ -31709,11 +31740,11 @@ export function PrintablesPage() {
                   <div className="space-y-3">
                     {problems.map((p, i) => {
                       const symbol = p.val1 > p.val2 ? '>' : p.val1 < p.val2 ? '<' : '=';
-                      const explanation = p.val1 > p.val2 
+                      const explanation = p.val1 > p.val2
                         ? `${p.frac1} is greater than ${p.frac2}`
-                        : p.val1 < p.val2 
-                        ? `${p.frac1} is less than ${p.frac2}`
-                        : `${p.frac1} equals ${p.frac2}`;
+                        : p.val1 < p.val2
+                          ? `${p.frac1} is less than ${p.frac2}`
+                          : `${p.frac1} equals ${p.frac2}`;
                       return (
                         <div key={i} className="border-b border-emerald-200 pb-2 last:border-b-0">
                           <div className="font-semibold text-sm">{i + 1}. {p.frac1} {symbol} {p.frac2}</div>
@@ -31731,7 +31762,7 @@ export function PrintablesPage() {
         {activeDocs.includes('equivalent-fractions') && (() => {
           const rng = makeRng(`${effectiveSeed}|v${variant}|doc=${doc}`);
           function nextInt(min: number, max: number) { return Math.floor(rng() * (max - min + 1)) + min; }
-          const problems = Array.from({length: 8}, () => {
+          const problems = Array.from({ length: 8 }, () => {
             const denom = [2, 3, 4, 5, 6, 8][nextInt(0, 5)];
             const num = nextInt(1, denom - 1);
             const factor = nextInt(2, 4);
@@ -31740,10 +31771,10 @@ export function PrintablesPage() {
             return { original: `${num}/${denom}`, equivalent: `${equivNum}/${equivDenom}` };
           });
           return (
-            <WorksheetSectionWrapper 
-              docId="equivalent-fractions" 
-              title="Equivalent Fractions" 
-              emoji="🍕" 
+            <WorksheetSectionWrapper
+              docId="equivalent-fractions"
+              title="Equivalent Fractions"
+              emoji="🍕"
               description="Find an equivalent fraction for each given fraction."
               problemCount={problems.length}
               learningObjectives={[
@@ -31839,7 +31870,7 @@ export function PrintablesPage() {
         {activeDocs.includes('add-sub-fractions') && (() => {
           const rng = makeRng(`${effectiveSeed}|v${variant}|doc=${doc}`);
           function nextInt(min: number, max: number) { return Math.floor(rng() * (max - min + 1)) + min; }
-          const problems = Array.from({length: 6}, () => {
+          const problems = Array.from({ length: 6 }, () => {
             const denom = [2, 3, 4, 5, 6, 8][nextInt(0, 5)];
             const num1 = nextInt(1, denom - 1);
             const num2 = nextInt(1, denom - 1);
@@ -31847,10 +31878,10 @@ export function PrintablesPage() {
             return { num1, num2, denom, op };
           });
           return (
-            <WorksheetSectionWrapper 
-              docId="add-sub-fractions" 
-              title="Adding & Subtracting Fractions" 
-              emoji="🍕" 
+            <WorksheetSectionWrapper
+              docId="add-sub-fractions"
+              title="Adding & Subtracting Fractions"
+              emoji="🍕"
               description="Add or subtract each pair of fractions with like denominators."
               problemCount={problems.length}
               learningObjectives={[
@@ -31942,10 +31973,10 @@ export function PrintablesPage() {
         {activeDocs.includes('fractions-number-line') && (() => {
           const fractions = ['1/2', '1/4', '3/4', '1/3', '2/3', '1/5'];
           return (
-            <WorksheetSectionWrapper 
-              docId="fractions-number-line" 
-              title="Fractions on a Number Line" 
-              emoji="🍕" 
+            <WorksheetSectionWrapper
+              docId="fractions-number-line"
+              title="Fractions on a Number Line"
+              emoji="🍕"
               description="Plot each fraction on the number line."
               problemCount={fractions.length}
               learningObjectives={[
@@ -32043,7 +32074,7 @@ export function PrintablesPage() {
         {activeDocs.includes('perimeter-shapes') && (() => {
           const rng = makeRng(`${effectiveSeed}|v${variant}|doc=${doc}`);
           function nextInt(min: number, max: number) { return Math.floor(rng() * (max - min + 1)) + min; }
-          const problems = Array.from({length: 6}, () => {
+          const problems = Array.from({ length: 6 }, () => {
             const length = nextInt(4, 10);
             const width = nextInt(3, 8);
             return { length, width, perimeter: 2 * (length + width) };
@@ -32056,20 +32087,20 @@ export function PrintablesPage() {
             const viewBoxHeight = Math.max(rectHeight, 60) + 20;
             const x = (viewBoxWidth - rectWidth) / 2;
             const y = (viewBoxHeight - rectHeight) / 2;
-            
+
             return (
               <svg viewBox={`0 0 ${viewBoxWidth} ${viewBoxHeight}`} className="w-24 h-24 mx-auto mb-2">
-                <rect x={x} y={y} width={rectWidth} height={rectHeight} fill="none" stroke="#3b82f6" strokeWidth="2"/>
+                <rect x={x} y={y} width={rectWidth} height={rectHeight} fill="none" stroke="#3b82f6" strokeWidth="2" />
                 <text x={x + rectWidth / 2} y={y - 5} textAnchor="middle" fontSize="8" fill="#64748b">{length}</text>
                 <text x={x - 8} y={y + rectHeight / 2} textAnchor="middle" fontSize="8" fill="#64748b" transform={`rotate(-90 ${x - 8} ${y + rectHeight / 2})`}>{width}</text>
               </svg>
             );
           };
           return (
-            <WorksheetSectionWrapper 
-              docId="perimeter-shapes" 
-              title="Perimeter of Shapes" 
-              emoji="📐" 
+            <WorksheetSectionWrapper
+              docId="perimeter-shapes"
+              title="Perimeter of Shapes"
+              emoji="📐"
               description="Find the perimeter of each rectangle."
               problemCount={problems.length}
               learningObjectives={[
@@ -32157,7 +32188,7 @@ export function PrintablesPage() {
         {activeDocs.includes('area-rectangles') && (() => {
           const rng = makeRng(`${effectiveSeed}|v${variant}|doc=${doc}`);
           function nextInt(min: number, max: number) { return Math.floor(rng() * (max - min + 1)) + min; }
-          const problems = Array.from({length: 6}, () => {
+          const problems = Array.from({ length: 6 }, () => {
             const length = nextInt(4, 10);
             const width = nextInt(3, 8);
             return { length, width, area: length * width };
@@ -32170,20 +32201,20 @@ export function PrintablesPage() {
             const viewBoxHeight = Math.max(rectHeight, 60) + 20;
             const x = (viewBoxWidth - rectWidth) / 2;
             const y = (viewBoxHeight - rectHeight) / 2;
-            
+
             return (
               <svg viewBox={`0 0 ${viewBoxWidth} ${viewBoxHeight}`} className="w-24 h-24 mx-auto mb-2">
-                <rect x={x} y={y} width={rectWidth} height={rectHeight} fill="none" stroke="#3b82f6" strokeWidth="2"/>
+                <rect x={x} y={y} width={rectWidth} height={rectHeight} fill="none" stroke="#3b82f6" strokeWidth="2" />
                 <text x={x + rectWidth / 2} y={y - 5} textAnchor="middle" fontSize="8" fill="#64748b">{length}</text>
                 <text x={x - 8} y={y + rectHeight / 2} textAnchor="middle" fontSize="8" fill="#64748b" transform={`rotate(-90 ${x - 8} ${y + rectHeight / 2})`}>{width}</text>
               </svg>
             );
           };
           return (
-            <WorksheetSectionWrapper 
-              docId="area-rectangles" 
-              title="Area of Rectangles" 
-              emoji="📐" 
+            <WorksheetSectionWrapper
+              docId="area-rectangles"
+              title="Area of Rectangles"
+              emoji="📐"
               description="Find the area by multiplying length × width."
               problemCount={problems.length}
               learningObjectives={[
@@ -32283,25 +32314,25 @@ export function PrintablesPage() {
             const centerY = 50;
             const radius = 35;
             const points: string[] = [];
-            
+
             for (let i = 0; i < sides; i++) {
               const angle = (Math.PI * 2 * i) / sides - Math.PI / 2;
               const x = centerX + radius * Math.cos(angle);
               const y = centerY + radius * Math.sin(angle);
               points.push(`${x},${y}`);
             }
-            
+
             return (
               <svg viewBox="0 0 100 100" className="w-20 h-20 mx-auto mb-2">
-                <polygon points={points.join(' ')} fill="none" stroke="#3b82f6" strokeWidth="2"/>
+                <polygon points={points.join(' ')} fill="none" stroke="#3b82f6" strokeWidth="2" />
               </svg>
             );
           };
           return (
-            <WorksheetSectionWrapper 
-              docId="identify-polygons" 
-              title="Identify Polygons" 
-              emoji="📐" 
+            <WorksheetSectionWrapper
+              docId="identify-polygons"
+              title="Identify Polygons"
+              emoji="📐"
               description="Name each polygon by number of sides."
               problemCount={polygons.length}
               learningObjectives={[
@@ -32398,61 +32429,61 @@ export function PrintablesPage() {
             if (type === 'line') {
               return (
                 <svg viewBox="0 0 100 20" className="w-24 h-6 mx-auto mb-2">
-                  <line x1="10" y1="10" x2="90" y2="10" stroke="#3b82f6" strokeWidth="2" strokeLinecap="round"/>
-                  <circle cx="10" cy="10" r="1.5" fill="#3b82f6"/>
-                  <circle cx="90" cy="10" r="1.5" fill="#3b82f6"/>
+                  <line x1="10" y1="10" x2="90" y2="10" stroke="#3b82f6" strokeWidth="2" strokeLinecap="round" />
+                  <circle cx="10" cy="10" r="1.5" fill="#3b82f6" />
+                  <circle cx="90" cy="10" r="1.5" fill="#3b82f6" />
                 </svg>
               );
             } else if (type === 'segment') {
               return (
                 <svg viewBox="0 0 100 20" className="w-24 h-6 mx-auto mb-2">
-                  <line x1="20" y1="10" x2="80" y2="10" stroke="#3b82f6" strokeWidth="2" strokeLinecap="round"/>
-                  <circle cx="20" cy="10" r="2" fill="#3b82f6"/>
-                  <circle cx="80" cy="10" r="2" fill="#3b82f6"/>
+                  <line x1="20" y1="10" x2="80" y2="10" stroke="#3b82f6" strokeWidth="2" strokeLinecap="round" />
+                  <circle cx="20" cy="10" r="2" fill="#3b82f6" />
+                  <circle cx="80" cy="10" r="2" fill="#3b82f6" />
                 </svg>
               );
             } else if (type === 'ray') {
               return (
                 <svg viewBox="0 0 100 20" className="w-24 h-6 mx-auto mb-2">
-                  <line x1="20" y1="10" x2="90" y2="10" stroke="#3b82f6" strokeWidth="2" strokeLinecap="round"/>
-                  <circle cx="20" cy="10" r="2" fill="#3b82f6"/>
-                  <path d="M 85 10 L 90 7 L 90 13 Z" fill="#3b82f6"/>
+                  <line x1="20" y1="10" x2="90" y2="10" stroke="#3b82f6" strokeWidth="2" strokeLinecap="round" />
+                  <circle cx="20" cy="10" r="2" fill="#3b82f6" />
+                  <path d="M 85 10 L 90 7 L 90 13 Z" fill="#3b82f6" />
                 </svg>
               );
             } else if (type === 'angle') {
               return (
                 <svg viewBox="0 0 100 100" className="w-20 h-20 mx-auto mb-2">
-                  <line x1="50" y1="50" x2="20" y2="20" stroke="#3b82f6" strokeWidth="2" strokeLinecap="round"/>
-                  <line x1="50" y1="50" x2="80" y2="20" stroke="#3b82f6" strokeWidth="2" strokeLinecap="round"/>
-                  <circle cx="50" cy="50" r="2" fill="#3b82f6"/>
-                  <path d="M 50 50 L 30 30 A 20 20 0 0 1 70 30 Z" fill="none" stroke="#3b82f6" strokeWidth="1" strokeDasharray="2,2"/>
+                  <line x1="50" y1="50" x2="20" y2="20" stroke="#3b82f6" strokeWidth="2" strokeLinecap="round" />
+                  <line x1="50" y1="50" x2="80" y2="20" stroke="#3b82f6" strokeWidth="2" strokeLinecap="round" />
+                  <circle cx="50" cy="50" r="2" fill="#3b82f6" />
+                  <path d="M 50 50 L 30 30 A 20 20 0 0 1 70 30 Z" fill="none" stroke="#3b82f6" strokeWidth="1" strokeDasharray="2,2" />
                 </svg>
               );
             } else if (type === 'right') {
               return (
                 <svg viewBox="0 0 100 100" className="w-20 h-20 mx-auto mb-2">
-                  <line x1="30" y1="50" x2="30" y2="20" stroke="#3b82f6" strokeWidth="2" strokeLinecap="round"/>
-                  <line x1="30" y1="50" x2="70" y2="50" stroke="#3b82f6" strokeWidth="2" strokeLinecap="round"/>
-                  <circle cx="30" cy="50" r="2" fill="#3b82f6"/>
-                  <path d="M 30 50 L 30 40 A 10 10 0 0 1 40 50 Z" fill="#3b82f6" opacity="0.3"/>
+                  <line x1="30" y1="50" x2="30" y2="20" stroke="#3b82f6" strokeWidth="2" strokeLinecap="round" />
+                  <line x1="30" y1="50" x2="70" y2="50" stroke="#3b82f6" strokeWidth="2" strokeLinecap="round" />
+                  <circle cx="30" cy="50" r="2" fill="#3b82f6" />
+                  <path d="M 30 50 L 30 40 A 10 10 0 0 1 40 50 Z" fill="#3b82f6" opacity="0.3" />
                 </svg>
               );
             } else { // acute
               return (
                 <svg viewBox="0 0 100 100" className="w-20 h-20 mx-auto mb-2">
-                  <line x1="30" y1="70" x2="50" y2="30" stroke="#3b82f6" strokeWidth="2" strokeLinecap="round"/>
-                  <line x1="30" y1="70" x2="70" y2="70" stroke="#3b82f6" strokeWidth="2" strokeLinecap="round"/>
-                  <circle cx="30" cy="70" r="2" fill="#3b82f6"/>
-                  <path d="M 30 70 L 40 60 A 15 15 0 0 1 50 70 Z" fill="none" stroke="#3b82f6" strokeWidth="1" strokeDasharray="2,2"/>
+                  <line x1="30" y1="70" x2="50" y2="30" stroke="#3b82f6" strokeWidth="2" strokeLinecap="round" />
+                  <line x1="30" y1="70" x2="70" y2="70" stroke="#3b82f6" strokeWidth="2" strokeLinecap="round" />
+                  <circle cx="30" cy="70" r="2" fill="#3b82f6" />
+                  <path d="M 30 70 L 40 60 A 15 15 0 0 1 50 70 Z" fill="none" stroke="#3b82f6" strokeWidth="1" strokeDasharray="2,2" />
                 </svg>
               );
             }
           };
           return (
-            <WorksheetSectionWrapper 
-              docId="lines-rays-angles" 
-              title="Lines, Rays, and Angles" 
-              emoji="📐" 
+            <WorksheetSectionWrapper
+              docId="lines-rays-angles"
+              title="Lines, Rays, and Angles"
+              emoji="📐"
               description="Identify lines, line segments, rays, and angles."
               problemCount={items.length}
               learningObjectives={[
@@ -32546,25 +32577,25 @@ export function PrintablesPage() {
             if (shape === 'square') {
               return (
                 <svg viewBox="0 0 100 100" className="w-20 h-20 mx-auto mb-2">
-                  <rect x="20" y="20" width="60" height="60" fill="none" stroke="#3b82f6" strokeWidth="2"/>
+                  <rect x="20" y="20" width="60" height="60" fill="none" stroke="#3b82f6" strokeWidth="2" />
                 </svg>
               );
             } else if (shape === 'circle') {
               return (
                 <svg viewBox="0 0 100 100" className="w-20 h-20 mx-auto mb-2">
-                  <circle cx="50" cy="50" r="30" fill="none" stroke="#3b82f6" strokeWidth="2"/>
+                  <circle cx="50" cy="50" r="30" fill="none" stroke="#3b82f6" strokeWidth="2" />
                 </svg>
               );
             } else if (shape === 'rectangle') {
               return (
                 <svg viewBox="0 0 100 100" className="w-20 h-20 mx-auto mb-2">
-                  <rect x="20" y="30" width="60" height="40" fill="none" stroke="#3b82f6" strokeWidth="2"/>
+                  <rect x="20" y="30" width="60" height="40" fill="none" stroke="#3b82f6" strokeWidth="2" />
                 </svg>
               );
             } else if (shape === 'triangle') {
               return (
                 <svg viewBox="0 0 100 100" className="w-20 h-20 mx-auto mb-2">
-                  <polygon points="50,20 20,80 80,80" fill="none" stroke="#3b82f6" strokeWidth="2"/>
+                  <polygon points="50,20 20,80 80,80" fill="none" stroke="#3b82f6" strokeWidth="2" />
                 </svg>
               );
             } else if (shape === 'hexagon') {
@@ -32577,7 +32608,7 @@ export function PrintablesPage() {
               }
               return (
                 <svg viewBox="0 0 100 100" className="w-20 h-20 mx-auto mb-2">
-                  <polygon points={points.join(' ')} fill="none" stroke="#3b82f6" strokeWidth="2"/>
+                  <polygon points={points.join(' ')} fill="none" stroke="#3b82f6" strokeWidth="2" />
                 </svg>
               );
             } else { // star
@@ -32591,16 +32622,16 @@ export function PrintablesPage() {
               }
               return (
                 <svg viewBox="0 0 100 100" className="w-20 h-20 mx-auto mb-2">
-                  <polygon points={points.join(' ')} fill="none" stroke="#3b82f6" strokeWidth="2"/>
+                  <polygon points={points.join(' ')} fill="none" stroke="#3b82f6" strokeWidth="2" />
                 </svg>
               );
             }
           };
           return (
-            <WorksheetSectionWrapper 
-              docId="symmetry" 
-              title="Symmetry" 
-              emoji="📐" 
+            <WorksheetSectionWrapper
+              docId="symmetry"
+              title="Symmetry"
+              emoji="📐"
               description="Find lines of symmetry. Draw the other half."
               problemCount={shapes.length}
               learningObjectives={[
@@ -32700,7 +32731,7 @@ export function PrintablesPage() {
             const radius = 35;
             return (
               <svg viewBox="0 0 100 100" className="w-20 h-20 mx-auto mb-2">
-                <circle cx={centerX} cy={centerY} r={radius} fill="white" stroke="#3b82f6" strokeWidth="2"/>
+                <circle cx={centerX} cy={centerY} r={radius} fill="white" stroke="#3b82f6" strokeWidth="2" />
                 {/* Hour markers */}
                 {Array.from({ length: 12 }, (_, i) => {
                   const angle = (i * 30 - 90) * (Math.PI / 180);
@@ -32708,22 +32739,22 @@ export function PrintablesPage() {
                   const y1 = centerY + (radius - 5) * Math.sin(angle);
                   const x2 = centerX + radius * Math.cos(angle);
                   const y2 = centerY + radius * Math.sin(angle);
-                  return <line key={i} x1={x1} y1={y1} x2={x2} y2={y2} stroke="#475569" strokeWidth="1.5"/>;
+                  return <line key={i} x1={x1} y1={y1} x2={x2} y2={y2} stroke="#475569" strokeWidth="1.5" />;
                 })}
                 {/* Hour hand */}
-                <line x1={centerX} y1={centerY} x2={centerX + 15 * Math.cos(hourAngle)} y2={centerY + 15 * Math.sin(hourAngle)} stroke="#1e40af" strokeWidth="2.5" strokeLinecap="round"/>
+                <line x1={centerX} y1={centerY} x2={centerX + 15 * Math.cos(hourAngle)} y2={centerY + 15 * Math.sin(hourAngle)} stroke="#1e40af" strokeWidth="2.5" strokeLinecap="round" />
                 {/* Minute hand */}
-                <line x1={centerX} y1={centerY} x2={centerX + 25 * Math.cos(minuteAngle)} y2={centerY + 25 * Math.sin(minuteAngle)} stroke="#1e40af" strokeWidth="2" strokeLinecap="round"/>
+                <line x1={centerX} y1={centerY} x2={centerX + 25 * Math.cos(minuteAngle)} y2={centerY + 25 * Math.sin(minuteAngle)} stroke="#1e40af" strokeWidth="2" strokeLinecap="round" />
                 {/* Center dot */}
-                <circle cx={centerX} cy={centerY} r="2" fill="#1e40af"/>
+                <circle cx={centerX} cy={centerY} r="2" fill="#1e40af" />
               </svg>
             );
           };
           return (
-            <WorksheetSectionWrapper 
-              docId="time-to-minute" 
-              title="Time to the Minute" 
-              emoji="🕒" 
+            <WorksheetSectionWrapper
+              docId="time-to-minute"
+              title="Time to the Minute"
+              emoji="🕒"
               description="Read and write time to the nearest minute."
               problemCount={times.length}
               learningObjectives={[
@@ -32815,15 +32846,15 @@ export function PrintablesPage() {
         {activeDocs.includes('customary-units') && (() => {
           const rng = makeRng(`${effectiveSeed}|v${variant}|doc=${doc}`);
           function nextInt(min: number, max: number) { return Math.floor(rng() * (max - min + 1)) + min; }
-          const problems = Array.from({length: 6}, () => {
+          const problems = Array.from({ length: 6 }, () => {
             const feet = nextInt(1, 10);
             return { feet, inches: feet * 12 };
           });
           return (
-            <WorksheetSectionWrapper 
-              docId="customary-units" 
-              title="Customary Units" 
-              emoji="📏" 
+            <WorksheetSectionWrapper
+              docId="customary-units"
+              title="Customary Units"
+              emoji="📏"
               description="Convert between inches, feet, and yards."
               problemCount={problems.length}
               learningObjectives={[
@@ -32912,15 +32943,15 @@ export function PrintablesPage() {
         {activeDocs.includes('metric-units') && (() => {
           const rng = makeRng(`${effectiveSeed}|v${variant}|doc=${doc}`);
           function nextInt(min: number, max: number) { return Math.floor(rng() * (max - min + 1)) + min; }
-          const problems = Array.from({length: 6}, () => {
+          const problems = Array.from({ length: 6 }, () => {
             const meters = nextInt(1, 10);
             return { meters, centimeters: meters * 100 };
           });
           return (
-            <WorksheetSectionWrapper 
-              docId="metric-units" 
-              title="Metric Units" 
-              emoji="📏" 
+            <WorksheetSectionWrapper
+              docId="metric-units"
+              title="Metric Units"
+              emoji="📏"
               description="Convert between centimeters, meters, and kilometers."
               problemCount={problems.length}
               learningObjectives={[
@@ -33009,15 +33040,15 @@ export function PrintablesPage() {
         {activeDocs.includes('liquid-measurement') && (() => {
           const rng = makeRng(`${effectiveSeed}|v${variant}|doc=${doc}`);
           function nextInt(min: number, max: number) { return Math.floor(rng() * (max - min + 1)) + min; }
-          const problems = Array.from({length: 6}, () => {
+          const problems = Array.from({ length: 6 }, () => {
             const quarts = nextInt(1, 5);
             return { quarts, cups: quarts * 4 };
           });
           return (
-            <WorksheetSectionWrapper 
-              docId="liquid-measurement" 
-              title="Liquid Measurement" 
-              emoji="📏" 
+            <WorksheetSectionWrapper
+              docId="liquid-measurement"
+              title="Liquid Measurement"
+              emoji="📏"
               description="Compare cups, pints, quarts, and gallons."
               problemCount={problems.length}
               learningObjectives={[
@@ -33107,15 +33138,15 @@ export function PrintablesPage() {
         {activeDocs.includes('mass-weight') && (() => {
           const rng = makeRng(`${effectiveSeed}|v${variant}|doc=${doc}`);
           function nextInt(min: number, max: number) { return Math.floor(rng() * (max - min + 1)) + min; }
-          const problems = Array.from({length: 6}, () => {
+          const problems = Array.from({ length: 6 }, () => {
             const pounds = nextInt(1, 5);
             return { pounds, ounces: pounds * 16 };
           });
           return (
-            <WorksheetSectionWrapper 
-              docId="mass-weight" 
-              title="Mass and Weight" 
-              emoji="📏" 
+            <WorksheetSectionWrapper
+              docId="mass-weight"
+              title="Mass and Weight"
+              emoji="📏"
               description="Compare ounces, pounds, grams, and kilograms."
               problemCount={problems.length}
               learningObjectives={[
@@ -33211,10 +33242,10 @@ export function PrintablesPage() {
             { text: 'A classroom has 30 students. 12 students are boys. How many students are girls?', steps: ['30 - 12 = 18'], answer: '18 girls' },
           ];
           return (
-            <WorksheetSectionWrapper 
-              docId="multi-step-word-problems" 
-              title="Multi-Step Word Problems" 
-              emoji="🧮" 
+            <WorksheetSectionWrapper
+              docId="multi-step-word-problems"
+              title="Multi-Step Word Problems"
+              emoji="🧮"
               description="Solve problems with 2 or 3 steps."
               problemCount={problems.length}
               learningObjectives={[
@@ -33310,10 +33341,10 @@ export function PrintablesPage() {
             'Jake starts playing at 2:00 PM and stops at 3:30 PM. How long did he play?',
           ];
           return (
-            <WorksheetSectionWrapper 
-              docId="elapsed-time-word-problems" 
-              title="Elapsed Time Word Problems" 
-              emoji="🧮" 
+            <WorksheetSectionWrapper
+              docId="elapsed-time-word-problems"
+              title="Elapsed Time Word Problems"
+              emoji="🧮"
               description="Solve problems about time."
               problemCount={problems.length}
               learningObjectives={[
@@ -33439,10 +33470,10 @@ export function PrintablesPage() {
             'A store sells apples for $0.50 each. Jake buys 6 apples. How much does he pay?',
           ];
           return (
-            <WorksheetSectionWrapper 
-              docId="money-word-problems" 
-              title="Money Word Problems" 
-              emoji="🧮" 
+            <WorksheetSectionWrapper
+              docId="money-word-problems"
+              title="Money Word Problems"
+              emoji="🧮"
               description="Solve problems involving dollars and cents."
               problemCount={problems.length}
               learningObjectives={[
@@ -33571,10 +33602,10 @@ export function PrintablesPage() {
             'A square playground has sides of 8 meters. What is the area?',
           ];
           return (
-            <WorksheetSectionWrapper 
-              docId="perimeter-area-word-problems" 
-              title="Perimeter & Area Word Problems" 
-              emoji="🧮" 
+            <WorksheetSectionWrapper
+              docId="perimeter-area-word-problems"
+              title="Perimeter & Area Word Problems"
+              emoji="🧮"
               description="Find perimeter and area in real-world situations."
               problemCount={problems.length}
               learningObjectives={[
@@ -33838,9 +33869,9 @@ function HiddenObjectsSceneSVGA() {
       {[100, 220, 560, 700].map((x, i) => (
         <g key={i}>
           <rect x={x} y={220} width="10" height="40" fill="#64748b" />
-          <circle cx={x+5} cy={200} r="28" fill="#a7f3d0" />
-          <circle cx={x-15} cy={215} r="18" fill="#a7f3d0" />
-          <circle cx={x+22} cy={215} r="18" fill="#a7f3d0" />
+          <circle cx={x + 5} cy={200} r="28" fill="#a7f3d0" />
+          <circle cx={x - 15} cy={215} r="18" fill="#a7f3d0" />
+          <circle cx={x + 22} cy={215} r="18" fill="#a7f3d0" />
         </g>
       ))}
 
@@ -33896,8 +33927,8 @@ function HiddenObjectsSceneSVGA() {
       {/* Shell (near pond) – larger, line-art with scallops */}
       <g>
         <path d="M100 324 C118 296, 162 296, 180 324 C172 340, 108 340, 100 324 Z" fill="none" stroke="#111827" strokeWidth="3.5" />
-        {Array.from({length:5}).map((_,i)=>{
-          const x = 112 + i*14; return (<path key={i} d={`M${x} 322 Q${x+4} 312 ${x+8} 322`} stroke="#111827" fill="none" strokeWidth="2.5"/>);
+        {Array.from({ length: 5 }).map((_, i) => {
+          const x = 112 + i * 14; return (<path key={i} d={`M${x} 322 Q${x + 4} 312 ${x + 8} 322`} stroke="#111827" fill="none" strokeWidth="2.5" />);
         })}
       </g>
 
@@ -33937,9 +33968,9 @@ function HiddenObjectsSceneSVGB() {
       {[100, 220, 560, 700].map((x, i) => (
         <g key={i}>
           <rect x={x} y="220" width="10" height="40" fill="#64748b" />
-          <circle cx={x+5} cy="200" r="28" fill="#a7f3d0" />
-          <circle cx={x-15} cy="215" r="18" fill="#a7f3d0" />
-          <circle cx={x+22} cy="215" r="18" fill="#a7f3d0" />
+          <circle cx={x + 5} cy="200" r="28" fill="#a7f3d0" />
+          <circle cx={x - 15} cy="215" r="18" fill="#a7f3d0" />
+          <circle cx={x + 22} cy="215" r="18" fill="#a7f3d0" />
         </g>
       ))}
 
