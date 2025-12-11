@@ -3121,6 +3121,35 @@ export function PrintablesPage() {
             >
               🖨️ Print
             </button>
+            <button
+              onClick={(e) => {
+                e.preventDefault()
+                e.stopPropagation()
+                const contentElement = document.querySelector('[data-worksheet-content="true"]') as HTMLElement
+                if (!contentElement) return
+                
+                import('html2canvas').then(m => m.default || m).then(html2canvas => {
+                  html2canvas(contentElement, {
+                    scale: 2.0,
+                    useCORS: true,
+                    logging: false,
+                    backgroundColor: '#ffffff',
+                    allowTaint: false
+                  }).then(canvas => {
+                    const imgData = canvas.toDataURL('image/png')
+                    const link = document.createElement('a')
+                    link.download = docTitle 
+                      ? `${docTitle.replace(/[^a-z0-9]/gi, '_').toLowerCase()}.png`
+                      : `worksheet_${doc || 'download'}.png`
+                    link.href = imgData
+                    link.click()
+                  })
+                })
+              }}
+              className="inline-flex items-center gap-2 px-4 py-2 rounded-lg border border-slate-300 bg-white hover:bg-slate-50 text-slate-700 text-sm font-medium shadow-sm focus:outline-none focus:ring-2 focus:ring-slate-400 focus:ring-offset-1 print:hidden"
+            >
+              🖼️ PNG Image
+            </button>
           </div>
         </div>
         )}
