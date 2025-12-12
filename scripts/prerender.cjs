@@ -78,15 +78,15 @@ function escapeHtml(s) {
 function extractH1FromTitle(title) {
   // Remove emojis and special characters at the start
   let h1 = title.replace(/^[\u{1F300}-\u{1F9FF}\u{2600}-\u{26FF}\u{2700}-\u{27BF}\s]+/gu, '');
-  
+
   // Remove everything after separators (|, –, -) - these usually contain branding/descriptors
   h1 = h1.replace(/\s*\|\s*.*$/i, '');
   h1 = h1.replace(/\s*–\s*.*$/i, '');
   h1 = h1.replace(/\s*-\s*.*$/i, '');
-  
+
   // Remove parenthetical content like "(PDF + Answer Key)", "(PDF)", "(Backed by Psychology)", etc.
   h1 = h1.replace(/\s*\([^)]*\).*$/i, '');
-  
+
   // Remove common suffixes and descriptive phrases
   h1 = h1.replace(/\s*Free\s+PDF.*$/i, '');
   h1 = h1.replace(/\s*Free\s+Printable.*$/i, '');
@@ -101,10 +101,10 @@ function extractH1FromTitle(title) {
   h1 = h1.replace(/\s*Learning\s+Blog.*$/i, '');
   h1 = h1.replace(/\s*Play\s+Games.*$/i, '');
   h1 = h1.replace(/\s*Download.*$/i, '');
-  
+
   // Remove "Free" from the beginning
   h1 = h1.replace(/^Free\s+/i, '');
-  
+
   // For titles with multiple phrases, keep only the first main phrase
   // Example: "Free Printable Worksheet Ideas, Teaching Tips & Learning Blog" 
   // Should become just "Printable Worksheet Ideas" or even shorter
@@ -115,20 +115,20 @@ function extractH1FromTitle(title) {
     // Remove "Free" again if it appears
     h1 = h1.replace(/^Free\s+/i, '');
   }
-  
+
   // Clean up extra whitespace
   h1 = h1.trim();
-  
+
   // If H1 is still too long or similar to title, extract just the core topic
   // Take first 2-4 meaningful words (skip "Free", "How to", etc.)
   if (h1.length > 50 || h1 === title.replace(/[\u{1F300}-\u{1F9FF}\u{2600}-\u{26FF}\u{2700}-\u{27BF}]/gu, '').trim()) {
-    const words = h1.split(/\s+/).filter(w => 
-      w.length > 0 && 
+    const words = h1.split(/\s+/).filter(w =>
+      w.length > 0 &&
       !/^(Free|How|to|Be|The|A|An|And|Or|But|For|With|From|About|Get|Make|Create|Download|Play|Learn|Find|Try|Easy|Best|Top|New|Old|Good|Bad|Online|PDF|Printable|Worksheets?|Games?|Kids?|Students?|Teachers?|Parents?)$/i.test(w)
     );
     h1 = words.slice(0, 5).join(' ').trim();
   }
-  
+
   // Final fallback if still too short or empty
   if (!h1 || h1.length < 5) {
     // Use first 3-4 meaningful words of original title
@@ -136,7 +136,7 @@ function extractH1FromTitle(title) {
     h1 = words.slice(0, 4).join(' ').replace(/[|–\-\(].*$/, '').trim();
     h1 = h1.replace(/^Free\s+/i, '');
   }
-  
+
   return h1 || title; // Fallback to original if all else fails
 }
 
@@ -161,17 +161,17 @@ function ensureViewport(html) {
 function setMeta(html, { title, description, canonical, ogImage, ogType = 'website', twitterCard = 'summary_large_image', robots = 'index, follow', keywords }) {
   let out = html;
   out = setTitle(out, title);
-  
+
   // Ensure viewport tag is present
   out = ensureViewport(out);
-  
+
   // More aggressive replacement - replace entire tag including content
   // description
   out = out.replace(/<meta\s+name=["']description["'][^>]*>/i, `<meta name="description" content="${escapeHtml(description)}">`);
   if (!/<meta\s+name=["']description["'][^>]*>/i.test(out)) {
     out = out.replace(/<\/head>/i, `  <meta name="description" content="${escapeHtml(description)}">\n</head>`);
   }
-  
+
   // keywords (if provided)
   if (keywords) {
     out = out.replace(/<meta\s+name=["']keywords["'][^>]*>/i, `<meta name="keywords" content="${escapeHtml(keywords)}">`);
@@ -179,76 +179,76 @@ function setMeta(html, { title, description, canonical, ogImage, ogType = 'websi
       out = out.replace(/<\/head>/i, `  <meta name="keywords" content="${escapeHtml(keywords)}">\n</head>`);
     }
   }
-  
+
   // robots
   out = out.replace(/<meta\s+name=["']robots["'][^>]*>/i, `<meta name="robots" content="${robots}">`);
   if (!/<meta\s+name=["']robots["'][^>]*>/i.test(out)) {
     out = out.replace(/<\/head>/i, `  <meta name="robots" content="${robots}">\n</head>`);
   }
-  
+
   // canonical - remove all existing canonical links first, then add new one
   out = out.replace(/<link\s+rel=["']canonical["'][^>]*>/gi, '');
   out = out.replace(/<\/head>/i, `  <link rel="canonical" href="${canonical}">\n</head>`);
-  
+
   // Open Graph
   out = out.replace(/<meta\s+property=["']og:title["'][^>]*>/i, `<meta property="og:title" content="${escapeHtml(title)}">`);
   if (!/<meta\s+property=["']og:title["'][^>]*>/i.test(out)) {
     out = out.replace(/<\/head>/i, `  <meta property="og:title" content="${escapeHtml(title)}">\n</head>`);
   }
-  
+
   out = out.replace(/<meta\s+property=["']og:description["'][^>]*>/i, `<meta property="og:description" content="${escapeHtml(description)}">`);
   if (!/<meta\s+property=["']og:description["'][^>]*>/i.test(out)) {
     out = out.replace(/<\/head>/i, `  <meta property="og:description" content="${escapeHtml(description)}">\n</head>`);
   }
-  
+
   out = out.replace(/<meta\s+property=["']og:image["'][^>]*>/i, `<meta property="og:image" content="${ogImage}">`);
   if (!/<meta\s+property=["']og:image["'][^>]*>/i.test(out)) {
     out = out.replace(/<\/head>/i, `  <meta property="og:image" content="${ogImage}">\n</head>`);
   }
-  
+
   out = out.replace(/<meta\s+property=["']og:type["'][^>]*>/i, `<meta property="og:type" content="${ogType}">`);
   if (!/<meta\s+property=["']og:type["'][^>]*>/i.test(out)) {
     out = out.replace(/<\/head>/i, `  <meta property="og:type" content="${ogType}">\n</head>`);
   }
-  
+
   out = out.replace(/<meta\s+property=["']og:url["'][^>]*>/i, `<meta property="og:url" content="${canonical}">`);
   if (!/<meta\s+property=["']og:url["'][^>]*>/i.test(out)) {
     out = out.replace(/<\/head>/i, `  <meta property="og:url" content="${canonical}">\n</head>`);
   }
-  
+
   // Twitter
   out = out.replace(/<meta\s+(?:name|property)=["']twitter:card["'][^>]*>/i, `<meta name="twitter:card" content="${twitterCard}">`);
   if (!/<meta\s+(?:name|property)=["']twitter:card["'][^>]*>/i.test(out)) {
     out = out.replace(/<\/head>/i, `  <meta name="twitter:card" content="${twitterCard}">\n</head>`);
   }
-  
+
   out = out.replace(/<meta\s+property=["']twitter:title["'][^>]*>/i, `<meta property="twitter:title" content="${escapeHtml(title)}">`);
   if (!/<meta\s+property=["']twitter:title["'][^>]*>/i.test(out)) {
     out = out.replace(/<\/head>/i, `  <meta property="twitter:title" content="${escapeHtml(title)}">\n</head>`);
   }
-  
+
   out = out.replace(/<meta\s+property=["']twitter:description["'][^>]*>/i, `<meta property="twitter:description" content="${escapeHtml(description)}">`);
   if (!/<meta\s+property=["']twitter:description["'][^>]*>/i.test(out)) {
     out = out.replace(/<\/head>/i, `  <meta property="twitter:description" content="${escapeHtml(description)}">\n</head>`);
   }
-  
+
   out = out.replace(/<meta\s+property=["']twitter:image["'][^>]*>/i, `<meta property="twitter:image" content="${ogImage}">`);
   if (!/<meta\s+property=["']twitter:image["'][^>]*>/i.test(out)) {
     out = out.replace(/<\/head>/i, `  <meta property="twitter:image" content="${ogImage}">\n</head>`);
   }
-  
+
   out = out.replace(/<meta\s+property=["']twitter:url["'][^>]*>/i, `<meta property="twitter:url" content="${canonical}">`);
   if (!/<meta\s+property=["']twitter:url["'][^>]*>/i.test(out)) {
     out = out.replace(/<\/head>/i, `  <meta property="twitter:url" content="${canonical}">\n</head>`);
   }
-  
+
   return out;
 }
 
 function cloneForRoute(baseHtml, route, allPosts = [], allRoutes = []) {
   const canonical = `${SITE}${route.path}`;
   const ogImage = route.ogImage || `${SITE}/og-image.jpg`;
-  
+
   // For fractions-to-decimals and order-of-operations pages, remove ALL SEO-related scripts BEFORE setMeta
   // Static HTML doesn't need any JavaScript for SEO - everything is hardcoded
   let workingHtml = baseHtml;
@@ -274,18 +274,18 @@ function cloneForRoute(baseHtml, route, allPosts = [], allRoutes = []) {
       const beforeStyle = workingHtml.substring(0, styleEnd + 8); // Include </style>
       const betweenScripts = workingHtml.substring(styleEnd + 8, moduleScriptStart);
       const afterModuleScript = workingHtml.substring(moduleScriptStart);
-      
+
       // Remove ALL script tags in the between section EXCEPT JSON-LD scripts (they have type="application/ld+json")
       // This removes the SEO update script while keeping structured data
       const cleanedBetween = betweenScripts.replace(/<script(?![^>]*type=["']application\/ld\+json["'])[^>]*>[\s\S]*?<\/script>/gi, '');
-      
+
       workingHtml = beforeStyle + cleanedBetween + afterModuleScript;
     }
     // Also do a global pass to catch any remaining SEO update scripts
     workingHtml = workingHtml.replace(/<script(?![^>]*type=["']application\/ld\+json["'])[^>]*>[\s\S]*?Simplified SEO update[\s\S]*?<\/script>/gi, '');
     workingHtml = workingHtml.replace(/<script(?![^>]*type=["']application\/ld\+json["'])[^>]*>[\s\S]*?Hide SEO fallback[\s\S]*?<\/script>/gi, '');
   }
-  
+
   let html = setMeta(workingHtml, {
     title: route.title,
     description: route.description,
@@ -296,11 +296,11 @@ function cloneForRoute(baseHtml, route, allPosts = [], allRoutes = []) {
     robots: route.noIndex ? 'noindex, nofollow' : 'index, follow',
     keywords: route.keywords
   });
-  
+
   // Add static HTML links for crawlers (orphaned pages fix)
   if (route.path === '/blog') {
     // Add links to all blog posts
-    const blogLinks = allPosts.map(p => 
+    const blogLinks = allPosts.map(p =>
       `    <a href="${SITE}/blog/${p.id}" style="display: block; padding: 0.5rem 0; color: #3b82f6; text-decoration: underline;">${escapeHtml(p.title)}</a>`
     ).join('\n');
     const seoLinksSection = `<nav class="seo-hidden-links" aria-hidden="true" style="position: absolute; left: -10000px; top: auto; width: 1px; height: 1px; overflow: hidden;">
@@ -311,7 +311,7 @@ ${blogLinks}
   } else if (route.path === '/kids') {
     // Add links to all kids games
     const kidsGames = allRoutes.filter(r => r.path.startsWith('/kids/games/'));
-    const gameLinks = kidsGames.map(r => 
+    const gameLinks = kidsGames.map(r =>
       `    <a href="${SITE}${r.path}" style="display: block; padding: 0.5rem 0; color: #3b82f6; text-decoration: underline;">${escapeHtml(r.title.replace('Kids Hub – ', ''))}</a>`
     ).join('\n');
     const seoLinksSection = `<nav class="seo-hidden-links" aria-hidden="true" style="position: absolute; left: -10000px; top: auto; width: 1px; height: 1px; overflow: hidden;">
@@ -321,18 +321,18 @@ ${gameLinks}
     html = html.replace(/<nav class="seo-hidden-links"[^>]*>[\s\S]*?<\/nav>/, seoLinksSection);
   } else if (route.path === '/' || route.path.startsWith('/worksheets/')) {
     // Add links to worksheet category pages
-    const worksheetPages = allRoutes.filter(r => r.path.startsWith('/worksheets/') && 
+    const worksheetPages = allRoutes.filter(r => r.path.startsWith('/worksheets/') &&
       !r.path.match(/\/worksheets\/[^/]+$/)); // Only category pages, not individual worksheets
-    const worksheetLinks = worksheetPages.map(r => 
+    const worksheetLinks = worksheetPages.map(r =>
       `    <a href="${SITE}${r.path}" style="display: block; padding: 0.5rem 0; color: #3b82f6; text-decoration: underline;">${escapeHtml(r.title)}</a>`
     ).join('\n');
-    
+
     // Add links to ALL individual worksheet pages to fix orphaned pages issue
     const allWorksheets = getAllWorksheetURLs();
-    const individualWorksheetLinks = allWorksheets.map(w => 
+    const individualWorksheetLinks = allWorksheets.map(w =>
       `    <a href="${w.url}" style="display: block; padding: 0.5rem 0; color: #3b82f6; text-decoration: underline;">${escapeHtml(w.title || w.url)}</a>`
     ).join('\n');
-    
+
     const existingNav = html.match(/<nav class="seo-hidden-links"[^>]*>[\s\S]*?<\/nav>/);
     if (existingNav) {
       let navContent = `  <h2>Worksheet Category Pages</h2>\n${worksheetLinks}`;
@@ -343,13 +343,13 @@ ${gameLinks}
       html = html.replace(existingNav[0], updatedNav);
     }
   }
-  
+
   // Add links to important pages (generate, about, printables, kids games) on multiple pages for better internal linking
   // This helps pages that only have one incoming link get more links
   if (route.path === '/' || route.path.startsWith('/blog/') || route.path.startsWith('/worksheets/') || route.path === '/about' || route.path === '/generate') {
-    const importantPages = allRoutes.filter(r => 
-      r.path === '/generate' || 
-      r.path === '/about' || 
+    const importantPages = allRoutes.filter(r =>
+      r.path === '/generate' ||
+      r.path === '/about' ||
       r.path === '/printables' ||
       r.path === '/printables/name-tracing-generator' ||
       r.path === '/printables/certificate-maker' ||
@@ -357,7 +357,7 @@ ${gameLinks}
       r.path === '/kids' ||
       r.path.startsWith('/kids/games/')
     );
-    const importantLinks = importantPages.map(r => 
+    const importantLinks = importantPages.map(r =>
       `    <a href="${SITE}${r.path}" style="display: block; padding: 0.5rem 0; color: #3b82f6; text-decoration: underline;">${escapeHtml(r.title)}</a>`
     ).join('\n');
     const existingNav = html.match(/<nav class="seo-hidden-links"[^>]*>[\s\S]*?<\/nav>/);
@@ -367,10 +367,10 @@ ${gameLinks}
       html = html.replace(existingNav[0], updatedNav);
     }
   }
-  
+
   // Add links to blog posts on blog listing page and individual blog posts
   if (route.path.startsWith('/blog/')) {
-    const blogLinks = allPosts.map(p => 
+    const blogLinks = allPosts.map(p =>
       `    <a href="${SITE}/blog/${p.id}" style="display: block; padding: 0.5rem 0; color: #3b82f6; text-decoration: underline;">${escapeHtml(p.title)}</a>`
     ).join('\n');
     const existingNav = html.match(/<nav class="seo-hidden-links"[^>]*>[\s\S]*?<\/nav>/);
@@ -379,11 +379,11 @@ ${gameLinks}
       html = html.replace(existingNav[0], updatedNav);
     }
   }
-  
+
   // Add links to kids games on kids hub and individual game pages
   if (route.path.startsWith('/kids/games/')) {
     const kidsGames = allRoutes.filter(r => r.path.startsWith('/kids/games/'));
-    const gameLinks = kidsGames.map(r => 
+    const gameLinks = kidsGames.map(r =>
       `    <a href="${SITE}${r.path}" style="display: block; padding: 0.5rem 0; color: #3b82f6; text-decoration: underline;">${escapeHtml(r.title.replace('Kids Hub – ', ''))}</a>`
     ).join('\n');
     const existingNav = html.match(/<nav class="seo-hidden-links"[^>]*>[\s\S]*?<\/nav>/);
@@ -392,15 +392,15 @@ ${gameLinks}
       html = html.replace(existingNav[0], updatedNav);
     }
   }
-  
+
   // Add links to printables pages on printables and related pages
   if (route.path === '/printables' || route.path.startsWith('/printables/')) {
-    const printablesPages = allRoutes.filter(r => 
+    const printablesPages = allRoutes.filter(r =>
       r.path === '/printables' ||
       r.path === '/printables/name-tracing-generator' ||
       r.path === '/printables/certificate-maker'
     );
-    const printablesLinks = printablesPages.map(r => 
+    const printablesLinks = printablesPages.map(r =>
       `    <a href="${SITE}${r.path}" style="display: block; padding: 0.5rem 0; color: #3b82f6; text-decoration: underline;">${escapeHtml(r.title)}</a>`
     ).join('\n');
     const existingNav = html.match(/<nav class="seo-hidden-links"[^>]*>[\s\S]*?<\/nav>/);
@@ -410,7 +410,7 @@ ${gameLinks}
       html = html.replace(existingNav[0], updatedNav);
     }
   }
-  
+
   // Update SEO fallback content for specific pages
   if (route.path === '/worksheets/multiplication-worksheets') {
     // Replace fallback content with multiplication-specific content
@@ -451,7 +451,7 @@ ${gameLinks}
         </p>
       </section>
     </main>`;
-    
+
     // Replace the seo-fallback content
     html = html.replace(/<main id="seo-fallback"[^>]*>[\s\S]*?<\/main>/, multiplicationContent);
   } else if (route.path === '/worksheets/times-table-multiplication-worksheets') {
@@ -507,7 +507,7 @@ ${gameLinks}
         </p>
       </section>
     </main>`;
-    
+
     // Replace the seo-fallback content
     html = html.replace(/<main id="seo-fallback"[^>]*>[\s\S]*?<\/main>/, timesTableContent);
   } else if (route.path === '/worksheets/fractions-to-decimals-worksheets') {
@@ -575,7 +575,7 @@ ${gameLinks}
         </p>
       </section>
     </main>`;
-    
+
     // Replace the seo-fallback content
     html = html.replace(/<main id="seo-fallback"[^>]*>[\s\S]*?<\/main>/, fractionsToDecimalsContent);
     // Ensure viewport tag is present (double-check after all processing)
@@ -654,7 +654,7 @@ ${gameLinks}
         </p>
       </section>
     </main>`;
-    
+
     // Replace the seo-fallback content
     html = html.replace(/<main id="seo-fallback"[^>]*>[\s\S]*?<\/main>/, orderOfOperationsContent);
     // Ensure viewport tag is present (double-check after all processing)
@@ -698,14 +698,51 @@ ${gameLinks}
         </p>
       </section>
     </main>`;
-    
+
     // Replace the seo-fallback content
     html = html.replace(/<main id="seo-fallback"[^>]*>[\s\S]*?<\/main>/, interactiveContent);
   } else if (route.path === '/') {
-    // Ensure visible H1/H2 content exists for homepage (already in base HTML, but verify)
-    if (!html.includes('id="seo-fallback"')) {
-      console.warn('Warning: SEO fallback content missing in base HTML for homepage');
+    // Inject homepage static content for SEO
+    const homepageContent = `<main id="seo-fallback" style="display: none; max-width: 1200px; margin: 0 auto; padding: 2rem 1rem; font-family: system-ui, -apple-system, sans-serif;">
+      <h1 style="font-size: 2.5rem; font-weight: 900; color: #0f172a; margin-bottom: 1rem; line-height: 1.2;">
+        Free Worksheets for Kids (K-5) | Math, Reading & More
+      </h1>
+      <p style="font-size: 1.125rem; color: #475569; margin-bottom: 2.5rem; line-height: 1.6;">
+        Download free printable worksheets for teachers, parents, and homeschoolers. Generate unlimited worksheets for math, reading, writing, science, and more with answer keys included. Worksheets for grades K-5.
+      </p>
+      
+      <section style="margin-bottom: 2rem;">
+        <h2 style="font-size: 1.875rem; font-weight: 800; color: #1e293b; margin-bottom: 0.75rem;">Free Printable Math Worksheets</h2>
+        <p style="color: #475569; line-height: 1.6; margin-bottom: 1.5rem;">
+          access thousands of free math worksheets for kindergarten through 5th grade. Practice addition, subtraction, multiplication, division, fractions, geometry, and more. All worksheets include answer keys and are available as PDF downloads.
+        </p>
+      </section>
+
+      <section style="margin-bottom: 2rem;">
+        <h2 style="font-size: 1.875rem; font-weight: 800; color: #1e293b; margin-bottom: 0.75rem;">Interactive Worksheet Generator</h2>
+        <p style="color: #475569; line-height: 1.6; margin-bottom: 1.5rem;">
+          Create your own custom worksheets with our AI-powered generator. Tailor problems to your student's specific needs and grade level. Generate unique problem sets for daily practice or testing.
+        </p>
+      </section>
+      
+      <section style="margin-bottom: 2rem;">
+        <h2 style="font-size: 1.875rem; font-weight: 800; color: #1e293b; margin-bottom: 0.75rem;">Reading & Writing Worksheets</h2>
+        <p style="color: #475569; line-height: 1.6; margin-bottom: 1.5rem;">
+          Build literacy skills with reading comprehension passages, handwriting practice, and grammar worksheets. Engaging activities designed to improve vocabulary, fluency, and writing abilities for elementary students.
+        </p>
+      </section>
+    </main>`;
+
+    // Insert the content - replacing any existing fallback or inserting new
+    if (html.includes('id="seo-fallback"')) {
+      html = html.replace(/<main id="seo-fallback"[^>]*>[\s\S]*?<\/main>/, homepageContent);
+    } else {
+      // Insert after opening body tag if not found (fallback strategy)
+      html = html.replace(/<body>/, '<body>' + homepageContent);
     }
+
+    // Ensure viewport tag is present
+    html = ensureViewport(html);
   } else {
     // For other pages, remove or minimize the fallback content to avoid duplicate content issues
     // Keep it hidden but with minimal content
@@ -713,10 +750,10 @@ ${gameLinks}
     const h1Text = extractH1FromTitle(route.title);
     html = html.replace(/<main id="seo-fallback"[^>]*>[\s\S]*?<\/main>/, `<main id="seo-fallback" style="display: none;"><h1>${escapeHtml(h1Text)}</h1><p>${escapeHtml(route.description)}</p></main>`);
   }
-  
+
   // Final check: ensure viewport tag is always present
   html = ensureViewport(html);
-  
+
   return html;
 }
 
@@ -741,19 +778,19 @@ function collectBlogPosts() {
       while ((idMatch = idPattern.exec(src))) {
         postStarts.push({ index: idMatch.index, id: idMatch[1] });
       }
-      
+
       // For each post, extract its fields
       for (let i = 0; i < postStarts.length; i++) {
         const start = postStarts[i].index;
         const end = i < postStarts.length - 1 ? postStarts[i + 1].index : src.length;
         const postBlock = src.substring(start, end);
-        
+
         const id = postStarts[i].id;
         const titleMatch = postBlock.match(/title:\s*"([^"]+)"/);
         const excerptMatch = postBlock.match(/excerpt:\s*"([\s\S]*?)"(?:\s*[,}])/);
         const imageUrlMatch = postBlock.match(/imageUrl:\s*"([^"]+)"/);
         const keywordsMatch = postBlock.match(/keywords:\s*"([^"]+)"/);
-        
+
         if (titleMatch && excerptMatch) {
           const title = titleMatch[1];
           const excerpt = excerptMatch[1].replace(/\s+/g, ' ').trim().slice(0, 300);
@@ -763,14 +800,14 @@ function collectBlogPosts() {
         }
       }
     }
-    
+
     // Also check for markdown files in content/blog directory
     const contentDirs = [
       path.join(ROOT, 'content', 'blog'),
       path.join(ROOT, 'client', 'content', 'blog'),
       path.join(ROOT, 'client', 'src', 'pages', 'blog', 'content'),
     ];
-    
+
     for (const contentDir of contentDirs) {
       if (fs.existsSync(contentDir)) {
         try {
@@ -811,7 +848,7 @@ function collectBlogPosts() {
         }
       }
     }
-    
+
     // de-duplicate by id
     const seen = new Set();
     return posts.filter(p => (seen.has(p.id) ? false : (seen.add(p.id), true)));
@@ -835,16 +872,16 @@ function main() {
 
   const routes = [];
   // Homepage - MUST be first
-  routes.push({ 
-    path: '/', 
-    title: 'Free Worksheets for Kids (K-5) | Math, Reading & More | Wizqo', 
+  routes.push({
+    path: '/',
+    title: 'Free Worksheets for Kids (K-5) | Math, Reading & More | Wizqo',
     description: "Download free printable worksheets for kids (K-5). Math, reading, writing, tracing, and multiplication worksheets with answer keys—100% free, ready to print.",
     ogImage: `${SITE}/og-image.jpg`
   });
   // Generate route (AI Learning Plan Generator)
-  routes.push({ 
-    path: '/generate', 
-    title: 'My Learning Plan Generator - Free AI-Powered 7-Day Plans | Wizqo', 
+  routes.push({
+    path: '/generate',
+    title: 'My Learning Plan Generator - Free AI-Powered 7-Day Plans | Wizqo',
     description: 'Create my learning plan instantly with AI! Generate personalized 7-day learning plans with daily lessons, videos, and practice prompts. Free tool for teachers, students, and hobby learners.',
     keywords: 'my learning plan, learning plan generator, create learning plan, personalized learning plan, 7-day learning plan, AI learning plan, free learning plan generator',
     ogImage: `${SITE}/og-image.jpg`
@@ -901,11 +938,11 @@ function main() {
   const posts = collectBlogPosts();
   console.log(`Found ${posts.length} blog posts to prerender`);
   for (const p of posts) {
-    routes.push({ 
-      path: `/blog/${p.id}`, 
-      title: p.title, 
-      description: p.excerpt, 
-      ogImage: p.imageUrl, 
+    routes.push({
+      path: `/blog/${p.id}`,
+      title: p.title,
+      description: p.excerpt,
+      ogImage: p.imageUrl,
       ogType: 'article',
       keywords: p.keywords
     });
@@ -955,13 +992,13 @@ function main() {
     }
   }
   console.log(`Prerendered ${count} routes into dist/`);
-  
+
   // Critical check: ensure order-of-operations was generated
   if (!orderOfOpsGenerated) {
     console.error('CRITICAL ERROR: Order of Operations page was not prerendered!');
     process.exit(1);
   }
-  
+
   // Final verification: check if the file exists on disk
   const orderOfOpsPath = routeOutPath(DIST, '/worksheets/order-of-operations-worksheets');
   if (!fs.existsSync(orderOfOpsPath)) {
