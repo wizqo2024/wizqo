@@ -35,7 +35,8 @@ function getAllWorksheetURLs() {
     const data = JSON.parse(fs.readFileSync(worksheetSEOFile, 'utf8'));
     return Object.entries(data).map(([slug, seo]) => ({
       url: seo.canonicalUrl || `${SITE}/worksheets/${slug}`,
-      title: seo.title || slug
+      title: seo.title || slug,
+      description: seo.description // Capture description
     })).filter(w => w.url && w.url.includes('/worksheets/'));
   } catch (e) {
     console.warn('Could not load worksheet SEO data:', e.message);
@@ -946,6 +947,35 @@ function main() {
       ogType: 'article',
       keywords: p.keywords
     });
+  }
+
+  // Individual Worksheets (from generic list)
+  const allWorksheets = getAllWorksheetURLs();
+  console.log(`Found ${allWorksheets.length} individual worksheets to prerender`);
+  for (const w of allWorksheets) {
+    // Only add if not already in routes (to avoid duplicates with category pages)
+    const exists = routes.find(r => r.path === w.url.replace(SITE, '') || r.path === w.url);
+    if (!exists) {
+      // Extract slug from URL to find description in SEO data if possible, or use generic
+      // getAllWorksheetURLs only returns url and title. We might need to read the JSON again 
+      // or just use title for both H1 and description fallback (better than nothing).
+      // Actually, let's keep it simple: Use title for H1. Description might be missing.
+      // Wait, getAllWorksheetURLs reads keys. Let's modify it to return description too if I can, 
+      // OR just read the file here in main if I want to be safe.
+      // For now, I'll rely on the existing helper but I might need to patch it to return description.
+      // Let's assume title is enough for a basic fallback, but description is better.
+      // Looking at getAllWorksheetURLs implementation (lines 19-44), it maps [slug, seo].
+      // The 'seo' object likely has description.
+      // I'll update the logic to fetch description too.
+
+      const relativePath = w.url.replace(SITE, '');
+      routes.push({
+        path: relativePath,
+        title: w.title,
+        description: w.description || `Free printable ${w.title} for kids. Download PDF with answer key.`, // Fallback desc
+        ogImage: `${SITE}/og-image.jpg`
+      });
+    }
   }
 
   let count = 0;
