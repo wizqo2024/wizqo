@@ -5180,7 +5180,7 @@ const renderers: Record<string, Renderer> = {
     const design = designs[0]
 
     // Select colors needed for the design (3-6 typically)
-    const neededColors = design === 'rainbow' ? 6 : design === 'tree' ? 4 : design === 'flower' ? 4 : 3
+    const neededColors = design === 'rainbow' ? 6 : design === 'tree' ? 3 : design === 'flower' ? 3 : design === 'star' ? 2 : 3
     const selectedCodes = pickMany(rng, colorCodes, Math.min(colorCodes.length, neededColors))
     // Ensure sequential numbers for the activity
     const activeCodes = selectedCodes.map((c, i) => ({ ...c, num: i + 1 }))
@@ -5285,9 +5285,9 @@ const renderers: Record<string, Renderer> = {
               <circle cx={cx} cy={size - 140} r={50} fill="white" stroke={stroke} strokeWidth={strokeWidth} />
               <text x={cx} y={size - 140} style={textStyle}>{getNum(1)}</text>
               <circle cx={cx - 40} cy={size - 110} r={40} fill="white" stroke={stroke} strokeWidth={strokeWidth} />
-              <text x={cx - 40} y={size - 110} style={textStyle}>{getNum(1)}</text>
+              <text x={cx - 40} y={size - 110} style={textStyle}>{getNum(2)}</text>
               <circle cx={cx + 40} cy={size - 110} r={40} fill="white" stroke={stroke} strokeWidth={strokeWidth} />
-              <text x={cx + 40} y={size - 110} style={textStyle}>{getNum(1)}</text>
+              <text x={cx + 40} y={size - 110} style={textStyle}>{getNum(2)}</text>
               <circle cx={cx} cy={size - 180} r={40} fill="white" stroke={stroke} strokeWidth={strokeWidth} />
               <text x={cx} y={size - 180} style={textStyle}>{getNum(1)}</text>
             </svg>
@@ -5346,7 +5346,7 @@ const renderers: Record<string, Renderer> = {
     const { seed, doc, variant, t } = ctx
     const rng = makeRng(`${seed}|${doc.id}|${variant}`)
     const patterns = pickMany(rng, ['circles', 'petals', 'geometric', 'spiral'], 1)
-    const createMandalaText = t('interactive.interactive-art-mandala.createMandala').replace('{{pattern}}', patterns[0])
+    const createMandalaText = t('interactive.interactive-art-mandala.createMandala').replace('{{ pattern }}', patterns[0])
     return (
       <div className="space-y-4">
         <p className="text-sm text-slate-600">{createMandalaText}</p>
@@ -5448,7 +5448,7 @@ const renderers: Record<string, Renderer> = {
     const rng = makeRng(`${seed}|${doc.id}|${variant}`)
     const panelCount = pick(rng, [3, 4, 6])
     const themes = pickMany(rng, ['adventure', 'friendship', 'superhero', 'animals', 'school'], 1)
-    const comicStripText = t('interactive.interactive-art-comic.comicStrip').replace('{{theme}}', themes[0])
+    const comicStripText = t('interactive.interactive-art-comic.comicStrip').replace('{{ theme }}', themes[0])
     return (
       <div className="space-y-4">
         <p className="text-sm text-slate-600">{t('interactive.interactive-art-comic.description')}</p>
