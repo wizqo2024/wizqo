@@ -5258,7 +5258,6 @@ const renderers: Record<string, Renderer> = {
         case 'flower':
           return (
             <svg key="flower-svg-fixed" width="300px" height="300px" viewBox="0 0 300 300" style={{ overflow: 'visible' }}>
-              <rect x="0" y="0" width="300" height="300" fill="none" stroke="cyan" strokeWidth="4" />
               <g transform="translate(150, 150)">
                 {/* Petals */}
                 {[0, 60, 120, 180, 240, 300].map((angle, i) => (
@@ -5463,7 +5462,7 @@ const renderers: Record<string, Renderer> = {
             className="flex items-center gap-2 px-3 py-1.5 bg-pink-600 text-white rounded-lg hover:bg-pink-700 transition-colors text-sm font-medium shadow-sm print:hidden"
           >
             <Download className="w-4 h-4" />
-            Download PDF ✨
+            Download PDF
           </button>
         </div>
         <div className="rounded-xl border-2 border-pink-300 bg-gradient-to-br from-pink-100 via-purple-100 to-fuchsia-100 p-6 shadow-lg">
