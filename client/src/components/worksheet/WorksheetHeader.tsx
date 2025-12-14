@@ -16,15 +16,15 @@ interface WorksheetHeaderProps {
   className?: string
 }
 
-export function WorksheetHeader({ 
-  enabled = false, 
+export function WorksheetHeader({
+  enabled = false,
   showScore = true,
-  className = '' 
+  className = ''
 }: WorksheetHeaderProps) {
   if (!enabled) return null
 
   return (
-    <div 
+    <div
       className={`worksheet-header-optional mb-6 print:mb-4 ${className}`}
       style={{
         borderBottom: '1px solid #e2e8f0',
@@ -35,7 +35,7 @@ export function WorksheetHeader({
         color: '#333'
       }}
     >
-      <div 
+      <div
         style={{
           display: 'flex',
           justifyContent: 'space-between',
@@ -66,9 +66,6 @@ export function WorksheetHeader({
               <span style={{ borderBottom: '1px solid #333', minWidth: '40px', display: 'inline-block', marginLeft: '4px' }}>&nbsp;</span>
             </div>
           )}
-          <div>
-            <strong>Teacher:</strong> <span style={{ borderBottom: '1px solid #333', minWidth: '150px', display: 'inline-block', marginLeft: '8px' }}>&nbsp;</span>
-          </div>
         </div>
       </div>
     </div>

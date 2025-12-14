@@ -174,7 +174,7 @@ export const en = {
         problem: 'Problem',
         solution: 'Solution:',
         divideInto: 'Divide {{dividend}} into groups of {{divisor}}. You can make {{quotient}} complete groups.',
-          remainderLeft: 'There are {{remainder}} left over that don\'t make a complete group.',
+        remainderLeft: 'There are {{remainder}} left over that don\'t make a complete group.',
         allGrouped: 'All items are grouped evenly.',
         strategy: 'Strategy: Use repeated subtraction ({{dividend}} - {{divisor}} - {{divisor}} - ...) or think "How many {{divisor}}s fit into {{dividend}}?"',
         remainderLabel: 'remainder:',
@@ -4465,4 +4465,12 @@ export const en = {
       answerKey: 'Student responses may vary. Check for understanding of character traits, ability to identify ways to demonstrate traits, and recognition of traits in others.',
     },
   },
+
+  interactive: {
+    'interactive-art-color-by-number': {
+      title: 'Color-by-Number Art',
+      description: 'Use the key to color the picture!',
+    },
+  },
 }
+
