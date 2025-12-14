@@ -4249,6 +4249,8 @@ export const en = {
       answerKey: 'Student responses may vary. Check for thoughtful reflection, genuine gratitude expression, and understanding of positive thinking and appreciation.',
     },
     'interactive-art-color-by-number': {
+      title: 'Color-by-Number Art',
+      description: 'Use the key to color the picture!',
       colorThePicture: 'Color the picture using the number codes below. Match each number to its color!',
       colorKey: 'Color Key:',
       drawDesign: 'Draw a {{design}} design with numbers 1-{{count}}',
@@ -4257,6 +4259,8 @@ export const en = {
       answerKey: 'Students should color each section according to the number code provided. Check that colors match the key (1=red, 2=blue, etc.) and that students follow directions accurately.',
     },
     'interactive-art-mandala': {
+      title: 'Mandala Art',
+      description: 'Create beautiful mandalas focusing on symmetry and patterns.',
       createMandala: 'Create a beautiful mandala design with {{pattern}} patterns. Focus on symmetry and mindfulness.',
       mandalaTemplate: 'Mandala Template',
       drawMandalaHere: 'Draw your mandala here',
@@ -4272,6 +4276,7 @@ export const en = {
       answerKey: 'Student responses may vary. Evaluate based on symmetry, pattern consistency, creativity, and mindfulness reflection. Encourage students to start from the center and work outward.',
     },
     'interactive-art-doodle': {
+      title: 'Creative Doodling',
       description: 'Free-form doodling! No rules, just creativity. Let your imagination flow.',
       doodleHere: 'Doodle here!',
       tip: '💡 Tip: There are no mistakes in doodling! Just keep your pen moving and see what emerges.',
@@ -4286,6 +4291,7 @@ export const en = {
       answerKey: 'Student responses may vary. There are no wrong answers in doodling! Evaluate based on creativity, engagement, and willingness to experiment. Encourage free expression.',
     },
     'interactive-art-seasonal': {
+      title: 'Seasonal Art',
       description: 'Color these seasonal pictures! Each season has its own special themes and colors.',
       coloring: 'Coloring',
       themes: 'Themes:',
@@ -4300,6 +4306,7 @@ export const en = {
       answerKey: 'Student responses may vary. Check for appropriate seasonal themes, color choices that match the season, and creative expression. Encourage students to think about what makes each season special.',
     },
     'interactive-art-comic': {
+      title: 'Comic Strip Creator',
       description: 'Create your own comic strip! Tell a story with pictures, speech bubbles, and action.',
       comicStrip: 'Comic Strip: {{theme}} story',
       panel: 'Panel {{number}}',
@@ -4312,6 +4319,7 @@ export const en = {
       answerKey: 'Student responses may vary. Evaluate based on story structure (beginning/middle/end), character development, use of speech bubbles, visual narrative flow, and creativity. Check that panels tell a coherent story.',
     },
     'interactive-art-critique': {
+      title: 'Art Critique',
       description: 'Observe and analyze artwork using art vocabulary. Look closely and describe what you see.',
       artworkAnalysis: 'Artwork Analysis',
       artworkImage: '[Artwork image or description]',
@@ -4327,11 +4335,13 @@ export const en = {
       answerKey: 'Students should correctly match related items (e.g., apple-fruit, car-vehicle). Check for understanding of relationships and categorization.',
     },
     'interactive-logic-classification': {
+      title: 'Classification Logic',
       description: 'Sort and classify objects, pictures, and concepts into groups.',
       addMore: 'Add more {{category}}: ________________',
       answerKey: 'Students should correctly sort items into categories (animals, food, colors, etc.). Check for understanding of classification and categorization skills.',
     },
     'interactive-logic-analogies': {
+      title: 'Analogies Challenge',
       description: 'Practice identifying relationships and completing analogies.',
       analogy: 'Analogy {{number}}',
       isTo: 'is to',
@@ -4340,6 +4350,7 @@ export const en = {
       answerKey: 'Students should correctly complete analogies by identifying relationships. Check for understanding of word relationships and logical thinking.',
     },
     'interactive-sel-mindfulness': {
+      title: 'Mindfulness Breathing',
       description: 'Practice three breathing strategies. Track how your body feels before and after.',
       breathingStrategy: 'Breathing Strategy',
       beforeIFeel: 'Before I feel?',
@@ -4354,6 +4365,7 @@ export const en = {
       answerKey: 'Student responses may vary. Check for understanding of breathing techniques, ability to identify feelings before and after practice, and consistent use of strategies.',
     },
     'interactive-sel-empathy': {
+      title: 'Empathy Scenarios',
       description: 'Imagine each scenario. How might the person feel? What words or actions would show empathy?',
       scenario: 'Scenario {{number}}',
       feelingsINotice: 'Feelings I notice: ______________________________',
@@ -4367,6 +4379,7 @@ export const en = {
       answerKey: 'Student responses may vary. Check for understanding of empathy, ability to identify feelings in others, and appropriate empathetic responses.',
     },
     'interactive-sel-conflict': {
+      title: 'Conflict Resolution',
       description: 'Learn strategies to resolve conflicts peacefully and communicate effectively with others.',
       scenario: 'Scenario {{number}}:',
       whatAreFeelings: 'What are your feelings? ______________________________',
@@ -4383,6 +4396,7 @@ export const en = {
       answerKey: 'Student responses may vary. Check for understanding of conflict resolution strategies, use of "I" statements, identification of feelings, and ability to propose peaceful solutions. Encourage empathy and effective communication.',
     },
     'interactive-sel-regulation': {
+      title: 'Self-Regulation',
       description: 'Practice techniques to manage emotions, stay calm, and make thoughtful choices.',
       whenITried: 'When I tried this, I felt: ________________',
       practiceTip: '💡 Practice these strategies when you feel calm, so they\'re easier to use when you need them!',
@@ -4418,6 +4432,7 @@ export const en = {
       answerKey: 'Student responses may vary. Check for thoughtful reflection on kindness acts, understanding of how kindness affects others and self, and genuine engagement with kindness challenges.',
     },
     'interactive-sel-growth-mindset': {
+      title: 'Growth Mindset',
       description: 'Develop a growth mindset by learning to embrace challenges, learn from mistakes, and persist.',
       fixedMindset: 'Fixed Mindset:',
       growthMindset: 'Growth Mindset:',
@@ -4434,6 +4449,7 @@ export const en = {
       answerKey: 'Student responses may vary. Check for understanding of growth mindset concepts, ability to reframe fixed mindset statements, and recognition that challenges and mistakes are learning opportunities.',
     },
     'interactive-sel-stress': {
+      title: 'Stress Management',
       description: 'Identify stress triggers and practice healthy coping strategies for managing anxiety and stress.',
       stressTriggers: 'Stress Triggers:',
       healthyCoping: 'Healthy Coping Strategies:',
@@ -4458,6 +4474,7 @@ export const en = {
       answerKey: 'Student responses may vary. Check for understanding of stress triggers, healthy coping strategies, and ability to identify when and how to use coping techniques.',
     },
     'interactive-sel-character': {
+      title: 'Character Traits',
       description: 'Explore important character traits like honesty, respect, responsibility, and integrity.',
       howCanShow: 'How can I show {{trait}}? ________________',
       whenSeen: 'When have I seen someone show {{trait}}? ________________',
@@ -4466,11 +4483,6 @@ export const en = {
     },
   },
 
-  interactive: {
-    'interactive-art-color-by-number': {
-      title: 'Color-by-Number Art',
-      description: 'Use the key to color the picture!',
-    },
-  },
+
 }
 

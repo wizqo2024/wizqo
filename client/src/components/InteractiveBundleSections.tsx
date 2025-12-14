@@ -433,7 +433,7 @@ function buildMathPuzzle(seed: string, docId: string, variant: number): MathPuzz
   const rng = makeRng(`${seed}|${docId}|${variant}`)
   const usedPrompts = new Set<string>()
   const puzzles: MathPuzzle[] = []
-  
+
   while (puzzles.length < 6) {
     const target = Math.floor(rng() * 20) + 10
     const missing = Math.floor(rng() * 9) + 1
@@ -441,7 +441,7 @@ function buildMathPuzzle(seed: string, docId: string, variant: number): MathPuzz
     const showFirstBlank = rng() > 0.5
     let prompt: string
     let answer: number
-    
+
     if (showFirstBlank) {
       prompt = `${other} + ____ = ${target}`
       answer = missing
@@ -449,14 +449,14 @@ function buildMathPuzzle(seed: string, docId: string, variant: number): MathPuzz
       prompt = `____ + ${missing} = ${target}`
       answer = other
     }
-    
+
     // Avoid duplicates
     if (!usedPrompts.has(prompt)) {
       usedPrompts.add(prompt)
       puzzles.push({ prompt, answer })
     }
   }
-  
+
   return puzzles
 }
 
@@ -616,12 +616,12 @@ function buildMathTime(seed: string, docId: string, variant: number): Array<{ ho
     const minutes = Math.floor(rng() * 60)
     const elapsedHours = Math.floor(rng() * 3) + 1
     const elapsedMinutes = Math.floor(rng() * 30)
-    
+
     // Calculate total minutes
     const totalMinutes = minutes + elapsedMinutes
     const finalMinutes = totalMinutes % 60
     const finalHours = ((hours - 1 + elapsedHours + Math.floor(totalMinutes / 60)) % 12) + 1
-    
+
     problems.push({
       hours,
       minutes,
@@ -777,9 +777,8 @@ const renderers: Record<string, Renderer> = {
                 {sequence.values.map((value, idx) => (
                   <span
                     key={idx}
-                    className={`inline-block min-w-[2.5rem] rounded border border-dashed border-purple-300 px-2 py-1 text-center ${
-                      blanks.has(idx) ? 'bg-white text-slate-400' : 'bg-purple-50'
-                    }`}
+                    className={`inline-block min-w-[2.5rem] rounded border border-dashed border-purple-300 px-2 py-1 text-center ${blanks.has(idx) ? 'bg-white text-slate-400' : 'bg-purple-50'
+                      }`}
                   >
                     {blanks.has(idx) ? '____' : value}
                   </span>
@@ -809,10 +808,10 @@ const renderers: Record<string, Renderer> = {
             </div>
           ))}
         </div>
-          <div className="rounded-lg border border-purple-200 bg-purple-50 px-4 py-3 text-sm text-purple-800">
-            <p className="font-semibold">{t('worksheets.reflection.title')}</p>
-            <p>{t('worksheets.reflection.mathRaceQuestions')}</p>
-          </div>
+        <div className="rounded-lg border border-purple-200 bg-purple-50 px-4 py-3 text-sm text-purple-800">
+          <p className="font-semibold">{t('worksheets.reflection.title')}</p>
+          <p>{t('worksheets.reflection.mathRaceQuestions')}</p>
+        </div>
       </div>
     )
   },
@@ -1463,7 +1462,7 @@ const renderers: Record<string, Renderer> = {
     const rng = makeRng(`${seed}|${doc.id}|${variant}`)
     const days = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday']
     const conditions = ['sunny', 'windy', 'rainy', 'stormy', 'foggy', 'partly cloudy', 'snowy']
-    const tracker = days.map((day) => ({ day, condition: pick(rng, conditions), temp: Math.floor(rng() * 31) + 45 }) )
+    const tracker = days.map((day) => ({ day, condition: pick(rng, conditions), temp: Math.floor(rng() * 31) + 45 }))
     return (
       <div className="space-y-3">
         <p className="text-sm text-slate-600">
@@ -1809,14 +1808,14 @@ const renderers: Record<string, Renderer> = {
       shape: key === 'geometricStar' ? 'star' : key === 'flowerPattern' ? 'flower' : key === 'rainbowPattern' ? 'rainbow' : key === 'heartDesign' ? 'heart' : key === 'circleMandala' ? 'mandala' : 'leaf',
       description: t(`worksheets.artDesign.patterns.${key}.description`),
     }))
-    
+
     const ShapeSVG = ({ shape }: { shape: string }) => {
       const size = 250
       const strokeWidth = 4
       if (shape === 'star') {
         return (
           <svg width={size} height={size} viewBox="0 0 250 250" className="mx-auto">
-            <polygon points="125,20 145,90 220,90 160,135 175,210 125,170 75,210 90,135 30,90 105,90" 
+            <polygon points="125,20 145,90 220,90 160,135 175,210 125,170 75,210 90,135 30,90 105,90"
               fill="none" stroke="#333" strokeWidth={strokeWidth} />
           </svg>
         )
@@ -1851,9 +1850,9 @@ const renderers: Record<string, Renderer> = {
       if (shape === 'heart') {
         return (
           <svg width={size} height={size} viewBox="0 0 250 250" className="mx-auto">
-            <path d="M 125 210 C 125 210, 40 145, 40 105 C 40 75, 70 60, 105 85 C 115 50, 145 40, 165 60 C 195 40, 210 75, 210 105 C 210 145, 125 210, 125 210 Z" 
+            <path d="M 125 210 C 125 210, 40 145, 40 105 C 40 75, 70 60, 105 85 C 115 50, 145 40, 165 60 C 195 40, 210 75, 210 105 C 210 145, 125 210, 125 210 Z"
               fill="none" stroke="#333" strokeWidth={strokeWidth} />
-            <path d="M 85 105 C 85 105, 105 95, 115 105 C 125 95, 145 105, 145 105" 
+            <path d="M 85 105 C 85 105, 105 95, 115 105 C 125 95, 145 105, 145 105"
               fill="none" stroke="#333" strokeWidth={strokeWidth} />
           </svg>
         )
@@ -1876,7 +1875,7 @@ const renderers: Record<string, Renderer> = {
       if (shape === 'leaf') {
         return (
           <svg width={size} height={size} viewBox="0 0 250 250" className="mx-auto">
-            <path d="M 125 40 Q 85 85, 60 125 Q 40 165, 85 210 Q 125 190, 125 210 Q 125 190, 165 210 Q 210 165, 190 125 Q 170 85, 125 40 Z" 
+            <path d="M 125 40 Q 85 85, 60 125 Q 40 165, 85 210 Q 125 190, 125 210 Q 125 190, 165 210 Q 210 165, 190 125 Q 170 85, 125 40 Z"
               fill="none" stroke="#333" strokeWidth={strokeWidth} />
             <line x1="125" y1="40" x2="125" y2="210" stroke="#333" strokeWidth={strokeWidth} />
             <path d="M 105 105 Q 95 110, 105 120" fill="none" stroke="#333" strokeWidth="3" />
@@ -1888,7 +1887,7 @@ const renderers: Record<string, Renderer> = {
       }
       return null
     }
-    
+
     return (
       <div className="space-y-3">
         <p className="text-sm text-slate-600">
@@ -1921,7 +1920,7 @@ const renderers: Record<string, Renderer> = {
       { itemKey: 'flower', colorKey: 'purple', shape: 'flower' },
       { itemKey: 'orangeFruit', colorKey: 'orange', shape: 'circle' },
     ], 6)
-    
+
     const ColorShapeSVG = ({ shape, color }: { shape: string; color: string }) => {
       const size = 200
       const strokeWidth = 4
@@ -1942,7 +1941,7 @@ const renderers: Record<string, Renderer> = {
       if (shape === 'leaf') {
         return (
           <svg width={size} height={size} viewBox="0 0 200 200" className="mx-auto">
-            <path d="M 100 20 Q 60 60, 40 100 Q 20 140, 60 170 Q 100 160, 100 180 Q 100 160, 140 170 Q 180 140, 160 100 Q 140 60, 100 20 Z" 
+            <path d="M 100 20 Q 60 60, 40 100 Q 20 140, 60 170 Q 100 160, 100 180 Q 100 160, 140 170 Q 180 140, 160 100 Q 140 60, 100 20 Z"
               fill="none" stroke="#333" strokeWidth={strokeWidth} />
             <line x1="100" y1="20" x2="100" y2="180" stroke="#333" strokeWidth={strokeWidth} />
             <path d="M 90 90 Q 85 95, 90 100" fill="none" stroke="#333" strokeWidth="3" />
@@ -1963,7 +1962,7 @@ const renderers: Record<string, Renderer> = {
       }
       return null
     }
-    
+
     return (
       <div className="space-y-3">
         <p className="text-sm text-slate-600">
@@ -2078,15 +2077,15 @@ const renderers: Record<string, Renderer> = {
             return (
               <div key={idx} className="rounded border border-emerald-200 bg-emerald-50 p-3">
                 <p className="font-semibold text-emerald-800">{t('worksheets.countThe').replace('{{object}}', `${formatNum ? formatNum(row.count) : row.count} ${objectName}`)}</p>
-              <div className="mt-2 grid grid-cols-10 gap-1">
-                {Array.from({ length: 10 }).map((_, boxIdx) => (
-                  <div
-                    key={boxIdx}
-                    className={`h-8 border ${boxIdx < row.count ? 'bg-emerald-200 border-emerald-400' : 'border-emerald-200'}`}
-                  />
-                ))}
-              </div>
-              <p className="mt-2 text-xs text-emerald-700">{t('worksheets.numberLabel')}: ______ • {t('worksheets.wordLabel')}: __________________</p>
+                <div className="mt-2 grid grid-cols-10 gap-1">
+                  {Array.from({ length: 10 }).map((_, boxIdx) => (
+                    <div
+                      key={boxIdx}
+                      className={`h-8 border ${boxIdx < row.count ? 'bg-emerald-200 border-emerald-400' : 'border-emerald-200'}`}
+                    />
+                  ))}
+                </div>
+                <p className="mt-2 text-xs text-emerald-700">{t('worksheets.numberLabel')}: ______ • {t('worksheets.wordLabel')}: __________________</p>
               </div>
             )
           })}
@@ -2324,44 +2323,44 @@ const renderers: Record<string, Renderer> = {
     const stories = pickMany(
       rng,
       [
-        { 
+        {
           titleKey: 'redCar',
           title: t('worksheets.readingPrek.storyTitles.redCar'),
           images: [
-            { nameKey: 'car', name: t('worksheets.readingPrek.objectNames.car'), svg: <svg width="80" height="60" viewBox="0 0 80 60"><rect x="10" y="25" width="60" height="25" rx="3" fill="none" stroke="#333" strokeWidth="2"/><rect x="15" y="15" width="50" height="15" rx="2" fill="none" stroke="#333" strokeWidth="2"/><circle cx="20" cy="50" r="8" fill="none" stroke="#333" strokeWidth="2"/><circle cx="60" cy="50" r="8" fill="none" stroke="#333" strokeWidth="2"/></svg> },
-            { nameKey: 'road', name: t('worksheets.readingPrek.objectNames.road'), svg: <svg width="80" height="60" viewBox="0 0 80 60"><rect x="0" y="25" width="80" height="10" fill="none" stroke="#333" strokeWidth="2"/><line x1="10" y1="30" x2="20" y2="30" stroke="#333" strokeWidth="1"/><line x1="30" y1="30" x2="40" y2="30" stroke="#333" strokeWidth="1"/><line x1="50" y1="30" x2="60" y2="30" stroke="#333" strokeWidth="1"/><line x1="70" y1="30" x2="80" y2="30" stroke="#333" strokeWidth="1"/></svg> },
-            { nameKey: 'tree', name: t('worksheets.readingPrek.objectNames.tree'), svg: <svg width="60" height="80" viewBox="0 0 60 80"><rect x="25" y="50" width="10" height="30" fill="none" stroke="#333" strokeWidth="2"/><ellipse cx="30" cy="40" rx="20" ry="25" fill="none" stroke="#333" strokeWidth="2"/></svg> }
-          ], 
+            { nameKey: 'car', name: t('worksheets.readingPrek.objectNames.car'), svg: <svg width="80" height="60" viewBox="0 0 80 60"><rect x="10" y="25" width="60" height="25" rx="3" fill="none" stroke="#333" strokeWidth="2" /><rect x="15" y="15" width="50" height="15" rx="2" fill="none" stroke="#333" strokeWidth="2" /><circle cx="20" cy="50" r="8" fill="none" stroke="#333" strokeWidth="2" /><circle cx="60" cy="50" r="8" fill="none" stroke="#333" strokeWidth="2" /></svg> },
+            { nameKey: 'road', name: t('worksheets.readingPrek.objectNames.road'), svg: <svg width="80" height="60" viewBox="0 0 80 60"><rect x="0" y="25" width="80" height="10" fill="none" stroke="#333" strokeWidth="2" /><line x1="10" y1="30" x2="20" y2="30" stroke="#333" strokeWidth="1" /><line x1="30" y1="30" x2="40" y2="30" stroke="#333" strokeWidth="1" /><line x1="50" y1="30" x2="60" y2="30" stroke="#333" strokeWidth="1" /><line x1="70" y1="30" x2="80" y2="30" stroke="#333" strokeWidth="1" /></svg> },
+            { nameKey: 'tree', name: t('worksheets.readingPrek.objectNames.tree'), svg: <svg width="60" height="80" viewBox="0 0 60 80"><rect x="25" y="50" width="10" height="30" fill="none" stroke="#333" strokeWidth="2" /><ellipse cx="30" cy="40" rx="20" ry="25" fill="none" stroke="#333" strokeWidth="2" /></svg> }
+          ],
           questions: [
             { key: 'seeCar', text: t('worksheets.readingPrek.questions.seeCar') },
             { key: 'carOnRoad', text: t('worksheets.readingPrek.questions.carOnRoad') }
-          ] 
+          ]
         },
-        { 
+        {
           titleKey: 'sunnyDay',
           title: t('worksheets.readingPrek.storyTitles.sunnyDay'),
           images: [
-            { nameKey: 'sun', name: t('worksheets.readingPrek.objectNames.sun'), svg: <svg width="70" height="70" viewBox="0 0 70 70"><circle cx="35" cy="35" r="20" fill="none" stroke="#333" strokeWidth="2"/><line x1="35" y1="5" x2="35" y2="15" stroke="#333" strokeWidth="2"/><line x1="35" y1="55" x2="35" y2="65" stroke="#333" strokeWidth="2"/><line x1="5" y1="35" x2="15" y2="35" stroke="#333" strokeWidth="2"/><line x1="55" y1="35" x2="65" y2="35" stroke="#333" strokeWidth="2"/><line x1="12" y1="12" x2="18" y2="18" stroke="#333" strokeWidth="2"/><line x1="52" y1="52" x2="58" y2="58" stroke="#333" strokeWidth="2"/><line x1="52" y1="12" x2="58" y2="18" stroke="#333" strokeWidth="2"/><line x1="12" y1="52" x2="18" y2="58" stroke="#333" strokeWidth="2"/></svg> },
-            { nameKey: 'flower', name: t('worksheets.readingPrek.objectNames.flower'), svg: <svg width="60" height="70" viewBox="0 0 60 70"><line x1="30" y1="50" x2="30" y2="70" stroke="#333" strokeWidth="2"/><circle cx="30" cy="30" r="12" fill="none" stroke="#333" strokeWidth="2"/><ellipse cx="30" cy="15" rx="8" ry="10" fill="none" stroke="#333" strokeWidth="2"/><ellipse cx="30" cy="45" rx="8" ry="10" fill="none" stroke="#333" strokeWidth="2"/><ellipse cx="15" cy="30" rx="10" ry="8" fill="none" stroke="#333" strokeWidth="2"/><ellipse cx="45" cy="30" rx="10" ry="8" fill="none" stroke="#333" strokeWidth="2"/></svg> },
-            { nameKey: 'ball', name: t('worksheets.readingPrek.objectNames.ball'), svg: <svg width="60" height="60" viewBox="0 0 60 60"><circle cx="30" cy="30" r="25" fill="none" stroke="#333" strokeWidth="2"/><path d="M 30 5 Q 15 15, 5 30 Q 15 45, 30 55 Q 45 45, 55 30 Q 45 15, 30 5" fill="none" stroke="#333" strokeWidth="1.5"/></svg> }
-          ], 
+            { nameKey: 'sun', name: t('worksheets.readingPrek.objectNames.sun'), svg: <svg width="70" height="70" viewBox="0 0 70 70"><circle cx="35" cy="35" r="20" fill="none" stroke="#333" strokeWidth="2" /><line x1="35" y1="5" x2="35" y2="15" stroke="#333" strokeWidth="2" /><line x1="35" y1="55" x2="35" y2="65" stroke="#333" strokeWidth="2" /><line x1="5" y1="35" x2="15" y2="35" stroke="#333" strokeWidth="2" /><line x1="55" y1="35" x2="65" y2="35" stroke="#333" strokeWidth="2" /><line x1="12" y1="12" x2="18" y2="18" stroke="#333" strokeWidth="2" /><line x1="52" y1="52" x2="58" y2="58" stroke="#333" strokeWidth="2" /><line x1="52" y1="12" x2="58" y2="18" stroke="#333" strokeWidth="2" /><line x1="12" y1="52" x2="18" y2="58" stroke="#333" strokeWidth="2" /></svg> },
+            { nameKey: 'flower', name: t('worksheets.readingPrek.objectNames.flower'), svg: <svg width="60" height="70" viewBox="0 0 60 70"><line x1="30" y1="50" x2="30" y2="70" stroke="#333" strokeWidth="2" /><circle cx="30" cy="30" r="12" fill="none" stroke="#333" strokeWidth="2" /><ellipse cx="30" cy="15" rx="8" ry="10" fill="none" stroke="#333" strokeWidth="2" /><ellipse cx="30" cy="45" rx="8" ry="10" fill="none" stroke="#333" strokeWidth="2" /><ellipse cx="15" cy="30" rx="10" ry="8" fill="none" stroke="#333" strokeWidth="2" /><ellipse cx="45" cy="30" rx="10" ry="8" fill="none" stroke="#333" strokeWidth="2" /></svg> },
+            { nameKey: 'ball', name: t('worksheets.readingPrek.objectNames.ball'), svg: <svg width="60" height="60" viewBox="0 0 60 60"><circle cx="30" cy="30" r="25" fill="none" stroke="#333" strokeWidth="2" /><path d="M 30 5 Q 15 15, 5 30 Q 15 45, 30 55 Q 45 45, 55 30 Q 45 15, 30 5" fill="none" stroke="#333" strokeWidth="1.5" /></svg> }
+          ],
           questions: [
             { key: 'seeSun', text: t('worksheets.readingPrek.questions.seeSun') },
             { key: 'thereFlower', text: t('worksheets.readingPrek.questions.thereFlower') }
-          ] 
+          ]
         },
-        { 
+        {
           titleKey: 'bigTree',
           title: t('worksheets.readingPrek.storyTitles.bigTree'),
           images: [
-            { nameKey: 'tree', name: t('worksheets.readingPrek.objectNames.tree'), svg: <svg width="60" height="80" viewBox="0 0 60 80"><rect x="25" y="50" width="10" height="30" fill="none" stroke="#333" strokeWidth="2"/><ellipse cx="30" cy="40" rx="20" ry="25" fill="none" stroke="#333" strokeWidth="2"/></svg> },
-            { nameKey: 'house', name: t('worksheets.readingPrek.objectNames.house'), svg: <svg width="70" height="70" viewBox="0 0 70 70"><rect x="15" y="35" width="40" height="35" fill="none" stroke="#333" strokeWidth="2"/><polygon points="15,35 35,15 55,35" fill="none" stroke="#333" strokeWidth="2"/><rect x="25" y="45" width="12" height="20" fill="none" stroke="#333" strokeWidth="2"/><rect x="42" y="50" width="8" height="8" fill="none" stroke="#333" strokeWidth="2"/></svg> },
-            { nameKey: 'flower', name: t('worksheets.readingPrek.objectNames.flower'), svg: <svg width="50" height="60" viewBox="0 0 50 60"><line x1="25" y1="40" x2="25" y2="60" stroke="#333" strokeWidth="2"/><circle cx="25" cy="25" r="10" fill="none" stroke="#333" strokeWidth="2"/><ellipse cx="25" cy="12" rx="6" ry="8" fill="none" stroke="#333" strokeWidth="2"/><ellipse cx="25" cy="38" rx="6" ry="8" fill="none" stroke="#333" strokeWidth="2"/><ellipse cx="12" cy="25" rx="8" ry="6" fill="none" stroke="#333" strokeWidth="2"/><ellipse cx="38" cy="25" rx="8" ry="6" fill="none" stroke="#333" strokeWidth="2"/></svg> }
-          ], 
+            { nameKey: 'tree', name: t('worksheets.readingPrek.objectNames.tree'), svg: <svg width="60" height="80" viewBox="0 0 60 80"><rect x="25" y="50" width="10" height="30" fill="none" stroke="#333" strokeWidth="2" /><ellipse cx="30" cy="40" rx="20" ry="25" fill="none" stroke="#333" strokeWidth="2" /></svg> },
+            { nameKey: 'house', name: t('worksheets.readingPrek.objectNames.house'), svg: <svg width="70" height="70" viewBox="0 0 70 70"><rect x="15" y="35" width="40" height="35" fill="none" stroke="#333" strokeWidth="2" /><polygon points="15,35 35,15 55,35" fill="none" stroke="#333" strokeWidth="2" /><rect x="25" y="45" width="12" height="20" fill="none" stroke="#333" strokeWidth="2" /><rect x="42" y="50" width="8" height="8" fill="none" stroke="#333" strokeWidth="2" /></svg> },
+            { nameKey: 'flower', name: t('worksheets.readingPrek.objectNames.flower'), svg: <svg width="50" height="60" viewBox="0 0 50 60"><line x1="25" y1="40" x2="25" y2="60" stroke="#333" strokeWidth="2" /><circle cx="25" cy="25" r="10" fill="none" stroke="#333" strokeWidth="2" /><ellipse cx="25" cy="12" rx="6" ry="8" fill="none" stroke="#333" strokeWidth="2" /><ellipse cx="25" cy="38" rx="6" ry="8" fill="none" stroke="#333" strokeWidth="2" /><ellipse cx="12" cy="25" rx="8" ry="6" fill="none" stroke="#333" strokeWidth="2" /><ellipse cx="38" cy="25" rx="8" ry="6" fill="none" stroke="#333" strokeWidth="2" /></svg> }
+          ],
           questions: [
             { key: 'treeBig', text: t('worksheets.readingPrek.questions.treeBig') },
             { key: 'seeHouse', text: t('worksheets.readingPrek.questions.seeHouse') }
-          ] 
+          ]
         },
       ],
       3
@@ -3017,17 +3016,17 @@ const renderers: Record<string, Renderer> = {
     const rng = makeRng(`${seed}|${doc.id}|${variant}`)
     // Use translation keys for colors, shapes, and sizes
     const patterns = [
-      { 
-        original: [t('common.colors.red'), t('common.colors.blue'), t('common.colors.red'), t('common.colors.blue')], 
-        match: [t('common.colors.red'), t('common.colors.blue'), t('common.colors.red'), t('common.colors.green')] 
+      {
+        original: [t('common.colors.red'), t('common.colors.blue'), t('common.colors.red'), t('common.colors.blue')],
+        match: [t('common.colors.red'), t('common.colors.blue'), t('common.colors.red'), t('common.colors.green')]
       },
-      { 
-        original: [t('common.shapes.circle'), t('common.shapes.square'), t('common.shapes.circle'), t('common.shapes.square')], 
-        match: [t('common.shapes.circle'), t('common.shapes.square'), t('common.shapes.triangle'), t('common.shapes.square')] 
+      {
+        original: [t('common.shapes.circle'), t('common.shapes.square'), t('common.shapes.circle'), t('common.shapes.square')],
+        match: [t('common.shapes.circle'), t('common.shapes.square'), t('common.shapes.triangle'), t('common.shapes.square')]
       },
-      { 
-        original: [t('common.sizes.big'), t('common.sizes.small'), t('common.sizes.big'), t('common.sizes.small')], 
-        match: [t('common.sizes.big'), t('common.sizes.small'), t('common.sizes.big'), t('common.sizes.big')] 
+      {
+        original: [t('common.sizes.big'), t('common.sizes.small'), t('common.sizes.big'), t('common.sizes.small')],
+        match: [t('common.sizes.big'), t('common.sizes.small'), t('common.sizes.big'), t('common.sizes.big')]
       },
     ]
     const spatialItems = [
@@ -3114,20 +3113,20 @@ const renderers: Record<string, Renderer> = {
     const { seed, doc, variant, t } = ctx
     const rng = makeRng(`${seed}|${doc.id}|${variant}`)
     const tasks = [
-      { 
-        taskKey: 'sortByColor', 
-        ruleKey: 'groupRedItems', 
-        switchKey: 'sortBySize' 
+      {
+        taskKey: 'sortByColor',
+        ruleKey: 'groupRedItems',
+        switchKey: 'sortBySize'
       },
-      { 
-        taskKey: 'countForward', 
-        ruleKey: 'count123', 
-        switchKey: 'countBackward' 
+      {
+        taskKey: 'countForward',
+        ruleKey: 'count123',
+        switchKey: 'countBackward'
       },
-      { 
-        taskKey: 'nameAnimals', 
-        ruleKey: 'listFarmAnimals', 
-        switchKey: 'listOceanAnimals' 
+      {
+        taskKey: 'nameAnimals',
+        ruleKey: 'listFarmAnimals',
+        switchKey: 'listOceanAnimals'
       },
     ]
     const allPerspectives = [
@@ -3705,14 +3704,14 @@ const renderers: Record<string, Renderer> = {
           {problems.map((prob, idx) => {
             const total = prob.filled + prob.missing
             const showFilled = prob.operation === '+' ? prob.filled : total
-            const instruction = prob.operation === '+' 
+            const instruction = prob.operation === '+'
               ? t('worksheets.tensFrame.additionInstruction')
-                  .replace('{{filled}}', String(prob.filled))
-                  .replace('{{missing}}', String(prob.missing))
-                  .replace('{{total}}', String(total))
+                .replace('{{filled}}', String(prob.filled))
+                .replace('{{missing}}', String(prob.missing))
+                .replace('{{total}}', String(total))
               : t('worksheets.tensFrame.subtractionInstruction')
-                  .replace('{{total}}', String(total))
-                  .replace('{{missing}}', String(prob.missing))
+                .replace('{{total}}', String(total))
+                .replace('{{missing}}', String(prob.missing))
             return (
               <div key={idx} className="rounded-xl border border-purple-200 bg-purple-50 p-4">
                 <p className="text-sm font-semibold text-purple-700 mb-2">
@@ -3781,7 +3780,7 @@ const renderers: Record<string, Renderer> = {
   'interactive-math-division': (ctx) => {
     const { seed, doc, variant, t, formatNum } = ctx
     const problems = buildMathDivision(seed, doc.id, variant)
-    
+
     // Helper to check if translation was found (not a raw key)
     const isTranslationFound = (text: any, key: string) => {
       if (!text || typeof text !== 'string') return false
@@ -3791,12 +3790,12 @@ const renderers: Record<string, Renderer> = {
       if (text.includes('worksheets.division.')) return false
       return true
     }
-    
+
     const instructionsText = t('worksheets.division.instructions')
     const remainderText = t('worksheets.division.remainder')
     const visualGroupingText = t('worksheets.division.visualGrouping')
     const totalText = t('worksheets.division.total')
-    
+
     return (
       <div className="space-y-4">
         <p className="text-sm text-slate-600">{isTranslationFound(instructionsText, 'worksheets.division.instructions') ? instructionsText : 'حل كل مسألة قسمة. أظهر عملك.'}</p>
@@ -3804,7 +3803,7 @@ const renderers: Record<string, Renderer> = {
           {problems.map((prob, idx) => {
             const groupIntoText = t('worksheets.division.groupInto')
             const leftOverText = prob.remainder > 0 ? t('worksheets.division.leftOver') : ''
-            
+
             let groupIntoDisplay = ''
             if (isTranslationFound(groupIntoText, 'worksheets.division.groupInto')) {
               groupIntoDisplay = groupIntoText
@@ -3816,7 +3815,7 @@ const renderers: Record<string, Renderer> = {
             } else {
               groupIntoDisplay = `جمّع في ${formatNum(prob.divisor)}: ${formatNum(prob.quotient)} مجموعات${prob.remainder > 0 ? ` + ${formatNum(prob.remainder)} متبقية` : ''}`
             }
-            
+
             return (
               <div key={idx} className="rounded-xl border border-purple-200 bg-white p-4">
                 <p className="text-sm font-semibold text-purple-800 mb-2">{formatNum(prob.dividend)} ÷ {formatNum(prob.divisor)} = ________</p>
@@ -3900,16 +3899,16 @@ const renderers: Record<string, Renderer> = {
                 <div className="flex items-start gap-4 mb-2">
                   <div className="relative w-20 h-20 flex-shrink-0">
                     <svg viewBox="0 0 100 100" className="w-full h-full">
-                      <circle cx="50" cy="50" r="45" fill="white" stroke="currentColor" strokeWidth="2" className="text-purple-300"/>
+                      <circle cx="50" cy="50" r="45" fill="white" stroke="currentColor" strokeWidth="2" className="text-purple-300" />
                       {Array.from({ length: 12 }).map((_, i) => {
                         const angle = (i * 30 - 90) * Math.PI / 180
                         const x = 50 + 35 * Math.cos(angle)
                         const y = 50 + 35 * Math.sin(angle)
                         return <text key={i} x={x} y={y} textAnchor="middle" dominantBaseline="middle" className="text-xs fill-purple-700 font-semibold">{i || 12}</text>
                       })}
-                      <line x1="50" y1="50" x2={50 + 25 * Math.cos((hourAngle - 90) * Math.PI / 180)} y2={50 + 25 * Math.sin((hourAngle - 90) * Math.PI / 180)} stroke="currentColor" strokeWidth="3" className="text-purple-800"/>
-                      <line x1="50" y1="50" x2={50 + 35 * Math.cos((minuteAngle - 90) * Math.PI / 180)} y2={50 + 35 * Math.sin((minuteAngle - 90) * Math.PI / 180)} stroke="currentColor" strokeWidth="2" className="text-purple-600"/>
-                      <circle cx="50" cy="50" r="3" fill="currentColor" className="text-purple-800"/>
+                      <line x1="50" y1="50" x2={50 + 25 * Math.cos((hourAngle - 90) * Math.PI / 180)} y2={50 + 25 * Math.sin((hourAngle - 90) * Math.PI / 180)} stroke="currentColor" strokeWidth="3" className="text-purple-800" />
+                      <line x1="50" y1="50" x2={50 + 35 * Math.cos((minuteAngle - 90) * Math.PI / 180)} y2={50 + 35 * Math.sin((minuteAngle - 90) * Math.PI / 180)} stroke="currentColor" strokeWidth="2" className="text-purple-600" />
+                      <circle cx="50" cy="50" r="3" fill="currentColor" className="text-purple-800" />
                     </svg>
                   </div>
                   <div className="flex-1">
@@ -5039,14 +5038,14 @@ const renderers: Record<string, Renderer> = {
     const { seed, doc, variant, t } = ctx
     const rng = makeRng(`${seed}|${doc.id}|${variant}`)
     const shapes = pickMany(rng, ['circle', 'square', 'triangle', 'rectangle', 'star', 'heart'], 6)
-    
+
     const renderShapeExample = (shape: string) => {
       const size = 64
       const centerX = size / 2
       const centerY = size / 2
       const strokeColor = '#d1d5db' // gray-300
       const strokeWidth = 2
-      
+
       switch (shape.toLowerCase()) {
         case 'circle':
           return (
@@ -5088,7 +5087,7 @@ const renderers: Record<string, Renderer> = {
           return null
       }
     }
-    
+
     return (
       <div className="space-y-4">
         <p className="text-sm text-slate-600">Create art using basic shapes. Draw and color shapes to make pictures.</p>
@@ -5594,7 +5593,7 @@ const answerRenderers: Record<string, AnswerRenderer> = {
           const info = SHAPE_INFO[row.shape] ?? { kind: 'flat', sidesLabel: '' }
           return (
             <li key={idx}>
-                <span className="font-semibold capitalize">{row.shape}</span> • {info.kind === 'flat' ? 'Flat shape' : 'Solid shape'}; {info.sidesLabel}
+              <span className="font-semibold capitalize">{row.shape}</span> • {info.kind === 'flat' ? 'Flat shape' : 'Solid shape'}; {info.sidesLabel}
             </li>
           )
         })}
@@ -5606,7 +5605,7 @@ const answerRenderers: Record<string, AnswerRenderer> = {
     return (
       <ol className="list-decimal list-inside space-y-2">
         {prompts.map((prompt, idx) => {
-          const coinWord = prompt.coinCount === 1 
+          const coinWord = prompt.coinCount === 1
             ? prompt.coin.replace(/s$/, '') // Remove 's' for singular
             : prompt.coin
           return (
@@ -5764,18 +5763,24 @@ const answerRenderers: Record<string, AnswerRenderer> = {
     const { doc, seed, variant, t } = ctx
     const rng = makeRng(`${seed}|${doc.id}|${variant}`)
     const stories = [
-      { titleKey: 'redCar', title: t('worksheets.readingPrek.storyTitles.redCar'), questions: [
-        { key: 'seeCar', text: t('worksheets.readingPrek.questions.seeCar') },
-        { key: 'carOnRoad', text: t('worksheets.readingPrek.questions.carOnRoad') }
-      ]},
-      { titleKey: 'sunnyDay', title: t('worksheets.readingPrek.storyTitles.sunnyDay'), questions: [
-        { key: 'seeSun', text: t('worksheets.readingPrek.questions.seeSun') },
-        { key: 'thereFlower', text: t('worksheets.readingPrek.questions.thereFlower') }
-      ]},
-      { titleKey: 'bigTree', title: t('worksheets.readingPrek.storyTitles.bigTree'), questions: [
-        { key: 'treeBig', text: t('worksheets.readingPrek.questions.treeBig') },
-        { key: 'seeHouse', text: t('worksheets.readingPrek.questions.seeHouse') }
-      ]},
+      {
+        titleKey: 'redCar', title: t('worksheets.readingPrek.storyTitles.redCar'), questions: [
+          { key: 'seeCar', text: t('worksheets.readingPrek.questions.seeCar') },
+          { key: 'carOnRoad', text: t('worksheets.readingPrek.questions.carOnRoad') }
+        ]
+      },
+      {
+        titleKey: 'sunnyDay', title: t('worksheets.readingPrek.storyTitles.sunnyDay'), questions: [
+          { key: 'seeSun', text: t('worksheets.readingPrek.questions.seeSun') },
+          { key: 'thereFlower', text: t('worksheets.readingPrek.questions.thereFlower') }
+        ]
+      },
+      {
+        titleKey: 'bigTree', title: t('worksheets.readingPrek.storyTitles.bigTree'), questions: [
+          { key: 'treeBig', text: t('worksheets.readingPrek.questions.treeBig') },
+          { key: 'seeHouse', text: t('worksheets.readingPrek.questions.seeHouse') }
+        ]
+      },
     ]
     return (
       <ul className="space-y-2 text-sm">
@@ -6495,7 +6500,7 @@ const answerRenderers: Record<string, AnswerRenderer> = {
             const solutionLabel = t('worksheets.multiplication.answerKey.solution')
             const drawArrayText = t('worksheets.multiplication.answerKey.drawArray')
             const altStrategiesText = t('worksheets.multiplication.answerKey.alternativeStrategies')
-            
+
             let solution = ''
             if (drawArrayText && drawArrayText !== 'worksheets.multiplication.answerKey.drawArray') {
               solution = drawArrayText
@@ -6505,7 +6510,7 @@ const answerRenderers: Record<string, AnswerRenderer> = {
             } else {
               solution = `${t('worksheets.multiplication.answerKey.drawArray') || 'ارسم مصفوفة بـ'} ${formatNum(prob.arrayRows)} ${t('worksheets.multiplication.answerKey.drawArray') || 'صفوف'} ${formatNum(prob.arrayCols)} ${t('worksheets.multiplication.answerKey.drawArray') || 'أعمدة'}.`
             }
-            
+
             let altStrategies = ''
             if (altStrategiesText && altStrategiesText !== 'worksheets.multiplication.answerKey.alternativeStrategies') {
               altStrategies = altStrategiesText
@@ -6515,7 +6520,7 @@ const answerRenderers: Record<string, AnswerRenderer> = {
             } else {
               altStrategies = `${t('worksheets.multiplication.answerKey.alternativeStrategies') || 'استراتيجيات بديلة'}: ${formatNum(prob.factor2)} + ${formatNum(prob.factor2)} + ... (${formatNum(prob.arrayRows)} ${t('worksheets.multiplication.answerKey.alternativeStrategies') || 'مرات'}) = ${formatNum(prob.answer)}.`
             }
-            
+
             return (
               <li key={idx} className="mb-3">
                 <span className="font-semibold">{(problemLabel && problemLabel !== 'worksheets.multiplication.answerKey.problem' ? problemLabel : t('common.problem'))} {formatNum(idx + 1)}:</span> {formatNum(prob.factor1)} × {formatNum(prob.factor2)} = <span className="text-emerald-700 font-bold">{formatNum(prob.answer)}</span>
@@ -6544,7 +6549,7 @@ const answerRenderers: Record<string, AnswerRenderer> = {
             const allGroupedText = t('worksheets.division.answerKey.allGrouped')
             const strategyText = t('worksheets.division.answerKey.strategy')
             const remainderLabel = t('worksheets.division.answerKey.remainderLabel')
-            
+
             // Check if translation was found (not a raw key)
             const isTranslationFound = (text: any, key: string) => {
               if (!text || typeof text !== 'string') return false
@@ -6554,7 +6559,7 @@ const answerRenderers: Record<string, AnswerRenderer> = {
               if (text.includes('worksheets.division.answerKey.')) return false
               return true
             }
-            
+
             // Build solution using translations with template replacement
             let solution = ''
             if (isTranslationFound(divideIntoText, 'worksheets.division.answerKey.divideInto')) {
@@ -6565,7 +6570,7 @@ const answerRenderers: Record<string, AnswerRenderer> = {
             } else {
               solution = `اقسم ${formatNum(prob.dividend)} إلى مجموعات من ${formatNum(prob.divisor)}. يمكنك عمل ${formatNum(prob.quotient)} مجموعات كاملة.`
             }
-            
+
             if (prob.remainder > 0) {
               if (isTranslationFound(remainderLeftText, 'worksheets.division.answerKey.remainderLeft')) {
                 solution += ' ' + remainderLeftText.replace(/\{\{remainder\}\}/g, formatNum(prob.remainder))
@@ -6579,7 +6584,7 @@ const answerRenderers: Record<string, AnswerRenderer> = {
                 solution += ' جميع العناصر مجمعة بالتساوي.'
               }
             }
-            
+
             // Build strategy using translations with template replacement
             let strategy = ''
             if (isTranslationFound(strategyText, 'worksheets.division.answerKey.strategy')) {
@@ -6589,7 +6594,7 @@ const answerRenderers: Record<string, AnswerRenderer> = {
             } else {
               strategy = `الاستراتيجية: استخدم الطرح المتكرر (${formatNum(prob.dividend)} - ${formatNum(prob.divisor)} - ${formatNum(prob.divisor)} - ...) أو فكر "كم ${formatNum(prob.divisor)} يناسب في ${formatNum(prob.dividend)}؟"`
             }
-            
+
             return (
               <li key={idx} className="mb-3">
                 <span className="font-semibold">{(isTranslationFound(problemLabel, 'worksheets.division.answerKey.problem') ? problemLabel : t('common.problem'))} {formatNum(idx + 1)}:</span> {formatNum(prob.dividend)} ÷ {formatNum(prob.divisor)} = <span className="text-emerald-700 font-bold">{formatNum(prob.quotient)}</span>
@@ -6661,10 +6666,10 @@ const answerRenderers: Record<string, AnswerRenderer> = {
             const finalTimeLabel = t('worksheets.time.answerKey.finalTime')
             const carryOverLabel = t('worksheets.time.answerKey.carryOver')
             const ifNeededLabel = t('worksheets.time.answerKey.ifNeeded')
-            
+
             const carryHours = Math.floor((startMins + elapsedMinutes) / 60)
             const finalMins = (startMins + elapsedMinutes) % 60
-            
+
             return (
               <li key={idx} className="mb-3">
                 <span className="font-semibold">{(problemLabel && problemLabel !== 'worksheets.time.answerKey.problem' ? problemLabel : t('common.problem'))} {formatNum(idx + 1)}:</span> {prob.question} {t('common.answer')}: <span className="text-emerald-700 font-bold">{prob.answer}</span>
@@ -6701,13 +6706,13 @@ const answerRenderers: Record<string, AnswerRenderer> = {
             const sinceGreaterLabel = t('worksheets.rounding.answerKey.sinceGreater')
             const sinceLessLabel = t('worksheets.rounding.answerKey.sinceLess')
             const replaceWithLabel = t('worksheets.rounding.answerKey.replaceWith')
-            
+
             let roundingRule = ''
             let stepByStep = ''
             if (prob.roundTo === 'ten') {
               const onesDigit = prob.number % 10
               const digitLabel = t('worksheets.rounding.answerKey.onesDigit')
-              roundingRule = onesDigit >= 5 
+              roundingRule = onesDigit >= 5
                 ? `${roundUpLabel && roundUpLabel !== 'worksheets.rounding.answerKey.roundUp' ? roundUpLabel : t('worksheets.rounding.answerKey.roundUp')} ${formatNum(onesDigit)} ≥ 5`
                 : `${roundDownLabel && roundDownLabel !== 'worksheets.rounding.answerKey.roundDown' ? roundDownLabel : t('worksheets.rounding.answerKey.roundDown')} ${formatNum(onesDigit)} < 5`
               stepByStep = `${lookAtLabel && lookAtLabel !== 'worksheets.rounding.answerKey.lookAt' ? lookAtLabel : t('worksheets.rounding.answerKey.lookAt')} ${digitLabel && digitLabel !== 'worksheets.rounding.answerKey.onesDigit' ? digitLabel : t('worksheets.rounding.answerKey.onesDigit')} (${formatNum(onesDigit)}). ${onesDigit >= 5 ? (sinceGreaterLabel && sinceGreaterLabel !== 'worksheets.rounding.answerKey.sinceGreater' ? sinceGreaterLabel : t('worksheets.rounding.answerKey.sinceGreater')) : (sinceLessLabel && sinceLessLabel !== 'worksheets.rounding.answerKey.sinceLess' ? sinceLessLabel : t('worksheets.rounding.answerKey.sinceLess'))}. ${replaceWithLabel && replaceWithLabel !== 'worksheets.rounding.answerKey.replaceWith' ? replaceWithLabel : t('worksheets.rounding.answerKey.replaceWith')} 0: ${formatNum(prob.answer)}`
@@ -6767,8 +6772,8 @@ const answerRenderers: Record<string, AnswerRenderer> = {
             } else {
               // Fallback if translation not found - use simple Arabic explanations
               const instructionsText = t('worksheets.decimals.instructions')
-              const instructions = (instructionsText && instructionsText !== 'worksheets.decimals.instructions') 
-                ? instructionsText 
+              const instructions = (instructionsText && instructionsText !== 'worksheets.decimals.instructions')
+                ? instructionsText
                 : 'قم بمحاذاة النقاط العشرية.'
               if (prob.op === '+') {
                 explanation = `${t('common.add')}: ${formatNum(prob.num1)} + ${formatNum(prob.num2)} = ${formatNum(prob.answer)}. ${instructions}`
@@ -7116,7 +7121,7 @@ function WorksheetHeader({ problemCount }: { problemCount?: number }) {
         <div className="flex-1">
           <div className="text-sm mb-2"><strong>Name:</strong> _________________________</div>
           <div className="text-sm mb-2"><strong>Date:</strong> ___________  <strong>Grade:</strong> _____</div>
-          <div className="text-sm"><strong>Teacher/Parent:</strong> _________________</div>
+
         </div>
         {problemCount && (
           <div className="text-right text-xs text-slate-600">
@@ -7145,9 +7150,9 @@ function LearningObjectives({ objectives }: { objectives: string[] }) {
 // Challenge section component
 function ChallengeSection({ challenges }: { challenges: string[] }) {
   return (
-    <div 
-      className="mt-6 print:mt-0 p-4 bg-purple-50 border-2 border-purple-200 rounded print:bg-white print:border challenge-section" 
-      style={{ 
+    <div
+      className="mt-6 print:mt-0 p-4 bg-purple-50 border-2 border-purple-200 rounded print:bg-white print:border challenge-section"
+      style={{
         pageBreakInside: 'avoid',
         breakInside: 'avoid',
         WebkitRegionBreakInside: 'avoid',
@@ -7683,7 +7688,7 @@ function getWorksheetSections(docId: string): { objectives: string[]; challenges
       challenges: ['Try new approaches', 'Consider different solutions', 'Practice flexible thinking']
     },
   }
-  
+
   return sections[docId] || {
     objectives: ['Practice key skills', 'Develop understanding', 'Apply knowledge'],
     challenges: ['Try an extension activity', 'Create your own problem', 'Teach someone else']
@@ -7710,7 +7715,7 @@ function InteractiveWorksheetSection({
   const { t: tFromContext, language } = useTranslation()
   const doc = getDocMeta(docId)
   const category = doc ? categoryByDocId.get(docId) : undefined
-  
+
   // Helper to format numbers based on language
   const formatNum = (num: number | string) => formatNumber(num, language)
   const formatRange = (start: number | string, end: number | string) => formatNumberRange(start, end, language)
@@ -7804,24 +7809,24 @@ function InteractiveWorksheetSection({
             }
           }
         }
-        
+
         // Priority 1: Use getTranslation with current language (most reliable)
         const directResult = getTranslation(language, key)
         // Debug: Log translation attempts for important keys
-        if (typeof window !== 'undefined' && process.env.NODE_ENV === 'development' && 
-            (key.includes('countObjectsAndWriteNumber') || key.includes('countThe') || key.includes('numberLabel'))) {
+        if (typeof window !== 'undefined' && process.env.NODE_ENV === 'development' &&
+          (key.includes('countObjectsAndWriteNumber') || key.includes('countThe') || key.includes('numberLabel'))) {
           console.log(`[InteractiveBundleSections] Translation attempt: key=${key}, language=${language}, result=${directResult}, isKey=${directResult === key}`)
         }
         if (typeof directResult === 'string' && directResult !== key) {
           return directResult
         }
-        
+
         // Priority 2: Try context as fallback
         const contextResult = tFromContext(key)
         if (typeof contextResult === 'string' && contextResult !== key) {
           return contextResult
         }
-        
+
         // Priority 3: If both return the key, try English as final fallback (but only if not Arabic)
         // For Arabic, we want to see the key if translation is missing rather than falling back to English
         if (language === 'ar') {
@@ -7830,8 +7835,8 @@ function InteractiveWorksheetSection({
             const logKey = `translation-missing-${key}-${language}`
             if (!(window as any)[logKey]) {
               (window as any)[logKey] = true
-              console.warn(`[InteractiveBundleSections] Translation missing for Arabic: key=${key}, language=${language}`, { 
-                directResult, 
+              console.warn(`[InteractiveBundleSections] Translation missing for Arabic: key=${key}, language=${language}`, {
+                directResult,
                 contextResult,
                 languageValue: language,
                 keyPath: key,
@@ -7843,7 +7848,7 @@ function InteractiveWorksheetSection({
           }
           return key
         }
-        
+
         // For other languages, try English fallback
         if (language !== 'en') {
           const englishResult = getTranslation('en', key)
@@ -7851,7 +7856,7 @@ function InteractiveWorksheetSection({
             return englishResult
           }
         }
-        
+
         // Final fallback: return the key (will be visible in UI for debugging)
         return key
       } catch (error) {
@@ -7862,14 +7867,14 @@ function InteractiveWorksheetSection({
           if (typeof result === 'string' && result !== key) {
             return result
           }
-        } catch {}
+        } catch { }
         // Try context as fallback
         try {
           const result = tFromContext(key)
           if (typeof result === 'string' && result !== key) {
             return result
           }
-        } catch {}
+        } catch { }
         // Try English fallback
         if (language !== 'en') {
           try {
@@ -7877,7 +7882,7 @@ function InteractiveWorksheetSection({
             if (typeof englishResult === 'string' && englishResult !== key) {
               return englishResult
             }
-          } catch {}
+          } catch { }
         }
         return key
       }
@@ -7912,12 +7917,12 @@ function InteractiveWorksheetSection({
       {/* Decorative corner accent */}
       <div className="absolute top-0 right-0 w-32 h-32 bg-gradient-to-br rounded-bl-full pointer-events-none" style={{ backgroundColor: cornerColors.topRight }} />
       <div className="absolute bottom-0 left-0 w-24 h-24 bg-gradient-to-tr rounded-tr-full pointer-events-none" style={{ backgroundColor: cornerColors.bottomLeft }} />
-      
+
       {/* Worksheet header for print/PDF */}
       <div className="relative z-10">
         <WorksheetHeader />
       </div>
-      
+
       <header className="mb-4 flex items-start justify-between gap-3 relative z-10">
         <div>
           <p className={`text-xs uppercase tracking-wide font-bold ${theme.text} opacity-80`}>{t(`categories.${category.id}`) || category.label}</p>
@@ -7936,7 +7941,7 @@ function InteractiveWorksheetSection({
           </span>
         </div>
       </header>
-      
+
       {/* Learning Objectives */}
       {(() => {
         const sections = getWorksheetSections(docId)
@@ -7946,11 +7951,11 @@ function InteractiveWorksheetSection({
           </div>
         ) : null
       })()}
-      
+
       <div className="relative z-10">
         {renderer({ doc, category, seed, variant, t, language, formatNum, formatRange, showAnswers })}
       </div>
-      
+
       {/* Challenge Section */}
       {(() => {
         const sections = getWorksheetSections(docId)
