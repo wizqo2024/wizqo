@@ -5333,7 +5333,6 @@ const renderers: Record<string, Renderer> = {
 
         img.onload = () => {
           const scale = 4 // High resolution for print
-          // SVG size is 300x300 based on the code
           const baseSize = 300
           canvas.width = baseSize * scale
           canvas.height = baseSize * scale
@@ -5344,7 +5343,8 @@ const renderers: Record<string, Renderer> = {
             ctx.drawImage(img, 0, 0, canvas.width, canvas.height)
 
             const pngData = canvas.toDataURL('image/png')
-            // A4 size in points: 595 x 842
+
+            // PDF Setup
             const pdf = new jsPDF({
               orientation: 'portrait',
               unit: 'pt',
@@ -5353,40 +5353,94 @@ const renderers: Record<string, Renderer> = {
 
             const pageWidth = pdf.internal.pageSize.getWidth()
             const pageHeight = pdf.internal.pageSize.getHeight()
+            const margin = 40
+            const workAreaWidth = pageWidth - (margin * 2)
 
-            // Max width 80% of page
-            const imgWidth = pageWidth * 0.8
-            const imgHeight = imgWidth // Square image
-            const x = (pageWidth - imgWidth) / 2
-            const y = 80 // Top margin
+            // Add Border
+            pdf.setDrawColor(249, 168, 212) // pink-300
+            pdf.setLineWidth(3)
+            pdf.rect(margin, margin, workAreaWidth, pageHeight - (margin * 2), 'S')
 
-            // Add Title
+            let cursorY = margin + 40
+
+            // Title
             pdf.setFontSize(24)
             pdf.setTextColor(157, 23, 77) // pink-800
-            pdf.text(t('interactive.interactive-art-color-by-number.colorThePicture'), pageWidth / 2, 50, { align: 'center' })
+            // Center title manually
+            const title = t('interactive.interactive-art-color-by-number.colorThePicture')
+            const titleLines = pdf.splitTextToSize(title, workAreaWidth - 40)
+            pdf.text(titleLines, pageWidth / 2, cursorY, { align: 'center' })
+            cursorY += (titleLines.length * 28) + 10
 
-            // Add Image
-            pdf.addImage(pngData, 'PNG', x, y, imgWidth, imgHeight)
+            // Instructions
+            pdf.setFontSize(12)
+            pdf.setTextColor(0, 0, 0)
+            const instructions = t('interactive.interactive-art-color-by-number.colorEachSection')
+            const instLines = pdf.splitTextToSize(instructions, workAreaWidth - 40)
+            pdf.text(instLines, pageWidth / 2, cursorY, { align: 'center' })
+            cursorY += (instLines.length * 16) + 30
 
-            // Add Key
-            const keyY = y + imgHeight + 40
+            // Image
+            // Calculate max available height for image (leaving space for key)
+            // Key height approx 150pt
+            const maxImgHeight = pageHeight - cursorY - 200
+            let imgWidth = 400
+            let imgHeight = 400
+
+            if (imgHeight > maxImgHeight) {
+              const ratio = imgWidth / imgHeight
+              imgHeight = maxImgHeight
+              imgWidth = imgHeight * ratio
+            }
+
+            // Center image
+            const x = (pageWidth - imgWidth) / 2
+            pdf.addImage(pngData, 'PNG', x, cursorY, imgWidth, imgHeight)
+            cursorY += imgHeight + 40
+
+            // Key Section
             pdf.setFontSize(16)
-            pdf.text(t('interactive.interactive-art-color-by-number.colorKey'), pageWidth / 2, keyY, { align: 'center' })
+            pdf.setTextColor(157, 23, 77) // pink-800
+            pdf.text(t('interactive.interactive-art-color-by-number.colorKey'), pageWidth / 2, cursorY, { align: 'center' })
+            cursorY += 30
 
-            let kX = x
-            let kY = keyY + 30
+            // Key Grid
+            const cols = 2
+            const colWidth = (workAreaWidth - 40) / cols
+            const rowHeight = 40
+
             pdf.setFontSize(12)
             pdf.setTextColor(0, 0, 0)
 
+            const startX = margin + 20
+
             activeCodes.forEach((code, i) => {
-              // Simple 2-column layout for key
-              if (i % 2 === 0 && i > 0) {
-                kX = x
-                kY += 20
-              } else if (i % 2 !== 0) {
-                kX = x + imgWidth / 2
+              const col = i % cols
+              const row = Math.floor(i / cols)
+              const itemX = startX + (col * colWidth)
+              const itemY = cursorY + (row * rowHeight)
+
+              // Draw color circle/box
+              // Extract color code from Tailwind class if possible, or use a map.
+              // Since we rely on Tailwind classes (bg-red-500) for display, mapping them back to hex for PDF:
+              const colorMap: Record<string, string> = {
+                'bg-red-500': '#ef4444',
+                'bg-blue-500': '#3b82f6',
+                'bg-green-500': '#22c55e',
+                'bg-yellow-400': '#facc15',
+                'bg-purple-500': '#a855f7',
+                'bg-orange-500': '#f97316',
+                'bg-pink-500': '#ec4899',
               }
-              pdf.text(`${code.num} = ${code.color} ${code.emoji}`, kX + 10, kY)
+              const hexColor = colorMap[code.bgColor] || '#e5e7eb' // default gray
+
+              pdf.setFillColor(hexColor)
+              pdf.rect(itemX + 20, itemY - 10, 20, 20, 'F')
+              pdf.setDrawColor(0, 0, 0)
+              // pdf.rect(itemX + 20, itemY - 10, 20, 20, 'S') // optional border
+
+              // Text: "1 = Red 🔴"
+              pdf.text(`${code.num} = ${code.color}  ${code.emoji}`, itemX + 50, itemY + 5)
             })
 
             pdf.save(`color-by-number-${variant}.pdf`)
