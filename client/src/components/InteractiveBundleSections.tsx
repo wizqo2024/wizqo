@@ -8,6 +8,8 @@ import {
 import { useTranslation } from '@/context/TranslationContext'
 import { getTranslation, translations, interactiveTranslations } from '@/translations'
 import { formatNumber, formatNumberRange } from '@/utils/numbers'
+import { jsPDF } from 'jspdf'
+import { Download } from 'lucide-react'
 
 // Explicitly import interactive translations to prevent tree-shaking
 // This ensures the translations are included in the bundle
@@ -5312,9 +5314,103 @@ const renderers: Record<string, Renderer> = {
       }
     }
 
+    const handleDownloadPDF = async () => {
+      try {
+        const elementId = `color-by-number-svg-${seed}-${variant}`
+        const svgElement = document.getElementById(elementId)?.querySelector('svg')
+        if (!svgElement) return
+
+        const cloned = svgElement.cloneNode(true) as SVGSVGElement
+        cloned.setAttribute('xmlns', 'http://www.w3.org/2000/svg')
+        const data = new XMLSerializer().serializeToString(cloned)
+
+        const canvas = document.createElement('canvas')
+        const ctx = canvas.getContext('2d')
+        const img = new Image()
+
+        const blob = new Blob([data], { type: 'image/svg+xml;charset=utf-8' })
+        const url = URL.createObjectURL(blob)
+
+        img.onload = () => {
+          const scale = 4 // High resolution for print
+          // SVG size is 300x300 based on the code
+          const baseSize = 300
+          canvas.width = baseSize * scale
+          canvas.height = baseSize * scale
+
+          if (ctx) {
+            ctx.fillStyle = '#ffffff'
+            ctx.fillRect(0, 0, canvas.width, canvas.height)
+            ctx.drawImage(img, 0, 0, canvas.width, canvas.height)
+
+            const pngData = canvas.toDataURL('image/png')
+            // A4 size in points: 595 x 842
+            const pdf = new jsPDF({
+              orientation: 'portrait',
+              unit: 'pt',
+              format: 'a4'
+            })
+
+            const pageWidth = pdf.internal.pageSize.getWidth()
+            const pageHeight = pdf.internal.pageSize.getHeight()
+
+            // Max width 80% of page
+            const imgWidth = pageWidth * 0.8
+            const imgHeight = imgWidth // Square image
+            const x = (pageWidth - imgWidth) / 2
+            const y = 80 // Top margin
+
+            // Add Title
+            pdf.setFontSize(24)
+            pdf.setTextColor(157, 23, 77) // pink-800
+            pdf.text(t('interactive.interactive-art-color-by-number.colorThePicture'), pageWidth / 2, 50, { align: 'center' })
+
+            // Add Image
+            pdf.addImage(pngData, 'PNG', x, y, imgWidth, imgHeight)
+
+            // Add Key
+            const keyY = y + imgHeight + 40
+            pdf.setFontSize(16)
+            pdf.text(t('interactive.interactive-art-color-by-number.colorKey'), pageWidth / 2, keyY, { align: 'center' })
+
+            let kX = x
+            let kY = keyY + 30
+            pdf.setFontSize(12)
+            pdf.setTextColor(0, 0, 0)
+
+            activeCodes.forEach((code, i) => {
+              // Simple 2-column layout for key
+              if (i % 2 === 0 && i > 0) {
+                kX = x
+                kY += 20
+              } else if (i % 2 !== 0) {
+                kX = x + imgWidth / 2
+              }
+              pdf.text(`${code.num} = ${code.color} ${code.emoji}`, kX + 10, kY)
+            })
+
+            pdf.save(`color-by-number-${variant}.pdf`)
+          }
+          URL.revokeObjectURL(url)
+        }
+        img.src = url
+      } catch (err) {
+        console.error('PDF Download failed', err)
+      }
+    }
+
     return (
       <div className="space-y-4">
-        <p className="text-base font-semibold text-pink-800">{t('interactive.interactive-art-color-by-number.colorThePicture')}</p>
+        <div className="flex justify-between items-center">
+          <p className="text-base font-semibold text-pink-800">{t('interactive.interactive-art-color-by-number.colorThePicture')}</p>
+          <button
+            onClick={handleDownloadPDF}
+            className="flex items-center gap-2 px-3 py-1.5 bg-pink-600 text-white rounded-lg hover:bg-pink-700 transition-colors text-sm font-medium shadow-sm print:hidden"
+          >
+            <Download className="w-4 h-4" />
+            Download PDF
+          </button>
+        </div>
         <div className="rounded-xl border-2 border-pink-300 bg-gradient-to-br from-pink-100 via-purple-100 to-fuchsia-100 p-6 shadow-lg">
           <p className="text-lg font-bold text-pink-800 mb-4 flex items-center gap-2">
             <span className="text-2xl">🎨</span>
@@ -5331,7 +5427,7 @@ const renderers: Record<string, Renderer> = {
             ))}
           </div>
           <div className="min-h-[24rem] rounded-xl border-4 border-pink-300 bg-white flex items-center justify-center shadow-inner p-8">
-            <div className="w-full h-full flex justify-center items-center">
+            <div id={`color-by-number-svg-${seed}-${variant}`} className="w-full h-full flex justify-center items-center">
               {renderColorByNumberSVG(design, activeCodes)}
             </div>
           </div>
