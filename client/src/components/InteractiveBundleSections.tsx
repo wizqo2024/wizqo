@@ -5257,24 +5257,22 @@ const renderers: Record<string, Renderer> = {
           )
         case 'flower':
           return (
-            <svg width={svgSize} height={svgSize} viewBox={`0 0 ${svgSize} ${svgSize}`} className="mx-auto" style={{ overflow: 'visible' }}>
+            <svg width="300" height="300" viewBox="0 0 300 300" className="mx-auto" style={{ overflow: 'visible' }}>
               {/* Petals */}
-              <g transform={`translate(${centerX}, ${centerY})`}>
-                {[0, 60, 120, 180, 240, 300].map((angle, i) => (
-                  <g key={i} transform={`rotate(${angle})`}>
-                    <ellipse cx={0} cy={-60} rx={30} ry={50} fill="white" stroke={stroke} strokeWidth={strokeWidth} />
-                    <text x={0} y={-60} transform={`rotate(${-angle} 0 -60)`} style={{ ...textStyle, fontSize: '16px' }}>{getNum(1)}</text>
-                  </g>
-                ))}
-              </g>
+              {[0, 60, 120, 180, 240, 300].map((angle, i) => (
+                <g key={`flower-petal-${i}`} transform={`translate(150, 150) rotate(${angle})`}>
+                  <ellipse cx={0} cy={-60} rx={30} ry={50} fill="white" stroke={stroke} strokeWidth={strokeWidth} />
+                  <text x={0} y={-60} transform={`rotate(${-angle} 0 -60)`} style={{ ...textStyle, fontSize: '16px' }}>{getNum(1)}</text>
+                </g>
+              ))}
               {/* Center */}
-              <circle cx={centerX} cy={centerY} r={40} fill="white" stroke={stroke} strokeWidth={strokeWidth} />
-              <text x={centerX} y={centerY} style={textStyle}>{getNum(0)}</text>
+              <circle cx={150} cy={150} r={40} fill="white" stroke={stroke} strokeWidth={strokeWidth} />
+              <text x={150} y={150} style={textStyle}>{getNum(0)}</text>
               {/* Stem */}
-              <path d={`M ${centerX} ${centerY + 40} Q ${centerX} ${svgSize - 40} ${centerX - 20} ${svgSize}`} fill="none" stroke={stroke} strokeWidth={strokeWidth} />
+              <path d={`M 150 190 Q 150 260 130 300`} fill="none" stroke={stroke} strokeWidth={strokeWidth} />
               {/* Leaf */}
-              <path d={`M ${centerX} ${svgSize - 60} Q ${centerX + 40} ${svgSize - 80} ${centerX + 60} ${svgSize - 40} Q ${centerX + 40} ${svgSize - 20} ${centerX} ${svgSize - 60}`} fill="white" stroke={stroke} strokeWidth={strokeWidth} />
-              <text x={centerX + 30} y={svgSize - 50} style={{ ...textStyle, fontSize: '14px' }}>{getNum(2)}</text>
+              <path d={`M 150 240 Q 190 220 210 260 Q 190 280 150 240`} fill="white" stroke={stroke} strokeWidth={strokeWidth} />
+              <text x={180} y={250} style={{ ...textStyle, fontSize: '14px' }}>{getNum(2)}</text>
             </svg>
           )
         case 'tree':
