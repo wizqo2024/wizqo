@@ -617,6 +617,7 @@ const ANSWERABLE_BASE_DOC_IDS = [
   'mean-median-mode-range',
   'stem-leaf-plots',
   'probability',
+  'adding-decimals-challenge',
 ]
 
 // Helper function to get translated worksheet title
@@ -1386,6 +1387,8 @@ function resolveDocTitle(docId: string, context: { packTime: string; bundleCateg
       return getTranslatedWorksheetTitle(docId, t, '📊 Stem-and-Leaf Plots')
     case 'probability':
       return getTranslatedWorksheetTitle(docId, t, '📊 Probability')
+    case 'adding-decimals-challenge':
+      return getTranslatedWorksheetTitle(docId, t, '➕ Adding Decimals Challenge')
     default:
       return t ? t('pages.printables.printableFunLearning') : 'Printable Fun Learning Activities'
   }
@@ -24990,6 +24993,89 @@ export function PrintablesPage() {
                         </div>
                       );
                     })}
+                  </div>
+                </div>
+              ))}
+            </WorksheetSectionWrapper>
+          );
+        })()}
+
+        {activeDocs.includes('adding-decimals-challenge') && (() => {
+          const rng = makeRng(`${effectiveSeed}|v${variant}|doc=${doc}`);
+          function nextFloat(min: number, max: number) { return (Math.floor(rng() * (max - min + 1) * 100) / 100) + min; }
+          const problems = Array.from({ length: 8 }, () => {
+            const a = parseFloat(nextFloat(10, 99).toFixed(2));
+            const b = parseFloat(nextFloat(1, 50).toFixed(2));
+            const result = parseFloat((a + b).toFixed(2));
+            return { a, b, result };
+          });
+          return (
+            <WorksheetSectionWrapper
+              docId="adding-decimals-challenge"
+              title="Adding Decimals Challenge"
+              emoji="➕"
+              description="Master adding decimals with visuals. Line up those decimal points!"
+              problemCount={problems.length}
+              learningObjectives={[
+                'Align decimal points correctly',
+                'Add decimals with regrouping',
+                'Solve real-world decimal problems'
+              ]}
+              parentTeacherTips={[
+                'Remind students: Line up the dots!',
+                'Fill empty spots with zeros if needed',
+                'Check answers by estimating first'
+              ]}
+            >
+              <div className="print:hidden h-1 w-24 rounded-full bg-gradient-to-r from-emerald-400 to-teal-500 animate-pulse mb-4" />
+
+              {/* Visual Concept */}
+              <div className="mb-6 p-4 bg-emerald-50 border-2 border-emerald-200 rounded-lg print:border print:bg-white grid sm:grid-cols-2 gap-4 items-center">
+                <div>
+                  <div className="font-semibold text-emerald-900 mb-2 text-sm">💡 Visual Tip: Line Up The Dots!</div>
+                  <div className="font-mono text-lg bg-white p-3 rounded border border-emerald-200 inline-block">
+                    <div className="text-right">  1<span className="text-red-500 font-bold">.</span>25</div>
+                    <div className="text-right">+ 3<span className="text-red-500 font-bold">.</span>40</div>
+                    <div className="border-t-2 border-slate-800 text-right mt-1 pt-1">  4<span className="text-red-500 font-bold">.</span>65</div>
+                  </div>
+                </div>
+                <div className="text-sm text-emerald-800">
+                  <p>When adding decimals, always imagine a straight line going down through the decimal points. They must be perfectly aligned!</p>
+                </div>
+              </div>
+
+              <div className="grid grid-cols-2 gap-6 break-inside-avoid" style={{ pageBreakAfter: 'auto' }}>
+                {problems.map((p, i) => (
+                  <div key={i} className="border-2 border-slate-200 rounded-xl p-5 bg-white shadow-sm hover:shadow-md transition-shadow break-inside-avoid">
+                    <div className="text-right text-2xl font-mono tracking-widest leading-loose">
+                      <div>{p.a.toFixed(2)}</div>
+                      <div className="border-b-4 border-slate-800 pb-2 mb-2 relative">
+                        <span className="absolute left-0 bottom-2 text-slate-400">+</span>
+                        {p.b.toFixed(2)}
+                      </div>
+                    </div>
+                    <div className="mt-4 flex justify-end">
+                      <div className="h-12 w-32 border-2 border-dashed border-slate-300 rounded bg-slate-50 print:bg-white"></div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+
+              {/* Fun Challenge */}
+              <div className="mt-8 p-4 bg-gradient-to-r from-purple-100 to-pink-100 rounded-xl border border-purple-200 print:bg-white print:border-slate-300">
+                <h3 className="font-bold text-purple-900 mb-2">🚀 Speed Challenge</h3>
+                <p className="text-sm text-purple-800">Can you solve all 8 problems in less than 5 minutes? Mark your time: _______</p>
+              </div>
+
+              {showAnswersForDoc('adding-decimals-challenge', () => (
+                <div className="mt-6 p-4 border-2 border-emerald-300 bg-emerald-50 rounded print:border print:bg-white print:page-break-before-always">
+                  <div className="font-bold text-emerald-900 mb-3 text-base">✅ Answer Key</div>
+                  <div className="grid grid-cols-4 gap-4">
+                    {problems.map((p, i) => (
+                      <div key={i} className="text-sm text-emerald-900">
+                        <span className="font-bold">{i + 1}.</span> {p.result.toFixed(2)}
+                      </div>
+                    ))}
                   </div>
                 </div>
               ))}

@@ -59,11 +59,11 @@ function createSlug(docId: string): string {
     'order-of-operations': 'order-of-operations-pemdas',
     'fractions-to-decimals': 'converting-fractions-to-decimals',
   }
-  
+
   if (slugMap[docId]) {
     return slugMap[docId]
   }
-  
+
   // Auto-generate from docId
   return docId
     .replace(/([a-z])([A-Z])/g, '$1-$2')
@@ -110,11 +110,11 @@ function createTitle(docId: string): string {
     'order-of-operations': 'Order of Operations (PEMDAS)',
     'fractions-to-decimals': 'Converting Fractions to Decimals',
   }
-  
+
   if (titleMap[docId]) {
     return titleMap[docId]
   }
-  
+
   // Auto-generate from docId
   return docId
     .split('-')
@@ -146,10 +146,10 @@ function inferGrade(docId: string): string[] {
   if (docId.includes('4th-grade') || docId.includes('fourth-grade') || docId.includes('g4')) {
     return ['4th Grade', '5th Grade']
   }
-  if (docId.includes('5th-grade') || docId.includes('fifth-grade') || docId.includes('g5')) {
+  if (docId.includes('5th-grade') || docId.includes('fifth-grade') || docId.includes('g5') || docId === 'adding-decimals-challenge') {
     return ['5th Grade']
   }
-  
+
   // Default based on content
   if (docId.includes('mult') || docId.includes('div') || docId.includes('fractions') || docId.includes('decimals')) {
     return ['3rd Grade', '4th Grade']
@@ -160,7 +160,7 @@ function inferGrade(docId: string): string[] {
   if (docId.includes('pemdas') || docId.includes('order-of-operations') || docId.includes('algebra')) {
     return ['4th Grade', '5th Grade', '6th Grade']
   }
-  
+
   return ['Elementary']
 }
 
@@ -169,7 +169,7 @@ function inferGrade(docId: string): string[] {
  */
 function inferCategory(docId: string): string[] {
   const categories: string[] = []
-  
+
   if (docId.includes('mult')) categories.push('multiplication')
   if (docId.includes('div')) categories.push('division')
   if (docId.includes('fraction')) categories.push('fractions')
@@ -193,7 +193,7 @@ function inferCategory(docId: string): string[] {
   if (docId.includes('pattern')) {
     categories.push('patterns')
   }
-  
+
   return categories.length > 0 ? categories : ['math']
 }
 
@@ -226,10 +226,10 @@ function generateKeywords(name: string, category: string[], grade: string[]): st
     `printable ${name.toLowerCase()}`,
     `${name.toLowerCase()} PDF`,
   ]
-  
+
   const cat = category.flatMap(c => [`${c} worksheet`, `${c} worksheets`])
   const grd = grade.flatMap(g => [`${g} ${name.toLowerCase()}`, `${g} math worksheet`])
-  
+
   return [...base, ...cat, ...grd].slice(0, 15).join(', ')
 }
 
@@ -237,14 +237,14 @@ function generateKeywords(name: string, category: string[], grade: string[]): st
  * Generate intro content (120-200 words)
  */
 function generateIntro(name: string, grade: string[], category: string[]): string {
-  const gradeText = grade.length > 0 
+  const gradeText = grade.length > 0
     ? `This ${name.toLowerCase()} worksheet is designed for ${grade.join(' and ')} students. `
     : `This ${name.toLowerCase()} worksheet helps students `
-  
-  const categoryText = category.length > 0 
+
+  const categoryText = category.length > 0
     ? `practice ${category[0]} skills and build confidence. `
     : 'build essential math skills. '
-  
+
   return `${gradeText}${categoryText}This printable worksheet includes an answer key for easy checking and is perfect for classroom use, homework, or extra practice at home. Download the free PDF instantly and start practicing today!`
 }
 
@@ -257,7 +257,7 @@ function generateLearningObjectives(name: string, category: string[]): string[] 
     `Practice ${category[0] || 'math'} concepts`,
     `Build confidence with ${name.toLowerCase()}`,
   ]
-  
+
   // Add category-specific objectives
   if (category.includes('multiplication')) {
     base.push('Build multiplication fluency')
@@ -271,7 +271,7 @@ function generateLearningObjectives(name: string, category: string[]): string[] 
   if (category.includes('counting')) {
     base.push('Develop number recognition')
   }
-  
+
   return base.slice(0, 4)
 }
 
@@ -281,7 +281,7 @@ function generateLearningObjectives(name: string, category: string[]): string[] 
 function generateVisualExamples(docId: string, name: string, category: string[]): string {
   const lowerDocId = docId.toLowerCase()
   const lowerName = name.toLowerCase()
-  
+
   // Multiplication worksheets
   if (category.includes('multiplication') || lowerDocId.includes('mult')) {
     if (lowerDocId.includes('array') || lowerDocId.includes('arrays')) {
@@ -321,7 +321,7 @@ function generateVisualExamples(docId: string, name: string, category: string[])
    • Answer: 24 apples`
     }
   }
-  
+
   // Addition/Subtraction worksheets
   if (category.includes('addition-subtraction') || lowerDocId.includes('add') || lowerDocId.includes('sub')) {
     if (lowerDocId === 'add-2digit-100' || lowerDocId === 'add-2digit-regrouping' || lowerDocId === 'sub-2digit-100' || lowerDocId === 'sub-2digit-regrouping') {
@@ -379,7 +379,7 @@ function generateVisualExamples(docId: string, name: string, category: string[])
    [●●●●●] [●●●●●]`
     }
   }
-  
+
   // Fractions worksheets
   if (category.includes('fractions') || lowerDocId.includes('fraction')) {
     if (lowerDocId === 'fractions-halves-thirds-fourths') {
@@ -419,7 +419,7 @@ function generateVisualExamples(docId: string, name: string, category: string[])
    3. Color 2 parts out of 6 parts`
     }
   }
-  
+
   // Place value worksheets
   if (lowerDocId.includes('place-value') || lowerDocId === 'place-value-hto' || lowerDocId === 'expanded-form-200') {
     if (lowerDocId === 'expanded-form-200') {
@@ -449,7 +449,7 @@ function generateVisualExamples(docId: string, name: string, category: string[])
    3. Which digit is in the tens place in 129?  (Answer: 2)`
     }
   }
-  
+
   // Counting worksheets
   if (category.includes('counting') || lowerDocId.includes('count')) {
     return `🔢 Visual Example:
@@ -466,7 +466,7 @@ function generateVisualExamples(docId: string, name: string, category: string[])
    2. Count by 2s: 2, 4, 6, 8, __, __
    3. Count by 5s: 5, 10, 15, __, __`
   }
-  
+
   // Patterns worksheets
   if (category.includes('patterns') || lowerDocId.includes('pattern')) {
     return `🔢 Visual Example (AB Pattern):
@@ -479,7 +479,7 @@ function generateVisualExamples(docId: string, name: string, category: string[])
    2. What comes next? 2, 4, 6, 8, __, __
    3. Create your own pattern`
   }
-  
+
   // Word problems
   if (category.includes('word-problems') || lowerDocId.includes('word-problem')) {
     return `📝 Example Problem:
@@ -492,7 +492,26 @@ function generateVisualExamples(docId: string, name: string, category: string[])
    • Solve: 15 - 7 = 8
    • Answer: 8 stickers left`
   }
-  
+
+  if (docId === 'adding-decimals-challenge') {
+    return `📝 Example Problem:
+   1.25 + 3.40 = ?
+   
+   Step 1: Line up the decimal points!
+      1.25
+    + 3.40
+    ------
+    
+   Step 2: Add from right to left
+      1.25
+    + 3.40
+    ------
+      4.65
+      
+   Answer: 4.65`;
+  }
+
+
   // Decimals worksheets
   if (category.includes('decimals') || lowerDocId.includes('decimal')) {
     return `🔢 Visual Example:
@@ -508,9 +527,11 @@ function generateVisualExamples(docId: string, name: string, category: string[])
 📝 Example Problems:
    1. Write 0.5 as a fraction: 5/10 = 1/2
    2. Compare: 0.3 ___ 0.30  (Answer: =)
-   3. Add: 0.4 + 0.2 = ?`
+   3. Add: 0.4 + 0.2 = ?`;
   }
-  
+
+
+
   // Order of operations (PEMDAS)
   if (lowerDocId.includes('pemdas') || lowerDocId.includes('order-of-operations')) {
     return `📝 Example Problem:
@@ -535,7 +556,7 @@ function generateVisualExamples(docId: string, name: string, category: string[])
    
    Answer: 16`
   }
-  
+
   // Default fallback
   return `📝 Example Problems:
    This worksheet includes practice problems to help students 
@@ -560,7 +581,7 @@ export const WORKSHEET_SEO_MAP: Record<string, WorksheetSEO> = {}
 export function initializeWorksheetSEO() {
   // List of all 254 worksheet docIds
   const allDocIds = [
-    'ab-pattern', 'add-2digit-100', 'add-2digit-regrouping', 'addition-subtraction-0-10',
+    'ab-pattern', 'add-2digit-100', 'add-2digit-regrouping', 'adding-decimals-challenge', 'addition-subtraction-0-10',
     'add-sub-decimals', 'add-sub-fractions', 'add-sub-fractions-4th', 'add-sub-mixed-numbers',
     'add-three-numbers', 'animal-pack', 'area-model-mult', 'area-perimeter-4th', 'area-rectangles',
     'area-triangles-parallelograms', 'arts-3-shape-creature', 'balance-equations-10', 'bar-graphs-data',
@@ -638,14 +659,14 @@ export function initializeWorksheetSEO() {
     'winter-kindness', 'word-problems-100', 'writing-expressions', 'ws-world',
     'zigzag-lines'
   ]
-  
+
   // Generate SEO data for each worksheet
   for (const docId of allDocIds) {
     const name = createTitle(docId)
     const slug = createSlug(docId)
     const grade = inferGrade(docId)
     const category = inferCategory(docId)
-    
+
     WORKSHEET_SEO_MAP[docId] = {
       docId,
       slug,
@@ -661,15 +682,15 @@ export function initializeWorksheetSEO() {
       relatedDocIds: [], // Will be populated based on category/grade
     }
   }
-  
+
   // Populate related worksheets
   for (const docId in WORKSHEET_SEO_MAP) {
     const seo = WORKSHEET_SEO_MAP[docId]
     const related = Object.values(WORKSHEET_SEO_MAP)
-      .filter(w => 
+      .filter(w =>
         w.docId !== docId &&
-        (w.category.some(c => seo.category.includes(c)) || 
-         w.grade.some(g => seo.grade.includes(g)))
+        (w.category.some(c => seo.category.includes(c)) ||
+          w.grade.some(g => seo.grade.includes(g)))
       )
       .slice(0, 5)
       .map(w => w.docId)
