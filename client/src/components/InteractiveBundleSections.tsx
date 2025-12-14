@@ -5382,8 +5382,8 @@ const renderers: Record<string, Renderer> = {
 
             // Image
             // Calculate max available height for image (leaving space for key)
-            // Key height approx 150pt
-            const maxImgHeight = pageHeight - cursorY - 200
+            // Key height approx 250pt (taller cards)
+            const maxImgHeight = pageHeight - cursorY - 300
             let imgWidth = 400
             let imgHeight = 400
 
@@ -5407,10 +5407,10 @@ const renderers: Record<string, Renderer> = {
             // Key Grid
             const cols = 2
             const colWidth = (workAreaWidth - 40) / cols
-            const rowHeight = 40
+            const rowHeight = 70 // Taller for cards
 
-            pdf.setFontSize(12)
-            pdf.setTextColor(0, 0, 0)
+            pdf.setFontSize(14)
+            pdf.setTextColor(157, 23, 77) // pink-800
 
             const startX = margin + 20
 
@@ -5420,9 +5420,12 @@ const renderers: Record<string, Renderer> = {
               const itemX = startX + (col * colWidth)
               const itemY = cursorY + (row * rowHeight)
 
-              // Draw color circle/box
-              // Extract color code from Tailwind class if possible, or use a map.
-              // Since we rely on Tailwind classes (bg-red-500) for display, mapping them back to hex for PDF:
+              // Card Background
+              pdf.setDrawColor(249, 168, 212) // pink-300
+              pdf.setFillColor(255, 241, 242) // pink-50
+              pdf.roundedRect(itemX, itemY, colWidth - 20, 60, 10, 10, 'FD')
+
+              // Color Circle
               const colorMap: Record<string, string> = {
                 'bg-red-500': '#ef4444',
                 'bg-blue-500': '#3b82f6',
@@ -5432,15 +5435,16 @@ const renderers: Record<string, Renderer> = {
                 'bg-orange-500': '#f97316',
                 'bg-pink-500': '#ec4899',
               }
-              const hexColor = colorMap[code.bgColor] || '#e5e7eb' // default gray
+              const hexColor = colorMap[code.bgColor] || '#e5e7eb'
 
               pdf.setFillColor(hexColor)
-              pdf.rect(itemX + 20, itemY - 10, 20, 20, 'F')
-              pdf.setDrawColor(0, 0, 0)
-              // pdf.rect(itemX + 20, itemY - 10, 20, 20, 'S') // optional border
+              pdf.setDrawColor(200, 200, 200) // subtle border for circle
+              pdf.circle(itemX + 25, itemY + 30, 15, 'FD')
 
-              // Text: "1 = Red 🔴"
-              pdf.text(`${code.num} = ${code.color}  ${code.emoji}`, itemX + 50, itemY + 5)
+              // Text: "1 = Red" (No Emoji)
+              pdf.setTextColor(0, 0, 0)
+              pdf.setFontSize(16)
+              pdf.text(`${code.num} = ${code.color}`, itemX + 55, itemY + 36)
             })
 
             pdf.save(`color-by-number-${variant}.pdf`)
