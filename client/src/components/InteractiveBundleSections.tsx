@@ -5257,23 +5257,25 @@ const renderers: Record<string, Renderer> = {
           )
         case 'flower':
           return (
-            <svg width="300" height="300" viewBox="0 0 300 300" className="mx-auto" style={{ overflow: 'visible' }}>
-              <rect x="0" y="0" width="300" height="300" fill="none" stroke="magenta" strokeWidth="4" />
-              {/* Petals */}
-              {[0, 60, 120, 180, 240, 300].map((angle, i) => (
-                <g key={`flower-petal-${i}`} transform={`translate(150, 150) rotate(${angle})`}>
-                  <ellipse cx={0} cy={-60} rx={30} ry={50} fill="white" stroke={stroke} strokeWidth={strokeWidth} />
-                  <text x={0} y={-60} transform={`rotate(${-angle} 0 -60)`} style={{ ...textStyle, fontSize: '16px' }}>{getNum(1)}</text>
-                </g>
-              ))}
-              {/* Center */}
-              <circle cx={150} cy={150} r={40} fill="white" stroke={stroke} strokeWidth={strokeWidth} />
-              <text x={150} y={150} style={textStyle}>{getNum(0)}</text>
-              {/* Stem */}
-              <path d={`M 150 190 Q 150 260 130 300`} fill="none" stroke={stroke} strokeWidth={strokeWidth} />
-              {/* Leaf */}
-              <path d={`M 150 240 Q 190 220 210 260 Q 190 280 150 240`} fill="white" stroke={stroke} strokeWidth={strokeWidth} />
-              <text x={180} y={250} style={{ ...textStyle, fontSize: '14px' }}>{getNum(2)}</text>
+            <svg key="flower-svg-fixed" width="300" height="300" viewBox="0 0 300 300" className="mx-auto" style={{ overflow: 'visible' }}>
+              <rect x="0" y="0" width="300" height="300" fill="none" stroke="cyan" strokeWidth="4" />
+              <g transform="translate(150, 150)">
+                {/* Petals */}
+                {[0, 60, 120, 180, 240, 300].map((angle, i) => (
+                  <g key={`flower-petal-${i}`} transform={`rotate(${angle})`}>
+                    <ellipse cx={0} cy={-60} rx={30} ry={50} fill="white" stroke={stroke} strokeWidth={strokeWidth} />
+                    <text x={0} y={-60} transform={`rotate(${-angle} 0 -60)`} style={{ ...textStyle, fontSize: '16px' }}>{getNum(1)}</text>
+                  </g>
+                ))}
+                {/* Center */}
+                <circle cx={0} cy={0} r={40} fill="white" stroke={stroke} strokeWidth={strokeWidth} />
+                <text x={0} y={0} style={textStyle}>{getNum(0)}</text>
+                {/* Stem (drawn relative to center 0,0) */}
+                <path d={`M 0 40 Q 0 110 -20 150`} fill="none" stroke={stroke} strokeWidth={strokeWidth} />
+                {/* Leaf */}
+                <path d={`M 0 90 Q 40 70 60 110 Q 40 130 0 90`} fill="white" stroke={stroke} strokeWidth={strokeWidth} />
+                <text x={30} y={100} style={{ ...textStyle, fontSize: '14px' }}>{getNum(2)}</text>
+              </g>
             </svg>
           )
         case 'tree':
