@@ -5257,7 +5257,7 @@ const renderers: Record<string, Renderer> = {
           )
         case 'flower':
           return (
-            <svg key="flower-svg-fixed" width="300" height="300" viewBox="0 0 300 300" className="mx-auto" style={{ overflow: 'visible' }}>
+            <svg key="flower-svg-fixed" width="300px" height="300px" viewBox="0 0 300 300" style={{ overflow: 'visible' }}>
               <rect x="0" y="0" width="300" height="300" fill="none" stroke="cyan" strokeWidth="4" />
               <g transform="translate(150, 150)">
                 {/* Petals */}
@@ -5483,7 +5483,9 @@ const renderers: Record<string, Renderer> = {
           </div>
           <div className="min-h-[24rem] rounded-xl border-4 border-pink-300 bg-white flex items-center justify-center shadow-inner p-8">
             <div id={`color-by-number-svg-${seed}-${variant}`} className="w-full h-full flex justify-center items-center">
-              {renderColorByNumberSVG(design, activeCodes)}
+              <div style={{ width: '300px', height: '300px', overflow: 'visible' }}>
+                {renderColorByNumberSVG(design, activeCodes)}
+              </div>
             </div>
           </div>
           <p className="mt-4 text-center text-base font-semibold text-pink-800 bg-white/80 rounded-lg p-3 border-2 border-pink-200">
