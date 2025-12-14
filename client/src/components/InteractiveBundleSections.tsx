@@ -5176,11 +5176,142 @@ const renderers: Record<string, Renderer> = {
       { num: 5, color: t('common.colors.purple'), emoji: '🟣', bgColor: 'bg-purple-500' },
       { num: 6, color: t('common.colors.orange'), emoji: '🟠', bgColor: 'bg-orange-500' },
     ]
-    const selectedCodes = pickMany(rng, colorCodes, 4)
     const designs = pickMany(rng, ['butterfly', 'flower', 'star', 'heart', 'rainbow', 'tree'], 1)
-    const drawDesignText = t('interactive.interactive-art-color-by-number.drawDesign')
-      .replace('{{design}}', designs[0])
-      .replace('{{count}}', selectedCodes.length.toString())
+    const design = designs[0]
+
+    // Select colors needed for the design (3-6 typically)
+    const neededColors = design === 'rainbow' ? 6 : design === 'tree' ? 4 : design === 'flower' ? 4 : 3
+    const selectedCodes = pickMany(rng, colorCodes, Math.min(colorCodes.length, neededColors))
+    // Ensure sequential numbers for the activity
+    const activeCodes = selectedCodes.map((c, i) => ({ ...c, num: i + 1 }))
+
+    const renderColorByNumberSVG = (type: string, codes: typeof activeCodes) => {
+      const size = 300
+      const cx = size / 2
+      const cy = size / 2
+      const stroke = "#374151" // gray-700
+      const strokeWidth = 3
+      const textStyle = { fontSize: '24px', fontWeight: 'bold', fill: '#374151', textAnchor: 'middle', dominantBaseline: 'middle' } as const
+
+      // Helper to get number for a region (cycling through available codes)
+      const getNum = (index: number) => codes[index % codes.length].num
+
+      switch (type) {
+        case 'rainbow':
+          return (
+            <svg width={size} height={size * 0.6} viewBox={`0 0 ${size} ${size * 0.6}`} className="mx-auto">
+              <defs>
+                <clipPath id="rainbow-clip">
+                  <rect x="0" y="0" width={size} height={size * 0.6} />
+                </clipPath>
+              </defs>
+              <g clipPath="url(#rainbow-clip)">
+                {/* Arcs */}
+                {[0, 1, 2, 3, 4, 5].map((i) => {
+                  if (i >= codes.length) return null
+                  const r = size * 0.9 - (i * 30)
+                  return (
+                    <g key={i}>
+                      <path d={`M ${cx - r} ${size * 0.9} A ${r} ${r} 0 0 1 ${cx + r} ${size * 0.9}`} fill="white" stroke={stroke} strokeWidth={strokeWidth} />
+                      {/* Label position roughly top middle of arc */}
+                      <text x={cx} y={size * 0.9 - r + 15} style={{ ...textStyle, fontSize: '16px' }}>{getNum(i)}</text>
+                    </g>
+                  )
+                })}
+                {/* Clouds at bottom */}
+                <circle cx={40} cy={size * 0.9} r={30} fill="white" stroke={stroke} strokeWidth={strokeWidth} />
+                <circle cx={80} cy={size * 0.9} r={30} fill="white" stroke={stroke} strokeWidth={strokeWidth} />
+                <circle cx={size - 40} cy={size * 0.9} r={30} fill="white" stroke={stroke} strokeWidth={strokeWidth} />
+                <circle cx={size - 80} cy={size * 0.9} r={30} fill="white" stroke={stroke} strokeWidth={strokeWidth} />
+              </g>
+            </svg>
+          )
+        case 'heart':
+          return (
+            <svg width={size} height={size} viewBox={`0 0 ${size} ${size}`} className="mx-auto">
+              {/* Outer Heart */}
+              <path d={`M ${cx} ${size - 20} C 20 ${cx + 40} -40 ${cx - 60} ${cx} 40 C ${size + 40} ${cx - 60} ${size - 20} ${cx + 40} ${cx} ${size - 20} Z`} fill="white" stroke={stroke} strokeWidth={strokeWidth} />
+              <text x={cx} y={size - 60} style={textStyle}>{getNum(0)}</text>
+
+              {/* Inner Heart */}
+              <path d={`M ${cx} ${size - 80} C ${cx - 60} ${cy + 20} ${cx - 80} 80 ${cx} 90 C ${cx + 80} 80 ${cx + 60} ${cy + 20} ${cx} ${size - 80} Z`} fill="white" stroke={stroke} strokeWidth={strokeWidth} />
+              <text x={cx} y={cy} style={textStyle}>{getNum(1)}</text>
+
+              {/* Center Heart */}
+              <path d={`M ${cx} ${cy + 40} C ${cx - 20} ${cy} ${cx - 30} ${cy - 20} ${cx} ${cy - 10} C ${cx + 30} ${cy - 20} ${cx + 20} ${cy} ${cx} ${cy + 40} Z`} fill="white" stroke={stroke} strokeWidth={strokeWidth} />
+              <text x={cx} y={cy + 15} style={{ ...textStyle, fontSize: '14px' }}>{getNum(2)}</text>
+            </svg>
+          )
+        case 'star':
+          return (
+            <svg width={size} height={size} viewBox={`0 0 ${size} ${size}`} className="mx-auto">
+              {/* Star shape is hard to do concentrically simply, so let's do segmented */}
+              <polygon points="150,25 179,111 269,111 197,165 223,251 150,200 77,251 103,165 31,111 121,111" fill="white" stroke={stroke} strokeWidth={strokeWidth} />
+              <text x={cx} y={cy} style={textStyle}>{getNum(0)}</text>
+              {/* Inner Circle */}
+              <circle cx={cx} cy={cy + 10} r={40} fill="white" stroke={stroke} strokeWidth={strokeWidth} />
+              <text x={cx} y={cy + 10} style={textStyle}>{getNum(1)}</text>
+            </svg>
+          )
+        case 'flower':
+          return (
+            <svg width={size} height={size} viewBox={`0 0 ${size} ${size}`} className="mx-auto">
+              {/* Petals */}
+              <g transform={`translate(${cx}, ${cy})`}>
+                {[0, 60, 120, 180, 240, 300].map((angle, i) => (
+                  <g key={i} transform={`rotate(${angle})`}>
+                    <ellipse cx={0} cy={-60} rx={30} ry={50} fill="white" stroke={stroke} strokeWidth={strokeWidth} />
+                    <text x={0} y={-60} transform={`rotate(${-angle} 0 -60)`} style={{ ...textStyle, fontSize: '16px' }}>{getNum(1)}</text>
+                  </g>
+                ))}
+              </g>
+              {/* Center */}
+              <circle cx={cx} cy={cy} r={40} fill="white" stroke={stroke} strokeWidth={strokeWidth} />
+              <text x={cx} y={cy} style={textStyle}>{getNum(0)}</text>
+              {/* Stem */}
+              <path d={`M ${cx} ${cy + 40} Q ${cx} ${size - 40} ${cx - 20} ${size}`} fill="none" stroke={stroke} strokeWidth={strokeWidth} />
+              {/* Leaf */}
+              <path d={`M ${cx} ${size - 60} Q ${cx + 40} ${size - 80} ${cx + 60} ${size - 40} Q ${cx + 40} ${size - 20} ${cx} ${size - 60}`} fill="white" stroke={stroke} strokeWidth={strokeWidth} />
+              <text x={cx + 30} y={size - 50} style={{ ...textStyle, fontSize: '14px' }}>{getNum(2)}</text>
+            </svg>
+          )
+        case 'tree':
+          return (
+            <svg width={size} height={size} viewBox={`0 0 ${size} ${size}`} className="mx-auto">
+              {/* Trunk */}
+              <rect x={cx - 20} y={size - 100} width={40} height={100} fill="white" stroke={stroke} strokeWidth={strokeWidth} />
+              <text x={cx} y={size - 50} style={textStyle}>{getNum(0)}</text>
+              {/* Foliage Circles */}
+              <circle cx={cx} cy={size - 140} r={50} fill="white" stroke={stroke} strokeWidth={strokeWidth} />
+              <text x={cx} y={size - 140} style={textStyle}>{getNum(1)}</text>
+              <circle cx={cx - 40} cy={size - 110} r={40} fill="white" stroke={stroke} strokeWidth={strokeWidth} />
+              <text x={cx - 40} y={size - 110} style={textStyle}>{getNum(1)}</text>
+              <circle cx={cx + 40} cy={size - 110} r={40} fill="white" stroke={stroke} strokeWidth={strokeWidth} />
+              <text x={cx + 40} y={size - 110} style={textStyle}>{getNum(1)}</text>
+              <circle cx={cx} cy={size - 180} r={40} fill="white" stroke={stroke} strokeWidth={strokeWidth} />
+              <text x={cx} y={size - 180} style={textStyle}>{getNum(1)}</text>
+            </svg>
+          )
+        case 'butterfly':
+        default:
+          return (
+            <svg width={size} height={size} viewBox={`0 0 ${size} ${size}`} className="mx-auto">
+              {/* Wings */}
+              <path d={`M ${cx} ${cy} C ${cx + 100} ${cy - 100} ${cx + 100} ${cy} ${cx} ${cy + 80} C ${cx - 100} ${cy} ${cx - 100} ${cy - 100} ${cx} ${cy}`} fill="white" stroke={stroke} strokeWidth={strokeWidth} />
+              <text x={cx + 40} y={cy - 20} style={textStyle}>{getNum(0)}</text>
+              <text x={cx - 40} y={cy - 20} style={textStyle}>{getNum(0)}</text>
+              {/* Bottom Wings */}
+              <path d={`M ${cx} ${cy + 80} C ${cx + 80} ${cy + 150} ${cx + 20} ${cy + 150} ${cx} ${cy + 80} C ${cx - 20} ${cy + 150} ${cx - 80} ${cy + 150} ${cx} ${cy + 80}`} fill="white" stroke={stroke} strokeWidth={strokeWidth} />
+              <text x={cx + 30} y={cy + 100} style={textStyle}>{getNum(1)}</text>
+              <text x={cx - 30} y={cy + 100} style={textStyle}>{getNum(1)}</text>
+              {/* Body */}
+              <ellipse cx={cx} cy={cy + 60} rx={10} ry={60} fill="white" stroke={stroke} strokeWidth={strokeWidth} />
+              <text x={cx} y={cy + 60} style={{ ...textStyle, fontSize: '14px', fill: 'black' }}>{getNum(2)}</text>
+            </svg>
+          )
+      }
+    }
+
     return (
       <div className="space-y-4">
         <p className="text-base font-semibold text-pink-800">{t('interactive.interactive-art-color-by-number.colorThePicture')}</p>
@@ -5190,8 +5321,8 @@ const renderers: Record<string, Renderer> = {
             <span>{t('interactive.interactive-art-color-by-number.colorKey')}</span>
           </p>
           <div className="grid grid-cols-2 md:grid-cols-4 gap-3 mb-6">
-            {selectedCodes.map((code) => (
-              <div key={code.num} className={`flex items-center gap-3 bg-white rounded-xl border-2 border-pink-300 p-4 shadow-md hover:shadow-lg transition-shadow ${code.bgColor} bg-opacity-10`}>
+            {activeCodes.map((code) => (
+              <div key={code.num} className={`flex items-center gap-3 bg-white rounded-xl border-2 border-pink-300 p-4 shadow-md ${code.bgColor} bg-opacity-10`}>
                 <span className="text-3xl">{code.emoji}</span>
                 <div>
                   <p className="text-lg font-bold text-pink-900">{code.num} = {code.color}</p>
@@ -5199,11 +5330,9 @@ const renderers: Record<string, Renderer> = {
               </div>
             ))}
           </div>
-          <div className="h-80 rounded-xl border-4 border-pink-300 bg-gradient-to-br from-white to-pink-50 flex items-center justify-center shadow-inner">
-            <div className="text-center">
-              <p className="text-6xl mb-4">🎨</p>
-              <p className="text-pink-700 text-lg font-bold">{drawDesignText}</p>
-              <p className="text-pink-600 text-sm mt-2">{t('interactive.interactive-art-color-by-number.useColorKey')}</p>
+          <div className="min-h-[24rem] rounded-xl border-4 border-pink-300 bg-white flex items-center justify-center shadow-inner p-8">
+            <div className="w-full h-full flex justify-center items-center">
+              {renderColorByNumberSVG(design, activeCodes)}
             </div>
           </div>
           <p className="mt-4 text-center text-base font-semibold text-pink-800 bg-white/80 rounded-lg p-3 border-2 border-pink-200">
