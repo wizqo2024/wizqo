@@ -172,7 +172,9 @@
       } catch (e) { }
 
       // Check if this is a worksheet page (starts with /worksheets/ and is not a category page)
+      // Check if this is a worksheet page (starts with /worksheets/ and is not a category page)
       var categoryPages = [
+        'all',
         'multiplication-worksheets',
         'times-table-multiplication-worksheets',
         'fractions-to-decimals-worksheets',
@@ -188,13 +190,18 @@
       ];
 
       var isWorksheetPage = false;
+      var isCategoryPage = false;
       var worksheetSlug = '';
 
       if (path && path.startsWith('/worksheets/')) {
         var slug = path.replace('/worksheets/', '').split('/')[0].split('?')[0];
-        if (slug && !categoryPages.includes(slug)) {
-          isWorksheetPage = true;
+        if (slug) {
           worksheetSlug = slug;
+          if (categoryPages.includes(slug)) {
+            isCategoryPage = true;
+          } else {
+            isWorksheetPage = true;
+          }
         }
       }
 
@@ -202,7 +209,8 @@
       var isFractionsPage = path && path.includes('fractions-to-decimals-worksheets');
       var isOrderOfOperationsPage = path && path.includes('order-of-operations-worksheets');
 
-      if (!isWorksheetPage && !isFractionsPage && !isOrderOfOperationsPage) return;
+      // Allow execution if it is ANY relevant page type
+      if (!isWorksheetPage && !isFractionsPage && !isOrderOfOperationsPage && !isCategoryPage) return;
 
       // Single function to update all SEO elements
       function updateSEO(seoData) {
@@ -211,6 +219,11 @@
 
           // Define SEO data for category pages
           var categorySEO = {
+            'all': {
+              title: 'All Free Printable Worksheets | Math, Reading, Writing & More | Wizqo',
+              description: 'Browse all free printable worksheets for kids (K-5). Math, reading, writing, tracing, and multiplication worksheets with answer keys—100% free, ready to print.',
+              keywords: 'all worksheets, free printable worksheets, math worksheets, reading worksheets, writing worksheets, worksheets for kids'
+            },
             'kindergarten-math-worksheets': {
               title: 'Kindergarten Math Worksheets – Free Printable PDF',
               description: 'Free printable kindergarten math worksheets for early learners. Download PDF worksheets covering counting, number recognition, basic shapes, and simple addition. Perfect for building math foundations with answer keys included.',
