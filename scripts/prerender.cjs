@@ -454,7 +454,7 @@ ${gameLinks}
     </main>`;
 
     // Replace the seo-fallback content
-    html = html.replace(/<main id="seo-fallback"[^>]*>[\s\S]*?<\/main>/, multiplicationContent);
+    html = html.replace(/<main[^>]*id="seo-fallback"[^>]*>[\s\S]*?<\/main>/, multiplicationContent);
   } else if (route.path === '/worksheets/times-table-multiplication-worksheets') {
     // Replace fallback content with times table-specific content
     // H1 should be shorter than title to avoid duplicate
@@ -510,7 +510,7 @@ ${gameLinks}
     </main>`;
 
     // Replace the seo-fallback content
-    html = html.replace(/<main id="seo-fallback"[^>]*>[\s\S]*?<\/main>/, timesTableContent);
+    html = html.replace(/<main[^>]*id="seo-fallback"[^>]*>[\s\S]*?<\/main>/, timesTableContent);
   } else if (route.path === '/worksheets/fractions-to-decimals-worksheets') {
     // All SEO scripts already removed above before setMeta
     // Remove ANY remaining scripts in body that might try to update SEO content
@@ -578,7 +578,7 @@ ${gameLinks}
     </main>`;
 
     // Replace the seo-fallback content
-    html = html.replace(/<main id="seo-fallback"[^>]*>[\s\S]*?<\/main>/, fractionsToDecimalsContent);
+    html = html.replace(/<main[^>]*id="seo-fallback"[^>]*>[\s\S]*?<\/main>/, fractionsToDecimalsContent);
     // Ensure viewport tag is present (double-check after all processing)
     html = ensureViewport(html);
   } else if (route.path === '/worksheets/order-of-operations-worksheets') {
@@ -657,7 +657,7 @@ ${gameLinks}
     </main>`;
 
     // Replace the seo-fallback content
-    html = html.replace(/<main id="seo-fallback"[^>]*>[\s\S]*?<\/main>/, orderOfOperationsContent);
+    html = html.replace(/<main[^>]*id="seo-fallback"[^>]*>[\s\S]*?<\/main>/, orderOfOperationsContent);
     // Ensure viewport tag is present (double-check after all processing)
     html = ensureViewport(html);
   } else if (route.path === '/interactive-worksheets-generator') {
@@ -701,7 +701,7 @@ ${gameLinks}
     </main>`;
 
     // Replace the seo-fallback content
-    html = html.replace(/<main id="seo-fallback"[^>]*>[\s\S]*?<\/main>/, interactiveContent);
+    html = html.replace(/<main[^>]*id="seo-fallback"[^>]*>[\s\S]*?<\/main>/, interactiveContent);
   } else if (route.path === '/') {
     // Inject homepage static content for SEO
     const homepageContent = `<main id="seo-fallback" style="display: none; max-width: 1200px; margin: 0 auto; padding: 2rem 1rem; font-family: system-ui, -apple-system, sans-serif;">
@@ -736,7 +736,7 @@ ${gameLinks}
 
     // Insert the content - replacing any existing fallback or inserting new
     if (html.includes('id="seo-fallback"')) {
-      html = html.replace(/<main id="seo-fallback"[^>]*>[\s\S]*?<\/main>/, homepageContent);
+      html = html.replace(/<main[^>]*id="seo-fallback"[^>]*>[\s\S]*?<\/main>/, homepageContent);
     } else {
       // Insert after opening body tag if not found (fallback strategy)
       html = html.replace(/<body>/, '<body>' + homepageContent);
@@ -749,7 +749,7 @@ ${gameLinks}
     // Keep it hidden but with minimal content
     // Use shorter H1 that differs from title
     const h1Text = extractH1FromTitle(route.title);
-    html = html.replace(/<main id="seo-fallback"[^>]*>[\s\S]*?<\/main>/, `<main id="seo-fallback" style="display: none;"><h1>${escapeHtml(h1Text)}</h1><p>${escapeHtml(route.description)}</p></main>`);
+    html = html.replace(/<main[^>]*id="seo-fallback"[^>]*>[\s\S]*?<\/main>/, `<main id="seo-fallback" style="display: none;"><h1>${escapeHtml(h1Text)}</h1><p>${escapeHtml(route.description)}</p></main>`);
   }
 
   // Final check: ensure viewport tag is always present
