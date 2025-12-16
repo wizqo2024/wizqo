@@ -131,7 +131,7 @@ function createTitle(docId: string): string {
  * Infer grade from docId
  */
 function inferGrade(docId: string): string[] {
-  if (docId.includes('kindergarten') || docId.includes('prek') || docId.includes('pre-k')) {
+  if (docId.includes('kindergarten') || docId.includes('prek') || docId.includes('pre-k') || docId === 'match-object-to-shadow') {
     return ['Kindergarten', 'Pre-K']
   }
   if (docId.includes('1st-grade') || docId.includes('first-grade') || docId.includes('g1')) {
@@ -192,6 +192,10 @@ function inferCategory(docId: string): string[] {
   }
   if (docId.includes('pattern')) {
     categories.push('patterns')
+  }
+  if (docId === 'match-object-to-shadow') {
+    categories.push('visual-perception')
+    categories.push('logic')
   }
 
   return categories.length > 0 ? categories : ['math']
@@ -657,7 +661,7 @@ export function initializeWorksheetSEO() {
     'times-table-vertical-6-12', 'time-to-minute', 'transformations-5th',
     'uppercase-lowercase-match', 'volume-rectangular-prisms', 'weekly-goals', 'what-comes-next',
     'winter-kindness', 'word-problems-100', 'writing-expressions', 'ws-world',
-    'zigzag-lines'
+    'zigzag-lines', 'match-object-to-shadow'
   ]
 
   // Generate SEO data for each worksheet

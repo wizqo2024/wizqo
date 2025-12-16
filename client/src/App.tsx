@@ -35,6 +35,7 @@ import FractionsToDecimalsWorksheetsPage from './pages/FractionsToDecimalsWorksh
 import OrderOfOperationsWorksheetsPage from './pages/OrderOfOperationsWorksheetsPage';
 import WorksheetPage from './pages/WorksheetPage';
 import AllWorksheetsPage from './pages/AllWorksheetsPage';
+import ShadowMatchingWorksheetPage from './pages/ShadowMatchingWorksheetPage';
 
 
 import NotFoundPage from './pages/NotFoundPage';
@@ -615,6 +616,9 @@ export default function App() {
                         <OrderOfOperationsWorksheetsPage />
                       </>
                     );
+                  }
+                  if (routeSubKey === 'match-object-to-shadow') {
+                    return <ShadowMatchingWorksheetPage />;
                   }
                   if (routeSubKey === '1st-grade-math-worksheets') {
                     const canonical = addLocaleToPath('/worksheets/1st-grade-math-worksheets', currentLocale);
