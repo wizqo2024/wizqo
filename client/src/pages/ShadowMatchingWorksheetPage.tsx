@@ -138,6 +138,19 @@ export default function ShadowMatchingWorksheetPage() {
             {/* Control Bar (Hidden in Print and Preview) */}
             {!isPreview && (
                 <div className="max-w-4xl mx-auto px-4 py-8 print:hidden">
+                    <button
+                        onClick={() => {
+                            if (window.history.length > 2) {
+                                window.history.back();
+                            } else {
+                                window.location.href = '/worksheets/kindergarten-math-worksheets';
+                            }
+                        }}
+                        className="flex items-center gap-2 text-slate-500 hover:text-slate-800 transition-colors mb-6 font-medium"
+                    >
+                        <ArrowLeft size={20} />
+                        Back to Worksheets
+                    </button>
                     <h1 className="text-3xl font-bold text-slate-900 mb-4">Object Shadow Matching</h1>
                     <p className="text-slate-600 mb-8 max-w-2xl">
                         Develop visual discrimination skills! Draw a line to connect each colorful object on the left to its matching shadow on the right.
