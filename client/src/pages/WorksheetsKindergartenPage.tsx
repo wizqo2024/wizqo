@@ -25,6 +25,7 @@ interface WorksheetItem {
   docId: string
   categories: string[]
   section?: string
+  customPreviewUrl?: string
 }
 
 // Worksheets will be defined inside component to use translation
@@ -32,32 +33,32 @@ interface WorksheetItem {
 export default function WorksheetsKindergartenPage() {
   const { t, isRTL } = useTranslation();
   const [previewItem, setPreviewItem] = React.useState<WorksheetItem | null>(null);
-  
+
   React.useEffect(() => {
     // Ensure re-render on language change
   }, [t]);
-  
+
   // Helper to convert hyphenated IDs to camelCase for translation keys
   const hyphenToCamelCase = (str: string): string => {
     return str.replace(/-([a-z])/g, (_, letter) => letter.toUpperCase())
   }
 
   // Build translated categories
-  const KINDERGARTEN_CATEGORIES: Category[] = useMemo(() => 
+  const KINDERGARTEN_CATEGORIES: Category[] = useMemo(() =>
     KINDERGARTEN_CATEGORIES_IDS.map(cat => {
       const translationKey = hyphenToCamelCase(cat.id)
       const translatedLabel = t(`pages.grades.kindergarten.categories.${translationKey}`) as string
       // Fallback to a readable label if translation is missing
-      const label = translatedLabel && translatedLabel !== `pages.grades.kindergarten.categories.${translationKey}` 
-        ? translatedLabel 
+      const label = translatedLabel && translatedLabel !== `pages.grades.kindergarten.categories.${translationKey}`
+        ? translatedLabel
         : cat.id.split('-').map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(' ')
       return {
         ...cat,
         label
       }
     })
-  , [t]);
-  
+    , [t]);
+
   const [selectedCategories, setSelectedCategories] = useState<Set<string>>(new Set())
 
   const toggleCategory = (categoryId: string) => {
@@ -104,6 +105,7 @@ export default function WorksheetsKindergartenPage() {
     { title: t('pages.grades.kindergarten.worksheets.shapeSorting.title'), description: t('pages.grades.kindergarten.worksheets.shapeSorting.description'), href: getWorksheetURL('shape-sorting', 'kindergarten'), docId: 'shape-sorting', categories: ['shapes-colors'], section: 'Shapes & Colors' },
     { title: t('pages.grades.kindergarten.worksheets.colorRecognition.title'), description: t('pages.grades.kindergarten.worksheets.colorRecognition.description'), href: getWorksheetURL('color-recognition', 'kindergarten'), docId: 'color-recognition', categories: ['shapes-colors'], section: 'Shapes & Colors' },
     { title: t('pages.grades.kindergarten.worksheets.drawShape.title'), description: t('pages.grades.kindergarten.worksheets.drawShape.description'), href: getWorksheetURL('draw-shape', 'kindergarten'), docId: 'draw-shape', categories: ['shapes-colors', 'pre-writing'], section: 'Shapes & Colors' },
+    { title: '🌑 Match Object to Shadow', description: 'Draw a line to connect each object to its matching shadow. Great for visual perception!', href: '/worksheets/match-object-to-shadow', docId: 'match-object-to-shadow', categories: ['shapes-colors'], section: 'Shapes & Colors', customPreviewUrl: '/worksheets/match-object-to-shadow?preview=1' },
     // Patterns
     { title: '🔁 Patterns', description: 'Complete each pattern. Look at what comes before and continue the pattern.', href: getWorksheetURL('kindergarten-patterns', 'kindergarten'), docId: 'kindergarten-patterns', categories: ['patterns'], section: 'Patterns' },
     { title: t('pages.grades.kindergarten.worksheets.abPattern.title'), description: t('pages.grades.kindergarten.worksheets.abPattern.description'), href: getWorksheetURL('ab-pattern', 'kindergarten'), docId: 'ab-pattern', categories: ['patterns'], section: 'Patterns' },
@@ -126,7 +128,7 @@ export default function WorksheetsKindergartenPage() {
   // Filter worksheets based on selected categories
   const filteredWorksheets = useMemo(() => {
     if (selectedCategories.size === 0) return KINDERGARTEN_WORKSHEETS
-    return KINDERGARTEN_WORKSHEETS.filter((ws) => 
+    return KINDERGARTEN_WORKSHEETS.filter((ws) =>
       ws.categories.some((cat) => selectedCategories.has(cat))
     )
   }, [selectedCategories, KINDERGARTEN_WORKSHEETS])
@@ -196,157 +198,157 @@ export default function WorksheetsKindergartenPage() {
             </div>
           </div>
         </section>
-        
+
         <div className="mx-auto max-w-6xl px-4 pb-16 sm:px-6 lg:px-8 space-y-10">
-        <section className="bg-white border border-slate-200 rounded-2xl p-5">
-          <h2 className="text-xl font-bold text-slate-900 mb-2">{t('pages.grades.kindergarten.whatsInside')}</h2>
-          <p className="text-slate-700 text-sm max-w-3xl">
-            {t('pages.grades.kindergarten.whatsInsideDesc')}
-          </p>
-          <div className="mt-4">
-            <div className="border border-slate-200 rounded-xl p-4 bg-white">
-              <div className="text-slate-900 font-semibold mb-1">{t('pages.grades.kindergarten.buildPack')}</div>
-              <p className="text-slate-700 text-sm mb-3">{t('pages.grades.kindergarten.buildPackDesc')}</p>
-              <div className="flex flex-wrap items-center gap-2 text-xs text-slate-700 mb-3">
-                <span className="inline-flex items-center px-2 py-1 rounded-full bg-slate-100 border border-slate-200">{t('pages.grades.kindergarten.buildPackTime')}</span>
-                <span className="inline-flex items-center px-2 py-1 rounded-full bg-slate-100 border border-slate-200">{t('pages.grades.kindergarten.buildPackAge')}</span>
-                <span className="inline-flex items-center px-2 py-1 rounded-full bg-slate-100 border border-slate-200">{t('pages.grades.kindergarten.buildPackFocus')}</span>
-              </div>
-              <a href="/print?doc=pack&time=5&age=k&skill=math&from=kindergarten" className="inline-flex items-center justify-center px-4 py-2 rounded-lg bg-purple-600 text-white hover:bg-purple-700 transition-colors" onClick={(e)=>{ try { (window as any).gtag?.('event','build_pack_click',{grade:'K'});} catch{} }}>{t('pages.printables.buildPackButton')}</a>
-            </div>
-          </div>
-        </section>
-
-        {/* Main content with sidebar layout */}
-        <section className="grid gap-8 lg:grid-cols-[320px_minmax(0,1fr)]">
-          {/* Left sidebar - Category Filter */}
-          <aside className="space-y-8 rounded-3xl border border-slate-200 bg-white p-6 shadow-sm">
-            <div>
-              <CategoryFilter
-                categories={KINDERGARTEN_CATEGORIES}
-                selectedCategories={selectedCategories}
-                onToggleCategory={toggleCategory}
-                onClearAll={clearCategories}
-                title={t('pages.grades.kindergarten.filterByCategory')}
-              />
-            </div>
-          </aside>
-
-          {/* Right side - Worksheets grouped by section */}
-          <div className="space-y-8">
-            {Object.entries(groupedWorksheets).map(([section, worksheets]) => {
-              // Translate section labels
-              const sectionKeyMap: Record<string, string> = {
-                'Counting': 'counting',
-                'Number Recognition': 'numberRecognition',
-                'Shapes & Colors': 'shapesColors',
-                'Patterns': 'patterns',
-                'Comparison': 'comparison',
-                'Pre-Writing': 'preWriting',
-              }
-              const sectionKey = sectionKeyMap[section] || section.toLowerCase()
-              const iconMap: Record<string, string> = {
-                'Counting': '🔢',
-                'Number Recognition': '🔟',
-                'Shapes & Colors': '🟩',
-                'Patterns': '🧩',
-                'Comparison': '⚖️',
-                'Pre-Writing': '✏️',
-              }
-              const icon = iconMap[section] || ''
-              const translatedSection = t(`pages.grades.kindergarten.categories.${sectionKey}`) as string
-              const sectionLabel = translatedSection && translatedSection !== `pages.grades.kindergarten.categories.${sectionKey}` 
-                ? translatedSection 
-                : section
-              const label = `${icon} ${sectionLabel}`
-              
-              return (
-                <div key={section}>
-                  <h2 className="text-xl font-bold text-slate-900 mb-2">{label}</h2>
-                  <div className="grid sm:grid-cols-2 gap-6">
-                    {worksheets.map((ws) => (
-                      <WorksheetThumbnailCard
-                        key={ws.docId}
-                        title={ws.title}
-                        description={ws.description}
-                        href={ws.href}
-                        docId={ws.docId}
-                        onPreview={setPreviewItem}
-                      />
-                    ))}
-                  </div>
+          <section className="bg-white border border-slate-200 rounded-2xl p-5">
+            <h2 className="text-xl font-bold text-slate-900 mb-2">{t('pages.grades.kindergarten.whatsInside')}</h2>
+            <p className="text-slate-700 text-sm max-w-3xl">
+              {t('pages.grades.kindergarten.whatsInsideDesc')}
+            </p>
+            <div className="mt-4">
+              <div className="border border-slate-200 rounded-xl p-4 bg-white">
+                <div className="text-slate-900 font-semibold mb-1">{t('pages.grades.kindergarten.buildPack')}</div>
+                <p className="text-slate-700 text-sm mb-3">{t('pages.grades.kindergarten.buildPackDesc')}</p>
+                <div className="flex flex-wrap items-center gap-2 text-xs text-slate-700 mb-3">
+                  <span className="inline-flex items-center px-2 py-1 rounded-full bg-slate-100 border border-slate-200">{t('pages.grades.kindergarten.buildPackTime')}</span>
+                  <span className="inline-flex items-center px-2 py-1 rounded-full bg-slate-100 border border-slate-200">{t('pages.grades.kindergarten.buildPackAge')}</span>
+                  <span className="inline-flex items-center px-2 py-1 rounded-full bg-slate-100 border border-slate-200">{t('pages.grades.kindergarten.buildPackFocus')}</span>
                 </div>
-              )
-            })}
-            {filteredWorksheets.length === 0 && (
-              <div className="text-center py-12 text-slate-500">
-                <p className="text-lg">{t('pages.grades.kindergarten.noResults')}</p>
-                <button
-                  onClick={clearCategories}
-                  className="mt-4 text-purple-600 hover:text-purple-700 font-medium"
-                >
-                  {t('pages.grades.kindergarten.allCategories')}
-                </button>
+                <a href="/print?doc=pack&time=5&age=k&skill=math&from=kindergarten" className="inline-flex items-center justify-center px-4 py-2 rounded-lg bg-purple-600 text-white hover:bg-purple-700 transition-colors" onClick={(e) => { try { (window as any).gtag?.('event', 'build_pack_click', { grade: 'K' }); } catch { } }}>{t('pages.printables.buildPackButton')}</a>
               </div>
-            )}
-          </div>
-        </section>
+            </div>
+          </section>
 
-        {/* Explore More Worksheets */}
-        <section className="bg-white border border-slate-200 rounded-2xl p-5">
-          <h2 className="text-xl font-bold text-slate-900">{t('pages.grades.kindergarten.exploreMore')}</h2>
-          <ul className="mt-3 grid sm:grid-cols-2 gap-2 text-sm text-purple-700">
-            <li><a className="hover:underline" href="/worksheets/1st-grade-math-worksheets">{t('pages.grades.kindergarten.exploreLinks.firstGrade')}</a></li>
-            <li><a className="hover:underline" href="/worksheets/2nd-grade-math-worksheets">{t('pages.grades.kindergarten.exploreLinks.secondGrade')}</a></li>
-            <li><a className="hover:underline" href="/worksheets/3rd-grade-math-worksheets">{t('pages.grades.kindergarten.exploreLinks.thirdGrade')}</a></li>
-            <li><a className="hover:underline" href="/worksheets/handwriting-worksheet-maker">{t('pages.grades.kindergarten.exploreLinks.handwriting')}</a></li>
-            <li><a className="hover:underline" href="/printables">{t('pages.printables.title')}</a></li>
-            <li><a className="hover:underline" href="/kids">{t('pages.grades.kindergarten.exploreLinks.kidsHub')}</a></li>
-          </ul>
-        </section>
+          {/* Main content with sidebar layout */}
+          <section className="grid gap-8 lg:grid-cols-[320px_minmax(0,1fr)]">
+            {/* Left sidebar - Category Filter */}
+            <aside className="space-y-8 rounded-3xl border border-slate-200 bg-white p-6 shadow-sm">
+              <div>
+                <CategoryFilter
+                  categories={KINDERGARTEN_CATEGORIES}
+                  selectedCategories={selectedCategories}
+                  onToggleCategory={toggleCategory}
+                  onClearAll={clearCategories}
+                  title={t('pages.grades.kindergarten.filterByCategory')}
+                />
+              </div>
+            </aside>
 
-        <section className="mb-10 bg-white border border-slate-200 rounded-2xl p-5">
-          <h2 className="text-xl font-bold text-slate-900 mb-4">{t('pages.grades.kindergarten.faqs')}</h2>
-          <Accordion type="single" collapsible className="divide-y rounded-xl border border-slate-200 bg-white">
-            <AccordionItem value="q1">
-              <AccordionTrigger className="px-4">{t('pages.grades.kindergarten.faq1Question')}</AccordionTrigger>
-              <AccordionContent className="px-4 text-slate-700">
-                {t('pages.grades.kindergarten.faq1Answer')}
-              </AccordionContent>
-            </AccordionItem>
-            <AccordionItem value="q2">
-              <AccordionTrigger className="px-4">{t('pages.grades.kindergarten.faq2Question')}</AccordionTrigger>
-              <AccordionContent className="px-4 text-slate-700">
-                {t('pages.grades.kindergarten.faq2Answer')}
-              </AccordionContent>
-            </AccordionItem>
-            <AccordionItem value="q3">
-              <AccordionTrigger className="px-4">{t('pages.grades.kindergarten.faq3Question')}</AccordionTrigger>
-              <AccordionContent className="px-4 text-slate-700">
-                {t('pages.grades.kindergarten.faq3Answer')}
-              </AccordionContent>
-            </AccordionItem>
-            <AccordionItem value="q4">
-              <AccordionTrigger className="px-4">{t('pages.grades.kindergarten.faq4Question')}</AccordionTrigger>
-              <AccordionContent className="px-4 text-slate-700">
-                {t('pages.grades.kindergarten.faq4Answer')}
-              </AccordionContent>
-            </AccordionItem>
-          </Accordion>
-        </section>
+            {/* Right side - Worksheets grouped by section */}
+            <div className="space-y-8">
+              {Object.entries(groupedWorksheets).map(([section, worksheets]) => {
+                // Translate section labels
+                const sectionKeyMap: Record<string, string> = {
+                  'Counting': 'counting',
+                  'Number Recognition': 'numberRecognition',
+                  'Shapes & Colors': 'shapesColors',
+                  'Patterns': 'patterns',
+                  'Comparison': 'comparison',
+                  'Pre-Writing': 'preWriting',
+                }
+                const sectionKey = sectionKeyMap[section] || section.toLowerCase()
+                const iconMap: Record<string, string> = {
+                  'Counting': '🔢',
+                  'Number Recognition': '🔟',
+                  'Shapes & Colors': '🟩',
+                  'Patterns': '🧩',
+                  'Comparison': '⚖️',
+                  'Pre-Writing': '✏️',
+                }
+                const icon = iconMap[section] || ''
+                const translatedSection = t(`pages.grades.kindergarten.categories.${sectionKey}`) as string
+                const sectionLabel = translatedSection && translatedSection !== `pages.grades.kindergarten.categories.${sectionKey}`
+                  ? translatedSection
+                  : section
+                const label = `${icon} ${sectionLabel}`
+
+                return (
+                  <div key={section}>
+                    <h2 className="text-xl font-bold text-slate-900 mb-2">{label}</h2>
+                    <div className="grid sm:grid-cols-2 gap-6">
+                      {worksheets.map((ws) => (
+                        <WorksheetThumbnailCard
+                          key={ws.docId}
+                          title={ws.title}
+                          description={ws.description}
+                          href={ws.href}
+                          docId={ws.docId}
+                          onPreview={setPreviewItem}
+                        />
+                      ))}
+                    </div>
+                  </div>
+                )
+              })}
+              {filteredWorksheets.length === 0 && (
+                <div className="text-center py-12 text-slate-500">
+                  <p className="text-lg">{t('pages.grades.kindergarten.noResults')}</p>
+                  <button
+                    onClick={clearCategories}
+                    className="mt-4 text-purple-600 hover:text-purple-700 font-medium"
+                  >
+                    {t('pages.grades.kindergarten.allCategories')}
+                  </button>
+                </div>
+              )}
+            </div>
+          </section>
+
+          {/* Explore More Worksheets */}
+          <section className="bg-white border border-slate-200 rounded-2xl p-5">
+            <h2 className="text-xl font-bold text-slate-900">{t('pages.grades.kindergarten.exploreMore')}</h2>
+            <ul className="mt-3 grid sm:grid-cols-2 gap-2 text-sm text-purple-700">
+              <li><a className="hover:underline" href="/worksheets/1st-grade-math-worksheets">{t('pages.grades.kindergarten.exploreLinks.firstGrade')}</a></li>
+              <li><a className="hover:underline" href="/worksheets/2nd-grade-math-worksheets">{t('pages.grades.kindergarten.exploreLinks.secondGrade')}</a></li>
+              <li><a className="hover:underline" href="/worksheets/3rd-grade-math-worksheets">{t('pages.grades.kindergarten.exploreLinks.thirdGrade')}</a></li>
+              <li><a className="hover:underline" href="/worksheets/handwriting-worksheet-maker">{t('pages.grades.kindergarten.exploreLinks.handwriting')}</a></li>
+              <li><a className="hover:underline" href="/printables">{t('pages.printables.title')}</a></li>
+              <li><a className="hover:underline" href="/kids">{t('pages.grades.kindergarten.exploreLinks.kidsHub')}</a></li>
+            </ul>
+          </section>
+
+          <section className="mb-10 bg-white border border-slate-200 rounded-2xl p-5">
+            <h2 className="text-xl font-bold text-slate-900 mb-4">{t('pages.grades.kindergarten.faqs')}</h2>
+            <Accordion type="single" collapsible className="divide-y rounded-xl border border-slate-200 bg-white">
+              <AccordionItem value="q1">
+                <AccordionTrigger className="px-4">{t('pages.grades.kindergarten.faq1Question')}</AccordionTrigger>
+                <AccordionContent className="px-4 text-slate-700">
+                  {t('pages.grades.kindergarten.faq1Answer')}
+                </AccordionContent>
+              </AccordionItem>
+              <AccordionItem value="q2">
+                <AccordionTrigger className="px-4">{t('pages.grades.kindergarten.faq2Question')}</AccordionTrigger>
+                <AccordionContent className="px-4 text-slate-700">
+                  {t('pages.grades.kindergarten.faq2Answer')}
+                </AccordionContent>
+              </AccordionItem>
+              <AccordionItem value="q3">
+                <AccordionTrigger className="px-4">{t('pages.grades.kindergarten.faq3Question')}</AccordionTrigger>
+                <AccordionContent className="px-4 text-slate-700">
+                  {t('pages.grades.kindergarten.faq3Answer')}
+                </AccordionContent>
+              </AccordionItem>
+              <AccordionItem value="q4">
+                <AccordionTrigger className="px-4">{t('pages.grades.kindergarten.faq4Question')}</AccordionTrigger>
+                <AccordionContent className="px-4 text-slate-700">
+                  {t('pages.grades.kindergarten.faq4Answer')}
+                </AccordionContent>
+              </AccordionItem>
+            </Accordion>
+          </section>
         </div>
       </main>
       <Footer />
-      
+
       {/* Preview Modal */}
       {previewItem && (
         <div className="fixed inset-0 z-50 overflow-hidden">
           {/* Backdrop */}
-          <div 
+          <div
             className="absolute inset-0 bg-black/50 transition-opacity"
             onClick={() => setPreviewItem(null)}
           />
-          
+
           {/* Side Panel */}
           <div className="absolute right-0 top-0 h-full w-full max-w-4xl bg-white shadow-2xl transform transition-transform duration-300 ease-in-out">
             <div className="flex h-full flex-col">
@@ -366,7 +368,7 @@ export default function WorksheetsKindergartenPage() {
                   </svg>
                 </button>
               </div>
-              
+
               {/* Scrollable Content */}
               <div className="flex-1 overflow-y-auto bg-slate-50">
                 <div className="mx-auto max-w-3xl px-6 py-8">
@@ -379,13 +381,13 @@ export default function WorksheetsKindergartenPage() {
                       aria-label={`Preview of ${previewItem.title} worksheet`}
                     />
                   </div>
-                  
+
                   {/* Info Footer */}
                   <div className="mt-6 rounded-xl border border-purple-200 bg-purple-50 p-4 text-sm text-purple-800">
                     <p className="font-semibold mb-2">📄 Preview</p>
                     <p>Click the Download button below to download as PDF or use your browser's print function.</p>
                   </div>
-                  
+
                   {/* Action Buttons */}
                   <div className="mt-6 flex items-center gap-3">
                     <button
@@ -412,12 +414,12 @@ export default function WorksheetsKindergartenPage() {
   )
 }
 
-const WorksheetThumbnailCard = React.memo(function WorksheetThumbnailCard({ title, description, href, docId, onPreview }: { title: string; description: string; href: string; docId: string; onPreview?: (item: WorksheetItem) => void }) {
+const WorksheetThumbnailCard = React.memo(function WorksheetThumbnailCard({ title, description, href, docId, onPreview, customPreviewUrl }: { title: string; description: string; href: string; docId: string; onPreview?: (item: WorksheetItem) => void; customPreviewUrl?: string }) {
   const { t, language } = useTranslation();
   // Use print URL for preview (not SEO URL) to show actual worksheet content
   const printUrl = getWorksheetPrintURL(docId, 'kindergarten')
-  const previewUrl = printUrl + (printUrl.includes('?') ? '&preview=1' : '?preview=1')
-  
+  const previewUrl = customPreviewUrl || (printUrl + (printUrl.includes('?') ? '&preview=1' : '?preview=1'))
+
   // Use translations if available (fallback to provided title/description) - memoize to prevent re-renders
   // Use language instead of t in dependencies to avoid re-renders when t function reference changes
   const translatedTitle = React.useMemo(() => {
@@ -425,17 +427,17 @@ const WorksheetThumbnailCard = React.memo(function WorksheetThumbnailCard({ titl
     const translated = t(`worksheets.${docId}.title`);
     return translated && translated !== `worksheets.${docId}.title` ? translated : title;
   }, [docId, title, language, t]);
-  
+
   const translatedDescription = React.useMemo(() => {
     if (!docId) return description;
     const translated = t(`worksheets.${docId}.description`);
     return translated && translated !== `worksheets.${docId}.description` ? translated : description;
   }, [docId, description, language, t]);
-  
+
   const handleClick = () => {
     trackThumbnailClick(docId, 'kindergarten-math-worksheets')
   }
-  
+
   return (
     <article className="rounded-2xl border border-slate-200 bg-white shadow-sm hover:shadow-lg transition-all duration-200 p-5 flex flex-col gap-3">
       <div className="flex items-center justify-between gap-3">
@@ -443,15 +445,15 @@ const WorksheetThumbnailCard = React.memo(function WorksheetThumbnailCard({ titl
           <h3 className="text-lg font-semibold text-slate-900">{translatedTitle}</h3>
         </div>
       </div>
-      
+
       <p className="text-sm text-slate-600 leading-relaxed">{translatedDescription}</p>
-      
+
       {/* Worksheet Thumbnail Preview - Clickable to SEO page */}
-      <a 
+      <a
         href={href}
         onClick={handleClick}
         className="relative w-full bg-gradient-to-br from-slate-50 to-slate-100 rounded-lg border border-slate-200 overflow-hidden cursor-pointer group shadow-sm hover:shadow-md transition-shadow block"
-        style={{ 
+        style={{
           height: '140px',
           aspectRatio: '2.5/1',
         }}
@@ -482,7 +484,7 @@ const WorksheetThumbnailCard = React.memo(function WorksheetThumbnailCard({ titl
         {/* Corner fold effect */}
         <div className="absolute top-0 right-0 w-8 h-8 bg-gradient-to-br from-slate-200/50 to-transparent pointer-events-none" />
       </a>
-      
+
       <div className="flex items-center justify-between">
         <div className="flex items-center gap-2">
           <button

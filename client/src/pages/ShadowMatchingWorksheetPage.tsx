@@ -167,7 +167,7 @@ export default function ShadowMatchingWorksheetPage() {
                                     <h3 className="text-xl font-bold text-orange-800 font-comic">Bright Objects</h3>
                                 </div>
                                 <div className="flex-1 flex flex-col justify-around p-6 bg-orange-50/30">
-                                    {items.map((item) => (
+                                    {leftItems.map((item) => (
                                         <div key={`obj-${item.id}`} className="flex justify-center items-center">
                                             <div className="w-24 h-24 bg-white border-4 border-orange-200 rounded-2xl p-4 flex items-center justify-center shadow-sm">
                                                 <item.Icon className="w-full h-full drop-shadow-sm" />
@@ -183,7 +183,7 @@ export default function ShadowMatchingWorksheetPage() {
                                     <h3 className="text-xl font-bold text-violet-800 font-comic">Dark Shadows</h3>
                                 </div>
                                 <div className="flex-1 flex flex-col justify-around p-6 bg-violet-50/30">
-                                    {shadowItems.map((item) => (
+                                    {rightItems.map((item) => (
                                         <div key={`shadow-${item.id}`} className="flex justify-center items-center">
                                             <div className="w-24 h-24 bg-white border-4 border-violet-200 rounded-2xl p-4 flex items-center justify-center shadow-sm">
                                                 {/* Use CSS filter to turn the exact same SVG into a shadow */}
