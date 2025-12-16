@@ -124,53 +124,60 @@ export default function ShadowMatchingWorksheetPage() {
         }
     };
 
+    const isPreview = typeof window !== 'undefined' && window.location.search.includes('preview=1');
+
     return (
-        <div className="min-h-screen bg-slate-50 font-sans text-slate-900 pb-16 print:bg-white print:pb-0">
-            <SEOMetaTags
-                title="Match Object to Shadow - Free Kindergarten Worksheet | Wizqo"
-                description="Free printable Match the Object to Its Shadow worksheet. Fun visual perception game for kindergarten and preschool. Print PDF instantly."
-                canonicalUrl="https://wizqo.com/worksheets/match-object-to-shadow"
-            />
+        <div className={`min-h-screen bg-slate-50 font-sans text-slate-900 ${isPreview ? 'p-0 bg-white' : 'pb-16'} print:bg-white print:pb-0`}>
+            {!isPreview && (
+                <SEOMetaTags
+                    title="Match Object to Shadow - Free Kindergarten Worksheet | Wizqo"
+                    description="Free printable Match the Object to Its Shadow worksheet. Fun visual perception game for kindergarten and preschool. Print PDF instantly."
+                    canonicalUrl="https://wizqo.com/worksheets/match-object-to-shadow"
+                />
+            )}
 
-            {/* Control Bar (Hidden in Print) */}
-            <div className="max-w-4xl mx-auto px-4 py-8 print:hidden">
-                <h1 className="text-3xl font-bold text-slate-900 mb-4">Object Shadow Matching</h1>
-                <p className="text-slate-600 mb-8 max-w-2xl">
-                    Develop visual discrimination skills! Draw a line to match each colorful object on the left to its matching shadow on the right.
-                </p>
+            {/* Control Bar (Hidden in Print and Preview) */}
+            {!isPreview && (
+                <div className="max-w-4xl mx-auto px-4 py-8 print:hidden">
+                    <h1 className="text-3xl font-bold text-slate-900 mb-4">Object Shadow Matching</h1>
+                    <p className="text-slate-600 mb-8 max-w-2xl">
+                        Develop visual discrimination skills! Draw a line to connect each colorful object on the left to its matching shadow on the right.
+                    </p>
 
-                <div className="flex flex-wrap gap-4 mb-8">
-                    <button
-                        onClick={handlePrint}
-                        className="flex items-center gap-2 px-6 py-3 bg-violet-600 text-white rounded-lg font-semibold hover:bg-violet-700 transition-colors shadow-sm"
-                    >
-                        <Printer size={20} />
-                        Print Worksheet
-                    </button>
+                    <div className="flex flex-wrap gap-4 mb-8">
+                        <button
+                            onClick={handlePrint}
+                            className="flex items-center gap-2 px-6 py-3 bg-violet-600 text-white rounded-lg font-semibold hover:bg-violet-700 transition-colors shadow-sm"
+                        >
+                            <Printer size={20} />
+                            Print Worksheet
+                        </button>
 
-                    <button
-                        onClick={handleDownloadPDF}
-                        className="flex items-center gap-2 px-6 py-3 bg-white text-slate-700 border-2 border-slate-200 rounded-lg font-semibold hover:border-violet-200 hover:bg-violet-50 transition-colors shadow-sm"
-                    >
-                        <Download size={20} />
-                        Download PDF
-                    </button>
+                        <button
+                            onClick={handleDownloadPDF}
+                            className="flex items-center gap-2 px-6 py-3 bg-white text-slate-700 border-2 border-slate-200 rounded-lg font-semibold hover:border-violet-200 hover:bg-violet-50 transition-colors shadow-sm"
+                        >
+                            <Download size={20} />
+                            Download PDF
+                        </button>
 
-                    <button
-                        onClick={randomizeItems}
-                        className="flex items-center gap-2 px-6 py-3 bg-white text-slate-700 border-2 border-slate-200 rounded-lg font-semibold hover:border-emerald-200 hover:bg-emerald-50 transition-colors shadow-sm"
-                    >
-                        <RefreshCw size={20} />
-                        Shuffle Items
-                    </button>
+                        <button
+                            onClick={randomizeItems}
+                            className="flex items-center gap-2 px-6 py-3 bg-white text-slate-700 border-2 border-slate-200 rounded-lg font-semibold hover:border-emerald-200 hover:bg-emerald-50 transition-colors shadow-sm"
+                        >
+                            <RefreshCw size={20} />
+                            Shuffle Items
+                        </button>
+                    </div>
                 </div>
-            </div>
+            )}
 
             {/* Worksheet Preview / Print Area */}
-            <div className="flex justify-center print:block print:w-full">
+            <div className={`flex justify-center ${isPreview ? 'items-start' : 'print:block print:w-full'}`}>
                 <div
                     ref={printRef}
-                    className="bg-white w-[210mm] min-h-[297mm] shadow-xl print:shadow-none p-8 md:p-12 relative flex flex-col"
+                    className={`bg-white w-[210mm] min-h-[297mm] shadow-xl print:shadow-none p-8 md:p-12 relative flex flex-col ${isPreview ? 'shadow-none' : ''}`}
+                    style={isPreview ? { transform: 'scale(0.9)', transformOrigin: 'top center' } : {}}
                 >
                     {/* Header */}
                     <WorksheetHeader
