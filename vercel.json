@@ -99,6 +99,10 @@
       "destination": "/robots.txt"
     },
     {
+      "source": "/shadow-matching-preview",
+      "destination": "/index.html"
+    },
+    {
       "source": "/:locale(es|ar)/kids",
       "destination": "/kids/index.html"
     },
