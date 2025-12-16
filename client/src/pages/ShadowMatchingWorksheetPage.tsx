@@ -175,7 +175,7 @@ export default function ShadowMatchingWorksheetPage() {
             <div className={`flex justify-center ${isPreview ? 'items-start overflow-hidden' : 'print:block print:w-full'}`}>
                 <div
                     ref={printRef}
-                    className={`bg-white w-[210mm] min-h-[297mm] shadow-xl print:shadow-none p-8 md:p-12 relative flex flex-col ${isPreview ? 'shadow-none w-full h-auto !min-h-0 border-2 border-red-500 box-border' : ''}`}
+                    className={`bg-white w-[210mm] min-h-[297mm] shadow-xl print:shadow-none p-8 md:p-12 relative flex flex-col ${isPreview ? 'shadow-none w-full h-auto !min-h-0 box-border' : ''}`}
                     style={isPreview ? { transform: 'scale(1)', transformOrigin: 'top left' } : {}}
                 >
                     {/* Header - Only hide in preview if causing issues, but keeping enabled for now. 
