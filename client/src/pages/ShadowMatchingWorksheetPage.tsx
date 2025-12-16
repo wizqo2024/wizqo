@@ -58,6 +58,43 @@ const ShadowIcon = ({ Icon, className }: { Icon: any, className?: string }) => (
 export default function ShadowMatchingWorksheetPage() {
     const { t } = useTranslation();
     const printRef = useRef<HTMLDivElement>(null);
+    const [leftItems, setLeftItems] = React.useState<any[]>([]);
+    const [rightItems, setRightItems] = React.useState<any[]>([]);
+
+    const allItems = [
+        { id: 1, Icon: Icons.Apple, name: 'Apple' },
+        { id: 2, Icon: Icons.Car, name: 'Car' },
+        { id: 3, Icon: Icons.Star, name: 'Star' },
+        { id: 4, Icon: Icons.Tree, name: 'Tree' },
+        { id: 5, Icon: Icons.Fish, name: 'Fish' },
+        { id: 6, Icon: Icons.Ghost, name: 'Ghost' },
+    ];
+
+    // Shuffle function
+    const shuffle = (array: any[]) => {
+        const newArray = [...array];
+        for (let i = newArray.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            [newArray[i], newArray[j]] = [newArray[j], newArray[i]];
+        }
+        return newArray;
+    };
+
+    const randomizeItems = () => {
+        // Pick 5 random items from the total pool of 6 to add variety
+        const shuffledPool = shuffle(allItems);
+        const selected = shuffledPool.slice(0, 5);
+
+        // Left column: Random order
+        setLeftItems(shuffle(selected));
+
+        // Right column: Different random order
+        setRightItems(shuffle(selected));
+    };
+
+    React.useEffect(() => {
+        randomizeItems();
+    }, []);
 
     const handlePrint = () => {
         window.print();
@@ -86,18 +123,6 @@ export default function ShadowMatchingWorksheetPage() {
             alert('Could not generate PDF. Please try "Print" -> "Save as PDF" instead.');
         }
     };
-
-    const items = [
-        { id: 1, Icon: Icons.Apple, name: 'Apple' },
-        { id: 2, Icon: Icons.Car, name: 'Car' },
-        { id: 3, Icon: Icons.Star, name: 'Star' },
-        { id: 4, Icon: Icons.Tree, name: 'Tree' },
-        { id: 5, Icon: Icons.Fish, name: 'Fish' },
-    ];
-
-    // Randomize right column (Shadows)
-    // For simplicity: rotate simply by 1 for this demo, or use a proper shuffle
-    const shadowItems = [...items].sort(() => Math.random() - 0.5);
 
     return (
         <div className="min-h-screen bg-slate-50 font-sans text-slate-900 pb-16 print:bg-white print:pb-0">
@@ -132,7 +157,7 @@ export default function ShadowMatchingWorksheetPage() {
                     </button>
 
                     <button
-                        onClick={() => window.location.reload()}
+                        onClick={randomizeItems}
                         className="flex items-center gap-2 px-6 py-3 bg-white text-slate-700 border-2 border-slate-200 rounded-lg font-semibold hover:border-emerald-200 hover:bg-emerald-50 transition-colors shadow-sm"
                     >
                         <RefreshCw size={20} />
