@@ -811,6 +811,9 @@ export default function App() {
                       </>
                     );
                   }
+
+                case 'shadow-matching-preview':
+                  return <ShadowMatchingWorksheetPage />;
                   // For any other unmatched route, show 404
                   return <NotFoundPage />;
               }
