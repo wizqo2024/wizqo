@@ -516,6 +516,11 @@ export default function App() {
                 case 'worksheets':
 
 
+                  // Specific logic for Shadow Matching Worksheet to ensure direct rendering
+                  if (routeSubKey === 'match-object-to-shadow') {
+                    return <ShadowMatchingWorksheetPage />;
+                  }
+
                   // All worksheets master page
                   if (routeSubKey === 'all') {
                     const canonical = addLocaleToPath('/worksheets/all', currentLocale);
@@ -617,9 +622,6 @@ export default function App() {
                         <OrderOfOperationsWorksheetsPage />
                       </>
                     );
-                  }
-                  if (routeSubKey === 'match-object-to-shadow') {
-                    return <ShadowMatchingWorksheetPage />;
                   }
                   if (routeSubKey === '1st-grade-math-worksheets') {
                     const canonical = addLocaleToPath('/worksheets/1st-grade-math-worksheets', currentLocale);
