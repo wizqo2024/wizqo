@@ -3,7 +3,7 @@ import { WorksheetHeader } from '../components/worksheet/WorksheetHeader';
 import { useTranslation } from '../context/TranslationContext';
 import jsPDF from 'jspdf';
 import html2canvas from 'html2canvas';
-import { Download, Printer, RefreshCw } from 'lucide-react';
+import { Download, Printer, RefreshCw, ArrowLeft } from 'lucide-react';
 import { SEOMetaTags } from '../components/SEOMetaTags';
 
 // Simple SVG Icons components to avoid external dependencies for this specific worksheet
