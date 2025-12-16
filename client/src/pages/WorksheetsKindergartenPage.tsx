@@ -274,6 +274,8 @@ export default function WorksheetsKindergartenPage() {
                           href={ws.href}
                           docId={ws.docId}
                           onPreview={setPreviewItem}
+                          customPreviewUrl={ws.customPreviewUrl}
+                          customDownloadUrl={ws.customDownloadUrl}
                         />
                       ))}
                     </div>
