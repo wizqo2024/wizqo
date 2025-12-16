@@ -93,7 +93,6 @@ export default function ShadowMatchingWorksheetPage() {
 
     React.useEffect(() => {
         randomizeItems();
-        console.log('ShadowMatchingWorksheetPage mounted');
     }, []);
 
     const handlePrint = () => {
