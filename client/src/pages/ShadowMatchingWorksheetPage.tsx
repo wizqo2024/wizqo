@@ -160,7 +160,7 @@ export default function ShadowMatchingWorksheetPage() {
                                 window.location.href = '/worksheets/kindergarten-math-worksheets';
                             }
                         }}
-                        className="flex items-center gap-2 text-slate-500 hover:text-slate-800 transition-colors mb-6 font-medium"
+                        className="flex items-center gap-2 text-violet-600 hover:text-violet-700 hover:underline transition-all mb-6 font-medium"
                     >
                         <ArrowLeft size={20} />
                         Back to Worksheets
