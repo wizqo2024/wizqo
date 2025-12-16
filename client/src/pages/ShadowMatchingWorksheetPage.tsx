@@ -126,7 +126,7 @@ export default function ShadowMatchingWorksheetPage() {
     const isPreview = typeof window !== 'undefined' && window.location.search.includes('preview=1');
 
     return (
-        <div className={`min-h-screen bg-slate-50 font-sans text-slate-900 ${isPreview ? 'p-0 bg-white' : 'pb-16'} print:bg-white print:pb-0`}>
+        <div className={`font-sans text-slate-900 ${isPreview ? 'p-0 bg-white' : 'min-h-screen pb-16 bg-slate-50'} print:bg-white print:pb-0`}>
             {!isPreview && (
                 <SEOMetaTags
                     title="Match Object to Shadow - Free Kindergarten Worksheet | Wizqo"
@@ -172,11 +172,11 @@ export default function ShadowMatchingWorksheetPage() {
             )}
 
             {/* Worksheet Preview / Print Area */}
-            <div className={`flex justify-center ${isPreview ? 'items-start' : 'print:block print:w-full'}`}>
+            <div className={`flex justify-center ${isPreview ? 'items-start overflow-hidden' : 'print:block print:w-full'}`}>
                 <div
                     ref={printRef}
-                    className={`bg-white w-[210mm] min-h-[297mm] shadow-xl print:shadow-none p-8 md:p-12 relative flex flex-col ${isPreview ? 'shadow-none scale-90 origin-top' : ''}`}
-                    style={isPreview ? { transform: 'scale(0.9)', transformOrigin: 'top center' } : {}}
+                    className={`bg-white w-[210mm] min-h-[297mm] shadow-xl print:shadow-none p-8 md:p-12 relative flex flex-col ${isPreview ? 'shadow-none w-full h-auto !min-h-0 border-2 border-red-500 box-border' : ''}`}
+                    style={isPreview ? { transform: 'scale(1)', transformOrigin: 'top left' } : {}}
                 >
                     {/* Header - Only hide in preview if causing issues, but keeping enabled for now. 
                         If the 'Tip' comes from here, we will know. */}
