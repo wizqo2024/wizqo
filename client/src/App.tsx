@@ -541,7 +541,8 @@ export default function App() {
                     '3rd-grade-math-worksheets',
                     '4th-grade-math-worksheets',
                     '5th-grade-math-worksheets',
-                    'all'
+                    'all',
+                    'match-object-to-shadow'
                   ];
 
                   if (routeSubKey && !categoryPages.includes(routeSubKey)) {
