@@ -3264,6 +3264,7 @@ export function PrintablesPage() {
             teacherName={teacherName}
             className={className}
             studentNames={studentNames}
+            isPrintMode={true}
           />
         )}
         {activeDocs.includes('geo-continents-k2') && (

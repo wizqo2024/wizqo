@@ -62,6 +62,7 @@ type Props = {
   teacherName?: string
   className?: string
   studentNames?: string[]
+  isPrintMode?: boolean
 }
 
 type RenderContext = {
@@ -74,6 +75,7 @@ type RenderContext = {
   formatNum: (num: number | string) => string
   formatRange: (start: number | string, end: number | string) => string
   showAnswers?: boolean
+  isPrintMode?: boolean
 }
 
 type Renderer = (ctx: RenderContext) => React.ReactNode
@@ -5168,7 +5170,7 @@ const renderers: Record<string, Renderer> = {
     )
   },
   'interactive-art-color-by-number': (ctx) => {
-    const { seed, doc, variant, t, language } = ctx
+    const { seed, doc, variant, t, language, isPrintMode } = ctx
     const rng = makeRng(`${seed}|${doc.id}|${variant}`)
     const colorCodes = [
       { num: 1, color: t('common.colors.red'), emoji: '🔴', bgColor: 'bg-red-500' },
@@ -5461,13 +5463,15 @@ const renderers: Record<string, Renderer> = {
       <div className="space-y-4">
         <div className="flex justify-between items-center">
           <p className="text-base font-semibold text-pink-800">{t('interactive.interactive-art-color-by-number.colorThePicture')}</p>
-          <button
-            onClick={handleDownloadPDF}
-            className="flex items-center gap-2 px-3 py-1.5 bg-pink-600 text-white rounded-lg hover:bg-pink-700 transition-colors text-sm font-medium shadow-sm print:hidden"
-          >
-            <Download className="w-4 h-4" />
-            Download PDF
-          </button>
+          {!isPrintMode && (
+            <button
+              onClick={handleDownloadPDF}
+              className="flex items-center gap-2 px-3 py-1.5 bg-pink-600 text-white rounded-lg hover:bg-pink-700 transition-colors text-sm font-medium shadow-sm print:hidden"
+            >
+              <Download className="w-4 h-4" />
+              Download PDF
+            </button>
+          )}
         </div>
         <div className="rounded-xl border-2 border-pink-300 bg-gradient-to-br from-pink-100 via-purple-100 to-fuchsia-100 p-6 shadow-lg">
           <p className="text-lg font-bold text-pink-800 mb-4 flex items-center gap-2">
@@ -7988,6 +7992,7 @@ function InteractiveWorksheetSection({
   teacherName,
   className,
   studentNames,
+  isPrintMode,
 }: {
   docId: string
   seed: string
@@ -7996,6 +8001,7 @@ function InteractiveWorksheetSection({
   teacherName?: string
   className?: string
   studentNames?: string[]
+  isPrintMode?: boolean
 }) {
   const { t: tFromContext, language } = useTranslation()
   const doc = getDocMeta(docId)
@@ -8238,7 +8244,7 @@ function InteractiveWorksheetSection({
       })()}
 
       <div className="relative z-10">
-        {renderer({ doc, category, seed, variant, t, language, formatNum, formatRange, showAnswers })}
+        {renderer({ doc, category, seed, variant, t, language, formatNum, formatRange, showAnswers, isPrintMode })}
       </div>
 
       {/* Challenge Section */}
@@ -8264,7 +8270,7 @@ function InteractiveWorksheetSection({
   )
 }
 
-export default function InteractiveBundleSections({ docIds, seed, variant, showAnswers, teacherName, className, studentNames }: Props) {
+export default function InteractiveBundleSections({ docIds, seed, variant, showAnswers, teacherName, className, studentNames, isPrintMode }: Props) {
   const { language } = useTranslation()
   if (docIds.length === 0) return null
 
@@ -8280,6 +8286,7 @@ export default function InteractiveBundleSections({ docIds, seed, variant, showA
           teacherName={teacherName}
           className={className}
           studentNames={studentNames}
+          isPrintMode={isPrintMode}
         />
       ))}
     </>
