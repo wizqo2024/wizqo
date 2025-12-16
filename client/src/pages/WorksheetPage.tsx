@@ -5,12 +5,18 @@ import { Footer } from '@/components/Footer'
 import { SEOMetaTags } from '@/components/SEOMetaTags'
 import { getWorksheetSEOBySlug, getWorksheetSEO } from '@shared/worksheetSEO'
 import { trackWorksheetView, trackWorksheetDownload } from '@/utils/analytics'
+import ShadowMatchingWorksheetPage from './ShadowMatchingWorksheetPage'
 
 interface WorksheetPageProps {
   slug: string
 }
 
 export default function WorksheetPage({ slug }: WorksheetPageProps) {
+  // Hardcoded redirect for custom worksheets that might get caught in generic routing
+  if (slug === 'match-object-to-shadow') {
+    return <ShadowMatchingWorksheetPage />
+  }
+
   const { t, isRTL } = useTranslation()
   const [seoData, setSeoData] = React.useState<ReturnType<typeof getWorksheetSEOBySlug> | null>(null)
   const [notFound, setNotFound] = React.useState(false)
@@ -44,27 +50,27 @@ export default function WorksheetPage({ slug }: WorksheetPageProps) {
 
   // Get print URL (noindexed route) - include 'from' parameter for tracking and 'autoprint=1' to auto-open print dialog
   const printUrl = `/print?doc=${seoData.docId}&from=${slug}&autoprint=1`
-  
+
   // Get category page URL
-  const categoryUrl = seoData.category.includes('multiplication') 
+  const categoryUrl = seoData.category.includes('multiplication')
     ? '/worksheets/multiplication-worksheets'
     : seoData.category.includes('division')
-    ? '/worksheets/3rd-grade-math-worksheets'
-    : seoData.category.includes('fractions')
-    ? '/worksheets/3rd-grade-math-worksheets'
-    : seoData.grade.includes('Kindergarten')
-    ? '/worksheets/kindergarten-math-worksheets'
-    : seoData.grade.includes('1st Grade')
-    ? '/worksheets/1st-grade-math-worksheets'
-    : seoData.grade.includes('2nd Grade')
-    ? '/worksheets/2nd-grade-math-worksheets'
-    : seoData.grade.includes('3rd Grade')
-    ? '/worksheets/3rd-grade-math-worksheets'
-    : seoData.grade.includes('4th Grade')
-    ? '/worksheets/4th-grade-math-worksheets'
-    : seoData.grade.includes('5th Grade')
-    ? '/worksheets/5th-grade-math-worksheets'
-    : '/worksheets'
+      ? '/worksheets/3rd-grade-math-worksheets'
+      : seoData.category.includes('fractions')
+        ? '/worksheets/3rd-grade-math-worksheets'
+        : seoData.grade.includes('Kindergarten')
+          ? '/worksheets/kindergarten-math-worksheets'
+          : seoData.grade.includes('1st Grade')
+            ? '/worksheets/1st-grade-math-worksheets'
+            : seoData.grade.includes('2nd Grade')
+              ? '/worksheets/2nd-grade-math-worksheets'
+              : seoData.grade.includes('3rd Grade')
+                ? '/worksheets/3rd-grade-math-worksheets'
+                : seoData.grade.includes('4th Grade')
+                  ? '/worksheets/4th-grade-math-worksheets'
+                  : seoData.grade.includes('5th Grade')
+                    ? '/worksheets/5th-grade-math-worksheets'
+                    : '/worksheets'
 
   const handlePrintClick = () => {
     trackWorksheetDownload(seoData.docId, seoData.h1, 'worksheet-page', seoData.grade[0])
@@ -81,9 +87,9 @@ export default function WorksheetPage({ slug }: WorksheetPageProps) {
         noIndex={false}
         ogType="article"
       />
-      
+
       <UnifiedNavigation />
-      
+
       <main id="main-content" className="container mx-auto px-4 py-8 max-w-4xl">
         {/* Breadcrumbs */}
         <nav className="mb-6 text-sm text-slate-600" aria-label="Breadcrumb">
@@ -146,7 +152,7 @@ export default function WorksheetPage({ slug }: WorksheetPageProps) {
                 aria-label={`Preview of ${seoData.h1} worksheet`}
               />
             </div>
-            
+
             {/* Print/Download Button */}
             <div className="flex gap-4 justify-center">
               <button
