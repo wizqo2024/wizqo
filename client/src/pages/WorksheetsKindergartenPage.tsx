@@ -416,7 +416,7 @@ export default function WorksheetsKindergartenPage() {
   )
 }
 
-const WorksheetThumbnailCard = React.memo(function WorksheetThumbnailCard({ title, description, href, docId, onPreview, customPreviewUrl }: { title: string; description: string; href: string; docId: string; onPreview?: (item: WorksheetItem) => void; customPreviewUrl?: string }) {
+const WorksheetThumbnailCard = React.memo(function WorksheetThumbnailCard({ title, description, href, docId, onPreview, customPreviewUrl, customDownloadUrl }: { title: string; description: string; href: string; docId: string; onPreview?: (item: WorksheetItem) => void; customPreviewUrl?: string; customDownloadUrl?: string }) {
   const { t, language } = useTranslation();
   // Use print URL for preview (not SEO URL) to show actual worksheet content
   const printUrl = getWorksheetPrintURL(docId, 'kindergarten')
@@ -491,6 +491,10 @@ const WorksheetThumbnailCard = React.memo(function WorksheetThumbnailCard({ titl
         <div className="flex items-center gap-2">
           <button
             onClick={() => {
+              if (customDownloadUrl) {
+                window.open(customDownloadUrl, '_blank');
+                return;
+              }
               const printUrl = getWorksheetPrintURL(docId, 'kindergarten')
               window.open(printUrl, '_blank')
             }}
