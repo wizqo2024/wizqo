@@ -1,6 +1,5 @@
 import React, { useRef } from 'react';
 import { WorksheetHeader } from '../components/worksheet/WorksheetHeader';
-import { Footer } from '../components/Footer';
 import { useTranslation } from '../context/TranslationContext';
 import jsPDF from 'jspdf';
 import html2canvas from 'html2canvas';
@@ -94,6 +93,7 @@ export default function ShadowMatchingWorksheetPage() {
 
     React.useEffect(() => {
         randomizeItems();
+        console.log('ShadowMatchingWorksheetPage mounted');
     }, []);
 
     const handlePrint = () => {
@@ -176,14 +176,16 @@ export default function ShadowMatchingWorksheetPage() {
             <div className={`flex justify-center ${isPreview ? 'items-start' : 'print:block print:w-full'}`}>
                 <div
                     ref={printRef}
-                    className={`bg-white w-[210mm] min-h-[297mm] shadow-xl print:shadow-none p-8 md:p-12 relative flex flex-col ${isPreview ? 'shadow-none' : ''}`}
+                    className={`bg-white w-[210mm] min-h-[297mm] shadow-xl print:shadow-none p-8 md:p-12 relative flex flex-col ${isPreview ? 'shadow-none scale-90 origin-top' : ''}`}
                     style={isPreview ? { transform: 'scale(0.9)', transformOrigin: 'top center' } : {}}
                 >
-                    {/* Header */}
-                    <WorksheetHeader
+                    {/* Header - Only hide in preview if causing issues, but keeping enabled for now. 
+                        If the 'Tip' comes from here, we will know. */}
+                    {!isPreview && <WorksheetHeader
                         enabled={true}
                         showScore={true}
-                    />
+                    />}
+
                     <div className="text-center mb-8">
                         <h1 className="text-3xl font-bold font-comic text-slate-900 mb-2">Match the Object to Its Shadow</h1>
                         <p className="text-lg text-slate-600 font-comic">Visual Perception: Draw a line to connect each object to its matching shadow.</p>
