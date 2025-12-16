@@ -198,8 +198,9 @@ export default function ShadowMatchingWorksheetPage() {
                     </div>
 
                     {/* Footer */}
-                    <div className="mt-auto pt-8">
-                        <Footer />
+                    <div className="mt-auto pt-8 border-t border-slate-100 flex justify-between items-center text-slate-400 text-sm font-comic">
+                        <p>© {new Date().getFullYear()} Wizqo.com - Free Printable Worksheets</p>
+                        <p>Visual Perception Series</p>
                     </div>
                 </div>
             </div>
