@@ -59,6 +59,8 @@ export default function ShadowMatchingWorksheetPage() {
     const printRef = useRef<HTMLDivElement>(null);
     const [leftItems, setLeftItems] = React.useState<any[]>([]);
     const [rightItems, setRightItems] = React.useState<any[]>([]);
+    const [isGenerating, setIsGenerating] = React.useState(false);
+    const [isShuffling, setIsShuffling] = React.useState(false);
 
     const allItems = [
         { id: 1, Icon: Icons.Apple, name: 'Apple' },
@@ -80,19 +82,28 @@ export default function ShadowMatchingWorksheetPage() {
     };
 
     const randomizeItems = () => {
-        // Pick 5 random items from the total pool of 6 to add variety
-        const shuffledPool = shuffle(allItems);
-        const selected = shuffledPool.slice(0, 5);
+        setIsShuffling(true);
+        // Add a small delay for better UX
+        setTimeout(() => {
+            // Pick 5 random items from the total pool of 6 to add variety
+            const shuffledPool = shuffle(allItems);
+            const selected = shuffledPool.slice(0, 5);
 
-        // Left column: Random order
-        setLeftItems(shuffle(selected));
+            // Left column: Random order
+            setLeftItems(shuffle(selected));
 
-        // Right column: Different random order
-        setRightItems(shuffle(selected));
+            // Right column: Different random order
+            setRightItems(shuffle(selected));
+            setIsShuffling(false);
+        }, 600);
     };
 
     React.useEffect(() => {
-        randomizeItems();
+        // Initial load without delay
+        const shuffledPool = shuffle(allItems);
+        const selected = shuffledPool.slice(0, 5);
+        setLeftItems(shuffle(selected));
+        setRightItems(shuffle(selected));
     }, []);
 
     const handlePrint = () => {
@@ -100,8 +111,9 @@ export default function ShadowMatchingWorksheetPage() {
     };
 
     const handleDownloadPDF = async () => {
-        if (!printRef.current) return;
+        if (!printRef.current || isGenerating) return;
 
+        setIsGenerating(true);
         try {
             // Temporarily show loading or disable button if needed
             const canvas = await html2canvas(printRef.current, {
@@ -120,6 +132,8 @@ export default function ShadowMatchingWorksheetPage() {
         } catch (error) {
             console.error('PDF generation failed:', error);
             alert('Could not generate PDF. Please try "Print" -> "Save as PDF" instead.');
+        } finally {
+            setIsGenerating(false);
         }
     };
 
@@ -167,18 +181,20 @@ export default function ShadowMatchingWorksheetPage() {
 
                         <button
                             onClick={handleDownloadPDF}
-                            className="flex items-center gap-2 px-6 py-3 bg-white text-slate-700 border-2 border-slate-200 rounded-lg font-semibold hover:border-violet-200 hover:bg-violet-50 transition-colors shadow-sm"
+                            disabled={isGenerating}
+                            className={`flex items-center gap-2 px-6 py-3 bg-white text-slate-700 border-2 border-slate-200 rounded-lg font-semibold transition-colors shadow-sm ${isGenerating ? 'opacity-70 cursor-not-allowed bg-slate-50' : 'hover:border-violet-200 hover:bg-violet-50'}`}
                         >
-                            <Download size={20} />
-                            Download PDF
+                            {isGenerating ? <Loader2 size={20} className="animate-spin text-violet-600" /> : <Download size={20} />}
+                            {isGenerating ? 'Generating PDF...' : 'Download PDF'}
                         </button>
 
                         <button
                             onClick={randomizeItems}
-                            className="flex items-center gap-2 px-6 py-3 bg-white text-slate-700 border-2 border-slate-200 rounded-lg font-semibold hover:border-emerald-200 hover:bg-emerald-50 transition-colors shadow-sm"
+                            disabled={isShuffling}
+                            className={`flex items-center gap-2 px-6 py-3 bg-white text-slate-700 border-2 border-slate-200 rounded-lg font-semibold transition-colors shadow-sm ${isShuffling ? 'opacity-70 cursor-not-allowed bg-slate-50' : 'hover:border-emerald-200 hover:bg-emerald-50'}`}
                         >
-                            <RefreshCw size={20} />
-                            Shuffle Items
+                            {isShuffling ? <Loader2 size={20} className="animate-spin text-emerald-600" /> : <RefreshCw size={20} />}
+                            {isShuffling ? 'Shuffling...' : 'Shuffle Items'}
                         </button>
                     </div>
                 </div>
