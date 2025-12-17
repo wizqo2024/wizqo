@@ -1524,12 +1524,7 @@ export function PrintablesPage() {
     return doc ? [doc] : []
   }, [doc, bundleItemsParam])
   const interactiveDocs = React.useMemo(
-    () => activeDocs.flatMap((id) => {
-      // Handle legacy ID mapping for place-value-hto which is now an interactive worksheet
-      if (id === 'place-value-hto') return ['interactive-math-place-value']
-      if (id.startsWith('interactive-')) return [id]
-      return []
-    }),
+    () => activeDocs.filter((id) => id.startsWith('interactive-')),
     [activeDocs]
   )
   const primaryDoc = activeDocs[0] || doc || ''
