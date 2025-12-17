@@ -279,7 +279,7 @@ function WorksheetSectionWrapper({
 
   return (
     <section
-      className={`mb-10 break-inside-avoid rounded-xl border-2 ${theme.border} ${theme.background} p-6 print:border-0 print:p-0 print:bg-white print:mt-0 print:mb-0 print:pt-0 shadow-lg relative overflow-hidden print:overflow-visible worksheet-section`}
+      className={`mb-10 break-inside-auto rounded-xl border-2 ${theme.border} ${theme.background} p-6 print:border-0 print:p-0 print:bg-white print:mt-0 print:mb-0 print:pt-0 shadow-lg relative overflow-hidden print:overflow-visible worksheet-section`}
       dir={isRTL ? 'rtl' : 'ltr'}
       style={{
         pageBreakInside: 'auto', // Allow section to break across pages if needed
@@ -4715,7 +4715,7 @@ export function PrintablesPage() {
                   <span className="text-blue-700 font-bold whitespace-nowrap">{getTrans(`worksheets.${docId}.legend.oneLabel`, '= 1 One')}</span>
                 </div>
               </div>
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 print:gap-1 break-inside-avoid" style={{ pageBreakAfter: 'auto' }}>
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 print:gap-1 break-inside-auto" style={{ pageBreakAfter: 'auto' }}>
                 {nums.map((n, i) => {
                   const tens = Math.floor(n / 10);
                   const ones = n % 10;
