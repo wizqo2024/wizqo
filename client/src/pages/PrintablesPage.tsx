@@ -2040,10 +2040,10 @@ export function PrintablesPage() {
         section[class*="worksheet-section"],
         .worksheet-section {
           display: block !important;
-          break-inside: avoid !important;
-          page-break-inside: avoid !important;
-          -webkit-region-break-inside: avoid !important;
-          -webkit-column-break-inside: avoid !important;
+          break-inside: auto !important;
+          page-break-inside: auto !important;
+          -webkit-region-break-inside: auto !important;
+          -webkit-column-break-inside: auto !important;
           orphans: 999 !important;
           widows: 999 !important;
           overflow: visible !important;
