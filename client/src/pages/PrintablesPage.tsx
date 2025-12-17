@@ -279,7 +279,7 @@ function WorksheetSectionWrapper({
 
   return (
     <section
-      className={`mb-10 break-inside-avoid rounded-xl border-2 ${theme.border} ${theme.background} p-6 print:border-0 print:p-0 print:bg-white print:mt-0 print:mb-0 print:pt-0 shadow-lg relative overflow-hidden worksheet-section`}
+      className={`mb-10 break-inside-avoid rounded-xl border-2 ${theme.border} ${theme.background} p-6 print:border-0 print:p-0 print:bg-white print:mt-0 print:mb-0 print:pt-0 shadow-lg relative overflow-hidden print:overflow-visible worksheet-section`}
       dir={isRTL ? 'rtl' : 'ltr'}
       style={{
         pageBreakInside: 'auto', // Allow section to break across pages if needed
