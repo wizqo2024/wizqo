@@ -128,18 +128,7 @@ export default function WorksheetPage({ slug }: WorksheetPageProps) {
             <p className="text-lg text-slate-700 leading-relaxed">{seoData.intro}</p>
           </div>
 
-          {/* Learning Objectives */}
-          <div className="bg-blue-50 border-l-4 border-blue-500 p-6 rounded mb-8">
-            <h2 className="text-xl font-semibold text-slate-900 mb-4">📚 What You'll Practice</h2>
-            <ul className="space-y-2">
-              {seoData.learningObjectives.map((obj, i) => (
-                <li key={i} className="flex items-start">
-                  <span className="text-blue-500 mr-2">✓</span>
-                  <span className="text-slate-700">{obj}</span>
-                </li>
-              ))}
-            </ul>
-          </div>
+
 
           {/* Worksheet Preview */}
           <div className="mb-8">

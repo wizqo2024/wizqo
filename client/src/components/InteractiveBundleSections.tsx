@@ -7423,18 +7423,7 @@ function WorksheetHeader({ problemCount }: { problemCount?: number }) {
 }
 
 // Learning objectives component
-function LearningObjectives({ objectives }: { objectives: string[] }) {
-  return (
-    <div className="print:block hidden mb-4 p-3 bg-slate-50 border-l-4 border-blue-500 rounded">
-      <div className="text-sm font-semibold text-slate-800 mb-2">📚 What You'll Practice:</div>
-      <ul className="text-xs text-slate-700 space-y-1 list-disc list-inside">
-        {objectives.map((obj, i) => (
-          <li key={i}>{obj}</li>
-        ))}
-      </ul>
-    </div>
-  )
-}
+
 
 // Challenge section component
 function ChallengeSection({ challenges }: { challenges: string[] }) {
@@ -8186,11 +8175,7 @@ function InteractiveWorksheetSection({
       <section className={`mb-10 break-inside-avoid rounded-xl border-2 ${theme.border} ${theme.background} p-5 print:border-0 print:p-0 print:bg-white shadow-lg`}>
         <div className="relative z-10">
           <WorksheetHeader />
-          {sections.objectives.length > 0 && (
-            <div className="mb-4">
-              <LearningObjectives objectives={sections.objectives} />
-            </div>
-          )}
+
         </div>
         <h2 className={`text-lg font-semibold ${theme.text}`}>{category.icon} {t(`interactive.${doc.id}.title`) || doc.title}</h2>
         <p className="text-sm text-slate-600">{t('common.comingSoon')}</p>
@@ -8233,15 +8218,7 @@ function InteractiveWorksheetSection({
         </div>
       </header>
 
-      {/* Learning Objectives */}
-      {(() => {
-        const sections = getWorksheetSections(docId)
-        return sections.objectives.length > 0 ? (
-          <div className="relative z-10 mb-4">
-            <LearningObjectives objectives={sections.objectives} />
-          </div>
-        ) : null
-      })()}
+
 
       <div className="relative z-10">
         {renderer({ doc, category, seed, variant, t, language, formatNum, formatRange, showAnswers, isPrintMode })}

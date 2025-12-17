@@ -124,19 +124,7 @@ function WorksheetHeader({ problemCount }: { problemCount?: number }) {
   )
 }
 
-// Learning objectives component - matching Interactive Worksheets Generator
-function LearningObjectives({ objectives }: { objectives: string[] }) {
-  return (
-    <div className="print:block hidden mb-4 p-3 bg-slate-50 border-l-4 border-blue-500 rounded">
-      <div className="text-sm font-semibold text-slate-800 mb-2">📚 What You'll Practice:</div>
-      <ul className="text-xs text-slate-700 space-y-1 list-disc list-inside">
-        {objectives.map((obj, i) => (
-          <li key={i}>{obj}</li>
-        ))}
-      </ul>
-    </div>
-  )
-}
+
 
 // Parent/Teacher tips component
 function ParentTeacherTips({ tips }: { tips: string[] }) {
@@ -342,7 +330,7 @@ function WorksheetSectionWrapper({
             {translatedDescription}
           </p>
         )}
-        {translatedObjectives && <LearningObjectives objectives={translatedObjectives} />}
+
         <div className="print:mt-0" style={{ marginTop: 0, paddingTop: 0, pageBreakBefore: 'auto' } as React.CSSProperties}>
           {children}
         </div>
