@@ -297,8 +297,8 @@ function WorksheetSectionWrapper({
       <div
         className="relative z-10 print:p-0"
         style={{
-          pageBreakInside: 'avoid',
-          breakInside: 'avoid',
+          pageBreakInside: 'auto',
+          breakInside: 'auto',
           paddingTop: 0,
           marginTop: 0
         } as React.CSSProperties}
