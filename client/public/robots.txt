@@ -9,6 +9,14 @@ Allow: /
 User-agent: Googlebot
 Allow: /
 
+# Explicitly allow Google Image crawler
+User-agent: Googlebot-Image
+Allow: /
+Allow: /*.png$
+Allow: /*.svg$
+Allow: /*.jpg$
+Allow: /*.webp$
+
 # Explicitly allow Yahoo's crawler
 User-agent: Slurp
 Allow: /
