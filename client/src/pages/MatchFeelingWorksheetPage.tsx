@@ -363,43 +363,43 @@ export default function MatchFeelingWorksheetPage() {
 
                     <WorksheetHeader enabled={true} showScore={true} className="mb-8 print:mb-4" />
 
-                    <div className="grid grid-cols-2 gap-12 flex-1 print:gap-x-24 print:gap-y-4">
+                    <div className="grid grid-cols-2 gap-12 flex-1 print:gap-x-24 print:gap-y-8">
 
                         {/* Column 1: Situation */}
-                        <div className="flex flex-col gap-6 print:gap-4">
-                            <div className="bg-sky-200 text-sky-800 font-black text-xl text-center py-2 rounded-full font-comic shadow-inner border-2 border-sky-300 print:print-color-adjust-exact">
+                        <div className="flex flex-col gap-6 print:gap-8">
+                            <div className="bg-sky-200 text-sky-800 font-black text-xl text-center py-2 rounded-full font-comic shadow-inner border-2 border-sky-300 print:print-color-adjust-exact print:text-lg print:py-1">
                                 SITUATION
                             </div>
                             {leftItems.map((item, idx) => (
                                 <div key={`sit-${idx}`} className="relative group">
                                     {/* Clay Container */}
-                                    <div className="aspect-[4/3] rounded-3xl p-4 flex flex-col items-center justify-between transition-transform transform hover:scale-[1.02] border-2 border-transparent print:border-slate-200 print:print-color-adjust-exact"
+                                    <div className="aspect-[4/3] rounded-3xl p-4 flex flex-col items-center justify-between transition-transform transform hover:scale-[1.02] border-2 border-transparent print:border-slate-200 print:print-color-adjust-exact print:p-2 print:rounded-2xl"
                                         style={{
                                             background: 'linear-gradient(145deg, #e0f2fe, #bfdbfe)',
                                             boxShadow: '10px 10px 20px #9ca3af, -10px -10px 20px #ffffff'
                                         }}>
                                         <div className="flex-1 w-full flex items-center justify-center">
-                                            <item.SitIcon className="w-32 h-32 print:w-28 print:h-28" />
+                                            <item.SitIcon className="w-32 h-32 print:w-20 print:h-20" />
                                         </div>
-                                        <p className="font-comic font-bold text-slate-700 text-center text-lg leading-tight mt-2 print:text-base">
+                                        <p className="font-comic font-bold text-slate-700 text-center text-lg leading-tight mt-2 print:text-sm">
                                             {item.situation}
                                         </p>
                                     </div>
                                     {/* Dot for connecting - Moved further out into the gap */}
-                                    <div className="absolute right-[-32px] top-1/2 w-6 h-6 bg-slate-300 rounded-full border-4 border-white shadow-sm transform -translate-y-1/2 print:block hidden print:bg-slate-400 print:border-slate-600 print:right-[-40px]" />
+                                    <div className="absolute right-[-32px] top-1/2 w-6 h-6 bg-slate-300 rounded-full border-4 border-white shadow-sm transform -translate-y-1/2 print:block hidden print:bg-slate-400 print:border-slate-600 print:right-[-40px] print:w-4 print:h-4" />
                                 </div>
                             ))}
                         </div>
 
                         {/* Column 2: Emotion */}
-                        <div className="flex flex-col gap-6 print:gap-4">
-                            <div className="bg-rose-200 text-rose-800 font-black text-xl text-center py-2 rounded-full font-comic shadow-inner border-2 border-rose-300 print:print-color-adjust-exact">
+                        <div className="flex flex-col gap-6 print:gap-8">
+                            <div className="bg-rose-200 text-rose-800 font-black text-xl text-center py-2 rounded-full font-comic shadow-inner border-2 border-rose-300 print:print-color-adjust-exact print:text-lg print:py-1">
                                 EMOTION
                             </div>
                             {rightItems.map((item, idx) => (
                                 <div key={`emo-${idx}`} className="relative group h-full">
                                     {/* Clay Container */}
-                                    <div className="h-full rounded-3xl p-4 flex flex-col items-center justify-center gap-4 transition-transform transform hover:scale-[1.02] border-2 border-transparent print:border-slate-200 print:print-color-adjust-exact"
+                                    <div className="h-full rounded-3xl p-4 flex flex-col items-center justify-center gap-4 transition-transform transform hover:scale-[1.02] border-2 border-transparent print:border-slate-200 print:print-color-adjust-exact print:p-2 print:rounded-2xl"
                                         style={{
                                             background: (() => {
                                                 switch (item.id) {
@@ -413,14 +413,14 @@ export default function MatchFeelingWorksheetPage() {
                                             boxShadow: '10px 10px 20px #9ca3af, -10px -10px 20px #ffffff'
                                         }}>
 
-                                        <item.EmoIcon className="w-28 h-28 print:w-24 print:h-24" />
+                                        <item.EmoIcon className="w-28 h-28 print:w-20 print:h-20" />
 
-                                        <p className="font-comic font-black text-center text-xl tracking-wider print:text-lg" style={{ color: '#475569' }}>
+                                        <p className="font-comic font-black text-center text-xl tracking-wider print:text-base" style={{ color: '#475569' }}>
                                             {item.emotion}
                                         </p>
                                     </div>
                                     {/* Dot for connecting - Moved further out into the gap */}
-                                    <div className="absolute left-[-32px] top-1/2 w-6 h-6 bg-slate-300 rounded-full border-4 border-white shadow-sm transform -translate-y-1/2 print:block hidden print:bg-slate-400 print:border-slate-600 print:left-[-40px]" />
+                                    <div className="absolute left-[-32px] top-1/2 w-6 h-6 bg-slate-300 rounded-full border-4 border-white shadow-sm transform -translate-y-1/2 print:block hidden print:bg-slate-400 print:border-slate-600 print:left-[-40px] print:w-4 print:h-4" />
                                 </div>
                             ))}
                         </div>
