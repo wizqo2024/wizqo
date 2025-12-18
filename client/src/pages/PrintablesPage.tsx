@@ -2044,8 +2044,8 @@ export function PrintablesPage() {
           page-break-inside: auto !important;
           -webkit-region-break-inside: auto !important;
           -webkit-column-break-inside: auto !important;
-          orphans: 999 !important;
-          widows: 999 !important;
+          orphans: 2 !important;
+          widows: 2 !important;
           overflow: visible !important;
           margin-bottom: 1.5rem !important;
           margin-top: 0 !important;
@@ -29838,21 +29838,18 @@ export function PrintablesPage() {
               ]}
             >
               <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-purple-400 to-pink-400 animate-gradient-x mb-2" />
-              <div
-                className="mb-4 p-3 bg-blue-50 border border-blue-200 rounded text-sm text-blue-900 print:mb-1"
-                style={{ breakAfter: 'avoid', pageBreakAfter: 'avoid' }}
-              >
+              <div className="mb-4 p-3 bg-blue-50 border border-blue-200 rounded text-sm text-blue-900 print:mb-2">
                 <strong>📝 Instructions:</strong> Look at each shape below. Color it with the color shown. Use crayons or colored pencils.
               </div>
-              <div style={{ breakBefore: 'avoid', pageBreakBefore: 'avoid', display: 'block' }}>
+              <div className="space-y-6 print:space-y-2">
                 {shapeData.map((shape, i) => (
-                  <div key={i} className="border-2 border-slate-300 rounded-lg p-6 bg-white mb-6 print:mb-2 print:p-2 print:border">
+                  <div key={i} className="border-2 border-slate-300 rounded-lg p-6 bg-white print:p-2 print:border">
                     <div className="text-center mb-4 print:mb-1">
-                      <div className="text-lg font-semibold text-slate-800 capitalize mb-2 print:mb-0 print:text-sm">{shape.name}</div>
-                      <div className="text-base font-semibold text-slate-600 print:text-xs">Color: <span className="text-slate-800 capitalize">{shape.color}</span></div>
+                      <div className="text-lg font-semibold text-slate-800 capitalize mb-2 print:mb-0 print:text-base">{shape.name}</div>
+                      <div className="text-base font-semibold text-slate-600 print:text-sm">Color: <span className="text-slate-800 capitalize">{shape.color}</span></div>
                     </div>
                     <div className="flex justify-center">
-                      <svg viewBox="0 0 80 80" className="w-64 h-64 print:w-32 print:h-32">
+                      <svg viewBox="0 0 80 80" className="w-64 h-64 print:w-48 print:h-48">
                         {renderShape(shape, 80)}
                       </svg>
                     </div>
