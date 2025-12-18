@@ -661,7 +661,7 @@ export function initializeWorksheetSEO() {
     'times-table-vertical-6-12', 'time-to-minute', 'transformations-5th',
     'uppercase-lowercase-match', 'volume-rectangular-prisms', 'weekly-goals', 'what-comes-next',
     'winter-kindness', 'word-problems-100', 'writing-expressions', 'ws-world',
-    'zigzag-lines', 'match-object-to-shadow'
+    'zigzag-lines', 'match-object-to-shadow', 'match-the-feeling'
   ]
 
   // Generate SEO data for each worksheet
@@ -699,6 +699,22 @@ export function initializeWorksheetSEO() {
       .slice(0, 5)
       .map(w => w.docId)
     seo.relatedDocIds = related
+  }
+
+  // MANUAL OVERRIDE for Match The Feeling (Premium SEO)
+  WORKSHEET_SEO_MAP['match-the-feeling'] = {
+    docId: 'match-the-feeling',
+    slug: 'match-the-feeling',
+    title: 'Match the Feeling to the Situation - Free SEL Worksheet | Wizqo',
+    metaDescription: 'Free printable Social Emotional Learning (SEL) worksheet. Help kids identify feelings like sad, happy, bored, and friendly by matching them to real-life situations.',
+    keywords: 'match the feeling worksheet, social emotional learning worksheets, sel worksheets for kids, feelings and emotions worksheets, kindergarten feelings activity, identifying emotions worksheet, preschool sel printables',
+    h1: 'Match the Feeling to the Situation',
+    intro: 'This interactive Social Emotional Learning (SEL) worksheet helps children develop emotional intelligence by matching feelings to real-world situations. Perfect for Kindergarten and 1st Grade students to practice empathy and self-awareness.',
+    grade: ['Kindergarten', '1st Grade'],
+    category: ['visual-perception', 'social-emotional-learning'],
+    section: 'Shapes & Colors',
+    learningObjectives: ['Identify core emotions', 'Connect feelings to causes', 'Build emotional vocabulary'],
+    relatedDocIds: ['match-object-to-shadow', 'feelings-checkin', 'winter-kindness']
   }
 }
 
