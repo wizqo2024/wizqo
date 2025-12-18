@@ -385,8 +385,6 @@ export default function MatchFeelingWorksheetPage() {
                                             {item.situation}
                                         </p>
                                     </div>
-                                    {/* Dot for connecting - Moved further out into the gap */}
-                                    <div className="absolute right-[-32px] top-1/2 w-6 h-6 bg-slate-300 rounded-full border-4 border-white shadow-sm transform -translate-y-1/2 print:block hidden print:bg-slate-400 print:border-slate-600 print:right-[-40px] print:w-4 print:h-4" />
                                 </div>
                             ))}
                         </div>
@@ -419,8 +417,6 @@ export default function MatchFeelingWorksheetPage() {
                                             {item.emotion}
                                         </p>
                                     </div>
-                                    {/* Dot for connecting - Moved further out into the gap */}
-                                    <div className="absolute left-[-32px] top-1/2 w-6 h-6 bg-slate-300 rounded-full border-4 border-white shadow-sm transform -translate-y-1/2 print:block hidden print:bg-slate-400 print:border-slate-600 print:left-[-40px] print:w-4 print:h-4" />
                                 </div>
                             ))}
                         </div>
