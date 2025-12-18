@@ -4568,7 +4568,7 @@ export function PrintablesPage() {
                           const x = 20 + col * 36;
                           const y = 20 + row * 36;
                           return (
-                            <circle key={i} cx={x} cy={y} r="15" fill={i < n ? "#14b8a6" : "white"} stroke="#0d9488" strokeWidth="2.5" />
+                            <circle key={i} cx={x} cy={y} r="15" fill="white" stroke="#0d9488" strokeWidth="2.5" />
                           );
                         })}
                       </svg>
