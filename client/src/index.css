@@ -658,12 +658,7 @@ html {
   [class*="card"],
   [class*="Card"],
   [class*="block"],
-  [class*="Block"],
-  .bg-white,
-  .rounded-lg,
-  .rounded-xl,
-  .border-2,
-  .border {
+  [class*="Block"] {
     page-break-inside: avoid !important;
     break-inside: avoid !important;
   }
