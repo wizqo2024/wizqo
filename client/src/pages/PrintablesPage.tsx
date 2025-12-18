@@ -29841,7 +29841,7 @@ export function PrintablesPage() {
               <div className="mb-4 p-3 bg-blue-50 border border-blue-200 rounded text-sm text-blue-900">
                 <strong>📝 Instructions:</strong> Look at each shape below. Color it with the color shown. Use crayons or colored pencils.
               </div>
-              <div className="grid grid-cols-1 gap-6 break-inside-avoid" style={{ pageBreakAfter: 'auto' }}>
+              <div className="grid grid-cols-1 gap-6">
                 {shapeData.map((shape, i) => (
                   <div key={i} className="border-2 border-slate-300 rounded-lg p-6 bg-white break-inside-avoid">
                     <div className="text-center mb-4">
