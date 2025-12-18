@@ -2058,8 +2058,9 @@ export function PrintablesPage() {
           max-width: 100% !important;
           box-sizing: border-box !important;
           overflow-x: hidden !important;
-          border: 1px solid #e2e8f0 !important;
-          border-radius: 4px !important;
+          border: none !important;
+          border-radius: 0 !important;
+          box-shadow: none !important;
         }
         
         /* First section should have NO top padding/margin */
@@ -2067,9 +2068,16 @@ export function PrintablesPage() {
         .worksheet-section:first-of-type {
           margin-top: 0 !important;
           padding-top: 0 !important;
-          background-color: white !important;
+          background-color: transparent !important;
         }
-        
+
+        /* Ensure CHILDREN of the section can also break */
+        .worksheet-section > div,
+        .worksheet-section > div > div {
+          break-inside: auto !important;
+          page-break-inside: auto !important;
+        }
+
         /* Preserve content borders within worksheets */
         section[class*="break-inside-avoid"] div[class*="border"],
         section[class*="break-inside-avoid"] div[class*="rounded"] {
