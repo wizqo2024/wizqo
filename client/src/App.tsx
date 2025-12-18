@@ -371,6 +371,16 @@ export default function App() {
     trackPageView(route);
   }, [route]);
 
+  // Signal that React has hydrated/mounted to hide the SEO fallback content
+  // This replaces the aggressive inline script in index.html to ensure crawlers see content if JS fails
+  useEffect(() => {
+    // Small timeout to ensure paint
+    const timer = setTimeout(() => {
+      document.body.classList.add('react-loaded');
+    }, 0);
+    return () => clearTimeout(timer);
+  }, []);
+
   return (
     <AuthProvider>
       <TranslationProvider>

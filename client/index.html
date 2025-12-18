@@ -361,10 +361,8 @@
             // Update if it has default content OR old H1 content (to replace with new H2)
             if (hasDefaultContent || hasOldH1Content) {
               fallback.innerHTML = fallbackContent;
-              // Immediately hide after updating
-              fallback.style.display = 'none';
-              fallback.style.visibility = 'hidden';
-              fallback.setAttribute('aria-hidden', 'true');
+              fallback.innerHTML = fallbackContent;
+              // Rely on CSS body.react-loaded to hide it later
             }
           }
         } catch (e) { }
@@ -426,65 +424,7 @@
       });
     })();
 
-    // Hide SEO fallback IMMEDIATELY (before React even loads) to prevent Bing from seeing it
-    (function () {
-      var path = '';
-      try {
-        if (typeof location !== 'undefined') {
-          path = location.pathname || '';
-        }
-      } catch (e) { }
 
-      // For blog page and other non-worksheet pages, REMOVE fallback entirely from DOM
-      var isBlogPage = path && (path === '/blog' || path.startsWith('/blog/'));
-      var isWorksheetPage = path && path.startsWith('/worksheets/');
-      var isSpecialPage = path && (path.includes('fractions-to-decimals-worksheets') || path.includes('order-of-operations-worksheets'));
-      var isInteractivePage = path && path.includes('interactive-worksheets-generator');
-      var isKidsPage = path && (path === '/kids' || path.startsWith('/kids/'));
-      var isPrintablesPage = path && (path === '/printables' || path.startsWith('/printables/'));
-      var isPrintPage = path && (path === '/print' || path.startsWith('/print/'));
-
-      // For non-worksheet pages AND special pages (fractions, order-of-operations), REMOVE the fallback element entirely
-      // Special pages have their own H1 in React, so we don't need the fallback
-      if (isBlogPage || isInteractivePage || isKidsPage || isPrintablesPage || isPrintPage || isSpecialPage || (!isWorksheetPage && !isSpecialPage)) {
-        // Try to remove immediately if DOM is ready
-        function removeFallback() {
-          var fallback = document.getElementById('seo-fallback');
-          if (fallback) {
-            // Remove from DOM entirely - this is the most aggressive approach
-            fallback.remove();
-          }
-        }
-
-        // Try immediately
-        removeFallback();
-
-        // Also try on DOMContentLoaded
-        if (document.readyState === 'loading') {
-          document.addEventListener('DOMContentLoaded', removeFallback);
-        }
-
-        // Also try after a short delay as backup
-        setTimeout(removeFallback, 0);
-      } else {
-        // For worksheet pages, just hide it (we'll hide it after React loads)
-        var fallback = document.getElementById('seo-fallback');
-        if (fallback) {
-          fallback.style.display = 'none';
-          fallback.style.visibility = 'hidden';
-          fallback.setAttribute('aria-hidden', 'true');
-        }
-      }
-
-      // Mark body as React-loaded to trigger CSS hiding
-      if (document.body) {
-        document.body.classList.add('react-loaded');
-      } else {
-        document.addEventListener('DOMContentLoaded', function () {
-          document.body.classList.add('react-loaded');
-        });
-      }
-    })();
 
     // Additional removal/hiding after React loads (backup)
     window.addEventListener('load', function () {
@@ -536,31 +476,7 @@
 </head>
 
 <body>
-  <nav class="seo-hidden-links" aria-hidden="true">
-    <a href="/">Home</a>
-    <a href="/about">About Wizqo</a>
-    <a href="/generate">My Learning Plan Generator</a>
-    <a href="/interactive-worksheets-generator">Free Worksheets Generator</a>
-    <a href="/worksheets/all">All Worksheets</a>
-    <a href="/worksheets/1st-grade-math-worksheets">1st Grade Math Worksheets</a>
-    <a href="/worksheets/2nd-grade-math-worksheets">2nd Grade Math Worksheets</a>
-    <a href="/worksheets/times-table-multiplication-worksheets">Times Table Multiplication Worksheets</a>
-    <a href="/worksheets/fractions-to-decimals-worksheets">Converting Fractions to Decimals Worksheets</a>
-    <a href="/worksheets/order-of-operations-worksheets">Order of Operations Worksheets (PEMDAS)</a>
-    <a href="/worksheets/reading-comprehension">Reading Comprehension Worksheets</a>
-    <a href="/worksheets/handwriting-worksheet-maker">Handwriting Worksheets</a>
-    <a href="/printables/certificate-maker">Certificate Maker</a>
-    <a href="/printables/name-tracing-generator">Name Tracing Generator</a>
-    <a href="/blog">Blog</a>
-    <a href="/kids">Kids Hub</a>
-    <a href="/kids/games/memory">Memory Match Game</a>
-    <a href="/kids/games/word-search">Word Search Game</a>
-    <a href="/kids/games/puzzle">Puzzle Game</a>
-    <a href="/kids/games/typing">Typing Safari</a>
-    <a href="/kids/games/pattern">Pattern Builder</a>
-    <a href="/printables">Printables</a>
-    <a href="/contact">Contact</a>
-  </nav>
+
 
   <!-- Visible SEO Content - Always crawlable, even without JavaScript -->
   <!-- Note: Using H2 here instead of H1 to avoid duplicate H1 when React loads -->
@@ -638,11 +554,11 @@
   <script type="module" src="/src/main.tsx"></script>
   <noscript>
     <style>
-      /* Only show fallback in print mode - never for screen or crawlers */
+      /* Show fallback if JS is disabled */
       @media screen {
         #seo-fallback {
-          display: none !important;
-          visibility: hidden !important;
+          display: block !important;
+          visibility: visible !important;
         }
       }
 

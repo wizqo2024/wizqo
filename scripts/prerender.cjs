@@ -298,125 +298,14 @@ function cloneForRoute(baseHtml, route, allPosts = [], allRoutes = []) {
     keywords: route.keywords
   });
 
-  // Add static HTML links for crawlers (orphaned pages fix)
-  if (route.path === '/blog') {
-    // Add links to all blog posts
-    const blogLinks = allPosts.map(p =>
-      `    <a href="${SITE}/blog/${p.id}" style="display: block; padding: 0.5rem 0; color: #3b82f6; text-decoration: underline;">${escapeHtml(p.title)}</a>`
-    ).join('\n');
-    const seoLinksSection = `<nav class="seo-hidden-links" aria-hidden="true" style="position: absolute; left: -10000px; top: auto; width: 1px; height: 1px; overflow: hidden;">
-  <h2>All Blog Posts</h2>
-${blogLinks}
-</nav>`;
-    html = html.replace(/<nav class="seo-hidden-links"[^>]*>[\s\S]*?<\/nav>/, seoLinksSection);
-  } else if (route.path === '/kids') {
-    // Add links to all kids games
-    const kidsGames = allRoutes.filter(r => r.path.startsWith('/kids/games/'));
-    const gameLinks = kidsGames.map(r =>
-      `    <a href="${SITE}${r.path}" style="display: block; padding: 0.5rem 0; color: #3b82f6; text-decoration: underline;">${escapeHtml(r.title.replace('Kids Hub – ', ''))}</a>`
-    ).join('\n');
-    const seoLinksSection = `<nav class="seo-hidden-links" aria-hidden="true" style="position: absolute; left: -10000px; top: auto; width: 1px; height: 1px; overflow: hidden;">
-  <h2>Kids Games</h2>
-${gameLinks}
-</nav>`;
-    html = html.replace(/<nav class="seo-hidden-links"[^>]*>[\s\S]*?<\/nav>/, seoLinksSection);
-  } else if (route.path === '/' || route.path.startsWith('/worksheets/')) {
-    // Add links to worksheet category pages
-    const worksheetPages = allRoutes.filter(r => r.path.startsWith('/worksheets/') &&
-      !r.path.match(/\/worksheets\/[^/]+$/)); // Only category pages, not individual worksheets
-    const worksheetLinks = worksheetPages.map(r =>
-      `    <a href="${SITE}${r.path}" style="display: block; padding: 0.5rem 0; color: #3b82f6; text-decoration: underline;">${escapeHtml(r.title)}</a>`
-    ).join('\n');
-
-    // Add links to ALL individual worksheet pages to fix orphaned pages issue
-    const allWorksheets = getAllWorksheetURLs();
-    const individualWorksheetLinks = allWorksheets.map(w =>
-      `    <a href="${w.url}" style="display: block; padding: 0.5rem 0; color: #3b82f6; text-decoration: underline;">${escapeHtml(w.title || w.url)}</a>`
-    ).join('\n');
-
-    const existingNav = html.match(/<nav class="seo-hidden-links"[^>]*>[\s\S]*?<\/nav>/);
-    if (existingNav) {
-      let navContent = `  <h2>Worksheet Category Pages</h2>\n${worksheetLinks}`;
-      if (individualWorksheetLinks) {
-        navContent += `\n  <h2>All Individual Worksheets</h2>\n${individualWorksheetLinks}`;
-      }
-      const updatedNav = existingNav[0].replace('</nav>', `${navContent}\n</nav>`);
-      html = html.replace(existingNav[0], updatedNav);
-    }
-  }
-
-  // Add links to important pages (generate, about, printables, kids games) on multiple pages for better internal linking
-  // This helps pages that only have one incoming link get more links
-  if (route.path === '/' || route.path.startsWith('/blog/') || route.path.startsWith('/worksheets/') || route.path === '/about' || route.path === '/generate') {
-    const importantPages = allRoutes.filter(r =>
-      r.path === '/generate' ||
-      r.path === '/about' ||
-      r.path === '/printables' ||
-      r.path === '/printables/name-tracing-generator' ||
-      r.path === '/printables/certificate-maker' ||
-      r.path === '/interactive-worksheets-generator' ||
-      r.path === '/kids' ||
-      r.path.startsWith('/kids/games/')
-    );
-    const importantLinks = importantPages.map(r =>
-      `    <a href="${SITE}${r.path}" style="display: block; padding: 0.5rem 0; color: #3b82f6; text-decoration: underline;">${escapeHtml(r.title)}</a>`
-    ).join('\n');
-    const existingNav = html.match(/<nav class="seo-hidden-links"[^>]*>[\s\S]*?<\/nav>/);
-    if (existingNav && importantLinks) {
-      const sectionTitle = route.path === '/' ? 'Important Pages' : 'Related Pages';
-      const updatedNav = existingNav[0].replace('</nav>', `  <h2>${sectionTitle}</h2>\n${importantLinks}\n</nav>`);
-      html = html.replace(existingNav[0], updatedNav);
-    }
-  }
-
-  // Add links to blog posts on blog listing page and individual blog posts
-  if (route.path.startsWith('/blog/')) {
-    const blogLinks = allPosts.map(p =>
-      `    <a href="${SITE}/blog/${p.id}" style="display: block; padding: 0.5rem 0; color: #3b82f6; text-decoration: underline;">${escapeHtml(p.title)}</a>`
-    ).join('\n');
-    const existingNav = html.match(/<nav class="seo-hidden-links"[^>]*>[\s\S]*?<\/nav>/);
-    if (existingNav && blogLinks) {
-      const updatedNav = existingNav[0].replace('</nav>', `  <h2>More Blog Posts</h2>\n${blogLinks}\n</nav>`);
-      html = html.replace(existingNav[0], updatedNav);
-    }
-  }
-
-  // Add links to kids games on kids hub and individual game pages
-  if (route.path.startsWith('/kids/games/')) {
-    const kidsGames = allRoutes.filter(r => r.path.startsWith('/kids/games/'));
-    const gameLinks = kidsGames.map(r =>
-      `    <a href="${SITE}${r.path}" style="display: block; padding: 0.5rem 0; color: #3b82f6; text-decoration: underline;">${escapeHtml(r.title.replace('Kids Hub – ', ''))}</a>`
-    ).join('\n');
-    const existingNav = html.match(/<nav class="seo-hidden-links"[^>]*>[\s\S]*?<\/nav>/);
-    if (existingNav && gameLinks) {
-      const updatedNav = existingNav[0].replace('</nav>', `  <h2>All Kids Games</h2>\n${gameLinks}\n</nav>`);
-      html = html.replace(existingNav[0], updatedNav);
-    }
-  }
-
-  // Add links to printables pages on printables and related pages
-  if (route.path === '/printables' || route.path.startsWith('/printables/')) {
-    const printablesPages = allRoutes.filter(r =>
-      r.path === '/printables' ||
-      r.path === '/printables/name-tracing-generator' ||
-      r.path === '/printables/certificate-maker'
-    );
-    const printablesLinks = printablesPages.map(r =>
-      `    <a href="${SITE}${r.path}" style="display: block; padding: 0.5rem 0; color: #3b82f6; text-decoration: underline;">${escapeHtml(r.title)}</a>`
-    ).join('\n');
-    const existingNav = html.match(/<nav class="seo-hidden-links"[^>]*>[\s\S]*?<\/nav>/);
-    if (existingNav && printablesLinks) {
-      const sectionTitle = route.path === '/printables' ? 'All Printables' : 'More Printables';
-      const updatedNav = existingNav[0].replace('</nav>', `  <h2>${sectionTitle}</h2>\n${printablesLinks}\n</nav>`);
-      html = html.replace(existingNav[0], updatedNav);
-    }
-  }
+  // Final check: ensure viewport tag is always present
+  html = ensureViewport(html);
 
   // Update SEO fallback content for specific pages
   if (route.path === '/worksheets/multiplication-worksheets') {
     // Replace fallback content with multiplication-specific content
     // H1 should be shorter than title to avoid duplicate
-    const multiplicationContent = `<main id="seo-fallback" style="display: none; max-width: 1200px; margin: 0 auto; padding: 2rem 1rem; font-family: system-ui, -apple-system, sans-serif;">
+    const multiplicationContent = `<main id="seo-fallback" style="max-width: 1200px; margin: 0 auto; padding: 2rem 1rem; font-family: system-ui, -apple-system, sans-serif;">
       <h1 style="font-size: 2.5rem; font-weight: 900; color: #0f172a; margin-bottom: 1rem; line-height: 1.2;">
         Free Multiplication Worksheets
       </h1>
@@ -458,7 +347,7 @@ ${gameLinks}
   } else if (route.path === '/worksheets/times-table-multiplication-worksheets') {
     // Replace fallback content with times table-specific content
     // H1 should be shorter than title to avoid duplicate
-    const timesTableContent = `<main id="seo-fallback" style="display: none; max-width: 1200px; margin: 0 auto; padding: 2rem 1rem; font-family: system-ui, -apple-system, sans-serif;">
+    const timesTableContent = `<main id="seo-fallback" style="max-width: 1200px; margin: 0 auto; padding: 2rem 1rem; font-family: system-ui, -apple-system, sans-serif;">
       <h1 style="font-size: 2.5rem; font-weight: 900; color: #0f172a; margin-bottom: 1rem; line-height: 1.2;">
         Free Times Table Multiplication Worksheets
       </h1>
@@ -526,7 +415,7 @@ ${gameLinks}
     html = html.replace(/<script[^>]*>[\s\S]*?updateSEO[\s\S]*?fractions[\s\S]*?<\/script>/gi, '');
     // Replace fallback content with fractions-to-decimals-specific content (already correct from prerender)
     // H1 should be shorter than title to avoid duplicate
-    const fractionsToDecimalsContent = `<main id="seo-fallback" style="display: none; max-width: 1200px; margin: 0 auto; padding: 2rem 1rem; font-family: system-ui, -apple-system, sans-serif;">
+    const fractionsToDecimalsContent = `<main id="seo-fallback" style="max-width: 1200px; margin: 0 auto; padding: 2rem 1rem; font-family: system-ui, -apple-system, sans-serif;">
       <h1 style="font-size: 2.5rem; font-weight: 900; color: #0f172a; margin-bottom: 1rem; line-height: 1.2;">
         Converting Fractions to Decimals Worksheets
       </h1>
@@ -605,7 +494,7 @@ ${gameLinks}
     }
     // Replace fallback content with order-of-operations-specific content
     // H1 should be shorter than title to avoid duplicate
-    const orderOfOperationsContent = `<main id="seo-fallback" style="display: none; max-width: 1200px; margin: 0 auto; padding: 2rem 1rem; font-family: system-ui, -apple-system, sans-serif;">
+    const orderOfOperationsContent = `<main id="seo-fallback" style="max-width: 1200px; margin: 0 auto; padding: 2rem 1rem; font-family: system-ui, -apple-system, sans-serif;">
       <h1 style="font-size: 2.5rem; font-weight: 900; color: #0f172a; margin-bottom: 1rem; line-height: 1.2;">
         Order of Operations Worksheets (PEMDAS)
       </h1>
@@ -663,7 +552,7 @@ ${gameLinks}
   } else if (route.path === '/interactive-worksheets-generator') {
     // Replace fallback content with interactive worksheets-specific content
     // H1 should be shorter than title to avoid duplicate
-    const interactiveContent = `<main id="seo-fallback" style="display: none; max-width: 1200px; margin: 0 auto; padding: 2rem 1rem; font-family: system-ui, -apple-system, sans-serif;">
+    const interactiveContent = `<main id="seo-fallback" style="max-width: 1200px; margin: 0 auto; padding: 2rem 1rem; font-family: system-ui, -apple-system, sans-serif;">
       <h1 style="font-size: 2.5rem; font-weight: 900; color: #0f172a; margin-bottom: 1rem; line-height: 1.2;">
         Free Interactive Worksheets Generator
       </h1>
@@ -704,7 +593,7 @@ ${gameLinks}
     html = html.replace(/<main[^>]*id="seo-fallback"[^>]*>[\s\S]*?<\/main>/, interactiveContent);
   } else if (route.path === '/') {
     // Inject homepage static content for SEO
-    const homepageContent = `<main id="seo-fallback" style="display: none; max-width: 1200px; margin: 0 auto; padding: 2rem 1rem; font-family: system-ui, -apple-system, sans-serif;">
+    const homepageContent = `<main id="seo-fallback" style="max-width: 1200px; margin: 0 auto; padding: 2rem 1rem; font-family: system-ui, -apple-system, sans-serif;">
       <h1 style="font-size: 2.5rem; font-weight: 900; color: #0f172a; margin-bottom: 1rem; line-height: 1.2;">
         Free Worksheets for Kids (K-5) | Math, Reading & More
       </h1>
@@ -749,7 +638,7 @@ ${gameLinks}
     // Keep it hidden but with minimal content
     // Use shorter H1 that differs from title
     const h1Text = extractH1FromTitle(route.title);
-    html = html.replace(/<main[^>]*id="seo-fallback"[^>]*>[\s\S]*?<\/main>/, `<main id="seo-fallback" style="display: none;"><h1>${escapeHtml(h1Text)}</h1><p>${escapeHtml(route.description)}</p></main>`);
+    html = html.replace(/<main[^>]*id="seo-fallback"[^>]*>[\s\S]*?<\/main>/, `<main id="seo-fallback"><h1>${escapeHtml(h1Text)}</h1><p>${escapeHtml(route.description)}</p></main>`);
   }
 
   // Final check: ensure viewport tag is always present
