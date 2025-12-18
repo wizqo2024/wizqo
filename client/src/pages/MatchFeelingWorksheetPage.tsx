@@ -363,10 +363,10 @@ export default function MatchFeelingWorksheetPage() {
 
                     <WorksheetHeader enabled={true} showScore={true} className="mb-8 print:mb-4" />
 
-                    <div className="grid grid-cols-2 gap-12 flex-1 print:gap-8">
+                    <div className="grid grid-cols-2 gap-12 flex-1 print:gap-x-24 print:gap-y-4">
 
                         {/* Column 1: Situation */}
-                        <div className="flex flex-col gap-6 print:gap-3">
+                        <div className="flex flex-col gap-6 print:gap-4">
                             <div className="bg-sky-200 text-sky-800 font-black text-xl text-center py-2 rounded-full font-comic shadow-inner border-2 border-sky-300 print:print-color-adjust-exact">
                                 SITUATION
                             </div>
@@ -385,21 +385,20 @@ export default function MatchFeelingWorksheetPage() {
                                             {item.situation}
                                         </p>
                                     </div>
-                                    {/* Dot for connecting */}
-                                    <div className="absolute right-[-24px] top-1/2 w-4 h-4 bg-slate-300 rounded-full border-2 border-white shadow-sm transform -translate-y-1/2 print:block hidden print:bg-slate-400 print:border-slate-500" />
+                                    {/* Dot for connecting - Moved further out into the gap */}
+                                    <div className="absolute right-[-32px] top-1/2 w-6 h-6 bg-slate-300 rounded-full border-4 border-white shadow-sm transform -translate-y-1/2 print:block hidden print:bg-slate-400 print:border-slate-600 print:right-[-40px]" />
                                 </div>
                             ))}
                         </div>
 
                         {/* Column 2: Emotion */}
-                        <div className="flex flex-col gap-6 print:gap-3">
+                        <div className="flex flex-col gap-6 print:gap-4">
                             <div className="bg-rose-200 text-rose-800 font-black text-xl text-center py-2 rounded-full font-comic shadow-inner border-2 border-rose-300 print:print-color-adjust-exact">
                                 EMOTION
                             </div>
                             {rightItems.map((item, idx) => (
                                 <div key={`emo-${idx}`} className="relative group h-full">
                                     {/* Clay Container */}
-                                    {/* Using dynamic background colors for emotions based on the reference image style somewhat, but keeping consistent pastel base */}
                                     <div className="h-full rounded-3xl p-4 flex flex-col items-center justify-center gap-4 transition-transform transform hover:scale-[1.02] border-2 border-transparent print:border-slate-200 print:print-color-adjust-exact"
                                         style={{
                                             background: (() => {
@@ -420,8 +419,8 @@ export default function MatchFeelingWorksheetPage() {
                                             {item.emotion}
                                         </p>
                                     </div>
-                                    {/* Dot for connecting */}
-                                    <div className="absolute left-[-24px] top-1/2 w-4 h-4 bg-slate-300 rounded-full border-2 border-white shadow-sm transform -translate-y-1/2 print:block hidden print:bg-slate-400 print:border-slate-500" />
+                                    {/* Dot for connecting - Moved further out into the gap */}
+                                    <div className="absolute left-[-32px] top-1/2 w-6 h-6 bg-slate-300 rounded-full border-4 border-white shadow-sm transform -translate-y-1/2 print:block hidden print:bg-slate-400 print:border-slate-600 print:left-[-40px]" />
                                 </div>
                             ))}
                         </div>
