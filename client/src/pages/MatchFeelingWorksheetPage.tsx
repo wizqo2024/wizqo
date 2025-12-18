@@ -323,58 +323,58 @@ export default function MatchFeelingWorksheetPage() {
 
             {/* Main Worksheet Area */}
             <div className="flex justify-center print:block print:w-full">
-                <div ref={printRef} className={`bg-white w-[210mm] min-h-[297mm] shadow-xl print:shadow-none p-8 relative flex flex-col ${isPreview ? 'shadow-none w-full !min-h-0' : ''}`}>
+                <div ref={printRef} className={`bg-white w-[210mm] min-h-[297mm] shadow-xl print:shadow-none p-8 relative flex flex-col ${isPreview ? 'shadow-none w-full !min-h-0' : ''} print:p-4 print:print-color-adjust-exact`}>
 
                     {/* Header */}
-                    <div className="text-center mb-8">
-                        <h1 className="text-4xl font-black text-sky-400 mb-2 font-comic drop-shadow-sm" style={{ textShadow: '2px 2px 0px #bae6fd' }}>
+                    <div className="text-center mb-8 print:mb-4">
+                        <h1 className="text-4xl font-black text-sky-400 mb-2 font-comic drop-shadow-sm print:text-sky-600" style={{ textShadow: '2px 2px 0px #bae6fd' }}>
                             Match the Feeling
                         </h1>
-                        <h2 className="text-3xl font-black text-yellow-400 font-comic" style={{ textShadow: '2px 2px 0px #fde047' }}>
+                        <h2 className="text-3xl font-black text-yellow-400 font-comic print:text-yellow-500" style={{ textShadow: '2px 2px 0px #fde047' }}>
                             to the Situation
                         </h2>
                     </div>
 
-                    <WorksheetHeader enabled={true} showScore={true} className="mb-8" />
+                    <WorksheetHeader enabled={true} showScore={true} className="mb-8 print:mb-4" />
 
-                    <div className="grid grid-cols-2 gap-12 flex-1">
+                    <div className="grid grid-cols-2 gap-12 flex-1 print:gap-8">
 
                         {/* Column 1: Situation */}
-                        <div className="flex flex-col gap-6">
-                            <div className="bg-sky-200 text-sky-800 font-black text-xl text-center py-2 rounded-full font-comic shadow-inner">
+                        <div className="flex flex-col gap-6 print:gap-3">
+                            <div className="bg-sky-200 text-sky-800 font-black text-xl text-center py-2 rounded-full font-comic shadow-inner border-2 border-sky-300 print:print-color-adjust-exact">
                                 SITUATION
                             </div>
                             {leftItems.map((item, idx) => (
                                 <div key={`sit-${idx}`} className="relative group">
                                     {/* Clay Container */}
-                                    <div className="aspect-[4/3] rounded-3xl p-4 flex flex-col items-center justify-between transition-transform transform hover:scale-[1.02]"
+                                    <div className="aspect-[4/3] rounded-3xl p-4 flex flex-col items-center justify-between transition-transform transform hover:scale-[1.02] border-2 border-transparent print:border-slate-200 print:print-color-adjust-exact"
                                         style={{
                                             background: 'linear-gradient(145deg, #e0f2fe, #bfdbfe)',
                                             boxShadow: '10px 10px 20px #9ca3af, -10px -10px 20px #ffffff'
                                         }}>
                                         <div className="flex-1 w-full flex items-center justify-center">
-                                            <item.SitIcon className="w-32 h-32" />
+                                            <item.SitIcon className="w-32 h-32 print:w-28 print:h-28" />
                                         </div>
-                                        <p className="font-comic font-bold text-slate-700 text-center text-lg leading-tight mt-2">
+                                        <p className="font-comic font-bold text-slate-700 text-center text-lg leading-tight mt-2 print:text-base">
                                             {item.situation}
                                         </p>
                                     </div>
                                     {/* Dot for connecting */}
-                                    <div className="absolute right-[-24px] top-1/2 w-4 h-4 bg-slate-300 rounded-full border-2 border-white shadow-sm transform -translate-y-1/2 print:block hidden" />
+                                    <div className="absolute right-[-24px] top-1/2 w-4 h-4 bg-slate-300 rounded-full border-2 border-white shadow-sm transform -translate-y-1/2 print:block hidden print:bg-slate-400 print:border-slate-500" />
                                 </div>
                             ))}
                         </div>
 
                         {/* Column 2: Emotion */}
-                        <div className="flex flex-col gap-6">
-                            <div className="bg-rose-200 text-rose-800 font-black text-xl text-center py-2 rounded-full font-comic shadow-inner">
+                        <div className="flex flex-col gap-6 print:gap-3">
+                            <div className="bg-rose-200 text-rose-800 font-black text-xl text-center py-2 rounded-full font-comic shadow-inner border-2 border-rose-300 print:print-color-adjust-exact">
                                 EMOTION
                             </div>
                             {rightItems.map((item, idx) => (
                                 <div key={`emo-${idx}`} className="relative group h-full">
                                     {/* Clay Container */}
                                     {/* Using dynamic background colors for emotions based on the reference image style somewhat, but keeping consistent pastel base */}
-                                    <div className="h-full rounded-3xl p-4 flex flex-col items-center justify-center gap-4 transition-transform transform hover:scale-[1.02]"
+                                    <div className="h-full rounded-3xl p-4 flex flex-col items-center justify-center gap-4 transition-transform transform hover:scale-[1.02] border-2 border-transparent print:border-slate-200 print:print-color-adjust-exact"
                                         style={{
                                             background: (() => {
                                                 switch (item.id) {
@@ -388,14 +388,14 @@ export default function MatchFeelingWorksheetPage() {
                                             boxShadow: '10px 10px 20px #9ca3af, -10px -10px 20px #ffffff'
                                         }}>
 
-                                        <item.EmoIcon className="w-28 h-28" />
+                                        <item.EmoIcon className="w-28 h-28 print:w-24 print:h-24" />
 
-                                        <p className="font-comic font-black text-center text-xl tracking-wider" style={{ color: '#475569' }}>
+                                        <p className="font-comic font-black text-center text-xl tracking-wider print:text-lg" style={{ color: '#475569' }}>
                                             {item.emotion}
                                         </p>
                                     </div>
                                     {/* Dot for connecting */}
-                                    <div className="absolute left-[-24px] top-1/2 w-4 h-4 bg-slate-300 rounded-full border-2 border-white shadow-sm transform -translate-y-1/2 print:block hidden" />
+                                    <div className="absolute left-[-24px] top-1/2 w-4 h-4 bg-slate-300 rounded-full border-2 border-white shadow-sm transform -translate-y-1/2 print:block hidden print:bg-slate-400 print:border-slate-500" />
                                 </div>
                             ))}
                         </div>
