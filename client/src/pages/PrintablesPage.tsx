@@ -29841,7 +29841,7 @@ export function PrintablesPage() {
               <div className="mb-4 p-3 bg-blue-50 border border-blue-200 rounded text-sm text-blue-900">
                 <strong>📝 Instructions:</strong> Look at each shape below. Color it with the color shown. Use crayons or colored pencils.
               </div>
-              <div className="grid grid-cols-1 gap-6">
+              <div className="space-y-6">
                 {shapeData.map((shape, i) => (
                   <div key={i} className="border-2 border-slate-300 rounded-lg p-6 bg-white break-inside-avoid">
                     <div className="text-center mb-4">
@@ -29849,7 +29849,7 @@ export function PrintablesPage() {
                       <div className="text-base font-semibold text-slate-600">Color: <span className="text-slate-800 capitalize">{shape.color}</span></div>
                     </div>
                     <div className="flex justify-center">
-                      <svg viewBox="0 0 80 80" className="w-64 h-64 print:w-80 print:h-80">
+                      <svg viewBox="0 0 80 80" className="w-64 h-64 print:w-64 print:h-64">
                         {renderShape(shape, 80)}
                       </svg>
                     </div>
