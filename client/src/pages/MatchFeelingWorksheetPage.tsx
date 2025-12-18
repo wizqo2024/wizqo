@@ -94,19 +94,45 @@ const RainingIcon = ({ className }: { className?: string }) => (
     </svg>
 );
 
-// 4. Situation: Sharing Cookie (Two Kids)
+// 4. Situation: Sharing Cookie (Clearer Scene)
 const SharingCookieIcon = ({ className }: { className?: string }) => (
     <svg viewBox="0 0 100 100" className={className} fill="none" stroke="none">
-        {/* Kid 1 */}
-        <circle cx="35" cy="45" r="12" fill="#fca5a5" />
-        <path d="M20 70 Q35 80 50 70" fill="#93c5fd" />
-        {/* Kid 2 */}
-        <circle cx="65" cy="45" r="12" fill="#fdba74" />
-        <path d="M50 70 Q65 80 80 70" fill="#fca5a5" />
-        {/* Cookie */}
-        <circle cx="50" cy="55" r="8" fill="#d97706" />
-        <circle cx="48" cy="53" r="1" fill="#78350f" />
-        <circle cx="52" cy="56" r="1" fill="#78350f" />
+        <defs>
+            <linearGradient id="cookie-dough" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" stopColor="#d97706" />
+                <stop offset="100%" stopColor="#b45309" />
+            </linearGradient>
+        </defs>
+
+        {/* Left Kid (Blue Shirt) */}
+        <circle cx="30" cy="50" r="14" fill="#fca5a5" /> {/* Head */}
+        <path d="M15 85 Q30 95 45 85 L45 95 L15 95 Z" fill="#93c5fd" /> {/* Body */}
+        {/* Arm reaching */}
+        <path d="M25 75 Q35 60 45 60" stroke="#fca5a5" strokeWidth="5" strokeLinecap="round" />
+        {/* Face */}
+        <circle cx="28" cy="48" r="1.5" fill="#333" />
+        <circle cx="36" cy="48" r="1.5" fill="#333" />
+        <path d="M30 54 Q33 57 36 54" stroke="#7f1d1d" strokeWidth="1" strokeLinecap="round" />
+
+        {/* Right Kid (Green Shirt) */}
+        <circle cx="70" cy="50" r="14" fill="#fca5a5" /> {/* Head */}
+        <path d="M55 85 Q70 95 85 85 L85 95 L55 95 Z" fill="#86efac" /> {/* Body */}
+        {/* Arm reaching */}
+        <path d="M75 75 Q65 60 55 60" stroke="#fca5a5" strokeWidth="5" strokeLinecap="round" />
+        {/* Face */}
+        <circle cx="64" cy="48" r="1.5" fill="#333" />
+        <circle cx="72" cy="48" r="1.5" fill="#333" />
+        <path d="M66 54 Q69 57 72 54" stroke="#7f1d1d" strokeWidth="1" strokeLinecap="round" />
+
+        {/* The BIG Cookie in the middle */}
+        <circle cx="50" cy="55" r="12" fill="url(#cookie-dough)" />
+        <circle cx="46" cy="52" r="1.5" fill="#3f1d08" />
+        <circle cx="54" cy="53" r="1.5" fill="#3f1d08" />
+        <circle cx="50" cy="58" r="1.5" fill="#3f1d08" />
+        <circle cx="48" cy="56" r="1" fill="#3f1d08" />
+
+        {/* Heart above */}
+        <path d="M50 30 C55 20, 65 22, 65 30 C65 38, 50 45, 50 45 C50 45, 35 38, 35 30 C35 22, 45 20, 50 30 Z" fill="#f472b6" />
     </svg>
 );
 
