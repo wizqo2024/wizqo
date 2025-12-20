@@ -17,6 +17,8 @@ interface WorksheetItem {
   docId: string
   categories: string[]
   section?: string
+  customPreviewUrl?: string
+  customDownloadUrl?: string
 }
 
 export default function WorksheetsFirstGradePage() {
@@ -92,7 +94,16 @@ export default function WorksheetsFirstGradePage() {
     // Early Math Skills
     { title: t('pages.firstGrade.worksheets.moreLessEqual10.title'), description: t('pages.firstGrade.worksheets.moreLessEqual10.description'), href: getWorksheetURL('more-less-equal-10', '1st-grade'), docId: 'more-less-equal-10', categories: ['early-math'], section: 'Early Math Skills' },
     { title: t('pages.firstGrade.worksheets.countingObjects20.title'), description: t('pages.firstGrade.worksheets.countingObjects20.description'), href: getWorksheetURL('counting-objects-20', '1st-grade'), docId: 'counting-objects-20', categories: ['early-math'], section: 'Early Math Skills' },
-    { title: '📖 Reading Discovery (Interactive)', description: 'Interactive comprehension with original stories and 3D illustrations. Try Leo\'s Space Adventure!', href: getWorksheetURL('reading-discovery-interactive', '1st-grade'), docId: 'reading-discovery-interactive', categories: ['literacy'], section: 'Early Literacy' },
+    {
+      title: '📖 Reading Discovery (Interactive)',
+      description: 'Interactive comprehension with original stories and 3D illustrations. Try Leo\'s Space Adventure!',
+      href: '/worksheets/reading-discovery-interactive',
+      docId: 'reading-discovery-interactive',
+      categories: ['literacy'],
+      section: 'Early Literacy',
+      customPreviewUrl: '/worksheets/reading-discovery-interactive?preview=1',
+      customDownloadUrl: '/worksheets/reading-discovery-interactive'
+    },
   ], [t])
 
   // Filter worksheets based on selected categories
@@ -237,6 +248,8 @@ export default function WorksheetsFirstGradePage() {
                         href={ws.href}
                         docId={ws.docId}
                         onPreview={setPreviewItem}
+                        customPreviewUrl={ws.customPreviewUrl}
+                        customDownloadUrl={ws.customDownloadUrl}
                       />
                     ))}
                   </div>
@@ -331,7 +344,7 @@ export default function WorksheetsFirstGradePage() {
                   {/* Worksheet Preview */}
                   <div className="bg-white shadow-lg rounded-lg p-8 print:shadow-none">
                     <iframe
-                      src={previewItem.href}
+                      src={previewItem.customPreviewUrl || previewItem.href}
                       className="w-full h-full min-h-[600px] border-0"
                       title={previewItem.title}
                       aria-label={`Preview of ${previewItem.title} worksheet`}
@@ -413,11 +426,11 @@ function ItemCard({ title, description, href }: { title: string; description: st
   )
 }
 
-const WorksheetThumbnailCard = React.memo(function WorksheetThumbnailCard({ title, description, href, docId, onPreview }: { title: string; description: string; href: string; docId: string; onPreview?: (item: WorksheetItem) => void }) {
+const WorksheetThumbnailCard = React.memo(function WorksheetThumbnailCard({ title, description, href, docId, onPreview, customPreviewUrl, customDownloadUrl }: { title: string; description: string; href: string; docId: string; onPreview?: (item: WorksheetItem) => void; customPreviewUrl?: string; customDownloadUrl?: string }) {
   const { t, language } = useTranslation();
   // Use print URL for preview (not SEO URL) to show actual worksheet content
   const printUrl = getWorksheetPrintURL(docId, '1st-grade')
-  const previewUrl = printUrl + (printUrl.includes('?') ? '&preview=1' : '?preview=1')
+  const previewUrl = customPreviewUrl || (printUrl + (printUrl.includes('?') ? '&preview=1' : '?preview=1'))
 
   // Use translations if available (fallback to provided title/description) - memoize to prevent re-renders
   // Use language instead of t in dependencies to avoid re-renders when t function reference changes
@@ -483,6 +496,10 @@ const WorksheetThumbnailCard = React.memo(function WorksheetThumbnailCard({ titl
         <div className="flex items-center gap-2">
           <button
             onClick={() => {
+              if (customDownloadUrl) {
+                window.open(customDownloadUrl, '_blank');
+                return;
+              }
               const printUrl = getWorksheetPrintURL(docId, '1st-grade')
               window.open(printUrl, '_blank')
             }}

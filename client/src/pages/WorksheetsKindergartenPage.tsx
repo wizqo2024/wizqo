@@ -379,7 +379,7 @@ export default function WorksheetsKindergartenPage() {
                   {/* Worksheet Preview */}
                   <div className="bg-white shadow-lg rounded-lg p-8 print:shadow-none">
                     <iframe
-                      src={previewItem.href}
+                      src={previewItem.customPreviewUrl || previewItem.href}
                       className="w-full h-full min-h-[600px] border-0"
                       title={previewItem.title}
                       aria-label={`Preview of ${previewItem.title} worksheet`}

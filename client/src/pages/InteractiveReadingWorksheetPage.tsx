@@ -191,7 +191,7 @@ export default function InteractiveReadingWorksheetPage() {
 
             {/* Worksheet Content */}
             <div className={`flex justify-center ${isPreview ? 'items-start overflow-hidden' : 'print:block print:w-full'}`}>
-                <div ref={printRef} className={`bg-white w-[210mm] min-h-[297mm] shadow-xl print:shadow-none p-8 md:p-12 relative flex flex-col ${isPreview ? 'shadow-none w-full !min-h-0' : ''} print:p-6`}>
+                <div ref={printRef} className={`bg-white w-[210mm] min-h-[297mm] shadow-xl print:shadow-none p-8 md:p-12 relative flex flex-col ${isPreview ? 'shadow-none !min-h-0' : ''} print:p-6`}>
 
                     {!isPreview && (
                         <div className="mb-6">
@@ -222,8 +222,8 @@ export default function InteractiveReadingWorksheetPage() {
                         <div className="flex flex-col lg:flex-row gap-8 items-center">
                             <div className="flex-1">
                                 <h2 className={`text-3xl font-black mb-6 ${currentStory.theme === 'sky' ? 'text-sky-700' :
-                                        currentStory.theme === 'orange' ? 'text-orange-700' :
-                                            'text-violet-700'
+                                    currentStory.theme === 'orange' ? 'text-orange-700' :
+                                        'text-violet-700'
                                     }`}>
                                     {currentStory.title}
                                 </h2>
