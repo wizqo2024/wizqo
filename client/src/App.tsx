@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useState, lazy, Suspense } from 'react';
+import React, { useEffect, useLayoutEffect, useMemo, useState, lazy, Suspense } from 'react';
 import { supabase } from './lib/supabase';
 import { UnifiedNavigation } from './components/UnifiedNavigation';
 import { SplitPlanInterface } from './components/SplitPlanInterface';
@@ -376,12 +376,8 @@ export default function App() {
 
   // Signal that React has hydrated/mounted to hide the SEO fallback content
   // This replaces the aggressive inline script in index.html to ensure crawlers see content if JS fails
-  useEffect(() => {
-    // Small timeout to ensure paint
-    const timer = setTimeout(() => {
-      document.body.classList.add('react-loaded');
-    }, 0);
-    return () => clearTimeout(timer);
+  React.useLayoutEffect(() => {
+    document.body.classList.add('react-loaded');
   }, []);
 
   return (
