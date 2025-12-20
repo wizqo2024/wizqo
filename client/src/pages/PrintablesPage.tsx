@@ -21692,10 +21692,13 @@ export function PrintablesPage() {
 
         {activeDocs.includes('more-less') && (() => {
           const rng = makeRng(`${effectiveSeed}|v${variant}|doc=${doc}`)
-          const problems = Array.from({ length: 6 }, () => {
-            const left = Math.floor(rng() * 10) + 1
-            const right = Math.floor(rng() * 10) + 1
-            return { left, right }
+          const emojis = ['🍎', '🚗', '🐸', '🌟', '🍪', '🎈', '🐠', '🦋'];
+          const problems = Array.from({ length: 6 }, (_, i) => {
+            const left = Math.floor(rng() * 9) + 1; // 1-9
+            let right = Math.floor(rng() * 9) + 1;
+            while (right === left) right = Math.floor(rng() * 9) + 1; // Ensure different
+            const emoji = emojis[i % emojis.length];
+            return { left, right, emoji }
           })
           return (
             <WorksheetSectionWrapper
@@ -21723,41 +21726,35 @@ export function PrintablesPage() {
               <div className="mb-6 p-4 bg-blue-50 border-2 border-blue-200 rounded-lg print:border print:bg-white">
                 <div className="font-semibold text-blue-900 mb-3 text-sm">📚 Example - Let's solve this together:</div>
                 <div className="space-y-2 text-sm">
-                  <div className="font-semibold text-base"><strong>Problem:</strong> Compare two groups: 5 circles vs. 3 circles</div>
+                  <div className="font-semibold text-base"><strong>Problem:</strong> Compare two groups: 5 apples 🍎 vs. 3 apples 🍎</div>
                   <div className="pl-4 border-l-2 border-blue-300 space-y-1">
-                    <div><strong>Step 1:</strong> Count the left group: 1, 2, 3, 4, 5 (5 circles)</div>
-                    <div><strong>Step 2:</strong> Count the right group: 1, 2, 3 (3 circles)</div>
+                    <div><strong>Step 1:</strong> Count the left group: 1, 2, 3, 4, 5</div>
+                    <div><strong>Step 2:</strong> Count the right group: 1, 2, 3</div>
                     <div><strong>Step 3:</strong> Compare: 5 is more than 3, so circle the left group</div>
-                    <div className="font-semibold text-blue-900"><strong>Answer:</strong> Circle the left group (5 is more than 3)</div>
-                    <div className="text-xs text-blue-700 mt-1">💡 Tip: Count each group first, then compare the numbers!</div>
+                    <div className="font-semibold text-blue-900"><strong>Answer:</strong> Circle the group with 5 apples</div>
                   </div>
                 </div>
               </div>
               <div className="grid grid-cols-2 gap-4" style={{ pageBreakAfter: 'auto' }}>
                 {problems.map((p, i) => (
-                  <div key={i} className="border border-slate-300 rounded-lg p-4 bg-white">
-                    <div className="flex items-center justify-around mb-3">
+                  <div key={i} className="border border-slate-300 rounded-lg p-4 bg-white relative">
+                    <div className="absolute top-2 left-2 text-xs font-bold text-slate-400">#{i + 1}</div>
+                    <div className="flex items-center justify-around mt-4 mb-2">
                       <div className="text-center">
-                        <div className="flex gap-1 flex-wrap justify-center mb-2" style={{ width: '80px' }}>
+                        <div className="flex gap-2 flex-wrap justify-center mb-2" style={{ width: '100px' }}>
                           {Array.from({ length: p.left }).map((_, j) => (
-                            <div key={j} className="w-8 h-8 print:w-10 print:h-10 rounded-full border-4 border-slate-400 bg-white" />
+                            <div key={j} className="text-3xl">{p.emoji}</div>
                           ))}
                         </div>
-                        <p className="text-xl font-bold text-slate-900">{p.left}</p>
                       </div>
-                      <div className="text-2xl text-slate-400">vs</div>
+                      <div className="text-xl text-slate-400 font-bold">vs</div>
                       <div className="text-center">
-                        <div className="flex gap-1 flex-wrap justify-center mb-2" style={{ width: '80px' }}>
+                        <div className="flex gap-2 flex-wrap justify-center mb-2" style={{ width: '100px' }}>
                           {Array.from({ length: p.right }).map((_, j) => (
-                            <div key={j} className="w-8 h-8 print:w-10 print:h-10 rounded-full border-4 border-slate-400 bg-white" />
+                            <div key={j} className="text-3xl">{p.emoji}</div>
                           ))}
                         </div>
-                        <p className="text-xl font-bold text-slate-900">{p.right}</p>
                       </div>
-                    </div>
-                    <div className="text-center">
-                      <div className="inline-block w-8 h-8 border-2 border-slate-400 rounded-full" />
-                      <span className="ml-2 text-sm text-slate-600">Circle the group with more</span>
                     </div>
                   </div>
                 ))}
