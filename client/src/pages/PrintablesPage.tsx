@@ -19136,7 +19136,7 @@ export function PrintablesPage() {
               <div className="grid grid-cols-4 gap-3 mb-4 text-xs">
                 {Object.entries(colorMap).map(([num, color]) => (
                   <div key={num} className="flex items-center gap-2">
-                    <div className="w-8 h-8 print:w-10 print:h-10 border-4 border-slate-400 rounded bg-white flex-shrink-0" />
+                    <div className="w-8 h-8 print:w-10 print:h-10 border-4 border-slate-400 rounded bg-white flex-shrink-0" style={{ backgroundColor: color.toLowerCase() }} />
                     <div>
                       <div className="font-semibold text-slate-800">{num}</div>
                       <div className="text-xs text-slate-600">{color}</div>
@@ -19151,7 +19151,7 @@ export function PrintablesPage() {
                       {a} × {b} = <span className="inline-block w-16 h-8 border-b-[3px] border-slate-600 mx-1 align-middle" />
                     </div>
                     <div className="w-20 h-20 print:w-24 print:h-24 mx-auto border-4 border-slate-400 rounded bg-white">
-                      <span className="text-xs text-slate-500">Color</span>
+                      <span className="text-xs text-slate-500"></span>
                     </div>
                   </div>
                 ))}
@@ -19205,7 +19205,7 @@ export function PrintablesPage() {
               <div className="grid grid-cols-4 gap-2 mb-4 text-xs">
                 {Object.entries(colorMap).map(([num, color]) => (
                   <div key={num} className="flex items-center gap-1">
-                    <div className="w-6 h-6 print:w-8 print:h-8 border-4 border-slate-400 rounded bg-white" />
+                    <div className="w-6 h-6 print:w-8 print:h-8 border-4 border-slate-400 rounded bg-white" style={{ backgroundColor: color.toLowerCase() }} />
                     <div>
                       <div className="font-semibold">{num}</div>
                       <div className="text-xs text-slate-600">{color}</div>
@@ -19220,7 +19220,7 @@ export function PrintablesPage() {
                       {a} × {b} = <span className="inline-block w-16 h-8 border-b-[3px] border-slate-600 mx-1 align-middle" />
                     </div>
                     <div className="w-20 h-20 print:w-24 print:h-24 mx-auto border-4 border-slate-400 rounded bg-white">
-                      <span className="text-xs text-slate-500">Color</span>
+                      <span className="text-xs text-slate-500"></span>
                     </div>
                   </div>
                 ))}
