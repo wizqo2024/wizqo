@@ -30345,13 +30345,20 @@ export function PrintablesPage() {
         })()}
 
         {activeDocs.includes('draw-shape') && (() => {
-          const shapes = ['circle', 'square', 'triangle', 'rectangle', 'oval', 'diamond'];
+          const shapes = [
+            { name: 'circle', color: 'text-blue-500', fill: '#3b82f6', Component: (props: any) => <circle cx="50" cy="50" r="40" {...props} /> },
+            { name: 'square', color: 'text-red-500', fill: '#ef4444', Component: (props: any) => <rect x="15" y="15" width="70" height="70" {...props} /> },
+            { name: 'triangle', color: 'text-green-500', fill: '#22c55e', Component: (props: any) => <polygon points="50,15 85,85 15,85" {...props} /> },
+            { name: 'rectangle', color: 'text-purple-500', fill: '#a855f7', Component: (props: any) => <rect x="10" y="25" width="80" height="50" {...props} /> },
+            { name: 'oval', color: 'text-orange-500', fill: '#f97316', Component: (props: any) => <ellipse cx="50" cy="50" rx="40" ry="25" {...props} /> },
+            { name: 'diamond', color: 'text-pink-500', fill: '#ec4899', Component: (props: any) => <polygon points="50,10 85,50 50,90 15,50" {...props} /> },
+          ];
           return (
             <WorksheetSectionWrapper
               docId="draw-shape"
               title="Draw the Shape"
               emoji="🟩"
-              description="Look at the shape name. Draw the shape in the box below."
+              description="Look at the shape. Draw it in the box!"
               problemCount={shapes.length}
               learningObjectives={[
                 'Identify and name basic shapes',
@@ -30369,8 +30376,22 @@ export function PrintablesPage() {
               <div className="grid grid-cols-1 gap-6" style={{ pageBreakAfter: 'auto' }}>
                 {shapes.map((s, i) => (
                   <div key={i} className="border border-slate-300 rounded-lg p-6 bg-white break-inside-avoid">
-                    <div className="text-center mb-4 text-lg font-semibold text-slate-800 capitalize">{s}</div>
-                    <div className="border-2 border-dashed border-slate-400 rounded-lg bg-white min-h-64 print:min-h-80"></div>
+                    <div className={`text-center mb-4 text-2xl font-bold capitalize ${s.color}`}>{s.name}</div>
+                    <div className="grid grid-cols-2 gap-8 items-center">
+                      {/* Visual Sample */}
+                      <div className="aspect-square flex items-center justify-center bg-slate-50 rounded-xl border-2 border-slate-100 p-4">
+                        <svg viewBox="0 0 100 100" className="w-full h-full drop-shadow-md">
+                          <s.Component fill={s.fill} stroke="currentColor" strokeWidth="3" className="text-slate-900" style={{ filter: 'drop-shadow(3px 3px 0px rgba(0,0,0,0.1))' }} />
+                        </svg>
+                      </div>
+
+                      {/* Drawing Box */}
+                      <div className="aspect-square border-4 border-dashed border-slate-300 rounded-xl bg-white relative">
+                        <div className="absolute inset-0 flex items-center justify-center opacity-10 pointer-events-none">
+                          <span className="text-6xl">✏️</span>
+                        </div>
+                      </div>
+                    </div>
                   </div>
                 ))}
               </div>
