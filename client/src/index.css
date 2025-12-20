@@ -578,20 +578,24 @@ html {
     page-break-before: avoid !important;
   }
 
-  /* Fix blank first page - remove min-height constraints */
+  /* CRITICAL: Ensure sections and high-level wrappers allow breaking internally */
+  body,
+  html,
+  #root,
   [data-worksheet-content="true"],
   .min-h-screen {
-    min-height: auto !important;
+    display: block !important;
     height: auto !important;
-    margin: 0 !important;
-    padding: 0 !important;
-    background-color: white !important;
+    min-height: 0 !important;
+    overflow: visible !important;
+    break-inside: auto !important;
+    page-break-inside: auto !important;
   }
 
-  /* CRITICAL: Force sections to be block-level but ALLOW breaking internally */
   section.worksheet-section,
   section[class*="worksheet-section"],
-  .worksheet-section {
+  .worksheet-section,
+  [data-worksheet-content="true"] section {
     display: block !important;
     break-inside: auto !important;
     page-break-inside: auto !important;
@@ -602,51 +606,30 @@ html {
     overflow: visible !important;
   }
 
-  /* Prevent page breaks inside worksheet sections - STRONG TARGETED approach */
-  /* Apply to worksheet sections and content blocks that should stay together */
-  section,
-  section.worksheet-section,
-  section[class*="worksheet-section"],
-  .worksheet-section,
-  [class*="worksheet-section"],
+  /* Apply to specific content blocks that MUST stay together as a single unit */
   .break-inside-avoid,
-  /* Inner content wrapper */
-  section.worksheet-section>div,
-  section[class*="worksheet-section"]>div,
-  .worksheet-section>div,
-  /* Worked examples and content blocks */
+  /* Individual items/cards */
+  .worksheet-item,
+  .problem-card,
+  .shape-card,
+  .question-item,
+  /* Worked examples and specific UI blocks */
   .worked-example,
-  .worksheet-content,
-  [data-worksheet-content="true"]>section,
-  [data-worksheet-content="true"]>div[class*="section"],
-  /* Worksheet wrapper components */
-  div[class*="WorksheetSectionWrapper"],
-  div[class*="worksheet-wrapper"],
-  /* Content blocks that should stay together */
-  .learning-objectives,
   .parent-teacher-tips,
+  .learning-objectives,
   .worksheet-header,
-  /* Problem sets and question groups */
-  .problem-set,
-  .question-group,
-  .math-problem,
-  /* Tables and figures - keep together */
+  /* Figures and media */
   table,
-  figure {
+  figure,
+  img,
+  svg,
+  canvas {
     break-inside: avoid !important;
     page-break-inside: avoid !important;
     -webkit-region-break-inside: avoid !important;
     -webkit-column-break-inside: avoid !important;
     orphans: 999 !important;
     widows: 999 !important;
-  }
-
-  /* Prevent breaks in direct children of sections */
-  section.worksheet-section>div,
-  section[class*="worksheet-section"]>div,
-  .worksheet-section>div {
-    page-break-inside: avoid !important;
-    break-inside: avoid !important;
   }
 
   /* Keep worked examples together - header and content */

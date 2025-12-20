@@ -3840,7 +3840,7 @@ export function PrintablesPage() {
                 </div>
               </div>
             </div>
-            <div className="grid grid-cols-2 gap-4 break-inside-avoid" style={{ pageBreakAfter: 'auto' }}>
+            <div className="grid grid-cols-2 gap-4" style={{ pageBreakAfter: 'auto' }}>
               {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map((n) => (
                 <div key={n} className="break-inside-avoid">
                   <svg viewBox="0 0 400 200" className="w-full h-auto bg-white border border-slate-300 rounded">
@@ -3974,7 +3974,7 @@ export function PrintablesPage() {
                   </div>
                 </div>
               </div>
-              <div className="grid grid-cols-2 gap-4 break-inside-avoid" style={{ pageBreakAfter: 'auto' }}>
+              <div className="grid grid-cols-2 gap-4" style={{ pageBreakAfter: 'auto' }}>
                 {numbers.map((n) => (
                   <div key={n} className="break-inside-avoid">
                     <svg viewBox="0 0 400 200" className="w-full h-auto bg-white border border-slate-300 rounded">
@@ -4142,7 +4142,7 @@ export function PrintablesPage() {
                 </div>
               </div>
             </div>
-            <div className="grid grid-cols-2 gap-4 break-inside-avoid" style={{ pageBreakAfter: 'auto' }}>
+            <div className="grid grid-cols-2 gap-4" style={{ pageBreakAfter: 'auto' }}>
               {[['A', 'a'], ['B', 'b'], ['C', 'c'], ['D', 'd'], ['E', 'e'], ['F', 'f'], ['G', 'g'], ['H', 'h'], ['I', 'i'], ['J', 'j'], ['K', 'k'], ['L', 'l'], ['M', 'm']].map(([U, l]) => (
                 <svg key={U} viewBox="0 0 400 120" className="w-full h-auto bg-white border border-slate-300 rounded">
                   <circle cx="48" cy="40" r="4" fill="#ef4444" />
@@ -4286,7 +4286,7 @@ export function PrintablesPage() {
                 </div>
               </div>
             </div>
-            <div className="grid grid-cols-2 gap-4 break-inside-avoid" style={{ pageBreakAfter: 'auto' }}>
+            <div className="grid grid-cols-2 gap-4" style={{ pageBreakAfter: 'auto' }}>
               {(() => {
                 const rows: Array<[string, string, string, string]> = [
                   ['A', '🍎', '✈️', '🦋'],
@@ -4413,7 +4413,7 @@ export function PrintablesPage() {
               <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-blue-400 to-indigo-400 animate-gradient-x mb-2" />
               {/* Worked Example */}
               <WorkedExampleContent />
-              <div className="grid grid-cols-2 gap-4 break-inside-avoid" style={{ pageBreakAfter: 'auto' }}>
+              <div className="grid grid-cols-2 gap-4" style={{ pageBreakAfter: 'auto' }}>
                 {Array.from({ length: 12 }).map((_, i) => {
                   const isAdd = i % 2 === 0;
                   const num1 = 2 + (i % 4);
@@ -4555,7 +4555,7 @@ export function PrintablesPage() {
                   </div>
                 </div>
               </div>
-              <div className="grid grid-cols-2 gap-4 break-inside-avoid" style={{ pageBreakAfter: 'auto' }}>
+              <div className="grid grid-cols-2 gap-4" style={{ pageBreakAfter: 'auto' }}>
                 {numbers.map((n) => (
                   <div key={n} className="break-inside-avoid bg-gradient-to-br from-teal-50 to-cyan-50 p-3 rounded-lg border-2 border-teal-200">
                     <div className="flex flex-col items-center gap-2 bg-white border border-slate-300 rounded p-2">
@@ -5735,7 +5735,7 @@ export function PrintablesPage() {
                   </div>
                 </div>
               </div>
-              <div className="grid grid-cols-2 gap-4 break-inside-avoid" style={{ pageBreakAfter: 'auto' }}>
+              <div className="grid grid-cols-2 gap-4" style={{ pageBreakAfter: 'auto' }}>
                 {numbers.map((n) => (
                   <div key={n} className="break-inside-avoid">
                     <svg viewBox="0 0 400 160" className="w-full h-auto bg-white border border-slate-300 rounded">
@@ -5843,7 +5843,7 @@ export function PrintablesPage() {
                 </div>
               </div>
             </div>
-            <div className="grid grid-cols-2 gap-4 break-inside-avoid" style={{ pageBreakAfter: 'auto' }}>
+            <div className="grid grid-cols-2 gap-4" style={{ pageBreakAfter: 'auto' }}>
               <svg viewBox="0 0 400 300" className="w-full h-auto bg-white border border-slate-300 rounded">
                 <g fill="none" stroke="#111827" strokeWidth="3.5">
                   <rect x="40" y="40" width="120" height="80" />
@@ -6113,7 +6113,7 @@ export function PrintablesPage() {
                 </div>
               </div>
             </div>
-            <div className="grid grid-cols-2 gap-4 break-inside-avoid" style={{ pageBreakAfter: 'auto' }}>
+            <div className="grid grid-cols-2 gap-4" style={{ pageBreakAfter: 'auto' }}>
               <div className="break-inside-avoid">
                 <HiddenObjectsSceneSVGA />
               </div>
@@ -9440,7 +9440,7 @@ export function PrintablesPage() {
                 </div>
               </div>
             </div>
-            <div className="grid grid-cols-2 gap-6 break-inside-avoid" style={{ pageBreakAfter: 'auto' }}>
+            <div className="grid grid-cols-2 gap-6" style={{ pageBreakAfter: 'auto' }}>
               <ol className="list-decimal list-inside space-y-1 text-sm">
                 <li>Mars is known as the red planet.</li>
                 <li>Whales are the largest mammals.</li>
@@ -11855,7 +11855,7 @@ export function PrintablesPage() {
                 </div>
               </div>
             </div>
-            <div className="grid grid-cols-2 gap-4 break-inside-avoid" style={{ pageBreakAfter: 'auto' }}>
+            <div className="grid grid-cols-2 gap-4" style={{ pageBreakAfter: 'auto' }}>
               {[7, 3, 5, 8, 4, 6, 2, 9].map((n) => (
                 <div key={n} className="bg-gradient-to-br from-indigo-50 to-purple-50 p-3 rounded-lg border-2 border-indigo-200">
                   <svg viewBox="0 0 400 200" className="w-full h-auto bg-white border border-slate-300 rounded">
@@ -11976,7 +11976,7 @@ export function PrintablesPage() {
                 </div>
               </div>
             </div>
-            <div className="grid grid-cols-2 gap-4 break-inside-avoid" style={{ pageBreakAfter: 'auto' }}>
+            <div className="grid grid-cols-2 gap-4" style={{ pageBreakAfter: 'auto' }}>
               {[[5, '⭐'], [8, '🌟'], [12, '🎈'], [15, '🎉'], [18, '🍎'], [20, '🍊'], [23, '🐶'], [25, '🐱']].map(([count, emoji]) => (
                 <div key={count} className="bg-gradient-to-br from-indigo-50 to-purple-50 p-3 rounded-lg border-2 border-indigo-200">
                   <svg viewBox="0 0 400 180" className="w-full h-auto bg-white border border-slate-300 rounded">
@@ -12209,7 +12209,7 @@ export function PrintablesPage() {
                 </div>
               </div>
             </div>
-            <div className="grid grid-cols-2 gap-4 break-inside-avoid" style={{ pageBreakAfter: 'auto' }}>
+            <div className="grid grid-cols-2 gap-4" style={{ pageBreakAfter: 'auto' }}>
               {[[3, 4, '🍎', '🍊'], [2, 5, '⭐', '🌟'], [4, 3, '🐶', '🐱'], [1, 6, '🚗', '🚙'], [5, 2, '🎈', '🎉'], [3, 5, '🌺', '🌻']].map(([a, b, emoji1, emoji2], idx) => (
                 <div key={idx} className="bg-gradient-to-br from-indigo-50 to-purple-50 p-3 rounded-lg border-2 border-indigo-200">
                   <svg viewBox="0 0 400 200" className="w-full h-auto bg-white border border-slate-300 rounded">
@@ -12722,7 +12722,7 @@ export function PrintablesPage() {
                 </div>
               </div>
             </div>
-            <div className="grid grid-cols-2 gap-4 break-inside-avoid" style={{ pageBreakAfter: 'auto' }}>
+            <div className="grid grid-cols-2 gap-4" style={{ pageBreakAfter: 'auto' }}>
               {Array.from({ length: 4 }).map((_, idx) => (
                 <div key={idx} className="bg-gradient-to-br from-pink-50 to-rose-50 p-3 rounded-lg border-2 border-pink-200">
                   <svg viewBox="0 0 500 120" className="w-full h-auto bg-white border border-slate-300 rounded">
@@ -13035,7 +13035,7 @@ export function PrintablesPage() {
                 </div>
               </div>
             </div>
-            <div className="grid grid-cols-2 gap-4 break-inside-avoid" style={{ pageBreakAfter: 'auto' }}>
+            <div className="grid grid-cols-2 gap-4" style={{ pageBreakAfter: 'auto' }}>
               {[1, 2, 3, 4, 5, 6, 7, 8].map((n) => (
                 <div key={n} className="bg-gradient-to-br from-orange-50 to-red-50 p-3 rounded-lg border-2 border-orange-200">
                   <svg viewBox="0 0 400 180" className="w-full h-auto bg-white border border-slate-300 rounded">
@@ -13231,7 +13231,7 @@ export function PrintablesPage() {
                 </div>
               </div>
             </div>
-            <div className="grid grid-cols-2 gap-4 break-inside-avoid" style={{ pageBreakAfter: 'auto' }}>
+            <div className="grid grid-cols-2 gap-4" style={{ pageBreakAfter: 'auto' }}>
               {Array.from({ length: 6 }).map((_, idx) => {
                 const shapes = ['circle', 'square', 'triangle', 'circle', 'square']
                 return (
@@ -13322,7 +13322,7 @@ export function PrintablesPage() {
                 </div>
               </div>
             </div>
-            <div className="grid grid-cols-2 gap-4 break-inside-avoid" style={{ pageBreakAfter: 'auto' }}>
+            <div className="grid grid-cols-2 gap-4" style={{ pageBreakAfter: 'auto' }}>
               {[
                 { label: 'Circle the bigger', items: [30, 50], answer: 'B' },
                 { label: 'Circle the smaller', items: [40, 25], answer: 'B' },
@@ -13605,7 +13605,7 @@ export function PrintablesPage() {
                 </div>
               </div>
             </div>
-            <div className="grid grid-cols-2 gap-4 break-inside-avoid" style={{ pageBreakAfter: 'auto' }}>
+            <div className="grid grid-cols-2 gap-4" style={{ pageBreakAfter: 'auto' }}>
               {[23, 37, 45, 58, 64, 76, 82, 91].map((num) => {
                 const rounded = Math.round(num / 10) * 10
                 return (
@@ -13694,7 +13694,7 @@ export function PrintablesPage() {
                 </div>
               </div>
             </div>
-            <div className="grid grid-cols-2 gap-4 break-inside-avoid" style={{ pageBreakAfter: 'auto' }}>
+            <div className="grid grid-cols-2 gap-4" style={{ pageBreakAfter: 'auto' }}>
               {[[3, 4, 2], [5, 2, 3], [4, 3, 3], [6, 2, 1], [2, 5, 3], [4, 4, 2]].map((nums, idx) => (
                 <svg key={idx} viewBox="0 0 400 120" className="w-full h-auto bg-white border border-slate-300 rounded">
                   <text x="200" y="60" fontSize="32" fill="#111827" textAnchor="middle">{nums[0]} + {nums[1]} + {nums[2]} = __</text>
@@ -13776,7 +13776,7 @@ export function PrintablesPage() {
                 </div>
               </div>
             </div>
-            <div className="grid grid-cols-2 gap-4 break-inside-avoid" style={{ pageBreakAfter: 'auto' }}>
+            <div className="grid grid-cols-2 gap-4" style={{ pageBreakAfter: 'auto' }}>
               {[
                 { a: 3, sum: 8 },
                 { a: 5, sum: 12 },
@@ -14202,7 +14202,7 @@ export function PrintablesPage() {
                 </div>
               </div>
             </div>
-            <div className="grid grid-cols-2 gap-4 break-inside-avoid" style={{ pageBreakAfter: 'auto' }}>
+            <div className="grid grid-cols-2 gap-4" style={{ pageBreakAfter: 'auto' }}>
               {[
                 { type: 'Double', a: 6 },
                 { type: 'Double', a: 7 },
@@ -14291,7 +14291,7 @@ export function PrintablesPage() {
                 </div>
               </div>
             </div>
-            <div className="grid grid-cols-2 gap-4 break-inside-avoid" style={{ pageBreakAfter: 'auto' }}>
+            <div className="grid grid-cols-2 gap-4" style={{ pageBreakAfter: 'auto' }}>
               {[
                 { coins: [1, 1, 5, 5], label: '2 pennies, 2 nickels' },
                 { coins: [10, 5, 1], label: '1 dime, 1 nickel, 1 penny' },
@@ -14715,7 +14715,7 @@ export function PrintablesPage() {
                 </div>
               </div>
             </div>
-            <div className="grid grid-cols-2 gap-4 break-inside-avoid" style={{ pageBreakAfter: 'auto' }}>
+            <div className="grid grid-cols-2 gap-4" style={{ pageBreakAfter: 'auto' }}>
               {[
                 { label: '1/2', parts: 2, filled: 1 },
                 { label: '1/3', parts: 3, filled: 1 },
@@ -14964,7 +14964,7 @@ export function PrintablesPage() {
                   </div>
                 </div>
               </div>
-              <div className="grid grid-cols-2 gap-4 break-inside-avoid" style={{ pageBreakAfter: 'auto' }}>
+              <div className="grid grid-cols-2 gap-4" style={{ pageBreakAfter: 'auto' }}>
                 {arrays.map(([rows, cols], i) => (
                   <div key={i} className="border border-slate-300 rounded p-4 bg-white break-inside-avoid">
                     <div className="text-center mb-2 font-semibold text-slate-800">{rows} × {cols} = <span className="inline-block w-20 h-10 border-b-[3px] border-slate-600 mx-1 align-middle" /></div>
@@ -15292,7 +15292,7 @@ export function PrintablesPage() {
                   </div>
                 </div>
               </div>
-              <div className="grid grid-cols-2 gap-4 break-inside-avoid" style={{ pageBreakAfter: 'auto' }}>
+              <div className="grid grid-cols-2 gap-4" style={{ pageBreakAfter: 'auto' }}>
                 {arrays.map(([rows, cols], i) => (
                   <div key={i} className="border border-slate-300 rounded p-4 bg-white break-inside-avoid">
                     <div className="text-center mb-2 font-semibold text-slate-800">{rows} × {cols} = <span className="inline-block w-20 h-10 border-b-[3px] border-slate-600 mx-1 align-middle" /></div>
@@ -16333,7 +16333,7 @@ export function PrintablesPage() {
                   </div>
                 </div>
               </div>
-              <ol className="list-decimal list-inside space-y-4 text-sm text-slate-800 break-inside-avoid" style={{ pageBreakAfter: 'auto' }}>
+              <ol className="list-decimal list-inside space-y-4 text-sm text-slate-800" style={{ pageBreakAfter: 'auto' }}>
                 {problems.map((q, i) => (
                   <li key={i} className="border border-slate-300 rounded-lg p-4 bg-white break-inside-avoid">
                     <div className="mb-2">{q}</div>
@@ -17237,7 +17237,7 @@ export function PrintablesPage() {
                   </div>
                 </div>
               </div>
-              <div className="grid grid-cols-2 gap-4 break-inside-avoid" style={{ pageBreakAfter: 'auto' }}>
+              <div className="grid grid-cols-2 gap-4" style={{ pageBreakAfter: 'auto' }}>
                 {facts.map(([a, b], i) => (
                   <div key={i} className="border-2 border-slate-300 rounded-lg p-4 bg-white break-inside-avoid">
                     <div className="font-mono text-2xl leading-7">
@@ -17341,7 +17341,7 @@ export function PrintablesPage() {
                   </div>
                 </div>
               </div>
-              <div className="grid grid-cols-2 gap-4 break-inside-avoid" style={{ pageBreakAfter: 'auto' }}>
+              <div className="grid grid-cols-2 gap-4" style={{ pageBreakAfter: 'auto' }}>
                 {facts.map(([a, b], i) => (
                   <div key={i} className="border border-slate-300 rounded p-3 bg-white break-inside-avoid">
                     <div className="font-mono text-2xl leading-7 text-right">
@@ -17443,7 +17443,7 @@ export function PrintablesPage() {
                   </div>
                 </div>
               </div>
-              <div className="grid grid-cols-2 gap-4 break-inside-avoid" style={{ pageBreakAfter: 'auto' }}>
+              <div className="grid grid-cols-2 gap-4" style={{ pageBreakAfter: 'auto' }}>
                 {facts.map(([a, b], i) => (
                   <div key={i} className="border border-slate-300 rounded p-3 bg-white break-inside-avoid">
                     <div className="font-mono text-2xl leading-7 text-right">
@@ -18511,7 +18511,7 @@ export function PrintablesPage() {
               <div className="mb-4 p-3 bg-blue-50 border border-blue-200 rounded text-sm text-blue-900">
                 <strong>💪 You've got this!</strong> Take your time. There's no rush. Each problem helps you get stronger!
               </div>
-              <div className="grid grid-cols-2 gap-4 break-inside-avoid" style={{ pageBreakAfter: 'auto' }}>
+              <div className="grid grid-cols-2 gap-4" style={{ pageBreakAfter: 'auto' }}>
                 {facts.map(([a, b], i) => (
                   <div key={i} className="border-2 border-blue-200 rounded-lg p-4 bg-blue-50 break-inside-avoid">
                     <div className="text-center mb-2 text-slate-700 text-sm">Problem {i + 1}</div>
@@ -18607,7 +18607,7 @@ export function PrintablesPage() {
               <div className="mb-4 p-3 bg-blue-50 border border-blue-200 rounded text-sm text-blue-900">
                 <strong>💪 You're doing great!</strong> These problems might look big, but you can solve them step by step!
               </div>
-              <div className="grid grid-cols-2 gap-4 break-inside-avoid" style={{ pageBreakAfter: 'auto' }}>
+              <div className="grid grid-cols-2 gap-4" style={{ pageBreakAfter: 'auto' }}>
                 {facts.map(([a, b], i) => (
                   <div key={i} className="border-2 border-purple-200 rounded-lg p-4 bg-purple-50 break-inside-avoid">
                     <div className="text-center mb-2 text-slate-700 text-sm">Problem {i + 1}</div>
@@ -19467,7 +19467,7 @@ export function PrintablesPage() {
                   </div>
                 </div>
               </div>
-              <div className="grid grid-cols-2 gap-4 break-inside-avoid" style={{ pageBreakAfter: 'auto' }}>
+              <div className="grid grid-cols-2 gap-4" style={{ pageBreakAfter: 'auto' }}>
                 {problems.map((p, i) => (
                   <div key={i} className="border border-slate-300 rounded-lg p-4 bg-white break-inside-avoid">
                     <div className="text-center mb-3">
@@ -19577,7 +19577,7 @@ export function PrintablesPage() {
                   </div>
                 </div>
               </div>
-              <div className="grid grid-cols-2 gap-4 break-inside-avoid" style={{ pageBreakAfter: 'auto' }}>
+              <div className="grid grid-cols-2 gap-4" style={{ pageBreakAfter: 'auto' }}>
                 {numbers.map((num, i) => {
                   const objectType = objectTypes[i % objectTypes.length];
                   return (
@@ -19687,7 +19687,7 @@ export function PrintablesPage() {
                   </div>
                 </div>
               </div>
-              <div className="grid grid-cols-2 gap-4 break-inside-avoid" style={{ pageBreakAfter: 'auto' }}>
+              <div className="grid grid-cols-2 gap-4" style={{ pageBreakAfter: 'auto' }}>
                 {shapes.map((shape, i) => (
                   <div key={i} className="border border-slate-300 rounded-lg p-4 bg-white break-inside-avoid">
                     <div className="text-center mb-3">
@@ -19785,7 +19785,7 @@ export function PrintablesPage() {
                   </div>
                 </div>
               </div>
-              <div className="grid grid-cols-2 gap-4 break-inside-avoid" style={{ pageBreakAfter: 'auto' }}>
+              <div className="grid grid-cols-2 gap-4" style={{ pageBreakAfter: 'auto' }}>
                 {patterns.map((p, i) => (
                   <div key={i} className="border border-slate-300 rounded-lg p-4 bg-white break-inside-avoid">
                     <div className="text-center mb-3">
@@ -19910,7 +19910,7 @@ export function PrintablesPage() {
                   </div>
                 </div>
               </div>
-              <div className="grid grid-cols-2 gap-4 break-inside-avoid" style={{ pageBreakAfter: 'auto' }}>
+              <div className="grid grid-cols-2 gap-4" style={{ pageBreakAfter: 'auto' }}>
                 {problems.map((p, i) => {
                   const objectType = objectTypes[i % objectTypes.length];
                   return (
@@ -20342,7 +20342,7 @@ export function PrintablesPage() {
                     </div>
                   </div>
                 </div>
-                <div className="grid grid-cols-2 gap-4 break-inside-avoid" style={{ pageBreakAfter: 'auto' }}>
+                <div className="grid grid-cols-2 gap-4" style={{ pageBreakAfter: 'auto' }}>
                   {problems.map((p, i) => (
                     <div key={i} className="border border-slate-300 rounded-lg p-4 bg-white">
                       <div className="flex gap-2 mb-3 flex-wrap">
@@ -20466,7 +20466,7 @@ export function PrintablesPage() {
                   </div>
                 </div>
               </div>
-              <div className="grid grid-cols-2 gap-4 break-inside-avoid" style={{ pageBreakAfter: 'auto' }}>
+              <div className="grid grid-cols-2 gap-4" style={{ pageBreakAfter: 'auto' }}>
                 {problems.map((p, i) => (
                   <div key={i} className="border border-slate-300 rounded-lg p-4 bg-white">
                     <div className="flex gap-1 mb-3 flex-wrap">
@@ -20565,7 +20565,7 @@ export function PrintablesPage() {
                   </div>
                 </div>
               </div>
-              <div className="grid grid-cols-2 gap-4 break-inside-avoid" style={{ pageBreakAfter: 'auto' }}>
+              <div className="grid grid-cols-2 gap-4" style={{ pageBreakAfter: 'auto' }}>
                 {problems.map((p, i) => (
                   <div key={i} className="border border-slate-300 rounded-lg p-4 bg-white">
                     <div className="flex gap-1 mb-3 flex-wrap justify-center">
@@ -20665,7 +20665,7 @@ export function PrintablesPage() {
                   </div>
                 </div>
               </div>
-              <div className="grid grid-cols-1 gap-6 break-inside-avoid" style={{ pageBreakAfter: 'auto' }}>
+              <div className="grid grid-cols-1 gap-6" style={{ pageBreakAfter: 'auto' }}>
                 {problems.map((p, i) => (
                   <div key={i} className="border-2 border-slate-300 rounded-lg p-6 bg-white">
                     <div className="text-center mb-4">
@@ -21146,7 +21146,7 @@ export function PrintablesPage() {
                   </div>
                 </div>
               </div>
-              <div className="grid grid-cols-1 gap-6 break-inside-avoid" style={{ pageBreakAfter: 'auto' }}>
+              <div className="grid grid-cols-1 gap-6" style={{ pageBreakAfter: 'auto' }}>
                 {tasks.map((task, taskIdx) => {
                   const targetCount = task.shapes.filter(s => s === task.type).length;
                   return (
@@ -21258,7 +21258,7 @@ export function PrintablesPage() {
                   </div>
                 </div>
               </div>
-              <div className="grid grid-cols-2 gap-4 break-inside-avoid" style={{ pageBreakAfter: 'auto' }}>
+              <div className="grid grid-cols-2 gap-4" style={{ pageBreakAfter: 'auto' }}>
                 {patterns.map((p, i) => (
                   <div key={i} className="border border-slate-300 rounded-lg p-4 bg-white">
                     <div className="text-center mb-2 text-sm text-slate-600">Pattern {i + 1}</div>
@@ -21364,7 +21364,7 @@ export function PrintablesPage() {
                   </div>
                 </div>
               </div>
-              <div className="grid grid-cols-2 gap-4 break-inside-avoid" style={{ pageBreakAfter: 'auto' }}>
+              <div className="grid grid-cols-2 gap-4" style={{ pageBreakAfter: 'auto' }}>
                 {pairs.map((p, i) => (
                   <div key={i} className="border border-slate-300 rounded-lg p-4 bg-white">
                     <div className="flex items-center justify-around mb-3">
@@ -21471,7 +21471,7 @@ export function PrintablesPage() {
                   </div>
                 </div>
               </div>
-              <div className="grid grid-cols-2 gap-4 break-inside-avoid" style={{ pageBreakAfter: 'auto' }}>
+              <div className="grid grid-cols-2 gap-4" style={{ pageBreakAfter: 'auto' }}>
                 {problems.map((p, i) => (
                   <div key={i} className="border border-slate-300 rounded-lg p-4 bg-white">
                     <div className="flex items-center justify-around mb-3">
@@ -21812,7 +21812,7 @@ export function PrintablesPage() {
                   </div>
                 </div>
               </div>
-              <div className="grid grid-cols-2 gap-4 break-inside-avoid" style={{ pageBreakAfter: 'auto' }}>
+              <div className="grid grid-cols-2 gap-4" style={{ pageBreakAfter: 'auto' }}>
                 {problems.map((p, i) => {
                   const toColor = Math.floor((p.numerator / p.denominator) * p.total)
                   return (
@@ -21919,7 +21919,7 @@ export function PrintablesPage() {
                   </div>
                 </div>
               </div>
-              <div className="grid grid-cols-2 gap-4 break-inside-avoid" style={{ pageBreakAfter: 'auto' }}>
+              <div className="grid grid-cols-2 gap-4" style={{ pageBreakAfter: 'auto' }}>
                 {problems.map((p, i) => (
                   <div key={i} className="border border-slate-300 rounded-lg p-4 bg-white break-inside-avoid">
                     <div className="text-center mb-3">
@@ -22236,7 +22236,7 @@ export function PrintablesPage() {
                   </div>
                 </div>
               </div>
-              <div className="grid grid-cols-2 gap-4 break-inside-avoid" style={{ pageBreakAfter: 'auto' }}>
+              <div className="grid grid-cols-2 gap-4" style={{ pageBreakAfter: 'auto' }}>
                 {problems.map((p, i) => (
                   <div key={i} className="border border-slate-300 rounded p-4 bg-white break-inside-avoid">
                     <div className="text-center mb-2 font-semibold">{p.a} × {p.b} = ____</div>
@@ -22453,7 +22453,7 @@ export function PrintablesPage() {
                   </div>
                 </div>
               </div>
-              <div className="grid grid-cols-2 gap-4 break-inside-avoid" style={{ pageBreakAfter: 'auto' }}>
+              <div className="grid grid-cols-2 gap-4" style={{ pageBreakAfter: 'auto' }}>
                 {problems.map((p, i) => (
                   <div key={i} className="border border-slate-300 rounded-lg p-4 bg-white break-inside-avoid">
                     <div className="text-center text-xl font-bold mb-2">
@@ -22559,7 +22559,7 @@ export function PrintablesPage() {
                   </div>
                 </div>
               </div>
-              <div className="grid grid-cols-2 gap-4 break-inside-avoid" style={{ pageBreakAfter: 'auto' }}>
+              <div className="grid grid-cols-2 gap-4" style={{ pageBreakAfter: 'auto' }}>
                 {problems.map((p, i) => (
                   <div key={i} className="border border-slate-300 rounded-lg p-4 bg-white break-inside-avoid">
                     <div className="text-center text-xl font-mono mb-2">
@@ -22667,7 +22667,7 @@ export function PrintablesPage() {
               <div className="mb-4 p-3 bg-blue-50 border border-blue-200 rounded text-sm text-blue-900">
                 <strong>📝 Conversion Chart:</strong> Mixed to Improper: (whole × denominator) + numerator. Improper to Mixed: Divide numerator by denominator to get whole number, remainder becomes numerator.
               </div>
-              <div className="grid grid-cols-2 gap-4 break-inside-avoid" style={{ pageBreakAfter: 'auto' }}>
+              <div className="grid grid-cols-2 gap-4" style={{ pageBreakAfter: 'auto' }}>
                 {problems.map((p, i) => (
                   <div key={i} className="border border-slate-300 rounded-lg p-4 bg-white break-inside-avoid">
                     <div className="text-center text-lg font-bold mb-2">{i % 2 === 0 ? p.mixed : p.improper}</div>
@@ -22791,7 +22791,7 @@ export function PrintablesPage() {
               <div className="mb-4 p-3 bg-blue-50 border border-blue-200 rounded text-sm text-blue-900">
                 <strong>📝 Steps:</strong> Add/subtract the whole numbers, then add/subtract the fractions. If the fraction result is improper, convert to a mixed number and add to the whole number.
               </div>
-              <div className="grid grid-cols-2 gap-4 break-inside-avoid" style={{ pageBreakAfter: 'auto' }}>
+              <div className="grid grid-cols-2 gap-4" style={{ pageBreakAfter: 'auto' }}>
                 {problems.map((p, i) => (
                   <div key={i} className="border border-slate-300 rounded-lg p-4 bg-white break-inside-avoid">
                     <div className="text-center text-xl font-mono mb-2">
@@ -22908,7 +22908,7 @@ export function PrintablesPage() {
               <div className="mb-4 p-3 bg-blue-50 border border-blue-200 rounded text-sm text-blue-900">
                 <strong>📝 Remember:</strong> The first digit after the decimal point is in the tenths place (1/10), and the second digit is in the hundredths place (1/100).
               </div>
-              <div className="grid grid-cols-2 gap-4 break-inside-avoid" style={{ pageBreakAfter: 'auto' }}>
+              <div className="grid grid-cols-2 gap-4" style={{ pageBreakAfter: 'auto' }}>
                 {problems.map((p, i) => (
                   <div key={i} className="border border-slate-300 rounded-lg p-4 bg-white break-inside-avoid">
                     <div className="text-center text-xl font-mono mb-2">{p.value}</div>
@@ -23004,7 +23004,7 @@ export function PrintablesPage() {
                   </div>
                 </div>
               </div>
-              <div className="grid grid-cols-2 gap-4 break-inside-avoid" style={{ pageBreakAfter: 'auto' }}>
+              <div className="grid grid-cols-2 gap-4" style={{ pageBreakAfter: 'auto' }}>
                 {problems.map((p, i) => (
                   <div key={i} className="border border-slate-300 rounded-lg p-4 bg-white break-inside-avoid">
                     <div className="text-center text-xl font-bold mb-2">{p.d1} ____ {p.d2}</div>
@@ -23106,7 +23106,7 @@ export function PrintablesPage() {
                   </div>
                 </div>
               </div>
-              <div className="grid grid-cols-2 gap-4 break-inside-avoid" style={{ pageBreakAfter: 'auto' }}>
+              <div className="grid grid-cols-2 gap-4" style={{ pageBreakAfter: 'auto' }}>
                 {problems.map((p, i) => (
                   <div key={i} className="border border-slate-300 rounded-lg p-4 bg-white break-inside-avoid">
                     <div className="text-center text-xl font-mono mb-2">{p.d1} {p.op} {p.d2} = ____</div>
@@ -23204,7 +23204,7 @@ export function PrintablesPage() {
                   </div>
                 </div>
               </div>
-              <div className="grid grid-cols-2 gap-4 break-inside-avoid" style={{ pageBreakAfter: 'auto' }}>
+              <div className="grid grid-cols-2 gap-4" style={{ pageBreakAfter: 'auto' }}>
                 {problems.map((p, i) => (
                   <div key={i} className="border border-slate-300 rounded-lg p-4 bg-white break-inside-avoid">
                     <div className="text-center text-xl font-bold mb-2">{p.num}/{p.denom}</div>
@@ -23302,7 +23302,7 @@ export function PrintablesPage() {
                   </div>
                 </div>
               </div>
-              <div className="grid grid-cols-2 gap-4 break-inside-avoid" style={{ pageBreakAfter: 'auto' }}>
+              <div className="grid grid-cols-2 gap-4" style={{ pageBreakAfter: 'auto' }}>
                 {problems.map((p, i) => (
                   <div key={i} className="border border-slate-300 rounded-lg p-4 bg-white break-inside-avoid">
                     <div className="text-center text-xl font-bold mb-2">{p.num}/{p.denom}</div>
@@ -23401,7 +23401,7 @@ export function PrintablesPage() {
                   </div>
                 </div>
               </div>
-              <div className="grid grid-cols-2 gap-4 break-inside-avoid" style={{ pageBreakAfter: 'auto' }}>
+              <div className="grid grid-cols-2 gap-4" style={{ pageBreakAfter: 'auto' }}>
                 {problems.map((p, i) => (
                   <div key={i} className="border border-slate-300 rounded-lg p-4 bg-white break-inside-avoid">
                     <div className="text-center text-xl font-bold mb-2">{p.num}/{p.denom}</div>
@@ -23501,7 +23501,7 @@ export function PrintablesPage() {
                   </div>
                 </div>
               </div>
-              <div className="grid grid-cols-2 gap-4 break-inside-avoid" style={{ pageBreakAfter: 'auto' }}>
+              <div className="grid grid-cols-2 gap-4" style={{ pageBreakAfter: 'auto' }}>
                 {problems.map((p, i) => (
                   <div key={i} className="border border-slate-300 rounded-lg p-4 bg-white break-inside-avoid">
                     <div className="text-center text-xl font-mono mb-2">{p.num1}/{p.denom1} × {p.num2}/{p.denom2} = ____</div>
@@ -23610,7 +23610,7 @@ export function PrintablesPage() {
               <div className="mb-4 p-3 bg-blue-50 border border-blue-200 rounded text-sm text-blue-900">
                 <strong>📝 Steps:</strong> 1) Keep the first fraction, 2) Change ÷ to ×, 3) Flip the second fraction (swap numerator and denominator). Then multiply and simplify.
               </div>
-              <div className="grid grid-cols-2 gap-4 break-inside-avoid" style={{ pageBreakAfter: 'auto' }}>
+              <div className="grid grid-cols-2 gap-4" style={{ pageBreakAfter: 'auto' }}>
                 {problems.map((p, i) => (
                   <div key={i} className="border border-slate-300 rounded-lg p-4 bg-white break-inside-avoid">
                     <div className="text-center text-xl font-mono mb-2">{p.num1}/{p.denom1} ÷ {p.num2}/{p.denom2} = ____</div>
@@ -23713,7 +23713,7 @@ export function PrintablesPage() {
                   </div>
                 </div>
               </div>
-              <div className="grid grid-cols-2 gap-4 break-inside-avoid" style={{ pageBreakAfter: 'auto' }}>
+              <div className="grid grid-cols-2 gap-4" style={{ pageBreakAfter: 'auto' }}>
                 {problems.map((p, i) => (
                   <div key={i} className="border border-slate-300 rounded-lg p-4 bg-white break-inside-avoid">
                     <div className="text-center text-xl font-mono mb-2">{p.d1} × {p.d2} = ____</div>
@@ -23814,7 +23814,7 @@ export function PrintablesPage() {
                   </div>
                 </div>
               </div>
-              <div className="grid grid-cols-2 gap-4 break-inside-avoid" style={{ pageBreakAfter: 'auto' }}>
+              <div className="grid grid-cols-2 gap-4" style={{ pageBreakAfter: 'auto' }}>
                 {problems.map((p, i) => (
                   <div key={i} className="border border-slate-300 rounded-lg p-4 bg-white break-inside-avoid">
                     <div className="text-center text-xl font-mono mb-2">{p.d1} ÷ {p.d2} = ____</div>
@@ -24025,7 +24025,7 @@ export function PrintablesPage() {
               <div className="mb-4 p-3 bg-blue-50 border border-blue-200 rounded text-sm text-blue-900">
                 <strong>📝 PEMDAS Order:</strong> 1) Parentheses, 2) Exponents, 3) Multiplication & Division (left to right), 4) Addition & Subtraction (left to right)
               </div>
-              <div className="grid grid-cols-2 gap-4 break-inside-avoid" style={{ pageBreakAfter: 'auto' }}>
+              <div className="grid grid-cols-2 gap-4" style={{ pageBreakAfter: 'auto' }}>
                 {problems.map((p, i) => (
                   <div key={i} className="border border-slate-300 rounded-lg p-4 bg-white break-inside-avoid">
                     <div className="text-center text-xl font-mono mb-2">{p.expr}</div>
@@ -24126,7 +24126,7 @@ export function PrintablesPage() {
               <div className="mb-4 p-3 bg-blue-50 border border-blue-200 rounded text-sm text-blue-900">
                 <strong>PEMDAS Order:</strong> 1) Parentheses, 2) Exponents, 3) Multiplication & Division (left to right), 4) Addition & Subtraction (left to right)
               </div>
-              <div className="grid grid-cols-2 gap-4 break-inside-avoid" style={{ pageBreakAfter: 'auto' }}>
+              <div className="grid grid-cols-2 gap-4" style={{ pageBreakAfter: 'auto' }}>
                 {problems.map((p, i) => (
                   <div key={i} className="border border-slate-300 rounded-lg p-4 bg-white break-inside-avoid">
                     <div className="text-center text-xl font-mono mb-2">{p.expr}</div>
@@ -24200,7 +24200,7 @@ export function PrintablesPage() {
                   </div>
                 </div>
               </div>
-              <div className="grid grid-cols-2 gap-4 break-inside-avoid" style={{ pageBreakAfter: 'auto' }}>
+              <div className="grid grid-cols-2 gap-4" style={{ pageBreakAfter: 'auto' }}>
                 {problems.map((p, i) => (
                   <div key={i} className="border border-slate-300 rounded-lg p-4 bg-white break-inside-avoid">
                     <div className="text-center text-xl font-mono mb-2">{p.expr}</div>
@@ -24275,7 +24275,7 @@ export function PrintablesPage() {
                   </div>
                 </div>
               </div>
-              <div className="grid grid-cols-2 gap-4 break-inside-avoid" style={{ pageBreakAfter: 'auto' }}>
+              <div className="grid grid-cols-2 gap-4" style={{ pageBreakAfter: 'auto' }}>
                 {problems.map((p, i) => (
                   <div key={i} className="border border-slate-300 rounded-lg p-4 bg-white break-inside-avoid">
                     <div className="text-center text-xl font-mono mb-2">{p.expr.replace(/(\d+)\²/g, '$1²').replace(/(\d+)\³/g, '$1³')}</div>
@@ -24350,7 +24350,7 @@ export function PrintablesPage() {
                   </div>
                 </div>
               </div>
-              <div className="grid grid-cols-2 gap-4 break-inside-avoid" style={{ pageBreakAfter: 'auto' }}>
+              <div className="grid grid-cols-2 gap-4" style={{ pageBreakAfter: 'auto' }}>
                 {problems.map((p, i) => (
                   <div key={i} className="border border-slate-300 rounded-lg p-4 bg-white break-inside-avoid">
                     <div className="text-center text-xl font-mono mb-2">{p.expr.replace(/(\d+)\²/g, '$1²')}</div>
@@ -24412,7 +24412,7 @@ export function PrintablesPage() {
               ]}
             >
               <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-purple-400 to-pink-400 animate-gradient-x mb-2" />
-              <div className="grid grid-cols-2 gap-4 break-inside-avoid" style={{ pageBreakAfter: 'auto' }}>
+              <div className="grid grid-cols-2 gap-4" style={{ pageBreakAfter: 'auto' }}>
                 {problems.map((p, i) => (
                   <div key={i} className="border border-slate-300 rounded-lg p-4 bg-white break-inside-avoid">
                     <div className="text-center text-xl font-mono mb-2">{p.expr}</div>
@@ -24532,7 +24532,7 @@ export function PrintablesPage() {
               ]}
             >
               <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-purple-400 to-pink-400 animate-gradient-x mb-2" />
-              <div className="grid grid-cols-2 gap-4 break-inside-avoid" style={{ pageBreakAfter: 'auto' }}>
+              <div className="grid grid-cols-2 gap-4" style={{ pageBreakAfter: 'auto' }}>
                 {problems.map((p, i) => (
                   <div key={i} className="border border-slate-300 rounded-lg p-4 bg-white break-inside-avoid">
                     <div className="text-center text-xl font-mono mb-2">{p.expr.replace(/(\d+)\²/g, '$1²').replace(/(\d+)\³/g, '$1³')}</div>
@@ -24592,7 +24592,7 @@ export function PrintablesPage() {
               ]}
             >
               <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-purple-400 to-pink-400 animate-gradient-x mb-2" />
-              <div className="grid grid-cols-2 gap-4 break-inside-avoid" style={{ pageBreakAfter: 'auto' }}>
+              <div className="grid grid-cols-2 gap-4" style={{ pageBreakAfter: 'auto' }}>
                 {problems.map((p, i) => (
                   <div key={i} className="border border-slate-300 rounded-lg p-4 bg-white break-inside-avoid">
                     <div className="text-center text-xl font-mono mb-2">{p.expr.replace(/(\d+)\²/g, '$1²').replace(/(\d+)\³/g, '$1³')}</div>
@@ -24661,7 +24661,7 @@ export function PrintablesPage() {
                   <div><strong>A</strong>ddition & <strong>S</strong>ubtraction - Left to right</div>
                 </div>
               </div>
-              <div className="grid grid-cols-2 gap-4 break-inside-avoid" style={{ pageBreakAfter: 'auto' }}>
+              <div className="grid grid-cols-2 gap-4" style={{ pageBreakAfter: 'auto' }}>
                 {problems.map((p, i) => (
                   <div key={i} className="border border-slate-300 rounded-lg p-4 bg-white break-inside-avoid">
                     <div className="text-center text-xl font-mono mb-2">{p.expr.replace(/(\d+)\²/g, '$1²')}</div>
@@ -24723,7 +24723,7 @@ export function PrintablesPage() {
               ]}
             >
               <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-purple-400 to-pink-400 animate-gradient-x mb-2" />
-              <div className="grid grid-cols-2 gap-4 break-inside-avoid" style={{ pageBreakAfter: 'auto' }}>
+              <div className="grid grid-cols-2 gap-4" style={{ pageBreakAfter: 'auto' }}>
                 {problems.map((p, i) => (
                   <div key={i} className="border border-slate-300 rounded-lg p-4 bg-white break-inside-avoid">
                     <div className="text-center text-xl font-mono mb-2">{p.expr.replace(/(\d+)\²/g, '$1²')}</div>
@@ -24790,7 +24790,7 @@ export function PrintablesPage() {
               <div className="mb-4 p-3 bg-yellow-50 border border-yellow-200 rounded text-sm text-yellow-900">
                 <strong>Fluency Challenge:</strong> Try to complete all problems quickly and accurately. Time yourself!
               </div>
-              <div className="grid grid-cols-2 gap-4 break-inside-avoid" style={{ pageBreakAfter: 'auto' }}>
+              <div className="grid grid-cols-2 gap-4" style={{ pageBreakAfter: 'auto' }}>
                 {problems.map((p, i) => (
                   <div key={i} className="border border-slate-300 rounded-lg p-4 bg-white break-inside-avoid">
                     <div className="text-center text-xl font-mono mb-2">{p.expr}</div>
@@ -24938,7 +24938,7 @@ export function PrintablesPage() {
                   </div>
                 </div>
               </div>
-              <div className="grid grid-cols-2 gap-4 break-inside-avoid" style={{ pageBreakAfter: 'auto' }}>
+              <div className="grid grid-cols-2 gap-4" style={{ pageBreakAfter: 'auto' }}>
                 {problems.map((p, i) => (
                   <div key={i} className="border border-slate-300 rounded-lg p-4 bg-white break-inside-avoid">
                     <div className="text-center text-xl font-mono mb-2">
@@ -25041,7 +25041,7 @@ export function PrintablesPage() {
                 </div>
               </div>
 
-              <div className="grid grid-cols-2 gap-6 break-inside-avoid" style={{ pageBreakAfter: 'auto' }}>
+              <div className="grid grid-cols-2 gap-6" style={{ pageBreakAfter: 'auto' }}>
                 {problems.map((p, i) => (
                   <div key={i} className="border-2 border-slate-200 rounded-xl p-5 bg-white shadow-sm hover:shadow-md transition-shadow break-inside-avoid">
                     <div className="text-right text-2xl font-mono tracking-widest leading-loose">
@@ -25126,7 +25126,7 @@ export function PrintablesPage() {
                   </div>
                 </div>
               </div>
-              <div className="grid grid-cols-2 gap-4 break-inside-avoid" style={{ pageBreakAfter: 'auto' }}>
+              <div className="grid grid-cols-2 gap-4" style={{ pageBreakAfter: 'auto' }}>
                 {problems.map((p, i) => (
                   <div key={i} className="border border-slate-300 rounded-lg p-4 bg-white break-inside-avoid">
                     <div className="text-center text-xl font-mono mb-2">{p.num}</div>
@@ -25251,7 +25251,7 @@ export function PrintablesPage() {
                   </div>
                 </div>
               </div>
-              <div className="grid grid-cols-2 gap-4 break-inside-avoid" style={{ pageBreakAfter: 'auto' }}>
+              <div className="grid grid-cols-2 gap-4" style={{ pageBreakAfter: 'auto' }}>
                 {problems.map((p, i) => (
                   <div key={i} className="border border-slate-300 rounded-lg p-4 bg-white break-inside-avoid">
                     <div className="text-center text-xl font-mono mb-2">
@@ -25354,7 +25354,7 @@ export function PrintablesPage() {
                   </div>
                 </div>
               </div>
-              <div className="grid grid-cols-2 gap-4 break-inside-avoid" style={{ pageBreakAfter: 'auto' }}>
+              <div className="grid grid-cols-2 gap-4" style={{ pageBreakAfter: 'auto' }}>
                 {problems.map((p, i) => (
                   <div key={i} className="border border-slate-300 rounded-lg p-4 bg-white break-inside-avoid">
                     <div className="text-center mb-2 font-semibold">Length: {p.length} units, Width: {p.width} units</div>
@@ -25472,7 +25472,7 @@ export function PrintablesPage() {
                   </div>
                 </div>
               </div>
-              <div className="grid grid-cols-2 gap-4 break-inside-avoid" style={{ pageBreakAfter: 'auto' }}>
+              <div className="grid grid-cols-2 gap-4" style={{ pageBreakAfter: 'auto' }}>
                 {problems.map((p, i) => (
                   <div key={i} className="border border-slate-300 rounded-lg p-4 bg-white break-inside-avoid">
                     {renderShape(p.base, p.height, p.isTriangle)}
@@ -25571,7 +25571,7 @@ export function PrintablesPage() {
                   </div>
                 </div>
               </div>
-              <div className="grid grid-cols-2 gap-4 break-inside-avoid" style={{ pageBreakAfter: 'auto' }}>
+              <div className="grid grid-cols-2 gap-4" style={{ pageBreakAfter: 'auto' }}>
                 {problems.map((p, i) => (
                   <div key={i} className="border border-slate-300 rounded-lg p-4 bg-white break-inside-avoid">
                     <div className="text-center mb-2 font-semibold">L: {p.length}, W: {p.width}, H: {p.height}</div>
@@ -25674,7 +25674,7 @@ export function PrintablesPage() {
               <div className="mb-4 p-3 bg-blue-50 border border-blue-200 rounded text-sm text-blue-900">
                 <strong>📝 Angle Types:</strong> Acute (less than 90°), Right (exactly 90°), Obtuse (more than 90° but less than 180°), Straight (exactly 180°)
               </div>
-              <div className="grid grid-cols-2 gap-4 break-inside-avoid" style={{ pageBreakAfter: 'auto' }}>
+              <div className="grid grid-cols-2 gap-4" style={{ pageBreakAfter: 'auto' }}>
                 {angles.map((a, i) => (
                   <div key={i} className="border border-slate-300 rounded-lg p-4 bg-white break-inside-avoid">
                     <div className="text-center text-xl font-bold mb-2">{a.measure}°</div>
@@ -25794,7 +25794,7 @@ export function PrintablesPage() {
                   </div>
                 </div>
               </div>
-              <div className="grid grid-cols-2 gap-4 break-inside-avoid" style={{ pageBreakAfter: 'auto' }}>
+              <div className="grid grid-cols-2 gap-4" style={{ pageBreakAfter: 'auto' }}>
                 {triangles.map((t, i) => (
                   <div key={i} className="border border-slate-300 rounded-lg p-4 bg-white break-inside-avoid">
                     {renderTriangle(t.type)}
@@ -25893,7 +25893,7 @@ export function PrintablesPage() {
                   </div>
                 </div>
               </div>
-              <div className="grid grid-cols-2 gap-4 break-inside-avoid" style={{ pageBreakAfter: 'auto' }}>
+              <div className="grid grid-cols-2 gap-4" style={{ pageBreakAfter: 'auto' }}>
                 {shapes.map((s, i) => (
                   <div key={i} className="border border-slate-300 rounded-lg p-4 bg-white break-inside-avoid">
                     <div className="text-center mb-2 font-semibold">{s}</div>
@@ -26029,7 +26029,7 @@ export function PrintablesPage() {
                   </div>
                 </div>
               </div>
-              <div className="grid grid-cols-2 gap-4 break-inside-avoid" style={{ pageBreakAfter: 'auto' }}>
+              <div className="grid grid-cols-2 gap-4" style={{ pageBreakAfter: 'auto' }}>
                 {shapes.map((s, i) => (
                   <div key={i} className="border border-slate-300 rounded-lg p-4 bg-white break-inside-avoid">
                     {renderPolygon(s)}
@@ -26130,7 +26130,7 @@ export function PrintablesPage() {
               <div className="mb-4 p-3 bg-blue-50 border border-blue-200 rounded text-sm text-blue-900">
                 <strong>📝 Conversion Chart:</strong> 1 yard = 3 feet, 1 foot = 12 inches
               </div>
-              <div className="grid grid-cols-2 gap-4 break-inside-avoid" style={{ pageBreakAfter: 'auto' }}>
+              <div className="grid grid-cols-2 gap-4" style={{ pageBreakAfter: 'auto' }}>
                 {problems.map((p, i) => (
                   <div key={i} className="border border-slate-300 rounded-lg p-4 bg-white break-inside-avoid">
                     <div className="text-center mb-2 font-semibold">{p.feet} feet = ____ inches</div>
@@ -26228,7 +26228,7 @@ export function PrintablesPage() {
               <div className="mb-4 p-3 bg-blue-50 border border-blue-200 rounded text-sm text-blue-900">
                 <strong>📝 Conversion Chart:</strong> 1 km = 1000 m, 1 m = 100 cm, 1 cm = 10 mm
               </div>
-              <div className="grid grid-cols-2 gap-4 break-inside-avoid" style={{ pageBreakAfter: 'auto' }}>
+              <div className="grid grid-cols-2 gap-4" style={{ pageBreakAfter: 'auto' }}>
                 {problems.map((p, i) => (
                   <div key={i} className="border border-slate-300 rounded-lg p-4 bg-white break-inside-avoid">
                     <div className="text-center mb-2 font-semibold">{p.meters} meters = ____ centimeters</div>
@@ -26325,7 +26325,7 @@ export function PrintablesPage() {
                   </div>
                 </div>
               </div>
-              <div className="grid grid-cols-2 gap-4 break-inside-avoid" style={{ pageBreakAfter: 'auto' }}>
+              <div className="grid grid-cols-2 gap-4" style={{ pageBreakAfter: 'auto' }}>
                 {times.map((t, i) => (
                   <div key={i} className="border border-slate-300 rounded-lg p-4 bg-white break-inside-avoid">
                     <div className="text-center mb-2 font-semibold">Start: {t.start}, End: {t.end}</div>
@@ -26422,7 +26422,7 @@ export function PrintablesPage() {
               <div className="mb-4 p-3 bg-blue-50 border border-blue-200 rounded text-sm text-blue-900">
                 <strong>📝 Conversion Chart:</strong> 1 gallon = 4 quarts, 1 quart = 2 pints, 1 pint = 2 cups
               </div>
-              <div className="grid grid-cols-2 gap-4 break-inside-avoid" style={{ pageBreakAfter: 'auto' }}>
+              <div className="grid grid-cols-2 gap-4" style={{ pageBreakAfter: 'auto' }}>
                 {problems.map((p, i) => (
                   <div key={i} className="border border-slate-300 rounded-lg p-4 bg-white break-inside-avoid">
                     <div className="text-center mb-2 font-semibold">{p.quarts} quarts = ____ cups</div>
@@ -26519,7 +26519,7 @@ export function PrintablesPage() {
               <div className="mb-4 p-3 bg-blue-50 border border-blue-200 rounded text-sm text-blue-900">
                 <strong>📝 Conversion Chart:</strong> 1 pound = 16 ounces
               </div>
-              <div className="grid grid-cols-2 gap-4 break-inside-avoid" style={{ pageBreakAfter: 'auto' }}>
+              <div className="grid grid-cols-2 gap-4" style={{ pageBreakAfter: 'auto' }}>
                 {problems.map((p, i) => (
                   <div key={i} className="border border-slate-300 rounded-lg p-4 bg-white break-inside-avoid">
                     <div className="text-center mb-2 font-semibold">{p.pounds} pounds = ____ ounces</div>
@@ -26618,7 +26618,7 @@ export function PrintablesPage() {
                   </div>
                 </div>
               </div>
-              <div className="grid grid-cols-2 gap-4 break-inside-avoid" style={{ pageBreakAfter: 'auto' }}>
+              <div className="grid grid-cols-2 gap-4" style={{ pageBreakAfter: 'auto' }}>
                 {lines.map((l, i) => (
                   <div key={i} className="border border-slate-300 rounded-lg p-4 bg-white break-inside-avoid">
                     <div className="text-center mb-2 text-sm font-semibold">{l.desc}</div>
@@ -26711,7 +26711,7 @@ export function PrintablesPage() {
                   </div>
                 </div>
               </div>
-              <div className="grid grid-cols-2 gap-4 break-inside-avoid" style={{ pageBreakAfter: 'auto' }}>
+              <div className="grid grid-cols-2 gap-4" style={{ pageBreakAfter: 'auto' }}>
                 {shapes.map((s, i) => (
                   <div key={i} className="border border-slate-300 rounded-lg p-4 bg-white break-inside-avoid">
                     <div className="text-center mb-2 font-semibold">{s}</div>
@@ -26816,7 +26816,7 @@ export function PrintablesPage() {
                   </div>
                 </div>
               </div>
-              <div className="grid grid-cols-2 gap-4 break-inside-avoid" style={{ pageBreakAfter: 'auto' }}>
+              <div className="grid grid-cols-2 gap-4" style={{ pageBreakAfter: 'auto' }}>
                 {transformations.map((t, i) => (
                   <div key={i} className="border border-slate-300 rounded-lg p-4 bg-white break-inside-avoid">
                     <div className="text-center mb-2 font-semibold">{t}</div>
@@ -26916,7 +26916,7 @@ export function PrintablesPage() {
                   </div>
                 </div>
               </div>
-              <div className="grid grid-cols-2 gap-4 break-inside-avoid" style={{ pageBreakAfter: 'auto' }}>
+              <div className="grid grid-cols-2 gap-4" style={{ pageBreakAfter: 'auto' }}>
                 {shapes.map((s, i) => (
                   <div key={i} className="border border-slate-300 rounded-lg p-4 bg-white break-inside-avoid">
                     <div className="text-center mb-2 font-semibold">{s}</div>
@@ -27023,7 +27023,7 @@ export function PrintablesPage() {
                   </div>
                 </div>
               </div>
-              <div className="grid grid-cols-2 gap-4 break-inside-avoid" style={{ pageBreakAfter: 'auto' }}>
+              <div className="grid grid-cols-2 gap-4" style={{ pageBreakAfter: 'auto' }}>
                 {problems.map((p, i) => (
                   <div key={i} className="border border-slate-300 rounded-lg p-4 bg-white break-inside-avoid">
                     <div className="text-center mb-2 font-mono">{p.expr} when x = {p.x}</div>
@@ -27125,7 +27125,7 @@ export function PrintablesPage() {
                   </div>
                 </div>
               </div>
-              <div className="grid grid-cols-2 gap-4 break-inside-avoid" style={{ pageBreakAfter: 'auto' }}>
+              <div className="grid grid-cols-2 gap-4" style={{ pageBreakAfter: 'auto' }}>
                 {phrases.map((p, i) => (
                   <div key={i} className="border border-slate-300 rounded-lg p-4 bg-white break-inside-avoid">
                     <div className="text-center mb-2 font-semibold">{p.phrase}</div>
@@ -27223,7 +27223,7 @@ export function PrintablesPage() {
                   </div>
                 </div>
               </div>
-              <div className="grid grid-cols-2 gap-4 break-inside-avoid" style={{ pageBreakAfter: 'auto' }}>
+              <div className="grid grid-cols-2 gap-4" style={{ pageBreakAfter: 'auto' }}>
                 {problems.map((p, i) => (
                   <div key={i} className="border border-slate-300 rounded-lg p-4 bg-white break-inside-avoid">
                     <div className="text-center mb-2 font-mono">x {p.op} {p.a} = {p.b}</div>
@@ -27330,7 +27330,7 @@ export function PrintablesPage() {
                   </div>
                 </div>
               </div>
-              <div className="grid grid-cols-2 gap-4 break-inside-avoid" style={{ pageBreakAfter: 'auto' }}>
+              <div className="grid grid-cols-2 gap-4" style={{ pageBreakAfter: 'auto' }}>
                 {patterns.map((p, i) => (
                   <div key={i} className="border border-slate-300 rounded-lg p-4 bg-white break-inside-avoid">
                     <div className="text-center mb-2 font-mono">{p.seq.join(', ')}</div>
@@ -27452,7 +27452,7 @@ export function PrintablesPage() {
                   </div>
                 </div>
               </div>
-              <div className="grid grid-cols-2 gap-4 break-inside-avoid" style={{ pageBreakAfter: 'auto' }}>
+              <div className="grid grid-cols-2 gap-4" style={{ pageBreakAfter: 'auto' }}>
                 {points.map((p, i) => (
                   <div key={i} className="border border-slate-300 rounded-lg p-4 bg-white break-inside-avoid">
                     {renderCoordinateGrid(p)}
@@ -27551,7 +27551,7 @@ export function PrintablesPage() {
                   </div>
                 </div>
               </div>
-              <div className="grid grid-cols-2 gap-4 break-inside-avoid" style={{ pageBreakAfter: 'auto' }}>
+              <div className="grid grid-cols-2 gap-4" style={{ pageBreakAfter: 'auto' }}>
                 {problems.map((p, i) => (
                   <div key={i} className="border border-slate-300 rounded-lg p-4 bg-white break-inside-avoid">
                     <div className="text-center text-xl font-bold mb-2">{p.frac} ____ {p.decimal}</div>
@@ -27652,7 +27652,7 @@ export function PrintablesPage() {
                   </div>
                 </div>
               </div>
-              <div className="grid grid-cols-2 gap-4 break-inside-avoid" style={{ pageBreakAfter: 'auto' }}>
+              <div className="grid grid-cols-2 gap-4" style={{ pageBreakAfter: 'auto' }}>
                 {conversions.map((c, i) => (
                   <div key={i} className="border border-slate-300 rounded-lg p-4 bg-white break-inside-avoid">
                     <div className="text-center mb-2 font-bold">{c.frac}</div>
@@ -28385,7 +28385,7 @@ export function PrintablesPage() {
                   </div>
                 </div>
               </div>
-              <div className="grid grid-cols-2 gap-4 break-inside-avoid" style={{ pageBreakAfter: 'auto' }}>
+              <div className="grid grid-cols-2 gap-4" style={{ pageBreakAfter: 'auto' }}>
                 {scenarios.map((s, i) => (
                   <div key={i} className="border border-slate-300 rounded-lg p-4 bg-white break-inside-avoid">
                     <div className="text-center mb-2 text-sm font-semibold">{s.event}</div>
@@ -28483,7 +28483,7 @@ export function PrintablesPage() {
                   </div>
                 </div>
               </div>
-              <ol className="list-decimal list-inside space-y-4 text-sm text-slate-800 break-inside-avoid" style={{ pageBreakAfter: 'auto' }}>
+              <ol className="list-decimal list-inside space-y-4 text-sm text-slate-800" style={{ pageBreakAfter: 'auto' }}>
                 {problems.map((p, i) => (
                   <li key={i} className="border border-slate-300 rounded-lg p-4 bg-white break-inside-avoid">
                     <div className="mb-2">{p}</div>
@@ -28619,7 +28619,7 @@ export function PrintablesPage() {
                   </div>
                 </div>
               </div>
-              <ol className="list-decimal list-inside space-y-4 text-sm text-slate-800 break-inside-avoid" style={{ pageBreakAfter: 'auto' }}>
+              <ol className="list-decimal list-inside space-y-4 text-sm text-slate-800" style={{ pageBreakAfter: 'auto' }}>
                 {problems.map((p, i) => (
                   <li key={i} className="border border-slate-300 rounded-lg p-4 bg-white break-inside-avoid">
                     <div className="mb-2">{p}</div>
@@ -28755,7 +28755,7 @@ export function PrintablesPage() {
                   </div>
                 </div>
               </div>
-              <ol className="list-decimal list-inside space-y-4 text-sm text-slate-800 break-inside-avoid" style={{ pageBreakAfter: 'auto' }}>
+              <ol className="list-decimal list-inside space-y-4 text-sm text-slate-800" style={{ pageBreakAfter: 'auto' }}>
                 {problems.map((p, i) => (
                   <li key={i} className="border border-slate-300 rounded-lg p-4 bg-white break-inside-avoid">
                     <div className="mb-2">{p}</div>
@@ -28889,7 +28889,7 @@ export function PrintablesPage() {
                   </div>
                 </div>
               </div>
-              <ol className="list-decimal list-inside space-y-4 text-sm text-slate-800 break-inside-avoid" style={{ pageBreakAfter: 'auto' }}>
+              <ol className="list-decimal list-inside space-y-4 text-sm text-slate-800" style={{ pageBreakAfter: 'auto' }}>
                 {problems.map((p, i) => (
                   <li key={i} className="border border-slate-300 rounded-lg p-4 bg-white break-inside-avoid">
                     <div className="mb-2">{p}</div>
@@ -29025,7 +29025,7 @@ export function PrintablesPage() {
                   </div>
                 </div>
               </div>
-              <ol className="list-decimal list-inside space-y-4 text-sm text-slate-800 break-inside-avoid" style={{ pageBreakAfter: 'auto' }}>
+              <ol className="list-decimal list-inside space-y-4 text-sm text-slate-800" style={{ pageBreakAfter: 'auto' }}>
                 {problems.map((p, i) => (
                   <li key={i} className="border border-slate-300 rounded-lg p-4 bg-white break-inside-avoid">
                     <div className="mb-2">{p}</div>
@@ -29162,7 +29162,7 @@ export function PrintablesPage() {
                   </div>
                 </div>
               </div>
-              <ol className="list-decimal list-inside space-y-4 text-sm text-slate-800 break-inside-avoid" style={{ pageBreakAfter: 'auto' }}>
+              <ol className="list-decimal list-inside space-y-4 text-sm text-slate-800" style={{ pageBreakAfter: 'auto' }}>
                 {problems.map((p, i) => (
                   <li key={i} className="border border-slate-300 rounded-lg p-4 bg-white break-inside-avoid">
                     <div className="mb-2">{p}</div>
@@ -29299,7 +29299,7 @@ export function PrintablesPage() {
                   </div>
                 </div>
               </div>
-              <ol className="list-decimal list-inside space-y-4 text-sm text-slate-800 break-inside-avoid" style={{ pageBreakAfter: 'auto' }}>
+              <ol className="list-decimal list-inside space-y-4 text-sm text-slate-800" style={{ pageBreakAfter: 'auto' }}>
                 {problems.map((p, i) => (
                   <li key={i} className="border border-slate-300 rounded-lg p-4 bg-white break-inside-avoid">
                     <div className="mb-2">{p}</div>
@@ -29435,7 +29435,7 @@ export function PrintablesPage() {
                   </div>
                 </div>
               </div>
-              <ol className="list-decimal list-inside space-y-4 text-sm text-slate-800 break-inside-avoid" style={{ pageBreakAfter: 'auto' }}>
+              <ol className="list-decimal list-inside space-y-4 text-sm text-slate-800" style={{ pageBreakAfter: 'auto' }}>
                 {problems.map((p, i) => (
                   <li key={i} className="border border-slate-300 rounded-lg p-4 bg-white break-inside-avoid">
                     <div className="mb-2">{p}</div>
@@ -29572,7 +29572,7 @@ export function PrintablesPage() {
                   </div>
                 </div>
               </div>
-              <ol className="list-decimal list-inside space-y-4 text-sm text-slate-800 break-inside-avoid" style={{ pageBreakAfter: 'auto' }}>
+              <ol className="list-decimal list-inside space-y-4 text-sm text-slate-800" style={{ pageBreakAfter: 'auto' }}>
                 {problems.map((p, i) => (
                   <li key={i} className="border border-slate-300 rounded-lg p-4 bg-white break-inside-avoid">
                     <div className="mb-2">{p}</div>
@@ -29713,7 +29713,7 @@ export function PrintablesPage() {
                   </div>
                 </div>
               </div>
-              <ol className="list-decimal list-inside space-y-4 text-sm text-slate-800 break-inside-avoid" style={{ pageBreakAfter: 'auto' }}>
+              <ol className="list-decimal list-inside space-y-4 text-sm text-slate-800" style={{ pageBreakAfter: 'auto' }}>
                 {problems.map((p, i) => (
                   <li key={i} className="border border-slate-300 rounded-lg p-4 bg-white break-inside-avoid">
                     <div className="mb-2">{p}</div>
@@ -30038,7 +30038,7 @@ export function PrintablesPage() {
               <div className="mb-4 p-3 bg-blue-50 border border-blue-200 rounded text-sm text-blue-900">
                 <strong>📝 Instructions:</strong> Look at each item and color it with the correct color shown below.
               </div>
-              <div className="grid grid-cols-1 gap-6 break-inside-avoid" style={{ pageBreakAfter: 'auto' }}>
+              <div className="grid grid-cols-1 gap-6" style={{ pageBreakAfter: 'auto' }}>
                 {items.map((i, idx) => (
                   <div key={idx} className="border border-slate-300 rounded-lg p-6 bg-white break-inside-avoid">
                     <div className="text-center mb-4">
@@ -30107,7 +30107,7 @@ export function PrintablesPage() {
               ]}
             >
               <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-purple-400 to-pink-400 animate-gradient-x mb-2" />
-              <div className="grid grid-cols-1 gap-6 break-inside-avoid" style={{ pageBreakAfter: 'auto' }}>
+              <div className="grid grid-cols-1 gap-6" style={{ pageBreakAfter: 'auto' }}>
                 {shapes.map((s, i) => (
                   <div key={i} className="border border-slate-300 rounded-lg p-6 bg-white break-inside-avoid">
                     <div className="text-center mb-4 text-lg font-semibold text-slate-800 capitalize">{s}</div>
@@ -30181,7 +30181,7 @@ export function PrintablesPage() {
               ]}
             >
               <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-purple-400 to-pink-400 animate-gradient-x mb-2" />
-              <div className="grid grid-cols-2 gap-4 break-inside-avoid" style={{ pageBreakAfter: 'auto' }}>
+              <div className="grid grid-cols-2 gap-4" style={{ pageBreakAfter: 'auto' }}>
                 {patterns.map((p, i) => (
                   <div key={i} className="border border-slate-300 rounded-lg p-4 bg-white break-inside-avoid">
                     <div className="flex items-center justify-center gap-2 mb-3 text-3xl">
@@ -30263,7 +30263,7 @@ export function PrintablesPage() {
               ]}
             >
               <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-purple-400 to-pink-400 animate-gradient-x mb-2" />
-              <div className="grid grid-cols-2 gap-4 break-inside-avoid" style={{ pageBreakAfter: 'auto' }}>
+              <div className="grid grid-cols-2 gap-4" style={{ pageBreakAfter: 'auto' }}>
                 {patterns.map((p, i) => (
                   <div key={i} className="border border-slate-300 rounded-lg p-4 bg-white break-inside-avoid">
                     <div className="flex items-center justify-center gap-2 mb-3 text-3xl">
@@ -30345,7 +30345,7 @@ export function PrintablesPage() {
               ]}
             >
               <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-purple-400 to-pink-400 animate-gradient-x mb-2" />
-              <div className="grid grid-cols-2 gap-4 break-inside-avoid" style={{ pageBreakAfter: 'auto' }}>
+              <div className="grid grid-cols-2 gap-4" style={{ pageBreakAfter: 'auto' }}>
                 {patterns.map((p, i) => (
                   <div key={i} className="border border-slate-300 rounded-lg p-4 bg-white break-inside-avoid">
                     <div className="flex items-center justify-center gap-2 mb-3 text-3xl">
@@ -30430,7 +30430,7 @@ export function PrintablesPage() {
               <div className="mb-4 p-3 bg-blue-50 border border-blue-200 rounded text-sm text-blue-900">
                 <strong>📝 Instructions:</strong> Look at each pair of objects. The longer object should be colored red. The shorter object should be colored blue.
               </div>
-              <div className="grid grid-cols-1 gap-6 break-inside-avoid" style={{ pageBreakAfter: 'auto' }}>
+              <div className="grid grid-cols-1 gap-6" style={{ pageBreakAfter: 'auto' }}>
                 {pairs.map((pair, idx) => (
                   <div key={idx} className="border border-slate-300 rounded-lg p-6 bg-white break-inside-avoid">
                     <div className="text-sm text-slate-700 mb-4 text-center font-semibold">Pair {idx + 1}</div>
@@ -30520,7 +30520,7 @@ export function PrintablesPage() {
               ]}
             >
               <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-purple-400 to-pink-400 animate-gradient-x mb-2" />
-              <div className="grid grid-cols-1 gap-6 break-inside-avoid" style={{ pageBreakAfter: 'auto' }}>
+              <div className="grid grid-cols-1 gap-6" style={{ pageBreakAfter: 'auto' }}>
                 {pairs.map((pair, idx) => (
                   <div key={idx} className="border border-slate-300 rounded-lg p-6 bg-white break-inside-avoid">
                     <div className="text-sm text-slate-700 mb-4 text-center font-semibold">Pair {idx + 1}</div>
@@ -30614,7 +30614,7 @@ export function PrintablesPage() {
               ]}
             >
               <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-purple-400 to-pink-400 animate-gradient-x mb-2" />
-              <div className="grid grid-cols-2 gap-4 break-inside-avoid" style={{ pageBreakAfter: 'auto' }}>
+              <div className="grid grid-cols-2 gap-4" style={{ pageBreakAfter: 'auto' }}>
                 {sets.map((s, i) => (
                   <div key={i} className="border border-slate-300 rounded-lg p-4 bg-white break-inside-avoid">
                     <div className="text-center mb-2 text-xl">{s.items.join(' ')}</div>
@@ -30684,7 +30684,7 @@ export function PrintablesPage() {
               ]}
             >
               <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-purple-400 to-pink-400 animate-gradient-x mb-2" />
-              <div className="grid grid-cols-1 gap-6 break-inside-avoid" style={{ pageBreakAfter: 'auto' }}>
+              <div className="grid grid-cols-1 gap-6" style={{ pageBreakAfter: 'auto' }}>
                 {lines.map((line, i) => (
                   <div key={i} className="border border-slate-300 rounded-lg p-6 bg-white break-inside-avoid">
                     <div className="text-sm text-slate-700 mb-3 text-center font-semibold">Line {i + 1}</div>
@@ -30774,7 +30774,7 @@ export function PrintablesPage() {
               ]}
             >
               <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-purple-400 to-pink-400 animate-gradient-x mb-2" />
-              <div className="grid grid-cols-1 gap-6 break-inside-avoid" style={{ pageBreakAfter: 'auto' }}>
+              <div className="grid grid-cols-1 gap-6" style={{ pageBreakAfter: 'auto' }}>
                 {curves.map((curve, i) => (
                   <div key={`curve-${i}`} className="border border-slate-300 rounded-lg p-6 bg-white break-inside-avoid">
                     <div className="text-sm text-slate-700 mb-3 text-center font-semibold">Curve {i + 1}</div>
@@ -30871,7 +30871,7 @@ export function PrintablesPage() {
               ]}
             >
               <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-purple-400 to-pink-400 animate-gradient-x mb-2" />
-              <div className="grid grid-cols-2 gap-4 break-inside-avoid" style={{ pageBreakAfter: 'auto' }}>
+              <div className="grid grid-cols-2 gap-4" style={{ pageBreakAfter: 'auto' }}>
                 {zigzagPaths.map((path, i) => (
                   <div key={i} className="border border-slate-300 rounded-lg p-4 bg-white break-inside-avoid">
                     <div className="text-xs text-slate-600 mb-2 text-center font-semibold">Zigzag {i + 1}</div>
@@ -30951,7 +30951,7 @@ export function PrintablesPage() {
               ]}
             >
               <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-purple-400 to-pink-400 animate-gradient-x mb-2" />
-              <div className="grid grid-cols-1 gap-6 break-inside-avoid" style={{ pageBreakAfter: 'auto' }}>
+              <div className="grid grid-cols-1 gap-6" style={{ pageBreakAfter: 'auto' }}>
                 {paths.map((path, i) => (
                   <div key={i} className="border border-slate-300 rounded-lg p-6 bg-white break-inside-avoid">
                     <div className="text-sm text-slate-700 mb-3 text-center font-semibold">Path {i + 1}</div>
@@ -31048,7 +31048,7 @@ export function PrintablesPage() {
                   </div>
                 </div>
               </div>
-              <div className="grid grid-cols-1 gap-6 break-inside-avoid" style={{ pageBreakAfter: 'auto' }}>
+              <div className="grid grid-cols-1 gap-6" style={{ pageBreakAfter: 'auto' }}>
                 {problems.map((p, i) => (
                   <div key={i} className="border border-slate-300 rounded-lg p-4 bg-white break-inside-avoid">
                     <div className="text-center mb-3 font-semibold text-lg">{p.rows} × {p.cols} = ____</div>
@@ -31203,7 +31203,7 @@ export function PrintablesPage() {
                   </div>
                 </div>
               </div>
-              <ol className="list-decimal list-inside space-y-4 text-sm text-slate-800 break-inside-avoid" style={{ pageBreakAfter: 'auto' }}>
+              <ol className="list-decimal list-inside space-y-4 text-sm text-slate-800" style={{ pageBreakAfter: 'auto' }}>
                 {problems.map((p, i) => (
                   <li key={i} className="border border-slate-300 rounded-lg p-4 bg-white break-inside-avoid">
                     <div className="mb-2">{p}</div>
@@ -31300,7 +31300,7 @@ export function PrintablesPage() {
               <div className="mb-4 p-3 bg-blue-50 border border-blue-200 rounded text-sm text-blue-900">
                 <strong>📝 Pattern:</strong> × 10 = add one zero, × 100 = add two zeros
               </div>
-              <div className="grid grid-cols-2 gap-4 break-inside-avoid" style={{ pageBreakAfter: 'auto' }}>
+              <div className="grid grid-cols-2 gap-4" style={{ pageBreakAfter: 'auto' }}>
                 {problems.map((p, i) => (
                   <div key={i} className="border border-slate-300 rounded-lg p-4 bg-white break-inside-avoid">
                     <div className="text-center text-xl font-mono mb-2">{p.num} × {p.multiplier} = ____</div>
@@ -31554,7 +31554,7 @@ export function PrintablesPage() {
                   </div>
                 </div>
               </div>
-              <ol className="list-decimal list-inside space-y-4 text-sm text-slate-800 break-inside-avoid" style={{ pageBreakAfter: 'auto' }}>
+              <ol className="list-decimal list-inside space-y-4 text-sm text-slate-800" style={{ pageBreakAfter: 'auto' }}>
                 {problems.map((p, i) => (
                   <li key={i} className="border border-slate-300 rounded-lg p-4 bg-white break-inside-avoid">
                     <div className="mb-2">{p}</div>
@@ -31648,7 +31648,7 @@ export function PrintablesPage() {
                   </div>
                 </div>
               </div>
-              <div className="grid grid-cols-2 gap-4 break-inside-avoid" style={{ pageBreakAfter: 'auto' }}>
+              <div className="grid grid-cols-2 gap-4" style={{ pageBreakAfter: 'auto' }}>
                 {problems.map((p, i) => (
                   <div key={i} className="border border-slate-300 rounded-lg p-4 bg-white break-inside-avoid">
                     <div className="text-center text-xl font-mono mb-2">{p.num} ÷ {p.divisor} = ____</div>
@@ -31909,7 +31909,7 @@ export function PrintablesPage() {
               <div className="mb-4 p-3 bg-blue-50 border border-blue-200 rounded text-sm text-blue-900">
                 <strong>📝 Remember:</strong> Equivalent fractions have the same value. Multiply or divide both numerator and denominator by the same number to find equivalent fractions.
               </div>
-              <div className="grid grid-cols-2 gap-4 break-inside-avoid" style={{ pageBreakAfter: 'auto' }}>
+              <div className="grid grid-cols-2 gap-4" style={{ pageBreakAfter: 'auto' }}>
                 {problems.map((p, i) => (
                   <div key={i} className="border border-slate-300 rounded-lg p-4 bg-white break-inside-avoid">
                     <div className="text-center text-xl font-bold mb-2">{p.original}</div>
@@ -32013,7 +32013,7 @@ export function PrintablesPage() {
                   </div>
                 </div>
               </div>
-              <div className="grid grid-cols-2 gap-4 break-inside-avoid" style={{ pageBreakAfter: 'auto' }}>
+              <div className="grid grid-cols-2 gap-4" style={{ pageBreakAfter: 'auto' }}>
                 {problems.map((p, i) => (
                   <div key={i} className="border border-slate-300 rounded-lg p-4 bg-white break-inside-avoid">
                     <div className="text-center text-xl font-mono mb-2">
@@ -32108,7 +32108,7 @@ export function PrintablesPage() {
                   </div>
                 </div>
               </div>
-              <div className="grid grid-cols-2 gap-4 break-inside-avoid" style={{ pageBreakAfter: 'auto' }}>
+              <div className="grid grid-cols-2 gap-4" style={{ pageBreakAfter: 'auto' }}>
                 {fractions.map((f, i) => (
                   <div key={i} className="border border-slate-300 rounded-lg p-4 bg-white break-inside-avoid">
                     <div className="text-center mb-2 font-bold text-xl">{f}</div>
@@ -32231,7 +32231,7 @@ export function PrintablesPage() {
                   </div>
                 </div>
               </div>
-              <div className="grid grid-cols-2 gap-4 break-inside-avoid" style={{ pageBreakAfter: 'auto' }}>
+              <div className="grid grid-cols-2 gap-4" style={{ pageBreakAfter: 'auto' }}>
                 {problems.map((p, i) => (
                   <div key={i} className="border border-slate-300 rounded-lg p-4 bg-white break-inside-avoid">
                     {renderRectangle(p.length, p.width)}
@@ -32345,7 +32345,7 @@ export function PrintablesPage() {
                   </div>
                 </div>
               </div>
-              <div className="grid grid-cols-2 gap-4 break-inside-avoid" style={{ pageBreakAfter: 'auto' }}>
+              <div className="grid grid-cols-2 gap-4" style={{ pageBreakAfter: 'auto' }}>
                 {problems.map((p, i) => (
                   <div key={i} className="border border-slate-300 rounded-lg p-4 bg-white break-inside-avoid">
                     {renderRectangle(p.length, p.width)}
@@ -32463,7 +32463,7 @@ export function PrintablesPage() {
                   </div>
                 </div>
               </div>
-              <div className="grid grid-cols-2 gap-4 break-inside-avoid" style={{ pageBreakAfter: 'auto' }}>
+              <div className="grid grid-cols-2 gap-4" style={{ pageBreakAfter: 'auto' }}>
                 {polygons.map((p, i) => (
                   <div key={i} className="border border-slate-300 rounded-lg p-4 bg-white break-inside-avoid">
                     {renderPolygon(p.name, p.sides)}
@@ -32616,7 +32616,7 @@ export function PrintablesPage() {
                   </div>
                 </div>
               </div>
-              <div className="grid grid-cols-2 gap-4 break-inside-avoid" style={{ pageBreakAfter: 'auto' }}>
+              <div className="grid grid-cols-2 gap-4" style={{ pageBreakAfter: 'auto' }}>
                 {items.map((i, idx) => (
                   <div key={idx} className="border border-slate-300 rounded-lg p-4 bg-white break-inside-avoid">
                     {renderGeometric(i.type)}
@@ -32764,7 +32764,7 @@ export function PrintablesPage() {
                   </div>
                 </div>
               </div>
-              <div className="grid grid-cols-2 gap-4 break-inside-avoid" style={{ pageBreakAfter: 'auto' }}>
+              <div className="grid grid-cols-2 gap-4" style={{ pageBreakAfter: 'auto' }}>
                 {shapes.map((s, i) => (
                   <div key={i} className="border border-slate-300 rounded-lg p-4 bg-white break-inside-avoid">
                     {renderShape(s)}
@@ -32886,7 +32886,7 @@ export function PrintablesPage() {
                   </div>
                 </div>
               </div>
-              <div className="grid grid-cols-2 gap-4 break-inside-avoid" style={{ pageBreakAfter: 'auto' }}>
+              <div className="grid grid-cols-2 gap-4" style={{ pageBreakAfter: 'auto' }}>
                 {times.map((t, i) => (
                   <div key={i} className="border border-slate-300 rounded-lg p-4 bg-white break-inside-avoid">
                     {renderClock(t)}
@@ -32988,7 +32988,7 @@ export function PrintablesPage() {
               <div className="mb-4 p-3 bg-blue-50 border border-blue-200 rounded text-sm text-blue-900">
                 <strong>📝 Conversion Chart:</strong> 1 yard = 3 feet, 1 foot = 12 inches
               </div>
-              <div className="grid grid-cols-2 gap-4 break-inside-avoid" style={{ pageBreakAfter: 'auto' }}>
+              <div className="grid grid-cols-2 gap-4" style={{ pageBreakAfter: 'auto' }}>
                 {problems.map((p, i) => (
                   <div key={i} className="border border-slate-300 rounded-lg p-4 bg-white break-inside-avoid">
                     <div className="text-center mb-2 font-semibold">{p.feet} feet = ____ inches</div>
@@ -33085,7 +33085,7 @@ export function PrintablesPage() {
               <div className="mb-4 p-3 bg-blue-50 border border-blue-200 rounded text-sm text-blue-900">
                 <strong>📝 Conversion Chart:</strong> 1 kilometer = 1000 meters, 1 meter = 100 centimeters
               </div>
-              <div className="grid grid-cols-2 gap-4 break-inside-avoid" style={{ pageBreakAfter: 'auto' }}>
+              <div className="grid grid-cols-2 gap-4" style={{ pageBreakAfter: 'auto' }}>
                 {problems.map((p, i) => (
                   <div key={i} className="border border-slate-300 rounded-lg p-4 bg-white break-inside-avoid">
                     <div className="text-center mb-2 font-semibold">{p.meters} meters = ____ centimeters</div>
@@ -33183,7 +33183,7 @@ export function PrintablesPage() {
               <div className="mb-4 p-3 bg-blue-50 border border-blue-200 rounded text-sm text-blue-900">
                 <strong>📝 Conversion Chart:</strong> 1 gallon = 4 quarts, 1 quart = 2 pints, 1 pint = 2 cups
               </div>
-              <div className="grid grid-cols-2 gap-4 break-inside-avoid" style={{ pageBreakAfter: 'auto' }}>
+              <div className="grid grid-cols-2 gap-4" style={{ pageBreakAfter: 'auto' }}>
                 {problems.map((p, i) => (
                   <div key={i} className="border border-slate-300 rounded-lg p-4 bg-white break-inside-avoid">
                     <div className="text-center mb-2 font-semibold">{p.quarts} quarts = ____ cups</div>
@@ -33280,7 +33280,7 @@ export function PrintablesPage() {
               <div className="mb-4 p-3 bg-blue-50 border border-blue-200 rounded text-sm text-blue-900">
                 <strong>📝 Conversion Chart:</strong> 1 pound = 16 ounces
               </div>
-              <div className="grid grid-cols-2 gap-4 break-inside-avoid" style={{ pageBreakAfter: 'auto' }}>
+              <div className="grid grid-cols-2 gap-4" style={{ pageBreakAfter: 'auto' }}>
                 {problems.map((p, i) => (
                   <div key={i} className="border border-slate-300 rounded-lg p-4 bg-white break-inside-avoid">
                     <div className="text-center mb-2 font-semibold">{p.pounds} pounds = ____ ounces</div>
@@ -33378,7 +33378,7 @@ export function PrintablesPage() {
                   </div>
                 </div>
               </div>
-              <ol className="list-decimal list-inside space-y-4 text-sm text-slate-800 break-inside-avoid" style={{ pageBreakAfter: 'auto' }}>
+              <ol className="list-decimal list-inside space-y-4 text-sm text-slate-800" style={{ pageBreakAfter: 'auto' }}>
                 {problems.map((p, i) => (
                   <li key={i} className="border border-slate-300 rounded-lg p-4 bg-white break-inside-avoid">
                     <div className="mb-2">{p.text}</div>
@@ -33476,7 +33476,7 @@ export function PrintablesPage() {
                   </div>
                 </div>
               </div>
-              <ol className="list-decimal list-inside space-y-4 text-sm text-slate-800 break-inside-avoid" style={{ pageBreakAfter: 'auto' }}>
+              <ol className="list-decimal list-inside space-y-4 text-sm text-slate-800" style={{ pageBreakAfter: 'auto' }}>
                 {problems.map((p, i) => (
                   <li key={i} className="border border-slate-300 rounded-lg p-4 bg-white break-inside-avoid">
                     <div className="mb-2">{p}</div>
@@ -33606,7 +33606,7 @@ export function PrintablesPage() {
                   </div>
                 </div>
               </div>
-              <ol className="list-decimal list-inside space-y-4 text-sm text-slate-800 break-inside-avoid" style={{ pageBreakAfter: 'auto' }}>
+              <ol className="list-decimal list-inside space-y-4 text-sm text-slate-800" style={{ pageBreakAfter: 'auto' }}>
                 {problems.map((p, i) => (
                   <li key={i} className="border border-slate-300 rounded-lg p-4 bg-white break-inside-avoid">
                     <div className="mb-2">{p}</div>
@@ -33738,7 +33738,7 @@ export function PrintablesPage() {
                   </div>
                 </div>
               </div>
-              <ol className="list-decimal list-inside space-y-4 text-sm text-slate-800 break-inside-avoid" style={{ pageBreakAfter: 'auto' }}>
+              <ol className="list-decimal list-inside space-y-4 text-sm text-slate-800" style={{ pageBreakAfter: 'auto' }}>
                 {problems.map((p, i) => (
                   <li key={i} className="border border-slate-300 rounded-lg p-4 bg-white break-inside-avoid">
                     <div className="mb-2">{p}</div>

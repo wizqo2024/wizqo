@@ -37,6 +37,8 @@ import WorksheetPage from './pages/WorksheetPage';
 import AllWorksheetsPage from './pages/AllWorksheetsPage';
 import ShadowMatchingWorksheetPage from './pages/ShadowMatchingWorksheetPage';
 import MatchFeelingWorksheetPage from './pages/MatchFeelingWorksheetPage';
+import InteractiveReadingWorksheetPage from './pages/InteractiveReadingWorksheetPage';
+
 
 
 import NotFoundPage from './pages/NotFoundPage';
@@ -535,6 +537,11 @@ export default function App() {
                   // Specific logic for Match The Feeling Worksheet
                   if (routeSubKey === 'match-the-feeling') {
                     return <MatchFeelingWorksheetPage />;
+                  }
+
+                  // Specific logic for Reading Discovery Interactive Worksheet
+                  if (routeSubKey === 'reading-discovery-interactive') {
+                    return <InteractiveReadingWorksheetPage />;
                   }
 
                   // All worksheets master page

@@ -22,11 +22,11 @@ interface WorksheetItem {
 export default function WorksheetsFirstGradePage() {
   const { t, isRTL } = useTranslation();
   const [previewItem, setPreviewItem] = React.useState<WorksheetItem | null>(null);
-  
+
   React.useEffect(() => {
     // Ensure re-render on language change
   }, [t]);
-  
+
   const FIRST_GRADE_CATEGORIES: Category[] = [
     { id: 'number-sense', label: t('pages.firstGrade.categories.numberSense'), icon: '🔢' },
     { id: 'addition-subtraction', label: t('pages.firstGrade.categories.additionSubtraction'), icon: '➕➖' },
@@ -35,7 +35,7 @@ export default function WorksheetsFirstGradePage() {
     { id: 'literacy', label: t('pages.firstGrade.categories.literacy'), icon: '📚' },
     { id: 'early-math', label: t('pages.firstGrade.categories.earlyMath'), icon: '🔢' },
   ];
-  
+
   const [selectedCategories, setSelectedCategories] = useState<Set<string>>(new Set())
 
   const toggleCategory = (categoryId: string) => {
@@ -92,12 +92,13 @@ export default function WorksheetsFirstGradePage() {
     // Early Math Skills
     { title: t('pages.firstGrade.worksheets.moreLessEqual10.title'), description: t('pages.firstGrade.worksheets.moreLessEqual10.description'), href: getWorksheetURL('more-less-equal-10', '1st-grade'), docId: 'more-less-equal-10', categories: ['early-math'], section: 'Early Math Skills' },
     { title: t('pages.firstGrade.worksheets.countingObjects20.title'), description: t('pages.firstGrade.worksheets.countingObjects20.description'), href: getWorksheetURL('counting-objects-20', '1st-grade'), docId: 'counting-objects-20', categories: ['early-math'], section: 'Early Math Skills' },
+    { title: '📖 Reading Discovery (Interactive)', description: 'Interactive comprehension with original stories and 3D illustrations. Try Leo\'s Space Adventure!', href: getWorksheetURL('reading-discovery-interactive', '1st-grade'), docId: 'reading-discovery-interactive', categories: ['literacy'], section: 'Early Literacy' },
   ], [t])
 
   // Filter worksheets based on selected categories
   const filteredWorksheets = useMemo(() => {
     if (selectedCategories.size === 0) return allWorksheets
-    return allWorksheets.filter((ws) => 
+    return allWorksheets.filter((ws) =>
       ws.categories.some((cat) => selectedCategories.has(cat))
     )
   }, [selectedCategories, allWorksheets])
@@ -192,7 +193,7 @@ export default function WorksheetsFirstGradePage() {
               <span className="inline-flex items-center px-2 py-1 rounded-full bg-slate-100 border border-slate-200">{t('pages.firstGrade.buildPackAge')}</span>
               <span className="inline-flex items-center px-2 py-1 rounded-full bg-slate-100 border border-slate-200">{t('pages.firstGrade.buildPackFocus')}</span>
             </div>
-            <a href="/print?doc=pack&time=5&age=g1&skill=math&from=1st-grade" className="inline-flex items-center justify-center px-4 py-2 rounded-lg bg-purple-600 text-white hover:bg-purple-700 transition-colors" onClick={(e)=>{ try { (window as any).gtag?.('event','build_pack_click',{grade:'1'});} catch{} }}>{t('pages.printables.buildPackButton')}</a>
+            <a href="/print?doc=pack&time=5&age=g1&skill=math&from=1st-grade" className="inline-flex items-center justify-center px-4 py-2 rounded-lg bg-purple-600 text-white hover:bg-purple-700 transition-colors" onClick={(e) => { try { (window as any).gtag?.('event', 'build_pack_click', { grade: '1' }); } catch { } }}>{t('pages.printables.buildPackButton')}</a>
           </div>
         </section>
 
@@ -223,7 +224,7 @@ export default function WorksheetsFirstGradePage() {
                 'Early Math Skills': `🔢 ${t('pages.firstGrade.sections.earlyMathSkills')}`,
               }
               const label = sectionLabels[section] || section
-              
+
               return (
                 <div key={section}>
                   <h2 className="text-xl font-bold text-slate-900 mb-2">{label}</h2>
@@ -294,16 +295,16 @@ export default function WorksheetsFirstGradePage() {
         </section>
       </main>
       <Footer />
-      
+
       {/* Preview Modal */}
       {previewItem && (
         <div className="fixed inset-0 z-50 overflow-hidden">
           {/* Backdrop */}
-          <div 
+          <div
             className="absolute inset-0 bg-black/50 transition-opacity"
             onClick={() => setPreviewItem(null)}
           />
-          
+
           {/* Side Panel */}
           <div className="absolute right-0 top-0 h-full w-full max-w-4xl bg-white shadow-2xl transform transition-transform duration-300 ease-in-out">
             <div className="flex h-full flex-col">
@@ -323,7 +324,7 @@ export default function WorksheetsFirstGradePage() {
                   </svg>
                 </button>
               </div>
-              
+
               {/* Scrollable Content */}
               <div className="flex-1 overflow-y-auto bg-slate-50">
                 <div className="mx-auto max-w-3xl px-6 py-8">
@@ -336,13 +337,13 @@ export default function WorksheetsFirstGradePage() {
                       aria-label={`Preview of ${previewItem.title} worksheet`}
                     />
                   </div>
-                  
+
                   {/* Info Footer */}
                   <div className="mt-6 rounded-xl border border-purple-200 bg-purple-50 p-4 text-sm text-purple-800">
                     <p className="font-semibold mb-2">📄 Preview</p>
                     <p>Click the Download button below to download as PDF or use your browser's print function.</p>
                   </div>
-                  
+
                   {/* Action Buttons */}
                   <div className="mt-6 flex items-center gap-3">
                     <button
@@ -417,7 +418,7 @@ const WorksheetThumbnailCard = React.memo(function WorksheetThumbnailCard({ titl
   // Use print URL for preview (not SEO URL) to show actual worksheet content
   const printUrl = getWorksheetPrintURL(docId, '1st-grade')
   const previewUrl = printUrl + (printUrl.includes('?') ? '&preview=1' : '?preview=1')
-  
+
   // Use translations if available (fallback to provided title/description) - memoize to prevent re-renders
   // Use language instead of t in dependencies to avoid re-renders when t function reference changes
   const translatedTitle = React.useMemo(() => {
@@ -425,13 +426,13 @@ const WorksheetThumbnailCard = React.memo(function WorksheetThumbnailCard({ titl
     const translated = t(`worksheets.${docId}.title`);
     return translated && translated !== `worksheets.${docId}.title` ? translated : title;
   }, [docId, title, language, t]);
-  
+
   const translatedDescription = React.useMemo(() => {
     if (!docId) return description;
     const translated = t(`worksheets.${docId}.description`);
     return translated && translated !== `worksheets.${docId}.description` ? translated : description;
   }, [docId, description, language, t]);
-  
+
   return (
     <article className="rounded-2xl border border-slate-200 bg-white shadow-sm hover:shadow-lg transition-all duration-200 p-5 flex flex-col gap-3">
       <div className="flex items-center justify-between gap-3">
@@ -439,14 +440,14 @@ const WorksheetThumbnailCard = React.memo(function WorksheetThumbnailCard({ titl
           <h3 className="text-lg font-semibold text-slate-900">{translatedTitle}</h3>
         </div>
       </div>
-      
+
       <p className="text-sm text-slate-600 leading-relaxed">{translatedDescription}</p>
-      
+
       {/* Worksheet Thumbnail Preview - Clickable to SEO page */}
-      <a 
+      <a
         href={href}
         className="relative w-full bg-gradient-to-br from-slate-50 to-slate-100 rounded-lg border border-slate-200 overflow-hidden cursor-pointer group shadow-sm hover:shadow-md transition-shadow block"
-        style={{ 
+        style={{
           height: '140px',
           aspectRatio: '2.5/1',
         }}
@@ -477,7 +478,7 @@ const WorksheetThumbnailCard = React.memo(function WorksheetThumbnailCard({ titl
         {/* Corner fold effect */}
         <div className="absolute top-0 right-0 w-8 h-8 bg-gradient-to-br from-slate-200/50 to-transparent pointer-events-none" />
       </a>
-      
+
       <div className="flex items-center justify-between">
         <div className="flex items-center gap-2">
           <button

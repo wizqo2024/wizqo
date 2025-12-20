@@ -22,17 +22,17 @@ interface WorksheetItem {
 export default function ReadingComprehensionPage() {
   const { t, isRTL } = useTranslation();
   const [previewItem, setPreviewItem] = React.useState<WorksheetItem | null>(null);
-  
+
   React.useEffect(() => {
     // Ensure re-render on language change
   }, [t]);
-  
+
   const READING_CATEGORIES: Category[] = [
     { id: 'grade-1', label: t('pages.readingComprehension.grade1'), icon: '📖' },
     { id: 'grade-2', label: t('pages.readingComprehension.grade2'), icon: '📖' },
     { id: 'grade-3', label: t('pages.readingComprehension.grade3'), icon: '📖' },
   ];
-  
+
   const [selectedCategories, setSelectedCategories] = useState<Set<string>>(new Set())
 
   const toggleCategory = (categoryId: string) => {
@@ -57,266 +57,274 @@ export default function ReadingComprehensionPage() {
   // Define all worksheets with their categories - use translations
   const allWorksheets: WorksheetItem[] = useMemo(() => [
     // Grade 1
-    { 
-      title: t('worksheets.reading-g1-lost-hat.title') !== 'worksheets.reading-g1-lost-hat.title' 
-        ? t('worksheets.reading-g1-lost-hat.title') 
-        : '📖 The Lost Hat (Grade 1)', 
+    {
+      title: t('worksheets.reading-g1-lost-hat.title') !== 'worksheets.reading-g1-lost-hat.title'
+        ? t('worksheets.reading-g1-lost-hat.title')
+        : '📖 The Lost Hat (Grade 1)',
       description: t('worksheets.reading-g1-lost-hat.description') !== 'worksheets.reading-g1-lost-hat.description'
         ? t('worksheets.reading-g1-lost-hat.description')
-        : 'Short passage + 4 questions — print‑ready PDF view.', 
-      href: getWorksheetURL('reading-g1-lost-hat', 'reading-comprehension'), 
-      docId: 'reading-g1-lost-hat', 
-      categories: ['grade-1'], 
-      grade: 'Grade 1' 
+        : 'Short passage + 4 questions — print‑ready PDF view.',
+      href: getWorksheetURL('reading-g1-lost-hat', 'reading-comprehension'),
+      docId: 'reading-g1-lost-hat',
+      categories: ['grade-1'],
+      grade: 'Grade 1'
     },
-    { 
-      title: t('worksheets.reading-g1-ants.title') !== 'worksheets.reading-g1-ants.title' 
-        ? t('worksheets.reading-g1-ants.title') 
-        : '📖 Lunch for the Ants (Grade 1)', 
+    {
+      title: t('worksheets.reading-g1-ants.title') !== 'worksheets.reading-g1-ants.title'
+        ? t('worksheets.reading-g1-ants.title')
+        : '📖 Lunch for the Ants (Grade 1)',
       description: t('worksheets.reading-g1-ants.description') !== 'worksheets.reading-g1-ants.description'
         ? t('worksheets.reading-g1-ants.description')
-        : 'Short passage + 4 questions — print‑ready PDF view.', 
-      href: getWorksheetURL('reading-g1-ants', 'reading-comprehension'), 
-      docId: 'reading-g1-ants', 
-      categories: ['grade-1'], 
-      grade: 'Grade 1' 
+        : 'Short passage + 4 questions — print‑ready PDF view.',
+      href: getWorksheetURL('reading-g1-ants', 'reading-comprehension'),
+      docId: 'reading-g1-ants',
+      categories: ['grade-1'],
+      grade: 'Grade 1'
     },
-    { 
-      title: t('worksheets.reading-g1-bus-ride.title') !== 'worksheets.reading-g1-bus-ride.title' 
-        ? t('worksheets.reading-g1-bus-ride.title') 
-        : '📖 The Bus Ride (Grade 1)', 
+    {
+      title: t('worksheets.reading-g1-bus-ride.title') !== 'worksheets.reading-g1-bus-ride.title'
+        ? t('worksheets.reading-g1-bus-ride.title')
+        : '📖 The Bus Ride (Grade 1)',
       description: t('worksheets.reading-g1-bus-ride.description') !== 'worksheets.reading-g1-bus-ride.description'
         ? t('worksheets.reading-g1-bus-ride.description')
-        : 'Short passage + 4 questions — print‑ready PDF view.', 
-      href: getWorksheetURL('reading-g1-bus-ride', 'reading-comprehension'), 
-      docId: 'reading-g1-bus-ride', 
-      categories: ['grade-1'], 
-      grade: 'Grade 1' 
+        : 'Short passage + 4 questions — print‑ready PDF view.',
+      href: getWorksheetURL('reading-g1-bus-ride', 'reading-comprehension'),
+      docId: 'reading-g1-bus-ride',
+      categories: ['grade-1'],
+      grade: 'Grade 1'
     },
-    { 
-      title: t('worksheets.reading-g1-pet-fish.title') !== 'worksheets.reading-g1-pet-fish.title' 
-        ? t('worksheets.reading-g1-pet-fish.title') 
-        : '📖 The Pet Fish (Grade 1)', 
+    {
+      title: t('worksheets.reading-g1-pet-fish.title') !== 'worksheets.reading-g1-pet-fish.title'
+        ? t('worksheets.reading-g1-pet-fish.title')
+        : '📖 The Pet Fish (Grade 1)',
       description: t('worksheets.reading-g1-pet-fish.description') !== 'worksheets.reading-g1-pet-fish.description'
         ? t('worksheets.reading-g1-pet-fish.description')
-        : 'Short passage + 4 questions — print‑ready PDF view.', 
-      href: getWorksheetURL('reading-g1-pet-fish', 'reading-comprehension'), 
-      docId: 'reading-g1-pet-fish', 
-      categories: ['grade-1'], 
-      grade: 'Grade 1' 
+        : 'Short passage + 4 questions — print‑ready PDF view.',
+      href: getWorksheetURL('reading-g1-pet-fish', 'reading-comprehension'),
+      docId: 'reading-g1-pet-fish',
+      categories: ['grade-1'],
+      grade: 'Grade 1'
     },
-    { 
-      title: t('worksheets.reading-g1-red-balloon.title') !== 'worksheets.reading-g1-red-balloon.title' 
-        ? t('worksheets.reading-g1-red-balloon.title') 
-        : '📖 The Red Balloon (Grade 1)', 
+    {
+      title: t('worksheets.reading-g1-red-balloon.title') !== 'worksheets.reading-g1-red-balloon.title'
+        ? t('worksheets.reading-g1-red-balloon.title')
+        : '📖 The Red Balloon (Grade 1)',
       description: t('worksheets.reading-g1-red-balloon.description') !== 'worksheets.reading-g1-red-balloon.description'
         ? t('worksheets.reading-g1-red-balloon.description')
-        : 'Short passage + 4 questions — print‑ready PDF view.', 
-      href: getWorksheetURL('reading-g1-red-balloon', 'reading-comprehension'), 
-      docId: 'reading-g1-red-balloon', 
-      categories: ['grade-1'], 
-      grade: 'Grade 1' 
+        : 'Short passage + 4 questions — print‑ready PDF view.',
+      href: getWorksheetURL('reading-g1-red-balloon', 'reading-comprehension'),
+      docId: 'reading-g1-red-balloon',
+      categories: ['grade-1'],
+      grade: 'Grade 1'
     },
-    { 
-      title: t('worksheets.reading-g1-big-box.title') !== 'worksheets.reading-g1-big-box.title' 
-        ? t('worksheets.reading-g1-big-box.title') 
-        : '📖 The Big Box (Grade 1)', 
+    {
+      title: t('worksheets.reading-g1-big-box.title') !== 'worksheets.reading-g1-big-box.title'
+        ? t('worksheets.reading-g1-big-box.title')
+        : '📖 The Big Box (Grade 1)',
       description: t('worksheets.reading-g1-big-box.description') !== 'worksheets.reading-g1-big-box.description'
         ? t('worksheets.reading-g1-big-box.description')
-        : 'Short passage + 4 questions — print‑ready PDF view.', 
-      href: getWorksheetURL('reading-g1-big-box', 'reading-comprehension'), 
-      docId: 'reading-g1-big-box', 
-      categories: ['grade-1'], 
-      grade: 'Grade 1' 
+        : 'Short passage + 4 questions — print‑ready PDF view.',
+      href: getWorksheetURL('reading-g1-big-box', 'reading-comprehension'),
+      docId: 'reading-g1-big-box',
+      categories: ['grade-1'],
+      grade: 'Grade 1'
     },
-    { 
-      title: t('worksheets.reading-g1-garden-snail.title') !== 'worksheets.reading-g1-garden-snail.title' 
-        ? t('worksheets.reading-g1-garden-snail.title') 
-        : '📖 The Garden Snail (Grade 1)', 
+    {
+      title: t('worksheets.reading-g1-garden-snail.title') !== 'worksheets.reading-g1-garden-snail.title'
+        ? t('worksheets.reading-g1-garden-snail.title')
+        : '📖 The Garden Snail (Grade 1)',
       description: t('worksheets.reading-g1-garden-snail.description') !== 'worksheets.reading-g1-garden-snail.description'
         ? t('worksheets.reading-g1-garden-snail.description')
-        : 'Short passage + 4 questions — print‑ready PDF view.', 
-      href: getWorksheetURL('reading-g1-garden-snail', 'reading-comprehension'), 
-      docId: 'reading-g1-garden-snail', 
-      categories: ['grade-1'], 
-      grade: 'Grade 1' 
+        : 'Short passage + 4 questions — print‑ready PDF view.',
+      href: getWorksheetURL('reading-g1-garden-snail', 'reading-comprehension'),
+      docId: 'reading-g1-garden-snail',
+      categories: ['grade-1'],
+      grade: 'Grade 1'
     },
-    { 
-      title: t('worksheets.reading-g1-birthday-cake.title') !== 'worksheets.reading-g1-birthday-cake.title' 
-        ? t('worksheets.reading-g1-birthday-cake.title') 
-        : '📖 The Birthday Cake (Grade 1)', 
+    {
+      title: t('worksheets.reading-g1-birthday-cake.title') !== 'worksheets.reading-g1-birthday-cake.title'
+        ? t('worksheets.reading-g1-birthday-cake.title')
+        : '📖 The Birthday Cake (Grade 1)',
       description: t('worksheets.reading-g1-birthday-cake.description') !== 'worksheets.reading-g1-birthday-cake.description'
         ? t('worksheets.reading-g1-birthday-cake.description')
-        : 'Short passage + 4 questions — print‑ready PDF view.', 
-      href: getWorksheetURL('reading-g1-birthday-cake', 'reading-comprehension'), 
-      docId: 'reading-g1-birthday-cake', 
-      categories: ['grade-1'], 
-      grade: 'Grade 1' 
+        : 'Short passage + 4 questions — print‑ready PDF view.',
+      href: getWorksheetURL('reading-g1-birthday-cake', 'reading-comprehension'),
+      docId: 'reading-g1-birthday-cake',
+      categories: ['grade-1'],
+      grade: 'Grade 1'
     },
     // Grade 2
-    { 
-      title: t('worksheets.reading-g2-paper-bridge.title') !== 'worksheets.reading-g2-paper-bridge.title' 
-        ? t('worksheets.reading-g2-paper-bridge.title') 
-        : '📖 The Paper Bridge (Grade 2)', 
+    {
+      title: t('worksheets.reading-g2-paper-bridge.title') !== 'worksheets.reading-g2-paper-bridge.title'
+        ? t('worksheets.reading-g2-paper-bridge.title')
+        : '📖 The Paper Bridge (Grade 2)',
       description: t('worksheets.reading-g2-paper-bridge.description') !== 'worksheets.reading-g2-paper-bridge.description'
         ? t('worksheets.reading-g2-paper-bridge.description')
-        : 'Short passage + questions — open to print‑ready PDF view.', 
-      href: getWorksheetURL('reading-g2-paper-bridge', 'reading-comprehension'), 
-      docId: 'reading-g2-paper-bridge', 
-      categories: ['grade-2'], 
-      grade: 'Grade 2' 
+        : 'Short passage + questions — open to print‑ready PDF view.',
+      href: getWorksheetURL('reading-g2-paper-bridge', 'reading-comprehension'),
+      docId: 'reading-g2-paper-bridge',
+      categories: ['grade-2'],
+      grade: 'Grade 2'
     },
-    { 
-      title: t('worksheets.reading-g2-rainy-garden.title') !== 'worksheets.reading-g2-rainy-garden.title' 
-        ? t('worksheets.reading-g2-rainy-garden.title') 
-        : '📖 Rainy Day Garden (Grade 2)', 
+    {
+      title: t('worksheets.reading-g2-rainy-garden.title') !== 'worksheets.reading-g2-rainy-garden.title'
+        ? t('worksheets.reading-g2-rainy-garden.title')
+        : '📖 Rainy Day Garden (Grade 2)',
       description: t('worksheets.reading-g2-rainy-garden.description') !== 'worksheets.reading-g2-rainy-garden.description'
         ? t('worksheets.reading-g2-rainy-garden.description')
-        : 'Short passage + questions — open to print‑ready PDF view.', 
-      href: getWorksheetURL('reading-g2-rainy-garden', 'reading-comprehension'), 
-      docId: 'reading-g2-rainy-garden', 
-      categories: ['grade-2'], 
-      grade: 'Grade 2' 
+        : 'Short passage + questions — open to print‑ready PDF view.',
+      href: getWorksheetURL('reading-g2-rainy-garden', 'reading-comprehension'),
+      docId: 'reading-g2-rainy-garden',
+      categories: ['grade-2'],
+      grade: 'Grade 2'
     },
-    { 
-      title: t('worksheets.reading-g2-library-card.title') !== 'worksheets.reading-g2-library-card.title' 
-        ? t('worksheets.reading-g2-library-card.title') 
-        : '📖 New Library Card (Grade 2)', 
+    {
+      title: t('worksheets.reading-g2-library-card.title') !== 'worksheets.reading-g2-library-card.title'
+        ? t('worksheets.reading-g2-library-card.title')
+        : '📖 New Library Card (Grade 2)',
       description: t('worksheets.reading-g2-library-card.description') !== 'worksheets.reading-g2-library-card.description'
         ? t('worksheets.reading-g2-library-card.description')
-        : 'Short passage + questions — open to print‑ready PDF view.', 
-      href: getWorksheetURL('reading-g2-library-card', 'reading-comprehension'), 
-      docId: 'reading-g2-library-card', 
-      categories: ['grade-2'], 
-      grade: 'Grade 2' 
+        : 'Short passage + questions — open to print‑ready PDF view.',
+      href: getWorksheetURL('reading-g2-library-card', 'reading-comprehension'),
+      docId: 'reading-g2-library-card',
+      categories: ['grade-2'],
+      grade: 'Grade 2'
     },
-    { 
-      title: t('worksheets.reading-g2-lost-and-found.title') !== 'worksheets.reading-g2-lost-and-found.title' 
-        ? t('worksheets.reading-g2-lost-and-found.title') 
-        : '📖 Lost and Found (Grade 2)', 
+    {
+      title: t('worksheets.reading-g2-lost-and-found.title') !== 'worksheets.reading-g2-lost-and-found.title'
+        ? t('worksheets.reading-g2-lost-and-found.title')
+        : '📖 Lost and Found (Grade 2)',
       description: t('worksheets.reading-g2-lost-and-found.description') !== 'worksheets.reading-g2-lost-and-found.description'
         ? t('worksheets.reading-g2-lost-and-found.description')
-        : 'Short passage + questions — open to print‑ready PDF view.', 
-      href: getWorksheetURL('reading-g2-lost-and-found', 'reading-comprehension'), 
-      docId: 'reading-g2-lost-and-found', 
-      categories: ['grade-2'], 
-      grade: 'Grade 2' 
+        : 'Short passage + questions — open to print‑ready PDF view.',
+      href: getWorksheetURL('reading-g2-lost-and-found', 'reading-comprehension'),
+      docId: 'reading-g2-lost-and-found',
+      categories: ['grade-2'],
+      grade: 'Grade 2'
     },
-    { 
-      title: t('worksheets.reading-g2-bird-feeder.title') !== 'worksheets.reading-g2-bird-feeder.title' 
-        ? t('worksheets.reading-g2-bird-feeder.title') 
-        : '📖 The Bird Feeder (Grade 2)', 
+    {
+      title: t('worksheets.reading-g2-bird-feeder.title') !== 'worksheets.reading-g2-bird-feeder.title'
+        ? t('worksheets.reading-g2-bird-feeder.title')
+        : '📖 The Bird Feeder (Grade 2)',
       description: t('worksheets.reading-g2-bird-feeder.description') !== 'worksheets.reading-g2-bird-feeder.description'
         ? t('worksheets.reading-g2-bird-feeder.description')
-        : 'Short passage + questions — open to print‑ready PDF view.', 
-      href: getWorksheetURL('reading-g2-bird-feeder', 'reading-comprehension'), 
-      docId: 'reading-g2-bird-feeder', 
-      categories: ['grade-2'], 
-      grade: 'Grade 2' 
+        : 'Short passage + questions — open to print‑ready PDF view.',
+      href: getWorksheetURL('reading-g2-bird-feeder', 'reading-comprehension'),
+      docId: 'reading-g2-bird-feeder',
+      categories: ['grade-2'],
+      grade: 'Grade 2'
     },
-    { 
-      title: t('worksheets.reading-g2-cookie-recipe.title') !== 'worksheets.reading-g2-cookie-recipe.title' 
-        ? t('worksheets.reading-g2-cookie-recipe.title') 
-        : '📖 The Cookie Recipe (Grade 2)', 
+    {
+      title: t('worksheets.reading-g2-cookie-recipe.title') !== 'worksheets.reading-g2-cookie-recipe.title'
+        ? t('worksheets.reading-g2-cookie-recipe.title')
+        : '📖 The Cookie Recipe (Grade 2)',
       description: t('worksheets.reading-g2-cookie-recipe.description') !== 'worksheets.reading-g2-cookie-recipe.description'
         ? t('worksheets.reading-g2-cookie-recipe.description')
-        : 'Short passage + questions — open to print‑ready PDF view.', 
-      href: getWorksheetURL('reading-g2-cookie-recipe', 'reading-comprehension'), 
-      docId: 'reading-g2-cookie-recipe', 
-      categories: ['grade-2'], 
-      grade: 'Grade 2' 
+        : 'Short passage + questions — open to print‑ready PDF view.',
+      href: getWorksheetURL('reading-g2-cookie-recipe', 'reading-comprehension'),
+      docId: 'reading-g2-cookie-recipe',
+      categories: ['grade-2'],
+      grade: 'Grade 2'
     },
-    { 
-      title: t('worksheets.reading-g2-tree-house.title') !== 'worksheets.reading-g2-tree-house.title' 
-        ? t('worksheets.reading-g2-tree-house.title') 
-        : '📖 The Tree House (Grade 2)', 
+    {
+      title: t('worksheets.reading-g2-tree-house.title') !== 'worksheets.reading-g2-tree-house.title'
+        ? t('worksheets.reading-g2-tree-house.title')
+        : '📖 The Tree House (Grade 2)',
       description: t('worksheets.reading-g2-tree-house.description') !== 'worksheets.reading-g2-tree-house.description'
         ? t('worksheets.reading-g2-tree-house.description')
-        : 'Short passage + questions — open to print‑ready PDF view.', 
-      href: getWorksheetURL('reading-g2-tree-house', 'reading-comprehension'), 
-      docId: 'reading-g2-tree-house', 
-      categories: ['grade-2'], 
-      grade: 'Grade 2' 
+        : 'Short passage + questions — open to print‑ready PDF view.',
+      href: getWorksheetURL('reading-g2-tree-house', 'reading-comprehension'),
+      docId: 'reading-g2-tree-house',
+      categories: ['grade-2'],
+      grade: 'Grade 2'
     },
-    { 
-      title: t('worksheets.reading-g2-magic-seeds.title') !== 'worksheets.reading-g2-magic-seeds.title' 
-        ? t('worksheets.reading-g2-magic-seeds.title') 
-        : '📖 The Magic Seeds (Grade 2)', 
+    {
+      title: t('worksheets.reading-g2-magic-seeds.title') !== 'worksheets.reading-g2-magic-seeds.title'
+        ? t('worksheets.reading-g2-magic-seeds.title')
+        : '📖 The Magic Seeds (Grade 2)',
       description: t('worksheets.reading-g2-magic-seeds.description') !== 'worksheets.reading-g2-magic-seeds.description'
         ? t('worksheets.reading-g2-magic-seeds.description')
-        : 'Short passage + questions — open to print‑ready PDF view.', 
-      href: getWorksheetURL('reading-g2-magic-seeds', 'reading-comprehension'), 
-      docId: 'reading-g2-magic-seeds', 
-      categories: ['grade-2'], 
-      grade: 'Grade 2' 
+        : 'Short passage + questions — open to print‑ready PDF view.',
+      href: getWorksheetURL('reading-g2-magic-seeds', 'reading-comprehension'),
+      docId: 'reading-g2-magic-seeds',
+      categories: ['grade-2'],
+      grade: 'Grade 2'
     },
     // Grade 3
-    { 
-      title: t('worksheets.reading-g3-lighthouse.title') !== 'worksheets.reading-g3-lighthouse.title' 
-        ? t('worksheets.reading-g3-lighthouse.title') 
-        : '📖 The Lighthouse Keeper\'s Trick (Grade 3)', 
+    {
+      title: t('worksheets.reading-g3-lighthouse.title') !== 'worksheets.reading-g3-lighthouse.title'
+        ? t('worksheets.reading-g3-lighthouse.title')
+        : '📖 The Lighthouse Keeper\'s Trick (Grade 3)',
       description: t('worksheets.reading-g3-lighthouse.description') !== 'worksheets.reading-g3-lighthouse.description'
         ? t('worksheets.reading-g3-lighthouse.description')
-        : 'Short passage + Q&A — open print‑ready PDF view.', 
-      href: getWorksheetURL('reading-g3-lighthouse', 'reading-comprehension'), 
-      docId: 'reading-g3-lighthouse', 
-      categories: ['grade-3'], 
-      grade: 'Grade 3' 
+        : 'Short passage + Q&A — open print‑ready PDF view.',
+      href: getWorksheetURL('reading-g3-lighthouse', 'reading-comprehension'),
+      docId: 'reading-g3-lighthouse',
+      categories: ['grade-3'],
+      grade: 'Grade 3'
     },
-    { 
-      title: t('worksheets.reading-g3-science-fair.title') !== 'worksheets.reading-g3-science-fair.title' 
-        ? t('worksheets.reading-g3-science-fair.title') 
-        : '📖 The Science Fair Plan (Grade 3)', 
+    {
+      title: t('worksheets.reading-g3-science-fair.title') !== 'worksheets.reading-g3-science-fair.title'
+        ? t('worksheets.reading-g3-science-fair.title')
+        : '📖 The Science Fair Plan (Grade 3)',
       description: t('worksheets.reading-g3-science-fair.description') !== 'worksheets.reading-g3-science-fair.description'
         ? t('worksheets.reading-g3-science-fair.description')
-        : 'Short passage + Q&A — open print‑ready PDF view.', 
-      href: getWorksheetURL('reading-g3-science-fair', 'reading-comprehension'), 
-      docId: 'reading-g3-science-fair', 
-      categories: ['grade-3'], 
-      grade: 'Grade 3' 
+        : 'Short passage + Q&A — open print‑ready PDF view.',
+      href: getWorksheetURL('reading-g3-science-fair', 'reading-comprehension'),
+      docId: 'reading-g3-science-fair',
+      categories: ['grade-3'],
+      grade: 'Grade 3'
     },
-    { 
-      title: t('worksheets.reading-g3-community-garden.title') !== 'worksheets.reading-g3-community-garden.title' 
-        ? t('worksheets.reading-g3-community-garden.title') 
-        : '📖 The Community Garden (Grade 3)', 
+    {
+      title: t('worksheets.reading-g3-community-garden.title') !== 'worksheets.reading-g3-community-garden.title'
+        ? t('worksheets.reading-g3-community-garden.title')
+        : '📖 The Community Garden (Grade 3)',
       description: t('worksheets.reading-g3-community-garden.description') !== 'worksheets.reading-g3-community-garden.description'
         ? t('worksheets.reading-g3-community-garden.description')
-        : 'Short passage + Q&A — open print‑ready PDF view.', 
-      href: getWorksheetURL('reading-g3-community-garden', 'reading-comprehension'), 
-      docId: 'reading-g3-community-garden', 
-      categories: ['grade-3'], 
-      grade: 'Grade 3' 
+        : 'Short passage + Q&A — open print‑ready PDF view.',
+      href: getWorksheetURL('reading-g3-community-garden', 'reading-comprehension'),
+      docId: 'reading-g3-community-garden',
+      categories: ['grade-3'],
+      grade: 'Grade 3'
     },
-    { 
-      title: t('worksheets.reading-g3-school-play.title') !== 'worksheets.reading-g3-school-play.title' 
-        ? t('worksheets.reading-g3-school-play.title') 
-        : '📖 The School Play (Grade 3)', 
+    {
+      title: t('worksheets.reading-g3-school-play.title') !== 'worksheets.reading-g3-school-play.title'
+        ? t('worksheets.reading-g3-school-play.title')
+        : '📖 The School Play (Grade 3)',
       description: t('worksheets.reading-g3-school-play.description') !== 'worksheets.reading-g3-school-play.description'
         ? t('worksheets.reading-g3-school-play.description')
-        : 'Short passage + Q&A — open print‑ready PDF view.', 
-      href: getWorksheetURL('reading-g3-school-play', 'reading-comprehension'), 
-      docId: 'reading-g3-school-play', 
-      categories: ['grade-3'], 
-      grade: 'Grade 3' 
+        : 'Short passage + Q&A — open print‑ready PDF view.',
+      href: getWorksheetURL('reading-g3-school-play', 'reading-comprehension'),
+      docId: 'reading-g3-school-play',
+      categories: ['grade-3'],
+      grade: 'Grade 3'
     },
-    { 
-      title: t('worksheets.reading-g3-art-project.title') !== 'worksheets.reading-g3-art-project.title' 
-        ? t('worksheets.reading-g3-art-project.title') 
-        : '📖 The Art Project (Grade 3)', 
+    {
+      title: t('worksheets.reading-g3-art-project.title') !== 'worksheets.reading-g3-art-project.title'
+        ? t('worksheets.reading-g3-art-project.title')
+        : '📖 The Art Project (Grade 3)',
       description: t('worksheets.reading-g3-art-project.description') !== 'worksheets.reading-g3-art-project.description'
         ? t('worksheets.reading-g3-art-project.description')
-        : 'Short passage + Q&A — open print‑ready PDF view.', 
-      href: getWorksheetURL('reading-g3-art-project', 'reading-comprehension'), 
-      docId: 'reading-g3-art-project', 
-      categories: ['grade-3'], 
-      grade: 'Grade 3' 
+        : 'Short passage + Q&A — open print‑ready PDF view.',
+      href: getWorksheetURL('reading-g3-art-project', 'reading-comprehension'),
+      docId: 'reading-g3-art-project',
+      categories: ['grade-3'],
+      grade: 'Grade 3'
+    },
+    {
+      title: '🌟 Reading Discovery (Interactive)',
+      description: 'Interactive reading comprehension with original stories (Space, Robots, Magic Gardens) and helpful answer keys.',
+      href: getWorksheetURL('reading-discovery-interactive', 'reading-comprehension'),
+      docId: 'reading-discovery-interactive',
+      categories: ['grade-1', 'grade-2'],
+      grade: 'Grade 1'
     },
   ], [t])
 
   // Filter worksheets based on selected categories
   const filteredWorksheets = useMemo(() => {
     if (selectedCategories.size === 0) return allWorksheets
-    return allWorksheets.filter((ws) => 
+    return allWorksheets.filter((ws) =>
       ws.categories.some((cat) => selectedCategories.has(cat))
     )
   }, [selectedCategories])
@@ -335,7 +343,7 @@ export default function ReadingComprehensionPage() {
     try {
       const el = document.getElementById(id);
       if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
-    } catch {}
+    } catch { }
   };
 
   return (
@@ -441,153 +449,153 @@ export default function ReadingComprehensionPage() {
             </div>
           </div>
         </section>
-        
+
         <div className="mx-auto max-w-6xl px-4 pb-16 sm:px-6 lg:px-8 space-y-10">
-        {/* {t('pages.readingComprehension.whatsInside')} + Pack Builder */}
-        <section className="bg-white border border-slate-200 rounded-2xl p-5">
-          <h2 className="text-xl font-bold text-slate-900">What’s Inside</h2>
-          <p className="text-slate-700 text-sm mt-1 max-w-3xl">
-            {t('pages.readingComprehension.whatsInsideDesc')}
-          </p>
-          <div className="mt-4">
-            <BuildPackReadingInline />
-          </div>
-        </section>
-
-        {/* Main content with sidebar layout */}
-        <section className="grid gap-8 lg:grid-cols-[320px_minmax(0,1fr)]">
-          {/* Left sidebar - Category Filter */}
-          <aside className="space-y-8 rounded-3xl border border-slate-200 bg-white p-6 shadow-sm">
-            <div>
-              <CategoryFilter
-                categories={READING_CATEGORIES}
-                selectedCategories={selectedCategories}
-                onToggleCategory={toggleCategory}
-                onClearAll={clearCategories}
-                title={t('pages.readingComprehension.filterByGrade')}
-              />
+          {/* {t('pages.readingComprehension.whatsInside')} + Pack Builder */}
+          <section className="bg-white border border-slate-200 rounded-2xl p-5">
+            <h2 className="text-xl font-bold text-slate-900">What’s Inside</h2>
+            <p className="text-slate-700 text-sm mt-1 max-w-3xl">
+              {t('pages.readingComprehension.whatsInsideDesc')}
+            </p>
+            <div className="mt-4">
+              <BuildPackReadingInline />
             </div>
-          </aside>
+          </section>
 
-          {/* Right side - Worksheets grouped by grade */}
-          <div className="space-y-8">
-            {Object.entries(groupedWorksheets).map(([grade, worksheets]) => {
-          const gradeLabels: Record<string, { title: string; description: string; id: string }> = {
-            'Grade 1': {
-              title: t('pages.readingComprehension.grade1Title'),
-              description: t('pages.readingComprehension.grade1Desc'),
-              id: 'grade-1',
-            },
-            'Grade 2': {
-              title: t('pages.readingComprehension.grade2Title'),
-              description: t('pages.readingComprehension.grade2Desc'),
-              id: 'grade-2',
-            },
-            'Grade 3': {
-              title: t('pages.readingComprehension.grade3Title'),
-              description: t('pages.readingComprehension.grade3Desc'),
-              id: 'grade-3',
-            },
-          }
-          const gradeInfo = gradeLabels[grade] || { title: grade, description: '', id: grade.toLowerCase().replace(' ', '-') }
-          
-          return (
-            <section key={grade} id={gradeInfo.id} className="bg-white border border-slate-200 rounded-2xl p-5">
-              <h2 className="text-xl font-bold text-slate-900">{gradeInfo.title}</h2>
-              <p className="text-slate-700 text-sm mt-1">{gradeInfo.description}</p>
-              <div className="mt-4 grid md:grid-cols-2 gap-4">
-                {worksheets.map((ws) => {
-                  // Use WorksheetThumbnailCard for all items
-                  if (ws.docId) {
-                    return (
-                      <WorksheetThumbnailCard
-                        key={ws.docId}
-                        title={ws.title}
-                        description={ws.description}
-                        href={ws.href}
-                        docId={ws.docId}
-                        onPreview={setPreviewItem}
-                      />
-                    )
-                  } else {
-                    // Fallback to ItemCard for items without docId
-                    return (
-                      <ItemCard
-                        key={ws.href}
-                        title={ws.title}
-                        description={ws.description}
-                        href={ws.href}
-                      />
-                    )
-                  }
-                })}
+          {/* Main content with sidebar layout */}
+          <section className="grid gap-8 lg:grid-cols-[320px_minmax(0,1fr)]">
+            {/* Left sidebar - Category Filter */}
+            <aside className="space-y-8 rounded-3xl border border-slate-200 bg-white p-6 shadow-sm">
+              <div>
+                <CategoryFilter
+                  categories={READING_CATEGORIES}
+                  selectedCategories={selectedCategories}
+                  onToggleCategory={toggleCategory}
+                  onClearAll={clearCategories}
+                  title={t('pages.readingComprehension.filterByGrade')}
+                />
               </div>
-            </section>
-          )
-        })}
-        {filteredWorksheets.length === 0 && (
-          <div className="text-center py-12 text-slate-500">
-            <p className="text-lg">{t('pages.readingComprehension.noWorksheets')}</p>
-            <button
-              onClick={clearCategories}
-              className="mt-4 text-purple-600 hover:text-purple-700 font-medium"
-            >
-              {t('pages.readingComprehension.clearFilters')}
-            </button>
-          </div>
-        )}
-          </div>
-        </section>
+            </aside>
 
-        {/* Explore More Worksheets */}
-        <section className="bg-white border border-slate-200 rounded-2xl p-5">
-          <h2 className="text-xl font-bold text-slate-900">{t('pages.readingComprehension.exploreMore')}</h2>
-          <ul className="mt-3 grid sm:grid-cols-2 gap-2 text-sm text-purple-700">
-            <li><a className="hover:underline" href="/printables">{t('pages.printables.title')}</a></li>
-            <li><a className="hover:underline" href="/kids">{t('kids.title')}</a></li>
-            <li><a className="hover:underline" href="/worksheets/1st-grade-math-worksheets">{t('pages.grades.first.title')}</a></li>
-            <li><a className="hover:underline" href="/worksheets/2nd-grade-math-worksheets">{t('pages.grades.second.title')}</a></li>
-          </ul>
-        </section>
+            {/* Right side - Worksheets grouped by grade */}
+            <div className="space-y-8">
+              {Object.entries(groupedWorksheets).map(([grade, worksheets]) => {
+                const gradeLabels: Record<string, { title: string; description: string; id: string }> = {
+                  'Grade 1': {
+                    title: t('pages.readingComprehension.grade1Title'),
+                    description: t('pages.readingComprehension.grade1Desc'),
+                    id: 'grade-1',
+                  },
+                  'Grade 2': {
+                    title: t('pages.readingComprehension.grade2Title'),
+                    description: t('pages.readingComprehension.grade2Desc'),
+                    id: 'grade-2',
+                  },
+                  'Grade 3': {
+                    title: t('pages.readingComprehension.grade3Title'),
+                    description: t('pages.readingComprehension.grade3Desc'),
+                    id: 'grade-3',
+                  },
+                }
+                const gradeInfo = gradeLabels[grade] || { title: grade, description: '', id: grade.toLowerCase().replace(' ', '-') }
 
-        {/* FAQs (match accordion UI used elsewhere) */}
-        <section className="mb-10 bg-white border border-slate-200 rounded-2xl p-5">
-          <h2 className="text-xl font-bold text-slate-900 mb-4">{t('pages.readingComprehension.faqs')}</h2>
-          <Accordion type="single" collapsible className="divide-y rounded-xl border border-slate-200 bg-white">
-            <AccordionItem value="q1">
-              <AccordionTrigger className="px-4">{t('pages.readingComprehension.faq1Question')}</AccordionTrigger>
-              <AccordionContent className="px-4 text-slate-700">
-                {t('pages.readingComprehension.faq1Answer')}
-              </AccordionContent>
-            </AccordionItem>
-            <AccordionItem value="q2">
-              <AccordionTrigger className="px-4">{t('pages.readingComprehension.faq2Question')}</AccordionTrigger>
-              <AccordionContent className="px-4 text-slate-700">
-                {t('pages.readingComprehension.faq2Answer')}
-              </AccordionContent>
-            </AccordionItem>
-            <AccordionItem value="q3">
-              <AccordionTrigger className="px-4">{t('pages.readingComprehension.faq3Question')}</AccordionTrigger>
-              <AccordionContent className="px-4 text-slate-700">
-                {t('pages.readingComprehension.faq3Answer')}
-              </AccordionContent>
-            </AccordionItem>
-          </Accordion>
-        </section>
+                return (
+                  <section key={grade} id={gradeInfo.id} className="bg-white border border-slate-200 rounded-2xl p-5">
+                    <h2 className="text-xl font-bold text-slate-900">{gradeInfo.title}</h2>
+                    <p className="text-slate-700 text-sm mt-1">{gradeInfo.description}</p>
+                    <div className="mt-4 grid md:grid-cols-2 gap-4">
+                      {worksheets.map((ws) => {
+                        // Use WorksheetThumbnailCard for all items
+                        if (ws.docId) {
+                          return (
+                            <WorksheetThumbnailCard
+                              key={ws.docId}
+                              title={ws.title}
+                              description={ws.description}
+                              href={ws.href}
+                              docId={ws.docId}
+                              onPreview={setPreviewItem}
+                            />
+                          )
+                        } else {
+                          // Fallback to ItemCard for items without docId
+                          return (
+                            <ItemCard
+                              key={ws.href}
+                              title={ws.title}
+                              description={ws.description}
+                              href={ws.href}
+                            />
+                          )
+                        }
+                      })}
+                    </div>
+                  </section>
+                )
+              })}
+              {filteredWorksheets.length === 0 && (
+                <div className="text-center py-12 text-slate-500">
+                  <p className="text-lg">{t('pages.readingComprehension.noWorksheets')}</p>
+                  <button
+                    onClick={clearCategories}
+                    className="mt-4 text-purple-600 hover:text-purple-700 font-medium"
+                  >
+                    {t('pages.readingComprehension.clearFilters')}
+                  </button>
+                </div>
+              )}
+            </div>
+          </section>
+
+          {/* Explore More Worksheets */}
+          <section className="bg-white border border-slate-200 rounded-2xl p-5">
+            <h2 className="text-xl font-bold text-slate-900">{t('pages.readingComprehension.exploreMore')}</h2>
+            <ul className="mt-3 grid sm:grid-cols-2 gap-2 text-sm text-purple-700">
+              <li><a className="hover:underline" href="/printables">{t('pages.printables.title')}</a></li>
+              <li><a className="hover:underline" href="/kids">{t('kids.title')}</a></li>
+              <li><a className="hover:underline" href="/worksheets/1st-grade-math-worksheets">{t('pages.grades.first.title')}</a></li>
+              <li><a className="hover:underline" href="/worksheets/2nd-grade-math-worksheets">{t('pages.grades.second.title')}</a></li>
+            </ul>
+          </section>
+
+          {/* FAQs (match accordion UI used elsewhere) */}
+          <section className="mb-10 bg-white border border-slate-200 rounded-2xl p-5">
+            <h2 className="text-xl font-bold text-slate-900 mb-4">{t('pages.readingComprehension.faqs')}</h2>
+            <Accordion type="single" collapsible className="divide-y rounded-xl border border-slate-200 bg-white">
+              <AccordionItem value="q1">
+                <AccordionTrigger className="px-4">{t('pages.readingComprehension.faq1Question')}</AccordionTrigger>
+                <AccordionContent className="px-4 text-slate-700">
+                  {t('pages.readingComprehension.faq1Answer')}
+                </AccordionContent>
+              </AccordionItem>
+              <AccordionItem value="q2">
+                <AccordionTrigger className="px-4">{t('pages.readingComprehension.faq2Question')}</AccordionTrigger>
+                <AccordionContent className="px-4 text-slate-700">
+                  {t('pages.readingComprehension.faq2Answer')}
+                </AccordionContent>
+              </AccordionItem>
+              <AccordionItem value="q3">
+                <AccordionTrigger className="px-4">{t('pages.readingComprehension.faq3Question')}</AccordionTrigger>
+                <AccordionContent className="px-4 text-slate-700">
+                  {t('pages.readingComprehension.faq3Answer')}
+                </AccordionContent>
+              </AccordionItem>
+            </Accordion>
+          </section>
         </div>
       </main>
 
       <Footer />
-      
+
       {/* Preview Modal */}
       {previewItem && (
         <div className="fixed inset-0 z-50 overflow-hidden">
           {/* Backdrop */}
-          <div 
+          <div
             className="absolute inset-0 bg-black/50 transition-opacity"
             onClick={() => setPreviewItem(null)}
           />
-          
+
           {/* Side Panel */}
           <div className="absolute right-0 top-0 h-full w-full max-w-4xl bg-white shadow-2xl transform transition-transform duration-300 ease-in-out">
             <div className="flex h-full flex-col">
@@ -607,7 +615,7 @@ export default function ReadingComprehensionPage() {
                   </svg>
                 </button>
               </div>
-              
+
               {/* Scrollable Content */}
               <div className="flex-1 overflow-y-auto bg-slate-50">
                 <div className="mx-auto max-w-3xl px-6 py-8">
@@ -619,13 +627,13 @@ export default function ReadingComprehensionPage() {
                       title={previewItem.title}
                     />
                   </div>
-                  
+
                   {/* Info Footer */}
                   <div className="mt-6 rounded-xl border border-purple-200 bg-purple-50 p-4 text-sm text-purple-800">
                     <p className="font-semibold mb-2">📄 Preview</p>
                     <p>Click the Download button below to download as PDF or use your browser's print function.</p>
                   </div>
-                  
+
                   {/* Action Buttons */}
                   <div className="mt-6 flex items-center gap-3">
                     <button
@@ -685,7 +693,7 @@ const WorksheetThumbnailCard = React.memo(function WorksheetThumbnailCard({ titl
   // Use print URL for preview (not SEO URL) to show actual worksheet content
   const printUrl = getWorksheetPrintURL(docId, 'reading-comprehension')
   const previewUrl = printUrl + (printUrl.includes('?') ? '&preview=1' : '?preview=1')
-  
+
   // Use translations if available (fallback to provided title/description) - memoize to prevent re-renders
   // Use language instead of t in dependencies to avoid re-renders when t function reference changes
   const translatedTitle = React.useMemo(() => {
@@ -693,13 +701,13 @@ const WorksheetThumbnailCard = React.memo(function WorksheetThumbnailCard({ titl
     const translated = t(`worksheets.${docId}.title`);
     return translated && translated !== `worksheets.${docId}.title` ? translated : title;
   }, [docId, title, language, t]);
-  
+
   const translatedDescription = React.useMemo(() => {
     if (!docId) return description;
     const translated = t(`worksheets.${docId}.description`);
     return translated && translated !== `worksheets.${docId}.description` ? translated : description;
   }, [docId, description, language, t]);
-  
+
   return (
     <article className="rounded-2xl border border-slate-200 bg-white shadow-sm hover:shadow-lg transition-all duration-200 p-5 flex flex-col gap-3">
       <div className="flex items-center justify-between gap-3">
@@ -707,14 +715,14 @@ const WorksheetThumbnailCard = React.memo(function WorksheetThumbnailCard({ titl
           <h3 className="text-lg font-semibold text-slate-900">{translatedTitle}</h3>
         </div>
       </div>
-      
+
       <p className="text-sm text-slate-600 leading-relaxed">{translatedDescription}</p>
-      
+
       {/* Worksheet Thumbnail Preview - Clickable to SEO page */}
-      <a 
+      <a
         href={href}
         className="relative w-full bg-gradient-to-br from-slate-50 to-slate-100 rounded-lg border border-slate-200 overflow-hidden cursor-pointer group shadow-sm hover:shadow-md transition-shadow block"
-        style={{ 
+        style={{
           height: '140px',
           aspectRatio: '2.5/1',
         }}
@@ -744,7 +752,7 @@ const WorksheetThumbnailCard = React.memo(function WorksheetThumbnailCard({ titl
         {/* Corner fold effect */}
         <div className="absolute top-0 right-0 w-8 h-8 bg-gradient-to-br from-slate-200/50 to-transparent pointer-events-none" />
       </a>
-      
+
       <div className="flex items-center justify-between">
         <div className="flex items-center gap-2">
           <button
@@ -793,7 +801,7 @@ function BuildPackReadingInline() {
               const g = (gSel?.value || 'g1').trim();
               const url = `/print?doc=pack&time=${encodeURIComponent(t)}&age=${encodeURIComponent(g)}&skill=reading&from=reading-comprehension`;
               window.location.href = url;
-            } catch {}
+            } catch { }
           }}
           className="px-4 py-2 bg-purple-600 text-white rounded-lg hover:bg-purple-700"
         >

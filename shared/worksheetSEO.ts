@@ -661,7 +661,7 @@ export function initializeWorksheetSEO() {
     'times-table-vertical-6-12', 'time-to-minute', 'transformations-5th',
     'uppercase-lowercase-match', 'volume-rectangular-prisms', 'weekly-goals', 'what-comes-next',
     'winter-kindness', 'word-problems-100', 'writing-expressions', 'ws-world',
-    'zigzag-lines', 'match-object-to-shadow', 'match-the-feeling'
+    'zigzag-lines', 'match-object-to-shadow', 'match-the-feeling', 'reading-discovery-interactive'
   ]
 
   // Generate SEO data for each worksheet
@@ -715,6 +715,22 @@ export function initializeWorksheetSEO() {
     section: 'Shapes & Colors',
     learningObjectives: ['Identify core emotions', 'Connect feelings to causes', 'Build emotional vocabulary'],
     relatedDocIds: ['match-object-to-shadow', 'feelings-checkin', 'winter-kindness']
+  }
+
+  // MANUAL OVERRIDE for Reading Discovery (High Performance SEO)
+  WORKSHEET_SEO_MAP['reading-discovery-interactive'] = {
+    docId: 'reading-discovery-interactive',
+    slug: 'reading-discovery-interactive',
+    title: 'Reading Discovery: Interactive Comprehension Worksheet | Wizqo',
+    metaDescription: 'Free interactive reading comprehension worksheet for kids. Practice reading with 3 original stories, colorful 3D illustrations, and instant "Show Answer" features. Perfect for Grade 1 and 2.',
+    keywords: 'reading discovery worksheet, interactive reading comprehension, free reading worksheets for kids, reading passages with questions, grade 1 reading comprehension, grade 2 reading comprehension, interactive learning worksheets, printable reading pdf',
+    h1: 'Reading Discovery: Interactive Comprehension',
+    intro: 'Welcome to Reading Discovery! This interactive worksheet features three original stories—Leo\'s Space Adventure, The Helpful Robot, and Mia\'s Magic Garden—designed to build reading comprehension and critical thinking skills in young learners. Use the "Show Answer" feature for interactive classroom learning or print the worksheet for quiet practice.',
+    grade: ['1st Grade', '2nd Grade'],
+    category: ['reading', 'visual-perception'],
+    section: 'Reading',
+    learningObjectives: ['Improve text comprehension', 'Identify key details in stories', 'Connect visual aids to written context', 'Build vocabulary'],
+    relatedDocIds: ['reading-g1-birthday-cake', 'reading-g2-magic-seeds', 'match-the-feeling']
   }
 }
 
