@@ -105,7 +105,7 @@ function getWorksheetTheme(docId: string): {
 }
 
 // Professional header component for print worksheets - matching Interactive Worksheets Generator
-function WorksheetHeader({ problemCount }: { problemCount?: number }) {
+function LocalWorksheetHeader({ problemCount }: { problemCount?: number }) {
   return (
     <div className="print:block hidden print:mb-4 pb-3 mb-4">
       <div className="flex justify-between items-start">
@@ -303,7 +303,7 @@ function WorksheetSectionWrapper({
           marginTop: 0
         } as React.CSSProperties}
       >
-        {!hideDefaultHeader && <WorksheetHeader problemCount={problemCount} />}
+        {!hideDefaultHeader && <LocalWorksheetHeader problemCount={problemCount} />}
         <h2
           className={`text-xl font-bold ${theme.text} mb-2 flex items-center gap-2`}
           style={{
@@ -614,7 +614,7 @@ function getTranslatedWorksheetTitle(docId: string, t: ((key: string) => string)
     const translated = t(`worksheets.${docId}.title`)
     if (translated && translated !== `worksheets.${docId}.title` && !translated.startsWith('worksheets.')) {
       // Extract emoji from fallback if present, otherwise use first emoji from translated
-      const emojiMatch = fallback.match(/^[\u{1F300}-\u{1F9FF}]|[\u{2600}-\u{26FF}]|[\u{2700}-\u{27BF}]/u)
+      const emojiMatch = fallback.match(/^[\u1F300-\u1F9FF]|[\u2600-\u26FF]|[\u2700-\u27BF]/)
       const emoji = emojiMatch ? emojiMatch[0] : ''
       return emoji ? `${emoji} ${translated}` : translated
     }
@@ -2253,9 +2253,10 @@ export function PrintablesPage() {
         innerDiv.style.border = '4px solid transparent'
         innerDiv.style.borderImage = 'linear-gradient(135deg, #f472b6 0%, #a78bfa 20%, #60a5fa 40%, #34d399 60%, #fbbf24 80%, #fb7185 100%) 1'
         innerDiv.style.borderImageSlice = '1'
-        innerDiv.style.webkitPrintColorAdjust = 'exact'
-        innerDiv.style.printColorAdjust = 'exact'
-        innerDiv.style.colorAdjust = 'exact'
+        const innerStyle = innerDiv.style as any
+        innerStyle.webkitPrintColorAdjust = 'exact'
+        innerStyle.printColorAdjust = 'exact'
+        innerStyle.colorAdjust = 'exact'
         innerDiv.style.padding = '20px 24px 24px 24px'
         innerDiv.style.margin = '0.5in'
         innerDiv.style.backgroundColor = 'white'
@@ -34162,7 +34163,7 @@ export function PrintablesPage() {
       })()}
 
       <footer className="text-center text-slate-500 text-xs print:hidden">
-        {t('common.printTip', 'Tip: Use your browser menu → Print → Save as PDF.')}
+        {getTrans('common.printTip', 'Tip: Use your browser menu → Print → Save as PDF.')}
       </footer>
     </div>
     </div >
