@@ -17,23 +17,25 @@ interface WorksheetItem {
   docId: string
   categories: string[]
   section?: string
+  customPreviewUrl?: string
+  customDownloadUrl?: string
 }
 
 export default function WorksheetsSecondGradePage() {
   const { t, isRTL } = useTranslation();
   const [previewItem, setPreviewItem] = React.useState<WorksheetItem | null>(null);
-  
+
   React.useEffect(() => {
     // Ensure re-render on language change
   }, [t]);
-  
+
   const SECOND_GRADE_CATEGORIES: Category[] = [
     { id: 'number-sense', label: t('pages.secondGrade.categories.numberSense'), icon: '🔢' },
     { id: 'addition-subtraction', label: t('pages.secondGrade.categories.additionSubtraction'), icon: '➕➖' },
     { id: 'fluency', label: t('pages.secondGrade.categories.fluency'), icon: '⚡' },
     { id: 'logic', label: t('pages.secondGrade.categories.logic'), icon: '🧩' },
   ];
-  
+
   const [selectedCategories, setSelectedCategories] = useState<Set<string>>(new Set())
 
   const toggleCategory = (categoryId: string) => {
@@ -88,8 +90,10 @@ export default function WorksheetsSecondGradePage() {
 
   // Filter worksheets based on selected categories
   const filteredWorksheets = useMemo(() => {
-    if (selectedCategories.size === 0) return allWorksheets
-    return allWorksheets.filter((ws) => 
+    // Reverse the array to show newly added worksheets (at the bottom of the list) first
+    const newestFirst = [...allWorksheets].reverse()
+    if (selectedCategories.size === 0) return newestFirst
+    return newestFirst.filter((ws) =>
       ws.categories.some((cat) => selectedCategories.has(cat))
     )
   }, [selectedCategories, allWorksheets])
@@ -206,7 +210,7 @@ export default function WorksheetsSecondGradePage() {
                 'Focus & Logic': `🧩 ${t('pages.secondGrade.sections.focusLogic')}`,
               }
               const label = sectionLabels[section] || section
-              
+
               return (
                 <div key={section}>
                   <h2 className="text-xl font-bold text-slate-900 mb-2">{label}</h2>
@@ -219,6 +223,8 @@ export default function WorksheetsSecondGradePage() {
                         href={ws.href}
                         docId={ws.docId}
                         onPreview={setPreviewItem}
+                        customPreviewUrl={ws.customPreviewUrl}
+                        customDownloadUrl={ws.customDownloadUrl}
                       />
                     ))}
                   </div>
@@ -277,16 +283,16 @@ export default function WorksheetsSecondGradePage() {
         </section>
       </main>
       <Footer />
-      
+
       {/* Preview Modal */}
       {previewItem && (
         <div className="fixed inset-0 z-50 overflow-hidden">
           {/* Backdrop */}
-          <div 
+          <div
             className="absolute inset-0 bg-black/50 transition-opacity"
             onClick={() => setPreviewItem(null)}
           />
-          
+
           {/* Side Panel */}
           <div className="absolute right-0 top-0 h-full w-full max-w-4xl bg-white shadow-2xl transform transition-transform duration-300 ease-in-out">
             <div className="flex h-full flex-col">
@@ -306,7 +312,7 @@ export default function WorksheetsSecondGradePage() {
                   </svg>
                 </button>
               </div>
-              
+
               {/* Scrollable Content */}
               <div className="flex-1 overflow-y-auto bg-slate-50">
                 <div className="mx-auto max-w-3xl px-6 py-8">
@@ -319,13 +325,13 @@ export default function WorksheetsSecondGradePage() {
                       aria-label={`Preview of ${previewItem.title} worksheet`}
                     />
                   </div>
-                  
+
                   {/* Info Footer */}
                   <div className="mt-6 rounded-xl border border-purple-200 bg-purple-50 p-4 text-sm text-purple-800">
                     <p className="font-semibold mb-2">📄 Preview</p>
                     <p>Click the Download button below to download as PDF or use your browser's print function.</p>
                   </div>
-                  
+
                   {/* Action Buttons */}
                   <div className="mt-6 flex items-center gap-3">
                     <button
@@ -406,12 +412,12 @@ function ItemCard({ title, description, href }: { title: string; description: st
   )
 }
 
-const WorksheetThumbnailCard = React.memo(function WorksheetThumbnailCard({ title, description, href, docId, onPreview }: { title: string; description: string; href: string; docId: string; onPreview?: (item: WorksheetItem) => void }) {
+const WorksheetThumbnailCard = React.memo(function WorksheetThumbnailCard({ title, description, href, docId, onPreview, customPreviewUrl, customDownloadUrl }: { title: string; description: string; href: string; docId: string; onPreview?: (item: WorksheetItem) => void; customPreviewUrl?: string; customDownloadUrl?: string }) {
   const { t, language } = useTranslation();
   // Use print URL for preview (not SEO URL) to show actual worksheet content
   const printUrl = getWorksheetPrintURL(docId, '2nd-grade')
-  const previewUrl = printUrl + (printUrl.includes('?') ? '&preview=1' : '?preview=1')
-  
+  const previewUrl = customPreviewUrl || (printUrl + (printUrl.includes('?') ? '&preview=1' : '?preview=1'))
+
   // Use translations if available (fallback to provided title/description) - memoize to prevent re-renders
   // Use language instead of t in dependencies to avoid re-renders when t function reference changes
   const translatedTitle = React.useMemo(() => {
@@ -419,13 +425,13 @@ const WorksheetThumbnailCard = React.memo(function WorksheetThumbnailCard({ titl
     const translated = t(`worksheets.${docId}.title`);
     return translated && translated !== `worksheets.${docId}.title` ? translated : title;
   }, [docId, title, language, t]);
-  
+
   const translatedDescription = React.useMemo(() => {
     if (!docId) return description;
     const translated = t(`worksheets.${docId}.description`);
     return translated && translated !== `worksheets.${docId}.description` ? translated : description;
   }, [docId, description, language, t]);
-  
+
   return (
     <article className="rounded-2xl border border-slate-200 bg-white shadow-sm hover:shadow-lg transition-all duration-200 p-5 flex flex-col gap-3">
       <div className="flex items-center justify-between gap-3">
@@ -433,14 +439,14 @@ const WorksheetThumbnailCard = React.memo(function WorksheetThumbnailCard({ titl
           <h3 className="text-lg font-semibold text-slate-900">{translatedTitle}</h3>
         </div>
       </div>
-      
+
       <p className="text-sm text-slate-600 leading-relaxed">{translatedDescription}</p>
-      
+
       {/* Worksheet Thumbnail Preview - Clickable to SEO page */}
-      <a 
+      <a
         href={href}
         className="relative w-full bg-gradient-to-br from-slate-50 to-slate-100 rounded-lg border border-slate-200 overflow-hidden cursor-pointer group shadow-sm hover:shadow-md transition-shadow block"
-        style={{ 
+        style={{
           height: '140px',
           aspectRatio: '2.5/1',
         }}
@@ -471,11 +477,15 @@ const WorksheetThumbnailCard = React.memo(function WorksheetThumbnailCard({ titl
         {/* Corner fold effect */}
         <div className="absolute top-0 right-0 w-8 h-8 bg-gradient-to-br from-slate-200/50 to-transparent pointer-events-none" />
       </a>
-      
+
       <div className="flex items-center justify-between">
         <div className="flex items-center gap-2">
           <button
             onClick={() => {
+              if (customDownloadUrl) {
+                window.open(customDownloadUrl, '_blank')
+                return
+              }
               const printUrl = getWorksheetPrintURL(docId, '2nd-grade')
               const newWindow = window.open(printUrl, '_blank')
               if (newWindow) {
@@ -510,15 +520,15 @@ function BuildPackInline() {
             <option value="15">{t('pages.secondGrade.buildPackTime15')}</option>
           </select>
         </label>
-      <div className="text-sm text-slate-600">{t('pages.secondGrade.buildPackAgeLabel')} <span className="font-medium ml-2">{t('pages.secondGrade.buildPackAge')}</span></div>
-      <div className="text-sm text-slate-600">{t('pages.secondGrade.buildPackFocusLabel')} <span className="font-medium ml-2">{t('pages.secondGrade.buildPackFocus')}</span></div>
+        <div className="text-sm text-slate-600">{t('pages.secondGrade.buildPackAgeLabel')} <span className="font-medium ml-2">{t('pages.secondGrade.buildPackAge')}</span></div>
+        <div className="text-sm text-slate-600">{t('pages.secondGrade.buildPackFocusLabel')} <span className="font-medium ml-2">{t('pages.secondGrade.buildPackFocus')}</span></div>
         <button
           onClick={() => {
             try {
               const v = (document.getElementById('g2p-time') as HTMLSelectElement)?.getAttribute('data-v') || '5';
               const url = `/print?doc=pack&time=${encodeURIComponent(v)}&age=g2&skill=math&from=2nd-grade`;
               window.location.href = url;
-            } catch {}
+            } catch { }
           }}
           className="px-4 py-2 bg-purple-600 text-white rounded-lg hover:bg-purple-700"
         >

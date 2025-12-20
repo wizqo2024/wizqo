@@ -17,6 +17,8 @@ interface WorksheetItem {
   docId: string
   categories: string[]
   section?: string
+  customPreviewUrl?: string
+  customDownloadUrl?: string
 }
 
 // Worksheets will be defined inside component to use translation
@@ -100,8 +102,10 @@ export default function WorksheetsThirdGradePage() {
 
   // Filter worksheets based on selected categories
   const filteredWorksheets = useMemo(() => {
-    if (selectedCategories.size === 0) return THIRD_GRADE_WORKSHEETS
-    return THIRD_GRADE_WORKSHEETS.filter((ws) =>
+    // Reverse the array to show newly added worksheets (at the bottom of the list) first
+    const newestFirst = [...THIRD_GRADE_WORKSHEETS].reverse()
+    if (selectedCategories.size === 0) return newestFirst
+    return newestFirst.filter((ws) =>
       ws.categories.some((cat) => selectedCategories.has(cat))
     )
   }, [selectedCategories, THIRD_GRADE_WORKSHEETS])
@@ -234,6 +238,8 @@ export default function WorksheetsThirdGradePage() {
                           href={ws.href}
                           docId={ws.docId}
                           onPreview={setPreviewItem}
+                          customPreviewUrl={ws.customPreviewUrl}
+                          customDownloadUrl={ws.customDownloadUrl}
                         />
                       ))}
                     </div>
@@ -374,11 +380,11 @@ export default function WorksheetsThirdGradePage() {
   )
 }
 
-const WorksheetThumbnailCard = React.memo(function WorksheetThumbnailCard({ title, description, href, docId, onPreview }: { title: string; description: string; href: string; docId: string; onPreview?: (item: WorksheetItem) => void }) {
+const WorksheetThumbnailCard = React.memo(function WorksheetThumbnailCard({ title, description, href, docId, onPreview, customPreviewUrl, customDownloadUrl }: { title: string; description: string; href: string; docId: string; onPreview?: (item: WorksheetItem) => void; customPreviewUrl?: string; customDownloadUrl?: string }) {
   const { t, language } = useTranslation();
   // Use print URL for preview (not SEO URL) to show actual worksheet content
   const printUrl = getWorksheetPrintURL(docId, '3rd-grade')
-  const previewUrl = printUrl + (printUrl.includes('?') ? '&preview=1' : '?preview=1')
+  const previewUrl = customPreviewUrl || (printUrl + (printUrl.includes('?') ? '&preview=1' : '?preview=1'))
 
   // Use translations if available (fallback to provided title/description) - memoize to prevent re-renders
   // Use language instead of t in dependencies to avoid re-renders when t function reference changes
@@ -444,6 +450,10 @@ const WorksheetThumbnailCard = React.memo(function WorksheetThumbnailCard({ titl
         <div className="flex items-center gap-2">
           <button
             onClick={() => {
+              if (customDownloadUrl) {
+                window.open(customDownloadUrl, '_blank')
+                return
+              }
               const printUrl = getWorksheetPrintURL(docId, '3rd-grade')
               window.open(printUrl, '_blank')
             }}

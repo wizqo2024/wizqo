@@ -17,6 +17,8 @@ interface WorksheetItem {
   docId: string
   categories: string[]
   section?: string
+  customPreviewUrl?: string
+  customDownloadUrl?: string
 }
 
 // Worksheets will be defined inside component to use translation
@@ -24,11 +26,11 @@ interface WorksheetItem {
 export default function WorksheetsFourthGradePage() {
   const { t, isRTL } = useTranslation();
   const [previewItem, setPreviewItem] = React.useState<WorksheetItem | null>(null);
-  
+
   React.useEffect(() => {
     // Ensure re-render on language change
   }, [t]);
-  
+
   const FOURTH_GRADE_CATEGORIES: Category[] = [
     { id: 'multi-digit', label: t('pages.fourthGrade.categories.multiDigit'), icon: '🔢' },
     { id: 'fractions-decimals', label: t('pages.fourthGrade.categories.fractionsDecimals'), icon: '🍕' },
@@ -37,7 +39,7 @@ export default function WorksheetsFourthGradePage() {
     { id: 'word-problems', label: t('pages.fourthGrade.categories.wordProblems'), icon: '🧮' },
     { id: 'data-analysis', label: t('pages.fourthGrade.categories.dataAnalysis'), icon: '📊' },
   ];
-  
+
   const [selectedCategories, setSelectedCategories] = useState<Set<string>>(new Set())
 
   const toggleCategory = (categoryId: string) => {
@@ -104,8 +106,10 @@ export default function WorksheetsFourthGradePage() {
 
   // Filter worksheets based on selected categories
   const filteredWorksheets = useMemo(() => {
-    if (selectedCategories.size === 0) return FOURTH_GRADE_WORKSHEETS
-    return FOURTH_GRADE_WORKSHEETS.filter((ws) => 
+    // Reverse the array to show newly added worksheets (at the bottom of the list) first
+    const newestFirst = [...FOURTH_GRADE_WORKSHEETS].reverse()
+    if (selectedCategories.size === 0) return newestFirst
+    return newestFirst.filter((ws) =>
       ws.categories.some((cat) => selectedCategories.has(cat))
     )
   }, [selectedCategories, FOURTH_GRADE_WORKSHEETS])
@@ -175,142 +179,144 @@ export default function WorksheetsFourthGradePage() {
             </div>
           </div>
         </section>
-        
+
         <div className="mx-auto max-w-6xl px-4 pb-16 sm:px-6 lg:px-8 space-y-10">
-        <section className="bg-white border border-slate-200 rounded-2xl p-5">
-          <h2 className="text-xl font-bold text-slate-900 mb-2">{t('pages.fourthGrade.whatsInside')}</h2>
-          <p className="text-slate-700 text-sm max-w-3xl">
-            {t('pages.fourthGrade.whatsInsideDesc')}
-          </p>
-          <div className="mt-4">
-            <div className="border border-slate-200 rounded-xl p-4 bg-white">
-              <div className="text-slate-900 font-semibold mb-1">{t('pages.fourthGrade.buildPack')}</div>
-              <p className="text-slate-700 text-sm mb-3">{t('pages.fourthGrade.buildPackDesc')}</p>
-              <div className="flex flex-wrap items-center gap-2 text-xs text-slate-700 mb-3">
-                <span className="inline-flex items-center px-2 py-1 rounded-full bg-slate-100 border border-slate-200">{t('pages.fourthGrade.buildPackTime')}</span>
-                <span className="inline-flex items-center px-2 py-1 rounded-full bg-slate-100 border border-slate-200">{t('pages.fourthGrade.buildPackAge')}</span>
-                <span className="inline-flex items-center px-2 py-1 rounded-full bg-slate-100 border border-slate-200">{t('pages.fourthGrade.buildPackFocus')}</span>
-              </div>
-              <a href="/print?doc=pack&time=5&age=g4&skill=math&from=4th-grade" className="inline-flex items-center justify-center px-4 py-2 rounded-lg bg-purple-600 text-white hover:bg-purple-700 transition-colors" onClick={(e)=>{ try { (window as any).gtag?.('event','build_pack_click',{grade:'4'});} catch{} }}>{t('pages.printables.buildPackButton')}</a>
-            </div>
-          </div>
-        </section>
-
-        {/* Main content with sidebar layout */}
-        <section className="grid gap-8 lg:grid-cols-[320px_minmax(0,1fr)]">
-          {/* Left sidebar - Category Filter */}
-          <aside className="space-y-8 rounded-3xl border border-slate-200 bg-white p-6 shadow-sm">
-            <div>
-              <CategoryFilter
-                categories={FOURTH_GRADE_CATEGORIES}
-                selectedCategories={selectedCategories}
-                onToggleCategory={toggleCategory}
-                onClearAll={clearCategories}
-                title={t('pages.fourthGrade.filterByCategory')}
-              />
-            </div>
-          </aside>
-
-          {/* Right side - Worksheets grouped by section */}
-          <div className="space-y-8">
-            {Object.entries(groupedWorksheets).map(([section, worksheets]) => {
-              const sectionLabels: Record<string, string> = {
-                'Multi-Digit Operations': `🔢 ${t('pages.fourthGrade.sections.multiDigitOperations')}`,
-                'Fractions & Decimals': `🍕 ${t('pages.fourthGrade.sections.fractionsDecimals')}`,
-                'Geometry': `📐 ${t('pages.fourthGrade.sections.geometry')}`,
-                'Measurement': `📏 ${t('pages.fourthGrade.sections.measurement')}`,
-                'Word Problems': `🧮 ${t('pages.fourthGrade.sections.wordProblems')}`,
-                'Data & Analysis': `📊 ${t('pages.fourthGrade.sections.dataAnalysis')}`,
-              }
-              const label = sectionLabels[section] || section
-              
-              return (
-                <div key={section}>
-                  <h2 className="text-xl font-bold text-slate-900 mb-2">{label}</h2>
-                  <div className="grid sm:grid-cols-2 gap-6">
-                    {worksheets.map((ws) => (
-                      <WorksheetThumbnailCard
-                        key={ws.docId}
-                        title={ws.title}
-                        description={ws.description}
-                        href={ws.href}
-                        docId={ws.docId}
-                        onPreview={setPreviewItem}
-                      />
-                    ))}
-                  </div>
+          <section className="bg-white border border-slate-200 rounded-2xl p-5">
+            <h2 className="text-xl font-bold text-slate-900 mb-2">{t('pages.fourthGrade.whatsInside')}</h2>
+            <p className="text-slate-700 text-sm max-w-3xl">
+              {t('pages.fourthGrade.whatsInsideDesc')}
+            </p>
+            <div className="mt-4">
+              <div className="border border-slate-200 rounded-xl p-4 bg-white">
+                <div className="text-slate-900 font-semibold mb-1">{t('pages.fourthGrade.buildPack')}</div>
+                <p className="text-slate-700 text-sm mb-3">{t('pages.fourthGrade.buildPackDesc')}</p>
+                <div className="flex flex-wrap items-center gap-2 text-xs text-slate-700 mb-3">
+                  <span className="inline-flex items-center px-2 py-1 rounded-full bg-slate-100 border border-slate-200">{t('pages.fourthGrade.buildPackTime')}</span>
+                  <span className="inline-flex items-center px-2 py-1 rounded-full bg-slate-100 border border-slate-200">{t('pages.fourthGrade.buildPackAge')}</span>
+                  <span className="inline-flex items-center px-2 py-1 rounded-full bg-slate-100 border border-slate-200">{t('pages.fourthGrade.buildPackFocus')}</span>
                 </div>
-              )
-            })}
-            {filteredWorksheets.length === 0 && (
-              <div className="text-center py-12 text-slate-500">
-                <p className="text-lg">{t('pages.fourthGrade.noWorksheets')}</p>
-                <button
-                  onClick={clearCategories}
-                  className="mt-4 text-purple-600 hover:text-purple-700 font-medium"
-                >
-                  {t('pages.fourthGrade.clearFilters')}
-                </button>
+                <a href="/print?doc=pack&time=5&age=g4&skill=math&from=4th-grade" className="inline-flex items-center justify-center px-4 py-2 rounded-lg bg-purple-600 text-white hover:bg-purple-700 transition-colors" onClick={(e) => { try { (window as any).gtag?.('event', 'build_pack_click', { grade: '4' }); } catch { } }}>{t('pages.printables.buildPackButton')}</a>
               </div>
-            )}
-          </div>
-        </section>
+            </div>
+          </section>
 
-        {/* Explore More Worksheets */}
-        <section className="bg-white border border-slate-200 rounded-2xl p-5">
-          <h2 className="text-xl font-bold text-slate-900">{t('pages.fourthGrade.exploreMore')}</h2>
-          <ul className="mt-3 grid sm:grid-cols-2 gap-2 text-sm text-purple-700">
-            <li><a className="hover:underline" href="/worksheets/3rd-grade-math-worksheets">{t('pages.fourthGrade.exploreLinks.thirdGrade')}</a></li>
-            <li><a className="hover:underline" href="/worksheets/5th-grade-math-worksheets">{t('pages.fourthGrade.exploreLinks.fifthGrade')}</a></li>
-            <li><a className="hover:underline" href="/worksheets/multiplication-worksheets">{t('pages.fourthGrade.exploreLinks.multiplication')}</a></li>
-            <li><a className="hover:underline" href="/worksheets/times-table-multiplication-worksheets">{t('pages.fourthGrade.exploreLinks.timesTable')}</a></li>
-            <li><a className="hover:underline" href="/worksheets/reading-comprehension">{t('pages.fourthGrade.exploreLinks.readingComprehension')}</a></li>
-            <li><a className="hover:underline" href="/printables">{t('pages.printables.title')}</a></li>
-          </ul>
-        </section>
+          {/* Main content with sidebar layout */}
+          <section className="grid gap-8 lg:grid-cols-[320px_minmax(0,1fr)]">
+            {/* Left sidebar - Category Filter */}
+            <aside className="space-y-8 rounded-3xl border border-slate-200 bg-white p-6 shadow-sm">
+              <div>
+                <CategoryFilter
+                  categories={FOURTH_GRADE_CATEGORIES}
+                  selectedCategories={selectedCategories}
+                  onToggleCategory={toggleCategory}
+                  onClearAll={clearCategories}
+                  title={t('pages.fourthGrade.filterByCategory')}
+                />
+              </div>
+            </aside>
 
-        <section className="mb-10 bg-white border border-slate-200 rounded-2xl p-5">
-          <h2 className="text-xl font-bold text-slate-900 mb-4">{t('pages.fourthGrade.faqs')}</h2>
-          <Accordion type="single" collapsible className="divide-y rounded-xl border border-slate-200 bg-white">
-            <AccordionItem value="q1">
-              <AccordionTrigger className="px-4">{t('pages.fourthGrade.faq1Question')}</AccordionTrigger>
-              <AccordionContent className="px-4 text-slate-700">
-                {t('pages.fourthGrade.faq1Answer')}
-              </AccordionContent>
-            </AccordionItem>
-            <AccordionItem value="q2">
-              <AccordionTrigger className="px-4">{t('pages.fourthGrade.faq2Question')}</AccordionTrigger>
-              <AccordionContent className="px-4 text-slate-700">
-                {t('pages.fourthGrade.faq2Answer')}
-              </AccordionContent>
-            </AccordionItem>
-            <AccordionItem value="q3">
-              <AccordionTrigger className="px-4">{t('pages.fourthGrade.faq3Question')}</AccordionTrigger>
-              <AccordionContent className="px-4 text-slate-700">
-                {t('pages.fourthGrade.faq3Answer')}
-              </AccordionContent>
-            </AccordionItem>
-            <AccordionItem value="q4">
-              <AccordionTrigger className="px-4">{t('pages.fourthGrade.faq4Question')}</AccordionTrigger>
-              <AccordionContent className="px-4 text-slate-700">
-                {t('pages.fourthGrade.faq4Answer')}
-              </AccordionContent>
-            </AccordionItem>
-          </Accordion>
-        </section>
+            {/* Right side - Worksheets grouped by section */}
+            <div className="space-y-8">
+              {Object.entries(groupedWorksheets).map(([section, worksheets]) => {
+                const sectionLabels: Record<string, string> = {
+                  'Multi-Digit Operations': `🔢 ${t('pages.fourthGrade.sections.multiDigitOperations')}`,
+                  'Fractions & Decimals': `🍕 ${t('pages.fourthGrade.sections.fractionsDecimals')}`,
+                  'Geometry': `📐 ${t('pages.fourthGrade.sections.geometry')}`,
+                  'Measurement': `📏 ${t('pages.fourthGrade.sections.measurement')}`,
+                  'Word Problems': `🧮 ${t('pages.fourthGrade.sections.wordProblems')}`,
+                  'Data & Analysis': `📊 ${t('pages.fourthGrade.sections.dataAnalysis')}`,
+                }
+                const label = sectionLabels[section] || section
+
+                return (
+                  <div key={section}>
+                    <h2 className="text-xl font-bold text-slate-900 mb-2">{label}</h2>
+                    <div className="grid sm:grid-cols-2 gap-6">
+                      {worksheets.map((ws) => (
+                        <WorksheetThumbnailCard
+                          key={ws.docId}
+                          title={ws.title}
+                          description={ws.description}
+                          href={ws.href}
+                          docId={ws.docId}
+                          onPreview={setPreviewItem}
+                          customPreviewUrl={ws.customPreviewUrl}
+                          customDownloadUrl={ws.customDownloadUrl}
+                        />
+                      ))}
+                    </div>
+                  </div>
+                )
+              })}
+              {filteredWorksheets.length === 0 && (
+                <div className="text-center py-12 text-slate-500">
+                  <p className="text-lg">{t('pages.fourthGrade.noWorksheets')}</p>
+                  <button
+                    onClick={clearCategories}
+                    className="mt-4 text-purple-600 hover:text-purple-700 font-medium"
+                  >
+                    {t('pages.fourthGrade.clearFilters')}
+                  </button>
+                </div>
+              )}
+            </div>
+          </section>
+
+          {/* Explore More Worksheets */}
+          <section className="bg-white border border-slate-200 rounded-2xl p-5">
+            <h2 className="text-xl font-bold text-slate-900">{t('pages.fourthGrade.exploreMore')}</h2>
+            <ul className="mt-3 grid sm:grid-cols-2 gap-2 text-sm text-purple-700">
+              <li><a className="hover:underline" href="/worksheets/3rd-grade-math-worksheets">{t('pages.fourthGrade.exploreLinks.thirdGrade')}</a></li>
+              <li><a className="hover:underline" href="/worksheets/5th-grade-math-worksheets">{t('pages.fourthGrade.exploreLinks.fifthGrade')}</a></li>
+              <li><a className="hover:underline" href="/worksheets/multiplication-worksheets">{t('pages.fourthGrade.exploreLinks.multiplication')}</a></li>
+              <li><a className="hover:underline" href="/worksheets/times-table-multiplication-worksheets">{t('pages.fourthGrade.exploreLinks.timesTable')}</a></li>
+              <li><a className="hover:underline" href="/worksheets/reading-comprehension">{t('pages.fourthGrade.exploreLinks.readingComprehension')}</a></li>
+              <li><a className="hover:underline" href="/printables">{t('pages.printables.title')}</a></li>
+            </ul>
+          </section>
+
+          <section className="mb-10 bg-white border border-slate-200 rounded-2xl p-5">
+            <h2 className="text-xl font-bold text-slate-900 mb-4">{t('pages.fourthGrade.faqs')}</h2>
+            <Accordion type="single" collapsible className="divide-y rounded-xl border border-slate-200 bg-white">
+              <AccordionItem value="q1">
+                <AccordionTrigger className="px-4">{t('pages.fourthGrade.faq1Question')}</AccordionTrigger>
+                <AccordionContent className="px-4 text-slate-700">
+                  {t('pages.fourthGrade.faq1Answer')}
+                </AccordionContent>
+              </AccordionItem>
+              <AccordionItem value="q2">
+                <AccordionTrigger className="px-4">{t('pages.fourthGrade.faq2Question')}</AccordionTrigger>
+                <AccordionContent className="px-4 text-slate-700">
+                  {t('pages.fourthGrade.faq2Answer')}
+                </AccordionContent>
+              </AccordionItem>
+              <AccordionItem value="q3">
+                <AccordionTrigger className="px-4">{t('pages.fourthGrade.faq3Question')}</AccordionTrigger>
+                <AccordionContent className="px-4 text-slate-700">
+                  {t('pages.fourthGrade.faq3Answer')}
+                </AccordionContent>
+              </AccordionItem>
+              <AccordionItem value="q4">
+                <AccordionTrigger className="px-4">{t('pages.fourthGrade.faq4Question')}</AccordionTrigger>
+                <AccordionContent className="px-4 text-slate-700">
+                  {t('pages.fourthGrade.faq4Answer')}
+                </AccordionContent>
+              </AccordionItem>
+            </Accordion>
+          </section>
         </div>
       </main>
       <Footer />
-      
+
       {/* Preview Modal */}
       {previewItem && (
         <div className="fixed inset-0 z-50 overflow-hidden">
           {/* Backdrop */}
-          <div 
+          <div
             className="absolute inset-0 bg-black/50 transition-opacity"
             onClick={() => setPreviewItem(null)}
           />
-          
+
           {/* Side Panel */}
           <div className="absolute right-0 top-0 h-full w-full max-w-4xl bg-white shadow-2xl transform transition-transform duration-300 ease-in-out">
             <div className="flex h-full flex-col">
@@ -330,7 +336,7 @@ export default function WorksheetsFourthGradePage() {
                   </svg>
                 </button>
               </div>
-              
+
               {/* Scrollable Content */}
               <div className="flex-1 overflow-y-auto bg-slate-50">
                 <div className="mx-auto max-w-3xl px-6 py-8">
@@ -343,13 +349,13 @@ export default function WorksheetsFourthGradePage() {
                       aria-label={`Preview of ${previewItem.title} worksheet`}
                     />
                   </div>
-                  
+
                   {/* Info Footer */}
                   <div className="mt-6 rounded-xl border border-purple-200 bg-purple-50 p-4 text-sm text-purple-800">
                     <p className="font-semibold mb-2">📄 Preview</p>
                     <p>Click the Download button below to download as PDF or use your browser's print function.</p>
                   </div>
-                  
+
                   {/* Action Buttons */}
                   <div className="mt-6 flex items-center gap-3">
                     <button
@@ -376,12 +382,12 @@ export default function WorksheetsFourthGradePage() {
   )
 }
 
-const WorksheetThumbnailCard = React.memo(function WorksheetThumbnailCard({ title, description, href, docId, onPreview }: { title: string; description: string; href: string; docId: string; onPreview?: (item: WorksheetItem) => void }) {
+const WorksheetThumbnailCard = React.memo(function WorksheetThumbnailCard({ title, description, href, docId, onPreview, customPreviewUrl, customDownloadUrl }: { title: string; description: string; href: string; docId: string; onPreview?: (item: WorksheetItem) => void; customPreviewUrl?: string; customDownloadUrl?: string }) {
   const { t, language } = useTranslation();
   // Use print URL for preview (not SEO URL) to show actual worksheet content
   const printUrl = getWorksheetPrintURL(docId, '4th-grade')
-  const previewUrl = printUrl + (printUrl.includes('?') ? '&preview=1' : '?preview=1')
-  
+  const previewUrl = customPreviewUrl || (printUrl + (printUrl.includes('?') ? '&preview=1' : '?preview=1'))
+
   // Use translations if available (fallback to provided title/description) - memoize to prevent re-renders
   // Use language instead of t in dependencies to avoid re-renders when t function reference changes
   const translatedTitle = React.useMemo(() => {
@@ -389,13 +395,13 @@ const WorksheetThumbnailCard = React.memo(function WorksheetThumbnailCard({ titl
     const translated = t(`worksheets.${docId}.title`);
     return translated && translated !== `worksheets.${docId}.title` ? translated : title;
   }, [docId, title, language, t]);
-  
+
   const translatedDescription = React.useMemo(() => {
     if (!docId) return description;
     const translated = t(`worksheets.${docId}.description`);
     return translated && translated !== `worksheets.${docId}.description` ? translated : description;
   }, [docId, description, language, t]);
-  
+
   return (
     <article className="rounded-2xl border border-slate-200 bg-white shadow-sm hover:shadow-lg transition-all duration-200 p-5 flex flex-col gap-3">
       <div className="flex items-center justify-between gap-3">
@@ -403,14 +409,14 @@ const WorksheetThumbnailCard = React.memo(function WorksheetThumbnailCard({ titl
           <h3 className="text-lg font-semibold text-slate-900">{translatedTitle}</h3>
         </div>
       </div>
-      
+
       <p className="text-sm text-slate-600 leading-relaxed">{translatedDescription}</p>
-      
+
       {/* Worksheet Thumbnail Preview - Clickable to SEO page */}
-      <a 
+      <a
         href={href}
         className="relative w-full bg-gradient-to-br from-slate-50 to-slate-100 rounded-lg border border-slate-200 overflow-hidden cursor-pointer group shadow-sm hover:shadow-md transition-shadow block"
-        style={{ 
+        style={{
           height: '140px',
           aspectRatio: '2.5/1',
         }}
@@ -441,11 +447,15 @@ const WorksheetThumbnailCard = React.memo(function WorksheetThumbnailCard({ titl
         {/* Corner fold effect */}
         <div className="absolute top-0 right-0 w-8 h-8 bg-gradient-to-br from-slate-200/50 to-transparent pointer-events-none" />
       </a>
-      
+
       <div className="flex items-center justify-between">
         <div className="flex items-center gap-2">
           <button
             onClick={() => {
+              if (customDownloadUrl) {
+                window.open(customDownloadUrl, '_blank')
+                return
+              }
               const printUrl = getWorksheetPrintURL(docId, '4th-grade')
               window.open(printUrl, '_blank')
             }}

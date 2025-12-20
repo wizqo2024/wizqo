@@ -14,13 +14,15 @@ interface WorksheetItem {
   docId: string
   categories: string[]
   gradeRange?: string
+  customPreviewUrl?: string
+  customDownloadUrl?: string
 }
 
 export default function FractionsToDecimalsWorksheetsPage() {
   const { t, language, isRTL } = useTranslation()
   const [previewItem, setPreviewItem] = React.useState<WorksheetItem | null>(null);
-  React.useEffect(() => {}, [language])
-  
+  React.useEffect(() => { }, [language])
+
   const FRACTIONS_TO_DECIMALS_CATEGORIES: Category[] = useMemo(() => [
     { id: 'basic', label: t('pages.fractionsToDecimals.categories.basic'), icon: '🔢' },
     { id: 'tenths-hundredths', label: t('pages.fractionsToDecimals.categories.tenthsHundredths'), icon: '📊' },
@@ -31,7 +33,7 @@ export default function FractionsToDecimalsWorksheetsPage() {
     { id: 'visual', label: t('pages.fractionsToDecimals.categories.visual'), icon: '👁️' },
     { id: 'percentage', label: t('pages.fractionsToDecimals.categories.percentage'), icon: '📈' },
   ], [t, language])
-  
+
   const [selectedCategories, setSelectedCategories] = useState<Set<string>>(new Set())
 
   const toggleCategory = (categoryId: string) => {
@@ -82,8 +84,10 @@ export default function FractionsToDecimalsWorksheetsPage() {
 
   // Filter worksheets based on selected categories
   const filteredWorksheets = useMemo(() => {
-    if (selectedCategories.size === 0) return allWorksheets
-    return allWorksheets.filter((ws) => 
+    // Reverse the array to show newly added worksheets (at the bottom of the list) first
+    const newestFirst = [...allWorksheets].reverse()
+    if (selectedCategories.size === 0) return newestFirst
+    return newestFirst.filter((ws) =>
       ws.categories.some((cat) => selectedCategories.has(cat))
     )
   }, [selectedCategories, allWorksheets])
@@ -159,137 +163,139 @@ export default function FractionsToDecimalsWorksheetsPage() {
             </div>
           </div>
         </section>
-        
+
         <div className="mx-auto max-w-6xl px-4 pb-16 sm:px-6 lg:px-8 space-y-10">
-        <section className="bg-white border border-slate-200 rounded-2xl p-5">
-          <h2 className="text-xl font-bold text-slate-900 mb-2">{t('pages.fractionsToDecimals.whatsInside')}</h2>
-          <p className="text-slate-700 text-sm max-w-3xl">
-            {t('pages.fractionsToDecimals.whatsInsideDesc')}
-          </p>
-          <div className="mt-4">
-            <div className="border border-slate-200 rounded-xl p-4 bg-white">
-              <div className="text-slate-900 font-semibold mb-1">{t('pages.fractionsToDecimals.buildPack')}</div>
-              <p className="text-slate-700 text-sm mb-3">{t('pages.fractionsToDecimals.buildPackDesc')}</p>
-              <div className="flex flex-wrap items-center gap-2 text-xs text-slate-700 mb-3">
-                <span className="inline-flex items-center px-2 py-1 rounded-full bg-slate-100 border border-slate-200">{t('pages.fractionsToDecimals.buildPackTime')}</span>
-                <span className="inline-flex items-center px-2 py-1 rounded-full bg-slate-100 border border-slate-200">{t('pages.fractionsToDecimals.buildPackAge')}</span>
-                <span className="inline-flex items-center px-2 py-1 rounded-full bg-slate-100 border border-slate-200">{t('pages.fractionsToDecimals.buildPackFocus')}</span>
-              </div>
-              <a href="/print?doc=pack&time=5&age=g3&skill=math&from=fractions-to-decimals" className="inline-flex items-center justify-center px-4 py-2 rounded-lg bg-purple-600 text-white hover:bg-purple-700 transition-colors" onClick={(e)=>{ try { (window as any).gtag?.('event','build_pack_click',{grade:'3-5'});} catch{} }}>{t('pages.printables.buildPackButton')}</a>
-            </div>
-          </div>
-        </section>
-
-        {/* Main content with sidebar layout */}
-        <section className="grid gap-8 lg:grid-cols-[320px_minmax(0,1fr)]">
-          {/* Left sidebar - Category Filter */}
-          <aside className="space-y-8 rounded-3xl border border-slate-200 bg-white p-6 shadow-sm">
-            <div>
-              <CategoryFilter
-                categories={FRACTIONS_TO_DECIMALS_CATEGORIES}
-                selectedCategories={selectedCategories}
-                onToggleCategory={toggleCategory}
-                onClearAll={clearCategories}
-                title={t('pages.fractionsToDecimals.filterByCategory')}
-              />
-            </div>
-          </aside>
-
-          {/* Right content - Worksheets Grid */}
-          <div className="space-y-8">
-          {Object.entries(groupedWorksheets).map(([gradeRange, worksheets]) => {
-            const label = gradeRange === 'All' 
-              ? t('pages.fractionsToDecimals.allGrades')
-              : `${gradeRange} Grade`
-            
-            return (
-              <div key={gradeRange}>
-                <h2 className="text-xl font-bold text-slate-900 mb-2">{label}</h2>
-                <div className="grid sm:grid-cols-2 gap-6">
-                  {worksheets.map((ws) => (
-                    <WorksheetThumbnailCard
-                      key={ws.docId}
-                      title={ws.title}
-                      description={ws.description}
-                      href={ws.href}
-                      docId={ws.docId}
-                      onPreview={setPreviewItem}
-                    />
-                  ))}
+          <section className="bg-white border border-slate-200 rounded-2xl p-5">
+            <h2 className="text-xl font-bold text-slate-900 mb-2">{t('pages.fractionsToDecimals.whatsInside')}</h2>
+            <p className="text-slate-700 text-sm max-w-3xl">
+              {t('pages.fractionsToDecimals.whatsInsideDesc')}
+            </p>
+            <div className="mt-4">
+              <div className="border border-slate-200 rounded-xl p-4 bg-white">
+                <div className="text-slate-900 font-semibold mb-1">{t('pages.fractionsToDecimals.buildPack')}</div>
+                <p className="text-slate-700 text-sm mb-3">{t('pages.fractionsToDecimals.buildPackDesc')}</p>
+                <div className="flex flex-wrap items-center gap-2 text-xs text-slate-700 mb-3">
+                  <span className="inline-flex items-center px-2 py-1 rounded-full bg-slate-100 border border-slate-200">{t('pages.fractionsToDecimals.buildPackTime')}</span>
+                  <span className="inline-flex items-center px-2 py-1 rounded-full bg-slate-100 border border-slate-200">{t('pages.fractionsToDecimals.buildPackAge')}</span>
+                  <span className="inline-flex items-center px-2 py-1 rounded-full bg-slate-100 border border-slate-200">{t('pages.fractionsToDecimals.buildPackFocus')}</span>
                 </div>
+                <a href="/print?doc=pack&time=5&age=g3&skill=math&from=fractions-to-decimals" className="inline-flex items-center justify-center px-4 py-2 rounded-lg bg-purple-600 text-white hover:bg-purple-700 transition-colors" onClick={(e) => { try { (window as any).gtag?.('event', 'build_pack_click', { grade: '3-5' }); } catch { } }}>{t('pages.printables.buildPackButton')}</a>
               </div>
-            )
-          })}
-          {filteredWorksheets.length === 0 && (
-            <div className="text-center py-12 text-slate-500">
-              <p className="text-lg">{t('pages.fractionsToDecimals.noResults')}</p>
-              <button
-                onClick={clearCategories}
-                className="mt-4 text-purple-600 hover:text-purple-700 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:ring-offset-2 rounded font-medium"
-                aria-label="Clear all filters"
-              >
-                {t('pages.fractionsToDecimals.clearFilters')}
-              </button>
             </div>
-          )}
-          </div>
-        </section>
+          </section>
 
-        {/* Explore More Worksheets */}
-        <section className="bg-white border border-slate-200 rounded-2xl p-5">
-          <h2 className="text-xl font-bold text-slate-900">Explore More Worksheets</h2>
-          <ul className="mt-3 grid sm:grid-cols-2 gap-2 text-sm text-purple-700">
-            <li><a className="hover:underline" href="/worksheets/multiplication-worksheets">Multiplication Worksheets</a></li>
-            <li><a className="hover:underline" href="/worksheets/times-table-multiplication-worksheets">Times Table Multiplication Worksheets</a></li>
-            <li><a className="hover:underline" href="/worksheets/3rd-grade-math-worksheets">3rd Grade Math Worksheets – Printable</a></li>
-            <li><a className="hover:underline" href="/worksheets/4th-grade-math-worksheets">4th Grade Math Worksheets – Free PDF</a></li>
-            <li><a className="hover:underline" href="/worksheets/5th-grade-math-worksheets">5th Grade Math Worksheets – Printable</a></li>
-            <li><a className="hover:underline" href="/printables">Printable Fun Learning Activities</a></li>
-          </ul>
-        </section>
+          {/* Main content with sidebar layout */}
+          <section className="grid gap-8 lg:grid-cols-[320px_minmax(0,1fr)]">
+            {/* Left sidebar - Category Filter */}
+            <aside className="space-y-8 rounded-3xl border border-slate-200 bg-white p-6 shadow-sm">
+              <div>
+                <CategoryFilter
+                  categories={FRACTIONS_TO_DECIMALS_CATEGORIES}
+                  selectedCategories={selectedCategories}
+                  onToggleCategory={toggleCategory}
+                  onClearAll={clearCategories}
+                  title={t('pages.fractionsToDecimals.filterByCategory')}
+                />
+              </div>
+            </aside>
 
-        <section className="mb-10 bg-white border border-slate-200 rounded-2xl p-5">
-          <h2 className="text-xl font-bold text-slate-900 mb-4">FAQs</h2>
-          <Accordion type="single" collapsible className="divide-y rounded-xl border border-slate-200 bg-white">
-            <AccordionItem value="q1">
-              <AccordionTrigger className="px-4">Are fractions to decimals worksheets free to download?</AccordionTrigger>
-              <AccordionContent className="px-4 text-slate-700">
-                Yes! All fractions to decimals worksheets are completely free. Generate unlimited unique worksheets, download as PDFs, and print as many copies as you need. No sign-up required.
-              </AccordionContent>
-            </AccordionItem>
-            <AccordionItem value="q2">
-              <AccordionTrigger className="px-4">What grade levels are fractions to decimals worksheets available for?</AccordionTrigger>
-              <AccordionContent className="px-4 text-slate-700">
-                Our fractions to decimals worksheets are perfect for 3rd grade, 4th grade, and 5th grade students. Each worksheet is tailored to the appropriate grade level with step-by-step practice and answer keys.
-              </AccordionContent>
-            </AccordionItem>
-            <AccordionItem value="q3">
-              <AccordionTrigger className="px-4">Do fractions to decimals worksheets include answer keys?</AccordionTrigger>
-              <AccordionContent className="px-4 text-slate-700">
-                Yes! Every fractions to decimals worksheet automatically includes a complete answer key, making grading quick and easy for teachers and parents.
-              </AccordionContent>
-            </AccordionItem>
-            <AccordionItem value="q4">
-              <AccordionTrigger className="px-4">What skills are covered in fractions to decimals worksheets?</AccordionTrigger>
-              <AccordionContent className="px-4 text-slate-700">
-                Our worksheets cover converting fractions with denominators 10 and 100, mixed numbers to decimals, using division method, comparing fractions and decimals, word problems, and visual models. Perfect for building confidence and mastering conversion skills.
-              </AccordionContent>
-            </AccordionItem>
-          </Accordion>
-        </section>
+            {/* Right content - Worksheets Grid */}
+            <div className="space-y-8">
+              {Object.entries(groupedWorksheets).map(([gradeRange, worksheets]) => {
+                const label = gradeRange === 'All'
+                  ? t('pages.fractionsToDecimals.allGrades')
+                  : `${gradeRange} Grade`
+
+                return (
+                  <div key={gradeRange}>
+                    <h2 className="text-xl font-bold text-slate-900 mb-2">{label}</h2>
+                    <div className="grid sm:grid-cols-2 gap-6">
+                      {worksheets.map((ws) => (
+                        <WorksheetThumbnailCard
+                          key={ws.docId}
+                          title={ws.title}
+                          description={ws.description}
+                          href={ws.href}
+                          docId={ws.docId}
+                          onPreview={setPreviewItem}
+                          customPreviewUrl={ws.customPreviewUrl}
+                          customDownloadUrl={ws.customDownloadUrl}
+                        />
+                      ))}
+                    </div>
+                  </div>
+                )
+              })}
+              {filteredWorksheets.length === 0 && (
+                <div className="text-center py-12 text-slate-500">
+                  <p className="text-lg">{t('pages.fractionsToDecimals.noResults')}</p>
+                  <button
+                    onClick={clearCategories}
+                    className="mt-4 text-purple-600 hover:text-purple-700 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:ring-offset-2 rounded font-medium"
+                    aria-label="Clear all filters"
+                  >
+                    {t('pages.fractionsToDecimals.clearFilters')}
+                  </button>
+                </div>
+              )}
+            </div>
+          </section>
+
+          {/* Explore More Worksheets */}
+          <section className="bg-white border border-slate-200 rounded-2xl p-5">
+            <h2 className="text-xl font-bold text-slate-900">Explore More Worksheets</h2>
+            <ul className="mt-3 grid sm:grid-cols-2 gap-2 text-sm text-purple-700">
+              <li><a className="hover:underline" href="/worksheets/multiplication-worksheets">Multiplication Worksheets</a></li>
+              <li><a className="hover:underline" href="/worksheets/times-table-multiplication-worksheets">Times Table Multiplication Worksheets</a></li>
+              <li><a className="hover:underline" href="/worksheets/3rd-grade-math-worksheets">3rd Grade Math Worksheets – Printable</a></li>
+              <li><a className="hover:underline" href="/worksheets/4th-grade-math-worksheets">4th Grade Math Worksheets – Free PDF</a></li>
+              <li><a className="hover:underline" href="/worksheets/5th-grade-math-worksheets">5th Grade Math Worksheets – Printable</a></li>
+              <li><a className="hover:underline" href="/printables">Printable Fun Learning Activities</a></li>
+            </ul>
+          </section>
+
+          <section className="mb-10 bg-white border border-slate-200 rounded-2xl p-5">
+            <h2 className="text-xl font-bold text-slate-900 mb-4">FAQs</h2>
+            <Accordion type="single" collapsible className="divide-y rounded-xl border border-slate-200 bg-white">
+              <AccordionItem value="q1">
+                <AccordionTrigger className="px-4">Are fractions to decimals worksheets free to download?</AccordionTrigger>
+                <AccordionContent className="px-4 text-slate-700">
+                  Yes! All fractions to decimals worksheets are completely free. Generate unlimited unique worksheets, download as PDFs, and print as many copies as you need. No sign-up required.
+                </AccordionContent>
+              </AccordionItem>
+              <AccordionItem value="q2">
+                <AccordionTrigger className="px-4">What grade levels are fractions to decimals worksheets available for?</AccordionTrigger>
+                <AccordionContent className="px-4 text-slate-700">
+                  Our fractions to decimals worksheets are perfect for 3rd grade, 4th grade, and 5th grade students. Each worksheet is tailored to the appropriate grade level with step-by-step practice and answer keys.
+                </AccordionContent>
+              </AccordionItem>
+              <AccordionItem value="q3">
+                <AccordionTrigger className="px-4">Do fractions to decimals worksheets include answer keys?</AccordionTrigger>
+                <AccordionContent className="px-4 text-slate-700">
+                  Yes! Every fractions to decimals worksheet automatically includes a complete answer key, making grading quick and easy for teachers and parents.
+                </AccordionContent>
+              </AccordionItem>
+              <AccordionItem value="q4">
+                <AccordionTrigger className="px-4">What skills are covered in fractions to decimals worksheets?</AccordionTrigger>
+                <AccordionContent className="px-4 text-slate-700">
+                  Our worksheets cover converting fractions with denominators 10 and 100, mixed numbers to decimals, using division method, comparing fractions and decimals, word problems, and visual models. Perfect for building confidence and mastering conversion skills.
+                </AccordionContent>
+              </AccordionItem>
+            </Accordion>
+          </section>
         </div>
       </main>
       <Footer />
-      
+
       {/* Preview Modal */}
       {previewItem && (
         <div className="fixed inset-0 z-50 overflow-hidden">
           {/* Backdrop */}
-          <div 
+          <div
             className="absolute inset-0 bg-black/50 transition-opacity"
             onClick={() => setPreviewItem(null)}
           />
-          
+
           {/* Side Panel */}
           <div className="absolute right-0 top-0 h-full w-full max-w-4xl bg-white shadow-2xl transform transition-transform duration-300 ease-in-out">
             <div className="flex h-full flex-col">
@@ -309,7 +315,7 @@ export default function FractionsToDecimalsWorksheetsPage() {
                   </svg>
                 </button>
               </div>
-              
+
               {/* Scrollable Content */}
               <div className="flex-1 overflow-y-auto bg-slate-50">
                 <div className="mx-auto max-w-3xl px-6 py-8">
@@ -322,13 +328,13 @@ export default function FractionsToDecimalsWorksheetsPage() {
                       aria-label={`Preview of ${previewItem.title} worksheet`}
                     />
                   </div>
-                  
+
                   {/* Info Footer */}
                   <div className="mt-6 rounded-xl border border-purple-200 bg-purple-50 p-4 text-sm text-purple-800">
                     <p className="font-semibold mb-2">📄 Preview</p>
                     <p>Click the Download button below to download as PDF or use your browser's print function.</p>
                   </div>
-                  
+
                   {/* Action Buttons */}
                   <div className="mt-6 flex items-center gap-3">
                     <button
@@ -355,12 +361,12 @@ export default function FractionsToDecimalsWorksheetsPage() {
   )
 }
 
-const WorksheetThumbnailCard = React.memo(function WorksheetThumbnailCard({ title, description, href, docId, onPreview }: { title: string; description: string; href: string; docId: string; onPreview?: (item: WorksheetItem) => void }) {
+const WorksheetThumbnailCard = React.memo(function WorksheetThumbnailCard({ title, description, href, docId, onPreview, customPreviewUrl, customDownloadUrl }: { title: string; description: string; href: string; docId: string; onPreview?: (item: WorksheetItem) => void; customPreviewUrl?: string; customDownloadUrl?: string }) {
   const { t, language } = useTranslation();
   // Use print URL for preview (not SEO URL) to show actual worksheet content
   const printUrl = getWorksheetPrintURL(docId, 'fractions-to-decimals')
-  const previewUrl = printUrl + (printUrl.includes('?') ? '&preview=1' : '?preview=1')
-  
+  const previewUrl = customPreviewUrl || (printUrl + (printUrl.includes('?') ? '&preview=1' : '?preview=1'))
+
   // Use translations if available (fallback to provided title/description) - memoize to prevent re-renders
   // Use language instead of t in dependencies to avoid re-renders when t function reference changes
   const translatedTitle = React.useMemo(() => {
@@ -368,13 +374,13 @@ const WorksheetThumbnailCard = React.memo(function WorksheetThumbnailCard({ titl
     const translated = t(`worksheets.${docId}.title`);
     return translated && translated !== `worksheets.${docId}.title` ? translated : title;
   }, [docId, title, language, t]);
-  
+
   const translatedDescription = React.useMemo(() => {
     if (!docId) return description;
     const translated = t(`worksheets.${docId}.description`);
     return translated && translated !== `worksheets.${docId}.description` ? translated : description;
   }, [docId, description, language, t]);
-  
+
   return (
     <article className="rounded-2xl border border-slate-200 bg-white shadow-sm hover:shadow-lg transition-all duration-200 p-5 flex flex-col gap-3">
       <div className="flex items-center justify-between gap-3">
@@ -382,14 +388,14 @@ const WorksheetThumbnailCard = React.memo(function WorksheetThumbnailCard({ titl
           <h3 className="text-lg font-semibold text-slate-900">{translatedTitle}</h3>
         </div>
       </div>
-      
+
       <p className="text-sm text-slate-600 leading-relaxed">{translatedDescription}</p>
-      
+
       {/* Worksheet Thumbnail Preview - Clickable to SEO page */}
-      <a 
+      <a
         href={href}
         className="relative w-full bg-gradient-to-br from-slate-50 to-slate-100 rounded-lg border border-slate-200 overflow-hidden cursor-pointer group shadow-sm hover:shadow-md transition-shadow block"
-        style={{ 
+        style={{
           height: '140px',
           aspectRatio: '2.5/1',
         }}
@@ -419,7 +425,7 @@ const WorksheetThumbnailCard = React.memo(function WorksheetThumbnailCard({ titl
         {/* Corner fold effect */}
         <div className="absolute top-0 right-0 w-8 h-8 bg-gradient-to-br from-slate-200/50 to-transparent pointer-events-none" />
       </a>
-      
+
       <div className="flex items-center justify-between">
         <div className="flex items-center gap-4 text-xs text-slate-500">
           <span>Answer key included</span>
@@ -427,6 +433,10 @@ const WorksheetThumbnailCard = React.memo(function WorksheetThumbnailCard({ titl
         <div className="flex items-center gap-2">
           <button
             onClick={() => {
+              if (customDownloadUrl) {
+                window.open(customDownloadUrl, '_blank')
+                return
+              }
               const printUrl = getWorksheetPrintURL(docId, 'fractions-to-decimals')
               window.open(printUrl, '_blank')
             }}

@@ -108,8 +108,10 @@ export default function WorksheetsFirstGradePage() {
 
   // Filter worksheets based on selected categories
   const filteredWorksheets = useMemo(() => {
-    if (selectedCategories.size === 0) return allWorksheets
-    return allWorksheets.filter((ws) =>
+    // Reverse the array to show newly added worksheets (at the bottom of the list) first
+    const newestFirst = [...allWorksheets].reverse()
+    if (selectedCategories.size === 0) return newestFirst
+    return newestFirst.filter((ws) =>
       ws.categories.some((cat) => selectedCategories.has(cat))
     )
   }, [selectedCategories, allWorksheets])

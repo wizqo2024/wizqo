@@ -26,6 +26,7 @@ interface WorksheetItem {
   categories: string[]
   section?: string
   customPreviewUrl?: string
+  customDownloadUrl?: string
 }
 
 // Worksheets will be defined inside component to use translation
@@ -129,8 +130,10 @@ export default function WorksheetsKindergartenPage() {
 
   // Filter worksheets based on selected categories
   const filteredWorksheets = useMemo(() => {
-    if (selectedCategories.size === 0) return KINDERGARTEN_WORKSHEETS
-    return KINDERGARTEN_WORKSHEETS.filter((ws) =>
+    // Reverse the array to show newly added worksheets (at the bottom of the list) first
+    const newestFirst = [...KINDERGARTEN_WORKSHEETS].reverse()
+    if (selectedCategories.size === 0) return newestFirst
+    return newestFirst.filter((ws) =>
       ws.categories.some((cat) => selectedCategories.has(cat))
     )
   }, [selectedCategories, KINDERGARTEN_WORKSHEETS])
@@ -419,38 +422,27 @@ export default function WorksheetsKindergartenPage() {
 }
 
 const WorksheetThumbnailCard = React.memo(function WorksheetThumbnailCard({ title, description, href, docId, onPreview, customPreviewUrl, customDownloadUrl }: { title: string; description: string; href: string; docId: string; onPreview?: (item: WorksheetItem) => void; customPreviewUrl?: string; customDownloadUrl?: string }) {
-  const { t, language } = useTranslation();
-  // Use print URL for preview (not SEO URL) to show actual worksheet content
+  const { t } = useTranslation()
   const printUrl = getWorksheetPrintURL(docId, 'kindergarten')
   const previewUrl = customPreviewUrl || (printUrl + (printUrl.includes('?') ? '&preview=1' : '?preview=1'))
 
-  // Use translations if available (fallback to provided title/description) - memoize to prevent re-renders
-  // Use language instead of t in dependencies to avoid re-renders when t function reference changes
-  const translatedTitle = React.useMemo(() => {
-    if (!docId) return title;
-    const translated = t(`worksheets.${docId}.title`);
-    return translated && translated !== `worksheets.${docId}.title` ? translated : title;
-  }, [docId, title, language, t]);
-
-  const translatedDescription = React.useMemo(() => {
-    if (!docId) return description;
-    const translated = t(`worksheets.${docId}.description`);
-    return translated && translated !== `worksheets.${docId}.description` ? translated : description;
-  }, [docId, description, language, t]);
-
-  const handleClick = () => {
-    trackThumbnailClick(docId, 'kindergarten-math-worksheets')
+  const handleClick = (e: React.MouseEvent) => {
+    e.preventDefault()
+    trackThumbnailClick(docId, title, '/worksheets/kindergarten-math-worksheets')
+    if (onPreview) {
+      onPreview({ title, description, href, docId, categories: [], customPreviewUrl, customDownloadUrl })
+    }
   }
 
   return (
     <article className="rounded-2xl border border-slate-200 bg-white shadow-sm hover:shadow-lg transition-all duration-200 p-5 flex flex-col gap-3">
       <div className="flex items-center justify-between gap-3">
         <div className="flex-1">
-          <h3 className="text-lg font-semibold text-slate-900">{translatedTitle}</h3>
+          <h3 className="text-lg font-semibold text-slate-900">{title}</h3>
         </div>
       </div>
 
-      <p className="text-sm text-slate-600 leading-relaxed">{translatedDescription}</p>
+      <p className="text-sm text-slate-600 leading-relaxed">{description}</p>
 
       {/* Worksheet Thumbnail Preview - Clickable to SEO page */}
       <a
@@ -503,10 +495,10 @@ const WorksheetThumbnailCard = React.memo(function WorksheetThumbnailCard({ titl
             className="text-xs font-medium text-purple-600 hover:text-purple-700 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:ring-offset-2 px-3 py-1 rounded-full border border-purple-200 hover:border-purple-300 transition-colors"
             aria-label={`${t('pages.grades.kindergarten.downloadButton')} ${title}`}
           >
-            {t('pages.grades.kindergarten.downloadButton')}
+            ⬇️ {t('pages.grades.kindergarten.downloadButton')}
           </button>
         </div>
       </div>
     </article>
   )
-});
+})
