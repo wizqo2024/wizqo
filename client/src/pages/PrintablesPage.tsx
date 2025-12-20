@@ -21627,29 +21627,29 @@ export function PrintablesPage() {
                 </div>
               </div>
               <div className="grid grid-cols-2 gap-4" style={{ pageBreakAfter: 'auto' }}>
-                {pairs.map((p, i) => (
-                  <div key={i} className="border border-slate-300 rounded-lg p-4 bg-white">
-                    <div className="flex items-center justify-around mb-3">
-                      <div className="text-center">
-                        <div className="text-5xl mb-1">{p.big}</div>
-                        <p className="text-xs text-slate-600">{p.bigLabel}</p>
-                        <div className="mt-2">
-                          <span className="inline-block w-6 h-6 border-2 border-slate-400 rounded-full" />
-                          <span className="ml-1 text-xs text-slate-600">Circle</span>
+                {pairs.map((p, i) => {
+                  // Deterministic randomization
+                  const swap = i % 2 !== 0;
+                  const left = swap ? { emoji: p.small, label: p.smallLabel, isBig: false } : { emoji: p.big, label: p.bigLabel, isBig: true };
+                  const right = swap ? { emoji: p.big, label: p.bigLabel, isBig: true } : { emoji: p.small, label: p.smallLabel, isBig: false };
+
+                  return (
+                    <div key={i} className="border border-slate-300 rounded-lg p-4 bg-white relative">
+                      <div className="absolute top-2 left-2 text-xs font-bold text-slate-400">#{i + 1}</div>
+                      <div className="flex items-center justify-around mb-3 mt-4">
+                        <div className="text-center">
+                          <div className={`${left.isBig ? 'text-6xl' : 'text-3xl'} mb-2 transition-all`}>{left.emoji}</div>
+                          <p className="text-xs text-slate-600">{left.label}</p>
                         </div>
-                      </div>
-                      <div className="text-2xl text-slate-400">vs</div>
-                      <div className="text-center">
-                        <div className="text-3xl mb-1">{p.small}</div>
-                        <p className="text-xs text-slate-600">{p.smallLabel}</p>
-                        <div className="mt-2">
-                          <span className="text-xl">✗</span>
-                          <span className="ml-1 text-xs text-slate-600">X</span>
+                        <div className="text-2xl text-slate-400">vs</div>
+                        <div className="text-center">
+                          <div className={`${right.isBig ? 'text-6xl' : 'text-3xl'} mb-2 transition-all`}>{right.emoji}</div>
+                          <p className="text-xs text-slate-600">{right.label}</p>
                         </div>
                       </div>
                     </div>
-                  </div>
-                ))}
+                  );
+                })}
               </div>
               {/* Extension/Challenge Problems */}
               <div className="mt-6 print:mt-0 p-4 bg-purple-50 border-2 border-purple-200 rounded print:bg-white print:border" style={{ pageBreakBefore: 'always', pageBreakInside: 'avoid' }}>
