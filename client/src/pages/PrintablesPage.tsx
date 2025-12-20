@@ -30693,22 +30693,31 @@ export function PrintablesPage() {
                 <strong>📝 Instructions:</strong> Look at each pair. <strong>Circle</strong> the object that is longer.
               </div>
               <div className="grid grid-cols-1 gap-6" style={{ pageBreakAfter: 'auto' }}>
-                {pairs.map((pair, idx) => (
-                  <div key={idx} className="border border-slate-300 rounded-lg p-6 bg-white break-inside-avoid">
-                    <div className="text-sm text-slate-700 mb-4 text-center font-semibold">Pair {idx + 1}</div>
-                    <div className="flex items-center justify-center gap-16">
-                      <div className="flex flex-col items-center gap-2">
-                        <div className="text-7xl mb-2 transform scale-x-110">{pair.long.emoji}</div>
-                        <div className="font-semibold text-sm text-slate-800">{pair.long.name}</div>
-                      </div>
-                      <div className="text-2xl text-slate-400">vs</div>
-                      <div className="flex flex-col items-center gap-2">
-                        <div className="text-4xl mb-2">{pair.short.emoji}</div>
-                        <div className="font-semibold text-sm text-slate-800">{pair.short.name}</div>
+                {pairs.map((pair, idx) => {
+                  // Randomize side (pseudo-random based on index to ensure hydration match)
+                  // Pattern: L, R, R, L, R, L (simply mixing it up)
+                  const swap = [false, true, true, false, true, false][idx % 6];
+                  const left = swap ? pair.short : pair.long;
+                  const right = swap ? pair.long : pair.short;
+                  const isLeftLong = left === pair.long;
+
+                  return (
+                    <div key={idx} className="border border-slate-300 rounded-lg p-6 bg-white break-inside-avoid">
+                      <div className="text-sm text-slate-700 mb-4 text-center font-semibold">Pair {idx + 1}</div>
+                      <div className="flex items-center justify-center gap-16">
+                        <div className="flex flex-col items-center gap-2">
+                          <div className={`mb-2 transform ${isLeftLong ? 'text-7xl scale-x-110' : 'text-4xl'}`}>{left.emoji}</div>
+                          <div className="font-semibold text-sm text-slate-800">{left.name}</div>
+                        </div>
+                        <div className="text-2xl text-slate-400">vs</div>
+                        <div className="flex flex-col items-center gap-2">
+                          <div className={`mb-2 transform ${!isLeftLong ? 'text-7xl scale-x-110' : 'text-4xl'}`}>{right.emoji}</div>
+                          <div className="font-semibold text-sm text-slate-800">{right.name}</div>
+                        </div>
                       </div>
                     </div>
-                  </div>
-                ))}
+                  );
+                })}
               </div>
               {/* Extension/Challenge Problems */}
               <div className="mt-6 print:mt-0 p-4 bg-purple-50 border-2 border-purple-200 rounded print:bg-white print:border" style={{ pageBreakBefore: 'always', pageBreakInside: 'avoid' }}>
