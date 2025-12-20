@@ -19273,7 +19273,7 @@ export function PrintablesPage() {
                 <div className="grid grid-cols-4 gap-3 text-xs">
                   {Object.entries(colorMap).map(([num, color]) => (
                     <div key={num} className="flex items-center gap-2">
-                      <div className="w-8 h-8 print:w-10 print:h-10 border-4 border-slate-400 rounded bg-white flex-shrink-0" />
+                      <div className="w-8 h-8 print:w-10 print:h-10 border-4 border-slate-400 rounded flex-shrink-0" style={{ backgroundColor: color.toLowerCase() }} />
                       <div>
                         <div className="font-semibold text-slate-800">{num}</div>
                         <div className="text-xs text-slate-600">{color}</div>
@@ -19289,7 +19289,7 @@ export function PrintablesPage() {
                       {a} × {b} = <span className="inline-block w-20 h-10 print:w-24 print:h-12 border-b-[3px] border-slate-600 mx-1 align-middle" />
                     </div>
                     <div className="w-28 h-28 print:w-32 print:h-32 mx-auto border-4 border-slate-400 rounded-lg bg-white flex items-center justify-center">
-                      <span className="text-xs text-slate-500 font-semibold">Color here</span>
+
                     </div>
                   </div>
                 ))}
