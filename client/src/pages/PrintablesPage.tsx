@@ -30790,22 +30790,18 @@ export function PrintablesPage() {
                       <div className="flex flex-col items-center gap-2">
                         <div className="relative">
                           <div className="text-6xl mb-2">{pair.heavy.emoji}</div>
-                          <div className="absolute -top-1 -right-1 w-6 h-6 border-4 border-slate-600 rounded-full"></div>
                         </div>
                         <div className="text-center">
                           <div className="font-semibold text-sm text-slate-800">{pair.heavy.name}</div>
-                          <div className="text-xs text-slate-600 mt-1">Circle (Heavy)</div>
                         </div>
                       </div>
                       <div className="text-2xl text-slate-400">vs</div>
                       <div className="flex flex-col items-center gap-2">
                         <div className="relative">
                           <div className="text-6xl mb-2">{pair.light.emoji}</div>
-                          <div className="absolute top-2 left-1/2 transform -translate-x-1/2 text-3xl text-slate-600 font-bold">✕</div>
                         </div>
                         <div className="text-center">
                           <div className="font-semibold text-sm text-slate-800">{pair.light.name}</div>
-                          <div className="text-xs text-slate-600 mt-1">Put X (Light)</div>
                         </div>
                       </div>
                     </div>
