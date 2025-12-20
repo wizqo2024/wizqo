@@ -372,6 +372,11 @@ export default function MatchFeelingWorksheetPage() {
                             </div>
                             {leftItems.map((item, idx) => (
                                 <div key={`sit-${idx}`} className="relative group">
+                                    {/* Number Badge */}
+                                    <div className="absolute -top-3 -left-3 w-10 h-10 bg-violet-600 text-white rounded-full flex items-center justify-center font-black text-xl shadow-lg border-2 border-white z-20 print:border-violet-600 print:text-white print:shadow-none print:w-8 print:h-8 print:text-lg">
+                                        {idx + 1}
+                                    </div>
+
                                     {/* Clay Container */}
                                     <div className="aspect-[4/3] rounded-3xl p-4 flex flex-col items-center justify-between transition-transform transform hover:scale-[1.02] border-2 border-transparent print:border-slate-200 print:print-color-adjust-exact print:p-2 print:rounded-2xl"
                                         style={{
@@ -410,6 +415,11 @@ export default function MatchFeelingWorksheetPage() {
                                             })(),
                                             boxShadow: '10px 10px 20px #9ca3af, -10px -10px 20px #ffffff'
                                         }}>
+
+                                        {/* Answer Box */}
+                                        <div className="absolute top-2 right-2 w-12 h-12 bg-white border-2 border-slate-300 rounded-lg shadow-inner flex items-center justify-center print:w-10 print:h-10 print:border-slate-400">
+                                            <span className="text-slate-300 text-xs font-bold">#</span>
+                                        </div>
 
                                         <item.EmoIcon className="w-28 h-28 print:w-20 print:h-20" />
 
