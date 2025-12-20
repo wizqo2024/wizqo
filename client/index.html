@@ -147,10 +147,25 @@
       background-color: #f8fafc;
     }
 
-    /* SEO Fallback: VISIBLE by default for bots/non-JS */
+    /* Animation to delay fallback visibility - prevents flash for users */
+    @keyframes seoFadeIn {
+      from {
+        opacity: 0;
+      }
+
+      to {
+        opacity: 1;
+      }
+    }
+
+    /* SEO Fallback: Initially invisible, fades in after delay if React hasn't loaded */
     #seo-fallback {
       display: block;
       visibility: visible;
+      opacity: 0;
+      animation: seoFadeIn 0.5s ease-in forwards;
+      animation-delay: 1.5s;
+      /* 1.5s grace period for React to load */
     }
 
     /* Hide SEO fallback ONLY once React has loaded */
@@ -559,6 +574,8 @@
         #seo-fallback {
           display: block !important;
           visibility: visible !important;
+          opacity: 1 !important;
+          animation: none !important;
         }
       }
 
