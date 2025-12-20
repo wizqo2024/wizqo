@@ -30662,19 +30662,19 @@ export function PrintablesPage() {
 
         {activeDocs.includes('long-short') && (() => {
           const pairs = [
-            { long: { name: 'pencil', length: 80 }, short: { name: 'eraser', length: 30 } },
-            { long: { name: 'ruler', length: 90 }, short: { name: 'paper clip', length: 25 } },
-            { long: { name: 'crayon', length: 75 }, short: { name: 'button', length: 20 } },
-            { long: { name: 'straw', length: 85 }, short: { name: 'coin', length: 15 } },
-            { long: { name: 'stick', length: 80 }, short: { name: 'bead', length: 18 } },
-            { long: { name: 'rope', length: 90 }, short: { name: 'key', length: 28 } },
+            { long: { name: 'ruler', emoji: '📏' }, short: { name: 'paper clip', emoji: '📎' } },
+            { long: { name: 'snake', emoji: '🐍' }, short: { name: 'caterpillar', emoji: '🐛' } },
+            { long: { name: 'train', emoji: '🚂' }, short: { name: 'car', emoji: '🚗' } },
+            { long: { name: 'pencil', emoji: '✏️' }, short: { name: 'crayon', emoji: '🖍️' } },
+            { long: { name: 'ladder', emoji: '🪜' }, short: { name: 'stool', emoji: '🪑' } },
+            { long: { name: 'rope', emoji: '🪢' }, short: { name: 'key', emoji: '🔑' } },
           ];
           return (
             <WorksheetSectionWrapper
               docId="long-short"
               title="Long and Short"
               emoji="📏"
-              description="Look at each pair. Color the long object red. Color the short object blue."
+              description="Circle the object that is longer."
               problemCount={pairs.length}
               learningObjectives={[
                 'Compare lengths of objects',
@@ -30682,35 +30682,29 @@ export function PrintablesPage() {
                 'Develop measurement vocabulary'
               ]}
               parentTeacherTips={[
-                'Help children compare the objects side by side',
+                'Help children compare the objects visually',
                 'Encourage them to use words like "longer" and "shorter"',
-                'Use this activity to practice measurement concepts',
+                'Ask: "Which one takes up more space?"',
                 'Extension: Find long and short objects around you'
               ]}
             >
               <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-purple-400 to-pink-400 animate-gradient-x mb-2" />
               <div className="mb-4 p-3 bg-blue-50 border border-blue-200 rounded text-sm text-blue-900">
-                <strong>📝 Instructions:</strong> Look at each pair of objects. The longer object should be colored red. The shorter object should be colored blue.
+                <strong>📝 Instructions:</strong> Look at each pair. <strong>Circle</strong> the object that is longer.
               </div>
               <div className="grid grid-cols-1 gap-6" style={{ pageBreakAfter: 'auto' }}>
                 {pairs.map((pair, idx) => (
                   <div key={idx} className="border border-slate-300 rounded-lg p-6 bg-white break-inside-avoid">
                     <div className="text-sm text-slate-700 mb-4 text-center font-semibold">Pair {idx + 1}</div>
-                    <div className="flex items-center justify-center gap-8">
+                    <div className="flex items-center justify-center gap-16">
                       <div className="flex flex-col items-center gap-2">
-                        <svg viewBox="0 0 100 100" className="w-64 h-64 border-2 border-slate-300 rounded-lg bg-white print:w-80 print:h-80">
-                          <rect x="10" y="40" width={pair.long.length} height="20" fill="none" stroke="#475569" strokeWidth="4" rx="8" />
-                          <text x="50" y="25" fontSize="12" fill="#475569" textAnchor="middle" fontWeight="bold">{pair.long.name}</text>
-                          <text x="50" y="85" fontSize="11" fill="#ef4444" textAnchor="middle" fontWeight="bold">Color red</text>
-                        </svg>
+                        <div className="text-7xl mb-2 transform scale-x-110">{pair.long.emoji}</div>
+                        <div className="font-semibold text-sm text-slate-800">{pair.long.name}</div>
                       </div>
                       <div className="text-2xl text-slate-400">vs</div>
                       <div className="flex flex-col items-center gap-2">
-                        <svg viewBox="0 0 100 100" className="w-64 h-64 border-2 border-slate-300 rounded-lg bg-white print:w-80 print:h-80">
-                          <rect x="10" y="40" width={pair.short.length} height="20" fill="none" stroke="#475569" strokeWidth="4" rx="8" />
-                          <text x="50" y="25" fontSize="12" fill="#475569" textAnchor="middle" fontWeight="bold">{pair.short.name}</text>
-                          <text x="50" y="85" fontSize="11" fill="#3b82f6" textAnchor="middle" fontWeight="bold">Color blue</text>
-                        </svg>
+                        <div className="text-4xl mb-2">{pair.short.emoji}</div>
+                        <div className="font-semibold text-sm text-slate-800">{pair.short.name}</div>
                       </div>
                     </div>
                   </div>
@@ -30743,7 +30737,7 @@ export function PrintablesPage() {
                   <ul className="list-disc list-inside space-y-1 text-sm">
                     {pairs.map((pair, idx) => (
                       <li key={idx} className="text-emerald-800">
-                        Pair {idx + 1}: {pair.long.name} (long - color red), {pair.short.name} (short - color blue)
+                        Pair {idx + 1}: Circle the <strong>{pair.long.name}</strong> {pair.long.emoji} (it is longer than {pair.short.name})
                       </li>
                     ))}
                   </ul>
