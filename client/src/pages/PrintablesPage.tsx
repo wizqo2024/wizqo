@@ -30266,47 +30266,110 @@ export function PrintablesPage() {
         })()}
 
         {activeDocs.includes('color-recognition') && (() => {
+          // Define Coloring Icons
+          const AppleIcon = (props: any) => (
+            <svg viewBox="0 0 100 100" {...props}>
+              <path d="M50 35 C30 15, 10 45, 30 75 C40 90, 60 90, 70 75 C90 45, 70 15, 50 35" {...props} />
+              <path d="M50 35 Q50 20 55 15" stroke="brown" strokeWidth="4" fill="none" />
+              <path d="M50 35 Q40 25 35 30" fill="green" stroke="none" opacity={props.fill === 'white' ? 0.3 : 1} />
+            </svg>
+          );
+          const SunIcon = (props: any) => (
+            <svg viewBox="0 0 100 100" {...props}>
+              <circle cx="50" cy="50" r="25" {...props} />
+              <g stroke={props.fill === 'white' ? 'black' : props.fill} strokeWidth="4" strokeLinecap="round">
+                <line x1="50" y1="15" x2="50" y2="5" />
+                <line x1="50" y1="85" x2="50" y2="95" />
+                <line x1="15" y1="50" x2="5" y2="50" />
+                <line x1="85" y1="50" x2="95" y2="50" />
+                <line x1="25" y1="25" x2="18" y2="18" />
+                <line x1="75" y1="75" x2="82" y2="82" />
+                <line x1="75" y1="25" x2="82" y2="18" />
+                <line x1="25" y1="75" x2="18" y2="82" />
+              </g>
+            </svg>
+          );
+          const CloudIcon = (props: any) => (
+            <svg viewBox="0 0 100 100" {...props}>
+              <path d="M25 60 A15 15 0 0 1 25 35 A20 20 0 0 1 55 35 A15 15 0 0 1 75 45 A15 15 0 0 1 75 70 Q75 75 50 75 Q25 75 25 60" {...props} />
+            </svg>
+          );
+          const GrassIcon = (props: any) => (
+            <svg viewBox="0 0 100 100" {...props}>
+              <path d="M10 80 Q15 40 25 80 Q30 30 40 80 Q50 20 60 80 Q70 30 75 80 Q85 40 90 80 L90 90 L10 90 Z" {...props} />
+            </svg>
+          );
+          const CarrotIcon = (props: any) => (
+            <svg viewBox="0 0 100 100" {...props}>
+              {/* Body */}
+              <path d="M35 25 Q65 25 65 25 L55 90 Q50 95 45 90 L35 25 Z" {...props} />
+              {/* Leaves */}
+              <path d="M40 25 L35 10" stroke="green" strokeWidth="3" opacity={props.fill === 'white' ? 0.3 : 1} />
+              <path d="M50 25 L50 5" stroke="green" strokeWidth="3" opacity={props.fill === 'white' ? 0.3 : 1} />
+              <path d="M60 25 L65 10" stroke="green" strokeWidth="3" opacity={props.fill === 'white' ? 0.3 : 1} />
+            </svg>
+          );
+          const GrapeIcon = (props: any) => (
+            <svg viewBox="0 0 100 100" {...props}>
+              <circle cx="50" cy="80" r="10" {...props} />
+              <circle cx="40" cy="65" r="10" {...props} />
+              <circle cx="60" cy="65" r="10" {...props} />
+              <circle cx="30" cy="50" r="10" {...props} />
+              <circle cx="50" cy="50" r="10" {...props} />
+              <circle cx="70" cy="50" r="10" {...props} />
+              <circle cx="20" cy="35" r="10" {...props} />
+              <circle cx="40" cy="35" r="10" {...props} />
+              <circle cx="60" cy="35" r="10" {...props} />
+              <circle cx="80" cy="35" r="10" {...props} />
+              <path d="M50 35 L50 20" stroke="brown" strokeWidth="3" />
+            </svg>
+          );
+
           const items = [
-            { item: 'apple', color: 'red', emoji: '🍎', shape: 'circle' },
-            { item: 'sun', color: 'yellow', emoji: '☀️', shape: 'circle' },
-            { item: 'sky', color: 'blue', emoji: '☁️', shape: 'rectangle' },
-            { item: 'grass', color: 'green', emoji: '🌱', shape: 'rectangle' },
-            { item: 'carrot', color: 'orange', emoji: '🥕', shape: 'triangle' },
-            { item: 'grape', color: 'purple', emoji: '🍇', shape: 'circle' },
+            { item: 'apple', color: 'red', fill: '#ef4444', Component: AppleIcon },
+            { item: 'sun', color: 'yellow', fill: '#eab308', Component: SunIcon },
+            { item: 'sky', color: 'blue', fill: '#3b82f6', Component: CloudIcon },
+            { item: 'grass', color: 'green', fill: '#22c55e', Component: GrassIcon },
+            { item: 'carrot', color: 'orange', fill: '#f97316', Component: CarrotIcon },
+            { item: 'grape', color: 'purple', fill: '#a855f7', Component: GrapeIcon },
           ];
+
           return (
             <WorksheetSectionWrapper
               docId="color-recognition"
               title="Color Recognition"
               emoji="🟩"
-              description="Color each item with the correct color."
+              description="Look at the item. Color it with the matching marker!"
               problemCount={items.length}
               learningObjectives={[
                 'Recognize and name colors',
                 'Match colors to objects',
-                'Develop color vocabulary'
+                'Develop fine motor skills'
               ]}
               parentTeacherTips={[
                 'Help children name each color before coloring',
-                'Encourage them to say the color out loud',
-                'Use this activity to practice color recognition',
-                'Extension: Find objects around you that match each color'
+                'Encourage them to stay within the lines',
+                'Talk about other red/blue/green objects',
               ]}
             >
               <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-purple-400 to-pink-400 animate-gradient-x mb-2" />
-              <div className="mb-4 p-3 bg-blue-50 border border-blue-200 rounded text-sm text-blue-900">
-                <strong>📝 Instructions:</strong> Look at each item and color it with the correct color shown below.
-              </div>
               <div className="grid grid-cols-1 gap-6" style={{ pageBreakAfter: 'auto' }}>
                 {items.map((i, idx) => (
                   <div key={idx} className="border border-slate-300 rounded-lg p-6 bg-white break-inside-avoid">
-                    <div className="text-center mb-4">
-                      <div className="text-5xl mb-2">{i.emoji}</div>
-                      <div className="text-lg font-semibold text-slate-800 capitalize mb-2">{i.item}</div>
-                      <div className="text-sm font-semibold text-slate-600">Color: <span className="text-slate-800">{i.color}</span></div>
+                    <div className={`text-center mb-4 text-2xl font-bold capitalize text-${i.color === 'red' ? 'red-500' : i.color === 'yellow' ? 'yellow-500' : i.color === 'blue' ? 'blue-500' : i.color === 'green' ? 'green-500' : i.color === 'orange' ? 'orange-500' : 'purple-500'}`}>
+                      {i.item} <span className="text-slate-400 text-lg font-normal">({i.color})</span>
                     </div>
-                    <div className="border-2 border-dashed border-slate-400 rounded-lg bg-white min-h-48 print:min-h-64 flex items-center justify-center">
-                      <div className="text-6xl opacity-30">{i.emoji}</div>
+                    <div className="grid grid-cols-2 gap-8 items-center">
+                      {/* Sample */}
+                      <div className="aspect-square flex items-center justify-center bg-slate-50 rounded-xl border-2 border-slate-100 p-4">
+                        <i.Component className="w-full h-full drop-shadow-md p-4" fill={i.fill} stroke="none" />
+                      </div>
+
+                      {/* Coloring Target */}
+                      <div className="aspect-square flex items-center justify-center border-4 border-dashed border-slate-300 rounded-xl bg-white p-4 relative">
+                        <i.Component className="w-full h-full p-4 text-slate-900" fill="white" stroke="currentColor" strokeWidth="2" strokeDasharray="5,5" />
+                        <div className="absolute bottom-2 right-2 opacity-20 pointer-events-none text-2xl">🖍️</div>
+                      </div>
                     </div>
                   </div>
                 ))}
