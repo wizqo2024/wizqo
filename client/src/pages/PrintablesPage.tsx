@@ -30809,78 +30809,172 @@ export function PrintablesPage() {
 
         {
           activeDocs.includes('color-patterns') && (() => {
-            const patterns = [
-              { colors: ['🔴', '🔵', '🔴', '🔵'], next: '🔴', name: 'red, blue' },
-              { colors: ['🟡', '🟢', '🟡', '🟢'], next: '🟡', name: 'yellow, green' },
-              { colors: ['🔵', '🔴', '🔵', '🔴'], next: '🔵', name: 'blue, red' },
-              { colors: ['🟢', '🟡', '🟢', '🟡'], next: '🟢', name: 'green, yellow' },
-              { colors: ['🟠', '🟣', '🟠', '🟣'], next: '🟠', name: 'orange, purple' },
-              { colors: ['🔴', '🟡', '🔴', '🟡'], next: '🔴', name: 'red, yellow' },
+            const rng = makeRng('color-patterns');
+
+            // Reuse shapes/colors (similar to ab-pattern but locally defined for safety)
+            const shapes = {
+              circle: { render: (props: any) => <circle cx="50" cy="50" r="40" {...props} />, label: 'Circle' },
+              square: { render: (props: any) => <rect x="15" y="15" width="70" height="70" rx="4" {...props} />, label: 'Square' },
+              triangle: { render: (props: any) => <polygon points="50,15 85,85 15,85" strokeLinejoin="round" {...props} />, label: 'Triangle' },
+              star: { render: (props: any) => <polygon points="50,5 61,40 98,40 68,62 79,95 50,75 21,95 32,62 2,40 39,40" strokeLinejoin="round" {...props} />, label: 'Star' },
+              diamond: { render: (props: any) => <polygon points="50,10 90,50 50,90 10,50" strokeLinejoin="round" {...props} />, label: 'Diamond' },
+              heart: { render: (props: any) => <path d="M50 30 C65 10, 95 20, 95 50 C95 75, 50 95, 50 95 C50 95, 5 75, 5 50 C5 20, 35 10, 50 30 Z" strokeLinejoin="round" {...props} />, label: 'Heart' },
+            };
+
+            const colors = [
+              { name: 'Red', fill: '#ef4444', border: 'text-red-600' },
+              { name: 'Blue', fill: '#3b82f6', border: 'text-blue-600' },
+              { name: 'Green', fill: '#22c55e', border: 'text-green-600' },
+              { name: 'Yellow', fill: '#eab308', border: 'text-yellow-600' },
+              { name: 'Purple', fill: '#a855f7', border: 'text-purple-600' },
+              { name: 'Orange', fill: '#f97316', border: 'text-orange-600' },
             ];
+
+            const shapeKeys = Object.keys(shapes) as Array<keyof typeof shapes>;
+
+            // Logic: Color Patterns
+            // We fix a single Shape per row (e.g. all Squares) but vary the Colors.
+            // Row 0: ABAB (Red, Blue, Red, Blue...)
+            // Row 1: AABB (Red, Red, Blue, Blue...)
+            // Row 2: ABC (Red, Blue, Green...)
+            // Row 3: ABBA (Red, Blue, Blue, Red...) - Harder!
+
+            const patterns = Array.from({ length: 4 }).map((_, i) => {
+              const baseShapeKey = shapeKeys[Math.floor(rng() * shapeKeys.length)];
+
+              // Pick 3 distinct colors to be safe (A, B, C)
+              let cA = colors[Math.floor(rng() * colors.length)];
+              let cB = colors[Math.floor(rng() * colors.length)];
+              while (cB.name === cA.name) cB = colors[Math.floor(rng() * colors.length)];
+              let cC = colors[Math.floor(rng() * colors.length)];
+              while (cC.name === cA.name || cC.name === cB.name) cC = colors[Math.floor(rng() * colors.length)];
+
+              const itemA = { shape: baseShapeKey, color: cA };
+              const itemB = { shape: baseShapeKey, color: cB };
+              const itemC = { shape: baseShapeKey, color: cC };
+
+              let sequence: any[] = [];
+              let nextItem, distractor;
+              let patternName = "";
+
+              if (i === 0) {
+                // ABAB
+                patternName = "ABAB";
+                sequence = [itemA, itemB, itemA, itemB, itemA]; // Answer: B
+                nextItem = itemB;
+                distractor = itemA;
+              } else if (i === 1) {
+                // AABB
+                patternName = "AABB";
+                sequence = [itemA, itemA, itemB, itemB, itemA]; // Answer: A
+                nextItem = itemA;
+                distractor = itemB;
+              } else if (i === 2) {
+                // ABC
+                patternName = "ABC";
+                sequence = [itemA, itemB, itemC, itemA, itemB]; // Answer: C
+                nextItem = itemC;
+                distractor = itemA;
+              } else {
+                // ABBA
+                patternName = "ABBA";
+                sequence = [itemA, itemB, itemB, itemA, itemA]; // Answer: B
+                nextItem = itemB;
+                distractor = itemC; // Tricky distractor
+              }
+
+              return {
+                id: i,
+                patternName,
+                sequence,
+                next: nextItem,
+                option1: distractor,
+                option2: nextItem,
+                baseShape: baseShapeKey
+              };
+            });
             return (
               <WorksheetSectionWrapper
                 docId="color-patterns"
                 title="Color Patterns"
-                emoji="🧩"
-                description="Complete the color pattern. What comes next?"
+                emoji="🎨"
+                description="Look at the colors. Identify the pattern (ABAB, AABB, or ABC)."
                 problemCount={patterns.length}
                 learningObjectives={[
-                  'Identify patterns in sequences',
-                  'Predict what comes next in a pattern',
-                  'Develop pattern recognition skills'
+                  'Identify different pattern types (ABAB, AABB, ABC)',
+                  'Predict sequences using color logic',
+                  'Build advanced pattern recognition skills'
                 ]}
                 parentTeacherTips={[
-                  'Help children identify the repeating pattern',
-                  'Encourage them to say the pattern out loud',
-                  'Use this activity to practice sequencing',
-                  'Extension: Create your own color patterns'
+                  'Ask: "Is this an ABAB pattern or AABB?"',
+                  'Point out that "A" means one color and "B" means another',
+                  'Say it loud: "Red, Red, Blue, Blue..."',
                 ]}
               >
                 <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-purple-400 to-pink-400 animate-gradient-x mb-2" />
-                <div className="grid grid-cols-2 gap-4" style={{ pageBreakAfter: 'auto' }}>
+
+                {/* Visual Guide to Pattern Types */}
+                <div className="mb-6 p-4 bg-purple-50 border-2 border-purple-200 rounded-lg print:border print:bg-white flex flex-col md:flex-row gap-4 justify-between items-start md:items-center">
+                  <div>
+                    <div className="font-semibold text-purple-900 mb-1 text-sm">💡 Pattern Types:</div>
+                    <div className="text-xs text-purple-700 space-y-1">
+                      <div><strong>ABAB:</strong> Alternates (Red, Blue, Red, Blue)</div>
+                      <div><strong>AABB:</strong> Doubles (Red, Red, Blue, Blue)</div>
+                      <div><strong>ABC:</strong> Triples (Red, Blue, Green)</div>
+                    </div>
+                  </div>
+                  <div className="text-2xl animate-bounce">🧩</div>
+                </div>
+
+                <div className="grid grid-cols-1 gap-6" style={{ pageBreakAfter: 'auto' }}>
                   {patterns.map((p, i) => (
-                    <div key={i} className="border border-slate-300 rounded-lg p-4 bg-white break-inside-avoid">
-                      <div className="flex items-center justify-center gap-2 mb-3 text-3xl">
-                        {p.colors.map((c, idx) => (
-                          <span key={idx}>{c}</span>
-                        ))}
-                        <span className="text-2xl border-2 border-dashed border-slate-400 rounded px-2">?</span>
+                    <div key={i} className="border-2 border-slate-300 rounded-xl p-4 bg-white">
+                      <div className="mb-2 text-xs font-bold text-slate-400 uppercase tracking-widest text-center">
+                        Type: {p.patternName}
                       </div>
-                      <div className="text-center text-sm text-slate-600">What comes next?</div>
+                      <div className="mb-4">
+                        <div className="flex items-center gap-2 md:gap-3 justify-center bg-slate-50 rounded-lg p-4 border border-slate-100">
+                          {p.sequence.map((item, idx) => {
+                            const S = shapes[item.shape as keyof typeof shapes].render;
+                            return (
+                              <svg key={idx} viewBox="0 0 100 100" className="w-12 h-12 md:w-14 md:h-14 drop-shadow-sm">
+                                <S fill={item.color.fill} stroke="white" strokeWidth="2" />
+                              </svg>
+                            );
+                          })}
+                          <div className="w-12 h-12 md:w-14 md:h-14 flex items-center justify-center border-b-4 border-slate-300 text-slate-400 font-bold text-2xl">
+                            ?
+                          </div>
+                        </div>
+                      </div>
+
+                      <div className="flex justify-center items-center gap-8">
+                        <div className="text-sm font-bold text-slate-500 uppercase tracking-wider">Choose:</div>
+                        <div className="flex gap-6">
+                          {[p.option1, p.option2].sort(() => Math.random() - 0.5).map((opt, optIdx) => {
+                            // Simple shuffle for display options
+                            const S = shapes[opt.shape as keyof typeof shapes].render;
+                            return (
+                              <div key={optIdx} className="w-16 h-16 md:w-20 md:h-20 border-2 border-slate-200 rounded-xl flex items-center justify-center hover:border-violet-400 cursor-pointer transition-colors bg-white print:border-slate-300">
+                                <svg viewBox="0 0 100 100" className="w-10 h-10 md:w-14 md:h-14">
+                                  <S fill={opt.color.fill} stroke="white" strokeWidth="2" />
+                                </svg>
+                              </div>
+                            );
+                          })}
+                        </div>
+                      </div>
                     </div>
                   ))}
                 </div>
-                {/* Extension/Challenge Problems */}
-                <div className="mt-6 print:mt-0 p-4 bg-purple-50 border-2 border-purple-200 rounded print:bg-white print:border" style={{ pageBreakBefore: 'always', pageBreakInside: 'avoid' }}>
-                  <div className="font-semibold text-purple-900 mb-3 text-sm">🌟 More Fun (Optional):</div>
-                  <div className="space-y-2 text-sm text-purple-800">
-                    <div>1. Create your own color pattern</div>
-                    <div>2. Continue the pattern for 3 more items</div>
-                    <div>3. Make a pattern using objects around you</div>
-                  </div>
-                </div>
-                {/* Self-Assessment */}
-                <div className="print:block hidden print:mt-0 mt-6 p-4 border-2 border-slate-300 rounded" style={{ pageBreakBefore: 'avoid', pageBreakInside: 'avoid' }}>
-                  <div className="font-semibold text-slate-800 mb-3 text-sm">📊 {getTrans('common.howDidYouDo', 'How did you do?')}</div>
-                  <div className="space-y-2 text-xs">
-                    <div>☐ I can see the pattern</div>
-                    <div>☐ I can predict what comes next</div>
-                    <div>☐ I understand patterns</div>
-                  </div>
-                  <div className="mt-3 text-xs">
-                    <strong>My favorite pattern:</strong> _________________________
-                  </div>
-                </div>
+
                 {showAnswersForDoc('color-patterns', () => (
                   <div className="mt-6 p-4 border-2 border-emerald-300 bg-emerald-50 rounded print:border print:bg-white print:page-break-before-always">
-                    <div className="font-bold text-emerald-900 mb-3 text-base">✅ {getTrans('common.answerKey', 'Answer Key')}</div>
-                    <ul className="list-disc list-inside space-y-1 text-sm">
+                    <div className="font-bold text-emerald-900 mb-3 text-base">✅ Answer Key</div>
+                    <ul className="list-disc list-inside space-y-2 text-sm text-emerald-800">
                       {patterns.map((p, i) => (
-                        <li key={i} className="flex items-center gap-2 text-emerald-800">
-                          <span>{p.colors.join(' ')}</span>
-                          <span>→</span>
-                          <span className="text-xl">{p.next}</span>
-                          <span className="text-xs text-slate-500">({p.name} pattern)</span>
+                        <li key={i}>
+                          <strong>Pattern {i + 1} ({p.patternName}):</strong> {p.next.color.name} {p.next.shape === 'star' ? 'Star' : p.next.shape === 'heart' ? 'Heart' : p.next.shape === 'diamond' ? 'Diamond' : p.next.shape.charAt(0).toUpperCase() + p.next.shape.slice(1)}
                         </li>
                       ))}
                     </ul>
