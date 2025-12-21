@@ -20005,108 +20005,201 @@ export function PrintablesPage() {
         })()}
 
         {activeDocs.includes('kindergarten-patterns') && (() => {
-          const patterns = [
-            { type: 'AB', items: ['🔴', '🔵'], pattern: ['🔴', '🔵', '🔴', '🔵', '___', '___'], answer: ['🔴', '🔵'] },
-            { type: 'ABC', items: ['⭐', '🌙', '☀️'], pattern: ['⭐', '🌙', '☀️', '⭐', '🌙', '___'], answer: ['☀️'] },
-            { type: 'AAB', items: ['🟢', '🟡'], pattern: ['🟢', '🟢', '🟡', '🟢', '🟢', '___'], answer: ['🟡'] },
-            { type: 'AB', items: ['🐱', '🐶'], pattern: ['🐱', '🐶', '🐱', '🐶', '___', '___'], answer: ['🐱', '🐶'] },
-            { type: 'ABC', items: ['🔷', '🔶', '🔸'], pattern: ['🔷', '🔶', '🔸', '🔷', '___', '___'], answer: ['🔶', '🔸'] },
-            { type: 'AAB', items: ['🍎', '🍌'], pattern: ['🍎', '🍎', '🍌', '🍎', '🍎', '___'], answer: ['🍌'] },
+          const rng = makeRng('kindergarten-patterns');
+
+          // Reuse shapes/colors (locally defined for safety)
+          const shapes = {
+            circle: { render: (props: any) => <circle cx="50" cy="50" r="40" {...props} />, label: 'Circle' },
+            square: { render: (props: any) => <rect x="15" y="15" width="70" height="70" rx="4" {...props} />, label: 'Square' },
+            triangle: { render: (props: any) => <polygon points="50,15 85,85 15,85" strokeLinejoin="round" {...props} />, label: 'Triangle' },
+            star: { render: (props: any) => <polygon points="50,5 61,40 98,40 68,62 79,95 50,75 21,95 32,62 2,40 39,40" strokeLinejoin="round" {...props} />, label: 'Star' },
+            diamond: { render: (props: any) => <polygon points="50,10 90,50 50,90 10,50" strokeLinejoin="round" {...props} />, label: 'Diamond' },
+            heart: { render: (props: any) => <path d="M50 30 C65 10, 95 20, 95 50 C95 75, 50 95, 50 95 C50 95, 5 75, 5 50 C5 20, 35 10, 50 30 Z" strokeLinejoin="round" {...props} />, label: 'Heart' },
+          };
+
+          const colors = [
+            { name: 'Red', fill: '#ef4444', border: 'text-red-600' },
+            { name: 'Blue', fill: '#3b82f6', border: 'text-blue-600' },
+            { name: 'Green', fill: '#22c55e', border: 'text-green-600' },
+            { name: 'Yellow', fill: '#eab308', border: 'text-yellow-600' },
+            { name: 'Purple', fill: '#a855f7', border: 'text-purple-600' },
+            { name: 'Orange', fill: '#f97316', border: 'text-orange-600' },
           ];
+
+          const shapeKeys = Object.keys(shapes) as Array<keyof typeof shapes>;
+
+          // Logic: Mixed Patterns (Mastery)
+          // 6 Problems total. Randomly choosing between Color Logic and Shape Logic.
+
+          const patterns = Array.from({ length: 6 }).map((_, i) => {
+            const mode = rng() > 0.5 ? 'color' : 'shape';
+
+            if (mode === 'color') {
+              // COLOR LOGIC (Same Shape, Diff Colors)
+              const baseShapeKey = shapeKeys[Math.floor(rng() * shapeKeys.length)];
+              let cA = colors[Math.floor(rng() * colors.length)];
+              let cB = colors[Math.floor(rng() * colors.length)];
+              while (cB.name === cA.name) cB = colors[Math.floor(rng() * colors.length)];
+
+              // Simple ABAB or AABB for mixed review
+              const subType = rng() > 0.5 ? 'ABAB' : 'ABC';
+
+              let sequence: any[] = [];
+              let nextItem, distractor;
+              let patternName = subType;
+
+              if (subType === 'ABAB') {
+                const itemA = { shape: baseShapeKey, color: cA };
+                const itemB = { shape: baseShapeKey, color: cB };
+                sequence = [itemA, itemB, itemA, itemB, itemA];
+                nextItem = itemB;
+                distractor = itemA;
+              } else { // ABC
+                let cC = colors[Math.floor(rng() * colors.length)];
+                while (cC.name === cA.name || cC.name === cB.name) cC = colors[Math.floor(rng() * colors.length)];
+                const itemA = { shape: baseShapeKey, color: cA };
+                const itemB = { shape: baseShapeKey, color: cB };
+                const itemC = { shape: baseShapeKey, color: cC };
+                sequence = [itemA, itemB, itemC, itemA, itemB];
+                nextItem = itemC;
+                distractor = itemA;
+              }
+
+              return {
+                id: i,
+                mode: 'Color Pattern',
+                patternName,
+                sequence,
+                next: nextItem,
+                option1: distractor,
+                option2: nextItem,
+                desc: `${patternName} (${nextItem.color.name})`
+              };
+            } else {
+              // SHAPE LOGIC (Same Color, Diff Shapes)
+              const baseColor = colors[Math.floor(rng() * colors.length)];
+              let sA = shapeKeys[Math.floor(rng() * shapeKeys.length)];
+              let sB = shapeKeys[Math.floor(rng() * shapeKeys.length)];
+              while (sB === sA) sB = shapeKeys[Math.floor(rng() * shapeKeys.length)];
+
+              const subType = rng() > 0.5 ? 'ABAB' : 'ABC';
+              let sequence: any[] = [];
+              let nextItem, distractor;
+              let patternName = subType;
+
+              if (subType === 'ABAB') {
+                const itemA = { shape: sA, color: baseColor };
+                const itemB = { shape: sB, color: baseColor };
+                sequence = [itemA, itemB, itemA, itemB, itemA];
+                nextItem = itemB;
+                distractor = itemA;
+              } else { // ABC
+                let sC = shapeKeys[Math.floor(rng() * shapeKeys.length)];
+                while (sC === sA || sC === sB) sC = shapeKeys[Math.floor(rng() * shapeKeys.length)];
+                const itemA = { shape: sA, color: baseColor };
+                const itemB = { shape: sB, color: baseColor };
+                const itemC = { shape: sC, color: baseColor };
+                sequence = [itemA, itemB, itemC, itemA, itemB];
+                nextItem = itemC;
+                distractor = itemA;
+              }
+
+              return {
+                id: i,
+                mode: 'Shape Pattern',
+                patternName,
+                sequence,
+                next: nextItem,
+                option1: distractor,
+                option2: nextItem,
+                desc: `${patternName} (${nextItem.shape})`
+              };
+            }
+          });
           return (
             <WorksheetSectionWrapper
               docId="kindergarten-patterns"
-              title="Patterns"
-              emoji="🔁"
-              description="Complete each pattern. Look at what comes before and continue the pattern."
+              title="Pattern Mastery"
+              emoji="🎓"
+              description="Look closely! Some patterns change color, some change shape."
               problemCount={patterns.length}
               learningObjectives={[
-                'Recognize and continue patterns (AB, ABC, AAB)',
-                'Identify pattern rules',
-                'Predict what comes next',
-                'Build logical thinking skills'
+                'Master different pattern types (ABAB, AABB, ABC)',
+                'Distinguish between color patterns and shape patterns',
+                'Demonstrate advanced logical thinking'
               ]}
               parentTeacherTips={[
-                'Point out the repeating part of the pattern',
-                'Say the pattern out loud together',
-                'Ask: "What comes next?"',
-                'Extension: Create your own patterns'
+                'Ask: "What is changing here? The color or the shape?"',
+                'Encourage your child to explain their reasoning',
+                'This is a review activity to check for mastery'
               ]}
             >
               <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-pink-400 to-rose-400 animate-gradient-x mb-2" />
-              {/* Worked Example */}
+
+              {/* Mixed Review Guide */}
               <div className="mb-6 p-4 bg-blue-50 border-2 border-blue-200 rounded-lg print:border print:bg-white">
-                <div className="font-semibold text-blue-900 mb-3 text-sm">📚 Example - Let's solve this together:</div>
-                <div className="space-y-2 text-sm">
-                  <div className="font-semibold text-base"><strong>Pattern:</strong> 🔴 🔵 🔴 🔵 ___</div>
-                  <div className="pl-4 border-l-2 border-blue-300 space-y-1">
-                    <div><strong>Step 1:</strong> Look at the pattern: red, blue, red, blue</div>
-                    <div><strong>Step 2:</strong> The pattern repeats: red, blue, red, blue</div>
-                    <div className="font-semibold text-blue-900"><strong>Answer:</strong> 🔴 (red comes next)</div>
-                    <div className="text-xs text-blue-700 mt-1">💡 Tip: Find what repeats, then continue the same pattern!</div>
-                  </div>
+                <div className="font-semibold text-blue-900 mb-2 text-sm">💡 Coach's Tip:</div>
+                <div className="text-sm text-blue-800 space-y-1">
+                  <div>Sometimes the <strong>Colors</strong> change (Red, Blue, Red...).</div>
+                  <div>Sometimes the <strong>Shapes</strong> change (Circle, Square, Circle...).</div>
+                  <div>Watch closely to see which one it is!</div>
                 </div>
               </div>
-              <div className="grid grid-cols-2 gap-4" style={{ pageBreakAfter: 'auto' }}>
+
+              <div className="grid grid-cols-1 gap-6" style={{ pageBreakAfter: 'auto' }}>
                 {patterns.map((p, i) => (
-                  <div key={i} className="border border-slate-300 rounded-lg p-4 bg-white break-inside-avoid">
-                    <div className="text-center mb-3">
-                      <div className="text-sm font-semibold text-slate-700 mb-2">Pattern {p.type}</div>
-                      <div className="flex flex-wrap gap-2 justify-center items-center mb-2">
-                        {p.pattern.map((item, idx) => (
-                          <span key={idx} className={item === '___' ? 'text-2xl text-slate-400 border-2 border-dashed border-slate-300 rounded px-2 py-1' : 'text-4xl'}>
-                            {item}
-                          </span>
-                        ))}
+                  <div key={i} className="border-2 border-slate-300 rounded-xl p-4 bg-white relative overflow-hidden">
+                    <div className="absolute top-0 right-0 bg-slate-100 px-3 py-1 rounded-bl-lg text-xs font-bold text-slate-500 uppercase tracking-wider">
+                      {p.mode}
+                    </div>
+                    <div className="mb-2 text-sm font-bold text-slate-700">
+                      {i + 1}. What comes next?
+                    </div>
+                    <div className="mb-4">
+                      <div className="flex items-center gap-2 md:gap-3 justify-center bg-slate-50 rounded-lg p-4 border border-slate-100">
+                        {p.sequence.map((item, idx) => {
+                          const S = shapes[item.shape as keyof typeof shapes].render;
+                          return (
+                            <svg key={idx} viewBox="0 0 100 100" className="w-12 h-12 md:w-14 md:h-14 drop-shadow-sm">
+                              <S fill={item.color.fill} stroke="white" strokeWidth="2" />
+                            </svg>
+                          );
+                        })}
+                        <div className="w-12 h-12 md:w-14 md:h-14 flex items-center justify-center border-b-4 border-slate-300 text-slate-400 font-bold text-2xl">
+                          ?
+                        </div>
                       </div>
-                      <div className="text-xs text-slate-600">What comes next?</div>
+                    </div>
+
+                    <div className="flex justify-center items-center gap-8">
+                      <div className="text-xs font-bold text-slate-400 uppercase tracking-widest">Choose:</div>
+                      <div className="flex gap-6">
+                        {[p.option1, p.option2].sort(() => Math.random() - 0.5).map((opt, optIdx) => {
+                          const S = shapes[opt.shape as keyof typeof shapes].render;
+                          return (
+                            <div key={optIdx} className="w-16 h-16 md:w-20 md:h-20 border-2 border-slate-200 rounded-xl flex items-center justify-center hover:border-violet-400 cursor-pointer transition-colors bg-white print:border-slate-300">
+                              <svg viewBox="0 0 100 100" className="w-10 h-10 md:w-14 md:h-14">
+                                <S fill={opt.color.fill} stroke="white" strokeWidth="2" />
+                              </svg>
+                            </div>
+                          );
+                        })}
+                      </div>
                     </div>
                   </div>
                 ))}
               </div>
-              {/* Extension/Challenge Problems */}
-              <div className="mt-6 print:mt-0 p-4 bg-purple-50 border-2 border-purple-200 rounded print:bg-white print:border" style={{ pageBreakBefore: 'always', pageBreakInside: 'avoid' }}>
-                <div className="font-semibold text-purple-900 mb-3 text-sm">🌟 More Fun (Optional):</div>
-                <div className="space-y-2 text-sm text-purple-800">
-                  <div>1. Create your own pattern using objects around you</div>
-                  <div>2. Make a pattern with colors, shapes, or sounds</div>
-                  <div>3. Find patterns in nature (leaves, flowers, etc.)</div>
-                </div>
-              </div>
-              {/* Self-Assessment */}
-              <div className="print:block hidden print:mt-0 mt-6 p-4 border-2 border-slate-300 rounded" style={{ pageBreakBefore: 'avoid', pageBreakInside: 'avoid' }}>
-                <div className="font-semibold text-slate-800 mb-3 text-sm">📊 {getTrans('common.howDidYouDo', 'How did you do?')}</div>
-                <div className="space-y-2 text-xs">
-                  <div>☐ I can recognize patterns</div>
-                  <div>☐ I can continue patterns</div>
-                  <div>☐ I can predict what comes next</div>
-                </div>
-                <div className="mt-3 text-xs">
-                  <strong>{getTrans('common.myScore', 'My score:')}</strong> ___ / {patterns.length}
-                </div>
-                <div className="mt-2 text-xs">
-                  <strong>{getTrans('common.whatWasHardest', 'What was hardest?')}</strong> _________________________
-                </div>
-              </div>
+
               {showAnswersForDoc('kindergarten-patterns', () => (
                 <div className="mt-6 p-4 border-2 border-emerald-300 bg-emerald-50 rounded print:border print:bg-white print:page-break-before-always">
-                  <div className="font-bold text-emerald-900 mb-3 text-base">✅ {getTrans('common.answerKey', 'Answer Key')}</div>
-                  <div className="space-y-3 text-sm text-emerald-800">
+                  <div className="font-bold text-emerald-900 mb-3 text-base">✅ Answer Key</div>
+                  <ul className="list-disc list-inside space-y-2 text-sm text-emerald-800">
                     {patterns.map((p, i) => (
-                      <div key={i} className="border-b border-emerald-200 pb-2 last:border-b-0">
-                        <div className="font-semibold mb-1">{i + 1}. Pattern {p.type}:</div>
-                        <div className="flex gap-2 items-center">
-                          <span>Answer:</span>
-                          {p.answer.map((item, idx) => (
-                            <span key={idx} className="text-2xl">{item}</span>
-                          ))}
-                        </div>
-                      </div>
+                      <li key={i}>
+                        <strong>{i + 1}. {p.mode} ({p.patternName}):</strong> {p.desc}
+                      </li>
                     ))}
-                  </div>
-                  <div className="text-xs text-emerald-700 mt-3">
-                    💡 Remember: Look for what repeats, then continue the same pattern!
-                  </div>
+                  </ul>
                 </div>
               ))}
             </WorksheetSectionWrapper>
@@ -30987,78 +31080,171 @@ export function PrintablesPage() {
 
         {
           activeDocs.includes('shape-patterns') && (() => {
-            const patterns = [
-              { shapes: ['⭕', '⬜', '⭕', '⬜'], next: '⭕', name: 'circle, square' },
-              { shapes: ['🔺', '⭕', '🔺', '⭕'], next: '🔺', name: 'triangle, circle' },
-              { shapes: ['⬜', '🔺', '⬜', '🔺'], next: '⬜', name: 'square, triangle' },
-              { shapes: ['⭕', '🔺', '⭕', '🔺'], next: '⭕', name: 'circle, triangle' },
-              { shapes: ['⬜', '⭕', '⬜', '⭕'], next: '⬜', name: 'square, circle' },
-              { shapes: ['🔺', '⬜', '🔺', '⬜'], next: '🔺', name: 'triangle, square' },
+            const rng = makeRng('shape-patterns');
+
+            // Reuse shapes/colors (locally defined for safety)
+            const shapes = {
+              circle: { render: (props: any) => <circle cx="50" cy="50" r="40" {...props} />, label: 'Circle' },
+              square: { render: (props: any) => <rect x="15" y="15" width="70" height="70" rx="4" {...props} />, label: 'Square' },
+              triangle: { render: (props: any) => <polygon points="50,15 85,85 15,85" strokeLinejoin="round" {...props} />, label: 'Triangle' },
+              star: { render: (props: any) => <polygon points="50,5 61,40 98,40 68,62 79,95 50,75 21,95 32,62 2,40 39,40" strokeLinejoin="round" {...props} />, label: 'Star' },
+              diamond: { render: (props: any) => <polygon points="50,10 90,50 50,90 10,50" strokeLinejoin="round" {...props} />, label: 'Diamond' },
+              heart: { render: (props: any) => <path d="M50 30 C65 10, 95 20, 95 50 C95 75, 50 95, 50 95 C50 95, 5 75, 5 50 C5 20, 35 10, 50 30 Z" strokeLinejoin="round" {...props} />, label: 'Heart' },
+            };
+
+            const colors = [
+              { name: 'Red', fill: '#ef4444', border: 'text-red-600' },
+              { name: 'Blue', fill: '#3b82f6', border: 'text-blue-600' },
+              { name: 'Green', fill: '#22c55e', border: 'text-green-600' },
+              { name: 'Yellow', fill: '#eab308', border: 'text-yellow-600' },
+              { name: 'Purple', fill: '#a855f7', border: 'text-purple-600' },
+              { name: 'Orange', fill: '#f97316', border: 'text-orange-600' },
             ];
+
+            const shapeKeys = Object.keys(shapes) as Array<keyof typeof shapes>;
+
+            // Logic: Shape Patterns
+            // We fix a single Color per row (e.g. all Blue) but vary the Shapes.
+            // Row 0: ABAB (Circle, Square, Circle, Square...)
+            // Row 1: AABB (Triangle, Triangle, Star, Star...)
+            // Row 2: ABC (Heart, Diamond, Circle...)
+            // Row 3: ABBA (Square, Circle, Circle, Square...)
+
+            const patterns = Array.from({ length: 4 }).map((_, i) => {
+              const baseColor = colors[Math.floor(rng() * colors.length)];
+
+              // Pick 3 distinct shapes (A, B, C)
+              let sA = shapeKeys[Math.floor(rng() * shapeKeys.length)];
+              let sB = shapeKeys[Math.floor(rng() * shapeKeys.length)];
+              while (sB === sA) sB = shapeKeys[Math.floor(rng() * shapeKeys.length)];
+              let sC = shapeKeys[Math.floor(rng() * shapeKeys.length)];
+              while (sC === sA || sC === sB) sC = shapeKeys[Math.floor(rng() * shapeKeys.length)];
+
+              const itemA = { shape: sA, color: baseColor };
+              const itemB = { shape: sB, color: baseColor };
+              const itemC = { shape: sC, color: baseColor };
+
+              let sequence: any[] = [];
+              let nextItem, distractor;
+              let patternName = "";
+
+              if (i === 0) {
+                // ABAB
+                patternName = "ABAB";
+                sequence = [itemA, itemB, itemA, itemB, itemA]; // Answer: B
+                nextItem = itemB;
+                distractor = itemA;
+              } else if (i === 1) {
+                // AABB
+                patternName = "AABB";
+                sequence = [itemA, itemA, itemB, itemB, itemA]; // Answer: A
+                nextItem = itemA;
+                distractor = itemB;
+              } else if (i === 2) {
+                // ABC
+                patternName = "ABC";
+                sequence = [itemA, itemB, itemC, itemA, itemB]; // Answer: C
+                nextItem = itemC;
+                distractor = itemA;
+              } else {
+                // ABBA
+                patternName = "ABBA";
+                sequence = [itemA, itemB, itemB, itemA, itemA]; // Answer: B
+                nextItem = itemB;
+                distractor = itemC;
+              }
+
+              return {
+                id: i,
+                patternName,
+                sequence,
+                next: nextItem,
+                option1: distractor,
+                option2: nextItem,
+                baseColor: baseColor
+              };
+            });
             return (
               <WorksheetSectionWrapper
                 docId="shape-patterns"
                 title="Shape Patterns"
                 emoji="🧩"
-                description="Continue the pattern. Draw the next shape."
+                description="Look at the shapes. Identify the pattern (ABAB, AABB, ABC)."
                 problemCount={patterns.length}
                 learningObjectives={[
-                  'Identify patterns in sequences',
-                  'Predict what comes next in a pattern',
-                  'Develop pattern recognition skills'
+                  'Identify different pattern types (ABAB, AABB, ABC)',
+                  'Predict sequences using shape logic',
+                  'Build advanced pattern recognition skills'
                 ]}
                 parentTeacherTips={[
-                  'Help children identify the repeating pattern',
-                  'Encourage them to say the pattern out loud',
-                  'Use this activity to practice sequencing',
-                  'Extension: Create your own shape patterns'
+                  'Ask: "Is this an ABAB pattern or AABB?"',
+                  'Point out that the color stays the same, but shapes change',
+                  'Say it loud: "Circle, Square, Circle, Square..."',
                 ]}
               >
                 <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-purple-400 to-pink-400 animate-gradient-x mb-2" />
-                <div className="grid grid-cols-2 gap-4" style={{ pageBreakAfter: 'auto' }}>
+
+                {/* Visual Guide to Pattern Types */}
+                <div className="mb-6 p-4 bg-purple-50 border-2 border-purple-200 rounded-lg print:border print:bg-white flex flex-col md:flex-row gap-4 justify-between items-start md:items-center">
+                  <div>
+                    <div className="font-semibold text-purple-900 mb-1 text-sm">💡 Pattern Types:</div>
+                    <div className="text-xs text-purple-700 space-y-1">
+                      <div><strong>ABAB:</strong> Alternates (Circle, Square, Circle, Square)</div>
+                      <div><strong>AABB:</strong> Doubles (Circle, Circle, Square, Square)</div>
+                      <div><strong>ABC:</strong> Triples (Circle, Square, Triangle)</div>
+                    </div>
+                  </div>
+                  <div className="text-2xl animate-bounce">📐</div>
+                </div>
+
+                <div className="grid grid-cols-1 gap-6" style={{ pageBreakAfter: 'auto' }}>
                   {patterns.map((p, i) => (
-                    <div key={i} className="border border-slate-300 rounded-lg p-4 bg-white break-inside-avoid">
-                      <div className="flex items-center justify-center gap-2 mb-3 text-3xl">
-                        {p.shapes.map((s, idx) => (
-                          <span key={idx}>{s}</span>
-                        ))}
-                        <span className="text-2xl border-2 border-dashed border-slate-400 rounded px-2">?</span>
+                    <div key={i} className="border-2 border-slate-300 rounded-xl p-4 bg-white">
+                      <div className="mb-2 text-xs font-bold text-slate-400 uppercase tracking-widest text-center">
+                        Type: {p.patternName}
                       </div>
-                      <div className="text-center text-sm text-slate-600">What comes next?</div>
+                      <div className="mb-4">
+                        <div className="flex items-center gap-2 md:gap-3 justify-center bg-slate-50 rounded-lg p-4 border border-slate-100">
+                          {p.sequence.map((item, idx) => {
+                            const S = shapes[item.shape as keyof typeof shapes].render;
+                            return (
+                              <svg key={idx} viewBox="0 0 100 100" className="w-12 h-12 md:w-14 md:h-14 drop-shadow-sm">
+                                <S fill={item.color.fill} stroke="white" strokeWidth="2" />
+                              </svg>
+                            );
+                          })}
+                          <div className="w-12 h-12 md:w-14 md:h-14 flex items-center justify-center border-b-4 border-slate-300 text-slate-400 font-bold text-2xl">
+                            ?
+                          </div>
+                        </div>
+                      </div>
+
+                      <div className="flex justify-center items-center gap-8">
+                        <div className="text-sm font-bold text-slate-500 uppercase tracking-wider">Choose:</div>
+                        <div className="flex gap-6">
+                          {[p.option1, p.option2].sort(() => Math.random() - 0.5).map((opt, optIdx) => {
+                            const S = shapes[opt.shape as keyof typeof shapes].render;
+                            return (
+                              <div key={optIdx} className="w-16 h-16 md:w-20 md:h-20 border-2 border-slate-200 rounded-xl flex items-center justify-center hover:border-violet-400 cursor-pointer transition-colors bg-white print:border-slate-300">
+                                <svg viewBox="0 0 100 100" className="w-10 h-10 md:w-14 md:h-14">
+                                  <S fill={opt.color.fill} stroke="white" strokeWidth="2" />
+                                </svg>
+                              </div>
+                            );
+                          })}
+                        </div>
+                      </div>
                     </div>
                   ))}
                 </div>
-                {/* Extension/Challenge Problems */}
-                <div className="mt-6 print:mt-0 p-4 bg-purple-50 border-2 border-purple-200 rounded print:bg-white print:border" style={{ pageBreakBefore: 'always', pageBreakInside: 'avoid' }}>
-                  <div className="font-semibold text-purple-900 mb-3 text-sm">🌟 More Fun (Optional):</div>
-                  <div className="space-y-2 text-sm text-purple-800">
-                    <div>1. Create your own shape pattern</div>
-                    <div>2. Continue the pattern for 3 more shapes</div>
-                    <div>3. Make a pattern using objects around you</div>
-                  </div>
-                </div>
-                {/* Self-Assessment */}
-                <div className="print:block hidden print:mt-0 mt-6 p-4 border-2 border-slate-300 rounded" style={{ pageBreakBefore: 'avoid', pageBreakInside: 'avoid' }}>
-                  <div className="font-semibold text-slate-800 mb-3 text-sm">📊 {getTrans('common.howDidYouDo', 'How did you do?')}</div>
-                  <div className="space-y-2 text-xs">
-                    <div>☐ I can see the pattern</div>
-                    <div>☐ I can predict what comes next</div>
-                    <div>☐ I understand patterns</div>
-                  </div>
-                  <div className="mt-3 text-xs">
-                    <strong>My favorite pattern:</strong> _________________________
-                  </div>
-                </div>
+
                 {showAnswersForDoc('shape-patterns', () => (
                   <div className="mt-6 p-4 border-2 border-emerald-300 bg-emerald-50 rounded print:border print:bg-white print:page-break-before-always">
-                    <div className="font-bold text-emerald-900 mb-3 text-base">✅ {getTrans('common.answerKey', 'Answer Key')}</div>
-                    <ul className="list-disc list-inside space-y-1 text-sm">
+                    <div className="font-bold text-emerald-900 mb-3 text-base">✅ Answer Key</div>
+                    <ul className="list-disc list-inside space-y-2 text-sm text-emerald-800">
                       {patterns.map((p, i) => (
-                        <li key={i} className="flex items-center gap-2 text-emerald-800">
-                          <span>{p.shapes.join(' ')}</span>
-                          <span>→</span>
-                          <span className="text-xl">{p.next}</span>
-                          <span className="text-xs text-slate-500">({p.name} pattern)</span>
+                        <li key={i}>
+                          <strong>Pattern {i + 1} ({p.patternName}):</strong> {p.next.shape === 'star' ? 'Star' : p.next.shape === 'heart' ? 'Heart' : p.next.shape === 'diamond' ? 'Diamond' : p.next.shape.charAt(0).toUpperCase() + p.next.shape.slice(1)} ({p.baseColor.name})
                         </li>
                       ))}
                     </ul>
@@ -31417,83 +31603,150 @@ export function PrintablesPage() {
 
         {
           activeDocs.includes('line-tracing') && (() => {
-            const lines = [
-              { x1: 10, y1: 40, x2: 90, y2: 40, label: 'Horizontal line' },
-              { x1: 10, y1: 20, x2: 90, y2: 60, label: 'Diagonal line' },
-              { x1: 10, y1: 60, x2: 90, y2: 20, label: 'Diagonal line' },
-              { x1: 10, y1: 30, x2: 90, y2: 30, label: 'Horizontal line' },
-              { x1: 10, y1: 50, x2: 90, y2: 50, label: 'Horizontal line' },
-              { x1: 10, y1: 10, x2: 90, y2: 70, label: 'Diagonal line' },
+            const rng = makeRng('line-tracing');
+
+            // Icons for Tracing Missions (Start -> End)
+            const tracingThemes = [
+              {
+                name: 'Nature',
+                start: { label: 'Bee', render: (props: any) => <text fontSize="40" x="50" y="65" textAnchor="middle" {...props}>🐝</text> },
+                end: { label: 'Flower', render: (props: any) => <text fontSize="40" x="50" y="65" textAnchor="middle" {...props}>🌸</text> }
+              },
+              {
+                name: 'Space',
+                start: { label: 'Rocket', render: (props: any) => <text fontSize="40" x="50" y="65" textAnchor="middle" {...props}>🚀</text> },
+                end: { label: 'Planet', render: (props: any) => <text fontSize="40" x="50" y="65" textAnchor="middle" {...props}>🪐</text> }
+              },
+              {
+                name: 'Home',
+                start: { label: 'Car', render: (props: any) => <text fontSize="40" x="50" y="65" textAnchor="middle" {...props}>🚗</text> },
+                end: { label: 'House', render: (props: any) => <text fontSize="40" x="50" y="65" textAnchor="middle" {...props}>🏠</text> }
+              },
+              {
+                name: 'Pets',
+                start: { label: 'Dog', render: (props: any) => <text fontSize="40" x="50" y="65" textAnchor="middle" {...props}>🐕</text> },
+                end: { label: 'Bone', render: (props: any) => <text fontSize="40" x="50" y="65" textAnchor="middle" {...props}>🦴</text> }
+              },
+              {
+                name: 'Sports',
+                start: { label: 'Player', render: (props: any) => <text fontSize="40" x="50" y="65" textAnchor="middle" {...props}>🏃</text> },
+                end: { label: 'Finish', render: (props: any) => <text fontSize="40" x="50" y="65" textAnchor="middle" {...props}>🏁</text> }
+              },
+              {
+                name: 'Food',
+                start: { label: 'Rabbit', render: (props: any) => <text fontSize="40" x="50" y="65" textAnchor="middle" {...props}>🐇</text> },
+                end: { label: 'Carrot', render: (props: any) => <text fontSize="40" x="50" y="65" textAnchor="middle" {...props}>🥕</text> }
+              },
             ];
+
+            const lines = Array.from({ length: 6 }).map((_, i) => {
+              const theme = tracingThemes[i % tracingThemes.length]; // Cycle through themes
+              const isDiagonal = rng() > 0.4; // 60% chance of diagonal
+
+              // Coordinates (viewBox 0 0 100 50)
+              // Start X: 15, End X: 85
+              const yStart = 25;
+              // If diagonal, vary End Y significantly
+              const yEnd = isDiagonal
+                ? (rng() > 0.5 ? 10 : 40) // Up to 10 or Down to 40
+                : 25; // Straight across
+
+              return {
+                id: i,
+                theme,
+                x1: 15, y1: yStart,
+                x2: 85, y2: yEnd,
+                label: `Help the ${theme.start.label} find the ${theme.end.label}`
+              };
+            });
             return (
               <WorksheetSectionWrapper
                 docId="line-tracing"
-                title="Line Tracing"
-                emoji="✏️"
-                description="Trace the lines from left to right."
+                title="Line Tracing Mission"
+                emoji="🚀"
+                description="Help the friends find their way! Trace the dashed lines."
                 problemCount={lines.length}
                 learningObjectives={[
-                  'Develop fine motor skills',
-                  'Practice hand-eye coordination',
-                  'Learn to follow lines from left to right'
+                  'Trace lines from left to right',
+                  'Control pencil movement (Start to Stop)',
+                  'Develop fine motor precision'
                 ]}
                 parentTeacherTips={[
-                  'Encourage slow, careful tracing',
-                  'Help children hold the pencil correctly',
-                  'Praise effort and improvement',
-                  'Extension: Create your own lines to trace'
+                  'Say: "Start at the Green dot, stop at the Red dot"',
+                  'Encourage one continuous smooth line',
+                  'Make it a game: "Zoom the rocket to the planet!"'
                 ]}
               >
                 <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-purple-400 to-pink-400 animate-gradient-x mb-2" />
-                <div className="grid grid-cols-1 gap-6" style={{ pageBreakAfter: 'auto' }}>
+
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4" style={{ pageBreakAfter: 'auto' }}>
                   {lines.map((line, i) => (
-                    <div key={i} className="border border-slate-300 rounded-lg p-6 bg-white break-inside-avoid">
-                      <div className="text-sm text-slate-700 mb-3 text-center font-semibold">Line {i + 1}</div>
+                    <div key={i} className="border-2 border-slate-300 rounded-xl p-4 bg-white break-inside-avoid">
+                      <div className="text-xs font-bold text-slate-500 mb-2 uppercase tracking-wider text-center">{line.theme.name} Mission</div>
                       <div className="relative">
-                        <svg viewBox="0 0 100 80" className="w-full h-48 border-2 border-slate-300 rounded-lg bg-slate-50 print:h-64">
+                        <svg viewBox="0 0 100 60" className="w-full h-32 border border-slate-100 rounded-lg bg-slate-50">
+                          {/* Guide Line */}
                           <line
                             x1={line.x1}
                             y1={line.y1}
                             x2={line.x2}
                             y2={line.y2}
-                            stroke="#475569"
-                            strokeWidth="4"
-                            strokeDasharray="6 6"
+                            stroke="#94a3b8"
+                            strokeWidth="3"
+                            strokeDasharray="4 4"
                             strokeLinecap="round"
                           />
+
+                          {/* Start Dot (Green) */}
+                          <circle cx={line.x1} cy={line.y1} r="3" fill="#22c55e" />
+
+                          {/* End Dot (Red) */}
+                          <circle cx={line.x2} cy={line.y2} r="3" fill="#ef4444" />
+
+                          {/* Render Start Icon */}
+                          <line.theme.start.render
+                            x={line.x1}
+                            y={line.y1}
+                            fontSize="22"
+                            dominantBaseline="middle"
+                            style={{ userSelect: 'none' }}
+                          />
+
+                          {/* Render End Icon */}
+                          <line.theme.end.render
+                            x={line.x2}
+                            y={line.y2}
+                            fontSize="22"
+                            dominantBaseline="middle"
+                            style={{ userSelect: 'none' }}
+                          />
                         </svg>
+                      </div>
+                      <div className="mt-2 text-center text-sm font-medium text-slate-700">
+                        {line.label}
                       </div>
                     </div>
                   ))}
                 </div>
-                {/* Extension/Challenge Problems */}
-                <div className="mt-6 print:mt-0 p-4 bg-purple-50 border-2 border-purple-200 rounded print:bg-white print:border" style={{ pageBreakBefore: 'always', pageBreakInside: 'avoid' }}>
-                  <div className="font-semibold text-purple-900 mb-3 text-sm">🌟 More Fun (Optional):</div>
-                  <div className="space-y-2 text-sm text-purple-800">
-                    <div>1. Draw your own lines to trace</div>
-                    <div>2. Try tracing with your eyes closed (with help!)</div>
-                    <div>3. Trace lines in different directions</div>
+
+                {/* Challenge */}
+                <div className="mt-6 print:mt-0 p-4 bg-purple-50 border-2 border-purple-200 rounded print:bg-white print:border" style={{ pageBreakBefore: 'avoid', pageBreakInside: 'avoid' }}>
+                  <div className="font-semibold text-purple-900 mb-2 text-sm">🌟 Super Challenge:</div>
+                  <div className="text-sm text-purple-800">
+                    Can you trace the lines without lifting your pencil?
                   </div>
                 </div>
-                {/* Self-Assessment */}
-                <div className="print:block hidden print:mt-0 mt-6 p-4 border-2 border-slate-300 rounded" style={{ pageBreakBefore: 'avoid', pageBreakInside: 'avoid' }}>
-                  <div className="font-semibold text-slate-800 mb-3 text-sm">📊 {getTrans('common.howDidYouDo', 'How did you do?')}</div>
-                  <div className="space-y-2 text-xs">
-                    <div>☐ I traced the lines carefully</div>
-                    <div>☐ I followed the lines from left to right</div>
-                    <div>☐ I held my pencil correctly</div>
-                  </div>
-                  <div className="mt-3 text-xs">
-                    <strong>My best line:</strong> _________________________
-                  </div>
-                </div>
+
                 {showAnswersForDoc('line-tracing', () => (
                   <div className="mt-6 p-4 border-2 border-emerald-300 bg-emerald-50 rounded print:border print:bg-white print:page-break-before-always">
-                    <div className="font-bold text-emerald-900 mb-3 text-base">✅ {getTrans('common.answerKey', 'Answer Key')}</div>
-                    <p className="text-sm text-emerald-800">Trace the dashed lines from left to right. Follow the line carefully with your pencil.</p>
+                    <div className="font-bold text-emerald-900 mb-3 text-base">✅ Mission Check</div>
+                    <div className="text-sm text-emerald-800">
+                      Check if the line connects the two pictures neatly. Did they stay on the dashed line?
+                    </div>
                   </div>
                 ))}
               </WorksheetSectionWrapper>
+            );
             );
           })()
         }
