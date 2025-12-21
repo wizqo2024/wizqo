@@ -21357,21 +21357,60 @@ export function PrintablesPage() {
         })()}
 
         {activeDocs.includes('shape-identification') && (() => {
-          const renderShape = (type: string, size: number = 60, x: number = 0, y: number = 0) => {
-            const svgMap: Record<string, JSX.Element> = {
-              circle: <circle cx={x + size / 2} cy={y + size / 2} r={size * 0.375} fill="none" stroke="#475569" strokeWidth="3" />,
-              square: <rect x={x + size * 0.125} y={y + size * 0.125} width={size * 0.75} height={size * 0.75} fill="none" stroke="#475569" strokeWidth="3" />,
-              triangle: <polygon points={`${x + size / 2},${y + size * 0.125} ${x + size * 0.125},${y + size * 0.875} ${x + size * 0.875},${y + size * 0.875}`} fill="none" stroke="#475569" strokeWidth="3" />,
-              rectangle: <rect x={x + size * 0.1875} y={y + size * 0.25} width={size * 0.625} height={size * 0.5} fill="none" stroke="#475569" strokeWidth="3" />,
-            };
-            return svgMap[type] || null;
+          // Seeded RNG for consistent rendering
+          const rng = makeRng('shape-identification');
+
+          // High-quality coloring-friendly shapes
+          const shapes = {
+            circle: {
+              render: (props: any) => <circle cx="50" cy="50" r="40" {...props} />,
+              color: 'text-blue-500', fill: '#3b82f6'
+            },
+            square: {
+              render: (props: any) => <rect x="15" y="15" width="70" height="70" rx="4" {...props} />,
+              color: 'text-red-500', fill: '#ef4444'
+            },
+            triangle: {
+              render: (props: any) => <polygon points="50,15 85,85 15,85" strokeLinejoin="round" {...props} />,
+              color: 'text-green-500', fill: '#22c55e'
+            },
+            rectangle: {
+              render: (props: any) => <rect x="10" y="25" width="80" height="50" rx="4" {...props} />,
+              color: 'text-purple-500', fill: '#a855f7'
+            }
           };
-          const tasks = [
-            { name: 'Circle', type: 'circle', instruction: 'Circle all the circles', shapes: ['circle', 'square', 'circle', 'triangle', 'rectangle', 'circle', 'square', 'triangle', 'circle', 'rectangle', 'square', 'triangle'] },
-            { name: 'Square', type: 'square', instruction: 'Circle all the squares', shapes: ['square', 'circle', 'triangle', 'square', 'rectangle', 'circle', 'square', 'triangle', 'rectangle', 'square', 'circle', 'triangle'] },
-            { name: 'Triangle', type: 'triangle', instruction: 'Circle all the triangles', shapes: ['triangle', 'circle', 'square', 'triangle', 'rectangle', 'circle', 'triangle', 'square', 'rectangle', 'circle', 'triangle', 'square'] },
-            { name: 'Rectangle', type: 'rectangle', instruction: 'Circle all the rectangles', shapes: ['rectangle', 'circle', 'square', 'triangle', 'rectangle', 'circle', 'square', 'rectangle', 'triangle', 'circle', 'rectangle', 'square'] },
-          ];
+
+          const shapeKeys = Object.keys(shapes) as Array<keyof typeof shapes>;
+
+          const tasks = shapeKeys.map((targetShape) => {
+            // Generate a grid of 12 items (4 cols x 3 rows)
+            // Aim for 4-6 correct answers
+            const targetCount = Math.floor(rng() * 3) + 4; // 4, 5, or 6
+            const grid = [];
+
+            // Add targets
+            for (let i = 0; i < targetCount; i++) grid.push(targetShape);
+
+            // Fill rest with distractors
+            while (grid.length < 12) {
+              const distractor = shapeKeys[Math.floor(rng() * shapeKeys.length)];
+              if (distractor !== targetShape) grid.push(distractor);
+            }
+
+            // Shuffle grid
+            for (let i = grid.length - 1; i > 0; i--) {
+              const j = Math.floor(rng() * (i + 1));
+              [grid[i], grid[j]] = [grid[j], grid[i]];
+            }
+
+            return {
+              target: targetShape,
+              grid: grid,
+              targetCount: targetCount,
+              name: targetShape.charAt(0).toUpperCase() + targetShape.slice(1)
+            };
+          });
+
           return (
             <WorksheetSectionWrapper
               docId="shape-identification"
@@ -21380,17 +21419,16 @@ export function PrintablesPage() {
               description="Circle the circle, square, triangle, and rectangle. Learn basic shapes."
               problemCount={tasks.length}
               learningObjectives={[
-                'Identify and recognize basic shapes (circle, square, triangle, rectangle)',
+                'Identify and recognize basic shapes',
                 'Distinguish between different shapes',
                 'Develop visual discrimination skills',
                 'Build shape recognition and vocabulary'
               ]}
               parentTeacherTips={[
                 'Help students name each shape: circle, square, triangle, rectangle',
-                'Point out the characteristics: circles are round, squares have 4 equal sides, triangles have 3 sides, rectangles have 4 sides (2 long, 2 short)',
+                'Point out the characteristics: circles are round, squares have 4 equal sides',
                 'Encourage students to look carefully at each shape',
-                'Practice finding shapes in the environment: "Can you find a circle in the room?"',
-                'Extension: Try identifying more complex shapes or 3D shapes'
+                'Practice finding shapes in the environment'
               ]}
             >
               <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-purple-400 to-pink-400 animate-gradient-x mb-2" />
@@ -21399,36 +21437,60 @@ export function PrintablesPage() {
                 <div className="font-semibold text-blue-900 mb-3 text-sm">📚 Example - Let's solve this together:</div>
                 <div className="space-y-2 text-sm">
                   <div className="font-semibold text-base"><strong>Problem:</strong> Circle all the circles</div>
-                  <div className="pl-4 border-l-2 border-blue-300 space-y-1">
-                    <div><strong>Step 1:</strong> Look at the example circle - it's round with no corners</div>
-                    <div><strong>Step 2:</strong> Look at each shape in the grid</div>
-                    <div><strong>Step 3:</strong> Circle all the shapes that are round like the example</div>
-                    <div className="font-semibold text-blue-900"><strong>Answer:</strong> Circle all the round shapes</div>
-                    <div className="text-xs text-blue-700 mt-1">💡 Tip: Look carefully at each shape and match it to the example shape!</div>
+                  <div className="flex items-center gap-4 py-2">
+                    <span className="text-sm text-slate-600">Find this:</span>
+                    <svg viewBox="0 0 100 100" className="w-12 h-12">
+                      {shapes['circle'].render({ fill: '#3b82f6', stroke: 'none' })}
+                    </svg>
+                    <span className="text-2xl">➡️</span>
+                    <div className="flex gap-2 p-2 border border-slate-300 rounded bg-white">
+                      <svg viewBox="0 0 100 100" className="w-10 h-10">
+                        {shapes['circle'].render({ fill: 'none', stroke: '#3b82f6', strokeWidth: 8 })}
+                      </svg>
+                      <svg viewBox="0 0 100 100" className="w-10 h-10 opacity-50">
+                        {shapes['square'].render({ fill: 'none', stroke: '#94a3b8', strokeWidth: 4 })}
+                      </svg>
+                    </div>
                   </div>
+                  <div className="text-xs text-blue-700 mt-1">💡 Tip: Look for the shape that matches the color example!</div>
                 </div>
               </div>
+
               <div className="grid grid-cols-1 gap-6" style={{ pageBreakAfter: 'auto' }}>
                 {tasks.map((task, taskIdx) => {
-                  const targetCount = task.shapes.filter(s => s === task.type).length;
+                  const TargetComponent = shapes[task.target].render;
+                  const targetColor = shapes[task.target].color;
+                  const targetFill = shapes[task.target].fill;
+
                   return (
                     <div key={taskIdx} className="border-2 border-slate-300 rounded-lg p-6 bg-white">
-                      <div className="text-center mb-4">
-                        <div className="text-xl font-semibold text-slate-800 mb-2">{task.instruction}</div>
-                        <div className="text-sm text-slate-600 mb-3">Find the {task.name.toLowerCase()}s</div>
-                        <svg viewBox="0 0 60 60" className="w-16 h-16 mx-auto mb-2">
-                          {renderShape(task.type, 60, 0, 0)}
-                        </svg>
+                      <div className="text-center mb-6">
+                        <div className="text-xl font-bold text-slate-800 mb-2">Circle all the <span className={`capitalize ${targetColor}`}>{task.target}s</span></div>
+                        <div className="inline-block p-4 rounded-xl bg-slate-50 border border-slate-100 shadow-sm">
+                          <svg viewBox="0 0 100 100" className="w-20 h-20 mx-auto drop-shadow-md">
+                            <TargetComponent fill={targetFill} stroke="none" />
+                          </svg>
+                        </div>
                       </div>
-                      <div className="border-2 border-dashed border-slate-400 rounded-lg p-6 bg-slate-50">
-                        <div className="grid grid-cols-4 gap-4">
-                          {task.shapes.map((shapeType, i) => (
-                            <div key={i} className="flex justify-center items-center">
-                              <svg viewBox="0 0 60 60" className="w-20 h-20 print:w-24 print:h-24">
-                                {renderShape(shapeType, 60, 0, 0)}
-                              </svg>
-                            </div>
-                          ))}
+
+                      <div className="border-4 border-dashed border-slate-200 rounded-2xl p-6 bg-slate-50">
+                        <div className="grid grid-cols-4 gap-6 place-items-center">
+                          {task.grid.map((shapeType: any, i) => {
+                            const ShapeComp = shapes[shapeType as keyof typeof shapes].render;
+                            const isTarget = shapeType === task.target;
+                            return (
+                              <div key={i} className="w-full aspect-square flex items-center justify-center p-2 bg-white rounded-lg border border-slate-100 shadow-sm">
+                                <svg viewBox="0 0 100 100" className="w-full h-full">
+                                  <ShapeComp
+                                    fill="none"
+                                    stroke="#475569"
+                                    strokeWidth="6"
+                                    className="transition-all duration-200"
+                                  />
+                                </svg>
+                              </div>
+                            );
+                          })}
                         </div>
                       </div>
                     </div>
