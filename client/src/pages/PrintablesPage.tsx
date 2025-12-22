@@ -31753,105 +31753,166 @@ export function PrintablesPage() {
 
         {
           activeDocs.includes('curve-tracing') && (() => {
-            const curves = [
-              { d: 'M 20 40 Q 50 20, 80 40', label: 'Curved line up' },
-              { d: 'M 20 40 Q 50 60, 80 40', label: 'Curved line down' },
-              { d: 'M 50 20 Q 20 40, 50 60 Q 80 40, 50 20', label: 'Wave pattern' },
-              { d: 'M 50 10 Q 10 40, 50 70 Q 90 40, 50 10', label: 'Large wave' },
-              { d: 'M 20 40 Q 50 30, 80 40 Q 50 50, 20 40', label: 'Smooth curve' },
-              { d: 'M 30 40 Q 50 20, 70 40 Q 50 60, 30 40', label: 'Double curve' },
+            const rng = makeRng('curve-tracing');
+
+            // Themes: Start -> End paired with a Curve Type preference
+            const curveThemes = [
+              {
+                name: 'Frog Hop',
+                type: 'arc', // Quadratic Bezier (Job)
+                start: { label: 'Frog', render: (props: any) => <text fontSize="40" x="50" y="65" textAnchor="middle" {...props}>🐸</text> },
+                end: { label: 'Lilypad', render: (props: any) => <text fontSize="40" x="50" y="65" textAnchor="middle" {...props}>🍃</text> }
+              },
+              {
+                name: 'Kangaroo Jump',
+                type: 'arc',
+                start: { label: 'Kangaroo', render: (props: any) => <text fontSize="40" x="50" y="65" textAnchor="middle" {...props}>🦘</text> },
+                end: { label: 'Grass', render: (props: any) => <text fontSize="40" x="50" y="65" textAnchor="middle" {...props}>🌿</text> }
+              },
+              {
+                name: 'Dolphin Dive',
+                type: 'wave', // S-Curve
+                start: { label: 'Dolphin', render: (props: any) => <text fontSize="40" x="50" y="65" textAnchor="middle" {...props}>🐬</text> },
+                end: { label: 'Ocean', render: (props: any) => <text fontSize="40" x="50" y="65" textAnchor="middle" {...props}>🌊</text> }
+              },
+              {
+                name: 'Butterfly Flutter',
+                type: 'loop', // Complex wave/loop
+                start: { label: 'Butterfly', render: (props: any) => <text fontSize="40" x="50" y="65" textAnchor="middle" {...props}>🦋</text> },
+                end: { label: 'Flower', render: (props: any) => <text fontSize="40" x="50" y="65" textAnchor="middle" {...props}>🌻</text> }
+              },
+              {
+                name: 'Bee Flight',
+                type: 'wave',
+                start: { label: 'Bee', render: (props: any) => <text fontSize="40" x="50" y="65" textAnchor="middle" {...props}>🐝</text> },
+                end: { label: 'Hive', render: (props: any) => <text fontSize="40" x="50" y="65" textAnchor="middle" {...props}>🍯</text> }
+              },
+              {
+                name: 'Bunny Hop',
+                type: 'arc',
+                start: { label: 'Bunny', render: (props: any) => <text fontSize="40" x="50" y="65" textAnchor="middle" {...props}>🐇</text> },
+                end: { label: 'Carrot', render: (props: any) => <text fontSize="40" x="50" y="65" textAnchor="middle" {...props}>🥕</text> }
+              },
             ];
-            const circles = [
-              { cx: 50, cy: 40, r: 25 },
-              { cx: 50, cy: 40, r: 20 },
-              { cx: 50, cy: 40, r: 30 },
-              { cx: 50, cy: 40, r: 18 },
-              { cx: 50, cy: 40, r: 28 },
-              { cx: 50, cy: 40, r: 22 },
-            ];
-            const totalItems = curves.length + circles.length;
+
+            const curves = Array.from({ length: 6 }).map((_, i) => {
+              const theme = curveThemes[i % curveThemes.length];
+
+              // Coordinates
+              const x1 = 15, y1 = 40;
+              const x2 = 85, y2 = 40;
+
+              let d = '';
+              // Generate path based on type
+              if (theme.type === 'arc') {
+                // High arch: Control point in middle, very high
+                // Randomize height slightly: 5 to 15
+                const controlY = 5 + (rng() * 10);
+                d = `M ${x1} ${y1} Q 50 ${controlY}, ${x2} ${y2}`;
+              } else if (theme.type === 'wave') {
+                // S-Curve: Up then Down
+                // C (x1+20, y1-20) (x2-20, y2+20) x2 y2
+                const amp = 15 + rng() * 10;
+                d = `M ${x1} ${y1} C ${x1 + 25} ${y1 - amp}, ${x2 - 25} ${y2 + amp}, ${x2} ${y2}`;
+              } else {
+                // Loop/Flutter: Double bump
+                // M start Q (1/3, up) (1/2, mid) Q (2/3, down) end
+                const midX = 50;
+                const amp = 20;
+                d = `M ${x1} ${y1} Q ${x1 + 15} ${y1 - amp} ${midX} ${y1} Q ${x2 - 15} ${y2 + amp} ${x2} ${y2}`;
+              }
+
+              return {
+                id: i,
+                theme,
+                x1, y1, x2, y2,
+                d,
+                label: `Help the ${theme.start.label} reach the ${theme.end.label}`
+              };
+            });
             return (
               <WorksheetSectionWrapper
                 docId="curve-tracing"
-                title="Curve Tracing"
-                emoji="✏️"
-                description="Trace the curves and circles."
-                problemCount={totalItems}
+                title="Curve Tracing Adventure"
+                emoji="🌊"
+                description="Follow the path! Help the animals move."
+                problemCount={curves.length}
                 learningObjectives={[
-                  'Develop fine motor skills',
-                  'Practice tracing curved lines',
-                  'Learn to follow circular and curved paths'
+                  'Trace curved lines (Waves and Arcs)',
+                  'Develop fluid pencil movement',
+                  'Practice continuous strokes'
                 ]}
                 parentTeacherTips={[
-                  'Encourage slow, careful tracing',
-                  'Help children follow the curve smoothly',
-                  'Praise effort and improvement',
-                  'Extension: Draw your own curves to trace'
+                  'Encourage one continuous smooth motion (no stopping)',
+                  'Say: "Up and down like a wave"',
+                  'Rotate the paper if needed'
                 ]}
               >
-                <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-purple-400 to-pink-400 animate-gradient-x mb-2" />
-                <div className="grid grid-cols-1 gap-6" style={{ pageBreakAfter: 'auto' }}>
+                <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-blue-400 to-cyan-400 animate-gradient-x mb-2" />
+
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4" style={{ pageBreakAfter: 'auto' }}>
                   {curves.map((curve, i) => (
-                    <div key={`curve-${i}`} className="border border-slate-300 rounded-lg p-6 bg-white break-inside-avoid">
-                      <div className="text-sm text-slate-700 mb-3 text-center font-semibold">Curve {i + 1}</div>
+                    <div key={i} className="border-2 border-slate-300 rounded-xl p-4 bg-white break-inside-avoid">
+                      <div className="text-xs font-bold text-slate-500 mb-2 uppercase tracking-wider text-center">{curve.theme.name}</div>
                       <div className="relative">
-                        <svg viewBox="0 0 100 80" className="w-full h-64 border-2 border-slate-300 rounded-lg bg-slate-50 print:h-80">
+                        <svg viewBox="0 0 100 60" className="w-full h-32 border border-slate-100 rounded-lg bg-slate-50">
+                          {/* Guide Line */}
                           <path
                             d={curve.d}
                             fill="none"
-                            stroke="#475569"
-                            strokeWidth="5"
-                            strokeDasharray="8 8"
+                            stroke="#94a3b8"
+                            strokeWidth="3"
+                            strokeDasharray="4 4"
                             strokeLinecap="round"
                           />
-                        </svg>
-                      </div>
-                    </div>
-                  ))}
-                  {circles.map((circle, i) => (
-                    <div key={`circle-${i}`} className="border border-slate-300 rounded-lg p-6 bg-white break-inside-avoid">
-                      <div className="text-sm text-slate-700 mb-3 text-center font-semibold">Circle {i + 1}</div>
-                      <div className="relative">
-                        <svg viewBox="0 0 100 80" className="w-full h-64 border-2 border-slate-300 rounded-lg bg-slate-50 print:h-80">
-                          <circle
-                            cx={circle.cx}
-                            cy={circle.cy}
-                            r={circle.r}
-                            fill="none"
-                            stroke="#475569"
-                            strokeWidth="5"
-                            strokeDasharray="8 8"
+
+                          {/* Start Dot (Green) */}
+                          <circle cx={curve.x1} cy={curve.y1} r="3" fill="#22c55e" />
+
+                          {/* End Dot (Red) */}
+                          <circle cx={curve.x2} cy={curve.y2} r="3" fill="#ef4444" />
+
+                          {/* Render Start Icon */}
+                          <curve.theme.start.render
+                            x={curve.x1}
+                            y={curve.y1}
+                            fontSize="22"
+                            dominantBaseline="middle"
+                            style={{ userSelect: 'none' }}
+                          />
+
+                          {/* Render End Icon */}
+                          <curve.theme.end.render
+                            x={curve.x2}
+                            y={curve.y2}
+                            fontSize="22"
+                            dominantBaseline="middle"
+                            style={{ userSelect: 'none' }}
                           />
                         </svg>
                       </div>
+                      <div className="mt-2 text-center text-sm font-medium text-slate-700">
+                        {curve.label}
+                      </div>
                     </div>
                   ))}
                 </div>
-                {/* Extension/Challenge Problems */}
-                <div className="mt-6 print:mt-0 p-4 bg-purple-50 border-2 border-purple-200 rounded print:bg-white print:border" style={{ pageBreakBefore: 'always', pageBreakInside: 'avoid' }}>
-                  <div className="font-semibold text-purple-900 mb-3 text-sm">🌟 More Fun (Optional):</div>
-                  <div className="space-y-2 text-sm text-purple-800">
-                    <div>1. Draw your own curves and circles to trace</div>
-                    <div>2. Try tracing with your eyes closed (with help!)</div>
-                    <div>3. Create a picture using only curves</div>
+
+                {/* Challenge */}
+                <div className="mt-6 print:mt-0 p-4 bg-blue-50 border-2 border-blue-200 rounded print:bg-white print:border" style={{ pageBreakBefore: 'avoid', pageBreakInside: 'avoid' }}>
+                  <div className="font-semibold text-blue-900 mb-2 text-sm">🌟 Sky & Sea Challenge:</div>
+                  <div className="text-sm text-blue-800">
+                    <div>1. Trace the wave with your finger first.</div>
+                    <div>2. Now try with a blue crayon!</div>
                   </div>
                 </div>
-                {/* Self-Assessment */}
-                <div className="print:block hidden print:mt-0 mt-6 p-4 border-2 border-slate-300 rounded" style={{ pageBreakBefore: 'avoid', pageBreakInside: 'avoid' }}>
-                  <div className="font-semibold text-slate-800 mb-3 text-sm">📊 {getTrans('common.howDidYouDo', 'How did you do?')}</div>
-                  <div className="space-y-2 text-xs">
-                    <div>☐ I traced the curves carefully</div>
-                    <div>☐ I traced the circles carefully</div>
-                    <div>☐ I followed the lines smoothly</div>
-                  </div>
-                  <div className="mt-3 text-xs">
-                    <strong>My best curve:</strong> _________________________
-                  </div>
-                </div>
+
                 {showAnswersForDoc('curve-tracing', () => (
                   <div className="mt-6 p-4 border-2 border-emerald-300 bg-emerald-50 rounded print:border print:bg-white print:page-break-before-always">
-                    <div className="font-bold text-emerald-900 mb-3 text-base">✅ {getTrans('common.answerKey', 'Answer Key')}</div>
-                    <p className="text-sm text-emerald-800">Trace the dashed curves and circles. Follow the curved lines carefully with your pencil.</p>
+                    <div className="font-bold text-emerald-900 mb-3 text-base">✅ Adventure Check</div>
+                    <div className="text-sm text-emerald-800">
+                      Did the line stay smooth? Did they connect the start to the end?
+                    </div>
                   </div>
                 ))}
               </WorksheetSectionWrapper>
@@ -31860,80 +31921,209 @@ export function PrintablesPage() {
         }
 
         {
-          activeDocs.includes('zigzag-lines') && (() => {
-            const zigzagPaths = [
-              'M 10 50 L 30 20 L 50 50 L 70 20 L 90 50',
-              'M 10 30 L 25 60 L 40 30 L 55 60 L 70 30 L 85 60',
-              'M 10 40 L 20 20 L 30 40 L 40 20 L 50 40 L 60 20 L 70 40 L 80 20 L 90 40',
-              'M 10 50 L 25 30 L 40 50 L 55 30 L 70 50 L 85 30',
-              'M 10 60 L 30 40 L 50 60 L 70 40 L 90 60',
-              'M 10 35 L 22 55 L 34 35 L 46 55 L 58 35 L 70 55 L 82 35',
+            const rng = makeRng('zigzag-lines');
+            
+            // Themes: Start -> End
+            const zigzagThemes = [
+              { 
+                name: 'Mountain Climb', 
+                type: 'mountain', // Wide, tall
+                start: { label: 'Hiker', render: (props: any) => <text fontSize="40" x="50" y="65" textAnchor="middle" {...props}>🧗</text> },
+                end: { label: 'Flag', render: (props: any) => <text fontSize="40" x="50" y="65" textAnchor="middle" {...props}>🚩</text> }
+              },
+              { 
+                name: 'Brushing Teeth', 
+                type: 'teeth', // Sharp, narrow
+                start: { label: 'Tooth', render: (props: any) => <text fontSize="40" x="50" y="65" textAnchor="middle" {...props}>🦷</text> },
+                end: { label: 'Sparkle', render: (props: any) => <text fontSize="40" x="50" y="65" textAnchor="middle" {...props}>✨</text> }
+              },
+              { 
+                name: 'Bunny Hops', 
+                type: 'grass', // Regular
+                start: { label: 'Bunny', render: (props: any) => <text fontSize="40" x="50" y="65" textAnchor="middle" {...props}>🐇</text> },
+                end: { label: 'Carrot', render: (props: any) => <text fontSize="40" x="50" y="65" textAnchor="middle" {...props}>🥕</text> }
+              },
+              { 
+                name: 'Stormy Sky', 
+                type: 'lightning', // Irregular
+                start: { label: 'Cloud', render: (props: any) => <text fontSize="40" x="50" y="65" textAnchor="middle" {...props}>☁️</text> },
+                end: { label: 'Tree', render: (props: any) => <text fontSize="40" x="50" y="65" textAnchor="middle" {...props}>🌲</text> }
+              },
+              { 
+                name: 'Pyramid Trek', 
+                type: 'mountain', 
+                start: { label: 'Camel', render: (props: any) => <text fontSize="40" x="50" y="65" textAnchor="middle" {...props}>🐪</text> },
+                end: { label: 'Oasis', render: (props: any) => <text fontSize="40" x="50" y="65" textAnchor="middle" {...props}>🌴</text> }
+              },
+              { 
+                name: 'Puppy Run', 
+                type: 'grass', 
+                start: { label: 'Dog', render: (props: any) => <text fontSize="40" x="50" y="65" textAnchor="middle" {...props}>🐶</text> },
+                end: { label: 'Bone', render: (props: any) => <text fontSize="40" x="50" y="65" textAnchor="middle" {...props}>🦴</text> }
+              },
             ];
+
+            const zigzagPaths = Array.from({ length: 6 }).map((_, i) => {
+               const theme = zigzagThemes[i % zigzagThemes.length];
+               
+               // Coordinates
+               const xStart = 15;
+               const xEnd = 85;
+               const yBase = 50; 
+               
+               let points = [`${xStart} ${yBase}`];
+               let currentX = xStart;
+               
+               // Configuration based on type
+               let minWidth, maxWidth, minHeight, maxHeight;
+               
+               if (theme.type === 'mountain') {
+                 minWidth = 15; maxWidth = 25;
+                 minHeight = 25; maxHeight = 35;
+               } else if (theme.type === 'teeth') {
+                 minWidth = 8; maxWidth = 12;
+                 minHeight = 15; maxHeight = 25;
+               } else {
+                 // grass/lightning
+                 minWidth = 12; maxWidth = 18;
+                 minHeight = 20; maxHeight = 30;
+               }
+
+               let up = true;
+               
+               while (currentX < xEnd) {
+                 // Determine step width
+                 const stepW = minWidth + (rng() * (maxWidth - minWidth));
+                 
+                 // Check if next step overshoots significantly, if so, clamp to end
+                 let nextX = currentX + stepW;
+                 if (nextX > xEnd) {
+                    nextX = xEnd;
+                 }
+                 
+                 // Determine height target
+                 // Up moves to yBase - height, Down moves to yBase + height?
+                 // Actually lets align 'base' as center (50), so Up is < 50, Down is > 50?
+                 // Or just zigzag from Base (50) to Peak (20) back to Base (50)?
+                 // Let's do triangular pulses: Base -> Peak -> Base
+                 
+                 // Simple zigzag: Alternating High/Low
+                 // Low = 50 + (height/2), High = 50 - (height/2)
+                 const h = minHeight + (rng() * (maxHeight - minHeight));
+                 const yTarget = up ? (50 - h) : (50 + h);
+                 
+                 points.push(`${nextX} ${yTarget}`);
+                 
+                 currentX = nextX;
+                 up = !up;
+               }
+               
+               // Ensure we end at a reasonable spot? 
+               // The logic above traces to xEnd.
+               // Let's create the SVG path command.
+               // M x0 y0 L x1 y1 L x2 y2 ...
+               const d = 'M ' + points.map(p => p).join(' L ');
+               
+               // Calculate start/end for dots (First and Last point)
+               // Parse "x y"
+               const startCoord = points[0].split(' ');
+               const endCoord = points[points.length - 1].split(' ');
+
+               return {
+                  id: i,
+                  theme,
+                  d,
+                  x1: parseFloat(startCoord[0]),
+                  y1: parseFloat(startCoord[1]),
+                  x2: parseFloat(endCoord[0]),
+                  y2: parseFloat(endCoord[1]),
+                  label: `Trace the ${theme.type} path!`
+               };
+            });
+            
             return (
               <WorksheetSectionWrapper
                 docId="zigzag-lines"
-                title="Zigzag Lines"
-                emoji="✏️"
-                description="Trace the zigzag lines from left to right."
+                title="Zigzag Mountains & Monsters"
+                emoji="🏔️"
+                description="Climb the mountains and brush the teeth! Trace the sharp lines."
                 problemCount={zigzagPaths.length}
                 learningObjectives={[
-                  'Develop fine motor skills',
-                  'Practice tracing zigzag patterns',
-                  'Learn to follow changing directions'
+                  'Trace angular lines (Zigzags)',
+                  'Practice sharp turns (Stop and Pivot)',
+                  'Develop rhythm in writing'
                 ]}
                 parentTeacherTips={[
-                  'Encourage slow, careful tracing',
-                  'Help children follow the up and down pattern',
-                  'Praise effort and improvement',
-                  'Extension: Draw your own zigzag lines to trace'
+                  'Say: "Zoom UP, Stop. Zoom DOWN, Stop."',
+                  'Encourage sharp points, not rounded curves',
+                  'Keep the pencil on the paper'
                 ]}
               >
-                <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-purple-400 to-pink-400 animate-gradient-x mb-2" />
-                <div className="grid grid-cols-2 gap-4" style={{ pageBreakAfter: 'auto' }}>
+                <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-emerald-400 to-teal-400 animate-gradient-x mb-2" />
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4" style={{ pageBreakAfter: 'auto' }}>
                   {zigzagPaths.map((path, i) => (
-                    <div key={i} className="border border-slate-300 rounded-lg p-4 bg-white break-inside-avoid">
-                      <div className="text-xs text-slate-600 mb-2 text-center font-semibold">Zigzag {i + 1}</div>
+                    <div key={i} className="border-2 border-slate-300 rounded-xl p-4 bg-white break-inside-avoid">
+                      <div className="text-xs font-bold text-slate-500 mb-2 uppercase tracking-wider text-center">{path.theme.name}</div>
                       <div className="relative">
-                        <svg viewBox="0 0 100 80" className="w-full h-32 border border-slate-200 rounded bg-slate-50">
-                          <path
-                            d={path}
-                            fill="none"
-                            stroke="#94a3b8"
-                            strokeWidth="3"
-                            strokeDasharray="5 5"
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                          />
+                        <svg viewBox="0 0 100 80" className="w-full h-32 border border-slate-100 rounded-lg bg-slate-50">
+                           {/* Guide Line */}
+                           <path
+                             d={path.d}
+                             fill="none"
+                             stroke="#94a3b8"
+                             strokeWidth="3"
+                             strokeDasharray="4 4"
+                             strokeLinecap="round"
+                             strokeLinejoin="round"
+                           />
+                           
+                           {/* Start Dot (Green) */}
+                           <circle cx={path.x1} cy={path.y1} r="3" fill="#22c55e" />
+                           
+                           {/* End Dot (Red) */}
+                           <circle cx={path.x2} cy={path.y2} r="3" fill="#ef4444" />
+
+                           {/* Render Start Icon */}
+                           <path.theme.start.render 
+                              x={path.x1} 
+                              y={path.y1} 
+                              fontSize="22" 
+                              dominantBaseline="middle" 
+                              style={{ userSelect: 'none' }} 
+                           />
+                           
+                           {/* Render End Icon */}
+                           <path.theme.end.render 
+                              x={path.x2} 
+                              y={path.y2} 
+                              fontSize="22" 
+                              dominantBaseline="middle" 
+                              style={{ userSelect: 'none' }} 
+                           />
                         </svg>
+                      </div>
+                      <div className="mt-2 text-center text-sm font-medium text-slate-700">
+                         {path.label}
                       </div>
                     </div>
                   ))}
                 </div>
-                {/* Extension/Challenge Problems */}
-                <div className="mt-6 print:mt-0 p-4 bg-purple-50 border-2 border-purple-200 rounded print:bg-white print:border" style={{ pageBreakBefore: 'always', pageBreakInside: 'avoid' }}>
-                  <div className="font-semibold text-purple-900 mb-3 text-sm">🌟 More Fun (Optional):</div>
-                  <div className="space-y-2 text-sm text-purple-800">
-                    <div>1. Draw your own zigzag lines to trace</div>
-                    <div>2. Try tracing with your eyes closed (with help!)</div>
-                    <div>3. Create a picture using zigzag lines</div>
+                
+                {/* Challenge */}
+                <div className="mt-6 print:mt-0 p-4 bg-emerald-50 border-2 border-emerald-200 rounded print:bg-white print:border" style={{ pageBreakBefore: 'avoid', pageBreakInside: 'avoid' }}>
+                  <div className="font-semibold text-emerald-900 mb-2 text-sm">🌟 Mountain Challenge:</div>
+                  <div className="text-sm text-emerald-800">
+                    <div>1. Can you draw mountains on the back?</div>
+                    <div>2. Draw sharp teeth for a silly monster!</div>
                   </div>
                 </div>
-                {/* Self-Assessment */}
-                <div className="print:block hidden print:mt-0 mt-6 p-4 border-2 border-slate-300 rounded" style={{ pageBreakBefore: 'avoid', pageBreakInside: 'avoid' }}>
-                  <div className="font-semibold text-slate-800 mb-3 text-sm">📊 {getTrans('common.howDidYouDo', 'How did you do?')}</div>
-                  <div className="space-y-2 text-xs">
-                    <div>☐ I traced the zigzag lines carefully</div>
-                    <div>☐ I followed the up and down pattern</div>
-                    <div>☐ I held my pencil correctly</div>
-                  </div>
-                  <div className="mt-3 text-xs">
-                    <strong>My best zigzag:</strong> _________________________
-                  </div>
-                </div>
+
                 {showAnswersForDoc('zigzag-lines', () => (
                   <div className="mt-6 p-4 border-2 border-emerald-300 bg-emerald-50 rounded print:border print:bg-white print:page-break-before-always">
-                    <div className="font-bold text-emerald-900 mb-3 text-base">✅ {getTrans('common.answerKey', 'Answer Key')}</div>
-                    <p className="text-sm text-emerald-800">Trace the dashed zigzag lines from left to right. Follow the up and down pattern carefully with your pencil.</p>
+                    <div className="font-bold text-emerald-900 mb-3 text-base">✅ Pattern Check</div>
+                    <div className="text-sm text-emerald-800">
+                      Are the points sharp? Did the line go up and down?
+                    </div>
                   </div>
                 ))}
               </WorksheetSectionWrapper>
