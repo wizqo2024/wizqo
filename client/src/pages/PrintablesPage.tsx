@@ -21215,19 +21215,24 @@ export function PrintablesPage() {
           activeDocs.includes('number-matching-1-15') && (() => {
             const rng = makeRng(`${effectiveSeed}|v${variant}|doc=${doc}`)
             const numberWords = ['one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine', 'ten', 'eleven', 'twelve', 'thirteen', 'fourteen', 'fifteen']
+
+            // Generate 6 distinct numbers
             const allNumbers = Array.from({ length: 15 }, (_, i) => i + 1)
-            const shuffledNumbers = [...allNumbers].sort(() => (rng() > 0.5 ? 1 : -1))
-            const selectedNumbers = shuffledNumbers.slice(0, 6)
-            const problems = selectedNumbers.map(num => ({ num, word: numberWords[num - 1] }))
+            const shuffledAll = [...allNumbers].sort(() => (rng() > 0.5 ? 1 : -1))
+            const selectedNumbers = shuffledAll.slice(0, 6).sort((a, b) => a - b)
+
+            // Create shuffled words for the right column
+            const rightColumnNumbers = [...selectedNumbers].sort(() => (rng() > 0.5 ? 1 : -1))
+
             return (
               <WorksheetSectionWrapper
                 docId="number-matching-1-15"
                 title="Number Matching 1–15"
                 emoji="🔟"
-                description="Match the number word to the numeral. Connect with a line."
-                problemCount={problems.length}
+                description="Draw a line to match the number to the correct word."
+                problemCount={selectedNumbers.length}
                 learningObjectives={[
-                  'Match numerals to number words (1-15)',
+                  'Match numerals to number words (1–15)',
                   'Recognize number words in written form',
                   'Connect visual numbers to their word names',
                   'Build vocabulary and number recognition'
@@ -21235,43 +21240,59 @@ export function PrintablesPage() {
                 parentTeacherTips={[
                   'Help students read each number word aloud',
                   'Encourage students to say the number as they match',
-                  'Practice number words: one, two, three, four, five...',
-                  'Extension: Try matching numbers to 20 or higher'
+                  'Practice number words: one, two, three...',
+                  'Extension: Try writing the words yourself'
                 ]}
               >
                 <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-purple-400 to-pink-400 animate-gradient-x mb-2" />
+
                 {/* Worked Example */}
-                <div className="mb-6 p-4 bg-blue-50 border-2 border-blue-200 rounded-lg print:border print:bg-white">
-                  <div className="font-semibold text-blue-900 mb-3 text-sm">📚 Example - Let's solve this together:</div>
-                  <div className="space-y-2 text-sm">
-                    <div className="font-semibold text-base"><strong>Problem:</strong> Match 5 to its word</div>
-                    <div className="pl-4 border-l-2 border-blue-300 space-y-1">
-                      <div><strong>Step 1:</strong> Look at the number: 5</div>
-                      <div><strong>Step 2:</strong> Find the word that says "five"</div>
-                      <div><strong>Step 3:</strong> Draw a line connecting 5 to "five"</div>
-                      <div className="font-semibold text-blue-900"><strong>Answer:</strong> 5 = five</div>
-                      <div className="text-xs text-blue-700 mt-1">💡 Tip: Read the number word aloud to help you match it!</div>
-                    </div>
+                <div className="mb-6 p-4 bg-blue-50 border-2 border-blue-200 rounded-lg print:border print:bg-white text-sm">
+                  <div className="font-semibold text-blue-900 mb-2">📚 Example:</div>
+                  <div className="flex items-center gap-8 justify-center p-2 border bg-white rounded">
+                    <span className="text-2xl font-bold">5</span>
+                    <svg width="60" height="20" className="text-blue-400">
+                      <line x1="0" y1="10" x2="60" y2="10" stroke="currentColor" strokeWidth="2" strokeDasharray="4 4" />
+                      <polygon points="55,5 60,10 55,15" fill="currentColor" />
+                    </svg>
+                    <span className="text-xl">five</span>
                   </div>
                 </div>
-                <div className="grid grid-cols-1 gap-4 break-inside-avoid" style={{ pageBreakAfter: 'auto' }}>
-                  {problems.map((p, i) => (
-                    <div key={i} className="border-2 border-slate-300 rounded-lg p-6 bg-white">
-                      <div className="flex items-center justify-between gap-4">
-                        <div className="flex-shrink-0">
-                          <div className="w-20 h-20 print:w-24 print:h-24 border-4 border-blue-500 rounded-lg flex items-center justify-center text-4xl print:text-5xl font-bold text-blue-700 bg-blue-50">
-                            {p.num}
+
+                <div className="flex justify-between px-8 mb-4 font-bold text-slate-500 uppercase tracking-widest text-sm">
+                  <span>Number</span>
+                  <span>Word</span>
+                </div>
+
+                <div className="border-2 border-slate-200 rounded-xl p-8 bg-white relative">
+                  {/* Center dashed line */}
+                  <div className="absolute left-1/2 top-8 bottom-8 border-l-2 border-dashed border-slate-100 transform -translate-x-1/2" />
+
+                  <div className="flex justify-between">
+                    {/* Left Column: Numerals */}
+                    <div className="space-y-12 w-1/3">
+                      {selectedNumbers.map((num, i) => (
+                        <div key={i} className="h-16 flex items-center justify-center relative">
+                          <div className="w-16 h-16 rounded-full bg-purple-50 border-2 border-purple-200 flex items-center justify-center text-4xl font-bold text-slate-800">
+                            {num}
                           </div>
+                          <div className="absolute -right-4 top-1/2 w-4 h-4 bg-slate-300 rounded-full transform translate-x-1/2 -translate-y-1/2 border-2 border-white hover:bg-purple-400 cursor-pointer" />
                         </div>
-                        <div className="flex-1 border-t-2 border-dashed border-slate-400 mx-4" />
-                        <div className="flex-shrink-0">
-                          <div className="w-32 print:w-40 border-2 border-slate-300 rounded-lg p-3 bg-slate-50 min-h-16 print:min-h-20 flex items-center justify-center">
-                            <div className="text-xl print:text-2xl font-semibold text-slate-700 capitalize text-center">{p.word}</div>
-                          </div>
-                        </div>
-                      </div>
+                      ))}
                     </div>
-                  ))}
+
+                    {/* Right Column: Words */}
+                    <div className="space-y-12 w-1/3">
+                      {rightColumnNumbers.map((num, i) => (
+                        <div key={i} className="h-16 flex items-center justify-center relative">
+                          <div className="absolute -left-4 top-1/2 w-4 h-4 bg-slate-300 rounded-full transform -translate-x-1/2 -translate-y-1/2 border-2 border-white hover:bg-purple-400 cursor-pointer" />
+                          <div className="text-2xl font-medium text-slate-700 capitalize">
+                            {numberWords[num - 1]}
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
                 </div>
                 {/* Extension/Challenge Problems */}
                 <div className="mt-6 print:mt-0 p-4 bg-purple-50 border-2 border-purple-200 rounded print:bg-white print:border" style={{ pageBreakBefore: 'always', pageBreakInside: 'avoid' }}>
