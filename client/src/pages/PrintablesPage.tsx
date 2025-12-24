@@ -20220,26 +20220,37 @@ export function PrintablesPage() {
                     const objectType = objectTypes[i % objectTypes.length];
                     return (
                       <div key={i} className="border border-slate-300 rounded-lg p-4 bg-white break-inside-avoid">
-                        <div className="text-center mb-3">
-                          <div className="flex items-center justify-center gap-3 mb-3">
-                            <div className="flex flex-wrap gap-1 justify-center" style={{ maxWidth: '80px' }}>
+                        <div className="flex items-center justify-center gap-2 mb-4">
+                          {/* Group 1 */}
+                          <div className="flex flex-col items-center gap-2">
+                            <div className="flex flex-wrap gap-1 justify-center content-center min-h-[3rem] w-24">
                               {Array.from({ length: p.a }).map((_, j) => (
-                                <span key={j} className="text-3xl">{objectType}</span>
+                                <span key={j} className="text-3xl leading-none">{objectType}</span>
                               ))}
                             </div>
-                            <div className="text-2xl font-bold">+</div>
-                            <div className="flex flex-wrap gap-1 justify-center" style={{ maxWidth: '80px' }}>
-                              {Array.from({ length: p.b }).map((_, j) => (
-                                <span key={j} className="text-3xl">{objectType}</span>
-                              ))}
-                            </div>
-                            <div className="text-2xl font-bold">=</div>
-                            <div className="border-2 border-slate-400 rounded px-3 py-1">
-                              <span className="text-2xl font-bold text-slate-900">___</span>
-                            </div>
+                            <div className="w-8 h-8 border border-dashed border-slate-300 rounded bg-slate-50"></div>
                           </div>
-                          <div className="text-sm text-slate-600">Count and add</div>
+
+                          <div className="text-2xl font-bold text-slate-400 pb-10">+</div>
+
+                          {/* Group 2 */}
+                          <div className="flex flex-col items-center gap-2">
+                            <div className="flex flex-wrap gap-1 justify-center content-center min-h-[3rem] w-24">
+                              {Array.from({ length: p.b }).map((_, j) => (
+                                <span key={j} className="text-3xl leading-none">{objectType}</span>
+                              ))}
+                            </div>
+                            <div className="w-8 h-8 border border-dashed border-slate-300 rounded bg-slate-50"></div>
+                          </div>
+
+                          <div className="text-2xl font-bold text-slate-400 pb-10">=</div>
+
+                          {/* Answer */}
+                          <div className="flex flex-col items-center gap-2 pb-10">
+                            <div className="w-14 h-14 border-2 border-slate-800 rounded bg-white"></div>
+                          </div>
                         </div>
+                        <div className="text-sm text-slate-500 text-center uppercase tracking-wide text-xs">Count and add</div>
                       </div>
                     );
                   })}
