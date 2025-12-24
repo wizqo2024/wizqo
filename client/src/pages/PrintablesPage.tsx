@@ -19362,16 +19362,44 @@ export function PrintablesPage() {
               <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-indigo-400 to-blue-400 animate-gradient-x mb-2" />
               <div className="grid grid-cols-2 gap-4">
                 {['the', 'and', 'to', 'a', 'I', 'you', 'it', 'in', 'said', 'for', 'up', 'look'].map((word, idx) => (
-                  <div key={idx} className="border border-slate-300 rounded p-4 bg-white">
-                    <div className="text-center mb-3">
-                      <p className="text-3xl font-bold text-slate-900 mb-2">{word}</p>
-                      <div className="flex gap-1 justify-center mb-2">
-                        <span className="text-slate-400 text-sm">Trace:</span>
-                        <span className="text-2xl font-light text-slate-500" style={{ fontFamily: 'monospace' }}>{word}</span>
+                  <div key={idx} className="border border-slate-300 rounded p-4 bg-white break-inside-avoid">
+                    <div className="flex flex-col gap-4">
+                      {/* Read Section */}
+                      <div className="text-center">
+                        <span className="text-sm text-slate-400 font-semibold uppercase tracking-wider mb-1 block">Read</span>
+                        <div className="text-4xl font-bold text-slate-900">{word}</div>
                       </div>
-                      <div className="space-y-1">
-                        {[1, 2, 3].map((i) => (
-                          <div key={i} className="h-10 border-b-[3px] border-slate-600" />
+
+                      {/* Header for Trace/Write */}
+                      <div className="flex justify-between px-1">
+                        <span className="text-xs text-slate-400 font-semibold uppercase tracking-wider">Trace</span>
+                        <span className="text-xs text-slate-400 font-semibold uppercase tracking-wider">Write</span>
+                      </div>
+
+                      <div className="space-y-4">
+                        {/* Trace Line */}
+                        <div className="relative h-16 w-full">
+                          {/* Guidelines */}
+                          <svg width="100%" height="100%" preserveAspectRatio="none" className="absolute top-0 left-0 pointer-events-none">
+                            <line x1="0" y1="20%" x2="100%" y2="20%" stroke="#94a3b8" strokeWidth="1" />
+                            <line x1="0" y1="50%" x2="100%" y2="50%" stroke="#94a3b8" strokeWidth="1" strokeDasharray="5,5" />
+                            <line x1="0" y1="80%" x2="100%" y2="80%" stroke="#ef4444" strokeWidth="1.5" />
+                          </svg>
+                          {/* Tracing Text */}
+                          <div className="absolute inset-0 flex items-center pl-2 pt-1" style={{ fontFamily: 'sans-serif' }}>
+                            <span className="text-6xl text-slate-200 tracking-wider" style={{ lineHeight: 0, transform: 'translateY(-2px)' }}>{word}</span>
+                          </div>
+                        </div>
+
+                        {/* Practice Lines */}
+                        {[1, 2].map((line) => (
+                          <div key={line} className="relative h-16 w-full">
+                            <svg width="100%" height="100%" preserveAspectRatio="none" className="absolute top-0 left-0">
+                              <line x1="0" y1="20%" x2="100%" y2="20%" stroke="#94a3b8" strokeWidth="1" />
+                              <line x1="0" y1="50%" x2="100%" y2="50%" stroke="#94a3b8" strokeWidth="1" strokeDasharray="5,5" />
+                              <line x1="0" y1="80%" x2="100%" y2="80%" stroke="#ef4444" strokeWidth="1.5" />
+                            </svg>
+                          </div>
                         ))}
                       </div>
                     </div>
