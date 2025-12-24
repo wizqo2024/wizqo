@@ -19498,46 +19498,39 @@ export function PrintablesPage() {
               <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-amber-400 to-yellow-400 animate-gradient-x mb-2" />
               <div className="grid grid-cols-2 gap-4">
                 {[
-                  { left: 3, right: 5 },
-                  { left: 7, right: 4 },
-                  { left: 6, right: 6 },
-                  { left: 8, right: 3 },
-                  { left: 2, right: 9 },
-                  { left: 5, right: 5 },
+                  { left: 3, right: 5, emoji: '🍎' },
+                  { left: 7, right: 4, emoji: '🚗' },
+                  { left: 6, right: 6, emoji: '⚽' },
+                  { left: 8, right: 3, emoji: '🐸' },
+                  { left: 2, right: 9, emoji: '🍪' },
+                  { left: 5, right: 5, emoji: '🚀' },
                 ].map((pair, idx) => (
-                  <div key={idx} className="border border-slate-300 rounded p-4 bg-white">
+                  <div key={idx} className="border border-slate-300 rounded p-4 bg-white break-inside-avoid">
                     <div className="flex items-center justify-around mb-3">
                       <div className="text-center">
                         <div className="flex gap-1 flex-wrap justify-center mb-2" style={{ width: '80px' }}>
                           {Array.from({ length: pair.left }).map((_, i) => (
-                            <div key={i} className="w-8 h-8 print:w-10 print:h-10 rounded-full border-4 border-slate-400 bg-white" />
+                            <span key={i} className="text-2xl leading-none">{pair.emoji}</span>
                           ))}
                         </div>
                         <p className="text-xl font-bold text-slate-900">{pair.left}</p>
                       </div>
-                      <div className="text-2xl text-slate-400">vs</div>
+                      <div className="text-sm font-bold text-slate-400 uppercase tracking-widest">VS</div>
                       <div className="text-center">
                         <div className="flex gap-1 flex-wrap justify-center mb-2" style={{ width: '80px' }}>
                           {Array.from({ length: pair.right }).map((_, i) => (
-                            <div key={i} className="w-8 h-8 print:w-10 print:h-10 rounded-full border-4 border-slate-400 bg-white" />
+                            <span key={i} className="text-2xl leading-none">{pair.emoji}</span>
                           ))}
                         </div>
                         <p className="text-xl font-bold text-slate-900">{pair.right}</p>
                       </div>
                     </div>
-                    <div className="flex gap-3 justify-center">
-                      <label className="flex items-center gap-1 cursor-pointer">
-                        <input type="radio" name={`compare-${idx}`} value="more" className="w-4 h-4" />
-                        <span className="text-slate-700">More</span>
-                      </label>
-                      <label className="flex items-center gap-1 cursor-pointer">
-                        <input type="radio" name={`compare-${idx}`} value="less" className="w-4 h-4" />
-                        <span className="text-slate-700">Less</span>
-                      </label>
-                      <label className="flex items-center gap-1 cursor-pointer">
-                        <input type="radio" name={`compare-${idx}`} value="equal" className="w-4 h-4" />
-                        <span className="text-slate-700">Equal</span>
-                      </label>
+                    <div className="flex gap-2 justify-center">
+                      {['More', 'Less', 'Equal'].map((opt) => (
+                        <div key={opt} className="border-2 border-slate-200 rounded-full px-3 py-1 text-sm text-slate-600 font-semibold bg-slate-50 min-w-[60px] text-center">
+                          {opt}
+                        </div>
+                      ))}
                     </div>
                   </div>
                 ))}
