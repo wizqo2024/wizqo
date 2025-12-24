@@ -20670,9 +20670,11 @@ export function PrintablesPage() {
             try {
               const docId = 'count-circle-1-10'
               const rng = makeRng(`${effectiveSeed}|v${variant}|doc=${doc}`)
+              const emojis = ['🍎', '🍌', '🍇', '🍊', '🍓', '🚗', '🚀', '⭐', '🎈', '🐱', '🐶', '🐸']
               const problems = Array.from({ length: 8 }, () => {
                 const count = Math.floor(rng() * 10) + 1
-                return { count, objects: Array.from({ length: count }, (_, i) => i) }
+                const emoji = emojis[Math.floor(rng() * emojis.length)]
+                return { count, emoji, objects: Array.from({ length: count }, (_, i) => i) }
               })
               return (
                 <WorksheetSectionWrapper
@@ -20719,9 +20721,11 @@ export function PrintablesPage() {
                   <div className="grid grid-cols-2 gap-4" style={{ pageBreakAfter: 'auto' }}>
                     {problems.map((p, i) => (
                       <div key={i} className="border border-slate-300 rounded-lg p-4 bg-white">
-                        <div className="flex gap-2 mb-3 flex-wrap">
+                        <div className="flex gap-2 mb-3 flex-wrap justify-center min-h-[4rem] items-center">
                           {p.objects.map((_, j) => (
-                            <div key={j} className="w-12 h-12 print:w-16 print:h-16 rounded-full border-4 border-slate-400 bg-white" />
+                            <div key={j} className="text-3xl print:text-4xl leading-none">
+                              {p.emoji}
+                            </div>
                           ))}
                         </div>
                         <div className="flex gap-2 justify-center">
@@ -20903,9 +20907,11 @@ export function PrintablesPage() {
         {
           activeDocs.includes('how-many-1-15') && (() => {
             const rng = makeRng(`${effectiveSeed}|v${variant}|doc=${doc}`)
+            const emojis = ['🍎', '🍌', '🍇', '🍊', '🍓', '🚗', '🚀', '⭐', '🎈', '🐱', '🐶', '🐸']
             const problems = Array.from({ length: 8 }, () => {
               const count = Math.floor(rng() * 15) + 1
-              return { count, objects: Array.from({ length: count }, (_, i) => i) }
+              const emoji = emojis[Math.floor(rng() * emojis.length)]
+              return { count, emoji, objects: Array.from({ length: count }, (_, i) => i) }
             })
             return (
               <WorksheetSectionWrapper
@@ -20946,9 +20952,11 @@ export function PrintablesPage() {
                 <div className="grid grid-cols-2 gap-4" style={{ pageBreakAfter: 'auto' }}>
                   {problems.map((p, i) => (
                     <div key={i} className="border border-slate-300 rounded-lg p-4 bg-white">
-                      <div className="flex gap-1 mb-3 flex-wrap justify-center">
+                      <div className="flex gap-2 mb-3 flex-wrap justify-center min-h-[4rem] items-center">
                         {p.objects.map((_, j) => (
-                          <div key={j} className="w-10 h-10 print:w-12 print:h-12 rounded-full border-4 border-slate-400 bg-white" />
+                          <div key={j} className="text-3xl print:text-4xl leading-none">
+                            {p.emoji}
+                          </div>
                         ))}
                       </div>
                       <div className="text-center">
@@ -21022,8 +21030,8 @@ export function PrintablesPage() {
               <WorksheetSectionWrapper
                 docId="count-color-1-10"
                 title="Count & Color (1–10)"
-                emoji="🔢"
-                description="Count the objects and color the correct number of items."
+                emoji="🎨"
+                description="Count the shapes and color the correct number of items."
                 problemCount={problems.length}
                 learningObjectives={[
                   'Count objects accurately up to 10',
