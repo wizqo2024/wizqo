@@ -19629,14 +19629,14 @@ export function PrintablesPage() {
             function nextInt(min: number, max: number) { return Math.floor(rng() * (max - min + 1)) + min; }
             const problems = Array.from({ length: 6 }, () => {
               const count = nextInt(1, 10);
-              const objectTypes = ['🍎', '⭐', '🔴', '🟢', '🔵', '🟡', '🟣', '🟠', '⚫', '🟤'];
+              const objectTypes = ['🍎', '🐶', '🚀', '⭐', '🐻', '🚗', '🎈', '🐱', '🦋', '⚽', '🍕', '🐸'];
               const objectType = objectTypes[nextInt(0, objectTypes.length - 1)];
               return { count, objectType };
             });
             return (
               <WorksheetSectionWrapper
                 docId="kindergarten-counting-1-10"
-                title="Counting 1–10"
+                title="Counting With Pictures"
                 emoji="🔢"
                 description="Count the objects in each group. Write the number in the box."
                 problemCount={problems.length}
@@ -19661,7 +19661,7 @@ export function PrintablesPage() {
                     <div className="font-semibold text-base"><strong>Count the apples:</strong></div>
                     <div className="flex gap-2 justify-center mb-3">
                       {Array.from({ length: 5 }).map((_, i) => (
-                        <span key={i} className="text-4xl">🍎</span>
+                        <span key={i} className="text-4xl leading-none">🍎</span>
                       ))}
                     </div>
                     <div className="pl-4 border-l-2 border-blue-300 space-y-1">
@@ -19675,16 +19675,14 @@ export function PrintablesPage() {
                   {problems.map((p, i) => (
                     <div key={i} className="border border-slate-300 rounded-lg p-4 bg-white break-inside-avoid">
                       <div className="text-center mb-3">
-                        <div className="flex flex-wrap gap-2 justify-center mb-3" style={{ minHeight: '80px' }}>
+                        <div className="flex flex-wrap gap-2 justify-center content-center mb-3" style={{ minHeight: '80px' }}>
                           {Array.from({ length: p.count }).map((_, j) => (
-                            <span key={j} className="text-4xl">{p.objectType}</span>
+                            <span key={j} className="text-4xl leading-none">{p.objectType}</span>
                           ))}
                         </div>
                         <div className="text-center">
-                          <p className="text-slate-600 text-sm mb-2">How many?</p>
-                          <div className="inline-block border-2 border-slate-400 rounded px-6 py-2">
-                            <span className="text-3xl font-bold text-slate-900">___</span>
-                          </div>
+                          <p className="text-slate-500 text-xs uppercase tracking-wide mb-2">How many?</p>
+                          <div className="w-16 h-16 border-2 border-slate-300 rounded-lg bg-white mx-auto"></div>
                         </div>
                       </div>
                     </div>
