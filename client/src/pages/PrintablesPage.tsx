@@ -31747,7 +31747,6 @@ export function PrintablesPage() {
                 ))}
               </WorksheetSectionWrapper>
             );
-            );
           })()
         }
 
