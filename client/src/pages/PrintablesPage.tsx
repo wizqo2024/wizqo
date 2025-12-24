@@ -21059,13 +21059,15 @@ export function PrintablesPage() {
                 {problems.map((p, i) => (
                   <div key={i} className="border-2 border-slate-300 rounded-lg p-6 bg-white">
                     <div className="text-center mb-4">
-                      <div className="text-2xl font-semibold text-slate-800 mb-2">Color {p.count} {p.emoji}</div>
-                      <div className="text-sm text-slate-600">Count and color exactly {p.count} items</div>
+                      <div className="text-2xl font-semibold text-slate-800 mb-2">Color {p.count} {p.shape.name}s</div>
+                      <div className="text-sm text-slate-600">Count and color exactly {p.count} {p.shape.name.toLowerCase()}s</div>
                     </div>
                     <div className="flex gap-3 flex-wrap justify-center">
                       {p.objects.map((_, j) => (
-                        <div key={j} className="w-16 h-16 print:w-20 print:h-20 border-4 border-slate-400 rounded-lg flex items-center justify-center text-3xl print:text-4xl bg-white">
-                          {p.emoji}
+                        <div key={j} className="w-16 h-16 print:w-20 print:h-20 flex items-center justify-center text-slate-800">
+                          <svg viewBox="0 0 100 100" className="w-full h-full text-slate-800">
+                            {p.shape.render({})}
+                          </svg>
                         </div>
                       ))}
                     </div>
