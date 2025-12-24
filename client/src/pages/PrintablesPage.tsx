@@ -3967,37 +3967,37 @@ export function PrintablesPage() {
                       <g fill="none" stroke="#94a3b8" strokeWidth="3">
                         <path strokeDasharray="6 6" d={`M40 160 H360`} />
                       </g>
-                      <g fill="none" stroke="#111827" strokeWidth="5" strokeLinecap="round">
-                        {n === 1 && <path d="M120 150 L120 60" />}
-                        {n === 2 && <path d="M90 90 Q120 60, 150 90 Q180 120, 90 150 H180" />}
-                        {n === 3 && <path d="M105 85 C135 65,170 85,150 100 C170 115,135 135,105 115" />}
-                        {n === 4 && (
-                          <g>
-                            <path d="M160 60 L100 110 H170" />
-                            <path d="M160 60 V150" />
-                          </g>
-                        )}
-                        {n === 5 && <path d="M170 70 H100 V110 Q130 90, 160 110 Q170 140, 120 150" />}
-                        {n === 6 && <path d="M160 80 Q100 80, 110 120 Q140 160, 170 130 Q150 110, 120 120" />}
-                        {n === 7 && <path d="M90 70 H170 L110 150" />}
-                        {n === 8 && (
-                          <g>
-                            <circle cx="120" cy="95" r="26" fill="none" />
-                            <circle cx="120" cy="135" r="26" fill="none" />
-                          </g>
-                        )}
-                        {n === 9 && (
-                          <g>
-                            <circle cx="135" cy="100" r="28" fill="none" />
-                            <path d="M162 120 Q150 150, 120 150" />
-                          </g>
-                        )}
-                        {n === 10 && (
-                          <g>
-                            <path d="M90 150 L90 80" />
-                            <circle cx="140" cy="115" r="30" fill="none" />
-                          </g>
-                        )}
+                      <g fill="none" stroke="#111827" strokeWidth="5" strokeLinecap="round" strokeLinejoin="round">
+                        {(() => {
+                          const getDigitPath = (digit: string, offset: number) => {
+                            switch (digit) {
+                              case '0': return <path d={`M${220 + offset} 105 C${220 + offset} 160 ${180 + offset} 160 ${180 + offset} 105 C${180 + offset} 50 ${220 + offset} 50 ${220 + offset} 105 Z`} />;
+                              case '1': return <path d={`M${185 + offset} 80 L${205 + offset} 60 L${205 + offset} 150`} />;
+                              case '2': return <path d={`M${155 + offset} 90 C${155 + offset} 60 ${215 + offset} 60 ${215 + offset} 90 C${215 + offset} 110 ${155 + offset} 150 ${155 + offset} 150 L${225 + offset} 150`} />;
+                              case '3': return <path d={`M${165 + offset} 70 C${215 + offset} 50 ${215 + offset} 100 ${185 + offset} 100 C${215 + offset} 100 ${215 + offset} 150 ${165 + offset} 130`} />;
+                              case '4': return <path d={`M${210 + offset} 150 L${210 + offset} 60 M${180 + offset} 60 L${180 + offset} 100 L${220 + offset} 100`} />;
+                              case '5': return <path d={`M${210 + offset} 60 L${170 + offset} 60 L${170 + offset} 100 C${210 + offset} 100 ${210 + offset} 150 ${170 + offset} 150`} />;
+                              case '6': return <path d={`M${205 + offset} 60 C${155 + offset} 80 ${155 + offset} 150 ${185 + offset} 150 C${215 + offset} 150 ${215 + offset} 110 ${185 + offset} 110 C${165 + offset} 110 ${165 + offset} 130 ${185 + offset} 150`} />;
+                              case '7': return <path d={`M${160 + offset} 60 L${220 + offset} 60 L${180 + offset} 150`} />;
+                              case '8': return <path d={`M${190 + offset} 60 C${150 + offset} 60 ${150 + offset} 105 ${190 + offset} 105 C${230 + offset} 105 ${230 + offset} 150 ${190 + offset} 150 C${150 + offset} 150 ${150 + offset} 105 ${190 + offset} 105 C${230 + offset} 105 ${230 + offset} 60 ${190 + offset} 60`} />;
+                              case '9': return <path d={`M${200 + offset} 100 C${170 + offset} 100 ${170 + offset} 60 ${200 + offset} 60 C${230 + offset} 60 ${230 + offset} 100 ${200 + offset} 100 M${225 + offset} 80 L${180 + offset} 150`} />;
+                              default: return null;
+                            }
+                          };
+
+                          if (n < 10) {
+                            return getDigitPath(n.toString(), 0);
+                          } else {
+                            const s = n.toString();
+                            // Center two digits: Shift left by ~30px for first, right by ~30px for second
+                            return (
+                              <g>
+                                {getDigitPath(s[0], -45)}
+                                {getDigitPath(s[1], 45)}
+                              </g>
+                            );
+                          }
+                        })()}
                       </g>
                       <circle cx="48" cy="54" r="4" fill="#ef4444" />
                       <line x1="48" y1="54" x2="70" y2="54" stroke="#ef4444" strokeWidth="2.5" strokeLinecap="round" />
