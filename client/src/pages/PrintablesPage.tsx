@@ -12448,7 +12448,7 @@ export function PrintablesPage() {
                       </div>
                     </div>
                     <div className="text-lg font-mono text-rose-900 text-center bg-white px-4 py-2 rounded border border-rose-300">
-                      {total} − {take} = <span className="inline-block w-16 border-b-2 border-rose-600" />
+                      {total} − {take} = <span className="inline-block w-12 h-12 border-2 border-rose-300 rounded bg-white align-middle ml-2" />
                     </div>
                   </div>
                 ))}
@@ -20113,7 +20113,7 @@ export function PrintablesPage() {
                               </svg>
                             );
                           })}
-                          <div className="w-12 h-12 md:w-14 md:h-14 flex items-center justify-center border-b-4 border-slate-300 text-slate-400 font-bold text-2xl">
+                          <div className="w-12 h-12 md:w-14 md:h-14 flex items-center justify-center border-2 border-dashed border-slate-300 rounded-lg text-slate-300 font-bold text-2xl">
                             ?
                           </div>
                         </div>
