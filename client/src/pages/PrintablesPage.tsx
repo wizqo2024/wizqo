@@ -3188,45 +3188,45 @@ export function PrintablesPage() {
                 <title id="continents-title">World map outline with 7 continents</title>
                 <g fill="none" stroke="#111827" strokeWidth="4">
                   <rect x="40" y="40" width="720" height="420" rx="8" />
-                  {/* Simplified continent shapes (kid-friendly) */}
+                  {/* Better continent shapes */}
                   {/* North America */}
-                  <ellipse cx="180" cy="160" rx="70" ry="45" />
+                  <path d="M110,60 C80,60 40,100 60,150 C70,180 120,220 160,200 C180,190 220,100 240,60 C200,40 150,50 110,60 Z" />
                   {/* South America */}
-                  <ellipse cx="280" cy="285" rx="45" ry="60" />
+                  <path d="M200,220 C240,220 280,240 290,280 C300,340 260,400 240,420 C220,400 190,340 180,280 C180,250 190,220 200,220 Z" />
                   {/* Europe */}
-                  <ellipse cx="370" cy="170" rx="28" ry="18" />
+                  <path d="M360,80 C340,90 320,130 340,150 C360,160 380,130 400,120 C420,110 400,80 360,80 Z" />
                   {/* Africa */}
-                  <ellipse cx="430" cy="305" rx="55" ry="70" />
+                  <path d="M350,170 C330,220 340,300 380,360 C420,380 480,320 480,260 C480,200 450,160 350,170 Z" />
                   {/* Asia */}
-                  <ellipse cx="540" cy="205" rx="95" ry="60" />
+                  <path d="M420,70 C460,50 600,60 680,100 C700,150 660,240 580,260 C520,240 480,200 440,150 C430,120 420,70 420,70 Z" />
                   {/* Australia */}
-                  <ellipse cx="620" cy="320" rx="35" ry="25" />
+                  <path d="M600,300 C580,320 580,360 620,380 C660,370 680,340 660,310 C640,290 620,290 600,300 Z" />
                   {/* Antarctica */}
-                  <rect x="160" y="430" width="480" height="18" rx="8" />
+                  <path d="M150,450 C250,440 550,440 650,450 C660,470 640,490 150,490 C140,470 140,460 150,450 Z" />
                 </g>
                 {/* Numbered markers for each continent */}
                 <g fill="#111827" fontSize="14" textAnchor="middle">
                   {/* 1: North America */}
-                  <circle cx="180" cy="160" r="14" fill="white" stroke="#111827" strokeWidth="2" />
-                  <text x="180" y="165">1</text>
+                  <circle cx="150" cy="120" r="14" fill="white" stroke="#111827" strokeWidth="2" />
+                  <text x="150" y="125">1</text>
                   {/* 2: South America */}
-                  <circle cx="280" cy="285" r="14" fill="white" stroke="#111827" strokeWidth="2" />
-                  <text x="280" y="290">2</text>
+                  <circle cx="230" cy="300" r="14" fill="white" stroke="#111827" strokeWidth="2" />
+                  <text x="230" y="305">2</text>
                   {/* 3: Europe */}
-                  <circle cx="370" cy="170" r="12" fill="white" stroke="#111827" strokeWidth="2" />
-                  <text x="370" y="175">3</text>
+                  <circle cx="360" cy="110" r="12" fill="white" stroke="#111827" strokeWidth="2" />
+                  <text x="360" y="115">3</text>
                   {/* 4: Africa */}
-                  <circle cx="430" cy="305" r="14" fill="white" stroke="#111827" strokeWidth="2" />
-                  <text x="430" y="310">4</text>
+                  <circle cx="410" cy="250" r="14" fill="white" stroke="#111827" strokeWidth="2" />
+                  <text x="410" y="255">4</text>
                   {/* 5: Asia */}
-                  <circle cx="540" cy="205" r="14" fill="white" stroke="#111827" strokeWidth="2" />
-                  <text x="540" y="210">5</text>
+                  <circle cx="550" cy="150" r="14" fill="white" stroke="#111827" strokeWidth="2" />
+                  <text x="550" y="155">5</text>
                   {/* 6: Australia */}
-                  <circle cx="620" cy="320" r="12" fill="white" stroke="#111827" strokeWidth="2" />
-                  <text x="620" y="325">6</text>
+                  <circle cx="630" cy="340" r="12" fill="white" stroke="#111827" strokeWidth="2" />
+                  <text x="630" y="345">6</text>
                   {/* 7: Antarctica */}
-                  <circle cx="400" cy="440" r="14" fill="white" stroke="#111827" strokeWidth="2" />
-                  <text x="400" y="445">7</text>
+                  <circle cx="400" cy="465" r="14" fill="white" stroke="#111827" strokeWidth="2" />
+                  <text x="400" y="470">7</text>
                 </g>
               </svg>
             </div>
@@ -3245,12 +3245,18 @@ export function PrintablesPage() {
                 </ul>
               </div>
               <div className="border border-slate-200 rounded-lg p-3">
-                <div className="text-slate-900 font-semibold mb-1">Write the Names</div>
-                <ol className="text-slate-700 text-sm space-y-1">
+                <div className="text-slate-900 font-semibold mb-2">Write the Names</div>
+                <div className="space-y-4">
                   {Array.from({ length: 7 }).map((_, i) => (
-                    <li key={i} className="flex items-center gap-2"><span className="font-semibold">{i + 1}.</span> <span className="flex-1 border-b border-slate-300 inline-block" style={{ minWidth: '10rem' }} /></li>
+                    <div key={i} className="flex items-end gap-2">
+                      <span className="font-bold text-slate-700 w-4 text-center pb-2">{i + 1}.</span>
+                      <div className="flex-1 relative h-10 w-full border-b-2 border-red-300">
+                        <div className="absolute top-0 w-full h-1/2 border-b border-dashed border-slate-300" />
+                        <div className="absolute top-0 w-full h-full border-t border-slate-400" />
+                      </div>
+                    </div>
                   ))}
-                </ol>
+                </div>
               </div>
             </div>
             {/* Extension/Challenge Problems */}
@@ -19977,7 +19983,7 @@ export function PrintablesPage() {
                     <div>☐ I can follow color instructions</div>
                   </div>
                   <div className="mt-3 text-xs">
-                    <strong>{getTrans('common.myScore', 'My score:')}</strong> ___ / {shapes.length}
+                    <strong>{getTrans('common.myScore', 'My score:')}</strong> ___ / {shapesData.length}
                   </div>
                   <div className="mt-2 text-xs">
                     <strong>{getTrans('common.whatWasHardest', 'What was hardest?')}</strong> _________________________
@@ -19987,7 +19993,7 @@ export function PrintablesPage() {
                   <div className="mt-6 p-4 border-2 border-emerald-300 bg-emerald-50 rounded print:border print:bg-white print:page-break-before-always">
                     <div className="font-bold text-emerald-900 mb-3 text-base">✅ {getTrans('common.answerKey', 'Answer Key')}</div>
                     <div className="space-y-2 text-sm text-emerald-800">
-                      {shapes.map((shape, i) => (
+                      {shapesData.map((shape, i) => (
                         <div key={i}>
                           {i + 1}. {shape.name}: {shape.instruction}
                         </div>
@@ -21223,6 +21229,7 @@ export function PrintablesPage() {
 
             // Create shuffled words for the right column
             const rightColumnNumbers = [...selectedNumbers].sort(() => (rng() > 0.5 ? 1 : -1))
+            const problems = selectedNumbers.map(num => ({ num, word: numberWords[num - 1] }))
 
             return (
               <WorksheetSectionWrapper
