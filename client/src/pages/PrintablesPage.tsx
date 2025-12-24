@@ -9809,7 +9809,10 @@ export function PrintablesPage() {
                   <div className="font-semibold mb-1">Legend</div>
                   <ul className="space-y-1">
                     {Object.entries(colorMap).map(([num, color]) => (
-                      <li key={num}>{num} = {color}</li>
+                      <li key={num} className="flex items-center gap-2">
+                        <span>{num} = {color}</span>
+                        <span className="inline-block w-4 h-4 border border-slate-300 print-color-adjust-exact" style={{ backgroundColor: color }}></span>
+                      </li>
                     ))}
                   </ul>
                 </div>
@@ -30482,7 +30485,10 @@ export function PrintablesPage() {
                     <div key={i} className="border-2 border-slate-300 rounded-lg p-6 bg-white print:p-2 print:border">
                       <div className="text-center mb-4 print:mb-1">
                         <div className="text-lg font-semibold text-slate-800 capitalize mb-2 print:mb-0 print:text-base">{shape.name}</div>
-                        <div className="text-base font-semibold text-slate-600 print:text-sm">Color: <span className="text-slate-800 capitalize">{shape.color}</span></div>
+                        <div className="text-base font-semibold text-slate-600 print:text-sm flex items-center justify-center gap-2">
+                          <span>Color: <span className="text-slate-800 capitalize">{shape.color}</span></span>
+                          <span className="inline-block w-4 h-4 rounded-full border border-slate-300 print:border-slate-800 print-color-adjust-exact" style={{ backgroundColor: shape.color }}></span>
+                        </div>
                       </div>
                       <div className="flex justify-center">
                         <svg viewBox="0 0 80 80" className="w-64 h-64 print:w-48 print:h-48">
