@@ -21147,7 +21147,12 @@ export function PrintablesPage() {
             const rng = makeRng(`${effectiveSeed}|v${variant}|doc=${doc}`)
             const targetNumber = Math.floor(rng() * 10) + 1
             const numbers = Array.from({ length: 30 }, () => Math.floor(rng() * 10) + 1)
-            const targetCount = numbers.filter(n => n === targetNumber).length;
+            // Ensure target exists at least 6-8 times
+            for (let i = 0; i < 7; i++) {
+              numbers[i * 4] = targetNumber;
+            }
+            const shuffled = shuffleArray([...numbers]);
+            const targetCount = shuffled.filter(n => n === targetNumber).length;
             const formatNum = (num: number | string) => formatNumber(num, language)
             const formattedTarget = formatNum(targetNumber)
             const formattedCount = formatNum(targetCount)
@@ -21161,37 +21166,36 @@ export function PrintablesPage() {
                 learningObjectives={[
                   getTrans('worksheets.number-id-1-10.objective1', 'Identify and recognize numbers 1-10'),
                   getTrans('worksheets.number-id-1-10.objective2', 'Find specific numbers in a group'),
-                  getTrans('worksheets.number-id-1-10.objective3', 'Develop visual discrimination skills'),
-                  getTrans('worksheets.number-id-1-10.objective4', 'Build number recognition and attention to detail')
+                  getTrans('worksheets.number-id-1-10.objective3', 'Develop visual discrimination skills')
                 ]}
                 parentTeacherTips={[
                   getTrans('worksheets.number-id-1-10.tip1', 'Encourage students to look carefully at each number'),
                   getTrans('worksheets.number-id-1-10.tip2', 'Help students recognize the shape of the target number'),
-                  getTrans('worksheets.number-id-1-10.tip3', 'Practice saying the number name as they find it'),
-                  getTrans('worksheets.number-id-1-10.tip4', 'Extension: Try finding numbers in different fonts or sizes')
+                  getTrans('worksheets.number-id-1-10.tip3', 'Practice saying the number name as they find it')
                 ]}
               >
                 <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-purple-400 to-pink-400 animate-gradient-x mb-2" />
                 {/* Worked Example */}
                 <div className="mb-6 p-4 bg-blue-50 border-2 border-blue-200 rounded-lg print:border print:bg-white">
-                  <div className="font-semibold text-blue-900 mb-3 text-sm">{getTrans('worksheets.number-id-1-10.example.title', '📚 Example - Let\'s solve this together:')}</div>
-                  <div className="space-y-2 text-sm">
-                    <div className="font-semibold text-base"><strong>{getTrans('worksheets.number-id-1-10.example.problem', 'Problem:')}</strong> {getTrans('worksheets.number-id-1-10.example.problemText', `Find and circle all the ${formatNum(5)}s`).replace(/\{\{number\}\}/g, formatNum(5))}</div>
-                    <div className="pl-4 border-l-2 border-blue-300 space-y-1">
-                      <div><strong>{getTrans('worksheets.number-id-1-10.example.step1', 'Step 1:')}</strong> {getTrans('worksheets.number-id-1-10.example.step1Text', 'Look at each number carefully')}</div>
-                      <div><strong>{getTrans('worksheets.number-id-1-10.example.step2', 'Step 2:')}</strong> {getTrans('worksheets.number-id-1-10.example.step2Text', 'Find numbers that look like the target number')}</div>
-                      <div><strong>{getTrans('worksheets.number-id-1-10.example.step3', 'Step 3:')}</strong> {getTrans('worksheets.number-id-1-10.example.step3Text', 'Circle each matching number you find')}</div>
-                      <div className="font-semibold text-blue-900"><strong>{getTrans('worksheets.number-id-1-10.example.answer', 'Answer:')}</strong> {getTrans('worksheets.number-id-1-10.example.answerText', 'Circle all the matching numbers')}</div>
-                      <div className="text-xs text-blue-700 mt-1">{getTrans('worksheets.number-id-1-10.example.tip', '💡 Tip: Look carefully at each number and match it to the target number!')}</div>
+                  <div className="font-semibold text-blue-900 mb-2 text-sm">Example:</div>
+                  <div className="flex items-center gap-4">
+                    <div className="w-16 h-16 border-4 border-blue-400 rounded-lg flex items-center justify-center text-4xl font-bold bg-white text-blue-700">
+                      {formatNum(3)}
+                    </div>
+                    <div className="text-sm bg-white p-2 rounded border border-blue-100 flex-1">
+                      Target is 3. Find and circle all the 3s in the cloud!
                     </div>
                   </div>
                 </div>
-                <div className="text-center mb-4">
-                  <p className="text-xl font-bold text-slate-900">{getTrans('worksheets.number-id-1-10.instruction', `Find and circle all the ${formattedTarget}s`).replace(/\{\{number\}\}/g, formattedTarget)}</p>
+                <div className="text-center mb-6">
+                  <p className="text-xl font-bold text-slate-900 mb-2">{getTrans('worksheets.number-id-1-10.instruction', `Find and circle all the ${formattedTarget}s`).replace(/\{\{number\}\}/g, formattedTarget)}</p>
+                  <div className="inline-block px-8 py-4 border-4 border-purple-500 rounded-full text-5xl font-black text-purple-700 bg-purple-50 shadow-inner">
+                    {formattedTarget}
+                  </div>
                 </div>
-                <div className="grid grid-cols-10 gap-2 break-inside-avoid" style={{ pageBreakAfter: 'auto' }}>
-                  {numbers.map((n, i) => (
-                    <div key={i} className="w-12 h-12 border-2 border-slate-300 rounded-lg flex items-center justify-center text-2xl font-bold bg-white text-slate-700">
+                <div className="grid grid-cols-6 gap-3 break-inside-avoid" style={{ pageBreakAfter: 'auto' }}>
+                  {shuffled.map((n, i) => (
+                    <div key={i} className={`w-14 h-14 border-2 border-slate-200 rounded-full flex items-center justify-center text-2xl font-bold bg-white text-slate-700 shadow-sm ${n === targetNumber ? 'ring-2 ring-purple-100' : ''}`}>
                       {formatNum(n)}
                     </div>
                   ))}
@@ -21359,64 +21363,70 @@ export function PrintablesPage() {
         {
           activeDocs.includes('number-order-1-20') && (() => {
             const rng = makeRng(`${effectiveSeed}|v${variant}|doc=${doc}`)
-            const start = Math.floor(rng() * 10) + 1
-            const sequence = Array.from({ length: 6 }, (_, i) => start + i).filter(n => n <= 20)
-            const shuffled = [...sequence].sort(() => (rng() > 0.5 ? 1 : -1))
+            const problems = Array.from({ length: 3 }, (_, idx) => {
+              const start = Math.floor(rng() * 10) + 1
+              const sequence = Array.from({ length: 5 }, (_, i) => start + i).filter(n => n <= 20)
+              const shuffled = shuffleArray([...sequence]);
+              return { sequence, shuffled };
+            });
             return (
               <WorksheetSectionWrapper
                 docId="number-order-1-20"
                 title="Number Order 1–20"
-                emoji="🔟"
-                description="Cut and paste numbers in order from smallest to largest."
-                problemCount={sequence.length}
+                emoji="🚂"
+                description="Put the numbers in order from smallest to largest in each row."
+                problemCount={problems.length}
                 learningObjectives={[
                   'Order numbers from smallest to largest (1-20)',
-                  'Understand number sequence and ordering',
-                  'Develop number sense and comparison skills',
-                  'Practice cutting and pasting skills'
+                  'Understand number sequence and patterns',
+                  'Compare and arrange numbers correctly'
                 ]}
                 parentTeacherTips={[
-                  'Help students identify the smallest number first',
-                  'Encourage students to count: 1, 2, 3, 4, 5... to find the order',
-                  'Use a number line to visualize the order',
-                  'Practice saying the numbers in order',
-                  'Extension: Try ordering larger numbers or ordering backwards'
+                  'Start by finding the smallest number in the set',
+                  'Encourage counting aloud to check the order',
+                  'Helper: "What comes after 10?"',
+                  'Point out patterns: numbers usually increase by 1'
                 ]}
               >
                 <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-purple-400 to-pink-400 animate-gradient-x mb-2" />
                 {/* Worked Example */}
                 <div className="mb-6 p-4 bg-blue-50 border-2 border-blue-200 rounded-lg print:border print:bg-white">
-                  <div className="font-semibold text-blue-900 mb-3 text-sm">📚 Example - Let's solve this together:</div>
-                  <div className="space-y-2 text-sm">
-                    <div className="font-semibold text-base"><strong>Problem:</strong> Order these numbers: 5, 2, 8, 3</div>
-                    <div className="pl-4 border-l-2 border-blue-300 space-y-1">
-                      <div><strong>Step 1:</strong> Find the smallest number: 2</div>
-                      <div><strong>Step 2:</strong> Find the next smallest: 3</div>
-                      <div><strong>Step 3:</strong> Continue: 5, then 8</div>
-                      <div className="font-semibold text-blue-900"><strong>Answer:</strong> 2, 3, 5, 8</div>
-                      <div className="text-xs text-blue-700 mt-1">💡 Tip: Start with the smallest number and work your way up!</div>
+                  <div className="text-sm">
+                    <p className="font-bold text-blue-900 mb-1">Example: Order 5, 2, 8</p>
+                    <div className="flex gap-2">
+                      <span className="w-8 h-8 rounded border-2 border-blue-300 flex items-center justify-center bg-white text-blue-700 font-bold italic">2</span>
+                      <span className="w-8 h-8 rounded border-2 border-blue-300 flex items-center justify-center bg-white text-blue-700 font-bold italic">5</span>
+                      <span className="w-8 h-8 rounded border-2 border-blue-300 flex items-center justify-center bg-white text-blue-700 font-bold italic">8</span>
                     </div>
                   </div>
                 </div>
-                <div className="mb-4">
-                  <p className="text-sm text-slate-600 mb-2">Numbers to order:</p>
-                  <div className="flex gap-2 flex-wrap">
-                    {shuffled.map((n, i) => (
-                      <div key={i} className="w-12 h-12 border-2 border-slate-300 rounded-lg flex items-center justify-center text-xl font-bold text-slate-700 bg-slate-50">
-                        {n}
+                <div className="space-y-8">
+                  {problems.map((p, i) => (
+                    <div key={i} className="border-b-2 border-slate-100 pb-4 last:border-0">
+                      <div className="flex items-center gap-2 mb-3">
+                        <div className="w-8 h-8 bg-purple-600 rounded-full text-white flex items-center justify-center font-bold">{i + 1}</div>
+                        <p className="text-slate-600 text-sm font-semibold uppercase tracking-wider">Unordered Numbers:</p>
                       </div>
-                    ))}
-                  </div>
-                </div>
-                <div className="mb-4 break-inside-avoid" style={{ pageBreakAfter: 'auto' }}>
-                  <p className="text-sm text-slate-600 mb-2">Write in order:</p>
-                  <div className="flex gap-2">
-                    {sequence.map((_, i) => (
-                      <div key={i} className="w-12 h-12 border-2 border-dashed border-slate-400 rounded-lg flex items-center justify-center text-xl font-bold text-slate-400">
-                        __
+                      <div className="flex gap-2 mb-6 ml-10">
+                        {p.shuffled.map((n, j) => (
+                          <div key={j} className="w-12 h-12 border-2 border-slate-300 rounded-xl flex items-center justify-center text-xl font-bold text-slate-700 bg-white shadow-sm ring-1 ring-slate-100">
+                            {n}
+                          </div>
+                        ))}
                       </div>
-                    ))}
-                  </div>
+                      <div className="flex items-center gap-2 mb-3">
+                        <div className="w-8 h-8 border-2 border-purple-600 rounded-full text-purple-600 flex items-center justify-center font-bold">✓</div>
+                        <p className="text-slate-600 text-sm font-semibold uppercase tracking-wider">Your Order:</p>
+                      </div>
+                      <div className="flex gap-2 ml-10">
+                        {p.sequence.map((_, j) => (
+                          <div key={j} className="w-12 h-12 border-2 border-dashed border-slate-400 rounded-xl flex items-center justify-center text-xl font-bold bg-slate-50">
+                            {/* Write here */}
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                  ))}
                 </div>
                 {/* Extension/Challenge Problems */}
                 <div className="mt-6 print:mt-0 p-4 bg-purple-50 border-2 border-purple-200 rounded print:bg-white print:border" style={{ pageBreakBefore: 'always', pageBreakInside: 'avoid' }}>
@@ -21433,10 +21443,10 @@ export function PrintablesPage() {
                   <div className="space-y-2 text-xs">
                     <div>☐ I can order numbers from smallest to largest</div>
                     <div>☐ I understand number sequence</div>
-                    <div>☐ I ordered all {sequence.length} numbers correctly</div>
+                    <div>☐ I ordered all {problems.length} rows correctly</div>
                   </div>
                   <div className="mt-3 text-xs">
-                    <strong>{getTrans('common.myScore', 'My score:')}</strong> ___ / {sequence.length}
+                    <strong>{getTrans('common.myScore', 'My score:')}</strong> ___ / {problems.length}
                   </div>
                   <div className="mt-2 text-xs">
                     <strong>{getTrans('common.whatWasHardest', 'What was hardest?')}</strong> _________________________
@@ -21445,8 +21455,13 @@ export function PrintablesPage() {
                 {showAnswersForDoc('number-order-1-20', () => (
                   <div className="mt-6 p-4 border-2 border-emerald-300 bg-emerald-50 rounded print:border print:bg-white print:page-break-before-always">
                     <div className="font-bold text-emerald-900 mb-3 text-base">✅ {getTrans('common.answerKey', 'Answer Key')}</div>
-                    <p className="text-sm text-emerald-800 mb-2"><strong>Order (smallest to largest):</strong> {sequence.join(', ')}</p>
-                    <div className="text-xs text-emerald-700 mt-2">💡 Remember: Start with the smallest number and work your way up. Use counting to help you: 1, 2, 3, 4, 5...</div>
+                    <div className="space-y-4">
+                      {problems.map((p, i) => (
+                        <div key={i} className="text-sm text-emerald-800">
+                          <strong>Row {i + 1}:</strong> {p.sequence.join(', ')}
+                        </div>
+                      ))}
+                    </div>
                   </div>
                 ))}
               </WorksheetSectionWrapper>
@@ -21458,53 +21473,49 @@ export function PrintablesPage() {
           activeDocs.includes('find-number-1-10') && (() => {
             const rng = makeRng(`${effectiveSeed}|v${variant}|doc=${doc}`)
             const targetNumber = Math.floor(rng() * 10) + 1
-            const grid = Array.from({ length: 40 }, () => Math.floor(rng() * 10) + 1)
-            const targetCount = grid.filter(n => n === targetNumber).length;
+            const grid = Array.from({ length: 30 }, () => Math.floor(rng() * 10) + 1)
+            // Ensure target exists at least 6-8 times
+            for (let i = 0; i < 7; i++) {
+              grid[i * 4] = targetNumber;
+            }
+            const shuffled = shuffleArray([...grid]);
+            const targetCount = shuffled.filter(n => n === targetNumber).length;
             return (
               <WorksheetSectionWrapper
                 docId="find-number-1-10"
                 title="Find the Number (1–10)"
-                emoji="🔟"
-                description={`Look at the number ${targetNumber}. Find and circle all the matching numbers.`}
+                emoji="🔍"
+                description={`Look at the number ${targetNumber}. Find and circle all the matching numbers in the bubble cloud.`}
                 problemCount={targetCount}
                 learningObjectives={[
                   'Identify and recognize numbers 1-10',
-                  'Find specific numbers in a grid',
-                  'Develop visual discrimination and attention skills',
-                  'Build number recognition and scanning abilities'
+                  'Find specific numbers in a group',
+                  'Develop visual discrimination and scanning skills'
                 ]}
                 parentTeacherTips={[
-                  'Encourage students to look carefully at each number in the grid',
-                  'Help students recognize the shape of the target number',
-                  'Practice saying the number name as they find it',
-                  'Use a systematic approach: look row by row or column by column',
-                  'Extension: Try finding numbers in different fonts or create your own grid'
+                  'Encourage students to scan the whole page',
+                  'Helper: "What does a ' + targetNumber + ' look like?"',
+                  'Mark them with a crayon or marker for fun'
                 ]}
               >
                 <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-purple-400 to-pink-400 animate-gradient-x mb-2" />
-                {/* Worked Example */}
-                <div className="mb-6 p-4 bg-blue-50 border-2 border-blue-200 rounded-lg print:border print:bg-white">
-                  <div className="font-semibold text-blue-900 mb-3 text-sm">📚 Example - Let's solve this together:</div>
-                  <div className="space-y-2 text-sm">
-                    <div className="font-semibold text-base"><strong>Problem:</strong> Find and circle all the 7s</div>
-                    <div className="pl-4 border-l-2 border-blue-300 space-y-1">
-                      <div><strong>Step 1:</strong> Look at the target number: 7</div>
-                      <div><strong>Step 2:</strong> Scan the grid row by row, looking for numbers that match 7</div>
-                      <div><strong>Step 3:</strong> Circle each 7 you find</div>
-                      <div className="font-semibold text-blue-900"><strong>Answer:</strong> Circle all the 7s</div>
-                      <div className="text-xs text-blue-700 mt-1">💡 Tip: Look carefully at each number and match it to the target number!</div>
-                    </div>
-                  </div>
-                </div>
-                <div className="text-center mb-6">
-                  <div className="inline-block w-32 h-32 print:w-40 print:h-40 border-4 border-purple-500 rounded-lg flex items-center justify-center text-6xl print:text-7xl font-bold text-purple-700 bg-purple-50 mb-3">
+                <div className="text-center mb-8">
+                  <div className="inline-block px-10 py-5 border-4 border-dashed border-purple-500 rounded-2xl text-6xl font-black text-purple-700 bg-purple-50 shadow-inner mb-4 relative">
+                    <div className="absolute -top-3 -right-3 w-10 h-10 bg-purple-500 rounded-full flex items-center justify-center text-white text-xl">🔍</div>
                     {targetNumber}
                   </div>
-                  <p className="text-xl font-semibold text-slate-800">Find all the {targetNumber}s</p>
+                  <p className="text-xl font-bold text-slate-800">Can you find all the {targetNumber}s?</p>
                 </div>
-                <div className="grid grid-cols-5 gap-3 print:gap-4 break-inside-avoid" style={{ pageBreakAfter: 'auto' }}>
-                  {grid.map((n, i) => (
-                    <div key={i} className="w-16 h-16 print:w-20 print:h-20 border-4 border-slate-300 rounded-lg flex items-center justify-center text-2xl print:text-3xl font-bold bg-white text-slate-700">
+                <div className="grid grid-cols-5 gap-4 break-inside-avoid px-4" style={{ pageBreakAfter: 'auto' }}>
+                  {shuffled.map((n, i) => (
+                    <div
+                      key={i}
+                      className="w-16 h-16 border-2 border-slate-300 rounded-full flex items-center justify-center text-3xl font-bold bg-white text-slate-700 shadow-sm"
+                      style={{
+                        transform: `rotate(${(i % 3) * 5 - 5}deg)`,
+                        marginTop: i % 2 === 0 ? '0px' : '15px'
+                      }}
+                    >
                       {n}
                     </div>
                   ))}
@@ -21733,9 +21744,6 @@ export function PrintablesPage() {
         {
           activeDocs.includes('ab-pattern') && (() => {
 
-            const rng = makeRng('ab-pattern');
-
-            // Defines shapes with render functions and colors
             const shapes = {
               circle: { render: (props: any) => <circle cx="50" cy="50" r="40" {...props} />, label: 'Circle' },
               square: { render: (props: any) => <rect x="15" y="15" width="70" height="70" rx="4" {...props} />, label: 'Square' },
@@ -21746,128 +21754,108 @@ export function PrintablesPage() {
             };
 
             const colors = [
-              { name: 'Red', fill: '#ef4444', border: 'text-red-600' },
-              { name: 'Blue', fill: '#3b82f6', border: 'text-blue-600' },
-              { name: 'Green', fill: '#22c55e', border: 'text-green-600' },
-              { name: 'Yellow', fill: '#eab308', border: 'text-yellow-600' },
-              { name: 'Purple', fill: '#a855f7', border: 'text-purple-600' },
-              { name: 'Orange', fill: '#f97316', border: 'text-orange-600' },
+              { name: 'Red', fill: '#ef4444' },
+              { name: 'Blue', fill: '#3b82f6' },
+              { name: 'Green', fill: '#22c55e' },
+              { name: 'Yellow', fill: '#eab308' },
+              { name: 'Purple', fill: '#a855f7' },
+              { name: 'Orange', fill: '#f97316' },
             ];
 
             const shapeKeys = Object.keys(shapes) as Array<keyof typeof shapes>;
+            const rng = makeRng(`${effectiveSeed}|v${variant}|doc=${doc}`);
 
             const patterns = Array.from({ length: 4 }).map((_, i) => {
-              // 1. Pick two distinct shapes OR two distinct colors for the A/B pattern
-              // For variety: 
-              // Evens: Same Shape, Different Colors (e.g. Red Circle, Blue Circle)
-              // Odds: Different Shapes, Same Color (e.g. Red Square, Red Triangle)
-
+              const type = rng() > 0.5 ? 'shape' : 'emoji';
               let itemA, itemB;
 
-              if (i % 2 === 0) {
-                // Same Shape, Diff Colors
-                const shapeKey = shapeKeys[Math.floor(rng() * shapeKeys.length)];
-                const colorA = colors[Math.floor(rng() * colors.length)];
-                let colorB = colors[Math.floor(rng() * colors.length)];
-                while (colorB.name === colorA.name) colorB = colors[Math.floor(rng() * colors.length)];
-
-                itemA = { shape: shapeKey, color: colorA };
-                itemB = { shape: shapeKey, color: colorB };
-              } else {
-                // Diff Shapes, Same Color
-                const color = colors[Math.floor(rng() * colors.length)];
+              if (type === 'shape') {
                 const shapeAKey = shapeKeys[Math.floor(rng() * shapeKeys.length)];
                 let shapeBKey = shapeKeys[Math.floor(rng() * shapeKeys.length)];
                 while (shapeBKey === shapeAKey) shapeBKey = shapeKeys[Math.floor(rng() * shapeKeys.length)];
-
-                itemA = { shape: shapeAKey, color: color };
-                itemB = { shape: shapeBKey, color: color };
+                const color = colors[Math.floor(rng() * colors.length)];
+                itemA = { type: 'shape', shape: shapeAKey, color };
+                itemB = { type: 'shape', shape: shapeBKey, color };
+              } else {
+                const emojiPairs = [
+                  ['🍎', '🍌'], ['☀️', '🌙'], ['🦁', '🐯'], ['⚽', '🏀'], ['🚗', '🚲'], ['⭐', '☁️']
+                ];
+                const pair = emojiPairs[Math.floor(rng() * emojiPairs.length)];
+                itemA = { type: 'emoji', emoji: pair[0] };
+                itemB = { type: 'emoji', emoji: pair[1] };
               }
 
-              // Pattern Sequence: A, B, A, B, A, [?]
-              // Answer is B
               const sequence = [itemA, itemB, itemA, itemB, itemA];
+              const options = shuffleArray([itemA, itemB], `${effectiveSeed}|opt|${i}`);
 
-              return {
-                id: i,
-                sequence,
-                next: itemB,
-                option1: itemA, // Distractor
-                option2: itemB, // Correct
-              };
+              return { id: i, sequence, next: itemB, options };
             });
+
+            const renderPatternItem = (item: any, size = "w-14 h-14") => {
+              if (item.type === 'emoji') {
+                return <div className={`${size} text-3xl flex items-center justify-center`}>{item.emoji}</div>;
+              }
+              const S = shapes[item.shape as keyof typeof shapes].render;
+              return (
+                <svg viewBox="0 0 100 100" className={`${size} drop-shadow-sm`}>
+                  <S fill={item.color.fill} stroke="white" strokeWidth="2" />
+                </svg>
+              );
+            };
 
             return (
               <WorksheetSectionWrapper
                 docId="ab-pattern"
-                title="AB Pattern Completion"
+                title="Pattern Train Puzzle"
                 emoji="🧩"
-                description="Look at the pattern. What comes next? Circle the correct answer."
+                description="What comes next in the train? Look at the pattern and circle the correct piece."
                 problemCount={patterns.length}
                 learningObjectives={[
                   'Identify and extend AB patterns',
-                  'Recognize repeating colors and shapes',
-                  'Predict what comes next',
-                  'Build logical thinking skills'
+                  'Recognize repeating sequences of shapes and objects',
+                  'Develop predictive logic and observation skills'
                 ]}
                 parentTeacherTips={[
-                  'Say the pattern aloud: "Red, Blue, Red, Blue..."',
-                  'Ask: "What repeats?"',
-                  'Encourage your child to point to each item',
+                  'Chant the pattern together: "Apple, Banana, Apple, Banana..."',
+                  'Help the student identify the "repeating unit"',
+                  'Ask: "If A is red and B is blue, what is the next one?"'
                 ]}
               >
                 <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-purple-400 to-pink-400 animate-gradient-x mb-2" />
-                {/* Worked Example */}
-                <div className="mb-6 p-4 bg-blue-50 border-2 border-blue-200 rounded-lg print:border print:bg-white">
-                  <div className="font-semibold text-blue-900 mb-2 text-sm">📚 Example:</div>
-                  <div className="flex items-center gap-2 mb-2">
-                    <div className="flex gap-2 p-2 bg-white rounded border border-blue-100">
-                      <svg viewBox="0 0 100 100" className="w-8 h-8"><circle cx="50" cy="50" r="40" fill="#ef4444" /></svg>
-                      <svg viewBox="0 0 100 100" className="w-8 h-8"><circle cx="50" cy="50" r="40" fill="#3b82f6" /></svg>
-                      <svg viewBox="0 0 100 100" className="w-8 h-8"><circle cx="50" cy="50" r="40" fill="#ef4444" /></svg>
-                      <svg viewBox="0 0 100 100" className="w-8 h-8"><circle cx="50" cy="50" r="40" fill="#3b82f6" /></svg>
-                      <div className="w-8 h-8 flex items-center justify-center font-bold text-slate-400">?</div>
-                    </div>
-                    <span className="text-xl">➡️</span>
-                    <div className="p-1 border-2 border-green-500 rounded bg-green-50">
-                      <svg viewBox="0 0 100 100" className="w-8 h-8"><circle cx="50" cy="50" r="40" fill="#ef4444" /></svg>
-                    </div>
-                  </div>
-                  <div className="text-xs text-blue-700">Answer: Red Circle (The pattern goes Red, Blue, Red, Blue...)</div>
-                </div>
 
-                <div className="grid grid-cols-1 gap-6" style={{ pageBreakAfter: 'auto' }}>
+                <div className="space-y-10">
                   {patterns.map((p, i) => (
-                    <div key={i} className="border-2 border-slate-300 rounded-xl p-4 bg-white">
-                      <div className="mb-4">
-                        <div className="flex items-center gap-3 justify-center bg-slate-50 rounded-lg p-4 border border-slate-100">
-                          {p.sequence.map((item, idx) => {
-                            const S = shapes[item.shape as keyof typeof shapes].render;
-                            return (
-                              <svg key={idx} viewBox="0 0 100 100" className="w-14 h-14 drop-shadow-sm">
-                                <S fill={item.color.fill} stroke="white" strokeWidth="2" />
-                              </svg>
-                            );
-                          })}
-                          <div className="w-14 h-14 flex items-center justify-center border-b-4 border-slate-300 text-slate-400 font-bold text-2xl">
+                    <div key={i} className="relative">
+                      <div className="flex items-center gap-1 mb-3">
+                        <div className="bg-amber-100 text-amber-700 px-3 py-1 rounded-full text-xs font-bold border border-amber-200 uppercase">Track {i + 1}</div>
+                        <div className="h-px bg-slate-200 flex-1"></div>
+                      </div>
+                      <div className="flex flex-col md:flex-row items-center gap-6">
+                        <div className="flex-1 bg-slate-50 border-2 border-slate-200 rounded-2xl p-6 flex items-center justify-center gap-4 relative overflow-hidden">
+                          <div className="absolute top-0 left-0 w-full h-full opacity-5 pointer-events-none">
+                            <div className="grid grid-cols-10 h-full w-full">
+                              {Array.from({ length: 40 }).map((_, idx) => <div key={idx} className="border border-slate-900"></div>)}
+                            </div>
+                          </div>
+                          {p.sequence.map((item, idx) => (
+                            <div key={idx} className="bg-white p-2 rounded-xl shadow-sm border border-slate-100">
+                              {renderPatternItem(item)}
+                            </div>
+                          ))}
+                          <div className="w-16 h-16 flex items-center justify-center bg-violet-50 border-4 border-dashed border-violet-200 rounded-xl text-violet-400 font-bold text-3xl animate-pulse">
                             ?
                           </div>
                         </div>
-                      </div>
 
-                      <div className="flex justify-center items-center gap-8">
-                        <div className="text-sm font-bold text-slate-500 uppercase tracking-wider">Choose One:</div>
-                        <div className="flex gap-6">
-                          {[p.option1, p.option2].map((opt, optIdx) => {
-                            const S = shapes[opt.shape as keyof typeof shapes].render;
-                            return (
-                              <div key={optIdx} className="w-20 h-20 border-2 border-slate-200 rounded-xl flex items-center justify-center hover:border-violet-400 cursor-pointer transition-colors bg-white print:border-slate-300">
-                                <svg viewBox="0 0 100 100" className="w-14 h-14">
-                                  <S fill={opt.color.fill} stroke="white" strokeWidth="2" />
-                                </svg>
+                        <div className="flex flex-col items-center gap-3">
+                          <p className="text-[10px] uppercase font-bold text-slate-400 tracking-tighter">Choose Next:</p>
+                          <div className="flex gap-4">
+                            {p.options.map((opt, optIdx) => (
+                              <div key={optIdx} className="w-20 h-20 border-2 border-slate-300 rounded-2xl flex items-center justify-center bg-white shadow-sm ring-4 ring-transparent hover:ring-violet-100 hover:border-violet-400 transition-all cursor-pointer">
+                                {renderPatternItem(opt, "w-14 h-14")}
                               </div>
-                            );
-                          })}
+                            ))}
+                          </div>
                         </div>
                       </div>
                     </div>
@@ -21901,13 +21889,15 @@ export function PrintablesPage() {
                   <div className="mt-6 p-4 border-2 border-emerald-300 bg-emerald-50 rounded print:border print:bg-white print:page-break-before-always">
                     <div className="font-bold text-emerald-900 mb-3 text-base">✅ Answer Key</div>
                     <ul className="list-disc list-inside space-y-2 text-sm text-emerald-800">
-                      {patterns.map((p, i) => (
-                        <li key={i}>
-                          <strong>Pattern {i + 1}:</strong> {p.next.color.name} {p.next.shape === 'star' ? 'Star' : p.next.shape === 'heart' ? 'Heart' : p.next.shape === 'diamond' ? 'Diamond' : p.next.shape.charAt(0).toUpperCase() + p.next.shape.slice(1)} ({p.sequence[0].color.name} {p.sequence[0].shape}, {p.sequence[1].color.name} {p.sequence[1].shape}...)
-                        </li>
-                      ))}
+                      {patterns.map((p, i) => {
+                        const nextLabel = p.next.type === 'emoji' ? p.next.emoji : `${p.next.color.name} ${shapes[p.next.shape as keyof typeof shapes].label}`;
+                        return (
+                          <li key={i}>
+                            <strong>Pattern {i + 1}:</strong> Next item is {nextLabel}
+                          </li>
+                        );
+                      })}
                     </ul>
-                    <div className="text-xs text-emerald-700 mt-3">💡 Remember: AB patterns have two items that repeat. Look at what comes before the blank to figure out what comes next!</div>
                   </div>
                 ))}
               </WorksheetSectionWrapper>
@@ -21917,67 +21907,73 @@ export function PrintablesPage() {
 
         {
           activeDocs.includes('big-small') && (() => {
-            const pairs = [
+            const rng = makeRng(`${effectiveSeed}|v${variant}|doc=${doc}`);
+            const allPossiblePairs = [
               { big: '🐘', small: '🐭', bigLabel: 'Elephant', smallLabel: 'Mouse' },
-              { big: '🏠', small: '🏡', bigLabel: 'Big House', smallLabel: 'Small House' },
-              { big: '🌳', small: '🌱', bigLabel: 'Tree', smallLabel: 'Seedling' },
-              { big: '🚗', small: '🚙', bigLabel: 'Car', smallLabel: 'Small Car' },
-            ]
+              { big: '🏠', small: '🛖', bigLabel: 'House', smallLabel: 'Hut' },
+              { big: '🌳', small: '🌱', bigLabel: 'Tree', smallLabel: 'Sprout' },
+              { big: '🐳', small: '🐟', bigLabel: 'Whale', smallLabel: 'Fish' },
+              { big: '🏔️', small: '🪨', bigLabel: 'Mountain', smallLabel: 'Rock' },
+              { big: '🚆', small: '🚲', bigLabel: 'Train', smallLabel: 'Bike' },
+            ];
+            const pairs = shuffleArray([...allPossiblePairs], `${effectiveSeed}|pairs`).slice(0, 4);
+
             return (
               <WorksheetSectionWrapper
                 docId="big-small"
-                title="Big and Small"
+                title="Big & Small Detective"
                 emoji="⚖️"
-                description="Circle the big object. Put an X on the small object."
+                description="Look at the two objects in each box. Circle the BIG object and put an 'X' on the SMALL object."
                 problemCount={pairs.length}
                 learningObjectives={[
-                  'Compare sizes: big vs. small',
-                  'Identify which object is bigger or smaller',
-                  'Develop size comparison skills',
-                  'Build vocabulary: big, small, larger, smaller'
+                  'Compare and contrast physical sizes',
+                  'Identify the greater and lesser of two objects',
+                  'Develop spatial awareness and vocabulary'
                 ]}
                 parentTeacherTips={[
-                  'Help students compare the two objects side by side',
-                  'Use words like "bigger", "smaller", "larger", "tiny"',
-                  'Encourage students to point to the bigger object first',
-                  'Practice with real objects: "Which is bigger, this book or that pencil?"',
-                  'Extension: Try comparing three objects or using measurement words'
+                  'Helper: "If a mouse tried to sit on an elephant, which one would be squished?"',
+                  'Ask: "Can you find something big in this room? Something small?"',
+                  'Encourage them to draw a circle around the big one first.'
                 ]}
               >
                 <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-purple-400 to-pink-400 animate-gradient-x mb-2" />
-                {/* Worked Example */}
-                <div className="mb-6 p-4 bg-blue-50 border-2 border-blue-200 rounded-lg print:border print:bg-white">
-                  <div className="font-semibold text-blue-900 mb-3 text-sm">📚 Example - Let's solve this together:</div>
-                  <div className="space-y-2 text-sm">
-                    <div className="font-semibold text-base"><strong>Problem:</strong> Compare an elephant 🐘 and a mouse 🐭</div>
-                    <div className="pl-4 border-l-2 border-blue-300 space-y-1">
-                      <div><strong>Step 1:</strong> Look at both objects: elephant and mouse</div>
-                      <div><strong>Step 2:</strong> Which one is bigger? The elephant is much bigger!</div>
-                      <div><strong>Step 3:</strong> Circle the elephant (big), put an X on the mouse (small)</div>
-                      <div className="font-semibold text-blue-900"><strong>Answer:</strong> Circle 🐘, X on 🐭</div>
-                      <div className="text-xs text-blue-700 mt-1">💡 Tip: Compare the two objects side by side to see which is bigger!</div>
-                    </div>
-                  </div>
-                </div>
-                <div className="grid grid-cols-2 gap-4" style={{ pageBreakAfter: 'auto' }}>
+
+                <div className="grid grid-cols-2 gap-6" style={{ pageBreakAfter: 'auto' }}>
                   {pairs.map((p, i) => {
-                    // Deterministic randomization
-                    const swap = i % 2 !== 0;
-                    const left = swap ? { emoji: p.small, label: p.smallLabel, isBig: false } : { emoji: p.big, label: p.bigLabel, isBig: true };
-                    const right = swap ? { emoji: p.big, label: p.bigLabel, isBig: true } : { emoji: p.small, label: p.smallLabel, isBig: false };
+                    const isSwapped = rng() > 0.5;
+                    const items = isSwapped
+                      ? [{ e: p.small, l: p.smallLabel, b: false }, { e: p.big, l: p.bigLabel, b: true }]
+                      : [{ e: p.big, l: p.bigLabel, b: true }, { e: p.small, l: p.smallLabel, b: false }];
 
                     return (
-                      <div key={i} className="border border-slate-300 rounded-lg p-4 bg-white relative">
-                        <div className="absolute top-2 left-2 text-xs font-bold text-slate-400">#{i + 1}</div>
-                        <div className="flex items-center justify-around mb-3 mt-4">
-                          <div className="text-center">
-                            <div className={`${left.isBig ? 'text-6xl' : 'text-3xl'} mb-2 transition-all`}>{left.emoji}</div>
-                            <p className="text-xs text-slate-600">{left.label}</p>
+                      <div key={i} className="border-4 border-slate-100 rounded-3xl p-6 bg-white relative hover:border-violet-100 transition-colors">
+                        <div className="absolute top-4 left-4 w-8 h-8 rounded-full bg-slate-100 flex items-center justify-center text-xs font-black text-slate-400 italic">#{i + 1}</div>
+                        <div className="flex items-center justify-between mt-6">
+                          {items.map((item, idx) => (
+                            <React.Fragment key={idx}>
+                              <div className="flex-1 flex flex-col items-center">
+                                <div className="h-24 flex items-center justify-center">
+                                  <div className={`${item.b ? 'text-7xl drop-shadow-md' : 'text-3xl'} transition-all hover:scale-110 cursor-help duration-300`}>
+                                    {item.e}
+                                  </div>
+                                </div>
+                                <p className="mt-2 text-[10px] uppercase font-bold text-slate-400 tracking-widest">{item.l}</p>
+                              </div>
+                              {idx === 0 && (
+                                <div className="px-2">
+                                  <div className="w-10 h-10 rounded-full bg-slate-50 flex items-center justify-center text-slate-300 font-bold text-xs">VS</div>
+                                </div>
+                              )}
+                            </React.Fragment>
+                          ))}
+                        </div>
+                        <div className="mt-6 flex justify-center gap-10">
+                          <div className="w-12 h-12 border-2 border-dashed border-slate-200 rounded-full flex items-center justify-center bg-slate-50 text-[10px] text-slate-300 font-bold uppercase overflow-hidden">
+                            <div className="w-8 h-8 rounded-full border-2 border-slate-300 opacity-20"></div>
                           </div>
-                          <div className="text-2xl text-slate-400">vs</div>
-                          <div className="text-center">
-                            <div className={`${right.isBig ? 'text-6xl' : 'text-3xl'} mb-2 transition-all`}>{right.emoji}</div>
-                            <p className="text-xs text-slate-600">{right.label}</p>
+                          <div className="w-12 h-12 border-2 border-dashed border-slate-200 rounded-full flex items-center justify-center bg-slate-50 text-[10px] text-slate-300 font-bold uppercase relative">
+                            <div className="absolute w-8 h-0.5 bg-slate-300 rotate-45 opacity-20"></div>
+                            <div className="absolute w-8 h-0.5 bg-slate-300 -rotate-45 opacity-20"></div>
                           </div>
                         </div>
                       </div>
@@ -22028,67 +22024,69 @@ export function PrintablesPage() {
           activeDocs.includes('more-less') && (() => {
             const rng = makeRng(`${effectiveSeed}|v${variant}|doc=${doc}`)
             const emojis = ['🍎', '🚗', '🐸', '🌟', '🍪', '🎈', '🐠', '🦋'];
-            const problems = Array.from({ length: 6 }, (_, i) => {
-              const left = Math.floor(rng() * 9) + 1; // 1-9
-              let right = Math.floor(rng() * 9) + 1;
-              while (right === left) right = Math.floor(rng() * 9) + 1; // Ensure different
+            const problems = Array.from({ length: 4 }, (_, i) => {
+              const left = Math.floor(rng() * 8) + 1;
+              let right = Math.floor(rng() * 8) + 1;
+              while (right === left) right = Math.floor(rng() * 8) + 1;
               const emoji = emojis[i % emojis.length];
               return { left, right, emoji }
             })
             return (
               <WorksheetSectionWrapper
                 docId="more-less"
-                title="More and Less"
+                title="Jar Comparison: More or Less?"
                 emoji="⚖️"
-                description="Count each group. Circle the group that has more."
+                description="Look at the jars. Count the items inside and write the number. Circle the jar that has MORE items."
                 problemCount={problems.length}
                 learningObjectives={[
-                  'Compare quantities: more vs. less',
-                  'Count objects accurately',
-                  'Identify which group has more items',
-                  'Develop number comparison and counting skills'
+                  'Compare set quantities visually',
+                  'Practice counting and number writing',
+                  'Identify the greater of two numbers'
                 ]}
                 parentTeacherTips={[
-                  'Help students count each group carefully',
-                  'Use one-to-one correspondence when counting',
-                  'Compare the numbers: which number is bigger?',
-                  'Practice saying: "5 is more than 3" or "3 is less than 5"',
-                  'Extension: Try comparing three groups or finding which has less'
+                  'Helper: "Let\'s count the cookies in each jar together!"',
+                  'Ask: "Which number is bigger?"',
+                  'Encourage them to draw a circle around the JAR, not just the items.'
                 ]}
               >
                 <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-purple-400 to-pink-400 animate-gradient-x mb-2" />
-                {/* Worked Example */}
-                <div className="mb-6 p-4 bg-blue-50 border-2 border-blue-200 rounded-lg print:border print:bg-white">
-                  <div className="font-semibold text-blue-900 mb-3 text-sm">📚 Example - Let's solve this together:</div>
-                  <div className="space-y-2 text-sm">
-                    <div className="font-semibold text-base"><strong>Problem:</strong> Compare two groups: 5 apples 🍎 vs. 3 apples 🍎</div>
-                    <div className="pl-4 border-l-2 border-blue-300 space-y-1">
-                      <div><strong>Step 1:</strong> Count the left group: 1, 2, 3, 4, 5</div>
-                      <div><strong>Step 2:</strong> Count the right group: 1, 2, 3</div>
-                      <div><strong>Step 3:</strong> Compare: 5 is more than 3, so circle the left group</div>
-                      <div className="font-semibold text-blue-900"><strong>Answer:</strong> Circle the group with 5 apples</div>
-                    </div>
-                  </div>
-                </div>
-                <div className="grid grid-cols-2 gap-4" style={{ pageBreakAfter: 'auto' }}>
+
+                <div className="grid grid-cols-1 gap-12" style={{ pageBreakAfter: 'auto' }}>
                   {problems.map((p, i) => (
-                    <div key={i} className="border border-slate-300 rounded-lg p-4 bg-white relative">
-                      <div className="absolute top-2 left-2 text-xs font-bold text-slate-400">#{i + 1}</div>
-                      <div className="flex items-center justify-around mt-4 mb-2">
-                        <div className="text-center">
-                          <div className="flex gap-2 flex-wrap justify-center mb-2" style={{ width: '100px' }}>
+                    <div key={i} className="relative">
+                      <div className="flex items-center gap-3 mb-6">
+                        <div className="w-10 h-10 rounded-full bg-violet-600 text-white flex items-center justify-center font-black shadow-lg">#{i + 1}</div>
+                        <div className="h-px bg-slate-200 flex-1"></div>
+                      </div>
+                      <div className="flex items-end justify-around gap-4 px-4">
+                        <div className="flex flex-col items-center">
+                          <div className="w-36 h-40 border-4 border-slate-300 rounded-t-3xl rounded-b-xl bg-blue-50/30 relative shadow-inner flex flex-wrap gap-2 p-4 content-center justify-center">
+                            {/* Jar Lid */}
+                            <div className="absolute -top-4 left-1/2 -translate-x-1/2 w-20 h-4 bg-slate-400 rounded-t-lg"></div>
                             {Array.from({ length: p.left }).map((_, j) => (
-                              <div key={j} className="text-3xl">{p.emoji}</div>
+                              <div key={j} className="text-3xl drop-shadow-sm transform hover:scale-110 transition-transform">{p.emoji}</div>
                             ))}
                           </div>
+                          <div className="mt-4 w-12 h-10 border-2 border-slate-400 rounded-lg flex items-center justify-center bg-white font-bold text-xl text-slate-700 shadow-sm">
+                            {/* Student writes count */}
+                          </div>
+                          <p className="mt-1 text-[10px] font-bold text-slate-400 uppercase">Count</p>
                         </div>
-                        <div className="text-xl text-slate-400 font-bold">vs</div>
-                        <div className="text-center">
-                          <div className="flex gap-2 flex-wrap justify-center mb-2" style={{ width: '100px' }}>
+
+                        <div className="mb-20 text-2xl font-black text-slate-200 uppercase tracking-widest italic">VS</div>
+
+                        <div className="flex flex-col items-center">
+                          <div className="w-36 h-40 border-4 border-slate-300 rounded-t-3xl rounded-b-xl bg-orange-50/30 relative shadow-inner flex flex-wrap gap-2 p-4 content-center justify-center">
+                            {/* Jar Lid */}
+                            <div className="absolute -top-4 left-1/2 -translate-x-1/2 w-20 h-4 bg-slate-400 rounded-t-lg"></div>
                             {Array.from({ length: p.right }).map((_, j) => (
-                              <div key={j} className="text-3xl">{p.emoji}</div>
+                              <div key={j} className="text-3xl drop-shadow-sm transform hover:scale-110 transition-transform">{p.emoji}</div>
                             ))}
                           </div>
+                          <div className="mt-4 w-12 h-10 border-2 border-slate-400 rounded-lg flex items-center justify-center bg-white font-bold text-xl text-slate-700 shadow-sm">
+                            {/* Student writes count */}
+                          </div>
+                          <p className="mt-1 text-[10px] font-bold text-slate-400 uppercase">Count</p>
                         </div>
                       </div>
                     </div>
@@ -31443,59 +31441,59 @@ export function PrintablesPage() {
 
         {
           activeDocs.includes('long-short') && (() => {
+            const rng = makeRng(`${effectiveSeed}|v${variant}|doc=${doc}`);
             const pairs = [
-              { long: { name: 'ruler', emoji: '📏' }, short: { name: 'paper clip', emoji: '📎' } },
-              { long: { name: 'snake', emoji: '🐍' }, short: { name: 'caterpillar', emoji: '🐛' } },
-              { long: { name: 'train', emoji: '🚂' }, short: { name: 'car', emoji: '🚗' } },
-              { long: { name: 'pencil', emoji: '✏️' }, short: { name: 'crayon', emoji: '🖍️' } },
-              { long: { name: 'ladder', emoji: '🪜' }, short: { name: 'stool', emoji: '🪑' } },
-              { long: { name: 'rope', emoji: '🪢' }, short: { name: 'key', emoji: '🔑' } },
+              { long: { name: 'Ruler', emoji: '📏' }, short: { name: 'Paper Clip', emoji: '📎' } },
+              { long: { name: 'Snake', emoji: '🐍' }, short: { name: 'Caterpillar', emoji: '🐛' } },
+              { long: { name: 'Train', emoji: '🚂' }, short: { name: 'Car', emoji: '🚗' } },
+              { long: { name: 'Pencil', emoji: '✏️' }, short: { name: 'Crayon', emoji: '🖍️' } },
+              { long: { name: 'Ladder', emoji: '🪜' }, short: { name: 'Stool', emoji: '🪑' } },
+              { long: { name: 'Rope', emoji: '🪢' }, short: { name: 'Key', emoji: '🔑' } },
             ];
+            const activePairs = shuffleArray([...pairs], `${effectiveSeed}|longshort`).slice(0, 4);
+
             return (
               <WorksheetSectionWrapper
                 docId="long-short"
-                title="Long and Short"
+                title="Measuring Fun: Long or Short?"
                 emoji="📏"
-                description="Circle the object that is longer."
-                problemCount={pairs.length}
+                description="Look at the two objects in each box. Circle the object that is LONGER."
+                problemCount={activePairs.length}
                 learningObjectives={[
-                  'Compare lengths of objects',
-                  'Identify long and short objects',
-                  'Develop measurement vocabulary'
+                  'Visually distinguish between long and short objects',
+                  'Compare physical attributes of items',
+                  'Develop measurement and size vocabulary'
                 ]}
                 parentTeacherTips={[
-                  'Help children compare the objects visually',
-                  'Encourage them to use words like "longer" and "shorter"',
-                  'Ask: "Which one takes up more space?"',
-                  'Extension: Find long and short objects around you'
+                  'Helper: "If we laid them next to each other, which one would go further?"',
+                  'Ask: "Which one is as long as your hand?"',
+                  'Point out real-world examples: "The hallway is long, the bathroom is short."'
                 ]}
               >
                 <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-purple-400 to-pink-400 animate-gradient-x mb-2" />
-                <div className="mb-4 p-3 bg-blue-50 border border-blue-200 rounded text-sm text-blue-900">
-                  <strong>📝 Instructions:</strong> Look at each pair. <strong>Circle</strong> the object that is longer.
-                </div>
-                <div className="grid grid-cols-1 gap-6" style={{ pageBreakAfter: 'auto' }}>
-                  {pairs.map((pair, idx) => {
-                    // Randomize side (pseudo-random based on index to ensure hydration match)
-                    // Pattern: L, R, R, L, R, L (simply mixing it up)
-                    const swap = [false, true, true, false, true, false][idx % 6];
-                    const left = swap ? pair.short : pair.long;
-                    const right = swap ? pair.long : pair.short;
-                    const isLeftLong = left === pair.long;
+
+                <div className="grid grid-cols-2 gap-6" style={{ pageBreakAfter: 'auto' }}>
+                  {activePairs.map((pair, idx) => {
+                    const isSwapped = rng() > 0.5;
+                    const items = isSwapped
+                      ? [{ ...pair.short, isLong: false }, { ...pair.long, isLong: true }]
+                      : [{ ...pair.long, isLong: true }, { ...pair.short, isLong: false }];
 
                     return (
-                      <div key={idx} className="border border-slate-300 rounded-lg p-6 bg-white break-inside-avoid">
-                        <div className="text-sm text-slate-700 mb-4 text-center font-semibold">Pair {idx + 1}</div>
-                        <div className="flex items-center justify-center gap-16">
-                          <div className="flex flex-col items-center gap-2">
-                            <div className={`mb-2 transform ${isLeftLong ? 'text-7xl scale-x-110' : 'text-4xl'}`}>{left.emoji}</div>
-                            <div className="font-semibold text-sm text-slate-800">{left.name}</div>
-                          </div>
-                          <div className="text-2xl text-slate-400">vs</div>
-                          <div className="flex flex-col items-center gap-2">
-                            <div className={`mb-2 transform ${!isLeftLong ? 'text-7xl scale-x-110' : 'text-4xl'}`}>{right.emoji}</div>
-                            <div className="font-semibold text-sm text-slate-800">{right.name}</div>
-                          </div>
+                      <div key={idx} className="border-4 border-slate-100 rounded-3xl p-6 bg-white relative hover:border-violet-100 transition-colors">
+                        <div className="absolute top-4 left-4 w-8 h-8 rounded-full bg-slate-100 flex items-center justify-center text-xs font-black text-slate-400 italic">#{idx + 1}</div>
+                        <div className="flex flex-col gap-8 mt-6">
+                          {items.map((item, iIdx) => (
+                            <div key={iIdx} className="flex flex-col items-center">
+                              <div className="flex items-center gap-4 w-full">
+                                <div className={`flex-1 flex justify-center text-4xl ${item.isLong ? 'scale-x-150' : 'scale-x-75'} transition-all origin-left`}>
+                                  {item.emoji}
+                                </div>
+                              </div>
+                              <div className={`h-2 mt-2 rounded-full ${item.isLong ? 'w-full bg-violet-400' : 'w-1/2 bg-slate-200'}`}></div>
+                              <p className="mt-2 text-[10px] uppercase font-bold text-slate-400 tracking-widest">{item.name}</p>
+                            </div>
+                          ))}
                         </div>
                       </div>
                     );
@@ -31526,9 +31524,9 @@ export function PrintablesPage() {
                   <div className="mt-6 p-4 border-2 border-emerald-300 bg-emerald-50 rounded print:border print:bg-white print:page-break-before-always">
                     <div className="font-bold text-emerald-900 mb-3 text-base">✅ {getTrans('common.answerKey', 'Answer Key')}</div>
                     <ul className="list-disc list-inside space-y-1 text-sm">
-                      {pairs.map((pair, idx) => (
+                      {activePairs.map((pair, idx) => (
                         <li key={idx} className="text-emerald-800">
-                          Pair {idx + 1}: Circle the <strong>{pair.long.name}</strong> {pair.long.emoji} (it is longer than {pair.short.name})
+                          Problem {idx + 1}: Circle the <strong>{pair.long.name}</strong> {pair.long.emoji}
                         </li>
                       ))}
                     </ul>
@@ -31541,59 +31539,83 @@ export function PrintablesPage() {
 
         {
           activeDocs.includes('heavy-light') && (() => {
+            const rng = makeRng(`${effectiveSeed}|v${variant}|doc=${doc}`);
             const pairs = [
-              { heavy: { name: 'elephant', emoji: '🐘', size: 60 }, light: { name: 'feather', emoji: '🪶', size: 25 } },
-              { heavy: { name: 'car', emoji: '🚗', size: 55 }, light: { name: 'balloon', emoji: '🎈', size: 30 } },
-              { heavy: { name: 'rock', emoji: '🪨', size: 50 }, light: { name: 'leaf', emoji: '🍃', size: 28 } },
-              { heavy: { name: 'book', emoji: '📚', size: 52 }, light: { name: 'bubble', emoji: '🫧', size: 22 } },
-              { heavy: { name: 'hammer', emoji: '🔨', size: 48 }, light: { name: 'cotton', emoji: '☁️', size: 26 } },
-              { heavy: { name: 'backpack', emoji: '🎒', size: 54 }, light: { name: 'paper', emoji: '📄', size: 24 } },
+              { heavy: { name: 'Elephant', emoji: '🐘' }, light: { name: 'Feather', emoji: '🪶' } },
+              { heavy: { name: 'Car', emoji: '🚗' }, light: { name: 'Balloon', emoji: '🎈' } },
+              { heavy: { name: 'Rock', emoji: '🪨' }, light: { name: 'Leaf', emoji: '🍃' } },
+              { heavy: { name: 'Books', emoji: '📚' }, light: { name: 'Bubble', emoji: '🫧' } },
+              { heavy: { name: 'Hammer', emoji: '🔨' }, light: { name: 'Cotton', emoji: '☁️' } },
+              { heavy: { name: 'Backpack', emoji: '🎒' }, light: { name: 'Paper', emoji: '📄' } },
             ];
+            const activePairs = shuffleArray([...pairs], `${effectiveSeed}|heavylight`).slice(0, 4);
+
             return (
               <WorksheetSectionWrapper
                 docId="heavy-light"
-                title="Heavy and Light"
+                title="Weight Explorer: Heavy or Light?"
                 emoji="⚖️"
-                description="Circle the heavy object. Put an X on the light object."
-                problemCount={pairs.length}
+                description="Look at each pair. Circle the HEAVY object and put an 'X' on the LIGHT object."
+                problemCount={activePairs.length}
                 learningObjectives={[
-                  'Compare weight of objects',
-                  'Identify heavy and light objects',
-                  'Develop measurement vocabulary'
+                  'Compare relative weights of familiar objects',
+                  'Identify heavier and lighter items',
+                  'Understand the concept of balance and mass'
                 ]}
                 parentTeacherTips={[
-                  'Help children think about which object weighs more',
-                  'Encourage them to use words like "heavier" and "lighter"',
-                  'Use this activity to practice measurement concepts',
-                  'Extension: Find heavy and light objects around you'
+                  'Helper: "If you tried to lift both, which one would make your muscles work harder?"',
+                  'Ask: "Does bigger always mean heavier? (Think about a balloon vs. a rock)"',
+                  'Try holding a heavy book in one hand and a pencil in the other.'
                 ]}
               >
                 <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-purple-400 to-pink-400 animate-gradient-x mb-2" />
-                <div className="grid grid-cols-1 gap-6" style={{ pageBreakAfter: 'auto' }}>
-                  {pairs.map((pair, idx) => (
-                    <div key={idx} className="border border-slate-300 rounded-lg p-6 bg-white break-inside-avoid">
-                      <div className="text-sm text-slate-700 mb-4 text-center font-semibold">Pair {idx + 1}</div>
-                      <div className="flex items-center justify-center gap-8 mb-4">
-                        <div className="flex flex-col items-center gap-2">
-                          <div className="relative">
-                            <div className="text-6xl mb-2">{pair.heavy.emoji}</div>
-                          </div>
-                          <div className="text-center">
-                            <div className="font-semibold text-sm text-slate-800">{pair.heavy.name}</div>
+
+                <div className="grid grid-cols-2 gap-8" style={{ pageBreakAfter: 'auto' }}>
+                  {activePairs.map((pair, idx) => {
+                    const isSwapped = rng() > 0.5;
+                    const items = isSwapped
+                      ? [{ ...pair.light, isHeavy: false }, { ...pair.heavy, isHeavy: true }]
+                      : [{ ...pair.heavy, isHeavy: true }, { ...pair.light, isHeavy: false }];
+
+                    return (
+                      <div key={idx} className="border-4 border-slate-100 rounded-3xl p-6 bg-white relative hover:border-violet-100 transition-colors">
+                        <div className="absolute top-4 left-4 w-8 h-8 rounded-full bg-slate-100 flex items-center justify-center text-xs font-black text-slate-400 italic">#{idx + 1}</div>
+
+                        {/* Balance Scale Visual */}
+                        <div className="mt-8 flex flex-col items-center">
+                          <div className="relative w-full h-32 flex items-end justify-center px-4">
+                            {/* Scale Base */}
+                            <div className="absolute bottom-0 w-12 h-6 bg-slate-300 rounded-t-full"></div>
+                            {/* Scale Arm (tilted based on heavy side) */}
+                            <div className={`absolute bottom-6 w-full h-1 bg-slate-400 transition-transform duration-500 origin-center ${(items[0].isHeavy && !isSwapped) || (items[1].isHeavy && isSwapped) ? '-rotate-12' : 'rotate-12'}`}>
+                              {/* Scale Pans */}
+                              <div className="absolute -left-2 -top-1 w-4 h-4 bg-slate-400 rounded-full"></div>
+                              <div className="absolute -right-2 -top-1 w-4 h-4 bg-slate-400 rounded-full"></div>
+                            </div>
+
+                            <div className="flex justify-between w-full relative z-10 pb-8">
+                              {items.map((item, iIdx) => (
+                                <div key={iIdx} className={`flex flex-col items-center transition-all duration-500 ${item.isHeavy ? 'translate-y-4' : '-translate-y-4'}`}>
+                                  <div className="text-5xl drop-shadow-sm mb-2">{item.emoji}</div>
+                                  <p className="text-[9px] uppercase font-bold text-slate-400 tracking-tighter">{item.name}</p>
+                                </div>
+                              ))}
+                            </div>
                           </div>
                         </div>
-                        <div className="text-2xl text-slate-400">vs</div>
-                        <div className="flex flex-col items-center gap-2">
-                          <div className="relative">
-                            <div className="text-6xl mb-2">{pair.light.emoji}</div>
+
+                        <div className="mt-4 flex justify-center gap-6">
+                          <div className="w-10 h-10 border-2 border-dashed border-slate-200 rounded-full flex items-center justify-center bg-slate-50 text-[10px] text-slate-300 font-bold uppercase overflow-hidden">
+                            <div className="w-6 h-6 rounded-full border-2 border-slate-300 opacity-20"></div>
                           </div>
-                          <div className="text-center">
-                            <div className="font-semibold text-sm text-slate-800">{pair.light.name}</div>
+                          <div className="w-10 h-10 border-2 border-dashed border-slate-200 rounded-full flex items-center justify-center bg-slate-50 text-[10px] text-slate-300 font-bold uppercase relative">
+                            <div className="absolute w-6 h-0.5 bg-slate-300 rotate-45 opacity-20"></div>
+                            <div className="absolute w-6 h-0.5 bg-slate-300 -rotate-45 opacity-20"></div>
                           </div>
                         </div>
                       </div>
-                    </div>
-                  ))}
+                    );
+                  })}
                 </div>
                 {/* Extension/Challenge Problems */}
                 <div className="mt-6 print:mt-0 p-4 bg-purple-50 border-2 border-purple-200 rounded print:bg-white print:border" style={{ pageBreakBefore: 'always', pageBreakInside: 'avoid' }}>
@@ -31620,9 +31642,9 @@ export function PrintablesPage() {
                   <div className="mt-6 p-4 border-2 border-emerald-300 bg-emerald-50 rounded print:border print:bg-white print:page-break-before-always">
                     <div className="font-bold text-emerald-900 mb-3 text-base">✅ {getTrans('common.answerKey', 'Answer Key')}</div>
                     <ul className="list-disc list-inside space-y-1 text-sm">
-                      {pairs.map((pair, idx) => (
+                      {activePairs.map((pair, idx) => (
                         <li key={idx} className="text-emerald-800">
-                          Pair {idx + 1}: {pair.heavy.name} (heavy - circle), {pair.light.name} (light - put X)
+                          Problem {idx + 1}: {pair.heavy.name} (Heavy), {pair.light.name} (Light)
                         </li>
                       ))}
                     </ul>
