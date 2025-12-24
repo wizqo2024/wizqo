@@ -19265,10 +19265,9 @@ export function PrintablesPage() {
                     </div>
                     <div className="space-y-2">
                       {item.options.map((opt, optIdx) => (
-                        <label key={optIdx} className="flex items-center gap-2 cursor-pointer">
-                          <input type="radio" name={`rhyme-${idx}`} value={optIdx} className="w-4 h-4" />
-                          <span className="text-slate-700">{opt}</span>
-                        </label>
+                        <div key={optIdx} className="border-2 border-slate-200 rounded-full px-4 py-2 text-center text-slate-700 font-semibold mx-1 w-full bg-slate-50">
+                          {opt}
+                        </div>
                       ))}
                     </div>
                   </div>
@@ -19323,9 +19322,15 @@ export function PrintablesPage() {
                         ))}
                       </div>
                     </div>
-                    <div className="text-center">
-                      <p className="text-slate-600 text-sm mb-1">Write the word:</p>
-                      <div className="h-10 border-b-[3px] border-slate-600 w-full" />
+                    <div className="mt-4">
+                      <p className="text-slate-500 text-xs uppercase tracking-wider mb-1 font-semibold text-center">Write the word:</p>
+                      <div className="relative h-16 w-full">
+                        <svg width="100%" height="100%" preserveAspectRatio="none" className="absolute top-0 left-0">
+                          <line x1="0" y1="25%" x2="100%" y2="25%" stroke="#cbd5e1" strokeWidth="1" />
+                          <line x1="0" y1="50%" x2="100%" y2="50%" stroke="#cbd5e1" strokeWidth="1" strokeDasharray="4,4" />
+                          <line x1="0" y1="75%" x2="100%" y2="75%" stroke="#ef4444" strokeWidth="1.5" />
+                        </svg>
+                      </div>
                     </div>
                   </div>
                 ))}
@@ -19434,8 +19439,10 @@ export function PrintablesPage() {
               <div className="grid grid-cols-2 gap-4">
                 {['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'].map((letter, idx) => (
                   <svg key={idx} viewBox="0 0 400 200" className="w-full h-auto bg-white border border-slate-300 rounded">
-                    <g fill="none" stroke="#94a3b8" strokeWidth="3">
-                      <path strokeDasharray="6 6" d={`M40 160 H360`} />
+                    <g fill="none" strokeWidth="2">
+                      <line x1="40" y1="40" x2="360" y2="40" stroke="#cbd5e1" />
+                      <line x1="40" y1="100" x2="360" y2="100" stroke="#cbd5e1" strokeDasharray="8 8" />
+                      <line x1="40" y1="160" x2="360" y2="160" stroke="#ef4444" strokeWidth="3" />
                     </g>
                     <g fill="none" stroke="#111827" strokeWidth="5" strokeLinecap="round" strokeLinejoin="round">
                       {letter === 'A' && <path d="M200 40 L150 160 M200 40 L250 160 M165 115 L235 115" />}
@@ -19566,19 +19573,17 @@ export function PrintablesPage() {
                   <div key={idx} className="border border-slate-300 rounded p-4 bg-white">
                     <div className="flex flex-wrap gap-2 justify-center mb-3" style={{ minHeight: '80px' }}>
                       {Array.from({ length: count }).map((_, i) => {
-                        const shapes = ['⭐', '🔴', '🟢', '🔵', '🟡', '🟣', '🟠', '⚫'];
+                        const shapes = ['🐸', '🦋', '🐞', '🐠', '🍎', '🚗', '🚀', '⚽'];
                         return (
-                          <span key={i} className="text-2xl">
+                          <span key={i} className="text-2xl leading-none">
                             {shapes[i % shapes.length]}
                           </span>
                         );
                       })}
                     </div>
                     <div className="text-center">
-                      <p className="text-slate-600 text-sm mb-1">How many?</p>
-                      <div className="inline-block border-2 border-slate-400 rounded px-4 py-2">
-                        <span className="text-2xl font-bold text-slate-900">__</span>
-                      </div>
+                      <p className="text-slate-500 text-xs uppercase tracking-wide mb-2">How many?</p>
+                      <div className="w-16 h-16 border-2 border-slate-300 rounded-lg bg-white mx-auto"></div>
                     </div>
                   </div>
                 ))}
