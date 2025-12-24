@@ -19580,25 +19580,37 @@ export function PrintablesPage() {
               <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-violet-400 to-purple-400 animate-gradient-x mb-2" />
               <div className="space-y-4">
                 {[
-                  { words: ['The', 'cat', 'is', 'sleeping', '.'], sentence: 'The cat is sleeping.' },
-                  { words: ['I', 'like', 'to', 'read', '.'], sentence: 'I like to read.' },
-                  { words: ['We', 'play', 'at', 'the', 'park', '.'], sentence: 'We play at the park.' },
-                  { words: ['She', 'has', 'a', 'red', 'ball', '.'], sentence: 'She has a red ball.' },
+                  { words: ['The', 'cat', 'is', 'sleeping', '.'], sentence: 'The cat is sleeping.', visual: '🐱💤' },
+                  { words: ['I', 'like', 'to', 'read', '.'], sentence: 'I like to read.', visual: '📚🤓' },
+                  { words: ['We', 'play', 'at', 'the', 'park', '.'], sentence: 'We play at the park.', visual: '🌳🛝' },
+                  { words: ['She', 'has', 'a', 'red', 'ball', '.'], sentence: 'She has a red ball.', visual: '👧🔴' },
                 ].map((item, idx) => (
-                  <div key={idx} className="border border-slate-300 rounded p-4 bg-white">
-                    <div className="mb-3">
-                      <p className="text-slate-600 text-sm mb-2">Words (put in order):</p>
-                      <div className="flex flex-wrap gap-2">
-                        {item.words.map((word, wIdx) => (
-                          <span key={wIdx} className="px-3 py-1 border-2 border-slate-400 rounded text-slate-700 font-semibold">
-                            {word}
-                          </span>
-                        ))}
+                  <div key={idx} className="border border-slate-300 rounded p-4 bg-white break-inside-avoid">
+                    <div className="flex gap-4 items-start mb-4">
+                      {/* Visual Cue */}
+                      <div className="w-16 h-16 flex items-center justify-center text-4xl bg-slate-50 rounded-lg border border-slate-100 shrink-0">
+                        {item.visual}
+                      </div>
+
+                      {/* Word Scramble */}
+                      <div className="flex-1">
+                        <p className="text-slate-500 text-xs uppercase tracking-wide mb-2 font-semibold">Put words in order:</p>
+                        <div className="flex flex-wrap gap-2">
+                          {item.words.map((word, wIdx) => (
+                            <span key={wIdx} className="px-3 py-1 border-2 border-slate-300 rounded-lg text-slate-700 font-bold bg-slate-50">
+                              {word}
+                            </span>
+                          ))}
+                        </div>
                       </div>
                     </div>
+
+                    {/* Writing Line */}
                     <div>
-                      <p className="text-slate-600 text-sm mb-1">Write the sentence:</p>
-                      <div className="h-12 border-b-[3px] border-slate-600 w-full" />
+                      <p className="text-slate-500 text-xs uppercase tracking-wide mb-2 font-semibold">Write the sentence:</p>
+                      <div className="h-12 border-b-2 border-slate-300 border-dashed w-full relative">
+                        <div className="absolute bottom-0 w-full border-b border-slate-200" style={{ marginBottom: '10px' }}></div>
+                      </div>
                     </div>
                   </div>
                 ))}
