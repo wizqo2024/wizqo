@@ -4,7 +4,7 @@ import type { ReactNode } from 'react'
 import { WorksheetSectionWrapper } from '@/components/worksheet/WorksheetSectionWrapper'
 import { makeRng, pick, pickNUnique, shuffleArray } from '@/utils/printableUtils'
 import { useTranslation } from '@/context/TranslationContext'
-import { getTrans } from '@/utils/translations'
+
 
 // Improved Word Search Generator with Vertical/Diagonal support
 export function generateWordSearchGrid(size: number, words: string[], rng: () => number): string[][] {
@@ -272,7 +272,7 @@ export function WordSearch({
 
                     {showAnswersForDoc('word-search', () => (
                         <div className="mt-6 p-4 border-2 border-emerald-300 bg-emerald-50 rounded print:border print:bg-white print:page-break-before-always">
-                            <div className="font-bold text-emerald-900 mb-3 text-base">✅ {getTrans('common.answerKey', 'Answer Key')}</div>
+                            <div className="font-bold text-emerald-900 mb-3 text-base">✅ {t('common.answerKey')}</div>
                             <div
                                 className="inline-grid gap-0 border-2 border-emerald-800 bg-white opacity-90"
                                 style={{ gridTemplateColumns: `repeat(${wsSize}, 1fr)`, width: '300px' }}

@@ -113,7 +113,7 @@ export function Sudoku({
                     </div>
                     {showAnswersForDoc('sudoku4', () => (
                         <div className="mt-6 p-4 border-2 border-emerald-300 bg-emerald-50 rounded print:border print:bg-white print:page-break-before-always">
-                            <div className="font-bold text-emerald-900 mb-3 text-base">✅ {getTrans('common.answerKey', 'Answer Key')}</div>
+                            <div className="font-bold text-emerald-900 mb-3 text-base">✅ {t('common.answerKey')}</div>
                             <div className="text-sm text-emerald-800">
                                 The completed sudoku grid shows the solution. Each row, column, and 2×2 box contains the numbers 1-4 exactly once. Use the clues provided to solve step by step!
                             </div>
@@ -172,7 +172,7 @@ export function Sudoku({
                     </div>
                     {showAnswersForDoc('sudoku6', () => (
                         <div className="mt-6 p-4 border-2 border-emerald-300 bg-emerald-50 rounded print:border print:bg-white print:page-break-before-always">
-                            <div className="font-bold text-emerald-900 mb-3 text-base">✅ {getTrans('common.answerKey', 'Answer Key')}</div>
+                            <div className="font-bold text-emerald-900 mb-3 text-base">✅ {t('common.answerKey')}</div>
                             <div className="text-sm text-emerald-800">
                                 The completed sudoku grid shows the solution. Each row, column, and 3×2 box contains the numbers 1-6 exactly once.
                             </div>
