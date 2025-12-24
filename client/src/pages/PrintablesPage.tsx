@@ -3342,18 +3342,20 @@ export function PrintablesPage() {
                   <circle cx="300" cy="300" r="180" />
                   <line x1="300" y1="100" x2="300" y2="500" />
                   <line x1="100" y1="300" x2="500" y2="300" />
-                  <path d="M300 120 L330 300 L300 480 L270 300 Z" />
-                  <path d="M120 300 L300 330 L480 300 L300 270 Z" />
+                  <path d="M300 120 L330 300 L300 480 L270 300 Z" fill="white" />
+                  <path d="M120 300 L300 330 L480 300 L300 270 Z" fill="white" />
                 </g>
-                <g fill="#111827" fontSize="20" textAnchor="middle">
-                  <text x="300" y="80">N</text>
-                  <text x="520" y="305">E</text>
-                  <text x="300" y="540">S</text>
-                  <text x="80" y="305">W</text>
-                  <text x="410" y="170">NE</text>
-                  <text x="410" y="430">SE</text>
-                  <text x="190" y="430">SW</text>
-                  <text x="190" y="170">NW</text>
+                <g stroke="#111827" strokeWidth="2" fill="white" strokeDasharray="4 4">
+                  {/* Main directions */}
+                  <circle cx="300" cy="60" r="30" />
+                  <circle cx="540" cy="300" r="30" />
+                  <circle cx="300" cy="540" r="30" />
+                  <circle cx="60" cy="300" r="30" />
+                  {/* Intercardinal directions */}
+                  <circle cx="450" cy="150" r="25" />
+                  <circle cx="450" cy="450" r="25" />
+                  <circle cx="150" cy="450" r="25" />
+                  <circle cx="150" cy="150" r="25" />
                 </g>
               </svg>
             </div>
@@ -3413,7 +3415,7 @@ export function PrintablesPage() {
             docId="geo-landforms"
             title="Landforms vs Water Bodies"
             emoji="🏔️"
-            description="Draw a line from each word to its matching picture. (A–E)"
+            description="Look at the pictures. Write the correct letter (A–E) next to each word."
             problemCount={5}
             learningObjectives={[
               'Identify different landforms',
@@ -3436,21 +3438,19 @@ export function PrintablesPage() {
                 <div className="pl-4 border-l-2 border-blue-300 space-y-1">
                   <div><strong>{t('common.step1')}</strong> {t('worksheets.vocab.example.step1Text', 'Look at the word "Mountain"')}</div>
                   <div><strong>{t('common.step2')}</strong> {t('worksheets.vocab.example.step2Text', 'Find the picture that shows tall peaks pointing up')}</div>
-                  <div><strong>{t('common.step3')}</strong> {t('worksheets.vocab.example.step3Text', 'Draw a line from "Mountain" to that picture')}</div>
-                  <div className="font-semibold text-blue-900"><strong>{t('common.answer')}</strong> {t('worksheets.vocab.example.answerText', 'Mountain matches the picture with tall peaks')}</div>
-                  <div className="text-xs text-blue-700 mt-1">💡 {t('common.tip')} {t('worksheets.vocab.example.tip', 'Look at the shape - mountains have peaks, valleys have a V shape!')}</div>
+                  <div><strong>{t('common.step3')}</strong> {t('worksheets.vocab.example.step3Text', 'Write the letter of that picture next to "Mountain"')}</div>
                 </div>
               </div>
             </div>
-            <div className="grid sm:grid-cols-2 gap-4 break-inside-avoid" style={{ pageBreakAfter: 'auto' }}>
+            <div className="grid sm:grid-cols-3 grid-cols-2 gap-4 break-inside-avoid" style={{ pageBreakAfter: 'auto' }}>
               {[
                 {
                   label: 'Mountain',
                   svg: (
                     <g>
                       {/* twin peaks */}
-                      <path d="M40 160 L90 75 L140 160 Z" />
-                      <path d="M95 160 L135 95 L200 160 Z" />
+                      <path d="M40 160 L90 75 L140 160 Z" fill="white" />
+                      <path d="M95 160 L135 95 L200 160 Z" fill="white" />
                       {/* ridge/snow lines */}
                       <path d="M80 120 L90 105 L100 120" />
                       <path d="M140 120 L150 108 L160 120" />
@@ -3462,10 +3462,10 @@ export function PrintablesPage() {
                   svg: (
                     <g>
                       {/* two mountains with a V valley */}
-                      <path d="M30 160 L80 95 L110 160 Z" />
-                      <path d="M130 160 L170 95 L210 160 Z" />
+                      <path d="M30 160 L80 95 L110 160 Z" fill="white" />
+                      <path d="M130 160 L170 95 L210 160 Z" fill="white" />
                       {/* valley floor curve */}
-                      <path d="M30 160 Q120 145 210 160" />
+                      <path d="M30 160 Q120 145 210 160" fill="#e2e8f0" />
                     </g>
                   )
                 },
@@ -3474,7 +3474,7 @@ export function PrintablesPage() {
                   svg: (
                     <g>
                       {/* shoreline */}
-                      <path d="M80 145 C110 110, 170 110, 200 145 C175 165, 115 165, 80 145 Z" />
+                      <path d="M80 145 C110 110, 170 110, 200 145 C175 165, 115 165, 80 145 Z" fill="white" />
                       {/* tiny palm tree */}
                       <path d="M150 140 C145 125, 146 115, 148 105" />
                       <path d="M148 105 C142 100, 135 100, 130 105" />
@@ -3487,7 +3487,7 @@ export function PrintablesPage() {
                   svg: (
                     <g>
                       {/* irregular lake outline */}
-                      <path d="M80 130 C100 110, 140 100, 180 120 C200 135, 170 160, 130 160 C110 158, 90 150, 80 130 Z" />
+                      <path d="M80 130 C100 110, 140 100, 180 120 C200 135, 170 160, 130 160 C110 158, 90 150, 80 130 Z" fill="white" />
                       {/* gentle waves */}
                       <path d="M100 135 C110 140, 120 140, 130 135" />
                       <path d="M120 145 C130 150, 140 150, 150 145" />
@@ -3499,41 +3499,37 @@ export function PrintablesPage() {
                   svg: (
                     <g>
                       {/* meandering river with banks */}
-                      <path d="M40 65 C80 85, 110 55, 150 75 C190 95, 150 120, 190 140" />
-                      <path d="M30 75 C70 95, 100 65, 140 85 C180 105, 140 130, 180 150" />
+                      <path d="M40 65 C80 85, 110 55, 150 75 C190 95, 150 120, 190 140" fill="none" />
+                      <path d="M30 75 C70 95, 100 65, 140 85 C180 105, 140 130, 180 150" fill="none" />
                     </g>
                   )
                 },
               ].map((it, idx) => {
                 const letter = String.fromCharCode(65 + idx); // A, B, C, ...
                 return (
-                  <div key={it.label} className="relative border border-slate-300 rounded p-4 bg-white">
-                    <div className="absolute top-2 left-2 w-6 h-6 rounded-full border border-slate-600 text-slate-800 flex items-center justify-center text-xs font-bold bg-white">
+                  <div key={it.label} className="relative border border-slate-300 rounded p-4 bg-white flex flex-col items-center">
+                    <div className="absolute top-2 left-2 w-8 h-8 rounded-full border-2 border-slate-800 text-slate-900 flex items-center justify-center text-base font-bold bg-white">
                       {letter}
                     </div>
                     <svg viewBox="0 0 240 180" className="w-full h-auto" aria-hidden>
-                      <g fill="none" stroke="#111827" strokeWidth="4">{it.svg}</g>
+                      <g fill="none" stroke="#111827" strokeWidth="3">{it.svg}</g>
                     </svg>
                   </div>
                 );
               })}
             </div>
             {/* Match list */}
-            <div className="mt-3 grid md:grid-cols-2 gap-3">
-              <div className="bg-slate-50 border border-slate-200 rounded-lg p-3">
-                <div className="text-slate-900 font-semibold mb-1">Words</div>
-                <ol className="text-slate-700 text-sm space-y-1">
-                  {['Mountain', 'Valley', 'Island', 'Lake', 'River'].map((w, i) => (
-                    <li key={w} className="flex items-center gap-2">
-                      <span className="inline-block w-5 text-slate-500">{i + 1}.</span>
-                      <span className="flex-1">{w}</span>
-                      <span className="inline-block w-10 text-slate-400 border-b border-slate-300" />
-                    </li>
-                  ))}
-                </ol>
-              </div>
-              <div className="text-slate-500 text-xs border border-slate-200 rounded-lg p-3">
-                Tip: Landforms are parts of the land (mountain, valley, island). Water bodies hold or carry water (lake, river).
+            <div className="mt-6">
+              <div className="text-slate-900 font-bold mb-4 text-center">Write the Letter</div>
+              <div className="grid grid-cols-1 gap-4 max-w-md mx-auto">
+                {['Mountain', 'Valley', 'Island', 'Lake', 'River'].map((w, i) => (
+                  <div key={w} className="flex items-center justify-between p-3 border border-slate-200 rounded-lg bg-slate-50">
+                    <span className="text-lg font-medium text-slate-800">{w}</span>
+                    <div className="w-16 h-12 border-2 border-slate-400 bg-white rounded flex items-center justify-center">
+                      {/* Box for letter */}
+                    </div>
+                  </div>
+                ))}
               </div>
             </div>
             {/* Extension/Challenge Problems */}
@@ -3700,8 +3696,24 @@ export function PrintablesPage() {
                   <div className="text-sm text-emerald-800">
                     Point B: <strong>(20°S, 40°E)</strong> - Located in the southern and eastern hemisphere
                   </div>
-                  <div className="text-sm text-emerald-800 mt-2">
-                    Practice points: C (0°, 120°E) - on the equator, east of prime meridian; D (45°N, 60°W) - northern hemisphere, western hemisphere
+                  <div className="mt-4 border border-emerald-200 rounded p-2 bg-white">
+                    <div className="text-xs font-bold mb-1 text-center">Solution Map:</div>
+                    <svg viewBox="0 0 800 500" className="w-full h-auto">
+                      <rect width="800" height="500" fill="#ecfdf5" />
+                      <g fill="none" stroke="#94a3b8" strokeWidth="1">
+                        {Array.from({ length: 10 }).map((_, i) => (<line key={`h-${i}`} x1="40" y1={50 + i * 40} x2="760" y2={50 + i * 40} />))}
+                        {Array.from({ length: 16 }).map((_, i) => (<line key={`v-${i}`} x1={40 + i * 45} y1="50" x2={40 + i * 45} y2="450" />))}
+                      </g>
+                      <g fill="#059669" stroke="#059669" strokeWidth="2">
+                        {/* C: 0, 120E */}
+                        <circle cx={40 + ((120 + 120) / 240) * 720} cy={50 + ((90 - 0) / 180) * 400} r={8} />
+                        <text x={40 + ((120 + 120) / 240) * 720} y={50 + ((90 - 0) / 180) * 400 - 15} textAnchor="middle" stroke="none">C</text>
+
+                        {/* D: 45N, 60W */}
+                        <circle cx={40 + ((-60 + 120) / 240) * 720} cy={50 + ((90 - 45) / 180) * 400} r={8} />
+                        <text x={40 + ((-60 + 120) / 240) * 720} y={50 + ((90 - 45) / 180) * 400 - 15} textAnchor="middle" stroke="none">D</text>
+                      </g>
+                    </svg>
                   </div>
                 </div>
               </div>
