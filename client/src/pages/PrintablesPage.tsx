@@ -20823,58 +20823,60 @@ export function PrintablesPage() {
 
         {
           activeDocs.includes('count-match-1-20') && (() => {
-            const rng = makeRng(`${effectiveSeed}|v${variant}|doc=${doc}`)
-            const problems = Array.from({ length: 6 }, () => {
+            const emojis = ['🍎', '⚽', '🚗', '⭐', '🎈', '🐶', '🐸', '🐢', '🦋']
+            const problems = Array.from({ length: 6 }, (_, idx) => {
               const count = Math.floor(rng() * 20) + 1
-              return { count, objects: Array.from({ length: count }, (_, i) => i) }
+              const emoji = emojis[idx % emojis.length]
+              return { count, emoji }
             })
             return (
               <WorksheetSectionWrapper
                 docId="count-match-1-20"
-                title="Count & Match 1–20"
+                title="Count & Circle 1–20"
                 emoji="🔢"
-                description="Count the objects and draw a line to match with the correct number."
+                description="Count the objects. Circle the correct number in the boxes below."
                 problemCount={problems.length}
                 learningObjectives={[
                   'Count objects accurately up to 20',
                   'Match quantities to numerals',
-                  'Develop one-to-one correspondence',
-                  'Build number recognition skills for larger numbers'
+                  'Develop subitizing and one-to-one correspondence',
+                  'Build number recognition skills'
                 ]}
                 parentTeacherTips={[
                   'Encourage students to point to each object as they count',
-                  'Use one-to-one correspondence: one object = one number',
+                  'Ask: "How many are in this row?" to help with tracking',
                   'Help students recognize that the last number counted is the total',
-                  'Practice counting aloud: 1, 2, 3, 4, 5... up to 20',
-                  'Extension: Try counting larger groups or counting by 2s or 5s'
+                  'Try counting in groups of 5 for larger numbers'
                 ]}
               >
                 <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-purple-400 to-pink-400 animate-gradient-x mb-2" />
                 {/* Worked Example */}
                 <div className="mb-6 p-4 bg-blue-50 border-2 border-blue-200 rounded-lg print:border print:bg-white">
-                  <div className="font-semibold text-blue-900 mb-3 text-sm">📚 Example - Let's solve this together:</div>
-                  <div className="space-y-2 text-sm">
-                    <div className="font-semibold text-base"><strong>Problem:</strong> Count the circles and match to the correct number</div>
-                    <div className="pl-4 border-l-2 border-blue-300 space-y-1">
-                      <div><strong>Step 1:</strong> Point to each circle and count: 1, 2, 3, 4, 5, 6, 7, 8</div>
-                      <div><strong>Step 2:</strong> The last number counted is 8, so there are 8 circles</div>
-                      <div><strong>Step 3:</strong> Draw a line from the circles to the number 8</div>
-                      <div className="font-semibold text-blue-900"><strong>Answer:</strong> Match to 8</div>
-                      <div className="text-xs text-blue-700 mt-1">💡 Tip: Count each object once, and the last number you say is the total!</div>
+                  <div className="font-semibold text-blue-900 mb-2 text-sm">📚 Example:</div>
+                  <div className="flex items-center gap-4">
+                    <div className="flex gap-1 flex-wrap w-24">
+                      {Array.from({ length: 4 }).map((_, i) => <span key={i} className="text-2xl">🍎</span>)}
+                    </div>
+                    <div className="flex-1 text-sm bg-white p-2 rounded border border-blue-100">
+                      <p>1. Count: 1, 2, 3, 4.</p>
+                      <p>2. Found 4 apples!</p>
+                      <p>3. Circle the number <strong>4</strong>.</p>
                     </div>
                   </div>
                 </div>
                 <div className="grid grid-cols-2 gap-4" style={{ pageBreakAfter: 'auto' }}>
                   {problems.map((p, i) => (
-                    <div key={i} className="border border-slate-300 rounded-lg p-4 bg-white">
-                      <div className="flex gap-1 mb-3 flex-wrap">
-                        {p.objects.map((_, j) => (
-                          <div key={j} className="w-10 h-10 print:w-12 print:h-12 rounded-full border-4 border-slate-400 bg-white" />
+                    <div key={i} className="border border-slate-300 rounded-xl p-4 bg-white flex flex-col items-center">
+                      <div className="grid grid-cols-5 gap-1 mb-4 min-h-[6rem] place-items-center">
+                        {Array.from({ length: p.count }).map((_, j) => (
+                          <div key={j} className="text-2xl print:text-3xl leading-none">
+                            {p.emoji}
+                          </div>
                         ))}
                       </div>
-                      <div className="flex gap-2 justify-center">
-                        {[p.count - 2, p.count - 1, p.count, p.count + 1, p.count + 2].filter(n => n > 0 && n <= 20).map(n => (
-                          <div key={n} className="w-12 h-12 border-2 border-slate-300 rounded-lg flex items-center justify-center text-xl font-bold text-slate-700">
+                      <div className="w-full flex gap-2 justify-center pt-2 border-t border-slate-100">
+                        {[p.count - 2, p.count - 1, p.count, p.count + 1, p.count + 2].filter(n => n > 0 && n <= 20).slice(0, 4).map(n => (
+                          <div key={n} className="w-12 h-12 border-2 border-slate-300 rounded-full flex items-center justify-center text-xl font-bold text-slate-700 bg-slate-50">
                             {n}
                           </div>
                         ))}
@@ -20969,17 +20971,18 @@ export function PrintablesPage() {
                 </div>
                 <div className="grid grid-cols-2 gap-4" style={{ pageBreakAfter: 'auto' }}>
                   {problems.map((p, i) => (
-                    <div key={i} className="border border-slate-300 rounded-lg p-4 bg-white">
-                      <div className="flex gap-2 mb-3 flex-wrap justify-center min-h-[4rem] items-center">
+                    <div key={i} className="border border-slate-300 rounded-xl p-4 bg-white">
+                      <div className="grid grid-cols-5 gap-2 mb-4 h-28 place-items-center content-center">
                         {p.objects.map((_, j) => (
                           <div key={j} className="text-3xl print:text-4xl leading-none">
                             {p.emoji}
                           </div>
                         ))}
                       </div>
-                      <div className="text-center">
-                        <div className="inline-block w-20 h-12 border-2 border-slate-400 rounded text-center text-2xl font-bold text-slate-700 flex items-center justify-center">
-                          ___
+                      <div className="text-center pt-2 border-t border-slate-100">
+                        <p className="text-slate-400 text-[10px] uppercase font-bold mb-1">How many?</p>
+                        <div className="inline-block w-20 h-10 border-2 border-slate-400 rounded-lg text-center text-2xl font-bold text-slate-700 flex items-center justify-center bg-slate-50">
+                          {/* Student writes here */}
                         </div>
                       </div>
                     </div>
@@ -21014,10 +21017,10 @@ export function PrintablesPage() {
                     <div className="font-bold text-emerald-900 mb-3 text-base">✅ {getTrans('common.answerKey', 'Answer Key')}</div>
                     <ul className="list-disc list-inside space-y-2 text-sm text-emerald-800">
                       {problems.map((p, i) => (
-                        <li key={i}><strong>Box {i + 1}:</strong> {p.count} (There are {p.count} circles in the box)</li>
+                        <li key={i}><strong>Box {i + 1}:</strong> {p.count} (There are {p.count} {p.emoji} to count)</li>
                       ))}
                     </ul>
-                    <div className="text-xs text-emerald-700 mt-3">💡 Remember: Count each object once, and the last number you say is the total. Then write that number in the box!</div>
+                    <div className="text-xs text-emerald-700 mt-3">💡 Tip: Count each object one by one. The last number you count is the total!</div>
                   </div>
                 ))}
               </WorksheetSectionWrapper>
