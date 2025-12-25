@@ -20736,124 +20736,111 @@ export function PrintablesPage() {
             try {
               const docId = 'count-circle-1-10'
               const rng = makeRng(`${effectiveSeed}|v${variant}|doc=${doc}`)
-              const emojis = ['🍎', '🍌', '🍇', '🍊', '🍓', '🚗', '🚀', '⭐', '🎈', '🐱', '🐶', '🐸']
+
+              const seaCreatures = ['🐟', '🐠', '🐡', '🐙', '🐚', '🦀', '🐬', '🐳', '🦈', '🦑', '🦞', '🦐'];
+              const bubbles = ['🫧', '⚪', '🔵']; // Decorative background elements if needed, or just keep it simple
+
               const problems = Array.from({ length: 8 }, () => {
                 const count = Math.floor(rng() * 10) + 1
-                const emoji = emojis[Math.floor(rng() * emojis.length)]
-                return { count, emoji, objects: Array.from({ length: count }, (_, i) => i) }
+                const creature = seaCreatures[Math.floor(rng() * seaCreatures.length)]
+                return { count, creature, objects: Array.from({ length: count }, (_, i) => i) }
               })
+
               return (
                 <WorksheetSectionWrapper
                   docId={docId}
-                  title={getTrans(`worksheets.${docId}.title`, 'Count & Circle 1–10')}
-                  emoji="🔢"
-                  description={getTrans(`worksheets.${docId}.description`, 'Count the objects in each box. Circle the correct number.')}
+                  title="Undersea Counting"
+                  emoji="🌊"
+                  description="Count the sea creatures in each group. Circle the correct number bubble!"
                   problemCount={problems.length}
-                  learningObjectives={(() => {
-                    const objectives = t(`worksheets.${docId}.learningObjectives`)
-                    return Array.isArray(objectives) && objectives.length > 0 ? objectives : [
-                      'Count objects accurately up to 10',
-                      'Match quantities to numerals',
-                      'Develop one-to-one correspondence',
-                      'Build number recognition skills'
-                    ]
-                  })()}
-                  parentTeacherTips={(() => {
-                    const tips = t(`worksheets.${docId}.parentTeacherTips`)
-                    return Array.isArray(tips) && tips.length > 0 ? tips : [
-                      'Encourage students to point to each object as they count',
-                      'Use one-to-one correspondence: one object = one number',
-                      'Help students recognize that the last number counted is the total',
-                      'Practice counting aloud: 1, 2, 3, 4, 5...',
-                      'Extension: Try counting larger groups or counting backwards'
-                    ]
-                  })()}
+                  learningObjectives={[
+                    'Count objects accurately up to 10',
+                    'Match quantities to numerals',
+                    'Develop one-to-one correspondence',
+                    'Build number recognition skills'
+                  ]}
+                  parentTeacherTips={[
+                    'Encourage students to point to each creature as they count.',
+                    'Ask: "How many fish did you find?"',
+                    'Practice counting aloud: 1, 2, 3...',
+                    'Fun Twist: Pretend to be a diver exploring the ocean!'
+                  ]}
                 >
-                  <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-purple-400 to-pink-400 animate-gradient-x mb-2" />
-                  {/* Worked Example */}
-                  <div className="mb-6 p-4 bg-blue-50 border-2 border-blue-200 rounded-lg print:border print:bg-white">
-                    <div className="font-semibold text-blue-900 mb-3 text-sm">{getTrans(`worksheets.${docId}.example.title`, '📚 Example - Let\'s solve this together:')}</div>
-                    <div className="space-y-2 text-sm">
-                      <div className="font-semibold text-base"><strong>{getTrans(`worksheets.${docId}.example.problem`, 'Problem:')}</strong> {getTrans(`worksheets.${docId}.example.problemText`, 'Count the circles and circle the correct number')}</div>
-                      <div className="pl-4 border-l-2 border-blue-300 space-y-1">
-                        <div><strong>{getTrans(`worksheets.${docId}.example.step1`, 'Step 1:')}</strong> {getTrans(`worksheets.${docId}.example.step1Text`, 'Point to each circle and count: 1, 2, 3, 4, 5')}</div>
-                        <div><strong>{getTrans(`worksheets.${docId}.example.step2`, 'Step 2:')}</strong> {getTrans(`worksheets.${docId}.example.step2Text`, 'The last number counted is 5, so there are 5 circles')}</div>
-                        <div><strong>{getTrans(`worksheets.${docId}.example.step3`, 'Step 3:')}</strong> {getTrans(`worksheets.${docId}.example.step3Text`, 'Circle the number 5')}</div>
-                        <div className="font-semibold text-blue-900"><strong>{getTrans(`worksheets.${docId}.example.answer`, 'Answer:')}</strong> {getTrans(`worksheets.${docId}.example.answerText`, 'Circle 5')}</div>
-                        <div className="text-xs text-blue-700 mt-1">{getTrans(`worksheets.${docId}.example.tip`, '💡 Tip: Count each object once, and the last number you say is the total!')}</div>
+                  <div className="print:hidden h-1 w-full rounded-full bg-gradient-to-r from-cyan-300 to-blue-500 animate-gradient-x mb-4" />
+
+                  {/* Decorative Ocean Header */}
+                  <div className="w-full h-24 mb-6 relative overflow-hidden bg-gradient-to-b from-cyan-100 to-blue-100 rounded-xl border-2 border-cyan-200">
+                    <div className="absolute inset-0 flex items-center justify-around opacity-30">
+                      <span className="text-4xl animate-float-slow">🫧</span>
+                      <span className="text-2xl animate-float-medium mt-10">🐟</span>
+                      <span className="text-5xl animate-float-fast">🫧</span>
+                      <span className="text-3xl animate-float-slow mt-4">🐡</span>
+                    </div>
+                    <div className="absolute inset-0 flex items-center justify-center">
+                      <div className="bg-white/60 px-6 py-2 rounded-full border border-cyan-300 backdrop-blur-sm">
+                        <span className="text-2xl font-bold text-cyan-800 tracking-wider">OCEAN ADVENTURE</span>
                       </div>
                     </div>
                   </div>
-                  <div className="grid grid-cols-2 gap-4" style={{ pageBreakAfter: 'auto' }}>
-                    {problems.map((p, i) => (
-                      <div key={i} className="border border-slate-300 rounded-lg p-4 bg-white">
-                        <div className="flex gap-2 mb-3 flex-wrap justify-center min-h-[4rem] items-center">
-                          {p.objects.map((_, j) => (
-                            <div key={j} className="text-3xl print:text-4xl leading-none">
-                              {p.emoji}
-                            </div>
-                          ))}
+
+                  {/* Worked Example */}
+                  <div className="mb-6 p-4 bg-cyan-50 border-2 border-cyan-200 rounded-lg print:border print:bg-white relative overflow-hidden">
+                    <div className="absolute -right-4 -top-4 text-6xl opacity-10 rotate-12">🐙</div>
+                    <div className="font-semibold text-cyan-900 mb-3 text-sm relative z-10">{getTrans(`worksheets.${docId}.example.title`, '📚 Example - Let\'s Dive In:')}</div>
+                    <div className="space-y-2 text-sm relative z-10">
+                      <div className="font-bold text-cyan-800">Problem: Count the Octopus friends by pointing to each one.</div>
+                      <div className="flex items-center gap-4 my-2">
+                        <div className="flex gap-2 text-3xl bg-white p-2 rounded-lg border border-cyan-100 shadow-sm">
+                          <span>🐙</span><span>🐙</span><span>🐙</span>
                         </div>
-                        <div className="flex gap-2 justify-center">
-                          {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map(n => (
-                            <button key={n} className="w-10 h-10 border-2 border-slate-300 rounded-full text-lg font-semibold text-slate-700 hover:border-purple-500">
-                              {n}
-                            </button>
-                          ))}
+                        <div className="text-cyan-700">➜</div>
+                        <div className="flex gap-2">
+                          <span className="w-8 h-8 rounded-full border border-slate-300 flex items-center justify-center text-slate-400">2</span>
+                          <span className="w-8 h-8 rounded-full border-2 border-purple-500 bg-purple-100 flex items-center justify-center font-bold text-purple-700 shadow-sm">3</span>
+                          <span className="w-8 h-8 rounded-full border border-slate-300 flex items-center justify-center text-slate-400">4</span>
+                        </div>
+                      </div>
+                      <div className="text-xs text-cyan-700 italic">"One, Two, Three! Circle the number 3!"</div>
+                    </div>
+                  </div>
+
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4 break-inside-avoid">
+                    {problems.map((p, i) => (
+                      <div key={i} className="border-2 border-cyan-200 rounded-2xl p-4 bg-white relative shadow-sm">
+                        {/* Water Background Effect (Subtle) */}
+                        <div className="absolute inset-0 bg-cyan-50 opacity-30 rounded-2xl pointer-events-none"></div>
+
+                        <div className="relative z-10">
+                          <div className="flex gap-3 mb-4 flex-wrap justify-center min-h-[4rem] items-center px-4">
+                            {p.objects.map((_, j) => (
+                              <div key={j} className="text-4xl transform hover:scale-110 transition-transform duration-200 cursor-default select-none" title="Count me!">
+                                {p.creature}
+                              </div>
+                            ))}
+                          </div>
+
+                          <div className="flex gap-2 justify-center">
+                            {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map(n => (
+                              <div key={n} className="w-8 h-8 md:w-9 md:h-9 border-2 border-slate-300 rounded-full flex items-center justify-center text-sm md:text-base font-semibold text-slate-600 hover:border-cyan-400 hover:bg-cyan-50">
+                                {n}
+                              </div>
+                            ))}
+                          </div>
                         </div>
                       </div>
                     ))}
                   </div>
-                  {/* Extension/Challenge Problems */}
-                  <div className="mt-6 print:mt-0 p-4 bg-purple-50 border-2 border-purple-200 rounded print:bg-white print:border" style={{ pageBreakBefore: 'always', pageBreakInside: 'avoid' }}>
-                    <div className="font-semibold text-purple-900 mb-3 text-sm">{getTrans(`worksheets.${docId}.challenge.title`, '🌟 Challenge Yourself (Optional):')}</div>
-                    <div className="space-y-2 text-sm text-purple-800">
-                      {(() => {
-                        const challengeItems = t(`worksheets.${docId}.challenge.items`)
-                        const items = Array.isArray(challengeItems) && challengeItems.length > 0 ? challengeItems : [
-                          'Count objects around you: How many pencils? How many books?',
-                          'Draw your own group of objects and count them',
-                          'Try counting backwards from 10: 10, 9, 8, 7...'
-                        ]
-                        return items.map((item, idx) => (
-                          <div key={idx}>{idx + 1}. {item}</div>
-                        ))
-                      })()}
-                    </div>
-                  </div>
-                  {/* Self-Assessment */}
-                  <div className="print:block hidden print:mt-0 mt-6 p-4 border-2 border-slate-300 rounded" style={{ pageBreakBefore: 'avoid', pageBreakInside: 'avoid' }}>
-                    <div className="font-semibold text-slate-800 mb-3 text-sm">{getTrans(`worksheets.${docId}.selfAssessment.title`, '📊 How did you do?')}</div>
-                    <div className="space-y-2 text-xs">
-                      {(() => {
-                        const assessmentItems = t(`worksheets.${docId}.selfAssessment.items`)
-                        const items = Array.isArray(assessmentItems) && assessmentItems.length > 0 ? assessmentItems : [
-                          'I can count objects accurately',
-                          'I can match quantities to numbers',
-                          `I circled all ${problems.length} correct numbers`
-                        ]
-                        return items.map((item, idx) => {
-                          const itemText = typeof item === 'string' ? item.replace('{count}', String(problems.length)) : item
-                          return <div key={idx}>☐ {itemText}</div>
-                        })
-                      })()}
-                    </div>
-                    <div className="mt-3 text-xs">
-                      <strong>{getTrans(`worksheets.${docId}.selfAssessment.score`, 'My score:')}</strong> ___ / {problems.length}
-                    </div>
-                    <div className="mt-2 text-xs">
-                      <strong>{getTrans(`worksheets.${docId}.selfAssessment.hardest`, 'What was hardest?')}</strong> _________________________
-                    </div>
-                  </div>
+
                   {showAnswersForDoc('count-circle-1-10', () => (
                     <div className="mt-6 p-4 border-2 border-emerald-300 bg-emerald-50 rounded print:border print:bg-white print:page-break-before-always">
-                      <div className="font-bold text-emerald-900 mb-3 text-base">{getTrans(`worksheets.${docId}.answerKey.title`, '✅ Answer Key')}</div>
-                      <ul className="list-disc list-inside space-y-2 text-sm text-emerald-800">
+                      <div className="font-bold text-emerald-900 mb-3 text-base">✅ {getTrans('common.answerKey', 'Answer Key')}</div>
+                      <div className="grid grid-cols-2 gap-2 text-sm text-emerald-800">
                         {problems.map((p, i) => (
-                          <li key={i}><strong>{getTrans(`worksheets.${docId}.answerKey.boxLabel`, 'Box')} {i + 1}:</strong> {getTrans(`worksheets.${docId}.answerKey.circleLabel`, 'Circle')} {p.count} ({getTrans(`worksheets.${docId}.answerKey.thereAre`, 'There are')} {p.count} {getTrans(`worksheets.${docId}.answerKey.circlesInBox`, 'circles in the box')})</li>
+                          <div key={i}>
+                            Box {i + 1}: <span className="font-bold">{p.count}</span> {p.creature}
+                          </div>
                         ))}
-                      </ul>
-                      <div className="text-xs text-emerald-700 mt-3">{getTrans(`worksheets.${docId}.answerKey.note`, '💡 Remember: Count each object once, and the last number you say is the total. Then circle that number!')}</div>
+                      </div>
                     </div>
                   ))}
                 </WorksheetSectionWrapper>
@@ -20871,18 +20858,21 @@ export function PrintablesPage() {
 
         {
           activeDocs.includes('count-match-1-20') && (() => {
-            const emojis = ['🍎', '⚽', '🚗', '⭐', '🎈', '🐶', '🐸', '🐢', '🦋']
+            const rng = makeRng(`${effectiveSeed}|v${variant}|doc=${doc}`)
+            const treasureItems = ['💰', '💎', '⚪', '💍', '👑', '🗝️', '🏺', '🧭', '🪙'];
+
             const problems = Array.from({ length: 6 }, (_, idx) => {
               const count = Math.floor(rng() * 20) + 1
-              const emoji = emojis[idx % emojis.length]
+              const emoji = treasureItems[idx % treasureItems.length]
               return { count, emoji }
             })
+
             return (
               <WorksheetSectionWrapper
                 docId="count-match-1-20"
-                title="Count & Circle 1–20"
-                emoji="🔢"
-                description="Count the objects. Circle the correct number in the boxes below."
+                title="Treasure Hunt Counting"
+                emoji="🏴‍☠️"
+                description="Ahoy matey! Count the treasures in each chest and circle the matching number."
                 problemCount={problems.length}
                 learningObjectives={[
                   'Count objects accurately up to 20',
@@ -20891,40 +20881,61 @@ export function PrintablesPage() {
                   'Build number recognition skills'
                 ]}
                 parentTeacherTips={[
-                  'Encourage students to point to each object as they count',
-                  'Ask: "How many are in this row?" to help with tracking',
-                  'Help students recognize that the last number counted is the total',
-                  'Try counting in groups of 5 for larger numbers'
+                  'Encourage students to point to each coin or gem as they count.',
+                  'Ask: "How many treasures did we find?"',
+                  'Try counting in groups of 5 for larger numbers.',
+                  'Pretend to put the treasures in a bag as you count!'
                 ]}
               >
-                <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-purple-400 to-pink-400 animate-gradient-x mb-2" />
+                <div className="print:hidden h-1 w-full rounded-full bg-gradient-to-r from-yellow-400 to-amber-600 animate-gradient-x mb-4" />
+
+                {/* Decorative Header */}
+                <div className="w-full h-20 mb-6 bg-amber-50 rounded-lg border-2 border-amber-300 flex items-center justify-center relative overflow-hidden">
+                  <div className="absolute opacity-10 text-6xl rotate-12 left-10">🗺️</div>
+                  <div className="absolute opacity-10 text-6xl -rotate-12 right-10">☠️</div>
+                  <div className="text-2xl font-bold text-amber-900 flex items-center gap-3 z-10">
+                    <span>💰</span> PIRATE TREASURE <span>💎</span>
+                  </div>
+                </div>
+
                 {/* Worked Example */}
-                <div className="mb-6 p-4 bg-blue-50 border-2 border-blue-200 rounded-lg print:border print:bg-white">
-                  <div className="font-semibold text-blue-900 mb-2 text-sm">📚 Example:</div>
+                <div className="mb-6 p-4 bg-yellow-50 border-2 border-yellow-200 rounded-lg print:border print:bg-white relative">
+                  <div className="absolute -top-3 -right-3 text-4xl transform rotate-12">🦜</div>
+                  <div className="font-semibold text-yellow-900 mb-2 text-sm">📚 Captain's Example:</div>
                   <div className="flex items-center gap-4">
-                    <div className="flex gap-1 flex-wrap w-24">
-                      {Array.from({ length: 4 }).map((_, i) => <span key={i} className="text-2xl">🍎</span>)}
+                    <div className="w-24 h-16 bg-amber-200/50 border-2 border-amber-400/50 rounded-lg flex flex-wrap items-center justify-center gap-1 p-1">
+                      {Array.from({ length: 4 }).map((_, i) => <span key={i} className="text-xl">💰</span>)}
                     </div>
-                    <div className="flex-1 text-sm bg-white p-2 rounded border border-blue-100">
-                      <p>1. Count: 1, 2, 3, 4.</p>
-                      <p>2. Found 4 apples!</p>
-                      <p>3. Circle the number <strong>4</strong>.</p>
+                    <div className="flex-1 text-sm bg-white p-2 rounded border border-yellow-100 italic text-slate-700">
+                      "I see 1, 2, 3, 4 gold coins in the chest! Circle 4!"
                     </div>
                   </div>
                 </div>
-                <div className="grid grid-cols-2 gap-4" style={{ pageBreakAfter: 'auto' }}>
+
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6 break-inside-avoid">
                   {problems.map((p, i) => (
-                    <div key={i} className="border border-slate-300 rounded-xl p-4 bg-white flex flex-col items-center">
-                      <div className="grid grid-cols-5 gap-1 mb-4 min-h-[6rem] place-items-center">
-                        {Array.from({ length: p.count }).map((_, j) => (
-                          <div key={j} className="text-2xl print:text-3xl leading-none">
-                            {p.emoji}
+                    <div key={i} className="flex flex-col items-center">
+                      {/* Treasure Chest Container */}
+                      <div className="w-full bg-amber-100 border-4 border-amber-700 rounded-t-xl rounded-b-lg p-1 relative shadow-lg">
+                        {/* Lid Detail */}
+                        <div className="absolute -top-3 left-1/2 -translate-x-1/2 w-1/3 h-4 bg-amber-800 rounded-full"></div>
+
+                        {/* Inside the Chest */}
+                        <div className="bg-amber-900/10 rounded-lg p-4 min-h-[8rem] flex items-center justify-center">
+                          <div className="grid grid-cols-5 gap-1 place-items-center">
+                            {Array.from({ length: p.count }).map((_, j) => (
+                              <div key={j} className="text-2xl print:text-3xl leading-none drop-shadow-sm filter contrast-125">
+                                {p.emoji}
+                              </div>
+                            ))}
                           </div>
-                        ))}
+                        </div>
                       </div>
-                      <div className="w-full flex gap-2 justify-center pt-2 border-t border-slate-100">
-                        {[p.count - 2, p.count - 1, p.count, p.count + 1, p.count + 2].filter(n => n > 0 && n <= 20).slice(0, 4).map(n => (
-                          <div key={n} className="w-12 h-12 border-2 border-slate-300 rounded-full flex items-center justify-center text-xl font-bold text-slate-700 bg-slate-50">
+
+                      {/* Number Options - Planks */}
+                      <div className="w-[90%] bg-amber-50 border-x-2 border-b-2 border-amber-200 rounded-b-xl p-3 flex justify-around shadow-sm">
+                        {[p.count - 2, p.count - 1, p.count, p.count + 1, p.count + 2].filter(n => n > 0 && n <= 20).slice(0, 4).sort((a, b) => a - b).map(n => (
+                          <div key={n} className="w-10 h-10 md:w-12 md:h-12 border-2 border-amber-300 rounded-lg flex items-center justify-center text-lg font-bold text-amber-900 bg-amber-100 hover:bg-amber-200 hover:border-amber-500 cursor-pointer shadow-inner">
                             {n}
                           </div>
                         ))}
@@ -20932,39 +20943,18 @@ export function PrintablesPage() {
                     </div>
                   ))}
                 </div>
-                {/* Extension/Challenge Problems */}
-                <div className="mt-6 print:mt-0 p-4 bg-purple-50 border-2 border-purple-200 rounded print:bg-white print:border" style={{ pageBreakBefore: 'always', pageBreakInside: 'avoid' }}>
-                  <div className="font-semibold text-purple-900 mb-3 text-sm">🌟 {getTrans('common.challengeYourself', 'Challenge Yourself (Optional):')}</div>
-                  <div className="space-y-2 text-sm text-purple-800">
-                    <div>1. Count objects around you: How many toys? How many books?</div>
-                    <div>2. Draw your own group of objects and count them</div>
-                    <div>3. Try counting by 2s: 2, 4, 6, 8, 10...</div>
-                  </div>
-                </div>
-                {/* Self-Assessment */}
-                <div className="print:block hidden print:mt-0 mt-6 p-4 border-2 border-slate-300 rounded" style={{ pageBreakBefore: 'avoid', pageBreakInside: 'avoid' }}>
-                  <div className="font-semibold text-slate-800 mb-3 text-sm">📊 {getTrans('common.howDidYouDo', 'How did you do?')}</div>
-                  <div className="space-y-2 text-xs">
-                    <div>☐ I can count objects accurately up to 20</div>
-                    <div>☐ I can match quantities to numbers</div>
-                    <div>☐ I matched all {problems.length} groups correctly</div>
-                  </div>
-                  <div className="mt-3 text-xs">
-                    <strong>{getTrans('common.myScore', 'My score:')}</strong> ___ / {problems.length}
-                  </div>
-                  <div className="mt-2 text-xs">
-                    <strong>{getTrans('common.whatWasHardest', 'What was hardest?')}</strong> _________________________
-                  </div>
-                </div>
+
                 {showAnswersForDoc('count-match-1-20', () => (
                   <div className="mt-6 p-4 border-2 border-emerald-300 bg-emerald-50 rounded print:border print:bg-white print:page-break-before-always">
                     <div className="font-bold text-emerald-900 mb-3 text-base">✅ {getTrans('common.answerKey', 'Answer Key')}</div>
-                    <ul className="list-disc list-inside space-y-2 text-sm text-emerald-800">
+                    <div className="grid grid-cols-2 gap-2 text-sm text-emerald-800">
                       {problems.map((p, i) => (
-                        <li key={i}><strong>Row {i + 1}:</strong> Match to {p.count} (There are {p.count} circles in the group)</li>
+                        <div key={i}>
+                          Chest {i + 1}: <span className="font-bold">{p.count}</span> {p.emoji === '💰' ? 'Coins' : p.emoji === '💎' ? 'Gems' : 'Treasures'}
+                        </div>
                       ))}
-                    </ul>
-                    <div className="text-xs text-emerald-700 mt-3">💡 Remember: Count each object once, and the last number you say is the total. Then draw a line to match that number!</div>
+                    </div>
+                    <div className="text-xs text-emerald-700 mt-3">💡 Tip: Count carefully to find the loot!</div>
                   </div>
                 ))}
               </WorksheetSectionWrapper>
@@ -21081,12 +21071,12 @@ export function PrintablesPage() {
             const rng = makeRng(`${effectiveSeed}|v${variant}|doc=${doc}`)
 
             const shapes = [
-              { name: 'Star', render: (props: any) => <polygon points="50,5 61,40 98,40 68,62 79,95 50,75 21,95 32,62 2,40 39,40" fill="none" stroke="currentColor" strokeWidth="4" strokeLinejoin="round" {...props} /> },
-              { name: 'Heart', render: (props: any) => <path d="M50 30 C65 10, 95 20, 95 50 C95 75, 50 95, 50 95 C50 95, 5 75, 5 50 C5 20, 35 10, 50 30 Z" fill="none" stroke="currentColor" strokeWidth="4" strokeLinejoin="round" {...props} /> },
-              { name: 'Circle', render: (props: any) => <circle cx="50" cy="50" r="40" fill="none" stroke="currentColor" strokeWidth="4" {...props} /> },
-              { name: 'Square', render: (props: any) => <rect x="15" y="15" width="70" height="70" rx="4" fill="none" stroke="currentColor" strokeWidth="4" {...props} /> },
-              { name: 'Diamond', render: (props: any) => <polygon points="50,10 90,50 50,90 10,50" fill="none" stroke="currentColor" strokeWidth="4" strokeLinejoin="round" {...props} /> },
-              { name: 'Triangle', render: (props: any) => <polygon points="50,15 85,85 15,85" fill="none" stroke="currentColor" strokeWidth="4" strokeLinejoin="round" {...props} /> },
+              { name: 'Starfish', render: (props: any) => <path d="M50 5 L63 35 L95 38 L72 60 L79 92 L50 75 L21 92 L28 60 L5 38 L37 35 Z" fill="none" stroke="currentColor" strokeWidth="3" strokeLinejoin="round" {...props} /> },
+              { name: 'Fish', render: (props: any) => <path d="M85 50 C85 50 70 30 50 30 C30 30 10 50 10 50 C10 50 30 70 50 70 C70 70 85 50 85 50 Z M85 50 L95 35 V65 L85 50 M60 50 A2 2 0 1 1 60 50.01" fill="none" stroke="currentColor" strokeWidth="3" strokeLinejoin="round" {...props} /> },
+              { name: 'Shell', render: (props: any) => <path d="M20 80 Q50 10 80 80 L20 80 M50 20 L50 80 M35 25 L35 80 M65 25 L65 80" fill="none" stroke="currentColor" strokeWidth="3" strokeLinejoin="round" {...props} /> },
+              { name: 'Jellyfish', render: (props: any) => <path d="M20 40 Q50 -10 80 40 M20 40 Q50 30 80 40 M30 40 Q30 80 20 90 M50 40 Q50 80 50 95 M70 40 Q70 80 80 90" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" {...props} /> },
+              { name: 'Seahorse', render: (props: any) => <path d="M40 20 Q60 10 60 30 Q60 40 50 45 Q50 60 60 70 Q60 90 40 90 Q30 90 30 80 M45 25 A2 2 0 1 1 45 25.01" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" {...props} /> },
+              { name: 'Turtle', render: (props: any) => <path d="M30 40 A20 15 0 1 1 70 40 A20 15 0 1 1 30 40 M30 40 L20 30 M70 40 L80 30 M30 50 L20 60 M70 50 L80 60 M50 25 L50 15" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" {...props} /> },
             ];
 
             const problems = Array.from({ length: 6 }, () => {
@@ -21098,9 +21088,9 @@ export function PrintablesPage() {
             return (
               <WorksheetSectionWrapper
                 docId="count-color-1-10"
-                title="Count & Color (1–10)"
-                emoji="🎨"
-                description="Count the shapes and color the correct number of items."
+                title="Coral Reef Colors (1–10)"
+                emoji="🐠"
+                description="Divers found a beautiful reef! Read the number and color that many sea creatures."
                 problemCount={problems.length}
                 learningObjectives={[
                   'Count objects accurately up to 10',
@@ -21110,38 +21100,62 @@ export function PrintablesPage() {
                 ]}
                 parentTeacherTips={[
                   'Encourage students to count before coloring',
-                  'Use one-to-one correspondence: count each object once',
+                  'Use one-to-one correspondence: count each creature once',
                   'Help students understand they should color exactly the number shown',
-                  'Practice counting aloud: 1, 2, 3, 4, 5...',
-                  'Extension: Try counting larger groups or creating patterns with colors'
+                  'Talk about the sea creatures: which one is your favorite?'
                 ]}
               >
-                <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-purple-400 to-pink-400 animate-gradient-x mb-2" />
-                {/* Worked Example */}
-                <div className="mb-6 p-4 bg-blue-50 border-2 border-blue-200 rounded-lg print:border print:bg-white">
-                  <div className="font-semibold text-blue-900 mb-3 text-sm">📚 Example - Let's solve this together:</div>
-                  <div className="space-y-2 text-sm">
-                    <div className="font-semibold text-base"><strong>Problem:</strong> Color 5 stars</div>
-                    <div className="pl-4 border-l-2 border-blue-300 space-y-1">
-                      <div><strong>Step 1:</strong> Count the stars: 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 (there are 10 stars total)</div>
-                      <div><strong>Step 2:</strong> We need to color exactly 5 stars</div>
-                      <div><strong>Step 3:</strong> Color 5 stars (any 5 stars you choose)</div>
-                      <div className="font-semibold text-blue-900"><strong>Answer:</strong> Color 5 stars</div>
-                      <div className="text-xs text-blue-700 mt-1">💡 Tip: Count all the objects first, then color exactly the number asked for!</div>
+                <div className="print:hidden h-1 w-full rounded-full bg-gradient-to-r from-teal-400 to-blue-500 animate-gradient-x mb-4" />
+
+                {/* Decorative Header */}
+                <div className="w-full h-24 mb-6 relative overflow-hidden bg-teal-50 rounded-xl border-2 border-teal-200">
+                  <div className="absolute -bottom-4 left-0 text-6xl text-teal-200 opacity-50">🌿</div>
+                  <div className="absolute -bottom-4 right-0 text-6xl text-teal-200 opacity-50">🪸</div>
+                  <div className="absolute top-2 left-10 text-2xl animate-bounce-slow">🐠</div>
+                  <div className="absolute top-8 right-20 text-xl animate-bounce-medium">🐡</div>
+                  <div className="absolute inset-0 flex items-center justify-center">
+                    <div className="bg-white/80 px-8 py-2 rounded-full border border-teal-300 shadow-sm">
+                      <span className="text-2xl font-bold text-teal-800">REEF EXPLORER</span>
                     </div>
                   </div>
                 </div>
-                <div className="grid grid-cols-1 gap-6" style={{ pageBreakAfter: 'auto' }}>
-                  {problems.map((p, i) => (
-                    <div key={i} className="border-2 border-slate-300 rounded-lg p-6 bg-white">
-                      <div className="text-center mb-4">
-                        <div className="text-2xl font-semibold text-slate-800 mb-2">Color {p.count} {p.shape.name}s</div>
-                        <div className="text-sm text-slate-600">Count and color exactly {p.count} {p.shape.name.toLowerCase()}s</div>
+
+                {/* Worked Example */}
+                <div className="mb-6 p-4 bg-blue-50 border-2 border-blue-200 rounded-lg print:border print:bg-white">
+                  <div className="font-semibold text-blue-900 mb-3 text-sm">📚 Example - Coloring Guide:</div>
+                  <div className="space-y-2 text-sm">
+                    <div className="font-semibold text-slate-700">Task: Color 3 Fish</div>
+                    <div className="flex items-center gap-4 bg-white p-3 rounded-lg border border-blue-100">
+                      <div className="flex gap-2">
+                        <span className="text-3xl text-blue-500">🐟</span>
+                        <span className="text-3xl text-blue-500">🐟</span>
+                        <span className="text-3xl text-blue-500">🐟</span>
+                        <span className="text-3xl text-slate-200">🐟</span>
+                        <span className="text-3xl text-slate-200">🐟</span>
                       </div>
-                      <div className="flex gap-3 flex-wrap justify-center">
+                      <div className="text-blue-600 font-bold">← "I colored 3!"</div>
+                    </div>
+                  </div>
+                </div>
+
+                <div className="grid grid-cols-1 gap-6 break-inside-avoid">
+                  {problems.map((p, i) => (
+                    <div key={i} className="border-2 border-teal-200 rounded-xl p-6 bg-white shadow-sm relative overflow-hidden">
+                      {/* Bubbles Background */}
+                      <div className="absolute -right-4 -top-4 w-16 h-16 bg-teal-50 rounded-full opacity-50"></div>
+                      <div className="absolute left-10 bottom-2 w-8 h-8 rounded-full border-2 border-teal-100 opacity-50"></div>
+
+                      <div className="text-center mb-4 relative z-10">
+                        <div className="inline-block px-4 py-1 bg-teal-100 rounded-full text-2xl font-bold text-teal-900 mb-2 border border-teal-300">
+                          Color {p.count} {p.shape.name}{p.count > 1 ? (p.shape.name.endsWith('sh') ? '' : 's') : ''}
+                        </div>
+                        <div className="text-xs text-teal-600 mt-1">Found {p.total} {p.shape.name}{p.total > 1 ? (p.shape.name.endsWith('sh') ? '' : 's') : ''}. Color only {p.count}!</div>
+                      </div>
+
+                      <div className="flex gap-4 flex-wrap justify-center relative z-10">
                         {p.objects.map((_, j) => (
-                          <div key={j} className="w-16 h-16 print:w-20 print:h-20 flex items-center justify-center text-slate-800">
-                            <svg viewBox="0 0 100 100" className="w-full h-full text-slate-800">
+                          <div key={j} className="w-14 h-14 print:w-16 print:h-16 flex items-center justify-center text-slate-400 hover:text-teal-500 transition-colors duration-300 cursor-pointer">
+                            <svg viewBox="0 0 100 100" className="w-full h-full drop-shadow-sm">
                               {p.shape.render({})}
                             </svg>
                           </div>
@@ -21150,39 +21164,17 @@ export function PrintablesPage() {
                     </div>
                   ))}
                 </div>
-                {/* Extension/Challenge Problems */}
-                <div className="mt-6 print:mt-0 p-4 bg-purple-50 border-2 border-purple-200 rounded print:bg-white print:border" style={{ pageBreakBefore: 'always', pageBreakInside: 'avoid' }}>
-                  <div className="font-semibold text-purple-900 mb-3 text-sm">🌟 {getTrans('common.challengeYourself', 'Challenge Yourself (Optional):')}</div>
-                  <div className="space-y-2 text-sm text-purple-800">
-                    <div>1. Draw your own group of objects and color a specific number</div>
-                    <div>2. Create a pattern: color every other object</div>
-                    <div>3. Count objects around you and color that many on paper</div>
-                  </div>
-                </div>
-                {/* Self-Assessment */}
-                <div className="print:block hidden print:mt-0 mt-6 p-4 border-2 border-slate-300 rounded" style={{ pageBreakBefore: 'avoid', pageBreakInside: 'avoid' }}>
-                  <div className="font-semibold text-slate-800 mb-3 text-sm">📊 {getTrans('common.howDidYouDo', 'How did you do?')}</div>
-                  <div className="space-y-2 text-xs">
-                    <div>☐ I can count objects accurately</div>
-                    <div>☐ I colored the correct number of items</div>
-                    <div>☐ I completed all {problems.length} rows correctly</div>
-                  </div>
-                  <div className="mt-3 text-xs">
-                    <strong>{getTrans('common.myScore', 'My score:')}</strong> ___ / {problems.length}
-                  </div>
-                  <div className="mt-2 text-xs">
-                    <strong>{getTrans('common.whatWasHardest', 'What was hardest?')}</strong> _________________________
-                  </div>
-                </div>
+
                 {showAnswersForDoc('count-color-1-10', () => (
                   <div className="mt-6 p-4 border-2 border-emerald-300 bg-emerald-50 rounded print:border print:bg-white print:page-break-before-always">
                     <div className="font-bold text-emerald-900 mb-3 text-base">✅ {getTrans('common.answerKey', 'Answer Key')}</div>
-                    <ul className="list-disc list-inside space-y-2 text-sm text-emerald-800">
+                    <div className="grid grid-cols-2 gap-2 text-sm text-emerald-800">
                       {problems.map((p, i) => (
-                        <li key={i}><strong>Row {i + 1}:</strong> Color {p.count} {p.emoji} (There are {p.total} {p.emoji} total, color exactly {p.count} of them)</li>
+                        <div key={i}>
+                          Box {i + 1}: Color <span className="font-bold">{p.count}</span> {p.shape.name}{p.count > 1 ? (p.shape.name.endsWith('sh') ? '' : 's') : ''}
+                        </div>
                       ))}
-                    </ul>
-                    <div className="text-xs text-emerald-700 mt-3">💡 Remember: Count all the objects first, then color exactly the number asked for. Make sure you color the right amount!</div>
+                    </div>
                   </div>
                 ))}
               </WorksheetSectionWrapper>
