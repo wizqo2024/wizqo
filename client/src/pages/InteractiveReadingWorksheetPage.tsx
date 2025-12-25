@@ -103,10 +103,28 @@ export default function InteractiveReadingWorksheetPage() {
 
             const imgData = canvas.toDataURL('image/png');
             const pdf = new jsPDF('p', 'mm', 'a4');
+            const imgProps = pdf.getImageProperties(imgData);
+
+            const imgRatio = imgProps.width / imgProps.height; // Ratio width/height
             const pdfWidth = pdf.internal.pageSize.getWidth();
             const pdfHeight = pdf.internal.pageSize.getHeight();
+            // const pdfRatio = pdfWidth / pdfHeight; (Unused but implicit)
 
-            pdf.addImage(imgData, 'PNG', 0, 0, pdfWidth, pdfHeight);
+            // Calculate width/height to fit page width
+            let w = pdfWidth;
+            let h = w / imgRatio;
+
+            // If the calculated height is taller than the page, constrain by height instead
+            if (h > pdfHeight) {
+                h = pdfHeight;
+                w = h * imgRatio;
+            }
+
+            // Center content
+            const x = (pdfWidth - w) / 2;
+            const y = 0; // Top align for worksheets usually looks best, or (pdfHeight - h) / 2 for center
+
+            pdf.addImage(imgData, 'PNG', x, y, w, h);
             pdf.save(`reading-discovery-${currentStory.id}.pdf`);
         } catch (error) {
             console.error('PDF generation failed:', error);
