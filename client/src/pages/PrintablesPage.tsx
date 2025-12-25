@@ -12183,43 +12183,61 @@ export function PrintablesPage() {
                   {problems.map((train, idx) => (
                     <div key={idx} className="w-full overflow-hidden p-2">
                       {/* Ensure no wrapping and allow scrolling/shrinking if needed, but for print we want it to fit */}
-                      <div className="flex items-end gap-1 flex-nowrap">
+                      <div className="flex items-end gap-0.5 flex-nowrap">
                         {/* Engine SVG */}
-                        <div className="shrink-0 w-24 h-20 mb-1 relative">
-                          <svg viewBox="0 0 100 80" className={`w-full h-full text-${train.color}-600 fill-current`}>
-                            {/* Simple Engine Shape */}
-                            <path d="M10,40 L70,40 L70,65 L10,65 Z" /> {/* Body base */}
-                            <rect x="50" y="15" width="20" height="40" /> {/* Cab/Boiler vertical */}
-                            <path d="M50,15 L80,5 L70,25 L50,25 Z" /> {/* Top Cowl */}
-                            <rect x="15" y="25" width="25" height="15" fill="white" fillOpacity="0.7" /> {/* Window */}
-                            <circle cx="25" cy="65" r="10" fill="#334155" stroke="currentColor" strokeWidth="2" />
-                            <circle cx="55" cy="65" r="10" fill="#334155" stroke="currentColor" strokeWidth="2" />
-                            <path d="M50,15 L50,5 L60,0 L60,15 Z" /> {/* Funnel */}
-                            {/* Smoke puffs */}
-                            <circle cx="65" cy="-5" r="3" className="text-slate-300 animate-ping" style={{ transformOrigin: 'center', animationDuration: '1.5s' }} />
-                            <circle cx="75" cy="-15" r="5" className="text-slate-200 animate-pulse" />
+                        <div className="shrink-0 w-24 h-20 mb-1 relative flex flex-col items-center justify-end">
+                          <svg viewBox="0 0 100 80" className={`w-full h-full text-${train.color}-600 fill-current drop-shadow-sm`}>
+                            {/* Classic Steam Engine Profile */}
+                            {/* Cabin */}
+                            <path d="M55,30 L90,30 L90,65 L55,65 Z" />
+                            {/* Roof */}
+                            <path d="M52,30 L93,30 Q95,25 93,25 L52,25 Q50,25 52,30 Z" fillOpacity="0.8" />
+                            {/* Boiler */}
+                            <rect x="20" y="35" width="40" height="30" rx="2" />
+                            {/* Funnel */}
+                            <path d="M25,35 L25,20 L15,10 L35,10 L25,20 L25,35 Z" />
+                            {/* Cow Catcher / Front */}
+                            <path d="M20,65 L10,65 L5,55 L20,55 Z" />
+                            {/* Window */}
+                            <rect x="62" y="36" width="20" height="15" fill="white" fillOpacity="0.8" rx="1" />
+
+                            {/* Wheels - Big Rear */}
+                            <circle cx="75" cy="70" r="9" fill="#334155" stroke="currentColor" strokeWidth="2" />
+                            <circle cx="75" cy="70" r="3" fill="#94a3b8" />
+
+                            {/* Wheels - Small Fronts */}
+                            <circle cx="30" cy="70" r="7" fill="#334155" stroke="currentColor" strokeWidth="2" />
+                            <circle cx="30" cy="70" r="2" fill="#94a3b8" />
+                            <circle cx="48" cy="70" r="7" fill="#334155" stroke="currentColor" strokeWidth="2" />
+                            <circle cx="48" cy="70" r="2" fill="#94a3b8" />
+
+                            {/* Smoke */}
+                            <circle cx="25" cy="0" r="4" className="text-slate-300 animate-ping" style={{ transformOrigin: 'center', animationDuration: '2s' }} />
+                            <circle cx="35" cy="-8" r="6" className="text-slate-200 animate-pulse" />
                           </svg>
-                          <div className={`absolute bottom-2 left-0 w-full text-center text-xs font-bold text-slate-900 bg-white/50 rounded-sm px-1`}>
-                            Exp. {train.start}
+                          <div className="absolute -top-1 left-0 w-full text-center">
+                            <span className={`inline-block px-2 py-0.5 text-[10px] uppercase tracking-wider font-bold text-white bg-${train.color}-500 rounded-full shadow-sm`}>
+                              Engine {train.start}
+                            </span>
                           </div>
                         </div>
 
                         {/* Carriages */}
-                        <div className="flex items-end flex-nowrap">
+                        <div className="flex items-end flex-nowrap pl-1">
                           {train.carriages.map((c, i) => (
                             <div key={i} className="flex items-end shrink-0">
                               {/* Coupler - adjusted margin/width */}
-                              {i >= 0 && <div className="w-2 h-1 bg-slate-600 mb-5 relative z-0"></div>}
+                              {i >= 0 && <div className={`w-1.5 h-1.5 rounded-full bg-slate-400 mb-5 relative z-0 -mr-0.5`}></div>}
 
                               {/* Carriage Box - adjusted size slightly to fit 10 */}
-                              <div className={`w-10 h-12 md:w-12 md:h-14 border-2 border-${train.color}-400 bg-${train.color}-50 rounded-md relative z-10 flex flex-col items-center justify-between pb-1 shadow-sm`}>
+                              <div className={`w-10 h-12 md:w-11 md:h-14 border-2 border-${train.color}-400 bg-${train.color}-50 rounded-lg relative z-10 flex flex-col items-center justify-between pb-1 shadow-sm`}>
                                 {/* Roof line */}
-                                <div className={`w-full h-1.5 bg-${train.color}-200 border-b border-${train.color}-300`}></div>
+                                <div className={`w-full h-1.5 bg-${train.color}-200 border-b border-${train.color}-300 rounded-t-lg`}></div>
 
                                 {/* Number Content */}
                                 <div className="flex-1 flex items-center justify-center w-full">
                                   {c.isHidden ? (
-                                    <div className={`w-6 h-6 md:w-8 md:h-8 rounded bg-white border border-${train.color}-200 shadow-inner flex items-center justify-center`}>
+                                    <div className={`w-6 h-6 md:w-7 md:h-7 rounded bg-white border border-${train.color}-200 shadow-inner flex items-center justify-center`}>
                                     </div>
                                   ) : (
                                     <span className={`text-lg md:text-xl font-bold text-${train.color}-900`}>{c.num}</span>
@@ -12227,9 +12245,9 @@ export function PrintablesPage() {
                                 </div>
 
                                 {/* Wheels */}
-                                <div className="w-full flex justify-around px-1 translate-y-1.5">
-                                  <div className="w-2.5 h-2.5 rounded-full bg-slate-700 border border-slate-400"></div>
-                                  <div className="w-2.5 h-2.5 rounded-full bg-slate-700 border border-slate-400"></div>
+                                <div className="w-full flex justify-around px-1 translate-y-2">
+                                  <div className="w-2.5 h-2.5 rounded-full bg-slate-700 border-2 border-slate-500 shadow-sm"></div>
+                                  <div className="w-2.5 h-2.5 rounded-full bg-slate-700 border-2 border-slate-500 shadow-sm"></div>
                                 </div>
                               </div>
                             </div>
