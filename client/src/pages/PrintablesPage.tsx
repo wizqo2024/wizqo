@@ -3165,133 +3165,177 @@ export function PrintablesPage() {
         {activeDocs.includes('geo-continents-k2') && (
           <WorksheetSectionWrapper
             docId="geo-continents-k2"
-            title="Label the 7 Continents (K–2)"
+            title="World Explorer: The 7 Continents"
             emoji="🌍"
-            description="Beginner‑friendly world outline. Write each continent's name on the lines below. Optional: color each continent a different color."
+            description="Color the map and trace the continent names. Can you find where you live?"
             problemCount={7}
             learningObjectives={[
               'Identify and name the 7 continents',
-              'Understand world geography basics',
-              'Match continent names to their locations on a map'
+              'Associate continents with colors on a map',
+              'Practice tracing geographic names',
+              'Develop basic map reading skills'
             ]}
             parentTeacherTips={[
-              'The 7 continents are: North America, South America, Europe, Africa, Asia, Australia, and Antarctica',
-              'Help students use the numbered markers to match continents',
-              'Encourage students to color each continent a different color',
-              'Extension: Learn about countries in each continent'
+              'Sing the "7 Continents Song" to help remember them.',
+              'Discuss which continent you live on and point to it.',
+              'Use the colors to help distinguish borders between continents.'
             ]}
           >
-            <h2 className="text-lg font-bold text-slate-900">🌍 Label the 7 Continents (K–2)</h2>
-            <p className="text-slate-600 text-sm mb-3">Beginner‑friendly world outline. Write each continent’s name on the lines below. Optional: color each continent a different color.</p>
-            <div className="border border-slate-300 rounded p-4 bg-white break-inside-avoid" style={{ pageBreakAfter: 'auto' }}>
-              <svg viewBox="0 0 800 500" className="w-full h-auto" role="img" aria-labelledby="continents-title">
-                <title id="continents-title">World map outline with 7 continents</title>
-                <g fill="none" stroke="#111827" strokeWidth="4">
-                  <rect x="40" y="40" width="720" height="420" rx="8" />
-                  {/* Better continent shapes */}
-                  {/* North America */}
-                  <path d="M110,60 C80,60 40,100 60,150 C70,180 120,220 160,200 C180,190 220,100 240,60 C200,40 150,50 110,60 Z" />
-                  {/* South America */}
-                  <path d="M200,220 C240,220 280,240 290,280 C300,340 260,400 240,420 C220,400 190,340 180,280 C180,250 190,220 200,220 Z" />
-                  {/* Europe */}
-                  <path d="M360,80 C340,90 320,130 340,150 C360,160 380,130 400,120 C420,110 400,80 360,80 Z" />
-                  {/* Africa */}
-                  <path d="M350,170 C330,220 340,300 380,360 C420,380 480,320 480,260 C480,200 450,160 350,170 Z" />
-                  {/* Asia */}
-                  <path d="M420,70 C460,50 600,60 680,100 C700,150 660,240 580,260 C520,240 480,200 440,150 C430,120 420,70 420,70 Z" />
-                  {/* Australia */}
-                  <path d="M600,300 C580,320 580,360 620,380 C660,370 680,340 660,310 C640,290 620,290 600,300 Z" />
-                  {/* Antarctica */}
-                  <path d="M150,450 C250,440 550,440 650,450 C660,470 640,490 150,490 C140,470 140,460 150,450 Z" />
+            {/* Map Header */}
+            <div className="print:hidden w-full h-12 mb-2 relative overflow-hidden bg-sky-100 rounded-lg flex items-center justify-center">
+              <div className="font-bold text-xl text-sky-700">🗺️ World Map Adventure 🧭</div>
+            </div>
+
+            <div className="border border-slate-300 rounded-xl p-4 bg-sky-50/30 break-inside-avoid">
+              <svg viewBox="0 0 800 500" className="w-full h-auto drop-shadow-sm" role="img" aria-labelledby="continents-title">
+                <title id="continents-title">World map outline with 7 continents for coloring</title>
+
+                {/* Ocean Background Pattern (Subtle waves) */}
+                <pattern id="ocean-waves" x="0" y="0" width="50" height="20" patternUnits="userSpaceOnUse">
+                  <path d="M0,10 Q12.5,0 25,10 T50,10" fill="none" stroke="#e0f2fe" strokeWidth="2" />
+                </pattern>
+                <rect x="0" y="0" width="800" height="500" fill="url(#ocean-waves)" opacity="0.5" rx="8" />
+
+                {/* Compass Rose */}
+                <g transform="translate(680, 400)">
+                  <circle cx="0" cy="0" r="45" fill="white" stroke="#94a3b8" strokeWidth="2" />
+                  <path d="M0,-35 L10,-10 L35,0 L10,10 L0,35 L-10,10 L-35,0 L-10,-10 Z" fill="#94a3b8" stroke="#475569" strokeWidth="1" />
+                  <text x="0" y="-40" textAnchor="middle" fontSize="14" fontWeight="bold" fill="#475569">N</text>
+                  <text x="0" y="52" textAnchor="middle" fontSize="14" fontWeight="bold" fill="#475569">S</text>
+                  <text x="50" y="5" textAnchor="middle" fontSize="14" fontWeight="bold" fill="#475569">E</text>
+                  <text x="-50" y="5" textAnchor="middle" fontSize="14" fontWeight="bold" fill="#475569">W</text>
                 </g>
-                {/* Numbered markers for each continent */}
-                <g fill="#111827" fontSize="14" textAnchor="middle">
-                  {/* 1: North America */}
-                  <circle cx="150" cy="120" r="14" fill="white" stroke="#111827" strokeWidth="2" />
-                  <text x="150" y="125">1</text>
-                  {/* 2: South America */}
-                  <circle cx="230" cy="300" r="14" fill="white" stroke="#111827" strokeWidth="2" />
-                  <text x="230" y="305">2</text>
-                  {/* 3: Europe */}
-                  <circle cx="360" cy="110" r="12" fill="white" stroke="#111827" strokeWidth="2" />
-                  <text x="360" y="115">3</text>
-                  {/* 4: Africa */}
-                  <circle cx="410" cy="250" r="14" fill="white" stroke="#111827" strokeWidth="2" />
-                  <text x="410" y="255">4</text>
-                  {/* 5: Asia */}
-                  <circle cx="550" cy="150" r="14" fill="white" stroke="#111827" strokeWidth="2" />
-                  <text x="550" y="155">5</text>
-                  {/* 6: Australia */}
-                  <circle cx="630" cy="340" r="12" fill="white" stroke="#111827" strokeWidth="2" />
-                  <text x="630" y="345">6</text>
-                  {/* 7: Antarctica */}
-                  <circle cx="400" cy="465" r="14" fill="white" stroke="#111827" strokeWidth="2" />
-                  <text x="400" y="470">7</text>
+
+                <g fill="white" stroke="#111827" strokeWidth="2" className="continent-shapes">
+                  {/* North America */}
+                  <g>
+                    <path d="M110,60 C80,60 40,100 60,150 C70,180 120,220 160,200 C180,190 220,100 240,60 C200,40 150,50 110,60 Z" />
+                    <circle cx="150" cy="120" r="14" fill="white" />
+                    <text x="150" y="125" textAnchor="middle" fill="#111827" stroke="none" fontWeight="bold" fontSize="14">1</text>
+                  </g>
+                  {/* South America */}
+                  <g>
+                    <path d="M200,220 C240,220 280,240 290,280 C300,340 260,400 240,420 C220,400 190,340 180,280 C180,250 190,220 200,220 Z" />
+                    <circle cx="230" cy="300" r="14" fill="white" />
+                    <text x="230" y="305" textAnchor="middle" fill="#111827" stroke="none" fontWeight="bold" fontSize="14">2</text>
+                  </g>
+                  {/* Europe */}
+                  <g>
+                    <path d="M360,80 C340,90 320,130 340,150 C360,160 380,130 400,120 C420,110 400,80 360,80 Z" />
+                    <circle cx="360" cy="110" r="12" fill="white" />
+                    <text x="360" y="115" textAnchor="middle" fill="#111827" stroke="none" fontWeight="bold" fontSize="14">3</text>
+                  </g>
+                  {/* Africa */}
+                  <g>
+                    <path d="M350,170 C330,220 340,300 380,360 C420,380 480,320 480,260 C480,200 450,160 350,170 Z" />
+                    <circle cx="410" cy="250" r="14" fill="white" />
+                    <text x="410" y="255" textAnchor="middle" fill="#111827" stroke="none" fontWeight="bold" fontSize="14">4</text>
+                  </g>
+                  {/* Asia */}
+                  <g>
+                    <path d="M420,70 C460,50 600,60 680,100 C700,150 660,240 580,260 C520,240 480,200 440,150 C430,120 420,70 420,70 Z" />
+                    <circle cx="550" cy="150" r="14" fill="white" />
+                    <text x="550" y="155" textAnchor="middle" fill="#111827" stroke="none" fontWeight="bold" fontSize="14">5</text>
+                  </g>
+                  {/* Australia */}
+                  <g>
+                    <path d="M600,300 C580,320 580,360 620,380 C660,370 680,340 660,310 C640,290 620,290 600,300 Z" />
+                    <circle cx="630" cy="340" r="12" fill="white" />
+                    <text x="630" y="345" textAnchor="middle" fill="#111827" stroke="none" fontWeight="bold" fontSize="14">6</text>
+                  </g>
+                  {/* Antarctica */}
+                  <g>
+                    <path d="M150,450 C250,440 550,440 650,450 C660,470 640,490 150,490 C140,470 140,460 150,450 Z" />
+                    <circle cx="400" cy="465" r="14" fill="white" />
+                    <text x="400" y="470" textAnchor="middle" fill="#111827" stroke="none" fontWeight="bold" fontSize="14">7</text>
+                  </g>
                 </g>
               </svg>
             </div>
-            {/* Word bank + write lines */}
-            <div className="mt-3 grid md:grid-cols-2 gap-3 break-inside-avoid">
-              <div className="bg-slate-50 border border-slate-200 rounded-lg p-3">
-                <div className="text-slate-900 font-semibold mb-1">Word Bank</div>
-                <ul className="text-slate-700 text-sm grid grid-cols-2 gap-x-4 gap-y-1">
-                  <li>North America</li>
-                  <li>South America</li>
-                  <li>Europe</li>
-                  <li>Africa</li>
-                  <li>Asia</li>
-                  <li>Australia</li>
-                  <li>Antarctica</li>
-                </ul>
+
+            {/* Coloring Key & Tracing */}
+            <div className="mt-4 grid md:grid-cols-2 gap-4 break-inside-avoid">
+              {/* Column 1 */}
+              <div className="space-y-3">
+                <div className="flex items-center gap-3 bg-red-50 p-2 rounded border border-red-200">
+                  <div className="w-8 h-8 rounded-full bg-red-400 flex items-center justify-center font-bold text-white shadow-sm border border-red-500">1</div>
+                  <div className="flex-1">
+                    <div className="text-xs text-red-600 font-semibold mb-1">Color RED, then trace:</div>
+                    <div className="font-[Move_Pen_Lite] text-2xl tracking-wide text-slate-400 dashed-text">North America</div>
+                  </div>
+                </div>
+                <div className="flex items-center gap-3 bg-orange-50 p-2 rounded border border-orange-200">
+                  <div className="w-8 h-8 rounded-full bg-orange-400 flex items-center justify-center font-bold text-white shadow-sm border border-orange-500">2</div>
+                  <div className="flex-1">
+                    <div className="text-xs text-orange-600 font-semibold mb-1">Color ORANGE, then trace:</div>
+                    <div className="font-[Move_Pen_Lite] text-2xl tracking-wide text-slate-400 dashed-text">South America</div>
+                  </div>
+                </div>
+                <div className="flex items-center gap-3 bg-yellow-50 p-2 rounded border border-yellow-200">
+                  <div className="w-8 h-8 rounded-full bg-yellow-400 flex items-center justify-center font-bold text-white shadow-sm border border-yellow-500">3</div>
+                  <div className="flex-1">
+                    <div className="text-xs text-yellow-700 font-semibold mb-1">Color YELLOW, then trace:</div>
+                    <div className="font-[Move_Pen_Lite] text-2xl tracking-wide text-slate-400 dashed-text">Europe</div>
+                  </div>
+                </div>
+                <div className="flex items-center gap-3 bg-green-50 p-2 rounded border border-green-200">
+                  <div className="w-8 h-8 rounded-full bg-green-500 flex items-center justify-center font-bold text-white shadow-sm border border-green-600">4</div>
+                  <div className="flex-1">
+                    <div className="text-xs text-green-700 font-semibold mb-1">Color GREEN, then trace:</div>
+                    <div className="font-[Move_Pen_Lite] text-2xl tracking-wide text-slate-400 dashed-text">Africa</div>
+                  </div>
+                </div>
               </div>
-              <div className="border border-slate-200 rounded-lg p-3">
-                <div className="text-slate-900 font-semibold mb-2">Write the Names</div>
-                <div className="space-y-4">
-                  {Array.from({ length: 7 }).map((_, i) => (
-                    <div key={i} className="flex items-end gap-2">
-                      <span className="font-bold text-slate-700 w-4 text-center pb-2">{i + 1}.</span>
-                      <div className="flex-1 relative h-10 w-full border-b-2 border-red-300">
-                        <div className="absolute top-0 w-full h-1/2 border-b border-dashed border-slate-300" />
-                        <div className="absolute top-0 w-full h-full border-t border-slate-400" />
-                      </div>
-                    </div>
-                  ))}
+
+              {/* Column 2 */}
+              <div className="space-y-3">
+                <div className="flex items-center gap-3 bg-purple-50 p-2 rounded border border-purple-200">
+                  <div className="w-8 h-8 rounded-full bg-purple-400 flex items-center justify-center font-bold text-white shadow-sm border border-purple-500">5</div>
+                  <div className="flex-1">
+                    <div className="text-xs text-purple-700 font-semibold mb-1">Color PURPLE, then trace:</div>
+                    <div className="font-[Move_Pen_Lite] text-2xl tracking-wide text-slate-400 dashed-text">Asia</div>
+                  </div>
+                </div>
+                <div className="flex items-center gap-3 bg-pink-50 p-2 rounded border border-pink-200">
+                  <div className="w-8 h-8 rounded-full bg-pink-400 flex items-center justify-center font-bold text-white shadow-sm border border-pink-500">6</div>
+                  <div className="flex-1">
+                    <div className="text-xs text-pink-600 font-semibold mb-1">Color PINK, then trace:</div>
+                    <div className="font-[Move_Pen_Lite] text-2xl tracking-wide text-slate-400 dashed-text">Australia</div>
+                  </div>
+                </div>
+                <div className="flex items-center gap-3 bg-blue-50 p-2 rounded border border-blue-200">
+                  <div className="w-8 h-8 rounded-full bg-blue-400 flex items-center justify-center font-bold text-white shadow-sm border border-blue-500">7</div>
+                  <div className="flex-1">
+                    <div className="text-xs text-blue-600 font-semibold mb-1">Color BLUE, then trace:</div>
+                    <div className="font-[Move_Pen_Lite] text-2xl tracking-wide text-slate-400 dashed-text">Antarctica</div>
+                  </div>
+                </div>
+
+                {/* Mini-Challenge */}
+                <div className="bg-slate-50 p-3 rounded-lg border border-slate-200 text-sm">
+                  <div className="font-bold text-slate-700 mb-1">🌟 Super Explorer Challenge:</div>
+                  <div className="text-slate-600">Can you circle the continent you live on?</div>
                 </div>
               </div>
             </div>
-            {/* Extension/Challenge Problems */}
-            <div className="mt-6 print:mt-0 p-4 bg-purple-50 border-2 border-purple-200 rounded print:bg-white print:border" style={{ pageBreakBefore: 'always', pageBreakInside: 'avoid' }}>
-              <div className="font-semibold text-purple-900 mb-3 text-sm">🌟 {getTrans('common.challengeYourself', 'Challenge Yourself (Optional):')}</div>
-              <div className="space-y-2 text-sm text-purple-800">
-                <div>1. Color each continent a different color</div>
-                <div>2. Can you name one country in each continent?</div>
-                <div>3. Which continent do you live on?</div>
-              </div>
-            </div>
-            {/* Self-Assessment */}
-            <div className="print:block hidden print:mt-0 mt-6 p-4 border-2 border-slate-300 rounded" style={{ pageBreakBefore: 'avoid', pageBreakInside: 'avoid' }}>
-              <div className="font-semibold text-slate-800 mb-3 text-sm">📊 {getTrans('common.howDidYouDo', 'How did you do?')}</div>
-              <div className="space-y-2 text-xs">
-                <div>☐ I can name all 7 continents</div>
-                <div>☐ I can match continents to their locations</div>
-                <div>☐ I understand world geography basics</div>
-              </div>
-              <div className="mt-3 text-xs">
-                <strong>{getTrans('common.myScore', 'My score:')}</strong> ___ / 7
-              </div>
-              <div className="mt-2 text-xs">
-                <strong>{getTrans('common.whatWasHardest', 'What was hardest?')}</strong> _________________________
-              </div>
-            </div>
+
             {showAnswersForDoc('geo-continents-k2', () => {
-              const continents = ['North America', 'South America', 'Europe', 'Africa', 'Asia', 'Australia', 'Antarctica'];
+              const matches = [
+                { id: 1, name: 'North America', color: 'Red' },
+                { id: 2, name: 'South America', color: 'Orange' },
+                { id: 3, name: 'Europe', color: 'Yellow' },
+                { id: 4, name: 'Africa', color: 'Green' },
+                { id: 5, name: 'Asia', color: 'Purple' },
+                { id: 6, name: 'Australia', color: 'Pink' },
+                { id: 7, name: 'Antarctica', color: 'Blue' },
+              ];
               return (
                 <div className="mt-6 p-4 border-2 border-emerald-300 bg-emerald-50 rounded print:border print:bg-white print:page-break-before-always">
                   <div className="font-bold text-emerald-900 mb-3 text-base">✅ {getTrans('common.answerKey', 'Answer Key')}</div>
-                  <div className="space-y-2">
-                    {continents.map((name, i) => (
-                      <div key={i} className="text-sm text-emerald-800">
-                        {i + 1}. <strong>{name}</strong>
+                  <div className="grid grid-cols-2 gap-2">
+                    {matches.map((m) => (
+                      <div key={m.id} className="text-sm text-emerald-800">
+                        {m.id}. <strong>{m.name}</strong> ({m.color})
                       </div>
                     ))}
                   </div>
@@ -11852,114 +11896,113 @@ export function PrintablesPage() {
 
         {/* New 1st Grade Worksheets */}
         {
-          {
-            activeDocs.includes('number-bonds-10') && ((() => {
-              const rng = makeRng(`${effectiveSeed}|v${variant}|doc=${doc}`);
+          activeDocs.includes('number-bonds-10') && (() => {
+            const rng = makeRng(`${effectiveSeed}|v${variant}|doc=${doc}`);
 
-              // Generate 8 problems (pairs summing to 10)
-              const problems = Array.from({ length: 8 }, () => {
-                const part1 = Math.floor(rng() * 11); // 0 to 10
-                const part2 = 10 - part1;
-                // Randomly choose which one to hide
-                const hideFirst = rng() > 0.5;
-                return { part1, part2, hideFirst };
-              });
+            // Generate 8 problems (pairs summing to 10)
+            const problems = Array.from({ length: 8 }, () => {
+              const part1 = Math.floor(rng() * 11); // 0 to 10
+              const part2 = 10 - part1;
+              // Randomly choose which one to hide
+              const hideFirst = rng() > 0.5;
+              return { part1, part2, hideFirst };
+            });
 
-              return (
-                <WorksheetSectionWrapper
-                  docId="number-bonds-10"
-                  title="Blooming Bonds: Making 10"
-                  emoji="🌸"
-                  description="Fill in the empty petal to make 10. The two petals must add up to the center number."
-                  problemCount={8}
-                  learningObjectives={[
-                    'Identify number pairs that sum to 10',
-                    'Understand part-part-whole relationships',
-                    'Build addition fluency',
-                    'Develop algebraic thinking (finding the missing addend)'
-                  ]}
-                  parentTeacherTips={[
-                    'Use fingers to check: "If you have 10 fingers and put down [known number], how many are left?"',
-                    'Remind them that the two petals stick to the center to make 10.',
-                    'Practice swapping: "3 + 7 is the same as 7 + 3".'
-                  ]}
-                >
-                  {/* Decorative Garden Header */}
-                  <div className="print:hidden w-full h-16 mb-4 relative overflow-hidden bg-gradient-to-b from-sky-100 to-white rounded-lg">
-                    <div className="absolute bottom-0 w-full flex justify-between text-4xl px-4 animate-bounce-slow">
-                      <span>🌷</span><span>🌻</span><span>🌹</span><span>🌺</span><span>🌼</span>
-                    </div>
+            return (
+              <WorksheetSectionWrapper
+                docId="number-bonds-10"
+                title="Blooming Bonds: Making 10"
+                emoji="🌸"
+                description="Fill in the empty petal to make 10. The two petals must add up to the center number."
+                problemCount={8}
+                learningObjectives={[
+                  'Identify number pairs that sum to 10',
+                  'Understand part-part-whole relationships',
+                  'Build addition fluency',
+                  'Develop algebraic thinking (finding the missing addend)'
+                ]}
+                parentTeacherTips={[
+                  'Use fingers to check: "If you have 10 fingers and put down [known number], how many are left?"',
+                  'Remind them that the two petals stick to the center to make 10.',
+                  'Practice swapping: "3 + 7 is the same as 7 + 3".'
+                ]}
+              >
+                {/* Decorative Garden Header */}
+                <div className="print:hidden w-full h-16 mb-4 relative overflow-hidden bg-gradient-to-b from-sky-100 to-white rounded-lg">
+                  <div className="absolute bottom-0 w-full flex justify-between text-4xl px-4 animate-bounce-slow">
+                    <span>🌷</span><span>🌻</span><span>🌹</span><span>🌺</span><span>🌼</span>
                   </div>
+                </div>
 
-                  <div className="grid grid-cols-2 gap-6 break-inside-avoid">
-                    {problems.map((prob, idx) => (
-                      <div key={idx} className="w-full flex justify-center">
-                        <svg viewBox="0 0 200 180" className="w-full max-w-[250px] overflow-visible">
-                          {/* Stem and Leaves */}
-                          <path d="M100,100 Q100,140 100,180" fill="none" stroke="#16a34a" strokeWidth="6" strokeLinecap="round" />
-                          <path d="M100,150 Q70,140 60,120" fill="none" stroke="#16a34a" strokeWidth="4" strokeLinecap="round" />
-                          <path d="M100,160 Q130,150 140,130" fill="none" stroke="#16a34a" strokeWidth="4" strokeLinecap="round" />
+                <div className="grid grid-cols-2 gap-6 break-inside-avoid">
+                  {problems.map((prob, idx) => (
+                    <div key={idx} className="w-full flex justify-center">
+                      <svg viewBox="0 0 200 180" className="w-full max-w-[250px] overflow-visible">
+                        {/* Stem and Leaves */}
+                        <path d="M100,100 Q100,140 100,180" fill="none" stroke="#16a34a" strokeWidth="6" strokeLinecap="round" />
+                        <path d="M100,150 Q70,140 60,120" fill="none" stroke="#16a34a" strokeWidth="4" strokeLinecap="round" />
+                        <path d="M100,160 Q130,150 140,130" fill="none" stroke="#16a34a" strokeWidth="4" strokeLinecap="round" />
 
-                          {/* Decorative Petals (Background) */}
-                          <g transform="translate(100,80)">
-                            {[0, 45, 90, 135, 180, 225, 270, 315].map(deg => (
-                              <circle key={deg} cx="0" cy="0" r="35" fill="#fbcfe8" transform={`rotate(${deg}) translate(45)`} opacity="0.6" /> // Light pink
-                            ))}
-                          </g>
+                        {/* Decorative Petals (Background) */}
+                        <g transform="translate(100,80)">
+                          {[0, 45, 90, 135, 180, 225, 270, 315].map(deg => (
+                            <circle key={deg} cx="0" cy="0" r="35" fill="#fbcfe8" transform={`rotate(${deg}) translate(45)`} opacity="0.6" /> // Light pink
+                          ))}
+                        </g>
 
-                          {/* Center (The Whole: 10) */}
-                          <circle cx="100" cy="80" r="35" fill="#fef08a" stroke="#eab308" strokeWidth="3" />
-                          <text x="100" y="92" fontSize="32" fontWeight="bold" fill="#854d0e" textAnchor="middle">10</text>
+                        {/* Center (The Whole: 10) */}
+                        <circle cx="100" cy="80" r="35" fill="#fef08a" stroke="#eab308" strokeWidth="3" />
+                        <text x="100" y="92" fontSize="32" fontWeight="bold" fill="#854d0e" textAnchor="middle">10</text>
 
-                          {/* Left Petal (Part 1) */}
-                          <g transform="translate(30, 80)">
-                            <path d="M0,0 C-20,-30 -50,-30 -50,0 C-50,30 -20,30 0,0" fill={prob.hideFirst ? "#ffffff" : "#bfdbfe"} stroke="#3b82f6" strokeWidth="2" transform="scale(1.8)" />
-                            {/* Using a circle or ellipse might be easier for text placement */}
-                            <circle cx="-40" cy="0" r="28" fill={prob.hideFirst ? "white" : "#bfdbfe"} stroke="#3b82f6" strokeWidth="2" />
-                            {prob.hideFirst ? (
-                              <text x="-40" y="10" fontSize="28" fill="#cbd5e1" textAnchor="middle">?</text>
-                            ) : (
-                              <text x="-40" y="10" fontSize="28" fontWeight="bold" fill="#1e40af" textAnchor="middle">{prob.part1}</text>
-                            )}
-                          </g>
+                        {/* Left Petal (Part 1) */}
+                        <g transform="translate(30, 80)">
+                          <path d="M0,0 C-20,-30 -50,-30 -50,0 C-50,30 -20,30 0,0" fill={prob.hideFirst ? "#ffffff" : "#bfdbfe"} stroke="#3b82f6" strokeWidth="2" transform="scale(1.8)" />
+                          {/* Using a circle or ellipse might be easier for text placement */}
+                          <circle cx="-40" cy="0" r="28" fill={prob.hideFirst ? "white" : "#bfdbfe"} stroke="#3b82f6" strokeWidth="2" />
+                          {prob.hideFirst ? (
+                            <text x="-40" y="10" fontSize="28" fill="#cbd5e1" textAnchor="middle">?</text>
+                          ) : (
+                            <text x="-40" y="10" fontSize="28" fontWeight="bold" fill="#1e40af" textAnchor="middle">{prob.part1}</text>
+                          )}
+                        </g>
 
-                          {/* Right Petal (Part 2) */}
-                          <g transform="translate(170, 80)">
-                            <circle cx="40" cy="0" r="28" fill={!prob.hideFirst ? "white" : "#bfdbfe"} stroke="#3b82f6" strokeWidth="2" transform="scale(-1, 1)" />
-                            {/* Correct coordinate system manually without scale flip for simpler text */}
-                            <circle cx="40" cy="0" r="28" fill={!prob.hideFirst ? "white" : "#bfdbfe"} stroke="#3b82f6" strokeWidth="2" />
+                        {/* Right Petal (Part 2) */}
+                        <g transform="translate(170, 80)">
+                          <circle cx="40" cy="0" r="28" fill={!prob.hideFirst ? "white" : "#bfdbfe"} stroke="#3b82f6" strokeWidth="2" transform="scale(-1, 1)" />
+                          {/* Correct coordinate system manually without scale flip for simpler text */}
+                          <circle cx="40" cy="0" r="28" fill={!prob.hideFirst ? "white" : "#bfdbfe"} stroke="#3b82f6" strokeWidth="2" />
 
-                            {!prob.hideFirst ? (
-                              <text x="40" y="10" fontSize="28" fill="#cbd5e1" textAnchor="middle">?</text>
-                            ) : (
-                              <text x="40" y="10" fontSize="28" fontWeight="bold" fill="#1e40af" textAnchor="middle">{prob.part2}</text>
-                            )}
-                          </g>
-                        </svg>
-                      </div>
-                    ))}
-                  </div>
-
-                  {showAnswersForDoc('number-bonds-10', () => (
-                    <div className="mt-6 p-4 border-2 border-emerald-300 bg-emerald-50 rounded print:border print:bg-white print:page-break-before-always">
-                      <div className="font-bold text-emerald-900 mb-3 text-base">✅ {getTrans('common.answerKey', 'Answer Key')}</div>
-                      <div className="grid grid-cols-2 gap-4">
-                        {problems.map((prob, idx) => {
-                          const visible = prob.hideFirst ? prob.part2 : prob.part1;
-                          const missing = prob.hideFirst ? prob.part1 : prob.part2;
-                          return (
-                            <div key={idx} className="text-sm text-emerald-800">
-                              Flower {idx + 1}: <span className="font-bold">{visible} + <span className="underline">{missing}</span> = 10</span>
-                            </div>
-                          )
-                        })}
-                      </div>
-                      <div className="text-xs text-emerald-700 mt-3">💡 Tip: "Partners to 10" are pairs like 1 & 9, 2 & 8, 3 & 7, 4 & 6, 5 & 5.</div>
+                          {!prob.hideFirst ? (
+                            <text x="40" y="10" fontSize="28" fill="#cbd5e1" textAnchor="middle">?</text>
+                          ) : (
+                            <text x="40" y="10" fontSize="28" fontWeight="bold" fill="#1e40af" textAnchor="middle">{prob.part2}</text>
+                          )}
+                        </g>
+                      </svg>
                     </div>
                   ))}
-                </WorksheetSectionWrapper>
-              ))())
-          }
+                </div>
+
+                {showAnswersForDoc('number-bonds-10', () => (
+                  <div className="mt-6 p-4 border-2 border-emerald-300 bg-emerald-50 rounded print:border print:bg-white print:page-break-before-always">
+                    <div className="font-bold text-emerald-900 mb-3 text-base">✅ {getTrans('common.answerKey', 'Answer Key')}</div>
+                    <div className="grid grid-cols-2 gap-4">
+                      {problems.map((prob, idx) => {
+                        const visible = prob.hideFirst ? prob.part2 : prob.part1;
+                        const missing = prob.hideFirst ? prob.part1 : prob.part2;
+                        return (
+                          <div key={idx} className="text-sm text-emerald-800">
+                            Flower {idx + 1}: <span className="font-bold">{visible} + <span className="underline">{missing}</span> = 10</span>
+                          </div>
+                        )
+                      })}
+                    </div>
+                    <div className="text-xs text-emerald-700 mt-3">💡 Tip: "Partners to 10" are pairs like 1 & 9, 2 & 8, 3 & 7, 4 & 6, 5 & 5.</div>
+                  </div>
+                ))}
+              </WorksheetSectionWrapper>
+            )
+          })()
         }
 
         {
@@ -21550,182 +21593,135 @@ export function PrintablesPage() {
 
         {
           activeDocs.includes('shape-identification') && (() => {
-            // Seeded RNG for consistent rendering
             const rng = makeRng('shape-identification');
 
-            // High-quality coloring-friendly shapes
+            // Safari Theme Shapes
             const shapes = {
-              circle: {
-                render: (props: any) => <circle cx="50" cy="50" r="40" {...props} />,
-                color: 'text-blue-500', fill: '#3b82f6'
-              },
-              square: {
-                render: (props: any) => <rect x="15" y="15" width="70" height="70" rx="4" {...props} />,
-                color: 'text-red-500', fill: '#ef4444'
-              },
-              triangle: {
-                render: (props: any) => <polygon points="50,15 85,85 15,85" strokeLinejoin="round" {...props} />,
-                color: 'text-green-500', fill: '#22c55e'
-              },
-              rectangle: {
-                render: (props: any) => <rect x="10" y="25" width="80" height="50" rx="4" {...props} />,
-                color: 'text-purple-500', fill: '#a855f7'
-              }
+              circle: { render: (props: any) => <circle cx="50" cy="50" r="40" {...props} />, color: 'text-orange-500', fill: '#f97316', label: 'Sun Circle' },
+              square: { render: (props: any) => <rect x="15" y="15" width="70" height="70" rx="4" {...props} />, color: 'text-green-600', fill: '#16a34a', label: 'Boxy Bush' },
+              triangle: { render: (props: any) => <polygon points="50,15 85,85 15,85" strokeLinejoin="round" {...props} />, color: 'text-emerald-500', fill: '#10b981', label: 'Mountain Peak' },
+              rectangle: { render: (props: any) => <rect x="10" y="25" width="80" height="50" rx="4" {...props} />, color: 'text-yellow-600', fill: '#ca8a04', label: 'Log Rectangle' }
             };
 
             const shapeKeys = Object.keys(shapes) as Array<keyof typeof shapes>;
 
             const tasks = shapeKeys.map((targetShape) => {
-              // Generate a grid of 12 items (4 cols x 3 rows)
-              // Aim for 4-6 correct answers
-              const targetCount = Math.floor(rng() * 3) + 4; // 4, 5, or 6
+              // 4x4 Grid = 16 items
+              const targetCount = Math.floor(rng() * 3) + 5; // 5, 6, or 7
               const grid = [];
-
-              // Add targets
               for (let i = 0; i < targetCount; i++) grid.push(targetShape);
-
-              // Fill rest with distractors
-              while (grid.length < 12) {
+              while (grid.length < 16) {
                 const distractor = shapeKeys[Math.floor(rng() * shapeKeys.length)];
                 if (distractor !== targetShape) grid.push(distractor);
               }
-
-              // Shuffle grid
+              // Shuffle
               for (let i = grid.length - 1; i > 0; i--) {
                 const j = Math.floor(rng() * (i + 1));
                 [grid[i], grid[j]] = [grid[j], grid[i]];
               }
-
-              return {
-                target: targetShape,
-                grid: grid,
-                targetCount: targetCount,
-                name: targetShape.charAt(0).toUpperCase() + targetShape.slice(1)
-              };
+              return { target: targetShape, grid, targetCount };
             });
 
             return (
               <WorksheetSectionWrapper
                 docId="shape-identification"
-                title="Shape Identification"
-                emoji="🟩"
-                description="Circle the circle, square, triangle, and rectangle. Learn basic shapes."
+                title="Safari Shape Hunt"
+                emoji="🦁"
+                description="Put on your binoculars! Find and circle the hidden shapes in the jungle."
                 problemCount={tasks.length}
                 learningObjectives={[
-                  'Identify and recognize basic shapes',
-                  'Distinguish between different shapes',
-                  'Develop visual discrimination skills',
-                  'Build shape recognition and vocabulary'
+                  'Identify geometric shapes in a complex field',
+                  'Distinguish shapes regardless of orientation or distraction',
+                  'Count identified shapes to match a target'
                 ]}
                 parentTeacherTips={[
-                  'Help students name each shape: circle, square, triangle, rectangle',
-                  'Point out the characteristics: circles are round, squares have 4 equal sides',
-                  'Encourage students to look carefully at each shape',
-                  'Practice finding shapes in the environment'
+                  'Pretend to be explorers! Use hands as binoculars.',
+                  'Ask: "Can you spy the Circles hiding near the bushes?"',
+                  'Count out loud as you circle each one.'
                 ]}
               >
-                <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-purple-400 to-pink-400 animate-gradient-x mb-2" />
-                {/* Worked Example */}
-                <div className="mb-6 p-4 bg-blue-50 border-2 border-blue-200 rounded-lg print:border print:bg-white">
-                  <div className="font-semibold text-blue-900 mb-3 text-sm">📚 Example - Let's solve this together:</div>
-                  <div className="space-y-2 text-sm">
-                    <div className="font-semibold text-base"><strong>Problem:</strong> Circle all the circles</div>
-                    <div className="flex items-center gap-4 py-2">
-                      <span className="text-sm text-slate-600">Find this:</span>
-                      <svg viewBox="0 0 100 100" className="w-12 h-12">
-                        {shapes['circle'].render({ fill: '#3b82f6', stroke: 'none' })}
-                      </svg>
-                      <span className="text-2xl">➡️</span>
-                      <div className="flex gap-2 p-2 border border-slate-300 rounded bg-white">
-                        <svg viewBox="0 0 100 100" className="w-10 h-10">
-                          {shapes['circle'].render({ fill: 'none', stroke: '#3b82f6', strokeWidth: 8 })}
-                        </svg>
-                        <svg viewBox="0 0 100 100" className="w-10 h-10 opacity-50">
-                          {shapes['square'].render({ fill: 'none', stroke: '#94a3b8', strokeWidth: 4 })}
-                        </svg>
-                      </div>
-                    </div>
-                    <div className="text-xs text-blue-700 mt-1">💡 Tip: Look for the shape that matches the color example!</div>
+                {/* Decor Header */}
+                <div className="print:hidden w-full h-16 mb-6 relative overflow-hidden bg-green-100 rounded-lg flex items-center justify-center border-b-4 border-green-600">
+                  <div className="absolute inset-0 opacity-10" style={{ backgroundImage: 'radial-gradient(circle, #22c55e 2px, transparent 2.5px)', backgroundSize: '20px 20px' }}></div>
+                  <div className="font-bold text-3xl text-green-800 tracking-wider flex items-center gap-2">
+                    🌿 SAFARI HUNT 🌿
                   </div>
                 </div>
 
-                <div className="grid grid-cols-1 gap-6" style={{ pageBreakAfter: 'auto' }}>
-                  {tasks.map((task, taskIdx) => {
-                    const TargetComponent = shapes[task.target].render;
-                    const targetColor = shapes[task.target].color;
-                    const targetFill = shapes[task.target].fill;
+                {/* Example */}
+                <div className="mb-6 p-4 bg-orange-50 border-2 border-orange-200 rounded-lg print:border print:bg-white dashed-border">
+                  <div className="font-bold text-orange-800 mb-2 flex items-center gap-2">
+                    <span>🔦</span> Example Mission: Find the Circles
+                  </div>
+                  <div className="flex items-center gap-4">
+                    <div className="w-12 h-12 border-2 border-slate-300 rounded bg-white p-1">
+                      <svg viewBox="0 0 100 100">{shapes.circle.render({ fill: '#f97316', stroke: 'none' })}</svg>
+                    </div>
+                    <span className="text-2xl text-orange-400">➜</span>
+                    <div className="flex gap-2 p-2 bg-green-100 rounded border border-green-300">
+                      <svg viewBox="0 0 100 100" className="w-10 h-10">
+                        {shapes.circle.render({ fill: 'none', stroke: '#f97316', strokeWidth: 8, strokeDasharray: "4 2" })}
+                      </svg>
+                      <svg viewBox="0 0 100 100" className="w-10 h-10 opacity-40">
+                        {shapes.square.render({ fill: '#16a34a', stroke: 'none' })}
+                      </svg>
+                    </div>
+                    <div className="text-xs text-orange-700 font-semibold">"Circle every Circle you see!"</div>
+                  </div>
+                </div>
 
+                <div className="grid grid-cols-1 gap-8 break-inside-avoid">
+                  {tasks.map((task, idx) => {
+                    const ShapeRender = shapes[task.target].render;
                     return (
-                      <div key={taskIdx} className="border-2 border-slate-300 rounded-lg p-6 bg-white">
-                        <div className="text-center mb-6">
-                          <div className="text-xl font-bold text-slate-800 mb-2">Circle all the <span className={`capitalize ${targetColor}`}>{task.target}s</span></div>
-                          <div className="inline-block p-4 rounded-xl bg-slate-50 border border-slate-100 shadow-sm">
-                            <svg viewBox="0 0 100 100" className="w-20 h-20 mx-auto drop-shadow-md">
-                              <TargetComponent fill={targetFill} stroke="none" />
-                            </svg>
+                      <div key={idx} className="bg-white border-4 border-slate-200 rounded-xl p-4 relative overflow-hidden">
+                        {/* Leaf Decorations corners */}
+                        <div className="absolute top-0 left-0 text-green-200 text-4xl -translate-x-2 -translate-y-2 opacity-50">🌿</div>
+                        <div className="absolute bottom-0 right-0 text-green-200 text-4xl translate-x-2 translate-y-2 opacity-50">🍃</div>
+
+                        <div className="flex items-center justify-between mb-4 border-b-2 border-slate-100 pb-2">
+                          <div className="flex items-center gap-3">
+                            <div className="w-12 h-12 bg-slate-50 rounded-full flex items-center justify-center border border-slate-200 shadow-sm">
+                              <svg viewBox="0 0 100 100" className="w-8 h-8">
+                                <ShapeRender fill={shapes[task.target].fill} stroke="none" />
+                              </svg>
+                            </div>
+                            <div>
+                              <div className="font-bold text-slate-700 text-lg">Find {task.targetCount} <span className="capitalize">{task.target}s</span></div>
+                              <div className="text-xs text-slate-500">Hunter's Log: Mission #{idx + 1}</div>
+                            </div>
                           </div>
                         </div>
 
-                        <div className="border-4 border-dashed border-slate-200 rounded-2xl p-6 bg-slate-50">
-                          <div className="grid grid-cols-4 gap-6 place-items-center">
-                            {task.grid.map((shapeType: any, i) => {
-                              const ShapeComp = shapes[shapeType as keyof typeof shapes].render;
-                              const isTarget = shapeType === task.target;
+                        <div className="bg-slate-50 rounded-xl p-4 border-2 border-dashed border-slate-300">
+                          <div className="grid grid-cols-4 gap-4">
+                            {task.grid.map((s, i) => {
+                              const SRender = shapes[s as keyof typeof shapes].render;
+                              // Randomize rotation slightly for "natural" look
+                              const rot = (i * 33) % 45 - 22;
                               return (
-                                <div key={i} className="w-full aspect-square flex items-center justify-center p-2 bg-white rounded-lg border border-slate-100 shadow-sm">
-                                  <svg viewBox="0 0 100 100" className="w-full h-full">
-                                    <ShapeComp
-                                      fill="none"
-                                      stroke="#475569"
-                                      strokeWidth="6"
-                                      className="transition-all duration-200"
-                                    />
+                                <div key={i} className="aspect-square flex items-center justify-center">
+                                  <svg viewBox="0 0 100 100" className="w-full h-full" style={{ transform: `rotate(${rot}deg)` }}>
+                                    <SRender fill="none" stroke="#475569" strokeWidth="5" />
                                   </svg>
                                 </div>
-                              );
+                              )
                             })}
                           </div>
                         </div>
                       </div>
-                    );
+                    )
                   })}
                 </div>
-                {/* Extension/Challenge Problems */}
-                <div className="mt-6 print:mt-0 p-4 bg-purple-50 border-2 border-purple-200 rounded print:bg-white print:border" style={{ pageBreakBefore: 'always', pageBreakInside: 'avoid' }}>
-                  <div className="font-semibold text-purple-900 mb-3 text-sm">🌟 {getTrans('common.challengeYourself', 'Challenge Yourself (Optional):')}</div>
-                  <div className="space-y-2 text-sm text-purple-800">
-                    <div>1. Can you find shapes around your house? Look for circles, squares, triangles, and rectangles</div>
-                    <div>2. Draw your own shape and have someone identify it</div>
-                    <div>3. Try identifying more shapes: oval, diamond, star, heart</div>
-                  </div>
-                </div>
-                {/* Self-Assessment */}
-                <div className="print:block hidden print:mt-0 mt-6 p-4 border-2 border-slate-300 rounded" style={{ pageBreakBefore: 'avoid', pageBreakInside: 'avoid' }}>
-                  <div className="font-semibold text-slate-800 mb-3 text-sm">📊 {getTrans('common.howDidYouDo', 'How did you do?')}</div>
-                  <div className="space-y-2 text-xs">
-                    <div>☐ I can identify circles, squares, triangles, and rectangles</div>
-                    <div>☐ I can distinguish between different shapes</div>
-                    <div>☐ I completed all {tasks.length} shape identification tasks</div>
-                  </div>
-                  <div className="mt-3 text-xs">
-                    <strong>{getTrans('common.myScore', 'My score:')}</strong> ___ / {tasks.length}
-                  </div>
-                  <div className="mt-2 text-xs">
-                    <strong>{getTrans('common.whatWasHardest', 'What was hardest?')}</strong> _________________________
-                  </div>
-                </div>
+
                 {showAnswersForDoc('shape-identification', () => (
                   <div className="mt-6 p-4 border-2 border-emerald-300 bg-emerald-50 rounded print:border print:bg-white print:page-break-before-always">
-                    <div className="font-bold text-emerald-900 mb-3 text-base">✅ {getTrans('common.answerKey', 'Answer Key')}</div>
-                    <ul className="list-disc list-inside space-y-2 text-sm text-emerald-800">
-                      {tasks.map((t, i) => {
-                        const targetCount = t.shapes.filter(s => s === t.type).length;
-                        return (
-                          <li key={i}><strong>{t.instruction}:</strong> Circle all {t.name.toLowerCase()}s in the grid. There are {targetCount} {t.name.toLowerCase()}s to circle.</li>
-                        );
-                      })}
-                    </ul>
-                    <div className="text-xs text-emerald-700 mt-3">💡 Remember: Look carefully at each shape and match it to the example shape. Circles are round, squares have 4 equal sides, triangles have 3 sides, and rectangles have 4 sides (2 long, 2 short)!</div>
+                    <div className="font-bold text-emerald-900 mb-3 text-base">✅ Answer Key</div>
+                    <div className="text-sm text-emerald-800 space-y-2">
+                      {tasks.map((t, i) => (
+                        <div key={i}>Mission {i + 1}: There are <strong>{t.targetCount}</strong> {t.target}s to find.</div>
+                      ))}
+                    </div>
                   </div>
                 ))}
               </WorksheetSectionWrapper>
@@ -30554,92 +30550,100 @@ export function PrintablesPage() {
         {
           activeDocs.includes('color-shapes') && (() => {
             const shapeData = [
-              { name: 'circle', color: 'red' },
-              { name: 'square', color: 'blue' },
-              { name: 'triangle', color: 'yellow' },
-              { name: 'rectangle', color: 'green' },
-              { name: 'oval', color: 'orange' },
-              { name: 'diamond', color: 'purple' },
+              { name: 'circle', color: 'orange', animal: 'Lion', pattern: 'Sun' },
+              { name: 'square', color: 'green', animal: 'Crocodile', pattern: 'Scale' },
+              { name: 'triangle', color: 'yellow', animal: 'Giraffe', pattern: 'Spot' },
+              { name: 'rectangle', color: 'brown', animal: 'Monkey', pattern: 'Wood' },
+              { name: 'oval', color: 'grey', animal: 'Hippo', pattern: 'Water' },
+              { name: 'diamond', color: 'blue', animal: 'Parrot', pattern: 'Feather' },
             ];
-            const renderShape = (shape: typeof shapeData[0], size: number = 80) => {
-              const svgMap: Record<string, JSX.Element> = {
-                circle: <circle cx={size / 2} cy={size / 2} r={size * 0.375} fill="none" stroke="#475569" strokeWidth="4" />,
-                square: <rect x={size * 0.125} y={size * 0.125} width={size * 0.75} height={size * 0.75} fill="none" stroke="#475569" strokeWidth="4" />,
-                triangle: <polygon points={`${size / 2},${size * 0.125} ${size * 0.125},${size * 0.875} ${size * 0.875},${size * 0.875}`} fill="none" stroke="#475569" strokeWidth="4" />,
-                rectangle: <rect x={size * 0.1875} y={size * 0.25} width={size * 0.625} height={size * 0.5} fill="none" stroke="#475569" strokeWidth="4" />,
-                oval: <ellipse cx={size / 2} cy={size / 2} rx={size * 0.375} ry={size * 0.25} fill="none" stroke="#475569" strokeWidth="4" />,
-                diamond: <polygon points={`${size / 2},${size * 0.125} ${size * 0.875},${size / 2} ${size / 2},${size * 0.875} ${size * 0.125},${size / 2}`} fill="none" stroke="#475569" strokeWidth="4" />,
-              };
-              return svgMap[shape.name] || null;
+
+            const renderShape = (shapeName: string, size: number = 80) => {
+              // Animal/Jungle styled shapes? Or simply large clear shapes with thickness
+              const props = { fill: 'none', stroke: '#475569', strokeWidth: '4' };
+              switch (shapeName) {
+                case 'circle': return <circle cx={size / 2} cy={size / 2} r={size * 0.375} {...props} />;
+                case 'square': return <rect x={size * 0.125} y={size * 0.125} width={size * 0.75} height={size * 0.75} rx="4" {...props} />;
+                case 'triangle': return <polygon points={`${size / 2},${size * 0.125} ${size * 0.125},${size * 0.875} ${size * 0.875},${size * 0.875}`} strokeLinejoin="round" {...props} />;
+                case 'rectangle': return <rect x={size * 0.1875} y={size * 0.25} width={size * 0.625} height={size * 0.5} rx="4" {...props} />;
+                case 'oval': return <ellipse cx={size / 2} cy={size / 2} rx={size * 0.375} ry={size * 0.25} {...props} />;
+                case 'diamond': return <polygon points={`${size / 2},${size * 0.125} ${size * 0.875},${size / 2} ${size / 2},${size * 0.875} ${size * 0.125},${size / 2}`} strokeLinejoin="round" {...props} />;
+                default: return null;
+              }
             };
+
             return (
               <WorksheetSectionWrapper
                 docId="color-shapes"
-                title="Color the Shapes"
-                emoji="🟩"
-                description="Color each shape with the correct color shown below."
+                title="Jungle Colors"
+                emoji="🦜"
+                description="The jungle animals need your help! Color the shapes to match the jungle."
                 problemCount={shapeData.length}
                 learningObjectives={[
-                  'Identify and name basic shapes',
-                  'Recognize and match colors',
-                  'Develop fine motor skills through coloring'
+                  'Associate colors with specific shapes',
+                  'Follow multi-step directions (Find shape -> Pick color -> Color)',
+                  'Develop fine motor control via coloring'
                 ]}
                 parentTeacherTips={[
-                  'Help children name each shape before coloring',
-                  'Encourage staying within the lines',
-                  'Use this activity to practice color recognition',
-                  'Extension: Ask children to find objects in the room that match each shape'
+                  'Ask: "What color is the Lion\'s Circle?"',
+                  'Encourage staying inside the lines for fine motor practice.',
+                  'Make animal sounds as you color each shape!'
                 ]}
               >
-                <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-purple-400 to-pink-400 animate-gradient-x mb-2" />
-                <div className="mb-4 p-3 bg-blue-50 border border-blue-200 rounded text-sm text-blue-900 print:mb-2">
-                  <strong>📝 Instructions:</strong> Look at each shape below. Color it with the color shown. Use crayons or colored pencils.
+                <div className="print:hidden w-full h-16 mb-6 relative overflow-hidden bg-yellow-100 rounded-lg flex items-center justify-center border-b-4 border-yellow-500">
+                  <div className="font-bold text-3xl text-yellow-800 tracking-wider flex items-center gap-2">
+                    🦜 JUNGLE COLORS 🎨
+                  </div>
                 </div>
-                <div className="space-y-6 print:space-y-2">
+
+                <div className="mb-4 p-3 bg-blue-50 border border-blue-200 rounded text-sm text-blue-900 print:mb-2 flex gap-2 items-start">
+                  <span className="text-xl">🎨</span>
+                  <div>
+                    <strong>Artist Instructions:</strong> Color each shape to match its Jungle Tag.
+                  </div>
+                </div>
+
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6 print:grid-cols-2 print:gap-4">
                   {shapeData.map((shape, i) => (
-                    <div key={i} className="border-2 border-slate-300 rounded-lg p-6 bg-white print:p-2 print:border">
-                      <div className="text-center mb-4 print:mb-1">
-                        <div className="text-lg font-semibold text-slate-800 capitalize mb-2 print:mb-0 print:text-base">{shape.name}</div>
-                        <div className="text-base font-semibold text-slate-600 print:text-sm flex items-center justify-center gap-2">
-                          <span>Color: <span className="text-slate-800 capitalize">{shape.color}</span></span>
-                          <span className="inline-block w-4 h-4 rounded-full border border-slate-300 print:border-slate-800 print-color-adjust-exact" style={{ backgroundColor: shape.color }}></span>
+                    <div key={i} className="border-2 border-dashed border-slate-300 rounded-xl p-4 bg-white relative overflow-hidden">
+                      {/* Background hint of animal pattern? Keep simple for printing */}
+                      <div className="flex flex-col items-center">
+                        <div className="w-full flex justify-between items-center mb-4 border-b border-slate-100 pb-2">
+                          <div className="text-lg font-bold text-slate-700 capitalize flex items-center gap-2">
+                            {shape.name}
+                          </div>
+                          <div className="flex items-center gap-2 bg-slate-100 px-3 py-1 rounded-full">
+                            <span className="text-xs font-bold text-slate-500 uppercase tracking-widest">Make it</span>
+                            <span className="font-bold capitalize" style={{ color: shape.color === 'white' ? 'black' : shape.color }}>{shape.color}</span>
+                            <div className="w-4 h-4 rounded-full border border-slate-300 shadow-sm" style={{ backgroundColor: shape.color }}></div>
+                          </div>
                         </div>
-                      </div>
-                      <div className="flex justify-center">
-                        <svg viewBox="0 0 80 80" className="w-64 h-64 print:w-48 print:h-48">
-                          {renderShape(shape, 80)}
-                        </svg>
+
+                        <div className="relative w-48 h-48 flex items-center justify-center">
+                          <svg viewBox="0 0 100 100" className="w-full h-full drop-shadow-sm">
+                            {renderShape(shape.name, 100)}
+                          </svg>
+                        </div>
+
+                        <div className="mt-2 text-xs text-slate-400 font-medium italic">
+                          "{shape.animal} style"
+                        </div>
                       </div>
                     </div>
                   ))}
                 </div>
-                {/* Extension/Challenge Problems */}
-                <div className="mt-6 print:mt-0 p-4 bg-purple-50 border-2 border-purple-200 rounded print:bg-white print:border" style={{ pageBreakBefore: 'always', pageBreakInside: 'avoid' }}>
-                  <div className="font-semibold text-purple-900 mb-3 text-sm">🌟 More Fun (Optional):</div>
-                  <div className="space-y-2 text-sm text-purple-800">
-                    <div>1. Draw your own shape and color it</div>
-                    <div>2. Find objects around you that match these shapes</div>
-                    <div>3. Create a picture using only these shapes</div>
-                  </div>
-                </div>
-                {/* Self-Assessment */}
-                <div className="print:block hidden print:mt-0 mt-6 p-4 border-2 border-slate-300 rounded" style={{ pageBreakBefore: 'avoid', pageBreakInside: 'avoid' }}>
-                  <div className="font-semibold text-slate-800 mb-3 text-sm">📊 {getTrans('common.howDidYouDo', 'How did you do?')}</div>
-                  <div className="space-y-2 text-xs">
-                    <div>☐ I can name the shapes</div>
-                    <div>☐ I can match the colors</div>
-                    <div>☐ I colored carefully</div>
-                  </div>
-                  <div className="mt-3 text-xs">
-                    <strong>My favorite shape:</strong> _________________________
-                  </div>
-                </div>
+
                 {showAnswersForDoc('color-shapes', () => (
                   <div className="mt-6 p-4 border-2 border-emerald-300 bg-emerald-50 rounded print:border print:bg-white print:page-break-before-always">
-                    <div className="font-bold text-emerald-900 mb-3 text-base">✅ {getTrans('common.answerKey', 'Answer Key')}</div>
-                    <ul className="list-disc list-inside space-y-1 text-sm">
-                      {shapeData.map((s, i) => (<li key={i} className="text-emerald-800">{s.name}: Color {s.color}</li>))}
-                    </ul>
+                    <div className="font-bold text-emerald-900 mb-3 text-base">✅ Answer Key</div>
+                    <div className="grid grid-cols-2 gap-2 text-sm">
+                      {shapeData.map((s, i) => (
+                        <div key={i} className="flex items-center gap-2">
+                          <span className="font-bold capitalize">{s.name}:</span>
+                          <span className="capitalize" style={{ color: s.color === 'white' ? 'black' : s.color }}>{s.color}</span>
+                        </div>
+                      ))}
+                    </div>
                   </div>
                 ))}
               </WorksheetSectionWrapper>
@@ -30649,108 +30653,120 @@ export function PrintablesPage() {
 
         {
           activeDocs.includes('shape-sorting') && (() => {
-            const shapes = [
-              { name: 'circle', color: '#3b82f6' },
-              { name: 'square', color: '#ef4444' },
-              { name: 'triangle', color: '#22c55e' },
-              { name: 'rectangle', color: '#f59e0b' },
+            const categories = [
+              { shape: 'circle', animal: 'Lion 🦁', color: 'bg-orange-100', borderColor: 'border-orange-400', titleColor: 'text-orange-800' },
+              { shape: 'square', animal: 'Zebra 🦓', color: 'bg-slate-100', borderColor: 'border-slate-400', titleColor: 'text-slate-800' },
+              { shape: 'triangle', animal: 'Giraffe 🦒', color: 'bg-yellow-100', borderColor: 'border-yellow-400', titleColor: 'text-yellow-800' },
+              { shape: 'rectangle', animal: 'Elephant 🐘', color: 'bg-blue-100', borderColor: 'border-blue-400', titleColor: 'text-blue-800' },
             ];
-            const renderShape = (shape: typeof shapes[0], size: number = 80) => {
-              const svgMap: Record<string, JSX.Element> = {
-                circle: <circle cx={size / 2} cy={size / 2} r={size * 0.375} fill="none" stroke={shape.color} strokeWidth="3" />,
-                square: <rect x={size * 0.125} y={size * 0.125} width={size * 0.75} height={size * 0.75} fill="none" stroke={shape.color} strokeWidth="3" />,
-                triangle: <polygon points={`${size / 2},${size * 0.125} ${size * 0.125},${size * 0.875} ${size * 0.875},${size * 0.875}`} fill="none" stroke={shape.color} strokeWidth="3" />,
-                rectangle: <rect x={size * 0.1875} y={size * 0.25} width={size * 0.625} height={size * 0.5} fill="none" stroke={shape.color} strokeWidth="3" />,
-              };
-              return svgMap[shape.name] || null;
+
+            const shapesToSort = [
+              // 4 of each shape
+              ...Array(4).fill('circle'),
+              ...Array(4).fill('square'),
+              ...Array(4).fill('triangle'),
+              ...Array(4).fill('rectangle')
+            ];
+
+            // Shuffle shapes for the cutting area
+            // seeded shuffle could go here, but simple random map sort is fine for this
+            const shuffledShapes = shapesToSort
+              .map(value => ({ value, sort: Math.random() }))
+              .sort((a, b) => a.sort - b.sort)
+              .map(({ value }) => value);
+
+            const renderShape = (shape: string, size: number = 60) => {
+              const props = { fill: 'white', stroke: '#334155', strokeWidth: '3' };
+              switch (shape) {
+                case 'circle': return <circle cx={size / 2} cy={size / 2} r={size * 0.35} {...props} />;
+                case 'square': return <rect x={size * 0.2} y={size * 0.2} width={size * 0.6} height={size * 0.6} rx="4" {...props} />;
+                case 'triangle': return <polygon points={`${size / 2},${size * 0.15} ${size * 0.85},${size * 0.85} ${size * 0.15},${size * 0.85}`} strokeLinejoin="round" {...props} />;
+                case 'rectangle': return <rect x={size * 0.15} y={size * 0.3} width={size * 0.7} height={size * 0.4} rx="4" {...props} />;
+                default: return null;
+              }
             };
+
             return (
               <WorksheetSectionWrapper
                 docId="shape-sorting"
-                title="Shape Sorting"
-                emoji="🟩"
-                description="Cut out shapes and sort them into groups."
-                problemCount={shapes.length}
+                title="Zoo Sorting"
+                emoji="🦁"
+                description="The zoo animals are hungry! Sort the shape 'treats' into the correct animal cages."
+                problemCount={16}
                 learningObjectives={[
-                  'Identify and classify shapes',
-                  'Sort objects by shape attributes',
-                  'Develop categorization skills'
+                  'Classify objects by shape attributes',
+                  'Practice cutting and pasting (fine motor skills)',
+                  'Match shapes to categories'
                 ]}
                 parentTeacherTips={[
-                  'Help children name each shape before sorting',
-                  'Encourage them to look for matching shapes',
-                  'Use this activity to practice grouping and classification',
-                  'Extension: Sort by other attributes (color, size)'
+                  'Before cutting, ask: "Which animal likes the Circles?"',
+                  'Encourage careful cutting along the dotted lines.',
+                  'Talk about why a square is not a rectangle (equal sides).'
                 ]}
               >
-                <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-purple-400 to-pink-400 animate-gradient-x mb-2" />
-                <div className="mb-4 p-3 bg-blue-50 border border-blue-200 rounded text-sm text-blue-900">
-                  <strong>📝 Instructions:</strong> Look at the shapes below. Cut them out (or circle them) and sort them into the correct groups.
-                </div>
-                <div className="mb-6 break-inside-avoid" style={{ pageBreakAfter: 'auto' }}>
-                  <div className="text-lg font-semibold text-slate-800 mb-3">Shapes to Sort:</div>
-                  <div className="grid grid-cols-4 gap-4">
-                    {shapes.map((shape, i) => (
-                      <div key={i} className="border-2 border-dashed border-slate-400 rounded-lg p-4 bg-white flex flex-col items-center justify-center">
-                        <svg viewBox="0 0 80 80" className="w-20 h-20 print:w-24 print:h-24">
-                          {renderShape(shape, 80)}
-                        </svg>
-                        <div className="text-xs text-slate-600 mt-2 text-center capitalize">{shape.name}</div>
-                      </div>
-                    ))}
-                    {shapes.map((shape, i) => (
-                      <div key={`dup-${i}`} className="border-2 border-dashed border-slate-400 rounded-lg p-4 bg-white flex flex-col items-center justify-center">
-                        <svg viewBox="0 0 80 80" className="w-20 h-20 print:w-24 print:h-24">
-                          {renderShape(shape, 80)}
-                        </svg>
-                        <div className="text-xs text-slate-600 mt-2 text-center capitalize">{shape.name}</div>
-                      </div>
-                    ))}
+                <div className="print:hidden w-full h-16 mb-6 relative overflow-hidden bg-slate-100 rounded-lg flex items-center justify-center border-b-4 border-slate-600">
+                  <div className="font-bold text-3xl text-slate-800 tracking-wider flex items-center gap-2">
+                    🦁 ZOO SORTING 🦓
                   </div>
                 </div>
-                <div className="break-inside-avoid">
-                  <div className="text-lg font-semibold text-slate-800 mb-3">Sorting Boxes:</div>
-                  <div className="grid grid-cols-2 gap-4">
-                    {shapes.map((shape, i) => (
-                      <div key={i} className="border-2 border-slate-400 rounded-lg p-6 bg-slate-50">
-                        <div className="text-center mb-3">
-                          <div className="text-lg font-semibold text-slate-800 capitalize mb-2">{shape.name} Group</div>
-                          <svg viewBox="0 0 80 80" className="w-24 h-24 print:w-32 print:h-32 mx-auto">
-                            {renderShape(shape, 80)}
+
+                <div className="mb-6 p-3 bg-blue-50 border border-blue-200 rounded text-sm text-blue-900 print:mb-4 flex gap-2 items-start">
+                  <span className="text-xl">✂️</span>
+                  <div>
+                    <strong>Zoo Keeper Instructions:</strong> Cut out the shapes at the bottom. Glue them into the matching Animal Cage!
+                  </div>
+                </div>
+
+                {/* Cages Area */}
+                <div className="grid grid-cols-2 gap-6 mb-8 break-inside-avoid">
+                  {categories.map((cat, i) => (
+                    <div key={i} className={`border-4 ${cat.borderColor} ${cat.color} rounded-xl p-4 min-h-[200px] flex flex-col relative`}>
+                      {/* Bars visual */}
+                      <div className="absolute top-0 left-0 w-full h-4 border-b border-black/10"></div>
+                      <div className="absolute bottom-0 left-0 w-full h-4 border-t border-black/10"></div>
+
+                      <div className={`text-center font-bold text-xl ${cat.titleColor} mb-2 bg-white/50 py-1 rounded-lg shadow-sm border border-white`}>
+                        {cat.animal}
+                      </div>
+                      <div className="flex-1 border-2 border-dashed border-black/20 rounded-lg bg-white/40 flex items-center justify-center">
+                        <div className="opacity-20">
+                          <svg viewBox="0 0 100 100" className="w-24 h-24">
+                            {renderShape(cat.shape, 100)}
                           </svg>
                         </div>
-                        <div className="text-center text-sm text-slate-600">Sort all {shape.name}s here</div>
+                        <div className="absolute text-xs font-bold text-black/30 mt-16 mr-16 transform -rotate-12">Glue {cat.shape}s here</div>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+
+                {/* Cutting Area */}
+                <div className="break-inside-avoid mt-8 pt-6 border-t-4 border-dashed border-slate-300 relative">
+                  <div className="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-white px-4 text-slate-400 flex items-center gap-2">
+                    <span>✂️</span> <span className="text-sm font-bold tracking-widest uppercase">Cut Along Dotted Line</span> <span>✂️</span>
+                  </div>
+
+                  <div className="text-center font-bold text-slate-500 mb-4 uppercase tracking-wider text-sm">Treats to Sort</div>
+
+                  <div className="grid grid-cols-4 gap-4">
+                    {shuffledShapes.map((shape, i) => (
+                      <div key={i} className="border-2 border-dashed border-slate-400 p-2 rounded-lg flex items-center justify-center aspect-square bg-white">
+                        <svg viewBox="0 0 80 80" className="w-16 h-16">
+                          {renderShape(shape, 80)}
+                        </svg>
                       </div>
                     ))}
                   </div>
                 </div>
-                {/* Extension/Challenge Problems */}
-                <div className="mt-6 print:mt-0 p-4 bg-purple-50 border-2 border-purple-200 rounded print:bg-white print:border" style={{ pageBreakBefore: 'always', pageBreakInside: 'avoid' }}>
-                  <div className="font-semibold text-purple-900 mb-3 text-sm">🌟 More Fun (Optional):</div>
-                  <div className="space-y-2 text-sm text-purple-800">
-                    <div>1. Sort shapes by color instead</div>
-                    <div>2. Create your own sorting game with objects around you</div>
-                    <div>3. Sort shapes by size (big and small)</div>
-                  </div>
-                </div>
-                {/* Self-Assessment */}
-                <div className="print:block hidden print:mt-0 mt-6 p-4 border-2 border-slate-300 rounded" style={{ pageBreakBefore: 'avoid', pageBreakInside: 'avoid' }}>
-                  <div className="font-semibold text-slate-800 mb-3 text-sm">📊 {getTrans('common.howDidYouDo', 'How did you do?')}</div>
-                  <div className="space-y-2 text-xs">
-                    <div>☐ I can name the shapes</div>
-                    <div>☐ I sorted shapes correctly</div>
-                    <div>☐ I understand grouping</div>
-                  </div>
-                  <div className="mt-3 text-xs">
-                    <strong>My favorite shape to sort:</strong> _________________________
-                  </div>
-                </div>
+
                 {showAnswersForDoc('shape-sorting', () => (
                   <div className="mt-6 p-4 border-2 border-emerald-300 bg-emerald-50 rounded print:border print:bg-white print:page-break-before-always">
-                    <div className="font-bold text-emerald-900 mb-3 text-base">✅ {getTrans('common.answerKey', 'Answer Key')}</div>
-                    <ul className="list-disc list-inside space-y-1 text-sm">
-                      {shapes.map((s, i) => (<li key={i} className="text-emerald-800">{s.name}: Sort all {s.name}s into the {s.name} group</li>))}
-                    </ul>
+                    <div className="font-bold text-emerald-900 mb-3 text-base">✅ Answer Key</div>
+                    <div className="grid grid-cols-2 gap-2 text-sm text-emerald-800">
+                      {categories.map((c, i) => (
+                        <div key={i}><strong>{c.animal}:</strong> Likes {c.shape}s</div>
+                      ))}
+                    </div>
                   </div>
                 ))}
               </WorksheetSectionWrapper>
