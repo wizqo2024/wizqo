@@ -12137,10 +12137,10 @@ export function PrintablesPage() {
 
             // Train Configurations
             const trainConfigs = [
-              { id: 1, start: 1, length: 9, color: 'emerald' },
-              { id: 2, start: 11, length: 9, color: 'blue' },
-              { id: 3, start: 21, length: 9, color: 'purple' },
-              { id: 4, start: 31, length: 9, color: 'orange' },
+              { id: 1, start: 1, length: 10, color: 'emerald' },
+              { id: 2, start: 11, length: 10, color: 'blue' },
+              { id: 3, start: 21, length: 10, color: 'purple' },
+              { id: 4, start: 31, length: 10, color: 'orange' },
               { id: 5, start: 41, length: 10, color: 'rose' },
             ];
 
