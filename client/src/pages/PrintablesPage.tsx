@@ -4,6 +4,9 @@ import { useTranslation } from '@/context/TranslationContext'
 import { WizqoLogo } from '@/components/WizqoLogo'
 import InteractiveBundleSections from '@/components/InteractiveBundleSections'
 import { PRINTABLE_BUNDLE_SECTIONS, getPrintableSectionForDoc } from '@/data/printableBundles'
+import jsPDF from 'jspdf'
+import html2canvas from 'html2canvas'
+import { Download, Loader2 } from 'lucide-react'
 import { INTERACTIVE_CATEGORIES } from '@shared/interactive/interactiveWorksheets'
 import { formatNumber } from '@/utils/numbers'
 import { WorksheetFooter, ProblemBox } from '@/components/worksheet'
@@ -1396,8 +1399,41 @@ export function PrintablesPage() {
   const { t, language } = useTranslation()
 
   // Force re-render when language changes (important for /print route with ?lang=ar)
-  // Use a state update to ensure component re-renders when language changes
-  const [, forceUpdate] = React.useReducer(x => x + 1, 0)
+  /* eslint-disable-next-line @typescript-eslint/no-unused-vars */
+  const [_, forceUpdate] = React.useReducer(x => x + 1, 0)
+
+  const [isGeneratingPdf, setIsGeneratingPdf] = React.useState(false)
+  const doublesFactsRef = React.useRef<HTMLDivElement>(null)
+
+  const handleDownloadDoublesPDF = async () => {
+    if (!doublesFactsRef.current || isGeneratingPdf) return
+
+    setIsGeneratingPdf(true)
+
+    try {
+      // Wait for re-render/styles
+      await new Promise(resolve => setTimeout(resolve, 100))
+
+      const canvas = await html2canvas(doublesFactsRef.current, {
+        scale: 2,
+        useCORS: true,
+        backgroundColor: '#ffffff'
+      })
+
+      const imgData = canvas.toDataURL('image/png')
+      const pdf = new jsPDF('p', 'mm', 'a4')
+      const pdfWidth = pdf.internal.pageSize.getWidth()
+      const pdfHeight = pdf.internal.pageSize.getHeight()
+
+      pdf.addImage(imgData, 'PNG', 0, 0, pdfWidth, pdfHeight)
+      pdf.save('doubles-facts-magic-mirror.pdf')
+    } catch (error) {
+      console.error('PDF generation failed:', error)
+      alert('Could not generate PDF. Please use the Print button instead.')
+    } finally {
+      setIsGeneratingPdf(false)
+    }
+  }
   React.useEffect(() => {
     // Force re-render when language changes to ensure translations update
     forceUpdate()
@@ -20654,111 +20690,125 @@ export function PrintablesPage() {
             });
 
             return (
-              <WorksheetSectionWrapper
-                docId="doubles-facts"
-                title="Magic Mirror Doubles"
-                emoji="🪞"
-                description="Enter the Magic Mirror Kingdom! Add the number to its reflection to find the double."
-                problemCount={problems.length}
-                learningObjectives={[
-                  'Memorize doubles facts from 1+1 to 10+10',
-                  'Understand doubling as adding a number to itself',
-                  'Build mental math fluency'
-                ]}
-                parentTeacherTips={[
-                  'Doubling means adding the same number twice.',
-                  'Use a mirror to show "reflection" concept.',
-                  'Practice saying: "Double 3 is 6" or "3 plus 3 is 6".'
-                ]}
-              >
-                <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-purple-400 to-indigo-400 animate-gradient-x mb-2" />
-
-                {/* Theme Header */}
-                <div className="w-full h-20 mb-6 bg-indigo-50 rounded-lg border-2 border-indigo-200 flex items-center justify-center relative overflow-hidden">
-                  <div className="absolute opacity-10 text-6xl rotate-12 left-10">🏰</div>
-                  <div className="absolute opacity-10 text-6xl -rotate-12 right-10">✨</div>
-                  <div className="text-2xl font-bold text-indigo-900 flex items-center gap-3 z-10 font-serif">
-                    <span>🪞</span> ROYAL REFLECTIONS <span>🪞</span>
-                  </div>
+              <div className="w-full">
+                <div className="flex justify-end mb-2 print:hidden">
+                  <button
+                    onClick={handleDownloadDoublesPDF}
+                    disabled={isGeneratingPdf}
+                    className="flex items-center gap-2 px-4 py-2 bg-indigo-600 text-white rounded-lg font-semibold hover:bg-indigo-700 transition-colors shadow-sm disabled:opacity-50 text-sm"
+                  >
+                    {isGeneratingPdf ? <Loader2 size={16} className="animate-spin" /> : <Download size={16} />}
+                    {isGeneratingPdf ? 'Generating...' : 'Download PDF'}
+                  </button>
                 </div>
+                <div ref={doublesFactsRef} className="bg-white">
+                  <WorksheetSectionWrapper
+                    docId="doubles-facts"
+                    title="Magic Mirror Doubles"
+                    emoji="🪞"
+                    description="Enter the Magic Mirror Kingdom! Add the number to its reflection to find the double."
+                    problemCount={problems.length}
+                    learningObjectives={[
+                      'Memorize doubles facts from 1+1 to 10+10',
+                      'Understand doubling as adding a number to itself',
+                      'Build mental math fluency'
+                    ]}
+                    parentTeacherTips={[
+                      'Doubling means adding the same number twice.',
+                      'Use a mirror to show "reflection" concept.',
+                      'Practice saying: "Double 3 is 6" or "3 plus 3 is 6".'
+                    ]}
+                  >
+                    <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-purple-400 to-indigo-400 animate-gradient-x mb-2" />
 
-                {/* Worked Example */}
-                <div className="mb-6 p-4 bg-purple-50 border-2 border-purple-200 rounded-lg print:border print:bg-white relative">
-                  <div className="absolute -top-3 -right-3 text-3xl">👸</div>
-                  <div className="font-semibold text-purple-900 mb-3 text-sm font-serif">Mirror, Mirror on the wall...</div>
-                  <div className="flex items-center gap-6 justify-center">
-                    <div className="text-center">
-                      <div className="text-xs text-purple-600 mb-1">Real Number</div>
-                      <div className="w-12 h-16 border-2 border-purple-400 bg-white flex items-center justify-center text-3xl font-bold rounded-lg shadow-sm">3</div>
-                    </div>
-                    <div className="text-2xl text-purple-400">+</div>
-                    <div className="text-center relative">
-                      <div className="text-xs text-purple-600 mb-1">Reflection</div>
-                      {/* Mirror Effect */}
-                      <div className="w-12 h-16 border-2 border-indigo-300 bg-indigo-50/50 flex items-center justify-center text-3xl font-bold rounded-lg relative overflow-hidden">
-                        <span className="relative z-10 text-indigo-900">3</span>
-                        <div className="absolute inset-0 bg-gradient-to-tr from-white/40 to-transparent pointer-events-none"></div>
+                    {/* Theme Header */}
+                    <div className="w-full h-20 mb-6 bg-indigo-50 rounded-lg border-2 border-indigo-200 flex items-center justify-center relative overflow-hidden">
+                      <div className="absolute opacity-10 text-6xl rotate-12 left-10">🏰</div>
+                      <div className="absolute opacity-10 text-6xl -rotate-12 right-10">✨</div>
+                      <div className="text-2xl font-bold text-indigo-900 flex items-center gap-3 z-10 font-serif">
+                        <span>🪞</span> ROYAL REFLECTIONS <span>🪞</span>
                       </div>
                     </div>
-                    <div className="text-2xl text-purple-400">=</div>
-                    <div className="text-center">
-                      <div className="text-xs text-purple-600 mb-1">Double</div>
-                      <div className="w-12 h-16 border-2 border-purple-600 bg-purple-100 flex items-center justify-center text-3xl font-bold rounded-lg shadow-md text-purple-900">6</div>
-                    </div>
-                  </div>
-                  <div className="mt-3 text-center text-sm text-purple-800 italic">
-                    "3 plus 3 equals 6!"
-                  </div>
-                </div>
 
-                <div className="grid grid-cols-2 md:grid-cols-3 gap-4 break-inside-avoid">
-                  {problems.map((p, i) => (
-                    <div key={i} className="border-2 border-indigo-100 rounded-xl p-4 bg-white shadow-sm break-inside-avoid relative overflow-hidden">
-                      <div className="absolute top-0 right-0 w-8 h-8 bg-indigo-50 rounded-bl-xl flex items-center justify-center text-indigo-300 text-xs">
-                        ✨
-                      </div>
-                      <div className="flex items-center justify-center gap-2 mb-2">
-                        <div className="w-10 h-12 border border-slate-200 rounded flex items-center justify-center text-2xl font-bold text-slate-700 bg-slate-50">
-                          {p.num}
+                    {/* Worked Example */}
+                    <div className="mb-6 p-4 bg-purple-50 border-2 border-purple-200 rounded-lg print:border print:bg-white relative">
+                      <div className="absolute -top-3 -right-3 text-3xl">👸</div>
+                      <div className="font-semibold text-purple-900 mb-3 text-sm font-serif">Mirror, Mirror on the wall...</div>
+                      <div className="flex items-center gap-6 justify-center">
+                        <div className="text-center">
+                          <div className="text-xs text-purple-600 mb-1">Real Number</div>
+                          <div className="w-12 h-16 border-2 border-purple-400 bg-white flex items-center justify-center text-3xl font-bold rounded-lg shadow-sm">3</div>
                         </div>
-                        <div className="text-xl text-slate-400">+</div>
-                        <div className="w-10 h-12 border border-indigo-200 rounded flex items-center justify-center text-2xl font-bold text-indigo-700 bg-indigo-50 relative overflow-hidden">
-                          {p.num}
-                          <div className="absolute inset-0 bg-gradient-to-tr from-white/50 to-transparent"></div>
+                        <div className="text-2xl text-purple-400">+</div>
+                        <div className="text-center relative">
+                          <div className="text-xs text-purple-600 mb-1">Reflection</div>
+                          {/* Mirror Effect */}
+                          <div className="w-12 h-16 border-2 border-indigo-300 bg-indigo-50/50 flex items-center justify-center text-3xl font-bold rounded-lg relative overflow-hidden">
+                            <span className="relative z-10 text-indigo-900">3</span>
+                            <div className="absolute inset-0 bg-gradient-to-tr from-white/40 to-transparent pointer-events-none"></div>
+                          </div>
+                        </div>
+                        <div className="text-2xl text-purple-400">=</div>
+                        <div className="text-center">
+                          <div className="text-xs text-purple-600 mb-1">Double</div>
+                          <div className="w-12 h-16 border-2 border-purple-600 bg-purple-100 flex items-center justify-center text-3xl font-bold rounded-lg shadow-md text-purple-900">6</div>
                         </div>
                       </div>
-                      <div className="flex items-center justify-center gap-2">
-                        <div className="text-xl text-slate-400">=</div>
-                        <div className="w-16 h-12 border-b-2 border-slate-300 bg-slate-50 rounded flex items-center justify-center text-2xl text-slate-800">
-                        </div>
+                      <div className="mt-3 text-center text-sm text-purple-800 italic">
+                        "3 plus 3 equals 6!"
                       </div>
                     </div>
-                  ))}
-                </div>
 
-                {/* Self-Assessment */}
-                <div className="print:block hidden print:mt-0 mt-6 p-4 border-2 border-indigo-200 rounded bg-indigo-50" style={{ pageBreakBefore: 'avoid', pageBreakInside: 'avoid' }}>
-                  <div className="font-bold text-indigo-900 mb-3 text-sm font-serif">🏰 ROYAL REFLECTION CHECK</div>
-                  <div className="space-y-2 text-xs text-indigo-800">
-                    <div>☐ I can double numbers 1-5</div>
-                    <div>☐ I can double numbers 6-10</div>
-                    <div>☐ I know my doubles facts by heart</div>
-                  </div>
-                </div>
-
-                {showAnswersForDoc('doubles-facts', () => (
-                  <div className="mt-6 p-4 border-2 border-emerald-300 bg-emerald-50 rounded print:border print:bg-white print:page-break-before-always">
-                    <div className="font-bold text-emerald-900 mb-3 text-base">✅ Answer Key</div>
-                    <div className="grid grid-cols-3 gap-2 text-sm text-emerald-800 font-mono">
+                    <div className="grid grid-cols-2 md:grid-cols-3 gap-4 break-inside-avoid">
                       {problems.map((p, i) => (
-                        <div key={i}>
-                          {p.num} + {p.num} = <strong>{p.double}</strong>
+                        <div key={i} className="border-2 border-indigo-100 rounded-xl p-4 bg-white shadow-sm break-inside-avoid relative overflow-hidden">
+                          <div className="absolute top-0 right-0 w-8 h-8 bg-indigo-50 rounded-bl-xl flex items-center justify-center text-indigo-300 text-xs">
+                            ✨
+                          </div>
+                          <div className="flex items-center justify-center gap-2 mb-2">
+                            <div className="w-10 h-12 border border-slate-200 rounded flex items-center justify-center text-2xl font-bold text-slate-700 bg-slate-50">
+                              {p.num}
+                            </div>
+                            <div className="text-xl text-slate-400">+</div>
+                            <div className="w-10 h-12 border border-indigo-200 rounded flex items-center justify-center text-2xl font-bold text-indigo-700 bg-indigo-50 relative overflow-hidden">
+                              {p.num}
+                              <div className="absolute inset-0 bg-gradient-to-tr from-white/50 to-transparent"></div>
+                            </div>
+                          </div>
+                          <div className="flex items-center justify-center gap-2">
+                            <div className="text-xl text-slate-400">=</div>
+                            <div className="w-16 h-12 border-b-2 border-slate-300 bg-slate-50 rounded flex items-center justify-center text-2xl text-slate-800">
+                            </div>
+                          </div>
                         </div>
                       ))}
                     </div>
-                  </div>
-                ))}
-              </WorksheetSectionWrapper>
+
+                    {/* Self-Assessment */}
+                    <div className="print:block hidden print:mt-0 mt-6 p-4 border-2 border-indigo-200 rounded bg-indigo-50" style={{ pageBreakBefore: 'avoid', pageBreakInside: 'avoid' }}>
+                      <div className="font-bold text-indigo-900 mb-3 text-sm font-serif">🏰 ROYAL REFLECTION CHECK</div>
+                      <div className="space-y-2 text-xs text-indigo-800">
+                        <div>☐ I can double numbers 1-5</div>
+                        <div>☐ I can double numbers 6-10</div>
+                        <div>☐ I know my doubles facts by heart</div>
+                      </div>
+                    </div>
+
+                    {showAnswersForDoc('doubles-facts', () => (
+                      <div className="mt-6 p-4 border-2 border-emerald-300 bg-emerald-50 rounded print:border print:bg-white print:page-break-before-always">
+                        <div className="font-bold text-emerald-900 mb-3 text-base">✅ Answer Key</div>
+                        <div className="grid grid-cols-3 gap-2 text-sm text-emerald-800 font-mono">
+                          {problems.map((p, i) => (
+                            <div key={i}>
+                              {p.num} + {p.num} = <strong>{p.double}</strong>
+                            </div>
+                          ))}
+                        </div>
+                      </div>
+                    ))}
+                  </WorksheetSectionWrapper>
+                </div>
+              </div>
             );
           })()
         }
