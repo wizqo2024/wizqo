@@ -3833,149 +3833,96 @@ export function PrintablesPage() {
         {activeDocs.includes('number-tracing-1-20') && (() => {
           const docId = 'number-tracing-1-20'
           const numbers = Array.from({ length: 20 }, (_, i) => i + 1);
+
           return (
             <WorksheetSectionWrapper
               docId={docId}
-              title={getTrans(`worksheets.${docId}.title`, 'Trace Numbers 1–20')}
-              emoji="🔢"
-              description={getTrans(`worksheets.${docId}.description`, 'Start‑point arrows included. Say each number while tracing; then color one object for each number.')}
+              title="Rainbow Tracing: 1–20"
+              emoji="🌈"
+              description="Trace each number 3 times! Use different colors (Red, Blue, Green) to make a rainbow."
               problemCount={20}
-              learningObjectives={(() => {
-                const obj = t(`worksheets.${docId}.learningObjectives`)
-                if (Array.isArray(obj) && obj.length > 0 && typeof obj[0] === 'string') return obj
-                return [
-                  'Recognize and write numbers 1–20',
-                  'Practice fine motor skills (tracing)',
-                  'Follow directional arrows',
-                  'Build number recognition and formation'
-                ]
-              })()}
-              parentTeacherTips={(() => {
-                const tips = t(`worksheets.${docId}.parentTeacherTips`)
-                if (Array.isArray(tips) && tips.length > 0 && typeof tips[0] === 'string') return tips
-                return [
-                  'Start at the red dot and follow the arrow',
-                  'Say the number name while tracing',
-                  'Encourage proper pencil grip',
-                  'Color one object for each number after tracing',
-                  'Extension: Practice writing numbers without tracing lines'
-                ]
-              })()}
+              learningObjectives={[
+                'Develop fine motor control through repetition',
+                'Learn proper number formation stroke order',
+                'Recognize numbers 1–20',
+                'Build muscle memory for writing'
+              ]}
+              parentTeacherTips={[
+                'Rainbow Tracing means tracing the same number multiple times with different colors.',
+                'Watch the start point (Green Dot) to ensure correct stroke direction.',
+                'Encourage big arm movements first, then precise finger movements.'
+              ]}
             >
-              <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-indigo-400 to-purple-400 animate-gradient-x mb-2" />
-              {/* Worked Example */}
-              <div className="mb-6 p-4 bg-blue-50 border-2 border-blue-200 rounded-lg print:border print:bg-white">
-                <div className="font-semibold text-blue-900 mb-3 text-sm">{getTrans(`worksheets.${docId}.example.title`, '📚 Example - Let\'s solve this together:')}</div>
-                <div className="space-y-2 text-sm">
-                  <div className="font-semibold text-base"><strong>{getTrans(`worksheets.${docId}.example.number`, 'Number:')}</strong> {getTrans(`worksheets.${docId}.example.numberValue`, '15')}</div>
-                  <div className="pl-4 border-l-2 border-blue-300 space-y-1">
-                    <div><strong>{getTrans(`worksheets.${docId}.example.step1`, 'Step 1:')}</strong> {getTrans(`worksheets.${docId}.example.step1Text`, 'Find the red dot (start point)')}</div>
-                    <div><strong>{getTrans(`worksheets.${docId}.example.step2`, 'Step 2:')}</strong> {getTrans(`worksheets.${docId}.example.step2Text`, 'Follow the arrow direction')}</div>
-                    <div><strong>{getTrans(`worksheets.${docId}.example.step3`, 'Step 3:')}</strong> {getTrans(`worksheets.${docId}.example.step3Text`, 'Trace along the dashed line')}</div>
-                    <div><strong>{getTrans(`worksheets.${docId}.example.step4`, 'Step 4:')}</strong> {getTrans(`worksheets.${docId}.example.step4Text`, 'Say "fifteen" while tracing')}</div>
-                    <div className="font-semibold text-blue-900"><strong>{getTrans(`worksheets.${docId}.example.answer`, 'Answer:')}</strong> {getTrans(`worksheets.${docId}.example.answerText`, 'Trace the number 15 following the dashed line, starting at the red dot')}</div>
-                    <div className="text-xs text-blue-700 mt-1">{getTrans(`worksheets.${docId}.example.tip`, '💡 Tip: Always start at the red dot and follow the arrow. Say the number name as you trace!')}</div>
-                  </div>
-                </div>
+              {/* Rainbow Header Decorative */}
+              <div className="print:hidden w-full h-16 mb-6 relative overflow-hidden bg-gradient-to-r from-red-100 via-green-100 to-blue-100 rounded-lg flex items-center justify-center">
+                <div className="font-bold text-3xl tracking-widest text-slate-700 opacity-50">🌈 RAINBOW TRACING 🌈</div>
               </div>
-              <div className="grid grid-cols-2 gap-4" style={{ pageBreakAfter: 'auto' }}>
+
+              <div className="grid grid-cols-2 lg:grid-cols-4 gap-6 break-inside-avoid">
                 {numbers.map((n) => (
-                  <div key={n} className="break-inside-avoid">
-                    <svg viewBox="0 0 400 200" className="w-full h-auto bg-white border border-slate-300 rounded">
-                      <g fill="none" stroke="#94a3b8" strokeWidth="3">
-                        <path strokeDasharray="6 6" d={`M40 160 H360`} />
-                      </g>
-                      <g fill="none" stroke="#111827" strokeWidth="5" strokeLinecap="round" strokeLinejoin="round">
+                  <div key={n} className="break-inside-avoid flex flex-col items-center">
+                    <svg viewBox="0 0 200 200" className="w-full h-auto bg-white border-2 border-slate-200 rounded-xl shadow-sm">
+                      {/* Grid Lines for reference (light) */}
+                      <line x1="20" y1="50" x2="180" y2="50" stroke="#e2e8f0" strokeWidth="1" strokeDasharray="4 4" />
+                      <line x1="20" y1="150" x2="180" y2="150" stroke="#e2e8f0" strokeWidth="1" strokeDasharray="4 4" />
+                      <line x1="20" y1="100" x2="180" y2="100" stroke="#e2e8f0" strokeWidth="1" strokeDasharray="4 4" />
+
+                      <g fill="none" stroke="#94a3b8" strokeWidth="8" strokeLinecap="round" strokeLinejoin="round" strokeDasharray="10 10">
                         {(() => {
-                          const getDigitPath = (digit: string, offset: number) => {
+                          const getPath = (digit: string, xOffset: number) => {
+                            // Coordinates optimized for 200x200 box, digit approx 100px tall
                             switch (digit) {
-                              case '0': return <path d={`M${220 + offset} 105 C${220 + offset} 160 ${180 + offset} 160 ${180 + offset} 105 C${180 + offset} 50 ${220 + offset} 50 ${220 + offset} 105 Z`} />;
-                              case '1': return <path d={`M${185 + offset} 80 L${205 + offset} 60 L${205 + offset} 150`} />;
-                              case '2': return <path d={`M${155 + offset} 90 C${155 + offset} 60 ${215 + offset} 60 ${215 + offset} 90 C${215 + offset} 110 ${155 + offset} 150 ${155 + offset} 150 L${225 + offset} 150`} />;
-                              case '3': return <path d={`M${165 + offset} 70 C${215 + offset} 50 ${215 + offset} 100 ${185 + offset} 100 C${215 + offset} 100 ${215 + offset} 150 ${165 + offset} 130`} />;
-                              case '4': return <path d={`M${210 + offset} 150 L${210 + offset} 60 M${180 + offset} 60 L${180 + offset} 100 L${220 + offset} 100`} />;
-                              case '5': return <path d={`M${210 + offset} 60 L${170 + offset} 60 L${170 + offset} 100 C${210 + offset} 100 ${210 + offset} 150 ${170 + offset} 150`} />;
-                              case '6': return <path d={`M${205 + offset} 60 C${155 + offset} 80 ${155 + offset} 150 ${185 + offset} 150 C${215 + offset} 150 ${215 + offset} 110 ${185 + offset} 110 C${165 + offset} 110 ${165 + offset} 130 ${185 + offset} 150`} />;
-                              case '7': return <path d={`M${160 + offset} 60 L${220 + offset} 60 L${180 + offset} 150`} />;
-                              case '8': return <path d={`M${190 + offset} 60 C${150 + offset} 60 ${150 + offset} 105 ${190 + offset} 105 C${230 + offset} 105 ${230 + offset} 150 ${190 + offset} 150 C${150 + offset} 150 ${150 + offset} 105 ${190 + offset} 105 C${230 + offset} 105 ${230 + offset} 60 ${190 + offset} 60`} />;
-                              case '9': return <path d={`M${200 + offset} 100 C${170 + offset} 100 ${170 + offset} 60 ${200 + offset} 60 C${230 + offset} 60 ${230 + offset} 100 ${200 + offset} 100 M${225 + offset} 80 L${180 + offset} 150`} />;
-                              default: return null;
+                              case '0': return { d: `M${100 + xOffset},50 Q${135 + xOffset},50 ${135 + xOffset},100 Q${135 + xOffset},150 ${100 + xOffset},150 Q${65 + xOffset},150 ${65 + xOffset},100 Q${65 + xOffset},50 ${100 + xOffset},50`, start: [100 + xOffset, 50] };
+                              case '1': return { d: `M${85 + xOffset},65 L${100 + xOffset},50 L${100 + xOffset},150`, start: [85 + xOffset, 65] };
+                              case '2': return { d: `M${75 + xOffset},75 Q${75 + xOffset},50 ${100 + xOffset},50 Q${125 + xOffset},50 ${125 + xOffset},75 Q${125 + xOffset},100 ${75 + xOffset},150 L${130 + xOffset},150`, start: [75 + xOffset, 75] };
+                              case '3': return { d: `M${75 + xOffset},60 Q${125 + xOffset},50 ${125 + xOffset},95 Q${125 + xOffset},100 ${100 + xOffset},100 Q${125 + xOffset},100 ${125 + xOffset},140 Q${125 + xOffset},150 ${75 + xOffset},150`, start: [75 + xOffset, 60] };
+                              case '4': return { d: `M${110 + xOffset},150 L${110 + xOffset},50 L${70 + xOffset},115 L${130 + xOffset},115`, start: [110 + xOffset, 50] }; // Start top
+                              case '5': return { d: `M${125 + xOffset},50 L${80 + xOffset},50 L${80 + xOffset},90 Q${80 + xOffset},80 ${100 + xOffset},80 Q${130 + xOffset},80 ${130 + xOffset},120 Q${130 + xOffset},150 ${80 + xOffset},150`, start: [125 + xOffset, 50] };
+                              case '6': return { d: `M${120 + xOffset},50 Q${70 + xOffset},60 ${70 + xOffset},120 Q${70 + xOffset},150 ${100 + xOffset},150 Q${130 + xOffset},150 ${130 + xOffset},120 Q${130 + xOffset},100 ${100 + xOffset},100 Q${70 + xOffset},100 ${70 + xOffset},120`, start: [120 + xOffset, 50] };
+                              case '7': return { d: `M${70 + xOffset},50 L${130 + xOffset},50 L${90 + xOffset},150`, start: [70 + xOffset, 50] };
+                              case '8': return { d: `M${100 + xOffset},100 Q${130 + xOffset},100 ${130 + xOffset},75 Q${130 + xOffset},50 ${100 + xOffset},50 Q${70 + xOffset},50 ${70 + xOffset},75 Q${70 + xOffset},100 ${100 + xOffset},100 Q${70 + xOffset},100 ${70 + xOffset},125 Q${70 + xOffset},150 ${100 + xOffset},150 Q${130 + xOffset},150 ${130 + xOffset},125 Q${130 + xOffset},100 ${100 + xOffset},100`, start: [100 + xOffset, 50] }; // Start Center/Top? usually S
+                              case '9': return { d: `M${130 + xOffset},80 Q${130 + xOffset},50 ${100 + xOffset},50 Q${70 + xOffset},50 ${70 + xOffset},80 Q${70 + xOffset},110 ${100 + xOffset},110 Q${130 + xOffset},110 ${130 + xOffset},80 L${130 + xOffset},150`, start: [130 + xOffset, 80] }; // Start Right side?
+                              default: return { d: '', start: [0, 0] };
                             }
                           };
 
                           if (n < 10) {
-                            return getDigitPath(n.toString(), 0);
-                          } else {
-                            const s = n.toString();
-                            // Center two digits: Shift left by ~30px for first, right by ~30px for second
+                            const p = getPath(n.toString(), 0);
                             return (
                               <g>
-                                {getDigitPath(s[0], -45)}
-                                {getDigitPath(s[1], 45)}
+                                <path d={p.d} />
+                                {/* Start Dot */}
+                                <circle cx={p.start[0]} cy={p.start[1]} r="6" fill="#22c55e" stroke="none" />
                               </g>
-                            );
+                            )
+                          } else {
+                            const s = n.toString();
+                            const p1 = getPath(s[0], -35); // Shift left
+                            const p2 = getPath(s[1], 35);  // Shift right
+                            return (
+                              <g>
+                                <path d={p1.d} />
+                                <circle cx={p1.start[0]} cy={p1.start[1]} r="6" fill="#22c55e" stroke="none" />
+                                <path d={p2.d} />
+                                <circle cx={p2.start[0]} cy={p2.start[1]} r="6" fill="#22c55e" stroke="none" />
+                              </g>
+                            )
                           }
                         })()}
                       </g>
-                      <circle cx="48" cy="54" r="4" fill="#ef4444" />
-                      <line x1="48" y1="54" x2="70" y2="54" stroke="#ef4444" strokeWidth="2.5" strokeLinecap="round" />
-                      <line x1="70" y1="54" x2="64" y2="49" stroke="#ef4444" strokeWidth="2.5" strokeLinecap="round" />
-                      <line x1="70" y1="54" x2="64" y2="59" stroke="#ef4444" strokeWidth="2.5" strokeLinecap="round" />
-                      <circle cx="80" cy="70" r="6" fill="#ef4444" />
-                      <text x="300" y="60" fontSize="28" fill="#111827">{n}</text>
                     </svg>
+                    {/* Number Label */}
+                    <div className="mt-2 text-2xl font-bold text-slate-400">{n}</div>
                   </div>
                 ))}
               </div>
-              {/* Extension/Challenge Problems */}
-              <div className="mt-6 print:mt-0 p-4 bg-purple-50 border-2 border-purple-200 rounded print:bg-white print:border" style={{ pageBreakBefore: 'always', pageBreakInside: 'avoid' }}>
-                <div className="font-semibold text-purple-900 mb-3 text-sm">{getTrans(`worksheets.${docId}.challenge.title`, '🌟 More Fun (Optional):')}</div>
-                <div className="space-y-2 text-sm text-purple-800">
-                  {(() => {
-                    const items = t(`worksheets.${docId}.challenge.items`)
-                    const fallbackItems = [
-                      'Try writing the numbers 1–20 without tracing lines',
-                      'Count objects around you: How many can you find of each number?',
-                      'Draw your own numbers and trace them!',
-                    ]
-                    const itemsArray = Array.isArray(items) && items.length > 0 && typeof items[0] === 'string' && items[0] !== `worksheets.${docId}.challenge.items` ? items : fallbackItems
-                    return itemsArray.map((item, i) => (
-                      <div key={i}>{i + 1}. {item}</div>
-                    ))
-                  })()}
-                </div>
-              </div>
-              {/* Self-Assessment */}
-              <div className="print:block hidden print:mt-0 mt-6 p-4 border-2 border-slate-300 rounded" style={{ pageBreakBefore: 'avoid', pageBreakInside: 'avoid' }}>
-                <div className="font-semibold text-slate-800 mb-3 text-sm">{getTrans(`worksheets.${docId}.selfAssessment.title`, '📊 How did you do?')}</div>
-                <div className="space-y-2 text-xs">
-                  {(() => {
-                    const items = t(`worksheets.${docId}.selfAssessment.items`)
-                    const fallbackItems = [
-                      'I can recognize numbers 1–20',
-                      'I can trace numbers following the lines',
-                      'I can say the number names',
-                    ]
-                    const itemsArray = Array.isArray(items) && items.length > 0 && typeof items[0] === 'string' && items[0] !== `worksheets.${docId}.selfAssessment.items` ? items : fallbackItems
-                    return itemsArray.map((item, i) => (
-                      <div key={i}>☐ {item}</div>
-                    ))
-                  })()}
-                </div>
-                <div className="mt-3 text-xs">
-                  <strong>{getTrans(`worksheets.${docId}.selfAssessment.score`, 'My score:')}</strong> {getTrans(`worksheets.${docId}.selfAssessment.scoreFormat`, '___ / 20')}
-                </div>
-                <div className="mt-2 text-xs">
-                  <strong>{getTrans(`worksheets.${docId}.selfAssessment.hardest`, 'What was hardest?')}</strong> _________________________
-                </div>
-              </div>
+
               {showAnswersForDoc(docId, () => (
                 <div className="mt-6 p-4 border-2 border-emerald-300 bg-emerald-50 rounded print:border print:bg-white print:page-break-before-always">
-                  <div className="font-bold text-emerald-900 mb-3 text-base">{getTrans(`worksheets.${docId}.answerKey.title`, '✅ Answer Key')}</div>
-                  <div className="space-y-2 text-sm text-emerald-800">
-                    <div>{getTrans(`worksheets.${docId}.answerKey.instruction`, 'Trace each number following the dashed lines. Start at the red dot and follow the arrow direction.')}</div>
-                    <div className="mt-2">{getTrans(`worksheets.${docId}.answerKey.numbersToTrace`, 'Numbers to trace:')} <strong>{getTrans(`worksheets.${docId}.answerKey.numbersList`, '1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20')}</strong></div>
-                    <div className="text-xs text-emerald-700 mt-2">{getTrans(`worksheets.${docId}.answerKey.remember`, '💡 Remember: Always start at the red dot, follow the arrow, and say the number name as you trace!')}</div>
+                  <div className="font-bold text-emerald-900 mb-3 text-base">✅ {getTrans('common.answerKey', 'Answer Key')}</div>
+                  <div className="text-sm text-emerald-800">
+                    <p>All numbers 1-20 are displayed. Ensure the student traces following the lines, starting at the <strong>Green Dot</strong>.</p>
+                    <p className="mt-2 text-xs">Correction Tip: If stroke order is incorrect, guide their hand gently to start at the dot.</p>
                   </div>
                 </div>
               ))}
@@ -4393,141 +4340,190 @@ export function PrintablesPage() {
         })()}
 
         {activeDocs.includes('ten-frames-1-10') && (() => {
-          const numbers = Array.from({ length: 10 }, (_, n) => n + 1);
+          // Initialize RNG for stable theme selection
+          const rng = makeRng(`${effectiveSeed}|v${variant}|doc=${doc}`);
+          const themes = ['apples', 'stars', 'cookies', 'buttons'];
+          const theme = themes[Math.floor(rng() * themes.length)];
+
+          // Generate customized problems (1-10, shuffled or ordered based on variant)
+          let numbers = Array.from({ length: 10 }, (_, n) => n + 1);
+          if (variant > 0) {
+            numbers = shuffleArray(numbers, rng);
+          }
+
+          // Theme Configuration
+          const getThemeAssets = (t: string) => {
+            switch (t) {
+              case 'apples': return {
+                icon: (filled: boolean) => (
+                  <svg viewBox="0 0 100 100" className="w-full h-full p-1">
+                    {filled ? (
+                      <path d="M50,25 C30,25 20,40 20,60 C20,85 35,95 50,95 C65,95 80,85 80,60 C80,40 70,25 50,25 Z M50,25 Q50,10 60,5" fill="#ef4444" stroke="#991b1b" strokeWidth="3" strokeLinecap="round" />
+                    ) : (
+                      <path d="M50,25 C30,25 20,40 20,60 C20,85 35,95 50,95 C65,95 80,85 80,60 C80,40 70,25 50,25 Z" fill="none" stroke="#d1d5db" strokeWidth="2" strokeDasharray="4 4" />
+                    )}
+                  </svg>
+                ),
+                color: 'text-red-600',
+                borderColor: 'border-red-200',
+                bgColor: 'bg-red-50',
+                title: 'Apple Picking',
+                emoji: '🍎'
+              };
+              case 'stars': return {
+                icon: (filled: boolean) => (
+                  <svg viewBox="0 0 100 100" className="w-full h-full p-2">
+                    <path d="M50,5 L61,35 L95,35 L68,55 L79,85 L50,65 L21,85 L32,55 L5,35 L39,35 Z"
+                      fill={filled ? "#f59e0b" : "none"}
+                      stroke={filled ? "#b45309" : "#cbd5e1"}
+                      strokeWidth={filled ? "3" : "2"}
+                      strokeDasharray={filled ? "" : "4 4"}
+                    />
+                  </svg>
+                ),
+                color: 'text-amber-600',
+                borderColor: 'border-amber-200',
+                bgColor: 'bg-amber-50',
+                title: 'Super Stars',
+                emoji: '⭐'
+              };
+              case 'cookies': return {
+                icon: (filled: boolean) => (
+                  <svg viewBox="0 0 100 100" className="w-full h-full p-1">
+                    <circle cx="50" cy="50" r="40" fill={filled ? "#d97706" : "none"} stroke={filled ? "#92400e" : "#d1d5db"} strokeWidth={filled ? "3" : "2"} strokeDasharray={filled ? "" : "4 4"} />
+                    {filled && (
+                      <g fill="#78350f">
+                        <circle cx="35" cy="40" r="4" />
+                        <circle cx="65" cy="45" r="4" />
+                        <circle cx="50" cy="65" r="4" />
+                        <circle cx="45" cy="25" r="4" />
+                      </g>
+                    )}
+                  </svg>
+                ),
+                color: 'text-amber-700',
+                borderColor: 'border-amber-200',
+                bgColor: 'bg-orange-50',
+                title: 'Yummy Cookies',
+                emoji: '🍪'
+              };
+              default: return { // Buttons
+                icon: (filled: boolean) => (
+                  <svg viewBox="0 0 100 100" className="w-full h-full p-2">
+                    <circle cx="50" cy="50" r="40" fill={filled ? "#3b82f6" : "none"} stroke={filled ? "#1e40af" : "#cbd5e1"} strokeWidth="3" strokeDasharray={filled ? "" : "4 4"} />
+                    {filled && (
+                      <g fill="white">
+                        <circle cx="35" cy="50" r="4" />
+                        <circle cx="65" cy="50" r="4" />
+                        <circle cx="50" cy="35" r="4" />
+                        <circle cx="50" cy="65" r="4" />
+                      </g>
+                    )}
+                  </svg>
+                ),
+                color: 'text-blue-600',
+                borderColor: 'border-blue-200',
+                bgColor: 'bg-blue-50',
+                title: 'Button Counting',
+                emoji: '🔵'
+              }
+            }
+          }
+
+          const themeData = getThemeAssets(theme);
+
           return (
             <WorksheetSectionWrapper
               docId="ten-frames-1-10"
-              title="Ten Frames 1–10"
-              emoji="🔟"
-              description="Color the circles to match each number. Say how many are filled and how many are empty."
+              title={`${themeData.title}: Ten Frame Counting`}
+              emoji={themeData.emoji}
+              description={`Count the ${theme}. Trace the number, then write it in the box.`}
               problemCount={numbers.length}
               learningObjectives={[
-                'Recognize numbers 1–10',
-                'Understand number quantity using ten frames',
-                'Count and represent numbers visually',
-                'Build number sense and subitizing skills'
+                'Compose and decompose numbers up to 10',
+                'Connect number quantities to numerals',
+                'Develop subitizing skills (instantly seeing "how many")',
+                'Practice number formation'
               ]}
               parentTeacherTips={[
-                'Ten frames help children see numbers as groups of 10',
-                'Encourage counting aloud while coloring',
-                'Ask: "How many filled? How many empty?"',
-                'For number 10, all spaces should be filled',
-                'Extension: Practice addition and subtraction using ten frames'
+                `Ask: "How many ${theme} do you see?"`,
+                'Ask: "How many more do we need to make 10?"',
+                'Encourage your child to count out loud as they point to each item.',
+                'Trace the dashed number first to practice the motion.'
               ]}
             >
-              <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-teal-400 to-cyan-400 animate-gradient-x mb-2" />
-              {/* Worked Example */}
-              <div className="mb-6 p-4 bg-gradient-to-br from-teal-50 to-cyan-50 border-2 border-teal-200 rounded-lg print:border print:bg-white">
-                <div className="font-semibold text-teal-900 mb-3 text-sm flex items-center gap-2">
-                  <span className="text-2xl">📚</span>
-                  <span>Example - Let's solve this together:</span>
-                </div>
-                <div className="space-y-3 text-sm">
-                  <div className="font-semibold text-base text-teal-900"><strong>Number:</strong> <span className="text-4xl text-teal-700 ml-2">7</span></div>
-                  {/* Visual ten frame example */}
-                  <div className="bg-white p-4 rounded-lg border-2 border-teal-300">
-                    <div className="flex flex-col items-center gap-3">
-                      <svg viewBox="0 0 300 110" className="w-full h-auto max-h-32">
-                        <rect x="20" y="20" width="260" height="100" rx="8" fill="white" stroke="#14b8a6" strokeWidth="3" />
-                        {/* 5 circles in top row - all filled */}
-                        {Array.from({ length: 5 }).map((_, j) => (
-                          <g key={j}>
-                            <circle cx={50 + j * 40} cy="50" r="18" fill="#14b8a6" stroke="#0d9488" strokeWidth="2.5" />
-                            <circle cx={50 + j * 40 - 4} cy="46" r="3" fill="#ffffff" />
-                          </g>
-                        ))}
-                        {/* 5 circles in bottom row - first 2 filled */}
-                        {Array.from({ length: 5 }).map((_, j) => (
-                          <g key={j}>
-                            <circle cx={50 + j * 40} cy="90" r="18" fill={j < 2 ? "#14b8a6" : "white"} stroke="#0d9488" strokeWidth="2.5" />
-                            {j < 2 && <circle cx={50 + j * 40 - 4} cy="86" r="3" fill="#ffffff" />}
-                          </g>
-                        ))}
-                      </svg>
-                      <div className="text-base font-bold text-teal-700 whitespace-nowrap">7 filled circles, 3 empty circles</div>
-                    </div>
-                  </div>
-                  <div className="pl-4 border-l-2 border-teal-300 space-y-1">
-                    <div><strong>Step 1:</strong> Look at the number: <span className="text-teal-700 font-bold text-lg">7</span></div>
-                    <div><strong>Step 2:</strong> Color <span className="text-teal-700 font-bold">7 circles</span> in the ten frame</div>
-                    <div><strong>Step 3:</strong> Count: <span className="text-teal-700 font-bold">7 filled</span>, <span className="text-slate-500">3 empty</span></div>
-                    <div className="font-semibold text-teal-900 mt-2"><strong>Answer:</strong> Color 7 circles. Say "7 filled, 3 empty"</div>
-                    <div className="text-xs text-teal-700 mt-2 flex items-center gap-1">
-                      <span>💡</span>
-                      <span>Tip: A ten frame has 10 spaces. Count how many you need to fill, then count how many are left empty!</span>
-                    </div>
-                  </div>
-                </div>
+              <div className={`print:hidden h-1 w-full rounded-full bg-slate-100 mb-6 overflow-hidden`}>
+                <div className={`h-full w-1/3 ${themeData.bgColor.replace('bg-', 'bg-')} bg-current opacity-50`}></div>
               </div>
-              <div className="grid grid-cols-2 gap-4" style={{ pageBreakAfter: 'auto' }}>
-                {numbers.map((n) => (
-                  <div key={n} className="break-inside-avoid bg-gradient-to-br from-teal-50 to-cyan-50 p-3 rounded-lg border-2 border-teal-200">
-                    <div className="flex flex-col items-center gap-2 bg-white border border-slate-300 rounded p-2">
-                      <div className="text-3xl font-bold text-teal-700">{n}</div>
-                      <svg viewBox="0 0 200 100" className="w-full h-auto max-h-24">
-                        <rect x="0" y="0" width="200" height="100" rx="6" fill="white" stroke="#14b8a6" strokeWidth="3" />
-                        {Array.from({ length: 10 }).map((__, i) => {
-                          const col = i % 5;
-                          const row = Math.floor(i / 5);
-                          const x = 20 + col * 36;
-                          const y = 20 + row * 36;
-                          return (
-                            <circle key={i} cx={x} cy={y} r="15" fill="white" stroke="#0d9488" strokeWidth="2.5" />
-                          );
-                        })}
-                      </svg>
-                      <div className="text-sm text-slate-600 text-center">
-                        Color <span className="text-teal-700 font-bold">{n}</span> circles
+
+              {/* 2-Column Layout for problems */}
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-6" style={{ pageBreakAfter: 'auto' }}>
+                {numbers.map((n, idx) => (
+                  <div key={idx} className={`flex items-center gap-4 p-4 rounded-xl border-2 ${themeData.borderColor} ${themeData.bgColor} print:border-slate-300 print:bg-white break-inside-avoid relative`}>
+
+                    {/* Number Badge */}
+                    <div className="absolute -top-3 -left-3 w-8 h-8 rounded-full bg-white border-2 border-slate-200 flex items-center justify-center text-xs font-bold text-slate-400 shadow-sm print:hidden">
+                      #{idx + 1}
+                    </div>
+
+                    {/* Ten Frame */}
+                    <div className="bg-white border-4 border-slate-800 rounded-lg p-1 shadow-sm">
+                      <div className="grid grid-cols-5 grid-rows-2 gap-1 w-40 h-20">
+                        {Array.from({ length: 10 }).map((_, i) => (
+                          <div key={i} className="border border-slate-200 rounded flex items-center justify-center relative">
+                            {/* Render icon if index < n */}
+                            {themeData.icon(i < n)}
+                          </div>
+                        ))}
                       </div>
                     </div>
+
+                    {/* Interaction Area */}
+                    <div className="flex-1 flex flex-col items-center justify-center gap-2 border-l-2 border-dashed border-slate-300 pl-4 h-full">
+                      <div className="flex items-end gap-3">
+                        {/* Tracing Number */}
+                        <div className={`text-6xl font-outline-2 font-mono text-slate-200 relative`} style={{ fontFamily: '"Inter", sans-serif', fontWeight: 900, WebkitTextStroke: '2px #cbd5e1', color: 'transparent' }}>
+                          {n}
+                          <svg className="absolute inset-0 w-full h-full pointer-events-none" style={{ overflow: 'visible' }}>
+                            {/* Dashed overlay for tracing effect - simplified */}
+                            <text x="50%" y="85%" textAnchor="middle" fill="none" stroke="#94a3b8" strokeWidth="1" strokeDasharray="3 3" fontSize="1em" dy="-0.1em">{n}</text>
+                          </svg>
+                        </div>
+
+                        {/* Arrow pointing to writing box */}
+                        <div className="text-2xl text-slate-300">➔</div>
+                      </div>
+
+                      {/* Writing Box */}
+                      <div className="w-16 h-16 border-2 border-slate-400 rounded-lg bg-white shadow-inner flex items-center justify-center">
+                        {/* Empty box for student to write */}
+                      </div>
+                      <div className="text-[10px] uppercase font-bold text-slate-400 tracking-wider">Write</div>
+                    </div>
+
                   </div>
                 ))}
               </div>
-              {/* Extension/Challenge Problems */}
-              <div className="mt-6 print:mt-0 p-4 bg-purple-50 border-2 border-purple-200 rounded print:bg-white print:border" style={{ pageBreakBefore: 'always', pageBreakInside: 'avoid' }}>
-                <div className="font-semibold text-purple-900 mb-3 text-sm">🌟 More Fun (Optional):</div>
-                <div className="space-y-2 text-sm text-purple-800">
-                  <div>1. Can you show 10 using the ten frame? Color it!</div>
-                  <div>2. How many ways can you make 10? (5+5, 6+4, 7+3...)</div>
-                  <div>3. Draw your own ten frame and show the number 8</div>
-                </div>
-              </div>
-              {/* Self-Assessment */}
-              <div className="print:block hidden print:mt-0 mt-6 p-4 border-2 border-slate-300 rounded" style={{ pageBreakBefore: 'avoid', pageBreakInside: 'avoid' }}>
-                <div className="font-semibold text-slate-800 mb-3 text-sm">📊 {getTrans('common.howDidYouDo', 'How did you do?')}</div>
-                <div className="space-y-2 text-xs">
-                  <div>☐ I can recognize numbers 1–10</div>
-                  <div>☐ I can show numbers using ten frames</div>
-                  <div>☐ I can count filled and empty spaces</div>
-                </div>
-                <div className="mt-3 text-xs">
-                  <strong>{getTrans('common.myScore', 'My score:')}</strong> ___ / {numbers.length}
-                </div>
-                <div className="mt-2 text-xs">
-                  <strong>{getTrans('common.whatWasHardest', 'What was hardest?')}</strong> _________________________
-                </div>
-              </div>
+
               {showAnswersForDoc('ten-frames-1-10', () => (
-                <div className="mt-6 p-4 border-2 border-emerald-300 bg-emerald-50 rounded print:border print:bg-white print:page-break-before-always">
-                  <div className="font-bold text-emerald-900 mb-3 text-base">✅ {getTrans('common.answerKey', 'Answer Key')}</div>
-                  <div className="space-y-2 text-sm text-emerald-800">
-                    {numbers.map((n, i) => {
-                      const filled = n;
-                      const empty = 10 - n;
-                      return (
-                        <div key={i}>
-                          {i + 1}. <strong>{n}:</strong> {filled} filled, {empty} empty
-                        </div>
-                      );
-                    })}
+                <div className="mt-8 p-6 border-2 border-emerald-500 bg-emerald-50 rounded-2xl print:border-black print:bg-white break-inside-avoid">
+                  <div className="flex items-center gap-3 mb-4 border-b border-emerald-200 pb-2">
+                    <span className="text-2xl">✅</span>
+                    <h3 className="text-lg font-bold text-emerald-900">Answer Key</h3>
                   </div>
-                  <div className="text-xs text-emerald-700 mt-3">
-                    💡 Remember: A ten frame has 10 spaces total. For each number, fill that many spaces and count how many are left empty!
+                  <div className="grid grid-cols-5 gap-4">
+                    {numbers.map((n, idx) => (
+                      <div key={idx} className="text-center">
+                        <div className="text-xs text-emerald-700 font-medium mb-1">#{idx + 1}</div>
+                        <div className="text-2xl font-black text-emerald-800">{n}</div>
+                      </div>
+                    ))}
                   </div>
                 </div>
               ))}
+
             </WorksheetSectionWrapper>
-          );
+          )
         })()}
 
         {activeDocs.includes('place-value-hto') && (() => {
@@ -11856,363 +11852,359 @@ export function PrintablesPage() {
 
         {/* New 1st Grade Worksheets */}
         {
-          activeDocs.includes('number-bonds-10') && (
-            <WorksheetSectionWrapper
-              docId="number-bonds-10"
-              title="Number Bonds to 10"
-              emoji="🔢"
-              description="Complete each number bond. Write the missing part that makes 10."
-              problemCount={8}
-              learningObjectives={[
-                'Understand number bonds (part-part-whole relationships)',
-                'Find missing parts to make 10',
-                'Build number sense and addition fluency',
-                'Recognize number pairs that sum to 10'
-              ]}
-              parentTeacherTips={[
-                'Number bonds show how numbers break apart and come together',
-                'If one part is 7, the other part is 3 (because 7 + 3 = 10)',
-                'Practice with manipulatives: "If I have 7 blocks, how many more do I need to make 10?"',
-                'Encourage students to use their fingers or draw dots to visualize',
-                'Extension: Try number bonds to 20 or other numbers'
-              ]}
-            >
-              <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-indigo-400 to-purple-400 animate-gradient-x mb-2" />
-              {/* Worked Example */}
-              <div className="mb-6 p-4 bg-gradient-to-br from-indigo-50 to-purple-50 border-2 border-indigo-200 rounded-lg print:border print:bg-white">
-                <div className="font-semibold text-indigo-900 mb-3 text-sm flex items-center gap-2">
-                  <span className="text-2xl">📚</span>
-                  <span>Example - Let's solve this together:</span>
-                </div>
-                <div className="space-y-3 text-sm">
-                  <div className="font-semibold text-base text-indigo-900"><strong>Number Bond:</strong> <span className="text-2xl text-indigo-700">10 = 7 + ?</span></div>
-                  {/* Visual example with objects */}
-                  <div className="bg-white p-4 rounded-lg border-2 border-indigo-300">
-                    <div className="flex items-center justify-center gap-4 mb-3">
-                      <div className="text-center">
-                        <div className="text-lg font-semibold text-indigo-700 mb-2">Part 1: 7</div>
-                        <div className="flex gap-1 flex-wrap justify-center max-w-[150px]">
-                          {Array.from({ length: 7 }).map((_, i) => (
-                            <span key={i} className="text-2xl">🍎</span>
-                          ))}
-                        </div>
-                      </div>
-                      <div className="text-3xl text-indigo-700 font-bold">+</div>
-                      <div className="text-center">
-                        <div className="text-lg font-semibold text-indigo-700 mb-2">Part 2: ?</div>
-                        <div className="flex gap-1 flex-wrap justify-center max-w-[150px]">
-                          {Array.from({ length: 3 }).map((_, i) => (
-                            <span key={i} className="text-2xl">🍎</span>
-                          ))}
-                        </div>
-                      </div>
-                      <div className="text-3xl text-indigo-700 font-bold">=</div>
-                      <div className="text-center">
-                        <div className="text-lg font-semibold text-indigo-700 mb-2">Whole: 10</div>
-                        <div className="flex gap-1 flex-wrap justify-center max-w-[200px]">
-                          {Array.from({ length: 10 }).map((_, i) => (
-                            <span key={i} className="text-2xl">🍎</span>
-                          ))}
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                  <div className="pl-4 border-l-2 border-indigo-300 space-y-1">
-                    <div><strong>Step 1:</strong> We know the whole is <span className="text-indigo-700 font-bold">10</span> and one part is <span className="text-indigo-700 font-bold">7</span></div>
-                    <div><strong>Step 2:</strong> To find the missing part, subtract: <span className="text-indigo-700 font-bold text-lg">10 - 7 = 3</span></div>
-                    <div><strong>Step 3:</strong> Check: <span className="text-indigo-700 font-bold">7 + 3 = 10</span> ✓</div>
-                    <div className="font-semibold text-indigo-900 mt-2"><strong>Answer:</strong> <span className="text-2xl text-indigo-700">10 = 7 + 3</span></div>
-                    <div className="text-xs text-indigo-700 mt-2 flex items-center gap-1">
-                      <span>💡</span>
-                      <span>Tip: If you know one part, subtract it from the whole to find the other part!</span>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div className="grid grid-cols-2 gap-4" style={{ pageBreakAfter: 'auto' }}>
-                {[7, 3, 5, 8, 4, 6, 2, 9].map((n) => (
-                  <div key={n} className="bg-gradient-to-br from-indigo-50 to-purple-50 p-3 rounded-lg border-2 border-indigo-200">
-                    <svg viewBox="0 0 400 200" className="w-full h-auto bg-white border border-slate-300 rounded">
-                      {/* Whole circle */}
-                      <circle cx="200" cy="60" r="40" fill="#fef3c7" stroke="#6366f1" strokeWidth="3" />
-                      <text x="200" y="70" fontSize="36" fill="#6366f1" fontWeight="bold" textAnchor="middle">10</text>
-                      {/* Part 1 circle */}
-                      <circle cx="120" cy="140" r="30" fill="#dbeafe" stroke="#3b82f6" strokeWidth="2.5" />
-                      <text x="120" y="150" fontSize="28" fill="#3b82f6" fontWeight="bold" textAnchor="middle">{n}</text>
-                      {/* Part 2 circle (missing) */}
-                      <circle cx="280" cy="140" r="30" fill="white" stroke="#94a3b8" strokeWidth="2.5" strokeDasharray="4 4" />
-                      <text x="280" y="150" fontSize="28" fill="#94a3b8" textAnchor="middle">?</text>
-                      {/* Connecting lines */}
-                      <line x1="170" y1="90" x2="140" y2="110" stroke="#6366f1" strokeWidth="2.5" />
-                      <line x1="230" y1="90" x2="260" y2="110" stroke="#6366f1" strokeWidth="2.5" />
-                      {/* Visual objects below */}
-                      <g>
-                        {Array.from({ length: n }).map((_, i) => (
-                          <text key={i} x={100 + i * 15} y="185" fontSize="16">{i < 5 ? '🍎' : ''}</text>
-                        ))}
-                        {n > 5 && <text x={175} y="185" fontSize="12" fill="#3b82f6">+{n - 5}</text>}
-                      </g>
-                    </svg>
-                  </div>
-                ))}
-              </div>
-              {/* Extension/Challenge Problems */}
-              <div className="mt-6 print:mt-0 p-4 bg-purple-50 border-2 border-purple-200 rounded print:bg-white print:border" style={{ pageBreakBefore: 'always', pageBreakInside: 'avoid' }}>
-                <div className="font-semibold text-purple-900 mb-3 text-sm">🌟 {getTrans('common.challengeYourself', 'Challenge Yourself (Optional):')}</div>
-                <div className="space-y-2 text-sm text-purple-800">
-                  <div>1. Can you find all the number bonds to 10? (0+10, 1+9, 2+8, 3+7, 4+6, 5+5)</div>
-                  <div>2. Try number bonds to 20: 20 = 12 + ?</div>
-                  <div>3. Write your own number bond problem and solve it</div>
-                </div>
-              </div>
-              {/* Self-Assessment */}
-              <div className="print:block hidden print:mt-0 mt-6 p-4 border-2 border-slate-300 rounded" style={{ pageBreakBefore: 'avoid', pageBreakInside: 'avoid' }}>
-                <div className="font-semibold text-slate-800 mb-3 text-sm">📊 {getTrans('common.howDidYouDo', 'How did you do?')}</div>
-                <div className="space-y-2 text-xs">
-                  <div>☐ I can find the missing part in number bonds</div>
-                  <div>☐ I understand that parts add up to the whole</div>
-                  <div>☐ I can solve all 8 number bonds</div>
-                </div>
-                <div className="mt-3 text-xs">
-                  <strong>{getTrans('common.myScore', 'My score:')}</strong> ___ / 8
-                </div>
-                <div className="mt-2 text-xs">
-                  <strong>{getTrans('common.whatWasHardest', 'What was hardest?')}</strong> _________________________
-                </div>
-              </div>
-              {showAnswersForDoc('number-bonds-10', () => (
-                <div className="mt-6 p-4 border-2 border-emerald-300 bg-emerald-50 rounded print:border print:bg-white print:page-break-before-always">
-                  <div className="font-bold text-emerald-900 mb-3 text-base">✅ {getTrans('common.answerKey', 'Answer Key')}</div>
-                  <ul className="list-disc list-inside space-y-2 text-sm text-emerald-800">
-                    {[7, 3, 5, 8, 4, 6, 2, 9].map((n, i) => (
-                      <li key={i}><strong>10 = {n} + {10 - n}</strong> (The missing part is {10 - n} because {n} + {10 - n} = 10)</li>
-                    ))}
-                  </ul>
-                  <div className="text-xs text-emerald-700 mt-3">💡 Remember: To find the missing part, subtract the known part from the whole (10 - known part = missing part)!</div>
-                </div>
-              ))}
-            </WorksheetSectionWrapper>
-          )
-        }
+          {
+            activeDocs.includes('number-bonds-10') && ((() => {
+              const rng = makeRng(`${effectiveSeed}|v${variant}|doc=${doc}`);
 
-        {
-          activeDocs.includes('count-write-30') && (
-            <WorksheetSectionWrapper
-              docId="count-write-30"
-              title="Count & Write 1–30"
-              emoji="📊"
-              description="Count the objects and write the number in the box."
-              problemCount={8}
-              learningObjectives={[
-                'Count objects accurately up to 30',
-                'Write numbers correctly',
-                'Match quantities to numerals',
-                'Build number recognition and counting skills'
-              ]}
-              parentTeacherTips={[
-                'Encourage counting one object at a time',
-                'Point to each object while counting',
-                'Check that the written number matches the count',
-                'For larger groups, count by 5s or 10s if helpful',
-                'Extension: Practice counting backwards or skip counting'
-              ]}
-            >
-              <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-indigo-400 to-purple-400 animate-gradient-x mb-2" />
-              {/* Worked Example */}
-              <div className="mb-6 p-4 bg-gradient-to-br from-indigo-50 to-purple-50 border-2 border-indigo-200 rounded-lg print:border print:bg-white">
-                <div className="font-semibold text-indigo-900 mb-3 text-sm flex items-center gap-2">
-                  <span className="text-2xl">📚</span>
-                  <span>Example - Let's solve this together:</span>
-                </div>
-                <div className="space-y-3 text-sm">
-                  <div className="font-semibold text-base text-indigo-900"><strong>Task:</strong> Count the objects and write the number</div>
-                  {/* Visual example */}
-                  <div className="bg-white p-4 rounded-lg border-2 border-indigo-300">
-                    <div className="flex items-center justify-center gap-6 mb-3">
-                      {Array.from({ length: 5 }).map((_, i) => (
-                        <span key={i} className="text-5xl">⭐</span>
-                      ))}
-                    </div>
-                    <div className="text-center">
-                      <div className="text-sm text-indigo-700 mb-2">Count: 1, 2, 3, 4, 5</div>
-                      <div className="inline-block border-2 border-indigo-500 rounded-lg px-4 py-2">
-                        <span className="text-3xl font-bold text-indigo-700">5</span>
-                      </div>
-                    </div>
-                  </div>
-                  <div className="pl-4 border-l-2 border-indigo-300 space-y-1">
-                    <div><strong>Step 1:</strong> Look at the objects carefully</div>
-                    <div><strong>Step 2:</strong> Count each object one by one: <span className="text-indigo-700 font-bold">1, 2, 3, 4, 5...</span></div>
-                    <div><strong>Step 3:</strong> Write the total number in the box: <span className="text-indigo-700 font-bold text-lg">5</span></div>
-                    <div className="font-semibold text-indigo-900 mt-2"><strong>Answer:</strong> Count all objects and write the correct number</div>
-                    <div className="text-xs text-indigo-700 mt-2 flex items-center gap-1">
-                      <span>💡</span>
-                      <span>Tip: Point to each object as you count to make sure you don't miss any or count any twice!</span>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div className="grid grid-cols-2 gap-4" style={{ pageBreakAfter: 'auto' }}>
-                {[[5, '⭐'], [8, '🌟'], [12, '🎈'], [15, '🎉'], [18, '🍎'], [20, '🍊'], [23, '🐶'], [25, '🐱']].map(([count, emoji]) => (
-                  <div key={count} className="bg-gradient-to-br from-indigo-50 to-purple-50 p-3 rounded-lg border-2 border-indigo-200">
-                    <svg viewBox="0 0 400 180" className="w-full h-auto bg-white border border-slate-300 rounded">
-                      <g>
-                        {Array.from({ length: count }).map((_, i) => {
-                          const cols = Math.ceil(Math.sqrt(count))
-                          const row = Math.floor(i / cols)
-                          const col = i % cols
-                          return (
-                            <g key={i} transform={`translate(${60 + col * 25}, ${40 + row * 25})`}>
-                              <circle cx="0" cy="0" r="12" fill="#fef3c7" stroke="#f59e0b" strokeWidth="2" />
-                              <text x="0" y="4" fontSize="16" textAnchor="middle">{emoji}</text>
-                            </g>
-                          )
-                        })}
-                      </g>
-                      <rect x="280" y="60" width="80" height="50" fill="white" stroke="#6366f1" strokeWidth="2.5" strokeDasharray="4 4" />
-                      <text x="320" y="95" fontSize="28" fill="#94a3b8" textAnchor="middle">?</text>
-                      <text x="200" y="150" fontSize="14" fill="#6366f1" textAnchor="middle" fontWeight="bold">Count and write: ___</text>
-                    </svg>
-                  </div>
-                ))}
-              </div>
-              {/* Extension/Challenge Problems */}
-              <div className="mt-6 print:mt-0 p-4 bg-purple-50 border-2 border-purple-200 rounded print:bg-white print:border" style={{ pageBreakBefore: 'always', pageBreakInside: 'avoid' }}>
-                <div className="font-semibold text-purple-900 mb-3 text-sm">🌟 {getTrans('common.challengeYourself', 'Challenge Yourself (Optional):')}</div>
-                <div className="space-y-2 text-sm text-purple-800">
-                  <div>1. Can you count the objects by grouping them in 5s or 10s?</div>
-                  <div>2. Draw your own group of objects (between 1-30) and count them</div>
-                  <div>3. Practice writing numbers 1-30 in order</div>
-                </div>
-              </div>
-              {/* Self-Assessment */}
-              <div className="print:block hidden print:mt-0 mt-6 p-4 border-2 border-slate-300 rounded" style={{ pageBreakBefore: 'avoid', pageBreakInside: 'avoid' }}>
-                <div className="font-semibold text-slate-800 mb-3 text-sm">📊 {getTrans('common.howDidYouDo', 'How did you do?')}</div>
-                <div className="space-y-2 text-xs">
-                  <div>☐ I can count objects accurately</div>
-                  <div>☐ I can write numbers correctly</div>
-                  <div>☐ I counted all 8 groups correctly</div>
-                </div>
-                <div className="mt-3 text-xs">
-                  <strong>{getTrans('common.myScore', 'My score:')}</strong> ___ / 8
-                </div>
-                <div className="mt-2 text-xs">
-                  <strong>{getTrans('common.whatWasHardest', 'What was hardest?')}</strong> _________________________
-                </div>
-              </div>
-              {showAnswersForDoc('count-write-30', () => (
-                <div className="mt-6 p-4 border-2 border-emerald-300 bg-emerald-50 rounded print:border print:bg-white print:page-break-before-always">
-                  <div className="font-bold text-emerald-900 mb-3 text-base">✅ {getTrans('common.answerKey', 'Answer Key')}</div>
-                  <ul className="list-disc list-inside space-y-2 text-sm text-emerald-800">
-                    {[5, 8, 12, 15, 18, 20, 23, 25].map((count, i) => (
-                      <li key={i}><strong>Box {i + 1}: {count} objects</strong> (Count each circle: there are {count} circles in this group)</li>
-                    ))}
-                  </ul>
-                  <div className="text-xs text-emerald-700 mt-3">💡 Remember: Count each object carefully, one at a time. Double-check your count before writing the number!</div>
-                </div>
-              ))}
-            </WorksheetSectionWrapper>
-          )
-        }
+              // Generate 8 problems (pairs summing to 10)
+              const problems = Array.from({ length: 8 }, () => {
+                const part1 = Math.floor(rng() * 11); // 0 to 10
+                const part2 = 10 - part1;
+                // Randomly choose which one to hide
+                const hideFirst = rng() > 0.5;
+                return { part1, part2, hideFirst };
+              });
 
-        {
-          activeDocs.includes('missing-numbers-50') && (
-            <WorksheetSectionWrapper
-              docId="missing-numbers-50"
-              title="Missing Numbers 1–50"
-              emoji="🔍"
-              description="Fill in the missing numbers on each number line."
-              problemCount={5}
-              learningObjectives={[
-                'Identify missing numbers on a number line',
-                'Understand number sequence and order',
-                'Count forward and backward',
-                'Build number sense and pattern recognition'
-              ]}
-              parentTeacherTips={[
-                'Look at the numbers before and after the blank',
-                'Count forward or backward to find the missing number',
-                'Check that numbers are in order (increasing or decreasing)',
-                'Use a hundreds chart as a reference if needed',
-                'Extension: Try number lines with larger numbers or skip counting'
-              ]}
-            >
-              <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-indigo-400 to-purple-400 animate-gradient-x mb-2" />
-              {/* Worked Example */}
-              <div className="mb-6 p-4 bg-blue-50 border-2 border-blue-200 rounded-lg print:border print:bg-white">
-                <div className="font-semibold text-blue-900 mb-3 text-sm">📚 Example - Let's solve this together:</div>
-                <div className="space-y-2 text-sm">
-                  <div className="font-semibold text-base"><strong>Number Line:</strong> 1, 2, ___, 4, 5</div>
-                  <div className="pl-4 border-l-2 border-blue-300 space-y-1">
-                    <div><strong>Step 1:</strong> Look at the numbers before and after the blank: 2 and 4</div>
-                    <div><strong>Step 2:</strong> Count forward from 2: 2, 3, 4</div>
-                    <div><strong>Step 3:</strong> The missing number is 3</div>
-                    <div className="font-semibold text-blue-900"><strong>Answer:</strong> 3</div>
-                    <div className="text-xs text-blue-700 mt-1">💡 Tip: Numbers on a number line go in order. Count forward or backward to find what's missing!</div>
+              return (
+                <WorksheetSectionWrapper
+                  docId="number-bonds-10"
+                  title="Blooming Bonds: Making 10"
+                  emoji="🌸"
+                  description="Fill in the empty petal to make 10. The two petals must add up to the center number."
+                  problemCount={8}
+                  learningObjectives={[
+                    'Identify number pairs that sum to 10',
+                    'Understand part-part-whole relationships',
+                    'Build addition fluency',
+                    'Develop algebraic thinking (finding the missing addend)'
+                  ]}
+                  parentTeacherTips={[
+                    'Use fingers to check: "If you have 10 fingers and put down [known number], how many are left?"',
+                    'Remind them that the two petals stick to the center to make 10.',
+                    'Practice swapping: "3 + 7 is the same as 7 + 3".'
+                  ]}
+                >
+                  {/* Decorative Garden Header */}
+                  <div className="print:hidden w-full h-16 mb-4 relative overflow-hidden bg-gradient-to-b from-sky-100 to-white rounded-lg">
+                    <div className="absolute bottom-0 w-full flex justify-between text-4xl px-4 animate-bounce-slow">
+                      <span>🌷</span><span>🌻</span><span>🌹</span><span>🌺</span><span>🌼</span>
+                    </div>
                   </div>
-                </div>
-              </div>
-              <div className="space-y-4 break-inside-avoid" style={{ pageBreakAfter: 'auto' }}>
-                {[[1, 5], [10, 15], [20, 25], [30, 35], [40, 45]].map(([start, end], idx) => (
-                  <svg key={idx} viewBox="0 0 600 100" className="w-full h-auto bg-white border border-slate-300 rounded">
-                    <g fill="none" stroke="#111827" strokeWidth="3">
-                      <line x1="50" y1="50" x2="550" y2="50" />
-                      {Array.from({ length: end - start + 1 }).map((_, i) => {
-                        const num = start + i
-                        const x = 50 + (i * 500) / (end - start)
-                        return (
-                          <g key={i}>
-                            <line x1={x} y1="50" x2={x} y2="40" />
-                            {num % 5 === 0 || num === start || num === end ? (
-                              <text x={x} y="30" fontSize="18" fill="#111827" textAnchor="middle">{num}</text>
+
+                  <div className="grid grid-cols-2 gap-6 break-inside-avoid">
+                    {problems.map((prob, idx) => (
+                      <div key={idx} className="w-full flex justify-center">
+                        <svg viewBox="0 0 200 180" className="w-full max-w-[250px] overflow-visible">
+                          {/* Stem and Leaves */}
+                          <path d="M100,100 Q100,140 100,180" fill="none" stroke="#16a34a" strokeWidth="6" strokeLinecap="round" />
+                          <path d="M100,150 Q70,140 60,120" fill="none" stroke="#16a34a" strokeWidth="4" strokeLinecap="round" />
+                          <path d="M100,160 Q130,150 140,130" fill="none" stroke="#16a34a" strokeWidth="4" strokeLinecap="round" />
+
+                          {/* Decorative Petals (Background) */}
+                          <g transform="translate(100,80)">
+                            {[0, 45, 90, 135, 180, 225, 270, 315].map(deg => (
+                              <circle key={deg} cx="0" cy="0" r="35" fill="#fbcfe8" transform={`rotate(${deg}) translate(45)`} opacity="0.6" /> // Light pink
+                            ))}
+                          </g>
+
+                          {/* Center (The Whole: 10) */}
+                          <circle cx="100" cy="80" r="35" fill="#fef08a" stroke="#eab308" strokeWidth="3" />
+                          <text x="100" y="92" fontSize="32" fontWeight="bold" fill="#854d0e" textAnchor="middle">10</text>
+
+                          {/* Left Petal (Part 1) */}
+                          <g transform="translate(30, 80)">
+                            <path d="M0,0 C-20,-30 -50,-30 -50,0 C-50,30 -20,30 0,0" fill={prob.hideFirst ? "#ffffff" : "#bfdbfe"} stroke="#3b82f6" strokeWidth="2" transform="scale(1.8)" />
+                            {/* Using a circle or ellipse might be easier for text placement */}
+                            <circle cx="-40" cy="0" r="28" fill={prob.hideFirst ? "white" : "#bfdbfe"} stroke="#3b82f6" strokeWidth="2" />
+                            {prob.hideFirst ? (
+                              <text x="-40" y="10" fontSize="28" fill="#cbd5e1" textAnchor="middle">?</text>
                             ) : (
-                              <text x={x} y="30" fontSize="18" fill="#94a3b8" textAnchor="middle">__</text>
+                              <text x="-40" y="10" fontSize="28" fontWeight="bold" fill="#1e40af" textAnchor="middle">{prob.part1}</text>
                             )}
                           </g>
-                        )
-                      })}
-                    </g>
+
+                          {/* Right Petal (Part 2) */}
+                          <g transform="translate(170, 80)">
+                            <circle cx="40" cy="0" r="28" fill={!prob.hideFirst ? "white" : "#bfdbfe"} stroke="#3b82f6" strokeWidth="2" transform="scale(-1, 1)" />
+                            {/* Correct coordinate system manually without scale flip for simpler text */}
+                            <circle cx="40" cy="0" r="28" fill={!prob.hideFirst ? "white" : "#bfdbfe"} stroke="#3b82f6" strokeWidth="2" />
+
+                            {!prob.hideFirst ? (
+                              <text x="40" y="10" fontSize="28" fill="#cbd5e1" textAnchor="middle">?</text>
+                            ) : (
+                              <text x="40" y="10" fontSize="28" fontWeight="bold" fill="#1e40af" textAnchor="middle">{prob.part2}</text>
+                            )}
+                          </g>
+                        </svg>
+                      </div>
+                    ))}
+                  </div>
+
+                  {showAnswersForDoc('number-bonds-10', () => (
+                    <div className="mt-6 p-4 border-2 border-emerald-300 bg-emerald-50 rounded print:border print:bg-white print:page-break-before-always">
+                      <div className="font-bold text-emerald-900 mb-3 text-base">✅ {getTrans('common.answerKey', 'Answer Key')}</div>
+                      <div className="grid grid-cols-2 gap-4">
+                        {problems.map((prob, idx) => {
+                          const visible = prob.hideFirst ? prob.part2 : prob.part1;
+                          const missing = prob.hideFirst ? prob.part1 : prob.part2;
+                          return (
+                            <div key={idx} className="text-sm text-emerald-800">
+                              Flower {idx + 1}: <span className="font-bold">{visible} + <span className="underline">{missing}</span> = 10</span>
+                            </div>
+                          )
+                        })}
+                      </div>
+                      <div className="text-xs text-emerald-700 mt-3">💡 Tip: "Partners to 10" are pairs like 1 & 9, 2 & 8, 3 & 7, 4 & 6, 5 & 5.</div>
+                    </div>
+                  ))}
+                </WorksheetSectionWrapper>
+              ))())
+          }
+        }
+
+        {
+          activeDocs.includes('count-write-30') && (() => {
+            const rng = makeRng(`${effectiveSeed}|v${variant}|doc=${doc}`);
+            // Generate path data
+            const totalSteps = 30;
+            const steps = Array.from({ length: totalSteps }, (_, i) => {
+              const num = i + 1;
+              // Leave some blank, strictly increasing probability of blank as we go up? 
+              // Or just random scatter? Let's do random scatter but ensure 1 and 30 are visible.
+              const isHidden = (num !== 1 && num !== 30) && (rng() > 0.4);
+              return { num, isHidden };
+            });
+
+            // Snake layout logic for 6 rows of 5
+            const getPosition = (index: number) => {
+              const cols = 5;
+              const row = Math.floor(index / cols);
+              const isEvenRow = row % 2 === 0;
+              const col = isEvenRow ? (index % cols) : (cols - 1 - (index % cols));
+              return { row, col };
+            };
+
+            return (
+              <WorksheetSectionWrapper
+                docId="count-write-30"
+                title="Bunny Hop: 1 to 30 Path"
+                emoji="🐰"
+                description="Help the Bunny reach the Carrot! Fill in the missing numbers to complete the path."
+                problemCount={1}
+                learningObjectives={[
+                  'Sequence numbers from 1 to 30',
+                  'Identify valid next numbers (counting on)',
+                  'Write numbers legibly',
+                  'Understand numerical order'
+                ]}
+                parentTeacherTips={[
+                  'Encourage your child to count out loud as they move along the path.',
+                  'If they get stuck, ask: "What comes after [previous number]?"',
+                  'Trace the path with a finger before writing.'
+                ]}
+              >
+                <div className="print:hidden h-1 w-full rounded-full bg-orange-100 mb-6 overflow-hidden">
+                  <div className="h-full w-1/3 bg-orange-400 opacity-50"></div>
+                </div>
+
+                {/* Path Container */}
+                <div className="relative w-full max-w-2xl mx-auto p-8 break-inside-avoid">
+                  {/* Svg Path Line (Background) */}
+                  <svg className="absolute inset-0 w-full h-full pointer-events-none z-0 opacity-20" viewBox="0 0 100 120" preserveAspectRatio="none">
+                    {/* A simple winding path approximation using bezier curves could be complex to align perfectly, 
+                        so we'll use a dashed line connecting centers logic if we had exact coords.
+                        For a simpler robust approach, we can just rely on the grid layout visual flow.
+                        But let's try a simple Polyline or Path.
+                    */}
+                    <path d="M 10 10 H 90 Q 100 10 100 20 V 20 Q 100 30 90 30 H 10 Q 0 30 0 40 V 40 Q 0 50 10 50 H 90 Q 100 50 100 60 V 60 Q 100 70 90 70 H 10 Q 0 70 0 80 V 80 Q 0 90 10 90 H 90 Q 100 90 100 100 V 100 Q 100 110 90 110 H 10"
+                      fill="none" stroke="#f97316" strokeWidth="2" strokeDasharray="3 3" vectorEffect="non-scaling-stroke" />
                   </svg>
-                ))}
-              </div>
-              {/* Extension/Challenge Problems */}
-              <div className="mt-6 print:mt-0 p-4 bg-purple-50 border-2 border-purple-200 rounded print:bg-white print:border" style={{ pageBreakBefore: 'always', pageBreakInside: 'avoid' }}>
-                <div className="font-semibold text-purple-900 mb-3 text-sm">🌟 {getTrans('common.challengeYourself', 'Challenge Yourself (Optional):')}</div>
-                <div className="space-y-2 text-sm text-purple-800">
-                  <div>1. Can you fill in a number line from 1 to 50 with all numbers?</div>
-                  <div>2. Try skip counting: 5, 10, ___, 20, 25. What's missing?</div>
-                  <div>3. Create your own number line with missing numbers for a friend to solve</div>
-                </div>
-              </div>
-              {/* Self-Assessment */}
-              <div className="print:block hidden print:mt-0 mt-6 p-4 border-2 border-slate-300 rounded" style={{ pageBreakBefore: 'avoid', pageBreakInside: 'avoid' }}>
-                <div className="font-semibold text-slate-800 mb-3 text-sm">📊 {getTrans('common.howDidYouDo', 'How did you do?')}</div>
-                <div className="space-y-2 text-xs">
-                  <div>☐ I can identify missing numbers on a number line</div>
-                  <div>☐ I understand number order and sequence</div>
-                  <div>☐ I filled in all the missing numbers correctly</div>
-                </div>
-                <div className="mt-3 text-xs">
-                  <strong>{getTrans('common.myScore', 'My score:')}</strong> ___ / 5
-                </div>
-                <div className="mt-2 text-xs">
-                  <strong>{getTrans('common.whatWasHardest', 'What was hardest?')}</strong> _________________________
-                </div>
-              </div>
-              {showAnswersForDoc('missing-numbers-50', () => (
-                <div className="mt-6 p-4 border-2 border-emerald-300 bg-emerald-50 rounded print:border print:bg-white print:page-break-before-always">
-                  <div className="font-bold text-emerald-900 mb-3 text-base">✅ {getTrans('common.answerKey', 'Answer Key')}</div>
-                  <ul className="list-disc list-inside space-y-2 text-sm text-emerald-800">
-                    {[[1, 5], [10, 15], [20, 25], [30, 35], [40, 45]].map(([start, end], idx) => {
-                      const missing = Array.from({ length: end - start + 1 }, (_, i) => start + i).filter(n => n % 5 !== 0 && n !== start && n !== end)
-                      return <li key={idx}><strong>Line {idx + 1}:</strong> Missing numbers are {missing.join(', ')} (Count forward from {start} to {end})</li>
+
+                  <div className="grid grid-cols-5 gap-y-8 gap-x-4 relative z-10">
+                    {steps.map((step, i) => {
+                      const { row, col } = getPosition(i);
+                      // We used grid-cols-5, but need to re-order DOM elements? 
+                      // Actually, generic grid flows Left->Right. 
+                      // To achieve snake visual in DOM order, we need to sort the array by display position?
+                      // EASIER: Just position absolutely or use specific grid-column start.
+
+                      const gridRow = row + 1;
+                      const gridCol = col + 1;
+
+                      return (
+                        <div key={i} className="flex flex-col items-center justify-center relative" style={{ gridRow: gridRow, gridColumn: gridCol }}>
+                          {/* Connector Arrows (Visual enhancements) */}
+
+                          {/* The Stone/Item */}
+                          <div className={`w-16 h-16 rounded-full border-4 flex items-center justify-center shadow-sm relative 
+                                ${step.num === 1 || step.num === 30 ? 'bg-orange-100 border-orange-400' : 'bg-white border-slate-300'}
+                             `}>
+                            {step.num === 1 && <span className="absolute -top-8 text-4xl animate-bounce">🐰</span>}
+                            {step.num === 30 && <span className="absolute -bottom-8 text-4xl">🥕</span>}
+
+                            {step.isHidden ? (
+                              <div className="w-full h-full flex items-center justify-center">
+                                <div className="w-10 h-10 border-b-2 border-slate-300"></div>
+                              </div>
+                            ) : (
+                              <span className={`text-2xl font-bold ${step.num === 1 || step.num === 30 ? 'text-orange-600' : 'text-slate-600'}`}>
+                                {step.num}
+                              </span>
+                            )}
+                          </div>
+                        </div>
+                      );
                     })}
-                  </ul>
-                  <div className="text-xs text-emerald-700 mt-3">💡 Remember: Numbers on a number line go in order. Count forward or backward from the numbers you see to find what's missing!</div>
+                  </div>
                 </div>
-              ))}
-            </WorksheetSectionWrapper>
-          )
+
+                {showAnswersForDoc('count-write-30', () => (
+                  <div className="mt-8 p-4 border-2 border-emerald-500 bg-emerald-50 rounded-2xl print:border-black print:bg-white break-inside-avoid">
+                    <div className="font-bold text-emerald-900 mb-3 text-lg flex items-center gap-2">
+                      <span>✅</span> Answer Key (Complete Path)
+                    </div>
+                    <div className="flex flex-wrap gap-2 text-sm text-emerald-800 font-mono">
+                      {steps.map(s => (
+                        <span key={s.num} className={s.isHidden ? 'font-bold underline' : ''}>{s.num}{s.num < 30 ? ',' : ''}</span>
+                      ))}
+                    </div>
+                  </div>
+                ))}
+              </WorksheetSectionWrapper>
+            )
+          })()
+
+        {
+          {
+            activeDocs.includes('missing-numbers-50') && ((() => {
+              const rng = makeRng(`${effectiveSeed}|v${variant}|doc=${doc}`);
+
+              // Train Configurations
+              const trainConfigs = [
+                { id: 1, start: 1, length: 9, color: 'emerald' },
+                { id: 2, start: 11, length: 9, color: 'blue' },
+                { id: 3, start: 21, length: 9, color: 'purple' },
+                { id: 4, start: 31, length: 9, color: 'orange' },
+                { id: 5, start: 41, length: 10, color: 'rose' },
+              ];
+
+              const problems = trainConfigs.map(conf => {
+                const carriages = Array.from({ length: conf.length }, (_, i) => {
+                  const num = conf.start + i;
+                  // Hide roughly 40-50% of numbers, but keep first and last sometimes for anchors?
+                  // Let's make it random but ensure reasonably doable.
+                  const isHidden = rng() > 0.5;
+                  return { num, isHidden };
+                });
+                return { ...conf, carriages };
+              });
+
+              return (
+                <WorksheetSectionWrapper
+                  docId="missing-numbers-50"
+                  title="Number Train: 1 to 50"
+                  emoji="🚂"
+                  description="All aboard! Fill in the missing numbers on the train carriages."
+                  problemCount={5}
+                  learningObjectives={[
+                    'Identify missing numbers in sequences up to 50',
+                    'Count forward from different starting points',
+                    'Write two-digit numbers legibly',
+                    'Recognize number patterns (tens and ones)'
+                  ]}
+                  parentTeacherTips={[
+                    'Have your child read the full sequence out loud after filling in the blanks.',
+                    'Point out patterns: "Look, all the numbers in this column end with 5!"',
+                    'Use objects (like blocks) to build the train if they need concrete help.'
+                  ]}
+                >
+                  {/* Decorative Track Header */}
+                  <div className="print:hidden w-full h-4 border-b-4 border-slate-400 border-dashed mb-6 relative">
+                    <div className="absolute top-0 right-0 -mt-8 text-6xl animate-bounce" style={{ animationDuration: '3s' }}>🚂</div>
+                  </div>
+
+                  <div className="space-y-6 break-inside-avoid">
+                    {problems.map((train, idx) => (
+                      <div key={idx} className="w-full overflow-hidden p-2">
+                        <div className="flex items-end gap-1">
+                          {/* Engine SVG */}
+                          <div className="shrink-0 w-24 h-20 mb-1 relative">
+                            <svg viewBox="0 0 100 80" className={`w-full h-full text-${train.color}-600 fill-current`}>
+                              {/* Simple Engine Shape */}
+                              <rect x="10" y="40" width="60" height="25" rx="2" />
+                              <rect x="50" y="15" width="20" height="40" />
+                              <polygon points="50,15 80,5 60,15" /> {/* Funnel smoke/steam area? No, simple cowl */}
+                              <rect x="15" y="25" width="25" height="15" opacity="0.5" fill="white" /> {/* Window */}
+                              <circle cx="25" cy="65" r="10" fill="#334155" stroke="currentColor" strokeWidth="2" />
+                              <circle cx="55" cy="65" r="10" fill="#334155" stroke="currentColor" strokeWidth="2" />
+                              <path d="M50,15 L50,5 L60,0 L60,15 Z" /> {/* Funnel */}
+                              {/* Smoke puffs */}
+                              <circle cx="65" cy="-5" r="3" className="text-gray-300 animate-ping" style={{ transformOrigin: 'center', animationDuration: '1.5s' }} />
+                              <circle cx="75" cy="-15" r="5" className="text-gray-200 animate-pulse" />
+                            </svg>
+                            <div className={`absolute bottom-2 left-0 w-full text-center text-xs font-bold text-${train.color}-800`}>
+                              Exp. {train.start}
+                            </div>
+                          </div>
+
+                          {/* Carriages */}
+                          <div className="flex flex-wrap gap-1 items-end">
+                            {train.carriages.map((c, i) => (
+                              <div key={i} className="flex items-end">
+                                {/* Coupler */}
+                                {i >= 0 && <div className="w-2 h-2 bg-slate-400 mb-4 -mx-0.5 z-0"></div>}
+
+                                {/* Carriage Box */}
+                                <div className={`w-12 h-14 border-2 border-${train.color}-400 bg-${train.color}-50 rounded-md relative z-10 flex flex-col items-center justify-between pb-1 shadow-sm`}>
+                                  {/* Roof line */}
+                                  <div className={`w-full h-2 bg-${train.color}-200 border-b border-${train.color}-300`}></div>
+
+                                  {/* Number Content */}
+                                  <div className="flex-1 flex items-center justify-center w-full">
+                                    {c.isHidden ? (
+                                      <div className={`w-8 h-8 rounded bg-white border border-${train.color}-200 shadow-inner flex items-center justify-center`}>
+                                      </div>
+                                    ) : (
+                                      <span className={`text-xl font-bold text-${train.color}-900`}>{c.num}</span>
+                                    )}
+                                  </div>
+
+                                  {/* Wheels */}
+                                  <div className="w-full flex justify-around px-1 translate-y-2">
+                                    <div className="w-3 h-3 rounded-full bg-slate-700 border border-slate-400"></div>
+                                    <div className="w-3 h-3 rounded-full bg-slate-700 border border-slate-400"></div>
+                                  </div>
+                                </div>
+                              </div>
+                            ))}
+                          </div>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+
+                  {showAnswersForDoc('missing-numbers-50', () => (
+                    <div className="mt-6 p-4 border-2 border-emerald-300 bg-emerald-50 rounded print:border print:bg-white print:page-break-before-always">
+                      <div className="font-bold text-emerald-900 mb-3 text-base">✅ {getTrans('common.answerKey', 'Answer Key')}</div>
+                      <div className="space-y-4">
+                        {problems.map((train, idx) => (
+                          <div key={idx} className="flex gap-2 items-center text-sm">
+                            <span className="font-bold w-16">Train {idx + 1}:</span>
+                            <div className="flex gap-1 font-mono">
+                              {train.carriages.map(c => (
+                                <span key={c.num} className={c.isHidden ? 'text-emerald-700 font-bold underline bg-emerald-100 px-1 rounded' : 'text-slate-400'}>
+                                  {c.num}
+                                </span>
+                              ))}
+                            </div>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                  ))}
+                </WorksheetSectionWrapper>
+              ))())
+          }
         }
 
         {
