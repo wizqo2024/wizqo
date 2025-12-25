@@ -1424,8 +1424,25 @@ export function PrintablesPage() {
       const pdf = new jsPDF('p', 'mm', 'a4')
       const pdfWidth = pdf.internal.pageSize.getWidth()
       const pdfHeight = pdf.internal.pageSize.getHeight()
+      const imgProps = pdf.getImageProperties(imgData)
 
-      pdf.addImage(imgData, 'PNG', 0, 0, pdfWidth, pdfHeight)
+      const imgRatio = imgProps.width / imgProps.height
+      const pdfRatio = pdfWidth / pdfHeight
+
+      let w = pdfWidth
+      let h = w / imgRatio
+
+      // If the scaled height is larger than the page, scale down to fit height instead
+      if (h > pdfHeight) {
+        h = pdfHeight
+        w = h * imgRatio
+      }
+
+      // Center horizontally if needed (though usually we want full width)
+      const x = (pdfWidth - w) / 2
+      const y = 0 // Top aligned
+
+      pdf.addImage(imgData, 'PNG', x, y, w, h)
       pdf.save('doubles-facts-magic-mirror.pdf')
     } catch (error) {
       console.error('PDF generation failed:', error)
