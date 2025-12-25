@@ -34528,40 +34528,56 @@ export function PrintablesPage() {
         {
           activeDocs.includes('time-to-minute') && (() => {
             const times = ['8:15', '2:30', '10:45', '5:20', '12:05', '3:55'];
-            const renderClock = (time: string) => {
+            const renderClockTheme = (time: string, seed: number) => {
               const [hours, minutes] = time.split(':').map(Number);
               const hourAngle = ((hours % 12) * 30 + minutes * 0.5 - 90) * (Math.PI / 180);
               const minuteAngle = (minutes * 6 - 90) * (Math.PI / 180);
               const centerX = 50;
               const centerY = 50;
               const radius = 35;
+
+              // Future/Tech styled clock
               return (
-                <svg viewBox="0 0 100 100" className="w-20 h-20 mx-auto mb-2">
-                  <circle cx={centerX} cy={centerY} r={radius} fill="white" stroke="#3b82f6" strokeWidth="2" />
-                  {/* Hour markers */}
+                <svg viewBox="0 0 100 100" className="w-24 h-24 mx-auto mb-2">
+                  <defs>
+                    <radialGradient id={`clockGrad${seed}`} cx="50%" cy="50%" r="50%" fx="50%" fy="50%">
+                      <stop offset="0%" stopColor="#1e293b" />
+                      <stop offset="90%" stopColor="#0f172a" />
+                      <stop offset="100%" stopColor="#3b82f6" />
+                    </radialGradient>
+                  </defs>
+
+                  {/* Outer Rim */}
+                  <circle cx={centerX} cy={centerY} r={radius + 4} fill="none" stroke="#3b82f6" strokeWidth="2" strokeDasharray="10 2" className="animate-[spin_10s_linear_infinite]" />
+                  <circle cx={centerX} cy={centerY} r={radius} fill={`url(#clockGrad${seed})`} stroke="#60a5fa" strokeWidth="1" />
+
+                  {/* Ticks */}
                   {Array.from({ length: 12 }, (_, i) => {
                     const angle = (i * 30 - 90) * (Math.PI / 180);
-                    const x1 = centerX + (radius - 5) * Math.cos(angle);
-                    const y1 = centerY + (radius - 5) * Math.sin(angle);
-                    const x2 = centerX + radius * Math.cos(angle);
-                    const y2 = centerY + radius * Math.sin(angle);
-                    return <line key={i} x1={x1} y1={y1} x2={x2} y2={y2} stroke="#475569" strokeWidth="1.5" />;
+                    const isMain = i % 3 === 0;
+                    const len = isMain ? 6 : 3;
+                    const x1 = centerX + (radius - len) * Math.cos(angle);
+                    const y1 = centerY + (radius - len) * Math.sin(angle);
+                    const x2 = centerX + (radius - 1) * Math.cos(angle);
+                    const y2 = centerY + (radius - 1) * Math.sin(angle);
+                    return <line key={i} x1={x1} y1={y1} x2={x2} y2={y2} stroke={isMain ? "#60a5fa" : "#475569"} strokeWidth={isMain ? 2 : 1} />;
                   })}
-                  {/* Hour hand */}
-                  <line x1={centerX} y1={centerY} x2={centerX + 15 * Math.cos(hourAngle)} y2={centerY + 15 * Math.sin(hourAngle)} stroke="#1e40af" strokeWidth="2.5" strokeLinecap="round" />
-                  {/* Minute hand */}
-                  <line x1={centerX} y1={centerY} x2={centerX + 25 * Math.cos(minuteAngle)} y2={centerY + 25 * Math.sin(minuteAngle)} stroke="#1e40af" strokeWidth="2" strokeLinecap="round" />
-                  {/* Center dot */}
-                  <circle cx={centerX} cy={centerY} r="2" fill="#1e40af" />
+
+                  {/* Hands - Glowing */}
+                  <line x1={centerX} y1={centerY} x2={centerX + 18 * Math.cos(hourAngle)} y2={centerY + 18 * Math.sin(hourAngle)} stroke="#06b6d4" strokeWidth="3" strokeLinecap="round" />
+                  <line x1={centerX} y1={centerY} x2={centerX + 28 * Math.cos(minuteAngle)} y2={centerY + 28 * Math.sin(minuteAngle)} stroke="#22d3ee" strokeWidth="2" strokeLinecap="round" />
+
+                  {/* Center Hub */}
+                  <circle cx={centerX} cy={centerY} r="3" fill="#0891b2" stroke="white" strokeWidth="1" />
                 </svg>
               );
             };
             return (
               <WorksheetSectionWrapper
                 docId="time-to-minute"
-                title="Time to the Minute"
-                emoji="🕒"
-                description="Read and write time to the nearest minute."
+                title="Time Traveler's Mission"
+                emoji="⏳"
+                description="Use the Temporal Portals to jump through time! Read the clock to set your destination."
                 problemCount={times.length}
                 learningObjectives={[
                   'Read time on analog clocks to the minute',
@@ -34569,79 +34585,80 @@ export function PrintablesPage() {
                   'Write time in digital format'
                 ]}
                 parentTeacherTips={[
-                  'Hour hand points to the hour (or between hours)',
-                  'Minute hand points to minutes (each number = 5 minutes)',
-                  'Practice reading clocks regularly',
-                  'Extension: Read time on different types of clocks'
+                  'Blue Hand (Short) = Hours',
+                  'Aqua Hand (Long) = Minutes',
+                  'Each number equals 5 minutes',
+                  'Mission: Write the time exactly!'
                 ]}
               >
-                <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-purple-400 to-pink-400 animate-gradient-x mb-2" />
-                {/* Worked Example */}
-                <div className="mb-6 p-4 bg-blue-50 border-2 border-blue-200 rounded-lg print:border print:bg-white">
-                  <div className="font-semibold text-blue-900 mb-3 text-sm">📚 Example - Let's solve this together:</div>
-                  <div className="space-y-2 text-sm">
-                    <div className="font-semibold text-base"><strong>Time:</strong> 3:25</div>
-                    <div className="pl-4 border-l-2 border-blue-300 space-y-1">
-                      <div><strong>Step 1:</strong> Hour hand: between 3 and 4 (it's 3 o'clock)</div>
-                      <div><strong>Step 2:</strong> Minute hand: pointing at 5 (5 × 5 = 25 minutes)</div>
-                      <div><strong>Step 3:</strong> The time is 3:25</div>
-                      <div className="font-semibold text-blue-900"><strong>Answer:</strong> 3:25</div>
-                      <div className="text-xs text-blue-700 mt-1">💡 Tip: Hour hand = hour, minute hand = minutes!</div>
-                    </div>
+                {/* Time Travel Header */}
+                <div className="print:hidden w-full h-16 mb-4 relative overflow-hidden bg-slate-900 rounded-lg flex items-center justify-center border-b-4 border-cyan-500">
+                  <div className="absolute inset-x-0 h-full w-full bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-indigo-900 via-slate-900 to-black opacity-80"></div>
+                  {/* Stars */}
+                  <div className="absolute top-2 left-10 text-xs text-white opacity-60">✦</div>
+                  <div className="absolute bottom-4 right-20 text-xs text-white opacity-40">✦</div>
+
+                  <div className="text-2xl font-mono text-cyan-400 z-10 flex gap-4 items-center tracking-widest shadow-cyan-500/50">
+                    <span>🚀</span> CHRONOS SYSTEM <span>🚀</span>
                   </div>
                 </div>
-                <div className="grid grid-cols-2 gap-4" style={{ pageBreakAfter: 'auto' }}>
+
+                {/* Worked Example */}
+                <div className="mb-6 p-4 bg-slate-100 border-2 border-slate-300 rounded-lg print:border print:bg-white flex gap-4 items-center">
+                  <div className="shrink-0">
+                    <svg viewBox="0 0 100 100" className="w-20 h-20">
+                      <circle cx="50" cy="50" r="35" fill="#1e293b" stroke="#3b82f6" strokeWidth="2" />
+                      <line x1="50" y1="50" x2="65" y2="65" stroke="#06b6d4" strokeWidth="3" />
+                      <line x1="50" y1="50" x2="50" y2="20" stroke="#22d3ee" strokeWidth="2" />
+                    </svg>
+                  </div>
+                  <div className="space-y-1 text-sm font-mono text-slate-700">
+                    <div className="font-bold text-indigo-700">DESTINATION: DINO ERA</div>
+                    <div>Hour Hand (Short): Past 4</div>
+                    <div>Minute Hand (Long): At 12 (:00)</div>
+                    <div className="bg-slate-800 text-green-400 inline-block px-2 py-1 rounded font-bold mt-1">TIME SET: 4:00</div>
+                  </div>
+                </div>
+
+                <div className="grid grid-cols-2 gap-6" style={{ pageBreakAfter: 'auto' }}>
                   {times.map((t, i) => (
-                    <div key={i} className="border border-slate-300 rounded-lg p-4 bg-white break-inside-avoid">
-                      {renderClock(t)}
-                      <div className="text-center text-xl font-mono mb-2">{t}</div>
-                      <div className="text-center text-sm text-slate-600 mb-2">Draw clock hands: ____</div>
-                      <div className="mt-2 text-xs text-slate-600">Show your thinking:</div>
-                      <div className="min-h-12 border border-dashed border-slate-300 rounded p-2 bg-slate-50 print:bg-white" />
+                    <div key={i} className="border-4 border-slate-200 rounded-xl p-4 bg-white break-inside-avoid relative overflow-hidden shadow-sm">
+                      {/* Tech deco */}
+                      <div className="absolute top-0 left-0 w-16 h-16 border-t-4 border-l-4 border-cyan-100 rounded-tl-xl"></div>
+                      <div className="absolute bottom-0 right-0 w-8 h-8 border-b-4 border-r-4 border-cyan-100 rounded-br-xl"></div>
+
+                      {renderClockTheme(t, i)}
+
+                      <div className="text-center font-mono text-slate-500 text-xs mb-1">TARGET COORDINATES</div>
+                      <div className="flex justify-center">
+                        <div className="bg-slate-100 border-2 border-slate-300 rounded px-4 py-2 w-32 h-12 flex items-center justify-center">
+                          {/* Student writes time here */}
+                          <span className="text-slate-300 text-2xl font-digital">__:__</span>
+                        </div>
+                      </div>
                     </div>
                   ))}
                 </div>
-                {/* Extension/Challenge Problems */}
-                <div className="mt-6 print:mt-0 p-4 bg-purple-50 border-2 border-purple-200 rounded print:bg-white print:border" style={{ pageBreakBefore: 'always', pageBreakInside: 'avoid' }}>
-                  <div className="font-semibold text-purple-900 mb-3 text-sm">🌟 {getTrans('common.challengeYourself', 'Challenge Yourself (Optional):')}</div>
-                  <div className="space-y-2 text-sm text-purple-800">
-                    <div>1. What time is it on your clock right now?</div>
-                    <div>2. Draw a clock showing 7:45</div>
-                    <div>3. Explain how to read time on an analog clock</div>
-                  </div>
-                </div>
+
                 {/* Self-Assessment */}
                 <div className="print:block hidden print:mt-0 mt-6 p-4 border-2 border-slate-300 rounded" style={{ pageBreakBefore: 'avoid', pageBreakInside: 'avoid' }}>
-                  <div className="font-semibold text-slate-800 mb-3 text-sm">📊 {getTrans('common.howDidYouDo', 'How did you do?')}</div>
-                  <div className="space-y-2 text-xs">
-                    <div>☐ I can read time on analog clocks</div>
-                    <div>☐ I understand hour and minute hands</div>
-                    <div>☐ I can write time correctly</div>
-                  </div>
-                  <div className="mt-3 text-xs">
-                    <strong>{getTrans('common.myScore', 'My score:')}</strong> ___ / {times.length}
-                  </div>
-                  <div className="mt-2 text-xs">
-                    <strong>{getTrans('common.whatWasHardest', 'What was hardest?')}</strong> _________________________
+                  <div className="font-semibold text-slate-800 mb-3 text-sm">📊 Mission Log</div>
+                  <div className="space-y-2 text-xs font-mono">
+                    <div>[ ] Time jump successful</div>
+                    <div>[ ] No temporal paradoxes detected</div>
+                    <div>[ ] Ready for next jump</div>
                   </div>
                 </div>
+
                 {showAnswersForDoc('time-to-minute', () => (
                   <div className="mt-6 p-4 border-2 border-emerald-300 bg-emerald-50 rounded print:border print:bg-white print:page-break-before-always">
                     <div className="font-bold text-emerald-900 mb-3 text-base">✅ {getTrans('common.answerKey', 'Answer Key')}</div>
-                    <div className="space-y-3">
-                      {times.map((t, i) => {
-                        const [hours, minutes] = t.split(':').map(Number);
-                        return (
-                          <div key={i} className="border-b border-emerald-200 pb-3 last:border-b-0">
-                            <div className="font-semibold mb-2 text-sm">{i + 1}. {t}</div>
-                            <div className="text-xs text-emerald-800 space-y-1 pl-4">
-                              <div>Hour hand: {hours} o'clock</div>
-                              <div>Minute hand: {minutes} minutes (pointing at {minutes / 5})</div>
-                              <div className="font-semibold">Answer: Clock showing {t}</div>
-                            </div>
-                          </div>
-                        );
-                      })}
+                    <div className="grid grid-cols-2 gap-4">
+                      {times.map((t, i) => (
+                        <div key={i} className="text-sm border-b border-emerald-200 pb-2">
+                          <span className="font-mono font-bold text-emerald-800">JUMP #{i + 1}:</span> {t}
+                        </div>
+                      ))}
                     </div>
                   </div>
                 ))}
@@ -34661,9 +34678,9 @@ export function PrintablesPage() {
             return (
               <WorksheetSectionWrapper
                 docId="customary-units"
-                title="Customary Units"
-                emoji="📏"
-                description="Convert between inches, feet, and yards."
+                title="Mad Science: Length Formula"
+                emoji="🧪"
+                description="Professor Quant needs precise measurements for the secret formula! Convert the units to complete the experiment."
                 problemCount={problems.length}
                 learningObjectives={[
                   'Convert between inches, feet, and yards',
@@ -34671,74 +34688,83 @@ export function PrintablesPage() {
                   'Use multiplication and division for conversions'
                 ]}
                 parentTeacherTips={[
-                  '1 foot = 12 inches, 1 yard = 3 feet = 36 inches',
-                  'To convert larger to smaller, multiply',
-                  'To convert smaller to larger, divide',
-                  'Extension: Convert between all customary units'
+                  '1 foot = 12 inches',
+                  '1 yard = 3 feet = 36 inches',
+                  'Scientist Tip: Big Unit -> Small Unit = Multiply!',
+                  'Precision is key in the lab.'
                 ]}
               >
-                <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-purple-400 to-pink-400 animate-gradient-x mb-2" />
+                {/* Lab Header */}
+                <div className="print:hidden w-full h-16 mb-4 relative overflow-hidden bg-slate-800 rounded-lg flex items-center justify-center border-b-4 border-lime-400">
+                  <div className="text-2xl font-mono text-lime-400 font-bold z-10 flex gap-4 items-center animate-pulse">
+                    <span>⚡</span> LAB DATA LOG <span>⚡</span>
+                  </div>
+                </div>
+
                 {/* Worked Example */}
-                <div className="mb-6 p-4 bg-blue-50 border-2 border-blue-200 rounded-lg print:border print:bg-white">
-                  <div className="font-semibold text-blue-900 mb-3 text-sm">📚 Example - Let's solve this together:</div>
-                  <div className="space-y-2 text-sm">
-                    <div className="font-semibold text-base"><strong>Problem:</strong> 3 feet = ____ inches</div>
-                    <div className="pl-4 border-l-2 border-blue-300 space-y-1">
-                      <div><strong>Step 1:</strong> Remember: 1 foot = 12 inches</div>
-                      <div><strong>Step 2:</strong> Multiply: 3 feet × 12 inches/foot = 36 inches</div>
-                      <div className="font-semibold text-blue-900"><strong>Answer:</strong> 36 inches</div>
-                      <div className="text-xs text-blue-700 mt-1">💡 Tip: 1 foot = 12 inches, so multiply by 12!</div>
+                <div className="mb-6 p-4 bg-yellow-50 border-4 border-slate-800 rounded-lg print:border print:bg-white shadow-[4px_4px_0px_0px_rgba(30,41,59,1)]">
+                  <div className="font-mono text-slate-900 font-bold border-b-2 border-slate-800 mb-2 pb-1">📋 EXPERIMENT LOG #001</div>
+                  <div className="space-y-2 text-sm font-mono text-slate-800">
+                    <div className="text-base"><strong>TASK:</strong> Convert 3 Feet of Copper Wire</div>
+                    <div className="pl-4 border-l-4 border-lime-400 bg-white p-2 space-y-1">
+                      <div><strong className="text-blue-600">FORMULA:</strong> 1 Foot = 12 Inches</div>
+                      <div>CALCULATION: 3 × 12 = 36</div>
+                      <div className="font-bold text-lg text-lime-600 bg-slate-900 inline-block px-2 transform -rotate-1">RESULT: 36 INCHES</div>
                     </div>
                   </div>
                 </div>
-                <div className="mb-4 p-3 bg-blue-50 border border-blue-200 rounded text-sm text-blue-900">
-                  <strong>📝 Conversion Chart:</strong> 1 yard = 3 feet, 1 foot = 12 inches
+
+                <div className="mb-4 p-3 bg-slate-100 border-2 border-slate-300 rounded text-sm text-slate-700 font-mono text-center">
+                  <strong>⚠️ REFERENCE CHART:</strong> 1 Yard = 3 Feet | 1 Foot = 12 Inches
                 </div>
+
                 <div className="grid grid-cols-2 gap-4" style={{ pageBreakAfter: 'auto' }}>
                   {problems.map((p, i) => (
-                    <div key={i} className="border border-slate-300 rounded-lg p-4 bg-white break-inside-avoid">
-                      <div className="text-center mb-2 font-semibold">{p.feet} feet = ____ inches</div>
-                      <div className="mt-2 text-xs text-slate-600">Show your work:</div>
-                      <div className="min-h-16 border border-dashed border-slate-300 rounded p-2 bg-slate-50 print:bg-white" />
+                    <div key={i} className="border-2 border-slate-300 rounded-lg p-0 bg-white break-inside-avoid overflow-hidden">
+                      <div className="bg-slate-100 p-2 border-b border-slate-300 font-mono text-xs text-slate-500 flex justify-between">
+                        <span>SAMPLE #{i + 140}</span>
+                        <span>STATUS: PENDING</span>
+                      </div>
+                      <div className="p-4">
+                        <div className="text-center mb-3 font-bold text-lg font-mono text-slate-800">
+                          {p.feet} FEET <span className="text-slate-400">➔</span> ____ INCHES
+                        </div>
+
+                        {/* Visual Ruler */}
+                        <div className="h-6 w-full bg-yellow-300 border border-yellow-500 mb-3 relative opacity-50">
+                          <div className="absolute top-0 bottom-0 left-0 w-px bg-black"></div>
+                          <div className="absolute top-0 bottom-0 left-1/4 w-px bg-black opacity-50"></div>
+                          <div className="absolute top-0 bottom-0 left-1/2 w-px bg-black"></div>
+                          <div className="absolute top-0 bottom-0 left-3/4 w-px bg-black opacity-50"></div>
+                          <div className="absolute top-0 bottom-0 right-0 w-px bg-black"></div>
+                        </div>
+
+                        <div className="bg-slate-50 border border-slate-200 rounded p-2">
+                          <div className="text-[10px] text-slate-500 uppercase mb-1">Calculations:</div>
+                          <div className="h-8 border-b border-dashed border-slate-300"></div>
+                        </div>
+                      </div>
                     </div>
                   ))}
                 </div>
-                {/* Extension/Challenge Problems */}
-                <div className="mt-6 print:mt-0 p-4 bg-purple-50 border-2 border-purple-200 rounded print:bg-white print:border" style={{ pageBreakBefore: 'always', pageBreakInside: 'avoid' }}>
-                  <div className="font-semibold text-purple-900 mb-3 text-sm">🌟 {getTrans('common.challengeYourself', 'Challenge Yourself (Optional):')}</div>
-                  <div className="space-y-2 text-sm text-purple-800">
-                    <div>1. Convert: 2 yards = ____ feet = ____ inches</div>
-                    <div>2. How many inches are in 5.5 feet?</div>
-                    <div>3. Create your own customary conversion problem</div>
-                  </div>
-                </div>
+
                 {/* Self-Assessment */}
                 <div className="print:block hidden print:mt-0 mt-6 p-4 border-2 border-slate-300 rounded" style={{ pageBreakBefore: 'avoid', pageBreakInside: 'avoid' }}>
                   <div className="font-semibold text-slate-800 mb-3 text-sm">📊 {getTrans('common.howDidYouDo', 'How did you do?')}</div>
                   <div className="space-y-2 text-xs">
-                    <div>☐ I can convert between customary units</div>
-                    <div>☐ I remember the conversion facts</div>
-                    <div>☐ I can multiply and divide for conversions</div>
-                  </div>
-                  <div className="mt-3 text-xs">
-                    <strong>{getTrans('common.myScore', 'My score:')}</strong> ___ / {problems.length}
-                  </div>
-                  <div className="mt-2 text-xs">
-                    <strong>{getTrans('common.whatWasHardest', 'What was hardest?')}</strong> _________________________
+                    <div>☐ I converted the units correctly</div>
+                    <div>☐ The experiment was a success</div>
+                    <div>☐ Using the formula was easy</div>
                   </div>
                 </div>
+
                 {showAnswersForDoc('customary-units', () => (
-                  <div className="mt-6 p-4 border-2 border-emerald-300 bg-emerald-50 rounded print:border print:bg-white print:page-break-before-always">
-                    <div className="font-bold text-emerald-900 mb-3 text-base">✅ Answer Key (with steps)</div>
+                  <div className="mt-6 p-4 border-2 border-lime-500 bg-lime-50 rounded print:border print:bg-white print:page-break-before-always">
+                    <div className="font-bold text-lime-900 mb-3 text-base font-mono">✅ VERIFIED RESULTS</div>
                     <div className="space-y-3">
                       {problems.map((p, i) => (
-                        <div key={i} className="border-b border-emerald-200 pb-3 last:border-b-0">
-                          <div className="font-semibold mb-2 text-sm">{i + 1}. {p.feet} feet = ____ inches</div>
-                          <div className="text-xs text-emerald-800 space-y-1 pl-4">
-                            <div>Step 1: 1 foot = 12 inches</div>
-                            <div>Step 2: {p.feet} feet × 12 inches/foot = {p.inches} inches</div>
-                            <div className="font-semibold">Answer: {p.inches} inches</div>
-                          </div>
+                        <div key={i} className="border-b border-lime-200 pb-3 last:border-b-0 font-mono text-sm">
+                          <div><strong>SAMPLE #{i + 140}:</strong> {p.feet} ft = <span className="bg-lime-200 px-1">{p.inches} in</span></div>
                         </div>
                       ))}
                     </div>
@@ -34760,9 +34786,9 @@ export function PrintablesPage() {
             return (
               <WorksheetSectionWrapper
                 docId="metric-units"
-                title="Metric Units"
-                emoji="📏"
-                description="Convert between centimeters, meters, and kilometers."
+                title="Mad Science: Metric Analysis"
+                emoji="🧪"
+                description="Analyze the samples using the metric system! Convert meters to centimeters for the final report."
                 problemCount={problems.length}
                 learningObjectives={[
                   'Convert between centimeters, meters, and kilometers',
@@ -34770,74 +34796,85 @@ export function PrintablesPage() {
                   'Use multiplication and division for conversions'
                 ]}
                 parentTeacherTips={[
-                  '1 meter = 100 centimeters, 1 kilometer = 1000 meters',
-                  'To convert larger to smaller, multiply',
-                  'To convert smaller to larger, divide',
-                  'Extension: Convert between all metric units'
+                  '1 meter = 100 centimeters',
+                  '1 kilometer = 1000 meters',
+                  'Metric system is based on powers of 10!',
+                  'Meters are for length, Centimeters are for small details.'
                 ]}
               >
-                <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-purple-400 to-pink-400 animate-gradient-x mb-2" />
+                {/* Lab Header */}
+                <div className="print:hidden w-full h-16 mb-4 relative overflow-hidden bg-slate-900 rounded-lg flex items-center justify-center border-b-4 border-cyan-400">
+                  <div className="absolute top-0 right-0 p-1">
+                    <div className="w-3 h-3 bg-red-500 rounded-full animate-ping"></div>
+                  </div>
+                  <div className="text-2xl font-mono text-cyan-400 font-bold z-10 flex gap-4 items-center tracking-widest">
+                    ☢️ METRIC SECTOR ☢️
+                  </div>
+                </div>
+
                 {/* Worked Example */}
-                <div className="mb-6 p-4 bg-blue-50 border-2 border-blue-200 rounded-lg print:border print:bg-white">
-                  <div className="font-semibold text-blue-900 mb-3 text-sm">📚 Example - Let's solve this together:</div>
-                  <div className="space-y-2 text-sm">
-                    <div className="font-semibold text-base"><strong>Problem:</strong> 2 meters = ____ centimeters</div>
-                    <div className="pl-4 border-l-2 border-blue-300 space-y-1">
-                      <div><strong>Step 1:</strong> Remember: 1 meter = 100 centimeters</div>
-                      <div><strong>Step 2:</strong> Multiply: 2 meters × 100 cm/meter = 200 centimeters</div>
-                      <div className="font-semibold text-blue-900"><strong>Answer:</strong> 200 centimeters</div>
-                      <div className="text-xs text-blue-700 mt-1">💡 Tip: 1 meter = 100 cm, so multiply by 100!</div>
+                <div className="mb-6 p-4 bg-cyan-50 border-4 border-slate-800 rounded-lg print:border print:bg-white relative">
+                  <div className="absolute -top-3 left-4 bg-slate-800 text-cyan-400 font-mono text-xs px-2 py-1 rounded">SYS: ACTIVE</div>
+                  <div className="font-mono text-slate-900 font-bold mb-2">🔭 OBSERVATION LOG:</div>
+                  <div className="space-y-2 text-sm font-mono text-slate-800">
+                    <div className="text-base"><strong>SUBJECT:</strong> Alien Vine Growth</div>
+                    <div className="pl-4 border-l-4 border-cyan-500 bg-white p-2">
+                      <div><strong>MEASUREMENT:</strong> 2 Meters</div>
+                      <div><strong>CONVERSION RATE:</strong> 1m = 100cm</div>
+                      <div><strong>CALCULATION:</strong> 2 × 100 = 200</div>
+                      <div className="mt-1 font-bold text-cyan-700">FINAL DATA: 200 cm</div>
                     </div>
                   </div>
                 </div>
-                <div className="mb-4 p-3 bg-blue-50 border border-blue-200 rounded text-sm text-blue-900">
-                  <strong>📝 Conversion Chart:</strong> 1 kilometer = 1000 meters, 1 meter = 100 centimeters
+
+                <div className="mb-4 p-3 bg-slate-800 border-2 border-slate-600 rounded text-sm text-cyan-400 font-mono text-center shadow-inner">
+                  <strong>📟 DATA BANK:</strong> 1 km = 1000 m | 1 m = 100 cm
                 </div>
+
                 <div className="grid grid-cols-2 gap-4" style={{ pageBreakAfter: 'auto' }}>
                   {problems.map((p, i) => (
-                    <div key={i} className="border border-slate-300 rounded-lg p-4 bg-white break-inside-avoid">
-                      <div className="text-center mb-2 font-semibold">{p.meters} meters = ____ centimeters</div>
-                      <div className="mt-2 text-xs text-slate-600">Show your work:</div>
-                      <div className="min-h-16 border border-dashed border-slate-300 rounded p-2 bg-slate-50 print:bg-white" />
+                    <div key={i} className="border-2 border-slate-300 rounded-lg p-4 bg-white break-inside-avoid relative">
+                      <div className="absolute top-2 right-2 text-xs font-mono text-slate-400">ID: {i + 800}</div>
+
+                      <div className="flex flex-col items-center">
+                        {/* Stylized Laser Measure */}
+                        <div className="w-full h-2 bg-slate-200 mb-4 relative rounded overflow-hidden">
+                          <div className="absolute left-0 top-0 bottom-0 bg-red-500 w-1/2 opacity-50"></div>
+                          <div className="absolute left-1/2 top-0 bottom-0 bg-green-500 w-1/2 opacity-50"></div>
+                          {/* Laser dot */}
+                          <div className="absolute top-1/2 left-3/4 w-2 h-2 bg-red-600 rounded-full transform -translate-y-1/2 shadow-[0_0_5px_rgba(220,38,38,1)]"></div>
+                        </div>
+
+                        <div className="text-center mb-2 font-bold text-lg font-mono text-slate-800">
+                          {p.meters} m <span className="text-slate-400">=</span> ____ cm
+                        </div>
+
+                        <div className="w-full border-t border-slate-100 pt-2">
+                          <div className="text-xs text-slate-500 font-mono text-center">Enter Value:</div>
+                          <div className="h-8 bg-slate-50 border border-slate-300 rounded mt-1"></div>
+                        </div>
+                      </div>
                     </div>
                   ))}
                 </div>
-                {/* Extension/Challenge Problems */}
-                <div className="mt-6 print:mt-0 p-4 bg-purple-50 border-2 border-purple-200 rounded print:bg-white print:border" style={{ pageBreakBefore: 'always', pageBreakInside: 'avoid' }}>
-                  <div className="font-semibold text-purple-900 mb-3 text-sm">🌟 {getTrans('common.challengeYourself', 'Challenge Yourself (Optional):')}</div>
-                  <div className="space-y-2 text-sm text-purple-800">
-                    <div>1. Convert: 3 kilometers = ____ meters = ____ centimeters</div>
-                    <div>2. How many centimeters are in 2.5 meters?</div>
-                    <div>3. Create your own metric conversion problem</div>
-                  </div>
-                </div>
+
                 {/* Self-Assessment */}
                 <div className="print:block hidden print:mt-0 mt-6 p-4 border-2 border-slate-300 rounded" style={{ pageBreakBefore: 'avoid', pageBreakInside: 'avoid' }}>
-                  <div className="font-semibold text-slate-800 mb-3 text-sm">📊 {getTrans('common.howDidYouDo', 'How did you do?')}</div>
+                  <div className="font-semibold text-slate-800 mb-3 text-sm">📊 Scientist's Review</div>
                   <div className="space-y-2 text-xs">
-                    <div>☐ I can convert between metric units</div>
-                    <div>☐ I remember the conversion facts</div>
-                    <div>☐ I can multiply and divide for conversions</div>
-                  </div>
-                  <div className="mt-3 text-xs">
-                    <strong>{getTrans('common.myScore', 'My score:')}</strong> ___ / {problems.length}
-                  </div>
-                  <div className="mt-2 text-xs">
-                    <strong>{getTrans('common.whatWasHardest', 'What was hardest?')}</strong> _________________________
+                    <div>☐ I converted meters to centimeters</div>
+                    <div>☐ My calculations are precise</div>
+                    <div>☐ I am ready for the next experiment</div>
                   </div>
                 </div>
+
                 {showAnswersForDoc('metric-units', () => (
-                  <div className="mt-6 p-4 border-2 border-emerald-300 bg-emerald-50 rounded print:border print:bg-white print:page-break-before-always">
-                    <div className="font-bold text-emerald-900 mb-3 text-base">✅ Answer Key (with steps)</div>
-                    <div className="space-y-3">
+                  <div className="mt-6 p-4 border-2 border-cyan-500 bg-cyan-50 rounded print:border print:bg-white print:page-break-before-always">
+                    <div className="font-bold text-cyan-900 mb-3 text-base font-mono">✅ VERIFIED DATA</div>
+                    <div className="grid grid-cols-2 gap-4 font-mono text-sm">
                       {problems.map((p, i) => (
-                        <div key={i} className="border-b border-emerald-200 pb-3 last:border-b-0">
-                          <div className="font-semibold mb-2 text-sm">{i + 1}. {p.meters} meters = ____ centimeters</div>
-                          <div className="text-xs text-emerald-800 space-y-1 pl-4">
-                            <div>Step 1: 1 meter = 100 centimeters</div>
-                            <div>Step 2: {p.meters} meters × 100 cm/meter = {p.centimeters} centimeters</div>
-                            <div className="font-semibold">Answer: {p.centimeters} centimeters</div>
-                          </div>
+                        <div key={i} className="border-b border-cyan-200 pb-2">
+                          <span className="font-bold">{p.meters} m</span> ➔ {p.centimeters} cm
                         </div>
                       ))}
                     </div>
@@ -34856,12 +34893,36 @@ export function PrintablesPage() {
               const quarts = nextInt(1, 5);
               return { quarts, cups: quarts * 4 };
             });
+
+            const renderPotion = (type: string) => {
+              if (type === 'cup') return (
+                <svg viewBox="0 0 100 100" className="w-8 h-8 inline-block mx-1">
+                  <path d="M30,20 L30,80 Q30,90 40,90 L60,90 Q70,90 70,80 L70,20" fill="none" stroke="#475569" strokeWidth="2" />
+                  <rect x="25" y="15" width="50" height="5" fill="#475569" rx="2" />
+                  <path d="M32,80 L68,80" stroke="#475569" strokeWidth="2" strokeDasharray="2 2" />
+                  <path d="M30,50 L70,50" fill="#a855f7" fillOpacity="0.5" />
+                  <path d="M30,50 L30,80 Q30,90 40,90 L60,90 Q70,90 70,80 L70,50" fill="#a855f7" fillOpacity="0.5" />
+                </svg>
+              );
+              // Quart (Flask)
+              return (
+                <svg viewBox="0 0 100 100" className="w-10 h-10 inline-block mx-1">
+                  <path d="M40,10 L40,40 L20,80 Q15,90 25,90 L75,90 Q85,90 80,80 L60,40 L60,10" fill="none" stroke="#475569" strokeWidth="2" />
+                  <rect x="35" y="5" width="30" height="5" fill="#475569" rx="2" />
+                  <path d="M25,80 L75,80" fill="#ec4899" fillOpacity="0.5" />
+                  <path d="M22,75 L78,75 L60,40 L40,40 L22,75" fill="#ec4899" fillOpacity="0.5" />
+                  <circle cx="45" cy="60" r="2" fill="white" opacity="0.5" />
+                  <circle cx="55" cy="70" r="3" fill="white" opacity="0.5" />
+                </svg>
+              );
+            };
+
             return (
               <WorksheetSectionWrapper
                 docId="liquid-measurement"
-                title="Liquid Measurement"
-                emoji="📏"
-                description="Compare cups, pints, quarts, and gallons."
+                title="Mad Science: Potion Mixing"
+                emoji="🧪"
+                description="Mix the volatile fluids carefully! Convert the measurements to avoid an explosion."
                 problemCount={problems.length}
                 learningObjectives={[
                   'Convert between cups, pints, quarts, and gallons',
@@ -34869,75 +34930,77 @@ export function PrintablesPage() {
                   'Use multiplication and division for conversions'
                 ]}
                 parentTeacherTips={[
-                  '1 gallon = 4 quarts, 1 quart = 2 pints, 1 pint = 2 cups',
-                  'To convert larger to smaller, multiply',
-                  'To convert smaller to larger, divide',
-                  'Extension: Convert between all liquid measurements'
+                  '1 Gallon (Cauldron) = 4 Quarts',
+                  '1 Quart (Flask) = 2 Pints',
+                  '1 Pint (Beaker) = 2 Cups',
+                  'Safety First: Measure carefully!'
                 ]}
               >
-                <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-purple-400 to-pink-400 animate-gradient-x mb-2" />
+                {/* Potion Header */}
+                <div className="print:hidden w-full h-16 mb-4 relative overflow-hidden bg-purple-900 rounded-lg flex items-center justify-center border-b-4 border-purple-500">
+                  <div className="absolute inset-0 opacity-30 bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-fuchsia-500 to-transparent"></div>
+                  <div className="text-2xl font-serif text-fuchsia-300 font-bold z-10 italic flex gap-2">
+                    ✨ Alchemy Station ✨
+                  </div>
+                </div>
+
                 {/* Worked Example */}
-                <div className="mb-6 p-4 bg-blue-50 border-2 border-blue-200 rounded-lg print:border print:bg-white">
-                  <div className="font-semibold text-blue-900 mb-3 text-sm">📚 Example - Let's solve this together:</div>
-                  <div className="space-y-2 text-sm">
-                    <div className="font-semibold text-base"><strong>Problem:</strong> 2 quarts = ____ cups</div>
-                    <div className="pl-4 border-l-2 border-blue-300 space-y-1">
-                      <div><strong>Step 1:</strong> Remember: 1 quart = 2 pints, 1 pint = 2 cups</div>
-                      <div><strong>Step 2:</strong> So 1 quart = 4 cups</div>
-                      <div><strong>Step 3:</strong> Multiply: 2 quarts × 4 cups/quart = 8 cups</div>
-                      <div className="font-semibold text-blue-900"><strong>Answer:</strong> 8 cups</div>
-                      <div className="text-xs text-blue-700 mt-1">💡 Tip: 1 quart = 4 cups, so multiply by 4!</div>
+                <div className="mb-6 p-4 bg-purple-50 border-2 border-purple-200 rounded-lg print:border print:bg-white flex items-center gap-4">
+                  <div className="shrink-0">
+                    <div className="text-4xl">⚗️</div>
+                  </div>
+                  <div className="space-y-1 text-sm text-purple-900 font-mono">
+                    <div className="font-bold text-base">RECIPE: Invisibility Serum</div>
+                    <div className="pl-4 border-l-2 border-purple-300">
+                      <div>Need: 2 Quarts</div>
+                      <div>Use: Cups</div>
+                      <div>Calc: 2 Quarts × 4 Cups/Qt = <strong>8 Cups</strong></div>
                     </div>
                   </div>
                 </div>
-                <div className="mb-4 p-3 bg-blue-50 border border-blue-200 rounded text-sm text-blue-900">
-                  <strong>📝 Conversion Chart:</strong> 1 gallon = 4 quarts, 1 quart = 2 pints, 1 pint = 2 cups
+
+                <div className="mb-4 p-3 bg-purple-100 border border-purple-200 rounded text-sm text-purple-900 text-center font-bold">
+                  1 Gallon = 4 Qts | 1 Qt = 2 Pints | 1 Pt = 2 Cups
                 </div>
+
                 <div className="grid grid-cols-2 gap-4" style={{ pageBreakAfter: 'auto' }}>
                   {problems.map((p, i) => (
-                    <div key={i} className="border border-slate-300 rounded-lg p-4 bg-white break-inside-avoid">
-                      <div className="text-center mb-2 font-semibold">{p.quarts} quarts = ____ cups</div>
-                      <div className="mt-2 text-xs text-slate-600">Show your work:</div>
-                      <div className="min-h-16 border border-dashed border-slate-300 rounded p-2 bg-slate-50 print:bg-white" />
+                    <div key={i} className="border-2 border-purple-100 rounded-xl p-4 bg-white break-inside-avoid shadow-sm text-center">
+                      <div className="mb-2">
+                        {renderPotion('quart')}
+                        <span className="font-mono font-bold text-lg align-middle mx-2">⇌</span>
+                        {renderPotion('cup')}
+                        {renderPotion('cup')}
+                        {renderPotion('cup')}
+                        {renderPotion('cup')}
+                      </div>
+
+                      <div className="font-mono font-bold text-lg text-slate-800 mb-2">
+                        {p.quarts} Quarts = ____ Cups
+                      </div>
+
+                      <div className="w-16 h-8 border-b-2 border-purple-200 mx-auto bg-purple-50"></div>
                     </div>
                   ))}
                 </div>
-                {/* Extension/Challenge Problems */}
-                <div className="mt-6 print:mt-0 p-4 bg-purple-50 border-2 border-purple-200 rounded print:bg-white print:border" style={{ pageBreakBefore: 'always', pageBreakInside: 'avoid' }}>
-                  <div className="font-semibold text-purple-900 mb-3 text-sm">🌟 {getTrans('common.challengeYourself', 'Challenge Yourself (Optional):')}</div>
-                  <div className="space-y-2 text-sm text-purple-800">
-                    <div>1. Convert: 1 gallon = ____ quarts = ____ cups</div>
-                    <div>2. How many cups are in 3 pints?</div>
-                    <div>3. Create your own liquid measurement conversion problem</div>
-                  </div>
-                </div>
+
                 {/* Self-Assessment */}
                 <div className="print:block hidden print:mt-0 mt-6 p-4 border-2 border-slate-300 rounded" style={{ pageBreakBefore: 'avoid', pageBreakInside: 'avoid' }}>
-                  <div className="font-semibold text-slate-800 mb-3 text-sm">📊 {getTrans('common.howDidYouDo', 'How did you do?')}</div>
+                  <div className="font-semibold text-slate-800 mb-3 text-sm">📊 Alchemist's Review</div>
                   <div className="space-y-2 text-xs">
-                    <div>☐ I can convert between liquid measurements</div>
-                    <div>☐ I remember the conversion facts</div>
-                    <div>☐ I can multiply and divide for conversions</div>
-                  </div>
-                  <div className="mt-3 text-xs">
-                    <strong>{getTrans('common.myScore', 'My score:')}</strong> ___ / {problems.length}
-                  </div>
-                  <div className="mt-2 text-xs">
-                    <strong>{getTrans('common.whatWasHardest', 'What was hardest?')}</strong> _________________________
+                    <div>☐ I mixed the potions correctly (converted units)</div>
+                    <div>☐ No explosions occurred</div>
+                    <div>☐ I know my Flasks from my Beakers</div>
                   </div>
                 </div>
+
                 {showAnswersForDoc('liquid-measurement', () => (
-                  <div className="mt-6 p-4 border-2 border-emerald-300 bg-emerald-50 rounded print:border print:bg-white print:page-break-before-always">
-                    <div className="font-bold text-emerald-900 mb-3 text-base">✅ Answer Key (with steps)</div>
-                    <div className="space-y-3">
+                  <div className="mt-6 p-4 border-2 border-fuchsia-300 bg-fuchsia-50 rounded print:border print:bg-white print:page-break-before-always">
+                    <div className="font-bold text-fuchsia-900 mb-3 text-base">✅ POTION RECIPE KEY</div>
+                    <div className="space-y-2">
                       {problems.map((p, i) => (
-                        <div key={i} className="border-b border-emerald-200 pb-3 last:border-b-0">
-                          <div className="font-semibold mb-2 text-sm">{i + 1}. {p.quarts} quarts = ____ cups</div>
-                          <div className="text-xs text-emerald-800 space-y-1 pl-4">
-                            <div>Step 1: 1 quart = 4 cups</div>
-                            <div>Step 2: {p.quarts} quarts × 4 cups/quart = {p.cups} cups</div>
-                            <div className="font-semibold">Answer: {p.cups} cups</div>
-                          </div>
+                        <div key={i} className="border-b border-fuchsia-200 pb-1">
+                          {p.quarts} Quarts = <strong>{p.cups} Cups</strong>
                         </div>
                       ))}
                     </div>
@@ -34956,12 +35019,27 @@ export function PrintablesPage() {
               const pounds = nextInt(1, 5);
               return { pounds, ounces: pounds * 16 };
             });
+
+            const renderScale = () => (
+              <svg viewBox="0 0 100 80" className="w-16 h-12 mx-auto mb-2 opacity-80">
+                {/* Base */}
+                <path d="M20,70 L80,70 L70,50 L30,50 Z" fill="#475569" />
+                {/* Pillar */}
+                <rect x="48" y="20" width="4" height="30" fill="#475569" />
+                {/* Beam */}
+                <rect x="10" y="20" width="80" height="4" fill="#64748b" rx="2" />
+                {/* Pans */}
+                <path d="M10,24 L10,40 Q10,45 20,45 Q30,45 30,40 L30,24" fill="none" stroke="#94a3b8" />
+                <path d="M70,24 L70,40 Q70,45 80,45 Q90,45 90,40 L90,24" fill="none" stroke="#94a3b8" />
+              </svg>
+            );
+
             return (
               <WorksheetSectionWrapper
                 docId="mass-weight"
-                title="Mass and Weight"
-                emoji="📏"
-                description="Compare ounces, pounds, grams, and kilograms."
+                title="Mad Science: Ingredient Weighing"
+                emoji="⚖️"
+                description="Balance the scales! Convert the weight of rare crystals and moon rocks."
                 problemCount={problems.length}
                 learningObjectives={[
                   'Convert between ounces and pounds',
@@ -34970,73 +35048,65 @@ export function PrintablesPage() {
                 ]}
                 parentTeacherTips={[
                   '1 pound = 16 ounces',
-                  'To convert pounds to ounces, multiply by 16',
-                  'To convert ounces to pounds, divide by 16',
-                  'Extension: Convert between grams and kilograms'
+                  'Heavy Ingredients: Use Pounds',
+                  'Light Ingredients: Use Ounces',
+                  '16 "Moon Pebbles" (oz) = 1 "Moon Rock" (lb)'
                 ]}
               >
-                <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-purple-400 to-pink-400 animate-gradient-x mb-2" />
-                {/* Worked Example */}
-                <div className="mb-6 p-4 bg-blue-50 border-2 border-blue-200 rounded-lg print:border print:bg-white">
-                  <div className="font-semibold text-blue-900 mb-3 text-sm">📚 Example - Let's solve this together:</div>
-                  <div className="space-y-2 text-sm">
-                    <div className="font-semibold text-base"><strong>Problem:</strong> 2 pounds = ____ ounces</div>
-                    <div className="pl-4 border-l-2 border-blue-300 space-y-1">
-                      <div><strong>Step 1:</strong> Remember: 1 pound = 16 ounces</div>
-                      <div><strong>Step 2:</strong> Multiply: 2 pounds × 16 oz/pound = 32 ounces</div>
-                      <div className="font-semibold text-blue-900"><strong>Answer:</strong> 32 ounces</div>
-                      <div className="text-xs text-blue-700 mt-1">💡 Tip: 1 pound = 16 oz, so multiply by 16!</div>
-                    </div>
+                {/* Scale Header */}
+                <div className="print:hidden w-full h-16 mb-4 relative overflow-hidden bg-slate-100 rounded-lg flex items-center justify-center border-b-4 border-orange-400">
+                  <div className="text-2xl font-mono text-orange-600 font-bold z-10 flex gap-2">
+                    💎 RARE MATERIALS LOG 💎
                   </div>
                 </div>
-                <div className="mb-4 p-3 bg-blue-50 border border-blue-200 rounded text-sm text-blue-900">
-                  <strong>📝 Conversion Chart:</strong> 1 pound = 16 ounces
+
+                {/* Worked Example */}
+                <div className="mb-6 p-4 bg-orange-50 border-2 border-orange-200 rounded-lg print:border print:bg-white flex items-center gap-4">
+                  <div className="text-4xl shadow-sm rounded-full bg-white p-2">⚖️</div>
+                  <div className="space-y-1 text-sm text-orange-900 font-mono">
+                    <div className="font-bold text-base">MATERIAL: Dragon Scale</div>
+                    <div>Weight: 2 Pounds</div>
+                    <div>Conversion: 2 × 16 oz = <strong>32 Ounces</strong></div>
+                  </div>
                 </div>
+
+                <div className="mb-4 text-center font-mono text-xs text-slate-500">
+                  STANDARDS: 1 LB = 16 OZ
+                </div>
+
                 <div className="grid grid-cols-2 gap-4" style={{ pageBreakAfter: 'auto' }}>
                   {problems.map((p, i) => (
-                    <div key={i} className="border border-slate-300 rounded-lg p-4 bg-white break-inside-avoid">
-                      <div className="text-center mb-2 font-semibold">{p.pounds} pounds = ____ ounces</div>
-                      <div className="mt-2 text-xs text-slate-600">Show your work:</div>
-                      <div className="min-h-16 border border-dashed border-slate-300 rounded p-2 bg-slate-50 print:bg-white" />
+                    <div key={i} className="border border-slate-300 rounded-lg p-4 bg-white break-inside-avoid relative">
+                      {renderScale()}
+                      <div className="text-center font-bold font-mono text-slate-800">
+                        {p.pounds} LBS = ____ OZ
+                      </div>
+                      <div className="mt-2 flex justify-center gap-1">
+                        {/* Visual weights */}
+                        <div className="w-8 h-6 bg-slate-800 rounded-sm"></div>
+                        <div className="text-xl">⇌</div>
+                        <div className="w-8 h-6 border-2 border-slate-300 rounded-sm bg-slate-50"></div>
+                      </div>
                     </div>
                   ))}
                 </div>
-                {/* Extension/Challenge Problems */}
-                <div className="mt-6 print:mt-0 p-4 bg-purple-50 border-2 border-purple-200 rounded print:bg-white print:border" style={{ pageBreakBefore: 'always', pageBreakInside: 'avoid' }}>
-                  <div className="font-semibold text-purple-900 mb-3 text-sm">🌟 {getTrans('common.challengeYourself', 'Challenge Yourself (Optional):')}</div>
-                  <div className="space-y-2 text-sm text-purple-800">
-                    <div>1. Convert: 48 ounces = ____ pounds</div>
-                    <div>2. How many ounces are in 3.5 pounds?</div>
-                    <div>3. Create your own weight conversion problem</div>
-                  </div>
-                </div>
+
                 {/* Self-Assessment */}
                 <div className="print:block hidden print:mt-0 mt-6 p-4 border-2 border-slate-300 rounded" style={{ pageBreakBefore: 'avoid', pageBreakInside: 'avoid' }}>
-                  <div className="font-semibold text-slate-800 mb-3 text-sm">📊 {getTrans('common.howDidYouDo', 'How did you do?')}</div>
+                  <div className="font-semibold text-slate-800 mb-3 text-sm">📊 Weight Master's Review</div>
                   <div className="space-y-2 text-xs">
-                    <div>☐ I can convert between pounds and ounces</div>
-                    <div>☐ I remember the conversion fact</div>
-                    <div>☐ I can multiply and divide for conversions</div>
-                  </div>
-                  <div className="mt-3 text-xs">
-                    <strong>{getTrans('common.myScore', 'My score:')}</strong> ___ / {problems.length}
-                  </div>
-                  <div className="mt-2 text-xs">
-                    <strong>{getTrans('common.whatWasHardest', 'What was hardest?')}</strong> _________________________
+                    <div>☐ I balanced the equations</div>
+                    <div>☐ I know how many ounces in a pound</div>
                   </div>
                 </div>
+
                 {showAnswersForDoc('mass-weight', () => (
-                  <div className="mt-6 p-4 border-2 border-emerald-300 bg-emerald-50 rounded print:border print:bg-white print:page-break-before-always">
-                    <div className="font-bold text-emerald-900 mb-3 text-base">✅ Answer Key (with steps)</div>
-                    <div className="space-y-3">
+                  <div className="mt-6 p-4 border-2 border-orange-300 bg-orange-50 rounded print:border print:bg-white print:page-break-before-always">
+                    <div className="font-bold text-orange-900 mb-3 text-base">✅ WEIGHT LOG</div>
+                    <div className="space-y-2 font-mono text-sm">
                       {problems.map((p, i) => (
-                        <div key={i} className="border-b border-emerald-200 pb-3 last:border-b-0">
-                          <div className="font-semibold mb-2 text-sm">{i + 1}. {p.pounds} pounds = ____ ounces</div>
-                          <div className="text-xs text-emerald-800 space-y-1 pl-4">
-                            <div>Step 1: 1 pound = 16 ounces</div>
-                            <div>Step 2: {p.pounds} pounds × 16 oz/pound = {p.ounces} ounces</div>
-                            <div className="font-semibold">Answer: {p.ounces} ounces</div>
-                          </div>
+                        <div key={i} className="border-b border-orange-200 pb-1">
+                          {p.pounds} lbs = <strong>{p.ounces} oz</strong>
                         </div>
                       ))}
                     </div>
