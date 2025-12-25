@@ -33951,112 +33951,181 @@ export function PrintablesPage() {
         {
           activeDocs.includes('identify-polygons') && (() => {
             const polygons = [
-              { name: 'triangle', sides: 3 },
-              { name: 'quadrilateral', sides: 4 },
-              { name: 'pentagon', sides: 5 },
-              { name: 'hexagon', sides: 6 },
-              { name: 'octagon', sides: 8 },
-              { name: 'square', sides: 4 },
+              { name: 'triangle', sides: 3, theme: 'Yield Sign', color: 'orange' },
+              { name: 'quadrilateral', sides: 4, theme: 'Window Frame', color: 'blue' },
+              { name: 'pentagon', sides: 5, theme: 'Crossing Sign', color: 'yellow' },
+              { name: 'hexagon', sides: 6, theme: 'Steel Bolt', color: 'slate' },
+              { name: 'octagon', sides: 8, theme: 'Stop Sign', color: 'red' },
+              { name: 'square', sides: 4, theme: 'Floor Tile', color: 'emerald' },
             ];
-            const renderPolygon = (name: string, sides: number) => {
-              const size = 80;
-              const centerX = 50;
-              const centerY = 50;
-              const radius = 35;
-              const points: string[] = [];
-
-              for (let i = 0; i < sides; i++) {
-                const angle = (Math.PI * 2 * i) / sides - Math.PI / 2;
-                const x = centerX + radius * Math.cos(angle);
-                const y = centerY + radius * Math.sin(angle);
-                points.push(`${x},${y}`);
+            const renderPolygonTheme = (name: string, sides: number) => {
+              // Custom visuals for construction theme
+              if (name === 'triangle') {
+                // Yield Sign (Upside down triangle usually, but let's do standing cone or standard warning)
+                // Let's do a Traffic Cone style or Warning Sign
+                return (
+                  <svg viewBox="0 0 100 100" className="w-24 h-24 mx-auto mb-2">
+                    <path d="M50,15 L90,85 L10,85 Z" fill="#fbbf24" stroke="#d97706" strokeWidth="4" />
+                    <path d="M50,25 L80,78 L20,78 Z" fill="none" stroke="#d97706" strokeWidth="2" strokeDasharray="4 2" />
+                    <circle cx="50" cy="55" r="5" fill="#d97706" opacity="0.5" />
+                  </svg>
+                );
+              }
+              if (name === 'octagon') {
+                // Stop Sign
+                return (
+                  <svg viewBox="0 0 100 100" className="w-24 h-24 mx-auto mb-2">
+                    <polygon points="30,10 70,10 90,30 90,70 70,90 30,90 10,70 10,30" fill="#ef4444" stroke="#b91c1c" strokeWidth="3" />
+                    <text x="50" y="55" textAnchor="middle" fill="white" fontSize="16" fontWeight="bold" fontFamily="sans-serif">STOP</text>
+                    <rect x="45" y="90" width="10" height="10" fill="#9ca3af" />
+                  </svg>
+                );
+              }
+              if (name === 'hexagon') {
+                // Bolt head
+                return (
+                  <svg viewBox="0 0 100 100" className="w-24 h-24 mx-auto mb-2">
+                    <polygon points="50,10 85,30 85,70 50,90 15,70 15,30" fill="#94a3b8" stroke="#475569" strokeWidth="4" />
+                    <circle cx="50" cy="50" r="20" fill="#cbd5e1" stroke="#475569" strokeWidth="2" />
+                    <path d="M50,10 L50,30 M85,30 L67,40 M85,70 L67,60 M50,90 L50,70 M15,70 L33,60 M15,30 L33,40" stroke="#475569" strokeWidth="1" opacity="0.5" />
+                  </svg>
+                );
+              }
+              if (name === 'pentagon') {
+                // School Crossing Sign (House shape)
+                return (
+                  <svg viewBox="0 0 100 100" className="w-24 h-24 mx-auto mb-2">
+                    <path d="M50,10 L90,40 L90,90 L10,90 L10,40 Z" fill="#fde047" stroke="#eab308" strokeWidth="4" />
+                    <circle cx="50" cy="55" r="15" fill="#eab308" opacity="0.3" />
+                    <path d="M30,90 L30,40 M70,90 L70,40" stroke="#eab308" strokeWidth="2" strokeDasharray="3 3" />
+                  </svg>
+                );
+              }
+              if (name === 'quadrilateral') {
+                // Window or Door
+                return (
+                  <svg viewBox="0 0 100 100" className="w-24 h-24 mx-auto mb-2">
+                    <rect x="20" y="20" width="60" height="60" fill="#bfdbfe" stroke="#3b82f6" strokeWidth="4" />
+                    <line x1="50" y1="20" x2="50" y2="80" stroke="#3b82f6" strokeWidth="3" />
+                    <line x1="20" y1="50" x2="80" y2="50" stroke="#3b82f6" strokeWidth="3" />
+                  </svg>
+                );
+              }
+              if (name === 'square') {
+                // Tile
+                return (
+                  <svg viewBox="0 0 100 100" className="w-24 h-24 mx-auto mb-2">
+                    <rect x="20" y="20" width="60" height="60" fill="#a7f3d0" stroke="#059669" strokeWidth="4" />
+                    <rect x="28" y="28" width="44" height="44" fill="none" stroke="#059669" strokeWidth="1" strokeDasharray="2 2" />
+                  </svg>
+                );
               }
 
-              return (
-                <svg viewBox="0 0 100 100" className="w-20 h-20 mx-auto mb-2">
-                  <polygon points={points.join(' ')} fill="none" stroke="#3b82f6" strokeWidth="2" />
-                </svg>
-              );
+              // Fallback
+              return <div className="w-20 h-20 bg-slate-200" />;
             };
+
             return (
               <WorksheetSectionWrapper
                 docId="identify-polygons"
-                title="Identify Polygons"
-                emoji="📐"
-                description="Name each polygon by number of sides."
+                title="Polygon Construction Zone"
+                emoji="🚧"
+                description="Put on your hard hat! Count the sides to identify these construction signs and materials."
                 problemCount={polygons.length}
                 learningObjectives={[
                   'Identify polygons by number of sides',
                   'Count sides of polygons correctly',
-                  'Learn polygon names (triangle, quadrilateral, pentagon, etc.)'
+                  'Learn polygon names (triangle, quadrilateral, pentagon, hexagon, octagon)'
                 ]}
                 parentTeacherTips={[
-                  'Triangle = 3 sides, Quadrilateral = 4 sides',
-                  'Pentagon = 5 sides, Hexagon = 6 sides, Octagon = 8 sides',
-                  'Count the sides carefully',
-                  'Extension: Identify regular vs irregular polygons'
+                  'Triangle = 3 sides (Like a warning sign)',
+                  'Quad = 4 sides (Like a window)',
+                  'Pentagon = 5 sides (Like a school crossing sign)',
+                  'Hexagon = 6 sides (Like a bolt)',
+                  'Octagon = 8 sides (Like a STOP sign)'
                 ]}
               >
-                <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-purple-400 to-pink-400 animate-gradient-x mb-2" />
+                {/* Construction Header */}
+                <div className="print:hidden w-full h-16 mb-4 relative overflow-hidden bg-gradient-to-r from-yellow-400 via-amber-300 to-yellow-400 rounded-lg flex items-center justify-center border-b-4 border-black">
+                  <div className="absolute inset-x-0 h-2 top-0 bg-black opacity-10 repeating-linear-gradient-45"></div>
+                  <div className="text-3xl font-black text-slate-900 flex gap-4 uppercase tracking-widest">
+                    <span>🚧</span> WORK IN PROGRESS <span>🚧</span>
+                  </div>
+                  <div className="absolute inset-x-0 h-2 bottom-0 bg-black opacity-20"></div>
+                </div>
+
                 {/* Worked Example */}
-                <div className="mb-6 p-4 bg-blue-50 border-2 border-blue-200 rounded-lg print:border print:bg-white">
-                  <div className="font-semibold text-blue-900 mb-3 text-sm">📚 Example - Let's solve this together:</div>
-                  <div className="space-y-2 text-sm">
-                    <div className="font-semibold text-base"><strong>Shape:</strong> Pentagon</div>
-                    <div className="pl-4 border-l-2 border-blue-300 space-y-1">
-                      <div><strong>Step 1:</strong> Look at the shape - count the sides</div>
-                      <div><strong>Step 2:</strong> A pentagon has 5 sides</div>
-                      <div className="font-semibold text-blue-900"><strong>Answer:</strong> 5 sides</div>
-                      <div className="text-xs text-blue-700 mt-1">💡 Tip: Count the sides to identify the polygon!</div>
+                <div className="mb-6 p-4 bg-yellow-50 border-2 border-yellow-400 border-dashed rounded-lg print:border print:bg-white relative">
+                  <div className="absolute -top-3 -right-3 text-3xl rotate-12">👷</div>
+                  <div className="font-bold text-yellow-900 mb-3 text-sm uppercase tracking-wide border-b border-yellow-200 pb-1">Blueprint Example:</div>
+                  <div className="flex items-center gap-6">
+                    <div className="shrink-0">
+                      <svg viewBox="0 0 100 100" className="w-24 h-24">
+                        <polygon points="50,10 90,40 90,90 10,90 10,40" fill="white" stroke="#eab308" strokeWidth="4" />
+                        <text x="50" y="60" textAnchor="middle" fontSize="20">1,2,3...5</text>
+                      </svg>
+                    </div>
+                    <div className="space-y-1 text-sm text-yellow-900">
+                      <div><strong>Job:</strong> Inspect the Sign</div>
+                      <div><strong>Count Sides:</strong> 1, 2, 3, 4, 5 sides</div>
+                      <div><strong>Material Name:</strong> Pentagon</div>
+                      <div className="font-bold bg-yellow-200 inline-block px-2 rounded mt-1">Status: Verified ✅</div>
                     </div>
                   </div>
                 </div>
-                <div className="grid grid-cols-2 gap-4" style={{ pageBreakAfter: 'auto' }}>
+
+                <div className="grid grid-cols-2 gap-6" style={{ pageBreakAfter: 'auto' }}>
                   {polygons.map((p, i) => (
-                    <div key={i} className="border border-slate-300 rounded-lg p-4 bg-white break-inside-avoid">
-                      {renderPolygon(p.name, p.sides)}
-                      <div className="text-center mb-2 font-semibold">{p.name}</div>
-                      <div className="text-center text-sm text-slate-600 mb-2">Sides: ____</div>
-                      <div className="mt-2 text-xs text-slate-600">Count the sides:</div>
-                      <div className="min-h-12 border border-dashed border-slate-300 rounded p-2 bg-slate-50 print:bg-white" />
+                    <div key={i} className="border-4 border-slate-200 rounded-xl p-4 bg-white break-inside-avoid shadow-sm relative overflow-hidden">
+                      {/* Tape corner */}
+                      <div className="absolute top-0 right-0 w-8 h-8 bg-yellow-400 -mr-4 -mt-4 rotate-45 border border-yellow-600"></div>
+
+                      <div className="flex flex-col items-center">
+                        {renderPolygonTheme(p.name, p.sides)}
+                        <div className="w-full border-t-2 border-dashed border-slate-200 my-2"></div>
+
+                        <div className="w-full space-y-3">
+                          <div className="flex justify-between items-center text-sm text-slate-500 font-mono">
+                            <span>Item #{i + 101}</span>
+                            <span className="text-xs uppercase bg-slate-100 px-1 rounded">{p.theme}</span>
+                          </div>
+
+                          <div>
+                            <label className="block text-xs font-bold text-slate-700 uppercase mb-1">Sides Count:</label>
+                            <div className="h-10 w-full border-2 border-slate-300 rounded bg-slate-50 flex items-center px-2">
+                              {/* Student writes number here */}
+                            </div>
+                          </div>
+
+                          <div>
+                            <label className="block text-xs font-bold text-slate-700 uppercase mb-1">Polygon Name:</label>
+                            <div className="h-10 w-full border-2 border-slate-300 rounded bg-slate-50 flex items-center px-2">
+                              {/* Student writes name here */}
+                            </div>
+                          </div>
+                        </div>
+                      </div>
                     </div>
                   ))}
                 </div>
-                {/* Extension/Challenge Problems */}
-                <div className="mt-6 print:mt-0 p-4 bg-purple-50 border-2 border-purple-200 rounded print:bg-white print:border" style={{ pageBreakBefore: 'always', pageBreakInside: 'avoid' }}>
-                  <div className="font-semibold text-purple-900 mb-3 text-sm">🌟 {getTrans('common.challengeYourself', 'Challenge Yourself (Optional):')}</div>
-                  <div className="space-y-2 text-sm text-purple-800">
-                    <div>1. Draw a shape with 7 sides (heptagon)</div>
-                    <div>2. Find examples of each polygon in your environment</div>
-                    <div>3. Create your own polygon identification chart</div>
-                  </div>
-                </div>
+
                 {/* Self-Assessment */}
                 <div className="print:block hidden print:mt-0 mt-6 p-4 border-2 border-slate-300 rounded" style={{ pageBreakBefore: 'avoid', pageBreakInside: 'avoid' }}>
-                  <div className="font-semibold text-slate-800 mb-3 text-sm">📊 {getTrans('common.howDidYouDo', 'How did you do?')}</div>
+                  <div className="font-semibold text-slate-800 mb-3 text-sm">📊 Inspection Report</div>
                   <div className="space-y-2 text-xs">
-                    <div>☐ I can identify polygons by counting sides</div>
-                    <div>☐ I remember the names of polygons</div>
-                    <div>☐ I can classify polygons correctly</div>
-                  </div>
-                  <div className="mt-3 text-xs">
-                    <strong>{getTrans('common.myScore', 'My score:')}</strong> ___ / {polygons.length}
-                  </div>
-                  <div className="mt-2 text-xs">
-                    <strong>{getTrans('common.whatWasHardest', 'What was hardest?')}</strong> _________________________
+                    <div>☐ I can count the sides correctly</div>
+                    <div>☐ I know the names (Triangle, Quad, Pentagon...)</div>
+                    <div>☐ I am ready for the next job site!</div>
                   </div>
                 </div>
+
                 {showAnswersForDoc('identify-polygons', () => (
                   <div className="mt-6 p-4 border-2 border-emerald-300 bg-emerald-50 rounded print:border print:bg-white print:page-break-before-always">
                     <div className="font-bold text-emerald-900 mb-3 text-base">✅ {getTrans('common.answerKey', 'Answer Key')}</div>
-                    <div className="space-y-3">
+                    <div className="grid grid-cols-2 gap-4">
                       {polygons.map((p, i) => (
-                        <div key={i} className="border-b border-emerald-200 pb-3 last:border-b-0">
-                          <div className="font-semibold mb-2 text-sm">{i + 1}. {p.name}</div>
-                          <div className="text-xs text-emerald-800 space-y-1 pl-4">
-                            <div>Count the sides: {p.sides} sides</div>
-                            <div className="font-semibold">Answer: {p.sides} sides</div>
-                          </div>
+                        <div key={i} className="text-sm text-emerald-900">
+                          <span className="font-bold">Item #{i + 101} ({p.theme}):</span> {p.sides} sides, {p.name.charAt(0).toUpperCase() + p.name.slice(1)}
                         </div>
                       ))}
                     </div>
@@ -34070,146 +34139,189 @@ export function PrintablesPage() {
         {
           activeDocs.includes('lines-rays-angles') && (() => {
             const items = [
-              { name: 'line', desc: 'Straight path that goes on forever in both directions', type: 'line' },
-              { name: 'line segment', desc: 'Part of a line with two endpoints', type: 'segment' },
-              { name: 'ray', desc: 'Part of a line with one endpoint', type: 'ray' },
-              { name: 'angle', desc: 'Formed by two rays sharing an endpoint', type: 'angle' },
-              { name: 'right angle', desc: '90 degree angle', type: 'right' },
-              { name: 'acute angle', desc: 'Less than 90 degrees', type: 'acute' },
+              { name: 'line', desc: 'Power Cable (Infinite Current)', type: 'line', theme: 'Cable' },
+              { name: 'line segment', desc: 'Hydraulic Strut (Fixed Length)', type: 'segment', theme: 'Strut' },
+              { name: 'ray', desc: 'Laser Beam (One Way)', type: 'ray', theme: 'Laser' },
+              { name: 'angle', desc: 'Joint (Two Parts)', type: 'angle', theme: 'Joint' },
+              { name: 'right angle', desc: 'Corner Brace (90°)', type: 'right', theme: 'Brace' },
+              { name: 'acute angle', desc: 'Pincer Claw (<90°)', type: 'acute', theme: 'Claw' },
             ];
-            const renderGeometric = (type: string) => {
-              if (type === 'line') {
+            const renderRobotTheme = (type: string) => {
+              // Custom visuals for Robot theme
+              if (type === 'line') { // Power Cable
                 return (
-                  <svg viewBox="0 0 100 20" className="w-24 h-6 mx-auto mb-2">
-                    <line x1="10" y1="10" x2="90" y2="10" stroke="#3b82f6" strokeWidth="2" strokeLinecap="round" />
-                    <circle cx="10" cy="10" r="1.5" fill="#3b82f6" />
-                    <circle cx="90" cy="10" r="1.5" fill="#3b82f6" />
+                  <svg viewBox="0 0 100 40" className="w-32 h-12 mx-auto mb-2 overflow-visible">
+                    <defs>
+                      <linearGradient id="cableGrad" x1="0" y1="0" x2="0" y2="1">
+                        <stop offset="0%" stopColor="#3b82f6" />
+                        <stop offset="50%" stopColor="#2563eb" />
+                        <stop offset="100%" stopColor="#1d4ed8" />
+                      </linearGradient>
+                    </defs>
+                    {/* Glowing Core */}
+                    <path d="M-10,20 L110,20" stroke="#60a5fa" strokeWidth="8" filter="blur(2px)" />
+                    <path d="M-10,20 L110,20" stroke="url(#cableGrad)" strokeWidth="4" />
+
+                    {/* Arrows indicating infinity */}
+                    <path d="M-5,20 L5,15 L5,25 Z" fill="#1d4ed8" />
+                    <path d="M105,20 L95,15 L95,25 Z" fill="#1d4ed8" />
+
+                    {/* Sparkles */}
+                    <circle cx="20" cy="18" r="1" fill="white" className="animate-pulse" />
+                    <circle cx="80" cy="22" r="1" fill="white" className="animate-pulse" />
                   </svg>
                 );
-              } else if (type === 'segment') {
+              } else if (type === 'segment') { // Strut
                 return (
-                  <svg viewBox="0 0 100 20" className="w-24 h-6 mx-auto mb-2">
-                    <line x1="20" y1="10" x2="80" y2="10" stroke="#3b82f6" strokeWidth="2" strokeLinecap="round" />
-                    <circle cx="20" cy="10" r="2" fill="#3b82f6" />
-                    <circle cx="80" cy="10" r="2" fill="#3b82f6" />
+                  <svg viewBox="0 0 100 40" className="w-32 h-12 mx-auto mb-2">
+                    {/* Main Bar */}
+                    <rect x="15" y="15" width="70" height="10" fill="#94a3b8" stroke="#475569" strokeWidth="1" rx="2" />
+                    {/* Bolts at ends */}
+                    <circle cx="20" cy="20" r="4" fill="#cbd5e1" stroke="#475569" />
+                    <circle cx="80" cy="20" r="4" fill="#cbd5e1" stroke="#475569" />
+                    <path d="M19,19 L21,21 M19,21 L21,19" stroke="#475569" strokeWidth="1" />
+                    <path d="M79,19 L81,21 M79,21 L81,19" stroke="#475569" strokeWidth="1" />
                   </svg>
                 );
-              } else if (type === 'ray') {
+              } else if (type === 'ray') { // Laser
                 return (
-                  <svg viewBox="0 0 100 20" className="w-24 h-6 mx-auto mb-2">
-                    <line x1="20" y1="10" x2="90" y2="10" stroke="#3b82f6" strokeWidth="2" strokeLinecap="round" />
-                    <circle cx="20" cy="10" r="2" fill="#3b82f6" />
-                    <path d="M 85 10 L 90 7 L 90 13 Z" fill="#3b82f6" />
+                  <svg viewBox="0 0 100 40" className="w-32 h-12 mx-auto mb-2 overflow-visible">
+                    {/* Emitter */}
+                    <rect x="10" y="12" width="15" height="16" fill="#52525b" stroke="#27272a" />
+                    {/* Beam */}
+                    <path d="M25,20 L110,20" stroke="#ef4444" strokeWidth="3" strokeDasharray="1 0" />
+                    <path d="M25,20 L110,20" stroke="#fee2e2" strokeWidth="1" opacity="0.8" />
+                    {/* Arrow head */}
+                    <path d="M105,20 L100,17 L100,23 Z" fill="#ef4444" />
+
+                    {/* Glow effect */}
+                    <circle cx="25" cy="20" r="5" fill="#ef4444" opacity="0.5" className="animate-pulse" />
                   </svg>
                 );
-              } else if (type === 'angle') {
+              } else if (type === 'angle') { // Joint
                 return (
-                  <svg viewBox="0 0 100 100" className="w-20 h-20 mx-auto mb-2">
-                    <line x1="50" y1="50" x2="20" y2="20" stroke="#3b82f6" strokeWidth="2" strokeLinecap="round" />
-                    <line x1="50" y1="50" x2="80" y2="20" stroke="#3b82f6" strokeWidth="2" strokeLinecap="round" />
-                    <circle cx="50" cy="50" r="2" fill="#3b82f6" />
-                    <path d="M 50 50 L 30 30 A 20 20 0 0 1 70 30 Z" fill="none" stroke="#3b82f6" strokeWidth="1" strokeDasharray="2,2" />
+                  <svg viewBox="0 0 100 100" className="w-24 h-24 mx-auto mb-2">
+                    <defs>
+                      <radialGradient id="metalGrad">
+                        <stop offset="0%" stopColor="#e2e8f0" />
+                        <stop offset="100%" stopColor="#94a3b8" />
+                      </radialGradient>
+                    </defs>
+                    {/* Arm 1 */}
+                    <path d="M50,50 L20,20" stroke="#64748b" strokeWidth="8" strokeLinecap="round" />
+                    {/* Arm 2 */}
+                    <path d="M50,50 L80,20" stroke="#64748b" strokeWidth="8" strokeLinecap="round" />
+                    {/* Joint */}
+                    <circle cx="50" cy="50" r="8" fill="url(#metalGrad)" stroke="#475569" strokeWidth="2" />
+                    {/* Angle Arc */}
+                    <path d="M 50 50 L 35 35 A 25 25 0 0 1 65 35 Z" fill="#3b82f6" fillOpacity="0.2" stroke="#2563eb" strokeDasharray="2 2" />
                   </svg>
                 );
-              } else if (type === 'right') {
+              } else if (type === 'right') { // Corner Brace
                 return (
-                  <svg viewBox="0 0 100 100" className="w-20 h-20 mx-auto mb-2">
-                    <line x1="30" y1="50" x2="30" y2="20" stroke="#3b82f6" strokeWidth="2" strokeLinecap="round" />
-                    <line x1="30" y1="50" x2="70" y2="50" stroke="#3b82f6" strokeWidth="2" strokeLinecap="round" />
-                    <circle cx="30" cy="50" r="2" fill="#3b82f6" />
-                    <path d="M 30 50 L 30 40 A 10 10 0 0 1 40 50 Z" fill="#3b82f6" opacity="0.3" />
+                  <svg viewBox="0 0 100 100" className="w-24 h-24 mx-auto mb-2">
+                    <path d="M30,20 L30,50 L60,50" fill="none" stroke="#475569" strokeWidth="8" strokeLinejoin="round" />
+                    {/* Bolts */}
+                    <circle cx="30" cy="30" r="2" fill="#cbd5e1" />
+                    <circle cx="50" cy="50" r="2" fill="#cbd5e1" />
+                    {/* 90 deg marker */}
+                    <rect x="34" y="46" width="6" height="6" fill="#ef4444" opacity="0.5" />
                   </svg>
                 );
-              } else { // acute
+              } else { // Acute Claw
                 return (
-                  <svg viewBox="0 0 100 100" className="w-20 h-20 mx-auto mb-2">
-                    <line x1="30" y1="70" x2="50" y2="30" stroke="#3b82f6" strokeWidth="2" strokeLinecap="round" />
-                    <line x1="30" y1="70" x2="70" y2="70" stroke="#3b82f6" strokeWidth="2" strokeLinecap="round" />
-                    <circle cx="30" cy="70" r="2" fill="#3b82f6" />
-                    <path d="M 30 70 L 40 60 A 15 15 0 0 1 50 70 Z" fill="none" stroke="#3b82f6" strokeWidth="1" strokeDasharray="2,2" />
+                  <svg viewBox="0 0 100 100" className="w-24 h-24 mx-auto mb-2">
+                    <path d="M30,70 L50,30 L70,70" fill="none" stroke="#dc2626" strokeWidth="6" strokeLinecap="round" strokeLinejoin="round" />
+                    <circle cx="50" cy="30" r="5" fill="#7f1d1d" />
+                    {/* Angle Arc */}
+                    <path d="M 50 30 L 40 50 A 25 25 0 0 0 60 50 Z" fill="#fecaca" fillOpacity="0.4" />
                   </svg>
                 );
               }
             };
+
             return (
               <WorksheetSectionWrapper
                 docId="lines-rays-angles"
-                title="Lines, Rays, and Angles"
-                emoji="📐"
-                description="Identify lines, line segments, rays, and angles."
+                title="Robot Assembly Lab"
+                emoji="🤖"
+                description="Identify the robot parts! Is it a Cable (Line), a Laser (Ray), or a Joint (Angle)?"
                 problemCount={items.length}
                 learningObjectives={[
                   'Identify lines, line segments, rays, and angles',
-                  'Understand the differences between these geometric terms',
-                  'Recognize geometric figures visually'
+                  'Understand geometric properties via robot analogy',
+                  'Recognize angles (right, acute)'
                 ]}
                 parentTeacherTips={[
-                  'Line: Goes on forever in both directions',
-                  'Line segment: Has two endpoints',
-                  'Ray: Has one endpoint, goes on forever in one direction',
-                  'Angle: Formed by two rays sharing an endpoint',
-                  'Extension: Measure angles with a protractor'
+                  'Infinites lines = Power Cables (Current flows forever)',
+                  'Segments = Struts (Have endpoints/bolts)',
+                  'Rays = Lasers (Start at blaster, go forever)',
+                  'Angles = Robot Elbows/Joints'
                 ]}
               >
-                <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-purple-400 to-pink-400 animate-gradient-x mb-2" />
+                {/* Robot Header */}
+                <div className="print:hidden w-full h-16 mb-4 relative overflow-hidden bg-slate-800 rounded-lg flex items-center justify-center border-2 border-slate-600">
+                  <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAiIGhlaWdodD0iMjAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGNpcmNsZSBjeD0iMiIgY3k9IjIiIHI9IjEiIGZpbGw9IiMzMzQxNTUiLz48L3N2Zz4=')] opacity-20"></div>
+                  <div className="text-2xl font-mono text-green-400 flex gap-4 items-center">
+                    <span className="animate-pulse">⚡</span> SYSTEM: ONLINE <span className="animate-pulse">⚡</span>
+                  </div>
+                </div>
+
                 {/* Worked Example */}
-                <div className="mb-6 p-4 bg-blue-50 border-2 border-blue-200 rounded-lg print:border print:bg-white">
-                  <div className="font-semibold text-blue-900 mb-3 text-sm">📚 Example - Let's solve this together:</div>
-                  <div className="space-y-2 text-sm">
-                    <div className="font-semibold text-base"><strong>Figure:</strong> A straight path with two endpoints</div>
-                    <div className="pl-4 border-l-2 border-blue-300 space-y-1">
-                      <div><strong>Step 1:</strong> Does it have endpoints? Yes, two endpoints</div>
-                      <div><strong>Step 2:</strong> Does it go on forever? No, it stops at endpoints</div>
-                      <div><strong>Step 3:</strong> This is a line segment</div>
-                      <div className="font-semibold text-blue-900"><strong>Answer:</strong> Line segment</div>
-                      <div className="text-xs text-blue-700 mt-1">💡 Tip: Count endpoints to identify the figure!</div>
+                <div className="mb-6 p-4 bg-slate-100 border-2 border-slate-400 rounded-lg print:border print:bg-white flex gap-4 items-start font-mono">
+                  <div className="text-4xl">🦾</div>
+                  <div className="text-sm text-slate-800 w-full">
+                    <div className="font-bold border-b border-slate-300 mb-2 pb-1">DATABASE ENTRY: #001</div>
+                    <div className="grid grid-cols-[auto_1fr] gap-x-4 gap-y-1">
+                      <span className="font-bold text-slate-500">OBJECT:</span> <span>Laser Beam</span>
+                      <span className="font-bold text-slate-500">PROPERTIES:</span> <span>Starts at source, goes forever</span>
+                      <span className="font-bold text-slate-500">CLASSIFICATION:</span> <span className="text-red-600 font-bold">RAY</span>
+                    </div>
+                    <div className="mt-2 text-xs text-slate-500">
+                      <i>"A ray has 1 endpoint and extends infinitely in one direction."</i>
                     </div>
                   </div>
                 </div>
+
                 <div className="grid grid-cols-2 gap-4" style={{ pageBreakAfter: 'auto' }}>
                   {items.map((i, idx) => (
-                    <div key={idx} className="border border-slate-300 rounded-lg p-4 bg-white break-inside-avoid">
-                      {renderGeometric(i.type)}
-                      <div className="text-center mb-2 text-sm">{i.desc}</div>
-                      <div className="text-center text-sm text-slate-600 mb-2">Name: ____</div>
-                      <div className="mt-2 text-xs text-slate-600">Explain:</div>
-                      <div className="min-h-12 border border-dashed border-slate-300 rounded p-2 bg-slate-50 print:bg-white" />
+                    <div key={idx} className="border-2 border-slate-300 rounded-lg p-4 bg-white break-inside-avoid relative">
+                      <div className="absolute top-2 right-2 text-xs text-slate-300 font-mono">ID: {idx + 1}00</div>
+
+                      {renderRobotTheme(i.type)}
+
+                      <div className="text-center mb-2 font-bold text-slate-700 font-mono text-sm">{i.desc}</div>
+
+                      <div className="bg-slate-50 p-2 rounded border border-slate-200">
+                        <div className="flex items-center gap-2 mb-1">
+                          <span className="w-2 h-2 rounded-full bg-green-500"></span>
+                          <span className="text-[10px] uppercase font-bold text-slate-500">Select Type:</span>
+                        </div>
+                        <div className="h-8 border-b-2 border-slate-300"></div>
+                      </div>
                     </div>
                   ))}
                 </div>
-                {/* Extension/Challenge Problems */}
-                <div className="mt-6 print:mt-0 p-4 bg-purple-50 border-2 border-purple-200 rounded print:bg-white print:border" style={{ pageBreakBefore: 'always', pageBreakInside: 'avoid' }}>
-                  <div className="font-semibold text-purple-900 mb-3 text-sm">🌟 {getTrans('common.challengeYourself', 'Challenge Yourself (Optional):')}</div>
-                  <div className="space-y-2 text-sm text-purple-800">
-                    <div>1. Draw a line, a ray, and a line segment</div>
-                    <div>2. Find examples of each in your environment</div>
-                    <div>3. Explain the difference between a ray and a line</div>
-                  </div>
-                </div>
+
                 {/* Self-Assessment */}
                 <div className="print:block hidden print:mt-0 mt-6 p-4 border-2 border-slate-300 rounded" style={{ pageBreakBefore: 'avoid', pageBreakInside: 'avoid' }}>
-                  <div className="font-semibold text-slate-800 mb-3 text-sm">📊 {getTrans('common.howDidYouDo', 'How did you do?')}</div>
-                  <div className="space-y-2 text-xs">
-                    <div>☐ I can identify lines and line segments</div>
-                    <div>☐ I can identify rays</div>
-                    <div>☐ I can identify angles</div>
-                  </div>
-                  <div className="mt-3 text-xs">
-                    <strong>{getTrans('common.myScore', 'My score:')}</strong> ___ / {items.length}
-                  </div>
-                  <div className="mt-2 text-xs">
-                    <strong>{getTrans('common.whatWasHardest', 'What was hardest?')}</strong> _________________________
+                  <div className="font-semibold text-slate-800 mb-3 text-sm">📊 Diagnostic Report</div>
+                  <div className="space-y-2 text-xs font-mono">
+                    <div>[ ] I can identify cables (lines) vs struts (segments)</div>
+                    <div>[ ] I can identify lasers (rays)</div>
+                    <div>[ ] All systems nominal</div>
                   </div>
                 </div>
+
                 {showAnswersForDoc('lines-rays-angles', () => (
                   <div className="mt-6 p-4 border-2 border-emerald-300 bg-emerald-50 rounded print:border print:bg-white print:page-break-before-always">
                     <div className="font-bold text-emerald-900 mb-3 text-base">✅ {getTrans('common.answerKey', 'Answer Key')}</div>
-                    <div className="space-y-3">
+                    <div className="grid grid-cols-2 gap-4">
                       {items.map((i, idx) => (
-                        <div key={idx} className="border-b border-emerald-200 pb-3 last:border-b-0">
-                          <div className="font-semibold mb-2 text-sm">{idx + 1}. {i.desc}</div>
-                          <div className="text-xs text-emerald-800 space-y-1 pl-4">
-                            <div className="font-semibold">Answer: {i.name}</div>
+                        <div key={idx} className="border-b border-emerald-200 pb-2 last:border-b-0">
+                          <div className="font-semibold text-sm">{idx + 1}. {i.desc}</div>
+                          <div className="text-xs text-emerald-800 pl-2">
+                            Answer: <span className="font-bold uppercase">{i.name}</span>
                           </div>
                         </div>
                       ))}
@@ -34223,147 +34335,185 @@ export function PrintablesPage() {
 
         {
           activeDocs.includes('symmetry') && (() => {
-            const shapes = ['square', 'circle', 'rectangle', 'triangle', 'hexagon', 'star'];
-            const renderShape = (shape: string) => {
-              const size = 60;
+            const shapes = [
+              { name: 'square', theme: 'Garden Paver', shapeType: 'square' },
+              { name: 'circle', theme: 'Sunflower', shapeType: 'circle' },
+              { name: 'triangle', theme: 'Pine Tree', shapeType: 'triangle' },
+              { name: 'hexagon', theme: 'Honeycomb', shapeType: 'hexagon' },
+              { name: 'star', theme: 'Starfish', shapeType: 'star' },
+              { name: 'butterfly', theme: 'Butterfly', shapeType: 'butterfly' }
+            ];
+
+            const renderNatureTheme = (shapeType: string) => {
               const centerX = 50;
               const centerY = 50;
-              if (shape === 'square') {
+
+              if (shapeType === 'square') {
+                // Garden Paver / Window
                 return (
-                  <svg viewBox="0 0 100 100" className="w-20 h-20 mx-auto mb-2">
-                    <rect x="20" y="20" width="60" height="60" fill="none" stroke="#3b82f6" strokeWidth="2" />
+                  <svg viewBox="0 0 100 100" className="w-24 h-24 mx-auto mb-2">
+                    <rect x="20" y="20" width="60" height="60" fill="#e2e8f0" stroke="#64748b" strokeWidth="4" rx="4" />
+                    <path d="M50,20 L50,80" stroke="#64748b" strokeWidth="2" strokeDasharray="4 2" />
+                    <path d="M20,50 L80,50" stroke="#64748b" strokeWidth="2" strokeDasharray="4 2" />
+                    {/* Leaf detail */}
+                    <path d="M25,25 Q35,25 35,35 Q25,35 25,25" fill="#22c55e" />
                   </svg>
                 );
-              } else if (shape === 'circle') {
+              } else if (shapeType === 'circle') {
+                // Sunflower
                 return (
-                  <svg viewBox="0 0 100 100" className="w-20 h-20 mx-auto mb-2">
-                    <circle cx="50" cy="50" r="30" fill="none" stroke="#3b82f6" strokeWidth="2" />
+                  <svg viewBox="0 0 100 100" className="w-24 h-24 mx-auto mb-2">
+                    {/* Petals */}
+                    {Array.from({ length: 12 }).map((_, i) => (
+                      <path key={i} d={`M50,50 L50,15`} stroke="#fbbf24" strokeWidth="8" strokeLinecap="round" transform={`rotate(${i * 30} 50 50)`} />
+                    ))}
+                    <circle cx="50" cy="50" r="20" fill="#78350f" stroke="#92400e" strokeWidth="2" />
                   </svg>
                 );
-              } else if (shape === 'rectangle') {
+              } else if (shapeType === 'triangle') {
+                // Pine Tree
                 return (
-                  <svg viewBox="0 0 100 100" className="w-20 h-20 mx-auto mb-2">
-                    <rect x="20" y="30" width="60" height="40" fill="none" stroke="#3b82f6" strokeWidth="2" />
+                  <svg viewBox="0 0 100 100" className="w-24 h-24 mx-auto mb-2">
+                    <rect x="45" y="70" width="10" height="15" fill="#78350f" />
+                    <path d="M50,15 L80,70 L20,70 Z" fill="#15803d" stroke="#166534" strokeWidth="2" />
                   </svg>
                 );
-              } else if (shape === 'triangle') {
-                return (
-                  <svg viewBox="0 0 100 100" className="w-20 h-20 mx-auto mb-2">
-                    <polygon points="50,20 20,80 80,80" fill="none" stroke="#3b82f6" strokeWidth="2" />
-                  </svg>
-                );
-              } else if (shape === 'hexagon') {
+              } else if (shapeType === 'hexagon') {
+                // Honeycomb
                 const points: string[] = [];
                 for (let i = 0; i < 6; i++) {
                   const angle = (Math.PI * 2 * i) / 6 - Math.PI / 2;
-                  const x = centerX + 25 * Math.cos(angle);
-                  const y = centerY + 25 * Math.sin(angle);
+                  const x = centerX + 30 * Math.cos(angle);
+                  const y = centerY + 30 * Math.sin(angle);
                   points.push(`${x},${y}`);
                 }
                 return (
-                  <svg viewBox="0 0 100 100" className="w-20 h-20 mx-auto mb-2">
-                    <polygon points={points.join(' ')} fill="none" stroke="#3b82f6" strokeWidth="2" />
+                  <svg viewBox="0 0 100 100" className="w-24 h-24 mx-auto mb-2">
+                    <polygon points={points.join(' ')} fill="#fde047" stroke="#eab308" strokeWidth="4" />
+                    {/* Honey drip */}
+                    <path d="M50,20 L50,80" stroke="#eab308" strokeWidth="1" opacity="0.5" strokeDasharray="2 2" />
                   </svg>
                 );
-              } else { // star
+              } else if (shapeType === 'star') {
+                // Starfish
                 const points: string[] = [];
                 for (let i = 0; i < 10; i++) {
                   const angle = (Math.PI * 2 * i) / 10 - Math.PI / 2;
-                  const radius = i % 2 === 0 ? 30 : 15;
+                  const radius = i % 2 === 0 ? 35 : 15;
                   const x = centerX + radius * Math.cos(angle);
                   const y = centerY + radius * Math.sin(angle);
                   points.push(`${x},${y}`);
                 }
                 return (
-                  <svg viewBox="0 0 100 100" className="w-20 h-20 mx-auto mb-2">
-                    <polygon points={points.join(' ')} fill="none" stroke="#3b82f6" strokeWidth="2" />
+                  <svg viewBox="0 0 100 100" className="w-24 h-24 mx-auto mb-2">
+                    <polygon points={points.join(' ')} fill="#f87171" stroke="#dc2626" strokeWidth="2" rx="5" strokeLinejoin="round" />
+                    <circle cx="50" cy="50" r="3" fill="#fee2e2" />
+                  </svg>
+                );
+              } else { // Butterfly
+                return (
+                  <svg viewBox="0 0 100 100" className="w-24 h-24 mx-auto mb-2">
+                    {/* Body */}
+                    <ellipse cx="50" cy="50" rx="3" ry="30" fill="#475569" />
+                    {/* Left Wings */}
+                    <path d="M47,50 C20,20 0,30 20,50 C0,70 20,80 47,55" fill="#c084fc" stroke="#9333ea" strokeWidth="2" fillOpacity="0.8" />
+                    {/* Right Wings */}
+                    <path d="M53,50 C80,20 100,30 80,50 C100,70 80,80 53,55" fill="#c084fc" stroke="#9333ea" strokeWidth="2" fillOpacity="0.8" />
+                    {/* Antennae */}
+                    <path d="M48,25 L40,15 M52,25 L60,15" stroke="#475569" strokeWidth="2" />
                   </svg>
                 );
               }
             };
+
             return (
               <WorksheetSectionWrapper
                 docId="symmetry"
-                title="Symmetry"
-                emoji="📐"
-                description="Find lines of symmetry. Draw the other half."
+                title="Butterfly Garden: Symmetry"
+                emoji="🦋"
+                description="Welcome to the Symmetry Garden! Find the magical lines that make both sides match perfectly."
                 problemCount={shapes.length}
                 learningObjectives={[
-                  'Identify lines of symmetry in shapes',
-                  'Understand that a line of symmetry divides a shape into mirror images',
-                  'Count lines of symmetry correctly'
+                  'Identify lines of symmetry in nature objects',
+                  'Understand mirror images',
+                  'Count lines of symmetry'
                 ]}
                 parentTeacherTips={[
-                  'A line of symmetry divides a shape into two identical halves',
-                  'Fold the shape along the line - both sides match',
-                  'Some shapes have multiple lines of symmetry',
-                  'Extension: Draw lines of symmetry on real objects'
+                  'Butterfly = 1 line (down the middle)',
+                  'Flower = Infinite lines (rotational)',
+                  'Tree = 1 line (vertical)',
+                  'Starfish = 5 lines'
                 ]}
               >
-                <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-purple-400 to-pink-400 animate-gradient-x mb-2" />
+                {/* Garden Header */}
+                <div className="print:hidden w-full h-16 mb-4 relative overflow-hidden bg-gradient-to-r from-green-100 to-emerald-200 rounded-lg flex items-center justify-center border-b-4 border-green-500">
+                  <div className="absolute inset-x-0 bottom-0 text-3xl opacity-50">🌱 🌿 🌾 🌿 🌱</div>
+                  <div className="text-2xl font-serif text-green-800 italic z-10 flex gap-4">
+                    <span>🌸</span> Nature's Perfection <span>🌸</span>
+                  </div>
+                </div>
+
                 {/* Worked Example */}
-                <div className="mb-6 p-4 bg-blue-50 border-2 border-blue-200 rounded-lg print:border print:bg-white">
-                  <div className="font-semibold text-blue-900 mb-3 text-sm">📚 Example - Let's solve this together:</div>
-                  <div className="space-y-2 text-sm">
-                    <div className="font-semibold text-base"><strong>Shape:</strong> Square</div>
-                    <div className="pl-4 border-l-2 border-blue-300 space-y-1">
-                      <div><strong>Step 1:</strong> Draw a line down the middle - both sides match</div>
-                      <div><strong>Step 2:</strong> Draw a line across the middle - both sides match</div>
-                      <div><strong>Step 3:</strong> Draw diagonal lines - both sides match</div>
-                      <div><strong>Step 4:</strong> Count all lines: 4 lines of symmetry</div>
-                      <div className="font-semibold text-blue-900"><strong>Answer:</strong> 4 lines of symmetry</div>
-                      <div className="text-xs text-blue-700 mt-1">💡 Tip: A line of symmetry makes both sides match!</div>
+                <div className="mb-6 p-4 bg-pink-50 border-2 border-pink-200 rounded-lg print:border print:bg-white flex items-center gap-6">
+                  <div className="shrink-0 relative">
+                    <div className="absolute inset-0 border-r-2 border-dashed border-pink-500 w-1/2 pointer-events-none"></div>
+                    <svg viewBox="0 0 100 100" className="w-20 h-20">
+                      {/* Heart Shape */}
+                      <path d="M50,30 C30,10 0,40 50,90 C100,40 70,10 50,30" fill="#f472b6" stroke="#db2777" strokeWidth="2" />
+                      <line x1="50" y1="20" x2="50" y2="90" stroke="#be185d" strokeWidth="2" strokeDasharray="4 2" />
+                    </svg>
+                  </div>
+                  <div className="space-y-1 text-sm text-pink-900">
+                    <div className="font-bold">Object: Heart Leaf</div>
+                    <div>Draw a line down the middle.</div>
+                    <div>Fold it: Do the sides match? <strong className="text-pink-600">YES!</strong></div>
+                    <div className="text-xs bg-white p-1 rounded border border-pink-100 mt-1">
+                      1 Line of Symmetry ✅
                     </div>
                   </div>
                 </div>
-                <div className="grid grid-cols-2 gap-4" style={{ pageBreakAfter: 'auto' }}>
+
+                <div className="grid grid-cols-2 gap-6" style={{ pageBreakAfter: 'auto' }}>
                   {shapes.map((s, i) => (
-                    <div key={i} className="border border-slate-300 rounded-lg p-4 bg-white break-inside-avoid">
-                      {renderShape(s)}
-                      <div className="text-center mb-2 font-semibold">{s}</div>
-                      <div className="text-center text-sm text-slate-600 mb-2">Lines of symmetry: ____</div>
-                      <div className="mt-2 text-xs text-slate-600">Draw the lines:</div>
-                      <div className="min-h-16 border border-dashed border-slate-300 rounded p-2 bg-slate-50 print:bg-white" />
+                    <div key={i} className="border-4 border-emerald-100 rounded-xl p-4 bg-white break-inside-avoid relative shadow-sm">
+                      {/* Flower decoration in corner */}
+                      <div className="absolute top-2 right-2 text-xl opacity-50">✨</div>
+
+                      {renderNatureTheme(s.shapeType)}
+
+                      <div className="text-center mb-4 font-serif text-lg text-emerald-900">{s.theme}</div>
+
+                      <div className="space-y-2">
+                        <div className="flex justify-between items-center text-xs text-slate-500">
+                          <span>Draw Lines:</span>
+                          <span>Count:</span>
+                        </div>
+                        <div className="h-10 border-2 border-slate-200 rounded bg-slate-50"></div>
+                      </div>
                     </div>
                   ))}
                 </div>
-                {/* Extension/Challenge Problems */}
-                <div className="mt-6 print:mt-0 p-4 bg-purple-50 border-2 border-purple-200 rounded print:bg-white print:border" style={{ pageBreakBefore: 'always', pageBreakInside: 'avoid' }}>
-                  <div className="font-semibold text-purple-900 mb-3 text-sm">🌟 {getTrans('common.challengeYourself', 'Challenge Yourself (Optional):')}</div>
-                  <div className="space-y-2 text-sm text-purple-800">
-                    <div>1. Find shapes in your environment with symmetry</div>
-                    <div>2. Draw your own shape and find its lines of symmetry</div>
-                    <div>3. Explain why a circle has infinite lines of symmetry</div>
-                  </div>
-                </div>
+
                 {/* Self-Assessment */}
                 <div className="print:block hidden print:mt-0 mt-6 p-4 border-2 border-slate-300 rounded" style={{ pageBreakBefore: 'avoid', pageBreakInside: 'avoid' }}>
-                  <div className="font-semibold text-slate-800 mb-3 text-sm">📊 {getTrans('common.howDidYouDo', 'How did you do?')}</div>
+                  <div className="font-semibold text-slate-800 mb-3 text-sm">📊 Gardener's Log</div>
                   <div className="space-y-2 text-xs">
-                    <div>☐ I can identify lines of symmetry</div>
-                    <div>☐ I understand what symmetry means</div>
-                    <div>☐ I can count lines of symmetry</div>
-                  </div>
-                  <div className="mt-3 text-xs">
-                    <strong>{getTrans('common.myScore', 'My score:')}</strong> ___ / {shapes.length}
-                  </div>
-                  <div className="mt-2 text-xs">
-                    <strong>{getTrans('common.whatWasHardest', 'What was hardest?')}</strong> _________________________
+                    <div>☐ I found lines of symmetry</div>
+                    <div>☐ The left side matches the right side</div>
+                    <div>☐ My garden is perfectly balanced</div>
                   </div>
                 </div>
+
                 {showAnswersForDoc('symmetry', () => (
                   <div className="mt-6 p-4 border-2 border-emerald-300 bg-emerald-50 rounded print:border print:bg-white print:page-break-before-always">
                     <div className="font-bold text-emerald-900 mb-3 text-base">✅ {getTrans('common.answerKey', 'Answer Key')}</div>
-                    <div className="space-y-3">
+                    <div className="grid grid-cols-2 gap-4">
                       {shapes.map((s, i) => {
-                        const lines = { square: 4, circle: 'infinite', rectangle: 2, triangle: 3, hexagon: 6, star: 5 }[s];
+                        const lines = { square: 4, circle: 'Inf (Many)', rectangle: 2, triangle: 1, hexagon: 6, star: 5, butterfly: 1 }[s.shapeType] || 1;
                         return (
-                          <div key={i} className="border-b border-emerald-200 pb-3 last:border-b-0">
-                            <div className="font-semibold mb-2 text-sm">{i + 1}. {s}</div>
-                            <div className="text-xs text-emerald-800 space-y-1 pl-4">
-                              <div>Draw lines that divide the shape into matching halves</div>
-                              <div className="font-semibold">Answer: {lines} lines of symmetry</div>
-                            </div>
+                          <div key={i} className="text-sm border-b border-emerald-200 pb-2">
+                            <div className="font-bold text-emerald-800">{s.theme}</div>
+                            <div className="text-emerald-600 pl-2">Lines: {lines}</div>
                           </div>
                         );
                       })}
