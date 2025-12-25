@@ -33836,108 +33836,106 @@ export function PrintablesPage() {
           activeDocs.includes('area-rectangles') && (() => {
             const rng = makeRng(`${effectiveSeed}|v${variant}|doc=${doc}`);
             function nextInt(min: number, max: number) { return Math.floor(rng() * (max - min + 1)) + min; }
-            const problems = Array.from({ length: 6 }, () => {
-              const length = nextInt(4, 10);
-              const width = nextInt(3, 8);
-              return { length, width, area: length * width };
-            });
-            const renderRectangle = (length: number, width: number) => {
-              const scale = 8;
-              const rectWidth = length * scale;
-              const rectHeight = width * scale;
-              const viewBoxWidth = Math.max(rectWidth, 60) + 20;
-              const viewBoxHeight = Math.max(rectHeight, 60) + 20;
-              const x = (viewBoxWidth - rectWidth) / 2;
-              const y = (viewBoxHeight - rectHeight) / 2;
 
-              return (
-                <svg viewBox={`0 0 ${viewBoxWidth} ${viewBoxHeight}`} className="w-24 h-24 mx-auto mb-2">
-                  <rect x={x} y={y} width={rectWidth} height={rectHeight} fill="none" stroke="#3b82f6" strokeWidth="2" />
-                  <text x={x + rectWidth / 2} y={y - 5} textAnchor="middle" fontSize="8" fill="#64748b">{length}</text>
-                  <text x={x - 8} y={y + rectHeight / 2} textAnchor="middle" fontSize="8" fill="#64748b" transform={`rotate(-90 ${x - 8} ${y + rectHeight / 2})`}>{width}</text>
-                </svg>
-              );
-            };
+            const problems = Array.from({ length: 6 }, () => {
+              const length = nextInt(4, 9);
+              const width = nextInt(2, 6);
+              return { label: `Room ${String.fromCharCode(65 + nextInt(0, 5))}-${nextInt(10, 99)}`, length, width, area: length * width };
+            });
+
             return (
               <WorksheetSectionWrapper
                 docId="area-rectangles"
-                title="Area of Rectangles"
-                emoji="📐"
-                description="Find the area by multiplying length × width."
+                title="Construction Zone: Blueprint Area"
+                emoji="🏗️"
+                description="The architect needs the floor area for each room! Calculate the space inside the blueprints."
                 problemCount={problems.length}
                 learningObjectives={[
-                  'Calculate area of rectangles',
-                  'Understand that area is the space inside a shape',
-                  'Use the formula: Area = length × width'
+                  'Calculate area of rectangles using multiplication',
+                  'Understand area as \"space inside\" (square units)',
+                  'Read blueprint dimensions'
                 ]}
                 parentTeacherTips={[
-                  'Area = space inside the shape',
-                  'For rectangles: Area = length × width',
-                  'Area is measured in square units',
-                  'Extension: Find area of composite shapes'
+                  'Area = Length × Width',
+                  'Imagine tiling the floor with squares',
+                  'Units are always \"squared\" (sq ft, sq m) for area'
                 ]}
               >
-                <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-purple-400 to-pink-400 animate-gradient-x mb-2" />
+                {/* Blueprint Header */}
+                <div className="print:hidden w-full h-16 mb-6 relative overflow-hidden bg-blue-600 rounded-lg flex items-center justify-center border-4 border-white shadow-lg">
+                  <div className="absolute inset-0 opacity-30 bg-[size:20px_20px] bg-[linear-gradient(to_right,#ffffff_1px,transparent_1px),linear-gradient(to_bottom,#ffffff_1px,transparent_1px)]"></div>
+                  <div className="text-2xl font-black text-white z-10 flex gap-4 items-center tracking-widest uppercase" style={{ textShadow: '2px 2px 0px #000' }}>
+                    📐 ARCHITECT BLUEPRINTS 📐
+                  </div>
+                </div>
+
                 {/* Worked Example */}
-                <div className="mb-6 p-4 bg-blue-50 border-2 border-blue-200 rounded-lg print:border print:bg-white">
-                  <div className="font-semibold text-blue-900 mb-3 text-sm">📚 Example - Let's solve this together:</div>
-                  <div className="space-y-2 text-sm">
-                    <div className="font-semibold text-base"><strong>Problem:</strong> Rectangle with length = 6, width = 4</div>
-                    <div className="pl-4 border-l-2 border-blue-300 space-y-1">
-                      <div><strong>Step 1:</strong> Formula: Area = length × width</div>
-                      <div><strong>Step 2:</strong> Calculate: 6 × 4 = 24</div>
-                      <div className="font-semibold text-blue-900"><strong>Answer:</strong> 24 square units</div>
-                      <div className="text-xs text-blue-700 mt-1">💡 Tip: Count the squares inside, or multiply length × width!</div>
+                <div className="mb-6 p-4 bg-blue-900 text-white border-2 border-white rounded-lg print:bg-white print:text-black print:border-blue-900 shadow-md">
+                  <div className="flex gap-4 items-start">
+                    <div className="hidden md:block w-32 h-24 bg-blue-600 border border-white relative">
+                      <div className="absolute inset-0 opacity-30 bg-[size:10px_10px] bg-[linear-gradient(to_right,#fff_1px,transparent_1px),linear-gradient(to_bottom,#fff_1px,transparent_1px)]"></div>
+                      <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-white font-mono text-xs">
+                        5 x 4
+                      </div>
+                    </div>
+                    <div className="flex-1">
+                      <div className="font-bold border-b border-blue-400 mb-2 pb-1 text-sm uppercase">Example: Master Bedroom</div>
+                      <div className="space-y-1 text-sm font-mono">
+                        <div>Length: 5 units</div>
+                        <div>Width:  4 units</div>
+                        <div className="mt-2 text-yellow-300 print:text-blue-700 font-bold">AREA = 5 × 4 = 20 square units</div>
+                      </div>
                     </div>
                   </div>
                 </div>
-                <div className="grid grid-cols-2 gap-4" style={{ pageBreakAfter: 'auto' }}>
+
+                <div className="grid grid-cols-2 gap-x-8 gap-y-6" style={{ pageBreakAfter: 'auto' }}>
                   {problems.map((p, i) => (
-                    <div key={i} className="border border-slate-300 rounded-lg p-4 bg-white break-inside-avoid">
-                      {renderRectangle(p.length, p.width)}
-                      <div className="text-center mb-2 text-sm font-semibold">Length: {p.length}, Width: {p.width}</div>
-                      <div className="text-center text-sm text-slate-600 mb-2">Area: ____</div>
-                      <div className="mt-2 text-xs text-slate-600">Show your work:</div>
-                      <div className="min-h-16 border border-dashed border-slate-300 rounded p-2 bg-slate-50 print:bg-white" />
+                    <div key={i} className="break-inside-avoid">
+                      <div className="bg-blue-600 p-1 rounded-t-lg w-fit px-3 text-white text-xs font-bold font-mono tracking-wider border-t border-l border-r border-white relative top-0.5 z-10">{p.label}</div>
+                      <div className="bg-blue-50 border-2 border-blue-900 p-4 relative overflow-hidden shadow-sm">
+                        {/* Grid Background */}
+                        <div className="absolute inset-0 opacity-10 bg-[size:10px_10px] bg-[linear-gradient(to_right,#1e3a8a_1px,transparent_1px),linear-gradient(to_bottom,#1e3a8a_1px,transparent_1px)] pointer-events-none"></div>
+
+                        <div className="relative z-10 flex flex-col items-center">
+                          <div className="mb-2">
+                            <svg width="120" height="80" viewBox="0 0 120 80" className="overflow-visible">
+                              <rect x="10" y="10" width="100" height="60" fill="#3b82f6" fillOpacity="0.2" stroke="#1e3a8a" strokeWidth="2" />
+                              {/* Dimensions */}
+                              <text x="60" y="85" textAnchor="middle" fontSize="10" fontWeight="bold" fill="#1e3a8a">{p.length} units</text>
+                              <text x="5" y="45" textAnchor="middle" fontSize="10" fontWeight="bold" fill="#1e3a8a" transform="rotate(-90 5 45)">{p.width} units</text>
+                            </svg>
+                          </div>
+
+                          <div className="w-full flex items-center justify-between gap-2 mt-2 bg-white px-2 py-1 rounded border border-blue-200">
+                            <span className="text-xs font-bold text-blue-900">AREA:</span>
+                            <div className="w-16 border-b border-black"></div>
+                            <span className="text-[10px] text-slate-500">sq units</span>
+                          </div>
+                        </div>
+                      </div>
                     </div>
                   ))}
                 </div>
-                {/* Extension/Challenge Problems */}
-                <div className="mt-6 print:mt-0 p-4 bg-purple-50 border-2 border-purple-200 rounded print:bg-white print:border" style={{ pageBreakBefore: 'always', pageBreakInside: 'avoid' }}>
-                  <div className="font-semibold text-purple-900 mb-3 text-sm">🌟 {getTrans('common.challengeYourself', 'Challenge Yourself (Optional):')}</div>
-                  <div className="space-y-2 text-sm text-purple-800">
-                    <div>1. Find the area of a square with side length 8</div>
-                    <div>2. A rectangle has area 30. If length is 6, what is the width?</div>
-                    <div>3. Find the area of your desk or table</div>
-                  </div>
-                </div>
+
                 {/* Self-Assessment */}
                 <div className="print:block hidden print:mt-0 mt-6 p-4 border-2 border-slate-300 rounded" style={{ pageBreakBefore: 'avoid', pageBreakInside: 'avoid' }}>
-                  <div className="font-semibold text-slate-800 mb-3 text-sm">📊 {getTrans('common.howDidYouDo', 'How did you do?')}</div>
+                  <div className="font-semibold text-slate-800 mb-3 text-sm">👷 SITE INSPECTOR REPORT</div>
                   <div className="space-y-2 text-xs">
-                    <div>☐ I can find the area of rectangles</div>
-                    <div>☐ I understand what area means</div>
-                    <div>☐ I can use the formula correctly</div>
-                  </div>
-                  <div className="mt-3 text-xs">
-                    <strong>{getTrans('common.myScore', 'My score:')}</strong> ___ / {problems.length}
-                  </div>
-                  <div className="mt-2 text-xs">
-                    <strong>{getTrans('common.whatWasHardest', 'What was hardest?')}</strong> _________________________
+                    <div>☐ I multiplied length × width correctly</div>
+                    <div>☐ I double-checked my math</div>
+                    <div>☐ Blueprints are approved for construction</div>
                   </div>
                 </div>
+
                 {showAnswersForDoc('area-rectangles', () => (
-                  <div className="mt-6 p-4 border-2 border-emerald-300 bg-emerald-50 rounded print:border print:bg-white print:page-break-before-always">
-                    <div className="font-bold text-emerald-900 mb-3 text-base">✅ Answer Key (with steps)</div>
-                    <div className="space-y-3">
+                  <div className="mt-6 p-4 border-4 border-double border-blue-900 bg-blue-50 rounded print:border print:bg-white print:page-break-before-always font-mono">
+                    <div className="text-center font-bold text-blue-900 mb-6 text-xl border-b border-blue-200 pb-2">✅ APPROVED PLANS</div>
+                    <div className="grid grid-cols-2 gap-4 text-sm">
                       {problems.map((p, i) => (
-                        <div key={i} className="border-b border-emerald-200 pb-3 last:border-b-0">
-                          <div className="font-semibold mb-2 text-sm">{i + 1}. Length: {p.length}, Width: {p.width}</div>
-                          <div className="text-xs text-emerald-800 space-y-1 pl-4">
-                            <div>Step 1: Area = length × width</div>
-                            <div>Step 2: {p.length} × {p.width} = {p.area}</div>
-                            <div className="font-semibold">Answer: {p.area} square units</div>
-                          </div>
+                        <div key={i} className="flex justify-between border-b border-blue-200 pb-1">
+                          <span>{p.label} ({p.length}×{p.width})</span>
+                          <span className="font-bold">{p.area} sq units</span>
                         </div>
                       ))}
                     </div>
@@ -35119,95 +35117,145 @@ export function PrintablesPage() {
 
         {
           activeDocs.includes('multi-step-word-problems') && (() => {
-            const problems = [
-              { text: 'Emma has 24 stickers. She gives away 8 stickers. Then she buys 12 more. How many stickers does she have now?', steps: ['24 - 8 = 16', '16 + 12 = 28'], answer: '28 stickers' },
-              { text: 'A store has 45 apples. They sell 15 apples in the morning and 18 apples in the afternoon. How many apples are left?', steps: ['15 + 18 = 33', '45 - 33 = 12'], answer: '12 apples' },
-              { text: 'Jake reads 3 books. Each book has 8 chapters. How many chapters did he read in all?', steps: ['3 × 8 = 24'], answer: '24 chapters' },
-              { text: 'There are 5 boxes. Each box has 6 toys. If 8 toys are broken, how many toys are still good?', steps: ['5 × 6 = 30', '30 - 8 = 22'], answer: '22 toys' },
-              { text: 'Sarah saves $5 each week for 4 weeks. Then she spends $12. How much money does she have left?', steps: ['5 × 4 = 20', '20 - 12 = 8'], answer: '$8' },
-              { text: 'A classroom has 30 students. 12 students are boys. How many students are girls?', steps: ['30 - 12 = 18'], answer: '18 girls' },
-            ];
+            const rng = makeRng(`${effectiveSeed}|v${variant}|doc=${doc}`);
+            function nextInt(min: number, max: number) { return Math.floor(rng() * (max - min + 1)) + min; }
+
+            const problems = Array.from({ length: 6 }, () => {
+              const type = nextInt(0, 3);
+              if (type === 0) {
+                // (A * B) - C
+                const a = nextInt(3, 8);
+                const b = nextInt(2, 5);
+                const c = nextInt(1, a * b - 1);
+                return {
+                  text: `Detective Zoom found ${a} boxes of evidence. Each box had ${b} clues. But ${c} clues resulted in a dead end. How many useful clues are left?`,
+                  steps: [`${a} × ${b} = ${a * b} total clues`, `${a * b} - ${c} = ${a * b - c}`],
+                  answer: `${a * b - c} clues`
+                };
+              } else if (type === 1) {
+                // (A + B) - C
+                const a = nextInt(10, 30);
+                const b = nextInt(5, 20);
+                const c = nextInt(5, 15);
+                return {
+                  text: `There were ${a} witnesses on Monday and ${b} on Tuesday. ${c} of them were suspects. How many were innocent witnesses?`,
+                  steps: [`${a} + ${b} = ${a + b} total people`, `${a + b} - ${c} = ${a + b - c}`],
+                  answer: `${a + b - c} witnesses`
+                };
+              } else {
+                // (A - B) + C
+                const a = nextInt(20, 50);
+                const b = nextInt(5, 15);
+                const c = nextInt(10, 20);
+                return {
+                  text: `Officer Pat had ${a} donuts. The team ate ${b}. Then Officer Mike brought ${c} more. How many donuts are there now?`,
+                  steps: [`${a} - ${b} = ${a - b} left`, `${a - b} + ${c} = ${a - b + c}`],
+                  answer: `${a - b + c} donuts`
+                };
+              }
+            });
+
             return (
               <WorksheetSectionWrapper
                 docId="multi-step-word-problems"
-                title="Multi-Step Word Problems"
-                emoji="🧮"
-                description="Solve problems with 2 or 3 steps."
+                title="Math Detective Agency"
+                emoji="🕵️‍♂️"
+                description="Crack the case! Solve step-by-step to catch the answer."
                 problemCount={problems.length}
                 learningObjectives={[
                   'Solve multi-step word problems',
-                  'Identify all steps needed to solve',
-                  'Show work for each step clearly'
+                  'Identify sequence of operations',
+                  'Show work for each clue'
                 ]}
                 parentTeacherTips={[
-                  'Read the problem carefully',
-                  'Identify what information you have and what you need to find',
-                  'Break the problem into steps',
-                  'Solve each step one at a time',
-                  'Check your answer by reading the problem again',
-                  'Extension: Create your own multi-step problems'
+                  'Look for keywords: "each", "total", "left", "more"',
+                  'Solve one clue at a time',
+                  'Double check the final verdict'
                 ]}
               >
-                <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-purple-400 to-pink-400 animate-gradient-x mb-2" />
-                {/* Worked Example */}
-                <div className="mb-6 p-4 bg-blue-50 border-2 border-blue-200 rounded-lg print:border print:bg-white">
-                  <div className="font-semibold text-blue-900 mb-3 text-sm">📚 Example - Let's solve this together:</div>
-                  <div className="space-y-2 text-sm">
-                    <div className="font-semibold text-base"><strong>Problem:</strong> Tom has 15 marbles. He gives 5 to his friend. Then he finds 8 more. How many does he have now?</div>
-                    <div className="pl-4 border-l-2 border-blue-300 space-y-1">
-                      <div><strong>Step 1:</strong> After giving away: 15 - 5 = 10</div>
-                      <div><strong>Step 2:</strong> After finding more: 10 + 8 = 18</div>
-                      <div className="font-semibold text-blue-900"><strong>Answer:</strong> 18 marbles</div>
-                      <div className="text-xs text-blue-700 mt-1">💡 Tip: Break it into steps and solve one at a time!</div>
+                {/* Agency Header */}
+                <div className="print:hidden w-full h-20 mb-6 relative overflow-hidden bg-slate-800 rounded-t-lg border-b-4 border-yellow-500 shadow-lg">
+                  <div className="absolute top-2 left-4 text-4xl">🔦</div>
+                  <div className="flex flex-col items-center justify-center h-full">
+                    <div className="text-2xl font-bold text-slate-100 font-mono tracking-widest uppercase">Top Secret Case Files</div>
+                    <div className="text-yellow-500 font-bold text-xs uppercase bg-slate-900 px-2 py-0.5 rounded border border-yellow-500 mt-1">Authorized Eyes Only</div>
+                  </div>
+                </div>
+
+                {/* Example Case */}
+                <div className="mb-8 mx-auto max-w-2xl bg-amber-50 p-1 border border-slate-300 shadow-[2px_2px_0px_0px_rgba(0,0,0,0.2)] rotate-0 relative">
+                  {/* Paperclip */}
+                  <div className="absolute -top-3 left-1/2 transform -translate-x-1/2 w-8 h-8 rounded-full border-4 border-slate-400 z-10 bg-transparent border-b-transparent"></div>
+
+                  <div className="bg-white p-6 border border-slate-200">
+                    <div className="flex justify-between items-start mb-4 border-b-2 border-slate-800 pb-2">
+                      <div>
+                        <h3 className="font-bold text-slate-900 uppercase tracking-wide">Case #00-EXAMPLE</h3>
+                        <p className="text-xs text-slate-500">Subject: The Missing Marbles</p>
+                      </div>
+                      <div className="text-4xl opacity-20">📂</div>
+                    </div>
+
+                    <div className="space-y-4">
+                      <div className="font-serif italic text-slate-700 text-lg">
+                        "Start with 15 marbles. Lose 5. Find 8 more. How many now?"
+                      </div>
+
+                      <div className="grid grid-cols-2 gap-4 text-sm font-mono mt-4 bg-slate-50 p-4 rounded border border-slate-200">
+                        <div>
+                          <span className="bg-slate-200 text-slate-600 px-1 text-xs rounded uppercase font-bold mr-2">Clue 1</span>
+                          15 - 5 = 10
+                        </div>
+                        <div>
+                          <span className="bg-slate-200 text-slate-600 px-1 text-xs rounded uppercase font-bold mr-2">Clue 2</span>
+                          10 + 8 = 18
+                        </div>
+                      </div>
+
+                      <div className="mt-2 text-right">
+                        <span className="text-red-600 font-bold text-xl font-stamp transform -rotate-2 inline-block border-2 border-red-600 px-2 py-1">VERDICT: 18</span>
+                      </div>
                     </div>
                   </div>
                 </div>
-                <ol className="list-decimal list-inside space-y-4 text-sm text-slate-800" style={{ pageBreakAfter: 'auto' }}>
+
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-8" style={{ pageBreakAfter: 'auto' }}>
                   {problems.map((p, i) => (
-                    <li key={i} className="border border-slate-300 rounded-lg p-4 bg-white break-inside-avoid">
-                      <div className="mb-2">{p.text}</div>
-                      <div className="mt-2 text-xs text-slate-600 mb-2">Show your work (all steps):</div>
-                      <div className="min-h-24 border border-dashed border-slate-300 rounded p-2 bg-slate-50 print:bg-white" />
-                    </li>
-                  ))}
-                </ol>
-                {/* Extension/Challenge Problems */}
-                <div className="mt-6 print:mt-0 p-4 bg-purple-50 border-2 border-purple-200 rounded print:bg-white print:border" style={{ pageBreakBefore: 'always', pageBreakInside: 'avoid' }}>
-                  <div className="font-semibold text-purple-900 mb-3 text-sm">🌟 {getTrans('common.challengeYourself', 'Challenge Yourself (Optional):')}</div>
-                  <div className="space-y-2 text-sm text-purple-800">
-                    <div>1. Create your own multi-step word problem</div>
-                    <div>2. Solve: A bakery makes 48 cookies. They sell 20 in the morning and 15 in the afternoon. How many are left?</div>
-                    <div>3. Explain why breaking problems into steps helps</div>
-                  </div>
-                </div>
-                {/* Self-Assessment */}
-                <div className="print:block hidden print:mt-0 mt-6 p-4 border-2 border-slate-300 rounded" style={{ pageBreakBefore: 'avoid', pageBreakInside: 'avoid' }}>
-                  <div className="font-semibold text-slate-800 mb-3 text-sm">📊 {getTrans('common.howDidYouDo', 'How did you do?')}</div>
-                  <div className="space-y-2 text-xs">
-                    <div>☐ I can identify all steps in a problem</div>
-                    <div>☐ I can solve each step correctly</div>
-                    <div>☐ I can show my work clearly</div>
-                  </div>
-                  <div className="mt-3 text-xs">
-                    <strong>{getTrans('common.myScore', 'My score:')}</strong> ___ / {problems.length}
-                  </div>
-                  <div className="mt-2 text-xs">
-                    <strong>{getTrans('common.whatWasHardest', 'What was hardest?')}</strong> _________________________
-                  </div>
-                </div>
-                {showAnswersForDoc('multi-step-word-problems', () => (
-                  <div className="mt-6 p-4 border-2 border-emerald-300 bg-emerald-50 rounded print:border print:bg-white print:page-break-before-always">
-                    <div className="font-bold text-emerald-900 mb-3 text-base">✅ Answer Key (with steps)</div>
-                    <div className="space-y-3">
-                      {problems.map((p, i) => (
-                        <div key={i} className="border-b border-emerald-200 pb-3 last:border-b-0">
-                          <div className="font-semibold mb-2 text-sm">{i + 1}. {p.text}</div>
-                          <div className="text-xs text-emerald-800 space-y-1 pl-4">
-                            {p.steps.map((step, j) => (
-                              <div key={j}>Step {j + 1}: {step}</div>
-                            ))}
-                            <div className="font-semibold">Answer: {p.answer}</div>
+                    <div key={i} className="relative group break-inside-avoid">
+                      {/* Folder Tab */}
+                      <div className="absolute -top-3 left-0 w-24 h-4 bg-amber-200 rounded-t-lg border-t border-l border-r border-amber-300 group-hover:-top-4 transition-all"></div>
+
+                      <div className="bg-amber-100 p-6 rounded-b-lg rounded-tr-lg border border-amber-300 shadow-md relative">
+                        <div className="absolute top-2 right-2 text-xs font-mono text-amber-600 opacity-50">CASE #{400 + i}</div>
+                        <div className="font-serif text-slate-800 mb-4 leading-relaxed">
+                          {p.text}
+                        </div>
+
+                        <div className="bg-white p-3 rounded border border-amber-200 h-28 relative">
+                          <div className="absolute top-1 left-2 text-[10px] text-slate-400 uppercase tracking-wider">Investigative Notes</div>
+                          {/* Lines for writing */}
+                          <div className="w-full h-full pt-4 space-y-6">
+                            <div className="border-b border-slate-200"></div>
+                            <div className="border-b border-slate-200"></div>
+                            <div className="border-b border-slate-200"></div>
                           </div>
+                        </div>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+
+                {showAnswersForDoc('multi-step-word-problems', () => (
+                  <div className="mt-6 p-6 border-l-4 border-slate-800 bg-slate-50 rounded print:page-break-before-always">
+                    <div className="font-bold text-slate-900 mb-4 text-xl uppercase tracking-widest border-b border-slate-300 pb-2">🕵️‍♂️ Case Solutions</div>
+                    <div className="grid grid-cols-1 gap-4">
+                      {problems.map((p, i) => (
+                        <div key={i} className="flex flex-col text-sm font-mono text-slate-700 bg-white p-3 border border-slate-200 shadow-sm">
+                          <div className="font-bold text-slate-900 mb-1">CASE #{400 + i}</div>
+                          <div className="flex flex-wrap gap-x-4">
+                            {p.steps.map((s, j) => <span key={j} className="text-slate-500">STEP {j + 1}: {s}</span>)}
+                          </div>
+                          <div className="mt-1 font-bold text-red-600">VERDICT: {p.answer}</div>
                         </div>
                       ))}
                     </div>
@@ -35220,127 +35268,137 @@ export function PrintablesPage() {
 
         {
           activeDocs.includes('elapsed-time-word-problems') && (() => {
-            const problems = [
-              'Emma starts reading at 3:15 PM and finishes at 4:30 PM. How long did she read?',
-              'A movie starts at 7:00 PM and ends at 9:15 PM. How long is the movie?',
-              'Tom starts homework at 4:00 PM and finishes at 5:45 PM. How long did he work?',
-              'A class starts at 9:00 AM and ends at 10:30 AM. How long is the class?',
-              'Sarah starts cooking at 5:30 PM and finishes at 6:45 PM. How long did she cook?',
-              'Jake starts playing at 2:00 PM and stops at 3:30 PM. How long did he play?',
-            ];
+            const rng = makeRng(`${effectiveSeed}|v${variant}|doc=${doc}`);
+            function nextInt(min: number, max: number) { return Math.floor(rng() * (max - min + 1)) + min; }
+
+            // Generate time travel scenarios
+            const problems = Array.from({ length: 6 }, () => {
+              const startHour = nextInt(1, 10);
+              const startMin = nextInt(0, 3) * 15; // 00, 15, 30, 45
+              const durationMin = nextInt(2, 6) * 15; // 30 mins to 90 mins
+
+              const totalStartMin = startHour * 60 + startMin;
+              const totalEndMin = totalStartMin + durationMin;
+
+              const endHour = Math.floor(totalEndMin / 60);
+              const endMin = totalEndMin % 60;
+
+              // Format times
+              const pad = (n: number) => n.toString().padStart(2, '0');
+              const startTime = `${startHour}:${pad(startMin)} PM`;
+              const endTime = `${endHour}:${pad(endMin)} PM`;
+
+              const dHours = Math.floor(durationMin / 60);
+              const dMins = durationMin % 60;
+              const durationStr = dHours > 0
+                ? `${dHours} hr ${dMins > 0 ? `${dMins} min` : ''}`
+                : `${dMins} min`;
+
+              return {
+                mission: `Mission #${nextInt(100, 999)}`,
+                scenario: `Rocket launch at ${startTime}. Landed at ${endTime}.`,
+                question: "How long was the mission?",
+                answer: durationStr,
+                start: startTime,
+                end: endTime,
+                calc: `${endTime} - ${startTime} = ${durationStr}`
+              };
+            });
+
             return (
               <WorksheetSectionWrapper
                 docId="elapsed-time-word-problems"
-                title="Elapsed Time Word Problems"
-                emoji="🧮"
-                description="Solve problems about time."
+                title="Time Travel Mission Control"
+                emoji="🚀"
+                description="Calculate mission durations! The space station needs precise flight logs."
                 problemCount={problems.length}
                 learningObjectives={[
-                  'Calculate elapsed time between two times',
-                  'Solve word problems involving time',
-                  'Express time in hours and minutes'
+                  'Calculate elapsed time between two events',
+                  'Solve word problems involving hours and minutes',
+                  'Work with AM/PM time contexts'
                 ]}
                 parentTeacherTips={[
-                  'Find the difference between start and end times',
-                  'Count hours first, then minutes',
-                  'Use a number line or clock to help visualize',
-                  'Extension: Calculate elapsed time across days'
+                  'Use a \"Z-Chart\" or number line to jump to the next hour',
+                  'Count hours first, then add remaining minutes',
+                  'Example: 3:15 to 4:00 (45m) + 4:00 to 4:30 (30m) = 75m = 1h 15m'
                 ]}
               >
-                <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-purple-400 to-pink-400 animate-gradient-x mb-2" />
+                {/* Mission Control Header */}
+                <div className="print:hidden w-full h-16 mb-6 relative overflow-hidden bg-slate-900 rounded-lg flex items-center justify-center border-b-4 border-blue-500">
+                  <div className="absolute inset-0 opacity-20 bg-[url('https://www.transparenttextures.com/patterns/stardust.png')]"></div>
+                  <div className="text-2xl font-mono text-blue-400 font-bold z-10 flex gap-4 items-center tracking-widest uppercase">
+                    🛰️ FLIGHT LOGS 🛰️
+                  </div>
+                </div>
+
                 {/* Worked Example */}
-                <div className="mb-6 p-4 bg-blue-50 border-2 border-blue-200 rounded-lg print:border print:bg-white">
-                  <div className="font-semibold text-blue-900 mb-3 text-sm">📚 Example - Let's solve this together:</div>
-                  <div className="space-y-2 text-sm">
-                    <div className="font-semibold text-base"><strong>Problem:</strong> Start: 2:00 PM, End: 3:30 PM</div>
-                    <div className="pl-4 border-l-2 border-blue-300 space-y-1">
-                      <div><strong>Step 1:</strong> Hours: 3:00 - 2:00 = 1 hour</div>
-                      <div><strong>Step 2:</strong> Minutes: 30 - 0 = 30 minutes</div>
-                      <div><strong>Step 3:</strong> Total: 1 hour 30 minutes</div>
-                      <div className="font-semibold text-blue-900"><strong>Answer:</strong> 1 hour 30 minutes</div>
-                      <div className="text-xs text-blue-700 mt-1">💡 Tip: Count hours first, then add the minutes!</div>
+                <div className="mb-6 p-4 bg-slate-900 text-blue-100 border-2 border-blue-500 rounded-lg print:bg-white print:text-black print:border-slate-300">
+                  <div className="font-mono text-blue-300 mb-2 text-sm print:text-slate-600">MISSION BRIEFING:</div>
+                  <div className="flex flex-col md:flex-row gap-6 items-center">
+                    <div className="font-mono text-2xl border-2 border-blue-400 px-4 py-2 rounded bg-slate-800 print:bg-slate-100 print:text-slate-800">
+                      14:00 ➔ 15:30
+                    </div>
+                    <div className="space-y-1 text-sm font-mono">
+                      <div><span className="text-blue-400 font-bold print:text-blue-700">LAUNCH:</span> 2:00 PM</div>
+                      <div><span className="text-green-400 font-bold print:text-green-700">LANDING:</span> 3:30 PM</div>
+                      <div className="border-t border-blue-700 my-1 pt-1 print:border-slate-300">
+                        <span className="text-yellow-400 font-bold print:text-slate-900">DURATION:</span> 1 hour 30 minutes
+                      </div>
                     </div>
                   </div>
                 </div>
-                <ol className="list-decimal list-inside space-y-4 text-sm text-slate-800" style={{ pageBreakAfter: 'auto' }}>
+
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6" style={{ pageBreakAfter: 'auto' }}>
                   {problems.map((p, i) => (
-                    <li key={i} className="border border-slate-300 rounded-lg p-4 bg-white break-inside-avoid">
-                      <div className="mb-2">{p}</div>
-                      <div className="mt-2 text-xs text-slate-600 mb-2">Show your work:</div>
-                      <div className="min-h-24 border border-dashed border-slate-300 rounded p-2 bg-slate-50 print:bg-white" />
-                    </li>
+                    <div key={i} className="relative bg-white border-2 border-slate-200 rounded-xl p-4 shadow-sm break-inside-avoid overflow-hidden">
+                      <div className="absolute top-0 left-0 w-2 h-full bg-slate-100 border-r border-dotted border-slate-300"></div>
+                      <div className="pl-4">
+                        <div className="flex justify-between mb-2 border-b border-slate-100 pb-2">
+                          <span className="font-mono text-xs font-bold text-slate-400 bg-slate-100 px-2 rounded py-0.5">{p.mission}</span>
+                          <span className="text-xl">🚀</span>
+                        </div>
+
+                        <div className="mb-4">
+                          <div className="text-sm font-bold text-slate-700 mb-1">Flight Path:</div>
+                          <div className="text-lg font-mono text-slate-800 bg-slate-50 p-2 rounded border border-slate-200 text-center">
+                            {p.start} <span className="text-slate-400 mx-1">➜</span> {p.end}
+                          </div>
+                        </div>
+
+                        <div className="text-sm text-slate-600 font-medium mb-3">{p.question}</div>
+
+                        <div className="bg-blue-50 rounded p-2 h-16 border border-blue-100 relative">
+                          <div className="absolute top-1 left-2 text-[10px] text-blue-300 uppercase">Mission Duration</div>
+                          {/* Space for answer */}
+                        </div>
+                      </div>
+                    </div>
                   ))}
-                </ol>
-                {/* Extension/Challenge Problems */}
-                <div className="mt-6 print:mt-0 p-4 bg-purple-50 border-2 border-purple-200 rounded print:bg-white print:border" style={{ pageBreakBefore: 'always', pageBreakInside: 'avoid' }}>
-                  <div className="font-semibold text-purple-900 mb-3 text-sm">🌟 {getTrans('common.challengeYourself', 'Challenge Yourself (Optional):')}</div>
-                  <div className="space-y-2 text-sm text-purple-800">
-                    <div>1. How long is your school day? Calculate from start to end</div>
-                    <div>2. If you start at 8:15 AM and finish at 11:45 AM, how long did you work?</div>
-                    <div>3. Create your own elapsed time problem</div>
+                </div>
+
+                {/* Self-Assessment - Mission Debrief */}
+                <div className="print:block hidden print:mt-0 mt-6 p-4 border-2 border-blue-900 rounded bg-slate-50" style={{ pageBreakBefore: 'avoid', pageBreakInside: 'avoid' }}>
+                  <div className="font-bold text-slate-900 mb-3 text-sm uppercase tracking-wider">👨‍🚀 COMMANDER DEBRIEF</div>
+                  <div className="space-y-2 text-xs text-slate-700 font-mono">
+                    <div>[ ] Time calculations accurate</div>
+                    <div>[ ] Flight logs completed</div>
+                    <div>[ ] Ready for deep space mission</div>
                   </div>
                 </div>
-                {/* Self-Assessment */}
-                <div className="print:block hidden print:mt-0 mt-6 p-4 border-2 border-slate-300 rounded" style={{ pageBreakBefore: 'avoid', pageBreakInside: 'avoid' }}>
-                  <div className="font-semibold text-slate-800 mb-3 text-sm">📊 {getTrans('common.howDidYouDo', 'How did you do?')}</div>
-                  <div className="space-y-2 text-xs">
-                    <div>☐ I can calculate elapsed time</div>
-                    <div>☐ I can solve time word problems</div>
-                    <div>☐ I can express time in hours and minutes</div>
-                  </div>
-                  <div className="mt-3 text-xs">
-                    <strong>{getTrans('common.myScore', 'My score:')}</strong> ___ / {problems.length}
-                  </div>
-                  <div className="mt-2 text-xs">
-                    <strong>{getTrans('common.whatWasHardest', 'What was hardest?')}</strong> _________________________
-                  </div>
-                </div>
+
                 {showAnswersForDoc('elapsed-time-word-problems', () => (
-                  <div className="mt-6 p-4 border-2 border-emerald-300 bg-emerald-50 rounded print:border print:bg-white print:page-break-before-always">
-                    <div className="font-bold text-emerald-900 mb-3 text-base">✅ Answer Key (with steps)</div>
-                    <div className="space-y-3">
-                      <div className="border-b border-emerald-200 pb-3">
-                        <div className="font-semibold mb-2 text-sm">1. {problems[0]}</div>
-                        <div className="text-xs text-emerald-800 space-y-1 pl-4">
-                          <div>Step 1: 4:30 - 3:15 = 1 hour 15 minutes</div>
-                          <div className="font-semibold">Answer: 1 hour 15 minutes</div>
+                  <div className="mt-6 p-6 border-2 border-dashed border-slate-400 bg-white rounded print:page-break-before-always font-mono">
+                    <div className="text-center font-bold text-slate-800 mb-6 text-xl border-b mb-4 pb-2">📂 CLASSIFIED MISSION LOGS</div>
+                    <div className="grid grid-cols-2 gap-4">
+                      {problems.map((p, i) => (
+                        <div key={i} className="border-b border-slate-200 pb-2">
+                          <div className="text-xs text-slate-500 mb-1">{p.mission}</div>
+                          <div className="flex justify-between items-center">
+                            <span className="text-xs">{p.start} - {p.end}</span>
+                            <span className="font-bold text-blue-600 bg-blue-50 px-2 py-1 rounded">{p.answer}</span>
+                          </div>
                         </div>
-                      </div>
-                      <div className="border-b border-emerald-200 pb-3">
-                        <div className="font-semibold mb-2 text-sm">2. {problems[1]}</div>
-                        <div className="text-xs text-emerald-800 space-y-1 pl-4">
-                          <div>Step 1: 9:15 - 7:00 = 2 hours 15 minutes</div>
-                          <div className="font-semibold">Answer: 2 hours 15 minutes</div>
-                        </div>
-                      </div>
-                      <div className="border-b border-emerald-200 pb-3">
-                        <div className="font-semibold mb-2 text-sm">3. {problems[2]}</div>
-                        <div className="text-xs text-emerald-800 space-y-1 pl-4">
-                          <div>Step 1: 5:45 - 4:00 = 1 hour 45 minutes</div>
-                          <div className="font-semibold">Answer: 1 hour 45 minutes</div>
-                        </div>
-                      </div>
-                      <div className="border-b border-emerald-200 pb-3">
-                        <div className="font-semibold mb-2 text-sm">4. {problems[3]}</div>
-                        <div className="text-xs text-emerald-800 space-y-1 pl-4">
-                          <div>Step 1: 10:30 - 9:00 = 1 hour 30 minutes</div>
-                          <div className="font-semibold">Answer: 1 hour 30 minutes</div>
-                        </div>
-                      </div>
-                      <div className="border-b border-emerald-200 pb-3">
-                        <div className="font-semibold mb-2 text-sm">5. {problems[4]}</div>
-                        <div className="text-xs text-emerald-800 space-y-1 pl-4">
-                          <div>Step 1: 6:45 - 5:30 = 1 hour 15 minutes</div>
-                          <div className="font-semibold">Answer: 1 hour 15 minutes</div>
-                        </div>
-                      </div>
-                      <div className="border-b border-emerald-200 pb-3 last:border-b-0">
-                        <div className="font-semibold mb-2 text-sm">6. {problems[5]}</div>
-                        <div className="text-xs text-emerald-800 space-y-1 pl-4">
-                          <div>Step 1: 3:30 - 2:00 = 1 hour 30 minutes</div>
-                          <div className="font-semibold">Answer: 1 hour 30 minutes</div>
-                        </div>
-                      </div>
+                      ))}
                     </div>
                   </div>
                 ))}
@@ -35351,130 +35409,138 @@ export function PrintablesPage() {
 
         {
           activeDocs.includes('money-word-problems') && (() => {
-            const problems = [
-              'Emma has $5.00. She buys a book for $2.50. How much money does she have left?',
-              'Jake has $10.00. He buys 3 toys for $2.00 each. How much money does he have left?',
-              'Sarah has $8.00. She buys a snack for $1.75. How much money does she have left?',
-              'Tom has $12.00. He buys 2 items for $4.50 each. How much money does he have left?',
-              'Lisa has $6.00. She buys a pen for $1.25. How much money does she have left?',
-              'A store sells apples for $0.50 each. Jake buys 6 apples. How much does he pay?',
-            ];
+            const rng = makeRng(`${effectiveSeed}|v${variant}|doc=${doc}`);
+            function nextInt(min: number, max: number) { return Math.floor(rng() * (max - min + 1)) + min; }
+
+            const problems = Array.from({ length: 6 }, () => {
+              const type = nextInt(0, 2);
+              if (type === 0) {
+                // Simple Change
+                const cost = nextInt(2, 6);
+                const has = cost + nextInt(1, 10);
+                return {
+                  text: `A customer has $${has}.00. They buy a lemonade for $${cost}.00. How much change do they get?`,
+                  calc: `$${has} - $${cost} = $${has - cost}`,
+                  answer: `$${has - cost}`
+                };
+              } else if (type === 1) {
+                // Supplies (Addition)
+                const a = nextInt(2, 5);
+                const b = nextInt(2, 5);
+                return {
+                  text: `You spend $${a}.00 on lemons and $${b}.00 on sugar. What is the total cost?`,
+                  calc: `$${a} + $${b} = $${a + b}`,
+                  answer: `$${a + b}`
+                };
+              } else {
+                // Profit (Subtraction)
+                const sold = nextInt(15, 25);
+                const cost = nextInt(5, 10);
+                return {
+                  text: `You sold $${sold}.00 worth of drinks. Your supplies cost $${cost}.00. What is your profit?`,
+                  calc: `$${sold} - $${cost} = $${sold - cost}`,
+                  answer: `$${sold - cost}`
+                };
+              }
+            });
+
             return (
               <WorksheetSectionWrapper
                 docId="money-word-problems"
-                title="Money Word Problems"
-                emoji="🧮"
-                description="Solve problems involving dollars and cents."
+                title="Lemonade Stand Tycoon"
+                emoji="🍋"
+                description="Manage your business! Calculate expenses, sales, and profit."
                 problemCount={problems.length}
                 learningObjectives={[
-                  'Solve word problems involving money',
-                  'Add and subtract dollars and cents',
-                  'Multiply to find total costs',
-                  'Understand real-world money situations'
+                  'Solve money word problems (add/subtract)',
+                  'Calculate change and profit',
+                  'Understand budget concepts'
                 ]}
                 parentTeacherTips={[
-                  'Help students identify if they need to add, subtract, or multiply',
-                  'Remind students to line up decimal points when adding/subtracting',
-                  'Use real money or play money to help visualize',
-                  'Extension: Create your own money word problems'
+                  'Roleplay: Set up a real lemonade stand store',
+                  'Practice counting back change',
+                  'Discuss profit vs revenue'
                 ]}
               >
-                <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-purple-400 to-pink-400 animate-gradient-x mb-2" />
-                {/* Worked Example */}
-                <div className="mb-6 p-4 bg-blue-50 border-2 border-blue-200 rounded-lg print:border print:bg-white">
-                  <div className="font-semibold text-blue-900 mb-3 text-sm">📚 Example - Let's solve this together:</div>
-                  <div className="space-y-2 text-sm">
-                    <div className="font-semibold text-base"><strong>Problem:</strong> Tom has $10.00. He buys a toy for $3.50. How much does he have left?</div>
-                    <div className="pl-4 border-l-2 border-blue-300 space-y-1">
-                      <div><strong>Step 1:</strong> Start with: $10.00</div>
-                      <div><strong>Step 2:</strong> Subtract the cost: $10.00 - $3.50</div>
-                      <div><strong>Step 3:</strong> Calculate: $6.50</div>
-                      <div className="font-semibold text-blue-900"><strong>Answer:</strong> $6.50</div>
-                      <div className="text-xs text-blue-700 mt-1">💡 Tip: Line up the decimal points when subtracting!</div>
+                {/* Stand Header */}
+                <div className="print:hidden w-full h-24 mb-6 relative overflow-hidden bg-yellow-100 rounded-xl border-b-8 border-yellow-400">
+                  <div className="absolute top-0 left-0 w-full h-4 bg-red-400 rotate-1"></div>
+                  <div className="absolute top-0 left-0 w-full h-4 bg-white -rotate-1 opacity-50"></div>
+                  <div className="flex flex-col items-center justify-center h-full pt-4">
+                    <div className="text-3xl font-bold text-yellow-600 font-serif drop-shadow-sm">🍋 FRESH LEMONADE 🍋</div>
+                    <div className="text-yellow-700 font-mono text-sm mt-1">OPEN FOR BUSINESS</div>
+                  </div>
+                </div>
+
+                {/* Ledger Example */}
+                <div className="mb-8 mx-auto max-w-2xl bg-white p-6 border-2 border-slate-200 shadow-[0_0_15px_rgba(0,0,0,0.05)] rotate-1">
+                  <div className="text-center font-mono font-bold border-b-2 border-slate-800 pb-2 mb-4">DAILY LEDGER: EXAMPLE</div>
+                  <div className="flex justify-between items-center text-sm font-mono mb-2">
+                    <span className="text-slate-500">TRANSACTION #001</span>
+                    <span className="bg-green-100 text-green-700 px-2 py-0.5 rounded">COMPLETED</span>
+                  </div>
+                  <div className="space-y-3">
+                    <div className="flex justify-between border-b border-dashed border-slate-300 pb-2">
+                      <span>Customer Money (Has)</span>
+                      <span className="font-bold">$10.00</span>
+                    </div>
+                    <div className="flex justify-between border-b border-dashed border-slate-300 pb-2 text-red-500">
+                      <span>Lemon Cost (Spent)</span>
+                      <span>- $3.00</span>
+                    </div>
+                    <div className="flex justify-between pt-1 bg-yellow-50 p-2 rounded font-bold text-lg">
+                      <span>CHANGE DUE:</span>
+                      <span className="text-green-600">$7.00</span>
                     </div>
                   </div>
                 </div>
-                <ol className="list-decimal list-inside space-y-4 text-sm text-slate-800" style={{ pageBreakAfter: 'auto' }}>
+
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6" style={{ pageBreakAfter: 'auto' }}>
                   {problems.map((p, i) => (
-                    <li key={i} className="border border-slate-300 rounded-lg p-4 bg-white break-inside-avoid">
-                      <div className="mb-2">{p}</div>
-                      <div className="mt-2 text-xs text-slate-600 mb-2">Show your work:</div>
-                      <div className="min-h-24 border border-dashed border-slate-300 rounded p-2 bg-slate-50 print:bg-white" />
-                    </li>
+                    <div key={i} className="relative bg-white border border-slate-200 p-0 shadow-sm break-inside-avoid">
+                      {/* Receipt top jagged edge */}
+                      <div className="h-4 bg-slate-100 relative overflow-hidden -mt-2 mb-2">
+                        <div className="absolute top-2 w-full border-t border-dashed border-slate-400"></div>
+                      </div>
+
+                      <div className="px-6 pb-6 pt-2 font-mono text-sm">
+                        <div className="text-center mb-4 text-xs text-slate-400">RECEIPT #{1000 + i}</div>
+                        <div className="mb-4 text-base leading-relaxed">
+                          {p.text}
+                        </div>
+
+                        <div className="h-12 border-2 border-slate-300 rounded bg-slate-50 relative mt-4">
+                          <div className="absolute top-1 left-2 text-[10px] text-slate-400">CALCULATION</div>
+                          <div className="absolute bottom-1 right-2 font-bold text-lg text-slate-300 pointer-events-none">$</div>
+                        </div>
+                      </div>
+                    </div>
                   ))}
-                </ol>
-                {/* Extension/Challenge Problems */}
-                <div className="mt-6 print:mt-0 p-4 bg-purple-50 border-2 border-purple-200 rounded print:bg-white print:border" style={{ pageBreakBefore: 'always', pageBreakInside: 'avoid' }}>
-                  <div className="font-semibold text-purple-900 mb-3 text-sm">🌟 {getTrans('common.challengeYourself', 'Challenge Yourself (Optional):')}</div>
-                  <div className="space-y-2 text-sm text-purple-800">
-                    <div>1. You have $15.00. You buy 2 items for $4.25 each. How much do you have left?</div>
-                    <div>2. Create your own money word problem</div>
-                    <div>3. Explain how to add and subtract money with decimals</div>
+                </div>
+
+                {/* Self-Assessment - Cashier Training */}
+                <div className="print:block hidden print:mt-0 mt-6 p-4 border-2 border-yellow-400 rounded-lg bg-yellow-50" style={{ pageBreakBefore: 'avoid', pageBreakInside: 'avoid' }}>
+                  <div className="font-bold text-yellow-800 mb-3 text-sm">🏪 MANAGER REVIEW</div>
+                  <div className="space-y-2 text-xs text-yellow-900">
+                    <div>☐ Counts change correctly</div>
+                    <div>☐ Friendly service</div>
+                    <div>☐ Balancing the register</div>
                   </div>
                 </div>
-                {/* Self-Assessment */}
-                <div className="print:block hidden print:mt-0 mt-6 p-4 border-2 border-slate-300 rounded" style={{ pageBreakBefore: 'avoid', pageBreakInside: 'avoid' }}>
-                  <div className="font-semibold text-slate-800 mb-3 text-sm">📊 {getTrans('common.howDidYouDo', 'How did you do?')}</div>
-                  <div className="space-y-2 text-xs">
-                    <div>☐ I can solve money word problems</div>
-                    <div>☐ I can add and subtract money</div>
-                    <div>☐ I can multiply to find total costs</div>
-                  </div>
-                  <div className="mt-3 text-xs">
-                    <strong>{getTrans('common.myScore', 'My score:')}</strong> ___ / {problems.length}
-                  </div>
-                  <div className="mt-2 text-xs">
-                    <strong>{getTrans('common.whatWasHardest', 'What was hardest?')}</strong> _________________________
-                  </div>
-                </div>
+
                 {showAnswersForDoc('money-word-problems', () => (
-                  <div className="mt-6 p-4 border-2 border-emerald-300 bg-emerald-50 rounded print:border print:bg-white print:page-break-before-always">
-                    <div className="font-bold text-emerald-900 mb-3 text-base">✅ Answer Key (with steps)</div>
-                    <div className="space-y-3">
-                      <div className="border-b border-emerald-200 pb-3">
-                        <div className="font-semibold mb-2 text-sm">1. {problems[0]}</div>
-                        <div className="text-xs text-emerald-800 space-y-1 pl-4">
-                          <div>Step 1: $5.00 - $2.50</div>
-                          <div className="font-semibold">Answer: $2.50</div>
+                  <div className="mt-6 p-6 border-4 border-double border-green-300 bg-white rounded print:page-break-before-always font-mono">
+                    <div className="text-center font-bold text-green-800 mb-6 text-xl border-b mb-4 pb-2">💰 PROFIT SHEET</div>
+                    <div className="grid grid-cols-2 gap-4">
+                      {problems.map((p, i) => (
+                        <div key={i} className="flex flex-col border-b border-dotted border-slate-300 pb-2">
+                          <span className="text-xs text-slate-500">Receipt #{1000 + i}</span>
+                          <div className="flex justify-between">
+                            <span>{p.calc}</span>
+                            <span className="font-bold text-green-600">{p.answer}</span>
+                          </div>
                         </div>
-                      </div>
-                      <div className="border-b border-emerald-200 pb-3">
-                        <div className="font-semibold mb-2 text-sm">2. {problems[1]}</div>
-                        <div className="text-xs text-emerald-800 space-y-1 pl-4">
-                          <div>Step 1: 3 × $2.00 = $6.00 (cost)</div>
-                          <div>Step 2: $10.00 - $6.00</div>
-                          <div className="font-semibold">Answer: $4.00</div>
-                        </div>
-                      </div>
-                      <div className="border-b border-emerald-200 pb-3">
-                        <div className="font-semibold mb-2 text-sm">3. {problems[2]}</div>
-                        <div className="text-xs text-emerald-800 space-y-1 pl-4">
-                          <div>Step 1: $8.00 - $1.75</div>
-                          <div className="font-semibold">Answer: $6.25</div>
-                        </div>
-                      </div>
-                      <div className="border-b border-emerald-200 pb-3">
-                        <div className="font-semibold mb-2 text-sm">4. {problems[3]}</div>
-                        <div className="text-xs text-emerald-800 space-y-1 pl-4">
-                          <div>Step 1: 2 × $4.50 = $9.00 (cost)</div>
-                          <div>Step 2: $12.00 - $9.00</div>
-                          <div className="font-semibold">Answer: $3.00</div>
-                        </div>
-                      </div>
-                      <div className="border-b border-emerald-200 pb-3">
-                        <div className="font-semibold mb-2 text-sm">5. {problems[4]}</div>
-                        <div className="text-xs text-emerald-800 space-y-1 pl-4">
-                          <div>Step 1: $6.00 - $1.25</div>
-                          <div className="font-semibold">Answer: $4.75</div>
-                        </div>
-                      </div>
-                      <div className="border-b border-emerald-200 pb-3 last:border-b-0">
-                        <div className="font-semibold mb-2 text-sm">6. {problems[5]}</div>
-                        <div className="text-xs text-emerald-800 space-y-1 pl-4">
-                          <div>Step 1: $0.50 × 6</div>
-                          <div className="font-semibold">Answer: $3.00</div>
-                        </div>
-                      </div>
+                      ))}
                     </div>
                   </div>
                 ))}
@@ -35485,217 +35551,245 @@ export function PrintablesPage() {
 
         {
           activeDocs.includes('perimeter-area-word-problems') && (() => {
-            const problems = [
-              'A rectangle has a length of 8 cm and width of 5 cm. What is the area and perimeter?',
-              'A square has sides of 6 inches. What is the area and perimeter?',
-              'A rectangle garden is 10 feet long and 7 feet wide. What is the area?',
-              'A rectangular room is 12 feet by 9 feet. How many square feet of carpet are needed?',
-              'A rectangle has a length of 9 cm and width of 4 cm. What is the perimeter?',
-              'A square playground has sides of 8 meters. What is the area?',
-            ];
+            const rng = makeRng(`${effectiveSeed}|v${variant}|doc=${doc}`);
+            function nextInt(min: number, max: number) { return Math.floor(rng() * (max - min + 1)) + min; }
+
+            const problems = Array.from({ length: 6 }, () => {
+              const length = nextInt(5, 12);
+              const width = nextInt(4, 8);
+              const isPerim = rng() > 0.5;
+
+              const scenario = isPerim
+                ? `Mrs. Green needs to put a fence around her rectangular garden. It is ${length}m long and ${width}m wide. How much fencing does she need?`
+                : `Mr. Brown is planting grass in his rectangular backyard. It is ${length}m long and ${width}m wide. What is the area of the yard?`;
+
+              return {
+                text: scenario,
+                type: isPerim ? 'PERIMETER' : 'AREA',
+                length, width,
+                val: isPerim ? 2 * (length + width) : length * width,
+                unit: isPerim ? 'm' : 'sq m'
+              };
+            });
+
             return (
               <WorksheetSectionWrapper
                 docId="perimeter-area-word-problems"
-                title="Perimeter & Area Word Problems"
-                emoji="🧮"
-                description="Find perimeter and area in real-world situations."
+                title="Landscape Design Co."
+                emoji="🏡"
+                description="Help the gardeners plan! Calculate perimeter for fencing and area for grass."
                 problemCount={problems.length}
                 learningObjectives={[
-                  'Solve word problems involving perimeter',
-                  'Solve word problems involving area',
-                  'Apply perimeter and area formulas in real-world contexts',
-                  'Distinguish between perimeter and area'
+                  'Distinguish between perimeter (outside) and area (inside)',
+                  'Solve real-world word problems',
+                  'Apply formulas correctly'
                 ]}
                 parentTeacherTips={[
-                  'Perimeter = distance around (add all sides)',
-                  'Area = space inside (length × width)',
-                  'Help students identify which one is needed',
-                  'Draw pictures to visualize the problem',
-                  'Extension: Find perimeter and area of composite shapes'
+                  'Perimeter = Fencing/Border (Add all sides)',
+                  'Area = Grass/Carpet/Floor (Multiply Length x Width)',
+                  'Draw the garden to visualize!'
                 ]}
               >
-                <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-purple-400 to-pink-400 animate-gradient-x mb-2" />
+                {/* Landscape Header */}
+                <div className="print:hidden w-full h-16 mb-4 relative overflow-hidden bg-gradient-to-br from-green-400 to-emerald-600 rounded-lg flex items-center justify-center border-b-4 border-emerald-800">
+                  <div className="text-2xl font-serif text-white font-bold z-10 flex gap-4 items-center shadow-black drop-shadow-md">
+                    🌻 GREEN THUMB LANDSCAPING 🌻
+                  </div>
+                </div>
+
                 {/* Worked Example */}
-                <div className="mb-6 p-4 bg-blue-50 border-2 border-blue-200 rounded-lg print:border print:bg-white">
-                  <div className="font-semibold text-blue-900 mb-3 text-sm">📚 Example - Let's solve this together:</div>
-                  <div className="space-y-2 text-sm">
-                    <div className="font-semibold text-base"><strong>Problem:</strong> A rectangle has length 6 cm and width 4 cm. Find the area and perimeter.</div>
-                    <div className="pl-4 border-l-2 border-blue-300 space-y-1">
-                      <div><strong>Step 1 (Area):</strong> Area = length × width = 6 × 4 = 24</div>
-                      <div><strong>Step 2 (Perimeter):</strong> Perimeter = 2 × (length + width) = 2 × (6 + 4) = 20</div>
-                      <div className="font-semibold text-blue-900"><strong>Answer:</strong> Area = 24 sq cm, Perimeter = 20 cm</div>
-                      <div className="text-xs text-blue-700 mt-1">💡 Tip: Area = inside space, Perimeter = distance around!</div>
+                <div className="mb-6 p-4 bg-green-50 border-2 border-green-600 rounded-lg print:border print:bg-white flex gap-4 items-center">
+                  <div className="text-4xl">🚜</div>
+                  <div className="space-y-2 text-sm flex-1">
+                    <div className="font-bold text-green-800 border-b border-green-300 pb-1">TRAINING MANUAL:</div>
+                    <div className="grid grid-cols-2 gap-4">
+                      <div className="bg-white p-2 rounded border border-green-200">
+                        <div className="font-bold text-green-700">PERIMETER (Fencing)</div>
+                        <div className="text-xs text-slate-600">Distance AROUND the edge.</div>
+                        <div className="font-mono text-xs mt-1">2 × (L + W)</div>
+                      </div>
+                      <div className="bg-white p-2 rounded border border-green-200">
+                        <div className="font-bold text-green-700">AREA (Grass)</div>
+                        <div className="text-xs text-slate-600">Space INSIDE the shape.</div>
+                        <div className="font-mono text-xs mt-1">L × W</div>
+                      </div>
                     </div>
                   </div>
                 </div>
-                <ol className="list-decimal list-inside space-y-4 text-sm text-slate-800" style={{ pageBreakAfter: 'auto' }}>
+
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6" style={{ pageBreakAfter: 'auto' }}>
                   {problems.map((p, i) => (
-                    <li key={i} className="border border-slate-300 rounded-lg p-4 bg-white break-inside-avoid">
-                      <div className="mb-2">{p}</div>
-                      <div className="mt-2 text-xs text-slate-600 mb-2">Show your work:</div>
-                      <div className="min-h-24 border border-dashed border-slate-300 rounded p-2 bg-slate-50 print:bg-white" />
-                    </li>
-                  ))}
-                </ol>
-                {/* Extension/Challenge Problems */}
-                <div className="mt-6 print:mt-0 p-4 bg-purple-50 border-2 border-purple-200 rounded print:bg-white print:border" style={{ pageBreakBefore: 'always', pageBreakInside: 'avoid' }}>
-                  <div className="font-semibold text-purple-900 mb-3 text-sm">🌟 {getTrans('common.challengeYourself', 'Challenge Yourself (Optional):')}</div>
-                  <div className="space-y-2 text-sm text-purple-800">
-                    <div>1. Find the area and perimeter of your desk or table</div>
-                    <div>2. A rectangle has area 48 sq cm. If length is 8 cm, what is the width?</div>
-                    <div>3. Create your own perimeter and area word problem</div>
-                  </div>
-                </div>
-                {/* Self-Assessment */}
-                <div className="print:block hidden print:mt-0 mt-6 p-4 border-2 border-slate-300 rounded" style={{ pageBreakBefore: 'avoid', pageBreakInside: 'avoid' }}>
-                  <div className="font-semibold text-slate-800 mb-3 text-sm">📊 {getTrans('common.howDidYouDo', 'How did you do?')}</div>
-                  <div className="space-y-2 text-xs">
-                    <div>☐ I can find perimeter in word problems</div>
-                    <div>☐ I can find area in word problems</div>
-                    <div>☐ I understand the difference between perimeter and area</div>
-                  </div>
-                  <div className="mt-3 text-xs">
-                    <strong>{getTrans('common.myScore', 'My score:')}</strong> ___ / {problems.length}
-                  </div>
-                  <div className="mt-2 text-xs">
-                    <strong>{getTrans('common.whatWasHardest', 'What was hardest?')}</strong> _________________________
-                  </div>
-                </div>
-                {showAnswersForDoc('perimeter-area-word-problems', () => (
-                  <div className="mt-6 p-4 border-2 border-emerald-300 bg-emerald-50 rounded print:border print:bg-white print:page-break-before-always">
-                    <div className="font-bold text-emerald-900 mb-3 text-base">✅ Answer Key (with steps)</div>
-                    <div className="space-y-3">
-                      <div className="border-b border-emerald-200 pb-3">
-                        <div className="font-semibold mb-2 text-sm">1. {problems[0]}</div>
-                        <div className="text-xs text-emerald-800 space-y-1 pl-4">
-                          <div>Area: 8 × 5 = 40 sq cm</div>
-                          <div>Perimeter: 2 × (8 + 5) = 26 cm</div>
-                          <div className="font-semibold">Answer: Area = 40 sq cm, Perimeter = 26 cm</div>
+                    <div key={i} className="relative bg-white border border-slate-300 rounded-xl p-5 shadow-sm break-inside-avoid">
+                      <div className="absolute top-0 right-0 bg-green-100 text-green-800 text-[10px] font-bold px-2 py-1 rounded-bl-lg border-l border-b border-green-200">
+                        JOB #{100 + i}
+                      </div>
+
+                      <div className="flex gap-3 mb-3">
+                        <div className="text-2xl pt-1">
+                          {p.type === 'PERIMETER' ? '🚧' : '🌱'}
+                        </div>
+                        <div className="text-sm text-slate-800 leading-relaxed font-medium">
+                          {p.text}
                         </div>
                       </div>
-                      <div className="border-b border-emerald-200 pb-3">
-                        <div className="font-semibold mb-2 text-sm">2. {problems[1]}</div>
-                        <div className="text-xs text-emerald-800 space-y-1 pl-4">
-                          <div>Area: 6 × 6 = 36 sq inches</div>
-                          <div>Perimeter: 4 × 6 = 24 inches</div>
-                          <div className="font-semibold">Answer: Area = 36 sq inches, Perimeter = 24 inches</div>
+
+                      <div className="bg-slate-50 p-3 rounded border border-slate-200">
+                        <div className="flex justify-between text-xs text-slate-500 uppercase font-bold mb-2">
+                          <span>Plan:</span>
+                          <span>Solution:</span>
                         </div>
-                      </div>
-                      <div className="border-b border-emerald-200 pb-3">
-                        <div className="font-semibold mb-2 text-sm">3. {problems[2]}</div>
-                        <div className="text-xs text-emerald-800 space-y-1 pl-4">
-                          <div>Area: 10 × 7 = 70 sq feet</div>
-                          <div className="font-semibold">Answer: 70 sq feet</div>
-                        </div>
-                      </div>
-                      <div className="border-b border-emerald-200 pb-3">
-                        <div className="font-semibold mb-2 text-sm">4. {problems[3]}</div>
-                        <div className="text-xs text-emerald-800 space-y-1 pl-4">
-                          <div>Area: 12 × 9 = 108 sq feet</div>
-                          <div className="font-semibold">Answer: 108 sq feet</div>
-                        </div>
-                      </div>
-                      <div className="border-b border-emerald-200 pb-3">
-                        <div className="font-semibold mb-2 text-sm">5. {problems[4]}</div>
-                        <div className="text-xs text-emerald-800 space-y-1 pl-4">
-                          <div>Perimeter: 2 × (9 + 4) = 26 cm</div>
-                          <div className="font-semibold">Answer: 26 cm</div>
-                        </div>
-                      </div>
-                      <div className="border-b border-emerald-200 pb-3 last:border-b-0">
-                        <div className="font-semibold mb-2 text-sm">6. {problems[5]}</div>
-                        <div className="text-xs text-emerald-800 space-y-1 pl-4">
-                          <div>Area: 8 × 8 = 64 sq meters</div>
-                          <div className="font-semibold">Answer: 64 sq meters</div>
+                        <div className="h-8 border-b border-slate-300 flex items-end justify-between px-2 pb-1">
+                          <span className="text-slate-400 italic text-xs">{p.type}</span>
+                          <span className="font-bold text-lg text-slate-300">____________ {p.unit}</span>
                         </div>
                       </div>
                     </div>
+                  ))}
+                </div>
+
+                {/* Self-Assessment */}
+                <div className="print:block hidden print:mt-0 mt-6 p-4 border-2 border-green-700 rounded bg-green-50" style={{ pageBreakBefore: 'avoid', pageBreakInside: 'avoid' }}>
+                  <div className="font-bold text-green-900 mb-3 text-sm">📋 SUPERVISOR CHECKLIST</div>
+                  <div className="space-y-2 text-xs text-green-800">
+                    <div>☐ Did I use Perimeter for fences?</div>
+                    <div>☐ Did I use Area for grass?</div>
+                    <div>☐ Are my calculations correct?</div>
                   </div>
-                ))}
-              </WorksheetSectionWrapper>
-            );
+                </div>
+
+                {showAnswersForDoc('perimeter-area-word-problems', () => (
+                  <div className="space-y-3">
+                    <div className="border-b border-emerald-200 pb-3">
+                      <div className="font-semibold mb-2 text-sm">1. {problems[0]}</div>
+                      <div className="text-xs text-emerald-800 space-y-1 pl-4">
+                        <div>Area: 8 × 5 = 40 sq cm</div>
+                        <div>Perimeter: 2 × (8 + 5) = 26 cm</div>
+                        <div className="font-semibold">Answer: Area = 40 sq cm, Perimeter = 26 cm</div>
+                      </div>
+                    </div>
+                    <div className="border-b border-emerald-200 pb-3">
+                      <div className="font-semibold mb-2 text-sm">2. {problems[1]}</div>
+                      <div className="text-xs text-emerald-800 space-y-1 pl-4">
+                        <div>Area: 6 × 6 = 36 sq inches</div>
+                        <div>Perimeter: 4 × 6 = 24 inches</div>
+                        <div className="font-semibold">Answer: Area = 36 sq inches, Perimeter = 24 inches</div>
+                      </div>
+                    </div>
+                    <div className="border-b border-emerald-200 pb-3">
+                      <div className="font-semibold mb-2 text-sm">3. {problems[2]}</div>
+                      <div className="text-xs text-emerald-800 space-y-1 pl-4">
+                        <div>Area: 10 × 7 = 70 sq feet</div>
+                        <div className="font-semibold">Answer: 70 sq feet</div>
+                      </div>
+                    </div>
+                    <div className="border-b border-emerald-200 pb-3">
+                      <div className="font-semibold mb-2 text-sm">4. {problems[3]}</div>
+                      <div className="text-xs text-emerald-800 space-y-1 pl-4">
+                        <div>Area: 12 × 9 = 108 sq feet</div>
+                        <div className="font-semibold">Answer: 108 sq feet</div>
+                      </div>
+                    </div>
+                    <div className="border-b border-emerald-200 pb-3">
+                      <div className="font-semibold mb-2 text-sm">5. {problems[4]}</div>
+                      <div className="text-xs text-emerald-800 space-y-1 pl-4">
+                        <div>Perimeter: 2 × (9 + 4) = 26 cm</div>
+                        <div className="font-semibold">Answer: 26 cm</div>
+                      </div>
+                    </div>
+                    <div className="border-b border-emerald-200 pb-3 last:border-b-0">
+                      <div className="font-semibold mb-2 text-sm">6. {problems[5]}</div>
+                      <div className="text-xs text-emerald-800 space-y-1 pl-4">
+                        <div>Area: 8 × 8 = 64 sq meters</div>
+                        <div className="font-semibold">Answer: 64 sq meters</div>
+                      </div>
+                    </div>
+                  </div>
+                  </div>
+            ))}
+      </WorksheetSectionWrapper>
+      );
           })()
         }
 
-        {/* Generic fallback for any answerable docId that doesn't have a specific section */}
-        {
-          (() => {
-            const handledDocIds = new Set([
-              'ten-frames-1-20', 'number-tracing-1-20', 'stem-balloon-rocket', 'stem-walking-water', 'arts-3-shape-creature',
-              'number-tracing-1-10', 'uppercase-lowercase-match', 'beginning-sounds-az', 'addition-subtraction-0-10',
-              'ten-frames-1-10', 'shapes-colors-sort', 'dot-to-dot-1-20', 'tangram-animals', 'spot-difference', 'spotdiff',
-              'directed-drawing-animals', 'cut-and-paste-crafts', 'feelings-checkin', 'reward-chart',
-              'reading-mini-1', 'reading-g1-lost-hat', 'reading-g1-ants', 'reading-g1-bus-ride', 'reading-g1-pet-fish',
-              'reading-g1-red-balloon', 'reading-g1-big-box', 'reading-g1-garden-snail', 'reading-g1-birthday-cake',
-              'reading-g2-paper-bridge', 'reading-g2-rainy-garden', 'reading-g2-library-card', 'reading-g2-lost-and-found',
-              'reading-g2-bird-feeder', 'reading-g2-cookie-recipe', 'reading-g2-tree-house', 'reading-g2-magic-seeds',
-              'reading-g3-lighthouse', 'reading-g3-science-fair', 'reading-g3-community-garden',
-              'reading-g3-school-play', 'reading-g3-art-project', 'pack', 'math-maze',
-              'spelling', 'science-match', 'grammar-detective', 'sudoku4', 'sudoku6', 'place-value-hto',
-              'skip-count-5-10-120', 'add-2digit-100', 'sub-2digit-100', 'word-problems-100', 'compare-2digit',
-              'even-odd-100', 'time-5min', 'color-by-number', 'number-bonds-10', 'count-write-30', 'missing-numbers-50',
-              'picture-addition-10', 'subtraction-stories', 'balance-equations-10', 'skip-count-2s', 'number-line-add',
-              'doubles-facts', 'pattern-complete', 'missing-shape', 'size-comparison', 'expanded-form-200',
-              'number-patterns-200', 'rounding-nearest-10', 'add-three-numbers', 'missing-addends', 'fact-families-20',
-              'mental-math-20', 'number-line-200', 'doubles-near-doubles', 'money-coins-bills', 'measurement-length',
-              'bar-graphs-data', 'add-2digit-regrouping', 'sub-2digit-regrouping', 'fractions-halves-thirds-fourths',
-              'rhyming-words', 'cvc-words', 'sight-words-pre-primer', 'letter-tracing-az', 'more-less-equal-10',
-              'counting-objects-20', 'sentence-building', 'geo-continents-k2', 'geo-compass-rose', 'geo-landforms',
-              'geo-latlong', 'number-tracing-1-10', 'number-tracing-1-20',
-              'count-circle-1-10', 'count-match-1-20', 'how-many-1-15', 'count-color-1-10', 'number-id-1-10',
-              'number-matching-1-15', 'number-order-1-20', 'find-number-1-10', 'shape-identification', 'ab-pattern',
-              'big-small', 'more-less', 'mult-facts-0-12', 'div-facts-1-12', 'fractions-whole', 'equivalent-fractions-4th',
-              'mult-facts-1-5', 'mult-arrays-2-5', 'skip-count-mult', 'mult-word-problems-2-3', 'mult-facts-6-12',
-              'mult-arrays-models', 'mult-multi-step-word', 'mult-fact-families', 'mult-2x1', 'mult-2x1-digit', 'mult-2x2', 'mult-2x2-digit',
-              'mult-3x2-digit', 'mult-area-model', 'mult-complex-word', 'mult-fact-fluency', 'mult-mixed-review', 'mult-strategies', 'mult-patterns',
-              // Times Table worksheets
-              'times-table-horizontal-1-5', 'times-table-horizontal-6-12', 'times-table-horizontal-1-12',
-              'times-table-vertical-1-5', 'times-table-vertical-6-12', 'times-table-vertical-1-12',
-              'times-table-missing-1-5', 'times-table-missing-6-12', 'times-table-missing-mixed',
-              'times-table-timed-1-5', 'times-table-timed-6-12', 'times-table-timed-1-12',
-              'times-table-blank-1-5', 'times-table-blank-6-12', 'times-table-blank-1-12',
-              'times-table-confidence-1-5', 'times-table-confidence-6-12', 'times-table-fluency-1-12', 'times-table-mixed-review',
-              'times-table-color-1-5', 'times-table-color-6-12', 'times-table-color-1-12',
-              'long-division-1digit', 'long-division-2digit', 'area-model-mult', 'partial-products', 'comparing-fractions-4th',
-              'add-sub-fractions-4th', 'mixed-improper-fractions', 'decimals-place-value', 'comparing-decimals', 'add-sub-decimals',
-              'fractions-to-decimals', 'fractions-to-decimals-basic-tenths', 'fractions-to-decimals-division', 'classifying-angles', 'area-perimeter-4th', 'lines-angles-4th', 'classifying-triangles',
-              'classifying-quadrilaterals', 'symmetry-transformations', 'customary-conversion', 'metric-conversion', 'elapsed-time-4th',
-              'liquid-measurement-4th', 'mass-weight-4th', 'multi-step-word-4th', 'fraction-word-problems', 'decimal-word-problems',
-              'measurement-word-problems', 'geometry-word-problems', 'line-plots', 'bar-graphs-pictographs', 'mean-median-mode',
-              'long-division-multidigit', 'order-of-operations', 'pemdas-basic', 'pemdas-parentheses', 'pemdas-practice',
-              'pemdas-exponents', 'pemdas-multistep', 'pemdas-word-problems', 'pemdas-advanced', 'pemdas-complex',
-              'pemdas-rules', 'pemdas-mixed-review', 'pemdas-fluency', 'pemdas-step-by-step',
-              'powers-of-10', 'rounding-decimals', 'estimating-sums-differences',
-              'add-sub-mixed-numbers', 'multiplying-fractions', 'dividing-fractions', 'multiplying-decimals', 'dividing-decimals',
-              'fractions-decimals-percents', 'comparing-ordering-fractions-decimals', 'evaluating-expressions', 'writing-expressions',
-              'solving-one-step-equations', 'patterns-rules', 'coordinate-graphing', 'volume-rectangular-prisms', 'area-triangles-parallelograms',
-              'classifying-shapes', 'nets-3d-shapes', 'transformations-5th', 'multi-step-word-5th', 'fraction-word-problems-5th',
-              'decimal-word-problems-5th', 'ratio-proportion-word-problems', 'percent-word-problems', 'line-graphs',
-              'mean-median-mode-range', 'stem-leaf-plots', 'probability',
-              // Kindergarten worksheets
-              'color-shapes', 'shape-sorting', 'color-recognition', 'draw-shape', 'color-patterns',
-              'shape-patterns', 'what-comes-next', 'long-short', 'heavy-light', 'same-different',
-              'line-tracing', 'curve-tracing', 'zigzag-lines', 'path-tracing', 'logic-grid',
-              // New Kindergarten worksheets (code-based)
-              'kindergarten-counting-1-10', 'kindergarten-number-recognition', 'kindergarten-shapes',
-              'kindergarten-patterns', 'kindergarten-addition-pictures', 'kindergarten-counting-visual',
-              // 3rd Grade worksheets
-              'mult-arrays', 'mult-word-problems', 'mult-by-10-100', 'mult-properties',
-              'div-with-remainders', 'div-word-problems', 'div-by-10-100', 'fact-families-mult-div',
-              'comparing-fractions', 'equivalent-fractions', 'add-sub-fractions', 'fractions-number-line',
-              'perimeter-shapes', 'area-rectangles', 'identify-polygons', 'lines-rays-angles', 'symmetry',
-              'time-to-minute', 'customary-units', 'metric-units', 'liquid-measurement', 'mass-weight',
-              'multi-step-word-problems', 'elapsed-time-word-problems', 'money-word-problems', 'perimeter-area-word-problems'
-            ])
-            // Removed fallback placeholder section - worksheets without handlers should not show placeholder content
-            return null
-          })()
-        }
+      {/* Generic fallback for any answerable docId that doesn't have a specific section */}
+      {
+        (() => {
+          const handledDocIds = new Set([
+            'ten-frames-1-20', 'number-tracing-1-20', 'stem-balloon-rocket', 'stem-walking-water', 'arts-3-shape-creature',
+            'number-tracing-1-10', 'uppercase-lowercase-match', 'beginning-sounds-az', 'addition-subtraction-0-10',
+            'ten-frames-1-10', 'shapes-colors-sort', 'dot-to-dot-1-20', 'tangram-animals', 'spot-difference', 'spotdiff',
+            'directed-drawing-animals', 'cut-and-paste-crafts', 'feelings-checkin', 'reward-chart',
+            'reading-mini-1', 'reading-g1-lost-hat', 'reading-g1-ants', 'reading-g1-bus-ride', 'reading-g1-pet-fish',
+            'reading-g1-red-balloon', 'reading-g1-big-box', 'reading-g1-garden-snail', 'reading-g1-birthday-cake',
+            'reading-g2-paper-bridge', 'reading-g2-rainy-garden', 'reading-g2-library-card', 'reading-g2-lost-and-found',
+            'reading-g2-bird-feeder', 'reading-g2-cookie-recipe', 'reading-g2-tree-house', 'reading-g2-magic-seeds',
+            'reading-g3-lighthouse', 'reading-g3-science-fair', 'reading-g3-community-garden',
+            'reading-g3-school-play', 'reading-g3-art-project', 'pack', 'math-maze',
+            'spelling', 'science-match', 'grammar-detective', 'sudoku4', 'sudoku6', 'place-value-hto',
+            'skip-count-5-10-120', 'add-2digit-100', 'sub-2digit-100', 'word-problems-100', 'compare-2digit',
+            'even-odd-100', 'time-5min', 'color-by-number', 'number-bonds-10', 'count-write-30', 'missing-numbers-50',
+            'picture-addition-10', 'subtraction-stories', 'balance-equations-10', 'skip-count-2s', 'number-line-add',
+            'doubles-facts', 'pattern-complete', 'missing-shape', 'size-comparison', 'expanded-form-200',
+            'number-patterns-200', 'rounding-nearest-10', 'add-three-numbers', 'missing-addends', 'fact-families-20',
+            'mental-math-20', 'number-line-200', 'doubles-near-doubles', 'money-coins-bills', 'measurement-length',
+            'bar-graphs-data', 'add-2digit-regrouping', 'sub-2digit-regrouping', 'fractions-halves-thirds-fourths',
+            'rhyming-words', 'cvc-words', 'sight-words-pre-primer', 'letter-tracing-az', 'more-less-equal-10',
+            'counting-objects-20', 'sentence-building', 'geo-continents-k2', 'geo-compass-rose', 'geo-landforms',
+            'geo-latlong', 'number-tracing-1-10', 'number-tracing-1-20',
+            'count-circle-1-10', 'count-match-1-20', 'how-many-1-15', 'count-color-1-10', 'number-id-1-10',
+            'number-matching-1-15', 'number-order-1-20', 'find-number-1-10', 'shape-identification', 'ab-pattern',
+            'big-small', 'more-less', 'mult-facts-0-12', 'div-facts-1-12', 'fractions-whole', 'equivalent-fractions-4th',
+            'mult-facts-1-5', 'mult-arrays-2-5', 'skip-count-mult', 'mult-word-problems-2-3', 'mult-facts-6-12',
+            'mult-arrays-models', 'mult-multi-step-word', 'mult-fact-families', 'mult-2x1', 'mult-2x1-digit', 'mult-2x2', 'mult-2x2-digit',
+            'mult-3x2-digit', 'mult-area-model', 'mult-complex-word', 'mult-fact-fluency', 'mult-mixed-review', 'mult-strategies', 'mult-patterns',
+            // Times Table worksheets
+            'times-table-horizontal-1-5', 'times-table-horizontal-6-12', 'times-table-horizontal-1-12',
+            'times-table-vertical-1-5', 'times-table-vertical-6-12', 'times-table-vertical-1-12',
+            'times-table-missing-1-5', 'times-table-missing-6-12', 'times-table-missing-mixed',
+            'times-table-timed-1-5', 'times-table-timed-6-12', 'times-table-timed-1-12',
+            'times-table-blank-1-5', 'times-table-blank-6-12', 'times-table-blank-1-12',
+            'times-table-confidence-1-5', 'times-table-confidence-6-12', 'times-table-fluency-1-12', 'times-table-mixed-review',
+            'times-table-color-1-5', 'times-table-color-6-12', 'times-table-color-1-12',
+            'long-division-1digit', 'long-division-2digit', 'area-model-mult', 'partial-products', 'comparing-fractions-4th',
+            'add-sub-fractions-4th', 'mixed-improper-fractions', 'decimals-place-value', 'comparing-decimals', 'add-sub-decimals',
+            'fractions-to-decimals', 'fractions-to-decimals-basic-tenths', 'fractions-to-decimals-division', 'classifying-angles', 'area-perimeter-4th', 'lines-angles-4th', 'classifying-triangles',
+            'classifying-quadrilaterals', 'symmetry-transformations', 'customary-conversion', 'metric-conversion', 'elapsed-time-4th',
+            'liquid-measurement-4th', 'mass-weight-4th', 'multi-step-word-4th', 'fraction-word-problems', 'decimal-word-problems',
+            'measurement-word-problems', 'geometry-word-problems', 'line-plots', 'bar-graphs-pictographs', 'mean-median-mode',
+            'long-division-multidigit', 'order-of-operations', 'pemdas-basic', 'pemdas-parentheses', 'pemdas-practice',
+            'pemdas-exponents', 'pemdas-multistep', 'pemdas-word-problems', 'pemdas-advanced', 'pemdas-complex',
+            'pemdas-rules', 'pemdas-mixed-review', 'pemdas-fluency', 'pemdas-step-by-step',
+            'powers-of-10', 'rounding-decimals', 'estimating-sums-differences',
+            'add-sub-mixed-numbers', 'multiplying-fractions', 'dividing-fractions', 'multiplying-decimals', 'dividing-decimals',
+            'fractions-decimals-percents', 'comparing-ordering-fractions-decimals', 'evaluating-expressions', 'writing-expressions',
+            'solving-one-step-equations', 'patterns-rules', 'coordinate-graphing', 'volume-rectangular-prisms', 'area-triangles-parallelograms',
+            'classifying-shapes', 'nets-3d-shapes', 'transformations-5th', 'multi-step-word-5th', 'fraction-word-problems-5th',
+            'decimal-word-problems-5th', 'ratio-proportion-word-problems', 'percent-word-problems', 'line-graphs',
+            'mean-median-mode-range', 'stem-leaf-plots', 'probability',
+            // Kindergarten worksheets
+            'color-shapes', 'shape-sorting', 'color-recognition', 'draw-shape', 'color-patterns',
+            'shape-patterns', 'what-comes-next', 'long-short', 'heavy-light', 'same-different',
+            'line-tracing', 'curve-tracing', 'zigzag-lines', 'path-tracing', 'logic-grid',
+            // New Kindergarten worksheets (code-based)
+            'kindergarten-counting-1-10', 'kindergarten-number-recognition', 'kindergarten-shapes',
+            'kindergarten-patterns', 'kindergarten-addition-pictures', 'kindergarten-counting-visual',
+            // 3rd Grade worksheets
+            'mult-arrays', 'mult-word-problems', 'mult-by-10-100', 'mult-properties',
+            'div-with-remainders', 'div-word-problems', 'div-by-10-100', 'fact-families-mult-div',
+            'comparing-fractions', 'equivalent-fractions', 'add-sub-fractions', 'fractions-number-line',
+            'perimeter-shapes', 'area-rectangles', 'identify-polygons', 'lines-rays-angles', 'symmetry',
+            'time-to-minute', 'customary-units', 'metric-units', 'liquid-measurement', 'mass-weight',
+            'multi-step-word-problems', 'elapsed-time-word-problems', 'money-word-problems', 'perimeter-area-word-problems'
+          ])
+          // Removed fallback placeholder section - worksheets without handlers should not show placeholder content
+          return null
+        })()
+      }
 
-        <footer className="text-center text-slate-500 text-xs print:hidden">
-          {getTrans('common.printTip', 'Tip: Use your browser menu → Print → Save as PDF.')}
-        </footer>
-      </div >
+      <footer className="text-center text-slate-500 text-xs print:hidden">
+        {getTrans('common.printTip', 'Tip: Use your browser menu → Print → Save as PDF.')}
+      </footer>
+    </div >
     </div >
   )
 }
