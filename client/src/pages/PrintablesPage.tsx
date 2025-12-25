@@ -5766,9 +5766,9 @@ export function PrintablesPage() {
         {activeDocs.includes('shapes-colors-sort') && (
           <WorksheetSectionWrapper
             docId="shapes-colors-sort"
-            title="Shapes & Colors Sort (Cut & Glue)"
-            emoji="🟩"
-            description="Cut out the shapes, then sort into the right color boxes. Practice scissor skills safely."
+            title="Shape Safari: Jungle Feeding Time"
+            emoji="🦁"
+            description="Cut out the Shape Treats and feed them to the right Animal! Match the colors."
             problemCount={6}
             learningObjectives={[
               'Identify and name basic shapes (circle, rectangle, triangle)',
@@ -5779,82 +5779,122 @@ export function PrintablesPage() {
             parentTeacherTips={[
               'Supervise scissor use for safety',
               'Encourage naming shapes and colors while sorting',
-              'Ask: "What shape is this? What color?"',
+              'Ask: "What does the Lion like to eat? (Red shapes!)"',
               'Extension: Sort by shape instead of color, or by both attributes',
               'Practice cutting on the lines for fine motor development'
             ]}
           >
-            <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-green-400 to-emerald-400 animate-gradient-x mb-2" />
+            {/* Themed Header / Decoration */}
+            <div className="print:hidden w-full h-16 mb-4 relative overflow-hidden bg-gradient-to-b from-green-100 to-emerald-50 rounded-lg flex items-center justify-center">
+              <div className="text-4xl animate-bounce-slow flex gap-4">
+                <span>🦁</span><span>🦛</span><span>🐊</span>
+              </div>
+            </div>
+
             {/* Worked Example */}
-            <div className="mb-6 p-4 bg-blue-50 border-2 border-blue-200 rounded-lg print:border print:bg-white">
-              <div className="font-semibold text-blue-900 mb-3 text-sm">📚 Example - Let's solve this together:</div>
-              <div className="space-y-2 text-sm">
-                <div className="font-semibold text-base"><strong>Shape:</strong> Blue circle</div>
-                <div className="pl-4 border-l-2 border-blue-300 space-y-1">
-                  <div><strong>Step 1:</strong> Look at the shape: It's a circle</div>
-                  <div><strong>Step 2:</strong> Look at the color: It's blue</div>
-                  <div><strong>Step 3:</strong> Find the BLUE box and glue it there</div>
-                  <div className="font-semibold text-blue-900"><strong>Answer:</strong> Glue the blue circle in the BLUE box</div>
-                  <div className="text-xs text-blue-700 mt-1">💡 Tip: First identify the shape, then the color, then find the matching color box!</div>
+            <div className="mb-6 p-4 bg-orange-50 border-2 border-orange-200 rounded-lg print:border print:bg-white flex gap-4 items-center">
+              <div className="text-3xl">💡</div>
+              <div className="text-sm text-orange-900">
+                <strong>How to Play:</strong>
+                <ol className="list-decimal ml-4 mt-1 space-y-1">
+                  <li>Cut out the shapes at the bottom.</li>
+                  <li>Look at the color (Red, Blue, Green).</li>
+                  <li>Glue the "treat" into the matching Animal's Cage!</li>
+                </ol>
+              </div>
+            </div>
+
+            {/* Main Activity Area */}
+            <div className="flex flex-col gap-8 h-full">
+
+              {/* CAGES (Top Half) */}
+              <div className="grid grid-cols-3 gap-4">
+                {/* Lion's Den (Red) */}
+                <div className="flex flex-col h-64 border-4 border-red-400 border-dashed rounded-xl bg-red-50 relative overflow-hidden">
+                  <div className="absolute top-2 left-0 w-full text-center font-bold text-red-700 uppercase tracking-widest bg-red-100 py-1 border-b border-red-200">Lion's Den</div>
+                  <div className="flex-1 flex items-center justify-center mt-8">
+                    <span className="text-6xl opacity-20 grayscale-0 filter hue-rotate-0">🦁</span>
+                  </div>
+                  <div className="absolute bottom-2 w-full text-center text-xs text-red-500 font-bold">RED TREATS ONLY</div>
+                </div>
+
+                {/* Hippo's Pool (Blue) */}
+                <div className="flex flex-col h-64 border-4 border-blue-400 border-dashed rounded-xl bg-blue-50 relative overflow-hidden">
+                  <div className="absolute top-2 left-0 w-full text-center font-bold text-blue-700 uppercase tracking-widest bg-blue-100 py-1 border-b border-blue-200">Hippo's Pool</div>
+                  <div className="flex-1 flex items-center justify-center mt-8">
+                    <span className="text-6xl opacity-20 grayscale-0">🦛</span>
+                  </div>
+                  <div className="absolute bottom-2 w-full text-center text-xs text-blue-500 font-bold">BLUE TREATS ONLY</div>
+                </div>
+
+                {/* Croc's Swamp (Green) */}
+                <div className="flex flex-col h-64 border-4 border-emerald-400 border-dashed rounded-xl bg-emerald-50 relative overflow-hidden">
+                  <div className="absolute top-2 left-0 w-full text-center font-bold text-emerald-700 uppercase tracking-widest bg-emerald-100 py-1 border-b border-emerald-200">Croc's Swamp</div>
+                  <div className="flex-1 flex items-center justify-center mt-8">
+                    <span className="text-6xl opacity-20 grayscale-0">🐊</span>
+                  </div>
+                  <div className="absolute bottom-2 w-full text-center text-xs text-emerald-500 font-bold">GREEN TREATS ONLY</div>
                 </div>
               </div>
-            </div>
-            <div className="grid grid-cols-2 gap-4" style={{ pageBreakAfter: 'auto' }}>
-              <svg viewBox="0 0 400 300" className="w-full h-auto bg-white border border-slate-300 rounded">
-                <g fill="none" stroke="#111827" strokeWidth="3.5">
-                  <rect x="40" y="40" width="120" height="80" />
-                  <rect x="240" y="40" width="120" height="80" />
-                  <rect x="140" y="160" width="120" height="80" />
-                </g>
-                <text x="70" y="95" fontSize="18" fill="#0ea5e9">BLUE</text>
-                <text x="280" y="95" fontSize="18" fill="#ef4444">RED</text>
-                <text x="175" y="215" fontSize="18" fill="#22c55e">GREEN</text>
-              </svg>
-              <svg viewBox="0 0 400 300" className="w-full h-auto bg-white border border-slate-300 rounded">
-                <g fill="none" stroke="#111827" strokeWidth="3.5">
-                  <circle cx="80" cy="60" r="20" />
-                  <rect x="40" y="110" width="60" height="40" />
-                  <polygon points="160,60 190,110 130,110" />
-                  <circle cx="250" cy="60" r="20" />
-                  <rect x="220" y="110" width="60" height="40" />
-                  <polygon points="340,60 370,110 310,110" />
-                </g>
-              </svg>
-            </div>
-            {/* Extension/Challenge Problems */}
-            <div className="mt-6 print:mt-0 p-4 bg-purple-50 border-2 border-purple-200 rounded print:bg-white print:border" style={{ pageBreakBefore: 'always', pageBreakInside: 'avoid' }}>
-              <div className="font-semibold text-purple-900 mb-3 text-sm">🌟 More Fun (Optional):</div>
-              <div className="space-y-2 text-sm text-purple-800">
-                <div>1. Can you sort the shapes by shape instead of color? (all circles together, all rectangles together...)</div>
-                <div>2. Draw your own shapes and color them. Then sort them!</div>
-                <div>3. Count how many shapes are in each color box</div>
+
+              {/* CUTOUT STRIP (Bottom Half) */}
+              <div className="mt-8 border-t-4 border-slate-300 border-dashed pt-8 page-break-inside-avoid">
+                <div className="flex items-center gap-2 mb-6 text-slate-500 uppercase tracking-widest text-sm font-bold justify-center">
+                  <span className="text-xl">✂️</span> Cut out these treats
+                </div>
+
+                <div className="grid grid-cols-3 gap-6">
+                  {/* Blue Circle */}
+                  <div className="h-28 border-2 border-slate-300 border-dashed rounded bg-white flex items-center justify-center relative p-2">
+                    <div className="w-16 h-16 rounded-full bg-blue-500 shadow-sm border-2 border-blue-600 flex items-center justify-center">
+                      <span className="text-white text-[10px] font-bold">Circle</span>
+                    </div>
+                  </div>
+                  {/* Red Triangle */}
+                  <div className="h-28 border-2 border-slate-300 border-dashed rounded bg-white flex items-center justify-center relative p-2">
+                    <div className="w-0 h-0 border-l-[35px] border-l-transparent border-r-[35px] border-r-transparent border-b-[60px] border-b-red-500 drop-shadow-sm flex items-center justify-center mb-2">
+                    </div>
+                    <span className="absolute bottom-2 text-red-700 text-[10px] font-bold">Triangle</span>
+                  </div>
+                  {/* Green Rect */}
+                  <div className="h-28 border-2 border-slate-300 border-dashed rounded bg-white flex items-center justify-center relative p-2">
+                    <div className="w-20 h-14 bg-emerald-500 shadow-sm border-2 border-emerald-600 flex items-center justify-center">
+                      <span className="text-white text-[10px] font-bold">Rect</span>
+                    </div>
+                  </div>
+
+                  {/* Blue Rect */}
+                  <div className="h-28 border-2 border-slate-300 border-dashed rounded bg-white flex items-center justify-center relative p-2">
+                    <div className="w-20 h-14 bg-blue-500 shadow-sm border-2 border-blue-600 flex items-center justify-center">
+                      <span className="text-white text-[10px] font-bold">Rect</span>
+                    </div>
+                  </div>
+
+                  {/* Red Circle */}
+                  <div className="h-28 border-2 border-slate-300 border-dashed rounded bg-white flex items-center justify-center relative p-2">
+                    <div className="w-16 h-16 rounded-full bg-red-500 shadow-sm border-2 border-red-600 flex items-center justify-center">
+                      <span className="text-white text-[10px] font-bold">Circle</span>
+                    </div>
+                  </div>
+
+                  {/* Green Triangle */}
+                  <div className="h-28 border-2 border-slate-300 border-dashed rounded bg-white flex items-center justify-center relative p-2">
+                    <div className="w-0 h-0 border-l-[35px] border-l-transparent border-r-[35px] border-r-transparent border-b-[60px] border-b-emerald-500 drop-shadow-sm flex items-center justify-center mb-2">
+                    </div>
+                    <span className="absolute bottom-2 text-emerald-700 text-[10px] font-bold">Triangle</span>
+                  </div>
+                </div>
               </div>
+
             </div>
-            {/* Self-Assessment */}
-            <div className="print:block hidden print:mt-0 mt-6 p-4 border-2 border-slate-300 rounded" style={{ pageBreakBefore: 'avoid', pageBreakInside: 'avoid' }}>
-              <div className="font-semibold text-slate-800 mb-3 text-sm">📊 {getTrans('common.howDidYouDo', 'How did you do?')}</div>
-              <div className="space-y-2 text-xs">
-                <div>☐ I can identify shapes (circle, rectangle, triangle)</div>
-                <div>☐ I can identify colors (blue, red, green)</div>
-                <div>☐ I can sort shapes by color</div>
-              </div>
-              <div className="mt-3 text-xs">
-                <strong>{getTrans('common.myScore', 'My score:')}</strong> ___ / 6
-              </div>
-              <div className="mt-2 text-xs">
-                <strong>{getTrans('common.whatWasHardest', 'What was hardest?')}</strong> _________________________
-              </div>
-            </div>
+
             {showAnswersForDoc('shapes-colors-sort', () => (
               <div className="mt-6 p-4 border-2 border-emerald-300 bg-emerald-50 rounded print:border print:bg-white print:page-break-before-always">
-                <div className="font-bold text-emerald-900 mb-3 text-base">✅ {getTrans('common.answerKey', 'Answer Key')}</div>
-                <div className="space-y-2 text-sm text-emerald-800">
-                  <div><strong>Blue box:</strong> Blue circle, blue rectangle, blue triangle</div>
-                  <div><strong>Red box:</strong> Red circle, red rectangle, red triangle</div>
-                  <div><strong>Green box:</strong> Green circle, green rectangle, green triangle</div>
-                </div>
-                <div className="text-xs text-emerald-700 mt-3">
-                  💡 Remember: Sort by color - all blue shapes go in the BLUE box, all red shapes go in the RED box, and all green shapes go in the GREEN box!
+                <div className="font-bold text-emerald-900 mb-2 text-base">✅ Answer Key</div>
+                <div className="text-sm text-emerald-800 space-y-1">
+                  <div>🦁 <strong>Lion (Red Cage):</strong> Red Triangle, Red Circle</div>
+                  <div>🦛 <strong>Hippo (Blue Cage):</strong> Blue Circle, Blue Rectangle</div>
+                  <div>🐊 <strong>Croc (Green Cage):</strong> Green Rectangle, Green Triangle</div>
                 </div>
               </div>
             ))}
