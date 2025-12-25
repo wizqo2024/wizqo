@@ -12182,53 +12182,54 @@ export function PrintablesPage() {
                 <div className="space-y-6 break-inside-avoid">
                   {problems.map((train, idx) => (
                     <div key={idx} className="w-full overflow-hidden p-2">
-                      <div className="flex items-end gap-1">
+                      {/* Ensure no wrapping and allow scrolling/shrinking if needed, but for print we want it to fit */}
+                      <div className="flex items-end gap-1 flex-nowrap">
                         {/* Engine SVG */}
                         <div className="shrink-0 w-24 h-20 mb-1 relative">
                           <svg viewBox="0 0 100 80" className={`w-full h-full text-${train.color}-600 fill-current`}>
                             {/* Simple Engine Shape */}
-                            <rect x="10" y="40" width="60" height="25" rx="2" />
-                            <rect x="50" y="15" width="20" height="40" />
-                            <polygon points="50,15 80,5 60,15" /> {/* Funnel smoke/steam area? No, simple cowl */}
-                            <rect x="15" y="25" width="25" height="15" opacity="0.5" fill="white" /> {/* Window */}
+                            <path d="M10,40 L70,40 L70,65 L10,65 Z" /> {/* Body base */}
+                            <rect x="50" y="15" width="20" height="40" /> {/* Cab/Boiler vertical */}
+                            <path d="M50,15 L80,5 L70,25 L50,25 Z" /> {/* Top Cowl */}
+                            <rect x="15" y="25" width="25" height="15" fill="white" fillOpacity="0.7" /> {/* Window */}
                             <circle cx="25" cy="65" r="10" fill="#334155" stroke="currentColor" strokeWidth="2" />
                             <circle cx="55" cy="65" r="10" fill="#334155" stroke="currentColor" strokeWidth="2" />
                             <path d="M50,15 L50,5 L60,0 L60,15 Z" /> {/* Funnel */}
                             {/* Smoke puffs */}
-                            <circle cx="65" cy="-5" r="3" className="text-gray-300 animate-ping" style={{ transformOrigin: 'center', animationDuration: '1.5s' }} />
-                            <circle cx="75" cy="-15" r="5" className="text-gray-200 animate-pulse" />
+                            <circle cx="65" cy="-5" r="3" className="text-slate-300 animate-ping" style={{ transformOrigin: 'center', animationDuration: '1.5s' }} />
+                            <circle cx="75" cy="-15" r="5" className="text-slate-200 animate-pulse" />
                           </svg>
-                          <div className={`absolute bottom-2 left-0 w-full text-center text-xs font-bold text-${train.color}-800`}>
+                          <div className={`absolute bottom-2 left-0 w-full text-center text-xs font-bold text-slate-900 bg-white/50 rounded-sm px-1`}>
                             Exp. {train.start}
                           </div>
                         </div>
 
                         {/* Carriages */}
-                        <div className="flex flex-wrap gap-1 items-end">
+                        <div className="flex items-end flex-nowrap">
                           {train.carriages.map((c, i) => (
-                            <div key={i} className="flex items-end">
-                              {/* Coupler */}
-                              {i >= 0 && <div className="w-2 h-2 bg-slate-400 mb-4 -mx-0.5 z-0"></div>}
+                            <div key={i} className="flex items-end shrink-0">
+                              {/* Coupler - adjusted margin/width */}
+                              {i >= 0 && <div className="w-2 h-1 bg-slate-600 mb-5 relative z-0"></div>}
 
-                              {/* Carriage Box */}
-                              <div className={`w-12 h-14 border-2 border-${train.color}-400 bg-${train.color}-50 rounded-md relative z-10 flex flex-col items-center justify-between pb-1 shadow-sm`}>
+                              {/* Carriage Box - adjusted size slightly to fit 10 */}
+                              <div className={`w-10 h-12 md:w-12 md:h-14 border-2 border-${train.color}-400 bg-${train.color}-50 rounded-md relative z-10 flex flex-col items-center justify-between pb-1 shadow-sm`}>
                                 {/* Roof line */}
-                                <div className={`w-full h-2 bg-${train.color}-200 border-b border-${train.color}-300`}></div>
+                                <div className={`w-full h-1.5 bg-${train.color}-200 border-b border-${train.color}-300`}></div>
 
                                 {/* Number Content */}
                                 <div className="flex-1 flex items-center justify-center w-full">
                                   {c.isHidden ? (
-                                    <div className={`w-8 h-8 rounded bg-white border border-${train.color}-200 shadow-inner flex items-center justify-center`}>
+                                    <div className={`w-6 h-6 md:w-8 md:h-8 rounded bg-white border border-${train.color}-200 shadow-inner flex items-center justify-center`}>
                                     </div>
                                   ) : (
-                                    <span className={`text-xl font-bold text-${train.color}-900`}>{c.num}</span>
+                                    <span className={`text-lg md:text-xl font-bold text-${train.color}-900`}>{c.num}</span>
                                   )}
                                 </div>
 
                                 {/* Wheels */}
-                                <div className="w-full flex justify-around px-1 translate-y-2">
-                                  <div className="w-3 h-3 rounded-full bg-slate-700 border border-slate-400"></div>
-                                  <div className="w-3 h-3 rounded-full bg-slate-700 border border-slate-400"></div>
+                                <div className="w-full flex justify-around px-1 translate-y-1.5">
+                                  <div className="w-2.5 h-2.5 rounded-full bg-slate-700 border border-slate-400"></div>
+                                  <div className="w-2.5 h-2.5 rounded-full bg-slate-700 border border-slate-400"></div>
                                 </div>
                               </div>
                             </div>
