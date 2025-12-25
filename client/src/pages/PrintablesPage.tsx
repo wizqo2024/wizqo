@@ -12118,136 +12118,135 @@ export function PrintablesPage() {
           })()
 
         {
-          {
-            activeDocs.includes('missing-numbers-50') && ((() => {
-              const rng = makeRng(`${effectiveSeed}|v${variant}|doc=${doc}`);
+          activeDocs.includes('missing-numbers-50') && (() => {
+            const rng = makeRng(`${effectiveSeed}|v${variant}|doc=${doc}`);
 
-              // Train Configurations
-              const trainConfigs = [
-                { id: 1, start: 1, length: 9, color: 'emerald' },
-                { id: 2, start: 11, length: 9, color: 'blue' },
-                { id: 3, start: 21, length: 9, color: 'purple' },
-                { id: 4, start: 31, length: 9, color: 'orange' },
-                { id: 5, start: 41, length: 10, color: 'rose' },
-              ];
+            // Train Configurations
+            const trainConfigs = [
+              { id: 1, start: 1, length: 9, color: 'emerald' },
+              { id: 2, start: 11, length: 9, color: 'blue' },
+              { id: 3, start: 21, length: 9, color: 'purple' },
+              { id: 4, start: 31, length: 9, color: 'orange' },
+              { id: 5, start: 41, length: 10, color: 'rose' },
+            ];
 
-              const problems = trainConfigs.map(conf => {
-                const carriages = Array.from({ length: conf.length }, (_, i) => {
-                  const num = conf.start + i;
-                  // Hide roughly 40-50% of numbers, but keep first and last sometimes for anchors?
-                  // Let's make it random but ensure reasonably doable.
-                  const isHidden = rng() > 0.5;
-                  return { num, isHidden };
-                });
-                return { ...conf, carriages };
+            const problems = trainConfigs.map(conf => {
+              const carriages = Array.from({ length: conf.length }, (_, i) => {
+                const num = conf.start + i;
+                // Hide roughly 40-50% of numbers, but keep first and last sometimes for anchors?
+                // Let's make it random but ensure reasonably doable.
+                const isHidden = rng() > 0.5;
+                return { num, isHidden };
               });
+              return { ...conf, carriages };
+            });
 
-              return (
-                <WorksheetSectionWrapper
-                  docId="missing-numbers-50"
-                  title="Number Train: 1 to 50"
-                  emoji="🚂"
-                  description="All aboard! Fill in the missing numbers on the train carriages."
-                  problemCount={5}
-                  learningObjectives={[
-                    'Identify missing numbers in sequences up to 50',
-                    'Count forward from different starting points',
-                    'Write two-digit numbers legibly',
-                    'Recognize number patterns (tens and ones)'
-                  ]}
-                  parentTeacherTips={[
-                    'Have your child read the full sequence out loud after filling in the blanks.',
-                    'Point out patterns: "Look, all the numbers in this column end with 5!"',
-                    'Use objects (like blocks) to build the train if they need concrete help.'
-                  ]}
-                >
-                  {/* Decorative Track Header */}
-                  <div className="print:hidden w-full h-4 border-b-4 border-slate-400 border-dashed mb-6 relative">
-                    <div className="absolute top-0 right-0 -mt-8 text-6xl animate-bounce" style={{ animationDuration: '3s' }}>🚂</div>
-                  </div>
+            return (
+              <WorksheetSectionWrapper
+                docId="missing-numbers-50"
+                title="Number Train: 1 to 50"
+                emoji="🚂"
+                description="All aboard! Fill in the missing numbers on the train carriages."
+                problemCount={5}
+                learningObjectives={[
+                  'Identify missing numbers in sequences up to 50',
+                  'Count forward from different starting points',
+                  'Write two-digit numbers legibly',
+                  'Recognize number patterns (tens and ones)'
+                ]}
+                parentTeacherTips={[
+                  'Have your child read the full sequence out loud after filling in the blanks.',
+                  'Point out patterns: "Look, all the numbers in this column end with 5!"',
+                  'Use objects (like blocks) to build the train if they need concrete help.'
+                ]}
+              >
+                {/* Decorative Track Header */}
+                <div className="print:hidden w-full h-4 border-b-4 border-slate-400 border-dashed mb-6 relative">
+                  <div className="absolute top-0 right-0 -mt-8 text-6xl animate-bounce" style={{ animationDuration: '3s' }}>🚂</div>
+                </div>
 
-                  <div className="space-y-6 break-inside-avoid">
-                    {problems.map((train, idx) => (
-                      <div key={idx} className="w-full overflow-hidden p-2">
-                        <div className="flex items-end gap-1">
-                          {/* Engine SVG */}
-                          <div className="shrink-0 w-24 h-20 mb-1 relative">
-                            <svg viewBox="0 0 100 80" className={`w-full h-full text-${train.color}-600 fill-current`}>
-                              {/* Simple Engine Shape */}
-                              <rect x="10" y="40" width="60" height="25" rx="2" />
-                              <rect x="50" y="15" width="20" height="40" />
-                              <polygon points="50,15 80,5 60,15" /> {/* Funnel smoke/steam area? No, simple cowl */}
-                              <rect x="15" y="25" width="25" height="15" opacity="0.5" fill="white" /> {/* Window */}
-                              <circle cx="25" cy="65" r="10" fill="#334155" stroke="currentColor" strokeWidth="2" />
-                              <circle cx="55" cy="65" r="10" fill="#334155" stroke="currentColor" strokeWidth="2" />
-                              <path d="M50,15 L50,5 L60,0 L60,15 Z" /> {/* Funnel */}
-                              {/* Smoke puffs */}
-                              <circle cx="65" cy="-5" r="3" className="text-gray-300 animate-ping" style={{ transformOrigin: 'center', animationDuration: '1.5s' }} />
-                              <circle cx="75" cy="-15" r="5" className="text-gray-200 animate-pulse" />
-                            </svg>
-                            <div className={`absolute bottom-2 left-0 w-full text-center text-xs font-bold text-${train.color}-800`}>
-                              Exp. {train.start}
-                            </div>
-                          </div>
-
-                          {/* Carriages */}
-                          <div className="flex flex-wrap gap-1 items-end">
-                            {train.carriages.map((c, i) => (
-                              <div key={i} className="flex items-end">
-                                {/* Coupler */}
-                                {i >= 0 && <div className="w-2 h-2 bg-slate-400 mb-4 -mx-0.5 z-0"></div>}
-
-                                {/* Carriage Box */}
-                                <div className={`w-12 h-14 border-2 border-${train.color}-400 bg-${train.color}-50 rounded-md relative z-10 flex flex-col items-center justify-between pb-1 shadow-sm`}>
-                                  {/* Roof line */}
-                                  <div className={`w-full h-2 bg-${train.color}-200 border-b border-${train.color}-300`}></div>
-
-                                  {/* Number Content */}
-                                  <div className="flex-1 flex items-center justify-center w-full">
-                                    {c.isHidden ? (
-                                      <div className={`w-8 h-8 rounded bg-white border border-${train.color}-200 shadow-inner flex items-center justify-center`}>
-                                      </div>
-                                    ) : (
-                                      <span className={`text-xl font-bold text-${train.color}-900`}>{c.num}</span>
-                                    )}
-                                  </div>
-
-                                  {/* Wheels */}
-                                  <div className="w-full flex justify-around px-1 translate-y-2">
-                                    <div className="w-3 h-3 rounded-full bg-slate-700 border border-slate-400"></div>
-                                    <div className="w-3 h-3 rounded-full bg-slate-700 border border-slate-400"></div>
-                                  </div>
-                                </div>
-                              </div>
-                            ))}
+                <div className="space-y-6 break-inside-avoid">
+                  {problems.map((train, idx) => (
+                    <div key={idx} className="w-full overflow-hidden p-2">
+                      <div className="flex items-end gap-1">
+                        {/* Engine SVG */}
+                        <div className="shrink-0 w-24 h-20 mb-1 relative">
+                          <svg viewBox="0 0 100 80" className={`w-full h-full text-${train.color}-600 fill-current`}>
+                            {/* Simple Engine Shape */}
+                            <rect x="10" y="40" width="60" height="25" rx="2" />
+                            <rect x="50" y="15" width="20" height="40" />
+                            <polygon points="50,15 80,5 60,15" /> {/* Funnel smoke/steam area? No, simple cowl */}
+                            <rect x="15" y="25" width="25" height="15" opacity="0.5" fill="white" /> {/* Window */}
+                            <circle cx="25" cy="65" r="10" fill="#334155" stroke="currentColor" strokeWidth="2" />
+                            <circle cx="55" cy="65" r="10" fill="#334155" stroke="currentColor" strokeWidth="2" />
+                            <path d="M50,15 L50,5 L60,0 L60,15 Z" /> {/* Funnel */}
+                            {/* Smoke puffs */}
+                            <circle cx="65" cy="-5" r="3" className="text-gray-300 animate-ping" style={{ transformOrigin: 'center', animationDuration: '1.5s' }} />
+                            <circle cx="75" cy="-15" r="5" className="text-gray-200 animate-pulse" />
+                          </svg>
+                          <div className={`absolute bottom-2 left-0 w-full text-center text-xs font-bold text-${train.color}-800`}>
+                            Exp. {train.start}
                           </div>
                         </div>
-                      </div>
-                    ))}
-                  </div>
 
-                  {showAnswersForDoc('missing-numbers-50', () => (
-                    <div className="mt-6 p-4 border-2 border-emerald-300 bg-emerald-50 rounded print:border print:bg-white print:page-break-before-always">
-                      <div className="font-bold text-emerald-900 mb-3 text-base">✅ {getTrans('common.answerKey', 'Answer Key')}</div>
-                      <div className="space-y-4">
-                        {problems.map((train, idx) => (
-                          <div key={idx} className="flex gap-2 items-center text-sm">
-                            <span className="font-bold w-16">Train {idx + 1}:</span>
-                            <div className="flex gap-1 font-mono">
-                              {train.carriages.map(c => (
-                                <span key={c.num} className={c.isHidden ? 'text-emerald-700 font-bold underline bg-emerald-100 px-1 rounded' : 'text-slate-400'}>
-                                  {c.num}
-                                </span>
-                              ))}
+                        {/* Carriages */}
+                        <div className="flex flex-wrap gap-1 items-end">
+                          {train.carriages.map((c, i) => (
+                            <div key={i} className="flex items-end">
+                              {/* Coupler */}
+                              {i >= 0 && <div className="w-2 h-2 bg-slate-400 mb-4 -mx-0.5 z-0"></div>}
+
+                              {/* Carriage Box */}
+                              <div className={`w-12 h-14 border-2 border-${train.color}-400 bg-${train.color}-50 rounded-md relative z-10 flex flex-col items-center justify-between pb-1 shadow-sm`}>
+                                {/* Roof line */}
+                                <div className={`w-full h-2 bg-${train.color}-200 border-b border-${train.color}-300`}></div>
+
+                                {/* Number Content */}
+                                <div className="flex-1 flex items-center justify-center w-full">
+                                  {c.isHidden ? (
+                                    <div className={`w-8 h-8 rounded bg-white border border-${train.color}-200 shadow-inner flex items-center justify-center`}>
+                                    </div>
+                                  ) : (
+                                    <span className={`text-xl font-bold text-${train.color}-900`}>{c.num}</span>
+                                  )}
+                                </div>
+
+                                {/* Wheels */}
+                                <div className="w-full flex justify-around px-1 translate-y-2">
+                                  <div className="w-3 h-3 rounded-full bg-slate-700 border border-slate-400"></div>
+                                  <div className="w-3 h-3 rounded-full bg-slate-700 border border-slate-400"></div>
+                                </div>
+                              </div>
                             </div>
-                          </div>
-                        ))}
+                          ))}
+                        </div>
                       </div>
                     </div>
                   ))}
-                </WorksheetSectionWrapper>
-              ))())
-          }
+                </div>
+
+                {showAnswersForDoc('missing-numbers-50', () => (
+                  <div className="mt-6 p-4 border-2 border-emerald-300 bg-emerald-50 rounded print:border print:bg-white print:page-break-before-always">
+                    <div className="font-bold text-emerald-900 mb-3 text-base">✅ {getTrans('common.answerKey', 'Answer Key')}</div>
+                    <div className="space-y-4">
+                      {problems.map((train, idx) => (
+                        <div key={idx} className="flex gap-2 items-center text-sm">
+                          <span className="font-bold w-16">Train {idx + 1}:</span>
+                          <div className="flex gap-1 font-mono">
+                            {train.carriages.map(c => (
+                              <span key={c.num} className={c.isHidden ? 'text-emerald-700 font-bold underline bg-emerald-100 px-1 rounded' : 'text-slate-400'}>
+                                {c.num}
+                              </span>
+                            ))}
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                ))}
+              </WorksheetSectionWrapper>
+            )
+          })()
         }
 
         {
