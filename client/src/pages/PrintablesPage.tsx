@@ -35658,138 +35658,101 @@ export function PrintablesPage() {
                 </div>
 
                 {showAnswersForDoc('perimeter-area-word-problems', () => (
-                  <div className="space-y-3">
-                    <div className="border-b border-emerald-200 pb-3">
-                      <div className="font-semibold mb-2 text-sm">1. {problems[0]}</div>
-                      <div className="text-xs text-emerald-800 space-y-1 pl-4">
-                        <div>Area: 8 × 5 = 40 sq cm</div>
-                        <div>Perimeter: 2 × (8 + 5) = 26 cm</div>
-                        <div className="font-semibold">Answer: Area = 40 sq cm, Perimeter = 26 cm</div>
-                      </div>
-                    </div>
-                    <div className="border-b border-emerald-200 pb-3">
-                      <div className="font-semibold mb-2 text-sm">2. {problems[1]}</div>
-                      <div className="text-xs text-emerald-800 space-y-1 pl-4">
-                        <div>Area: 6 × 6 = 36 sq inches</div>
-                        <div>Perimeter: 4 × 6 = 24 inches</div>
-                        <div className="font-semibold">Answer: Area = 36 sq inches, Perimeter = 24 inches</div>
-                      </div>
-                    </div>
-                    <div className="border-b border-emerald-200 pb-3">
-                      <div className="font-semibold mb-2 text-sm">3. {problems[2]}</div>
-                      <div className="text-xs text-emerald-800 space-y-1 pl-4">
-                        <div>Area: 10 × 7 = 70 sq feet</div>
-                        <div className="font-semibold">Answer: 70 sq feet</div>
-                      </div>
-                    </div>
-                    <div className="border-b border-emerald-200 pb-3">
-                      <div className="font-semibold mb-2 text-sm">4. {problems[3]}</div>
-                      <div className="text-xs text-emerald-800 space-y-1 pl-4">
-                        <div>Area: 12 × 9 = 108 sq feet</div>
-                        <div className="font-semibold">Answer: 108 sq feet</div>
-                      </div>
-                    </div>
-                    <div className="border-b border-emerald-200 pb-3">
-                      <div className="font-semibold mb-2 text-sm">5. {problems[4]}</div>
-                      <div className="text-xs text-emerald-800 space-y-1 pl-4">
-                        <div>Perimeter: 2 × (9 + 4) = 26 cm</div>
-                        <div className="font-semibold">Answer: 26 cm</div>
-                      </div>
-                    </div>
-                    <div className="border-b border-emerald-200 pb-3 last:border-b-0">
-                      <div className="font-semibold mb-2 text-sm">6. {problems[5]}</div>
-                      <div className="text-xs text-emerald-800 space-y-1 pl-4">
-                        <div>Area: 8 × 8 = 64 sq meters</div>
-                        <div className="font-semibold">Answer: 64 sq meters</div>
-                      </div>
+                  <div className="mt-6 p-6 border-2 border-emerald-500 bg-white rounded print:page-break-before-always font-mono">
+                    <div className="text-center font-bold text-emerald-900 mb-6 text-xl border-b border-emerald-100 pb-2">✅ COMPLETED JOBS</div>
+                    <div className="grid grid-cols-2 gap-4">
+                      {problems.map((p, i) => (
+                        <div key={i} className="border-b border-slate-100 pb-2 text-sm">
+                          <span className="font-bold">Job #{100 + i}:</span> {p.val} {p.unit} ({p.type})
+                        </div>
+                      ))}
                     </div>
                   </div>
-                  </div>
-            ))}
-      </WorksheetSectionWrapper>
-      );
+                ))}
+              </WorksheetSectionWrapper>
+            );
           })()
         }
 
-      {/* Generic fallback for any answerable docId that doesn't have a specific section */}
-      {
-        (() => {
-          const handledDocIds = new Set([
-            'ten-frames-1-20', 'number-tracing-1-20', 'stem-balloon-rocket', 'stem-walking-water', 'arts-3-shape-creature',
-            'number-tracing-1-10', 'uppercase-lowercase-match', 'beginning-sounds-az', 'addition-subtraction-0-10',
-            'ten-frames-1-10', 'shapes-colors-sort', 'dot-to-dot-1-20', 'tangram-animals', 'spot-difference', 'spotdiff',
-            'directed-drawing-animals', 'cut-and-paste-crafts', 'feelings-checkin', 'reward-chart',
-            'reading-mini-1', 'reading-g1-lost-hat', 'reading-g1-ants', 'reading-g1-bus-ride', 'reading-g1-pet-fish',
-            'reading-g1-red-balloon', 'reading-g1-big-box', 'reading-g1-garden-snail', 'reading-g1-birthday-cake',
-            'reading-g2-paper-bridge', 'reading-g2-rainy-garden', 'reading-g2-library-card', 'reading-g2-lost-and-found',
-            'reading-g2-bird-feeder', 'reading-g2-cookie-recipe', 'reading-g2-tree-house', 'reading-g2-magic-seeds',
-            'reading-g3-lighthouse', 'reading-g3-science-fair', 'reading-g3-community-garden',
-            'reading-g3-school-play', 'reading-g3-art-project', 'pack', 'math-maze',
-            'spelling', 'science-match', 'grammar-detective', 'sudoku4', 'sudoku6', 'place-value-hto',
-            'skip-count-5-10-120', 'add-2digit-100', 'sub-2digit-100', 'word-problems-100', 'compare-2digit',
-            'even-odd-100', 'time-5min', 'color-by-number', 'number-bonds-10', 'count-write-30', 'missing-numbers-50',
-            'picture-addition-10', 'subtraction-stories', 'balance-equations-10', 'skip-count-2s', 'number-line-add',
-            'doubles-facts', 'pattern-complete', 'missing-shape', 'size-comparison', 'expanded-form-200',
-            'number-patterns-200', 'rounding-nearest-10', 'add-three-numbers', 'missing-addends', 'fact-families-20',
-            'mental-math-20', 'number-line-200', 'doubles-near-doubles', 'money-coins-bills', 'measurement-length',
-            'bar-graphs-data', 'add-2digit-regrouping', 'sub-2digit-regrouping', 'fractions-halves-thirds-fourths',
-            'rhyming-words', 'cvc-words', 'sight-words-pre-primer', 'letter-tracing-az', 'more-less-equal-10',
-            'counting-objects-20', 'sentence-building', 'geo-continents-k2', 'geo-compass-rose', 'geo-landforms',
-            'geo-latlong', 'number-tracing-1-10', 'number-tracing-1-20',
-            'count-circle-1-10', 'count-match-1-20', 'how-many-1-15', 'count-color-1-10', 'number-id-1-10',
-            'number-matching-1-15', 'number-order-1-20', 'find-number-1-10', 'shape-identification', 'ab-pattern',
-            'big-small', 'more-less', 'mult-facts-0-12', 'div-facts-1-12', 'fractions-whole', 'equivalent-fractions-4th',
-            'mult-facts-1-5', 'mult-arrays-2-5', 'skip-count-mult', 'mult-word-problems-2-3', 'mult-facts-6-12',
-            'mult-arrays-models', 'mult-multi-step-word', 'mult-fact-families', 'mult-2x1', 'mult-2x1-digit', 'mult-2x2', 'mult-2x2-digit',
-            'mult-3x2-digit', 'mult-area-model', 'mult-complex-word', 'mult-fact-fluency', 'mult-mixed-review', 'mult-strategies', 'mult-patterns',
-            // Times Table worksheets
-            'times-table-horizontal-1-5', 'times-table-horizontal-6-12', 'times-table-horizontal-1-12',
-            'times-table-vertical-1-5', 'times-table-vertical-6-12', 'times-table-vertical-1-12',
-            'times-table-missing-1-5', 'times-table-missing-6-12', 'times-table-missing-mixed',
-            'times-table-timed-1-5', 'times-table-timed-6-12', 'times-table-timed-1-12',
-            'times-table-blank-1-5', 'times-table-blank-6-12', 'times-table-blank-1-12',
-            'times-table-confidence-1-5', 'times-table-confidence-6-12', 'times-table-fluency-1-12', 'times-table-mixed-review',
-            'times-table-color-1-5', 'times-table-color-6-12', 'times-table-color-1-12',
-            'long-division-1digit', 'long-division-2digit', 'area-model-mult', 'partial-products', 'comparing-fractions-4th',
-            'add-sub-fractions-4th', 'mixed-improper-fractions', 'decimals-place-value', 'comparing-decimals', 'add-sub-decimals',
-            'fractions-to-decimals', 'fractions-to-decimals-basic-tenths', 'fractions-to-decimals-division', 'classifying-angles', 'area-perimeter-4th', 'lines-angles-4th', 'classifying-triangles',
-            'classifying-quadrilaterals', 'symmetry-transformations', 'customary-conversion', 'metric-conversion', 'elapsed-time-4th',
-            'liquid-measurement-4th', 'mass-weight-4th', 'multi-step-word-4th', 'fraction-word-problems', 'decimal-word-problems',
-            'measurement-word-problems', 'geometry-word-problems', 'line-plots', 'bar-graphs-pictographs', 'mean-median-mode',
-            'long-division-multidigit', 'order-of-operations', 'pemdas-basic', 'pemdas-parentheses', 'pemdas-practice',
-            'pemdas-exponents', 'pemdas-multistep', 'pemdas-word-problems', 'pemdas-advanced', 'pemdas-complex',
-            'pemdas-rules', 'pemdas-mixed-review', 'pemdas-fluency', 'pemdas-step-by-step',
-            'powers-of-10', 'rounding-decimals', 'estimating-sums-differences',
-            'add-sub-mixed-numbers', 'multiplying-fractions', 'dividing-fractions', 'multiplying-decimals', 'dividing-decimals',
-            'fractions-decimals-percents', 'comparing-ordering-fractions-decimals', 'evaluating-expressions', 'writing-expressions',
-            'solving-one-step-equations', 'patterns-rules', 'coordinate-graphing', 'volume-rectangular-prisms', 'area-triangles-parallelograms',
-            'classifying-shapes', 'nets-3d-shapes', 'transformations-5th', 'multi-step-word-5th', 'fraction-word-problems-5th',
-            'decimal-word-problems-5th', 'ratio-proportion-word-problems', 'percent-word-problems', 'line-graphs',
-            'mean-median-mode-range', 'stem-leaf-plots', 'probability',
-            // Kindergarten worksheets
-            'color-shapes', 'shape-sorting', 'color-recognition', 'draw-shape', 'color-patterns',
-            'shape-patterns', 'what-comes-next', 'long-short', 'heavy-light', 'same-different',
-            'line-tracing', 'curve-tracing', 'zigzag-lines', 'path-tracing', 'logic-grid',
-            // New Kindergarten worksheets (code-based)
-            'kindergarten-counting-1-10', 'kindergarten-number-recognition', 'kindergarten-shapes',
-            'kindergarten-patterns', 'kindergarten-addition-pictures', 'kindergarten-counting-visual',
-            // 3rd Grade worksheets
-            'mult-arrays', 'mult-word-problems', 'mult-by-10-100', 'mult-properties',
-            'div-with-remainders', 'div-word-problems', 'div-by-10-100', 'fact-families-mult-div',
-            'comparing-fractions', 'equivalent-fractions', 'add-sub-fractions', 'fractions-number-line',
-            'perimeter-shapes', 'area-rectangles', 'identify-polygons', 'lines-rays-angles', 'symmetry',
-            'time-to-minute', 'customary-units', 'metric-units', 'liquid-measurement', 'mass-weight',
-            'multi-step-word-problems', 'elapsed-time-word-problems', 'money-word-problems', 'perimeter-area-word-problems'
-          ])
-          // Removed fallback placeholder section - worksheets without handlers should not show placeholder content
-          return null
-        })()
-      }
+        {/* Generic fallback for any answerable docId that doesn't have a specific section */}
+        {
+          (() => {
+            const handledDocIds = new Set([
+              'ten-frames-1-20', 'number-tracing-1-20', 'stem-balloon-rocket', 'stem-walking-water', 'arts-3-shape-creature',
+              'number-tracing-1-10', 'uppercase-lowercase-match', 'beginning-sounds-az', 'addition-subtraction-0-10',
+              'ten-frames-1-10', 'shapes-colors-sort', 'dot-to-dot-1-20', 'tangram-animals', 'spot-difference', 'spotdiff',
+              'directed-drawing-animals', 'cut-and-paste-crafts', 'feelings-checkin', 'reward-chart',
+              'reading-mini-1', 'reading-g1-lost-hat', 'reading-g1-ants', 'reading-g1-bus-ride', 'reading-g1-pet-fish',
+              'reading-g1-red-balloon', 'reading-g1-big-box', 'reading-g1-garden-snail', 'reading-g1-birthday-cake',
+              'reading-g2-paper-bridge', 'reading-g2-rainy-garden', 'reading-g2-library-card', 'reading-g2-lost-and-found',
+              'reading-g2-bird-feeder', 'reading-g2-cookie-recipe', 'reading-g2-tree-house', 'reading-g2-magic-seeds',
+              'reading-g3-lighthouse', 'reading-g3-science-fair', 'reading-g3-community-garden',
+              'reading-g3-school-play', 'reading-g3-art-project', 'pack', 'math-maze',
+              'spelling', 'science-match', 'grammar-detective', 'sudoku4', 'sudoku6', 'place-value-hto',
+              'skip-count-5-10-120', 'add-2digit-100', 'sub-2digit-100', 'word-problems-100', 'compare-2digit',
+              'even-odd-100', 'time-5min', 'color-by-number', 'number-bonds-10', 'count-write-30', 'missing-numbers-50',
+              'picture-addition-10', 'subtraction-stories', 'balance-equations-10', 'skip-count-2s', 'number-line-add',
+              'doubles-facts', 'pattern-complete', 'missing-shape', 'size-comparison', 'expanded-form-200',
+              'number-patterns-200', 'rounding-nearest-10', 'add-three-numbers', 'missing-addends', 'fact-families-20',
+              'mental-math-20', 'number-line-200', 'doubles-near-doubles', 'money-coins-bills', 'measurement-length',
+              'bar-graphs-data', 'add-2digit-regrouping', 'sub-2digit-regrouping', 'fractions-halves-thirds-fourths',
+              'rhyming-words', 'cvc-words', 'sight-words-pre-primer', 'letter-tracing-az', 'more-less-equal-10',
+              'counting-objects-20', 'sentence-building', 'geo-continents-k2', 'geo-compass-rose', 'geo-landforms',
+              'geo-latlong', 'number-tracing-1-10', 'number-tracing-1-20',
+              'count-circle-1-10', 'count-match-1-20', 'how-many-1-15', 'count-color-1-10', 'number-id-1-10',
+              'number-matching-1-15', 'number-order-1-20', 'find-number-1-10', 'shape-identification', 'ab-pattern',
+              'big-small', 'more-less', 'mult-facts-0-12', 'div-facts-1-12', 'fractions-whole', 'equivalent-fractions-4th',
+              'mult-facts-1-5', 'mult-arrays-2-5', 'skip-count-mult', 'mult-word-problems-2-3', 'mult-facts-6-12',
+              'mult-arrays-models', 'mult-multi-step-word', 'mult-fact-families', 'mult-2x1', 'mult-2x1-digit', 'mult-2x2', 'mult-2x2-digit',
+              'mult-3x2-digit', 'mult-area-model', 'mult-complex-word', 'mult-fact-fluency', 'mult-mixed-review', 'mult-strategies', 'mult-patterns',
+              // Times Table worksheets
+              'times-table-horizontal-1-5', 'times-table-horizontal-6-12', 'times-table-horizontal-1-12',
+              'times-table-vertical-1-5', 'times-table-vertical-6-12', 'times-table-vertical-1-12',
+              'times-table-missing-1-5', 'times-table-missing-6-12', 'times-table-missing-mixed',
+              'times-table-timed-1-5', 'times-table-timed-6-12', 'times-table-timed-1-12',
+              'times-table-blank-1-5', 'times-table-blank-6-12', 'times-table-blank-1-12',
+              'times-table-confidence-1-5', 'times-table-confidence-6-12', 'times-table-fluency-1-12', 'times-table-mixed-review',
+              'times-table-color-1-5', 'times-table-color-6-12', 'times-table-color-1-12',
+              'long-division-1digit', 'long-division-2digit', 'area-model-mult', 'partial-products', 'comparing-fractions-4th',
+              'add-sub-fractions-4th', 'mixed-improper-fractions', 'decimals-place-value', 'comparing-decimals', 'add-sub-decimals',
+              'fractions-to-decimals', 'fractions-to-decimals-basic-tenths', 'fractions-to-decimals-division', 'classifying-angles', 'area-perimeter-4th', 'lines-angles-4th', 'classifying-triangles',
+              'classifying-quadrilaterals', 'symmetry-transformations', 'customary-conversion', 'metric-conversion', 'elapsed-time-4th',
+              'liquid-measurement-4th', 'mass-weight-4th', 'multi-step-word-4th', 'fraction-word-problems', 'decimal-word-problems',
+              'measurement-word-problems', 'geometry-word-problems', 'line-plots', 'bar-graphs-pictographs', 'mean-median-mode',
+              'long-division-multidigit', 'order-of-operations', 'pemdas-basic', 'pemdas-parentheses', 'pemdas-practice',
+              'pemdas-exponents', 'pemdas-multistep', 'pemdas-word-problems', 'pemdas-advanced', 'pemdas-complex',
+              'pemdas-rules', 'pemdas-mixed-review', 'pemdas-fluency', 'pemdas-step-by-step',
+              'powers-of-10', 'rounding-decimals', 'estimating-sums-differences',
+              'add-sub-mixed-numbers', 'multiplying-fractions', 'dividing-fractions', 'multiplying-decimals', 'dividing-decimals',
+              'fractions-decimals-percents', 'comparing-ordering-fractions-decimals', 'evaluating-expressions', 'writing-expressions',
+              'solving-one-step-equations', 'patterns-rules', 'coordinate-graphing', 'volume-rectangular-prisms', 'area-triangles-parallelograms',
+              'classifying-shapes', 'nets-3d-shapes', 'transformations-5th', 'multi-step-word-5th', 'fraction-word-problems-5th',
+              'decimal-word-problems-5th', 'ratio-proportion-word-problems', 'percent-word-problems', 'line-graphs',
+              'mean-median-mode-range', 'stem-leaf-plots', 'probability',
+              // Kindergarten worksheets
+              'color-shapes', 'shape-sorting', 'color-recognition', 'draw-shape', 'color-patterns',
+              'shape-patterns', 'what-comes-next', 'long-short', 'heavy-light', 'same-different',
+              'line-tracing', 'curve-tracing', 'zigzag-lines', 'path-tracing', 'logic-grid',
+              // New Kindergarten worksheets (code-based)
+              'kindergarten-counting-1-10', 'kindergarten-number-recognition', 'kindergarten-shapes',
+              'kindergarten-patterns', 'kindergarten-addition-pictures', 'kindergarten-counting-visual',
+              // 3rd Grade worksheets
+              'mult-arrays', 'mult-word-problems', 'mult-by-10-100', 'mult-properties',
+              'div-with-remainders', 'div-word-problems', 'div-by-10-100', 'fact-families-mult-div',
+              'comparing-fractions', 'equivalent-fractions', 'add-sub-fractions', 'fractions-number-line',
+              'perimeter-shapes', 'area-rectangles', 'identify-polygons', 'lines-rays-angles', 'symmetry',
+              'time-to-minute', 'customary-units', 'metric-units', 'liquid-measurement', 'mass-weight',
+              'multi-step-word-problems', 'elapsed-time-word-problems', 'money-word-problems', 'perimeter-area-word-problems'
+            ])
+            // Removed fallback placeholder section - worksheets without handlers should not show placeholder content
+            return null
+          })()
+        }
 
-      <footer className="text-center text-slate-500 text-xs print:hidden">
-        {getTrans('common.printTip', 'Tip: Use your browser menu → Print → Save as PDF.')}
-      </footer>
-    </div >
+        <footer className="text-center text-slate-500 text-xs print:hidden">
+          {getTrans('common.printTip', 'Tip: Use your browser menu → Print → Save as PDF.')}
+        </footer>
+      </div >
     </div >
   )
 }
