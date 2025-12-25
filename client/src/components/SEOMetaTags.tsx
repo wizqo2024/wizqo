@@ -17,7 +17,7 @@ export function SEOMetaTags({
   title = "Free Printable Worksheets for Teachers & Kids | Wizqo",
   description = "Download free printable worksheets for math, reading, writing, and more. Generate unlimited worksheets with answer keys for grades K-5. No sign-up required!",
   keywords = "free printable worksheets, printable worksheets for teachers, free math worksheets, reading comprehension worksheets, handwriting worksheets, printable worksheets PDF, worksheets for kids, educational worksheets, free worksheets first grade, printable worksheets with answer keys, multiplication worksheets, 1st grade math worksheets, 2nd grade math worksheets, kindergarten math worksheets",
-  ogImage = "https://wizqo.com/logo.svg",
+  ogImage = "https://wizqo.com/logo-720x720.png",
   canonicalUrl,
   noIndex = false,
   ogType,
@@ -27,9 +27,9 @@ export function SEOMetaTags({
   const currentLocale = typeof window !== 'undefined' ? getLocaleFromURL() : 'en'
   const currentPath = typeof window !== 'undefined' ? window.location.pathname : '/'
   const cleanPath = removeLocaleFromPath(currentPath)
-  
+
   // Build canonical URL with locale (or use provided one)
-  const finalCanonicalUrl = canonicalUrl || (typeof window !== 'undefined' 
+  const finalCanonicalUrl = canonicalUrl || (typeof window !== 'undefined'
     ? `${window.location.origin}${addLocaleToPath(cleanPath, currentLocale)}`
     : 'https://wizqo.com/')
   useEffect(() => {
@@ -39,7 +39,7 @@ export function SEOMetaTags({
 
     // Update document title
     document.title = title;
-    
+
     // Update meta description
     let metaDescription = document.querySelector('meta[name="description"]');
     if (!metaDescription) {
@@ -48,7 +48,7 @@ export function SEOMetaTags({
       document.head.appendChild(metaDescription);
     }
     metaDescription.setAttribute('content', description);
-    
+
     // Update meta keywords
     let metaKeywords = document.querySelector('meta[name="keywords"]');
     if (!metaKeywords) {
@@ -57,7 +57,7 @@ export function SEOMetaTags({
       document.head.appendChild(metaKeywords);
     }
     metaKeywords.setAttribute('content', keywords);
-    
+
     // Update robots meta tag
     let metaRobots = document.querySelector('meta[name="robots"]');
     if (!metaRobots) {
@@ -66,7 +66,7 @@ export function SEOMetaTags({
       document.head.appendChild(metaRobots);
     }
     metaRobots.setAttribute('content', noIndex ? 'noindex, nofollow' : 'index, follow');
-    
+
     // Update Open Graph title
     let ogTitle = document.querySelector('meta[property="og:title"]');
     if (!ogTitle) {
@@ -75,7 +75,7 @@ export function SEOMetaTags({
       document.head.appendChild(ogTitle);
     }
     ogTitle.setAttribute('content', title);
-    
+
     // Update Open Graph description
     let ogDescription = document.querySelector('meta[property="og:description"]');
     if (!ogDescription) {
@@ -84,7 +84,7 @@ export function SEOMetaTags({
       document.head.appendChild(ogDescription);
     }
     ogDescription.setAttribute('content', description);
-    
+
     // Update Open Graph image
     let ogImageMeta = document.querySelector('meta[property="og:image"]');
     if (!ogImageMeta) {
@@ -102,7 +102,7 @@ export function SEOMetaTags({
       document.head.appendChild(ogTypeMeta);
     }
     ogTypeMeta.setAttribute('content', computedOgType);
-    
+
     // Update Twitter title
     let twitterTitle = document.querySelector('meta[property="twitter:title"]');
     if (!twitterTitle) {
@@ -111,7 +111,7 @@ export function SEOMetaTags({
       document.head.appendChild(twitterTitle);
     }
     twitterTitle.setAttribute('content', title);
-    
+
     // Update Twitter description
     let twitterDescription = document.querySelector('meta[property="twitter:description"]');
     if (!twitterDescription) {
@@ -120,7 +120,7 @@ export function SEOMetaTags({
       document.head.appendChild(twitterDescription);
     }
     twitterDescription.setAttribute('content', description);
-    
+
     // Update Twitter image
     let twitterImage = document.querySelector('meta[property="twitter:image"]');
     if (!twitterImage) {
@@ -138,7 +138,7 @@ export function SEOMetaTags({
       document.head.appendChild(twitterCardMeta);
     }
     twitterCardMeta.setAttribute('content', computedTwitterCard);
-    
+
     // Update canonical URL (always set, with locale)
     let canonical = document.querySelector('link[rel="canonical"]');
     if (!canonical) {
@@ -147,7 +147,7 @@ export function SEOMetaTags({
       document.head.appendChild(canonical);
     }
     canonical.setAttribute('href', finalCanonicalUrl);
-    
+
     // Update Open Graph URL
     let ogUrl = document.querySelector('meta[property="og:url"]');
     if (!ogUrl) {
@@ -156,7 +156,7 @@ export function SEOMetaTags({
       document.head.appendChild(ogUrl);
     }
     ogUrl.setAttribute('content', finalCanonicalUrl);
-    
+
     // Update Twitter URL
     let twitterUrl = document.querySelector('meta[property="twitter:url"]');
     if (!twitterUrl) {
@@ -165,9 +165,9 @@ export function SEOMetaTags({
       document.head.appendChild(twitterUrl);
     }
     twitterUrl.setAttribute('content', finalCanonicalUrl);
-    
+
   }, [title, description, keywords, ogImage, finalCanonicalUrl, noIndex, ogType, twitterCard]);
-  
+
   return (
     <>
       {/* Hreflang tags for SEO - tells Google about alternate language versions */}
