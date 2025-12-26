@@ -26974,6 +26974,673 @@ export function PrintablesPage() {
                 })()
               }
 
+              {/* 4th Grade Geometry (Batch 3) */ }
+              {
+                activeDocs.includes('angles-4th') && (() => {
+                  const docId = 'angles-4th'
+                  const rng = makeRng(`${effectiveSeed}|v${variant}|doc=${doc}`)
+
+                  const problems = Array.from({ length: 9 }, () => {
+                    // Generate an angle
+                    const type = ['acute', 'right', 'obtuse'][Math.floor(rng() * 3)]
+                    let angleDeg;
+                    if (type === 'right') angleDeg = 90;
+                    else if (type === 'acute') angleDeg = Math.floor(rng() * 80) + 5; // 5-85
+                    else angleDeg = Math.floor(rng() * 80) + 95; // 95-175
+
+                    // Rotation
+                    const rot = Math.floor(rng() * 360)
+
+                    return { type, angleDeg, rot }
+                  })
+
+                  return (
+                    <WorksheetSectionWrapper
+                      docId={docId}
+                      title="Angle Alien: Measure & Classify"
+                      emoji="👽"
+                      description="Help the aliens aim their lasers! Classify each angle."
+                      problemCount={problems.length}
+                      learningObjectives={['Classify angles as acute, right, or obtuse', 'Estimate angle measures', 'Understand angle properties']}
+                      parentTeacherTips={['Acute: Acute little angle (less than 90° - like a pizza slice).', 'Right: Like a corner of a square (90°).', 'Obtuse: Wide angle (more than 90° - like a beach chair).']}
+                    >
+                      <div className="print:hidden h-1 w-full rounded-full bg-gradient-to-r from-green-400 to-lime-500 animate-gradient-x mb-4" />
+                      <div className="grid grid-cols-2 md:grid-cols-3 gap-6">
+                        {problems.map((p, i) => (
+                          <div key={i} className="flex flex-col items-center p-4 border-2 border-green-200 rounded-lg bg-slate-900">
+                            <div className="relative w-32 h-32 flex items-center justify-center mb-2">
+                              {/* Alien Ship */}
+                              <div className="absolute top-0 left-0 bg-green-500 rounded-full w-8 h-8 flex items-center justify-center z-10" style={{ transform: `translate(46px, 46px)` }}>
+                                <span className="text-xl">🛸</span>
+                              </div>
+                              <svg width="128" height="128" viewBox="0 0 100 100" className="overflow-visible">
+                                {/* Beams */}
+                                <g transform={`rotate(${p.rot} 50 50)`}>
+                                  <line x1="50" y1="50" x2="90" y2="50" stroke="#4ade80" strokeWidth="3" strokeLinecap="round" />
+                                  <line x1="50" y1="50" x2={50 + 40 * Math.cos(p.angleDeg * Math.PI / 180)} y2={50 + 40 * Math.sin(p.angleDeg * Math.PI / 180)} stroke="#4ade80" strokeWidth="3" strokeLinecap="round" />
+
+                                  {/* Angle Arc */}
+                                  <path d={`M 65 50 A 15 15 0 0 1 ${50 + 15 * Math.cos(p.angleDeg * Math.PI / 180)} ${50 + 15 * Math.sin(p.angleDeg * Math.PI / 180)}`} fill="none" stroke="#facc15" strokeWidth="2" />
+                                  {p.type === 'right' && (
+                                    <path d="M 60 50 L 60 60 L 50 60" transform={`rotate(${p.angleDeg} 50 50)`} fill="none" stroke="#facc15" strokeWidth="2" opacity="0" /> /* Visual square for right angle if standard orientation, strictly simplified arc here */
+                                  )}
+                                </g>
+                              </svg>
+                            </div>
+                            <div className="w-full flex justify-between gap-1 mt-2">
+                              <div className="w-5 h-5 border border-green-500 rounded-full bg-slate-800"></div>
+                              <div className="w-5 h-5 border border-green-500 rounded-full bg-slate-800"></div>
+                              <div className="w-5 h-5 border border-green-500 rounded-full bg-slate-800"></div>
+                            </div>
+                            <div className="flex justify-between w-full text-[10px] text-green-400 font-mono mt-1 px-1">
+                              <span>ACUTE</span>
+                              <span>RIGHT</span>
+                              <span>OBTUSE</span>
+                            </div>
+                          </div>
+                        ))}
+                      </div>
+                      {showAnswersForDoc(docId, () => (
+                        <div className="mt-4 p-2 bg-green-100 rounded text-center text-xs">
+                          {problems.map((p, i) => `${i + 1}:${p.type.toUpperCase()}`).join(' | ')}
+                        </div>
+                      ))}
+                    </WorksheetSectionWrapper>
+                  )
+                })()
+              }
+
+              {
+                activeDocs.includes('parallel-perpendicular') && (() => {
+                  const docId = 'parallel-perpendicular'
+                  const rng = makeRng(`${effectiveSeed}|v${variant}|doc=${doc}`)
+
+                  const problems = Array.from({ length: 6 }, () => {
+                    const type = ['parallel', 'perpendicular', 'intersecting'][Math.floor(rng() * 3)]
+                    const rot = Math.floor(rng() * 180)
+                    return { type, rot }
+                  })
+
+                  return (
+                    <WorksheetSectionWrapper
+                      docId={docId}
+                      title="City Streets: Line Relationships"
+                      emoji="🛣️"
+                      description="Look at the street maps. Are the roads Parallel, Perpendicular, or Intersecting?"
+                      problemCount={problems.length}
+                      learningObjectives={['Identify parallel, perpendicular, and intersecting lines', 'Understand geometric terms for lines', 'Recognize line properties in different orientations']}
+                      parentTeacherTips={['Parallel: Like train tracks, never touch.', 'Perpendicular: Meet at a perfect T or L (90°).', 'Intersecting: Just crossing any other way.']}
+                    >
+                      <div className="print:hidden h-1 w-full rounded-full bg-gradient-to-r from-slate-500 to-gray-600 animate-gradient-x mb-4" />
+                      <div className="grid grid-cols-2 md:grid-cols-3 gap-6">
+                        {problems.map((p, i) => (
+                          <div key={i} className="flex flex-col items-center p-4 border-2 dashed border-slate-400 rounded-lg bg-slate-50">
+                            <div className="w-32 h-32 bg-slate-100 border border-slate-200 relative mb-3 overflow-hidden rounded">
+                              <svg width="100%" height="100%" viewBox="0 0 100 100">
+                                <defs>
+                                  <pattern id={`grid-${i}`} width="10" height="10" patternUnits="userSpaceOnUse">
+                                    <path d="M 10 0 L 0 0 0 10" fill="none" stroke="gray" strokeWidth="0.5" opacity="0.1" />
+                                  </pattern>
+                                </defs>
+                                <rect width="100" height="100" fill={`url(#grid-${i})`} />
+
+                                <g transform={`rotate(${p.rot} 50 50)`}>
+                                  {p.type === 'parallel' && (
+                                    <>
+                                      <line x1="30" y1="10" x2="30" y2="90" stroke="#334155" strokeWidth="6" />
+                                      <line x1="30" y1="10" x2="30" y2="90" stroke="white" strokeWidth="2" strokeDasharray="4 4" />
+
+                                      <line x1="70" y1="10" x2="70" y2="90" stroke="#334155" strokeWidth="6" />
+                                      <line x1="70" y1="10" x2="70" y2="90" stroke="white" strokeWidth="2" strokeDasharray="4 4" />
+                                    </>
+                                  )}
+                                  {p.type === 'perpendicular' && (
+                                    <>
+                                      <line x1="50" y1="10" x2="50" y2="90" stroke="#334155" strokeWidth="6" />
+                                      <line x1="50" y1="10" x2="50" y2="90" stroke="white" strokeWidth="2" strokeDasharray="4 4" />
+
+                                      <line x1="10" y1="50" x2="90" y2="50" stroke="#334155" strokeWidth="6" />
+                                      <line x1="10" y1="50" x2="90" y2="50" stroke="white" strokeWidth="2" strokeDasharray="4 4" />
+                                      {/* Right angle mark */}
+                                      <path d="M 55 45 L 60 45 L 60 55" fill="none" stroke="#ef4444" strokeWidth="2" />
+                                    </>
+                                  )}
+                                  {p.type === 'intersecting' && (
+                                    <>
+                                      <line x1="40" y1="10" x2="60" y2="90" stroke="#334155" strokeWidth="6" />
+                                      <line x1="40" y1="10" x2="60" y2="90" stroke="white" strokeWidth="2" strokeDasharray="4 4" />
+
+                                      <line x1="10" y1="40" x2="90" y2="60" stroke="#334155" strokeWidth="6" />
+                                      <line x1="10" y1="40" x2="90" y2="60" stroke="white" strokeWidth="2" strokeDasharray="4 4" />
+                                    </>
+                                  )}
+                                </g>
+                              </svg>
+                            </div>
+                            <div className="flex flex-col gap-1 w-full text-xs text-slate-600 font-bold">
+                              <div className="flex items-center gap-2">
+                                <div className="w-4 h-4 border border-slate-300 bg-white rounded-full"></div> Parallel
+                              </div>
+                              <div className="flex items-center gap-2">
+                                <div className="w-4 h-4 border border-slate-300 bg-white rounded-full"></div> Perpendicular
+                              </div>
+                              <div className="flex items-center gap-2">
+                                <div className="w-4 h-4 border border-slate-300 bg-white rounded-full"></div> Intersecting
+                              </div>
+                            </div>
+                          </div>
+                        ))}
+                      </div>
+                      {showAnswersForDoc(docId, () => (
+                        <div className="mt-4 p-2 bg-slate-100 rounded text-center text-xs">
+                          {problems.map((p, i) => `${i + 1}:${p.type}`).join(' | ')}
+                        </div>
+                      ))}
+                    </WorksheetSectionWrapper>
+                  )
+                })()
+              }
+
+              {
+                activeDocs.includes('symmetry-4th') && (() => {
+                  const docId = 'symmetry-4th'
+                  const rng = makeRng(`${effectiveSeed}|v${variant}|doc=${doc}`)
+
+                  const problems = Array.from({ length: 6 }, () => {
+                    const isSymmetric = rng() > 0.3 // 70% symmetric
+                    // Simple shapes: Heart, Star, Arrow, Shield, Moon
+                    const shapes = ['heart', 'star', 'arrow', 'shield', 'butterfly']
+                    const shape = shapes[Math.floor(rng() * shapes.length)]
+
+                    return { shape, isSymmetric }
+                  })
+
+                  return (
+                    <WorksheetSectionWrapper
+                      docId={docId}
+                      title="Mirror Kingdom: Symmetry"
+                      emoji="🏰"
+                      description="Draw the line of symmetry if the object has one. If not, circle 'No'."
+                      problemCount={problems.length}
+                      learningObjectives={['Identify lines of symmetry in 2D figures', 'Draw lines of symmetry', 'Distinguish between symmetric and non-symmetric shapes']}
+                      parentTeacherTips={['A line of symmetry divides a shape into two mirror images.', 'Some shapes have no line of symmetry.', 'Some have more than one.']}
+                    >
+                      <div className="print:hidden h-1 w-full rounded-full bg-gradient-to-r from-pink-400 to-rose-500 animate-gradient-x mb-4" />
+                      <div className="grid grid-cols-2 md:grid-cols-3 gap-6">
+                        {problems.map((p, i) => (
+                          <div key={i} className="flex flex-col items-center p-4 border-2 border-rose-200 rounded-lg bg-pink-50">
+                            <div className="relative w-32 h-32 flex items-center justify-center mb-3">
+                              <svg width="100" height="100" viewBox="0 0 100 100">
+                                {/* Shapes */}
+                                <g fill="#fce7f3" stroke="#be123c" strokeWidth="2" transform={!p.isSymmetric ? 'skewX(15)' : ''}>
+                                  {p.shape === 'heart' && <path d="M50 90 C 10 60 0 35 25 20 A 20 20 0 0 1 50 35 A 20 20 0 0 1 75 20 C 100 35 90 60 50 90 Z" />}
+                                  {p.shape === 'star' && <path d="M50 10 L61 35 L88 39 L68 57 L73 84 L50 71 L27 84 L32 57 L12 39 L39 35 Z" />}
+                                  {p.shape === 'arrow' && <path d="M50 10 L80 40 L65 40 L65 90 L35 90 L35 40 L20 40 Z" />}
+                                  {p.shape === 'shield' && <path d="M20 20 H80 V50 C80 80 50 90 50 90 C50 90 20 80 20 50 Z" />}
+                                  {p.shape === 'butterfly' && <path d="M50 20 Q 80 0 90 30 Q 100 60 50 80 Q 0 60 10 30 Q 20 0 50 20" />}
+                                </g>
+                                {/* Dotted center line for reference/drawing space */}
+                                <line x1="50" y1="0" x2="50" y2="100" stroke="#be123c" strokeWidth="1" strokeDasharray="4 4" opacity="0.2" />
+                              </svg>
+                            </div>
+                            <div className="flex gap-4 font-bold text-rose-800">
+                              <div className="flex items-center gap-2">
+                                <div className="w-6 h-6 border-2 border-rose-300 bg-white rounded-full"></div> Yes
+                              </div>
+                              <div className="flex items-center gap-2">
+                                <div className="w-6 h-6 border-2 border-rose-300 bg-white rounded-full"></div> No
+                              </div>
+                            </div>
+                          </div>
+                        ))}
+                      </div>
+                    </WorksheetSectionWrapper>
+                  )
+                })()
+              }
+
+              {
+                activeDocs.includes('classifying-shapes') && (() => {
+                  const docId = 'classifying-shapes'
+                  const rng = makeRng(`${effectiveSeed}|v${variant}|doc=${doc}`)
+
+                  const problems = Array.from({ length: 6 }, () => {
+                    const shapes = ['Rectangle', 'Square', 'Trapezoid', 'Rhombus', 'Parallelogram', 'Right Triangle']
+                    const shape = shapes[Math.floor(rng() * shapes.length)]
+                    return { shape }
+                  })
+
+                  return (
+                    <WorksheetSectionWrapper
+                      docId={docId}
+                      title="Shape Detective: Classify"
+                      emoji="🕵️‍♂️"
+                      description="Identify the polygon. Write its name!"
+                      problemCount={problems.length}
+                      learningObjectives={['Classify 2D figures based on properties', 'Identify quadrilaterals and triangles', 'Recognize right angles and parallel sides']}
+                      parentTeacherTips={['Square: 4 equal sides, 4 right angles.', 'Rectangle: 4 right angles, opposite sides equal.', 'Trapezoid: Only 1 pair of parallel sides.', 'Rhombus: 4 equal sides, no right angles necessary.']}
+                    >
+                      <div className="print:hidden h-1 w-full rounded-full bg-gradient-to-r from-blue-600 to-indigo-700 animate-gradient-x mb-4" />
+                      <div className="grid grid-cols-2 gap-6">
+                        {problems.map((p, i) => (
+                          <div key={i} className="flex flex-col items-center p-4 border border-blue-300 rounded-lg bg-white relative">
+                            <div className="absolute top-2 right-2 text-2xl">🔍</div>
+                            <div className="w-32 h-32 flex items-center justify-center mb-4">
+                              <svg width="100" height="100" viewBox="0 0 100 100">
+                                <g stroke="#1e3a8a" strokeWidth="3" fill="#dbeafe">
+                                  {p.shape === 'Square' && <rect x="25" y="25" width="50" height="50" />}
+                                  {p.shape === 'Rectangle' && <rect x="15" y="30" width="70" height="40" />}
+                                  {p.shape === 'Rhombus' && <path d="M50 10 L80 50 L50 90 L20 50 Z" />}
+                                  {p.shape === 'Parallelogram' && <path d="M30 30 L80 30 L70 70 L20 70 Z" />}
+                                  {p.shape === 'Trapezoid' && <path d="M30 30 L70 30 L90 70 L10 70 Z" />}
+                                  {p.shape === 'Right Triangle' && <path d="M30 20 L30 80 L80 80 Z" />}
+                                </g>
+                              </svg>
+                            </div>
+                            <div className="w-full border-b-2 border-slate-300 my-2"></div>
+                            <div className="h-4 w-full"></div>
+                          </div>
+                        ))}
+                      </div>
+                      {showAnswersForDoc(docId, () => (
+                        <div className="mt-4 p-2 bg-blue-100 rounded text-center text-xs">
+                          {problems.map((p, i) => `${p.shape}`).join(' | ')}
+                        </div>
+                      ))}
+                    </WorksheetSectionWrapper>
+                  )
+                })()
+              }
+
+              {
+                activeDocs.includes('area-perimeter-4th') && (() => {
+                  const docId = 'area-perimeter-4th'
+                  const rng = makeRng(`${effectiveSeed}|v${variant}|doc=${doc}`)
+
+                  const problems = Array.from({ length: 4 }, () => {
+                    const l = Math.floor(rng() * 8) + 3
+                    const w = Math.floor(rng() * (l - 1)) + 2
+                    return { l, w, area: l * w, perim: 2 * (l + w) }
+                  })
+
+                  return (
+                    <WorksheetSectionWrapper
+                      docId={docId}
+                      title="Garden Ops: Area & Perimeter"
+                      emoji="🌻"
+                      description="Calculate the Area and Perimeter of each garden plot."
+                      problemCount={problems.length}
+                      learningObjectives={['Apply formulas for area and perimeter of rectangles', 'Distinguish between area and perimeter', 'Solve real-world measurement problems']}
+                      parentTeacherTips={['Area = Length × Width (space inside).', 'Perimeter = Length + Width + Length + Width (distance around).', 'Walking around the garden vs. Planting measurement.']}
+                    >
+                      <div className="print:hidden h-1 w-full rounded-full bg-gradient-to-r from-yellow-400 to-green-500 animate-gradient-x mb-4" />
+                      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        {problems.map((p, i) => (
+                          <div key={i} className="flex gap-4 p-4 border-2 border-green-600 rounded-lg bg-green-50">
+                            <div className="w-32 flex-shrink-0 flex items-center justify-center">
+                              <div className="relative border-4 border-amber-800 bg-green-200" style={{
+                                width: `${Math.min(120, p.l * 10)}px`,
+                                height: `${Math.min(100, p.w * 10)}px`
+                              }}>
+                                <div className="absolute -top-6 w-full text-center font-bold text-amber-900">{p.l} m</div>
+                                <div className="absolute -left-8 h-full flex items-center font-bold text-amber-900">{p.w} m</div>
+                                <div className="w-full h-full flex flex-wrap content-start p-1 opacity-30">
+                                  {Array.from({ length: 6 }).map((_, k) => <div key={k} className="text-[8px]">🥕</div>)}
+                                </div>
+                              </div>
+                            </div>
+                            <div className="flex flex-col justify-center flex-grow gap-4">
+                              <div>
+                                <span className="font-bold text-green-800 block text-sm">Perimeter (P):</span>
+                                <div className="border-b border-green-800 w-full h-6"></div>
+                              </div>
+                              <div>
+                                <span className="font-bold text-green-800 block text-sm">Area (A):</span>
+                                <div className="border-b border-green-800 w-full h-6"></div>
+                              </div>
+                            </div>
+                          </div>
+                        ))}
+                      </div>
+                      {showAnswersForDoc(docId, () => (
+                        <div className="mt-4 p-2 bg-green-100 rounded text-center text-xs">
+                          {problems.map((p, i) => `Plot ${i + 1}: P=${p.perim}m, A=${p.area}sq m`).join(' | ')}
+                        </div>
+                      ))}
+                    </WorksheetSectionWrapper>
+                  )
+                })()
+              }
+
+              {/* 4th Grade Measurement & Data (Batch 4) */ }
+              {
+                activeDocs.includes('converting-units') && (() => {
+                  const docId = 'converting-units'
+                  const rng = makeRng(`${effectiveSeed}|v${variant}|doc=${doc}`)
+
+                  const problems = Array.from({ length: 8 }, () => {
+                    const category = ['length', 'weight', 'liquid'][Math.floor(rng() * 3)]
+                    let q, a, unit1, unit2, ratio;
+
+                    if (category === 'length') {
+                      if (rng() > 0.5) { [unit1, unit2, ratio] = ['ft', 'in', 12]; }
+                      else { [unit1, unit2, ratio] = ['m', 'cm', 100]; }
+                    } else if (category === 'weight') {
+                      if (rng() > 0.5) { [unit1, unit2, ratio] = ['lb', 'oz', 16]; }
+                      else { [unit1, unit2, ratio] = ['kg', 'g', 1000]; }
+                    } else {
+                      if (rng() > 0.5) { [unit1, unit2, ratio] = ['gal', 'qt', 4]; }
+                      else { [unit1, unit2, ratio] = ['L', 'mL', 1000]; }
+                    }
+
+                    const val = Math.floor(rng() * 10) + 1
+                    // Swap direction half the time? No, usually convert Larger to Smaller in 4th Grade.
+                    // 4th grade standard: "Express measurements in a larger unit in terms of a smaller unit."
+                    q = `${val} ${unit1}`
+                    a = val * ratio
+                    return { q, a, unit2 }
+                  })
+
+                  return (
+                    <WorksheetSectionWrapper
+                      docId={docId}
+                      title="Unit University: Conversions"
+                      emoji="📏"
+                      description="Convert the measurements to the smaller unit."
+                      problemCount={problems.length}
+                      learningObjectives={['Convert units of measure (km, m, cm; kg, g; lb, oz; l, ml; hr, min, sec)', 'Understand relative sizes of measurement units', 'Use multiplication to convert larger units to smaller units']}
+                      parentTeacherTips={['1 foot = 12 inches', '1 kg = 1000 g', '1 meter = 100 cm', '1 pound = 16 ounces', '1 gallon = 4 quarts']}
+                    >
+                      <div className="print:hidden h-1 w-full rounded-full bg-gradient-to-r from-orange-400 to-red-500 animate-gradient-x mb-4" />
+                      <div className="grid grid-cols-2 gap-4">
+                        {problems.map((p, i) => (
+                          <div key={i} className="flex items-center justify-between p-4 border-b-2 border-orange-100 bg-orange-50 rounded-lg">
+                            <span className="text-xl font-bold text-slate-700">{p.q} = </span>
+                            <div className="flex items-end gap-2">
+                              <span className="w-24 border-b-2 border-slate-400 h-8"></span>
+                              <span className="text-lg font-bold text-slate-600">{p.unit2}</span>
+                            </div>
+                          </div>
+                        ))}
+                      </div>
+                      {showAnswersForDoc(docId, () => (
+                        <div className="mt-4 p-2 bg-orange-100 rounded text-center text-xs">
+                          {problems.map((p, i) => `${p.q} = ${p.a} ${p.unit2}`).join(' | ')}
+                        </div>
+                      ))}
+                    </WorksheetSectionWrapper>
+                  )
+                })()
+              }
+
+              {
+                activeDocs.includes('line-plots-4th') && (() => {
+                  const docId = 'line-plots-4th'
+                  const rng = makeRng(`${effectiveSeed}|v${variant}|doc=${doc}`)
+
+                  const problems = Array.from({ length: 2 }, () => {
+                    // Generate a dataset
+                    const denominator = [2, 4, 8][Math.floor(rng() * 3)]
+                    const count = 10
+                    const data = Array.from({ length: count }, () => Math.floor(rng() * 8) + 1).map(n => {
+                      // Keep simple fractions < 1 or mixed numbers? Simple < 1 for now or 1-something.
+                      // Let's stick to 1/8, ... 8/8.
+                      return n; // numerators
+                    }).sort((a, b) => a - a) // Don't sort, random list looks better for "raw data"
+
+                    // Questions
+                    const threshold = Math.floor(rng() * 4) + 2
+                    const ans = data.filter(d => d > threshold).length
+
+                    return { denominator, data, threshold, ans }
+                  })
+
+                  return (
+                    <WorksheetSectionWrapper
+                      docId={docId}
+                      title="Data Garden: Line Plots"
+                      emoji="📊"
+                      description="Create a line plot for the data set, then answer the question."
+                      problemCount={problems.length}
+                      learningObjectives={['Represent data on a line plot', 'Interpret data from a line plot', 'Solve problems using data presented in line plots']}
+                      parentTeacherTips={['Mark an X for each number in the list.', 'Stack Xs vertically if a number appears more than once.', 'Ensure the scale is evenly spaced.']}
+                    >
+                      <div className="print:hidden h-1 w-full rounded-full bg-gradient-to-r from-teal-400 to-emerald-500 animate-gradient-x mb-4" />
+                      <div className="flex flex-col gap-10">
+                        {problems.map((p, i) => (
+                          <div key={i} className="p-4 border-2 border-teal-200 rounded-lg bg-white">
+                            <div className="mb-4">
+                              <h4 className="font-bold text-teal-900 mb-2">Plant Heights (in {p.denominator === 2 ? 'halves' : p.denominator === 4 ? 'fourths' : 'eighths'} of an inch):</h4>
+                              <div className="flex flex-wrap gap-2 text-sm font-mono text-slate-700 bg-slate-100 p-2 rounded">
+                                {p.data.map((n, k) => (
+                                  <span key={k}>{n}/{p.denominator}{k < p.data.length - 1 ? ',' : ''}</span>
+                                ))}
+                              </div>
+                            </div>
+
+                            {/* Empty Line Plot */}
+                            <div className="h-32 border-b-2 border-slate-800 relative mt-8 mx-4">
+                              <div className="absolute top-0 right-0 text-xs text-slate-500">Plot the data here with Xs</div>
+                              <div className="absolute w-full bottom-[-20px] flex justify-between text-xs font-bold text-slate-700">
+                                {Array.from({ length: 9 }).map((_, k) => (
+                                  <div key={k} className="flex flex-col items-center" style={{ width: '20px' }}>
+                                    <div className="h-2 w-0.5 bg-slate-800 mb-1"></div>
+                                    <span>{k}/{p.denominator}</span>
+                                  </div>
+                                ))}
+                              </div>
+                            </div>
+
+                            <div className="mt-10 flex gap-2 items-end">
+                              <span className="text-sm font-bold text-slate-800">Q: How many plants are taller than {p.threshold}/{p.denominator}?</span>
+                              <span className="border-b-2 border-slate-300 w-16"></span>
+                            </div>
+                          </div>
+                        ))}
+                      </div>
+                      {showAnswersForDoc(docId, () => (
+                        <div className="mt-4 p-2 bg-teal-100 rounded text-center text-xs">
+                          {problems.map((p, i) => `Q${i + 1}: ${p.ans}`).join(' | ')}
+                        </div>
+                      ))}
+                    </WorksheetSectionWrapper>
+                  )
+                })()
+              }
+
+              {
+                activeDocs.includes('time-word-problems') && (() => {
+                  const docId = 'time-word-problems'
+                  const rng = makeRng(`${effectiveSeed}|v${variant}|doc=${doc}`)
+
+                  const problems = Array.from({ length: 4 }, () => {
+                    // Elapsed time
+                    const startH = Math.floor(rng() * 12) + 1
+                    const startM = Math.floor(rng() * 4) * 15 // 00, 15, 30, 45
+                    const durH = Math.floor(rng() * 3) + 1
+                    const durM = Math.floor(rng() * 4) * 15
+
+                    // Calculate end
+                    let endM = startM + durM
+                    let carryH = Math.floor(endM / 60)
+                    endM = endM % 60
+                    let endH = startH + durH + carryH
+                    if (endH > 12) endH -= 12; // Simple 12-hr wrap, ignore AM/PM switch complexity for simplicty unless specified
+
+                    const q = `Start time: ${startH}:${startM.toString().padStart(2, '0')}. Elapsed time: ${durH} hr ${durM} min. End time?`
+                    const a = `${endH}:${endM.toString().padStart(2, '0')}`
+
+                    return { startH, startM, durH, durM, q, a }
+                  })
+
+                  return (
+                    <WorksheetSectionWrapper
+                      docId={docId}
+                      title="Time Travel: Elapsed Time"
+                      emoji="🕰️"
+                      description="Calculate the end time for each time travel journey."
+                      problemCount={problems.length}
+                      learningObjectives={['Solve word problems involving addition and subtraction of time intervals', 'Represent measuring time with clocks', 'Calculate elapsed time']}
+                      parentTeacherTips={['Add minutes first, then hours.', 'If minutes > 60, subtract 60 and add 1 hour.', 'Use a number line to jump forward in time.']}
+                    >
+                      <div className="print:hidden h-1 w-full rounded-full bg-gradient-to-r from-indigo-400 to-purple-500 animate-gradient-x mb-4" />
+                      <div className="grid grid-cols-2 gap-6">
+                        {problems.map((p, i) => (
+                          <div key={i} className="flex flex-col items-center p-4 border-2 border-indigo-200 rounded-lg bg-indigo-50">
+                            <div className="text-4xl mb-2">🚀</div>
+                            <div className="text-sm font-bold text-indigo-900 mb-1">Depart: {p.startH}:{p.startM.toString().padStart(2, '0')}</div>
+                            <div className="text-xs text-indigo-700 mb-4">+ {p.durH} hr {p.durM} min</div>
+
+                            <div className="w-full flex items-center justify-between px-4">
+                              <span className="font-bold text-slate-700">Arrive:</span>
+                              <div className="w-24 h-10 border-2 border-slate-400 bg-white rounded flex items-center justify-center text-xl font-mono">
+                                :
+                              </div>
+                            </div>
+                          </div>
+                        ))}
+                      </div>
+                      {showAnswersForDoc(docId, () => (
+                        <div className="mt-4 p-2 bg-indigo-100 rounded text-center text-xs">
+                          {problems.map((p, i) => `${p.a}`).join(' | ')}
+                        </div>
+                      ))}
+                    </WorksheetSectionWrapper>
+                  )
+                })()
+              }
+
+              {
+                activeDocs.includes('money-word-problems') && (() => {
+                  const docId = 'money-word-problems'
+                  const rng = makeRng(`${effectiveSeed}|v${variant}|doc=${doc}`)
+
+                  const problems = Array.from({ length: 4 }, () => {
+                    // Shopping
+                    const price = (Math.floor(rng() * 1000) + 50) / 100 // 0.50 to 10.50
+                    const paid = Math.ceil(price / 5) * 5 + (rng() > 0.5 ? 5 : 0) // Next 5 or 10 dollar bill
+                    if (paid === price) paid += 5;
+
+                    const change = (paid - price).toFixed(2)
+
+                    return { price: price.toFixed(2), paid: paid.toFixed(2), change }
+                  })
+
+                  return (
+                    <WorksheetSectionWrapper
+                      docId={docId}
+                      title="Market Day: Making Change"
+                      emoji="🏪"
+                      description="You went shopping! Calculate how much change you get back."
+                      problemCount={problems.length}
+                      learningObjectives={['Solve word problems involving money', 'Decimals to hundredths', 'Subtracting decimals in context']}
+                      parentTeacherTips={['Line up the decimal points.', 'Subtract carefully.', 'Check by adding the change back to the price.']}
+                    >
+                      <div className="print:hidden h-1 w-full rounded-full bg-gradient-to-r from-green-600 to-emerald-600 animate-gradient-x mb-4" />
+                      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        {problems.map((p, i) => (
+                          <div key={i} className="flex gap-4 p-4 border border-green-300 rounded-lg bg-green-50">
+                            <div className="text-3xl flex items-center">🍎</div>
+                            <div className="flex-grow">
+                              <div className="flex justify-between text-sm mb-1">
+                                <span>Total Cost:</span>
+                                <span className="font-bold text-red-600">-${p.price}</span>
+                              </div>
+                              <div className="flex justify-between text-sm mb-2">
+                                <span>Amount Paid:</span>
+                                <span className="font-bold text-green-700">${p.paid}</span>
+                              </div>
+                              <div className="border-t border-slate-400 pt-2 flex justify-between items-center">
+                                <span className="font-bold text-slate-800">Change:</span>
+                                <div className="w-24 border-b-2 border-slate-800 text-right font-mono pr-1">$</div>
+                              </div>
+                            </div>
+                          </div>
+                        ))}
+                      </div>
+                      {showAnswersForDoc(docId, () => (
+                        <div className="mt-4 p-2 bg-green-100 rounded text-center text-xs">
+                          {problems.map((p, i) => `$${p.change}`).join(' | ')}
+                        </div>
+                      ))}
+                    </WorksheetSectionWrapper>
+                  )
+                })()
+              }
+
+              {
+                activeDocs.includes('angle-measurement') && (() => {
+                  const docId = 'angle-measurement'
+                  const rng = makeRng(`${effectiveSeed}|v${variant}|doc=${doc}`)
+
+                  const problems = Array.from({ length: 4 }, () => {
+                    const angle = Math.floor(rng() * 16) * 10 + 10 // 10, 20... 170
+                    const isLeftAligned = rng() > 0.5
+                    return { angle, isLeftAligned }
+                  })
+
+                  return (
+                    <WorksheetSectionWrapper
+                      docId={docId}
+                      title="Protractor Pro: Measurement"
+                      emoji="📐"
+                      description="Read the protractor to find the measure of each angle."
+                      problemCount={problems.length}
+                      learningObjectives={['Measure angles in whole-number degrees using a protractor', 'Read a protractor scale', 'Understand measurement concepts']}
+                      parentTeacherTips={['Line up the vertex with the center hole.', 'Line up the bottom ray with the zero line.', 'Read the scale that starts at 0 on the bottom ray.']}
+                    >
+                      <div className="print:hidden h-1 w-full rounded-full bg-gradient-to-r from-blue-400 to-cyan-500 animate-gradient-x mb-4" />
+                      <div className="flex flex-col gap-8">
+                        {problems.map((p, i) => (
+                          <div key={i} className="flex flex-col items-center p-4 border border-slate-200 rounded-lg">
+                            <div className="relative w-[300px] h-[160px]">
+                              <svg width="300" height="160" viewBox="0 0 300 160">
+                                {/* Protractor Semi-circle */}
+                                <path d="M 10 150 A 140 140 0 0 1 290 150 Z" fill="#ffffff" stroke="#94a3b8" strokeWidth="1" opacity="0.8" />
+                                <path d="M 10 150 L 290 150" stroke="#94a3b8" strokeWidth="1" />
+                                <circle cx="150" cy="150" r="5" fill="none" stroke="#94a3b8" />
+
+                                {/* Ticks and Labels */}
+                                {Array.from({ length: 19 }).map((_, k) => {
+                                  const deg = k * 10;
+                                  const rad = (deg * Math.PI) / 180;
+                                  const x1 = 150 - 130 * Math.cos(rad);
+                                  const y1 = 150 - 130 * Math.sin(rad);
+                                  const x2 = 150 - 140 * Math.cos(rad);
+                                  const y2 = 150 - 140 * Math.sin(rad);
+                                  return (
+                                    <g key={k}>
+                                      <line x1={x1} y1={y1} x2={x2} y2={y2} stroke="#cbd5e1" strokeWidth="1" />
+                                      {k % 3 === 0 && k !== 0 && k !== 18 && (
+                                        <text x={150 - 120 * Math.cos(rad)} y={150 - 120 * Math.sin(rad)} fontSize="8" textAnchor="middle" fill="#64748b">{deg}</text>
+                                      )}
+                                    </g>
+                                  )
+                                })}
+
+                                {/* The Angle Rays */}
+                                <line x1="150" y1="150" x2={p.isLeftAligned ? 280 : 20} y2="150" stroke="#000" strokeWidth="3" />
+                                <line x1="150" y1="150" x2={150 + 130 * Math.cos((p.isLeftAligned ? -p.angle : -(180 - p.angle)) * Math.PI / 180)} y2={150 + 130 * Math.sin((p.isLeftAligned ? -p.angle : -(180 - p.angle)) * Math.PI / 180)} stroke="#000" strokeWidth="3" />
+                              </svg>
+                            </div>
+                            <div className="flex gap-2 items-center mt-2">
+                              <span className="font-bold text-lg">Angle = </span>
+                              <span className="w-16 h-8 border-b-2 border-slate-800"></span>
+                              <span className="font-bold">°</span>
+                            </div>
+                          </div>
+                        ))}
+                      </div>
+                      {showAnswersForDoc(docId, () => (
+                        <div className="mt-4 p-2 bg-blue-100 rounded text-center text-xs">
+                          {problems.map((p, i) => `${p.angle}°`).join(' | ')}
+                        </div>
+                      ))}
+                    </WorksheetSectionWrapper>
+                  )
+                })()
+              }
+
               {
                 activeDocs.includes('long-division-2digit') && (() => {
                   const rng = makeRng(`${effectiveSeed}|v${variant}|doc=${doc}`);
