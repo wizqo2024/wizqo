@@ -37826,6 +37826,7 @@ export function PrintablesPage() {
                 })()
               }
 
+              {
                 activeDocs.includes('perimeter-shapes') && (() => {
                   const rng = makeRng(`${effectiveSeed}|v${variant}|doc=${doc}`);
                   function nextInt(min: number, max: number) { return Math.floor(rng() * (max - min + 1)) + min; }
@@ -38054,6 +38055,7 @@ export function PrintablesPage() {
                   );
                 })()
               }
+              {
                 activeDocs.includes('time-to-minute') && (() => {
                   const times = ['8:15', '2:30', '10:45', '5:20', '12:05', '3:55'];
                   const renderClockTheme = (time: string, seed: number) => {
@@ -38936,6 +38938,7 @@ export function PrintablesPage() {
                   );
                 })()
               }
+              {
                 activeDocs.includes('perimeter-area-word-problems') && (() => {
                   const rng = makeRng(`${effectiveSeed}|v${variant}|doc=${doc}`);
                   function nextInt(min: number, max: number) { return Math.floor(rng() * (max - min + 1)) + min; }
