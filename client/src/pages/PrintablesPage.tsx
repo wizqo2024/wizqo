@@ -27022,7 +27022,7 @@ export function PrintablesPage() {
                                   {/* Angle Arc */}
                                   <path d={`M 65 50 A 15 15 0 0 1 ${50 + 15 * Math.cos(p.angleDeg * Math.PI / 180)} ${50 + 15 * Math.sin(p.angleDeg * Math.PI / 180)}`} fill="none" stroke="#facc15" strokeWidth="2" />
                                   {p.type === 'right' && (
-                                    <path d="M 60 50 L 60 60 L 50 60" transform={`rotate(${p.angleDeg} 50 50)`} fill="none" stroke="#facc15" strokeWidth="2" opacity="0" /> /* Visual square for right angle if standard orientation, strictly simplified arc here */
+                                    <path d="M 60 50 L 60 60 L 50 60" transform={`rotate(${p.angleDeg} 50 50)`} fill="none" stroke="#facc15" strokeWidth="2" opacity="0" />
                                   )}
                                 </g>
                               </svg>
