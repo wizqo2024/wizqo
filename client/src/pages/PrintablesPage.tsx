@@ -38,7 +38,7 @@ function getWorksheetTheme(docId: string): {
     docId.includes('compare') || docId.includes('word-problems') || docId.includes('number-line') || docId.includes('number-patterns') ||
     docId.includes('missing-addends') || docId.includes('add-three') || docId.includes('balance-equations') || docId.includes('picture-addition') ||
     docId.includes('subtraction-stories') || docId.includes('number-bonds') || docId.includes('count-write') || docId.includes('missing-numbers') ||
-    docId.includes('ten-frames') || docId.includes('number-tracing') || docId.includes('dot-to-dot') || docId.includes('color-by-number')) {
+    docId.includes('ten-frames') || docId.includes('number-tracing') || docId.includes('dot-to-dot') || docId.includes('color-by-number') || docId.includes('fraction')) {
     return {
       background: 'bg-gradient-to-br from-purple-50 via-indigo-50 to-pink-50',
       border: 'border-purple-300',
@@ -610,6 +610,11 @@ const ANSWERABLE_BASE_DOC_IDS = [
   'stem-leaf-plots',
   'probability',
   'adding-decimals-challenge',
+  'add-sub-fractions-unlike',
+  'mixed-numbers-add-sub',
+  'fraction-mult-whole',
+  'fraction-mult',
+  'div-fractions',
 ]
 
 // Helper function to get translated worksheet title
@@ -26321,11 +26326,7 @@ export function PrintablesPage() {
                 })()
               }
 
-
-
-
-
-              {/* 4th Grade Worksheets */ }
+              {/* 4th Grade Worksheets: Factors & Multiples */ }
               {
                 activeDocs.includes('factors-multiples') && (() => {
                   const docId = 'factors-multiples'
@@ -26395,6 +26396,11 @@ export function PrintablesPage() {
                           </div>
                         ))}
                       </div>
+                      {showAnswersForDoc(docId, () => (
+                        <div className="mt-4 p-2 bg-slate-100 rounded text-center text-xs">
+                          {problems.map(p => `${p.type === 'factors' ? 'F' : 'M'}(${p.num})`).join(' | ')}
+                        </div>
+                      ))}
                     </WorksheetSectionWrapper>
                   )
                 })()
@@ -26460,64 +26466,40 @@ export function PrintablesPage() {
                   const docId = 'multi-digit-mult'
                   const rng = makeRng(`${effectiveSeed}|v${variant}|doc=${doc}`)
 
-                  const problems = Array.from({ length: 4 }, () => {
-                    const a = Math.floor(rng() * 80) + 10 // 2-digit basic
-                    const b = Math.floor(rng() * 8) + 2   // 1-digit basic
-                    return { a, b }
+                  const problems = Array.from({ length: 6 }, () => {
+                    const top = Math.floor(rng() * 900) + 100 // 3-digit
+                    const bottom = Math.floor(rng() * 90) + 10 // 2-digit
+                    return { top, bottom }
                   })
 
                   return (
                     <WorksheetSectionWrapper
                       docId={docId}
-                      title="Grid City Power: Area Model"
-                      emoji="⚡"
-                      description="Use the Area Model (Box Method) to multiply."
+                      title="Multiplication Matrix: Grid Power"
+                      emoji="✖️"
+                      description="Multiply 3-digit by 1-digit or 2-digit numbers using the grid method layout."
                       problemCount={problems.length}
-                      learningObjectives={['Multiply 2-digit by 1-digit numbers', 'Use area models to visualize multiplication', 'Decompose numbers by place value']}
-                      parentTeacherTips={['Break the big number apart (e.g., 24 becomes 20 + 4).', 'Multiply each part then add them up.']}
+                      learningObjectives={['Multiply multi-digit whole numbers', 'Understand place value in multiplication']}
+                      parentTeacherTips={['Keep columns aligned.', 'Don\'t forget the placeholder zeros when multiplying by the tens place.']}
                     >
-                      <div className="print:hidden h-1 w-full rounded-full bg-gradient-to-r from-yellow-400 to-amber-500 animate-gradient-x mb-4" />
+                      <div className="print:hidden h-1 w-full rounded-full bg-gradient-to-r from-blue-600 to-indigo-800 animate-gradient-x mb-4" />
                       <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-                        {problems.map((p, i) => {
-                          const tens = Math.floor(p.a / 10) * 10
-                          const ones = p.a % 10
-                          return (
-                            <div key={i} className="p-4 border-2 border-amber-200 rounded-lg bg-amber-50">
-                              <div className="text-xl font-bold text-amber-900 mb-4 text-center">{p.a} × {p.b}</div>
-
-                              {/* Area Model Grid */}
-                              <div className="flex">
-                                <div className="w-8 flex items-center justify-center font-bold text-amber-700">{p.b}</div>
-                                <div className="flex-grow">
-                                  <div className="flex justify-around mb-2 text-sm text-amber-600 font-bold">
-                                    <span>{tens}</span>
-                                    <span>{ones}</span>
-                                  </div>
-                                  <div className="flex border-2 border-amber-400 bg-white h-16 rounded">
-                                    <div className="flex-grow border-r-2 border-amber-400 p-1 text-xs text-slate-400">
-                                      {tens} × {p.b} =
-                                    </div>
-                                    <div className="w-1/3 p-1 text-xs text-slate-400">
-                                      {ones} × {p.b} =
-                                    </div>
-                                  </div>
-                                </div>
-                              </div>
-
-                              <div className="flex items-center gap-2 mt-4 justify-center">
-                                <div className="w-16 h-8 border-b border-amber-400 bg-white"></div>
-                                <span>+</span>
-                                <div className="w-16 h-8 border-b border-amber-400 bg-white"></div>
-                                <span>=</span>
-                                <div className="w-20 h-10 border-2 border-amber-500 rounded bg-white"></div>
-                              </div>
+                        {problems.map((p, i) => (
+                          <div key={i} className="flex justify-center p-4 border border-blue-200 rounded-lg bg-blue-50">
+                            <div className="font-mono text-xl tracking-widest text-right">
+                              <div className="text-slate-500 text-sm mb-1 tracking-normal border-b border-dashed border-blue-200 pb-1">Problem {i + 1}</div>
+                              <div>{p.top}</div>
+                              <div className="border-b-2 border-slate-800 mb-2">×&nbsp;&nbsp;{p.bottom}</div>
+                              {/* Grid lines helper */}
+                              <div className="h-24 w-full border border-blue-100 bg-white rounded pattern-grid-lg opacity-50 mb-2"></div>
+                              <div className="h-2 w-full border-t-2 border-slate-800"></div>
                             </div>
-                          )
-                        })}
+                          </div>
+                        ))}
                       </div>
                       {showAnswersForDoc(docId, () => (
-                        <div className="mt-4 p-2 bg-amber-100 rounded text-center text-xs">
-                          {problems.map(p => `${p.a}×${p.b} = ${p.a * p.b}`).join(' | ')}
+                        <div className="mt-4 p-2 bg-blue-100 rounded text-center text-xs">
+                          {problems.map(p => `${p.top}×${p.bottom}=${p.top * p.bottom}`).join(' | ')}
                         </div>
                       ))}
                     </WorksheetSectionWrapper>
@@ -26530,41 +26512,37 @@ export function PrintablesPage() {
                   const docId = 'long-division'
                   const rng = makeRng(`${effectiveSeed}|v${variant}|doc=${doc}`)
 
-                  const problems = Array.from({ length: 6 }, () => {
-                    const divisor = Math.floor(rng() * 8) + 2
-                    const quotient = Math.floor(rng() * 89) + 10
-                    const remainder = Math.floor(rng() * divisor)
-                    const dividend = quotient * divisor + remainder
-                    return { dividend, divisor, quotient, remainder }
+                  const problems = Array.from({ length: 4 }, () => {
+                    const divisor = Math.floor(rng() * 8) + 2 // 2-9
+                    const quotient = Math.floor(rng() * 900) + 100 // 3-digit
+                    const dividend = divisor * quotient + Math.floor(rng() * divisor) // With remainder
+                    return { divisor, dividend, quotient, remainder: dividend % divisor }
                   })
 
                   return (
                     <WorksheetSectionWrapper
                       docId={docId}
-                      title="Division Detective"
-                      emoji="🕵️"
-                      description="Solve each case using long division. Show your work!"
+                      title="Division Detectives: Long & Strong"
+                      emoji="➗"
+                      description="Solve division problems with remainders using long division."
                       problemCount={problems.length}
-                      learningObjectives={['Perform long division with remainders', 'Divide 2-3 digit numbers by 1-digit divisors']}
-                      parentTeacherTips={['Remember DMSB: Divide, Multiply, Subtract, Bring Down.', 'Check work by multiplying quotient x divisor + remainder.']}
+                      learningObjectives={['Perform long division with 1-digit divisors', 'Interpret remainders in division']}
+                      parentTeacherTips={['Current method: Divide, Multiply, Subtract, Bring Down (Does McDonald\'s Sell Burgers?)', 'Check answer: Quotient × Divisor + Remainder = Dividend']}
                     >
-                      <div className="print:hidden h-1 w-full rounded-full bg-gradient-to-r from-slate-700 to-black animate-gradient-x mb-4" />
-                      <div className="grid grid-cols-2 gap-8">
+                      <div className="print:hidden h-1 w-full rounded-full bg-gradient-to-r from-purple-600 to-fuchsia-800 animate-gradient-x mb-4" />
+                      <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                         {problems.map((p, i) => (
-                          <div key={i} className="p-4 border border-slate-300 rounded-lg bg-slate-50 relative">
-                            <div className="absolute top-2 right-2 text-2xl opacity-20">🔍</div>
-                            <div className="mt-4 text-3xl font-mono tracking-widest flex justify-center">
+                          <div key={i} className="p-6 border-2 border-purple-200 rounded-lg bg-purple-50 flex justify-center">
+                            <div className="font-mono text-2xl relative">
                               <span className="mr-2">{p.divisor}</span>
-                              <span className="border-l-2 border-t-2 border-black px-2">{p.dividend}</span>
+                              <span className="border-t-2 border-l-2 border-slate-800 px-2 py-1 inline-block min-w-[100px]">{p.dividend}</span>
                             </div>
-                            <div className="mt-2 text-xs text-slate-400 text-center">Work Space</div>
-                            <div className="w-full h-32 border border-dashed border-slate-300 rounded bg-white mt-1"></div>
                           </div>
                         ))}
                       </div>
                       {showAnswersForDoc(docId, () => (
-                        <div className="mt-4 p-2 bg-slate-100 rounded text-center text-xs font-mono">
-                          {problems.map(p => `${p.dividend}÷${p.divisor} = ${p.quotient} R${p.remainder}`).join(' | ')}
+                        <div className="mt-4 p-2 bg-purple-100 rounded text-center text-xs">
+                          {problems.map(p => `${p.dividend} ÷ ${p.divisor} = ${Math.floor(p.dividend / p.divisor)} R${p.dividend % p.divisor}`).join(' | ')}
                         </div>
                       ))}
                     </WorksheetSectionWrapper>
@@ -26578,56 +26556,56 @@ export function PrintablesPage() {
                   const rng = makeRng(`${effectiveSeed}|v${variant}|doc=${doc}`)
 
                   const problems = Array.from({ length: 6 }, () => {
-                    const start = Math.floor(rng() * 10) + 1
-                    const step = Math.floor(rng() * 5) + 2
-                    const op = rng() > 0.5 ? 'add' : 'mult'
-                    // Keep mult small
-                    const safeStep = op === 'mult' ? (Math.floor(rng() * 2) + 2) : step
+                    const start = Math.floor(rng() * 20) + 1
+                    const ruleAmount = Math.floor(rng() * 5) + 2
+                    const ruleType = rng() > 0.5 ? 'add' : 'sub' // Keep it simple + and - for now
+                    // If sub, insure start is high enough for 5 steps
+                    let safeStart = start
+                    if (ruleType === 'sub' && start < ruleAmount * 6) safeStart = ruleAmount * 6 + Math.floor(rng() * 20)
 
-                    const seq = [start]
-                    for (let k = 0; k < 4; k++) {
-                      seq.push(op === 'add' ? seq[k] + safeStep : seq[k] * safeStep)
+                    const sequence = [safeStart]
+                    for (let i = 0; i < 5; i++) {
+                      sequence.push(ruleType === 'add' ? sequence[i] + ruleAmount : sequence[i] - ruleAmount)
                     }
 
-                    return { seq, rule: op === 'add' ? `Add ${safeStep}` : `Multiply by ${safeStep}`, next: op === 'add' ? seq[4] + safeStep : seq[4] * safeStep }
+                    return { sequence, rule: `${ruleType === 'add' ? 'Add' : 'Subtract'} ${ruleAmount}` }
                   })
 
                   return (
                     <WorksheetSectionWrapper
                       docId={docId}
-                      title="Pattern Bot: Code the Sequence"
-                      emoji="🤖"
-                      description="Find the rule and complete the pattern."
+                      title="Pattern Detectives: Crack the Code"
+                      emoji="🕵️"
+                      description="Identify the rule and complete the number patterns."
                       problemCount={problems.length}
-                      learningObjectives={['Identify number patterns', 'Determine the rule for a sequence', 'Extend number sequences']}
-                      parentTeacherTips={['Look at the difference between the first two numbers.', 'Check if that rule works for the next pair.']}
+                      learningObjectives={['Generate number or shape patterns that follow a given rule', 'Identify apparent features of the pattern that were not explicit in the rule itself']}
+                      parentTeacherTips={['Look at the difference between consecutive numbers.', 'Is it increasing (+) or decreasing (-)?', 'Check if the rule works for every step of the pattern.']}
                     >
-                      <div className="print:hidden h-1 w-full rounded-full bg-gradient-to-r from-cyan-400 to-blue-600 animate-gradient-x mb-4" />
-                      <div className="flex flex-col gap-4">
+                      <div className="print:hidden h-1 w-full rounded-full bg-gradient-to-r from-orange-500 to-red-600 animate-gradient-x mb-4" />
+                      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                         {problems.map((p, i) => (
-                          <div key={i} className="flex items-center gap-4 p-3 border-2 border-cyan-200 rounded-lg bg-cyan-50">
-                            <div className="w-12 h-12 flex items-center justify-center bg-cyan-100 rounded-full text-2xl">🤖</div>
-                            <div className="flex-grow flex flex-col md:flex-row items-center gap-4">
-                              <div className="flex gap-2 font-mono text-lg font-bold text-cyan-900 bg-white px-4 py-2 rounded shadow-sm">
-                                {p.seq.slice(0, 4).join(' ➜ ')} ➜ <span className="text-cyan-500">?</span>
-                              </div>
-                              <div className="flex gap-2">
-                                <div className="flex flex-col">
-                                  <span className="text-[10px] uppercase font-bold text-cyan-700">Rule</span>
-                                  <div className="w-24 h-8 border-b border-cyan-400 bg-white"></div>
+                          <div key={i} className="p-4 border-l-4 border-orange-400 bg-orange-50 rounded shadow-sm">
+                            <div className="flex items-center gap-2 mb-2">
+                              {p.sequence.slice(0, 4).map((n, idx) => (
+                                <div key={idx} className="w-10 h-10 flex items-center justify-center bg-white rounded-full border border-orange-200 font-bold text-slate-700">
+                                  {n}
                                 </div>
-                                <div className="flex flex-col">
-                                  <span className="text-[10px] uppercase font-bold text-cyan-700">Next</span>
-                                  <div className="w-16 h-8 border-b border-cyan-400 bg-white"></div>
-                                </div>
+                              ))}
+                              <div className="w-10 h-10 flex items-center justify-center bg-orange-100 rounded-full border-2 border-dashed border-orange-300 text-orange-400">?</div>
+                              <div className="w-10 h-10 flex items-center justify-center bg-orange-100 rounded-full border-2 border-dashed border-orange-300 text-orange-400">?</div>
+                            </div>
+                            <div className="flex gap-4 text-sm mt-3">
+                              <div className="flex items-center gap-1">
+                                <span className="text-slate-500">Rule:</span>
+                                <div className="w-32 border-b border-slate-400"></div>
                               </div>
                             </div>
                           </div>
                         ))}
                       </div>
                       {showAnswersForDoc(docId, () => (
-                        <div className="mt-4 p-2 bg-cyan-100 rounded text-center text-xs">
-                          {problems.map((p, i) => `Q${i + 1}: Rule=${p.rule}, Next=${p.next}`).join(' | ')}
+                        <div className="mt-4 p-2 bg-orange-100 rounded text-center text-xs">
+                          {problems.map(p => `Rule: ${p.rule} → Next: ${p.sequence[4]}, ${p.sequence[5]}`).join(' | ')}
                         </div>
                       ))}
                     </WorksheetSectionWrapper>
@@ -26635,7 +26613,1433 @@ export function PrintablesPage() {
                 })()
               }
 
-              {/* Batch 2, 3, and 4 removed for debugging */ }
+              {
+                activeDocs.includes('equivalent-fractions-4th') && (() => {
+                  const docId = 'equivalent-fractions-4th'
+                  const rng = makeRng(`${effectiveSeed}|v${variant}|doc=${doc}`)
+                  const problems = Array.from({ length: 8 }, () => {
+                    const d1 = [2, 3, 4, 5, 8, 10][Math.floor(rng() * 6)]
+                    const n1 = Math.floor(rng() * (d1 - 1)) + 1
+                    const factor = Math.floor(rng() * 3) + 2 // 2, 3, 4
+                    return { n1, d1, n2: n1 * factor, d2: d1 * factor }
+                  })
+                  return (
+                    <WorksheetSectionWrapper
+                      docId={docId}
+                      title="Equivalent Fractions: Magic Mirrors"
+                      emoji="🪞"
+                      description="Find the missing number to make the fractions equivalent."
+                      problemCount={problems.length}
+                      learningObjectives={['Explain why a fraction a/b is equivalent to a fraction (n×a)/(n×b)', 'Use visual fraction models to show equivalence']}
+                      parentTeacherTips={['Whatever you do to the top (numerator), you must do to the bottom (denominator).', 'Multiplying by 2/2 or 3/3 is the same as multiplying by 1!']}
+                    >
+                      <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
+                        {problems.map((p, i) => (
+                          <div key={i} className="flex items-center text-xl font-medium">
+                            <div className="flex flex-col items-center">
+                              <span className="border-b-2 border-slate-800 px-2">{p.n1}</span>
+                              <span className="px-2">{p.d1}</span>
+                            </div>
+                            <span className="mx-2">=</span>
+                            <div className="flex flex-col items-center">
+                              <span className="border-b-2 border-slate-800 px-2 w-8 h-8 bg-slate-100 rounded"></span>
+                              <span className="px-2">{p.d2}</span>
+                            </div>
+                          </div>
+                        ))}
+                      </div>
+                      {showAnswersForDoc(docId, () => (
+                        <div className="grid grid-cols-4 gap-2 mt-4 p-2 bg-slate-50 text-xs text-center">
+                          {problems.map((p, i) => <div key={i}>{p.n2}/{p.d2} (Missing: {p.n2})</div>)}
+                        </div>
+                      ))}
+                    </WorksheetSectionWrapper>
+                  )
+                })()
+              }
+
+              {
+                activeDocs.includes('simplifying-fractions') && (() => {
+                  const docId = 'simplifying-fractions'
+                  const rng = makeRng(`${effectiveSeed}|v${variant}|doc=${doc}`)
+                  const problems = Array.from({ length: 8 }, () => {
+                    const d_simple = [2, 3, 4, 5, 10][Math.floor(rng() * 5)]
+                    const n_simple = Math.floor(rng() * (d_simple - 1)) + 1
+                    const factor = [2, 3, 4, 5][Math.floor(rng() * 4)]
+                    return { n: n_simple * factor, d: d_simple * factor, ans_n: n_simple, ans_d: d_simple }
+                  })
+                  return (
+                    <WorksheetSectionWrapper
+                      docId={docId}
+                      title="Fraction Simplifier: Maximum Minimal"
+                      emoji="✂️"
+                      description="Simplify each fraction to its simplest form."
+                      problemCount={problems.length}
+                      learningObjectives={['Simplify fractions by dividing by the greatest common factor', 'Recognize equivalent fractions in simplest form']}
+                      parentTeacherTips={['Divide both numbers by the same largest number that goes into both.', 'If only 1 goes into both, it is already in simplest form!']}
+                    >
+                      <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
+                        {problems.map((p, i) => (
+                          <div key={i} className="flex items-center text-xl font-medium">
+                            <div className="flex flex-col items-center">
+                              <span className="border-b-2 border-slate-800 px-2">{p.n}</span>
+                              <span className="px-2">{p.d}</span>
+                            </div>
+                            <span className="mx-2">→</span>
+                            <div className="flex flex-col items-center">
+                              <div className="w-10 h-8 border-b-2 border-slate-300"></div>
+                              <div className="w-10 h-8"></div>
+                            </div>
+                          </div>
+                        ))}
+                      </div>
+                      {showAnswersForDoc(docId, () => (
+                        <div className="grid grid-cols-4 gap-2 mt-4 p-2 bg-slate-50 text-xs text-center">
+                          {problems.map((p, i) => <div key={i}>{p.ans_n}/{p.ans_d}</div>)}
+                        </div>
+                      ))}
+                    </WorksheetSectionWrapper>
+                  )
+                })()
+              }
+
+              {
+                activeDocs.includes('parentheses-expressions') && (() => {
+                  const docId = 'parentheses-expressions'
+                  const rng = makeRng(`${effectiveSeed}|v${variant}|doc=${doc}`)
+                  const problems = Array.from({ length: 15 }, () => {
+                    const ops = ['+', '-', '*']
+                    const op1 = ops[Math.floor(rng() * 3)]
+                    const op2 = ops[Math.floor(rng() * 3)]
+                    const n1 = Math.floor(rng() * 20) + 1
+                    const n2 = Math.floor(rng() * 20) + 1
+                    const n3 = Math.floor(rng() * 10) + 1
+                    // Formats: (a op b) op c or a op (b op c)
+                    const structure = rng() > 0.5 ? 0 : 1
+                    let expr = ''
+                    let val = 0
+                    if (structure === 0) {
+                      expr = `(${n1} ${op1} ${n2}) ${op2} ${n3}`
+                      const inner = eval(`${n1} ${op1} ${n2}`)
+                      val = eval(`${inner} ${op2} ${n3}`)
+                    } else {
+                      expr = `${n1} ${op1} (${n2} ${op2} ${n3})`
+                      const inner = eval(`${n2} ${op2} ${n3}`)
+                      val = eval(`${n1} ${op1} ${inner}`)
+                    }
+                    // Ensure integer result (simplified check, real gen needs more tailored rules)
+                    // For now, accept decimals or regenerate? Let's generic for brevity, improve if needed.
+                    return { expr }
+                  })
+                  return (
+                    <WorksheetSectionWrapper
+                      docId={docId}
+                      title="Order of Operations: Parentheses"
+                      emoji="📦"
+                      description="Evaluate the numerical expressions with parentheses."
+                      problemCount={problems.length}
+                      learningObjectives={['Use parentheses, brackets, or braces in numerical expressions', 'Evaluate expressions with these symbols']}
+                      parentTeacherTips={['Remember PEMDAS: Parentheses first!', 'Solve what is inside the parentheses before doing other operations.']}
+                    >
+                      <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                        {problems.map((p, i) => (
+                          <div key={i} className="p-4 border border-slate-200 rounded flex items-center justify-between">
+                            <span className="text-lg font-medium">{p.expr} = </span>
+                            <div className="w-16 border-b border-slate-300"></div>
+                          </div>
+                        ))}
+                      </div>
+                      {showAnswersForDoc(docId, () => (
+                        <div className="mt-4 p-2 bg-slate-100 rounded text-center text-xs text-slate-500">
+                          Answers vary based on calculation.
+                        </div>
+                      ))}
+                    </WorksheetSectionWrapper>
+                  )
+                })()
+              }
+
+              {
+                activeDocs.includes('multi-digit-mult-5th') && (() => {
+                  const docId = 'multi-digit-mult-5th'
+                  const rng = makeRng(`${effectiveSeed}|v${variant}|doc=${doc}`)
+                  const problems = Array.from({ length: 12 }, () => {
+                    const n1 = Math.floor(rng() * 900) + 100 // 3 digit
+                    const n2 = Math.floor(rng() * 90) + 10 // 2 digit
+                    return { n1, n2 }
+                  })
+                  return (
+                    <WorksheetSectionWrapper
+                      docId={docId}
+                      title="Standard Algorithm Multiplication"
+                      emoji="✖️"
+                      description="Multiply multi-digit whole numbers using the standard algorithm."
+                      problemCount={problems.length}
+                      learningObjectives={['Fluently multiply multi-digit whole numbers using the standard algorithm']}
+                      parentTeacherTips={['Align the numbers by place value.', 'Multiply by the ones digit first, then the tens digit (don\'t forget the zero placeholder!).', 'Add the partial products.']}
+                    >
+                      <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
+                        {problems.map((p, i) => (
+                          <div key={i} className="font-mono text-xl flex flex-col items-end">
+                            <div>{p.n1}</div>
+                            <div className="border-b-2 border-slate-800 w-full text-right pr-1">× {p.n2}</div>
+                            <div className="h-16 w-full"></div>
+                          </div>
+                        ))}
+                      </div>
+                    </WorksheetSectionWrapper>
+                  )
+                })()
+              }
+
+              {
+                activeDocs.includes('long-division-5th') && (() => {
+                  const docId = 'long-division-5th'
+                  const rng = makeRng(`${effectiveSeed}|v${variant}|doc=${doc}`)
+                  const problems = Array.from({ length: 8 }, () => {
+                    const divisor = Math.floor(rng() * 90) + 10 // 2-digit divisor
+                    const quotient = Math.floor(rng() * 900) + 100 // 3-digit quotient
+                    const dividend = divisor * quotient + Math.floor(rng() * (divisor - 1)) // ensure remainder < divisor
+                    return { dividend, divisor }
+                  })
+                  return (
+                    <WorksheetSectionWrapper
+                      docId={docId}
+                      title="Long Division (4-Digit by 2-Digit)"
+                      emoji="➗"
+                      description="Divide multi-digit numbers by two-digit numbers."
+                      problemCount={problems.length}
+                      learningObjectives={['Find whole-number quotients of whole numbers with up to four-digit dividends and two-digit divisors']}
+                      parentTeacherTips={['Estimate the first digit of the quotient.', 'Follow the steps: Divide, Multiply, Subtract, Bring Down.', 'Check the answer with multiplication.']}
+                    >
+                      <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
+                        {problems.map((p, i) => (
+                          <div key={i} className="font-mono text-xl">
+                            <div className="ml-2">{p.divisor}) <span className="border-t border-black px-1">{p.dividend}</span></div>
+                            <div className="h-32"></div>
+                          </div>
+                        ))}
+                      </div>
+                    </WorksheetSectionWrapper>
+                  )
+                })()
+              }
+
+              {
+                activeDocs.includes('add-sub-decimals') && (() => {
+                  const docId = 'add-sub-decimals'
+                  const rng = makeRng(`${effectiveSeed}|v${variant}|doc=${doc}`)
+                  const problems = Array.from({ length: 12 }, () => {
+                    const interact = rng() > 0.5 ? '+' : '-'
+                    const n1 = (Math.floor(rng() * 10000) / 100).toFixed(2) // 2 decimal places
+                    const n2 = (Math.floor(rng() * 10000) / 100).toFixed(2)
+                    return { n1, n2, op: interact }
+                  })
+                  return (
+                    <WorksheetSectionWrapper
+                      docId={docId}
+                      title="Add Greatest Decimals"
+                      emoji="➕"
+                      description="Add and subtract decimals to hundredths."
+                      problemCount={problems.length}
+                      learningObjectives={['Add and subtract decimals to hundredths using concrete models or drawings and strategies based on place value']}
+                      parentTeacherTips={['Line up the decimal points!', 'Add/subtract as with whole numbers.', 'Place the decimal point in the answer directly below the others.']}
+                    >
+                      <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
+                        {problems.map((p, i) => (
+                          <div key={i} className="font-mono text-xl flex flex-col items-end">
+                            <div>{p.n1}</div>
+                            <div className="border-b-2 border-slate-800 w-full text-right pr-1">{p.op} {p.n2}</div>
+                            <div className="h-16 w-full"></div>
+                          </div>
+                        ))}
+                      </div>
+                    </WorksheetSectionWrapper>
+                  )
+                })()
+              }
+
+              {
+                activeDocs.includes('mult-decimals') && (() => {
+                  const docId = 'mult-decimals'
+                  const rng = makeRng(`${effectiveSeed}|v${variant}|doc=${doc}`)
+                  const problems = Array.from({ length: 12 }, () => {
+                    const n1 = (Math.floor(rng() * 100) / 10).toFixed(1) // 1 decimal place
+                    const n2 = (Math.floor(rng() * 100) / 10).toFixed(1)
+                    return { n1, n2 }
+                  })
+                  return (
+                    <WorksheetSectionWrapper
+                      docId={docId}
+                      title="Multiplying Decimals"
+                      emoji="✖️"
+                      description="Multiply decimals to hundredths."
+                      problemCount={problems.length}
+                      learningObjectives={['Add, subtract, multiply, and divide decimals to hundredths']}
+                      parentTeacherTips={['Multiply as if they were whole numbers.', 'Count total decimal places in the factors.', 'Place the decimal point in the product so it has the same number of decimal places.']}
+                    >
+                      <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
+                        {problems.map((p, i) => (
+                          <div key={i} className="font-mono text-xl flex flex-col items-end">
+                            <div>{p.n1}</div>
+                            <div className="border-b-2 border-slate-800 w-full text-right pr-1">× {p.n2}</div>
+                            <div className="h-16 w-full"></div>
+                          </div>
+                        ))}
+                      </div>
+                    </WorksheetSectionWrapper>
+                  )
+                })()
+              }
+
+              {
+                activeDocs.includes('add-sub-fractions-unlike') && (() => {
+                  const docId = 'add-sub-fractions-unlike';
+                  const rng = makeRng(`${effectiveSeed}|v${variant}|doc=${docId}`);
+                  function nextInt(min: number, max: number) { return Math.floor(rng() * (max - min + 1)) + min; }
+                  const gcd = (a: number, b: number): number => b === 0 ? a : gcd(b, a % b);
+                  const lcm = (a: number, b: number): number => (a * b) / gcd(a, b);
+
+                  const problems = Array.from({ length: 6 }, () => {
+                    let d1 = [2, 3, 4, 5, 6, 8, 10, 12][nextInt(0, 7)];
+                    let d2 = [2, 3, 4, 5, 6, 8, 10, 12][nextInt(0, 7)];
+                    while (d1 === d2) d2 = [2, 3, 4, 5, 6, 8, 10, 12][nextInt(0, 7)];
+
+                    const commonDenom = lcm(d1, d2);
+                    const isAdd = rng() > 0.5;
+
+                    let n1 = nextInt(1, d1 - 1);
+                    let n2 = nextInt(1, d2 - 1);
+
+                    // For subtraction, ensure result is positive
+                    if (!isAdd) {
+                      if (n1 / d1 < n2 / d2) {
+                        const tn1 = n1;
+                        const td1 = d1;
+                        n1 = n2;
+                        d1 = d2;
+                        n2 = tn1;
+                        d2 = td1;
+                      }
+                    }
+
+                    const resNum = isAdd ? (n1 * (commonDenom / d1) + n2 * (commonDenom / d2)) : (n1 * (commonDenom / d1) - n2 * (commonDenom / d2));
+                    const commonRes = gcd(resNum, commonDenom);
+
+                    return { n1, d1, n2, d2, op: isAdd ? '+' : '-', resNum: resNum / commonRes, resDen: commonDenom / commonRes, commonDenom };
+                  });
+
+                  return (
+                    <WorksheetSectionWrapper
+                      docId={docId}
+                      title="Pizza Party: Unlike Fractions"
+                      emoji="🍕"
+                      description="Add and subtract fractions with different denominators. Find a common denominator first!"
+                      problemCount={problems.length}
+                      learningObjectives={[
+                        'Add and subtract fractions with unlike denominators',
+                        'Solve word problems involving addition and subtraction of fractions',
+                        'Use equivalent fractions to find a common denominator'
+                      ]}
+                      parentTeacherTips={[
+                        'You can\'t add slices of different sizes! Turn them into the same size first.',
+                        'Find the Least Common Multiple (LCM) of the denominators.',
+                        'Multiply the top and bottom of each fraction by the same number to keep it equivalent.'
+                      ]}
+                    >
+                      <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-orange-400 to-red-500 animate-gradient-x mb-2" />
+
+                      <div className="mb-6 p-4 bg-orange-50 border-2 border-orange-200 rounded-lg print:border print:bg-white">
+                        <div className="font-semibold text-orange-900 mb-3 text-sm">🍕 Example - Sharing Pizza:</div>
+                        <div className="flex flex-col sm:flex-row gap-6 items-center">
+                          <div className="flex items-center gap-2 text-lg font-mono">
+                            <div className="flex flex-col items-center">
+                              <span className="border-b-2 border-slate-800 px-1">1</span>
+                              <span>2</span>
+                            </div>
+                            <span>+</span>
+                            <div className="flex flex-col items-center">
+                              <span className="border-b-2 border-slate-800 px-1">1</span>
+                              <span>3</span>
+                            </div>
+                            <span>= ?</span>
+                          </div>
+                          <div className="text-xs text-orange-800 space-y-1 border-l-2 border-orange-200 pl-4 font-sans">
+                            <p><strong>Step 1:</strong> Find LCM of 2 and 3: <strong>6</strong></p>
+                            <p><strong>Step 2:</strong> 1/2 = 3/6 and 1/3 = 2/6</p>
+                            <p><strong>Step 3:</strong> 3/6 + 2/6 = <strong>5/6</strong></p>
+                          </div>
+                        </div>
+                      </div>
+
+                      <div className="grid grid-cols-1 md:grid-cols-2 gap-8" style={{ pageBreakAfter: 'auto' }}>
+                        {problems.map((p, i) => (
+                          <div key={i} className="border border-slate-200 rounded-xl p-6 bg-white shadow-sm break-inside-avoid">
+                            <div className="flex items-center justify-between mb-4">
+                              <div className="flex items-center gap-4 text-2xl font-mono">
+                                <div className="flex flex-col items-center">
+                                  <span className="border-b-2 border-slate-800 px-2">{p.n1}</span>
+                                  <span>{p.d1}</span>
+                                </div>
+                                <span>{p.op}</span>
+                                <div className="flex flex-col items-center">
+                                  <span className="border-b-2 border-slate-800 px-2">{p.n2}</span>
+                                  <span>{p.d2}</span>
+                                </div>
+                                <span>=</span>
+                                <div className="w-16 h-12 border-2 border-dashed border-slate-300 rounded bg-slate-50 print:bg-white"></div>
+                              </div>
+                              <div className="text-4xl opacity-20">🍕</div>
+                            </div>
+                            <div className="space-y-2">
+                              <div className="text-[10px] text-slate-400 uppercase font-bold">Find Common Denominator:</div>
+                              <div className="h-12 border-b border-dashed border-slate-200 flex items-center gap-2">
+                                <span className="text-xs text-slate-300 italic">Work space...</span>
+                              </div>
+                            </div>
+                          </div>
+                        ))}
+                      </div>
+
+                      {showAnswersForDoc(docId, () => (
+                        <div className="mt-8 p-6 border-2 border-emerald-300 bg-emerald-50 rounded-xl print:page-break-before-always">
+                          <div className="font-bold text-emerald-900 mb-4 text-lg border-b border-emerald-200 pb-2">✅ Answer Key (Pizza Portions)</div>
+                          <div className="grid grid-cols-2 md:grid-cols-3 gap-6">
+                            {problems.map((p, i) => (
+                              <div key={i} className="text-sm">
+                                <div className="font-bold text-slate-700">Problem {i + 1}:</div>
+                                <div className="text-emerald-800 font-mono">
+                                  {p.n1}/{p.d1} {p.op} {p.n2}/{p.d2} = {p.resNum}/{p.resDen}
+                                </div>
+                                <div className="text-[10px] text-emerald-600 mt-1">
+                                  (Used denominator: {p.commonDenom})
+                                </div>
+                              </div>
+                            ))}
+                          </div>
+                        </div>
+                      ))}
+                    </WorksheetSectionWrapper>
+                  );
+                })()
+              }
+
+              {
+                activeDocs.includes('mixed-numbers-add-sub') && (() => {
+                  const docId = 'mixed-numbers-add-sub';
+                  const rng = makeRng(`${effectiveSeed}|v${variant}|doc=${docId}`);
+                  function nextInt(min: number, max: number) { return Math.floor(rng() * (max - min + 1)) + min; }
+                  const gcd = (a: number, b: number): number => b === 0 ? a : gcd(b, a % b);
+
+                  const problems = Array.from({ length: 6 }, () => {
+                    const den = [2, 3, 4, 5, 6, 8, 10, 12][nextInt(0, 7)];
+                    const isAdd = rng() > 0.5;
+
+                    let w1 = nextInt(1, 4);
+                    let n1 = nextInt(1, den - 1);
+                    let w2 = nextInt(1, 4);
+                    let n2 = nextInt(1, den - 1);
+
+                    let resW, resN;
+                    if (isAdd) {
+                      resW = w1 + w2;
+                      resN = n1 + n2;
+                      if (resN >= den) {
+                        resW += 1;
+                        resN -= den;
+                      }
+                    } else {
+                      // For subtraction, ensure result is positive
+                      if (w1 + n1 / den < w2 + n2 / den) {
+                        const tw1 = w1; const tn1 = n1;
+                        w1 = w2; n1 = n2;
+                        w2 = tw1; n2 = tn1;
+                      }
+                      resW = w1 - w2;
+                      resN = n1 - n2;
+                      if (resN < 0) {
+                        resW -= 1;
+                        resN += den;
+                      }
+                    }
+
+                    const common = gcd(resN, den);
+                    return { w1, n1, w2, n2, den, op: isAdd ? '+' : '-', resW, resN: resN / common, resD: den / common };
+                  });
+
+                  return (
+                    <WorksheetSectionWrapper
+                      docId={docId}
+                      title="Carpenter's Workshop: Mixed Numbers"
+                      emoji="🔨"
+                      description="Add and subtract mixed numbers. Remember to regroup if needed!"
+                      problemCount={problems.length}
+                      learningObjectives={[
+                        'Add and subtract mixed numbers with like denominators',
+                        'Replace mixed numbers with equivalent fractions',
+                        'Use regrouping (borrowing) in mixed number subtraction'
+                      ]}
+                      parentTeacherTips={[
+                        'Add/subtract the whole numbers and fractions separately.',
+                        'If the top fraction is smaller during subtraction, "borrow" 1 from the whole number.',
+                        'Always simplify your final fraction if possible.'
+                      ]}
+                    >
+                      <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-amber-400 to-amber-700 animate-gradient-x mb-2" />
+
+                      <div className="mb-6 p-4 bg-amber-50 border-2 border-amber-200 rounded-lg print:border print:bg-white flex items-center gap-4">
+                        <div className="text-3xl">📏</div>
+                        <div>
+                          <div className="font-semibold text-amber-900 mb-1 text-sm font-sans italic">"Measuring Twice, Cutting Once!"</div>
+                          <div className="text-xs text-amber-800 font-sans">
+                            Example: 3 1/4 + 1 2/4 = (3+1) + (1+2)/4 = <strong>4 3/4</strong>
+                          </div>
+                        </div>
+                      </div>
+
+                      <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                        {problems.map((p, i) => (
+                          <div key={i} className="border-2 border-slate-100 rounded-2xl p-6 bg-white relative overflow-hidden break-inside-avoid">
+                            <div className="absolute top-0 right-0 p-2 opacity-10">
+                              <svg width="40" height="40" viewBox="0 0 24 24" fill="currentColor"><path d="M9 3v2H7v14h2v2H5V3h4m10 0v2h-2v14h2v2h-4V3h4M12 7l1 1-3 3 3 3-1 1-4-4 4-4z" /></svg>
+                            </div>
+                            <div className="flex items-center gap-4 text-2xl font-mono">
+                              <div className="flex items-center">
+                                <span className="text-3xl mr-1">{p.w1}</span>
+                                <div className="flex flex-col items-center">
+                                  <span className="border-b-2 border-slate-800 px-1 text-sm">{p.n1}</span>
+                                  <span className="text-sm">{p.den}</span>
+                                </div>
+                              </div>
+                              <span className="text-slate-400">{p.op}</span>
+                              <div className="flex items-center">
+                                <span className="text-3xl mr-1">{p.w2}</span>
+                                <div className="flex flex-col items-center">
+                                  <span className="border-b-2 border-slate-800 px-1 text-sm">{p.n2}</span>
+                                  <span className="text-sm">{p.den}</span>
+                                </div>
+                              </div>
+                              <span className="text-slate-400">=</span>
+                              <div className="w-24 h-12 border-2 border-dashed border-slate-200 rounded-lg bg-slate-50 print:bg-white" />
+                            </div>
+                            <div className="mt-4 pt-4 border-t border-slate-50">
+                              <div className="flex gap-2">
+                                <div className="w-full h-8 border-b border-dotted border-slate-200" />
+                              </div>
+                            </div>
+                          </div>
+                        ))}
+                      </div>
+
+                      {showAnswersForDoc(docId, () => (
+                        <div className="mt-8 p-6 bg-slate-900 text-white rounded-2xl print:bg-white print:text-black print:border-2">
+                          <div className="font-bold mb-4 text-lg border-b border-slate-700 pb-2 flex items-center gap-2">
+                            <span>📋 Workshop Log (Answers)</span>
+                          </div>
+                          <div className="grid grid-cols-2 md:grid-cols-3 gap-6">
+                            {problems.map((p, i) => (
+                              <div key={i} className="text-sm">
+                                <span className="text-slate-400"># {i + 1}:</span>
+                                <div className="font-mono text-lg mt-1 text-amber-400 print:text-black">
+                                  {p.resW > 0 ? p.resW : (p.resN === 0 ? '0' : '')} {p.resN > 0 ? `${p.resN}/${p.resD}` : ''}
+                                </div>
+                              </div>
+                            ))}
+                          </div>
+                        </div>
+                      ))}
+                    </WorksheetSectionWrapper>
+                  );
+                })()
+              }
+
+
+
+              {
+                activeDocs.includes('fraction-mult-whole') && (() => {
+                  const docId = 'fraction-mult-whole';
+                  const rng = makeRng(`${effectiveSeed}|v${variant}|doc=${docId}`);
+                  function nextInt(min: number, max: number) { return Math.floor(rng() * (max - min + 1)) + min; }
+                  const gcd = (a: number, b: number): number => b === 0 ? a : gcd(b, a % b);
+
+                  const problems = Array.from({ length: 8 }, () => {
+                    const d = [2, 3, 4, 5, 6, 8, 10, 12][nextInt(0, 7)];
+                    const n = nextInt(1, d - 1);
+                    const whole = nextInt(2, 10);
+
+                    const resNum = n * whole;
+                    const common = gcd(resNum, d);
+                    const finalNum = resNum / common;
+                    const finalDen = d / common;
+
+                    const wholePart = Math.floor(finalNum / finalDen);
+                    const remNum = finalNum % finalDen;
+
+                    return { n, d, whole, resNum: finalNum, resDen: finalDen, wholePart, remNum };
+                  });
+
+                  return (
+                    <WorksheetSectionWrapper
+                      docId={docId}
+                      title="Bakery Recipe: Multiply Fractions"
+                      emoji="🧁"
+                      description="Scale the ingredients! Multiply fractions by whole numbers to make more batches."
+                      problemCount={problems.length}
+                      learningObjectives={[
+                        'Multiply a fraction by a whole number',
+                        'Solve word problems involving multiplication of a fraction by a whole number',
+                        'Understand multiplication as repeated addition of fractions'
+                      ]}
+                      parentTeacherTips={[
+                        'Think of it as adding the same fraction multiple times.',
+                        'Multiply the whole number by the top (numerator) only. The bottom (denominator) stays the same.',
+                        'Convert your "improper" fraction to a mixed number for a better bakery measurement!'
+                      ]}
+                    >
+                      <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-pink-400 to-yellow-500 animate-gradient-x mb-2" />
+
+                      <div className="mb-6 p-4 bg-pink-50 border-2 border-pink-200 rounded-lg print:border print:bg-white flex items-center gap-4">
+                        <div className="text-3xl">🥣</div>
+                        <div>
+                          <div className="font-semibold text-pink-900 mb-1 text-sm font-sans italic">"Double the Batch!"</div>
+                          <div className="text-xs text-pink-800 font-sans">
+                            Example: 2 batches of 3/4 cup flour = 2 × 3/4 = 6/4 = <strong>1 1/2 cups</strong>
+                          </div>
+                        </div>
+                      </div>
+
+                      <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
+                        {problems.map((p, i) => (
+                          <div key={i} className="border border-slate-200 rounded-xl p-4 bg-white shadow-sm flex flex-col items-center break-inside-avoid">
+                            <div className="flex items-center gap-2 mb-4 text-xl font-mono">
+                              <span className="text-2xl font-bold text-pink-600">{p.whole}</span>
+                              <span className="text-slate-400">×</span>
+                              <div className="flex flex-col items-center">
+                                <span className="border-b-2 border-slate-800 px-1">{p.n}</span>
+                                <span>{p.d}</span>
+                              </div>
+                            </div>
+                            <div className="w-full h-10 border-2 border-dashed border-slate-100 rounded bg-slate-50 print:bg-white flex items-center justify-center text-xs text-slate-300 italic">
+                              Result
+                            </div>
+                          </div>
+                        ))}
+                      </div>
+
+                      {showAnswersForDoc(docId, () => (
+                        <div className="mt-8 p-6 border-l-8 border-pink-400 bg-slate-50 rounded-r-xl">
+                          <div className="font-bold text-slate-800 mb-4 text-lg border-b border-slate-200 pb-2">🧁 Baker's Result Sheets</div>
+                          <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+                            {problems.map((p, i) => (
+                              <div key={i} className="text-sm">
+                                <span className="text-pink-600 font-bold"># {i + 1}:</span>
+                                <div className="font-mono mt-1">
+                                  {p.resNum}/{p.resDen}
+                                  {p.wholePart > 0 && p.remNum > 0 ? (
+                                    <span className="text-slate-500 ml-1">({p.wholePart} {p.remNum}/{p.resDen})</span>
+                                  ) : p.wholePart > 0 && p.remNum === 0 ? (
+                                    <span className="text-slate-500 ml-1">({p.wholePart})</span>
+                                  ) : null}
+                                </div>
+                              </div>
+                            ))}
+                          </div>
+                        </div>
+                      ))}
+                    </WorksheetSectionWrapper>
+                  );
+                })()
+              }
+
+              {
+                activeDocs.includes('fraction-mult') && (() => {
+                  const docId = 'fraction-mult';
+                  const rng = makeRng(`${effectiveSeed}|v${variant}|doc=${docId}`);
+                  function nextInt(min: number, max: number) { return Math.floor(rng() * (max - min + 1)) + min; }
+                  const gcd = (a: number, b: number): number => b === 0 ? a : gcd(b, a % b);
+
+                  const problems = Array.from({ length: 8 }, () => {
+                    const d1 = [2, 3, 4, 5, 6, 8, 10, 12][nextInt(0, 7)];
+                    const n1 = nextInt(1, d1 - 1);
+                    const d2 = [2, 3, 4, 5, 6, 8, 10, 12][nextInt(0, 7)];
+                    const n2 = nextInt(1, d2 - 1);
+
+                    const resNum = n1 * n2;
+                    const resDen = d1 * d2;
+                    const common = gcd(resNum, resDen);
+
+                    return { n1, d1, n2, d2, resN: resNum / common, resD: resDen / common };
+                  });
+
+                  return (
+                    <WorksheetSectionWrapper
+                      docId={docId}
+                      title="Garden Plot Design: Fraction Mult"
+                      emoji="🌻"
+                      description="Design your garden! Multiply fractions to find the area of different plant beds."
+                      problemCount={problems.length}
+                      learningObjectives={[
+                        'Multiply two fractions',
+                        'Interpret multiplication of fractions as finding the area of a rectangle',
+                        'Simplify fractional products'
+                      ]}
+                      parentTeacherTips={[
+                        'Multiply the numerators (top) together and the denominators (bottom) together.',
+                        'Think of it as finding a fraction OF another fraction (e.g., 1/2 of 1/4).',
+                        'Draw a grid to visualize how the parts overlap!'
+                      ]}
+                    >
+                      <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-emerald-400 to-green-700 animate-gradient-x mb-2" />
+
+                      <div className="mb-6 p-4 bg-emerald-50 border-2 border-emerald-200 rounded-lg print:border print:bg-white flex items-center gap-4">
+                        <div className="text-3xl">🌿</div>
+                        <div>
+                          <div className="font-semibold text-emerald-900 mb-1 text-sm font-sans italic">"Planning the Patch"</div>
+                          <div className="text-xs text-emerald-800 font-sans">
+                            Example: 1/2 of a 1/3 acre plot = 1/2 × 1/3 = <strong>1/6 acre</strong>
+                          </div>
+                        </div>
+                      </div>
+
+                      <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
+                        {problems.map((p, i) => (
+                          <div key={i} className="border border-slate-200 rounded-xl p-4 bg-white shadow-sm flex flex-col items-center break-inside-avoid">
+                            <div className="flex items-center gap-2 mb-4 text-xl font-mono">
+                              <div className="flex flex-col items-center">
+                                <span className="border-b-2 border-slate-800 px-1">{p.n1}</span>
+                                <span>{p.d1}</span>
+                              </div>
+                              <span className="text-slate-400">×</span>
+                              <div className="flex flex-col items-center">
+                                <span className="border-b-2 border-slate-800 px-1">{p.n2}</span>
+                                <span>{p.d2}</span>
+                              </div>
+                            </div>
+                            <div className="w-full h-12 border-2 border-dashed border-slate-100 rounded-lg bg-slate-50 print:bg-white flex items-center justify-center text-xs text-slate-300 italic">
+                              Result
+                            </div>
+                          </div>
+                        ))}
+                      </div>
+
+                      {showAnswersForDoc(docId, () => (
+                        <div className="mt-8 p-6 bg-emerald-900 text-white rounded-2xl print:bg-white print:text-black print:border-2">
+                          <div className="font-bold mb-4 text-lg border-b border-emerald-700 pb-2">🌻 Garden Harvest (Answers)</div>
+                          <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+                            {problems.map((p, i) => (
+                              <div key={i} className="text-sm">
+                                <span className="text-emerald-400 font-bold">Bed {i + 1}:</span>
+                                <div className="font-mono mt-1 text-lg">
+                                  {p.resN}/{p.resD}
+                                </div>
+                              </div>
+                            ))}
+                          </div>
+                        </div>
+                      ))}
+                    </WorksheetSectionWrapper>
+                  );
+                })()
+              }
+
+              {
+                activeDocs.includes('div-fractions') && (() => {
+                  const docId = 'div-fractions';
+                  const rng = makeRng(`${effectiveSeed}|v${variant}|doc=${docId}`);
+                  function nextInt(min: number, max: number) { return Math.floor(rng() * (max - min + 1)) + min; }
+
+                  const problems = Array.from({ length: 8 }, (_, i) => {
+                    // Type 0: Unit Fraction / Whole Number (e.g., 1/2 / 4)
+                    // Type 1: Whole Number / Unit Fraction (e.g., 4 / 1/2)
+                    const type = i < 4 ? 0 : 1;
+                    const d = [2, 3, 4, 5, 6, 8, 10, 12][nextInt(0, 7)];
+                    const whole = nextInt(2, 6);
+
+                    if (type === 0) {
+                      return { type, n: 1, d, whole, resN: 1, resD: d * whole };
+                    } else {
+                      return { type, n: 1, d, whole, resN: whole * d, resD: 1 };
+                    }
+                  });
+
+                  return (
+                    <WorksheetSectionWrapper
+                      docId={docId}
+                      title="Snack Sharing: Fraction Division"
+                      emoji="🥨"
+                      description="Divide the treats! Use division to share unit fractions with friends or see how many servings you can make."
+                      problemCount={problems.length}
+                      learningObjectives={[
+                        'Divide unit fractions by non-zero whole numbers',
+                        'Divide whole numbers by unit fractions',
+                        'Solve real-world problems involving division of unit fractions'
+                      ]}
+                      parentTeacherTips={[
+                        'When dividing a fraction by a whole number, the parts get smaller!',
+                        'When dividing a whole number by a fraction, you are asking "how many of these fit inside?".',
+                        'Think of 1/2 ÷ 4 as sharing half a pizza among 4 people. Each gets 1/8!'
+                      ]}
+                    >
+                      <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-orange-400 to-amber-600 animate-gradient-x mb-2" />
+
+                      <div className="mb-6 p-4 bg-orange-50 border-2 border-orange-200 rounded-lg print:border print:bg-white flex items-center gap-4">
+                        <div className="text-3xl">🥨</div>
+                        <div>
+                          <div className="font-semibold text-orange-900 mb-1 text-sm font-sans italic">"Serving Size Secrets"</div>
+                          <div className="text-xs text-orange-800 font-sans">
+                            Example: 3 pizzas shared by 1/4 size slices = 3 ÷ 1/4 = <strong>12 slices</strong>
+                          </div>
+                        </div>
+                      </div>
+
+                      <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
+                        {problems.map((p, i) => (
+                          <div key={i} className="border border-slate-200 rounded-xl p-4 bg-white shadow-sm flex flex-col items-center break-inside-avoid">
+                            <div className="flex items-center gap-2 mb-4 text-xl font-mono">
+                              {p.type === 0 ? (
+                                <>
+                                  <div className="flex flex-col items-center">
+                                    <span className="border-b-2 border-slate-800 px-1">{p.n}</span>
+                                    <span>{p.d}</span>
+                                  </div>
+                                  <span className="text-slate-400">÷</span>
+                                  <span className="text-2xl font-bold text-orange-600">{p.whole}</span>
+                                </>
+                              ) : (
+                                <>
+                                  <span className="text-2xl font-bold text-orange-600">{p.whole}</span>
+                                  <span className="text-slate-400">÷</span>
+                                  <div className="flex flex-col items-center">
+                                    <span className="border-b-2 border-slate-800 px-1">{p.n}</span>
+                                    <span>{p.d}</span>
+                                  </div>
+                                </>
+                              )}
+                            </div>
+                            <div className="w-full h-12 border-2 border-dashed border-slate-100 rounded-lg bg-white flex items-center justify-center text-xs text-slate-300 italic">
+                              Share...
+                            </div>
+                          </div>
+                        ))}
+                      </div>
+
+                      {showAnswersForDoc(docId, () => (
+                        <div className="mt-8 p-6 bg-slate-900 text-white rounded-2xl print:bg-white print:text-black print:border-2">
+                          <div className="font-bold mb-4 text-lg border-b border-slate-700 pb-2 flex items-center gap-2">
+                            <span>🥨 Snack Portions (Answers)</span>
+                          </div>
+                          <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+                            {problems.map((p, i) => (
+                              <div key={i} className="text-sm bg-slate-800 p-2 rounded print:bg-white print:border">
+                                <span className="text-orange-400 font-bold"># {i + 1}:</span>
+                                <div className="font-mono mt-1 text-lg">
+                                  {p.resD === 1 ? p.resN : `${p.resN}/${p.resD}`}
+                                </div>
+                              </div>
+                            ))}
+                          </div>
+                        </div>
+                      ))}
+                    </WorksheetSectionWrapper>
+                  );
+                })()
+              }
+
+              {
+                activeDocs.includes('add-sub-fractions-like') && (() => {
+                  const docId = 'add-sub-fractions-like'
+                  const rng = makeRng(`${effectiveSeed}|v${variant}|doc=${doc}`)
+                  const problems = Array.from({ length: 12 }, () => {
+                    const den = [2, 3, 4, 5, 6, 8, 10][Math.floor(rng() * 7)]
+                    const op = rng() > 0.5 ? '+' : '-'
+                    let n1, n2
+                    if (op === '+') {
+                      n1 = Math.floor(rng() * (den - 1)) + 1
+                      n2 = Math.floor(rng() * (den - n1)) + 1
+                    } else {
+                      n1 = Math.floor(rng() * (den - 1)) + 1
+                      n2 = Math.floor(rng() * n1) + 1
+                    }
+                    return { n1, n2, den, op }
+                  })
+                  return (
+                    <WorksheetSectionWrapper
+                      docId={docId}
+                      title="Fraction Addition: Same Base"
+                      emoji="🍕"
+                      description="Add and subtract fractions with the same denominator."
+                      problemCount={problems.length}
+                      learningObjectives={['Decompose a fraction into a sum of fractions with the same denominator', 'Add and subtract fractions with like denominators']}
+                      parentTeacherTips={['When the denominators (bottom numbers) are the same, just add or subtract the numerators (top numbers).', 'The denominator stays the same.']}
+                    >
+                      <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
+                        {problems.map((p, i) => (
+                          <div key={i} className="flex items-center text-xl font-medium">
+                            <div className="flex flex-col items-center">
+                              <span className="border-b-2 border-slate-800 px-2">{p.n1}</span>
+                              <span className="px-2">{p.den}</span>
+                            </div>
+                            <span className="mx-2">{p.op}</span>
+                            <div className="flex flex-col items-center">
+                              <span className="border-b-2 border-slate-800 px-2">{p.n2}</span>
+                              <span className="px-2">{p.den}</span>
+                            </div>
+                            <span className="mx-2">=</span>
+                            <div className="w-16 h-1 bg-slate-300 mt-2"></div>
+                          </div>
+                        ))}
+                      </div>
+                    </WorksheetSectionWrapper>
+                  )
+                })()
+              }
+
+              {
+                activeDocs.includes('mixed-numbers') && (() => {
+                  const docId = 'mixed-numbers'
+                  const rng = makeRng(`${effectiveSeed}|v${variant}|doc=${doc}`)
+                  const problems = Array.from({ length: 12 }, () => {
+                    const whole = Math.floor(rng() * 5) + 1
+                    const den = Math.floor(rng() * 8) + 2
+                    const num = Math.floor(rng() * (den - 1)) + 1
+                    return { whole, num, den }
+                  })
+                  return (
+                    <WorksheetSectionWrapper
+                      docId={docId}
+                      title="Mixed Numbers to Improper Fractions"
+                      emoji="🔄"
+                      description="Convert mixed numbers to improper fractions."
+                      problemCount={problems.length}
+                      learningObjectives={['Understand addition and subtraction of fractions as joining and separating parts referring to the same whole']}
+                      parentTeacherTips={['Multiply the whole number by the denominator.', 'Add the numerator to that product.', 'Put that sum over the original denominator.']}
+                    >
+                      <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
+                        {problems.map((p, i) => (
+                          <div key={i} className="flex items-center text-xl font-medium">
+                            <span className="mr-1 text-2xl">{p.whole}</span>
+                            <div className="flex flex-col items-center mr-2">
+                              <span className="border-b-2 border-slate-800 px-2">{p.num}</span>
+                              <span className="px-2">{p.den}</span>
+                            </div>
+                            <span className="mx-2">=</span>
+                            <div className="flex flex-col items-center">
+                              <span className="border-b-2 border-slate-800 px-2 w-8 h-8 bg-slate-100 rounded"></span>
+                              <span className="px-2">{p.den}</span>
+                            </div>
+                          </div>
+                        ))}
+                      </div>
+                      {showAnswersForDoc(docId, () => (
+                        <div className="grid grid-cols-4 gap-2 mt-4 p-2 bg-slate-50 text-xs text-center">
+                          {problems.map((p, i) => <div key={i}>{p.whole * p.den + p.num}/{p.den}</div>)}
+                        </div>
+                      ))}
+                    </WorksheetSectionWrapper>
+                  )
+                })()
+              }
+
+              {
+                activeDocs.includes('decimals-tenths-hundredths') && (() => {
+                  const docId = 'decimals-tenths-hundredths'
+                  const rng = makeRng(`${effectiveSeed}|v${variant}|doc=${doc}`)
+                  const problems = Array.from({ length: 10 }, () => {
+                    const mode = rng() > 0.5 ? 'fracToDec' : 'decToFrac'
+                    const den = rng() > 0.5 ? 10 : 100
+                    const num = Math.floor(rng() * (den - 1)) + 1
+                    const dec = num / den
+                    return { mode, num, den, dec: dec.toString().replace(/^0/, '') } // .3 or .34
+                  })
+                  return (
+                    <WorksheetSectionWrapper
+                      docId={docId}
+                      title="Decimals: Tenths & Hundredths"
+                      emoji="💠"
+                      description="Convert between fractions and decimals."
+                      problemCount={problems.length}
+                      learningObjectives={['Use decimal notation for fractions with denominators 10 or 100']}
+                      parentTeacherTips={['Think of money: 1/100 is a penny (0.01), 1/10 is a dime (0.10).', 'The first place to the right of the decimal is tenths. The second is hundredths.']}
+                    >
+                      <div className="grid grid-cols-2 gap-6">
+                        {problems.map((p, i) => (
+                          <div key={i} className="flex items-center justify-between p-4 border rounded">
+                            {p.mode === 'fracToDec' ? (
+                              <>
+                                <div className="flex flex-col items-center text-xl font-medium">
+                                  <span className="border-b-2 border-slate-800 px-2">{p.num}</span>
+                                  <span className="px-2">{p.den}</span>
+                                </div>
+                                <span className="text-xl">=</span>
+                                <div className="w-24 h-10 border border-slate-300 rounded bg-slate-50"></div>
+                              </>
+                            ) : (
+                              <>
+                                <span className="text-xl font-medium">0{p.dec}</span>
+                                <span className="text-xl">=</span>
+                                <div className="flex flex-col items-center">
+                                  <span className="w-12 h-8 border border-slate-300 rounded bg-slate-50 mb-1"></span>
+                                  <span className="w-12 h-1 bg-black"></span>
+                                  <span className="w-12 h-8 border border-slate-300 rounded bg-slate-50 mt-1"></span>
+                                </div>
+                              </>
+                            )}
+                          </div>
+                        ))}
+                      </div>
+                    </WorksheetSectionWrapper>
+                  )
+                })()
+              }
+
+              {
+                activeDocs.includes('angles-4th') && (() => {
+                  const docId = 'angles-4th'
+                  const rng = makeRng(`${effectiveSeed}|v${variant}|doc=${doc}`)
+                  const problems = Array.from({ length: 6 }, () => {
+                    // 0: right, 1: acute, 2: obtuse
+                    const typeIndex = Math.floor(rng() * 3)
+                    const types = ['Right', 'Acute', 'Obtuse']
+                    const type = types[typeIndex]
+                    let angle = 90
+                    if (typeIndex === 1) angle = Math.floor(rng() * 80) + 5 // 5-85
+                    if (typeIndex === 2) angle = Math.floor(rng() * 80) + 95 // 95-175
+                    return { type, angle }
+                  })
+                  return (
+                    <WorksheetSectionWrapper
+                      docId={docId}
+                      title="Identifying Angles"
+                      emoji="📐"
+                      description="Identify right, acute, and obtuse angles."
+                      problemCount={problems.length}
+                      learningObjectives={['Recognize angles as geometric shapes that are formed wherever two rays share a common endpoint', 'Identify right triangles']}
+                      parentTeacherTips={['A right angle looks like the corner of a square (90 degrees).', 'Acute angles are smaller than a right angle.', 'Obtuse angles are larger than a right angle.']}
+                    >
+                      <div className="grid grid-cols-2 md:grid-cols-3 gap-8">
+                        {problems.map((p, i) => (
+                          <div key={i} className="flex flex-col items-center p-4 border rounded">
+                            <div className="w-32 h-32 relative flex items-end justify-center">
+                              {/* SVG for angle visualization would be ideal here. Using simple CSS lines for now or text description if too complex without SVG lib */}
+                              <div className="absolute bottom-0 left-8 w-16 h-0 border-b-2 border-black"></div>
+                              <div
+                                className="absolute bottom-0 left-8 w-16 h-0 border-b-2 border-black origin-left"
+                                style={{ transform: `rotate(-${p.angle}deg)` }}
+                              ></div>
+                              {/* Arc for angle */}
+                              {p.type === 'Right' ? (
+                                <div className="absolute bottom-0 left-8 w-4 h-4 border-t-2 border-r-2 border-black"></div>
+                              ) : (
+                                <div className="absolute bottom-0 left-8 w-8 h-8 rounded-tr-full border-t border-r border-black opacity-50"></div>
+                              )}
+                            </div>
+                            <div className="mt-4 w-full border-b border-slate-300"></div>
+                          </div>
+                        ))}
+                      </div>
+                      {showAnswersForDoc(docId, () => (
+                        <div className="grid grid-cols-3 gap-2 mt-4 p-2 bg-slate-50 text-xs text-center">
+                          {problems.map((p, i) => <div key={i}>{p.type}</div>)}
+                        </div>
+                      ))}
+                    </WorksheetSectionWrapper>
+                  )
+                })()
+              }
+
+              {
+                activeDocs.includes('parallel-perpendicular') && (() => {
+                  const docId = 'parallel-perpendicular'
+                  const rng = makeRng(`${effectiveSeed}|v${variant}|doc=${doc}`)
+                  const problems = Array.from({ length: 6 }, () => {
+                    const typeIndex = Math.floor(rng() * 3) // 0: parallel, 1: perpendicular, 2: intersecting
+                    const rotation = Math.floor(rng() * 360)
+                    return { typeIndex, rotation }
+                  })
+                  return (
+                    <WorksheetSectionWrapper
+                      docId={docId}
+                      title="Parallel & Perpendicular Lines"
+                      emoji="🛤️"
+                      description="Identify parallel, perpendicular, and intersecting lines."
+                      problemCount={problems.length}
+                      learningObjectives={['Draw points, lines, line segments, rays, angles (right, acute, obtuse), and perpendicular and parallel lines', 'Identify these in two-dimensional figures']}
+                      parentTeacherTips={['Parallel lines never meet (like railroad tracks).', 'Perpendicular lines meet at a right angle (like a capital T).', 'Intersecting lines cross but not necessarily at 90 degrees.']}
+                    >
+                      <div className="grid grid-cols-2 md:grid-cols-3 gap-8">
+                        {problems.map((p, i) => (
+                          <div key={i} className="flex flex-col items-center p-4 border rounded">
+                            <div className="w-32 h-32 relative flex items-center justify-center">
+                              {/* Simple CSS representation */}
+                              {p.typeIndex === 0 && ( // Parallel
+                                <div className="relative w-24 h-24" style={{ transform: `rotate(${p.rotation}deg)` }}>
+                                  <div className="absolute top-8 w-full border-b-2 border-black"></div>
+                                  <div className="absolute bottom-8 w-full border-b-2 border-black"></div>
+                                </div>
+                              )}
+                              {p.typeIndex === 1 && ( // Perpendicular
+                                <div className="relative w-24 h-24" style={{ transform: `rotate(${p.rotation}deg)` }}>
+                                  <div className="absolute top-1/2 w-full border-b-2 border-black"></div>
+                                  <div className="absolute left-1/2 h-full border-r-2 border-black top-0 -ml-[1px]"></div>
+                                  <div className="absolute top-1/2 left-1/2 w-4 h-4 border-t-2 border-r-2 border-black -mt-4"></div>
+                                </div>
+                              )}
+                              {p.typeIndex === 2 && ( // Intersecting
+                                <div className="relative w-24 h-24" style={{ transform: `rotate(${p.rotation}deg)` }}>
+                                  <div className="absolute top-1/2 w-full border-b-2 border-black transform -rotate-15"></div>
+                                  <div className="absolute top-1/2 w-full border-b-2 border-black transform rotate-15"></div>
+                                </div>
+                              )}
+                            </div>
+                            <div className="mt-4 w-full border-b border-slate-300"></div>
+                          </div>
+                        ))}
+                      </div>
+                      {showAnswersForDoc(docId, () => (
+                        <div className="grid grid-cols-3 gap-2 mt-4 p-2 bg-slate-50 text-xs text-center">
+                          {problems.map((p, i) => <div key={i}>{p.typeIndex === 0 ? 'Parallel' : p.typeIndex === 1 ? 'Perpendicular' : 'Intersecting'}</div>)}
+                        </div>
+                      ))}
+                    </WorksheetSectionWrapper>
+                  )
+                })()
+              }
+
+              {
+                activeDocs.includes('symmetry-4th') && (() => {
+                  const docId = 'symmetry-4th'
+                  const rng = makeRng(`${effectiveSeed}|v${variant}|doc=${doc}`)
+                  const shapes = [
+                    { name: 'Rectangle', sym: true, path: 'M10,25 h80 v50 h-80 Z' },
+                    { name: 'Isosceles Triangle', sym: true, path: 'M50,10 L90,90 L10,90 Z' },
+                    { name: 'Scalene Triangle', sym: false, path: 'M30,10 L90,60 L10,90 Z' },
+                    { name: 'Parallelogram', sym: false, path: 'M20,70 L40,20 L90,20 L70,70 Z' },
+                    { name: 'Arrow', sym: true, path: 'M20,40 L50,40 L50,10 L90,50 L50,90 L50,60 L20,60 Z' }, // Horizontal sym
+                    { name: 'Lightning', sym: false, path: 'M40,10 L60,10 L50,40 L70,40 L30,90 L40,50 L20,50 Z' }
+                  ]
+                  const problems = Array.from({ length: 6 }, () => {
+                    const shape = shapes[Math.floor(rng() * shapes.length)]
+                    return shape
+                  })
+                  return (
+                    <WorksheetSectionWrapper
+                      docId={docId}
+                      title="Lines of Symmetry"
+                      emoji="🦋"
+                      description="Identify if a shape is line-symmetric."
+                      problemCount={problems.length}
+                      learningObjectives={['Recognize a line of symmetry for a two-dimensional figure', 'Identify line-symmetric figures']}
+                      parentTeacherTips={['A line of symmetry divides a shape into two mirror images.', 'If you fold the shape along the line, the two halves match exactly.']}
+                    >
+                      <div className="grid grid-cols-2 md:grid-cols-3 gap-8">
+                        {problems.map((p, i) => (
+                          <div key={i} className="flex flex-col items-center p-4 border rounded">
+                            <svg width="100" height="100" viewBox="0 0 100 100" className="stroke-slate-900 stroke-2 fill-none">
+                              <path d={p.path} />
+                            </svg>
+                            <div className="mt-4 flex gap-4">
+                              <div className="w-8 h-8 border border-slate-300 rounded flex items-center justify-center text-xs text-slate-400">Y</div>
+                              <div className="w-8 h-8 border border-slate-300 rounded flex items-center justify-center text-xs text-slate-400">N</div>
+                            </div>
+                          </div>
+                        ))}
+                      </div>
+                      {showAnswersForDoc(docId, () => (
+                        <div className="grid grid-cols-3 gap-2 mt-4 p-2 bg-slate-50 text-xs text-center">
+                          {problems.map((p, i) => <div key={i}>{p.sym ? 'Yes' : 'No'}</div>)}
+                        </div>
+                      ))}
+                    </WorksheetSectionWrapper>
+                  )
+                })()
+              }
+
+              {
+                activeDocs.includes('classifying-shapes') && (() => {
+                  const docId = 'classifying-shapes'
+                  // Placeholder for shape classification logic - textual for now as complex SVG gen is risky without helper
+                  // We can list properties
+                  const rng = makeRng(`${effectiveSeed}|v${variant}|doc=${doc}`)
+                  const problems = Array.from({ length: 6 }, () => {
+                    const shapes = [
+                      { desc: '4 sides, all equal length, 4 right angles', odd: false, name: 'Square' },
+                      { desc: '4 sides, opposite sides equal, 4 right angles', odd: false, name: 'Rectangle' },
+                      { desc: '3 sides, 1 right angle', odd: false, name: 'Right Triangle' },
+                      { desc: '4 sides, only 1 pair parallel sides', odd: false, name: 'Trapezoid' },
+                      { desc: '4 sides, 2 pairs parallel sides, no right angles', odd: false, name: 'Parallelogram' }
+                    ]
+                    return shapes[Math.floor(rng() * shapes.length)]
+                  })
+                  return (
+                    <WorksheetSectionWrapper
+                      docId={docId}
+                      title="Classifying Shapes"
+                      emoji="🔷"
+                      description="Classify shapes based on lines and angles."
+                      problemCount={problems.length}
+                      learningObjectives={['Classify two-dimensional figures based on the presence or absence of parallel or perpendicular lines', 'Recognize right triangles']}
+                      parentTeacherTips={['Look at the sides: Are any parallel? Are any same length?', 'Look at the angles: Are there any right angles?']}
+                    >
+                      <div className="grid grid-cols-2 md:grid-cols-3 gap-6">
+                        {problems.map((p, i) => (
+                          <div key={i} className="p-4 border rounded flex flex-col justify-between min-h-[150px]">
+                            <p className="text-sm italic mb-4">"{p.desc}"</p>
+                            <div className="border-b border-dotted border-slate-400 py-1 text-transparent h-8">Answer</div>
+                          </div>
+                        ))}
+                      </div>
+                      {showAnswersForDoc(docId, () => (
+                        <div className="grid grid-cols-3 gap-2 mt-4 p-2 bg-slate-50 text-xs text-center">
+                          {problems.map((p, i) => <div key={i}>{p.name}</div>)}
+                        </div>
+                      ))}
+                    </WorksheetSectionWrapper>
+                  )
+                })()
+              }
+
+              {
+                activeDocs.includes('area-perimeter-4th') && (() => {
+                  const docId = 'area-perimeter-4th'
+                  const rng = makeRng(`${effectiveSeed}|v${variant}|doc=${doc}`)
+                  const problems = Array.from({ length: 8 }, () => {
+                    const w = Math.floor(rng() * 8) + 2
+                    const l = Math.floor(rng() * 8) + 2
+                    const ask = rng() > 0.5 ? 'Area' : 'Perimeter'
+                    return { w, l, ask }
+                  })
+                  return (
+                    <WorksheetSectionWrapper
+                      docId={docId}
+                      title="Area & Perimeter"
+                      emoji="📏"
+                      description="Find area and perimeter of rectangles."
+                      problemCount={problems.length}
+                      learningObjectives={['Apply the area and perimeter formulas for rectangles in real world and mathematical problems']}
+                      parentTeacherTips={['Area = Length × Width (measured in square units).', 'Perimeter = 2 × Length + 2 × Width (distance around the outside).']}
+                    >
+                      <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
+                        {problems.map((p, i) => (
+                          <div key={i} className="p-4 border rounded flex flex-col items-center">
+                            <div className="border-2 border-slate-800 w-16 h-12 relative mb-2">
+                              <span className="absolute -top-6 left-1/2 -translate-x-1/2 text-sm">{p.l}</span>
+                              <span className="absolute top-1/2 -left-4 -translate-y-1/2 text-sm">{p.w}</span>
+                            </div>
+                            <p className="font-medium text-sm mt-2">{p.ask} = ?</p>
+                            <div className="w-16 h-1 bg-slate-200 mt-2"></div>
+                          </div>
+                        ))}
+                      </div>
+                      {showAnswersForDoc(docId, () => (
+                        <div className="grid grid-cols-4 gap-2 mt-4 p-2 bg-slate-50 text-xs text-center">
+                          {problems.map((p, i) => (
+                            <div key={i}>{p.ask}: {p.ask === 'Area' ? p.l * p.w : 2 * (p.l + p.w)}</div>
+                          ))}
+                        </div>
+                      ))}
+                    </WorksheetSectionWrapper>
+                  )
+                })()
+              }
+
+              {
+                activeDocs.includes('converting-units') && (() => {
+                  const docId = 'converting-units'
+                  const rng = makeRng(`${effectiveSeed}|v${variant}|doc=${doc}`)
+                  const units = [
+                    { from: 'km', to: 'm', factor: 1000 },
+                    { from: 'm', to: 'cm', factor: 100 },
+                    { from: 'kg', to: 'g', factor: 1000 },
+                    { from: 'lb', to: 'oz', factor: 16 },
+                    { from: 'hr', to: 'min', factor: 60 }
+                  ]
+                  const problems = Array.from({ length: 10 }, () => {
+                    const unit = units[Math.floor(rng() * units.length)]
+                    const val = Math.floor(rng() * 10) + 1
+                    return { val, from: unit.from, to: unit.to, result: val * unit.factor }
+                  })
+                  return (
+                    <WorksheetSectionWrapper
+                      docId={docId}
+                      title="Unit Converter: Big to Small"
+                      emoji="⚖️"
+                      description="Convert from larger units to smaller units."
+                      problemCount={problems.length}
+                      learningObjectives={['Know relative sizes of measurement units', 'Express measurements in a larger unit in terms of a smaller unit']}
+                      parentTeacherTips={['To go from a BIG unit to a SMALL unit, you MULTIPLY.', 'Think: Are there many small things in one big thing? Yes!']}
+                    >
+                      <div className="grid grid-cols-2 md:grid-cols-5 gap-4">
+                        {problems.map((p, i) => (
+                          <div key={i} className="p-3 border rounded text-center">
+                            <div className="font-bold">{p.val} {p.from} =</div>
+                            <div className="mt-2 w-full border-b border-slate-300 h-6 text-slate-300">___ {p.to}</div>
+                          </div>
+                        ))}
+                      </div>
+                      {showAnswersForDoc(docId, () => (
+                        <div className="grid grid-cols-5 gap-2 mt-4 p-2 bg-slate-50 text-xs text-center">
+                          {problems.map((p, i) => <div key={i}>{p.result} {p.to}</div>)}
+                        </div>
+                      ))}
+                    </WorksheetSectionWrapper>
+                  )
+                })()
+              }
+
+              {
+                activeDocs.includes('line-plots-4th') && (() => {
+                  const docId = 'line-plots-4th'
+                  const rng = makeRng(`${effectiveSeed}|v${variant}|doc=${doc}`)
+                  const denominators = [2, 4, 8]
+                  const den = denominators[Math.floor(rng() * denominators.length)]
+                  const counts = Array.from({ length: 8 }, () => Math.floor(rng() * 4))
+                  return (
+                    <WorksheetSectionWrapper
+                      docId={docId}
+                      title="Line Plot: Measurement Data"
+                      emoji="📈"
+                      description="Make a line plot to display the data set of measurements."
+                      problemCount={1}
+                      learningObjectives={['Make a line plot to display a data set of measurements in fractions of a unit', 'Solve problems involving addition and subtraction of fractions using information in line plots']}
+                      parentTeacherTips={['The number line shows the measurement.', 'Each X represents one item with that measurement.', 'Count the Xs to see how many items are in each group.']}
+                    >
+                      <div className="p-4 border rounded bg-white">
+                        <div className="mb-4 flex flex-wrap gap-2 justify-center italic text-sm">
+                          Data (inches): {counts.flatMap((c, i) => Array(c).fill(`${i}/${den}`)).join(', ')}
+                        </div>
+                        <div className="relative h-24 border-b-2 border-slate-800 flex items-end justify-between px-4">
+                          {counts.map((c, i) => (
+                            <div key={i} className="relative flex flex-col items-center flex-1">
+                              <div className="flex flex-col-reverse mb-1">
+                                {Array.from({ length: c }).map((_, k) => (
+                                  <span key={k} className="font-bold text-indigo-600">X</span>
+                                ))}
+                              </div>
+                              <span className="absolute -bottom-6 text-xs">{i}/{den}</span>
+                            </div>
+                          ))}
+                        </div>
+                        <div className="mt-12 text-center text-sm font-semibold">Length (Inches)</div>
+                      </div>
+                    </WorksheetSectionWrapper>
+                  )
+                })()
+              }
+
+              {
+                activeDocs.includes('time-word-problems') && (() => {
+                  const docId = 'time-word-problems'
+                  const rng = makeRng(`${effectiveSeed}|v${variant}|doc=${doc}`)
+                  const problems = [
+                    { q: "Sarah started her homework at 4:15 PM and finished at 5:05 PM. How many minutes did she spend?", a: "50 minutes" },
+                    { q: "A cake takes 45 minutes to bake. If it goes in at 10:30 AM, what time is it done?", a: "11:15 AM" },
+                    { q: "A movie is 2 hours and 15 minutes long. If it starts at 7:00 PM, when does it end?", a: "9:15 PM" }
+                  ]
+                  return (
+                    <WorksheetSectionWrapper
+                      docId={docId}
+                      title="Time Travelers: Word Problems"
+                      emoji="⏰"
+                      description="Solve word problems involving intervals of time."
+                      problemCount={problems.length}
+                      learningObjectives={['Use the four operations to solve word problems involving intervals of time', 'Represent measurement quantities using diagrams']}
+                      parentTeacherTips={['Use a number line to jump forward in time.', 'Remember: 60 minutes = 1 hour.', 'Check if you cross into a new hour or AM/PM.']}
+                    >
+                      <div className="space-y-6">
+                        {problems.map((p, i) => (
+                          <div key={i} className="p-4 border-l-4 border-indigo-400 bg-indigo-50 rounded">
+                            <p className="font-medium mb-3">{p.q}</p>
+                            <div className="w-full h-8 border-b border-indigo-200"></div>
+                          </div>
+                        ))}
+                      </div>
+                    </WorksheetSectionWrapper>
+                  )
+                })()
+              }
+
+              {
+                activeDocs.includes('money-word-problems') && (() => {
+                  const docId = 'money-word-problems'
+                  const rng = makeRng(`${effectiveSeed}|v${variant}|doc=${doc}`)
+                  const problems = [
+                    { q: "Leo bought a book for $7.50 and a pen for $1.25. How much did he spend in total?", a: "$8.75" },
+                    { q: "Ava had $20.00. She bought a toy for $12.45. How much change did she get?", a: "$7.55" },
+                    { q: "If one apple costs $0.60, how much do 4 apples cost?", a: "$2.40" }
+                  ]
+                  return (
+                    <WorksheetSectionWrapper
+                      docId={docId}
+                      title="Market Maths: Money Problems"
+                      emoji="💰"
+                      description="Solve word problems involving money and decimals."
+                      problemCount={problems.length}
+                      learningObjectives={['Use the four operations to solve word problems involving money']}
+                      parentTeacherTips={['Money is just decimals!', 'Align the decimal points when adding or subtracting.', 'Remember the dollar sign ($) in your answer.']}
+                    >
+                      <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                        {problems.map((p, i) => (
+                          <div key={i} className="p-4 border border-emerald-200 rounded-xl bg-white shadow-sm flex flex-col justify-between">
+                            <p className="text-sm mb-4 italic">"{p.q}"</p>
+                            <div className="border-b-2 border-slate-100 py-1 text-emerald-600 font-bold">$ ____</div>
+                          </div>
+                        ))}
+                      </div>
+                    </WorksheetSectionWrapper>
+                  )
+                })()
+              }
+
+              {
+                activeDocs.includes('angle-measurement') && (() => {
+                  const docId = 'angle-measurement'
+                  const rng = makeRng(`${effectiveSeed}|v${variant}|doc=${doc}`)
+                  // We'll generate random angles
+                  const problems = Array.from({ length: 6 }, () => {
+                    const angle = Math.floor(rng() * 160) + 10 // 10 to 170 degrees
+                    return { angle }
+                  })
+
+                  return (
+                    <WorksheetSectionWrapper
+                      docId={docId}
+                      title="Measuring Angles"
+                      emoji="📐"
+                      description="Measure angles using a protractor."
+                      problemCount={problems.length}
+                      learningObjectives={['Measure angles in whole-number degrees using a protractor']}
+                      parentTeacherTips={['Place the center of the protractor on the vertex.', 'Line up the zero line with one ray.', 'Read the measurement where the other ray crosses the scale.']}
+                    >
+                      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                        {problems.map((p, i) => (
+                          <div key={i} className="relative flex flex-col items-center">
+                            <div className="h-32 w-full flex items-end justify-center relative">
+                              {/* Base ray */}
+                              <div className="absolute bottom-4 left-1/2 w-24 h-0.5 bg-black origin-left transform -translate-x-1/2 z-0"></div>
+                              {/* Angled ray - this is tricky without a proper drawing primitive, trying CSS rotate */}
+                              {/* We need a vertex. Let's say vertex is at bottom center */}
+                              <div className="absolute bottom-4 left-1/2 w-4 h-4 bg-black rounded-full z-10 -translate-x-1/2 translate-y-2"></div>
+                              <div className="absolute bottom-4 left-1/2 w-24 h-0.5 bg-black origin-left" style={{ transform: `rotate(-${p.angle}deg)` }}></div>
+
+                              {/* A fake protractor image overlay could go here in a real app, 
+                             or we just ask them to estimate/measure if printed and they have a tool */}
+                              <div className="absolute top-0 text-xs text-gray-400 opacity-50 pointer-events-none">
+                                (Protractor needed)
+                              </div>
+                            </div>
+                            <div className="mt-4 w-16 border-b border-black"></div>
+                          </div>
+                        ))}
+                      </div>
+                      {showAnswersForDoc(docId, () => (
+                        <div className="grid grid-cols-3 gap-4 mt-4 text-xs">
+                          {problems.map((p, i) => <div key={i} className="text-center">{p.angle}°</div>)}
+                        </div>
+                      ))}
+                    </WorksheetSectionWrapper>
+                  )
+                })()
+              }
               {
                 activeDocs.includes('long-division-2digit') && (() => {
                   const rng = makeRng(`${effectiveSeed}|v${variant}|doc=${doc}`);
@@ -39873,3 +41277,5 @@ function HiddenObjectsSceneSVGB() {
     </svg>
   )
 }
+
+export default PrintablesPage

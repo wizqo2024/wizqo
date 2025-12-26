@@ -69,6 +69,11 @@ export const PRINTABLE_BUNDLE_SECTIONS: Record<string, string[]> = {
     'more-less-equal-10',
     'counting-objects-20',
     'sentence-building',
+    'add-sub-fractions-unlike',
+    'mixed-numbers-add-sub',
+    'fraction-mult-whole',
+    'fraction-mult',
+    'div-fractions',
   ],
   Creative: [
     'color-by-number',
@@ -255,4 +260,9 @@ export const PRINTABLE_DOC_META: Record<string, { level: PrintableDifficulty }> 
   'more-less-equal-10': { level: 'Beginner' },
   'counting-objects-20': { level: 'Beginner' },
   'sentence-building': { level: 'Beginner' },
+  'add-sub-fractions-unlike': { level: 'Advanced' },
+  'mixed-numbers-add-sub': { level: 'Advanced' },
+  'fraction-mult-whole': { level: 'Advanced' },
+  'fraction-mult': { level: 'Advanced' },
+  'div-fractions': { level: 'Advanced' },
 };
