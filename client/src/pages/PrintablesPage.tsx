@@ -27511,6 +27511,64 @@ export function PrintablesPage() {
               }
 
               {
+                activeDocs.includes('money-word-problems') && (() => {
+                  const docId = 'money-word-problems'
+                  const rng = makeRng(`${effectiveSeed}|v${variant}|doc=${doc}`)
+
+                  const problems = Array.from({ length: 4 }, () => {
+                    // Shopping
+                    const price = (Math.floor(rng() * 1000) + 50) / 100 // 0.50 to 10.50
+                    const paid = Math.ceil(price / 5) * 5 + (rng() > 0.5 ? 5 : 0) // Next 5 or 10 dollar bill
+                    if (paid === price) paid += 5;
+
+                    const change = (paid - price).toFixed(2)
+
+                    return { price: price.toFixed(2), paid: paid.toFixed(2), change }
+                  })
+
+                  return (
+                    <WorksheetSectionWrapper
+                      docId={docId}
+                      title="Market Day: Making Change"
+                      emoji="🏪"
+                      description="You went shopping! Calculate how much change you get back."
+                      problemCount={problems.length}
+                      learningObjectives={['Solve word problems involving money', 'Decimals to hundredths', 'Subtracting decimals in context']}
+                      parentTeacherTips={['Line up the decimal points.', 'Subtract carefully.', 'Check by adding the change back to the price.']}
+                    >
+                      <div className="print:hidden h-1 w-full rounded-full bg-gradient-to-r from-green-600 to-emerald-600 animate-gradient-x mb-4" />
+                      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        {problems.map((p, i) => (
+                          <div key={i} className="flex gap-4 p-4 border border-green-300 rounded-lg bg-green-50">
+                            <div className="text-3xl flex items-center">🍎</div>
+                            <div className="flex-grow">
+                              <div className="flex justify-between text-sm mb-1">
+                                <span>Total Cost:</span>
+                                <span className="font-bold text-red-600">-${p.price}</span>
+                              </div>
+                              <div className="flex justify-between text-sm mb-2">
+                                <span>Amount Paid:</span>
+                                <span className="font-bold text-green-700">${p.paid}</span>
+                              </div>
+                              <div className="border-t border-slate-400 pt-2 flex justify-between items-center">
+                                <span className="font-bold text-slate-800">Change:</span>
+                                <div className="w-24 border-b-2 border-slate-800 text-right font-mono pr-1">$</div>
+                              </div>
+                            </div>
+                          </div>
+                        ))}
+                      </div>
+                      {showAnswersForDoc(docId, () => (
+                        <div className="mt-4 p-2 bg-green-100 rounded text-center text-xs">
+                          {problems.map((p, i) => `$${p.change}`).join(' | ')}
+                        </div>
+                      ))}
+                    </WorksheetSectionWrapper>
+                  )
+                })()
+              }
+
+              {
                 activeDocs.includes('angle-measurement') && (() => {
                   const docId = 'angle-measurement'
                   const rng = makeRng(`${effectiveSeed}|v${variant}|doc=${doc}`)
@@ -27584,33 +27642,24 @@ export function PrintablesPage() {
               }
 
               {/* 5th Grade Operations (Batch 1) */ }
+
               {
                 activeDocs.includes('parentheses-expressions') && (() => {
                   const rng = makeRng(`${effectiveSeed}|v${variant}|doc=${doc}`)
                   const problems = Array.from({ length: 6 }, () => {
-                    // Generate (A op B) op C or A op (B op C)
                     const a = Math.floor(rng() * 10) + 2;
                     const b = Math.floor(rng() * 10) + 2;
                     const c = Math.floor(rng() * 5) + 2;
-
                     const ops = ['+', '-', '×'];
                     const op1 = ops[Math.floor(rng() * 3)];
                     const op2 = ops[Math.floor(rng() * 3)];
-
-                    // Ensure positive results and clean calculations
-                    // Simplified: Just generate and let them solve. 5th graders can handle basic arithmetic.
-                    // But prevent negative intermediates if possible.
-
                     const pattern = rng() > 0.5 ? 0 : 1;
                     if (pattern === 0) {
-                      // (A op1 B) op2 C
                       return { text: `(${a} ${op1} ${b}) ${op2} ${c}`, form: 'parens-first' };
                     } else {
-                      // A op1 (B op2 C)
                       return { text: `${a} ${op1} (${b} ${op2} ${c})`, form: 'parens-second' };
                     }
                   })
-
                   return (
                     <WorksheetSectionWrapper
                       docId="parentheses-expressions"
@@ -27630,58 +27679,36 @@ export function PrintablesPage() {
                       ]}
                     >
                       <div className="print:hidden h-1 w-full rounded-full bg-gradient-to-r from-red-500 to-yellow-500 animate-pulse mb-4" />
-
-                      {/* Comic Header */}
                       <div className="mb-6 border-4 border-black bg-yellow-100 p-4 shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] transform -rotate-1">
                         <div className="flex justify-between items-center">
-                          <div className="text-3xl font-black uppercase tracking-widest italic text-red-600 drop-shadow-md">
-                            KABOOM!
-                          </div>
-                          <div className="bg-white border-2 border-black p-2 rounded-lg text-xs font-bold font-mono">
-                            MISSION: DECODE
-                          </div>
+                          <div className="text-3xl font-black uppercase tracking-widest italic text-red-600 drop-shadow-md">KABOOM!</div>
+                          <div className="bg-white border-2 border-black p-2 rounded-lg text-xs font-bold font-mono">MISSION: DECODE</div>
                         </div>
                         <div className="flex gap-4 mt-2">
                           <div className="text-4xl">🦹</div>
-                          <div className="bg-white p-2 rounded-xl rounded-tl-none border-2 border-black text-sm font-bold">
-                            "You'll never solve my puzzles, Math-Man! I've locked the answers behind PARENTHESES!"
-                          </div>
+                          <div className="bg-white p-2 rounded-xl rounded-tl-none border-2 border-black text-sm font-bold">"You'll never solve my puzzles, Math-Man! I've locked the answers behind PARENTHESES!"</div>
                         </div>
                       </div>
-
                       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                         {problems.map((p, i) => (
                           <div key={i} className="relative group break-inside-avoid">
-                            {/* Comic Panel */}
                             <div className="border-4 border-black bg-white p-4 h-32 relative shadow-[4px_4px_0px_0px_rgba(0,0,0,0.2)]">
-                              <div className="absolute top-0 left-0 bg-red-600 text-white text-xs font-bold px-2 py-1 border-r-2 border-b-2 border-black">
-                                SCENE {i + 1}
-                              </div>
-
+                              <div className="absolute top-0 left-0 bg-red-600 text-white text-xs font-bold px-2 py-1 border-r-2 border-b-2 border-black">SCENE {i + 1}</div>
                               <div className="flex items-center justify-center h-full pt-4">
-                                <div className="text-2xl font-black font-mono tracking-wider text-slate-800">
-                                  {p.text} = ?
-                                </div>
+                                <div className="text-2xl font-black font-mono tracking-wider text-slate-800">{p.text} = ?</div>
                               </div>
-
                               <div className="absolute -bottom-3 -right-3">
-                                <div className="w-16 h-8 bg-white border-2 border-black transform rotate-3 flex items-center justify-center text-slate-300 font-bold">
-                                  ......
-                                </div>
+                                <div className="w-16 h-8 bg-white border-2 border-black transform rotate-3 flex items-center justify-center text-slate-300 font-bold">......</div>
                               </div>
                             </div>
                           </div>
                         ))}
                       </div>
-
                       {showAnswersForDoc('parentheses-expressions', () => (
                         <div className="mt-6 p-4 border-4 border-black bg-yellow-50 print:page-break-before-always">
                           <div className="font-black text-xl mb-4 italic">SUPERHERO SOLUTIONS</div>
                           <div className="grid grid-cols-2 gap-4 font-mono">
-                            {/* Simple placeholder logic for answers since they are strings. In real app, compute eval carefully. */}
-                            <div className="text-xs text-slate-500">
-                              (Teachers: Evaluate expressions using standard order of operations)
-                            </div>
+                            <div className="text-xs text-slate-500">(Teachers: Evaluate expressions using standard order of operations)</div>
                           </div>
                         </div>
                       ))}
@@ -27694,11 +27721,10 @@ export function PrintablesPage() {
                 activeDocs.includes('multi-digit-mult-5th') && (() => {
                   const rng = makeRng(`${effectiveSeed}|v${variant}|doc=${doc}`)
                   const problems = Array.from({ length: 4 }, () => {
-                    const a = Math.floor(rng() * 900) + 100; // 3-digit
-                    const b = Math.floor(rng() * 90) + 10;   // 2-digit
+                    const a = Math.floor(rng() * 900) + 100;
+                    const b = Math.floor(rng() * 90) + 10;
                     return { a, b, ans: a * b };
                   })
-
                   return (
                     <WorksheetSectionWrapper
                       docId="multi-digit-mult-5th"
@@ -27718,11 +27744,9 @@ export function PrintablesPage() {
                       ]}
                     >
                       <div className="print:hidden h-1 w-full rounded-full bg-gradient-to-r from-orange-400 to-slate-600 animate-gradient-x mb-4" />
-
                       <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                         {problems.map((p, i) => (
                           <div key={i} className="flex gap-4 items-end break-inside-avoid">
-                            {/* The Building Crane */}
                             <div className="flex flex-col items-center">
                               <div className="text-4xl mb-2">🏗️</div>
                               <div className="w-4 h-24 bg-yellow-400 border-2 border-orange-600 relative">
@@ -27735,8 +27759,6 @@ export function PrintablesPage() {
                               </div>
                               <div className="w-12 h-4 bg-slate-700 rounded-t"></div>
                             </div>
-
-                            {/* The Math Grid */}
                             <div className="bg-slate-50 border-2 border-slate-300 rounded p-4 shadow-sm flex-1">
                               <div className="text-right font-mono text-2xl tracking-widest leading-loose">
                                 <div>{p.a}</div>
@@ -27747,7 +27769,6 @@ export function PrintablesPage() {
                           </div>
                         ))}
                       </div>
-
                       {showAnswersForDoc('multi-digit-mult-5th', () => (
                         <div className="mt-6 p-4 border-l-8 border-yellow-500 bg-slate-100 rounded">
                           <div className="font-bold text-slate-900 mb-2">Architect's Blueprints (Answers)</div>
@@ -27767,13 +27788,12 @@ export function PrintablesPage() {
                 activeDocs.includes('long-division-5th') && (() => {
                   const rng = makeRng(`${effectiveSeed}|v${variant}|doc=${doc}`)
                   const problems = Array.from({ length: 4 }, () => {
-                    const divisor = Math.floor(rng() * 80) + 11; // 2-digit (11-99)
+                    const divisor = Math.floor(rng() * 80) + 11;
                     const quotient = Math.floor(rng() * 200) + 50;
                     const remainder = Math.floor(rng() * divisor);
-                    const dividend = divisor * quotient + remainder; // ~4 digit
+                    const dividend = divisor * quotient + remainder;
                     return { dividend, divisor, quotient, remainder };
                   })
-
                   return (
                     <WorksheetSectionWrapper
                       docId="long-division-5th"
@@ -27793,14 +27813,11 @@ export function PrintablesPage() {
                       ]}
                     >
                       <div className="print:hidden h-1 w-full rounded-full bg-gradient-to-r from-blue-500 to-cyan-400 animate-gradient-x mb-4" />
-
                       <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                         {problems.map((p, i) => (
                           <div key={i} className="relative bg-cyan-50 border-2 border-cyan-200 rounded-xl p-6 break-inside-avoid overflow-hidden">
-                            {/* Bubbles Background */}
                             <div className="absolute top-2 right-2 text-cyan-200 text-4xl opacity-50">🫧</div>
                             <div className="absolute bottom-4 left-4 text-cyan-200 text-xl opacity-50">🫧</div>
-
                             <div className="relative z-10 flex gap-4">
                               <div className="pt-2 text-3xl">🤿</div>
                               <div className="flex-1">
@@ -27814,7 +27831,6 @@ export function PrintablesPage() {
                           </div>
                         ))}
                       </div>
-
                       {showAnswersForDoc('long-division-5th', () => (
                         <div className="mt-6 p-4 border border-cyan-600 bg-cyan-100 rounded text-cyan-900">
                           <div className="font-bold mb-2">Treasure Map (Solutions)</div>
@@ -27835,15 +27851,13 @@ export function PrintablesPage() {
                   const rng = makeRng(`${effectiveSeed}|v${variant}|doc=${doc}`)
                   const problems = Array.from({ length: 6 }, () => {
                     const isAdd = rng() > 0.5;
-                    const a = (Math.floor(rng() * 10000) + 100) / 100; // 1.00 to 100.00
+                    const a = (Math.floor(rng() * 10000) + 100) / 100;
                     const b = (Math.floor(rng() * 5000) + 100) / 100;
                     const valA = isAdd ? a : Math.max(a, b);
                     const valB = isAdd ? b : Math.min(a, b);
                     const ans = isAdd ? valA + valB : valA - valB;
-
                     return { a: valA.toFixed(2), b: valB.toFixed(2), op: isAdd ? '+' : '-', ans: ans.toFixed(2) };
                   })
-
                   return (
                     <WorksheetSectionWrapper
                       docId="add-sub-decimals"
@@ -27863,37 +27877,24 @@ export function PrintablesPage() {
                       ]}
                     >
                       <div className="print:hidden h-1 w-full rounded-full bg-gradient-to-r from-pink-400 to-rose-500 animate-gradient-x mb-4" />
-
                       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                         {problems.map((p, i) => (
                           <div key={i} className="bg-white border-2 border-rose-200 rounded-lg p-1 shadow-sm break-inside-avoid">
                             <div className="border border-rose-100 p-3 rounded h-full relative overflow-hidden">
-                              {/* Checkered Tablecloth Pattern */}
                               <div className="absolute top-0 right-0 w-8 h-8 bg-rose-100 rounded-bl-full opacity-50"></div>
-
-                              <div className="text-center mb-2 font-bold text-rose-800 text-xs uppercase tracking-widest border-b border-rose-200 pb-1">
-                                Guest Check #{100 + i}
-                              </div>
-
+                              <div className="text-center mb-2 font-bold text-rose-800 text-xs uppercase tracking-widest border-b border-rose-200 pb-1">Guest Check #{100 + i}</div>
                               <div className="flex gap-2 justify-center items-start mt-4 font-mono text-xl text-slate-700">
                                 <div className="flex flex-col items-end">
                                   <div>{p.a}</div>
-                                  <div className="flex gap-2">
-                                    <span>{p.op}</span>
-                                    <span>{p.b}</span>
-                                  </div>
+                                  <div className="flex gap-2"><span>{p.op}</span><span>{p.b}</span></div>
                                   <div className="w-full border-t-2 border-slate-700 mt-1 h-8"></div>
                                 </div>
                               </div>
-
-                              <div className="text-center mt-2 text-2xl">
-                                {i % 3 === 0 ? '🍔' : i % 3 === 1 ? '🍟' : '🥤'}
-                              </div>
+                              <div className="text-center mt-2 text-2xl">{i % 3 === 0 ? '🍔' : i % 3 === 1 ? '🍟' : '🥤'}</div>
                             </div>
                           </div>
                         ))}
                       </div>
-
                       {showAnswersForDoc('add-sub-decimals', () => (
                         <div className="mt-6 p-4 border-2 border-dashed border-rose-300 bg-rose-50 rounded">
                           <div className="font-bold text-rose-900 mb-2">Daily Sales (Answer Key)</div>
@@ -27913,12 +27914,11 @@ export function PrintablesPage() {
                 activeDocs.includes('mult-decimals') && (() => {
                   const rng = makeRng(`${effectiveSeed}|v${variant}|doc=${doc}`)
                   const problems = Array.from({ length: 6 }, () => {
-                    const a = (Math.floor(rng() * 50) + 10) / 10; // 1.0 to 5.9
+                    const a = (Math.floor(rng() * 50) + 10) / 10;
                     const b = (Math.floor(rng() * 50) + 10) / 10;
                     const ans = a * b;
                     return { a: a.toFixed(1), b: b.toFixed(1), ans: ans.toFixed(2) };
                   })
-
                   return (
                     <WorksheetSectionWrapper
                       docId="mult-decimals"
@@ -27938,17 +27938,13 @@ export function PrintablesPage() {
                       ]}
                     >
                       <div className="print:hidden h-1 w-full rounded-full bg-gradient-to-r from-emerald-400 to-teal-500 animate-gradient-x mb-4" />
-
                       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                         {problems.map((p, i) => (
                           <div key={i} className="bg-slate-900 border-2 border-emerald-500 rounded-lg p-4 text-emerald-100 shadow-md relative overflow-hidden break-inside-avoid">
                             <div className="absolute top-0 left-0 w-full h-full bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-slate-800 to-slate-900 opacity-80"></div>
-
                             <div className="relative z-10 flex flex-col items-center">
                               <div className="text-3xl mb-2">🦠</div>
-                              <div className="font-mono text-xl tracking-wider mb-2">
-                                {p.a} × {p.b}
-                              </div>
+                              <div className="font-mono text-xl tracking-wider mb-2">{p.a} × {p.b}</div>
                               <div className="w-full h-px bg-emerald-500/50 my-2"></div>
                               <div className="text-xs text-emerald-400">SAMPLE #{100 + i}</div>
                               <div className="w-full h-8 border border-emerald-500/30 rounded mt-2 bg-slate-800"></div>
@@ -27956,7 +27952,6 @@ export function PrintablesPage() {
                           </div>
                         ))}
                       </div>
-
                       {showAnswersForDoc('mult-decimals', () => (
                         <div className="mt-6 p-4 border border-emerald-600 bg-emerald-900 text-emerald-50 rounded">
                           <div className="font-bold mb-2">Lab Report (Data)</div>
