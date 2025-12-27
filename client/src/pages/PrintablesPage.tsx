@@ -23126,7 +23126,7 @@ export function PrintablesPage() {
               <WorksheetSectionWrapper
                 docId="number-line-200"
                 title="Penguin Ice Slide: Number Lines"
-                emoji="ðŸ§"
+                emoji="🐧"
                 description="The penguins are sliding on the ice! Write the number where the penguin stopped."
                 problemCount={problems.length}
                 learningObjectives={[
@@ -23170,7 +23170,7 @@ export function PrintablesPage() {
                         className="absolute top-0 -ml-4 flex flex-col items-center"
                         style={{ left: `${((p.target - p.start) / 30) * 100}%` }} // Approximate positioning logic
                       >
-                        <div className="text-3xl filter drop-shadow-sm transform -scale-x-100">ðŸ§</div>
+                        <div className="text-3xl filter drop-shadow-sm transform -scale-x-100">🐧</div>
                         <div className="w-12 h-10 border-2 border-sky-500 bg-white rounded-lg mt-2 flex items-center justify-center font-bold text-sky-700 shadow-sm z-10">
                           {/* Answer Box */}
                         </div>
