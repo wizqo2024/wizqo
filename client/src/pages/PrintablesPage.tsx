@@ -22968,7 +22968,7 @@ export function PrintablesPage() {
               <WorksheetSectionWrapper
                 docId="fact-families-20"
                 title="Dragon Triangles: Fact Families"
-                emoji="ðŸ‰"
+                emoji="🐉"
                 description="Harness the power of the Dragon Triangle! Write the 4 fact family equations for each group."
                 problemCount={problems.length}
                 learningObjectives={[
@@ -23685,10 +23685,10 @@ export function PrintablesPage() {
             const rng = makeRng(`${effectiveSeed}|v${variant}|doc=${doc}`)
 
             const scenarios = [
-              { item: 'aliens', container: 'rockets', icon: '👽', containerIcon: '🚀' },
-              { item: 'stars', container: 'constellations', icon: '⭐', containerIcon: '🌐Œ' },
-              { item: 'fuel tanks', container: 'ships', icon: 'â›½', containerIcon: 'ðŸ›¸' },
-              { item: 'moon rocks', container: 'rovers', icon: 'ðŸª¨', containerIcon: 'ðŸš™' }
+              { item: 'gems', friend: 'dragons', icon: '💎', friendIcon: '🐉' },
+              { item: 'coins', friend: 'pirates', icon: '🪙', friendIcon: '🏴‍☠️' },
+              { item: 'bananas', friend: 'monkeys', icon: '🍌', friendIcon: '🐒' },
+              { item: 'acorns', friend: 'squirrels', icon: '🌰', friendIcon: '🐿️' }
             ]
 
             const problems = Array.from({ length: 4 }, () => {
@@ -24014,10 +24014,10 @@ export function PrintablesPage() {
             const rng = makeRng(`${effectiveSeed}|v${variant}|doc=${doc}`)
 
             const scenarios = [
-              { item: 'gems', friend: 'dragons', icon: 'ðŸ’Ž', friendIcon: 'ðŸ‰' },
-              { item: 'coins', friend: 'pirates', icon: 'ðŸª™', friendIcon: 'ðŸ´â€â˜ ï¸' },
-              { item: 'bananas', friend: 'monkeys', icon: 'ðŸŒ', friendIcon: 'ðŸ’' },
-              { item: 'acorns', friend: 'squirrels', icon: '🌐°', friendIcon: 'ðŸ¿ï¸' }
+              { item: 'gems', friend: 'dragons', icon: '💎', friendIcon: '🐉' },
+              { item: 'coins', friend: 'pirates', icon: '🪙', friendIcon: '🏴‍☠️' },
+              { item: 'bananas', friend: 'monkeys', icon: '🍌', friendIcon: '🐒' },
+              { item: 'acorns', friend: 'squirrels', icon: '🌰', friendIcon: '🐿️' }
             ]
 
             const problems = Array.from({ length: 4 }, () => {
@@ -33428,10 +33428,10 @@ export function PrintablesPage() {
         {
           activeDocs.includes('probability') && (() => {
             const scenarios = [
-              { event: 'Rolling a 6 on a die', prob: '1/6', explanation: '1 favorable outcome out of 6 total' },
-              { event: 'Flipping heads on a coin', prob: '1/2', explanation: '1 favorable outcome out of 2 total' },
-              { event: 'Picking a red marble from 4 red, 2 blue', prob: '4/6 = 2/3', explanation: '4 red out of 6 total marbles' },
-              { event: 'Rolling an even number on a die', prob: '3/6 = 1/2', explanation: '3 even numbers (2, 4, 6) out of 6 total' },
+              { item: 'gems', friend: 'dragons', icon: '💎', friendIcon: '🐉' },
+              { item: 'coins', friend: 'pirates', icon: '🪙', friendIcon: '🏴‍☠️' },
+              { item: 'bananas', friend: 'monkeys', icon: '🍌', friendIcon: '🐒' },
+              { item: 'acorns', friend: 'squirrels', icon: '🌰', friendIcon: '🐿️' }
               { event: 'Picking a blue marble from 3 red, 5 blue', prob: '5/8', explanation: '5 blue out of 8 total marbles' },
               { event: 'Flipping tails on a coin', prob: '1/2', explanation: '1 favorable outcome out of 2 total' },
             ];
