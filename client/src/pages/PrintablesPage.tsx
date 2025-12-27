@@ -22727,7 +22727,7 @@ export function PrintablesPage() {
                     <div className="w-1/2 h-24 bg-slate-400 rounded-t-full -mr-10 z-0"></div>
                     <div className="w-1/3 h-12 bg-slate-300 rounded-t-full z-10"></div>
                   </div>
-                  <div className="absolute top-4 left-4 font-black text-slate-700 text-xl bg-white/80 px-3 py-1 rounded-full shadow-sm">ðŸ”ï¸ MOUNT ROUNDING</div>
+                  <div className="absolute top-4 left-4 font-black text-slate-700 text-xl bg-white/80 px-3 py-1 rounded-full shadow-sm">â›°ï¸ MOUNT ROUNDING</div>
                 </div>
 
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
