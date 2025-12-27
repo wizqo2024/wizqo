@@ -3113,7 +3113,7 @@ export function PrintablesPage() {
             <div className="print:hidden absolute -top-3 right-0 flex items-center gap-2 opacity-70 pointer-events-none">
               <span className="animate-bounce">➕</span>
               <span className="animate-bounce animation-delay-2000">🔢</span>
-              <span className="animate-bounce animation-delay-4000">ðŸ•’</span>
+              <span className="animate-bounce animation-delay-4000">🕒</span>
             </div>
             <div>
               <h1 className="text-2xl font-extrabold text-slate-900">{docTitle}</h1>
@@ -3190,7 +3190,7 @@ export function PrintablesPage() {
           >
             {/* Map Header */}
             <div className="print:hidden w-full h-12 mb-2 relative overflow-hidden bg-sky-100 rounded-lg flex items-center justify-center">
-              <div className="font-bold text-xl text-sky-700">ðŸ—ºï¸ World Map Adventure 🧭</div>
+            <div className="font-bold text-xl text-sky-700">🗺 World Map Adventure ðŸ§­</div>
             </div>
 
             <div className="border border-slate-300 rounded-xl p-4 bg-sky-50/30 break-inside-avoid">
@@ -4431,7 +4431,7 @@ export function PrintablesPage() {
                 borderColor: 'border-red-200',
                 bgColor: 'bg-red-50',
                 title: 'Apple Picking',
-                emoji: 'ðŸŽ'
+                emoji: '🍎'
               };
               case 'stars': return {
                 icon: (filled: boolean) => (
@@ -4468,7 +4468,7 @@ export function PrintablesPage() {
                 borderColor: 'border-amber-200',
                 bgColor: 'bg-orange-50',
                 title: 'Yummy Cookies',
-                emoji: 'ðŸª'
+                emoji: '🍪'
               };
               default: return { // Buttons
                 icon: (filled: boolean) => (
@@ -4488,7 +4488,7 @@ export function PrintablesPage() {
                 borderColor: 'border-blue-200',
                 bgColor: 'bg-blue-50',
                 title: 'Button Counting',
-                emoji: '🔍µ'
+                emoji: '🔍'
               }
             }
           }
@@ -5016,8 +5016,8 @@ export function PrintablesPage() {
                 <div className="font-semibold text-slate-800 mb-3 text-sm">📊 {getTrans('common.howDidYouDo', 'How did you do?')}</div>
                 <div className="space-y-2 text-xs">
                   <div>â˜ I can add 2-digit numbers without regrouping</div>
-                  <div>â˜ I can align numbers correctly</div>
-                  <div>â˜ I understand place value when adding</div>
+                  <div>☐ I can align numbers correctly</div>
+                  <div>☐ I understand place value when subtracting</div>
                 </div>
                 <div className="mt-3 text-xs">
                   <strong>{getTrans('common.myScore', 'My score:')}</strong> ___ / {pairs.length}
@@ -5101,7 +5101,7 @@ export function PrintablesPage() {
                         <rect key={j} x={335 + j * 35} y="45" width="25" height="25" rx="2" fill="#fda4af" stroke="#e11d48" strokeWidth="1.5" />
                       ))}
                       {/* Minus sign and subtract 23 */}
-                      <text x="10" y="105" fontSize="14" fill="#a21caf" fontWeight="bold">âˆ’ 23 =</text>
+                      <text x="10" y="105" fontSize="14" fill="#a21caf" fontWeight="bold">− 23 =</text>
                       {/* Cross out 2 tens and 3 ones */}
                       {Array.from({ length: 2 }).map((_, j) => (
                         <g key={j}>
@@ -5139,7 +5139,7 @@ export function PrintablesPage() {
                   <div key={i} className="border-2 border-rose-200 rounded-lg p-4 bg-gradient-to-br from-rose-50 to-fuchsia-50 w-full break-inside-avoid print:p-3">
                     <div className="font-mono text-2xl leading-7 text-right mb-2">
                       <div className="text-rose-700">{a}</div>
-                      <div className="text-fuchsia-700">âˆ’ {b}</div>
+                      <div className="text-fuchsia-700">− {b}</div>
                       <div className="border-t-[3px] border-rose-600 mt-2 pt-2 h-12 flex items-center justify-end">
                         <span className="inline-block w-20 h-10 border-b-[3px] border-rose-600" />
                       </div>
@@ -5152,7 +5152,7 @@ export function PrintablesPage() {
                 <div className="font-semibold text-purple-900 mb-3 text-sm">🌐 {getTrans('common.challengeYourself', 'Challenge Yourself (Optional):')}</div>
                 <div className="space-y-2 text-sm text-purple-800">
                   <div>1. Create your own 2-digit subtraction problem: ___ − ___ = ?</div>
-                  <div>2. Solve: 67 âˆ’ 24 = ?</div>
+                  <div>2. Solve: 67 − 24 = ?</div>
                   <div>3. Write a word problem using 2-digit subtraction</div>
                 </div>
               </div>
@@ -5160,9 +5160,9 @@ export function PrintablesPage() {
               <div className="print:block hidden print:mt-0 mt-6 p-4 border-2 border-slate-300 rounded" style={{ pageBreakBefore: 'avoid', pageBreakInside: 'avoid' }}>
                 <div className="font-semibold text-slate-800 mb-3 text-sm">📊 {getTrans('common.howDidYouDo', 'How did you do?')}</div>
                 <div className="space-y-2 text-xs">
-                  <div>â˜ I can subtract 2-digit numbers without regrouping</div>
-                  <div>â˜ I can align numbers correctly</div>
-                  <div>â˜ I understand place value when subtracting</div>
+                  <div>☐ I can subtract 2-digit numbers without regrouping</div>
+                  <div>☐ I can align numbers correctly</div>
+                  <div>☐ I understand place value when subtracting</div>
                 </div>
                 <div className="mt-3 text-xs">
                   <strong>{getTrans('common.myScore', 'My score:')}</strong> ___ / {pairs.length}
@@ -13531,7 +13531,7 @@ export function PrintablesPage() {
               <div className="print:block hidden print:mt-0 mt-6 p-4 border-2 border-slate-300 rounded" style={{ pageBreakBefore: 'avoid', pageBreakInside: 'avoid' }}>
                 <div className="font-semibold text-slate-800 mb-3 text-sm">📊 {getTrans('common.howDidYouDo', 'How did you do?')}</div>
                 <div className="space-y-2 text-xs">
-                  <div>â˜ I understand place value (hundreds, tens, ones)</div>
+                  <div>☐ I understand place value when subtracting</div>
                   <div>â˜ I can write numbers in expanded form</div>
                   <div>â˜ I wrote all 6 numbers correctly in expanded form</div>
                 </div>
@@ -16398,7 +16398,7 @@ export function PrintablesPage() {
                   <div className="space-y-2 text-xs">
                     <div>â˜ I can multiply numbers 1-5 in vertical format</div>
                     <div>â˜ I need more practice with some facts</div>
-                    <div>â˜ I can align numbers correctly</div>
+                  <div>☐ I can align numbers correctly</div>
                   </div>
                   <div className="mt-3 text-xs">
                     <strong>{getTrans('common.myScore', 'My score:')}</strong> ___ / {facts.length}
@@ -16501,7 +16501,7 @@ export function PrintablesPage() {
                   <div className="space-y-2 text-xs">
                     <div>â˜ I can multiply numbers 6-12 in vertical format</div>
                     <div>â˜ I need more practice with some facts</div>
-                    <div>â˜ I can align numbers correctly</div>
+                  <div>☐ I can align numbers correctly</div>
                   </div>
                   <div className="mt-3 text-xs">
                     <strong>{getTrans('common.myScore', 'My score:')}</strong> ___ / {facts.length}
@@ -16606,7 +16606,7 @@ export function PrintablesPage() {
                   <div className="space-y-2 text-xs">
                     <div>â˜ I can multiply all facts 1-12 in vertical format</div>
                     <div>â˜ I need more practice with some facts</div>
-                    <div>â˜ I can align numbers correctly</div>
+                  <div>☐ I can align numbers correctly</div>
                   </div>
                   <div className="mt-3 text-xs">
                     <strong>{getTrans('common.myScore', 'My score:')}</strong> ___ / {facts.length}
@@ -27999,7 +27999,7 @@ export function PrintablesPage() {
                   <div className="font-semibold text-slate-800 mb-3 text-sm">📊 {getTrans('common.howDidYouDo', 'How did you do?')}</div>
                   <div className="space-y-2 text-xs">
                     <div>â˜ I can compare decimals correctly</div>
-                    <div>â˜ I understand place value when comparing</div>
+                  <div>☐ I understand place value when subtracting</div>
                     <div>â˜ I can order decimals from least to greatest</div>
                   </div>
                   <div className="mt-3 text-xs">
