@@ -813,7 +813,7 @@ function resolveDocTitle(docId: string, context: { packTime: string; bundleCateg
     case 'doubles-near-doubles':
       return getTranslatedWorksheetTitle(docId, t, 'ðŸŽ¯ Doubles & Near Doubles')
     case 'money-coins-bills':
-      return getTranslatedWorksheetTitle(docId, t, 'ðŸ’° Money: Coins & Bills')
+      return getTranslatedWorksheetTitle(docId, t, '💰 Money: Coins & Bills')
     case 'measurement-length':
       return getTranslatedWorksheetTitle(docId, t, 'ðŸ“ Measurement: Length')
     case 'bar-graphs-data':
@@ -2962,7 +2962,7 @@ export function PrintablesPage() {
               className="inline-flex items-center gap-2 px-3 py-1.5 rounded-lg border border-slate-200 text-slate-700 hover:bg-slate-50 text-sm"
               aria-label={t('pages.printables.backPrintablePage')}
             >
-              <span>â†</span>
+              <span>â¬…ï¸</span>
               <span>{(() => {
                 try {
                   const u = new URL(typeof window !== 'undefined' ? window.location.href : 'https://wizqo.com/print')
@@ -3025,7 +3025,7 @@ export function PrintablesPage() {
                 }}
                 className="inline-flex items-center gap-2 px-4 py-2 rounded-lg border border-slate-300 bg-white hover:bg-slate-50 text-slate-700 text-sm font-medium shadow-sm focus:outline-none focus:ring-2 focus:ring-slate-400 focus:ring-offset-1 print:hidden"
               >
-                ðŸ–¨ï¸ Print
+                <span>ðŸ–¨ï¸</span> Print
               </button>
               <button
                 onClick={(e) => {
@@ -3100,7 +3100,7 @@ export function PrintablesPage() {
                   </>
                 ) : (
                   <>
-                    <span>ðŸ–¼ï¸</span>
+                    <span>ðŸ“¥</span>
                     <span>Download Worksheet</span>
                   </>
                 )}
@@ -3128,7 +3128,7 @@ export function PrintablesPage() {
                 title={t('pages.printables.pinThisPrintable')}
                 aria-label={t('pages.printables.pinThisPrintableAria')}
               >
-                <span>ðŸ“Œ</span>
+                <span>📌</span>
                 <span>{t('pages.printables.pinThis')}</span>
               </a>
 
@@ -39288,3 +39288,5 @@ function HiddenObjectsSceneSVGB() {
 }
 
 export default PrintablesPage
+
+
