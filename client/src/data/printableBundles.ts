@@ -74,6 +74,9 @@ export const PRINTABLE_BUNDLE_SECTIONS: Record<string, string[]> = {
     'fraction-mult-whole',
     'fraction-mult',
     'div-fractions',
+    'div-facts-1-12',
+    'factors-multiples',
+    'prime-composite',
   ],
   Creative: [
     'color-by-number',
@@ -265,4 +268,7 @@ export const PRINTABLE_DOC_META: Record<string, { level: PrintableDifficulty }> 
   'fraction-mult-whole': { level: 'Advanced' },
   'fraction-mult': { level: 'Advanced' },
   'div-fractions': { level: 'Advanced' },
+  'div-facts-1-12': { level: 'Intermediate' },
+  'factors-multiples': { level: 'Intermediate' },
+  'prime-composite': { level: 'Intermediate' },
 };
