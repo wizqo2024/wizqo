@@ -1621,9 +1621,9 @@ export function PrintablesPage() {
         <div className="print:block hidden print:mt-0 mt-6 p-4 border-2 border-slate-300 rounded self-assessment" style={{ pageBreakBefore: 'avoid', pageBreakInside: 'avoid' }}>
           <div className="font-semibold text-slate-800 mb-3 text-sm">📊 {t('worksheets.addition-subtraction-0-10.selfAssessment.title')}</div>
           <div className="space-y-2 text-xs">
-            <div>â˜ {t('worksheets.addition-subtraction-0-10.selfAssessment.question1')}</div>
-            <div>â˜ {t('worksheets.addition-subtraction-0-10.selfAssessment.question2')}</div>
-            <div>â˜ {t('worksheets.addition-subtraction-0-10.selfAssessment.question3')}</div>
+                    <div>â˜ {t('worksheets.addition-subtraction-0-10.selfAssessment.question1</div>
+                    <div>â˜ {t('worksheets.addition-subtraction-0-10.selfAssessment.question2</div>
+                    <div>â˜ {t('worksheets.addition-subtraction-0-10.selfAssessment.question3</div>
           </div>
           <div className="mt-3 text-xs">
             <strong>{t('worksheets.addition-subtraction-0-10.selfAssessment.score')}</strong> ___ / 12
@@ -21621,7 +21621,7 @@ export function PrintablesPage() {
                 <div className="print:block hidden print:mt-0 mt-6 p-4 border-2 border-slate-300 rounded" style={{ pageBreakBefore: 'avoid', pageBreakInside: 'avoid' }}>
                   <div className="font-semibold text-slate-800 mb-3 text-sm">{getTrans('worksheets.number-id-1-10.selfCheck.title', '📊 How did you do?')}</div>
                   <div className="space-y-2 text-xs">
-                    <div>☐ I can identify numbers 1-10')}</div>
+                    <div>☐ {getTrans('worksheets.number-id-1-10.selfCheck.canIdentify', 'I can identify numbers 1-10')}</div>
                     <div>☐ {getTrans('worksheets.number-id-1-10.selfCheck.found', `I found all the ${formattedTarget}s`).replace(/\{\{number\}\}/g, formattedTarget)}</div>
                     <div>☐ {getTrans('worksheets.number-id-1-10.selfCheck.circled', `I circled ${formattedCount} ${formattedTarget}s correctly`).replace(/\{\{count\}\}/g, formattedCount).replace(/\{\{number\}\}/g, formattedTarget)}</div>
                   </div>
