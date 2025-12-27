@@ -638,120 +638,120 @@ function resolveDocTitle(docId: string, context: { packTime: string; bundleCateg
     case 'bundle':
       return bundleCategory ? `${bundleCategory} ${t ? t('pages.printables.printableBundle') : 'Printable Bundle'}` : (t ? t('pages.printables.printableBundle') : 'Printable Bundle')
     case 'ten-frames-1-20':
-      return getTranslatedWorksheetTitle(docId, t, 'ðŸ”Ÿ Ten Frames 1â€“20')
+      return getTranslatedWorksheetTitle(docId, t, '🔟 Ten Frames 1–20')
     case 'number-tracing-1-20':
-      return getTranslatedWorksheetTitle(docId, t, 'ðŸ”¢ Number Tracing 1â€“20')
+      return getTranslatedWorksheetTitle(docId, t, '🔢 Number Tracing 1–20')
     case 'stem-balloon-rocket':
-      return getTranslatedWorksheetTitle(docId, t, 'ðŸš€ Balloon Rocket (STEM)')
+      return getTranslatedWorksheetTitle(docId, t, '🚀 Balloon Rocket (STEM)')
     case 'stem-walking-water':
-      return getTranslatedWorksheetTitle(docId, t, 'ðŸŒŠ Walking Water (STEM)')
+      return getTranslatedWorksheetTitle(docId, t, '🌊 Walking Water (STEM)')
     case 'arts-3-shape-creature':
-      return getTranslatedWorksheetTitle(docId, t, 'ðŸŽ¨ Draw From 3 Shapes (Arts)')
+      return getTranslatedWorksheetTitle(docId, t, '🎨 Draw From 3 Shapes (Arts)')
     case 'number-tracing-1-10':
-      return getTranslatedWorksheetTitle(docId, t, 'ðŸ”¢ Number Tracing 1â€“10')
+      return getTranslatedWorksheetTitle(docId, t, '🔢 Number Tracing 1–10')
     case 'uppercase-lowercase-match':
-      return getTranslatedWorksheetTitle(docId, t, 'Aaâ€“Zz Upper/Lower Letter Match')
+      return getTranslatedWorksheetTitle(docId, t, 'Aa–Zz Upper/Lower Letter Match')
     case 'beginning-sounds-az':
-      return getTranslatedWorksheetTitle(docId, t, 'ðŸ”¡ Beginning Sounds (Aâ€“Z)')
+      return getTranslatedWorksheetTitle(docId, t, '🔢 Beginning Sounds (A–Z)')
     case 'kindergarten-counting-1-10':
-      return getTranslatedWorksheetTitle(docId, t, 'ðŸ”¢ Counting 1â€“10')
+      return getTranslatedWorksheetTitle(docId, t, '🔢 Counting 1–10')
     case 'kindergarten-number-recognition':
-      return getTranslatedWorksheetTitle(docId, t, 'ðŸ”¢ Number Recognition')
+      return getTranslatedWorksheetTitle(docId, t, '🔢 Number Recognition')
     case 'kindergarten-shapes':
-      return getTranslatedWorksheetTitle(docId, t, 'ðŸ”· Shapes')
+      return getTranslatedWorksheetTitle(docId, t, '🔺 Shapes')
     case 'kindergarten-patterns':
-      return getTranslatedWorksheetTitle(docId, t, 'ðŸ” Patterns')
+      return getTranslatedWorksheetTitle(docId, t, '🔎 Patterns')
     case 'kindergarten-addition-pictures':
-      return getTranslatedWorksheetTitle(docId, t, 'âž• Addition with Pictures')
+      return getTranslatedWorksheetTitle(docId, t, '➕ Addition with Pictures')
     case 'kindergarten-counting-visual':
-      return getTranslatedWorksheetTitle(docId, t, 'ðŸ¼ Counting with Cute Characters')
+      return getTranslatedWorksheetTitle(docId, t, '🍼 Counting with Cute Characters')
     case 'addition-subtraction-0-10':
-      return getTranslatedWorksheetTitle(docId, t, 'âž•âž– Addition & Subtraction 0â€“10')
+      return getTranslatedWorksheetTitle(docId, t, '➕➖ Addition & Subtraction 0–10')
     case 'ten-frames-1-10':
-      return getTranslatedWorksheetTitle(docId, t, 'ðŸ”Ÿ Ten Frames 1â€“10')
+      return getTranslatedWorksheetTitle(docId, t, '🔟 Ten Frames 1–10')
     case 'shapes-colors-sort':
-      return getTranslatedWorksheetTitle(docId, t, 'â¬› Shapes & Colors Sort (Cut & Glue)')
+      return getTranslatedWorksheetTitle(docId, t, '⬛ Shapes & Colors Sort (Cut & Glue)')
     case 'dot-to-dot-1-20':
-      return getTranslatedWorksheetTitle(docId, t, '1â€“20 Dot-to-Dot')
+      return getTranslatedWorksheetTitle(docId, t, '1–20 Dot-to-Dot')
     case 'tangram-animals':
       return getTranslatedWorksheetTitle(docId, t, 'Tangram Animals (Cutouts)')
     case 'spot-difference':
     case 'spotdiff':
-      return getTranslatedWorksheetTitle(docId, t, 'ðŸ‘€ Spot-the-Difference')
+      return getTranslatedWorksheetTitle(docId, t, '👀 Spot-the-Difference')
     case 'directed-drawing-animals':
-      return getTranslatedWorksheetTitle(docId, t, 'ðŸ–Šï¸ Directed Drawing: Animals')
+      return getTranslatedWorksheetTitle(docId, t, '🖊️ Directed Drawing: Animals')
     case 'cut-and-paste-crafts':
-      return getTranslatedWorksheetTitle(docId, t, 'âœ‚ï¸ Cut-and-Paste Paper Crafts')
+      return getTranslatedWorksheetTitle(docId, t, '✂️ Cut-and-Paste Paper Crafts')
     case 'feelings-checkin':
-      return getTranslatedWorksheetTitle(docId, t, 'ðŸ˜Š Feelings Check-In Meter')
+      return getTranslatedWorksheetTitle(docId, t, '😊 Feelings Check-In Meter')
     case 'reward-chart':
-      return getTranslatedWorksheetTitle(docId, t, 'â­ Weekly Reward / Sticker Chart')
+      return getTranslatedWorksheetTitle(docId, t, '⭐ Weekly Reward / Sticker Chart')
     case 'reading-mini-1':
-      return getTranslatedWorksheetTitle(docId, t, 'ðŸ“– Mini Reading Passage + 3 Questions')
+      return getTranslatedWorksheetTitle(docId, t, '📖 Mini Reading Passage + 3 Questions')
     case 'reading-g1-lost-hat':
-      return getTranslatedWorksheetTitle(docId, t, 'ðŸ“– Grade 1 â€” The Lost Hat (Reading)')
+      return getTranslatedWorksheetTitle(docId, t, '📖 Grade 1 — The Lost Hat (Reading)')
     case 'reading-g1-ants':
-      return getTranslatedWorksheetTitle(docId, t, 'ðŸ“– Grade 1 â€” Lunch for the Ants (Reading)')
+      return getTranslatedWorksheetTitle(docId, t, '📖 Grade 1 — Lunch for the Ants (Reading)')
     case 'reading-g1-bus-ride':
-      return getTranslatedWorksheetTitle(docId, t, 'ðŸ“– Grade 1 â€” The Bus Ride (Reading)')
+      return getTranslatedWorksheetTitle(docId, t, '📖 Grade 1 — The Bus Ride (Reading)')
     case 'reading-g1-pet-fish':
-      return getTranslatedWorksheetTitle(docId, t, 'ðŸ“– Grade 1 â€” The Pet Fish (Reading)')
+      return getTranslatedWorksheetTitle(docId, t, '📖 Grade 1 — The Pet Fish (Reading)')
     case 'reading-g2-paper-bridge':
-      return getTranslatedWorksheetTitle(docId, t, 'ðŸ“– Grade 2 â€” The Paper Bridge (Reading)')
+      return getTranslatedWorksheetTitle(docId, t, '📖 Grade 2 — The Paper Bridge (Reading)')
     case 'reading-g2-rainy-garden':
-      return getTranslatedWorksheetTitle(docId, t, 'ðŸ“– Grade 2 â€” Rainy Day Garden (Reading)')
+      return getTranslatedWorksheetTitle(docId, t, '📖 Grade 2 — Rainy Day Garden (Reading)')
     case 'reading-g2-library-card':
-      return getTranslatedWorksheetTitle(docId, t, 'ðŸ“– Grade 2 â€” New Library Card (Reading)')
+      return getTranslatedWorksheetTitle(docId, t, '📖 Grade 2 — New Library Card (Reading)')
     case 'reading-g2-lost-and-found':
-      return getTranslatedWorksheetTitle(docId, t, 'ðŸ“– Grade 2 â€” Lost and Found (Reading)')
+      return getTranslatedWorksheetTitle(docId, t, '📖 Grade 2 — Lost and Found (Reading)')
     case 'reading-g3-lighthouse':
-      return getTranslatedWorksheetTitle(docId, t, 'ðŸ“– Grade 3 â€” The Lighthouse Keeperâ€™s Trick (Reading)')
+      return getTranslatedWorksheetTitle(docId, t, '📖 Grade 3 — The Lighthouse Keeper’s Trick (Reading)')
     case 'reading-g3-science-fair':
-      return getTranslatedWorksheetTitle(docId, t, 'ðŸ“– Grade 3 â€” The Science Fair Plan (Reading)')
+      return getTranslatedWorksheetTitle(docId, t, '📖 Grade 3 — The Science Fair Plan (Reading)')
     case 'reading-g3-community-garden':
-      return getTranslatedWorksheetTitle(docId, t, 'ðŸ“– Grade 3 â€” The Community Garden (Reading)')
+      return getTranslatedWorksheetTitle(docId, t, '📖 Grade 3 — The Community Garden (Reading)')
     case 'reading-g1-red-balloon':
-      return getTranslatedWorksheetTitle(docId, t, 'ðŸ“– Grade 1 â€” The Red Balloon (Reading)')
+      return getTranslatedWorksheetTitle(docId, t, '📖 Grade 1 — The Red Balloon (Reading)')
     case 'reading-g1-big-box':
-      return getTranslatedWorksheetTitle(docId, t, 'ðŸ“– Grade 1 â€” The Big Box (Reading)')
+      return getTranslatedWorksheetTitle(docId, t, '📖 Grade 1 — The Big Box (Reading)')
     case 'reading-g1-garden-snail':
-      return getTranslatedWorksheetTitle(docId, t, 'ðŸ“– Grade 1 â€” The Garden Snail (Reading)')
+      return getTranslatedWorksheetTitle(docId, t, '📖 Grade 1 — The Garden Snail (Reading)')
     case 'reading-g1-birthday-cake':
-      return getTranslatedWorksheetTitle(docId, t, 'ðŸ“– Grade 1 â€” The Birthday Cake (Reading)')
+      return getTranslatedWorksheetTitle(docId, t, '📖 Grade 1 — The Birthday Cake (Reading)')
     case 'reading-g2-bird-feeder':
-      return getTranslatedWorksheetTitle(docId, t, 'ðŸ“– Grade 2 â€” The Bird Feeder (Reading)')
+      return getTranslatedWorksheetTitle(docId, t, '📖 Grade 2 — The Bird Feeder (Reading)')
     case 'reading-g2-cookie-recipe':
-      return getTranslatedWorksheetTitle(docId, t, 'ðŸ“– Grade 2 â€” The Cookie Recipe (Reading)')
+      return getTranslatedWorksheetTitle(docId, t, '📖 Grade 2 — The Cookie Recipe (Reading)')
     case 'reading-g2-tree-house':
-      return getTranslatedWorksheetTitle(docId, t, 'ðŸ“– Grade 2 â€” The Tree House (Reading)')
+      return getTranslatedWorksheetTitle(docId, t, '📖 Grade 2 — The Tree House (Reading)')
     case 'reading-g2-magic-seeds':
-      return getTranslatedWorksheetTitle(docId, t, 'ðŸ“– Grade 2 â€” The Magic Seeds (Reading)')
+      return getTranslatedWorksheetTitle(docId, t, '📖 Grade 2 — The Magic Seeds (Reading)')
     case 'reading-g3-school-play':
-      return getTranslatedWorksheetTitle(docId, t, 'ðŸ“– Grade 3 â€” The School Play (Reading)')
+      return getTranslatedWorksheetTitle(docId, t, '📖 Grade 3 — The School Play (Reading)')
     case 'reading-g3-art-project':
-      return getTranslatedWorksheetTitle(docId, t, 'ðŸ“– Grade 3 â€” The Art Project (Reading)')
+      return getTranslatedWorksheetTitle(docId, t, '📖 Grade 3 — The Art Project (Reading)')
     case 'pack':
-      return `Todayâ€™s ${packTime}-Minute Print Pack`
+      return `Today’s ${packTime}-Minute Print Pack`
     case 'math-maze':
-      return getTranslatedWorksheetTitle(docId, t, 'âž• Math Maze Adventure')
+      return getTranslatedWorksheetTitle(docId, t, '➕ Math Maze Adventure')
     case 'spelling':
-      return getTranslatedWorksheetTitle(docId, t, 'âœï¸ Spelling Challenge Worksheet')
+      return getTranslatedWorksheetTitle(docId, t, '✏️ Spelling Challenge Worksheet')
     case 'science-match':
-      return getTranslatedWorksheetTitle(docId, t, 'ðŸ”¬ Science Fun Facts Match')
+      return getTranslatedWorksheetTitle(docId, t, '🔬 Science Fun Facts Match')
     case 'grammar-detective':
-      return getTranslatedWorksheetTitle(docId, t, 'ðŸ•µï¸â€â™€ï¸ Grammar Detective')
+      return getTranslatedWorksheetTitle(docId, t, '🕵️‍♀️ Grammar Detective')
     case 'sudoku4':
-      return getTranslatedWorksheetTitle(docId, t, 'ðŸ”¢ Sudoku â€“ 4Ã—4 (Easy)')
+      return getTranslatedWorksheetTitle(docId, t, '🔢 Sudoku – 4×4 (Easy)')
     case 'sudoku6':
-      return getTranslatedWorksheetTitle(docId, t, 'ðŸ§® Sudoku â€“ 6Ã—6 (Medium)')
+      return getTranslatedWorksheetTitle(docId, t, '🧮 Sudoku – 6×6 (Medium)')
     case 'place-value-hto':
-      return getTranslatedWorksheetTitle(docId, t, 'ðŸ§® Place Value (Tens/Ones)')
+      return getTranslatedWorksheetTitle(docId, t, '🧮 Place Value (Tens/Ones)')
     case 'skip-count-5-10-120':
-      return getTranslatedWorksheetTitle(docId, t, 'ðŸ” Skip Counting by 5s & 10s')
+      return getTranslatedWorksheetTitle(docId, t, '🔎 Skip Counting by 5s & 10s')
     case 'add-2digit-100':
-      return getTranslatedWorksheetTitle(docId, t, 'âž• Add 2-Digit Numbers (to 100)')
+      return getTranslatedWorksheetTitle(docId, t, '➕ Add 2-Digit Numbers (to 100)')
     case 'sub-2digit-100':
-      return getTranslatedWorksheetTitle(docId, t, 'âž– Subtract 2-Digit Numbers (to 100)')
+      return getTranslatedWorksheetTitle(docId, t, '➖ Subtract 2-Digit Numbers (to 100)')
     case 'word-problems-100':
       return getTranslatedWorksheetTitle(docId, t, 'ðŸ§  Word Problems (within 100)')
     case 'compare-2digit':
