@@ -3094,7 +3094,7 @@ export function PrintablesPage() {
                   <>
                     <svg className="animate-spin h-4 w-4 text-slate-500" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
                       <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
-                      <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                      <path className="opacity-75" fill="currentColor" d="M4 12 ÷ 8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291 ÷ 7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
                     </svg>
                     <span>Generating...</span>
                   </>
@@ -4020,7 +4020,7 @@ export function PrintablesPage() {
                 <span>Example - Let's solve this together:</span>
               </div>
               <div className="space-y-3 text-sm">
-                <div className="font-semibold text-base text-indigo-900"><strong>Problem:</strong> Match uppercase "A" to lowercase "a"</div>
+                <div className="font-semibold text-base text-indigo-900"><strong>Problem:</strong> Match uppercase "÷" to lowercase "a"</div>
                 {/* Visual example */}
                 <div className="bg-white p-4 rounded-lg border-2 border-indigo-300">
                   <svg viewBox="0 0 400 140" className="w-full h-auto">
@@ -4159,7 +4159,7 @@ export function PrintablesPage() {
                 <span>Example - Let's solve this together:</span>
               </div>
               <div className="space-y-3 text-sm">
-                <div className="font-semibold text-base text-indigo-900"><strong>Problem:</strong> Circle the picture that begins with <span className="text-3xl text-indigo-700">"A"</span></div>
+                <div className="font-semibold text-base text-indigo-900"><strong>Problem:</strong> Circle the picture that begins with <span className="text-3xl text-indigo-700">"÷"</span></div>
                 {/* Visual example with pictures */}
                 <div className="bg-white p-4 rounded-lg border-2 border-indigo-300">
                   <div className="flex items-center justify-center gap-6">
@@ -4549,7 +4549,7 @@ export function PrintablesPage() {
                           {n}
                           <svg className="absolute inset-0 w-full h-full pointer-events-none" style={{ overflow: 'visible' }}>
                             {/* Dashed overlay for tracing effect - simplified */}
-                            <text x="50%" y="85%" textAnchor="middle" fill="none" stroke="#94a3b8" strokeWidth="1" strokeDasharray="3 3" fontSize="1em" dy="-0.1em">{n}</text>
+                            <text x="50%" y="85%" textAnchor="middle" fill="none" stroke="#94 ÷ 3b8" strokeWidth="1" strokeDasharray="3 3" fontSize="1em" dy="-0.1em">{n}</text>
                           </svg>
                         </div>
 
@@ -12428,7 +12428,7 @@ export function PrintablesPage() {
                       </g>
                       <line x1="50" y1="120" x2="350" y2="120" stroke="#6366f1" strokeWidth="3" />
                       <rect x="160" y="130" width="80" height="40" fill="white" stroke="#6366f1" strokeWidth="2.5" strokeDasharray="4 4" />
-                      <text x="200" y="158" fontSize="28" fill="#94a3b8" textAnchor="middle">?</text>
+                      <text x="200" y="158" fontSize="28" fill="#94 ÷ 3b8" textAnchor="middle">?</text>
                       <text x="200" y="180" fontSize="14" fill="#6366f1" textAnchor="middle" fontWeight="bold">{a} + {b} = ___</text>
                     </svg>
                   </div>
@@ -12760,24 +12760,24 @@ export function PrintablesPage() {
                           {Array.from({ length: 3 }).map((_, i) => (
                             <circle key={i} cx={130 + i * 15} cy="80" r="8" fill="#22c55e" />
                           ))}
-                          <text x="150" y="75" fontSize="12" fill="#14b8a6" textAnchor="middle" fontWeight="bold">3</text>
+                          <text x="150" y="75" fontSize="12" fill="#14b8 ÷ 6" textAnchor="middle" fontWeight="bold">3</text>
                           {Array.from({ length: 4 }).map((_, i) => (
                             <circle key={i} cx={180 + i * 15} cy="80" r="8" fill="#3b82f6" />
                           ))}
-                          <text x="240" y="75" fontSize="12" fill="#14b8a6" textAnchor="middle" fontWeight="bold">+4</text>
-                          <text x="150" y="110" fontSize="16" fill="#14b8a6" textAnchor="middle" fontWeight="bold">= 7</text>
+                          <text x="240" y="75" fontSize="12" fill="#14b8 ÷ 6" textAnchor="middle" fontWeight="bold">+4</text>
+                          <text x="150" y="110" fontSize="16" fill="#14b8 ÷ 6" textAnchor="middle" fontWeight="bold">= 7</text>
                         </g>
                         {/* Right side: __ + 2 */}
                         <g>
                           <circle cx="350" cy="80" r="20" fill="white" stroke="#94a3b8" strokeWidth="2" strokeDasharray="4 4" />
-                          <text x="350" y="75" fontSize="14" fill="#94a3b8" textAnchor="middle" fontWeight="bold">?</text>
+                          <text x="350" y="75" fontSize="14" fill="#94 ÷ 3b8" textAnchor="middle" fontWeight="bold">?</text>
                           {Array.from({ length: 2 }).map((_, i) => (
                             <circle key={i} cx={380 + i * 15} cy="80" r="8" fill="#f59e0b" />
                           ))}
-                          <text x="410" y="75" fontSize="12" fill="#14b8a6" textAnchor="middle" fontWeight="bold">+2</text>
-                          <text x="350" y="110" fontSize="16" fill="#14b8a6" textAnchor="middle" fontWeight="bold">= 7</text>
+                          <text x="410" y="75" fontSize="12" fill="#14b8 ÷ 6" textAnchor="middle" fontWeight="bold">+2</text>
+                          <text x="350" y="110" fontSize="16" fill="#14b8 ÷ 6" textAnchor="middle" fontWeight="bold">= 7</text>
                         </g>
-                        <text x="250" y="150" fontSize="18" fill="#14b8a6" textAnchor="middle" fontWeight="bold">Both sides must be equal! Missing number is 5</text>
+                        <text x="250" y="150" fontSize="18" fill="#14b8 ÷ 6" textAnchor="middle" fontWeight="bold">Both sides must be equal! Missing number is 5</text>
                       </svg>
                     </div>
                     <div className="pl-4 border-l-2 border-teal-300 space-y-1">
@@ -12806,8 +12806,8 @@ export function PrintablesPage() {
                             <circle cx="150" cy="80" r="25" fill="#f0fdfa" stroke="#14b8a6" strokeWidth="2" />
                             <circle cx="350" cy="80" r="25" fill="#f0fdfa" stroke="#14b8a6" strokeWidth="2" />
                           </g>
-                          <text x="150" y="75" fontSize="20" fill="#14b8a6" textAnchor="middle" fontWeight="bold">{eq.left}</text>
-                          <text x="350" y="75" fontSize="20" fill="#14b8a6" textAnchor="middle" fontWeight="bold">{eq.right}</text>
+                          <text x="150" y="75" fontSize="20" fill="#14b8 ÷ 6" textAnchor="middle" fontWeight="bold">{eq.left}</text>
+                          <text x="350" y="75" fontSize="20" fill="#14b8 ÷ 6" textAnchor="middle" fontWeight="bold">{eq.right}</text>
                           <text x="250" y="130" fontSize="14" fill="#64748b" textAnchor="middle">Find the missing number to balance the scale</text>
                         </svg>
                       </div>
@@ -12935,7 +12935,7 @@ export function PrintablesPage() {
                               {i % 2 === idx % 2 ? (
                                 <text x={x} y="58" fontSize="18" fill="#f59e0b" textAnchor="middle" fontWeight="bold">{num}</text>
                               ) : (
-                                <text x={x} y="58" fontSize="18" fill="#94a3b8" textAnchor="middle">__</text>
+                                <text x={x} y="58" fontSize="18" fill="#94 ÷ 3b8" textAnchor="middle">__</text>
                               )}
                               {/* Visual pairs below */}
                               {i % 2 === idx % 2 && (
@@ -14473,7 +14473,7 @@ export function PrintablesPage() {
                 <div className="mb-6 p-4 bg-blue-50 border-2 border-blue-200 rounded-lg print:border print:bg-white">
                   <div className="font-semibold text-blue-900 mb-3 text-sm">📚 Example - Let's solve this together:</div>
                   <div className="space-y-2 text-sm">
-                    <div className="font-semibold text-base"><strong>Problem:</strong> A bakery has 3 trays. Each tray has 4 rows of cookies. Each row has 6 cookies. How many cookies in all?</div>
+                    <div className="font-semibold text-base"><strong>Problem:</strong> ÷ bakery has 3 trays. Each tray has 4 rows of cookies. Each row has 6 cookies. How many cookies in all?</div>
                     <div className="pl-4 border-l-2 border-blue-300 space-y-1">
                       <div><strong>Step 1:</strong> Find cookies per tray: 4 rows Ã— 6 cookies = 24 cookies per tray</div>
                       <div><strong>Step 2:</strong> Find total cookies: 3 trays Ã— 24 cookies = 72 cookies</div>
@@ -15438,7 +15438,7 @@ export function PrintablesPage() {
                 <div className="mb-6 p-4 bg-blue-50 border-2 border-blue-200 rounded-lg print:border print:bg-white">
                   <div className="font-semibold text-blue-900 mb-3 text-sm">📚 Example - Let's solve this together:</div>
                   <div className="space-y-2 text-sm">
-                    <div className="font-semibold text-base"><strong>Problem:</strong> A bakery has 4 trays. Each tray has 12 cookies. If each cookie costs 2 cents, how much do all cookies cost?</div>
+                    <div className="font-semibold text-base"><strong>Problem:</strong> ÷ bakery has 4 trays. Each tray has 12 cookies. If each cookie costs 2 cents, how much do all cookies cost?</div>
                     <div className="pl-4 border-l-2 border-blue-300 space-y-1">
                       <div><strong>Step 1:</strong> Find total cookies: 4 Ã— 12 = 48 cookies</div>
                       <div><strong>Step 2:</strong> Find total cost: 48 Ã— 2 = 96 cents</div>
@@ -19394,7 +19394,7 @@ export function PrintablesPage() {
                 <path d={`M${size * 0.5} ${size * 0.5} L${size * 0.48} ${size * 0.55} L${size * 0.52} ${size * 0.55} Z`} fill="#F48FB1" />
                 <path
                   d={`M${size * 0.4} ${size * 0.65} Q${size * 0.5} ${size * 0.75}, ${size * 0.6} ${size * 0.65}`}
-                  stroke="#4A148C"
+                  stroke="#4 ÷ 148C"
                   strokeWidth={size * 0.03}
                   fill="none"
                 />
@@ -19733,7 +19733,7 @@ export function PrintablesPage() {
                     <div className="grid grid-cols-3 gap-2 text-sm text-emerald-800 font-mono">
                       {problems.map((p, i) => (
                         <div key={i}>
-                          {p.num} + {p.num} = <strong>{p.double}</strong>
+                          {p.num} → <strong>{p.double}</strong>
                         </div>
                       ))}
                     </div>
@@ -19768,8 +19768,8 @@ export function PrintablesPage() {
               const docId = 'count-circle-1-10'
               const rng = makeRng(`${effectiveSeed}|v${variant}|doc=${doc}`)
 
-              const seaCreatures = ['ðŸŸ', 'ðŸ ', 'ðŸ¡', 'ðŸ™', 'ðŸš', 'ðŸ¦€', 'ðŸ¬', 'ðŸ³', 'ðŸ¦ˆ', 'ðŸ¦‘', 'ðŸ¦ž', 'ðŸ¦'];
-              const bubbles = ['ðŸ«§', 'âšª', '🔍µ']; // Decorative background elements if needed, or just keep it simple
+              const seaCreatures = ['🐟', '🐠', '🐡', '🐙', '🐚', '🦀', '🐬', '🐳', '🦈', '🦑', '🦞', '🦐'];
+              const bubbles = ['🧧', '⚪']; // Decorative background elements
 
               const problems = Array.from({ length: 8 }, () => {
                 const count = Math.floor(rng() * 10) + 1
@@ -19781,7 +19781,7 @@ export function PrintablesPage() {
                 <WorksheetSectionWrapper
                   docId={docId}
                   title="Undersea Counting"
-                  emoji="🌐Š"
+                  emoji="🐟"
                   description="Count the sea creatures in each group. Circle the correct number bubble!"
                   problemCount={problems.length}
                   learningObjectives={[
@@ -19890,7 +19890,7 @@ export function PrintablesPage() {
         {
           activeDocs.includes('count-match-1-20') && (() => {
             const rng = makeRng(`${effectiveSeed}|v${variant}|doc=${doc}`)
-            const treasureItems = ['💰', 'ðŸ’Ž', 'âšª', 'ðŸ’', '👑', 'ðŸ—ï¸', 'ðŸº', '🧭', 'ðŸª™'];
+            const treasureItems = ['💰', '💎', '⚪', '💍', '👑', '🗺️', '🏺', '🧭', '🪙'];
 
             const problems = Array.from({ length: 6 }, (_, idx) => {
               const count = Math.floor(rng() * 20) + 1
@@ -19902,7 +19902,7 @@ export function PrintablesPage() {
               <WorksheetSectionWrapper
                 docId="count-match-1-20"
                 title="Treasure Hunt Counting"
-                emoji="ðŸ´â€â˜ ï¸"
+                emoji="🏴‍☠️"
                 description="Ahoy matey! Count the treasures in each chest and circle the matching number."
                 problemCount={problems.length}
                 learningObjectives={[
@@ -19996,7 +19996,7 @@ export function PrintablesPage() {
         {
           activeDocs.includes('how-many-1-15') && (() => {
             const rng = makeRng(`${effectiveSeed}|v${variant}|doc=${doc}`)
-            const emojis = ['ðŸŽ', 'ðŸŒ', 'ðŸ‡', 'ðŸŠ', 'ðŸ“', '🚗', '🚀', '⭐', 'ðŸŽˆ', 'ðŸ±', 'ðŸ¶', 'ðŸ¸']
+            const emojis = ['🍎', '🍌', '🍇', '🍉', '🍒', '🚗', '🚀', '⭐', '💎', '🐱', '🐶', '🐻']
             const problems = Array.from({ length: 8 }, () => {
               const count = Math.floor(rng() * 15) + 1
               const emoji = emojis[Math.floor(rng() * emojis.length)]
@@ -20103,11 +20103,11 @@ export function PrintablesPage() {
 
             const shapes = [
               { name: 'Starfish', render: (props: any) => <path d="M50 5 L63 35 L95 38 L72 60 L79 92 L50 75 L21 92 L28 60 L5 38 L37 35 Z" fill="none" stroke="currentColor" strokeWidth="3" strokeLinejoin="round" {...props} /> },
-              { name: 'Fish', render: (props: any) => <path d="M85 50 C85 50 70 30 50 30 C30 30 10 50 10 50 C10 50 30 70 50 70 C70 70 85 50 85 50 Z M85 50 L95 35 V65 L85 50 M60 50 A2 2 0 1 1 60 50.01" fill="none" stroke="currentColor" strokeWidth="3" strokeLinejoin="round" {...props} /> },
+              { name: 'Fish', render: (props: any) => <path d="M85 50 C85 50 70 30 50 30 C30 30 10 50 10 50 C10 50 30 70 50 70 C70 70 85 50 85 50 Z M85 50 L95 35 V65 L85 50 M60 50 ÷ 2 2 0 1 1 60 50.01" fill="none" stroke="currentColor" strokeWidth="3" strokeLinejoin="round" {...props} /> },
               { name: 'Shell', render: (props: any) => <path d="M20 80 Q50 10 80 80 L20 80 M50 20 L50 80 M35 25 L35 80 M65 25 L65 80" fill="none" stroke="currentColor" strokeWidth="3" strokeLinejoin="round" {...props} /> },
               { name: 'Jellyfish', render: (props: any) => <path d="M20 40 Q50 -10 80 40 M20 40 Q50 30 80 40 M30 40 Q30 80 20 90 M50 40 Q50 80 50 95 M70 40 Q70 80 80 90" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" {...props} /> },
-              { name: 'Seahorse', render: (props: any) => <path d="M40 20 Q60 10 60 30 Q60 40 50 45 Q50 60 60 70 Q60 90 40 90 Q30 90 30 80 M45 25 A2 2 0 1 1 45 25.01" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" {...props} /> },
-              { name: 'Turtle', render: (props: any) => <path d="M30 40 A20 15 0 1 1 70 40 A20 15 0 1 1 30 40 M30 40 L20 30 M70 40 L80 30 M30 50 L20 60 M70 50 L80 60 M50 25 L50 15" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" {...props} /> },
+              { name: 'Seahorse', render: (props: any) => <path d="M40 20 Q60 10 60 30 Q60 40 50 45 Q50 60 60 70 Q60 90 40 90 Q30 90 30 80 M45 25 ÷ 2 2 0 1 1 45 25.01" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" {...props} /> },
+              { name: 'Turtle', render: (props: any) => <path d="M30 40 ÷ 20 15 0 1 1 70 40 ÷ 20 15 0 1 1 30 40 M30 40 L20 30 M70 40 L80 30 M30 50 L20 60 M70 50 L80 60 M50 25 L50 15" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" {...props} /> },
             ];
 
             const problems = Array.from({ length: 6 }, () => {
@@ -20217,14 +20217,14 @@ export function PrintablesPage() {
           activeDocs.includes('picture-addition-10') && (() => {
             const rng = makeRng(`${effectiveSeed}|v${variant}|doc=${doc}`)
             const potionIngredients = [
-              { name: 'Mushroom', icon: 'ðŸ„' },
-              { name: 'Crystal', icon: 'ðŸ’Ž' },
+              { name: 'Mushroom', icon: '🍄' },
+              { name: 'Crystal', icon: '💎' },
               { name: 'Potion', icon: '🧪' },
-              { name: 'Star', icon: '⭐' },
-              { name: 'Spider', icon: 'ðŸ•·ï¸' },
-              { name: 'Eye', icon: '👗ï¸' },
-              { name: 'Leaf', icon: 'ðŸƒ' },
-              { name: 'Moon', icon: '🌐™' },
+              { name: 'Star', icon: '⭐' },
+              { name: 'Spider', icon: '🕷️' },
+              { name: 'Eye', icon: '👁️' },
+              { name: 'Leaf', icon: '🍃' },
+              { name: 'Moon', icon: '🌙' },
             ]
 
             // Generate 8 addition problems with sum <= 10
@@ -20260,7 +20260,7 @@ export function PrintablesPage() {
                 {/* Decorative Header */}
                 <div className="w-full h-24 mb-6 relative overflow-hidden bg-indigo-900 rounded-xl border-2 border-purple-500 text-white">
                   <div className="absolute inset-0 opacity-20 bg-[url('https://www.transparenttextures.com/patterns/stardust.png')]"></div>
-                  <div className="absolute top-2 left-10 text-3xl animate-pulse">âœ¨</div>
+                  <div className="absolute left-4 top-1/2 -translate-y-1/2 text-5xl animate-pulse">⚡</div>
                   <div className="absolute bottom-4 right-20 text-2xl animate-spin-slow">⭐</div>
                   <div className="absolute top-8 right-10 text-4xl opacity-50">ðŸ§™â€â™‚ï¸</div>
 
@@ -21281,7 +21281,7 @@ export function PrintablesPage() {
           activeDocs.includes('big-small') && (() => {
             const rng = makeRng(`${effectiveSeed}|v${variant}|doc=${doc}`)
 
-            const monsters = ['👾', '👗¹', '👗º', '👗»', 'ðŸ¤–']
+            const monsters = ['👾', '👽', '🤖', '👻', '👹']
             const problems = Array.from({ length: 4 }, () => {
               const targetType = rng() > 0.5 ? 'Biggest' : 'Smallest'
               const monster = monsters[Math.floor(rng() * monsters.length)]
@@ -21450,11 +21450,11 @@ export function PrintablesPage() {
 
             // Items that have distinct sizes
             const items = [
-              { name: 'DinoEgg', sm: 'ðŸ¥š', lg: 'ðŸ¦•' }, // Egg -> Dino implies growth/size
-              { name: 'Planet', sm: '🌐‘', lg: 'ðŸª' },
+              { name: 'DinoEgg', sm: '🥚', lg: '🥚' }, // Egg -> Dino implies growth/size
+              { name: 'Planet', sm: '🪐', lg: '🪐' },
               { name: 'Tree', sm: '🌐±', lg: '🌐³' },
-              { name: 'Fish', sm: 'ðŸŸ', lg: 'ðŸ‹' },
-              { name: 'Building', sm: 'ðŸ ', lg: 'ðŸ°' }
+              { name: 'Fish', sm: '🐟', lg: '🐟' },
+              { name: 'Building', sm: '🏢', lg: '🏢' }
             ]
 
             const problems = Array.from({ length: 6 }, () => {
@@ -22270,12 +22270,12 @@ export function PrintablesPage() {
           activeDocs.includes('big-small') && (() => {
             const rng = makeRng(`${effectiveSeed}|v${variant}|doc=${doc}`);
             const allPossiblePairs = [
-              { big: 'ðŸ˜', small: 'ðŸ­', bigLabel: 'Elephant', smallLabel: 'Mouse' },
-              { big: 'ðŸ ', small: 'ðŸ›–', bigLabel: 'House', smallLabel: 'Hut' },
+              { big: '🐘', small: '🐁', bigLabel: 'Elephant', smallLabel: 'Mouse' },
+              { big: '🏠', small: '🏖', bigLabel: 'House', smallLabel: 'Hut' },
               { big: '🌐³', small: '🌐±', bigLabel: 'Tree', smallLabel: 'Sprout' },
-              { big: 'ðŸ³', small: 'ðŸŸ', bigLabel: 'Whale', smallLabel: 'Fish' },
-              { big: 'ðŸ”ï¸', small: 'ðŸª¨', bigLabel: 'Mountain', smallLabel: 'Rock' },
-              { big: 'ðŸš†', small: 'ðŸš²', bigLabel: 'Train', smallLabel: 'Bike' },
+              { big: '🐳', small: '🐟', bigLabel: 'Whale', smallLabel: 'Fish' },
+              { big: '⛰️', small: '🪘', bigLabel: 'Mountain', smallLabel: 'Rock' },
+              { big: '🚂', small: '🚲', bigLabel: 'Train', smallLabel: 'Bike' },
             ];
             const pairs = shuffleArray([...allPossiblePairs], `${effectiveSeed}|pairs`).slice(0, 4);
 
@@ -22780,7 +22780,7 @@ export function PrintablesPage() {
                     <div className="font-bold text-emerald-900 mb-3 text-base">✅ Answer Key</div>
                     <div className="grid grid-cols-3 gap-2 text-sm text-emerald-800">
                       {problems.map((p, i) => (
-                        <div key={i}>{p.num} â†’ <strong>{p.rounded}</strong></div>
+                        <div key={i}>{p.num} → <strong>{p.rounded}</strong></div>
                       ))}
                     </div>
                   </div>
@@ -23541,7 +23541,7 @@ export function PrintablesPage() {
                 description="Charge up the hero shields! Solve the multiplication problems to save the city."
                 problemCount={problems.length}
                 learningObjectives={[
-                  'Master multiplication facts from 0Ã—0 to 12Ã—12',
+                  'Master multiplication facts from 0× 0 to 12× 12',
                   'Build speed and accuracy',
                   'Develop fact fluency'
                 ]}
@@ -23556,7 +23556,7 @@ export function PrintablesPage() {
                 {/* Decorative Header */}
                 <div className="w-full h-24 mb-6 relative overflow-hidden bg-blue-900 rounded-xl border-4 border-yellow-400 shadow-xl">
                   <div className="absolute inset-0 opacity-20" style={{ backgroundImage: 'radial-gradient(circle, white 2px, transparent 2.5px)', backgroundSize: '20px 20px' }}></div>
-                  <div className="absolute left-4 top-1/2 -translate-y-1/2 text-5xl animate-pulse">âš¡</div>
+                  <div className="absolute left-4 top-1/2 -translate-y-1/2 text-5xl animate-pulse">⚡</div>
                   <div className="absolute right-4 top-1/2 -translate-y-1/2 text-5xl animate-bounce-slow">ðŸ›¡ï¸</div>
                   <div className="absolute inset-0 flex items-center justify-center">
                     <h2 className="text-3xl font-black text-yellow-400 tracking-widest uppercase italic transform -skew-x-12" style={{ textShadow: '3px 3px 0px #ef4444' }}>HERO TRAINING</h2>
@@ -24883,7 +24883,7 @@ export function PrintablesPage() {
               <WorksheetSectionWrapper
                 docId={docId}
                 title="Garden Planner: Area & Perimeter"
-                emoji="🌐»"
+                emoji="🌻"
                 description="Find the Area (space inside) and Perimeter (fence outside) of each garden plot."
                 problemCount={problems.length}
                 learningObjectives={['Calculate Area (L Ã— W)', 'Calculate Perimeter (L + L + W + W)', 'Distinguish between area and perimeter']}
@@ -24932,10 +24932,10 @@ export function PrintablesPage() {
             const rng = makeRng(`${effectiveSeed}|v${variant}|doc=${doc}`)
 
             const items = [
-              { name: 'Apple', price: 0.50, emoji: 'ðŸŽ' },
-              { name: 'Bread', price: 2.50, emoji: 'ðŸž' },
-              { name: 'Milk', price: 3.00, emoji: 'ðŸ¥›' },
-              { name: 'Candy', price: 0.25, emoji: 'ðŸ¬' }
+              { name: 'Apple', price: 0.50, emoji: '🍎' },
+              { name: 'Bread', price: 2.50, emoji: '🍞' },
+              { name: 'Milk', price: 3.00, emoji: '🥛' },
+              { name: 'Candy', price: 0.25, emoji: '🍬' }
             ]
 
             const problems = Array.from({ length: 4 }, () => {
@@ -24951,7 +24951,7 @@ export function PrintablesPage() {
               <WorksheetSectionWrapper
                 docId={docId}
                 title="Market Day: Money Math"
-                emoji="ðŸª"
+                emoji="🍪"
                 description="Read the story and solve the money problem."
                 problemCount={problems.length}
                 learningObjectives={['Calculate total cost', 'Calculate change', 'Decimal addition and subtraction']}
@@ -33972,7 +33972,7 @@ export function PrintablesPage() {
                 <div className="mb-6 p-4 bg-blue-50 border-2 border-blue-200 rounded-lg print:border print:bg-white">
                   <div className="font-semibold text-blue-900 mb-3 text-sm">📚 Example - Let's solve this together:</div>
                   <div className="space-y-2 text-sm">
-                    <div className="font-semibold text-base"><strong>Problem:</strong> A recipe needs 1/2 cup of flour. Sarah wants to make 4 batches. How much flour does she need?</div>
+                    <div className="font-semibold text-base"><strong>Problem:</strong> ÷ recipe needs 1/2 cup of flour. Sarah wants to make 4 batches. How much flour does she need?</div>
                     <div className="pl-4 border-l-2 border-blue-300 space-y-1">
                       <div><strong>Step 1:</strong> Multiply: 1/2 Ã— 4</div>
                       <div><strong>Step 2:</strong> Calculate: 1/2 Ã— 4 = 4/2 = 2</div>
@@ -34248,7 +34248,7 @@ export function PrintablesPage() {
                 <div className="mb-6 p-4 bg-blue-50 border-2 border-blue-200 rounded-lg print:border print:bg-white">
                   <div className="font-semibold text-blue-900 mb-3 text-sm">📚 Example - Let's solve this together:</div>
                   <div className="space-y-2 text-sm">
-                    <div className="font-semibold text-base"><strong>Problem:</strong> A store sells pencils for $0.50 each. Sarah buys 8 pencils. How much does she pay?</div>
+                    <div className="font-semibold text-base"><strong>Problem:</strong> ÷ store sells pencils for $0.50 each. Sarah buys 8 pencils. How much does she pay?</div>
                     <div className="pl-4 border-l-2 border-blue-300 space-y-1">
                       <div><strong>Step 1:</strong> Identify operation: multiplication</div>
                       <div><strong>Step 2:</strong> Multiply: $0.50 Ã— 8</div>
@@ -34387,7 +34387,7 @@ export function PrintablesPage() {
                 <div className="mb-6 p-4 bg-blue-50 border-2 border-blue-200 rounded-lg print:border print:bg-white">
                   <div className="font-semibold text-blue-900 mb-3 text-sm">📚 Example - Let's solve this together:</div>
                   <div className="space-y-2 text-sm">
-                    <div className="font-semibold text-base"><strong>Problem:</strong> A rectangle is 5 feet long and 3 feet wide. What is the area?</div>
+                    <div className="font-semibold text-base"><strong>Problem:</strong> ÷ rectangle is 5 feet long and 3 feet wide. What is the area?</div>
                     <div className="pl-4 border-l-2 border-blue-300 space-y-1">
                       <div><strong>Step 1:</strong> Identify: This is an area problem</div>
                       <div><strong>Step 2:</strong> Formula: Area = length Ã— width</div>
@@ -34526,7 +34526,7 @@ export function PrintablesPage() {
                 <div className="mb-6 p-4 bg-blue-50 border-2 border-blue-200 rounded-lg print:border print:bg-white">
                   <div className="font-semibold text-blue-900 mb-3 text-sm">📚 Example - Let's solve this together:</div>
                   <div className="space-y-2 text-sm">
-                    <div className="font-semibold text-base"><strong>Problem:</strong> A rectangle has a length of 7 cm and width of 4 cm. What is the area and perimeter?</div>
+                    <div className="font-semibold text-base"><strong>Problem:</strong> ÷ rectangle has a length of 7 cm and width of 4 cm. What is the area and perimeter?</div>
                     <div className="pl-4 border-l-2 border-blue-300 space-y-1">
                       <div><strong>Step 1 (Area):</strong> Area = length Ã— width = 7 Ã— 4 = 28</div>
                       <div><strong>Step 2 (Perimeter):</strong> Perimeter = 2 Ã— (length + width) = 2 Ã— (7 + 4) = 22</div>
@@ -34808,7 +34808,7 @@ export function PrintablesPage() {
                 <div className="mb-6 p-4 bg-blue-50 border-2 border-blue-200 rounded-lg print:border print:bg-white">
                   <div className="font-semibold text-blue-900 mb-3 text-sm">📚 Example - Let's solve this together:</div>
                   <div className="space-y-2 text-sm">
-                    <div className="font-semibold text-base"><strong>Problem:</strong> A toy costs $10. It is on sale for 20% off. What is the sale price?</div>
+                    <div className="font-semibold text-base"><strong>Problem:</strong> ÷ toy costs $10. It is on sale for 20% off. What is the sale price?</div>
                     <div className="pl-4 border-l-2 border-blue-300 space-y-1">
                       <div><strong>Step 1:</strong> Find discount: 20% of $10 = 0.20 Ã— $10 = $2</div>
                       <div><strong>Step 2:</strong> Subtract discount: $10 - $2 = $8</div>
@@ -35165,7 +35165,7 @@ export function PrintablesPage() {
             );
             const CloudIcon = (props: any) => (
               <svg viewBox="0 0 100 100" {...props}>
-                <path d="M25 60 A15 15 0 0 1 25 35 A20 20 0 0 1 55 35 A15 15 0 0 1 75 45 A15 15 0 0 1 75 70 Q75 75 50 75 Q25 75 25 60" {...props} />
+                <path d="M25 60 ÷ 15 15 0 0 1 25 35 ÷ 20 20 0 0 1 55 35 ÷ 15 15 0 0 1 75 45 ÷ 15 15 0 0 1 75 70 Q75 75 50 75 Q25 75 25 60" {...props} />
               </svg>
             );
             const GrassIcon = (props: any) => (
@@ -35915,7 +35915,7 @@ export function PrintablesPage() {
             const pairs = [
               { heavy: { name: 'Elephant', emoji: 'ðŸ˜' }, light: { name: 'Feather', emoji: 'ðŸª¶' } },
               { heavy: { name: 'Car', emoji: '🚗' }, light: { name: 'Balloon', emoji: 'ðŸŽˆ' } },
-              { heavy: { name: 'Rock', emoji: 'ðŸª¨' }, light: { name: 'Leaf', emoji: 'ðŸƒ' } },
+              { name: 'Leaf', icon: '🍃' },
               { heavy: { name: 'Books', emoji: '📚' }, light: { name: 'Bubble', emoji: 'ðŸ«§' } },
               { heavy: { name: 'Hammer', emoji: '🔍¨' }, light: { name: 'Cotton', emoji: 'â˜ï¸' } },
               { heavy: { name: 'Backpack', emoji: 'ðŸŽ’' }, light: { name: 'Paper', emoji: 'ðŸ“„' } },
@@ -37011,8 +37011,8 @@ export function PrintablesPage() {
                             <svg width="120" height="80" viewBox="0 0 120 80" className="overflow-visible">
                               <rect x="10" y="10" width="100" height="60" fill="#3b82f6" fillOpacity="0.2" stroke="#1e3a8a" strokeWidth="2" />
                               {/* Dimensions */}
-                              <text x="60" y="85" textAnchor="middle" fontSize="10" fontWeight="bold" fill="#1e3a8a">{p.length} units</text>
-                              <text x="5" y="45" textAnchor="middle" fontSize="10" fontWeight="bold" fill="#1e3a8a" transform="rotate(-90 5 45)">{p.width} units</text>
+                              <text x="60" y="85" textAnchor="middle" fontSize="10" fontWeight="bold" fill="#1e3 ÷ 8a">{p.length} units</text>
+                              <text x="5" y="45" textAnchor="middle" fontSize="10" fontWeight="bold" fill="#1e3 ÷ 8a" transform="rotate(-90 5 45)">{p.width} units</text>
                             </svg>
                           </div>
 
