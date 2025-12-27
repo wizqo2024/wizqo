@@ -1621,9 +1621,9 @@ export function PrintablesPage() {
         <div className="print:block hidden print:mt-0 mt-6 p-4 border-2 border-slate-300 rounded self-assessment" style={{ pageBreakBefore: 'avoid', pageBreakInside: 'avoid' }}>
           <div className="font-semibold text-slate-800 mb-3 text-sm">📊 {t('worksheets.addition-subtraction-0-10.selfAssessment.title')}</div>
           <div className="space-y-2 text-xs">
-                    <div>â˜ {t('worksheets.addition-subtraction-0-10.selfAssessment.question1</div>
-                    <div>â˜ {t('worksheets.addition-subtraction-0-10.selfAssessment.question2</div>
-                    <div>â˜ {t('worksheets.addition-subtraction-0-10.selfAssessment.question3</div>
+                    <div>☐ {t('worksheets.addition-subtraction-0-10.selfAssessment.question1')}</div>
+                    <div>☐ {t('worksheets.addition-subtraction-0-10.selfAssessment.question2')}</div>
+                    <div>☐ {t('worksheets.addition-subtraction-0-10.selfAssessment.question3')}</div>
           </div>
           <div className="mt-3 text-xs">
             <strong>{t('worksheets.addition-subtraction-0-10.selfAssessment.score')}</strong> ___ / 12
