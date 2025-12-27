@@ -134,7 +134,7 @@ function LocalWorksheetHeader({ problemCount }: { problemCount?: number }) {
 function ParentTeacherTips({ tips }: { tips: string[] }) {
   return (
     <div className="print:block hidden print:mt-0 mt-6 p-4 bg-yellow-50 border border-yellow-200 rounded text-xs">
-      <div className="font-semibold text-yellow-900 mb-2">ðŸ’¡ Tips for Parents/Teachers:</div>
+      <div className="font-semibold text-yellow-900 mb-2">💡 Tips for Parents/Teachers:</div>
       <ul className="space-y-1 text-yellow-800 list-disc list-inside">
         {tips.map((tip, i) => (
           <li key={i}>{tip}</li>
@@ -165,7 +165,7 @@ function WorkedExampleContent() {
           breakAfter: 'avoid'
         } as React.CSSProperties}
       >
-        <span className="text-2xl">ðŸ“š</span>
+        <span className="text-2xl">📚</span>
         <span>{t('worksheets.addition-subtraction-0-10.workedExample.title')}</span>
       </div>
       <div className="space-y-3 text-sm">
@@ -202,7 +202,7 @@ function WorkedExampleContent() {
           <div><strong>{t('worksheets.addition-subtraction-0-10.workedExample.step3')}</strong></div>
           <div className="font-semibold text-blue-900 mt-2"><strong>{t('worksheets.addition-subtraction-0-10.workedExample.answer', 'Answer:')}</strong> {t('worksheets.addition-subtraction-0-10.workedExample.answerText', '5 + 3 = 8')}</div>
           <div className="text-xs text-blue-700 mt-2 flex items-center gap-1">
-            <span>ðŸ’¡</span>
+            <span>💡</span>
             <span>{t('worksheets.addition-subtraction-0-10.workedExample.tip')}</span>
           </div>
         </div>
@@ -644,7 +644,7 @@ function resolveDocTitle(docId: string, context: { packTime: string; bundleCateg
     case 'stem-balloon-rocket':
       return getTranslatedWorksheetTitle(docId, t, '🚀 Balloon Rocket (STEM)')
     case 'stem-walking-water':
-      return getTranslatedWorksheetTitle(docId, t, '🌐ˆ Walking Water (STEM)')
+      return getTranslatedWorksheetTitle(docId, t, '🌊 Walking Water (STEM)')
     case 'arts-3-shape-creature':
       return getTranslatedWorksheetTitle(docId, t, '🎨 Draw From 3 Shapes (Arts)')
     case 'number-tracing-1-10':
@@ -660,17 +660,17 @@ function resolveDocTitle(docId: string, context: { packTime: string; bundleCateg
     case 'kindergarten-shapes':
       return getTranslatedWorksheetTitle(docId, t, '🔷 Shapes')
     case 'kindergarten-patterns':
-      return getTranslatedWorksheetTitle(docId, t, 'ðŸ” Patterns')
+      return getTranslatedWorksheetTitle(docId, t, '🔍 Patterns')
     case 'kindergarten-addition-pictures':
       return getTranslatedWorksheetTitle(docId, t, '➕ Addition with Pictures')
     case 'kindergarten-counting-visual':
-      return getTranslatedWorksheetTitle(docId, t, 'ðŸ» Counting with Cute Characters')
+      return getTranslatedWorksheetTitle(docId, t, '🐼 Counting with Cute Characters')
     case 'addition-subtraction-0-10':
       return getTranslatedWorksheetTitle(docId, t, '➕➖ Addition & Subtraction 0–10')
     case 'ten-frames-1-10':
       return getTranslatedWorksheetTitle(docId, t, '🔟 Ten Frames 1–10')
     case 'shapes-colors-sort':
-      return getTranslatedWorksheetTitle(docId, t, '◼ Shapes & Colors Sort (Cut & Glue)')
+      return getTranslatedWorksheetTitle(docId, t, '⬛ Shapes & Colors Sort (Cut & Glue)')
     case 'dot-to-dot-1-20':
       return getTranslatedWorksheetTitle(docId, t, '1–20 Dot-to-Dot')
     case 'tangram-animals':
@@ -679,13 +679,13 @@ function resolveDocTitle(docId: string, context: { packTime: string; bundleCateg
     case 'spotdiff':
       return getTranslatedWorksheetTitle(docId, t, '👀 Spot-the-Difference')
     case 'directed-drawing-animals':
-      return getTranslatedWorksheetTitle(docId, t, '🖊️ Directed Drawing: Animals')
+      return getTranslatedWorksheetTitle(docId, t, '🖊️ Directed Drawing: Animals')
     case 'cut-and-paste-crafts':
-      return getTranslatedWorksheetTitle(docId, t, '✂️ Cut-and-Paste Paper Crafts')
+      return getTranslatedWorksheetTitle(docId, t, '✂️ Cut-and-Paste Paper Crafts')
     case 'feelings-checkin':
       return getTranslatedWorksheetTitle(docId, t, '😊 Feelings Check-In Meter')
     case 'reward-chart':
-      return getTranslatedWorksheetTitle(docId, t, '⭐ Weekly Reward / Sticker Chart')
+      return getTranslatedWorksheetTitle(docId, t, '⭐ Weekly Reward / Sticker Chart')
     case 'reading-mini-1':
       return getTranslatedWorksheetTitle(docId, t, '📖 Mini Reading Passage + 3 Questions')
     case 'reading-g1-lost-hat':
@@ -735,19 +735,19 @@ function resolveDocTitle(docId: string, context: { packTime: string; bundleCateg
     case 'math-maze':
       return getTranslatedWorksheetTitle(docId, t, '➕ Math Maze Adventure')
     case 'spelling':
-      return getTranslatedWorksheetTitle(docId, t, 'âœï¸ Spelling Challenge Worksheet')
+      return getTranslatedWorksheetTitle(docId, t, '✍️ Spelling Challenge Worksheet')
     case 'science-match':
       return getTranslatedWorksheetTitle(docId, t, '🔬 Science Fun Facts Match')
     case 'grammar-detective':
-      return getTranslatedWorksheetTitle(docId, t, 'ðŸ•µï¸â€â™€ï¸ Grammar Detective')
+      return getTranslatedWorksheetTitle(docId, t, '🕵️‍♀️ Grammar Detective')
     case 'sudoku4':
-      return getTranslatedWorksheetTitle(docId, t, '🔢 Sudoku – 4Ã—4 (Easy)')
+      return getTranslatedWorksheetTitle(docId, t, '🔢 Sudoku – 4×4 (Easy)')
     case 'sudoku6':
-      return getTranslatedWorksheetTitle(docId, t, '🧮 Sudoku – 6Ã—6 (Medium)')
+      return getTranslatedWorksheetTitle(docId, t, '🧮 Sudoku – 6×6 (Medium)')
     case 'place-value-hto':
       return getTranslatedWorksheetTitle(docId, t, '🧮 Place Value (Tens/Ones)')
     case 'skip-count-5-10-120':
-      return getTranslatedWorksheetTitle(docId, t, 'ðŸ” Skip Counting by 5s & 10s')
+      return getTranslatedWorksheetTitle(docId, t, '🔍 Skip Counting by 5s & 10s')
     case 'add-2digit-100':
       return getTranslatedWorksheetTitle(docId, t, '➕ Add 2-Digit Numbers (to 100)')
     case 'sub-2digit-100':
@@ -755,51 +755,51 @@ function resolveDocTitle(docId: string, context: { packTime: string; bundleCateg
     case 'word-problems-100':
       return getTranslatedWorksheetTitle(docId, t, '🧠 Word Problems (within 100)')
     case 'compare-2digit':
-      return getTranslatedWorksheetTitle(docId, t, 'âš–ï¸ Compare 2-Digit Numbers')
+      return getTranslatedWorksheetTitle(docId, t, '⚖️ Compare 2-Digit Numbers')
     case 'even-odd-100':
       return getTranslatedWorksheetTitle(docId, t, '🔢 Even or Odd to 100')
     case 'time-5min':
-      return getTranslatedWorksheetTitle(docId, t, 'â° Tell Time to 5 Minutes')
+      return getTranslatedWorksheetTitle(docId, t, '⏰ Tell Time to 5 Minutes')
     case 'color-by-number':
-      return getTranslatedWorksheetTitle(docId, t, 'ðŸ–ï¸ Color-by-Number Pages')
+      return getTranslatedWorksheetTitle(docId, t, '🖌️ Color-by-Number Pages')
     // New 1st Grade worksheets
     case 'number-bonds-10':
       return getTranslatedWorksheetTitle(docId, t, '🔢 Number Bonds to 10')
     case 'count-write-30':
       return getTranslatedWorksheetTitle(docId, t, '📊 Count & Write 1–30')
     case 'missing-numbers-50':
-      return getTranslatedWorksheetTitle(docId, t, 'ðŸ” Missing Numbers 1–50')
+      return getTranslatedWorksheetTitle(docId, t, '🔍 Missing Numbers 1–50')
     case 'picture-addition-10':
       return getTranslatedWorksheetTitle(docId, t, '➕ Picture Addition to 10')
     case 'subtraction-stories':
       return getTranslatedWorksheetTitle(docId, t, '➖ Subtraction Stories')
     case 'balance-equations-10':
-      return getTranslatedWorksheetTitle(docId, t, 'âš–ï¸ Balance Equations (to 10)')
+      return getTranslatedWorksheetTitle(docId, t, '⚖️ Balance Equations (to 10)')
     case 'skip-count-2s':
-      return getTranslatedWorksheetTitle(docId, t, '➡️ Skip Counting by 2s')
+      return getTranslatedWorksheetTitle(docId, t, '➡️ Skip Counting by 2s')
     case 'number-line-add':
       return getTranslatedWorksheetTitle(docId, t, '🔢 Number Line Addition')
     case 'doubles-facts':
-      return getTranslatedWorksheetTitle(docId, t, 'ðŸŽ¯ Doubles Facts Practice')
+      return getTranslatedWorksheetTitle(docId, t, '🎯 Doubles Facts Practice')
     case 'pattern-complete':
-      return getTranslatedWorksheetTitle(docId, t, 'ðŸ§© Pattern Completion')
+      return getTranslatedWorksheetTitle(docId, t, '🧩 Pattern Completion')
     case 'missing-shape':
-      return getTranslatedWorksheetTitle(docId, t, 'ðŸ” Find the Missing Shape')
+      return getTranslatedWorksheetTitle(docId, t, '🔍 Find the Missing Shape')
     case 'size-comparison':
-      return getTranslatedWorksheetTitle(docId, t, 'ðŸ“ Size Comparison')
+      return getTranslatedWorksheetTitle(docId, t, '📏 Size Comparison')
     // New 2nd Grade worksheets
     case 'expanded-form-200':
       return getTranslatedWorksheetTitle(docId, t, '🔢 Expanded Form to 200')
     case 'number-patterns-200':
       return getTranslatedWorksheetTitle(docId, t, '📊 Number Patterns to 200')
     case 'rounding-nearest-10':
-      return getTranslatedWorksheetTitle(docId, t, 'ðŸ” Rounding to Nearest 10')
+      return getTranslatedWorksheetTitle(docId, t, '🔍 Rounding to Nearest 10')
     case 'add-three-numbers':
       return getTranslatedWorksheetTitle(docId, t, '➕ Adding 3 Numbers')
     case 'missing-addends':
       return getTranslatedWorksheetTitle(docId, t, '➖ Missing Addends')
     case 'fact-families-20':
-      return getTranslatedWorksheetTitle(docId, t, 'âš–ï¸ Fact Families (to 20)')
+      return getTranslatedWorksheetTitle(docId, t, '⚖️ Fact Families (to 20)')
     case 'mental-math-20':
       if (t) {
         const translated = t('worksheets.mental-math-20.title')
@@ -809,13 +809,13 @@ function resolveDocTitle(docId: string, context: { packTime: string; bundleCateg
       }
       return '🔢 Mental Math (Add/Sub to 20)'
     case 'number-line-200':
-      return getTranslatedWorksheetTitle(docId, t, 'ðŸ“ˆ Number Line to 200')
+      return getTranslatedWorksheetTitle(docId, t, '📈 Number Line to 200')
     case 'doubles-near-doubles':
-      return getTranslatedWorksheetTitle(docId, t, 'ðŸŽ¯ Doubles & Near Doubles')
+      return getTranslatedWorksheetTitle(docId, t, '🎯 Doubles & Near Doubles')
     case 'money-coins-bills':
       return getTranslatedWorksheetTitle(docId, t, '💰 Money: Coins & Bills')
     case 'measurement-length':
-      return getTranslatedWorksheetTitle(docId, t, 'ðŸ“ Measurement: Length')
+      return getTranslatedWorksheetTitle(docId, t, '📏 Measurement: Length')
     case 'bar-graphs-data':
       return getTranslatedWorksheetTitle(docId, t, '📊 Bar Graphs & Data')
     case 'add-2digit-regrouping':
@@ -823,21 +823,21 @@ function resolveDocTitle(docId: string, context: { packTime: string; bundleCateg
     case 'sub-2digit-regrouping':
       return getTranslatedWorksheetTitle(docId, t, '➖ 2-Digit Subtraction (WITH Regrouping)')
     case 'fractions-halves-thirds-fourths':
-      return getTranslatedWorksheetTitle(docId, t, 'ðŸ• Fractions: Halves, Thirds, Fourths')
+      return getTranslatedWorksheetTitle(docId, t, '🍕 Fractions: Halves, Thirds, Fourths')
     case 'rhyming-words':
-      return getTranslatedWorksheetTitle(docId, t, 'ðŸŽµ Rhyming Words')
+      return getTranslatedWorksheetTitle(docId, t, '🎵 Rhyming Words')
     case 'cvc-words':
-      return getTranslatedWorksheetTitle(docId, t, 'ðŸ“š CVC Words (Consonant-Vowel-Consonant)')
+      return getTranslatedWorksheetTitle(docId, t, '📚 CVC Words (Consonant-Vowel-Consonant)')
     case 'sight-words-pre-primer':
-      return getTranslatedWorksheetTitle(docId, t, 'ðŸ‘ï¸ Sight Words (Dolch Pre-Primer)')
+      return getTranslatedWorksheetTitle(docId, t, '📖 Sight Words (Dolch Pre-Primer)')
     case 'letter-tracing-az':
-      return getTranslatedWorksheetTitle(docId, t, 'âœï¸ Letter Tracing A–Z')
+      return getTranslatedWorksheetTitle(docId, t, '✍️ Letter Tracing A–Z')
     case 'more-less-equal-10':
-      return getTranslatedWorksheetTitle(docId, t, 'âš–ï¸ More, Less, or Equal? (1–10)')
+      return getTranslatedWorksheetTitle(docId, t, '⚖️ More, Less, or Equal? (1–10)')
     case 'counting-objects-20':
       return getTranslatedWorksheetTitle(docId, t, '🔢 Count the Objects (1–20)')
     case 'sentence-building':
-      return getTranslatedWorksheetTitle(docId, t, 'ðŸ“ Sentence Building')
+      return getTranslatedWorksheetTitle(docId, t, '📝 Sentence Building')
     // Multiplication worksheets
     case 'mult-facts-1-5':
       if (t) {
@@ -846,21 +846,21 @@ function resolveDocTitle(docId: string, context: { packTime: string; bundleCateg
           return translated
         }
       }
-      return 'âœ–ï¸ Basic Multiplication Facts (1-5)'
+      return '✖️ Basic Multiplication Facts (1-5)'
     case 'mult-arrays-2-5':
       return getTranslatedWorksheetTitle(docId, t, '📊 Multiplication Arrays (2-5)')
     case 'skip-count-mult':
-      return getTranslatedWorksheetTitle(docId, t, '➡️ Skip Counting for Multiplication')
+      return getTranslatedWorksheetTitle(docId, t, '➡️ Skip Counting for Multiplication')
     case 'mult-word-problems-2-3':
       return getTranslatedWorksheetTitle(docId, t, '🧮 Multiplication Word Problems (2nd-3rd)')
     case 'mult-facts-6-12':
-      return getTranslatedWorksheetTitle(docId, t, 'âœ–ï¸ Advanced Multiplication Facts (6-12)')
+      return getTranslatedWorksheetTitle(docId, t, '✖️ Advanced Multiplication Facts (6-12)')
     case 'mult-arrays-models':
       return getTranslatedWorksheetTitle(docId, t, '📊 Multiplication Arrays & Models')
     case 'mult-multi-step-word':
       return getTranslatedWorksheetTitle(docId, t, '🧮 Multi-Step Word Problems')
     case 'mult-fact-families':
-      return getTranslatedWorksheetTitle(docId, t, 'âš–ï¸ Fact Families (Multiplication & Division)')
+      return getTranslatedWorksheetTitle(docId, t, '⚖️ Fact Families (Multiplication & Division)')
     case 'mult-2x1':
       if (t) {
         const translated = t('worksheets.mult-2x1.title')
@@ -868,60 +868,60 @@ function resolveDocTitle(docId: string, context: { packTime: string; bundleCateg
           return translated
         }
       }
-      return 'âœ–ï¸ Multi-Digit Multiplication (2Ã—1)'
+      return '✖️ Multi-Digit Multiplication (2×1)'
     case 'mult-2x2':
-      return getTranslatedWorksheetTitle(docId, t, 'âœ–ï¸ Multi-Digit Multiplication (2Ã—2)')
+      return getTranslatedWorksheetTitle(docId, t, '✖️ Multi-Digit Multiplication (2×2)')
     case 'mult-area-model':
       return getTranslatedWorksheetTitle(docId, t, '📊 Area Model Multiplication')
     case 'mult-complex-word':
       return getTranslatedWorksheetTitle(docId, t, '🧮 Complex Word Problems')
     case 'mult-fact-fluency':
-      return getTranslatedWorksheetTitle(docId, t, 'â±ï¸ Multiplication Fact Fluency')
+      return getTranslatedWorksheetTitle(docId, t, '⏱️ Multiplication Fact Fluency')
     case 'mult-mixed-review':
       return getTranslatedWorksheetTitle(docId, t, '🔢 Mixed Multiplication Review')
     case 'mult-strategies':
-      return getTranslatedWorksheetTitle(docId, t, 'ðŸŽ¯ Multiplication Strategies')
+      return getTranslatedWorksheetTitle(docId, t, '🎯 Multiplication Strategies')
     case 'mult-patterns':
-      return getTranslatedWorksheetTitle(docId, t, 'ðŸ“ˆ Multiplication Patterns')
+      return getTranslatedWorksheetTitle(docId, t, '📈 Multiplication Patterns')
     // Times Table worksheets
     case 'times-table-horizontal-1-5':
-      return getTranslatedWorksheetTitle(docId, t, '➡️ Horizontal Times Table (1-5)')
+      return getTranslatedWorksheetTitle(docId, t, '➡️ Horizontal Times Table (1-5)')
     case 'times-table-horizontal-6-12':
-      return getTranslatedWorksheetTitle(docId, t, '➡️ Horizontal Times Table (6-12)')
+      return getTranslatedWorksheetTitle(docId, t, '➡️ Horizontal Times Table (6-12)')
     case 'times-table-horizontal-1-12':
-      return getTranslatedWorksheetTitle(docId, t, '➡️ Complete Horizontal Times Table (1-12)')
+      return getTranslatedWorksheetTitle(docId, t, '➡️ Complete Horizontal Times Table (1-12)')
     case 'times-table-vertical-1-5':
-      return getTranslatedWorksheetTitle(docId, t, '⬇️ Vertical Times Table (1-5)')
+      return getTranslatedWorksheetTitle(docId, t, '⬇️ Vertical Times Table (1-5)')
     case 'times-table-vertical-6-12':
-      return getTranslatedWorksheetTitle(docId, t, '⬇️ Vertical Times Table (6-12)')
+      return getTranslatedWorksheetTitle(docId, t, '⬇️ Vertical Times Table (6-12)')
     case 'times-table-vertical-1-12':
-      return getTranslatedWorksheetTitle(docId, t, '⬇️ Complete Vertical Times Table (1-12)')
+      return getTranslatedWorksheetTitle(docId, t, '⬇️ Complete Vertical Times Table (1-12)')
     case 'times-table-missing-1-5':
-      return getTranslatedWorksheetTitle(docId, t, 'â“ Missing Number Times Table (1-5)')
+      return getTranslatedWorksheetTitle(docId, t, '❓ Missing Number Times Table (1-5)')
     case 'times-table-missing-6-12':
-      return getTranslatedWorksheetTitle(docId, t, 'â“ Missing Number Times Table (6-12)')
+      return getTranslatedWorksheetTitle(docId, t, '❓ Missing Number Times Table (6-12)')
     case 'times-table-missing-mixed':
-      return getTranslatedWorksheetTitle(docId, t, 'â“ Mixed Missing Number Challenge')
+      return getTranslatedWorksheetTitle(docId, t, '❓ Mixed Missing Number Challenge')
     case 'times-table-timed-1-5':
-      return getTranslatedWorksheetTitle(docId, t, 'â±ï¸ Timed Times Table Test (1-5)')
+      return getTranslatedWorksheetTitle(docId, t, '⏱️ Timed Times Table Test (1-5)')
     case 'times-table-timed-6-12':
-      return getTranslatedWorksheetTitle(docId, t, 'â±ï¸ Timed Times Table Test (6-12)')
+      return getTranslatedWorksheetTitle(docId, t, '⏱️ Timed Times Table Test (6-12)')
     case 'times-table-timed-1-12':
-      return getTranslatedWorksheetTitle(docId, t, 'â±ï¸ Complete Timed Test (1-12)')
+      return getTranslatedWorksheetTitle(docId, t, '⏱️ Complete Timed Test (1-12)')
     case 'times-table-blank-1-5':
-      return getTranslatedWorksheetTitle(docId, t, 'ðŸ“‹ Blank Times Table (1-5) - Fill In')
+      return getTranslatedWorksheetTitle(docId, t, '📋 Blank Times Table (1-5) - Fill In')
     case 'times-table-blank-6-12':
-      return getTranslatedWorksheetTitle(docId, t, 'ðŸ“‹ Blank Times Table (6-12) - Fill In')
+      return getTranslatedWorksheetTitle(docId, t, '📋 Blank Times Table (6-12) - Fill In')
     case 'times-table-blank-1-12':
-      return getTranslatedWorksheetTitle(docId, t, 'ðŸ“‹ Complete Blank Times Table (1-12)')
+      return getTranslatedWorksheetTitle(docId, t, '📋 Complete Blank Times Table (1-12)')
     case 'times-table-confidence-1-5':
-      return getTranslatedWorksheetTitle(docId, t, 'ðŸ’ª Confidence-Building Times Table (1-5)')
+      return getTranslatedWorksheetTitle(docId, t, '💪 Confidence-Building Times Table (1-5)')
     case 'times-table-confidence-6-12':
-      return getTranslatedWorksheetTitle(docId, t, 'ðŸ’ª Confidence-Building Times Table (6-12)')
+      return getTranslatedWorksheetTitle(docId, t, '💪 Confidence-Building Times Table (6-12)')
     case 'times-table-fluency-1-12':
-      return getTranslatedWorksheetTitle(docId, t, 'âš¡ Times Table Fluency Practice (1-12)')
+      return getTranslatedWorksheetTitle(docId, t, '⚡ Times Table Fluency Practice (1-12)')
     case 'times-table-mixed-review':
-      return getTranslatedWorksheetTitle(docId, t, 'âš¡ Mixed Times Table Review')
+      return getTranslatedWorksheetTitle(docId, t, '⚡ Mixed Times Table Review')
     case 'times-table-color-1-5':
       return getTranslatedWorksheetTitle(docId, t, '🎨 Color-by-Number Times Table (1-5)')
     case 'times-table-color-6-12':
@@ -929,19 +929,19 @@ function resolveDocTitle(docId: string, context: { packTime: string; bundleCateg
     case 'times-table-color-1-12':
       return getTranslatedWorksheetTitle(docId, t, '🎨 Color-by-Number Times Table (1-12)')
     case 'bookmark-templates':
-      return getTranslatedWorksheetTitle(docId, t, 'ðŸ“š DIY Bookmark Templates')
+      return getTranslatedWorksheetTitle(docId, t, '📚 DIY Bookmark Templates')
     case 'design-monster':
-      return getTranslatedWorksheetTitle(docId, t, 'ðŸ‘¾ Design Your Monster')
+      return getTranslatedWorksheetTitle(docId, t, '👾 Design Your Monster')
     case 'draw-half':
-      return getTranslatedWorksheetTitle(docId, t, 'âœï¸ Draw the Missing Half')
+      return getTranslatedWorksheetTitle(docId, t, '✍️ Draw the Missing Half')
     case 'coloring-animals':
-      return getTranslatedWorksheetTitle(docId, t, 'ðŸ¦ Animal Friends Coloring')
+      return getTranslatedWorksheetTitle(docId, t, '🐶 Animal Friends Coloring')
     case 'coloring-nature':
-      return getTranslatedWorksheetTitle(docId, t, '🌐¼ Nature & Seasons Coloring')
+      return getTranslatedWorksheetTitle(docId, t, '🌳 Nature & Seasons Coloring')
     case 'coloring-space':
       return getTranslatedWorksheetTitle(docId, t, '🚀 Space Adventure Coloring')
     case 'coloring-vehicles':
-      return getTranslatedWorksheetTitle(docId, t, 'ðŸš— Vehicles & Transport Coloring')
+      return getTranslatedWorksheetTitle(docId, t, '🚗 Vehicles & Transport Coloring')
     case 'coloring-letters-numbers':
       return getTranslatedWorksheetTitle(docId, t, '🔢 Alphabet & Number Coloring')
     case 'coloring-heroes':
@@ -951,157 +951,157 @@ function resolveDocTitle(docId: string, context: { packTime: string; bundleCateg
     case 'hidden-object':
       return getTranslatedWorksheetTitle(docId, t, '🔎 Find the Hidden Object')
     case 'maze-focus':
-      return getTranslatedWorksheetTitle(docId, t, '🌐€ Maze of Focus')
+      return getTranslatedWorksheetTitle(docId, t, '🌀 Maze of Focus')
     case 'ws-animals':
       return getTranslatedWorksheetTitle(docId, t, '🧠 Word Search – Animals')
     case 'ws-space':
       return getTranslatedWorksheetTitle(docId, t, '🧠 Word Search – Space')
     case 'logic-grid':
-      return getTranslatedWorksheetTitle(docId, t, 'ðŸ§© Logic Grid Puzzle')
+      return getTranslatedWorksheetTitle(docId, t, '🧩 Logic Grid Puzzle')
     case 'gratitude-jar':
-      return getTranslatedWorksheetTitle(docId, t, 'ðŸ’Œ Gratitude Jar Worksheet')
+      return getTranslatedWorksheetTitle(docId, t, '💌 Gratitude Jar Worksheet')
     case 'mood-tracker':
-      return getTranslatedWorksheetTitle(docId, t, '🌐ˆ Mood Tracker Coloring Page')
+      return getTranslatedWorksheetTitle(docId, t, '🌊 Mood Tracker Coloring Page')
     case 'mandalas':
-      return getTranslatedWorksheetTitle(docId, t, 'ðŸ•‰ï¸ Mindful Coloring Mandalas')
+      return getTranslatedWorksheetTitle(docId, t, '🧘 Mindful Coloring Mandalas')
     case 'weekly-goals':
-      return getTranslatedWorksheetTitle(docId, t, 'ðŸ—“ï¸ My Goals for the Week')
+      return getTranslatedWorksheetTitle(docId, t, '📅 My Goals for the Week')
     case 'halloween-pack':
-      return getTranslatedWorksheetTitle(docId, t, 'ðŸŽƒ Halloween Puzzle Pack')
+      return getTranslatedWorksheetTitle(docId, t, '🎃 Halloween Puzzle Pack')
     case 'winter-kindness':
-      return getTranslatedWorksheetTitle(docId, t, 'â„ï¸ Winter Kindness Challenge')
+      return getTranslatedWorksheetTitle(docId, t, '❄️ Winter Kindness Challenge')
     case 'spring-scavenger':
-      return getTranslatedWorksheetTitle(docId, t, '🌐¸ Spring Nature Scavenger Hunt')
+      return getTranslatedWorksheetTitle(docId, t, '🌸 Spring Nature Scavenger Hunt')
     case 'summer-pack':
-      return getTranslatedWorksheetTitle(docId, t, 'â˜€ï¸ Summer Adventure Pack')
+      return getTranslatedWorksheetTitle(docId, t, '☀️ Summer Adventure Pack')
     case 'brain-boost':
       return getTranslatedWorksheetTitle(docId, t, '🧠 7-Day Brain Boost Pack')
     case 'creative-challenge':
       return getTranslatedWorksheetTitle(docId, t, '🎨 Creative Kids Challenge')
     case 'ws-world':
-      return getTranslatedWorksheetTitle(docId, t, '🌐 Around the World Word Search')
+      return getTranslatedWorksheetTitle(docId, t, '🌍 Around the World Word Search')
     case 'animal-pack':
-      return getTranslatedWorksheetTitle(docId, t, 'ðŸ¦ Animal Adventure Pack')
+      return getTranslatedWorksheetTitle(docId, t, '🐶 Animal Adventure Pack')
     case 'geo-continents-k2':
-      return getTranslatedWorksheetTitle(docId, t, '🌐 Label the 7 Continents (K–2)')
+      return getTranslatedWorksheetTitle(docId, t, '🌍 Label the 7 Continents (K–2)')
     case 'geo-compass-rose':
       return getTranslatedWorksheetTitle(docId, t, '🧭 Compass Rose & Directions')
     case 'geo-landforms':
-      return getTranslatedWorksheetTitle(docId, t, 'ðŸ”ï¸ Landforms vs Water Bodies')
+      return getTranslatedWorksheetTitle(docId, t, '🏔️ Landforms vs Water Bodies')
     case 'geo-latlong':
-      return getTranslatedWorksheetTitle(docId, t, 'ðŸ—ºï¸ Latitude & Longitude Basics')
+      return getTranslatedWorksheetTitle(docId, t, '🗺️ Latitude & Longitude Basics')
     // Interactive Worksheets - Math
     case 'interactive-math-rhythm':
       return getTranslatedWorksheetTitle(docId, t, '🔢 Number Pattern Rhythm')
     case 'interactive-math-race':
-      return getTranslatedWorksheetTitle(docId, t, 'ðŸ Math Race Challenge')
+      return getTranslatedWorksheetTitle(docId, t, '🏎️ Math Race Challenge')
     case 'interactive-math-puzzle':
-      return getTranslatedWorksheetTitle(docId, t, 'ðŸ§© Equation Puzzle Box')
+      return getTranslatedWorksheetTitle(docId, t, '🧩 Equation Puzzle Box')
     case 'interactive-math-shapes':
-      return getTranslatedWorksheetTitle(docId, t, 'ðŸ”º Geometry Shape Challenge')
+      return getTranslatedWorksheetTitle(docId, t, '🔺 Geometry Shape Challenge')
     case 'interactive-math-money':
-      return getTranslatedWorksheetTitle(docId, t, 'ðŸ’° Money Math Mastery')
+      return getTranslatedWorksheetTitle(docId, t, '💰 Money Math Mastery')
     case 'interactive-math-fractions':
-      return getTranslatedWorksheetTitle(docId, t, 'ðŸ¥§ Fraction Fun Practice')
+      return getTranslatedWorksheetTitle(docId, t, '🥧 Fraction Fun Practice')
     case 'interactive-math-measurement':
-      return getTranslatedWorksheetTitle(docId, t, 'ðŸ“ Measurement Mission')
+      return getTranslatedWorksheetTitle(docId, t, '📏 Measurement Mission')
     // Interactive Worksheets - Reading
     case 'interactive-reading-adventure':
       return getTranslatedWorksheetTitle(docId, t, '📖 Reading Adventure Quest')
     case 'interactive-reading-detective':
-      return getTranslatedWorksheetTitle(docId, t, 'ðŸ” Reading Detective Challenge')
+      return getTranslatedWorksheetTitle(docId, t, '🔍 Reading Detective Challenge')
     case 'interactive-reading-vocab':
-      return getTranslatedWorksheetTitle(docId, t, 'ðŸ“š Vocabulary Builder Workshop')
+      return getTranslatedWorksheetTitle(docId, t, '📚 Vocabulary Builder Workshop')
     case 'interactive-reading-summary':
-      return getTranslatedWorksheetTitle(docId, t, 'ðŸ“ Summary & Main Idea')
+      return getTranslatedWorksheetTitle(docId, t, '📝 Summary & Main Idea')
     case 'interactive-reading-compare':
-      return getTranslatedWorksheetTitle(docId, t, 'âš–ï¸ Compare & Contrast Passages')
+      return getTranslatedWorksheetTitle(docId, t, '⚖️ Compare & Contrast Passages')
     case 'interactive-reading-prek':
       return getTranslatedWorksheetTitle(docId, t, '📖 Picture Story Time')
     case 'interactive-reading-storymap':
-      return getTranslatedWorksheetTitle(docId, t, 'ðŸ—ºï¸ Story Map Builders')
+      return getTranslatedWorksheetTitle(docId, t, '🗺️ Story Map Builders')
     // Interactive Worksheets - Writing
     case 'interactive-writing-prompts':
-      return getTranslatedWorksheetTitle(docId, t, 'âœï¸ Creative Writing Prompts')
+      return getTranslatedWorksheetTitle(docId, t, '✍️ Creative Writing Prompts')
     case 'interactive-writing-sentences':
-      return getTranslatedWorksheetTitle(docId, t, 'ðŸ“ Sentence Builder Workshop')
+      return getTranslatedWorksheetTitle(docId, t, '📝 Sentence Builder Workshop')
     case 'interactive-writing-poetry':
-      return getTranslatedWorksheetTitle(docId, t, 'ðŸŽ­ Poetry Writing Practice')
+      return getTranslatedWorksheetTitle(docId, t, '📜 Poetry Writing Practice')
     case 'interactive-writing-opinion':
-      return getTranslatedWorksheetTitle(docId, t, 'ðŸ’¬ Opinion Writing Framework')
+      return getTranslatedWorksheetTitle(docId, t, '💬 Opinion Writing Framework')
     case 'interactive-writing-prek':
-      return getTranslatedWorksheetTitle(docId, t, 'âœï¸ Drawing & Labeling')
+      return getTranslatedWorksheetTitle(docId, t, '✍️ Drawing & Labeling')
     // Interactive Worksheets - Science
     case 'interactive-science-observation':
       return getTranslatedWorksheetTitle(docId, t, '🔬 Science Observation Journal')
     case 'interactive-science-lifecycle':
-      return getTranslatedWorksheetTitle(docId, t, '🌐± Life Cycle Explorer')
+      return getTranslatedWorksheetTitle(docId, t, '🔄 Life Cycle Explorer')
     case 'interactive-science-states':
-      return getTranslatedWorksheetTitle(docId, t, 'âš—ï¸ States of Matter Lab')
+      return getTranslatedWorksheetTitle(docId, t, '🧪 States of Matter Lab')
     case 'interactive-science-weather':
-      return getTranslatedWorksheetTitle(docId, t, '🌐¦ï¸ Weather Watcher Journal')
+      return getTranslatedWorksheetTitle(docId, t, '🌦️ Weather Watcher Journal')
     case 'interactive-science-prek':
-      return getTranslatedWorksheetTitle(docId, t, '🌐± Nature Explorer')
+      return getTranslatedWorksheetTitle(docId, t, '🌱 Nature Explorer')
     case 'interactive-science-space':
       return getTranslatedWorksheetTitle(docId, t, '🚀 Space & Astronomy Explorer')
     // Interactive Worksheets - Geography
     case 'interactive-geography-map':
-      return getTranslatedWorksheetTitle(docId, t, 'ðŸ—ºï¸ Interactive Map Skills')
+      return getTranslatedWorksheetTitle(docId, t, '🗺️ Interactive Map Skills')
     case 'interactive-geography-culture':
-      return getTranslatedWorksheetTitle(docId, t, '🌐 Culture Explorer')
+      return getTranslatedWorksheetTitle(docId, t, '🌐 Culture Explorer')
     case 'interactive-geography-history':
-      return getTranslatedWorksheetTitle(docId, t, 'ðŸ“… Historical Timeline Builder')
+      return getTranslatedWorksheetTitle(docId, t, '🗓️ Historical Timeline Builder')
     case 'interactive-geography-prek':
-      return getTranslatedWorksheetTitle(docId, t, 'ðŸ˜ï¸ My Community Explorer')
+      return getTranslatedWorksheetTitle(docId, t, '🏠 My Community Explorer')
     // Interactive Worksheets - Grammar
     case 'interactive-grammar-parts':
       return getTranslatedWorksheetTitle(docId, t, '📖 Parts of Speech Practice')
     case 'interactive-grammar-tenses':
-      return getTranslatedWorksheetTitle(docId, t, 'â° Verb Tense Mastery')
+      return getTranslatedWorksheetTitle(docId, t, '⏰ Verb Tense Mastery')
     case 'interactive-grammar-antonyms':
-      return getTranslatedWorksheetTitle(docId, t, 'ðŸ”¤ Synonyms & Antonyms Challenge')
+      return getTranslatedWorksheetTitle(docId, t, '🔍 Synonyms & Antonyms Challenge')
     case 'interactive-grammar-prek':
-      return getTranslatedWorksheetTitle(docId, t, 'ðŸ”¤ Word & Picture Match')
+      return getTranslatedWorksheetTitle(docId, t, '🔍 Word & Picture Match')
     // Interactive Worksheets - Art
     case 'interactive-art-design':
       return getTranslatedWorksheetTitle(docId, t, '🎨 Creative Design Challenge')
     case 'interactive-art-colorwheel':
-      return getTranslatedWorksheetTitle(docId, t, '🌐ˆ Color Theory Practice')
+      return getTranslatedWorksheetTitle(docId, t, '🎨 Color Theory Practice')
     case 'interactive-art-sketch':
-      return getTranslatedWorksheetTitle(docId, t, 'âœï¸ Sketch & Observe')
+      return getTranslatedWorksheetTitle(docId, t, '✍️ Sketch & Observe')
     // Interactive Worksheets - Early Learning
     case 'interactive-early-phonics':
-      return getTranslatedWorksheetTitle(docId, t, 'ðŸ”¤ Phonics Fun Practice')
+      return getTranslatedWorksheetTitle(docId, t, '🔍 Phonics Fun Practice')
     case 'interactive-early-counting':
       return getTranslatedWorksheetTitle(docId, t, '🔢 Counting & Number Recognition')
     case 'interactive-early-patterns':
-      return getTranslatedWorksheetTitle(docId, t, 'ðŸ”„ Pattern Recognition Explorer')
+      return getTranslatedWorksheetTitle(docId, t, '🔍 Pattern Recognition Explorer')
     case 'interactive-early-shapes':
-      return getTranslatedWorksheetTitle(docId, t, '◼ï¸ Shape & Color Explorer')
+      return getTranslatedWorksheetTitle(docId, t, '🎨 Shape & Color Explorer')
     case 'interactive-early-letters':
-      return getTranslatedWorksheetTitle(docId, t, 'âœï¸ Letter Formation Practice')
+      return getTranslatedWorksheetTitle(docId, t, '✍️ Letter Formation Practice')
     case 'interactive-early-numbers':
       return getTranslatedWorksheetTitle(docId, t, '🔢 Number Writing & Recognition')
     case 'interactive-early-foundations':
-      return getTranslatedWorksheetTitle(docId, t, 'ðŸ“š Foundational Skills Review')
+      return getTranslatedWorksheetTitle(docId, t, '📚 Foundational Skills Review')
     case 'interactive-early-basics':
-      return getTranslatedWorksheetTitle(docId, t, '🌐Ÿ Basic Skills Practice')
+      return getTranslatedWorksheetTitle(docId, t, '🌐 Basic Skills Practice')
     // Interactive Worksheets - Logic
     case 'interactive-logic-sequence':
       return getTranslatedWorksheetTitle(docId, t, '📊 Sequencing Challenge')
     case 'interactive-logic-riddles':
-      return getTranslatedWorksheetTitle(docId, t, 'ðŸ§© Brain Teaser Riddles')
+      return getTranslatedWorksheetTitle(docId, t, '🧩 Brain Teaser Riddles')
     case 'interactive-logic-deduction':
-      return getTranslatedWorksheetTitle(docId, t, 'ðŸ” Deductive Reasoning Quest')
+      return getTranslatedWorksheetTitle(docId, t, '🔍 Deductive Reasoning Quest')
     case 'interactive-logic-prek':
-      return getTranslatedWorksheetTitle(docId, t, 'ðŸ§© Simple Patterns & Sorting')
+      return getTranslatedWorksheetTitle(docId, t, '🧩 Simple Patterns & Sorting')
     // Interactive Worksheets - SEL
     case 'interactive-sel-mindfulness':
-      return getTranslatedWorksheetTitle(docId, t, 'ðŸ§˜ Mindfulness & Reflection')
+      return getTranslatedWorksheetTitle(docId, t, '🧘 Mindfulness & Reflection')
     case 'interactive-sel-empathy':
-      return getTranslatedWorksheetTitle(docId, t, 'â¤ï¸ Empathy Builder')
+      return getTranslatedWorksheetTitle(docId, t, '❤️ Empathy Builder')
     case 'interactive-sel-goals':
-      return getTranslatedWorksheetTitle(docId, t, 'ðŸŽ¯ Goal Setting & Growth')
+      return getTranslatedWorksheetTitle(docId, t, '🎯 Goal Setting & Growth')
     case 'interactive-sel-prek':
       return getTranslatedWorksheetTitle(docId, t, '😊 Feelings & Emotions Explorer')
     // Kindergarten worksheets
@@ -1153,34 +1153,34 @@ function resolveDocTitle(docId: string, context: { packTime: string; bundleCateg
     case 'what-comes-next':
       return getTranslatedWorksheetTitle(docId, t, '🧩 What Comes Next?')
     case 'big-small':
-      return getTranslatedWorksheetTitle(docId, t, '⚖️ Big and Small')
+      return getTranslatedWorksheetTitle(docId, t, '⚖️ Big and Small')
     case 'more-less':
-      return getTranslatedWorksheetTitle(docId, t, '⚖️ More and Less')
+      return getTranslatedWorksheetTitle(docId, t, '⚖️ More and Less')
     case 'long-short':
-      return getTranslatedWorksheetTitle(docId, t, '⚖️ Long and Short')
+      return getTranslatedWorksheetTitle(docId, t, '⚖️ Long and Short')
     case 'heavy-light':
-      return getTranslatedWorksheetTitle(docId, t, '⚖️ Heavy and Light')
+      return getTranslatedWorksheetTitle(docId, t, '⚖️ Heavy and Light')
     case 'same-different':
-      return getTranslatedWorksheetTitle(docId, t, '⚖️ Same and Different')
+      return getTranslatedWorksheetTitle(docId, t, '⚖️ Same and Different')
     case 'line-tracing':
-      return getTranslatedWorksheetTitle(docId, t, 'âœï¸ Line Tracing')
+      return getTranslatedWorksheetTitle(docId, t, '✍️ Line Tracing')
     case 'curve-tracing':
-      return getTranslatedWorksheetTitle(docId, t, 'âœï¸ Curve Tracing')
+      return getTranslatedWorksheetTitle(docId, t, '✍️ Curve Tracing')
     case 'zigzag-lines':
-      return getTranslatedWorksheetTitle(docId, t, 'âœï¸ Zigzag Lines')
+      return getTranslatedWorksheetTitle(docId, t, '✍️ Zigzag Lines')
     case 'path-tracing':
-      return getTranslatedWorksheetTitle(docId, t, 'âœï¸ Path Tracing')
+      return getTranslatedWorksheetTitle(docId, t, '✍️ Path Tracing')
     // 3rd Grade worksheets
     case 'mult-facts-0-12':
-      return getTranslatedWorksheetTitle(docId, t, '✖️ Multiplication Facts 0–12')
+      return getTranslatedWorksheetTitle(docId, t, '✖️ Multiplication Facts 0–12')
     case 'mult-arrays':
-      return getTranslatedWorksheetTitle(docId, t, '✖️ Multiplication Arrays')
+      return getTranslatedWorksheetTitle(docId, t, '✖️ Multiplication Arrays')
     case 'mult-word-problems':
-      return getTranslatedWorksheetTitle(docId, t, '✖️ Multiplication Word Problems')
+      return getTranslatedWorksheetTitle(docId, t, '✖️ Multiplication Word Problems')
     case 'mult-by-10-100':
-      return getTranslatedWorksheetTitle(docId, t, '✖️ Multiplying by 10, 100')
+      return getTranslatedWorksheetTitle(docId, t, '✖️ Multiplying by 10, 100')
     case 'mult-properties':
-      return getTranslatedWorksheetTitle(docId, t, '✖️ Properties of Multiplication')
+      return getTranslatedWorksheetTitle(docId, t, '✖️ Properties of Multiplication')
     case 'div-facts-1-12':
       return getTranslatedWorksheetTitle(docId, t, '➗ Division Facts 1–12')
     case 'div-with-remainders':
@@ -1192,15 +1192,15 @@ function resolveDocTitle(docId: string, context: { packTime: string; bundleCateg
     case 'div-by-10-100':
       return getTranslatedWorksheetTitle(docId, t, '➗ Dividing by 10, 100')
     case 'fractions-whole':
-      return getTranslatedWorksheetTitle(docId, t, 'ðŸ• Fractions: Parts of a Whole')
+      return getTranslatedWorksheetTitle(docId, t, '🍕 Fractions: Parts of a Whole')
     case 'comparing-fractions':
-      return getTranslatedWorksheetTitle(docId, t, 'ðŸ• Comparing Fractions')
+      return getTranslatedWorksheetTitle(docId, t, '🍕 Comparing Fractions')
     case 'equivalent-fractions':
-      return getTranslatedWorksheetTitle(docId, t, 'ðŸ• Equivalent Fractions')
+      return getTranslatedWorksheetTitle(docId, t, '🍕 Equivalent Fractions')
     case 'fractions-number-line':
-      return getTranslatedWorksheetTitle(docId, t, 'ðŸ• Fractions on a Number Line')
+      return getTranslatedWorksheetTitle(docId, t, '🍕 Fractions on a Number Line')
     case 'add-sub-fractions':
-      return getTranslatedWorksheetTitle(docId, t, 'ðŸ• Adding & Subtracting Fractions')
+      return getTranslatedWorksheetTitle(docId, t, '🍕 Adding & Subtracting Fractions')
     case 'multi-step-word-problems':
       return getTranslatedWorksheetTitle(docId, t, '🧮 Multi-Step Word Problems')
     case 'elapsed-time-word-problems':
@@ -1210,30 +1210,30 @@ function resolveDocTitle(docId: string, context: { packTime: string; bundleCateg
     case 'perimeter-area-word-problems':
       return getTranslatedWorksheetTitle(docId, t, '🧮 Perimeter & Area Word Problems')
     case 'identify-polygons':
-      return getTranslatedWorksheetTitle(docId, t, 'ðŸ“ Identify Polygons')
+      return getTranslatedWorksheetTitle(docId, t, '📏 Identify Polygons')
     case 'perimeter-shapes':
-      return getTranslatedWorksheetTitle(docId, t, 'ðŸ“ Perimeter of Shapes')
+      return getTranslatedWorksheetTitle(docId, t, '📏 Perimeter of Shapes')
     case 'area-rectangles':
-      return getTranslatedWorksheetTitle(docId, t, 'ðŸ“ Area of Rectangles')
+      return getTranslatedWorksheetTitle(docId, t, '📏 Area of Rectangles')
     case 'lines-rays-angles':
-      return getTranslatedWorksheetTitle(docId, t, 'ðŸ“ Lines, Rays, and Angles')
+      return getTranslatedWorksheetTitle(docId, t, '📏 Lines, Rays, and Angles')
     case 'symmetry':
-      return getTranslatedWorksheetTitle(docId, t, 'ðŸ“ Symmetry')
+      return getTranslatedWorksheetTitle(docId, t, '📏 Symmetry')
     case 'time-to-minute':
-      return getTranslatedWorksheetTitle(docId, t, 'ðŸ“ Time to the Minute')
+      return getTranslatedWorksheetTitle(docId, t, '📏 Time to the Minute')
     case 'customary-units':
-      return getTranslatedWorksheetTitle(docId, t, 'ðŸ“ Customary Units')
+      return getTranslatedWorksheetTitle(docId, t, '📏 Customary Units')
     case 'metric-units':
-      return getTranslatedWorksheetTitle(docId, t, 'ðŸ“ Metric Units')
+      return getTranslatedWorksheetTitle(docId, t, '📏 Metric Units')
     case 'liquid-measurement':
-      return getTranslatedWorksheetTitle(docId, t, 'ðŸ“ Liquid Measurement')
+      return getTranslatedWorksheetTitle(docId, t, '📏 Liquid Measurement')
     case 'mass-weight':
-      return getTranslatedWorksheetTitle(docId, t, 'ðŸ“ Mass and Weight')
+      return getTranslatedWorksheetTitle(docId, t, '📏 Mass and Weight')
     // 4th Grade worksheets
     case 'mult-2x1-digit':
-      return getTranslatedWorksheetTitle(docId, t, '🔢 Multi-Digit Multiplication (2Ã—1)')
+      return getTranslatedWorksheetTitle(docId, t, '🔢 Multi-Digit Multiplication (2×1)')
     case 'mult-2x2-digit':
-      return getTranslatedWorksheetTitle(docId, t, '🔢 Multi-Digit Multiplication (2Ã—2)')
+      return getTranslatedWorksheetTitle(docId, t, '🔢 Multi-Digit Multiplication (2×2)')
     case 'long-division-1digit':
       return getTranslatedWorksheetTitle(docId, t, '🔢 Long Division (1-Digit Divisor)')
     case 'long-division-2digit':
@@ -1243,43 +1243,43 @@ function resolveDocTitle(docId: string, context: { packTime: string; bundleCateg
     case 'partial-products':
       return getTranslatedWorksheetTitle(docId, t, '🔢 Partial Products Multiplication')
     case 'equivalent-fractions-4th':
-      return getTranslatedWorksheetTitle(docId, t, 'ðŸ• Equivalent Fractions')
+      return getTranslatedWorksheetTitle(docId, t, '🍕 Equivalent Fractions')
     case 'comparing-fractions-4th':
-      return getTranslatedWorksheetTitle(docId, t, 'ðŸ• Comparing Fractions')
+      return getTranslatedWorksheetTitle(docId, t, '🍕 Comparing Fractions')
     case 'add-sub-fractions-4th':
-      return getTranslatedWorksheetTitle(docId, t, 'ðŸ• Adding & Subtracting Fractions')
+      return getTranslatedWorksheetTitle(docId, t, '🍕 Adding & Subtracting Fractions')
     case 'mixed-improper-fractions':
-      return getTranslatedWorksheetTitle(docId, t, 'ðŸ• Mixed Numbers & Improper Fractions')
+      return getTranslatedWorksheetTitle(docId, t, '🍕 Mixed Numbers & Improper Fractions')
     case 'decimals-place-value':
-      return getTranslatedWorksheetTitle(docId, t, 'ðŸ• Decimals: Place Value')
+      return getTranslatedWorksheetTitle(docId, t, '🍕 Decimals: Place Value')
     case 'comparing-decimals':
-      return getTranslatedWorksheetTitle(docId, t, 'ðŸ• Comparing & Ordering Decimals')
+      return getTranslatedWorksheetTitle(docId, t, '🍕 Comparing & Ordering Decimals')
     case 'add-sub-decimals':
-      return getTranslatedWorksheetTitle(docId, t, 'ðŸ• Adding & Subtracting Decimals')
+      return getTranslatedWorksheetTitle(docId, t, '🍕 Adding & Subtracting Decimals')
     case 'fractions-to-decimals':
-      return getTranslatedWorksheetTitle(docId, t, 'ðŸ• Fractions to Decimals')
+      return getTranslatedWorksheetTitle(docId, t, '🍕 Fractions to Decimals')
     case 'classifying-angles':
-      return getTranslatedWorksheetTitle(docId, t, 'ðŸ“ Classifying Angles')
+      return getTranslatedWorksheetTitle(docId, t, '📏 Classifying Angles')
     case 'area-perimeter-4th':
-      return getTranslatedWorksheetTitle(docId, t, 'ðŸ“ Area & Perimeter')
+      return getTranslatedWorksheetTitle(docId, t, '📏 Area & Perimeter')
     case 'lines-angles-4th':
-      return getTranslatedWorksheetTitle(docId, t, 'ðŸ“ Lines & Angles')
+      return getTranslatedWorksheetTitle(docId, t, '📏 Lines & Angles')
     case 'classifying-triangles':
-      return getTranslatedWorksheetTitle(docId, t, 'ðŸ“ Classifying Triangles')
+      return getTranslatedWorksheetTitle(docId, t, '📏 Classifying Triangles')
     case 'classifying-quadrilaterals':
-      return getTranslatedWorksheetTitle(docId, t, 'ðŸ“ Classifying Quadrilaterals')
+      return getTranslatedWorksheetTitle(docId, t, '📏 Classifying Quadrilaterals')
     case 'symmetry-transformations':
-      return getTranslatedWorksheetTitle(docId, t, 'ðŸ“ Symmetry & Transformations')
+      return getTranslatedWorksheetTitle(docId, t, '📏 Symmetry & Transformations')
     case 'customary-conversion':
-      return getTranslatedWorksheetTitle(docId, t, 'ðŸ“ Customary Units Conversion')
+      return getTranslatedWorksheetTitle(docId, t, '📏 Customary Units Conversion')
     case 'metric-conversion':
-      return getTranslatedWorksheetTitle(docId, t, 'ðŸ“ Metric Units Conversion')
+      return getTranslatedWorksheetTitle(docId, t, '📏 Metric Units Conversion')
     case 'elapsed-time-4th':
-      return getTranslatedWorksheetTitle(docId, t, 'ðŸ“ Elapsed Time')
+      return getTranslatedWorksheetTitle(docId, t, '📏 Elapsed Time')
     case 'liquid-measurement-4th':
-      return getTranslatedWorksheetTitle(docId, t, 'ðŸ“ Liquid Measurement')
+      return getTranslatedWorksheetTitle(docId, t, '📏 Liquid Measurement')
     case 'mass-weight-4th':
-      return getTranslatedWorksheetTitle(docId, t, 'ðŸ“ Mass and Weight')
+      return getTranslatedWorksheetTitle(docId, t, '📏 Mass and Weight')
     case 'multi-step-word-4th':
       return getTranslatedWorksheetTitle(docId, t, '🧮 Multi-Step Word Problems')
     case 'fraction-word-problems':
@@ -1298,7 +1298,7 @@ function resolveDocTitle(docId: string, context: { packTime: string; bundleCateg
       return getTranslatedWorksheetTitle(docId, t, '📊 Mean, Median, Mode')
     // 5th Grade worksheets
     case 'mult-3x2-digit':
-      return getTranslatedWorksheetTitle(docId, t, '🔢 Multi-Digit Multiplication (3Ã—2)')
+      return getTranslatedWorksheetTitle(docId, t, '🔢 Multi-Digit Multiplication (3×2)')
     case 'long-division-multidigit':
       return getTranslatedWorksheetTitle(docId, t, '🔢 Long Division (Multi-Digit)')
     case 'order-of-operations':
@@ -1334,39 +1334,39 @@ function resolveDocTitle(docId: string, context: { packTime: string; bundleCateg
     case 'estimating-sums-differences':
       return getTranslatedWorksheetTitle(docId, t, '🔢 Estimating Sums & Differences')
     case 'add-sub-mixed-numbers':
-      return getTranslatedWorksheetTitle(docId, t, 'ðŸ• Adding & Subtracting Mixed Numbers')
+      return getTranslatedWorksheetTitle(docId, t, '🍕 Adding & Subtracting Mixed Numbers')
     case 'multiplying-fractions':
-      return getTranslatedWorksheetTitle(docId, t, 'ðŸ• Multiplying Fractions')
+      return getTranslatedWorksheetTitle(docId, t, '🍕 Multiplying Fractions')
     case 'dividing-fractions':
-      return getTranslatedWorksheetTitle(docId, t, 'ðŸ• Dividing Fractions')
+      return getTranslatedWorksheetTitle(docId, t, '🍕 Dividing Fractions')
     case 'multiplying-decimals':
-      return getTranslatedWorksheetTitle(docId, t, 'ðŸ• Multiplying Decimals')
+      return getTranslatedWorksheetTitle(docId, t, '🍕 Multiplying Decimals')
     case 'dividing-decimals':
-      return getTranslatedWorksheetTitle(docId, t, 'ðŸ• Dividing Decimals')
+      return getTranslatedWorksheetTitle(docId, t, '🍕 Dividing Decimals')
     case 'fractions-decimals-percents':
-      return getTranslatedWorksheetTitle(docId, t, 'ðŸ• Fractions, Decimals, & Percents')
+      return getTranslatedWorksheetTitle(docId, t, '🍕 Fractions, Decimals, & Percents')
     case 'comparing-ordering-fractions-decimals':
-      return getTranslatedWorksheetTitle(docId, t, 'ðŸ• Comparing & Ordering Fractions/Decimals')
+      return getTranslatedWorksheetTitle(docId, t, '🍕 Comparing & Ordering Fractions/Decimals')
     case 'evaluating-expressions':
-      return getTranslatedWorksheetTitle(docId, t, 'ðŸ“ Evaluating Expressions')
+      return getTranslatedWorksheetTitle(docId, t, '📏 Evaluating Expressions')
     case 'writing-expressions':
-      return getTranslatedWorksheetTitle(docId, t, 'ðŸ“ Writing Expressions')
+      return getTranslatedWorksheetTitle(docId, t, '📏 Writing Expressions')
     case 'solving-one-step-equations':
-      return getTranslatedWorksheetTitle(docId, t, 'ðŸ“ Solving One-Step Equations')
+      return getTranslatedWorksheetTitle(docId, t, '📏 Solving One-Step Equations')
     case 'patterns-rules':
-      return getTranslatedWorksheetTitle(docId, t, 'ðŸ“ Patterns & Rules')
+      return getTranslatedWorksheetTitle(docId, t, '📏 Patterns & Rules')
     case 'coordinate-graphing':
-      return getTranslatedWorksheetTitle(docId, t, 'ðŸ“ Coordinate Graphing')
+      return getTranslatedWorksheetTitle(docId, t, '📏 Coordinate Graphing')
     case 'volume-rectangular-prisms':
-      return getTranslatedWorksheetTitle(docId, t, 'ðŸ“ Volume of Rectangular Prisms')
+      return getTranslatedWorksheetTitle(docId, t, '📏 Volume of Rectangular Prisms')
     case 'area-triangles-parallelograms':
-      return getTranslatedWorksheetTitle(docId, t, 'ðŸ“ Area of Triangles & Parallelograms')
+      return getTranslatedWorksheetTitle(docId, t, '📏 Area of Triangles & Parallelograms')
     case 'classifying-shapes':
-      return getTranslatedWorksheetTitle(docId, t, 'ðŸ“ Classifying 2D & 3D Shapes')
+      return getTranslatedWorksheetTitle(docId, t, '📏 Classifying 2D & 3D Shapes')
     case 'nets-3d-shapes':
-      return getTranslatedWorksheetTitle(docId, t, 'ðŸ“ Nets of 3D Shapes')
+      return getTranslatedWorksheetTitle(docId, t, '📏 Nets of 3D Shapes')
     case 'transformations-5th':
-      return getTranslatedWorksheetTitle(docId, t, 'ðŸ“ Transformations')
+      return getTranslatedWorksheetTitle(docId, t, '📏 Transformations')
     case 'multi-step-word-5th':
       return getTranslatedWorksheetTitle(docId, t, '🧮 Multi-Step Word Problems')
     case 'fraction-word-problems-5th':
@@ -1611,7 +1611,7 @@ export function PrintablesPage() {
     return (
       <>
         <div className="mt-6 print:mt-0 p-4 bg-purple-50 border-2 border-purple-200 rounded print:bg-white print:border challenge-section" style={{ pageBreakBefore: 'always', pageBreakInside: 'avoid' }}>
-          <div className="font-semibold text-purple-900 mb-3 text-sm">🌐Ÿ {t('worksheets.addition-subtraction-0-10.challenge.title')}</div>
+          <div className="font-semibold text-purple-900 mb-3 text-sm">🌐 {t('worksheets.addition-subtraction-0-10.challenge.title')}</div>
           <div className="space-y-2 text-sm text-purple-800">
             <div>1. {t('worksheets.addition-subtraction-0-10.challenge.problem1')}</div>
             <div>2. {t('worksheets.addition-subtraction-0-10.challenge.problem2')}</div>
@@ -1637,7 +1637,7 @@ export function PrintablesPage() {
             <div className="font-bold text-emerald-900 mb-3 text-base">✅ {t('worksheets.addition-subtraction-0-10.answerKey.title')}</div>
             <div className="space-y-2 text-sm text-emerald-800">
               <div>{t('worksheets.addition-subtraction-0-10.answerKey.note')}</div>
-              <div className="text-xs text-emerald-700 mt-2">ðŸ’¡ {t('worksheets.addition-subtraction-0-10.answerKey.tip')}</div>
+              <div className="text-xs text-emerald-700 mt-2">💡 {t('worksheets.addition-subtraction-0-10.answerKey.tip')}</div>
             </div>
           </div>
         ))}
@@ -1895,7 +1895,7 @@ export function PrintablesPage() {
         [data-worksheet-content="true"] > div.max-w-4xl::after,
         .max-w-4xl.mx-auto::after,
         [data-worksheet-content="true"] .max-w-4xl::after {
-          content: '⭐ âœ¨ ðŸ’« 🌐Ÿ' !important;
+          content: '⭐ âœ¨ ðŸ’« 🌐' !important;
           position: absolute !important;
           top: 0px !important;
           left: 50% !important;
@@ -2764,7 +2764,7 @@ export function PrintablesPage() {
           [data-worksheet-content="true"] > div.max-w-4xl::after,
           .max-w-4xl.mx-auto::after,
           [data-worksheet-content="true"] .max-w-4xl::after {
-            content: '⭐ âœ¨ ðŸ’« 🌐Ÿ' !important;
+            content: '⭐ âœ¨ ðŸ’« 🌐' !important;
             position: absolute !important;
             top: 0px !important;
             left: 50% !important;
@@ -3320,7 +3320,7 @@ export function PrintablesPage() {
 
                 {/* Mini-Challenge */}
                 <div className="bg-slate-50 p-3 rounded-lg border border-slate-200 text-sm">
-                  <div className="font-bold text-slate-700 mb-1">🌐Ÿ Super Explorer Challenge:</div>
+                  <div className="font-bold text-slate-700 mb-1">🌐 Super Explorer Challenge:</div>
                   <div className="text-slate-600">Can you circle the continent you live on?</div>
                 </div>
               </div>
@@ -3374,7 +3374,7 @@ export function PrintablesPage() {
             <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-blue-400 to-green-400 animate-gradient-x mb-2" />
             {/* Worked Example */}
             <div className="mb-6 p-4 bg-blue-50 border-2 border-blue-200 rounded-lg print:border print:bg-white">
-              <div className="font-semibold text-blue-900 mb-3 text-sm">ðŸ“š Example - Let's solve this together:</div>
+              <div className="font-semibold text-blue-900 mb-3 text-sm">📚 Example - Let's solve this together:</div>
               <div className="space-y-2 text-sm">
                 <div className="font-semibold text-base"><strong>{t('common.problem')}</strong> {t('worksheets.geographyMap.example.problemText', 'Label the direction at the top of the compass')}</div>
                 <div className="pl-4 border-l-2 border-blue-300 space-y-1">
@@ -3382,7 +3382,7 @@ export function PrintablesPage() {
                   <div><strong>{t('common.step2')}</strong> {t('worksheets.geographyMap.example.step2Text', 'The top direction is always North (N)')}</div>
                   <div><strong>{t('common.step3')}</strong> {t('worksheets.geographyMap.example.step3Text', 'Write "N" at the top')}</div>
                   <div className="font-semibold text-blue-900"><strong>{t('common.answer')}</strong> {t('worksheets.geographyMap.example.answerText', 'N (North)')}</div>
-                  <div className="text-xs text-blue-700 mt-1">ðŸ’¡ {t('common.tip')} {t('worksheets.geographyMap.example.tip', 'Remember "Never Eat Soggy Waffles" for N, E, S, W!')}</div>
+                  <div className="text-xs text-blue-700 mt-1">💡 {t('common.tip')} {t('worksheets.geographyMap.example.tip', 'Remember "Never Eat Soggy Waffles" for N, E, S, W!')}</div>
                 </div>
               </div>
             </div>
@@ -3412,7 +3412,7 @@ export function PrintablesPage() {
             </div>
             {/* Extension/Challenge Problems */}
             <div className="mt-6 print:mt-0 p-4 bg-purple-50 border-2 border-purple-200 rounded print:bg-white print:border" style={{ pageBreakBefore: 'always', pageBreakInside: 'avoid' }}>
-              <div className="font-semibold text-purple-900 mb-3 text-sm">🌐Ÿ {getTrans('common.challengeYourself', 'Challenge Yourself (Optional):')}</div>
+              <div className="font-semibold text-purple-900 mb-3 text-sm">🌐 {getTrans('common.challengeYourself', 'Challenge Yourself (Optional):')}</div>
               <div className="space-y-2 text-sm text-purple-800">
                 <div>1. Draw your own compass rose</div>
                 <div>2. Use the compass to give directions from your house to school</div>
@@ -3483,7 +3483,7 @@ export function PrintablesPage() {
             <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-blue-400 to-green-400 animate-gradient-x mb-2" />
             {/* Worked Example */}
             <div className="mb-6 p-4 bg-blue-50 border-2 border-blue-200 rounded-lg print:border print:bg-white">
-              <div className="font-semibold text-blue-900 mb-3 text-sm">ðŸ“š Example - Let's solve this together:</div>
+              <div className="font-semibold text-blue-900 mb-3 text-sm">📚 Example - Let's solve this together:</div>
               <div className="space-y-2 text-sm">
                 <div className="font-semibold text-base"><strong>Problem:</strong> Match "Mountain" to the correct picture</div>
                 <div className="pl-4 border-l-2 border-blue-300 space-y-1">
@@ -3585,7 +3585,7 @@ export function PrintablesPage() {
             </div>
             {/* Extension/Challenge Problems */}
             <div className="mt-6 print:mt-0 p-4 bg-purple-50 border-2 border-purple-200 rounded print:bg-white print:border" style={{ pageBreakBefore: 'always', pageBreakInside: 'avoid' }}>
-              <div className="font-semibold text-purple-900 mb-3 text-sm">🌐Ÿ {getTrans('common.challengeYourself', 'Challenge Yourself (Optional):')}</div>
+              <div className="font-semibold text-purple-900 mb-3 text-sm">🌐 {getTrans('common.challengeYourself', 'Challenge Yourself (Optional):')}</div>
               <div className="space-y-2 text-sm text-purple-800">
                 <div>1. Draw your own landform or water body</div>
                 <div>2. Can you find examples of these near your home?</div>
@@ -3653,7 +3653,7 @@ export function PrintablesPage() {
             <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-blue-400 to-green-400 animate-gradient-x mb-2" />
             {/* Worked Example */}
             <div className="mb-6 p-4 bg-blue-50 border-2 border-blue-200 rounded-lg print:border print:bg-white">
-              <div className="font-semibold text-blue-900 mb-3 text-sm">ðŸ“š Example - Let's solve this together:</div>
+              <div className="font-semibold text-blue-900 mb-3 text-sm">📚 Example - Let's solve this together:</div>
               <div className="space-y-2 text-sm">
                 <div className="font-semibold text-base"><strong>{t('common.problem')}</strong> {t('worksheets.geographyMap.example.problemText2', 'Plot point A at (15Â°N, 80Â°W)')}</div>
                 <div className="pl-4 border-l-2 border-blue-300 space-y-1">
@@ -3661,7 +3661,7 @@ export function PrintablesPage() {
                   <div><strong>{t('common.step2')}</strong> {t('worksheets.geographyMap.example.step2Text2', 'Find 80Â°W on the bottom (longitude is vertical)')}</div>
                   <div><strong>{t('common.step3')}</strong> {t('worksheets.geographyMap.example.step3Text2', 'Where they meet is point A')}</div>
                   <div className="font-semibold text-blue-900"><strong>{t('common.answer')}</strong> {t('worksheets.geographyMap.example.answerText2', 'Point A is at the intersection of 15Â°N and 80Â°W')}</div>
-                  <div className="text-xs text-blue-700 mt-1">ðŸ’¡ {t('common.tip')} {t('worksheets.geographyMap.example.tip2', 'Latitude = flat (like ladder rungs), Longitude = long (up and down)!')}</div>
+                  <div className="text-xs text-blue-700 mt-1">💡 {t('common.tip')} {t('worksheets.geographyMap.example.tip2', 'Latitude = flat (like ladder rungs), Longitude = long (up and down)!')}</div>
                 </div>
               </div>
             </div>
@@ -3715,7 +3715,7 @@ export function PrintablesPage() {
             </div>
             {/* Extension/Challenge Problems */}
             <div className="mt-6 print:mt-0 p-4 bg-purple-50 border-2 border-purple-200 rounded print:bg-white print:border" style={{ pageBreakBefore: 'always', pageBreakInside: 'avoid' }}>
-              <div className="font-semibold text-purple-900 mb-3 text-sm">🌐Ÿ {getTrans('common.challengeYourself', 'Challenge Yourself (Optional):')}</div>
+              <div className="font-semibold text-purple-900 mb-3 text-sm">🌐 {getTrans('common.challengeYourself', 'Challenge Yourself (Optional):')}</div>
               <div className="space-y-2 text-sm text-purple-800">
                 <div>1. Plot your own coordinates on the grid</div>
                 <div>2. Find the coordinates of your city or town</div>
@@ -3856,7 +3856,7 @@ export function PrintablesPage() {
 
               {/* Extension/Challenge Problems */}
               <div className="mt-6 print:mt-0 p-4 bg-purple-50 border-2 border-purple-200 rounded print:bg-white print:border" style={{ pageBreakBefore: 'always', pageBreakInside: 'avoid' }}>
-                <div className="font-semibold text-purple-900 mb-3 text-sm">🌐Ÿ More Fun (Optional):</div>
+                <div className="font-semibold text-purple-900 mb-3 text-sm">🌐 More Fun (Optional):</div>
                 <div className="space-y-2 text-sm text-purple-800">
                   <div>1. Try writing the numbers 1–10 without tracing lines</div>
                   <div>2. Count objects around you: How many can you find of each number?</div>
@@ -3997,7 +3997,7 @@ export function PrintablesPage() {
           <WorksheetSectionWrapper
             docId="uppercase-lowercase-match"
             title="Aa–Zz Upper/Lower Letter Match"
-            emoji="ðŸ”¤"
+            emoji="🔍¤"
             description="Draw lines from uppercase to lowercase. Say the sound for each match."
             problemCount={26}
             learningObjectives={[
@@ -4016,7 +4016,7 @@ export function PrintablesPage() {
             {/* Worked Example */}
             <div className="mb-6 p-4 bg-gradient-to-br from-indigo-50 to-purple-50 border-2 border-indigo-200 rounded-lg print:border print:bg-white">
               <div className="font-semibold text-indigo-900 mb-3 text-sm flex items-center gap-2">
-                <span className="text-2xl">ðŸ“š</span>
+                <span className="text-2xl">📚</span>
                 <span>Example - Let's solve this together:</span>
               </div>
               <div className="space-y-3 text-sm">
@@ -4050,7 +4050,7 @@ export function PrintablesPage() {
                   <div><strong>Step 4:</strong> Say <span className="text-indigo-700 font-bold">"A"</span> sound as you match</div>
                   <div className="font-semibold text-indigo-900 mt-2"><strong>Answer:</strong> <span className="text-indigo-700">A</span> matches <span className="text-purple-700">a</span></div>
                   <div className="text-xs text-indigo-700 mt-2 flex items-center gap-1">
-                    <span>ðŸ’¡</span>
+                    <span>💡</span>
                     <span>Tip: Uppercase and lowercase are the same letter, just different sizes!</span>
                   </div>
                 </div>
@@ -4094,7 +4094,7 @@ export function PrintablesPage() {
             </div>
             {/* Extension/Challenge Problems */}
             <div className="mt-6 print:mt-0 p-4 bg-purple-50 border-2 border-purple-200 rounded print:bg-white print:border" style={{ pageBreakBefore: 'always', pageBreakInside: 'avoid' }}>
-              <div className="font-semibold text-purple-900 mb-3 text-sm">🌐Ÿ {getTrans('common.challengeYourself', 'Challenge Yourself (Optional):')}</div>
+              <div className="font-semibold text-purple-900 mb-3 text-sm">🌐 {getTrans('common.challengeYourself', 'Challenge Yourself (Optional):')}</div>
               <div className="space-y-2 text-sm text-purple-800">
                 <div>1. Write your own uppercase and lowercase letter pairs</div>
                 <div>2. Can you name all 26 letters in order?</div>
@@ -4136,7 +4136,7 @@ export function PrintablesPage() {
           <WorksheetSectionWrapper
             docId="beginning-sounds-az"
             title="Beginning Sounds (A–Z)"
-            emoji="ðŸ”¤"
+            emoji="🔍¤"
             description="Circle pictures that begin with each letter. Say the sound out loud (e.g., A as in apple)."
             problemCount={26}
             learningObjectives={[
@@ -4155,7 +4155,7 @@ export function PrintablesPage() {
             {/* Worked Example */}
             <div className="mb-6 p-4 bg-gradient-to-br from-indigo-50 to-purple-50 border-2 border-indigo-200 rounded-lg print:border print:bg-white">
               <div className="font-semibold text-indigo-900 mb-3 text-sm flex items-center gap-2">
-                <span className="text-2xl">ðŸ“š</span>
+                <span className="text-2xl">📚</span>
                 <span>Example - Let's solve this together:</span>
               </div>
               <div className="space-y-3 text-sm">
@@ -4178,7 +4178,7 @@ export function PrintablesPage() {
                       </div>
                     </div>
                     <div className="text-center">
-                      <div className="text-6xl mb-2">ðŸ¦‹</div>
+                      <div className="text-6xl mb-2">🦋</div>
                       <div className="text-xs font-semibold text-slate-500">butterfly</div>
                       <div className="mt-2 w-16 h-16 rounded-full border-4 border-slate-300 mx-auto flex items-center justify-center">
                         <span className="text-xl text-slate-400">âœ—</span>
@@ -4189,12 +4189,12 @@ export function PrintablesPage() {
                 </div>
                 <div className="pl-4 border-l-2 border-indigo-300 space-y-1">
                   <div><strong>Step 1:</strong> Say the sound: <span className="text-indigo-700 font-bold">/a/</span> (like in apple)</div>
-                  <div><strong>Step 2:</strong> Look at each picture: ðŸŽ apple, âœˆï¸ airplane, ðŸ¦‹ butterfly</div>
+                  <div><strong>Step 2:</strong> Look at each picture: ðŸŽ apple, âœˆï¸ airplane, 🦋 butterfly</div>
                   <div><strong>Step 3:</strong> Which one starts with /a/? <span className="text-green-600 font-bold">Apple and airplane both start with /a/!</span></div>
                   <div><strong>Step 4:</strong> Circle the pictures that begin with /a/</div>
                   <div className="font-semibold text-indigo-900 mt-2"><strong>Answer:</strong> Circle <span className="text-2xl">ðŸŽ</span> and <span className="text-2xl">âœˆï¸</span></div>
                   <div className="text-xs text-indigo-700 mt-2 flex items-center gap-1">
-                    <span>ðŸ’¡</span>
+                    <span>💡</span>
                     <span>Tip: Say the sound, not the letter name! A says /a/ as in apple!</span>
                   </div>
                 </div>
@@ -4203,23 +4203,23 @@ export function PrintablesPage() {
             <div className="grid grid-cols-2 gap-4" style={{ pageBreakAfter: 'auto' }}>
               {(() => {
                 const rows: Array<[string, string, string, string]> = [
-                  ['A', 'ðŸŽ', 'âœˆï¸', 'ðŸ¦‹'],
+                  ['A', 'ðŸŽ', 'âœˆï¸', '🦋'],
                   ['B', 'ðŸ', 'ðŸš²', 'ðŸŒ'],
-                  ['C', 'ðŸ±', 'ðŸš—', 'â˜•'],
+                  ['C', 'ðŸ±', '🚗', 'â˜•'],
                   ['D', 'ðŸ¶', 'ðŸ¦†', 'ðŸ©'],
-                  ['E', 'ðŸ¥š', 'ðŸ¦…', 'ðŸ‘‚'],
+                  ['E', 'ðŸ¥š', 'ðŸ¦…', '👗‚'],
                   ['F', 'ðŸŸ', 'ðŸ¦Š', 'ðŸ'],
-                  ['G', 'ðŸ¦’', 'ðŸ‘“', 'ðŸ¦Ž'],
+                  ['G', 'ðŸ¦’', '👗“', 'ðŸ¦Ž'],
                   ['H', 'ðŸ ', 'ðŸ¹', 'ðŸ¥…'],
                   ['I', 'ðŸ¦', 'ðŸï¸', 'ðŸ§Š'],
                   ['J', 'ðŸ¤¹', 'ðŸ§ƒ', 'ðŸ•¹ï¸'],
-                  ['K', 'ðŸ”‘', '🌐‹', 'ðŸª'],
+                  ['K', '🔍‘', '🌐‹', 'ðŸª'],
                   ['L', 'ðŸ¦', 'ðŸ‹', '🌐¿'],
                   ['M', 'ðŸ­', '🌐™', 'ðŸ„'],
                   ['N', 'ðŸ¥œ', 'å·›', 'ðŸ““'],
                   ['O', 'ðŸ™', 'ðŸ§…', 'ðŸŠ'],
-                  ['P', 'ðŸ¼', 'ðŸ¥§', '🖊️'],
-                  ['Q', 'ðŸ‘¸', 'ðŸ§¶', '🧭'],
+                  ['P', 'ðŸ¼', '🥧', '🖊️'],
+                  ['Q', '👗¸', 'ðŸ§¶', '🧭'],
                   ['R', 'ðŸ°', '🚀', '🌐§ï¸'],
                   ['S', 'ðŸ', '⭐', '🌐ž'],
                   ['T', 'ðŸ¯', '🌐®', '🌐³'],
@@ -4228,7 +4228,7 @@ export function PrintablesPage() {
                   ['W', 'ðŸ³', 'ðŸ‰', 'ðŸš¶'],
                   ['X', 'ðŸª“', 'ðŸ“¦', '🧪'],
                   ['Y', 'ðŸ›¶', 'ðŸª€', 'ðŸ '],
-                  ['Z', 'ðŸ¦“', 'âš¡', 'ðŸ‘Ÿ'],
+                  ['Z', 'ðŸ¦“', 'âš¡', '👟'],
                 ]
                 return rows.map(([L, a, b, c]) => (
                   <svg key={L} viewBox="0 0 400 160" className="w-full h-auto bg-white border border-slate-300 rounded">
@@ -4245,7 +4245,7 @@ export function PrintablesPage() {
             </div>
             {/* Extension/Challenge Problems */}
             <div className="mt-6 print:mt-0 p-4 bg-purple-50 border-2 border-purple-200 rounded print:bg-white print:border" style={{ pageBreakBefore: 'always', pageBreakInside: 'avoid' }}>
-              <div className="font-semibold text-purple-900 mb-3 text-sm">🌐Ÿ {getTrans('common.challengeYourself', 'Challenge Yourself (Optional):')}</div>
+              <div className="font-semibold text-purple-900 mb-3 text-sm">🌐 {getTrans('common.challengeYourself', 'Challenge Yourself (Optional):')}</div>
               <div className="space-y-2 text-sm text-purple-800">
                 <div>1. Find objects around you that start with each letter</div>
                 <div>2. Can you think of 3 words that start with each letter?</div>
@@ -4269,15 +4269,15 @@ export function PrintablesPage() {
             </div>
             {showAnswersForDoc('beginning-sounds-az', () => {
               const answers: Record<string, string[]> = {
-                'A': ['ðŸŽ', 'âœˆï¸'], 'B': ['ðŸ', 'ðŸš²', 'ðŸŒ'], 'C': ['ðŸ±', 'ðŸš—', 'â˜•'],
-                'D': ['ðŸ¶', 'ðŸ¦†', 'ðŸ©'], 'E': ['ðŸ¥š', 'ðŸ¦…', 'ðŸ‘‚'], 'F': ['ðŸŸ', 'ðŸ¦Š', 'ðŸ'],
-                'G': ['ðŸ¦’', 'ðŸ‘“', 'ðŸ¦Ž'], 'H': ['ðŸ ', 'ðŸ¹', 'ðŸ¥…'], 'I': ['ðŸ¦', 'ðŸï¸', 'ðŸ§Š'],
-                'J': ['ðŸ¤¹', 'ðŸ§ƒ', 'ðŸ•¹ï¸'], 'K': ['ðŸ”‘', '🌐‹', 'ðŸª'], 'L': ['ðŸ¦', 'ðŸ‹', '🌐¿'],
+                'A': ['ðŸŽ', 'âœˆï¸'], 'B': ['ðŸ', 'ðŸš²', 'ðŸŒ'], 'C': ['ðŸ±', '🚗', 'â˜•'],
+                'D': ['ðŸ¶', 'ðŸ¦†', 'ðŸ©'], 'E': ['ðŸ¥š', 'ðŸ¦…', '👗‚'], 'F': ['ðŸŸ', 'ðŸ¦Š', 'ðŸ'],
+                'G': ['ðŸ¦’', '👗“', 'ðŸ¦Ž'], 'H': ['ðŸ ', 'ðŸ¹', 'ðŸ¥…'], 'I': ['ðŸ¦', 'ðŸï¸', 'ðŸ§Š'],
+                'J': ['ðŸ¤¹', 'ðŸ§ƒ', 'ðŸ•¹ï¸'], 'K': ['🔍‘', '🌐‹', 'ðŸª'], 'L': ['ðŸ¦', 'ðŸ‹', '🌐¿'],
                 'M': ['ðŸ­', '🌐™', 'ðŸ„'], 'N': ['ðŸ¥œ', 'ðŸ““'], 'O': ['ðŸ™', 'ðŸ§…', 'ðŸŠ'],
-                'P': ['ðŸ¼', 'ðŸ¥§', '🖊️'], 'Q': ['ðŸ‘¸', 'ðŸ§¶', '🧭'], 'R': ['ðŸ°', '🚀', '🌐§ï¸'],
+                'P': ['ðŸ¼', '🥧', '🖊️'], 'Q': ['👗¸', 'ðŸ§¶', '🧭'], 'R': ['ðŸ°', '🚀', '🌐§ï¸'],
                 'S': ['ðŸ', '⭐', '🌐ž'], 'T': ['ðŸ¯', '🌐®', '🌐³'], 'U': ['â˜‚ï¸', 'ðŸ¦„', 'â›½'],
                 'V': ['ðŸŽ»', 'ðŸš'], 'W': ['ðŸ³', 'ðŸ‰', 'ðŸš¶'], 'X': ['ðŸª“', 'ðŸ“¦', '🧪'],
-                'Y': ['ðŸ›¶', 'ðŸª€', 'ðŸ '], 'Z': ['ðŸ¦“', 'âš¡', 'ðŸ‘Ÿ']
+                'Y': ['ðŸ›¶', 'ðŸª€', 'ðŸ '], 'Z': ['ðŸ¦“', 'âš¡', '👟']
               };
               return (
                 <div className="mt-6 p-4 border-2 border-emerald-300 bg-emerald-50 rounded print:border print:bg-white print:page-break-before-always">
@@ -4488,7 +4488,7 @@ export function PrintablesPage() {
                 borderColor: 'border-blue-200',
                 bgColor: 'bg-blue-50',
                 title: 'Button Counting',
-                emoji: 'ðŸ”µ'
+                emoji: '🔍µ'
               }
             }
           }
@@ -4625,7 +4625,7 @@ export function PrintablesPage() {
               {/* Worked Example */}
               <div className="mb-6 print:mb-1 p-4 print:p-1.5 bg-gradient-to-br from-violet-50 to-pink-50 border-2 border-violet-200 rounded-lg print:border print:bg-white">
                 <div className="font-semibold text-violet-900 mb-3 print:mb-0.5 text-sm print:text-[9px] flex items-center gap-2 print:gap-1">
-                  <span className="text-2xl print:text-sm">ðŸ“š</span>
+                  <span className="text-2xl print:text-sm">📚</span>
                   <span>{getTrans(`worksheets.${docId}.example.title`, 'Example - Let\'s solve this together:')}</span>
                 </div>
                 <div className="space-y-3 print:space-y-0.5 text-sm print:text-[8px]">
@@ -4663,7 +4663,7 @@ export function PrintablesPage() {
                     <div className="print:text-[8px] print:leading-[1.1]"><strong>{getTrans(`worksheets.${docId}.example.step3`, 'Step 3: Expanded form:')}</strong> <span className="text-violet-700 font-bold text-lg print:text-[9px]">{getTrans(`worksheets.${docId}.example.step3Text`, '40 + 7')}</span></div>
                     <div className="font-semibold text-violet-900 mt-2 print:mt-0 print:text-[8px] print:leading-[1.1]"><strong>{getTrans(`worksheets.${docId}.example.answer`, 'Answer:')}</strong> <span className="text-violet-700">{getTrans(`worksheets.${docId}.example.answerText`, 'Tens: 4, Ones: 7, Expanded: 40 + 7')}</span></div>
                     <div className="text-xs print:text-[7px] text-violet-700 mt-2 print:mt-0 flex items-center gap-1 print:leading-[1.1]">
-                      <span>ðŸ’¡</span>
+                      <span>💡</span>
                       <span>{getTrans(`worksheets.${docId}.example.tip`, 'Tip: The tens digit tells you how many groups of 10, the ones digit tells you how many extra ones!')}</span>
                     </div>
                   </div>
@@ -4733,7 +4733,7 @@ export function PrintablesPage() {
               </div>
               {/* Extension/Challenge Problems */}
               <div className="mt-6 print:mt-2 p-4 print:p-2 bg-purple-50 border-2 border-purple-200 rounded print:bg-white print:border" style={{ pageBreakBefore: 'auto', pageBreakInside: 'avoid' }}>
-                <div className="font-semibold text-purple-900 mb-3 print:mb-1 text-sm print:text-xs">{getTrans(`worksheets.${docId}.challenge.title`, '🌐Ÿ Challenge Yourself (Optional):')}</div>
+                <div className="font-semibold text-purple-900 mb-3 print:mb-1 text-sm print:text-xs">{getTrans(`worksheets.${docId}.challenge.title`, '🌐 Challenge Yourself (Optional):')}</div>
                 <div className="space-y-2 print:space-y-1 text-sm print:text-xs text-purple-800">
                   {(() => {
                     const items = t(`worksheets.${docId}.challenge.items`)
@@ -4801,7 +4801,7 @@ export function PrintablesPage() {
             <WorksheetSectionWrapper
               docId="skip-count-5-10-120"
               title="Skip Counting by 5s and 10s (to 120)"
-              emoji="ðŸ”"
+              emoji="🔍"
               description="Fill in the missing numbers."
               problemCount={seq5.filter((_, i) => isBlank5(i)).length + seq10.filter((_, i) => isBlank10(i)).length}
               learningObjectives={[
@@ -4821,14 +4821,14 @@ export function PrintablesPage() {
               <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-fuchsia-400 to-amber-400 animate-gradient-x mb-2" />
               {/* Worked Example */}
               <div className="mb-6 p-4 bg-blue-50 border-2 border-blue-200 rounded-lg print:border print:bg-white">
-                <div className="font-semibold text-blue-900 mb-3 text-sm">ðŸ“š Example - Let's solve this together:</div>
+                <div className="font-semibold text-blue-900 mb-3 text-sm">📚 Example - Let's solve this together:</div>
                 <div className="space-y-2 text-sm">
                   <div className="font-semibold text-base"><strong>Count by 5s:</strong> 5, 10, ___, 20, 25</div>
                   <div className="pl-4 border-l-2 border-blue-300 space-y-1">
                     <div><strong>Step 1:</strong> Look at the pattern: 5, 10, ___, 20, 25</div>
                     <div><strong>Step 2:</strong> Each number is 5 more than the previous: 5 + 5 = 10, 10 + 5 = 15</div>
                     <div className="font-semibold text-blue-900"><strong>Answer:</strong> 15</div>
-                    <div className="text-xs text-blue-700 mt-1">ðŸ’¡ Tip: Skip counting by 5s means adding 5 each time. Skip counting by 10s means adding 10 each time!</div>
+                    <div className="text-xs text-blue-700 mt-1">💡 Tip: Skip counting by 5s means adding 5 each time. Skip counting by 10s means adding 10 each time!</div>
                   </div>
                 </div>
               </div>
@@ -4856,7 +4856,7 @@ export function PrintablesPage() {
               </div>
               {/* Extension/Challenge Problems */}
               <div className="mt-6 print:mt-0 p-4 bg-purple-50 border-2 border-purple-200 rounded print:bg-white print:border" style={{ pageBreakBefore: 'always', pageBreakInside: 'avoid' }}>
-                <div className="font-semibold text-purple-900 mb-3 text-sm">🌐Ÿ {getTrans('common.challengeYourself', 'Challenge Yourself (Optional):')}</div>
+                <div className="font-semibold text-purple-900 mb-3 text-sm">🌐 {getTrans('common.challengeYourself', 'Challenge Yourself (Optional):')}</div>
                 <div className="space-y-2 text-sm text-purple-800">
                   <div>1. Skip count backwards by 5s from 50: 50, ___, ___, ___, ___</div>
                   <div>2. Skip count by 2s to 20: ___, ___, ___, ___, ___</div>
@@ -4890,7 +4890,7 @@ export function PrintablesPage() {
                       <strong>Count by 10s to 120:</strong> The missing numbers are: {seq10.filter((_, i) => isBlank10(i)).map((n, idx) => `${idx + 1}. ${n}`).join(', ')}
                     </div>
                     <div className="text-xs text-emerald-700 mt-2">
-                      ðŸ’¡ Remember: Each number in the 5s sequence is 5 more than the previous. Each number in the 10s sequence is 10 more than the previous.
+                      💡 Remember: Each number in the 5s sequence is 5 more than the previous. Each number in the 10s sequence is 10 more than the previous.
                     </div>
                   </div>
                 </div>
@@ -4940,7 +4940,7 @@ export function PrintablesPage() {
               {/* Worked Example */}
               <div className="mb-6 p-4 bg-gradient-to-br from-emerald-50 to-sky-50 border-2 border-emerald-200 rounded-lg print:border print:bg-white">
                 <div className="font-semibold text-emerald-900 mb-3 text-sm flex items-center gap-2">
-                  <span className="text-2xl">ðŸ“š</span>
+                  <span className="text-2xl">📚</span>
                   <span>Example - Let's solve this together:</span>
                 </div>
                 <div className="space-y-3 text-sm">
@@ -4983,7 +4983,7 @@ export function PrintablesPage() {
                     <div><strong>Step 3:</strong> Combine: <span className="text-emerald-700 font-bold">60 + 8 = 68</span></div>
                     <div className="font-semibold text-emerald-900 mt-2"><strong>Answer:</strong> <span className="text-2xl text-emerald-700">68</span></div>
                     <div className="text-xs text-emerald-700 mt-2 flex items-center gap-1">
-                      <span>ðŸ’¡</span>
+                      <span>💡</span>
                       <span>Tip: Add ones first, then tens! No regrouping needed here.</span>
                     </div>
                   </div>
@@ -5004,7 +5004,7 @@ export function PrintablesPage() {
               </div>
               {/* Extension/Challenge Problems */}
               <div className="mt-6 print:mt-0 p-4 bg-purple-50 border-2 border-purple-200 rounded print:bg-white print:border" style={{ pageBreakBefore: 'always', pageBreakInside: 'avoid' }}>
-                <div className="font-semibold text-purple-900 mb-3 text-sm">🌐Ÿ {getTrans('common.challengeYourself', 'Challenge Yourself (Optional):')}</div>
+                <div className="font-semibold text-purple-900 mb-3 text-sm">🌐 {getTrans('common.challengeYourself', 'Challenge Yourself (Optional):')}</div>
                 <div className="space-y-2 text-sm text-purple-800">
                   <div>1. Create your own 2-digit addition problem: ___ + ___ = ?</div>
                   <div>2. Solve: 45 + 32 = ?</div>
@@ -5082,7 +5082,7 @@ export function PrintablesPage() {
               {/* Worked Example */}
               <div className="mb-6 p-4 bg-gradient-to-br from-rose-50 to-fuchsia-50 border-2 border-rose-200 rounded-lg print:border print:bg-white">
                 <div className="font-semibold text-rose-900 mb-3 text-sm flex items-center gap-2">
-                  <span className="text-2xl">ðŸ“š</span>
+                  <span className="text-2xl">📚</span>
                   <span>Example - Let's solve this together:</span>
                 </div>
                 <div className="space-y-3 text-sm">
@@ -5128,7 +5128,7 @@ export function PrintablesPage() {
                     <div><strong>Step 3:</strong> Combine: <span className="text-rose-700 font-bold">30 + 5 = 35</span></div>
                     <div className="font-semibold text-rose-900 mt-2"><strong>Answer:</strong> <span className="text-2xl text-rose-700">35</span></div>
                     <div className="text-xs text-rose-700 mt-2 flex items-center gap-1">
-                      <span>ðŸ’¡</span>
+                      <span>💡</span>
                       <span>Tip: Subtract ones first, then tens! No regrouping needed here.</span>
                     </div>
                   </div>
@@ -5149,7 +5149,7 @@ export function PrintablesPage() {
               </div>
               {/* Extension/Challenge Problems */}
               <div className="mt-6 print:mt-0 p-4 bg-purple-50 border-2 border-purple-200 rounded print:bg-white print:border" style={{ pageBreakBefore: 'always', pageBreakInside: 'avoid' }}>
-                <div className="font-semibold text-purple-900 mb-3 text-sm">🌐Ÿ {getTrans('common.challengeYourself', 'Challenge Yourself (Optional):')}</div>
+                <div className="font-semibold text-purple-900 mb-3 text-sm">🌐 {getTrans('common.challengeYourself', 'Challenge Yourself (Optional):')}</div>
                 <div className="space-y-2 text-sm text-purple-800">
                   <div>1. Create your own 2-digit subtraction problem: ___ âˆ’ ___ = ?</div>
                   <div>2. Solve: 67 âˆ’ 24 = ?</div>
@@ -5218,7 +5218,7 @@ export function PrintablesPage() {
               {/* Worked Example */}
               <div className="mb-6 p-4 bg-gradient-to-br from-amber-50 to-lime-50 border-2 border-amber-200 rounded-lg print:border print:bg-white">
                 <div className="font-semibold text-amber-900 mb-3 text-sm flex items-center gap-2">
-                  <span className="text-2xl">ðŸ“š</span>
+                  <span className="text-2xl">📚</span>
                   <span>Example - Let's solve this together:</span>
                 </div>
                 <div className="space-y-3 text-sm">
@@ -5259,7 +5259,7 @@ export function PrintablesPage() {
                     <div><strong>{t('common.step3')}</strong> {t('worksheets.wordProblems.example.step3Text', 'Solve:')} <span className="text-amber-700 font-bold text-lg">15 + 12 = 27</span></div>
                     <div className="font-semibold text-amber-900 mt-2"><strong>{t('common.answer')}</strong> <span className="text-2xl text-amber-700">27 apples</span></div>
                     <div className="text-xs text-amber-700 mt-2 flex items-center gap-1">
-                      <span>ðŸ’¡</span>
+                      <span>💡</span>
                       <span>{t('common.tip')} {t('worksheets.wordProblems.example.tip', '"More" or "in all" usually means addition! "Left" or "remain" usually means subtraction!')}</span>
                     </div>
                   </div>
@@ -5271,8 +5271,8 @@ export function PrintablesPage() {
                   const nums = item.equation.match(/\d+/g) || [];
                   const num1 = parseInt(nums[0] || '0');
                   const num2 = parseInt(nums[1] || '0');
-                  const emoji = item.problem.includes('marbles') ? 'ðŸ”´' :
-                    item.problem.includes('books') ? 'ðŸ“š' :
+                  const emoji = item.problem.includes('marbles') ? '🔍´' :
+                    item.problem.includes('books') ? '📚' :
                       item.problem.includes('stickers') ? '⭐' :
                         item.problem.includes('pencils') ? 'âœï¸' : 'ðŸ“„';
                   return (
@@ -5321,7 +5321,7 @@ export function PrintablesPage() {
               </div>
               {/* Extension/Challenge Problems */}
               <div className="mt-6 print:mt-0 p-4 bg-purple-50 border-2 border-purple-200 rounded print:bg-white print:border" style={{ pageBreakBefore: 'always', pageBreakInside: 'avoid' }}>
-                <div className="font-semibold text-purple-900 mb-3 text-sm">🌐Ÿ {getTrans('common.challengeYourself', 'Challenge Yourself (Optional):')}</div>
+                <div className="font-semibold text-purple-900 mb-3 text-sm">🌐 {getTrans('common.challengeYourself', 'Challenge Yourself (Optional):')}</div>
                 <div className="space-y-2 text-sm text-purple-800">
                   <div>1. Create your own word problem using addition</div>
                   <div>2. Create your own word problem using subtraction</div>
@@ -5387,14 +5387,14 @@ export function PrintablesPage() {
               <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-indigo-400 to-sky-400 animate-gradient-x mb-2" />
               {/* Worked Example */}
               <div className="mb-6 p-4 bg-blue-50 border-2 border-blue-200 rounded-lg print:border print:bg-white">
-                <div className="font-semibold text-blue-900 mb-3 text-sm">ðŸ“š Example - Let's solve this together:</div>
+                <div className="font-semibold text-blue-900 mb-3 text-sm">📚 Example - Let's solve this together:</div>
                 <div className="space-y-2 text-sm">
                   <div className="font-semibold text-base"><strong>Problem:</strong> Compare 58 and 41</div>
                   <div className="pl-4 border-l-2 border-blue-300 space-y-1">
                     <div><strong>Step 1:</strong> Compare tens: 5 tens vs 4 tens</div>
                     <div><strong>Step 2:</strong> 5 &gt; 4, so 58 &gt; 41</div>
                     <div className="font-semibold text-blue-900"><strong>Answer:</strong> 58 &gt; 41</div>
-                    <div className="text-xs text-blue-700 mt-1">ðŸ’¡ Tip: Compare tens first! If tens are different, you're done. If tens are equal, compare ones!</div>
+                    <div className="text-xs text-blue-700 mt-1">💡 Tip: Compare tens first! If tens are different, you're done. If tens are equal, compare ones!</div>
                   </div>
                 </div>
               </div>
@@ -5419,7 +5419,7 @@ export function PrintablesPage() {
               </div>
               {/* Extension/Challenge Problems */}
               <div className="mt-6 print:mt-0 p-4 bg-purple-50 border-2 border-purple-200 rounded print:bg-white print:border" style={{ pageBreakBefore: 'always', pageBreakInside: 'avoid' }}>
-                <div className="font-semibold text-purple-900 mb-3 text-sm">🌐Ÿ {getTrans('common.challengeYourself', 'Challenge Yourself (Optional):')}</div>
+                <div className="font-semibold text-purple-900 mb-3 text-sm">🌐 {getTrans('common.challengeYourself', 'Challenge Yourself (Optional):')}</div>
                 <div className="space-y-2 text-sm text-purple-800">
                   <div>1. Compare: 67 ___ 76 (which symbol goes in the blank?)</div>
                   <div>2. Find two numbers where the tens are equal but ones are different</div>
@@ -5491,7 +5491,7 @@ export function PrintablesPage() {
               <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-violet-400 to-rose-400 animate-gradient-x mb-2" />
               {/* Worked Example */}
               <div className="mb-6 p-4 bg-blue-50 border-2 border-blue-200 rounded-lg print:border print:bg-white">
-                <div className="font-semibold text-blue-900 mb-3 text-sm">ðŸ“š Example - Let's solve this together:</div>
+                <div className="font-semibold text-blue-900 mb-3 text-sm">📚 Example - Let's solve this together:</div>
                 <div className="space-y-2 text-sm">
                   <div className="font-semibold text-base"><strong>Problem:</strong> Is 24 even or odd?</div>
                   <div className="pl-4 border-l-2 border-blue-300 space-y-1">
@@ -5499,7 +5499,7 @@ export function PrintablesPage() {
                     <div><strong>Step 2:</strong> 4 is in the even list (0, 2, 4, 6, 8)</div>
                     <div><strong>Step 3:</strong> Or divide: 24 Ã· 2 = 12 (no remainder)</div>
                     <div className="font-semibold text-blue-900"><strong>Answer:</strong> 24 is even</div>
-                    <div className="text-xs text-blue-700 mt-1">ðŸ’¡ Tip: Just look at the last digit! Even numbers end in 0, 2, 4, 6, or 8!</div>
+                    <div className="text-xs text-blue-700 mt-1">💡 Tip: Just look at the last digit! Even numbers end in 0, 2, 4, 6, or 8!</div>
                   </div>
                 </div>
               </div>
@@ -5513,7 +5513,7 @@ export function PrintablesPage() {
               </div>
               {/* Extension/Challenge Problems */}
               <div className="mt-6 print:mt-0 p-4 bg-purple-50 border-2 border-purple-200 rounded print:bg-white print:border" style={{ pageBreakBefore: 'always', pageBreakInside: 'avoid' }}>
-                <div className="font-semibold text-purple-900 mb-3 text-sm">🌐Ÿ {getTrans('common.challengeYourself', 'Challenge Yourself (Optional):')}</div>
+                <div className="font-semibold text-purple-900 mb-3 text-sm">🌐 {getTrans('common.challengeYourself', 'Challenge Yourself (Optional):')}</div>
                 <div className="space-y-2 text-sm text-purple-800">
                   <div>1. List 5 even numbers between 50 and 100</div>
                   <div>2. List 5 odd numbers between 50 and 100</div>
@@ -5578,14 +5578,14 @@ export function PrintablesPage() {
               <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-sky-400 to-indigo-400 animate-gradient-x mb-2" />
               {/* Worked Example */}
               <div className="mb-6 p-4 bg-blue-50 border-2 border-blue-200 rounded-lg print:border print:bg-white">
-                <div className="font-semibold text-blue-900 mb-3 text-sm">ðŸ“š Example - Let's solve this together:</div>
+                <div className="font-semibold text-blue-900 mb-3 text-sm">📚 Example - Let's solve this together:</div>
                 <div className="space-y-2 text-sm">
                   <div className="font-semibold text-base"><strong>Time:</strong> 3:25</div>
                   <div className="pl-4 border-l-2 border-blue-300 space-y-1">
                     <div><strong>Step 1:</strong> Hour hand: Point between 3 and 4 (because it's 3:25, past 3:00)</div>
                     <div><strong>Step 2:</strong> Minute hand: Point to 5 (5 Ã— 5 = 25 minutes past the hour)</div>
                     <div className="font-semibold text-blue-900"><strong>Answer:</strong> Hour hand between 3 and 4, minute hand on 5</div>
-                    <div className="text-xs text-blue-700 mt-1">ðŸ’¡ Tip: The minute hand moves 5 minutes for each number on the clock. Count by 5s: 5, 10, 15, 20, 25, 30...</div>
+                    <div className="text-xs text-blue-700 mt-1">💡 Tip: The minute hand moves 5 minutes for each number on the clock. Count by 5s: 5, 10, 15, 20, 25, 30...</div>
                   </div>
                 </div>
               </div>
@@ -5604,7 +5604,7 @@ export function PrintablesPage() {
               </div>
               {/* Extension/Challenge Problems */}
               <div className="mt-6 print:mt-0 p-4 bg-purple-50 border-2 border-purple-200 rounded print:bg-white print:border" style={{ pageBreakBefore: 'always', pageBreakInside: 'avoid' }}>
-                <div className="font-semibold text-purple-900 mb-3 text-sm">🌐Ÿ {getTrans('common.challengeYourself', 'Challenge Yourself (Optional):')}</div>
+                <div className="font-semibold text-purple-900 mb-3 text-sm">🌐 {getTrans('common.challengeYourself', 'Challenge Yourself (Optional):')}</div>
                 <div className="space-y-2 text-sm text-purple-800">
                   <div>1. Draw a clock showing 4:45. What is another way to say this time? (quarter to ___)</div>
                   <div>2. Draw a clock showing 11:30. What is another way to say this time? (half past ___)</div>
@@ -5651,7 +5651,7 @@ export function PrintablesPage() {
                       })}
                     </div>
                     <div className="text-xs text-emerald-700 mt-3">
-                      ðŸ’¡ Remember: The hour hand moves slowly between numbers. The minute hand moves quickly - each number represents 5 minutes!
+                      💡 Remember: The hour hand moves slowly between numbers. The minute hand moves quickly - each number represents 5 minutes!
                     </div>
                   </div>
                 );
@@ -5686,7 +5686,7 @@ export function PrintablesPage() {
               <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-teal-400 to-cyan-400 animate-gradient-x mb-2" />
               {/* Worked Example */}
               <div className="mb-6 p-4 bg-blue-50 border-2 border-blue-200 rounded-lg print:border print:bg-white">
-                <div className="font-semibold text-blue-900 mb-3 text-sm">ðŸ“š Example - Let's solve this together:</div>
+                <div className="font-semibold text-blue-900 mb-3 text-sm">📚 Example - Let's solve this together:</div>
                 <div className="space-y-2 text-sm">
                   <div className="font-semibold text-base"><strong>Number:</strong> 7</div>
                   <div className="pl-4 border-l-2 border-blue-300 space-y-1">
@@ -5694,7 +5694,7 @@ export function PrintablesPage() {
                     <div><strong>Step 2:</strong> Color 7 circles in the ten frame</div>
                     <div><strong>Step 3:</strong> Count: 7 filled, 3 empty</div>
                     <div className="font-semibold text-blue-900"><strong>Answer:</strong> Color 7 circles. Say "7 filled, 3 empty"</div>
-                    <div className="text-xs text-blue-700 mt-1">ðŸ’¡ Tip: A ten frame has 10 spaces. For numbers 1–10, use one ten frame. For 11–20, you'll need two ten frames!</div>
+                    <div className="text-xs text-blue-700 mt-1">💡 Tip: A ten frame has 10 spaces. For numbers 1–10, use one ten frame. For 11–20, you'll need two ten frames!</div>
                   </div>
                 </div>
               </div>
@@ -5721,7 +5721,7 @@ export function PrintablesPage() {
               </div>
               {/* Extension/Challenge Problems */}
               <div className="mt-6 print:mt-0 p-4 bg-purple-50 border-2 border-purple-200 rounded print:bg-white print:border" style={{ pageBreakBefore: 'always', pageBreakInside: 'avoid' }}>
-                <div className="font-semibold text-purple-900 mb-3 text-sm">🌐Ÿ More Fun (Optional):</div>
+                <div className="font-semibold text-purple-900 mb-3 text-sm">🌐 More Fun (Optional):</div>
                 <div className="space-y-2 text-sm text-purple-800">
                   <div>1. Can you show 15 using ten frames? Color it!</div>
                   <div>2. How many ways can you make 10? (5+5, 6+4, 7+3...)</div>
@@ -5762,7 +5762,7 @@ export function PrintablesPage() {
                     })}
                   </div>
                   <div className="text-xs text-emerald-700 mt-3">
-                    ðŸ’¡ Remember: For numbers 1–10, use one ten frame. For numbers 11–20, fill the first ten frame completely (10) and use the second ten frame for the remaining amount!
+                    💡 Remember: For numbers 1–10, use one ten frame. For numbers 11–20, fill the first ten frame completely (10) and use the second ten frame for the remaining amount!
                   </div>
                 </div>
               ))}
@@ -5800,7 +5800,7 @@ export function PrintablesPage() {
 
             {/* Worked Example */}
             <div className="mb-6 p-4 bg-orange-50 border-2 border-orange-200 rounded-lg print:border print:bg-white flex gap-4 items-center">
-              <div className="text-3xl">ðŸ’¡</div>
+              <div className="text-3xl">💡</div>
               <div className="text-sm text-orange-900">
                 <strong>How to Play:</strong>
                 <ol className="list-decimal ml-4 mt-1 space-y-1">
@@ -5934,7 +5934,7 @@ export function PrintablesPage() {
               <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-orange-400 to-yellow-400 animate-gradient-x mb-2" />
               {/* Worked Example */}
               <div className="mb-6 p-4 bg-blue-50 border-2 border-blue-200 rounded-lg print:border print:bg-white">
-                <div className="font-semibold text-blue-900 mb-3 text-sm">ðŸ“š Example - Let's solve this together:</div>
+                <div className="font-semibold text-blue-900 mb-3 text-sm">📚 Example - Let's solve this together:</div>
                 <div className="space-y-2 text-sm">
                   <div className="font-semibold text-base"><strong>Instructions:</strong> Connect the dots from 1 to 20</div>
                   <div className="pl-4 border-l-2 border-blue-300 space-y-1">
@@ -5942,7 +5942,7 @@ export function PrintablesPage() {
                     <div><strong>Step 2:</strong> Draw a line from 1 to 2</div>
                     <div><strong>Step 3:</strong> Continue: 2 to 3, 3 to 4, and so on...</div>
                     <div className="font-semibold text-blue-900"><strong>Answer:</strong> Connect all dots in order: 1â†’2â†’3â†’4â†’...â†’20</div>
-                    <div className="text-xs text-blue-700 mt-1">ðŸ’¡ Tip: Always start at 1 and count forward. The picture will appear as you connect the dots!</div>
+                    <div className="text-xs text-blue-700 mt-1">💡 Tip: Always start at 1 and count forward. The picture will appear as you connect the dots!</div>
                   </div>
                 </div>
               </div>
@@ -5958,7 +5958,7 @@ export function PrintablesPage() {
               </div>
               {/* Extension/Challenge Problems */}
               <div className="mt-6 print:mt-0 p-4 bg-purple-50 border-2 border-purple-200 rounded print:bg-white print:border" style={{ pageBreakBefore: 'always', pageBreakInside: 'avoid' }}>
-                <div className="font-semibold text-purple-900 mb-3 text-sm">🌐Ÿ More Fun (Optional):</div>
+                <div className="font-semibold text-purple-900 mb-3 text-sm">🌐 More Fun (Optional):</div>
                 <div className="space-y-2 text-sm text-purple-800">
                   <div>1. Can you connect the dots backwards? (20, 19, 18...)</div>
                   <div>2. Color the picture after connecting all the dots</div>
@@ -5988,7 +5988,7 @@ export function PrintablesPage() {
                     <div className="mt-2">The completed picture should show a wavy or zigzag pattern connecting all 20 dots in numerical order.</div>
                   </div>
                   <div className="text-xs text-emerald-700 mt-3">
-                    ðŸ’¡ Remember: Always start at dot 1 and connect in order. Count aloud as you go: 1, 2, 3, 4...
+                    💡 Remember: Always start at dot 1 and connect in order. Count aloud as you go: 1, 2, 3, 4...
                   </div>
                 </div>
               ))}
@@ -6000,7 +6000,7 @@ export function PrintablesPage() {
           <WorksheetSectionWrapper
             docId="tangram-animals"
             title="Tangram Animals (Cutouts)"
-            emoji="ðŸ§©"
+            emoji="🧩"
             description="Cut the shapes and arrange to make animal silhouettes. Glue the final shape on a clean sheet."
             problemCount={5}
             learningObjectives={[
@@ -6020,7 +6020,7 @@ export function PrintablesPage() {
             <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-orange-400 to-yellow-400 animate-gradient-x mb-2" />
             {/* Worked Example */}
             <div className="mb-6 p-4 bg-blue-50 border-2 border-blue-200 rounded-lg print:border print:bg-white">
-              <div className="font-semibold text-blue-900 mb-3 text-sm">ðŸ“š Example - Let's solve this together:</div>
+              <div className="font-semibold text-blue-900 mb-3 text-sm">📚 Example - Let's solve this together:</div>
               <div className="space-y-2 text-sm">
                 <div className="font-semibold text-base"><strong>Task:</strong> Make a cat using tangram pieces</div>
                 <div className="pl-4 border-l-2 border-blue-300 space-y-1">
@@ -6028,7 +6028,7 @@ export function PrintablesPage() {
                   <div><strong>Step 2:</strong> Try arranging the shapes to make a cat shape</div>
                   <div><strong>Step 3:</strong> When you're happy with your animal, glue it on a clean sheet</div>
                   <div className="font-semibold text-blue-900"><strong>Answer:</strong> There are many ways to arrange the shapes - be creative!</div>
-                  <div className="text-xs text-blue-700 mt-1">ðŸ’¡ Tip: Try rotating and flipping the shapes to see different possibilities!</div>
+                  <div className="text-xs text-blue-700 mt-1">💡 Tip: Try rotating and flipping the shapes to see different possibilities!</div>
                 </div>
               </div>
             </div>
@@ -6045,7 +6045,7 @@ export function PrintablesPage() {
             </div>
             {/* Extension/Challenge Problems */}
             <div className="mt-6 print:mt-0 p-4 bg-purple-50 border-2 border-purple-200 rounded print:bg-white print:border" style={{ pageBreakBefore: 'always', pageBreakInside: 'avoid' }}>
-              <div className="font-semibold text-purple-900 mb-3 text-sm">🌐Ÿ More Fun (Optional):</div>
+              <div className="font-semibold text-purple-900 mb-3 text-sm">🌐 More Fun (Optional):</div>
               <div className="space-y-2 text-sm text-purple-800">
                 <div>1. Can you make a different animal using the same shapes?</div>
                 <div>2. Try making a house, a tree, or a person with the tangram pieces</div>
@@ -6073,7 +6073,7 @@ export function PrintablesPage() {
                 <div className="space-y-2 text-sm text-emerald-800">
                   <div>Tangram puzzles have many solutions! The goal is to use all 7 pieces to create different shapes.</div>
                   <div className="mt-2">Common animals you can make: cat, rabbit, bird, fish, horse, and more!</div>
-                  <div className="text-xs text-emerald-700 mt-2">ðŸ’¡ Remember: There's no single "correct" answer - be creative and try different arrangements!</div>
+                  <div className="text-xs text-emerald-700 mt-2">💡 Remember: There's no single "correct" answer - be creative and try different arrangements!</div>
                 </div>
               </div>
             ))}
@@ -6104,7 +6104,7 @@ export function PrintablesPage() {
             <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-pink-400 to-rose-400 animate-gradient-x mb-2" />
             {/* Worked Example */}
             <div className="mb-6 p-4 bg-blue-50 border-2 border-blue-200 rounded-lg print:border print:bg-white">
-              <div className="font-semibold text-blue-900 mb-3 text-sm">ðŸ“š Example - Let's solve this together:</div>
+              <div className="font-semibold text-blue-900 mb-3 text-sm">📚 Example - Let's solve this together:</div>
               <div className="space-y-2 text-sm">
                 <div className="font-semibold text-base"><strong>Task:</strong> Find 7 differences between the two pictures</div>
                 <div className="pl-4 border-l-2 border-blue-300 space-y-1">
@@ -6112,7 +6112,7 @@ export function PrintablesPage() {
                   <div><strong>Step 2:</strong> Compare it to the second picture</div>
                   <div><strong>Step 3:</strong> Look for differences in: colors, shapes, sizes, positions, missing/added items</div>
                   <div className="font-semibold text-blue-900"><strong>Answer:</strong> There are 7 differences - keep looking until you find them all!</div>
-                  <div className="text-xs text-blue-700 mt-1">ðŸ’¡ Tip: Look at one area at a time - the sky, the ground, the objects, etc. This helps you find all the differences!</div>
+                  <div className="text-xs text-blue-700 mt-1">💡 Tip: Look at one area at a time - the sky, the ground, the objects, etc. This helps you find all the differences!</div>
                 </div>
               </div>
             </div>
@@ -6126,7 +6126,7 @@ export function PrintablesPage() {
             </div>
             {/* Extension/Challenge Problems */}
             <div className="mt-6 print:mt-0 p-4 bg-purple-50 border-2 border-purple-200 rounded print:bg-white print:border" style={{ pageBreakBefore: 'always', pageBreakInside: 'avoid' }}>
-              <div className="font-semibold text-purple-900 mb-3 text-sm">🌐Ÿ More Fun (Optional):</div>
+              <div className="font-semibold text-purple-900 mb-3 text-sm">🌐 More Fun (Optional):</div>
               <div className="space-y-2 text-sm text-purple-800">
                 <div>1. Can you describe each difference you found in words?</div>
                 <div>2. Try to find all 7 differences in under 2 minutes!</div>
@@ -6160,7 +6160,7 @@ export function PrintablesPage() {
                     <div>â€¢ Missing or added items</div>
                     <div>â€¢ Shapes and patterns</div>
                   </div>
-                  <div className="text-xs text-emerald-700 mt-2">ðŸ’¡ Remember: Compare the pictures section by section to find all the differences!</div>
+                  <div className="text-xs text-emerald-700 mt-2">💡 Remember: Compare the pictures section by section to find all the differences!</div>
                 </div>
               </div>
             ))}
@@ -6408,7 +6408,7 @@ export function PrintablesPage() {
             </div>
             {/* Worked Example */}
             <div className="mb-6 p-4 bg-blue-50 border-2 border-blue-200 rounded-lg print:border print:bg-white">
-              <div className="font-semibold text-blue-900 mb-3 text-sm">ðŸ“š Example - Let's solve this together:</div>
+              <div className="font-semibold text-blue-900 mb-3 text-sm">📚 Example - Let's solve this together:</div>
               <div className="space-y-2 text-sm">
                 <div className="font-semibold text-base"><strong>Question:</strong> Where did Sara put the cup?</div>
                 <div className="pl-4 border-l-2 border-blue-300 space-y-1">
@@ -6416,7 +6416,7 @@ export function PrintablesPage() {
                   <div><strong>Step 2:</strong> Look for where Sara put the cup</div>
                   <div><strong>Step 3:</strong> Find: "Sara planted a tiny seed in a cup by the window"</div>
                   <div className="font-semibold text-blue-900"><strong>Answer:</strong> Sara put the cup by the window.</div>
-                  <div className="text-xs text-blue-700 mt-1">ðŸ’¡ Tip: Look for key words in the question (like "where") and find them in the passage!</div>
+                  <div className="text-xs text-blue-700 mt-1">💡 Tip: Look for key words in the question (like "where") and find them in the passage!</div>
                 </div>
               </div>
             </div>
@@ -6430,7 +6430,7 @@ export function PrintablesPage() {
             </div>
             {/* Extension/Challenge Problems */}
             <div className="mt-6 print:mt-0 p-4 bg-purple-50 border-2 border-purple-200 rounded print:bg-white print:border" style={{ pageBreakBefore: 'always', pageBreakInside: 'avoid' }}>
-              <div className="font-semibold text-purple-900 mb-3 text-sm">🌐Ÿ More Fun (Optional):</div>
+              <div className="font-semibold text-purple-900 mb-3 text-sm">🌐 More Fun (Optional):</div>
               <div className="space-y-2 text-sm text-purple-800">
                 <div>1. Can you retell the story in your own words?</div>
                 <div>2. Why do you think Sara turned the cup toward the sun?</div>
@@ -6460,7 +6460,7 @@ export function PrintablesPage() {
                   <li><strong>A little water</strong> (Every day, she gave it a little water)</li>
                   <li><strong>A green sprout</strong> (One morning, she saw a green sprout peek out of the soil)</li>
                 </ol>
-                <div className="text-xs text-emerald-700 mt-3">ðŸ’¡ Remember: Always look back at the passage to find the answers. The information is in the text!</div>
+                <div className="text-xs text-emerald-700 mt-3">💡 Remember: Always look back at the passage to find the answers. The information is in the text!</div>
               </div>
             ))}
           </WorksheetSectionWrapper>
@@ -6528,7 +6528,7 @@ export function PrintablesPage() {
               </div>
               {/* Worked Example */}
               <div className="mb-6 p-4 bg-blue-50 border-2 border-blue-200 rounded-lg print:border print:bg-white">
-                <div className="font-semibold text-blue-900 mb-3 text-sm">{getTrans(`worksheets.${docId}.example.title`, 'ðŸ“š Example - Let\'s solve this together:')}</div>
+                <div className="font-semibold text-blue-900 mb-3 text-sm">{getTrans(`worksheets.${docId}.example.title`, '📚 Example - Let\'s solve this together:')}</div>
                 <div className="space-y-2 text-sm">
                   <div className="font-semibold text-base"><strong>{getTrans(`worksheets.${docId}.example.question`, 'Question:')}</strong> {getTrans(`worksheets.${docId}.example.questionText`, 'Where did Mia go?')}</div>
                   <div className="pl-4 border-l-2 border-blue-300 space-y-1">
@@ -6536,7 +6536,7 @@ export function PrintablesPage() {
                     <div><strong>{getTrans(`worksheets.${docId}.example.step2`, 'Step 2:')}</strong> {getTrans(`worksheets.${docId}.example.step2Text`, 'Look for the answer to "Where did Mia go?"')}</div>
                     <div><strong>{getTrans(`worksheets.${docId}.example.step3`, 'Step 3:')}</strong> {getTrans(`worksheets.${docId}.example.step3Text`, 'Find: "Mia ran to the park"')}</div>
                     <div className="font-semibold text-blue-900"><strong>{getTrans(`worksheets.${docId}.example.answer`, 'Answer:')}</strong> {getTrans(`worksheets.${docId}.example.answerText`, 'Mia went to the park.')}</div>
-                    <div className="text-xs text-blue-700 mt-1">{getTrans(`worksheets.${docId}.example.tip`, 'ðŸ’¡ Tip: Look for key words in the question (like "where") and find them in the passage!')}</div>
+                    <div className="text-xs text-blue-700 mt-1">{getTrans(`worksheets.${docId}.example.tip`, '💡 Tip: Look for key words in the question (like "where") and find them in the passage!')}</div>
                   </div>
                 </div>
               </div>
@@ -6559,7 +6559,7 @@ export function PrintablesPage() {
               </div>
               {/* Extension/Challenge Problems */}
               <div className="mt-6 print:mt-0 p-4 bg-purple-50 border-2 border-purple-200 rounded print:bg-white print:border" style={{ pageBreakBefore: 'always', pageBreakInside: 'avoid' }}>
-                <div className="font-semibold text-purple-900 mb-3 text-sm">{getTrans(`worksheets.${docId}.challenge.title`, '🌐Ÿ Challenge Yourself (Optional):')}</div>
+                <div className="font-semibold text-purple-900 mb-3 text-sm">{getTrans(`worksheets.${docId}.challenge.title`, '🌐 Challenge Yourself (Optional):')}</div>
                 <div className="space-y-2 text-sm text-purple-800">
                   {(() => {
                     const items = t(`worksheets.${docId}.challenge.items`)
@@ -6619,7 +6619,7 @@ export function PrintablesPage() {
                       })
                     })()}
                   </ol>
-                  <div className="text-xs text-emerald-700 mt-3">{getTrans(`worksheets.${docId}.answerKey.note`, 'ðŸ’¡ Remember: Always look back at the passage to find the answers. The information is in the text!')}</div>
+                  <div className="text-xs text-emerald-700 mt-3">{getTrans(`worksheets.${docId}.answerKey.note`, '💡 Remember: Always look back at the passage to find the answers. The information is in the text!')}</div>
                 </div>
               ))}
             </WorksheetSectionWrapper>
@@ -6661,7 +6661,7 @@ export function PrintablesPage() {
             </div>
             {/* Worked Example */}
             <div className="mb-6 p-4 bg-blue-50 border-2 border-blue-200 rounded-lg print:border print:bg-white">
-              <div className="font-semibold text-blue-900 mb-3 text-sm">ðŸ“š Example - Let's solve this together:</div>
+              <div className="font-semibold text-blue-900 mb-3 text-sm">📚 Example - Let's solve this together:</div>
               <div className="space-y-2 text-sm">
                 <div className="font-semibold text-base"><strong>Question:</strong> What did Sam drop?</div>
                 <div className="pl-4 border-l-2 border-blue-300 space-y-1">
@@ -6669,7 +6669,7 @@ export function PrintablesPage() {
                   <div><strong>Step 2:</strong> Look for what Sam dropped</div>
                   <div><strong>Step 3:</strong> Find: "Sam dropped a crumb"</div>
                   <div className="font-semibold text-blue-900"><strong>Answer:</strong> Sam dropped a crumb.</div>
-                  <div className="text-xs text-blue-700 mt-1">ðŸ’¡ Tip: Look for key words in the question (like "what") and find them in the passage!</div>
+                  <div className="text-xs text-blue-700 mt-1">💡 Tip: Look for key words in the question (like "what") and find them in the passage!</div>
                 </div>
               </div>
             </div>
@@ -6731,7 +6731,7 @@ export function PrintablesPage() {
             </div>
             {/* Worked Example */}
             <div className="mb-6 p-4 bg-blue-50 border-2 border-blue-200 rounded-lg print:border print:bg-white">
-              <div className="font-semibold text-blue-900 mb-3 text-sm">ðŸ“š Example - Let's solve this together:</div>
+              <div className="font-semibold text-blue-900 mb-3 text-sm">📚 Example - Let's solve this together:</div>
               <div className="space-y-2 text-sm">
                 <div className="font-semibold text-base"><strong>Question:</strong> What color were the seats?</div>
                 <div className="pl-4 border-l-2 border-blue-300 space-y-1">
@@ -6739,7 +6739,7 @@ export function PrintablesPage() {
                   <div><strong>Step 2:</strong> Look for information about the seats</div>
                   <div><strong>Step 3:</strong> Find: "The seats were soft and blue"</div>
                   <div className="font-semibold text-blue-900"><strong>Answer:</strong> The seats were blue.</div>
-                  <div className="text-xs text-blue-700 mt-1">ðŸ’¡ Tip: Look for key words in the question (like "color" and "seats") and find them in the passage!</div>
+                  <div className="text-xs text-blue-700 mt-1">💡 Tip: Look for key words in the question (like "color" and "seats") and find them in the passage!</div>
                 </div>
               </div>
             </div>
@@ -6754,7 +6754,7 @@ export function PrintablesPage() {
             </div>
             {/* Extension/Challenge Problems */}
             <div className="mt-6 print:mt-0 p-4 bg-purple-50 border-2 border-purple-200 rounded print:bg-white print:border" style={{ pageBreakBefore: 'always', pageBreakInside: 'avoid' }}>
-              <div className="font-semibold text-purple-900 mb-3 text-sm">🌐Ÿ {getTrans('common.challengeYourself', 'Challenge Yourself (Optional):')}</div>
+              <div className="font-semibold text-purple-900 mb-3 text-sm">🌐 {getTrans('common.challengeYourself', 'Challenge Yourself (Optional):')}</div>
               <div className="space-y-2 text-sm text-purple-800">
                 <div>1. Can you retell the story in your own words?</div>
                 <div>2. Why do you think Eli waved to the driver?</div>
@@ -6785,7 +6785,7 @@ export function PrintablesPage() {
                   <li><strong>A bell</strong> (The driver rang a bell)</li>
                   <li><strong>It was their stop</strong> ("This is our stop," Mom said)</li>
                 </ol>
-                <div className="text-xs text-emerald-700 mt-3">ðŸ’¡ Remember: Always look back at the passage to find the answers. The information is in the text!</div>
+                <div className="text-xs text-emerald-700 mt-3">💡 Remember: Always look back at the passage to find the answers. The information is in the text!</div>
               </div>
             ))}
           </WorksheetSectionWrapper>
@@ -6822,7 +6822,7 @@ export function PrintablesPage() {
             </div>
             {/* Worked Example */}
             <div className="mb-6 p-4 bg-blue-50 border-2 border-blue-200 rounded-lg print:border print:bg-white">
-              <div className="font-semibold text-blue-900 mb-3 text-sm">ðŸ“š Example - Let's solve this together:</div>
+              <div className="font-semibold text-blue-900 mb-3 text-sm">📚 Example - Let's solve this together:</div>
               <div className="space-y-2 text-sm">
                 <div className="font-semibold text-base"><strong>Question:</strong> What pet did Tara have?</div>
                 <div className="pl-4 border-l-2 border-blue-300 space-y-1">
@@ -6830,7 +6830,7 @@ export function PrintablesPage() {
                   <div><strong>Step 2:</strong> Look for what pet Tara had</div>
                   <div><strong>Step 3:</strong> Find: "Tara had a tiny orange fish"</div>
                   <div className="font-semibold text-blue-900"><strong>Answer:</strong> Tara had a tiny orange fish.</div>
-                  <div className="text-xs text-blue-700 mt-1">ðŸ’¡ Tip: Look for key words in the question (like "what pet") and find them in the passage!</div>
+                  <div className="text-xs text-blue-700 mt-1">💡 Tip: Look for key words in the question (like "what pet") and find them in the passage!</div>
                 </div>
               </div>
             </div>
@@ -6845,7 +6845,7 @@ export function PrintablesPage() {
             </div>
             {/* Extension/Challenge Problems */}
             <div className="mt-6 print:mt-0 p-4 bg-purple-50 border-2 border-purple-200 rounded print:bg-white print:border" style={{ pageBreakBefore: 'always', pageBreakInside: 'avoid' }}>
-              <div className="font-semibold text-purple-900 mb-3 text-sm">🌐Ÿ {getTrans('common.challengeYourself', 'Challenge Yourself (Optional):')}</div>
+              <div className="font-semibold text-purple-900 mb-3 text-sm">🌐 {getTrans('common.challengeYourself', 'Challenge Yourself (Optional):')}</div>
               <div className="space-y-2 text-sm text-purple-800">
                 <div>1. Can you retell the story in your own words?</div>
                 <div>2. Why do you think Tara named her fish Dot?</div>
@@ -6876,7 +6876,7 @@ export function PrintablesPage() {
                   <li><strong>Two flakes</strong> (Every morning, she shook in two flakes of food)</li>
                   <li><strong>A picture of Dot</strong> (Tara drew a picture of Dot for her wall)</li>
                 </ol>
-                <div className="text-xs text-emerald-700 mt-3">ðŸ’¡ Remember: Always look back at the passage to find the answers. The information is in the text!</div>
+                <div className="text-xs text-emerald-700 mt-3">💡 Remember: Always look back at the passage to find the answers. The information is in the text!</div>
               </div>
             ))}
           </WorksheetSectionWrapper>
@@ -6912,7 +6912,7 @@ export function PrintablesPage() {
             </div>
             {/* Worked Example */}
             <div className="mb-6 p-4 bg-blue-50 border-2 border-blue-200 rounded-lg print:border print:bg-white">
-              <div className="font-semibold text-blue-900 mb-3 text-sm">ðŸ“š Example - Let's solve this together:</div>
+              <div className="font-semibold text-blue-900 mb-3 text-sm">📚 Example - Let's solve this together:</div>
               <div className="space-y-2 text-sm">
                 <div className="font-semibold text-base"><strong>Question:</strong> What was Lena building?</div>
                 <div className="pl-4 border-l-2 border-blue-300 space-y-1">
@@ -6920,7 +6920,7 @@ export function PrintablesPage() {
                   <div><strong>Step 2:</strong> Look for what Lena was building</div>
                   <div><strong>Step 3:</strong> Find: "Lena wanted a tiny bridge for her toy river"</div>
                   <div className="font-semibold text-blue-900"><strong>Answer:</strong> Lena was building a tiny paper bridge.</div>
-                  <div className="text-xs text-blue-700 mt-1">ðŸ’¡ Tip: Look for key words in the question (like "what") and find them in the passage!</div>
+                  <div className="text-xs text-blue-700 mt-1">💡 Tip: Look for key words in the question (like "what") and find them in the passage!</div>
                 </div>
               </div>
             </div>
@@ -6935,7 +6935,7 @@ export function PrintablesPage() {
             </div>
             {/* Extension/Challenge Problems */}
             <div className="mt-6 print:mt-0 p-4 bg-purple-50 border-2 border-purple-200 rounded print:bg-white print:border" style={{ pageBreakBefore: 'always', pageBreakInside: 'avoid' }}>
-              <div className="font-semibold text-purple-900 mb-3 text-sm">🌐Ÿ {getTrans('common.challengeYourself', 'Challenge Yourself (Optional):')}</div>
+              <div className="font-semibold text-purple-900 mb-3 text-sm">🌐 {getTrans('common.challengeYourself', 'Challenge Yourself (Optional):')}</div>
               <div className="space-y-2 text-sm text-purple-800">
                 <div>1. Can you retell the story in your own words?</div>
                 <div>2. What lesson can we learn from Lena's story?</div>
@@ -6966,7 +6966,7 @@ export function PrintablesPage() {
                   <li><strong>More layers</strong> (She added more layers, tested again, and smiled)</li>
                   <li><strong>Three cars</strong> (The paper bridge held three toy cars!)</li>
                 </ol>
-                <div className="text-xs text-emerald-700 mt-3">ðŸ’¡ Remember: Always look back at the passage to find the answers. The information is in the text!</div>
+                <div className="text-xs text-emerald-700 mt-3">💡 Remember: Always look back at the passage to find the answers. The information is in the text!</div>
               </div>
             ))}
           </WorksheetSectionWrapper>
@@ -7005,7 +7005,7 @@ export function PrintablesPage() {
             </div>
             {/* Worked Example */}
             <div className="mb-6 p-4 bg-blue-50 border-2 border-blue-200 rounded-lg print:border print:bg-white">
-              <div className="font-semibold text-blue-900 mb-3 text-sm">ðŸ“š Example - Let's solve this together:</div>
+              <div className="font-semibold text-blue-900 mb-3 text-sm">📚 Example - Let's solve this together:</div>
               <div className="space-y-2 text-sm">
                 <div className="font-semibold text-base"><strong>Question:</strong> What did Asha keep?</div>
                 <div className="pl-4 border-l-2 border-blue-300 space-y-1">
@@ -7013,7 +7013,7 @@ export function PrintablesPage() {
                   <div><strong>Step 2:</strong> Look for what Asha kept</div>
                   <div><strong>Step 3:</strong> Find: "Asha kept a notebook for her balcony garden"</div>
                   <div className="font-semibold text-blue-900"><strong>Answer:</strong> Asha kept a notebook.</div>
-                  <div className="text-xs text-blue-700 mt-1">ðŸ’¡ Tip: Look for key words in the question (like "what" and "kept") and find them in the passage!</div>
+                  <div className="text-xs text-blue-700 mt-1">💡 Tip: Look for key words in the question (like "what" and "kept") and find them in the passage!</div>
                 </div>
               </div>
             </div>
@@ -7072,7 +7072,7 @@ export function PrintablesPage() {
             </div>
             {/* Worked Example */}
             <div className="mb-6 p-4 bg-blue-50 border-2 border-blue-200 rounded-lg print:border print:bg-white">
-              <div className="font-semibold text-blue-900 mb-3 text-sm">ðŸ“š Example - Let's solve this together:</div>
+              <div className="font-semibold text-blue-900 mb-3 text-sm">📚 Example - Let's solve this together:</div>
               <div className="space-y-2 text-sm">
                 <div className="font-semibold text-base"><strong>Question:</strong> Where did Jada go?</div>
                 <div className="pl-4 border-l-2 border-blue-300 space-y-1">
@@ -7080,7 +7080,7 @@ export function PrintablesPage() {
                   <div><strong>Step 2:</strong> Look for where Jada go</div>
                   <div><strong>Step 3:</strong> Find: "Jada visited the library with her uncle"</div>
                   <div className="font-semibold text-blue-900"><strong>Answer:</strong> Jada went to the library.</div>
-                  <div className="text-xs text-blue-700 mt-1">ðŸ’¡ Tip: Look for key words in the question (like "where") and find them in the passage!</div>
+                  <div className="text-xs text-blue-700 mt-1">💡 Tip: Look for key words in the question (like "where") and find them in the passage!</div>
                 </div>
               </div>
             </div>
@@ -7137,7 +7137,7 @@ export function PrintablesPage() {
             </div>
             {/* Worked Example */}
             <div className="mb-6 p-4 bg-blue-50 border-2 border-blue-200 rounded-lg print:border print:bg-white">
-              <div className="font-semibold text-blue-900 mb-3 text-sm">ðŸ“š Example - Let's solve this together:</div>
+              <div className="font-semibold text-blue-900 mb-3 text-sm">📚 Example - Let's solve this together:</div>
               <div className="space-y-2 text-sm">
                 <div className="font-semibold text-base"><strong>Question:</strong> Where did Ben find the glove?</div>
                 <div className="pl-4 border-l-2 border-blue-300 space-y-1">
@@ -7145,7 +7145,7 @@ export function PrintablesPage() {
                   <div><strong>Step 2:</strong> Look for where Ben found the glove</div>
                   <div><strong>Step 3:</strong> Find: "Ben noticed a glove under the slide"</div>
                   <div className="font-semibold text-blue-900"><strong>Answer:</strong> Ben found the glove under the slide.</div>
-                  <div className="text-xs text-blue-700 mt-1">ðŸ’¡ Tip: Look for key words in the question (like "where") and find them in the passage!</div>
+                  <div className="text-xs text-blue-700 mt-1">💡 Tip: Look for key words in the question (like "where") and find them in the passage!</div>
                 </div>
               </div>
             </div>
@@ -7203,7 +7203,7 @@ export function PrintablesPage() {
             </div>
             {/* Worked Example */}
             <div className="mb-6 p-4 bg-blue-50 border-2 border-blue-200 rounded-lg print:border print:bg-white">
-              <div className="font-semibold text-blue-900 mb-3 text-sm">ðŸ“š Example - Let's solve this together:</div>
+              <div className="font-semibold text-blue-900 mb-3 text-sm">📚 Example - Let's solve this together:</div>
               <div className="space-y-2 text-sm">
                 <div className="font-semibold text-base"><strong>Question:</strong> What problem did the boat have?</div>
                 <div className="pl-4 border-l-2 border-blue-300 space-y-1">
@@ -7211,7 +7211,7 @@ export function PrintablesPage() {
                   <div><strong>Step 2:</strong> Look for what problem the boat had</div>
                   <div><strong>Step 3:</strong> Find: "a fishing boat drifted off course" and "the fog was thick"</div>
                   <div className="font-semibold text-blue-900"><strong>Answer:</strong> The boat drifted off course in thick fog.</div>
-                  <div className="text-xs text-blue-700 mt-1">ðŸ’¡ Tip: Look for key words in the question (like "problem") and find them in the passage!</div>
+                  <div className="text-xs text-blue-700 mt-1">💡 Tip: Look for key words in the question (like "problem") and find them in the passage!</div>
                 </div>
               </div>
             </div>
@@ -7226,7 +7226,7 @@ export function PrintablesPage() {
             </div>
             {/* Extension/Challenge Problems */}
             <div className="mt-6 print:mt-0 p-4 bg-purple-50 border-2 border-purple-200 rounded print:bg-white print:border" style={{ pageBreakBefore: 'always', pageBreakInside: 'avoid' }}>
-              <div className="font-semibold text-purple-900 mb-3 text-sm">🌐Ÿ {getTrans('common.challengeYourself', 'Challenge Yourself (Optional):')}</div>
+              <div className="font-semibold text-purple-900 mb-3 text-sm">🌐 {getTrans('common.challengeYourself', 'Challenge Yourself (Optional):')}</div>
               <div className="space-y-2 text-sm text-purple-800">
                 <div>1. Can you retell the story in your own words?</div>
                 <div>2. Why do you think Mira's father taught her this trick?</div>
@@ -7257,7 +7257,7 @@ export function PrintablesPage() {
                   <li><strong>It guided the boat toward the safe beam and away from rocks</strong> (The boat turned toward the beam and away from the rocks)</li>
                   <li><strong>She keeps careful records and uses safe methods</strong> (Mira logged the event: "Used flash method to guide a boat. Lamps steady.")</li>
                 </ol>
-                <div className="text-xs text-emerald-700 mt-3">ðŸ’¡ Remember: Always look back at the passage to find the answers. The information is in the text!</div>
+                <div className="text-xs text-emerald-700 mt-3">💡 Remember: Always look back at the passage to find the answers. The information is in the text!</div>
               </div>
             ))}
           </WorksheetSectionWrapper>
@@ -7294,7 +7294,7 @@ export function PrintablesPage() {
             </div>
             {/* Worked Example */}
             <div className="mb-6 p-4 bg-blue-50 border-2 border-blue-200 rounded-lg print:border print:bg-white">
-              <div className="font-semibold text-blue-900 mb-3 text-sm">ðŸ“š Example - Let's solve this together:</div>
+              <div className="font-semibold text-blue-900 mb-3 text-sm">📚 Example - Let's solve this together:</div>
               <div className="space-y-2 text-sm">
                 <div className="font-semibold text-base"><strong>Question:</strong> What problem did the team choose?</div>
                 <div className="pl-4 border-l-2 border-blue-300 space-y-1">
@@ -7302,7 +7302,7 @@ export function PrintablesPage() {
                   <div><strong>Step 2:</strong> Look for what problem the team chose</div>
                   <div><strong>Step 3:</strong> Find: "We chose one: sticky labels that won't peel cleanly"</div>
                   <div className="font-semibold text-blue-900"><strong>Answer:</strong> The team chose sticky labels that won't peel cleanly.</div>
-                  <div className="text-xs text-blue-700 mt-1">ðŸ’¡ Tip: Look for key words in the question (like "problem") and find them in the passage!</div>
+                  <div className="text-xs text-blue-700 mt-1">💡 Tip: Look for key words in the question (like "problem") and find them in the passage!</div>
                 </div>
               </div>
             </div>
@@ -7360,7 +7360,7 @@ export function PrintablesPage() {
             </div>
             {/* Worked Example */}
             <div className="mb-6 p-4 bg-blue-50 border-2 border-blue-200 rounded-lg print:border print:bg-white">
-              <div className="font-semibold text-blue-900 mb-3 text-sm">ðŸ“š Example - Let's solve this together:</div>
+              <div className="font-semibold text-blue-900 mb-3 text-sm">📚 Example - Let's solve this together:</div>
               <div className="space-y-2 text-sm">
                 <div className="font-semibold text-base"><strong>Question:</strong> What did families ask the town for?</div>
                 <div className="pl-4 border-l-2 border-blue-300 space-y-1">
@@ -7368,7 +7368,7 @@ export function PrintablesPage() {
                   <div><strong>Step 2:</strong> Look for what families asked the town for</div>
                   <div><strong>Step 3:</strong> Find: "Families asked the town for permission to plant"</div>
                   <div className="font-semibold text-blue-900"><strong>Answer:</strong> Families asked the town for permission to plant a garden.</div>
-                  <div className="text-xs text-blue-700 mt-1">ðŸ’¡ Tip: Look for key words in the question (like "what") and find them in the passage!</div>
+                  <div className="text-xs text-blue-700 mt-1">💡 Tip: Look for key words in the question (like "what") and find them in the passage!</div>
                 </div>
               </div>
             </div>
@@ -7383,7 +7383,7 @@ export function PrintablesPage() {
             </div>
             {/* Extension/Challenge Problems */}
             <div className="mt-6 print:mt-0 p-4 bg-purple-50 border-2 border-purple-200 rounded print:bg-white print:border" style={{ pageBreakBefore: 'always', pageBreakInside: 'avoid' }}>
-              <div className="font-semibold text-purple-900 mb-3 text-sm">🌐Ÿ {getTrans('common.challengeYourself', 'Challenge Yourself (Optional):')}</div>
+              <div className="font-semibold text-purple-900 mb-3 text-sm">🌐 {getTrans('common.challengeYourself', 'Challenge Yourself (Optional):')}</div>
               <div className="space-y-2 text-sm text-purple-800">
                 <div>1. Can you retell the story in your own words?</div>
                 <div>2. Why do you think they sold bundles to raise money?</div>
@@ -7414,7 +7414,7 @@ export function PrintablesPage() {
                   <li><strong>Tomatoes and herbs</strong> (By fall, we harvested tomatoes and herbs)</li>
                   <li><strong>For books</strong> (We sold bundles to raise money for books)</li>
                 </ol>
-                <div className="text-xs text-emerald-700 mt-3">ðŸ’¡ Remember: Always look back at the passage to find the answers. The information is in the text!</div>
+                <div className="text-xs text-emerald-700 mt-3">💡 Remember: Always look back at the passage to find the answers. The information is in the text!</div>
               </div>
             ))}
           </WorksheetSectionWrapper>
@@ -7451,7 +7451,7 @@ export function PrintablesPage() {
             </div>
             {/* Worked Example */}
             <div className="mb-6 p-4 bg-blue-50 border-2 border-blue-200 rounded-lg print:border print:bg-white">
-              <div className="font-semibold text-blue-900 mb-3 text-sm">ðŸ“š Example - Let's solve this together:</div>
+              <div className="font-semibold text-blue-900 mb-3 text-sm">📚 Example - Let's solve this together:</div>
               <div className="space-y-2 text-sm">
                 <div className="font-semibold text-base"><strong>Question:</strong> Where did Sam get the balloon?</div>
                 <div className="pl-4 border-l-2 border-blue-300 space-y-1">
@@ -7459,7 +7459,7 @@ export function PrintablesPage() {
                   <div><strong>Step 2:</strong> Look for where Sam got the balloon</div>
                   <div><strong>Step 3:</strong> Find: "Sam got a red balloon at the fair"</div>
                   <div className="font-semibold text-blue-900"><strong>Answer:</strong> Sam got the balloon at the fair.</div>
-                  <div className="text-xs text-blue-700 mt-1">ðŸ’¡ Tip: Look for key words in the question (like "where") and find them in the passage!</div>
+                  <div className="text-xs text-blue-700 mt-1">💡 Tip: Look for key words in the question (like "where") and find them in the passage!</div>
                 </div>
               </div>
             </div>
@@ -7474,7 +7474,7 @@ export function PrintablesPage() {
             </div>
             {/* Extension/Challenge Problems */}
             <div className="mt-6 print:mt-0 p-4 bg-purple-50 border-2 border-purple-200 rounded print:bg-white print:border" style={{ pageBreakBefore: 'always', pageBreakInside: 'avoid' }}>
-              <div className="font-semibold text-purple-900 mb-3 text-sm">🌐Ÿ More Fun (Optional):</div>
+              <div className="font-semibold text-purple-900 mb-3 text-sm">🌐 More Fun (Optional):</div>
               <div className="space-y-2 text-sm text-purple-800">
                 <div>1. Can you retell the story in your own words?</div>
                 <div>2. How do you think Sam felt when the balloon flew away?</div>
@@ -7505,7 +7505,7 @@ export function PrintablesPage() {
                   <li><strong>It flew away</strong> (The wind blew and the balloon went up, up, up! Sam watched it fly away)</li>
                   <li><strong>"We can get another one"</strong> (His dad said, "We can get another one.")</li>
                 </ol>
-                <div className="text-xs text-emerald-700 mt-3">ðŸ’¡ Remember: Always look back at the passage to find the answers. The information is in the text!</div>
+                <div className="text-xs text-emerald-700 mt-3">💡 Remember: Always look back at the passage to find the answers. The information is in the text!</div>
               </div>
             ))}
           </WorksheetSectionWrapper>
@@ -7543,7 +7543,7 @@ export function PrintablesPage() {
             </div>
             {/* Worked Example */}
             <div className="mb-6 p-4 bg-blue-50 border-2 border-blue-200 rounded-lg print:border print:bg-white">
-              <div className="font-semibold text-blue-900 mb-3 text-sm">ðŸ“š Example - Let's solve this together:</div>
+              <div className="font-semibold text-blue-900 mb-3 text-sm">📚 Example - Let's solve this together:</div>
               <div className="space-y-2 text-sm">
                 <div className="font-semibold text-base"><strong>Question:</strong> Where did Mia find the box?</div>
                 <div className="pl-4 border-l-2 border-blue-300 space-y-1">
@@ -7551,7 +7551,7 @@ export function PrintablesPage() {
                   <div><strong>Step 2:</strong> Look for where Mia found the box</div>
                   <div><strong>Step 3:</strong> Find: "Mia found a big box in the garage"</div>
                   <div className="font-semibold text-blue-900"><strong>Answer:</strong> Mia found the box in the garage.</div>
-                  <div className="text-xs text-blue-700 mt-1">ðŸ’¡ Tip: Look for key words in the question (like "where") and find them in the passage!</div>
+                  <div className="text-xs text-blue-700 mt-1">💡 Tip: Look for key words in the question (like "where") and find them in the passage!</div>
                 </div>
               </div>
             </div>
@@ -7566,7 +7566,7 @@ export function PrintablesPage() {
             </div>
             {/* Extension/Challenge Problems */}
             <div className="mt-6 print:mt-0 p-4 bg-purple-50 border-2 border-purple-200 rounded print:bg-white print:border" style={{ pageBreakBefore: 'always', pageBreakInside: 'avoid' }}>
-              <div className="font-semibold text-purple-900 mb-3 text-sm">🌐Ÿ More Fun (Optional):</div>
+              <div className="font-semibold text-purple-900 mb-3 text-sm">🌐 More Fun (Optional):</div>
               <div className="space-y-2 text-sm text-purple-800">
                 <div>1. Can you retell the story in your own words?</div>
                 <div>2. What would you do if you found a box of old toys?</div>
@@ -7597,7 +7597,7 @@ export function PrintablesPage() {
                   <li><strong>A doll, a car, and a ball</strong> (There was a doll, a car, and a ball)</li>
                   <li><strong>All afternoon</strong> (Mia played all afternoon)</li>
                 </ol>
-                <div className="text-xs text-emerald-700 mt-3">ðŸ’¡ Remember: Always look back at the passage to find the answers. The information is in the text!</div>
+                <div className="text-xs text-emerald-700 mt-3">💡 Remember: Always look back at the passage to find the answers. The information is in the text!</div>
               </div>
             ))}
           </WorksheetSectionWrapper>
@@ -7636,7 +7636,7 @@ export function PrintablesPage() {
             </div>
             {/* Worked Example */}
             <div className="mb-6 p-4 bg-blue-50 border-2 border-blue-200 rounded-lg print:border print:bg-white">
-              <div className="font-semibold text-blue-900 mb-3 text-sm">ðŸ“š Example - Let's solve this together:</div>
+              <div className="font-semibold text-blue-900 mb-3 text-sm">📚 Example - Let's solve this together:</div>
               <div className="space-y-2 text-sm">
                 <div className="font-semibold text-base"><strong>Question:</strong> Where did Noah see the snail?</div>
                 <div className="pl-4 border-l-2 border-blue-300 space-y-1">
@@ -7644,7 +7644,7 @@ export function PrintablesPage() {
                   <div><strong>Step 2:</strong> Look for where Noah saw the snail</div>
                   <div><strong>Step 3:</strong> Find: "Noah saw a snail in the garden"</div>
                   <div className="font-semibold text-blue-900"><strong>Answer:</strong> Noah saw the snail in the garden.</div>
-                  <div className="text-xs text-blue-700 mt-1">ðŸ’¡ Tip: Look for key words in the question (like "where") and find them in the passage!</div>
+                  <div className="text-xs text-blue-700 mt-1">💡 Tip: Look for key words in the question (like "where") and find them in the passage!</div>
                 </div>
               </div>
             </div>
@@ -7659,7 +7659,7 @@ export function PrintablesPage() {
             </div>
             {/* Extension/Challenge Problems */}
             <div className="mt-6 print:mt-0 p-4 bg-purple-50 border-2 border-purple-200 rounded print:bg-white print:border" style={{ pageBreakBefore: 'always', pageBreakInside: 'avoid' }}>
-              <div className="font-semibold text-purple-900 mb-3 text-sm">🌐Ÿ More Fun (Optional):</div>
+              <div className="font-semibold text-purple-900 mb-3 text-sm">🌐 More Fun (Optional):</div>
               <div className="space-y-2 text-sm text-purple-800">
                 <div>1. Can you retell the story in your own words?</div>
                 <div>2. Why do you think the snail moved slowly?</div>
@@ -7690,7 +7690,7 @@ export function PrintablesPage() {
                   <li><strong>Very slowly</strong> (The snail moved very slowly)</li>
                   <li><strong>A shiny trail</strong> (The snail left a shiny trail)</li>
                 </ol>
-                <div className="text-xs text-emerald-700 mt-3">ðŸ’¡ Remember: Always look back at the passage to find the answers. The information is in the text!</div>
+                <div className="text-xs text-emerald-700 mt-3">💡 Remember: Always look back at the passage to find the answers. The information is in the text!</div>
               </div>
             ))}
           </WorksheetSectionWrapper>
@@ -7731,7 +7731,7 @@ export function PrintablesPage() {
             </div>
             {/* Worked Example */}
             <div className="mb-6 p-4 bg-blue-50 border-2 border-blue-200 rounded-lg print:border print:bg-white">
-              <div className="font-semibold text-blue-900 mb-3 text-sm">ðŸ“š Example - Let's solve this together:</div>
+              <div className="font-semibold text-blue-900 mb-3 text-sm">📚 Example - Let's solve this together:</div>
               <div className="space-y-2 text-sm">
                 <div className="font-semibold text-base"><strong>Question:</strong> Whose birthday was it?</div>
                 <div className="pl-4 border-l-2 border-blue-300 space-y-1">
@@ -7739,7 +7739,7 @@ export function PrintablesPage() {
                   <div><strong>Step 2:</strong> Look for whose birthday it was</div>
                   <div><strong>Step 3:</strong> Find: "It was Emma's birthday"</div>
                   <div className="font-semibold text-blue-900"><strong>Answer:</strong> It was Emma's birthday.</div>
-                  <div className="text-xs text-blue-700 mt-1">ðŸ’¡ Tip: Look for key words in the question (like "whose") and find them in the passage!</div>
+                  <div className="text-xs text-blue-700 mt-1">💡 Tip: Look for key words in the question (like "whose") and find them in the passage!</div>
                 </div>
               </div>
             </div>
@@ -7754,7 +7754,7 @@ export function PrintablesPage() {
             </div>
             {/* Extension/Challenge Problems */}
             <div className="mt-6 print:mt-0 p-4 bg-purple-50 border-2 border-purple-200 rounded print:bg-white print:border" style={{ pageBreakBefore: 'always', pageBreakInside: 'avoid' }}>
-              <div className="font-semibold text-purple-900 mb-3 text-sm">🌐Ÿ More Fun (Optional):</div>
+              <div className="font-semibold text-purple-900 mb-3 text-sm">🌐 More Fun (Optional):</div>
               <div className="space-y-2 text-sm text-purple-800">
                 <div>1. Can you retell the story in your own words?</div>
                 <div>2. What do you think Emma wished for?</div>
@@ -7785,7 +7785,7 @@ export function PrintablesPage() {
                   <li><strong>Five</strong> (There were five candles on top)</li>
                   <li><strong>Clapped and sang "Happy Birthday!"</strong> (Everyone clapped and sang "Happy Birthday!")</li>
                 </ol>
-                <div className="text-xs text-emerald-700 mt-3">ðŸ’¡ Remember: Always look back at the passage to find the answers. The information is in the text!</div>
+                <div className="text-xs text-emerald-700 mt-3">💡 Remember: Always look back at the passage to find the answers. The information is in the text!</div>
               </div>
             ))}
           </WorksheetSectionWrapper>
@@ -7824,7 +7824,7 @@ export function PrintablesPage() {
             </div>
             {/* Worked Example */}
             <div className="mb-6 p-4 bg-blue-50 border-2 border-blue-200 rounded-lg print:border print:bg-white">
-              <div className="font-semibold text-blue-900 mb-3 text-sm">ðŸ“š Example - Let's solve this together:</div>
+              <div className="font-semibold text-blue-900 mb-3 text-sm">📚 Example - Let's solve this together:</div>
               <div className="space-y-2 text-sm">
                 <div className="font-semibold text-base"><strong>Question:</strong> What did they use to make the feeder?</div>
                 <div className="pl-4 border-l-2 border-blue-300 space-y-1">
@@ -7832,7 +7832,7 @@ export function PrintablesPage() {
                   <div><strong>Step 2:</strong> Look for what they used to make the feeder</div>
                   <div><strong>Step 3:</strong> Find: "Carlos and his sister made a bird feeder from a milk carton"</div>
                   <div className="font-semibold text-blue-900"><strong>Answer:</strong> They used a milk carton.</div>
-                  <div className="text-xs text-blue-700 mt-1">ðŸ’¡ Tip: Look for key words in the question (like "what") and find them in the passage!</div>
+                  <div className="text-xs text-blue-700 mt-1">💡 Tip: Look for key words in the question (like "what") and find them in the passage!</div>
                 </div>
               </div>
             </div>
@@ -7847,7 +7847,7 @@ export function PrintablesPage() {
             </div>
             {/* Extension/Challenge Problems */}
             <div className="mt-6 print:mt-0 p-4 bg-purple-50 border-2 border-purple-200 rounded print:bg-white print:border" style={{ pageBreakBefore: 'always', pageBreakInside: 'avoid' }}>
-              <div className="font-semibold text-purple-900 mb-3 text-sm">🌐Ÿ {getTrans('common.challengeYourself', 'Challenge Yourself (Optional):')}</div>
+              <div className="font-semibold text-purple-900 mb-3 text-sm">🌐 {getTrans('common.challengeYourself', 'Challenge Yourself (Optional):')}</div>
               <div className="space-y-2 text-sm text-purple-800">
                 <div>1. Can you retell the story in your own words?</div>
                 <div>2. Why do you think Carlos wrote in his journal?</div>
@@ -7878,7 +7878,7 @@ export function PrintablesPage() {
                   <li><strong>On a tree branch</strong> (They hung it on a tree branch)</li>
                   <li><strong>A blue jay</strong> (The next morning, a blue jay came to eat)</li>
                 </ol>
-                <div className="text-xs text-emerald-700 mt-3">ðŸ’¡ Remember: Always look back at the passage to find the answers. The information is in the text!</div>
+                <div className="text-xs text-emerald-700 mt-3">💡 Remember: Always look back at the passage to find the answers. The information is in the text!</div>
               </div>
             ))}
           </WorksheetSectionWrapper>
@@ -7916,7 +7916,7 @@ export function PrintablesPage() {
             </div>
             {/* Worked Example */}
             <div className="mb-6 p-4 bg-blue-50 border-2 border-blue-200 rounded-lg print:border print:bg-white">
-              <div className="font-semibold text-blue-900 mb-3 text-sm">ðŸ“š Example - Let's solve this together:</div>
+              <div className="font-semibold text-blue-900 mb-3 text-sm">📚 Example - Let's solve this together:</div>
               <div className="space-y-2 text-sm">
                 <div className="font-semibold text-base"><strong>Question:</strong> Who did Ava bake with?</div>
                 <div className="pl-4 border-l-2 border-blue-300 space-y-1">
@@ -7924,7 +7924,7 @@ export function PrintablesPage() {
                   <div><strong>Step 2:</strong> Look for who Ava baked with</div>
                   <div><strong>Step 3:</strong> Find: "Ava wanted to bake cookies with her grandma"</div>
                   <div className="font-semibold text-blue-900"><strong>Answer:</strong> Ava baked with her grandma.</div>
-                  <div className="text-xs text-blue-700 mt-1">ðŸ’¡ Tip: Look for key words in the question (like "who") and find them in the passage!</div>
+                  <div className="text-xs text-blue-700 mt-1">💡 Tip: Look for key words in the question (like "who") and find them in the passage!</div>
                 </div>
               </div>
             </div>
@@ -7939,7 +7939,7 @@ export function PrintablesPage() {
             </div>
             {/* Extension/Challenge Problems */}
             <div className="mt-6 print:mt-0 p-4 bg-purple-50 border-2 border-purple-200 rounded print:bg-white print:border" style={{ pageBreakBefore: 'always', pageBreakInside: 'avoid' }}>
-              <div className="font-semibold text-purple-900 mb-3 text-sm">🌐Ÿ {getTrans('common.challengeYourself', 'Challenge Yourself (Optional):')}</div>
+              <div className="font-semibold text-purple-900 mb-3 text-sm">🌐 {getTrans('common.challengeYourself', 'Challenge Yourself (Optional):')}</div>
               <div className="space-y-2 text-sm text-purple-800">
                 <div>1. Can you retell the story in your own words?</div>
                 <div>2. Why do you think Grandma said "Good job!"?</div>
@@ -7970,7 +7970,7 @@ export function PrintablesPage() {
                   <li><strong>Flour, sugar, eggs, and butter</strong> (They needed flour, sugar, eggs, and butter)</li>
                   <li><strong>Golden and sweet</strong> (The cookies came out golden and sweet)</li>
                 </ol>
-                <div className="text-xs text-emerald-700 mt-3">ðŸ’¡ Remember: Always look back at the passage to find the answers. The information is in the text!</div>
+                <div className="text-xs text-emerald-700 mt-3">💡 Remember: Always look back at the passage to find the answers. The information is in the text!</div>
               </div>
             ))}
           </WorksheetSectionWrapper>
@@ -8008,7 +8008,7 @@ export function PrintablesPage() {
             </div>
             {/* Worked Example */}
             <div className="mb-6 p-4 bg-blue-50 border-2 border-blue-200 rounded-lg print:border print:bg-white">
-              <div className="font-semibold text-blue-900 mb-3 text-sm">ðŸ“š Example - Let's solve this together:</div>
+              <div className="font-semibold text-blue-900 mb-3 text-sm">📚 Example - Let's solve this together:</div>
               <div className="space-y-2 text-sm">
                 <div className="font-semibold text-base"><strong>Question:</strong> Who helped Jake build the tree house?</div>
                 <div className="pl-4 border-l-2 border-blue-300 space-y-1">
@@ -8016,7 +8016,7 @@ export function PrintablesPage() {
                   <div><strong>Step 2:</strong> Look for who helped Jake</div>
                   <div><strong>Step 3:</strong> Find: "Jake's dad helped him build a tree house"</div>
                   <div className="font-semibold text-blue-900"><strong>Answer:</strong> Jake's dad helped him build the tree house.</div>
-                  <div className="text-xs text-blue-700 mt-1">ðŸ’¡ Tip: Look for key words in the question (like "who") and find them in the passage!</div>
+                  <div className="text-xs text-blue-700 mt-1">💡 Tip: Look for key words in the question (like "who") and find them in the passage!</div>
                 </div>
               </div>
             </div>
@@ -8031,7 +8031,7 @@ export function PrintablesPage() {
             </div>
             {/* Extension/Challenge Problems */}
             <div className="mt-6 print:mt-0 p-4 bg-purple-50 border-2 border-purple-200 rounded print:bg-white print:border" style={{ pageBreakBefore: 'always', pageBreakInside: 'avoid' }}>
-              <div className="font-semibold text-purple-900 mb-3 text-sm">🌐Ÿ {getTrans('common.challengeYourself', 'Challenge Yourself (Optional):')}</div>
+              <div className="font-semibold text-purple-900 mb-3 text-sm">🌐 {getTrans('common.challengeYourself', 'Challenge Yourself (Optional):')}</div>
               <div className="space-y-2 text-sm text-purple-800">
                 <div>1. Can you retell the story in your own words?</div>
                 <div>2. Why do you think Jake called it his "secret hideout"?</div>
@@ -8062,7 +8062,7 @@ export function PrintablesPage() {
                   <li><strong>The whole yard</strong> (He looked out the window and saw the whole yard)</li>
                   <li><strong>His secret hideout</strong> ("This is my secret hideout!" he said)</li>
                 </ol>
-                <div className="text-xs text-emerald-700 mt-3">ðŸ’¡ Remember: Always look back at the passage to find the answers. The information is in the text!</div>
+                <div className="text-xs text-emerald-700 mt-3">💡 Remember: Always look back at the passage to find the answers. The information is in the text!</div>
               </div>
             ))}
           </WorksheetSectionWrapper>
@@ -8114,7 +8114,7 @@ export function PrintablesPage() {
             </div>
             {/* Worked Example */}
             <div className="mb-6 p-4 bg-green-50 border-2 border-green-200 rounded-lg print:border print:bg-white">
-              <div className="font-semibold text-green-900 mb-3 text-sm">ðŸ“š Example - Let's solve this together:</div>
+              <div className="font-semibold text-green-900 mb-3 text-sm">📚 Example - Let's solve this together:</div>
               <div className="space-y-2 text-sm">
                 <div className="font-semibold text-base"><strong>Question:</strong> What did Mia find in the garden?</div>
                 <div className="pl-4 border-l-2 border-green-300 space-y-1">
@@ -8122,7 +8122,7 @@ export function PrintablesPage() {
                   <div><strong>Step 2:</strong> Look for what Mia found</div>
                   <div><strong>Step 3:</strong> Find: "Mia found a small packet of seeds in her garden"</div>
                   <div className="font-semibold text-green-900"><strong>Answer:</strong> Mia found a small packet of seeds.</div>
-                  <div className="text-xs text-green-700 mt-1">ðŸ’¡ Tip: Look for key words in the question (like "what") and find them in the passage!</div>
+                  <div className="text-xs text-green-700 mt-1">💡 Tip: Look for key words in the question (like "what") and find them in the passage!</div>
                 </div>
               </div>
             </div>
@@ -8142,7 +8142,7 @@ export function PrintablesPage() {
             </ProblemBox>
             {/* Extension/Challenge Problems */}
             <div className="mt-6 print:mt-0 p-4 bg-purple-50 border-2 border-purple-200 rounded print:bg-white print:border" style={{ pageBreakBefore: 'always', pageBreakInside: 'avoid' }}>
-              <div className="font-semibold text-purple-900 mb-3 text-sm">🌐Ÿ {getTrans('common.challengeYourself', 'Challenge Yourself (Optional):')}</div>
+              <div className="font-semibold text-purple-900 mb-3 text-sm">🌐 {getTrans('common.challengeYourself', 'Challenge Yourself (Optional):')}</div>
               <div className="space-y-2 text-sm text-purple-800">
                 <div>1. Can you retell the story in your own words?</div>
                 <div>2. Why do you think Mia called them "magic seeds"?</div>
@@ -8173,7 +8173,7 @@ export function PrintablesPage() {
                   <li><strong>Tiny green sprouts appeared</strong> (After one week, tiny green sprouts appeared)</li>
                   <li><strong>Red, yellow, and purple</strong> (beautiful flowers bloomed in red, yellow, and purple)</li>
                 </ol>
-                <div className="text-xs text-emerald-700 mt-3">ðŸ’¡ Remember: Always look back at the passage to find the answers. The information is in the text!</div>
+                <div className="text-xs text-emerald-700 mt-3">💡 Remember: Always look back at the passage to find the answers. The information is in the text!</div>
               </div>
             ))}
           </WorksheetSectionWrapper>
@@ -8210,7 +8210,7 @@ export function PrintablesPage() {
             </div>
             {/* Worked Example */}
             <div className="mb-6 p-4 bg-blue-50 border-2 border-blue-200 rounded-lg print:border print:bg-white">
-              <div className="font-semibold text-blue-900 mb-3 text-sm">ðŸ“š Example - Let's solve this together:</div>
+              <div className="font-semibold text-blue-900 mb-3 text-sm">📚 Example - Let's solve this together:</div>
               <div className="space-y-2 text-sm">
                 <div className="font-semibold text-base"><strong>Question:</strong> What was the play about?</div>
                 <div className="pl-4 border-l-2 border-blue-300 space-y-1">
@@ -8218,7 +8218,7 @@ export function PrintablesPage() {
                   <div><strong>Step 2:</strong> Look for what the play was about</div>
                   <div><strong>Step 3:</strong> Find: "Our class practiced a play about explorers"</div>
                   <div className="font-semibold text-blue-900"><strong>Answer:</strong> The play was about explorers.</div>
-                  <div className="text-xs text-blue-700 mt-1">ðŸ’¡ Tip: Look for key words in the question (like "what") and find them in the passage!</div>
+                  <div className="text-xs text-blue-700 mt-1">💡 Tip: Look for key words in the question (like "what") and find them in the passage!</div>
                 </div>
               </div>
             </div>
@@ -8233,7 +8233,7 @@ export function PrintablesPage() {
             </div>
             {/* Extension/Challenge Problems */}
             <div className="mt-6 print:mt-0 p-4 bg-purple-50 border-2 border-purple-200 rounded print:bg-white print:border" style={{ pageBreakBefore: 'always', pageBreakInside: 'avoid' }}>
-              <div className="font-semibold text-purple-900 mb-3 text-sm">🌐Ÿ {getTrans('common.challengeYourself', 'Challenge Yourself (Optional):')}</div>
+              <div className="font-semibold text-purple-900 mb-3 text-sm">🌐 {getTrans('common.challengeYourself', 'Challenge Yourself (Optional):')}</div>
               <div className="space-y-2 text-sm text-purple-800">
                 <div>1. Can you retell the story in your own words?</div>
                 <div>2. Why do you think the teacher said "like a pro"?</div>
@@ -8264,7 +8264,7 @@ export function PrintablesPage() {
                   <li><strong>The narrator forgot one line but kept going</strong> (I forgot one line, but I kept going)</li>
                   <li><strong>Making mistakes is okay if you keep trying</strong> (I learned that making mistakes is okay if you keep trying)</li>
                 </ol>
-                <div className="text-xs text-emerald-700 mt-3">ðŸ’¡ Remember: Always look back at the passage to find the answers. The information is in the text!</div>
+                <div className="text-xs text-emerald-700 mt-3">💡 Remember: Always look back at the passage to find the answers. The information is in the text!</div>
               </div>
             ))}
           </WorksheetSectionWrapper>
@@ -8309,7 +8309,7 @@ export function PrintablesPage() {
             </div>
             {/* Worked Example */}
             <div className="mb-6 p-4 bg-blue-50 border-2 border-blue-200 rounded-lg print:border print:bg-white">
-              <div className="font-semibold text-blue-900 mb-3 text-sm">ðŸ“š Example - Let's solve this together:</div>
+              <div className="font-semibold text-blue-900 mb-3 text-sm">📚 Example - Let's solve this together:</div>
               <div className="space-y-2 text-sm">
                 <div className="font-semibold text-base"><strong>Question:</strong> What materials did the narrator use?</div>
                 <div className="pl-4 border-l-2 border-blue-300 space-y-1">
@@ -8317,7 +8317,7 @@ export function PrintablesPage() {
                   <div><strong>Step 2:</strong> Look for what materials were used</div>
                   <div><strong>Step 3:</strong> Find: "I collected bottle caps, old magazines, and cardboard"</div>
                   <div className="font-semibold text-blue-900"><strong>Answer:</strong> The narrator used bottle caps, old magazines, and cardboard.</div>
-                  <div className="text-xs text-blue-700 mt-1">ðŸ’¡ Tip: Look for key words in the question (like "materials") and find them in the passage!</div>
+                  <div className="text-xs text-blue-700 mt-1">💡 Tip: Look for key words in the question (like "materials") and find them in the passage!</div>
                 </div>
               </div>
             </div>
@@ -8332,7 +8332,7 @@ export function PrintablesPage() {
             </div>
             {/* Extension/Challenge Problems */}
             <div className="mt-6 print:mt-0 p-4 bg-purple-50 border-2 border-purple-200 rounded print:bg-white print:border" style={{ pageBreakBefore: 'always', pageBreakInside: 'avoid' }}>
-              <div className="font-semibold text-purple-900 mb-3 text-sm">🌐Ÿ {getTrans('common.challengeYourself', 'Challenge Yourself (Optional):')}</div>
+              <div className="font-semibold text-purple-900 mb-3 text-sm">🌐 {getTrans('common.challengeYourself', 'Challenge Yourself (Optional):')}</div>
               <div className="space-y-2 text-sm text-purple-800">
                 <div>1. Can you retell the story in your own words?</div>
                 <div>2. Why do you think the narrator chose to make a flower?</div>
@@ -8363,7 +8363,7 @@ export function PrintablesPage() {
                   <li><strong>It showed creativity and care for the environment</strong> (Ms. Chen said my project showed creativity and care for the environment)</li>
                   <li><strong>Creativity and care for the environment</strong> (Ms. Chen said my project showed creativity and care for the environment)</li>
                 </ol>
-                <div className="text-xs text-emerald-700 mt-3">ðŸ’¡ Remember: Always look back at the passage to find the answers. The information is in the text!</div>
+                <div className="text-xs text-emerald-700 mt-3">💡 Remember: Always look back at the passage to find the answers. The information is in the text!</div>
               </div>
             ))}
           </WorksheetSectionWrapper>
@@ -9494,7 +9494,7 @@ export function PrintablesPage() {
               <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-green-400 to-emerald-400 animate-gradient-x mb-2" />
               {/* Worked Example */}
               <div className="mb-6 p-4 bg-blue-50 border-2 border-blue-200 rounded-lg print:border print:bg-white">
-                <div className="font-semibold text-blue-900 mb-3 text-sm">{getTrans(`worksheets.${docId}.example.title`, 'ðŸ“š Example - Let\'s solve this together:')}</div>
+                <div className="font-semibold text-blue-900 mb-3 text-sm">{getTrans(`worksheets.${docId}.example.title`, '📚 Example - Let\'s solve this together:')}</div>
                 <div className="space-y-2 text-sm">
                   <div className="font-semibold text-base"><strong>{getTrans(`worksheets.${docId}.example.problem`, 'Problem:')}</strong> {getTrans(`worksheets.${docId}.example.problemText`, 'Find a path from S to F')}</div>
                   <div className="pl-4 border-l-2 border-blue-300 space-y-1">
@@ -9503,7 +9503,7 @@ export function PrintablesPage() {
                     <div><strong>{getTrans(`worksheets.${docId}.example.step3`, 'Step 3:')}</strong> {getTrans(`worksheets.${docId}.example.step3Text`, 'Move to Row 2 and find tiles that equal 8: 6+2=8, 9-1=8, etc.')}</div>
                     <div><strong>{getTrans(`worksheets.${docId}.example.step4`, 'Step 4:')}</strong> {getTrans(`worksheets.${docId}.example.step4Text`, 'Continue to Row 3 and find tiles that equal 10: 7+3=10, 12-2=10, etc.')}</div>
                     <div><strong>{getTrans(`worksheets.${docId}.example.step5`, 'Step 5:')}</strong> {getTrans(`worksheets.${docId}.example.step5Text`, 'Draw your path from S to F following valid tiles')}</div>
-                    <div className="text-xs text-blue-700 mt-1">{getTrans(`worksheets.${docId}.example.tip`, 'ðŸ’¡ Tip: Check each equation before moving onto that tile!')}</div>
+                    <div className="text-xs text-blue-700 mt-1">{getTrans(`worksheets.${docId}.example.tip`, '💡 Tip: Check each equation before moving onto that tile!')}</div>
                   </div>
                 </div>
               </div>
@@ -9524,7 +9524,7 @@ export function PrintablesPage() {
               </div>
               {/* Extension/Challenge Problems */}
               <div className="mt-6 print:mt-0 p-4 bg-purple-50 border-2 border-purple-200 rounded print:bg-white print:border" style={{ pageBreakBefore: 'always', pageBreakInside: 'avoid' }}>
-                <div className="font-semibold text-purple-900 mb-3 text-sm">{getTrans(`worksheets.${docId}.challenge.title`, '🌐Ÿ Challenge Yourself (Optional):')}</div>
+                <div className="font-semibold text-purple-900 mb-3 text-sm">{getTrans(`worksheets.${docId}.challenge.title`, '🌐 Challenge Yourself (Optional):')}</div>
                 <div className="space-y-2 text-sm text-purple-800">
                   {(() => {
                     const items = t(`worksheets.${docId}.challenge.items`)
@@ -9574,7 +9574,7 @@ export function PrintablesPage() {
                       <li>{getTrans(`worksheets.${docId}.answerKey.row2`, 'Row 2 target: 8 â†’ valid tiles: 6+2, 9-1, 5+3, etc.')}</li>
                       <li>{getTrans(`worksheets.${docId}.answerKey.row3`, 'Row 3 target: 10 â†’ valid tiles: 7+3, 12-2, 5+5, etc.')}</li>
                     </ul>
-                    <div className="text-xs text-emerald-700 mt-3">{getTrans(`worksheets.${docId}.answerKey.remember`, 'ðŸ’¡ Remember: Any path that follows the row targets is correct! Choose your own target numbers and find a valid path from S to F.')}</div>
+                    <div className="text-xs text-emerald-700 mt-3">{getTrans(`worksheets.${docId}.answerKey.remember`, '💡 Remember: Any path that follows the row targets is correct! Choose your own target numbers and find a valid path from S to F.')}</div>
                   </div>
                 </div>
               ))}
@@ -9604,7 +9604,7 @@ export function PrintablesPage() {
             <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-indigo-400 to-purple-400 animate-gradient-x mb-2" />
             {/* Worked Example */}
             <div className="mb-6 p-4 bg-blue-50 border-2 border-blue-200 rounded-lg print:border print:bg-white">
-              <div className="font-semibold text-blue-900 mb-3 text-sm">ðŸ“š Example - Let's solve this together:</div>
+              <div className="font-semibold text-blue-900 mb-3 text-sm">📚 Example - Let's solve this together:</div>
               <div className="space-y-2 text-sm">
                 <div className="font-semibold text-base"><strong>Problem:</strong> Circle the correctly spelled word: elefant, elephant, elephent</div>
                 <div className="pl-4 border-l-2 border-blue-300 space-y-1">
@@ -9612,7 +9612,7 @@ export function PrintablesPage() {
                   <div><strong>Step 2:</strong> Check each option: "elefant" (missing 'ph'), "elephant" (correct!), "elephent" (wrong 'ph' position)</div>
                   <div><strong>Step 3:</strong> Circle "elephant"</div>
                   <div className="font-semibold text-blue-900"><strong>Answer:</strong> elephant</div>
-                  <div className="text-xs text-blue-700 mt-1">ðŸ’¡ Tip: Look for common spelling patterns like "ph" making the /f/ sound!</div>
+                  <div className="text-xs text-blue-700 mt-1">💡 Tip: Look for common spelling patterns like "ph" making the /f/ sound!</div>
                 </div>
               </div>
             </div>
@@ -9632,7 +9632,7 @@ export function PrintablesPage() {
             </div>
             {/* Extension/Challenge Problems */}
             <div className="mt-6 print:mt-0 p-4 bg-purple-50 border-2 border-purple-200 rounded print:bg-white print:border" style={{ pageBreakBefore: 'always', pageBreakInside: 'avoid' }}>
-              <div className="font-semibold text-purple-900 mb-3 text-sm">🌐Ÿ {getTrans('common.challengeYourself', 'Challenge Yourself (Optional):')}</div>
+              <div className="font-semibold text-purple-900 mb-3 text-sm">🌐 {getTrans('common.challengeYourself', 'Challenge Yourself (Optional):')}</div>
               <div className="space-y-2 text-sm text-purple-800">
                 <div>1. Write each word 3 times to practice spelling</div>
                 <div>2. Use each word in a sentence</div>
@@ -9691,7 +9691,7 @@ export function PrintablesPage() {
             <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-blue-400 to-cyan-400 animate-gradient-x mb-2" />
             {/* Worked Example */}
             <div className="mb-6 p-4 bg-blue-50 border-2 border-blue-200 rounded-lg print:border print:bg-white">
-              <div className="font-semibold text-blue-900 mb-3 text-sm">ðŸ“š Example - Let's solve this together:</div>
+              <div className="font-semibold text-blue-900 mb-3 text-sm">📚 Example - Let's solve this together:</div>
               <div className="space-y-2 text-sm">
                 <div className="font-semibold text-base"><strong>Problem:</strong> Match "Mars is known as the red planet"</div>
                 <div className="pl-4 border-l-2 border-blue-300 space-y-1">
@@ -9700,7 +9700,7 @@ export function PrintablesPage() {
                   <div><strong>Step 3:</strong> Find the matching option: "A dusty red world" (E)</div>
                   <div><strong>Step 4:</strong> Draw a line from 1 to E</div>
                   <div className="font-semibold text-blue-900"><strong>Answer:</strong> 1 â†’ E</div>
-                  <div className="text-xs text-blue-700 mt-1">ðŸ’¡ Tip: Look for key words that connect the facts together!</div>
+                  <div className="text-xs text-blue-700 mt-1">💡 Tip: Look for key words that connect the facts together!</div>
                 </div>
               </div>
             </div>
@@ -9760,7 +9760,7 @@ export function PrintablesPage() {
             <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-indigo-400 to-purple-400 animate-gradient-x mb-2" />
             {/* Worked Example */}
             <div className="mb-6 p-4 bg-blue-50 border-2 border-blue-200 rounded-lg print:border print:bg-white">
-              <div className="font-semibold text-blue-900 mb-3 text-sm">ðŸ“š Example - Let's solve this together:</div>
+              <div className="font-semibold text-blue-900 mb-3 text-sm">📚 Example - Let's solve this together:</div>
               <div className="space-y-2 text-sm">
                 <div className="font-semibold text-base"><strong>Problem:</strong> Find the mistake: "we goes to the park every saturday."</div>
                 <div className="pl-4 border-l-2 border-blue-300 space-y-1">
@@ -9768,7 +9768,7 @@ export function PrintablesPage() {
                   <div><strong>Step 2:</strong> Check capitalization: "we" should be "We", "saturday" should be "Saturday"</div>
                   <div><strong>Step 3:</strong> Fix the sentence</div>
                   <div className="font-semibold text-blue-900"><strong>Answer:</strong> We go to the park every Saturday.</div>
-                  <div className="text-xs text-blue-700 mt-1">ðŸ’¡ Tip: Check subject-verb agreement, capitalization, and punctuation!</div>
+                  <div className="text-xs text-blue-700 mt-1">💡 Tip: Check subject-verb agreement, capitalization, and punctuation!</div>
                 </div>
               </div>
             </div>
@@ -9788,7 +9788,7 @@ export function PrintablesPage() {
             </div>
             {/* Extension/Challenge Problems */}
             <div className="mt-6 print:mt-0 p-4 bg-purple-50 border-2 border-purple-200 rounded print:bg-white print:border" style={{ pageBreakBefore: 'always', pageBreakInside: 'avoid' }}>
-              <div className="font-semibold text-purple-900 mb-3 text-sm">🌐Ÿ {getTrans('common.challengeYourself', 'Challenge Yourself (Optional):')}</div>
+              <div className="font-semibold text-purple-900 mb-3 text-sm">🌐 {getTrans('common.challengeYourself', 'Challenge Yourself (Optional):')}</div>
               <div className="space-y-2 text-sm text-purple-800">
                 <div>1. Write your own sentences with mistakes for a friend to fix</div>
                 <div>2. Can you explain why each mistake was wrong?</div>
@@ -9898,7 +9898,7 @@ export function PrintablesPage() {
               <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-pink-400 to-purple-400 animate-gradient-x mb-2" />
               {/* Worked Example */}
               <div className="mb-6 p-4 bg-blue-50 border-2 border-blue-200 rounded-lg print:border print:bg-white">
-                <div className="font-semibold text-blue-900 mb-3 text-sm">ðŸ“š Example - Let's solve this together:</div>
+                <div className="font-semibold text-blue-900 mb-3 text-sm">📚 Example - Let's solve this together:</div>
                 <div className="space-y-2 text-sm">
                   <div className="font-semibold text-base"><strong>Problem:</strong> Color square with number 1</div>
                   <div className="pl-4 border-l-2 border-blue-300 space-y-1">
@@ -9906,7 +9906,7 @@ export function PrintablesPage() {
                     <div><strong>Step 2:</strong> Find all squares with number 1</div>
                     <div><strong>Step 3:</strong> Color them yellow</div>
                     <div className="font-semibold text-blue-900"><strong>Answer:</strong> Color all 1s yellow</div>
-                    <div className="text-xs text-blue-700 mt-1">ðŸ’¡ Tip: Match each number to its color in the legend, then color carefully!</div>
+                    <div className="text-xs text-blue-700 mt-1">💡 Tip: Match each number to its color in the legend, then color carefully!</div>
                   </div>
                 </div>
               </div>
@@ -9938,7 +9938,7 @@ export function PrintablesPage() {
               </div>
               {/* Extension/Challenge Problems */}
               <div className="mt-6 print:mt-0 p-4 bg-purple-50 border-2 border-purple-200 rounded print:bg-white print:border" style={{ pageBreakBefore: 'always', pageBreakInside: 'avoid' }}>
-                <div className="font-semibold text-purple-900 mb-3 text-sm">🌐Ÿ {getTrans('common.challengeYourself', 'Challenge Yourself (Optional):')}</div>
+                <div className="font-semibold text-purple-900 mb-3 text-sm">🌐 {getTrans('common.challengeYourself', 'Challenge Yourself (Optional):')}</div>
                 <div className="space-y-2 text-sm text-purple-800">
                   <div>1. Create your own color-by-number picture</div>
                   <div>2. Can you guess what the picture is before you finish?</div>
@@ -9966,7 +9966,7 @@ export function PrintablesPage() {
                     <div>â€¢ <strong>2 = Blue</strong> - Color all 2s blue</div>
                     <div>â€¢ <strong>3 = Green</strong> - Color all 3s green</div>
                     <div>â€¢ <strong>4 = Red</strong> - Color all 4s red</div>
-                    <div className="text-xs text-emerald-700 mt-2">ðŸ’¡ When you finish, you'll reveal a beautiful star pattern!</div>
+                    <div className="text-xs text-emerald-700 mt-2">💡 When you finish, you'll reveal a beautiful star pattern!</div>
                   </div>
                 </div>
               ))}
@@ -9978,7 +9978,7 @@ export function PrintablesPage() {
           <WorksheetSectionWrapper
             docId="bookmark-templates"
             title="DIY Bookmark Templates"
-            emoji="ðŸ“š"
+            emoji="📚"
             description="Cut along the dotted lines. Decorate with doodles and colors. Add your name on the back!"
             problemCount={3}
             learningObjectives={[
@@ -10017,7 +10017,7 @@ export function PrintablesPage() {
           <WorksheetSectionWrapper
             docId="design-monster"
             title="Design Your Monster"
-            emoji="ðŸ‘¾"
+            emoji="👾"
             description="Draw inside the box and give your monster a name. Check the features you used."
             problemCount={1}
             learningObjectives={[
@@ -10193,7 +10193,7 @@ export function PrintablesPage() {
           <WorksheetSectionWrapper
             docId="logic-grid"
             title="Logic Grid Puzzle"
-            emoji="ðŸ§©"
+            emoji="🧩"
             description="Mark âœ“ for matches and âœ— for no match. Use the clues to solve."
             problemCount={1}
             learningObjectives={[
@@ -10211,7 +10211,7 @@ export function PrintablesPage() {
             <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-indigo-400 to-purple-400 animate-gradient-x mb-2" />
             {/* Worked Example */}
             <div className="mb-6 p-4 bg-blue-50 border-2 border-blue-200 rounded-lg print:border print:bg-white">
-              <div className="font-semibold text-blue-900 mb-3 text-sm">ðŸ“š Example - Let's solve this together:</div>
+              <div className="font-semibold text-blue-900 mb-3 text-sm">📚 Example - Let's solve this together:</div>
               <div className="space-y-2 text-sm">
                 <div className="font-semibold text-base"><strong>Problem:</strong> Use clues to fill in the logic grid</div>
                 <div className="pl-4 border-l-2 border-blue-300 space-y-1">
@@ -10219,7 +10219,7 @@ export function PrintablesPage() {
                   <div><strong>Step 2:</strong> Mark what you know for sure (âœ“ for match, âœ— for no match)</div>
                   <div><strong>Step 3:</strong> Use process of elimination to find remaining matches</div>
                   <div className="font-semibold text-blue-900"><strong>Answer:</strong> Fill in the grid based on the clues</div>
-                  <div className="text-xs text-blue-700 mt-1">ðŸ’¡ Tip: Start with clues that give you definite answers!</div>
+                  <div className="text-xs text-blue-700 mt-1">💡 Tip: Start with clues that give you definite answers!</div>
                 </div>
               </div>
             </div>
@@ -10255,7 +10255,7 @@ export function PrintablesPage() {
             </div>
             {/* Extension/Challenge Problems */}
             <div className="mt-6 print:mt-0 p-4 bg-purple-50 border-2 border-purple-200 rounded print:bg-white print:border" style={{ pageBreakBefore: 'always', pageBreakInside: 'avoid' }}>
-              <div className="font-semibold text-purple-900 mb-3 text-sm">🌐Ÿ {getTrans('common.challengeYourself', 'Challenge Yourself (Optional):')}</div>
+              <div className="font-semibold text-purple-900 mb-3 text-sm">🌐 {getTrans('common.challengeYourself', 'Challenge Yourself (Optional):')}</div>
               <div className="space-y-2 text-sm text-purple-800">
                 <div>1. Create your own logic grid puzzle with 3 people and 3 pets</div>
                 <div>2. Can you solve it using only 2 clues?</div>
@@ -10292,7 +10292,7 @@ export function PrintablesPage() {
           <WorksheetSectionWrapper
             docId="hidden-object"
             title="Find the Hidden Object"
-            emoji="ðŸ”"
+            emoji="🔍"
             description="Find and circle each item hidden in the scene below."
             problemCount={5}
             learningObjectives={[
@@ -10310,7 +10310,7 @@ export function PrintablesPage() {
             <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-indigo-400 to-purple-400 animate-gradient-x mb-2" />
             {/* Worked Example */}
             <div className="mb-6 p-4 bg-blue-50 border-2 border-blue-200 rounded-lg print:border print:bg-white">
-              <div className="font-semibold text-blue-900 mb-3 text-sm">ðŸ“š Example - Let's solve this together:</div>
+              <div className="font-semibold text-blue-900 mb-3 text-sm">📚 Example - Let's solve this together:</div>
               <div className="space-y-2 text-sm">
                 <div className="font-semibold text-base"><strong>Problem:</strong> Find the hidden objects in the scene</div>
                 <div className="pl-4 border-l-2 border-blue-300 space-y-1">
@@ -10319,7 +10319,7 @@ export function PrintablesPage() {
                   <div><strong>Step 3:</strong> Scan from top to bottom, left to right</div>
                   <div><strong>Step 4:</strong> Circle each object when you find it</div>
                   <div className="font-semibold text-blue-900"><strong>Answer:</strong> Objects can be hidden in plain sight - look carefully!</div>
-                  <div className="text-xs text-blue-700 mt-1">ðŸ’¡ Tip: Take your time and look at every part of the picture!</div>
+                  <div className="text-xs text-blue-700 mt-1">💡 Tip: Take your time and look at every part of the picture!</div>
                 </div>
               </div>
             </div>
@@ -10331,7 +10331,7 @@ export function PrintablesPage() {
             </ul>
             {/* Extension/Challenge Problems */}
             <div className="mt-6 print:mt-0 p-4 bg-purple-50 border-2 border-purple-200 rounded print:bg-white print:border" style={{ pageBreakBefore: 'always', pageBreakInside: 'avoid' }}>
-              <div className="font-semibold text-purple-900 mb-3 text-sm">🌐Ÿ {getTrans('common.challengeYourself', 'Challenge Yourself (Optional):')}</div>
+              <div className="font-semibold text-purple-900 mb-3 text-sm">🌐 {getTrans('common.challengeYourself', 'Challenge Yourself (Optional):')}</div>
               <div className="space-y-2 text-sm text-purple-800">
                 <div>1. Can you find all objects in under 2 minutes?</div>
                 <div>2. Create your own hidden object scene</div>
@@ -10359,7 +10359,7 @@ export function PrintablesPage() {
                 <div className="text-sm text-emerald-800">
                   <div className="mb-2">Find and circle these objects in the scene:</div>
                   <div><strong>Key, Apple, Star, Leaf, Car, Book, Shell, Cloud, Ball, Hat</strong></div>
-                  <div className="text-xs text-emerald-700 mt-2">ðŸ’¡ Tip: Objects can be hidden in plain sight - look carefully at every part of the picture!</div>
+                  <div className="text-xs text-emerald-700 mt-2">💡 Tip: Objects can be hidden in plain sight - look carefully at every part of the picture!</div>
                 </div>
               </div>
             ))}
@@ -10428,7 +10428,7 @@ export function PrintablesPage() {
           <WorksheetSectionWrapper
             docId="gratitude-jar"
             title="Gratitude Jar"
-            emoji="ðŸ’Œ"
+            emoji="💌"
             description="Write or draw one thing you're thankful for in each circle."
             problemCount={18}
             learningObjectives={[
@@ -10444,7 +10444,7 @@ export function PrintablesPage() {
             ]}
           >
             <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-pink-400 to-purple-400 animate-gradient-x mb-2" />
-            <h2 className="text-lg font-bold text-slate-900">ðŸ’Œ Gratitude Jar</h2>
+            <h2 className="text-lg font-bold text-slate-900">💌 Gratitude Jar</h2>
             <p className="text-slate-600 text-sm mb-3">Write or draw one thing you’re thankful for in each circle.</p>
             <svg viewBox="0 0 400 400" preserveAspectRatio="xMidYMid meet" className="w-full h-auto bg-white border border-slate-300">
               <g fill="none" stroke="#111827" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" vectorEffect="non-scaling-stroke">
@@ -10616,7 +10616,7 @@ export function PrintablesPage() {
           <WorksheetSectionWrapper
             docId="halloween-pack"
             title="Halloween Puzzle Pack"
-            emoji="ðŸŽƒ"
+            emoji="🎃"
             description="Mini pack: word list + costume ideas + tiny maze."
             problemCount={1}
             learningObjectives={[
@@ -11773,7 +11773,7 @@ export function PrintablesPage() {
             <WorksheetSectionWrapper
               docId="coloring-vehicles"
               title="Vehicles & Transport Coloring Sheets"
-              emoji="ðŸš—"
+              emoji="🚗"
               description="Cars, trucks, airplanes, and trains to keep little drivers busy and creative."
               problemCount={4}
               learningObjectives={[
@@ -12056,7 +12056,7 @@ export function PrintablesPage() {
                         )
                       })}
                     </div>
-                    <div className="text-xs text-emerald-700 mt-3">ðŸ’¡ Tip: "Partners to 10" are pairs like 1 & 9, 2 & 8, 3 & 7, 4 & 6, 5 & 5.</div>
+                    <div className="text-xs text-emerald-700 mt-3">💡 Tip: "Partners to 10" are pairs like 1 & 9, 2 & 8, 3 & 7, 4 & 6, 5 & 5.</div>
                   </div>
                 ))}
               </WorksheetSectionWrapper>
@@ -12355,7 +12355,7 @@ export function PrintablesPage() {
               {/* Worked Example */}
               <div className="mb-6 p-4 bg-gradient-to-br from-indigo-50 to-purple-50 border-2 border-indigo-200 rounded-lg print:border print:bg-white">
                 <div className="font-semibold text-indigo-900 mb-3 text-sm flex items-center gap-2">
-                  <span className="text-2xl">ðŸ“š</span>
+                  <span className="text-2xl">📚</span>
                   <span>Example - Let's solve this together:</span>
                 </div>
                 <div className="space-y-3 text-sm">
@@ -12397,14 +12397,14 @@ export function PrintablesPage() {
                     <div><strong>Step 3:</strong> Add them together: <span className="text-indigo-700 font-bold text-lg">3 + 4 = 7</span></div>
                     <div className="font-semibold text-indigo-900 mt-2"><strong>Answer:</strong> <span className="text-2xl text-indigo-700">7</span></div>
                     <div className="text-xs text-indigo-700 mt-2 flex items-center gap-1">
-                      <span>ðŸ’¡</span>
+                      <span>💡</span>
                       <span>Tip: Count each group first, then add the numbers together. You can also count all the pictures to check your answer!</span>
                     </div>
                   </div>
                 </div>
               </div>
               <div className="grid grid-cols-2 gap-4" style={{ pageBreakAfter: 'auto' }}>
-                {[[3, 4, 'ðŸŽ', 'ðŸŠ'], [2, 5, '⭐', '🌐Ÿ'], [4, 3, 'ðŸ¶', 'ðŸ±'], [1, 6, 'ðŸš—', 'ðŸš™'], [5, 2, 'ðŸŽˆ', 'ðŸŽ‰'], [3, 5, '🌐º', '🌐»']].map(([a, b, emoji1, emoji2], idx) => (
+                {[[3, 4, 'ðŸŽ', 'ðŸŠ'], [2, 5, '⭐', '🌐'], [4, 3, 'ðŸ¶', 'ðŸ±'], [1, 6, '🚗', 'ðŸš™'], [5, 2, 'ðŸŽˆ', 'ðŸŽ‰'], [3, 5, '🌐º', '🌐»']].map(([a, b, emoji1, emoji2], idx) => (
                   <div key={idx} className="bg-gradient-to-br from-indigo-50 to-purple-50 p-3 rounded-lg border-2 border-indigo-200">
                     <svg viewBox="0 0 400 200" className="w-full h-auto bg-white border border-slate-300 rounded">
                       {/* First group */}
@@ -12436,7 +12436,7 @@ export function PrintablesPage() {
               </div>
               {/* Extension/Challenge Problems */}
               <div className="mt-6 print:mt-0 p-4 bg-purple-50 border-2 border-purple-200 rounded print:bg-white print:border" style={{ pageBreakBefore: 'always', pageBreakInside: 'avoid' }}>
-                <div className="font-semibold text-purple-900 mb-3 text-sm">🌐Ÿ {getTrans('common.challengeYourself', 'Challenge Yourself (Optional):')}</div>
+                <div className="font-semibold text-purple-900 mb-3 text-sm">🌐 {getTrans('common.challengeYourself', 'Challenge Yourself (Optional):')}</div>
                 <div className="space-y-2 text-sm text-purple-800">
                   <div>1. Can you solve 6 + 4 without counting? (Hint: Use what you know about 10!)</div>
                   <div>2. Draw your own picture addition problem: ___ + ___ = ?</div>
@@ -12466,7 +12466,7 @@ export function PrintablesPage() {
                       <li key={idx}><strong>{a} + {b} = {a + b}</strong> (Count {a} circles in the first group, {b} circles in the second group, total = {a + b})</li>
                     ))}
                   </ul>
-                  <div className="text-xs text-emerald-700 mt-3">ðŸ’¡ Remember: Count each group separately, then add the numbers together. You can also count all the pictures to double-check!</div>
+                  <div className="text-xs text-emerald-700 mt-3">💡 Remember: Count each group separately, then add the numbers together. You can also count all the pictures to double-check!</div>
                 </div>
               ))}
             </WorksheetSectionWrapper>
@@ -12499,7 +12499,7 @@ export function PrintablesPage() {
               {/* Worked Example */}
               <div className="mb-6 p-4 bg-gradient-to-br from-rose-50 to-pink-50 border-2 border-rose-200 rounded-lg print:border print:bg-white">
                 <div className="font-semibold text-rose-900 mb-3 text-sm flex items-center gap-2">
-                  <span className="text-2xl">ðŸ“š</span>
+                  <span className="text-2xl">📚</span>
                   <span>Example - Let's solve this together:</span>
                 </div>
                 <div className="space-y-3 text-sm">
@@ -12541,7 +12541,7 @@ export function PrintablesPage() {
                     <div><strong>Step 3:</strong> Subtract: <span className="text-rose-700 font-bold text-lg">8 - 3 = 5</span></div>
                     <div className="font-semibold text-rose-900 mt-2"><strong>Answer:</strong> <span className="text-2xl text-rose-700">5 apples left</span></div>
                     <div className="text-xs text-rose-700 mt-2 flex items-center gap-1">
-                      <span>ðŸ’¡</span>
+                      <span>💡</span>
                       <span>Tip: Subtraction means "take away". Start with the total, then subtract what was taken away!</span>
                     </div>
                   </div>
@@ -12589,7 +12589,7 @@ export function PrintablesPage() {
               </div>
               {/* Extension/Challenge Problems */}
               <div className="mt-6 print:mt-0 p-4 bg-purple-50 border-2 border-purple-200 rounded print:bg-white print:border" style={{ pageBreakBefore: 'always', pageBreakInside: 'avoid' }}>
-                <div className="font-semibold text-purple-900 mb-3 text-sm">🌐Ÿ {getTrans('common.challengeYourself', 'Challenge Yourself (Optional):')}</div>
+                <div className="font-semibold text-purple-900 mb-3 text-sm">🌐 {getTrans('common.challengeYourself', 'Challenge Yourself (Optional):')}</div>
                 <div className="space-y-2 text-sm text-purple-800">
                   <div>1. Can you write your own subtraction story? (Example: "12 toys, 5 broken")</div>
                   <div>2. Try solving: 15 - 7 = ? (Hint: Think about what number plus 7 equals 15)</div>
@@ -12624,7 +12624,7 @@ export function PrintablesPage() {
                       <li key={idx}><strong>{total} - {take} = {total - take}</strong> ({story}: Start with {total}, take away {take}, {total - take} left)</li>
                     ))}
                   </ul>
-                  <div className="text-xs text-emerald-700 mt-3">ðŸ’¡ Remember: Subtraction means "take away". Start with the total number, subtract what was taken away, and you get what's left!</div>
+                  <div className="text-xs text-emerald-700 mt-3">💡 Remember: Subtraction means "take away". Start with the total number, subtract what was taken away, and you get what's left!</div>
                 </div>
               ))}
             </WorksheetSectionWrapper>
@@ -12740,7 +12740,7 @@ export function PrintablesPage() {
                 {/* Worked Example */}
                 <div className="mb-6 p-4 bg-gradient-to-br from-teal-50 to-cyan-50 border-2 border-teal-200 rounded-lg print:border print:bg-white">
                   <div className="font-semibold text-teal-900 mb-3 text-sm flex items-center gap-2">
-                    <span className="text-2xl">ðŸ“š</span>
+                    <span className="text-2xl">📚</span>
                     <span>Example - Let's solve this together:</span>
                   </div>
                   <div className="space-y-3 text-sm">
@@ -12786,7 +12786,7 @@ export function PrintablesPage() {
                       <div><strong>Step 3:</strong> Find the missing number: <span className="text-teal-700 font-bold text-lg">7 - 2 = 5</span></div>
                       <div className="font-semibold text-teal-900 mt-2"><strong>Answer:</strong> <span className="text-2xl text-teal-700">5</span> (because 3 + 4 = 5 + 2, both equal 7)</div>
                       <div className="text-xs text-teal-700 mt-2 flex items-center gap-1">
-                        <span>ðŸ’¡</span>
+                        <span>💡</span>
                         <span>Tip: Solve one side first, then make the other side equal to it!</span>
                       </div>
                     </div>
@@ -12816,7 +12816,7 @@ export function PrintablesPage() {
                 </div>
                 {/* Extension/Challenge Problems */}
                 <div className="mt-6 print:mt-0 p-4 bg-purple-50 border-2 border-purple-200 rounded print:bg-white print:border" style={{ pageBreakBefore: 'always', pageBreakInside: 'avoid' }}>
-                  <div className="font-semibold text-purple-900 mb-3 text-sm">🌐Ÿ {getTrans('common.challengeYourself', 'Challenge Yourself (Optional):')}</div>
+                  <div className="font-semibold text-purple-900 mb-3 text-sm">🌐 {getTrans('common.challengeYourself', 'Challenge Yourself (Optional):')}</div>
                   <div className="space-y-2 text-sm text-purple-800">
                     <div>1. Can you solve: 10 + 5 = __ + 8? (Hint: Solve the left side first!)</div>
                     <div>2. Try: 20 - 7 = __ - 3. What's the missing number?</div>
@@ -12853,7 +12853,7 @@ export function PrintablesPage() {
                         );
                       })}
                     </ul>
-                    <div className="text-xs text-emerald-700 mt-3">ðŸ’¡ Remember: Both sides of an equation must be equal. Solve one side first, then find the missing number to make the other side equal!</div>
+                    <div className="text-xs text-emerald-700 mt-3">💡 Remember: Both sides of an equation must be equal. Solve one side first, then find the missing number to make the other side equal!</div>
                   </div>
                 ))}
               </WorksheetSectionWrapper>
@@ -12887,7 +12887,7 @@ export function PrintablesPage() {
               {/* Worked Example */}
               <div className="mb-6 p-4 bg-gradient-to-br from-pink-50 to-rose-50 border-2 border-pink-200 rounded-lg print:border print:bg-white">
                 <div className="font-semibold text-pink-900 mb-3 text-sm flex items-center gap-2">
-                  <span className="text-2xl">ðŸ“š</span>
+                  <span className="text-2xl">📚</span>
                   <span>Example - Let's solve this together:</span>
                 </div>
                 <div className="space-y-3 text-sm">
@@ -12916,7 +12916,7 @@ export function PrintablesPage() {
                     <div><strong>Step 3:</strong> After 6 comes <span className="text-pink-700 font-bold">8</span> (6 + 2 = 8)</div>
                     <div className="font-semibold text-pink-900 mt-2"><strong>Answer:</strong> <span className="text-2xl text-pink-700">2, 4, 6, 8, 10</span></div>
                     <div className="text-xs text-pink-700 mt-2 flex items-center gap-1">
-                      <span>ðŸ’¡</span>
+                      <span>💡</span>
                       <span>Tip: Skip counting by 2s means adding 2 each time. Each number is 2 more than the one before!</span>
                     </div>
                   </div>
@@ -12956,7 +12956,7 @@ export function PrintablesPage() {
               </div>
               {/* Extension/Challenge Problems */}
               <div className="mt-6 print:mt-0 p-4 bg-purple-50 border-2 border-purple-200 rounded print:bg-white print:border" style={{ pageBreakBefore: 'always', pageBreakInside: 'avoid' }}>
-                <div className="font-semibold text-purple-900 mb-3 text-sm">🌐Ÿ {getTrans('common.challengeYourself', 'Challenge Yourself (Optional):')}</div>
+                <div className="font-semibold text-purple-900 mb-3 text-sm">🌐 {getTrans('common.challengeYourself', 'Challenge Yourself (Optional):')}</div>
                 <div className="space-y-2 text-sm text-purple-800">
                   <div>1. Can you skip count by 2s starting from 1? (1, 3, 5, 7, 9...)</div>
                   <div>2. Try skip counting by 5s: 5, 10, 15, 20, 25...</div>
@@ -13033,7 +13033,7 @@ export function PrintablesPage() {
                 {/* Worked Example */}
                 <div className="mb-6 p-4 bg-gradient-to-br from-cyan-50 to-blue-50 border-2 border-cyan-200 rounded-lg print:border print:bg-white">
                   <div className="font-semibold text-cyan-900 mb-3 text-sm flex items-center gap-2">
-                    <span className="text-2xl">ðŸ“š</span>
+                    <span className="text-2xl">📚</span>
                     <span>Example - Let's solve this together:</span>
                   </div>
                   <div className="space-y-3 text-sm">
@@ -13075,7 +13075,7 @@ export function PrintablesPage() {
                       <div><strong>Step 3:</strong> You land on <span className="text-cyan-700 font-bold text-lg">7</span></div>
                       <div className="font-semibold text-cyan-900 mt-2"><strong>Answer:</strong> <span className="text-2xl text-cyan-700">3 + 4 = 7</span></div>
                       <div className="text-xs text-cyan-700 mt-2 flex items-center gap-1">
-                        <span>ðŸ’¡</span>
+                        <span>💡</span>
                         <span>Tip: Start at the first number, then count forward the second number of spaces. Where you land is your answer!</span>
                       </div>
                     </div>
@@ -13127,7 +13127,7 @@ export function PrintablesPage() {
                 </div>
                 {/* Extension/Challenge Problems */}
                 <div className="mt-6 print:mt-0 p-4 bg-purple-50 border-2 border-purple-200 rounded print:bg-white print:border" style={{ pageBreakBefore: 'always', pageBreakInside: 'avoid' }}>
-                  <div className="font-semibold text-purple-900 mb-3 text-sm">🌐Ÿ {getTrans('common.challengeYourself', 'Challenge Yourself (Optional):')}</div>
+                  <div className="font-semibold text-purple-900 mb-3 text-sm">🌐 {getTrans('common.challengeYourself', 'Challenge Yourself (Optional):')}</div>
                   <div className="space-y-2 text-sm text-purple-800">
                     <div>1. Can you solve 8 + 7 using the number line? (Start at 8, count forward 7 spaces)</div>
                     <div>2. Try subtraction on a number line: 10 - 3 = ? (Start at 10, count backward 3 spaces)</div>
@@ -13157,7 +13157,7 @@ export function PrintablesPage() {
                         <li key={idx}><strong>{a} + {b} = {a + b}</strong> (Start at {a} on the number line, count forward {b} spaces, land on {a + b})</li>
                       ))}
                     </ul>
-                    <div className="text-xs text-emerald-700 mt-3">ðŸ’¡ Remember: Start at the first number, count forward the second number of spaces. Where you land is your answer!</div>
+                    <div className="text-xs text-emerald-700 mt-3">💡 Remember: Start at the first number, count forward the second number of spaces. Where you land is your answer!</div>
                   </div>
                 ))}
               </WorksheetSectionWrapper>
@@ -13175,7 +13175,7 @@ export function PrintablesPage() {
             <WorksheetSectionWrapper
               docId="pattern-complete"
               title="Pattern Completion"
-              emoji="ðŸ§©"
+              emoji="🧩"
               description="Complete each pattern. Draw or color the missing shapes."
               problemCount={3}
               learningObjectives={[
@@ -13195,7 +13195,7 @@ export function PrintablesPage() {
               <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-purple-400 to-pink-400 animate-gradient-x mb-2" />
               {/* Worked Example */}
               <div className="mb-6 p-4 bg-blue-50 border-2 border-blue-200 rounded-lg print:border print:bg-white">
-                <div className="font-semibold text-blue-900 mb-3 text-sm">ðŸ“š Example - Let's solve this together:</div>
+                <div className="font-semibold text-blue-900 mb-3 text-sm">📚 Example - Let's solve this together:</div>
                 <div className="space-y-2 text-sm">
                   <div className="font-semibold text-base"><strong>Pattern:</strong> Circle, Square, Circle, Square, __</div>
                   <div className="pl-4 border-l-2 border-blue-300 space-y-1">
@@ -13203,7 +13203,7 @@ export function PrintablesPage() {
                     <div><strong>Step 2:</strong> See the repetition: Circle, Square, Circle, Square</div>
                     <div><strong>Step 3:</strong> What comes next? After Square comes Circle!</div>
                     <div className="font-semibold text-blue-900"><strong>Answer:</strong> Circle</div>
-                    <div className="text-xs text-blue-700 mt-1">ðŸ’¡ Tip: Look for the repeating pattern. AB means it alternates between two things!</div>
+                    <div className="text-xs text-blue-700 mt-1">💡 Tip: Look for the repeating pattern. AB means it alternates between two things!</div>
                   </div>
                 </div>
               </div>
@@ -13235,7 +13235,7 @@ export function PrintablesPage() {
               </div>
               {/* Extension/Challenge Problems */}
               <div className="mt-6 print:mt-0 p-4 bg-purple-50 border-2 border-purple-200 rounded print:bg-white print:border" style={{ pageBreakBefore: 'always', pageBreakInside: 'avoid' }}>
-                <div className="font-semibold text-purple-900 mb-3 text-sm">🌐Ÿ {getTrans('common.challengeYourself', 'Challenge Yourself (Optional):')}</div>
+                <div className="font-semibold text-purple-900 mb-3 text-sm">🌐 {getTrans('common.challengeYourself', 'Challenge Yourself (Optional):')}</div>
                 <div className="space-y-2 text-sm text-purple-800">
                   <div>1. Can you create your own AB pattern? (Example: star, heart, star, heart...)</div>
                   <div>2. Try an AABB pattern: circle, circle, square, square, circle, circle, __, __</div>
@@ -13265,7 +13265,7 @@ export function PrintablesPage() {
                     <li><strong>ABC Pattern: Next color is green</strong> (The pattern repeats: red, blue, green, red, blue, so next is green)</li>
                     <li><strong>AAB Pattern: Next shape is triangle</strong> (The pattern is: triangle, triangle, circle, triangle, triangle, so next is triangle)</li>
                   </ul>
-                  <div className="text-xs text-emerald-700 mt-3">ðŸ’¡ Remember: Look for the repeating pattern. AB alternates, ABC repeats in threes, AAB has two of one thing then one of another!</div>
+                  <div className="text-xs text-emerald-700 mt-3">💡 Remember: Look for the repeating pattern. AB alternates, ABC repeats in threes, AAB has two of one thing then one of another!</div>
                 </div>
               ))}
             </WorksheetSectionWrapper>
@@ -13277,7 +13277,7 @@ export function PrintablesPage() {
             <WorksheetSectionWrapper
               docId="missing-shape"
               title="Find the Missing Shape"
-              emoji="ðŸ”"
+              emoji="🔍"
               description="Look at the pattern and draw the missing shape."
               problemCount={6}
               learningObjectives={[
@@ -13297,7 +13297,7 @@ export function PrintablesPage() {
               <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-indigo-400 to-purple-400 animate-gradient-x mb-2" />
               {/* Worked Example */}
               <div className="mb-6 p-4 bg-blue-50 border-2 border-blue-200 rounded-lg print:border print:bg-white">
-                <div className="font-semibold text-blue-900 mb-3 text-sm">ðŸ“š Example - Let's solve this together:</div>
+                <div className="font-semibold text-blue-900 mb-3 text-sm">📚 Example - Let's solve this together:</div>
                 <div className="space-y-2 text-sm">
                   <div className="font-semibold text-base"><strong>Pattern:</strong> Circle, Square, Triangle, Circle, Square, ?</div>
                   <div className="pl-4 border-l-2 border-blue-300 space-y-1">
@@ -13305,7 +13305,7 @@ export function PrintablesPage() {
                     <div><strong>Step 2:</strong> See the repetition: Circle, Square, Triangle repeats</div>
                     <div><strong>Step 3:</strong> After Square comes Triangle (the pattern repeats)</div>
                     <div className="font-semibold text-blue-900"><strong>Answer:</strong> Triangle</div>
-                    <div className="text-xs text-blue-700 mt-1">ðŸ’¡ Tip: Look for the repeating pattern. After Circle, Square comes Triangle!</div>
+                    <div className="text-xs text-blue-700 mt-1">💡 Tip: Look for the repeating pattern. After Circle, Square comes Triangle!</div>
                   </div>
                 </div>
               </div>
@@ -13332,7 +13332,7 @@ export function PrintablesPage() {
               </div>
               {/* Extension/Challenge Problems */}
               <div className="mt-6 print:mt-0 p-4 bg-purple-50 border-2 border-purple-200 rounded print:bg-white print:border" style={{ pageBreakBefore: 'always', pageBreakInside: 'avoid' }}>
-                <div className="font-semibold text-purple-900 mb-3 text-sm">🌐Ÿ {getTrans('common.challengeYourself', 'Challenge Yourself (Optional):')}</div>
+                <div className="font-semibold text-purple-900 mb-3 text-sm">🌐 {getTrans('common.challengeYourself', 'Challenge Yourself (Optional):')}</div>
                 <div className="space-y-2 text-sm text-purple-800">
                   <div>1. Create your own shape pattern with 4 different shapes. What comes next?</div>
                   <div>2. Try a color pattern: red, blue, yellow, red, blue, __. What color is missing?</div>
@@ -13390,7 +13390,7 @@ export function PrintablesPage() {
               <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-teal-400 to-cyan-400 animate-gradient-x mb-2" />
               {/* Worked Example */}
               <div className="mb-6 p-4 bg-blue-50 border-2 border-blue-200 rounded-lg print:border print:bg-white">
-                <div className="font-semibold text-blue-900 mb-3 text-sm">ðŸ“š Example - Let's solve this together:</div>
+                <div className="font-semibold text-blue-900 mb-3 text-sm">📚 Example - Let's solve this together:</div>
                 <div className="space-y-2 text-sm">
                   <div className="font-semibold text-base"><strong>Problem:</strong> Circle the bigger one</div>
                   <div className="pl-4 border-l-2 border-blue-300 space-y-1">
@@ -13398,7 +13398,7 @@ export function PrintablesPage() {
                     <div><strong>Step 2:</strong> Compare their sizes visually</div>
                     <div><strong>Step 3:</strong> The bigger one takes up more space</div>
                     <div className="font-semibold text-blue-900"><strong>Answer:</strong> Circle the one that is larger</div>
-                    <div className="text-xs text-blue-700 mt-1">ðŸ’¡ Tip: Look at which object takes up more space. The bigger one is larger!</div>
+                    <div className="text-xs text-blue-700 mt-1">💡 Tip: Look at which object takes up more space. The bigger one is larger!</div>
                   </div>
                 </div>
               </div>
@@ -13426,7 +13426,7 @@ export function PrintablesPage() {
               </div>
               {/* Extension/Challenge Problems */}
               <div className="mt-6 print:mt-0 p-4 bg-purple-50 border-2 border-purple-200 rounded print:bg-white print:border" style={{ pageBreakBefore: 'always', pageBreakInside: 'avoid' }}>
-                <div className="font-semibold text-purple-900 mb-3 text-sm">🌐Ÿ {getTrans('common.challengeYourself', 'Challenge Yourself (Optional):')}</div>
+                <div className="font-semibold text-purple-900 mb-3 text-sm">🌐 {getTrans('common.challengeYourself', 'Challenge Yourself (Optional):')}</div>
                 <div className="space-y-2 text-sm text-purple-800">
                   <div>1. Find 3 objects in your house. Which is biggest? Which is smallest?</div>
                   <div>2. Compare the length of 2 pencils. Which is longer?</div>
@@ -13457,7 +13457,7 @@ export function PrintablesPage() {
                     <li><strong>Circle the longer: A</strong> (A is 60px, B is 35px, so A is longer)</li>
                     <li><strong>Circle the shorter: A</strong> (A is 45px, B is 70px, so A is shorter)</li>
                   </ul>
-                  <div className="text-xs text-emerald-700 mt-3">ðŸ’¡ Remember: Look at the visual size of each object. The bigger one takes up more space, the smaller one takes up less space!</div>
+                  <div className="text-xs text-emerald-700 mt-3">💡 Remember: Look at the visual size of each object. The bigger one takes up more space, the smaller one takes up less space!</div>
                 </div>
               ))}
             </WorksheetSectionWrapper>
@@ -13490,7 +13490,7 @@ export function PrintablesPage() {
               <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-blue-400 to-indigo-400 animate-gradient-x mb-2" />
               {/* Worked Example */}
               <div className="mb-6 p-4 bg-blue-50 border-2 border-blue-200 rounded-lg print:border print:bg-white">
-                <div className="font-semibold text-blue-900 mb-3 text-sm">ðŸ“š Example - Let's solve this together:</div>
+                <div className="font-semibold text-blue-900 mb-3 text-sm">📚 Example - Let's solve this together:</div>
                 <div className="space-y-2 text-sm">
                   <div className="font-semibold text-base"><strong>Problem:</strong> 125 = __ + __ + __</div>
                   <div className="pl-4 border-l-2 border-blue-300 space-y-1">
@@ -13499,7 +13499,7 @@ export function PrintablesPage() {
                     <div><strong>Step 3:</strong> The 2 is in the tens place: 2 Ã— 10 = 20</div>
                     <div><strong>Step 4:</strong> The 5 is in the ones place: 5 Ã— 1 = 5</div>
                     <div className="font-semibold text-blue-900"><strong>Answer:</strong> 125 = 100 + 20 + 5</div>
-                    <div className="text-xs text-blue-700 mt-1">ðŸ’¡ Tip: Each digit has a place value. Hundreds place Ã— 100, tens place Ã— 10, ones place Ã— 1!</div>
+                    <div className="text-xs text-blue-700 mt-1">💡 Tip: Each digit has a place value. Hundreds place Ã— 100, tens place Ã— 10, ones place Ã— 1!</div>
                   </div>
                 </div>
               </div>
@@ -13520,7 +13520,7 @@ export function PrintablesPage() {
               </div>
               {/* Extension/Challenge Problems */}
               <div className="mt-6 print:mt-0 p-4 bg-purple-50 border-2 border-purple-200 rounded print:bg-white print:border" style={{ pageBreakBefore: 'always', pageBreakInside: 'avoid' }}>
-                <div className="font-semibold text-purple-900 mb-3 text-sm">🌐Ÿ {getTrans('common.challengeYourself', 'Challenge Yourself (Optional):')}</div>
+                <div className="font-semibold text-purple-900 mb-3 text-sm">🌐 {getTrans('common.challengeYourself', 'Challenge Yourself (Optional):')}</div>
                 <div className="space-y-2 text-sm text-purple-800">
                   <div>1. Can you write 234 in expanded form? (Hint: 200 + ? + ?)</div>
                   <div>2. Try writing 199 in expanded form</div>
@@ -13553,7 +13553,7 @@ export function PrintablesPage() {
                       return <li key={num}><strong>{num} = {hundreds * 100} + {tens * 10} + {ones}</strong> ({hundreds} hundreds = {hundreds * 100}, {tens} tens = {tens * 10}, {ones} ones = {ones})</li>
                     })}
                   </ul>
-                  <div className="text-xs text-emerald-700 mt-3">ðŸ’¡ Remember: Expanded form shows the value of each digit. Hundreds place Ã— 100, tens place Ã— 10, ones place Ã— 1!</div>
+                  <div className="text-xs text-emerald-700 mt-3">💡 Remember: Expanded form shows the value of each digit. Hundreds place Ã— 100, tens place Ã— 10, ones place Ã— 1!</div>
                 </div>
               ))}
             </WorksheetSectionWrapper>
@@ -13585,7 +13585,7 @@ export function PrintablesPage() {
               <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-purple-400 to-pink-400 animate-gradient-x mb-2" />
               {/* Worked Example */}
               <div className="mb-6 p-4 bg-blue-50 border-2 border-blue-200 rounded-lg print:border print:bg-white">
-                <div className="font-semibold text-blue-900 mb-3 text-sm">ðŸ“š Example - Let's solve this together:</div>
+                <div className="font-semibold text-blue-900 mb-3 text-sm">📚 Example - Let's solve this together:</div>
                 <div className="space-y-2 text-sm">
                   <div className="font-semibold text-base"><strong>Pattern:</strong> 10, 20, 30, __, 50</div>
                   <div className="pl-4 border-l-2 border-blue-300 space-y-1">
@@ -13593,7 +13593,7 @@ export function PrintablesPage() {
                     <div><strong>Step 2:</strong> The pattern is +10</div>
                     <div><strong>Step 3:</strong> After 30 comes 30 + 10 = 40</div>
                     <div className="font-semibold text-blue-900"><strong>Answer:</strong> 40</div>
-                    <div className="text-xs text-blue-700 mt-1">ðŸ’¡ Tip: Find the difference between numbers to discover the pattern rule!</div>
+                    <div className="text-xs text-blue-700 mt-1">💡 Tip: Find the difference between numbers to discover the pattern rule!</div>
                   </div>
                 </div>
               </div>
@@ -13617,7 +13617,7 @@ export function PrintablesPage() {
               </div>
               {/* Extension/Challenge Problems */}
               <div className="mt-6 print:mt-0 p-4 bg-purple-50 border-2 border-purple-200 rounded print:bg-white print:border" style={{ pageBreakBefore: 'always', pageBreakInside: 'avoid' }}>
-                <div className="font-semibold text-purple-900 mb-3 text-sm">🌐Ÿ {getTrans('common.challengeYourself', 'Challenge Yourself (Optional):')}</div>
+                <div className="font-semibold text-purple-900 mb-3 text-sm">🌐 {getTrans('common.challengeYourself', 'Challenge Yourself (Optional):')}</div>
                 <div className="space-y-2 text-sm text-purple-800">
                   <div>1. Can you continue this pattern: 200, 210, 220, __, __, 250?</div>
                   <div>2. Try a pattern with +3: 3, 6, 9, __, 15, __, 21</div>
@@ -13647,935 +13647,13 @@ export function PrintablesPage() {
                     <li><strong>Pattern +5:</strong> Missing numbers are 20, 30 (5, 10, 15, 20, 25, 30, 35)</li>
                     <li><strong>Pattern +10:</strong> Missing numbers are 130, 150 (100, 110, 120, 130, 140, 150, 160)</li>
                   </ul>
-                  <div className="text-xs text-emerald-700 mt-3">ðŸ’¡ Remember: Find the difference between numbers to discover the pattern rule. Then continue the pattern by adding that number!</div>
+                  <div className="text-xs text-emerald-700 mt-3">💡 Remember: Find the difference between numbers to discover the pattern rule. Then continue the pattern by adding that number!</div>
                 </div>
               ))}
             </WorksheetSectionWrapper>
           )
         }
 
-        {
-          activeDocs.includes('rounding-nearest-10') && (
-            <WorksheetSectionWrapper
-              docId="rounding-nearest-10"
-              title="Rounding to Nearest 10"
-              emoji="ðŸ”"
-              description="Round each number to the nearest 10."
-              problemCount={8}
-              learningObjectives={[
-                'Round numbers to the nearest 10',
-                'Understand which 10 a number is closer to',
-                'Use rounding rules (5 or more rounds up)',
-                'Build number sense and estimation skills'
-              ]}
-              parentTeacherTips={[
-                'Look at the ones digit to decide',
-                'If ones digit is 0-4, round down to the lower 10',
-                'If ones digit is 5-9, round up to the higher 10',
-                'For example: 23 has ones digit 3 (less than 5), so round down to 20',
-                'Extension: Try rounding to the nearest 100'
-              ]}
-            >
-              <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-cyan-400 to-blue-400 animate-gradient-x mb-2" />
-              {/* Worked Example */}
-              <div className="mb-6 p-4 bg-blue-50 border-2 border-blue-200 rounded-lg print:border print:bg-white">
-                <div className="font-semibold text-blue-900 mb-3 text-sm">ðŸ“š Example - Let's solve this together:</div>
-                <div className="space-y-2 text-sm">
-                  <div className="font-semibold text-base"><strong>Problem:</strong> Round 37 to the nearest 10</div>
-                  <div className="pl-4 border-l-2 border-blue-300 space-y-1">
-                    <div><strong>Step 1:</strong> Look at the ones digit: 7</div>
-                    <div><strong>Step 2:</strong> Is 7 less than 5? No, it's 5 or more</div>
-                    <div><strong>Step 3:</strong> Round up: 37 rounds up to 40</div>
-                    <div className="font-semibold text-blue-900"><strong>Answer:</strong> 40</div>
-                    <div className="text-xs text-blue-700 mt-1">ðŸ’¡ Tip: If the ones digit is 5 or more, round up. If it's less than 5, round down!</div>
-                  </div>
-                </div>
-              </div>
-              <div className="grid grid-cols-2 gap-4" style={{ pageBreakAfter: 'auto' }}>
-                {[23, 37, 45, 58, 64, 76, 82, 91].map((num) => {
-                  const rounded = Math.round(num / 10) * 10
-                  return (
-                    <div key={num} className="border border-slate-300 rounded p-4 bg-white">
-                      <p className="text-slate-700 text-lg mb-2">{num} rounds to __</p>
-                      {showAnswers && activeDocs.includes('rounding-nearest-10') && (
-                        <p className="text-slate-600 text-sm">Hint: {num} is closer to {rounded}</p>
-                      )}
-                    </div>
-                  )
-                })}
-              </div>
-              {/* Extension/Challenge Problems */}
-              <div className="mt-6 print:mt-0 p-4 bg-purple-50 border-2 border-purple-200 rounded print:bg-white print:border" style={{ pageBreakBefore: 'always', pageBreakInside: 'avoid' }}>
-                <div className="font-semibold text-purple-900 mb-3 text-sm">🌐Ÿ {getTrans('common.challengeYourself', 'Challenge Yourself (Optional):')}</div>
-                <div className="space-y-2 text-sm text-purple-800">
-                  <div>1. Can you round 125 to the nearest 10? (Hint: Look at the ones digit!)</div>
-                  <div>2. Try rounding to the nearest 100: 234 rounds to ? (Hint: Look at the tens digit!)</div>
-                  <div>3. Round these numbers: 47, 52, 68, 75</div>
-                </div>
-              </div>
-              {/* Self-Assessment */}
-              <div className="print:block hidden print:mt-0 mt-6 p-4 border-2 border-slate-300 rounded" style={{ pageBreakBefore: 'avoid', pageBreakInside: 'avoid' }}>
-                <div className="font-semibold text-slate-800 mb-3 text-sm">📊 {getTrans('common.howDidYouDo', 'How did you do?')}</div>
-                <div className="space-y-2 text-xs">
-                  <div>â˜ I can round numbers to the nearest 10</div>
-                  <div>â˜ I understand the rounding rule (5 or more rounds up)</div>
-                  <div>â˜ I rounded all 8 numbers correctly</div>
-                </div>
-                <div className="mt-3 text-xs">
-                  <strong>{getTrans('common.myScore', 'My score:')}</strong> ___ / 8
-                </div>
-                <div className="mt-2 text-xs">
-                  <strong>{getTrans('common.whatWasHardest', 'What was hardest?')}</strong> _________________________
-                </div>
-              </div>
-              {showAnswersForDoc('rounding-nearest-10', () => (
-                <div className="mt-6 p-4 border-2 border-emerald-300 bg-emerald-50 rounded print:border print:bg-white print:page-break-before-always">
-                  <div className="font-bold text-emerald-900 mb-3 text-base">✅ {getTrans('common.answerKey', 'Answer Key')}</div>
-                  <ul className="list-disc list-inside space-y-2 text-sm text-emerald-800">
-                    {[23, 37, 45, 58, 64, 76, 82, 91].map((num) => {
-                      const rounded = Math.round(num / 10) * 10
-                      const onesDigit = num % 10
-                      const reason = onesDigit < 5 ? `ones digit ${onesDigit} < 5, round down` : `ones digit ${onesDigit} â‰¥ 5, round up`
-                      return <li key={num}><strong>{num} rounds to {rounded}</strong> ({reason})</li>
-                    })}
-                  </ul>
-                  <div className="text-xs text-emerald-700 mt-3">ðŸ’¡ Remember: Look at the ones digit. If it's 0-4, round down. If it's 5-9, round up!</div>
-                </div>
-              ))}
-            </WorksheetSectionWrapper>
-          )
-        }
-
-        {
-          activeDocs.includes('add-three-numbers') && (
-            <WorksheetSectionWrapper
-              docId="add-three-numbers"
-              title="Adding 3 Numbers"
-              emoji="➕"
-              description="Add three numbers together."
-              problemCount={6}
-              learningObjectives={[
-                'Add three numbers together',
-                'Use addition strategies (add two first, then add the third)',
-                'Build mental math skills',
-                'Practice multi-step addition'
-              ]}
-              parentTeacherTips={[
-                'Add two numbers first, then add the third',
-                'Look for numbers that make 10 (like 3+7, 4+6)',
-                'For 3+4+2, you can do (3+4)+2 = 7+2 = 9',
-                'Or find pairs: (3+2)+4 = 5+4 = 9',
-                'Extension: Try adding 4 or 5 numbers together'
-              ]}
-            >
-              <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-green-400 to-emerald-400 animate-gradient-x mb-2" />
-              {/* Worked Example */}
-              <div className="mb-6 p-4 bg-blue-50 border-2 border-blue-200 rounded-lg print:border print:bg-white">
-                <div className="font-semibold text-blue-900 mb-3 text-sm">ðŸ“š Example - Let's solve this together:</div>
-                <div className="space-y-2 text-sm">
-                  <div className="font-semibold text-base"><strong>Problem:</strong> 3 + 4 + 2 = ?</div>
-                  <div className="pl-4 border-l-2 border-blue-300 space-y-1">
-                    <div><strong>Step 1:</strong> Add the first two numbers: 3 + 4 = 7</div>
-                    <div><strong>Step 2:</strong> Add the third number: 7 + 2 = 9</div>
-                    <div className="font-semibold text-blue-900"><strong>Answer:</strong> 3 + 4 + 2 = 9</div>
-                    <div className="text-xs text-blue-700 mt-1">ðŸ’¡ Tip: Add two numbers first, then add the third. You can add them in any order!</div>
-                  </div>
-                </div>
-              </div>
-              <div className="grid grid-cols-2 gap-4" style={{ pageBreakAfter: 'auto' }}>
-                {[[3, 4, 2], [5, 2, 3], [4, 3, 3], [6, 2, 1], [2, 5, 3], [4, 4, 2]].map((nums, idx) => (
-                  <svg key={idx} viewBox="0 0 400 120" className="w-full h-auto bg-white border border-slate-300 rounded">
-                    <text x="200" y="60" fontSize="32" fill="#111827" textAnchor="middle">{nums[0]} + {nums[1]} + {nums[2]} = __</text>
-                  </svg>
-                ))}
-              </div>
-              {/* Extension/Challenge Problems */}
-              <div className="mt-6 print:mt-0 p-4 bg-purple-50 border-2 border-purple-200 rounded print:bg-white print:border" style={{ pageBreakBefore: 'always', pageBreakInside: 'avoid' }}>
-                <div className="font-semibold text-purple-900 mb-3 text-sm">🌐Ÿ {getTrans('common.challengeYourself', 'Challenge Yourself (Optional):')}</div>
-                <div className="space-y-2 text-sm text-purple-800">
-                  <div>1. Can you solve 7 + 8 + 5? (Hint: Try adding 7+8 first!)</div>
-                  <div>2. Try adding 4 numbers: 2 + 3 + 4 + 1 = ?</div>
-                  <div>3. Find numbers that make 10: 6 + 4 + 3 = ? (Hint: 6+4=10!)</div>
-                </div>
-              </div>
-              {/* Self-Assessment */}
-              <div className="print:block hidden print:mt-0 mt-6 p-4 border-2 border-slate-300 rounded" style={{ pageBreakBefore: 'avoid', pageBreakInside: 'avoid' }}>
-                <div className="font-semibold text-slate-800 mb-3 text-sm">📊 {getTrans('common.howDidYouDo', 'How did you do?')}</div>
-                <div className="space-y-2 text-xs">
-                  <div>â˜ I can add three numbers together</div>
-                  <div>â˜ I can use strategies to make adding easier</div>
-                  <div>â˜ I solved all 6 problems correctly</div>
-                </div>
-                <div className="mt-3 text-xs">
-                  <strong>{getTrans('common.myScore', 'My score:')}</strong> ___ / 6
-                </div>
-                <div className="mt-2 text-xs">
-                  <strong>{getTrans('common.whatWasHardest', 'What was hardest?')}</strong> _________________________
-                </div>
-              </div>
-              {showAnswersForDoc('add-three-numbers', () => (
-                <div className="mt-6 p-4 border-2 border-emerald-300 bg-emerald-50 rounded print:border print:bg-white print:page-break-before-always">
-                  <div className="font-bold text-emerald-900 mb-3 text-base">✅ {getTrans('common.answerKey', 'Answer Key')}</div>
-                  <ul className="list-disc list-inside space-y-2 text-sm text-emerald-800">
-                    {[[3, 4, 2], [5, 2, 3], [4, 3, 3], [6, 2, 1], [2, 5, 3], [4, 4, 2]].map((nums, idx) => {
-                      const sum = nums[0] + nums[1] + nums[2]
-                      return <li key={idx}><strong>{nums[0]} + {nums[1]} + {nums[2]} = {sum}</strong> (Add: ({nums[0]} + {nums[1]}) + {nums[2]} = {nums[0] + nums[1]} + {nums[2]} = {sum})</li>
-                    })}
-                  </ul>
-                  <div className="text-xs text-emerald-700 mt-3">ðŸ’¡ Remember: Add two numbers first, then add the third. You can add them in any order!</div>
-                </div>
-              ))}
-            </WorksheetSectionWrapper>
-          )
-        }
-
-        {
-          activeDocs.includes('missing-addends') && (
-            <WorksheetSectionWrapper
-              docId="missing-addends"
-              title="Missing Addends"
-              emoji="➖"
-              description="Find the missing number in each addition equation."
-              problemCount={6}
-              learningObjectives={[
-                'Find missing addends in addition equations',
-                'Use subtraction to find missing parts',
-                'Understand the relationship between addition and subtraction',
-                'Build algebraic thinking skills'
-              ]}
-              parentTeacherTips={[
-                'If you know one addend and the sum, subtract to find the missing addend',
-                'For 3 + __ = 8, think: "What number plus 3 equals 8?" or "8 - 3 = ?"',
-                'Use the inverse relationship: addition and subtraction are opposites',
-                'Check your answer by adding: if 3 + 5 = 8, then 5 is correct',
-                'Extension: Try missing addends with larger numbers'
-              ]}
-            >
-              <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-rose-400 to-pink-400 animate-gradient-x mb-2" />
-              {/* Worked Example */}
-              <div className="mb-6 p-4 bg-blue-50 border-2 border-blue-200 rounded-lg print:border print:bg-white">
-                <div className="font-semibold text-blue-900 mb-3 text-sm">ðŸ“š Example - Let's solve this together:</div>
-                <div className="space-y-2 text-sm">
-                  <div className="font-semibold text-base"><strong>Problem:</strong> 3 + __ = 8</div>
-                  <div className="pl-4 border-l-2 border-blue-300 space-y-1">
-                    <div><strong>Step 1:</strong> We know one addend is 3 and the sum is 8</div>
-                    <div><strong>Step 2:</strong> To find the missing addend, subtract: 8 - 3 = 5</div>
-                    <div><strong>Step 3:</strong> Check: 3 + 5 = 8 âœ“</div>
-                    <div className="font-semibold text-blue-900"><strong>Answer:</strong> 5</div>
-                    <div className="text-xs text-blue-700 mt-1">ðŸ’¡ Tip: To find a missing addend, subtract the known addend from the sum!</div>
-                  </div>
-                </div>
-              </div>
-              <div className="grid grid-cols-2 gap-4" style={{ pageBreakAfter: 'auto' }}>
-                {[
-                  { a: 3, sum: 8 },
-                  { a: 5, sum: 12 },
-                  { a: 4, sum: 10 },
-                  { a: 6, sum: 15 },
-                  { a: 7, sum: 14 },
-                  { a: 2, sum: 9 }
-                ].map(({ a, sum }, idx) => (
-                  <svg key={idx} viewBox="0 0 400 120" className="w-full h-auto bg-white border border-slate-300 rounded">
-                    <text x="200" y="60" fontSize="32" fill="#111827" textAnchor="middle">{a} + __ = {sum}</text>
-                  </svg>
-                ))}
-              </div>
-              {/* Extension/Challenge Problems */}
-              <div className="mt-6 print:mt-0 p-4 bg-purple-50 border-2 border-purple-200 rounded print:bg-white print:border" style={{ pageBreakBefore: 'always', pageBreakInside: 'avoid' }}>
-                <div className="font-semibold text-purple-900 mb-3 text-sm">🌐Ÿ {getTrans('common.challengeYourself', 'Challenge Yourself (Optional):')}</div>
-                <div className="space-y-2 text-sm text-purple-800">
-                  <div>1. Can you solve: __ + 9 = 15? (Hint: Subtract 9 from 15!)</div>
-                  <div>2. Try: 8 + __ = 20. What's the missing addend?</div>
-                  <div>3. Create your own missing addend problem and solve it</div>
-                </div>
-              </div>
-              {/* Self-Assessment */}
-              <div className="print:block hidden print:mt-0 mt-6 p-4 border-2 border-slate-300 rounded" style={{ pageBreakBefore: 'avoid', pageBreakInside: 'avoid' }}>
-                <div className="font-semibold text-slate-800 mb-3 text-sm">📊 {getTrans('common.howDidYouDo', 'How did you do?')}</div>
-                <div className="space-y-2 text-xs">
-                  <div>â˜ I can find missing addends</div>
-                  <div>â˜ I understand that subtraction helps find missing addends</div>
-                  <div>â˜ I solved all 6 problems correctly</div>
-                </div>
-                <div className="mt-3 text-xs">
-                  <strong>{getTrans('common.myScore', 'My score:')}</strong> ___ / 6
-                </div>
-                <div className="mt-2 text-xs">
-                  <strong>{getTrans('common.whatWasHardest', 'What was hardest?')}</strong> _________________________
-                </div>
-              </div>
-              {showAnswersForDoc('missing-addends', () => (
-                <div className="mt-6 p-4 border-2 border-emerald-300 bg-emerald-50 rounded print:border print:bg-white print:page-break-before-always">
-                  <div className="font-bold text-emerald-900 mb-3 text-base">✅ {getTrans('common.answerKey', 'Answer Key')}</div>
-                  <ul className="list-disc list-inside space-y-2 text-sm text-emerald-800">
-                    {[
-                      { a: 3, sum: 8 },
-                      { a: 5, sum: 12 },
-                      { a: 4, sum: 10 },
-                      { a: 6, sum: 15 },
-                      { a: 7, sum: 14 },
-                      { a: 2, sum: 9 }
-                    ].map(({ a, sum }, idx) => (
-                      <li key={idx}><strong>{a} + {sum - a} = {sum}</strong> (To find the missing addend: {sum} - {a} = {sum - a})</li>
-                    ))}
-                  </ul>
-                  <div className="text-xs text-emerald-700 mt-3">ðŸ’¡ Remember: To find a missing addend, subtract the known addend from the sum. Check by adding: known addend + missing addend = sum!</div>
-                </div>
-              ))}
-            </WorksheetSectionWrapper>
-          )
-        }
-
-        {
-          activeDocs.includes('fact-families-20') && (
-            <WorksheetSectionWrapper
-              docId="fact-families-20"
-              title="Fact Families (to 20)"
-              emoji="âš–ï¸"
-              description="Complete each fact family with 4 related equations."
-              problemCount={3}
-              learningObjectives={[
-                'Understand fact families (related addition and subtraction facts)',
-                'Write 4 related equations from 3 numbers',
-                'Recognize the relationship between addition and subtraction',
-                'Build number sense and fact fluency'
-              ]}
-              parentTeacherTips={[
-                'A fact family uses the same 3 numbers to make 4 equations',
-                'For numbers 5, 8, 13: 5+8=13, 8+5=13, 13-5=8, 13-8=5',
-                'Two addition facts and two subtraction facts',
-                'Help students see: "If 5+8=13, then 13-5=8 and 13-8=5"',
-                'Extension: Try fact families with larger numbers'
-              ]}
-            >
-              <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-teal-400 to-cyan-400 animate-gradient-x mb-2" />
-              {/* Worked Example */}
-              <div className="mb-6 p-4 bg-blue-50 border-2 border-blue-200 rounded-lg print:border print:bg-white">
-                <div className="font-semibold text-blue-900 mb-3 text-sm">ðŸ“š Example - Let's solve this together:</div>
-                <div className="space-y-2 text-sm">
-                  <div className="font-semibold text-base"><strong>Fact Family:</strong> 5, 8, 13</div>
-                  <div className="pl-4 border-l-2 border-blue-300 space-y-1">
-                    <div><strong>Step 1:</strong> Write the two addition facts: 5 + 8 = 13 and 8 + 5 = 13</div>
-                    <div><strong>Step 2:</strong> Write the two subtraction facts: 13 - 5 = 8 and 13 - 8 = 5</div>
-                    <div className="font-semibold text-blue-900"><strong>Answer:</strong> 5+8=13, 8+5=13, 13-5=8, 13-8=5</div>
-                    <div className="text-xs text-blue-700 mt-1">ðŸ’¡ Tip: A fact family uses the same 3 numbers. Two addition facts and two subtraction facts!</div>
-                  </div>
-                </div>
-              </div>
-              <div className="space-y-4 break-inside-avoid" style={{ pageBreakAfter: 'auto' }}>
-                {[[5, 8, 13], [6, 7, 13], [4, 9, 13]].map(([a, b, sum], idx) => (
-                  <div key={idx} className="border border-slate-300 rounded p-4 bg-white">
-                    <p className="text-slate-700 text-sm mb-2 font-semibold">Fact Family: {a}, {b}, {sum}</p>
-                    <div className="grid grid-cols-2 gap-2">
-                      <p className="text-slate-900">{a} + {b} = __</p>
-                      <p className="text-slate-900">{b} + {a} = __</p>
-                      <p className="text-slate-900">{sum} - {a} = __</p>
-                      <p className="text-slate-900">{sum} - {b} = __</p>
-                    </div>
-                  </div>
-                ))}
-              </div>
-              {/* Extension/Challenge Problems */}
-              <div className="mt-6 print:mt-0 p-4 bg-purple-50 border-2 border-purple-200 rounded print:bg-white print:border" style={{ pageBreakBefore: 'always', pageBreakInside: 'avoid' }}>
-                <div className="font-semibold text-purple-900 mb-3 text-sm">🌐Ÿ {getTrans('common.challengeYourself', 'Challenge Yourself (Optional):')}</div>
-                <div className="space-y-2 text-sm text-purple-800">
-                  <div>1. Create a fact family using the numbers 7, 9, and 16</div>
-                  <div>2. Can you find all 4 equations for the fact family: 3, 11, 14?</div>
-                  <div>3. Write your own fact family with 3 numbers and show all 4 equations</div>
-                </div>
-              </div>
-              {/* Self-Assessment */}
-              <div className="print:block hidden print:mt-0 mt-6 p-4 border-2 border-slate-300 rounded" style={{ pageBreakBefore: 'avoid', pageBreakInside: 'avoid' }}>
-                <div className="font-semibold text-slate-800 mb-3 text-sm">📊 {getTrans('common.howDidYouDo', 'How did you do?')}</div>
-                <div className="space-y-2 text-xs">
-                  <div>â˜ I understand what a fact family is</div>
-                  <div>â˜ I can write all 4 equations from 3 numbers</div>
-                  <div>â˜ I completed all 3 fact families correctly</div>
-                </div>
-                <div className="mt-3 text-xs">
-                  <strong>{getTrans('common.myScore', 'My score:')}</strong> ___ / 3
-                </div>
-                <div className="mt-2 text-xs">
-                  <strong>{getTrans('common.whatWasHardest', 'What was hardest?')}</strong> _________________________
-                </div>
-              </div>
-              {showAnswersForDoc('fact-families-20', () => (
-                <div className="mt-6 p-4 border-2 border-emerald-300 bg-emerald-50 rounded print:border print:bg-white print:page-break-before-always">
-                  <div className="font-bold text-emerald-900 mb-3 text-base">✅ {getTrans('common.answerKey', 'Answer Key')}</div>
-                  <ul className="list-disc list-inside space-y-2 text-sm text-emerald-800">
-                    {[[5, 8, 13], [6, 7, 13], [4, 9, 13]].map(([a, b, sum], idx) => (
-                      <li key={idx}><strong>Family {idx + 1} ({a}, {b}, {sum}):</strong> {a}+{b}={sum}, {b}+{a}={sum}, {sum}-{a}={b}, {sum}-{b}={a}</li>
-                    ))}
-                  </ul>
-                  <div className="text-xs text-emerald-700 mt-3">ðŸ’¡ Remember: A fact family uses the same 3 numbers to make 4 equations - two addition facts and two subtraction facts!</div>
-                </div>
-              ))}
-            </WorksheetSectionWrapper>
-          )
-        }
-
-        {
-          activeDocs.includes('mental-math-20') && (() => {
-            const docId = 'mental-math-20'
-            return (
-              <WorksheetSectionWrapper
-                docId={docId}
-                title={getTrans(`worksheets.${docId}.title`, 'Mental Math (Add/Sub to 20)')}
-                emoji="🔢"
-                description={getTrans(`worksheets.${docId}.description`, 'Solve these quickly in your head!')}
-                problemCount={12}
-                learningObjectives={(() => {
-                  const objectives = t(`worksheets.${docId}.learningObjectives`)
-                  return Array.isArray(objectives) && objectives.length > 0 ? objectives : [
-                    'Solve addition and subtraction problems mentally',
-                    'Build fact fluency and speed',
-                    'Use mental math strategies (doubles, near doubles, making 10)',
-                    'Improve number sense and quick thinking'
-                  ]
-                })()}
-                parentTeacherTips={(() => {
-                  const tips = t(`worksheets.${docId}.parentTeacherTips`)
-                  return Array.isArray(tips) && tips.length > 0 ? tips : [
-                    'Encourage students to solve without paper - use mental strategies',
-                    'For 7+5, think: "7+3=10, then 10+2=12" (making 10)',
-                    'For 12-5, think: "What plus 5 equals 12?" or "12-2=10, then 10-3=7"',
-                    'Use doubles: 6+7 is like 6+6+1=13',
-                    'Practice daily for 5 minutes to build speed and confidence'
-                  ]
-                })()}
-              >
-                <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-indigo-400 to-purple-400 animate-gradient-x mb-2" />
-                {/* Worked Example */}
-                <div className="mb-6 p-4 bg-blue-50 border-2 border-blue-200 rounded-lg print:border print:bg-white">
-                  <div className="font-semibold text-blue-900 mb-3 text-sm">{getTrans(`worksheets.${docId}.example.title`, 'ðŸ“š Example - Let\'s solve this together:')}</div>
-                  <div className="space-y-2 text-sm">
-                    <div className="font-semibold text-base"><strong>{getTrans(`worksheets.${docId}.example.problem`, 'Problem:')}</strong> {getTrans(`worksheets.${docId}.example.problemText`, '7 + 5 = ?')}</div>
-                    <div className="pl-4 border-l-2 border-blue-300 space-y-1">
-                      <div><strong>{getTrans(`worksheets.${docId}.example.strategy1`, 'Strategy 1 (Making 10):')}</strong> {getTrans(`worksheets.${docId}.example.strategy1Text`, '7 + 3 = 10, then 10 + 2 = 12')}</div>
-                      <div><strong>{getTrans(`worksheets.${docId}.example.strategy2`, 'Strategy 2 (Counting on):')}</strong> {getTrans(`worksheets.${docId}.example.strategy2Text`, 'Start at 7, count up 5: 8, 9, 10, 11, 12')}</div>
-                      <div className="font-semibold text-blue-900"><strong>{getTrans(`worksheets.${docId}.example.answer`, 'Answer:')}</strong> {getTrans(`worksheets.${docId}.example.answerText`, '12')}</div>
-                      <div className="text-xs text-blue-700 mt-1">{getTrans(`worksheets.${docId}.example.tip`, 'ðŸ’¡ Tip: Use the strategy that feels easiest for you!')}</div>
-                    </div>
-                  </div>
-                </div>
-                <div className="grid grid-cols-3 gap-3 break-inside-avoid" style={{ pageBreakAfter: 'auto' }}>
-                  {[
-                    '7+5', '9+4', '8+6', '12-5', '15-7', '18-9',
-                    '6+7', '5+8', '11-4', '14-6', '16-8', '20-9'
-                  ].map((prob, idx) => (
-                    <div key={idx} className="border border-slate-300 rounded p-3 bg-white text-center">
-                      <p className="text-slate-900 text-lg font-semibold">{prob} = __</p>
-                    </div>
-                  ))}
-                </div>
-                {/* Extension/Challenge Problems */}
-                <div className="mt-6 print:mt-0 p-4 bg-purple-50 border-2 border-purple-200 rounded print:bg-white print:border" style={{ pageBreakBefore: 'always', pageBreakInside: 'avoid' }}>
-                  <div className="font-semibold text-purple-900 mb-3 text-sm">{getTrans(`worksheets.${docId}.challenge.title`, '🌐Ÿ Challenge Yourself (Optional):')}</div>
-                  <div className="space-y-2 text-sm text-purple-800">
-                    {(() => {
-                      const challengeItems = t(`worksheets.${docId}.challenge.items`)
-                      const items = Array.isArray(challengeItems) && challengeItems.length > 0 ? challengeItems : [
-                        'Can you solve 13+7 mentally? What strategy did you use?',
-                        'Try: 19-6. How fast can you solve it?',
-                        'Create 3 mental math problems and solve them in your head'
-                      ]
-                      return items.map((item, idx) => (
-                        <div key={idx}>{idx + 1}. {item}</div>
-                      ))
-                    })()}
-                  </div>
-                </div>
-                {/* Self-Assessment */}
-                <div className="print:block hidden print:mt-0 mt-6 p-4 border-2 border-slate-300 rounded" style={{ pageBreakBefore: 'avoid', pageBreakInside: 'avoid' }}>
-                  <div className="font-semibold text-slate-800 mb-3 text-sm">{getTrans(`worksheets.${docId}.selfAssessment.title`, '📊 How did you do?')}</div>
-                  <div className="space-y-2 text-xs">
-                    {(() => {
-                      const assessmentItems = t(`worksheets.${docId}.selfAssessment.items`)
-                      const items = Array.isArray(assessmentItems) && assessmentItems.length > 0 ? assessmentItems : [
-                        'I can solve problems mentally',
-                        'I used mental math strategies',
-                        'I solved all 12 problems correctly'
-                      ]
-                      return items.map((item, idx) => (
-                        <div key={idx}>â˜ {item}</div>
-                      ))
-                    })()}
-                  </div>
-                  <div className="mt-3 text-xs">
-                    <strong>{getTrans(`worksheets.${docId}.selfAssessment.score`, 'My score:')}</strong> ___ / 12
-                  </div>
-                  <div className="mt-2 text-xs">
-                    <strong>{getTrans(`worksheets.${docId}.selfAssessment.hardest`, 'What was hardest?')}</strong> _________________________
-                  </div>
-                </div>
-                {showAnswersForDoc('mental-math-20', () => (
-                  <div className="mt-6 p-4 border-2 border-emerald-300 bg-emerald-50 rounded print:border print:bg-white print:page-break-before-always">
-                    <div className="font-bold text-emerald-900 mb-3 text-base">{getTrans(`worksheets.${docId}.answerKey.title`, '✅ Answer Key')}</div>
-                    <ul className="list-disc list-inside space-y-2 text-sm text-emerald-800 columns-2">
-                      {[
-                        { prob: '7+5', ans: 12 },
-                        { prob: '9+4', ans: 13 },
-                        { prob: '8+6', ans: 14 },
-                        { prob: '12-5', ans: 7 },
-                        { prob: '15-7', ans: 8 },
-                        { prob: '18-9', ans: 9 },
-                        { prob: '6+7', ans: 13 },
-                        { prob: '5+8', ans: 13 },
-                        { prob: '11-4', ans: 7 },
-                        { prob: '14-6', ans: 8 },
-                        { prob: '16-8', ans: 8 },
-                        { prob: '20-9', ans: 11 }
-                      ].map(({ prob, ans }, idx) => (
-                        <li key={idx}><strong>{prob} = {ans}</strong></li>
-                      ))}
-                    </ul>
-                    <div className="text-xs text-emerald-700 mt-3">{getTrans(`worksheets.${docId}.answerKey.remember`, 'ðŸ’¡ Remember: Practice mental math daily to build speed and confidence. Use strategies like making 10, doubles, or counting on!')}</div>
-                  </div>
-                ))}
-              </WorksheetSectionWrapper>
-            )
-          })()
-        }
-
-        {
-          activeDocs.includes('number-line-200') && (() => {
-            const rng = makeRng(`${effectiveSeed}|v${variant}|doc=${doc}`);
-            function nextInt(min: number, max: number) { return Math.floor(rng() * (max - min + 1)) + min; }
-
-            // Generate numbers to locate for each number line
-            const ranges = [
-              { start: 0, end: 50, label: '0-50' },
-              { start: 50, end: 100, label: '50-100' },
-              { start: 100, end: 150, label: '100-150' },
-              { start: 150, end: 200, label: '150-200' }
-            ];
-
-            const problems = ranges.map(({ start, end }) => {
-              // Generate a number within the range (not on the endpoints)
-              const target = nextInt(start + 5, end - 5);
-              return { start, end, target };
-            });
-
-            return (
-              <WorksheetSectionWrapper
-                docId="number-line-200"
-                title="Number Line to 200"
-                emoji="ðŸ“ˆ"
-                description="Use the number line to solve problems and locate numbers."
-                problemCount={problems.length}
-                learningObjectives={[
-                  'Locate numbers on a number line up to 200',
-                  'Understand number relationships and ordering',
-                  'Use number lines to visualize number positions',
-                  'Build number sense with larger numbers'
-                ]}
-                parentTeacherTips={[
-                  'Number lines help visualize where numbers are located',
-                  'Find the number between the labeled tick marks',
-                  'Count by 10s to find positions: 0, 10, 20, 30, 40, 50...',
-                  'For 35, it\'s halfway between 30 and 40',
-                  'Extension: Try locating numbers on number lines to 500 or 1000'
-                ]}
-              >
-                <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-blue-400 to-cyan-400 animate-gradient-x mb-2" />
-                {/* Worked Example */}
-                <div className="mb-6 p-4 bg-blue-50 border-2 border-blue-200 rounded-lg print:border print:bg-white">
-                  <div className="font-semibold text-blue-900 mb-3 text-sm">ðŸ“š Example - Let's solve this together:</div>
-                  <div className="space-y-2 text-sm">
-                    <div className="font-semibold text-base"><strong>Problem:</strong> Locate 35 on a number line from 0 to 50</div>
-                    <div className="pl-4 border-l-2 border-blue-300 space-y-1">
-                      <div><strong>Step 1:</strong> Find 30 and 40 on the number line (they are labeled)</div>
-                      <div><strong>Step 2:</strong> 35 is halfway between 30 and 40</div>
-                      <div><strong>Step 3:</strong> Mark 35 on the number line</div>
-                      <div className="font-semibold text-blue-900"><strong>Answer:</strong> 35 is located between 30 and 40</div>
-                      <div className="text-xs text-blue-700 mt-1">ðŸ’¡ Tip: Use the labeled numbers to help you find positions!</div>
-                    </div>
-                  </div>
-                </div>
-                <div className="space-y-4 break-inside-avoid" style={{ pageBreakAfter: 'auto' }}>
-                  {problems.map(({ start, target }, idx) => (
-                    <div key={idx} className="bg-white border border-slate-300 rounded p-3">
-                      <svg viewBox="0 0 600 100" className="w-full h-auto">
-                        <g fill="none" stroke="#111827" strokeWidth="2">
-                          <line x1="50" y1="50" x2="550" y2="50" />
-                          {Array.from({ length: 6 }).map((_, i) => {
-                            const num = start + i * 10
-                            const x = 50 + i * 100
-                            return (
-                              <g key={i}>
-                                <line x1={x} y1="50" x2={x} y2="40" />
-                                <text x={x} y="30" fontSize="16" fill="#111827" textAnchor="middle">{num}</text>
-                              </g>
-                            )
-                          })}
-                        </g>
-                        <text x="300" y="80" fontSize="18" fill="#111827" textAnchor="middle" fontWeight="semibold">Locate: {target}</text>
-                        {showAnswers && activeDocs.includes('number-line-200') && (() => {
-                          const position = (target - start) / 10;
-                          const x = 50 + position * 100;
-                          return (
-                            <g>
-                              <circle cx={x} cy="50" r="6" fill="#3b82f6" />
-                              <text x={x} y="70" fontSize="14" fill="#3b82f6" textAnchor="middle" fontWeight="bold">{target}</text>
-                            </g>
-                          );
-                        })()}
-                      </svg>
-                    </div>
-                  ))}
-                </div>
-                {/* Extension/Challenge Problems */}
-                <div className="mt-6 print:mt-0 p-4 bg-purple-50 border-2 border-purple-200 rounded print:bg-white print:border" style={{ pageBreakBefore: 'always', pageBreakInside: 'avoid' }}>
-                  <div className="font-semibold text-purple-900 mb-3 text-sm">🌐Ÿ {getTrans('common.challengeYourself', 'Challenge Yourself (Optional):')}</div>
-                  <div className="space-y-2 text-sm text-purple-800">
-                    <div>1. Can you locate 125 on a number line from 100 to 200?</div>
-                    <div>2. Try: Where is 175 on a number line from 150 to 200?</div>
-                    <div>3. Create your own number line problem and solve it</div>
-                  </div>
-                </div>
-                {/* Self-Assessment */}
-                <div className="print:block hidden print:mt-0 mt-6 p-4 border-2 border-slate-300 rounded" style={{ pageBreakBefore: 'avoid', pageBreakInside: 'avoid' }}>
-                  <div className="font-semibold text-slate-800 mb-3 text-sm">📊 {getTrans('common.howDidYouDo', 'How did you do?')}</div>
-                  <div className="space-y-2 text-xs">
-                    <div>â˜ I can locate numbers on a number line</div>
-                    <div>â˜ I understand number relationships</div>
-                    <div>â˜ I located all {problems.length} numbers correctly</div>
-                  </div>
-                  <div className="mt-3 text-xs">
-                    <strong>{getTrans('common.myScore', 'My score:')}</strong> ___ / {problems.length}
-                  </div>
-                  <div className="mt-2 text-xs">
-                    <strong>{getTrans('common.whatWasHardest', 'What was hardest?')}</strong> _________________________
-                  </div>
-                </div>
-                {showAnswersForDoc('number-line-200', () => (
-                  <div className="mt-6 p-4 border-2 border-emerald-300 bg-emerald-50 rounded print:border print:bg-white print:page-break-before-always">
-                    <div className="font-bold text-emerald-900 mb-3 text-base">✅ {getTrans('common.answerKey', 'Answer Key')}</div>
-                    <ul className="list-disc list-inside space-y-2 text-sm text-emerald-800">
-                      {problems.map(({ target, start, end }, idx) => (
-                        <li key={idx}><strong>Locate {target}:</strong> Positioned between {start} and {end} on the number line (closer to {target < (start + end) / 2 ? start : end})</li>
-                      ))}
-                    </ul>
-                    <div className="text-xs text-emerald-700 mt-3">ðŸ’¡ Remember: Use the labeled numbers on the number line to help you find positions. Count by 10s to locate numbers!</div>
-                  </div>
-                ))}
-              </WorksheetSectionWrapper>
-            );
-          })()
-        }
-
-        {
-          activeDocs.includes('doubles-near-doubles') && (
-            <WorksheetSectionWrapper
-              docId="doubles-near-doubles"
-              title="Doubles & Near Doubles"
-              emoji="ðŸŽ¯"
-              description="Practice doubles and near doubles (doubles +1)."
-              problemCount={4}
-              learningObjectives={[
-                'Memorize doubles facts (e.g., 6+6, 7+7)',
-                'Use doubles to solve near doubles (e.g., 6+7 = 6+6+1)',
-                'Build mental math strategies',
-                'Recognize patterns in addition'
-              ]}
-              parentTeacherTips={[
-                'Doubles are when you add a number to itself (6+6, 7+7)',
-                'Near doubles are one more than doubles (6+7 = 6+6+1)',
-                'If you know 6+6=12, then 6+7=13 (just add 1 more)',
-                'Practice with manipulatives: If I have 6 blocks and 6 blocks, that\'s 12. If I have 6 and 7, that\'s 13!',
-                'Extension: Try doubles to 20 (10+10, 11+11, etc.)'
-              ]}
-            >
-              <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-orange-400 to-red-400 animate-gradient-x mb-2" />
-              {/* Worked Example */}
-              <div className="mb-6 p-4 bg-blue-50 border-2 border-blue-200 rounded-lg print:border print:bg-white">
-                <div className="font-semibold text-blue-900 mb-3 text-sm">ðŸ“š Example - Let's solve this together:</div>
-                <div className="space-y-2 text-sm">
-                  <div className="font-semibold text-base"><strong>Problem:</strong> 6 + 7 = ? (Near Double)</div>
-                  <div className="pl-4 border-l-2 border-blue-300 space-y-1">
-                    <div><strong>Step 1:</strong> Think of the double: 6 + 6 = 12</div>
-                    <div><strong>Step 2:</strong> Since 7 is one more than 6, add 1: 12 + 1 = 13</div>
-                    <div className="font-semibold text-blue-900"><strong>Answer:</strong> 6 + 7 = 13</div>
-                    <div className="text-xs text-blue-700 mt-1">ðŸ’¡ Tip: Near doubles are just doubles + 1! If you know 6+6=12, then 6+7=13!</div>
-                  </div>
-                </div>
-              </div>
-              <div className="grid grid-cols-2 gap-4" style={{ pageBreakAfter: 'auto' }}>
-                {[
-                  { type: 'Double', a: 6 },
-                  { type: 'Double', a: 7 },
-                  { type: 'Near Double', a: 6 },
-                  { type: 'Near Double', a: 8 }
-                ].map(({ type, a }, idx) => (
-                  <div key={idx} className="border border-slate-300 rounded p-4 bg-white">
-                    <p className="text-slate-700 text-sm mb-2 font-semibold">{type}</p>
-                    <p className="text-slate-900 text-lg">{a} + {type === 'Double' ? a : a + 1} = __</p>
-                  </div>
-                ))}
-              </div>
-              {/* Extension/Challenge Problems */}
-              <div className="mt-6 print:mt-0 p-4 bg-purple-50 border-2 border-purple-200 rounded print:bg-white print:border" style={{ pageBreakBefore: 'always', pageBreakInside: 'avoid' }}>
-                <div className="font-semibold text-purple-900 mb-3 text-sm">🌐Ÿ {getTrans('common.challengeYourself', 'Challenge Yourself (Optional):')}</div>
-                <div className="space-y-2 text-sm text-purple-800">
-                  <div>1. Can you solve 9 + 10 using the near doubles strategy? (Hint: Think 9 + 9 first!)</div>
-                  <div>2. Try these doubles: 8 + 8 = ? and 9 + 9 = ?</div>
-                  <div>3. Write your own doubles and near doubles problems</div>
-                </div>
-              </div>
-              {/* Self-Assessment */}
-              <div className="print:block hidden print:mt-0 mt-6 p-4 border-2 border-slate-300 rounded" style={{ pageBreakBefore: 'avoid', pageBreakInside: 'avoid' }}>
-                <div className="font-semibold text-slate-800 mb-3 text-sm">📊 {getTrans('common.howDidYouDo', 'How did you do?')}</div>
-                <div className="space-y-2 text-xs">
-                  <div>â˜ I can solve doubles facts</div>
-                  <div>â˜ I can use doubles to solve near doubles</div>
-                  <div>â˜ I solved all 4 problems correctly</div>
-                </div>
-                <div className="mt-3 text-xs">
-                  <strong>{getTrans('common.myScore', 'My score:')}</strong> ___ / 4
-                </div>
-                <div className="mt-2 text-xs">
-                  <strong>{getTrans('common.whatWasHardest', 'What was hardest?')}</strong> _________________________
-                </div>
-              </div>
-              {showAnswersForDoc('doubles-near-doubles', () => (
-                <div className="mt-6 p-4 border-2 border-emerald-300 bg-emerald-50 rounded print:border print:bg-white print:page-break-before-always">
-                  <div className="font-bold text-emerald-900 mb-3 text-base">✅ {getTrans('common.answerKey', 'Answer Key')}</div>
-                  <ul className="list-disc list-inside space-y-2 text-sm text-emerald-800">
-                    <li><strong>6 + 6 = 12</strong> (Double: same number added to itself)</li>
-                    <li><strong>7 + 7 = 14</strong> (Double: same number added to itself)</li>
-                    <li><strong>6 + 7 = 13</strong> (Near Double: 6+6=12, then add 1 more = 13)</li>
-                    <li><strong>8 + 9 = 17</strong> (Near Double: 8+8=16, then add 1 more = 17)</li>
-                  </ul>
-                  <div className="text-xs text-emerald-700 mt-3">ðŸ’¡ Remember: Doubles are when you add a number to itself. Near doubles are doubles + 1!</div>
-                </div>
-              ))}
-            </WorksheetSectionWrapper>
-          )
-        }
-
-
-
-        {
-          activeDocs.includes('measurement-length') && (
-            <WorksheetSectionWrapper
-              docId="measurement-length"
-              title="Measurement: Length"
-              emoji="ðŸ“"
-              description="Compare lengths using inches and centimeters."
-              problemCount={3}
-              learningObjectives={[
-                'Compare lengths visually and numerically',
-                'Understand measurement units (inches, centimeters)',
-                'Use comparison symbols (>, <, =)',
-                'Build measurement and comparison skills'
-              ]}
-              parentTeacherTips={[
-                'Look at the visual bars to see which is longer',
-                'Compare the numbers: the larger number means longer length',
-                'Inches and centimeters are different units - compare within the same unit',
-                'Help students use rulers or measuring tools for hands-on practice',
-                'Extension: Practice measuring objects around the house'
-              ]}
-            >
-              <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-green-400 to-emerald-400 animate-gradient-x mb-2" />
-              {/* Worked Example */}
-              <div className="mb-6 p-4 bg-blue-50 border-2 border-blue-200 rounded-lg print:border print:bg-white">
-                <div className="font-semibold text-blue-900 mb-3 text-sm">ðŸ“š Example - Let's solve this together:</div>
-                <div className="space-y-2 text-sm">
-                  <div className="font-semibold text-base"><strong>Problem:</strong> Which is longer? A: 5 inches or B: 8 inches</div>
-                  <div className="pl-4 border-l-2 border-blue-300 space-y-1">
-                    <div><strong>Step 1:</strong> Look at the numbers: 5 and 8</div>
-                    <div><strong>Step 2:</strong> Compare: 8 is greater than 5 (8 &gt; 5)</div>
-                    <div><strong>Step 3:</strong> The longer one is B (8 inches)</div>
-                    <div className="font-semibold text-blue-900"><strong>Answer:</strong> B is longer</div>
-                    <div className="text-xs text-blue-700 mt-1">ðŸ’¡ Tip: The larger number means the longer length. You can also look at the visual bars!</div>
-                  </div>
-                </div>
-              </div>
-              <div className="space-y-4 break-inside-avoid" style={{ pageBreakAfter: 'auto' }}>
-                {[
-                  { a: 5, b: 8, unit: 'inches' },
-                  { a: 12, b: 7, unit: 'cm' },
-                  { a: 10, b: 15, unit: 'inches' }
-                ].map(({ a, b, unit }, idx) => (
-                  <div key={idx} className="border border-slate-300 rounded p-4 bg-white">
-                    <p className="text-slate-700 text-sm mb-2">Which is longer?</p>
-                    <div className="flex items-end gap-4">
-                      <div>
-                        <div className="border-4 border-blue-500 mb-2 bg-white" style={{ width: `${a * 10}px`, height: '20px' }} />
-                        <span className="text-xs">A: {a} {unit}</span>
-                      </div>
-                      <div>
-                        <div className="border-4 border-green-500 mb-2 bg-white" style={{ width: `${b * 10}px`, height: '20px' }} />
-                        <span className="text-xs">B: {b} {unit}</span>
-                      </div>
-                    </div>
-                    <p className="text-slate-900 mt-2">Answer: __</p>
-                  </div>
-                ))}
-              </div>
-              {/* Extension/Challenge Problems */}
-              <div className="mt-6 print:mt-0 p-4 bg-purple-50 border-2 border-purple-200 rounded print:bg-white print:border" style={{ pageBreakBefore: 'always', pageBreakInside: 'avoid' }}>
-                <div className="font-semibold text-purple-900 mb-3 text-sm">🌐Ÿ {getTrans('common.challengeYourself', 'Challenge Yourself (Optional):')}</div>
-                <div className="space-y-2 text-sm text-purple-800">
-                  <div>1. Measure 3 objects in your house. Which is longest? Which is shortest?</div>
-                  <div>2. Can you find something that is exactly 6 inches long?</div>
-                  <div>3. Try comparing: 20 cm vs 2 inches. (Hint: 1 inch â‰ˆ 2.5 cm)</div>
-                </div>
-              </div>
-              {/* Self-Assessment */}
-              <div className="print:block hidden print:mt-0 mt-6 p-4 border-2 border-slate-300 rounded" style={{ pageBreakBefore: 'avoid', pageBreakInside: 'avoid' }}>
-                <div className="font-semibold text-slate-800 mb-3 text-sm">📊 {getTrans('common.howDidYouDo', 'How did you do?')}</div>
-                <div className="space-y-2 text-xs">
-                  <div>â˜ I can compare lengths visually</div>
-                  <div>â˜ I can compare lengths using numbers</div>
-                  <div>â˜ I answered all 3 questions correctly</div>
-                </div>
-                <div className="mt-3 text-xs">
-                  <strong>{getTrans('common.myScore', 'My score:')}</strong> ___ / 3
-                </div>
-                <div className="mt-2 text-xs">
-                  <strong>{getTrans('common.whatWasHardest', 'What was hardest?')}</strong> _________________________
-                </div>
-              </div>
-              {showAnswersForDoc('measurement-length', () => (
-                <div className="mt-6 p-4 border-2 border-emerald-300 bg-emerald-50 rounded print:border print:bg-white print:page-break-before-always">
-                  <div className="font-bold text-emerald-900 mb-3 text-base">✅ {getTrans('common.answerKey', 'Answer Key')}</div>
-                  <ul className="list-disc list-inside space-y-2 text-sm text-emerald-800">
-                    <li><strong>5 inches vs 8 inches: B is longer</strong> (8 &gt; 5, so B is longer)</li>
-                    <li><strong>12 cm vs 7 cm: A is longer</strong> (12 &gt; 7, so A is longer)</li>
-                    <li><strong>10 inches vs 15 inches: B is longer</strong> (15 &gt; 10, so B is longer)</li>
-                  </ul>
-                  <div className="text-xs text-emerald-700 mt-3">ðŸ’¡ Remember: The larger number means the longer length. You can also look at the visual bars to see which one is longer!</div>
-                </div>
-              ))}
-            </WorksheetSectionWrapper>
-          )
-        }
-
-        {
-          activeDocs.includes('bar-graphs-data') && (
-            <WorksheetSectionWrapper
-              docId="bar-graphs-data"
-              title="Bar Graphs & Data"
-              emoji="📊"
-              description="Read the bar graph and answer the questions."
-              problemCount={3}
-              learningObjectives={[
-                'Read and interpret bar graphs',
-                'Answer questions about data in graphs',
-                'Compare values using bar heights',
-                'Build data analysis skills'
-              ]}
-              parentTeacherTips={[
-                'Look at the height of each bar to see the value',
-                'The taller the bar, the larger the value',
-                'Read the numbers on the side (y-axis) to find exact values',
-                'Compare bars by looking at their heights or reading the numbers',
-                'Extension: Create your own bar graph with data you collect'
-              ]}
-            >
-              <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-blue-400 to-indigo-400 animate-gradient-x mb-2" />
-              {/* Worked Example */}
-              <div className="mb-6 p-4 bg-blue-50 border-2 border-blue-200 rounded-lg print:border print:bg-white">
-                <div className="font-semibold text-blue-900 mb-3 text-sm">ðŸ“š Example - Let's solve this together:</div>
-                <div className="space-y-2 text-sm">
-                  <div className="font-semibold text-base"><strong>Question:</strong> Which color has the most votes?</div>
-                  <div className="pl-4 border-l-2 border-blue-300 space-y-1">
-                    <div><strong>Step 1:</strong> Look at all the bars on the graph</div>
-                    <div><strong>Step 2:</strong> Find the tallest bar (or the one with the highest number)</div>
-                    <div><strong>Step 3:</strong> Read the label for that bar</div>
-                    <div className="font-semibold text-blue-900"><strong>Answer:</strong> Yellow (it has 16 votes, which is the most)</div>
-                    <div className="text-xs text-blue-700 mt-1">ðŸ’¡ Tip: The tallest bar means the most votes. Look at the numbers on the side to find exact values!</div>
-                  </div>
-                </div>
-              </div>
-              <div className="border border-slate-300 rounded p-4 bg-white">
-                <p className="text-slate-700 text-sm mb-3 font-semibold">Favorite Colors</p>
-                <svg viewBox="0 0 500 300" className="w-full h-auto">
-                  {/* Y-axis labels */}
-                  {[0, 2, 4, 6, 8, 10, 12, 14, 16].map((num) => {
-                    const y = 280 - (num * 10);
-                    return (
-                      <g key={num}>
-                        <line x1="35" y1={y} x2="40" y2={y} stroke="#111827" strokeWidth="1" />
-                        <text x="32" y={y + 4} fontSize="12" fill="#111827" textAnchor="end">{num}</text>
-                      </g>
-                    );
-                  })}
-                  {/* Axes */}
-                  <line x1="40" y1="280" x2="360" y2="280" stroke="#111827" strokeWidth="2" />
-                  <line x1="40" y1="280" x2="40" y2="100" stroke="#111827" strokeWidth="2" />
-                  {/* Bars with vote counts */}
-                  <g fill="#ef4444">
-                    <rect x="50" y="200" width="60" height="80" />
-                    <text x="80" y="195" fontSize="14" fill="#111827" textAnchor="middle" fontWeight="bold">8</text>
-                    <text x="80" y="295" fontSize="14" fill="#111827" textAnchor="middle">Red</text>
-                  </g>
-                  <g fill="#3b82f6">
-                    <rect x="130" y="150" width="60" height="130" />
-                    <text x="160" y="145" fontSize="14" fill="#111827" textAnchor="middle" fontWeight="bold">13</text>
-                    <text x="160" y="295" fontSize="14" fill="#111827" textAnchor="middle">Blue</text>
-                  </g>
-                  <g fill="#10b981">
-                    <rect x="210" y="180" width="60" height="100" />
-                    <text x="240" y="175" fontSize="14" fill="#111827" textAnchor="middle" fontWeight="bold">10</text>
-                    <text x="240" y="295" fontSize="14" fill="#111827" textAnchor="middle">Green</text>
-                  </g>
-                  <g fill="#eab308">
-                    <rect x="290" y="120" width="60" height="160" />
-                    <text x="320" y="115" fontSize="14" fill="#111827" textAnchor="middle" fontWeight="bold">16</text>
-                    <text x="320" y="295" fontSize="14" fill="#111827" textAnchor="middle">Yellow</text>
-                  </g>
-                </svg>
-                <div className="mt-3 space-y-1 break-inside-avoid" style={{ pageBreakAfter: 'auto' }}>
-                  <p className="text-slate-700 text-sm">1. Which color is most popular? __</p>
-                  <p className="text-slate-700 text-sm">2. How many chose Red? __</p>
-                  <p className="text-slate-700 text-sm">3. How many more chose Yellow than Green? __</p>
-                </div>
-              </div>
-              {/* Extension/Challenge Problems */}
-              <div className="mt-6 print:mt-0 p-4 bg-purple-50 border-2 border-purple-200 rounded print:bg-white print:border" style={{ pageBreakBefore: 'always', pageBreakInside: 'avoid' }}>
-                <div className="font-semibold text-purple-900 mb-3 text-sm">🌐Ÿ {getTrans('common.challengeYourself', 'Challenge Yourself (Optional):')}</div>
-                <div className="space-y-2 text-sm text-purple-800">
-                  <div>1. Can you create a bar graph showing your favorite fruits? (Draw it on paper!)</div>
-                  <div>2. If 5 more people voted for Blue, how many votes would Blue have?</div>
-                  <div>3. What is the total number of votes for all colors combined?</div>
-                </div>
-              </div>
-              {/* Self-Assessment */}
-              <div className="print:block hidden print:mt-0 mt-6 p-4 border-2 border-slate-300 rounded" style={{ pageBreakBefore: 'avoid', pageBreakInside: 'avoid' }}>
-                <div className="font-semibold text-slate-800 mb-3 text-sm">📊 {getTrans('common.howDidYouDo', 'How did you do?')}</div>
-                <div className="space-y-2 text-xs">
-                  <div>â˜ I can read bar graphs</div>
-                  <div>â˜ I can answer questions about the data</div>
-                  <div>â˜ I answered all 3 questions correctly</div>
-                </div>
-                <div className="mt-3 text-xs">
-                  <strong>{getTrans('common.myScore', 'My score:')}</strong> ___ / 3
-                </div>
-                <div className="mt-2 text-xs">
-                  <strong>{getTrans('common.whatWasHardest', 'What was hardest?')}</strong> _________________________
-                </div>
-              </div>
-              {showAnswersForDoc('bar-graphs-data', () => (
-                <div className="mt-6 p-4 border-2 border-emerald-300 bg-emerald-50 rounded print:border print:bg-white print:page-break-before-always">
-                  <div className="font-bold text-emerald-900 mb-3 text-base">✅ {getTrans('common.answerKey', 'Answer Key')}</div>
-                  <ul className="list-disc list-inside space-y-2 text-sm text-emerald-800">
-                    <li><strong>1. Yellow is most popular</strong> (16 votes - it has the tallest bar)</li>
-                    <li><strong>2. Red: 8 votes</strong> (Look at the Red bar and read the number on the side)</li>
-                    <li><strong>3. Yellow has 6 more votes than Green</strong> (Yellow: 16, Green: 10, so 16 - 10 = 6)</li>
-                  </ul>
-                  <div className="mt-3 pt-3 border-t border-emerald-300 text-xs">
-                    <div className="font-semibold mb-1">All vote counts:</div>
-                    <div>Red: 8, Blue: 13, Green: 10, Yellow: 16</div>
-                  </div>
-                  <div className="text-xs text-emerald-700 mt-3">ðŸ’¡ Remember: The tallest bar has the most votes. Read the numbers on the side (y-axis) to find exact values!</div>
-                </div>
-              ))}
-            </WorksheetSectionWrapper>
-          )
-        }
 
         {/* NEW CRITICAL WORKSHEETS - Fresh and Unique, No Duplicates */}
 
@@ -14708,7 +13786,7 @@ export function PrintablesPage() {
               <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-yellow-400 to-orange-400 animate-gradient-x mb-2" />
               {/* Worked Example */}
               <div className="mb-6 p-4 bg-blue-50 border-2 border-blue-200 rounded-lg print:border print:bg-white">
-                <div className="font-semibold text-blue-900 mb-3 text-sm">ðŸ“š Example - Let's solve this together:</div>
+                <div className="font-semibold text-blue-900 mb-3 text-sm">📚 Example - Let's solve this together:</div>
                 <div className="space-y-2 text-sm">
                   <div className="font-semibold text-base"><strong>Fraction:</strong> 1/2 (one half)</div>
                   <div className="pl-4 border-l-2 border-blue-300 space-y-1">
@@ -14717,7 +13795,7 @@ export function PrintablesPage() {
                     <div><strong>Step 3:</strong> Color 1 of the 2 parts</div>
                     <div><strong>Step 4:</strong> Write "one half" in the blank</div>
                     <div className="font-semibold text-blue-900"><strong>Answer:</strong> Color 1 part, write "one half"</div>
-                    <div className="text-xs text-blue-700 mt-1">ðŸ’¡ Tip: The bottom number tells you how many equal parts the whole is divided into. The top number tells you how many parts to color!</div>
+                    <div className="text-xs text-blue-700 mt-1">💡 Tip: The bottom number tells you how many equal parts the whole is divided into. The top number tells you how many parts to color!</div>
                   </div>
                 </div>
               </div>
@@ -14773,7 +13851,7 @@ export function PrintablesPage() {
               </div>
               {/* Extension/Challenge Problems */}
               <div className="mt-6 print:mt-0 p-4 bg-purple-50 border-2 border-purple-200 rounded print:bg-white print:border" style={{ pageBreakBefore: 'always', pageBreakInside: 'avoid' }}>
-                <div className="font-semibold text-purple-900 mb-3 text-sm">🌐Ÿ {getTrans('common.challengeYourself', 'Challenge Yourself (Optional):')}</div>
+                <div className="font-semibold text-purple-900 mb-3 text-sm">🌐 {getTrans('common.challengeYourself', 'Challenge Yourself (Optional):')}</div>
                 <div className="space-y-2 text-sm text-purple-800">
                   <div>1. Can you draw your own shape and divide it into halves? Into thirds? Into fourths?</div>
                   <div>2. Which is bigger: 1/2 or 1/3? Why?</div>
@@ -14806,7 +13884,7 @@ export function PrintablesPage() {
                     <li><strong>2/4 = two fourths (or one half)</strong> (Color 2 out of 4 equal parts - same as 1/2!)</li>
                     <li><strong>3/4 = three fourths (or three quarters)</strong> (Color 3 out of 4 equal parts)</li>
                   </ul>
-                  <div className="text-xs text-emerald-700 mt-3">ðŸ’¡ Remember: The bottom number (denominator) tells you how many equal parts the whole is divided into. The top number (numerator) tells you how many parts to color!</div>
+                  <div className="text-xs text-emerald-700 mt-3">💡 Remember: The bottom number (denominator) tells you how many equal parts the whole is divided into. The top number (numerator) tells you how many parts to color!</div>
                 </div>
               ))}
             </WorksheetSectionWrapper>
@@ -14850,7 +13928,7 @@ export function PrintablesPage() {
                 <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-purple-400 to-pink-400 animate-gradient-x mb-2" />
                 {/* Worked Example */}
                 <div className="mb-6 p-4 bg-blue-50 border-2 border-blue-200 rounded-lg print:border print:bg-white">
-                  <div className="font-semibold text-blue-900 mb-3 text-sm">{getTrans(`worksheets.${docId}.example.title`, 'ðŸ“š Example - Let\'s solve this together:')}</div>
+                  <div className="font-semibold text-blue-900 mb-3 text-sm">{getTrans(`worksheets.${docId}.example.title`, '📚 Example - Let\'s solve this together:')}</div>
                   <div className="space-y-2 text-sm">
                     <div className="font-mono text-base"><strong>{getTrans(`worksheets.${docId}.example.problem`, 'Problem:')}</strong> {getTrans(`worksheets.${docId}.example.problemText`, '3 Ã— 4 = ?')}</div>
                     <div className="pl-4 border-l-2 border-blue-300 space-y-1">
@@ -14858,7 +13936,7 @@ export function PrintablesPage() {
                       <div><strong>{getTrans(`worksheets.${docId}.example.step2`, 'Step 2:')}</strong> {getTrans(`worksheets.${docId}.example.step2Text`, 'Count: 4, 8, 12 (skip count by 4s three times)')}</div>
                       <div><strong>{getTrans(`worksheets.${docId}.example.step3`, 'Step 3:')}</strong> {getTrans(`worksheets.${docId}.example.step3Text`, 'Or add: 4 + 4 + 4 = 12')}</div>
                       <div className="font-semibold text-blue-900"><strong>{getTrans(`worksheets.${docId}.example.answer`, 'Answer:')}</strong> {getTrans(`worksheets.${docId}.example.answerText`, '12')}</div>
-                      <div className="text-xs text-blue-700 mt-1">{getTrans(`worksheets.${docId}.example.tip`, 'ðŸ’¡ Tip: You can use skip counting or repeated addition!')}</div>
+                      <div className="text-xs text-blue-700 mt-1">{getTrans(`worksheets.${docId}.example.tip`, '💡 Tip: You can use skip counting or repeated addition!')}</div>
                     </div>
                   </div>
                 </div>
@@ -14873,7 +13951,7 @@ export function PrintablesPage() {
                 </div>
                 {/* Extension/Challenge Problems */}
                 <div className="mt-6 print:mt-0 p-4 bg-purple-50 border-2 border-purple-200 rounded print:bg-white print:border" style={{ pageBreakBefore: 'always', pageBreakInside: 'avoid' }}>
-                  <div className="font-semibold text-purple-900 mb-3 text-sm">{getTrans(`worksheets.${docId}.challenge.title`, '🌐Ÿ Challenge Yourself (Optional):')}</div>
+                  <div className="font-semibold text-purple-900 mb-3 text-sm">{getTrans(`worksheets.${docId}.challenge.title`, '🌐 Challenge Yourself (Optional):')}</div>
                   <div className="space-y-2 text-sm text-purple-800">
                     {(() => {
                       const challengeItems = t(`worksheets.${docId}.challenge.items`)
@@ -14962,7 +14040,7 @@ export function PrintablesPage() {
                 <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-blue-400 to-indigo-400 animate-gradient-x mb-2" />
                 {/* Worked Example */}
                 <div className="mb-6 p-4 bg-blue-50 border-2 border-blue-200 rounded-lg print:border print:bg-white">
-                  <div className="font-semibold text-blue-900 mb-3 text-sm">ðŸ“š Example - Let's solve this together:</div>
+                  <div className="font-semibold text-blue-900 mb-3 text-sm">📚 Example - Let's solve this together:</div>
                   <div className="space-y-2 text-sm">
                     <div className="font-semibold text-base"><strong>Problem:</strong> 3 Ã— 4 = ?</div>
                     <div className="pl-4 border-l-2 border-blue-300 space-y-1">
@@ -14970,7 +14048,7 @@ export function PrintablesPage() {
                       <div><strong>Step 2:</strong> Count all the boxes: 3 rows Ã— 4 columns = 12 boxes</div>
                       <div><strong>Step 3:</strong> Or count: 4, 8, 12 (count by 4s three times)</div>
                       <div className="font-semibold text-blue-900"><strong>Answer:</strong> 12</div>
-                      <div className="text-xs text-blue-700 mt-1">ðŸ’¡ Tip: The array shows 3 groups of 4, which equals 12!</div>
+                      <div className="text-xs text-blue-700 mt-1">💡 Tip: The array shows 3 groups of 4, which equals 12!</div>
                     </div>
                   </div>
                 </div>
@@ -14988,7 +14066,7 @@ export function PrintablesPage() {
                 </div>
                 {/* Extension/Challenge Problems */}
                 <div className="mt-6 print:mt-0 p-4 bg-purple-50 border-2 border-purple-200 rounded print:bg-white print:border" style={{ pageBreakBefore: 'always', pageBreakInside: 'avoid' }}>
-                  <div className="font-semibold text-purple-900 mb-3 text-sm">🌐Ÿ {getTrans('common.challengeYourself', 'Challenge Yourself (Optional):')}</div>
+                  <div className="font-semibold text-purple-900 mb-3 text-sm">🌐 {getTrans('common.challengeYourself', 'Challenge Yourself (Optional):')}</div>
                   <div className="space-y-2 text-sm text-purple-800">
                     <div>1. Draw your own array for 4 Ã— 5 on a separate piece of paper</div>
                     <div>2. Can you find an array that shows 5 Ã— 3? How many boxes does it have?</div>
@@ -15101,7 +14179,7 @@ export function PrintablesPage() {
                 <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-amber-400 to-orange-400 animate-gradient-x mb-2" />
                 {/* Worked Example */}
                 <div className="mb-6 p-4 bg-blue-50 border-2 border-blue-200 rounded-lg print:border print:bg-white">
-                  <div className="font-semibold text-blue-900 mb-3 text-sm">ðŸ“š Example - Let's solve this together:</div>
+                  <div className="font-semibold text-blue-900 mb-3 text-sm">📚 Example - Let's solve this together:</div>
                   <div className="space-y-2 text-sm">
                     <div className="font-semibold text-base"><strong>Problem:</strong> Sarah has 2 boxes. Each box has 5 pencils. How many pencils in all?</div>
                     <div className="pl-4 border-l-2 border-blue-300 space-y-1">
@@ -15109,7 +14187,7 @@ export function PrintablesPage() {
                       <div><strong>Step 2:</strong> Write the equation: 2 Ã— 5 = ?</div>
                       <div><strong>Step 3:</strong> Solve: 2 Ã— 5 = 10</div>
                       <div className="font-semibold text-blue-900"><strong>Answer:</strong> 10 pencils</div>
-                      <div className="text-xs text-blue-700 mt-1">ðŸ’¡ Tip: "Each" tells us to multiply! 2 groups of 5 = 10</div>
+                      <div className="text-xs text-blue-700 mt-1">💡 Tip: "Each" tells us to multiply! 2 groups of 5 = 10</div>
                     </div>
                   </div>
                 </div>
@@ -15135,7 +14213,7 @@ export function PrintablesPage() {
                 </div>
                 {/* Extension/Challenge Problems */}
                 <div className="mt-6 print:mt-0 p-4 bg-purple-50 border-2 border-purple-200 rounded print:bg-white print:border" style={{ pageBreakBefore: 'always', pageBreakInside: 'avoid' }}>
-                  <div className="font-semibold text-purple-900 mb-3 text-sm">🌐Ÿ {getTrans('common.challengeYourself', 'Challenge Yourself (Optional):')}</div>
+                  <div className="font-semibold text-purple-900 mb-3 text-sm">🌐 {getTrans('common.challengeYourself', 'Challenge Yourself (Optional):')}</div>
                   <div className="space-y-2 text-sm text-purple-800">
                     <div>1. Create your own multiplication word problem</div>
                     <div>2. Draw a picture or array to solve one of the problems above</div>
@@ -15203,7 +14281,7 @@ export function PrintablesPage() {
                 <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-purple-400 to-pink-400 animate-gradient-x mb-2" />
                 {/* Worked Example */}
                 <div className="mb-6 p-4 bg-blue-50 border-2 border-blue-200 rounded-lg print:border print:bg-white">
-                  <div className="font-semibold text-blue-900 mb-3 text-sm">ðŸ“š Example - Let's solve this together:</div>
+                  <div className="font-semibold text-blue-900 mb-3 text-sm">📚 Example - Let's solve this together:</div>
                   <div className="space-y-2 text-sm">
                     <div className="font-mono text-base"><strong>Problem:</strong> 7 Ã— 8 = ?</div>
                     <div className="pl-4 border-l-2 border-blue-300 space-y-1">
@@ -15211,7 +14289,7 @@ export function PrintablesPage() {
                       <div><strong>Strategy 2:</strong> Use known fact: If 7 Ã— 7 = 49, then 7 Ã— 8 = 49 + 7 = 56</div>
                       <div><strong>Strategy 3:</strong> Skip count: 8, 16, 24, 32, 40, 48, 56 (count by 8s seven times)</div>
                       <div className="font-semibold text-blue-900"><strong>Answer:</strong> 56</div>
-                      <div className="text-xs text-blue-700 mt-1">ðŸ’¡ Tip: Use the strategy that works best for you!</div>
+                      <div className="text-xs text-blue-700 mt-1">💡 Tip: Use the strategy that works best for you!</div>
                     </div>
                   </div>
                 </div>
@@ -15226,7 +14304,7 @@ export function PrintablesPage() {
                 </div>
                 {/* Extension/Challenge Problems */}
                 <div className="mt-6 print:mt-0 p-4 bg-purple-50 border-2 border-purple-200 rounded print:bg-white print:border" style={{ pageBreakBefore: 'always', pageBreakInside: 'avoid' }}>
-                  <div className="font-semibold text-purple-900 mb-3 text-sm">🌐Ÿ {getTrans('common.challengeYourself', 'Challenge Yourself (Optional):')}</div>
+                  <div className="font-semibold text-purple-900 mb-3 text-sm">🌐 {getTrans('common.challengeYourself', 'Challenge Yourself (Optional):')}</div>
                   <div className="space-y-2 text-sm text-purple-800">
                     <div>1. Solve: 12 Ã— 12 = ? (the biggest fact!)</div>
                     <div>2. Create your own multiplication problem using numbers 6-12</div>
@@ -15298,7 +14376,7 @@ export function PrintablesPage() {
                 <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-blue-400 to-indigo-400 animate-gradient-x mb-2" />
                 {/* Worked Example */}
                 <div className="mb-6 p-4 bg-blue-50 border-2 border-blue-200 rounded-lg print:border print:bg-white">
-                  <div className="font-semibold text-blue-900 mb-3 text-sm">ðŸ“š Example - Let's solve this together:</div>
+                  <div className="font-semibold text-blue-900 mb-3 text-sm">📚 Example - Let's solve this together:</div>
                   <div className="space-y-2 text-sm">
                     <div className="font-semibold text-base"><strong>Problem:</strong> 4 Ã— 5 = ?</div>
                     <div className="pl-4 border-l-2 border-blue-300 space-y-1">
@@ -15306,7 +14384,7 @@ export function PrintablesPage() {
                       <div><strong>Step 2:</strong> Count rows Ã— columns: 4 Ã— 5 = 20</div>
                       <div><strong>Step 3:</strong> Or count all boxes: 1, 2, 3... 20 boxes total</div>
                       <div className="font-semibold text-blue-900"><strong>Answer:</strong> 20</div>
-                      <div className="text-xs text-blue-700 mt-1">ðŸ’¡ Tip: Arrays show multiplication visually - rows Ã— columns = total!</div>
+                      <div className="text-xs text-blue-700 mt-1">💡 Tip: Arrays show multiplication visually - rows Ã— columns = total!</div>
                     </div>
                   </div>
                 </div>
@@ -15324,7 +14402,7 @@ export function PrintablesPage() {
                 </div>
                 {/* Extension/Challenge Problems */}
                 <div className="mt-6 print:mt-0 p-4 bg-purple-50 border-2 border-purple-200 rounded print:bg-white print:border" style={{ pageBreakBefore: 'always', pageBreakInside: 'avoid' }}>
-                  <div className="font-semibold text-purple-900 mb-3 text-sm">🌐Ÿ {getTrans('common.challengeYourself', 'Challenge Yourself (Optional):')}</div>
+                  <div className="font-semibold text-purple-900 mb-3 text-sm">🌐 {getTrans('common.challengeYourself', 'Challenge Yourself (Optional):')}</div>
                   <div className="space-y-2 text-sm text-purple-800">
                     <div>1. Draw your own array for 6 Ã— 7 on a separate piece of paper</div>
                     <div>2. Can you find an array that shows 8 Ã— 4? How many boxes does it have?</div>
@@ -15393,14 +14471,14 @@ export function PrintablesPage() {
                 <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-amber-400 to-orange-400 animate-gradient-x mb-2" />
                 {/* Worked Example */}
                 <div className="mb-6 p-4 bg-blue-50 border-2 border-blue-200 rounded-lg print:border print:bg-white">
-                  <div className="font-semibold text-blue-900 mb-3 text-sm">ðŸ“š Example - Let's solve this together:</div>
+                  <div className="font-semibold text-blue-900 mb-3 text-sm">📚 Example - Let's solve this together:</div>
                   <div className="space-y-2 text-sm">
                     <div className="font-semibold text-base"><strong>Problem:</strong> A bakery has 3 trays. Each tray has 4 rows of cookies. Each row has 6 cookies. How many cookies in all?</div>
                     <div className="pl-4 border-l-2 border-blue-300 space-y-1">
                       <div><strong>Step 1:</strong> Find cookies per tray: 4 rows Ã— 6 cookies = 24 cookies per tray</div>
                       <div><strong>Step 2:</strong> Find total cookies: 3 trays Ã— 24 cookies = 72 cookies</div>
                       <div className="font-semibold text-blue-900"><strong>Answer:</strong> 72 cookies</div>
-                      <div className="text-xs text-blue-700 mt-1">ðŸ’¡ Tip: Solve one step at a time! First find cookies per tray, then multiply by number of trays.</div>
+                      <div className="text-xs text-blue-700 mt-1">💡 Tip: Solve one step at a time! First find cookies per tray, then multiply by number of trays.</div>
                     </div>
                   </div>
                 </div>
@@ -15442,7 +14520,7 @@ export function PrintablesPage() {
                 </div>
                 {/* Extension/Challenge Problems */}
                 <div className="mt-6 print:mt-0 p-4 bg-purple-50 border-2 border-purple-200 rounded print:bg-white print:border" style={{ pageBreakBefore: 'always', pageBreakInside: 'avoid' }}>
-                  <div className="font-semibold text-purple-900 mb-3 text-sm">🌐Ÿ {getTrans('common.challengeYourself', 'Challenge Yourself (Optional):')}</div>
+                  <div className="font-semibold text-purple-900 mb-3 text-sm">🌐 {getTrans('common.challengeYourself', 'Challenge Yourself (Optional):')}</div>
                   <div className="space-y-2 text-sm text-purple-800">
                     <div>1. Create your own multi-step multiplication word problem</div>
                     <div>2. Can you solve a problem that requires 3 or more steps?</div>
@@ -15536,7 +14614,7 @@ export function PrintablesPage() {
                 <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-indigo-400 to-purple-400 animate-gradient-x mb-2" />
                 {/* Worked Example */}
                 <div className="mb-6 p-4 bg-blue-50 border-2 border-blue-200 rounded-lg print:border print:bg-white">
-                  <div className="font-semibold text-blue-900 mb-3 text-sm">ðŸ“š Example - Let's solve this together:</div>
+                  <div className="font-semibold text-blue-900 mb-3 text-sm">📚 Example - Let's solve this together:</div>
                   <div className="space-y-2 text-sm">
                     <div className="font-semibold text-base"><strong>Fact Family for 12:</strong></div>
                     <div className="pl-4 border-l-2 border-blue-300 space-y-1">
@@ -15544,7 +14622,7 @@ export function PrintablesPage() {
                       <div>â€¢ 4 Ã— 3 = 12 (multiplication - same numbers, different order)</div>
                       <div>â€¢ 12 Ã· 3 = 4 (division - using the product)</div>
                       <div>â€¢ 12 Ã· 4 = 3 (division - using the product)</div>
-                      <div className="text-xs text-blue-700 mt-1">ðŸ’¡ Tip: All four facts use the same three numbers: 3, 4, and 12!</div>
+                      <div className="text-xs text-blue-700 mt-1">💡 Tip: All four facts use the same three numbers: 3, 4, and 12!</div>
                     </div>
                   </div>
                 </div>
@@ -15566,7 +14644,7 @@ export function PrintablesPage() {
                 </div>
                 {/* Extension/Challenge Problems */}
                 <div className="mt-6 print:mt-0 p-4 bg-purple-50 border-2 border-purple-200 rounded print:bg-white print:border" style={{ pageBreakBefore: 'always', pageBreakInside: 'avoid' }}>
-                  <div className="font-semibold text-purple-900 mb-3 text-sm">🌐Ÿ {getTrans('common.challengeYourself', 'Challenge Yourself (Optional):')}</div>
+                  <div className="font-semibold text-purple-900 mb-3 text-sm">🌐 {getTrans('common.challengeYourself', 'Challenge Yourself (Optional):')}</div>
                   <div className="space-y-2 text-sm text-purple-800">
                     <div>1. Create your own fact family using numbers 5, 7, and 35</div>
                     <div>2. Write all four facts for the fact family: 6, 8, and 48</div>
@@ -15602,7 +14680,7 @@ export function PrintablesPage() {
                               <div>â€¢ {b} Ã— {a} = {product}</div>
                               <div>â€¢ {product} Ã· {a} = {b}</div>
                               <div>â€¢ {product} Ã· {b} = {a}</div>
-                              <div className="text-xs text-emerald-700 mt-1">ðŸ’¡ All four facts use the numbers {a}, {b}, and {product}</div>
+                              <div className="text-xs text-emerald-700 mt-1">💡 All four facts use the numbers {a}, {b}, and {product}</div>
                             </div>
                           </div>
                         );
@@ -15651,7 +14729,7 @@ export function PrintablesPage() {
                 <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-purple-400 to-pink-400 animate-gradient-x mb-2" />
                 {/* Worked Example */}
                 <div className="mb-6 p-4 bg-blue-50 border-2 border-blue-200 rounded-lg print:border print:bg-white">
-                  <div className="font-semibold text-blue-900 mb-3 text-sm">{getTrans(`worksheets.${docId}.example.title`, 'ðŸ“š Example - Let\'s solve this together:')}</div>
+                  <div className="font-semibold text-blue-900 mb-3 text-sm">{getTrans(`worksheets.${docId}.example.title`, '📚 Example - Let\'s solve this together:')}</div>
                   <div className="space-y-2 text-sm">
                     <div className="font-mono text-base"><strong>{getTrans(`worksheets.${docId}.example.problem`, 'Problem:')}</strong> {getTrans(`worksheets.${docId}.example.problemText`, '24 Ã— 3 = ?')}</div>
                     <div className="pl-4 border-l-2 border-blue-300 space-y-1">
@@ -15677,7 +14755,7 @@ export function PrintablesPage() {
                 </div>
                 {/* Extension/Challenge Problems */}
                 <div className="mt-6 print:mt-0 p-4 bg-purple-50 border-2 border-purple-200 rounded print:bg-white print:border" style={{ pageBreakBefore: 'always', pageBreakInside: 'avoid' }}>
-                  <div className="font-semibold text-purple-900 mb-3 text-sm">{getTrans(`worksheets.${docId}.challenge.title`, '🌐Ÿ Challenge Yourself (Optional):')}</div>
+                  <div className="font-semibold text-purple-900 mb-3 text-sm">{getTrans(`worksheets.${docId}.challenge.title`, '🌐 Challenge Yourself (Optional):')}</div>
                   <div className="space-y-2 text-sm text-purple-800">
                     {(() => {
                       const challengeItems = t(`worksheets.${docId}.challenge.items`)
@@ -15775,7 +14853,7 @@ export function PrintablesPage() {
                 <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-purple-400 to-pink-400 animate-gradient-x mb-2" />
                 {/* Worked Example */}
                 <div className="mb-6 p-4 bg-blue-50 border-2 border-blue-200 rounded-lg print:border print:bg-white">
-                  <div className="font-semibold text-blue-900 mb-3 text-sm">ðŸ“š Example - Let's solve this together:</div>
+                  <div className="font-semibold text-blue-900 mb-3 text-sm">📚 Example - Let's solve this together:</div>
                   <div className="space-y-2 text-sm">
                     <div className="font-mono text-base"><strong>Problem:</strong> 24 Ã— 3 = ?</div>
                     <div className="pl-4 border-l-2 border-blue-300 space-y-1">
@@ -15801,7 +14879,7 @@ export function PrintablesPage() {
                 </div>
                 {/* Extension/Challenge Problems */}
                 <div className="mt-6 print:mt-0 p-4 bg-purple-50 border-2 border-purple-200 rounded print:bg-white print:border" style={{ pageBreakBefore: 'always', pageBreakInside: 'avoid' }}>
-                  <div className="font-semibold text-purple-900 mb-3 text-sm">🌐Ÿ {getTrans('common.challengeYourself', 'Challenge Yourself (Optional):')}</div>
+                  <div className="font-semibold text-purple-900 mb-3 text-sm">🌐 {getTrans('common.challengeYourself', 'Challenge Yourself (Optional):')}</div>
                   <div className="space-y-2 text-sm text-purple-800">
                     <div>1. Create your own 2Ã—1 multiplication problem: ___ Ã— ___ = ?</div>
                     <div>2. Solve: 99 Ã— 9 = ? (the biggest 2Ã—1 problem!)</div>
@@ -15883,7 +14961,7 @@ export function PrintablesPage() {
                 <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-purple-400 to-pink-400 animate-gradient-x mb-2" />
                 {/* Worked Example */}
                 <div className="mb-6 p-4 bg-blue-50 border-2 border-blue-200 rounded-lg print:border print:bg-white">
-                  <div className="font-semibold text-blue-900 mb-3 text-sm">ðŸ“š Example - Let's solve this together:</div>
+                  <div className="font-semibold text-blue-900 mb-3 text-sm">📚 Example - Let's solve this together:</div>
                   <div className="space-y-2 text-sm">
                     <div className="font-mono text-base"><strong>Problem:</strong> 24 Ã— 13 = ?</div>
                     <div className="pl-4 border-l-2 border-blue-300 space-y-1">
@@ -15909,7 +14987,7 @@ export function PrintablesPage() {
                 </div>
                 {/* Extension/Challenge Problems */}
                 <div className="mt-6 print:mt-0 p-4 bg-purple-50 border-2 border-purple-200 rounded print:bg-white print:border" style={{ pageBreakBefore: 'always', pageBreakInside: 'avoid' }}>
-                  <div className="font-semibold text-purple-900 mb-3 text-sm">🌐Ÿ {getTrans('common.challengeYourself', 'Challenge Yourself (Optional):')}</div>
+                  <div className="font-semibold text-purple-900 mb-3 text-sm">🌐 {getTrans('common.challengeYourself', 'Challenge Yourself (Optional):')}</div>
                   <div className="space-y-2 text-sm text-purple-800">
                     <div>1. Create your own 2Ã—2 multiplication problem: ___ Ã— ___ = ?</div>
                     <div>2. Solve: 99 Ã— 99 = ? (the biggest 2Ã—2 problem!)</div>
@@ -15988,7 +15066,7 @@ export function PrintablesPage() {
                 <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-purple-400 to-pink-400 animate-gradient-x mb-2" />
                 {/* Worked Example */}
                 <div className="mb-6 p-4 bg-blue-50 border-2 border-blue-200 rounded-lg print:border print:bg-white">
-                  <div className="font-semibold text-blue-900 mb-3 text-sm">ðŸ“š Example - Let's solve this together:</div>
+                  <div className="font-semibold text-blue-900 mb-3 text-sm">📚 Example - Let's solve this together:</div>
                   <div className="space-y-2 text-sm">
                     <div className="font-mono text-base"><strong>Problem:</strong> 24 Ã— 13 = ?</div>
                     <div className="pl-4 border-l-2 border-blue-300 space-y-1">
@@ -16014,7 +15092,7 @@ export function PrintablesPage() {
                 </div>
                 {/* Extension/Challenge Problems */}
                 <div className="mt-6 print:mt-0 p-4 bg-purple-50 border-2 border-purple-200 rounded print:bg-white print:border" style={{ pageBreakBefore: 'always', pageBreakInside: 'avoid' }}>
-                  <div className="font-semibold text-purple-900 mb-3 text-sm">🌐Ÿ {getTrans('common.challengeYourself', 'Challenge Yourself (Optional):')}</div>
+                  <div className="font-semibold text-purple-900 mb-3 text-sm">🌐 {getTrans('common.challengeYourself', 'Challenge Yourself (Optional):')}</div>
                   <div className="space-y-2 text-sm text-purple-800">
                     <div>1. Create your own 2Ã—2 multiplication problem</div>
                     <div>2. Solve: 99 Ã— 99 = ? (the biggest 2Ã—2 problem!)</div>
@@ -16093,7 +15171,7 @@ export function PrintablesPage() {
                 <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-purple-400 to-pink-400 animate-gradient-x mb-2" />
                 {/* Worked Example */}
                 <div className="mb-6 p-4 bg-blue-50 border-2 border-blue-200 rounded-lg print:border print:bg-white">
-                  <div className="font-semibold text-blue-900 mb-3 text-sm">ðŸ“š Example - Let's solve this together:</div>
+                  <div className="font-semibold text-blue-900 mb-3 text-sm">📚 Example - Let's solve this together:</div>
                   <div className="space-y-2 text-sm">
                     <div className="font-mono text-base"><strong>Problem:</strong> 234 Ã— 12 = ?</div>
                     <div className="pl-4 border-l-2 border-blue-300 space-y-1">
@@ -16119,7 +15197,7 @@ export function PrintablesPage() {
                 </div>
                 {/* Extension/Challenge Problems */}
                 <div className="mt-6 print:mt-0 p-4 bg-purple-50 border-2 border-purple-200 rounded print:bg-white print:border" style={{ pageBreakBefore: 'always', pageBreakInside: 'avoid' }}>
-                  <div className="font-semibold text-purple-900 mb-3 text-sm">🌐Ÿ {getTrans('common.challengeYourself', 'Challenge Yourself (Optional):')}</div>
+                  <div className="font-semibold text-purple-900 mb-3 text-sm">🌐 {getTrans('common.challengeYourself', 'Challenge Yourself (Optional):')}</div>
                   <div className="space-y-2 text-sm text-purple-800">
                     <div>1. Create your own 3Ã—2 multiplication problem</div>
                     <div>2. Solve: 999 Ã— 99 = ? (the biggest 3Ã—2 problem!)</div>
@@ -16198,7 +15276,7 @@ export function PrintablesPage() {
                 <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-blue-400 to-indigo-400 animate-gradient-x mb-2" />
                 {/* Worked Example */}
                 <div className="mb-6 p-4 bg-blue-50 border-2 border-blue-200 rounded-lg print:border print:bg-white">
-                  <div className="font-semibold text-blue-900 mb-3 text-sm">ðŸ“š Example - Let's solve this together:</div>
+                  <div className="font-semibold text-blue-900 mb-3 text-sm">📚 Example - Let's solve this together:</div>
                   <div className="space-y-2 text-sm">
                     <div className="font-mono text-base"><strong>Problem:</strong> 24 Ã— 13 = ?</div>
                     <div className="pl-4 border-l-2 border-blue-300 space-y-1">
@@ -16264,7 +15342,7 @@ export function PrintablesPage() {
                 </div>
                 {/* Extension/Challenge Problems */}
                 <div className="mt-6 print:mt-0 p-4 bg-purple-50 border-2 border-purple-200 rounded print:bg-white print:border" style={{ pageBreakBefore: 'always', pageBreakInside: 'avoid' }}>
-                  <div className="font-semibold text-purple-900 mb-3 text-sm">🌐Ÿ {getTrans('common.challengeYourself', 'Challenge Yourself (Optional):')}</div>
+                  <div className="font-semibold text-purple-900 mb-3 text-sm">🌐 {getTrans('common.challengeYourself', 'Challenge Yourself (Optional):')}</div>
                   <div className="space-y-2 text-sm text-purple-800">
                     <div>1. Draw the area model for one problem on graph paper</div>
                     <div>2. Create your own area model problem</div>
@@ -16358,14 +15436,14 @@ export function PrintablesPage() {
                 <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-amber-400 to-orange-400 animate-gradient-x mb-2" />
                 {/* Worked Example */}
                 <div className="mb-6 p-4 bg-blue-50 border-2 border-blue-200 rounded-lg print:border print:bg-white">
-                  <div className="font-semibold text-blue-900 mb-3 text-sm">ðŸ“š Example - Let's solve this together:</div>
+                  <div className="font-semibold text-blue-900 mb-3 text-sm">📚 Example - Let's solve this together:</div>
                   <div className="space-y-2 text-sm">
                     <div className="font-semibold text-base"><strong>Problem:</strong> A bakery has 4 trays. Each tray has 12 cookies. If each cookie costs 2 cents, how much do all cookies cost?</div>
                     <div className="pl-4 border-l-2 border-blue-300 space-y-1">
                       <div><strong>Step 1:</strong> Find total cookies: 4 Ã— 12 = 48 cookies</div>
                       <div><strong>Step 2:</strong> Find total cost: 48 Ã— 2 = 96 cents</div>
                       <div className="font-semibold text-blue-900"><strong>Answer:</strong> 96 cents</div>
-                      <div className="text-xs text-blue-700 mt-1">ðŸ’¡ Tip: Break complex problems into smaller steps!</div>
+                      <div className="text-xs text-blue-700 mt-1">💡 Tip: Break complex problems into smaller steps!</div>
                     </div>
                   </div>
                 </div>
@@ -16381,7 +15459,7 @@ export function PrintablesPage() {
                 </ol>
                 {/* Extension/Challenge Problems */}
                 <div className="mt-6 print:mt-0 p-4 bg-purple-50 border-2 border-purple-200 rounded print:bg-white print:border" style={{ pageBreakBefore: 'always', pageBreakInside: 'avoid' }}>
-                  <div className="font-semibold text-purple-900 mb-3 text-sm">🌐Ÿ {getTrans('common.challengeYourself', 'Challenge Yourself (Optional):')}</div>
+                  <div className="font-semibold text-purple-900 mb-3 text-sm">🌐 {getTrans('common.challengeYourself', 'Challenge Yourself (Optional):')}</div>
                   <div className="space-y-2 text-sm text-purple-800">
                     <div>1. Write your own multi-step word problem</div>
                     <div>2. Solve it step by step</div>
@@ -16455,14 +15533,14 @@ export function PrintablesPage() {
                 <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-purple-400 to-pink-400 animate-gradient-x mb-2" />
                 {/* Worked Example */}
                 <div className="mb-6 p-4 bg-blue-50 border-2 border-blue-200 rounded-lg print:border print:bg-white">
-                  <div className="font-semibold text-blue-900 mb-3 text-sm">ðŸ“š Example - Building Fluency:</div>
+                  <div className="font-semibold text-blue-900 mb-3 text-sm">📚 Example - Building Fluency:</div>
                   <div className="space-y-2 text-sm">
                     <div className="font-mono text-base"><strong>Problem:</strong> 6 Ã— 7 = ?</div>
                     <div className="pl-4 border-l-2 border-blue-300 space-y-1">
                       <div><strong>Quick recall:</strong> 6 Ã— 7 = 42 (know it instantly!)</div>
                       <div><strong>If you need to think:</strong> 6 Ã— 7 = 7 Ã— 6 = 42</div>
                       <div className="font-semibold text-blue-900"><strong>Answer:</strong> 42</div>
-                      <div className="text-xs text-blue-700 mt-1">ðŸ’¡ Tip: Practice until you can answer instantly without thinking!</div>
+                      <div className="text-xs text-blue-700 mt-1">💡 Tip: Practice until you can answer instantly without thinking!</div>
                     </div>
                   </div>
                 </div>
@@ -16478,7 +15556,7 @@ export function PrintablesPage() {
                 </div>
                 {/* Extension/Challenge Problems */}
                 <div className="mt-6 print:mt-0 p-4 bg-purple-50 border-2 border-purple-200 rounded print:bg-white print:border" style={{ pageBreakBefore: 'always', pageBreakInside: 'avoid' }}>
-                  <div className="font-semibold text-purple-900 mb-3 text-sm">🌐Ÿ {getTrans('common.challengeYourself', 'Challenge Yourself (Optional):')}</div>
+                  <div className="font-semibold text-purple-900 mb-3 text-sm">🌐 {getTrans('common.challengeYourself', 'Challenge Yourself (Optional):')}</div>
                   <div className="space-y-2 text-sm text-purple-800">
                     <div>1. Time yourself: Can you complete all {facts.length} problems in under 2 minutes?</div>
                     <div>2. Try again tomorrow and see if you're faster</div>
@@ -16514,7 +15592,7 @@ export function PrintablesPage() {
                       ))}
                     </div>
                     <div className="mt-4 p-3 bg-emerald-100 rounded text-xs text-emerald-900">
-                      <strong>ðŸ’¡ Study Tip:</strong> Great job building fluency! Keep practicing daily to achieve automaticity (knowing facts instantly)!
+                      <strong>💡 Study Tip:</strong> Great job building fluency! Keep practicing daily to achieve automaticity (knowing facts instantly)!
                     </div>
                   </div>
                 ))}
@@ -16552,14 +15630,14 @@ export function PrintablesPage() {
                 <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-purple-400 to-pink-400 animate-gradient-x mb-2" />
                 {/* Worked Example */}
                 <div className="mb-6 p-4 bg-blue-50 border-2 border-blue-200 rounded-lg print:border print:bg-white">
-                  <div className="font-semibold text-blue-900 mb-3 text-sm">ðŸ“š Example - Mixed Review:</div>
+                  <div className="font-semibold text-blue-900 mb-3 text-sm">📚 Example - Mixed Review:</div>
                   <div className="space-y-2 text-sm">
                     <div className="font-mono text-base"><strong>Problem:</strong> 9 Ã— 8 = ?</div>
                     <div className="pl-4 border-l-2 border-blue-300 space-y-1">
                       <div><strong>Method 1:</strong> 9 Ã— 8 = 8 Ã— 9 = 72</div>
                       <div><strong>Method 2:</strong> 9 Ã— 8 = (10 Ã— 8) - (1 Ã— 8) = 80 - 8 = 72</div>
                       <div className="font-semibold text-blue-900"><strong>Answer:</strong> 72</div>
-                      <div className="text-xs text-blue-700 mt-1">ðŸ’¡ Tip: In mixed review, use whatever strategy works fastest for you!</div>
+                      <div className="text-xs text-blue-700 mt-1">💡 Tip: In mixed review, use whatever strategy works fastest for you!</div>
                     </div>
                   </div>
                 </div>
@@ -16572,7 +15650,7 @@ export function PrintablesPage() {
                 </div>
                 {/* Extension/Challenge Problems */}
                 <div className="mt-6 print:mt-0 p-4 bg-purple-50 border-2 border-purple-200 rounded print:bg-white print:border" style={{ pageBreakBefore: 'always', pageBreakInside: 'avoid' }}>
-                  <div className="font-semibold text-purple-900 mb-3 text-sm">🌐Ÿ {getTrans('common.challengeYourself', 'Challenge Yourself (Optional):')}</div>
+                  <div className="font-semibold text-purple-900 mb-3 text-sm">🌐 {getTrans('common.challengeYourself', 'Challenge Yourself (Optional):')}</div>
                   <div className="space-y-2 text-sm text-purple-800">
                     <div>1. Time yourself: Can you complete all {facts.length} problems in under 2 minutes?</div>
                     <div>2. Circle the problems you found hardest</div>
@@ -16608,7 +15686,7 @@ export function PrintablesPage() {
                       ))}
                     </div>
                     <div className="mt-4 p-3 bg-emerald-100 rounded text-xs text-emerald-900">
-                      <strong>ðŸ’¡ Study Tip:</strong> Excellent work on mixed review! This tests true mastery. Keep practicing the facts you found hardest!
+                      <strong>💡 Study Tip:</strong> Excellent work on mixed review! This tests true mastery. Keep practicing the facts you found hardest!
                     </div>
                   </div>
                 ))}
@@ -16622,7 +15700,7 @@ export function PrintablesPage() {
             <WorksheetSectionWrapper
               docId="mult-strategies"
               title="Multiplication Strategies"
-              emoji="ðŸŽ¯"
+              emoji="🎯"
               description="Use different strategies to solve each problem. Try skip counting, arrays, or repeated addition. Write your answer in the blank space provided."
               problemCount={5}
               learningObjectives={[
@@ -16643,7 +15721,7 @@ export function PrintablesPage() {
               <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-green-400 to-teal-400 animate-gradient-x mb-2" />
               {/* Worked Example */}
               <div className="mb-6 p-4 bg-blue-50 border-2 border-blue-200 rounded-lg print:border print:bg-white">
-                <div className="font-semibold text-blue-900 mb-3 text-sm">ðŸ“š Example - Let's solve this together:</div>
+                <div className="font-semibold text-blue-900 mb-3 text-sm">📚 Example - Let's solve this together:</div>
                 <div className="space-y-2 text-sm">
                   <div className="font-semibold text-base"><strong>Problem:</strong> 3 Ã— 4 using an array</div>
                   <div className="pl-4 border-l-2 border-blue-300 space-y-1">
@@ -16651,7 +15729,7 @@ export function PrintablesPage() {
                     <div><strong>Step 1:</strong> Draw 3 rows with 4 items in each row</div>
                     <div><strong>Step 2:</strong> Count all items: 3 Ã— 4 = 12</div>
                     <div className="font-semibold text-blue-900"><strong>Answer:</strong> 12</div>
-                    <div className="text-xs text-blue-700 mt-1">ðŸ’¡ Tip: Arrays help you see multiplication visually!</div>
+                    <div className="text-xs text-blue-700 mt-1">💡 Tip: Arrays help you see multiplication visually!</div>
                   </div>
                 </div>
               </div>
@@ -16740,7 +15818,7 @@ export function PrintablesPage() {
               </div>
               {/* Extension/Challenge Problems */}
               <div className="mt-6 print:mt-0 p-4 bg-purple-50 border-2 border-purple-200 rounded print:bg-white print:border" style={{ pageBreakBefore: 'always', pageBreakInside: 'avoid' }}>
-                <div className="font-semibold text-purple-900 mb-3 text-sm">🌐Ÿ {getTrans('common.challengeYourself', 'Challenge Yourself (Optional):')}</div>
+                <div className="font-semibold text-purple-900 mb-3 text-sm">🌐 {getTrans('common.challengeYourself', 'Challenge Yourself (Optional):')}</div>
                 <div className="space-y-2 text-sm text-purple-800">
                   <div>1. Solve 8 Ã— 7 using two different strategies</div>
                   <div>2. Create your own multiplication problem and solve it using an array</div>
@@ -16805,7 +15883,7 @@ export function PrintablesPage() {
               <WorksheetSectionWrapper
                 docId="mult-patterns"
                 title="Multiplication Patterns"
-                emoji="ðŸ“ˆ"
+                emoji="📈"
                 description="Identify and extend the multiplication patterns. What do you notice?"
                 problemCount={patterns.length}
                 learningObjectives={[
@@ -16823,7 +15901,7 @@ export function PrintablesPage() {
                 <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-indigo-400 to-purple-400 animate-gradient-x mb-2" />
                 {/* Worked Example */}
                 <div className="mb-6 p-4 bg-blue-50 border-2 border-blue-200 rounded-lg print:border print:bg-white">
-                  <div className="font-semibold text-blue-900 mb-3 text-sm">ðŸ“š Example - Let's solve this together:</div>
+                  <div className="font-semibold text-blue-900 mb-3 text-sm">📚 Example - Let's solve this together:</div>
                   <div className="space-y-2 text-sm">
                     <div className="font-semibold text-base"><strong>Pattern:</strong> 4 Ã— 1 = 4, 4 Ã— 2 = 8, 4 Ã— 3 = 12, 4 Ã— 4 = ?, 4 Ã— 5 = ?</div>
                     <div className="pl-4 border-l-2 border-blue-300 space-y-1">
@@ -16831,7 +15909,7 @@ export function PrintablesPage() {
                       <div><strong>Step 2:</strong> Look at the answers: 4, 8, 12... they increase by 4 each time!</div>
                       <div><strong>Step 3:</strong> Continue the pattern: 4 Ã— 4 = 16, 4 Ã— 5 = 20</div>
                       <div className="font-semibold text-blue-900"><strong>Pattern:</strong> Add 4 each time</div>
-                      <div className="text-xs text-blue-700 mt-1">ðŸ’¡ Tip: When multiplying by the same number, the answers increase by that number!</div>
+                      <div className="text-xs text-blue-700 mt-1">💡 Tip: When multiplying by the same number, the answers increase by that number!</div>
                     </div>
                   </div>
                 </div>
@@ -16863,7 +15941,7 @@ export function PrintablesPage() {
                 </div>
                 {/* Extension/Challenge Problems */}
                 <div className="mt-6 print:mt-0 p-4 bg-purple-50 border-2 border-purple-200 rounded print:bg-white print:border" style={{ pageBreakBefore: 'always', pageBreakInside: 'avoid' }}>
-                  <div className="font-semibold text-purple-900 mb-3 text-sm">🌐Ÿ {getTrans('common.challengeYourself', 'Challenge Yourself (Optional):')}</div>
+                  <div className="font-semibold text-purple-900 mb-3 text-sm">🌐 {getTrans('common.challengeYourself', 'Challenge Yourself (Optional):')}</div>
                   <div className="space-y-2 text-sm text-purple-800">
                     <div>1. Create your own multiplication pattern starting with 6 Ã— 1, 6 Ã— 2, 6 Ã— 3...</div>
                     <div>2. What pattern do you see when multiplying by 9? (9 Ã— 1, 9 Ã— 2, 9 Ã— 3...)</div>
@@ -16902,7 +15980,7 @@ export function PrintablesPage() {
                             <div className="text-xs text-emerald-800 space-y-1 pl-4">
                               <div>Missing answers: {p.missing.map(item => `${item.eq} = ${item.ans}`).join(', ')}</div>
                               <div><strong>Pattern:</strong> {p.pattern}</div>
-                              <div className="text-xs text-emerald-700 mt-1">ðŸ’¡ Notice how the answers follow a consistent rule!</div>
+                              <div className="text-xs text-emerald-700 mt-1">💡 Notice how the answers follow a consistent rule!</div>
                             </div>
                           </div>
                         ))}
@@ -16956,7 +16034,7 @@ export function PrintablesPage() {
                 <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-blue-400 to-cyan-400 animate-gradient-x mb-2" />
                 {/* Worked Example */}
                 <div className="mb-6 p-4 bg-blue-50 border-2 border-blue-200 rounded-lg print:border print:bg-white">
-                  <div className="font-semibold text-blue-900 mb-3 text-sm">{getTrans(`worksheets.${docId}.example.title`, 'ðŸ“š Example - Let\'s solve this together:')}</div>
+                  <div className="font-semibold text-blue-900 mb-3 text-sm">{getTrans(`worksheets.${docId}.example.title`, '📚 Example - Let\'s solve this together:')}</div>
                   <div className="space-y-2 text-sm">
                     <div className="font-mono text-base"><strong>{getTrans(`worksheets.${docId}.example.problem`, 'Problem:')}</strong> {getTrans(`worksheets.${docId}.example.problemText`, '3 Ã— 4 = ?')}</div>
                     <div className="pl-4 border-l-2 border-blue-300 space-y-1">
@@ -16964,7 +16042,7 @@ export function PrintablesPage() {
                       <div><strong>{getTrans(`worksheets.${docId}.example.method2`, 'Method 2 (Repeated Addition):')}</strong> {getTrans(`worksheets.${docId}.example.method2Text`, '3 + 3 + 3 + 3 = 12')}</div>
                       <div><strong>{getTrans(`worksheets.${docId}.example.method3`, 'Method 3 (Visual):')}</strong> {getTrans(`worksheets.${docId}.example.method3Text`, '3 groups of 4 objects = 12 objects')}</div>
                       <div className="font-semibold text-blue-900"><strong>{getTrans(`worksheets.${docId}.example.answer`, 'Answer:')}</strong> {getTrans(`worksheets.${docId}.example.answerText`, '12')}</div>
-                      <div className="text-xs text-blue-700 mt-1">{getTrans(`worksheets.${docId}.example.tip`, 'ðŸ’¡ Tip: You can also think of it as 4 Ã— 3 = 12 (order doesn\'t matter!)')}</div>
+                      <div className="text-xs text-blue-700 mt-1">{getTrans(`worksheets.${docId}.example.tip`, '💡 Tip: You can also think of it as 4 Ã— 3 = 12 (order doesn\'t matter!)')}</div>
                     </div>
                   </div>
                 </div>
@@ -16979,7 +16057,7 @@ export function PrintablesPage() {
                 </div>
                 {/* Extension/Challenge Problems - Start of page 2 content */}
                 <div className="mt-6 print:mt-0 p-4 bg-purple-50 border-2 border-purple-200 rounded print:bg-white print:border" style={{ pageBreakBefore: 'always', pageBreakInside: 'avoid' }}>
-                  <div className="font-semibold text-purple-900 mb-3 text-sm">{getTrans(`worksheets.${docId}.challenge.title`, '🌐Ÿ Challenge Yourself (Optional):')}</div>
+                  <div className="font-semibold text-purple-900 mb-3 text-sm">{getTrans(`worksheets.${docId}.challenge.title`, '🌐 Challenge Yourself (Optional):')}</div>
                   <div className="space-y-2 text-sm text-purple-800">
                     {(() => {
                       const items = t(`worksheets.${docId}.challenge.items`)
@@ -17038,7 +16116,7 @@ export function PrintablesPage() {
                       ))}
                     </div>
                     <div className="mt-4 p-3 bg-emerald-100 rounded text-xs text-emerald-900">
-                      <strong>{getTrans(`worksheets.${docId}.answerKey.studyTip`, 'ðŸ’¡ Study Tip:')}</strong> {getTrans(`worksheets.${docId}.answerKey.studyTipText`, 'Practice saying these facts out loud daily. Try to answer faster each time!')}
+                      <strong>{getTrans(`worksheets.${docId}.answerKey.studyTip`, '💡 Study Tip:')}</strong> {getTrans(`worksheets.${docId}.answerKey.studyTipText`, 'Practice saying these facts out loud daily. Try to answer faster each time!')}
                     </div>
                   </div>
                 ))}
@@ -17076,7 +16154,7 @@ export function PrintablesPage() {
                 <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-purple-400 to-pink-400 animate-gradient-x mb-2" />
                 {/* Worked Example */}
                 <div className="mb-6 p-4 bg-blue-50 border-2 border-blue-200 rounded-lg print:border print:bg-white">
-                  <div className="font-semibold text-blue-900 mb-3 text-sm">ðŸ“š Example - Let's solve this together:</div>
+                  <div className="font-semibold text-blue-900 mb-3 text-sm">📚 Example - Let's solve this together:</div>
                   <div className="space-y-2 text-sm">
                     <div className="font-mono text-base"><strong>Problem:</strong> 7 Ã— 8 = ?</div>
                     <div className="pl-4 border-l-2 border-blue-300 space-y-1">
@@ -17084,7 +16162,7 @@ export function PrintablesPage() {
                       <div><strong>Method 2 (Use known facts):</strong> 7 Ã— 8 = 8 Ã— 7 = 56</div>
                       <div><strong>Method 3 (Skip counting):</strong> Count by 7s eight times: 7, 14, 21, 28, 35, 42, 49, 56</div>
                       <div className="font-semibold text-blue-900"><strong>Answer:</strong> 56</div>
-                      <div className="text-xs text-blue-700 mt-1">ðŸ’¡ Tip: Use facts you know (like 7Ã—7=49) and add one more 7!</div>
+                      <div className="text-xs text-blue-700 mt-1">💡 Tip: Use facts you know (like 7Ã—7=49) and add one more 7!</div>
                     </div>
                   </div>
                 </div>
@@ -17099,7 +16177,7 @@ export function PrintablesPage() {
                 </div>
                 {/* Extension/Challenge Problems */}
                 <div className="mt-6 print:mt-0 p-4 bg-purple-50 border-2 border-purple-200 rounded print:bg-white print:border" style={{ pageBreakBefore: 'always', pageBreakInside: 'avoid' }}>
-                  <div className="font-semibold text-purple-900 mb-3 text-sm">🌐Ÿ {getTrans('common.challengeYourself', 'Challenge Yourself (Optional):')}</div>
+                  <div className="font-semibold text-purple-900 mb-3 text-sm">🌐 {getTrans('common.challengeYourself', 'Challenge Yourself (Optional):')}</div>
                   <div className="space-y-2 text-sm text-purple-800">
                     <div>1. Create your own multiplication problem: ___ Ã— ___ = ?</div>
                     <div>2. Solve: 12 Ã— 12 = ? (the biggest fact!)</div>
@@ -17136,7 +16214,7 @@ export function PrintablesPage() {
                       ))}
                     </div>
                     <div className="mt-4 p-3 bg-emerald-100 rounded text-xs text-emerald-900">
-                      <strong>ðŸ’¡ Study Tip:</strong> Practice these facts daily. Use tricks like 9Ã—8 = 9Ã—10 - 9Ã—2 = 90 - 18 = 72!
+                      <strong>💡 Study Tip:</strong> Practice these facts daily. Use tricks like 9Ã—8 = 9Ã—10 - 9Ã—2 = 90 - 18 = 72!
                     </div>
                   </div>
                 ))}
@@ -17174,7 +16252,7 @@ export function PrintablesPage() {
                 <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-indigo-400 to-purple-400 animate-gradient-x mb-2" />
                 {/* Worked Example */}
                 <div className="mb-6 p-4 bg-blue-50 border-2 border-blue-200 rounded-lg print:border print:bg-white">
-                  <div className="font-semibold text-blue-900 mb-3 text-sm">ðŸ“š Example - Let's solve this together:</div>
+                  <div className="font-semibold text-blue-900 mb-3 text-sm">📚 Example - Let's solve this together:</div>
                   <div className="space-y-2 text-sm">
                     <div className="font-mono text-base"><strong>Problem:</strong> 9 Ã— 7 = ?</div>
                     <div className="pl-4 border-l-2 border-blue-300 space-y-1">
@@ -17182,7 +16260,7 @@ export function PrintablesPage() {
                       <div><strong>Method 2 (Use known facts):</strong> 9 Ã— 7 = 7 Ã— 9 = 63</div>
                       <div><strong>Method 3 (Skip counting):</strong> Count by 9s seven times: 9, 18, 27, 36, 45, 54, 63</div>
                       <div className="font-semibold text-blue-900"><strong>Answer:</strong> 63</div>
-                      <div className="text-xs text-blue-700 mt-1">ðŸ’¡ Tip: For 9s, multiply by 10 and subtract the number!</div>
+                      <div className="text-xs text-blue-700 mt-1">💡 Tip: For 9s, multiply by 10 and subtract the number!</div>
                     </div>
                   </div>
                 </div>
@@ -17197,7 +16275,7 @@ export function PrintablesPage() {
                 </div>
                 {/* Extension/Challenge Problems */}
                 <div className="mt-6 print:mt-0 p-4 bg-purple-50 border-2 border-purple-200 rounded print:bg-white print:border" style={{ pageBreakBefore: 'always', pageBreakInside: 'avoid' }}>
-                  <div className="font-semibold text-purple-900 mb-3 text-sm">🌐Ÿ {getTrans('common.challengeYourself', 'Challenge Yourself (Optional):')}</div>
+                  <div className="font-semibold text-purple-900 mb-3 text-sm">🌐 {getTrans('common.challengeYourself', 'Challenge Yourself (Optional):')}</div>
                   <div className="space-y-2 text-sm text-purple-800">
                     <div>1. Create your own multiplication problem: ___ Ã— ___ = ?</div>
                     <div>2. Solve: 12 Ã— 12 = ? (the biggest fact!)</div>
@@ -17234,7 +16312,7 @@ export function PrintablesPage() {
                       ))}
                     </div>
                     <div className="mt-4 p-3 bg-emerald-100 rounded text-xs text-emerald-900">
-                      <strong>ðŸ’¡ Study Tip:</strong> You're mastering all times tables! Keep practicing daily to build speed and confidence!
+                      <strong>💡 Study Tip:</strong> You're mastering all times tables! Keep practicing daily to build speed and confidence!
                     </div>
                   </div>
                 ))}
@@ -17272,7 +16350,7 @@ export function PrintablesPage() {
                 <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-green-400 to-emerald-400 animate-gradient-x mb-2" />
                 {/* Worked Example */}
                 <div className="mb-6 p-4 bg-blue-50 border-2 border-blue-200 rounded-lg print:border print:bg-white">
-                  <div className="font-semibold text-blue-900 mb-3 text-sm">ðŸ“š Example - Let's solve this together:</div>
+                  <div className="font-semibold text-blue-900 mb-3 text-sm">📚 Example - Let's solve this together:</div>
                   <div className="space-y-2 text-sm">
                     <div className="font-mono text-base mb-2">
                       <div className="text-right">4</div>
@@ -17307,7 +16385,7 @@ export function PrintablesPage() {
                 </div>
                 {/* Extension/Challenge Problems */}
                 <div className="mt-6 print:mt-0 p-4 bg-purple-50 border-2 border-purple-200 rounded print:bg-white print:border" style={{ pageBreakBefore: 'always', pageBreakInside: 'avoid' }}>
-                  <div className="font-semibold text-purple-900 mb-3 text-sm">🌐Ÿ {getTrans('common.challengeYourself', 'Challenge Yourself (Optional):')}</div>
+                  <div className="font-semibold text-purple-900 mb-3 text-sm">🌐 {getTrans('common.challengeYourself', 'Challenge Yourself (Optional):')}</div>
                   <div className="space-y-2 text-sm text-purple-800">
                     <div>1. Create your own vertical multiplication problem</div>
                     <div>2. Solve: 5 Ã— 5 = ? (the biggest fact in this worksheet!)</div>
@@ -17340,7 +16418,7 @@ export function PrintablesPage() {
                       ))}
                     </div>
                     <div className="mt-4 p-3 bg-emerald-100 rounded text-xs text-emerald-900">
-                      <strong>ðŸ’¡ Study Tip:</strong> Great job practicing vertical format! Keep practicing to build speed and accuracy!
+                      <strong>💡 Study Tip:</strong> Great job practicing vertical format! Keep practicing to build speed and accuracy!
                     </div>
                   </div>
                 ))}
@@ -17378,7 +16456,7 @@ export function PrintablesPage() {
                 <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-purple-400 to-pink-400 animate-gradient-x mb-2" />
                 {/* Worked Example */}
                 <div className="mb-6 p-4 bg-blue-50 border-2 border-blue-200 rounded-lg print:border print:bg-white">
-                  <div className="font-semibold text-blue-900 mb-3 text-sm">ðŸ“š Example - Let's solve this together:</div>
+                  <div className="font-semibold text-blue-900 mb-3 text-sm">📚 Example - Let's solve this together:</div>
                   <div className="space-y-2 text-sm">
                     <div className="font-mono text-base mb-2">
                       <div className="text-right">8</div>
@@ -17410,7 +16488,7 @@ export function PrintablesPage() {
                 </div>
                 {/* Extension/Challenge Problems */}
                 <div className="mt-6 print:mt-0 p-4 bg-purple-50 border-2 border-purple-200 rounded print:bg-white print:border" style={{ pageBreakBefore: 'always', pageBreakInside: 'avoid' }}>
-                  <div className="font-semibold text-purple-900 mb-3 text-sm">🌐Ÿ {getTrans('common.challengeYourself', 'Challenge Yourself (Optional):')}</div>
+                  <div className="font-semibold text-purple-900 mb-3 text-sm">🌐 {getTrans('common.challengeYourself', 'Challenge Yourself (Optional):')}</div>
                   <div className="space-y-2 text-sm text-purple-800">
                     <div>1. Create your own vertical multiplication problem with numbers 6-12</div>
                     <div>2. Solve: 12 Ã— 12 = ? (the biggest fact!)</div>
@@ -17443,7 +16521,7 @@ export function PrintablesPage() {
                       ))}
                     </div>
                     <div className="mt-4 p-3 bg-emerald-100 rounded text-xs text-emerald-900">
-                      <strong>ðŸ’¡ Study Tip:</strong> Great job practicing advanced facts! Keep practicing to build speed and confidence!
+                      <strong>💡 Study Tip:</strong> Great job practicing advanced facts! Keep practicing to build speed and confidence!
                     </div>
                   </div>
                 ))}
@@ -17481,7 +16559,7 @@ export function PrintablesPage() {
                 <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-indigo-400 to-purple-400 animate-gradient-x mb-2" />
                 {/* Worked Example */}
                 <div className="mb-6 p-4 bg-blue-50 border-2 border-blue-200 rounded-lg print:border print:bg-white">
-                  <div className="font-semibold text-blue-900 mb-3 text-sm">ðŸ“š Example - Let's solve this together:</div>
+                  <div className="font-semibold text-blue-900 mb-3 text-sm">📚 Example - Let's solve this together:</div>
                   <div className="space-y-2 text-sm">
                     <div className="font-mono text-base mb-2">
                       <div className="text-right">9</div>
@@ -17495,7 +16573,7 @@ export function PrintablesPage() {
                       <div><strong>9s Trick:</strong> 9 Ã— 8 = (10 Ã— 8) - 8 = 80 - 8 = 72</div>
                       <div><strong>Alternative:</strong> 9 Ã— 8 = 8 Ã— 9 = 72</div>
                       <div className="font-semibold text-blue-900"><strong>Answer:</strong> 72</div>
-                      <div className="text-xs text-blue-700 mt-1">ðŸ’¡ Tip: For 9s, multiply by 10 and subtract the number!</div>
+                      <div className="text-xs text-blue-700 mt-1">💡 Tip: For 9s, multiply by 10 and subtract the number!</div>
                     </div>
                   </div>
                 </div>
@@ -17514,7 +16592,7 @@ export function PrintablesPage() {
                 </div>
                 {/* Extension/Challenge Problems */}
                 <div className="mt-6 print:mt-0 p-4 bg-purple-50 border-2 border-purple-200 rounded print:bg-white print:border" style={{ pageBreakBefore: 'always', pageBreakInside: 'avoid' }}>
-                  <div className="font-semibold text-purple-900 mb-3 text-sm">🌐Ÿ {getTrans('common.challengeYourself', 'Challenge Yourself (Optional):')}</div>
+                  <div className="font-semibold text-purple-900 mb-3 text-sm">🌐 {getTrans('common.challengeYourself', 'Challenge Yourself (Optional):')}</div>
                   <div className="space-y-2 text-sm text-purple-800">
                     <div>1. Create your own vertical multiplication problem</div>
                     <div>2. Solve: 12 Ã— 12 = ? (the biggest fact!)</div>
@@ -17551,7 +16629,7 @@ export function PrintablesPage() {
                       ))}
                     </div>
                     <div className="mt-4 p-3 bg-emerald-100 rounded text-xs text-emerald-900">
-                      <strong>ðŸ’¡ Study Tip:</strong> You're mastering all times tables! Keep practicing daily to build speed and confidence!
+                      <strong>💡 Study Tip:</strong> You're mastering all times tables! Keep practicing daily to build speed and confidence!
                     </div>
                   </div>
                 ))}
@@ -17595,14 +16673,14 @@ export function PrintablesPage() {
                 <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-amber-400 to-orange-400 animate-gradient-x mb-2" />
                 {/* Worked Example */}
                 <div className="mb-6 p-4 bg-blue-50 border-2 border-blue-200 rounded-lg print:border print:bg-white">
-                  <div className="font-semibold text-blue-900 mb-3 text-sm">ðŸ“š Example - Let's solve this together:</div>
+                  <div className="font-semibold text-blue-900 mb-3 text-sm">📚 Example - Let's solve this together:</div>
                   <div className="space-y-2 text-sm">
                     <div className="font-mono text-base"><strong>Problem:</strong> 3 Ã— ___ = 12</div>
                     <div className="pl-4 border-l-2 border-blue-300 space-y-1">
                       <div><strong>Step 1:</strong> Ask: "What times 3 equals 12?"</div>
                       <div><strong>Step 2:</strong> Think: 3 Ã— 4 = 12</div>
                       <div className="font-semibold text-blue-900"><strong>Answer:</strong> 4</div>
-                      <div className="text-xs text-blue-700 mt-1">ðŸ’¡ Tip: Use division! 12 Ã· 3 = 4</div>
+                      <div className="text-xs text-blue-700 mt-1">💡 Tip: Use division! 12 Ã· 3 = 4</div>
                     </div>
                   </div>
                 </div>
@@ -17617,7 +16695,7 @@ export function PrintablesPage() {
                 </div>
                 {/* Extension/Challenge Problems */}
                 <div className="mt-6 print:mt-0 p-4 bg-purple-50 border-2 border-purple-200 rounded print:bg-white print:border" style={{ pageBreakBefore: 'always', pageBreakInside: 'avoid' }}>
-                  <div className="font-semibold text-purple-900 mb-3 text-sm">🌐Ÿ {getTrans('common.challengeYourself', 'Challenge Yourself (Optional):')}</div>
+                  <div className="font-semibold text-purple-900 mb-3 text-sm">🌐 {getTrans('common.challengeYourself', 'Challenge Yourself (Optional):')}</div>
                   <div className="space-y-2 text-sm text-purple-800">
                     <div>1. Create your own missing number problem</div>
                     <div>2. Solve: ___ Ã— 5 = 25</div>
@@ -17672,7 +16750,7 @@ export function PrintablesPage() {
                         })}
                       </div>
                       <div className="mt-4 p-3 bg-emerald-100 rounded text-xs text-emerald-900">
-                        <strong>ðŸ’¡ Study Tip:</strong> Missing number problems help you understand multiplication and division are related!
+                        <strong>💡 Study Tip:</strong> Missing number problems help you understand multiplication and division are related!
                       </div>
                     </div>
                   );
@@ -17717,7 +16795,7 @@ export function PrintablesPage() {
                 <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-purple-400 to-pink-400 animate-gradient-x mb-2" />
                 {/* Worked Example */}
                 <div className="mb-6 p-4 bg-blue-50 border-2 border-blue-200 rounded-lg print:border print:bg-white">
-                  <div className="font-semibold text-blue-900 mb-3 text-sm">ðŸ“š Example - Let's solve this together:</div>
+                  <div className="font-semibold text-blue-900 mb-3 text-sm">📚 Example - Let's solve this together:</div>
                   <div className="space-y-2 text-sm">
                     <div className="font-mono text-base"><strong>Problem:</strong> 8 Ã— ___ = 56</div>
                     <div className="pl-4 border-l-2 border-blue-300 space-y-1">
@@ -17725,7 +16803,7 @@ export function PrintablesPage() {
                       <div><strong>Step 2:</strong> Use division: 56 Ã· 8 = 7</div>
                       <div><strong>Step 3:</strong> Check: 8 Ã— 7 = 56 âœ“</div>
                       <div className="font-semibold text-blue-900"><strong>Answer:</strong> 7</div>
-                      <div className="text-xs text-blue-700 mt-1">ðŸ’¡ Tip: Use division to find missing factors!</div>
+                      <div className="text-xs text-blue-700 mt-1">💡 Tip: Use division to find missing factors!</div>
                     </div>
                   </div>
                 </div>
@@ -17740,7 +16818,7 @@ export function PrintablesPage() {
                 </div>
                 {/* Extension/Challenge Problems */}
                 <div className="mt-6 print:mt-0 p-4 bg-purple-50 border-2 border-purple-200 rounded print:bg-white print:border" style={{ pageBreakBefore: 'always', pageBreakInside: 'avoid' }}>
-                  <div className="font-semibold text-purple-900 mb-3 text-sm">🌐Ÿ {getTrans('common.challengeYourself', 'Challenge Yourself (Optional):')}</div>
+                  <div className="font-semibold text-purple-900 mb-3 text-sm">🌐 {getTrans('common.challengeYourself', 'Challenge Yourself (Optional):')}</div>
                   <div className="space-y-2 text-sm text-purple-800">
                     <div>1. Create your own missing number problem with numbers 6-12</div>
                     <div>2. Solve: ___ Ã— 12 = 96</div>
@@ -17795,7 +16873,7 @@ export function PrintablesPage() {
                         })}
                       </div>
                       <div className="mt-4 p-3 bg-emerald-100 rounded text-xs text-emerald-900">
-                        <strong>ðŸ’¡ Study Tip:</strong> Missing number problems help you understand multiplication and division are related!
+                        <strong>💡 Study Tip:</strong> Missing number problems help you understand multiplication and division are related!
                       </div>
                     </div>
                   );
@@ -17840,7 +16918,7 @@ export function PrintablesPage() {
                 <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-indigo-400 to-purple-400 animate-gradient-x mb-2" />
                 {/* Worked Example */}
                 <div className="mb-6 p-4 bg-blue-50 border-2 border-blue-200 rounded-lg print:border print:bg-white">
-                  <div className="font-semibold text-blue-900 mb-3 text-sm">ðŸ“š Example - Let's solve this together:</div>
+                  <div className="font-semibold text-blue-900 mb-3 text-sm">📚 Example - Let's solve this together:</div>
                   <div className="space-y-2 text-sm">
                     <div className="font-mono text-base"><strong>Problem:</strong> ___ Ã— 9 = 63</div>
                     <div className="pl-4 border-l-2 border-blue-300 space-y-1">
@@ -17848,7 +16926,7 @@ export function PrintablesPage() {
                       <div><strong>Step 2:</strong> Use division: 63 Ã· 9 = 7</div>
                       <div><strong>Step 3:</strong> Check: 7 Ã— 9 = 63 âœ“</div>
                       <div className="font-semibold text-blue-900"><strong>Answer:</strong> 7</div>
-                      <div className="text-xs text-blue-700 mt-1">ðŸ’¡ Tip: Use division to find missing factors, or multiplication to find missing products!</div>
+                      <div className="text-xs text-blue-700 mt-1">💡 Tip: Use division to find missing factors, or multiplication to find missing products!</div>
                     </div>
                   </div>
                 </div>
@@ -17863,7 +16941,7 @@ export function PrintablesPage() {
                 </div>
                 {/* Extension/Challenge Problems */}
                 <div className="mt-6 print:mt-0 p-4 bg-purple-50 border-2 border-purple-200 rounded print:bg-white print:border" style={{ pageBreakBefore: 'always', pageBreakInside: 'avoid' }}>
-                  <div className="font-semibold text-purple-900 mb-3 text-sm">🌐Ÿ {getTrans('common.challengeYourself', 'Challenge Yourself (Optional):')}</div>
+                  <div className="font-semibold text-purple-900 mb-3 text-sm">🌐 {getTrans('common.challengeYourself', 'Challenge Yourself (Optional):')}</div>
                   <div className="space-y-2 text-sm text-purple-800">
                     <div>1. Create your own mixed missing number problem</div>
                     <div>2. Solve: ___ Ã— 11 = 99</div>
@@ -17918,7 +16996,7 @@ export function PrintablesPage() {
                         })}
                       </div>
                       <div className="mt-4 p-3 bg-emerald-100 rounded text-xs text-emerald-900">
-                        <strong>ðŸ’¡ Study Tip:</strong> You're mastering all times tables! Missing number problems help you understand multiplication and division are related!
+                        <strong>💡 Study Tip:</strong> You're mastering all times tables! Missing number problems help you understand multiplication and division are related!
                       </div>
                     </div>
                   );
@@ -17957,13 +17035,13 @@ export function PrintablesPage() {
                 <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-red-400 to-orange-400 animate-gradient-x mb-2" />
                 {/* Worked Example */}
                 <div className="mb-6 p-4 bg-blue-50 border-2 border-blue-200 rounded-lg print:border print:bg-white">
-                  <div className="font-semibold text-blue-900 mb-3 text-sm">ðŸ“š Example - Let's solve this together:</div>
+                  <div className="font-semibold text-blue-900 mb-3 text-sm">📚 Example - Let's solve this together:</div>
                   <div className="space-y-2 text-sm">
                     <div className="font-mono text-base"><strong>Problem:</strong> 4 Ã— 3 = ?</div>
                     <div className="pl-4 border-l-2 border-blue-300 space-y-1">
                       <div><strong>Quick method:</strong> 4 Ã— 3 = 12 (think: 4 groups of 3)</div>
                       <div className="font-semibold text-blue-900"><strong>Answer:</strong> 12</div>
-                      <div className="text-xs text-blue-700 mt-1">ðŸ’¡ Tip: For timed tests, try to answer quickly without counting!</div>
+                      <div className="text-xs text-blue-700 mt-1">💡 Tip: For timed tests, try to answer quickly without counting!</div>
                     </div>
                   </div>
                 </div>
@@ -17981,7 +17059,7 @@ export function PrintablesPage() {
                 </div>
                 {/* Extension/Challenge Problems */}
                 <div className="mt-6 print:mt-0 p-4 bg-purple-50 border-2 border-purple-200 rounded print:bg-white print:border" style={{ pageBreakBefore: 'always', pageBreakInside: 'avoid' }}>
-                  <div className="font-semibold text-purple-900 mb-3 text-sm">🌐Ÿ {getTrans('common.challengeYourself', 'Challenge Yourself (Optional):')}</div>
+                  <div className="font-semibold text-purple-900 mb-3 text-sm">🌐 {getTrans('common.challengeYourself', 'Challenge Yourself (Optional):')}</div>
                   <div className="space-y-2 text-sm text-purple-800">
                     <div>1. Try to complete all problems in under 90 seconds!</div>
                     <div>2. Time yourself again tomorrow and see if you're faster</div>
@@ -18017,7 +17095,7 @@ export function PrintablesPage() {
                       ))}
                     </div>
                     <div className="mt-4 p-3 bg-emerald-100 rounded text-xs text-emerald-900">
-                      <strong>ðŸ’¡ Study Tip:</strong> Great job practicing timed tests! Keep practicing daily to build speed and automaticity!
+                      <strong>💡 Study Tip:</strong> Great job practicing timed tests! Keep practicing daily to build speed and automaticity!
                     </div>
                   </div>
                 ))}
@@ -18055,13 +17133,13 @@ export function PrintablesPage() {
                 <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-purple-400 to-pink-400 animate-gradient-x mb-2" />
                 {/* Worked Example */}
                 <div className="mb-6 p-4 bg-blue-50 border-2 border-blue-200 rounded-lg print:border print:bg-white">
-                  <div className="font-semibold text-blue-900 mb-3 text-sm">ðŸ“š Example - Let's solve this together:</div>
+                  <div className="font-semibold text-blue-900 mb-3 text-sm">📚 Example - Let's solve this together:</div>
                   <div className="space-y-2 text-sm">
                     <div className="font-mono text-base"><strong>Problem:</strong> 8 Ã— 7 = ?</div>
                     <div className="pl-4 border-l-2 border-blue-300 space-y-1">
                       <div><strong>Quick method:</strong> 8 Ã— 7 = 8 Ã— (5 + 2) = 40 + 16 = 56</div>
                       <div className="font-semibold text-blue-900"><strong>Answer:</strong> 56</div>
-                      <div className="text-xs text-blue-700 mt-1">ðŸ’¡ Tip: Break down larger facts into easier ones you know!</div>
+                      <div className="text-xs text-blue-700 mt-1">💡 Tip: Break down larger facts into easier ones you know!</div>
                     </div>
                   </div>
                 </div>
@@ -18079,7 +17157,7 @@ export function PrintablesPage() {
                 </div>
                 {/* Extension/Challenge Problems */}
                 <div className="mt-6 print:mt-0 p-4 bg-purple-50 border-2 border-purple-200 rounded print:bg-white print:border" style={{ pageBreakBefore: 'always', pageBreakInside: 'avoid' }}>
-                  <div className="font-semibold text-purple-900 mb-3 text-sm">🌐Ÿ {getTrans('common.challengeYourself', 'Challenge Yourself (Optional):')}</div>
+                  <div className="font-semibold text-purple-900 mb-3 text-sm">🌐 {getTrans('common.challengeYourself', 'Challenge Yourself (Optional):')}</div>
                   <div className="space-y-2 text-sm text-purple-800">
                     <div>1. Try to complete all problems in under 2.5 minutes!</div>
                     <div>2. Time yourself again tomorrow and see if you're faster</div>
@@ -18115,7 +17193,7 @@ export function PrintablesPage() {
                       ))}
                     </div>
                     <div className="mt-4 p-3 bg-emerald-100 rounded text-xs text-emerald-900">
-                      <strong>ðŸ’¡ Study Tip:</strong> Great job practicing advanced timed tests! Keep practicing daily to build speed and automaticity!
+                      <strong>💡 Study Tip:</strong> Great job practicing advanced timed tests! Keep practicing daily to build speed and automaticity!
                     </div>
                   </div>
                 ))}
@@ -18153,13 +17231,13 @@ export function PrintablesPage() {
                 <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-indigo-400 to-purple-400 animate-gradient-x mb-2" />
                 {/* Worked Example */}
                 <div className="mb-6 p-4 bg-blue-50 border-2 border-blue-200 rounded-lg print:border print:bg-white">
-                  <div className="font-semibold text-blue-900 mb-3 text-sm">ðŸ“š Example - Let's solve this together:</div>
+                  <div className="font-semibold text-blue-900 mb-3 text-sm">📚 Example - Let's solve this together:</div>
                   <div className="space-y-2 text-sm">
                     <div className="font-mono text-base"><strong>Problem:</strong> 9 Ã— 8 = ?</div>
                     <div className="pl-4 border-l-2 border-blue-300 space-y-1">
                       <div><strong>9s Trick:</strong> 9 Ã— 8 = (10 Ã— 8) - 8 = 80 - 8 = 72</div>
                       <div className="font-semibold text-blue-900"><strong>Answer:</strong> 72</div>
-                      <div className="text-xs text-blue-700 mt-1">ðŸ’¡ Tip: Use strategies you know to answer quickly in timed tests!</div>
+                      <div className="text-xs text-blue-700 mt-1">💡 Tip: Use strategies you know to answer quickly in timed tests!</div>
                     </div>
                   </div>
                 </div>
@@ -18177,7 +17255,7 @@ export function PrintablesPage() {
                 </div>
                 {/* Extension/Challenge Problems */}
                 <div className="mt-6 print:mt-0 p-4 bg-purple-50 border-2 border-purple-200 rounded print:bg-white print:border" style={{ pageBreakBefore: 'always', pageBreakInside: 'avoid' }}>
-                  <div className="font-semibold text-purple-900 mb-3 text-sm">🌐Ÿ {getTrans('common.challengeYourself', 'Challenge Yourself (Optional):')}</div>
+                  <div className="font-semibold text-purple-900 mb-3 text-sm">🌐 {getTrans('common.challengeYourself', 'Challenge Yourself (Optional):')}</div>
                   <div className="space-y-2 text-sm text-purple-800">
                     <div>1. Try to complete all problems in under 4 minutes!</div>
                     <div>2. Time yourself again tomorrow and see if you're faster</div>
@@ -18213,7 +17291,7 @@ export function PrintablesPage() {
                       ))}
                     </div>
                     <div className="mt-4 p-3 bg-emerald-100 rounded text-xs text-emerald-900">
-                      <strong>ðŸ’¡ Study Tip:</strong> Excellent work on comprehensive timed tests! Keep practicing daily to master all times tables!
+                      <strong>💡 Study Tip:</strong> Excellent work on comprehensive timed tests! Keep practicing daily to master all times tables!
                     </div>
                   </div>
                 ))}
@@ -18227,7 +17305,7 @@ export function PrintablesPage() {
             <WorksheetSectionWrapper
               docId="times-table-blank-1-5"
               title="Blank Times Table (1-5) - Fill In"
-              emoji="ðŸ“‹"
+              emoji="📋"
               description="Blank times table worksheets to fill in for facts 1-5. Perfect for memorization practice and building multiplication confidence."
               problemCount={25}
               learningObjectives={[
@@ -18245,7 +17323,7 @@ export function PrintablesPage() {
               <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-blue-400 to-cyan-400 animate-gradient-x mb-2" />
               {/* Worked Example */}
               <div className="mb-6 p-4 bg-blue-50 border-2 border-blue-200 rounded-lg print:border print:bg-white">
-                <div className="font-semibold text-blue-900 mb-3 text-sm">ðŸ“š Example - How to fill in the table:</div>
+                <div className="font-semibold text-blue-900 mb-3 text-sm">📚 Example - How to fill in the table:</div>
                 <div className="space-y-2 text-sm">
                   <div className="font-semibold text-base"><strong>For row 2:</strong> Fill in 2Ã—1, 2Ã—2, 2Ã—3, 2Ã—4, 2Ã—5</div>
                   <div className="pl-4 border-l-2 border-blue-300 space-y-1">
@@ -18254,7 +17332,7 @@ export function PrintablesPage() {
                     <div>2 Ã— 3 = 6</div>
                     <div>2 Ã— 4 = 8</div>
                     <div>2 Ã— 5 = 10</div>
-                    <div className="text-xs text-blue-700 mt-1">ðŸ’¡ Tip: Count by 2s: 2, 4, 6, 8, 10!</div>
+                    <div className="text-xs text-blue-700 mt-1">💡 Tip: Count by 2s: 2, 4, 6, 8, 10!</div>
                   </div>
                 </div>
               </div>
@@ -18287,7 +17365,7 @@ export function PrintablesPage() {
               </div>
               {/* Extension/Challenge Problems */}
               <div className="mt-6 print:mt-0 p-4 bg-purple-50 border-2 border-purple-200 rounded print:bg-white print:border" style={{ pageBreakBefore: 'always', pageBreakInside: 'avoid' }}>
-                <div className="font-semibold text-purple-900 mb-3 text-sm">🌐Ÿ {getTrans('common.challengeYourself', 'Challenge Yourself (Optional):')}</div>
+                <div className="font-semibold text-purple-900 mb-3 text-sm">🌐 {getTrans('common.challengeYourself', 'Challenge Yourself (Optional):')}</div>
                 <div className="space-y-2 text-sm text-purple-800">
                   <div>1. Fill in the table from memory without looking at any notes</div>
                   <div>2. Time yourself: Can you fill it in under 3 minutes?</div>
@@ -18320,7 +17398,7 @@ export function PrintablesPage() {
                     <div><strong>Row 5:</strong> 5, 10, 15, 20, 25</div>
                   </div>
                   <div className="mt-4 p-3 bg-emerald-100 rounded text-xs text-emerald-900">
-                    <strong>ðŸ’¡ Study Tip:</strong> Notice the patterns! Each row counts by that number. The diagonal (1Ã—1, 2Ã—2, etc.) shows perfect squares!
+                    <strong>💡 Study Tip:</strong> Notice the patterns! Each row counts by that number. The diagonal (1Ã—1, 2Ã—2, etc.) shows perfect squares!
                   </div>
                 </div>
               ))}
@@ -18333,7 +17411,7 @@ export function PrintablesPage() {
             <WorksheetSectionWrapper
               docId="times-table-blank-6-12"
               title="Blank Times Table (6-12) - Fill In"
-              emoji="ðŸ“‹"
+              emoji="📋"
               description="Blank times table worksheets to fill in for facts 6-12. Worksheets for kids who struggle with multiplication - build confidence step by step."
               problemCount={49}
               learningObjectives={[
@@ -18351,7 +17429,7 @@ export function PrintablesPage() {
               <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-purple-400 to-pink-400 animate-gradient-x mb-2" />
               {/* Worked Example */}
               <div className="mb-6 p-4 bg-blue-50 border-2 border-blue-200 rounded-lg print:border print:bg-white">
-                <div className="font-semibold text-blue-900 mb-3 text-sm">ðŸ“š Example - How to fill in the table:</div>
+                <div className="font-semibold text-blue-900 mb-3 text-sm">📚 Example - How to fill in the table:</div>
                 <div className="space-y-2 text-sm">
                   <div className="font-semibold text-base"><strong>For row 8:</strong> Fill in 8Ã—6, 8Ã—7, 8Ã—8, 8Ã—9, 8Ã—10, 8Ã—11, 8Ã—12</div>
                   <div className="pl-4 border-l-2 border-blue-300 space-y-1">
@@ -18362,7 +17440,7 @@ export function PrintablesPage() {
                     <div>8 Ã— 10 = 80</div>
                     <div>8 Ã— 11 = 88</div>
                     <div>8 Ã— 12 = 96</div>
-                    <div className="text-xs text-blue-700 mt-1">ðŸ’¡ Tip: Count by 8s: 8, 16, 24, 32, 40, 48, 56, 64, 72, 80, 88, 96!</div>
+                    <div className="text-xs text-blue-700 mt-1">💡 Tip: Count by 8s: 8, 16, 24, 32, 40, 48, 56, 64, 72, 80, 88, 96!</div>
                   </div>
                 </div>
               </div>
@@ -18395,7 +17473,7 @@ export function PrintablesPage() {
               </div>
               {/* Extension/Challenge Problems */}
               <div className="mt-6 print:mt-0 p-4 bg-purple-50 border-2 border-purple-200 rounded print:bg-white print:border" style={{ pageBreakBefore: 'always', pageBreakInside: 'avoid' }}>
-                <div className="font-semibold text-purple-900 mb-3 text-sm">🌐Ÿ {getTrans('common.challengeYourself', 'Challenge Yourself (Optional):')}</div>
+                <div className="font-semibold text-purple-900 mb-3 text-sm">🌐 {getTrans('common.challengeYourself', 'Challenge Yourself (Optional):')}</div>
                 <div className="space-y-2 text-sm text-purple-800">
                   <div>1. Fill in the table from memory without looking at any notes</div>
                   <div>2. Time yourself: Can you fill it in under 5 minutes?</div>
@@ -18430,7 +17508,7 @@ export function PrintablesPage() {
                     <div><strong>Row 12:</strong> 72, 84, 96, 108, 120, 132, 144</div>
                   </div>
                   <div className="mt-4 p-3 bg-emerald-100 rounded text-xs text-emerald-900">
-                    <strong>ðŸ’¡ Study Tip:</strong> Notice the patterns! Each row counts by that number. The diagonal shows perfect squares!
+                    <strong>💡 Study Tip:</strong> Notice the patterns! Each row counts by that number. The diagonal shows perfect squares!
                   </div>
                 </div>
               ))}
@@ -18443,7 +17521,7 @@ export function PrintablesPage() {
             <WorksheetSectionWrapper
               docId="times-table-blank-1-12"
               title="Complete Blank Times Table (1-12)"
-              emoji="ðŸ“‹"
+              emoji="📋"
               description="Complete blank times table grid for all facts 1-12. Printable worksheets to help kids overcome math fear and build multiplication fluency."
               problemCount={144}
               learningObjectives={[
@@ -18461,7 +17539,7 @@ export function PrintablesPage() {
               <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-indigo-400 to-purple-400 animate-gradient-x mb-2" />
               {/* Worked Example */}
               <div className="mb-6 p-4 bg-blue-50 border-2 border-blue-200 rounded-lg print:border print:bg-white">
-                <div className="font-semibold text-blue-900 mb-3 text-sm">ðŸ“š Example - How to fill in the table:</div>
+                <div className="font-semibold text-blue-900 mb-3 text-sm">📚 Example - How to fill in the table:</div>
                 <div className="space-y-2 text-sm">
                   <div className="font-semibold text-base"><strong>For row 9:</strong> Fill in 9Ã—1 through 9Ã—12</div>
                   <div className="pl-4 border-l-2 border-blue-300 space-y-1">
@@ -18469,7 +17547,7 @@ export function PrintablesPage() {
                     <div>9 Ã— 1 = 10 - 1 = 9</div>
                     <div>9 Ã— 2 = 20 - 2 = 18</div>
                     <div>9 Ã— 3 = 30 - 3 = 27</div>
-                    <div className="text-xs text-blue-700 mt-1">ðŸ’¡ Tip: For 9s, multiply by 10 and subtract the number!</div>
+                    <div className="text-xs text-blue-700 mt-1">💡 Tip: For 9s, multiply by 10 and subtract the number!</div>
                   </div>
                 </div>
               </div>
@@ -18502,7 +17580,7 @@ export function PrintablesPage() {
               </div>
               {/* Extension/Challenge Problems */}
               <div className="mt-6 print:mt-0 p-4 bg-purple-50 border-2 border-purple-200 rounded print:bg-white print:border" style={{ pageBreakBefore: 'always', pageBreakInside: 'avoid' }}>
-                <div className="font-semibold text-purple-900 mb-3 text-sm">🌐Ÿ {getTrans('common.challengeYourself', 'Challenge Yourself (Optional):')}</div>
+                <div className="font-semibold text-purple-900 mb-3 text-sm">🌐 {getTrans('common.challengeYourself', 'Challenge Yourself (Optional):')}</div>
                 <div className="space-y-2 text-sm text-purple-800">
                   <div>1. Fill in the table from memory without looking at any notes</div>
                   <div>2. Time yourself: Can you fill it in under 10 minutes?</div>
@@ -18536,7 +17614,7 @@ export function PrintablesPage() {
                     <div className="mt-2"><strong>Perfect squares (diagonal):</strong> 1, 4, 9, 16, 25, 36, 49, 64, 81, 100, 121, 144</div>
                   </div>
                   <div className="mt-4 p-3 bg-emerald-100 rounded text-xs text-emerald-900">
-                    <strong>ðŸ’¡ Study Tip:</strong> Amazing work! You're mastering all times tables! Notice the patterns - each row counts by that number, and the diagonal shows perfect squares!
+                    <strong>💡 Study Tip:</strong> Amazing work! You're mastering all times tables! Notice the patterns - each row counts by that number, and the diagonal shows perfect squares!
                   </div>
                 </div>
               ))}
@@ -18555,7 +17633,7 @@ export function PrintablesPage() {
               <WorksheetSectionWrapper
                 docId="times-table-confidence-1-5"
                 title="Confidence-Building Times Table (1-5)"
-                emoji="ðŸ’ª"
+                emoji="💪"
                 description="Stress-free times table worksheets designed to build confidence. Fun and simple worksheets to make multiplication easier for struggling learners."
                 problemCount={facts.length}
                 learningObjectives={[
@@ -18573,19 +17651,19 @@ export function PrintablesPage() {
                 <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-green-400 to-emerald-400 animate-gradient-x mb-2" />
                 {/* Worked Example */}
                 <div className="mb-6 p-4 bg-blue-50 border-2 border-blue-200 rounded-lg print:border print:bg-white">
-                  <div className="font-semibold text-blue-900 mb-3 text-sm">ðŸ“š Example - Let's solve this together:</div>
+                  <div className="font-semibold text-blue-900 mb-3 text-sm">📚 Example - Let's solve this together:</div>
                   <div className="space-y-2 text-sm">
                     <div className="font-mono text-base"><strong>Problem:</strong> 3 Ã— 4 = ?</div>
                     <div className="pl-4 border-l-2 border-blue-300 space-y-1">
                       <div><strong>Think:</strong> 3 groups of 4</div>
                       <div><strong>Count:</strong> 4 + 4 + 4 = 12</div>
                       <div className="font-semibold text-blue-900"><strong>Answer:</strong> 12</div>
-                      <div className="text-xs text-blue-700 mt-1">ðŸ’¡ Tip: You can draw 3 groups with 4 dots in each to help!</div>
+                      <div className="text-xs text-blue-700 mt-1">💡 Tip: You can draw 3 groups with 4 dots in each to help!</div>
                     </div>
                   </div>
                 </div>
                 <div className="mb-4 p-3 bg-blue-50 border border-blue-200 rounded text-sm text-blue-900">
-                  <strong>ðŸ’ª You've got this!</strong> Take your time. There's no rush. Each problem helps you get stronger!
+                  <strong>💪 You've got this!</strong> Take your time. There's no rush. Each problem helps you get stronger!
                 </div>
                 <div className="grid grid-cols-2 gap-4" style={{ pageBreakAfter: 'auto' }}>
                   {facts.map(([a, b], i) => (
@@ -18600,7 +17678,7 @@ export function PrintablesPage() {
                 </div>
                 {/* Extension/Challenge Problems */}
                 <div className="mt-6 print:mt-0 p-4 bg-purple-50 border-2 border-purple-200 rounded print:bg-white print:border" style={{ pageBreakBefore: 'always', pageBreakInside: 'avoid' }}>
-                  <div className="font-semibold text-purple-900 mb-3 text-sm">🌐Ÿ {getTrans('common.challengeYourself', 'Challenge Yourself (Optional):')}</div>
+                  <div className="font-semibold text-purple-900 mb-3 text-sm">🌐 {getTrans('common.challengeYourself', 'Challenge Yourself (Optional):')}</div>
                   <div className="space-y-2 text-sm text-purple-800">
                     <div>1. Draw a picture to show one of the problems</div>
                     <div>2. Create your own multiplication problem</div>
@@ -18633,7 +17711,7 @@ export function PrintablesPage() {
                       ))}
                     </div>
                     <div className="mt-4 p-3 bg-emerald-100 rounded text-xs text-emerald-900">
-                      <strong>ðŸ’¡ Study Tip:</strong> Great job! You're building confidence with multiplication. Keep practicing and you'll get even better!
+                      <strong>💡 Study Tip:</strong> Great job! You're building confidence with multiplication. Keep practicing and you'll get even better!
                     </div>
                   </div>
                 ))}
@@ -18653,7 +17731,7 @@ export function PrintablesPage() {
               <WorksheetSectionWrapper
                 docId="times-table-confidence-6-12"
                 title="Confidence-Building Times Table (6-12)"
-                emoji="ðŸ’ª"
+                emoji="💪"
                 description="Gentle step-by-step multiplication worksheets for facts 6-12. No-tears times table practice sheets that build understanding and confidence."
                 problemCount={facts.length}
                 learningObjectives={[
@@ -18671,19 +17749,19 @@ export function PrintablesPage() {
                 <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-purple-400 to-pink-400 animate-gradient-x mb-2" />
                 {/* Worked Example */}
                 <div className="mb-6 p-4 bg-blue-50 border-2 border-blue-200 rounded-lg print:border print:bg-white">
-                  <div className="font-semibold text-blue-900 mb-3 text-sm">ðŸ“š Example - Let's solve this together:</div>
+                  <div className="font-semibold text-blue-900 mb-3 text-sm">📚 Example - Let's solve this together:</div>
                   <div className="space-y-2 text-sm">
                     <div className="font-mono text-base"><strong>Problem:</strong> 8 Ã— 7 = ?</div>
                     <div className="pl-4 border-l-2 border-blue-300 space-y-1">
                       <div><strong>Method 1 (Break it down):</strong> 8 Ã— 7 = 8 Ã— (5 + 2) = (8 Ã— 5) + (8 Ã— 2) = 40 + 16 = 56</div>
                       <div><strong>Method 2 (Use known fact):</strong> 8 Ã— 7 = 7 Ã— 8 = 56</div>
                       <div className="font-semibold text-blue-900"><strong>Answer:</strong> 56</div>
-                      <div className="text-xs text-blue-700 mt-1">ðŸ’¡ Tip: Break large problems into smaller ones you know!</div>
+                      <div className="text-xs text-blue-700 mt-1">💡 Tip: Break large problems into smaller ones you know!</div>
                     </div>
                   </div>
                 </div>
                 <div className="mb-4 p-3 bg-blue-50 border border-blue-200 rounded text-sm text-blue-900">
-                  <strong>ðŸ’ª You're doing great!</strong> These problems might look big, but you can solve them step by step!
+                  <strong>💪 You're doing great!</strong> These problems might look big, but you can solve them step by step!
                 </div>
                 <div className="grid grid-cols-2 gap-4" style={{ pageBreakAfter: 'auto' }}>
                   {facts.map(([a, b], i) => (
@@ -18698,7 +17776,7 @@ export function PrintablesPage() {
                 </div>
                 {/* Extension/Challenge Problems */}
                 <div className="mt-6 print:mt-0 p-4 bg-purple-50 border-2 border-purple-200 rounded print:bg-white print:border" style={{ pageBreakBefore: 'always', pageBreakInside: 'avoid' }}>
-                  <div className="font-semibold text-purple-900 mb-3 text-sm">🌐Ÿ {getTrans('common.challengeYourself', 'Challenge Yourself (Optional):')}</div>
+                  <div className="font-semibold text-purple-900 mb-3 text-sm">🌐 {getTrans('common.challengeYourself', 'Challenge Yourself (Optional):')}</div>
                   <div className="space-y-2 text-sm text-purple-800">
                     <div>1. Explain your strategy for solving one problem</div>
                     <div>2. Create your own multiplication problem with numbers 6-12</div>
@@ -18731,7 +17809,7 @@ export function PrintablesPage() {
                       ))}
                     </div>
                     <div className="mt-4 p-3 bg-emerald-100 rounded text-xs text-emerald-900">
-                      <strong>ðŸ’¡ Study Tip:</strong> Excellent work! You're building confidence with advanced multiplication. Keep practicing and you'll master all facts!
+                      <strong>💡 Study Tip:</strong> Excellent work! You're building confidence with advanced multiplication. Keep practicing and you'll master all facts!
                     </div>
                   </div>
                 ))}
@@ -18769,14 +17847,14 @@ export function PrintablesPage() {
                 <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-yellow-400 to-orange-400 animate-gradient-x mb-2" />
                 {/* Worked Example */}
                 <div className="mb-6 p-4 bg-blue-50 border-2 border-blue-200 rounded-lg print:border print:bg-white">
-                  <div className="font-semibold text-blue-900 mb-3 text-sm">ðŸ“š Example - Building Fluency:</div>
+                  <div className="font-semibold text-blue-900 mb-3 text-sm">📚 Example - Building Fluency:</div>
                   <div className="space-y-2 text-sm">
                     <div className="font-mono text-base"><strong>Problem:</strong> 7 Ã— 8 = ?</div>
                     <div className="pl-4 border-l-2 border-blue-300 space-y-1">
                       <div><strong>Quick recall:</strong> 7 Ã— 8 = 56 (know it instantly!)</div>
                       <div><strong>If you need to think:</strong> 7 Ã— 8 = 8 Ã— 7 = 56</div>
                       <div className="font-semibold text-blue-900"><strong>Answer:</strong> 56</div>
-                      <div className="text-xs text-blue-700 mt-1">ðŸ’¡ Tip: Practice until you can answer instantly without thinking!</div>
+                      <div className="text-xs text-blue-700 mt-1">💡 Tip: Practice until you can answer instantly without thinking!</div>
                     </div>
                   </div>
                 </div>
@@ -18791,7 +17869,7 @@ export function PrintablesPage() {
                 </div>
                 {/* Extension/Challenge Problems */}
                 <div className="mt-6 print:mt-0 p-4 bg-purple-50 border-2 border-purple-200 rounded print:bg-white print:border" style={{ pageBreakBefore: 'always', pageBreakInside: 'avoid' }}>
-                  <div className="font-semibold text-purple-900 mb-3 text-sm">🌐Ÿ {getTrans('common.challengeYourself', 'Challenge Yourself (Optional):')}</div>
+                  <div className="font-semibold text-purple-900 mb-3 text-sm">🌐 {getTrans('common.challengeYourself', 'Challenge Yourself (Optional):')}</div>
                   <div className="space-y-2 text-sm text-purple-800">
                     <div>1. Time yourself: Can you complete all 25 problems in under 2 minutes?</div>
                     <div>2. Try again tomorrow and see if you're faster</div>
@@ -18827,7 +17905,7 @@ export function PrintablesPage() {
                       ))}
                     </div>
                     <div className="mt-4 p-3 bg-emerald-100 rounded text-xs text-emerald-900">
-                      <strong>ðŸ’¡ Study Tip:</strong> Great job building fluency! Keep practicing daily to achieve automaticity (knowing facts instantly)!
+                      <strong>💡 Study Tip:</strong> Great job building fluency! Keep practicing daily to achieve automaticity (knowing facts instantly)!
                     </div>
                   </div>
                 ))}
@@ -18865,14 +17943,14 @@ export function PrintablesPage() {
                 <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-indigo-400 to-purple-400 animate-gradient-x mb-2" />
                 {/* Worked Example */}
                 <div className="mb-6 p-4 bg-blue-50 border-2 border-blue-200 rounded-lg print:border print:bg-white">
-                  <div className="font-semibold text-blue-900 mb-3 text-sm">ðŸ“š Example - Mixed Review:</div>
+                  <div className="font-semibold text-blue-900 mb-3 text-sm">📚 Example - Mixed Review:</div>
                   <div className="space-y-2 text-sm">
                     <div className="font-mono text-base"><strong>Problem:</strong> 11 Ã— 9 = ?</div>
                     <div className="pl-4 border-l-2 border-blue-300 space-y-1">
                       <div><strong>Method 1:</strong> 11 Ã— 9 = (10 Ã— 9) + (1 Ã— 9) = 90 + 9 = 99</div>
                       <div><strong>Method 2:</strong> 11 Ã— 9 = 9 Ã— 11 = 99</div>
                       <div className="font-semibold text-blue-900"><strong>Answer:</strong> 99</div>
-                      <div className="text-xs text-blue-700 mt-1">ðŸ’¡ Tip: In mixed review, use whatever strategy works fastest for you!</div>
+                      <div className="text-xs text-blue-700 mt-1">💡 Tip: In mixed review, use whatever strategy works fastest for you!</div>
                     </div>
                   </div>
                 </div>
@@ -18887,7 +17965,7 @@ export function PrintablesPage() {
                 </div>
                 {/* Extension/Challenge Problems */}
                 <div className="mt-6 print:mt-0 p-4 bg-purple-50 border-2 border-purple-200 rounded print:bg-white print:border" style={{ pageBreakBefore: 'always', pageBreakInside: 'avoid' }}>
-                  <div className="font-semibold text-purple-900 mb-3 text-sm">🌐Ÿ {getTrans('common.challengeYourself', 'Challenge Yourself (Optional):')}</div>
+                  <div className="font-semibold text-purple-900 mb-3 text-sm">🌐 {getTrans('common.challengeYourself', 'Challenge Yourself (Optional):')}</div>
                   <div className="space-y-2 text-sm text-purple-800">
                     <div>1. Time yourself: Can you complete all 30 problems in under 3 minutes?</div>
                     <div>2. Circle the problems you found hardest</div>
@@ -18923,7 +18001,7 @@ export function PrintablesPage() {
                       ))}
                     </div>
                     <div className="mt-4 p-3 bg-emerald-100 rounded text-xs text-emerald-900">
-                      <strong>ðŸ’¡ Study Tip:</strong> Excellent work on mixed review! This tests true mastery. Keep practicing the facts you found hardest!
+                      <strong>💡 Study Tip:</strong> Excellent work on mixed review! This tests true mastery. Keep practicing the facts you found hardest!
                     </div>
                   </div>
                 ))}
@@ -19138,7 +18216,7 @@ export function PrintablesPage() {
             <WorksheetSectionWrapper
               docId="rhyming-words"
               title="Rhyming Words"
-              emoji="ðŸŽµ"
+              emoji="🎵"
               description="Circle the word that rhymes with the picture. Say both words out loud."
             >
               <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-pink-400 to-purple-400 animate-gradient-x mb-2" />
@@ -19195,7 +18273,7 @@ export function PrintablesPage() {
             <WorksheetSectionWrapper
               docId="cvc-words"
               title="CVC Words (Consonant-Vowel-Consonant)"
-              emoji="ðŸ“š"
+              emoji="📚"
               description="Read each CVC (consonant-vowel-consonant) word. Match it to the correct picture. Then write the word in the blank space."
             >
               <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-blue-400 to-cyan-400 animate-gradient-x mb-2" />
@@ -19261,7 +18339,7 @@ export function PrintablesPage() {
             <WorksheetSectionWrapper
               docId="sight-words-pre-primer"
               title="Sight Words (Dolch Pre-Primer)"
-              emoji="ðŸ‘ï¸"
+              emoji="👗ï¸"
               description="Read each sight word. Trace it carefully, then write it three times in the blank lines provided."
             >
               <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-indigo-400 to-blue-400 animate-gradient-x mb-2" />
@@ -19399,7 +18477,7 @@ export function PrintablesPage() {
               <div className="grid grid-cols-2 gap-4">
                 {[
                   { left: 3, right: 5, emoji: 'ðŸŽ' },
-                  { left: 7, right: 4, emoji: 'ðŸš—' },
+                  { left: 7, right: 4, emoji: '🚗' },
                   { left: 6, right: 6, emoji: 'âš½' },
                   { left: 8, right: 3, emoji: 'ðŸ¸' },
                   { left: 2, right: 9, emoji: 'ðŸª' },
@@ -19466,7 +18544,7 @@ export function PrintablesPage() {
                   <div key={idx} className="border border-slate-300 rounded p-4 bg-white">
                     <div className="flex flex-wrap gap-2 justify-center mb-3" style={{ minHeight: '80px' }}>
                       {Array.from({ length: count }).map((_, i) => {
-                        const shapes = ['ðŸ¸', 'ðŸ¦‹', 'ðŸž', 'ðŸ ', 'ðŸŽ', 'ðŸš—', '🚀', 'âš½'];
+                        const shapes = ['ðŸ¸', '🦋', 'ðŸž', 'ðŸ ', 'ðŸŽ', '🚗', '🚀', 'âš½'];
                         return (
                           <span key={i} className="text-2xl leading-none">
                             {shapes[i % shapes.length]}
@@ -19507,9 +18585,9 @@ export function PrintablesPage() {
               <div className="space-y-4">
                 {[
                   { words: ['The', 'cat', 'is', 'sleeping', '.'], sentence: 'The cat is sleeping.', visual: 'ðŸ±ðŸ’¤' },
-                  { words: ['I', 'like', 'to', 'read', '.'], sentence: 'I like to read.', visual: 'ðŸ“šðŸ¤“' },
+                  { words: ['I', 'like', 'to', 'read', '.'], sentence: 'I like to read.', visual: '📚ðŸ¤“' },
                   { words: ['We', 'play', 'at', 'the', 'park', '.'], sentence: 'We play at the park.', visual: '🌐³ðŸ›' },
-                  { words: ['She', 'has', 'a', 'red', 'ball', '.'], sentence: 'She has a red ball.', visual: 'ðŸ‘§ðŸ”´' },
+                  { words: ['She', 'has', 'a', 'red', 'ball', '.'], sentence: 'She has a red ball.', visual: '👗§🔍´' },
                 ].map((item, idx) => (
                   <div key={idx} className="border border-slate-300 rounded p-4 bg-white break-inside-avoid">
                     <div className="flex gap-4 items-start mb-4">
@@ -19567,7 +18645,7 @@ export function PrintablesPage() {
             function nextInt(min: number, max: number) { return Math.floor(rng() * (max - min + 1)) + min; }
             const problems = Array.from({ length: 6 }, () => {
               const count = nextInt(1, 10);
-              const objectTypes = ['ðŸŽ', 'ðŸ¶', '🚀', '⭐', 'ðŸ»', 'ðŸš—', 'ðŸŽˆ', 'ðŸ±', 'ðŸ¦‹', 'âš½', 'ðŸ•', 'ðŸ¸'];
+              const objectTypes = ['ðŸŽ', 'ðŸ¶', '🚀', '⭐', 'ðŸ»', '🚗', 'ðŸŽˆ', 'ðŸ±', '🦋', 'âš½', 'ðŸ•', 'ðŸ¸'];
               const objectType = objectTypes[nextInt(0, objectTypes.length - 1)];
               return { count, objectType };
             });
@@ -19594,7 +18672,7 @@ export function PrintablesPage() {
                 <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-purple-400 to-pink-400 animate-gradient-x mb-2" />
                 {/* Worked Example */}
                 <div className="mb-6 p-4 bg-blue-50 border-2 border-blue-200 rounded-lg print:border print:bg-white">
-                  <div className="font-semibold text-blue-900 mb-3 text-sm">ðŸ“š Example - Let's solve this together:</div>
+                  <div className="font-semibold text-blue-900 mb-3 text-sm">📚 Example - Let's solve this together:</div>
                   <div className="space-y-2 text-sm">
                     <div className="font-semibold text-base"><strong>Count the apples:</strong></div>
                     <div className="flex gap-2 justify-center mb-3">
@@ -19605,7 +18683,7 @@ export function PrintablesPage() {
                     <div className="pl-4 border-l-2 border-blue-300 space-y-1">
                       <div><strong>Step 1:</strong> Point to each apple and count: 1, 2, 3, 4, 5</div>
                       <div className="font-semibold text-blue-900"><strong>Answer:</strong> 5</div>
-                      <div className="text-xs text-blue-700 mt-1">ðŸ’¡ Tip: Count slowly and point to each object. Don't skip any!</div>
+                      <div className="text-xs text-blue-700 mt-1">💡 Tip: Count slowly and point to each object. Don't skip any!</div>
                     </div>
                   </div>
                 </div>
@@ -19628,7 +18706,7 @@ export function PrintablesPage() {
                 </div>
                 {/* Extension/Challenge Problems */}
                 <div className="mt-6 print:mt-0 p-4 bg-purple-50 border-2 border-purple-200 rounded print:bg-white print:border" style={{ pageBreakBefore: 'always', pageBreakInside: 'avoid' }}>
-                  <div className="font-semibold text-purple-900 mb-3 text-sm">🌐Ÿ More Fun (Optional):</div>
+                  <div className="font-semibold text-purple-900 mb-3 text-sm">🌐 More Fun (Optional):</div>
                   <div className="space-y-2 text-sm text-purple-800">
                     <div>1. Count objects in your room. How many can you find?</div>
                     <div>2. Draw your own group of objects and count them</div>
@@ -19661,7 +18739,7 @@ export function PrintablesPage() {
                       ))}
                     </div>
                     <div className="text-xs text-emerald-700 mt-3">
-                      ðŸ’¡ Remember: Count each object carefully. Point to each one as you count!
+                      💡 Remember: Count each object carefully. Point to each one as you count!
                     </div>
                   </div>
                 ))}
@@ -19756,7 +18834,7 @@ export function PrintablesPage() {
 
                 {/* Extension/Challenge Problems */}
                 <div className="mt-6 print:mt-0 p-4 bg-purple-50 border-2 border-purple-200 rounded print:bg-white print:border" style={{ pageBreakBefore: 'always', pageBreakInside: 'avoid' }}>
-                  <div className="font-semibold text-purple-900 mb-3 text-sm">🌐Ÿ More Fun (Optional):</div>
+                  <div className="font-semibold text-purple-900 mb-3 text-sm">🌐 More Fun (Optional):</div>
                   <div className="space-y-2 text-sm text-purple-800">
                     <div>1. Find numbers around your house. What numbers can you see?</div>
                     <div>2. Draw your own number and matching objects</div>
@@ -19793,7 +18871,7 @@ export function PrintablesPage() {
                         })}
                       </div>
                       <div className="text-xs text-emerald-700 mt-3">
-                        ðŸ’¡ Remember: Count the objects first, then match to the correct number!
+                        💡 Remember: Count the objects first, then match to the correct number!
                       </div>
                     </div>
                   ))
@@ -19859,7 +18937,7 @@ export function PrintablesPage() {
                 </div>
                 {/* Extension/Challenge Problems */}
                 <div className="mt-6 print:mt-0 p-4 bg-purple-50 border-2 border-purple-200 rounded print:bg-white print:border" style={{ pageBreakBefore: 'always', pageBreakInside: 'avoid' }}>
-                  <div className="font-semibold text-purple-900 mb-3 text-sm">🌐Ÿ More Fun (Optional):</div>
+                  <div className="font-semibold text-purple-900 mb-3 text-sm">🌐 More Fun (Optional):</div>
                   <div className="space-y-2 text-sm text-purple-800">
                     <div>1. Find shapes in your room. What shapes can you see?</div>
                     <div>2. Draw your own shapes and color them</div>
@@ -19892,7 +18970,7 @@ export function PrintablesPage() {
                       ))}
                     </div>
                     <div className="text-xs text-emerald-700 mt-3">
-                      ðŸ’¡ Remember: Say the shape name out loud as you color it!
+                      💡 Remember: Say the shape name out loud as you color it!
                     </div>
                   </div>
                 ))}
@@ -20036,7 +19114,7 @@ export function PrintablesPage() {
 
                 {/* Mixed Review Guide */}
                 <div className="mb-6 p-4 bg-blue-50 border-2 border-blue-200 rounded-lg print:border print:bg-white">
-                  <div className="font-semibold text-blue-900 mb-2 text-sm">ðŸ’¡ Coach's Tip:</div>
+                  <div className="font-semibold text-blue-900 mb-2 text-sm">💡 Coach's Tip:</div>
                   <div className="text-sm text-blue-800 space-y-1">
                     <div>Sometimes the <strong>Colors</strong> change (Red, Blue, Red...).</div>
                     <div>Sometimes the <strong>Shapes</strong> change (Circle, Square, Circle...).</div>
@@ -20114,7 +19192,7 @@ export function PrintablesPage() {
               const b = nextInt(1, 4);
               return { a, b, sum: a + b };
             });
-            const objectTypes = ['ðŸŽ', '⭐', 'ðŸ”´', 'ðŸŸ¢', 'ðŸ”µ', 'ðŸŸ¡'];
+            const objectTypes = ['ðŸŽ', '⭐', '🔍´', 'ðŸŸ¢', '🔍µ', 'ðŸŸ¡'];
             return (
               <WorksheetSectionWrapper
                 docId="kindergarten-addition-pictures"
@@ -20138,7 +19216,7 @@ export function PrintablesPage() {
                 <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-orange-400 to-red-400 animate-gradient-x mb-2" />
                 {/* Worked Example */}
                 <div className="mb-6 p-4 bg-blue-50 border-2 border-blue-200 rounded-lg print:border print:bg-white">
-                  <div className="font-semibold text-blue-900 mb-3 text-sm">ðŸ“š Example - Let's solve this together:</div>
+                  <div className="font-semibold text-blue-900 mb-3 text-sm">📚 Example - Let's solve this together:</div>
                   <div className="space-y-2 text-sm">
                     <div className="font-semibold text-base"><strong>Problem:</strong> 2 + 3 = ?</div>
                     <div className="flex items-center gap-4 mb-3">
@@ -20161,7 +19239,7 @@ export function PrintablesPage() {
                       <div><strong>Step 2:</strong> Count second group: 1, 2, 3</div>
                       <div><strong>Step 3:</strong> Count all together: 1, 2, 3, 4, 5</div>
                       <div className="font-semibold text-blue-900"><strong>Answer:</strong> 5</div>
-                      <div className="text-xs text-blue-700 mt-1">ðŸ’¡ Tip: Count all the objects together to find the answer!</div>
+                      <div className="text-xs text-blue-700 mt-1">💡 Tip: Count all the objects together to find the answer!</div>
                     </div>
                   </div>
                 </div>
@@ -20207,7 +19285,7 @@ export function PrintablesPage() {
                 </div>
                 {/* Extension/Challenge Problems */}
                 <div className="mt-6 print:mt-0 p-4 bg-purple-50 border-2 border-purple-200 rounded print:bg-white print:border" style={{ pageBreakBefore: 'always', pageBreakInside: 'avoid' }}>
-                  <div className="font-semibold text-purple-900 mb-3 text-sm">🌐Ÿ More Fun (Optional):</div>
+                  <div className="font-semibold text-purple-900 mb-3 text-sm">🌐 More Fun (Optional):</div>
                   <div className="space-y-2 text-sm text-purple-800">
                     <div>1. Use real objects to practice addition (toys, blocks, etc.)</div>
                     <div>2. Create your own addition problems</div>
@@ -20243,7 +19321,7 @@ export function PrintablesPage() {
                       })}
                     </div>
                     <div className="text-xs text-emerald-700 mt-3">
-                      ðŸ’¡ Remember: Count all the objects together to find the total!
+                      💡 Remember: Count all the objects together to find the total!
                     </div>
                   </div>
                 ))}
@@ -20467,7 +19545,7 @@ export function PrintablesPage() {
                 <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-pink-400 to-rose-400 animate-gradient-x mb-2" />
                 {/* Worked Example */}
                 <div className="mb-6 p-4 bg-blue-50 border-2 border-blue-200 rounded-lg print:border print:bg-white">
-                  <div className="font-semibold text-blue-900 mb-3 text-sm">ðŸ“š Example - Let's solve this together:</div>
+                  <div className="font-semibold text-blue-900 mb-3 text-sm">📚 Example - Let's solve this together:</div>
                   <div className="space-y-2 text-sm">
                     <div className="font-semibold text-base"><strong>Count the bears:</strong></div>
                     <div className="flex gap-2 justify-center mb-3">
@@ -20480,7 +19558,7 @@ export function PrintablesPage() {
                     <div className="pl-4 border-l-2 border-blue-300 space-y-1">
                       <div><strong>Step 1:</strong> Point to each bear and count: 1, 2, 3</div>
                       <div className="font-semibold text-blue-900"><strong>Answer:</strong> 3</div>
-                      <div className="text-xs text-blue-700 mt-1">ðŸ’¡ Tip: Count slowly and point to each character. Don't skip any!</div>
+                      <div className="text-xs text-blue-700 mt-1">💡 Tip: Count slowly and point to each character. Don't skip any!</div>
                     </div>
                   </div>
                 </div>
@@ -20500,7 +19578,7 @@ export function PrintablesPage() {
                 </div>
                 {/* Extension/Challenge Problems */}
                 <div className="mt-6 print:mt-0 p-4 bg-purple-50 border-2 border-purple-200 rounded print:bg-white print:border" style={{ pageBreakBefore: 'always', pageBreakInside: 'avoid' }}>
-                  <div className="font-semibold text-purple-900 mb-3 text-sm">🌐Ÿ More Fun (Optional):</div>
+                  <div className="font-semibold text-purple-900 mb-3 text-sm">🌐 More Fun (Optional):</div>
                   <div className="space-y-2 text-sm text-purple-800">
                     <div>1. Count characters in your room. How many can you find?</div>
                     <div>2. Draw your own cute characters and count them</div>
@@ -20536,7 +19614,7 @@ export function PrintablesPage() {
                       })}
                     </div>
                     <div className="text-xs text-emerald-700 mt-3">
-                      ðŸ’¡ Remember: Count each character carefully. Point to each one as you count!
+                      💡 Remember: Count each character carefully. Point to each one as you count!
                     </div>
                   </div>
                 ))}
@@ -20587,7 +19665,7 @@ export function PrintablesPage() {
 
                 {/* Worked Example */}
                 <div className="mb-6 p-4 bg-purple-50 border-2 border-purple-200 rounded-lg print:border print:bg-white relative">
-                  <div className="absolute -top-3 -right-3 text-3xl">ðŸ‘¸</div>
+                  <div className="absolute -top-3 -right-3 text-3xl">👗¸</div>
                   <div className="font-semibold text-purple-900 mb-3 text-sm font-serif">Mirror, Mirror on the wall...</div>
                   <div className="flex items-center gap-6 justify-center">
                     <div className="text-center">
@@ -20691,7 +19769,7 @@ export function PrintablesPage() {
               const rng = makeRng(`${effectiveSeed}|v${variant}|doc=${doc}`)
 
               const seaCreatures = ['ðŸŸ', 'ðŸ ', 'ðŸ¡', 'ðŸ™', 'ðŸš', 'ðŸ¦€', 'ðŸ¬', 'ðŸ³', 'ðŸ¦ˆ', 'ðŸ¦‘', 'ðŸ¦ž', 'ðŸ¦'];
-              const bubbles = ['ðŸ«§', 'âšª', 'ðŸ”µ']; // Decorative background elements if needed, or just keep it simple
+              const bubbles = ['ðŸ«§', 'âšª', '🔍µ']; // Decorative background elements if needed, or just keep it simple
 
               const problems = Array.from({ length: 8 }, () => {
                 const count = Math.floor(rng() * 10) + 1
@@ -20739,7 +19817,7 @@ export function PrintablesPage() {
                   {/* Worked Example */}
                   <div className="mb-6 p-4 bg-cyan-50 border-2 border-cyan-200 rounded-lg print:border print:bg-white relative overflow-hidden">
                     <div className="absolute -right-4 -top-4 text-6xl opacity-10 rotate-12">ðŸ™</div>
-                    <div className="font-semibold text-cyan-900 mb-3 text-sm relative z-10">{getTrans(`worksheets.${docId}.example.title`, 'ðŸ“š Example - Let\'s Dive In:')}</div>
+                    <div className="font-semibold text-cyan-900 mb-3 text-sm relative z-10">{getTrans(`worksheets.${docId}.example.title`, '📚 Example - Let\'s Dive In:')}</div>
                     <div className="space-y-2 text-sm relative z-10">
                       <div className="font-bold text-cyan-800">Problem: Count the Octopus friends by pointing to each one.</div>
                       <div className="flex items-center gap-4 my-2">
@@ -20812,7 +19890,7 @@ export function PrintablesPage() {
         {
           activeDocs.includes('count-match-1-20') && (() => {
             const rng = makeRng(`${effectiveSeed}|v${variant}|doc=${doc}`)
-            const treasureItems = ['ðŸ’°', 'ðŸ’Ž', 'âšª', 'ðŸ’', 'ðŸ‘‘', 'ðŸ—ï¸', 'ðŸº', '🧭', 'ðŸª™'];
+            const treasureItems = ['💰', 'ðŸ’Ž', 'âšª', 'ðŸ’', '👑', 'ðŸ—ï¸', 'ðŸº', '🧭', 'ðŸª™'];
 
             const problems = Array.from({ length: 6 }, (_, idx) => {
               const count = Math.floor(rng() * 20) + 1
@@ -20847,17 +19925,17 @@ export function PrintablesPage() {
                   <div className="absolute opacity-10 text-6xl rotate-12 left-10">ðŸ—ºï¸</div>
                   <div className="absolute opacity-10 text-6xl -rotate-12 right-10">â˜ ï¸</div>
                   <div className="text-2xl font-bold text-amber-900 flex items-center gap-3 z-10">
-                    <span>ðŸ’°</span> PIRATE TREASURE <span>ðŸ’Ž</span>
+                    <span>💰</span> PIRATE TREASURE <span>ðŸ’Ž</span>
                   </div>
                 </div>
 
                 {/* Worked Example */}
                 <div className="mb-6 p-4 bg-yellow-50 border-2 border-yellow-200 rounded-lg print:border print:bg-white relative">
                   <div className="absolute -top-3 -right-3 text-4xl transform rotate-12">ðŸ¦œ</div>
-                  <div className="font-semibold text-yellow-900 mb-2 text-sm">ðŸ“š Captain's Example:</div>
+                  <div className="font-semibold text-yellow-900 mb-2 text-sm">📚 Captain's Example:</div>
                   <div className="flex items-center gap-4">
                     <div className="w-24 h-16 bg-amber-200/50 border-2 border-amber-400/50 rounded-lg flex flex-wrap items-center justify-center gap-1 p-1">
-                      {Array.from({ length: 4 }).map((_, i) => <span key={i} className="text-xl">ðŸ’°</span>)}
+                      {Array.from({ length: 4 }).map((_, i) => <span key={i} className="text-xl">💰</span>)}
                     </div>
                     <div className="flex-1 text-sm bg-white p-2 rounded border border-yellow-100 italic text-slate-700">
                       "I see 1, 2, 3, 4 gold coins in the chest! Circle 4!"
@@ -20903,11 +19981,11 @@ export function PrintablesPage() {
                     <div className="grid grid-cols-2 gap-2 text-sm text-emerald-800">
                       {problems.map((p, i) => (
                         <div key={i}>
-                          Chest {i + 1}: <span className="font-bold">{p.count}</span> {p.emoji === 'ðŸ’°' ? 'Coins' : p.emoji === 'ðŸ’Ž' ? 'Gems' : 'Treasures'}
+                          Chest {i + 1}: <span className="font-bold">{p.count}</span> {p.emoji === '💰' ? 'Coins' : p.emoji === 'ðŸ’Ž' ? 'Gems' : 'Treasures'}
                         </div>
                       ))}
                     </div>
-                    <div className="text-xs text-emerald-700 mt-3">ðŸ’¡ Tip: Count carefully to find the loot!</div>
+                    <div className="text-xs text-emerald-700 mt-3">💡 Tip: Count carefully to find the loot!</div>
                   </div>
                 ))}
               </WorksheetSectionWrapper>
@@ -20918,7 +19996,7 @@ export function PrintablesPage() {
         {
           activeDocs.includes('how-many-1-15') && (() => {
             const rng = makeRng(`${effectiveSeed}|v${variant}|doc=${doc}`)
-            const emojis = ['ðŸŽ', 'ðŸŒ', 'ðŸ‡', 'ðŸŠ', 'ðŸ“', 'ðŸš—', '🚀', '⭐', 'ðŸŽˆ', 'ðŸ±', 'ðŸ¶', 'ðŸ¸']
+            const emojis = ['ðŸŽ', 'ðŸŒ', 'ðŸ‡', 'ðŸŠ', 'ðŸ“', '🚗', '🚀', '⭐', 'ðŸŽˆ', 'ðŸ±', 'ðŸ¶', 'ðŸ¸']
             const problems = Array.from({ length: 8 }, () => {
               const count = Math.floor(rng() * 15) + 1
               const emoji = emojis[Math.floor(rng() * emojis.length)]
@@ -20948,7 +20026,7 @@ export function PrintablesPage() {
                 <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-purple-400 to-pink-400 animate-gradient-x mb-2" />
                 {/* Worked Example */}
                 <div className="mb-6 p-4 bg-blue-50 border-2 border-blue-200 rounded-lg print:border print:bg-white">
-                  <div className="font-semibold text-blue-900 mb-3 text-sm">ðŸ“š Example - Let's solve this together:</div>
+                  <div className="font-semibold text-blue-900 mb-3 text-sm">📚 Example - Let's solve this together:</div>
                   <div className="space-y-2 text-sm">
                     <div className="font-semibold text-base"><strong>Problem:</strong> Count the circles and write the number</div>
                     <div className="pl-4 border-l-2 border-blue-300 space-y-1">
@@ -20956,7 +20034,7 @@ export function PrintablesPage() {
                       <div><strong>Step 2:</strong> The last number counted is 7, so there are 7 circles</div>
                       <div><strong>Step 3:</strong> Write the number 7 in the box</div>
                       <div className="font-semibold text-blue-900"><strong>Answer:</strong> 7</div>
-                      <div className="text-xs text-blue-700 mt-1">ðŸ’¡ Tip: Count each object once, and the last number you say is the total!</div>
+                      <div className="text-xs text-blue-700 mt-1">💡 Tip: Count each object once, and the last number you say is the total!</div>
                     </div>
                   </div>
                 </div>
@@ -20981,7 +20059,7 @@ export function PrintablesPage() {
                 </div>
                 {/* Extension/Challenge Problems */}
                 <div className="mt-6 print:mt-0 p-4 bg-purple-50 border-2 border-purple-200 rounded print:bg-white print:border" style={{ pageBreakBefore: 'always', pageBreakInside: 'avoid' }}>
-                  <div className="font-semibold text-purple-900 mb-3 text-sm">🌐Ÿ {getTrans('common.challengeYourself', 'Challenge Yourself (Optional):')}</div>
+                  <div className="font-semibold text-purple-900 mb-3 text-sm">🌐 {getTrans('common.challengeYourself', 'Challenge Yourself (Optional):')}</div>
                   <div className="space-y-2 text-sm text-purple-800">
                     <div>1. Count objects around you: How many pencils? How many books?</div>
                     <div>2. Draw your own group of objects and count them</div>
@@ -21011,7 +20089,7 @@ export function PrintablesPage() {
                         <li key={i}><strong>Box {i + 1}:</strong> {p.count} (There are {p.count} {p.emoji} to count)</li>
                       ))}
                     </ul>
-                    <div className="text-xs text-emerald-700 mt-3">ðŸ’¡ Tip: Count each object one by one. The last number you count is the total!</div>
+                    <div className="text-xs text-emerald-700 mt-3">💡 Tip: Count each object one by one. The last number you count is the total!</div>
                   </div>
                 ))}
               </WorksheetSectionWrapper>
@@ -21075,7 +20153,7 @@ export function PrintablesPage() {
 
                 {/* Worked Example */}
                 <div className="mb-6 p-4 bg-blue-50 border-2 border-blue-200 rounded-lg print:border print:bg-white">
-                  <div className="font-semibold text-blue-900 mb-3 text-sm">ðŸ“š Example - Coloring Guide:</div>
+                  <div className="font-semibold text-blue-900 mb-3 text-sm">📚 Example - Coloring Guide:</div>
                   <div className="space-y-2 text-sm">
                     <div className="font-semibold text-slate-700">Task: Color 3 Fish</div>
                     <div className="flex items-center gap-4 bg-white p-3 rounded-lg border border-blue-100">
@@ -21144,7 +20222,7 @@ export function PrintablesPage() {
               { name: 'Potion', icon: '🧪' },
               { name: 'Star', icon: '⭐' },
               { name: 'Spider', icon: 'ðŸ•·ï¸' },
-              { name: 'Eye', icon: 'ðŸ‘ï¸' },
+              { name: 'Eye', icon: '👗ï¸' },
               { name: 'Leaf', icon: 'ðŸƒ' },
               { name: 'Moon', icon: '🌐™' },
             ]
@@ -21196,7 +20274,7 @@ export function PrintablesPage() {
                 {/* Worked Example */}
                 <div className="mb-8 p-6 bg-indigo-50 border-2 border-indigo-200 rounded-xl print:border print:bg-white relative overflow-hidden">
                   <div className="absolute -right-6 -top-6 text-8xl opacity-10 rotate-12">âš—ï¸</div>
-                  <div className="font-bold text-indigo-900 mb-4 text-sm uppercase tracking-wide">ðŸ“š Magical Example:</div>
+                  <div className="font-bold text-indigo-900 mb-4 text-sm uppercase tracking-wide">📚 Magical Example:</div>
 
                   <div className="flex flex-wrap items-center justify-center gap-4 text-2xl md:text-3xl">
                     {/* Left Group */}
@@ -21512,7 +20590,7 @@ export function PrintablesPage() {
 
                 {/* Worked Example */}
                 <div className="mb-8 p-6 bg-yellow-50 border-2 border-yellow-200 rounded-xl print:border print:bg-white relative">
-                  <div className="font-bold text-yellow-800 mb-4 text-sm uppercase tracking-wide text-center">ðŸ“š Ringmaster's Example:</div>
+                  <div className="font-bold text-yellow-800 mb-4 text-sm uppercase tracking-wide text-center">📚 Ringmaster's Example:</div>
 
                   <div className="flex flex-col items-center">
                     {/* Scale Visual */}
@@ -21675,7 +20753,7 @@ export function PrintablesPage() {
                 {/* Worked Example */}
                 <div className="mb-8 p-6 bg-white border-2 border-sky-200 rounded-xl print:border relative overflow-hidden">
                   <div className="absolute -right-4 -top-4 w-20 h-20 bg-sky-50 rounded-full"></div>
-                  <div className="font-bold text-sky-800 mb-4 text-sm uppercase tracking-wide">ðŸ“š Dragon Guide:</div>
+                  <div className="font-bold text-sky-800 mb-4 text-sm uppercase tracking-wide">📚 Dragon Guide:</div>
 
                   <div className="flex items-center justify-center gap-2 md:gap-4 relative">
                     {/* Arcs showing jumps */}
@@ -21815,7 +20893,7 @@ export function PrintablesPage() {
 
                 {/* Worked Example */}
                 <div className="mb-8 p-6 bg-emerald-50 border-2 border-emerald-200 rounded-xl print:border print:bg-white relative">
-                  <div className="font-bold text-emerald-900 mb-4 text-sm uppercase tracking-wide">ðŸ“š How to Hop: 4 + 3</div>
+                  <div className="font-bold text-emerald-900 mb-4 text-sm uppercase tracking-wide">📚 How to Hop: 4 + 3</div>
 
                   <div className="relative pt-8 pb-4">
                     {/* Line */}
@@ -21900,7 +20978,7 @@ export function PrintablesPage() {
           activeDocs.includes('pattern-complete') && (() => {
             const rng = makeRng(`${effectiveSeed}|v${variant}|doc=${doc}`)
 
-            const items = ['🚀', 'ðŸ›¸', 'ðŸª', '⭐', 'ðŸ‘¨â€🚀', 'ðŸ‘¾', '🌐‘', 'ðŸ›°ï¸']
+            const items = ['🚀', 'ðŸ›¸', 'ðŸª', '⭐', '👗¨â€🚀', '👾', '🌐‘', 'ðŸ›°ï¸']
 
             const problems = Array.from({ length: 6 }, () => {
               // Select items for this specific problem
@@ -21960,7 +21038,7 @@ export function PrintablesPage() {
 
                   <div className="absolute inset-0 flex items-center justify-center">
                     <div className="flex items-center gap-3">
-                      <span className="text-3xl">ðŸ‘¨â€🚀</span>
+                      <span className="text-3xl">👗¨â€🚀</span>
                       <h2 className="text-2xl font-black text-white tracking-[0.2em] uppercase font-mono" style={{ textShadow: '0 0 10px #818cf8' }}>Pattern Control</h2>
                       <span className="text-3xl">ðŸ“¡</span>
                     </div>
@@ -22203,7 +21281,7 @@ export function PrintablesPage() {
           activeDocs.includes('big-small') && (() => {
             const rng = makeRng(`${effectiveSeed}|v${variant}|doc=${doc}`)
 
-            const monsters = ['ðŸ‘¾', 'ðŸ‘¹', 'ðŸ‘º', 'ðŸ‘»', 'ðŸ¤–']
+            const monsters = ['👾', '👗¹', '👗º', '👗»', 'ðŸ¤–']
             const problems = Array.from({ length: 4 }, () => {
               const targetType = rng() > 0.5 ? 'Biggest' : 'Smallest'
               const monster = monsters[Math.floor(rng() * monsters.length)]
@@ -22272,8 +21350,8 @@ export function PrintablesPage() {
             // Concepts: Matching shapes to outlines
             const shapeItems = [
               { name: 'Square', solid: 'ðŸŸ¦', outline: 'â¬œ', style: 'rounded-none' },
-              { name: 'Circle', solid: 'ðŸ”´', outline: 'âšª', style: 'rounded-full' },
-              { name: 'Diamond', solid: 'ðŸ”·', outline: 'âœ¨', style: 'rotate-45' }, // Using emoji for simplicity
+              { name: 'Circle', solid: '🔍´', outline: 'âšª', style: 'rounded-full' },
+              { name: 'Diamond', solid: '🔍·', outline: 'âœ¨', style: 'rotate-45' }, // Using emoji for simplicity
               { name: 'Star', solid: '⭐', outline: 'â˜†', style: '' }
             ]
 
@@ -22532,7 +21610,7 @@ export function PrintablesPage() {
                 </div>
                 {/* Extension/Challenge Problems */}
                 <div className="mt-6 print:mt-0 p-4 bg-purple-50 border-2 border-purple-200 rounded print:bg-white print:border" style={{ pageBreakBefore: 'always', pageBreakInside: 'avoid' }}>
-                  <div className="font-semibold text-purple-900 mb-3 text-sm">{getTrans('worksheets.number-id-1-10.challenge.title', '🌐Ÿ Challenge Yourself (Optional):')}</div>
+                  <div className="font-semibold text-purple-900 mb-3 text-sm">{getTrans('worksheets.number-id-1-10.challenge.title', '🌐 Challenge Yourself (Optional):')}</div>
                   <div className="space-y-2 text-sm text-purple-800">
                     <div>{formatNum(1)}. {getTrans('worksheets.number-id-1-10.challenge.1', 'Can you find numbers around your house? Look for numbers on clocks, calendars, or books')}</div>
                     <div>{formatNum(2)}. {getTrans('worksheets.number-id-1-10.challenge.2', 'Write your own number grid and have someone find a specific number')}</div>
@@ -22558,7 +21636,7 @@ export function PrintablesPage() {
                   <div className="mt-6 p-4 border-2 border-emerald-300 bg-emerald-50 rounded print:border print:bg-white print:page-break-before-always">
                     <div className="font-bold text-emerald-900 mb-3 text-base">✅ {getTrans('common.answerKey', 'Answer Key')}</div>
                     <p className="text-sm text-emerald-800 mb-2"><strong>{getTrans('worksheets.number-id-1-10.answer.text', `Circle all ${formattedTarget}s.`).replace(/\{\{number\}\}/g, formattedTarget)}</strong> {getTrans('worksheets.number-id-1-10.answer.found', `Found: ${formattedCount} instances.`).replace(/\{\{count\}\}/g, formattedCount)}</p>
-                    <div className="text-xs text-emerald-700 mt-2">{getTrans('worksheets.number-id-1-10.answer.remember', `ðŸ’¡ Remember: Look carefully at each number and match it to the target number ${formattedTarget}. Circle all instances you find!`).replace(/\{\{number\}\}/g, formattedTarget)}</div>
+                    <div className="text-xs text-emerald-700 mt-2">{getTrans('worksheets.number-id-1-10.answer.remember', `💡 Remember: Look carefully at each number and match it to the target number ${formattedTarget}. Circle all instances you find!`).replace(/\{\{number\}\}/g, formattedTarget)}</div>
                   </div>
                 ))}
               </WorksheetSectionWrapper>
@@ -22604,7 +21682,7 @@ export function PrintablesPage() {
 
                 {/* Worked Example */}
                 <div className="mb-6 p-4 bg-blue-50 border-2 border-blue-200 rounded-lg print:border print:bg-white text-sm">
-                  <div className="font-semibold text-blue-900 mb-2">ðŸ“š Example:</div>
+                  <div className="font-semibold text-blue-900 mb-2">📚 Example:</div>
                   <div className="flex items-center gap-8 justify-center p-2 border bg-white rounded">
                     <span className="text-2xl font-bold">5</span>
                     <svg width="60" height="20" className="text-blue-400">
@@ -22652,7 +21730,7 @@ export function PrintablesPage() {
                 </div>
                 {/* Extension/Challenge Problems */}
                 <div className="mt-6 print:mt-0 p-4 bg-purple-50 border-2 border-purple-200 rounded print:bg-white print:border" style={{ pageBreakBefore: 'always', pageBreakInside: 'avoid' }}>
-                  <div className="font-semibold text-purple-900 mb-3 text-sm">🌐Ÿ {getTrans('common.challengeYourself', 'Challenge Yourself (Optional):')}</div>
+                  <div className="font-semibold text-purple-900 mb-3 text-sm">🌐 {getTrans('common.challengeYourself', 'Challenge Yourself (Optional):')}</div>
                   <div className="space-y-2 text-sm text-purple-800">
                     <div>1. Can you write the number words for 16, 17, 18, 19, 20?</div>
                     <div>2. Practice reading number words: twenty, thirty, forty...</div>
@@ -22682,7 +21760,7 @@ export function PrintablesPage() {
                         <li key={i}><strong>{p.num} = {p.word}</strong> (Draw a line connecting {p.num} to {p.word})</li>
                       ))}
                     </ul>
-                    <div className="text-xs text-emerald-700 mt-3">ðŸ’¡ Remember: Match each number to its word name. Read the words aloud to help you!</div>
+                    <div className="text-xs text-emerald-700 mt-3">💡 Remember: Match each number to its word name. Read the words aloud to help you!</div>
                   </div>
                 ))}
               </WorksheetSectionWrapper>
@@ -22760,7 +21838,7 @@ export function PrintablesPage() {
                 </div>
                 {/* Extension/Challenge Problems */}
                 <div className="mt-6 print:mt-0 p-4 bg-purple-50 border-2 border-purple-200 rounded print:bg-white print:border" style={{ pageBreakBefore: 'always', pageBreakInside: 'avoid' }}>
-                  <div className="font-semibold text-purple-900 mb-3 text-sm">🌐Ÿ {getTrans('common.challengeYourself', 'Challenge Yourself (Optional):')}</div>
+                  <div className="font-semibold text-purple-900 mb-3 text-sm">🌐 {getTrans('common.challengeYourself', 'Challenge Yourself (Optional):')}</div>
                   <div className="space-y-2 text-sm text-purple-800">
                     <div>1. Can you order these numbers backwards: 10, 7, 4, 1? (from largest to smallest)</div>
                     <div>2. Try ordering: 15, 20, 5, 10, 1</div>
@@ -22814,7 +21892,7 @@ export function PrintablesPage() {
               <WorksheetSectionWrapper
                 docId="find-number-1-10"
                 title="Find the Number (1–10)"
-                emoji="ðŸ”"
+                emoji="🔍"
                 description={`Look at the number ${targetNumber}. Find and circle all the matching numbers in the bubble cloud.`}
                 problemCount={targetCount}
                 learningObjectives={[
@@ -22831,7 +21909,7 @@ export function PrintablesPage() {
                 <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-purple-400 to-pink-400 animate-gradient-x mb-2" />
                 <div className="text-center mb-8">
                   <div className="inline-block px-10 py-5 border-4 border-dashed border-purple-500 rounded-2xl text-6xl font-black text-purple-700 bg-purple-50 shadow-inner mb-4 relative">
-                    <div className="absolute -top-3 -right-3 w-10 h-10 bg-purple-500 rounded-full flex items-center justify-center text-white text-xl">ðŸ”</div>
+                    <div className="absolute -top-3 -right-3 w-10 h-10 bg-purple-500 rounded-full flex items-center justify-center text-white text-xl">🔍</div>
                     {targetNumber}
                   </div>
                   <p className="text-xl font-bold text-slate-800">Can you find all the {targetNumber}s?</p>
@@ -22852,7 +21930,7 @@ export function PrintablesPage() {
                 </div>
                 {/* Extension/Challenge Problems */}
                 <div className="mt-6 print:mt-0 p-4 bg-purple-50 border-2 border-purple-200 rounded print:bg-white print:border" style={{ pageBreakBefore: 'always', pageBreakInside: 'avoid' }}>
-                  <div className="font-semibold text-purple-900 mb-3 text-sm">🌐Ÿ {getTrans('common.challengeYourself', 'Challenge Yourself (Optional):')}</div>
+                  <div className="font-semibold text-purple-900 mb-3 text-sm">🌐 {getTrans('common.challengeYourself', 'Challenge Yourself (Optional):')}</div>
                   <div className="space-y-2 text-sm text-purple-800">
                     <div>1. Can you find numbers around your house? Look for numbers on clocks, calendars, or books</div>
                     <div>2. Create your own number grid and have someone find a specific number</div>
@@ -22878,7 +21956,7 @@ export function PrintablesPage() {
                   <div className="mt-6 p-4 border-2 border-emerald-300 bg-emerald-50 rounded print:border print:bg-white print:page-break-before-always">
                     <div className="font-bold text-emerald-900 mb-3 text-base">✅ {getTrans('common.answerKey', 'Answer Key')}</div>
                     <p className="text-sm text-emerald-800 mb-2"><strong>Circle all {targetNumber}s.</strong> Found: {targetCount} instances.</p>
-                    <div className="text-xs text-emerald-700 mt-2">ðŸ’¡ Remember: Look carefully at each number in the grid and match it to the target number {targetNumber}. Circle all instances you find!</div>
+                    <div className="text-xs text-emerald-700 mt-2">💡 Remember: Look carefully at each number in the grid and match it to the target number {targetNumber}. Circle all instances you find!</div>
                   </div>
                 ))}
               </WorksheetSectionWrapper>
@@ -22946,7 +22024,7 @@ export function PrintablesPage() {
                 {/* Example */}
                 <div className="mb-6 p-4 bg-orange-50 border-2 border-orange-200 rounded-lg print:border print:bg-white dashed-border">
                   <div className="font-bold text-orange-800 mb-2 flex items-center gap-2">
-                    <span>ðŸ”¦</span> Example Mission: Find the Circles
+                    <span>🔍¦</span> Example Mission: Find the Circles
                   </div>
                   <div className="flex items-center gap-4">
                     <div className="w-12 h-12 border-2 border-slate-300 rounded bg-white p-1">
@@ -23061,7 +22139,7 @@ export function PrintablesPage() {
                 itemB = { type: 'shape', shape: shapeBKey, color };
               } else {
                 const emojiPairs = [
-                  ['ðŸŽ', 'ðŸŒ'], ['â˜€ï¸', '🌐™'], ['ðŸ¦', 'ðŸ¯'], ['âš½', 'ðŸ€'], ['ðŸš—', 'ðŸš²'], ['⭐', 'â˜ï¸']
+                  ['ðŸŽ', 'ðŸŒ'], ['â˜€ï¸', '🌐™'], ['ðŸ¦', 'ðŸ¯'], ['âš½', 'ðŸ€'], ['🚗', 'ðŸš²'], ['⭐', 'â˜ï¸']
                 ];
                 const pair = emojiPairs[Math.floor(rng() * emojiPairs.length)];
                 itemA = { type: 'emoji', emoji: pair[0] };
@@ -23090,7 +22168,7 @@ export function PrintablesPage() {
               <WorksheetSectionWrapper
                 docId="ab-pattern"
                 title="Pattern Train Puzzle"
-                emoji="ðŸ§©"
+                emoji="🧩"
                 description="What comes next in the train? Look at the pattern and circle the correct piece."
                 problemCount={patterns.length}
                 learningObjectives={[
@@ -23146,7 +22224,7 @@ export function PrintablesPage() {
                 </div>
                 {/* Extension/Challenge Problems */}
                 <div className="mt-6 print:mt-0 p-4 bg-purple-50 border-2 border-purple-200 rounded print:bg-white print:border" style={{ pageBreakBefore: 'always', pageBreakInside: 'avoid' }}>
-                  <div className="font-semibold text-purple-900 mb-3 text-sm">🌐Ÿ {getTrans('common.challengeYourself', 'Challenge Yourself (Optional):')}</div>
+                  <div className="font-semibold text-purple-900 mb-3 text-sm">🌐 {getTrans('common.challengeYourself', 'Challenge Yourself (Optional):')}</div>
                   <div className="space-y-2 text-sm text-purple-800">
                     <div>1. Create your own AB pattern using colors or shapes</div>
                     <div>2. Try an ABC pattern: A, B, C, A, B, C... What comes next?</div>
@@ -23265,7 +22343,7 @@ export function PrintablesPage() {
                 </div>
                 {/* Extension/Challenge Problems */}
                 <div className="mt-6 print:mt-0 p-4 bg-purple-50 border-2 border-purple-200 rounded print:bg-white print:border" style={{ pageBreakBefore: 'always', pageBreakInside: 'avoid' }}>
-                  <div className="font-semibold text-purple-900 mb-3 text-sm">🌐Ÿ {getTrans('common.challengeYourself', 'Challenge Yourself (Optional):')}</div>
+                  <div className="font-semibold text-purple-900 mb-3 text-sm">🌐 {getTrans('common.challengeYourself', 'Challenge Yourself (Optional):')}</div>
                   <div className="space-y-2 text-sm text-purple-800">
                     <div>1. Find objects around you: Which is bigger, your book or your pencil?</div>
                     <div>2. Compare three objects: Which is biggest? Which is smallest?</div>
@@ -23295,7 +22373,7 @@ export function PrintablesPage() {
                         <li key={i}><strong>Row {i + 1}:</strong> Circle {p.bigLabel} ({p.big}), X on {p.smallLabel} ({p.small}) - The {p.bigLabel} is bigger than the {p.smallLabel}</li>
                       ))}
                     </ul>
-                    <div className="text-xs text-emerald-700 mt-3">ðŸ’¡ Remember: Compare the two objects side by side. The bigger object gets a circle, the smaller object gets an X!</div>
+                    <div className="text-xs text-emerald-700 mt-3">💡 Remember: Compare the two objects side by side. The bigger object gets a circle, the smaller object gets an X!</div>
                   </div>
                 ))}
               </WorksheetSectionWrapper>
@@ -23306,7 +22384,7 @@ export function PrintablesPage() {
         {
           activeDocs.includes('more-less') && (() => {
             const rng = makeRng(`${effectiveSeed}|v${variant}|doc=${doc}`)
-            const emojis = ['ðŸŽ', 'ðŸš—', 'ðŸ¸', '🌐Ÿ', 'ðŸª', 'ðŸŽˆ', 'ðŸ ', 'ðŸ¦‹'];
+            const emojis = ['ðŸŽ', '🚗', 'ðŸ¸', '🌐', 'ðŸª', 'ðŸŽˆ', 'ðŸ ', '🦋'];
             const problems = Array.from({ length: 4 }, (_, i) => {
               const left = Math.floor(rng() * 8) + 1;
               let right = Math.floor(rng() * 8) + 1;
@@ -23377,7 +22455,7 @@ export function PrintablesPage() {
                 </div>
                 {/* Extension/Challenge Problems */}
                 <div className="mt-6 print:mt-0 p-4 bg-purple-50 border-2 border-purple-200 rounded print:bg-white print:border" style={{ pageBreakBefore: 'always', pageBreakInside: 'avoid' }}>
-                  <div className="font-semibold text-purple-900 mb-3 text-sm">🌐Ÿ {getTrans('common.challengeYourself', 'Challenge Yourself (Optional):')}</div>
+                  <div className="font-semibold text-purple-900 mb-3 text-sm">🌐 {getTrans('common.challengeYourself', 'Challenge Yourself (Optional):')}</div>
                   <div className="space-y-2 text-sm text-purple-800">
                     <div>1. Find objects around you: Which group has more, your pencils or your erasers?</div>
                     <div>2. Compare three groups: Which has the most? Which has the least?</div>
@@ -23415,7 +22493,7 @@ export function PrintablesPage() {
                         )
                       })}
                     </ul>
-                    <div className="text-xs text-emerald-700 mt-3">ðŸ’¡ Remember: Count each group first, then compare the numbers. The group with the bigger number has more!</div>
+                    <div className="text-xs text-emerald-700 mt-3">💡 Remember: Count each group first, then compare the numbers. The group with the bigger number has more!</div>
                   </div>
                 ))}
               </WorksheetSectionWrapper>
@@ -24780,14 +23858,14 @@ export function PrintablesPage() {
                 <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-purple-400 to-pink-400 animate-gradient-x mb-2" />
                 {/* Worked Example */}
                 <div className="mb-6 p-4 bg-blue-50 border-2 border-blue-200 rounded-lg print:border print:bg-white">
-                  <div className="font-semibold text-blue-900 mb-3 text-sm">ðŸ“š Example - Let's solve this together:</div>
+                  <div className="font-semibold text-blue-900 mb-3 text-sm">📚 Example - Let's solve this together:</div>
                   <div className="space-y-2 text-sm">
                     <div className="font-mono text-base"><strong>Problem:</strong> 24 Ã· 6 = ?</div>
                     <div className="pl-4 border-l-2 border-blue-300 space-y-1">
                       <div><strong>Strategy 1:</strong> Think: What times 6 equals 24? 6 Ã— 4 = 24, so 24 Ã· 6 = 4</div>
                       <div><strong>Strategy 2:</strong> Count groups: How many groups of 6 are in 24? 6, 12, 18, 24 (4 groups)</div>
                       <div className="font-semibold text-blue-900"><strong>Answer:</strong> 4</div>
-                      <div className="text-xs text-blue-700 mt-1">ðŸ’¡ Tip: Division is the opposite of multiplication! Use what you know about multiplication facts.</div>
+                      <div className="text-xs text-blue-700 mt-1">💡 Tip: Division is the opposite of multiplication! Use what you know about multiplication facts.</div>
                     </div>
                   </div>
                 </div>
@@ -24804,7 +23882,7 @@ export function PrintablesPage() {
                 </div>
                 {/* Extension/Challenge Problems */}
                 <div className="mt-6 print:mt-0 p-4 bg-purple-50 border-2 border-purple-200 rounded print:bg-white print:border" style={{ pageBreakBefore: 'always', pageBreakInside: 'avoid' }}>
-                  <div className="font-semibold text-purple-900 mb-3 text-sm">🌐Ÿ {getTrans('common.challengeYourself', 'Challenge Yourself (Optional):')}</div>
+                  <div className="font-semibold text-purple-900 mb-3 text-sm">🌐 {getTrans('common.challengeYourself', 'Challenge Yourself (Optional):')}</div>
                   <div className="space-y-2 text-sm text-purple-800">
                     <div>1. Solve: 144 Ã· 12 = ? (the biggest fact!)</div>
                     <div>2. Create your own division problem: ___ Ã· ___ = ?</div>
@@ -25023,7 +24101,7 @@ export function PrintablesPage() {
               <WorksheetSectionWrapper
                 docId={docId}
                 title="Triangle Towers: Fact Families"
-                emoji="ðŸ”º"
+                emoji="🔺"
                 description="The three numbers live in the tower. Write the 2 multiplication and 2 division facts for the family!"
                 problemCount={4}
                 learningObjectives={[
@@ -25095,7 +24173,7 @@ export function PrintablesPage() {
               <WorksheetSectionWrapper
                 docId={docId}
                 title="Shrink Ray: Zero Zap"
-                emoji="ðŸ”¦"
+                emoji="🔍¦"
                 description="Zap the zeros! Divide by 10 or 100 by removing the matching zeros."
                 problemCount={problems.length}
                 learningObjectives={[
@@ -26066,7 +25144,7 @@ export function PrintablesPage() {
               <WorksheetSectionWrapper
                 docId={docId}
                 title="Butterfly Garden: Symmetry"
-                emoji="ðŸ¦‹"
+                emoji="🦋"
                 description="Complete the symmetry tasks. Symmetry means one side is a mirror image of the other."
                 problemCount={problems.length}
                 learningObjectives={['Identify lines of symmetry', 'Draw lines of symmetry', 'Recognize symmetrical shapes']}
@@ -26992,7 +26070,7 @@ export function PrintablesPage() {
               <WorksheetSectionWrapper
                 docId={docId}
                 title="Carpenter's Workshop: Mixed Numbers"
-                emoji="ðŸ”¨"
+                emoji="🔍¨"
                 description="Add and subtract mixed numbers. Remember to regroup if needed!"
                 problemCount={problems.length}
                 learningObjectives={[
@@ -27055,7 +26133,7 @@ export function PrintablesPage() {
                 {showAnswersForDoc(docId, () => (
                   <div className="mt-8 p-6 bg-slate-900 text-white rounded-2xl print:bg-white print:text-black print:border-2">
                     <div className="font-bold mb-4 text-lg border-b border-slate-700 pb-2 flex items-center gap-2">
-                      <span>ðŸ“‹ Workshop Log (Answers)</span>
+                      <span>📋 Workshop Log (Answers)</span>
                     </div>
                     <div className="grid grid-cols-2 md:grid-cols-3 gap-6">
                       {problems.map((p, i) => (
@@ -27429,7 +26507,7 @@ export function PrintablesPage() {
               <WorksheetSectionWrapper
                 docId={docId}
                 title="Mixed Numbers to Improper Fractions"
-                emoji="ðŸ”„"
+                emoji="🔍„"
                 description="Convert mixed numbers to improper fractions."
                 problemCount={problems.length}
                 learningObjectives={['Understand addition and subtraction of fractions as joining and separating parts referring to the same whole']}
@@ -27646,7 +26724,7 @@ export function PrintablesPage() {
               <WorksheetSectionWrapper
                 docId={docId}
                 title="Lines of Symmetry"
-                emoji="ðŸ¦‹"
+                emoji="🦋"
                 description="Identify if a shape is line-symmetric."
                 problemCount={problems.length}
                 learningObjectives={['Recognize a line of symmetry for a two-dimensional figure', 'Identify line-symmetric figures']}
@@ -27695,7 +26773,7 @@ export function PrintablesPage() {
               <WorksheetSectionWrapper
                 docId={docId}
                 title="Classifying Shapes"
-                emoji="ðŸ”·"
+                emoji="🔍·"
                 description="Classify shapes based on lines and angles."
                 problemCount={problems.length}
                 learningObjectives={['Classify two-dimensional figures based on the presence or absence of parallel or perpendicular lines', 'Recognize right triangles']}
@@ -27818,7 +26896,7 @@ export function PrintablesPage() {
               <WorksheetSectionWrapper
                 docId={docId}
                 title="Line Plot: Measurement Data"
-                emoji="ðŸ“ˆ"
+                emoji="📈"
                 description="Make a line plot to display the data set of measurements."
                 problemCount={1}
                 learningObjectives={['Make a line plot to display a data set of measurements in fractions of a unit', 'Solve problems involving addition and subtraction of fractions using information in line plots']}
@@ -27892,7 +26970,7 @@ export function PrintablesPage() {
               <WorksheetSectionWrapper
                 docId={docId}
                 title="Market Maths: Money Problems"
-                emoji="ðŸ’°"
+                emoji="💰"
                 description="Solve word problems involving money and decimals."
                 problemCount={problems.length}
                 learningObjectives={['Use the four operations to solve word problems involving money']}
@@ -27995,7 +27073,7 @@ export function PrintablesPage() {
                 <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-purple-400 to-pink-400 animate-gradient-x mb-2" />
                 {/* Worked Example */}
                 <div className="mb-6 p-4 bg-blue-50 border-2 border-blue-200 rounded-lg print:border print:bg-white">
-                  <div className="font-semibold text-blue-900 mb-3 text-sm">ðŸ“š Example - Let's solve this together:</div>
+                  <div className="font-semibold text-blue-900 mb-3 text-sm">📚 Example - Let's solve this together:</div>
                   <div className="space-y-2 text-sm">
                     <div className="font-semibold text-base"><strong>Problem:</strong> 12 ) 156</div>
                     <div className="pl-4 border-l-2 border-blue-300 space-y-1">
@@ -28005,7 +27083,7 @@ export function PrintablesPage() {
                       <div><strong>Step 4:</strong> Bring down 6, Divide: 36 Ã· 12 = 3</div>
                       <div><strong>Step 5:</strong> Multiply: 3 Ã— 12 = 36, Subtract: 36 - 36 = 0</div>
                       <div className="font-semibold text-blue-900"><strong>Answer:</strong> 13</div>
-                      <div className="text-xs text-blue-700 mt-1">ðŸ’¡ Tip: Estimate first, then use DMSB steps!</div>
+                      <div className="text-xs text-blue-700 mt-1">💡 Tip: Estimate first, then use DMSB steps!</div>
                     </div>
                   </div>
                 </div>
@@ -28023,7 +27101,7 @@ export function PrintablesPage() {
                 </div>
                 {/* Extension/Challenge Problems */}
                 <div className="mt-6 print:mt-0 p-4 bg-purple-50 border-2 border-purple-200 rounded print:bg-white print:border" style={{ pageBreakBefore: 'always', pageBreakInside: 'avoid' }}>
-                  <div className="font-semibold text-purple-900 mb-3 text-sm">🌐Ÿ {getTrans('common.challengeYourself', 'Challenge Yourself (Optional):')}</div>
+                  <div className="font-semibold text-purple-900 mb-3 text-sm">🌐 {getTrans('common.challengeYourself', 'Challenge Yourself (Optional):')}</div>
                   <div className="space-y-2 text-sm text-purple-800">
                     <div>1. Create your own long division problem with 2-digit divisor</div>
                     <div>2. Solve: 23 ) 529</div>
@@ -28103,7 +27181,7 @@ export function PrintablesPage() {
                 <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-blue-400 to-indigo-400 animate-gradient-x mb-2" />
                 {/* Worked Example */}
                 <div className="mb-6 p-4 bg-blue-50 border-2 border-blue-200 rounded-lg print:border print:bg-white">
-                  <div className="font-semibold text-blue-900 mb-3 text-sm">ðŸ“š Example - Let's solve this together:</div>
+                  <div className="font-semibold text-blue-900 mb-3 text-sm">📚 Example - Let's solve this together:</div>
                   <div className="space-y-2 text-sm">
                     <div className="font-semibold text-base"><strong>Problem:</strong> 14 Ã— 12 using area model</div>
                     <div className="pl-4 border-l-2 border-blue-300 space-y-1">
@@ -28112,7 +27190,7 @@ export function PrintablesPage() {
                       <div><strong>Step 3:</strong> Calculate parts: 10Ã—10=100, 10Ã—2=20, 4Ã—10=40, 4Ã—2=8</div>
                       <div><strong>Step 4:</strong> Add: 100 + 20 + 40 + 8 = 168</div>
                       <div className="font-semibold text-blue-900"><strong>Answer:</strong> 168</div>
-                      <div className="text-xs text-blue-700 mt-1">ðŸ’¡ Tip: Break numbers into parts, multiply each part, then add!</div>
+                      <div className="text-xs text-blue-700 mt-1">💡 Tip: Break numbers into parts, multiply each part, then add!</div>
                     </div>
                   </div>
                 </div>
@@ -28135,7 +27213,7 @@ export function PrintablesPage() {
                 </div>
                 {/* Extension/Challenge Problems */}
                 <div className="mt-6 print:mt-0 p-4 bg-purple-50 border-2 border-purple-200 rounded print:bg-white print:border" style={{ pageBreakBefore: 'always', pageBreakInside: 'avoid' }}>
-                  <div className="font-semibold text-purple-900 mb-3 text-sm">🌐Ÿ {getTrans('common.challengeYourself', 'Challenge Yourself (Optional):')}</div>
+                  <div className="font-semibold text-purple-900 mb-3 text-sm">🌐 {getTrans('common.challengeYourself', 'Challenge Yourself (Optional):')}</div>
                   <div className="space-y-2 text-sm text-purple-800">
                     <div>1. Create your own area model multiplication problem</div>
                     <div>2. Solve: 25 Ã— 18 using area model</div>
@@ -28216,7 +27294,7 @@ export function PrintablesPage() {
                 <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-purple-400 to-pink-400 animate-gradient-x mb-2" />
                 {/* Worked Example */}
                 <div className="mb-6 p-4 bg-blue-50 border-2 border-blue-200 rounded-lg print:border print:bg-white">
-                  <div className="font-semibold text-blue-900 mb-3 text-sm">ðŸ“š Example - Let's solve this together:</div>
+                  <div className="font-semibold text-blue-900 mb-3 text-sm">📚 Example - Let's solve this together:</div>
                   <div className="space-y-2 text-sm">
                     <div className="font-mono text-base"><strong>Problem:</strong> 24 Ã— 13 = ?</div>
                     <div className="pl-4 border-l-2 border-blue-300 space-y-1">
@@ -28325,7 +27403,7 @@ export function PrintablesPage() {
                 <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-purple-400 to-pink-400 animate-gradient-x mb-2" />
                 {/* Worked Example */}
                 <div className="mb-6 p-4 bg-blue-50 border-2 border-blue-200 rounded-lg print:border print:bg-white">
-                  <div className="font-semibold text-blue-900 mb-3 text-sm">ðŸ“š Example - Let's solve this together:</div>
+                  <div className="font-semibold text-blue-900 mb-3 text-sm">📚 Example - Let's solve this together:</div>
                   <div className="space-y-2 text-sm">
                     <div className="font-semibold text-base"><strong>Problem:</strong> 1/2 ____ 1/3</div>
                     <div className="pl-4 border-l-2 border-blue-300 space-y-1">
@@ -28333,7 +27411,7 @@ export function PrintablesPage() {
                       <div><strong>Step 2:</strong> Convert: 1/2 = 3/6, 1/3 = 2/6</div>
                       <div><strong>Step 3:</strong> Compare: 3/6 &gt; 2/6</div>
                       <div className="font-semibold text-blue-900"><strong>Answer:</strong> &gt;</div>
-                      <div className="text-xs text-blue-700 mt-1">ðŸ’¡ Tip: Find common denominator, then compare numerators!</div>
+                      <div className="text-xs text-blue-700 mt-1">💡 Tip: Find common denominator, then compare numerators!</div>
                     </div>
                   </div>
                 </div>
@@ -28350,7 +27428,7 @@ export function PrintablesPage() {
                 </div>
                 {/* Extension/Challenge Problems */}
                 <div className="mt-6 print:mt-0 p-4 bg-purple-50 border-2 border-purple-200 rounded print:bg-white print:border" style={{ pageBreakBefore: 'always', pageBreakInside: 'avoid' }}>
-                  <div className="font-semibold text-purple-900 mb-3 text-sm">🌐Ÿ {getTrans('common.challengeYourself', 'Challenge Yourself (Optional):')}</div>
+                  <div className="font-semibold text-purple-900 mb-3 text-sm">🌐 {getTrans('common.challengeYourself', 'Challenge Yourself (Optional):')}</div>
                   <div className="space-y-2 text-sm text-purple-800">
                     <div>1. Compare: 2/3 ____ 3/4</div>
                     <div>2. Order from least to greatest: 1/4, 1/2, 1/3</div>
@@ -28433,7 +27511,7 @@ export function PrintablesPage() {
                 <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-purple-400 to-pink-400 animate-gradient-x mb-2" />
                 {/* Worked Example */}
                 <div className="mb-6 p-4 bg-blue-50 border-2 border-blue-200 rounded-lg print:border print:bg-white">
-                  <div className="font-semibold text-blue-900 mb-3 text-sm">ðŸ“š Example - Let's solve this together:</div>
+                  <div className="font-semibold text-blue-900 mb-3 text-sm">📚 Example - Let's solve this together:</div>
                   <div className="space-y-2 text-sm">
                     <div className="font-semibold text-base"><strong>Problem:</strong> 2/5 + 1/5 = ____</div>
                     <div className="pl-4 border-l-2 border-blue-300 space-y-1">
@@ -28441,7 +27519,7 @@ export function PrintablesPage() {
                       <div><strong>Step 2:</strong> Add numerators: 2 + 1 = 3</div>
                       <div><strong>Step 3:</strong> Write answer: 3/5</div>
                       <div className="font-semibold text-blue-900"><strong>Answer:</strong> 3/5</div>
-                      <div className="text-xs text-blue-700 mt-1">ðŸ’¡ Tip: Same denominator? Just add or subtract the numerators!</div>
+                      <div className="text-xs text-blue-700 mt-1">💡 Tip: Same denominator? Just add or subtract the numerators!</div>
                     </div>
                   </div>
                 </div>
@@ -28458,7 +27536,7 @@ export function PrintablesPage() {
                 </div>
                 {/* Extension/Challenge Problems */}
                 <div className="mt-6 print:mt-0 p-4 bg-purple-50 border-2 border-purple-200 rounded print:bg-white print:border" style={{ pageBreakBefore: 'always', pageBreakInside: 'avoid' }}>
-                  <div className="font-semibold text-purple-900 mb-3 text-sm">🌐Ÿ {getTrans('common.challengeYourself', 'Challenge Yourself (Optional):')}</div>
+                  <div className="font-semibold text-purple-900 mb-3 text-sm">🌐 {getTrans('common.challengeYourself', 'Challenge Yourself (Optional):')}</div>
                   <div className="space-y-2 text-sm text-purple-800">
                     <div>1. Solve: 5/8 + 2/8 = ____</div>
                     <div>2. Solve: 7/9 - 3/9 = ____</div>
@@ -28540,7 +27618,7 @@ export function PrintablesPage() {
                 <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-purple-400 to-pink-400 animate-gradient-x mb-2" />
                 {/* Worked Example */}
                 <div className="mb-6 p-4 bg-blue-50 border-2 border-blue-200 rounded-lg print:border print:bg-white">
-                  <div className="font-semibold text-blue-900 mb-3 text-sm">ðŸ“š Example - Let's solve this together:</div>
+                  <div className="font-semibold text-blue-900 mb-3 text-sm">📚 Example - Let's solve this together:</div>
                   <div className="space-y-2 text-sm">
                     <div className="font-semibold text-base"><strong>Problem:</strong> Convert 2 1/3 to an improper fraction</div>
                     <div className="pl-4 border-l-2 border-blue-300 space-y-1">
@@ -28548,7 +27626,7 @@ export function PrintablesPage() {
                       <div><strong>Step 2:</strong> Add numerator: 6 + 1 = 7</div>
                       <div><strong>Step 3:</strong> Keep denominator: 3</div>
                       <div className="font-semibold text-blue-900"><strong>Answer:</strong> 7/3</div>
-                      <div className="text-xs text-blue-700 mt-1">ðŸ’¡ Tip: (whole Ã— denominator) + numerator = new numerator!</div>
+                      <div className="text-xs text-blue-700 mt-1">💡 Tip: (whole Ã— denominator) + numerator = new numerator!</div>
                     </div>
                   </div>
                 </div>
@@ -28568,7 +27646,7 @@ export function PrintablesPage() {
                 </div>
                 {/* Extension/Challenge Problems */}
                 <div className="mt-6 print:mt-0 p-4 bg-purple-50 border-2 border-purple-200 rounded print:bg-white print:border" style={{ pageBreakBefore: 'always', pageBreakInside: 'avoid' }}>
-                  <div className="font-semibold text-purple-900 mb-3 text-sm">🌐Ÿ {getTrans('common.challengeYourself', 'Challenge Yourself (Optional):')}</div>
+                  <div className="font-semibold text-purple-900 mb-3 text-sm">🌐 {getTrans('common.challengeYourself', 'Challenge Yourself (Optional):')}</div>
                   <div className="space-y-2 text-sm text-purple-800">
                     <div>1. Convert: 3 2/5 to improper fraction</div>
                     <div>2. Convert: 11/4 to mixed number</div>
@@ -28666,7 +27744,7 @@ export function PrintablesPage() {
                 <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-purple-400 to-pink-400 animate-gradient-x mb-2" />
                 {/* Worked Example */}
                 <div className="mb-6 p-4 bg-blue-50 border-2 border-blue-200 rounded-lg print:border print:bg-white">
-                  <div className="font-semibold text-blue-900 mb-3 text-sm">ðŸ“š Example - Let's solve this together:</div>
+                  <div className="font-semibold text-blue-900 mb-3 text-sm">📚 Example - Let's solve this together:</div>
                   <div className="space-y-2 text-sm">
                     <div className="font-semibold text-base"><strong>Problem:</strong> 2 1/3 + 1 2/3 = ____</div>
                     <div className="pl-4 border-l-2 border-blue-300 space-y-1">
@@ -28674,7 +27752,7 @@ export function PrintablesPage() {
                       <div><strong>Step 2:</strong> Add fractions: 1/3 + 2/3 = 3/3 = 1</div>
                       <div><strong>Step 3:</strong> Add results: 3 + 1 = 4</div>
                       <div className="font-semibold text-blue-900"><strong>Answer:</strong> 4</div>
-                      <div className="text-xs text-blue-700 mt-1">ðŸ’¡ Tip: Add whole numbers, then fractions. If fraction equals 1 or more, add it to the whole!</div>
+                      <div className="text-xs text-blue-700 mt-1">💡 Tip: Add whole numbers, then fractions. If fraction equals 1 or more, add it to the whole!</div>
                     </div>
                   </div>
                 </div>
@@ -28694,7 +27772,7 @@ export function PrintablesPage() {
                 </div>
                 {/* Extension/Challenge Problems */}
                 <div className="mt-6 print:mt-0 p-4 bg-purple-50 border-2 border-purple-200 rounded print:bg-white print:border" style={{ pageBreakBefore: 'always', pageBreakInside: 'avoid' }}>
-                  <div className="font-semibold text-purple-900 mb-3 text-sm">🌐Ÿ {getTrans('common.challengeYourself', 'Challenge Yourself (Optional):')}</div>
+                  <div className="font-semibold text-purple-900 mb-3 text-sm">🌐 {getTrans('common.challengeYourself', 'Challenge Yourself (Optional):')}</div>
                   <div className="space-y-2 text-sm text-purple-800">
                     <div>1. Solve: 3 2/5 + 2 3/5 = ____</div>
                     <div>2. Solve: 4 1/4 - 2 3/4 = ____</div>
@@ -28786,14 +27864,14 @@ export function PrintablesPage() {
                 <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-purple-400 to-pink-400 animate-gradient-x mb-2" />
                 {/* Worked Example */}
                 <div className="mb-6 p-4 bg-blue-50 border-2 border-blue-200 rounded-lg print:border print:bg-white">
-                  <div className="font-semibold text-blue-900 mb-3 text-sm">ðŸ“š Example - Let's solve this together:</div>
+                  <div className="font-semibold text-blue-900 mb-3 text-sm">📚 Example - Let's solve this together:</div>
                   <div className="space-y-2 text-sm">
                     <div className="font-mono text-base"><strong>Problem:</strong> 24.35</div>
                     <div className="pl-4 border-l-2 border-blue-300 space-y-1">
                       <div><strong>Step 1:</strong> The digit 3 is in the tenths place (first after decimal)</div>
                       <div><strong>Step 2:</strong> The digit 5 is in the hundredths place (second after decimal)</div>
                       <div className="font-semibold text-blue-900"><strong>Answer:</strong> Tenths = 3, Hundredths = 5</div>
-                      <div className="text-xs text-blue-700 mt-1">ðŸ’¡ Tip: Count places after the decimal point: 1st = tenths, 2nd = hundredths!</div>
+                      <div className="text-xs text-blue-700 mt-1">💡 Tip: Count places after the decimal point: 1st = tenths, 2nd = hundredths!</div>
                     </div>
                   </div>
                 </div>
@@ -28812,7 +27890,7 @@ export function PrintablesPage() {
                 </div>
                 {/* Extension/Challenge Problems */}
                 <div className="mt-6 print:mt-0 p-4 bg-purple-50 border-2 border-purple-200 rounded print:bg-white print:border" style={{ pageBreakBefore: 'always', pageBreakInside: 'avoid' }}>
-                  <div className="font-semibold text-purple-900 mb-3 text-sm">🌐Ÿ {getTrans('common.challengeYourself', 'Challenge Yourself (Optional):')}</div>
+                  <div className="font-semibold text-purple-900 mb-3 text-sm">🌐 {getTrans('common.challengeYourself', 'Challenge Yourself (Optional):')}</div>
                   <div className="space-y-2 text-sm text-purple-800">
                     <div>1. Write a decimal number with 3 in the tenths place and 7 in the hundredths place</div>
                     <div>2. Create your own decimal place value problem</div>
@@ -28846,7 +27924,7 @@ export function PrintablesPage() {
                       ))}
                     </div>
                     <div className="mt-4 p-3 bg-emerald-100 rounded text-xs text-emerald-900">
-                      <strong>ðŸ’¡ Study Tip:</strong> Great job! Remember: the first digit after the decimal is tenths, the second is hundredths!
+                      <strong>💡 Study Tip:</strong> Great job! Remember: the first digit after the decimal is tenths, the second is hundredths!
                     </div>
                   </div>
                 ))}
@@ -28886,7 +27964,7 @@ export function PrintablesPage() {
                 <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-purple-400 to-pink-400 animate-gradient-x mb-2" />
                 {/* Worked Example */}
                 <div className="mb-6 p-4 bg-blue-50 border-2 border-blue-200 rounded-lg print:border print:bg-white">
-                  <div className="font-semibold text-blue-900 mb-3 text-sm">ðŸ“š Example - Let's solve this together:</div>
+                  <div className="font-semibold text-blue-900 mb-3 text-sm">📚 Example - Let's solve this together:</div>
                   <div className="space-y-2 text-sm">
                     <div className="font-mono text-base"><strong>Problem:</strong> 3.5 ____ 3.2</div>
                     <div className="pl-4 border-l-2 border-blue-300 space-y-1">
@@ -28894,7 +27972,7 @@ export function PrintablesPage() {
                       <div><strong>Step 2:</strong> Compare tenths: 5 &gt; 2</div>
                       <div><strong>Step 3:</strong> Since 5 &gt; 2, 3.5 &gt; 3.2</div>
                       <div className="font-semibold text-blue-900"><strong>Answer:</strong> 3.5 &gt; 3.2</div>
-                      <div className="text-xs text-blue-700 mt-1">ðŸ’¡ Tip: Compare place by place, starting with whole numbers!</div>
+                      <div className="text-xs text-blue-700 mt-1">💡 Tip: Compare place by place, starting with whole numbers!</div>
                     </div>
                   </div>
                 </div>
@@ -28909,7 +27987,7 @@ export function PrintablesPage() {
                 </div>
                 {/* Extension/Challenge Problems */}
                 <div className="mt-6 print:mt-0 p-4 bg-purple-50 border-2 border-purple-200 rounded print:bg-white print:border" style={{ pageBreakBefore: 'always', pageBreakInside: 'avoid' }}>
-                  <div className="font-semibold text-purple-900 mb-3 text-sm">🌐Ÿ {getTrans('common.challengeYourself', 'Challenge Yourself (Optional):')}</div>
+                  <div className="font-semibold text-purple-900 mb-3 text-sm">🌐 {getTrans('common.challengeYourself', 'Challenge Yourself (Optional):')}</div>
                   <div className="space-y-2 text-sm text-purple-800">
                     <div>1. Order these decimals from least to greatest: 2.3, 2.1, 2.5</div>
                     <div>2. Create your own decimal comparison problem</div>
@@ -28988,7 +28066,7 @@ export function PrintablesPage() {
                 <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-purple-400 to-pink-400 animate-gradient-x mb-2" />
                 {/* Worked Example */}
                 <div className="mb-6 p-4 bg-blue-50 border-2 border-blue-200 rounded-lg print:border print:bg-white">
-                  <div className="font-semibold text-blue-900 mb-3 text-sm">ðŸ“š Example - Let's solve this together:</div>
+                  <div className="font-semibold text-blue-900 mb-3 text-sm">📚 Example - Let's solve this together:</div>
                   <div className="space-y-2 text-sm">
                     <div className="font-mono text-base"><strong>Problem:</strong> 4.5 + 2.3 = ?</div>
                     <div className="pl-4 border-l-2 border-blue-300 space-y-1">
@@ -28998,7 +28076,7 @@ export function PrintablesPage() {
                       <div className="font-mono pl-4">_____</div>
                       <div><strong>Step 2:</strong> Add: 5 + 3 = 8 (tenths), 4 + 2 = 6 (ones)</div>
                       <div className="font-semibold text-blue-900"><strong>Answer:</strong> 6.8</div>
-                      <div className="text-xs text-blue-700 mt-1">ðŸ’¡ Tip: Always line up the decimal points!</div>
+                      <div className="text-xs text-blue-700 mt-1">💡 Tip: Always line up the decimal points!</div>
                     </div>
                   </div>
                 </div>
@@ -29013,7 +28091,7 @@ export function PrintablesPage() {
                 </div>
                 {/* Extension/Challenge Problems */}
                 <div className="mt-6 print:mt-0 p-4 bg-purple-50 border-2 border-purple-200 rounded print:bg-white print:border" style={{ pageBreakBefore: 'always', pageBreakInside: 'avoid' }}>
-                  <div className="font-semibold text-purple-900 mb-3 text-sm">🌐Ÿ {getTrans('common.challengeYourself', 'Challenge Yourself (Optional):')}</div>
+                  <div className="font-semibold text-purple-900 mb-3 text-sm">🌐 {getTrans('common.challengeYourself', 'Challenge Yourself (Optional):')}</div>
                   <div className="space-y-2 text-sm text-purple-800">
                     <div>1. Create your own decimal addition problem</div>
                     <div>2. Create your own decimal subtraction problem</div>
@@ -29091,14 +28169,14 @@ export function PrintablesPage() {
                 <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-purple-400 to-pink-400 animate-gradient-x mb-2" />
                 {/* Worked Example */}
                 <div className="mb-6 p-4 bg-blue-50 border-2 border-blue-200 rounded-lg print:border print:bg-white">
-                  <div className="font-semibold text-blue-900 mb-3 text-sm">ðŸ“š Example - Let's solve this together:</div>
+                  <div className="font-semibold text-blue-900 mb-3 text-sm">📚 Example - Let's solve this together:</div>
                   <div className="space-y-2 text-sm">
                     <div className="font-mono text-base"><strong>Problem:</strong> 3/4 = ?</div>
                     <div className="pl-4 border-l-2 border-blue-300 space-y-1">
                       <div><strong>Step 1:</strong> Divide numerator by denominator: 3 Ã· 4</div>
                       <div><strong>Step 2:</strong> 3 Ã· 4 = 0.75</div>
                       <div className="font-semibold text-blue-900"><strong>Answer:</strong> 0.75</div>
-                      <div className="text-xs text-blue-700 mt-1">ðŸ’¡ Tip: A fraction is just division! Divide the top number by the bottom number!</div>
+                      <div className="text-xs text-blue-700 mt-1">💡 Tip: A fraction is just division! Divide the top number by the bottom number!</div>
                     </div>
                   </div>
                 </div>
@@ -29114,7 +28192,7 @@ export function PrintablesPage() {
                 </div>
                 {/* Extension/Challenge Problems */}
                 <div className="mt-6 print:mt-0 p-4 bg-purple-50 border-2 border-purple-200 rounded print:bg-white print:border" style={{ pageBreakBefore: 'always', pageBreakInside: 'avoid' }}>
-                  <div className="font-semibold text-purple-900 mb-3 text-sm">🌐Ÿ {getTrans('common.challengeYourself', 'Challenge Yourself (Optional):')}</div>
+                  <div className="font-semibold text-purple-900 mb-3 text-sm">🌐 {getTrans('common.challengeYourself', 'Challenge Yourself (Optional):')}</div>
                   <div className="space-y-2 text-sm text-purple-800">
                     <div>1. Convert 1/8 to a decimal</div>
                     <div>2. Convert 2/5 to a decimal</div>
@@ -29151,7 +28229,7 @@ export function PrintablesPage() {
                       ))}
                     </div>
                     <div className="mt-4 p-3 bg-emerald-100 rounded text-xs text-emerald-900">
-                      <strong>ðŸ’¡ Study Tip:</strong> Great job! Remember: to convert a fraction to a decimal, divide the numerator by the denominator!
+                      <strong>💡 Study Tip:</strong> Great job! Remember: to convert a fraction to a decimal, divide the numerator by the denominator!
                     </div>
                   </div>
                 ))}
@@ -29191,14 +28269,14 @@ export function PrintablesPage() {
                 <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-purple-400 to-pink-400 animate-gradient-x mb-2" />
                 {/* Worked Example */}
                 <div className="mb-6 p-4 bg-blue-50 border-2 border-blue-200 rounded-lg print:border print:bg-white">
-                  <div className="font-semibold text-blue-900 mb-3 text-sm">ðŸ“š Example - Let's solve this together:</div>
+                  <div className="font-semibold text-blue-900 mb-3 text-sm">📚 Example - Let's solve this together:</div>
                   <div className="space-y-2 text-sm">
                     <div className="font-mono text-base"><strong>Problem:</strong> 3/10 = ?</div>
                     <div className="pl-4 border-l-2 border-blue-300 space-y-1">
                       <div><strong>Step 1:</strong> Divide numerator by denominator: 3 Ã· 10</div>
                       <div><strong>Step 2:</strong> 3 Ã· 10 = 0.3</div>
                       <div className="font-semibold text-blue-900"><strong>Answer:</strong> 0.3</div>
-                      <div className="text-xs text-blue-700 mt-1">ðŸ’¡ Tip: When the denominator is 10, the numerator becomes the digit after the decimal point!</div>
+                      <div className="text-xs text-blue-700 mt-1">💡 Tip: When the denominator is 10, the numerator becomes the digit after the decimal point!</div>
                     </div>
                   </div>
                 </div>
@@ -29214,7 +28292,7 @@ export function PrintablesPage() {
                 </div>
                 {/* Extension/Challenge Problems */}
                 <div className="mt-6 print:mt-0 p-4 bg-purple-50 border-2 border-purple-200 rounded print:bg-white print:border" style={{ pageBreakBefore: 'always', pageBreakInside: 'avoid' }}>
-                  <div className="font-semibold text-purple-900 mb-3 text-sm">🌐Ÿ {getTrans('common.challengeYourself', 'Challenge Yourself (Optional):')}</div>
+                  <div className="font-semibold text-purple-900 mb-3 text-sm">🌐 {getTrans('common.challengeYourself', 'Challenge Yourself (Optional):')}</div>
                   <div className="space-y-2 text-sm text-purple-800">
                     <div>1. Convert 9/10 to a decimal</div>
                     <div>2. Convert 5/10 to a decimal</div>
@@ -29251,7 +28329,7 @@ export function PrintablesPage() {
                       ))}
                     </div>
                     <div className="mt-4 p-3 bg-emerald-100 rounded text-xs text-emerald-900">
-                      <strong>ðŸ’¡ Study Tip:</strong> Great job! Remember: when the denominator is 10, the numerator becomes the digit after the decimal point. For example, 3/10 = 0.3!
+                      <strong>💡 Study Tip:</strong> Great job! Remember: when the denominator is 10, the numerator becomes the digit after the decimal point. For example, 3/10 = 0.3!
                     </div>
                   </div>
                 ))}
@@ -29292,14 +28370,14 @@ export function PrintablesPage() {
                 <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-purple-400 to-pink-400 animate-gradient-x mb-2" />
                 {/* Worked Example */}
                 <div className="mb-6 p-4 bg-blue-50 border-2 border-blue-200 rounded-lg print:border print:bg-white">
-                  <div className="font-semibold text-blue-900 mb-3 text-sm">ðŸ“š Example - Let's solve this together:</div>
+                  <div className="font-semibold text-blue-900 mb-3 text-sm">📚 Example - Let's solve this together:</div>
                   <div className="space-y-2 text-sm">
                     <div className="font-mono text-base"><strong>Problem:</strong> 5/8 = ?</div>
                     <div className="pl-4 border-l-2 border-blue-300 space-y-1">
                       <div><strong>Step 1:</strong> Set up long division: 5 Ã· 8</div>
                       <div><strong>Step 2:</strong> 8 goes into 5.0 â†’ 0.625</div>
                       <div className="font-semibold text-blue-900"><strong>Answer:</strong> 0.625</div>
-                      <div className="text-xs text-blue-700 mt-1">ðŸ’¡ Tip: Use long division! Divide the numerator by the denominator!</div>
+                      <div className="text-xs text-blue-700 mt-1">💡 Tip: Use long division! Divide the numerator by the denominator!</div>
                     </div>
                   </div>
                 </div>
@@ -29315,7 +28393,7 @@ export function PrintablesPage() {
                 </div>
                 {/* Extension/Challenge Problems */}
                 <div className="mt-6 print:mt-0 p-4 bg-purple-50 border-2 border-purple-200 rounded print:bg-white print:border" style={{ pageBreakBefore: 'always', pageBreakInside: 'avoid' }}>
-                  <div className="font-semibold text-purple-900 mb-3 text-sm">🌐Ÿ {getTrans('common.challengeYourself', 'Challenge Yourself (Optional):')}</div>
+                  <div className="font-semibold text-purple-900 mb-3 text-sm">🌐 {getTrans('common.challengeYourself', 'Challenge Yourself (Optional):')}</div>
                   <div className="space-y-2 text-sm text-purple-800">
                     <div>1. Convert 7/9 to a decimal (hint: it repeats!)</div>
                     <div>2. Convert 3/16 to a decimal</div>
@@ -29352,7 +28430,7 @@ export function PrintablesPage() {
                       ))}
                     </div>
                     <div className="mt-4 p-3 bg-emerald-100 rounded text-xs text-emerald-900">
-                      <strong>ðŸ’¡ Study Tip:</strong> Great job! Remember: use long division to convert fractions to decimals. Some decimals terminate (end), while others repeat!
+                      <strong>💡 Study Tip:</strong> Great job! Remember: use long division to convert fractions to decimals. Some decimals terminate (end), while others repeat!
                     </div>
                   </div>
                 ))}
@@ -29392,7 +28470,7 @@ export function PrintablesPage() {
                 <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-purple-400 to-pink-400 animate-gradient-x mb-2" />
                 {/* Worked Example */}
                 <div className="mb-6 p-4 bg-blue-50 border-2 border-blue-200 rounded-lg print:border print:bg-white">
-                  <div className="font-semibold text-blue-900 mb-3 text-sm">ðŸ“š Example - Let's solve this together:</div>
+                  <div className="font-semibold text-blue-900 mb-3 text-sm">📚 Example - Let's solve this together:</div>
                   <div className="space-y-2 text-sm">
                     <div className="font-mono text-base"><strong>Problem:</strong> 2/3 Ã— 1/4 = ?</div>
                     <div className="pl-4 border-l-2 border-blue-300 space-y-1">
@@ -29401,7 +28479,7 @@ export function PrintablesPage() {
                       <div><strong>Step 3:</strong> Write the answer: 2/12</div>
                       <div><strong>Step 4:</strong> Simplify: 2/12 = 1/6 (divide by 2)</div>
                       <div className="font-semibold text-blue-900"><strong>Answer:</strong> 1/6</div>
-                      <div className="text-xs text-blue-700 mt-1">ðŸ’¡ Tip: Multiply top Ã— top, bottom Ã— bottom, then simplify!</div>
+                      <div className="text-xs text-blue-700 mt-1">💡 Tip: Multiply top Ã— top, bottom Ã— bottom, then simplify!</div>
                     </div>
                   </div>
                 </div>
@@ -29416,7 +28494,7 @@ export function PrintablesPage() {
                 </div>
                 {/* Extension/Challenge Problems */}
                 <div className="mt-6 print:mt-0 p-4 bg-purple-50 border-2 border-purple-200 rounded print:bg-white print:border" style={{ pageBreakBefore: 'always', pageBreakInside: 'avoid' }}>
-                  <div className="font-semibold text-purple-900 mb-3 text-sm">🌐Ÿ {getTrans('common.challengeYourself', 'Challenge Yourself (Optional):')}</div>
+                  <div className="font-semibold text-purple-900 mb-3 text-sm">🌐 {getTrans('common.challengeYourself', 'Challenge Yourself (Optional):')}</div>
                   <div className="space-y-2 text-sm text-purple-800">
                     <div>1. Multiply: 3/5 Ã— 2/7 = ?</div>
                     <div>2. Create your own fraction multiplication problem</div>
@@ -29499,7 +28577,7 @@ export function PrintablesPage() {
                 <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-purple-400 to-pink-400 animate-gradient-x mb-2" />
                 {/* Worked Example */}
                 <div className="mb-6 p-4 bg-blue-50 border-2 border-blue-200 rounded-lg print:border print:bg-white">
-                  <div className="font-semibold text-blue-900 mb-3 text-sm">ðŸ“š Example - Let's solve this together:</div>
+                  <div className="font-semibold text-blue-900 mb-3 text-sm">📚 Example - Let's solve this together:</div>
                   <div className="space-y-2 text-sm">
                     <div className="font-mono text-base"><strong>Problem:</strong> 2/3 Ã· 1/4 = ?</div>
                     <div className="pl-4 border-l-2 border-blue-300 space-y-1">
@@ -29509,7 +28587,7 @@ export function PrintablesPage() {
                       <div><strong>Step 4:</strong> Now multiply: 2/3 Ã— 4/1 = 8/3</div>
                       <div><strong>Step 5:</strong> Simplify: 8/3 = 2 2/3</div>
                       <div className="font-semibold text-blue-900"><strong>Answer:</strong> 8/3 or 2 2/3</div>
-                      <div className="text-xs text-blue-700 mt-1">ðŸ’¡ Tip: Keep, Change, Flip! Then multiply!</div>
+                      <div className="text-xs text-blue-700 mt-1">💡 Tip: Keep, Change, Flip! Then multiply!</div>
                     </div>
                   </div>
                 </div>
@@ -29527,7 +28605,7 @@ export function PrintablesPage() {
                 </div>
                 {/* Extension/Challenge Problems */}
                 <div className="mt-6 print:mt-0 p-4 bg-purple-50 border-2 border-purple-200 rounded print:bg-white print:border" style={{ pageBreakBefore: 'always', pageBreakInside: 'avoid' }}>
-                  <div className="font-semibold text-purple-900 mb-3 text-sm">🌐Ÿ {getTrans('common.challengeYourself', 'Challenge Yourself (Optional):')}</div>
+                  <div className="font-semibold text-purple-900 mb-3 text-sm">🌐 {getTrans('common.challengeYourself', 'Challenge Yourself (Optional):')}</div>
                   <div className="space-y-2 text-sm text-purple-800">
                     <div>1. Divide: 5/6 Ã· 2/3 = ?</div>
                     <div>2. Create your own fraction division problem</div>
@@ -29609,7 +28687,7 @@ export function PrintablesPage() {
                 <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-purple-400 to-pink-400 animate-gradient-x mb-2" />
                 {/* Worked Example */}
                 <div className="mb-6 p-4 bg-blue-50 border-2 border-blue-200 rounded-lg print:border print:bg-white">
-                  <div className="font-semibold text-blue-900 mb-3 text-sm">ðŸ“š Example - Let's solve this together:</div>
+                  <div className="font-semibold text-blue-900 mb-3 text-sm">📚 Example - Let's solve this together:</div>
                   <div className="space-y-2 text-sm">
                     <div className="font-mono text-base"><strong>Problem:</strong> 2.5 Ã— 1.4 = ?</div>
                     <div className="pl-4 border-l-2 border-blue-300 space-y-1">
@@ -29617,7 +28695,7 @@ export function PrintablesPage() {
                       <div><strong>Step 2:</strong> Count decimal places: 2.5 has 1, 1.4 has 1, total = 2</div>
                       <div><strong>Step 3:</strong> Place decimal point: 350 â†’ 3.50 = 3.5</div>
                       <div className="font-semibold text-blue-900"><strong>Answer:</strong> 3.5</div>
-                      <div className="text-xs text-blue-700 mt-1">ðŸ’¡ Tip: Multiply first, then count decimal places and place the point!</div>
+                      <div className="text-xs text-blue-700 mt-1">💡 Tip: Multiply first, then count decimal places and place the point!</div>
                     </div>
                   </div>
                 </div>
@@ -29632,7 +28710,7 @@ export function PrintablesPage() {
                 </div>
                 {/* Extension/Challenge Problems */}
                 <div className="mt-6 print:mt-0 p-4 bg-purple-50 border-2 border-purple-200 rounded print:bg-white print:border" style={{ pageBreakBefore: 'always', pageBreakInside: 'avoid' }}>
-                  <div className="font-semibold text-purple-900 mb-3 text-sm">🌐Ÿ {getTrans('common.challengeYourself', 'Challenge Yourself (Optional):')}</div>
+                  <div className="font-semibold text-purple-900 mb-3 text-sm">🌐 {getTrans('common.challengeYourself', 'Challenge Yourself (Optional):')}</div>
                   <div className="space-y-2 text-sm text-purple-800">
                     <div>1. Multiply: 3.25 Ã— 2.4 = ?</div>
                     <div>2. Create your own decimal multiplication problem</div>
@@ -29712,7 +28790,7 @@ export function PrintablesPage() {
                 <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-purple-400 to-pink-400 animate-gradient-x mb-2" />
                 {/* Worked Example */}
                 <div className="mb-6 p-4 bg-blue-50 border-2 border-blue-200 rounded-lg print:border print:bg-white">
-                  <div className="font-semibold text-blue-900 mb-3 text-sm">ðŸ“š Example - Let's solve this together:</div>
+                  <div className="font-semibold text-blue-900 mb-3 text-sm">📚 Example - Let's solve this together:</div>
                   <div className="space-y-2 text-sm">
                     <div className="font-mono text-base"><strong>Problem:</strong> 4.8 Ã· 0.6 = ?</div>
                     <div className="pl-4 border-l-2 border-blue-300 space-y-1">
@@ -29720,7 +28798,7 @@ export function PrintablesPage() {
                       <div><strong>Step 2:</strong> Move decimal in dividend: 4.8 â†’ 48 (moved 1 place)</div>
                       <div><strong>Step 3:</strong> Divide: 48 Ã· 6 = 8</div>
                       <div className="font-semibold text-blue-900"><strong>Answer:</strong> 8</div>
-                      <div className="text-xs text-blue-700 mt-1">ðŸ’¡ Tip: Move decimals the same number of places in both numbers!</div>
+                      <div className="text-xs text-blue-700 mt-1">💡 Tip: Move decimals the same number of places in both numbers!</div>
                     </div>
                   </div>
                 </div>
@@ -29735,7 +28813,7 @@ export function PrintablesPage() {
                 </div>
                 {/* Extension/Challenge Problems */}
                 <div className="mt-6 print:mt-0 p-4 bg-purple-50 border-2 border-purple-200 rounded print:bg-white print:border" style={{ pageBreakBefore: 'always', pageBreakInside: 'avoid' }}>
-                  <div className="font-semibold text-purple-900 mb-3 text-sm">🌐Ÿ {getTrans('common.challengeYourself', 'Challenge Yourself (Optional):')}</div>
+                  <div className="font-semibold text-purple-900 mb-3 text-sm">🌐 {getTrans('common.challengeYourself', 'Challenge Yourself (Optional):')}</div>
                   <div className="space-y-2 text-sm text-purple-800">
                     <div>1. Divide: 12.5 Ã· 0.5 = ?</div>
                     <div>2. Create your own decimal division problem</div>
@@ -29814,7 +28892,7 @@ export function PrintablesPage() {
                 <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-purple-400 to-pink-400 animate-gradient-x mb-2" />
                 {/* Worked Example */}
                 <div className="mb-6 p-4 bg-blue-50 border-2 border-blue-200 rounded-lg print:border print:bg-white">
-                  <div className="font-semibold text-blue-900 mb-3 text-sm">ðŸ“š Example - Let's solve this together:</div>
+                  <div className="font-semibold text-blue-900 mb-3 text-sm">📚 Example - Let's solve this together:</div>
                   <div className="space-y-2 text-sm">
                     <div className="font-mono text-base"><strong>Problem:</strong> 156 Ã· 12 = ?</div>
                     <div className="pl-4 border-l-2 border-blue-300 space-y-1">
@@ -29824,7 +28902,7 @@ export function PrintablesPage() {
                       <div><strong>Step 4:</strong> How many times does 12 go into 36? 3 times</div>
                       <div><strong>Step 5:</strong> 3 Ã— 12 = 36, subtract: 36 - 36 = 0</div>
                       <div className="font-semibold text-blue-900"><strong>Answer:</strong> 13</div>
-                      <div className="text-xs text-blue-700 mt-1">ðŸ’¡ Tip: Work step by step, one digit at a time!</div>
+                      <div className="text-xs text-blue-700 mt-1">💡 Tip: Work step by step, one digit at a time!</div>
                     </div>
                   </div>
                 </div>
@@ -29842,7 +28920,7 @@ export function PrintablesPage() {
                 </div>
                 {/* Extension/Challenge Problems */}
                 <div className="mt-6 print:mt-0 p-4 bg-purple-50 border-2 border-purple-200 rounded print:bg-white print:border" style={{ pageBreakBefore: 'always', pageBreakInside: 'avoid' }}>
-                  <div className="font-semibold text-purple-900 mb-3 text-sm">🌐Ÿ {getTrans('common.challengeYourself', 'Challenge Yourself (Optional):')}</div>
+                  <div className="font-semibold text-purple-900 mb-3 text-sm">🌐 {getTrans('common.challengeYourself', 'Challenge Yourself (Optional):')}</div>
                   <div className="space-y-2 text-sm text-purple-800">
                     <div>1. Solve: 1,234 Ã· 23 = ?</div>
                     <div>2. Create your own long division problem</div>
@@ -29925,14 +29003,14 @@ export function PrintablesPage() {
                 <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-purple-400 to-pink-400 animate-gradient-x mb-2" />
                 {/* Worked Example */}
                 <div className="mb-6 p-4 bg-blue-50 border-2 border-blue-200 rounded-lg print:border print:bg-white">
-                  <div className="font-semibold text-blue-900 mb-3 text-sm">ðŸ“š Example - Let's solve this together:</div>
+                  <div className="font-semibold text-blue-900 mb-3 text-sm">📚 Example - Let's solve this together:</div>
                   <div className="space-y-2 text-sm">
                     <div className="font-mono text-base"><strong>Problem:</strong> 2 + 3 Ã— 4 = ?</div>
                     <div className="pl-4 border-l-2 border-blue-300 space-y-1">
                       <div><strong>Step 1:</strong> Do multiplication first: 3 Ã— 4 = 12</div>
                       <div><strong>Step 2:</strong> Then addition: 2 + 12 = 14</div>
                       <div className="font-semibold text-blue-900"><strong>Answer:</strong> 14</div>
-                      <div className="text-xs text-blue-700 mt-1">ðŸ’¡ Tip: Remember PEMDAS - Multiply before Add!</div>
+                      <div className="text-xs text-blue-700 mt-1">💡 Tip: Remember PEMDAS - Multiply before Add!</div>
                     </div>
                   </div>
                 </div>
@@ -29951,7 +29029,7 @@ export function PrintablesPage() {
                 </div>
                 {/* Extension/Challenge Problems */}
                 <div className="mt-6 print:mt-0 p-4 bg-purple-50 border-2 border-purple-200 rounded print:bg-white print:border" style={{ pageBreakBefore: 'always', pageBreakInside: 'avoid' }}>
-                  <div className="font-semibold text-purple-900 mb-3 text-sm">🌐Ÿ {getTrans('common.challengeYourself', 'Challenge Yourself (Optional):')}</div>
+                  <div className="font-semibold text-purple-900 mb-3 text-sm">🌐 {getTrans('common.challengeYourself', 'Challenge Yourself (Optional):')}</div>
                   <div className="space-y-2 text-sm text-purple-800">
                     <div>1. Solve: 8 Ã· 2 Ã— (2 + 2) = ?</div>
                     <div>2. Create your own PEMDAS problem</div>
@@ -30867,14 +29945,14 @@ export function PrintablesPage() {
                 <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-purple-400 to-pink-400 animate-gradient-x mb-2" />
                 {/* Worked Example */}
                 <div className="mb-6 p-4 bg-blue-50 border-2 border-blue-200 rounded-lg print:border print:bg-white">
-                  <div className="font-semibold text-blue-900 mb-3 text-sm">ðŸ“š Example - Let's solve this together:</div>
+                  <div className="font-semibold text-blue-900 mb-3 text-sm">📚 Example - Let's solve this together:</div>
                   <div className="space-y-2 text-sm">
                     <div className="font-mono text-base"><strong>Problem:</strong> 5 Ã— 10Â² = ?</div>
                     <div className="pl-4 border-l-2 border-blue-300 space-y-1">
                       <div><strong>Step 1:</strong> 10Â² = 10 Ã— 10 = 100</div>
                       <div><strong>Step 2:</strong> 5 Ã— 100 = 500</div>
                       <div className="font-semibold text-blue-900"><strong>Answer:</strong> 500</div>
-                      <div className="text-xs text-blue-700 mt-1">ðŸ’¡ Tip: 10Â² means 10 Ã— 10 = 100!</div>
+                      <div className="text-xs text-blue-700 mt-1">💡 Tip: 10Â² means 10 Ã— 10 = 100!</div>
                     </div>
                   </div>
                 </div>
@@ -30891,7 +29969,7 @@ export function PrintablesPage() {
                 </div>
                 {/* Extension/Challenge Problems */}
                 <div className="mt-6 print:mt-0 p-4 bg-purple-50 border-2 border-purple-200 rounded print:bg-white print:border" style={{ pageBreakBefore: 'always', pageBreakInside: 'avoid' }}>
-                  <div className="font-semibold text-purple-900 mb-3 text-sm">🌐Ÿ {getTrans('common.challengeYourself', 'Challenge Yourself (Optional):')}</div>
+                  <div className="font-semibold text-purple-900 mb-3 text-sm">🌐 {getTrans('common.challengeYourself', 'Challenge Yourself (Optional):')}</div>
                   <div className="space-y-2 text-sm text-purple-800">
                     <div>1. Solve: 7 Ã— 10Â³ = ?</div>
                     <div>2. What is 10â´? (10 to the 4th power)</div>
@@ -30971,7 +30049,7 @@ export function PrintablesPage() {
                 {/* Visual Concept */}
                 <div className="mb-6 p-4 bg-emerald-50 border-2 border-emerald-200 rounded-lg print:border print:bg-white grid sm:grid-cols-2 gap-4 items-center">
                   <div>
-                    <div className="font-semibold text-emerald-900 mb-2 text-sm">ðŸ’¡ Visual Tip: Line Up The Dots!</div>
+                    <div className="font-semibold text-emerald-900 mb-2 text-sm">💡 Visual Tip: Line Up The Dots!</div>
                     <div className="font-mono text-lg bg-white p-3 rounded border border-emerald-200 inline-block">
                       <div className="text-right">  1<span className="text-red-500 font-bold">.</span>25</div>
                       <div className="text-right">+ 3<span className="text-red-500 font-bold">.</span>40</div>
@@ -31058,7 +30136,7 @@ export function PrintablesPage() {
                 <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-purple-400 to-pink-400 animate-gradient-x mb-2" />
                 {/* Worked Example */}
                 <div className="mb-6 p-4 bg-blue-50 border-2 border-blue-200 rounded-lg print:border print:bg-white">
-                  <div className="font-semibold text-blue-900 mb-3 text-sm">ðŸ“š Example - Let's solve this together:</div>
+                  <div className="font-semibold text-blue-900 mb-3 text-sm">📚 Example - Let's solve this together:</div>
                   <div className="space-y-2 text-sm">
                     <div className="font-semibold text-base"><strong>Problem:</strong> Round 3.47 to the nearest tenth</div>
                     <div className="pl-4 border-l-2 border-blue-300 space-y-1">
@@ -31066,7 +30144,7 @@ export function PrintablesPage() {
                       <div><strong>Step 2:</strong> 7 &gt; 5, so round up the tenths place</div>
                       <div><strong>Step 3:</strong> 3.4 becomes 3.5</div>
                       <div className="font-semibold text-blue-900"><strong>Answer:</strong> 3.5</div>
-                      <div className="text-xs text-blue-700 mt-1">ðŸ’¡ Tip: Look at the digit to the right - 5 or more rounds up!</div>
+                      <div className="text-xs text-blue-700 mt-1">💡 Tip: Look at the digit to the right - 5 or more rounds up!</div>
                     </div>
                   </div>
                 </div>
@@ -31082,7 +30160,7 @@ export function PrintablesPage() {
                 </div>
                 {/* Extension/Challenge Problems */}
                 <div className="mt-6 print:mt-0 p-4 bg-purple-50 border-2 border-purple-200 rounded print:bg-white print:border" style={{ pageBreakBefore: 'always', pageBreakInside: 'avoid' }}>
-                  <div className="font-semibold text-purple-900 mb-3 text-sm">🌐Ÿ {getTrans('common.challengeYourself', 'Challenge Yourself (Optional):')}</div>
+                  <div className="font-semibold text-purple-900 mb-3 text-sm">🌐 {getTrans('common.challengeYourself', 'Challenge Yourself (Optional):')}</div>
                   <div className="space-y-2 text-sm text-purple-800">
                     <div>1. Round 2.456 to the nearest tenth and hundredth</div>
                     <div>2. Round 7.999 to the nearest whole number</div>
@@ -31185,7 +30263,7 @@ export function PrintablesPage() {
                 <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-purple-400 to-pink-400 animate-gradient-x mb-2" />
                 {/* Worked Example */}
                 <div className="mb-6 p-4 bg-blue-50 border-2 border-blue-200 rounded-lg print:border print:bg-white">
-                  <div className="font-semibold text-blue-900 mb-3 text-sm">ðŸ“š Example - Let's solve this together:</div>
+                  <div className="font-semibold text-blue-900 mb-3 text-sm">📚 Example - Let's solve this together:</div>
                   <div className="space-y-2 text-sm">
                     <div className="font-semibold text-base"><strong>Problem:</strong> Estimate 47 + 32</div>
                     <div className="pl-4 border-l-2 border-blue-300 space-y-1">
@@ -31193,7 +30271,7 @@ export function PrintablesPage() {
                       <div><strong>Step 2:</strong> Round 32 to nearest ten: 30</div>
                       <div><strong>Step 3:</strong> Add: 50 + 30 = 80</div>
                       <div className="font-semibold text-blue-900"><strong>Answer:</strong> â‰ˆ 80</div>
-                      <div className="text-xs text-blue-700 mt-1">ðŸ’¡ Tip: Round to nearest ten, then add or subtract!</div>
+                      <div className="text-xs text-blue-700 mt-1">💡 Tip: Round to nearest ten, then add or subtract!</div>
                     </div>
                   </div>
                 </div>
@@ -31210,7 +30288,7 @@ export function PrintablesPage() {
                 </div>
                 {/* Extension/Challenge Problems */}
                 <div className="mt-6 print:mt-0 p-4 bg-purple-50 border-2 border-purple-200 rounded print:bg-white print:border" style={{ pageBreakBefore: 'always', pageBreakInside: 'avoid' }}>
-                  <div className="font-semibold text-purple-900 mb-3 text-sm">🌐Ÿ {getTrans('common.challengeYourself', 'Challenge Yourself (Optional):')}</div>
+                  <div className="font-semibold text-purple-900 mb-3 text-sm">🌐 {getTrans('common.challengeYourself', 'Challenge Yourself (Optional):')}</div>
                   <div className="space-y-2 text-sm text-purple-800">
                     <div>1. Estimate 156 + 234 by rounding to the nearest hundred</div>
                     <div>2. Estimate 487 - 192 by rounding to the nearest ten</div>
@@ -31291,14 +30369,14 @@ export function PrintablesPage() {
                 <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-purple-400 to-pink-400 animate-gradient-x mb-2" />
                 {/* Worked Example */}
                 <div className="mb-6 p-4 bg-blue-50 border-2 border-blue-200 rounded-lg print:border print:bg-white">
-                  <div className="font-semibold text-blue-900 mb-3 text-sm">ðŸ“š Example - Let's solve this together:</div>
+                  <div className="font-semibold text-blue-900 mb-3 text-sm">📚 Example - Let's solve this together:</div>
                   <div className="space-y-2 text-sm">
                     <div className="font-semibold text-base"><strong>Problem:</strong> Length: 7 units, Width: 4 units</div>
                     <div className="pl-4 border-l-2 border-blue-300 space-y-1">
                       <div><strong>Step 1 (Area):</strong> Area = length Ã— width = 7 Ã— 4 = 28</div>
                       <div><strong>Step 2 (Perimeter):</strong> Perimeter = 2 Ã— (length + width) = 2 Ã— (7 + 4) = 22</div>
                       <div className="font-semibold text-blue-900"><strong>Answer:</strong> Area = 28 sq units, Perimeter = 22 units</div>
-                      <div className="text-xs text-blue-700 mt-1">ðŸ’¡ Tip: Area = inside space, Perimeter = distance around!</div>
+                      <div className="text-xs text-blue-700 mt-1">💡 Tip: Area = inside space, Perimeter = distance around!</div>
                     </div>
                   </div>
                 </div>
@@ -31314,7 +30392,7 @@ export function PrintablesPage() {
                 </div>
                 {/* Extension/Challenge Problems */}
                 <div className="mt-6 print:mt-0 p-4 bg-purple-50 border-2 border-purple-200 rounded print:bg-white print:border" style={{ pageBreakBefore: 'always', pageBreakInside: 'avoid' }}>
-                  <div className="font-semibold text-purple-900 mb-3 text-sm">🌐Ÿ {getTrans('common.challengeYourself', 'Challenge Yourself (Optional):')}</div>
+                  <div className="font-semibold text-purple-900 mb-3 text-sm">🌐 {getTrans('common.challengeYourself', 'Challenge Yourself (Optional):')}</div>
                   <div className="space-y-2 text-sm text-purple-800">
                     <div>1. Find the area and perimeter of a square with side length 9</div>
                     <div>2. A rectangle has area 48. If length is 8, what is the width?</div>
@@ -31411,14 +30489,14 @@ export function PrintablesPage() {
                 <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-purple-400 to-pink-400 animate-gradient-x mb-2" />
                 {/* Worked Example */}
                 <div className="mb-6 p-4 bg-blue-50 border-2 border-blue-200 rounded-lg print:border print:bg-white">
-                  <div className="font-semibold text-blue-900 mb-3 text-sm">ðŸ“š Example - Let's solve this together:</div>
+                  <div className="font-semibold text-blue-900 mb-3 text-sm">📚 Example - Let's solve this together:</div>
                   <div className="space-y-2 text-sm">
                     <div className="font-semibold text-base"><strong>Problem:</strong> Triangle with base = 6, height = 4</div>
                     <div className="pl-4 border-l-2 border-blue-300 space-y-1">
                       <div><strong>Step 1:</strong> Formula: Area = (base Ã— height) Ã· 2</div>
                       <div><strong>Step 2:</strong> Calculate: (6 Ã— 4) Ã· 2 = 24 Ã· 2 = 12</div>
                       <div className="font-semibold text-blue-900"><strong>Answer:</strong> 12 square units</div>
-                      <div className="text-xs text-blue-700 mt-1">ðŸ’¡ Tip: Triangle area is half of a parallelogram with the same base and height!</div>
+                      <div className="text-xs text-blue-700 mt-1">💡 Tip: Triangle area is half of a parallelogram with the same base and height!</div>
                     </div>
                   </div>
                 </div>
@@ -31435,7 +30513,7 @@ export function PrintablesPage() {
                 </div>
                 {/* Extension/Challenge Problems */}
                 <div className="mt-6 print:mt-0 p-4 bg-purple-50 border-2 border-purple-200 rounded print:bg-white print:border" style={{ pageBreakBefore: 'always', pageBreakInside: 'avoid' }}>
-                  <div className="font-semibold text-purple-900 mb-3 text-sm">🌐Ÿ {getTrans('common.challengeYourself', 'Challenge Yourself (Optional):')}</div>
+                  <div className="font-semibold text-purple-900 mb-3 text-sm">🌐 {getTrans('common.challengeYourself', 'Challenge Yourself (Optional):')}</div>
                   <div className="space-y-2 text-sm text-purple-800">
                     <div>1. Find the area of a triangle with base 10 and height 8</div>
                     <div>2. Find the area of a parallelogram with base 7 and height 5</div>
@@ -31511,7 +30589,7 @@ export function PrintablesPage() {
                 <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-purple-400 to-pink-400 animate-gradient-x mb-2" />
                 {/* Worked Example */}
                 <div className="mb-6 p-4 bg-blue-50 border-2 border-blue-200 rounded-lg print:border print:bg-white">
-                  <div className="font-semibold text-blue-900 mb-3 text-sm">ðŸ“š Example - Let's solve this together:</div>
+                  <div className="font-semibold text-blue-900 mb-3 text-sm">📚 Example - Let's solve this together:</div>
                   <div className="space-y-2 text-sm">
                     <div className="font-semibold text-base"><strong>Problem:</strong> L: 4, W: 3, H: 2</div>
                     <div className="pl-4 border-l-2 border-blue-300 space-y-1">
@@ -31519,7 +30597,7 @@ export function PrintablesPage() {
                       <div><strong>Step 2:</strong> V = 4 Ã— 3 Ã— 2</div>
                       <div><strong>Step 3:</strong> V = 12 Ã— 2 = 24</div>
                       <div className="font-semibold text-blue-900"><strong>Answer:</strong> 24 cubic units</div>
-                      <div className="text-xs text-blue-700 mt-1">ðŸ’¡ Tip: Multiply length Ã— width Ã— height!</div>
+                      <div className="text-xs text-blue-700 mt-1">💡 Tip: Multiply length Ã— width Ã— height!</div>
                     </div>
                   </div>
                 </div>
@@ -31535,7 +30613,7 @@ export function PrintablesPage() {
                 </div>
                 {/* Extension/Challenge Problems */}
                 <div className="mt-6 print:mt-0 p-4 bg-purple-50 border-2 border-purple-200 rounded print:bg-white print:border" style={{ pageBreakBefore: 'always', pageBreakInside: 'avoid' }}>
-                  <div className="font-semibold text-purple-900 mb-3 text-sm">🌐Ÿ {getTrans('common.challengeYourself', 'Challenge Yourself (Optional):')}</div>
+                  <div className="font-semibold text-purple-900 mb-3 text-sm">🌐 {getTrans('common.challengeYourself', 'Challenge Yourself (Optional):')}</div>
                   <div className="space-y-2 text-sm text-purple-800">
                     <div>1. Find volume: L: 5, W: 4, H: 6</div>
                     <div>2. A box is 10 cm long, 8 cm wide, and 5 cm tall. What's its volume?</div>
@@ -31613,7 +30691,7 @@ export function PrintablesPage() {
                 <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-purple-400 to-pink-400 animate-gradient-x mb-2" />
                 {/* Worked Example */}
                 <div className="mb-6 p-4 bg-blue-50 border-2 border-blue-200 rounded-lg print:border print:bg-white">
-                  <div className="font-semibold text-blue-900 mb-3 text-sm">ðŸ“š Example - Let's solve this together:</div>
+                  <div className="font-semibold text-blue-900 mb-3 text-sm">📚 Example - Let's solve this together:</div>
                   <div className="space-y-2 text-sm">
                     <div className="font-semibold text-base"><strong>Problem:</strong> Classify 75Â°</div>
                     <div className="pl-4 border-l-2 border-blue-300 space-y-1">
@@ -31621,7 +30699,7 @@ export function PrintablesPage() {
                       <div><strong>Step 2:</strong> Is it less than 90Â°? Yes!</div>
                       <div><strong>Step 3:</strong> Angles less than 90Â° are acute</div>
                       <div className="font-semibold text-blue-900"><strong>Answer:</strong> Acute</div>
-                      <div className="text-xs text-blue-700 mt-1">ðŸ’¡ Tip: Less than 90Â° = acute, exactly 90Â° = right, more than 90Â° = obtuse!</div>
+                      <div className="text-xs text-blue-700 mt-1">💡 Tip: Less than 90Â° = acute, exactly 90Â° = right, more than 90Â° = obtuse!</div>
                     </div>
                   </div>
                 </div>
@@ -31640,7 +30718,7 @@ export function PrintablesPage() {
                 </div>
                 {/* Extension/Challenge Problems */}
                 <div className="mt-6 print:mt-0 p-4 bg-purple-50 border-2 border-purple-200 rounded print:bg-white print:border" style={{ pageBreakBefore: 'always', pageBreakInside: 'avoid' }}>
-                  <div className="font-semibold text-purple-900 mb-3 text-sm">🌐Ÿ {getTrans('common.challengeYourself', 'Challenge Yourself (Optional):')}</div>
+                  <div className="font-semibold text-purple-900 mb-3 text-sm">🌐 {getTrans('common.challengeYourself', 'Challenge Yourself (Optional):')}</div>
                   <div className="space-y-2 text-sm text-purple-800">
                     <div>1. Classify: 135Â°</div>
                     <div>2. Find examples of each angle type in your classroom</div>
@@ -31738,7 +30816,7 @@ export function PrintablesPage() {
                 <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-purple-400 to-pink-400 animate-gradient-x mb-2" />
                 {/* Worked Example */}
                 <div className="mb-6 p-4 bg-blue-50 border-2 border-blue-200 rounded-lg print:border print:bg-white">
-                  <div className="font-semibold text-blue-900 mb-3 text-sm">ðŸ“š Example - Let's solve this together:</div>
+                  <div className="font-semibold text-blue-900 mb-3 text-sm">📚 Example - Let's solve this together:</div>
                   <div className="space-y-2 text-sm">
                     <div className="font-semibold text-base"><strong>Problem:</strong> Triangle with sides: 4, 4, 5</div>
                     <div className="pl-4 border-l-2 border-blue-300 space-y-1">
@@ -31746,7 +30824,7 @@ export function PrintablesPage() {
                       <div><strong>Step 2:</strong> Check: Is it all 3 equal? No. Is it 2 equal? Yes!</div>
                       <div><strong>Step 3:</strong> Classification: Isosceles (exactly 2 sides equal)</div>
                       <div className="font-semibold text-blue-900"><strong>Answer:</strong> Isosceles</div>
-                      <div className="text-xs text-blue-700 mt-1">ðŸ’¡ Tip: Count how many sides are equal: 0 = scalene, 2 = isosceles, 3 = equilateral!</div>
+                      <div className="text-xs text-blue-700 mt-1">💡 Tip: Count how many sides are equal: 0 = scalene, 2 = isosceles, 3 = equilateral!</div>
                     </div>
                   </div>
                 </div>
@@ -31763,7 +30841,7 @@ export function PrintablesPage() {
                 </div>
                 {/* Extension/Challenge Problems */}
                 <div className="mt-6 print:mt-0 p-4 bg-purple-50 border-2 border-purple-200 rounded print:bg-white print:border" style={{ pageBreakBefore: 'always', pageBreakInside: 'avoid' }}>
-                  <div className="font-semibold text-purple-900 mb-3 text-sm">🌐Ÿ {getTrans('common.challengeYourself', 'Challenge Yourself (Optional):')}</div>
+                  <div className="font-semibold text-purple-900 mb-3 text-sm">🌐 {getTrans('common.challengeYourself', 'Challenge Yourself (Optional):')}</div>
                   <div className="space-y-2 text-sm text-purple-800">
                     <div>1. Draw an equilateral triangle with sides of 5 units each</div>
                     <div>2. Classify: Triangle with sides 7, 7, 7</div>
@@ -31839,7 +30917,7 @@ export function PrintablesPage() {
                 <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-purple-400 to-pink-400 animate-gradient-x mb-2" />
                 {/* Worked Example */}
                 <div className="mb-6 p-4 bg-blue-50 border-2 border-blue-200 rounded-lg print:border print:bg-white">
-                  <div className="font-semibold text-blue-900 mb-3 text-sm">ðŸ“š Example - Let's solve this together:</div>
+                  <div className="font-semibold text-blue-900 mb-3 text-sm">📚 Example - Let's solve this together:</div>
                   <div className="space-y-2 text-sm">
                     <div className="font-semibold text-base"><strong>Problem:</strong> Square</div>
                     <div className="pl-4 border-l-2 border-blue-300 space-y-1">
@@ -31847,7 +30925,7 @@ export function PrintablesPage() {
                       <div><strong>Step 2:</strong> All angles are right angles (90Â°)</div>
                       <div><strong>Step 3:</strong> Draw a square with equal sides</div>
                       <div className="font-semibold text-blue-900"><strong>Answer:</strong> A square has 4 equal sides and 4 right angles</div>
-                      <div className="text-xs text-blue-700 mt-1">ðŸ’¡ Tip: Remember the key properties: sides, angles, and parallel lines!</div>
+                      <div className="text-xs text-blue-700 mt-1">💡 Tip: Remember the key properties: sides, angles, and parallel lines!</div>
                     </div>
                   </div>
                 </div>
@@ -31863,7 +30941,7 @@ export function PrintablesPage() {
                 </div>
                 {/* Extension/Challenge Problems */}
                 <div className="mt-6 print:mt-0 p-4 bg-purple-50 border-2 border-purple-200 rounded print:bg-white print:border" style={{ pageBreakBefore: 'always', pageBreakInside: 'avoid' }}>
-                  <div className="font-semibold text-purple-900 mb-3 text-sm">🌐Ÿ {getTrans('common.challengeYourself', 'Challenge Yourself (Optional):')}</div>
+                  <div className="font-semibold text-purple-900 mb-3 text-sm">🌐 {getTrans('common.challengeYourself', 'Challenge Yourself (Optional):')}</div>
                   <div className="space-y-2 text-sm text-purple-800">
                     <div>1. Draw a rectangle and label its properties</div>
                     <div>2. Explain the difference between a square and a rhombus</div>
@@ -31978,14 +31056,14 @@ export function PrintablesPage() {
                 <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-purple-400 to-pink-400 animate-gradient-x mb-2" />
                 {/* Worked Example */}
                 <div className="mb-6 p-4 bg-blue-50 border-2 border-blue-200 rounded-lg print:border print:bg-white">
-                  <div className="font-semibold text-blue-900 mb-3 text-sm">ðŸ“š Example - Let's solve this together:</div>
+                  <div className="font-semibold text-blue-900 mb-3 text-sm">📚 Example - Let's solve this together:</div>
                   <div className="space-y-2 text-sm">
                     <div className="font-semibold text-base"><strong>Shape:</strong> Pentagon</div>
                     <div className="pl-4 border-l-2 border-blue-300 space-y-1">
                       <div><strong>Step 1:</strong> Look at the shape - count the sides</div>
                       <div><strong>Step 2:</strong> A pentagon has 5 sides</div>
                       <div className="font-semibold text-blue-900"><strong>Answer:</strong> 5 sides</div>
-                      <div className="text-xs text-blue-700 mt-1">ðŸ’¡ Tip: Count the sides to identify the shape!</div>
+                      <div className="text-xs text-blue-700 mt-1">💡 Tip: Count the sides to identify the shape!</div>
                     </div>
                   </div>
                 </div>
@@ -32002,7 +31080,7 @@ export function PrintablesPage() {
                 </div>
                 {/* Extension/Challenge Problems */}
                 <div className="mt-6 print:mt-0 p-4 bg-purple-50 border-2 border-purple-200 rounded print:bg-white print:border" style={{ pageBreakBefore: 'always', pageBreakInside: 'avoid' }}>
-                  <div className="font-semibold text-purple-900 mb-3 text-sm">🌐Ÿ {getTrans('common.challengeYourself', 'Challenge Yourself (Optional):')}</div>
+                  <div className="font-semibold text-purple-900 mb-3 text-sm">🌐 {getTrans('common.challengeYourself', 'Challenge Yourself (Optional):')}</div>
                   <div className="space-y-2 text-sm text-purple-800">
                     <div>1. Draw a shape with 7 sides (heptagon)</div>
                     <div>2. Find examples of each shape in your environment</div>
@@ -32078,14 +31156,14 @@ export function PrintablesPage() {
                 <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-purple-400 to-pink-400 animate-gradient-x mb-2" />
                 {/* Worked Example */}
                 <div className="mb-6 p-4 bg-blue-50 border-2 border-blue-200 rounded-lg print:border print:bg-white">
-                  <div className="font-semibold text-blue-900 mb-3 text-sm">ðŸ“š Example - Let's solve this together:</div>
+                  <div className="font-semibold text-blue-900 mb-3 text-sm">📚 Example - Let's solve this together:</div>
                   <div className="space-y-2 text-sm">
                     <div className="font-semibold text-base"><strong>Problem:</strong> 2 feet = ____ inches</div>
                     <div className="pl-4 border-l-2 border-blue-300 space-y-1">
                       <div><strong>Step 1:</strong> Remember: 1 foot = 12 inches</div>
                       <div><strong>Step 2:</strong> Multiply: 2 feet Ã— 12 inches/foot = 24 inches</div>
                       <div className="font-semibold text-blue-900"><strong>Answer:</strong> 24 inches</div>
-                      <div className="text-xs text-blue-700 mt-1">ðŸ’¡ Tip: 1 foot = 12 inches, so multiply by 12!</div>
+                      <div className="text-xs text-blue-700 mt-1">💡 Tip: 1 foot = 12 inches, so multiply by 12!</div>
                     </div>
                   </div>
                 </div>
@@ -32103,7 +31181,7 @@ export function PrintablesPage() {
                 </div>
                 {/* Extension/Challenge Problems */}
                 <div className="mt-6 print:mt-0 p-4 bg-purple-50 border-2 border-purple-200 rounded print:bg-white print:border" style={{ pageBreakBefore: 'always', pageBreakInside: 'avoid' }}>
-                  <div className="font-semibold text-purple-900 mb-3 text-sm">🌐Ÿ {getTrans('common.challengeYourself', 'Challenge Yourself (Optional):')}</div>
+                  <div className="font-semibold text-purple-900 mb-3 text-sm">🌐 {getTrans('common.challengeYourself', 'Challenge Yourself (Optional):')}</div>
                   <div className="space-y-2 text-sm text-purple-800">
                     <div>1. Convert: 3 yards = ____ feet = ____ inches</div>
                     <div>2. How many inches are in 2.5 feet?</div>
@@ -32178,14 +31256,14 @@ export function PrintablesPage() {
                 <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-purple-400 to-pink-400 animate-gradient-x mb-2" />
                 {/* Worked Example */}
                 <div className="mb-6 p-4 bg-blue-50 border-2 border-blue-200 rounded-lg print:border print:bg-white">
-                  <div className="font-semibold text-blue-900 mb-3 text-sm">ðŸ“š Example - Let's solve this together:</div>
+                  <div className="font-semibold text-blue-900 mb-3 text-sm">📚 Example - Let's solve this together:</div>
                   <div className="space-y-2 text-sm">
                     <div className="font-semibold text-base"><strong>Problem:</strong> 3 meters = ____ centimeters</div>
                     <div className="pl-4 border-l-2 border-blue-300 space-y-1">
                       <div><strong>Step 1:</strong> Remember: 1 meter = 100 centimeters</div>
                       <div><strong>Step 2:</strong> Multiply: 3 meters Ã— 100 cm/meter = 300 centimeters</div>
                       <div className="font-semibold text-blue-900"><strong>Answer:</strong> 300 centimeters</div>
-                      <div className="text-xs text-blue-700 mt-1">ðŸ’¡ Tip: 1 meter = 100 cm, so multiply by 100!</div>
+                      <div className="text-xs text-blue-700 mt-1">💡 Tip: 1 meter = 100 cm, so multiply by 100!</div>
                     </div>
                   </div>
                 </div>
@@ -32203,7 +31281,7 @@ export function PrintablesPage() {
                 </div>
                 {/* Extension/Challenge Problems */}
                 <div className="mt-6 print:mt-0 p-4 bg-purple-50 border-2 border-purple-200 rounded print:bg-white print:border" style={{ pageBreakBefore: 'always', pageBreakInside: 'avoid' }}>
-                  <div className="font-semibold text-purple-900 mb-3 text-sm">🌐Ÿ {getTrans('common.challengeYourself', 'Challenge Yourself (Optional):')}</div>
+                  <div className="font-semibold text-purple-900 mb-3 text-sm">🌐 {getTrans('common.challengeYourself', 'Challenge Yourself (Optional):')}</div>
                   <div className="space-y-2 text-sm text-purple-800">
                     <div>1. Convert: 2 kilometers = ____ meters</div>
                     <div>2. How many millimeters are in 5 centimeters?</div>
@@ -32279,7 +31357,7 @@ export function PrintablesPage() {
                 <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-purple-400 to-pink-400 animate-gradient-x mb-2" />
                 {/* Worked Example */}
                 <div className="mb-6 p-4 bg-blue-50 border-2 border-blue-200 rounded-lg print:border print:bg-white">
-                  <div className="font-semibold text-blue-900 mb-3 text-sm">ðŸ“š Example - Let's solve this together:</div>
+                  <div className="font-semibold text-blue-900 mb-3 text-sm">📚 Example - Let's solve this together:</div>
                   <div className="space-y-2 text-sm">
                     <div className="font-semibold text-base"><strong>Problem:</strong> Start: 2:00, End: 3:30</div>
                     <div className="pl-4 border-l-2 border-blue-300 space-y-1">
@@ -32287,7 +31365,7 @@ export function PrintablesPage() {
                       <div><strong>Step 2:</strong> From 3:00 to 3:30 = 30 minutes</div>
                       <div><strong>Step 3:</strong> Total: 1 hour + 30 minutes = 1 hour 30 minutes</div>
                       <div className="font-semibold text-blue-900"><strong>Answer:</strong> 1 hour 30 minutes</div>
-                      <div className="text-xs text-blue-700 mt-1">ðŸ’¡ Tip: Count the hours first, then the minutes!</div>
+                      <div className="text-xs text-blue-700 mt-1">💡 Tip: Count the hours first, then the minutes!</div>
                     </div>
                   </div>
                 </div>
@@ -32303,7 +31381,7 @@ export function PrintablesPage() {
                 </div>
                 {/* Extension/Challenge Problems */}
                 <div className="mt-6 print:mt-0 p-4 bg-purple-50 border-2 border-purple-200 rounded print:bg-white print:border" style={{ pageBreakBefore: 'always', pageBreakInside: 'avoid' }}>
-                  <div className="font-semibold text-purple-900 mb-3 text-sm">🌐Ÿ {getTrans('common.challengeYourself', 'Challenge Yourself (Optional):')}</div>
+                  <div className="font-semibold text-purple-900 mb-3 text-sm">🌐 {getTrans('common.challengeYourself', 'Challenge Yourself (Optional):')}</div>
                   <div className="space-y-2 text-sm text-purple-800">
                     <div>1. Calculate: Start 7:45 AM, End 9:20 AM</div>
                     <div>2. How long is your school day? Calculate from start to end</div>
@@ -32376,14 +31454,14 @@ export function PrintablesPage() {
                 <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-purple-400 to-pink-400 animate-gradient-x mb-2" />
                 {/* Worked Example */}
                 <div className="mb-6 p-4 bg-blue-50 border-2 border-blue-200 rounded-lg print:border print:bg-white">
-                  <div className="font-semibold text-blue-900 mb-3 text-sm">ðŸ“š Example - Let's solve this together:</div>
+                  <div className="font-semibold text-blue-900 mb-3 text-sm">📚 Example - Let's solve this together:</div>
                   <div className="space-y-2 text-sm">
                     <div className="font-semibold text-base"><strong>Problem:</strong> 3 quarts = ____ cups</div>
                     <div className="pl-4 border-l-2 border-blue-300 space-y-1">
                       <div><strong>Step 1:</strong> Remember: 1 quart = 4 cups</div>
                       <div><strong>Step 2:</strong> Multiply: 3 quarts Ã— 4 cups/quart = 12 cups</div>
                       <div className="font-semibold text-blue-900"><strong>Answer:</strong> 12 cups</div>
-                      <div className="text-xs text-blue-700 mt-1">ðŸ’¡ Tip: 1 quart = 4 cups, so multiply by 4!</div>
+                      <div className="text-xs text-blue-700 mt-1">💡 Tip: 1 quart = 4 cups, so multiply by 4!</div>
                     </div>
                   </div>
                 </div>
@@ -32401,7 +31479,7 @@ export function PrintablesPage() {
                 </div>
                 {/* Extension/Challenge Problems */}
                 <div className="mt-6 print:mt-0 p-4 bg-purple-50 border-2 border-purple-200 rounded print:bg-white print:border" style={{ pageBreakBefore: 'always', pageBreakInside: 'avoid' }}>
-                  <div className="font-semibold text-purple-900 mb-3 text-sm">🌐Ÿ {getTrans('common.challengeYourself', 'Challenge Yourself (Optional):')}</div>
+                  <div className="font-semibold text-purple-900 mb-3 text-sm">🌐 {getTrans('common.challengeYourself', 'Challenge Yourself (Optional):')}</div>
                   <div className="space-y-2 text-sm text-purple-800">
                     <div>1. Convert: 2 gallons = ____ cups</div>
                     <div>2. How many pints are in 3 quarts?</div>
@@ -32475,14 +31553,14 @@ export function PrintablesPage() {
                 <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-purple-400 to-pink-400 animate-gradient-x mb-2" />
                 {/* Worked Example */}
                 <div className="mb-6 p-4 bg-blue-50 border-2 border-blue-200 rounded-lg print:border print:bg-white">
-                  <div className="font-semibold text-blue-900 mb-3 text-sm">ðŸ“š Example - Let's solve this together:</div>
+                  <div className="font-semibold text-blue-900 mb-3 text-sm">📚 Example - Let's solve this together:</div>
                   <div className="space-y-2 text-sm">
                     <div className="font-semibold text-base"><strong>Problem:</strong> 2 pounds = ____ ounces</div>
                     <div className="pl-4 border-l-2 border-blue-300 space-y-1">
                       <div><strong>Step 1:</strong> Remember: 1 pound = 16 ounces</div>
                       <div><strong>Step 2:</strong> Multiply: 2 pounds Ã— 16 oz/pound = 32 ounces</div>
                       <div className="font-semibold text-blue-900"><strong>Answer:</strong> 32 ounces</div>
-                      <div className="text-xs text-blue-700 mt-1">ðŸ’¡ Tip: 1 pound = 16 oz, so multiply by 16!</div>
+                      <div className="text-xs text-blue-700 mt-1">💡 Tip: 1 pound = 16 oz, so multiply by 16!</div>
                     </div>
                   </div>
                 </div>
@@ -32500,7 +31578,7 @@ export function PrintablesPage() {
                 </div>
                 {/* Extension/Challenge Problems */}
                 <div className="mt-6 print:mt-0 p-4 bg-purple-50 border-2 border-purple-200 rounded print:bg-white print:border" style={{ pageBreakBefore: 'always', pageBreakInside: 'avoid' }}>
-                  <div className="font-semibold text-purple-900 mb-3 text-sm">🌐Ÿ {getTrans('common.challengeYourself', 'Challenge Yourself (Optional):')}</div>
+                  <div className="font-semibold text-purple-900 mb-3 text-sm">🌐 {getTrans('common.challengeYourself', 'Challenge Yourself (Optional):')}</div>
                   <div className="space-y-2 text-sm text-purple-800">
                     <div>1. Convert: 3 pounds = ____ ounces</div>
                     <div>2. How many ounces are in 1.5 pounds?</div>
@@ -32578,7 +31656,7 @@ export function PrintablesPage() {
                 <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-purple-400 to-pink-400 animate-gradient-x mb-2" />
                 {/* Worked Example */}
                 <div className="mb-6 p-4 bg-blue-50 border-2 border-blue-200 rounded-lg print:border print:bg-white">
-                  <div className="font-semibold text-blue-900 mb-3 text-sm">ðŸ“š Example - Let's solve this together:</div>
+                  <div className="font-semibold text-blue-900 mb-3 text-sm">📚 Example - Let's solve this together:</div>
                   <div className="space-y-2 text-sm">
                     <div className="font-semibold text-base"><strong>Problem:</strong> Two lines that meet at 90Â°</div>
                     <div className="pl-4 border-l-2 border-blue-300 space-y-1">
@@ -32586,7 +31664,7 @@ export function PrintablesPage() {
                       <div><strong>Step 2:</strong> 90Â° means a right angle</div>
                       <div><strong>Step 3:</strong> Lines that meet at right angles are perpendicular</div>
                       <div className="font-semibold text-blue-900"><strong>Answer:</strong> Perpendicular</div>
-                      <div className="text-xs text-blue-700 mt-1">ðŸ’¡ Tip: Look for key words: 90Â°, right angle, never meet, cross!</div>
+                      <div className="text-xs text-blue-700 mt-1">💡 Tip: Look for key words: 90Â°, right angle, never meet, cross!</div>
                     </div>
                   </div>
                 </div>
@@ -32602,7 +31680,7 @@ export function PrintablesPage() {
                 </div>
                 {/* Extension/Challenge Problems */}
                 <div className="mt-6 print:mt-0 p-4 bg-purple-50 border-2 border-purple-200 rounded print:bg-white print:border" style={{ pageBreakBefore: 'always', pageBreakInside: 'avoid' }}>
-                  <div className="font-semibold text-purple-900 mb-3 text-sm">🌐Ÿ {getTrans('common.challengeYourself', 'Challenge Yourself (Optional):')}</div>
+                  <div className="font-semibold text-purple-900 mb-3 text-sm">🌐 {getTrans('common.challengeYourself', 'Challenge Yourself (Optional):')}</div>
                   <div className="space-y-2 text-sm text-purple-800">
                     <div>1. Draw two parallel lines</div>
                     <div>2. Draw two perpendicular lines</div>
@@ -32673,7 +31751,7 @@ export function PrintablesPage() {
                 <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-purple-400 to-pink-400 animate-gradient-x mb-2" />
                 {/* Worked Example */}
                 <div className="mb-6 p-4 bg-blue-50 border-2 border-blue-200 rounded-lg print:border print:bg-white">
-                  <div className="font-semibold text-blue-900 mb-3 text-sm">ðŸ“š Example - Let's solve this together:</div>
+                  <div className="font-semibold text-blue-900 mb-3 text-sm">📚 Example - Let's solve this together:</div>
                   <div className="space-y-2 text-sm">
                     <div className="font-semibold text-base"><strong>Problem:</strong> Square - Lines of symmetry</div>
                     <div className="pl-4 border-l-2 border-blue-300 space-y-1">
@@ -32681,7 +31759,7 @@ export function PrintablesPage() {
                       <div><strong>Step 2:</strong> Find lines that divide it into matching halves</div>
                       <div><strong>Step 3:</strong> Count: 2 diagonal lines + 2 lines through midpoints = 4 lines</div>
                       <div className="font-semibold text-blue-900"><strong>Answer:</strong> 4 lines of symmetry</div>
-                      <div className="text-xs text-blue-700 mt-1">ðŸ’¡ Tip: A line of symmetry divides a shape into two identical halves!</div>
+                      <div className="text-xs text-blue-700 mt-1">💡 Tip: A line of symmetry divides a shape into two identical halves!</div>
                     </div>
                   </div>
                 </div>
@@ -32697,7 +31775,7 @@ export function PrintablesPage() {
                 </div>
                 {/* Extension/Challenge Problems */}
                 <div className="mt-6 print:mt-0 p-4 bg-purple-50 border-2 border-purple-200 rounded print:bg-white print:border" style={{ pageBreakBefore: 'always', pageBreakInside: 'avoid' }}>
-                  <div className="font-semibold text-purple-900 mb-3 text-sm">🌐Ÿ {getTrans('common.challengeYourself', 'Challenge Yourself (Optional):')}</div>
+                  <div className="font-semibold text-purple-900 mb-3 text-sm">🌐 {getTrans('common.challengeYourself', 'Challenge Yourself (Optional):')}</div>
                   <div className="space-y-2 text-sm text-purple-800">
                     <div>1. Draw a shape with exactly 2 lines of symmetry</div>
                     <div>2. Find an object in your home with symmetry</div>
@@ -32780,7 +31858,7 @@ export function PrintablesPage() {
                 <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-purple-400 to-pink-400 animate-gradient-x mb-2" />
                 {/* Worked Example */}
                 <div className="mb-6 p-4 bg-blue-50 border-2 border-blue-200 rounded-lg print:border print:bg-white">
-                  <div className="font-semibold text-blue-900 mb-3 text-sm">ðŸ“š Example - Let's solve this together:</div>
+                  <div className="font-semibold text-blue-900 mb-3 text-sm">📚 Example - Let's solve this together:</div>
                   <div className="space-y-2 text-sm">
                     <div className="font-semibold text-base"><strong>Problem:</strong> Translation</div>
                     <div className="pl-4 border-l-2 border-blue-300 space-y-1">
@@ -32788,7 +31866,7 @@ export function PrintablesPage() {
                       <div><strong>Step 2:</strong> Draw a shape, then slide it to a new position</div>
                       <div><strong>Step 3:</strong> The shape stays the same size and orientation</div>
                       <div className="font-semibold text-blue-900"><strong>Answer:</strong> Translation = slide (move without turning or flipping)</div>
-                      <div className="text-xs text-blue-700 mt-1">ðŸ’¡ Tip: Translation = slide, Rotation = turn, Reflection = flip!</div>
+                      <div className="text-xs text-blue-700 mt-1">💡 Tip: Translation = slide, Rotation = turn, Reflection = flip!</div>
                     </div>
                   </div>
                 </div>
@@ -32804,7 +31882,7 @@ export function PrintablesPage() {
                 </div>
                 {/* Extension/Challenge Problems */}
                 <div className="mt-6 print:mt-0 p-4 bg-purple-50 border-2 border-purple-200 rounded print:bg-white print:border" style={{ pageBreakBefore: 'always', pageBreakInside: 'avoid' }}>
-                  <div className="font-semibold text-purple-900 mb-3 text-sm">🌐Ÿ {getTrans('common.challengeYourself', 'Challenge Yourself (Optional):')}</div>
+                  <div className="font-semibold text-purple-900 mb-3 text-sm">🌐 {getTrans('common.challengeYourself', 'Challenge Yourself (Optional):')}</div>
                   <div className="space-y-2 text-sm text-purple-800">
                     <div>1. Draw a shape and show a translation</div>
                     <div>2. Draw a shape and show a rotation</div>
@@ -32882,7 +31960,7 @@ export function PrintablesPage() {
                 <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-purple-400 to-pink-400 animate-gradient-x mb-2" />
                 {/* Worked Example */}
                 <div className="mb-6 p-4 bg-blue-50 border-2 border-blue-200 rounded-lg print:border print:bg-white">
-                  <div className="font-semibold text-blue-900 mb-3 text-sm">ðŸ“š Example - Let's solve this together:</div>
+                  <div className="font-semibold text-blue-900 mb-3 text-sm">📚 Example - Let's solve this together:</div>
                   <div className="space-y-2 text-sm">
                     <div className="font-semibold text-base"><strong>Problem:</strong> Cube - Draw its net</div>
                     <div className="pl-4 border-l-2 border-blue-300 space-y-1">
@@ -32890,7 +31968,7 @@ export function PrintablesPage() {
                       <div><strong>Step 2:</strong> Draw 6 squares in a cross pattern</div>
                       <div><strong>Step 3:</strong> Make sure all squares are connected so they can fold into a cube</div>
                       <div className="font-semibold text-blue-900"><strong>Answer:</strong> A net of a cube is 6 squares arranged so they fold into a cube</div>
-                      <div className="text-xs text-blue-700 mt-1">ðŸ’¡ Tip: A net is like opening up a 3D shape and laying it flat!</div>
+                      <div className="text-xs text-blue-700 mt-1">💡 Tip: A net is like opening up a 3D shape and laying it flat!</div>
                     </div>
                   </div>
                 </div>
@@ -32906,7 +31984,7 @@ export function PrintablesPage() {
                 </div>
                 {/* Extension/Challenge Problems */}
                 <div className="mt-6 print:mt-0 p-4 bg-purple-50 border-2 border-purple-200 rounded print:bg-white print:border" style={{ pageBreakBefore: 'always', pageBreakInside: 'avoid' }}>
-                  <div className="font-semibold text-purple-900 mb-3 text-sm">🌐Ÿ {getTrans('common.challengeYourself', 'Challenge Yourself (Optional):')}</div>
+                  <div className="font-semibold text-purple-900 mb-3 text-sm">🌐 {getTrans('common.challengeYourself', 'Challenge Yourself (Optional):')}</div>
                   <div className="space-y-2 text-sm text-purple-800">
                     <div>1. Draw a net for a cube and try to fold it</div>
                     <div>2. Draw a net for a rectangular prism</div>
@@ -32991,7 +32069,7 @@ export function PrintablesPage() {
                 <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-purple-400 to-pink-400 animate-gradient-x mb-2" />
                 {/* Worked Example */}
                 <div className="mb-6 p-4 bg-blue-50 border-2 border-blue-200 rounded-lg print:border print:bg-white">
-                  <div className="font-semibold text-blue-900 mb-3 text-sm">ðŸ“š Example - Let's solve this together:</div>
+                  <div className="font-semibold text-blue-900 mb-3 text-sm">📚 Example - Let's solve this together:</div>
                   <div className="space-y-2 text-sm">
                     <div className="font-mono text-base"><strong>Problem:</strong> 3x + 2 when x = 4</div>
                     <div className="pl-4 border-l-2 border-blue-300 space-y-1">
@@ -32999,7 +32077,7 @@ export function PrintablesPage() {
                       <div><strong>Step 2:</strong> Multiply: 3 Ã— 4 = 12</div>
                       <div><strong>Step 3:</strong> Add: 12 + 2 = 14</div>
                       <div className="font-semibold text-blue-900"><strong>Answer:</strong> 14</div>
-                      <div className="text-xs text-blue-700 mt-1">ðŸ’¡ Tip: Replace the variable with the number, then solve!</div>
+                      <div className="text-xs text-blue-700 mt-1">💡 Tip: Replace the variable with the number, then solve!</div>
                     </div>
                   </div>
                 </div>
@@ -33015,7 +32093,7 @@ export function PrintablesPage() {
                 </div>
                 {/* Extension/Challenge Problems */}
                 <div className="mt-6 print:mt-0 p-4 bg-purple-50 border-2 border-purple-200 rounded print:bg-white print:border" style={{ pageBreakBefore: 'always', pageBreakInside: 'avoid' }}>
-                  <div className="font-semibold text-purple-900 mb-3 text-sm">🌐Ÿ {getTrans('common.challengeYourself', 'Challenge Yourself (Optional):')}</div>
+                  <div className="font-semibold text-purple-900 mb-3 text-sm">🌐 {getTrans('common.challengeYourself', 'Challenge Yourself (Optional):')}</div>
                   <div className="space-y-2 text-sm text-purple-800">
                     <div>1. Evaluate: 5x - 3 when x = 7</div>
                     <div>2. Create your own expression to evaluate</div>
@@ -33096,14 +32174,14 @@ export function PrintablesPage() {
                 <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-purple-400 to-pink-400 animate-gradient-x mb-2" />
                 {/* Worked Example */}
                 <div className="mb-6 p-4 bg-blue-50 border-2 border-blue-200 rounded-lg print:border print:bg-white">
-                  <div className="font-semibold text-blue-900 mb-3 text-sm">ðŸ“š Example - Let's solve this together:</div>
+                  <div className="font-semibold text-blue-900 mb-3 text-sm">📚 Example - Let's solve this together:</div>
                   <div className="space-y-2 text-sm">
                     <div className="font-semibold text-base"><strong>Phrase:</strong> "4 more than x"</div>
                     <div className="pl-4 border-l-2 border-blue-300 space-y-1">
                       <div><strong>Step 1:</strong> Identify key word: "more than" means add</div>
                       <div><strong>Step 2:</strong> "4 more than x" means add 4 to x</div>
                       <div className="font-semibold text-blue-900"><strong>Expression:</strong> x + 4</div>
-                      <div className="text-xs text-blue-700 mt-1">ðŸ’¡ Tip: "More than" means add, "less than" means subtract!</div>
+                      <div className="text-xs text-blue-700 mt-1">💡 Tip: "More than" means add, "less than" means subtract!</div>
                     </div>
                   </div>
                 </div>
@@ -33119,7 +32197,7 @@ export function PrintablesPage() {
                 </div>
                 {/* Extension/Challenge Problems */}
                 <div className="mt-6 print:mt-0 p-4 bg-purple-50 border-2 border-purple-200 rounded print:bg-white print:border" style={{ pageBreakBefore: 'always', pageBreakInside: 'avoid' }}>
-                  <div className="font-semibold text-purple-900 mb-3 text-sm">🌐Ÿ {getTrans('common.challengeYourself', 'Challenge Yourself (Optional):')}</div>
+                  <div className="font-semibold text-purple-900 mb-3 text-sm">🌐 {getTrans('common.challengeYourself', 'Challenge Yourself (Optional):')}</div>
                   <div className="space-y-2 text-sm text-purple-800">
                     <div>1. Write an expression for "8 times x plus 3"</div>
                     <div>2. Create your own phrase and write its expression</div>
@@ -33195,7 +32273,7 @@ export function PrintablesPage() {
                 <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-purple-400 to-pink-400 animate-gradient-x mb-2" />
                 {/* Worked Example */}
                 <div className="mb-6 p-4 bg-blue-50 border-2 border-blue-200 rounded-lg print:border print:bg-white">
-                  <div className="font-semibold text-blue-900 mb-3 text-sm">ðŸ“š Example - Let's solve this together:</div>
+                  <div className="font-semibold text-blue-900 mb-3 text-sm">📚 Example - Let's solve this together:</div>
                   <div className="space-y-2 text-sm">
                     <div className="font-mono text-base"><strong>Problem:</strong> x + 5 = 12</div>
                     <div className="pl-4 border-l-2 border-blue-300 space-y-1">
@@ -33203,7 +32281,7 @@ export function PrintablesPage() {
                       <div><strong>Step 2:</strong> Simplify: x = 7</div>
                       <div><strong>Step 3:</strong> Check: 7 + 5 = 12 âœ“</div>
                       <div className="font-semibold text-blue-900"><strong>Answer:</strong> x = 7</div>
-                      <div className="text-xs text-blue-700 mt-1">ðŸ’¡ Tip: Do the opposite operation to both sides!</div>
+                      <div className="text-xs text-blue-700 mt-1">💡 Tip: Do the opposite operation to both sides!</div>
                     </div>
                   </div>
                 </div>
@@ -33219,7 +32297,7 @@ export function PrintablesPage() {
                 </div>
                 {/* Extension/Challenge Problems */}
                 <div className="mt-6 print:mt-0 p-4 bg-purple-50 border-2 border-purple-200 rounded print:bg-white print:border" style={{ pageBreakBefore: 'always', pageBreakInside: 'avoid' }}>
-                  <div className="font-semibold text-purple-900 mb-3 text-sm">🌐Ÿ {getTrans('common.challengeYourself', 'Challenge Yourself (Optional):')}</div>
+                  <div className="font-semibold text-purple-900 mb-3 text-sm">🌐 {getTrans('common.challengeYourself', 'Challenge Yourself (Optional):')}</div>
                   <div className="space-y-2 text-sm text-purple-800">
                     <div>1. Solve: x - 8 = 15</div>
                     <div>2. Create your own equation and solve it</div>
@@ -33304,7 +32382,7 @@ export function PrintablesPage() {
                 <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-purple-400 to-pink-400 animate-gradient-x mb-2" />
                 {/* Worked Example */}
                 <div className="mb-6 p-4 bg-blue-50 border-2 border-blue-200 rounded-lg print:border print:bg-white">
-                  <div className="font-semibold text-blue-900 mb-3 text-sm">ðŸ“š Example - Let's solve this together:</div>
+                  <div className="font-semibold text-blue-900 mb-3 text-sm">📚 Example - Let's solve this together:</div>
                   <div className="space-y-2 text-sm">
                     <div className="font-mono text-base"><strong>Pattern:</strong> 3, 6, 9, 12, ___, 18</div>
                     <div className="pl-4 border-l-2 border-blue-300 space-y-1">
@@ -33312,7 +32390,7 @@ export function PrintablesPage() {
                       <div><strong>Step 2:</strong> The pattern is: Add 3 each time</div>
                       <div><strong>Step 3:</strong> Missing number: 12 + 3 = 15</div>
                       <div className="font-semibold text-blue-900"><strong>Answer:</strong> Missing = 15, Rule = Add 3</div>
-                      <div className="text-xs text-blue-700 mt-1">ðŸ’¡ Tip: Look at the difference between numbers to find the rule!</div>
+                      <div className="text-xs text-blue-700 mt-1">💡 Tip: Look at the difference between numbers to find the rule!</div>
                     </div>
                   </div>
                 </div>
@@ -33328,7 +32406,7 @@ export function PrintablesPage() {
                 </div>
                 {/* Extension/Challenge Problems */}
                 <div className="mt-6 print:mt-0 p-4 bg-purple-50 border-2 border-purple-200 rounded print:bg-white print:border" style={{ pageBreakBefore: 'always', pageBreakInside: 'avoid' }}>
-                  <div className="font-semibold text-purple-900 mb-3 text-sm">🌐Ÿ {getTrans('common.challengeYourself', 'Challenge Yourself (Optional):')}</div>
+                  <div className="font-semibold text-purple-900 mb-3 text-sm">🌐 {getTrans('common.challengeYourself', 'Challenge Yourself (Optional):')}</div>
                   <div className="space-y-2 text-sm text-purple-800">
                     <div>1. Find the pattern: 2, 6, 18, 54, ___ (hint: multiply!)</div>
                     <div>2. Create your own pattern and have someone solve it</div>
@@ -33427,7 +32505,7 @@ export function PrintablesPage() {
                 <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-purple-400 to-pink-400 animate-gradient-x mb-2" />
                 {/* Worked Example */}
                 <div className="mb-6 p-4 bg-blue-50 border-2 border-blue-200 rounded-lg print:border print:bg-white">
-                  <div className="font-semibold text-blue-900 mb-3 text-sm">ðŸ“š Example - Let's solve this together:</div>
+                  <div className="font-semibold text-blue-900 mb-3 text-sm">📚 Example - Let's solve this together:</div>
                   <div className="space-y-2 text-sm">
                     <div className="font-mono text-base"><strong>Point:</strong> (3, 2)</div>
                     <div className="pl-4 border-l-2 border-blue-300 space-y-1">
@@ -33436,7 +32514,7 @@ export function PrintablesPage() {
                       <div><strong>Step 3:</strong> Move up 2 units (y = 2)</div>
                       <div><strong>Step 4:</strong> Mark the point!</div>
                       <div className="font-semibold text-blue-900"><strong>Answer:</strong> Point plotted at (3, 2)</div>
-                      <div className="text-xs text-blue-700 mt-1">ðŸ’¡ Tip: (x, y) = (right, up)!</div>
+                      <div className="text-xs text-blue-700 mt-1">💡 Tip: (x, y) = (right, up)!</div>
                     </div>
                   </div>
                 </div>
@@ -33453,7 +32531,7 @@ export function PrintablesPage() {
                 </div>
                 {/* Extension/Challenge Problems */}
                 <div className="mt-6 print:mt-0 p-4 bg-purple-50 border-2 border-purple-200 rounded print:bg-white print:border" style={{ pageBreakBefore: 'always', pageBreakInside: 'avoid' }}>
-                  <div className="font-semibold text-purple-900 mb-3 text-sm">🌐Ÿ {getTrans('common.challengeYourself', 'Challenge Yourself (Optional):')}</div>
+                  <div className="font-semibold text-purple-900 mb-3 text-sm">🌐 {getTrans('common.challengeYourself', 'Challenge Yourself (Optional):')}</div>
                   <div className="space-y-2 text-sm text-purple-800">
                     <div>1. Plot (0, 5) and (5, 0) - what's special about these?</div>
                     <div>2. Connect points to make a shape</div>
@@ -33529,7 +32607,7 @@ export function PrintablesPage() {
                 <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-purple-400 to-pink-400 animate-gradient-x mb-2" />
                 {/* Worked Example */}
                 <div className="mb-6 p-4 bg-blue-50 border-2 border-blue-200 rounded-lg print:border print:bg-white">
-                  <div className="font-semibold text-blue-900 mb-3 text-sm">ðŸ“š Example - Let's solve this together:</div>
+                  <div className="font-semibold text-blue-900 mb-3 text-sm">📚 Example - Let's solve this together:</div>
                   <div className="space-y-2 text-sm">
                     <div className="font-semibold text-base"><strong>Problem:</strong> 1/2 ____ 0.5</div>
                     <div className="pl-4 border-l-2 border-blue-300 space-y-1">
@@ -33537,7 +32615,7 @@ export function PrintablesPage() {
                       <div><strong>Step 2:</strong> Compare: 0.5 and 0.5</div>
                       <div><strong>Step 3:</strong> They are equal!</div>
                       <div className="font-semibold text-blue-900"><strong>Answer:</strong> =</div>
-                      <div className="text-xs text-blue-700 mt-1">ðŸ’¡ Tip: Convert fraction to decimal, then compare!</div>
+                      <div className="text-xs text-blue-700 mt-1">💡 Tip: Convert fraction to decimal, then compare!</div>
                     </div>
                   </div>
                 </div>
@@ -33552,7 +32630,7 @@ export function PrintablesPage() {
                 </div>
                 {/* Extension/Challenge Problems */}
                 <div className="mt-6 print:mt-0 p-4 bg-purple-50 border-2 border-purple-200 rounded print:bg-white print:border" style={{ pageBreakBefore: 'always', pageBreakInside: 'avoid' }}>
-                  <div className="font-semibold text-purple-900 mb-3 text-sm">🌐Ÿ {getTrans('common.challengeYourself', 'Challenge Yourself (Optional):')}</div>
+                  <div className="font-semibold text-purple-900 mb-3 text-sm">🌐 {getTrans('common.challengeYourself', 'Challenge Yourself (Optional):')}</div>
                   <div className="space-y-2 text-sm text-purple-800">
                     <div>1. Compare: 3/4 ____ 0.8</div>
                     <div>2. Order from least to greatest: 0.3, 1/4, 0.5</div>
@@ -33633,14 +32711,14 @@ export function PrintablesPage() {
                 <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-purple-400 to-pink-400 animate-gradient-x mb-2" />
                 {/* Worked Example */}
                 <div className="mb-6 p-4 bg-blue-50 border-2 border-blue-200 rounded-lg print:border print:bg-white">
-                  <div className="font-semibold text-blue-900 mb-3 text-sm">ðŸ“š Example - Let's solve this together:</div>
+                  <div className="font-semibold text-blue-900 mb-3 text-sm">📚 Example - Let's solve this together:</div>
                   <div className="space-y-2 text-sm">
                     <div className="font-semibold text-base"><strong>Problem:</strong> Convert 1/2 to decimal and percent</div>
                     <div className="pl-4 border-l-2 border-blue-300 space-y-1">
                       <div><strong>Step 1 (Decimal):</strong> 1 Ã· 2 = 0.5</div>
                       <div><strong>Step 2 (Percent):</strong> 0.5 Ã— 100 = 50%</div>
                       <div className="font-semibold text-blue-900"><strong>Answer:</strong> Decimal: 0.5, Percent: 50%</div>
-                      <div className="text-xs text-blue-700 mt-1">ðŸ’¡ Tip: Divide for decimal, multiply by 100 for percent!</div>
+                      <div className="text-xs text-blue-700 mt-1">💡 Tip: Divide for decimal, multiply by 100 for percent!</div>
                     </div>
                   </div>
                 </div>
@@ -33656,7 +32734,7 @@ export function PrintablesPage() {
                 </div>
                 {/* Extension/Challenge Problems */}
                 <div className="mt-6 print:mt-0 p-4 bg-purple-50 border-2 border-purple-200 rounded print:bg-white print:border" style={{ pageBreakBefore: 'always', pageBreakInside: 'avoid' }}>
-                  <div className="font-semibold text-purple-900 mb-3 text-sm">🌐Ÿ {getTrans('common.challengeYourself', 'Challenge Yourself (Optional):')}</div>
+                  <div className="font-semibold text-purple-900 mb-3 text-sm">🌐 {getTrans('common.challengeYourself', 'Challenge Yourself (Optional):')}</div>
                   <div className="space-y-2 text-sm text-purple-800">
                     <div>1. Convert 2/5 to decimal and percent</div>
                     <div>2. What fraction equals 0.6? What percent?</div>
@@ -33730,7 +32808,7 @@ export function PrintablesPage() {
                 <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-purple-400 to-pink-400 animate-gradient-x mb-2" />
                 {/* Worked Example */}
                 <div className="mb-6 p-4 bg-blue-50 border-2 border-blue-200 rounded-lg print:border print:bg-white">
-                  <div className="font-semibold text-blue-900 mb-3 text-sm">ðŸ“š Example - Let's solve this together:</div>
+                  <div className="font-semibold text-blue-900 mb-3 text-sm">📚 Example - Let's solve this together:</div>
                   <div className="space-y-2 text-sm">
                     <div className="font-semibold text-base"><strong>Data:</strong> 2, 3, 3, 4, 4, 4</div>
                     <div className="pl-4 border-l-2 border-blue-300 space-y-1">
@@ -33738,7 +32816,7 @@ export function PrintablesPage() {
                       <div><strong>Step 2 (Mode):</strong> Count X marks - 4 appears most (3 times)</div>
                       <div><strong>Step 3 (Range):</strong> Largest = 4, Smallest = 2, Range = 4 - 2 = 2</div>
                       <div className="font-semibold text-blue-900"><strong>Answer:</strong> Mode = 4, Range = 2</div>
-                      <div className="text-xs text-blue-700 mt-1">ðŸ’¡ Tip: Mode = most frequent, Range = max - min!</div>
+                      <div className="text-xs text-blue-700 mt-1">💡 Tip: Mode = most frequent, Range = max - min!</div>
                     </div>
                   </div>
                 </div>
@@ -33752,7 +32830,7 @@ export function PrintablesPage() {
                 </div>
                 {/* Extension/Challenge Problems */}
                 <div className="mt-6 print:mt-0 p-4 bg-purple-50 border-2 border-purple-200 rounded print:bg-white print:border" style={{ pageBreakBefore: 'always', pageBreakInside: 'avoid' }}>
-                  <div className="font-semibold text-purple-900 mb-3 text-sm">🌐Ÿ {getTrans('common.challengeYourself', 'Challenge Yourself (Optional):')}</div>
+                  <div className="font-semibold text-purple-900 mb-3 text-sm">🌐 {getTrans('common.challengeYourself', 'Challenge Yourself (Optional):')}</div>
                   <div className="space-y-2 text-sm text-purple-800">
                     <div>1. Create a line plot for: 5, 6, 6, 7, 7, 7, 8</div>
                     <div>2. Find mode and range for your own data</div>
@@ -33825,7 +32903,7 @@ export function PrintablesPage() {
                 <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-purple-400 to-pink-400 animate-gradient-x mb-2" />
                 {/* Worked Example */}
                 <div className="mb-6 p-4 bg-blue-50 border-2 border-blue-200 rounded-lg print:border print:bg-white">
-                  <div className="font-semibold text-blue-900 mb-3 text-sm">ðŸ“š Example - Let's solve this together:</div>
+                  <div className="font-semibold text-blue-900 mb-3 text-sm">📚 Example - Let's solve this together:</div>
                   <div className="space-y-2 text-sm">
                     <div className="font-semibold text-base"><strong>Data:</strong> Red: 5, Blue: 3, Green: 7</div>
                     <div className="pl-4 border-l-2 border-blue-300 space-y-1">
@@ -33833,7 +32911,7 @@ export function PrintablesPage() {
                       <div><strong>Step 2:</strong> Red bar = 5 units tall, Blue = 3 units, Green = 7 units</div>
                       <div><strong>Step 3:</strong> Label each bar with its color</div>
                       <div className="font-semibold text-blue-900"><strong>Answer:</strong> Bar graph with 3 bars showing the values</div>
-                      <div className="text-xs text-blue-700 mt-1">ðŸ’¡ Tip: Each bar's height shows the value!</div>
+                      <div className="text-xs text-blue-700 mt-1">💡 Tip: Each bar's height shows the value!</div>
                     </div>
                   </div>
                 </div>
@@ -33849,7 +32927,7 @@ export function PrintablesPage() {
                 </div>
                 {/* Extension/Challenge Problems */}
                 <div className="mt-6 print:mt-0 p-4 bg-purple-50 border-2 border-purple-200 rounded print:bg-white print:border" style={{ pageBreakBefore: 'always', pageBreakInside: 'avoid' }}>
-                  <div className="font-semibold text-purple-900 mb-3 text-sm">🌐Ÿ {getTrans('common.challengeYourself', 'Challenge Yourself (Optional):')}</div>
+                  <div className="font-semibold text-purple-900 mb-3 text-sm">🌐 {getTrans('common.challengeYourself', 'Challenge Yourself (Optional):')}</div>
                   <div className="space-y-2 text-sm text-purple-800">
                     <div>1. Create a bar graph for: Dogs: 12, Cats: 8, Birds: 5</div>
                     <div>2. Create a pictograph using pictures instead of bars</div>
@@ -33925,7 +33003,7 @@ export function PrintablesPage() {
                 <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-purple-400 to-pink-400 animate-gradient-x mb-2" />
                 {/* Worked Example */}
                 <div className="mb-6 p-4 bg-blue-50 border-2 border-blue-200 rounded-lg print:border print:bg-white">
-                  <div className="font-semibold text-blue-900 mb-3 text-sm">ðŸ“š Example - Let's solve this together:</div>
+                  <div className="font-semibold text-blue-900 mb-3 text-sm">📚 Example - Let's solve this together:</div>
                   <div className="space-y-2 text-sm">
                     <div className="font-semibold text-base"><strong>Problem:</strong> Create a line graph for: Mon: 65Â°F, Tue: 68Â°F, Wed: 70Â°F</div>
                     <div className="pl-4 border-l-2 border-blue-300 space-y-1">
@@ -33933,7 +33011,7 @@ export function PrintablesPage() {
                       <div><strong>Step 2:</strong> Plot points: (Mon, 65), (Tue, 68), (Wed, 70)</div>
                       <div><strong>Step 3:</strong> Connect points with a line</div>
                       <div className="font-semibold text-blue-900"><strong>Answer:</strong> A line graph showing temperature increasing over the days</div>
-                      <div className="text-xs text-blue-700 mt-1">ðŸ’¡ Tip: Plot each point, then connect them with a line!</div>
+                      <div className="text-xs text-blue-700 mt-1">💡 Tip: Plot each point, then connect them with a line!</div>
                     </div>
                   </div>
                 </div>
@@ -33950,7 +33028,7 @@ export function PrintablesPage() {
                 </div>
                 {/* Extension/Challenge Problems */}
                 <div className="mt-6 print:mt-0 p-4 bg-purple-50 border-2 border-purple-200 rounded print:bg-white print:border" style={{ pageBreakBefore: 'always', pageBreakInside: 'avoid' }}>
-                  <div className="font-semibold text-purple-900 mb-3 text-sm">🌐Ÿ {getTrans('common.challengeYourself', 'Challenge Yourself (Optional):')}</div>
+                  <div className="font-semibold text-purple-900 mb-3 text-sm">🌐 {getTrans('common.challengeYourself', 'Challenge Yourself (Optional):')}</div>
                   <div className="space-y-2 text-sm text-purple-800">
                     <div>1. Create a line graph for your own data</div>
                     <div>2. Predict: What might the temperature be on Saturday?</div>
@@ -34075,7 +33153,7 @@ export function PrintablesPage() {
                 <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-purple-400 to-pink-400 animate-gradient-x mb-2" />
                 {/* Worked Example */}
                 <div className="mb-6 p-4 bg-blue-50 border-2 border-blue-200 rounded-lg print:border print:bg-white">
-                  <div className="font-semibold text-blue-900 mb-3 text-sm">ðŸ“š Example - Let's solve this together:</div>
+                  <div className="font-semibold text-blue-900 mb-3 text-sm">📚 Example - Let's solve this together:</div>
                   <div className="space-y-2 text-sm">
                     <div className="font-semibold text-base"><strong>Data:</strong> 2, 4, 4, 6</div>
                     <div className="pl-4 border-l-2 border-blue-300 space-y-1">
@@ -34083,7 +33161,7 @@ export function PrintablesPage() {
                       <div><strong>Median:</strong> Put in order: 2, 4, 4, 6. Middle = (4 + 4) Ã· 2 = 4</div>
                       <div><strong>Mode:</strong> 4 appears most often (twice)</div>
                       <div className="font-semibold text-blue-900"><strong>Answer:</strong> Mean = 4, Median = 4, Mode = 4</div>
-                      <div className="text-xs text-blue-700 mt-1">ðŸ’¡ Tip: Mean = average, Median = middle, Mode = most frequent!</div>
+                      <div className="text-xs text-blue-700 mt-1">💡 Tip: Mean = average, Median = middle, Mode = most frequent!</div>
                     </div>
                   </div>
                 </div>
@@ -34099,7 +33177,7 @@ export function PrintablesPage() {
                 </div>
                 {/* Extension/Challenge Problems */}
                 <div className="mt-6 print:mt-0 p-4 bg-purple-50 border-2 border-purple-200 rounded print:bg-white print:border" style={{ pageBreakBefore: 'always', pageBreakInside: 'avoid' }}>
-                  <div className="font-semibold text-purple-900 mb-3 text-sm">🌐Ÿ {getTrans('common.challengeYourself', 'Challenge Yourself (Optional):')}</div>
+                  <div className="font-semibold text-purple-900 mb-3 text-sm">🌐 {getTrans('common.challengeYourself', 'Challenge Yourself (Optional):')}</div>
                   <div className="space-y-2 text-sm text-purple-800">
                     <div>1. Find mean, median, mode for: 5, 7, 7, 9, 11</div>
                     <div>2. Collect your own data (test scores, ages, etc.) and find mean, median, mode</div>
@@ -34179,7 +33257,7 @@ export function PrintablesPage() {
                 <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-purple-400 to-pink-400 animate-gradient-x mb-2" />
                 {/* Worked Example */}
                 <div className="mb-6 p-4 bg-blue-50 border-2 border-blue-200 rounded-lg print:border print:bg-white">
-                  <div className="font-semibold text-blue-900 mb-3 text-sm">ðŸ“š Example - Let's solve this together:</div>
+                  <div className="font-semibold text-blue-900 mb-3 text-sm">📚 Example - Let's solve this together:</div>
                   <div className="space-y-2 text-sm">
                     <div className="font-semibold text-base"><strong>Data:</strong> 2, 4, 4, 6, 8</div>
                     <div className="pl-4 border-l-2 border-blue-300 space-y-1">
@@ -34188,7 +33266,7 @@ export function PrintablesPage() {
                       <div><strong>Mode:</strong> 4 appears most often (twice)</div>
                       <div><strong>Range:</strong> 8 - 2 = 6</div>
                       <div className="font-semibold text-blue-900"><strong>Answer:</strong> Mean = 4.8, Median = 4, Mode = 4, Range = 6</div>
-                      <div className="text-xs text-blue-700 mt-1">ðŸ’¡ Tip: Mean = average, Median = middle, Mode = most frequent, Range = spread!</div>
+                      <div className="text-xs text-blue-700 mt-1">💡 Tip: Mean = average, Median = middle, Mode = most frequent, Range = spread!</div>
                     </div>
                   </div>
                 </div>
@@ -34204,7 +33282,7 @@ export function PrintablesPage() {
                 </div>
                 {/* Extension/Challenge Problems */}
                 <div className="mt-6 print:mt-0 p-4 bg-purple-50 border-2 border-purple-200 rounded print:bg-white print:border" style={{ pageBreakBefore: 'always', pageBreakInside: 'avoid' }}>
-                  <div className="font-semibold text-purple-900 mb-3 text-sm">🌐Ÿ {getTrans('common.challengeYourself', 'Challenge Yourself (Optional):')}</div>
+                  <div className="font-semibold text-purple-900 mb-3 text-sm">🌐 {getTrans('common.challengeYourself', 'Challenge Yourself (Optional):')}</div>
                   <div className="space-y-2 text-sm text-purple-800">
                     <div>1. Find all measures for: 7, 9, 9, 11, 13</div>
                     <div>2. Collect your own data and find mean, median, mode, range</div>
@@ -34282,7 +33360,7 @@ export function PrintablesPage() {
                 <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-purple-400 to-pink-400 animate-gradient-x mb-2" />
                 {/* Worked Example */}
                 <div className="mb-6 p-4 bg-blue-50 border-2 border-blue-200 rounded-lg print:border print:bg-white">
-                  <div className="font-semibold text-blue-900 mb-3 text-sm">ðŸ“š Example - Let's solve this together:</div>
+                  <div className="font-semibold text-blue-900 mb-3 text-sm">📚 Example - Let's solve this together:</div>
                   <div className="space-y-2 text-sm">
                     <div className="font-semibold text-base"><strong>Data:</strong> 23, 25, 27, 31, 34</div>
                     <div className="pl-4 border-l-2 border-blue-300 space-y-1">
@@ -34290,7 +33368,7 @@ export function PrintablesPage() {
                       <div><strong>Step 2:</strong> Stem 3 (30s): Leaves 1, 4</div>
                       <div><strong>Step 3:</strong> Write: Stem 2 | 3 5 7, Stem 3 | 1 4</div>
                       <div className="font-semibold text-blue-900"><strong>Answer:</strong> Stem-and-leaf plot organized by tens</div>
-                      <div className="text-xs text-blue-700 mt-1">ðŸ’¡ Tip: Stem = tens, Leaf = ones!</div>
+                      <div className="text-xs text-blue-700 mt-1">💡 Tip: Stem = tens, Leaf = ones!</div>
                     </div>
                   </div>
                 </div>
@@ -34304,7 +33382,7 @@ export function PrintablesPage() {
                 </div>
                 {/* Extension/Challenge Problems */}
                 <div className="mt-6 print:mt-0 p-4 bg-purple-50 border-2 border-purple-200 rounded print:bg-white print:border" style={{ pageBreakBefore: 'always', pageBreakInside: 'avoid' }}>
-                  <div className="font-semibold text-purple-900 mb-3 text-sm">🌐Ÿ {getTrans('common.challengeYourself', 'Challenge Yourself (Optional):')}</div>
+                  <div className="font-semibold text-purple-900 mb-3 text-sm">🌐 {getTrans('common.challengeYourself', 'Challenge Yourself (Optional):')}</div>
                   <div className="space-y-2 text-sm text-purple-800">
                     <div>1. Create a stem-and-leaf plot for: 15, 18, 22, 24, 27, 30</div>
                     <div>2. Use your plot to find the median</div>
@@ -34379,7 +33457,7 @@ export function PrintablesPage() {
                 <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-purple-400 to-pink-400 animate-gradient-x mb-2" />
                 {/* Worked Example */}
                 <div className="mb-6 p-4 bg-blue-50 border-2 border-blue-200 rounded-lg print:border print:bg-white">
-                  <div className="font-semibold text-blue-900 mb-3 text-sm">ðŸ“š Example - Let's solve this together:</div>
+                  <div className="font-semibold text-blue-900 mb-3 text-sm">📚 Example - Let's solve this together:</div>
                   <div className="space-y-2 text-sm">
                     <div className="font-semibold text-base"><strong>Event:</strong> Rolling a 3 on a die</div>
                     <div className="pl-4 border-l-2 border-blue-300 space-y-1">
@@ -34387,7 +33465,7 @@ export function PrintablesPage() {
                       <div><strong>Step 2:</strong> Total outcomes: 6 (numbers 1-6)</div>
                       <div><strong>Step 3:</strong> Probability = 1/6</div>
                       <div className="font-semibold text-blue-900"><strong>Answer:</strong> 1/6</div>
-                      <div className="text-xs text-blue-700 mt-1">ðŸ’¡ Tip: Probability = favorable Ã· total!</div>
+                      <div className="text-xs text-blue-700 mt-1">💡 Tip: Probability = favorable Ã· total!</div>
                     </div>
                   </div>
                 </div>
@@ -34403,7 +33481,7 @@ export function PrintablesPage() {
                 </div>
                 {/* Extension/Challenge Problems */}
                 <div className="mt-6 print:mt-0 p-4 bg-purple-50 border-2 border-purple-200 rounded print:bg-white print:border" style={{ pageBreakBefore: 'always', pageBreakInside: 'avoid' }}>
-                  <div className="font-semibold text-purple-900 mb-3 text-sm">🌐Ÿ {getTrans('common.challengeYourself', 'Challenge Yourself (Optional):')}</div>
+                  <div className="font-semibold text-purple-900 mb-3 text-sm">🌐 {getTrans('common.challengeYourself', 'Challenge Yourself (Optional):')}</div>
                   <div className="space-y-2 text-sm text-purple-800">
                     <div>1. What's the probability of rolling a number greater than 4 on a die?</div>
                     <div>2. Create your own probability problem</div>
@@ -34480,14 +33558,14 @@ export function PrintablesPage() {
                 <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-purple-400 to-pink-400 animate-gradient-x mb-2" />
                 {/* Worked Example */}
                 <div className="mb-6 p-4 bg-blue-50 border-2 border-blue-200 rounded-lg print:border print:bg-white">
-                  <div className="font-semibold text-blue-900 mb-3 text-sm">ðŸ“š Example - Let's solve this together:</div>
+                  <div className="font-semibold text-blue-900 mb-3 text-sm">📚 Example - Let's solve this together:</div>
                   <div className="space-y-2 text-sm">
                     <div className="font-semibold text-base"><strong>Problem:</strong> Tom has 15 marbles. He gives 5 to his friend. Then he finds 8 more. How many does he have now?</div>
                     <div className="pl-4 border-l-2 border-blue-300 space-y-1">
                       <div><strong>Step 1:</strong> After giving away: 15 - 5 = 10</div>
                       <div><strong>Step 2:</strong> After finding more: 10 + 8 = 18</div>
                       <div className="font-semibold text-blue-900"><strong>Answer:</strong> 18 marbles</div>
-                      <div className="text-xs text-blue-700 mt-1">ðŸ’¡ Tip: Break it into steps and solve one at a time!</div>
+                      <div className="text-xs text-blue-700 mt-1">💡 Tip: Break it into steps and solve one at a time!</div>
                     </div>
                   </div>
                 </div>
@@ -34502,7 +33580,7 @@ export function PrintablesPage() {
                 </ol>
                 {/* Extension/Challenge Problems */}
                 <div className="mt-6 print:mt-0 p-4 bg-purple-50 border-2 border-purple-200 rounded print:bg-white print:border" style={{ pageBreakBefore: 'always', pageBreakInside: 'avoid' }}>
-                  <div className="font-semibold text-purple-900 mb-3 text-sm">🌐Ÿ {getTrans('common.challengeYourself', 'Challenge Yourself (Optional):')}</div>
+                  <div className="font-semibold text-purple-900 mb-3 text-sm">🌐 {getTrans('common.challengeYourself', 'Challenge Yourself (Optional):')}</div>
                   <div className="space-y-2 text-sm text-purple-800">
                     <div>1. Create your own multi-step word problem</div>
                     <div>2. Solve: A bakery makes 48 cookies. They sell 20 in the morning and 15 in the afternoon. How many are left?</div>
@@ -34617,7 +33695,7 @@ export function PrintablesPage() {
                 <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-purple-400 to-pink-400 animate-gradient-x mb-2" />
                 {/* Worked Example */}
                 <div className="mb-6 p-4 bg-blue-50 border-2 border-blue-200 rounded-lg print:border print:bg-white">
-                  <div className="font-semibold text-blue-900 mb-3 text-sm">ðŸ“š Example - Let's solve this together:</div>
+                  <div className="font-semibold text-blue-900 mb-3 text-sm">📚 Example - Let's solve this together:</div>
                   <div className="space-y-2 text-sm">
                     <div className="font-semibold text-base"><strong>Problem:</strong> Tom has $20. He buys 3 books for $4 each. Then he finds $5. How much does he have now?</div>
                     <div className="pl-4 border-l-2 border-blue-300 space-y-1">
@@ -34625,7 +33703,7 @@ export function PrintablesPage() {
                       <div><strong>Step 2:</strong> After buying: $20 - $12 = $8</div>
                       <div><strong>Step 3:</strong> After finding money: $8 + $5 = $13</div>
                       <div className="font-semibold text-blue-900"><strong>Answer:</strong> $13</div>
-                      <div className="text-xs text-blue-700 mt-1">ðŸ’¡ Tip: Break it into steps and solve one at a time!</div>
+                      <div className="text-xs text-blue-700 mt-1">💡 Tip: Break it into steps and solve one at a time!</div>
                     </div>
                   </div>
                 </div>
@@ -34640,7 +33718,7 @@ export function PrintablesPage() {
                 </ol>
                 {/* Extension/Challenge Problems */}
                 <div className="mt-6 print:mt-0 p-4 bg-purple-50 border-2 border-purple-200 rounded print:bg-white print:border" style={{ pageBreakBefore: 'always', pageBreakInside: 'avoid' }}>
-                  <div className="font-semibold text-purple-900 mb-3 text-sm">🌐Ÿ {getTrans('common.challengeYourself', 'Challenge Yourself (Optional):')}</div>
+                  <div className="font-semibold text-purple-900 mb-3 text-sm">🌐 {getTrans('common.challengeYourself', 'Challenge Yourself (Optional):')}</div>
                   <div className="space-y-2 text-sm text-purple-800">
                     <div>1. Create your own complex multi-step word problem</div>
                     <div>2. Solve: A store has 200 items. They sell 45 on Monday, 38 on Tuesday, and receive 60 new items on Wednesday. How many items are left?</div>
@@ -34756,14 +33834,14 @@ export function PrintablesPage() {
                 <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-purple-400 to-pink-400 animate-gradient-x mb-2" />
                 {/* Worked Example */}
                 <div className="mb-6 p-4 bg-blue-50 border-2 border-blue-200 rounded-lg print:border print:bg-white">
-                  <div className="font-semibold text-blue-900 mb-3 text-sm">ðŸ“š Example - Let's solve this together:</div>
+                  <div className="font-semibold text-blue-900 mb-3 text-sm">📚 Example - Let's solve this together:</div>
                   <div className="space-y-2 text-sm">
                     <div className="font-semibold text-base"><strong>Problem:</strong> Sarah ate 1/2 of a pizza. Tom ate 1/4 of the same pizza. How much did they eat together?</div>
                     <div className="pl-4 border-l-2 border-blue-300 space-y-1">
                       <div><strong>Step 1:</strong> Find common denominator: 1/2 = 2/4</div>
                       <div><strong>Step 2:</strong> Add: 2/4 + 1/4 = 3/4</div>
                       <div className="font-semibold text-blue-900"><strong>Answer:</strong> 3/4 of the pizza</div>
-                      <div className="text-xs text-blue-700 mt-1">ðŸ’¡ Tip: Find common denominators when adding or subtracting fractions!</div>
+                      <div className="text-xs text-blue-700 mt-1">💡 Tip: Find common denominators when adding or subtracting fractions!</div>
                     </div>
                   </div>
                 </div>
@@ -34778,7 +33856,7 @@ export function PrintablesPage() {
                 </ol>
                 {/* Extension/Challenge Problems */}
                 <div className="mt-6 print:mt-0 p-4 bg-purple-50 border-2 border-purple-200 rounded print:bg-white print:border" style={{ pageBreakBefore: 'always', pageBreakInside: 'avoid' }}>
-                  <div className="font-semibold text-purple-900 mb-3 text-sm">🌐Ÿ {getTrans('common.challengeYourself', 'Challenge Yourself (Optional):')}</div>
+                  <div className="font-semibold text-purple-900 mb-3 text-sm">🌐 {getTrans('common.challengeYourself', 'Challenge Yourself (Optional):')}</div>
                   <div className="space-y-2 text-sm text-purple-800">
                     <div>1. Create your own fraction word problem</div>
                     <div>2. Solve: A cake is cut into 12 pieces. 1/3 are eaten. How many pieces remain?</div>
@@ -34892,14 +33970,14 @@ export function PrintablesPage() {
                 <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-purple-400 to-pink-400 animate-gradient-x mb-2" />
                 {/* Worked Example */}
                 <div className="mb-6 p-4 bg-blue-50 border-2 border-blue-200 rounded-lg print:border print:bg-white">
-                  <div className="font-semibold text-blue-900 mb-3 text-sm">ðŸ“š Example - Let's solve this together:</div>
+                  <div className="font-semibold text-blue-900 mb-3 text-sm">📚 Example - Let's solve this together:</div>
                   <div className="space-y-2 text-sm">
                     <div className="font-semibold text-base"><strong>Problem:</strong> A recipe needs 1/2 cup of flour. Sarah wants to make 4 batches. How much flour does she need?</div>
                     <div className="pl-4 border-l-2 border-blue-300 space-y-1">
                       <div><strong>Step 1:</strong> Multiply: 1/2 Ã— 4</div>
                       <div><strong>Step 2:</strong> Calculate: 1/2 Ã— 4 = 4/2 = 2</div>
                       <div className="font-semibold text-blue-900"><strong>Answer:</strong> 2 cups</div>
-                      <div className="text-xs text-blue-700 mt-1">ðŸ’¡ Tip: Multiply fraction by whole number: (numerator Ã— whole) / denominator!</div>
+                      <div className="text-xs text-blue-700 mt-1">💡 Tip: Multiply fraction by whole number: (numerator Ã— whole) / denominator!</div>
                     </div>
                   </div>
                 </div>
@@ -34914,7 +33992,7 @@ export function PrintablesPage() {
                 </ol>
                 {/* Extension/Challenge Problems */}
                 <div className="mt-6 print:mt-0 p-4 bg-purple-50 border-2 border-purple-200 rounded print:bg-white print:border" style={{ pageBreakBefore: 'always', pageBreakInside: 'avoid' }}>
-                  <div className="font-semibold text-purple-900 mb-3 text-sm">🌐Ÿ {getTrans('common.challengeYourself', 'Challenge Yourself (Optional):')}</div>
+                  <div className="font-semibold text-purple-900 mb-3 text-sm">🌐 {getTrans('common.challengeYourself', 'Challenge Yourself (Optional):')}</div>
                   <div className="space-y-2 text-sm text-purple-800">
                     <div>1. Create your own complex fraction word problem</div>
                     <div>2. Solve: A rope is 20 feet long. Cut it into pieces that are 2/3 feet each. How many pieces?</div>
@@ -35029,7 +34107,7 @@ export function PrintablesPage() {
                 <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-purple-400 to-pink-400 animate-gradient-x mb-2" />
                 {/* Worked Example */}
                 <div className="mb-6 p-4 bg-blue-50 border-2 border-blue-200 rounded-lg print:border print:bg-white">
-                  <div className="font-semibold text-blue-900 mb-3 text-sm">ðŸ“š Example - Let's solve this together:</div>
+                  <div className="font-semibold text-blue-900 mb-3 text-sm">📚 Example - Let's solve this together:</div>
                   <div className="space-y-2 text-sm">
                     <div className="font-semibold text-base"><strong>Problem:</strong> Tom buys a toy for $5.25 and a book for $3.50. How much does he spend in total?</div>
                     <div className="pl-4 border-l-2 border-blue-300 space-y-1">
@@ -35037,7 +34115,7 @@ export function PrintablesPage() {
                       <div><strong>Step 2:</strong> Align decimals: $5.25 + $3.50</div>
                       <div><strong>Step 3:</strong> Add: $5.25 + $3.50 = $8.75</div>
                       <div className="font-semibold text-blue-900"><strong>Answer:</strong> $8.75</div>
-                      <div className="text-xs text-blue-700 mt-1">ðŸ’¡ Tip: Always align decimal points when adding or subtracting!</div>
+                      <div className="text-xs text-blue-700 mt-1">💡 Tip: Always align decimal points when adding or subtracting!</div>
                     </div>
                   </div>
                 </div>
@@ -35052,7 +34130,7 @@ export function PrintablesPage() {
                 </ol>
                 {/* Extension/Challenge Problems */}
                 <div className="mt-6 print:mt-0 p-4 bg-purple-50 border-2 border-purple-200 rounded print:bg-white print:border" style={{ pageBreakBefore: 'always', pageBreakInside: 'avoid' }}>
-                  <div className="font-semibold text-purple-900 mb-3 text-sm">🌐Ÿ {getTrans('common.challengeYourself', 'Challenge Yourself (Optional):')}</div>
+                  <div className="font-semibold text-purple-900 mb-3 text-sm">🌐 {getTrans('common.challengeYourself', 'Challenge Yourself (Optional):')}</div>
                   <div className="space-y-2 text-sm text-purple-800">
                     <div>1. Create your own decimal word problem</div>
                     <div>2. Solve: A recipe calls for 2.5 cups of flour. You need to make 3 batches. How much flour?</div>
@@ -35168,7 +34246,7 @@ export function PrintablesPage() {
                 <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-purple-400 to-pink-400 animate-gradient-x mb-2" />
                 {/* Worked Example */}
                 <div className="mb-6 p-4 bg-blue-50 border-2 border-blue-200 rounded-lg print:border print:bg-white">
-                  <div className="font-semibold text-blue-900 mb-3 text-sm">ðŸ“š Example - Let's solve this together:</div>
+                  <div className="font-semibold text-blue-900 mb-3 text-sm">📚 Example - Let's solve this together:</div>
                   <div className="space-y-2 text-sm">
                     <div className="font-semibold text-base"><strong>Problem:</strong> A store sells pencils for $0.50 each. Sarah buys 8 pencils. How much does she pay?</div>
                     <div className="pl-4 border-l-2 border-blue-300 space-y-1">
@@ -35176,7 +34254,7 @@ export function PrintablesPage() {
                       <div><strong>Step 2:</strong> Multiply: $0.50 Ã— 8</div>
                       <div><strong>Step 3:</strong> Calculate: 0.50 Ã— 8 = 4.00</div>
                       <div className="font-semibold text-blue-900"><strong>Answer:</strong> $4.00</div>
-                      <div className="text-xs text-blue-700 mt-1">ðŸ’¡ Tip: When multiplying decimals, count decimal places in the answer!</div>
+                      <div className="text-xs text-blue-700 mt-1">💡 Tip: When multiplying decimals, count decimal places in the answer!</div>
                     </div>
                   </div>
                 </div>
@@ -35191,7 +34269,7 @@ export function PrintablesPage() {
                 </ol>
                 {/* Extension/Challenge Problems */}
                 <div className="mt-6 print:mt-0 p-4 bg-purple-50 border-2 border-purple-200 rounded print:bg-white print:border" style={{ pageBreakBefore: 'always', pageBreakInside: 'avoid' }}>
-                  <div className="font-semibold text-purple-900 mb-3 text-sm">🌐Ÿ {getTrans('common.challengeYourself', 'Challenge Yourself (Optional):')}</div>
+                  <div className="font-semibold text-purple-900 mb-3 text-sm">🌐 {getTrans('common.challengeYourself', 'Challenge Yourself (Optional):')}</div>
                   <div className="space-y-2 text-sm text-purple-800">
                     <div>1. Create your own complex decimal word problem</div>
                     <div>2. Solve: A car travels 45.6 miles per hour. How far does it travel in 2.5 hours?</div>
@@ -35307,7 +34385,7 @@ export function PrintablesPage() {
                 <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-purple-400 to-pink-400 animate-gradient-x mb-2" />
                 {/* Worked Example */}
                 <div className="mb-6 p-4 bg-blue-50 border-2 border-blue-200 rounded-lg print:border print:bg-white">
-                  <div className="font-semibold text-blue-900 mb-3 text-sm">ðŸ“š Example - Let's solve this together:</div>
+                  <div className="font-semibold text-blue-900 mb-3 text-sm">📚 Example - Let's solve this together:</div>
                   <div className="space-y-2 text-sm">
                     <div className="font-semibold text-base"><strong>Problem:</strong> A rectangle is 5 feet long and 3 feet wide. What is the area?</div>
                     <div className="pl-4 border-l-2 border-blue-300 space-y-1">
@@ -35315,7 +34393,7 @@ export function PrintablesPage() {
                       <div><strong>Step 2:</strong> Formula: Area = length Ã— width</div>
                       <div><strong>Step 3:</strong> Calculate: 5 Ã— 3 = 15</div>
                       <div className="font-semibold text-blue-900"><strong>Answer:</strong> 15 square feet</div>
-                      <div className="text-xs text-blue-700 mt-1">ðŸ’¡ Tip: Area = length Ã— width for rectangles!</div>
+                      <div className="text-xs text-blue-700 mt-1">💡 Tip: Area = length Ã— width for rectangles!</div>
                     </div>
                   </div>
                 </div>
@@ -35330,7 +34408,7 @@ export function PrintablesPage() {
                 </ol>
                 {/* Extension/Challenge Problems */}
                 <div className="mt-6 print:mt-0 p-4 bg-purple-50 border-2 border-purple-200 rounded print:bg-white print:border" style={{ pageBreakBefore: 'always', pageBreakInside: 'avoid' }}>
-                  <div className="font-semibold text-purple-900 mb-3 text-sm">🌐Ÿ {getTrans('common.challengeYourself', 'Challenge Yourself (Optional):')}</div>
+                  <div className="font-semibold text-purple-900 mb-3 text-sm">🌐 {getTrans('common.challengeYourself', 'Challenge Yourself (Optional):')}</div>
                   <div className="space-y-2 text-sm text-purple-800">
                     <div>1. Create your own measurement word problem</div>
                     <div>2. Solve: A garden is 10 feet by 8 feet. How many square feet is it? How many square yards?</div>
@@ -35446,14 +34524,14 @@ export function PrintablesPage() {
                 <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-purple-400 to-pink-400 animate-gradient-x mb-2" />
                 {/* Worked Example */}
                 <div className="mb-6 p-4 bg-blue-50 border-2 border-blue-200 rounded-lg print:border print:bg-white">
-                  <div className="font-semibold text-blue-900 mb-3 text-sm">ðŸ“š Example - Let's solve this together:</div>
+                  <div className="font-semibold text-blue-900 mb-3 text-sm">📚 Example - Let's solve this together:</div>
                   <div className="space-y-2 text-sm">
                     <div className="font-semibold text-base"><strong>Problem:</strong> A rectangle has a length of 7 cm and width of 4 cm. What is the area and perimeter?</div>
                     <div className="pl-4 border-l-2 border-blue-300 space-y-1">
                       <div><strong>Step 1 (Area):</strong> Area = length Ã— width = 7 Ã— 4 = 28</div>
                       <div><strong>Step 2 (Perimeter):</strong> Perimeter = 2 Ã— (length + width) = 2 Ã— (7 + 4) = 22</div>
                       <div className="font-semibold text-blue-900"><strong>Answer:</strong> Area = 28 sq cm, Perimeter = 22 cm</div>
-                      <div className="text-xs text-blue-700 mt-1">ðŸ’¡ Tip: Area = inside space, Perimeter = distance around!</div>
+                      <div className="text-xs text-blue-700 mt-1">💡 Tip: Area = inside space, Perimeter = distance around!</div>
                     </div>
                   </div>
                 </div>
@@ -35468,7 +34546,7 @@ export function PrintablesPage() {
                 </ol>
                 {/* Extension/Challenge Problems */}
                 <div className="mt-6 print:mt-0 p-4 bg-purple-50 border-2 border-purple-200 rounded print:bg-white print:border" style={{ pageBreakBefore: 'always', pageBreakInside: 'avoid' }}>
-                  <div className="font-semibold text-purple-900 mb-3 text-sm">🌐Ÿ {getTrans('common.challengeYourself', 'Challenge Yourself (Optional):')}</div>
+                  <div className="font-semibold text-purple-900 mb-3 text-sm">🌐 {getTrans('common.challengeYourself', 'Challenge Yourself (Optional):')}</div>
                   <div className="space-y-2 text-sm text-purple-800">
                     <div>1. Create your own geometry word problem</div>
                     <div>2. Solve: A triangle has a base of 10 cm and height of 6 cm. What is the area?</div>
@@ -35584,7 +34662,7 @@ export function PrintablesPage() {
                 <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-purple-400 to-pink-400 animate-gradient-x mb-2" />
                 {/* Worked Example */}
                 <div className="mb-6 p-4 bg-blue-50 border-2 border-blue-200 rounded-lg print:border print:bg-white">
-                  <div className="font-semibold text-blue-900 mb-3 text-sm">ðŸ“š Example - Let's solve this together:</div>
+                  <div className="font-semibold text-blue-900 mb-3 text-sm">📚 Example - Let's solve this together:</div>
                   <div className="space-y-2 text-sm">
                     <div className="font-semibold text-base"><strong>Problem:</strong> The ratio of red to blue marbles is 2:3. If there are 8 red marbles, how many blue marbles are there?</div>
                     <div className="pl-4 border-l-2 border-blue-300 space-y-1">
@@ -35592,7 +34670,7 @@ export function PrintablesPage() {
                       <div><strong>Step 2:</strong> Cross multiply: 2 Ã— ? = 3 Ã— 8, so 2 Ã— ? = 24</div>
                       <div><strong>Step 3:</strong> Solve: ? = 24 Ã· 2 = 12</div>
                       <div className="font-semibold text-blue-900"><strong>Answer:</strong> 12 blue marbles</div>
-                      <div className="text-xs text-blue-700 mt-1">ðŸ’¡ Tip: Set up the proportion and cross multiply to solve!</div>
+                      <div className="text-xs text-blue-700 mt-1">💡 Tip: Set up the proportion and cross multiply to solve!</div>
                     </div>
                   </div>
                 </div>
@@ -35607,7 +34685,7 @@ export function PrintablesPage() {
                 </ol>
                 {/* Extension/Challenge Problems */}
                 <div className="mt-6 print:mt-0 p-4 bg-purple-50 border-2 border-purple-200 rounded print:bg-white print:border" style={{ pageBreakBefore: 'always', pageBreakInside: 'avoid' }}>
-                  <div className="font-semibold text-purple-900 mb-3 text-sm">🌐Ÿ {getTrans('common.challengeYourself', 'Challenge Yourself (Optional):')}</div>
+                  <div className="font-semibold text-purple-900 mb-3 text-sm">🌐 {getTrans('common.challengeYourself', 'Challenge Yourself (Optional):')}</div>
                   <div className="space-y-2 text-sm text-purple-800">
                     <div>1. Create your own ratio word problem</div>
                     <div>2. Solve: The ratio of students to teachers is 20:1. If there are 100 students, how many teachers?</div>
@@ -35728,14 +34806,14 @@ export function PrintablesPage() {
                 <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-purple-400 to-pink-400 animate-gradient-x mb-2" />
                 {/* Worked Example */}
                 <div className="mb-6 p-4 bg-blue-50 border-2 border-blue-200 rounded-lg print:border print:bg-white">
-                  <div className="font-semibold text-blue-900 mb-3 text-sm">ðŸ“š Example - Let's solve this together:</div>
+                  <div className="font-semibold text-blue-900 mb-3 text-sm">📚 Example - Let's solve this together:</div>
                   <div className="space-y-2 text-sm">
                     <div className="font-semibold text-base"><strong>Problem:</strong> A toy costs $10. It is on sale for 20% off. What is the sale price?</div>
                     <div className="pl-4 border-l-2 border-blue-300 space-y-1">
                       <div><strong>Step 1:</strong> Find discount: 20% of $10 = 0.20 Ã— $10 = $2</div>
                       <div><strong>Step 2:</strong> Subtract discount: $10 - $2 = $8</div>
                       <div className="font-semibold text-blue-900"><strong>Answer:</strong> $8</div>
-                      <div className="text-xs text-blue-700 mt-1">ðŸ’¡ Tip: Find the discount amount first, then subtract from original price!</div>
+                      <div className="text-xs text-blue-700 mt-1">💡 Tip: Find the discount amount first, then subtract from original price!</div>
                     </div>
                   </div>
                 </div>
@@ -35750,7 +34828,7 @@ export function PrintablesPage() {
                 </ol>
                 {/* Extension/Challenge Problems */}
                 <div className="mt-6 print:mt-0 p-4 bg-purple-50 border-2 border-purple-200 rounded print:bg-white print:border" style={{ pageBreakBefore: 'always', pageBreakInside: 'avoid' }}>
-                  <div className="font-semibold text-purple-900 mb-3 text-sm">🌐Ÿ {getTrans('common.challengeYourself', 'Challenge Yourself (Optional):')}</div>
+                  <div className="font-semibold text-purple-900 mb-3 text-sm">🌐 {getTrans('common.challengeYourself', 'Challenge Yourself (Optional):')}</div>
                   <div className="space-y-2 text-sm text-purple-800">
                     <div>1. Create your own percent word problem</div>
                     <div>2. Solve: A jacket costs $50. It is on sale for 30% off. What is the sale price?</div>
@@ -36172,7 +35250,7 @@ export function PrintablesPage() {
                 </div>
                 {/* Extension/Challenge Problems */}
                 <div className="mt-6 print:mt-0 p-4 bg-purple-50 border-2 border-purple-200 rounded print:bg-white print:border" style={{ pageBreakBefore: 'always', pageBreakInside: 'avoid' }}>
-                  <div className="font-semibold text-purple-900 mb-3 text-sm">🌐Ÿ More Fun (Optional):</div>
+                  <div className="font-semibold text-purple-900 mb-3 text-sm">🌐 More Fun (Optional):</div>
                   <div className="space-y-2 text-sm text-purple-800">
                     <div>1. Find objects around you that match these colors</div>
                     <div>2. Draw your own picture and color it</div>
@@ -36258,7 +35336,7 @@ export function PrintablesPage() {
                 </div>
                 {/* Extension/Challenge Problems */}
                 <div className="mt-6 print:mt-0 p-4 bg-purple-50 border-2 border-purple-200 rounded print:bg-white print:border" style={{ pageBreakBefore: 'always', pageBreakInside: 'avoid' }}>
-                  <div className="font-semibold text-purple-900 mb-3 text-sm">🌐Ÿ More Fun (Optional):</div>
+                  <div className="font-semibold text-purple-900 mb-3 text-sm">🌐 More Fun (Optional):</div>
                   <div className="space-y-2 text-sm text-purple-800">
                     <div>1. Draw shapes in different sizes</div>
                     <div>2. Create a picture using all these shapes</div>
@@ -36403,14 +35481,14 @@ export function PrintablesPage() {
                 {/* Visual Guide to Pattern Types */}
                 <div className="mb-6 p-4 bg-purple-50 border-2 border-purple-200 rounded-lg print:border print:bg-white flex flex-col md:flex-row gap-4 justify-between items-start md:items-center">
                   <div>
-                    <div className="font-semibold text-purple-900 mb-1 text-sm">ðŸ’¡ Pattern Types:</div>
+                    <div className="font-semibold text-purple-900 mb-1 text-sm">💡 Pattern Types:</div>
                     <div className="text-xs text-purple-700 space-y-1">
                       <div><strong>ABAB:</strong> Alternates (Red, Blue, Red, Blue)</div>
                       <div><strong>AABB:</strong> Doubles (Red, Red, Blue, Blue)</div>
                       <div><strong>ABC:</strong> Triples (Red, Blue, Green)</div>
                     </div>
                   </div>
-                  <div className="text-2xl animate-bounce">ðŸ§©</div>
+                  <div className="text-2xl animate-bounce">🧩</div>
                 </div>
 
                 <div className="grid grid-cols-1 gap-6" style={{ pageBreakAfter: 'auto' }}>
@@ -36562,7 +35640,7 @@ export function PrintablesPage() {
               <WorksheetSectionWrapper
                 docId="shape-patterns"
                 title="Shape Patterns"
-                emoji="ðŸ§©"
+                emoji="🧩"
                 description="Look at the shapes. Identify the pattern (ABAB, AABB, ABC)."
                 problemCount={patterns.length}
                 learningObjectives={[
@@ -36581,7 +35659,7 @@ export function PrintablesPage() {
                 {/* Visual Guide to Pattern Types */}
                 <div className="mb-6 p-4 bg-purple-50 border-2 border-purple-200 rounded-lg print:border print:bg-white flex flex-col md:flex-row gap-4 justify-between items-start md:items-center">
                   <div>
-                    <div className="font-semibold text-purple-900 mb-1 text-sm">ðŸ’¡ Pattern Types:</div>
+                    <div className="font-semibold text-purple-900 mb-1 text-sm">💡 Pattern Types:</div>
                     <div className="text-xs text-purple-700 space-y-1">
                       <div><strong>ABAB:</strong> Alternates (Circle, Square, Circle, Square)</div>
                       <div><strong>AABB:</strong> Doubles (Circle, Circle, Square, Square)</div>
@@ -36652,9 +35730,9 @@ export function PrintablesPage() {
         {
           activeDocs.includes('what-comes-next') && (() => {
             const patterns = [
-              { items: ['ðŸ”´', 'ðŸ”µ', 'ðŸ”´', 'ðŸ”µ'], next: 'ðŸ”´', name: 'red, blue' },
+              { items: ['🔍´', '🔍µ', '🔍´', '🔍µ'], next: '🔍´', name: 'red, blue' },
               { items: ['ðŸŸ¡', 'ðŸŸ¢', 'ðŸŸ¡', 'ðŸŸ¢'], next: 'ðŸŸ¡', name: 'yellow, green' },
-              { items: ['ðŸ”µ', 'ðŸ”´', 'ðŸ”µ', 'ðŸ”´'], next: 'ðŸ”µ', name: 'blue, red' },
+              { items: ['🔍µ', '🔍´', '🔍µ', '🔍´'], next: '🔍µ', name: 'blue, red' },
               { items: ['ðŸŸ¢', 'ðŸŸ¡', 'ðŸŸ¢', 'ðŸŸ¡'], next: 'ðŸŸ¢', name: 'green, yellow' },
               { items: ['⭐', 'â¤ï¸', '⭐', 'â¤ï¸'], next: '⭐', name: 'star, heart' },
               { items: ['ðŸŽ', 'ðŸŒ', 'ðŸŽ', 'ðŸŒ'], next: 'ðŸŽ', name: 'apple, banana' },
@@ -36663,7 +35741,7 @@ export function PrintablesPage() {
               <WorksheetSectionWrapper
                 docId="what-comes-next"
                 title="What Comes Next?"
-                emoji="ðŸ§©"
+                emoji="🧩"
                 description="Look at the pattern. Draw what comes next in each row."
                 problemCount={patterns.length}
                 learningObjectives={[
@@ -36694,7 +35772,7 @@ export function PrintablesPage() {
                 </div>
                 {/* Extension/Challenge Problems */}
                 <div className="mt-6 print:mt-0 p-4 bg-purple-50 border-2 border-purple-200 rounded print:bg-white print:border" style={{ pageBreakBefore: 'always', pageBreakInside: 'avoid' }}>
-                  <div className="font-semibold text-purple-900 mb-3 text-sm">🌐Ÿ More Fun (Optional):</div>
+                  <div className="font-semibold text-purple-900 mb-3 text-sm">🌐 More Fun (Optional):</div>
                   <div className="space-y-2 text-sm text-purple-800">
                     <div>1. Create your own pattern</div>
                     <div>2. Continue the pattern for 3 more items</div>
@@ -36739,10 +35817,10 @@ export function PrintablesPage() {
             const pairs = [
               { long: { name: 'Ruler', emoji: 'ðŸ“' }, short: { name: 'Paper Clip', emoji: 'ðŸ“Ž' } },
               { long: { name: 'Snake', emoji: 'ðŸ' }, short: { name: 'Caterpillar', emoji: 'ðŸ›' } },
-              { long: { name: 'Train', emoji: '🚂' }, short: { name: 'Car', emoji: 'ðŸš—' } },
+              { long: { name: 'Train', emoji: '🚂' }, short: { name: 'Car', emoji: '🚗' } },
               { long: { name: 'Pencil', emoji: 'âœï¸' }, short: { name: 'Crayon', emoji: 'ðŸ–ï¸' } },
               { long: { name: 'Ladder', emoji: 'ðŸªœ' }, short: { name: 'Stool', emoji: 'ðŸª‘' } },
-              { long: { name: 'Rope', emoji: 'ðŸª¢' }, short: { name: 'Key', emoji: 'ðŸ”‘' } },
+              { long: { name: 'Rope', emoji: 'ðŸª¢' }, short: { name: 'Key', emoji: '🔍‘' } },
             ];
             const activePairs = shuffleArray([...pairs], `${effectiveSeed}|longshort`).slice(0, 4);
 
@@ -36795,7 +35873,7 @@ export function PrintablesPage() {
                 </div>
                 {/* Extension/Challenge Problems */}
                 <div className="mt-6 print:mt-0 p-4 bg-purple-50 border-2 border-purple-200 rounded print:bg-white print:border" style={{ pageBreakBefore: 'always', pageBreakInside: 'avoid' }}>
-                  <div className="font-semibold text-purple-900 mb-3 text-sm">🌐Ÿ More Fun (Optional):</div>
+                  <div className="font-semibold text-purple-900 mb-3 text-sm">🌐 More Fun (Optional):</div>
                   <div className="space-y-2 text-sm text-purple-800">
                     <div>1. Find 3 long objects and 3 short objects around you</div>
                     <div>2. Draw your own long and short objects</div>
@@ -36836,10 +35914,10 @@ export function PrintablesPage() {
             const rng = makeRng(`${effectiveSeed}|v${variant}|doc=${doc}`);
             const pairs = [
               { heavy: { name: 'Elephant', emoji: 'ðŸ˜' }, light: { name: 'Feather', emoji: 'ðŸª¶' } },
-              { heavy: { name: 'Car', emoji: 'ðŸš—' }, light: { name: 'Balloon', emoji: 'ðŸŽˆ' } },
+              { heavy: { name: 'Car', emoji: '🚗' }, light: { name: 'Balloon', emoji: 'ðŸŽˆ' } },
               { heavy: { name: 'Rock', emoji: 'ðŸª¨' }, light: { name: 'Leaf', emoji: 'ðŸƒ' } },
-              { heavy: { name: 'Books', emoji: 'ðŸ“š' }, light: { name: 'Bubble', emoji: 'ðŸ«§' } },
-              { heavy: { name: 'Hammer', emoji: 'ðŸ”¨' }, light: { name: 'Cotton', emoji: 'â˜ï¸' } },
+              { heavy: { name: 'Books', emoji: '📚' }, light: { name: 'Bubble', emoji: 'ðŸ«§' } },
+              { heavy: { name: 'Hammer', emoji: '🔍¨' }, light: { name: 'Cotton', emoji: 'â˜ï¸' } },
               { heavy: { name: 'Backpack', emoji: 'ðŸŽ’' }, light: { name: 'Paper', emoji: 'ðŸ“„' } },
             ];
             const activePairs = shuffleArray([...pairs], `${effectiveSeed}|heavylight`).slice(0, 4);
@@ -36913,7 +35991,7 @@ export function PrintablesPage() {
                 </div>
                 {/* Extension/Challenge Problems */}
                 <div className="mt-6 print:mt-0 p-4 bg-purple-50 border-2 border-purple-200 rounded print:bg-white print:border" style={{ pageBreakBefore: 'always', pageBreakInside: 'avoid' }}>
-                  <div className="font-semibold text-purple-900 mb-3 text-sm">🌐Ÿ More Fun (Optional):</div>
+                  <div className="font-semibold text-purple-900 mb-3 text-sm">🌐 More Fun (Optional):</div>
                   <div className="space-y-2 text-sm text-purple-800">
                     <div>1. Find 3 heavy objects and 3 light objects around you</div>
                     <div>2. Draw your own heavy and light objects</div>
@@ -36952,9 +36030,9 @@ export function PrintablesPage() {
         {
           activeDocs.includes('same-different') && (() => {
             const sets = [
-              { items: ['ðŸ”´', 'ðŸ”´', 'ðŸ”µ', 'ðŸ”´'], different: 2 },
+              { items: ['🔍´', '🔍´', '🔍µ', '🔍´'], different: 2 },
               { items: ['ðŸŸ¡', 'ðŸŸ¡', 'ðŸŸ¡', 'ðŸŸ¢'], different: 3 },
-              { items: ['ðŸ”µ', 'ðŸ”µ', 'ðŸ”´', 'ðŸ”µ'], different: 2 },
+              { items: ['🔍µ', '🔍µ', '🔍´', '🔍µ'], different: 2 },
               { items: ['ðŸŸ¢', 'ðŸŸ¢', 'ðŸŸ¢', 'ðŸŸ¡'], different: 3 },
             ];
             return (
@@ -36987,7 +36065,7 @@ export function PrintablesPage() {
                 </div>
                 {/* Extension/Challenge Problems */}
                 <div className="mt-6 print:mt-0 p-4 bg-purple-50 border-2 border-purple-200 rounded print:bg-white print:border" style={{ pageBreakBefore: 'always', pageBreakInside: 'avoid' }}>
-                  <div className="font-semibold text-purple-900 mb-3 text-sm">🌐Ÿ More Fun (Optional):</div>
+                  <div className="font-semibold text-purple-900 mb-3 text-sm">🌐 More Fun (Optional):</div>
                   <div className="space-y-2 text-sm text-purple-800">
                     <div>1. Find groups of objects where one is different</div>
                     <div>2. Create your own same/different game</div>
@@ -37037,7 +36115,7 @@ export function PrintablesPage() {
               },
               {
                 name: 'Home',
-                start: { label: 'Car', render: (props: any) => <text fontSize="40" x="50" y="65" textAnchor="middle" {...props}>ðŸš—</text> },
+                start: { label: 'Car', render: (props: any) => <text fontSize="40" x="50" y="65" textAnchor="middle" {...props}>🚗</text> },
                 end: { label: 'House', render: (props: any) => <text fontSize="40" x="50" y="65" textAnchor="middle" {...props}>ðŸ </text> }
               },
               {
@@ -37149,7 +36227,7 @@ export function PrintablesPage() {
 
                 {/* Challenge */}
                 <div className="mt-6 print:mt-0 p-4 bg-purple-50 border-2 border-purple-200 rounded print:bg-white print:border" style={{ pageBreakBefore: 'avoid', pageBreakInside: 'avoid' }}>
-                  <div className="font-semibold text-purple-900 mb-2 text-sm">🌐Ÿ Super Challenge:</div>
+                  <div className="font-semibold text-purple-900 mb-2 text-sm">🌐 Super Challenge:</div>
                   <div className="text-sm text-purple-800">
                     Can you trace the lines without lifting your pencil?
                   </div>
@@ -37195,7 +36273,7 @@ export function PrintablesPage() {
               {
                 name: 'Butterfly Flutter',
                 type: 'loop', // Complex wave/loop
-                start: { label: 'Butterfly', render: (props: any) => <text fontSize="40" x="50" y="65" textAnchor="middle" {...props}>ðŸ¦‹</text> },
+                start: { label: 'Butterfly', render: (props: any) => <text fontSize="40" x="50" y="65" textAnchor="middle" {...props}>🦋</text> },
                 end: { label: 'Flower', render: (props: any) => <text fontSize="40" x="50" y="65" textAnchor="middle" {...props}>🌐»</text> }
               },
               {
@@ -37317,7 +36395,7 @@ export function PrintablesPage() {
 
                 {/* Challenge */}
                 <div className="mt-6 print:mt-0 p-4 bg-blue-50 border-2 border-blue-200 rounded print:bg-white print:border" style={{ pageBreakBefore: 'avoid', pageBreakInside: 'avoid' }}>
-                  <div className="font-semibold text-blue-900 mb-2 text-sm">🌐Ÿ Sky & Sea Challenge:</div>
+                  <div className="font-semibold text-blue-900 mb-2 text-sm">🌐 Sky & Sea Challenge:</div>
                   <div className="text-sm text-blue-800">
                     <div>1. Trace the wave with your finger first.</div>
                     <div>2. Now try with a blue crayon!</div>
@@ -37529,7 +36607,7 @@ export function PrintablesPage() {
 
                 {/* Challenge */}
                 <div className="mt-6 print:mt-0 p-4 bg-emerald-50 border-2 border-emerald-200 rounded print:bg-white print:border" style={{ pageBreakBefore: 'avoid', pageBreakInside: 'avoid' }}>
-                  <div className="font-semibold text-emerald-900 mb-2 text-sm">🌐Ÿ Mountain Challenge:</div>
+                  <div className="font-semibold text-emerald-900 mb-2 text-sm">🌐 Mountain Challenge:</div>
                   <div className="text-sm text-emerald-800">
                     <div>1. Can you draw mountains on the back?</div>
                     <div>2. Draw sharp teeth for a silly monster!</div>
@@ -37558,7 +36636,7 @@ export function PrintablesPage() {
               {
                 name: 'City Drive',
                 type: 'road',
-                start: { label: 'Car', render: (props: any) => <text fontSize="40" x="50" y="65" textAnchor="middle" {...props}>ðŸš—</text> },
+                start: { label: 'Car', render: (props: any) => <text fontSize="40" x="50" y="65" textAnchor="middle" {...props}>🚗</text> },
                 end: { label: 'Garage', render: (props: any) => <text fontSize="40" x="50" y="65" textAnchor="middle" {...props}>ðŸ </text> }
               },
               {
@@ -37726,7 +36804,7 @@ export function PrintablesPage() {
 
                 {/* Challenge */}
                 <div className="mt-6 print:mt-0 p-4 bg-orange-50 border-2 border-orange-200 rounded print:bg-white print:border" style={{ pageBreakBefore: 'avoid', pageBreakInside: 'avoid' }}>
-                  <div className="font-semibold text-orange-900 mb-2 text-sm">🌐Ÿ Maze Challenge:</div>
+                  <div className="font-semibold text-orange-900 mb-2 text-sm">🌐 Maze Challenge:</div>
                   <div className="text-sm text-orange-800">
                     <div>1. Trace fast like a race car!</div>
                     <div>2. Trace slow like a turtle.</div>
@@ -37795,14 +36873,14 @@ export function PrintablesPage() {
                 <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-purple-400 to-pink-400 animate-gradient-x mb-2" />
                 {/* Worked Example */}
                 <div className="mb-6 p-4 bg-blue-50 border-2 border-blue-200 rounded-lg print:border print:bg-white">
-                  <div className="font-semibold text-blue-900 mb-3 text-sm">ðŸ“š Example - Let's solve this together:</div>
+                  <div className="font-semibold text-blue-900 mb-3 text-sm">📚 Example - Let's solve this together:</div>
                   <div className="space-y-2 text-sm">
                     <div className="font-semibold text-base"><strong>Problem:</strong> Rectangle with length = 5, width = 3</div>
                     <div className="pl-4 border-l-2 border-blue-300 space-y-1">
                       <div><strong>Step 1:</strong> Formula: Perimeter = 2 Ã— (length + width)</div>
                       <div><strong>Step 2:</strong> Calculate: 2 Ã— (5 + 3) = 2 Ã— 8 = 16</div>
                       <div className="font-semibold text-blue-900"><strong>Answer:</strong> 16 units</div>
-                      <div className="text-xs text-blue-700 mt-1">ðŸ’¡ Tip: Add all four sides, or use 2 Ã— (length + width)!</div>
+                      <div className="text-xs text-blue-700 mt-1">💡 Tip: Add all four sides, or use 2 Ã— (length + width)!</div>
                     </div>
                   </div>
                 </div>
@@ -37819,7 +36897,7 @@ export function PrintablesPage() {
                 </div>
                 {/* Extension/Challenge Problems */}
                 <div className="mt-6 print:mt-0 p-4 bg-purple-50 border-2 border-purple-200 rounded print:bg-white print:border" style={{ pageBreakBefore: 'always', pageBreakInside: 'avoid' }}>
-                  <div className="font-semibold text-purple-900 mb-3 text-sm">🌐Ÿ {getTrans('common.challengeYourself', 'Challenge Yourself (Optional):')}</div>
+                  <div className="font-semibold text-purple-900 mb-3 text-sm">🌐 {getTrans('common.challengeYourself', 'Challenge Yourself (Optional):')}</div>
                   <div className="space-y-2 text-sm text-purple-800">
                     <div>1. Find the perimeter of a square with side length 6</div>
                     <div>2. A rectangle has perimeter 20. If length is 7, what is the width?</div>
@@ -37951,7 +37029,7 @@ export function PrintablesPage() {
 
                 {/* Self-Assessment */}
                 <div className="print:block hidden print:mt-0 mt-6 p-4 border-2 border-slate-300 rounded" style={{ pageBreakBefore: 'avoid', pageBreakInside: 'avoid' }}>
-                  <div className="font-semibold text-slate-800 mb-3 text-sm">ðŸ‘· SITE INSPECTOR REPORT</div>
+                  <div className="font-semibold text-slate-800 mb-3 text-sm">👗· SITE INSPECTOR REPORT</div>
                   <div className="space-y-2 text-xs">
                     <div>â˜ I multiplied length Ã— width correctly</div>
                     <div>â˜ I double-checked my math</div>
@@ -38154,7 +37232,7 @@ export function PrintablesPage() {
 
                 {/* Worked Example */}
                 <div className="mb-6 p-4 bg-yellow-50 border-4 border-slate-800 rounded-lg print:border print:bg-white shadow-[4px_4px_0px_0px_rgba(30,41,59,1)]">
-                  <div className="font-mono text-slate-900 font-bold border-b-2 border-slate-800 mb-2 pb-1">ðŸ“‹ EXPERIMENT LOG #001</div>
+                  <div className="font-mono text-slate-900 font-bold border-b-2 border-slate-800 mb-2 pb-1">📋 EXPERIMENT LOG #001</div>
                   <div className="space-y-2 text-sm font-mono text-slate-800">
                     <div className="text-base"><strong>TASK:</strong> Convert 3 Feet of Copper Wire</div>
                     <div className="pl-4 border-l-4 border-lime-400 bg-white p-2 space-y-1">
@@ -38266,7 +37344,7 @@ export function PrintablesPage() {
                 {/* Worked Example */}
                 <div className="mb-6 p-4 bg-cyan-50 border-4 border-slate-800 rounded-lg print:border print:bg-white relative">
                   <div className="absolute -top-3 left-4 bg-slate-800 text-cyan-400 font-mono text-xs px-2 py-1 rounded">SYS: ACTIVE</div>
-                  <div className="font-mono text-slate-900 font-bold mb-2">ðŸ”­ OBSERVATION LOG:</div>
+                  <div className="font-mono text-slate-900 font-bold mb-2">🔍­ OBSERVATION LOG:</div>
                   <div className="space-y-2 text-sm font-mono text-slate-800">
                     <div className="text-base"><strong>SUBJECT:</strong> Alien Vine Growth</div>
                     <div className="pl-4 border-l-4 border-cyan-500 bg-white p-2">
@@ -38628,7 +37706,7 @@ export function PrintablesPage() {
               >
                 {/* Agency Header */}
                 <div className="print:hidden w-full h-20 mb-6 relative overflow-hidden bg-slate-800 rounded-t-lg border-b-4 border-yellow-500 shadow-lg">
-                  <div className="absolute top-2 left-4 text-4xl">ðŸ”¦</div>
+                  <div className="absolute top-2 left-4 text-4xl">🔍¦</div>
                   <div className="flex flex-col items-center justify-center h-full">
                     <div className="text-2xl font-bold text-slate-100 font-mono tracking-widest uppercase">Top Secret Case Files</div>
                     <div className="text-yellow-500 font-bold text-xs uppercase bg-slate-900 px-2 py-0.5 rounded border border-yellow-500 mt-1">Authorized Eyes Only</div>
@@ -38831,7 +37909,7 @@ export function PrintablesPage() {
 
                 {/* Self-Assessment - Mission Debrief */}
                 <div className="print:block hidden print:mt-0 mt-6 p-4 border-2 border-blue-900 rounded bg-slate-50" style={{ pageBreakBefore: 'avoid', pageBreakInside: 'avoid' }}>
-                  <div className="font-bold text-slate-900 mb-3 text-sm uppercase tracking-wider">ðŸ‘¨â€🚀 COMMANDER DEBRIEF</div>
+                  <div className="font-bold text-slate-900 mb-3 text-sm uppercase tracking-wider">👗¨â€🚀 COMMANDER DEBRIEF</div>
                   <div className="space-y-2 text-xs text-slate-700 font-mono">
                     <div>[ ] Time calculations accurate</div>
                     <div>[ ] Flight logs completed</div>
@@ -38909,7 +37987,7 @@ export function PrintablesPage() {
 
                 {/* Worked Example */}
                 <div className="mb-6 p-4 bg-green-50 border-2 border-green-600 rounded-lg print:border print:bg-white flex gap-4 items-center">
-                  <div className="text-4xl">ðŸšœ</div>
+                  <div className="text-4xl">🚜</div>
                   <div className="space-y-2 text-sm flex-1">
                     <div className="font-bold text-green-800 border-b border-green-300 pb-1">TRAINING MANUAL:</div>
                     <div className="grid grid-cols-2 gap-4">
@@ -38959,7 +38037,7 @@ export function PrintablesPage() {
 
                 {/* Self-Assessment */}
                 <div className="print:block hidden print:mt-0 mt-6 p-4 border-2 border-green-700 rounded bg-green-50" style={{ pageBreakBefore: 'avoid', pageBreakInside: 'avoid' }}>
-                  <div className="font-bold text-green-900 mb-3 text-sm">ðŸ“‹ SUPERVISOR CHECKLIST</div>
+                  <div className="font-bold text-green-900 mb-3 text-sm">📋 SUPERVISOR CHECKLIST</div>
                   <div className="space-y-2 text-xs text-green-800">
                     <div>â˜ Did I use Perimeter for fences?</div>
                     <div>â˜ Did I use Area for grass?</div>

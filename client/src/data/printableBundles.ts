@@ -93,7 +93,6 @@ export const PRINTABLE_BUNDLE_SECTIONS: Record<string, string[]> = {
     'dot-to-dot-1-20',
     'tangram-animals',
     'spot-difference',
-    'spotdiff',
     'ws-animals',
     'ws-space',
   ],
