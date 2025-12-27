@@ -24549,81 +24549,81 @@ export function PrintablesPage() {
         {/* 3rd Grade Worksheets */}
         {
 
-          {
-            activeDocs.includes('mult-facts-0-12') && (() => {
-              const rng = makeRng(`${effectiveSeed}|v${variant}|doc=${doc}`)
-              const problems = Array.from({ length: 20 }, () => {
-                const a = Math.floor(rng() * 13)
-                const b = Math.floor(rng() * 13)
-                return { a, b, answer: a * b }
-              })
 
-              return (
-                <WorksheetSectionWrapper
-                  docId="mult-facts-0-12"
-                  title="Super Hero City: Power Facts"
-                  emoji="ðŸ¦¸â€â™‚ï¸"
-                  description="Charge up the hero shields! Solve the multiplication problems to save the city."
-                  problemCount={problems.length}
-                  learningObjectives={[
-                    'Master multiplication facts from 0Ã—0 to 12Ã—12',
-                    'Build speed and accuracy',
-                    'Develop fact fluency'
-                  ]}
-                  parentTeacherTips={[
-                    'Practice a few "families" at a time (e.g., all x2, then all x5).',
-                    'Use flashcards for facts that result in "shield failures" (incorrect answers).',
-                    'Challenge: Can you beat your time?'
-                  ]}
-                >
-                  <div className="print:hidden h-1 w-full rounded-full bg-gradient-to-r from-blue-500 to-red-500 animate-gradient-x mb-4" />
+          activeDocs.includes('mult-facts-0-12') && (() => {
+            const rng = makeRng(`${effectiveSeed}|v${variant}|doc=${doc}`)
+            const problems = Array.from({ length: 20 }, () => {
+              const a = Math.floor(rng() * 13)
+              const b = Math.floor(rng() * 13)
+              return { a, b, answer: a * b }
+            })
 
-                  {/* Decorative Header */}
-                  <div className="w-full h-24 mb-6 relative overflow-hidden bg-blue-900 rounded-xl border-4 border-yellow-400 shadow-xl">
-                    <div className="absolute inset-0 opacity-20" style={{ backgroundImage: 'radial-gradient(circle, white 2px, transparent 2.5px)', backgroundSize: '20px 20px' }}></div>
-                    <div className="absolute left-4 top-1/2 -translate-y-1/2 text-5xl animate-pulse">âš¡</div>
-                    <div className="absolute right-4 top-1/2 -translate-y-1/2 text-5xl animate-bounce-slow">ðŸ›¡ï¸</div>
-                    <div className="absolute inset-0 flex items-center justify-center">
-                      <h2 className="text-3xl font-black text-yellow-400 tracking-widest uppercase italic transform -skew-x-12" style={{ textShadow: '3px 3px 0px #ef4444' }}>HERO TRAINING</h2>
-                    </div>
+            return (
+              <WorksheetSectionWrapper
+                docId="mult-facts-0-12"
+                title="Super Hero City: Power Facts"
+                emoji="ðŸ¦¸â€â™‚ï¸"
+                description="Charge up the hero shields! Solve the multiplication problems to save the city."
+                problemCount={problems.length}
+                learningObjectives={[
+                  'Master multiplication facts from 0Ã—0 to 12Ã—12',
+                  'Build speed and accuracy',
+                  'Develop fact fluency'
+                ]}
+                parentTeacherTips={[
+                  'Practice a few "families" at a time (e.g., all x2, then all x5).',
+                  'Use flashcards for facts that result in "shield failures" (incorrect answers).',
+                  'Challenge: Can you beat your time?'
+                ]}
+              >
+                <div className="print:hidden h-1 w-full rounded-full bg-gradient-to-r from-blue-500 to-red-500 animate-gradient-x mb-4" />
+
+                {/* Decorative Header */}
+                <div className="w-full h-24 mb-6 relative overflow-hidden bg-blue-900 rounded-xl border-4 border-yellow-400 shadow-xl">
+                  <div className="absolute inset-0 opacity-20" style={{ backgroundImage: 'radial-gradient(circle, white 2px, transparent 2.5px)', backgroundSize: '20px 20px' }}></div>
+                  <div className="absolute left-4 top-1/2 -translate-y-1/2 text-5xl animate-pulse">âš¡</div>
+                  <div className="absolute right-4 top-1/2 -translate-y-1/2 text-5xl animate-bounce-slow">ðŸ›¡ï¸</div>
+                  <div className="absolute inset-0 flex items-center justify-center">
+                    <h2 className="text-3xl font-black text-yellow-400 tracking-widest uppercase italic transform -skew-x-12" style={{ textShadow: '3px 3px 0px #ef4444' }}>HERO TRAINING</h2>
                   </div>
+                </div>
 
-                  <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-                    {problems.map((p, i) => (
-                      <div key={i} className="relative bg-white border-2 border-slate-200 rounded-xl p-4 flex flex-col items-center shadow-sm overflow-hidden">
-                        <div className="absolute -right-4 -top-4 w-12 h-12 bg-yellow-100 text-yellow-600 rounded-full flex items-center justify-center font-bold text-xs pt-2 pr-2">#{i + 1}</div>
+                <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+                  {problems.map((p, i) => (
+                    <div key={i} className="relative bg-white border-2 border-slate-200 rounded-xl p-4 flex flex-col items-center shadow-sm overflow-hidden">
+                      <div className="absolute -right-4 -top-4 w-12 h-12 bg-yellow-100 text-yellow-600 rounded-full flex items-center justify-center font-bold text-xs pt-2 pr-2">#{i + 1}</div>
 
-                        <div className="z-10 flex flex-col items-end">
-                          <div className="text-2xl font-black text-slate-700">{p.a}</div>
-                          <div className="flex items-center gap-1 text-2xl font-black text-slate-700">
-                            <span className="text-base text-slate-400">x</span> {p.b}
-                          </div>
-                          <div className="w-full h-1 bg-slate-800 my-1"></div>
-                          <div className="w-16 h-10 border-2 border-dashed border-blue-300 bg-blue-50 rounded flex items-center justify-center text-xl font-bold text-blue-800"></div>
+                      <div className="z-10 flex flex-col items-end">
+                        <div className="text-2xl font-black text-slate-700">{p.a}</div>
+                        <div className="flex items-center gap-1 text-2xl font-black text-slate-700">
+                          <span className="text-base text-slate-400">x</span> {p.b}
                         </div>
-
-                        {/* Background Shield Opacity */}
-                        <div className="absolute bottom-1 left-1 text-4xl opacity-10">ðŸ›¡ï¸</div>
+                        <div className="w-full h-1 bg-slate-800 my-1"></div>
+                        <div className="w-16 h-10 border-2 border-dashed border-blue-300 bg-blue-50 rounded flex items-center justify-center text-xl font-bold text-blue-800"></div>
                       </div>
-                    ))}
-                  </div>
 
-                  {showAnswersForDoc('mult-facts-0-12', () => (
-                    <div className="mt-6 p-4 border-2 border-blue-300 bg-blue-50 rounded print:border print:bg-white print:page-break-before-always">
-                      <div className="font-bold text-blue-900 mb-2">âœ… Answer Key</div>
-                      <div className="grid grid-cols-4 gap-2 text-xs text-blue-800">
-                        {problems.map((p, i) => (
-                          <div key={i}>{p.a} x {p.b} = <strong>{p.answer}</strong></div>
-                        ))}
-                      </div>
+                      {/* Background Shield Opacity */}
+                      <div className="absolute bottom-1 left-1 text-4xl opacity-10">ðŸ›¡ï¸</div>
                     </div>
                   ))}
-                </WorksheetSectionWrapper>
-              )
-            })()
-          }
+                </div>
 
-              {
+                {showAnswersForDoc('mult-facts-0-12', () => (
+                  <div className="mt-6 p-4 border-2 border-blue-300 bg-blue-50 rounded print:border print:bg-white print:page-break-before-always">
+                    <div className="font-bold text-blue-900 mb-2">âœ… Answer Key</div>
+                    <div className="grid grid-cols-4 gap-2 text-xs text-blue-800">
+                      {problems.map((p, i) => (
+                        <div key={i}>{p.a} x {p.b} = <strong>{p.answer}</strong></div>
+                      ))}
+                    </div>
+                  </div>
+                ))}
+              </WorksheetSectionWrapper>
+            )
+          })()
+        }
+
+        {
           activeDocs.includes('mult-arrays') && (() => {
             const rng = makeRng(`${effectiveSeed}|v${variant}|doc=${doc}`)
 
