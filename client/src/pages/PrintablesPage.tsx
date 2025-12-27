@@ -1,4 +1,4 @@
-﻿import React from 'react'
+import React from 'react'
 import type { ReactNode } from 'react'
 import { useTranslation } from '@/context/TranslationContext'
 import { WizqoLogo } from '@/components/WizqoLogo'
@@ -5151,7 +5151,7 @@ export function PrintablesPage() {
               <div className="mt-6 print:mt-0 p-4 bg-purple-50 border-2 border-purple-200 rounded print:bg-white print:border" style={{ pageBreakBefore: 'always', pageBreakInside: 'avoid' }}>
                 <div className="font-semibold text-purple-900 mb-3 text-sm">🌐 {getTrans('common.challengeYourself', 'Challenge Yourself (Optional):')}</div>
                 <div className="space-y-2 text-sm text-purple-800">
-                  <div>1. Create your own 2-digit subtraction problem: ___ âˆ’ ___ = ?</div>
+                  <div>1. Create your own 2-digit subtraction problem: ___ − ___ = ?</div>
                   <div>2. Solve: 67 âˆ’ 24 = ?</div>
                   <div>3. Write a word problem using 2-digit subtraction</div>
                 </div>
@@ -5177,7 +5177,7 @@ export function PrintablesPage() {
                   <div className="space-y-2">
                     {pairs.map(([a, b], i) => (
                       <div key={i} className="text-sm text-emerald-800">
-                        {i + 1}. {a} âˆ’ {b} = <strong>{a - b}</strong>
+                        {i + 1}. {a} − {b} = <strong>{a - b}</strong>
                       </div>
                     ))}
                   </div>
@@ -5230,7 +5230,7 @@ export function PrintablesPage() {
                         <div className="text-2xl mb-1">Tom has:</div>
                         <div className="flex gap-1 flex-wrap justify-center max-w-[200px]">
                           {Array.from({ length: 15 }).map((_, i) => (
-                            <span key={i} className="text-2xl">ðŸŽ</span>
+                            <span key={i} className="text-2xl">🍎</span>
                           ))}
                         </div>
                         <div className="text-sm font-semibold text-amber-700 mt-1">15 apples</div>
@@ -5240,7 +5240,7 @@ export function PrintablesPage() {
                         <div className="text-2xl mb-1">Buys:</div>
                         <div className="flex gap-1 flex-wrap justify-center max-w-[200px]">
                           {Array.from({ length: 12 }).map((_, i) => (
-                            <span key={i} className="text-2xl">ðŸŽ</span>
+                            <span key={i} className="text-2xl">🍎</span>
                           ))}
                         </div>
                         <div className="text-sm font-semibold text-amber-700 mt-1">12 more</div>
@@ -5271,10 +5271,10 @@ export function PrintablesPage() {
                   const nums = item.equation.match(/\d+/g) || [];
                   const num1 = parseInt(nums[0] || '0');
                   const num2 = parseInt(nums[1] || '0');
-                  const emoji = item.problem.includes('marbles') ? '🔍´' :
+                  const emoji = item.problem.includes('marbles') ? '🔮' :
                     item.problem.includes('books') ? '📚' :
                       item.problem.includes('stickers') ? '⭐' :
-                        item.problem.includes('pencils') ? 'âœï¸' : 'ðŸ“„';
+                        item.problem.includes('pencils') ? '✏️' : '📄';
                   return (
                     <div key={i} className="border-2 border-amber-200 rounded-lg p-4 bg-gradient-to-br from-amber-50 to-lime-50 break-inside-avoid">
                       <div className="text-base font-semibold text-amber-900 mb-3 flex items-start gap-2">
@@ -5292,7 +5292,7 @@ export function PrintablesPage() {
                             </div>
                             <div className="text-xs font-semibold text-amber-700">{num1}</div>
                           </div>
-                          <div className="text-2xl text-amber-700 font-bold">{isAdd ? '+' : 'âˆ’'}</div>
+                          <div className="text-2xl text-amber-700 font-bold">{isAdd ? '+' : '−'}</div>
                           <div className="text-center">
                             <div className="flex gap-1 flex-wrap justify-center max-w-[150px] mb-1">
                               {Array.from({ length: Math.min(num2, 20) }).map((_, j) => (
