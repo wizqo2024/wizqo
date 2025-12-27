@@ -1621,9 +1621,9 @@ export function PrintablesPage() {
         <div className="print:block hidden print:mt-0 mt-6 p-4 border-2 border-slate-300 rounded self-assessment" style={{ pageBreakBefore: 'avoid', pageBreakInside: 'avoid' }}>
           <div className="font-semibold text-slate-800 mb-3 text-sm">📊 {t('worksheets.addition-subtraction-0-10.selfAssessment.title')}</div>
           <div className="space-y-2 text-xs">
-                    <div>☐ {t('worksheets.addition-subtraction-0-10.selfAssessment.question1')}</div>
-                    <div>☐ {t('worksheets.addition-subtraction-0-10.selfAssessment.question2')}</div>
-                    <div>☐ {t('worksheets.addition-subtraction-0-10.selfAssessment.question3')}</div>
+            <div>☐ {t('worksheets.addition-subtraction-0-10.selfAssessment.question1')}</div>
+            <div>☐ {t('worksheets.addition-subtraction-0-10.selfAssessment.question2')}</div>
+            <div>☐ {t('worksheets.addition-subtraction-0-10.selfAssessment.question3')}</div>
           </div>
           <div className="mt-3 text-xs">
             <strong>{t('worksheets.addition-subtraction-0-10.selfAssessment.score')}</strong> ___ / 12
@@ -3190,7 +3190,7 @@ export function PrintablesPage() {
           >
             {/* Map Header */}
             <div className="print:hidden w-full h-12 mb-2 relative overflow-hidden bg-sky-100 rounded-lg flex items-center justify-center">
-            <div className="font-bold text-xl text-sky-700">🗺 World Map Adventure ðŸ§­</div>
+              <div className="font-bold text-xl text-sky-700">🗺 World Map Adventure ðŸ§­</div>
             </div>
 
             <div className="border border-slate-300 rounded-xl p-4 bg-sky-50/30 break-inside-avoid">
@@ -5369,7 +5369,7 @@ export function PrintablesPage() {
             <WorksheetSectionWrapper
               docId="compare-2digit"
               title="Compare 2-Digit Numbers"
-            emoji="⚖️"
+              emoji="⚖️"
               description="Write one comparison symbol in each blank: > (greater than), < (less than), or = (equal to). Tip: Compare tens first. If tens are equal, compare ones."
               problemCount={pairs.length}
               learningObjectives={[
@@ -11203,11 +11203,11 @@ export function PrintablesPage() {
                   <div className="mt-3 text-sm">
                     <div className="font-semibold text-slate-800 mb-1">Pick two animals to combine</div>
                     <div className="flex items-center gap-3 mb-1">
-                            <span>⛏️</span>
+                      <span>⛏️</span>
                       <div className="flex-1 border-b border-slate-400" />
                     </div>
                     <div className="flex items-center gap-3">
-                            <span>⛏️</span>
+                      <span>⛏️</span>
                       <div className="flex-1 border-b border-slate-400" />
                     </div>
                   </div>
@@ -16398,7 +16398,7 @@ export function PrintablesPage() {
                   <div className="space-y-2 text-xs">
                     <div>☐ I can multiply numbers 1-5 in vertical format</div>
                     <div>â˜ I need more practice with some facts</div>
-                  <div>☐ I can align numbers correctly</div>
+                    <div>☐ I can align numbers correctly</div>
                   </div>
                   <div className="mt-3 text-xs">
                     <strong>{getTrans('common.myScore', 'My score:')}</strong> ___ / {facts.length}
@@ -16501,7 +16501,7 @@ export function PrintablesPage() {
                   <div className="space-y-2 text-xs">
                     <div>☐ I can multiply numbers 6-12 in vertical format</div>
                     <div>â˜ I need more practice with some facts</div>
-                  <div>☐ I can align numbers correctly</div>
+                    <div>☐ I can align numbers correctly</div>
                   </div>
                   <div className="mt-3 text-xs">
                     <strong>{getTrans('common.myScore', 'My score:')}</strong> ___ / {facts.length}
@@ -16606,7 +16606,7 @@ export function PrintablesPage() {
                   <div className="space-y-2 text-xs">
                     <div>☐ I can multiply all facts 1-12 in vertical format</div>
                     <div>â˜ I need more practice with some facts</div>
-                  <div>☐ I can align numbers correctly</div>
+                    <div>☐ I can align numbers correctly</div>
                   </div>
                   <div className="mt-3 text-xs">
                     <strong>{getTrans('common.myScore', 'My score:')}</strong> ___ / {facts.length}
@@ -21103,7 +21103,7 @@ export function PrintablesPage() {
                       {problems.map((p, i) => (
                         <div key={i} className="flex gap-2">
                           <span className="font-bold">System {i + 1}:</span>
-                            <span>⛏️</span>
+                          <span>⛏️</span>
                         </div>
                       ))}
                     </div>
@@ -27999,7 +27999,7 @@ export function PrintablesPage() {
                   <div className="font-semibold text-slate-800 mb-3 text-sm">📊 {getTrans('common.howDidYouDo', 'How did you do?')}</div>
                   <div className="space-y-2 text-xs">
                     <div>☐ I can compare decimals correctly</div>
-                  <div>☐ I understand place value when subtracting</div>
+                    <div>☐ I understand place value when subtracting</div>
                     <div>☐ I can order decimals from least to greatest</div>
                   </div>
                   <div className="mt-3 text-xs">
@@ -33428,10 +33428,6 @@ export function PrintablesPage() {
         {
           activeDocs.includes('probability') && (() => {
             const scenarios = [
-              { item: 'gems', friend: 'dragons', icon: '💎', friendIcon: '🐉' },
-              { item: 'coins', friend: 'pirates', icon: '🪙', friendIcon: '🏴‍☠️' },
-              { item: 'bananas', friend: 'monkeys', icon: '🍌', friendIcon: '🐒' },
-              { item: 'acorns', friend: 'squirrels', icon: '🌰', friendIcon: '🐿️' }
               { event: 'Picking a blue marble from 3 red, 5 blue', prob: '5/8', explanation: '5 blue out of 8 total marbles' },
               { event: 'Flipping tails on a coin', prob: '1/2', explanation: '1 favorable outcome out of 2 total' },
             ];
@@ -35798,7 +35794,7 @@ export function PrintablesPage() {
                       {patterns.map((p, i) => (
                         <li key={i} className="flex items-center gap-2 text-emerald-800">
                           <span>{p.items.join(' ')}</span>
-                            <span>⛏️</span>
+                          <span>⛏️</span>
                           <span className="text-xl">{p.next}</span>
                           <span className="text-xs text-slate-500">({p.name} pattern)</span>
                         </li>
@@ -37226,7 +37222,7 @@ export function PrintablesPage() {
                 {/* Lab Header */}
                 <div className="print:hidden w-full h-16 mb-4 relative overflow-hidden bg-slate-800 rounded-lg flex items-center justify-center border-b-4 border-lime-400">
                   <div className="text-2xl font-mono text-lime-400 font-bold z-10 flex gap-4 items-center animate-pulse">
-                            <span>⛏️</span>
+                    <span>⛏️</span>
                   </div>
                 </div>
 
