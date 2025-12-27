@@ -3423,8 +3423,8 @@ export function PrintablesPage() {
             <div className="print:block hidden print:mt-0 mt-6 p-4 border-2 border-slate-300 rounded" style={{ pageBreakBefore: 'avoid', pageBreakInside: 'avoid' }}>
               <div className="font-semibold text-slate-800 mb-3 text-sm">📊 {getTrans('common.howDidYouDo', 'How did you do?')}</div>
               <div className="space-y-2 text-xs">
-                <div>â˜ I can identify all 4 cardinal directions</div>
-                <div>â˜ I can identify all 4 intercardinal directions</div>
+                <div>☐ I can identify all 4 cardinal directions</div>
+                <div>☐ I can identify all 4 intercardinal directions</div>
                 <div>â˜ I understand how to use a compass rose</div>
               </div>
               <div className="mt-3 text-xs">
@@ -3596,9 +3596,9 @@ export function PrintablesPage() {
             <div className="print:block hidden print:mt-0 mt-6 p-4 border-2 border-slate-300 rounded" style={{ pageBreakBefore: 'avoid', pageBreakInside: 'avoid' }}>
               <div className="font-semibold text-slate-800 mb-3 text-sm">📊 {getTrans('common.howDidYouDo', 'How did you do?')}</div>
               <div className="space-y-2 text-xs">
-                <div>â˜ I can identify landforms</div>
-                <div>â˜ I can identify water bodies</div>
-                <div>â˜ I can match words to pictures</div>
+                <div>☐ I can identify landforms</div>
+                <div>☐ I can identify water bodies</div>
+                <div>☐ I can match words to pictures</div>
               </div>
               <div className="mt-3 text-xs">
                 <strong>{getTrans('common.myScore', 'My score:')}</strong> ___ / 5
@@ -3727,8 +3727,8 @@ export function PrintablesPage() {
               <div className="font-semibold text-slate-800 mb-3 text-sm">📊 {getTrans('common.howDidYouDo', 'How did you do?')}</div>
               <div className="space-y-2 text-xs">
                 <div>â˜ I understand what latitude and longitude are</div>
-                <div>â˜ I can plot coordinates on a grid</div>
-                <div>â˜ I can read coordinates from a map</div>
+                <div>☐ I can plot coordinates on a grid</div>
+                <div>☐ I can read coordinates from a map</div>
               </div>
               <div className="mt-3 text-xs">
                 <strong>{getTrans('common.myScore', 'My score:')}</strong> ___ / 2
@@ -3868,9 +3868,9 @@ export function PrintablesPage() {
               <div className="print:block hidden print:mt-0 mt-6 p-4 border-2 border-slate-300 rounded" style={{ pageBreakBefore: 'avoid', pageBreakInside: 'avoid' }}>
                 <div className="font-semibold text-slate-800 mb-3 text-sm">📊 {getTrans('common.howDidYouDo', 'How did you do?')}</div>
                 <div className="space-y-2 text-xs">
-                  <div>â˜ I can recognize numbers 1–10</div>
-                  <div>â˜ I can trace numbers following the lines</div>
-                  <div>â˜ I can say the number names</div>
+                  <div>☐ I can recognize numbers 1–10</div>
+                  <div>☐ I can trace numbers following the lines</div>
+                  <div>☐ I can say the number names</div>
                 </div>
                 <div className="mt-3 text-xs">
                   <strong>{getTrans('common.myScore', 'My score:')}</strong> ___ / 10
@@ -4105,9 +4105,9 @@ export function PrintablesPage() {
             <div className="print:block hidden print:mt-0 mt-6 p-4 border-2 border-slate-300 rounded" style={{ pageBreakBefore: 'avoid', pageBreakInside: 'avoid' }}>
               <div className="font-semibold text-slate-800 mb-3 text-sm">📊 {getTrans('common.howDidYouDo', 'How did you do?')}</div>
               <div className="space-y-2 text-xs">
-                <div>â˜ I can match uppercase and lowercase letters</div>
+                <div>☐ I can match uppercase and lowercase letters</div>
                 <div>â˜ I recognize letter pairs</div>
-                <div>â˜ I can say letter sounds</div>
+                <div>☐ I can say letter sounds</div>
               </div>
               <div className="mt-3 text-xs">
                 <strong>{getTrans('common.myScore', 'My score:')}</strong> ___ / 26
@@ -4256,8 +4256,8 @@ export function PrintablesPage() {
             <div className="print:block hidden print:mt-0 mt-6 p-4 border-2 border-slate-300 rounded" style={{ pageBreakBefore: 'avoid', pageBreakInside: 'avoid' }}>
               <div className="font-semibold text-slate-800 mb-3 text-sm">📊 {getTrans('common.howDidYouDo', 'How did you do?')}</div>
               <div className="space-y-2 text-xs">
-                <div>â˜ I can identify beginning sounds</div>
-                <div>â˜ I can match letters to their sounds</div>
+                <div>☐ I can identify beginning sounds</div>
+                <div>☐ I can match letters to their sounds</div>
                 <div>â˜ I understand letter-sound relationships</div>
               </div>
               <div className="mt-3 text-xs">
@@ -4868,8 +4868,8 @@ export function PrintablesPage() {
               <div className="print:block hidden print:mt-0 mt-6 p-4 border-2 border-slate-300 rounded" style={{ pageBreakBefore: 'avoid', pageBreakInside: 'avoid' }}>
                 <div className="font-semibold text-slate-800 mb-3 text-sm">📊 {getTrans('common.howDidYouDo', 'How did you do?')}</div>
                 <div className="space-y-2 text-xs">
-                  <div>â˜ I can skip count by 5s</div>
-                  <div>â˜ I can skip count by 10s</div>
+                  <div>☐ I can skip count by 5s</div>
+                  <div>☐ I can skip count by 10s</div>
                   <div>â˜ I notice the pattern in skip counting</div>
                 </div>
                 <div className="mt-3 text-xs">
@@ -5015,7 +5015,7 @@ export function PrintablesPage() {
               <div className="print:block hidden print:mt-0 mt-6 p-4 border-2 border-slate-300 rounded" style={{ pageBreakBefore: 'avoid', pageBreakInside: 'avoid' }}>
                 <div className="font-semibold text-slate-800 mb-3 text-sm">📊 {getTrans('common.howDidYouDo', 'How did you do?')}</div>
                 <div className="space-y-2 text-xs">
-                  <div>â˜ I can add 2-digit numbers without regrouping</div>
+                  <div>☐ I can add 2-digit numbers without regrouping</div>
                   <div>☐ I can align numbers correctly</div>
                   <div>☐ I understand place value when subtracting</div>
                 </div>
@@ -5332,9 +5332,9 @@ export function PrintablesPage() {
               <div className="print:block hidden print:mt-0 mt-6 p-4 border-2 border-slate-300 rounded" style={{ pageBreakBefore: 'avoid', pageBreakInside: 'avoid' }}>
                 <div className="font-semibold text-slate-800 mb-3 text-sm">📊 {getTrans('common.howDidYouDo', 'How did you do?')}</div>
                 <div className="space-y-2 text-xs">
-                  <div>â˜ I can read and understand word problems</div>
-                  <div>â˜ I can write number sentences</div>
-                  <div>â˜ I can solve word problems correctly</div>
+                  <div>☐ I can read and understand word problems</div>
+                  <div>☐ I can write number sentences</div>
+                  <div>☐ I can solve word problems correctly</div>
                 </div>
                 <div className="mt-3 text-xs">
                   <strong>{getTrans('common.myScore', 'My score:')}</strong> ___ / {problems.length}
@@ -5430,9 +5430,9 @@ export function PrintablesPage() {
               <div className="print:block hidden print:mt-0 mt-6 p-4 border-2 border-slate-300 rounded" style={{ pageBreakBefore: 'avoid', pageBreakInside: 'avoid' }}>
                 <div className="font-semibold text-slate-800 mb-3 text-sm">📊 {getTrans('common.howDidYouDo', 'How did you do?')}</div>
                 <div className="space-y-2 text-xs">
-                  <div>â˜ I can compare 2-digit numbers correctly</div>
+                  <div>☐ I can compare 2-digit numbers correctly</div>
                   <div>â˜ I know to compare tens first</div>
-                  <div>â˜ I can use &gt;, &lt;, and = symbols correctly</div>
+                  <div>☐ I can use &gt;, &lt;, and = symbols correctly</div>
                 </div>
                 <div className="mt-3 text-xs">
                   <strong>{getTrans('common.myScore', 'My score:')}</strong> ___ / {pairs.length}
@@ -5524,8 +5524,8 @@ export function PrintablesPage() {
               <div className="print:block hidden print:mt-0 mt-6 p-4 border-2 border-slate-300 rounded" style={{ pageBreakBefore: 'avoid', pageBreakInside: 'avoid' }}>
                 <div className="font-semibold text-slate-800 mb-3 text-sm">📊 {getTrans('common.howDidYouDo', 'How did you do?')}</div>
                 <div className="space-y-2 text-xs">
-                  <div>â˜ I can identify even numbers</div>
-                  <div>â˜ I can identify odd numbers</div>
+                  <div>☐ I can identify even numbers</div>
+                  <div>☐ I can identify odd numbers</div>
                   <div>â˜ I know the pattern (look at ones digit)</div>
                 </div>
                 <div className="mt-3 text-xs">
@@ -5615,9 +5615,9 @@ export function PrintablesPage() {
               <div className="print:block hidden print:mt-0 mt-6 p-4 border-2 border-slate-300 rounded" style={{ pageBreakBefore: 'avoid', pageBreakInside: 'avoid' }}>
                 <div className="font-semibold text-slate-800 mb-3 text-sm">📊 {getTrans('common.howDidYouDo', 'How did you do?')}</div>
                 <div className="space-y-2 text-xs">
-                  <div>â˜ I can read time to 5 minutes</div>
-                  <div>â˜ I can draw the hour hand correctly</div>
-                  <div>â˜ I can draw the minute hand correctly</div>
+                  <div>☐ I can read time to 5 minutes</div>
+                  <div>☐ I can draw the hour hand correctly</div>
+                  <div>☐ I can draw the minute hand correctly</div>
                 </div>
                 <div className="mt-3 text-xs">
                   <strong>{getTrans('common.myScore', 'My score:')}</strong> ___ / {times.length}
@@ -5732,9 +5732,9 @@ export function PrintablesPage() {
               <div className="print:block hidden print:mt-0 mt-6 p-4 border-2 border-slate-300 rounded" style={{ pageBreakBefore: 'avoid', pageBreakInside: 'avoid' }}>
                 <div className="font-semibold text-slate-800 mb-3 text-sm">📊 {getTrans('common.howDidYouDo', 'How did you do?')}</div>
                 <div className="space-y-2 text-xs">
-                  <div>â˜ I can recognize numbers 1–20</div>
-                  <div>â˜ I can show numbers using ten frames</div>
-                  <div>â˜ I can count filled and empty spaces</div>
+                  <div>☐ I can recognize numbers 1–20</div>
+                  <div>☐ I can show numbers using ten frames</div>
+                  <div>☐ I can count filled and empty spaces</div>
                 </div>
                 <div className="mt-3 text-xs">
                   <strong>{getTrans('common.myScore', 'My score:')}</strong> ___ / {numbers.length}
@@ -5969,9 +5969,9 @@ export function PrintablesPage() {
               <div className="print:block hidden print:mt-0 mt-6 p-4 border-2 border-slate-300 rounded" style={{ pageBreakBefore: 'avoid', pageBreakInside: 'avoid' }}>
                 <div className="font-semibold text-slate-800 mb-3 text-sm">📊 {getTrans('common.howDidYouDo', 'How did you do?')}</div>
                 <div className="space-y-2 text-xs">
-                  <div>â˜ I can count from 1 to 20</div>
+                  <div>☐ I can count from 1 to 20</div>
                   <div>â˜ I connected all the dots in order</div>
-                  <div>â˜ I can see the picture that was made</div>
+                  <div>☐ I can see the picture that was made</div>
                 </div>
                 <div className="mt-3 text-xs">
                   <strong>{getTrans('common.myScore', 'My score:')}</strong> ___ / {dotCount}
@@ -6056,9 +6056,9 @@ export function PrintablesPage() {
             <div className="print:block hidden print:mt-0 mt-6 p-4 border-2 border-slate-300 rounded" style={{ pageBreakBefore: 'avoid', pageBreakInside: 'avoid' }}>
               <div className="font-semibold text-slate-800 mb-3 text-sm">📊 {getTrans('common.howDidYouDo', 'How did you do?')}</div>
               <div className="space-y-2 text-xs">
-                <div>â˜ I can identify the tangram shapes</div>
-                <div>â˜ I can arrange shapes to make animals</div>
-                <div>â˜ I can cut and glue carefully</div>
+                <div>☐ I can identify the tangram shapes</div>
+                <div>☐ I can arrange shapes to make animals</div>
+                <div>☐ I can cut and glue carefully</div>
               </div>
               <div className="mt-3 text-xs">
                 <strong>{getTrans('common.myScore', 'My score:')}</strong> ___ / 5
@@ -6138,7 +6138,7 @@ export function PrintablesPage() {
               <div className="font-semibold text-slate-800 mb-3 text-sm">📊 {getTrans('common.howDidYouDo', 'How did you do?')}</div>
               <div className="space-y-2 text-xs">
                 <div>â˜ I found all 7 differences</div>
-                <div>â˜ I can compare two pictures carefully</div>
+                <div>☐ I can compare two pictures carefully</div>
                 <div>â˜ I paid attention to details</div>
               </div>
               <div className="mt-3 text-xs">
@@ -9643,9 +9643,9 @@ export function PrintablesPage() {
             <div className="print:block hidden print:mt-0 mt-6 p-4 border-2 border-slate-300 rounded" style={{ pageBreakBefore: 'avoid', pageBreakInside: 'avoid' }}>
               <div className="font-semibold text-slate-800 mb-3 text-sm">📊 {getTrans('common.howDidYouDo', 'How did you do?')}</div>
               <div className="space-y-2 text-xs">
-                <div>â˜ I can identify correctly spelled words</div>
+                <div>☐ I can identify correctly spelled words</div>
                 <div>â˜ I recognize common spelling patterns</div>
-                <div>â˜ I can write words correctly</div>
+                <div>☐ I can write words correctly</div>
               </div>
               <div className="mt-3 text-xs">
                 <strong>{getTrans('common.myScore', 'My score:')}</strong> ___ / 5
@@ -9799,8 +9799,8 @@ export function PrintablesPage() {
             <div className="print:block hidden print:mt-0 mt-6 p-4 border-2 border-slate-300 rounded" style={{ pageBreakBefore: 'avoid', pageBreakInside: 'avoid' }}>
               <div className="font-semibold text-slate-800 mb-3 text-sm">📊 {getTrans('common.howDidYouDo', 'How did you do?')}</div>
               <div className="space-y-2 text-xs">
-                <div>â˜ I can identify grammar mistakes</div>
-                <div>â˜ I can fix sentence errors</div>
+                <div>☐ I can identify grammar mistakes</div>
+                <div>☐ I can fix sentence errors</div>
                 <div>â˜ I understand proper grammar usage</div>
               </div>
               <div className="mt-3 text-xs">
@@ -10266,8 +10266,8 @@ export function PrintablesPage() {
             <div className="print:block hidden print:mt-0 mt-6 p-4 border-2 border-slate-300 rounded" style={{ pageBreakBefore: 'avoid', pageBreakInside: 'avoid' }}>
               <div className="font-semibold text-slate-800 mb-3 text-sm">📊 {getTrans('common.howDidYouDo', 'How did you do?')}</div>
               <div className="space-y-2 text-xs">
-                <div>â˜ I can use clues to solve puzzles</div>
-                <div>â˜ I can use logical reasoning</div>
+                <div>☐ I can use clues to solve puzzles</div>
+                <div>☐ I can use logical reasoning</div>
                 <div>â˜ I completed the logic grid</div>
               </div>
               <div className="mt-3 text-xs">
@@ -12447,8 +12447,8 @@ export function PrintablesPage() {
               <div className="print:block hidden print:mt-0 mt-6 p-4 border-2 border-slate-300 rounded" style={{ pageBreakBefore: 'avoid', pageBreakInside: 'avoid' }}>
                 <div className="font-semibold text-slate-800 mb-3 text-sm">📊 {getTrans('common.howDidYouDo', 'How did you do?')}</div>
                 <div className="space-y-2 text-xs">
-                  <div>â˜ I can count objects in groups</div>
-                  <div>â˜ I can add numbers within 10</div>
+                  <div>☐ I can count objects in groups</div>
+                  <div>☐ I can add numbers within 10</div>
                   <div>â˜ I solved all 6 problems correctly</div>
                 </div>
                 <div className="mt-3 text-xs">
@@ -12600,8 +12600,8 @@ export function PrintablesPage() {
               <div className="print:block hidden print:mt-0 mt-6 p-4 border-2 border-slate-300 rounded" style={{ pageBreakBefore: 'avoid', pageBreakInside: 'avoid' }}>
                 <div className="font-semibold text-slate-800 mb-3 text-sm">📊 {getTrans('common.howDidYouDo', 'How did you do?')}</div>
                 <div className="space-y-2 text-xs">
-                  <div>â˜ I can read and understand subtraction stories</div>
-                  <div>â˜ I can solve subtraction problems within 10</div>
+                  <div>☐ I can read and understand subtraction stories</div>
+                  <div>☐ I can solve subtraction problems within 10</div>
                   <div>â˜ I solved all 4 problems correctly</div>
                 </div>
                 <div className="mt-3 text-xs">
@@ -12828,7 +12828,7 @@ export function PrintablesPage() {
                   <div className="font-semibold text-slate-800 mb-3 text-sm">📊 {getTrans('common.howDidYouDo', 'How did you do?')}</div>
                   <div className="space-y-2 text-xs">
                     <div>â˜ I understand that both sides must be equal</div>
-                    <div>â˜ I can find missing numbers to balance equations</div>
+                    <div>☐ I can find missing numbers to balance equations</div>
                     <div>â˜ I solved all {equations.length} equations correctly</div>
                   </div>
                   <div className="mt-3 text-xs">
@@ -12967,8 +12967,8 @@ export function PrintablesPage() {
               <div className="print:block hidden print:mt-0 mt-6 p-4 border-2 border-slate-300 rounded" style={{ pageBreakBefore: 'avoid', pageBreakInside: 'avoid' }}>
                 <div className="font-semibold text-slate-800 mb-3 text-sm">📊 {getTrans('common.howDidYouDo', 'How did you do?')}</div>
                 <div className="space-y-2 text-xs">
-                  <div>â˜ I can count by 2s</div>
-                  <div>â˜ I can fill in missing numbers in skip counting sequences</div>
+                  <div>☐ I can count by 2s</div>
+                  <div>☐ I can fill in missing numbers in skip counting sequences</div>
                   <div>â˜ I completed all 4 sequences correctly</div>
                 </div>
                 <div className="mt-3 text-xs">
@@ -13138,8 +13138,8 @@ export function PrintablesPage() {
                 <div className="print:block hidden print:mt-0 mt-6 p-4 border-2 border-slate-300 rounded" style={{ pageBreakBefore: 'avoid', pageBreakInside: 'avoid' }}>
                   <div className="font-semibold text-slate-800 mb-3 text-sm">📊 {getTrans('common.howDidYouDo', 'How did you do?')}</div>
                   <div className="space-y-2 text-xs">
-                    <div>â˜ I can use a number line to solve addition</div>
-                    <div>â˜ I can count forward on a number line</div>
+                    <div>☐ I can use a number line to solve addition</div>
+                    <div>☐ I can count forward on a number line</div>
                     <div>â˜ I solved all {problems.length} problems correctly</div>
                   </div>
                   <div className="mt-3 text-xs">
@@ -13246,8 +13246,8 @@ export function PrintablesPage() {
               <div className="print:block hidden print:mt-0 mt-6 p-4 border-2 border-slate-300 rounded" style={{ pageBreakBefore: 'avoid', pageBreakInside: 'avoid' }}>
                 <div className="font-semibold text-slate-800 mb-3 text-sm">📊 {getTrans('common.howDidYouDo', 'How did you do?')}</div>
                 <div className="space-y-2 text-xs">
-                  <div>â˜ I can identify patterns (AB, ABC, AAB)</div>
-                  <div>â˜ I can find what comes next in a pattern</div>
+                  <div>☐ I can identify patterns (AB, ABC, AAB)</div>
+                  <div>☐ I can find what comes next in a pattern</div>
                   <div>â˜ I completed all 3 patterns correctly</div>
                 </div>
                 <div className="mt-3 text-xs">
@@ -13343,8 +13343,8 @@ export function PrintablesPage() {
               <div className="print:block hidden print:mt-0 mt-6 p-4 border-2 border-slate-300 rounded" style={{ pageBreakBefore: 'avoid', pageBreakInside: 'avoid' }}>
                 <div className="font-semibold text-slate-800 mb-3 text-sm">📊 {getTrans('common.howDidYouDo', 'How did you do?')}</div>
                 <div className="space-y-2 text-xs">
-                  <div>â˜ I can identify patterns in shape sequences</div>
-                  <div>â˜ I can find the missing shape in a pattern</div>
+                  <div>☐ I can identify patterns in shape sequences</div>
+                  <div>☐ I can find the missing shape in a pattern</div>
                   <div>â˜ I completed all 6 patterns correctly</div>
                 </div>
                 <div className="mt-3 text-xs">
@@ -13437,8 +13437,8 @@ export function PrintablesPage() {
               <div className="print:block hidden print:mt-0 mt-6 p-4 border-2 border-slate-300 rounded" style={{ pageBreakBefore: 'avoid', pageBreakInside: 'avoid' }}>
                 <div className="font-semibold text-slate-800 mb-3 text-sm">📊 {getTrans('common.howDidYouDo', 'How did you do?')}</div>
                 <div className="space-y-2 text-xs">
-                  <div>â˜ I can compare sizes visually</div>
-                  <div>â˜ I can identify bigger and smaller objects</div>
+                  <div>☐ I can compare sizes visually</div>
+                  <div>☐ I can identify bigger and smaller objects</div>
                   <div>â˜ I answered all 4 questions correctly</div>
                 </div>
                 <div className="mt-3 text-xs">
@@ -13532,7 +13532,7 @@ export function PrintablesPage() {
                 <div className="font-semibold text-slate-800 mb-3 text-sm">📊 {getTrans('common.howDidYouDo', 'How did you do?')}</div>
                 <div className="space-y-2 text-xs">
                   <div>☐ I understand place value when subtracting</div>
-                  <div>â˜ I can write numbers in expanded form</div>
+                  <div>☐ I can write numbers in expanded form</div>
                   <div>â˜ I wrote all 6 numbers correctly in expanded form</div>
                 </div>
                 <div className="mt-3 text-xs">
@@ -13628,8 +13628,8 @@ export function PrintablesPage() {
               <div className="print:block hidden print:mt-0 mt-6 p-4 border-2 border-slate-300 rounded" style={{ pageBreakBefore: 'avoid', pageBreakInside: 'avoid' }}>
                 <div className="font-semibold text-slate-800 mb-3 text-sm">📊 {getTrans('common.howDidYouDo', 'How did you do?')}</div>
                 <div className="space-y-2 text-xs">
-                  <div>â˜ I can identify number patterns</div>
-                  <div>â˜ I can find the pattern rule</div>
+                  <div>☐ I can identify number patterns</div>
+                  <div>☐ I can find the pattern rule</div>
                   <div>â˜ I filled in all the missing numbers correctly</div>
                 </div>
                 <div className="mt-3 text-xs">
@@ -13862,9 +13862,9 @@ export function PrintablesPage() {
               <div className="print:block hidden print:mt-0 mt-6 p-4 border-2 border-slate-300 rounded" style={{ pageBreakBefore: 'avoid', pageBreakInside: 'avoid' }}>
                 <div className="font-semibold text-slate-800 mb-3 text-sm">📊 {getTrans('common.howDidYouDo', 'How did you do?')}</div>
                 <div className="space-y-2 text-xs">
-                  <div>â˜ I can identify halves, thirds, and fourths</div>
-                  <div>â˜ I can color the correct number of parts</div>
-                  <div>â˜ I can write fraction names in words</div>
+                  <div>☐ I can identify halves, thirds, and fourths</div>
+                  <div>☐ I can color the correct number of parts</div>
+                  <div>☐ I can write fraction names in words</div>
                 </div>
                 <div className="mt-3 text-xs">
                   <strong>{getTrans('common.myScore', 'My score:')}</strong> ___ / 6
@@ -14077,8 +14077,8 @@ export function PrintablesPage() {
                 <div className="print:block hidden print:mt-0 mt-6 p-4 border-2 border-slate-300 rounded" style={{ pageBreakBefore: 'avoid', pageBreakInside: 'avoid' }}>
                   <div className="font-semibold text-slate-800 mb-3 text-sm">📊 {getTrans('common.howDidYouDo', 'How did you do?')}</div>
                   <div className="space-y-2 text-xs">
-                    <div>â˜ I can use arrays to solve multiplication</div>
-                    <div>â˜ I can count rows and columns correctly</div>
+                    <div>☐ I can use arrays to solve multiplication</div>
+                    <div>☐ I can count rows and columns correctly</div>
                     <div>â˜ I understand how arrays show multiplication</div>
                   </div>
                   <div className="mt-3 text-xs">
@@ -14224,9 +14224,9 @@ export function PrintablesPage() {
                 <div className="print:block hidden print:mt-0 mt-6 p-4 border-2 border-slate-300 rounded" style={{ pageBreakBefore: 'avoid', pageBreakInside: 'avoid' }}>
                   <div className="font-semibold text-slate-800 mb-3 text-sm">📊 {getTrans('common.howDidYouDo', 'How did you do?')}</div>
                   <div className="space-y-2 text-xs">
-                    <div>â˜ I can read and understand word problems</div>
-                    <div>â˜ I can write multiplication equations</div>
-                    <div>â˜ I can solve word problems correctly</div>
+                    <div>☐ I can read and understand word problems</div>
+                    <div>☐ I can write multiplication equations</div>
+                    <div>☐ I can solve word problems correctly</div>
                   </div>
                   <div className="mt-3 text-xs">
                     <strong>{getTrans('common.myScore', 'My score:')}</strong> ___ / {problems.length}
@@ -14316,10 +14316,10 @@ export function PrintablesPage() {
                 <div className="print:block hidden print:mt-0 mt-6 p-4 border-2 border-slate-300 rounded" style={{ pageBreakBefore: 'avoid', pageBreakInside: 'avoid' }}>
                   <div className="font-semibold text-slate-800 mb-3 text-sm">📊 {getTrans('common.howDidYouDo', 'How did you do?')}</div>
                   <div className="space-y-2 text-xs">
-                    <div>â˜ I can multiply numbers 6-12 easily</div>
+                    <div>☐ I can multiply numbers 6-12 easily</div>
                     <div>â˜ I need more practice with some facts</div>
-                    <div>â˜ I can use strategies to help me solve</div>
-                    <div>â˜ I can say the answers quickly (fluency)</div>
+                    <div>☐ I can use strategies to help me solve</div>
+                    <div>☐ I can say the answers quickly (fluency)</div>
                   </div>
                   <div className="mt-3 text-xs">
                     <strong>{getTrans('common.myScore', 'My score:')}</strong> ___ / {facts.length}
@@ -14413,8 +14413,8 @@ export function PrintablesPage() {
                 <div className="print:block hidden print:mt-0 mt-6 p-4 border-2 border-slate-300 rounded" style={{ pageBreakBefore: 'avoid', pageBreakInside: 'avoid' }}>
                   <div className="font-semibold text-slate-800 mb-3 text-sm">📊 {getTrans('common.howDidYouDo', 'How did you do?')}</div>
                   <div className="space-y-2 text-xs">
-                    <div>â˜ I can use arrays to solve multiplication</div>
-                    <div>â˜ I can count rows and columns correctly</div>
+                    <div>☐ I can use arrays to solve multiplication</div>
+                    <div>☐ I can count rows and columns correctly</div>
                     <div>â˜ I understand how arrays show multiplication</div>
                   </div>
                   <div className="mt-3 text-xs">
@@ -14531,9 +14531,9 @@ export function PrintablesPage() {
                 <div className="print:block hidden print:mt-0 mt-6 p-4 border-2 border-slate-300 rounded" style={{ pageBreakBefore: 'avoid', pageBreakInside: 'avoid' }}>
                   <div className="font-semibold text-slate-800 mb-3 text-sm">📊 {getTrans('common.howDidYouDo', 'How did you do?')}</div>
                   <div className="space-y-2 text-xs">
-                    <div>â˜ I can identify what needs to be solved first</div>
-                    <div>â˜ I can break problems into steps</div>
-                    <div>â˜ I can solve multi-step problems correctly</div>
+                    <div>☐ I can identify what needs to be solved first</div>
+                    <div>☐ I can break problems into steps</div>
+                    <div>☐ I can solve multi-step problems correctly</div>
                   </div>
                   <div className="mt-3 text-xs">
                     <strong>{getTrans('common.myScore', 'My score:')}</strong> ___ / {problems.length}
@@ -14656,8 +14656,8 @@ export function PrintablesPage() {
                   <div className="font-semibold text-slate-800 mb-3 text-sm">📊 {getTrans('common.howDidYouDo', 'How did you do?')}</div>
                   <div className="space-y-2 text-xs">
                     <div>â˜ I understand how multiplication and division are related</div>
-                    <div>â˜ I can write all four facts in a fact family</div>
-                    <div>â˜ I can use fact families to solve problems</div>
+                    <div>☐ I can write all four facts in a fact family</div>
+                    <div>☐ I can use fact families to solve problems</div>
                   </div>
                   <div className="mt-3 text-xs">
                     <strong>{getTrans('common.myScore', 'My score:')}</strong> ___ / {families.length}
@@ -14890,8 +14890,8 @@ export function PrintablesPage() {
                 <div className="print:block hidden print:mt-0 mt-6 p-4 border-2 border-slate-300 rounded" style={{ pageBreakBefore: 'avoid', pageBreakInside: 'avoid' }}>
                   <div className="font-semibold text-slate-800 mb-3 text-sm">📊 {getTrans('common.howDidYouDo', 'How did you do?')}</div>
                   <div className="space-y-2 text-xs">
-                    <div>â˜ I can multiply 2-digit by 1-digit numbers</div>
-                    <div>â˜ I can regroup correctly</div>
+                    <div>☐ I can multiply 2-digit by 1-digit numbers</div>
+                    <div>☐ I can regroup correctly</div>
                     <div>â˜ I understand the process</div>
                   </div>
                   <div className="mt-3 text-xs">
@@ -14998,9 +14998,9 @@ export function PrintablesPage() {
                 <div className="print:block hidden print:mt-0 mt-6 p-4 border-2 border-slate-300 rounded" style={{ pageBreakBefore: 'avoid', pageBreakInside: 'avoid' }}>
                   <div className="font-semibold text-slate-800 mb-3 text-sm">📊 {getTrans('common.howDidYouDo', 'How did you do?')}</div>
                   <div className="space-y-2 text-xs">
-                    <div>â˜ I can multiply 2Ã—2 numbers correctly</div>
+                    <div>☐ I can multiply 2Ã—2 numbers correctly</div>
                     <div>â˜ I need more practice with regrouping</div>
-                    <div>â˜ I can show all my work clearly</div>
+                    <div>☐ I can show all my work clearly</div>
                   </div>
                   <div className="mt-3 text-xs">
                     <strong>{getTrans('common.myScore', 'My score:')}</strong> ___ / {problems.length}
@@ -15103,9 +15103,9 @@ export function PrintablesPage() {
                 <div className="print:block hidden print:mt-0 mt-6 p-4 border-2 border-slate-300 rounded" style={{ pageBreakBefore: 'avoid', pageBreakInside: 'avoid' }}>
                   <div className="font-semibold text-slate-800 mb-3 text-sm">📊 {getTrans('common.howDidYouDo', 'How did you do?')}</div>
                   <div className="space-y-2 text-xs">
-                    <div>â˜ I can multiply 2Ã—2 numbers correctly</div>
+                    <div>☐ I can multiply 2Ã—2 numbers correctly</div>
                     <div>â˜ I need more practice with regrouping</div>
-                    <div>â˜ I can show all my work clearly</div>
+                    <div>☐ I can show all my work clearly</div>
                   </div>
                   <div className="mt-3 text-xs">
                     <strong>{getTrans('common.myScore', 'My score:')}</strong> ___ / {problems.length}
@@ -15208,9 +15208,9 @@ export function PrintablesPage() {
                 <div className="print:block hidden print:mt-0 mt-6 p-4 border-2 border-slate-300 rounded" style={{ pageBreakBefore: 'avoid', pageBreakInside: 'avoid' }}>
                   <div className="font-semibold text-slate-800 mb-3 text-sm">📊 {getTrans('common.howDidYouDo', 'How did you do?')}</div>
                   <div className="space-y-2 text-xs">
-                    <div>â˜ I can multiply 3Ã—2 numbers correctly</div>
+                    <div>☐ I can multiply 3Ã—2 numbers correctly</div>
                     <div>â˜ I need more practice with alignment</div>
-                    <div>â˜ I can show all my work clearly</div>
+                    <div>☐ I can show all my work clearly</div>
                   </div>
                   <div className="mt-3 text-xs">
                     <strong>{getTrans('common.myScore', 'My score:')}</strong> ___ / {problems.length}
@@ -15353,9 +15353,9 @@ export function PrintablesPage() {
                 <div className="print:block hidden print:mt-0 mt-6 p-4 border-2 border-slate-300 rounded" style={{ pageBreakBefore: 'avoid', pageBreakInside: 'avoid' }}>
                   <div className="font-semibold text-slate-800 mb-3 text-sm">📊 {getTrans('common.howDidYouDo', 'How did you do?')}</div>
                   <div className="space-y-2 text-xs">
-                    <div>â˜ I can use the area model to multiply</div>
-                    <div>â˜ I can break numbers into tens and ones</div>
-                    <div>â˜ I can add all four partial products correctly</div>
+                    <div>☐ I can use the area model to multiply</div>
+                    <div>☐ I can break numbers into tens and ones</div>
+                    <div>☐ I can add all four partial products correctly</div>
                   </div>
                   <div className="mt-3 text-xs">
                     <strong>{getTrans('common.myScore', 'My score:')}</strong> ___ / {problems.length}
@@ -15470,9 +15470,9 @@ export function PrintablesPage() {
                 <div className="print:block hidden print:mt-0 mt-6 p-4 border-2 border-slate-300 rounded" style={{ pageBreakBefore: 'avoid', pageBreakInside: 'avoid' }}>
                   <div className="font-semibold text-slate-800 mb-3 text-sm">📊 {getTrans('common.howDidYouDo', 'How did you do?')}</div>
                   <div className="space-y-2 text-xs">
-                    <div>â˜ I can break problems into steps</div>
-                    <div>â˜ I can solve multi-step problems</div>
-                    <div>â˜ I can show all my work clearly</div>
+                    <div>☐ I can break problems into steps</div>
+                    <div>☐ I can solve multi-step problems</div>
+                    <div>☐ I can show all my work clearly</div>
                   </div>
                   <div className="mt-3 text-xs">
                     <strong>{getTrans('common.myScore', 'My score:')}</strong> ___ / {problems.length}
@@ -15567,9 +15567,9 @@ export function PrintablesPage() {
                 <div className="print:block hidden print:mt-0 mt-6 p-4 border-2 border-slate-300 rounded" style={{ pageBreakBefore: 'avoid', pageBreakInside: 'avoid' }}>
                   <div className="font-semibold text-slate-800 mb-3 text-sm">📊 {getTrans('common.howDidYouDo', 'How did you do?')}</div>
                   <div className="space-y-2 text-xs">
-                    <div>â˜ I can answer most facts quickly (fluency)</div>
+                    <div>☐ I can answer most facts quickly (fluency)</div>
                     <div>â˜ I need more practice to build speed</div>
-                    <div>â˜ I can say the answers instantly</div>
+                    <div>☐ I can say the answers instantly</div>
                   </div>
                   <div className="mt-3 text-xs">
                     <strong>{getTrans('common.myScore', 'My score:')}</strong> ___ / {facts.length}
@@ -15661,9 +15661,9 @@ export function PrintablesPage() {
                 <div className="print:block hidden print:mt-0 mt-6 p-4 border-2 border-slate-300 rounded" style={{ pageBreakBefore: 'avoid', pageBreakInside: 'avoid' }}>
                   <div className="font-semibold text-slate-800 mb-3 text-sm">📊 {getTrans('common.howDidYouDo', 'How did you do?')}</div>
                   <div className="space-y-2 text-xs">
-                    <div>â˜ I can solve all facts in mixed order</div>
+                    <div>☐ I can solve all facts in mixed order</div>
                     <div>â˜ I need more practice with some facts</div>
-                    <div>â˜ I can answer quickly even when mixed up</div>
+                    <div>☐ I can answer quickly even when mixed up</div>
                   </div>
                   <div className="mt-3 text-xs">
                     <strong>{getTrans('common.myScore', 'My score:')}</strong> ___ / {facts.length}
@@ -15829,10 +15829,10 @@ export function PrintablesPage() {
               <div className="print:block hidden print:mt-0 mt-6 p-4 border-2 border-slate-300 rounded" style={{ pageBreakBefore: 'avoid', pageBreakInside: 'avoid' }}>
                 <div className="font-semibold text-slate-800 mb-3 text-sm">📊 {getTrans('common.howDidYouDo', 'How did you do?')}</div>
                 <div className="space-y-2 text-xs">
-                  <div>â˜ I can use skip counting</div>
-                  <div>â˜ I can use arrays</div>
-                  <div>â˜ I can use repeated addition</div>
-                  <div>â˜ I can use doubles and break-apart</div>
+                  <div>☐ I can use skip counting</div>
+                  <div>☐ I can use arrays</div>
+                  <div>☐ I can use repeated addition</div>
+                  <div>☐ I can use doubles and break-apart</div>
                 </div>
                 <div className="mt-3 text-xs">
                   <strong>{getTrans('common.myScore', 'My score:')}</strong> ___ / 5
@@ -15952,9 +15952,9 @@ export function PrintablesPage() {
                 <div className="print:block hidden print:mt-0 mt-6 p-4 border-2 border-slate-300 rounded" style={{ pageBreakBefore: 'avoid', pageBreakInside: 'avoid' }}>
                   <div className="font-semibold text-slate-800 mb-3 text-sm">📊 {getTrans('common.howDidYouDo', 'How did you do?')}</div>
                   <div className="space-y-2 text-xs">
-                    <div>â˜ I can identify patterns in multiplication</div>
-                    <div>â˜ I can extend patterns to find missing numbers</div>
-                    <div>â˜ I can describe patterns in my own words</div>
+                    <div>☐ I can identify patterns in multiplication</div>
+                    <div>☐ I can extend patterns to find missing numbers</div>
+                    <div>☐ I can describe patterns in my own words</div>
                   </div>
                   <div className="mt-3 text-xs">
                     <strong>{getTrans('common.myScore', 'My score:')}</strong> ___ / {patterns.length}
@@ -16189,9 +16189,9 @@ export function PrintablesPage() {
                 <div className="print:block hidden print:mt-0 mt-6 p-4 border-2 border-slate-300 rounded" style={{ pageBreakBefore: 'avoid', pageBreakInside: 'avoid' }}>
                   <div className="font-semibold text-slate-800 mb-3 text-sm">📊 {getTrans('common.howDidYouDo', 'How did you do?')}</div>
                   <div className="space-y-2 text-xs">
-                    <div>â˜ I can multiply numbers 6-12 easily</div>
+                    <div>☐ I can multiply numbers 6-12 easily</div>
                     <div>â˜ I need more practice with some facts</div>
-                    <div>â˜ I can say the answers quickly (fluency)</div>
+                    <div>☐ I can say the answers quickly (fluency)</div>
                   </div>
                   <div className="mt-3 text-xs">
                     <strong>{getTrans('common.myScore', 'My score:')}</strong> ___ / {facts.length}
@@ -16287,9 +16287,9 @@ export function PrintablesPage() {
                 <div className="print:block hidden print:mt-0 mt-6 p-4 border-2 border-slate-300 rounded" style={{ pageBreakBefore: 'avoid', pageBreakInside: 'avoid' }}>
                   <div className="font-semibold text-slate-800 mb-3 text-sm">📊 {getTrans('common.howDidYouDo', 'How did you do?')}</div>
                   <div className="space-y-2 text-xs">
-                    <div>â˜ I can multiply all facts 1-12 easily</div>
+                    <div>☐ I can multiply all facts 1-12 easily</div>
                     <div>â˜ I need more practice with some facts</div>
-                    <div>â˜ I can say the answers quickly (fluency)</div>
+                    <div>☐ I can say the answers quickly (fluency)</div>
                   </div>
                   <div className="mt-3 text-xs">
                     <strong>{getTrans('common.myScore', 'My score:')}</strong> ___ / {facts.length}
@@ -16396,7 +16396,7 @@ export function PrintablesPage() {
                 <div className="print:block hidden print:mt-0 mt-6 p-4 border-2 border-slate-300 rounded" style={{ pageBreakBefore: 'avoid', pageBreakInside: 'avoid' }}>
                   <div className="font-semibold text-slate-800 mb-3 text-sm">📊 {getTrans('common.howDidYouDo', 'How did you do?')}</div>
                   <div className="space-y-2 text-xs">
-                    <div>â˜ I can multiply numbers 1-5 in vertical format</div>
+                    <div>☐ I can multiply numbers 1-5 in vertical format</div>
                     <div>â˜ I need more practice with some facts</div>
                   <div>☐ I can align numbers correctly</div>
                   </div>
@@ -16499,7 +16499,7 @@ export function PrintablesPage() {
                 <div className="print:block hidden print:mt-0 mt-6 p-4 border-2 border-slate-300 rounded" style={{ pageBreakBefore: 'avoid', pageBreakInside: 'avoid' }}>
                   <div className="font-semibold text-slate-800 mb-3 text-sm">📊 {getTrans('common.howDidYouDo', 'How did you do?')}</div>
                   <div className="space-y-2 text-xs">
-                    <div>â˜ I can multiply numbers 6-12 in vertical format</div>
+                    <div>☐ I can multiply numbers 6-12 in vertical format</div>
                     <div>â˜ I need more practice with some facts</div>
                   <div>☐ I can align numbers correctly</div>
                   </div>
@@ -16604,7 +16604,7 @@ export function PrintablesPage() {
                 <div className="print:block hidden print:mt-0 mt-6 p-4 border-2 border-slate-300 rounded" style={{ pageBreakBefore: 'avoid', pageBreakInside: 'avoid' }}>
                   <div className="font-semibold text-slate-800 mb-3 text-sm">📊 {getTrans('common.howDidYouDo', 'How did you do?')}</div>
                   <div className="space-y-2 text-xs">
-                    <div>â˜ I can multiply all facts 1-12 in vertical format</div>
+                    <div>☐ I can multiply all facts 1-12 in vertical format</div>
                     <div>â˜ I need more practice with some facts</div>
                   <div>☐ I can align numbers correctly</div>
                   </div>
@@ -16706,9 +16706,9 @@ export function PrintablesPage() {
                 <div className="print:block hidden print:mt-0 mt-6 p-4 border-2 border-slate-300 rounded" style={{ pageBreakBefore: 'avoid', pageBreakInside: 'avoid' }}>
                   <div className="font-semibold text-slate-800 mb-3 text-sm">📊 {getTrans('common.howDidYouDo', 'How did you do?')}</div>
                   <div className="space-y-2 text-xs">
-                    <div>â˜ I can find missing numbers in multiplication</div>
+                    <div>☐ I can find missing numbers in multiplication</div>
                     <div>â˜ I understand the relationship between multiplication and division</div>
-                    <div>â˜ I can solve all types of missing number problems</div>
+                    <div>☐ I can solve all types of missing number problems</div>
                   </div>
                   <div className="mt-3 text-xs">
                     <strong>{getTrans('common.myScore', 'My score:')}</strong> ___ / {problems.length}
@@ -16829,9 +16829,9 @@ export function PrintablesPage() {
                 <div className="print:block hidden print:mt-0 mt-6 p-4 border-2 border-slate-300 rounded" style={{ pageBreakBefore: 'avoid', pageBreakInside: 'avoid' }}>
                   <div className="font-semibold text-slate-800 mb-3 text-sm">📊 {getTrans('common.howDidYouDo', 'How did you do?')}</div>
                   <div className="space-y-2 text-xs">
-                    <div>â˜ I can find missing numbers in advanced multiplication</div>
+                    <div>☐ I can find missing numbers in advanced multiplication</div>
                     <div>â˜ I understand the relationship between multiplication and division</div>
-                    <div>â˜ I can solve all types of missing number problems</div>
+                    <div>☐ I can solve all types of missing number problems</div>
                   </div>
                   <div className="mt-3 text-xs">
                     <strong>{getTrans('common.myScore', 'My score:')}</strong> ___ / {problems.length}
@@ -16952,9 +16952,9 @@ export function PrintablesPage() {
                 <div className="print:block hidden print:mt-0 mt-6 p-4 border-2 border-slate-300 rounded" style={{ pageBreakBefore: 'avoid', pageBreakInside: 'avoid' }}>
                   <div className="font-semibold text-slate-800 mb-3 text-sm">📊 {getTrans('common.howDidYouDo', 'How did you do?')}</div>
                   <div className="space-y-2 text-xs">
-                    <div>â˜ I can find missing numbers across all times tables</div>
+                    <div>☐ I can find missing numbers across all times tables</div>
                     <div>â˜ I understand the relationship between multiplication and division</div>
-                    <div>â˜ I can solve all types of missing number problems</div>
+                    <div>☐ I can solve all types of missing number problems</div>
                   </div>
                   <div className="mt-3 text-xs">
                     <strong>{getTrans('common.myScore', 'My score:')}</strong> ___ / {problems.length}
@@ -17072,7 +17072,7 @@ export function PrintablesPage() {
                   <div className="space-y-2 text-xs">
                     <div>â˜ I completed all problems in 2 minutes</div>
                     <div>â˜ I need more practice to go faster</div>
-                    <div>â˜ I can say the answers quickly (fluency)</div>
+                    <div>☐ I can say the answers quickly (fluency)</div>
                   </div>
                   <div className="mt-3 text-xs">
                     <strong>{getTrans('common.myScore', 'My score:')}</strong> ___ / {facts.length}
@@ -17170,7 +17170,7 @@ export function PrintablesPage() {
                   <div className="space-y-2 text-xs">
                     <div>â˜ I completed all problems in 3 minutes</div>
                     <div>â˜ I need more practice to go faster</div>
-                    <div>â˜ I can say the answers quickly (fluency)</div>
+                    <div>☐ I can say the answers quickly (fluency)</div>
                   </div>
                   <div className="mt-3 text-xs">
                     <strong>{getTrans('common.myScore', 'My score:')}</strong> ___ / {facts.length}
@@ -17268,7 +17268,7 @@ export function PrintablesPage() {
                   <div className="space-y-2 text-xs">
                     <div>â˜ I completed all problems in 5 minutes</div>
                     <div>â˜ I need more practice to go faster</div>
-                    <div>â˜ I can say the answers quickly (fluency)</div>
+                    <div>☐ I can say the answers quickly (fluency)</div>
                   </div>
                   <div className="mt-3 text-xs">
                     <strong>{getTrans('common.myScore', 'My score:')}</strong> ___ / {facts.length}
@@ -17378,7 +17378,7 @@ export function PrintablesPage() {
                 <div className="space-y-2 text-xs">
                   <div>â˜ I filled in all 25 facts correctly</div>
                   <div>â˜ I need more practice with some facts</div>
-                  <div>â˜ I can see patterns in the table</div>
+                  <div>☐ I can see patterns in the table</div>
                 </div>
                 <div className="mt-3 text-xs">
                   <strong>{getTrans('common.myScore', 'My score:')}</strong> ___ / 25
@@ -17486,7 +17486,7 @@ export function PrintablesPage() {
                 <div className="space-y-2 text-xs">
                   <div>â˜ I filled in all 49 facts correctly</div>
                   <div>â˜ I need more practice with some facts</div>
-                  <div>â˜ I can see patterns in the table</div>
+                  <div>☐ I can see patterns in the table</div>
                 </div>
                 <div className="mt-3 text-xs">
                   <strong>{getTrans('common.myScore', 'My score:')}</strong> ___ / 49
@@ -17594,7 +17594,7 @@ export function PrintablesPage() {
                 <div className="space-y-2 text-xs">
                   <div>â˜ I filled in all 144 facts correctly</div>
                   <div>â˜ I need more practice with some facts</div>
-                  <div>â˜ I can see patterns in the table</div>
+                  <div>☐ I can see patterns in the table</div>
                 </div>
                 <div className="mt-3 text-xs">
                   <strong>{getTrans('common.myScore', 'My score:')}</strong> ___ / 144
@@ -17691,7 +17691,7 @@ export function PrintablesPage() {
                   <div className="space-y-2 text-xs">
                     <div>â˜ I solved all problems correctly</div>
                     <div>â˜ I feel more confident with multiplication</div>
-                    <div>â˜ I can explain how I solved the problems</div>
+                    <div>☐ I can explain how I solved the problems</div>
                   </div>
                   <div className="mt-3 text-xs">
                     <strong>{getTrans('common.myScore', 'My score:')}</strong> ___ / {facts.length}
@@ -17789,7 +17789,7 @@ export function PrintablesPage() {
                   <div className="space-y-2 text-xs">
                     <div>â˜ I solved all problems correctly</div>
                     <div>â˜ I feel more confident with advanced multiplication</div>
-                    <div>â˜ I can explain my strategies</div>
+                    <div>☐ I can explain my strategies</div>
                   </div>
                   <div className="mt-3 text-xs">
                     <strong>{getTrans('common.myScore', 'My score:')}</strong> ___ / {facts.length}
@@ -17880,9 +17880,9 @@ export function PrintablesPage() {
                 <div className="print:block hidden print:mt-0 mt-6 p-4 border-2 border-slate-300 rounded" style={{ pageBreakBefore: 'avoid', pageBreakInside: 'avoid' }}>
                   <div className="font-semibold text-slate-800 mb-3 text-sm">📊 {getTrans('common.howDidYouDo', 'How did you do?')}</div>
                   <div className="space-y-2 text-xs">
-                    <div>â˜ I can answer most facts quickly (fluency)</div>
+                    <div>☐ I can answer most facts quickly (fluency)</div>
                     <div>â˜ I need more practice to build speed</div>
-                    <div>â˜ I can say the answers instantly</div>
+                    <div>☐ I can say the answers instantly</div>
                   </div>
                   <div className="mt-3 text-xs">
                     <strong>{getTrans('common.myScore', 'My score:')}</strong> ___ / {facts.length}
@@ -17976,9 +17976,9 @@ export function PrintablesPage() {
                 <div className="print:block hidden print:mt-0 mt-6 p-4 border-2 border-slate-300 rounded" style={{ pageBreakBefore: 'avoid', pageBreakInside: 'avoid' }}>
                   <div className="font-semibold text-slate-800 mb-3 text-sm">📊 {getTrans('common.howDidYouDo', 'How did you do?')}</div>
                   <div className="space-y-2 text-xs">
-                    <div>â˜ I can solve all facts in mixed order</div>
+                    <div>☐ I can solve all facts in mixed order</div>
                     <div>â˜ I need more practice with some facts</div>
-                    <div>â˜ I can answer quickly even when mixed up</div>
+                    <div>☐ I can answer quickly even when mixed up</div>
                   </div>
                   <div className="mt-3 text-xs">
                     <strong>{getTrans('common.myScore', 'My score:')}</strong> ___ / {facts.length}
@@ -18717,9 +18717,9 @@ export function PrintablesPage() {
                 <div className="print:block hidden print:mt-0 mt-6 p-4 border-2 border-slate-300 rounded" style={{ pageBreakBefore: 'avoid', pageBreakInside: 'avoid' }}>
                   <div className="font-semibold text-slate-800 mb-3 text-sm">📊 {getTrans('common.howDidYouDo', 'How did you do?')}</div>
                   <div className="space-y-2 text-xs">
-                    <div>â˜ I can count objects from 1 to 10</div>
-                    <div>â˜ I can write numbers 1–10</div>
-                    <div>â˜ I can match quantities to numbers</div>
+                    <div>☐ I can count objects from 1 to 10</div>
+                    <div>☐ I can write numbers 1–10</div>
+                    <div>☐ I can match quantities to numbers</div>
                   </div>
                   <div className="mt-3 text-xs">
                     <strong>{getTrans('common.myScore', 'My score:')}</strong> ___ / {problems.length}
@@ -18845,9 +18845,9 @@ export function PrintablesPage() {
                 <div className="print:block hidden print:mt-0 mt-6 p-4 border-2 border-slate-300 rounded" style={{ pageBreakBefore: 'avoid', pageBreakInside: 'avoid' }}>
                   <div className="font-semibold text-slate-800 mb-3 text-sm">📊 {getTrans('common.howDidYouDo', 'How did you do?')}</div>
                   <div className="space-y-2 text-xs">
-                    <div>â˜ I can recognize numbers 1–10</div>
-                    <div>â˜ I can count objects accurately</div>
-                    <div>â˜ I can match numbers to quantities</div>
+                    <div>☐ I can recognize numbers 1–10</div>
+                    <div>☐ I can count objects accurately</div>
+                    <div>☐ I can match numbers to quantities</div>
                   </div>
                   <div className="mt-3 text-xs">
                     <strong>{getTrans('common.myScore', 'My score:')}</strong> ___ / {numbers.length}
@@ -18948,9 +18948,9 @@ export function PrintablesPage() {
                 <div className="print:block hidden print:mt-0 mt-6 p-4 border-2 border-slate-300 rounded" style={{ pageBreakBefore: 'avoid', pageBreakInside: 'avoid' }}>
                   <div className="font-semibold text-slate-800 mb-3 text-sm">📊 {getTrans('common.howDidYouDo', 'How did you do?')}</div>
                   <div className="space-y-2 text-xs">
-                    <div>â˜ I can identify basic shapes</div>
-                    <div>â˜ I can say shape names</div>
-                    <div>â˜ I can follow color instructions</div>
+                    <div>☐ I can identify basic shapes</div>
+                    <div>☐ I can say shape names</div>
+                    <div>☐ I can follow color instructions</div>
                   </div>
                   <div className="mt-3 text-xs">
                     <strong>{getTrans('common.myScore', 'My score:')}</strong> ___ / {shapesData.length}
@@ -19296,9 +19296,9 @@ export function PrintablesPage() {
                 <div className="print:block hidden print:mt-0 mt-6 p-4 border-2 border-slate-300 rounded" style={{ pageBreakBefore: 'avoid', pageBreakInside: 'avoid' }}>
                   <div className="font-semibold text-slate-800 mb-3 text-sm">📊 {getTrans('common.howDidYouDo', 'How did you do?')}</div>
                   <div className="space-y-2 text-xs">
-                    <div>â˜ I can count objects in groups</div>
-                    <div>â˜ I can add two groups together</div>
-                    <div>â˜ I can write addition answers</div>
+                    <div>☐ I can count objects in groups</div>
+                    <div>☐ I can add two groups together</div>
+                    <div>☐ I can write addition answers</div>
                   </div>
                   <div className="mt-3 text-xs">
                     <strong>{getTrans('common.myScore', 'My score:')}</strong> ___ / {problems.length}
@@ -19589,9 +19589,9 @@ export function PrintablesPage() {
                 <div className="print:block hidden print:mt-0 mt-6 p-4 border-2 border-slate-300 rounded" style={{ pageBreakBefore: 'avoid', pageBreakInside: 'avoid' }}>
                   <div className="font-semibold text-slate-800 mb-3 text-sm">📊 {getTrans('common.howDidYouDo', 'How did you do?')}</div>
                   <div className="space-y-2 text-xs">
-                    <div>â˜ I can count characters from 1 to 10</div>
-                    <div>â˜ I can write numbers 1–10</div>
-                    <div>â˜ I can match quantities to numbers</div>
+                    <div>☐ I can count characters from 1 to 10</div>
+                    <div>☐ I can write numbers 1–10</div>
+                    <div>☐ I can match quantities to numbers</div>
                   </div>
                   <div className="mt-3 text-xs">
                     <strong>{getTrans('common.myScore', 'My score:')}</strong> ___ / {problems.length}
@@ -19721,8 +19721,8 @@ export function PrintablesPage() {
                 <div className="print:block hidden print:mt-0 mt-6 p-4 border-2 border-indigo-200 rounded bg-indigo-50" style={{ pageBreakBefore: 'avoid', pageBreakInside: 'avoid' }}>
                   <div className="font-bold text-indigo-900 mb-3 text-sm font-serif">ðŸ° ROYAL REFLECTION CHECK</div>
                   <div className="space-y-2 text-xs text-indigo-800">
-                    <div>â˜ I can double numbers 1-5</div>
-                    <div>â˜ I can double numbers 6-10</div>
+                    <div>☐ I can double numbers 1-5</div>
+                    <div>☐ I can double numbers 6-10</div>
                     <div>â˜ I know my doubles facts by heart</div>
                   </div>
                 </div>
@@ -20070,8 +20070,8 @@ export function PrintablesPage() {
                 <div className="print:block hidden print:mt-0 mt-6 p-4 border-2 border-slate-300 rounded" style={{ pageBreakBefore: 'avoid', pageBreakInside: 'avoid' }}>
                   <div className="font-semibold text-slate-800 mb-3 text-sm">📊 {getTrans('common.howDidYouDo', 'How did you do?')}</div>
                   <div className="space-y-2 text-xs">
-                    <div>â˜ I can count objects accurately up to 15</div>
-                    <div>â˜ I can write numbers correctly</div>
+                    <div>☐ I can count objects accurately up to 15</div>
+                    <div>☐ I can write numbers correctly</div>
                     <div>â˜ I wrote all {problems.length} numbers correctly</div>
                   </div>
                   <div className="mt-3 text-xs">
@@ -21120,11 +21120,11 @@ export function PrintablesPage() {
             const rng = makeRng(`${effectiveSeed}|v${variant}|doc=${doc}`)
             // Animal Parade Theme
             const animals = [
-              { name: 'Elephant', icon: 'ðŸ˜' },
-              { name: 'Zebra', icon: 'ðŸ¦“' },
-              { name: 'Lion', icon: 'ðŸ¦' },
-              { name: 'Giraffe', icon: 'ðŸ¦’' },
-              { name: 'Hippo', icon: 'ðŸ¦›' }
+              { name: 'Elephant', icon: '🐘' },
+              { name: 'Zebra', icon: '🦓' },
+              { name: 'Lion', icon: '🦁' },
+              { name: 'Giraffe', icon: '🦒' },
+              { name: 'Hippo', icon: '🦛' }
             ]
 
             const problems = Array.from({ length: 5 }, () => {
@@ -21218,10 +21218,10 @@ export function PrintablesPage() {
           activeDocs.includes('line-tracing') && (() => {
             // Static but rendered via code for PDF compatibility
             const tracks = [
-              { type: 'Straight', path: 'M 10,25 L 290,25', color: '#3b82f6', icon: 'ðŸŽï¸' },
-              { type: 'Curvy', path: 'M 10,25 Q 80,5 150,25 T 290,25', color: '#ef4444', icon: 'ðŸï¸' },
-              { type: 'ZigZag', path: 'M 10,25 L 45,5 L 80,45 L 115,5 L 150,45 L 185,5 L 220,45 L 255,5 L 290,25', color: '#eab308', icon: 'ðŸš›' },
-              { type: 'Loop', path: 'M 10,25 C 80,25 80,-15 150,25 S 220,-15 290,25', color: '#8b5cf6', icon: 'ðŸš“' }
+              { type: 'Straight', path: 'M 10,25 L 290,25', color: '#3b82f6', icon: '➖' },
+              { type: 'Curvy', path: 'M 10,25 Q 80,5 150,25 T 290,25', color: '#ef4444', icon: '〰' },
+              { type: 'ZigZag', path: 'M 10,25 L 45,5 L 80,45 L 115,5 L 150,45 L 185,5 L 220,45 L 255,5 L 290,25', color: '#eab308', icon: '⚡' },
+              { type: 'Loop', path: 'M 10,25 C 80,25 80,-15 150,25 S 220,-15 290,25', color: '#8b5cf6', icon: '➰' }
             ]
 
             return (
@@ -21349,10 +21349,10 @@ export function PrintablesPage() {
 
             // Concepts: Matching shapes to outlines
             const shapeItems = [
-              { name: 'Square', solid: 'ðŸŸ¦', outline: 'â¬œ', style: 'rounded-none' },
-              { name: 'Circle', solid: '🔍´', outline: 'âšª', style: 'rounded-full' },
-              { name: 'Diamond', solid: '🔍·', outline: 'âœ¨', style: 'rotate-45' }, // Using emoji for simplicity
-              { name: 'Star', solid: '⭐', outline: 'â˜†', style: '' }
+              { name: 'Square', solid: '🟦', outline: '⬜', style: 'rounded-none' },
+              { name: 'Circle', solid: '🔴', outline: '⚪', style: 'rounded-full' },
+              { name: 'Diamond', solid: '🔶', outline: '◇', style: 'rotate-45' }, // Using emoji for simplicity
+              { name: 'Star', solid: '⭐', outline: '☆', style: '' }
             ]
 
             const problems = Array.from({ length: 4 }, () => {
@@ -21621,9 +21621,9 @@ export function PrintablesPage() {
                 <div className="print:block hidden print:mt-0 mt-6 p-4 border-2 border-slate-300 rounded" style={{ pageBreakBefore: 'avoid', pageBreakInside: 'avoid' }}>
                   <div className="font-semibold text-slate-800 mb-3 text-sm">{getTrans('worksheets.number-id-1-10.selfCheck.title', '📊 How did you do?')}</div>
                   <div className="space-y-2 text-xs">
-                    <div>â˜ {getTrans('worksheets.number-id-1-10.selfCheck.canIdentify', 'I can identify numbers 1-10')}</div>
-                    <div>â˜ {getTrans('worksheets.number-id-1-10.selfCheck.found', `I found all the ${formattedTarget}s`).replace(/\{\{number\}\}/g, formattedTarget)}</div>
-                    <div>â˜ {getTrans('worksheets.number-id-1-10.selfCheck.circled', `I circled ${formattedCount} ${formattedTarget}s correctly`).replace(/\{\{count\}\}/g, formattedCount).replace(/\{\{number\}\}/g, formattedTarget)}</div>
+                    <div>☐ I can identify numbers 1-10')}</div>
+                    <div>☐ {getTrans('worksheets.number-id-1-10.selfCheck.found', `I found all the ${formattedTarget}s`).replace(/\{\{number\}\}/g, formattedTarget)}</div>
+                    <div>☐ {getTrans('worksheets.number-id-1-10.selfCheck.circled', `I circled ${formattedCount} ${formattedTarget}s correctly`).replace(/\{\{count\}\}/g, formattedCount).replace(/\{\{number\}\}/g, formattedTarget)}</div>
                   </div>
                   <div className="mt-3 text-xs">
                     <strong>{getTrans('worksheets.number-id-1-10.selfCheck.score', 'My score:')}</strong> ___ / {formattedCount}
@@ -21741,8 +21741,8 @@ export function PrintablesPage() {
                 <div className="print:block hidden print:mt-0 mt-6 p-4 border-2 border-slate-300 rounded" style={{ pageBreakBefore: 'avoid', pageBreakInside: 'avoid' }}>
                   <div className="font-semibold text-slate-800 mb-3 text-sm">📊 {getTrans('common.howDidYouDo', 'How did you do?')}</div>
                   <div className="space-y-2 text-xs">
-                    <div>â˜ I can match numerals to number words</div>
-                    <div>â˜ I can read number words correctly</div>
+                    <div>☐ I can match numerals to number words</div>
+                    <div>☐ I can read number words correctly</div>
                     <div>â˜ I matched all {problems.length} pairs correctly</div>
                   </div>
                   <div className="mt-3 text-xs">
@@ -21849,7 +21849,7 @@ export function PrintablesPage() {
                 <div className="print:block hidden print:mt-0 mt-6 p-4 border-2 border-slate-300 rounded" style={{ pageBreakBefore: 'avoid', pageBreakInside: 'avoid' }}>
                   <div className="font-semibold text-slate-800 mb-3 text-sm">📊 {getTrans('common.howDidYouDo', 'How did you do?')}</div>
                   <div className="space-y-2 text-xs">
-                    <div>â˜ I can order numbers from smallest to largest</div>
+                    <div>☐ I can order numbers from smallest to largest</div>
                     <div>â˜ I understand number sequence</div>
                     <div>â˜ I ordered all {problems.length} rows correctly</div>
                   </div>
@@ -21941,7 +21941,7 @@ export function PrintablesPage() {
                 <div className="print:block hidden print:mt-0 mt-6 p-4 border-2 border-slate-300 rounded" style={{ pageBreakBefore: 'avoid', pageBreakInside: 'avoid' }}>
                   <div className="font-semibold text-slate-800 mb-3 text-sm">📊 {getTrans('common.howDidYouDo', 'How did you do?')}</div>
                   <div className="space-y-2 text-xs">
-                    <div>â˜ I can identify numbers 1-10</div>
+                    <div>☐ I can identify numbers 1-10</div>
                     <div>â˜ I found all the {targetNumber}s in the grid</div>
                     <div>â˜ I circled {targetCount} {targetNumber}s correctly</div>
                   </div>
@@ -22017,14 +22017,14 @@ export function PrintablesPage() {
                 <div className="print:hidden w-full h-16 mb-6 relative overflow-hidden bg-green-100 rounded-lg flex items-center justify-center border-b-4 border-green-600">
                   <div className="absolute inset-0 opacity-10" style={{ backgroundImage: 'radial-gradient(circle, #22c55e 2px, transparent 2.5px)', backgroundSize: '20px 20px' }}></div>
                   <div className="font-bold text-3xl text-green-800 tracking-wider flex items-center gap-2">
-                    🌐¿ SAFARI HUNT 🌐¿
+                    🌍 SAFARI HUNT 🌍
                   </div>
                 </div>
 
                 {/* Example */}
                 <div className="mb-6 p-4 bg-orange-50 border-2 border-orange-200 rounded-lg print:border print:bg-white dashed-border">
                   <div className="font-bold text-orange-800 mb-2 flex items-center gap-2">
-                    <span>🔍¦</span> Example Mission: Find the Circles
+                    <span>🔍</span> Example Mission: Find the Circles
                   </div>
                   <div className="flex items-center gap-4">
                     <div className="w-12 h-12 border-2 border-slate-300 rounded bg-white p-1">
@@ -22235,8 +22235,8 @@ export function PrintablesPage() {
                 <div className="print:block hidden print:mt-0 mt-6 p-4 border-2 border-slate-300 rounded" style={{ pageBreakBefore: 'avoid', pageBreakInside: 'avoid' }}>
                   <div className="font-semibold text-slate-800 mb-3 text-sm">📊 {getTrans('common.howDidYouDo', 'How did you do?')}</div>
                   <div className="space-y-2 text-xs">
-                    <div>â˜ I can identify AB patterns</div>
-                    <div>â˜ I can predict what comes next in a pattern</div>
+                    <div>☐ I can identify AB patterns</div>
+                    <div>☐ I can predict what comes next in a pattern</div>
                     <div>â˜ I completed all {patterns.length} patterns correctly</div>
                   </div>
                   <div className="mt-3 text-xs">
@@ -22354,8 +22354,8 @@ export function PrintablesPage() {
                 <div className="print:block hidden print:mt-0 mt-6 p-4 border-2 border-slate-300 rounded" style={{ pageBreakBefore: 'avoid', pageBreakInside: 'avoid' }}>
                   <div className="font-semibold text-slate-800 mb-3 text-sm">📊 {getTrans('common.howDidYouDo', 'How did you do?')}</div>
                   <div className="space-y-2 text-xs">
-                    <div>â˜ I can compare sizes: big vs. small</div>
-                    <div>â˜ I can identify which object is bigger</div>
+                    <div>☐ I can compare sizes: big vs. small</div>
+                    <div>☐ I can identify which object is bigger</div>
                     <div>â˜ I completed all {pairs.length} comparisons correctly</div>
                   </div>
                   <div className="mt-3 text-xs">
@@ -22466,8 +22466,8 @@ export function PrintablesPage() {
                 <div className="print:block hidden print:mt-0 mt-6 p-4 border-2 border-slate-300 rounded" style={{ pageBreakBefore: 'avoid', pageBreakInside: 'avoid' }}>
                   <div className="font-semibold text-slate-800 mb-3 text-sm">📊 {getTrans('common.howDidYouDo', 'How did you do?')}</div>
                   <div className="space-y-2 text-xs">
-                    <div>â˜ I can count objects accurately</div>
-                    <div>â˜ I can compare quantities: more vs. less</div>
+                    <div>☐ I can count objects accurately</div>
+                    <div>☐ I can compare quantities: more vs. less</div>
                     <div>â˜ I completed all {problems.length} comparisons correctly</div>
                   </div>
                   <div className="mt-3 text-xs">
@@ -23894,10 +23894,10 @@ export function PrintablesPage() {
                 <div className="print:block hidden print:mt-0 mt-6 p-4 border-2 border-slate-300 rounded" style={{ pageBreakBefore: 'avoid', pageBreakInside: 'avoid' }}>
                   <div className="font-semibold text-slate-800 mb-3 text-sm">📊 {getTrans('common.howDidYouDo', 'How did you do?')}</div>
                   <div className="space-y-2 text-xs">
-                    <div>â˜ I can divide numbers 1-12 easily</div>
+                    <div>☐ I can divide numbers 1-12 easily</div>
                     <div>â˜ I need more practice with some facts</div>
-                    <div>â˜ I can use multiplication to help me divide</div>
-                    <div>â˜ I can say the answers quickly (fluency)</div>
+                    <div>☐ I can use multiplication to help me divide</div>
+                    <div>☐ I can say the answers quickly (fluency)</div>
                   </div>
                   <div className="mt-3 text-xs">
                     <strong>{getTrans('common.myScore', 'My score:')}</strong> ___ / {problems.length}
@@ -27112,9 +27112,9 @@ export function PrintablesPage() {
                 <div className="print:block hidden print:mt-0 mt-6 p-4 border-2 border-slate-300 rounded" style={{ pageBreakBefore: 'avoid', pageBreakInside: 'avoid' }}>
                   <div className="font-semibold text-slate-800 mb-3 text-sm">📊 {getTrans('common.howDidYouDo', 'How did you do?')}</div>
                   <div className="space-y-2 text-xs">
-                    <div>â˜ I can divide using 2-digit divisors</div>
-                    <div>â˜ I can estimate quotients</div>
-                    <div>â˜ I can write remainders correctly</div>
+                    <div>☐ I can divide using 2-digit divisors</div>
+                    <div>☐ I can estimate quotients</div>
+                    <div>☐ I can write remainders correctly</div>
                   </div>
                   <div className="mt-3 text-xs">
                     <strong>{getTrans('common.myScore', 'My score:')}</strong> ___ / {problems.length}
@@ -27224,9 +27224,9 @@ export function PrintablesPage() {
                 <div className="print:block hidden print:mt-0 mt-6 p-4 border-2 border-slate-300 rounded" style={{ pageBreakBefore: 'avoid', pageBreakInside: 'avoid' }}>
                   <div className="font-semibold text-slate-800 mb-3 text-sm">📊 {getTrans('common.howDidYouDo', 'How did you do?')}</div>
                   <div className="space-y-2 text-xs">
-                    <div>â˜ I can use area models to multiply</div>
-                    <div>â˜ I can break numbers into parts</div>
-                    <div>â˜ I can add partial products</div>
+                    <div>☐ I can use area models to multiply</div>
+                    <div>☐ I can break numbers into parts</div>
+                    <div>☐ I can add partial products</div>
                   </div>
                   <div className="mt-3 text-xs">
                     <strong>{getTrans('common.myScore', 'My score:')}</strong> ___ / {problems.length}
@@ -27439,9 +27439,9 @@ export function PrintablesPage() {
                 <div className="print:block hidden print:mt-0 mt-6 p-4 border-2 border-slate-300 rounded" style={{ pageBreakBefore: 'avoid', pageBreakInside: 'avoid' }}>
                   <div className="font-semibold text-slate-800 mb-3 text-sm">📊 {getTrans('common.howDidYouDo', 'How did you do?')}</div>
                   <div className="space-y-2 text-xs">
-                    <div>â˜ I can compare fractions with different denominators</div>
-                    <div>â˜ I can find common denominators</div>
-                    <div>â˜ I can convert fractions to decimals to compare</div>
+                    <div>☐ I can compare fractions with different denominators</div>
+                    <div>☐ I can find common denominators</div>
+                    <div>☐ I can convert fractions to decimals to compare</div>
                   </div>
                   <div className="mt-3 text-xs">
                     <strong>{getTrans('common.myScore', 'My score:')}</strong> ___ / {problems.length}
@@ -27547,8 +27547,8 @@ export function PrintablesPage() {
                 <div className="print:block hidden print:mt-0 mt-6 p-4 border-2 border-slate-300 rounded" style={{ pageBreakBefore: 'avoid', pageBreakInside: 'avoid' }}>
                   <div className="font-semibold text-slate-800 mb-3 text-sm">📊 {getTrans('common.howDidYouDo', 'How did you do?')}</div>
                   <div className="space-y-2 text-xs">
-                    <div>â˜ I can add fractions with like denominators</div>
-                    <div>â˜ I can subtract fractions with like denominators</div>
+                    <div>☐ I can add fractions with like denominators</div>
+                    <div>☐ I can subtract fractions with like denominators</div>
                     <div>â˜ I remember to keep the denominator the same</div>
                   </div>
                   <div className="mt-3 text-xs">
@@ -27657,8 +27657,8 @@ export function PrintablesPage() {
                 <div className="print:block hidden print:mt-0 mt-6 p-4 border-2 border-slate-300 rounded" style={{ pageBreakBefore: 'avoid', pageBreakInside: 'avoid' }}>
                   <div className="font-semibold text-slate-800 mb-3 text-sm">📊 {getTrans('common.howDidYouDo', 'How did you do?')}</div>
                   <div className="space-y-2 text-xs">
-                    <div>â˜ I can convert mixed numbers to improper fractions</div>
-                    <div>â˜ I can convert improper fractions to mixed numbers</div>
+                    <div>☐ I can convert mixed numbers to improper fractions</div>
+                    <div>☐ I can convert improper fractions to mixed numbers</div>
                     <div>â˜ I understand the conversion formulas</div>
                   </div>
                   <div className="mt-3 text-xs">
@@ -27783,9 +27783,9 @@ export function PrintablesPage() {
                 <div className="print:block hidden print:mt-0 mt-6 p-4 border-2 border-slate-300 rounded" style={{ pageBreakBefore: 'avoid', pageBreakInside: 'avoid' }}>
                   <div className="font-semibold text-slate-800 mb-3 text-sm">📊 {getTrans('common.howDidYouDo', 'How did you do?')}</div>
                   <div className="space-y-2 text-xs">
-                    <div>â˜ I can add mixed numbers</div>
-                    <div>â˜ I can subtract mixed numbers</div>
-                    <div>â˜ I can regroup when needed</div>
+                    <div>☐ I can add mixed numbers</div>
+                    <div>☐ I can subtract mixed numbers</div>
+                    <div>☐ I can regroup when needed</div>
                   </div>
                   <div className="mt-3 text-xs">
                     <strong>{getTrans('common.myScore', 'My score:')}</strong> ___ / {problems.length}
@@ -27901,8 +27901,8 @@ export function PrintablesPage() {
                 <div className="print:block hidden print:mt-0 mt-6 p-4 border-2 border-slate-300 rounded" style={{ pageBreakBefore: 'avoid', pageBreakInside: 'avoid' }}>
                   <div className="font-semibold text-slate-800 mb-3 text-sm">📊 {getTrans('common.howDidYouDo', 'How did you do?')}</div>
                   <div className="space-y-2 text-xs">
-                    <div>â˜ I can identify tenths place</div>
-                    <div>â˜ I can identify hundredths place</div>
+                    <div>☐ I can identify tenths place</div>
+                    <div>☐ I can identify hundredths place</div>
                     <div>â˜ I understand decimal place values</div>
                   </div>
                   <div className="mt-3 text-xs">
@@ -27998,9 +27998,9 @@ export function PrintablesPage() {
                 <div className="print:block hidden print:mt-0 mt-6 p-4 border-2 border-slate-300 rounded" style={{ pageBreakBefore: 'avoid', pageBreakInside: 'avoid' }}>
                   <div className="font-semibold text-slate-800 mb-3 text-sm">📊 {getTrans('common.howDidYouDo', 'How did you do?')}</div>
                   <div className="space-y-2 text-xs">
-                    <div>â˜ I can compare decimals correctly</div>
+                    <div>☐ I can compare decimals correctly</div>
                   <div>☐ I understand place value when subtracting</div>
-                    <div>â˜ I can order decimals from least to greatest</div>
+                    <div>☐ I can order decimals from least to greatest</div>
                   </div>
                   <div className="mt-3 text-xs">
                     <strong>{getTrans('common.myScore', 'My score:')}</strong> ___ / {problems.length}
@@ -28102,8 +28102,8 @@ export function PrintablesPage() {
                 <div className="print:block hidden print:mt-0 mt-6 p-4 border-2 border-slate-300 rounded" style={{ pageBreakBefore: 'avoid', pageBreakInside: 'avoid' }}>
                   <div className="font-semibold text-slate-800 mb-3 text-sm">📊 {getTrans('common.howDidYouDo', 'How did you do?')}</div>
                   <div className="space-y-2 text-xs">
-                    <div>â˜ I can add decimals correctly</div>
-                    <div>â˜ I can subtract decimals correctly</div>
+                    <div>☐ I can add decimals correctly</div>
+                    <div>☐ I can subtract decimals correctly</div>
                     <div>â˜ I remember to line up decimal points</div>
                   </div>
                   <div className="mt-3 text-xs">
@@ -28203,9 +28203,9 @@ export function PrintablesPage() {
                 <div className="print:block hidden print:mt-0 mt-6 p-4 border-2 border-slate-300 rounded" style={{ pageBreakBefore: 'avoid', pageBreakInside: 'avoid' }}>
                   <div className="font-semibold text-slate-800 mb-3 text-sm">📊 {getTrans('common.howDidYouDo', 'How did you do?')}</div>
                   <div className="space-y-2 text-xs">
-                    <div>â˜ I can convert fractions to decimals</div>
+                    <div>☐ I can convert fractions to decimals</div>
                     <div>â˜ I understand that fractions are division</div>
-                    <div>â˜ I can divide to convert fractions</div>
+                    <div>☐ I can divide to convert fractions</div>
                   </div>
                   <div className="mt-3 text-xs">
                     <strong>{getTrans('common.myScore', 'My score:')}</strong> ___ / {problems.length}
@@ -28303,9 +28303,9 @@ export function PrintablesPage() {
                 <div className="print:block hidden print:mt-0 mt-6 p-4 border-2 border-slate-300 rounded" style={{ pageBreakBefore: 'avoid', pageBreakInside: 'avoid' }}>
                   <div className="font-semibold text-slate-800 mb-3 text-sm">📊 {getTrans('common.howDidYouDo', 'How did you do?')}</div>
                   <div className="space-y-2 text-xs">
-                    <div>â˜ I can convert tenths fractions to decimals</div>
+                    <div>☐ I can convert tenths fractions to decimals</div>
                     <div>â˜ I understand that 10 in the denominator means one decimal place</div>
-                    <div>â˜ I can recognize the pattern</div>
+                    <div>☐ I can recognize the pattern</div>
                   </div>
                   <div className="mt-3 text-xs">
                     <strong>{getTrans('common.myScore', 'My score:')}</strong> ___ / {problems.length}
@@ -28404,7 +28404,7 @@ export function PrintablesPage() {
                 <div className="print:block hidden print:mt-0 mt-6 p-4 border-2 border-slate-300 rounded" style={{ pageBreakBefore: 'avoid', pageBreakInside: 'avoid' }}>
                   <div className="font-semibold text-slate-800 mb-3 text-sm">📊 {getTrans('common.howDidYouDo', 'How did you do?')}</div>
                   <div className="space-y-2 text-xs">
-                    <div>â˜ I can use long division to convert fractions</div>
+                    <div>☐ I can use long division to convert fractions</div>
                     <div>â˜ I understand terminating decimals</div>
                     <div>â˜ I understand repeating decimals</div>
                   </div>
@@ -28505,8 +28505,8 @@ export function PrintablesPage() {
                 <div className="print:block hidden print:mt-0 mt-6 p-4 border-2 border-slate-300 rounded" style={{ pageBreakBefore: 'avoid', pageBreakInside: 'avoid' }}>
                   <div className="font-semibold text-slate-800 mb-3 text-sm">📊 {getTrans('common.howDidYouDo', 'How did you do?')}</div>
                   <div className="space-y-2 text-xs">
-                    <div>â˜ I can multiply fractions correctly</div>
-                    <div>â˜ I can simplify fractions</div>
+                    <div>☐ I can multiply fractions correctly</div>
+                    <div>☐ I can simplify fractions</div>
                     <div>â˜ I understand the process</div>
                   </div>
                   <div className="mt-3 text-xs">
@@ -28616,9 +28616,9 @@ export function PrintablesPage() {
                 <div className="print:block hidden print:mt-0 mt-6 p-4 border-2 border-slate-300 rounded" style={{ pageBreakBefore: 'avoid', pageBreakInside: 'avoid' }}>
                   <div className="font-semibold text-slate-800 mb-3 text-sm">📊 {getTrans('common.howDidYouDo', 'How did you do?')}</div>
                   <div className="space-y-2 text-xs">
-                    <div>â˜ I can use Keep, Change, Flip correctly</div>
-                    <div>â˜ I can divide fractions</div>
-                    <div>â˜ I can simplify my answers</div>
+                    <div>☐ I can use Keep, Change, Flip correctly</div>
+                    <div>☐ I can divide fractions</div>
+                    <div>☐ I can simplify my answers</div>
                   </div>
                   <div className="mt-3 text-xs">
                     <strong>{getTrans('common.myScore', 'My score:')}</strong> ___ / {problems.length}
@@ -28721,9 +28721,9 @@ export function PrintablesPage() {
                 <div className="print:block hidden print:mt-0 mt-6 p-4 border-2 border-slate-300 rounded" style={{ pageBreakBefore: 'avoid', pageBreakInside: 'avoid' }}>
                   <div className="font-semibold text-slate-800 mb-3 text-sm">📊 {getTrans('common.howDidYouDo', 'How did you do?')}</div>
                   <div className="space-y-2 text-xs">
-                    <div>â˜ I can multiply decimals correctly</div>
-                    <div>â˜ I can count decimal places</div>
-                    <div>â˜ I can place the decimal point correctly</div>
+                    <div>☐ I can multiply decimals correctly</div>
+                    <div>☐ I can count decimal places</div>
+                    <div>☐ I can place the decimal point correctly</div>
                   </div>
                   <div className="mt-3 text-xs">
                     <strong>{getTrans('common.myScore', 'My score:')}</strong> ___ / {problems.length}
@@ -28824,9 +28824,9 @@ export function PrintablesPage() {
                 <div className="print:block hidden print:mt-0 mt-6 p-4 border-2 border-slate-300 rounded" style={{ pageBreakBefore: 'avoid', pageBreakInside: 'avoid' }}>
                   <div className="font-semibold text-slate-800 mb-3 text-sm">📊 {getTrans('common.howDidYouDo', 'How did you do?')}</div>
                   <div className="space-y-2 text-xs">
-                    <div>â˜ I can divide decimals correctly</div>
-                    <div>â˜ I can move decimal points correctly</div>
-                    <div>â˜ I can place the decimal point in the answer</div>
+                    <div>☐ I can divide decimals correctly</div>
+                    <div>☐ I can move decimal points correctly</div>
+                    <div>☐ I can place the decimal point in the answer</div>
                   </div>
                   <div className="mt-3 text-xs">
                     <strong>{getTrans('common.myScore', 'My score:')}</strong> ___ / {problems.length}
@@ -28931,9 +28931,9 @@ export function PrintablesPage() {
                 <div className="print:block hidden print:mt-0 mt-6 p-4 border-2 border-slate-300 rounded" style={{ pageBreakBefore: 'avoid', pageBreakInside: 'avoid' }}>
                   <div className="font-semibold text-slate-800 mb-3 text-sm">📊 {getTrans('common.howDidYouDo', 'How did you do?')}</div>
                   <div className="space-y-2 text-xs">
-                    <div>â˜ I can do long division correctly</div>
-                    <div>â˜ I can show all my steps</div>
-                    <div>â˜ I can find remainders</div>
+                    <div>☐ I can do long division correctly</div>
+                    <div>☐ I can show all my steps</div>
+                    <div>☐ I can find remainders</div>
                   </div>
                   <div className="mt-3 text-xs">
                     <strong>{getTrans('common.myScore', 'My score:')}</strong> ___ / {problems.length}
@@ -29040,9 +29040,9 @@ export function PrintablesPage() {
                 <div className="print:block hidden print:mt-0 mt-6 p-4 border-2 border-slate-300 rounded" style={{ pageBreakBefore: 'avoid', pageBreakInside: 'avoid' }}>
                   <div className="font-semibold text-slate-800 mb-3 text-sm">📊 {getTrans('common.howDidYouDo', 'How did you do?')}</div>
                   <div className="space-y-2 text-xs">
-                    <div>â˜ I can use PEMDAS correctly</div>
+                    <div>☐ I can use PEMDAS correctly</div>
                     <div>â˜ I remember the order of operations</div>
-                    <div>â˜ I can solve multi-step expressions</div>
+                    <div>☐ I can solve multi-step expressions</div>
                   </div>
                   <div className="mt-3 text-xs">
                     <strong>{getTrans('common.myScore', 'My score:')}</strong> ___ / {problems.length}
@@ -29980,9 +29980,9 @@ export function PrintablesPage() {
                 <div className="print:block hidden print:mt-0 mt-6 p-4 border-2 border-slate-300 rounded" style={{ pageBreakBefore: 'avoid', pageBreakInside: 'avoid' }}>
                   <div className="font-semibold text-slate-800 mb-3 text-sm">📊 {getTrans('common.howDidYouDo', 'How did you do?')}</div>
                   <div className="space-y-2 text-xs">
-                    <div>â˜ I can multiply by powers of 10</div>
+                    <div>☐ I can multiply by powers of 10</div>
                     <div>â˜ I understand what 10Â² and 10Â³ mean</div>
-                    <div>â˜ I can calculate the answers correctly</div>
+                    <div>☐ I can calculate the answers correctly</div>
                   </div>
                   <div className="mt-3 text-xs">
                     <strong>{getTrans('common.myScore', 'My score:')}</strong> ___ / {problems.length}
@@ -30171,9 +30171,9 @@ export function PrintablesPage() {
                 <div className="print:block hidden print:mt-0 mt-6 p-4 border-2 border-slate-300 rounded" style={{ pageBreakBefore: 'avoid', pageBreakInside: 'avoid' }}>
                   <div className="font-semibold text-slate-800 mb-3 text-sm">📊 {getTrans('common.howDidYouDo', 'How did you do?')}</div>
                   <div className="space-y-2 text-xs">
-                    <div>â˜ I can round decimals to whole numbers</div>
-                    <div>â˜ I can round decimals to tenths</div>
-                    <div>â˜ I can round decimals to hundredths</div>
+                    <div>☐ I can round decimals to whole numbers</div>
+                    <div>☐ I can round decimals to tenths</div>
+                    <div>☐ I can round decimals to hundredths</div>
                   </div>
                   <div className="mt-3 text-xs">
                     <strong>{getTrans('common.myScore', 'My score:')}</strong> ___ / {problems.length}
@@ -30299,9 +30299,9 @@ export function PrintablesPage() {
                 <div className="print:block hidden print:mt-0 mt-6 p-4 border-2 border-slate-300 rounded" style={{ pageBreakBefore: 'avoid', pageBreakInside: 'avoid' }}>
                   <div className="font-semibold text-slate-800 mb-3 text-sm">📊 {getTrans('common.howDidYouDo', 'How did you do?')}</div>
                   <div className="space-y-2 text-xs">
-                    <div>â˜ I can estimate sums</div>
-                    <div>â˜ I can estimate differences</div>
-                    <div>â˜ I can round to the nearest ten</div>
+                    <div>☐ I can estimate sums</div>
+                    <div>☐ I can estimate differences</div>
+                    <div>☐ I can round to the nearest ten</div>
                   </div>
                   <div className="mt-3 text-xs">
                     <strong>{getTrans('common.myScore', 'My score:')}</strong> ___ / {problems.length}
@@ -30403,8 +30403,8 @@ export function PrintablesPage() {
                 <div className="print:block hidden print:mt-0 mt-6 p-4 border-2 border-slate-300 rounded" style={{ pageBreakBefore: 'avoid', pageBreakInside: 'avoid' }}>
                   <div className="font-semibold text-slate-800 mb-3 text-sm">📊 {getTrans('common.howDidYouDo', 'How did you do?')}</div>
                   <div className="space-y-2 text-xs">
-                    <div>â˜ I can find the area of rectangles</div>
-                    <div>â˜ I can find the perimeter of rectangles</div>
+                    <div>☐ I can find the area of rectangles</div>
+                    <div>☐ I can find the perimeter of rectangles</div>
                     <div>â˜ I understand the difference between area and perimeter</div>
                   </div>
                   <div className="mt-3 text-xs">
@@ -30524,8 +30524,8 @@ export function PrintablesPage() {
                 <div className="print:block hidden print:mt-0 mt-6 p-4 border-2 border-slate-300 rounded" style={{ pageBreakBefore: 'avoid', pageBreakInside: 'avoid' }}>
                   <div className="font-semibold text-slate-800 mb-3 text-sm">📊 {getTrans('common.howDidYouDo', 'How did you do?')}</div>
                   <div className="space-y-2 text-xs">
-                    <div>â˜ I can find the area of triangles</div>
-                    <div>â˜ I can find the area of parallelograms</div>
+                    <div>☐ I can find the area of triangles</div>
+                    <div>☐ I can find the area of parallelograms</div>
                     <div>â˜ I remember the formulas</div>
                   </div>
                   <div className="mt-3 text-xs">
@@ -30624,7 +30624,7 @@ export function PrintablesPage() {
                 <div className="print:block hidden print:mt-0 mt-6 p-4 border-2 border-slate-300 rounded" style={{ pageBreakBefore: 'avoid', pageBreakInside: 'avoid' }}>
                   <div className="font-semibold text-slate-800 mb-3 text-sm">📊 {getTrans('common.howDidYouDo', 'How did you do?')}</div>
                   <div className="space-y-2 text-xs">
-                    <div>â˜ I can calculate volume</div>
+                    <div>☐ I can calculate volume</div>
                     <div>â˜ I remember the formula V = l Ã— w Ã— h</div>
                     <div>â˜ I understand cubic units</div>
                   </div>
@@ -30729,9 +30729,9 @@ export function PrintablesPage() {
                 <div className="print:block hidden print:mt-0 mt-6 p-4 border-2 border-slate-300 rounded" style={{ pageBreakBefore: 'avoid', pageBreakInside: 'avoid' }}>
                   <div className="font-semibold text-slate-800 mb-3 text-sm">📊 {getTrans('common.howDidYouDo', 'How did you do?')}</div>
                   <div className="space-y-2 text-xs">
-                    <div>â˜ I can classify acute angles</div>
-                    <div>â˜ I can classify right angles</div>
-                    <div>â˜ I can classify obtuse and straight angles</div>
+                    <div>☐ I can classify acute angles</div>
+                    <div>☐ I can classify right angles</div>
+                    <div>☐ I can classify obtuse and straight angles</div>
                   </div>
                   <div className="mt-3 text-xs">
                     <strong>{getTrans('common.myScore', 'My score:')}</strong> ___ / {angles.length}
@@ -30852,9 +30852,9 @@ export function PrintablesPage() {
                 <div className="print:block hidden print:mt-0 mt-6 p-4 border-2 border-slate-300 rounded" style={{ pageBreakBefore: 'avoid', pageBreakInside: 'avoid' }}>
                   <div className="font-semibold text-slate-800 mb-3 text-sm">📊 {getTrans('common.howDidYouDo', 'How did you do?')}</div>
                   <div className="space-y-2 text-xs">
-                    <div>â˜ I can classify triangles by side lengths</div>
+                    <div>☐ I can classify triangles by side lengths</div>
                     <div>â˜ I know the difference between equilateral, isosceles, and scalene</div>
-                    <div>â˜ I can count equal sides correctly</div>
+                    <div>☐ I can count equal sides correctly</div>
                   </div>
                   <div className="mt-3 text-xs">
                     <strong>{getTrans('common.myScore', 'My score:')}</strong> ___ / {triangles.length}
@@ -30952,9 +30952,9 @@ export function PrintablesPage() {
                 <div className="print:block hidden print:mt-0 mt-6 p-4 border-2 border-slate-300 rounded" style={{ pageBreakBefore: 'avoid', pageBreakInside: 'avoid' }}>
                   <div className="font-semibold text-slate-800 mb-3 text-sm">📊 {getTrans('common.howDidYouDo', 'How did you do?')}</div>
                   <div className="space-y-2 text-xs">
-                    <div>â˜ I can identify different quadrilaterals</div>
+                    <div>☐ I can identify different quadrilaterals</div>
                     <div>â˜ I know the properties of each quadrilateral</div>
-                    <div>â˜ I can draw and label quadrilaterals</div>
+                    <div>☐ I can draw and label quadrilaterals</div>
                   </div>
                   <div className="mt-3 text-xs">
                     <strong>{getTrans('common.myScore', 'My score:')}</strong> ___ / {shapes.length}
@@ -31091,9 +31091,9 @@ export function PrintablesPage() {
                 <div className="print:block hidden print:mt-0 mt-6 p-4 border-2 border-slate-300 rounded" style={{ pageBreakBefore: 'avoid', pageBreakInside: 'avoid' }}>
                   <div className="font-semibold text-slate-800 mb-3 text-sm">📊 {getTrans('common.howDidYouDo', 'How did you do?')}</div>
                   <div className="space-y-2 text-xs">
-                    <div>â˜ I can identify shapes by counting sides</div>
+                    <div>☐ I can identify shapes by counting sides</div>
                     <div>â˜ I remember the names of polygons</div>
-                    <div>â˜ I can classify shapes correctly</div>
+                    <div>☐ I can classify shapes correctly</div>
                   </div>
                   <div className="mt-3 text-xs">
                     <strong>{getTrans('common.myScore', 'My score:')}</strong> ___ / {shapes.length}
@@ -31192,9 +31192,9 @@ export function PrintablesPage() {
                 <div className="print:block hidden print:mt-0 mt-6 p-4 border-2 border-slate-300 rounded" style={{ pageBreakBefore: 'avoid', pageBreakInside: 'avoid' }}>
                   <div className="font-semibold text-slate-800 mb-3 text-sm">📊 {getTrans('common.howDidYouDo', 'How did you do?')}</div>
                   <div className="space-y-2 text-xs">
-                    <div>â˜ I can convert between customary units</div>
+                    <div>☐ I can convert between customary units</div>
                     <div>â˜ I remember the conversion facts</div>
-                    <div>â˜ I can multiply and divide for conversions</div>
+                    <div>☐ I can multiply and divide for conversions</div>
                   </div>
                   <div className="mt-3 text-xs">
                     <strong>{getTrans('common.myScore', 'My score:')}</strong> ___ / {problems.length}
@@ -31292,9 +31292,9 @@ export function PrintablesPage() {
                 <div className="print:block hidden print:mt-0 mt-6 p-4 border-2 border-slate-300 rounded" style={{ pageBreakBefore: 'avoid', pageBreakInside: 'avoid' }}>
                   <div className="font-semibold text-slate-800 mb-3 text-sm">📊 {getTrans('common.howDidYouDo', 'How did you do?')}</div>
                   <div className="space-y-2 text-xs">
-                    <div>â˜ I can convert between metric units</div>
+                    <div>☐ I can convert between metric units</div>
                     <div>â˜ I remember the conversion facts</div>
-                    <div>â˜ I can multiply and divide for conversions</div>
+                    <div>☐ I can multiply and divide for conversions</div>
                   </div>
                   <div className="mt-3 text-xs">
                     <strong>{getTrans('common.myScore', 'My score:')}</strong> ___ / {problems.length}
@@ -31392,9 +31392,9 @@ export function PrintablesPage() {
                 <div className="print:block hidden print:mt-0 mt-6 p-4 border-2 border-slate-300 rounded" style={{ pageBreakBefore: 'avoid', pageBreakInside: 'avoid' }}>
                   <div className="font-semibold text-slate-800 mb-3 text-sm">📊 {getTrans('common.howDidYouDo', 'How did you do?')}</div>
                   <div className="space-y-2 text-xs">
-                    <div>â˜ I can calculate elapsed time</div>
+                    <div>☐ I can calculate elapsed time</div>
                     <div>â˜ I understand hours and minutes</div>
-                    <div>â˜ I can use a clock or number line</div>
+                    <div>☐ I can use a clock or number line</div>
                   </div>
                   <div className="mt-3 text-xs">
                     <strong>{getTrans('common.myScore', 'My score:')}</strong> ___ / {times.length}
@@ -31490,9 +31490,9 @@ export function PrintablesPage() {
                 <div className="print:block hidden print:mt-0 mt-6 p-4 border-2 border-slate-300 rounded" style={{ pageBreakBefore: 'avoid', pageBreakInside: 'avoid' }}>
                   <div className="font-semibold text-slate-800 mb-3 text-sm">📊 {getTrans('common.howDidYouDo', 'How did you do?')}</div>
                   <div className="space-y-2 text-xs">
-                    <div>â˜ I can convert between liquid measurements</div>
+                    <div>☐ I can convert between liquid measurements</div>
                     <div>â˜ I remember the conversion facts</div>
-                    <div>â˜ I can multiply and divide for conversions</div>
+                    <div>☐ I can multiply and divide for conversions</div>
                   </div>
                   <div className="mt-3 text-xs">
                     <strong>{getTrans('common.myScore', 'My score:')}</strong> ___ / {problems.length}
@@ -31589,9 +31589,9 @@ export function PrintablesPage() {
                 <div className="print:block hidden print:mt-0 mt-6 p-4 border-2 border-slate-300 rounded" style={{ pageBreakBefore: 'avoid', pageBreakInside: 'avoid' }}>
                   <div className="font-semibold text-slate-800 mb-3 text-sm">📊 {getTrans('common.howDidYouDo', 'How did you do?')}</div>
                   <div className="space-y-2 text-xs">
-                    <div>â˜ I can convert between ounces and pounds</div>
+                    <div>☐ I can convert between ounces and pounds</div>
                     <div>â˜ I remember the conversion facts</div>
-                    <div>â˜ I can multiply and divide for conversions</div>
+                    <div>☐ I can multiply and divide for conversions</div>
                   </div>
                   <div className="mt-3 text-xs">
                     <strong>{getTrans('common.myScore', 'My score:')}</strong> ___ / {problems.length}
@@ -31691,9 +31691,9 @@ export function PrintablesPage() {
                 <div className="print:block hidden print:mt-0 mt-6 p-4 border-2 border-slate-300 rounded" style={{ pageBreakBefore: 'avoid', pageBreakInside: 'avoid' }}>
                   <div className="font-semibold text-slate-800 mb-3 text-sm">📊 {getTrans('common.howDidYouDo', 'How did you do?')}</div>
                   <div className="space-y-2 text-xs">
-                    <div>â˜ I can identify parallel lines</div>
-                    <div>â˜ I can identify perpendicular lines</div>
-                    <div>â˜ I can identify intersecting lines</div>
+                    <div>☐ I can identify parallel lines</div>
+                    <div>☐ I can identify perpendicular lines</div>
+                    <div>☐ I can identify intersecting lines</div>
                   </div>
                   <div className="mt-3 text-xs">
                     <strong>{getTrans('common.myScore', 'My score:')}</strong> ___ / {lines.length}
@@ -31786,8 +31786,8 @@ export function PrintablesPage() {
                 <div className="print:block hidden print:mt-0 mt-6 p-4 border-2 border-slate-300 rounded" style={{ pageBreakBefore: 'avoid', pageBreakInside: 'avoid' }}>
                   <div className="font-semibold text-slate-800 mb-3 text-sm">📊 {getTrans('common.howDidYouDo', 'How did you do?')}</div>
                   <div className="space-y-2 text-xs">
-                    <div>â˜ I can identify lines of symmetry</div>
-                    <div>â˜ I can count lines of symmetry</div>
+                    <div>☐ I can identify lines of symmetry</div>
+                    <div>☐ I can count lines of symmetry</div>
                     <div>â˜ I understand symmetry concepts</div>
                   </div>
                   <div className="mt-3 text-xs">
@@ -31893,9 +31893,9 @@ export function PrintablesPage() {
                 <div className="print:block hidden print:mt-0 mt-6 p-4 border-2 border-slate-300 rounded" style={{ pageBreakBefore: 'avoid', pageBreakInside: 'avoid' }}>
                   <div className="font-semibold text-slate-800 mb-3 text-sm">📊 {getTrans('common.howDidYouDo', 'How did you do?')}</div>
                   <div className="space-y-2 text-xs">
-                    <div>â˜ I can identify translations</div>
-                    <div>â˜ I can identify rotations</div>
-                    <div>â˜ I can identify reflections</div>
+                    <div>☐ I can identify translations</div>
+                    <div>☐ I can identify rotations</div>
+                    <div>☐ I can identify reflections</div>
                   </div>
                   <div className="mt-3 text-xs">
                     <strong>{getTrans('common.myScore', 'My score:')}</strong> ___ / {transformations.length}
@@ -31996,8 +31996,8 @@ export function PrintablesPage() {
                   <div className="font-semibold text-slate-800 mb-3 text-sm">📊 {getTrans('common.howDidYouDo', 'How did you do?')}</div>
                   <div className="space-y-2 text-xs">
                     <div>â˜ I understand what a net is</div>
-                    <div>â˜ I can draw nets of 3D shapes</div>
-                    <div>â˜ I can visualize 3D shapes from nets</div>
+                    <div>☐ I can draw nets of 3D shapes</div>
+                    <div>☐ I can visualize 3D shapes from nets</div>
                   </div>
                   <div className="mt-3 text-xs">
                     <strong>{getTrans('common.myScore', 'My score:')}</strong> ___ / {shapes.length}
@@ -32104,8 +32104,8 @@ export function PrintablesPage() {
                 <div className="print:block hidden print:mt-0 mt-6 p-4 border-2 border-slate-300 rounded" style={{ pageBreakBefore: 'avoid', pageBreakInside: 'avoid' }}>
                   <div className="font-semibold text-slate-800 mb-3 text-sm">📊 {getTrans('common.howDidYouDo', 'How did you do?')}</div>
                   <div className="space-y-2 text-xs">
-                    <div>â˜ I can substitute values for variables</div>
-                    <div>â˜ I can evaluate expressions correctly</div>
+                    <div>☐ I can substitute values for variables</div>
+                    <div>☐ I can evaluate expressions correctly</div>
                     <div>â˜ I understand what variables mean</div>
                   </div>
                   <div className="mt-3 text-xs">
@@ -32208,9 +32208,9 @@ export function PrintablesPage() {
                 <div className="print:block hidden print:mt-0 mt-6 p-4 border-2 border-slate-300 rounded" style={{ pageBreakBefore: 'avoid', pageBreakInside: 'avoid' }}>
                   <div className="font-semibold text-slate-800 mb-3 text-sm">📊 {getTrans('common.howDidYouDo', 'How did you do?')}</div>
                   <div className="space-y-2 text-xs">
-                    <div>â˜ I can translate words to expressions</div>
+                    <div>☐ I can translate words to expressions</div>
                     <div>â˜ I understand key words</div>
-                    <div>â˜ I can write algebraic expressions</div>
+                    <div>☐ I can write algebraic expressions</div>
                   </div>
                   <div className="mt-3 text-xs">
                     <strong>{getTrans('common.myScore', 'My score:')}</strong> ___ / {phrases.length}
@@ -32308,9 +32308,9 @@ export function PrintablesPage() {
                 <div className="print:block hidden print:mt-0 mt-6 p-4 border-2 border-slate-300 rounded" style={{ pageBreakBefore: 'avoid', pageBreakInside: 'avoid' }}>
                   <div className="font-semibold text-slate-800 mb-3 text-sm">📊 {getTrans('common.howDidYouDo', 'How did you do?')}</div>
                   <div className="space-y-2 text-xs">
-                    <div>â˜ I can solve one-step equations</div>
-                    <div>â˜ I can use inverse operations</div>
-                    <div>â˜ I can check my answers</div>
+                    <div>☐ I can solve one-step equations</div>
+                    <div>☐ I can use inverse operations</div>
+                    <div>☐ I can check my answers</div>
                   </div>
                   <div className="mt-3 text-xs">
                     <strong>{getTrans('common.myScore', 'My score:')}</strong> ___ / {problems.length}
@@ -32417,9 +32417,9 @@ export function PrintablesPage() {
                 <div className="print:block hidden print:mt-0 mt-6 p-4 border-2 border-slate-300 rounded" style={{ pageBreakBefore: 'avoid', pageBreakInside: 'avoid' }}>
                   <div className="font-semibold text-slate-800 mb-3 text-sm">📊 {getTrans('common.howDidYouDo', 'How did you do?')}</div>
                   <div className="space-y-2 text-xs">
-                    <div>â˜ I can identify patterns</div>
-                    <div>â˜ I can find missing numbers</div>
-                    <div>â˜ I can describe the rule</div>
+                    <div>☐ I can identify patterns</div>
+                    <div>☐ I can find missing numbers</div>
+                    <div>☐ I can describe the rule</div>
                   </div>
                   <div className="mt-3 text-xs">
                     <strong>{getTrans('common.myScore', 'My score:')}</strong> ___ / {patterns.length}
@@ -32542,9 +32542,9 @@ export function PrintablesPage() {
                 <div className="print:block hidden print:mt-0 mt-6 p-4 border-2 border-slate-300 rounded" style={{ pageBreakBefore: 'avoid', pageBreakInside: 'avoid' }}>
                   <div className="font-semibold text-slate-800 mb-3 text-sm">📊 {getTrans('common.howDidYouDo', 'How did you do?')}</div>
                   <div className="space-y-2 text-xs">
-                    <div>â˜ I can plot points on a coordinate plane</div>
+                    <div>☐ I can plot points on a coordinate plane</div>
                     <div>â˜ I understand ordered pairs (x, y)</div>
-                    <div>â˜ I can use x and y axes correctly</div>
+                    <div>☐ I can use x and y axes correctly</div>
                   </div>
                   <div className="mt-3 text-xs">
                     <strong>{getTrans('common.myScore', 'My score:')}</strong> ___ / {points.length}
@@ -32641,9 +32641,9 @@ export function PrintablesPage() {
                 <div className="print:block hidden print:mt-0 mt-6 p-4 border-2 border-slate-300 rounded" style={{ pageBreakBefore: 'avoid', pageBreakInside: 'avoid' }}>
                   <div className="font-semibold text-slate-800 mb-3 text-sm">📊 {getTrans('common.howDidYouDo', 'How did you do?')}</div>
                   <div className="space-y-2 text-xs">
-                    <div>â˜ I can convert fractions to decimals</div>
-                    <div>â˜ I can compare fractions and decimals</div>
-                    <div>â˜ I can use &gt;, &lt;, and = correctly</div>
+                    <div>☐ I can convert fractions to decimals</div>
+                    <div>☐ I can compare fractions and decimals</div>
+                    <div>☐ I can use &gt;, &lt;, and = correctly</div>
                   </div>
                   <div className="mt-3 text-xs">
                     <strong>{getTrans('common.myScore', 'My score:')}</strong> ___ / {problems.length}
@@ -32745,8 +32745,8 @@ export function PrintablesPage() {
                 <div className="print:block hidden print:mt-0 mt-6 p-4 border-2 border-slate-300 rounded" style={{ pageBreakBefore: 'avoid', pageBreakInside: 'avoid' }}>
                   <div className="font-semibold text-slate-800 mb-3 text-sm">📊 {getTrans('common.howDidYouDo', 'How did you do?')}</div>
                   <div className="space-y-2 text-xs">
-                    <div>â˜ I can convert fractions to decimals</div>
-                    <div>â˜ I can convert decimals to percents</div>
+                    <div>☐ I can convert fractions to decimals</div>
+                    <div>☐ I can convert decimals to percents</div>
                     <div>â˜ I understand they all represent the same value</div>
                   </div>
                   <div className="mt-3 text-xs">
@@ -32841,9 +32841,9 @@ export function PrintablesPage() {
                 <div className="print:block hidden print:mt-0 mt-6 p-4 border-2 border-slate-300 rounded" style={{ pageBreakBefore: 'avoid', pageBreakInside: 'avoid' }}>
                   <div className="font-semibold text-slate-800 mb-3 text-sm">📊 {getTrans('common.howDidYouDo', 'How did you do?')}</div>
                   <div className="space-y-2 text-xs">
-                    <div>â˜ I can create a line plot</div>
-                    <div>â˜ I can find the mode</div>
-                    <div>â˜ I can calculate the range</div>
+                    <div>☐ I can create a line plot</div>
+                    <div>☐ I can find the mode</div>
+                    <div>☐ I can calculate the range</div>
                   </div>
                   <div className="mt-3 text-xs">
                     <strong>{getTrans('common.myScore', 'My score:')}</strong> ___ / 1
@@ -32938,8 +32938,8 @@ export function PrintablesPage() {
                 <div className="print:block hidden print:mt-0 mt-6 p-4 border-2 border-slate-300 rounded" style={{ pageBreakBefore: 'avoid', pageBreakInside: 'avoid' }}>
                   <div className="font-semibold text-slate-800 mb-3 text-sm">📊 {getTrans('common.howDidYouDo', 'How did you do?')}</div>
                   <div className="space-y-2 text-xs">
-                    <div>â˜ I can create a bar graph</div>
-                    <div>â˜ I can read data from a bar graph</div>
+                    <div>☐ I can create a bar graph</div>
+                    <div>☐ I can read data from a bar graph</div>
                     <div>â˜ I understand how bar graphs work</div>
                   </div>
                   <div className="mt-3 text-xs">
@@ -33039,9 +33039,9 @@ export function PrintablesPage() {
                 <div className="print:block hidden print:mt-0 mt-6 p-4 border-2 border-slate-300 rounded" style={{ pageBreakBefore: 'avoid', pageBreakInside: 'avoid' }}>
                   <div className="font-semibold text-slate-800 mb-3 text-sm">📊 {getTrans('common.howDidYouDo', 'How did you do?')}</div>
                   <div className="space-y-2 text-xs">
-                    <div>â˜ I can create line graphs</div>
-                    <div>â˜ I can plot points correctly</div>
-                    <div>â˜ I can connect points with lines</div>
+                    <div>☐ I can create line graphs</div>
+                    <div>☐ I can plot points correctly</div>
+                    <div>☐ I can connect points with lines</div>
                   </div>
                   <div className="mt-3 text-xs">
                     <strong>{getTrans('common.myScore', 'My score:')}</strong> ___ / 1
@@ -33188,9 +33188,9 @@ export function PrintablesPage() {
                 <div className="print:block hidden print:mt-0 mt-6 p-4 border-2 border-slate-300 rounded" style={{ pageBreakBefore: 'avoid', pageBreakInside: 'avoid' }}>
                   <div className="font-semibold text-slate-800 mb-3 text-sm">📊 {getTrans('common.howDidYouDo', 'How did you do?')}</div>
                   <div className="space-y-2 text-xs">
-                    <div>â˜ I can calculate the mean</div>
-                    <div>â˜ I can find the median</div>
-                    <div>â˜ I can identify the mode</div>
+                    <div>☐ I can calculate the mean</div>
+                    <div>☐ I can find the median</div>
+                    <div>☐ I can identify the mode</div>
                   </div>
                   <div className="mt-3 text-xs">
                     <strong>{getTrans('common.myScore', 'My score:')}</strong> ___ / {datasets.length}
@@ -33293,10 +33293,10 @@ export function PrintablesPage() {
                 <div className="print:block hidden print:mt-0 mt-6 p-4 border-2 border-slate-300 rounded" style={{ pageBreakBefore: 'avoid', pageBreakInside: 'avoid' }}>
                   <div className="font-semibold text-slate-800 mb-3 text-sm">📊 {getTrans('common.howDidYouDo', 'How did you do?')}</div>
                   <div className="space-y-2 text-xs">
-                    <div>â˜ I can calculate the mean</div>
-                    <div>â˜ I can find the median</div>
-                    <div>â˜ I can identify the mode</div>
-                    <div>â˜ I can calculate the range</div>
+                    <div>☐ I can calculate the mean</div>
+                    <div>☐ I can find the median</div>
+                    <div>☐ I can identify the mode</div>
+                    <div>☐ I can calculate the range</div>
                   </div>
                   <div className="mt-3 text-xs">
                     <strong>{getTrans('common.myScore', 'My score:')}</strong> ___ / {datasets.length}
@@ -33393,9 +33393,9 @@ export function PrintablesPage() {
                 <div className="print:block hidden print:mt-0 mt-6 p-4 border-2 border-slate-300 rounded" style={{ pageBreakBefore: 'avoid', pageBreakInside: 'avoid' }}>
                   <div className="font-semibold text-slate-800 mb-3 text-sm">📊 {getTrans('common.howDidYouDo', 'How did you do?')}</div>
                   <div className="space-y-2 text-xs">
-                    <div>â˜ I can create a stem-and-leaf plot</div>
+                    <div>☐ I can create a stem-and-leaf plot</div>
                     <div>â˜ I understand stems and leaves</div>
-                    <div>â˜ I can read data from the plot</div>
+                    <div>☐ I can read data from the plot</div>
                   </div>
                   <div className="mt-3 text-xs">
                     <strong>{getTrans('common.myScore', 'My score:')}</strong> ___ / 1
@@ -33492,9 +33492,9 @@ export function PrintablesPage() {
                 <div className="print:block hidden print:mt-0 mt-6 p-4 border-2 border-slate-300 rounded" style={{ pageBreakBefore: 'avoid', pageBreakInside: 'avoid' }}>
                   <div className="font-semibold text-slate-800 mb-3 text-sm">📊 {getTrans('common.howDidYouDo', 'How did you do?')}</div>
                   <div className="space-y-2 text-xs">
-                    <div>â˜ I can calculate probability</div>
+                    <div>☐ I can calculate probability</div>
                     <div>â˜ I understand favorable vs total outcomes</div>
-                    <div>â˜ I can write probability as fractions</div>
+                    <div>☐ I can write probability as fractions</div>
                   </div>
                   <div className="mt-3 text-xs">
                     <strong>{getTrans('common.myScore', 'My score:')}</strong> ___ / {scenarios.length}
@@ -33591,9 +33591,9 @@ export function PrintablesPage() {
                 <div className="print:block hidden print:mt-0 mt-6 p-4 border-2 border-slate-300 rounded" style={{ pageBreakBefore: 'avoid', pageBreakInside: 'avoid' }}>
                   <div className="font-semibold text-slate-800 mb-3 text-sm">📊 {getTrans('common.howDidYouDo', 'How did you do?')}</div>
                   <div className="space-y-2 text-xs">
-                    <div>â˜ I can identify all steps in a problem</div>
-                    <div>â˜ I can solve each step correctly</div>
-                    <div>â˜ I can show my work clearly</div>
+                    <div>☐ I can identify all steps in a problem</div>
+                    <div>☐ I can solve each step correctly</div>
+                    <div>☐ I can show my work clearly</div>
                   </div>
                   <div className="mt-3 text-xs">
                     <strong>{getTrans('common.myScore', 'My score:')}</strong> ___ / {problems.length}
@@ -33729,9 +33729,9 @@ export function PrintablesPage() {
                 <div className="print:block hidden print:mt-0 mt-6 p-4 border-2 border-slate-300 rounded" style={{ pageBreakBefore: 'avoid', pageBreakInside: 'avoid' }}>
                   <div className="font-semibold text-slate-800 mb-3 text-sm">📊 {getTrans('common.howDidYouDo', 'How did you do?')}</div>
                   <div className="space-y-2 text-xs">
-                    <div>â˜ I can identify all steps in complex problems</div>
-                    <div>â˜ I can solve each step correctly</div>
-                    <div>â˜ I can use multiple operations</div>
+                    <div>☐ I can identify all steps in complex problems</div>
+                    <div>☐ I can solve each step correctly</div>
+                    <div>☐ I can use multiple operations</div>
                   </div>
                   <div className="mt-3 text-xs">
                     <strong>{getTrans('common.myScore', 'My score:')}</strong> ___ / {problems.length}
@@ -33867,9 +33867,9 @@ export function PrintablesPage() {
                 <div className="print:block hidden print:mt-0 mt-6 p-4 border-2 border-slate-300 rounded" style={{ pageBreakBefore: 'avoid', pageBreakInside: 'avoid' }}>
                   <div className="font-semibold text-slate-800 mb-3 text-sm">📊 {getTrans('common.howDidYouDo', 'How did you do?')}</div>
                   <div className="space-y-2 text-xs">
-                    <div>â˜ I can solve fraction word problems</div>
-                    <div>â˜ I can add and subtract fractions</div>
-                    <div>â˜ I can multiply fractions by whole numbers</div>
+                    <div>☐ I can solve fraction word problems</div>
+                    <div>☐ I can add and subtract fractions</div>
+                    <div>☐ I can multiply fractions by whole numbers</div>
                   </div>
                   <div className="mt-3 text-xs">
                     <strong>{getTrans('common.myScore', 'My score:')}</strong> ___ / {problems.length}
@@ -34003,9 +34003,9 @@ export function PrintablesPage() {
                 <div className="print:block hidden print:mt-0 mt-6 p-4 border-2 border-slate-300 rounded" style={{ pageBreakBefore: 'avoid', pageBreakInside: 'avoid' }}>
                   <div className="font-semibold text-slate-800 mb-3 text-sm">📊 {getTrans('common.howDidYouDo', 'How did you do?')}</div>
                   <div className="space-y-2 text-xs">
-                    <div>â˜ I can solve complex fraction word problems</div>
-                    <div>â˜ I can multiply fractions by whole numbers</div>
-                    <div>â˜ I can divide whole numbers by fractions</div>
+                    <div>☐ I can solve complex fraction word problems</div>
+                    <div>☐ I can multiply fractions by whole numbers</div>
+                    <div>☐ I can divide whole numbers by fractions</div>
                   </div>
                   <div className="mt-3 text-xs">
                     <strong>{getTrans('common.myScore', 'My score:')}</strong> ___ / {problems.length}
@@ -34141,9 +34141,9 @@ export function PrintablesPage() {
                 <div className="print:block hidden print:mt-0 mt-6 p-4 border-2 border-slate-300 rounded" style={{ pageBreakBefore: 'avoid', pageBreakInside: 'avoid' }}>
                   <div className="font-semibold text-slate-800 mb-3 text-sm">📊 {getTrans('common.howDidYouDo', 'How did you do?')}</div>
                   <div className="space-y-2 text-xs">
-                    <div>â˜ I can solve decimal word problems</div>
-                    <div>â˜ I can add and subtract decimals</div>
-                    <div>â˜ I can multiply decimals</div>
+                    <div>☐ I can solve decimal word problems</div>
+                    <div>☐ I can add and subtract decimals</div>
+                    <div>☐ I can multiply decimals</div>
                   </div>
                   <div className="mt-3 text-xs">
                     <strong>{getTrans('common.myScore', 'My score:')}</strong> ___ / {problems.length}
@@ -34280,9 +34280,9 @@ export function PrintablesPage() {
                 <div className="print:block hidden print:mt-0 mt-6 p-4 border-2 border-slate-300 rounded" style={{ pageBreakBefore: 'avoid', pageBreakInside: 'avoid' }}>
                   <div className="font-semibold text-slate-800 mb-3 text-sm">📊 {getTrans('common.howDidYouDo', 'How did you do?')}</div>
                   <div className="space-y-2 text-xs">
-                    <div>â˜ I can solve complex decimal word problems</div>
-                    <div>â˜ I can multiply decimals by whole numbers</div>
-                    <div>â˜ I can divide decimals by whole numbers</div>
+                    <div>☐ I can solve complex decimal word problems</div>
+                    <div>☐ I can multiply decimals by whole numbers</div>
+                    <div>☐ I can divide decimals by whole numbers</div>
                   </div>
                   <div className="mt-3 text-xs">
                     <strong>{getTrans('common.myScore', 'My score:')}</strong> ___ / {problems.length}
@@ -34419,9 +34419,9 @@ export function PrintablesPage() {
                 <div className="print:block hidden print:mt-0 mt-6 p-4 border-2 border-slate-300 rounded" style={{ pageBreakBefore: 'avoid', pageBreakInside: 'avoid' }}>
                   <div className="font-semibold text-slate-800 mb-3 text-sm">📊 {getTrans('common.howDidYouDo', 'How did you do?')}</div>
                   <div className="space-y-2 text-xs">
-                    <div>â˜ I can solve measurement word problems</div>
-                    <div>â˜ I can convert between units</div>
-                    <div>â˜ I can calculate area and volume</div>
+                    <div>☐ I can solve measurement word problems</div>
+                    <div>☐ I can convert between units</div>
+                    <div>☐ I can calculate area and volume</div>
                   </div>
                   <div className="mt-3 text-xs">
                     <strong>{getTrans('common.myScore', 'My score:')}</strong> ___ / {problems.length}
@@ -34557,8 +34557,8 @@ export function PrintablesPage() {
                 <div className="print:block hidden print:mt-0 mt-6 p-4 border-2 border-slate-300 rounded" style={{ pageBreakBefore: 'avoid', pageBreakInside: 'avoid' }}>
                   <div className="font-semibold text-slate-800 mb-3 text-sm">📊 {getTrans('common.howDidYouDo', 'How did you do?')}</div>
                   <div className="space-y-2 text-xs">
-                    <div>â˜ I can solve geometry word problems</div>
-                    <div>â˜ I can calculate area and perimeter</div>
+                    <div>☐ I can solve geometry word problems</div>
+                    <div>☐ I can calculate area and perimeter</div>
                     <div>â˜ I understand geometric relationships</div>
                   </div>
                   <div className="mt-3 text-xs">
@@ -34696,8 +34696,8 @@ export function PrintablesPage() {
                 <div className="print:block hidden print:mt-0 mt-6 p-4 border-2 border-slate-300 rounded" style={{ pageBreakBefore: 'avoid', pageBreakInside: 'avoid' }}>
                   <div className="font-semibold text-slate-800 mb-3 text-sm">📊 {getTrans('common.howDidYouDo', 'How did you do?')}</div>
                   <div className="space-y-2 text-xs">
-                    <div>â˜ I can solve ratio word problems</div>
-                    <div>â˜ I can set up and solve proportions</div>
+                    <div>☐ I can solve ratio word problems</div>
+                    <div>☐ I can set up and solve proportions</div>
                     <div>â˜ I understand ratio relationships</div>
                   </div>
                   <div className="mt-3 text-xs">
@@ -34839,9 +34839,9 @@ export function PrintablesPage() {
                 <div className="print:block hidden print:mt-0 mt-6 p-4 border-2 border-slate-300 rounded" style={{ pageBreakBefore: 'avoid', pageBreakInside: 'avoid' }}>
                   <div className="font-semibold text-slate-800 mb-3 text-sm">📊 {getTrans('common.howDidYouDo', 'How did you do?')}</div>
                   <div className="space-y-2 text-xs">
-                    <div>â˜ I can solve percent word problems</div>
-                    <div>â˜ I can calculate discounts</div>
-                    <div>â˜ I can convert fractions to percents</div>
+                    <div>☐ I can solve percent word problems</div>
+                    <div>☐ I can calculate discounts</div>
+                    <div>☐ I can convert fractions to percents</div>
                   </div>
                   <div className="mt-3 text-xs">
                     <strong>{getTrans('common.myScore', 'My score:')}</strong> ___ / {problems.length}
@@ -35261,7 +35261,7 @@ export function PrintablesPage() {
                 <div className="print:block hidden print:mt-0 mt-6 p-4 border-2 border-slate-300 rounded" style={{ pageBreakBefore: 'avoid', pageBreakInside: 'avoid' }}>
                   <div className="font-semibold text-slate-800 mb-3 text-sm">📊 {getTrans('common.howDidYouDo', 'How did you do?')}</div>
                   <div className="space-y-2 text-xs">
-                    <div>â˜ I can name the colors</div>
+                    <div>☐ I can name the colors</div>
                     <div>â˜ I matched colors correctly</div>
                     <div>â˜ I colored carefully</div>
                   </div>
@@ -35347,7 +35347,7 @@ export function PrintablesPage() {
                 <div className="print:block hidden print:mt-0 mt-6 p-4 border-2 border-slate-300 rounded" style={{ pageBreakBefore: 'avoid', pageBreakInside: 'avoid' }}>
                   <div className="font-semibold text-slate-800 mb-3 text-sm">📊 {getTrans('common.howDidYouDo', 'How did you do?')}</div>
                   <div className="space-y-2 text-xs">
-                    <div>â˜ I can name the shapes</div>
+                    <div>☐ I can name the shapes</div>
                     <div>â˜ I drew the shapes</div>
                     <div>â˜ I tried my best</div>
                   </div>
@@ -35783,8 +35783,8 @@ export function PrintablesPage() {
                 <div className="print:block hidden print:mt-0 mt-6 p-4 border-2 border-slate-300 rounded" style={{ pageBreakBefore: 'avoid', pageBreakInside: 'avoid' }}>
                   <div className="font-semibold text-slate-800 mb-3 text-sm">📊 {getTrans('common.howDidYouDo', 'How did you do?')}</div>
                   <div className="space-y-2 text-xs">
-                    <div>â˜ I can see the pattern</div>
-                    <div>â˜ I can predict what comes next</div>
+                    <div>☐ I can see the pattern</div>
+                    <div>☐ I can predict what comes next</div>
                     <div>â˜ I understand patterns</div>
                   </div>
                   <div className="mt-3 text-xs">
@@ -35884,8 +35884,8 @@ export function PrintablesPage() {
                 <div className="print:block hidden print:mt-0 mt-6 p-4 border-2 border-slate-300 rounded" style={{ pageBreakBefore: 'avoid', pageBreakInside: 'avoid' }}>
                   <div className="font-semibold text-slate-800 mb-3 text-sm">📊 {getTrans('common.howDidYouDo', 'How did you do?')}</div>
                   <div className="space-y-2 text-xs">
-                    <div>â˜ I can tell which is longer</div>
-                    <div>â˜ I can tell which is shorter</div>
+                    <div>☐ I can tell which is longer</div>
+                    <div>☐ I can tell which is shorter</div>
                     <div>â˜ I understand long and short</div>
                   </div>
                   <div className="mt-3 text-xs">
@@ -36002,8 +36002,8 @@ export function PrintablesPage() {
                 <div className="print:block hidden print:mt-0 mt-6 p-4 border-2 border-slate-300 rounded" style={{ pageBreakBefore: 'avoid', pageBreakInside: 'avoid' }}>
                   <div className="font-semibold text-slate-800 mb-3 text-sm">📊 {getTrans('common.howDidYouDo', 'How did you do?')}</div>
                   <div className="space-y-2 text-xs">
-                    <div>â˜ I can tell which is heavier</div>
-                    <div>â˜ I can tell which is lighter</div>
+                    <div>☐ I can tell which is heavier</div>
+                    <div>☐ I can tell which is lighter</div>
                     <div>â˜ I understand heavy and light</div>
                   </div>
                   <div className="mt-3 text-xs">
@@ -36076,8 +36076,8 @@ export function PrintablesPage() {
                 <div className="print:block hidden print:mt-0 mt-6 p-4 border-2 border-slate-300 rounded" style={{ pageBreakBefore: 'avoid', pageBreakInside: 'avoid' }}>
                   <div className="font-semibold text-slate-800 mb-3 text-sm">📊 {getTrans('common.howDidYouDo', 'How did you do?')}</div>
                   <div className="space-y-2 text-xs">
-                    <div>â˜ I can find the different one</div>
-                    <div>â˜ I can see what's the same</div>
+                    <div>☐ I can find the different one</div>
+                    <div>☐ I can see what's the same</div>
                     <div>â˜ I understand same and different</div>
                   </div>
                   <div className="mt-3 text-xs">
@@ -36908,9 +36908,9 @@ export function PrintablesPage() {
                 <div className="print:block hidden print:mt-0 mt-6 p-4 border-2 border-slate-300 rounded" style={{ pageBreakBefore: 'avoid', pageBreakInside: 'avoid' }}>
                   <div className="font-semibold text-slate-800 mb-3 text-sm">📊 {getTrans('common.howDidYouDo', 'How did you do?')}</div>
                   <div className="space-y-2 text-xs">
-                    <div>â˜ I can find the perimeter of rectangles</div>
+                    <div>☐ I can find the perimeter of rectangles</div>
                     <div>â˜ I understand what perimeter means</div>
-                    <div>â˜ I can use the formula correctly</div>
+                    <div>☐ I can use the formula correctly</div>
                   </div>
                   <div className="mt-3 text-xs">
                     <strong>{getTrans('common.myScore', 'My score:')}</strong> ___ / {problems.length}
