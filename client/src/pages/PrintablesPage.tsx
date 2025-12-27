@@ -23066,7 +23066,7 @@ export function PrintablesPage() {
               <WorksheetSectionWrapper
                 docId="mental-math-20"
                 title="Formula 1: Mental Math Race"
-                emoji="ðŸŽï¸"
+                emoji="🏎️"
                 description="Start your engines! Solve these problems as fast as you can. Zoom zoom!"
                 problemCount={problems.length}
                 learningObjectives={[
@@ -23092,7 +23092,7 @@ export function PrintablesPage() {
                         {p.a} {p.op} {p.b} =
                       </div>
                       <div className="w-12 h-10 bg-white border-2 border-slate-300 rounded mx-2"></div>
-                      <div className="text-xl">ðŸ</div>
+                      <div className="text-xl">🏎️</div>
                     </div>
                   ))}
                 </div>
