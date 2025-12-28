@@ -33272,30 +33272,29 @@ export function PrintablesPage() {
 
         {
           activeDocs.includes('shape-sorting') && (() => {
+            const rng = makeRng(`${effectiveSeed}|v${variant}|doc=${doc}`);
+
             const categories = [
-              { shape: 'circle', animal: 'Lion ', color: 'bg-orange-100', borderColor: 'border-orange-400', titleColor: 'text-orange-800' },
-              { shape: 'square', animal: 'Zebra ', color: 'bg-slate-100', borderColor: 'border-slate-400', titleColor: 'text-slate-800' },
-              { shape: 'triangle', animal: 'Giraffe ', color: 'bg-yellow-100', borderColor: 'border-yellow-400', titleColor: 'text-yellow-800' },
-              { shape: 'rectangle', animal: 'Elephant ', color: 'bg-blue-100', borderColor: 'border-blue-400', titleColor: 'text-blue-800' },
+              { shape: 'circle', animal: 'Lion', color: 'bg-orange-100', borderColor: 'border-orange-400', titleColor: 'text-orange-900', hexFill: '#fed7aa', hexStroke: '#c2410c' }, // Orange-200 / Orange-700
+              { shape: 'square', animal: 'Zebra', color: 'bg-slate-100', borderColor: 'border-slate-400', titleColor: 'text-slate-900', hexFill: '#e2e8f0', hexStroke: '#475569' }, // Slate-200 / Slate-600
+              { shape: 'triangle', animal: 'Giraffe', color: 'bg-yellow-100', borderColor: 'border-yellow-400', titleColor: 'text-yellow-900', hexFill: '#fef08a', hexStroke: '#a16207' }, // Yellow-200 / Yellow-700
+              { shape: 'rectangle', animal: 'Elephant', color: 'bg-blue-100', borderColor: 'border-blue-400', titleColor: 'text-blue-900', hexFill: '#bfdbfe', hexStroke: '#1d4ed8' }, // Blue-200 / Blue-700
             ];
 
-            const shapesToSort = [
-              // 4 of each shape
-              ...Array(4).fill('circle'),
-              ...Array(4).fill('square'),
-              ...Array(4).fill('triangle'),
-              ...Array(4).fill('rectangle')
-            ];
+            // Generate 4 of each shape, with their matching colors
+            const allShapes = categories.flatMap(cat =>
+              Array(4).fill(null).map(() => ({
+                shape: cat.shape,
+                fill: cat.hexFill,
+                stroke: cat.hexStroke
+              }))
+            );
 
-            // Shuffle shapes for the cutting area
-            // seeded shuffle could go here, but simple random map sort is fine for this
-            const shuffledShapes = shapesToSort
-              .map(value => ({ value, sort: Math.random() }))
-              .sort((a, b) => a.sort - b.sort)
-              .map(({ value }) => value);
+            // True seeded shuffle
+            const shuffledShapes = shuffleArray(allShapes);
 
-            const renderShape = (shape: string, size: number = 60) => {
-              const props = { fill: 'white', stroke: '#334155', strokeWidth: '3' };
+            const renderShape = (shape: string, size: number, fill: string, stroke: string) => {
+              const props = { fill: fill, stroke: stroke, strokeWidth: '3' };
               switch (shape) {
                 case 'circle': return <circle cx={size / 2} cy={size / 2} r={size * 0.35} {...props} />;
                 case 'square': return <rect x={size * 0.2} y={size * 0.2} width={size * 0.6} height={size * 0.6} rx="4" {...props} />;
@@ -33310,68 +33309,76 @@ export function PrintablesPage() {
                 docId="shape-sorting"
                 title="Zoo Sorting"
                 emoji={String.fromCharCode(0xD83D, 0xDC2F)}
-                description="The zoo animals are hungry! Sort the shape 'treats' into the correct animal cages."
+                description="The animals are hungry! Cut out the colored 'treats' and glue them into the matching colored cage."
                 problemCount={16}
                 learningObjectives={[
-                  'Classify objects by shape attributes',
+                  'Sort objects by shape and color',
                   'Practice cutting and pasting (fine motor skills)',
-                  'Match shapes to categories'
+                  'Match 2D shapes (circle, square, triangle, rectangle)'
                 ]}
                 parentTeacherTips={[
-                  'Before cutting, ask: "Which animal likes the Circles?"',
-                  'Encourage careful cutting along the dotted lines.',
-                  'Talk about why a square is not a rectangle (equal sides).'
+                  'Help your child match by color first ("Orange shapes go to the Lion")',
+                  'Ask them to name the shape as they glue it',
+                  'Talk about the animal names: Lion, Zebra, Giraffe, Elephant'
                 ]}
               >
-                <div className="print:hidden w-full h-16 mb-6 relative overflow-hidden bg-slate-100 rounded-lg flex items-center justify-center border-b-4 border-slate-600">
-                  <div className="font-bold text-3xl text-slate-800 tracking-wider flex items-center gap-2">
+                <div className="print:hidden w-full h-16 mb-6 relative overflow-hidden bg-gradient-to-r from-orange-200 via-yellow-200 to-blue-200 rounded-lg flex items-center justify-center border-b-4 border-slate-400/20">
+                  <div className="font-black text-3xl text-slate-800/80 tracking-widest uppercase drop-shadow-sm">
                     ZOO SORTING
                   </div>
                 </div>
 
-                <div className="mb-6 p-3 bg-blue-50 border border-blue-200 rounded text-sm text-blue-900 print:mb-4 flex gap-2 items-start">
-                  <span className="text-xl">{String.fromCodePoint(0x1F4A1)}</span>
+                <div className="mb-6 p-4 bg-white border-2 border-slate-200 rounded-xl shadow-sm flex gap-4 items-start print:shadow-none">
+                  <div className="text-3xl animate-bounce">{String.fromCodePoint(0x2702)}</div>
                   <div>
-                    <strong>Zoo Keeper Instructions:</strong> Cut out the shapes at the bottom. Glue them into the matching Animal Cage!
+                    <div className="font-bold text-slate-800 mb-1">How to Play:</div>
+                    <div className="text-slate-600 leading-relaxed">
+                      1. <strong>Cut out</strong> the shapes at the bottom.<br />
+                      2. <strong>Match</strong> the shape and color to the Animal Cage.<br />
+                      3. <strong>Glue</strong> the shape inside the cage!
+                    </div>
                   </div>
                 </div>
 
                 {/* Cages Area */}
                 <div className="grid grid-cols-2 gap-6 mb-8 break-inside-avoid">
                   {categories.map((cat, i) => (
-                    <div key={i} className={`border-4 ${cat.borderColor} ${cat.color} rounded-xl p-4 min-h-[200px] flex flex-col relative`}>
-                      {/* Bars visual */}
-                      <div className="absolute top-0 left-0 w-full h-4 border-b border-black/10"></div>
-                      <div className="absolute bottom-0 left-0 w-full h-4 border-t border-black/10"></div>
-
-                      <div className={`text-center font-bold text-xl ${cat.titleColor} mb-2 bg-white/50 py-1 rounded-lg shadow-sm border border-white`}>
+                    <div key={i} className={`border-4 ${cat.borderColor} ${cat.color} rounded-2xl p-4 min-h-[220px] flex flex-col relative`}>
+                      {/* Title Badge */}
+                      <div className={`text-center font-black text-xl ${cat.titleColor} mb-2 bg-white/60 py-2 rounded-lg backdrop-blur-sm border border-white/50 shadow-sm uppercase tracking-wide`}>
                         {cat.animal}
                       </div>
-                      <div className="flex-1 border-2 border-dashed border-black/20 rounded-lg bg-white/40 flex items-center justify-center">
-                        <div className="opacity-20">
-                          <svg viewBox="0 0 100 100" className="w-24 h-24">
-                            {renderShape(cat.shape, 100)}
+
+                      {/* Cage Interior */}
+                      <div className="flex-1 border-2 border-dashed border-black/10 rounded-xl bg-white/40 flex items-center justify-center relative overflow-hidden">
+                        {/* Faint Background Icon */}
+                        <div className="opacity-10 absolute pointer-events-none transform scale-150">
+                          <svg viewBox="0 0 100 100" className="w-32 h-32">
+                            {renderShape(cat.shape, 100, 'black', 'none')}
                           </svg>
                         </div>
-                        <div className="absolute text-xs font-bold text-black/30 mt-16 mr-16 transform -rotate-12">Glue {cat.shape}s here</div>
+
+                        <div className="text-xs font-bold text-black/40 text-center px-4">
+                          Glue {cat.shape}s here
+                        </div>
                       </div>
                     </div>
                   ))}
                 </div>
 
                 {/* Cutting Area */}
-                <div className="break-inside-avoid mt-8 pt-6 border-t-4 border-dashed border-slate-300 relative">
-                  <div className="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-white px-4 text-slate-400 flex items-center gap-2">
-                    <span>{String.fromCodePoint(0x270F)}</span> <span className="text-sm font-bold tracking-widest uppercase">Cut Along Dotted Line</span> <span>{String.fromCodePoint(0x270F)}</span>
+                <div className="break-inside-avoid mt-8 pt-8 border-t-4 border-dashed border-slate-300 relative">
+                  <div className="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-white px-6 py-1 rounded-full border-2 border-slate-200 text-slate-500 flex items-center gap-2 shadow-sm">
+                    <span>{String.fromCodePoint(0x2702)}</span>
+                    <span className="text-xs font-black tracking-widest uppercase">Cut Here</span>
+                    <span>{String.fromCodePoint(0x2702)}</span>
                   </div>
 
-                  <div className="text-center font-bold text-slate-500 mb-4 uppercase tracking-wider text-sm">Treats to Sort</div>
-
-                  <div className="grid grid-cols-4 gap-4">
-                    {shuffledShapes.map((shape, i) => (
-                      <div key={i} className="border-2 border-dashed border-slate-400 p-2 rounded-lg flex items-center justify-center aspect-square bg-white">
-                        <svg viewBox="0 0 80 80" className="w-16 h-16">
-                          {renderShape(shape, 80)}
+                  <div className="grid grid-cols-4 gap-4 mt-4">
+                    {shuffledShapes.map((item, i) => (
+                      <div key={i} className="border-2 border-dashed border-slate-300 p-2 rounded-xl flex items-center justify-center aspect-square bg-white hover:bg-slate-50 transition-colors">
+                        <svg viewBox="0 0 80 80" className="w-full h-full drop-shadow-sm">
+                          {renderShape(item.shape, 80, item.fill, item.stroke)}
                         </svg>
                       </div>
                     ))}
@@ -33381,9 +33388,12 @@ export function PrintablesPage() {
                 {showAnswersForDoc('shape-sorting', () => (
                   <div className="mt-6 p-4 border-2 border-emerald-300 bg-emerald-50 rounded print:border print:bg-white print:page-break-before-always">
                     <div className="font-bold text-emerald-900 mb-3 text-base">{String.fromCharCode(0x2705)} Answer Key</div>
-                    <div className="grid grid-cols-2 gap-2 text-sm text-emerald-800">
+                    <div className="grid grid-cols-2 gap-3 text-sm text-emerald-800">
                       {categories.map((c, i) => (
-                        <div key={i}><strong>{c.animal}:</strong> Likes {c.shape}s</div>
+                        <div key={i} className="flex items-center gap-2">
+                          <div className={`w-4 h-4 rounded-full ${c.color.replace('bg-', 'bg-').replace('100', '400')}`}></div>
+                          <span><strong>{c.animal}</strong> likes <strong>{c.shape}s</strong></span>
+                        </div>
                       ))}
                     </div>
                   </div>
@@ -33582,7 +33592,7 @@ export function PrintablesPage() {
                         {/* Drawing Box */}
                         <div className="aspect-square border-4 border-dashed border-slate-300 rounded-xl bg-white relative">
                           <div className="absolute inset-0 flex items-center justify-center opacity-10 pointer-events-none">
-                            <span className="text-6xl">{String.fromCodePoint(0x2702)}</span>
+                            <span className="text-6xl">{String.fromCodePoint(0x270F)}</span>
                           </div>
                         </div>
                       </div>
