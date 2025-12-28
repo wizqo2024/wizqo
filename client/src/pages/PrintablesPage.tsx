@@ -35906,8 +35906,6 @@ export function PrintablesPage() {
         {
           activeDocs.includes('same-different') && (() => {
             const sets = [
-              { items: [String.fromCodePoint(0x2728), String.fromCodePoint(0x2728), String.fromCodePoint(0x2728), String.fromCodePoint(0x2728)], different: 2 },
-            const sets = [
               { items: [String.fromCodePoint(0x1F34E), String.fromCodePoint(0x1F34E), String.fromCodePoint(0x1F34E), String.fromCodePoint(0x1F34C)], different: 3 }, // Apples & Banana
               { items: [String.fromCodePoint(0x1F697), String.fromCodePoint(0x1F697), String.fromCodePoint(0x1F6B2), String.fromCodePoint(0x1F697)], different: 2 }, // Cars & Bike
               { items: [String.fromCodePoint(0x1F436), String.fromCodePoint(0x1F431), String.fromCodePoint(0x1F436), String.fromCodePoint(0x1F436)], different: 1 }, // Dogs & Cat
