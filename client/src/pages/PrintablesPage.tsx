@@ -2905,7 +2905,14 @@ export function PrintablesPage() {
               href={(() => {
                 try {
                   const u = new URL(typeof window !== 'undefined' ? window.location.href : 'https://wizqo.com/print')
-                  const from = u.searchParams.get('from')
+                  let from = (u.searchParams.get('from') || '').trim()
+                  const docId = (doc || '').trim()
+
+                  // Ignore circular usage where from == docId
+                  if (from === docId) {
+                    from = ''
+                  }
+
                   // If coming from interactive worksheets generator, go back there
                   if (from === 'interactive') {
                     return '/interactive-worksheets-generator'
@@ -2943,15 +2950,21 @@ export function PrintablesPage() {
                   }
                   // Determine category anchor by doc or bundle selection
                   const cat = (() => {
-                    if (doc === 'bundle') {
+                    if (docId === 'bundle') {
                       if (bundleCategoryParam) return bundleCategoryParam
                       if (primaryDoc) {
                         return getPrintableSectionForDoc(primaryDoc) || (primaryDoc.startsWith('coloring') ? 'Coloring' : primaryDoc.startsWith('geo-') ? 'Geography' : '')
                       }
                       return ''
                     }
-                    if (!doc) return ''
-                    return getPrintableSectionForDoc(doc) || (doc.startsWith('coloring') ? 'Coloring' : doc.startsWith('geo-') ? 'Geography' : '')
+                    if (!docId) return ''
+                    const found = getPrintableSectionForDoc(docId)
+                    if (found) return found
+
+                    // Improved fallback logic
+                    if (docId.startsWith('coloring')) return 'Coloring'
+                    if (docId.startsWith('geo-')) return 'Geography'
+                    return ''
                   })()
                   const hash = cat ? `#${encodeURIComponent(cat)}` : ''
                   return `/printables${hash}`
