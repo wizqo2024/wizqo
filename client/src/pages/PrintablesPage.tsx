@@ -19631,12 +19631,6 @@ export function PrintablesPage() {
 
 
         {
-
-
-          {
-
-
-        {
           activeDocs.includes('big-small') && (() => {
             const rng = makeRng(`${effectiveSeed}|v${variant}|doc=${doc}`)
 
