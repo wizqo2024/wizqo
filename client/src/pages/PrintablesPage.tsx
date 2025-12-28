@@ -165,7 +165,7 @@ function WorkedExampleContent() {
           breakAfter: 'avoid'
         } as React.CSSProperties}
       >
-        <span className="text-2xl">{String.fromCodePoint(0x2728)}</span>
+        <span className="text-2xl">{String.fromCodePoint(0x279C)}</span>
         <span>{t('worksheets.addition-subtraction-0-10.workedExample.title')}</span>
       </div>
       <div className="space-y-3 text-sm">
@@ -3100,7 +3100,7 @@ export function PrintablesPage() {
                   </>
                 ) : (
                   <>
-                    <span>{String.fromCodePoint(0x2728)}</span>
+                    <span>{String.fromCodePoint(0x279C)}</span>
                     <span>Download Worksheet</span>
                   </>
                 )}
@@ -3111,9 +3111,9 @@ export function PrintablesPage() {
         {!isPreview && (
           <header className="relative mb-6 flex items-center justify-between border-b border-slate-200 pb-3 print:hidden">
             <div className="print:hidden absolute -top-3 right-0 flex items-center gap-2 opacity-70 pointer-events-none">
-              <span className="animate-bounce">{String.fromCodePoint(0x2728)}</span>
-              <span className="animate-bounce animation-delay-2000">{String.fromCodePoint(0x2728)}</span>
-              <span className="animate-bounce animation-delay-4000">{String.fromCodePoint(0x2728)}</span>
+              <span className="animate-bounce">{String.fromCodePoint(0x279C)}</span>
+              <span className="animate-bounce animation-delay-2000">{String.fromCodePoint(0x279C)}</span>
+              <span className="animate-bounce animation-delay-4000">{String.fromCodePoint(0x279C)}</span>
             </div>
             <div>
               <h1 className="text-2xl font-extrabold text-slate-900">{docTitle}</h1>
@@ -3128,7 +3128,7 @@ export function PrintablesPage() {
                 title={t('pages.printables.pinThisPrintable')}
                 aria-label={t('pages.printables.pinThisPrintableAria')}
               >
-                <span>{String.fromCodePoint(0x2728)}</span>
+                <span>{String.fromCodePoint(0x279C)}</span>
                 <span>{t('pages.printables.pinThis')}</span>
               </a>
 
@@ -3190,7 +3190,7 @@ export function PrintablesPage() {
           >
             {/* Map Header */}
             <div className="print:hidden w-full h-12 mb-2 relative overflow-hidden bg-sky-100 rounded-lg flex items-center justify-center">
-              <div className="font-bold text-xl text-sky-700">{String.fromCodePoint(0x2728)}</div>
+              <div className="font-bold text-xl text-sky-700">{String.fromCodePoint(0x279C)}</div>
             </div>
 
             <div className="border border-slate-300 rounded-xl p-4 bg-sky-50/30 break-inside-avoid">
@@ -3382,7 +3382,7 @@ export function PrintablesPage() {
                   <div><strong>{t('common.step2')}</strong> {t('worksheets.geographyMap.example.step2Text', 'The top direction is always North (N)')}</div>
                   <div><strong>{t('common.step3')}</strong> {t('worksheets.geographyMap.example.step3Text', 'Write "N" at the top')}</div>
                   <div className="font-semibold text-blue-900"><strong>{t('common.answer')}</strong> {t('worksheets.geographyMap.example.answerText', 'N (North)')}</div>
-                  <div className="text-xs text-blue-700 mt-1">{String.fromCodePoint(0x2728)}</div>
+                  <div className="text-xs text-blue-700 mt-1">{String.fromCodePoint(0x279C)}</div>
                 </div>
               </div>
             </div>
@@ -3657,11 +3657,11 @@ export function PrintablesPage() {
               <div className="space-y-2 text-sm">
                 <div className="font-semibold text-base"><strong>{t('common.problem')}</strong>{String.fromCodePoint(0x1F4A1)}</div>
                 <div className="pl-4 border-l-2 border-blue-300 space-y-1">
-                  <div><strong>{t('common.step1')}</strong>{String.fromCodePoint(0x2728)}</div>
-                  <div><strong>{t('common.step2')}</strong>{String.fromCodePoint(0x2728)}</div>
+                  <div><strong>{t('common.step1')}</strong>{String.fromCodePoint(0x279C)}</div>
+                  <div><strong>{t('common.step2')}</strong>{String.fromCodePoint(0x279C)}</div>
                   <div><strong>{t('common.step3')}</strong> {t('worksheets.geographyMap.example.step3Text2', 'Where they meet is point A')}</div>
-                  <div className="font-semibold text-blue-900"><strong>{t('common.answer')}</strong>{String.fromCodePoint(0x2728)}</div>
-                  <div className="text-xs text-blue-700 mt-1">{String.fromCodePoint(0x2728)}</div>
+                  <div className="font-semibold text-blue-900"><strong>{t('common.answer')}</strong>{String.fromCodePoint(0x279C)}</div>
+                  <div className="text-xs text-blue-700 mt-1">{String.fromCodePoint(0x279C)}</div>
                 </div>
               </div>
             </div>
@@ -3675,8 +3675,8 @@ export function PrintablesPage() {
                 {/* Axes labels */}
                 <g fill="#111827" fontSize="12">
                   {/* Equator and Prime Meridian labels */}
-                  <text x="380" y="46">{String.fromCodePoint(0x2728)}</text>
-                  <text x="36" y="260" transform="rotate(-90 36,260)">{String.fromCodePoint(0x2728)}</text>
+                  <text x="380" y="46">{String.fromCodePoint(0x279C)}</text>
+                  <text x="36" y="260" transform="rotate(-90 36,260)">{String.fromCodePoint(0x279C)}</text>
                   {/* Latitude tick labels */}
                   {([-60, -30, 0, 30, 60] as number[]).map((lat) => {
                     const y = 50 + ((90 - lat) / 180) * 400; // map -90..90 to 50..450
@@ -3695,8 +3695,8 @@ export function PrintablesPage() {
                   <rect x="520" y="300" width="24" height="24" />
                 </g>
                 <g fill="#111827" fontSize="14">
-                  <text x="250" y="160">{String.fromCodePoint(0x2728)}</text>
-                  <text x="515" y="295">{String.fromCodePoint(0x2728)}</text>
+                  <text x="250" y="160">{String.fromCodePoint(0x279C)}</text>
+                  <text x="515" y="295">{String.fromCodePoint(0x279C)}</text>
                 </g>
               </svg>
             </div>
@@ -3745,7 +3745,7 @@ export function PrintablesPage() {
                     Point A: <strong>{String.fromCodePoint(0x2705)}</strong> - Located in the northern and western hemisphere
                   </div>
                   <div className="text-sm text-emerald-800">
-                    Point B: <strong>{String.fromCodePoint(0x2728)}</strong> - Located in the southern and eastern hemisphere
+                    Point B: <strong>{String.fromCodePoint(0x279C)}</strong> - Located in the southern and eastern hemisphere
                   </div>
                   <div className="mt-4 border border-emerald-200 rounded p-2 bg-white">
                     <div className="text-xs font-bold mb-1 text-center">Solution Map:</div>
@@ -4016,7 +4016,7 @@ export function PrintablesPage() {
             {/* Worked Example */}
             <div className="mb-6 p-4 bg-gradient-to-br from-indigo-50 to-purple-50 border-2 border-indigo-200 rounded-lg print:border print:bg-white">
               <div className="font-semibold text-indigo-900 mb-3 text-sm flex items-center gap-2">
-                <span className="text-2xl">{String.fromCodePoint(0x2728)}</span>
+                <span className="text-2xl">{String.fromCodePoint(0x279C)}</span>
                 <span>Example - Let's solve this together:</span>
               </div>
               <div className="space-y-3 text-sm">
@@ -4040,7 +4040,7 @@ export function PrintablesPage() {
                     <line x1="300" y1="50" x2="305" y2="55" stroke="#ef4444" strokeWidth="3" strokeLinecap="round" />
                     <text x="320" y="80" fontSize="64" fill="#8b5cf6" fontWeight="bold">a</text>
                     <circle cx="300" cy="100" r="6" fill="#94a3b8" />
-                    <text x="200" y="120" fontSize="16" fill="#6366f1" textAnchor="middle" fontWeight="bold">{String.fromCodePoint(0x2728)}</text>
+                    <text x="200" y="120" fontSize="16" fill="#6366f1" textAnchor="middle" fontWeight="bold">{String.fromCodePoint(0x279C)}</text>
                   </svg>
                 </div>
                 <div className="pl-4 border-l-2 border-indigo-300 space-y-1">
@@ -4050,7 +4050,7 @@ export function PrintablesPage() {
                   <div><strong>Step 4:</strong> Say <span className="text-indigo-700 font-bold">"A"</span> sound as you match</div>
                   <div className="font-semibold text-indigo-900 mt-2"><strong>Answer:</strong> <span className="text-indigo-700">A</span> matches <span className="text-purple-700">a</span></div>
                   <div className="text-xs text-indigo-700 mt-2 flex items-center gap-1">
-                    <span>{String.fromCodePoint(0x2728)}</span>
+                    <span>{String.fromCodePoint(0x279C)}</span>
                     <span>Tip: Uppercase and lowercase are the same letter, just different sizes!</span>
                   </div>
                 </div>
@@ -4155,7 +4155,7 @@ export function PrintablesPage() {
             {/* Worked Example */}
             <div className="mb-6 p-4 bg-gradient-to-br from-indigo-50 to-purple-50 border-2 border-indigo-200 rounded-lg print:border print:bg-white">
               <div className="font-semibold text-indigo-900 mb-3 text-sm flex items-center gap-2">
-                <span className="text-2xl">{String.fromCodePoint(0x2728)}</span>
+                <span className="text-2xl">{String.fromCodePoint(0x279C)}</span>
                 <span>Example - Let's solve this together:</span>
               </div>
               <div className="space-y-3 text-sm">
@@ -4164,21 +4164,21 @@ export function PrintablesPage() {
                 <div className="bg-white p-4 rounded-lg border-2 border-indigo-300">
                   <div className="flex items-center justify-center gap-6">
                     <div className="text-center">
-                      <div className="text-6xl mb-2">{String.fromCodePoint(0x2728)}</div>
+                      <div className="text-6xl mb-2">{String.fromCodePoint(0x279C)}</div>
                       <div className="text-xs font-semibold text-indigo-700">apple</div>
                       <div className="mt-2 w-16 h-16 rounded-full border-4 border-green-500 mx-auto flex items-center justify-center">
-                        <span className="text-2xl">{String.fromCodePoint(0x2728)}</span>
+                        <span className="text-2xl">{String.fromCodePoint(0x279C)}</span>
                       </div>
                     </div>
                     <div className="text-center">
-                      <div className="text-6xl mb-2">{String.fromCodePoint(0x2728)}</div>
+                      <div className="text-6xl mb-2">{String.fromCodePoint(0x279C)}</div>
                       <div className="text-xs font-semibold text-indigo-700">airplane</div>
                       <div className="mt-2 w-16 h-16 rounded-full border-4 border-green-500 mx-auto flex items-center justify-center">
-                        <span className="text-2xl">{String.fromCodePoint(0x2728)}</span>
+                        <span className="text-2xl">{String.fromCodePoint(0x279C)}</span>
                       </div>
                     </div>
                     <div className="text-center">
-                      <div className="text-6xl mb-2">{String.fromCodePoint(0x2728)}</div>
+                      <div className="text-6xl mb-2">{String.fromCodePoint(0x279C)}</div>
                       <div className="text-xs font-semibold text-slate-500">butterfly</div>
                       <div className="mt-2 w-16 h-16 rounded-full border-4 border-slate-300 mx-auto flex items-center justify-center">
                         <span className="text-xl text-slate-400">{String.fromCodePoint(0x270F)}</span>
@@ -4189,12 +4189,12 @@ export function PrintablesPage() {
                 </div>
                 <div className="pl-4 border-l-2 border-indigo-300 space-y-1">
                   <div><strong>Step 1:</strong> Say the sound: <span className="text-indigo-700 font-bold">/a/</span> (like in apple)</div>
-                  <div><strong>Step 2:</strong>{String.fromCodePoint(0x2728)}</div>
+                  <div><strong>Step 2:</strong>{String.fromCodePoint(0x279C)}</div>
                   <div><strong>Step 3:</strong> Which one starts with /a/? <span className="text-green-600 font-bold">Apple and airplane both start with /a/!</span></div>
                   <div><strong>Step 4:</strong> Circle the pictures that begin with /a/</div>
-                  <div className="font-semibold text-indigo-900 mt-2"><strong>Answer:</strong> Circle <span className="text-2xl">{String.fromCodePoint(0x2728)}</span> and <span className="text-2xl">{String.fromCodePoint(0x2728)}</span></div>
+                  <div className="font-semibold text-indigo-900 mt-2"><strong>Answer:</strong> Circle <span className="text-2xl">{String.fromCodePoint(0x279C)}</span> and <span className="text-2xl">{String.fromCodePoint(0x279C)}</span></div>
                   <div className="text-xs text-indigo-700 mt-2 flex items-center gap-1">
-                    <span>{String.fromCodePoint(0x2728)}</span>
+                    <span>{String.fromCodePoint(0x279C)}</span>
                     <span>Tip: Say the sound, not the letter name! A says /a/ as in apple!</span>
                   </div>
                 </div>
@@ -4269,14 +4269,14 @@ export function PrintablesPage() {
             </div>
             {showAnswersForDoc('beginning-sounds-az', () => {
               const answers: Record<string, string[]> = {
-                'A': [String.fromCodePoint(0x2728), String.fromCodePoint(0x2728)], 'B': [String.fromCodePoint(0x2728), String.fromCodePoint(0x2728), String.fromCodePoint(0x2728)], 'C': [String.fromCodePoint(0x2728), String.fromCodePoint(0x2728), String.fromCodePoint(0x2728)],
-                'D': [String.fromCodePoint(0x2728), String.fromCodePoint(0x2728), String.fromCodePoint(0x2728)], 'E': [String.fromCodePoint(0x2728), String.fromCodePoint(0x2728), String.fromCodePoint(0x2728)], 'F': [String.fromCodePoint(0x2728), String.fromCodePoint(0x2728), String.fromCodePoint(0x2728)],
-                'G': [String.fromCodePoint(0x2728), String.fromCodePoint(0x2728), String.fromCodePoint(0x2728)], 'H': [String.fromCodePoint(0x2728), String.fromCodePoint(0x2728), String.fromCodePoint(0x2728)], 'I': [String.fromCodePoint(0x2728), String.fromCodePoint(0x2728), String.fromCodePoint(0x2728)],
-                'J': [String.fromCodePoint(0x2728), String.fromCodePoint(0x2728), String.fromCodePoint(0x2728)], 'K': [String.fromCodePoint(0x2728), String.fromCodePoint(0x2728), String.fromCodePoint(0x2728)], 'L': [String.fromCodePoint(0x2728), String.fromCodePoint(0x2728), String.fromCodePoint(0x2728)],
-                'M': [String.fromCodePoint(0x2728), String.fromCodePoint(0x2728), String.fromCodePoint(0x2728)], 'N': [String.fromCodePoint(0x2728), String.fromCodePoint(0x2728), String.fromCodePoint(0x2728)], 'O': [String.fromCodePoint(0x2728), String.fromCodePoint(0x2728), String.fromCodePoint(0x2728)],
-                'P': [String.fromCodePoint(0x2728), String.fromCodePoint(0x2728), String.fromCodePoint(0x2728)], 'Q': [String.fromCodePoint(0x2728), String.fromCodePoint(0x2728), String.fromCodePoint(0x2728)], 'R': [String.fromCodePoint(0x2728), String.fromCodePoint(0x2728), String.fromCodePoint(0x2728)],
-                'S': [String.fromCodePoint(0x2728), String.fromCodePoint(0x2728), String.fromCodePoint(0x2728)], 'T': [String.fromCodePoint(0x2728), String.fromCodePoint(0x2728), String.fromCodePoint(0x2728)], 'U': [String.fromCodePoint(0x2728), String.fromCodePoint(0x2728), String.fromCodePoint(0x2728)],
-                'V': [String.fromCodePoint(0x2728), String.fromCodePoint(0x2728), String.fromCodePoint(0x2728)], 'W': [String.fromCodePoint(0x2728), String.fromCodePoint(0x2728), String.fromCodePoint(0x2728)], 'X': [' xylophone', String.fromCodePoint(0x2728), String.fromCodePoint(0x2728)],
+                'A': [String.fromCodePoint(0x279C), String.fromCodePoint(0x279C)], 'B': [String.fromCodePoint(0x279C), String.fromCodePoint(0x279C), String.fromCodePoint(0x279C)], 'C': [String.fromCodePoint(0x279C), String.fromCodePoint(0x279C), String.fromCodePoint(0x279C)],
+                'D': [String.fromCodePoint(0x279C), String.fromCodePoint(0x279C), String.fromCodePoint(0x279C)], 'E': [String.fromCodePoint(0x279C), String.fromCodePoint(0x279C), String.fromCodePoint(0x279C)], 'F': [String.fromCodePoint(0x279C), String.fromCodePoint(0x279C), String.fromCodePoint(0x279C)],
+                'G': [String.fromCodePoint(0x279C), String.fromCodePoint(0x279C), String.fromCodePoint(0x279C)], 'H': [String.fromCodePoint(0x279C), String.fromCodePoint(0x279C), String.fromCodePoint(0x279C)], 'I': [String.fromCodePoint(0x279C), String.fromCodePoint(0x279C), String.fromCodePoint(0x279C)],
+                'J': [String.fromCodePoint(0x279C), String.fromCodePoint(0x279C), String.fromCodePoint(0x279C)], 'K': [String.fromCodePoint(0x279C), String.fromCodePoint(0x279C), String.fromCodePoint(0x279C)], 'L': [String.fromCodePoint(0x279C), String.fromCodePoint(0x279C), String.fromCodePoint(0x279C)],
+                'M': [String.fromCodePoint(0x279C), String.fromCodePoint(0x279C), String.fromCodePoint(0x279C)], 'N': [String.fromCodePoint(0x279C), String.fromCodePoint(0x279C), String.fromCodePoint(0x279C)], 'O': [String.fromCodePoint(0x279C), String.fromCodePoint(0x279C), String.fromCodePoint(0x279C)],
+                'P': [String.fromCodePoint(0x279C), String.fromCodePoint(0x279C), String.fromCodePoint(0x279C)], 'Q': [String.fromCodePoint(0x279C), String.fromCodePoint(0x279C), String.fromCodePoint(0x279C)], 'R': [String.fromCodePoint(0x279C), String.fromCodePoint(0x279C), String.fromCodePoint(0x279C)],
+                'S': [String.fromCodePoint(0x279C), String.fromCodePoint(0x279C), String.fromCodePoint(0x279C)], 'T': [String.fromCodePoint(0x279C), String.fromCodePoint(0x279C), String.fromCodePoint(0x279C)], 'U': [String.fromCodePoint(0x279C), String.fromCodePoint(0x279C), String.fromCodePoint(0x279C)],
+                'V': [String.fromCodePoint(0x279C), String.fromCodePoint(0x279C), String.fromCodePoint(0x279C)], 'W': [String.fromCodePoint(0x279C), String.fromCodePoint(0x279C), String.fromCodePoint(0x279C)], 'X': [' xylophone', String.fromCodePoint(0x279C), String.fromCodePoint(0x279C)],
                 'Y': [' yarn', '', ''], 'Z': [' zebra', '', '']
               };
               return (
@@ -4448,7 +4448,7 @@ export function PrintablesPage() {
                 borderColor: 'border-amber-200',
                 bgColor: 'bg-amber-50',
                 title: 'Super Stars',
-                emoji: String.fromCodePoint(0x2728)
+                emoji: String.fromCodePoint(0x279C)
               };
               case 'cookies': return {
                 icon: (filled: boolean) => (
@@ -4625,7 +4625,7 @@ export function PrintablesPage() {
               {/* Worked Example */}
               <div className="mb-6 print:mb-1 p-4 print:p-1.5 bg-gradient-to-br from-violet-50 to-pink-50 border-2 border-violet-200 rounded-lg print:border print:bg-white">
                 <div className="font-semibold text-violet-900 mb-3 print:mb-0.5 text-sm print:text-[9px] flex items-center gap-2 print:gap-1">
-                  <span className="text-2xl print:text-sm">{String.fromCodePoint(0x2728)}</span>
+                  <span className="text-2xl print:text-sm">{String.fromCodePoint(0x279C)}</span>
                   <span>{getTrans(`worksheets.${docId}.example.title`, 'Example - Let\'s solve this together:')}</span>
                 </div>
                 <div className="space-y-3 print:space-y-0.5 text-sm print:text-[8px]">
@@ -4663,7 +4663,7 @@ export function PrintablesPage() {
                     <div className="print:text-[8px] print:leading-[1.1]"><strong>{getTrans(`worksheets.${docId}.example.step3`, 'Step 3: Expanded form:')}</strong> <span className="text-violet-700 font-bold text-lg print:text-[9px]">{getTrans(`worksheets.${docId}.example.step3Text`, '40 + 7')}</span></div>
                     <div className="font-semibold text-violet-900 mt-2 print:mt-0 print:text-[8px] print:leading-[1.1]"><strong>{getTrans(`worksheets.${docId}.example.answer`, 'Answer:')}</strong> <span className="text-violet-700">{getTrans(`worksheets.${docId}.example.answerText`, 'Tens: 4, Ones: 7, Expanded: 40 + 7')}</span></div>
                     <div className="text-xs print:text-[7px] text-violet-700 mt-2 print:mt-0 flex items-center gap-1 print:leading-[1.1]">
-                      <span>{String.fromCodePoint(0x2728)}</span>
+                      <span>{String.fromCodePoint(0x279C)}</span>
                       <span>{getTrans(`worksheets.${docId}.example.tip`, 'Tip: The tens digit tells you how many groups of 10, the ones digit tells you how many extra ones!')}</span>
                     </div>
                   </div>
@@ -4762,7 +4762,7 @@ export function PrintablesPage() {
                     ]
                     const itemsArray = Array.isArray(items) && items.length > 0 && typeof items[0] === 'string' && items[0] !== `worksheets.${docId}.selfAssessment.items` ? items : fallbackItems
                     return itemsArray.map((item, i) => (
-                      <div key={i}>{String.fromCodePoint(0x2728)}</div>
+                      <div key={i}>{String.fromCodePoint(0x279C)}</div>
                     ))
                   })()}
                 </div>
@@ -4828,7 +4828,7 @@ export function PrintablesPage() {
                     <div><strong>Step 1:</strong> Look at the pattern: 5, 10, ___, 20, 25</div>
                     <div><strong>Step 2:</strong> Each number is 5 more than the previous: 5 + 5 = 10, 10 + 5 = 15</div>
                     <div className="font-semibold text-blue-900"><strong>Answer:</strong> 15</div>
-                    <div className="text-xs text-blue-700 mt-1">{String.fromCodePoint(0x2728)}</div>
+                    <div className="text-xs text-blue-700 mt-1">{String.fromCodePoint(0x279C)}</div>
                   </div>
                 </div>
               </div>
@@ -4940,7 +4940,7 @@ export function PrintablesPage() {
               {/* Worked Example */}
               <div className="mb-6 p-4 bg-gradient-to-br from-emerald-50 to-sky-50 border-2 border-emerald-200 rounded-lg print:border print:bg-white">
                 <div className="font-semibold text-emerald-900 mb-3 text-sm flex items-center gap-2">
-                  <span className="text-2xl">{String.fromCodePoint(0x2728)}</span>
+                  <span className="text-2xl">{String.fromCodePoint(0x279C)}</span>
                   <span>Example - Let's solve this together:</span>
                 </div>
                 <div className="space-y-3 text-sm">
@@ -4983,7 +4983,7 @@ export function PrintablesPage() {
                     <div><strong>Step 3:</strong> Combine: <span className="text-emerald-700 font-bold">60 + 8 = 68</span></div>
                     <div className="font-semibold text-emerald-900 mt-2"><strong>Answer:</strong> <span className="text-2xl text-emerald-700">68</span></div>
                     <div className="text-xs text-emerald-700 mt-2 flex items-center gap-1">
-                      <span>{String.fromCodePoint(0x2728)}</span>
+                      <span>{String.fromCodePoint(0x279C)}</span>
                       <span>Tip: Add ones first, then tens! No regrouping needed here.</span>
                     </div>
                   </div>
@@ -5082,11 +5082,11 @@ export function PrintablesPage() {
               {/* Worked Example */}
               <div className="mb-6 p-4 bg-gradient-to-br from-rose-50 to-fuchsia-50 border-2 border-rose-200 rounded-lg print:border print:bg-white">
                 <div className="font-semibold text-rose-900 mb-3 text-sm flex items-center gap-2">
-                  <span className="text-2xl">{String.fromCodePoint(0x2728)}</span>
+                  <span className="text-2xl">{String.fromCodePoint(0x279C)}</span>
                   <span>Example - Let's solve this together:</span>
                 </div>
                 <div className="space-y-3 text-sm">
-                  <div className="font-mono text-lg text-rose-900"><strong>Problem:</strong> <span className="text-2xl">{String.fromCodePoint(0x2728)}</span></div>
+                  <div className="font-mono text-lg text-rose-900"><strong>Problem:</strong> <span className="text-2xl">{String.fromCodePoint(0x279C)}</span></div>
                   {/* Visual representation */}
                   <div className="bg-white p-4 rounded-lg border-2 border-rose-300 overflow-hidden">
                     <svg viewBox="0 0 600 200" className="w-full h-auto max-h-48" preserveAspectRatio="xMidYMid meet">
@@ -5101,7 +5101,7 @@ export function PrintablesPage() {
                         <rect key={j} x={335 + j * 35} y="45" width="25" height="25" rx="2" fill="#fda4af" stroke="#e11d48" strokeWidth="1.5" />
                       ))}
                       {/* Minus sign and subtract 23 */}
-                      <text x="10" y="105" fontSize="14" fill="#a21caf" fontWeight="bold">{String.fromCodePoint(0x2728)}</text>
+                      <text x="10" y="105" fontSize="14" fill="#a21caf" fontWeight="bold">{String.fromCodePoint(0x279C)}</text>
                       {/* Cross out 2 tens and 3 ones */}
                       {Array.from({ length: 2 }).map((_, j) => (
                         <g key={j}>
@@ -5123,12 +5123,12 @@ export function PrintablesPage() {
                     </svg>
                   </div>
                   <div className="pl-4 border-l-2 border-rose-300 space-y-1">
-                    <div><strong>Step 1:</strong> Subtract ones: <span className="text-rose-700 font-bold">{String.fromCodePoint(0x2728)}</span></div>
-                    <div><strong>Step 2:</strong> Subtract tens: <span className="text-rose-700 font-bold">{String.fromCodePoint(0x2728)}</span></div>
+                    <div><strong>Step 1:</strong> Subtract ones: <span className="text-rose-700 font-bold">{String.fromCodePoint(0x279C)}</span></div>
+                    <div><strong>Step 2:</strong> Subtract tens: <span className="text-rose-700 font-bold">{String.fromCodePoint(0x279C)}</span></div>
                     <div><strong>Step 3:</strong> Combine: <span className="text-rose-700 font-bold">30 + 5 = 35</span></div>
                     <div className="font-semibold text-rose-900 mt-2"><strong>Answer:</strong> <span className="text-2xl text-rose-700">35</span></div>
                     <div className="text-xs text-rose-700 mt-2 flex items-center gap-1">
-                      <span>{String.fromCodePoint(0x2728)}</span>
+                      <span>{String.fromCodePoint(0x279C)}</span>
                       <span>Tip: Subtract ones first, then tens! No regrouping needed here.</span>
                     </div>
                   </div>
@@ -5139,7 +5139,7 @@ export function PrintablesPage() {
                   <div key={i} className="border-2 border-rose-200 rounded-lg p-4 bg-gradient-to-br from-rose-50 to-fuchsia-50 w-full break-inside-avoid print:p-3">
                     <div className="font-mono text-2xl leading-7 text-right mb-2">
                       <div className="text-rose-700">{a}</div>
-                      <div className="text-fuchsia-700">{String.fromCodePoint(0x2728)}</div>
+                      <div className="text-fuchsia-700">{String.fromCodePoint(0x279C)}</div>
                       <div className="border-t-[3px] border-rose-600 mt-2 pt-2 h-12 flex items-center justify-end">
                         <span className="inline-block w-20 h-10 border-b-[3px] border-rose-600" />
                       </div>
@@ -5218,7 +5218,7 @@ export function PrintablesPage() {
               {/* Worked Example */}
               <div className="mb-6 p-4 bg-gradient-to-br from-amber-50 to-lime-50 border-2 border-amber-200 rounded-lg print:border print:bg-white">
                 <div className="font-semibold text-amber-900 mb-3 text-sm flex items-center gap-2">
-                  <span className="text-2xl">{String.fromCodePoint(0x2728)}</span>
+                  <span className="text-2xl">{String.fromCodePoint(0x279C)}</span>
                   <span>Example - Let's solve this together:</span>
                 </div>
                 <div className="space-y-3 text-sm">
@@ -5230,7 +5230,7 @@ export function PrintablesPage() {
                         <div className="text-2xl mb-1">Tom has:</div>
                         <div className="flex gap-1 flex-wrap justify-center max-w-[200px]">
                           {Array.from({ length: 15 }).map((_, i) => (
-                            <span key={i} className="text-2xl">{String.fromCodePoint(0x2728)}</span>
+                            <span key={i} className="text-2xl">{String.fromCodePoint(0x279C)}</span>
                           ))}
                         </div>
                         <div className="text-sm font-semibold text-amber-700 mt-1">15 apples</div>
@@ -5240,7 +5240,7 @@ export function PrintablesPage() {
                         <div className="text-2xl mb-1">Buys:</div>
                         <div className="flex gap-1 flex-wrap justify-center max-w-[200px]">
                           {Array.from({ length: 12 }).map((_, i) => (
-                            <span key={i} className="text-2xl">{String.fromCodePoint(0x2728)}</span>
+                            <span key={i} className="text-2xl">{String.fromCodePoint(0x279C)}</span>
                           ))}
                         </div>
                         <div className="text-sm font-semibold text-amber-700 mt-1">12 more</div>
@@ -5259,7 +5259,7 @@ export function PrintablesPage() {
                     <div><strong>{t('common.step3')}</strong> {t('worksheets.wordProblems.example.step3Text', 'Solve:')} <span className="text-amber-700 font-bold text-lg">15 + 12 = 27</span></div>
                     <div className="font-semibold text-amber-900 mt-2"><strong>{t('common.answer')}</strong> <span className="text-2xl text-amber-700">27 apples</span></div>
                     <div className="text-xs text-amber-700 mt-2 flex items-center gap-1">
-                      <span>{String.fromCodePoint(0x2728)}</span>
+                      <span>{String.fromCodePoint(0x279C)}</span>
                       <span>{t('common.tip')} {t('worksheets.wordProblems.example.tip', '"More" or "in all" usually means addition! "Left" or "remain" usually means subtraction!')}</span>
                     </div>
                   </div>
@@ -5292,7 +5292,7 @@ export function PrintablesPage() {
                             </div>
                             <div className="text-xs font-semibold text-amber-700">{num1}</div>
                           </div>
-                          <div className="text-2xl text-amber-700 font-bold">{String.fromCodePoint(0x2728)}</div>
+                          <div className="text-2xl text-amber-700 font-bold">{String.fromCodePoint(0x279C)}</div>
                           <div className="text-center">
                             <div className="flex gap-1 flex-wrap justify-center max-w-[150px] mb-1">
                               {Array.from({ length: Math.min(num2, 20) }).map((_, j) => (
@@ -5394,7 +5394,7 @@ export function PrintablesPage() {
                     <div><strong>Step 1:</strong> Compare tens: 5 tens vs 4 tens</div>
                     <div><strong>Step 2:</strong> 5 &gt; 4, so 58 &gt; 41</div>
                     <div className="font-semibold text-blue-900"><strong>Answer:</strong> 58 &gt; 41</div>
-                    <div className="text-xs text-blue-700 mt-1">{String.fromCodePoint(0x2728)}</div>
+                    <div className="text-xs text-blue-700 mt-1">{String.fromCodePoint(0x279C)}</div>
                   </div>
                 </div>
               </div>
@@ -5497,9 +5497,9 @@ export function PrintablesPage() {
                   <div className="pl-4 border-l-2 border-blue-300 space-y-1">
                     <div><strong>Step 1:</strong> Look at the ones digit: 4</div>
                     <div><strong>Step 2:</strong> 4 is in the even list (0, 2, 4, 6, 8)</div>
-                    <div><strong>Step 3:</strong>{String.fromCodePoint(0x2728)}</div>
+                    <div><strong>Step 3:</strong>{String.fromCodePoint(0x279C)}</div>
                     <div className="font-semibold text-blue-900"><strong>Answer:</strong> 24 is even</div>
-                    <div className="text-xs text-blue-700 mt-1">{String.fromCodePoint(0x2728)}</div>
+                    <div className="text-xs text-blue-700 mt-1">{String.fromCodePoint(0x279C)}</div>
                   </div>
                 </div>
               </div>
@@ -5507,7 +5507,7 @@ export function PrintablesPage() {
                 {nums.map((n, i) => (
                   <div key={i} className="border border-slate-300 rounded p-3 bg-white w-full flex items-center justify-between break-inside-avoid">
                     <span>{n}</span>
-                    <span className="mx-2">{String.fromCodePoint(0x2728)}</span>
+                    <span className="mx-2">{String.fromCodePoint(0x279C)}</span>
                   </div>
                 ))}
               </div>
@@ -5694,7 +5694,7 @@ export function PrintablesPage() {
                     <div><strong>Step 2:</strong> Color 7 circles in the ten frame</div>
                     <div><strong>Step 3:</strong> Count: 7 filled, 3 empty</div>
                     <div className="font-semibold text-blue-900"><strong>Answer:</strong> Color 7 circles. Say "7 filled, 3 empty"</div>
-                    <div className="text-xs text-blue-700 mt-1">{String.fromCodePoint(0x2728)}</div>
+                    <div className="text-xs text-blue-700 mt-1">{String.fromCodePoint(0x279C)}</div>
                   </div>
                 </div>
               </div>
@@ -5901,7 +5901,7 @@ export function PrintablesPage() {
                 <div className="text-sm text-emerald-800 space-y-1">
                   <div>{String.fromCodePoint(0x2705)}<strong>Lion (Red Cage):</strong> Red Triangle, Red Circle</div>
                   <div>{String.fromCodePoint(0x2705)}<strong>Hippo (Blue Cage):</strong> Blue Circle, Blue Rectangle</div>
-                  <div>{String.fromCodePoint(0x2728)}<strong>Croc (Green Cage):</strong> Green Rectangle, Green Triangle</div>
+                  <div>{String.fromCodePoint(0x279C)}<strong>Croc (Green Cage):</strong> Green Rectangle, Green Triangle</div>
                 </div>
               </div>
             ))}
@@ -5941,8 +5941,8 @@ export function PrintablesPage() {
                     <div><strong>Step 1:</strong> Find dot number 1</div>
                     <div><strong>Step 2:</strong> Draw a line from 1 to 2</div>
                     <div><strong>Step 3:</strong> Continue: 2 to 3, 3 to 4, and so on...</div>
-                    <div className="font-semibold text-blue-900"><strong>Answer:</strong>{String.fromCodePoint(0x2728)}</div>
-                    <div className="text-xs text-blue-700 mt-1">{String.fromCodePoint(0x2728)}</div>
+                    <div className="font-semibold text-blue-900"><strong>Answer:</strong>{String.fromCodePoint(0x279C)}</div>
+                    <div className="text-xs text-blue-700 mt-1">{String.fromCodePoint(0x279C)}</div>
                   </div>
                 </div>
               </div>
@@ -6028,7 +6028,7 @@ export function PrintablesPage() {
                   <div><strong>Step 2:</strong> Try arranging the shapes to make a cat shape</div>
                   <div><strong>Step 3:</strong> When you're happy with your animal, glue it on a clean sheet</div>
                   <div className="font-semibold text-blue-900"><strong>Answer:</strong> There are many ways to arrange the shapes - be creative!</div>
-                  <div className="text-xs text-blue-700 mt-1">{String.fromCodePoint(0x2728)}</div>
+                  <div className="text-xs text-blue-700 mt-1">{String.fromCodePoint(0x279C)}</div>
                 </div>
               </div>
             </div>
@@ -6073,7 +6073,7 @@ export function PrintablesPage() {
                 <div className="space-y-2 text-sm text-emerald-800">
                   <div>Tangram puzzles have many solutions! The goal is to use all 7 pieces to create different shapes.</div>
                   <div className="mt-2">Common animals you can make: cat, rabbit, bird, fish, horse, and more!</div>
-                  <div className="text-xs text-emerald-700 mt-2">{String.fromCodePoint(0x2728)}</div>
+                  <div className="text-xs text-emerald-700 mt-2">{String.fromCodePoint(0x279C)}</div>
                 </div>
               </div>
             ))}
@@ -6112,7 +6112,7 @@ export function PrintablesPage() {
                   <div><strong>Step 2:</strong> Compare it to the second picture</div>
                   <div><strong>Step 3:</strong> Look for differences in: colors, shapes, sizes, positions, missing/added items</div>
                   <div className="font-semibold text-blue-900"><strong>Answer:</strong> There are 7 differences - keep looking until you find them all!</div>
-                  <div className="text-xs text-blue-700 mt-1">{String.fromCodePoint(0x2728)}</div>
+                  <div className="text-xs text-blue-700 mt-1">{String.fromCodePoint(0x279C)}</div>
                 </div>
               </div>
             </div>
@@ -6154,13 +6154,13 @@ export function PrintablesPage() {
                 <div className="space-y-2 text-sm text-emerald-800">
                   <div>There are 7 differences between the two pictures. Look carefully at:</div>
                   <div className="pl-4">
-                    <div>{String.fromCodePoint(0x2728)}</div>
-                    <div>{String.fromCodePoint(0x2728)}</div>
-                    <div>{String.fromCodePoint(0x2728)}</div>
-                    <div>{String.fromCodePoint(0x2728)}</div>
-                    <div>{String.fromCodePoint(0x2728)}</div>
+                    <div>{String.fromCodePoint(0x279C)}</div>
+                    <div>{String.fromCodePoint(0x279C)}</div>
+                    <div>{String.fromCodePoint(0x279C)}</div>
+                    <div>{String.fromCodePoint(0x279C)}</div>
+                    <div>{String.fromCodePoint(0x279C)}</div>
                   </div>
-                  <div className="text-xs text-emerald-700 mt-2">{String.fromCodePoint(0x2728)}</div>
+                  <div className="text-xs text-emerald-700 mt-2">{String.fromCodePoint(0x279C)}</div>
                 </div>
               </div>
             ))}
@@ -6416,7 +6416,7 @@ export function PrintablesPage() {
                   <div><strong>Step 2:</strong> Look for where Sara put the cup</div>
                   <div><strong>Step 3:</strong> Find: "Sara planted a tiny seed in a cup by the window"</div>
                   <div className="font-semibold text-blue-900"><strong>Answer:</strong> Sara put the cup by the window.</div>
-                  <div className="text-xs text-blue-700 mt-1">{String.fromCodePoint(0x2728)}</div>
+                  <div className="text-xs text-blue-700 mt-1">{String.fromCodePoint(0x279C)}</div>
                 </div>
               </div>
             </div>
@@ -6460,7 +6460,7 @@ export function PrintablesPage() {
                   <li><strong>A little water</strong> (Every day, she gave it a little water)</li>
                   <li><strong>A green sprout</strong> (One morning, she saw a green sprout peek out of the soil)</li>
                 </ol>
-                <div className="text-xs text-emerald-700 mt-3">{String.fromCodePoint(0x2728)}</div>
+                <div className="text-xs text-emerald-700 mt-3">{String.fromCodePoint(0x279C)}</div>
               </div>
             ))}
           </WorksheetSectionWrapper>
@@ -6536,7 +6536,7 @@ export function PrintablesPage() {
                     <div><strong>{getTrans(`worksheets.${docId}.example.step2`, 'Step 2:')}</strong> {getTrans(`worksheets.${docId}.example.step2Text`, 'Look for the answer to "Where did Mia go?"')}</div>
                     <div><strong>{getTrans(`worksheets.${docId}.example.step3`, 'Step 3:')}</strong> {getTrans(`worksheets.${docId}.example.step3Text`, 'Find: "Mia ran to the park"')}</div>
                     <div className="font-semibold text-blue-900"><strong>{getTrans(`worksheets.${docId}.example.answer`, 'Answer:')}</strong> {getTrans(`worksheets.${docId}.example.answerText`, 'Mia went to the park.')}</div>
-                    <div className="text-xs text-blue-700 mt-1">{String.fromCodePoint(0x2728)}</div>
+                    <div className="text-xs text-blue-700 mt-1">{String.fromCodePoint(0x279C)}</div>
                   </div>
                 </div>
               </div>
@@ -6586,7 +6586,7 @@ export function PrintablesPage() {
                       'I used full sentences in my answers'
                     ]
                     return itemsArray.map((item, i) => (
-                      <div key={i}>{String.fromCodePoint(0x2728)}</div>
+                      <div key={i}>{String.fromCodePoint(0x279C)}</div>
                     ))
                   })()}
                 </div>
@@ -6619,7 +6619,7 @@ export function PrintablesPage() {
                       })
                     })()}
                   </ol>
-                  <div className="text-xs text-emerald-700 mt-3">{String.fromCodePoint(0x2728)}</div>
+                  <div className="text-xs text-emerald-700 mt-3">{String.fromCodePoint(0x279C)}</div>
                 </div>
               ))}
             </WorksheetSectionWrapper>
@@ -6669,7 +6669,7 @@ export function PrintablesPage() {
                   <div><strong>Step 2:</strong> Look for what Sam dropped</div>
                   <div><strong>Step 3:</strong> Find: "Sam dropped a crumb"</div>
                   <div className="font-semibold text-blue-900"><strong>Answer:</strong> Sam dropped a crumb.</div>
-                  <div className="text-xs text-blue-700 mt-1">{String.fromCodePoint(0x2728)}</div>
+                  <div className="text-xs text-blue-700 mt-1">{String.fromCodePoint(0x279C)}</div>
                 </div>
               </div>
             </div>
@@ -6739,7 +6739,7 @@ export function PrintablesPage() {
                   <div><strong>Step 2:</strong> Look for information about the seats</div>
                   <div><strong>Step 3:</strong> Find: "The seats were soft and blue"</div>
                   <div className="font-semibold text-blue-900"><strong>Answer:</strong> The seats were blue.</div>
-                  <div className="text-xs text-blue-700 mt-1">{String.fromCodePoint(0x2728)}</div>
+                  <div className="text-xs text-blue-700 mt-1">{String.fromCodePoint(0x279C)}</div>
                 </div>
               </div>
             </div>
@@ -6785,7 +6785,7 @@ export function PrintablesPage() {
                   <li><strong>A bell</strong> (The driver rang a bell)</li>
                   <li><strong>It was their stop</strong> ("This is our stop," Mom said)</li>
                 </ol>
-                <div className="text-xs text-emerald-700 mt-3">{String.fromCodePoint(0x2728)}</div>
+                <div className="text-xs text-emerald-700 mt-3">{String.fromCodePoint(0x279C)}</div>
               </div>
             ))}
           </WorksheetSectionWrapper>
@@ -6830,7 +6830,7 @@ export function PrintablesPage() {
                   <div><strong>Step 2:</strong> Look for what pet Tara had</div>
                   <div><strong>Step 3:</strong> Find: "Tara had a tiny orange fish"</div>
                   <div className="font-semibold text-blue-900"><strong>Answer:</strong> Tara had a tiny orange fish.</div>
-                  <div className="text-xs text-blue-700 mt-1">{String.fromCodePoint(0x2728)}</div>
+                  <div className="text-xs text-blue-700 mt-1">{String.fromCodePoint(0x279C)}</div>
                 </div>
               </div>
             </div>
@@ -6876,7 +6876,7 @@ export function PrintablesPage() {
                   <li><strong>Two flakes</strong> (Every morning, she shook in two flakes of food)</li>
                   <li><strong>A picture of Dot</strong> (Tara drew a picture of Dot for her wall)</li>
                 </ol>
-                <div className="text-xs text-emerald-700 mt-3">{String.fromCodePoint(0x2728)}</div>
+                <div className="text-xs text-emerald-700 mt-3">{String.fromCodePoint(0x279C)}</div>
               </div>
             ))}
           </WorksheetSectionWrapper>
@@ -6920,7 +6920,7 @@ export function PrintablesPage() {
                   <div><strong>Step 2:</strong> Look for what Lena was building</div>
                   <div><strong>Step 3:</strong> Find: "Lena wanted a tiny bridge for her toy river"</div>
                   <div className="font-semibold text-blue-900"><strong>Answer:</strong> Lena was building a tiny paper bridge.</div>
-                  <div className="text-xs text-blue-700 mt-1">{String.fromCodePoint(0x2728)}</div>
+                  <div className="text-xs text-blue-700 mt-1">{String.fromCodePoint(0x279C)}</div>
                 </div>
               </div>
             </div>
@@ -6966,7 +6966,7 @@ export function PrintablesPage() {
                   <li><strong>More layers</strong> (She added more layers, tested again, and smiled)</li>
                   <li><strong>Three cars</strong> (The paper bridge held three toy cars!)</li>
                 </ol>
-                <div className="text-xs text-emerald-700 mt-3">{String.fromCodePoint(0x2728)}</div>
+                <div className="text-xs text-emerald-700 mt-3">{String.fromCodePoint(0x279C)}</div>
               </div>
             ))}
           </WorksheetSectionWrapper>
@@ -7013,7 +7013,7 @@ export function PrintablesPage() {
                   <div><strong>Step 2:</strong> Look for what Asha kept</div>
                   <div><strong>Step 3:</strong> Find: "Asha kept a notebook for her balcony garden"</div>
                   <div className="font-semibold text-blue-900"><strong>Answer:</strong> Asha kept a notebook.</div>
-                  <div className="text-xs text-blue-700 mt-1">{String.fromCodePoint(0x2728)}</div>
+                  <div className="text-xs text-blue-700 mt-1">{String.fromCodePoint(0x279C)}</div>
                 </div>
               </div>
             </div>
@@ -7080,7 +7080,7 @@ export function PrintablesPage() {
                   <div><strong>Step 2:</strong> Look for where Jada go</div>
                   <div><strong>Step 3:</strong> Find: "Jada visited the library with her uncle"</div>
                   <div className="font-semibold text-blue-900"><strong>Answer:</strong> Jada went to the library.</div>
-                  <div className="text-xs text-blue-700 mt-1">{String.fromCodePoint(0x2728)}</div>
+                  <div className="text-xs text-blue-700 mt-1">{String.fromCodePoint(0x279C)}</div>
                 </div>
               </div>
             </div>
@@ -7145,7 +7145,7 @@ export function PrintablesPage() {
                   <div><strong>Step 2:</strong> Look for where Ben found the glove</div>
                   <div><strong>Step 3:</strong> Find: "Ben noticed a glove under the slide"</div>
                   <div className="font-semibold text-blue-900"><strong>Answer:</strong> Ben found the glove under the slide.</div>
-                  <div className="text-xs text-blue-700 mt-1">{String.fromCodePoint(0x2728)}</div>
+                  <div className="text-xs text-blue-700 mt-1">{String.fromCodePoint(0x279C)}</div>
                 </div>
               </div>
             </div>
@@ -7163,7 +7163,7 @@ export function PrintablesPage() {
                   <ol className="list-decimal list-inside space-y-0.5">
                     <li>Under the slide</li>
                     <li>The office</li>
-                    <li>{String.fromCodePoint(0x2728)}</li>
+                    <li>{String.fromCodePoint(0x279C)}</li>
                     <li>A classmate; she found her glove</li>
                   </ol>
                 </div>
@@ -7211,7 +7211,7 @@ export function PrintablesPage() {
                   <div><strong>Step 2:</strong> Look for what problem the boat had</div>
                   <div><strong>Step 3:</strong> Find: "a fishing boat drifted off course" and "the fog was thick"</div>
                   <div className="font-semibold text-blue-900"><strong>Answer:</strong> The boat drifted off course in thick fog.</div>
-                  <div className="text-xs text-blue-700 mt-1">{String.fromCodePoint(0x2728)}</div>
+                  <div className="text-xs text-blue-700 mt-1">{String.fromCodePoint(0x279C)}</div>
                 </div>
               </div>
             </div>
@@ -7257,7 +7257,7 @@ export function PrintablesPage() {
                   <li><strong>It guided the boat toward the safe beam and away from rocks</strong> (The boat turned toward the beam and away from the rocks)</li>
                   <li><strong>She keeps careful records and uses safe methods</strong> (Mira logged the event: "Used flash method to guide a boat. Lamps steady.")</li>
                 </ol>
-                <div className="text-xs text-emerald-700 mt-3">{String.fromCodePoint(0x2728)}</div>
+                <div className="text-xs text-emerald-700 mt-3">{String.fromCodePoint(0x279C)}</div>
               </div>
             ))}
           </WorksheetSectionWrapper>
@@ -7302,7 +7302,7 @@ export function PrintablesPage() {
                   <div><strong>Step 2:</strong> Look for what problem the team chose</div>
                   <div><strong>Step 3:</strong> Find: "We chose one: sticky labels that won't peel cleanly"</div>
                   <div className="font-semibold text-blue-900"><strong>Answer:</strong> The team chose sticky labels that won't peel cleanly.</div>
-                  <div className="text-xs text-blue-700 mt-1">{String.fromCodePoint(0x2728)}</div>
+                  <div className="text-xs text-blue-700 mt-1">{String.fromCodePoint(0x279C)}</div>
                 </div>
               </div>
             </div>
@@ -7368,7 +7368,7 @@ export function PrintablesPage() {
                   <div><strong>Step 2:</strong> Look for what families asked the town for</div>
                   <div><strong>Step 3:</strong> Find: "Families asked the town for permission to plant"</div>
                   <div className="font-semibold text-blue-900"><strong>Answer:</strong> Families asked the town for permission to plant a garden.</div>
-                  <div className="text-xs text-blue-700 mt-1">{String.fromCodePoint(0x2728)}</div>
+                  <div className="text-xs text-blue-700 mt-1">{String.fromCodePoint(0x279C)}</div>
                 </div>
               </div>
             </div>
@@ -7414,7 +7414,7 @@ export function PrintablesPage() {
                   <li><strong>Tomatoes and herbs</strong> (By fall, we harvested tomatoes and herbs)</li>
                   <li><strong>For books</strong> (We sold bundles to raise money for books)</li>
                 </ol>
-                <div className="text-xs text-emerald-700 mt-3">{String.fromCodePoint(0x2728)}</div>
+                <div className="text-xs text-emerald-700 mt-3">{String.fromCodePoint(0x279C)}</div>
               </div>
             ))}
           </WorksheetSectionWrapper>
@@ -8313,11 +8313,11 @@ export function PrintablesPage() {
                 });
                 items.push(
                   <div key="page-specific-tt" className="border border-slate-200 rounded-lg p-4 sm:col-span-2">
-                    <div className="font-semibold text-xl mb-2">{String.fromCodePoint(0x2728)}</div>
+                    <div className="font-semibold text-xl mb-2">{String.fromCodePoint(0x279C)}</div>
                     <div className="grid grid-cols-3 gap-2 text-base">
                       {facts.map(([a, b], i) => (
                         <div key={i} className="border border-slate-300 rounded p-2 text-center">
-                          <div className="font-mono">{String.fromCodePoint(0x2728)}<span className="inline-block w-12 h-5 border-b-2 border-slate-600 mx-1" /></div>
+                          <div className="font-mono">{String.fromCodePoint(0x279C)}<span className="inline-block w-12 h-5 border-b-2 border-slate-600 mx-1" /></div>
                         </div>
                       ))}
                     </div>
@@ -8333,13 +8333,13 @@ export function PrintablesPage() {
                 });
                 items.push(
                   <div key="page-specific-tt" className="border border-slate-200 rounded-lg p-4 sm:col-span-2">
-                    <div className="font-semibold text-xl mb-2">{String.fromCodePoint(0x2728)}</div>
+                    <div className="font-semibold text-xl mb-2">{String.fromCodePoint(0x279C)}</div>
                     <div className="grid grid-cols-2 gap-3">
                       {facts.map(([a, b], i) => (
                         <div key={i} className="border border-slate-300 rounded p-2">
                           <div className="font-mono text-lg text-right">
                             <div>{a}</div>
-                            <div>{String.fromCodePoint(0x2728)}</div>
+                            <div>{String.fromCodePoint(0x279C)}</div>
                             <div className="border-t-2 border-slate-600 mt-1 pt-1 h-8 flex items-center justify-end">
                               <span className="inline-block w-16 h-6 border-b-2 border-slate-600" />
                             </div>
@@ -8363,7 +8363,7 @@ export function PrintablesPage() {
                 });
                 items.push(
                   <div key="page-specific-tt" className="border border-slate-200 rounded-lg p-4 sm:col-span-2">
-                    <div className="font-semibold text-xl mb-2">{String.fromCodePoint(0x2728)}</div>
+                    <div className="font-semibold text-xl mb-2">{String.fromCodePoint(0x279C)}</div>
                     <div className="grid grid-cols-2 gap-2 text-base">
                       {problems.map((p, i) => (
                         <div key={i} className="border border-slate-300 rounded p-2 text-center">
@@ -8387,7 +8387,7 @@ export function PrintablesPage() {
                 });
                 items.push(
                   <div key="page-specific-tt" className="border border-slate-200 rounded-lg p-4 sm:col-span-2">
-                    <div className="font-semibold text-xl mb-2">{String.fromCodePoint(0x2728)}</div>
+                    <div className="font-semibold text-xl mb-2">{String.fromCodePoint(0x279C)}</div>
                     <div className="mb-2 text-sm text-slate-600">{String.fromCodePoint(0x270F)}</div>
                     <div className="grid grid-cols-4 gap-1.5 text-sm">
                       {facts.map(([a, b], i) => (
@@ -8409,7 +8409,7 @@ export function PrintablesPage() {
                 });
                 items.push(
                   <div key="page-specific-tt" className="border border-slate-200 rounded-lg p-4 sm:col-span-2">
-                    <div className="font-semibold text-xl mb-2">{String.fromCodePoint(0x2728)}</div>
+                    <div className="font-semibold text-xl mb-2">{String.fromCodePoint(0x279C)}</div>
                     <div className="grid grid-cols-2 gap-2 text-base">
                       {facts.map(([a, b], i) => (
                         <div key={i} className="border-2 border-blue-200 rounded-lg p-2 bg-blue-50">
@@ -8651,7 +8651,7 @@ export function PrintablesPage() {
             const p = buildReadingPassage(packAge);
             items.push(
               <div key={`rc-full-${variant}`} className="border border-slate-200 rounded-lg p-4 sm:col-span-2">
-                <div className="font-semibold text-xl mb-2">{String.fromCodePoint(0x2728)}</div>
+                <div className="font-semibold text-xl mb-2">{String.fromCodePoint(0x279C)}</div>
                 <p className="text-lg text-slate-800 mb-3">{p.text}</p>
                 <ol className="list-decimal list-inside space-y-1 text-lg text-slate-800">
                   {p.qs.map((q, i) => (
@@ -8681,7 +8681,7 @@ export function PrintablesPage() {
             const choice = pool[Math.floor(rng() * pool.length)];
             items.push(
               <div key={`sequence-${variant}`} className="border border-slate-200 rounded-lg p-4">
-                <div className="font-semibold text-xl mb-2">{String.fromCodePoint(0x2728)}</div>
+                <div className="font-semibold text-xl mb-2">{String.fromCodePoint(0x279C)}</div>
                 <ol className="list-decimal list-inside space-y-1 text-lg text-slate-800">
                   {choice.map((s, i) => (<li key={i}><span className="opacity-0">{i + 1}. </span>{s}</li>))}
                 </ol>
@@ -8702,7 +8702,7 @@ export function PrintablesPage() {
             const order = [0, 1, 2].sort(() => (rng() < 0.5 ? -1 : 1));
             items.push(
               <div key={`main-idea-${variant}`} className="border border-slate-200 rounded-lg p-4">
-                <div className="font-semibold text-xl mb-2">{String.fromCodePoint(0x2728)}</div>
+                <div className="font-semibold text-xl mb-2">{String.fromCodePoint(0x279C)}</div>
                 <p className="text-base text-slate-800 mb-3">{p.text}</p>
                 <ul className="space-y-1 text-lg text-slate-800">
                   {order.map((i) => (
@@ -8719,7 +8719,7 @@ export function PrintablesPage() {
           if (!treatAsMath && packSkill !== 'creativity') {
             items.push(
               <div key="ws" className="border border-slate-200 rounded-lg p-4">
-                <div className="font-semibold text-xl mb-3">{String.fromCodePoint(0x2728)}</div>
+                <div className="font-semibold text-xl mb-3">{String.fromCodePoint(0x279C)}</div>
                 <div className={`grid grid-cols-8 gap-2 font-mono text-lg`}>
                   {grid.map((c, i) => (
                     <div key={i} className="w-10 h-10 border border-slate-300 rounded-sm flex items-center justify-center">{c}</div>
@@ -8823,7 +8823,7 @@ export function PrintablesPage() {
             const animalPick = animalTypes[Math.floor(rng() * animalTypes.length)];
             extras.push(
               <div key="coloring-sheet" className="border border-slate-200 rounded-lg p-4 sm:col-span-2">
-                <div className="font-semibold text-xl mb-2">{String.fromCodePoint(0x2728)}</div>
+                <div className="font-semibold text-xl mb-2">{String.fromCodePoint(0x279C)}</div>
                 <svg viewBox="0 0 800 600" className="w-full h-[28rem] sm:h-[32rem] print:h-[36rem]" fill="none" stroke="#334155" strokeWidth={4} strokeLinecap="round" strokeLinejoin="round" role="img" aria-labelledby="coloring-title">
                   <title id="coloring-title">Big coloring illustration</title>
                   {isSpace && (
@@ -8925,7 +8925,7 @@ export function PrintablesPage() {
           );
           const pushMiniMath = () => extras.push(
             <div key="mini-math" className="border border-slate-200 rounded-lg p-4">
-              <div className="font-semibold text-xl mb-2">{String.fromCodePoint(0x2728)}</div>
+              <div className="font-semibold text-xl mb-2">{String.fromCodePoint(0x279C)}</div>
               <div className="grid sm:grid-cols-2 gap-2 text-lg text-slate-800">
                 {buildMiniMathProblems(8).map((p, i) => (
                   <div key={i} className="flex items-center justify-between">
@@ -8938,7 +8938,7 @@ export function PrintablesPage() {
           );
           const pushPlaceValue = () => extras.push(
             <div key="place-value" className="border border-slate-200 rounded-lg p-4">
-              <div className="font-semibold text-xl mb-2">{String.fromCodePoint(0x2728)}</div>
+              <div className="font-semibold text-xl mb-2">{String.fromCodePoint(0x279C)}</div>
               <div className="grid sm:grid-cols-2 gap-3 text-lg text-slate-800">
                 {Array.from({ length: 6 }).map((_, i) => {
                   const n = 10 + Math.floor(rng() * 89);
@@ -8957,7 +8957,7 @@ export function PrintablesPage() {
           );
           const pushTenFramesPractice = () => extras.push(
             <div key="ten-frames-mini" className="border border-slate-200 rounded-lg p-4">
-              <div className="font-semibold text-xl mb-2">{String.fromCodePoint(0x2728)}</div>
+              <div className="font-semibold text-xl mb-2">{String.fromCodePoint(0x279C)}</div>
               <div className="grid sm:grid-cols-2 gap-3">
                 {Array.from({ length: 2 }).map((_, i) => {
                   // Grade-appropriate targets: up to 10 for K2 pack, to 20 for Grade 2, higher for 2-5
@@ -9026,7 +9026,7 @@ export function PrintablesPage() {
             const miniS = buildMiniSudoku();
             extras.push(
               <div key="mini-sudoku" className="border border-slate-200 rounded-lg p-4">
-                <div className="font-semibold text-xl mb-2">{String.fromCodePoint(0x2728)}</div>
+                <div className="font-semibold text-xl mb-2">{String.fromCodePoint(0x279C)}</div>
                 <div className="inline-grid grid-cols-4 gap-[3px] text-lg font-mono">
                   {miniS.flat().map((v, i) => (
                     <div key={i} className="w-12 h-12 border border-slate-300 rounded-sm flex items-center justify-center bg-white">
@@ -9369,7 +9369,7 @@ export function PrintablesPage() {
                     <div><strong>{getTrans(`worksheets.${docId}.example.step3`, 'Step 3:')}</strong> {getTrans(`worksheets.${docId}.example.step3Text`, 'Move to Row 2 and find tiles that equal 8: 6+2=8, 9-1=8, etc.')}</div>
                     <div><strong>{getTrans(`worksheets.${docId}.example.step4`, 'Step 4:')}</strong> {getTrans(`worksheets.${docId}.example.step4Text`, 'Continue to Row 3 and find tiles that equal 10: 7+3=10, 12-2=10, etc.')}</div>
                     <div><strong>{getTrans(`worksheets.${docId}.example.step5`, 'Step 5:')}</strong> {getTrans(`worksheets.${docId}.example.step5Text`, 'Draw your path from S to F following valid tiles')}</div>
-                    <div className="text-xs text-blue-700 mt-1">{String.fromCodePoint(0x2728)}</div>
+                    <div className="text-xs text-blue-700 mt-1">{String.fromCodePoint(0x279C)}</div>
                   </div>
                 </div>
               </div>
@@ -9419,7 +9419,7 @@ export function PrintablesPage() {
                     ]
                     const itemsArray = Array.isArray(items) && items.length > 0 && typeof items[0] === 'string' && items[0] !== `worksheets.${docId}.selfAssessment.items` ? items : fallbackItems
                     return itemsArray.map((item, i) => (
-                      <div key={i}>{String.fromCodePoint(0x2728)}</div>
+                      <div key={i}>{String.fromCodePoint(0x279C)}</div>
                     ))
                   })()}
                 </div>
@@ -9436,11 +9436,11 @@ export function PrintablesPage() {
                   <div className="space-y-2 text-sm text-emerald-800">
                     <div><strong>{getTrans(`worksheets.${docId}.answerKey.exampleTargetPlan`, 'Example target plan:')}</strong></div>
                     <ul className="list-disc list-inside space-y-1 ml-4">
-                      <li>{String.fromCodePoint(0x2728)}</li>
-                      <li>{String.fromCodePoint(0x2728)}</li>
-                      <li>{String.fromCodePoint(0x2728)}</li>
+                      <li>{String.fromCodePoint(0x279C)}</li>
+                      <li>{String.fromCodePoint(0x279C)}</li>
+                      <li>{String.fromCodePoint(0x279C)}</li>
                     </ul>
-                    <div className="text-xs text-emerald-700 mt-3">{String.fromCodePoint(0x2728)}</div>
+                    <div className="text-xs text-emerald-700 mt-3">{String.fromCodePoint(0x279C)}</div>
                   </div>
                 </div>
               ))}
@@ -9478,7 +9478,7 @@ export function PrintablesPage() {
                   <div><strong>Step 2:</strong> Check each option: "elefant" (missing 'ph'), "elephant" (correct!), "elephent" (wrong 'ph' position)</div>
                   <div><strong>Step 3:</strong> Circle "elephant"</div>
                   <div className="font-semibold text-blue-900"><strong>Answer:</strong> elephant</div>
-                  <div className="text-xs text-blue-700 mt-1">{String.fromCodePoint(0x2728)}</div>
+                  <div className="text-xs text-blue-700 mt-1">{String.fromCodePoint(0x279C)}</div>
                 </div>
               </div>
             </div>
@@ -9565,8 +9565,8 @@ export function PrintablesPage() {
                   <div><strong>Step 2:</strong> Look for key words: "red planet"</div>
                   <div><strong>Step 3:</strong> Find the matching option: "A dusty red world" (E)</div>
                   <div><strong>Step 4:</strong> Draw a line from 1 to E</div>
-                  <div className="font-semibold text-blue-900"><strong>Answer:</strong>{String.fromCodePoint(0x2728)}</div>
-                  <div className="text-xs text-blue-700 mt-1">{String.fromCodePoint(0x2728)}</div>
+                  <div className="font-semibold text-blue-900"><strong>Answer:</strong>{String.fromCodePoint(0x279C)}</div>
+                  <div className="text-xs text-blue-700 mt-1">{String.fromCodePoint(0x279C)}</div>
                 </div>
               </div>
             </div>
@@ -9582,7 +9582,7 @@ export function PrintablesPage() {
               <ul className="list-none space-y-1 text-sm">
                 <li>A) Weather water in the sky</li>
                 <li>B) A cold-loving bird</li>
-                <li>{String.fromCodePoint(0x2728)}</li>
+                <li>{String.fromCodePoint(0x279C)}</li>
                 <li>D) A huge ocean animal</li>
                 <li>E) A dusty red world</li>
                 <li>F) Shocking sky energy</li>
@@ -9594,10 +9594,10 @@ export function PrintablesPage() {
                 <ol className="list-decimal list-inside space-y-0.5">
                   <li>{String.fromCodePoint(0x2705)}</li>
                   <li>{String.fromCodePoint(0x2705)}</li>
-                  <li>{String.fromCodePoint(0x2728)}</li>
-                  <li>{String.fromCodePoint(0x2728)}</li>
-                  <li>{String.fromCodePoint(0x2728)}</li>
-                  <li>{String.fromCodePoint(0x2728)}</li>
+                  <li>{String.fromCodePoint(0x279C)}</li>
+                  <li>{String.fromCodePoint(0x279C)}</li>
+                  <li>{String.fromCodePoint(0x279C)}</li>
+                  <li>{String.fromCodePoint(0x279C)}</li>
                 </ol>
               </div>
             ))}
@@ -9634,7 +9634,7 @@ export function PrintablesPage() {
                   <div><strong>Step 2:</strong> Check capitalization: "we" should be "We", "saturday" should be "Saturday"</div>
                   <div><strong>Step 3:</strong> Fix the sentence</div>
                   <div className="font-semibold text-blue-900"><strong>Answer:</strong> We go to the park every Saturday.</div>
-                  <div className="text-xs text-blue-700 mt-1">{String.fromCodePoint(0x2728)}</div>
+                  <div className="text-xs text-blue-700 mt-1">{String.fromCodePoint(0x279C)}</div>
                 </div>
               </div>
             </div>
@@ -9772,7 +9772,7 @@ export function PrintablesPage() {
                     <div><strong>Step 2:</strong> Find all squares with number 1</div>
                     <div><strong>Step 3:</strong> Color them yellow</div>
                     <div className="font-semibold text-blue-900"><strong>Answer:</strong> Color all 1s yellow</div>
-                    <div className="text-xs text-blue-700 mt-1">{String.fromCodePoint(0x2728)}</div>
+                    <div className="text-xs text-blue-700 mt-1">{String.fromCodePoint(0x279C)}</div>
                   </div>
                 </div>
               </div>
@@ -9829,10 +9829,10 @@ export function PrintablesPage() {
                   <div className="text-sm text-emerald-800">
                     <div className="mb-2">The colored pattern shows the completed picture. Color each square according to the legend:</div>
                     <div>{String.fromCodePoint(0x2705)}<strong>1 = Yellow</strong> - Color all 1s yellow</div>
-                    <div>{String.fromCodePoint(0x2728)}<strong>2 = Blue</strong> - Color all 2s blue</div>
-                    <div>{String.fromCodePoint(0x2728)}<strong>3 = Green</strong> - Color all 3s green</div>
-                    <div>{String.fromCodePoint(0x2728)}<strong>4 = Red</strong> - Color all 4s red</div>
-                    <div className="text-xs text-emerald-700 mt-2">{String.fromCodePoint(0x2728)}</div>
+                    <div>{String.fromCodePoint(0x279C)}<strong>2 = Blue</strong> - Color all 2s blue</div>
+                    <div>{String.fromCodePoint(0x279C)}<strong>3 = Green</strong> - Color all 3s green</div>
+                    <div>{String.fromCodePoint(0x279C)}<strong>4 = Red</strong> - Color all 4s red</div>
+                    <div className="text-xs text-emerald-700 mt-2">{String.fromCodePoint(0x279C)}</div>
                   </div>
                 </div>
               ))}
@@ -10082,10 +10082,10 @@ export function PrintablesPage() {
                 <div className="font-semibold text-base"><strong>Problem:</strong> Use clues to fill in the logic grid</div>
                 <div className="pl-4 border-l-2 border-blue-300 space-y-1">
                   <div><strong>Step 1:</strong> Read all the clues carefully</div>
-                  <div><strong>Step 2:</strong>{String.fromCodePoint(0x2728)}</div>
+                  <div><strong>Step 2:</strong>{String.fromCodePoint(0x279C)}</div>
                   <div><strong>Step 3:</strong> Use process of elimination to find remaining matches</div>
                   <div className="font-semibold text-blue-900"><strong>Answer:</strong> Fill in the grid based on the clues</div>
-                  <div className="text-xs text-blue-700 mt-1">{String.fromCodePoint(0x2728)}</div>
+                  <div className="text-xs text-blue-700 mt-1">{String.fromCodePoint(0x279C)}</div>
                 </div>
               </div>
             </div>
@@ -10116,7 +10116,7 @@ export function PrintablesPage() {
               <ol className="list-decimal list-inside space-y-1">
                 <li>Liam does not own the dog.</li>
                 <li>{String.fromCodePoint(0x270F)}</li>
-                <li>{String.fromCodePoint(0x2728)}</li>
+                <li>{String.fromCodePoint(0x279C)}</li>
               </ol>
             </div>
             {/* Extension/Challenge Problems */}
@@ -10146,8 +10146,8 @@ export function PrintablesPage() {
                 <div className="text-sm text-emerald-800">
                   <div className="mb-2"><strong>Solution:</strong></div>
                   <div>{String.fromCodePoint(0x2705)}</div>
-                  <div>{String.fromCodePoint(0x2728)}</div>
-                  <div>{String.fromCodePoint(0x2728)}</div>
+                  <div>{String.fromCodePoint(0x279C)}</div>
+                  <div>{String.fromCodePoint(0x279C)}</div>
                 </div>
               </div>
             ))}
@@ -10185,7 +10185,7 @@ export function PrintablesPage() {
                   <div><strong>Step 3:</strong> Scan from top to bottom, left to right</div>
                   <div><strong>Step 4:</strong> Circle each object when you find it</div>
                   <div className="font-semibold text-blue-900"><strong>Answer:</strong> Objects can be hidden in plain sight - look carefully!</div>
-                  <div className="text-xs text-blue-700 mt-1">{String.fromCodePoint(0x2728)}</div>
+                  <div className="text-xs text-blue-700 mt-1">{String.fromCodePoint(0x279C)}</div>
                 </div>
               </div>
             </div>
@@ -10225,7 +10225,7 @@ export function PrintablesPage() {
                 <div className="text-sm text-emerald-800">
                   <div className="mb-2">Find and circle these objects in the scene:</div>
                   <div><strong>Key, Apple, Star, Leaf, Car, Book, Shell, Cloud, Ball, Hat</strong></div>
-                  <div className="text-xs text-emerald-700 mt-2">{String.fromCodePoint(0x2728)}</div>
+                  <div className="text-xs text-emerald-700 mt-2">{String.fromCodePoint(0x279C)}</div>
                 </div>
               </div>
             ))}
@@ -10796,7 +10796,7 @@ export function PrintablesPage() {
                 <tbody>
                   <tr>
                     {Array.from({ length: 7 }).map((_, i) => (
-                      <td key={i} className="border border-slate-300 h-8 text-center align-middle">{String.fromCodePoint(0x2728)}</td>
+                      <td key={i} className="border border-slate-300 h-8 text-center align-middle">{String.fromCodePoint(0x279C)}</td>
                     ))}
                   </tr>
                 </tbody>
@@ -11073,7 +11073,7 @@ export function PrintablesPage() {
                       <div className="flex-1 border-b border-slate-400" />
                     </div>
                     <div className="flex items-center gap-3">
-                      <span>{String.fromCodePoint(0x2728)}</span>
+                      <span>{String.fromCodePoint(0x279C)}</span>
                       <div className="flex-1 border-b border-slate-400" />
                     </div>
                   </div>
@@ -11855,7 +11855,7 @@ export function PrintablesPage() {
                 {/* Decorative Garden Header */}
                 <div className="print:hidden w-full h-16 mb-4 relative overflow-hidden bg-gradient-to-b from-sky-100 to-white rounded-lg">
                   <div className="absolute bottom-0 w-full flex justify-between text-4xl px-4 animate-bounce-slow">
-                    <span>{String.fromCodePoint(0x2728)}</span><span>{String.fromCodePoint(0x2728)}</span><span>{String.fromCodePoint(0x2728)}</span><span>{String.fromCodePoint(0x2728)}</span><span>{String.fromCodePoint(0x2728)}</span>
+                    <span>{String.fromCodePoint(0x279C)}</span><span>{String.fromCodePoint(0x279C)}</span><span>{String.fromCodePoint(0x279C)}</span><span>{String.fromCodePoint(0x279C)}</span><span>{String.fromCodePoint(0x279C)}</span>
                   </div>
                 </div>
 
@@ -11922,7 +11922,7 @@ export function PrintablesPage() {
                         )
                       })}
                     </div>
-                    <div className="text-xs text-emerald-700 mt-3">{String.fromCodePoint(0x2728)}</div>
+                    <div className="text-xs text-emerald-700 mt-3">{String.fromCodePoint(0x279C)}</div>
                   </div>
                 ))}
               </WorksheetSectionWrapper>
@@ -12221,7 +12221,7 @@ export function PrintablesPage() {
               {/* Worked Example */}
               <div className="mb-6 p-4 bg-gradient-to-br from-indigo-50 to-purple-50 border-2 border-indigo-200 rounded-lg print:border print:bg-white">
                 <div className="font-semibold text-indigo-900 mb-3 text-sm flex items-center gap-2">
-                  <span className="text-2xl">{String.fromCodePoint(0x2728)}</span>
+                  <span className="text-2xl">{String.fromCodePoint(0x279C)}</span>
                   <span>Example - Let's solve this together:</span>
                 </div>
                 <div className="space-y-3 text-sm">
@@ -12232,7 +12232,7 @@ export function PrintablesPage() {
                       <div className="text-center">
                         <div className="flex gap-2 mb-2">
                           {Array.from({ length: 3 }).map((_, i) => (
-                            <span key={i} className="text-4xl">{String.fromCodePoint(0x2728)}</span>
+                            <span key={i} className="text-4xl">{String.fromCodePoint(0x279C)}</span>
                           ))}
                         </div>
                         <div className="text-sm font-semibold text-indigo-700">3 apples</div>
@@ -12241,7 +12241,7 @@ export function PrintablesPage() {
                       <div className="text-center">
                         <div className="flex gap-2 mb-2">
                           {Array.from({ length: 4 }).map((_, i) => (
-                            <span key={i} className="text-4xl">{String.fromCodePoint(0x2728)}</span>
+                            <span key={i} className="text-4xl">{String.fromCodePoint(0x279C)}</span>
                           ))}
                         </div>
                         <div className="text-sm font-semibold text-indigo-700">4 apples</div>
@@ -12250,7 +12250,7 @@ export function PrintablesPage() {
                       <div className="text-center">
                         <div className="flex gap-2 mb-2">
                           {Array.from({ length: 7 }).map((_, i) => (
-                            <span key={i} className="text-4xl">{String.fromCodePoint(0x2728)}</span>
+                            <span key={i} className="text-4xl">{String.fromCodePoint(0x279C)}</span>
                           ))}
                         </div>
                         <div className="text-sm font-semibold text-indigo-700">7 apples</div>
@@ -12263,7 +12263,7 @@ export function PrintablesPage() {
                     <div><strong>Step 3:</strong> Add them together: <span className="text-indigo-700 font-bold text-lg">3 + 4 = 7</span></div>
                     <div className="font-semibold text-indigo-900 mt-2"><strong>Answer:</strong> <span className="text-2xl text-indigo-700">7</span></div>
                     <div className="text-xs text-indigo-700 mt-2 flex items-center gap-1">
-                      <span>{String.fromCodePoint(0x2728)}</span>
+                      <span>{String.fromCodePoint(0x279C)}</span>
                       <span>Tip: Count each group first, then add the numbers together. You can also count all the pictures to check your answer!</span>
                     </div>
                   </div>
@@ -12332,7 +12332,7 @@ export function PrintablesPage() {
                       <li key={idx}><strong>{a} + {b} = {a + b}</strong> (Count {a} circles in the first group, {b} circles in the second group, total = {a + b})</li>
                     ))}
                   </ul>
-                  <div className="text-xs text-emerald-700 mt-3">{String.fromCodePoint(0x2728)}</div>
+                  <div className="text-xs text-emerald-700 mt-3">{String.fromCodePoint(0x279C)}</div>
                 </div>
               ))}
             </WorksheetSectionWrapper>
@@ -12365,7 +12365,7 @@ export function PrintablesPage() {
               {/* Worked Example */}
               <div className="mb-6 p-4 bg-gradient-to-br from-rose-50 to-pink-50 border-2 border-rose-200 rounded-lg print:border print:bg-white">
                 <div className="font-semibold text-rose-900 mb-3 text-sm flex items-center gap-2">
-                  <span className="text-2xl">{String.fromCodePoint(0x2728)}</span>
+                  <span className="text-2xl">{String.fromCodePoint(0x279C)}</span>
                   <span>Example - Let's solve this together:</span>
                 </div>
                 <div className="space-y-3 text-sm">
@@ -12377,16 +12377,16 @@ export function PrintablesPage() {
                         <div className="text-sm font-semibold text-rose-700 mb-2">Start: 8 apples</div>
                         <div className="flex gap-1 flex-wrap justify-center max-w-[200px]">
                           {Array.from({ length: 8 }).map((_, i) => (
-                            <span key={i} className="text-2xl">{String.fromCodePoint(0x2728)}</span>
+                            <span key={i} className="text-2xl">{String.fromCodePoint(0x279C)}</span>
                           ))}
                         </div>
                       </div>
-                      <div className="text-2xl text-rose-700 font-bold">{String.fromCodePoint(0x2728)}</div>
+                      <div className="text-2xl text-rose-700 font-bold">{String.fromCodePoint(0x279C)}</div>
                       <div className="text-center">
                         <div className="text-sm font-semibold text-red-600 mb-2">Eaten: 3</div>
                         <div className="flex gap-1 flex-wrap justify-center max-w-[150px]">
                           {Array.from({ length: 3 }).map((_, i) => (
-                            <span key={i} className="text-2xl opacity-50">{String.fromCodePoint(0x2728)}</span>
+                            <span key={i} className="text-2xl opacity-50">{String.fromCodePoint(0x279C)}</span>
                           ))}
                         </div>
                       </div>
@@ -12395,7 +12395,7 @@ export function PrintablesPage() {
                         <div className="text-sm font-semibold text-rose-700 mb-2">Left: 5</div>
                         <div className="flex gap-1 flex-wrap justify-center max-w-[200px]">
                           {Array.from({ length: 5 }).map((_, i) => (
-                            <span key={i} className="text-2xl">{String.fromCodePoint(0x2728)}</span>
+                            <span key={i} className="text-2xl">{String.fromCodePoint(0x279C)}</span>
                           ))}
                         </div>
                       </div>
@@ -12407,7 +12407,7 @@ export function PrintablesPage() {
                     <div><strong>Step 3:</strong> Subtract: <span className="text-rose-700 font-bold text-lg">8 - 3 = 5</span></div>
                     <div className="font-semibold text-rose-900 mt-2"><strong>Answer:</strong> <span className="text-2xl text-rose-700">5 apples left</span></div>
                     <div className="text-xs text-rose-700 mt-2 flex items-center gap-1">
-                      <span>{String.fromCodePoint(0x2728)}</span>
+                      <span>{String.fromCodePoint(0x279C)}</span>
                       <span>Tip: Subtraction means "take away". Start with the total, then subtract what was taken away!</span>
                     </div>
                   </div>
@@ -12415,10 +12415,10 @@ export function PrintablesPage() {
               </div>
               <div className="space-y-4 break-inside-avoid" style={{ pageBreakAfter: 'auto' }}>
                 {[
-                  { total: 8, take: 3, story: '8 apples, 3 eaten', emoji: String.fromCodePoint(0x2728) },
-                  { total: 7, take: 2, story: '7 birds, 2 flew away', emoji: String.fromCodePoint(0x2728) },
-                  { total: 9, take: 4, story: '9 flowers, 4 picked', emoji: String.fromCodePoint(0x2728) },
-                  { total: 10, take: 5, story: '10 cookies, 5 shared', emoji: String.fromCodePoint(0x2728) }
+                  { total: 8, take: 3, story: '8 apples, 3 eaten', emoji: String.fromCodePoint(0x279C) },
+                  { total: 7, take: 2, story: '7 birds, 2 flew away', emoji: String.fromCodePoint(0x279C) },
+                  { total: 9, take: 4, story: '9 flowers, 4 picked', emoji: String.fromCodePoint(0x279C) },
+                  { total: 10, take: 5, story: '10 cookies, 5 shared', emoji: String.fromCodePoint(0x279C) }
                 ].map(({ total, take, story, emoji }, idx) => (
                   <div key={idx} className="border-2 border-rose-200 rounded-lg p-4 bg-gradient-to-br from-rose-50 to-pink-50">
                     <p className="text-rose-900 text-base font-semibold mb-3">{idx + 1}. {story}</p>
@@ -12432,7 +12432,7 @@ export function PrintablesPage() {
                           </div>
                           <div className="text-xs text-rose-700 font-semibold">{total} total</div>
                         </div>
-                        <div className="text-2xl text-rose-700 font-bold">{String.fromCodePoint(0x2728)}</div>
+                        <div className="text-2xl text-rose-700 font-bold">{String.fromCodePoint(0x279C)}</div>
                         <div className="text-center">
                           <div className="flex gap-1 flex-wrap justify-center max-w-[150px] mb-1">
                             {Array.from({ length: take }).map((_, i) => (
@@ -12490,7 +12490,7 @@ export function PrintablesPage() {
                       <li key={idx}><strong>{total} - {take} = {total - take}</strong> ({story}: Start with {total}, take away {take}, {total - take} left)</li>
                     ))}
                   </ul>
-                  <div className="text-xs text-emerald-700 mt-3">{String.fromCodePoint(0x2728)}</div>
+                  <div className="text-xs text-emerald-700 mt-3">{String.fromCodePoint(0x279C)}</div>
                 </div>
               ))}
             </WorksheetSectionWrapper>
@@ -12606,7 +12606,7 @@ export function PrintablesPage() {
                 {/* Worked Example */}
                 <div className="mb-6 p-4 bg-gradient-to-br from-teal-50 to-cyan-50 border-2 border-teal-200 rounded-lg print:border print:bg-white">
                   <div className="font-semibold text-teal-900 mb-3 text-sm flex items-center gap-2">
-                    <span className="text-2xl">{String.fromCodePoint(0x2728)}</span>
+                    <span className="text-2xl">{String.fromCodePoint(0x279C)}</span>
                     <span>Example - Let's solve this together:</span>
                   </div>
                   <div className="space-y-3 text-sm">
@@ -12652,7 +12652,7 @@ export function PrintablesPage() {
                       <div><strong>Step 3:</strong> Find the missing number: <span className="text-teal-700 font-bold text-lg">7 - 2 = 5</span></div>
                       <div className="font-semibold text-teal-900 mt-2"><strong>Answer:</strong> <span className="text-2xl text-teal-700">5</span> (because 3 + 4 = 5 + 2, both equal 7)</div>
                       <div className="text-xs text-teal-700 mt-2 flex items-center gap-1">
-                        <span>{String.fromCodePoint(0x2728)}</span>
+                        <span>{String.fromCodePoint(0x279C)}</span>
                         <span>Tip: Solve one side first, then make the other side equal to it!</span>
                       </div>
                     </div>
@@ -12719,7 +12719,7 @@ export function PrintablesPage() {
                         );
                       })}
                     </ul>
-                    <div className="text-xs text-emerald-700 mt-3">{String.fromCodePoint(0x2728)}</div>
+                    <div className="text-xs text-emerald-700 mt-3">{String.fromCodePoint(0x279C)}</div>
                   </div>
                 ))}
               </WorksheetSectionWrapper>
@@ -12753,7 +12753,7 @@ export function PrintablesPage() {
               {/* Worked Example */}
               <div className="mb-6 p-4 bg-gradient-to-br from-pink-50 to-rose-50 border-2 border-pink-200 rounded-lg print:border print:bg-white">
                 <div className="font-semibold text-pink-900 mb-3 text-sm flex items-center gap-2">
-                  <span className="text-2xl">{String.fromCodePoint(0x2728)}</span>
+                  <span className="text-2xl">{String.fromCodePoint(0x279C)}</span>
                   <span>Example - Let's solve this together:</span>
                 </div>
                 <div className="space-y-3 text-sm">
@@ -12765,7 +12765,7 @@ export function PrintablesPage() {
                         <div key={i} className="text-center">
                           <div className="flex gap-1 mb-1">
                             {Array.from({ length: num }).map((_, j) => (
-                              <span key={j} className="text-xl">{String.fromCodePoint(0x2728)}</span>
+                              <span key={j} className="text-xl">{String.fromCodePoint(0x279C)}</span>
                             ))}
                           </div>
                           <div className={`text-sm font-semibold ${i % 2 === 0 ? 'text-pink-700' : 'text-pink-400'}`}>
@@ -12782,7 +12782,7 @@ export function PrintablesPage() {
                     <div><strong>Step 3:</strong> After 6 comes <span className="text-pink-700 font-bold">8</span> (6 + 2 = 8)</div>
                     <div className="font-semibold text-pink-900 mt-2"><strong>Answer:</strong> <span className="text-2xl text-pink-700">2, 4, 6, 8, 10</span></div>
                     <div className="text-xs text-pink-700 mt-2 flex items-center gap-1">
-                      <span>{String.fromCodePoint(0x2728)}</span>
+                      <span>{String.fromCodePoint(0x279C)}</span>
                       <span>Tip: Skip counting by 2s means adding 2 each time. Each number is 2 more than the one before!</span>
                     </div>
                   </div>
@@ -12807,7 +12807,7 @@ export function PrintablesPage() {
                               {i % 2 === idx % 2 && (
                                 <g>
                                   {Array.from({ length: Math.min(num, 4) }).map((_, j) => (
-                                    <text key={j} x={x - 8 + j * 4} y="85" fontSize="12">{String.fromCodePoint(0x2728)}</text>
+                                    <text key={j} x={x - 8 + j * 4} y="85" fontSize="12">{String.fromCodePoint(0x279C)}</text>
                                   ))}
                                   {num > 4 && <text x={x} y="95" fontSize="10" fill="#f59e0b">{num}</text>}
                                 </g>
@@ -12899,7 +12899,7 @@ export function PrintablesPage() {
                 {/* Worked Example */}
                 <div className="mb-6 p-4 bg-gradient-to-br from-cyan-50 to-blue-50 border-2 border-cyan-200 rounded-lg print:border print:bg-white">
                   <div className="font-semibold text-cyan-900 mb-3 text-sm flex items-center gap-2">
-                    <span className="text-2xl">{String.fromCodePoint(0x2728)}</span>
+                    <span className="text-2xl">{String.fromCodePoint(0x279C)}</span>
                     <span>Example - Let's solve this together:</span>
                   </div>
                   <div className="space-y-3 text-sm">
@@ -12937,11 +12937,11 @@ export function PrintablesPage() {
                     </div>
                     <div className="pl-4 border-l-2 border-cyan-300 space-y-1">
                       <div><strong>Step 1:</strong> Start at <span className="text-cyan-700 font-bold">3</span> on the number line</div>
-                      <div><strong>Step 2:</strong> Count forward <span className="text-cyan-700 font-bold">4 spaces</span>{String.fromCodePoint(0x2728)}</div>
+                      <div><strong>Step 2:</strong> Count forward <span className="text-cyan-700 font-bold">4 spaces</span>{String.fromCodePoint(0x279C)}</div>
                       <div><strong>Step 3:</strong> You land on <span className="text-cyan-700 font-bold text-lg">7</span></div>
                       <div className="font-semibold text-cyan-900 mt-2"><strong>Answer:</strong> <span className="text-2xl text-cyan-700">3 + 4 = 7</span></div>
                       <div className="text-xs text-cyan-700 mt-2 flex items-center gap-1">
-                        <span>{String.fromCodePoint(0x2728)}</span>
+                        <span>{String.fromCodePoint(0x279C)}</span>
                         <span>Tip: Start at the first number, then count forward the second number of spaces. Where you land is your answer!</span>
                       </div>
                     </div>
@@ -13023,7 +13023,7 @@ export function PrintablesPage() {
                         <li key={idx}><strong>{a} + {b} = {a + b}</strong> (Start at {a} on the number line, count forward {b} spaces, land on {a + b})</li>
                       ))}
                     </ul>
-                    <div className="text-xs text-emerald-700 mt-3">{String.fromCodePoint(0x2728)}</div>
+                    <div className="text-xs text-emerald-700 mt-3">{String.fromCodePoint(0x279C)}</div>
                   </div>
                 ))}
               </WorksheetSectionWrapper>
@@ -13069,7 +13069,7 @@ export function PrintablesPage() {
                     <div><strong>Step 2:</strong> See the repetition: Circle, Square, Circle, Square</div>
                     <div><strong>Step 3:</strong> What comes next? After Square comes Circle!</div>
                     <div className="font-semibold text-blue-900"><strong>Answer:</strong> Circle</div>
-                    <div className="text-xs text-blue-700 mt-1">{String.fromCodePoint(0x2728)}</div>
+                    <div className="text-xs text-blue-700 mt-1">{String.fromCodePoint(0x279C)}</div>
                   </div>
                 </div>
               </div>
@@ -13131,7 +13131,7 @@ export function PrintablesPage() {
                     <li><strong>ABC Pattern: Next color is green</strong> (The pattern repeats: red, blue, green, red, blue, so next is green)</li>
                     <li><strong>AAB Pattern: Next shape is triangle</strong> (The pattern is: triangle, triangle, circle, triangle, triangle, so next is triangle)</li>
                   </ul>
-                  <div className="text-xs text-emerald-700 mt-3">{String.fromCodePoint(0x2728)}</div>
+                  <div className="text-xs text-emerald-700 mt-3">{String.fromCodePoint(0x279C)}</div>
                 </div>
               ))}
             </WorksheetSectionWrapper>
@@ -13171,7 +13171,7 @@ export function PrintablesPage() {
                     <div><strong>Step 2:</strong> See the repetition: Circle, Square, Triangle repeats</div>
                     <div><strong>Step 3:</strong> After Square comes Triangle (the pattern repeats)</div>
                     <div className="font-semibold text-blue-900"><strong>Answer:</strong> Triangle</div>
-                    <div className="text-xs text-blue-700 mt-1">{String.fromCodePoint(0x2728)}</div>
+                    <div className="text-xs text-blue-700 mt-1">{String.fromCodePoint(0x279C)}</div>
                   </div>
                 </div>
               </div>
@@ -13264,7 +13264,7 @@ export function PrintablesPage() {
                     <div><strong>Step 2:</strong> Compare their sizes visually</div>
                     <div><strong>Step 3:</strong> The bigger one takes up more space</div>
                     <div className="font-semibold text-blue-900"><strong>Answer:</strong> Circle the one that is larger</div>
-                    <div className="text-xs text-blue-700 mt-1">{String.fromCodePoint(0x2728)}</div>
+                    <div className="text-xs text-blue-700 mt-1">{String.fromCodePoint(0x279C)}</div>
                   </div>
                 </div>
               </div>
@@ -13323,7 +13323,7 @@ export function PrintablesPage() {
                     <li><strong>Circle the longer: A</strong> (A is 60px, B is 35px, so A is longer)</li>
                     <li><strong>Circle the shorter: A</strong> (A is 45px, B is 70px, so A is shorter)</li>
                   </ul>
-                  <div className="text-xs text-emerald-700 mt-3">{String.fromCodePoint(0x2728)}</div>
+                  <div className="text-xs text-emerald-700 mt-3">{String.fromCodePoint(0x279C)}</div>
                 </div>
               ))}
             </WorksheetSectionWrapper>
@@ -13361,11 +13361,11 @@ export function PrintablesPage() {
                   <div className="font-semibold text-base"><strong>Problem:</strong> 125 = __ + __ + __</div>
                   <div className="pl-4 border-l-2 border-blue-300 space-y-1">
                     <div><strong>Step 1:</strong> Look at each digit: 1, 2, 5</div>
-                    <div><strong>Step 2:</strong>{String.fromCodePoint(0x2728)}</div>
-                    <div><strong>Step 3:</strong>{String.fromCodePoint(0x2728)}</div>
-                    <div><strong>Step 4:</strong>{String.fromCodePoint(0x2728)}</div>
+                    <div><strong>Step 2:</strong>{String.fromCodePoint(0x279C)}</div>
+                    <div><strong>Step 3:</strong>{String.fromCodePoint(0x279C)}</div>
+                    <div><strong>Step 4:</strong>{String.fromCodePoint(0x279C)}</div>
                     <div className="font-semibold text-blue-900"><strong>Answer:</strong> 125 = 100 + 20 + 5</div>
-                    <div className="text-xs text-blue-700 mt-1">{String.fromCodePoint(0x2728)}</div>
+                    <div className="text-xs text-blue-700 mt-1">{String.fromCodePoint(0x279C)}</div>
                   </div>
                 </div>
               </div>
@@ -13419,7 +13419,7 @@ export function PrintablesPage() {
                       return <li key={num}><strong>{num} = {hundreds * 100} + {tens * 10} + {ones}</strong> ({hundreds} hundreds = {hundreds * 100}, {tens} tens = {tens * 10}, {ones} ones = {ones})</li>
                     })}
                   </ul>
-                  <div className="text-xs text-emerald-700 mt-3">{String.fromCodePoint(0x2728)}</div>
+                  <div className="text-xs text-emerald-700 mt-3">{String.fromCodePoint(0x279C)}</div>
                 </div>
               ))}
             </WorksheetSectionWrapper>
@@ -13459,7 +13459,7 @@ export function PrintablesPage() {
                     <div><strong>Step 2:</strong> The pattern is +10</div>
                     <div><strong>Step 3:</strong> After 30 comes 30 + 10 = 40</div>
                     <div className="font-semibold text-blue-900"><strong>Answer:</strong> 40</div>
-                    <div className="text-xs text-blue-700 mt-1">{String.fromCodePoint(0x2728)}</div>
+                    <div className="text-xs text-blue-700 mt-1">{String.fromCodePoint(0x279C)}</div>
                   </div>
                 </div>
               </div>
@@ -13513,7 +13513,7 @@ export function PrintablesPage() {
                     <li><strong>Pattern +5:</strong> Missing numbers are 20, 30 (5, 10, 15, 20, 25, 30, 35)</li>
                     <li><strong>Pattern +10:</strong> Missing numbers are 130, 150 (100, 110, 120, 130, 140, 150, 160)</li>
                   </ul>
-                  <div className="text-xs text-emerald-700 mt-3">{String.fromCodePoint(0x2728)}</div>
+                  <div className="text-xs text-emerald-700 mt-3">{String.fromCodePoint(0x279C)}</div>
                 </div>
               ))}
             </WorksheetSectionWrapper>
@@ -13661,7 +13661,7 @@ export function PrintablesPage() {
                     <div><strong>Step 3:</strong> Color 1 of the 2 parts</div>
                     <div><strong>Step 4:</strong> Write "one half" in the blank</div>
                     <div className="font-semibold text-blue-900"><strong>Answer:</strong> Color 1 part, write "one half"</div>
-                    <div className="text-xs text-blue-700 mt-1">{String.fromCodePoint(0x2728)}</div>
+                    <div className="text-xs text-blue-700 mt-1">{String.fromCodePoint(0x279C)}</div>
                   </div>
                 </div>
               </div>
@@ -13750,7 +13750,7 @@ export function PrintablesPage() {
                     <li><strong>2/4 = two fourths (or one half)</strong> (Color 2 out of 4 equal parts - same as 1/2!)</li>
                     <li><strong>3/4 = three fourths (or three quarters)</strong> (Color 3 out of 4 equal parts)</li>
                   </ul>
-                  <div className="text-xs text-emerald-700 mt-3">{String.fromCodePoint(0x2728)}</div>
+                  <div className="text-xs text-emerald-700 mt-3">{String.fromCodePoint(0x279C)}</div>
                 </div>
               ))}
             </WorksheetSectionWrapper>
@@ -13802,7 +13802,7 @@ export function PrintablesPage() {
                       <div><strong>{getTrans(`worksheets.${docId}.example.step2`, 'Step 2:')}</strong> {getTrans(`worksheets.${docId}.example.step2Text`, 'Count: 4, 8, 12 (skip count by 4s three times)')}</div>
                       <div><strong>{getTrans(`worksheets.${docId}.example.step3`, 'Step 3:')}</strong> {getTrans(`worksheets.${docId}.example.step3Text`, 'Or add: 4 + 4 + 4 = 12')}</div>
                       <div className="font-semibold text-blue-900"><strong>{getTrans(`worksheets.${docId}.example.answer`, 'Answer:')}</strong> {getTrans(`worksheets.${docId}.example.answerText`, '12')}</div>
-                      <div className="text-xs text-blue-700 mt-1">{String.fromCodePoint(0x2728)}</div>
+                      <div className="text-xs text-blue-700 mt-1">{String.fromCodePoint(0x279C)}</div>
                     </div>
                   </div>
                 </div>
@@ -13810,7 +13810,7 @@ export function PrintablesPage() {
                   {facts.map(([a, b], i) => (
                     <div key={i} className="border border-slate-300 rounded p-3 bg-white w-full break-inside-avoid">
                       <div className="font-mono text-2xl leading-7 text-center">
-                        <div>{String.fromCodePoint(0x2728)}<span className="inline-block w-20 h-10 border-b-[3px] border-slate-600 mx-1 align-middle" /></div>
+                        <div>{String.fromCodePoint(0x279C)}<span className="inline-block w-20 h-10 border-b-[3px] border-slate-600 mx-1 align-middle" /></div>
                       </div>
                     </div>
                   ))}
@@ -13911,10 +13911,10 @@ export function PrintablesPage() {
                     <div className="font-semibold text-base"><strong>Problem:</strong>{String.fromCodePoint(0x1F4A1)}</div>
                     <div className="pl-4 border-l-2 border-blue-300 space-y-1">
                       <div><strong>Step 1:</strong> Draw an array with 3 rows and 4 columns</div>
-                      <div><strong>Step 2:</strong>{String.fromCodePoint(0x2728)}</div>
+                      <div><strong>Step 2:</strong>{String.fromCodePoint(0x279C)}</div>
                       <div><strong>Step 3:</strong> Or count: 4, 8, 12 (count by 4s three times)</div>
                       <div className="font-semibold text-blue-900"><strong>Answer:</strong> 12</div>
-                      <div className="text-xs text-blue-700 mt-1">{String.fromCodePoint(0x2728)}</div>
+                      <div className="text-xs text-blue-700 mt-1">{String.fromCodePoint(0x279C)}</div>
                     </div>
                   </div>
                 </div>
@@ -14050,10 +14050,10 @@ export function PrintablesPage() {
                     <div className="font-semibold text-base"><strong>Problem:</strong> Sarah has 2 boxes. Each box has 5 pencils. How many pencils in all?</div>
                     <div className="pl-4 border-l-2 border-blue-300 space-y-1">
                       <div><strong>Step 1:</strong> Find the numbers: 2 boxes, 5 pencils in each</div>
-                      <div><strong>Step 2:</strong>{String.fromCodePoint(0x2728)}</div>
-                      <div><strong>Step 3:</strong>{String.fromCodePoint(0x2728)}</div>
+                      <div><strong>Step 2:</strong>{String.fromCodePoint(0x279C)}</div>
+                      <div><strong>Step 3:</strong>{String.fromCodePoint(0x279C)}</div>
                       <div className="font-semibold text-blue-900"><strong>Answer:</strong> 10 pencils</div>
-                      <div className="text-xs text-blue-700 mt-1">{String.fromCodePoint(0x2728)}</div>
+                      <div className="text-xs text-blue-700 mt-1">{String.fromCodePoint(0x279C)}</div>
                     </div>
                   </div>
                 </div>
@@ -14083,7 +14083,7 @@ export function PrintablesPage() {
                   <div className="space-y-2 text-sm text-purple-800">
                     <div>1. Create your own multiplication word problem</div>
                     <div>2. Draw a picture or array to solve one of the problems above</div>
-                    <div>{String.fromCodePoint(0x2728)}</div>
+                    <div>{String.fromCodePoint(0x279C)}</div>
                   </div>
                 </div>
                 {/* Self-Assessment */}
@@ -14151,11 +14151,11 @@ export function PrintablesPage() {
                   <div className="space-y-2 text-sm">
                     <div className="font-mono text-base"><strong>Problem:</strong>{String.fromCodePoint(0x1F4A1)}</div>
                     <div className="pl-4 border-l-2 border-blue-300 space-y-1">
-                      <div><strong>Strategy 1:</strong>{String.fromCodePoint(0x2728)}</div>
-                      <div><strong>Strategy 2:</strong>{String.fromCodePoint(0x2728)}</div>
+                      <div><strong>Strategy 1:</strong>{String.fromCodePoint(0x279C)}</div>
+                      <div><strong>Strategy 2:</strong>{String.fromCodePoint(0x279C)}</div>
                       <div><strong>Strategy 3:</strong> Skip count: 8, 16, 24, 32, 40, 48, 56 (count by 8s seven times)</div>
                       <div className="font-semibold text-blue-900"><strong>Answer:</strong> 56</div>
-                      <div className="text-xs text-blue-700 mt-1">{String.fromCodePoint(0x2728)}</div>
+                      <div className="text-xs text-blue-700 mt-1">{String.fromCodePoint(0x279C)}</div>
                     </div>
                   </div>
                 </div>
@@ -14163,7 +14163,7 @@ export function PrintablesPage() {
                   {facts.map(([a, b], i) => (
                     <div key={i} className="border border-slate-300 rounded p-3 bg-white w-full break-inside-avoid">
                       <div className="font-mono text-2xl leading-7 text-center">
-                        <div>{String.fromCodePoint(0x2728)}<span className="inline-block w-20 h-10 border-b-[3px] border-slate-600 mx-1 align-middle" /></div>
+                        <div>{String.fromCodePoint(0x279C)}<span className="inline-block w-20 h-10 border-b-[3px] border-slate-600 mx-1 align-middle" /></div>
                       </div>
                     </div>
                   ))}
@@ -14174,7 +14174,7 @@ export function PrintablesPage() {
                   <div className="space-y-2 text-sm text-purple-800">
                     <div>{String.fromCodePoint(0x1F680)}</div>
                     <div>2. Create your own multiplication problem using numbers 6-12</div>
-                    <div>{String.fromCodePoint(0x2728)}</div>
+                    <div>{String.fromCodePoint(0x279C)}</div>
                     <div>4. Time yourself: Can you complete all {facts.length} problems in under 3 minutes?</div>
                   </div>
                 </div>
@@ -14247,10 +14247,10 @@ export function PrintablesPage() {
                     <div className="font-semibold text-base"><strong>Problem:</strong>{String.fromCodePoint(0x1F4A1)}</div>
                     <div className="pl-4 border-l-2 border-blue-300 space-y-1">
                       <div><strong>Step 1:</strong> Look at the array: 4 rows and 5 columns</div>
-                      <div><strong>Step 2:</strong>{String.fromCodePoint(0x2728)}</div>
+                      <div><strong>Step 2:</strong>{String.fromCodePoint(0x279C)}</div>
                       <div><strong>Step 3:</strong> Or count all boxes: 1, 2, 3... 20 boxes total</div>
                       <div className="font-semibold text-blue-900"><strong>Answer:</strong> 20</div>
-                      <div className="text-xs text-blue-700 mt-1">{String.fromCodePoint(0x2728)}</div>
+                      <div className="text-xs text-blue-700 mt-1">{String.fromCodePoint(0x279C)}</div>
                     </div>
                   </div>
                 </div>
@@ -14341,10 +14341,10 @@ export function PrintablesPage() {
                   <div className="space-y-2 text-sm">
                     <div className="font-semibold text-base"><strong>Problem:</strong>{String.fromCodePoint(0x1F4A1)}</div>
                     <div className="pl-4 border-l-2 border-blue-300 space-y-1">
-                      <div><strong>Step 1:</strong>{String.fromCodePoint(0x2728)}</div>
-                      <div><strong>Step 2:</strong>{String.fromCodePoint(0x2728)}</div>
+                      <div><strong>Step 1:</strong>{String.fromCodePoint(0x279C)}</div>
+                      <div><strong>Step 2:</strong>{String.fromCodePoint(0x279C)}</div>
                       <div className="font-semibold text-blue-900"><strong>Answer:</strong> 72 cookies</div>
-                      <div className="text-xs text-blue-700 mt-1">{String.fromCodePoint(0x2728)}</div>
+                      <div className="text-xs text-blue-700 mt-1">{String.fromCodePoint(0x279C)}</div>
                     </div>
                   </div>
                 </div>
@@ -14415,30 +14415,30 @@ export function PrintablesPage() {
                       <div className="border-b border-emerald-200 pb-3">
                         <div className="font-semibold mb-2 text-sm">Problem 1:</div>
                         <div className="text-xs text-emerald-800 space-y-1 pl-4">
-                          <div>{String.fromCodePoint(0x2728)}</div>
-                          <div>{String.fromCodePoint(0x2728)}</div>
+                          <div>{String.fromCodePoint(0x279C)}</div>
+                          <div>{String.fromCodePoint(0x279C)}</div>
                           <div className="font-semibold mt-1">Final Answer: 120 toys</div>
                         </div>
                       </div>
                       <div className="border-b border-emerald-200 pb-3">
                         <div className="font-semibold mb-2 text-sm">Problem 2:</div>
                         <div className="text-xs text-emerald-800 space-y-1 pl-4">
-                          <div>{String.fromCodePoint(0x2728)}</div>
-                          <div>{String.fromCodePoint(0x2728)}</div>
+                          <div>{String.fromCodePoint(0x279C)}</div>
+                          <div>{String.fromCodePoint(0x279C)}</div>
                           <div className="font-semibold mt-1">Final Answer: 48 students</div>
                         </div>
                       </div>
                       <div className="border-b border-emerald-200 pb-3">
                         <div className="font-semibold mb-2 text-sm">Problem 3:</div>
                         <div className="text-xs text-emerald-800 space-y-1 pl-4">
-                          <div>{String.fromCodePoint(0x2728)}</div>
+                          <div>{String.fromCodePoint(0x279C)}</div>
                           <div className="font-semibold mt-1">Final Answer: 15 flowers</div>
                         </div>
                       </div>
                       <div className="pb-3">
                         <div className="font-semibold mb-2 text-sm">Problem 4:</div>
                         <div className="text-xs text-emerald-800 space-y-1 pl-4">
-                          <div>{String.fromCodePoint(0x2728)}</div>
+                          <div>{String.fromCodePoint(0x279C)}</div>
                           <div>Step 2: 72 - 20 = 52 cookies left</div>
                           <div className="font-semibold mt-1">Final Answer: 52 cookies left</div>
                         </div>
@@ -14484,11 +14484,11 @@ export function PrintablesPage() {
                   <div className="space-y-2 text-sm">
                     <div className="font-semibold text-base"><strong>Fact Family for 12:</strong></div>
                     <div className="pl-4 border-l-2 border-blue-300 space-y-1">
-                      <div>{String.fromCodePoint(0x2728)}</div>
-                      <div>{String.fromCodePoint(0x2728)}</div>
-                      <div>{String.fromCodePoint(0x2728)}</div>
-                      <div>{String.fromCodePoint(0x2728)}</div>
-                      <div className="text-xs text-blue-700 mt-1">{String.fromCodePoint(0x2728)}</div>
+                      <div>{String.fromCodePoint(0x279C)}</div>
+                      <div>{String.fromCodePoint(0x279C)}</div>
+                      <div>{String.fromCodePoint(0x279C)}</div>
+                      <div>{String.fromCodePoint(0x279C)}</div>
+                      <div className="text-xs text-blue-700 mt-1">{String.fromCodePoint(0x279C)}</div>
                     </div>
                   </div>
                 </div>
@@ -14502,7 +14502,7 @@ export function PrintablesPage() {
                           <div>{String.fromCodePoint(0x270F)}<span className="inline-block w-20 h-10 border-b-[3px] border-slate-600 mx-1 align-middle" /></div>
                           <div>{String.fromCodePoint(0x270F)}<span className="inline-block w-20 h-10 border-b-3 border-slate-600 mx-1 align-middle" /></div>
                           <div>{String.fromCodePoint(0x270F)}<span className="inline-block w-20 h-10 border-b-3 border-slate-600 mx-1 align-middle" /></div>
-                          <div>{String.fromCodePoint(0x2728)}<span className="inline-block w-20 h-10 border-b-3 border-slate-600 mx-1 align-middle" /></div>
+                          <div>{String.fromCodePoint(0x279C)}<span className="inline-block w-20 h-10 border-b-3 border-slate-600 mx-1 align-middle" /></div>
                         </div>
                       </div>
                     );
@@ -14542,11 +14542,11 @@ export function PrintablesPage() {
                           <div key={i} className="border-b border-emerald-200 pb-3 last:border-b-0">
                             <div className="font-semibold mb-2 text-sm">Fact Family {i + 1} for {product}:</div>
                             <div className="text-xs text-emerald-800 space-y-1 pl-4">
-                              <div>{String.fromCodePoint(0x2728)}</div>
-                              <div>{String.fromCodePoint(0x2728)}</div>
-                              <div>{String.fromCodePoint(0x2728)}</div>
-                              <div>{String.fromCodePoint(0x2728)}</div>
-                              <div className="text-xs text-emerald-700 mt-1">{String.fromCodePoint(0x2728)}</div>
+                              <div>{String.fromCodePoint(0x279C)}</div>
+                              <div>{String.fromCodePoint(0x279C)}</div>
+                              <div>{String.fromCodePoint(0x279C)}</div>
+                              <div>{String.fromCodePoint(0x279C)}</div>
+                              <div className="text-xs text-emerald-700 mt-1">{String.fromCodePoint(0x279C)}</div>
                             </div>
                           </div>
                         );
@@ -14599,9 +14599,9 @@ export function PrintablesPage() {
                   <div className="space-y-2 text-sm">
                     <div className="font-mono text-base"><strong>{getTrans(`worksheets.${docId}.example.problem`, 'Problem:')}</strong>{String.fromCodePoint(0x1F4A1)}</div>
                     <div className="pl-4 border-l-2 border-blue-300 space-y-1">
-                      <div><strong>{getTrans(`worksheets.${docId}.example.step1`, 'Step 1:')}</strong>{String.fromCodePoint(0x2728)}</div>
+                      <div><strong>{getTrans(`worksheets.${docId}.example.step1`, 'Step 1:')}</strong>{String.fromCodePoint(0x279C)}</div>
                       <div><strong>{getTrans(`worksheets.${docId}.example.step2`, 'Step 2:')}</strong> {getTrans(`worksheets.${docId}.example.step2Text`, 'Write 2 in ones place, carry 1 to tens')}</div>
-                      <div><strong>{getTrans(`worksheets.${docId}.example.step3`, 'Step 3:')}</strong>{String.fromCodePoint(0x2728)}</div>
+                      <div><strong>{getTrans(`worksheets.${docId}.example.step3`, 'Step 3:')}</strong>{String.fromCodePoint(0x279C)}</div>
                       <div className="font-semibold text-blue-900"><strong>{getTrans(`worksheets.${docId}.example.answer`, 'Answer:')}</strong> {getTrans(`worksheets.${docId}.example.answerText`, '72')}</div>
                     </div>
                   </div>
@@ -14611,7 +14611,7 @@ export function PrintablesPage() {
                     <div key={i} className="border border-slate-300 rounded p-3 bg-white w-full break-inside-avoid">
                       <div className="font-mono text-2xl leading-7 text-right">
                         <div>{a}</div>
-                        <div>{String.fromCodePoint(0x2728)}</div>
+                        <div>{String.fromCodePoint(0x279C)}</div>
                         <div className="border-t-[3px] border-slate-600 mt-2 pt-2 h-12 flex items-center"><span className="inline-block w-20 h-10 border-b-[3px] border-slate-600" /></div>
                       </div>
                       <div className="mt-2 text-xs text-slate-600">{getTrans(`worksheets.${docId}.showWork`, 'Show your work:')}</div>
@@ -14648,7 +14648,7 @@ export function PrintablesPage() {
                         'I understand the process'
                       ]
                       return items.map((item, idx) => (
-                        <div key={idx}>{String.fromCodePoint(0x2728)}</div>
+                        <div key={idx}>{String.fromCodePoint(0x279C)}</div>
                       ))
                     })()}
                   </div>
@@ -14673,10 +14673,10 @@ export function PrintablesPage() {
                         const finalOnes = onesProduct % 10;
                         return (
                           <div key={i} className="border-b border-emerald-200 pb-3 last:border-b-0">
-                            <div className="font-semibold mb-2 text-sm">{String.fromCodePoint(0x2728)}</div>
+                            <div className="font-semibold mb-2 text-sm">{String.fromCodePoint(0x279C)}</div>
                             <div className="text-xs text-emerald-800 space-y-1 pl-4">
-                              <div>{String.fromCodePoint(0x2728)}</div>
-                              <div>{String.fromCodePoint(0x2728)}</div>
+                              <div>{String.fromCodePoint(0x279C)}</div>
+                              <div>{String.fromCodePoint(0x279C)}</div>
                               <div className="font-semibold">{getTrans(`worksheets.${docId}.answerKey.answer`, 'Answer:')} {a * b}</div>
                             </div>
                           </div>
@@ -14723,9 +14723,9 @@ export function PrintablesPage() {
                   <div className="space-y-2 text-sm">
                     <div className="font-mono text-base"><strong>Problem:</strong>{String.fromCodePoint(0x1F4A1)}</div>
                     <div className="pl-4 border-l-2 border-blue-300 space-y-1">
-                      <div><strong>Step 1:</strong>{String.fromCodePoint(0x2728)}</div>
+                      <div><strong>Step 1:</strong>{String.fromCodePoint(0x279C)}</div>
                       <div><strong>Step 2:</strong> Write 2 in ones place, carry 1 to tens</div>
-                      <div><strong>Step 3:</strong>{String.fromCodePoint(0x2728)}</div>
+                      <div><strong>Step 3:</strong>{String.fromCodePoint(0x279C)}</div>
                       <div className="font-semibold text-blue-900"><strong>Answer:</strong> 72</div>
                     </div>
                   </div>
@@ -14735,7 +14735,7 @@ export function PrintablesPage() {
                     <div key={i} className="border border-slate-300 rounded p-3 bg-white w-full break-inside-avoid">
                       <div className="font-mono text-2xl leading-7 text-right">
                         <div>{a}</div>
-                        <div>{String.fromCodePoint(0x2728)}</div>
+                        <div>{String.fromCodePoint(0x279C)}</div>
                         <div className="border-t-[3px] border-slate-600 mt-2 pt-2 h-12 flex items-center"><span className="inline-block w-20 h-10 border-b-[3px] border-slate-600" /></div>
                       </div>
                       <div className="mt-2 text-xs text-slate-600">Show your work:</div>
@@ -14749,7 +14749,7 @@ export function PrintablesPage() {
                   <div className="space-y-2 text-sm text-purple-800">
                     <div>{String.fromCodePoint(0x1F680)}</div>
                     <div>{String.fromCodePoint(0x1F680)}</div>
-                    <div>{String.fromCodePoint(0x2728)}</div>
+                    <div>{String.fromCodePoint(0x279C)}</div>
                   </div>
                 </div>
                 {/* Self-Assessment */}
@@ -14781,10 +14781,10 @@ export function PrintablesPage() {
                         const finalOnes = onesProduct % 10;
                         return (
                           <div key={i} className="border-b border-emerald-200 pb-3 last:border-b-0">
-                            <div className="font-semibold mb-2 text-sm">{String.fromCodePoint(0x2728)}</div>
+                            <div className="font-semibold mb-2 text-sm">{String.fromCodePoint(0x279C)}</div>
                             <div className="text-xs text-emerald-800 space-y-1 pl-4">
-                              <div>{String.fromCodePoint(0x2728)}</div>
-                              <div>{String.fromCodePoint(0x2728)}</div>
+                              <div>{String.fromCodePoint(0x279C)}</div>
+                              <div>{String.fromCodePoint(0x279C)}</div>
                               <div className="font-semibold">Answer: {a * b}</div>
                             </div>
                           </div>
@@ -14831,8 +14831,8 @@ export function PrintablesPage() {
                   <div className="space-y-2 text-sm">
                     <div className="font-mono text-base"><strong>Problem:</strong>{String.fromCodePoint(0x1F4A1)}</div>
                     <div className="pl-4 border-l-2 border-blue-300 space-y-1">
-                      <div><strong>Step 1:</strong>{String.fromCodePoint(0x2728)}</div>
-                      <div><strong>Step 2:</strong>{String.fromCodePoint(0x2728)}</div>
+                      <div><strong>Step 1:</strong>{String.fromCodePoint(0x279C)}</div>
+                      <div><strong>Step 2:</strong>{String.fromCodePoint(0x279C)}</div>
                       <div><strong>Step 3:</strong> Add partial products: 72 + 240 = 312</div>
                       <div className="font-semibold text-blue-900"><strong>Answer:</strong> 312</div>
                     </div>
@@ -14843,7 +14843,7 @@ export function PrintablesPage() {
                     <div key={i} className="border border-slate-300 rounded p-3 bg-white w-full break-inside-avoid">
                       <div className="font-mono text-xl leading-7 text-right">
                         <div>{a}</div>
-                        <div>{String.fromCodePoint(0x2728)}</div>
+                        <div>{String.fromCodePoint(0x279C)}</div>
                         <div className="border-t-[3px] border-slate-600 mt-2 pt-2 h-12 flex items-center"><span className="inline-block w-20 h-10 border-b-[3px] border-slate-600" /></div>
                       </div>
                       <div className="mt-2 text-xs text-slate-600">Show your work:</div>
@@ -14857,7 +14857,7 @@ export function PrintablesPage() {
                   <div className="space-y-2 text-sm text-purple-800">
                     <div>{String.fromCodePoint(0x1F680)}</div>
                     <div>{String.fromCodePoint(0x1F680)}</div>
-                    <div>{String.fromCodePoint(0x2728)}</div>
+                    <div>{String.fromCodePoint(0x279C)}</div>
                   </div>
                 </div>
                 {/* Self-Assessment */}
@@ -14886,10 +14886,10 @@ export function PrintablesPage() {
                         const partial2 = a * tensB;
                         return (
                           <div key={i} className="border-b border-emerald-200 pb-3 last:border-b-0">
-                            <div className="font-semibold mb-2 text-sm">{String.fromCodePoint(0x2728)}</div>
+                            <div className="font-semibold mb-2 text-sm">{String.fromCodePoint(0x279C)}</div>
                             <div className="text-xs text-emerald-800 space-y-1 pl-4">
-                              <div>{String.fromCodePoint(0x2728)}</div>
-                              <div>{String.fromCodePoint(0x2728)}</div>
+                              <div>{String.fromCodePoint(0x279C)}</div>
+                              <div>{String.fromCodePoint(0x279C)}</div>
                               <div className="font-semibold">Answer: {a * b}</div>
                             </div>
                           </div>
@@ -14936,8 +14936,8 @@ export function PrintablesPage() {
                   <div className="space-y-2 text-sm">
                     <div className="font-mono text-base"><strong>Problem:</strong>{String.fromCodePoint(0x1F4A1)}</div>
                     <div className="pl-4 border-l-2 border-blue-300 space-y-1">
-                      <div><strong>Step 1:</strong>{String.fromCodePoint(0x2728)}</div>
-                      <div><strong>Step 2:</strong>{String.fromCodePoint(0x2728)}</div>
+                      <div><strong>Step 1:</strong>{String.fromCodePoint(0x279C)}</div>
+                      <div><strong>Step 2:</strong>{String.fromCodePoint(0x279C)}</div>
                       <div><strong>Step 3:</strong> Add partial products: 72 + 240 = 312</div>
                       <div className="font-semibold text-blue-900"><strong>Answer:</strong> 312</div>
                     </div>
@@ -14948,7 +14948,7 @@ export function PrintablesPage() {
                     <div key={i} className="border border-slate-300 rounded p-3 bg-white w-full break-inside-avoid">
                       <div className="font-mono text-xl leading-7 text-right">
                         <div>{a}</div>
-                        <div>{String.fromCodePoint(0x2728)}</div>
+                        <div>{String.fromCodePoint(0x279C)}</div>
                         <div className="border-t-[3px] border-slate-600 mt-2 pt-2 h-12 flex items-center"><span className="inline-block w-20 h-10 border-b-[3px] border-slate-600" /></div>
                       </div>
                       <div className="mt-2 text-xs text-slate-600">Show your work:</div>
@@ -14962,7 +14962,7 @@ export function PrintablesPage() {
                   <div className="space-y-2 text-sm text-purple-800">
                     <div>{String.fromCodePoint(0x1F680)}</div>
                     <div>{String.fromCodePoint(0x1F680)}</div>
-                    <div>{String.fromCodePoint(0x2728)}</div>
+                    <div>{String.fromCodePoint(0x279C)}</div>
                   </div>
                 </div>
                 {/* Self-Assessment */}
@@ -14991,10 +14991,10 @@ export function PrintablesPage() {
                         const partial2 = a * tensB;
                         return (
                           <div key={i} className="border-b border-emerald-200 pb-3 last:border-b-0">
-                            <div className="font-semibold mb-2 text-sm">{String.fromCodePoint(0x2728)}</div>
+                            <div className="font-semibold mb-2 text-sm">{String.fromCodePoint(0x279C)}</div>
                             <div className="text-xs text-emerald-800 space-y-1 pl-4">
-                              <div>{String.fromCodePoint(0x2728)}</div>
-                              <div>{String.fromCodePoint(0x2728)}</div>
+                              <div>{String.fromCodePoint(0x279C)}</div>
+                              <div>{String.fromCodePoint(0x279C)}</div>
                               <div className="font-semibold">Answer: {a * b}</div>
                             </div>
                           </div>
@@ -15041,8 +15041,8 @@ export function PrintablesPage() {
                   <div className="space-y-2 text-sm">
                     <div className="font-mono text-base"><strong>Problem:</strong>{String.fromCodePoint(0x1F4A1)}</div>
                     <div className="pl-4 border-l-2 border-blue-300 space-y-1">
-                      <div><strong>Step 1:</strong>{String.fromCodePoint(0x2728)}</div>
-                      <div><strong>Step 2:</strong>{String.fromCodePoint(0x2728)}</div>
+                      <div><strong>Step 1:</strong>{String.fromCodePoint(0x279C)}</div>
+                      <div><strong>Step 2:</strong>{String.fromCodePoint(0x279C)}</div>
                       <div><strong>Step 3:</strong> Add partial products: 468 + 2340 = 2808</div>
                       <div className="font-semibold text-blue-900"><strong>Answer:</strong> 2808</div>
                     </div>
@@ -15053,7 +15053,7 @@ export function PrintablesPage() {
                     <div key={i} className="border border-slate-300 rounded p-3 bg-white w-full break-inside-avoid">
                       <div className="font-mono text-lg leading-7 text-right">
                         <div>{a}</div>
-                        <div>{String.fromCodePoint(0x2728)}</div>
+                        <div>{String.fromCodePoint(0x279C)}</div>
                         <div className="border-t-[3px] border-slate-600 mt-2 pt-2 h-12 flex items-center"><span className="inline-block w-20 h-10 border-b-[3px] border-slate-600" /></div>
                       </div>
                       <div className="mt-2 text-xs text-slate-600">Show your work:</div>
@@ -15067,7 +15067,7 @@ export function PrintablesPage() {
                   <div className="space-y-2 text-sm text-purple-800">
                     <div>{String.fromCodePoint(0x1F680)}</div>
                     <div>{String.fromCodePoint(0x1F680)}</div>
-                    <div>{String.fromCodePoint(0x2728)}</div>
+                    <div>{String.fromCodePoint(0x279C)}</div>
                   </div>
                 </div>
                 {/* Self-Assessment */}
@@ -15096,10 +15096,10 @@ export function PrintablesPage() {
                         const partial2 = a * tensB;
                         return (
                           <div key={i} className="border-b border-emerald-200 pb-3 last:border-b-0">
-                            <div className="font-semibold mb-2 text-sm">{String.fromCodePoint(0x2728)}</div>
+                            <div className="font-semibold mb-2 text-sm">{String.fromCodePoint(0x279C)}</div>
                             <div className="text-xs text-emerald-800 space-y-1 pl-4">
-                              <div>{String.fromCodePoint(0x2728)}</div>
-                              <div>{String.fromCodePoint(0x2728)}</div>
+                              <div>{String.fromCodePoint(0x279C)}</div>
+                              <div>{String.fromCodePoint(0x279C)}</div>
                               <div className="font-semibold">Answer: {a * b}</div>
                             </div>
                           </div>
@@ -15149,10 +15149,10 @@ export function PrintablesPage() {
                       <div><strong>Step 1:</strong> Break 24 into 20 and 4</div>
                       <div><strong>Step 2:</strong> Break 13 into 10 and 3</div>
                       <div><strong>Step 3:</strong> Multiply each part:</div>
-                      <div className="pl-4">{String.fromCodePoint(0x2728)}</div>
-                      <div className="pl-4">{String.fromCodePoint(0x2728)}</div>
-                      <div className="pl-4">{String.fromCodePoint(0x2728)}</div>
-                      <div className="pl-4">{String.fromCodePoint(0x2728)}</div>
+                      <div className="pl-4">{String.fromCodePoint(0x279C)}</div>
+                      <div className="pl-4">{String.fromCodePoint(0x279C)}</div>
+                      <div className="pl-4">{String.fromCodePoint(0x279C)}</div>
+                      <div className="pl-4">{String.fromCodePoint(0x279C)}</div>
                       <div><strong>Step 4:</strong> Add: 200 + 60 + 40 + 12 = 312</div>
                       <div className="font-semibold text-blue-900"><strong>Answer:</strong> 312</div>
                     </div>
@@ -15244,15 +15244,15 @@ export function PrintablesPage() {
                         const total = a * b;
                         return (
                           <div key={i} className="border-b border-emerald-200 pb-3 last:border-b-0">
-                            <div className="font-semibold mb-2 text-sm">{String.fromCodePoint(0x2728)}</div>
+                            <div className="font-semibold mb-2 text-sm">{String.fromCodePoint(0x279C)}</div>
                             <div className="text-xs text-emerald-800 space-y-1 pl-4">
                               <div>Step 1: Break {a} into {aTens * 10} and {aOnes}</div>
                               <div>Step 2: Break {b} into {bTens * 10} and {bOnes}</div>
                               <div>Step 3: Multiply each part:</div>
-                              <div className="pl-4">{String.fromCodePoint(0x2728)}</div>
-                              <div className="pl-4">{String.fromCodePoint(0x2728)}</div>
-                              <div className="pl-4">{String.fromCodePoint(0x2728)}</div>
-                              <div className="pl-4">{String.fromCodePoint(0x2728)}</div>
+                              <div className="pl-4">{String.fromCodePoint(0x279C)}</div>
+                              <div className="pl-4">{String.fromCodePoint(0x279C)}</div>
+                              <div className="pl-4">{String.fromCodePoint(0x279C)}</div>
+                              <div className="pl-4">{String.fromCodePoint(0x279C)}</div>
                               <div className="font-semibold mt-1">Total: {part1} + {part2} + {part3} + {part4} = {total}</div>
                             </div>
                           </div>
@@ -15275,9 +15275,9 @@ export function PrintablesPage() {
               'A garden has 6 rows of vegetables. Each row has 18 plants. If 3 plants in each row are tomatoes, how many non-tomato plants are there?',
             ];
             const answers = [
-              { problem: problems[0], steps: [String.fromCodePoint(0x2728), String.fromCodePoint(0x2728)], answer: 600, unit: 'pencils' },
-              { problem: problems[1], steps: [String.fromCodePoint(0x2728), String.fromCodePoint(0x2728)], answer: 1440, unit: 'items' },
-              { problem: problems[2], steps: [String.fromCodePoint(0x2728), '120 - 20 = 100 markers left'], answer: 100, unit: 'markers' },
+              { problem: problems[0], steps: [String.fromCodePoint(0x279C), String.fromCodePoint(0x279C)], answer: 600, unit: 'pencils' },
+              { problem: problems[1], steps: [String.fromCodePoint(0x279C), String.fromCodePoint(0x279C)], answer: 1440, unit: 'items' },
+              { problem: problems[2], steps: [String.fromCodePoint(0x279C), '120 - 20 = 100 markers left'], answer: 100, unit: 'markers' },
               { problem: problems[3], steps: ['18 - 3 = 15 non-tomato per row', '6  15 = 90 non-tomato plants'], answer: 90, unit: 'non-tomato plants' },
             ];
             return (
@@ -15306,10 +15306,10 @@ export function PrintablesPage() {
                   <div className="space-y-2 text-sm">
                     <div className="font-semibold text-base"><strong>Problem:</strong>{String.fromCodePoint(0x1F4A1)}</div>
                     <div className="pl-4 border-l-2 border-blue-300 space-y-1">
-                      <div><strong>Step 1:</strong>{String.fromCodePoint(0x2728)}</div>
-                      <div><strong>Step 2:</strong>{String.fromCodePoint(0x2728)}</div>
+                      <div><strong>Step 1:</strong>{String.fromCodePoint(0x279C)}</div>
+                      <div><strong>Step 2:</strong>{String.fromCodePoint(0x279C)}</div>
                       <div className="font-semibold text-blue-900"><strong>Answer:</strong> 96 cents</div>
-                      <div className="text-xs text-blue-700 mt-1">{String.fromCodePoint(0x2728)}</div>
+                      <div className="text-xs text-blue-700 mt-1">{String.fromCodePoint(0x279C)}</div>
                     </div>
                   </div>
                 </div>
@@ -15403,10 +15403,10 @@ export function PrintablesPage() {
                   <div className="space-y-2 text-sm">
                     <div className="font-mono text-base"><strong>Problem:</strong>{String.fromCodePoint(0x1F4A1)}</div>
                     <div className="pl-4 border-l-2 border-blue-300 space-y-1">
-                      <div><strong>Quick recall:</strong>{String.fromCodePoint(0x2728)}</div>
-                      <div><strong>If you need to think:</strong>{String.fromCodePoint(0x2728)}</div>
+                      <div><strong>Quick recall:</strong>{String.fromCodePoint(0x279C)}</div>
+                      <div><strong>If you need to think:</strong>{String.fromCodePoint(0x279C)}</div>
                       <div className="font-semibold text-blue-900"><strong>Answer:</strong> 42</div>
-                      <div className="text-xs text-blue-700 mt-1">{String.fromCodePoint(0x2728)}</div>
+                      <div className="text-xs text-blue-700 mt-1">{String.fromCodePoint(0x279C)}</div>
                     </div>
                   </div>
                 </div>
@@ -15416,7 +15416,7 @@ export function PrintablesPage() {
                 <div className="grid grid-cols-4 gap-2 break-inside-avoid" style={{ pageBreakAfter: 'auto' }}>
                   {facts.map(([a, b], i) => (
                     <div key={i} className="border border-slate-300 rounded p-2 bg-white text-center break-inside-avoid">
-                      <div className="font-mono text-lg">{String.fromCodePoint(0x2728)}<span className="inline-block w-20 h-10 border-b-[3px] border-slate-600 mx-1 align-middle" /></div>
+                      <div className="font-mono text-lg">{String.fromCodePoint(0x279C)}<span className="inline-block w-20 h-10 border-b-[3px] border-slate-600 mx-1 align-middle" /></div>
                     </div>
                   ))}
                 </div>
@@ -15500,17 +15500,17 @@ export function PrintablesPage() {
                   <div className="space-y-2 text-sm">
                     <div className="font-mono text-base"><strong>Problem:</strong>{String.fromCodePoint(0x1F4A1)}</div>
                     <div className="pl-4 border-l-2 border-blue-300 space-y-1">
-                      <div><strong>Method 1:</strong>{String.fromCodePoint(0x2728)}</div>
-                      <div><strong>Method 2:</strong>{String.fromCodePoint(0x2728)}</div>
+                      <div><strong>Method 1:</strong>{String.fromCodePoint(0x279C)}</div>
+                      <div><strong>Method 2:</strong>{String.fromCodePoint(0x279C)}</div>
                       <div className="font-semibold text-blue-900"><strong>Answer:</strong> 72</div>
-                      <div className="text-xs text-blue-700 mt-1">{String.fromCodePoint(0x2728)}</div>
+                      <div className="text-xs text-blue-700 mt-1">{String.fromCodePoint(0x279C)}</div>
                     </div>
                   </div>
                 </div>
                 <div className="grid grid-cols-4 gap-2 break-inside-avoid" style={{ pageBreakAfter: 'auto' }}>
                   {facts.map(([a, b], i) => (
                     <div key={i} className="border border-slate-300 rounded p-2 bg-white text-center break-inside-avoid">
-                      <div className="font-mono text-lg">{String.fromCodePoint(0x2728)}<span className="inline-block w-20 h-10 border-b-[3px] border-slate-600 mx-1 align-middle" /></div>
+                      <div className="font-mono text-lg">{String.fromCodePoint(0x279C)}<span className="inline-block w-20 h-10 border-b-[3px] border-slate-600 mx-1 align-middle" /></div>
                     </div>
                   ))}
                 </div>
@@ -15593,9 +15593,9 @@ export function PrintablesPage() {
                   <div className="pl-4 border-l-2 border-blue-300 space-y-1">
                     <div><strong>Strategy:</strong> Draw an array</div>
                     <div><strong>Step 1:</strong> Draw 3 rows with 4 items in each row</div>
-                    <div><strong>Step 2:</strong>{String.fromCodePoint(0x2728)}</div>
+                    <div><strong>Step 2:</strong>{String.fromCodePoint(0x279C)}</div>
                     <div className="font-semibold text-blue-900"><strong>Answer:</strong> 12</div>
-                    <div className="text-xs text-blue-700 mt-1">{String.fromCodePoint(0x2728)}</div>
+                    <div className="text-xs text-blue-700 mt-1">{String.fromCodePoint(0x279C)}</div>
                   </div>
                 </div>
               </div>
@@ -15773,9 +15773,9 @@ export function PrintablesPage() {
                     <div className="pl-4 border-l-2 border-blue-300 space-y-1">
                       <div><strong>Step 1:</strong> Look at what changes: the second number goes 1, 2, 3, 4, 5</div>
                       <div><strong>Step 2:</strong> Look at the answers: 4, 8, 12... they increase by 4 each time!</div>
-                      <div><strong>Step 3:</strong>{String.fromCodePoint(0x2728)}</div>
+                      <div><strong>Step 3:</strong>{String.fromCodePoint(0x279C)}</div>
                       <div className="font-semibold text-blue-900"><strong>Pattern:</strong> Add 4 each time</div>
-                      <div className="text-xs text-blue-700 mt-1">{String.fromCodePoint(0x2728)}</div>
+                      <div className="text-xs text-blue-700 mt-1">{String.fromCodePoint(0x279C)}</div>
                     </div>
                   </div>
                 </div>
@@ -15846,7 +15846,7 @@ export function PrintablesPage() {
                             <div className="text-xs text-emerald-800 space-y-1 pl-4">
                               <div>Missing answers: {p.missing.map(item => `${item.eq} = ${item.ans}`).join(', ')}</div>
                               <div><strong>Pattern:</strong> {p.pattern}</div>
-                              <div className="text-xs text-emerald-700 mt-1">{String.fromCodePoint(0x2728)}</div>
+                              <div className="text-xs text-emerald-700 mt-1">{String.fromCodePoint(0x279C)}</div>
                             </div>
                           </div>
                         ))}
@@ -15908,7 +15908,7 @@ export function PrintablesPage() {
                       <div><strong>{getTrans(`worksheets.${docId}.example.method2`, 'Method 2 (Repeated Addition):')}</strong> {getTrans(`worksheets.${docId}.example.method2Text`, '3 + 3 + 3 + 3 = 12')}</div>
                       <div><strong>{getTrans(`worksheets.${docId}.example.method3`, 'Method 3 (Visual):')}</strong> {getTrans(`worksheets.${docId}.example.method3Text`, '3 groups of 4 objects = 12 objects')}</div>
                       <div className="font-semibold text-blue-900"><strong>{getTrans(`worksheets.${docId}.example.answer`, 'Answer:')}</strong> {getTrans(`worksheets.${docId}.example.answerText`, '12')}</div>
-                      <div className="text-xs text-blue-700 mt-1">{String.fromCodePoint(0x2728)}</div>
+                      <div className="text-xs text-blue-700 mt-1">{String.fromCodePoint(0x279C)}</div>
                     </div>
                   </div>
                 </div>
@@ -15957,7 +15957,7 @@ export function PrintablesPage() {
                       // Check if items is a valid array with string elements and not a translation key
                       const itemsArray = Array.isArray(items) && items.length > 0 && typeof items[0] === 'string' && items[0] !== `worksheets.${docId}.selfAssessment.items` ? items : fallbackItems
                       return itemsArray.map((item, i) => (
-                        <div key={i}>{String.fromCodePoint(0x2728)}</div>
+                        <div key={i}>{String.fromCodePoint(0x279C)}</div>
                       ))
                     })()}
                   </div>
@@ -16024,11 +16024,11 @@ export function PrintablesPage() {
                   <div className="space-y-2 text-sm">
                     <div className="font-mono text-base"><strong>Problem:</strong>{String.fromCodePoint(0x1F4A1)}</div>
                     <div className="pl-4 border-l-2 border-blue-300 space-y-1">
-                      <div><strong>Method 1 (Break it down):</strong>{String.fromCodePoint(0x2728)}</div>
-                      <div><strong>Method 2 (Use known facts):</strong>{String.fromCodePoint(0x2728)}</div>
+                      <div><strong>Method 1 (Break it down):</strong>{String.fromCodePoint(0x279C)}</div>
+                      <div><strong>Method 2 (Use known facts):</strong>{String.fromCodePoint(0x279C)}</div>
                       <div><strong>Method 3 (Skip counting):</strong> Count by 7s eight times: 7, 14, 21, 28, 35, 42, 49, 56</div>
                       <div className="font-semibold text-blue-900"><strong>Answer:</strong> 56</div>
-                      <div className="text-xs text-blue-700 mt-1">{String.fromCodePoint(0x2728)}</div>
+                      <div className="text-xs text-blue-700 mt-1">{String.fromCodePoint(0x279C)}</div>
                     </div>
                   </div>
                 </div>
@@ -16047,7 +16047,7 @@ export function PrintablesPage() {
                   <div className="space-y-2 text-sm text-purple-800">
                     <div>{String.fromCodePoint(0x1F680)}</div>
                     <div>{String.fromCodePoint(0x1F680)}</div>
-                    <div>{String.fromCodePoint(0x2728)}</div>
+                    <div>{String.fromCodePoint(0x279C)}</div>
                     <div>4. Time yourself: Can you complete all 15 problems in under 3 minutes?</div>
                   </div>
                 </div>
@@ -16122,11 +16122,11 @@ export function PrintablesPage() {
                   <div className="space-y-2 text-sm">
                     <div className="font-mono text-base"><strong>Problem:</strong>{String.fromCodePoint(0x1F4A1)}</div>
                     <div className="pl-4 border-l-2 border-blue-300 space-y-1">
-                      <div><strong>Method 1 (9s trick):</strong>{String.fromCodePoint(0x2728)}</div>
-                      <div><strong>Method 2 (Use known facts):</strong>{String.fromCodePoint(0x2728)}</div>
+                      <div><strong>Method 1 (9s trick):</strong>{String.fromCodePoint(0x279C)}</div>
+                      <div><strong>Method 2 (Use known facts):</strong>{String.fromCodePoint(0x279C)}</div>
                       <div><strong>Method 3 (Skip counting):</strong> Count by 9s seven times: 9, 18, 27, 36, 45, 54, 63</div>
                       <div className="font-semibold text-blue-900"><strong>Answer:</strong> 63</div>
-                      <div className="text-xs text-blue-700 mt-1">{String.fromCodePoint(0x2728)}</div>
+                      <div className="text-xs text-blue-700 mt-1">{String.fromCodePoint(0x279C)}</div>
                     </div>
                   </div>
                 </div>
@@ -16145,7 +16145,7 @@ export function PrintablesPage() {
                   <div className="space-y-2 text-sm text-purple-800">
                     <div>{String.fromCodePoint(0x1F680)}</div>
                     <div>{String.fromCodePoint(0x1F680)}</div>
-                    <div>{String.fromCodePoint(0x2728)}</div>
+                    <div>{String.fromCodePoint(0x279C)}</div>
                     <div>4. Time yourself: Can you complete all 20 problems in under 4 minutes?</div>
                   </div>
                 </div>
@@ -16221,13 +16221,13 @@ export function PrintablesPage() {
                     <div className="font-mono text-base mb-2">
                       <div className="text-right">4</div>
                       <div className="flex items-center">
-                        <span className="mr-2">{String.fromCodePoint(0x2728)}</span>
+                        <span className="mr-2">{String.fromCodePoint(0x279C)}</span>
                         <span className="flex-1 text-right">3</span>
                       </div>
                       <div className="border-t-2 border-slate-600 mt-1 pt-1">12</div>
                     </div>
                     <div className="pl-4 border-l-2 border-blue-300 space-y-1">
-                      <div><strong>Step 1:</strong>{String.fromCodePoint(0x2728)}</div>
+                      <div><strong>Step 1:</strong>{String.fromCodePoint(0x279C)}</div>
                       <div><strong>Step 2:</strong> Write the answer below the line</div>
                       <div className="font-semibold text-blue-900"><strong>Answer:</strong> 12</div>
                     </div>
@@ -16239,7 +16239,7 @@ export function PrintablesPage() {
                       <div className="font-mono text-2xl leading-7">
                         <div className="text-right mb-1">{a}</div>
                         <div className="flex items-center mb-1">
-                          <span className="mr-2">{String.fromCodePoint(0x2728)}</span>
+                          <span className="mr-2">{String.fromCodePoint(0x279C)}</span>
                           <span className="flex-1 text-right">{b}</span>
                         </div>
                         <div className="border-t-[3px] border-slate-600 mt-2 pt-3 h-14 print:h-16 flex items-center justify-end">
@@ -16327,14 +16327,14 @@ export function PrintablesPage() {
                     <div className="font-mono text-base mb-2">
                       <div className="text-right">8</div>
                       <div className="flex items-center">
-                        <span className="mr-2">{String.fromCodePoint(0x2728)}</span>
+                        <span className="mr-2">{String.fromCodePoint(0x279C)}</span>
                         <span className="flex-1 text-right">7</span>
                       </div>
                       <div className="border-t-2 border-slate-600 mt-1 pt-1">56</div>
                     </div>
                     <div className="pl-4 border-l-2 border-blue-300 space-y-1">
-                      <div><strong>Method 1:</strong>{String.fromCodePoint(0x2728)}</div>
-                      <div><strong>Method 2:</strong>{String.fromCodePoint(0x2728)}</div>
+                      <div><strong>Method 1:</strong>{String.fromCodePoint(0x279C)}</div>
+                      <div><strong>Method 2:</strong>{String.fromCodePoint(0x279C)}</div>
                       <div className="font-semibold text-blue-900"><strong>Answer:</strong> 56</div>
                     </div>
                   </div>
@@ -16344,7 +16344,7 @@ export function PrintablesPage() {
                     <div key={i} className="border border-slate-300 rounded p-3 bg-white break-inside-avoid">
                       <div className="font-mono text-2xl leading-7 text-right">
                         <div>{a}</div>
-                        <div>{String.fromCodePoint(0x2728)}</div>
+                        <div>{String.fromCodePoint(0x279C)}</div>
                         <div className="border-t-[3px] border-slate-600 mt-2 pt-2 h-10 flex items-center justify-end">
                           <span className="inline-block w-20 h-8 border-b-[3px] border-slate-600" />
                         </div>
@@ -16430,16 +16430,16 @@ export function PrintablesPage() {
                     <div className="font-mono text-base mb-2">
                       <div className="text-right">9</div>
                       <div className="flex items-center">
-                        <span className="mr-2">{String.fromCodePoint(0x2728)}</span>
+                        <span className="mr-2">{String.fromCodePoint(0x279C)}</span>
                         <span className="flex-1 text-right">8</span>
                       </div>
                       <div className="border-t-2 border-slate-600 mt-1 pt-1">72</div>
                     </div>
                     <div className="pl-4 border-l-2 border-blue-300 space-y-1">
-                      <div><strong>9s Trick:</strong>{String.fromCodePoint(0x2728)}</div>
-                      <div><strong>Alternative:</strong>{String.fromCodePoint(0x2728)}</div>
+                      <div><strong>9s Trick:</strong>{String.fromCodePoint(0x279C)}</div>
+                      <div><strong>Alternative:</strong>{String.fromCodePoint(0x279C)}</div>
                       <div className="font-semibold text-blue-900"><strong>Answer:</strong> 72</div>
-                      <div className="text-xs text-blue-700 mt-1">{String.fromCodePoint(0x2728)}</div>
+                      <div className="text-xs text-blue-700 mt-1">{String.fromCodePoint(0x279C)}</div>
                     </div>
                   </div>
                 </div>
@@ -16448,7 +16448,7 @@ export function PrintablesPage() {
                     <div key={i} className="border border-slate-300 rounded p-3 bg-white break-inside-avoid">
                       <div className="font-mono text-2xl leading-7 text-right">
                         <div>{a}</div>
-                        <div>{String.fromCodePoint(0x2728)}</div>
+                        <div>{String.fromCodePoint(0x279C)}</div>
                         <div className="border-t-[3px] border-slate-600 mt-2 pt-2 h-10 flex items-center justify-end">
                           <span className="inline-block w-20 h-8 border-b-[3px] border-slate-600" />
                         </div>
@@ -16544,9 +16544,9 @@ export function PrintablesPage() {
                     <div className="font-mono text-base"><strong>Problem:</strong>{String.fromCodePoint(0x1F4A1)}</div>
                     <div className="pl-4 border-l-2 border-blue-300 space-y-1">
                       <div><strong>Step 1:</strong> Ask: "What times 3 equals 12?"</div>
-                      <div><strong>Step 2:</strong>{String.fromCodePoint(0x2728)}</div>
+                      <div><strong>Step 2:</strong>{String.fromCodePoint(0x279C)}</div>
                       <div className="font-semibold text-blue-900"><strong>Answer:</strong> 4</div>
-                      <div className="text-xs text-blue-700 mt-1">{String.fromCodePoint(0x2728)}</div>
+                      <div className="text-xs text-blue-700 mt-1">{String.fromCodePoint(0x279C)}</div>
                     </div>
                   </div>
                 </div>
@@ -16565,7 +16565,7 @@ export function PrintablesPage() {
                   <div className="space-y-2 text-sm text-purple-800">
                     <div>1. Create your own missing number problem</div>
                     <div>{String.fromCodePoint(0x1F680)}</div>
-                    <div>{String.fromCodePoint(0x2728)}</div>
+                    <div>{String.fromCodePoint(0x279C)}</div>
                   </div>
                 </div>
                 {/* Self-Assessment */}
@@ -16666,10 +16666,10 @@ export function PrintablesPage() {
                     <div className="font-mono text-base"><strong>Problem:</strong>{String.fromCodePoint(0x1F4A1)}</div>
                     <div className="pl-4 border-l-2 border-blue-300 space-y-1">
                       <div><strong>Step 1:</strong> Ask: "What times 8 equals 56?"</div>
-                      <div><strong>Step 2:</strong>{String.fromCodePoint(0x2728)}</div>
-                      <div><strong>Step 3:</strong>{String.fromCodePoint(0x2728)}</div>
+                      <div><strong>Step 2:</strong>{String.fromCodePoint(0x279C)}</div>
+                      <div><strong>Step 3:</strong>{String.fromCodePoint(0x279C)}</div>
                       <div className="font-semibold text-blue-900"><strong>Answer:</strong> 7</div>
-                      <div className="text-xs text-blue-700 mt-1">{String.fromCodePoint(0x2728)}</div>
+                      <div className="text-xs text-blue-700 mt-1">{String.fromCodePoint(0x279C)}</div>
                     </div>
                   </div>
                 </div>
@@ -16688,7 +16688,7 @@ export function PrintablesPage() {
                   <div className="space-y-2 text-sm text-purple-800">
                     <div>1. Create your own missing number problem with numbers 6-12</div>
                     <div>{String.fromCodePoint(0x1F680)}</div>
-                    <div>{String.fromCodePoint(0x2728)}</div>
+                    <div>{String.fromCodePoint(0x279C)}</div>
                   </div>
                 </div>
                 {/* Self-Assessment */}
@@ -16789,10 +16789,10 @@ export function PrintablesPage() {
                     <div className="font-mono text-base"><strong>Problem:</strong>{String.fromCodePoint(0x1F4A1)}</div>
                     <div className="pl-4 border-l-2 border-blue-300 space-y-1">
                       <div><strong>Step 1:</strong> Ask: "What times 9 equals 63?"</div>
-                      <div><strong>Step 2:</strong>{String.fromCodePoint(0x2728)}</div>
-                      <div><strong>Step 3:</strong>{String.fromCodePoint(0x2728)}</div>
+                      <div><strong>Step 2:</strong>{String.fromCodePoint(0x279C)}</div>
+                      <div><strong>Step 3:</strong>{String.fromCodePoint(0x279C)}</div>
                       <div className="font-semibold text-blue-900"><strong>Answer:</strong> 7</div>
-                      <div className="text-xs text-blue-700 mt-1">{String.fromCodePoint(0x2728)}</div>
+                      <div className="text-xs text-blue-700 mt-1">{String.fromCodePoint(0x279C)}</div>
                     </div>
                   </div>
                 </div>
@@ -16811,7 +16811,7 @@ export function PrintablesPage() {
                   <div className="space-y-2 text-sm text-purple-800">
                     <div>1. Create your own mixed missing number problem</div>
                     <div>{String.fromCodePoint(0x1F680)}</div>
-                    <div>{String.fromCodePoint(0x2728)}</div>
+                    <div>{String.fromCodePoint(0x279C)}</div>
                   </div>
                 </div>
                 {/* Self-Assessment */}
@@ -16905,9 +16905,9 @@ export function PrintablesPage() {
                   <div className="space-y-2 text-sm">
                     <div className="font-mono text-base"><strong>Problem:</strong>{String.fromCodePoint(0x1F4A1)}</div>
                     <div className="pl-4 border-l-2 border-blue-300 space-y-1">
-                      <div><strong>Quick method:</strong>{String.fromCodePoint(0x2728)}</div>
+                      <div><strong>Quick method:</strong>{String.fromCodePoint(0x279C)}</div>
                       <div className="font-semibold text-blue-900"><strong>Answer:</strong> 12</div>
-                      <div className="text-xs text-blue-700 mt-1">{String.fromCodePoint(0x2728)}</div>
+                      <div className="text-xs text-blue-700 mt-1">{String.fromCodePoint(0x279C)}</div>
                     </div>
                   </div>
                 </div>
@@ -17003,9 +17003,9 @@ export function PrintablesPage() {
                   <div className="space-y-2 text-sm">
                     <div className="font-mono text-base"><strong>Problem:</strong>{String.fromCodePoint(0x1F4A1)}</div>
                     <div className="pl-4 border-l-2 border-blue-300 space-y-1">
-                      <div><strong>Quick method:</strong>{String.fromCodePoint(0x2728)}</div>
+                      <div><strong>Quick method:</strong>{String.fromCodePoint(0x279C)}</div>
                       <div className="font-semibold text-blue-900"><strong>Answer:</strong> 56</div>
-                      <div className="text-xs text-blue-700 mt-1">{String.fromCodePoint(0x2728)}</div>
+                      <div className="text-xs text-blue-700 mt-1">{String.fromCodePoint(0x279C)}</div>
                     </div>
                   </div>
                 </div>
@@ -17101,9 +17101,9 @@ export function PrintablesPage() {
                   <div className="space-y-2 text-sm">
                     <div className="font-mono text-base"><strong>Problem:</strong>{String.fromCodePoint(0x1F4A1)}</div>
                     <div className="pl-4 border-l-2 border-blue-300 space-y-1">
-                      <div><strong>9s Trick:</strong>{String.fromCodePoint(0x2728)}</div>
+                      <div><strong>9s Trick:</strong>{String.fromCodePoint(0x279C)}</div>
                       <div className="font-semibold text-blue-900"><strong>Answer:</strong> 72</div>
-                      <div className="text-xs text-blue-700 mt-1">{String.fromCodePoint(0x2728)}</div>
+                      <div className="text-xs text-blue-700 mt-1">{String.fromCodePoint(0x279C)}</div>
                     </div>
                   </div>
                 </div>
@@ -17193,12 +17193,12 @@ export function PrintablesPage() {
                 <div className="space-y-2 text-sm">
                   <div className="font-semibold text-base"><strong>For row 2:</strong>{String.fromCodePoint(0x1F4A1)}</div>
                   <div className="pl-4 border-l-2 border-blue-300 space-y-1">
-                    <div>{String.fromCodePoint(0x2728)}</div>
-                    <div>{String.fromCodePoint(0x2728)}</div>
-                    <div>{String.fromCodePoint(0x2728)}</div>
-                    <div>{String.fromCodePoint(0x2728)}</div>
-                    <div>{String.fromCodePoint(0x2728)}</div>
-                    <div className="text-xs text-blue-700 mt-1">{String.fromCodePoint(0x2728)}</div>
+                    <div>{String.fromCodePoint(0x279C)}</div>
+                    <div>{String.fromCodePoint(0x279C)}</div>
+                    <div>{String.fromCodePoint(0x279C)}</div>
+                    <div>{String.fromCodePoint(0x279C)}</div>
+                    <div>{String.fromCodePoint(0x279C)}</div>
+                    <div className="text-xs text-blue-700 mt-1">{String.fromCodePoint(0x279C)}</div>
                   </div>
                 </div>
               </div>
@@ -17235,7 +17235,7 @@ export function PrintablesPage() {
                 <div className="space-y-2 text-sm text-purple-800">
                   <div>1. Fill in the table from memory without looking at any notes</div>
                   <div>2. Time yourself: Can you fill it in under 3 minutes?</div>
-                  <div>{String.fromCodePoint(0x2728)}</div>
+                  <div>{String.fromCodePoint(0x279C)}</div>
                 </div>
               </div>
               {/* Self-Assessment */}
@@ -17299,14 +17299,14 @@ export function PrintablesPage() {
                 <div className="space-y-2 text-sm">
                   <div className="font-semibold text-base"><strong>For row 8:</strong>{String.fromCodePoint(0x1F4A1)}</div>
                   <div className="pl-4 border-l-2 border-blue-300 space-y-1">
-                    <div>{String.fromCodePoint(0x2728)}</div>
-                    <div>{String.fromCodePoint(0x2728)}</div>
-                    <div>{String.fromCodePoint(0x2728)}</div>
-                    <div>{String.fromCodePoint(0x2728)}</div>
-                    <div>{String.fromCodePoint(0x2728)}</div>
-                    <div>{String.fromCodePoint(0x2728)}</div>
-                    <div>{String.fromCodePoint(0x2728)}</div>
-                    <div className="text-xs text-blue-700 mt-1">{String.fromCodePoint(0x2728)}</div>
+                    <div>{String.fromCodePoint(0x279C)}</div>
+                    <div>{String.fromCodePoint(0x279C)}</div>
+                    <div>{String.fromCodePoint(0x279C)}</div>
+                    <div>{String.fromCodePoint(0x279C)}</div>
+                    <div>{String.fromCodePoint(0x279C)}</div>
+                    <div>{String.fromCodePoint(0x279C)}</div>
+                    <div>{String.fromCodePoint(0x279C)}</div>
+                    <div className="text-xs text-blue-700 mt-1">{String.fromCodePoint(0x279C)}</div>
                   </div>
                 </div>
               </div>
@@ -17343,7 +17343,7 @@ export function PrintablesPage() {
                 <div className="space-y-2 text-sm text-purple-800">
                   <div>1. Fill in the table from memory without looking at any notes</div>
                   <div>2. Time yourself: Can you fill it in under 5 minutes?</div>
-                  <div>{String.fromCodePoint(0x2728)}</div>
+                  <div>{String.fromCodePoint(0x279C)}</div>
                 </div>
               </div>
               {/* Self-Assessment */}
@@ -17409,11 +17409,11 @@ export function PrintablesPage() {
                 <div className="space-y-2 text-sm">
                   <div className="font-semibold text-base"><strong>For row 9:</strong>{String.fromCodePoint(0x1F4A1)}</div>
                   <div className="pl-4 border-l-2 border-blue-300 space-y-1">
-                    <div>{String.fromCodePoint(0x2728)}</div>
-                    <div>{String.fromCodePoint(0x2728)}</div>
-                    <div>{String.fromCodePoint(0x2728)}</div>
-                    <div>{String.fromCodePoint(0x2728)}</div>
-                    <div className="text-xs text-blue-700 mt-1">{String.fromCodePoint(0x2728)}</div>
+                    <div>{String.fromCodePoint(0x279C)}</div>
+                    <div>{String.fromCodePoint(0x279C)}</div>
+                    <div>{String.fromCodePoint(0x279C)}</div>
+                    <div>{String.fromCodePoint(0x279C)}</div>
+                    <div className="text-xs text-blue-700 mt-1">{String.fromCodePoint(0x279C)}</div>
                   </div>
                 </div>
               </div>
@@ -17450,7 +17450,7 @@ export function PrintablesPage() {
                 <div className="space-y-2 text-sm text-purple-800">
                   <div>1. Fill in the table from memory without looking at any notes</div>
                   <div>2. Time yourself: Can you fill it in under 10 minutes?</div>
-                  <div>{String.fromCodePoint(0x2728)}</div>
+                  <div>{String.fromCodePoint(0x279C)}</div>
                   <div>4. Find patterns: What do you notice about the diagonal?</div>
                 </div>
               </div>
@@ -17524,7 +17524,7 @@ export function PrintablesPage() {
                       <div><strong>Think:</strong> 3 groups of 4</div>
                       <div><strong>Count:</strong> 4 + 4 + 4 = 12</div>
                       <div className="font-semibold text-blue-900"><strong>Answer:</strong> 12</div>
-                      <div className="text-xs text-blue-700 mt-1">{String.fromCodePoint(0x2728)}</div>
+                      <div className="text-xs text-blue-700 mt-1">{String.fromCodePoint(0x279C)}</div>
                     </div>
                   </div>
                 </div>
@@ -17619,10 +17619,10 @@ export function PrintablesPage() {
                   <div className="space-y-2 text-sm">
                     <div className="font-mono text-base"><strong>Problem:</strong>{String.fromCodePoint(0x1F4A1)}</div>
                     <div className="pl-4 border-l-2 border-blue-300 space-y-1">
-                      <div><strong>Method 1 (Break it down):</strong>{String.fromCodePoint(0x2728)}</div>
-                      <div><strong>Method 2 (Use known fact):</strong>{String.fromCodePoint(0x2728)}</div>
+                      <div><strong>Method 1 (Break it down):</strong>{String.fromCodePoint(0x279C)}</div>
+                      <div><strong>Method 2 (Use known fact):</strong>{String.fromCodePoint(0x279C)}</div>
                       <div className="font-semibold text-blue-900"><strong>Answer:</strong> 56</div>
-                      <div className="text-xs text-blue-700 mt-1">{String.fromCodePoint(0x2728)}</div>
+                      <div className="text-xs text-blue-700 mt-1">{String.fromCodePoint(0x279C)}</div>
                     </div>
                   </div>
                 </div>
@@ -17646,7 +17646,7 @@ export function PrintablesPage() {
                   <div className="space-y-2 text-sm text-purple-800">
                     <div>1. Explain your strategy for solving one problem</div>
                     <div>2. Create your own multiplication problem with numbers 6-12</div>
-                    <div>{String.fromCodePoint(0x2728)}</div>
+                    <div>{String.fromCodePoint(0x279C)}</div>
                   </div>
                 </div>
                 {/* Self-Assessment */}
@@ -17717,10 +17717,10 @@ export function PrintablesPage() {
                   <div className="space-y-2 text-sm">
                     <div className="font-mono text-base"><strong>Problem:</strong>{String.fromCodePoint(0x1F4A1)}</div>
                     <div className="pl-4 border-l-2 border-blue-300 space-y-1">
-                      <div><strong>Quick recall:</strong>{String.fromCodePoint(0x2728)}</div>
-                      <div><strong>If you need to think:</strong>{String.fromCodePoint(0x2728)}</div>
+                      <div><strong>Quick recall:</strong>{String.fromCodePoint(0x279C)}</div>
+                      <div><strong>If you need to think:</strong>{String.fromCodePoint(0x279C)}</div>
                       <div className="font-semibold text-blue-900"><strong>Answer:</strong> 56</div>
-                      <div className="text-xs text-blue-700 mt-1">{String.fromCodePoint(0x2728)}</div>
+                      <div className="text-xs text-blue-700 mt-1">{String.fromCodePoint(0x279C)}</div>
                     </div>
                   </div>
                 </div>
@@ -17813,10 +17813,10 @@ export function PrintablesPage() {
                   <div className="space-y-2 text-sm">
                     <div className="font-mono text-base"><strong>Problem:</strong>{String.fromCodePoint(0x1F4A1)}</div>
                     <div className="pl-4 border-l-2 border-blue-300 space-y-1">
-                      <div><strong>Method 1:</strong>{String.fromCodePoint(0x2728)}</div>
-                      <div><strong>Method 2:</strong>{String.fromCodePoint(0x2728)}</div>
+                      <div><strong>Method 1:</strong>{String.fromCodePoint(0x279C)}</div>
+                      <div><strong>Method 2:</strong>{String.fromCodePoint(0x279C)}</div>
                       <div className="font-semibold text-blue-900"><strong>Answer:</strong> 99</div>
-                      <div className="text-xs text-blue-700 mt-1">{String.fromCodePoint(0x2728)}</div>
+                      <div className="text-xs text-blue-700 mt-1">{String.fromCodePoint(0x279C)}</div>
                     </div>
                   </div>
                 </div>
@@ -18145,12 +18145,12 @@ export function PrintablesPage() {
               <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-blue-400 to-cyan-400 animate-gradient-x mb-2" />
               <div className="grid grid-cols-2 gap-4">
                 {[
-                  { word: 'cat', emoji: String.fromCodePoint(0x2728) },
-                  { word: 'dog', emoji: String.fromCodePoint(0x2728) },
-                  { word: 'sun', emoji: String.fromCodePoint(0x2728) },
-                  { word: 'hat', emoji: String.fromCodePoint(0x2728) },
-                  { word: 'pen', emoji: String.fromCodePoint(0x2728) },
-                  { word: 'cup', emoji: String.fromCodePoint(0x2728) },
+                  { word: 'cat', emoji: String.fromCodePoint(0x279C) },
+                  { word: 'dog', emoji: String.fromCodePoint(0x279C) },
+                  { word: 'sun', emoji: String.fromCodePoint(0x279C) },
+                  { word: 'hat', emoji: String.fromCodePoint(0x279C) },
+                  { word: 'pen', emoji: String.fromCodePoint(0x279C) },
+                  { word: 'cup', emoji: String.fromCodePoint(0x279C) },
                 ].map((item, idx) => (
                   <div key={idx} className="border border-slate-300 rounded p-4 bg-white">
                     <div className="text-center mb-3">
@@ -18185,11 +18185,11 @@ export function PrintablesPage() {
                   <ul className="list-disc list-inside space-y-0.5">
                     {[
                       { word: 'cat', emoji: String.fromCodePoint(0x2705) },
-                      { word: 'dog', emoji: String.fromCodePoint(0x2728) },
-                      { word: 'sun', emoji: String.fromCodePoint(0x2728) },
-                      { word: 'hat', emoji: String.fromCodePoint(0x2728) },
-                      { word: 'pen', emoji: String.fromCodePoint(0x2728) },
-                      { word: 'cup', emoji: String.fromCodePoint(0x2728) },
+                      { word: 'dog', emoji: String.fromCodePoint(0x279C) },
+                      { word: 'sun', emoji: String.fromCodePoint(0x279C) },
+                      { word: 'hat', emoji: String.fromCodePoint(0x279C) },
+                      { word: 'pen', emoji: String.fromCodePoint(0x279C) },
+                      { word: 'cup', emoji: String.fromCodePoint(0x279C) },
                     ].map((item, idx) => (
                       <li key={idx}>{item.emoji} {item.word}</li>
                     ))}
@@ -18342,12 +18342,12 @@ export function PrintablesPage() {
               <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-amber-400 to-yellow-400 animate-gradient-x mb-2" />
               <div className="grid grid-cols-2 gap-4">
                 {[
-                  { left: 3, right: 5, emoji: String.fromCodePoint(0x2728) },
-                  { left: 7, right: 4, emoji: String.fromCodePoint(0x2728) },
-                  { left: 6, right: 6, emoji: String.fromCodePoint(0x2728) },
-                  { left: 8, right: 3, emoji: String.fromCodePoint(0x2728) },
-                  { left: 2, right: 9, emoji: String.fromCodePoint(0x2728) },
-                  { left: 5, right: 5, emoji: String.fromCodePoint(0x2728) },
+                  { left: 3, right: 5, emoji: String.fromCodePoint(0x279C) },
+                  { left: 7, right: 4, emoji: String.fromCodePoint(0x279C) },
+                  { left: 6, right: 6, emoji: String.fromCodePoint(0x279C) },
+                  { left: 8, right: 3, emoji: String.fromCodePoint(0x279C) },
+                  { left: 2, right: 9, emoji: String.fromCodePoint(0x279C) },
+                  { left: 5, right: 5, emoji: String.fromCodePoint(0x279C) },
                 ].map((pair, idx) => (
                   <div key={idx} className="border border-slate-300 rounded p-4 bg-white break-inside-avoid">
                     <div className="flex items-center justify-around mb-3">
@@ -18410,7 +18410,7 @@ export function PrintablesPage() {
                   <div key={idx} className="border border-slate-300 rounded p-4 bg-white">
                     <div className="flex flex-wrap gap-2 justify-center mb-3" style={{ minHeight: '80px' }}>
                       {Array.from({ length: count }).map((_, i) => {
-                        const shapes = [String.fromCodePoint(0x2728), String.fromCodePoint(0x2728), String.fromCodePoint(0x2728), String.fromCodePoint(0x2728), String.fromCodePoint(0x2728), String.fromCodePoint(0x2728), String.fromCodePoint(0x2728), String.fromCodePoint(0x2728)];
+                        const shapes = [String.fromCodePoint(0x279C), String.fromCodePoint(0x279C), String.fromCodePoint(0x279C), String.fromCodePoint(0x279C), String.fromCodePoint(0x279C), String.fromCodePoint(0x279C), String.fromCodePoint(0x279C), String.fromCodePoint(0x279C)];
                         return (
                           <span key={i} className="text-2xl leading-none">
                             {shapes[i % shapes.length]}
@@ -18511,7 +18511,7 @@ export function PrintablesPage() {
             function nextInt(min: number, max: number) { return Math.floor(rng() * (max - min + 1)) + min; }
             const problems = Array.from({ length: 6 }, () => {
               const count = nextInt(1, 10);
-              const objectTypes = [String.fromCodePoint(0x2728), String.fromCodePoint(0x2728), String.fromCodePoint(0x2728), String.fromCodePoint(0x2728), String.fromCodePoint(0x2728), String.fromCodePoint(0x2728), String.fromCodePoint(0x2728), String.fromCodePoint(0x2728), String.fromCodePoint(0x2728), String.fromCodePoint(0x2728), String.fromCodePoint(0x2728), String.fromCodePoint(0x2728)];
+              const objectTypes = [String.fromCodePoint(0x279C), String.fromCodePoint(0x279C), String.fromCodePoint(0x279C), String.fromCodePoint(0x279C), String.fromCodePoint(0x279C), String.fromCodePoint(0x279C), String.fromCodePoint(0x279C), String.fromCodePoint(0x279C), String.fromCodePoint(0x279C), String.fromCodePoint(0x279C), String.fromCodePoint(0x279C), String.fromCodePoint(0x279C)];
               const objectType = objectTypes[nextInt(0, objectTypes.length - 1)];
               return { count, objectType };
             });
@@ -18543,13 +18543,13 @@ export function PrintablesPage() {
                     <div className="font-semibold text-base"><strong>Count the apples:</strong></div>
                     <div className="flex gap-2 justify-center mb-3">
                       {Array.from({ length: 5 }).map((_, i) => (
-                        <span key={i} className="text-4xl leading-none">{String.fromCodePoint(0x2728)}</span>
+                        <span key={i} className="text-4xl leading-none">{String.fromCodePoint(0x279C)}</span>
                       ))}
                     </div>
                     <div className="pl-4 border-l-2 border-blue-300 space-y-1">
                       <div><strong>Step 1:</strong> Point to each apple and count: 1, 2, 3, 4, 5</div>
                       <div className="font-semibold text-blue-900"><strong>Answer:</strong> 5</div>
-                      <div className="text-xs text-blue-700 mt-1">{String.fromCodePoint(0x2728)}</div>
+                      <div className="text-xs text-blue-700 mt-1">{String.fromCodePoint(0x279C)}</div>
                     </div>
                   </div>
                 </div>
@@ -18626,7 +18626,7 @@ export function PrintablesPage() {
               { title: 'Match 2', numbers: set2Numbers, objects: shuffleArray([...set2Numbers]) }
             ];
 
-            const objectTypes = [String.fromCodePoint(0x2728), String.fromCodePoint(0x2728), String.fromCodePoint(0x2728), String.fromCodePoint(0x2728), String.fromCodePoint(0x2728), String.fromCodePoint(0x2728), String.fromCodePoint(0x2728), String.fromCodePoint(0x2728), String.fromCodePoint(0x2728), String.fromCodePoint(0x2728)];
+            const objectTypes = [String.fromCodePoint(0x279C), String.fromCodePoint(0x279C), String.fromCodePoint(0x279C), String.fromCodePoint(0x279C), String.fromCodePoint(0x279C), String.fromCodePoint(0x279C), String.fromCodePoint(0x279C), String.fromCodePoint(0x279C), String.fromCodePoint(0x279C), String.fromCodePoint(0x279C)];
 
             return (
               <WorksheetSectionWrapper
@@ -18704,7 +18704,7 @@ export function PrintablesPage() {
                   <div className="space-y-2 text-sm text-purple-800">
                     <div>1. Find numbers around your house. What numbers can you see?</div>
                     <div>2. Draw your own number and matching objects</div>
-                    <div>{String.fromCodePoint(0x2728)}</div>
+                    <div>{String.fromCodePoint(0x279C)}</div>
                   </div>
                 </div>
                 {/* Self-Assessment */}
@@ -19058,7 +19058,7 @@ export function PrintablesPage() {
               const b = nextInt(1, 4);
               return { a, b, sum: a + b };
             });
-            const objectTypes = [String.fromCodePoint(0x2728), String.fromCodePoint(0x2728), String.fromCodePoint(0x2728), String.fromCodePoint(0x2728), String.fromCodePoint(0x2728), String.fromCodePoint(0x2728)];
+            const objectTypes = [String.fromCodePoint(0x279C), String.fromCodePoint(0x279C), String.fromCodePoint(0x279C), String.fromCodePoint(0x279C), String.fromCodePoint(0x279C), String.fromCodePoint(0x279C)];
             return (
               <WorksheetSectionWrapper
                 docId="kindergarten-addition-pictures"
@@ -19088,13 +19088,13 @@ export function PrintablesPage() {
                     <div className="flex items-center gap-4 mb-3">
                       <div className="flex gap-2">
                         {Array.from({ length: 2 }).map((_, i) => (
-                          <span key={i} className="text-4xl">{String.fromCodePoint(0x2728)}</span>
+                          <span key={i} className="text-4xl">{String.fromCodePoint(0x279C)}</span>
                         ))}
                       </div>
                       <div className="text-3xl font-bold">+</div>
                       <div className="flex gap-2">
                         {Array.from({ length: 3 }).map((_, i) => (
-                          <span key={i} className="text-4xl">{String.fromCodePoint(0x2728)}</span>
+                          <span key={i} className="text-4xl">{String.fromCodePoint(0x279C)}</span>
                         ))}
                       </div>
                       <div className="text-3xl font-bold">=</div>
@@ -19105,7 +19105,7 @@ export function PrintablesPage() {
                       <div><strong>Step 2:</strong> Count second group: 1, 2, 3</div>
                       <div><strong>Step 3:</strong> Count all together: 1, 2, 3, 4, 5</div>
                       <div className="font-semibold text-blue-900"><strong>Answer:</strong> 5</div>
-                      <div className="text-xs text-blue-700 mt-1">{String.fromCodePoint(0x2728)}</div>
+                      <div className="text-xs text-blue-700 mt-1">{String.fromCodePoint(0x279C)}</div>
                     </div>
                   </div>
                 </div>
@@ -19424,7 +19424,7 @@ export function PrintablesPage() {
                     <div className="pl-4 border-l-2 border-blue-300 space-y-1">
                       <div><strong>Step 1:</strong> Point to each bear and count: 1, 2, 3</div>
                       <div className="font-semibold text-blue-900"><strong>Answer:</strong> 3</div>
-                      <div className="text-xs text-blue-700 mt-1">{String.fromCodePoint(0x2728)}</div>
+                      <div className="text-xs text-blue-700 mt-1">{String.fromCodePoint(0x279C)}</div>
                     </div>
                   </div>
                 </div>
@@ -19522,10 +19522,10 @@ export function PrintablesPage() {
 
                 {/* Theme Header */}
                 <div className="w-full h-20 mb-6 bg-indigo-50 rounded-lg border-2 border-indigo-200 flex items-center justify-center relative overflow-hidden">
-                  <div className="absolute opacity-10 text-6xl rotate-12 left-10">{String.fromCodePoint(0x2728)}</div>
-                  <div className="absolute opacity-10 text-6xl -rotate-12 right-10">{String.fromCodePoint(0x2728)}</div>
+                  <div className="absolute opacity-10 text-6xl rotate-12 left-10">{String.fromCodePoint(0x279C)}</div>
+                  <div className="absolute opacity-10 text-6xl -rotate-12 right-10">{String.fromCodePoint(0x279C)}</div>
                   <div className="text-2xl font-bold text-indigo-900 flex items-center gap-3 z-10 font-serif">
-                    <span>{String.fromCodePoint(0x2728)}</span> ROYAL REFLECTIONS <span>{String.fromCodePoint(0x2728)}</span>
+                    <span>{String.fromCodePoint(0x279C)}</span> ROYAL REFLECTIONS <span>{String.fromCodePoint(0x279C)}</span>
                   </div>
                 </div>
 
@@ -19585,11 +19585,11 @@ export function PrintablesPage() {
 
                 {/* Self-Assessment */}
                 <div className="print:block hidden print:mt-0 mt-6 p-4 border-2 border-indigo-200 rounded bg-indigo-50" style={{ pageBreakBefore: 'avoid', pageBreakInside: 'avoid' }}>
-                  <div className="font-bold text-indigo-900 mb-3 text-sm font-serif">{String.fromCodePoint(0x2728)}</div>
+                  <div className="font-bold text-indigo-900 mb-3 text-sm font-serif">{String.fromCodePoint(0x279C)}</div>
                   <div className="space-y-2 text-xs text-indigo-800">
                     <div>{String.fromCharCode(0x2610)} I can double numbers 1-5</div>
                     <div>{String.fromCharCode(0x2610)} I can double numbers 6-10</div>
-                    <div>{String.fromCodePoint(0x2728)}</div>
+                    <div>{String.fromCodePoint(0x279C)}</div>
                   </div>
                 </div>
 
@@ -19634,8 +19634,8 @@ export function PrintablesPage() {
               const docId = 'count-circle-1-10'
               const rng = makeRng(`${effectiveSeed}|v${variant}|doc=${doc}`)
 
-              const seaCreatures = [String.fromCodePoint(0x2728), String.fromCodePoint(0x2728), String.fromCodePoint(0x2728), String.fromCodePoint(0x2728), String.fromCodePoint(0x2728), String.fromCodePoint(0x2728), String.fromCodePoint(0x2728), String.fromCodePoint(0x2728), String.fromCodePoint(0x2728), String.fromCodePoint(0x2728), String.fromCodePoint(0x2728), String.fromCodePoint(0x2728)];
-              const bubbles = [String.fromCodePoint(0x2728), String.fromCodePoint(0x2728)]; // Decorative background elements
+              const seaCreatures = [String.fromCodePoint(0x279C), String.fromCodePoint(0x279C), String.fromCodePoint(0x279C), String.fromCodePoint(0x279C), String.fromCodePoint(0x279C), String.fromCodePoint(0x279C), String.fromCodePoint(0x279C), String.fromCodePoint(0x279C), String.fromCodePoint(0x279C), String.fromCodePoint(0x279C), String.fromCodePoint(0x279C), String.fromCodePoint(0x279C)];
+              const bubbles = [String.fromCodePoint(0x279C), String.fromCodePoint(0x279C)]; // Decorative background elements
 
               const problems = Array.from({ length: 8 }, () => {
                 const count = Math.floor(rng() * 10) + 1
@@ -19668,10 +19668,10 @@ export function PrintablesPage() {
                   {/* Decorative Ocean Header */}
                   <div className="w-full h-24 mb-6 relative overflow-hidden bg-gradient-to-b from-cyan-100 to-blue-100 rounded-xl border-2 border-cyan-200">
                     <div className="absolute inset-0 flex items-center justify-around opacity-30">
-                      <span className="text-4xl animate-float-slow">{String.fromCodePoint(0x2728)}</span>
-                      <span className="text-2xl animate-float-medium mt-10">{String.fromCodePoint(0x2728)}</span>
-                      <span className="text-5xl animate-float-fast">{String.fromCodePoint(0x2728)}</span>
-                      <span className="text-3xl animate-float-slow mt-4">{String.fromCodePoint(0x2728)}</span>
+                      <span className="text-4xl animate-float-slow">{String.fromCodePoint(0x279C)}</span>
+                      <span className="text-2xl animate-float-medium mt-10">{String.fromCodePoint(0x279C)}</span>
+                      <span className="text-5xl animate-float-fast">{String.fromCodePoint(0x279C)}</span>
+                      <span className="text-3xl animate-float-slow mt-4">{String.fromCodePoint(0x279C)}</span>
                     </div>
                     <div className="absolute inset-0 flex items-center justify-center">
                       <div className="bg-white/60 px-6 py-2 rounded-full border border-cyan-300 backdrop-blur-sm">
@@ -19682,15 +19682,15 @@ export function PrintablesPage() {
 
                   {/* Worked Example */}
                   <div className="mb-6 p-4 bg-cyan-50 border-2 border-cyan-200 rounded-lg print:border print:bg-white relative overflow-hidden">
-                    <div className="absolute -right-4 -top-4 text-6xl opacity-10 rotate-12">{String.fromCodePoint(0x2728)}</div>
-                    <div className="font-semibold text-cyan-900 mb-3 text-sm relative z-10">{String.fromCodePoint(0x2728)}</div>
+                    <div className="absolute -right-4 -top-4 text-6xl opacity-10 rotate-12">{String.fromCodePoint(0x279C)}</div>
+                    <div className="font-semibold text-cyan-900 mb-3 text-sm relative z-10">{String.fromCodePoint(0x279C)}</div>
                     <div className="space-y-2 text-sm relative z-10">
                       <div className="font-bold text-cyan-800">Problem: Count the Octopus friends by pointing to each one.</div>
                       <div className="flex items-center gap-4 my-2">
                         <div className="flex gap-2 text-3xl bg-white p-2 rounded-lg border border-cyan-100 shadow-sm">
-                          <span>{String.fromCodePoint(0x2728)}</span><span>{String.fromCodePoint(0x2728)}</span><span>{String.fromCodePoint(0x2728)}</span>
+                          <span>{String.fromCodePoint(0x279C)}</span><span>{String.fromCodePoint(0x279C)}</span><span>{String.fromCodePoint(0x279C)}</span>
                         </div>
-                        <div className="text-cyan-700">{String.fromCodePoint(0x2728)}</div>
+                        <div className="text-cyan-700">{String.fromCodePoint(0x279C)}</div>
                         <div className="flex gap-2">
                           <span className="w-8 h-8 rounded-full border border-slate-300 flex items-center justify-center text-slate-400">2</span>
                           <span className="w-8 h-8 rounded-full border-2 border-purple-500 bg-purple-100 flex items-center justify-center font-bold text-purple-700 shadow-sm">3</span>
@@ -19756,7 +19756,7 @@ export function PrintablesPage() {
         {
           activeDocs.includes('count-match-1-20') && (() => {
             const rng = makeRng(`${effectiveSeed}|v${variant}|doc=${doc}`)
-            const treasureItems = [String.fromCodePoint(0x2728), String.fromCodePoint(0x2728), String.fromCodePoint(0x2728), String.fromCodePoint(0x2728), String.fromCodePoint(0x2728), String.fromCodePoint(0x2728), String.fromCodePoint(0x2728), String.fromCodePoint(0x2728), String.fromCodePoint(0x2728)];
+            const treasureItems = [String.fromCodePoint(0x279C), String.fromCodePoint(0x279C), String.fromCodePoint(0x279C), String.fromCodePoint(0x279C), String.fromCodePoint(0x279C), String.fromCodePoint(0x279C), String.fromCodePoint(0x279C), String.fromCodePoint(0x279C), String.fromCodePoint(0x279C)];
 
             const problems = Array.from({ length: 6 }, (_, idx) => {
               const count = Math.floor(rng() * 20) + 1
@@ -19788,10 +19788,10 @@ export function PrintablesPage() {
 
                 {/* Decorative Header */}
                 <div className="w-full h-20 mb-6 bg-amber-50 rounded-lg border-2 border-amber-300 flex items-center justify-center relative overflow-hidden">
-                  <div className="absolute opacity-10 text-6xl rotate-12 left-10">{String.fromCodePoint(0x2728)}</div>
-                  <div className="absolute opacity-10 text-6xl -rotate-12 right-10">{String.fromCodePoint(0x2728)}</div>
+                  <div className="absolute opacity-10 text-6xl rotate-12 left-10">{String.fromCodePoint(0x279C)}</div>
+                  <div className="absolute opacity-10 text-6xl -rotate-12 right-10">{String.fromCodePoint(0x279C)}</div>
                   <div className="text-2xl font-bold text-amber-900 flex items-center gap-3 z-10">
-                    <span>{String.fromCodePoint(0x2728)}</span> PIRATE TREASURE <span>{String.fromCodePoint(0x2728)}</span>
+                    <span>{String.fromCodePoint(0x279C)}</span> PIRATE TREASURE <span>{String.fromCodePoint(0x279C)}</span>
                   </div>
                 </div>
 
@@ -19801,7 +19801,7 @@ export function PrintablesPage() {
                   <div className="font-semibold text-yellow-900 mb-2 text-sm">{String.fromCodePoint(0x1F4A1)}</div>
                   <div className="flex items-center gap-4">
                     <div className="w-24 h-16 bg-amber-200/50 border-2 border-amber-400/50 rounded-lg flex flex-wrap items-center justify-center gap-1 p-1">
-                      {Array.from({ length: 4 }).map((_, i) => <span key={i} className="text-xl">{String.fromCodePoint(0x2728)}</span>)}
+                      {Array.from({ length: 4 }).map((_, i) => <span key={i} className="text-xl">{String.fromCodePoint(0x279C)}</span>)}
                     </div>
                     <div className="flex-1 text-sm bg-white p-2 rounded border border-yellow-100 italic text-slate-700">
                       "I see 1, 2, 3, 4 gold coins in the chest! Circle 4!"
@@ -19851,7 +19851,7 @@ export function PrintablesPage() {
                         </div>
                       ))}
                     </div>
-                    <div className="text-xs text-emerald-700 mt-3">{String.fromCodePoint(0x2728)}</div>
+                    <div className="text-xs text-emerald-700 mt-3">{String.fromCodePoint(0x279C)}</div>
                   </div>
                 ))}
               </WorksheetSectionWrapper>
@@ -19862,7 +19862,7 @@ export function PrintablesPage() {
         {
           activeDocs.includes('how-many-1-15') && (() => {
             const rng = makeRng(`${effectiveSeed}|v${variant}|doc=${doc}`)
-            const emojis = [String.fromCodePoint(0x2728), String.fromCodePoint(0x2728), String.fromCodePoint(0x2728), String.fromCodePoint(0x2728), String.fromCodePoint(0x2728), String.fromCodePoint(0x2728), String.fromCodePoint(0x2728), String.fromCodePoint(0x2728), String.fromCodePoint(0x2728), String.fromCodePoint(0x2728), String.fromCodePoint(0x2728), String.fromCodePoint(0x2728)]
+            const emojis = [String.fromCodePoint(0x279C), String.fromCodePoint(0x279C), String.fromCodePoint(0x279C), String.fromCodePoint(0x279C), String.fromCodePoint(0x279C), String.fromCodePoint(0x279C), String.fromCodePoint(0x279C), String.fromCodePoint(0x279C), String.fromCodePoint(0x279C), String.fromCodePoint(0x279C), String.fromCodePoint(0x279C), String.fromCodePoint(0x279C)]
             const problems = Array.from({ length: 8 }, () => {
               const count = Math.floor(rng() * 15) + 1
               const emoji = emojis[Math.floor(rng() * emojis.length)]
@@ -19900,7 +19900,7 @@ export function PrintablesPage() {
                       <div><strong>Step 2:</strong> The last number counted is 7, so there are 7 circles</div>
                       <div><strong>Step 3:</strong> Write the number 7 in the box</div>
                       <div className="font-semibold text-blue-900"><strong>Answer:</strong> 7</div>
-                      <div className="text-xs text-blue-700 mt-1">{String.fromCodePoint(0x2728)}</div>
+                      <div className="text-xs text-blue-700 mt-1">{String.fromCodePoint(0x279C)}</div>
                     </div>
                   </div>
                 </div>
@@ -19955,7 +19955,7 @@ export function PrintablesPage() {
                         <li key={i}><strong>Box {i + 1}:</strong> {p.count} (There are {p.count} {p.emoji} to count)</li>
                       ))}
                     </ul>
-                    <div className="text-xs text-emerald-700 mt-3">{String.fromCodePoint(0x2728)}</div>
+                    <div className="text-xs text-emerald-700 mt-3">{String.fromCodePoint(0x279C)}</div>
                   </div>
                 ))}
               </WorksheetSectionWrapper>
@@ -20006,10 +20006,10 @@ export function PrintablesPage() {
 
                 {/* Decorative Header */}
                 <div className="w-full h-24 mb-6 relative overflow-hidden bg-teal-50 rounded-xl border-2 border-teal-200">
-                  <div className="absolute -bottom-4 left-0 text-6xl text-teal-200 opacity-50">{String.fromCodePoint(0x2728)}</div>
-                  <div className="absolute -bottom-4 right-0 text-6xl text-teal-200 opacity-50">{String.fromCodePoint(0x2728)}</div>
-                  <div className="absolute top-2 left-10 text-2xl animate-bounce-slow">{String.fromCodePoint(0x2728)}</div>
-                  <div className="absolute top-8 right-20 text-xl animate-bounce-medium">{String.fromCodePoint(0x2728)}</div>
+                  <div className="absolute -bottom-4 left-0 text-6xl text-teal-200 opacity-50">{String.fromCodePoint(0x279C)}</div>
+                  <div className="absolute -bottom-4 right-0 text-6xl text-teal-200 opacity-50">{String.fromCodePoint(0x279C)}</div>
+                  <div className="absolute top-2 left-10 text-2xl animate-bounce-slow">{String.fromCodePoint(0x279C)}</div>
+                  <div className="absolute top-8 right-20 text-xl animate-bounce-medium">{String.fromCodePoint(0x279C)}</div>
                   <div className="absolute inset-0 flex items-center justify-center">
                     <div className="bg-white/80 px-8 py-2 rounded-full border border-teal-300 shadow-sm">
                       <span className="text-2xl font-bold text-teal-800">REEF EXPLORER</span>
@@ -20026,7 +20026,7 @@ export function PrintablesPage() {
                       <div className="flex gap-2">
                         <span className="text-3xl text-blue-500">{String.fromCodePoint(0x270F)}</span>
                         <span className="text-3xl text-blue-500">{String.fromCodePoint(0x270F)}</span>
-                        <span className="text-3xl text-blue-500">{String.fromCodePoint(0x2728)}</span>
+                        <span className="text-3xl text-blue-500">{String.fromCodePoint(0x279C)}</span>
                         <span className="text-3xl text-slate-200">{String.fromCodePoint(0x270F)}</span>
                         <span className="text-3xl text-slate-200">{String.fromCodePoint(0x270F)}</span>
                       </div>
@@ -20126,9 +20126,9 @@ export function PrintablesPage() {
                 {/* Decorative Header */}
                 <div className="w-full h-24 mb-6 relative overflow-hidden bg-indigo-900 rounded-xl border-2 border-purple-500 text-white">
                   <div className="absolute inset-0 opacity-20 bg-[url('https://www.transparenttextures.com/patterns/stardust.png')]"></div>
-                  <div className="absolute left-4 top-1/2 -translate-y-1/2 text-5xl animate-pulse">{String.fromCodePoint(0x2728)}</div>
-                  <div className="absolute bottom-4 right-20 text-2xl animate-spin-slow">{String.fromCodePoint(0x2728)}</div>
-                  <div className="absolute top-8 right-10 text-4xl opacity-50">{String.fromCodePoint(0x2728)}</div>
+                  <div className="absolute left-4 top-1/2 -translate-y-1/2 text-5xl animate-pulse">{String.fromCodePoint(0x269B)}</div>
+                  <div className="absolute bottom-4 right-20 text-2xl animate-spin-slow">{String.fromCodePoint(0x279C)}</div>
+                  <div className="absolute top-8 right-10 text-4xl opacity-50">{String.fromCodePoint(0x279C)}</div>
 
                   <div className="absolute inset-0 flex items-center justify-center">
                     <div className="bg-indigo-800/80 px-8 py-2 rounded-full border border-purple-400 shadow-[0_0_15px_rgba(168,85,247,0.5)] backdrop-blur-sm">
@@ -20139,13 +20139,13 @@ export function PrintablesPage() {
 
                 {/* Worked Example */}
                 <div className="mb-8 p-6 bg-indigo-50 border-2 border-indigo-200 rounded-xl print:border print:bg-white relative overflow-hidden">
-                  <div className="absolute -right-6 -top-6 text-8xl opacity-10 rotate-12">{String.fromCodePoint(0x2728)}</div>
-                  <div className="font-bold text-indigo-900 mb-4 text-sm uppercase tracking-wide">{String.fromCodePoint(0x2728)}</div>
+                  <div className="absolute -right-6 -top-6 text-8xl opacity-10 rotate-12">{String.fromCodePoint(0x279C)}</div>
+                  <div className="font-bold text-indigo-900 mb-4 text-sm uppercase tracking-wide">{String.fromCodePoint(0x279C)}</div>
 
                   <div className="flex flex-wrap items-center justify-center gap-4 text-2xl md:text-3xl">
                     {/* Left Group */}
                     <div className="bg-white p-3 rounded-xl border-2 border-indigo-100 shadow-sm flex gap-1">
-                      <span>{String.fromCodePoint(0x2728)}</span><span>{String.fromCodePoint(0x2728)}</span>
+                      <span>{String.fromCodePoint(0x279C)}</span><span>{String.fromCodePoint(0x279C)}</span>
                       <div className="text-sm font-bold text-indigo-400 absolute -bottom-6 w-full text-center left-0">2</div>
                     </div>
 
@@ -20153,7 +20153,7 @@ export function PrintablesPage() {
 
                     {/* Right Group */}
                     <div className="bg-white p-3 rounded-xl border-2 border-indigo-100 shadow-sm flex gap-1">
-                      <span>{String.fromCodePoint(0x2728)}</span><span>{String.fromCodePoint(0x2728)}</span><span>{String.fromCodePoint(0x2728)}</span>
+                      <span>{String.fromCodePoint(0x279C)}</span><span>{String.fromCodePoint(0x279C)}</span><span>{String.fromCodePoint(0x279C)}</span>
                       <div className="text-sm font-bold text-indigo-400 absolute -bottom-6 w-full text-center left-0">3</div>
                     </div>
 
@@ -20238,7 +20238,7 @@ export function PrintablesPage() {
             const problems = Array.from({ length: 6 }, () => {
               const total = Math.floor(rng() * 5) + 3 // 3 to 7
               const subtract = Math.floor(rng() * (total - 1)) + 1
-              const items = [String.fromCodePoint(0x2728), String.fromCodePoint(0x2728), String.fromCodePoint(0x2728), String.fromCodePoint(0x2728), String.fromCodePoint(0x2728)][Math.floor(rng() * 5)]
+              const items = [String.fromCodePoint(0x279C), String.fromCodePoint(0x279C), String.fromCodePoint(0x279C), String.fromCodePoint(0x279C), String.fromCodePoint(0x279C)][Math.floor(rng() * 5)]
               return { total, subtract, remain: total - subtract, items }
             })
 
@@ -20271,27 +20271,27 @@ export function PrintablesPage() {
 
                   <div className="absolute inset-0 flex items-center justify-center">
                     <div className="flex items-center gap-4">
-                      <span className="text-4xl animate-bounce-slow">{String.fromCodePoint(0x2728)}</span>
+                      <span className="text-4xl animate-bounce-slow">{String.fromCodePoint(0x279C)}</span>
                       <h2 className="text-3xl font-black text-white tracking-[0.2em] uppercase font-serif" style={{ textShadow: '0 2px 4px rgba(255,0,0,0.5)' }}>MAGIC MATH</h2>
-                      <span className="text-4xl animate-bounce-medium">{String.fromCodePoint(0x2728)}</span>
+                      <span className="text-4xl animate-bounce-medium">{String.fromCodePoint(0x279C)}</span>
                     </div>
                   </div>
                 </div>
 
                 {/* Worked Example */}
                 <div className="mb-8 p-6 bg-slate-50 border-2 border-slate-200 rounded-xl print:border print:bg-white relative">
-                  <div className="absolute -top-3 -left-3 text-4xl rotate-[-15deg]">{String.fromCodePoint(0x2728)}</div>
+                  <div className="absolute -top-3 -left-3 text-4xl rotate-[-15deg]">{String.fromCodePoint(0x279C)}</div>
                   <div className="text-center mb-4">
                     <p className="font-serif italic text-slate-600 text-lg">"The magician had <strong className="text-slate-900">5</strong> items. He made <strong className="text-red-600">2</strong> vanish! How many are left?"</p>
                   </div>
 
                   <div className="flex flex-col items-center gap-4">
                     <div className="flex gap-4 p-4 bg-white rounded-xl border-2 border-slate-100 shadow-inner">
-                      <span className="text-4xl filter grayscale opacity-30 relative"><span className="absolute inset-0 flex items-center justify-center text-red-500 font-bold text-5xl">{String.fromCodePoint(0x2728)}</span>{String.fromCodePoint(0x2728)}</span>
-                      <span className="text-4xl filter grayscale opacity-30 relative"><span className="absolute inset-0 flex items-center justify-center text-red-500 font-bold text-5xl">{String.fromCodePoint(0x2728)}</span>{String.fromCodePoint(0x2728)}</span>
-                      <span className="text-4xl animate-pulse">{String.fromCodePoint(0x2728)}</span>
-                      <span className="text-4xl animate-pulse">{String.fromCodePoint(0x2728)}</span>
-                      <span className="text-4xl animate-pulse">{String.fromCodePoint(0x2728)}</span>
+                      <span className="text-4xl filter grayscale opacity-30 relative"><span className="absolute inset-0 flex items-center justify-center text-red-500 font-bold text-5xl">{String.fromCodePoint(0x279C)}</span>{String.fromCodePoint(0x279C)}</span>
+                      <span className="text-4xl filter grayscale opacity-30 relative"><span className="absolute inset-0 flex items-center justify-center text-red-500 font-bold text-5xl">{String.fromCodePoint(0x279C)}</span>{String.fromCodePoint(0x279C)}</span>
+                      <span className="text-4xl animate-pulse">{String.fromCodePoint(0x269B)}</span>
+                      <span className="text-4xl animate-pulse">{String.fromCodePoint(0x269B)}</span>
+                      <span className="text-4xl animate-pulse">{String.fromCodePoint(0x269B)}</span>
                     </div>
                     <div className="flex items-center gap-3 text-2xl font-bold font-serif text-slate-800">
                       <span>5</span>
@@ -20447,9 +20447,9 @@ export function PrintablesPage() {
 
                   <div className="absolute inset-0 flex items-center justify-center">
                     <div className="flex items-center gap-4 bg-white/90 px-6 py-2 rounded-full border-2 border-red-200">
-                      <span className="text-4xl animate-bounce-slow">{String.fromCodePoint(0x2728)}</span>
+                      <span className="text-4xl animate-bounce-slow">{String.fromCodePoint(0x279C)}</span>
                       <h2 className="text-3xl font-black text-red-600 tracking-widest uppercase font-serif">BIG TOP BALANCE</h2>
-                      <span className="text-4xl animate-bounce-medium">{String.fromCodePoint(0x2728)}</span>
+                      <span className="text-4xl animate-bounce-medium">{String.fromCodePoint(0x279C)}</span>
                     </div>
                   </div>
                 </div>
@@ -20604,12 +20604,12 @@ export function PrintablesPage() {
 
                 {/* Decorative Header */}
                 <div className="w-full h-24 mb-6 relative overflow-hidden bg-sky-100 rounded-xl border-2 border-sky-300">
-                  <div className="absolute top-2 left-10 text-5xl opacity-40">{String.fromCodePoint(0x2728)}</div>
-                  <div className="absolute bottom-2 right-20 text-4xl opacity-40">{String.fromCodePoint(0x2728)}</div>
-                  <div className="absolute top-4 right-10 text-3xl opacity-30">{String.fromCodePoint(0x2728)}</div>
+                  <div className="absolute top-2 left-10 text-5xl opacity-40">{String.fromCodePoint(0x279C)}</div>
+                  <div className="absolute bottom-2 right-20 text-4xl opacity-40">{String.fromCodePoint(0x279C)}</div>
+                  <div className="absolute top-4 right-10 text-3xl opacity-30">{String.fromCodePoint(0x279C)}</div>
 
                   <div className="absolute inset-0 flex items-center justify-center gap-4">
-                    <span className="text-4xl animate-bounce-slow">{String.fromCodePoint(0x2728)}</span>
+                    <span className="text-4xl animate-bounce-slow">{String.fromCodePoint(0x279C)}</span>
                     <div className="px-6 py-2 bg-white/80 rounded-full border border-sky-200 shadow-sm backdrop-blur-sm">
                       <h2 className="text-2xl font-bold text-sky-700 tracking-wider">SKY JUMPER</h2>
                     </div>
@@ -20619,7 +20619,7 @@ export function PrintablesPage() {
                 {/* Worked Example */}
                 <div className="mb-8 p-6 bg-white border-2 border-sky-200 rounded-xl print:border relative overflow-hidden">
                   <div className="absolute -right-4 -top-4 w-20 h-20 bg-sky-50 rounded-full"></div>
-                  <div className="font-bold text-sky-800 mb-4 text-sm uppercase tracking-wide">{String.fromCodePoint(0x2728)}</div>
+                  <div className="font-bold text-sky-800 mb-4 text-sm uppercase tracking-wide">{String.fromCodePoint(0x279C)}</div>
 
                   <div className="flex items-center justify-center gap-2 md:gap-4 relative">
                     {/* Arcs showing jumps */}
@@ -20776,7 +20776,7 @@ export function PrintablesPage() {
                     </div>
 
                     {/* Frog and Jump */}
-                    <div className="absolute top-0 left-[40%] text-2xl -translate-x-1/2 -translate-y-full transform transition-all">{String.fromCodePoint(0x2728)}</div>
+                    <div className="absolute top-0 left-[40%] text-2xl -translate-x-1/2 -translate-y-full transform transition-all">{String.fromCodePoint(0x279C)}</div>
 
                     {/* Jump Arc */}
                     <svg className="absolute top-0 left-0 w-full h-full pointer-events-none overflow-visible">
@@ -20844,7 +20844,7 @@ export function PrintablesPage() {
           activeDocs.includes('pattern-complete') && (() => {
             const rng = makeRng(`${effectiveSeed}|v${variant}|doc=${doc}`)
 
-            const items = [String.fromCodePoint(0x2728), String.fromCodePoint(0x2728), String.fromCodePoint(0x2728), String.fromCodePoint(0x2728), String.fromCodePoint(0x2728), String.fromCodePoint(0x2728), String.fromCodePoint(0x2728), String.fromCodePoint(0x2728)]
+            const items = [String.fromCodePoint(0x279C), String.fromCodePoint(0x279C), String.fromCodePoint(0x279C), String.fromCodePoint(0x279C), String.fromCodePoint(0x279C), String.fromCodePoint(0x279C), String.fromCodePoint(0x279C), String.fromCodePoint(0x279C)]
 
             const problems = Array.from({ length: 6 }, () => {
               // Select items for this specific problem
@@ -20899,14 +20899,14 @@ export function PrintablesPage() {
                 {/* Decorative Header */}
                 <div className="w-full h-24 mb-6 relative overflow-hidden bg-slate-900 rounded-xl border-2 border-indigo-400 shadow-xl">
                   <div className="absolute inset-0 opacity-50" style={{ backgroundImage: 'radial-gradient(white 1px, transparent 1px)', backgroundSize: '20px 20px' }}></div>
-                  <div className="absolute top-2 left-10 text-4xl animate-pulse">{String.fromCodePoint(0x2728)}</div>
-                  <div className="absolute bottom-2 right-20 text-2xl animate-spin-slow">{String.fromCodePoint(0x2728)}</div>
+                  <div className="absolute top-2 left-10 text-4xl animate-pulse">{String.fromCodePoint(0x269B)}</div>
+                  <div className="absolute bottom-2 right-20 text-2xl animate-spin-slow">{String.fromCodePoint(0x279C)}</div>
 
                   <div className="absolute inset-0 flex items-center justify-center">
                     <div className="flex items-center gap-3">
-                      <span className="text-3xl">{String.fromCodePoint(0x2728)}</span>
+                      <span className="text-3xl">{String.fromCodePoint(0x279C)}</span>
                       <h2 className="text-2xl font-black text-white tracking-[0.2em] uppercase font-mono" style={{ textShadow: '0 0 10px #818cf8' }}>Pattern Control</h2>
-                      <span className="text-3xl">{String.fromCodePoint(0x2728)}</span>
+                      <span className="text-3xl">{String.fromCodePoint(0x279C)}</span>
                     </div>
                   </div>
                 </div>
@@ -20920,17 +20920,17 @@ export function PrintablesPage() {
 
                   <div className="flex flex-col items-center gap-4">
                     <div className="flex items-center gap-2 p-3 bg-white rounded-lg border border-indigo-100 shadow-sm">
-                      <span className="text-3xl">{String.fromCodePoint(0x2728)}</span>
-                      <span className="text-3xl">{String.fromCodePoint(0x2728)}</span>
-                      <span className="text-3xl">{String.fromCodePoint(0x2728)}</span>
-                      <span className="text-3xl">{String.fromCodePoint(0x2728)}</span>
-                      <span className="text-3xl">{String.fromCodePoint(0x2728)}</span>
+                      <span className="text-3xl">{String.fromCodePoint(0x279C)}</span>
+                      <span className="text-3xl">{String.fromCodePoint(0x279C)}</span>
+                      <span className="text-3xl">{String.fromCodePoint(0x279C)}</span>
+                      <span className="text-3xl">{String.fromCodePoint(0x279C)}</span>
+                      <span className="text-3xl">{String.fromCodePoint(0x279C)}</span>
                       <div className="w-10 h-10 border-2 border-dashed border-indigo-400 rounded flex items-center justify-center bg-indigo-50 text-indigo-400 text-xl font-bold">?</div>
                     </div>
 
                     <div className="flex items-center gap-2 animate-bounce-slow">
                       <span className="text-indigo-400 text-sm font-bold">Next is:</span>
-                      <div className="w-12 h-12 border-4 border-emerald-400 rounded-full flex items-center justify-center bg-white shadow-lg text-3xl">{String.fromCodePoint(0x2728)}</div>
+                      <div className="w-12 h-12 border-4 border-emerald-400 rounded-full flex items-center justify-center bg-white shadow-lg text-3xl">{String.fromCodePoint(0x279C)}</div>
                     </div>
                   </div>
                 </div>
@@ -20969,7 +20969,7 @@ export function PrintablesPage() {
                       {problems.map((p, i) => (
                         <div key={i} className="flex gap-2">
                           <span className="font-bold">System {i + 1}:</span>
-                          <span>{String.fromCodePoint(0x2728)}</span>
+                          <span>{String.fromCodePoint(0x279C)}</span>
                         </div>
                       ))}
                     </div>
@@ -21147,7 +21147,7 @@ export function PrintablesPage() {
           activeDocs.includes('big-small') && (() => {
             const rng = makeRng(`${effectiveSeed}|v${variant}|doc=${doc}`)
 
-            const monsters = [String.fromCodePoint(0x2728), String.fromCodePoint(0x2728), String.fromCodePoint(0x2728), String.fromCodePoint(0x2728), String.fromCodePoint(0x2728)]
+            const monsters = [String.fromCodePoint(0x279C), String.fromCodePoint(0x279C), String.fromCodePoint(0x279C), String.fromCodePoint(0x279C), String.fromCodePoint(0x279C)]
             const problems = Array.from({ length: 4 }, () => {
               const targetType = rng() > 0.5 ? 'Biggest' : 'Smallest'
               const monster = monsters[Math.floor(rng() * monsters.length)]
@@ -21252,8 +21252,8 @@ export function PrintablesPage() {
                 {/* Decorative Header */}
                 <div className="w-full h-24 mb-6 relative overflow-hidden bg-slate-100 rounded-xl border-2 border-slate-300">
                   <div className="absolute inset-0 opacity-10" style={{ backgroundImage: 'radial-gradient(black 1px, transparent 1px)', backgroundSize: '10px 10px' }}></div>
-                  <div className="absolute left-4 top-1/2 -translate-y-1/2 text-5xl animate-bounce-slow">{String.fromCodePoint(0x2728)}</div>
-                  <div className="absolute right-4 top-1/2 -translate-y-1/2 text-5xl animate-spin-slow">{String.fromCodePoint(0x2728)}</div>
+                  <div className="absolute left-4 top-1/2 -translate-y-1/2 text-5xl animate-bounce-slow">{String.fromCodePoint(0x279C)}</div>
+                  <div className="absolute right-4 top-1/2 -translate-y-1/2 text-5xl animate-spin-slow">{String.fromCodePoint(0x279C)}</div>
                   <div className="absolute inset-0 flex items-center justify-center">
                     <div className="bg-white/90 px-6 py-2 rounded-lg border-2 border-slate-400 shadow-lg">
                       <h2 className="text-2xl font-black text-slate-800 tracking-tighter uppercase">FACTORY ZONE</h2>
@@ -21364,8 +21364,8 @@ export function PrintablesPage() {
                 {/* Decorative Header */}
                 <div className="w-full h-24 mb-6 relative overflow-hidden bg-amber-50 rounded-xl border-2 border-amber-400">
                   <div className="absolute inset-0 opacity-20" style={{ backgroundImage: 'repeating-linear-gradient(45deg, #fbbf24 0, #fbbf24 10px, transparent 10px, transparent 20px)' }}></div>
-                  <div className="absolute left-6 bottom-0 text-6xl">{String.fromCodePoint(0x2728)}</div>
-                  <div className="absolute right-10 bottom-4 text-3xl">{String.fromCodePoint(0x2728)}</div>
+                  <div className="absolute left-6 bottom-0 text-6xl">{String.fromCodePoint(0x279C)}</div>
+                  <div className="absolute right-10 bottom-4 text-3xl">{String.fromCodePoint(0x279C)}</div>
 
                   <div className="absolute inset-0 flex items-center justify-center">
                     <h2 className="text-3xl font-black text-amber-800 tracking-wider uppercase font-serif" style={{ textShadow: '2px 2px 0px #fcd34d' }}>DINO SIZE</h2>
@@ -21626,7 +21626,7 @@ export function PrintablesPage() {
                         <li key={i}><strong>{p.num} = {p.word}</strong> (Draw a line connecting {p.num} to {p.word})</li>
                       ))}
                     </ul>
-                    <div className="text-xs text-emerald-700 mt-3">{String.fromCodePoint(0x2728)}</div>
+                    <div className="text-xs text-emerald-700 mt-3">{String.fromCodePoint(0x279C)}</div>
                   </div>
                 ))}
               </WorksheetSectionWrapper>
@@ -21689,7 +21689,7 @@ export function PrintablesPage() {
                         ))}
                       </div>
                       <div className="flex items-center gap-2 mb-3">
-                        <div className="w-8 h-8 border-2 border-purple-600 rounded-full text-purple-600 flex items-center justify-center font-bold">{String.fromCodePoint(0x2728)}</div>
+                        <div className="w-8 h-8 border-2 border-purple-600 rounded-full text-purple-600 flex items-center justify-center font-bold">{String.fromCodePoint(0x279C)}</div>
                         <p className="text-slate-600 text-sm font-semibold uppercase tracking-wider">Your Order:</p>
                       </div>
                       <div className="flex gap-2 ml-10">
@@ -21896,7 +21896,7 @@ export function PrintablesPage() {
                     <div className="w-12 h-12 border-2 border-slate-300 rounded bg-white p-1">
                       <svg viewBox="0 0 100 100">{shapes.circle.render({ fill: '#f97316', stroke: 'none' })}</svg>
                     </div>
-                    <span className="text-2xl text-orange-400">{String.fromCodePoint(0x2728)}</span>
+                    <span className="text-2xl text-orange-400">{String.fromCodePoint(0x279C)}</span>
                     <div className="flex gap-2 p-2 bg-green-100 rounded border border-green-300">
                       <svg viewBox="0 0 100 100" className="w-10 h-10">
                         {shapes.circle.render({ fill: 'none', stroke: '#f97316', strokeWidth: 8, strokeDasharray: "4 2" })}
@@ -21915,8 +21915,8 @@ export function PrintablesPage() {
                     return (
                       <div key={idx} className="bg-white border-4 border-slate-200 rounded-xl p-4 relative overflow-hidden">
                         {/* Leaf Decorations corners */}
-                        <div className="absolute top-0 left-0 text-green-200 text-4xl -translate-x-2 -translate-y-2 opacity-50">{String.fromCodePoint(0x2728)}</div>
-                        <div className="absolute bottom-0 right-0 text-green-200 text-4xl translate-x-2 translate-y-2 opacity-50">{String.fromCodePoint(0x2728)}</div>
+                        <div className="absolute top-0 left-0 text-green-200 text-4xl -translate-x-2 -translate-y-2 opacity-50">{String.fromCodePoint(0x279C)}</div>
+                        <div className="absolute bottom-0 right-0 text-green-200 text-4xl translate-x-2 translate-y-2 opacity-50">{String.fromCodePoint(0x279C)}</div>
 
                         <div className="flex items-center justify-between mb-4 border-b-2 border-slate-100 pb-2">
                           <div className="flex items-center gap-3">
@@ -22005,7 +22005,7 @@ export function PrintablesPage() {
                 itemB = { type: 'shape', shape: shapeBKey, color };
               } else {
                 const emojiPairs = [
-                  [String.fromCodePoint(0x2728), String.fromCodePoint(0x2728)], [String.fromCodePoint(0x2728), String.fromCodePoint(0x2728)], [String.fromCodePoint(0x2728), String.fromCodePoint(0x2728)], [String.fromCodePoint(0x2728), String.fromCodePoint(0x2728)], [String.fromCodePoint(0x2728), String.fromCodePoint(0x2728)], [String.fromCodePoint(0x2728), String.fromCodePoint(0x2728)]
+                  [String.fromCodePoint(0x279C), String.fromCodePoint(0x279C)], [String.fromCodePoint(0x279C), String.fromCodePoint(0x279C)], [String.fromCodePoint(0x279C), String.fromCodePoint(0x279C)], [String.fromCodePoint(0x279C), String.fromCodePoint(0x279C)], [String.fromCodePoint(0x279C), String.fromCodePoint(0x279C)], [String.fromCodePoint(0x279C), String.fromCodePoint(0x279C)]
                 ];
                 const pair = emojiPairs[Math.floor(rng() * emojiPairs.length)];
                 itemA = { type: 'emoji', emoji: pair[0] };
@@ -22239,7 +22239,7 @@ export function PrintablesPage() {
                         <li key={i}><strong>Row {i + 1}:</strong> Circle {p.bigLabel} ({p.big}), X on {p.smallLabel} ({p.small}) - The {p.bigLabel} is bigger than the {p.smallLabel}</li>
                       ))}
                     </ul>
-                    <div className="text-xs text-emerald-700 mt-3">{String.fromCodePoint(0x2728)}</div>
+                    <div className="text-xs text-emerald-700 mt-3">{String.fromCodePoint(0x279C)}</div>
                   </div>
                 ))}
               </WorksheetSectionWrapper>
@@ -22250,7 +22250,7 @@ export function PrintablesPage() {
         {
           activeDocs.includes('more-less') && (() => {
             const rng = makeRng(`${effectiveSeed}|v${variant}|doc=${doc}`)
-            const emojis = [String.fromCodePoint(0x2728), String.fromCodePoint(0x2728), String.fromCodePoint(0x2728), String.fromCodePoint(0x2728), String.fromCodePoint(0x2728), String.fromCodePoint(0x2728), String.fromCodePoint(0x2728), String.fromCodePoint(0x2728)];
+            const emojis = [String.fromCodePoint(0x279C), String.fromCodePoint(0x279C), String.fromCodePoint(0x279C), String.fromCodePoint(0x279C), String.fromCodePoint(0x279C), String.fromCodePoint(0x279C), String.fromCodePoint(0x279C), String.fromCodePoint(0x279C)];
             const problems = Array.from({ length: 4 }, (_, i) => {
               const left = Math.floor(rng() * 8) + 1;
               let right = Math.floor(rng() * 8) + 1;
@@ -22359,7 +22359,7 @@ export function PrintablesPage() {
                         )
                       })}
                     </ul>
-                    <div className="text-xs text-emerald-700 mt-3">{String.fromCodePoint(0x2728)}</div>
+                    <div className="text-xs text-emerald-700 mt-3">{String.fromCodePoint(0x279C)}</div>
                   </div>
                 ))}
               </WorksheetSectionWrapper>
@@ -23036,7 +23036,7 @@ export function PrintablesPage() {
                         className="absolute top-0 -ml-4 flex flex-col items-center"
                         style={{ left: `${((p.target - p.start) / 30) * 100}%` }} // Approximate positioning logic
                       >
-                        <div className="text-3xl filter drop-shadow-sm transform -scale-x-100">{String.fromCodePoint(0x2728)}</div>
+                        <div className="text-3xl filter drop-shadow-sm transform -scale-x-100">{String.fromCodePoint(0x279C)}</div>
                         <div className="w-12 h-10 border-2 border-sky-500 bg-white rounded-lg mt-2 flex items-center justify-center font-bold text-sky-700 shadow-sm z-10">
                           {/* Answer Box */}
                         </div>
@@ -23742,10 +23742,10 @@ export function PrintablesPage() {
                   <div className="space-y-2 text-sm">
                     <div className="font-mono text-base"><strong>Problem:</strong>{String.fromCodePoint(0x1F4A1)}</div>
                     <div className="pl-4 border-l-2 border-blue-300 space-y-1">
-                      <div><strong>Strategy 1:</strong>{String.fromCodePoint(0x2728)}</div>
+                      <div><strong>Strategy 1:</strong>{String.fromCodePoint(0x279C)}</div>
                       <div><strong>Strategy 2:</strong> Count groups: How many groups of 6 are in 24? 6, 12, 18, 24 (4 groups)</div>
                       <div className="font-semibold text-blue-900"><strong>Answer:</strong> 4</div>
-                      <div className="text-xs text-blue-700 mt-1">{String.fromCodePoint(0x2728)}</div>
+                      <div className="text-xs text-blue-700 mt-1">{String.fromCodePoint(0x279C)}</div>
                     </div>
                   </div>
                 </div>
@@ -23754,7 +23754,7 @@ export function PrintablesPage() {
                     <div key={i} className="border border-slate-300 rounded p-3 bg-white break-inside-avoid">
                       <div className="font-mono text-2xl leading-7 text-right">
                         <div>{p.dividend}</div>
-                        <div>{String.fromCodePoint(0x2728)}</div>
+                        <div>{String.fromCodePoint(0x279C)}</div>
                         <div className="border-t-[3px] border-slate-600 mt-2 pt-2 h-12 flex items-center"><span className="inline-block w-20 h-10 border-b-[3px] border-slate-600" /></div>
                       </div>
                     </div>
@@ -23766,7 +23766,7 @@ export function PrintablesPage() {
                   <div className="space-y-2 text-sm text-purple-800">
                     <div>{String.fromCodePoint(0x1F680)}</div>
                     <div>{String.fromCodePoint(0x1F680)}</div>
-                    <div>{String.fromCodePoint(0x2728)}</div>
+                    <div>{String.fromCodePoint(0x279C)}</div>
                     <div>4. Time yourself: Can you complete all {problems.length} problems in under 3 minutes?</div>
                   </div>
                 </div>
@@ -24016,10 +24016,10 @@ export function PrintablesPage() {
                           <span className="w-6 h-6 border rounded bg-slate-50"></span> x <span className="w-6 h-6 border rounded bg-slate-50"></span> = <span className="w-8 h-6 border rounded bg-rose-50 font-bold text-center"></span>
                         </div>
                         <div className="flex justify-between items-center bg-white px-2 py-1 rounded border border-rose-200 mt-2">
-                          <span className="w-8 h-6 border rounded bg-rose-50 font-bold text-center"></span>{String.fromCodePoint(0x2728)}<span className="w-6 h-6 border rounded bg-slate-50"></span> = <span className="w-6 h-6 border rounded bg-slate-50"></span>
+                          <span className="w-8 h-6 border rounded bg-rose-50 font-bold text-center"></span>{String.fromCodePoint(0x1F511)}<span className="w-6 h-6 border rounded bg-slate-50"></span> = <span className="w-6 h-6 border rounded bg-slate-50"></span>
                         </div>
                         <div className="flex justify-between items-center bg-white px-2 py-1 rounded border border-rose-200">
-                          <span className="w-8 h-6 border rounded bg-rose-50 font-bold text-center"></span>{String.fromCodePoint(0x2728)}<span className="w-6 h-6 border rounded bg-slate-50"></span> = <span className="w-6 h-6 border rounded bg-slate-50"></span>
+                          <span className="w-8 h-6 border rounded bg-rose-50 font-bold text-center"></span>{String.fromCodePoint(0x1F511)}<span className="w-6 h-6 border rounded bg-slate-50"></span> = <span className="w-6 h-6 border rounded bg-slate-50"></span>
                         </div>
                       </div>
                     </div>
@@ -24071,7 +24071,7 @@ export function PrintablesPage() {
 
                 <div className="w-full flex justify-center mb-6">
                   <div className="relative">
-                    <div className="text-6xl transform -rotate-12">{String.fromCodePoint(0x2728)}</div>
+                    <div className="text-6xl transform -rotate-12">{String.fromCodePoint(0x279C)}</div>
                     <div className="absolute top-1/2 left-full w-24 h-1 bg-red-500 animate-pulse origin-left transform -translate-y-1/2"></div>
                     <div className="absolute top-1/2 left-[120px] text-xs font-bold text-red-500 animate-ping">ZAP!</div>
                   </div>
@@ -24428,7 +24428,7 @@ export function PrintablesPage() {
                   {problems.map((p, i) => (
                     <div key={i} className="bg-white border-2 border-lime-200 rounded-xl p-6 relative">
                       <div className="flex items-center gap-2 mb-4">
-                        <span className="text-3xl">{String.fromCodePoint(0x2728)}</span>
+                        <span className="text-3xl">{String.fromCodePoint(0x279C)}</span>
                         <span className="font-bold text-slate-700">Jump to: <span className="text-lg bg-lime-100 px-2 py-1 rounded border border-lime-300">{p.num}/{p.denom}</span></span>
                       </div>
 
@@ -24766,7 +24766,7 @@ export function PrintablesPage() {
                 emoji={String.fromCodePoint(0x1F4D1)}
                 description="Find the Area (space inside) and Perimeter (fence outside) of each garden plot."
                 problemCount={problems.length}
-                learningObjectives={[String.fromCodePoint(0x2728), 'Calculate Perimeter (L + L + W + W)', 'Distinguish between area and perimeter']}
+                learningObjectives={[String.fromCodePoint(0x279C), 'Calculate Perimeter (L + L + W + W)', 'Distinguish between area and perimeter']}
                 parentTeacherTips={['Area is the squares INSIDE.', 'Perimeter is the distance AROUND the outside.']}
               >
                 <div className="print:hidden h-1 w-full rounded-full bg-gradient-to-r from-green-400 to-lime-500 animate-gradient-x mb-4" />
@@ -24812,10 +24812,10 @@ export function PrintablesPage() {
             const rng = makeRng(`${effectiveSeed}|v${variant}|doc=${doc}`)
 
             const items = [
-              { name: 'Apple', price: 0.50, emoji: String.fromCodePoint(0x2728) },
-              { name: 'Bread', price: 2.50, emoji: String.fromCodePoint(0x2728) },
-              { name: 'Milk', price: 3.00, emoji: String.fromCodePoint(0x2728) },
-              { name: 'Candy', price: 0.25, emoji: String.fromCodePoint(0x2728) }
+              { name: 'Apple', price: 0.50, emoji: String.fromCodePoint(0x279C) },
+              { name: 'Bread', price: 2.50, emoji: String.fromCodePoint(0x279C) },
+              { name: 'Milk', price: 3.00, emoji: String.fromCodePoint(0x279C) },
+              { name: 'Candy', price: 0.25, emoji: String.fromCodePoint(0x279C) }
             ]
 
             const problems = Array.from({ length: 4 }, () => {
@@ -25509,7 +25509,7 @@ export function PrintablesPage() {
                 emoji={String.fromCodePoint(0x1F370)}
                 description="Find the missing number to make the fractions equivalent."
                 problemCount={problems.length}
-                learningObjectives={[String.fromCodePoint(0x2728), 'Use visual fraction models to show equivalence']}
+                learningObjectives={[String.fromCodePoint(0x279C), 'Use visual fraction models to show equivalence']}
                 parentTeacherTips={['Whatever you do to the top (numerator), you must do to the bottom (denominator).', 'Multiplying by 2/2 or 3/3 is the same as multiplying by 1!']}
               >
                 <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
@@ -25564,7 +25564,7 @@ export function PrintablesPage() {
                         <span className="border-b-2 border-slate-800 px-2">{p.n}</span>
                         <span className="px-2">{p.d}</span>
                       </div>
-                      <span className="mx-2">{String.fromCodePoint(0x2728)}</span>
+                      <span className="mx-2">{String.fromCodePoint(0x279C)}</span>
                       <div className="flex flex-col items-center">
                         <div className="w-10 h-8 border-b-2 border-slate-300"></div>
                         <div className="w-10 h-8"></div>
@@ -25661,7 +25661,7 @@ export function PrintablesPage() {
                   {problems.map((p, i) => (
                     <div key={i} className="font-mono text-xl flex flex-col items-end">
                       <div>{p.n1}</div>
-                      <div className="border-b-2 border-slate-800 w-full text-right pr-1">{String.fromCodePoint(0x2728)}</div>
+                      <div className="border-b-2 border-slate-800 w-full text-right pr-1">{String.fromCodePoint(0x279C)}</div>
                       <div className="h-16 w-full"></div>
                     </div>
                   ))}
@@ -25761,7 +25761,7 @@ export function PrintablesPage() {
                   {problems.map((p, i) => (
                     <div key={i} className="font-mono text-xl flex flex-col items-end">
                       <div>{p.n1}</div>
-                      <div className="border-b-2 border-slate-800 w-full text-right pr-1">{String.fromCodePoint(0x2728)}</div>
+                      <div className="border-b-2 border-slate-800 w-full text-right pr-1">{String.fromCodePoint(0x279C)}</div>
                       <div className="h-16 w-full"></div>
                     </div>
                   ))}
@@ -26013,7 +26013,7 @@ export function PrintablesPage() {
                 {showAnswersForDoc(docId, () => (
                   <div className="mt-8 p-6 bg-slate-900 text-white rounded-2xl print:bg-white print:text-black print:border-2">
                     <div className="font-bold mb-4 text-lg border-b border-slate-700 pb-2 flex items-center gap-2">
-                      <span>{String.fromCodePoint(0x2728)}</span>
+                      <span>{String.fromCodePoint(0x279C)}</span>
                     </div>
                     <div className="grid grid-cols-2 md:grid-cols-3 gap-6">
                       {problems.map((p, i) => (
@@ -26305,7 +26305,7 @@ export function PrintablesPage() {
                 {showAnswersForDoc(docId, () => (
                   <div className="mt-8 p-6 bg-slate-900 text-white rounded-2xl print:bg-white print:text-black print:border-2">
                     <div className="font-bold mb-4 text-lg border-b border-slate-700 pb-2 flex items-center gap-2">
-                      <span>{String.fromCodePoint(0x2728)}</span>
+                      <span>{String.fromCodePoint(0x279C)}</span>
                     </div>
                     <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
                       {problems.map((p, i) => (
@@ -26695,7 +26695,7 @@ export function PrintablesPage() {
                 description="Find area and perimeter of rectangles."
                 problemCount={problems.length}
                 learningObjectives={['Apply the area and perimeter formulas for rectangles in real world and mathematical problems']}
-                parentTeacherTips={[String.fromCodePoint(0x2728), String.fromCodePoint(0x2728)]}
+                parentTeacherTips={[String.fromCodePoint(0x279C), String.fromCodePoint(0x279C)]}
               >
                 <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
                   {problems.map((p, i) => (
@@ -26912,7 +26912,7 @@ export function PrintablesPage() {
                 </div>
                 {showAnswersForDoc(docId, () => (
                   <div className="grid grid-cols-3 gap-4 mt-4 text-xs">
-                    {problems.map((p, i) => <div key={i} className="text-center">{String.fromCodePoint(0x2728)}</div>)}
+                    {problems.map((p, i) => <div key={i} className="text-center">{String.fromCodePoint(0x279C)}</div>)}
                   </div>
                 ))}
               </WorksheetSectionWrapper>
@@ -26957,13 +26957,13 @@ export function PrintablesPage() {
                   <div className="space-y-2 text-sm">
                     <div className="font-semibold text-base"><strong>Problem:</strong> 12 ) 156</div>
                     <div className="pl-4 border-l-2 border-blue-300 space-y-1">
-                      <div><strong>Step 1:</strong>{String.fromCodePoint(0x2728)}</div>
-                      <div><strong>Step 2:</strong>{String.fromCodePoint(0x2728)}</div>
-                      <div><strong>Step 3:</strong>{String.fromCodePoint(0x2728)}</div>
-                      <div><strong>Step 4:</strong>{String.fromCodePoint(0x2728)}</div>
-                      <div><strong>Step 5:</strong>{String.fromCodePoint(0x2728)}</div>
+                      <div><strong>Step 1:</strong>{String.fromCodePoint(0x279C)}</div>
+                      <div><strong>Step 2:</strong>{String.fromCodePoint(0x279C)}</div>
+                      <div><strong>Step 3:</strong>{String.fromCodePoint(0x279C)}</div>
+                      <div><strong>Step 4:</strong>{String.fromCodePoint(0x279C)}</div>
+                      <div><strong>Step 5:</strong>{String.fromCodePoint(0x279C)}</div>
                       <div className="font-semibold text-blue-900"><strong>Answer:</strong> 13</div>
-                      <div className="text-xs text-blue-700 mt-1">{String.fromCodePoint(0x2728)}</div>
+                      <div className="text-xs text-blue-700 mt-1">{String.fromCodePoint(0x279C)}</div>
                     </div>
                   </div>
                 </div>
@@ -27011,11 +27011,11 @@ export function PrintablesPage() {
                         const quotient = Math.floor(p.dividend / p.divisor);
                         return (
                           <div key={i} className="border-b border-emerald-200 pb-3 last:border-b-0">
-                            <div className="font-semibold mb-2 text-sm">{String.fromCodePoint(0x2728)}</div>
+                            <div className="font-semibold mb-2 text-sm">{String.fromCodePoint(0x279C)}</div>
                             <div className="text-xs text-emerald-800 space-y-1 pl-4">
-                              <div>{String.fromCodePoint(0x2728)}</div>
+                              <div>{String.fromCodePoint(0x279C)}</div>
                               <div>Step 2: Divide {p.dividend} by {p.divisor}</div>
-                              <div>{String.fromCodePoint(0x2728)}</div>
+                              <div>{String.fromCodePoint(0x279C)}</div>
                               <div className="font-semibold">Answer: {quotient}{p.remainder > 0 ? ` R${p.remainder}` : ''}</div>
                             </div>
                           </div>
@@ -27065,19 +27065,19 @@ export function PrintablesPage() {
                   <div className="space-y-2 text-sm">
                     <div className="font-semibold text-base"><strong>Problem:</strong>{String.fromCodePoint(0x1F4A1)}</div>
                     <div className="pl-4 border-l-2 border-blue-300 space-y-1">
-                      <div><strong>Step 1:</strong>{String.fromCodePoint(0x2728)}</div>
+                      <div><strong>Step 1:</strong>{String.fromCodePoint(0x279C)}</div>
                       <div><strong>Step 2:</strong> Split: 14 = 10 + 4, 12 = 10 + 2</div>
-                      <div><strong>Step 3:</strong>{String.fromCodePoint(0x2728)}</div>
+                      <div><strong>Step 3:</strong>{String.fromCodePoint(0x279C)}</div>
                       <div><strong>Step 4:</strong> Add: 100 + 20 + 40 + 8 = 168</div>
                       <div className="font-semibold text-blue-900"><strong>Answer:</strong> 168</div>
-                      <div className="text-xs text-blue-700 mt-1">{String.fromCodePoint(0x2728)}</div>
+                      <div className="text-xs text-blue-700 mt-1">{String.fromCodePoint(0x279C)}</div>
                     </div>
                   </div>
                 </div>
                 <div className="grid grid-cols-2 gap-4" style={{ pageBreakAfter: 'auto' }}>
                   {problems.map((p, i) => (
                     <div key={i} className="border border-slate-300 rounded p-4 bg-white break-inside-avoid">
-                      <div className="text-center mb-2 font-semibold">{String.fromCodePoint(0x2728)}</div>
+                      <div className="text-center mb-2 font-semibold">{String.fromCodePoint(0x279C)}</div>
                       <div className="border-2 border-slate-400 rounded mb-2" style={{ width: '120px', height: '80px', margin: '0 auto' }}>
                         <div className="grid grid-cols-2 h-full">
                           <div className="border-r border-b border-slate-400"></div>
@@ -27126,10 +27126,10 @@ export function PrintablesPage() {
                         const bOnes = p.b % 10;
                         return (
                           <div key={i} className="border-b border-emerald-200 pb-3 last:border-b-0">
-                            <div className="font-semibold mb-2 text-sm">{String.fromCodePoint(0x2728)}</div>
+                            <div className="font-semibold mb-2 text-sm">{String.fromCodePoint(0x279C)}</div>
                             <div className="text-xs text-emerald-800 space-y-1 pl-4">
                               <div>Step 1: Split: {p.a} = {aTens} + {aOnes}, {p.b} = {bTens} + {bOnes}</div>
-                              <div>{String.fromCodePoint(0x2728)}</div>
+                              <div>{String.fromCodePoint(0x279C)}</div>
                               <div>Step 3: Add: {aTens * bTens} + {aTens * bOnes} + {aOnes * bTens} + {aOnes * bOnes} = {p.product}</div>
                               <div className="font-semibold">Answer: {p.product}</div>
                             </div>
@@ -27181,10 +27181,10 @@ export function PrintablesPage() {
                       <div><strong>Step 1:</strong> Break 24 into 20 and 4</div>
                       <div><strong>Step 2:</strong> Break 13 into 10 and 3</div>
                       <div><strong>Step 3:</strong> Multiply each part:</div>
-                      <div className="pl-4">{String.fromCodePoint(0x2728)}</div>
-                      <div className="pl-4">{String.fromCodePoint(0x2728)}</div>
-                      <div className="pl-4">{String.fromCodePoint(0x2728)}</div>
-                      <div className="pl-4">{String.fromCodePoint(0x2728)}</div>
+                      <div className="pl-4">{String.fromCodePoint(0x279C)}</div>
+                      <div className="pl-4">{String.fromCodePoint(0x279C)}</div>
+                      <div className="pl-4">{String.fromCodePoint(0x279C)}</div>
+                      <div className="pl-4">{String.fromCodePoint(0x279C)}</div>
                       <div><strong>Step 4:</strong> Add: 200 + 60 + 40 + 12 = 312</div>
                       <div className="font-semibold text-blue-900"><strong>Answer:</strong> 312</div>
                     </div>
@@ -27196,12 +27196,12 @@ export function PrintablesPage() {
                 <div className="space-y-4">
                   {problems.map((p, i) => (
                     <div key={i} className="border border-slate-300 rounded p-4 bg-white">
-                      <div className="font-mono text-xl mb-2">{String.fromCodePoint(0x2728)}</div>
+                      <div className="font-mono text-xl mb-2">{String.fromCodePoint(0x279C)}</div>
                       <div className="space-y-1 text-sm">
-                        <div>{String.fromCodePoint(0x2728)}</div>
-                        <div>{String.fromCodePoint(0x2728)}</div>
-                        <div>{String.fromCodePoint(0x2728)}</div>
-                        <div>{String.fromCodePoint(0x2728)}</div>
+                        <div>{String.fromCodePoint(0x279C)}</div>
+                        <div>{String.fromCodePoint(0x279C)}</div>
+                        <div>{String.fromCodePoint(0x279C)}</div>
+                        <div>{String.fromCodePoint(0x279C)}</div>
                         <div className="border-t border-slate-400 mt-1 pt-1 font-semibold">Total: ____</div>
                       </div>
                       <div className="mt-2 text-xs text-slate-600">Show your work:</div>
@@ -27224,15 +27224,15 @@ export function PrintablesPage() {
                         const part4 = onesA * onesB;
                         return (
                           <div key={i} className="border-b border-emerald-200 pb-3 last:border-b-0">
-                            <div className="font-semibold mb-2 text-sm">{String.fromCodePoint(0x2728)}</div>
+                            <div className="font-semibold mb-2 text-sm">{String.fromCodePoint(0x279C)}</div>
                             <div className="text-xs text-emerald-800 space-y-1 pl-4">
                               <div>Step 1: Break {p.a} into {tensA} and {onesA}</div>
                               <div>Step 2: Break {p.b} into {tensB} and {onesB}</div>
                               <div>Step 3: Multiply each part:</div>
-                              <div className="pl-4">{String.fromCodePoint(0x2728)}</div>
-                              <div className="pl-4">{String.fromCodePoint(0x2728)}</div>
-                              <div className="pl-4">{String.fromCodePoint(0x2728)}</div>
-                              <div className="pl-4">{String.fromCodePoint(0x2728)}</div>
+                              <div className="pl-4">{String.fromCodePoint(0x279C)}</div>
+                              <div className="pl-4">{String.fromCodePoint(0x279C)}</div>
+                              <div className="pl-4">{String.fromCodePoint(0x279C)}</div>
+                              <div className="pl-4">{String.fromCodePoint(0x279C)}</div>
                               <div className="font-semibold mt-1">Total: {part1} + {part2} + {part3} + {part4} = {p.product}</div>
                             </div>
                           </div>
@@ -27287,11 +27287,11 @@ export function PrintablesPage() {
                   <div className="space-y-2 text-sm">
                     <div className="font-semibold text-base"><strong>Problem:</strong> 1/2 ____ 1/3</div>
                     <div className="pl-4 border-l-2 border-blue-300 space-y-1">
-                      <div><strong>Step 1:</strong>{String.fromCodePoint(0x2728)}</div>
+                      <div><strong>Step 1:</strong>{String.fromCodePoint(0x279C)}</div>
                       <div><strong>Step 2:</strong> Convert: 1/2 = 3/6, 1/3 = 2/6</div>
                       <div><strong>Step 3:</strong> Compare: 3/6 &gt; 2/6</div>
                       <div className="font-semibold text-blue-900"><strong>Answer:</strong> &gt;</div>
-                      <div className="text-xs text-blue-700 mt-1">{String.fromCodePoint(0x2728)}</div>
+                      <div className="text-xs text-blue-700 mt-1">{String.fromCodePoint(0x279C)}</div>
                     </div>
                   </div>
                 </div>
@@ -27399,7 +27399,7 @@ export function PrintablesPage() {
                       <div><strong>Step 2:</strong> Add numerators: 2 + 1 = 3</div>
                       <div><strong>Step 3:</strong> Write answer: 3/5</div>
                       <div className="font-semibold text-blue-900"><strong>Answer:</strong> 3/5</div>
-                      <div className="text-xs text-blue-700 mt-1">{String.fromCodePoint(0x2728)}</div>
+                      <div className="text-xs text-blue-700 mt-1">{String.fromCodePoint(0x279C)}</div>
                     </div>
                   </div>
                 </div>
@@ -27502,11 +27502,11 @@ export function PrintablesPage() {
                   <div className="space-y-2 text-sm">
                     <div className="font-semibold text-base"><strong>Problem:</strong> Convert 2 1/3 to an improper fraction</div>
                     <div className="pl-4 border-l-2 border-blue-300 space-y-1">
-                      <div><strong>Step 1:</strong>{String.fromCodePoint(0x2728)}</div>
+                      <div><strong>Step 1:</strong>{String.fromCodePoint(0x279C)}</div>
                       <div><strong>Step 2:</strong> Add numerator: 6 + 1 = 7</div>
                       <div><strong>Step 3:</strong> Keep denominator: 3</div>
                       <div className="font-semibold text-blue-900"><strong>Answer:</strong> 7/3</div>
-                      <div className="text-xs text-blue-700 mt-1">{String.fromCodePoint(0x2728)}</div>
+                      <div className="text-xs text-blue-700 mt-1">{String.fromCodePoint(0x279C)}</div>
                     </div>
                   </div>
                 </div>
@@ -27560,14 +27560,14 @@ export function PrintablesPage() {
                             <div className="text-xs text-emerald-800 space-y-1 pl-4">
                               {isMixedToImproper ? (
                                 <>
-                                  <div>{String.fromCodePoint(0x2728)}</div>
+                                  <div>{String.fromCodePoint(0x279C)}</div>
                                   <div>Step 2: Add numerator: {p.whole * p.denom} + {p.num} = {p.whole * p.denom + p.num}</div>
                                   <div>Step 3: Keep denominator: {p.denom}</div>
                                   <div className="font-semibold">Answer: {p.improper}</div>
                                 </>
                               ) : (
                                 <>
-                                  <div>{String.fromCodePoint(0x2728)}</div>
+                                  <div>{String.fromCodePoint(0x279C)}</div>
                                   <div>Step 2: Whole number = {p.whole}, remainder = {p.num}</div>
                                   <div>Step 3: Keep denominator: {p.denom}</div>
                                   <div className="font-semibold">Answer: {p.mixed}</div>
@@ -27632,7 +27632,7 @@ export function PrintablesPage() {
                       <div><strong>Step 2:</strong> Add fractions: 1/3 + 2/3 = 3/3 = 1</div>
                       <div><strong>Step 3:</strong> Add results: 3 + 1 = 4</div>
                       <div className="font-semibold text-blue-900"><strong>Answer:</strong> 4</div>
-                      <div className="text-xs text-blue-700 mt-1">{String.fromCodePoint(0x2728)}</div>
+                      <div className="text-xs text-blue-700 mt-1">{String.fromCodePoint(0x279C)}</div>
                     </div>
                   </div>
                 </div>
@@ -27852,7 +27852,7 @@ export function PrintablesPage() {
                       <div><strong>Step 2:</strong> Compare tenths: 5 &gt; 2</div>
                       <div><strong>Step 3:</strong> Since 5 &gt; 2, 3.5 &gt; 3.2</div>
                       <div className="font-semibold text-blue-900"><strong>Answer:</strong> 3.5 &gt; 3.2</div>
-                      <div className="text-xs text-blue-700 mt-1">{String.fromCodePoint(0x2728)}</div>
+                      <div className="text-xs text-blue-700 mt-1">{String.fromCodePoint(0x279C)}</div>
                     </div>
                   </div>
                 </div>
@@ -27956,7 +27956,7 @@ export function PrintablesPage() {
                       <div className="font-mono pl-4">_____</div>
                       <div><strong>Step 2:</strong> Add: 5 + 3 = 8 (tenths), 4 + 2 = 6 (ones)</div>
                       <div className="font-semibold text-blue-900"><strong>Answer:</strong> 6.8</div>
-                      <div className="text-xs text-blue-700 mt-1">{String.fromCodePoint(0x2728)}</div>
+                      <div className="text-xs text-blue-700 mt-1">{String.fromCodePoint(0x279C)}</div>
                     </div>
                   </div>
                 </div>
@@ -28053,10 +28053,10 @@ export function PrintablesPage() {
                   <div className="space-y-2 text-sm">
                     <div className="font-mono text-base"><strong>Problem:</strong> 3/4 = ?</div>
                     <div className="pl-4 border-l-2 border-blue-300 space-y-1">
-                      <div><strong>Step 1:</strong>{String.fromCodePoint(0x2728)}</div>
-                      <div><strong>Step 2:</strong>{String.fromCodePoint(0x2728)}</div>
+                      <div><strong>Step 1:</strong>{String.fromCodePoint(0x279C)}</div>
+                      <div><strong>Step 2:</strong>{String.fromCodePoint(0x279C)}</div>
                       <div className="font-semibold text-blue-900"><strong>Answer:</strong> 0.75</div>
-                      <div className="text-xs text-blue-700 mt-1">{String.fromCodePoint(0x2728)}</div>
+                      <div className="text-xs text-blue-700 mt-1">{String.fromCodePoint(0x279C)}</div>
                     </div>
                   </div>
                 </div>
@@ -28102,7 +28102,7 @@ export function PrintablesPage() {
                         <div key={i} className="border-b border-emerald-200 pb-3 last:border-b-0">
                           <div className="font-semibold mb-2 text-sm">{i + 1}. {p.num}/{p.denom}</div>
                           <div className="text-xs text-emerald-800 space-y-1 pl-4">
-                            <div>{String.fromCodePoint(0x2728)}</div>
+                            <div>{String.fromCodePoint(0x279C)}</div>
                             <div className="font-semibold">Answer: {p.decimal}</div>
                           </div>
                         </div>
@@ -28153,10 +28153,10 @@ export function PrintablesPage() {
                   <div className="space-y-2 text-sm">
                     <div className="font-mono text-base"><strong>Problem:</strong> 3/10 = ?</div>
                     <div className="pl-4 border-l-2 border-blue-300 space-y-1">
-                      <div><strong>Step 1:</strong>{String.fromCodePoint(0x2728)}</div>
-                      <div><strong>Step 2:</strong>{String.fromCodePoint(0x2728)}</div>
+                      <div><strong>Step 1:</strong>{String.fromCodePoint(0x279C)}</div>
+                      <div><strong>Step 2:</strong>{String.fromCodePoint(0x279C)}</div>
                       <div className="font-semibold text-blue-900"><strong>Answer:</strong> 0.3</div>
-                      <div className="text-xs text-blue-700 mt-1">{String.fromCodePoint(0x2728)}</div>
+                      <div className="text-xs text-blue-700 mt-1">{String.fromCodePoint(0x279C)}</div>
                     </div>
                   </div>
                 </div>
@@ -28202,7 +28202,7 @@ export function PrintablesPage() {
                         <div key={i} className="border-b border-emerald-200 pb-3 last:border-b-0">
                           <div className="font-semibold mb-2 text-sm">{i + 1}. {p.num}/{p.denom}</div>
                           <div className="text-xs text-emerald-800 space-y-1 pl-4">
-                            <div>{String.fromCodePoint(0x2728)}</div>
+                            <div>{String.fromCodePoint(0x279C)}</div>
                             <div className="font-semibold">Answer: {p.decimal}</div>
                           </div>
                         </div>
@@ -28674,18 +28674,18 @@ export function PrintablesPage() {
                   <div className="space-y-2 text-sm">
                     <div className="font-mono text-base"><strong>Problem:</strong>{String.fromCodePoint(0x1F4A1)}</div>
                     <div className="pl-4 border-l-2 border-blue-300 space-y-1">
-                      <div><strong>Step 1:</strong>{String.fromCodePoint(0x2728)}</div>
-                      <div><strong>Step 2:</strong>{String.fromCodePoint(0x2728)}</div>
-                      <div><strong>Step 3:</strong>{String.fromCodePoint(0x2728)}</div>
+                      <div><strong>Step 1:</strong>{String.fromCodePoint(0x279C)}</div>
+                      <div><strong>Step 2:</strong>{String.fromCodePoint(0x279C)}</div>
+                      <div><strong>Step 3:</strong>{String.fromCodePoint(0x279C)}</div>
                       <div className="font-semibold text-blue-900"><strong>Answer:</strong> 8</div>
-                      <div className="text-xs text-blue-700 mt-1">{String.fromCodePoint(0x2728)}</div>
+                      <div className="text-xs text-blue-700 mt-1">{String.fromCodePoint(0x279C)}</div>
                     </div>
                   </div>
                 </div>
                 <div className="grid grid-cols-2 gap-4" style={{ pageBreakAfter: 'auto' }}>
                   {problems.map((p, i) => (
                     <div key={i} className="border border-slate-300 rounded-lg p-4 bg-white break-inside-avoid">
-                      <div className="text-center text-xl font-mono mb-2">{String.fromCodePoint(0x2728)}</div>
+                      <div className="text-center text-xl font-mono mb-2">{String.fromCodePoint(0x279C)}</div>
                       <div className="mt-2 text-xs text-slate-600">Show your work:</div>
                       <div className="min-h-20 border border-dashed border-slate-300 rounded p-2 bg-slate-50 print:bg-white" />
                     </div>
@@ -28723,7 +28723,7 @@ export function PrintablesPage() {
                         const d2Places = p.d2.toString().split('.')[1]?.length || 0;
                         return (
                           <div key={i} className="border-b border-emerald-200 pb-3 last:border-b-0">
-                            <div className="font-semibold mb-2 text-sm">{String.fromCodePoint(0x2728)}</div>
+                            <div className="font-semibold mb-2 text-sm">{String.fromCodePoint(0x279C)}</div>
                             <div className="text-xs text-emerald-800 space-y-1 pl-4">
                               <div>Step 1: Move decimal {d2Places} place(s) in both numbers</div>
                               <div>Step 2: Divide as whole numbers</div>
@@ -28777,12 +28777,12 @@ export function PrintablesPage() {
                     <div className="font-mono text-base"><strong>Problem:</strong>{String.fromCodePoint(0x1F4A1)}</div>
                     <div className="pl-4 border-l-2 border-blue-300 space-y-1">
                       <div><strong>Step 1:</strong> How many times does 12 go into 15? 1 time</div>
-                      <div><strong>Step 2:</strong>{String.fromCodePoint(0x2728)}</div>
+                      <div><strong>Step 2:</strong>{String.fromCodePoint(0x279C)}</div>
                       <div><strong>Step 3:</strong> Bring down 6, now we have 36</div>
                       <div><strong>Step 4:</strong> How many times does 12 go into 36? 3 times</div>
-                      <div><strong>Step 5:</strong>{String.fromCodePoint(0x2728)}</div>
+                      <div><strong>Step 5:</strong>{String.fromCodePoint(0x279C)}</div>
                       <div className="font-semibold text-blue-900"><strong>Answer:</strong> 13</div>
-                      <div className="text-xs text-blue-700 mt-1">{String.fromCodePoint(0x2728)}</div>
+                      <div className="text-xs text-blue-700 mt-1">{String.fromCodePoint(0x279C)}</div>
                     </div>
                   </div>
                 </div>
@@ -28830,14 +28830,14 @@ export function PrintablesPage() {
                         const finalQuotient = Math.floor(p.dividend / p.divisor);
                         return (
                           <div key={i} className="border-b border-emerald-200 pb-3 last:border-b-0">
-                            <div className="font-semibold mb-2 text-sm">{String.fromCodePoint(0x2728)}</div>
+                            <div className="font-semibold mb-2 text-sm">{String.fromCodePoint(0x279C)}</div>
                             <div className="text-xs text-emerald-800 space-y-1 pl-4">
                               <div>Step 1: Estimate how many times {p.divisor} goes into first digits</div>
                               <div>Step 2: Multiply, subtract, bring down</div>
                               <div>Step 3: Repeat until done</div>
                               <div className="font-semibold">Answer: {finalQuotient}{p.remainder > 0 ? ` R ${p.remainder}` : ''}</div>
                               {p.remainder > 0 && (
-                                <div className="text-emerald-700 mt-1">{String.fromCodePoint(0x2728)}</div>
+                                <div className="text-emerald-700 mt-1">{String.fromCodePoint(0x279C)}</div>
                               )}
                             </div>
                           </div>
@@ -28854,12 +28854,12 @@ export function PrintablesPage() {
         {
           activeDocs.includes('order-of-operations') && (() => {
             const problems = [
-              { expr: String.fromCodePoint(0x2728), answer: 11, steps: [String.fromCodePoint(0x2728), '3 + 8 = 11'] },
+              { expr: String.fromCodePoint(0x279C), answer: 11, steps: [String.fromCodePoint(0x279C), '3 + 8 = 11'] },
               { expr: '(5 + 3)  2', answer: 16, steps: ['5 + 3 = 8', '8  2 = 16'] },
-              { expr: String.fromCodePoint(0x2728), answer: 4, steps: [String.fromCodePoint(0x2728), '10 - 6 = 4'] },
-              { expr: String.fromCodePoint(0x2728), answer: 9, steps: [String.fromCodePoint(0x2728), '4 + 5 = 9'] },
+              { expr: String.fromCodePoint(0x279C), answer: 4, steps: [String.fromCodePoint(0x279C), '10 - 6 = 4'] },
+              { expr: String.fromCodePoint(0x279C), answer: 9, steps: [String.fromCodePoint(0x279C), '4 + 5 = 9'] },
               { expr: '2  (4 + 3)', answer: 14, steps: ['4 + 3 = 7', '2  7 = 14'] },
-              { expr: String.fromCodePoint(0x2728), answer: 10, steps: [String.fromCodePoint(0x2728), '15 - 6 = 9', '9 + 1 = 10'] },
+              { expr: String.fromCodePoint(0x279C), answer: 10, steps: [String.fromCodePoint(0x279C), '15 - 6 = 9', '9 + 1 = 10'] },
             ];
             return (
               <WorksheetSectionWrapper
@@ -28887,10 +28887,10 @@ export function PrintablesPage() {
                   <div className="space-y-2 text-sm">
                     <div className="font-mono text-base"><strong>Problem:</strong>{String.fromCodePoint(0x1F4A1)}</div>
                     <div className="pl-4 border-l-2 border-blue-300 space-y-1">
-                      <div><strong>Step 1:</strong>{String.fromCodePoint(0x2728)}</div>
+                      <div><strong>Step 1:</strong>{String.fromCodePoint(0x279C)}</div>
                       <div><strong>Step 2:</strong> Then addition: 2 + 12 = 14</div>
                       <div className="font-semibold text-blue-900"><strong>Answer:</strong> 14</div>
-                      <div className="text-xs text-blue-700 mt-1">{String.fromCodePoint(0x2728)}</div>
+                      <div className="text-xs text-blue-700 mt-1">{String.fromCodePoint(0x279C)}</div>
                     </div>
                   </div>
                 </div>
@@ -28957,14 +28957,14 @@ export function PrintablesPage() {
         {
           activeDocs.includes('pemdas-basic') && (() => {
             const problems = [
-              { expr: String.fromCodePoint(0x2728), answer: 15, steps: [String.fromCodePoint(0x2728), '3 + 12 = 15'] },
-              { expr: String.fromCodePoint(0x2728), answer: 8, steps: [String.fromCodePoint(0x2728), '10 - 2 = 8'] },
-              { expr: String.fromCodePoint(0x2728), answer: 22, steps: [String.fromCodePoint(0x2728), '15 + 7 = 22'] },
-              { expr: String.fromCodePoint(0x2728), answer: 9, steps: [String.fromCodePoint(0x2728), '4 + 5 = 9'] },
-              { expr: String.fromCodePoint(0x2728), answer: 2, steps: [String.fromCodePoint(0x2728), '8 - 6 = 2'] },
-              { expr: String.fromCodePoint(0x2728), answer: 6, steps: [String.fromCodePoint(0x2728), '3 + 3 = 6'] },
-              { expr: String.fromCodePoint(0x2728), answer: 3, steps: [String.fromCodePoint(0x2728), '8 - 5 = 3'] },
-              { expr: String.fromCodePoint(0x2728), answer: 11, steps: [String.fromCodePoint(0x2728), '5 + 6 = 11'] },
+              { expr: String.fromCodePoint(0x279C), answer: 15, steps: [String.fromCodePoint(0x279C), '3 + 12 = 15'] },
+              { expr: String.fromCodePoint(0x279C), answer: 8, steps: [String.fromCodePoint(0x279C), '10 - 2 = 8'] },
+              { expr: String.fromCodePoint(0x279C), answer: 22, steps: [String.fromCodePoint(0x279C), '15 + 7 = 22'] },
+              { expr: String.fromCodePoint(0x279C), answer: 9, steps: [String.fromCodePoint(0x279C), '4 + 5 = 9'] },
+              { expr: String.fromCodePoint(0x279C), answer: 2, steps: [String.fromCodePoint(0x279C), '8 - 6 = 2'] },
+              { expr: String.fromCodePoint(0x279C), answer: 6, steps: [String.fromCodePoint(0x279C), '3 + 3 = 6'] },
+              { expr: String.fromCodePoint(0x279C), answer: 3, steps: [String.fromCodePoint(0x279C), '8 - 5 = 3'] },
+              { expr: String.fromCodePoint(0x279C), answer: 11, steps: [String.fromCodePoint(0x279C), '5 + 6 = 11'] },
             ];
             return (
               <WorksheetSectionWrapper
@@ -28990,7 +28990,7 @@ export function PrintablesPage() {
                   <div className="space-y-2 text-sm">
                     <div className="font-mono text-base"><strong>Problem:</strong>{String.fromCodePoint(0x1F4A1)}</div>
                     <div className="pl-4 border-l-2 border-blue-300 space-y-1">
-                      <div><strong>Step 1:</strong>{String.fromCodePoint(0x2728)}</div>
+                      <div><strong>Step 1:</strong>{String.fromCodePoint(0x279C)}</div>
                       <div><strong>Step 2:</strong> Then addition: 3 + 8 = 11</div>
                       <div className="font-semibold text-blue-900"><strong>Answer:</strong> 11</div>
                       <div className="text-xs text-blue-700 mt-1">Tip: Always multiply or divide before adding or subtracting!</div>
@@ -29070,7 +29070,7 @@ export function PrintablesPage() {
                     <div className="font-mono text-base"><strong>Problem:</strong>{String.fromCodePoint(0x1F4A1)}</div>
                     <div className="pl-4 border-l-2 border-blue-300 space-y-1">
                       <div><strong>Step 1:</strong> Solve parentheses first: 8 - 3 = 5</div>
-                      <div><strong>Step 2:</strong>{String.fromCodePoint(0x2728)}</div>
+                      <div><strong>Step 2:</strong>{String.fromCodePoint(0x279C)}</div>
                       <div className="font-semibold text-blue-900"><strong>Answer:</strong> 20</div>
                       <div className="text-xs text-blue-700 mt-1">Tip: Parentheses always come first in PEMDAS!</div>
                     </div>
@@ -29112,14 +29112,14 @@ export function PrintablesPage() {
         {
           activeDocs.includes('pemdas-exponents') && (() => {
             const problems = [
-              { expr: String.fromCodePoint(0x2728), answer: 12, steps: [String.fromCodePoint(0x2728), '8 + 4 = 12'] },
-              { expr: String.fromCodePoint(0x2728), answer: 18, steps: [String.fromCodePoint(0x2728), String.fromCodePoint(0x2728)] },
-              { expr: String.fromCodePoint(0x2728), answer: 15, steps: [String.fromCodePoint(0x2728), '25 - 10 = 15'] },
-              { expr: String.fromCodePoint(0x2728), answer: 20, steps: [String.fromCodePoint(0x2728), String.fromCodePoint(0x2728), '16 + 4 = 20'] },
-              { expr: String.fromCodePoint(0x2728), answer: 18, steps: [String.fromCodePoint(0x2728), String.fromCodePoint(0x2728)] },
-              { expr: String.fromCodePoint(0x2728), answer: 6, steps: [String.fromCodePoint(0x2728), '10 - 4 = 6'] },
-              { expr: String.fromCodePoint(0x2728), answer: 13, steps: [String.fromCodePoint(0x2728), String.fromCodePoint(0x2728), '9 + 4 = 13'] },
-              { expr: String.fromCodePoint(0x2728), answer: 8, steps: [String.fromCodePoint(0x2728), String.fromCodePoint(0x2728)] },
+              { expr: String.fromCodePoint(0x279C), answer: 12, steps: [String.fromCodePoint(0x279C), '8 + 4 = 12'] },
+              { expr: String.fromCodePoint(0x279C), answer: 18, steps: [String.fromCodePoint(0x279C), String.fromCodePoint(0x279C)] },
+              { expr: String.fromCodePoint(0x279C), answer: 15, steps: [String.fromCodePoint(0x279C), '25 - 10 = 15'] },
+              { expr: String.fromCodePoint(0x279C), answer: 20, steps: [String.fromCodePoint(0x279C), String.fromCodePoint(0x279C), '16 + 4 = 20'] },
+              { expr: String.fromCodePoint(0x279C), answer: 18, steps: [String.fromCodePoint(0x279C), String.fromCodePoint(0x279C)] },
+              { expr: String.fromCodePoint(0x279C), answer: 6, steps: [String.fromCodePoint(0x279C), '10 - 4 = 6'] },
+              { expr: String.fromCodePoint(0x279C), answer: 13, steps: [String.fromCodePoint(0x279C), String.fromCodePoint(0x279C), '9 + 4 = 13'] },
+              { expr: String.fromCodePoint(0x279C), answer: 8, steps: [String.fromCodePoint(0x279C), String.fromCodePoint(0x279C)] },
             ];
             return (
               <WorksheetSectionWrapper
@@ -29145,8 +29145,8 @@ export function PrintablesPage() {
                   <div className="space-y-2 text-sm">
                     <div className="font-mono text-base"><strong>Problem:</strong>{String.fromCodePoint(0x1F4A1)}</div>
                     <div className="pl-4 border-l-2 border-blue-300 space-y-1">
-                      <div><strong>Step 1:</strong>{String.fromCodePoint(0x2728)}</div>
-                      <div><strong>Step 2:</strong>{String.fromCodePoint(0x2728)}</div>
+                      <div><strong>Step 1:</strong>{String.fromCodePoint(0x279C)}</div>
+                      <div><strong>Step 2:</strong>{String.fromCodePoint(0x279C)}</div>
                       <div><strong>Step 3:</strong> Finally add: 4 + 6 = 10</div>
                       <div className="font-semibold text-blue-900"><strong>Answer:</strong> 10</div>
                       <div className="text-xs text-blue-700 mt-1">Tip: Exponents come right after parentheses in PEMDAS!</div>
@@ -29156,7 +29156,7 @@ export function PrintablesPage() {
                 <div className="grid grid-cols-2 gap-4" style={{ pageBreakAfter: 'auto' }}>
                   {problems.map((p, i) => (
                     <div key={i} className="border border-slate-300 rounded-lg p-4 bg-white break-inside-avoid">
-                      <div className="text-center text-xl font-mono mb-2">{String.fromCodePoint(0x2728)}</div>
+                      <div className="text-center text-xl font-mono mb-2">{String.fromCodePoint(0x279C)}</div>
                       <div className="text-center text-lg font-mono mb-2">= ____</div>
                       <div className="mt-2 text-xs text-slate-600">Show your work:</div>
                       <div className="min-h-16 border border-dashed border-slate-300 rounded p-2 bg-slate-50 print:bg-white" />
@@ -29169,7 +29169,7 @@ export function PrintablesPage() {
                     <div className="space-y-3">
                       {problems.map((p, i) => (
                         <div key={i} className="border-b border-emerald-200 pb-3 last:border-b-0">
-                          <div className="font-semibold mb-2 text-sm">{String.fromCodePoint(0x2728)}</div>
+                          <div className="font-semibold mb-2 text-sm">{String.fromCodePoint(0x279C)}</div>
                           <div className="text-xs text-emerald-800 space-y-1 pl-4">
                             {p.steps.map((step, j) => (
                               <div key={j}>Step {j + 1}: {step}</div>
@@ -29192,11 +29192,11 @@ export function PrintablesPage() {
               { expr: '6 + 3  (4 - 1)', answer: 15, steps: ['4 - 1 = 3', '3  3 = 9', '6 + 9 = 15'] },
               { expr: '(15 - 3)  4 + 2', answer: 5, steps: ['15 - 3 = 12', '12  4 = 3', '3 + 2 = 5'] },
               { expr: '2  (3 + 5)', answer: 128, steps: ['3 + 5 = 8', '8 = 64', '2  64 = 128'] },
-              { expr: String.fromCodePoint(0x2728), answer: 25, steps: [String.fromCodePoint(0x2728), '6 - 1 = 5', String.fromCodePoint(0x2728)] },
-              { expr: String.fromCodePoint(0x2728), answer: 25, steps: [String.fromCodePoint(0x2728), String.fromCodePoint(0x2728), '9 + 16 = 25'] },
-              { expr: String.fromCodePoint(0x2728), answer: 4, steps: [String.fromCodePoint(0x2728), String.fromCodePoint(0x2728), '3 + 1 = 4'] },
-              { expr: String.fromCodePoint(0x2728), answer: 18, steps: [String.fromCodePoint(0x2728), String.fromCodePoint(0x2728), '25 - 8 = 17', '17 + 1 = 18'] },
-              { expr: String.fromCodePoint(0x2728), answer: 14, steps: [String.fromCodePoint(0x2728), String.fromCodePoint(0x2728), '4 + 10 = 14'] },
+              { expr: String.fromCodePoint(0x279C), answer: 25, steps: [String.fromCodePoint(0x279C), '6 - 1 = 5', String.fromCodePoint(0x279C)] },
+              { expr: String.fromCodePoint(0x279C), answer: 25, steps: [String.fromCodePoint(0x279C), String.fromCodePoint(0x279C), '9 + 16 = 25'] },
+              { expr: String.fromCodePoint(0x279C), answer: 4, steps: [String.fromCodePoint(0x279C), String.fromCodePoint(0x279C), '3 + 1 = 4'] },
+              { expr: String.fromCodePoint(0x279C), answer: 18, steps: [String.fromCodePoint(0x279C), String.fromCodePoint(0x279C), '25 - 8 = 17', '17 + 1 = 18'] },
+              { expr: String.fromCodePoint(0x279C), answer: 14, steps: [String.fromCodePoint(0x279C), String.fromCodePoint(0x279C), '4 + 10 = 14'] },
             ];
             return (
               <WorksheetSectionWrapper
@@ -29222,8 +29222,8 @@ export function PrintablesPage() {
                   <div className="space-y-2 text-sm">
                     <div className="font-mono text-base"><strong>Problem:</strong>{String.fromCodePoint(0x1F4A1)}</div>
                     <div className="pl-4 border-l-2 border-blue-300 space-y-1">
-                      <div><strong>Step 1:</strong>{String.fromCodePoint(0x2728)}</div>
-                      <div><strong>Step 2:</strong>{String.fromCodePoint(0x2728)}</div>
+                      <div><strong>Step 1:</strong>{String.fromCodePoint(0x279C)}</div>
+                      <div><strong>Step 2:</strong>{String.fromCodePoint(0x279C)}</div>
                       <div><strong>Step 3:</strong> Finally add: 4 + 9 = 13</div>
                       <div className="font-semibold text-blue-900"><strong>Answer:</strong> 13</div>
                       <div className="text-xs text-blue-700 mt-1">Tip: Follow PEMDAS order carefully for multi-step problems!</div>
@@ -29233,7 +29233,7 @@ export function PrintablesPage() {
                 <div className="grid grid-cols-2 gap-4" style={{ pageBreakAfter: 'auto' }}>
                   {problems.map((p, i) => (
                     <div key={i} className="border border-slate-300 rounded-lg p-4 bg-white break-inside-avoid">
-                      <div className="text-center text-xl font-mono mb-2">{String.fromCodePoint(0x2728)}</div>
+                      <div className="text-center text-xl font-mono mb-2">{String.fromCodePoint(0x279C)}</div>
                       <div className="text-center text-lg font-mono mb-2">= ____</div>
                       <div className="mt-2 text-xs text-slate-600">Show your work:</div>
                       <div className="min-h-20 border border-dashed border-slate-300 rounded p-2 bg-slate-50 print:bg-white" />
@@ -29246,7 +29246,7 @@ export function PrintablesPage() {
                     <div className="space-y-3">
                       {problems.map((p, i) => (
                         <div key={i} className="border-b border-emerald-200 pb-3 last:border-b-0">
-                          <div className="font-semibold mb-2 text-sm">{String.fromCodePoint(0x2728)}</div>
+                          <div className="font-semibold mb-2 text-sm">{String.fromCodePoint(0x279C)}</div>
                           <div className="text-xs text-emerald-800 space-y-1 pl-4">
                             {p.steps.map((step, j) => (
                               <div key={j}>Step {j + 1}: {step}</div>
@@ -29266,14 +29266,14 @@ export function PrintablesPage() {
         {
           activeDocs.includes('pemdas-practice') && (() => {
             const problems = [
-              { expr: String.fromCodePoint(0x2728), answer: 19, steps: [String.fromCodePoint(0x2728), '7 + 12 = 19'] },
-              { expr: String.fromCodePoint(0x2728), answer: 12, steps: [String.fromCodePoint(0x2728), '15 - 3 = 12'] },
-              { expr: String.fromCodePoint(0x2728), answer: 28, steps: [String.fromCodePoint(0x2728), '20 + 8 = 28'] },
-              { expr: String.fromCodePoint(0x2728), answer: 4, steps: [String.fromCodePoint(0x2728), '6 - 2 = 4'] },
-              { expr: String.fromCodePoint(0x2728), answer: 3, steps: [String.fromCodePoint(0x2728), '9 - 6 = 3'] },
-              { expr: String.fromCodePoint(0x2728), answer: 14, steps: [String.fromCodePoint(0x2728), '12 + 2 = 14'] },
-              { expr: String.fromCodePoint(0x2728), answer: 10, steps: [String.fromCodePoint(0x2728), '20 - 10 = 10'] },
-              { expr: String.fromCodePoint(0x2728), answer: 9, steps: [String.fromCodePoint(0x2728), '4 + 5 = 9'] },
+              { expr: String.fromCodePoint(0x279C), answer: 19, steps: [String.fromCodePoint(0x279C), '7 + 12 = 19'] },
+              { expr: String.fromCodePoint(0x279C), answer: 12, steps: [String.fromCodePoint(0x279C), '15 - 3 = 12'] },
+              { expr: String.fromCodePoint(0x279C), answer: 28, steps: [String.fromCodePoint(0x279C), '20 + 8 = 28'] },
+              { expr: String.fromCodePoint(0x279C), answer: 4, steps: [String.fromCodePoint(0x279C), '6 - 2 = 4'] },
+              { expr: String.fromCodePoint(0x279C), answer: 3, steps: [String.fromCodePoint(0x279C), '9 - 6 = 3'] },
+              { expr: String.fromCodePoint(0x279C), answer: 14, steps: [String.fromCodePoint(0x279C), '12 + 2 = 14'] },
+              { expr: String.fromCodePoint(0x279C), answer: 10, steps: [String.fromCodePoint(0x279C), '20 - 10 = 10'] },
+              { expr: String.fromCodePoint(0x279C), answer: 9, steps: [String.fromCodePoint(0x279C), '4 + 5 = 9'] },
             ];
             return (
               <WorksheetSectionWrapper
@@ -29330,10 +29330,10 @@ export function PrintablesPage() {
         {
           activeDocs.includes('pemdas-word-problems') && (() => {
             const problems = [
-              { expr: 'Sarah bought 3 packs of stickers. Each pack has 4 stickers. She also bought 5 extra stickers. How many stickers does she have?', answer: 17, steps: [String.fromCodePoint(0x2728), '12 + 5 = 17'] },
-              { expr: 'Tom had 20 apples. He gave away 4 apples to each of 3 friends. How many apples does he have left?', answer: 8, steps: [String.fromCodePoint(0x2728), '20 - 12 = 8'] },
-              { expr: 'A box has 24 cookies. If 6 friends share them equally, and then 2 more cookies are added, how many cookies are there?', answer: 6, steps: [String.fromCodePoint(0x2728), '4 + 2 = 6'] },
-              { expr: 'Emma saved $15. She spent $3 each day for 4 days. How much money does she have left?', answer: 3, steps: [String.fromCodePoint(0x2728), '15 - 12 = 3'] },
+              { expr: 'Sarah bought 3 packs of stickers. Each pack has 4 stickers. She also bought 5 extra stickers. How many stickers does she have?', answer: 17, steps: [String.fromCodePoint(0x279C), '12 + 5 = 17'] },
+              { expr: 'Tom had 20 apples. He gave away 4 apples to each of 3 friends. How many apples does he have left?', answer: 8, steps: [String.fromCodePoint(0x279C), '20 - 12 = 8'] },
+              { expr: 'A box has 24 cookies. If 6 friends share them equally, and then 2 more cookies are added, how many cookies are there?', answer: 6, steps: [String.fromCodePoint(0x279C), '4 + 2 = 6'] },
+              { expr: 'Emma saved $15. She spent $3 each day for 4 days. How much money does she have left?', answer: 3, steps: [String.fromCodePoint(0x279C), '15 - 12 = 3'] },
             ];
             return (
               <WorksheetSectionWrapper
@@ -29396,7 +29396,7 @@ export function PrintablesPage() {
               { expr: '3  (2 + 1)', answer: 27, steps: ['2 + 1 = 3', '3 = 9', '9  3 = 27'] },
               { expr: '(5 + 1)  3', answer: 12, steps: ['5 + 1 = 6', '6 = 36', '36  3 = 12'] },
               { expr: '2 + (4 - 1)', answer: 17, steps: ['4 - 1 = 3', '2 = 8', '3 = 9', '8 + 9 = 17'] },
-              { expr: String.fromCodePoint(0x2728), answer: 12, steps: [String.fromCodePoint(0x2728), String.fromCodePoint(0x2728), '16 - 4 = 12'] },
+              { expr: String.fromCodePoint(0x279C), answer: 12, steps: [String.fromCodePoint(0x279C), String.fromCodePoint(0x279C), '16 - 4 = 12'] },
               { expr: '3  (2 + 1)', answer: 27, steps: ['2 + 1 = 3', '3 = 9', '3  9 = 27'] },
             ];
             return (
@@ -29421,7 +29421,7 @@ export function PrintablesPage() {
                 <div className="grid grid-cols-2 gap-4" style={{ pageBreakAfter: 'auto' }}>
                   {problems.map((p, i) => (
                     <div key={i} className="border border-slate-300 rounded-lg p-4 bg-white break-inside-avoid">
-                      <div className="text-center text-xl font-mono mb-2">{String.fromCodePoint(0x2728)}</div>
+                      <div className="text-center text-xl font-mono mb-2">{String.fromCodePoint(0x279C)}</div>
                       <div className="text-center text-lg font-mono mb-2">= ____</div>
                       <div className="mt-2 text-xs text-slate-600">Show your work:</div>
                       <div className="min-h-20 border border-dashed border-slate-300 rounded p-2 bg-slate-50 print:bg-white" />
@@ -29434,7 +29434,7 @@ export function PrintablesPage() {
                     <div className="space-y-3">
                       {problems.map((p, i) => (
                         <div key={i} className="border-b border-emerald-200 pb-3 last:border-b-0">
-                          <div className="font-semibold mb-2 text-sm">{String.fromCodePoint(0x2728)}</div>
+                          <div className="font-semibold mb-2 text-sm">{String.fromCodePoint(0x279C)}</div>
                           <div className="text-xs text-emerald-800 space-y-1 pl-4">
                             {p.steps.map((step, j) => (
                               <div key={j}>Step {j + 1}: {step}</div>
@@ -29455,11 +29455,11 @@ export function PrintablesPage() {
           activeDocs.includes('pemdas-complex') && (() => {
             const problems = [
               { expr: '2  (3 + 4) - 10', answer: 88, steps: ['3 + 4 = 7', '7 = 49', '2  49 = 98', '98 - 10 = 88'] },
-              { expr: String.fromCodePoint(0x2728), answer: 26, steps: [String.fromCodePoint(0x2728), String.fromCodePoint(0x2728), String.fromCodePoint(0x2728), '16 + 10 = 26'] },
+              { expr: String.fromCodePoint(0x279C), answer: 26, steps: [String.fromCodePoint(0x279C), String.fromCodePoint(0x279C), String.fromCodePoint(0x279C), '16 + 10 = 26'] },
               { expr: '3  (4 - 1) + 6', answer: 33, steps: ['4 - 1 = 3', '3 = 9', '9  3 = 27', '27 + 6 = 33'] },
               { expr: '(8 - 2)  4 + 3', answer: 12, steps: ['8 - 2 = 6', '6 = 36', '36  4 = 9', '9 + 3 = 12'] },
               { expr: '2 + (5 + 1)  2', answer: 20, steps: ['5 + 1 = 6', '2 = 8', '6  2 = 12', '8 + 12 = 20'] },
-              { expr: String.fromCodePoint(0x2728), answer: 19, steps: [String.fromCodePoint(0x2728), String.fromCodePoint(0x2728), String.fromCodePoint(0x2728), '25 - 6 = 19'] },
+              { expr: String.fromCodePoint(0x279C), answer: 19, steps: [String.fromCodePoint(0x279C), String.fromCodePoint(0x279C), String.fromCodePoint(0x279C), '25 - 6 = 19'] },
             ];
             return (
               <WorksheetSectionWrapper
@@ -29483,7 +29483,7 @@ export function PrintablesPage() {
                 <div className="grid grid-cols-2 gap-4" style={{ pageBreakAfter: 'auto' }}>
                   {problems.map((p, i) => (
                     <div key={i} className="border border-slate-300 rounded-lg p-4 bg-white break-inside-avoid">
-                      <div className="text-center text-xl font-mono mb-2">{String.fromCodePoint(0x2728)}</div>
+                      <div className="text-center text-xl font-mono mb-2">{String.fromCodePoint(0x279C)}</div>
                       <div className="text-center text-lg font-mono mb-2">= ____</div>
                       <div className="mt-2 text-xs text-slate-600">Show your work:</div>
                       <div className="min-h-24 border border-dashed border-slate-300 rounded p-2 bg-slate-50 print:bg-white" />
@@ -29496,7 +29496,7 @@ export function PrintablesPage() {
                     <div className="space-y-3">
                       {problems.map((p, i) => (
                         <div key={i} className="border-b border-emerald-200 pb-3 last:border-b-0">
-                          <div className="font-semibold mb-2 text-sm">{String.fromCodePoint(0x2728)}</div>
+                          <div className="font-semibold mb-2 text-sm">{String.fromCodePoint(0x279C)}</div>
                           <div className="text-xs text-emerald-800 space-y-1 pl-4">
                             {p.steps.map((step, j) => (
                               <div key={j}>Step {j + 1}: {step}</div>
@@ -29516,12 +29516,12 @@ export function PrintablesPage() {
         {
           activeDocs.includes('pemdas-rules') && (() => {
             const problems = [
-              { expr: String.fromCodePoint(0x2728), answer: 20, steps: [String.fromCodePoint(0x2728), '8 + 12 = 20'] },
+              { expr: String.fromCodePoint(0x279C), answer: 20, steps: [String.fromCodePoint(0x279C), '8 + 12 = 20'] },
               { expr: '(6 + 2)  5', answer: 40, steps: ['6 + 2 = 8', '8  5 = 40'] },
-              { expr: String.fromCodePoint(0x2728), answer: 14, steps: [String.fromCodePoint(0x2728), '9 + 5 = 14'] },
-              { expr: String.fromCodePoint(0x2728), answer: 10, steps: [String.fromCodePoint(0x2728), String.fromCodePoint(0x2728), '4 + 6 = 10'] },
+              { expr: String.fromCodePoint(0x279C), answer: 14, steps: [String.fromCodePoint(0x279C), '9 + 5 = 14'] },
+              { expr: String.fromCodePoint(0x279C), answer: 10, steps: [String.fromCodePoint(0x279C), String.fromCodePoint(0x279C), '4 + 6 = 10'] },
               { expr: '(10 - 4)  2', answer: 3, steps: ['10 - 4 = 6', '6  2 = 3'] },
-              { expr: String.fromCodePoint(0x2728), answer: 18, steps: [String.fromCodePoint(0x2728), String.fromCodePoint(0x2728)] },
+              { expr: String.fromCodePoint(0x279C), answer: 18, steps: [String.fromCodePoint(0x279C), String.fromCodePoint(0x279C)] },
             ];
             return (
               <WorksheetSectionWrapper
@@ -29554,7 +29554,7 @@ export function PrintablesPage() {
                 <div className="grid grid-cols-2 gap-4" style={{ pageBreakAfter: 'auto' }}>
                   {problems.map((p, i) => (
                     <div key={i} className="border border-slate-300 rounded-lg p-4 bg-white break-inside-avoid">
-                      <div className="text-center text-xl font-mono mb-2">{String.fromCodePoint(0x2728)}</div>
+                      <div className="text-center text-xl font-mono mb-2">{String.fromCodePoint(0x279C)}</div>
                       <div className="text-center text-lg font-mono mb-2">= ____</div>
                       <div className="mt-2 text-xs text-slate-600">Show your work:</div>
                       <div className="min-h-16 border border-dashed border-slate-300 rounded p-2 bg-slate-50 print:bg-white" />
@@ -29567,7 +29567,7 @@ export function PrintablesPage() {
                     <div className="space-y-3">
                       {problems.map((p, i) => (
                         <div key={i} className="border-b border-emerald-200 pb-3 last:border-b-0">
-                          <div className="font-semibold mb-2 text-sm">{String.fromCodePoint(0x2728)}</div>
+                          <div className="font-semibold mb-2 text-sm">{String.fromCodePoint(0x279C)}</div>
                           <div className="text-xs text-emerald-800 space-y-1 pl-4">
                             {p.steps.map((step, j) => (
                               <div key={j}>Step {j + 1}: {step}</div>
@@ -29587,13 +29587,13 @@ export function PrintablesPage() {
         {
           activeDocs.includes('pemdas-mixed-review') && (() => {
             const problems = [
-              { expr: String.fromCodePoint(0x2728), answer: 16, steps: [String.fromCodePoint(0x2728), '6 + 10 = 16'] },
+              { expr: String.fromCodePoint(0x279C), answer: 16, steps: [String.fromCodePoint(0x279C), '6 + 10 = 16'] },
               { expr: '(8 - 3)  4', answer: 20, steps: ['8 - 3 = 5', '5  4 = 20'] },
-              { expr: String.fromCodePoint(0x2728), answer: 17, steps: [String.fromCodePoint(0x2728), String.fromCodePoint(0x2728), '9 + 8 = 17'] },
-              { expr: String.fromCodePoint(0x2728), answer: 7, steps: [String.fromCodePoint(0x2728), '5 + 2 = 7'] },
+              { expr: String.fromCodePoint(0x279C), answer: 17, steps: [String.fromCodePoint(0x279C), String.fromCodePoint(0x279C), '9 + 8 = 17'] },
+              { expr: String.fromCodePoint(0x279C), answer: 7, steps: [String.fromCodePoint(0x279C), '5 + 2 = 7'] },
               { expr: '(6 + 4)  2', answer: 5, steps: ['6 + 4 = 10', '10  2 = 5'] },
-              { expr: String.fromCodePoint(0x2728), answer: 32, steps: [String.fromCodePoint(0x2728), String.fromCodePoint(0x2728)] },
-              { expr: String.fromCodePoint(0x2728), answer: 4, steps: [String.fromCodePoint(0x2728), '10 - 6 = 4'] },
+              { expr: String.fromCodePoint(0x279C), answer: 32, steps: [String.fromCodePoint(0x279C), String.fromCodePoint(0x279C)] },
+              { expr: String.fromCodePoint(0x279C), answer: 4, steps: [String.fromCodePoint(0x279C), '10 - 6 = 4'] },
               { expr: '(5 + 1) - 8', answer: 28, steps: ['5 + 1 = 6', '6 = 36', '36 - 8 = 28'] },
             ];
             return (
@@ -29618,7 +29618,7 @@ export function PrintablesPage() {
                 <div className="grid grid-cols-2 gap-4" style={{ pageBreakAfter: 'auto' }}>
                   {problems.map((p, i) => (
                     <div key={i} className="border border-slate-300 rounded-lg p-4 bg-white break-inside-avoid">
-                      <div className="text-center text-xl font-mono mb-2">{String.fromCodePoint(0x2728)}</div>
+                      <div className="text-center text-xl font-mono mb-2">{String.fromCodePoint(0x279C)}</div>
                       <div className="text-center text-lg font-mono mb-2">= ____</div>
                       <div className="mt-2 text-xs text-slate-600">Show your work:</div>
                       <div className="min-h-16 border border-dashed border-slate-300 rounded p-2 bg-slate-50 print:bg-white" />
@@ -29631,7 +29631,7 @@ export function PrintablesPage() {
                     <div className="space-y-3">
                       {problems.map((p, i) => (
                         <div key={i} className="border-b border-emerald-200 pb-3 last:border-b-0">
-                          <div className="font-semibold mb-2 text-sm">{String.fromCodePoint(0x2728)}</div>
+                          <div className="font-semibold mb-2 text-sm">{String.fromCodePoint(0x279C)}</div>
                           <div className="text-xs text-emerald-800 space-y-1 pl-4">
                             {p.steps.map((step, j) => (
                               <div key={j}>Step {j + 1}: {step}</div>
@@ -29651,16 +29651,16 @@ export function PrintablesPage() {
         {
           activeDocs.includes('pemdas-fluency') && (() => {
             const problems = [
-              { expr: String.fromCodePoint(0x2728), answer: 11, steps: [String.fromCodePoint(0x2728), '5 + 6 = 11'] },
-              { expr: String.fromCodePoint(0x2728), answer: 10, steps: [String.fromCodePoint(0x2728), '12 - 2 = 10'] },
-              { expr: String.fromCodePoint(0x2728), answer: 17, steps: [String.fromCodePoint(0x2728), '12 + 5 = 17'] },
-              { expr: String.fromCodePoint(0x2728), answer: 4, steps: [String.fromCodePoint(0x2728), '6 - 2 = 4'] },
-              { expr: String.fromCodePoint(0x2728), answer: 1, steps: [String.fromCodePoint(0x2728), '7 - 6 = 1'] },
-              { expr: String.fromCodePoint(0x2728), answer: 18, steps: [String.fromCodePoint(0x2728), '15 + 3 = 18'] },
-              { expr: String.fromCodePoint(0x2728), answer: 4, steps: [String.fromCodePoint(0x2728), '12 - 8 = 4'] },
-              { expr: String.fromCodePoint(0x2728), answer: 8, steps: [String.fromCodePoint(0x2728), '5 + 3 = 8'] },
-              { expr: String.fromCodePoint(0x2728), answer: 16, steps: [String.fromCodePoint(0x2728), '8 + 8 = 16'] },
-              { expr: String.fromCodePoint(0x2728), answer: 11, steps: [String.fromCodePoint(0x2728), '14 - 3 = 11'] },
+              { expr: String.fromCodePoint(0x279C), answer: 11, steps: [String.fromCodePoint(0x279C), '5 + 6 = 11'] },
+              { expr: String.fromCodePoint(0x279C), answer: 10, steps: [String.fromCodePoint(0x279C), '12 - 2 = 10'] },
+              { expr: String.fromCodePoint(0x279C), answer: 17, steps: [String.fromCodePoint(0x279C), '12 + 5 = 17'] },
+              { expr: String.fromCodePoint(0x279C), answer: 4, steps: [String.fromCodePoint(0x279C), '6 - 2 = 4'] },
+              { expr: String.fromCodePoint(0x279C), answer: 1, steps: [String.fromCodePoint(0x279C), '7 - 6 = 1'] },
+              { expr: String.fromCodePoint(0x279C), answer: 18, steps: [String.fromCodePoint(0x279C), '15 + 3 = 18'] },
+              { expr: String.fromCodePoint(0x279C), answer: 4, steps: [String.fromCodePoint(0x279C), '12 - 8 = 4'] },
+              { expr: String.fromCodePoint(0x279C), answer: 8, steps: [String.fromCodePoint(0x279C), '5 + 3 = 8'] },
+              { expr: String.fromCodePoint(0x279C), answer: 16, steps: [String.fromCodePoint(0x279C), '8 + 8 = 16'] },
+              { expr: String.fromCodePoint(0x279C), answer: 11, steps: [String.fromCodePoint(0x279C), '14 - 3 = 11'] },
             ];
             return (
               <WorksheetSectionWrapper
@@ -29758,7 +29758,7 @@ export function PrintablesPage() {
                 <div className="space-y-4 break-inside-avoid" style={{ pageBreakAfter: 'auto' }}>
                   {problems.map((p, i) => (
                     <div key={i} className="border border-slate-300 rounded-lg p-4 bg-white break-inside-avoid">
-                      <div className="text-center text-xl font-mono mb-3">{String.fromCodePoint(0x2728)}</div>
+                      <div className="text-center text-xl font-mono mb-3">{String.fromCodePoint(0x279C)}</div>
                       <div className="text-sm text-slate-700 mb-2">Follow the steps:</div>
                       <div className="space-y-1 mb-3 text-xs text-slate-600">
                         {p.steps.slice(0, 2).map((step, j) => (
@@ -29777,7 +29777,7 @@ export function PrintablesPage() {
                     <div className="space-y-3">
                       {problems.map((p, i) => (
                         <div key={i} className="border-b border-emerald-200 pb-3 last:border-b-0">
-                          <div className="font-semibold mb-2 text-sm">{String.fromCodePoint(0x2728)}</div>
+                          <div className="font-semibold mb-2 text-sm">{String.fromCodePoint(0x279C)}</div>
                           <div className="text-xs text-emerald-800 space-y-1 pl-4">
                             {p.steps.map((step, j) => (
                               <div key={j}>{step}</div>
@@ -29829,10 +29829,10 @@ export function PrintablesPage() {
                   <div className="space-y-2 text-sm">
                     <div className="font-mono text-base"><strong>Problem:</strong>{String.fromCodePoint(0x1F4A1)}</div>
                     <div className="pl-4 border-l-2 border-blue-300 space-y-1">
-                      <div><strong>Step 1:</strong>{String.fromCodePoint(0x2728)}</div>
-                      <div><strong>Step 2:</strong>{String.fromCodePoint(0x2728)}</div>
+                      <div><strong>Step 1:</strong>{String.fromCodePoint(0x279C)}</div>
+                      <div><strong>Step 2:</strong>{String.fromCodePoint(0x279C)}</div>
                       <div className="font-semibold text-blue-900"><strong>Answer:</strong> 500</div>
-                      <div className="text-xs text-blue-700 mt-1">{String.fromCodePoint(0x2728)}</div>
+                      <div className="text-xs text-blue-700 mt-1">{String.fromCodePoint(0x279C)}</div>
                     </div>
                   </div>
                 </div>
@@ -29879,10 +29879,10 @@ export function PrintablesPage() {
                         const powerValue = Math.pow(10, p.power);
                         return (
                           <div key={i} className="border-b border-emerald-200 pb-3 last:border-b-0">
-                            <div className="font-semibold mb-2 text-sm">{String.fromCodePoint(0x2728)}<sup>{p.power}</sup></div>
+                            <div className="font-semibold mb-2 text-sm">{String.fromCodePoint(0x279C)}<sup>{p.power}</sup></div>
                             <div className="text-xs text-emerald-800 space-y-1 pl-4">
                               <div>Step 1: 10<sup>{p.power}</sup> = {powerValue}</div>
-                              <div>{String.fromCodePoint(0x2728)}</div>
+                              <div>{String.fromCodePoint(0x279C)}</div>
                               <div className="font-semibold">Answer: {p.result}</div>
                             </div>
                           </div>
@@ -29960,7 +29960,7 @@ export function PrintablesPage() {
 
                 {/* Fun Challenge */}
                 <div className="mt-8 p-4 bg-gradient-to-r from-purple-100 to-pink-100 rounded-xl border border-purple-200 print:bg-white print:border-slate-300">
-                  <h3 className="font-bold text-purple-900 mb-2">{String.fromCodePoint(0x2728)}</h3>
+                  <h3 className="font-bold text-purple-900 mb-2">{String.fromCodePoint(0x279C)}</h3>
                   <p className="text-sm text-purple-800">Can you solve all 8 problems in less than 5 minutes? Mark your time: _______</p>
                 </div>
 
@@ -30024,7 +30024,7 @@ export function PrintablesPage() {
                       <div><strong>Step 2:</strong> 7 &gt; 5, so round up the tenths place</div>
                       <div><strong>Step 3:</strong> 3.4 becomes 3.5</div>
                       <div className="font-semibold text-blue-900"><strong>Answer:</strong> 3.5</div>
-                      <div className="text-xs text-blue-700 mt-1">{String.fromCodePoint(0x2728)}</div>
+                      <div className="text-xs text-blue-700 mt-1">{String.fromCodePoint(0x279C)}</div>
                     </div>
                   </div>
                 </div>
@@ -30150,8 +30150,8 @@ export function PrintablesPage() {
                       <div><strong>Step 1:</strong> Round 47 to nearest ten: 50</div>
                       <div><strong>Step 2:</strong> Round 32 to nearest ten: 30</div>
                       <div><strong>Step 3:</strong> Add: 50 + 30 = 80</div>
-                      <div className="font-semibold text-blue-900"><strong>Answer:</strong>{String.fromCodePoint(0x2728)}</div>
-                      <div className="text-xs text-blue-700 mt-1">{String.fromCodePoint(0x2728)}</div>
+                      <div className="font-semibold text-blue-900"><strong>Answer:</strong>{String.fromCodePoint(0x279C)}</div>
+                      <div className="text-xs text-blue-700 mt-1">{String.fromCodePoint(0x279C)}</div>
                     </div>
                   </div>
                 </div>
@@ -30204,7 +30204,7 @@ export function PrintablesPage() {
                               <div>Step 1: Round {p.a} to nearest ten: {roundedA}</div>
                               <div>Step 2: Round {p.b} to nearest ten: {roundedB}</div>
                               <div>Step 3: {roundedA} {p.op} {roundedB} = {p.estimate}</div>
-                              <div className="font-semibold">{String.fromCodePoint(0x2728)}</div>
+                              <div className="font-semibold">{String.fromCodePoint(0x279C)}</div>
                             </div>
                           </div>
                         );
@@ -30253,10 +30253,10 @@ export function PrintablesPage() {
                   <div className="space-y-2 text-sm">
                     <div className="font-semibold text-base"><strong>Problem:</strong> Length: 7 units, Width: 4 units</div>
                     <div className="pl-4 border-l-2 border-blue-300 space-y-1">
-                      <div><strong>Step 1 (Area):</strong>{String.fromCodePoint(0x2728)}</div>
-                      <div><strong>Step 2 (Perimeter):</strong>{String.fromCodePoint(0x2728)}</div>
+                      <div><strong>Step 1 (Area):</strong>{String.fromCodePoint(0x279C)}</div>
+                      <div><strong>Step 2 (Perimeter):</strong>{String.fromCodePoint(0x279C)}</div>
                       <div className="font-semibold text-blue-900"><strong>Answer:</strong> Area = 28 sq units, Perimeter = 22 units</div>
-                      <div className="text-xs text-blue-700 mt-1">{String.fromCodePoint(0x2728)}</div>
+                      <div className="text-xs text-blue-700 mt-1">{String.fromCodePoint(0x279C)}</div>
                     </div>
                   </div>
                 </div>
@@ -30302,8 +30302,8 @@ export function PrintablesPage() {
                         <div key={i} className="border-b border-emerald-200 pb-3 last:border-b-0">
                           <div className="font-semibold mb-2 text-sm">{i + 1}. Length: {p.length}, Width: {p.width}</div>
                           <div className="text-xs text-emerald-800 space-y-1 pl-4">
-                            <div>{String.fromCodePoint(0x2728)}</div>
-                            <div>{String.fromCodePoint(0x2728)}</div>
+                            <div>{String.fromCodePoint(0x279C)}</div>
+                            <div>{String.fromCodePoint(0x279C)}</div>
                             <div className="font-semibold">Answer: Area = {p.area} sq units, Perimeter = {p.perimeter} units</div>
                           </div>
                         </div>
@@ -30373,10 +30373,10 @@ export function PrintablesPage() {
                   <div className="space-y-2 text-sm">
                     <div className="font-semibold text-base"><strong>Problem:</strong> Triangle with base = 6, height = 4</div>
                     <div className="pl-4 border-l-2 border-blue-300 space-y-1">
-                      <div><strong>Step 1:</strong>{String.fromCodePoint(0x2728)}</div>
-                      <div><strong>Step 2:</strong>{String.fromCodePoint(0x2728)}</div>
+                      <div><strong>Step 1:</strong>{String.fromCodePoint(0x279C)}</div>
+                      <div><strong>Step 2:</strong>{String.fromCodePoint(0x279C)}</div>
                       <div className="font-semibold text-blue-900"><strong>Answer:</strong> 12 square units</div>
-                      <div className="text-xs text-blue-700 mt-1">{String.fromCodePoint(0x2728)}</div>
+                      <div className="text-xs text-blue-700 mt-1">{String.fromCodePoint(0x279C)}</div>
                     </div>
                   </div>
                 </div>
@@ -30423,8 +30423,8 @@ export function PrintablesPage() {
                         <div key={i} className="border-b border-emerald-200 pb-3 last:border-b-0">
                           <div className="font-semibold mb-2 text-sm">{i + 1}. {p.isTriangle ? 'Triangle' : 'Parallelogram'}: Base {p.base}, Height {p.height}</div>
                           <div className="text-xs text-emerald-800 space-y-1 pl-4">
-                            <div>{String.fromCodePoint(0x2728)}</div>
-                            <div>{String.fromCodePoint(0x2728)}</div>
+                            <div>{String.fromCodePoint(0x279C)}</div>
+                            <div>{String.fromCodePoint(0x279C)}</div>
                             <div className="font-semibold">Answer: {p.area} square units</div>
                           </div>
                         </div>
@@ -30473,11 +30473,11 @@ export function PrintablesPage() {
                   <div className="space-y-2 text-sm">
                     <div className="font-semibold text-base"><strong>Problem:</strong> L: 4, W: 3, H: 2</div>
                     <div className="pl-4 border-l-2 border-blue-300 space-y-1">
-                      <div><strong>Step 1:</strong>{String.fromCodePoint(0x2728)}</div>
-                      <div><strong>Step 2:</strong>{String.fromCodePoint(0x2728)}</div>
-                      <div><strong>Step 3:</strong>{String.fromCodePoint(0x2728)}</div>
+                      <div><strong>Step 1:</strong>{String.fromCodePoint(0x279C)}</div>
+                      <div><strong>Step 2:</strong>{String.fromCodePoint(0x279C)}</div>
+                      <div><strong>Step 3:</strong>{String.fromCodePoint(0x279C)}</div>
                       <div className="font-semibold text-blue-900"><strong>Answer:</strong> 24 cubic units</div>
-                      <div className="text-xs text-blue-700 mt-1">{String.fromCodePoint(0x2728)}</div>
+                      <div className="text-xs text-blue-700 mt-1">{String.fromCodePoint(0x279C)}</div>
                     </div>
                   </div>
                 </div>
@@ -30523,9 +30523,9 @@ export function PrintablesPage() {
                         <div key={i} className="border-b border-emerald-200 pb-3 last:border-b-0">
                           <div className="font-semibold mb-2 text-sm">{i + 1}. L: {p.length}, W: {p.width}, H: {p.height}</div>
                           <div className="text-xs text-emerald-800 space-y-1 pl-4">
-                            <div>{String.fromCodePoint(0x2728)}</div>
-                            <div>{String.fromCodePoint(0x2728)}</div>
-                            <div>{String.fromCodePoint(0x2728)}</div>
+                            <div>{String.fromCodePoint(0x279C)}</div>
+                            <div>{String.fromCodePoint(0x279C)}</div>
+                            <div>{String.fromCodePoint(0x279C)}</div>
                             <div className="font-semibold">Answer: {p.volume} cubic units</div>
                           </div>
                         </div>
@@ -30575,11 +30575,11 @@ export function PrintablesPage() {
                   <div className="space-y-2 text-sm">
                     <div className="font-semibold text-base"><strong>Problem:</strong>{String.fromCodePoint(0x1F4A1)}</div>
                     <div className="pl-4 border-l-2 border-blue-300 space-y-1">
-                      <div><strong>Step 1:</strong>{String.fromCodePoint(0x2728)}</div>
-                      <div><strong>Step 2:</strong>{String.fromCodePoint(0x2728)}</div>
-                      <div><strong>Step 3:</strong>{String.fromCodePoint(0x2728)}</div>
+                      <div><strong>Step 1:</strong>{String.fromCodePoint(0x279C)}</div>
+                      <div><strong>Step 2:</strong>{String.fromCodePoint(0x279C)}</div>
+                      <div><strong>Step 3:</strong>{String.fromCodePoint(0x279C)}</div>
                       <div className="font-semibold text-blue-900"><strong>Answer:</strong> Acute</div>
-                      <div className="text-xs text-blue-700 mt-1">{String.fromCodePoint(0x2728)}</div>
+                      <div className="text-xs text-blue-700 mt-1">{String.fromCodePoint(0x279C)}</div>
                     </div>
                   </div>
                 </div>
@@ -30589,7 +30589,7 @@ export function PrintablesPage() {
                 <div className="grid grid-cols-2 gap-4" style={{ pageBreakAfter: 'auto' }}>
                   {angles.map((a, i) => (
                     <div key={i} className="border border-slate-300 rounded-lg p-4 bg-white break-inside-avoid">
-                      <div className="text-center text-xl font-bold mb-2">{String.fromCodePoint(0x2728)}</div>
+                      <div className="text-center text-xl font-bold mb-2">{String.fromCodePoint(0x279C)}</div>
                       <div className="text-center text-sm text-slate-600 mb-2">Type: ____</div>
                       <div className="mt-2 text-xs text-slate-600">Explain your thinking:</div>
                       <div className="min-h-12 border border-dashed border-slate-300 rounded p-2 bg-slate-50 print:bg-white" />
@@ -30626,7 +30626,7 @@ export function PrintablesPage() {
                     <div className="space-y-3">
                       {angles.map((a, i) => (
                         <div key={i} className="border-b border-emerald-200 pb-3 last:border-b-0">
-                          <div className="font-semibold mb-2 text-sm">{String.fromCodePoint(0x2728)}</div>
+                          <div className="font-semibold mb-2 text-sm">{String.fromCodePoint(0x279C)}</div>
                           <div className="text-xs text-emerald-800 space-y-1 pl-4">
                             <div>{a.measure < 90 ? `less than 90${String.fromCharCode(0x00B0)}` : a.measure === 90 ? `exactly 90${String.fromCharCode(0x00B0)}` : a.measure < 180 ? `more than 90${String.fromCharCode(0x00B0)} but less than 180` : 'exactly 180'}</div>
                             <div className="font-semibold">Answer: {a.type}</div>
@@ -30704,7 +30704,7 @@ export function PrintablesPage() {
                       <div><strong>Step 2:</strong> Check: Is it all 3 equal? No. Is it 2 equal? Yes!</div>
                       <div><strong>Step 3:</strong> Classification: Isosceles (exactly 2 sides equal)</div>
                       <div className="font-semibold text-blue-900"><strong>Answer:</strong> Isosceles</div>
-                      <div className="text-xs text-blue-700 mt-1">{String.fromCodePoint(0x2728)}</div>
+                      <div className="text-xs text-blue-700 mt-1">{String.fromCodePoint(0x279C)}</div>
                     </div>
                   </div>
                 </div>
@@ -30802,10 +30802,10 @@ export function PrintablesPage() {
                     <div className="font-semibold text-base"><strong>Problem:</strong> Square</div>
                     <div className="pl-4 border-l-2 border-blue-300 space-y-1">
                       <div><strong>Step 1:</strong> Properties: 4 sides, all equal length</div>
-                      <div><strong>Step 2:</strong>{String.fromCodePoint(0x2728)}</div>
+                      <div><strong>Step 2:</strong>{String.fromCodePoint(0x279C)}</div>
                       <div><strong>Step 3:</strong> Draw a square with equal sides</div>
                       <div className="font-semibold text-blue-900"><strong>Answer:</strong> A square has 4 equal sides and 4 right angles</div>
-                      <div className="text-xs text-blue-700 mt-1">{String.fromCodePoint(0x2728)}</div>
+                      <div className="text-xs text-blue-700 mt-1">{String.fromCodePoint(0x279C)}</div>
                     </div>
                   </div>
                 </div>
@@ -30943,7 +30943,7 @@ export function PrintablesPage() {
                       <div><strong>Step 1:</strong> Look at the shape - count the sides</div>
                       <div><strong>Step 2:</strong> A pentagon has 5 sides</div>
                       <div className="font-semibold text-blue-900"><strong>Answer:</strong> 5 sides</div>
-                      <div className="text-xs text-blue-700 mt-1">{String.fromCodePoint(0x2728)}</div>
+                      <div className="text-xs text-blue-700 mt-1">{String.fromCodePoint(0x279C)}</div>
                     </div>
                   </div>
                 </div>
@@ -31041,9 +31041,9 @@ export function PrintablesPage() {
                     <div className="font-semibold text-base"><strong>Problem:</strong> 2 feet = ____ inches</div>
                     <div className="pl-4 border-l-2 border-blue-300 space-y-1">
                       <div><strong>Step 1:</strong> Remember: 1 foot = 12 inches</div>
-                      <div><strong>Step 2:</strong>{String.fromCodePoint(0x2728)}</div>
+                      <div><strong>Step 2:</strong>{String.fromCodePoint(0x279C)}</div>
                       <div className="font-semibold text-blue-900"><strong>Answer:</strong> 24 inches</div>
-                      <div className="text-xs text-blue-700 mt-1">{String.fromCodePoint(0x2728)}</div>
+                      <div className="text-xs text-blue-700 mt-1">{String.fromCodePoint(0x279C)}</div>
                     </div>
                   </div>
                 </div>
@@ -31092,7 +31092,7 @@ export function PrintablesPage() {
                           <div className="font-semibold mb-2 text-sm">{i + 1}. {p.feet} feet = ____ inches</div>
                           <div className="text-xs text-emerald-800 space-y-1 pl-4">
                             <div>Step 1: 1 foot = 12 inches</div>
-                            <div>{String.fromCodePoint(0x2728)}</div>
+                            <div>{String.fromCodePoint(0x279C)}</div>
                             <div className="font-semibold">Answer: {p.inches} inches</div>
                           </div>
                         </div>
@@ -31141,9 +31141,9 @@ export function PrintablesPage() {
                     <div className="font-semibold text-base"><strong>Problem:</strong> 3 meters = ____ centimeters</div>
                     <div className="pl-4 border-l-2 border-blue-300 space-y-1">
                       <div><strong>Step 1:</strong> Remember: 1 meter = 100 centimeters</div>
-                      <div><strong>Step 2:</strong>{String.fromCodePoint(0x2728)}</div>
+                      <div><strong>Step 2:</strong>{String.fromCodePoint(0x279C)}</div>
                       <div className="font-semibold text-blue-900"><strong>Answer:</strong> 300 centimeters</div>
-                      <div className="text-xs text-blue-700 mt-1">{String.fromCodePoint(0x2728)}</div>
+                      <div className="text-xs text-blue-700 mt-1">{String.fromCodePoint(0x279C)}</div>
                     </div>
                   </div>
                 </div>
@@ -31192,7 +31192,7 @@ export function PrintablesPage() {
                           <div className="font-semibold mb-2 text-sm">{i + 1}. {p.meters} meters = ____ centimeters</div>
                           <div className="text-xs text-emerald-800 space-y-1 pl-4">
                             <div>Step 1: 1 meter = 100 centimeters</div>
-                            <div>{String.fromCodePoint(0x2728)}</div>
+                            <div>{String.fromCodePoint(0x279C)}</div>
                             <div className="font-semibold">Answer: {p.centimeters} centimeters</div>
                           </div>
                         </div>
@@ -31339,9 +31339,9 @@ export function PrintablesPage() {
                     <div className="font-semibold text-base"><strong>Problem:</strong> 3 quarts = ____ cups</div>
                     <div className="pl-4 border-l-2 border-blue-300 space-y-1">
                       <div><strong>Step 1:</strong> Remember: 1 quart = 4 cups</div>
-                      <div><strong>Step 2:</strong>{String.fromCodePoint(0x2728)}</div>
+                      <div><strong>Step 2:</strong>{String.fromCodePoint(0x279C)}</div>
                       <div className="font-semibold text-blue-900"><strong>Answer:</strong> 12 cups</div>
-                      <div className="text-xs text-blue-700 mt-1">{String.fromCodePoint(0x2728)}</div>
+                      <div className="text-xs text-blue-700 mt-1">{String.fromCodePoint(0x279C)}</div>
                     </div>
                   </div>
                 </div>
@@ -31390,7 +31390,7 @@ export function PrintablesPage() {
                           <div className="font-semibold mb-2 text-sm">{i + 1}. {p.quarts} quarts = ____ cups</div>
                           <div className="text-xs text-emerald-800 space-y-1 pl-4">
                             <div>Step 1: 1 quart = 4 cups</div>
-                            <div>{String.fromCodePoint(0x2728)}</div>
+                            <div>{String.fromCodePoint(0x279C)}</div>
                             <div className="font-semibold">Answer: {p.cups} cups</div>
                           </div>
                         </div>
@@ -31438,9 +31438,9 @@ export function PrintablesPage() {
                     <div className="font-semibold text-base"><strong>Problem:</strong> 2 pounds = ____ ounces</div>
                     <div className="pl-4 border-l-2 border-blue-300 space-y-1">
                       <div><strong>Step 1:</strong> Remember: 1 pound = 16 ounces</div>
-                      <div><strong>Step 2:</strong>{String.fromCodePoint(0x2728)}</div>
+                      <div><strong>Step 2:</strong>{String.fromCodePoint(0x279C)}</div>
                       <div className="font-semibold text-blue-900"><strong>Answer:</strong> 32 ounces</div>
-                      <div className="text-xs text-blue-700 mt-1">{String.fromCodePoint(0x2728)}</div>
+                      <div className="text-xs text-blue-700 mt-1">{String.fromCodePoint(0x279C)}</div>
                     </div>
                   </div>
                 </div>
@@ -31489,7 +31489,7 @@ export function PrintablesPage() {
                           <div className="font-semibold mb-2 text-sm">{i + 1}. {p.pounds} pounds = ____ ounces</div>
                           <div className="text-xs text-emerald-800 space-y-1 pl-4">
                             <div>Step 1: 1 pound = 16 ounces</div>
-                            <div>{String.fromCodePoint(0x2728)}</div>
+                            <div>{String.fromCodePoint(0x279C)}</div>
                             <div className="font-semibold">Answer: {p.ounces} ounces</div>
                           </div>
                         </div>
@@ -31540,11 +31540,11 @@ export function PrintablesPage() {
                   <div className="space-y-2 text-sm">
                     <div className="font-semibold text-base"><strong>Problem:</strong>{String.fromCodePoint(0x1F4A1)}</div>
                     <div className="pl-4 border-l-2 border-blue-300 space-y-1">
-                      <div><strong>Step 1:</strong>{String.fromCodePoint(0x2728)}</div>
-                      <div><strong>Step 2:</strong>{String.fromCodePoint(0x2728)}</div>
+                      <div><strong>Step 1:</strong>{String.fromCodePoint(0x279C)}</div>
+                      <div><strong>Step 2:</strong>{String.fromCodePoint(0x279C)}</div>
                       <div><strong>Step 3:</strong> Lines that meet at right angles are perpendicular</div>
                       <div className="font-semibold text-blue-900"><strong>Answer:</strong> Perpendicular</div>
-                      <div className="text-xs text-blue-700 mt-1">{String.fromCodePoint(0x2728)}</div>
+                      <div className="text-xs text-blue-700 mt-1">{String.fromCodePoint(0x279C)}</div>
                     </div>
                   </div>
                 </div>
@@ -31591,7 +31591,7 @@ export function PrintablesPage() {
                           <div className="font-semibold mb-2 text-sm">{i + 1}. {l.desc}</div>
                           <div className="text-xs text-emerald-800 space-y-1 pl-4">
                             <div>Key phrase: "{l.desc}"</div>
-                            <div>{String.fromCodePoint(0x2728)}</div>
+                            <div>{String.fromCodePoint(0x279C)}</div>
                             <div className="font-semibold">Answer: {l.type}</div>
                           </div>
                         </div>
@@ -31639,7 +31639,7 @@ export function PrintablesPage() {
                       <div><strong>Step 2:</strong> Find lines that divide it into matching halves</div>
                       <div><strong>Step 3:</strong> Count: 2 diagonal lines + 2 lines through midpoints = 4 lines</div>
                       <div className="font-semibold text-blue-900"><strong>Answer:</strong> 4 lines of symmetry</div>
-                      <div className="text-xs text-blue-700 mt-1">{String.fromCodePoint(0x2728)}</div>
+                      <div className="text-xs text-blue-700 mt-1">{String.fromCodePoint(0x279C)}</div>
                     </div>
                   </div>
                 </div>
@@ -31746,7 +31746,7 @@ export function PrintablesPage() {
                       <div><strong>Step 2:</strong> Draw a shape, then slide it to a new position</div>
                       <div><strong>Step 3:</strong> The shape stays the same size and orientation</div>
                       <div className="font-semibold text-blue-900"><strong>Answer:</strong> Translation = slide (move without turning or flipping)</div>
-                      <div className="text-xs text-blue-700 mt-1">{String.fromCodePoint(0x2728)}</div>
+                      <div className="text-xs text-blue-700 mt-1">{String.fromCodePoint(0x279C)}</div>
                     </div>
                   </div>
                 </div>
@@ -31848,7 +31848,7 @@ export function PrintablesPage() {
                       <div><strong>Step 2:</strong> Draw 6 squares in a cross pattern</div>
                       <div><strong>Step 3:</strong> Make sure all squares are connected so they can fold into a cube</div>
                       <div className="font-semibold text-blue-900"><strong>Answer:</strong> A net of a cube is 6 squares arranged so they fold into a cube</div>
-                      <div className="text-xs text-blue-700 mt-1">{String.fromCodePoint(0x2728)}</div>
+                      <div className="text-xs text-blue-700 mt-1">{String.fromCodePoint(0x279C)}</div>
                     </div>
                   </div>
                 </div>
@@ -31954,10 +31954,10 @@ export function PrintablesPage() {
                     <div className="font-mono text-base"><strong>Problem:</strong> 3x + 2 when x = 4</div>
                     <div className="pl-4 border-l-2 border-blue-300 space-y-1">
                       <div><strong>Step 1:</strong> Substitute x = 4: 3(4) + 2</div>
-                      <div><strong>Step 2:</strong>{String.fromCodePoint(0x2728)}</div>
+                      <div><strong>Step 2:</strong>{String.fromCodePoint(0x279C)}</div>
                       <div><strong>Step 3:</strong> Add: 12 + 2 = 14</div>
                       <div className="font-semibold text-blue-900"><strong>Answer:</strong> 14</div>
-                      <div className="text-xs text-blue-700 mt-1">{String.fromCodePoint(0x2728)}</div>
+                      <div className="text-xs text-blue-700 mt-1">{String.fromCodePoint(0x279C)}</div>
                     </div>
                   </div>
                 </div>
@@ -32007,7 +32007,7 @@ export function PrintablesPage() {
                             <div className="font-semibold mb-2 text-sm">{i + 1}. {p.expr} when x = {p.x}</div>
                             <div className="text-xs text-emerald-800 space-y-1 pl-4">
                               <div>Step 1: Substitute: {aNum}({p.x}) + {b}</div>
-                              <div>{String.fromCodePoint(0x2728)}</div>
+                              <div>{String.fromCodePoint(0x279C)}</div>
                               <div>Step 3: Add: {aNum * p.x} + {b} = {p.answer}</div>
                               <div className="font-semibold">Answer: {p.answer}</div>
                             </div>
@@ -32061,7 +32061,7 @@ export function PrintablesPage() {
                       <div><strong>Step 1:</strong> Identify key word: "more than" means add</div>
                       <div><strong>Step 2:</strong> "4 more than x" means add 4 to x</div>
                       <div className="font-semibold text-blue-900"><strong>Expression:</strong> x + 4</div>
-                      <div className="text-xs text-blue-700 mt-1">{String.fromCodePoint(0x2728)}</div>
+                      <div className="text-xs text-blue-700 mt-1">{String.fromCodePoint(0x279C)}</div>
                     </div>
                   </div>
                 </div>
@@ -32159,9 +32159,9 @@ export function PrintablesPage() {
                     <div className="pl-4 border-l-2 border-blue-300 space-y-1">
                       <div><strong>Step 1:</strong> Subtract 5 from both sides: x + 5 - 5 = 12 - 5</div>
                       <div><strong>Step 2:</strong> Simplify: x = 7</div>
-                      <div><strong>Step 3:</strong>{String.fromCodePoint(0x2728)}</div>
+                      <div><strong>Step 3:</strong>{String.fromCodePoint(0x279C)}</div>
                       <div className="font-semibold text-blue-900"><strong>Answer:</strong> x = 7</div>
-                      <div className="text-xs text-blue-700 mt-1">{String.fromCodePoint(0x2728)}</div>
+                      <div className="text-xs text-blue-700 mt-1">{String.fromCodePoint(0x279C)}</div>
                     </div>
                   </div>
                 </div>
@@ -32270,7 +32270,7 @@ export function PrintablesPage() {
                       <div><strong>Step 2:</strong> The pattern is: Add 3 each time</div>
                       <div><strong>Step 3:</strong> Missing number: 12 + 3 = 15</div>
                       <div className="font-semibold text-blue-900"><strong>Answer:</strong> Missing = 15, Rule = Add 3</div>
-                      <div className="text-xs text-blue-700 mt-1">{String.fromCodePoint(0x2728)}</div>
+                      <div className="text-xs text-blue-700 mt-1">{String.fromCodePoint(0x279C)}</div>
                     </div>
                   </div>
                 </div>
@@ -32394,7 +32394,7 @@ export function PrintablesPage() {
                       <div><strong>Step 3:</strong> Move up 2 units (y = 2)</div>
                       <div><strong>Step 4:</strong> Mark the point!</div>
                       <div className="font-semibold text-blue-900"><strong>Answer:</strong> Point plotted at (3, 2)</div>
-                      <div className="text-xs text-blue-700 mt-1">{String.fromCodePoint(0x2728)}</div>
+                      <div className="text-xs text-blue-700 mt-1">{String.fromCodePoint(0x279C)}</div>
                     </div>
                   </div>
                 </div>
@@ -32491,11 +32491,11 @@ export function PrintablesPage() {
                   <div className="space-y-2 text-sm">
                     <div className="font-semibold text-base"><strong>Problem:</strong> 1/2 ____ 0.5</div>
                     <div className="pl-4 border-l-2 border-blue-300 space-y-1">
-                      <div><strong>Step 1:</strong>{String.fromCodePoint(0x2728)}</div>
+                      <div><strong>Step 1:</strong>{String.fromCodePoint(0x279C)}</div>
                       <div><strong>Step 2:</strong> Compare: 0.5 and 0.5</div>
                       <div><strong>Step 3:</strong> They are equal!</div>
                       <div className="font-semibold text-blue-900"><strong>Answer:</strong> =</div>
-                      <div className="text-xs text-blue-700 mt-1">{String.fromCodePoint(0x2728)}</div>
+                      <div className="text-xs text-blue-700 mt-1">{String.fromCodePoint(0x279C)}</div>
                     </div>
                   </div>
                 </div>
@@ -32544,7 +32544,7 @@ export function PrintablesPage() {
                           <div key={i} className="border-b border-emerald-200 pb-3 last:border-b-0">
                             <div className="font-semibold mb-2 text-sm">{i + 1}. {p.frac} ____ {p.decimal}</div>
                             <div className="text-xs text-emerald-800 space-y-1 pl-4">
-                              <div>{String.fromCodePoint(0x2728)}</div>
+                              <div>{String.fromCodePoint(0x279C)}</div>
                               <div>Step 2: Compare {val.toFixed(2)} and {p.decimal}</div>
                               <div className="font-semibold">Answer: {p.frac} {symbol} {p.decimal}</div>
                             </div>
@@ -32696,7 +32696,7 @@ export function PrintablesPage() {
                       <div><strong>Step 2 (Mode):</strong> Count X marks - 4 appears most (3 times)</div>
                       <div><strong>Step 3 (Range):</strong> Largest = 4, Smallest = 2, Range = 4 - 2 = 2</div>
                       <div className="font-semibold text-blue-900"><strong>Answer:</strong> Mode = 4, Range = 2</div>
-                      <div className="text-xs text-blue-700 mt-1">{String.fromCodePoint(0x2728)}</div>
+                      <div className="text-xs text-blue-700 mt-1">{String.fromCodePoint(0x279C)}</div>
                     </div>
                   </div>
                 </div>
@@ -32791,7 +32791,7 @@ export function PrintablesPage() {
                       <div><strong>Step 2:</strong> Red bar = 5 units tall, Blue = 3 units, Green = 7 units</div>
                       <div><strong>Step 3:</strong> Label each bar with its color</div>
                       <div className="font-semibold text-blue-900"><strong>Answer:</strong> Bar graph with 3 bars showing the values</div>
-                      <div className="text-xs text-blue-700 mt-1">{String.fromCodePoint(0x2728)}</div>
+                      <div className="text-xs text-blue-700 mt-1">{String.fromCodePoint(0x279C)}</div>
                     </div>
                   </div>
                 </div>
@@ -32891,7 +32891,7 @@ export function PrintablesPage() {
                       <div><strong>Step 2:</strong> Plot points: (Mon, 65), (Tue, 68), (Wed, 70)</div>
                       <div><strong>Step 3:</strong> Connect points with a line</div>
                       <div className="font-semibold text-blue-900"><strong>Answer:</strong> A line graph showing temperature increasing over the days</div>
-                      <div className="text-xs text-blue-700 mt-1">{String.fromCodePoint(0x2728)}</div>
+                      <div className="text-xs text-blue-700 mt-1">{String.fromCodePoint(0x279C)}</div>
                     </div>
                   </div>
                 </div>
@@ -32899,7 +32899,7 @@ export function PrintablesPage() {
                   <div className="border border-slate-300 rounded-lg p-4 bg-white break-inside-avoid">
                     <div className="mb-2 font-semibold">Daily Temperature</div>
                     {data.map((d, i) => (
-                      <div key={i} className="text-sm mb-1">{String.fromCodePoint(0x2728)}</div>
+                      <div key={i} className="text-sm mb-1">{String.fromCodePoint(0x279C)}</div>
                     ))}
                     <div className="text-sm text-slate-600 mt-2 mb-2">Create line graph: ____</div>
                     <div className="mt-2 text-xs text-slate-600">Show your work:</div>
@@ -32956,7 +32956,7 @@ export function PrintablesPage() {
                       <div className="space-y-3">
                         <div className="text-xs text-emerald-800 space-y-1">
                           <div>Step 1: Set up axes - x-axis (days), y-axis (temperature)</div>
-                          <div>{String.fromCodePoint(0x2728)}</div>
+                          <div>{String.fromCodePoint(0x279C)}</div>
                           <div>Step 3: Connect points with a line</div>
                           <div className="font-semibold mb-2">Line Graph:</div>
                         </div>
@@ -32988,11 +32988,11 @@ export function PrintablesPage() {
                           {points.map((p, i) => (
                             <g key={i}>
                               <circle cx={p.x} cy={p.y} r="5" fill="#3b82f6" stroke="white" strokeWidth="2" />
-                              <text x={p.x} y={p.y - 10} fontSize="9" fill="#1e40af" textAnchor="middle" fontWeight="bold">{String.fromCodePoint(0x2728)}</text>
+                              <text x={p.x} y={p.y - 10} fontSize="9" fill="#1e40af" textAnchor="middle" fontWeight="bold">{String.fromCodePoint(0x279C)}</text>
                             </g>
                           ))}
                           {/* Y-axis label */}
-                          <text x={15} y={graphHeight / 2} fontSize="11" fill="#475569" textAnchor="middle" transform={`rotate(-90 15 ${graphHeight / 2})`}>{String.fromCodePoint(0x2728)}</text>
+                          <text x={15} y={graphHeight / 2} fontSize="11" fill="#475569" textAnchor="middle" transform={`rotate(-90 15 ${graphHeight / 2})`}>{String.fromCodePoint(0x279C)}</text>
                         </svg>
                         <div className="text-xs text-slate-600 mt-1">Connect the points in order to create the line graph</div>
                       </div>
@@ -33037,11 +33037,11 @@ export function PrintablesPage() {
                   <div className="space-y-2 text-sm">
                     <div className="font-semibold text-base"><strong>Data:</strong> 2, 4, 4, 6</div>
                     <div className="pl-4 border-l-2 border-blue-300 space-y-1">
-                      <div><strong>Mean:</strong>{String.fromCodePoint(0x2728)}</div>
-                      <div><strong>Median:</strong>{String.fromCodePoint(0x2728)}</div>
+                      <div><strong>Mean:</strong>{String.fromCodePoint(0x279C)}</div>
+                      <div><strong>Median:</strong>{String.fromCodePoint(0x279C)}</div>
                       <div><strong>Mode:</strong> 4 appears most often (twice)</div>
                       <div className="font-semibold text-blue-900"><strong>Answer:</strong> Mean = 4, Median = 4, Mode = 4</div>
-                      <div className="text-xs text-blue-700 mt-1">{String.fromCodePoint(0x2728)}</div>
+                      <div className="text-xs text-blue-700 mt-1">{String.fromCodePoint(0x279C)}</div>
                     </div>
                   </div>
                 </div>
@@ -33092,7 +33092,7 @@ export function PrintablesPage() {
                           <div key={i} className="border-b border-emerald-200 pb-3 last:border-b-0">
                             <div className="font-semibold mb-2 text-sm">{i + 1}. Data: {d.data.join(', ')}</div>
                             <div className="text-xs text-emerald-800 space-y-1 pl-4">
-                              <div>{String.fromCodePoint(0x2728)}</div>
+                              <div>{String.fromCodePoint(0x279C)}</div>
                               <div>Median: Ordered: {sorted.join(', ')}. Middle = {median}</div>
                               <div>Mode: {d.mode === 'none' ? 'No number appears more than once (no mode)' : `${d.mode} appears most often`}</div>
                               <div className="font-semibold mt-1">Answer: Mean = {d.mean}, Median = {d.median}, Mode = {d.mode === 'none' ? 'none' : d.mode}</div>
@@ -33141,12 +33141,12 @@ export function PrintablesPage() {
                   <div className="space-y-2 text-sm">
                     <div className="font-semibold text-base"><strong>Data:</strong> 2, 4, 4, 6, 8</div>
                     <div className="pl-4 border-l-2 border-blue-300 space-y-1">
-                      <div><strong>Mean:</strong>{String.fromCodePoint(0x2728)}</div>
+                      <div><strong>Mean:</strong>{String.fromCodePoint(0x279C)}</div>
                       <div><strong>Median:</strong> Ordered: 2, 4, 4, 6, 8. Middle = 4</div>
                       <div><strong>Mode:</strong> 4 appears most often (twice)</div>
                       <div><strong>Range:</strong> 8 - 2 = 6</div>
                       <div className="font-semibold text-blue-900"><strong>Answer:</strong> Mean = 4.8, Median = 4, Mode = 4, Range = 6</div>
-                      <div className="text-xs text-blue-700 mt-1">{String.fromCodePoint(0x2728)}</div>
+                      <div className="text-xs text-blue-700 mt-1">{String.fromCodePoint(0x279C)}</div>
                     </div>
                   </div>
                 </div>
@@ -33198,7 +33198,7 @@ export function PrintablesPage() {
                           <div key={i} className="border-b border-emerald-200 pb-3 last:border-b-0">
                             <div className="font-semibold mb-2 text-sm">{i + 1}. Data: {d.data.join(', ')}</div>
                             <div className="text-xs text-emerald-800 space-y-1 pl-4">
-                              <div>{String.fromCodePoint(0x2728)}</div>
+                              <div>{String.fromCodePoint(0x279C)}</div>
                               <div>Median: Ordered: {sorted.join(', ')}. Middle = {median}</div>
                               <div>Mode: {d.mode === 'none' ? 'No number appears more than once (no mode)' : `${d.mode} appears most often`}</div>
                               <div>Range: {Math.max(...d.data)} - {Math.min(...d.data)} = {d.range}</div>
@@ -33248,7 +33248,7 @@ export function PrintablesPage() {
                       <div><strong>Step 2:</strong> Stem 3 (30s): Leaves 1, 4</div>
                       <div><strong>Step 3:</strong> Write: Stem 2 | 3 5 7, Stem 3 | 1 4</div>
                       <div className="font-semibold text-blue-900"><strong>Answer:</strong> Stem-and-leaf plot organized by tens</div>
-                      <div className="text-xs text-blue-700 mt-1">{String.fromCodePoint(0x2728)}</div>
+                      <div className="text-xs text-blue-700 mt-1">{String.fromCodePoint(0x279C)}</div>
                     </div>
                   </div>
                 </div>
@@ -33341,7 +33341,7 @@ export function PrintablesPage() {
                       <div><strong>Step 2:</strong> Total outcomes: 6 (numbers 1-6)</div>
                       <div><strong>Step 3:</strong> Probability = 1/6</div>
                       <div className="font-semibold text-blue-900"><strong>Answer:</strong> 1/6</div>
-                      <div className="text-xs text-blue-700 mt-1">{String.fromCodePoint(0x2728)}</div>
+                      <div className="text-xs text-blue-700 mt-1">{String.fromCodePoint(0x279C)}</div>
                     </div>
                   </div>
                 </div>
@@ -33441,7 +33441,7 @@ export function PrintablesPage() {
                       <div><strong>Step 1:</strong> After giving away: 15 - 5 = 10</div>
                       <div><strong>Step 2:</strong> After finding more: 10 + 8 = 18</div>
                       <div className="font-semibold text-blue-900"><strong>Answer:</strong> 18 marbles</div>
-                      <div className="text-xs text-blue-700 mt-1">{String.fromCodePoint(0x2728)}</div>
+                      <div className="text-xs text-blue-700 mt-1">{String.fromCodePoint(0x279C)}</div>
                     </div>
                   </div>
                 </div>
@@ -33501,14 +33501,14 @@ export function PrintablesPage() {
                       <div className="border-b border-emerald-200 pb-3">
                         <div className="font-semibold mb-2 text-sm">3. {problems[2]}</div>
                         <div className="text-xs text-emerald-800 space-y-1 pl-4">
-                          <div>{String.fromCodePoint(0x2728)}</div>
+                          <div>{String.fromCodePoint(0x279C)}</div>
                           <div className="font-semibold">Answer: 24 chapters</div>
                         </div>
                       </div>
                       <div className="border-b border-emerald-200 pb-3">
                         <div className="font-semibold mb-2 text-sm">4. {problems[3]}</div>
                         <div className="text-xs text-emerald-800 space-y-1 pl-4">
-                          <div>{String.fromCodePoint(0x2728)}</div>
+                          <div>{String.fromCodePoint(0x279C)}</div>
                           <div>Step 2: 30 - 8 = 22</div>
                           <div className="font-semibold">Answer: 22 toys</div>
                         </div>
@@ -33516,7 +33516,7 @@ export function PrintablesPage() {
                       <div className="border-b border-emerald-200 pb-3">
                         <div className="font-semibold mb-2 text-sm">5. {problems[4]}</div>
                         <div className="text-xs text-emerald-800 space-y-1 pl-4">
-                          <div>{String.fromCodePoint(0x2728)}</div>
+                          <div>{String.fromCodePoint(0x279C)}</div>
                           <div>Step 2: 20 - 12 = 8</div>
                           <div className="font-semibold">Answer: $8</div>
                         </div>
@@ -33575,11 +33575,11 @@ export function PrintablesPage() {
                   <div className="space-y-2 text-sm">
                     <div className="font-semibold text-base"><strong>Problem:</strong> Tom has $20. He buys 3 books for $4 each. Then he finds $5. How much does he have now?</div>
                     <div className="pl-4 border-l-2 border-blue-300 space-y-1">
-                      <div><strong>Step 1:</strong>{String.fromCodePoint(0x2728)}</div>
+                      <div><strong>Step 1:</strong>{String.fromCodePoint(0x279C)}</div>
                       <div><strong>Step 2:</strong> After buying: $20 - $12 = $8</div>
                       <div><strong>Step 3:</strong> After finding money: $8 + $5 = $13</div>
                       <div className="font-semibold text-blue-900"><strong>Answer:</strong> $13</div>
-                      <div className="text-xs text-blue-700 mt-1">{String.fromCodePoint(0x2728)}</div>
+                      <div className="text-xs text-blue-700 mt-1">{String.fromCodePoint(0x279C)}</div>
                     </div>
                   </div>
                 </div>
@@ -33633,15 +33633,15 @@ export function PrintablesPage() {
                         <div className="font-semibold mb-2 text-sm">2. {problems[1]}</div>
                         <div className="text-xs text-emerald-800 space-y-1 pl-4">
                           <div>Step 1: 5 + 4 = 9 (total hours)</div>
-                          <div>{String.fromCodePoint(0x2728)}</div>
+                          <div>{String.fromCodePoint(0x279C)}</div>
                           <div className="font-semibold">Answer: $72</div>
                         </div>
                       </div>
                       <div className="border-b border-emerald-200 pb-3">
                         <div className="font-semibold mb-2 text-sm">3. {problems[2]}</div>
                         <div className="text-xs text-emerald-800 space-y-1 pl-4">
-                          <div>{String.fromCodePoint(0x2728)}</div>
-                          <div>{String.fromCodePoint(0x2728)}</div>
+                          <div>{String.fromCodePoint(0x279C)}</div>
+                          <div>{String.fromCodePoint(0x279C)}</div>
                           <div className="font-semibold">Answer: Area = 96 sq cm, Perimeter = 40 cm</div>
                         </div>
                       </div>
@@ -33656,15 +33656,15 @@ export function PrintablesPage() {
                       <div className="border-b border-emerald-200 pb-3">
                         <div className="font-semibold mb-2 text-sm">5. {problems[4]}</div>
                         <div className="text-xs text-emerald-800 space-y-1 pl-4">
-                          <div>{String.fromCodePoint(0x2728)}</div>
+                          <div>{String.fromCodePoint(0x279C)}</div>
                           <div className="font-semibold">Answer: 60 miles per hour</div>
                         </div>
                       </div>
                       <div className="border-b border-emerald-200 pb-3 last:border-b-0">
                         <div className="font-semibold mb-2 text-sm">6. {problems[5]}</div>
                         <div className="text-xs text-emerald-800 space-y-1 pl-4">
-                          <div>{String.fromCodePoint(0x2728)}</div>
-                          <div>{String.fromCodePoint(0x2728)}</div>
+                          <div>{String.fromCodePoint(0x279C)}</div>
+                          <div>{String.fromCodePoint(0x279C)}</div>
                           <div>Step 3: 48 - 16 - 12 = 20</div>
                           <div className="font-semibold">Answer: 20 students</div>
                         </div>
@@ -33717,7 +33717,7 @@ export function PrintablesPage() {
                       <div><strong>Step 1:</strong> Find common denominator: 1/2 = 2/4</div>
                       <div><strong>Step 2:</strong> Add: 2/4 + 1/4 = 3/4</div>
                       <div className="font-semibold text-blue-900"><strong>Answer:</strong> 3/4 of the pizza</div>
-                      <div className="text-xs text-blue-700 mt-1">{String.fromCodePoint(0x2728)}</div>
+                      <div className="text-xs text-blue-700 mt-1">{String.fromCodePoint(0x279C)}</div>
                     </div>
                   </div>
                 </div>
@@ -33777,14 +33777,14 @@ export function PrintablesPage() {
                       <div className="border-b border-emerald-200 pb-3">
                         <div className="font-semibold mb-2 text-sm">3. {problems[2]}</div>
                         <div className="text-xs text-emerald-800 space-y-1 pl-4">
-                          <div>{String.fromCodePoint(0x2728)}</div>
+                          <div>{String.fromCodePoint(0x279C)}</div>
                           <div className="font-semibold">Answer: 8 students</div>
                         </div>
                       </div>
                       <div className="border-b border-emerald-200 pb-3">
                         <div className="font-semibold mb-2 text-sm">4. {problems[3]}</div>
                         <div className="text-xs text-emerald-800 space-y-1 pl-4">
-                          <div>{String.fromCodePoint(0x2728)}</div>
+                          <div>{String.fromCodePoint(0x279C)}</div>
                           <div>Step 2: 12 - 3 = 9 feet</div>
                           <div className="font-semibold">Answer: 9 feet</div>
                         </div>
@@ -33792,7 +33792,7 @@ export function PrintablesPage() {
                       <div className="border-b border-emerald-200 pb-3">
                         <div className="font-semibold mb-2 text-sm">5. {problems[4]}</div>
                         <div className="text-xs text-emerald-800 space-y-1 pl-4">
-                          <div>{String.fromCodePoint(0x2728)}</div>
+                          <div>{String.fromCodePoint(0x279C)}</div>
                           <div className="font-semibold">Answer: $0.67</div>
                         </div>
                       </div>
@@ -33850,10 +33850,10 @@ export function PrintablesPage() {
                   <div className="space-y-2 text-sm">
                     <div className="font-semibold text-base"><strong>Problem:</strong>{String.fromCodePoint(0x1F4A1)}</div>
                     <div className="pl-4 border-l-2 border-blue-300 space-y-1">
-                      <div><strong>Step 1:</strong>{String.fromCodePoint(0x2728)}</div>
-                      <div><strong>Step 2:</strong>{String.fromCodePoint(0x2728)}</div>
+                      <div><strong>Step 1:</strong>{String.fromCodePoint(0x279C)}</div>
+                      <div><strong>Step 2:</strong>{String.fromCodePoint(0x279C)}</div>
                       <div className="font-semibold text-blue-900"><strong>Answer:</strong> 2 cups</div>
-                      <div className="text-xs text-blue-700 mt-1">{String.fromCodePoint(0x2728)}</div>
+                      <div className="text-xs text-blue-700 mt-1">{String.fromCodePoint(0x279C)}</div>
                     </div>
                   </div>
                 </div>
@@ -33897,7 +33897,7 @@ export function PrintablesPage() {
                       <div className="border-b border-emerald-200 pb-3">
                         <div className="font-semibold mb-2 text-sm">1. {problems[0]}</div>
                         <div className="text-xs text-emerald-800 space-y-1 pl-4">
-                          <div>{String.fromCodePoint(0x2728)}</div>
+                          <div>{String.fromCodePoint(0x279C)}</div>
                           <div className="font-semibold">Answer: 2 cups</div>
                         </div>
                       </div>
@@ -33912,16 +33912,16 @@ export function PrintablesPage() {
                       <div className="border-b border-emerald-200 pb-3">
                         <div className="font-semibold mb-2 text-sm">3. {problems[2]}</div>
                         <div className="text-xs text-emerald-800 space-y-1 pl-4">
-                          <div>{String.fromCodePoint(0x2728)}</div>
+                          <div>{String.fromCodePoint(0x279C)}</div>
                           <div className="font-semibold">Answer: 16 pieces</div>
                         </div>
                       </div>
                       <div className="border-b border-emerald-200 pb-3">
                         <div className="font-semibold mb-2 text-sm">4. {problems[3]}</div>
                         <div className="text-xs text-emerald-800 space-y-1 pl-4">
-                          <div>{String.fromCodePoint(0x2728)}</div>
+                          <div>{String.fromCodePoint(0x279C)}</div>
                           <div>Step 2: 24 - 6 = 18 (remaining)</div>
-                          <div>{String.fromCodePoint(0x2728)}</div>
+                          <div>{String.fromCodePoint(0x279C)}</div>
                           <div>Step 4: 18 - 3 = 15</div>
                           <div className="font-semibold">Answer: 15 cookies</div>
                         </div>
@@ -33929,14 +33929,14 @@ export function PrintablesPage() {
                       <div className="border-b border-emerald-200 pb-3">
                         <div className="font-semibold mb-2 text-sm">5. {problems[4]}</div>
                         <div className="text-xs text-emerald-800 space-y-1 pl-4">
-                          <div>{String.fromCodePoint(0x2728)}</div>
+                          <div>{String.fromCodePoint(0x279C)}</div>
                           <div className="font-semibold">Answer: 40 gallons</div>
                         </div>
                       </div>
                       <div className="border-b border-emerald-200 pb-3 last:border-b-0">
                         <div className="font-semibold mb-2 text-sm">6. {problems[5]}</div>
                         <div className="text-xs text-emerald-800 space-y-1 pl-4">
-                          <div>{String.fromCodePoint(0x2728)}</div>
+                          <div>{String.fromCodePoint(0x279C)}</div>
                           <div>Step 2: 15/4 = 3.75</div>
                           <div className="font-semibold">Answer: 3.75 miles (or 15/4 miles)</div>
                         </div>
@@ -34059,8 +34059,8 @@ export function PrintablesPage() {
                       <div className="border-b border-emerald-200 pb-3">
                         <div className="font-semibold mb-2 text-sm">4. {problems[3]}</div>
                         <div className="text-xs text-emerald-800 space-y-1 pl-4">
-                          <div>{String.fromCodePoint(0x2728)}</div>
-                          <div>{String.fromCodePoint(0x2728)}</div>
+                          <div>{String.fromCodePoint(0x279C)}</div>
+                          <div>{String.fromCodePoint(0x279C)}</div>
                           <div className="font-semibold">Answer: $4.38 (rounded to nearest cent)</div>
                         </div>
                       </div>
@@ -34174,24 +34174,24 @@ export function PrintablesPage() {
                       <div className="border-b border-emerald-200 pb-3">
                         <div className="font-semibold mb-2 text-sm">1. {problems[0]}</div>
                         <div className="text-xs text-emerald-800 space-y-1 pl-4">
-                          <div>{String.fromCodePoint(0x2728)}</div>
-                          <div>{String.fromCodePoint(0x2728)}</div>
+                          <div>{String.fromCodePoint(0x279C)}</div>
+                          <div>{String.fromCodePoint(0x279C)}</div>
                           <div className="font-semibold">Answer: $63.96</div>
                         </div>
                       </div>
                       <div className="border-b border-emerald-200 pb-3">
                         <div className="font-semibold mb-2 text-sm">2. {problems[1]}</div>
                         <div className="text-xs text-emerald-800 space-y-1 pl-4">
-                          <div>{String.fromCodePoint(0x2728)}</div>
-                          <div>{String.fromCodePoint(0x2728)}</div>
+                          <div>{String.fromCodePoint(0x279C)}</div>
+                          <div>{String.fromCodePoint(0x279C)}</div>
                           <div className="font-semibold">Answer: 15 miles</div>
                         </div>
                       </div>
                       <div className="border-b border-emerald-200 pb-3">
                         <div className="font-semibold mb-2 text-sm">3. {problems[2]}</div>
                         <div className="text-xs text-emerald-800 space-y-1 pl-4">
-                          <div>{String.fromCodePoint(0x2728)}</div>
-                          <div>{String.fromCodePoint(0x2728)}</div>
+                          <div>{String.fromCodePoint(0x279C)}</div>
+                          <div>{String.fromCodePoint(0x279C)}</div>
                           <div className="font-semibold">Answer: 2.25 cups</div>
                         </div>
                       </div>
@@ -34206,16 +34206,16 @@ export function PrintablesPage() {
                       <div className="border-b border-emerald-200 pb-3">
                         <div className="font-semibold mb-2 text-sm">5. {problems[4]}</div>
                         <div className="text-xs text-emerald-800 space-y-1 pl-4">
-                          <div>{String.fromCodePoint(0x2728)}</div>
-                          <div>{String.fromCodePoint(0x2728)}</div>
+                          <div>{String.fromCodePoint(0x279C)}</div>
+                          <div>{String.fromCodePoint(0x279C)}</div>
                           <div className="font-semibold">Answer: 3.2 meters</div>
                         </div>
                       </div>
                       <div className="border-b border-emerald-200 pb-3 last:border-b-0">
                         <div className="font-semibold mb-2 text-sm">6. {problems[5]}</div>
                         <div className="text-xs text-emerald-800 space-y-1 pl-4">
-                          <div>{String.fromCodePoint(0x2728)}</div>
-                          <div>{String.fromCodePoint(0x2728)}</div>
+                          <div>{String.fromCodePoint(0x279C)}</div>
+                          <div>{String.fromCodePoint(0x279C)}</div>
                           <div className="font-semibold">Answer: 15.3 gallons</div>
                         </div>
                       </div>
@@ -34266,10 +34266,10 @@ export function PrintablesPage() {
                     <div className="font-semibold text-base"><strong>Problem:</strong>{String.fromCodePoint(0x1F4A1)}</div>
                     <div className="pl-4 border-l-2 border-blue-300 space-y-1">
                       <div><strong>Step 1:</strong> Identify: This is an area problem</div>
-                      <div><strong>Step 2:</strong>{String.fromCodePoint(0x2728)}</div>
-                      <div><strong>Step 3:</strong>{String.fromCodePoint(0x2728)}</div>
+                      <div><strong>Step 2:</strong>{String.fromCodePoint(0x279C)}</div>
+                      <div><strong>Step 3:</strong>{String.fromCodePoint(0x279C)}</div>
                       <div className="font-semibold text-blue-900"><strong>Answer:</strong> 15 square feet</div>
-                      <div className="text-xs text-blue-700 mt-1">{String.fromCodePoint(0x2728)}</div>
+                      <div className="text-xs text-blue-700 mt-1">{String.fromCodePoint(0x279C)}</div>
                     </div>
                   </div>
                 </div>
@@ -34313,7 +34313,7 @@ export function PrintablesPage() {
                       <div className="border-b border-emerald-200 pb-3">
                         <div className="font-semibold mb-2 text-sm">1. {problems[0]}</div>
                         <div className="text-xs text-emerald-800 space-y-1 pl-4">
-                          <div>{String.fromCodePoint(0x2728)}</div>
+                          <div>{String.fromCodePoint(0x279C)}</div>
                           <div>Step 2: Compare: 36 inches &gt; 18 inches</div>
                           <div className="font-semibold">Answer: Yes, she has enough (36 inches &gt; 18 inches)</div>
                         </div>
@@ -34321,8 +34321,8 @@ export function PrintablesPage() {
                       <div className="border-b border-emerald-200 pb-3">
                         <div className="font-semibold mb-2 text-sm">2. {problems[1]}</div>
                         <div className="text-xs text-emerald-800 space-y-1 pl-4">
-                          <div>{String.fromCodePoint(0x2728)}</div>
-                          <div>{String.fromCodePoint(0x2728)}</div>
+                          <div>{String.fromCodePoint(0x279C)}</div>
+                          <div>{String.fromCodePoint(0x279C)}</div>
                           <div className="font-semibold">Answer: 96 square feet</div>
                         </div>
                       </div>
@@ -34337,23 +34337,23 @@ export function PrintablesPage() {
                       <div className="border-b border-emerald-200 pb-3">
                         <div className="font-semibold mb-2 text-sm">4. {problems[3]}</div>
                         <div className="text-xs text-emerald-800 space-y-1 pl-4">
-                          <div>{String.fromCodePoint(0x2728)}</div>
+                          <div>{String.fromCodePoint(0x279C)}</div>
                           <div className="font-semibold">Answer: 4 times</div>
                         </div>
                       </div>
                       <div className="border-b border-emerald-200 pb-3">
                         <div className="font-semibold mb-2 text-sm">5. {problems[4]}</div>
                         <div className="text-xs text-emerald-800 space-y-1 pl-4">
-                          <div>{String.fromCodePoint(0x2728)}</div>
-                          <div>{String.fromCodePoint(0x2728)}</div>
+                          <div>{String.fromCodePoint(0x279C)}</div>
+                          <div>{String.fromCodePoint(0x279C)}</div>
                           <div className="font-semibold">Answer: 60 miles per hour</div>
                         </div>
                       </div>
                       <div className="border-b border-emerald-200 pb-3 last:border-b-0">
                         <div className="font-semibold mb-2 text-sm">6. {problems[5]}</div>
                         <div className="text-xs text-emerald-800 space-y-1 pl-4">
-                          <div>{String.fromCodePoint(0x2728)}</div>
-                          <div>{String.fromCodePoint(0x2728)}</div>
+                          <div>{String.fromCodePoint(0x279C)}</div>
+                          <div>{String.fromCodePoint(0x279C)}</div>
                           <div className="font-semibold">Answer: 3 cubic feet</div>
                         </div>
                       </div>
@@ -34451,48 +34451,48 @@ export function PrintablesPage() {
                       <div className="border-b border-emerald-200 pb-3">
                         <div className="font-semibold mb-2 text-sm">1. {problems[0]}</div>
                         <div className="text-xs text-emerald-800 space-y-1 pl-4">
-                          <div>{String.fromCodePoint(0x2728)}</div>
-                          <div>{String.fromCodePoint(0x2728)}</div>
+                          <div>{String.fromCodePoint(0x279C)}</div>
+                          <div>{String.fromCodePoint(0x279C)}</div>
                           <div className="font-semibold">Answer: Area = 60 sq cm, Perimeter = 32 cm</div>
                         </div>
                       </div>
                       <div className="border-b border-emerald-200 pb-3">
                         <div className="font-semibold mb-2 text-sm">2. {problems[1]}</div>
                         <div className="text-xs text-emerald-800 space-y-1 pl-4">
-                          <div>{String.fromCodePoint(0x2728)}</div>
-                          <div>{String.fromCodePoint(0x2728)}</div>
+                          <div>{String.fromCodePoint(0x279C)}</div>
+                          <div>{String.fromCodePoint(0x279C)}</div>
                           <div className="font-semibold">Answer: Area = 64 sq inches, Perimeter = 32 inches</div>
                         </div>
                       </div>
                       <div className="border-b border-emerald-200 pb-3">
                         <div className="font-semibold mb-2 text-sm">3. {problems[2]}</div>
                         <div className="text-xs text-emerald-800 space-y-1 pl-4">
-                          <div>{String.fromCodePoint(0x2728)}</div>
-                          <div>{String.fromCodePoint(0x2728)}</div>
+                          <div>{String.fromCodePoint(0x279C)}</div>
+                          <div>{String.fromCodePoint(0x279C)}</div>
                           <div className="font-semibold">Answer: Area = 30 sq cm</div>
                         </div>
                       </div>
                       <div className="border-b border-emerald-200 pb-3">
                         <div className="font-semibold mb-2 text-sm">4. {problems[3]}</div>
                         <div className="text-xs text-emerald-800 space-y-1 pl-4">
-                          <div>{String.fromCodePoint(0x2728)}</div>
-                          <div>{String.fromCodePoint(0x2728)}</div>
+                          <div>{String.fromCodePoint(0x279C)}</div>
+                          <div>{String.fromCodePoint(0x279C)}</div>
                           <div className="font-semibold">Answer: Area = 150 sq feet</div>
                         </div>
                       </div>
                       <div className="border-b border-emerald-200 pb-3">
                         <div className="font-semibold mb-2 text-sm">5. {problems[4]}</div>
                         <div className="text-xs text-emerald-800 space-y-1 pl-4">
-                          <div>{String.fromCodePoint(0x2728)}</div>
-                          <div>{String.fromCodePoint(0x2728)}</div>
+                          <div>{String.fromCodePoint(0x279C)}</div>
+                          <div>{String.fromCodePoint(0x279C)}</div>
                           <div className="font-semibold">Answer: Diameter = 8 cm</div>
                         </div>
                       </div>
                       <div className="border-b border-emerald-200 pb-3 last:border-b-0">
                         <div className="font-semibold mb-2 text-sm">6. {problems[5]}</div>
                         <div className="text-xs text-emerald-800 space-y-1 pl-4">
-                          <div>{String.fromCodePoint(0x2728)}</div>
-                          <div>{String.fromCodePoint(0x2728)}</div>
+                          <div>{String.fromCodePoint(0x279C)}</div>
+                          <div>{String.fromCodePoint(0x279C)}</div>
                           <div className="font-semibold">Answer: Area = 108 sq feet</div>
                         </div>
                       </div>
@@ -34543,10 +34543,10 @@ export function PrintablesPage() {
                     <div className="font-semibold text-base"><strong>Problem:</strong> The ratio of red to blue marbles is 2:3. If there are 8 red marbles, how many blue marbles are there?</div>
                     <div className="pl-4 border-l-2 border-blue-300 space-y-1">
                       <div><strong>Step 1:</strong> Set up proportion: 2:3 = 8:?</div>
-                      <div><strong>Step 2:</strong>{String.fromCodePoint(0x2728)}</div>
-                      <div><strong>Step 3:</strong>{String.fromCodePoint(0x2728)}</div>
+                      <div><strong>Step 2:</strong>{String.fromCodePoint(0x279C)}</div>
+                      <div><strong>Step 3:</strong>{String.fromCodePoint(0x279C)}</div>
                       <div className="font-semibold text-blue-900"><strong>Answer:</strong> 12 blue marbles</div>
-                      <div className="text-xs text-blue-700 mt-1">{String.fromCodePoint(0x2728)}</div>
+                      <div className="text-xs text-blue-700 mt-1">{String.fromCodePoint(0x279C)}</div>
                     </div>
                   </div>
                 </div>
@@ -34591,8 +34591,8 @@ export function PrintablesPage() {
                         <div className="font-semibold mb-2 text-sm">1. {problems[0]}</div>
                         <div className="text-xs text-emerald-800 space-y-1 pl-4">
                           <div>Step 1: Set up proportion: 3:5 = 15:?</div>
-                          <div>{String.fromCodePoint(0x2728)}</div>
-                          <div>{String.fromCodePoint(0x2728)}</div>
+                          <div>{String.fromCodePoint(0x279C)}</div>
+                          <div>{String.fromCodePoint(0x279C)}</div>
                           <div className="font-semibold">Answer: 25 girls</div>
                         </div>
                       </div>
@@ -34600,8 +34600,8 @@ export function PrintablesPage() {
                         <div className="font-semibold mb-2 text-sm">2. {problems[1]}</div>
                         <div className="text-xs text-emerald-800 space-y-1 pl-4">
                           <div>Step 1: Set up proportion: 2:3 = ?:9</div>
-                          <div>{String.fromCodePoint(0x2728)}</div>
-                          <div>{String.fromCodePoint(0x2728)}</div>
+                          <div>{String.fromCodePoint(0x279C)}</div>
+                          <div>{String.fromCodePoint(0x279C)}</div>
                           <div className="font-semibold">Answer: 6 cups flour</div>
                         </div>
                       </div>
@@ -34609,8 +34609,8 @@ export function PrintablesPage() {
                         <div className="font-semibold mb-2 text-sm">3. {problems[2]}</div>
                         <div className="text-xs text-emerald-800 space-y-1 pl-4">
                           <div>Step 1: Set up proportion: 4:10 = ?:30</div>
-                          <div>{String.fromCodePoint(0x2728)}</div>
-                          <div>{String.fromCodePoint(0x2728)}</div>
+                          <div>{String.fromCodePoint(0x279C)}</div>
+                          <div>{String.fromCodePoint(0x279C)}</div>
                           <div className="font-semibold">Answer: 12 pages</div>
                         </div>
                       </div>
@@ -34618,8 +34618,8 @@ export function PrintablesPage() {
                         <div className="font-semibold mb-2 text-sm">4. {problems[3]}</div>
                         <div className="text-xs text-emerald-800 space-y-1 pl-4">
                           <div>Step 1: Set up proportion: 4:3 = 12:?</div>
-                          <div>{String.fromCodePoint(0x2728)}</div>
-                          <div>{String.fromCodePoint(0x2728)}</div>
+                          <div>{String.fromCodePoint(0x279C)}</div>
+                          <div>{String.fromCodePoint(0x279C)}</div>
                           <div className="font-semibold">Answer: 9 oranges</div>
                         </div>
                       </div>
@@ -34627,7 +34627,7 @@ export function PrintablesPage() {
                         <div className="font-semibold mb-2 text-sm">5. {problems[4]}</div>
                         <div className="text-xs text-emerald-800 space-y-1 pl-4">
                           <div>Step 1: Set up proportion: 60:1 = ?:3</div>
-                          <div>{String.fromCodePoint(0x2728)}</div>
+                          <div>{String.fromCodePoint(0x279C)}</div>
                           <div className="font-semibold">Answer: 180 miles</div>
                         </div>
                       </div>
@@ -34635,8 +34635,8 @@ export function PrintablesPage() {
                         <div className="font-semibold mb-2 text-sm">6. {problems[5]}</div>
                         <div className="text-xs text-emerald-800 space-y-1 pl-4">
                           <div>Step 1: Set up proportion: 2:1 = 8:?</div>
-                          <div>{String.fromCodePoint(0x2728)}</div>
-                          <div>{String.fromCodePoint(0x2728)}</div>
+                          <div>{String.fromCodePoint(0x279C)}</div>
+                          <div>{String.fromCodePoint(0x279C)}</div>
                           <div className="font-semibold">Answer: 4 dogs</div>
                         </div>
                       </div>
@@ -34686,10 +34686,10 @@ export function PrintablesPage() {
                   <div className="space-y-2 text-sm">
                     <div className="font-semibold text-base"><strong>Problem:</strong>{String.fromCodePoint(0x1F4A1)}</div>
                     <div className="pl-4 border-l-2 border-blue-300 space-y-1">
-                      <div><strong>Step 1:</strong>{String.fromCodePoint(0x2728)}</div>
+                      <div><strong>Step 1:</strong>{String.fromCodePoint(0x279C)}</div>
                       <div><strong>Step 2:</strong> Subtract discount: $10 - $2 = $8</div>
                       <div className="font-semibold text-blue-900"><strong>Answer:</strong> $8</div>
-                      <div className="text-xs text-blue-700 mt-1">{String.fromCodePoint(0x2728)}</div>
+                      <div className="text-xs text-blue-700 mt-1">{String.fromCodePoint(0x279C)}</div>
                     </div>
                   </div>
                 </div>
@@ -34733,7 +34733,7 @@ export function PrintablesPage() {
                       <div className="border-b border-emerald-200 pb-3">
                         <div className="font-semibold mb-2 text-sm">1. {problems[0]}</div>
                         <div className="text-xs text-emerald-800 space-y-1 pl-4">
-                          <div>{String.fromCodePoint(0x2728)}</div>
+                          <div>{String.fromCodePoint(0x279C)}</div>
                           <div>Step 2: Subtract: $20 - $5 = $15</div>
                           <div className="font-semibold">Answer: $15</div>
                         </div>
@@ -34741,31 +34741,31 @@ export function PrintablesPage() {
                       <div className="border-b border-emerald-200 pb-3">
                         <div className="font-semibold mb-2 text-sm">2. {problems[1]}</div>
                         <div className="text-xs text-emerald-800 space-y-1 pl-4">
-                          <div>{String.fromCodePoint(0x2728)}</div>
-                          <div>{String.fromCodePoint(0x2728)}</div>
+                          <div>{String.fromCodePoint(0x279C)}</div>
+                          <div>{String.fromCodePoint(0x279C)}</div>
                           <div className="font-semibold">Answer: 90%</div>
                         </div>
                       </div>
                       <div className="border-b border-emerald-200 pb-3">
                         <div className="font-semibold mb-2 text-sm">3. {problems[2]}</div>
                         <div className="text-xs text-emerald-800 space-y-1 pl-4">
-                          <div>{String.fromCodePoint(0x2728)}</div>
-                          <div>{String.fromCodePoint(0x2728)}</div>
+                          <div>{String.fromCodePoint(0x279C)}</div>
+                          <div>{String.fromCodePoint(0x279C)}</div>
                           <div className="font-semibold">Answer: 24 items</div>
                         </div>
                       </div>
                       <div className="border-b border-emerald-200 pb-3">
                         <div className="font-semibold mb-2 text-sm">4. {problems[3]}</div>
                         <div className="text-xs text-emerald-800 space-y-1 pl-4">
-                          <div>{String.fromCodePoint(0x2728)}</div>
-                          <div>{String.fromCodePoint(0x2728)}</div>
+                          <div>{String.fromCodePoint(0x279C)}</div>
+                          <div>{String.fromCodePoint(0x279C)}</div>
                           <div className="font-semibold">Answer: $30</div>
                         </div>
                       </div>
                       <div className="border-b border-emerald-200 pb-3">
                         <div className="font-semibold mb-2 text-sm">5. {problems[4]}</div>
                         <div className="text-xs text-emerald-800 space-y-1 pl-4">
-                          <div>{String.fromCodePoint(0x2728)}</div>
+                          <div>{String.fromCodePoint(0x279C)}</div>
                           <div>Step 2: Subtract: $25 - $5 = $20</div>
                           <div className="font-semibold">Answer: $20</div>
                         </div>
@@ -34773,8 +34773,8 @@ export function PrintablesPage() {
                       <div className="border-b border-emerald-200 pb-3 last:border-b-0">
                         <div className="font-semibold mb-2 text-sm">6. {problems[5]}</div>
                         <div className="text-xs text-emerald-800 space-y-1 pl-4">
-                          <div>{String.fromCodePoint(0x2728)}</div>
-                          <div>{String.fromCodePoint(0x2728)}</div>
+                          <div>{String.fromCodePoint(0x279C)}</div>
+                          <div>{String.fromCodePoint(0x279C)}</div>
                           <div className="font-semibold">Answer: 80%</div>
                         </div>
                       </div>
@@ -35364,7 +35364,7 @@ export function PrintablesPage() {
                       <div><strong>ABC:</strong> Triples (Red, Blue, Green)</div>
                     </div>
                   </div>
-                  <div className="text-2xl animate-bounce">{String.fromCodePoint(0x2728)}</div>
+                  <div className="text-2xl animate-bounce">{String.fromCodePoint(0x279C)}</div>
                 </div>
 
                 <div className="grid grid-cols-1 gap-6" style={{ pageBreakAfter: 'auto' }}>
@@ -35542,7 +35542,7 @@ export function PrintablesPage() {
                       <div><strong>ABC:</strong> Triples (Circle, Square, Triangle)</div>
                     </div>
                   </div>
-                  <div className="text-2xl animate-bounce">{String.fromCodePoint(0x2728)}</div>
+                  <div className="text-2xl animate-bounce">{String.fromCodePoint(0x279C)}</div>
                 </div>
 
                 <div className="grid grid-cols-1 gap-6" style={{ pageBreakAfter: 'auto' }}>
@@ -35606,12 +35606,12 @@ export function PrintablesPage() {
         {
           activeDocs.includes('what-comes-next') && (() => {
             const patterns = [
-              { items: [String.fromCodePoint(0x2728), String.fromCodePoint(0x2728), String.fromCodePoint(0x2728), String.fromCodePoint(0x2728)], next: String.fromCodePoint(0x2728), name: 'red, blue' },
-              { items: [String.fromCodePoint(0x2728), String.fromCodePoint(0x2728), String.fromCodePoint(0x2728), String.fromCodePoint(0x2728)], next: String.fromCodePoint(0x2728), name: 'yellow, green' },
-              { items: [String.fromCodePoint(0x2728), String.fromCodePoint(0x2728), String.fromCodePoint(0x2728), String.fromCodePoint(0x2728)], next: String.fromCodePoint(0x2728), name: 'blue, red' },
-              { items: [String.fromCodePoint(0x2728), String.fromCodePoint(0x2728), String.fromCodePoint(0x2728), String.fromCodePoint(0x2728)], next: String.fromCodePoint(0x2728), name: 'green, yellow' },
-              { items: [String.fromCodePoint(0x2728), String.fromCodePoint(0x2728), String.fromCodePoint(0x2728), String.fromCodePoint(0x2728)], next: String.fromCodePoint(0x2728), name: 'star, heart' },
-              { items: [String.fromCodePoint(0x2728), String.fromCodePoint(0x2728), String.fromCodePoint(0x2728), String.fromCodePoint(0x2728)], next: String.fromCodePoint(0x2728), name: 'apple, banana' },
+              { items: [String.fromCodePoint(0x279C), String.fromCodePoint(0x279C), String.fromCodePoint(0x279C), String.fromCodePoint(0x279C)], next: String.fromCodePoint(0x279C), name: 'red, blue' },
+              { items: [String.fromCodePoint(0x279C), String.fromCodePoint(0x279C), String.fromCodePoint(0x279C), String.fromCodePoint(0x279C)], next: String.fromCodePoint(0x279C), name: 'yellow, green' },
+              { items: [String.fromCodePoint(0x279C), String.fromCodePoint(0x279C), String.fromCodePoint(0x279C), String.fromCodePoint(0x279C)], next: String.fromCodePoint(0x279C), name: 'blue, red' },
+              { items: [String.fromCodePoint(0x279C), String.fromCodePoint(0x279C), String.fromCodePoint(0x279C), String.fromCodePoint(0x279C)], next: String.fromCodePoint(0x279C), name: 'green, yellow' },
+              { items: [String.fromCodePoint(0x279C), String.fromCodePoint(0x279C), String.fromCodePoint(0x279C), String.fromCodePoint(0x279C)], next: String.fromCodePoint(0x279C), name: 'star, heart' },
+              { items: [String.fromCodePoint(0x279C), String.fromCodePoint(0x279C), String.fromCodePoint(0x279C), String.fromCodePoint(0x279C)], next: String.fromCodePoint(0x279C), name: 'apple, banana' },
             ];
             return (
               <WorksheetSectionWrapper
@@ -35674,7 +35674,7 @@ export function PrintablesPage() {
                       {patterns.map((p, i) => (
                         <li key={i} className="flex items-center gap-2 text-emerald-800">
                           <span>{p.items.join(' ')}</span>
-                          <span>{String.fromCodePoint(0x2728)}</span>
+                          <span>{String.fromCodePoint(0x279C)}</span>
                           <span className="text-xl">{p.next}</span>
                           <span className="text-xs text-slate-500">({p.name} pattern)</span>
                         </li>
@@ -35691,12 +35691,12 @@ export function PrintablesPage() {
           activeDocs.includes('long-short') && (() => {
             const rng = makeRng(`${effectiveSeed}|v${variant}|doc=${doc}`);
             const pairs = [
-              { long: { name: 'Ruler', emoji: String.fromCodePoint(0x2728) }, short: { name: 'Paper Clip', emoji: String.fromCodePoint(0x2728) } },
-              { long: { name: 'Snake', emoji: String.fromCodePoint(0x2728) }, short: { name: 'Caterpillar', emoji: String.fromCodePoint(0x2728) } },
-              { long: { name: 'Train', emoji: String.fromCodePoint(0x2728) }, short: { name: 'Car', emoji: String.fromCodePoint(0x2728) } },
-              { long: { name: 'Pencil', emoji: String.fromCodePoint(0x2728) }, short: { name: 'Crayon', emoji: String.fromCodePoint(0x2728) } },
-              { long: { name: 'Ladder', emoji: String.fromCodePoint(0x2728) }, short: { name: 'Stool', emoji: String.fromCodePoint(0x2728) } },
-              { long: { name: 'Rope', emoji: String.fromCodePoint(0x2728) }, short: { name: 'Key', emoji: String.fromCodePoint(0x2728) } },
+              { long: { name: 'Ruler', emoji: String.fromCodePoint(0x279C) }, short: { name: 'Paper Clip', emoji: String.fromCodePoint(0x279C) } },
+              { long: { name: 'Snake', emoji: String.fromCodePoint(0x279C) }, short: { name: 'Caterpillar', emoji: String.fromCodePoint(0x279C) } },
+              { long: { name: 'Train', emoji: String.fromCodePoint(0x279C) }, short: { name: 'Car', emoji: String.fromCodePoint(0x279C) } },
+              { long: { name: 'Pencil', emoji: String.fromCodePoint(0x279C) }, short: { name: 'Crayon', emoji: String.fromCodePoint(0x279C) } },
+              { long: { name: 'Ladder', emoji: String.fromCodePoint(0x279C) }, short: { name: 'Stool', emoji: String.fromCodePoint(0x279C) } },
+              { long: { name: 'Rope', emoji: String.fromCodePoint(0x279C) }, short: { name: 'Key', emoji: String.fromCodePoint(0x279C) } },
             ];
             const activePairs = shuffleArray([...pairs], `${effectiveSeed}|longshort`).slice(0, 4);
 
@@ -35981,33 +35981,33 @@ export function PrintablesPage() {
             const tracingThemes = [
               {
                 name: 'Nature',
-                start: { label: 'Bee', render: (props: any) => <text fontSize="40" x="50" y="65" textAnchor="middle" {...props}>{String.fromCodePoint(0x2728)}</text> },
-                end: { label: 'Flower', render: (props: any) => <text fontSize="40" x="50" y="65" textAnchor="middle" {...props}>{String.fromCodePoint(0x2728)}</text> }
+                start: { label: 'Bee', render: (props: any) => <text fontSize="40" x="50" y="65" textAnchor="middle" {...props}>{String.fromCodePoint(0x279C)}</text> },
+                end: { label: 'Flower', render: (props: any) => <text fontSize="40" x="50" y="65" textAnchor="middle" {...props}>{String.fromCodePoint(0x279C)}</text> }
               },
               {
                 name: 'Space',
-                start: { label: 'Rocket', render: (props: any) => <text fontSize="40" x="50" y="65" textAnchor="middle" {...props}>{String.fromCodePoint(0x2728)}</text> },
-                end: { label: 'Planet', render: (props: any) => <text fontSize="40" x="50" y="65" textAnchor="middle" {...props}>{String.fromCodePoint(0x2728)}</text> }
+                start: { label: 'Rocket', render: (props: any) => <text fontSize="40" x="50" y="65" textAnchor="middle" {...props}>{String.fromCodePoint(0x279C)}</text> },
+                end: { label: 'Planet', render: (props: any) => <text fontSize="40" x="50" y="65" textAnchor="middle" {...props}>{String.fromCodePoint(0x279C)}</text> }
               },
               {
                 name: 'Home',
-                start: { label: 'Car', render: (props: any) => <text fontSize="40" x="50" y="65" textAnchor="middle" {...props}>{String.fromCodePoint(0x2728)}</text> },
-                end: { label: 'House', render: (props: any) => <text fontSize="40" x="50" y="65" textAnchor="middle" {...props}>{String.fromCodePoint(0x2728)}</text> }
+                start: { label: 'Car', render: (props: any) => <text fontSize="40" x="50" y="65" textAnchor="middle" {...props}>{String.fromCodePoint(0x279C)}</text> },
+                end: { label: 'House', render: (props: any) => <text fontSize="40" x="50" y="65" textAnchor="middle" {...props}>{String.fromCodePoint(0x279C)}</text> }
               },
               {
                 name: 'Pets',
-                start: { label: 'Dog', render: (props: any) => <text fontSize="40" x="50" y="65" textAnchor="middle" {...props}>{String.fromCodePoint(0x2728)}</text> },
-                end: { label: 'Bone', render: (props: any) => <text fontSize="40" x="50" y="65" textAnchor="middle" {...props}>{String.fromCodePoint(0x2728)}</text> }
+                start: { label: 'Dog', render: (props: any) => <text fontSize="40" x="50" y="65" textAnchor="middle" {...props}>{String.fromCodePoint(0x279C)}</text> },
+                end: { label: 'Bone', render: (props: any) => <text fontSize="40" x="50" y="65" textAnchor="middle" {...props}>{String.fromCodePoint(0x279C)}</text> }
               },
               {
                 name: 'Sports',
-                start: { label: 'Player', render: (props: any) => <text fontSize="40" x="50" y="65" textAnchor="middle" {...props}>{String.fromCodePoint(0x2728)}</text> },
-                end: { label: 'Finish', render: (props: any) => <text fontSize="40" x="50" y="65" textAnchor="middle" {...props}>{String.fromCodePoint(0x2728)}</text> }
+                start: { label: 'Player', render: (props: any) => <text fontSize="40" x="50" y="65" textAnchor="middle" {...props}>{String.fromCodePoint(0x279C)}</text> },
+                end: { label: 'Finish', render: (props: any) => <text fontSize="40" x="50" y="65" textAnchor="middle" {...props}>{String.fromCodePoint(0x279C)}</text> }
               },
               {
                 name: 'Food',
-                start: { label: 'Rabbit', render: (props: any) => <text fontSize="40" x="50" y="65" textAnchor="middle" {...props}>{String.fromCodePoint(0x2728)}</text> },
-                end: { label: 'Carrot', render: (props: any) => <text fontSize="40" x="50" y="65" textAnchor="middle" {...props}>{String.fromCodePoint(0x2728)}</text> }
+                start: { label: 'Rabbit', render: (props: any) => <text fontSize="40" x="50" y="65" textAnchor="middle" {...props}>{String.fromCodePoint(0x279C)}</text> },
+                end: { label: 'Carrot', render: (props: any) => <text fontSize="40" x="50" y="65" textAnchor="middle" {...props}>{String.fromCodePoint(0x279C)}</text> }
               },
             ];
 
@@ -36131,20 +36131,20 @@ export function PrintablesPage() {
               {
                 name: 'Frog Hop',
                 type: 'arc', // Quadratic Bezier (Job)
-                start: { label: 'Frog', render: (props: any) => <text fontSize="40" x="50" y="65" textAnchor="middle" {...props}>{String.fromCodePoint(0x2728)}</text> },
-                end: { label: 'Lilypad', render: (props: any) => <text fontSize="40" x="50" y="65" textAnchor="middle" {...props}>{String.fromCodePoint(0x2728)}</text> }
+                start: { label: 'Frog', render: (props: any) => <text fontSize="40" x="50" y="65" textAnchor="middle" {...props}>{String.fromCodePoint(0x1F438)}</text> },
+                end: { label: 'Lilypad', render: (props: any) => <text fontSize="40" x="50" y="65" textAnchor="middle" {...props}>{String.fromCodePoint(0x1FAB7)}</text> }
               },
               {
                 name: 'Kangaroo Jump',
                 type: 'arc',
-                start: { label: 'Kangaroo', render: (props: any) => <text fontSize="40" x="50" y="65" textAnchor="middle" {...props}>{String.fromCodePoint(0x2728)}</text> },
-                end: { label: 'Grass', render: (props: any) => <text fontSize="40" x="50" y="65" textAnchor="middle" {...props}>{String.fromCodePoint(0x2728)}</text> }
+                start: { label: 'Kangaroo', render: (props: any) => <text fontSize="40" x="50" y="65" textAnchor="middle" {...props}>{String.fromCodePoint(0x1F998)}</text> },
+                end: { label: 'Grass', render: (props: any) => <text fontSize="40" x="50" y="65" textAnchor="middle" {...props}>{String.fromCodePoint(0x1F33F)}</text> }
               },
               {
                 name: 'Dolphin Dive',
                 type: 'wave', // S-Curve
-                start: { label: 'Dolphin', render: (props: any) => <text fontSize="40" x="50" y="65" textAnchor="middle" {...props}>{String.fromCodePoint(0x2728)}</text> },
-                end: { label: 'Ocean', render: (props: any) => <text fontSize="40" x="50" y="65" textAnchor="middle" {...props}>{String.fromCodePoint(0x2728)}</text> }
+                start: { label: 'Dolphin', render: (props: any) => <text fontSize="40" x="50" y="65" textAnchor="middle" {...props}>{String.fromCodePoint(0x1F42C)}</text> },
+                end: { label: 'Ocean', render: (props: any) => <text fontSize="40" x="50" y="65" textAnchor="middle" {...props}>{String.fromCodePoint(0x1F30A)}</text> }
               },
               {
                 name: 'Butterfly Flutter',
@@ -36753,10 +36753,10 @@ export function PrintablesPage() {
                   <div className="space-y-2 text-sm">
                     <div className="font-semibold text-base"><strong>Problem:</strong> Rectangle with length = 5, width = 3</div>
                     <div className="pl-4 border-l-2 border-blue-300 space-y-1">
-                      <div><strong>Step 1:</strong>{String.fromCodePoint(0x2728)}</div>
-                      <div><strong>Step 2:</strong>{String.fromCodePoint(0x2728)}</div>
+                      <div><strong>Step 1:</strong>{String.fromCodePoint(0x279C)}</div>
+                      <div><strong>Step 2:</strong>{String.fromCodePoint(0x279C)}</div>
                       <div className="font-semibold text-blue-900"><strong>Answer:</strong> 16 units</div>
-                      <div className="text-xs text-blue-700 mt-1">{String.fromCodePoint(0x2728)}</div>
+                      <div className="text-xs text-blue-700 mt-1">{String.fromCodePoint(0x279C)}</div>
                     </div>
                   </div>
                 </div>
@@ -36803,8 +36803,8 @@ export function PrintablesPage() {
                         <div key={i} className="border-b border-emerald-200 pb-3 last:border-b-0">
                           <div className="font-semibold mb-2 text-sm">{i + 1}. Length: {p.length}, Width: {p.width}</div>
                           <div className="text-xs text-emerald-800 space-y-1 pl-4">
-                            <div>{String.fromCodePoint(0x2728)}</div>
-                            <div>{String.fromCodePoint(0x2728)}</div>
+                            <div>{String.fromCodePoint(0x279C)}</div>
+                            <div>{String.fromCodePoint(0x279C)}</div>
                             <div className="font-semibold">Answer: {p.perimeter} units</div>
                           </div>
                         </div>
@@ -36868,7 +36868,7 @@ export function PrintablesPage() {
                       <div className="space-y-1 text-sm font-mono">
                         <div>Length: 5 units</div>
                         <div>Width:  4 units</div>
-                        <div className="mt-2 text-yellow-300 print:text-blue-700 font-bold">{String.fromCodePoint(0x2728)}</div>
+                        <div className="mt-2 text-yellow-300 print:text-blue-700 font-bold">{String.fromCodePoint(0x279C)}</div>
                       </div>
                     </div>
                   </div>
@@ -36919,7 +36919,7 @@ export function PrintablesPage() {
                     <div className="grid grid-cols-2 gap-4 text-sm">
                       {problems.map((p, i) => (
                         <div key={i} className="flex justify-between border-b border-blue-200 pb-1">
-                          <span>{String.fromCodePoint(0x2728)}</span>
+                          <span>{String.fromCodePoint(0x279C)}</span>
                           <span className="font-bold">{p.area} sq units</span>
                         </div>
                       ))}
@@ -37000,11 +37000,11 @@ export function PrintablesPage() {
                 <div className="print:hidden w-full h-16 mb-4 relative overflow-hidden bg-slate-900 rounded-lg flex items-center justify-center border-b-4 border-cyan-500">
                   <div className="absolute inset-x-0 h-full w-full bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-indigo-900 via-slate-900 to-black opacity-80"></div>
                   {/* Stars */}
-                  <div className="absolute top-2 left-10 text-xs text-white opacity-60">{String.fromCodePoint(0x2728)}</div>
-                  <div className="absolute bottom-4 right-20 text-xs text-white opacity-40">{String.fromCodePoint(0x2728)}</div>
+                  <div className="absolute top-2 left-10 text-xs text-white opacity-60">{String.fromCodePoint(0x2B50)}</div>
+                  <div className="absolute bottom-4 right-20 text-xs text-white opacity-40">{String.fromCodePoint(0x2B50)}</div>
 
                   <div className="text-2xl font-mono text-cyan-400 z-10 flex gap-4 items-center tracking-widest shadow-cyan-500/50">
-                    <span>{String.fromCodePoint(0x2728)}</span> CHRONOS SYSTEM <span>{String.fromCodePoint(0x2728)}</span>
+                    <span>{String.fromCodePoint(0x2B50)}</span> CHRONOS SYSTEM <span>{String.fromCodePoint(0x2B50)}</span>
                   </div>
                 </div>
 
@@ -37102,7 +37102,7 @@ export function PrintablesPage() {
                 {/* Lab Header */}
                 <div className="print:hidden w-full h-16 mb-4 relative overflow-hidden bg-slate-800 rounded-lg flex items-center justify-center border-b-4 border-lime-400">
                   <div className="text-2xl font-mono text-lime-400 font-bold z-10 flex gap-4 items-center animate-pulse">
-                    <span>{String.fromCodePoint(0x2728)}</span>
+                    <span>{String.fromCodePoint(0x279C)}</span>
                   </div>
                 </div>
 
@@ -37165,7 +37165,7 @@ export function PrintablesPage() {
 
                 {showAnswersForDoc('customary-units', () => (
                   <div className="mt-6 p-4 border-2 border-lime-500 bg-lime-50 rounded print:border print:bg-white print:page-break-before-always">
-                    <div className="font-bold text-lime-900 mb-3 text-base font-mono">{String.fromCodePoint(0x2728)}</div>
+                    <div className="font-bold text-lime-900 mb-3 text-base font-mono">{String.fromCodePoint(0x279C)}</div>
                     <div className="space-y-3">
                       {problems.map((p, i) => (
                         <div key={i} className="border-b border-lime-200 pb-3 last:border-b-0 font-mono text-sm">
@@ -37226,14 +37226,14 @@ export function PrintablesPage() {
                     <div className="pl-4 border-l-4 border-cyan-500 bg-white p-2">
                       <div><strong>MEASUREMENT:</strong> 2 Meters</div>
                       <div><strong>CONVERSION RATE:</strong> 1m = 100cm</div>
-                      <div><strong>CALCULATION:</strong>{String.fromCodePoint(0x2728)}</div>
+                      <div><strong>CALCULATION:</strong>{String.fromCodePoint(0x279C)}</div>
                       <div className="mt-1 font-bold text-cyan-700">FINAL DATA: 200 cm</div>
                     </div>
                   </div>
                 </div>
 
                 <div className="mb-4 p-3 bg-slate-800 border-2 border-slate-600 rounded text-sm text-cyan-400 font-mono text-center shadow-inner">
-                  <strong>{String.fromCodePoint(0x2728)}</strong> 1 km = 1000 m | 1 m = 100 cm
+                  <strong>{String.fromCodePoint(0x1F4CF)}</strong> 1 km = 1000 m | 1 m = 100 cm
                 </div>
 
                 <div className="grid grid-cols-2 gap-4" style={{ pageBreakAfter: 'auto' }}>
@@ -37275,7 +37275,7 @@ export function PrintablesPage() {
 
                 {showAnswersForDoc('metric-units', () => (
                   <div className="mt-6 p-4 border-2 border-cyan-500 bg-cyan-50 rounded print:border print:bg-white print:page-break-before-always">
-                    <div className="font-bold text-cyan-900 mb-3 text-base font-mono">{String.fromCodePoint(0x2728)}</div>
+                    <div className="font-bold text-cyan-900 mb-3 text-base font-mono">{String.fromCodePoint(0x279C)}</div>
                     <div className="grid grid-cols-2 gap-4 font-mono text-sm">
                       {problems.map((p, i) => (
                         <div key={i} className="border-b border-cyan-200 pb-2">
@@ -37359,7 +37359,7 @@ export function PrintablesPage() {
                     <div className="pl-4 border-l-2 border-purple-300">
                       <div>Need: 2 Quarts</div>
                       <div>Use: Cups</div>
-                      <div>{String.fromCodePoint(0x2728)}<strong>8 Cups</strong></div>
+                      <div>{String.fromCodePoint(0x279C)}<strong>8 Cups</strong></div>
                     </div>
                   </div>
                 </div>
@@ -37373,7 +37373,7 @@ export function PrintablesPage() {
                     <div key={i} className="border-2 border-purple-100 rounded-xl p-4 bg-white break-inside-avoid shadow-sm text-center">
                       <div className="mb-2">
                         {renderPotion('quart')}
-                        <span className="font-mono font-bold text-lg align-middle mx-2">{String.fromCodePoint(0x2728)}</span>
+                        <span className="font-mono font-bold text-lg align-middle mx-2">{String.fromCodePoint(0x279C)}</span>
                         {renderPotion('cup')}
                         {renderPotion('cup')}
                         {renderPotion('cup')}
@@ -37401,7 +37401,7 @@ export function PrintablesPage() {
 
                 {showAnswersForDoc('liquid-measurement', () => (
                   <div className="mt-6 p-4 border-2 border-fuchsia-300 bg-fuchsia-50 rounded print:border print:bg-white print:page-break-before-always">
-                    <div className="font-bold text-fuchsia-900 mb-3 text-base">{String.fromCodePoint(0x2728)}</div>
+                    <div className="font-bold text-fuchsia-900 mb-3 text-base">{String.fromCodePoint(0x279C)}</div>
                     <div className="space-y-2">
                       {problems.map((p, i) => (
                         <div key={i} className="border-b border-fuchsia-200 pb-1">
@@ -37471,7 +37471,7 @@ export function PrintablesPage() {
                   <div className="space-y-1 text-sm text-orange-900 font-mono">
                     <div className="font-bold text-base">MATERIAL: Dragon Scale</div>
                     <div>Weight: 2 Pounds</div>
-                    <div>{String.fromCodePoint(0x2728)}<strong>32 Ounces</strong></div>
+                    <div>{String.fromCodePoint(0x279C)}<strong>32 Ounces</strong></div>
                   </div>
                 </div>
 
@@ -37489,7 +37489,7 @@ export function PrintablesPage() {
                       <div className="mt-2 flex justify-center gap-1">
                         {/* Visual weights */}
                         <div className="w-8 h-6 bg-slate-800 rounded-sm"></div>
-                        <div className="text-xl">{String.fromCodePoint(0x2728)}</div>
+                        <div className="text-xl">{String.fromCodePoint(0x279C)}</div>
                         <div className="w-8 h-6 border-2 border-slate-300 rounded-sm bg-slate-50"></div>
                       </div>
                     </div>
@@ -37582,7 +37582,7 @@ export function PrintablesPage() {
               >
                 {/* Agency Header */}
                 <div className="print:hidden w-full h-20 mb-6 relative overflow-hidden bg-slate-800 rounded-t-lg border-b-4 border-yellow-500 shadow-lg">
-                  <div className="absolute top-2 left-4 text-4xl">{String.fromCodePoint(0x2728)}</div>
+                  <div className="absolute top-2 left-4 text-4xl">{String.fromCodePoint(0x279C)}</div>
                   <div className="flex flex-col items-center justify-center h-full">
                     <div className="text-2xl font-bold text-slate-100 font-mono tracking-widest uppercase">Top Secret Case Files</div>
                     <div className="text-yellow-500 font-bold text-xs uppercase bg-slate-900 px-2 py-0.5 rounded border border-yellow-500 mt-1">Authorized Eyes Only</div>
@@ -37917,13 +37917,13 @@ export function PrintablesPage() {
                   <div className="space-y-2 text-xs text-green-800">
                     <div>{String.fromCodePoint(0x2705)}</div>
                     <div>{String.fromCodePoint(0x2705)}</div>
-                    <div>{String.fromCodePoint(0x2728)}</div>
+                    <div>{String.fromCodePoint(0x279C)}</div>
                   </div>
                 </div>
 
                 {showAnswersForDoc('perimeter-area-word-problems', () => (
                   <div className="mt-6 p-6 border-2 border-emerald-500 bg-white rounded print:page-break-before-always font-mono">
-                    <div className="text-center font-bold text-emerald-900 mb-6 text-xl border-b border-emerald-100 pb-2">{String.fromCodePoint(0x2728)}</div>
+                    <div className="text-center font-bold text-emerald-900 mb-6 text-xl border-b border-emerald-100 pb-2">{String.fromCodePoint(0x279C)}</div>
                     <div className="grid grid-cols-2 gap-4">
                       {problems.map((p, i) => (
                         <div key={i} className="border-b border-slate-100 pb-2 text-sm">
