@@ -12415,10 +12415,10 @@ export function PrintablesPage() {
               </div>
               <div className="space-y-4 break-inside-avoid" style={{ pageBreakAfter: 'auto' }}>
                 {[
-                  { total: 8, take: 3, story: '8 apples, 3 eaten', emoji: String.fromCodePoint(0x279C) },
-                  { total: 7, take: 2, story: '7 birds, 2 flew away', emoji: String.fromCodePoint(0x279C) },
-                  { total: 9, take: 4, story: '9 flowers, 4 picked', emoji: String.fromCodePoint(0x279C) },
-                  { total: 10, take: 5, story: '10 cookies, 5 shared', emoji: String.fromCodePoint(0x279C) }
+                  { total: 8, take: 3, story: '8 apples, 3 eaten', emoji: String.fromCodePoint(0x1F34E) },
+                  { total: 7, take: 2, story: '7 birds, 2 flew away', emoji: String.fromCodePoint(0x1F426) },
+                  { total: 9, take: 4, story: '9 flowers, 4 picked', emoji: String.fromCodePoint(0x1F33C) },
+                  { total: 10, take: 5, story: '10 cookies, 5 shared', emoji: String.fromCodePoint(0x1F36A) }
                 ].map(({ total, take, story, emoji }, idx) => (
                   <div key={idx} className="border-2 border-rose-200 rounded-lg p-4 bg-gradient-to-br from-rose-50 to-pink-50">
                     <p className="text-rose-900 text-base font-semibold mb-3">{idx + 1}. {story}</p>
@@ -18145,12 +18145,12 @@ export function PrintablesPage() {
               <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-blue-400 to-cyan-400 animate-gradient-x mb-2" />
               <div className="grid grid-cols-2 gap-4">
                 {[
-                  { word: 'cat', emoji: String.fromCodePoint(0x279C) },
-                  { word: 'dog', emoji: String.fromCodePoint(0x279C) },
-                  { word: 'sun', emoji: String.fromCodePoint(0x279C) },
-                  { word: 'hat', emoji: String.fromCodePoint(0x279C) },
-                  { word: 'pen', emoji: String.fromCodePoint(0x279C) },
-                  { word: 'cup', emoji: String.fromCodePoint(0x279C) },
+                  { word: 'cat', emoji: String.fromCodePoint(0x1F408) },
+                  { word: 'dog', emoji: String.fromCodePoint(0x1F415) },
+                  { word: 'sun', emoji: String.fromCodePoint(0x2600, 0xFE0F) },
+                  { word: 'hat', emoji: String.fromCodePoint(0x1F3A9) },
+                  { word: 'pen', emoji: String.fromCodePoint(0x1F58A, 0xFE0F) },
+                  { word: 'cup', emoji: String.fromCodePoint(0x1F964) },
                 ].map((item, idx) => (
                   <div key={idx} className="border border-slate-300 rounded p-4 bg-white">
                     <div className="text-center mb-3">
@@ -21147,7 +21147,7 @@ export function PrintablesPage() {
           activeDocs.includes('big-small') && (() => {
             const rng = makeRng(`${effectiveSeed}|v${variant}|doc=${doc}`)
 
-            const monsters = [String.fromCodePoint(0x279C), String.fromCodePoint(0x279C), String.fromCodePoint(0x279C), String.fromCodePoint(0x279C), String.fromCodePoint(0x279C)]
+            const monsters = [String.fromCodePoint(0x1F47E), String.fromCodePoint(0x1F47B), String.fromCodePoint(0x1F432), String.fromCodePoint(0x1F996), String.fromCodePoint(0x1F916)]
             const problems = Array.from({ length: 4 }, () => {
               const targetType = rng() > 0.5 ? 'Biggest' : 'Smallest'
               const monster = monsters[Math.floor(rng() * monsters.length)]
@@ -28854,12 +28854,12 @@ export function PrintablesPage() {
         {
           activeDocs.includes('order-of-operations') && (() => {
             const problems = [
-              { expr: String.fromCodePoint(0x279C), answer: 11, steps: [String.fromCodePoint(0x279C), '3 + 8 = 11'] },
-              { expr: '(5 + 3)  2', answer: 16, steps: ['5 + 3 = 8', '8  2 = 16'] },
-              { expr: String.fromCodePoint(0x279C), answer: 4, steps: [String.fromCodePoint(0x279C), '10 - 6 = 4'] },
-              { expr: String.fromCodePoint(0x279C), answer: 9, steps: [String.fromCodePoint(0x279C), '4 + 5 = 9'] },
-              { expr: '2  (4 + 3)', answer: 14, steps: ['4 + 3 = 7', '2  7 = 14'] },
-              { expr: String.fromCodePoint(0x279C), answer: 10, steps: [String.fromCodePoint(0x279C), '15 - 6 = 9', '9 + 1 = 10'] },
+              { expr: '3 + 8', answer: 11, steps: ['3 + 8 = 11'] },
+              { expr: '(5 + 3) \u00D7 2', answer: 16, steps: ['5 + 3 = 8', '8 \u00D7 2 = 16'] },
+              { expr: '10 - 6', answer: 4, steps: ['10 - 6 = 4'] },
+              { expr: '4 + 5', answer: 9, steps: ['4 + 5 = 9'] },
+              { expr: '2 \u00D7 (4 + 3)', answer: 14, steps: ['4 + 3 = 7', '2 \u00D7 7 = 14'] },
+              { expr: '15 - 6 + 1', answer: 10, steps: ['15 - 6 = 9', '9 + 1 = 10'] },
             ];
             return (
               <WorksheetSectionWrapper
