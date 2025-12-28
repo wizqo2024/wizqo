@@ -23226,7 +23226,12 @@ export function PrintablesPage() {
                             const d = Math.floor(remain / 10); remain %= 10;
                             const n = Math.floor(remain / 5); remain %= 5;
                             const pennies = remain;
-                            return `${i + 1}. ${p.cents}${String.fromCharCode(0x00A2)}: ${q}Q, ${d}D, ${n}N, ${pennies}P`;
+                            const parts = [];
+                            if (q > 0) parts.push(`${q} Quarter${q > 1 ? 's' : ''}`);
+                            if (d > 0) parts.push(`${d} Dime${d > 1 ? 's' : ''}`);
+                            if (n > 0) parts.push(`${n} Nickel${n > 1 ? 's' : ''}`);
+                            if (pennies > 0) parts.push(`${pennies} Penn${pennies > 1 ? 'ies' : 'y'}`);
+                            return `${i + 1}. ${p.cents}${String.fromCharCode(0x00A2)}: ${parts.join(', ')}`;
                           })()}
                         </div>
                       ))}
