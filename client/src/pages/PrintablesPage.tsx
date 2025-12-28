@@ -2959,6 +2959,15 @@ export function PrintablesPage() {
                   return '/printables'
                 }
               })()}
+              onClick={(e) => {
+                // If coming from within the site (internal referrer), use history.back() to preserve scroll position
+                if (typeof window !== 'undefined' && document.referrer && document.referrer.includes(window.location.host)) {
+                  // Check if referrer is not the same page (prevent loops) and not authentication-related if applicable
+                  // Simple check for now: if referrer is a page on our domain
+                  e.preventDefault()
+                  window.history.back()
+                }
+              }}
               className="inline-flex items-center gap-2 px-3 py-1.5 rounded-lg border border-slate-200 text-slate-700 hover:bg-slate-50 text-sm"
               aria-label={t('pages.printables.backPrintablePage')}
             >
@@ -38022,7 +38031,7 @@ export function PrintablesPage() {
           {getTrans('common.printTip', 'Tip: Use your browser menu  Print  Save as PDF.')}
         </footer>
       </div>
-    </div>
+    </div >
   )
 }
 
