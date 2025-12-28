@@ -35791,7 +35791,7 @@ export function PrintablesPage() {
             const pairs = [
               { heavy: { name: 'Elephant', emoji: String.fromCodePoint(0x1F418) }, light: { name: 'Feather', emoji: String.fromCodePoint(0x1FAB6) } },
               { heavy: { name: 'Car', emoji: String.fromCodePoint(0x1F697) }, light: { name: 'Balloon', emoji: String.fromCodePoint(0x1F388) } },
-              { heavy: { name: 'Rock', emoji: String.fromCodePoint(0x1F94C) }, light: { name: 'Leaf', emoji: String.fromCodePoint(0x1F343) } }, // Fixed Missing Item Crash
+              { heavy: { name: 'Rock', emoji: String.fromCodePoint(0x1F94C) }, light: { name: 'Leaf', emoji: String.fromCodePoint(0x1F343) } },
               { heavy: { name: 'Books', emoji: String.fromCodePoint(0x1F4DA) }, light: { name: 'Bubble', emoji: String.fromCodePoint(0x1F9FC) } },
               { heavy: { name: 'Hammer', emoji: String.fromCodePoint(0x1F528) }, light: { name: 'Cotton', emoji: String.fromCodePoint(0x2601) } },
               { heavy: { name: 'Backpack', emoji: String.fromCodePoint(0x1F392) }, light: { name: 'Paper', emoji: String.fromCodePoint(0x1F4C4) } },
@@ -35825,6 +35825,8 @@ export function PrintablesPage() {
                       ? [{ ...pair.light, isHeavy: false }, { ...pair.heavy, isHeavy: true }]
                       : [{ ...pair.heavy, isHeavy: true }, { ...pair.light, isHeavy: false }];
 
+                    if (!items[0] || !items[1]) return null; // Defensive check
+
                     return (
                       <div key={idx} className="border-4 border-slate-100 rounded-3xl p-6 bg-white relative hover:border-violet-100 transition-colors">
                         <div className="absolute top-4 left-4 w-8 h-8 rounded-full bg-slate-100 flex items-center justify-center text-xs font-black text-slate-400 italic">#{idx + 1}</div>
@@ -35835,7 +35837,7 @@ export function PrintablesPage() {
                             {/* Scale Base */}
                             <div className="absolute bottom-0 w-12 h-6 bg-slate-300 rounded-t-full"></div>
                             {/* Scale Arm (tilted based on heavy side) */}
-                            <div className={`absolute bottom-6 w-full h-1 bg-slate-400 transition-transform duration-500 origin-center ${(items[0].isHeavy && !isSwapped) || (items[1].isHeavy && isSwapped) ? '-rotate-12' : 'rotate-12'}`}>
+                            <div className={`absolute bottom-6 w-full h-1 bg-slate-400 transition-transform duration-500 origin-center ${items[0].isHeavy ? '-rotate-12' : 'rotate-12'}`}>
                               {/* Scale Pans */}
                               <div className="absolute -left-2 -top-1 w-4 h-4 bg-slate-400 rounded-full"></div>
                               <div className="absolute -right-2 -top-1 w-4 h-4 bg-slate-400 rounded-full"></div>
@@ -35844,8 +35846,8 @@ export function PrintablesPage() {
                             <div className="flex justify-between w-full relative z-10 pb-8">
                               {items.map((item, iIdx) => (
                                 <div key={iIdx} className={`flex flex-col items-center transition-all duration-500 ${item.isHeavy ? 'translate-y-4' : '-translate-y-4'}`}>
-                                  <div className="text-5xl drop-shadow-sm mb-2">{item.emoji}</div>
-                                  <p className="text-[9px] uppercase font-bold text-slate-400 tracking-tighter">{item.name}</p>
+                                  <div className="text-5xl drop-shadow-sm mb-2">{item?.emoji}</div>
+                                  <p className="text-[9px] uppercase font-bold text-slate-400 tracking-tighter">{item?.name}</p>
                                 </div>
                               ))}
                             </div>
@@ -35871,7 +35873,7 @@ export function PrintablesPage() {
                   <div className="space-y-2 text-sm text-purple-800">
                     <div>1. Find 3 heavy objects and 3 light objects around you</div>
                     <div>2. Draw your own heavy and light objects</div>
-                    <div>3. Compare the weight of different objects</div>
+                    <div>3. Comparison: Is a book heavier than a pencil?</div>
                   </div>
                 </div>
                 {/* Self-Assessment */}
