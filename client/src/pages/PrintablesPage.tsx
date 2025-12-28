@@ -2908,9 +2908,13 @@ export function PrintablesPage() {
                   let from = (u.searchParams.get('from') || '').trim()
                   const docId = (doc || '').trim()
 
-                  // Ignore circular usage where from == docId
                   if (from === docId) {
                     from = ''
+                  }
+
+                  // HOTFIX: Mapping lost "from" params for specific Kindergarten worksheets
+                  if (!from && ['big-small', 'heavy-light', 'long-short', 'same-different', 'more-less'].includes(docId)) {
+                    return '/worksheets/kindergarten-math-worksheets'
                   }
 
                   // If coming from interactive worksheets generator, go back there
