@@ -19047,173 +19047,172 @@ export function PrintablesPage() {
         {
 
 
-          {
-            activeDocs.includes('balance-equations-10') && (() => {
-              const rng = makeRng(`${effectiveSeed}|v${variant}|doc=${doc}`)
+          activeDocs.includes('balance-equations-10') && (() => {
+            const rng = makeRng(`${effectiveSeed}|v${variant}|doc=${doc}`)
 
-              // Generate balance problems: x + y = z or z = x + y
-              const problems = Array.from({ length: 6 }, () => {
-                const total = Math.floor(rng() * 6) + 4 // 4 to 10
-                const leftA = Math.floor(rng() * (total - 1)) + 1
-                const leftB = total - leftA
-                const rightA = Math.floor(rng() * (total - 1)) + 1
-                const rightB = total - rightA  // Unknown might be one of these
+            // Generate balance problems: x + y = z or z = x + y
+            const problems = Array.from({ length: 6 }, () => {
+              const total = Math.floor(rng() * 6) + 4 // 4 to 10
+              const leftA = Math.floor(rng() * (total - 1)) + 1
+              const leftB = total - leftA
+              const rightA = Math.floor(rng() * (total - 1)) + 1
+              const rightB = total - rightA  // Unknown might be one of these
 
-                // 3 types: [a+b] = [c+?], [?] = [a+b], [a+b] = [?]
-                const type = Math.floor(rng() * 3)
-                return { total, leftA, leftB, rightA, rightB, type }
-              })
+              // 3 types: [a+b] = [c+?], [?] = [a+b], [a+b] = [?]
+              const type = Math.floor(rng() * 3)
+              return { total, leftA, leftB, rightA, rightB, type }
+            })
 
-              return (
-                <WorksheetSectionWrapper
-                  docId="balance-equations-10"
-                  title="Circus Balancing Act"
-                  emoji={String.fromCodePoint(0x1F522)}
-                  description="Step right up! Make the sides equal to balance the circus scale. Fill in the missing number."
-                  problemCount={problems.length}
-                  learningObjectives={[
-                    'Understand the equal sign means "the same as"',
-                    'Balance equations with sums up to 10',
-                    'Find missing addends',
-                    'Develop algebraic thinking skills'
-                  ]}
-                  parentTeacherTips={[
-                    'Use a real balance scale or your arms to demonstrate "equal".',
-                    'Explain that both sides must have the same total weight (value).',
-                    'Read the equation aloud: "3 plus 2 IS THE SAME AS 4 plus 1"',
-                    'If stuck, calculate the full side first.'
-                  ]}
-                >
-                  <div className="print:hidden h-1 w-full rounded-full bg-gradient-to-r from-yellow-400 to-red-500 animate-gradient-x mb-4" />
+            return (
+              <WorksheetSectionWrapper
+                docId="balance-equations-10"
+                title="Circus Balancing Act"
+                emoji={String.fromCodePoint(0x1F522)}
+                description="Step right up! Make the sides equal to balance the circus scale. Fill in the missing number."
+                problemCount={problems.length}
+                learningObjectives={[
+                  'Understand the equal sign means "the same as"',
+                  'Balance equations with sums up to 10',
+                  'Find missing addends',
+                  'Develop algebraic thinking skills'
+                ]}
+                parentTeacherTips={[
+                  'Use a real balance scale or your arms to demonstrate "equal".',
+                  'Explain that both sides must have the same total weight (value).',
+                  'Read the equation aloud: "3 plus 2 IS THE SAME AS 4 plus 1"',
+                  'If stuck, calculate the full side first.'
+                ]}
+              >
+                <div className="print:hidden h-1 w-full rounded-full bg-gradient-to-r from-yellow-400 to-red-500 animate-gradient-x mb-4" />
 
-                  {/* Decorative Header */}
-                  <div className="w-full h-24 mb-6 relative overflow-hidden bg-white rounded-xl border-4 border-red-500 shadow-lg">
-                    {/* Circus Stripes */}
-                    <div className="absolute inset-0 opacity-10 flex">
-                      {Array.from({ length: 20 }).map((_, i) => (
-                        <div key={i} className={`flex-1 ${i % 2 === 0 ? 'bg-red-500' : 'bg-yellow-400'}`}></div>
-                      ))}
-                    </div>
-
-                    <div className="absolute inset-0 flex items-center justify-center">
-                      <div className="flex items-center gap-4 bg-white/90 px-6 py-2 rounded-full border-2 border-red-200">
-                        <span className="text-4xl animate-bounce-slow">{String.fromCodePoint(0x279C)}</span>
-                        <h2 className="text-3xl font-black text-red-600 tracking-widest uppercase font-serif">BIG TOP BALANCE</h2>
-                        <span className="text-4xl animate-bounce-medium">{String.fromCodePoint(0x279C)}</span>
-                      </div>
-                    </div>
-                  </div>
-
-                  {/* Worked Example */}
-                  <div className="mb-8 p-6 bg-yellow-50 border-2 border-yellow-200 rounded-xl print:border print:bg-white relative">
-                    <div className="font-bold text-yellow-800 mb-4 text-sm uppercase tracking-wide text-center">{String.fromCodePoint(0x1F4A1)}</div>
-
-                    <div className="flex flex-col items-center">
-                      {/* Scale Visual */}
-                      <div className="relative w-full max-w-md h-32 mb-2 flex items-end justify-center">
-                        {/* Base */}
-                        <div className="w-4 h-16 bg-slate-800 mx-auto rounded-t-lg relative z-10"></div>
-                        <div className="absolute bottom-0 w-24 h-4 bg-slate-800 rounded-full"></div>
-
-                        {/* Beam */}
-                        <div className="absolute top-10 w-full h-2 bg-slate-600 rounded-full flex justify-between items-center px-4">
-                          {/* Left Pan */}
-                          <div className="relative">
-                            <div className="w-1 h-12 bg-slate-400 absolute -top-12 left-1/2 -translate-x-1/2"></div>
-                            <div className="w-24 h-8 border-b-4 border-l-4 border-r-4 border-red-500 rounded-b-full bg-red-50 flex justify-center items-end pb-1 gap-1">
-                              <div className="w-6 h-6 rounded-full bg-blue-500 text-white flex items-center justify-center font-bold text-xs shadow-sm">3</div>
-                              <div className="w-6 h-6 rounded-full bg-blue-500 text-white flex items-center justify-center font-bold text-xs shadow-sm">2</div>
-                            </div>
-                          </div>
-
-                          {/* Center Pivot */}
-                          <div className="w-6 h-6 rounded-full bg-yellow-500 border-2 border-yellow-600 z-20"></div>
-
-                          {/* Right Pan */}
-                          <div className="relative">
-                            <div className="w-1 h-12 bg-slate-400 absolute -top-12 left-1/2 -translate-x-1/2"></div>
-                            <div className="w-24 h-8 border-b-4 border-l-4 border-r-4 border-red-500 rounded-b-full bg-red-50 flex justify-center items-end pb-1 gap-1">
-                              <div className="w-6 h-6 rounded-full bg-green-500 text-white flex items-center justify-center font-bold text-xs shadow-sm">5</div>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-
-                      <div className="flex items-center gap-3 text-xl font-bold font-serif text-slate-800 bg-white px-4 py-2 rounded-lg border border-yellow-200">
-                        <span className="text-blue-600">3 + 2</span>
-                        <span>=</span>
-                        <span className="text-green-600">5</span>
-                        <span className="text-xs text-slate-400 font-normal ml-2">(Both sides equal 5!)</span>
-                      </div>
-                    </div>
-                  </div>
-
-                  <div className="grid grid-cols-1 gap-8 break-inside-avoid">
-                    {problems.map((p, i) => (
-                      <div key={i} className="bg-white border-2 border-slate-200 rounded-xl p-4 md:p-6 relative">
-                        {/* Problem Number */}
-                        <div className="absolute top-0 left-0 bg-yellow-100 text-yellow-700 font-bold px-3 py-1 rounded-br-xl text-sm border-r border-b border-yellow-200">
-                          #{i + 1}
-                        </div>
-
-                        <div className="flex flex-col md:flex-row items-center justify-center gap-4 md:gap-8 mt-4">
-
-                          {/* Left Side Equation */}
-                          <div className="flex items-center gap-2 text-3xl font-bold text-slate-700 bg-slate-50 px-4 py-2 rounded-lg border border-slate-200 shadow-inner">
-                            <span>{p.leftA}</span>
-                            <span className="text-slate-400">+</span>
-                            <span>{p.leftB}</span>
-                          </div>
-
-                          {/* Scale Pivot / Equal Sign */}
-                          <div className="flex flex-col items-center">
-                            <div className="text-4xl font-black text-yellow-500 mb-1">=</div>
-                            <div className="w-0 h-0 border-l-[10px] border-l-transparent border-r-[10px] border-r-transparent border-b-[20px] border-b-slate-800"></div>
-                          </div>
-
-                          {/* Right Side Equation (with unknown) */}
-                          <div className="flex items-center gap-2 text-3xl font-bold text-slate-700 bg-slate-50 px-4 py-2 rounded-lg border border-slate-200 shadow-inner">
-                            {p.type === 0 ? (
-                              <>
-                                <span>{p.rightA}</span>
-                                <span className="text-slate-400">+</span>
-                                <div className="w-12 h-12 bg-white border-2 border-dashed border-red-500 rounded flex items-center justify-center text-red-600">?</div>
-                              </>
-                            ) : p.type === 1 ? (
-                              <div className="w-12 h-12 bg-white border-2 border-dashed border-red-500 rounded flex items-center justify-center text-red-600">?</div>
-                            ) : (
-                              <>
-                                <div className="w-12 h-12 bg-white border-2 border-dashed border-red-500 rounded flex items-center justify-center text-red-600">?</div>
-                                <span className="text-slate-400">+</span>
-                                <span>{p.rightA}</span>
-                              </>
-                            )}
-                          </div>
-                        </div>
-                      </div>
+                {/* Decorative Header */}
+                <div className="w-full h-24 mb-6 relative overflow-hidden bg-white rounded-xl border-4 border-red-500 shadow-lg">
+                  {/* Circus Stripes */}
+                  <div className="absolute inset-0 opacity-10 flex">
+                    {Array.from({ length: 20 }).map((_, i) => (
+                      <div key={i} className={`flex-1 ${i % 2 === 0 ? 'bg-red-500' : 'bg-yellow-400'}`}></div>
                     ))}
                   </div>
 
-                  {showAnswersForDoc('balance-equations-10', () => (
-                    <div className="mt-6 p-4 border-2 border-emerald-300 bg-emerald-50 rounded print:border print:bg-white print:page-break-before-always">
-                      <div className="font-bold text-emerald-900 mb-3 text-base">{String.fromCodePoint(0x2705)}</div>
-                      <div className="grid grid-cols-2 md:grid-cols-3 gap-4 text-sm text-emerald-800">
-                        {problems.map((p, i) => {
-                          const ans = p.type === 0 ? p.rightB : p.type === 1 ? p.total : p.rightB
-                          return (
-                            <div key={i} className="flex gap-2">
-                              <span className="font-bold">{i + 1}.</span>
-                              <span>Missing Number: <strong className="text-lg text-emerald-700">{ans}</strong></span>
-                            </div>
-                          )
-                        })}
+                  <div className="absolute inset-0 flex items-center justify-center">
+                    <div className="flex items-center gap-4 bg-white/90 px-6 py-2 rounded-full border-2 border-red-200">
+                      <span className="text-4xl animate-bounce-slow">{String.fromCodePoint(0x279C)}</span>
+                      <h2 className="text-3xl font-black text-red-600 tracking-widest uppercase font-serif">BIG TOP BALANCE</h2>
+                      <span className="text-4xl animate-bounce-medium">{String.fromCodePoint(0x279C)}</span>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Worked Example */}
+                <div className="mb-8 p-6 bg-yellow-50 border-2 border-yellow-200 rounded-xl print:border print:bg-white relative">
+                  <div className="font-bold text-yellow-800 mb-4 text-sm uppercase tracking-wide text-center">{String.fromCodePoint(0x1F4A1)}</div>
+
+                  <div className="flex flex-col items-center">
+                    {/* Scale Visual */}
+                    <div className="relative w-full max-w-md h-32 mb-2 flex items-end justify-center">
+                      {/* Base */}
+                      <div className="w-4 h-16 bg-slate-800 mx-auto rounded-t-lg relative z-10"></div>
+                      <div className="absolute bottom-0 w-24 h-4 bg-slate-800 rounded-full"></div>
+
+                      {/* Beam */}
+                      <div className="absolute top-10 w-full h-2 bg-slate-600 rounded-full flex justify-between items-center px-4">
+                        {/* Left Pan */}
+                        <div className="relative">
+                          <div className="w-1 h-12 bg-slate-400 absolute -top-12 left-1/2 -translate-x-1/2"></div>
+                          <div className="w-24 h-8 border-b-4 border-l-4 border-r-4 border-red-500 rounded-b-full bg-red-50 flex justify-center items-end pb-1 gap-1">
+                            <div className="w-6 h-6 rounded-full bg-blue-500 text-white flex items-center justify-center font-bold text-xs shadow-sm">3</div>
+                            <div className="w-6 h-6 rounded-full bg-blue-500 text-white flex items-center justify-center font-bold text-xs shadow-sm">2</div>
+                          </div>
+                        </div>
+
+                        {/* Center Pivot */}
+                        <div className="w-6 h-6 rounded-full bg-yellow-500 border-2 border-yellow-600 z-20"></div>
+
+                        {/* Right Pan */}
+                        <div className="relative">
+                          <div className="w-1 h-12 bg-slate-400 absolute -top-12 left-1/2 -translate-x-1/2"></div>
+                          <div className="w-24 h-8 border-b-4 border-l-4 border-r-4 border-red-500 rounded-b-full bg-red-50 flex justify-center items-end pb-1 gap-1">
+                            <div className="w-6 h-6 rounded-full bg-green-500 text-white flex items-center justify-center font-bold text-xs shadow-sm">5</div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div className="flex items-center gap-3 text-xl font-bold font-serif text-slate-800 bg-white px-4 py-2 rounded-lg border border-yellow-200">
+                      <span className="text-blue-600">3 + 2</span>
+                      <span>=</span>
+                      <span className="text-green-600">5</span>
+                      <span className="text-xs text-slate-400 font-normal ml-2">(Both sides equal 5!)</span>
+                    </div>
+                  </div>
+                </div>
+
+                <div className="grid grid-cols-1 gap-8 break-inside-avoid">
+                  {problems.map((p, i) => (
+                    <div key={i} className="bg-white border-2 border-slate-200 rounded-xl p-4 md:p-6 relative">
+                      {/* Problem Number */}
+                      <div className="absolute top-0 left-0 bg-yellow-100 text-yellow-700 font-bold px-3 py-1 rounded-br-xl text-sm border-r border-b border-yellow-200">
+                        #{i + 1}
+                      </div>
+
+                      <div className="flex flex-col md:flex-row items-center justify-center gap-4 md:gap-8 mt-4">
+
+                        {/* Left Side Equation */}
+                        <div className="flex items-center gap-2 text-3xl font-bold text-slate-700 bg-slate-50 px-4 py-2 rounded-lg border border-slate-200 shadow-inner">
+                          <span>{p.leftA}</span>
+                          <span className="text-slate-400">+</span>
+                          <span>{p.leftB}</span>
+                        </div>
+
+                        {/* Scale Pivot / Equal Sign */}
+                        <div className="flex flex-col items-center">
+                          <div className="text-4xl font-black text-yellow-500 mb-1">=</div>
+                          <div className="w-0 h-0 border-l-[10px] border-l-transparent border-r-[10px] border-r-transparent border-b-[20px] border-b-slate-800"></div>
+                        </div>
+
+                        {/* Right Side Equation (with unknown) */}
+                        <div className="flex items-center gap-2 text-3xl font-bold text-slate-700 bg-slate-50 px-4 py-2 rounded-lg border border-slate-200 shadow-inner">
+                          {p.type === 0 ? (
+                            <>
+                              <span>{p.rightA}</span>
+                              <span className="text-slate-400">+</span>
+                              <div className="w-12 h-12 bg-white border-2 border-dashed border-red-500 rounded flex items-center justify-center text-red-600">?</div>
+                            </>
+                          ) : p.type === 1 ? (
+                            <div className="w-12 h-12 bg-white border-2 border-dashed border-red-500 rounded flex items-center justify-center text-red-600">?</div>
+                          ) : (
+                            <>
+                              <div className="w-12 h-12 bg-white border-2 border-dashed border-red-500 rounded flex items-center justify-center text-red-600">?</div>
+                              <span className="text-slate-400">+</span>
+                              <span>{p.rightA}</span>
+                            </>
+                          )}
+                        </div>
                       </div>
                     </div>
                   ))}
-                </WorksheetSectionWrapper>
-              )
-            })()
-          }
+                </div>
+
+                {showAnswersForDoc('balance-equations-10', () => (
+                  <div className="mt-6 p-4 border-2 border-emerald-300 bg-emerald-50 rounded print:border print:bg-white print:page-break-before-always">
+                    <div className="font-bold text-emerald-900 mb-3 text-base">{String.fromCodePoint(0x2705)}</div>
+                    <div className="grid grid-cols-2 md:grid-cols-3 gap-4 text-sm text-emerald-800">
+                      {problems.map((p, i) => {
+                        const ans = p.type === 0 ? p.rightB : p.type === 1 ? p.total : p.rightB
+                        return (
+                          <div key={i} className="flex gap-2">
+                            <span className="font-bold">{i + 1}.</span>
+                            <span>Missing Number: <strong className="text-lg text-emerald-700">{ans}</strong></span>
+                          </div>
+                        )
+                      })}
+                    </div>
+                  </div>
+                ))}
+              </WorksheetSectionWrapper>
+            )
+          })()
+        }
 
 
         {
