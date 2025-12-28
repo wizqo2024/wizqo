@@ -12198,1233 +12198,8 @@ export function PrintablesPage() {
           })()
         }
 
-        {
-          activeDocs.includes('picture-addition-10') && (
-            <WorksheetSectionWrapper
-              docId="picture-addition-10"
-              title="Picture Addition to 10"
-              emoji={String.fromCodePoint(0x2795)}
-              description="Count the pictures in each group and add them together."
-              problemCount={6}
-              learningObjectives={[
-                'Count objects in groups',
-                'Add numbers within 10 using visual representations',
-                'Understand addition as combining groups',
-                'Build number sense and counting skills'
-              ]}
-              parentTeacherTips={[
-                'Count each group of pictures separately first',
-                'Then add the two numbers together',
-                'Use fingers or draw dots to help if needed',
-                'Check your answer by counting all the pictures together',
-                'Extension: Try creating your own picture addition problems'
-              ]}
-            >
-              <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-indigo-400 to-purple-400 animate-gradient-x mb-2" />
-              {/* Worked Example */}
-              <div className="mb-6 p-4 bg-gradient-to-br from-indigo-50 to-purple-50 border-2 border-indigo-200 rounded-lg print:border print:bg-white">
-                <div className="font-semibold text-indigo-900 mb-3 text-sm flex items-center gap-2">
-                  <span className="text-2xl">{String.fromCodePoint(0x279C)}</span>
-                  <span>Example - Let's solve this together:</span>
-                </div>
-                <div className="space-y-3 text-sm">
-                  <div className="font-semibold text-base text-indigo-900"><strong>Problem:</strong> <span className="text-2xl">3 apples + 4 apples = ?</span></div>
-                  {/* Visual example with colorful apples */}
-                  <div className="bg-white p-4 rounded-lg border-2 border-indigo-300">
-                    <div className="flex items-center justify-center gap-4">
-                      <div className="text-center">
-                        <div className="flex gap-2 mb-2">
-                          {Array.from({ length: 3 }).map((_, i) => (
-                            <span key={i} className="text-4xl">{String.fromCodePoint(0x279C)}</span>
-                          ))}
-                        </div>
-                        <div className="text-sm font-semibold text-indigo-700">3 apples</div>
-                      </div>
-                      <div className="text-4xl text-indigo-700 font-bold">+</div>
-                      <div className="text-center">
-                        <div className="flex gap-2 mb-2">
-                          {Array.from({ length: 4 }).map((_, i) => (
-                            <span key={i} className="text-4xl">{String.fromCodePoint(0x279C)}</span>
-                          ))}
-                        </div>
-                        <div className="text-sm font-semibold text-indigo-700">4 apples</div>
-                      </div>
-                      <div className="text-4xl text-indigo-700 font-bold">=</div>
-                      <div className="text-center">
-                        <div className="flex gap-2 mb-2">
-                          {Array.from({ length: 7 }).map((_, i) => (
-                            <span key={i} className="text-4xl">{String.fromCodePoint(0x279C)}</span>
-                          ))}
-                        </div>
-                        <div className="text-sm font-semibold text-indigo-700">7 apples</div>
-                      </div>
-                    </div>
-                  </div>
-                  <div className="pl-4 border-l-2 border-indigo-300 space-y-1">
-                    <div><strong>Step 1:</strong> Count the first group: <span className="text-indigo-700 font-bold">1, 2, 3</span> (3 apples)</div>
-                    <div><strong>Step 2:</strong> Count the second group: <span className="text-indigo-700 font-bold">1, 2, 3, 4</span> (4 apples)</div>
-                    <div><strong>Step 3:</strong> Add them together: <span className="text-indigo-700 font-bold text-lg">3 + 4 = 7</span></div>
-                    <div className="font-semibold text-indigo-900 mt-2"><strong>Answer:</strong> <span className="text-2xl text-indigo-700">7</span></div>
-                    <div className="text-xs text-indigo-700 mt-2 flex items-center gap-1">
-                      <span>{String.fromCodePoint(0x279C)}</span>
-                      <span>Tip: Count each group first, then add the numbers together. You can also count all the pictures to check your answer!</span>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div className="grid grid-cols-2 gap-4" style={{ pageBreakAfter: 'auto' }}>
-                {[[3, 4, '', ''], [2, 5, '', ''], [4, 3, '', ''], [1, 6, '', ''], [5, 2, '', ''], [3, 5, '', '']].map(([a, b, emoji1, emoji2], idx) => (
-                  <div key={idx} className="bg-gradient-to-br from-indigo-50 to-purple-50 p-3 rounded-lg border-2 border-indigo-200">
-                    <svg viewBox="0 0 400 200" className="w-full h-auto bg-white border border-slate-300 rounded">
-                      {/* First group */}
-                      <g>
-                        {Array.from({ length: a }).map((_, i) => (
-                          <g key={i} transform={`translate(${60 + i * 35}, 50)`}>
-                            <circle cx="0" cy="0" r="18" fill="#fef3c7" stroke="#f59e0b" strokeWidth="2" />
-                            <text x="0" y="5" fontSize="24" textAnchor="middle">{emoji1}</text>
-                          </g>
-                        ))}
-                      </g>
-                      <text x="200" y="70" fontSize="36" fill="#6366f1" fontWeight="bold" textAnchor="middle">+</text>
-                      {/* Second group */}
-                      <g>
-                        {Array.from({ length: b }).map((_, i) => (
-                          <g key={i} transform={`translate(${240 + i * 35}, 50)`}>
-                            <circle cx="0" cy="0" r="18" fill="#dbeafe" stroke="#3b82f6" strokeWidth="2" />
-                            <text x="0" y="5" fontSize="24" textAnchor="middle">{emoji2}</text>
-                          </g>
-                        ))}
-                      </g>
-                      <line x1="50" y1="120" x2="350" y2="120" stroke="#6366f1" strokeWidth="3" />
-                      <rect x="160" y="130" width="80" height="40" fill="white" stroke="#6366f1" strokeWidth="2.5" strokeDasharray="4 4" />
-                      <text x="200" y="158" fontSize="28" fill="#94a3b8" textAnchor="middle">?</text>
-                      <text x="200" y="180" fontSize="14" fill="#6366f1" textAnchor="middle" fontWeight="bold">{a} + {b} = ___</text>
-                    </svg>
-                  </div>
-                ))}
-              </div>
-              {/* Extension/Challenge Problems */}
-              <div className="mt-6 print:mt-0 p-4 bg-purple-50 border-2 border-purple-200 rounded print:bg-white print:border" style={{ pageBreakBefore: 'always', pageBreakInside: 'avoid' }}>
-                <div className="font-semibold text-purple-900 mb-3 text-sm">{String.fromCodePoint(0x1F680)}</div>
-                <div className="space-y-2 text-sm text-purple-800">
-                  <div>1. Can you solve 6 + 4 without counting? (Hint: Use what you know about 10!)</div>
-                  <div>2. Draw your own picture addition problem: ___ + ___ = ?</div>
-                  <div>3. Try solving these: 7 + 2 = ? and 4 + 6 = ?</div>
-                </div>
-              </div>
-              {/* Self-Assessment */}
-              <div className="print:block hidden print:mt-0 mt-6 p-4 border-2 border-slate-300 rounded" style={{ pageBreakBefore: 'avoid', pageBreakInside: 'avoid' }}>
-                <div className="font-semibold text-slate-800 mb-3 text-sm">{String.fromCodePoint(0x270F)}</div>
-                <div className="space-y-2 text-xs">
-                  <div>{String.fromCharCode(0x2610)} I can count objects in groups</div>
-                  <div>{String.fromCharCode(0x2610)} I can add numbers within 10</div>
-                  <div>{String.fromCodePoint(0x270F)}</div>
-                </div>
-                <div className="mt-3 text-xs">
-                  <strong>{getTrans('common.myScore', 'My score:')}</strong> ___ / 6
-                </div>
-                <div className="mt-2 text-xs">
-                  <strong>{getTrans('common.whatWasHardest', 'What was hardest?')}</strong> _________________________
-                </div>
-              </div>
-              {showAnswersForDoc('picture-addition-10', () => (
-                <div className="mt-6 p-4 border-2 border-emerald-300 bg-emerald-50 rounded print:border print:bg-white print:page-break-before-always">
-                  <div className="font-bold text-emerald-900 mb-3 text-base">{String.fromCodePoint(0x2705)}</div>
-                  <ul className="list-disc list-inside space-y-2 text-sm text-emerald-800">
-                    {[[3, 4], [2, 5], [4, 3], [1, 6], [5, 2], [3, 5]].map(([a, b], idx) => (
-                      <li key={idx}><strong>{a} + {b} = {a + b}</strong> (Count {a} circles in the first group, {b} circles in the second group, total = {a + b})</li>
-                    ))}
-                  </ul>
-                  <div className="text-xs text-emerald-700 mt-3">{String.fromCodePoint(0x279C)}</div>
-                </div>
-              ))}
-            </WorksheetSectionWrapper>
-          )
-        }
-
-        {
-          activeDocs.includes('subtraction-stories') && (
-            <WorksheetSectionWrapper
-              docId="subtraction-stories"
-              title="Subtraction Stories"
-              emoji={String.fromCodePoint(0x2796)}
-              description="Read the story and solve the subtraction problem."
-              problemCount={4}
-              learningObjectives={[
-                'Read and understand subtraction word problems',
-                'Solve subtraction problems within 10',
-                'Connect stories to subtraction equations',
-                'Build problem-solving skills'
-              ]}
-              parentTeacherTips={[
-                'Help students identify the starting number and what is taken away',
-                'Encourage drawing pictures to visualize the story',
-                'Key words: "eaten", "flew away", "picked", "shared" mean subtraction',
-                'Check answers by adding: if 8 - 3 = 5, then 5 + 3 should equal 8',
-                'Extension: Create your own subtraction stories'
-              ]}
-            >
-              <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-rose-400 to-pink-400 animate-gradient-x mb-2" />
-              {/* Worked Example */}
-              <div className="mb-6 p-4 bg-gradient-to-br from-rose-50 to-pink-50 border-2 border-rose-200 rounded-lg print:border print:bg-white">
-                <div className="font-semibold text-rose-900 mb-3 text-sm flex items-center gap-2">
-                  <span className="text-2xl">{String.fromCodePoint(0x279C)}</span>
-                  <span>Example - Let's solve this together:</span>
-                </div>
-                <div className="space-y-3 text-sm">
-                  <div className="font-semibold text-base text-rose-900"><strong>Story:</strong> <span className="text-lg">8 apples, 3 eaten</span></div>
-                  {/* Visual example */}
-                  <div className="bg-white p-4 rounded-lg border-2 border-rose-300">
-                    <div className="flex items-center justify-center gap-4 mb-3">
-                      <div className="text-center">
-                        <div className="text-sm font-semibold text-rose-700 mb-2">Start: 8 apples</div>
-                        <div className="flex gap-1 flex-wrap justify-center max-w-[200px]">
-                          {Array.from({ length: 8 }).map((_, i) => (
-                            <span key={i} className="text-2xl">{String.fromCodePoint(0x279C)}</span>
-                          ))}
-                        </div>
-                      </div>
-                      <div className="text-2xl text-rose-700 font-bold">{String.fromCodePoint(0x279C)}</div>
-                      <div className="text-center">
-                        <div className="text-sm font-semibold text-red-600 mb-2">Eaten: 3</div>
-                        <div className="flex gap-1 flex-wrap justify-center max-w-[150px]">
-                          {Array.from({ length: 3 }).map((_, i) => (
-                            <span key={i} className="text-2xl opacity-50">{String.fromCodePoint(0x279C)}</span>
-                          ))}
-                        </div>
-                      </div>
-                      <div className="text-2xl text-rose-700 font-bold">=</div>
-                      <div className="text-center">
-                        <div className="text-sm font-semibold text-rose-700 mb-2">Left: 5</div>
-                        <div className="flex gap-1 flex-wrap justify-center max-w-[200px]">
-                          {Array.from({ length: 5 }).map((_, i) => (
-                            <span key={i} className="text-2xl">{String.fromCodePoint(0x279C)}</span>
-                          ))}
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                  <div className="pl-4 border-l-2 border-rose-300 space-y-1">
-                    <div><strong>Step 1:</strong> Start with <span className="text-rose-700 font-bold">8 apples</span></div>
-                    <div><strong>Step 2:</strong> <span className="text-red-600 font-bold">3 apples</span> were eaten (taken away)</div>
-                    <div><strong>Step 3:</strong> Subtract: <span className="text-rose-700 font-bold text-lg">8 - 3 = 5</span></div>
-                    <div className="font-semibold text-rose-900 mt-2"><strong>Answer:</strong> <span className="text-2xl text-rose-700">5 apples left</span></div>
-                    <div className="text-xs text-rose-700 mt-2 flex items-center gap-1">
-                      <span>{String.fromCodePoint(0x279C)}</span>
-                      <span>Tip: Subtraction means "take away". Start with the total, then subtract what was taken away!</span>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div className="space-y-4 break-inside-avoid" style={{ pageBreakAfter: 'auto' }}>
-                {[
-                  { total: 8, take: 3, story: '8 apples, 3 eaten', emoji: String.fromCodePoint(0x1F34E) },
-                  { total: 7, take: 2, story: '7 birds, 2 flew away', emoji: String.fromCodePoint(0x1F426) },
-                  { total: 9, take: 4, story: '9 flowers, 4 picked', emoji: String.fromCodePoint(0x1F33C) },
-                  { total: 10, take: 5, story: '10 cookies, 5 shared', emoji: String.fromCodePoint(0x1F36A) }
-                ].map(({ total, take, story, emoji }, idx) => (
-                  <div key={idx} className="border-2 border-rose-200 rounded-lg p-4 bg-gradient-to-br from-rose-50 to-pink-50">
-                    <p className="text-rose-900 text-base font-semibold mb-3">{idx + 1}. {story}</p>
-                    <div className="bg-white p-3 rounded-lg border-2 border-rose-300 mb-3">
-                      <div className="flex items-center justify-center gap-3">
-                        <div className="text-center">
-                          <div className="flex gap-1 flex-wrap justify-center max-w-[200px] mb-1">
-                            {Array.from({ length: total }).map((_, i) => (
-                              <span key={i} className={`text-2xl ${i < take ? 'opacity-30' : ''}`}>{emoji}</span>
-                            ))}
-                          </div>
-                          <div className="text-xs text-rose-700 font-semibold">{total} total</div>
-                        </div>
-                        <div className="text-2xl text-rose-700 font-bold">{String.fromCodePoint(0x279C)}</div>
-                        <div className="text-center">
-                          <div className="flex gap-1 flex-wrap justify-center max-w-[150px] mb-1">
-                            {Array.from({ length: take }).map((_, i) => (
-                              <span key={i} className="text-2xl opacity-50">{emoji}</span>
-                            ))}
-                          </div>
-                          <div className="text-xs text-red-600 font-semibold">{take} taken</div>
-                        </div>
-                        <div className="text-2xl text-rose-700 font-bold">=</div>
-                        <div className="text-center">
-                          <div className="text-2xl font-bold text-rose-700">?</div>
-                        </div>
-                      </div>
-                    </div>
-                    <div className="text-lg font-mono text-rose-900 text-center bg-white px-4 py-2 rounded border border-rose-300">
-                      {total}  {take} = <span className="inline-block w-12 h-12 border-2 border-rose-300 rounded bg-white align-middle ml-2" />
-                    </div>
-                  </div>
-                ))}
-              </div>
-              {/* Extension/Challenge Problems */}
-              <div className="mt-6 print:mt-0 p-4 bg-purple-50 border-2 border-purple-200 rounded print:bg-white print:border" style={{ pageBreakBefore: 'always', pageBreakInside: 'avoid' }}>
-                <div className="font-semibold text-purple-900 mb-3 text-sm">{String.fromCodePoint(0x1F680)}</div>
-                <div className="space-y-2 text-sm text-purple-800">
-                  <div>1. Can you write your own subtraction story? (Example: "12 toys, 5 broken")</div>
-                  <div>2. Try solving: 15 - 7 = ? (Hint: Think about what number plus 7 equals 15)</div>
-                  <div>3. If you have 20 stickers and give away 8, how many are left?</div>
-                </div>
-              </div>
-              {/* Self-Assessment */}
-              <div className="print:block hidden print:mt-0 mt-6 p-4 border-2 border-slate-300 rounded" style={{ pageBreakBefore: 'avoid', pageBreakInside: 'avoid' }}>
-                <div className="font-semibold text-slate-800 mb-3 text-sm">{String.fromCodePoint(0x270F)}</div>
-                <div className="space-y-2 text-xs">
-                  <div>{String.fromCharCode(0x2610)} I can read and understand subtraction stories</div>
-                  <div>{String.fromCharCode(0x2610)} I can solve subtraction problems within 10</div>
-                  <div>{String.fromCodePoint(0x270F)}</div>
-                </div>
-                <div className="mt-3 text-xs">
-                  <strong>{getTrans('common.myScore', 'My score:')}</strong> ___ / 4
-                </div>
-                <div className="mt-2 text-xs">
-                  <strong>{getTrans('common.whatWasHardest', 'What was hardest?')}</strong> _________________________
-                </div>
-              </div>
-              {showAnswersForDoc('subtraction-stories', () => (
-                <div className="mt-6 p-4 border-2 border-emerald-300 bg-emerald-50 rounded print:border print:bg-white print:page-break-before-always">
-                  <div className="font-bold text-emerald-900 mb-3 text-base">{String.fromCodePoint(0x2705)}</div>
-                  <ul className="list-disc list-inside space-y-2 text-sm text-emerald-800">
-                    {[
-                      { total: 8, take: 3, story: '8 apples, 3 eaten' },
-                      { total: 7, take: 2, story: '7 birds, 2 flew away' },
-                      { total: 9, take: 4, story: '9 flowers, 4 picked' },
-                      { total: 10, take: 5, story: '10 cookies, 5 shared' }
-                    ].map(({ total, take, story }, idx) => (
-                      <li key={idx}><strong>{total} - {take} = {total - take}</strong> ({story}: Start with {total}, take away {take}, {total - take} left)</li>
-                    ))}
-                  </ul>
-                  <div className="text-xs text-emerald-700 mt-3">{String.fromCodePoint(0x279C)}</div>
-                </div>
-              ))}
-            </WorksheetSectionWrapper>
-          )
-        }
-
-        {
-          activeDocs.includes('balance-equations-10') && (() => {
-            const rng = makeRng(`${effectiveSeed}|v${variant}|doc=${doc}`);
-            function nextInt(min: number, max: number) { return Math.floor(rng() * (max - min + 1)) + min; }
-
-            // Generate balanced equations
-            const equations: Array<{ left: string; right: string; answer: number }> = [];
-            const types = ['add-left', 'add-right', 'sub-left', 'sub-right'];
-
-            for (let i = 0; i < 4; i++) {
-              const type = types[i % types.length];
-              let left: string, right: string, answer: number;
-              let attempts = 0;
-
-              while (attempts < 50) {
-                attempts++;
-
-                if (type === 'add-left') {
-                  // Left side: a + b, Right side: __ + c (where a + b = __ + c)
-                  const a = nextInt(1, 8);
-                  const b = nextInt(1, 9 - a);
-                  const leftSum = a + b;
-                  const c = nextInt(1, Math.min(9, leftSum - 1));
-                  answer = leftSum - c;
-                  if (answer >= 1 && answer <= 10) {
-                    left = `${a} + ${b}`;
-                    right = `__ + ${c}`;
-                    break;
-                  }
-                } else if (type === 'add-right') {
-                  // Left side: a + __, Right side: b + c (where a + __ = b + c)
-                  const b = nextInt(1, 8);
-                  const c = nextInt(1, 9 - b);
-                  const rightSum = b + c;
-                  const a = nextInt(1, Math.min(8, rightSum - 1));
-                  answer = rightSum - a;
-                  if (answer >= 1 && answer <= 10) {
-                    left = `${a} + __`;
-                    right = `${b} + ${c}`;
-                    break;
-                  }
-                } else if (type === 'sub-left') {
-                  // Left side: a - b, Right side: __ - c (where a - b = __ - c, so __ = a - b + c)
-                  const a = nextInt(3, 10);
-                  const b = nextInt(1, a - 1);
-                  const leftDiff = a - b;
-                  const c = nextInt(1, Math.min(9, 10 - leftDiff));
-                  answer = leftDiff + c;
-                  if (answer >= 1 && answer <= 10) {
-                    left = `${a} - ${b}`;
-                    right = `__ - ${c}`;
-                    break;
-                  }
-                } else { // sub-right
-                  // Left side: a - __, Right side: b - c (where a - __ = b - c, so __ = a - (b - c))
-                  const b = nextInt(3, 10);
-                  const c = nextInt(1, b - 1);
-                  const rightDiff = b - c;
-                  const a = nextInt(Math.max(3, rightDiff + 1), 10);
-                  answer = a - rightDiff;
-                  if (answer >= 1 && answer <= 10) {
-                    left = `${a} - __`;
-                    right = `${b} - ${c}`;
-                    break;
-                  }
-                }
-              }
-
-              // Fallback if generation failed
-              if (attempts >= 50) {
-                if (type.startsWith('add')) {
-                  left = '2 + 3';
-                  right = '__ + 4';
-                  answer = 1;
-                } else {
-                  left = '5 - 2';
-                  right = '__ - 1';
-                  answer = 4;
-                }
-              }
-
-              equations.push({ left, right, answer });
-            }
-
-            return (
-              <WorksheetSectionWrapper
-                docId="balance-equations-10"
-                title="Balance Equations (to 10)"
-                emoji={String.fromCodePoint(0x1F522)}
-                description="Find the missing number to make both sides equal."
-                problemCount={equations.length}
-                learningObjectives={[
-                  'Understand that both sides of an equation must be equal',
-                  'Find missing numbers to balance equations',
-                  'Use addition and subtraction to solve for unknowns',
-                  'Build algebraic thinking skills'
-                ]}
-                parentTeacherTips={[
-                  'An equation is like a balance scale - both sides must be equal',
-                  'To find the missing number, solve one side first, then make the other side equal',
-                  'For addition: if left side is 3+4=7, and right side is __+2, then __ must be 5 (because 5+2=7)',
-                  'For subtraction: if left side is 8-3=5, and right side is __-1, then __ must be 6 (because 6-1=5)',
-                  'Extension: Try balancing equations with larger numbers'
-                ]}
-              >
-                <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-teal-400 to-cyan-400 animate-gradient-x mb-2" />
-                {/* Worked Example */}
-                <div className="mb-6 p-4 bg-gradient-to-br from-teal-50 to-cyan-50 border-2 border-teal-200 rounded-lg print:border print:bg-white">
-                  <div className="font-semibold text-teal-900 mb-3 text-sm flex items-center gap-2">
-                    <span className="text-2xl">{String.fromCodePoint(0x279C)}</span>
-                    <span>Example - Let's solve this together:</span>
-                  </div>
-                  <div className="space-y-3 text-sm">
-                    <div className="font-semibold text-base text-teal-900"><strong>Problem:</strong> <span className="text-2xl text-teal-700">3 + 4 = __ + 2</span></div>
-                    {/* Visual balance scale */}
-                    <div className="bg-white p-4 rounded-lg border-2 border-teal-300">
-                      <svg viewBox="0 0 500 180" className="w-full h-auto">
-                        {/* Balance scale */}
-                        <g fill="none" stroke="#14b8a6" strokeWidth="3">
-                          <path d="M100 100 L400 100" />
-                          <path d="M250 40 L250 100" />
-                          <circle cx="150" cy="80" r="25" fill="#f0fdfa" stroke="#14b8a6" strokeWidth="2" />
-                          <circle cx="350" cy="80" r="25" fill="#f0fdfa" stroke="#14b8a6" strokeWidth="2" />
-                        </g>
-                        {/* Left side: 3 + 4 = 7 */}
-                        <g>
-                          {Array.from({ length: 3 }).map((_, i) => (
-                            <circle key={i} cx={130 + i * 15} cy="80" r="8" fill="#22c55e" />
-                          ))}
-                          <text x="150" y="75" fontSize="12" fill="#14b8  6" textAnchor="middle" fontWeight="bold">3</text>
-                          {Array.from({ length: 4 }).map((_, i) => (
-                            <circle key={i} cx={180 + i * 15} cy="80" r="8" fill="#3b82f6" />
-                          ))}
-                          <text x="240" y="75" fontSize="12" fill="#14b8  6" textAnchor="middle" fontWeight="bold">+4</text>
-                          <text x="150" y="110" fontSize="16" fill="#14b8  6" textAnchor="middle" fontWeight="bold">= 7</text>
-                        </g>
-                        {/* Right side: __ + 2 */}
-                        <g>
-                          <circle cx="350" cy="80" r="20" fill="white" stroke="#94a3b8" strokeWidth="2" strokeDasharray="4 4" />
-                          <text x="350" y="75" fontSize="14" fill="#94  3b8" textAnchor="middle" fontWeight="bold">?</text>
-                          {Array.from({ length: 2 }).map((_, i) => (
-                            <circle key={i} cx={380 + i * 15} cy="80" r="8" fill="#f59e0b" />
-                          ))}
-                          <text x="410" y="75" fontSize="12" fill="#14b8  6" textAnchor="middle" fontWeight="bold">+2</text>
-                          <text x="350" y="110" fontSize="16" fill="#14b8  6" textAnchor="middle" fontWeight="bold">= 7</text>
-                        </g>
-                        <text x="250" y="150" fontSize="18" fill="#14b8  6" textAnchor="middle" fontWeight="bold">Both sides must be equal! Missing number is 5</text>
-                      </svg>
-                    </div>
-                    <div className="pl-4 border-l-2 border-teal-300 space-y-1">
-                      <div><strong>Step 1:</strong> Solve the left side: <span className="text-teal-700 font-bold">3 + 4 = 7</span></div>
-                      <div><strong>Step 2:</strong> The right side must also equal <span className="text-teal-700 font-bold">7</span>: <span className="text-teal-700 font-bold">__ + 2 = 7</span></div>
-                      <div><strong>Step 3:</strong> Find the missing number: <span className="text-teal-700 font-bold text-lg">7 - 2 = 5</span></div>
-                      <div className="font-semibold text-teal-900 mt-2"><strong>Answer:</strong> <span className="text-2xl text-teal-700">5</span> (because 3 + 4 = 5 + 2, both equal 7)</div>
-                      <div className="text-xs text-teal-700 mt-2 flex items-center gap-1">
-                        <span>{String.fromCodePoint(0x279C)}</span>
-                        <span>Tip: Solve one side first, then make the other side equal to it!</span>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div className="space-y-4 break-inside-avoid" style={{ pageBreakAfter: 'auto' }}>
-                  {equations.map((eq, idx) => {
-                    const leftParts = eq.left.split(/[+\-]/).map(x => x.trim());
-                    const rightParts = eq.right.split(/[+\-]/).map(x => x.trim());
-                    const isAdd = eq.left.includes('+');
-                    return (
-                      <div key={idx} className="bg-gradient-to-br from-teal-50 to-cyan-50 p-3 rounded-lg border-2 border-teal-200">
-                        <svg viewBox="0 0 500 150" className="w-full h-auto bg-white border border-slate-300 rounded">
-                          <g fill="none" stroke="#14b8a6" strokeWidth="3">
-                            <path d="M80 100 L420 100" />
-                            <path d="M250 30 L250 100" />
-                            <circle cx="150" cy="80" r="25" fill="#f0fdfa" stroke="#14b8a6" strokeWidth="2" />
-                            <circle cx="350" cy="80" r="25" fill="#f0fdfa" stroke="#14b8a6" strokeWidth="2" />
-                          </g>
-                          <text x="150" y="75" fontSize="20" fill="#14b8  6" textAnchor="middle" fontWeight="bold">{eq.left}</text>
-                          <text x="350" y="75" fontSize="20" fill="#14b8  6" textAnchor="middle" fontWeight="bold">{eq.right}</text>
-                          <text x="250" y="130" fontSize="14" fill="#64748b" textAnchor="middle">Find the missing number to balance the scale</text>
-                        </svg>
-                      </div>
-                    );
-                  })}
-                </div>
-                {/* Extension/Challenge Problems */}
-                <div className="mt-6 print:mt-0 p-4 bg-purple-50 border-2 border-purple-200 rounded print:bg-white print:border" style={{ pageBreakBefore: 'always', pageBreakInside: 'avoid' }}>
-                  <div className="font-semibold text-purple-900 mb-3 text-sm">{String.fromCodePoint(0x1F680)}</div>
-                  <div className="space-y-2 text-sm text-purple-800">
-                    <div>1. Can you solve: 10 + 5 = __ + 8? (Hint: Solve the left side first!)</div>
-                    <div>2. Try: 20 - 7 = __ - 3. What's the missing number?</div>
-                    <div>3. Create your own balanced equation and solve it</div>
-                  </div>
-                </div>
-                {/* Self-Assessment */}
-                <div className="print:block hidden print:mt-0 mt-6 p-4 border-2 border-slate-300 rounded" style={{ pageBreakBefore: 'avoid', pageBreakInside: 'avoid' }}>
-                  <div className="font-semibold text-slate-800 mb-3 text-sm">{String.fromCodePoint(0x270F)}</div>
-                  <div className="space-y-2 text-xs">
-                    <div>{String.fromCharCode(0x2610)} I understand that both sides must be equal</div>
-                    <div>{String.fromCharCode(0x2610)} I can find missing numbers to balance equations</div>
-                    <div>{String.fromCodePoint(0x270F)}</div>
-                  </div>
-                  <div className="mt-3 text-xs">
-                    <strong>{getTrans('common.myScore', 'My score:')}</strong> ___ / {equations.length}
-                  </div>
-                  <div className="mt-2 text-xs">
-                    <strong>{getTrans('common.whatWasHardest', 'What was hardest?')}</strong> _________________________
-                  </div>
-                </div>
-                {showAnswersForDoc('balance-equations-10', () => (
-                  <div className="mt-6 p-4 border-2 border-emerald-300 bg-emerald-50 rounded print:border print:bg-white print:page-break-before-always">
-                    <div className="font-bold text-emerald-900 mb-3 text-base">{String.fromCodePoint(0x2705)}</div>
-                    <ul className="list-disc list-inside space-y-2 text-sm text-emerald-800">
-                      {equations.map((eq, idx) => {
-                        const leftValue = eq.left.includes('+')
-                          ? eq.left.split('+').map(x => parseInt(x.trim())).reduce((a, b) => a + b, 0)
-                          : eq.left.includes('__')
-                            ? eq.answer
-                            : eq.left.split('-').map(x => parseInt(x.trim())).reduce((a, b) => a - b);
-                        return (
-                          <li key={idx}><strong>{eq.left.replace('__', eq.answer.toString())} = {eq.right.replace('__', eq.answer.toString())}</strong> (Both sides equal {leftValue})</li>
-                        );
-                      })}
-                    </ul>
-                    <div className="text-xs text-emerald-700 mt-3">{String.fromCodePoint(0x279C)}</div>
-                  </div>
-                ))}
-              </WorksheetSectionWrapper>
-            );
-          })()
-        }
-
-        {
-          activeDocs.includes('skip-count-2s') && (
-            <WorksheetSectionWrapper
-              docId="skip-count-2s"
-              title="Skip Counting by 2s"
-              emoji={String.fromCodePoint(0x1F430)}
-              description="Count by 2s. Fill in the missing numbers."
-              problemCount={4}
-              learningObjectives={[
-                'Count by 2s (2, 4, 6, 8, 10...)',
-                'Identify missing numbers in skip counting sequences',
-                'Recognize patterns in counting',
-                'Build number sense and multiplication foundation'
-              ]}
-              parentTeacherTips={[
-                'Skip counting by 2s means counting every other number: 2, 4, 6, 8, 10...',
-                'Help students see the pattern: each number is 2 more than the previous',
-                'Use fingers, objects, or a number line to visualize',
-                'Practice counting aloud: "2, 4, 6, 8, 10..."',
-                'Extension: Try skip counting by 5s or 10s'
-              ]}
-            >
-              <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-pink-400 to-rose-400 animate-gradient-x mb-2" />
-              {/* Worked Example */}
-              <div className="mb-6 p-4 bg-gradient-to-br from-pink-50 to-rose-50 border-2 border-pink-200 rounded-lg print:border print:bg-white">
-                <div className="font-semibold text-pink-900 mb-3 text-sm flex items-center gap-2">
-                  <span className="text-2xl">{String.fromCodePoint(0x279C)}</span>
-                  <span>Example - Let's solve this together:</span>
-                </div>
-                <div className="space-y-3 text-sm">
-                  <div className="font-semibold text-base text-pink-900"><strong>Sequence:</strong> <span className="text-2xl text-pink-700">2, __, 6, __, 10</span></div>
-                  {/* Visual example with pairs */}
-                  <div className="bg-white p-4 rounded-lg border-2 border-pink-300">
-                    <div className="flex items-center justify-center gap-2 mb-3">
-                      {[2, 4, 6, 8, 10].map((num, i) => (
-                        <div key={i} className="text-center">
-                          <div className="flex gap-1 mb-1">
-                            {Array.from({ length: num }).map((_, j) => (
-                              <span key={j} className="text-xl">{String.fromCodePoint(0x279C)}</span>
-                            ))}
-                          </div>
-                          <div className={`text-sm font-semibold ${i % 2 === 0 ? 'text-pink-700' : 'text-pink-400'}`}>
-                            {i % 2 === 0 ? num : '?'}
-                          </div>
-                        </div>
-                      ))}
-                    </div>
-                    <div className="text-center text-pink-700 font-semibold">Count by pairs: 2, 4, 6, 8, 10</div>
-                  </div>
-                  <div className="pl-4 border-l-2 border-pink-300 space-y-1">
-                    <div><strong>Step 1:</strong> We're counting by <span className="text-pink-700 font-bold">2s</span>: 2, 4, 6, 8, 10...</div>
-                    <div><strong>Step 2:</strong> After 2 comes <span className="text-pink-700 font-bold">4</span> (2 + 2 = 4)</div>
-                    <div><strong>Step 3:</strong> After 6 comes <span className="text-pink-700 font-bold">8</span> (6 + 2 = 8)</div>
-                    <div className="font-semibold text-pink-900 mt-2"><strong>Answer:</strong> <span className="text-2xl text-pink-700">2, 4, 6, 8, 10</span></div>
-                    <div className="text-xs text-pink-700 mt-2 flex items-center gap-1">
-                      <span>{String.fromCodePoint(0x279C)}</span>
-                      <span>Tip: Skip counting by 2s means adding 2 each time. Each number is 2 more than the one before!</span>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div className="grid grid-cols-2 gap-4" style={{ pageBreakAfter: 'auto' }}>
-                {Array.from({ length: 4 }).map((_, idx) => (
-                  <div key={idx} className="bg-gradient-to-br from-pink-50 to-rose-50 p-3 rounded-lg border-2 border-pink-200">
-                    <svg viewBox="0 0 500 120" className="w-full h-auto bg-white border border-slate-300 rounded">
-                      <g>
-                        {[2, 4, 6, 8, 10, 12, 14, 16, 18, 20].map((num, i) => {
-                          const x = 40 + i * 42
-                          return (
-                            <g key={i}>
-                              <circle cx={x} cy="50" r="18" fill={i % 2 === idx % 2 ? "#fef3c7" : "white"} stroke={i % 2 === idx % 2 ? "#f59e0b" : "#94a3b8"} strokeWidth="2.5" />
-                              {i % 2 === idx % 2 ? (
-                                <text x={x} y="58" fontSize="18" fill="#f59e0b" textAnchor="middle" fontWeight="bold">{num}</text>
-                              ) : (
-                                <text x={x} y="58" fontSize="18" fill="#94  3b8" textAnchor="middle">__</text>
-                              )}
-                              {/* Visual pairs below */}
-                              {i % 2 === idx % 2 && (
-                                <g>
-                                  {Array.from({ length: Math.min(num, 4) }).map((_, j) => (
-                                    <text key={j} x={x - 8 + j * 4} y="85" fontSize="12">{String.fromCodePoint(0x279C)}</text>
-                                  ))}
-                                  {num > 4 && <text x={x} y="95" fontSize="10" fill="#f59e0b">{num}</text>}
-                                </g>
-                              )}
-                            </g>
-                          )
-                        })}
-                      </g>
-                    </svg>
-                  </div>
-                ))}
-              </div>
-              {/* Extension/Challenge Problems */}
-              <div className="mt-6 print:mt-0 p-4 bg-purple-50 border-2 border-purple-200 rounded print:bg-white print:border" style={{ pageBreakBefore: 'always', pageBreakInside: 'avoid' }}>
-                <div className="font-semibold text-purple-900 mb-3 text-sm">{String.fromCodePoint(0x1F680)}</div>
-                <div className="space-y-2 text-sm text-purple-800">
-                  <div>1. Can you skip count by 2s starting from 1? (1, 3, 5, 7, 9...)</div>
-                  <div>2. Try skip counting by 5s: 5, 10, 15, 20, 25...</div>
-                  <div>3. Count by 2s backwards from 20: 20, 18, 16, 14...</div>
-                </div>
-              </div>
-              {/* Self-Assessment */}
-              <div className="print:block hidden print:mt-0 mt-6 p-4 border-2 border-slate-300 rounded" style={{ pageBreakBefore: 'avoid', pageBreakInside: 'avoid' }}>
-                <div className="font-semibold text-slate-800 mb-3 text-sm">{String.fromCodePoint(0x270F)}</div>
-                <div className="space-y-2 text-xs">
-                  <div>{String.fromCharCode(0x2610)} I can count by 2s</div>
-                  <div>{String.fromCharCode(0x2610)} I can fill in missing numbers in skip counting sequences</div>
-                  <div>{String.fromCodePoint(0x270F)}</div>
-                </div>
-                <div className="mt-3 text-xs">
-                  <strong>{getTrans('common.myScore', 'My score:')}</strong> ___ / 4
-                </div>
-                <div className="mt-2 text-xs">
-                  <strong>{getTrans('common.whatWasHardest', 'What was hardest?')}</strong> _________________________
-                </div>
-              </div>
-              {showAnswersForDoc('skip-count-2s', () => (
-                <div className="mt-6 p-4 border-2 border-emerald-300 bg-emerald-50 rounded print:border print:bg-white print:page-break-before-always">
-                  <div className="font-bold text-emerald-900 mb-3 text-base">{String.fromCodePoint(0x2705)}</div>
-                  <p className="text-sm text-emerald-800 mb-2"><strong>Complete sequence:</strong> 2, 4, 6, 8, 10, 12, 14, 16, 18, 20</p>
-                  <p className="text-xs text-emerald-700">Each number is 2 more than the previous number. Skip counting by 2s means counting every other number!</p>
-                </div>
-              ))}
-            </WorksheetSectionWrapper>
-          )
-        }
-
-        {
-          activeDocs.includes('number-line-add') && (() => {
-            const rng = makeRng(`${effectiveSeed}|v${variant}|doc=${doc}`);
-            function nextInt(min: number, max: number) { return Math.floor(rng() * (max - min + 1)) + min; }
-
-            // Generate 4 addition problems where sum is <= 15
-            const problems: Array<[number, number]> = [];
-            for (let i = 0; i < 4; i++) {
-              const a = nextInt(1, 8);
-              const b = nextInt(1, Math.min(9, 15 - a));
-              problems.push([a, b]);
-            }
-
-            const maxNum = Math.max(...problems.map(([a, b]) => a + b), 15);
-            const lineLength = 500;
-            const startX = 50;
-            const endX = startX + lineLength;
-            const step = lineLength / maxNum;
-
-            return (
-              <WorksheetSectionWrapper
-                docId="number-line-add"
-                title="Number Line Addition"
-                emoji={String.fromCodePoint(0x2795)}
-                description="Use the number line to solve each addition problem."
-                problemCount={problems.length}
-                learningObjectives={[
-                  'Use a number line to solve addition problems',
-                  'Count forward on a number line',
-                  'Visualize addition as moving forward',
-                  'Build number sense and addition skills'
-                ]}
-                parentTeacherTips={[
-                  'Start at the first number on the number line',
-                  'Count forward the second number of spaces',
-                  'Where you land is the answer',
-                  'For example: 3 + 4 means start at 3, count forward 4 spaces, land on 7',
-                  'Extension: Try subtraction on a number line (count backward)'
-                ]}
-              >
-                <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-cyan-400 to-blue-400 animate-gradient-x mb-2" />
-                {/* Worked Example */}
-                <div className="mb-6 p-4 bg-gradient-to-br from-cyan-50 to-blue-50 border-2 border-cyan-200 rounded-lg print:border print:bg-white">
-                  <div className="font-semibold text-cyan-900 mb-3 text-sm flex items-center gap-2">
-                    <span className="text-2xl">{String.fromCodePoint(0x279C)}</span>
-                    <span>Example - Let's solve this together:</span>
-                  </div>
-                  <div className="space-y-3 text-sm">
-                    <div className="font-semibold text-base text-cyan-900"><strong>Problem:</strong> <span className="text-2xl text-cyan-700">3 + 4 = ?</span></div>
-                    {/* Visual number line example */}
-                    <div className="bg-white p-4 rounded-lg border-2 border-cyan-300">
-                      <svg viewBox="0 0 600 120" className="w-full h-auto">
-                        <defs>
-                          <marker id="arrowhead-example" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
-                            <polygon points="0 0, 10 3, 0 6" fill="#06b6d4" />
-                          </marker>
-                        </defs>
-                        <g fill="none" stroke="#06b6d4" strokeWidth="2.5">
-                          <line x1="50" y1="60" x2="550" y2="60" />
-                          {Array.from({ length: 11 }).map((_, i) => {
-                            const x = 50 + i * 50;
-                            return (
-                              <g key={i}>
-                                <line x1={x} y1="55" x2={x} y2="65" />
-                                <text x={x} y="50" fontSize="16" fill={i === 3 || i === 7 ? "#06b6d4" : "#64748b"} textAnchor="middle" fontWeight={i === 3 || i === 7 ? "bold" : "normal"}>{i}</text>
-                              </g>
-                            );
-                          })}
-                        </g>
-                        {/* Starting point */}
-                        <circle cx="200" cy="60" r="8" fill="#06b6d4" />
-                        <text x="200" y="80" fontSize="14" fill="#06b6d4" textAnchor="middle" fontWeight="bold">Start: 3</text>
-                        {/* Arrow showing addition */}
-                        <path d="M200 60 L400 60" stroke="#06b6d4" strokeWidth="4" markerEnd="url(#arrowhead-example)" />
-                        <text x="300" y="45" fontSize="14" fill="#06b6d4" textAnchor="middle" fontWeight="bold">+4</text>
-                        {/* Ending point */}
-                        <circle cx="400" cy="60" r="8" fill="#10b981" />
-                        <text x="400" y="80" fontSize="14" fill="#10b981" textAnchor="middle" fontWeight="bold">Answer: 7</text>
-                      </svg>
-                    </div>
-                    <div className="pl-4 border-l-2 border-cyan-300 space-y-1">
-                      <div><strong>Step 1:</strong> Start at <span className="text-cyan-700 font-bold">3</span> on the number line</div>
-                      <div><strong>Step 2:</strong> Count forward <span className="text-cyan-700 font-bold">4 spaces</span>{String.fromCodePoint(0x279C)}</div>
-                      <div><strong>Step 3:</strong> You land on <span className="text-cyan-700 font-bold text-lg">7</span></div>
-                      <div className="font-semibold text-cyan-900 mt-2"><strong>Answer:</strong> <span className="text-2xl text-cyan-700">3 + 4 = 7</span></div>
-                      <div className="text-xs text-cyan-700 mt-2 flex items-center gap-1">
-                        <span>{String.fromCodePoint(0x279C)}</span>
-                        <span>Tip: Start at the first number, then count forward the second number of spaces. Where you land is your answer!</span>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div className="space-y-6 break-inside-avoid" style={{ pageBreakAfter: 'auto' }}>
-                  {problems.map(([a, b], idx) => (
-                    <div key={idx} className="bg-white border border-slate-300 rounded p-4">
-                      <div className="mb-2 text-lg font-semibold text-slate-900">{a} + {b} = __</div>
-                      <svg viewBox="0 0 600 100" className="w-full h-auto">
-                        <defs>
-                          <marker id={`arrowhead-${idx}`} markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
-                            <polygon points="0 0, 10 3, 0 6" fill="#3b82f6" />
-                          </marker>
-                        </defs>
-                        <g fill="none" stroke="#111827" strokeWidth="2">
-                          {/* Number line */}
-                          <line x1={startX} y1="50" x2={endX} y2="50" />
-                          {/* Tick marks and numbers */}
-                          {Array.from({ length: maxNum + 1 }).map((_, i) => {
-                            const x = startX + i * step;
-                            return (
-                              <g key={i}>
-                                <line x1={x} y1="45" x2={x} y2="55" />
-                                <text x={x} y="40" fontSize="14" fill="#111827" textAnchor="middle">{i}</text>
-                              </g>
-                            );
-                          })}
-                        </g>
-                        {/* Visual hints only shown when answers are visible */}
-                        {showAnswers && activeDocs.includes('number-line-add') && (
-                          <>
-                            {/* Starting point circle */}
-                            <circle cx={startX + a * step} cy="50" r="6" fill="#3b82f6" />
-                            {/* Arrow showing addition */}
-                            <path
-                              d={`M${startX + a * step} 50 L${startX + (a + b) * step} 50`}
-                              stroke="#3b82f6"
-                              strokeWidth="3"
-                              markerEnd={`url(#arrowhead-${idx})`}
-                            />
-                            {/* Label for the jump */}
-                            <text x={startX + (a + b / 2) * step} y="35" fontSize="12" fill="#3b82f6" textAnchor="middle" fontWeight="bold">+{b}</text>
-                          </>
-                        )}
-                      </svg>
-                    </div>
-                  ))}
-                </div>
-                {/* Extension/Challenge Problems */}
-                <div className="mt-6 print:mt-0 p-4 bg-purple-50 border-2 border-purple-200 rounded print:bg-white print:border" style={{ pageBreakBefore: 'always', pageBreakInside: 'avoid' }}>
-                  <div className="font-semibold text-purple-900 mb-3 text-sm">{String.fromCodePoint(0x1F680)}</div>
-                  <div className="space-y-2 text-sm text-purple-800">
-                    <div>1. Can you solve 8 + 7 using the number line? (Start at 8, count forward 7 spaces)</div>
-                    <div>2. Try subtraction on a number line: 10 - 3 = ? (Start at 10, count backward 3 spaces)</div>
-                    <div>3. Create your own addition problem and solve it using a number line</div>
-                  </div>
-                </div>
-                {/* Self-Assessment */}
-                <div className="print:block hidden print:mt-0 mt-6 p-4 border-2 border-slate-300 rounded" style={{ pageBreakBefore: 'avoid', pageBreakInside: 'avoid' }}>
-                  <div className="font-semibold text-slate-800 mb-3 text-sm">{String.fromCodePoint(0x270F)}</div>
-                  <div className="space-y-2 text-xs">
-                    <div>{String.fromCharCode(0x2610)} I can use a number line to solve addition</div>
-                    <div>{String.fromCharCode(0x2610)} I can count forward on a number line</div>
-                    <div>{String.fromCodePoint(0x270F)}</div>
-                  </div>
-                  <div className="mt-3 text-xs">
-                    <strong>{getTrans('common.myScore', 'My score:')}</strong> ___ / {problems.length}
-                  </div>
-                  <div className="mt-2 text-xs">
-                    <strong>{getTrans('common.whatWasHardest', 'What was hardest?')}</strong> _________________________
-                  </div>
-                </div>
-                {showAnswersForDoc('number-line-add', () => (
-                  <div className="mt-6 p-4 border-2 border-emerald-300 bg-emerald-50 rounded print:border print:bg-white print:page-break-before-always">
-                    <div className="font-bold text-emerald-900 mb-3 text-base">{String.fromCodePoint(0x2705)}</div>
-                    <ul className="list-disc list-inside space-y-2 text-sm text-emerald-800">
-                      {problems.map(([a, b], idx) => (
-                        <li key={idx}><strong>{a} + {b} = {a + b}</strong> (Start at {a} on the number line, count forward {b} spaces, land on {a + b})</li>
-                      ))}
-                    </ul>
-                    <div className="text-xs text-emerald-700 mt-3">{String.fromCodePoint(0x279C)}</div>
-                  </div>
-                ))}
-              </WorksheetSectionWrapper>
-            );
-          })()
-        }
 
 
-
-
-
-
-        {
-          activeDocs.includes('pattern-complete') && (
-            <WorksheetSectionWrapper
-              docId="pattern-complete"
-              title="Pattern Completion"
-              emoji={String.fromCodePoint(0x1F3C1)}
-              description="Complete each pattern. Draw or color the missing shapes."
-              problemCount={3}
-              learningObjectives={[
-                'Identify patterns (AB, ABC, AAB)',
-                'Continue patterns by finding what comes next',
-                'Recognize repeating sequences',
-                'Build pattern recognition and logical thinking skills'
-              ]}
-              parentTeacherTips={[
-                'Look for the repeating pattern (AB means circle-square-circle-square)',
-                'Identify the pattern type: AB (alternating), ABC (three-part), AAB (two same, one different)',
-                'Find what comes next by following the pattern',
-                'Help students see the repetition: "What comes after the last shape?"',
-                'Extension: Create your own patterns for others to complete'
-              ]}
-            >
-              <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-purple-400 to-pink-400 animate-gradient-x mb-2" />
-              {/* Worked Example */}
-              <div className="mb-6 p-4 bg-blue-50 border-2 border-blue-200 rounded-lg print:border print:bg-white">
-                <div className="font-semibold text-blue-900 mb-3 text-sm">{String.fromCodePoint(0x1F4A1)}</div>
-                <div className="space-y-2 text-sm">
-                  <div className="font-semibold text-base"><strong>Pattern:</strong> Circle, Square, Circle, Square, __</div>
-                  <div className="pl-4 border-l-2 border-blue-300 space-y-1">
-                    <div><strong>Step 1:</strong> Identify the pattern: AB (Circle, Square, Circle, Square...)</div>
-                    <div><strong>Step 2:</strong> See the repetition: Circle, Square, Circle, Square</div>
-                    <div><strong>Step 3:</strong> What comes next? After Square comes Circle!</div>
-                    <div className="font-semibold text-blue-900"><strong>Answer:</strong> Circle</div>
-                    <div className="text-xs text-blue-700 mt-1">Tip: Double check your steps!</div>
-                  </div>
-                </div>
-              </div>
-              <div className="space-y-4 break-inside-avoid" style={{ pageBreakAfter: 'auto' }}>
-                {[
-                  { pattern: ['circle', 'square', 'circle', 'square'], type: 'AB', next: 'circle' },
-                  { pattern: ['red', 'blue', 'green', 'red', 'blue'], type: 'ABC', next: 'green' },
-                  { pattern: ['triangle', 'triangle', 'circle', 'triangle'], type: 'AAB', next: 'triangle' }
-                ].map(({ pattern, type }, idx) => (
-                  <div key={idx} className="border border-slate-300 rounded p-4 bg-white">
-                    <p className="text-slate-700 text-sm mb-2 font-semibold">{type} Pattern</p>
-                    <div className="flex items-center gap-3">
-                      {pattern.map((shape, i) => (
-                        <div key={i} className="w-16 h-16 border-2 border-slate-400 rounded flex items-center justify-center">
-                          {shape === 'circle' && <div className="w-12 h-12 rounded-full border-2 border-slate-600" />}
-                          {shape === 'square' && <div className="w-12 h-12 border-2 border-slate-600" />}
-                          {shape === 'triangle' && <div className="w-0 h-0 border-l-6 border-r-6 border-b-12 border-transparent border-b-slate-600" />}
-                          {shape === 'red' && <div className="w-12 h-12 border-4 border-red-500 rounded bg-white" />}
-                          {shape === 'blue' && <div className="w-12 h-12 border-4 border-blue-500 rounded bg-white" />}
-                          {shape === 'green' && <div className="w-12 h-12 border-4 border-green-500 rounded bg-white" />}
-                        </div>
-                      ))}
-                      <div className="w-16 h-16 border-2 border-dashed border-slate-400 rounded flex items-center justify-center">
-                        <span className="text-slate-400">__</span>
-                      </div>
-                    </div>
-                  </div>
-                ))}
-              </div>
-              {/* Extension/Challenge Problems */}
-              <div className="mt-6 print:mt-0 p-4 bg-purple-50 border-2 border-purple-200 rounded print:bg-white print:border" style={{ pageBreakBefore: 'always', pageBreakInside: 'avoid' }}>
-                <div className="font-semibold text-purple-900 mb-3 text-sm">{String.fromCodePoint(0x1F680)}</div>
-                <div className="space-y-2 text-sm text-purple-800">
-                  <div>1. Can you create your own AB pattern? (Example: star, heart, star, heart...)</div>
-                  <div>2. Try an AABB pattern: circle, circle, square, square, circle, circle, __, __</div>
-                  <div>3. What comes next in this pattern: 2, 4, 6, 8, __? (Hint: It's a number pattern!)</div>
-                </div>
-              </div>
-              {/* Self-Assessment */}
-              <div className="print:block hidden print:mt-0 mt-6 p-4 border-2 border-slate-300 rounded" style={{ pageBreakBefore: 'avoid', pageBreakInside: 'avoid' }}>
-                <div className="font-semibold text-slate-800 mb-3 text-sm">{String.fromCodePoint(0x270F)}</div>
-                <div className="space-y-2 text-xs">
-                  <div>{String.fromCharCode(0x2610)} I can identify patterns (AB, ABC, AAB)</div>
-                  <div>{String.fromCharCode(0x2610)} I can find what comes next in a pattern</div>
-                  <div>{String.fromCodePoint(0x270F)}</div>
-                </div>
-                <div className="mt-3 text-xs">
-                  <strong>{getTrans('common.myScore', 'My score:')}</strong> ___ / 3
-                </div>
-                <div className="mt-2 text-xs">
-                  <strong>{getTrans('common.whatWasHardest', 'What was hardest?')}</strong> _________________________
-                </div>
-              </div>
-              {showAnswersForDoc('pattern-complete', () => (
-                <div className="mt-6 p-4 border-2 border-emerald-300 bg-emerald-50 rounded print:border print:bg-white print:page-break-before-always">
-                  <div className="font-bold text-emerald-900 mb-3 text-base">{String.fromCodePoint(0x2705)}</div>
-                  <ul className="list-disc list-inside space-y-2 text-sm text-emerald-800">
-                    <li><strong>AB Pattern: Next shape is circle</strong> (The pattern alternates: circle, square, circle, square, so next is circle)</li>
-                    <li><strong>ABC Pattern: Next color is green</strong> (The pattern repeats: red, blue, green, red, blue, so next is green)</li>
-                    <li><strong>AAB Pattern: Next shape is triangle</strong> (The pattern is: triangle, triangle, circle, triangle, triangle, so next is triangle)</li>
-                  </ul>
-                  <div className="text-xs text-emerald-700 mt-3">{String.fromCodePoint(0x279C)}</div>
-                </div>
-              ))}
-            </WorksheetSectionWrapper>
-          )
-        }
-
-        {
-          activeDocs.includes('missing-shape') && (
-            <WorksheetSectionWrapper
-              docId="missing-shape"
-              title="Find the Missing Shape"
-              emoji={String.fromCodePoint(0x1F537)}
-              description="Look at the pattern and draw the missing shape."
-              problemCount={6}
-              learningObjectives={[
-                'Identify patterns in sequences of shapes',
-                'Find missing elements in patterns',
-                'Continue patterns by recognizing repetition',
-                'Build pattern recognition and logical thinking skills'
-              ]}
-              parentTeacherTips={[
-                'Look for the repeating pattern in the sequence',
-                'Identify what shape comes next by following the pattern',
-                'Help students see the repetition: "What shape comes after the last one?"',
-                'Encourage drawing the missing shape in the blank space',
-                'Extension: Create your own shape patterns for others to complete'
-              ]}
-            >
-              <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-indigo-400 to-purple-400 animate-gradient-x mb-2" />
-              {/* Worked Example */}
-              <div className="mb-6 p-4 bg-blue-50 border-2 border-blue-200 rounded-lg print:border print:bg-white">
-                <div className="font-semibold text-blue-900 mb-3 text-sm">{String.fromCodePoint(0x1F4A1)}</div>
-                <div className="space-y-2 text-sm">
-                  <div className="font-semibold text-base"><strong>Pattern:</strong> Circle, Square, Triangle, Circle, Square, ?</div>
-                  <div className="pl-4 border-l-2 border-blue-300 space-y-1">
-                    <div><strong>Step 1:</strong> Look at the pattern: Circle, Square, Triangle, Circle, Square...</div>
-                    <div><strong>Step 2:</strong> See the repetition: Circle, Square, Triangle repeats</div>
-                    <div><strong>Step 3:</strong> After Square comes Triangle (the pattern repeats)</div>
-                    <div className="font-semibold text-blue-900"><strong>Answer:</strong> Triangle</div>
-                    <div className="text-xs text-blue-700 mt-1">Tip: Double check your steps!</div>
-                  </div>
-                </div>
-              </div>
-              <div className="grid grid-cols-2 gap-4" style={{ pageBreakAfter: 'auto' }}>
-                {Array.from({ length: 6 }).map((_, idx) => {
-                  const shapes = ['circle', 'square', 'triangle', 'circle', 'square']
-                  return (
-                    <div key={idx} className="border border-slate-300 rounded p-4 bg-white">
-                      <div className="flex items-center gap-2 mb-2">
-                        {shapes.map((shape, i) => (
-                          <div key={i} className="w-16 h-16 print:w-20 print:h-20 border-4 border-slate-600 rounded flex items-center justify-center">
-                            {shape === 'circle' && <div className="w-12 h-12 print:w-16 print:h-16 rounded-full border-4 border-slate-600" />}
-                            {shape === 'square' && <div className="w-12 h-12 print:w-16 print:h-16 border-4 border-slate-600" />}
-                            {shape === 'triangle' && <div className="w-0 h-0 border-l-6 border-r-6 border-b-12 print:border-l-8 print:border-r-8 print:border-b-16 border-transparent border-b-slate-600" />}
-                          </div>
-                        ))}
-                        <div className="w-12 h-12 border-2 border-dashed border-slate-400 rounded flex items-center justify-center">
-                          <span className="text-slate-400">?</span>
-                        </div>
-                      </div>
-                    </div>
-                  )
-                })}
-              </div>
-              {/* Extension/Challenge Problems */}
-              <div className="mt-6 print:mt-0 p-4 bg-purple-50 border-2 border-purple-200 rounded print:bg-white print:border" style={{ pageBreakBefore: 'always', pageBreakInside: 'avoid' }}>
-                <div className="font-semibold text-purple-900 mb-3 text-sm">{String.fromCodePoint(0x1F680)}</div>
-                <div className="space-y-2 text-sm text-purple-800">
-                  <div>1. Create your own shape pattern with 4 different shapes. What comes next?</div>
-                  <div>2. Try a color pattern: red, blue, yellow, red, blue, __. What color is missing?</div>
-                  <div>3. Can you find patterns in your daily routine? (Example: breakfast, school, lunch, school, dinner...)</div>
-                </div>
-              </div>
-              {/* Self-Assessment */}
-              <div className="print:block hidden print:mt-0 mt-6 p-4 border-2 border-slate-300 rounded" style={{ pageBreakBefore: 'avoid', pageBreakInside: 'avoid' }}>
-                <div className="font-semibold text-slate-800 mb-3 text-sm">{String.fromCodePoint(0x270F)}</div>
-                <div className="space-y-2 text-xs">
-                  <div>{String.fromCharCode(0x2610)} I can identify patterns in shape sequences</div>
-                  <div>{String.fromCharCode(0x2610)} I can find the missing shape in a pattern</div>
-                  <div>{String.fromCodePoint(0x270F)}</div>
-                </div>
-                <div className="mt-3 text-xs">
-                  <strong>{getTrans('common.myScore', 'My score:')}</strong> ___ / 6
-                </div>
-                <div className="mt-2 text-xs">
-                  <strong>{getTrans('common.whatWasHardest', 'What was hardest?')}</strong> _________________________
-                </div>
-              </div>
-              {showAnswersForDoc('missing-shape', () => (
-                <div className="mt-6 p-4 border-2 border-emerald-300 bg-emerald-50 rounded print:border print:bg-white print:page-break-before-always">
-                  <div className="font-bold text-emerald-900 mb-3 text-base">{String.fromCodePoint(0x2705)}</div>
-                  <p className="text-sm text-emerald-800 mb-2"><strong>Pattern:</strong> Circle, Square, Triangle, Circle, Square. <strong>Missing shape:</strong> Triangle</p>
-                  <p className="text-xs text-emerald-700">The pattern repeats: Circle, Square, Triangle. After Circle, Square comes Triangle. Look for the repeating sequence to find what's missing!</p>
-                </div>
-              ))}
-            </WorksheetSectionWrapper>
-          )
-        }
-
-
-
-        {/* New 2nd Grade Worksheets */}
-        {
-          activeDocs.includes('expanded-form-200') && (
-            <WorksheetSectionWrapper
-              docId="expanded-form-200"
-              title="Expanded Form to 200"
-              emoji={String.fromCharCode(0xD83E, 0xDDEE)}
-              description="Write each number in expanded form (100+20+5)."
-              problemCount={6}
-              learningObjectives={[
-                'Understand place value (hundreds, tens, ones)',
-                'Write numbers in expanded form',
-                'Break down numbers into their place value parts',
-                'Build number sense and place value understanding'
-              ]}
-              parentTeacherTips={[
-                'Expanded form shows the value of each digit',
-                'For 125: 1 is in the hundreds place (100), 2 is in the tens place (20), 5 is in the ones place (5)',
-                'So 125 = 100 + 20 + 5',
-                'Help students identify each digit and its place value',
-                'Extension: Try writing numbers in word form or standard form'
-              ]}
-            >
-              <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-blue-400 to-indigo-400 animate-gradient-x mb-2" />
-              {/* Worked Example */}
-              <div className="mb-6 p-4 bg-blue-50 border-2 border-blue-200 rounded-lg print:border print:bg-white">
-                <div className="font-semibold text-blue-900 mb-3 text-sm">{String.fromCodePoint(0x1F4A1)}</div>
-                <div className="space-y-2 text-sm">
-                  <div className="font-semibold text-base"><strong>Problem:</strong> 125 = __ + __ + __</div>
-                  <div className="pl-4 border-l-2 border-blue-300 space-y-1">
-                    <div><strong>Step 1:</strong> Look at each digit: 1, 2, 5</div>
-                    <div><strong>Step 2:</strong>{String.fromCodePoint(0x279C)}</div>
-                    <div><strong>Step 3:</strong>{String.fromCodePoint(0x279C)}</div>
-                    <div><strong>Step 4:</strong>{String.fromCodePoint(0x279C)}</div>
-                    <div className="font-semibold text-blue-900"><strong>Answer:</strong> 125 = 100 + 20 + 5</div>
-                    <div className="text-xs text-blue-700 mt-1">Tip: Double check your steps!</div>
-                  </div>
-                </div>
-              </div>
-              <div className="space-y-4 break-inside-avoid" style={{ pageBreakAfter: 'auto' }}>
-                {[125, 143, 167, 189, 152, 176].map((num) => {
-                  const hundreds = Math.floor(num / 100)
-                  const tens = Math.floor((num % 100) / 10)
-                  const ones = num % 10
-                  return (
-                    <div key={num} className="border border-slate-300 rounded p-4 bg-white">
-                      <p className="text-slate-700 text-lg mb-2 font-semibold">{num} = __ + __ + __</p>
-                      {showAnswers && activeDocs.includes('expanded-form-200') && (
-                        <p className="text-slate-600 text-sm">Hint: {hundreds * 100} + {tens * 10} + {ones}</p>
-                      )}
-                    </div>
-                  )
-                })}
-              </div>
-              {/* Extension/Challenge Problems */}
-              <div className="mt-6 print:mt-0 p-4 bg-purple-50 border-2 border-purple-200 rounded print:bg-white print:border" style={{ pageBreakBefore: 'always', pageBreakInside: 'avoid' }}>
-                <div className="font-semibold text-purple-900 mb-3 text-sm">{String.fromCodePoint(0x1F680)}</div>
-                <div className="space-y-2 text-sm text-purple-800">
-                  <div>1. Can you write 234 in expanded form? (Hint: 200 + ? + ?)</div>
-                  <div>2. Try writing 199 in expanded form</div>
-                  <div>3. If 100 + 50 + 7 = ?, what is the number?</div>
-                </div>
-              </div>
-              {/* Self-Assessment */}
-              <div className="print:block hidden print:mt-0 mt-6 p-4 border-2 border-slate-300 rounded" style={{ pageBreakBefore: 'avoid', pageBreakInside: 'avoid' }}>
-                <div className="font-semibold text-slate-800 mb-3 text-sm">{String.fromCodePoint(0x270F)}</div>
-                <div className="space-y-2 text-xs">
-                  <div>{String.fromCharCode(0x2610)} I understand place value when subtracting</div>
-                  <div>{String.fromCharCode(0x2610)} I can write numbers in expanded form</div>
-                  <div>{String.fromCharCode(0x2610)} I wrote all 6 numbers correctly in expanded form</div>
-                </div>
-                <div className="mt-3 text-xs">
-                  <strong>{getTrans('common.myScore', 'My score:')}</strong> ___ / 6
-                </div>
-                <div className="mt-2 text-xs">
-                  <strong>{getTrans('common.whatWasHardest', 'What was hardest?')}</strong> _________________________
-                </div>
-              </div>
-              {showAnswersForDoc('expanded-form-200', () => (
-                <div className="mt-6 p-4 border-2 border-emerald-300 bg-emerald-50 rounded print:border print:bg-white print:page-break-before-always">
-                  <div className="font-bold text-emerald-900 mb-3 text-base">{getTrans('common.answerKey', String.fromCharCode(0x2705) + ' Answer Key')}</div>
-                  <ul className="list-disc list-inside space-y-2 text-sm text-emerald-800">
-                    {[125, 143, 167, 189, 152, 176].map((num) => {
-                      const hundreds = Math.floor(num / 100)
-                      const tens = Math.floor((num % 100) / 10)
-                      const ones = num % 10
-                      return <li key={num}><strong>{num} = {hundreds * 100} + {tens * 10} + {ones}</strong> ({hundreds} hundreds = {hundreds * 100}, {tens} tens = {tens * 10}, {ones} ones = {ones})</li>
-                    })}
-                  </ul>
-                  <div className="text-xs text-emerald-700 mt-3">{String.fromCodePoint(0x279C)}</div>
-                </div>
-              ))}
-            </WorksheetSectionWrapper>
-          )
-        }
-
-        {
-          activeDocs.includes('number-patterns-200') && (
-            <WorksheetSectionWrapper
-              docId="number-patterns-200"
-              title="Number Patterns to 200"
-              emoji={String.fromCharCode(0xD83D, 0xDCCA)}
-              description="Find the pattern and fill in the missing numbers."
-              problemCount={3}
-              learningObjectives={[
-                'Identify number patterns (skip counting)',
-                'Continue patterns by finding the rule',
-                'Fill in missing numbers in sequences',
-                'Build pattern recognition and number sense'
-              ]}
-              parentTeacherTips={[
-                'Look for the rule: is it adding 5, 10, or another number?',
-                'Check the difference between consecutive numbers',
-                'For +10 pattern: each number is 10 more than the previous',
-                'Help students see: "What number comes after 30? 30 + 10 = 40"',
-                'Extension: Try patterns with larger numbers or different rules'
-              ]}
-            >
-              <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-purple-400 to-pink-400 animate-gradient-x mb-2" />
-              {/* Worked Example */}
-              <div className="mb-6 p-4 bg-blue-50 border-2 border-blue-200 rounded-lg print:border print:bg-white">
-                <div className="font-semibold text-blue-900 mb-3 text-sm">{String.fromCodePoint(0x1F4A1)}</div>
-                <div className="space-y-2 text-sm">
-                  <div className="font-semibold text-base"><strong>Pattern:</strong> 10, 20, 30, __, 50</div>
-                  <div className="pl-4 border-l-2 border-blue-300 space-y-1">
-                    <div><strong>Step 1:</strong> Find the rule: 20 - 10 = 10, 30 - 20 = 10 (adding 10 each time)</div>
-                    <div><strong>Step 2:</strong> The pattern is +10</div>
-                    <div><strong>Step 3:</strong> After 30 comes 30 + 10 = 40</div>
-                    <div className="font-semibold text-blue-900"><strong>Answer:</strong> 40</div>
-                    <div className="text-xs text-blue-700 mt-1">Tip: Double check your steps!</div>
-                  </div>
-                </div>
-              </div>
-              <div className="space-y-4 break-inside-avoid" style={{ pageBreakAfter: 'auto' }}>
-                {[
-                  { pattern: [10, 20, 30, '__', 50, '__', 70], rule: '+10', answers: [40, 60] },
-                  { pattern: [5, 10, 15, '__', 25, '__', 35], rule: '+5', answers: [20, 30] },
-                  { pattern: [100, 110, 120, '__', 140, '__', 160], rule: '+10', answers: [130, 150] }
-                ].map(({ pattern, rule }, idx) => (
-                  <div key={idx} className="border border-slate-300 rounded p-4 bg-white">
-                    <p className="text-slate-700 text-sm mb-2">Pattern: {rule}</p>
-                    <div className="flex gap-2">
-                      {pattern.map((num, i) => (
-                        <div key={i} className="w-16 h-16 border-2 border-slate-600 rounded flex items-center justify-center">
-                          <span className="text-slate-900 font-semibold">{typeof num === 'number' ? num : '__'}</span>
-                        </div>
-                      ))}
-                    </div>
-                  </div>
-                ))}
-              </div>
-              {/* Extension/Challenge Problems */}
-              <div className="mt-6 print:mt-0 p-4 bg-purple-50 border-2 border-purple-200 rounded print:bg-white print:border" style={{ pageBreakBefore: 'always', pageBreakInside: 'avoid' }}>
-                <div className="font-semibold text-purple-900 mb-3 text-sm">{String.fromCodePoint(0x1F680)}</div>
-                <div className="space-y-2 text-sm text-purple-800">
-                  <div>1. Can you continue this pattern: 200, 210, 220, __, __, 250?</div>
-                  <div>2. Try a pattern with +3: 3, 6, 9, __, 15, __, 21</div>
-                  <div>3. Create your own number pattern and have a friend solve it</div>
-                </div>
-              </div>
-              {/* Self-Assessment */}
-              <div className="print:block hidden print:mt-0 mt-6 p-4 border-2 border-slate-300 rounded" style={{ pageBreakBefore: 'avoid', pageBreakInside: 'avoid' }}>
-                <div className="font-semibold text-slate-800 mb-3 text-sm">{String.fromCodePoint(0x270F)}</div>
-                <div className="space-y-2 text-xs">
-                  <div>{String.fromCharCode(0x2610)} I can identify number patterns</div>
-                  <div>{String.fromCharCode(0x2610)} I can find the pattern rule</div>
-                  <div>{String.fromCharCode(0x2610)} I filled in all the missing numbers correctly</div>
-                </div>
-                <div className="mt-3 text-xs">
-                  <strong>{getTrans('common.myScore', 'My score:')}</strong> ___ / 3
-                </div>
-                <div className="mt-2 text-xs">
-                  <strong>{getTrans('common.whatWasHardest', 'What was hardest?')}</strong> _________________________
-                </div>
-              </div>
-              {showAnswersForDoc('number-patterns-200', () => (
-                <div className="mt-6 p-4 border-2 border-emerald-300 bg-emerald-50 rounded print:border print:bg-white print:page-break-before-always">
-                  <div className="font-bold text-emerald-900 mb-3 text-base">{getTrans('common.answerKey', String.fromCharCode(0x2705) + ' Answer Key')}</div>
-                  <ul className="list-disc list-inside space-y-2 text-sm text-emerald-800">
-                    <li><strong>Pattern +10:</strong> Missing numbers are 40, 60 (10, 20, 30, 40, 50, 60, 70)</li>
-                    <li><strong>Pattern +5:</strong> Missing numbers are 20, 30 (5, 10, 15, 20, 25, 30, 35)</li>
-                    <li><strong>Pattern +10:</strong> Missing numbers are 130, 150 (100, 110, 120, 130, 140, 150, 160)</li>
-                  </ul>
-                  <div className="text-xs text-emerald-700 mt-3">{String.fromCodePoint(0x279C)}</div>
-                </div>
-              ))}
-            </WorksheetSectionWrapper>
-          )
-        }
 
 
         {/* NEW CRITICAL WORKSHEETS - Fresh and Unique, No Duplicates */}
@@ -20270,206 +19045,175 @@ export function PrintablesPage() {
 
 
         {
-          activeDocs.includes('number-id-1-10') && (() => {
-            const rng = makeRng(`${effectiveSeed}|v${variant}|doc=${doc}`)
-            const targetNumber = Math.floor(rng() * 10) + 1
-            const numbers = Array.from({ length: 30 }, () => Math.floor(rng() * 10) + 1)
-            // Ensure target exists at least 6-8 times
-            for (let i = 0; i < 7; i++) {
-              numbers[i * 4] = targetNumber;
-            }
 
-            return (
-              <WorksheetSectionWrapper
-                docId="number-id-1-10"
-                title="Number Recognition 1-10"
-                emoji={String.fromCodePoint(0x1F522)}
-                description={`Find and circle the number ${targetNumber}!`}
-                problemCount={30}
-              >
-                <div className="mb-6 text-center">
-                  <span className="text-xl font-bold text-slate-700">Find the number: </span>
-                  <span className="text-4xl font-black text-indigo-600 ml-2">{targetNumber}</span>
-                </div>
-                <div className="grid grid-cols-6 gap-6 justify-items-center">
-                  {numbers.map((n, i) => (
-                    <div key={i} className="text-3xl font-mono w-16 h-16 flex items-center justify-center border-2 border-slate-100 rounded-full">
-                      {n}
+
+          {
+            activeDocs.includes('balance-equations-10') && (() => {
+              const rng = makeRng(`${effectiveSeed}|v${variant}|doc=${doc}`)
+
+              // Generate balance problems: x + y = z or z = x + y
+              const problems = Array.from({ length: 6 }, () => {
+                const total = Math.floor(rng() * 6) + 4 // 4 to 10
+                const leftA = Math.floor(rng() * (total - 1)) + 1
+                const leftB = total - leftA
+                const rightA = Math.floor(rng() * (total - 1)) + 1
+                const rightB = total - rightA  // Unknown might be one of these
+
+                // 3 types: [a+b] = [c+?], [?] = [a+b], [a+b] = [?]
+                const type = Math.floor(rng() * 3)
+                return { total, leftA, leftB, rightA, rightB, type }
+              })
+
+              return (
+                <WorksheetSectionWrapper
+                  docId="balance-equations-10"
+                  title="Circus Balancing Act"
+                  emoji={String.fromCodePoint(0x1F522)}
+                  description="Step right up! Make the sides equal to balance the circus scale. Fill in the missing number."
+                  problemCount={problems.length}
+                  learningObjectives={[
+                    'Understand the equal sign means "the same as"',
+                    'Balance equations with sums up to 10',
+                    'Find missing addends',
+                    'Develop algebraic thinking skills'
+                  ]}
+                  parentTeacherTips={[
+                    'Use a real balance scale or your arms to demonstrate "equal".',
+                    'Explain that both sides must have the same total weight (value).',
+                    'Read the equation aloud: "3 plus 2 IS THE SAME AS 4 plus 1"',
+                    'If stuck, calculate the full side first.'
+                  ]}
+                >
+                  <div className="print:hidden h-1 w-full rounded-full bg-gradient-to-r from-yellow-400 to-red-500 animate-gradient-x mb-4" />
+
+                  {/* Decorative Header */}
+                  <div className="w-full h-24 mb-6 relative overflow-hidden bg-white rounded-xl border-4 border-red-500 shadow-lg">
+                    {/* Circus Stripes */}
+                    <div className="absolute inset-0 opacity-10 flex">
+                      {Array.from({ length: 20 }).map((_, i) => (
+                        <div key={i} className={`flex-1 ${i % 2 === 0 ? 'bg-red-500' : 'bg-yellow-400'}`}></div>
+                      ))}
                     </div>
-                  ))}
-                </div>
-              </WorksheetSectionWrapper>
-            );
-          })()
-        }
 
-        {
-          activeDocs.includes('balance-equations-10') && (() => {
-            const rng = makeRng(`${effectiveSeed}|v${variant}|doc=${doc}`)
+                    <div className="absolute inset-0 flex items-center justify-center">
+                      <div className="flex items-center gap-4 bg-white/90 px-6 py-2 rounded-full border-2 border-red-200">
+                        <span className="text-4xl animate-bounce-slow">{String.fromCodePoint(0x279C)}</span>
+                        <h2 className="text-3xl font-black text-red-600 tracking-widest uppercase font-serif">BIG TOP BALANCE</h2>
+                        <span className="text-4xl animate-bounce-medium">{String.fromCodePoint(0x279C)}</span>
+                      </div>
+                    </div>
+                  </div>
 
-            // Generate balance problems: x + y = z or z = x + y
-            const problems = Array.from({ length: 6 }, () => {
-              const total = Math.floor(rng() * 6) + 4 // 4 to 10
-              const leftA = Math.floor(rng() * (total - 1)) + 1
-              const leftB = total - leftA
-              const rightA = Math.floor(rng() * (total - 1)) + 1
-              const rightB = total - rightA  // Unknown might be one of these
+                  {/* Worked Example */}
+                  <div className="mb-8 p-6 bg-yellow-50 border-2 border-yellow-200 rounded-xl print:border print:bg-white relative">
+                    <div className="font-bold text-yellow-800 mb-4 text-sm uppercase tracking-wide text-center">{String.fromCodePoint(0x1F4A1)}</div>
 
-              // 3 types: [a+b] = [c+?], [?] = [a+b], [a+b] = [?]
-              const type = Math.floor(rng() * 3)
-              return { total, leftA, leftB, rightA, rightB, type }
-            })
+                    <div className="flex flex-col items-center">
+                      {/* Scale Visual */}
+                      <div className="relative w-full max-w-md h-32 mb-2 flex items-end justify-center">
+                        {/* Base */}
+                        <div className="w-4 h-16 bg-slate-800 mx-auto rounded-t-lg relative z-10"></div>
+                        <div className="absolute bottom-0 w-24 h-4 bg-slate-800 rounded-full"></div>
 
-            return (
-              <WorksheetSectionWrapper
-                docId="balance-equations-10"
-                title="Circus Balancing Act"
-                emoji={String.fromCodePoint(0x1F522)}
-                description="Step right up! Make the sides equal to balance the circus scale. Fill in the missing number."
-                problemCount={problems.length}
-                learningObjectives={[
-                  'Understand the equal sign means "the same as"',
-                  'Balance equations with sums up to 10',
-                  'Find missing addends',
-                  'Develop algebraic thinking skills'
-                ]}
-                parentTeacherTips={[
-                  'Use a real balance scale or your arms to demonstrate "equal".',
-                  'Explain that both sides must have the same total weight (value).',
-                  'Read the equation aloud: "3 plus 2 IS THE SAME AS 4 plus 1"',
-                  'If stuck, calculate the full side first.'
-                ]}
-              >
-                <div className="print:hidden h-1 w-full rounded-full bg-gradient-to-r from-yellow-400 to-red-500 animate-gradient-x mb-4" />
+                        {/* Beam */}
+                        <div className="absolute top-10 w-full h-2 bg-slate-600 rounded-full flex justify-between items-center px-4">
+                          {/* Left Pan */}
+                          <div className="relative">
+                            <div className="w-1 h-12 bg-slate-400 absolute -top-12 left-1/2 -translate-x-1/2"></div>
+                            <div className="w-24 h-8 border-b-4 border-l-4 border-r-4 border-red-500 rounded-b-full bg-red-50 flex justify-center items-end pb-1 gap-1">
+                              <div className="w-6 h-6 rounded-full bg-blue-500 text-white flex items-center justify-center font-bold text-xs shadow-sm">3</div>
+                              <div className="w-6 h-6 rounded-full bg-blue-500 text-white flex items-center justify-center font-bold text-xs shadow-sm">2</div>
+                            </div>
+                          </div>
 
-                {/* Decorative Header */}
-                <div className="w-full h-24 mb-6 relative overflow-hidden bg-white rounded-xl border-4 border-red-500 shadow-lg">
-                  {/* Circus Stripes */}
-                  <div className="absolute inset-0 opacity-10 flex">
-                    {Array.from({ length: 20 }).map((_, i) => (
-                      <div key={i} className={`flex-1 ${i % 2 === 0 ? 'bg-red-500' : 'bg-yellow-400'}`}></div>
+                          {/* Center Pivot */}
+                          <div className="w-6 h-6 rounded-full bg-yellow-500 border-2 border-yellow-600 z-20"></div>
+
+                          {/* Right Pan */}
+                          <div className="relative">
+                            <div className="w-1 h-12 bg-slate-400 absolute -top-12 left-1/2 -translate-x-1/2"></div>
+                            <div className="w-24 h-8 border-b-4 border-l-4 border-r-4 border-red-500 rounded-b-full bg-red-50 flex justify-center items-end pb-1 gap-1">
+                              <div className="w-6 h-6 rounded-full bg-green-500 text-white flex items-center justify-center font-bold text-xs shadow-sm">5</div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+
+                      <div className="flex items-center gap-3 text-xl font-bold font-serif text-slate-800 bg-white px-4 py-2 rounded-lg border border-yellow-200">
+                        <span className="text-blue-600">3 + 2</span>
+                        <span>=</span>
+                        <span className="text-green-600">5</span>
+                        <span className="text-xs text-slate-400 font-normal ml-2">(Both sides equal 5!)</span>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div className="grid grid-cols-1 gap-8 break-inside-avoid">
+                    {problems.map((p, i) => (
+                      <div key={i} className="bg-white border-2 border-slate-200 rounded-xl p-4 md:p-6 relative">
+                        {/* Problem Number */}
+                        <div className="absolute top-0 left-0 bg-yellow-100 text-yellow-700 font-bold px-3 py-1 rounded-br-xl text-sm border-r border-b border-yellow-200">
+                          #{i + 1}
+                        </div>
+
+                        <div className="flex flex-col md:flex-row items-center justify-center gap-4 md:gap-8 mt-4">
+
+                          {/* Left Side Equation */}
+                          <div className="flex items-center gap-2 text-3xl font-bold text-slate-700 bg-slate-50 px-4 py-2 rounded-lg border border-slate-200 shadow-inner">
+                            <span>{p.leftA}</span>
+                            <span className="text-slate-400">+</span>
+                            <span>{p.leftB}</span>
+                          </div>
+
+                          {/* Scale Pivot / Equal Sign */}
+                          <div className="flex flex-col items-center">
+                            <div className="text-4xl font-black text-yellow-500 mb-1">=</div>
+                            <div className="w-0 h-0 border-l-[10px] border-l-transparent border-r-[10px] border-r-transparent border-b-[20px] border-b-slate-800"></div>
+                          </div>
+
+                          {/* Right Side Equation (with unknown) */}
+                          <div className="flex items-center gap-2 text-3xl font-bold text-slate-700 bg-slate-50 px-4 py-2 rounded-lg border border-slate-200 shadow-inner">
+                            {p.type === 0 ? (
+                              <>
+                                <span>{p.rightA}</span>
+                                <span className="text-slate-400">+</span>
+                                <div className="w-12 h-12 bg-white border-2 border-dashed border-red-500 rounded flex items-center justify-center text-red-600">?</div>
+                              </>
+                            ) : p.type === 1 ? (
+                              <div className="w-12 h-12 bg-white border-2 border-dashed border-red-500 rounded flex items-center justify-center text-red-600">?</div>
+                            ) : (
+                              <>
+                                <div className="w-12 h-12 bg-white border-2 border-dashed border-red-500 rounded flex items-center justify-center text-red-600">?</div>
+                                <span className="text-slate-400">+</span>
+                                <span>{p.rightA}</span>
+                              </>
+                            )}
+                          </div>
+                        </div>
+                      </div>
                     ))}
                   </div>
 
-                  <div className="absolute inset-0 flex items-center justify-center">
-                    <div className="flex items-center gap-4 bg-white/90 px-6 py-2 rounded-full border-2 border-red-200">
-                      <span className="text-4xl animate-bounce-slow">{String.fromCodePoint(0x279C)}</span>
-                      <h2 className="text-3xl font-black text-red-600 tracking-widest uppercase font-serif">BIG TOP BALANCE</h2>
-                      <span className="text-4xl animate-bounce-medium">{String.fromCodePoint(0x279C)}</span>
-                    </div>
-                  </div>
-                </div>
-
-                {/* Worked Example */}
-                <div className="mb-8 p-6 bg-yellow-50 border-2 border-yellow-200 rounded-xl print:border print:bg-white relative">
-                  <div className="font-bold text-yellow-800 mb-4 text-sm uppercase tracking-wide text-center">{String.fromCodePoint(0x1F4A1)}</div>
-
-                  <div className="flex flex-col items-center">
-                    {/* Scale Visual */}
-                    <div className="relative w-full max-w-md h-32 mb-2 flex items-end justify-center">
-                      {/* Base */}
-                      <div className="w-4 h-16 bg-slate-800 mx-auto rounded-t-lg relative z-10"></div>
-                      <div className="absolute bottom-0 w-24 h-4 bg-slate-800 rounded-full"></div>
-
-                      {/* Beam */}
-                      <div className="absolute top-10 w-full h-2 bg-slate-600 rounded-full flex justify-between items-center px-4">
-                        {/* Left Pan */}
-                        <div className="relative">
-                          <div className="w-1 h-12 bg-slate-400 absolute -top-12 left-1/2 -translate-x-1/2"></div>
-                          <div className="w-24 h-8 border-b-4 border-l-4 border-r-4 border-red-500 rounded-b-full bg-red-50 flex justify-center items-end pb-1 gap-1">
-                            <div className="w-6 h-6 rounded-full bg-blue-500 text-white flex items-center justify-center font-bold text-xs shadow-sm">3</div>
-                            <div className="w-6 h-6 rounded-full bg-blue-500 text-white flex items-center justify-center font-bold text-xs shadow-sm">2</div>
-                          </div>
-                        </div>
-
-                        {/* Center Pivot */}
-                        <div className="w-6 h-6 rounded-full bg-yellow-500 border-2 border-yellow-600 z-20"></div>
-
-                        {/* Right Pan */}
-                        <div className="relative">
-                          <div className="w-1 h-12 bg-slate-400 absolute -top-12 left-1/2 -translate-x-1/2"></div>
-                          <div className="w-24 h-8 border-b-4 border-l-4 border-r-4 border-red-500 rounded-b-full bg-red-50 flex justify-center items-end pb-1 gap-1">
-                            <div className="w-6 h-6 rounded-full bg-green-500 text-white flex items-center justify-center font-bold text-xs shadow-sm">5</div>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-
-                    <div className="flex items-center gap-3 text-xl font-bold font-serif text-slate-800 bg-white px-4 py-2 rounded-lg border border-yellow-200">
-                      <span className="text-blue-600">3 + 2</span>
-                      <span>=</span>
-                      <span className="text-green-600">5</span>
-                      <span className="text-xs text-slate-400 font-normal ml-2">(Both sides equal 5!)</span>
-                    </div>
-                  </div>
-                </div>
-
-                <div className="grid grid-cols-1 gap-8 break-inside-avoid">
-                  {problems.map((p, i) => (
-                    <div key={i} className="bg-white border-2 border-slate-200 rounded-xl p-4 md:p-6 relative">
-                      {/* Problem Number */}
-                      <div className="absolute top-0 left-0 bg-yellow-100 text-yellow-700 font-bold px-3 py-1 rounded-br-xl text-sm border-r border-b border-yellow-200">
-                        #{i + 1}
-                      </div>
-
-                      <div className="flex flex-col md:flex-row items-center justify-center gap-4 md:gap-8 mt-4">
-
-                        {/* Left Side Equation */}
-                        <div className="flex items-center gap-2 text-3xl font-bold text-slate-700 bg-slate-50 px-4 py-2 rounded-lg border border-slate-200 shadow-inner">
-                          <span>{p.leftA}</span>
-                          <span className="text-slate-400">+</span>
-                          <span>{p.leftB}</span>
-                        </div>
-
-                        {/* Scale Pivot / Equal Sign */}
-                        <div className="flex flex-col items-center">
-                          <div className="text-4xl font-black text-yellow-500 mb-1">=</div>
-                          <div className="w-0 h-0 border-l-[10px] border-l-transparent border-r-[10px] border-r-transparent border-b-[20px] border-b-slate-800"></div>
-                        </div>
-
-                        {/* Right Side Equation (with unknown) */}
-                        <div className="flex items-center gap-2 text-3xl font-bold text-slate-700 bg-slate-50 px-4 py-2 rounded-lg border border-slate-200 shadow-inner">
-                          {p.type === 0 ? (
-                            <>
-                              <span>{p.rightA}</span>
-                              <span className="text-slate-400">+</span>
-                              <div className="w-12 h-12 bg-white border-2 border-dashed border-red-500 rounded flex items-center justify-center text-red-600">?</div>
-                            </>
-                          ) : p.type === 1 ? (
-                            <div className="w-12 h-12 bg-white border-2 border-dashed border-red-500 rounded flex items-center justify-center text-red-600">?</div>
-                          ) : (
-                            <>
-                              <div className="w-12 h-12 bg-white border-2 border-dashed border-red-500 rounded flex items-center justify-center text-red-600">?</div>
-                              <span className="text-slate-400">+</span>
-                              <span>{p.rightA}</span>
-                            </>
-                          )}
-                        </div>
+                  {showAnswersForDoc('balance-equations-10', () => (
+                    <div className="mt-6 p-4 border-2 border-emerald-300 bg-emerald-50 rounded print:border print:bg-white print:page-break-before-always">
+                      <div className="font-bold text-emerald-900 mb-3 text-base">{String.fromCodePoint(0x2705)}</div>
+                      <div className="grid grid-cols-2 md:grid-cols-3 gap-4 text-sm text-emerald-800">
+                        {problems.map((p, i) => {
+                          const ans = p.type === 0 ? p.rightB : p.type === 1 ? p.total : p.rightB
+                          return (
+                            <div key={i} className="flex gap-2">
+                              <span className="font-bold">{i + 1}.</span>
+                              <span>Missing Number: <strong className="text-lg text-emerald-700">{ans}</strong></span>
+                            </div>
+                          )
+                        })}
                       </div>
                     </div>
                   ))}
-                </div>
-
-                {showAnswersForDoc('balance-equations-10', () => (
-                  <div className="mt-6 p-4 border-2 border-emerald-300 bg-emerald-50 rounded print:border print:bg-white print:page-break-before-always">
-                    <div className="font-bold text-emerald-900 mb-3 text-base">{String.fromCodePoint(0x2705)}</div>
-                    <div className="grid grid-cols-2 md:grid-cols-3 gap-4 text-sm text-emerald-800">
-                      {problems.map((p, i) => {
-                        const ans = p.type === 0 ? p.rightB : p.type === 1 ? p.total : p.rightB
-                        return (
-                          <div key={i} className="flex gap-2">
-                            <span className="font-bold">{i + 1}.</span>
-                            <span>Missing Number: <strong className="text-lg text-emerald-700">{ans}</strong></span>
-                          </div>
-                        )
-                      })}
-                    </div>
-                  </div>
-                ))}
-              </WorksheetSectionWrapper>
-            )
-          })()
-        }
+                </WorksheetSectionWrapper>
+              )
+            })()
+          }
 
 
         {
@@ -20888,166 +19632,10 @@ export function PrintablesPage() {
 
 
         {
-          activeDocs.includes('ab-pattern') && (() => {
-            const rng = makeRng(`${effectiveSeed}|v${variant}|doc=${doc}`)
-            // Animal Parade Theme
-            const animals = [
-              { name: 'Elephant', icon: '' },
-              { name: 'Zebra', icon: '' },
-              { name: 'Lion', icon: '' },
-              { name: 'Giraffe', icon: '' },
-              { name: 'Hippo', icon: '' }
-            ]
 
-            const problems = Array.from({ length: 5 }, () => {
-              const type = rng() > 0.6 ? 'AAB' : (rng() > 0.5 ? 'ABC' : 'AB') // 50% AB, 20% AAB, 30% ABC roughly
-              const selection = shuffleArray([...animals]).slice(0, 3)
 
-              let pattern: string[] = []
-              let answer = ''
+          {
 
-              if (type === 'AB') {
-                const [a, b] = selection
-                pattern = [a.icon, b.icon, a.icon, b.icon, a.icon]
-                answer = b.icon
-              } else if (type === 'AAB') {
-                const [a, b] = selection
-                pattern = [a.icon, a.icon, b.icon, a.icon, a.icon]
-                answer = b.icon
-              } else { // ABC
-                const [a, b, c] = selection
-                pattern = [a.icon, b.icon, c.icon, a.icon, b.icon]
-                answer = c.icon
-              }
-
-              return { pattern, answer, options: shuffleArray([selection[0].icon, selection[1].icon]) }
-            })
-
-            return (
-              <WorksheetSectionWrapper
-                docId="ab-pattern"
-                title="Animal Parade Patterns"
-                emoji={String.fromCodePoint(0x1F3C1)}
-                description="The animals are marching in a line! Look at the pattern and circle who comes next."
-                problemCount={5}
-                learningObjectives={[
-                  'Identify and extend simple repeating patterns (AB, AAB, ABC)',
-                  'Predict the next item in a sequence',
-                  'Recognize logic in arrangements'
-                ]}
-                parentTeacherTips={[
-                  'Read the pattern out loud: "Elephant, Zebra, Elephant..."',
-                  'Ask "Who is missing from the line?"',
-                  'Use toys to make your own parade on the floor.'
-                ]}
-              >
-                <div className="print:hidden h-1 w-full rounded-full bg-gradient-to-r from-green-400 to-yellow-400 animate-gradient-x mb-4" />
-
-                <div className="space-y-8">
-                  {problems.map((p, i) => (
-                    <div key={i} className="bg-white border-2 border-slate-200 rounded-xl p-4 relative overflow-hidden">
-                      <div className="absolute top-0 left-0 bg-yellow-100 text-yellow-800 px-3 py-1 rounded-br-lg font-bold text-xs uppercase">Line {i + 1}</div>
-
-                      <div className="flex flex-col md:flex-row items-center justify-between gap-8 mt-4">
-                        {/* The Parade */}
-                        <div className="flex items-center gap-2 flex-wrap justify-center flex-1 bg-green-50 p-4 rounded-full border-b-4 border-green-200">
-                          {p.pattern.map((icon, j) => (
-                            <div key={j} className="text-4xl animate-bounce-slow" style={{ animationDelay: `${j * 0.1}s` }}>{icon}</div>
-                          ))}
-                          <div className="w-12 h-12 border-2 border-dashed border-slate-400 rounded-full flex items-center justify-center bg-white text-slate-300 font-bold text-xl">?</div>
-                        </div>
-
-                        {/* Choices */}
-                        <div className="flex items-center gap-4 bg-white p-2 rounded-xl border border-slate-100 shadow-sm">
-                          <span className="text-xs font-bold text-slate-400 uppercase mr-2">Choices:</span>
-                          {p.options.map((opt, k) => (
-                            <div key={k} className="w-12 h-12 border-2 border-slate-200 hover:border-green-400 rounded-full flex items-center justify-center text-3xl cursor-pointer transition-all hover:scale-110">
-                              {opt}
-                            </div>
-                          ))}
-                        </div>
-                      </div>
-                    </div>
-                  ))}
-                </div>
-
-                {showAnswersForDoc('ab-pattern', () => (
-                  <div className="mt-6 p-4 border-2 border-emerald-300 bg-emerald-50 rounded print:border print:bg-white print:page-break-before-always">
-                    <div className="font-bold text-emerald-900 mb-3 text-base">{String.fromCharCode(0x2705)} Answer Key</div>
-                    <ul className="grid grid-cols-2 gap-2 text-sm text-emerald-800">
-                      {problems.map((p, i) => (
-                        <li key={i}>Line {i + 1}: Next is <strong>{p.answer}</strong></li>
-                      ))}
-                    </ul>
-                  </div>
-                ))}
-              </WorksheetSectionWrapper>
-            )
-          })()
-        }
-
-        {
-          activeDocs.includes('line-tracing') && (() => {
-            // Static but rendered via code for PDF compatibility
-            const tracks = [
-              { type: 'Straight', path: 'M 10,25 L 290,25', color: '#3b82f6', icon: String.fromCodePoint(0x1F3CE) }, // Race Car
-              { type: 'Curvy', path: 'M 10,25 Q 80,5 150,25 T 290,25', color: '#ef4444', icon: String.fromCodePoint(0x1F697) }, // Car
-              { type: 'ZigZag', path: 'M 10,25 L 45,5 L 80,45 L 115,5 L 150,45 L 185,5 L 220,45 L 255,5 L 290,25', color: '#eab308', icon: String.fromCodePoint(0x1F6F5) }, // Scooter
-              { type: 'Loop', path: 'M 10,25 C 80,25 80,-15 150,25 S 220,-15 290,25', color: '#8b5cf6', icon: String.fromCodePoint(0x1F6B2) } // Bike
-            ]
-
-            return (
-              <WorksheetSectionWrapper
-                docId="line-tracing"
-                title="Race Car Tracks"
-                emoji={String.fromCodePoint(0x1F4D1)}
-                description="Help the racers get to the finish line! Trace the dotted lines carefully."
-                problemCount={4}
-                learningObjectives={[
-                  'Develop fine motor control',
-                  'Practice pencil grip and pressure',
-                  'Trace different types of lines (straight, curvy, zigzag)',
-                  'Eye-hand coordination'
-                ]}
-                parentTeacherTips={[
-                  '"Stay on the road! Don\'t crash!"',
-                  'Go slow. Speed comes later.',
-                  'Try using different colored crayons for each track.'
-                ]}
-              >
-                <div className="print:hidden h-1 w-full rounded-full bg-gradient-to-r from-red-500 to-slate-800 animate-gradient-x mb-4" />
-
-                <div className="space-y-6">
-                  {tracks.map((t, i) => (
-                    <div key={i} className="flex items-center gap-4 h-24 bg-slate-50 rounded-xl border-2 border-slate-200 px-4">
-                      {/* Start */}
-                      <div className="text-3xl filter drop-shadow-md z-10">{t.icon}</div>
-
-                      {/* Track */}
-                      <div className="flex-1 relative h-12 flex items-center">
-                        <svg className="w-full h-full" viewBox="0 0 300 50" preserveAspectRatio="none">
-                          {/* Background road */}
-                          <path d={t.path} fill="none" stroke="#cbd5e1" strokeWidth="12" strokeLinecap="round" />
-                          {/* Dotted line center */}
-                          <path d={t.path} fill="none" stroke="black" strokeWidth="2" strokeDasharray="8 8" strokeLinecap="round" />
-                        </svg>
-                      </div>
-
-                      {/* Finish */}
-                      <div className="text-3xl z-10">{String.fromCodePoint(0x1F3C1)}</div>
-                    </div>
-                  ))}
-                </div>
-
-                {showAnswersForDoc('line-tracing', () => (
-                  <div className="mt-4 p-4 bg-emerald-50 rounded-lg border border-emerald-200 text-sm text-emerald-800">
-                    <strong>Goal:</strong> Student should trace along the dotted center line without going off the "road" (gray area).
-                  </div>
-                ))}
-              </WorksheetSectionWrapper>
-            )
-          })()
-        }
 
         {
           activeDocs.includes('big-small') && (() => {
