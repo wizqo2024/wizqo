@@ -24812,10 +24812,10 @@ export function PrintablesPage() {
             const rng = makeRng(`${effectiveSeed}|v${variant}|doc=${doc}`)
 
             const items = [
-              { name: 'Apple', price: 0.50, emoji: String.fromCodePoint(0x279C) },
-              { name: 'Bread', price: 2.50, emoji: String.fromCodePoint(0x279C) },
-              { name: 'Milk', price: 3.00, emoji: String.fromCodePoint(0x279C) },
-              { name: 'Candy', price: 0.25, emoji: String.fromCodePoint(0x279C) }
+              { name: 'Apple', price: 0.50, emoji: String.fromCodePoint(0x1F34E) },
+              { name: 'Bread', price: 2.50, emoji: String.fromCodePoint(0x1F35E) },
+              { name: 'Milk', price: 3.00, emoji: String.fromCodePoint(0x1F95B) },
+              { name: 'Candy', price: 0.25, emoji: String.fromCodePoint(0x1F36C) }
             ]
 
             const problems = Array.from({ length: 4 }, () => {
@@ -35606,12 +35606,12 @@ export function PrintablesPage() {
         {
           activeDocs.includes('what-comes-next') && (() => {
             const patterns = [
-              { items: [String.fromCodePoint(0x279C), String.fromCodePoint(0x279C), String.fromCodePoint(0x279C), String.fromCodePoint(0x279C)], next: String.fromCodePoint(0x279C), name: 'red, blue' },
-              { items: [String.fromCodePoint(0x279C), String.fromCodePoint(0x279C), String.fromCodePoint(0x279C), String.fromCodePoint(0x279C)], next: String.fromCodePoint(0x279C), name: 'yellow, green' },
-              { items: [String.fromCodePoint(0x279C), String.fromCodePoint(0x279C), String.fromCodePoint(0x279C), String.fromCodePoint(0x279C)], next: String.fromCodePoint(0x279C), name: 'blue, red' },
-              { items: [String.fromCodePoint(0x279C), String.fromCodePoint(0x279C), String.fromCodePoint(0x279C), String.fromCodePoint(0x279C)], next: String.fromCodePoint(0x279C), name: 'green, yellow' },
-              { items: [String.fromCodePoint(0x279C), String.fromCodePoint(0x279C), String.fromCodePoint(0x279C), String.fromCodePoint(0x279C)], next: String.fromCodePoint(0x279C), name: 'star, heart' },
-              { items: [String.fromCodePoint(0x279C), String.fromCodePoint(0x279C), String.fromCodePoint(0x279C), String.fromCodePoint(0x279C)], next: String.fromCodePoint(0x279C), name: 'apple, banana' },
+              { items: [String.fromCodePoint(0x1F534), String.fromCodePoint(0x1F535), String.fromCodePoint(0x1F534), String.fromCodePoint(0x1F535)], next: String.fromCodePoint(0x1F534), name: 'red, blue' },
+              { items: [String.fromCodePoint(0x1F7E1), String.fromCodePoint(0x1F7E2), String.fromCodePoint(0x1F7E1), String.fromCodePoint(0x1F7E2)], next: String.fromCodePoint(0x1F7E1), name: 'yellow, green' },
+              { items: [String.fromCodePoint(0x1F535), String.fromCodePoint(0x1F534), String.fromCodePoint(0x1F535), String.fromCodePoint(0x1F534)], next: String.fromCodePoint(0x1F535), name: 'blue, red' },
+              { items: [String.fromCodePoint(0x1F7E2), String.fromCodePoint(0x1F7E1), String.fromCodePoint(0x1F7E2), String.fromCodePoint(0x1F7E1)], next: String.fromCodePoint(0x1F7E2), name: 'green, yellow' },
+              { items: [String.fromCodePoint(0x2B50), String.fromCodePoint(0x2764), String.fromCodePoint(0x2B50), String.fromCodePoint(0x2764)], next: String.fromCodePoint(0x2B50), name: 'star, heart' },
+              { items: [String.fromCodePoint(0x1F34E), String.fromCodePoint(0x1F34C), String.fromCodePoint(0x1F34E), String.fromCodePoint(0x1F34C)], next: String.fromCodePoint(0x1F34E), name: 'apple, banana' },
             ];
             return (
               <WorksheetSectionWrapper
@@ -35691,12 +35691,12 @@ export function PrintablesPage() {
           activeDocs.includes('long-short') && (() => {
             const rng = makeRng(`${effectiveSeed}|v${variant}|doc=${doc}`);
             const pairs = [
-              { long: { name: 'Ruler', emoji: String.fromCodePoint(0x279C) }, short: { name: 'Paper Clip', emoji: String.fromCodePoint(0x279C) } },
-              { long: { name: 'Snake', emoji: String.fromCodePoint(0x279C) }, short: { name: 'Caterpillar', emoji: String.fromCodePoint(0x279C) } },
-              { long: { name: 'Train', emoji: String.fromCodePoint(0x279C) }, short: { name: 'Car', emoji: String.fromCodePoint(0x279C) } },
-              { long: { name: 'Pencil', emoji: String.fromCodePoint(0x279C) }, short: { name: 'Crayon', emoji: String.fromCodePoint(0x279C) } },
-              { long: { name: 'Ladder', emoji: String.fromCodePoint(0x279C) }, short: { name: 'Stool', emoji: String.fromCodePoint(0x279C) } },
-              { long: { name: 'Rope', emoji: String.fromCodePoint(0x279C) }, short: { name: 'Key', emoji: String.fromCodePoint(0x279C) } },
+              { long: { name: 'Ruler', emoji: String.fromCodePoint(0x1F4CF) }, short: { name: 'Paper Clip', emoji: String.fromCodePoint(0x1F4CE) } },
+              { long: { name: 'Snake', emoji: String.fromCodePoint(0x1F40D) }, short: { name: 'Caterpillar', emoji: String.fromCodePoint(0x1F41B) } },
+              { long: { name: 'Train', emoji: String.fromCodePoint(0x1F682) }, short: { name: 'Car', emoji: String.fromCodePoint(0x1F697) } },
+              { long: { name: 'Pencil', emoji: String.fromCodePoint(0x270F) }, short: { name: 'Crayon', emoji: String.fromCodePoint(0x1F58D) } },
+              { long: { name: 'Ladder', emoji: String.fromCodePoint(0x1FA9C) }, short: { name: 'Stool', emoji: String.fromCodePoint(0x1FA91) } },
+              { long: { name: 'Rope', emoji: String.fromCodePoint(0x1F9F3) }, short: { name: 'Key', emoji: String.fromCodePoint(0x1F511) } },
             ];
             const activePairs = shuffleArray([...pairs], `${effectiveSeed}|longshort`).slice(0, 4);
 
