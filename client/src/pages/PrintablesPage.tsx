@@ -35351,7 +35351,14 @@ export function PrintablesPage() {
         }
         {
           activeDocs.includes('time-to-minute') && (() => {
-            const times = ['8:15', '2:30', '10:45', '5:20', '12:05', '3:55'];
+            const rng = makeRng(`${effectiveSeed}|v${variant}|doc=${doc}`);
+            function nextInt(min: number, max: number) { return Math.floor(rng() * (max - min + 1)) + min; }
+
+            const times = Array.from({ length: 6 }, () => {
+              const hour = nextInt(1, 12);
+              const minute = nextInt(0, 59);
+              return `${hour}:${minute.toString().padStart(2, '0')}`;
+            });
             const renderClockTheme = (time: string, seed: number) => {
               const [hours, minutes] = time.split(':').map(Number);
               const hourAngle = ((hours % 12) * 30 + minutes * 0.5 - 90) * (Math.PI / 180);
