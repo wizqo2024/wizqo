@@ -3100,7 +3100,7 @@ export function PrintablesPage() {
                   </>
                 ) : (
                   <>
-                    <span>{String.fromCodePoint(0x279C)}</span>
+                    <span>{String.fromCodePoint(0x2B07)}</span>
                     <span>Download Worksheet</span>
                   </>
                 )}
@@ -3110,11 +3110,7 @@ export function PrintablesPage() {
         )}
         {!isPreview && (
           <header className="relative mb-6 flex items-center justify-between border-b border-slate-200 pb-3 print:hidden">
-            <div className="print:hidden absolute -top-3 right-0 flex items-center gap-2 opacity-70 pointer-events-none">
-              <span className="animate-bounce">{String.fromCodePoint(0x279C)}</span>
-              <span className="animate-bounce animation-delay-2000">{String.fromCodePoint(0x279C)}</span>
-              <span className="animate-bounce animation-delay-4000">{String.fromCodePoint(0x279C)}</span>
-            </div>
+            {/* Header Title */}
             <div>
               <h1 className="text-2xl font-extrabold text-slate-900">{docTitle}</h1>
               <p className="text-slate-600 mt-2 print:mt-1 text-sm">{t('pages.printables.printInstructions')}</p>
