@@ -2955,7 +2955,7 @@ export function PrintablesPage() {
                       if (primaryDoc) {
                         return getPrintableSectionForDoc(primaryDoc) || (primaryDoc.startsWith('coloring') ? 'Coloring' : primaryDoc.startsWith('geo-') ? 'Geography' : '')
                       }
-                      return ''
+                      return 'Worksheets'
                     }
                     if (!docId) return ''
                     const found = getPrintableSectionForDoc(docId)
@@ -2964,7 +2964,7 @@ export function PrintablesPage() {
                     // Improved fallback logic
                     if (docId.startsWith('coloring')) return 'Coloring'
                     if (docId.startsWith('geo-')) return 'Geography'
-                    return ''
+                    return 'Worksheets'
                   })()
                   const hash = cat ? `#${encodeURIComponent(cat)}` : ''
                   return `/printables${hash}`
