@@ -35787,7 +35787,15 @@ export function PrintablesPage() {
 
         {
           activeDocs.includes('heavy-light') && (() => {
-            const rng = makeRng(`${effectiveSeed}|v${variant}|doc=${doc}`);
+            // Safety: Ensure rng is always a function
+            let safeRng = () => Math.random();
+            try {
+              const generatedRng = makeRng(`${effectiveSeed}|v${variant}|doc=${doc}`);
+              if (typeof generatedRng === 'function') safeRng = generatedRng;
+            } catch (e) {
+              console.error('RNG generation failed', e);
+            }
+
             const pairs = [
               { heavy: { name: 'Elephant', emoji: String.fromCodePoint(0x1F418) }, light: { name: 'Feather', emoji: String.fromCodePoint(0x1FAB6) } },
               { heavy: { name: 'Car', emoji: String.fromCodePoint(0x1F697) }, light: { name: 'Balloon', emoji: String.fromCodePoint(0x1F388) } },
@@ -35796,7 +35804,21 @@ export function PrintablesPage() {
               { heavy: { name: 'Hammer', emoji: String.fromCodePoint(0x1F528) }, light: { name: 'Cotton', emoji: String.fromCodePoint(0x2601) } },
               { heavy: { name: 'Backpack', emoji: String.fromCodePoint(0x1F392) }, light: { name: 'Paper', emoji: String.fromCodePoint(0x1F4C4) } },
             ];
-            const activePairs = shuffleArray([...pairs], `${effectiveSeed}|heavylight`).slice(0, 4);
+
+            // Safety: Validate shuffleArray output
+            let activePairs = [];
+            try {
+              const shuffled = shuffleArray([...pairs], `${effectiveSeed}|heavylight`);
+              if (Array.isArray(shuffled)) {
+                activePairs = shuffled.slice(0, 4);
+              } else {
+                activePairs = pairs.slice(0, 4);
+              }
+            } catch (e) {
+              activePairs = pairs.slice(0, 4);
+            }
+
+            if (!activePairs || activePairs.length === 0) return null;
 
             return (
               <WorksheetSectionWrapper
@@ -35820,12 +35842,15 @@ export function PrintablesPage() {
 
                 <div className="grid grid-cols-2 gap-8" style={{ pageBreakAfter: 'auto' }}>
                   {activePairs.map((pair, idx) => {
-                    const isSwapped = rng() > 0.5;
+                    if (!pair || !pair.heavy || !pair.light) return null; // Skip invalid pairs
+
+                    const isSwapped = safeRng() > 0.5;
                     const items = isSwapped
                       ? [{ ...pair.light, isHeavy: false }, { ...pair.heavy, isHeavy: true }]
                       : [{ ...pair.heavy, isHeavy: true }, { ...pair.light, isHeavy: false }];
 
-                    if (!items[0] || !items[1]) return null; // Defensive check
+                    // Extra safety checks
+                    if (!items[0] || !items[1]) return null;
 
                     return (
                       <div key={idx} className="border-4 border-slate-100 rounded-3xl p-6 bg-white relative hover:border-violet-100 transition-colors">
@@ -35846,8 +35871,8 @@ export function PrintablesPage() {
                             <div className="flex justify-between w-full relative z-10 pb-8">
                               {items.map((item, iIdx) => (
                                 <div key={iIdx} className={`flex flex-col items-center transition-all duration-500 ${item.isHeavy ? 'translate-y-4' : '-translate-y-4'}`}>
-                                  <div className="text-5xl drop-shadow-sm mb-2">{item?.emoji}</div>
-                                  <p className="text-[9px] uppercase font-bold text-slate-400 tracking-tighter">{item?.name}</p>
+                                  <div className="text-5xl drop-shadow-sm mb-2">{item?.emoji || '?'}</div>
+                                  <p className="text-[9px] uppercase font-bold text-slate-400 tracking-tighter">{item?.name || 'Item'}</p>
                                 </div>
                               ))}
                             </div>
@@ -35892,11 +35917,14 @@ export function PrintablesPage() {
                   <div className="mt-6 p-4 border-2 border-emerald-300 bg-emerald-50 rounded print:border print:bg-white print:page-break-before-always">
                     <div className="font-bold text-emerald-900 mb-3 text-base">{String.fromCodePoint(0x2705)}</div>
                     <ul className="list-disc list-inside space-y-1 text-sm">
-                      {activePairs.map((pair, idx) => (
-                        <li key={idx} className="text-emerald-800">
-                          Problem {idx + 1}: {pair.heavy.name} (Heavy), {pair.light.name} (Light)
-                        </li>
-                      ))}
+                      {activePairs.map((pair, idx) => {
+                        if (!pair || !pair.heavy || !pair.light) return null;
+                        return (
+                          <li key={idx} className="text-emerald-800">
+                            Problem {idx + 1}: {pair.heavy.name} (Heavy), {pair.light.name} (Light)
+                          </li>
+                        );
+                      })}
                     </ul>
                   </div>
                 ))}
