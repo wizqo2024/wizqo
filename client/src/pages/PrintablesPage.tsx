@@ -23175,9 +23175,9 @@ export function PrintablesPage() {
                     <div key={i} className="flex flex-col md:flex-row items-center gap-6 bg-slate-900 text-cyan-400 p-4 rounded-xl border-2 border-cyan-500 shadow-[0_0_15px_rgba(6,182,212,0.3)] print:bg-white print:text-black print:border-black print:shadow-none">
                       {/* Item Card */}
                       <div className="w-32 h-32 bg-slate-800 rounded-lg border-2 border-cyan-700 flex flex-col items-center justify-center p-2 shrink-0 print:border-black print:bg-slate-100">
-                        <div className="text-4xl mb-2">{[String.fromCharCode(0x1F680), String.fromCharCode(0x1F47D), String.fromCharCode(0x1F6F0), String.fromCharCode(0x1FA90)][i % 4]}</div>
+                        <div className="text-4xl mb-2">{[String.fromCodePoint(0x1F680), String.fromCodePoint(0x1F47D), String.fromCodePoint(0x1F6F0), String.fromCodePoint(0x1FA90)][i % 4]}</div>
                         <div className="text-[10px] text-cyan-300 uppercase font-bold print:text-black">Space Item #{i + 1}</div>
-                        <div className="text-3xl font-black text-white mt-1 print:text-black">{String.fromCharCode(0x2728)}</div>
+                        <div className="text-3xl font-black text-white mt-1 print:text-black">{p.cents}{String.fromCharCode(0x00A2)}</div>
                       </div>
 
                       {/* Wallet Area */}
