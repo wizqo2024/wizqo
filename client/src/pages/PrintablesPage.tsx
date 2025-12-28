@@ -2962,7 +2962,7 @@ export function PrintablesPage() {
               className="inline-flex items-center gap-2 px-3 py-1.5 rounded-lg border border-slate-200 text-slate-700 hover:bg-slate-50 text-sm"
               aria-label={t('pages.printables.backPrintablePage')}
             >
-              <span>{String.fromCodePoint(0x270F)}</span>
+              <span>{String.fromCodePoint(0x2B05)}</span>
               <span>{(() => {
                 try {
                   const u = new URL(typeof window !== 'undefined' ? window.location.href : 'https://wizqo.com/print')
@@ -3025,7 +3025,7 @@ export function PrintablesPage() {
                 }}
                 className="inline-flex items-center gap-2 px-4 py-2 rounded-lg border border-slate-300 bg-white hover:bg-slate-50 text-slate-700 text-sm font-medium shadow-sm focus:outline-none focus:ring-2 focus:ring-slate-400 focus:ring-offset-1 print:hidden"
               >
-                <span>{String.fromCodePoint(0x270F)}</span> Print
+                <span>{String.fromCodePoint(0x1F5A8)}</span> Print
               </button>
               <button
                 onClick={(e) => {
