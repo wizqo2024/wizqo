@@ -3657,11 +3657,11 @@ export function PrintablesPage() {
               <div className="space-y-2 text-sm">
                 <div className="font-semibold text-base"><strong>{t('common.problem')}</strong>{String.fromCodePoint(0x1F4A1)}</div>
                 <div className="pl-4 border-l-2 border-blue-300 space-y-1">
-                  <div><strong>{t('common.step1')}</strong>{String.fromCodePoint(0x279C)}</div>
-                  <div><strong>{t('common.step2')}</strong>{String.fromCodePoint(0x279C)}</div>
+                  <div><strong>{t('common.step1')}</strong> Find the latitude (numbers on the side)</div>
+                  <div><strong>{t('common.step2')}</strong> Find the longitude (numbers on the top/bottom)</div>
                   <div><strong>{t('common.step3')}</strong> {t('worksheets.geographyMap.example.step3Text2', 'Where they meet is point A')}</div>
-                  <div className="font-semibold text-blue-900"><strong>{t('common.answer')}</strong>{String.fromCodePoint(0x279C)}</div>
-                  <div className="text-xs text-blue-700 mt-1">{String.fromCodePoint(0x279C)}</div>
+                  <div className="font-semibold text-blue-900"><strong>{t('common.answer')}</strong> (Latitude, Longitude)</div>
+                  <div className="text-xs text-blue-700 mt-1">Tip: Latitude lines go "ladder-style" up and down!</div>
                 </div>
               </div>
             </div>
@@ -3675,8 +3675,8 @@ export function PrintablesPage() {
                 {/* Axes labels */}
                 <g fill="#111827" fontSize="12">
                   {/* Equator and Prime Meridian labels */}
-                  <text x="380" y="46">{String.fromCodePoint(0x279C)}</text>
-                  <text x="36" y="260" transform="rotate(-90 36,260)">{String.fromCodePoint(0x279C)}</text>
+                  <text x="380" y="46">0{String.fromCharCode(0x00B0)}</text>
+                  <text x="36" y="260" transform="rotate(-90 36,260)">0{String.fromCharCode(0x00B0)}</text>
                   {/* Latitude tick labels */}
                   {([-60, -30, 0, 30, 60] as number[]).map((lat) => {
                     const y = 50 + ((90 - lat) / 180) * 400; // map -90..90 to 50..450
@@ -3695,8 +3695,8 @@ export function PrintablesPage() {
                   <rect x="520" y="300" width="24" height="24" />
                 </g>
                 <g fill="#111827" fontSize="14">
-                  <text x="250" y="160">{String.fromCodePoint(0x279C)}</text>
-                  <text x="515" y="295">{String.fromCodePoint(0x279C)}</text>
+                  <text x="250" y="160">A</text>
+                  <text x="515" y="295">B</text>
                 </g>
               </svg>
             </div>
@@ -3745,7 +3745,7 @@ export function PrintablesPage() {
                     Point A: <strong>{String.fromCodePoint(0x2705)}</strong> - Located in the northern and western hemisphere
                   </div>
                   <div className="text-sm text-emerald-800">
-                    Point B: <strong>{String.fromCodePoint(0x279C)}</strong> - Located in the southern and eastern hemisphere
+                    Point B: <strong>30{String.fromCharCode(0x00B0)}S, 60{String.fromCharCode(0x00B0)}E</strong> - Located in the southern and eastern hemisphere
                   </div>
                   <div className="mt-4 border border-emerald-200 rounded p-2 bg-white">
                     <div className="text-xs font-bold mb-1 text-center">Solution Map:</div>
@@ -4164,21 +4164,21 @@ export function PrintablesPage() {
                 <div className="bg-white p-4 rounded-lg border-2 border-indigo-300">
                   <div className="flex items-center justify-center gap-6">
                     <div className="text-center">
-                      <div className="text-6xl mb-2">{String.fromCodePoint(0x279C)}</div>
+                      <div className="text-6xl mb-2">🍎</div>
                       <div className="text-xs font-semibold text-indigo-700">apple</div>
                       <div className="mt-2 w-16 h-16 rounded-full border-4 border-green-500 mx-auto flex items-center justify-center">
-                        <span className="text-2xl">{String.fromCodePoint(0x279C)}</span>
+                        <span className="text-2xl">A</span>
                       </div>
                     </div>
                     <div className="text-center">
-                      <div className="text-6xl mb-2">{String.fromCodePoint(0x279C)}</div>
+                      <div className="text-6xl mb-2">✈️</div>
                       <div className="text-xs font-semibold text-indigo-700">airplane</div>
                       <div className="mt-2 w-16 h-16 rounded-full border-4 border-green-500 mx-auto flex items-center justify-center">
-                        <span className="text-2xl">{String.fromCodePoint(0x279C)}</span>
+                        <span className="text-2xl">A</span>
                       </div>
                     </div>
                     <div className="text-center">
-                      <div className="text-6xl mb-2">{String.fromCodePoint(0x279C)}</div>
+                      <div className="text-6xl mb-2">🦋</div>
                       <div className="text-xs font-semibold text-slate-500">butterfly</div>
                       <div className="mt-2 w-16 h-16 rounded-full border-4 border-slate-300 mx-auto flex items-center justify-center">
                         <span className="text-xl text-slate-400">{String.fromCodePoint(0x270F)}</span>
@@ -4189,12 +4189,12 @@ export function PrintablesPage() {
                 </div>
                 <div className="pl-4 border-l-2 border-indigo-300 space-y-1">
                   <div><strong>Step 1:</strong> Say the sound: <span className="text-indigo-700 font-bold">/a/</span> (like in apple)</div>
-                  <div><strong>Step 2:</strong>{String.fromCodePoint(0x279C)}</div>
+                  <div><strong>Step 2:</strong> Look at the pictures.</div>
                   <div><strong>Step 3:</strong> Which one starts with /a/? <span className="text-green-600 font-bold">Apple and airplane both start with /a/!</span></div>
                   <div><strong>Step 4:</strong> Circle the pictures that begin with /a/</div>
-                  <div className="font-semibold text-indigo-900 mt-2"><strong>Answer:</strong> Circle <span className="text-2xl">{String.fromCodePoint(0x279C)}</span> and <span className="text-2xl">{String.fromCodePoint(0x279C)}</span></div>
+                  <div className="font-semibold text-indigo-900 mt-2"><strong>Answer:</strong> Circle 🍎 and ✈️</div>
                   <div className="text-xs text-indigo-700 mt-2 flex items-center gap-1">
-                    <span>{String.fromCodePoint(0x279C)}</span>
+                    <span>{String.fromCodePoint(0x1F4A1)}</span>
                     <span>Tip: Say the sound, not the letter name! A says /a/ as in apple!</span>
                   </div>
                 </div>
@@ -4203,32 +4203,13 @@ export function PrintablesPage() {
             <div className="grid grid-cols-2 gap-4" style={{ pageBreakAfter: 'auto' }}>
               {(() => {
                 const rows: Array<[string, string, string, string]> = [
-                  ['A', '', '', ''],
-                  ['B', '', '', ''],
-                  ['C', '', '', ''],
-                  ['D', '', '', ''],
-                  ['E', '', '', ''],
-                  ['F', '', '', ''],
-                  ['G', '', '', ''],
-                  ['H', '', '', ''],
-                  ['I', '', '', ''],
-                  ['J', '', '', ''],
-                  ['K', '', '', ''],
-                  ['L', '', '', ''],
-                  ['M', '', '', ''],
-                  ['N', '', '', ''],
-                  ['O', '', '', ''],
-                  ['P', '', '', ''],
-                  ['Q', '', '', ''],
-                  ['R', '', '', ''],
-                  ['S', '', '', ''],
-                  ['T', '', '', ''],
-                  ['U', '', '', ''],
-                  ['V', '', '', ''],
-                  ['W', '', '', ''],
-                  ['X', ' xylophone', '', ''],
-                  ['Y', ' yarn', '', ''],
-                  ['Z', ' zebra', '', ''],
+                  ['A', '🍎', '🐜', '⚓'], ['B', '🐻', '💣', '🐝'], ['C', '🐱', '🚗', '🍰'], ['D', '🐶', '🎲', '🍩'],
+                  ['E', '🥚', '🐘', '🦅'], ['F', '🐟', '🦊', '🍟'], ['G', '🍇', '🎁', '🎸'], ['H', '🏠', '👒', '🐹'],
+                  ['I', '🧊', '🍦', '🦎'], ['J', '🏺', '👖', '🚁'], ['K', '🪁', '🔑', '🦘'], ['L', '🦁', '🍋', '🪵'],
+                  ['M', '🌙', '🐵', '🖱️'], ['N', '🥜', '🥅', '🥡'], ['O', '🐙', '🦉', '🍊'], ['P', '🐷', '🍕', '✏️'],
+                  ['Q', '👑', '❓', '🦆'], ['R', '🐰', '💍', '🤖'], ['S', '☀️', '🐍', '⭐'], ['T', '🐢', '🎪', '🐅'],
+                  ['U', '☂️', '🆙', '🦄'], ['V', '🎻', '🌋', '🚐'], ['W', '🐋', '🍉', '⌚'], ['X', '📦', '🦊', '🧹'],
+                  ['Y', '🧶', '⛵', '🍠'], ['Z', '🦓', '🤐', '⚡'],
                 ]
                 return rows.map(([L, a, b, c]) => (
                   <svg key={L} viewBox="0 0 400 160" className="w-full h-auto bg-white border border-slate-300 rounded">
@@ -4269,15 +4250,13 @@ export function PrintablesPage() {
             </div>
             {showAnswersForDoc('beginning-sounds-az', () => {
               const answers: Record<string, string[]> = {
-                'A': [String.fromCodePoint(0x279C), String.fromCodePoint(0x279C)], 'B': [String.fromCodePoint(0x279C), String.fromCodePoint(0x279C), String.fromCodePoint(0x279C)], 'C': [String.fromCodePoint(0x279C), String.fromCodePoint(0x279C), String.fromCodePoint(0x279C)],
-                'D': [String.fromCodePoint(0x279C), String.fromCodePoint(0x279C), String.fromCodePoint(0x279C)], 'E': [String.fromCodePoint(0x279C), String.fromCodePoint(0x279C), String.fromCodePoint(0x279C)], 'F': [String.fromCodePoint(0x279C), String.fromCodePoint(0x279C), String.fromCodePoint(0x279C)],
-                'G': [String.fromCodePoint(0x279C), String.fromCodePoint(0x279C), String.fromCodePoint(0x279C)], 'H': [String.fromCodePoint(0x279C), String.fromCodePoint(0x279C), String.fromCodePoint(0x279C)], 'I': [String.fromCodePoint(0x279C), String.fromCodePoint(0x279C), String.fromCodePoint(0x279C)],
-                'J': [String.fromCodePoint(0x279C), String.fromCodePoint(0x279C), String.fromCodePoint(0x279C)], 'K': [String.fromCodePoint(0x279C), String.fromCodePoint(0x279C), String.fromCodePoint(0x279C)], 'L': [String.fromCodePoint(0x279C), String.fromCodePoint(0x279C), String.fromCodePoint(0x279C)],
-                'M': [String.fromCodePoint(0x279C), String.fromCodePoint(0x279C), String.fromCodePoint(0x279C)], 'N': [String.fromCodePoint(0x279C), String.fromCodePoint(0x279C), String.fromCodePoint(0x279C)], 'O': [String.fromCodePoint(0x279C), String.fromCodePoint(0x279C), String.fromCodePoint(0x279C)],
-                'P': [String.fromCodePoint(0x279C), String.fromCodePoint(0x279C), String.fromCodePoint(0x279C)], 'Q': [String.fromCodePoint(0x279C), String.fromCodePoint(0x279C), String.fromCodePoint(0x279C)], 'R': [String.fromCodePoint(0x279C), String.fromCodePoint(0x279C), String.fromCodePoint(0x279C)],
-                'S': [String.fromCodePoint(0x279C), String.fromCodePoint(0x279C), String.fromCodePoint(0x279C)], 'T': [String.fromCodePoint(0x279C), String.fromCodePoint(0x279C), String.fromCodePoint(0x279C)], 'U': [String.fromCodePoint(0x279C), String.fromCodePoint(0x279C), String.fromCodePoint(0x279C)],
-                'V': [String.fromCodePoint(0x279C), String.fromCodePoint(0x279C), String.fromCodePoint(0x279C)], 'W': [String.fromCodePoint(0x279C), String.fromCodePoint(0x279C), String.fromCodePoint(0x279C)], 'X': [' xylophone', String.fromCodePoint(0x279C), String.fromCodePoint(0x279C)],
-                'Y': [' yarn', '', ''], 'Z': [' zebra', '', '']
+                'A': ['🍎', '🐜', '⚓'], 'B': ['🐻', '💣', '🐝'], 'C': ['🐱', '🚗', '🍰'], 'D': ['🐶', '🎲', '🍩'],
+                'E': ['🥚', '🐘', '🦅'], 'F': ['🐟', '🦊', '🍟'], 'G': ['🍇', '🎁', '🎸'], 'H': ['🏠', '👒', '🐹'],
+                'I': ['🧊', '🍦', '🦎'], 'J': ['🏺', '👖', '🚁'], 'K': ['🪁', '🔑', '🦘'], 'L': ['🦁', '🍋', '🪵'],
+                'M': ['🌙', '🐵', '🖱️'], 'N': ['🥜', '🥅', '🥡'], 'O': ['🐙', '🦉', '🍊'], 'P': ['🐷', '🍕', '✏️'],
+                'Q': ['👑', '❓', '🦆'], 'R': ['🐰', '💍', '🤖'], 'S': ['☀️', '🐍', '⭐'], 'T': ['🐢', '🎪', '🐅'],
+                'U': ['☂️', '🆙', '🦄'], 'V': ['🎻', '🌋', '🚐'], 'W': ['🐋', '🍉', '⌚'], 'X': ['📦', '🦊', '🧹'],
+                'Y': ['🧶', '⛵', '🍠'], 'Z': ['🦓', '🤐', '⚡']
               };
               return (
                 <div className="mt-6 p-4 border-2 border-emerald-300 bg-emerald-50 rounded print:border print:bg-white print:page-break-before-always">
@@ -4431,7 +4410,7 @@ export function PrintablesPage() {
                 borderColor: 'border-red-200',
                 bgColor: 'bg-red-50',
                 title: 'Apple Picking',
-                emoji: String.fromCodePoint(0x26A0)
+                emoji: String.fromCodePoint(0x1F34E)
               };
               case 'stars': return {
                 icon: (filled: boolean) => (
@@ -4448,7 +4427,7 @@ export function PrintablesPage() {
                 borderColor: 'border-amber-200',
                 bgColor: 'bg-amber-50',
                 title: 'Super Stars',
-                emoji: String.fromCodePoint(0x279C)
+                emoji: String.fromCodePoint(0x2B50)
               };
               case 'cookies': return {
                 icon: (filled: boolean) => (
@@ -4828,7 +4807,7 @@ export function PrintablesPage() {
                     <div><strong>Step 1:</strong> Look at the pattern: 5, 10, ___, 20, 25</div>
                     <div><strong>Step 2:</strong> Each number is 5 more than the previous: 5 + 5 = 10, 10 + 5 = 15</div>
                     <div className="font-semibold text-blue-900"><strong>Answer:</strong> 15</div>
-                    <div className="text-xs text-blue-700 mt-1">{String.fromCodePoint(0x279C)}</div>
+                    <div className="text-xs text-blue-700 mt-1">Tip: Double check your steps!</div>
                   </div>
                 </div>
               </div>
@@ -5394,7 +5373,7 @@ export function PrintablesPage() {
                     <div><strong>Step 1:</strong> Compare tens: 5 tens vs 4 tens</div>
                     <div><strong>Step 2:</strong> 5 &gt; 4, so 58 &gt; 41</div>
                     <div className="font-semibold text-blue-900"><strong>Answer:</strong> 58 &gt; 41</div>
-                    <div className="text-xs text-blue-700 mt-1">{String.fromCodePoint(0x279C)}</div>
+                    <div className="text-xs text-blue-700 mt-1">Tip: Double check your steps!</div>
                   </div>
                 </div>
               </div>
@@ -5499,7 +5478,7 @@ export function PrintablesPage() {
                     <div><strong>Step 2:</strong> 4 is in the even list (0, 2, 4, 6, 8)</div>
                     <div><strong>Step 3:</strong>{String.fromCodePoint(0x279C)}</div>
                     <div className="font-semibold text-blue-900"><strong>Answer:</strong> 24 is even</div>
-                    <div className="text-xs text-blue-700 mt-1">{String.fromCodePoint(0x279C)}</div>
+                    <div className="text-xs text-blue-700 mt-1">Tip: Double check your steps!</div>
                   </div>
                 </div>
               </div>
@@ -5694,7 +5673,7 @@ export function PrintablesPage() {
                     <div><strong>Step 2:</strong> Color 7 circles in the ten frame</div>
                     <div><strong>Step 3:</strong> Count: 7 filled, 3 empty</div>
                     <div className="font-semibold text-blue-900"><strong>Answer:</strong> Color 7 circles. Say "7 filled, 3 empty"</div>
-                    <div className="text-xs text-blue-700 mt-1">{String.fromCodePoint(0x279C)}</div>
+                    <div className="text-xs text-blue-700 mt-1">Tip: Double check your steps!</div>
                   </div>
                 </div>
               </div>
@@ -5942,7 +5921,7 @@ export function PrintablesPage() {
                     <div><strong>Step 2:</strong> Draw a line from 1 to 2</div>
                     <div><strong>Step 3:</strong> Continue: 2 to 3, 3 to 4, and so on...</div>
                     <div className="font-semibold text-blue-900"><strong>Answer:</strong>{String.fromCodePoint(0x279C)}</div>
-                    <div className="text-xs text-blue-700 mt-1">{String.fromCodePoint(0x279C)}</div>
+                    <div className="text-xs text-blue-700 mt-1">Tip: Double check your steps!</div>
                   </div>
                 </div>
               </div>
@@ -6536,7 +6515,7 @@ export function PrintablesPage() {
                     <div><strong>{getTrans(`worksheets.${docId}.example.step2`, 'Step 2:')}</strong> {getTrans(`worksheets.${docId}.example.step2Text`, 'Look for the answer to "Where did Mia go?"')}</div>
                     <div><strong>{getTrans(`worksheets.${docId}.example.step3`, 'Step 3:')}</strong> {getTrans(`worksheets.${docId}.example.step3Text`, 'Find: "Mia ran to the park"')}</div>
                     <div className="font-semibold text-blue-900"><strong>{getTrans(`worksheets.${docId}.example.answer`, 'Answer:')}</strong> {getTrans(`worksheets.${docId}.example.answerText`, 'Mia went to the park.')}</div>
-                    <div className="text-xs text-blue-700 mt-1">{String.fromCodePoint(0x279C)}</div>
+                    <div className="text-xs text-blue-700 mt-1">Tip: Double check your steps!</div>
                   </div>
                 </div>
               </div>
@@ -9369,7 +9348,7 @@ export function PrintablesPage() {
                     <div><strong>{getTrans(`worksheets.${docId}.example.step3`, 'Step 3:')}</strong> {getTrans(`worksheets.${docId}.example.step3Text`, 'Move to Row 2 and find tiles that equal 8: 6+2=8, 9-1=8, etc.')}</div>
                     <div><strong>{getTrans(`worksheets.${docId}.example.step4`, 'Step 4:')}</strong> {getTrans(`worksheets.${docId}.example.step4Text`, 'Continue to Row 3 and find tiles that equal 10: 7+3=10, 12-2=10, etc.')}</div>
                     <div><strong>{getTrans(`worksheets.${docId}.example.step5`, 'Step 5:')}</strong> {getTrans(`worksheets.${docId}.example.step5Text`, 'Draw your path from S to F following valid tiles')}</div>
-                    <div className="text-xs text-blue-700 mt-1">{String.fromCodePoint(0x279C)}</div>
+                    <div className="text-xs text-blue-700 mt-1">Tip: Double check your steps!</div>
                   </div>
                 </div>
               </div>
@@ -9772,7 +9751,7 @@ export function PrintablesPage() {
                     <div><strong>Step 2:</strong> Find all squares with number 1</div>
                     <div><strong>Step 3:</strong> Color them yellow</div>
                     <div className="font-semibold text-blue-900"><strong>Answer:</strong> Color all 1s yellow</div>
-                    <div className="text-xs text-blue-700 mt-1">{String.fromCodePoint(0x279C)}</div>
+                    <div className="text-xs text-blue-700 mt-1">Tip: Double check your steps!</div>
                   </div>
                 </div>
               </div>
@@ -13069,7 +13048,7 @@ export function PrintablesPage() {
                     <div><strong>Step 2:</strong> See the repetition: Circle, Square, Circle, Square</div>
                     <div><strong>Step 3:</strong> What comes next? After Square comes Circle!</div>
                     <div className="font-semibold text-blue-900"><strong>Answer:</strong> Circle</div>
-                    <div className="text-xs text-blue-700 mt-1">{String.fromCodePoint(0x279C)}</div>
+                    <div className="text-xs text-blue-700 mt-1">Tip: Double check your steps!</div>
                   </div>
                 </div>
               </div>
@@ -13171,7 +13150,7 @@ export function PrintablesPage() {
                     <div><strong>Step 2:</strong> See the repetition: Circle, Square, Triangle repeats</div>
                     <div><strong>Step 3:</strong> After Square comes Triangle (the pattern repeats)</div>
                     <div className="font-semibold text-blue-900"><strong>Answer:</strong> Triangle</div>
-                    <div className="text-xs text-blue-700 mt-1">{String.fromCodePoint(0x279C)}</div>
+                    <div className="text-xs text-blue-700 mt-1">Tip: Double check your steps!</div>
                   </div>
                 </div>
               </div>
@@ -13264,7 +13243,7 @@ export function PrintablesPage() {
                     <div><strong>Step 2:</strong> Compare their sizes visually</div>
                     <div><strong>Step 3:</strong> The bigger one takes up more space</div>
                     <div className="font-semibold text-blue-900"><strong>Answer:</strong> Circle the one that is larger</div>
-                    <div className="text-xs text-blue-700 mt-1">{String.fromCodePoint(0x279C)}</div>
+                    <div className="text-xs text-blue-700 mt-1">Tip: Double check your steps!</div>
                   </div>
                 </div>
               </div>
@@ -13365,7 +13344,7 @@ export function PrintablesPage() {
                     <div><strong>Step 3:</strong>{String.fromCodePoint(0x279C)}</div>
                     <div><strong>Step 4:</strong>{String.fromCodePoint(0x279C)}</div>
                     <div className="font-semibold text-blue-900"><strong>Answer:</strong> 125 = 100 + 20 + 5</div>
-                    <div className="text-xs text-blue-700 mt-1">{String.fromCodePoint(0x279C)}</div>
+                    <div className="text-xs text-blue-700 mt-1">Tip: Double check your steps!</div>
                   </div>
                 </div>
               </div>
@@ -13459,7 +13438,7 @@ export function PrintablesPage() {
                     <div><strong>Step 2:</strong> The pattern is +10</div>
                     <div><strong>Step 3:</strong> After 30 comes 30 + 10 = 40</div>
                     <div className="font-semibold text-blue-900"><strong>Answer:</strong> 40</div>
-                    <div className="text-xs text-blue-700 mt-1">{String.fromCodePoint(0x279C)}</div>
+                    <div className="text-xs text-blue-700 mt-1">Tip: Double check your steps!</div>
                   </div>
                 </div>
               </div>
@@ -13661,7 +13640,7 @@ export function PrintablesPage() {
                     <div><strong>Step 3:</strong> Color 1 of the 2 parts</div>
                     <div><strong>Step 4:</strong> Write "one half" in the blank</div>
                     <div className="font-semibold text-blue-900"><strong>Answer:</strong> Color 1 part, write "one half"</div>
-                    <div className="text-xs text-blue-700 mt-1">{String.fromCodePoint(0x279C)}</div>
+                    <div className="text-xs text-blue-700 mt-1">Tip: Double check your steps!</div>
                   </div>
                 </div>
               </div>
@@ -13802,7 +13781,7 @@ export function PrintablesPage() {
                       <div><strong>{getTrans(`worksheets.${docId}.example.step2`, 'Step 2:')}</strong> {getTrans(`worksheets.${docId}.example.step2Text`, 'Count: 4, 8, 12 (skip count by 4s three times)')}</div>
                       <div><strong>{getTrans(`worksheets.${docId}.example.step3`, 'Step 3:')}</strong> {getTrans(`worksheets.${docId}.example.step3Text`, 'Or add: 4 + 4 + 4 = 12')}</div>
                       <div className="font-semibold text-blue-900"><strong>{getTrans(`worksheets.${docId}.example.answer`, 'Answer:')}</strong> {getTrans(`worksheets.${docId}.example.answerText`, '12')}</div>
-                      <div className="text-xs text-blue-700 mt-1">{String.fromCodePoint(0x279C)}</div>
+                      <div className="text-xs text-blue-700 mt-1">Tip: Double check your steps!</div>
                     </div>
                   </div>
                 </div>
@@ -13914,7 +13893,7 @@ export function PrintablesPage() {
                       <div><strong>Step 2:</strong>{String.fromCodePoint(0x279C)}</div>
                       <div><strong>Step 3:</strong> Or count: 4, 8, 12 (count by 4s three times)</div>
                       <div className="font-semibold text-blue-900"><strong>Answer:</strong> 12</div>
-                      <div className="text-xs text-blue-700 mt-1">{String.fromCodePoint(0x279C)}</div>
+                      <div className="text-xs text-blue-700 mt-1">Tip: Double check your steps!</div>
                     </div>
                   </div>
                 </div>
@@ -14053,7 +14032,7 @@ export function PrintablesPage() {
                       <div><strong>Step 2:</strong>{String.fromCodePoint(0x279C)}</div>
                       <div><strong>Step 3:</strong>{String.fromCodePoint(0x279C)}</div>
                       <div className="font-semibold text-blue-900"><strong>Answer:</strong> 10 pencils</div>
-                      <div className="text-xs text-blue-700 mt-1">{String.fromCodePoint(0x279C)}</div>
+                      <div className="text-xs text-blue-700 mt-1">Tip: Double check your steps!</div>
                     </div>
                   </div>
                 </div>
@@ -14155,7 +14134,7 @@ export function PrintablesPage() {
                       <div><strong>Strategy 2:</strong>{String.fromCodePoint(0x279C)}</div>
                       <div><strong>Strategy 3:</strong> Skip count: 8, 16, 24, 32, 40, 48, 56 (count by 8s seven times)</div>
                       <div className="font-semibold text-blue-900"><strong>Answer:</strong> 56</div>
-                      <div className="text-xs text-blue-700 mt-1">{String.fromCodePoint(0x279C)}</div>
+                      <div className="text-xs text-blue-700 mt-1">Tip: Double check your steps!</div>
                     </div>
                   </div>
                 </div>
@@ -14250,7 +14229,7 @@ export function PrintablesPage() {
                       <div><strong>Step 2:</strong>{String.fromCodePoint(0x279C)}</div>
                       <div><strong>Step 3:</strong> Or count all boxes: 1, 2, 3... 20 boxes total</div>
                       <div className="font-semibold text-blue-900"><strong>Answer:</strong> 20</div>
-                      <div className="text-xs text-blue-700 mt-1">{String.fromCodePoint(0x279C)}</div>
+                      <div className="text-xs text-blue-700 mt-1">Tip: Double check your steps!</div>
                     </div>
                   </div>
                 </div>
@@ -14344,7 +14323,7 @@ export function PrintablesPage() {
                       <div><strong>Step 1:</strong>{String.fromCodePoint(0x279C)}</div>
                       <div><strong>Step 2:</strong>{String.fromCodePoint(0x279C)}</div>
                       <div className="font-semibold text-blue-900"><strong>Answer:</strong> 72 cookies</div>
-                      <div className="text-xs text-blue-700 mt-1">{String.fromCodePoint(0x279C)}</div>
+                      <div className="text-xs text-blue-700 mt-1">Tip: Double check your steps!</div>
                     </div>
                   </div>
                 </div>
@@ -14488,7 +14467,7 @@ export function PrintablesPage() {
                       <div>{String.fromCodePoint(0x279C)}</div>
                       <div>{String.fromCodePoint(0x279C)}</div>
                       <div>{String.fromCodePoint(0x279C)}</div>
-                      <div className="text-xs text-blue-700 mt-1">{String.fromCodePoint(0x279C)}</div>
+                      <div className="text-xs text-blue-700 mt-1">Tip: Double check your steps!</div>
                     </div>
                   </div>
                 </div>
@@ -15309,7 +15288,7 @@ export function PrintablesPage() {
                       <div><strong>Step 1:</strong>{String.fromCodePoint(0x279C)}</div>
                       <div><strong>Step 2:</strong>{String.fromCodePoint(0x279C)}</div>
                       <div className="font-semibold text-blue-900"><strong>Answer:</strong> 96 cents</div>
-                      <div className="text-xs text-blue-700 mt-1">{String.fromCodePoint(0x279C)}</div>
+                      <div className="text-xs text-blue-700 mt-1">Tip: Double check your steps!</div>
                     </div>
                   </div>
                 </div>
@@ -15406,7 +15385,7 @@ export function PrintablesPage() {
                       <div><strong>Quick recall:</strong>{String.fromCodePoint(0x279C)}</div>
                       <div><strong>If you need to think:</strong>{String.fromCodePoint(0x279C)}</div>
                       <div className="font-semibold text-blue-900"><strong>Answer:</strong> 42</div>
-                      <div className="text-xs text-blue-700 mt-1">{String.fromCodePoint(0x279C)}</div>
+                      <div className="text-xs text-blue-700 mt-1">Tip: Double check your steps!</div>
                     </div>
                   </div>
                 </div>
@@ -15503,7 +15482,7 @@ export function PrintablesPage() {
                       <div><strong>Method 1:</strong>{String.fromCodePoint(0x279C)}</div>
                       <div><strong>Method 2:</strong>{String.fromCodePoint(0x279C)}</div>
                       <div className="font-semibold text-blue-900"><strong>Answer:</strong> 72</div>
-                      <div className="text-xs text-blue-700 mt-1">{String.fromCodePoint(0x279C)}</div>
+                      <div className="text-xs text-blue-700 mt-1">Tip: Double check your steps!</div>
                     </div>
                   </div>
                 </div>
@@ -15595,7 +15574,7 @@ export function PrintablesPage() {
                     <div><strong>Step 1:</strong> Draw 3 rows with 4 items in each row</div>
                     <div><strong>Step 2:</strong>{String.fromCodePoint(0x279C)}</div>
                     <div className="font-semibold text-blue-900"><strong>Answer:</strong> 12</div>
-                    <div className="text-xs text-blue-700 mt-1">{String.fromCodePoint(0x279C)}</div>
+                    <div className="text-xs text-blue-700 mt-1">Tip: Double check your steps!</div>
                   </div>
                 </div>
               </div>
@@ -15775,7 +15754,7 @@ export function PrintablesPage() {
                       <div><strong>Step 2:</strong> Look at the answers: 4, 8, 12... they increase by 4 each time!</div>
                       <div><strong>Step 3:</strong>{String.fromCodePoint(0x279C)}</div>
                       <div className="font-semibold text-blue-900"><strong>Pattern:</strong> Add 4 each time</div>
-                      <div className="text-xs text-blue-700 mt-1">{String.fromCodePoint(0x279C)}</div>
+                      <div className="text-xs text-blue-700 mt-1">Tip: Double check your steps!</div>
                     </div>
                   </div>
                 </div>
@@ -15908,7 +15887,7 @@ export function PrintablesPage() {
                       <div><strong>{getTrans(`worksheets.${docId}.example.method2`, 'Method 2 (Repeated Addition):')}</strong> {getTrans(`worksheets.${docId}.example.method2Text`, '3 + 3 + 3 + 3 = 12')}</div>
                       <div><strong>{getTrans(`worksheets.${docId}.example.method3`, 'Method 3 (Visual):')}</strong> {getTrans(`worksheets.${docId}.example.method3Text`, '3 groups of 4 objects = 12 objects')}</div>
                       <div className="font-semibold text-blue-900"><strong>{getTrans(`worksheets.${docId}.example.answer`, 'Answer:')}</strong> {getTrans(`worksheets.${docId}.example.answerText`, '12')}</div>
-                      <div className="text-xs text-blue-700 mt-1">{String.fromCodePoint(0x279C)}</div>
+                      <div className="text-xs text-blue-700 mt-1">Tip: Double check your steps!</div>
                     </div>
                   </div>
                 </div>
@@ -16028,7 +16007,7 @@ export function PrintablesPage() {
                       <div><strong>Method 2 (Use known facts):</strong>{String.fromCodePoint(0x279C)}</div>
                       <div><strong>Method 3 (Skip counting):</strong> Count by 7s eight times: 7, 14, 21, 28, 35, 42, 49, 56</div>
                       <div className="font-semibold text-blue-900"><strong>Answer:</strong> 56</div>
-                      <div className="text-xs text-blue-700 mt-1">{String.fromCodePoint(0x279C)}</div>
+                      <div className="text-xs text-blue-700 mt-1">Tip: Double check your steps!</div>
                     </div>
                   </div>
                 </div>
@@ -16126,7 +16105,7 @@ export function PrintablesPage() {
                       <div><strong>Method 2 (Use known facts):</strong>{String.fromCodePoint(0x279C)}</div>
                       <div><strong>Method 3 (Skip counting):</strong> Count by 9s seven times: 9, 18, 27, 36, 45, 54, 63</div>
                       <div className="font-semibold text-blue-900"><strong>Answer:</strong> 63</div>
-                      <div className="text-xs text-blue-700 mt-1">{String.fromCodePoint(0x279C)}</div>
+                      <div className="text-xs text-blue-700 mt-1">Tip: Double check your steps!</div>
                     </div>
                   </div>
                 </div>
@@ -16439,7 +16418,7 @@ export function PrintablesPage() {
                       <div><strong>9s Trick:</strong>{String.fromCodePoint(0x279C)}</div>
                       <div><strong>Alternative:</strong>{String.fromCodePoint(0x279C)}</div>
                       <div className="font-semibold text-blue-900"><strong>Answer:</strong> 72</div>
-                      <div className="text-xs text-blue-700 mt-1">{String.fromCodePoint(0x279C)}</div>
+                      <div className="text-xs text-blue-700 mt-1">Tip: Double check your steps!</div>
                     </div>
                   </div>
                 </div>
@@ -16546,7 +16525,7 @@ export function PrintablesPage() {
                       <div><strong>Step 1:</strong> Ask: "What times 3 equals 12?"</div>
                       <div><strong>Step 2:</strong>{String.fromCodePoint(0x279C)}</div>
                       <div className="font-semibold text-blue-900"><strong>Answer:</strong> 4</div>
-                      <div className="text-xs text-blue-700 mt-1">{String.fromCodePoint(0x279C)}</div>
+                      <div className="text-xs text-blue-700 mt-1">Tip: Double check your steps!</div>
                     </div>
                   </div>
                 </div>
@@ -16669,7 +16648,7 @@ export function PrintablesPage() {
                       <div><strong>Step 2:</strong>{String.fromCodePoint(0x279C)}</div>
                       <div><strong>Step 3:</strong>{String.fromCodePoint(0x279C)}</div>
                       <div className="font-semibold text-blue-900"><strong>Answer:</strong> 7</div>
-                      <div className="text-xs text-blue-700 mt-1">{String.fromCodePoint(0x279C)}</div>
+                      <div className="text-xs text-blue-700 mt-1">Tip: Double check your steps!</div>
                     </div>
                   </div>
                 </div>
@@ -16792,7 +16771,7 @@ export function PrintablesPage() {
                       <div><strong>Step 2:</strong>{String.fromCodePoint(0x279C)}</div>
                       <div><strong>Step 3:</strong>{String.fromCodePoint(0x279C)}</div>
                       <div className="font-semibold text-blue-900"><strong>Answer:</strong> 7</div>
-                      <div className="text-xs text-blue-700 mt-1">{String.fromCodePoint(0x279C)}</div>
+                      <div className="text-xs text-blue-700 mt-1">Tip: Double check your steps!</div>
                     </div>
                   </div>
                 </div>
@@ -16907,7 +16886,7 @@ export function PrintablesPage() {
                     <div className="pl-4 border-l-2 border-blue-300 space-y-1">
                       <div><strong>Quick method:</strong>{String.fromCodePoint(0x279C)}</div>
                       <div className="font-semibold text-blue-900"><strong>Answer:</strong> 12</div>
-                      <div className="text-xs text-blue-700 mt-1">{String.fromCodePoint(0x279C)}</div>
+                      <div className="text-xs text-blue-700 mt-1">Tip: Double check your steps!</div>
                     </div>
                   </div>
                 </div>
@@ -17005,7 +16984,7 @@ export function PrintablesPage() {
                     <div className="pl-4 border-l-2 border-blue-300 space-y-1">
                       <div><strong>Quick method:</strong>{String.fromCodePoint(0x279C)}</div>
                       <div className="font-semibold text-blue-900"><strong>Answer:</strong> 56</div>
-                      <div className="text-xs text-blue-700 mt-1">{String.fromCodePoint(0x279C)}</div>
+                      <div className="text-xs text-blue-700 mt-1">Tip: Double check your steps!</div>
                     </div>
                   </div>
                 </div>
@@ -17103,7 +17082,7 @@ export function PrintablesPage() {
                     <div className="pl-4 border-l-2 border-blue-300 space-y-1">
                       <div><strong>9s Trick:</strong>{String.fromCodePoint(0x279C)}</div>
                       <div className="font-semibold text-blue-900"><strong>Answer:</strong> 72</div>
-                      <div className="text-xs text-blue-700 mt-1">{String.fromCodePoint(0x279C)}</div>
+                      <div className="text-xs text-blue-700 mt-1">Tip: Double check your steps!</div>
                     </div>
                   </div>
                 </div>
@@ -17198,7 +17177,7 @@ export function PrintablesPage() {
                     <div>{String.fromCodePoint(0x279C)}</div>
                     <div>{String.fromCodePoint(0x279C)}</div>
                     <div>{String.fromCodePoint(0x279C)}</div>
-                    <div className="text-xs text-blue-700 mt-1">{String.fromCodePoint(0x279C)}</div>
+                    <div className="text-xs text-blue-700 mt-1">Tip: Double check your steps!</div>
                   </div>
                 </div>
               </div>
@@ -17306,7 +17285,7 @@ export function PrintablesPage() {
                     <div>{String.fromCodePoint(0x279C)}</div>
                     <div>{String.fromCodePoint(0x279C)}</div>
                     <div>{String.fromCodePoint(0x279C)}</div>
-                    <div className="text-xs text-blue-700 mt-1">{String.fromCodePoint(0x279C)}</div>
+                    <div className="text-xs text-blue-700 mt-1">Tip: Double check your steps!</div>
                   </div>
                 </div>
               </div>
@@ -17413,7 +17392,7 @@ export function PrintablesPage() {
                     <div>{String.fromCodePoint(0x279C)}</div>
                     <div>{String.fromCodePoint(0x279C)}</div>
                     <div>{String.fromCodePoint(0x279C)}</div>
-                    <div className="text-xs text-blue-700 mt-1">{String.fromCodePoint(0x279C)}</div>
+                    <div className="text-xs text-blue-700 mt-1">Tip: Double check your steps!</div>
                   </div>
                 </div>
               </div>
@@ -17524,7 +17503,7 @@ export function PrintablesPage() {
                       <div><strong>Think:</strong> 3 groups of 4</div>
                       <div><strong>Count:</strong> 4 + 4 + 4 = 12</div>
                       <div className="font-semibold text-blue-900"><strong>Answer:</strong> 12</div>
-                      <div className="text-xs text-blue-700 mt-1">{String.fromCodePoint(0x279C)}</div>
+                      <div className="text-xs text-blue-700 mt-1">Tip: Double check your steps!</div>
                     </div>
                   </div>
                 </div>
@@ -17622,7 +17601,7 @@ export function PrintablesPage() {
                       <div><strong>Method 1 (Break it down):</strong>{String.fromCodePoint(0x279C)}</div>
                       <div><strong>Method 2 (Use known fact):</strong>{String.fromCodePoint(0x279C)}</div>
                       <div className="font-semibold text-blue-900"><strong>Answer:</strong> 56</div>
-                      <div className="text-xs text-blue-700 mt-1">{String.fromCodePoint(0x279C)}</div>
+                      <div className="text-xs text-blue-700 mt-1">Tip: Double check your steps!</div>
                     </div>
                   </div>
                 </div>
@@ -17720,7 +17699,7 @@ export function PrintablesPage() {
                       <div><strong>Quick recall:</strong>{String.fromCodePoint(0x279C)}</div>
                       <div><strong>If you need to think:</strong>{String.fromCodePoint(0x279C)}</div>
                       <div className="font-semibold text-blue-900"><strong>Answer:</strong> 56</div>
-                      <div className="text-xs text-blue-700 mt-1">{String.fromCodePoint(0x279C)}</div>
+                      <div className="text-xs text-blue-700 mt-1">Tip: Double check your steps!</div>
                     </div>
                   </div>
                 </div>
@@ -17816,7 +17795,7 @@ export function PrintablesPage() {
                       <div><strong>Method 1:</strong>{String.fromCodePoint(0x279C)}</div>
                       <div><strong>Method 2:</strong>{String.fromCodePoint(0x279C)}</div>
                       <div className="font-semibold text-blue-900"><strong>Answer:</strong> 99</div>
-                      <div className="text-xs text-blue-700 mt-1">{String.fromCodePoint(0x279C)}</div>
+                      <div className="text-xs text-blue-700 mt-1">Tip: Double check your steps!</div>
                     </div>
                   </div>
                 </div>
@@ -18549,7 +18528,7 @@ export function PrintablesPage() {
                     <div className="pl-4 border-l-2 border-blue-300 space-y-1">
                       <div><strong>Step 1:</strong> Point to each apple and count: 1, 2, 3, 4, 5</div>
                       <div className="font-semibold text-blue-900"><strong>Answer:</strong> 5</div>
-                      <div className="text-xs text-blue-700 mt-1">{String.fromCodePoint(0x279C)}</div>
+                      <div className="text-xs text-blue-700 mt-1">Tip: Double check your steps!</div>
                     </div>
                   </div>
                 </div>
@@ -19105,7 +19084,7 @@ export function PrintablesPage() {
                       <div><strong>Step 2:</strong> Count second group: 1, 2, 3</div>
                       <div><strong>Step 3:</strong> Count all together: 1, 2, 3, 4, 5</div>
                       <div className="font-semibold text-blue-900"><strong>Answer:</strong> 5</div>
-                      <div className="text-xs text-blue-700 mt-1">{String.fromCodePoint(0x279C)}</div>
+                      <div className="text-xs text-blue-700 mt-1">Tip: Double check your steps!</div>
                     </div>
                   </div>
                 </div>
@@ -19424,7 +19403,7 @@ export function PrintablesPage() {
                     <div className="pl-4 border-l-2 border-blue-300 space-y-1">
                       <div><strong>Step 1:</strong> Point to each bear and count: 1, 2, 3</div>
                       <div className="font-semibold text-blue-900"><strong>Answer:</strong> 3</div>
-                      <div className="text-xs text-blue-700 mt-1">{String.fromCodePoint(0x279C)}</div>
+                      <div className="text-xs text-blue-700 mt-1">Tip: Double check your steps!</div>
                     </div>
                   </div>
                 </div>
@@ -19900,7 +19879,7 @@ export function PrintablesPage() {
                       <div><strong>Step 2:</strong> The last number counted is 7, so there are 7 circles</div>
                       <div><strong>Step 3:</strong> Write the number 7 in the box</div>
                       <div className="font-semibold text-blue-900"><strong>Answer:</strong> 7</div>
-                      <div className="text-xs text-blue-700 mt-1">{String.fromCodePoint(0x279C)}</div>
+                      <div className="text-xs text-blue-700 mt-1">Tip: Double check your steps!</div>
                     </div>
                   </div>
                 </div>
@@ -23745,7 +23724,7 @@ export function PrintablesPage() {
                       <div><strong>Strategy 1:</strong>{String.fromCodePoint(0x279C)}</div>
                       <div><strong>Strategy 2:</strong> Count groups: How many groups of 6 are in 24? 6, 12, 18, 24 (4 groups)</div>
                       <div className="font-semibold text-blue-900"><strong>Answer:</strong> 4</div>
-                      <div className="text-xs text-blue-700 mt-1">{String.fromCodePoint(0x279C)}</div>
+                      <div className="text-xs text-blue-700 mt-1">Tip: Double check your steps!</div>
                     </div>
                   </div>
                 </div>
@@ -26963,7 +26942,7 @@ export function PrintablesPage() {
                       <div><strong>Step 4:</strong>{String.fromCodePoint(0x279C)}</div>
                       <div><strong>Step 5:</strong>{String.fromCodePoint(0x279C)}</div>
                       <div className="font-semibold text-blue-900"><strong>Answer:</strong> 13</div>
-                      <div className="text-xs text-blue-700 mt-1">{String.fromCodePoint(0x279C)}</div>
+                      <div className="text-xs text-blue-700 mt-1">Tip: Double check your steps!</div>
                     </div>
                   </div>
                 </div>
@@ -27070,7 +27049,7 @@ export function PrintablesPage() {
                       <div><strong>Step 3:</strong>{String.fromCodePoint(0x279C)}</div>
                       <div><strong>Step 4:</strong> Add: 100 + 20 + 40 + 8 = 168</div>
                       <div className="font-semibold text-blue-900"><strong>Answer:</strong> 168</div>
-                      <div className="text-xs text-blue-700 mt-1">{String.fromCodePoint(0x279C)}</div>
+                      <div className="text-xs text-blue-700 mt-1">Tip: Double check your steps!</div>
                     </div>
                   </div>
                 </div>
@@ -27291,7 +27270,7 @@ export function PrintablesPage() {
                       <div><strong>Step 2:</strong> Convert: 1/2 = 3/6, 1/3 = 2/6</div>
                       <div><strong>Step 3:</strong> Compare: 3/6 &gt; 2/6</div>
                       <div className="font-semibold text-blue-900"><strong>Answer:</strong> &gt;</div>
-                      <div className="text-xs text-blue-700 mt-1">{String.fromCodePoint(0x279C)}</div>
+                      <div className="text-xs text-blue-700 mt-1">Tip: Double check your steps!</div>
                     </div>
                   </div>
                 </div>
@@ -27399,7 +27378,7 @@ export function PrintablesPage() {
                       <div><strong>Step 2:</strong> Add numerators: 2 + 1 = 3</div>
                       <div><strong>Step 3:</strong> Write answer: 3/5</div>
                       <div className="font-semibold text-blue-900"><strong>Answer:</strong> 3/5</div>
-                      <div className="text-xs text-blue-700 mt-1">{String.fromCodePoint(0x279C)}</div>
+                      <div className="text-xs text-blue-700 mt-1">Tip: Double check your steps!</div>
                     </div>
                   </div>
                 </div>
@@ -27506,7 +27485,7 @@ export function PrintablesPage() {
                       <div><strong>Step 2:</strong> Add numerator: 6 + 1 = 7</div>
                       <div><strong>Step 3:</strong> Keep denominator: 3</div>
                       <div className="font-semibold text-blue-900"><strong>Answer:</strong> 7/3</div>
-                      <div className="text-xs text-blue-700 mt-1">{String.fromCodePoint(0x279C)}</div>
+                      <div className="text-xs text-blue-700 mt-1">Tip: Double check your steps!</div>
                     </div>
                   </div>
                 </div>
@@ -27632,7 +27611,7 @@ export function PrintablesPage() {
                       <div><strong>Step 2:</strong> Add fractions: 1/3 + 2/3 = 3/3 = 1</div>
                       <div><strong>Step 3:</strong> Add results: 3 + 1 = 4</div>
                       <div className="font-semibold text-blue-900"><strong>Answer:</strong> 4</div>
-                      <div className="text-xs text-blue-700 mt-1">{String.fromCodePoint(0x279C)}</div>
+                      <div className="text-xs text-blue-700 mt-1">Tip: Double check your steps!</div>
                     </div>
                   </div>
                 </div>
@@ -27852,7 +27831,7 @@ export function PrintablesPage() {
                       <div><strong>Step 2:</strong> Compare tenths: 5 &gt; 2</div>
                       <div><strong>Step 3:</strong> Since 5 &gt; 2, 3.5 &gt; 3.2</div>
                       <div className="font-semibold text-blue-900"><strong>Answer:</strong> 3.5 &gt; 3.2</div>
-                      <div className="text-xs text-blue-700 mt-1">{String.fromCodePoint(0x279C)}</div>
+                      <div className="text-xs text-blue-700 mt-1">Tip: Double check your steps!</div>
                     </div>
                   </div>
                 </div>
@@ -27956,7 +27935,7 @@ export function PrintablesPage() {
                       <div className="font-mono pl-4">_____</div>
                       <div><strong>Step 2:</strong> Add: 5 + 3 = 8 (tenths), 4 + 2 = 6 (ones)</div>
                       <div className="font-semibold text-blue-900"><strong>Answer:</strong> 6.8</div>
-                      <div className="text-xs text-blue-700 mt-1">{String.fromCodePoint(0x279C)}</div>
+                      <div className="text-xs text-blue-700 mt-1">Tip: Double check your steps!</div>
                     </div>
                   </div>
                 </div>
@@ -28056,7 +28035,7 @@ export function PrintablesPage() {
                       <div><strong>Step 1:</strong>{String.fromCodePoint(0x279C)}</div>
                       <div><strong>Step 2:</strong>{String.fromCodePoint(0x279C)}</div>
                       <div className="font-semibold text-blue-900"><strong>Answer:</strong> 0.75</div>
-                      <div className="text-xs text-blue-700 mt-1">{String.fromCodePoint(0x279C)}</div>
+                      <div className="text-xs text-blue-700 mt-1">Tip: Double check your steps!</div>
                     </div>
                   </div>
                 </div>
@@ -28156,7 +28135,7 @@ export function PrintablesPage() {
                       <div><strong>Step 1:</strong>{String.fromCodePoint(0x279C)}</div>
                       <div><strong>Step 2:</strong>{String.fromCodePoint(0x279C)}</div>
                       <div className="font-semibold text-blue-900"><strong>Answer:</strong> 0.3</div>
-                      <div className="text-xs text-blue-700 mt-1">{String.fromCodePoint(0x279C)}</div>
+                      <div className="text-xs text-blue-700 mt-1">Tip: Double check your steps!</div>
                     </div>
                   </div>
                 </div>
@@ -28678,7 +28657,7 @@ export function PrintablesPage() {
                       <div><strong>Step 2:</strong>{String.fromCodePoint(0x279C)}</div>
                       <div><strong>Step 3:</strong>{String.fromCodePoint(0x279C)}</div>
                       <div className="font-semibold text-blue-900"><strong>Answer:</strong> 8</div>
-                      <div className="text-xs text-blue-700 mt-1">{String.fromCodePoint(0x279C)}</div>
+                      <div className="text-xs text-blue-700 mt-1">Tip: Double check your steps!</div>
                     </div>
                   </div>
                 </div>
@@ -28782,7 +28761,7 @@ export function PrintablesPage() {
                       <div><strong>Step 4:</strong> How many times does 12 go into 36? 3 times</div>
                       <div><strong>Step 5:</strong>{String.fromCodePoint(0x279C)}</div>
                       <div className="font-semibold text-blue-900"><strong>Answer:</strong> 13</div>
-                      <div className="text-xs text-blue-700 mt-1">{String.fromCodePoint(0x279C)}</div>
+                      <div className="text-xs text-blue-700 mt-1">Tip: Double check your steps!</div>
                     </div>
                   </div>
                 </div>
@@ -28890,7 +28869,7 @@ export function PrintablesPage() {
                       <div><strong>Step 1:</strong>{String.fromCodePoint(0x279C)}</div>
                       <div><strong>Step 2:</strong> Then addition: 2 + 12 = 14</div>
                       <div className="font-semibold text-blue-900"><strong>Answer:</strong> 14</div>
-                      <div className="text-xs text-blue-700 mt-1">{String.fromCodePoint(0x279C)}</div>
+                      <div className="text-xs text-blue-700 mt-1">Tip: Double check your steps!</div>
                     </div>
                   </div>
                 </div>
@@ -29832,7 +29811,7 @@ export function PrintablesPage() {
                       <div><strong>Step 1:</strong>{String.fromCodePoint(0x279C)}</div>
                       <div><strong>Step 2:</strong>{String.fromCodePoint(0x279C)}</div>
                       <div className="font-semibold text-blue-900"><strong>Answer:</strong> 500</div>
-                      <div className="text-xs text-blue-700 mt-1">{String.fromCodePoint(0x279C)}</div>
+                      <div className="text-xs text-blue-700 mt-1">Tip: Double check your steps!</div>
                     </div>
                   </div>
                 </div>
@@ -30024,7 +30003,7 @@ export function PrintablesPage() {
                       <div><strong>Step 2:</strong> 7 &gt; 5, so round up the tenths place</div>
                       <div><strong>Step 3:</strong> 3.4 becomes 3.5</div>
                       <div className="font-semibold text-blue-900"><strong>Answer:</strong> 3.5</div>
-                      <div className="text-xs text-blue-700 mt-1">{String.fromCodePoint(0x279C)}</div>
+                      <div className="text-xs text-blue-700 mt-1">Tip: Double check your steps!</div>
                     </div>
                   </div>
                 </div>
@@ -30151,7 +30130,7 @@ export function PrintablesPage() {
                       <div><strong>Step 2:</strong> Round 32 to nearest ten: 30</div>
                       <div><strong>Step 3:</strong> Add: 50 + 30 = 80</div>
                       <div className="font-semibold text-blue-900"><strong>Answer:</strong>{String.fromCodePoint(0x279C)}</div>
-                      <div className="text-xs text-blue-700 mt-1">{String.fromCodePoint(0x279C)}</div>
+                      <div className="text-xs text-blue-700 mt-1">Tip: Double check your steps!</div>
                     </div>
                   </div>
                 </div>
@@ -30256,7 +30235,7 @@ export function PrintablesPage() {
                       <div><strong>Step 1 (Area):</strong>{String.fromCodePoint(0x279C)}</div>
                       <div><strong>Step 2 (Perimeter):</strong>{String.fromCodePoint(0x279C)}</div>
                       <div className="font-semibold text-blue-900"><strong>Answer:</strong> Area = 28 sq units, Perimeter = 22 units</div>
-                      <div className="text-xs text-blue-700 mt-1">{String.fromCodePoint(0x279C)}</div>
+                      <div className="text-xs text-blue-700 mt-1">Tip: Double check your steps!</div>
                     </div>
                   </div>
                 </div>
@@ -30376,7 +30355,7 @@ export function PrintablesPage() {
                       <div><strong>Step 1:</strong>{String.fromCodePoint(0x279C)}</div>
                       <div><strong>Step 2:</strong>{String.fromCodePoint(0x279C)}</div>
                       <div className="font-semibold text-blue-900"><strong>Answer:</strong> 12 square units</div>
-                      <div className="text-xs text-blue-700 mt-1">{String.fromCodePoint(0x279C)}</div>
+                      <div className="text-xs text-blue-700 mt-1">Tip: Double check your steps!</div>
                     </div>
                   </div>
                 </div>
@@ -30477,7 +30456,7 @@ export function PrintablesPage() {
                       <div><strong>Step 2:</strong>{String.fromCodePoint(0x279C)}</div>
                       <div><strong>Step 3:</strong>{String.fromCodePoint(0x279C)}</div>
                       <div className="font-semibold text-blue-900"><strong>Answer:</strong> 24 cubic units</div>
-                      <div className="text-xs text-blue-700 mt-1">{String.fromCodePoint(0x279C)}</div>
+                      <div className="text-xs text-blue-700 mt-1">Tip: Double check your steps!</div>
                     </div>
                   </div>
                 </div>
@@ -30579,7 +30558,7 @@ export function PrintablesPage() {
                       <div><strong>Step 2:</strong>{String.fromCodePoint(0x279C)}</div>
                       <div><strong>Step 3:</strong>{String.fromCodePoint(0x279C)}</div>
                       <div className="font-semibold text-blue-900"><strong>Answer:</strong> Acute</div>
-                      <div className="text-xs text-blue-700 mt-1">{String.fromCodePoint(0x279C)}</div>
+                      <div className="text-xs text-blue-700 mt-1">Tip: Double check your steps!</div>
                     </div>
                   </div>
                 </div>
@@ -30704,7 +30683,7 @@ export function PrintablesPage() {
                       <div><strong>Step 2:</strong> Check: Is it all 3 equal? No. Is it 2 equal? Yes!</div>
                       <div><strong>Step 3:</strong> Classification: Isosceles (exactly 2 sides equal)</div>
                       <div className="font-semibold text-blue-900"><strong>Answer:</strong> Isosceles</div>
-                      <div className="text-xs text-blue-700 mt-1">{String.fromCodePoint(0x279C)}</div>
+                      <div className="text-xs text-blue-700 mt-1">Tip: Double check your steps!</div>
                     </div>
                   </div>
                 </div>
@@ -30805,7 +30784,7 @@ export function PrintablesPage() {
                       <div><strong>Step 2:</strong>{String.fromCodePoint(0x279C)}</div>
                       <div><strong>Step 3:</strong> Draw a square with equal sides</div>
                       <div className="font-semibold text-blue-900"><strong>Answer:</strong> A square has 4 equal sides and 4 right angles</div>
-                      <div className="text-xs text-blue-700 mt-1">{String.fromCodePoint(0x279C)}</div>
+                      <div className="text-xs text-blue-700 mt-1">Tip: Double check your steps!</div>
                     </div>
                   </div>
                 </div>
@@ -30943,7 +30922,7 @@ export function PrintablesPage() {
                       <div><strong>Step 1:</strong> Look at the shape - count the sides</div>
                       <div><strong>Step 2:</strong> A pentagon has 5 sides</div>
                       <div className="font-semibold text-blue-900"><strong>Answer:</strong> 5 sides</div>
-                      <div className="text-xs text-blue-700 mt-1">{String.fromCodePoint(0x279C)}</div>
+                      <div className="text-xs text-blue-700 mt-1">Tip: Double check your steps!</div>
                     </div>
                   </div>
                 </div>
@@ -31043,7 +31022,7 @@ export function PrintablesPage() {
                       <div><strong>Step 1:</strong> Remember: 1 foot = 12 inches</div>
                       <div><strong>Step 2:</strong>{String.fromCodePoint(0x279C)}</div>
                       <div className="font-semibold text-blue-900"><strong>Answer:</strong> 24 inches</div>
-                      <div className="text-xs text-blue-700 mt-1">{String.fromCodePoint(0x279C)}</div>
+                      <div className="text-xs text-blue-700 mt-1">Tip: Double check your steps!</div>
                     </div>
                   </div>
                 </div>
@@ -31143,7 +31122,7 @@ export function PrintablesPage() {
                       <div><strong>Step 1:</strong> Remember: 1 meter = 100 centimeters</div>
                       <div><strong>Step 2:</strong>{String.fromCodePoint(0x279C)}</div>
                       <div className="font-semibold text-blue-900"><strong>Answer:</strong> 300 centimeters</div>
-                      <div className="text-xs text-blue-700 mt-1">{String.fromCodePoint(0x279C)}</div>
+                      <div className="text-xs text-blue-700 mt-1">Tip: Double check your steps!</div>
                     </div>
                   </div>
                 </div>
@@ -31341,7 +31320,7 @@ export function PrintablesPage() {
                       <div><strong>Step 1:</strong> Remember: 1 quart = 4 cups</div>
                       <div><strong>Step 2:</strong>{String.fromCodePoint(0x279C)}</div>
                       <div className="font-semibold text-blue-900"><strong>Answer:</strong> 12 cups</div>
-                      <div className="text-xs text-blue-700 mt-1">{String.fromCodePoint(0x279C)}</div>
+                      <div className="text-xs text-blue-700 mt-1">Tip: Double check your steps!</div>
                     </div>
                   </div>
                 </div>
@@ -31440,7 +31419,7 @@ export function PrintablesPage() {
                       <div><strong>Step 1:</strong> Remember: 1 pound = 16 ounces</div>
                       <div><strong>Step 2:</strong>{String.fromCodePoint(0x279C)}</div>
                       <div className="font-semibold text-blue-900"><strong>Answer:</strong> 32 ounces</div>
-                      <div className="text-xs text-blue-700 mt-1">{String.fromCodePoint(0x279C)}</div>
+                      <div className="text-xs text-blue-700 mt-1">Tip: Double check your steps!</div>
                     </div>
                   </div>
                 </div>
@@ -31544,7 +31523,7 @@ export function PrintablesPage() {
                       <div><strong>Step 2:</strong>{String.fromCodePoint(0x279C)}</div>
                       <div><strong>Step 3:</strong> Lines that meet at right angles are perpendicular</div>
                       <div className="font-semibold text-blue-900"><strong>Answer:</strong> Perpendicular</div>
-                      <div className="text-xs text-blue-700 mt-1">{String.fromCodePoint(0x279C)}</div>
+                      <div className="text-xs text-blue-700 mt-1">Tip: Double check your steps!</div>
                     </div>
                   </div>
                 </div>
@@ -31639,7 +31618,7 @@ export function PrintablesPage() {
                       <div><strong>Step 2:</strong> Find lines that divide it into matching halves</div>
                       <div><strong>Step 3:</strong> Count: 2 diagonal lines + 2 lines through midpoints = 4 lines</div>
                       <div className="font-semibold text-blue-900"><strong>Answer:</strong> 4 lines of symmetry</div>
-                      <div className="text-xs text-blue-700 mt-1">{String.fromCodePoint(0x279C)}</div>
+                      <div className="text-xs text-blue-700 mt-1">Tip: Double check your steps!</div>
                     </div>
                   </div>
                 </div>
@@ -31746,7 +31725,7 @@ export function PrintablesPage() {
                       <div><strong>Step 2:</strong> Draw a shape, then slide it to a new position</div>
                       <div><strong>Step 3:</strong> The shape stays the same size and orientation</div>
                       <div className="font-semibold text-blue-900"><strong>Answer:</strong> Translation = slide (move without turning or flipping)</div>
-                      <div className="text-xs text-blue-700 mt-1">{String.fromCodePoint(0x279C)}</div>
+                      <div className="text-xs text-blue-700 mt-1">Tip: Double check your steps!</div>
                     </div>
                   </div>
                 </div>
@@ -31848,7 +31827,7 @@ export function PrintablesPage() {
                       <div><strong>Step 2:</strong> Draw 6 squares in a cross pattern</div>
                       <div><strong>Step 3:</strong> Make sure all squares are connected so they can fold into a cube</div>
                       <div className="font-semibold text-blue-900"><strong>Answer:</strong> A net of a cube is 6 squares arranged so they fold into a cube</div>
-                      <div className="text-xs text-blue-700 mt-1">{String.fromCodePoint(0x279C)}</div>
+                      <div className="text-xs text-blue-700 mt-1">Tip: Double check your steps!</div>
                     </div>
                   </div>
                 </div>
@@ -31957,7 +31936,7 @@ export function PrintablesPage() {
                       <div><strong>Step 2:</strong>{String.fromCodePoint(0x279C)}</div>
                       <div><strong>Step 3:</strong> Add: 12 + 2 = 14</div>
                       <div className="font-semibold text-blue-900"><strong>Answer:</strong> 14</div>
-                      <div className="text-xs text-blue-700 mt-1">{String.fromCodePoint(0x279C)}</div>
+                      <div className="text-xs text-blue-700 mt-1">Tip: Double check your steps!</div>
                     </div>
                   </div>
                 </div>
@@ -32061,7 +32040,7 @@ export function PrintablesPage() {
                       <div><strong>Step 1:</strong> Identify key word: "more than" means add</div>
                       <div><strong>Step 2:</strong> "4 more than x" means add 4 to x</div>
                       <div className="font-semibold text-blue-900"><strong>Expression:</strong> x + 4</div>
-                      <div className="text-xs text-blue-700 mt-1">{String.fromCodePoint(0x279C)}</div>
+                      <div className="text-xs text-blue-700 mt-1">Tip: Double check your steps!</div>
                     </div>
                   </div>
                 </div>
@@ -32161,7 +32140,7 @@ export function PrintablesPage() {
                       <div><strong>Step 2:</strong> Simplify: x = 7</div>
                       <div><strong>Step 3:</strong>{String.fromCodePoint(0x279C)}</div>
                       <div className="font-semibold text-blue-900"><strong>Answer:</strong> x = 7</div>
-                      <div className="text-xs text-blue-700 mt-1">{String.fromCodePoint(0x279C)}</div>
+                      <div className="text-xs text-blue-700 mt-1">Tip: Double check your steps!</div>
                     </div>
                   </div>
                 </div>
@@ -32270,7 +32249,7 @@ export function PrintablesPage() {
                       <div><strong>Step 2:</strong> The pattern is: Add 3 each time</div>
                       <div><strong>Step 3:</strong> Missing number: 12 + 3 = 15</div>
                       <div className="font-semibold text-blue-900"><strong>Answer:</strong> Missing = 15, Rule = Add 3</div>
-                      <div className="text-xs text-blue-700 mt-1">{String.fromCodePoint(0x279C)}</div>
+                      <div className="text-xs text-blue-700 mt-1">Tip: Double check your steps!</div>
                     </div>
                   </div>
                 </div>
@@ -32394,7 +32373,7 @@ export function PrintablesPage() {
                       <div><strong>Step 3:</strong> Move up 2 units (y = 2)</div>
                       <div><strong>Step 4:</strong> Mark the point!</div>
                       <div className="font-semibold text-blue-900"><strong>Answer:</strong> Point plotted at (3, 2)</div>
-                      <div className="text-xs text-blue-700 mt-1">{String.fromCodePoint(0x279C)}</div>
+                      <div className="text-xs text-blue-700 mt-1">Tip: Double check your steps!</div>
                     </div>
                   </div>
                 </div>
@@ -32495,7 +32474,7 @@ export function PrintablesPage() {
                       <div><strong>Step 2:</strong> Compare: 0.5 and 0.5</div>
                       <div><strong>Step 3:</strong> They are equal!</div>
                       <div className="font-semibold text-blue-900"><strong>Answer:</strong> =</div>
-                      <div className="text-xs text-blue-700 mt-1">{String.fromCodePoint(0x279C)}</div>
+                      <div className="text-xs text-blue-700 mt-1">Tip: Double check your steps!</div>
                     </div>
                   </div>
                 </div>
@@ -32696,7 +32675,7 @@ export function PrintablesPage() {
                       <div><strong>Step 2 (Mode):</strong> Count X marks - 4 appears most (3 times)</div>
                       <div><strong>Step 3 (Range):</strong> Largest = 4, Smallest = 2, Range = 4 - 2 = 2</div>
                       <div className="font-semibold text-blue-900"><strong>Answer:</strong> Mode = 4, Range = 2</div>
-                      <div className="text-xs text-blue-700 mt-1">{String.fromCodePoint(0x279C)}</div>
+                      <div className="text-xs text-blue-700 mt-1">Tip: Double check your steps!</div>
                     </div>
                   </div>
                 </div>
@@ -32791,7 +32770,7 @@ export function PrintablesPage() {
                       <div><strong>Step 2:</strong> Red bar = 5 units tall, Blue = 3 units, Green = 7 units</div>
                       <div><strong>Step 3:</strong> Label each bar with its color</div>
                       <div className="font-semibold text-blue-900"><strong>Answer:</strong> Bar graph with 3 bars showing the values</div>
-                      <div className="text-xs text-blue-700 mt-1">{String.fromCodePoint(0x279C)}</div>
+                      <div className="text-xs text-blue-700 mt-1">Tip: Double check your steps!</div>
                     </div>
                   </div>
                 </div>
@@ -32891,7 +32870,7 @@ export function PrintablesPage() {
                       <div><strong>Step 2:</strong> Plot points: (Mon, 65), (Tue, 68), (Wed, 70)</div>
                       <div><strong>Step 3:</strong> Connect points with a line</div>
                       <div className="font-semibold text-blue-900"><strong>Answer:</strong> A line graph showing temperature increasing over the days</div>
-                      <div className="text-xs text-blue-700 mt-1">{String.fromCodePoint(0x279C)}</div>
+                      <div className="text-xs text-blue-700 mt-1">Tip: Double check your steps!</div>
                     </div>
                   </div>
                 </div>
@@ -33041,7 +33020,7 @@ export function PrintablesPage() {
                       <div><strong>Median:</strong>{String.fromCodePoint(0x279C)}</div>
                       <div><strong>Mode:</strong> 4 appears most often (twice)</div>
                       <div className="font-semibold text-blue-900"><strong>Answer:</strong> Mean = 4, Median = 4, Mode = 4</div>
-                      <div className="text-xs text-blue-700 mt-1">{String.fromCodePoint(0x279C)}</div>
+                      <div className="text-xs text-blue-700 mt-1">Tip: Double check your steps!</div>
                     </div>
                   </div>
                 </div>
@@ -33146,7 +33125,7 @@ export function PrintablesPage() {
                       <div><strong>Mode:</strong> 4 appears most often (twice)</div>
                       <div><strong>Range:</strong> 8 - 2 = 6</div>
                       <div className="font-semibold text-blue-900"><strong>Answer:</strong> Mean = 4.8, Median = 4, Mode = 4, Range = 6</div>
-                      <div className="text-xs text-blue-700 mt-1">{String.fromCodePoint(0x279C)}</div>
+                      <div className="text-xs text-blue-700 mt-1">Tip: Double check your steps!</div>
                     </div>
                   </div>
                 </div>
@@ -33248,7 +33227,7 @@ export function PrintablesPage() {
                       <div><strong>Step 2:</strong> Stem 3 (30s): Leaves 1, 4</div>
                       <div><strong>Step 3:</strong> Write: Stem 2 | 3 5 7, Stem 3 | 1 4</div>
                       <div className="font-semibold text-blue-900"><strong>Answer:</strong> Stem-and-leaf plot organized by tens</div>
-                      <div className="text-xs text-blue-700 mt-1">{String.fromCodePoint(0x279C)}</div>
+                      <div className="text-xs text-blue-700 mt-1">Tip: Double check your steps!</div>
                     </div>
                   </div>
                 </div>
@@ -33341,7 +33320,7 @@ export function PrintablesPage() {
                       <div><strong>Step 2:</strong> Total outcomes: 6 (numbers 1-6)</div>
                       <div><strong>Step 3:</strong> Probability = 1/6</div>
                       <div className="font-semibold text-blue-900"><strong>Answer:</strong> 1/6</div>
-                      <div className="text-xs text-blue-700 mt-1">{String.fromCodePoint(0x279C)}</div>
+                      <div className="text-xs text-blue-700 mt-1">Tip: Double check your steps!</div>
                     </div>
                   </div>
                 </div>
@@ -33441,7 +33420,7 @@ export function PrintablesPage() {
                       <div><strong>Step 1:</strong> After giving away: 15 - 5 = 10</div>
                       <div><strong>Step 2:</strong> After finding more: 10 + 8 = 18</div>
                       <div className="font-semibold text-blue-900"><strong>Answer:</strong> 18 marbles</div>
-                      <div className="text-xs text-blue-700 mt-1">{String.fromCodePoint(0x279C)}</div>
+                      <div className="text-xs text-blue-700 mt-1">Tip: Double check your steps!</div>
                     </div>
                   </div>
                 </div>
@@ -33579,7 +33558,7 @@ export function PrintablesPage() {
                       <div><strong>Step 2:</strong> After buying: $20 - $12 = $8</div>
                       <div><strong>Step 3:</strong> After finding money: $8 + $5 = $13</div>
                       <div className="font-semibold text-blue-900"><strong>Answer:</strong> $13</div>
-                      <div className="text-xs text-blue-700 mt-1">{String.fromCodePoint(0x279C)}</div>
+                      <div className="text-xs text-blue-700 mt-1">Tip: Double check your steps!</div>
                     </div>
                   </div>
                 </div>
@@ -33717,7 +33696,7 @@ export function PrintablesPage() {
                       <div><strong>Step 1:</strong> Find common denominator: 1/2 = 2/4</div>
                       <div><strong>Step 2:</strong> Add: 2/4 + 1/4 = 3/4</div>
                       <div className="font-semibold text-blue-900"><strong>Answer:</strong> 3/4 of the pizza</div>
-                      <div className="text-xs text-blue-700 mt-1">{String.fromCodePoint(0x279C)}</div>
+                      <div className="text-xs text-blue-700 mt-1">Tip: Double check your steps!</div>
                     </div>
                   </div>
                 </div>
@@ -33853,7 +33832,7 @@ export function PrintablesPage() {
                       <div><strong>Step 1:</strong>{String.fromCodePoint(0x279C)}</div>
                       <div><strong>Step 2:</strong>{String.fromCodePoint(0x279C)}</div>
                       <div className="font-semibold text-blue-900"><strong>Answer:</strong> 2 cups</div>
-                      <div className="text-xs text-blue-700 mt-1">{String.fromCodePoint(0x279C)}</div>
+                      <div className="text-xs text-blue-700 mt-1">Tip: Double check your steps!</div>
                     </div>
                   </div>
                 </div>
@@ -34269,7 +34248,7 @@ export function PrintablesPage() {
                       <div><strong>Step 2:</strong>{String.fromCodePoint(0x279C)}</div>
                       <div><strong>Step 3:</strong>{String.fromCodePoint(0x279C)}</div>
                       <div className="font-semibold text-blue-900"><strong>Answer:</strong> 15 square feet</div>
-                      <div className="text-xs text-blue-700 mt-1">{String.fromCodePoint(0x279C)}</div>
+                      <div className="text-xs text-blue-700 mt-1">Tip: Double check your steps!</div>
                     </div>
                   </div>
                 </div>
@@ -34546,7 +34525,7 @@ export function PrintablesPage() {
                       <div><strong>Step 2:</strong>{String.fromCodePoint(0x279C)}</div>
                       <div><strong>Step 3:</strong>{String.fromCodePoint(0x279C)}</div>
                       <div className="font-semibold text-blue-900"><strong>Answer:</strong> 12 blue marbles</div>
-                      <div className="text-xs text-blue-700 mt-1">{String.fromCodePoint(0x279C)}</div>
+                      <div className="text-xs text-blue-700 mt-1">Tip: Double check your steps!</div>
                     </div>
                   </div>
                 </div>
@@ -34689,7 +34668,7 @@ export function PrintablesPage() {
                       <div><strong>Step 1:</strong>{String.fromCodePoint(0x279C)}</div>
                       <div><strong>Step 2:</strong> Subtract discount: $10 - $2 = $8</div>
                       <div className="font-semibold text-blue-900"><strong>Answer:</strong> $8</div>
-                      <div className="text-xs text-blue-700 mt-1">{String.fromCodePoint(0x279C)}</div>
+                      <div className="text-xs text-blue-700 mt-1">Tip: Double check your steps!</div>
                     </div>
                   </div>
                 </div>
@@ -36786,7 +36765,7 @@ export function PrintablesPage() {
                       <div><strong>Step 1:</strong>{String.fromCodePoint(0x279C)}</div>
                       <div><strong>Step 2:</strong>{String.fromCodePoint(0x279C)}</div>
                       <div className="font-semibold text-blue-900"><strong>Answer:</strong> 16 units</div>
-                      <div className="text-xs text-blue-700 mt-1">{String.fromCodePoint(0x279C)}</div>
+                      <div className="text-xs text-blue-700 mt-1">Tip: Double check your steps!</div>
                     </div>
                   </div>
                 </div>
