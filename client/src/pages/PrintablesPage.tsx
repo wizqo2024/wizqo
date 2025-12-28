@@ -21084,10 +21084,10 @@ export function PrintablesPage() {
           activeDocs.includes('line-tracing') && (() => {
             // Static but rendered via code for PDF compatibility
             const tracks = [
-              { type: 'Straight', path: 'M 10,25 L 290,25', color: '#3b82f6', icon: '' },
-              { type: 'Curvy', path: 'M 10,25 Q 80,5 150,25 T 290,25', color: '#ef4444', icon: '' },
-              { type: 'ZigZag', path: 'M 10,25 L 45,5 L 80,45 L 115,5 L 150,45 L 185,5 L 220,45 L 255,5 L 290,25', color: '#eab308', icon: '' },
-              { type: 'Loop', path: 'M 10,25 C 80,25 80,-15 150,25 S 220,-15 290,25', color: '#8b5cf6', icon: '' }
+              { type: 'Straight', path: 'M 10,25 L 290,25', color: '#3b82f6', icon: String.fromCodePoint(0x1F3CE) }, // Race Car
+              { type: 'Curvy', path: 'M 10,25 Q 80,5 150,25 T 290,25', color: '#ef4444', icon: String.fromCodePoint(0x1F697) }, // Car
+              { type: 'ZigZag', path: 'M 10,25 L 45,5 L 80,45 L 115,5 L 150,45 L 185,5 L 220,45 L 255,5 L 290,25', color: '#eab308', icon: String.fromCodePoint(0x1F6F5) }, // Scooter
+              { type: 'Loop', path: 'M 10,25 C 80,25 80,-15 150,25 S 220,-15 290,25', color: '#8b5cf6', icon: String.fromCodePoint(0x1F6B2) } // Bike
             ]
 
             return (
@@ -21128,7 +21128,7 @@ export function PrintablesPage() {
                       </div>
 
                       {/* Finish */}
-                      <div className="text-3xl z-10">{String.fromCodePoint(0x2728)}</div>
+                      <div className="text-3xl z-10">{String.fromCodePoint(0x1F3C1)}</div>
                     </div>
                   ))}
                 </div>
@@ -35789,12 +35789,12 @@ export function PrintablesPage() {
           activeDocs.includes('heavy-light') && (() => {
             const rng = makeRng(`${effectiveSeed}|v${variant}|doc=${doc}`);
             const pairs = [
-              { heavy: { name: 'Elephant', emoji: String.fromCodePoint(0x2728) }, light: { name: 'Feather', emoji: String.fromCodePoint(0x2728) } },
-              { heavy: { name: 'Car', emoji: String.fromCodePoint(0x2728) }, light: { name: 'Balloon', emoji: String.fromCodePoint(0x2728) } },
-              { name: 'Leaf', icon: '' },
-              { heavy: { name: 'Books', emoji: String.fromCodePoint(0x2728) }, light: { name: 'Bubble', emoji: String.fromCodePoint(0x2728) } },
-              { heavy: { name: 'Hammer', emoji: String.fromCodePoint(0x2728) }, light: { name: 'Cotton', emoji: String.fromCodePoint(0x2728) } },
-              { heavy: { name: 'Backpack', emoji: String.fromCodePoint(0x2728) }, light: { name: 'Paper', emoji: String.fromCodePoint(0x2728) } },
+              { heavy: { name: 'Elephant', emoji: String.fromCodePoint(0x1F418) }, light: { name: 'Feather', emoji: String.fromCodePoint(0x1FAB6) } },
+              { heavy: { name: 'Car', emoji: String.fromCodePoint(0x1F697) }, light: { name: 'Balloon', emoji: String.fromCodePoint(0x1F388) } },
+              { heavy: { name: 'Rock', emoji: String.fromCodePoint(0x1F94C) }, light: { name: 'Leaf', emoji: String.fromCodePoint(0x1F343) } }, // Fixed Missing Item Crash
+              { heavy: { name: 'Books', emoji: String.fromCodePoint(0x1F4DA) }, light: { name: 'Bubble', emoji: String.fromCodePoint(0x1F9FC) } },
+              { heavy: { name: 'Hammer', emoji: String.fromCodePoint(0x1F528) }, light: { name: 'Cotton', emoji: String.fromCodePoint(0x2601) } },
+              { heavy: { name: 'Backpack', emoji: String.fromCodePoint(0x1F392) }, light: { name: 'Paper', emoji: String.fromCodePoint(0x1F4C4) } },
             ];
             const activePairs = shuffleArray([...pairs], `${effectiveSeed}|heavylight`).slice(0, 4);
 
@@ -35907,9 +35907,11 @@ export function PrintablesPage() {
           activeDocs.includes('same-different') && (() => {
             const sets = [
               { items: [String.fromCodePoint(0x2728), String.fromCodePoint(0x2728), String.fromCodePoint(0x2728), String.fromCodePoint(0x2728)], different: 2 },
-              { items: [String.fromCodePoint(0x2728), String.fromCodePoint(0x2728), String.fromCodePoint(0x2728), String.fromCodePoint(0x2728)], different: 3 },
-              { items: [String.fromCodePoint(0x2728), String.fromCodePoint(0x2728), String.fromCodePoint(0x2728), String.fromCodePoint(0x2728)], different: 2 },
-              { items: [String.fromCodePoint(0x2728), String.fromCodePoint(0x2728), String.fromCodePoint(0x2728), String.fromCodePoint(0x2728)], different: 3 },
+            const sets = [
+              { items: [String.fromCodePoint(0x1F34E), String.fromCodePoint(0x1F34E), String.fromCodePoint(0x1F34E), String.fromCodePoint(0x1F34C)], different: 3 }, // Apples & Banana
+              { items: [String.fromCodePoint(0x1F697), String.fromCodePoint(0x1F697), String.fromCodePoint(0x1F6B2), String.fromCodePoint(0x1F697)], different: 2 }, // Cars & Bike
+              { items: [String.fromCodePoint(0x1F436), String.fromCodePoint(0x1F431), String.fromCodePoint(0x1F436), String.fromCodePoint(0x1F436)], different: 1 }, // Dogs & Cat
+              { items: [String.fromCodePoint(0x2600), String.fromCodePoint(0x2600), String.fromCodePoint(0x2600), String.fromCodePoint(0x1F319)], different: 3 }, // Suns & Moon
             ];
             return (
               <WorksheetSectionWrapper
@@ -36149,20 +36151,20 @@ export function PrintablesPage() {
               {
                 name: 'Butterfly Flutter',
                 type: 'loop', // Complex wave/loop
-                start: { label: 'Butterfly', render: (props: any) => <text fontSize="40" x="50" y="65" textAnchor="middle" {...props}>{String.fromCodePoint(0x2728)}</text> },
-                end: { label: 'Flower', render: (props: any) => <text fontSize="40" x="50" y="65" textAnchor="middle" {...props}>{String.fromCodePoint(0x2728)}</text> }
+                start: { label: 'Butterfly', render: (props: any) => <text fontSize="40" x="50" y="65" textAnchor="middle" {...props}>{String.fromCodePoint(0x1F98B)}</text> },
+                end: { label: 'Flower', render: (props: any) => <text fontSize="40" x="50" y="65" textAnchor="middle" {...props}>{String.fromCodePoint(0x1F33C)}</text> }
               },
               {
                 name: 'Bee Flight',
                 type: 'wave',
-                start: { label: 'Bee', render: (props: any) => <text fontSize="40" x="50" y="65" textAnchor="middle" {...props}>{String.fromCodePoint(0x2728)}</text> },
-                end: { label: 'Hive', render: (props: any) => <text fontSize="40" x="50" y="65" textAnchor="middle" {...props}>{String.fromCodePoint(0x2728)}</text> }
+                start: { label: 'Bee', render: (props: any) => <text fontSize="40" x="50" y="65" textAnchor="middle" {...props}>{String.fromCodePoint(0x1F41D)}</text> },
+                end: { label: 'Hive', render: (props: any) => <text fontSize="40" x="50" y="65" textAnchor="middle" {...props}>{String.fromCodePoint(0x1F3E2)}</text> }
               },
               {
                 name: 'Bunny Hop',
                 type: 'arc',
-                start: { label: 'Bunny', render: (props: any) => <text fontSize="40" x="50" y="65" textAnchor="middle" {...props}>{String.fromCodePoint(0x2728)}</text> },
-                end: { label: 'Carrot', render: (props: any) => <text fontSize="40" x="50" y="65" textAnchor="middle" {...props}>{String.fromCodePoint(0x2728)}</text> }
+                start: { label: 'Bunny', render: (props: any) => <text fontSize="40" x="50" y="65" textAnchor="middle" {...props}>{String.fromCodePoint(0x1F430)}</text> },
+                end: { label: 'Carrot', render: (props: any) => <text fontSize="40" x="50" y="65" textAnchor="middle" {...props}>{String.fromCodePoint(0x1F955)}</text> }
               },
             ];
 
