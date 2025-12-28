@@ -36300,38 +36300,38 @@ export function PrintablesPage() {
               {
                 name: 'Mountain Climb',
                 type: 'mountain', // Wide, tall
-                start: { label: 'Hiker', render: (props: any) => <text fontSize="40" x="50" y="65" textAnchor="middle" {...props}>{String.fromCodePoint(0x2728)}</text> },
-                end: { label: 'Flag', render: (props: any) => <text fontSize="40" x="50" y="65" textAnchor="middle" {...props}>{String.fromCodePoint(0x2728)}</text> }
+                start: { label: 'Hiker', render: (props: any) => <text fontSize="40" x="50" y="65" textAnchor="middle" {...props}>{String.fromCodePoint(0x1F9D7)}</text> },
+                end: { label: 'Flag', render: (props: any) => <text fontSize="40" x="50" y="65" textAnchor="middle" {...props}>{String.fromCodePoint(0x1F6A9)}</text> }
               },
               {
                 name: 'Brushing Teeth',
                 type: 'teeth', // Sharp, narrow
-                start: { label: 'Tooth', render: (props: any) => <text fontSize="40" x="50" y="65" textAnchor="middle" {...props}>{String.fromCodePoint(0x2728)}</text> },
-                end: { label: 'Sparkle', render: (props: any) => <text fontSize="40" x="50" y="65" textAnchor="middle" {...props}>{String.fromCodePoint(0x2728)}</text> }
+                start: { label: 'Tooth', render: (props: any) => <text fontSize="40" x="50" y="65" textAnchor="middle" {...props}>{String.fromCodePoint(0x1F9B7)}</text> },
+                end: { label: 'Sparkle', render: (props: any) => <text fontSize="40" x="50" y="65" textAnchor="middle" {...props}>{String.fromCodePoint(0x1F9EA)}</text> }
               },
               {
                 name: 'Bunny Hops',
                 type: 'grass', // Regular
-                start: { label: 'Bunny', render: (props: any) => <text fontSize="40" x="50" y="65" textAnchor="middle" {...props}>{String.fromCodePoint(0x2728)}</text> },
-                end: { label: 'Carrot', render: (props: any) => <text fontSize="40" x="50" y="65" textAnchor="middle" {...props}>{String.fromCodePoint(0x2728)}</text> }
+                start: { label: 'Bunny', render: (props: any) => <text fontSize="40" x="50" y="65" textAnchor="middle" {...props}>{String.fromCodePoint(0x1F430)}</text> },
+                end: { label: 'Carrot', render: (props: any) => <text fontSize="40" x="50" y="65" textAnchor="middle" {...props}>{String.fromCodePoint(0x1F955)}</text> }
               },
               {
                 name: 'Stormy Sky',
                 type: 'lightning', // Irregular
-                start: { label: 'Cloud', render: (props: any) => <text fontSize="40" x="50" y="65" textAnchor="middle" {...props}>{String.fromCodePoint(0x2728)}</text> },
-                end: { label: 'Tree', render: (props: any) => <text fontSize="40" x="50" y="65" textAnchor="middle" {...props}>{String.fromCodePoint(0x2728)}</text> }
+                start: { label: 'Cloud', render: (props: any) => <text fontSize="40" x="50" y="65" textAnchor="middle" {...props}>{String.fromCodePoint(0x2601)}</text> },
+                end: { label: 'Tree', render: (props: any) => <text fontSize="40" x="50" y="65" textAnchor="middle" {...props}>{String.fromCodePoint(0x1F332)}</text> }
               },
               {
                 name: 'Pyramid Trek',
                 type: 'mountain',
-                start: { label: 'Camel', render: (props: any) => <text fontSize="40" x="50" y="65" textAnchor="middle" {...props}>{String.fromCodePoint(0x2728)}</text> },
-                end: { label: 'Oasis', render: (props: any) => <text fontSize="40" x="50" y="65" textAnchor="middle" {...props}>{String.fromCodePoint(0x2728)}</text> }
+                start: { label: 'Camel', render: (props: any) => <text fontSize="40" x="50" y="65" textAnchor="middle" {...props}>{String.fromCodePoint(0x1F42A)}</text> },
+                end: { label: 'Oasis', render: (props: any) => <text fontSize="40" x="50" y="65" textAnchor="middle" {...props}>{String.fromCodePoint(0x1F3DD)}</text> }
               },
               {
                 name: 'Puppy Run',
                 type: 'grass',
-                start: { label: 'Dog', render: (props: any) => <text fontSize="40" x="50" y="65" textAnchor="middle" {...props}>{String.fromCodePoint(0x2728)}</text> },
-                end: { label: 'Bone', render: (props: any) => <text fontSize="40" x="50" y="65" textAnchor="middle" {...props}>{String.fromCodePoint(0x2728)}</text> }
+                start: { label: 'Dog', render: (props: any) => <text fontSize="40" x="50" y="65" textAnchor="middle" {...props}>{String.fromCodePoint(0x1F436)}</text> },
+                end: { label: 'Bone', render: (props: any) => <text fontSize="40" x="50" y="65" textAnchor="middle" {...props}>{String.fromCodePoint(0x1F9B4)}</text> }
               },
             ];
 
