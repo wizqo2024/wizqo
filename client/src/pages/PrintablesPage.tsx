@@ -13303,9 +13303,9 @@ export function PrintablesPage() {
               <div className="print:block hidden print:mt-0 mt-6 p-4 border-2 border-slate-300 rounded" style={{ pageBreakBefore: 'avoid', pageBreakInside: 'avoid' }}>
                 <div className="font-semibold text-slate-800 mb-3 text-sm">ðŸ“Š {getTrans('common.howDidYouDo', 'How did you do?')}</div>
                 <div className="space-y-2 text-xs">
-                  <div>Ã¢ËœÂ I can compare sizes visually</div>
-                  <div>Ã¢ËœÂ I can identify bigger and smaller objects</div>
-                  <div>Ã¢ËœÂ I answered all 4 questions correctly</div>
+                  <div>â˜ I can compare sizes visually</div>
+                  <div>â˜ I can identify bigger and smaller objects</div>
+                  <div>â˜ I answered all 4 questions correctly</div>
                 </div>
                 <div className="mt-3 text-xs">
                   <strong>{getTrans('common.myScore', 'My score:')}</strong> ___ / 4
@@ -13316,7 +13316,7 @@ export function PrintablesPage() {
               </div>
               {showAnswersForDoc('size-comparison', () => (
                 <div className="mt-6 p-4 border-2 border-emerald-300 bg-emerald-50 rounded print:border print:bg-white print:page-break-before-always">
-                  <div className="font-bold text-emerald-900 mb-3 text-base">Ã¢Å“â€¦ {getTrans('common.answerKey', 'Answer Key')}</div>
+                  <div className="font-bold text-emerald-900 mb-3 text-base">âœ… {getTrans('common.answerKey', 'Answer Key')}</div>
                   <ul className="list-disc list-inside space-y-2 text-sm text-emerald-800">
                     <li><strong>Circle the bigger: B</strong> (B is 50px, A is 30px, so B is bigger)</li>
                     <li><strong>Circle the smaller: B</strong> (B is 25px, A is 40px, so B is smaller)</li>
@@ -13397,9 +13397,9 @@ export function PrintablesPage() {
               <div className="print:block hidden print:mt-0 mt-6 p-4 border-2 border-slate-300 rounded" style={{ pageBreakBefore: 'avoid', pageBreakInside: 'avoid' }}>
                 <div className="font-semibold text-slate-800 mb-3 text-sm">ðŸ“Š {getTrans('common.howDidYouDo', 'How did you do?')}</div>
                 <div className="space-y-2 text-xs">
-                  <div>Ã¢ËœÂ I understand place value when subtracting</div>
-                  <div>Ã¢ËœÂ I can write numbers in expanded form</div>
-                  <div>Ã¢ËœÂ I wrote all 6 numbers correctly in expanded form</div>
+                  <div>â˜ I understand place value when subtracting</div>
+                  <div>â˜ I can write numbers in expanded form</div>
+                  <div>â˜ I wrote all 6 numbers correctly in expanded form</div>
                 </div>
                 <div className="mt-3 text-xs">
                   <strong>{getTrans('common.myScore', 'My score:')}</strong> ___ / 6
@@ -13410,7 +13410,7 @@ export function PrintablesPage() {
               </div>
               {showAnswersForDoc('expanded-form-200', () => (
                 <div className="mt-6 p-4 border-2 border-emerald-300 bg-emerald-50 rounded print:border print:bg-white print:page-break-before-always">
-                  <div className="font-bold text-emerald-900 mb-3 text-base">Ã¢Å“â€¦ {getTrans('common.answerKey', 'Answer Key')}</div>
+                  <div className="font-bold text-emerald-900 mb-3 text-base">âœ… {getTrans('common.answerKey', 'Answer Key')}</div>
                   <ul className="list-disc list-inside space-y-2 text-sm text-emerald-800">
                     {[125, 143, 167, 189, 152, 176].map((num) => {
                       const hundreds = Math.floor(num / 100)
@@ -13494,9 +13494,9 @@ export function PrintablesPage() {
               <div className="print:block hidden print:mt-0 mt-6 p-4 border-2 border-slate-300 rounded" style={{ pageBreakBefore: 'avoid', pageBreakInside: 'avoid' }}>
                 <div className="font-semibold text-slate-800 mb-3 text-sm">ðŸ“Š {getTrans('common.howDidYouDo', 'How did you do?')}</div>
                 <div className="space-y-2 text-xs">
-                  <div>Ã¢ËœÂ I can identify number patterns</div>
-                  <div>Ã¢ËœÂ I can find the pattern rule</div>
-                  <div>Ã¢ËœÂ I filled in all the missing numbers correctly</div>
+                  <div>â˜ I can identify number patterns</div>
+                  <div>â˜ I can find the pattern rule</div>
+                  <div>â˜ I filled in all the missing numbers correctly</div>
                 </div>
                 <div className="mt-3 text-xs">
                   <strong>{getTrans('common.myScore', 'My score:')}</strong> ___ / 3
@@ -13507,7 +13507,7 @@ export function PrintablesPage() {
               </div>
               {showAnswersForDoc('number-patterns-200', () => (
                 <div className="mt-6 p-4 border-2 border-emerald-300 bg-emerald-50 rounded print:border print:bg-white print:page-break-before-always">
-                  <div className="font-bold text-emerald-900 mb-3 text-base">Ã¢Å“â€¦ {getTrans('common.answerKey', 'Answer Key')}</div>
+                  <div className="font-bold text-emerald-900 mb-3 text-base">âœ… {getTrans('common.answerKey', 'Answer Key')}</div>
                   <ul className="list-disc list-inside space-y-2 text-sm text-emerald-800">
                     <li><strong>Pattern +10:</strong> Missing numbers are 40, 60 (10, 20, 30, 40, 50, 60, 70)</li>
                     <li><strong>Pattern +5:</strong> Missing numbers are 20, 30 (5, 10, 15, 20, 25, 30, 35)</li>
@@ -13608,7 +13608,7 @@ export function PrintablesPage() {
                     <div key={i} className="border border-slate-300 rounded p-3 bg-white w-full">
                       <div className="font-mono text-2xl leading-7 text-right">
                         <div>{a}</div>
-                        <div>Ã¢Ë†â€™ {b}</div>
+                        <div>âˆ’ {b}</div>
                         <div className="border-t-[3px] border-slate-600 mt-2 pt-2 h-12 flex items-center"><span className="inline-block w-20 h-10 border-b-[3px] border-slate-600" /></div>
                       </div>
                     </div>
@@ -13618,7 +13618,7 @@ export function PrintablesPage() {
                   <div className="mt-3 rounded-lg border border-emerald-200 bg-emerald-50 p-3 text-emerald-900 text-sm">
                     <div className="font-semibold mb-1">Answer key</div>
                     <ul className="list-disc list-inside space-y-0.5">
-                      {pairs.map(([a, b], i) => (<li key={i}>{a} Ã¢Ë†â€™ {b} = {a - b}</li>))}
+                      {pairs.map(([a, b], i) => (<li key={i}>{a} âˆ’ {b} = {a - b}</li>))}
                     </ul>
                   </div>
                 ))}
@@ -13632,7 +13632,7 @@ export function PrintablesPage() {
             <WorksheetSectionWrapper
               docId="fractions-halves-thirds-fourths"
               title="Fractions: Halves, Thirds, Fourths"
-              emoji="Ã°Å¸Ââ€¢"
+              emoji="ðŸ°"
               description="Color the fraction shown in each shape. Then write the fraction name in the blank space provided."
               problemCount={6}
               learningObjectives={[
@@ -13728,9 +13728,9 @@ export function PrintablesPage() {
               <div className="print:block hidden print:mt-0 mt-6 p-4 border-2 border-slate-300 rounded" style={{ pageBreakBefore: 'avoid', pageBreakInside: 'avoid' }}>
                 <div className="font-semibold text-slate-800 mb-3 text-sm">ðŸ“Š {getTrans('common.howDidYouDo', 'How did you do?')}</div>
                 <div className="space-y-2 text-xs">
-                  <div>Ã¢ËœÂ I can identify halves, thirds, and fourths</div>
-                  <div>Ã¢ËœÂ I can color the correct number of parts</div>
-                  <div>Ã¢ËœÂ I can write fraction names in words</div>
+                  <div>â˜ I can identify halves, thirds, and fourths</div>
+                  <div>â˜ I can color the correct number of parts</div>
+                  <div>â˜ I can write fraction names in words</div>
                 </div>
                 <div className="mt-3 text-xs">
                   <strong>{getTrans('common.myScore', 'My score:')}</strong> ___ / 6
@@ -13741,7 +13741,7 @@ export function PrintablesPage() {
               </div>
               {showAnswersForDoc('fractions-halves-thirds-fourths', () => (
                 <div className="mt-6 p-4 border-2 border-emerald-300 bg-emerald-50 rounded print:border print:bg-white print:page-break-before-always">
-                  <div className="font-bold text-emerald-900 mb-3 text-base">Ã¢Å“â€¦ {getTrans('common.answerKey', 'Answer Key')}</div>
+                  <div className="font-bold text-emerald-900 mb-3 text-base">âœ… {getTrans('common.answerKey', 'Answer Key')}</div>
                   <ul className="list-disc list-inside space-y-2 text-sm text-emerald-800">
                     <li><strong>1/2 = one half</strong> (Color 1 out of 2 equal parts)</li>
                     <li><strong>1/3 = one third</strong> (Color 1 out of 3 equal parts)</li>
@@ -13770,7 +13770,7 @@ export function PrintablesPage() {
               <WorksheetSectionWrapper
                 docId={docId}
                 title={getTrans(`worksheets.${docId}.title`, 'Basic Multiplication Facts (1-5)')}
-                emoji="ÃƒÂ¢Ã…â€œâ€“ÃƒÂ¯Ã‚Â¸Ã‚Â"
+                emoji="âœ–ï¸"
                 description={getTrans(`worksheets.${docId}.description`, 'Write the correct answer in each blank. These problems help students memorize multiplication facts from 1â€“5.')}
                 problemCount={facts.length}
                 learningObjectives={(() => {
@@ -13846,7 +13846,7 @@ export function PrintablesPage() {
                         'I can say the answers quickly (fluency)'
                       ]
                       return items.map((item, idx) => (
-                        <div key={idx}>Ã¢ËœÂ {item}</div>
+                        <div key={idx}>â˜ {item}</div>
                       ))
                     })()}
                   </div>
@@ -13862,7 +13862,7 @@ export function PrintablesPage() {
                 </div>
                 {showAnswersForDoc('mult-facts-1-5', () => (
                   <div className="mt-6 p-4 border-2 border-emerald-300 bg-emerald-50 rounded print:border print:bg-white print:page-break-before-always">
-                    <div className="font-bold text-emerald-900 mb-3 text-base">{getTrans(`worksheets.${docId}.answerKey.title`, 'Ã¢Å“â€¦ Answer Key')}</div>
+                    <div className="font-bold text-emerald-900 mb-3 text-base">{getTrans(`worksheets.${docId}.answerKey.title`, 'âœ… Answer Key')}</div>
                     <div className="space-y-2">
                       {facts.map(([a, b], i) => (
                         <div key={i} className="text-sm text-emerald-800">
@@ -13888,7 +13888,7 @@ export function PrintablesPage() {
               <WorksheetSectionWrapper
                 docId="mult-arrays-2-5"
                 title="Multiplication Arrays (2-5)"
-                emoji="Ã¢Å“â€“"
+                emoji="âœ–ï¸"
                 description="Draw an array for each multiplication problem. Count the total number of objects and write the answer in the blank."
                 problemCount={arrays.length}
                 learningObjectives={[
@@ -13943,9 +13943,9 @@ export function PrintablesPage() {
                 <div className="print:block hidden print:mt-0 mt-6 p-4 border-2 border-slate-300 rounded" style={{ pageBreakBefore: 'avoid', pageBreakInside: 'avoid' }}>
                   <div className="font-semibold text-slate-800 mb-3 text-sm">ðŸ“Š {getTrans('common.howDidYouDo', 'How did you do?')}</div>
                   <div className="space-y-2 text-xs">
-                    <div>Ã¢ËœÂ I can use arrays to solve multiplication</div>
-                    <div>Ã¢ËœÂ I can count rows and columns correctly</div>
-                    <div>Ã¢ËœÂ I understand how arrays show multiplication</div>
+                    <div>â˜ I can use arrays to solve multiplication</div>
+                    <div>â˜ I can count rows and columns correctly</div>
+                    <div>â˜ I understand how arrays show multiplication</div>
                   </div>
                   <div className="mt-3 text-xs">
                     <strong>{getTrans('common.myScore', 'My score:')}</strong> ___ / {arrays.length}
@@ -13956,7 +13956,7 @@ export function PrintablesPage() {
                 </div>
                 {showAnswersForDoc('mult-arrays-2-5', () => (
                   <div className="mt-6 p-4 border-2 border-emerald-300 bg-emerald-50 rounded print:border print:bg-white print:page-break-before-always">
-                    <div className="font-bold text-emerald-900 mb-3 text-base">Ã¢Å“â€¦ {getTrans('common.answerKey', 'Answer Key')}</div>
+                    <div className="font-bold text-emerald-900 mb-3 text-base">âœ… {getTrans('common.answerKey', 'Answer Key')}</div>
                     <div className="space-y-2">
                       {arrays.map(([rows, cols], i) => (
                         <div key={i} className="text-sm text-emerald-800">
@@ -14027,7 +14027,7 @@ export function PrintablesPage() {
               <WorksheetSectionWrapper
                 docId="mult-word-problems-2-3"
                 title="Multiplication Word Problems (2nd-3rd)"
-                emoji="Ã¢Å“â€“"
+                emoji="âœ–ï¸"
                 description="Read each word problem carefully. Write a multiplication equation and solve. Show your answer in the blank space provided."
                 problemCount={problems.length}
                 learningObjectives={[
@@ -14090,9 +14090,9 @@ export function PrintablesPage() {
                 <div className="print:block hidden print:mt-0 mt-6 p-4 border-2 border-slate-300 rounded" style={{ pageBreakBefore: 'avoid', pageBreakInside: 'avoid' }}>
                   <div className="font-semibold text-slate-800 mb-3 text-sm">ðŸ“Š {getTrans('common.howDidYouDo', 'How did you do?')}</div>
                   <div className="space-y-2 text-xs">
-                    <div>Ã¢ËœÂ I can read and understand word problems</div>
-                    <div>Ã¢ËœÂ I can write multiplication equations</div>
-                    <div>Ã¢ËœÂ I can solve word problems correctly</div>
+                    <div>â˜ I can read and understand word problems</div>
+                    <div>â˜ I can write multiplication equations</div>
+                    <div>â˜ I can solve word problems correctly</div>
                   </div>
                   <div className="mt-3 text-xs">
                     <strong>{getTrans('common.myScore', 'My score:')}</strong> ___ / {problems.length}
@@ -22746,7 +22746,7 @@ export function PrintablesPage() {
               <WorksheetSectionWrapper
                 docId="missing-addends"
                 title="Pirate Treasure Maps: Missing Gold"
-                emoji="Ã°Å¸ÂÂ´Ã¢â‚¬ÂÃ¢ËœÂ Ã¯Â¸Â"
+                emoji="ðŸ´â€â˜ ï¸"
                 description="Arrgh! Some gold coins are missing from the chest. Find out how many more we need!"
                 problemCount={problems.length}
                 learningObjectives={[
@@ -22807,7 +22807,7 @@ export function PrintablesPage() {
 
                 {showAnswersForDoc('missing-addends', () => (
                   <div className="mt-6 p-4 border-2 border-emerald-300 bg-emerald-50 rounded print:border print:bg-white print:page-break-before-always">
-                    <div className="font-bold text-emerald-900 mb-3 text-base">Ã¢Å“â€¦ Answer Key</div>
+                    <div className="font-bold text-emerald-900 mb-3 text-base">âœ… Answer Key</div>
                     <div className="grid grid-cols-3 gap-2 text-sm text-emerald-800">
                       {problems.map((p, i) => (
                         <div key={i}>{p.known} + <strong>{p.missing}</strong> = {p.total}</div>
