@@ -20492,7 +20492,12 @@ export function PrintablesPage() {
                 itemB = { type: 'shape', shape: shapeBKey, color };
               } else {
                 const emojiPairs = [
-                  [String.fromCodePoint(0x279C), String.fromCodePoint(0x279C)], [String.fromCodePoint(0x279C), String.fromCodePoint(0x279C)], [String.fromCodePoint(0x279C), String.fromCodePoint(0x279C)], [String.fromCodePoint(0x279C), String.fromCodePoint(0x279C)], [String.fromCodePoint(0x279C), String.fromCodePoint(0x279C)], [String.fromCodePoint(0x279C), String.fromCodePoint(0x279C)]
+                  [String.fromCodePoint(0x1F34E), String.fromCodePoint(0x1F34C)], // Apple, Banana
+                  [String.fromCodePoint(0x1F697), String.fromCodePoint(0x1F68C)], // Car, Bus
+                  [String.fromCodePoint(0x1F436), String.fromCodePoint(0x1F431)], // Dog, Cat
+                  [String.fromCodePoint(0x2600), String.fromCodePoint(0x1F319)],  // Sun, Moon
+                  [String.fromCodePoint(0x26BD), String.fromCodePoint(0x1F3C0)],  // Soccer, Basketball
+                  [String.fromCodePoint(0x1F388), String.fromCodePoint(0x1F381)]  // Balloon, Gift
                 ];
                 const pair = emojiPairs[Math.floor(rng() * emojiPairs.length)];
                 itemA = { type: 'emoji', emoji: pair[0] };
