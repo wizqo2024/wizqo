@@ -2960,10 +2960,12 @@ export function PrintablesPage() {
                 }
               })()}
               onClick={(e) => {
-                // If coming from within the site (internal referrer), use history.back() to preserve scroll position
-                if (typeof window !== 'undefined' && document.referrer && document.referrer.includes(window.location.host)) {
-                  // Check if referrer is not the same page (prevent loops) and not authentication-related if applicable
-                  // Simple check for now: if referrer is a page on our domain
+                // If coming from within the site (internal referrer) AND we have history, use history.back()
+                // Checking history.length > 1 is critical: if opened in new tab, referrer exists but back() does nothing.
+                if (typeof window !== 'undefined' &&
+                  document.referrer &&
+                  document.referrer.includes(window.location.host) &&
+                  window.history.length > 1) {
                   e.preventDefault()
                   window.history.back()
                 }
