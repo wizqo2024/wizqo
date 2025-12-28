@@ -1,33 +1,50 @@
 
-export function makeRng(seedStr: string) {
+export function makeRng(seedStr: any) {
+    let str = '';
+    if (typeof seedStr === 'string') str = seedStr;
+    else if (seedStr !== null && seedStr !== undefined) str = String(seedStr);
+
     let seed = 0
-    for (let i = 0; i < seedStr.length; i++) seed = (seed + seedStr.charCodeAt(i)) >>> 0
+    for (let i = 0; i < str.length; i++) seed = (seed + str.charCodeAt(i)) >>> 0
     return function rng() {
         seed = (seed * 1664525 + 1013904223) >>> 0
         return seed / 0xffffffff
     }
 }
 
-export function pick<T>(arr: T[], rng: () => number) { return arr[Math.floor(rng() * arr.length)] }
+export function pick<T>(arr: T[], rng: any = Math.random) {
+    if (!Array.isArray(arr) || arr.length === 0) return undefined;
+    const rndFunc = typeof rng === 'function' ? rng : (typeof rng === 'string' ? makeRng(rng) : Math.random);
+    return arr[Math.floor(rndFunc() * arr.length)]
+}
 
-export function pickNUnique<T>(arr: T[], n: number, rng: () => number): T[] {
+export function pickNUnique<T>(arr: T[], n: number, rng: any = Math.random): T[] {
+    if (!Array.isArray(arr)) return [];
+    const rndFunc = typeof rng === 'function' ? rng : (typeof rng === 'string' ? makeRng(rng) : Math.random);
     const pool = arr.slice()
     const out: T[] = []
     while (out.length < Math.min(n, pool.length)) {
-        const idx = Math.floor(rng() * pool.length)
+        const idx = Math.floor(rndFunc() * pool.length)
         out.push(pool.splice(idx, 1)[0])
     }
     return out
 }
 
-export function shuffleArray<T>(arr: T[], rng: () => number): T[] {
-    for (let i = arr.length - 1; i > 0; i--) {
+export function shuffleArray<T>(arr: T[], rngOrSeed: any = Math.random): T[] {
+    if (!Array.isArray(arr)) return [];
+
+    // Auto-detect compatibility fix: If second arg is string, treat as seed
+    const rng = typeof rngOrSeed === 'function' ? rngOrSeed :
+        (typeof rngOrSeed === 'string' ? makeRng(rngOrSeed) : Math.random);
+
+    const newArr = [...arr]; // Copy to avoid mutating original if unexpected
+    for (let i = newArr.length - 1; i > 0; i--) {
         const j = Math.floor(rng() * (i + 1))
-        const tmp = arr[i]
-        arr[i] = arr[j]
-        arr[j] = tmp
+        const tmp = newArr[i]
+        newArr[i] = newArr[j]
+        newArr[j] = tmp
     }
-    return arr
+    return newArr
 }
 
 export function buildWords(theme: string, age: string): string[] {
