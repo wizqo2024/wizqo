@@ -2954,7 +2954,7 @@ export function PrintablesPage() {
                     return getPrintableSectionForDoc(doc) || (doc.startsWith('coloring') ? 'Coloring' : doc.startsWith('geo-') ? 'Geography' : '')
                   })()
                   const hash = cat ? `#${encodeURIComponent(cat)}` : ''
-                  return from === 'printables' ? `/printables${hash}` : '/printables'
+                  return `/printables${hash}`
                 } catch {
                   return '/printables'
                 }

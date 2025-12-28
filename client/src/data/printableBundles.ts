@@ -45,6 +45,9 @@ export const PRINTABLE_BUNDLE_SECTIONS: Record<string, string[]> = {
     'pattern-complete',
     'missing-shape',
     'size-comparison',
+    'big-small',
+    'long-short',
+    'heavy-light',
     // New 2nd Grade worksheets
     'expanded-form-200',
     'number-patterns-200',
