@@ -3173,7 +3173,7 @@ export function PrintablesPage() {
           <WorksheetSectionWrapper
             docId="geo-continents-k2"
             title="World Explorer: The 7 Continents"
-                emoji={String.fromCharCode(0x2728)}
+            emoji={String.fromCharCode(0x2728)}
             description="Color the map and trace the continent names. Can you find where you live?"
             problemCount={7}
             learningObjectives={[
@@ -3356,7 +3356,7 @@ export function PrintablesPage() {
           <WorksheetSectionWrapper
             docId="geo-compass-rose"
             title="Compass Rose & Directions"
-                emoji={String.fromCharCode(0x2728)}
+            emoji={String.fromCharCode(0x2728)}
             description="Color the compass and label cardinal (N, E, S, W) and intercardinal (NE, SE, SW, NW) directions."
             problemCount={8}
             learningObjectives={[
@@ -3465,7 +3465,7 @@ export function PrintablesPage() {
           <WorksheetSectionWrapper
             docId="geo-landforms"
             title="Landforms vs Water Bodies"
-                emoji={String.fromCharCode(0x2728)}
+            emoji={String.fromCharCode(0x2728)}
             description="Look at the pictures. Write the correct letter (AE) next to each word."
             problemCount={5}
             learningObjectives={[
@@ -3635,7 +3635,7 @@ export function PrintablesPage() {
           <WorksheetSectionWrapper
             docId="geo-latlong"
             title="Latitude & Longitude Basics"
-                emoji={String.fromCharCode(0x2728)}
+            emoji={String.fromCharCode(0x2728)}
             description="Read grid lines and plot simple coordinates. Practice with a minimal world grid. Tip: Latitude is horizontal (N/S). Longitude is vertical (E/W)."
             problemCount={2}
             learningObjectives={[
@@ -3779,7 +3779,7 @@ export function PrintablesPage() {
             <WorksheetSectionWrapper
               docId={docId}
               title="Rainbow Tracing: 110"
-                emoji={String.fromCharCode(0x2728)}
+              emoji={String.fromCharCode(0x2728)}
               description="Trace each number 3 times! Use different colors (Red, Blue, Green) to make a rainbow."
               problemCount={10}
               learningObjectives={[
@@ -3901,7 +3901,7 @@ export function PrintablesPage() {
             <WorksheetSectionWrapper
               docId={docId}
               title="Rainbow Tracing: 120"
-                emoji={String.fromCharCode(0x2728)}
+              emoji={String.fromCharCode(0x2728)}
               description="Trace each number 3 times! Use different colors (Red, Blue, Green) to make a rainbow."
               problemCount={20}
               learningObjectives={[
@@ -3997,7 +3997,7 @@ export function PrintablesPage() {
           <WorksheetSectionWrapper
             docId="uppercase-lowercase-match"
             title="AaZz Upper/Lower Letter Match"
-                emoji={String.fromCharCode(0x2728)}
+            emoji={String.fromCharCode(0x2728)}
             description="Draw lines from uppercase to lowercase. Say the sound for each match."
             problemCount={26}
             learningObjectives={[
@@ -4136,7 +4136,7 @@ export function PrintablesPage() {
           <WorksheetSectionWrapper
             docId="beginning-sounds-az"
             title="Beginning Sounds (AZ)"
-                emoji={String.fromCharCode(0x2728)}
+            emoji={String.fromCharCode(0x2728)}
             description="Circle pictures that begin with each letter. Say the sound out loud (e.g., A as in apple)."
             problemCount={26}
             learningObjectives={[
@@ -4299,7 +4299,7 @@ export function PrintablesPage() {
             <WorksheetSectionWrapper
               docId={docId}
               title={getTrans(`worksheets.${docId}.title`, 'Addition & Subtraction 010')}
-                emoji={String.fromCharCode(0x2728)}
+              emoji={String.fromCharCode(0x2728)}
               description={getTrans(`worksheets.${docId}.description`, 'Use the number line if needed to solve each addition problem. Write the correct answer in the blank space provided.')}
               problemCount={12}
               learningObjectives={(() => {
@@ -4597,7 +4597,7 @@ export function PrintablesPage() {
             <WorksheetSectionWrapper
               docId={docId}
               title={getTrans(`worksheets.${docId}.title`, 'Place Value  Tens and Ones (to 99)')}
-                emoji={String.fromCharCode(0x2728)}
+              emoji={String.fromCharCode(0x2728)}
               description={getTrans(`worksheets.${docId}.description`, 'Write how many tens and ones in each number. Then write the complete number in expanded form in the blank spaces.')}
               problemCount={nums.length}
               learningObjectives={(() => {
@@ -4801,7 +4801,7 @@ export function PrintablesPage() {
             <WorksheetSectionWrapper
               docId="skip-count-5-10-120"
               title="Skip Counting by 5s and 10s (to 120)"
-                emoji={String.fromCharCode(0x2728)}
+              emoji={String.fromCharCode(0x2728)}
               description="Fill in the missing numbers."
               problemCount={seq5.filter((_, i) => isBlank5(i)).length + seq10.filter((_, i) => isBlank10(i)).length}
               learningObjectives={[
@@ -4890,7 +4890,7 @@ export function PrintablesPage() {
                       <strong>Count by 10s to 120:</strong> The missing numbers are: {seq10.filter((_, i) => isBlank10(i)).map((n, idx) => `${idx + 1}. ${n}`).join(', ')}
                     </div>
                     <div className="text-xs text-emerald-700 mt-2">
-                       Remember: Each number in the 5s sequence is 5 more than the previous. Each number in the 10s sequence is 10 more than the previous.
+                      Remember: Each number in the 5s sequence is 5 more than the previous. Each number in the 10s sequence is 10 more than the previous.
                     </div>
                   </div>
                 </div>
@@ -4921,7 +4921,7 @@ export function PrintablesPage() {
             <WorksheetSectionWrapper
               docId="add-2digit-100"
               title="2-Digit Addition (No Regrouping)"
-                emoji={String.fromCharCode(0x2728)}
+              emoji={String.fromCharCode(0x2728)}
               description="Add the two numbers. No regrouping needed."
               problemCount={pairs.length}
               learningObjectives={[
@@ -5063,7 +5063,7 @@ export function PrintablesPage() {
             <WorksheetSectionWrapper
               docId="sub-2digit-100"
               title="2-Digit Subtraction (No Regrouping)"
-                emoji={String.fromCharCode(0x2728)}
+              emoji={String.fromCharCode(0x2728)}
               description="Subtract the two numbers. No regrouping needed."
               problemCount={pairs.length}
               learningObjectives={[
@@ -5199,7 +5199,7 @@ export function PrintablesPage() {
             <WorksheetSectionWrapper
               docId="word-problems-100"
               title="2nd-Grade Word Problems (within 100)"
-                emoji={String.fromCharCode(0x2728)}
+              emoji={String.fromCharCode(0x2728)}
               description="Read each word problem carefully. Write a number sentence (equation) and solve. Show your answer in the blank space."
               problemCount={problems.length}
               learningObjectives={[
@@ -5369,7 +5369,7 @@ export function PrintablesPage() {
             <WorksheetSectionWrapper
               docId="compare-2digit"
               title="Compare 2-Digit Numbers"
-                emoji={String.fromCharCode(0x2728)}
+              emoji={String.fromCharCode(0x2728)}
               description="Write one comparison symbol in each blank: > (greater than), < (less than), or = (equal to). Tip: Compare tens first. If tens are equal, compare ones."
               problemCount={pairs.length}
               learningObjectives={[
@@ -5472,7 +5472,7 @@ export function PrintablesPage() {
             <WorksheetSectionWrapper
               docId="even-odd-100"
               title="Even or Odd? (to 100)"
-                emoji={String.fromCharCode(0x2728)}
+              emoji={String.fromCharCode(0x2728)}
               description="Circle whether each number is even or odd."
               problemCount={nums.length}
               learningObjectives={[
@@ -5557,7 +5557,7 @@ export function PrintablesPage() {
             <WorksheetSectionWrapper
               docId="time-5min"
               title="Tell Time to 5 Minutes"
-                emoji={String.fromCharCode(0x2728)}
+              emoji={String.fromCharCode(0x2728)}
               description="Draw the clock hands to show each time."
               problemCount={times.length}
               learningObjectives={[
@@ -5651,7 +5651,7 @@ export function PrintablesPage() {
                       })}
                     </div>
                     <div className="text-xs text-emerald-700 mt-3">
-                       Remember: The hour hand moves slowly between numbers. The minute hand moves quickly - each number represents 5 minutes!
+                      Remember: The hour hand moves slowly between numbers. The minute hand moves quickly - each number represents 5 minutes!
                     </div>
                   </div>
                 );
@@ -5666,7 +5666,7 @@ export function PrintablesPage() {
             <WorksheetSectionWrapper
               docId="ten-frames-1-20"
               title="Ten Frames 120"
-                emoji={String.fromCharCode(0x2728)}
+              emoji={String.fromCharCode(0x2728)}
               description="Color the circles to match each number. Say how many are filled and how many are empty."
               problemCount={numbers.length}
               learningObjectives={[
@@ -5762,7 +5762,7 @@ export function PrintablesPage() {
                     })}
                   </div>
                   <div className="text-xs text-emerald-700 mt-3">
-                     Remember: For numbers 110, use one ten frame. For numbers 1120, fill the first ten frame completely (10) and use the second ten frame for the remaining amount!
+                    Remember: For numbers 110, use one ten frame. For numbers 1120, fill the first ten frame completely (10) and use the second ten frame for the remaining amount!
                   </div>
                 </div>
               ))}
@@ -5774,7 +5774,7 @@ export function PrintablesPage() {
           <WorksheetSectionWrapper
             docId="shapes-colors-sort"
             title="Shape Safari: Jungle Feeding Time"
-                emoji={String.fromCharCode(0x2728)}
+            emoji={String.fromCharCode(0x2728)}
             description="Cut out the Shape Treats and feed them to the right Animal! Match the colors."
             problemCount={6}
             learningObjectives={[
@@ -5914,7 +5914,7 @@ export function PrintablesPage() {
             <WorksheetSectionWrapper
               docId="dot-to-dot-1-20"
               title="120 Dot-to-Dot"
-                emoji={String.fromCharCode(0x2728)}
+              emoji={String.fromCharCode(0x2728)}
               description="Connect the dots in order to reveal the picture."
               problemCount={dotCount}
               learningObjectives={[
@@ -5988,7 +5988,7 @@ export function PrintablesPage() {
                     <div className="mt-2">The completed picture should show a wavy or zigzag pattern connecting all 20 dots in numerical order.</div>
                   </div>
                   <div className="text-xs text-emerald-700 mt-3">
-                     Remember: Always start at dot 1 and connect in order. Count aloud as you go: 1, 2, 3, 4...
+                    Remember: Always start at dot 1 and connect in order. Count aloud as you go: 1, 2, 3, 4...
                   </div>
                 </div>
               ))}
@@ -6000,7 +6000,7 @@ export function PrintablesPage() {
           <WorksheetSectionWrapper
             docId="tangram-animals"
             title="Tangram Animals (Cutouts)"
-                emoji={String.fromCharCode(0x2728)}
+            emoji={String.fromCharCode(0x2728)}
             description="Cut the shapes and arrange to make animal silhouettes. Glue the final shape on a clean sheet."
             problemCount={5}
             learningObjectives={[
@@ -6084,7 +6084,7 @@ export function PrintablesPage() {
           <WorksheetSectionWrapper
             docId="spot-difference"
             title="Spot-the-Difference (7)"
-                emoji={String.fromCharCode(0x2728)}
+            emoji={String.fromCharCode(0x2728)}
             description="Find 7 differences between the two pictures."
             problemCount={7}
             learningObjectives={[
@@ -6171,7 +6171,7 @@ export function PrintablesPage() {
           <WorksheetSectionWrapper
             docId="directed-drawing-animals"
             title="Directed Drawing: Animals"
-                emoji={String.fromCharCode(0x2728)}
+            emoji={String.fromCharCode(0x2728)}
             description="Follow each step to draw a fish silhouette using simple shapes. No face features (eyes, nose, mouth, ears)."
             problemCount={6}
             learningObjectives={[
@@ -6244,7 +6244,7 @@ export function PrintablesPage() {
           <WorksheetSectionWrapper
             docId="cut-and-paste-crafts"
             title="Cut-and-Paste Paper Crafts"
-                emoji={String.fromCharCode(0x2728)}
+            emoji={String.fromCharCode(0x2728)}
             description="Point to or color how you feel today."
             problemCount={1}
             learningObjectives={[
@@ -6286,7 +6286,7 @@ export function PrintablesPage() {
           <WorksheetSectionWrapper
             docId="feelings-checkin"
             title="Feelings Check-In Meter"
-                emoji={String.fromCharCode(0x2728)}
+            emoji={String.fromCharCode(0x2728)}
             description="Point to or color how you feel today."
             problemCount={1}
             learningObjectives={[
@@ -6331,7 +6331,7 @@ export function PrintablesPage() {
           <WorksheetSectionWrapper
             docId="reward-chart"
             title="Weekly Reward / Sticker Chart"
-                emoji={String.fromCharCode(0x2728)}
+            emoji={String.fromCharCode(0x2728)}
             description="Add a sticker or color a star each time you complete a task."
             problemCount={1}
             learningObjectives={[
@@ -6380,7 +6380,7 @@ export function PrintablesPage() {
           <WorksheetSectionWrapper
             docId="reading-mini-1"
             title="Mini Reading Passage + 3 Questions"
-                emoji={String.fromCharCode(0x2728)}
+            emoji={String.fromCharCode(0x2728)}
             description="Read the short passage, then answer the questions in full sentences."
             problemCount={3}
             learningObjectives={[
@@ -6493,7 +6493,7 @@ export function PrintablesPage() {
             <WorksheetSectionWrapper
               docId={docId}
               title={getTrans(`worksheets.${docId}.title`, 'Passage  The Lost Hat (Grade 1)')}
-                emoji={String.fromCharCode(0x2728)}
+              emoji={String.fromCharCode(0x2728)}
               description={getTrans(`worksheets.${docId}.description`, 'Short passage with 4 comprehension questions. Read carefully and answer in full sentences.')}
               problemCount={4}
               learningObjectives={(() => {
@@ -6629,7 +6629,7 @@ export function PrintablesPage() {
           <WorksheetSectionWrapper
             docId="reading-g1-ants"
             title="Passage  Lunch for the Ants (Grade 1)"
-                emoji={String.fromCharCode(0x2728)}
+            emoji={String.fromCharCode(0x2728)}
             description="Short passage with 4 comprehension questions. Read carefully and answer in full sentences."
             problemCount={4}
             learningObjectives={[
@@ -6699,7 +6699,7 @@ export function PrintablesPage() {
           <WorksheetSectionWrapper
             docId="reading-g1-bus-ride"
             title="Passage  The Bus Ride (Grade 1)"
-                emoji={String.fromCharCode(0x2728)}
+            emoji={String.fromCharCode(0x2728)}
             description="Short passage with 4 comprehension questions. Read carefully and answer in full sentences."
             problemCount={4}
             learningObjectives={[
@@ -6794,7 +6794,7 @@ export function PrintablesPage() {
           <WorksheetSectionWrapper
             docId="reading-g1-pet-fish"
             title="Passage  The Pet Fish (Grade 1)"
-                emoji={String.fromCharCode(0x2728)}
+            emoji={String.fromCharCode(0x2728)}
             description="Short passage with 4 comprehension questions. Read carefully and answer in full sentences."
             problemCount={4}
             learningObjectives={[
@@ -6885,7 +6885,7 @@ export function PrintablesPage() {
           <WorksheetSectionWrapper
             docId="reading-g2-paper-bridge"
             title="Passage  The Paper Bridge (Grade 2)"
-                emoji={String.fromCharCode(0x2728)}
+            emoji={String.fromCharCode(0x2728)}
             description="Short passage with comprehension questions. Read carefully and answer in full sentences."
             problemCount={4}
             learningObjectives={[
@@ -6975,7 +6975,7 @@ export function PrintablesPage() {
           <WorksheetSectionWrapper
             docId="reading-g2-rainy-garden"
             title="Passage  Rainy Day Garden (Grade 2)"
-                emoji={String.fromCharCode(0x2728)}
+            emoji={String.fromCharCode(0x2728)}
             description="Short passage with comprehension questions. Read carefully and answer in full sentences."
             problemCount={4}
             learningObjectives={[
@@ -7043,7 +7043,7 @@ export function PrintablesPage() {
           <WorksheetSectionWrapper
             docId="reading-g2-library-card"
             title="Passage  New Library Card (Grade 2)"
-                emoji={String.fromCharCode(0x2728)}
+            emoji={String.fromCharCode(0x2728)}
             description="Short passage with comprehension questions. Read carefully and answer in full sentences."
             problemCount={4}
             learningObjectives={[
@@ -7108,7 +7108,7 @@ export function PrintablesPage() {
           <WorksheetSectionWrapper
             docId="reading-g2-lost-and-found"
             title="Passage  Lost and Found (Grade 2)"
-                emoji={String.fromCharCode(0x2728)}
+            emoji={String.fromCharCode(0x2728)}
             description="Short passage with comprehension questions. Read carefully and answer in full sentences."
             problemCount={4}
             learningObjectives={[
@@ -7175,7 +7175,7 @@ export function PrintablesPage() {
           <WorksheetSectionWrapper
             docId="reading-g3-lighthouse"
             title="Passage  The Lighthouse Keeper's Trick (Grade 3)"
-                emoji={String.fromCharCode(0x2728)}
+            emoji={String.fromCharCode(0x2728)}
             description="Short passage with Q&A. Read carefully and answer in full sentences."
             problemCount={4}
             learningObjectives={[
@@ -7266,7 +7266,7 @@ export function PrintablesPage() {
           <WorksheetSectionWrapper
             docId="reading-g3-science-fair"
             title="Passage  The Science Fair Plan (Grade 3)"
-                emoji={String.fromCharCode(0x2728)}
+            emoji={String.fromCharCode(0x2728)}
             description="Short passage with Q&A. Read carefully and answer in full sentences."
             problemCount={4}
             learningObjectives={[
@@ -7332,7 +7332,7 @@ export function PrintablesPage() {
           <WorksheetSectionWrapper
             docId="reading-g3-community-garden"
             title="Passage  The Community Garden (Grade 3)"
-                emoji={String.fromCharCode(0x2728)}
+            emoji={String.fromCharCode(0x2728)}
             description="Short passage with Q&A. Read carefully and answer in full sentences."
             problemCount={4}
             learningObjectives={[
@@ -7423,7 +7423,7 @@ export function PrintablesPage() {
           <WorksheetSectionWrapper
             docId="reading-g1-red-balloon"
             title="Passage  The Red Balloon (Grade 1)"
-                emoji={String.fromCharCode(0x2728)}
+            emoji={String.fromCharCode(0x2728)}
             description="Short story with Q&A. Read and answer the questions."
             problemCount={3}
             learningObjectives={[
@@ -7501,7 +7501,7 @@ export function PrintablesPage() {
           <WorksheetSectionWrapper
             docId="reading-g1-big-box"
             title="Passage  The Big Box (Grade 1)"
-                emoji={String.fromCharCode(0x2728)}
+            emoji={String.fromCharCode(0x2728)}
             description="Short story with Q&A. Read and answer the questions."
             problemCount={4}
             learningObjectives={[
@@ -7582,7 +7582,7 @@ export function PrintablesPage() {
           <WorksheetSectionWrapper
             docId="reading-g1-garden-snail"
             title="Passage  The Garden Snail (Grade 1)"
-                emoji={String.fromCharCode(0x2728)}
+            emoji={String.fromCharCode(0x2728)}
             description="Short story with Q&A. Read and answer the questions."
             problemCount={4}
             learningObjectives={[
@@ -7664,7 +7664,7 @@ export function PrintablesPage() {
           <WorksheetSectionWrapper
             docId="reading-g1-birthday-cake"
             title="Passage  The Birthday Cake (Grade 1)"
-                emoji={String.fromCharCode(0x2728)}
+            emoji={String.fromCharCode(0x2728)}
             description="Short story with Q&A. Read and answer the questions."
             problemCount={4}
             learningObjectives={[
@@ -7748,7 +7748,7 @@ export function PrintablesPage() {
           <WorksheetSectionWrapper
             docId="reading-g2-bird-feeder"
             title="Passage  The Bird Feeder (Grade 2)"
-                emoji={String.fromCharCode(0x2728)}
+            emoji={String.fromCharCode(0x2728)}
             description="Short story with Q&A. Read and answer the questions."
             problemCount={4}
             learningObjectives={[
@@ -7830,7 +7830,7 @@ export function PrintablesPage() {
           <WorksheetSectionWrapper
             docId="reading-g2-cookie-recipe"
             title="Passage  The Cookie Recipe (Grade 2)"
-                emoji={String.fromCharCode(0x2728)}
+            emoji={String.fromCharCode(0x2728)}
             description="Short story with Q&A. Read and answer the questions."
             problemCount={4}
             learningObjectives={[
@@ -7911,7 +7911,7 @@ export function PrintablesPage() {
           <WorksheetSectionWrapper
             docId="reading-g2-tree-house"
             title="Passage  The Tree House (Grade 2)"
-                emoji={String.fromCharCode(0x2728)}
+            emoji={String.fromCharCode(0x2728)}
             description="Short story with Q&A. Read and answer the questions."
             problemCount={4}
             learningObjectives={[
@@ -7992,7 +7992,7 @@ export function PrintablesPage() {
           <WorksheetSectionWrapper
             docId="reading-g2-magic-seeds"
             title="Passage  The Magic Seeds (Grade 2)"
-                emoji={String.fromCharCode(0x2728)}
+            emoji={String.fromCharCode(0x2728)}
             description="Short story with Q&A. Read and answer the questions."
             problemCount={4}
             hideDefaultHeader={true}
@@ -8078,7 +8078,7 @@ export function PrintablesPage() {
           <WorksheetSectionWrapper
             docId="reading-g3-school-play"
             title="Passage  The School Play (Grade 3)"
-                emoji={String.fromCharCode(0x2728)}
+            emoji={String.fromCharCode(0x2728)}
             description="Short story with Q&A. Read and answer the questions."
             problemCount={4}
             learningObjectives={[
@@ -8158,7 +8158,7 @@ export function PrintablesPage() {
           <WorksheetSectionWrapper
             docId="reading-g3-art-project"
             title="Passage  The Art Project (Grade 3)"
-                emoji={String.fromCharCode(0x2728)}
+            emoji={String.fromCharCode(0x2728)}
             description="Short story with Q&A. Read and answer the questions."
             problemCount={4}
             learningObjectives={[
@@ -8368,7 +8368,7 @@ export function PrintablesPage() {
                       {problems.map((p, i) => (
                         <div key={i} className="border border-slate-300 rounded p-2 text-center">
                           <div className="font-mono">
-                            {p.a !== undefined ? p.a : <span className="inline-block w-10 h-5 border-b-2 border-slate-600 mx-1" />} 
+                            {p.a !== undefined ? p.a : <span className="inline-block w-10 h-5 border-b-2 border-slate-600 mx-1" />}
                             {p.b !== undefined ? p.b : <span className="inline-block w-10 h-5 border-b-2 border-slate-600 mx-1" />} =
                             {p.answer !== undefined ? p.answer : <span className="inline-block w-10 h-5 border-b-2 border-slate-600 mx-1" />}
                           </div>
@@ -9139,7 +9139,7 @@ export function PrintablesPage() {
           <WorksheetSectionWrapper
             docId="stem-balloon-rocket"
             title="Balloon Rocket (STEM)"
-                emoji={String.fromCharCode(0x2728)}
+            emoji={String.fromCharCode(0x2728)}
             description="Time: 10 minutes  Ages: 710. Build a balloon rocket and learn about action and reaction!"
             problemCount={1}
             learningObjectives={[
@@ -9204,7 +9204,7 @@ export function PrintablesPage() {
           <WorksheetSectionWrapper
             docId="stem-walking-water"
             title="Walking Water (STEM)"
-                emoji={String.fromCharCode(0x2728)}
+            emoji={String.fromCharCode(0x2728)}
             description="Time: 1520 minutes  Ages: 610. Watch water walk through paper towels and mix colors!"
             problemCount={1}
             learningObjectives={[
@@ -9268,7 +9268,7 @@ export function PrintablesPage() {
           <WorksheetSectionWrapper
             docId="arts-3-shape-creature"
             title="Draw From 3 Shapes (Arts)"
-                emoji={String.fromCharCode(0x2728)}
+            emoji={String.fromCharCode(0x2728)}
             description="Time: 1015 minutes  Ages: 612. Use 3 simple shapes to create a creative creature!"
             problemCount={1}
             learningObjectives={[
@@ -9332,7 +9332,7 @@ export function PrintablesPage() {
             <WorksheetSectionWrapper
               docId={docId}
               title={getTrans(`worksheets.${docId}.title`, 'Math Maze Adventure')}
-                emoji={String.fromCharCode(0x2728)}
+              emoji={String.fromCharCode(0x2728)}
               description={getTrans(`worksheets.${docId}.description`, 'Start at S and reach F. Move up/down/left/right only onto tiles whose equation equals the target shown in that row. Circle your path!')}
               problemCount={1}
               learningObjectives={(() => {
@@ -9452,7 +9452,7 @@ export function PrintablesPage() {
           <WorksheetSectionWrapper
             docId="spelling"
             title="Spelling Challenge Worksheet"
-                emoji={String.fromCharCode(0x2728)}
+            emoji={String.fromCharCode(0x2728)}
             description="Circle the correctly spelled word in each group. Then write it neatly on the line."
             problemCount={5}
             learningObjectives={[
@@ -9539,7 +9539,7 @@ export function PrintablesPage() {
           <WorksheetSectionWrapper
             docId="science-match"
             title="Science Fun Facts Match"
-                emoji={String.fromCharCode(0x2728)}
+            emoji={String.fromCharCode(0x2728)}
             description="Draw a line to match each fact with its pair."
             problemCount={6}
             learningObjectives={[
@@ -9608,7 +9608,7 @@ export function PrintablesPage() {
           <WorksheetSectionWrapper
             docId="grammar-detective"
             title="Grammar Detective"
-                emoji={String.fromCharCode(0x2728)}
+            emoji={String.fromCharCode(0x2728)}
             description="Find and fix the mistake in each sentence. Rewrite it correctly on the line."
             problemCount={5}
             learningObjectives={[
@@ -9746,7 +9746,7 @@ export function PrintablesPage() {
             <WorksheetSectionWrapper
               docId="color-by-number"
               title="Color-by-Number"
-                emoji={String.fromCharCode(0x2728)}
+              emoji={String.fromCharCode(0x2728)}
               description="Use the legend to color the grid. Reveal the hidden scene!"
               problemCount={1}
               learningObjectives={[
@@ -9844,7 +9844,7 @@ export function PrintablesPage() {
           <WorksheetSectionWrapper
             docId="bookmark-templates"
             title="DIY Bookmark Templates"
-                emoji={String.fromCharCode(0x2728)}
+            emoji={String.fromCharCode(0x2728)}
             description="Cut along the dotted lines. Decorate with doodles and colors. Add your name on the back!"
             problemCount={3}
             learningObjectives={[
@@ -9883,7 +9883,7 @@ export function PrintablesPage() {
           <WorksheetSectionWrapper
             docId="design-monster"
             title="Design Your Monster"
-                emoji={String.fromCharCode(0x2728)}
+            emoji={String.fromCharCode(0x2728)}
             description="Draw inside the box and give your monster a name. Check the features you used."
             problemCount={1}
             learningObjectives={[
@@ -9929,7 +9929,7 @@ export function PrintablesPage() {
           <WorksheetSectionWrapper
             docId="draw-half"
             title="Draw the Missing Half"
-                emoji={String.fromCharCode(0x2728)}
+            emoji={String.fromCharCode(0x2728)}
             description="Copy the right side to complete each picture. Use the grid as a guide."
             problemCount={4}
             learningObjectives={[
@@ -10059,7 +10059,7 @@ export function PrintablesPage() {
           <WorksheetSectionWrapper
             docId="logic-grid"
             title="Logic Grid Puzzle"
-                emoji={String.fromCharCode(0x2728)}
+            emoji={String.fromCharCode(0x2728)}
             description="Mark  for matches and  for no match. Use the clues to solve."
             problemCount={1}
             learningObjectives={[
@@ -10158,7 +10158,7 @@ export function PrintablesPage() {
           <WorksheetSectionWrapper
             docId="hidden-object"
             title="Find the Hidden Object"
-                emoji={String.fromCharCode(0x2728)}
+            emoji={String.fromCharCode(0x2728)}
             description="Find and circle each item hidden in the scene below."
             problemCount={5}
             learningObjectives={[
@@ -10236,7 +10236,7 @@ export function PrintablesPage() {
           <WorksheetSectionWrapper
             docId="maze-focus"
             title="Maze of Focus"
-                emoji={String.fromCharCode(0x2728)}
+            emoji={String.fromCharCode(0x2728)}
             description="Follow the steps from START to FINISH. Skip distractions!"
             problemCount={1}
             learningObjectives={[
@@ -10294,7 +10294,7 @@ export function PrintablesPage() {
           <WorksheetSectionWrapper
             docId="gratitude-jar"
             title="Gratitude Jar"
-                emoji={String.fromCharCode(0x2728)}
+            emoji={String.fromCharCode(0x2728)}
             description="Write or draw one thing you're thankful for in each circle."
             problemCount={18}
             learningObjectives={[
@@ -10341,7 +10341,7 @@ export function PrintablesPage() {
           <WorksheetSectionWrapper
             docId="mood-tracker"
             title="Mood Tracker"
-                emoji={String.fromCharCode(0x2728)}
+            emoji={String.fromCharCode(0x2728)}
             description="Color each day based on your mood. Use your own color legend."
             problemCount={7}
             learningObjectives={[
@@ -10390,7 +10390,7 @@ export function PrintablesPage() {
           <WorksheetSectionWrapper
             docId="mandalas"
             title="Mindful Coloring Mandalas"
-                emoji={String.fromCharCode(0x2728)}
+            emoji={String.fromCharCode(0x2728)}
             description="Color slowly. Start from the center and move outward."
             problemCount={1}
             learningObjectives={[
@@ -10443,7 +10443,7 @@ export function PrintablesPage() {
           <WorksheetSectionWrapper
             docId="weekly-goals"
             title="My Goals for the Week"
-                emoji={String.fromCharCode(0x2728)}
+            emoji={String.fromCharCode(0x2728)}
             description="Write 3 goals, 1 thing to try, and 1 thing you're proud of."
             problemCount={5}
             learningObjectives={[
@@ -10482,7 +10482,7 @@ export function PrintablesPage() {
           <WorksheetSectionWrapper
             docId="halloween-pack"
             title="Halloween Puzzle Pack"
-                emoji={String.fromCharCode(0x2728)}
+            emoji={String.fromCharCode(0x2728)}
             description="Mini pack: word list + costume ideas + tiny maze."
             problemCount={1}
             learningObjectives={[
@@ -10651,7 +10651,7 @@ export function PrintablesPage() {
           <WorksheetSectionWrapper
             docId="winter-kindness"
             title="Winter Kindness Challenge"
-                emoji={String.fromCharCode(0x2728)}
+            emoji={String.fromCharCode(0x2728)}
             description="Color a square each time you complete a kind act."
             problemCount={25}
             learningObjectives={[
@@ -10687,7 +10687,7 @@ export function PrintablesPage() {
           <WorksheetSectionWrapper
             docId="spring-scavenger"
             title="Spring Nature Scavenger Hunt"
-                emoji={String.fromCharCode(0x2728)}
+            emoji={String.fromCharCode(0x2728)}
             description="Go outside and check off what you discover."
             problemCount={10}
             learningObjectives={[
@@ -10721,7 +10721,7 @@ export function PrintablesPage() {
           <WorksheetSectionWrapper
             docId="summer-pack"
             title="Summer Adventure Pack"
-                emoji={String.fromCharCode(0x2728)}
+            emoji={String.fromCharCode(0x2728)}
             description="A quick set for travel days: word list + maze box + drawing prompt."
             problemCount={1}
             learningObjectives={[
@@ -10764,7 +10764,7 @@ export function PrintablesPage() {
           <WorksheetSectionWrapper
             docId="brain-boost"
             title="7-Day Brain Boost Pack"
-                emoji={String.fromCharCode(0x2728)}
+            emoji={String.fromCharCode(0x2728)}
             description="Do one mini-challenge each day. Track your streak!"
             problemCount={7}
             learningObjectives={[
@@ -10829,7 +10829,7 @@ export function PrintablesPage() {
           <WorksheetSectionWrapper
             docId="creative-challenge"
             title="Creative Kids Challenge"
-                emoji={String.fromCharCode(0x2728)}
+            emoji={String.fromCharCode(0x2728)}
             description="7 days of quick art prompts. Spend 510 minutes each."
             problemCount={7}
             learningObjectives={[
@@ -10863,7 +10863,7 @@ export function PrintablesPage() {
           <WorksheetSectionWrapper
             docId="ws-world"
             title="Around the World Word Search"
-                emoji={String.fromCharCode(0x2728)}
+            emoji={String.fromCharCode(0x2728)}
             description="Find all the world words hidden in the grid. Use the clue list to track your progress."
             problemCount={11}
             learningObjectives={[
@@ -10918,7 +10918,7 @@ export function PrintablesPage() {
           <WorksheetSectionWrapper
             docId="animal-pack"
             title="Animal Adventure Pack"
-                emoji={String.fromCharCode(0x2728)}
+            emoji={String.fromCharCode(0x2728)}
             description="Mix of animal-themed puzzles to print and enjoy."
             problemCount={1}
             learningObjectives={[
@@ -11104,7 +11104,7 @@ export function PrintablesPage() {
           <WorksheetSectionWrapper
             docId="ws-animals"
             title="Word Search  Animals"
-                emoji={String.fromCharCode(0x2728)}
+            emoji={String.fromCharCode(0x2728)}
             description="Find 12 animal names. Circle horizontally, vertically, or diagonally."
             problemCount={12}
             learningObjectives={[
@@ -11144,7 +11144,7 @@ export function PrintablesPage() {
           <WorksheetSectionWrapper
             docId="ws-space"
             title="Word Search  Space"
-                emoji={String.fromCharCode(0x2728)}
+            emoji={String.fromCharCode(0x2728)}
             description="Find 12 space words. Circle horizontally, vertically, or diagonally."
             problemCount={12}
             learningObjectives={[
@@ -11194,7 +11194,7 @@ export function PrintablesPage() {
             <WorksheetSectionWrapper
               docId="coloring"
               title="Coloring Page  Cute Animal"
-                emoji={String.fromCharCode(0x2728)}
+              emoji={String.fromCharCode(0x2728)}
               description="Print and color the outline below."
               problemCount={1}
               learningObjectives={[
@@ -11230,7 +11230,7 @@ export function PrintablesPage() {
             <WorksheetSectionWrapper
               docId="coloring-letters-numbers"
               title="Alphabet & Number Coloring Pages"
-                emoji={String.fromCharCode(0x2728)}
+              emoji={String.fromCharCode(0x2728)}
               description="AZ animals and 110 rockets  trace, color, and learn letters and numbers."
               problemCount={36}
               learningObjectives={[
@@ -11290,7 +11290,7 @@ export function PrintablesPage() {
             <WorksheetSectionWrapper
               docId="coloring-animals"
               title="Animal Friends Coloring Pages"
-                emoji={String.fromCharCode(0x2728)}
+              emoji={String.fromCharCode(0x2728)}
               description="Meet our friendly jungle and sea animals  lions, pandas, dolphins, and more. Ages 510."
               problemCount={6}
               learningObjectives={[
@@ -11392,7 +11392,7 @@ export function PrintablesPage() {
             <WorksheetSectionWrapper
               docId="coloring-nature"
               title="Nature & Seasons Coloring Pack"
-                emoji={String.fromCharCode(0x2728)}
+              emoji={String.fromCharCode(0x2728)}
               description="Color flowers, trees, rainbows, and seasonal scenes (spring to winter)."
               problemCount={6}
               learningObjectives={[
@@ -11488,7 +11488,7 @@ export function PrintablesPage() {
             <WorksheetSectionWrapper
               docId="coloring-space"
               title="Space Adventure Coloring Pages"
-                emoji={String.fromCharCode(0x2728)}
+              emoji={String.fromCharCode(0x2728)}
               description="Rockets, planets, and astronauts. Great for science week or STEM lessons."
               problemCount={3}
               learningObjectives={[
@@ -11639,7 +11639,7 @@ export function PrintablesPage() {
             <WorksheetSectionWrapper
               docId="coloring-vehicles"
               title="Vehicles & Transport Coloring Sheets"
-                emoji={String.fromCharCode(0x2728)}
+              emoji={String.fromCharCode(0x2728)}
               description="Cars, trucks, airplanes, and trains to keep little drivers busy and creative."
               problemCount={4}
               learningObjectives={[
@@ -11736,7 +11736,7 @@ export function PrintablesPage() {
             <WorksheetSectionWrapper
               docId="coloring-heroes"
               title="Superheroes & Everyday Heroes Coloring Pages"
-                emoji={String.fromCharCode(0x2728)}
+              emoji={String.fromCharCode(0x2728)}
               description="Celebrate courage and kindness  superheroes and community helpers (doctors, firefighters, teachers)."
               problemCount={2}
               learningObjectives={[
@@ -12200,7 +12200,7 @@ export function PrintablesPage() {
             <WorksheetSectionWrapper
               docId="picture-addition-10"
               title="Picture Addition to 10"
-                emoji={String.fromCharCode(0x2728)}
+              emoji={String.fromCharCode(0x2728)}
               description="Count the pictures in each group and add them together."
               problemCount={6}
               learningObjectives={[
@@ -12344,7 +12344,7 @@ export function PrintablesPage() {
             <WorksheetSectionWrapper
               docId="subtraction-stories"
               title="Subtraction Stories"
-                emoji={String.fromCharCode(0x2728)}
+              emoji={String.fromCharCode(0x2728)}
               description="Read the story and solve the subtraction problem."
               problemCount={4}
               learningObjectives={[
@@ -12732,7 +12732,7 @@ export function PrintablesPage() {
             <WorksheetSectionWrapper
               docId="skip-count-2s"
               title="Skip Counting by 2s"
-                emoji={String.fromCharCode(0x2728)}
+              emoji={String.fromCharCode(0x2728)}
               description="Count by 2s. Fill in the missing numbers."
               problemCount={4}
               learningObjectives={[
@@ -13041,7 +13041,7 @@ export function PrintablesPage() {
             <WorksheetSectionWrapper
               docId="pattern-complete"
               title="Pattern Completion"
-                emoji={String.fromCharCode(0x2728)}
+              emoji={String.fromCharCode(0x2728)}
               description="Complete each pattern. Draw or color the missing shapes."
               problemCount={3}
               learningObjectives={[
@@ -13143,7 +13143,7 @@ export function PrintablesPage() {
             <WorksheetSectionWrapper
               docId="missing-shape"
               title="Find the Missing Shape"
-                emoji={String.fromCharCode(0x2728)}
+              emoji={String.fromCharCode(0x2728)}
               description="Look at the pattern and draw the missing shape."
               problemCount={6}
               learningObjectives={[
@@ -13236,7 +13236,7 @@ export function PrintablesPage() {
             <WorksheetSectionWrapper
               docId="size-comparison"
               title="Size Comparison"
-                emoji={String.fromCharCode(0x2728)}
+              emoji={String.fromCharCode(0x2728)}
               description="Compare the objects. Circle the bigger one or the smaller one."
               problemCount={4}
               learningObjectives={[
@@ -13976,7 +13976,7 @@ export function PrintablesPage() {
             <WorksheetSectionWrapper
               docId="skip-count-mult"
               title="Skip Counting for Multiplication"
-                emoji={String.fromCharCode(0x2728)}
+              emoji={String.fromCharCode(0x2728)}
               description="Skip count to find the missing numbers in each pattern. Then write the complete multiplication fact in the blank."
             >
               <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-green-400 to-teal-400 animate-gradient-x mb-2" />
@@ -15566,7 +15566,7 @@ export function PrintablesPage() {
             <WorksheetSectionWrapper
               docId="mult-strategies"
               title="Multiplication Strategies"
-                emoji={String.fromCharCode(0x2728)}
+              emoji={String.fromCharCode(0x2728)}
               description="Use different strategies to solve each problem. Try skip counting, arrays, or repeated addition. Write your answer in the blank space provided."
               problemCount={5}
               learningObjectives={[
@@ -16554,7 +16554,7 @@ export function PrintablesPage() {
                   {problems.map((p, i) => (
                     <div key={i} className="border border-slate-300 rounded p-3 bg-white text-center break-inside-avoid">
                       <div className="font-mono text-xl leading-7">
-                        {p.a !== undefined ? p.a : <span className="inline-block w-12 h-8 border-b-[3px] border-slate-600 mx-1" />{String.fromCharCode(0x2728)}<span className="inline-block w-12 h-8 border-b-[3px] border-slate-600 mx-1" />} = {p.answer !== undefined ? p.answer : <span className="inline-block w-12 h-8 border-b-[3px] border-slate-600 mx-1" />}
+                        {p.a !== undefined ? p.a : <span className="inline-block w-12 h-8 border-b-[3px] border-slate-600 mx-1" />} {String.fromCharCode(0x00D7)} {p.b !== undefined ? p.b : <span className="inline-block w-12 h-8 border-b-[3px] border-slate-600 mx-1" />} = {p.answer !== undefined ? p.answer : <span className="inline-block w-12 h-8 border-b-[3px] border-slate-600 mx-1" />}
                       </div>
                     </div>
                   ))}
@@ -16677,7 +16677,7 @@ export function PrintablesPage() {
                   {problems.map((p, i) => (
                     <div key={i} className="border border-slate-300 rounded p-3 bg-white text-center break-inside-avoid">
                       <div className="font-mono text-xl leading-7">
-                        {p.a !== undefined ? p.a : <span className="inline-block w-12 h-8 border-b-[3px] border-slate-600 mx-1" />{String.fromCharCode(0x2728)}<span className="inline-block w-12 h-8 border-b-[3px] border-slate-600 mx-1" />} = {p.answer !== undefined ? p.answer : <span className="inline-block w-12 h-8 border-b-[3px] border-slate-600 mx-1" />}
+                        {p.a !== undefined ? p.a : <span className="inline-block w-12 h-8 border-b-[3px] border-slate-600 mx-1" />} {String.fromCharCode(0x00D7)} {p.b !== undefined ? p.b : <span className="inline-block w-12 h-8 border-b-[3px] border-slate-600 mx-1" />} = {p.answer !== undefined ? p.answer : <span className="inline-block w-12 h-8 border-b-[3px] border-slate-600 mx-1" />}
                       </div>
                     </div>
                   ))}
@@ -16800,7 +16800,7 @@ export function PrintablesPage() {
                   {problems.map((p, i) => (
                     <div key={i} className="border border-slate-300 rounded p-3 bg-white text-center break-inside-avoid">
                       <div className="font-mono text-xl leading-7">
-                        {p.a !== undefined ? p.a : <span className="inline-block w-12 h-8 border-b-[3px] border-slate-600 mx-1" />{String.fromCharCode(0x2728)}<span className="inline-block w-12 h-8 border-b-[3px] border-slate-600 mx-1" />} = {p.answer !== undefined ? p.answer : <span className="inline-block w-12 h-8 border-b-[3px] border-slate-600 mx-1" />}
+                        {p.a !== undefined ? p.a : <span className="inline-block w-12 h-8 border-b-[3px] border-slate-600 mx-1" />} {String.fromCharCode(0x00D7)} {p.b !== undefined ? p.b : <span className="inline-block w-12 h-8 border-b-[3px] border-slate-600 mx-1" />} = {p.answer !== undefined ? p.answer : <span className="inline-block w-12 h-8 border-b-[3px] border-slate-600 mx-1" />}
                       </div>
                     </div>
                   ))}
@@ -17171,7 +17171,7 @@ export function PrintablesPage() {
             <WorksheetSectionWrapper
               docId="times-table-blank-1-5"
               title="Blank Times Table (1-5) - Fill In"
-                emoji={String.fromCharCode(0x2728)}
+              emoji={String.fromCharCode(0x2728)}
               description="Blank times table worksheets to fill in for facts 1-5. Perfect for memorization practice and building multiplication confidence."
               problemCount={25}
               learningObjectives={[
@@ -17277,7 +17277,7 @@ export function PrintablesPage() {
             <WorksheetSectionWrapper
               docId="times-table-blank-6-12"
               title="Blank Times Table (6-12) - Fill In"
-                emoji={String.fromCharCode(0x2728)}
+              emoji={String.fromCharCode(0x2728)}
               description="Blank times table worksheets to fill in for facts 6-12. Worksheets for kids who struggle with multiplication - build confidence step by step."
               problemCount={49}
               learningObjectives={[
@@ -17387,7 +17387,7 @@ export function PrintablesPage() {
             <WorksheetSectionWrapper
               docId="times-table-blank-1-12"
               title="Complete Blank Times Table (1-12)"
-                emoji={String.fromCharCode(0x2728)}
+              emoji={String.fromCharCode(0x2728)}
               description="Complete blank times table grid for all facts 1-12. Printable worksheets to help kids overcome math fear and build multiplication fluency."
               problemCount={144}
               learningObjectives={[
@@ -18082,7 +18082,7 @@ export function PrintablesPage() {
             <WorksheetSectionWrapper
               docId="rhyming-words"
               title="Rhyming Words"
-                emoji={String.fromCharCode(0x2728)}
+              emoji={String.fromCharCode(0x2728)}
               description="Circle the word that rhymes with the picture. Say both words out loud."
             >
               <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-pink-400 to-purple-400 animate-gradient-x mb-2" />
@@ -18139,7 +18139,7 @@ export function PrintablesPage() {
             <WorksheetSectionWrapper
               docId="cvc-words"
               title="CVC Words (Consonant-Vowel-Consonant)"
-                emoji={String.fromCharCode(0x2728)}
+              emoji={String.fromCharCode(0x2728)}
               description="Read each CVC (consonant-vowel-consonant) word. Match it to the correct picture. Then write the word in the blank space."
             >
               <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-blue-400 to-cyan-400 animate-gradient-x mb-2" />
@@ -18205,7 +18205,7 @@ export function PrintablesPage() {
             <WorksheetSectionWrapper
               docId="sight-words-pre-primer"
               title="Sight Words (Dolch Pre-Primer)"
-                emoji={String.fromCharCode(0x2728)}
+              emoji={String.fromCharCode(0x2728)}
               description="Read each sight word. Trace it carefully, then write it three times in the blank lines provided."
             >
               <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-indigo-400 to-blue-400 animate-gradient-x mb-2" />
@@ -18276,7 +18276,7 @@ export function PrintablesPage() {
             <WorksheetSectionWrapper
               docId="letter-tracing-az"
               title="Letter Tracing AZ"
-                emoji={String.fromCharCode(0x2728)}
+              emoji={String.fromCharCode(0x2728)}
               description="Trace each letter. Start at the dot. Say the letter name and sound."
             >
               <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-green-400 to-teal-400 animate-gradient-x mb-2" />
@@ -18336,7 +18336,7 @@ export function PrintablesPage() {
             <WorksheetSectionWrapper
               docId="more-less-equal-10"
               title="More, Less, or Equal? (110)"
-                emoji={String.fromCharCode(0x2728)}
+              emoji={String.fromCharCode(0x2728)}
               description="Compare the two groups. Circle: more, less, or equal."
             >
               <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-amber-400 to-yellow-400 animate-gradient-x mb-2" />
@@ -18401,7 +18401,7 @@ export function PrintablesPage() {
             <WorksheetSectionWrapper
               docId="counting-objects-20"
               title="Count the Objects (120)"
-                emoji={String.fromCharCode(0x2728)}
+              emoji={String.fromCharCode(0x2728)}
               description="Count each group of objects carefully. Write the total number in the blank space provided."
             >
               <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-rose-400 to-pink-400 animate-gradient-x mb-2" />
@@ -18444,7 +18444,7 @@ export function PrintablesPage() {
             <WorksheetSectionWrapper
               docId="sentence-building"
               title="Sentence Building"
-                emoji={String.fromCharCode(0x2728)}
+              emoji={String.fromCharCode(0x2728)}
               description="Put the words in order to make a complete sentence. Write the sentence on the line provided below."
             >
               <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-violet-400 to-purple-400 animate-gradient-x mb-2" />
@@ -18605,7 +18605,7 @@ export function PrintablesPage() {
                       ))}
                     </div>
                     <div className="text-xs text-emerald-700 mt-3">
-                       Remember: Count each object carefully. Point to each one as you count!
+                      Remember: Count each object carefully. Point to each one as you count!
                     </div>
                   </div>
                 ))}
@@ -18737,7 +18737,7 @@ export function PrintablesPage() {
                         })}
                       </div>
                       <div className="text-xs text-emerald-700 mt-3">
-                         Remember: Count the objects first, then match to the correct number!
+                        Remember: Count the objects first, then match to the correct number!
                       </div>
                     </div>
                   ))
@@ -18836,7 +18836,7 @@ export function PrintablesPage() {
                       ))}
                     </div>
                     <div className="text-xs text-emerald-700 mt-3">
-                       Remember: Say the shape name out loud as you color it!
+                      Remember: Say the shape name out loud as you color it!
                     </div>
                   </div>
                 ))}
@@ -19187,7 +19187,7 @@ export function PrintablesPage() {
                       })}
                     </div>
                     <div className="text-xs text-emerald-700 mt-3">
-                       Remember: Count all the objects together to find the total!
+                      Remember: Count all the objects together to find the total!
                     </div>
                   </div>
                 ))}
@@ -19480,7 +19480,7 @@ export function PrintablesPage() {
                       })}
                     </div>
                     <div className="text-xs text-emerald-700 mt-3">
-                       Remember: Count each character carefully. Point to each one as you count!
+                      Remember: Count each character carefully. Point to each one as you count!
                     </div>
                   </div>
                 ))}
@@ -19562,7 +19562,7 @@ export function PrintablesPage() {
                   {problems.map((p, i) => (
                     <div key={i} className="border-2 border-indigo-100 rounded-xl p-4 bg-white shadow-sm break-inside-avoid relative overflow-hidden">
                       <div className="absolute top-0 right-0 w-8 h-8 bg-indigo-50 rounded-bl-xl flex items-center justify-center text-indigo-300 text-xs">
-                        
+
                       </div>
                       <div className="flex items-center justify-center gap-2 mb-2">
                         <div className="w-10 h-12 border border-slate-200 rounded flex items-center justify-center text-2xl font-bold text-slate-700 bg-slate-50">
@@ -19647,7 +19647,7 @@ export function PrintablesPage() {
                 <WorksheetSectionWrapper
                   docId={docId}
                   title="Undersea Counting"
-                emoji={String.fromCharCode(0x2728)}
+                  emoji={String.fromCharCode(0x2728)}
                   description="Count the sea creatures in each group. Circle the correct number bubble!"
                   problemCount={problems.length}
                   learningObjectives={[
@@ -21883,7 +21883,7 @@ export function PrintablesPage() {
                 <div className="print:hidden w-full h-16 mb-6 relative overflow-hidden bg-green-100 rounded-lg flex items-center justify-center border-b-4 border-green-600">
                   <div className="absolute inset-0 opacity-10" style={{ backgroundImage: 'radial-gradient(circle, #22c55e 2px, transparent 2.5px)', backgroundSize: '20px 20px' }}></div>
                   <div className="font-bold text-3xl text-green-800 tracking-wider flex items-center gap-2">
-                     SAFARI HUNT 
+                    SAFARI HUNT
                   </div>
                 </div>
 
@@ -30069,13 +30069,13 @@ export function PrintablesPage() {
                           let stepText = '';
                           if (p.place === 'whole') {
                             const decimalPart = num % 1;
-                            stepText = decimalPart >{String.fromCharCode(0x2728)}< 0.5, round down`;
+                            stepText = `Since ${decimalPart.toFixed(1)} < 0.5, round down`;
                           } else if (p.place === 'tenth') {
                             const hundredths = (num * 100) % 10;
-                            stepText = hundredths >{String.fromCharCode(0x2728)}< 5, round down`;
+                            stepText = `Since ${hundredths.toFixed(0)} < 5, round down`;
                           } else {
                             const thousandths = (num * 1000) % 10;
-                            stepText = thousandths >{String.fromCharCode(0x2728)}< 5, round down`;
+                            stepText = `Since ${thousandths.toFixed(0)} < 5, round down`;
                           }
                           return (
                             <div key={i} className="border-b border-emerald-200 pb-3 last:border-b-0">
@@ -30614,7 +30614,7 @@ export function PrintablesPage() {
                         <div key={i} className="border-b border-emerald-200 pb-3 last:border-b-0">
                           <div className="font-semibold mb-2 text-sm">{String.fromCharCode(0x2728)}</div>
                           <div className="text-xs text-emerald-800 space-y-1 pl-4">
-                            <div>{String.fromCharCode(0x2728)}< 90 ? 'less than 90{String.fromCharCode(0x00B0)}' : a.measure === 90 ? 'exactly 90{String.fromCharCode(0x00B0)}' : a.measure < 180 ? 'more than 90{String.fromCharCode(0x00B0)} but less than 180' : 'exactly 180'}</div>
+                            <div>{a.measure < 90 ? `less than 90${String.fromCharCode(0x00B0)}` : a.measure === 90 ? `exactly 90${String.fromCharCode(0x00B0)}` : a.measure < 180 ? `more than 90${String.fromCharCode(0x00B0)} but less than 180` : 'exactly 180'}</div>
                             <div className="font-semibold">Answer: {a.type}</div>
                           </div>
                         </div>
@@ -34818,7 +34818,7 @@ export function PrintablesPage() {
               >
                 <div className="print:hidden w-full h-16 mb-6 relative overflow-hidden bg-yellow-100 rounded-lg flex items-center justify-center border-b-4 border-yellow-500">
                   <div className="font-bold text-3xl text-yellow-800 tracking-wider flex items-center gap-2">
-                     JUNGLE COLORS 
+                    JUNGLE COLORS
                   </div>
                 </div>
 
@@ -34932,7 +34932,7 @@ export function PrintablesPage() {
               >
                 <div className="print:hidden w-full h-16 mb-6 relative overflow-hidden bg-slate-100 rounded-lg flex items-center justify-center border-b-4 border-slate-600">
                   <div className="font-bold text-3xl text-slate-800 tracking-wider flex items-center gap-2">
-                     ZOO SORTING 
+                    ZOO SORTING
                   </div>
                 </div>
 
@@ -36836,7 +36836,7 @@ export function PrintablesPage() {
                 <div className="print:hidden w-full h-16 mb-6 relative overflow-hidden bg-blue-600 rounded-lg flex items-center justify-center border-4 border-white shadow-lg">
                   <div className="absolute inset-0 opacity-30 bg-[size:20px_20px] bg-[linear-gradient(to_right,#ffffff_1px,transparent_1px),linear-gradient(to_bottom,#ffffff_1px,transparent_1px)]"></div>
                   <div className="text-2xl font-black text-white z-10 flex gap-4 items-center tracking-widest uppercase" style={{ textShadow: '2px 2px 0px #000' }}>
-                     ARCHITECT BLUEPRINTS 
+                    ARCHITECT BLUEPRINTS
                   </div>
                 </div>
 
@@ -37199,7 +37199,7 @@ export function PrintablesPage() {
                     <div className="w-3 h-3 bg-red-500 rounded-full animate-ping"></div>
                   </div>
                   <div className="text-2xl font-mono text-cyan-400 font-bold z-10 flex gap-4 items-center tracking-widest">
-                     METRIC SECTOR 
+                    METRIC SECTOR
                   </div>
                 </div>
 
@@ -37331,7 +37331,7 @@ export function PrintablesPage() {
                 <div className="print:hidden w-full h-16 mb-4 relative overflow-hidden bg-purple-900 rounded-lg flex items-center justify-center border-b-4 border-purple-500">
                   <div className="absolute inset-0 opacity-30 bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-fuchsia-500 to-transparent"></div>
                   <div className="text-2xl font-serif text-fuchsia-300 font-bold z-10 italic flex gap-2">
-                     Alchemy Station 
+                    Alchemy Station
                   </div>
                 </div>
 
@@ -37447,7 +37447,7 @@ export function PrintablesPage() {
                 {/* Scale Header */}
                 <div className="print:hidden w-full h-16 mb-4 relative overflow-hidden bg-slate-100 rounded-lg flex items-center justify-center border-b-4 border-orange-400">
                   <div className="text-2xl font-mono text-orange-600 font-bold z-10 flex gap-2">
-                     RARE MATERIALS LOG 
+                    RARE MATERIALS LOG
                   </div>
                 </div>
 
@@ -37720,7 +37720,7 @@ export function PrintablesPage() {
                 <div className="print:hidden w-full h-16 mb-6 relative overflow-hidden bg-slate-900 rounded-lg flex items-center justify-center border-b-4 border-blue-500">
                   <div className="absolute inset-0 opacity-20 bg-[url('https://www.transparenttextures.com/patterns/stardust.png')]"></div>
                   <div className="text-2xl font-mono text-blue-400 font-bold z-10 flex gap-4 items-center tracking-widest uppercase">
-                     FLIGHT LOGS 
+                    FLIGHT LOGS
                   </div>
                 </div>
 
@@ -37843,7 +37843,7 @@ export function PrintablesPage() {
                 {/* Landscape Header */}
                 <div className="print:hidden w-full h-16 mb-4 relative overflow-hidden bg-gradient-to-br from-green-400 to-emerald-600 rounded-lg flex items-center justify-center border-b-4 border-emerald-800">
                   <div className="text-2xl font-serif text-white font-bold z-10 flex gap-4 items-center shadow-black drop-shadow-md">
-                     GREEN THUMB LANDSCAPING 
+                    GREEN THUMB LANDSCAPING
                   </div>
                 </div>
 
