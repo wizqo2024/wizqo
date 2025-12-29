@@ -3651,8 +3651,8 @@ export function PrintablesPage() {
                 );
               })}
             </WorksheetSectionWrapper>
-          )
-        }
+          );
+        })()}
 
         {activeDocs.includes('geo-latlong') && (
           <WorksheetSectionWrapper
