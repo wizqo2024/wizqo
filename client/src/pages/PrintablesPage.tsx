@@ -17226,7 +17226,7 @@ export function PrintablesPage() {
                     <div className="font-semibold text-base"><strong>Count the apples:</strong></div>
                     <div className="flex gap-2 justify-center mb-3">
                       {Array.from({ length: 5 }).map((_, i) => (
-                        <span key={i} className="text-4xl leading-none">{String.fromCodePoint(0x279C)}</span>
+                        <span key={i} className="text-4xl leading-none">{String.fromCodePoint(0x1F34E)}</span>
                       ))}
                     </div>
                     <div className="pl-4 border-l-2 border-blue-300 space-y-1">
