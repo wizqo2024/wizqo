@@ -17320,7 +17320,7 @@ export function PrintablesPage() {
               { title: 'Match 2', numbers: set2Numbers, objects: shuffleArray([...set2Numbers]) }
             ];
 
-            const objectTypes = [String.fromCodePoint(0x279C), String.fromCodePoint(0x279C), String.fromCodePoint(0x279C), String.fromCodePoint(0x279C), String.fromCodePoint(0x279C), String.fromCodePoint(0x279C), String.fromCodePoint(0x279C), String.fromCodePoint(0x279C), String.fromCodePoint(0x279C), String.fromCodePoint(0x279C)];
+            const objectTypes = ['🐶', '🐱', '🐭', '🐹', '🐰', '🦊', '🐻', '🐼', '🐨', '🐯'];
 
             return (
               <WorksheetSectionWrapper
