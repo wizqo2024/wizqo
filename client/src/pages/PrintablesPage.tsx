@@ -17299,7 +17299,7 @@ export function PrintablesPage() {
 
         {
           activeDocs.includes('kindergarten-number-recognition') && (() => {
-            const rng = makeRng(`${effectiveSeed}|v${variant}|doc=${doc}`);
+            const rng = makeRng(`${effectiveSeed}|v${variant}|doc=kindergarten-number-recognition`);
             function shuffleArray<T>(array: T[]): T[] {
               const newArray = [...array];
               for (let i = newArray.length - 1; i > 0; i--) {
