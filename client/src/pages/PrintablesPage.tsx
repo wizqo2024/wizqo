@@ -3485,175 +3485,174 @@ export function PrintablesPage() {
           </WorksheetSectionWrapper>
         )}
 
-        {activeDocs.includes('geo-landforms') && (
-          <WorksheetSectionWrapper
-            docId="geo-landforms"
-            title="Landforms vs Water Bodies"
-            emoji={String.fromCodePoint(0x1F30D)}
-            description="Look at the pictures. Write the correct letter (AE) next to each word."
-            problemCount={5}
-            learningObjectives={[
-              'Identify different landforms',
-              'Identify different water bodies',
-              'Match words to pictures'
-            ]}
-            parentTeacherTips={[
-              'Landforms are parts of the land: mountain, valley, island',
-              'Water bodies hold or carry water: lake, river',
-              'Help students look at the shapes in the pictures',
-              'Extension: Find examples of these in your area'
-            ]}
-          >
-            <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-blue-400 to-green-400 animate-gradient-x mb-2" />
-            {/* Worked Example */}
-            <div className="mb-6 p-4 bg-blue-50 border-2 border-blue-200 rounded-lg print:border print:bg-white">
-              <div className="font-semibold text-blue-900 mb-3 text-sm">{String.fromCodePoint(0x1F4A1)}</div>
-              <div className="space-y-2 text-sm">
-                <div className="font-semibold text-base"><strong>Problem:</strong> Match "Mountain" to the correct picture</div>
-                <div className="pl-4 border-l-2 border-blue-300 space-y-1">
-                  <div><strong>{t('common.step1')}</strong> {t('worksheets.vocab.example.step1Text', 'Look at the word "Mountain"')}</div>
-                  <div><strong>{t('common.step2')}</strong> {t('worksheets.vocab.example.step2Text', 'Find the picture that shows tall peaks pointing up')}</div>
-                  <div><strong>{t('common.step3')}</strong> {t('worksheets.vocab.example.step3Text', 'Write the letter of that picture next to "Mountain"')}</div>
+        {activeDocs.includes('geo-landforms') && (() => {
+          const rng = makeRng(`${effectiveSeed}|v${variant}|doc=${doc}`);
+
+          const items = [
+            {
+              label: 'Mountain',
+              svg: (
+                <g>
+                  <path d="M40 160 L90 75 L140 160 Z" fill="white" stroke="#111827" strokeWidth="2" />
+                  <path d="M95 160 L135 95 L200 160 Z" fill="white" stroke="#111827" strokeWidth="2" />
+                  <path d="M80 120 L90 105 L100 120" stroke="#111827" strokeWidth="2" />
+                  <path d="M140 120 L150 108 L160 120" stroke="#111827" strokeWidth="2" />
+                </g>
+              )
+            },
+            {
+              label: 'Valley',
+              svg: (
+                <g>
+                  <path d="M30 160 L80 95 L110 160 Z" fill="white" stroke="#111827" strokeWidth="2" />
+                  <path d="M130 160 L170 95 L210 160 Z" fill="white" stroke="#111827" strokeWidth="2" />
+                  <path d="M30 160 Q120 145 210 160" fill="#e2e8f0" stroke="#111827" strokeWidth="2" />
+                </g>
+              )
+            },
+            {
+              label: 'Island',
+              svg: (
+                <g>
+                  <path d="M80 145 C110 110, 170 110, 200 145 C175 165, 115 165, 80 145 Z" fill="white" stroke="#111827" strokeWidth="2" />
+                  <path d="M150 140 C145 125, 146 115, 148 105" stroke="#111827" strokeWidth="2" />
+                  <path d="M148 105 C142 100, 135 100, 130 105" stroke="#111827" strokeWidth="2" />
+                  <path d="M148 105 C154 100, 162 100, 168 105" stroke="#111827" strokeWidth="2" />
+                </g>
+              )
+            },
+            {
+              label: 'Lake',
+              svg: (
+                <g>
+                  <path d="M80 130 C100 110, 140 100, 180 120 C200 135, 170 160, 130 160 C110 158, 90 150, 80 130 Z" fill="white" stroke="#111827" strokeWidth="2" />
+                  <path d="M100 135 C110 140, 120 140, 130 135" stroke="#111827" strokeWidth="2" />
+                  <path d="M120 145 C130 150, 140 150, 150 145" stroke="#111827" strokeWidth="2" />
+                </g>
+              )
+            },
+            {
+              label: 'River',
+              svg: (
+                <g>
+                  <path d="M40 65 C80 85, 110 55, 150 75 C190 95, 150 120, 190 140" fill="none" stroke="#111827" strokeWidth="2" />
+                  <path d="M30 75 C70 95, 100 65, 140 85 C180 105, 140 130, 180 150" fill="none" stroke="#111827" strokeWidth="2" />
+                </g>
+              )
+            }
+          ];
+
+          // Shuffle items
+          const shuffledItems = [...items].sort(() => rng() - 0.5);
+
+          return (
+            <WorksheetSectionWrapper
+              docId="geo-landforms"
+              title="Landforms vs Water Bodies"
+              emoji={String.fromCodePoint(0x1F30D)}
+              description="Look at the pictures. Write the correct letter (AE) next to each word."
+              problemCount={5}
+              learningObjectives={[
+                'Identify different landforms',
+                'Identify different water bodies',
+                'Match words to pictures'
+              ]}
+              parentTeacherTips={[
+                'Landforms are parts of the land: mountain, valley, island',
+                'Water bodies hold or carry water: lake, river',
+                'Help students look at the shapes in the pictures',
+                'Extension: Find examples of these in your area'
+              ]}
+            >
+              <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-blue-400 to-green-400 animate-gradient-x mb-2" />
+              {/* Worked Example */}
+              <div className="mb-6 p-4 bg-blue-50 border-2 border-blue-200 rounded-lg print:border print:bg-white">
+                <div className="font-semibold text-blue-900 mb-3 text-sm">{String.fromCodePoint(0x1F4A1)}</div>
+                <div className="space-y-2 text-sm">
+                  <div className="font-semibold text-base"><strong>Problem:</strong> Match "Mountain" to the correct picture</div>
+                  <div className="pl-4 border-l-2 border-blue-300 space-y-1">
+                    <div><strong>{t('common.step1')}</strong> {t('worksheets.vocab.example.step1Text', 'Look at the word "Mountain"')}</div>
+                    <div><strong>{t('common.step2')}</strong> {t('worksheets.vocab.example.step2Text', 'Find the picture that shows tall peaks pointing up')}</div>
+                    <div><strong>{t('common.step3')}</strong> {t('worksheets.vocab.example.step3Text', 'Write the letter of that picture next to "Mountain"')}</div>
+                  </div>
                 </div>
               </div>
-            </div>
-            <div className="grid sm:grid-cols-3 grid-cols-2 gap-4 break-inside-avoid" style={{ pageBreakAfter: 'auto' }}>
-              {[
-                {
-                  label: 'Mountain',
-                  svg: (
-                    <g>
-                      {/* twin peaks */}
-                      <path d="M40 160 L90 75 L140 160 Z" fill="white" />
-                      <path d="M95 160 L135 95 L200 160 Z" fill="white" />
-                      {/* ridge/snow lines */}
-                      <path d="M80 120 L90 105 L100 120" />
-                      <path d="M140 120 L150 108 L160 120" />
-                    </g>
-                  )
-                },
-                {
-                  label: 'Valley',
-                  svg: (
-                    <g>
-                      {/* two mountains with a V valley */}
-                      <path d="M30 160 L80 95 L110 160 Z" fill="white" />
-                      <path d="M130 160 L170 95 L210 160 Z" fill="white" />
-                      {/* valley floor curve */}
-                      <path d="M30 160 Q120 145 210 160" fill="#e2e8f0" />
-                    </g>
-                  )
-                },
-                {
-                  label: 'Island',
-                  svg: (
-                    <g>
-                      {/* shoreline */}
-                      <path d="M80 145 C110 110, 170 110, 200 145 C175 165, 115 165, 80 145 Z" fill="white" />
-                      {/* tiny palm tree */}
-                      <path d="M150 140 C145 125, 146 115, 148 105" />
-                      <path d="M148 105 C142 100, 135 100, 130 105" />
-                      <path d="M148 105 C154 100, 162 100, 168 105" />
-                    </g>
-                  )
-                },
-                {
-                  label: 'Lake',
-                  svg: (
-                    <g>
-                      {/* irregular lake outline */}
-                      <path d="M80 130 C100 110, 140 100, 180 120 C200 135, 170 160, 130 160 C110 158, 90 150, 80 130 Z" fill="white" />
-                      {/* gentle waves */}
-                      <path d="M100 135 C110 140, 120 140, 130 135" />
-                      <path d="M120 145 C130 150, 140 150, 150 145" />
-                    </g>
-                  )
-                },
-                {
-                  label: 'River',
-                  svg: (
-                    <g>
-                      {/* meandering river with banks */}
-                      <path d="M40 65 C80 85, 110 55, 150 75 C190 95, 150 120, 190 140" fill="none" />
-                      <path d="M30 75 C70 95, 100 65, 140 85 C180 105, 140 130, 180 150" fill="none" />
-                    </g>
-                  )
-                },
-              ].map((it, idx) => {
-                const letter = String.fromCharCode(65 + idx); // A, B, C, ...
-                return (
-                  <div key={it.label} className="relative border border-slate-300 rounded p-4 bg-white flex flex-col items-center">
-                    <div className="absolute top-2 left-2 w-8 h-8 rounded-full border-2 border-slate-800 text-slate-900 flex items-center justify-center text-base font-bold bg-white">
-                      {letter}
+              <div className="grid sm:grid-cols-3 grid-cols-2 gap-4 break-inside-avoid" style={{ pageBreakAfter: 'auto' }}>
+                <div className="grid sm:grid-cols-3 grid-cols-2 gap-4 break-inside-avoid" style={{ pageBreakAfter: 'auto' }}>
+                  {shuffledItems.map((item, i) => (
+                    <div key={i} className="border-2 border-slate-200 rounded-lg p-2 flex flex-col items-center bg-white">
+                      <div className="w-8 h-8 rounded-full bg-slate-100 flex items-center justify-center font-bold text-slate-600 mb-2 border border-slate-300">
+                        {String.fromCharCode(65 + i)}
+                      </div>
+                      <svg viewBox="0 0 240 180" className="w-full h-auto max-h-32 mb-2">
+                        {item.svg}
+                      </svg>
                     </div>
-                    <svg viewBox="0 0 240 180" className="w-full h-auto" aria-hidden>
-                      <g fill="none" stroke="#111827" strokeWidth="3">{it.svg}</g>
-                    </svg>
+                  ))}
+                </div>
+              </div>
+              {/* Match list */}
+              <div className="mt-6">
+                <div className="text-slate-900 font-bold mb-4 text-center">Write the Letter</div>
+                <div className="grid grid-cols-1 gap-4 max-w-md mx-auto">
+                  {['Mountain', 'Valley', 'Island', 'Lake', 'River'].map((w, i) => (
+                    <div key={w} className="flex items-center justify-between p-3 border border-slate-200 rounded-lg bg-slate-50">
+                      <span className="text-lg font-medium text-slate-800">{w}</span>
+                      <div className="w-16 h-12 border-2 border-slate-400 bg-white rounded flex items-center justify-center">
+                        {/* Box for letter */}
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+              {/* Extension/Challenge Problems */}
+              <div className="mt-6 print:mt-0 p-4 bg-purple-50 border-2 border-purple-200 rounded print:bg-white print:border" style={{ pageBreakBefore: 'always', pageBreakInside: 'avoid' }}>
+                <div className="font-semibold text-purple-900 mb-3 text-sm">{String.fromCodePoint(0x1F680)}</div>
+                <div className="space-y-2 text-sm text-purple-800">
+                  <div>1. Draw your own landform or water body</div>
+                  <div>2. Can you find examples of these near your home?</div>
+                  <div>3. Create a story using 3 of these landforms/water bodies</div>
+                </div>
+              </div>
+              {/* Self-Assessment */}
+              <div className="print:block hidden print:mt-0 mt-6 p-4 border-2 border-slate-300 rounded" style={{ pageBreakBefore: 'avoid', pageBreakInside: 'avoid' }}>
+                <div className="font-semibold text-slate-800 mb-3 text-sm">{String.fromCodePoint(0x270F)}</div>
+                <div className="space-y-2 text-xs">
+                  <div>{String.fromCharCode(0x2610)} I can identify landforms</div>
+                  <div>{String.fromCharCode(0x2610)} I can identify water bodies</div>
+                  <div>{String.fromCharCode(0x2610)} I can match words to pictures</div>
+                </div>
+                <div className="mt-3 text-xs">
+                  <strong>{getTrans('common.myScore', 'My score:')}</strong> ___ / 5
+                </div>
+                <div className="mt-2 text-xs">
+                  <strong>{getTrans('common.whatWasHardest', 'What was hardest?')}</strong> _________________________
+                </div>
+              </div>
+              {showAnswersForDoc('geo-landforms', () => {
+                const matches = [
+                  { word: 'Mountain', letter: 'A' },
+                  { word: 'Valley', letter: 'B' },
+                  { word: 'Island', letter: 'C' },
+                  { word: 'Lake', letter: 'D' },
+                  { word: 'River', letter: 'E' }
+                ];
+                return (
+                  <div className="mt-6 p-4 border-2 border-emerald-300 bg-emerald-50 rounded print:border print:bg-white print:page-break-before-always">
+                    <div className="font-bold text-emerald-900 mb-3 text-base">{String.fromCodePoint(0x2705)}</div>
+                    <div className="space-y-2">
+                      {matches.map((m, i) => (
+                        <div key={i} className="text-sm text-emerald-800">
+                          {m.word}  <strong>{m.letter}</strong>
+                        </div>
+                      ))}
+                    </div>
                   </div>
                 );
               })}
-            </div>
-            {/* Match list */}
-            <div className="mt-6">
-              <div className="text-slate-900 font-bold mb-4 text-center">Write the Letter</div>
-              <div className="grid grid-cols-1 gap-4 max-w-md mx-auto">
-                {['Mountain', 'Valley', 'Island', 'Lake', 'River'].map((w, i) => (
-                  <div key={w} className="flex items-center justify-between p-3 border border-slate-200 rounded-lg bg-slate-50">
-                    <span className="text-lg font-medium text-slate-800">{w}</span>
-                    <div className="w-16 h-12 border-2 border-slate-400 bg-white rounded flex items-center justify-center">
-                      {/* Box for letter */}
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </div>
-            {/* Extension/Challenge Problems */}
-            <div className="mt-6 print:mt-0 p-4 bg-purple-50 border-2 border-purple-200 rounded print:bg-white print:border" style={{ pageBreakBefore: 'always', pageBreakInside: 'avoid' }}>
-              <div className="font-semibold text-purple-900 mb-3 text-sm">{String.fromCodePoint(0x1F680)}</div>
-              <div className="space-y-2 text-sm text-purple-800">
-                <div>1. Draw your own landform or water body</div>
-                <div>2. Can you find examples of these near your home?</div>
-                <div>3. Create a story using 3 of these landforms/water bodies</div>
-              </div>
-            </div>
-            {/* Self-Assessment */}
-            <div className="print:block hidden print:mt-0 mt-6 p-4 border-2 border-slate-300 rounded" style={{ pageBreakBefore: 'avoid', pageBreakInside: 'avoid' }}>
-              <div className="font-semibold text-slate-800 mb-3 text-sm">{String.fromCodePoint(0x270F)}</div>
-              <div className="space-y-2 text-xs">
-                <div>{String.fromCharCode(0x2610)} I can identify landforms</div>
-                <div>{String.fromCharCode(0x2610)} I can identify water bodies</div>
-                <div>{String.fromCharCode(0x2610)} I can match words to pictures</div>
-              </div>
-              <div className="mt-3 text-xs">
-                <strong>{getTrans('common.myScore', 'My score:')}</strong> ___ / 5
-              </div>
-              <div className="mt-2 text-xs">
-                <strong>{getTrans('common.whatWasHardest', 'What was hardest?')}</strong> _________________________
-              </div>
-            </div>
-            {showAnswersForDoc('geo-landforms', () => {
-              const matches = [
-                { word: 'Mountain', letter: 'A' },
-                { word: 'Valley', letter: 'B' },
-                { word: 'Island', letter: 'C' },
-                { word: 'Lake', letter: 'D' },
-                { word: 'River', letter: 'E' }
-              ];
-              return (
-                <div className="mt-6 p-4 border-2 border-emerald-300 bg-emerald-50 rounded print:border print:bg-white print:page-break-before-always">
-                  <div className="font-bold text-emerald-900 mb-3 text-base">{String.fromCodePoint(0x2705)}</div>
-                  <div className="space-y-2">
-                    {matches.map((m, i) => (
-                      <div key={i} className="text-sm text-emerald-800">
-                        {m.word}  <strong>{m.letter}</strong>
-                      </div>
-                    ))}
-                  </div>
-                </div>
-              );
-            })}
-          </WorksheetSectionWrapper>
-        )}
+            </WorksheetSectionWrapper>
+          )
+        }
 
         {activeDocs.includes('geo-latlong') && (
           <WorksheetSectionWrapper
@@ -9538,74 +9537,77 @@ export function PrintablesPage() {
           </WorksheetSectionWrapper>
         )}
 
-        {activeDocs.includes('science-match') && (
-          <WorksheetSectionWrapper
-            docId="science-match"
-            title="Science Fun Facts Match"
-            emoji={String.fromCodePoint(0x1F9EA)}
-            description="Draw a line to match each fact with its pair."
-            problemCount={6}
-            learningObjectives={[
-              'Learn science facts',
-              'Match related concepts',
-              'Understand scientific relationships'
-            ]}
-            parentTeacherTips={[
-              'Read each fact carefully',
-              'Look for key words that connect facts',
-              'Help students understand the relationships',
-              'Extension: Research more about these science topics'
-            ]}
-          >
-            <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-blue-400 to-cyan-400 animate-gradient-x mb-2" />
-            {/* Worked Example */}
-            <div className="mb-6 p-4 bg-blue-50 border-2 border-blue-200 rounded-lg print:border print:bg-white">
-              <div className="font-semibold text-blue-900 mb-3 text-sm">{String.fromCodePoint(0x1F4A1)}</div>
-              <div className="space-y-2 text-sm">
-                <div className="font-semibold text-base"><strong>Problem:</strong> Match "Mars is known as the red planet"</div>
-                <div className="pl-4 border-l-2 border-blue-300 space-y-1">
-                  <div><strong>Step 1:</strong> Read the fact: "Mars is known as the red planet"</div>
-                  <div><strong>Step 2:</strong> Look for key words: "red planet"</div>
-                  <div><strong>Step 3:</strong> Find the matching option: "A dusty red world" (E)</div>
-                  <div><strong>Step 4:</strong> Draw a line from 1 to E</div>
-                  <div className="font-semibold text-blue-900"><strong>Answer:</strong>{String.fromCodePoint(0x279C)}</div>
-                  <div className="text-xs text-blue-700 mt-1">{String.fromCodePoint(0x279C)}</div>
-                </div>
-              </div>
-            </div>
-            <div className="grid grid-cols-2 gap-6" style={{ pageBreakAfter: 'auto' }}>
-              <ol className="list-decimal list-inside space-y-1 text-sm">
-                <li>Mars is known as the red planet.</li>
-                <li>Whales are the largest mammals.</li>
-                <li>Lightning is a giant spark of electricity.</li>
-                <li>Penguins live in the Southern Hemisphere.</li>
-                <li>Clouds are made of tiny water droplets.</li>
-                <li>Earth orbits the Sun once a year.</li>
-              </ol>
-              <ul className="list-none space-y-1 text-sm">
-                <li>A) Weather water in the sky</li>
-                <li>B) A cold-loving bird</li>
-                <li>{String.fromCodePoint(0x279C)}</li>
-                <li>D) A huge ocean animal</li>
-                <li>E) A dusty red world</li>
-                <li>F) Shocking sky energy</li>
-              </ul>
-            </div>
-            {showAnswersForDoc('science-match', () => (
-              <div className="mt-3 rounded-lg border border-emerald-200 bg-emerald-50 p-3 text-emerald-900 text-sm">
-                <div className="font-semibold mb-1">Answer key</div>
-                <ol className="list-decimal list-inside space-y-0.5">
-                  <li>{String.fromCodePoint(0x2705)}</li>
-                  <li>{String.fromCodePoint(0x2705)}</li>
-                  <li>{String.fromCodePoint(0x279C)}</li>
-                  <li>{String.fromCodePoint(0x279C)}</li>
-                  <li>{String.fromCodePoint(0x279C)}</li>
-                  <li>{String.fromCodePoint(0x279C)}</li>
+        {activeDocs.includes('science-match') && (() => {
+          const rng = makeRng(`${effectiveSeed}|v${variant}|doc=${doc}`);
+          function nextInt(min: number, max: number) { return Math.floor(rng() * (max - min + 1)) + min; }
+
+          const pairs = [
+            { question: "Mars is known as the red planet.", answer: "A dusty red world" },
+            { question: "Whales are the largest mammals.", answer: "A huge ocean animal" },
+            { question: "Lightning is a giant spark of electricity.", answer: "Shocking sky energy" },
+            { question: "Penguins live in the Southern Hemisphere.", answer: "A cold-loving bird" },
+            { question: "Clouds are made of tiny water droplets.", answer: "Weather water in the sky" },
+            { question: "Earth orbits the Sun once a year.", answer: "Our home planet's trip" },
+          ];
+
+          // Shuffle questions (Left side)
+          const shuffledQuestions = [...pairs].sort(() => rng() - 0.5);
+
+          // Shuffle answers (Right side)
+          const shuffledAnswers = [...pairs].sort(() => rng() - 0.5);
+
+          return (
+            <WorksheetSectionWrapper
+              docId="science-match"
+              title="Science Fun Facts Match"
+              emoji={String.fromCodePoint(0x1F9EA)}
+              description="Draw a line to match each fact with its pair."
+              problemCount={6}
+              learningObjectives={[
+                'Learn science facts',
+                'Match related concepts',
+                'Understand scientific relationships'
+              ]}
+              parentTeacherTips={[
+                'Read each fact carefully',
+                'Look for key words that connect facts',
+                'Help students understand the relationships',
+                'Extension: Research more about these science topics'
+              ]}
+            >
+              <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-blue-400 to-cyan-400 animate-gradient-x mb-2" />
+
+              <div className="grid grid-cols-2 gap-6" style={{ pageBreakAfter: 'auto' }}>
+                <ol className="list-decimal list-inside space-y-4 text-sm">
+                  {shuffledQuestions.map((q, i) => (
+                    <li key={i} className="p-2 border border-blue-100 rounded bg-blue-50/50">{q.question}</li>
+                  ))}
                 </ol>
+                <ul className="list-none space-y-4 text-sm">
+                  {shuffledAnswers.map((a, i) => (
+                    <li key={i} className="p-2 border border-slate-200 rounded flex gap-2">
+                      <span className="font-bold text-blue-600">{String.fromCharCode(65 + i)})</span>
+                      <span>{a.answer}</span>
+                    </li>
+                  ))}
+                </ul>
               </div>
-            ))}
-          </WorksheetSectionWrapper>
-        )}
+
+              {showAnswersForDoc('science-match', () => (
+                <div className="mt-3 rounded-lg border border-emerald-200 bg-emerald-50 p-3 text-emerald-900 text-sm">
+                  <div className="font-semibold mb-1">Answer key</div>
+                  <div className="grid grid-cols-1 gap-1">
+                    {shuffledQuestions.map((q, i) => {
+                      const answerIndex = shuffledAnswers.findIndex(a => a.answer === q.answer);
+                      const letter = String.fromCharCode(65 + answerIndex);
+                      return <div key={i}>{i + 1}. {letter} ({q.answer})</div>
+                    })}
+                  </div>
+                </div>
+              ))}
+            </WorksheetSectionWrapper>
+          );
+        })()}
 
         {activeDocs.includes('grammar-detective') && (
           <WorksheetSectionWrapper
