@@ -24,7 +24,7 @@ const WorksheetThumbnailCard = React.memo(function WorksheetThumbnailCard({ titl
   const printUrl = docId ? getWorksheetPrintURL(docId, 'printables') : (href.includes('?') ? `${href}&from=printables` : `${href}?from=printables`)
   const previewUrl = printUrl + (printUrl.includes('?') ? '&preview=1' : '?preview=1');
   const finalHref = href.includes('?') ? `${href}&from=printables` : `${href}?from=printables`;
-  
+
   // Use translations if docId is provided - memoize to prevent re-renders
   // Use language instead of t in dependencies to avoid re-renders when t function reference changes
   const translatedTitle = React.useMemo(() => {
@@ -32,13 +32,13 @@ const WorksheetThumbnailCard = React.memo(function WorksheetThumbnailCard({ titl
     const translated = t(`worksheets.${docId}.title`);
     return translated && translated !== `worksheets.${docId}.title` ? translated : title;
   }, [docId, title, language, t]);
-  
+
   const translatedDescription = React.useMemo(() => {
     if (!docId) return description;
     const translated = t(`worksheets.${docId}.description`);
     return translated && translated !== `worksheets.${docId}.description` ? translated : description;
   }, [docId, description, language, t]);
-  
+
   return (
     <article className="rounded-2xl border border-slate-200 bg-white shadow-sm hover:shadow-lg transition-all duration-200 p-5 flex flex-col gap-3">
       <div className="flex items-center justify-between gap-3">
@@ -46,9 +46,9 @@ const WorksheetThumbnailCard = React.memo(function WorksheetThumbnailCard({ titl
           <h3 className="text-lg font-semibold text-slate-900">{translatedTitle}</h3>
         </div>
       </div>
-      
+
       <p className="text-sm text-slate-600 leading-relaxed">{translatedDescription}</p>
-      
+
       {(skills || age || level) && (
         <div className="flex flex-wrap gap-2 text-xs">
           {level ? <span className="inline-flex items-center px-2 py-0.5 rounded-full bg-purple-50 border border-purple-100 text-purple-700">{t('pages.printables.level')} {level}</span> : null}
@@ -56,13 +56,13 @@ const WorksheetThumbnailCard = React.memo(function WorksheetThumbnailCard({ titl
           {age ? <span className="inline-flex items-center px-2 py-0.5 rounded-full bg-slate-100 border border-slate-200 text-slate-600">{t('pages.printables.age')} {age}</span> : null}
         </div>
       )}
-      
+
       {/* Worksheet Thumbnail Preview - Clickable to SEO page */}
-      <a 
+      <a
         href={href}
         className="relative w-full bg-gradient-to-br from-slate-50 to-slate-100 rounded-lg border border-slate-200 overflow-hidden cursor-pointer group shadow-sm hover:shadow-md focus:outline-none focus:ring-2 focus:ring-purple-500 focus:ring-offset-2 transition-shadow block"
         aria-label={`View ${translatedTitle} worksheet`}
-        style={{ 
+        style={{
           height: '140px',
           aspectRatio: '2.5/1',
         }}
@@ -93,7 +93,7 @@ const WorksheetThumbnailCard = React.memo(function WorksheetThumbnailCard({ titl
         {/* Corner fold effect */}
         <div className="absolute top-0 right-0 w-8 h-8 bg-gradient-to-br from-slate-200/50 to-transparent pointer-events-none" />
       </a>
-      
+
       <div className="flex items-center justify-between">
         <div className="flex items-center gap-2">
           <button
@@ -150,11 +150,11 @@ function BundleButton({ section, className }: { section: string; className?: str
 export function PrintablesLandingPage() {
   const { t, isRTL } = useTranslation();
   const [previewItem, setPreviewItem] = React.useState<WorksheetItem | null>(null);
-  
+
   React.useEffect(() => {
     // Ensure re-render on language change
   }, [t]);
-  
+
   const [filterCategory, setFilterCategory] = React.useState<string>('All');
   const [packTime, setPackTime] = React.useState<'5' | '10' | '15'>('5');
   const [packAge, setPackAge] = React.useState<'k1' | 'k2' | 'g1' | 'g2' | '35' | '68'>('k2');
@@ -163,6 +163,7 @@ export function PrintablesLandingPage() {
   const [showSidebar, setShowSidebar] = React.useState(false);
   const [showBackToTop, setShowBackToTop] = React.useState<boolean>(false);
   const path = (typeof window !== 'undefined' ? window.location.pathname : '/printables');
+  const [showAllWorksheets, setShowAllWorksheets] = React.useState(false);
   const recentSet = React.useMemo(() => new Set<string>(['One-pagers']), []);
   const sectionVisibility = (cat: string) => (
     filterCategory === 'All' ||
@@ -205,7 +206,7 @@ export function PrintablesLandingPage() {
           el.scrollIntoView({ behavior: 'smooth', block: 'start' });
         }
       }, 0);
-    } catch {}
+    } catch { }
   }, []);
 
   // Show a floating "Scroll up" button after scrolling down a bit
@@ -214,7 +215,7 @@ export function PrintablesLandingPage() {
       try {
         const y = window.scrollY || document.documentElement.scrollTop || 0;
         setShowBackToTop(y > 200);
-      } catch {}
+      } catch { }
     };
     window.addEventListener('scroll', onScroll, { passive: true } as any);
     onScroll();
@@ -247,7 +248,7 @@ export function PrintablesLandingPage() {
       const el = document.getElementById(id);
       if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
       setShowSidebar(false);
-    } catch {}
+    } catch { }
   };
   return (
     <div className="min-h-screen bg-slate-50">
@@ -409,642 +410,531 @@ export function PrintablesLandingPage() {
           </aside>
 
           <div className="md:col-span-9 space-y-10">
-        {/* Math hubs removed per request */}
-        {/* Intro: What You'll Find */}
-        <section>
-          <div className="mb-2 text-slate-800 font-semibold">🧩 What You’ll Find</div>
-          <p className="text-slate-700 text-sm max-w-3xl">We’ve organized our printable packs by activity type so you can choose what fits your child’s interests and age group.</p>
-        </section>
+            {/* Math hubs removed per request */}
+            {/* Intro: What You'll Find */}
+            <section>
+              <div className="mb-2 text-slate-800 font-semibold">🧩 What You’ll Find</div>
+              <p className="text-slate-700 text-sm max-w-3xl">We’ve organized our printable packs by activity type so you can choose what fits your child’s interests and age group.</p>
+            </section>
 
-        {/* Filter + Search Bar */}
-        <section className="print:hidden">
-          <div className="bg-white border border-slate-200 rounded-2xl p-4 flex flex-col sm:flex-row items-stretch sm:items-center gap-3">
-            <div className="flex items-center gap-2">
-              <label htmlFor="printables-filter" className="text-sm text-slate-600">{t('pages.printables.filter')}</label>
-              <select
-                id="printables-filter"
-                value={filterCategory}
-                onChange={(e) => setFilterCategory(e.target.value)}
-                className="px-3 py-2 border border-slate-300 rounded-lg text-sm bg-white"
-              >
-                <option value="All">{t('pages.printables.all')}</option>
-                <option value="Recent">{t('pages.printables.recent')}</option>
-                <option value="Coloring">{t('pages.printables.coloring')}</option>
-                <option value="Worksheets">{t('pages.printables.worksheets')}</option>
-                <option value="Creative">{t('pages.printables.creative')}</option>
-                <option value="Brain">{t('pages.printables.brain')}</option>
-                <option value="Emotional">{t('pages.printables.emotional')}</option>
-                <option value="Season">{t('pages.printables.season')}</option>
-                <option value="Challenge">{t('pages.printables.challenge')}</option>
-                <option value="One-pagers">{t('pages.printables.onePagers')}</option>
-              </select>
-            </div>
-            <div className="flex-1">
-              <input
-                type="search"
-                inputMode="search"
-                placeholder={t('pages.printables.searchPlaceholder')}
-                value={searchQuery}
-                onChange={(e)=> setSearchQuery(e.target.value)}
-                className="w-full px-3 py-2 border border-slate-300 rounded-lg text-sm bg-white"
-                aria-label={t('pages.printables.searchPlaceholder')}
-              />
-            </div>
-            <div className="flex items-center gap-2">
-              {filterCategory !== 'All' && (
-                <button onClick={() => setFilterCategory('All')} className="px-3 py-2 text-sm bg-slate-100 hover:bg-slate-200 focus:outline-none focus:ring-2 focus:ring-slate-500 focus:ring-offset-2 rounded-lg" aria-label="Clear category filter">{t('pages.printables.clearFilter')}</button>
-              )}
-              {searchQuery && (
-                <button onClick={() => setSearchQuery('')} className="px-3 py-2 text-sm bg-slate-100 hover:bg-slate-200 focus:outline-none focus:ring-2 focus:ring-slate-500 focus:ring-offset-2 rounded-lg" aria-label="Clear search query">{t('pages.printables.clearSearch')}</button>
-              )}
-            </div>
-          </div>
-        </section>
-        {/* Build a 5‑Minute Print Pack */}
-        <section className="bg-white border border-slate-200 rounded-2xl p-4">
-          <h2 className="text-xl font-bold text-slate-900 mb-1">{t('pages.printables.buildPack')}</h2>
-          <p className="text-slate-700 text-sm mb-3 max-w-3xl">{t('pages.printables.buildPackDesc')}</p>
-          <div className="flex flex-col sm:flex-row gap-3 items-start sm:items-center">
-            <label className="text-sm text-slate-600">{t('pages.printables.time')}
-              <select value={packTime} onChange={(e)=>setPackTime(e.target.value as any)} className="ml-2 px-3 py-2 border border-slate-300 rounded-lg text-sm bg-white">
-                <option value="5">5 min</option>
-                <option value="10">10 min</option>
-                <option value="15">15 min</option>
-              </select>
-            </label>
-            <label className="text-sm text-slate-600">{t('pages.printables.ageGrade')}
-              <select value={packAge} onChange={(e)=>setPackAge(e.target.value as any)} className="ml-2 px-3 py-2 border border-slate-300 rounded-lg text-sm bg-white">
-                <option value="k1">K–1</option>
-                <option value="k2">K–2</option>
-                <option value="g1">1st Grade</option>
-                <option value="g2">2nd Grade</option>
-                <option value="35">3–5</option>
-                <option value="68">6–8</option>
-              </select>
-            </label>
-            <label className="text-sm text-slate-600">{t('pages.printables.focus')}
-              <select value={packSkill} onChange={(e)=>setPackSkill(e.target.value as any)} className="ml-2 px-3 py-2 border border-slate-300 rounded-lg text-sm bg-white">
-                <option value="math">Math</option>
-                <option value="mixed">Mixed</option>
-                <option value="focus">Focus</option>
-                <option value="reading">Reading</option>
-                <option value="stem">STEM</option>
-                <option value="creativity">Creativity</option>
-              </select>
-            </label>
-            <button
-              onClick={() => {
-                const url = `/print?doc=pack&time=${packTime}&age=${packAge}&skill=${packSkill}`;
-                try { window.location.href = url; } catch {}
-              }}
-              className="px-4 py-2 bg-purple-600 text-white rounded-lg hover:bg-purple-700 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:ring-offset-2"
-              aria-label="Build printable pack"
-            >
-              {t('pages.printables.buildPackButton')}
-            </button>
-          </div>
-        </section>
-
-        
-
-
-        {searchQuery && (
-          <section className="bg-white border border-slate-200 rounded-2xl p-4">
-            <div className="mb-2 text-slate-800 font-semibold">🔎 Results for “{searchQuery}”</div>
-            <div className="grid sm:grid-cols-2 gap-4">
-              {(
-                [
-                  { title: '🖍️ Color-by-Number Pages', href: getWorksheetURL('color-by-number', 'printables'), tags: 'color coloring art creative number' },
-                  { title: '➕ Math Maze Adventure', href: getWorksheetURL('math-maze', 'printables'), tags: 'math maze addition subtraction focus brain' },
-                  { title: '🔢 Number Tracing 1–10', href: getWorksheetURL('number-tracing-1-10', 'printables'), tags: 'number tracing math k2 fine motor' },
-                  { title: '🔟 Ten Frames 1–10', href: getWorksheetURL('ten-frames-1-10', 'printables'), tags: 'ten frames subitizing counting math' },
-                  { title: '🔤 Beginning Sounds (A–Z)', href: getWorksheetURL('beginning-sounds-az', 'printables'), tags: 'reading phonics sounds letters' },
-                  { title: 'Aa–Zz Upper/Lower Match', href: getWorksheetURL('uppercase-lowercase-match', 'printables'), tags: 'letters match uppercase lowercase reading' },
-                  { title: '👀 Spot‑the‑Difference', href: getWorksheetURL('spot-difference', 'printables'), tags: 'focus visual difference brain' },
-                  { title: '📖 Mini Reading Passage + 3 Qs', href: getWorksheetURL('reading-mini-1', 'printables'), tags: 'reading comprehension questions' },
-                  { title: '😊 Feelings Check‑In Meter', href: getWorksheetURL('feelings-checkin', 'printables'), tags: 'feelings emotional mindfulness' },
-                  { title: '⭐ Weekly Reward/Sticker Chart', href: getWorksheetURL('reward-chart', 'printables'), tags: 'reward chart sticker habit' },
-                ].filter(i => i.title.toLowerCase().includes(searchQuery.toLowerCase()) || i.tags.includes(searchQuery.toLowerCase()))
-              ).map(item => (
-                <a key={item.href} href={item.href} className="border border-slate-200 rounded-xl p-4 hover:border-purple-300">
-                  <div className="text-slate-900 font-medium">{item.title}</div>
-                  <div className="text-slate-500 text-xs mt-1">{item.href}</div>
-                </a>
-              ))}
-            </div>
-          </section>
-        )}
-
-        {/* 1. Coloring Packs */}
-        <section id="Coloring" className={`scroll-mt-24 ${sectionVisibility('Coloring')}`}>
-          <h2 className="text-xl font-bold text-slate-900 mb-2">🖍️ 1. Printable Coloring Pages for Kids</h2>
-          <p className="text-slate-700 text-sm mb-3 max-w-3xl">Themed packs to spark creativity and learning. Each pack is unique and print‑ready.</p>
-            <div className="mb-3">
-              <BundleButton section="Coloring" />
-            </div>
-          <div className={gridClass}>
-            <WorksheetThumbnailCard
-              title="🎨 Animal Friends Coloring Pages"
-              description="Meet friendly jungle and sea animals — from roaring lions to jumping dolphins. Ages 5–10; learn animal names while coloring."
-              href={getWorksheetURL("coloring-animals", "printables")} docId="coloring-animals"
-              onPreview={setPreviewItem}
-            />
-            <WorksheetThumbnailCard
-              title="🌸 Nature & Seasons Coloring Pack"
-              description="Color blooming flowers, sunny skies, and winter wonderlands. Learn seasons, plants, and colors."
-              href={getWorksheetURL("coloring-nature", "printables")} docId="coloring-nature" onPreview={setPreviewItem}
-            />
-            <WorksheetThumbnailCard
-              title="🚀 Space Adventure Coloring Pages"
-              description="Blast off into creativity — rockets, planets, and astronauts. Great for science week or STEM lessons."
-              href={getWorksheetURL("coloring-space", "printables")} docId="coloring-space" onPreview={setPreviewItem}
-            />
-            <WorksheetThumbnailCard
-              title="🚗 Vehicles & Transport Coloring Sheets"
-              description="From race cars to airplanes, develop motor skills while exploring transportation."
-              href={getWorksheetURL("coloring-vehicles", "printables")} docId="coloring-vehicles" onPreview={setPreviewItem}
-            />
-            <WorksheetThumbnailCard
-              title="🔢 Alphabet & Number Coloring Pages"
-              description="A–Z animals and 1–10 rockets — trace, color, and learn letters and numbers."
-              href={getWorksheetURL("coloring-letters-numbers", "printables")} docId="coloring-letters-numbers" onPreview={setPreviewItem}
-            />
-          </div>
-        </section>
-
-        {/* 2. Educational Worksheets */}
-        <section id="Worksheets" className={`scroll-mt-24 ${sectionVisibility('Worksheets')}`}>
-          <h2 className="text-xl font-bold text-slate-900 mb-2">🧠 2. Educational Worksheets</h2>
-          <p className="text-slate-700 text-sm mb-3 max-w-3xl">Short, skill‑building worksheets you can finish in minutes. Use them as warm‑ups, homework helpers, or rainy‑day challenges to grow confidence in reading, math, and science.</p>
-          {/* Promote Handwriting Worksheet Maker */}
-          <div className="mb-3 space-y-3">
-            <div className={CARD_CLASS}>
-              <div className="text-base font-semibold text-slate-900">✍️ Handwriting Worksheet Maker</div>
-              <p className="text-slate-600 text-sm mt-1">Generate dotted A–Z letters, words, or sentences with guidelines. Adjust size and spacing, then print or save as PDF.</p>
-              <div className="mt-3 flex items-center gap-2">
-                <a href="/worksheets/handwriting-worksheet-maker" className={BUTTON_CLASS} aria-label="Open handwriting worksheet maker">Open worksheet maker →</a>
+            {/* Filter + Search Bar */}
+            <section className="print:hidden">
+              <div className="bg-white border border-slate-200 rounded-2xl p-4 flex flex-col sm:flex-row items-stretch sm:items-center gap-3">
+                <div className="flex items-center gap-2">
+                  <label htmlFor="printables-filter" className="text-sm text-slate-600">{t('pages.printables.filter')}</label>
+                  <select
+                    id="printables-filter"
+                    value={filterCategory}
+                    onChange={(e) => setFilterCategory(e.target.value)}
+                    className="px-3 py-2 border border-slate-300 rounded-lg text-sm bg-white"
+                  >
+                    <option value="All">{t('pages.printables.all')}</option>
+                    <option value="Recent">{t('pages.printables.recent')}</option>
+                    <option value="Coloring">{t('pages.printables.coloring')}</option>
+                    <option value="Worksheets">{t('pages.printables.worksheets')}</option>
+                    <option value="Creative">{t('pages.printables.creative')}</option>
+                    <option value="Brain">{t('pages.printables.brain')}</option>
+                    <option value="Emotional">{t('pages.printables.emotional')}</option>
+                    <option value="Season">{t('pages.printables.season')}</option>
+                    <option value="Challenge">{t('pages.printables.challenge')}</option>
+                    <option value="One-pagers">{t('pages.printables.onePagers')}</option>
+                  </select>
+                </div>
+                <div className="flex-1">
+                  <input
+                    type="search"
+                    inputMode="search"
+                    placeholder={t('pages.printables.searchPlaceholder')}
+                    value={searchQuery}
+                    onChange={(e) => setSearchQuery(e.target.value)}
+                    className="w-full px-3 py-2 border border-slate-300 rounded-lg text-sm bg-white"
+                    aria-label={t('pages.printables.searchPlaceholder')}
+                  />
+                </div>
+                <div className="flex items-center gap-2">
+                  {filterCategory !== 'All' && (
+                    <button onClick={() => setFilterCategory('All')} className="px-3 py-2 text-sm bg-slate-100 hover:bg-slate-200 focus:outline-none focus:ring-2 focus:ring-slate-500 focus:ring-offset-2 rounded-lg" aria-label="Clear category filter">{t('pages.printables.clearFilter')}</button>
+                  )}
+                  {searchQuery && (
+                    <button onClick={() => setSearchQuery('')} className="px-3 py-2 text-sm bg-slate-100 hover:bg-slate-200 focus:outline-none focus:ring-2 focus:ring-slate-500 focus:ring-offset-2 rounded-lg" aria-label="Clear search query">{t('pages.printables.clearSearch')}</button>
+                  )}
+                </div>
               </div>
-            </div>
-            <div className={CARD_CLASS}>
-              <div className="text-base font-semibold text-slate-900">🖊️ Name Tracing Generator</div>
-              <p className="text-slate-600 text-sm mt-1">Create personalized name tracing worksheets with dotted or bubble letters, friendly start dots, and printable guidelines.</p>
-              <div className="mt-3 flex items-center gap-2">
-                <a href="/printables/name-tracing-generator" className={BUTTON_CLASS} aria-label="Open name tracing generator">Open name tracing tool →</a>
+            </section>
+            {/* Build a 5‑Minute Print Pack */}
+            <section className="bg-white border border-slate-200 rounded-2xl p-4">
+              <h2 className="text-xl font-bold text-slate-900 mb-1">{t('pages.printables.buildPack')}</h2>
+              <p className="text-slate-700 text-sm mb-3 max-w-3xl">{t('pages.printables.buildPackDesc')}</p>
+              <div className="flex flex-col sm:flex-row gap-3 items-start sm:items-center">
+                <label className="text-sm text-slate-600">{t('pages.printables.time')}
+                  <select value={packTime} onChange={(e) => setPackTime(e.target.value as any)} className="ml-2 px-3 py-2 border border-slate-300 rounded-lg text-sm bg-white">
+                    <option value="5">5 min</option>
+                    <option value="10">10 min</option>
+                    <option value="15">15 min</option>
+                  </select>
+                </label>
+                <label className="text-sm text-slate-600">{t('pages.printables.ageGrade')}
+                  <select value={packAge} onChange={(e) => setPackAge(e.target.value as any)} className="ml-2 px-3 py-2 border border-slate-300 rounded-lg text-sm bg-white">
+                    <option value="k1">K–1</option>
+                    <option value="k2">K–2</option>
+                    <option value="g1">1st Grade</option>
+                    <option value="g2">2nd Grade</option>
+                    <option value="35">3–5</option>
+                    <option value="68">6–8</option>
+                  </select>
+                </label>
+                <label className="text-sm text-slate-600">{t('pages.printables.focus')}
+                  <select value={packSkill} onChange={(e) => setPackSkill(e.target.value as any)} className="ml-2 px-3 py-2 border border-slate-300 rounded-lg text-sm bg-white">
+                    <option value="math">Math</option>
+                    <option value="mixed">Mixed</option>
+                    <option value="focus">Focus</option>
+                    <option value="reading">Reading</option>
+                    <option value="stem">STEM</option>
+                    <option value="creativity">Creativity</option>
+                  </select>
+                </label>
+                <button
+                  onClick={() => {
+                    const url = `/print?doc=pack&time=${packTime}&age=${packAge}&skill=${packSkill}`;
+                    try { window.location.href = url; } catch { }
+                  }}
+                  className="px-4 py-2 bg-purple-600 text-white rounded-lg hover:bg-purple-700 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:ring-offset-2"
+                  aria-label="Build printable pack"
+                >
+                  {t('pages.printables.buildPackButton')}
+                </button>
               </div>
-            </div>
-          </div>
-            <div className="mb-3">
-              <BundleButton section="Worksheets" />
-            </div>
-          <div className={gridClass}>
-            <WorksheetThumbnailCard
-              title="➕ Math Maze Adventure"
-              description="Solve simple addition and subtraction problems to find your way through the maze! Kids answer to uncover the right path — a mix of math and logic fun."
-              skills="problem-solving, basic math, critical thinking"
-              age="6–10"
-              href={getWorksheetURL("math-maze", "printables")} docId="math-maze" onPreview={setPreviewItem}
-            />
-            <WorksheetThumbnailCard
-              title="✏️ Spelling Challenge Worksheet"
-              description="Circle correctly spelled words or fill in missing letters. Themes include animals, school items, and food."
-              skills="spelling, vocabulary, reading comprehension"
-              age="6–9"
-              href={getWorksheetURL("spelling", "printables")} docId="spelling" onPreview={setPreviewItem}
-            />
-            <WorksheetThumbnailCard
-              title="🔬 Science Fun Facts Match"
-              description="Match each fun fact to its correct picture — planets, weather, and ocean creatures!"
-              skills="science awareness, visual association, curiosity"
-              age="8–12"
-              href={getWorksheetURL("science-match", "printables")} docId="science-match" onPreview={setPreviewItem}
-            />
-            <WorksheetThumbnailCard
-              title="🕵️‍♀️ Grammar Detective"
-              description="Become a language detective! Find and correct small grammar mistakes in funny sentences."
-              skills="grammar, reading, logic"
-              age="8–12"
-              href={getWorksheetURL("grammar-detective", "printables")} docId="grammar-detective" onPreview={setPreviewItem}
-            />
-            <WorksheetThumbnailCard
-              title="🔢 Sudoku – 4×4 (Easy)"
-              description="Beginner logic and number practice in a friendly 4×4 grid."
-              skills="logic, number sense, focus"
-              age="6–8"
-              href={getWorksheetURL("sudoku4", "printables")} docId="sudoku4" onPreview={setPreviewItem}
-            />
-            <WorksheetThumbnailCard
-              title="🧮 Sudoku – 6×6 (Medium)"
-              description="A bit more challenge to build sustained attention and reasoning."
-              skills="logic, number sense, perseverance"
-              age="9–12"
-              href={getWorksheetURL("sudoku6", "printables")} docId="sudoku6" onPreview={setPreviewItem}
-            />
-            <WorksheetThumbnailCard
-              title="🔢 Number Tracing 1–10"
-              description="Trace numbers 1–10 with start‑point arrows and space to color."
-              skills="number sense, fine motor, counting"
-              age="3–5"
-              href={getWorksheetURL("number-tracing-1-10", "printables")} docId="number-tracing-1-10" onPreview={setPreviewItem}
-            />
-            <WorksheetThumbnailCard
-              title="Aa–Zz Upper/Lower Match"
-              description="Draw lines from uppercase to lowercase letters; simple A–Z practice."
-              skills="letter recognition, pre‑reading"
-              age="3–5"
-              href={getWorksheetURL("uppercase-lowercase-match", "printables")} docId="uppercase-lowercase-match" onPreview={setPreviewItem}
-            />
-            <WorksheetThumbnailCard
-              title="Beginning Sounds (A–Z)"
-              description="Circle pictures that start with each letter; simple phonics warm‑ups."
-              skills="phonemic awareness, vocabulary"
-              age="4–6"
-              href={getWorksheetURL("beginning-sounds-az", "printables")} docId="beginning-sounds-az" onPreview={setPreviewItem}
-            />
-            <WorksheetThumbnailCard
-              title="Add/Subtract 0–10"
-              description="No‑prep practice with number lines and picture cues."
-              skills="addition, subtraction, number sense"
-              age="5–7"
-              href={getWorksheetURL("addition-subtraction-0-10", "printables")} docId="addition-subtraction-0-10" onPreview={setPreviewItem}
-            />
-            <WorksheetThumbnailCard
-              title="Ten Frames 1–10"
-              description="Color counters to build numbers; develop subitizing quickly."
-              skills="counting, subitizing, number bonds"
-              age="4–6"
-              href={getWorksheetURL("ten-frames-1-10", "printables")} docId="ten-frames-1-10" onPreview={setPreviewItem}
-            />
-            <WorksheetThumbnailCard
-              title="Shapes & Colors Sort"
-              description="Cut, sort, and glue basic shapes by color; early math + fine motor."
-              skills="sorting, shapes, colors, scissor skills"
-              age="3–5"
-              href={getWorksheetURL("shapes-colors-sort", "printables")} docId="shapes-colors-sort" onPreview={setPreviewItem}
-            />
-          </div>
-        </section>
+            </section>
 
-        {/* Math by Grade (chips) */}
-        <section id="MathByGrade" className="scroll-mt-24">
-          <h2 className="text-xl font-bold text-slate-900 mb-2">➗ Math by Grade</h2>
-          <p className="text-slate-700 text-sm mb-3 max-w-3xl">Jump to grade‑focused math printables and build a quick pack.</p>
-          <div className="flex flex-wrap gap-2 mb-3">
-            {[
-              { label: 'Kindergarten', id: 'Math-GK' },
-              { label: 'Grade 1', id: 'Math-G1' },
-              { label: 'Grade 2', id: 'Math-G2' },
-            ].map(g => (
-              <button key={g.id} onClick={() => scrollToSection(g.id)} className="px-3 py-1.5 rounded-full border border-slate-200 text-slate-700 hover:bg-slate-50 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:ring-offset-2 text-sm" aria-label={`Jump to ${g.label} section`}>{g.label}</button>
-            ))}
-          </div>
-        </section>
 
-        {/* Math grade sections */}
-        <section id="Math-G1" className="scroll-mt-24">
-          <h3 className="text-lg font-semibold text-slate-900 mb-2">Grade 1</h3>
-          <div className={gridClass}>
-            <WorksheetThumbnailCard title="Ten Frames 1–10" description="Build numbers to 10 with counters" skills="number sense, subitizing" age="Grade 1" href={getWorksheetURL("ten-frames-1-10", "printables")} docId="ten-frames-1-10" onPreview={setPreviewItem} />
-            <WorksheetThumbnailCard title="Addition within 10" description="Number lines + picture cues" skills="addition, number sense" age="Grade 1" href={getWorksheetURL("addition-subtraction-0-10", "printables")} docId="addition-subtraction-0-10" onPreview={setPreviewItem} />
-            <WorksheetThumbnailCard title="Number Tracing 1–20" description="Trace digits with start points" skills="fine motor, counting" age="Grade 1" href={getWorksheetURL("number-tracing-1-20", "printables")} docId="number-tracing-1-20" onPreview={setPreviewItem} />
-          </div>
-          <div className="mt-3 print:hidden">
-            <a href={getWorksheetURL("pack&time=5&age=g1&skill=math", "printables")} className="inline-flex items-center gap-2 px-3 py-2 rounded-lg border border-purple-200 text-purple-700 hover:bg-purple-50 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:ring-offset-2 text-sm" aria-label="Build Grade 1 printable pack">Build Grade 1 Pack →</a>
-          </div>
-        </section>
 
-        <section id="Math-G2" className="scroll-mt-24">
-          <h3 className="text-lg font-semibold text-slate-900 mb-2">Grade 2</h3>
-          <div className={gridClass}>
-            <WorksheetThumbnailCard title="Ten Frames 1–20" description="Compose/decompose to 20" skills="number bonds, subitizing" age="Grade 2" href={getWorksheetURL("ten-frames-1-20", "printables")} docId="ten-frames-1-20" onPreview={setPreviewItem} />
-            <WorksheetThumbnailCard title="Place Value (Tens/Ones)" description="Break 2‑digit numbers" skills="place value, comparing" age="Grade 2" href={getWorksheetURL("place-value-hto", "printables")} docId="place-value-hto" onPreview={setPreviewItem} />
-            <WorksheetThumbnailCard title="Facts to 20" description="Add/sub within 20" skills="fact fluency" age="Grade 2" href={getWorksheetURL("addition-subtraction-0-10", "printables")} docId="addition-subtraction-0-10" onPreview={setPreviewItem} />
-          </div>
-          <div className="mt-3 print:hidden">
-            <a href={getWorksheetURL("pack&time=5&age=g2&skill=math", "printables")} className="inline-flex items-center gap-2 px-3 py-2 rounded-lg border border-purple-200 text-purple-700 hover:bg-purple-50 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:ring-offset-2 text-sm" aria-label="Build Grade 2 printable pack">Build Grade 2 Pack →</a>
-          </div>
-        </section>
 
-        {/* Math by Topic */}
-        <section id="Math-Numbers" className="scroll-mt-24">
-          <h2 className="text-xl font-bold text-slate-900 mb-2">🔢 Math — Numbers</h2>
-          <p className="text-slate-700 text-sm mb-3 max-w-3xl">Number sense foundations — counting, comparing, and place value.</p>
-          <div className={gridClass}>
-            <WorksheetThumbnailCard title="Ten Frames 1–10" description="Quick warm‑ups to build numbers" skills="subitizing" age="K–1" href={getWorksheetURL("ten-frames-1-10", "printables")} docId="ten-frames-1-10" onPreview={setPreviewItem} />
-            <WorksheetThumbnailCard title="Ten Frames 1–20" description="Compose/decompose numbers to 20" skills="number bonds" age="1–2" href={getWorksheetURL("ten-frames-1-20", "printables")} docId="ten-frames-1-20" onPreview={setPreviewItem} />
-            <WorksheetThumbnailCard title="Place Value — Tens/Ones" description="Break 2‑digit numbers" skills="place value" age="2–3" href={getWorksheetURL("place-value-hto", "printables")} docId="place-value-hto" onPreview={setPreviewItem} />
-          </div>
-        </section>
+            {searchQuery && (
+              <section className="bg-white border border-slate-200 rounded-2xl p-4">
+                <div className="mb-2 text-slate-800 font-semibold">🔎 Results for “{searchQuery}”</div>
+                <div className="grid sm:grid-cols-2 gap-4">
+                  {(
+                    [
+                      { title: '🖍️ Color-by-Number Pages', href: getWorksheetURL('color-by-number', 'printables'), tags: 'color coloring art creative number' },
+                      { title: '➕ Math Maze Adventure', href: getWorksheetURL('math-maze', 'printables'), tags: 'math maze addition subtraction focus brain' },
+                      { title: '🔢 Number Tracing 1–10', href: getWorksheetURL('number-tracing-1-10', 'printables'), tags: 'number tracing math k2 fine motor' },
+                      { title: '🔟 Ten Frames 1–10', href: getWorksheetURL('ten-frames-1-10', 'printables'), tags: 'ten frames subitizing counting math' },
+                      { title: '🔤 Beginning Sounds (A–Z)', href: getWorksheetURL('beginning-sounds-az', 'printables'), tags: 'reading phonics sounds letters' },
+                      { title: 'Aa–Zz Upper/Lower Match', href: getWorksheetURL('uppercase-lowercase-match', 'printables'), tags: 'letters match uppercase lowercase reading' },
+                      { title: '👀 Spot‑the‑Difference', href: getWorksheetURL('spot-difference', 'printables'), tags: 'focus visual difference brain' },
+                      { title: '📖 Mini Reading Passage + 3 Qs', href: getWorksheetURL('reading-mini-1', 'printables'), tags: 'reading comprehension questions' },
+                      { title: '😊 Feelings Check‑In Meter', href: getWorksheetURL('feelings-checkin', 'printables'), tags: 'feelings emotional mindfulness' },
+                      { title: '⭐ Weekly Reward/Sticker Chart', href: getWorksheetURL('reward-chart', 'printables'), tags: 'reward chart sticker habit' },
+                    ].filter(i => i.title.toLowerCase().includes(searchQuery.toLowerCase()) || i.tags.includes(searchQuery.toLowerCase()))
+                  ).map(item => (
+                    <a key={item.href} href={item.href} className="border border-slate-200 rounded-xl p-4 hover:border-purple-300">
+                      <div className="text-slate-900 font-medium">{item.title}</div>
+                      <div className="text-slate-500 text-xs mt-1">{item.href}</div>
+                    </a>
+                  ))}
+                </div>
+              </section>
+            )}
 
-        <section id="Math-Operations" className="scroll-mt-24">
-          <h2 className="text-xl font-bold text-slate-900 mb-2">➕ Math — 4 Operations</h2>
-          <p className="text-slate-700 text-sm mb-3 max-w-3xl">Practice addition and subtraction fluency with fun mini‑challenges.</p>
-          <div className={gridClass}>
-            <WorksheetThumbnailCard title="Add/Sub within 10" description="Number lines and picture cues" skills="addition, subtraction" age="1–2" href={getWorksheetURL("addition-subtraction-0-10", "printables")} docId="addition-subtraction-0-10" onPreview={setPreviewItem} />
-            <WorksheetThumbnailCard title="Math Maze" description="Solve to find the path" skills="fact fluency, focus" age="1–3" href={getWorksheetURL("math-maze", "printables")} docId="math-maze" onPreview={setPreviewItem} />
-          </div>
-        </section>
+            {/* 1. Coloring Packs */}
+            <section id="Coloring" className={`scroll-mt-24 ${sectionVisibility('Coloring')}`}>
+              <h2 className="text-xl font-bold text-slate-900 mb-2">🖍️ 1. Printable Coloring Pages for Kids</h2>
+              <p className="text-slate-700 text-sm mb-3 max-w-3xl">Themed packs to spark creativity and learning. Each pack is unique and print‑ready.</p>
+              <div className="mb-3">
+                <BundleButton section="Coloring" />
+              </div>
+              <div className={gridClass}>
+                {(PRINTABLE_BUNDLE_SECTIONS['Coloring'] || []).map(docId => (
+                  <WorksheetThumbnailCard
+                    key={docId}
+                    docId={docId}
+                    title={docId}
+                    description=""
+                    href={getWorksheetURL(docId, "printables")}
+                    onPreview={setPreviewItem}
+                  />
+                ))}
+              </div>
+            </section>
 
-        {/* 3. Creative & Art Printables */}
-        <section id="Creative" className={`scroll-mt-24 ${sectionVisibility('Creative')}`}>
-          <h2 className="text-xl font-bold text-slate-900 mb-2">🎨 3. Creative & Art Printables</h2>
-          <p className="text-slate-700 text-sm mb-3 max-w-3xl">Spark imagination with low‑prep projects kids can draw, color, and customize. These printable art prompts build hand control, creativity, and a lifelong love of making things.</p>
-            <div className="mb-3">
-              <BundleButton section="Creative" />
-            </div>
-          <div className={gridClass}>
-            <WorksheetThumbnailCard
-              title="🖍️ Color-by-Number Pages"
-              description="Color each section by number to reveal a hidden animal or scene. Includes Animals in Space and Under the Sea editions."
-              skills="color recognition, number practice, creativity"
-              age="5–9"
-              href={getWorksheetURL("color-by-number", "printables")} docId="color-by-number" onPreview={setPreviewItem}
-            />
-            <WorksheetThumbnailCard
-              title="📚 DIY Bookmark Templates"
-              description="Design your own bookmarks with quotes and doodles — print-ready outlines: ‘Be Kind’, ‘Keep Reading’, ‘Dream Big’."
-              skills="creativity, design, fine motor skills"
-              age="6–12"
-              href={getWorksheetURL("bookmark-templates", "printables")} docId="bookmark-templates" onPreview={setPreviewItem}
-            />
-            <WorksheetThumbnailCard
-              title="👾 Design Your Monster"
-              description="Print, draw, and name your own funny monster! Great for imagination and drawing practice."
-              skills="creativity, self-expression, art skills"
-              age="6–10"
-              href={getWorksheetURL("design-monster", "printables")} docId="design-monster" onPreview={setPreviewItem}
-            />
-            <WorksheetThumbnailCard
-              title="✏️ Draw the Missing Half"
-              description="Half of each image is missing — complete it! A great symmetry and observation activity."
-              skills="geometry, visual balance, focus"
-              age="7–12"
-              href={getWorksheetURL("draw-half", "printables")} docId="draw-half" onPreview={setPreviewItem}
-            />
-            <WorksheetThumbnailCard
-              title="🖊️ Directed Drawing: Animals"
-              description="Step‑by‑step drawing guides (cat, fish, rocket) with simple shapes."
-              skills="observation, shape composition, fine motor"
-              age="5–9"
-              href={getWorksheetURL("directed-drawing-animals", "printables")} docId="directed-drawing-animals" onPreview={setPreviewItem}
-            />
-            <WorksheetThumbnailCard
-              title="✂️ Cut‑and‑Paste Crafts"
-              description="Print, cut, and glue simple paper crafts — build motor control and creativity."
-              skills="scissor skills, sequencing, creativity"
-              age="4–8"
-              href={getWorksheetURL("cut-and-paste-crafts", "printables")} docId="cut-and-paste-crafts" onPreview={setPreviewItem}
-            />
-          </div>
-        </section>
+            {/* 2. Educational Worksheets */}
+            <section id="Worksheets" className={`scroll-mt-24 ${sectionVisibility('Worksheets')}`}>
+              <h2 className="text-xl font-bold text-slate-900 mb-2">🧠 2. Educational Worksheets</h2>
+              <p className="text-slate-700 text-sm mb-3 max-w-3xl">Short, skill‑building worksheets you can finish in minutes. Use them as warm‑ups, homework helpers, or rainy‑day challenges to grow confidence in reading, math, and science.</p>
+              {/* Promote Handwriting Worksheet Maker */}
+              <div className="mb-3 space-y-3">
+                <div className={CARD_CLASS}>
+                  <div className="text-base font-semibold text-slate-900">✍️ Handwriting Worksheet Maker</div>
+                  <p className="text-slate-600 text-sm mt-1">Generate dotted A–Z letters, words, or sentences with guidelines. Adjust size and spacing, then print or save as PDF.</p>
+                  <div className="mt-3 flex items-center gap-2">
+                    <a href="/worksheets/handwriting-worksheet-maker" className={BUTTON_CLASS} aria-label="Open handwriting worksheet maker">Open worksheet maker →</a>
+                  </div>
+                </div>
+                <div className={CARD_CLASS}>
+                  <div className="text-base font-semibold text-slate-900">🖊️ Name Tracing Generator</div>
+                  <p className="text-slate-600 text-sm mt-1">Create personalized name tracing worksheets with dotted or bubble letters, friendly start dots, and printable guidelines.</p>
+                  <div className="mt-3 flex items-center gap-2">
+                    <a href="/printables/name-tracing-generator" className={BUTTON_CLASS} aria-label="Open name tracing generator">Open name tracing tool →</a>
+                  </div>
+                </div>
+              </div>
+              <div className="mb-3">
+                <BundleButton section="Worksheets" />
+              </div>
+              <div className={gridClass}>
+                {(showAllWorksheets ? (PRINTABLE_BUNDLE_SECTIONS['Worksheets'] || []) : (PRINTABLE_BUNDLE_SECTIONS['Worksheets'] || []).slice(0, 24)).map(docId => (
+                  <WorksheetThumbnailCard
+                    key={docId}
+                    docId={docId}
+                    title={docId}
+                    description=""
+                    href={getWorksheetURL(docId, "printables")}
+                    onPreview={setPreviewItem}
+                  />
+                ))}
+              </div>
+              {/* Show All Logic */}
+              {!(showAllWorksheets) && (PRINTABLE_BUNDLE_SECTIONS['Worksheets']?.length || 0) > 24 && (
+                <div className="mt-6 text-center">
+                  <button
+                    onClick={() => setShowAllWorksheets(true)}
+                    className="px-6 py-3 rounded-full bg-white border border-slate-300 text-slate-700 font-semibold shadow-sm hover:bg-slate-50 hover:shadow-md transition-all active:scale-95"
+                  >
+                    Show All Worksheets ({(PRINTABLE_BUNDLE_SECTIONS['Worksheets']?.length || 0) - 24} more)
+                  </button>
+                </div>
+              )}
+            </section>
 
-        {/* 4. Brain & Focus Activities */}
-        <section id="Brain" className={`scroll-mt-24 ${sectionVisibility('Brain')}`}>
-          <h2 className="text-xl font-bold text-slate-900 mb-2">🧩 4. Brain & Focus Activities</h2>
-          <p className="text-slate-700 text-sm mb-3 max-w-3xl">Build attention and problem‑solving with puzzles that reward careful thinking. Great for quiet time, independent work, and on‑the‑go brain breaks.</p>
-            <div className="mb-3">
-              <BundleButton section="Brain" />
-            </div>
-          <div className={gridClass}>
-            <WorksheetThumbnailCard
-              title="🧩 Logic Grid Puzzle"
-              description="Read clues, think critically, and solve who owns what, where, or when!"
-              skills="logic, reading comprehension, problem-solving"
-              age="9–12"
-              href={getWorksheetURL("logic-grid", "printables")} docId="logic-grid" onPreview={setPreviewItem}
-            />
-            <WorksheetThumbnailCard
-              title="🔍 Find the Hidden Object"
-              description="Search and circle hidden items in a detailed scene — jungle, ocean, or city themes."
-              skills="attention to detail, focus, patience"
-              age="6–10"
-              href={getWorksheetURL("hidden-object", "printables")} docId="hidden-object" onPreview={setPreviewItem}
-            />
-            <WorksheetThumbnailCard
-              title="🌀 Maze of Focus"
-              description="Follow the path through distractions to reach your goal! Includes tips like ‘Take a deep breath’."
-              skills="concentration, mindfulness, planning"
-              age="6–9"
-              href={getWorksheetURL("maze-focus", "printables")} docId="maze-focus" onPreview={setPreviewItem}
-            />
-            <WorksheetThumbnailCard
-              title="1–20 Dot‑to‑Dot"
-              description="Connect the dots to reveal animals and objects; practice number order."
-              skills="counting, attention, sequencing"
-              age="4–7"
-              href={getWorksheetURL("dot-to-dot-1-20", "printables")} docId="dot-to-dot-1-20" onPreview={setPreviewItem}
-            />
-            <WorksheetThumbnailCard
-              title="Tangram Animals (Cutouts)"
-              description="Cut and arrange pieces to form animal silhouettes — spatial reasoning, but fun."
-              skills="spatial thinking, problem‑solving, scissors"
-              age="6–10"
-              href={getWorksheetURL("tangram-animals", "printables")} docId="tangram-animals" onPreview={setPreviewItem}
-            />
-            <WorksheetThumbnailCard
-              title="Spot the Difference (7)"
-              description="Find 7 differences between two pictures — visual scanning exercise."
-              skills="attention to detail, persistence"
-              age="6–10"
-              href={getWorksheetURL("spot-difference", "printables")} docId="spot-difference" onPreview={setPreviewItem}
-            />
-          </div>
-        </section>
+            {/* Math by Grade (chips) */}
+            <section id="MathByGrade" className="scroll-mt-24">
+              <h2 className="text-xl font-bold text-slate-900 mb-2">➗ Math by Grade</h2>
+              <p className="text-slate-700 text-sm mb-3 max-w-3xl">Jump to grade‑focused math printables and build a quick pack.</p>
+              <div className="flex flex-wrap gap-2 mb-3">
+                {[
+                  { label: 'Kindergarten', id: 'Math-GK' },
+                  { label: 'Grade 1', id: 'Math-G1' },
+                  { label: 'Grade 2', id: 'Math-G2' },
+                ].map(g => (
+                  <button key={g.id} onClick={() => scrollToSection(g.id)} className="px-3 py-1.5 rounded-full border border-slate-200 text-slate-700 hover:bg-slate-50 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:ring-offset-2 text-sm" aria-label={`Jump to ${g.label} section`}>{g.label}</button>
+                ))}
+              </div>
+            </section>
 
-        {/* 5. Emotional & Mindfulness Printables */}
-        <section id="Emotional" className={`scroll-mt-24 ${sectionVisibility('Emotional')}`}>
-          <h2 className="text-xl font-bold text-slate-900 mb-2">💖 5. Emotional & Mindfulness Printables</h2>
-          <p className="text-slate-700 text-sm mb-3 max-w-3xl">Simple, calming pages that help kids name feelings, practice gratitude, and reflect on wins. Perfect for bedtime routines or classroom mindfulness corners.</p>
-            <div className="mb-3">
-              <BundleButton section="Emotional" />
-            </div>
-          <div className={gridClass}>
-            <WorksheetThumbnailCard
-              title="💌 Gratitude Jar Worksheet"
-              description="Each day, write or draw one thing you’re thankful for and color your jar as it fills up!"
-              skills="gratitude, mindfulness, journaling"
-              age="7–12"
-              href={getWorksheetURL("gratitude-jar", "printables")} docId="gratitude-jar" onPreview={setPreviewItem}
-            />
-            <WorksheetThumbnailCard
-              title="🌈 Mood Tracker Coloring Page"
-              description="Track feelings for the week by coloring a section based on your mood."
-              skills="emotional awareness, reflection, art expression"
-              age="8–12"
-              href={getWorksheetURL("mood-tracker", "printables")} docId="mood-tracker" onPreview={setPreviewItem}
-            />
-            <WorksheetThumbnailCard
-              title="🕉️ Mindful Coloring Mandalas"
-              description="Relax and focus while coloring calming mandala patterns."
-              skills="focus, mindfulness, relaxation"
-              age="9–13"
-              href={getWorksheetURL("mandalas", "printables")} docId="mandalas" onPreview={setPreviewItem}
-            />
-            <WorksheetThumbnailCard
-              title="🗓️ My Goals for the Week Planner"
-              description="Write three goals, one thing to try, and one thing you’re proud of — printable motivation for kids."
-              skills="planning, reflection, motivation"
-              age="8–12"
-              href={getWorksheetURL("weekly-goals", "printables")} docId="weekly-goals" onPreview={setPreviewItem}
-            />
-            <WorksheetThumbnailCard
-              title="😊 Feelings Check‑In Meter"
-              description="Point to or color how you feel — quick daily emotional check‑in."
-              skills="emotional vocabulary, self‑awareness"
-              age="4–10"
-              href={getWorksheetURL("feelings-checkin", "printables")} docId="feelings-checkin" onPreview={setPreviewItem}
-            />
-            <WorksheetThumbnailCard
-              title="⭐ Weekly Reward/Sticker Chart"
-              description="Track small wins with stickers — build consistency with positive feedback."
-              skills="habits, motivation, reflection"
-              age="4–10"
-              href={getWorksheetURL("reward-chart", "printables")} docId="reward-chart" onPreview={setPreviewItem}
-            />
-          </div>
-        </section>
+            {/* Math grade sections */}
+            <section id="Math-G1" className="scroll-mt-24">
+              <h3 className="text-lg font-semibold text-slate-900 mb-2">Grade 1</h3>
+              <div className={gridClass}>
+                <WorksheetThumbnailCard title="Ten Frames 1–10" description="Build numbers to 10 with counters" skills="number sense, subitizing" age="Grade 1" href={getWorksheetURL("ten-frames-1-10", "printables")} docId="ten-frames-1-10" onPreview={setPreviewItem} />
+                <WorksheetThumbnailCard title="Addition within 10" description="Number lines + picture cues" skills="addition, number sense" age="Grade 1" href={getWorksheetURL("addition-subtraction-0-10", "printables")} docId="addition-subtraction-0-10" onPreview={setPreviewItem} />
+                <WorksheetThumbnailCard title="Number Tracing 1–20" description="Trace digits with start points" skills="fine motor, counting" age="Grade 1" href={getWorksheetURL("number-tracing-1-20", "printables")} docId="number-tracing-1-20" onPreview={setPreviewItem} />
+              </div>
+              <div className="mt-3 print:hidden">
+                <a href={getWorksheetURL("pack&time=5&age=g1&skill=math", "printables")} className="inline-flex items-center gap-2 px-3 py-2 rounded-lg border border-purple-200 text-purple-700 hover:bg-purple-50 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:ring-offset-2 text-sm" aria-label="Build Grade 1 printable pack">Build Grade 1 Pack →</a>
+              </div>
+            </section>
 
-        {/* 6. Seasonal & Holiday Printables */}
-        <section id="Seasonal" className={`scroll-mt-24 ${sectionVisibility('Seasonal')}`}>
-          <h2 className="text-xl font-bold text-slate-900 mb-2">🎉 6. Seasonal & Holiday Printables</h2>
-          <p className="text-slate-700 text-sm mb-3 max-w-3xl">Celebrate the seasons with themed puzzles, hunts, and kindness challenges. Keep little hands busy during holidays, travel days, and family gatherings.</p>
-            <div className="mb-3">
-              <BundleButton section="Seasonal" />
-            </div>
-          <div className={gridClass}>
-            <WorksheetThumbnailCard
-              title="🎃 Halloween Puzzle Pack"
-              description="Pumpkin maze, costume word search, and spooky coloring pages — all in one."
-              skills="creative play, vocabulary, fine motor skills"
-              age="6–10"
-              href={getWorksheetURL("halloween-pack", "printables")} docId="halloween-pack" onPreview={setPreviewItem}
-            />
-            <WorksheetThumbnailCard
-              title="❄️ Winter Kindness Challenge"
-              description="30 simple ways to spread kindness — color one each time you complete a task!"
-              skills="empathy, kindness, social skills"
-              age="6–12"
-              href={getWorksheetURL("winter-kindness", "printables")} docId="winter-kindness" onPreview={setPreviewItem}
-            />
-            <WorksheetThumbnailCard
-              title="🌸 Spring Nature Scavenger Hunt"
-              description="Go outside and check off everything you find — leaves, flowers, clouds, bugs, and more!"
-              skills="observation, curiosity, environmental awareness"
-              age="6–12"
-              href={getWorksheetURL("spring-scavenger", "printables")} docId="spring-scavenger" onPreview={setPreviewItem}
-            />
-            <WorksheetThumbnailCard
-              title="☀️ Summer Adventure Pack"
-              description="Word search, beach maze, and ocean animals coloring sheet — perfect for travel."
-              skills="creativity, focus, vocabulary"
-              age="6–10"
-              href={getWorksheetURL("summer-pack", "printables")} docId="summer-pack" onPreview={setPreviewItem}
-            />
-          </div>
-        </section>
+            <section id="Math-G2" className="scroll-mt-24">
+              <h3 className="text-lg font-semibold text-slate-900 mb-2">Grade 2</h3>
+              <div className={gridClass}>
+                <WorksheetThumbnailCard title="Ten Frames 1–20" description="Compose/decompose to 20" skills="number bonds, subitizing" age="Grade 2" href={getWorksheetURL("ten-frames-1-20", "printables")} docId="ten-frames-1-20" onPreview={setPreviewItem} />
+                <WorksheetThumbnailCard title="Place Value (Tens/Ones)" description="Break 2‑digit numbers" skills="place value, comparing" age="Grade 2" href={getWorksheetURL("place-value-hto", "printables")} docId="place-value-hto" onPreview={setPreviewItem} />
+                <WorksheetThumbnailCard title="Facts to 20" description="Add/sub within 20" skills="fact fluency" age="Grade 2" href={getWorksheetURL("addition-subtraction-0-10", "printables")} docId="addition-subtraction-0-10" onPreview={setPreviewItem} />
+              </div>
+              <div className="mt-3 print:hidden">
+                <a href={getWorksheetURL("pack&time=5&age=g2&skill=math", "printables")} className="inline-flex items-center gap-2 px-3 py-2 rounded-lg border border-purple-200 text-purple-700 hover:bg-purple-50 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:ring-offset-2 text-sm" aria-label="Build Grade 2 printable pack">Build Grade 2 Pack →</a>
+              </div>
+            </section>
 
-        {/* 7. Printable Challenge Packs */}
-        <section id="Challenge" className={`scroll-mt-24 ${sectionVisibility('Challenge')}`}>
-          <h2 className="text-xl font-bold text-slate-900 mb-2">🌍 7. Printable Challenge Packs</h2>
-          <p className="text-slate-700 text-sm mb-3 max-w-3xl">Week‑long printable packs that turn practice into a friendly challenge. Each set layers small daily wins into real progress kids can feel proud of.</p>
-            <div className="mb-3">
-              <BundleButton section="Challenge" />
-            </div>
-          <div className={gridClass}>
-            <WorksheetThumbnailCard
-              title="🧠 7-Day Brain Boost Pack"
-              description="Daily puzzles, word games, and mini memory challenges to build focus and logic."
-              href={getWorksheetURL("brain-boost", "printables")} docId="brain-boost" onPreview={setPreviewItem}
-            />
-            <WorksheetThumbnailCard
-              title="🎨 Creative Kids Challenge"
-              description="7 days of art prompts and doodle ideas to spark creativity and reduce screen time."
-              href={getWorksheetURL("creative-challenge", "printables")} docId="creative-challenge" onPreview={setPreviewItem}
-            />
-            <WorksheetThumbnailCard
-              title="🌍 Around the World Word Search"
-              description="Learn geography through words — explore landmarks, countries, and famous animals."
-              href={getWorksheetURL("ws-world", "printables")} docId="ws-world" onPreview={setPreviewItem}
-            />
-            <WorksheetThumbnailCard
-              title="🦁 Animal Adventure Pack"
-              description="6 printables focused on wildlife fun — puzzles, coloring, and animal facts."
-              href={getWorksheetURL("animal-pack", "printables")} docId="animal-pack" onPreview={setPreviewItem}
-            />
-          </div>
-        </section>
+            {/* Math by Topic */}
+            <section id="Math-Numbers" className="scroll-mt-24">
+              <h2 className="text-xl font-bold text-slate-900 mb-2">🔢 Math — Numbers</h2>
+              <p className="text-slate-700 text-sm mb-3 max-w-3xl">Number sense foundations — counting, comparing, and place value.</p>
+              <div className={gridClass}>
+                <WorksheetThumbnailCard title="Ten Frames 1–10" description="Quick warm‑ups to build numbers" skills="subitizing" age="K–1" href={getWorksheetURL("ten-frames-1-10", "printables")} docId="ten-frames-1-10" onPreview={setPreviewItem} />
+                <WorksheetThumbnailCard title="Ten Frames 1–20" description="Compose/decompose numbers to 20" skills="number bonds" age="1–2" href={getWorksheetURL("ten-frames-1-20", "printables")} docId="ten-frames-1-20" onPreview={setPreviewItem} />
+                <WorksheetThumbnailCard title="Place Value — Tens/Ones" description="Break 2‑digit numbers" skills="place value" age="2–3" href={getWorksheetURL("place-value-hto", "printables")} docId="place-value-hto" onPreview={setPreviewItem} />
+              </div>
+            </section>
 
-        {/* 8. Quick STEM/Arts One‑pagers */}
-        <section id="One-pagers" className={`scroll-mt-24 ${sectionVisibility('One-pagers')}`}>
-          <h2 className="text-xl font-bold text-slate-900 mb-2">🧪 8. Quick STEM/Arts One‑pagers</h2>
-          <p className="text-slate-700 text-sm mb-3 max-w-3xl">Fast, print‑and‑go activities with 5 clear steps, simple materials, and a short “what you learned” box.</p>
-            <div className="mb-3">
-              <BundleButton section="One-pagers" />
-            </div>
-          <div className={gridClass}>
-            <WorksheetThumbnailCard
-              title="🚀 Balloon Rocket (STEM)"
-              description="Make a balloon rocket and learn how action and reaction push it forward. 10 minutes."
-              skills="science, observation"
-              age="7–10"
-              href={getWorksheetURL("stem-balloon-rocket", "printables")} docId="stem-balloon-rocket" onPreview={setPreviewItem}
-            />
-            <WorksheetThumbnailCard
-              title="🌈 Walking Water (STEM)"
-              description="Watch colors climb and mix through paper towels. Learn capillary action. 15 minutes."
-              skills="science, recording results"
-              age="6–10"
-              href={getWorksheetURL("stem-walking-water", "printables")} docId="stem-walking-water" onPreview={setPreviewItem}
-            />
-            <WorksheetThumbnailCard
-              title="🎨 Draw From 3 Shapes (Arts)"
-              description="Create a creature starting from a circle, triangle, and rectangle. Finish with a 1‑line story."
-              skills="creativity, composition"
-              age="6–12"
-              href={getWorksheetURL("arts-3-shape-creature", "printables")} docId="arts-3-shape-creature" onPreview={setPreviewItem}
-            />
-            <WorksheetThumbnailCard
-              title="📖 Mini Reading Passage + 3 Qs"
-              description="Short passage with 3 questions — practice comprehension in 5 minutes."
-              skills="reading comprehension, evidence finding"
-              age="7–10"
-              href={getWorksheetURL("reading-mini-1", "printables")} docId="reading-mini-1" onPreview={setPreviewItem}
-            />
-          </div>
-        </section>
+            <section id="Math-Operations" className="scroll-mt-24">
+              <h2 className="text-xl font-bold text-slate-900 mb-2">➕ Math — 4 Operations</h2>
+              <p className="text-slate-700 text-sm mb-3 max-w-3xl">Practice addition and subtraction fluency with fun mini‑challenges.</p>
+              <div className={gridClass}>
+                <WorksheetThumbnailCard title="Add/Sub within 10" description="Number lines and picture cues" skills="addition, subtraction" age="1–2" href={getWorksheetURL("addition-subtraction-0-10", "printables")} docId="addition-subtraction-0-10" onPreview={setPreviewItem} />
+                <WorksheetThumbnailCard title="Math Maze" description="Solve to find the path" skills="fact fluency, focus" age="1–3" href={getWorksheetURL("math-maze", "printables")} docId="math-maze" onPreview={setPreviewItem} />
+              </div>
+            </section>
 
-        {/* 9. Geography Worksheets */}
-        <section id="Geography" className={`scroll-mt-24 ${sectionVisibility('Geography')}`}>
-          <h2 className="text-xl font-bold text-slate-900 mb-2">🧭 9. Geography Worksheets</h2>
-          <p className="text-slate-700 text-sm mb-3 max-w-3xl">Learn continents, directions, landforms, and latitude/longitude. Printable, kid‑friendly pages that build map skills.</p>
-            <div className="mb-3">
-              <BundleButton section="Geography" />
-            </div>
-          <div className={gridClass}>
-            <WorksheetThumbnailCard title="🌍 Label the 7 Continents (K–2)" description="Write or trace continent names; beginner‑friendly world outline with hints." href={getWorksheetURL("geo-continents-k2", "printables")} docId="geo-continents-k2" onPreview={setPreviewItem} />
-            <WorksheetThumbnailCard title="🧭 Compass Rose & Directions" description="N, E, S, W with NE/SE/SW/NW — color and label the compass." href={getWorksheetURL("geo-compass-rose", "printables")} docId="geo-compass-rose" onPreview={setPreviewItem} />
-            <WorksheetThumbnailCard title="🏔️ Landforms vs Water Bodies" description="Match words to simple icons: mountain, valley, island, lake, river." href={getWorksheetURL("geo-landforms", "printables")} docId="geo-landforms" onPreview={setPreviewItem} />
-            <WorksheetThumbnailCard title="🗺️ Latitude & Longitude Basics" description="Practice reading and plotting coordinates on a simple world grid." href={getWorksheetURL("geo-latlong", "printables")} docId="geo-latlong" onPreview={setPreviewItem} />
-          </div>
-        </section>
+            {/* 3. Creative & Art Printables */}
+            <section id="Creative" className={`scroll-mt-24 ${sectionVisibility('Creative')}`}>
+              <h2 className="text-xl font-bold text-slate-900 mb-2">🎨 3. Creative & Art Printables</h2>
+              <p className="text-slate-700 text-sm mb-3 max-w-3xl">Spark imagination with low‑prep projects kids can draw, color, and customize. These printable art prompts build hand control, creativity, and a lifelong love of making things.</p>
+              <div className="mb-3">
+                <BundleButton section="Creative" />
+              </div>
+              <div className={gridClass}>
+                {(PRINTABLE_BUNDLE_SECTIONS['Creative'] || []).map(docId => (
+                  <WorksheetThumbnailCard
+                    key={docId}
+                    docId={docId}
+                    title={docId}
+                    description=""
+                    href={getWorksheetURL(docId, "printables")}
+                    onPreview={setPreviewItem}
+                  />
+                ))}
+              </div>
+            </section>
 
-        <section className="text-xs text-slate-500">
-          <p className="print:hidden">{t('common.printTip', 'Tip: Use your browser menu → Print → Save as PDF.')}</p>
-        </section>
+            {/* 4. Brain & Focus Activities */}
+            <section id="Brain" className={`scroll-mt-24 ${sectionVisibility('Brain')}`}>
+              <h2 className="text-xl font-bold text-slate-900 mb-2">🧩 4. Brain & Focus Activities</h2>
+              <p className="text-slate-700 text-sm mb-3 max-w-3xl">Build attention and problem‑solving with puzzles that reward careful thinking. Great for quiet time, independent work, and on‑the‑go brain breaks.</p>
+              <div className="mb-3">
+                <BundleButton section="Brain" />
+              </div>
+              <div className={gridClass}>
+                <WorksheetThumbnailCard
+                  title="🧩 Logic Grid Puzzle"
+                  description="Read clues, think critically, and solve who owns what, where, or when!"
+                  skills="logic, reading comprehension, problem-solving"
+                  age="9–12"
+                  href={getWorksheetURL("logic-grid", "printables")} docId="logic-grid" onPreview={setPreviewItem}
+                />
+                <WorksheetThumbnailCard
+                  title="🔍 Find the Hidden Object"
+                  description="Search and circle hidden items in a detailed scene — jungle, ocean, or city themes."
+                  skills="attention to detail, focus, patience"
+                  age="6–10"
+                  href={getWorksheetURL("hidden-object", "printables")} docId="hidden-object" onPreview={setPreviewItem}
+                />
+                <WorksheetThumbnailCard
+                  title="🌀 Maze of Focus"
+                  description="Follow the path through distractions to reach your goal! Includes tips like ‘Take a deep breath’."
+                  skills="concentration, mindfulness, planning"
+                  age="6–9"
+                  href={getWorksheetURL("maze-focus", "printables")} docId="maze-focus" onPreview={setPreviewItem}
+                />
+                <WorksheetThumbnailCard
+                  title="1–20 Dot‑to‑Dot"
+                  description="Connect the dots to reveal animals and objects; practice number order."
+                  skills="counting, attention, sequencing"
+                  age="4–7"
+                  href={getWorksheetURL("dot-to-dot-1-20", "printables")} docId="dot-to-dot-1-20" onPreview={setPreviewItem}
+                />
+                <WorksheetThumbnailCard
+                  title="Tangram Animals (Cutouts)"
+                  description="Cut and arrange pieces to form animal silhouettes — spatial reasoning, but fun."
+                  skills="spatial thinking, problem‑solving, scissors"
+                  age="6–10"
+                  href={getWorksheetURL("tangram-animals", "printables")} docId="tangram-animals" onPreview={setPreviewItem}
+                />
+                <WorksheetThumbnailCard
+                  title="Spot the Difference (7)"
+                  description="Find 7 differences between two pictures — visual scanning exercise."
+                  skills="attention to detail, persistence"
+                  age="6–10"
+                  href={getWorksheetURL("spot-difference", "printables")} docId="spot-difference" onPreview={setPreviewItem}
+                />
+              </div>
+            </section>
+
+            {/* 5. Emotional & Mindfulness Printables */}
+            <section id="Emotional" className={`scroll-mt-24 ${sectionVisibility('Emotional')}`}>
+              <h2 className="text-xl font-bold text-slate-900 mb-2">💖 5. Emotional & Mindfulness Printables</h2>
+              <p className="text-slate-700 text-sm mb-3 max-w-3xl">Simple, calming pages that help kids name feelings, practice gratitude, and reflect on wins. Perfect for bedtime routines or classroom mindfulness corners.</p>
+              <div className="mb-3">
+                <BundleButton section="Emotional" />
+              </div>
+              <div className={gridClass}>
+                <WorksheetThumbnailCard
+                  title="💌 Gratitude Jar Worksheet"
+                  description="Each day, write or draw one thing you’re thankful for and color your jar as it fills up!"
+                  skills="gratitude, mindfulness, journaling"
+                  age="7–12"
+                  href={getWorksheetURL("gratitude-jar", "printables")} docId="gratitude-jar" onPreview={setPreviewItem}
+                />
+                <WorksheetThumbnailCard
+                  title="🌈 Mood Tracker Coloring Page"
+                  description="Track feelings for the week by coloring a section based on your mood."
+                  skills="emotional awareness, reflection, art expression"
+                  age="8–12"
+                  href={getWorksheetURL("mood-tracker", "printables")} docId="mood-tracker" onPreview={setPreviewItem}
+                />
+                <WorksheetThumbnailCard
+                  title="🕉️ Mindful Coloring Mandalas"
+                  description="Relax and focus while coloring calming mandala patterns."
+                  skills="focus, mindfulness, relaxation"
+                  age="9–13"
+                  href={getWorksheetURL("mandalas", "printables")} docId="mandalas" onPreview={setPreviewItem}
+                />
+                <WorksheetThumbnailCard
+                  title="🗓️ My Goals for the Week Planner"
+                  description="Write three goals, one thing to try, and one thing you’re proud of — printable motivation for kids."
+                  skills="planning, reflection, motivation"
+                  age="8–12"
+                  href={getWorksheetURL("weekly-goals", "printables")} docId="weekly-goals" onPreview={setPreviewItem}
+                />
+                <WorksheetThumbnailCard
+                  title="😊 Feelings Check‑In Meter"
+                  description="Point to or color how you feel — quick daily emotional check‑in."
+                  skills="emotional vocabulary, self‑awareness"
+                  age="4–10"
+                  href={getWorksheetURL("feelings-checkin", "printables")} docId="feelings-checkin" onPreview={setPreviewItem}
+                />
+                <WorksheetThumbnailCard
+                  title="⭐ Weekly Reward/Sticker Chart"
+                  description="Track small wins with stickers — build consistency with positive feedback."
+                  skills="habits, motivation, reflection"
+                  age="4–10"
+                  href={getWorksheetURL("reward-chart", "printables")} docId="reward-chart" onPreview={setPreviewItem}
+                />
+              </div>
+            </section>
+
+            {/* 6. Seasonal & Holiday Printables */}
+            <section id="Seasonal" className={`scroll-mt-24 ${sectionVisibility('Seasonal')}`}>
+              <h2 className="text-xl font-bold text-slate-900 mb-2">🎉 6. Seasonal & Holiday Printables</h2>
+              <p className="text-slate-700 text-sm mb-3 max-w-3xl">Celebrate the seasons with themed puzzles, hunts, and kindness challenges. Keep little hands busy during holidays, travel days, and family gatherings.</p>
+              <div className="mb-3">
+                <BundleButton section="Seasonal" />
+              </div>
+              <div className={gridClass}>
+                <WorksheetThumbnailCard
+                  title="🎃 Halloween Puzzle Pack"
+                  description="Pumpkin maze, costume word search, and spooky coloring pages — all in one."
+                  skills="creative play, vocabulary, fine motor skills"
+                  age="6–10"
+                  href={getWorksheetURL("halloween-pack", "printables")} docId="halloween-pack" onPreview={setPreviewItem}
+                />
+                <WorksheetThumbnailCard
+                  title="❄️ Winter Kindness Challenge"
+                  description="30 simple ways to spread kindness — color one each time you complete a task!"
+                  skills="empathy, kindness, social skills"
+                  age="6–12"
+                  href={getWorksheetURL("winter-kindness", "printables")} docId="winter-kindness" onPreview={setPreviewItem}
+                />
+                <WorksheetThumbnailCard
+                  title="🌸 Spring Nature Scavenger Hunt"
+                  description="Go outside and check off everything you find — leaves, flowers, clouds, bugs, and more!"
+                  skills="observation, curiosity, environmental awareness"
+                  age="6–12"
+                  href={getWorksheetURL("spring-scavenger", "printables")} docId="spring-scavenger" onPreview={setPreviewItem}
+                />
+                <WorksheetThumbnailCard
+                  title="☀️ Summer Adventure Pack"
+                  description="Word search, beach maze, and ocean animals coloring sheet — perfect for travel."
+                  skills="creativity, focus, vocabulary"
+                  age="6–10"
+                  href={getWorksheetURL("summer-pack", "printables")} docId="summer-pack" onPreview={setPreviewItem}
+                />
+              </div>
+            </section>
+
+            {/* 7. Printable Challenge Packs */}
+            <section id="Challenge" className={`scroll-mt-24 ${sectionVisibility('Challenge')}`}>
+              <h2 className="text-xl font-bold text-slate-900 mb-2">🌍 7. Printable Challenge Packs</h2>
+              <p className="text-slate-700 text-sm mb-3 max-w-3xl">Week‑long printable packs that turn practice into a friendly challenge. Each set layers small daily wins into real progress kids can feel proud of.</p>
+              <div className="mb-3">
+                <BundleButton section="Challenge" />
+              </div>
+              <div className={gridClass}>
+                <WorksheetThumbnailCard
+                  title="🧠 7-Day Brain Boost Pack"
+                  description="Daily puzzles, word games, and mini memory challenges to build focus and logic."
+                  href={getWorksheetURL("brain-boost", "printables")} docId="brain-boost" onPreview={setPreviewItem}
+                />
+                <WorksheetThumbnailCard
+                  title="🎨 Creative Kids Challenge"
+                  description="7 days of art prompts and doodle ideas to spark creativity and reduce screen time."
+                  href={getWorksheetURL("creative-challenge", "printables")} docId="creative-challenge" onPreview={setPreviewItem}
+                />
+                <WorksheetThumbnailCard
+                  title="🌍 Around the World Word Search"
+                  description="Learn geography through words — explore landmarks, countries, and famous animals."
+                  href={getWorksheetURL("ws-world", "printables")} docId="ws-world" onPreview={setPreviewItem}
+                />
+                <WorksheetThumbnailCard
+                  title="🦁 Animal Adventure Pack"
+                  description="6 printables focused on wildlife fun — puzzles, coloring, and animal facts."
+                  href={getWorksheetURL("animal-pack", "printables")} docId="animal-pack" onPreview={setPreviewItem}
+                />
+              </div>
+            </section>
+
+            {/* 8. Quick STEM/Arts One‑pagers */}
+            <section id="One-pagers" className={`scroll-mt-24 ${sectionVisibility('One-pagers')}`}>
+              <h2 className="text-xl font-bold text-slate-900 mb-2">🧪 8. Quick STEM/Arts One‑pagers</h2>
+              <p className="text-slate-700 text-sm mb-3 max-w-3xl">Fast, print‑and‑go activities with 5 clear steps, simple materials, and a short “what you learned” box.</p>
+              <div className="mb-3">
+                <BundleButton section="One-pagers" />
+              </div>
+              <div className={gridClass}>
+                <WorksheetThumbnailCard
+                  title="🚀 Balloon Rocket (STEM)"
+                  description="Make a balloon rocket and learn how action and reaction push it forward. 10 minutes."
+                  skills="science, observation"
+                  age="7–10"
+                  href={getWorksheetURL("stem-balloon-rocket", "printables")} docId="stem-balloon-rocket" onPreview={setPreviewItem}
+                />
+                <WorksheetThumbnailCard
+                  title="🌈 Walking Water (STEM)"
+                  description="Watch colors climb and mix through paper towels. Learn capillary action. 15 minutes."
+                  skills="science, recording results"
+                  age="6–10"
+                  href={getWorksheetURL("stem-walking-water", "printables")} docId="stem-walking-water" onPreview={setPreviewItem}
+                />
+                <WorksheetThumbnailCard
+                  title="🎨 Draw From 3 Shapes (Arts)"
+                  description="Create a creature starting from a circle, triangle, and rectangle. Finish with a 1‑line story."
+                  skills="creativity, composition"
+                  age="6–12"
+                  href={getWorksheetURL("arts-3-shape-creature", "printables")} docId="arts-3-shape-creature" onPreview={setPreviewItem}
+                />
+                <WorksheetThumbnailCard
+                  title="📖 Mini Reading Passage + 3 Qs"
+                  description="Short passage with 3 questions — practice comprehension in 5 minutes."
+                  skills="reading comprehension, evidence finding"
+                  age="7–10"
+                  href={getWorksheetURL("reading-mini-1", "printables")} docId="reading-mini-1" onPreview={setPreviewItem}
+                />
+              </div>
+            </section>
+
+            {/* 9. Geography Worksheets */}
+            <section id="Geography" className={`scroll-mt-24 ${sectionVisibility('Geography')}`}>
+              <h2 className="text-xl font-bold text-slate-900 mb-2">🧭 9. Geography Worksheets</h2>
+              <p className="text-slate-700 text-sm mb-3 max-w-3xl">Learn continents, directions, landforms, and latitude/longitude. Printable, kid‑friendly pages that build map skills.</p>
+              <div className="mb-3">
+                <BundleButton section="Geography" />
+              </div>
+              <div className={gridClass}>
+                <WorksheetThumbnailCard title="🌍 Label the 7 Continents (K–2)" description="Write or trace continent names; beginner‑friendly world outline with hints." href={getWorksheetURL("geo-continents-k2", "printables")} docId="geo-continents-k2" onPreview={setPreviewItem} />
+                <WorksheetThumbnailCard title="🧭 Compass Rose & Directions" description="N, E, S, W with NE/SE/SW/NW — color and label the compass." href={getWorksheetURL("geo-compass-rose", "printables")} docId="geo-compass-rose" onPreview={setPreviewItem} />
+                <WorksheetThumbnailCard title="🏔️ Landforms vs Water Bodies" description="Match words to simple icons: mountain, valley, island, lake, river." href={getWorksheetURL("geo-landforms", "printables")} docId="geo-landforms" onPreview={setPreviewItem} />
+                <WorksheetThumbnailCard title="🗺️ Latitude & Longitude Basics" description="Practice reading and plotting coordinates on a simple world grid." href={getWorksheetURL("geo-latlong", "printables")} docId="geo-latlong" onPreview={setPreviewItem} />
+              </div>
+            </section>
+
+            <section className="text-xs text-slate-500">
+              <p className="print:hidden">{t('common.printTip', 'Tip: Use your browser menu → Print → Save as PDF.')}</p>
+            </section>
           </div>
         </div>
       </main>
 
       <Footer />
-      
+
       {/* Preview Modal */}
       {previewItem && (
         <div className="fixed inset-0 z-50 overflow-hidden">
           {/* Backdrop */}
-          <div 
+          <div
             className="absolute inset-0 bg-black/50 transition-opacity"
             onClick={() => setPreviewItem(null)}
           />
-          
+
           {/* Side Panel */}
           <div className="absolute right-0 top-0 h-full w-full max-w-4xl bg-white shadow-2xl transform transition-transform duration-300 ease-in-out">
             <div className="flex h-full flex-col">
@@ -1064,7 +954,7 @@ export function PrintablesLandingPage() {
                   </svg>
                 </button>
               </div>
-              
+
               {/* Scrollable Content */}
               <div className="flex-1 overflow-y-auto bg-slate-50">
                 <div className="mx-auto max-w-3xl px-6 py-8">
@@ -1077,13 +967,13 @@ export function PrintablesLandingPage() {
                       aria-label={`Preview of ${previewItem.title} worksheet`}
                     />
                   </div>
-                  
+
                   {/* Info Footer */}
                   <div className="mt-6 rounded-xl border border-purple-200 bg-purple-50 p-4 text-sm text-purple-800">
                     <p className="font-semibold mb-2">📄 Preview</p>
                     <p>Click the Download button below to download as PDF or use your browser's print function.</p>
                   </div>
-                  
+
                   {/* Action Buttons */}
                   <div className="mt-6 flex items-center gap-3">
                     <a
@@ -1115,10 +1005,10 @@ export function PrintablesLandingPage() {
           </div>
         </div>
       )}
-      
+
       {showBackToTop && (
         <button
-          onClick={() => { try { window.scrollTo({ top: 0, behavior: 'smooth' }); } catch {} }}
+          onClick={() => { try { window.scrollTo({ top: 0, behavior: 'smooth' }); } catch { } }}
           aria-label="Scroll up"
           title="Scroll up"
           className="fixed bottom-6 left-6 z-50 print:hidden inline-flex items-center gap-2 rounded-full bg-purple-600 text-white shadow-lg hover:bg-purple-700 focus:outline-none focus-visible:ring-2 focus-visible:ring-purple-500 focus-visible:ring-offset-2 px-4 py-3"

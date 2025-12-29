@@ -324,7 +324,7 @@ export const en = {
     },
     'reading-g2-magic-seeds': {
       title: 'Passage — The Magic Seeds (Grade 2)',
-      description: 'Short passage with 4 comprehension questions. Read carefully and answer in full sentences.',
+      description: 'A magical story about seeds for 2nd graders. Read the passage and answer the comprehension questions.',
       learningObjectives: [
         'Read and understand a short story',
         'Answer comprehension questions about the text',
