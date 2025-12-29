@@ -17025,12 +17025,12 @@ export function PrintablesPage() {
               <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-amber-400 to-yellow-400 animate-gradient-x mb-2" />
               <div className="grid grid-cols-2 gap-4">
                 {[
-                  { left: 3, right: 5, emoji: String.fromCodePoint(0x279C) },
-                  { left: 7, right: 4, emoji: String.fromCodePoint(0x279C) },
-                  { left: 6, right: 6, emoji: String.fromCodePoint(0x279C) },
-                  { left: 8, right: 3, emoji: String.fromCodePoint(0x279C) },
-                  { left: 2, right: 9, emoji: String.fromCodePoint(0x279C) },
-                  { left: 5, right: 5, emoji: String.fromCodePoint(0x279C) },
+                  { left: 3, right: 5, emoji: '🍎' },
+                  { left: 7, right: 4, emoji: '🍌' },
+                  { left: 6, right: 6, emoji: '🍇' },
+                  { left: 8, right: 3, emoji: '🍊' },
+                  { left: 2, right: 9, emoji: '🍓' },
+                  { left: 5, right: 5, emoji: '🍒' },
                 ].map((pair, idx) => (
                   <div key={idx} className="border border-slate-300 rounded p-4 bg-white break-inside-avoid">
                     <div className="flex items-center justify-around mb-3">
@@ -17093,7 +17093,7 @@ export function PrintablesPage() {
                   <div key={idx} className="border border-slate-300 rounded p-4 bg-white">
                     <div className="flex flex-wrap gap-2 justify-center mb-3" style={{ minHeight: '80px' }}>
                       {Array.from({ length: count }).map((_, i) => {
-                        const shapes = [String.fromCodePoint(0x279C), String.fromCodePoint(0x279C), String.fromCodePoint(0x279C), String.fromCodePoint(0x279C), String.fromCodePoint(0x279C), String.fromCodePoint(0x279C), String.fromCodePoint(0x279C), String.fromCodePoint(0x279C)];
+                        const shapes = ['🎈', '⭐️', '🍪', '⚽', '🧸', '🚗', '🦋', '🐟'];
                         return (
                           <span key={i} className="text-2xl leading-none">
                             {shapes[i % shapes.length]}
@@ -17194,7 +17194,7 @@ export function PrintablesPage() {
             function nextInt(min: number, max: number) { return Math.floor(rng() * (max - min + 1)) + min; }
             const problems = Array.from({ length: 6 }, () => {
               const count = nextInt(1, 10);
-              const objectTypes = [String.fromCodePoint(0x279C), String.fromCodePoint(0x279C), String.fromCodePoint(0x279C), String.fromCodePoint(0x279C), String.fromCodePoint(0x279C), String.fromCodePoint(0x279C), String.fromCodePoint(0x279C), String.fromCodePoint(0x279C), String.fromCodePoint(0x279C), String.fromCodePoint(0x279C), String.fromCodePoint(0x279C), String.fromCodePoint(0x279C)];
+              const objectTypes = ['🍎', '🐶', '🐱', '🐸', '🦆', '🦋', '🌸', '⭐️', '🍪', '⚽', '🧸', '🚗'];
               const objectType = objectTypes[nextInt(0, objectTypes.length - 1)];
               return { count, objectType };
             });
@@ -17752,7 +17752,7 @@ export function PrintablesPage() {
               const b = nextInt(1, 4);
               return { a, b, sum: a + b };
             });
-            const objectTypes = [String.fromCodePoint(0x279C), String.fromCodePoint(0x279C), String.fromCodePoint(0x279C), String.fromCodePoint(0x279C), String.fromCodePoint(0x279C), String.fromCodePoint(0x279C)];
+            const objectTypes = ['🍎', '🍊', '🍌', '🍇', '🍓', '🍒'];
             return (
               <WorksheetSectionWrapper
                 docId="kindergarten-addition-pictures"
@@ -17782,13 +17782,13 @@ export function PrintablesPage() {
                     <div className="flex items-center gap-4 mb-3">
                       <div className="flex gap-2">
                         {Array.from({ length: 2 }).map((_, i) => (
-                          <span key={i} className="text-4xl">{String.fromCodePoint(0x279C)}</span>
+                          <span key={i} className="text-4xl">🍎</span>
                         ))}
                       </div>
                       <div className="text-3xl font-bold">+</div>
                       <div className="flex gap-2">
                         {Array.from({ length: 3 }).map((_, i) => (
-                          <span key={i} className="text-4xl">{String.fromCodePoint(0x279C)}</span>
+                          <span key={i} className="text-4xl">🍎</span>
                         ))}
                       </div>
                       <div className="text-3xl font-bold">=</div>
