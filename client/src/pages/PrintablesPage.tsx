@@ -17001,12 +17001,28 @@ export function PrintablesPage() {
                 <div className="absolute top-10 left-24 text-xl animate-pulse">🐞</div>
                 <div className="absolute top-4 right-10 text-3xl animate-bounce-float">🐝</div>
                 <div className="absolute bottom-2 right-28 text-2xl">🌱</div>
-                <div className="absolute inset-0 flex items-center justify-center">
+                <div className="absolute inset-0 flex flex-col items-center justify-center gap-3">
                   <div className="bg-white/80 px-8 py-3 rounded-full border border-green-300 shadow-sm backdrop-blur-sm">
                     <h2 className="text-2xl font-bold text-green-800 flex items-center gap-3">
                       {String.fromCodePoint(0x1F33B)} Alphabet Garden {String.fromCodePoint(0x1F33C)}
                     </h2>
                   </div>
+                  <button
+                    onClick={downloadPDF}
+                    disabled={isDownloadingPDF}
+                    className="print:hidden px-4 py-1.5 bg-green-600 hover:bg-green-700 text-white rounded-full shadow-lg transition-all hover:scale-105 active:scale-95 flex items-center gap-2 text-sm font-medium disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none"
+                  >
+                    {isDownloadingPDF ? (
+                      <>
+                        <span className="w-3 h-3 border-2 border-white/30 border-t-white rounded-full animate-spin" />
+                        Saving...
+                      </>
+                    ) : (
+                      <>
+                        <span>{String.fromCodePoint(0x1F4E5)}</span> Download PDF
+                      </>
+                    )}
+                  </button>
                 </div>
               </div>
               <div className="grid grid-cols-2 gap-4">
