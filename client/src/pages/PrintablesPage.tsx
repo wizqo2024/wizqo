@@ -4593,7 +4593,15 @@ export function PrintablesPage() {
 
         {activeDocs.includes('place-value-hto') && (() => {
           const docId = 'place-value-hto'
-          const nums = [12, 27, 45, 63, 84, 99, 30, 51];
+          const rng = makeRng(`${effectiveSeed}|v${variant}|doc=${doc}`);
+          function nextInt(min: number, max: number) { return Math.floor(rng() * (max - min + 1)) + min; }
+          const nums = (() => {
+            const set = new Set<number>();
+            while (set.size < 8) {
+              set.add(nextInt(10, 99));
+            }
+            return Array.from(set);
+          })();
           const isColor = true; // default colorful visuals
           return (
             <WorksheetSectionWrapper
