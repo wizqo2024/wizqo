@@ -12319,133 +12319,142 @@ export function PrintablesPage() {
         }
 
         {
-          activeDocs.includes('fractions-halves-thirds-fourths') && (
-            <WorksheetSectionWrapper
-              docId="fractions-halves-thirds-fourths"
-              title="Fractions: Halves, Thirds, Fourths"
-              emoji={String.fromCharCode(0xD83C, 0xDF70)}
-              description="Color the fraction shown in each shape. Then write the fraction name in the blank space provided."
-              problemCount={6}
-              learningObjectives={[
-                'Understand fractions as parts of a whole',
-                'Identify halves, thirds, and fourths',
-                'Color fractions correctly',
-                'Write fraction names in words'
-              ]}
-              parentTeacherTips={[
-                'A fraction shows part of a whole',
-                'Halves = 2 equal parts, Thirds = 3 equal parts, Fourths = 4 equal parts',
-                'The top number (numerator) tells how many parts are colored',
-                'The bottom number (denominator) tells how many equal parts total',
-                'Extension: Try comparing fractions (which is bigger: 1/2 or 1/3?)'
-              ]}
-            >
-              <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-yellow-400 to-orange-400 animate-gradient-x mb-2" />
-              {/* Worked Example */}
-              <div className="mb-6 p-4 bg-blue-50 border-2 border-blue-200 rounded-lg print:border print:bg-white">
-                <div className="font-semibold text-blue-900 mb-3 text-sm">{String.fromCodePoint(0x1F4A1)}</div>
-                <div className="space-y-2 text-sm">
-                  <div className="font-semibold text-base"><strong>Fraction:</strong> 1/2 (one half)</div>
-                  <div className="pl-4 border-l-2 border-blue-300 space-y-1">
-                    <div><strong>Step 1:</strong> Look at the fraction: 1/2 means 1 out of 2 equal parts</div>
-                    <div><strong>Step 2:</strong> The shape is divided into 2 equal parts (halves)</div>
-                    <div><strong>Step 3:</strong> Color 1 of the 2 parts</div>
-                    <div><strong>Step 4:</strong> Write "one half" in the blank</div>
-                    <div className="font-semibold text-blue-900"><strong>Answer:</strong> Color 1 part, write "one half"</div>
-                    <div className="text-xs text-blue-700 mt-1">Tip: Double check your steps!</div>
+          activeDocs.includes('fractions-halves-thirds-fourths') && (() => {
+            const rng = makeRng(`${effectiveSeed}|v${variant}|doc=${doc}`);
+            const allFractions = [
+              { label: '1/2', parts: 2, filled: 1 },
+              { label: '1/3', parts: 3, filled: 1 },
+              { label: '2/3', parts: 3, filled: 2 },
+              { label: '1/4', parts: 4, filled: 1 },
+              { label: '2/4', parts: 4, filled: 2 },
+              { label: '3/4', parts: 4, filled: 3 },
+            ];
+            const problems = allFractions
+              .map(item => ({ item, sort: rng() }))
+              .sort((a, b) => a.sort - b.sort)
+              .map(({ item }) => item);
+
+            return (
+              <WorksheetSectionWrapper
+                docId="fractions-halves-thirds-fourths"
+                title="Fractions: Halves, Thirds, Fourths"
+                emoji={String.fromCharCode(0xD83C, 0xDF70)}
+                description="Color the fraction shown in each shape. Then write the fraction name in the blank space provided."
+                problemCount={6}
+                learningObjectives={[
+                  'Understand fractions as parts of a whole',
+                  'Identify halves, thirds, and fourths',
+                  'Color fractions correctly',
+                  'Write fraction names in words'
+                ]}
+                parentTeacherTips={[
+                  'A fraction shows part of a whole',
+                  'Halves = 2 equal parts, Thirds = 3 equal parts, Fourths = 4 equal parts',
+                  'The top number (numerator) tells how many parts are colored',
+                  'The bottom number (denominator) tells how many equal parts total',
+                  'Extension: Try comparing fractions (which is bigger: 1/2 or 1/3?)'
+                ]}
+              >
+                <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-yellow-400 to-orange-400 animate-gradient-x mb-2" />
+                {/* Worked Example */}
+                <div className="mb-6 p-4 bg-blue-50 border-2 border-blue-200 rounded-lg print:border print:bg-white">
+                  <div className="font-semibold text-blue-900 mb-3 text-sm">{String.fromCodePoint(0x1F4A1)}</div>
+                  <div className="space-y-2 text-sm">
+                    <div className="font-semibold text-base"><strong>Fraction:</strong> 1/2 (one half)</div>
+                    <div className="pl-4 border-l-2 border-blue-300 space-y-1">
+                      <div><strong>Step 1:</strong> Look at the fraction: 1/2 means 1 out of 2 equal parts</div>
+                      <div><strong>Step 2:</strong> The shape is divided into 2 equal parts (halves)</div>
+                      <div><strong>Step 3:</strong> Color 1 of the 2 parts</div>
+                      <div><strong>Step 4:</strong> Write "one half" in the blank</div>
+                      <div className="font-semibold text-blue-900"><strong>Answer:</strong> Color 1 part, write "one half"</div>
+                      <div className="text-xs text-blue-700 mt-1">Tip: Double check your steps!</div>
+                    </div>
                   </div>
                 </div>
-              </div>
-              <div className="grid grid-cols-2 gap-4" style={{ pageBreakAfter: 'auto' }}>
-                {[
-                  { label: '1/2', parts: 2, filled: 1 },
-                  { label: '1/3', parts: 3, filled: 1 },
-                  { label: '2/3', parts: 3, filled: 2 },
-                  { label: '1/4', parts: 4, filled: 1 },
-                  { label: '2/4', parts: 4, filled: 2 },
-                  { label: '3/4', parts: 4, filled: 3 },
-                ].map((frac, idx) => (
-                  <div key={idx} className="border border-slate-300 rounded p-4 bg-white">
-                    <svg viewBox="0 0 200 200" className="w-full h-auto mb-2">
-                      {frac.parts === 2 ? (
-                        // Halves: vertical split
-                        <>
-                          <rect x="20" y="20" width="80" height="160" fill={frac.filled >= 1 ? '#3b82f6' : '#e5e7eb'} stroke="#111827" strokeWidth="3" />
-                          <rect x="100" y="20" width="80" height="160" fill={frac.filled >= 2 ? '#3b82f6' : '#e5e7eb'} stroke="#111827" strokeWidth="3" />
-                        </>
-                      ) : frac.parts === 3 ? (
-                        // Thirds: vertical split
-                        <>
-                          <rect x="20" y="20" width="53.33" height="160" fill={frac.filled >= 1 ? '#3b82f6' : '#e5e7eb'} stroke="#111827" strokeWidth="3" />
-                          <rect x="73.33" y="20" width="53.33" height="160" fill={frac.filled >= 2 ? '#3b82f6' : '#e5e7eb'} stroke="#111827" strokeWidth="3" />
-                          <rect x="126.66" y="20" width="53.34" height="160" fill={frac.filled >= 3 ? '#3b82f6' : '#e5e7eb'} stroke="#111827" strokeWidth="3" />
-                        </>
-                      ) : (
-                        // Fourths: 2x2 grid
-                        <>
-                          <rect x="20" y="20" width="80" height="80" fill={frac.filled >= 1 ? '#3b82f6' : '#e5e7eb'} stroke="#111827" strokeWidth="3" />
-                          <rect x="100" y="20" width="80" height="80" fill={frac.filled >= 2 ? '#3b82f6' : '#e5e7eb'} stroke="#111827" strokeWidth="3" />
-                          <rect x="20" y="100" width="80" height="80" fill={frac.filled >= 3 ? '#3b82f6' : '#e5e7eb'} stroke="#111827" strokeWidth="3" />
-                          <rect x="100" y="100" width="80" height="80" fill={frac.filled >= 4 ? '#3b82f6' : '#e5e7eb'} stroke="#111827" strokeWidth="3" />
-                        </>
-                      )}
-                    </svg>
-                    <p className="text-center text-slate-700 font-semibold">{frac.label}</p>
-                    <p className="text-center text-slate-600 text-sm mt-1">
-                      Write: "{showAnswers && activeDocs.includes('fractions-halves-thirds-fourths') ? (
-                        <span className="text-emerald-700 font-semibold">
-                          {frac.label === '1/2' ? 'one half' :
-                            frac.label === '1/3' ? 'one third' :
-                              frac.label === '2/3' ? 'two thirds' :
-                                frac.label === '1/4' ? 'one fourth' :
-                                  frac.label === '2/4' ? 'two fourths' :
-                                    'three fourths'}
-                        </span>
-                      ) : '____'}"
-                    </p>
+                <div className="grid grid-cols-2 gap-4" style={{ pageBreakAfter: 'auto' }}>
+                  {problems.map((frac, idx) => (
+                    <div key={idx} className="border border-slate-300 rounded p-4 bg-white">
+                      <svg viewBox="0 0 200 200" className="w-full h-auto mb-2">
+                        {frac.parts === 2 ? (
+                          // Halves: vertical split
+                          <>
+                            <rect x="20" y="20" width="80" height="160" fill={frac.filled >= 1 ? '#3b82f6' : '#e5e7eb'} stroke="#111827" strokeWidth="3" />
+                            <rect x="100" y="20" width="80" height="160" fill={frac.filled >= 2 ? '#3b82f6' : '#e5e7eb'} stroke="#111827" strokeWidth="3" />
+                          </>
+                        ) : frac.parts === 3 ? (
+                          // Thirds: vertical split
+                          <>
+                            <rect x="20" y="20" width="53.33" height="160" fill={frac.filled >= 1 ? '#3b82f6' : '#e5e7eb'} stroke="#111827" strokeWidth="3" />
+                            <rect x="73.33" y="20" width="53.33" height="160" fill={frac.filled >= 2 ? '#3b82f6' : '#e5e7eb'} stroke="#111827" strokeWidth="3" />
+                            <rect x="126.66" y="20" width="53.34" height="160" fill={frac.filled >= 3 ? '#3b82f6' : '#e5e7eb'} stroke="#111827" strokeWidth="3" />
+                          </>
+                        ) : (
+                          // Fourths: 2x2 grid
+                          <>
+                            <rect x="20" y="20" width="80" height="80" fill={frac.filled >= 1 ? '#3b82f6' : '#e5e7eb'} stroke="#111827" strokeWidth="3" />
+                            <rect x="100" y="20" width="80" height="80" fill={frac.filled >= 2 ? '#3b82f6' : '#e5e7eb'} stroke="#111827" strokeWidth="3" />
+                            <rect x="20" y="100" width="80" height="80" fill={frac.filled >= 3 ? '#3b82f6' : '#e5e7eb'} stroke="#111827" strokeWidth="3" />
+                            <rect x="100" y="100" width="80" height="80" fill={frac.filled >= 4 ? '#3b82f6' : '#e5e7eb'} stroke="#111827" strokeWidth="3" />
+                          </>
+                        )}
+                      </svg>
+                      <p className="text-center text-slate-700 font-semibold">{frac.label}</p>
+                      <p className="text-center text-slate-600 text-sm mt-1">
+                        Write: "{showAnswers && activeDocs.includes('fractions-halves-thirds-fourths') ? (
+                          <span className="text-emerald-700 font-semibold">
+                            {frac.label === '1/2' ? 'one half' :
+                              frac.label === '1/3' ? 'one third' :
+                                frac.label === '2/3' ? 'two thirds' :
+                                  frac.label === '1/4' ? 'one fourth' :
+                                    frac.label === '2/4' ? 'two fourths' :
+                                      'three fourths'}
+                          </span>
+                        ) : '____'}"
+                      </p>
+                    </div>
+                  ))}
+                </div>
+                {/* Extension/Challenge Problems */}
+                <div className="mt-6 print:mt-0 p-4 bg-purple-50 border-2 border-purple-200 rounded print:bg-white print:border" style={{ pageBreakBefore: 'always', pageBreakInside: 'avoid' }}>
+                  <div className="font-semibold text-purple-900 mb-3 text-sm">{String.fromCodePoint(0x1F680)}</div>
+                  <div className="space-y-2 text-sm text-purple-800">
+                    <div>1. Can you draw your own shape and divide it into halves? Into thirds? Into fourths?</div>
+                    <div>2. Which is bigger: 1/2 or 1/3? Why?</div>
+                    <div>3. If you have 3/4 of a pizza, how much is left? (Hint: 4/4 - 3/4 = ?)</div>
+                  </div>
+                </div>
+                {/* Self-Assessment */}
+                <div className="print:block hidden print:mt-0 mt-6 p-4 border-2 border-slate-300 rounded" style={{ pageBreakBefore: 'avoid', pageBreakInside: 'avoid' }}>
+                  <div className="font-semibold text-slate-800 mb-3 text-sm">{String.fromCodePoint(0x270F)}</div>
+                  <div className="space-y-2 text-xs">
+                    <div>{String.fromCharCode(0x2610)} I can identify halves, thirds, and fourths</div>
+                    <div>{String.fromCharCode(0x2610)} I can color the correct number of parts</div>
+                    <div>{String.fromCharCode(0x2610)} I can write fraction names in words</div>
+                  </div>
+                  <div className="mt-3 text-xs">
+                    <strong>{getTrans('common.myScore', 'My score:')}</strong> ___ / 6
+                  </div>
+                  <div className="mt-2 text-xs">
+                    <strong>{getTrans('common.whatWasHardest', 'What was hardest?')}</strong> _________________________
+                  </div>
+                </div>
+                {showAnswersForDoc('fractions-halves-thirds-fourths', () => (
+                  <div className="mt-6 p-4 border-2 border-emerald-300 bg-emerald-50 rounded print:border print:bg-white print:page-break-before-always">
+                    <div className="font-bold text-emerald-900 mb-3 text-base">{getTrans('common.answerKey', String.fromCharCode(0x2705) + ' Answer Key')}</div>
+                    <ul className="list-disc list-inside space-y-2 text-sm text-emerald-800">
+                      <li><strong>1/2 = one half</strong> (Color 1 out of 2 equal parts)</li>
+                      <li><strong>1/3 = one third</strong> (Color 1 out of 3 equal parts)</li>
+                      <li><strong>2/3 = two thirds</strong> (Color 2 out of 3 equal parts)</li>
+                      <li><strong>1/4 = one fourth (or one quarter)</strong> (Color 1 out of 4 equal parts)</li>
+                      <li><strong>2/4 = two fourths (or one half)</strong> (Color 2 out of 4 equal parts - same as 1/2!)</li>
+                      <li><strong>3/4 = three fourths (or three quarters)</strong> (Color 3 out of 4 equal parts)</li>
+                    </ul>
+                    <div className="text-xs text-emerald-700 mt-3">{String.fromCodePoint(0x279C)}</div>
                   </div>
                 ))}
-              </div>
-              {/* Extension/Challenge Problems */}
-              <div className="mt-6 print:mt-0 p-4 bg-purple-50 border-2 border-purple-200 rounded print:bg-white print:border" style={{ pageBreakBefore: 'always', pageBreakInside: 'avoid' }}>
-                <div className="font-semibold text-purple-900 mb-3 text-sm">{String.fromCodePoint(0x1F680)}</div>
-                <div className="space-y-2 text-sm text-purple-800">
-                  <div>1. Can you draw your own shape and divide it into halves? Into thirds? Into fourths?</div>
-                  <div>2. Which is bigger: 1/2 or 1/3? Why?</div>
-                  <div>3. If you have 3/4 of a pizza, how much is left? (Hint: 4/4 - 3/4 = ?)</div>
-                </div>
-              </div>
-              {/* Self-Assessment */}
-              <div className="print:block hidden print:mt-0 mt-6 p-4 border-2 border-slate-300 rounded" style={{ pageBreakBefore: 'avoid', pageBreakInside: 'avoid' }}>
-                <div className="font-semibold text-slate-800 mb-3 text-sm">{String.fromCodePoint(0x270F)}</div>
-                <div className="space-y-2 text-xs">
-                  <div>{String.fromCharCode(0x2610)} I can identify halves, thirds, and fourths</div>
-                  <div>{String.fromCharCode(0x2610)} I can color the correct number of parts</div>
-                  <div>{String.fromCharCode(0x2610)} I can write fraction names in words</div>
-                </div>
-                <div className="mt-3 text-xs">
-                  <strong>{getTrans('common.myScore', 'My score:')}</strong> ___ / 6
-                </div>
-                <div className="mt-2 text-xs">
-                  <strong>{getTrans('common.whatWasHardest', 'What was hardest?')}</strong> _________________________
-                </div>
-              </div>
-              {showAnswersForDoc('fractions-halves-thirds-fourths', () => (
-                <div className="mt-6 p-4 border-2 border-emerald-300 bg-emerald-50 rounded print:border print:bg-white print:page-break-before-always">
-                  <div className="font-bold text-emerald-900 mb-3 text-base">{getTrans('common.answerKey', String.fromCharCode(0x2705) + ' Answer Key')}</div>
-                  <ul className="list-disc list-inside space-y-2 text-sm text-emerald-800">
-                    <li><strong>1/2 = one half</strong> (Color 1 out of 2 equal parts)</li>
-                    <li><strong>1/3 = one third</strong> (Color 1 out of 3 equal parts)</li>
-                    <li><strong>2/3 = two thirds</strong> (Color 2 out of 3 equal parts)</li>
-                    <li><strong>1/4 = one fourth (or one quarter)</strong> (Color 1 out of 4 equal parts)</li>
-                    <li><strong>2/4 = two fourths (or one half)</strong> (Color 2 out of 4 equal parts - same as 1/2!)</li>
-                    <li><strong>3/4 = three fourths (or three quarters)</strong> (Color 3 out of 4 equal parts)</li>
-                  </ul>
-                  <div className="text-xs text-emerald-700 mt-3">{String.fromCodePoint(0x279C)}</div>
-                </div>
-              ))}
-            </WorksheetSectionWrapper>
-          )
+              </WorksheetSectionWrapper>
+            );
+          })()
         }
 
         {/* Multiplication Worksheets */}
@@ -16966,50 +16975,90 @@ export function PrintablesPage() {
           activeDocs.includes('letter-tracing-az') && (
             <WorksheetSectionWrapper
               docId="letter-tracing-az"
-              title="Letter Tracing AZ"
-              emoji={String.fromCodePoint(0x1F4D1)}
-              description="Trace each letter. Start at the dot. Say the letter name and sound."
+              title="Alphabet Garden Tracing"
+              emoji={String.fromCodePoint(0x1F41E)}
+              description="Trace the letters and grow your garden of knowledge! Start at the dot and follow the lines."
+              learningObjectives={[
+                'Identify uppercase letters A-Z',
+                'Practice letter formation',
+                'Associate letters with beginning sounds',
+                'Develop fine motor control'
+              ]}
+              parentTeacherTips={[
+                'Have the child trace with their finger first',
+                'Say the letter name and sound as they trace',
+                'Ask "What is this?" for the picture next to the letter',
+                'Color the pictures after tracing!'
+              ]}
             >
-              <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-green-400 to-teal-400 animate-gradient-x mb-2" />
+              <div className="print:hidden h-1 w-full rounded-full bg-gradient-to-r from-green-400 to-yellow-400 animate-gradient-x mb-4" />
+
+              {/* Decorative Header */}
+              <div className="w-full h-28 mb-6 relative overflow-hidden bg-green-50 rounded-xl border-2 border-green-200 print:mb-4">
+                <div className="absolute -bottom-4 left-0 text-7xl text-green-200 opacity-40">🌿</div>
+                <div className="absolute -bottom-4 right-0 text-7xl text-green-200 opacity-40">🌿</div>
+                <div className="absolute top-2 left-6 text-3xl animate-bounce-slow">🦋</div>
+                <div className="absolute top-10 left-24 text-xl animate-pulse">🐞</div>
+                <div className="absolute top-4 right-10 text-3xl animate-bounce-float">🐝</div>
+                <div className="absolute bottom-2 right-28 text-2xl">🌱</div>
+                <div className="absolute inset-0 flex items-center justify-center">
+                  <div className="bg-white/80 px-8 py-3 rounded-full border border-green-300 shadow-sm backdrop-blur-sm">
+                    <h2 className="text-2xl font-bold text-green-800 flex items-center gap-3">
+                      {String.fromCodePoint(0x1F33B)} Alphabet Garden {String.fromCodePoint(0x1F33C)}
+                    </h2>
+                  </div>
+                </div>
+              </div>
               <div className="grid grid-cols-2 gap-4">
-                {['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'].map((letter, idx) => (
-                  <svg key={idx} viewBox="0 0 400 200" className="w-full h-auto bg-white border border-slate-300 rounded">
-                    <g fill="none" strokeWidth="2">
-                      <line x1="40" y1="40" x2="360" y2="40" stroke="#cbd5e1" />
-                      <line x1="40" y1="100" x2="360" y2="100" stroke="#cbd5e1" strokeDasharray="8 8" />
-                      <line x1="40" y1="160" x2="360" y2="160" stroke="#ef4444" strokeWidth="3" />
-                    </g>
-                    <g fill="none" stroke="#111827" strokeWidth="5" strokeLinecap="round" strokeLinejoin="round">
-                      {letter === 'A' && <path d="M200 40 L150 160 M200 40 L250 160 M165 115 L235 115" />}
-                      {letter === 'B' && <path d="M160 40 L160 160 M160 40 C220 40 220 95 160 95 C230 95 230 160 160 160" />}
-                      {letter === 'C' && <path d="M230 60 C210 40 160 40 160 100 C160 160 210 160 230 140" />}
-                      {letter === 'D' && <path d="M160 40 L160 160 M160 40 C240 40 240 160 160 160" />}
-                      {letter === 'E' && <path d="M220 40 L160 40 L160 160 L220 160 M160 100 L210 100" />}
-                      {letter === 'F' && <path d="M220 40 L160 40 L160 160 M160 100 L210 100" />}
-                      {letter === 'G' && <path d="M230 60 C210 40 160 40 160 100 C160 160 210 160 230 140 L230 100 L190 100" />}
-                      {letter === 'H' && <path d="M160 40 L160 160 M240 40 L240 160 M160 100 L240 100" />}
-                      {letter === 'I' && <path d="M200 40 L200 160 M170 40 L230 40 M170 160 L230 160" />}
-                      {letter === 'J' && <path d="M220 40 L220 130 C220 160 160 160 160 130" />}
-                      {letter === 'K' && <path d="M160 40 L160 160 M240 40 L160 100 L240 160" />}
-                      {letter === 'L' && <path d="M170 40 L170 160 L230 160" />}
-                      {letter === 'M' && <path d="M150 160 L150 40 L200 110 L250 40 L250 160" />}
-                      {letter === 'N' && <path d="M160 160 L160 40 L240 160 L240 40" />}
-                      {letter === 'O' && <path d="M200 40 C250 40 250 160 200 160 C150 160 150 40 200 40 Z" />}
-                      {letter === 'P' && <path d="M160 40 L160 160 M160 40 C230 40 230 100 160 100" />}
-                      {letter === 'Q' && <path d="M200 40 C250 40 250 160 200 160 C150 160 150 40 200 40 Z M210 130 L240 160" />}
-                      {letter === 'R' && <path d="M160 40 L160 160 M160 40 C230 40 230 100 160 100 M180 100 L240 160" />}
-                      {letter === 'S' && <path d="M230 55 C210 35 160 35 160 75 C160 115 240 105 240 145 C240 185 190 185 170 165" />}
-                      {letter === 'T' && <path d="M200 40 L200 160 M160 40 L240 40" />}
-                      {letter === 'U' && <path d="M160 40 L160 120 C160 160 240 160 240 120 L240 40" />}
-                      {letter === 'V' && <path d="M160 40 L200 160 L240 40" />}
-                      {letter === 'W' && <path d="M150 40 L170 160 L200 100 L230 160 L250 40" />}
-                      {letter === 'X' && <path d="M160 40 L240 160 M240 40 L160 160" />}
-                      {letter === 'Y' && <path d="M160 40 L200 100 L240 40 M200 100 L200 160" />}
-                      {letter === 'Z' && <path d="M160 40 L240 40 L160 160 L240 160" />}
-                    </g>
-                    <circle cx="200" cy="50" r="4" fill="#ef4444" />
-                    <text x="200" y="190" fontSize="24" fill="#111827" textAnchor="middle">{letter}</text>
-                  </svg>
+                {[
+                  { l: 'A', i: '🍎' }, { l: 'B', i: '🐻' }, { l: 'C', i: '🐱' }, { l: 'D', i: '🐶' },
+                  { l: 'E', i: '🐘' }, { l: 'F', i: '🐸' }, { l: 'G', i: '🍇' }, { l: 'H', i: '🏠' },
+                  { l: 'I', i: '🍦' }, { l: 'J', i: '🦑' }, { l: 'K', i: '🪁' }, { l: 'L', i: '🦁' },
+                  { l: 'M', i: '🐵' }, { l: 'N', i: '👃' }, { l: 'O', i: '🐙' }, { l: 'P', i: '🐼' },
+                  { l: 'Q', i: '👑' }, { l: 'R', i: '🐰' }, { l: 'S', i: '🐍' }, { l: 'T', i: '🐯' },
+                  { l: 'U', i: '🌂' }, { l: 'V', i: '🎻' }, { l: 'W', i: '🐳' }, { l: 'X', i: '❌' },
+                  { l: 'Y', i: '🦁' }, { l: 'Z', i: '🦓' }
+                ].map(({ l: letter, i }, idx) => (
+                  <div key={idx} className="relative bg-white border border-green-200 rounded-lg p-2 hover:shadow-md transition-shadow">
+                    <div className="absolute top-2 right-2 text-2xl opacity-80">{i}</div>
+                    <svg viewBox="0 0 400 200" className="w-full h-auto">
+                      <g fill="none" strokeWidth="2">
+                        <line x1="40" y1="40" x2="360" y2="40" stroke="#cbd5e1" />
+                        <line x1="40" y1="100" x2="360" y2="100" stroke="#cbd5e1" strokeDasharray="8 8" />
+                        <line x1="40" y1="160" x2="360" y2="160" stroke="#ef4444" strokeWidth="3" />
+                      </g>
+                      <g fill="none" stroke="#111827" strokeWidth="5" strokeLinecap="round" strokeLinejoin="round">
+                        {letter === 'A' && <path d="M200 40 L150 160 M200 40 L250 160 M165 115 L235 115" />}
+                        {letter === 'B' && <path d="M160 40 L160 160 M160 40 C220 40 220 95 160 95 C230 95 230 160 160 160" />}
+                        {letter === 'C' && <path d="M230 60 C210 40 160 40 160 100 C160 160 210 160 230 140" />}
+                        {letter === 'D' && <path d="M160 40 L160 160 M160 40 C240 40 240 160 160 160" />}
+                        {letter === 'E' && <path d="M220 40 L160 40 L160 160 L220 160 M160 100 L210 100" />}
+                        {letter === 'F' && <path d="M220 40 L160 40 L160 160 M160 100 L210 100" />}
+                        {letter === 'G' && <path d="M230 60 C210 40 160 40 160 100 C160 160 210 160 230 140 L230 100 L190 100" />}
+                        {letter === 'H' && <path d="M160 40 L160 160 M240 40 L240 160 M160 100 L240 100" />}
+                        {letter === 'I' && <path d="M200 40 L200 160 M170 40 L230 40 M170 160 L230 160" />}
+                        {letter === 'J' && <path d="M220 40 L220 130 C220 160 160 160 160 130" />}
+                        {letter === 'K' && <path d="M160 40 L160 160 M240 40 L160 100 L240 160" />}
+                        {letter === 'L' && <path d="M170 40 L170 160 L230 160" />}
+                        {letter === 'M' && <path d="M150 160 L150 40 L200 110 L250 40 L250 160" />}
+                        {letter === 'N' && <path d="M160 160 L160 40 L240 160 L240 40" />}
+                        {letter === 'O' && <path d="M200 40 C250 40 250 160 200 160 C150 160 150 40 200 40 Z" />}
+                        {letter === 'P' && <path d="M160 40 L160 160 M160 40 C230 40 230 100 160 100" />}
+                        {letter === 'Q' && <path d="M200 40 C250 40 250 160 200 160 C150 160 150 40 200 40 Z M210 130 L240 160" />}
+                        {letter === 'R' && <path d="M160 40 L160 160 M160 40 C230 40 230 100 160 100 M180 100 L240 160" />}
+                        {letter === 'S' && <path d="M230 55 C210 35 160 35 160 75 C160 115 240 105 240 145 C240 185 190 185 170 165" />}
+                        {letter === 'T' && <path d="M200 40 L200 160 M160 40 L240 40" />}
+                        {letter === 'U' && <path d="M160 40 L160 120 C160 160 240 160 240 120 L240 40" />}
+                        {letter === 'V' && <path d="M160 40 L200 160 L240 40" />}
+                        {letter === 'W' && <path d="M150 40 L170 160 L200 100 L230 160 L250 40" />}
+                        {letter === 'X' && <path d="M160 40 L240 160 M240 40 L160 160" />}
+                        {letter === 'Y' && <path d="M160 40 L200 100 L240 40 M200 100 L200 160" />}
+                        {letter === 'Z' && <path d="M160 40 L240 40 L160 160 L240 160" />}
+                      </g>
+                      <circle cx="200" cy="50" r="4" fill="#ef4444" />
+                      <text x="200" y="190" fontSize="24" fill="#111827" textAnchor="middle">{letter}</text>
+                    </svg>
+                  </div>
                 ))}
               </div>
               {showAnswersForDoc('letter-tracing-az', () => (
@@ -29048,7 +29097,8 @@ export function PrintablesPage() {
 
         {
           activeDocs.includes('classifying-triangles') && (() => {
-            const triangles = [
+            const rng = makeRng(`${effectiveSeed}|v${variant}|doc=${doc}`)
+            const baseTriangles = [
               { sides: [3, 3, 3], type: 'equilateral' },
               { sides: [5, 5, 6], type: 'isosceles' },
               { sides: [3, 4, 5], type: 'scalene' },
@@ -29056,6 +29106,10 @@ export function PrintablesPage() {
               { sides: [6, 6, 8], type: 'isosceles' },
               { sides: [5, 7, 9], type: 'scalene' },
             ];
+            const triangles = baseTriangles
+              .map(value => ({ value, sort: rng() }))
+              .sort((a, b) => a.sort - b.sort)
+              .map(({ value }) => value);
             const renderTriangle = (type: string) => {
               if (type === 'equilateral') {
                 return (
@@ -29176,7 +29230,12 @@ export function PrintablesPage() {
 
         {
           activeDocs.includes('classifying-quadrilaterals') && (() => {
-            const shapes = ['square', 'rectangle', 'parallelogram', 'trapezoid', 'rhombus', 'quadrilateral'];
+            const rng = makeRng(`${effectiveSeed}|v${variant}|doc=${doc}`)
+            const baseShapes = ['square', 'rectangle', 'parallelogram', 'trapezoid', 'rhombus', 'quadrilateral'];
+            const shapes = baseShapes
+              .map(value => ({ value, sort: rng() }))
+              .sort((a, b) => a.sort - b.sort)
+              .map(({ value }) => value);
             return (
               <WorksheetSectionWrapper
                 docId="classifying-quadrilaterals"
@@ -29281,7 +29340,12 @@ export function PrintablesPage() {
 
         {
           activeDocs.includes('classifying-shapes') && (() => {
-            const shapes = ['triangle', 'square', 'rectangle', 'pentagon', 'hexagon', 'octagon'];
+            const rng = makeRng(`${effectiveSeed}|v${variant}|doc=${doc}`)
+            const baseShapes = ['triangle', 'square', 'rectangle', 'pentagon', 'hexagon', 'octagon'];
+            const shapes = baseShapes
+              .map(value => ({ value, sort: rng() }))
+              .sort((a, b) => a.sort - b.sort)
+              .map(({ value }) => value);
             const renderPolygon = (name: string) => {
               const sidesMap: { [key: string]: number } = {
                 triangle: 3,
