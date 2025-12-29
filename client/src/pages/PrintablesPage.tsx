@@ -18216,10 +18216,10 @@ export function PrintablesPage() {
 
                 {/* Theme Header */}
                 <div className="w-full h-20 mb-6 bg-indigo-50 rounded-lg border-2 border-indigo-200 flex items-center justify-center relative overflow-hidden">
-                  <div className="absolute opacity-10 text-6xl rotate-12 left-10">{String.fromCodePoint(0x279C)}</div>
-                  <div className="absolute opacity-10 text-6xl -rotate-12 right-10">{String.fromCodePoint(0x279C)}</div>
+                  <div className="absolute opacity-10 text-6xl rotate-12 left-10">🏰</div>
+                  <div className="absolute opacity-10 text-6xl -rotate-12 right-10">👑</div>
                   <div className="text-2xl font-bold text-indigo-900 flex items-center gap-3 z-10 font-serif">
-                    <span>{String.fromCodePoint(0x279C)}</span> ROYAL REFLECTIONS <span>{String.fromCodePoint(0x279C)}</span>
+                    <span>🏰</span> ROYAL REFLECTIONS <span>👑</span>
                   </div>
                 </div>
 
@@ -18279,11 +18279,11 @@ export function PrintablesPage() {
 
                 {/* Self-Assessment */}
                 <div className="print:block hidden print:mt-0 mt-6 p-4 border-2 border-indigo-200 rounded bg-indigo-50" style={{ pageBreakBefore: 'avoid', pageBreakInside: 'avoid' }}>
-                  <div className="font-bold text-indigo-900 mb-3 text-sm font-serif">{String.fromCodePoint(0x279C)}</div>
+                  <div className="font-bold text-indigo-900 mb-3 text-sm font-serif">{String.fromCodePoint(0x270F)}</div>
                   <div className="space-y-2 text-xs text-indigo-800">
                     <div>{String.fromCharCode(0x2610)} I can double numbers 1-5</div>
                     <div>{String.fromCharCode(0x2610)} I can double numbers 6-10</div>
-                    <div>{String.fromCodePoint(0x279C)}</div>
+                    <div>{String.fromCodePoint(0x270F)}</div>
                   </div>
                 </div>
 
@@ -18328,8 +18328,8 @@ export function PrintablesPage() {
               const docId = 'count-circle-1-10'
               const rng = makeRng(`${effectiveSeed}|v${variant}|doc=${doc}`)
 
-              const seaCreatures = [String.fromCodePoint(0x279C), String.fromCodePoint(0x279C), String.fromCodePoint(0x279C), String.fromCodePoint(0x279C), String.fromCodePoint(0x279C), String.fromCodePoint(0x279C), String.fromCodePoint(0x279C), String.fromCodePoint(0x279C), String.fromCodePoint(0x279C), String.fromCodePoint(0x279C), String.fromCodePoint(0x279C), String.fromCodePoint(0x279C)];
-              const bubbles = [String.fromCodePoint(0x279C), String.fromCodePoint(0x279C)]; // Decorative background elements
+              const seaCreatures = ['🐠', '🐡', '🦞', '🦀', '🐬', '🐳', '🦈', '🐙', '🦑', '🦐', '🐚', '🪸'];
+              const bubbles = ['🫧', '⚪']; // Decorative background elements
 
               const problems = Array.from({ length: 8 }, () => {
                 const count = Math.floor(rng() * 10) + 1
@@ -18362,10 +18362,10 @@ export function PrintablesPage() {
                   {/* Decorative Ocean Header */}
                   <div className="w-full h-24 mb-6 relative overflow-hidden bg-gradient-to-b from-cyan-100 to-blue-100 rounded-xl border-2 border-cyan-200">
                     <div className="absolute inset-0 flex items-center justify-around opacity-30">
-                      <span className="text-4xl animate-float-slow">{String.fromCodePoint(0x279C)}</span>
-                      <span className="text-2xl animate-float-medium mt-10">{String.fromCodePoint(0x279C)}</span>
-                      <span className="text-5xl animate-float-fast">{String.fromCodePoint(0x279C)}</span>
-                      <span className="text-3xl animate-float-slow mt-4">{String.fromCodePoint(0x279C)}</span>
+                      <span className="text-4xl animate-float-slow">🐟</span>
+                      <span className="text-2xl animate-float-medium mt-10">🐠</span>
+                      <span className="text-5xl animate-float-fast">🐡</span>
+                      <span className="text-3xl animate-float-slow mt-4">🐙</span>
                     </div>
                     <div className="absolute inset-0 flex items-center justify-center">
                       <div className="bg-white/60 px-6 py-2 rounded-full border border-cyan-300 backdrop-blur-sm">
@@ -18376,15 +18376,15 @@ export function PrintablesPage() {
 
                   {/* Worked Example */}
                   <div className="mb-6 p-4 bg-cyan-50 border-2 border-cyan-200 rounded-lg print:border print:bg-white relative overflow-hidden">
-                    <div className="absolute -right-4 -top-4 text-6xl opacity-10 rotate-12">{String.fromCodePoint(0x279C)}</div>
-                    <div className="font-semibold text-cyan-900 mb-3 text-sm relative z-10">{String.fromCodePoint(0x279C)}</div>
+                    <div className="absolute -right-4 -top-4 text-6xl opacity-10 rotate-12">{String.fromCodePoint(0x1F41F)}</div>
+                    <div className="font-semibold text-cyan-900 mb-3 text-sm relative z-10">{String.fromCodePoint(0x1F4A1)}</div>
                     <div className="space-y-2 text-sm relative z-10">
                       <div className="font-bold text-cyan-800">Problem: Count the Octopus friends by pointing to each one.</div>
                       <div className="flex items-center gap-4 my-2">
                         <div className="flex gap-2 text-3xl bg-white p-2 rounded-lg border border-cyan-100 shadow-sm">
-                          <span>{String.fromCodePoint(0x279C)}</span><span>{String.fromCodePoint(0x279C)}</span><span>{String.fromCodePoint(0x279C)}</span>
+                          <span>🐙</span><span>🐙</span><span>🐙</span>
                         </div>
-                        <div className="text-cyan-700">{String.fromCodePoint(0x279C)}</div>
+                        <div className="text-cyan-700">{String.fromCodePoint(0x27A1)}</div>
                         <div className="flex gap-2">
                           <span className="w-8 h-8 rounded-full border border-slate-300 flex items-center justify-center text-slate-400">2</span>
                           <span className="w-8 h-8 rounded-full border-2 border-purple-500 bg-purple-100 flex items-center justify-center font-bold text-purple-700 shadow-sm">3</span>
@@ -18649,7 +18649,7 @@ export function PrintablesPage() {
                         <li key={i}><strong>Box {i + 1}:</strong> {p.count} (There are {p.count} {p.emoji} to count)</li>
                       ))}
                     </ul>
-                    <div className="text-xs text-emerald-700 mt-3">{String.fromCodePoint(0x279C)}</div>
+                    <div className="text-xs text-emerald-700 mt-3">{String.fromCodePoint(0x27A1)} Success!</div>
                   </div>
                 ))}
               </WorksheetSectionWrapper>
@@ -18700,10 +18700,10 @@ export function PrintablesPage() {
 
                 {/* Decorative Header */}
                 <div className="w-full h-24 mb-6 relative overflow-hidden bg-teal-50 rounded-xl border-2 border-teal-200">
-                  <div className="absolute -bottom-4 left-0 text-6xl text-teal-200 opacity-50">{String.fromCodePoint(0x279C)}</div>
-                  <div className="absolute -bottom-4 right-0 text-6xl text-teal-200 opacity-50">{String.fromCodePoint(0x279C)}</div>
-                  <div className="absolute top-2 left-10 text-2xl animate-bounce-slow">{String.fromCodePoint(0x279C)}</div>
-                  <div className="absolute top-8 right-20 text-xl animate-bounce-medium">{String.fromCodePoint(0x279C)}</div>
+                  <div className="absolute -bottom-4 left-0 text-6xl text-teal-200 opacity-50">🌊</div>
+                  <div className="absolute -bottom-4 right-0 text-6xl text-teal-200 opacity-50">🌊</div>
+                  <div className="absolute top-2 left-10 text-2xl animate-bounce-slow">🐠</div>
+                  <div className="absolute top-8 right-20 text-xl animate-bounce-medium">🐡</div>
                   <div className="absolute inset-0 flex items-center justify-center">
                     <div className="bg-white/80 px-8 py-2 rounded-full border border-teal-300 shadow-sm">
                       <span className="text-2xl font-bold text-teal-800">REEF EXPLORER</span>
@@ -18720,7 +18720,7 @@ export function PrintablesPage() {
                       <div className="flex gap-2">
                         <span className="text-3xl text-blue-500">{String.fromCodePoint(0x270F)}</span>
                         <span className="text-3xl text-blue-500">{String.fromCodePoint(0x270F)}</span>
-                        <span className="text-3xl text-blue-500">{String.fromCodePoint(0x279C)}</span>
+                        <span className="text-3xl text-blue-500">🐠</span>
                         <span className="text-3xl text-slate-200">{String.fromCodePoint(0x270F)}</span>
                         <span className="text-3xl text-slate-200">{String.fromCodePoint(0x270F)}</span>
                       </div>
