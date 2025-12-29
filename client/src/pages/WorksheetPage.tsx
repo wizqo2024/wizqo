@@ -189,7 +189,7 @@ export default function WorksheetPage({ slug }: WorksheetPageProps) {
             className="inline-flex items-center text-blue-600 hover:text-blue-800 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 rounded font-medium"
             aria-label={`Back to ${seoData.section} worksheets`}
           >
-            ← Back to {seoData.section} Worksheets
+            {isRTL ? '→' : '←'} Back to {seoData.section} Worksheets
           </a>
         </div>
       </main>

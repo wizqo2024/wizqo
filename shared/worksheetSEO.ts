@@ -661,7 +661,26 @@ export function initializeWorksheetSEO() {
     'times-table-vertical-6-12', 'time-to-minute', 'transformations-5th',
     'uppercase-lowercase-match', 'volume-rectangular-prisms', 'weekly-goals', 'what-comes-next',
     'winter-kindness', 'word-problems-100', 'writing-expressions', 'ws-world',
-    'zigzag-lines', 'match-object-to-shadow', 'match-the-feeling', 'reading-discovery-interactive'
+    'zigzag-lines', 'match-object-to-shadow', 'match-the-feeling', 'reading-discovery-interactive',
+    // Interactive Worksheets
+    'interactive-math-rhythm', 'interactive-math-race', 'interactive-math-puzzle',
+    'interactive-math-shapes', 'interactive-math-money', 'interactive-math-fractions',
+    'interactive-math-measurement', 'interactive-reading-adventure', 'interactive-reading-detective',
+    'interactive-reading-vocab', 'interactive-reading-summary', 'interactive-reading-compare',
+    'interactive-writing-prompts', 'interactive-writing-sentences', 'interactive-writing-poetry',
+    'interactive-writing-opinion', 'interactive-science-observation', 'interactive-science-lifecycle',
+    'interactive-science-states', 'interactive-science-weather', 'interactive-geography-map',
+    'interactive-geography-culture', 'interactive-geography-history', 'interactive-grammar-parts',
+    'interactive-grammar-tenses', 'interactive-grammar-antonyms', 'interactive-art-design',
+    'interactive-art-colorwheel', 'interactive-art-sketch', 'interactive-early-phonics',
+    'interactive-early-counting', 'interactive-early-patterns', 'interactive-logic-sequence',
+    'interactive-logic-riddles', 'interactive-logic-deduction', 'interactive-sel-mindfulness',
+    'interactive-sel-empathy', 'interactive-sel-goals', 'interactive-early-basics',
+    'interactive-early-foundations', 'interactive-early-letters', 'interactive-early-numbers',
+    'interactive-early-shapes', 'interactive-geography-prek', 'interactive-grammar-prek',
+    'interactive-logic-prek', 'interactive-reading-prek', 'interactive-reading-storymap',
+    'interactive-science-prek', 'interactive-science-space', 'interactive-sel-prek',
+    'interactive-writing-prek'
   ]
 
   // Generate SEO data for each worksheet
