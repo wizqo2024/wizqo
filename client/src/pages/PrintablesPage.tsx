@@ -17299,144 +17299,153 @@ export function PrintablesPage() {
 
         {
           activeDocs.includes('kindergarten-number-recognition') && (() => {
-            const rng = makeRng(`${effectiveSeed}|v${variant}|doc=kindergarten-number-recognition`);
-            function shuffleArray<T>(array: T[]): T[] {
-              const newArray = [...array];
-              for (let i = newArray.length - 1; i > 0; i--) {
-                const j = Math.floor(rng() * (i + 1));
-                [newArray[i], newArray[j]] = [newArray[j], newArray[i]];
+            try {
+              const rng = makeRng(`${effectiveSeed}|v${variant}|doc=kindergarten-number-recognition`);
+              function shuffleArray<T>(array: T[]): T[] {
+                const newArray = [...array];
+                for (let i = newArray.length - 1; i > 0; i--) {
+                  const j = Math.floor(rng() * (i + 1));
+                  [newArray[i], newArray[j]] = [newArray[j], newArray[i]];
+                }
+                return newArray;
               }
-              return newArray;
-            }
 
-            // Generate 2 sets of matching problems (4 items each) to fit on page
-            const allNumbers = shuffleArray(Array.from({ length: 10 }, (_, i) => i + 1));
-            const set1Numbers = allNumbers.slice(0, 5).sort((a, b) => a - b);
-            const set2Numbers = allNumbers.slice(5, 10).sort((a, b) => a - b);
+              // Generate 2 sets of matching problems (4 items each) to fit on page
+              const allNumbers = shuffleArray(Array.from({ length: 10 }, (_, i) => i + 1));
+              const set1Numbers = allNumbers.slice(0, 5).sort((a, b) => a - b);
+              const set2Numbers = allNumbers.slice(5, 10).sort((a, b) => a - b);
 
-            const sets = [
-              { title: 'Match 1', numbers: set1Numbers, objects: shuffleArray([...set1Numbers]) },
-              { title: 'Match 2', numbers: set2Numbers, objects: shuffleArray([...set2Numbers]) }
-            ];
+              const sets = [
+                { title: 'Match 1', numbers: set1Numbers, objects: shuffleArray([...set1Numbers]) },
+                { title: 'Match 2', numbers: set2Numbers, objects: shuffleArray([...set2Numbers]) }
+              ];
 
-            const objectTypes = [String.fromCodePoint(0x279C), String.fromCodePoint(0x279C), String.fromCodePoint(0x279C), String.fromCodePoint(0x279C), String.fromCodePoint(0x279C), String.fromCodePoint(0x279C), String.fromCodePoint(0x279C), String.fromCodePoint(0x279C), String.fromCodePoint(0x279C), String.fromCodePoint(0x279C)];
+              const objectTypes = [String.fromCodePoint(0x279C), String.fromCodePoint(0x279C), String.fromCodePoint(0x279C), String.fromCodePoint(0x279C), String.fromCodePoint(0x279C), String.fromCodePoint(0x279C), String.fromCodePoint(0x279C), String.fromCodePoint(0x279C), String.fromCodePoint(0x279C), String.fromCodePoint(0x279C)];
 
-            return (
-              <WorksheetSectionWrapper
-                docId="kindergarten-number-recognition"
-                title="Number Matching"
-                emoji={String.fromCodePoint(0x1F9FA)}
-                description="Draw a line from the number to the correct group of animals."
-                problemCount={2}
-                learningObjectives={[
-                  'Recognize numbers 110',
-                  'Match numbers to quantities',
-                  'Count objects accurately',
-                  'Build number recognition skills'
-                ]}
-                parentTeacherTips={[
-                  'Have your child say the number out loud',
-                  'Count the objects together before matching',
-                  'Encourage drawing straight lines',
-                  'Extension: Practice writing the numbers'
-                ]}
-              >
-                <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-indigo-400 to-purple-400 animate-gradient-x mb-2" />
+              return (
+                <WorksheetSectionWrapper
+                  docId="kindergarten-number-recognition"
+                  title="Number Matching"
+                  emoji={String.fromCodePoint(0x1F9FA)}
+                  description="Draw a line from the number to the correct group of animals."
+                  problemCount={2}
+                  learningObjectives={[
+                    'Recognize numbers 110',
+                    'Match numbers to quantities',
+                    'Count objects accurately',
+                    'Build number recognition skills'
+                  ]}
+                  parentTeacherTips={[
+                    'Have your child say the number out loud',
+                    'Count the objects together before matching',
+                    'Encourage drawing straight lines',
+                    'Extension: Practice writing the numbers'
+                  ]}
+                >
+                  <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-indigo-400 to-purple-400 animate-gradient-x mb-2" />
 
-                {sets.map((set, setIdx) => (
-                  <div key={setIdx} className="mb-8 break-inside-avoid">
-                    <div className="flex justify-between px-8 mb-4 font-bold text-slate-500 uppercase tracking-widest text-sm">
-                      <span>Number</span>
-                      <span>How Many?</span>
-                    </div>
+                  {sets.map((set, setIdx) => (
+                    <div key={setIdx} className="mb-8 break-inside-avoid">
+                      <div className="flex justify-between px-8 mb-4 font-bold text-slate-500 uppercase tracking-widest text-sm">
+                        <span>Number</span>
+                        <span>How Many?</span>
+                      </div>
 
-                    <div className="border-2 border-slate-200 rounded-xl p-6 bg-white relative">
-                      {/* Center dashed line for visual separation */}
-                      <div className="absolute left-1/2 top-4 bottom-4 border-l-2 border-dashed border-slate-100 transform -translate-x-1/2" />
+                      <div className="border-2 border-slate-200 rounded-xl p-6 bg-white relative">
+                        {/* Center dashed line for visual separation */}
+                        <div className="absolute left-1/2 top-4 bottom-4 border-l-2 border-dashed border-slate-100 transform -translate-x-1/2" />
 
-                      <div className="flex justify-between">
-                        {/* Left Column: Numbers */}
-                        <div className="space-y-8 w-1/3">
-                          {set.numbers.map((num, i) => (
-                            <div key={i} className="h-20 flex items-center justify-center pl-4 relative">
-                              <span className="text-5xl font-bold text-slate-800">{num}</span>
-                              <div className="absolute right-0 top-1/2 w-3 h-3 bg-slate-300 rounded-full transform translate-x-1/2 -translate-y-1/2" />
-                            </div>
-                          ))}
-                        </div>
+                        <div className="flex justify-between">
+                          {/* Left Column: Numbers */}
+                          <div className="space-y-8 w-1/3">
+                            {set.numbers.map((num, i) => (
+                              <div key={i} className="h-20 flex items-center justify-center pl-4 relative">
+                                <span className="text-5xl font-bold text-slate-800">{num}</span>
+                                <div className="absolute right-0 top-1/2 w-3 h-3 bg-slate-300 rounded-full transform translate-x-1/2 -translate-y-1/2" />
+                              </div>
+                            ))}
+                          </div>
 
-                        {/* Right Column: Objects */}
-                        <div className="space-y-8 w-1/2">
-                          {set.objects.map((count, i) => {
-                            // Use a consistent object type for this count to avoid confusion
-                            const objType = objectTypes[count % objectTypes.length];
-                            return (
-                              <div key={i} className="h-20 flex items-center pl-8 relative">
-                                <div className="absolute left-0 top-1/2 w-3 h-3 bg-slate-300 rounded-full transform -translate-x-1/2 -translate-y-1/2" />
-                                <div className="flex flex-wrap gap-1">
-                                  {Array.from({ length: count }).map((_, j) => (
-                                    <span key={j} className="text-2xl leading-none">{objType}</span>
-                                  ))}
+                          {/* Right Column: Objects */}
+                          <div className="space-y-8 w-1/2">
+                            {set.objects.map((count, i) => {
+                              // Use a consistent object type for this count to avoid confusion
+                              const objType = objectTypes[count % objectTypes.length];
+                              return (
+                                <div key={i} className="h-20 flex items-center pl-8 relative">
+                                  <div className="absolute left-0 top-1/2 w-3 h-3 bg-slate-300 rounded-full transform -translate-x-1/2 -translate-y-1/2" />
+                                  <div className="flex flex-wrap gap-1">
+                                    {Array.from({ length: count }).map((_, j) => (
+                                      <span key={j} className="text-2xl leading-none">{objType}</span>
+                                    ))}
+                                  </div>
                                 </div>
+                              );
+                            })}
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  ))}
+
+                  <div className="text-center text-sm text-slate-500 mt-4 italic">
+                    Tip: Use a ruler to draw straight lines!
+                  </div>
+
+                  {/* Extension/Challenge Problems */}
+                  <div className="mt-6 print:mt-0 p-4 bg-purple-50 border-2 border-purple-200 rounded print:bg-white print:border" style={{ pageBreakBefore: 'always', pageBreakInside: 'avoid' }}>
+                    <div className="font-semibold text-purple-900 mb-3 text-sm">{String.fromCodePoint(0x1F680)}</div>
+                    <div className="space-y-2 text-sm text-purple-800">
+                      <div>1. Find numbers around your house. What numbers can you see?</div>
+                      <div>2. Draw your own number and matching objects</div>
+                      <div>{String.fromCodePoint(0x279C)}</div>
+                    </div>
+                  </div>
+                  {/* Self-Assessment */}
+                  <div className="print:block hidden print:mt-0 mt-6 p-4 border-2 border-slate-300 rounded" style={{ pageBreakBefore: 'avoid', pageBreakInside: 'avoid' }}>
+                    <div className="font-semibold text-slate-800 mb-3 text-sm">{String.fromCodePoint(0x270F)}</div>
+                    <div className="space-y-2 text-xs">
+                      <div>{String.fromCodePoint(0x270F)}</div>
+                      <div>{String.fromCharCode(0x2610)} I can count objects accurately</div>
+                      <div>{String.fromCharCode(0x2610)} I can match numbers to quantities</div>
+                    </div>
+                    <div className="mt-3 text-xs">
+                      <strong>{getTrans('common.myScore', 'My score:')}</strong> ___ / {numbers.length}
+                    </div>
+                    <div className="mt-2 text-xs">
+                      <strong>{getTrans('common.whatWasHardest', 'What was hardest?')}</strong> _________________________
+                    </div>
+                  </div>
+                  {
+                    showAnswersForDoc('kindergarten-number-recognition', () => (
+                      <div className="mt-6 p-4 border-2 border-emerald-300 bg-emerald-50 rounded print:border print:bg-white print:page-break-before-always">
+                        <div className="font-bold text-emerald-900 mb-3 text-base">{String.fromCodePoint(0x2705)}</div>
+                        <div className="space-y-2 text-sm text-emerald-800">
+                          {numbers.map((num, i) => {
+                            const objectType = objectTypes[i % objectTypes.length];
+                            return (
+                              <div key={i}>
+                                {i + 1}. Number <strong>{num}</strong> matches {num} {objectType}
                               </div>
                             );
                           })}
                         </div>
+                        <div className="text-xs text-emerald-700 mt-3">
+                          Remember: Count the objects first, then match to the correct number!
+                        </div>
                       </div>
-                    </div>
-                  </div>
-                ))}
-
-                <div className="text-center text-sm text-slate-500 mt-4 italic">
-                  Tip: Use a ruler to draw straight lines!
+                    ))
+                  }
+                </WorksheetSectionWrapper>
+              );
+            } catch (err: any) {
+              return (
+                <div className="p-4 border-2 border-red-500 bg-red-50 text-red-700 rounded-lg">
+                  <strong>Error in Number Recognition:</strong>
+                  <pre className="text-xs mt-2 overflow-auto">{err.message}\n{err.stack}</pre>
                 </div>
-
-                {/* Extension/Challenge Problems */}
-                <div className="mt-6 print:mt-0 p-4 bg-purple-50 border-2 border-purple-200 rounded print:bg-white print:border" style={{ pageBreakBefore: 'always', pageBreakInside: 'avoid' }}>
-                  <div className="font-semibold text-purple-900 mb-3 text-sm">{String.fromCodePoint(0x1F680)}</div>
-                  <div className="space-y-2 text-sm text-purple-800">
-                    <div>1. Find numbers around your house. What numbers can you see?</div>
-                    <div>2. Draw your own number and matching objects</div>
-                    <div>{String.fromCodePoint(0x279C)}</div>
-                  </div>
-                </div>
-                {/* Self-Assessment */}
-                <div className="print:block hidden print:mt-0 mt-6 p-4 border-2 border-slate-300 rounded" style={{ pageBreakBefore: 'avoid', pageBreakInside: 'avoid' }}>
-                  <div className="font-semibold text-slate-800 mb-3 text-sm">{String.fromCodePoint(0x270F)}</div>
-                  <div className="space-y-2 text-xs">
-                    <div>{String.fromCodePoint(0x270F)}</div>
-                    <div>{String.fromCharCode(0x2610)} I can count objects accurately</div>
-                    <div>{String.fromCharCode(0x2610)} I can match numbers to quantities</div>
-                  </div>
-                  <div className="mt-3 text-xs">
-                    <strong>{getTrans('common.myScore', 'My score:')}</strong> ___ / {numbers.length}
-                  </div>
-                  <div className="mt-2 text-xs">
-                    <strong>{getTrans('common.whatWasHardest', 'What was hardest?')}</strong> _________________________
-                  </div>
-                </div>
-                {
-                  showAnswersForDoc('kindergarten-number-recognition', () => (
-                    <div className="mt-6 p-4 border-2 border-emerald-300 bg-emerald-50 rounded print:border print:bg-white print:page-break-before-always">
-                      <div className="font-bold text-emerald-900 mb-3 text-base">{String.fromCodePoint(0x2705)}</div>
-                      <div className="space-y-2 text-sm text-emerald-800">
-                        {numbers.map((num, i) => {
-                          const objectType = objectTypes[i % objectTypes.length];
-                          return (
-                            <div key={i}>
-                              {i + 1}. Number <strong>{num}</strong> matches {num} {objectType}
-                            </div>
-                          );
-                        })}
-                      </div>
-                      <div className="text-xs text-emerald-700 mt-3">
-                        Remember: Count the objects first, then match to the correct number!
-                      </div>
-                    </div>
-                  ))
-                }
-              </WorksheetSectionWrapper>
-            );
+              );
+            }
           })()
         }
 
