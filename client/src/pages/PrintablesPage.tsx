@@ -18450,7 +18450,7 @@ export function PrintablesPage() {
         {
           activeDocs.includes('count-match-1-20') && (() => {
             const rng = makeRng(`${effectiveSeed}|v${variant}|doc=${doc}`)
-            const treasureItems = [String.fromCodePoint(0x279C), String.fromCodePoint(0x279C), String.fromCodePoint(0x279C), String.fromCodePoint(0x279C), String.fromCodePoint(0x279C), String.fromCodePoint(0x279C), String.fromCodePoint(0x279C), String.fromCodePoint(0x279C), String.fromCodePoint(0x279C)];
+            const treasureItems = ['💎', '🪙', '👑', '💍', '🧭', '🗺️', '🦜', '⚔️', '🏴‍☠️'];
 
             const problems = Array.from({ length: 6 }, (_, idx) => {
               const count = Math.floor(rng() * 20) + 1
@@ -18482,10 +18482,10 @@ export function PrintablesPage() {
 
                 {/* Decorative Header */}
                 <div className="w-full h-20 mb-6 bg-amber-50 rounded-lg border-2 border-amber-300 flex items-center justify-center relative overflow-hidden">
-                  <div className="absolute opacity-10 text-6xl rotate-12 left-10">{String.fromCodePoint(0x279C)}</div>
-                  <div className="absolute opacity-10 text-6xl -rotate-12 right-10">{String.fromCodePoint(0x279C)}</div>
+                  <div className="absolute opacity-10 text-6xl rotate-12 left-10">🏴‍☠️</div>
+                  <div className="absolute opacity-10 text-6xl -rotate-12 right-10">🗺️</div>
                   <div className="text-2xl font-bold text-amber-900 flex items-center gap-3 z-10">
-                    <span>{String.fromCodePoint(0x279C)}</span> PIRATE TREASURE <span>{String.fromCodePoint(0x279C)}</span>
+                    <span>💎</span> PIRATE TREASURE <span>💎</span>
                   </div>
                 </div>
 
@@ -18495,7 +18495,7 @@ export function PrintablesPage() {
                   <div className="font-semibold text-yellow-900 mb-2 text-sm">{String.fromCodePoint(0x1F4A1)}</div>
                   <div className="flex items-center gap-4">
                     <div className="w-24 h-16 bg-amber-200/50 border-2 border-amber-400/50 rounded-lg flex flex-wrap items-center justify-center gap-1 p-1">
-                      {Array.from({ length: 4 }).map((_, i) => <span key={i} className="text-xl">{String.fromCodePoint(0x279C)}</span>)}
+                      {Array.from({ length: 4 }).map((_, i) => <span key={i} className="text-xl">🪙</span>)}
                     </div>
                     <div className="flex-1 text-sm bg-white p-2 rounded border border-yellow-100 italic text-slate-700">
                       "I see 1, 2, 3, 4 gold coins in the chest! Circle 4!"
@@ -18556,7 +18556,7 @@ export function PrintablesPage() {
         {
           activeDocs.includes('how-many-1-15') && (() => {
             const rng = makeRng(`${effectiveSeed}|v${variant}|doc=${doc}`)
-            const emojis = [String.fromCodePoint(0x279C), String.fromCodePoint(0x279C), String.fromCodePoint(0x279C), String.fromCodePoint(0x279C), String.fromCodePoint(0x279C), String.fromCodePoint(0x279C), String.fromCodePoint(0x279C), String.fromCodePoint(0x279C), String.fromCodePoint(0x279C), String.fromCodePoint(0x279C), String.fromCodePoint(0x279C), String.fromCodePoint(0x279C)]
+            const emojis = ['🎈', '⭐️', '🍪', '⚽', '🧸', '🚗', '🦋', '🐟', '🍎', '🐱', '🍦', '🚀', '🎁', '🐶']
             const problems = Array.from({ length: 8 }, () => {
               const count = Math.floor(rng() * 15) + 1
               const emoji = emojis[Math.floor(rng() * emojis.length)]
@@ -20642,7 +20642,7 @@ export function PrintablesPage() {
         {
           activeDocs.includes('more-less') && (() => {
             const rng = makeRng(`${effectiveSeed}|v${variant}|doc=${doc}`)
-            const emojis = [String.fromCodePoint(0x279C), String.fromCodePoint(0x279C), String.fromCodePoint(0x279C), String.fromCodePoint(0x279C), String.fromCodePoint(0x279C), String.fromCodePoint(0x279C), String.fromCodePoint(0x279C), String.fromCodePoint(0x279C)];
+            const emojis = ['🍪', '🏀', '⭐️', '🍎', '🍄', '🐢', '🦋', '🎈'];
             const problems = Array.from({ length: 4 }, (_, i) => {
               const left = Math.floor(rng() * 8) + 1;
               let right = Math.floor(rng() * 8) + 1;
