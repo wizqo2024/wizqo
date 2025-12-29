@@ -17299,6 +17299,16 @@ export function PrintablesPage() {
 
         {
           activeDocs.includes('kindergarten-number-recognition') && (() => {
+            const rng = makeRng(`${effectiveSeed}|v${variant}|doc=${doc}`);
+            function shuffleArray<T>(array: T[]): T[] {
+              const newArray = [...array];
+              for (let i = newArray.length - 1; i > 0; i--) {
+                const j = Math.floor(rng() * (i + 1));
+                [newArray[i], newArray[j]] = [newArray[j], newArray[i]];
+              }
+              return newArray;
+            }
+
             // Generate 2 sets of matching problems (4 items each) to fit on page
             const allNumbers = shuffleArray(Array.from({ length: 10 }, (_, i) => i + 1));
             const set1Numbers = allNumbers.slice(0, 5).sort((a, b) => a - b);
