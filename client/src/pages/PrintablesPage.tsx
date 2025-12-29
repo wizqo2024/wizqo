@@ -17451,6 +17451,7 @@ export function PrintablesPage() {
 
         {
           activeDocs.includes('kindergarten-shapes') && (() => {
+            const rng = makeRng(`${effectiveSeed}|v${variant}|doc=${doc}`);
             const shapesData = [
               { name: 'Circle', render: (props: any) => <circle cx="50" cy="50" r="40" {...props} />, color: 'blue', instruction: 'Color the circle blue' },
               { name: 'Square', render: (props: any) => <rect x="15" y="15" width="70" height="70" {...props} />, color: 'red', instruction: 'Color the square red' },
@@ -17459,13 +17460,17 @@ export function PrintablesPage() {
               { name: 'Star', render: (props: any) => <polygon points="50,5 61,35 95,35 68,55 79,85 50,65 21,85 32,55 5,35 39,35" {...props} />, color: 'purple', instruction: 'Color the star purple' },
               { name: 'Diamond', render: (props: any) => <polygon points="50,10 90,50 50,90 10,50" {...props} />, color: 'orange', instruction: 'Color the diamond orange' },
             ];
+
+            // Shuffle the shapes
+            const problems = [...shapesData].sort(() => 0.5 - rng());
+
             return (
               <WorksheetSectionWrapper
                 docId="kindergarten-shapes"
                 title="Shapes Coloring"
                 emoji={String.fromCodePoint(0x1F537)}
                 description="Color each shape according to the instructions."
-                problemCount={shapesData.length}
+                problemCount={problems.length}
                 learningObjectives={[
                   'Identify basic shapes (circle, square, triangle, etc.)',
                   'Recognize shape names',
@@ -17481,7 +17486,7 @@ export function PrintablesPage() {
                 <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-teal-400 to-cyan-400 animate-gradient-x mb-2" />
 
                 <div className="grid grid-cols-2 gap-6" style={{ pageBreakAfter: 'auto' }}>
-                  {shapesData.map((shape, i) => (
+                  {problems.map((shape, i) => (
                     <div key={i} className="border-2 border-slate-200 rounded-xl p-6 bg-white break-inside-avoid flex flex-col items-center">
                       {/* Shape Outline */}
                       <div className="w-32 h-32 mb-4">
@@ -17521,7 +17526,7 @@ export function PrintablesPage() {
                     <div>{String.fromCharCode(0x2610)} I can follow color instructions</div>
                   </div>
                   <div className="mt-3 text-xs">
-                    <strong>{getTrans('common.myScore', 'My score:')}</strong> ___ / {shapesData.length}
+                    <strong>{getTrans('common.myScore', 'My score:')}</strong> ___ / {problems.length}
                   </div>
                   <div className="mt-2 text-xs">
                     <strong>{getTrans('common.whatWasHardest', 'What was hardest?')}</strong> _________________________
@@ -17531,7 +17536,7 @@ export function PrintablesPage() {
                   <div className="mt-6 p-4 border-2 border-emerald-300 bg-emerald-50 rounded print:border print:bg-white print:page-break-before-always">
                     <div className="font-bold text-emerald-900 mb-3 text-base">{String.fromCodePoint(0x2705)}</div>
                     <div className="space-y-2 text-sm text-emerald-800">
-                      {shapesData.map((shape, i) => (
+                      {problems.map((shape, i) => (
                         <div key={i}>
                           {i + 1}. {shape.name}: {shape.instruction}
                         </div>
@@ -17549,7 +17554,7 @@ export function PrintablesPage() {
 
         {
           activeDocs.includes('kindergarten-patterns') && (() => {
-            const rng = makeRng('kindergarten-patterns');
+            const rng = makeRng(`${effectiveSeed}|v${variant}|doc=${doc}`);
 
             // Reuse shapes/colors (locally defined for safety)
             const shapes = {
