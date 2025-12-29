@@ -19792,11 +19792,14 @@ export function PrintablesPage() {
             const rng = makeRng(`${effectiveSeed}|v${variant}|doc=${doc}`)
 
             // Concepts: Matching shapes to outlines
+
             const shapeItems = [
-              { name: 'Square', solid: '', outline: '', style: 'rounded-none' },
-              { name: 'Circle', solid: '', outline: '', style: 'rounded-full' },
-              { name: 'Diamond', solid: '', outline: '', style: 'rotate-45' }, // Using emoji for simplicity
-              { name: 'Star', solid: '', outline: '', style: '' }
+              { name: 'Square', solid: '🟦', outline: '⬜', style: 'rounded-none' },
+              { name: 'Circle', solid: '🔵', outline: '⚪', style: 'rounded-full' },
+              { name: 'Diamond', solid: '🔶', outline: '🔷', style: 'rotate-45' },
+              { name: 'Star', solid: '⭐', outline: '🌟', style: '' },
+              { name: 'Triangle', solid: '🔺', outline: '△', style: '' },
+              { name: 'Hexagon', solid: '🛑', outline: '⬡', style: '' }
             ]
 
             const problems = Array.from({ length: 4 }, () => {
@@ -19893,12 +19896,16 @@ export function PrintablesPage() {
             const rng = makeRng(`${effectiveSeed}|v${variant}|doc=${doc}`)
 
             // Items that have distinct sizes
+
             const items = [
-              { name: 'DinoEgg', sm: '', lg: '' }, // Egg -> Dino implies growth/size
-              { name: 'Planet', sm: '', lg: '' },
-              { name: 'Tree', sm: '', lg: '' },
-              { name: 'Fish', sm: '', lg: '' },
-              { name: 'Building', sm: '', lg: '' }
+              { name: 'Dino', sm: '🦕', lg: '🦕' },
+              { name: 'T-Rex', sm: '🦖', lg: '🦖' }, // Added T-Rex
+              { name: 'Footprint', sm: '🐾', lg: '🐾' },
+              { name: 'Egg', sm: '🥚', lg: '🥚' },
+              { name: 'Leaf', sm: '🌿', lg: '🌿' },
+              { name: 'Volcano', sm: '🌋', lg: '🌋' },
+              { name: 'Bone', sm: '🦴', lg: '🦴' },
+              { name: 'Palm', sm: '🌴', lg: '🌴' }
             ]
 
             const problems = Array.from({ length: 6 }, () => {
