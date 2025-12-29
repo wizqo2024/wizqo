@@ -126,6 +126,11 @@ export default function WorksheetsKindergartenPage() {
     { title: t('pages.grades.kindergarten.worksheets.curveTracing.title'), description: t('pages.grades.kindergarten.worksheets.curveTracing.description'), href: getWorksheetURL('curve-tracing', 'kindergarten'), docId: 'curve-tracing', categories: ['pre-writing'], section: 'Pre-Writing' },
     { title: t('pages.grades.kindergarten.worksheets.zigzagLines.title'), description: t('pages.grades.kindergarten.worksheets.zigzagLines.description'), href: getWorksheetURL('zigzag-lines', 'kindergarten'), docId: 'zigzag-lines', categories: ['pre-writing'], section: 'Pre-Writing' },
     { title: t('pages.grades.kindergarten.worksheets.pathTracing.title'), description: t('pages.grades.kindergarten.worksheets.pathTracing.description'), href: getWorksheetURL('path-tracing', 'kindergarten'), docId: 'path-tracing', categories: ['pre-writing'], section: 'Pre-Writing' },
+    // New Interactive Worksheets (Moved to end for 'Newest First' display)
+    { title: t('pages.grades.kindergarten.worksheets.countCircle1_10.title'), description: t('pages.grades.kindergarten.worksheets.countCircle1_10.description'), href: getWorksheetURL('count-circle-1-10', 'kindergarten'), docId: 'count-circle-1-10', categories: ['counting'], section: 'Counting' },
+    { title: t('pages.grades.kindergarten.worksheets.countMatch1_20.title'), description: t('pages.grades.kindergarten.worksheets.countMatch1_20.description'), href: getWorksheetURL('count-match-1-20', 'kindergarten'), docId: 'count-match-1-20', categories: ['counting'], section: 'Counting' },
+    { title: t('pages.grades.kindergarten.worksheets.howMany1_15.title'), description: t('pages.grades.kindergarten.worksheets.howMany1_15.description'), href: getWorksheetURL('how-many-1-15', 'kindergarten'), docId: 'how-many-1-15', categories: ['counting'], section: 'Counting' },
+    { title: t('pages.grades.kindergarten.worksheets.countColor1_10.title'), description: t('pages.grades.kindergarten.worksheets.countColor1_10.description'), href: getWorksheetURL('count-color-1-10', 'kindergarten'), docId: 'count-color-1-10', categories: ['counting'], section: 'Counting' },
   ], [t])
 
   // Filter worksheets based on selected categories
