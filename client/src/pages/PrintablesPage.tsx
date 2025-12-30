@@ -9458,92 +9458,193 @@ export function PrintablesPage() {
           );
         })()}
 
-        {activeDocs.includes('spelling') && (
-          <WorksheetSectionWrapper
-            docId="spelling"
-            title="Spelling Challenge Worksheet"
-            emoji={String.fromCodePoint(0x1F4DD)}
-            description="Circle the correctly spelled word in each group. Then write it neatly on the line."
-            problemCount={5}
-            learningObjectives={[
-              'Identify correctly spelled words',
-              'Recognize common spelling patterns',
-              'Practice spelling skills'
-            ]}
-            parentTeacherTips={[
-              'Look for common spelling patterns',
-              'Sound out each word carefully',
-              'Check for common mistakes (double letters, silent letters)',
-              'Extension: Practice spelling these words from memory'
-            ]}
-          >
-            <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-indigo-400 to-purple-400 animate-gradient-x mb-2" />
-            {/* Worked Example */}
-            <div className="mb-6 p-4 bg-blue-50 border-2 border-blue-200 rounded-lg print:border print:bg-white">
-              <div className="font-semibold text-blue-900 mb-3 text-sm">{String.fromCodePoint(0x1F4A1)}</div>
-              <div className="space-y-2 text-sm">
-                <div className="font-semibold text-base"><strong>Problem:</strong> Circle the correctly spelled word: elefant, elephant, elephent</div>
-                <div className="pl-4 border-l-2 border-blue-300 space-y-1">
-                  <div><strong>Step 1:</strong> Sound out the word: el-e-phant</div>
-                  <div><strong>Step 2:</strong> Check each option: "elefant" (missing 'ph'), "elephant" (correct!), "elephent" (wrong 'ph' position)</div>
-                  <div><strong>Step 3:</strong> Circle "elephant"</div>
-                  <div className="font-semibold text-blue-900"><strong>Answer:</strong> elephant</div>
-                  <div className="text-xs text-blue-700 mt-1">{String.fromCodePoint(0x279C)}</div>
+        {activeDocs.includes('spelling') && (() => {
+          const rng = makeRng(`${effectiveSeed}|v${variant}|doc=${doc}`)
+          const gradeLevel = (parseInt(seed.slice(-1), 16) % 3) + 1 // Grades 1-3
+
+          // Vocabulary words by pattern
+          const vocabWords = {
+            cvc: ['cat', 'dog', 'pig', 'box', 'rug', 'bus', 'hat', 'web', 'pin', 'fox'],
+            blends: ['frog', 'star', 'blue', 'drum', 'flag', 'crab', 'tree', 'swim', 'stop', 'plan'],
+            silentE: ['cake', 'bike', 'rose', 'cube', 'kite', 'bone', 'game', 'home', 'time', 'nose'],
+            longVowels: ['tree', 'rain', 'boat', 'blue', 'pie', 'leaf', 'road', 'moon', 'stay', 'fruit'],
+            compound: ['cupcake', 'sunshine', 'rainbow', 'butterfly', 'starfish', 'popcorn', 'jellyfish', 'snowman', 'football', 'ladybug']
+          }
+
+          let selectedWords: string[] = []
+          let patternTitle = ""
+
+          // Select pattern based on randomness (or grade bias)
+          const roll = Math.floor(rng() * 10)
+          if (roll < 2) {
+            selectedWords = shuffleArray(vocabWords.cvc, rng).slice(0, 5)
+            patternTitle = "Short Vowels (CVC)"
+          } else if (roll < 4) {
+            selectedWords = shuffleArray(vocabWords.blends, rng).slice(0, 5)
+            patternTitle = "Consonant Blends"
+          } else if (roll < 6) {
+            selectedWords = shuffleArray(vocabWords.silentE, rng).slice(0, 5)
+            patternTitle = "Silent E"
+          } else if (roll < 8) {
+            selectedWords = shuffleArray(vocabWords.longVowels, rng).slice(0, 5)
+            patternTitle = "Long Vowel Teams"
+          } else {
+            selectedWords = shuffleArray(vocabWords.compound, rng).slice(0, 5)
+            patternTitle = "Compound Words"
+          }
+
+          return (
+            <WorksheetSectionWrapper
+              docId="spelling"
+              title={`Spelling Challenge: ${patternTitle}`}
+              emoji={String.fromCodePoint(0x270F)}
+              description="Read, trace, and write the words. Then find them in the puzzle!"
+              problemCount={selectedWords.length + 1}
+              learningObjectives={[
+                'Recognize common spelling patterns',
+                'Practice spelling skills',
+                'Develop word recognition'
+              ]}
+              parentTeacherTips={[
+                'Look for common spelling patterns',
+                'Say the words out loud',
+                'Extension: Use these words in a sentence'
+              ]}
+            >
+              <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-blue-400 to-teal-400 animate-gradient-x mb-2" />
+
+              {/* List A: Read, Trace, Write */}
+              <div className="mb-8">
+                <div className="grid grid-cols-4 gap-4 mb-2 font-bold text-slate-700 border-b-2 border-slate-300 pb-1">
+                  <div className="text-center">Read</div>
+                  <div className="text-center text-slate-400">Trace</div>
+                  <div className="text-center text-slate-400">Write</div>
+                  <div className="text-center text-slate-400">Write Again</div>
+                </div>
+
+                {selectedWords.map(word => (
+                  <div key={word} className="grid grid-cols-4 gap-4 h-16 items-center border-b border-slate-200">
+                    <div className="text-xl font-bold text-center tracking-wide">{word}</div>
+                    <div className="text-xl font-bold text-center tracking-wide text-slate-300 font-mono" style={{ fontFamily: 'Courier New, monospace' }}>{word}</div>
+                    <div className="border-b border-slate-300 relative"></div>
+                    <div className="border-b border-slate-300 relative"></div>
+                  </div>
+                ))}
+              </div>
+
+              {/* Word Scramble */}
+              <div className="mb-6 p-4 bg-orange-50 border-2 border-orange-200 rounded-lg">
+                <h3 className="font-bold text-orange-900 mb-2">{String.fromCodePoint(0x1F520)} Unscramble the Words</h3>
+                <div className="grid grid-cols-2 gap-4">
+                  {shuffleArray([...selectedWords].slice(0, 4), rng).map(word => {
+                    const scrambled = shuffleArray(word.split(''), rng).join('')
+                    return (
+                      <div key={word} className="flex gap-2 items-center">
+                        <span className="font-mono text-lg tracking-widest uppercase bg-white px-2 py-1 rounded border border-orange-200">{scrambled}</span>
+                        <span className="text-xl">{String.fromCodePoint(0x2192)}</span>
+                        <div className="border-b-2 border-slate-400 w-32 h-8"></div>
+                      </div>
+                    )
+                  })}
                 </div>
               </div>
-            </div>
-            <div className="break-inside-avoid" style={{ pageBreakAfter: 'auto' }}>
-              {[
-                ['elefant', 'elephant', 'elephent'],
-                ['becaus', 'because', 'becuase'],
-                ['skool', 'school', 'scool'],
-                ['butterflie', 'butterfly', 'buterfly'],
-                ['tommorow', 'tomorrow', 'tommorrow']
-              ].map((row, i) => (
-                <div key={i} className="flex items-center justify-between gap-3 mb-2">
-                  <div className="text-sm font-mono">{i + 1}.) {row.join('   ')}</div>
-                  <div className="flex-1 border-b border-slate-300 ml-3" />
+
+              {/* Answer Key */}
+              {showAnswersForDoc('spelling', () => (
+                <div className="mt-6 p-4 border-2 border-emerald-300 bg-emerald-50 rounded print:border print:bg-white print:page-break-before-always">
+                  <div className="font-bold text-emerald-900 mb-3 text-base">{String.fromCodePoint(0x2705)} Solution</div>
+                  <div className="text-sm text-emerald-800">
+                    <div className="mb-2"><strong>Words used:</strong> {selectedWords.join(', ')}</div>
+                  </div>
                 </div>
               ))}
-            </div>
-            {/* Extension/Challenge Problems */}
-            <div className="mt-6 print:mt-0 p-4 bg-purple-50 border-2 border-purple-200 rounded print:bg-white print:border" style={{ pageBreakBefore: 'always', pageBreakInside: 'avoid' }}>
-              <div className="font-semibold text-purple-900 mb-3 text-sm">{String.fromCodePoint(0x1F680)}</div>
-              <div className="space-y-2 text-sm text-purple-800">
-                <div>1. Write each word 3 times to practice spelling</div>
-                <div>2. Use each word in a sentence</div>
-                <div>3. Can you find other words with similar spelling patterns?</div>
-              </div>
-            </div>
-            {/* Self-Assessment */}
-            <div className="print:block hidden print:mt-0 mt-6 p-4 border-2 border-slate-300 rounded" style={{ pageBreakBefore: 'avoid', pageBreakInside: 'avoid' }}>
-              <div className="font-semibold text-slate-800 mb-3 text-sm">{String.fromCodePoint(0x270F)}</div>
-              <div className="space-y-2 text-xs">
-                <div>{String.fromCharCode(0x2610)} I can identify correctly spelled words</div>
-                <div>{String.fromCodePoint(0x270F)}</div>
-                <div>{String.fromCharCode(0x2610)} I can write words correctly</div>
-              </div>
-              <div className="mt-3 text-xs">
-                <strong>{getTrans('common.myScore', 'My score:')}</strong> ___ / 5
-              </div>
-              <div className="mt-2 text-xs">
-                <strong>{getTrans('common.whatWasHardest', 'What was hardest?')}</strong> _________________________
-              </div>
-            </div>
-            {showAnswersForDoc('spelling', () => (
-              <div className="mt-6 p-4 border-2 border-emerald-300 bg-emerald-50 rounded print:border print:bg-white print:page-break-before-always">
-                <div className="font-bold text-emerald-900 mb-3 text-base">{String.fromCodePoint(0x2705)}</div>
-                <div className="space-y-2 text-sm text-emerald-800">
-                  <div>1. <strong>elephant</strong> (not elefant or elephent)</div>
-                  <div>2. <strong>because</strong> (not becaus or becuase)</div>
-                  <div>3. <strong>school</strong> (not skool or scool)</div>
-                  <div>4. <strong>butterfly</strong> (not butterflie or buterfly)</div>
-                  <div>5. <strong>tomorrow</strong> (not tommorow or tommorrow)</div>
+            </WorksheetSectionWrapper>
+          )
+        })()}
+
+        {activeDocs.includes('grammar-detective') && (() => {
+          const rng = makeRng(`${effectiveSeed}|v${variant}|doc=${doc}`)
+
+          const nouns = ['cat', 'dog', 'ball', 'tree', 'bird', 'house', 'car', 'book', 'apple', 'star']
+          const verbs = ['ran', 'jumped', 'sat', 'flew', 'sleeping', 'reading', 'eating', 'walking', 'playing', 'singing']
+          const adj = ['big', 'small', 'red', 'blue', 'happy', 'fast', 'silly', 'loud', 'soft', 'shiny']
+
+          const sentences: { text: string, noun: string, verb: string, adjs: string[] }[] = []
+
+          for (let i = 0; i < 5; i++) {
+            const n = nouns[Math.floor(rng() * nouns.length)]
+            const v = verbs[Math.floor(rng() * verbs.length)]
+            const a = adj[Math.floor(rng() * adj.length)]
+
+            // Simple schema: "The [adj] [noun] [verb]."
+            sentences.push({
+              text: `The ${a} ${n} ${v}.`,
+              noun: n,
+              verb: v,
+              adjs: [a]
+            })
+          }
+
+          return (
+            <WorksheetSectionWrapper
+              docId="grammar-detective"
+              title="Grammar Detective"
+              emoji={String.fromCodePoint(0x1F50E)}
+              description="Read the sentences. Follow the clues to find the hidden grammar parts!"
+              problemCount={5}
+              learningObjectives={[
+                'Identify nouns, verbs, and adjectives',
+                'Understand sentence structure',
+                'Practice critical reading'
+              ]}
+              parentTeacherTips={[
+                'Noun: A person, place, or thing',
+                'Verb: An action word',
+                'Adjective: Describes a noun',
+                'Extension: Write your own sentence and mark the parts'
+              ]}
+            >
+              <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-pink-400 to-rose-400 animate-gradient-x mb-2" />
+
+              <div className="mb-6 p-4 bg-slate-50 border-2 border-slate-200 rounded-lg">
+                <div className="font-bold text-slate-800 mb-2">Instructions:</div>
+                <div className="flex gap-4 text-sm">
+                  <div className="flex items-center gap-2"><div className="w-4 h-4 rounded-full border-2 border-blue-500"></div> Circle the <span className="font-bold text-blue-700">Nouns</span></div>
+                  <div className="flex items-center gap-2"><div className="w-4 h-1 bg-red-500"></div> Underline the <span className="font-bold text-red-700">Verbs</span></div>
+                  <div className="flex items-center gap-2"><div className="w-4 h-4 bg-green-200 border border-green-400"></div> Box the <span className="font-bold text-green-700">Adjectives</span></div>
                 </div>
               </div>
-            ))}
-          </WorksheetSectionWrapper>
-        )}
+
+              <div className="space-y-8">
+                {sentences.map((s, i) => (
+                  <div key={i} className="flex gap-4 items-baseline">
+                    <div className="font-bold text-slate-400 text-xl">{i + 1}.</div>
+                    <div className="font-serif text-3xl leading-loose tracking-wide border-b border-slate-100 pb-2 w-full">
+                      {s.text}
+                    </div>
+                  </div>
+                ))}
+              </div>
+
+              {showAnswersForDoc('grammar-detective', () => (
+                <div className="mt-8 p-4 border-2 border-emerald-300 bg-emerald-50 rounded print:border print:bg-white print:page-break-before-always">
+                  <div className="font-bold text-emerald-900 mb-3 text-base">{String.fromCodePoint(0x2705)} Solution Key</div>
+                  <div className="grid gap-2">
+                    {sentences.map((s, i) => (
+                      <div key={i} className="text-emerald-800 border-b border-emerald-200 pb-1 last:border-0">
+                        {i + 1}.
+                        <span className="mx-2"><span className="font-bold">Noun:</span> {s.noun}</span>
+                        <span className="mx-2"><span className="font-bold">Verb:</span> {s.verb}</span>
+                        <span className="mx-2"><span className="font-bold">Adj:</span> {s.adjs.join(', ')}</span>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              ))}
+
+            </WorksheetSectionWrapper>
+          )
+        })()}
 
         {activeDocs.includes('science-match') && (() => {
           const rng = makeRng(`${effectiveSeed}|v${variant}|doc=${doc}`);
