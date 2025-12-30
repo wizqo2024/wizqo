@@ -38572,7 +38572,9 @@ function generateReadingStory(seed: string, grade: number) {
     return { theme: theme.name, grid, words: placedWords }
   }
 
-  export default PrintablesPage
+}
+
+export default PrintablesPage
 
 
 
