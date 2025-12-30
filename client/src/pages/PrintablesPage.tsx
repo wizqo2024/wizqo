@@ -1398,7 +1398,7 @@ const BUNDLE_DOC_ALLOWLIST = new Set<string>([
   ...interactiveDocIds,
 ])
 
-export function PrintablesPage() {
+export function PrintablesPage({ docId: propDocId }: { docId?: string } = {}) {
   const { t, language } = useTranslation()
 
   // Force re-render when language changes (important for /print route with ?lang=ar)
@@ -1497,7 +1497,7 @@ export function PrintablesPage() {
     return new URLSearchParams(urlSearch)
   }, [urlSearch])
 
-  const doc = params.get('doc') || ''
+  const doc = propDocId || params.get('doc') || ''
   const isPreview = (params.get('preview') || '').toLowerCase() === '1' || (params.get('preview') || '').toLowerCase() === 'true'
   // CRITICAL: Never trigger autoprint if preview=1 (used in iframes on category pages)
   // Only calculate autoPrint if we're on the /print route AND not in preview mode - prevents popup on category pages
@@ -9846,51 +9846,230 @@ export function PrintablesPage() {
           </WorksheetSectionWrapper>
         )}
 
-        {activeDocs.includes('design-monster') && (
-          <WorksheetSectionWrapper
-            docId="design-monster"
-            title="Design Your Monster"
-            emoji={String.fromCodePoint(0x1F3A8)}
-            description="Draw inside the box and give your monster a name. Check the features you used."
-            problemCount={1}
-            learningObjectives={[
-              'Practice creative drawing',
-              'Use imagination',
-              'Combine features creatively'
-            ]}
-            parentTeacherTips={[
-              'Encourage creativity - there are no wrong answers',
-              'Help with drawing if needed',
-              'Let children choose their own features',
-              'Extension: Write a story about your monster'
-            ]}
-          >
-            <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-pink-400 to-purple-400 animate-gradient-x mb-2" />
-            <div className="h-64 border border-slate-400 rounded bg-white mb-3" />
-            <div className="grid grid-cols-2 gap-3 text-sm">
-              <div>
-                <div className="font-semibold text-slate-800 mb-1">Features</div>
-                <div className="grid grid-cols-2 gap-1 text-slate-700">
-                  {['Horns', 'Spots', 'Stripes', 'Furry', 'Scales', 'One eye', 'Three eyes', 'Big teeth'].map((f) => (
-                    <label key={f} className="inline-flex items-center gap-2"><span className="w-3 h-3 border border-slate-400 inline-block" /> {f}</label>
+        {activeDocs.includes('design-monster') && (() => {
+          const rng = makeRng(`${effectiveSeed}|v${variant}|doc=${doc}`)
+
+          // Simple SVG paths for parts
+          const bodies = [
+            { name: "Blob", path: "M 40,150 Q 20,80 80,40 Q 140,0 180,50 Q 220,100 200,160 Q 180,220 100,210 Q 20,200 40,150" },
+            { name: "Boxy", path: "M 50,50 L 190,50 L 190,190 L 50,190 Z" },
+            { name: "Triangle", path: "M 120,30 L 220,200 L 20,200 Z" },
+            { name: "Egg", path: "M 120,30 Q 220,30 220,150 Q 220,220 120,220 Q 20,220 20,150 Q 20,30 120,30" },
+            { name: "Cloud", path: "M 60,100 Q 40,60 80,60 Q 100,40 140,60 Q 180,40 200,80 Q 240,100 200,140 Q 220,180 160,180 Q 120,200 80,180 Q 20,160 60,100" },
+            { name: "Ghost", path: "M 40,200 L 40,80 Q 40,20 120,20 Q 200,20 200,80 L 200,200 L 170,170 L 140,200 L 110,170 L 80,200 L 50,170 Z" }
+          ]
+
+          const eyes = [
+            { name: "Cyclops", path: <circle cx="120" cy="100" r="30" fill="none" stroke="currentColor" strokeWidth="4" /> },
+            { name: "Two Eyes", path: <g><circle cx="90" cy="100" r="15" fill="none" stroke="currentColor" strokeWidth="4" /><circle cx="150" cy="100" r="15" fill="none" stroke="currentColor" strokeWidth="4" /></g> },
+            { name: "Three Eyes", path: <g><circle cx="120" cy="80" r="12" fill="none" stroke="currentColor" strokeWidth="4" /><circle cx="90" cy="110" r="12" fill="none" stroke="currentColor" strokeWidth="4" /><circle cx="150" cy="110" r="12" fill="none" stroke="currentColor" strokeWidth="4" /></g> },
+            { name: "Googly", path: <g><circle cx="100" cy="90" r="20" fill="none" stroke="currentColor" strokeWidth="4" /><circle cx="140" cy="100" r="10" fill="none" stroke="currentColor" strokeWidth="4" /></g> },
+            { name: "Angry", path: <g><path d="M 80,80 L 110,100" stroke="currentColor" strokeWidth="4" /><path d="M 160,80 L 130,100" stroke="currentColor" strokeWidth="4" /><circle cx="95" cy="110" r="10" fill="none" stroke="currentColor" strokeWidth="4" /><circle cx="145" cy="110" r="10" fill="none" stroke="currentColor" strokeWidth="4" /></g> },
+            { name: "Vertical", path: <g><ellipse cx="90" cy="100" rx="10" ry="25" fill="none" stroke="currentColor" strokeWidth="4" /><ellipse cx="150" cy="100" rx="10" ry="25" fill="none" stroke="currentColor" strokeWidth="4" /></g> }
+          ]
+
+          const mouths = [
+            { name: "Smile", path: <path d="M 80,140 Q 120,180 160,140" fill="none" stroke="currentColor" strokeWidth="4" strokeLinecap="round" /> },
+            { name: "Fangs", path: <path d="M 80,140 L 90,160 L 100,140 L 110,160 L 120,140 L 130,160 L 140,140 L 150,160 L 160,140" fill="none" stroke="currentColor" strokeWidth="4" strokeLinejoin="round" /> },
+            { name: "O-Shape", path: <circle cx="120" cy="150" r="15" fill="none" stroke="currentColor" strokeWidth="4" /> },
+            { name: "Tongue", path: <g><path d="M 80,140 Q 120,170 160,140" fill="none" stroke="currentColor" strokeWidth="4" /><path d="M 110,155 Q 120,180 130,155" fill="none" stroke="currentColor" strokeWidth="4" /></g> },
+            { name: "Zipper", path: <g><line x1="80" y1="150" x2="160" y2="150" stroke="currentColor" strokeWidth="4" /><line x1="90" y1="145" x2="90" y2="155" stroke="currentColor" strokeWidth="3" /><line x1="110" y1="145" x2="110" y2="155" stroke="currentColor" strokeWidth="3" /><line x1="130" y1="145" x2="130" y2="155" stroke="currentColor" strokeWidth="3" /><line x1="150" y1="145" x2="150" y2="155" stroke="currentColor" strokeWidth="3" /></g> },
+            { name: "Wobbly", path: <path d="M 80,150 Q 100,130 120,150 Q 140,170 160,150" fill="none" stroke="currentColor" strokeWidth="4" strokeLinecap="round" /> }
+          ]
+
+          const limbs = [
+            { name: "Tentacles", path: <path d="M 40,180 Q 10,220 30,240 M 200,180 Q 230,220 210,240" fill="none" stroke="currentColor" strokeWidth="4" strokeLinecap="round" /> },
+            { name: "Robot Arms", path: <path d="M 40,120 L 10,120 L 10,160 M 200,120 L 230,120 L 230,160" fill="none" stroke="currentColor" strokeWidth="4" /> },
+            { name: "Wings", path: <path d="M 40,100 Q 0,50 0,100 Q 0,150 40,120 M 200,100 Q 240,50 240,100 Q 240,150 200,120" fill="none" stroke="currentColor" strokeWidth="4" /> },
+            { name: "Stick Legs", path: <path d="M 80,200 L 80,240 M 160,200 L 160,240" fill="none" stroke="currentColor" strokeWidth="4" /> },
+            { name: "Claws", path: <g><path d="M 40,120 L 10,100 M 10,100 L 0,90 M 10,100 L 20,90" fill="none" stroke="currentColor" strokeWidth="4" /><path d="M 200,120 L 230,100 M 230,100 L 240,90 M 230,100 L 220,90" fill="none" stroke="currentColor" strokeWidth="4" /></g> },
+            { name: "Antennae", path: <path d="M 100,40 L 80,10 M 140,40 L 160,10" fill="none" stroke="currentColor" strokeWidth="4" /> }
+          ]
+
+          // Randomly select 6 distinct parts for each category to be the "options"
+          const selectedBodies = shuffleArray([...bodies], rng).slice(0, 6)
+          const selectedEyes = shuffleArray([...eyes], rng).slice(0, 6)
+          const selectedMouths = shuffleArray([...mouths], rng).slice(0, 6)
+
+          return (
+            <WorksheetSectionWrapper
+              docId="design-monster"
+              title="Roll & Draw a Monster"
+              emoji={String.fromCodePoint(0x1F47E)}
+              description="Roll a die to pick a Body, Eyes, and Mouth. Draw your unique monster!"
+              problemCount={1}
+              learningObjectives={[
+                'Follow multi-step instructions',
+                'Practice creative drawing',
+                'Develop fine motor skills',
+                'Have fun with randomization'
+              ]}
+              parentTeacherTips={[
+                'You need a standard 6-sided die',
+                'If you don\'t have a die, pick numbers 1-6 randomly',
+                'Combine the parts to make a silly creature',
+                'Color your monster when you are done!'
+              ]}
+            >
+              <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-green-400 to-lime-400 animate-gradient-x mb-2" />
+
+              <div className="grid grid-cols-4 gap-4 mb-6 text-center">
+                <div className="font-bold text-slate-800 bg-slate-100 p-2 rounded">Roll</div>
+                <div className="font-bold text-slate-800 bg-slate-100 p-2 rounded">Body</div>
+                <div className="font-bold text-slate-800 bg-slate-100 p-2 rounded">Eyes</div>
+                <div className="font-bold text-slate-800 bg-slate-100 p-2 rounded">Mouth</div>
+
+                {[1, 2, 3, 4, 5, 6].map((num, i) => (
+                  <React.Fragment key={num}>
+                    <div className="flex items-center justify-center font-bold text-2xl border border-slate-200 rounded">{num}</div>
+
+                    {/* Body */}
+                    <div className="flex items-center justify-center border border-slate-200 rounded p-1">
+                      <svg viewBox="0 0 240 240" className="w-12 h-12 text-slate-600">
+                        <path d={selectedBodies[i].path} fill="none" stroke="currentColor" strokeWidth="4" />
+                      </svg>
+                    </div>
+
+                    {/* Eyes */}
+                    <div className="flex items-center justify-center border border-slate-200 rounded p-1">
+                      <svg viewBox="0 0 240 240" className="w-12 h-12 text-slate-600">
+                        {selectedEyes[i].path}
+                      </svg>
+                    </div>
+
+                    {/* Mouth */}
+                    <div className="flex items-center justify-center border border-slate-200 rounded p-1">
+                      <svg viewBox="0 0 240 240" className="w-12 h-12 text-slate-600">
+                        {selectedMouths[i].path}
+                      </svg>
+                    </div>
+                  </React.Fragment>
+                ))}
+              </div>
+
+              <div className="border-2 border-slate-400 rounded-lg h-96 bg-white relative">
+                <div className="absolute top-2 left-2 text-slate-300 font-bold text-4xl opacity-20">DRAW HERE</div>
+                <div className="absolute bottom-4 left-4 right-4 border-b-2 border-slate-300">
+                  <span className="text-slate-400 text-sm">Monster Name:</span>
+                </div>
+              </div>
+
+              {showAnswersForDoc('design-monster', () => (
+                <div className="mt-4 p-4 border-2 border-emerald-300 bg-emerald-50 rounded">
+                  <div className="font-bold text-emerald-900 mb-2">Example Monster</div>
+                  <div className="text-sm text-emerald-800 mb-2">Here is one possible combination (Roll 1, 1, 1):</div>
+                  <div className="w-32 h-32 border border-emerald-400 bg-white rounded mx-auto relative">
+                    <svg viewBox="0 0 240 240" className="w-full h-full text-emerald-600">
+                      <path d={selectedBodies[0].path} fill="none" stroke="currentColor" strokeWidth="4" />
+                      {selectedEyes[0].path}
+                      {selectedMouths[0].path}
+                    </svg>
+                  </div>
+                </div>
+              ))}
+
+            </WorksheetSectionWrapper>
+          )
+        })()}
+
+
+        {activeDocs.includes('coloring') && (() => {
+          const rng = makeRng(`${effectiveSeed}|v${variant}|doc=${doc}`)
+
+          // Mandala Generator Logic
+          // We will generate a circular pattern with X-fold symmetry
+          const symmetry = Math.floor(rng() * 3) * 2 + 6 // 6, 8, or 10 fold
+          const layers = 4 + Math.floor(rng() * 3) // 4 to 6 concentric layers
+
+          // Helper to create a path for a single "petal" or segment
+          const createSegment = (radius: number, type: number) => {
+            // Types of shapes:
+            // 0: Petal (elliptical)
+            // 1: Diamond
+            // 2: Heart-ish
+            // 3: Spike
+            const angle = (2 * Math.PI) / symmetry
+            const w = radius * Math.tan(angle / 2) * 0.8 // Width at widest
+
+            switch (type) {
+              case 0: // Petal
+                return `M 0,0 Q ${w},${radius * 0.5} 0,${radius} Q ${-w},${radius * 0.5} 0,0`
+              case 1: // Diamond
+                return `M 0,0 L ${w},${radius * 0.5} L 0,${radius} L ${-w},${radius * 0.5} Z`
+              case 2: // Spike
+                return `M 0,0 L ${w * 0.5},${radius} L 0,${radius * 0.8} L ${-w * 0.5},${radius} Z`
+              case 3: // Round
+                return `M 0,${radius * 0.2} A ${w},${radius * 0.4} 0 1,1 0,${radius * 0.2 + 0.01}`
+              default:
+                return `M 0,0 L 0,${radius}` // Line fallback
+            }
+          }
+
+          const mandalaLayers = Array.from({ length: layers }).map((_, i) => {
+            const r = 40 + (i * 30) // Increasing radius
+            const type = Math.floor(rng() * 4)
+            const segmentPath = createSegment(r, type)
+            return { r, type, segmentPath }
+          }).reverse() // Draw outer layers first (painter's algorithm if filled, but for outlining order doesn't matter much)
+
+          return (
+            <WorksheetSectionWrapper
+              docId="coloring"
+              title="Mindful Mandalas"
+              emoji={String.fromCodePoint(0x1F300)}
+              description="Color the patterns. Mandalas utilize symmetry to create calming designs."
+              problemCount={1}
+              learningObjectives={[
+                'Practice fine motor control',
+                'Explore symmetry and patterns',
+                'Relax and focus',
+                'Express creativity through color'
+              ]}
+              parentTeacherTips={[
+                'Use colored pencils or fine markers',
+                'Start from the center and work out',
+                'Experiment with alternating colors',
+                'Discuss the symmetry (how many matching parts?)'
+              ]}
+            >
+              <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-teal-400 to-emerald-400 animate-gradient-x mb-2" />
+
+              <div className="flex justify-center items-center py-8">
+                <svg viewBox="-250 -250 500 500" className="w-[80%] max-w-lg border border-slate-200 rounded-full p-4">
+                  {/* Background Circle */}
+                  <circle cx="0" cy="0" r="240" fill="none" stroke="currentColor" strokeWidth="2" className="text-slate-300" />
+
+                  {/* Draw Layers */}
+                  {mandalaLayers.map((layer, layerIdx) => (
+                    <g key={layerIdx} className="text-slate-800">
+                      {Array.from({ length: symmetry }).map((_, i) => (
+                        <g key={i} transform={`rotate(${(i * 360) / symmetry})`}>
+                          <path d={layer.segmentPath} fill="none" stroke="currentColor" strokeWidth="1.5" />
+                          {/* Optional inner details */}
+                          {layerIdx % 2 === 0 && (
+                            <circle cx="0" cy={layer.r} r="3" fill="none" stroke="currentColor" strokeWidth="1" />
+                          )}
+                        </g>
+                      ))}
+                    </g>
                   ))}
+
+                  {/* Center */}
+                  <circle cx="0" cy="0" r="10" fill="none" stroke="currentColor" strokeWidth="2" className="text-slate-800" />
+                </svg>
+              </div>
+
+              {showAnswersForDoc('coloring', () => (
+                <div className="mt-4 p-4 border-2 border-emerald-300 bg-emerald-50 rounded">
+                  <div className="font-bold text-emerald-900 mb-2">About Mandalas</div>
+                  <div className="text-sm text-emerald-800">
+                    "Mandala" means "circle" in Sanskrit. They represent wholeness and balance. Since this one is procedurally generated, it is unique to this worksheet!
+                  </div>
                 </div>
-              </div>
-              <div>
-                <div className="font-semibold text-slate-800 mb-1">Monster Name</div>
-                <div className="border-b border-slate-400 h-6" />
-              </div>
-            </div>
-            {showAnswersForDoc('design-monster', () => (
-              <div className="mt-6 p-4 border-2 border-emerald-300 bg-emerald-50 rounded print:border print:bg-white print:page-break-before-always">
-                <div className="font-bold text-emerald-900 mb-3 text-base">{String.fromCodePoint(0x2705)}</div>
-                <div className="text-sm text-emerald-800">
-                  There's no right or wrong monster! Use your imagination to create a unique creature. Check off the features you used and give it a fun name!
-                </div>
-              </div>
-            ))}
-          </WorksheetSectionWrapper>
-        )}
+              ))}
+            </WorksheetSectionWrapper>
+          )
+        })()}
 
         {activeDocs.includes('draw-half') && (() => {
           const rng = makeRng(`${effectiveSeed}|v${variant}|doc=${doc}`)

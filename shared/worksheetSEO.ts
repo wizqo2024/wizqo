@@ -592,7 +592,7 @@ export function initializeWorksheetSEO() {
     'bar-graphs-pictographs', 'beginning-sounds-az', 'big-small', 'bookmark-templates',
     'brain-boost', 'classifying-angles', 'classifying-quadrilaterals',
     'classifying-shapes', 'classifying-triangles', 'color-by-number', 'color-patterns',
-    'color-recognition', 'color-shapes', 'coloring-animals', 'coloring-letters-numbers',
+    'color-recognition', 'color-shapes', 'coloring', 'coloring-animals', 'coloring-letters-numbers',
     'coloring-nature', 'coloring-space', 'coloring-vehicles', 'compare-2digit', 'comparing-decimals',
     'comparing-fractions', 'comparing-fractions-4th', 'comparing-ordering-fractions-decimals',
     'coordinate-graphing', 'count-circle-1-10', 'count-color-1-10', 'counting-objects-20',

@@ -512,6 +512,25 @@ export default function App() {
                       </>
                     );
                   }
+                  // Handle arbitrary printables slugs (e.g. /printables/coloring)
+                  if (routeSubKey) {
+                    const worksheetSEO = getWorksheetSEOBySlug(routeSubKey);
+                    // Point canonical to /worksheets/slug to avoid duplicate content penalties
+                    // while keeping this URL working for users
+                    const canonical = addLocaleToPath(`/worksheets/${routeSubKey}`, currentLocale);
+                    return (
+                      <>
+                        <SEOMetaTags
+                          title={worksheetSEO?.title || `${routeSubKey.replace(/-/g, ' ').replace(/\b\w/g, (l) => l.toUpperCase())} Worksheet`}
+                          description={worksheetSEO?.metaDescription || `Free printable ${routeSubKey.replace(/-/g, ' ')} worksheet.`}
+                          keywords={worksheetSEO?.keywords || `${routeSubKey}, worksheet, printable`}
+                          canonicalUrl={`https://wizqo.com${canonical}`}
+                        />
+                        <PrintablesPage docId={routeSubKey} />
+                      </>
+                    );
+                  }
+
                   return (
                     <>
                       <SEOMetaTags
