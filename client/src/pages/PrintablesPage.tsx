@@ -37742,675 +37742,673 @@ export function PrintablesPage() {
       </div>
     </div >
   )
-}
 
-function generateWordSearchGrid(size: number, words: string[], rng: () => number): string[][] {
-  // very basic filler grid with words placed sequentially across rows to demonstrate printing
-  const grid: string[][] = Array.from({ length: size }, () => Array.from({ length: size }, () => ''))
-  let r = 0, c = 0
-  for (const w of words) {
-    for (let i = 0; i < w.length; i++) {
+
+  function generateWordSearchGrid(size: number, words: string[], rng: () => number): string[][] {
+    // very basic filler grid with words placed sequentially across rows to demonstrate printing
+    const grid: string[][] = Array.from({ length: size }, () => Array.from({ length: size }, () => ''))
+    let r = 0, c = 0
+    for (const w of words) {
+      for (let i = 0; i < w.length; i++) {
+        if (r >= size) break
+        grid[r][c] = w[i]
+        c++
+        if (c >= size) { r++; c = 0 }
+      }
+      r++; c = 0
       if (r >= size) break
-      grid[r][c] = w[i]
-      c++
-      if (c >= size) { r++; c = 0 }
     }
-    r++; c = 0
-    if (r >= size) break
-  }
-  const letters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
-  for (let i = 0; i < size; i++) {
-    for (let j = 0; j < size; j++) {
-      if (!grid[i][j]) grid[i][j] = letters[Math.floor(rng() * letters.length)]
+    const letters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
+    for (let i = 0; i < size; i++) {
+      for (let j = 0; j < size; j++) {
+        if (!grid[i][j]) grid[i][j] = letters[Math.floor(rng() * letters.length)]
+      }
     }
+    return grid
   }
-  return grid
-}
 
-function ColoringSVG() {
-  // Simple cat face line art for coloring
-  return (
-    <svg viewBox="0 0 400 400" className="w-full h-auto" aria-hidden>
-      <g fill="none" stroke="#111827" strokeWidth="4">
-        <circle cx="200" cy="210" r="120" />
-        <polygon points="110,120 170,80 170,150" />
-        <polygon points="290,120 230,80 230,150" />
-        <circle cx="160" cy="200" r="16" />
-        <circle cx="240" cy="200" r="16" />
-        <polygon points="200,220 190,235 210,235" />
-        <path d="M150 260 Q200 300 250 260" />
-        <line x1="120" y1="220" x2="70" y2="210" />
-        <line x1="120" y1="230" x2="70" y2="230" />
-        <line x1="120" y1="240" x2="70" y2="250" />
-        <line x1="280" y1="220" x2="330" y2="210" />
-        <line x1="280" y1="230" x2="330" y2="230" />
-        <line x1="280" y1="240" x2="330" y2="250" />
-      </g>
-    </svg>
-  )
-}
-
-function HiddenObjectsSceneSVGA() {
-  // Hand-drawn busy scene with hidden shapes matching the checklist
-  return (
-    <svg viewBox="0 0 800 400" className="w-full h-auto bg-white border border-slate-300 rounded">
-      <defs>
-        <linearGradient id="sky" x1="0" y1="0" x2="0" y2="1">
-          <stop offset="0%" stopColor="#e0f2fe" />
-          <stop offset="100%" stopColor="#ffffff" />
-        </linearGradient>
-      </defs>
-      {/* Background sky and ground */}
-      <rect x="0" y="0" width="800" height="240" fill="url(#sky)" />
-      <rect x="0" y="240" width="800" height="160" fill="#f1f5f9" />
-
-      {/* Trees */}
-      {[100, 220, 560, 700].map((x, i) => (
-        <g key={i}>
-          <rect x={x} y={220} width="10" height="40" fill="#64748b" />
-          <circle cx={x + 5} cy={200} r="28" fill="#a7f3d0" />
-          <circle cx={x - 15} cy={215} r="18" fill="#a7f3d0" />
-          <circle cx={x + 22} cy={215} r="18" fill="#a7f3d0" />
+  function ColoringSVG() {
+    // Simple cat face line art for coloring
+    return (
+      <svg viewBox="0 0 400 400" className="w-full h-auto" aria-hidden>
+        <g fill="none" stroke="#111827" strokeWidth="4">
+          <circle cx="200" cy="210" r="120" />
+          <polygon points="110,120 170,80 170,150" />
+          <polygon points="290,120 230,80 230,150" />
+          <circle cx="160" cy="200" r="16" />
+          <circle cx="240" cy="200" r="16" />
+          <polygon points="200,220 190,235 210,235" />
+          <path d="M150 260 Q200 300 250 260" />
+          <line x1="120" y1="220" x2="70" y2="210" />
+          <line x1="120" y1="230" x2="70" y2="230" />
+          <line x1="120" y1="240" x2="70" y2="250" />
+          <line x1="280" y1="220" x2="330" y2="210" />
+          <line x1="280" y1="230" x2="330" y2="230" />
+          <line x1="280" y1="240" x2="330" y2="250" />
         </g>
-      ))}
+      </svg>
+    )
+  }
 
-      {/* Cloud (hidden object: Cloud)  larger, line-art */}
-      <g>
-        <ellipse cx="180" cy="90" rx="70" ry="28" fill="none" stroke="#111827" strokeWidth="3.5" />
-        <ellipse cx="215" cy="90" rx="50" ry="22" fill="none" stroke="#111827" strokeWidth="3.5" />
-        <ellipse cx="140" cy="96" rx="45" ry="18" fill="none" stroke="#111827" strokeWidth="3.5" />
-      </g>
+  function HiddenObjectsSceneSVGA() {
+    // Hand-drawn busy scene with hidden shapes matching the checklist
+    return (
+      <svg viewBox="0 0 800 400" className="w-full h-auto bg-white border border-slate-300 rounded">
+        <defs>
+          <linearGradient id="sky" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stopColor="#e0f2fe" />
+            <stop offset="100%" stopColor="#ffffff" />
+          </linearGradient>
+        </defs>
+        {/* Background sky and ground */}
+        <rect x="0" y="0" width="800" height="240" fill="url(#sky)" />
+        <rect x="0" y="240" width="800" height="160" fill="#f1f5f9" />
 
-      {/* Star (hidden on tree)  bigger, line-art */}
-      <polygon points="560,145 568,170 596,170 572,186 580,210 560,196 540,210 548,186 524,170 552,170" fill="none" stroke="#111827" strokeWidth="3.5" />
+        {/* Trees */}
+        {[100, 220, 560, 700].map((x, i) => (
+          <g key={i}>
+            <rect x={x} y={220} width="10" height="40" fill="#64748b" />
+            <circle cx={x + 5} cy={200} r="28" fill="#a7f3d0" />
+            <circle cx={x - 15} cy={215} r="18" fill="#a7f3d0" />
+            <circle cx={x + 22} cy={215} r="18" fill="#a7f3d0" />
+          </g>
+        ))}
 
-      {/* Leaf (on ground)  clearer outline with vein */}
-      <g>
-        <path d="M290 300 C320 280, 360 310, 330 330 C345 345, 305 350, 290 330 Z" fill="none" stroke="#111827" strokeWidth="3.5" />
-        <path d="M325 295 Q325 315 318 332" fill="none" stroke="#111827" strokeWidth="2.5" />
-      </g>
-
-      {/* Book (bench)  larger, line-art with page lines */}
-      <g>
-        <rect x="392" y="285" width="80" height="10" fill="none" stroke="#111827" strokeWidth="3" />
-        <rect x="398" y="248" width="68" height="36" rx="2" fill="none" stroke="#111827" strokeWidth="3" />
-        <line x1="432" y1="248" x2="432" y2="284" stroke="#111827" strokeWidth="3" />
-        <line x1="404" y1="256" x2="464" y2="256" stroke="#111827" strokeWidth="2" />
-        <line x1="404" y1="263" x2="464" y2="263" stroke="#111827" strokeWidth="2" />
-        <line x1="404" y1="270" x2="464" y2="270" stroke="#111827" strokeWidth="2" />
-      </g>
-
-      {/* Car (simple)  larger, line-art */}
-      <g>
-        <rect x="620" y="265" width="120" height="36" rx="8" fill="none" stroke="#111827" strokeWidth="3.5" />
-        <rect x="650" y="270" width="50" height="16" rx="3" fill="none" stroke="#111827" strokeWidth="2.5" />
-        <circle cx="648" cy="308" r="14" fill="none" stroke="#111827" strokeWidth="3.5" />
-        <circle cx="712" cy="308" r="14" fill="none" stroke="#111827" strokeWidth="3.5" />
-      </g>
-
-      {/* Key (on ground)  larger, line-art with teeth */}
-      <g>
-        <circle cx="520" cy="328" r="14" fill="none" stroke="#111827" strokeWidth="3.5" />
-        <rect x="538" y="325" width="36" height="8" fill="none" stroke="#111827" strokeWidth="3.5" />
-        <rect x="574" y="325" width="8" height="12" fill="none" stroke="#111827" strokeWidth="3.5" />
-        <rect x="584" y="325" width="8" height="12" fill="none" stroke="#111827" strokeWidth="3.5" />
-      </g>
-
-      {/* Apple (on tree)  larger, line-art with stem + leaf */}
-      <g>
-        <circle cx="220" cy="205" r="14" fill="none" stroke="#111827" strokeWidth="3.5" />
-        <line x1="220" y1="191" x2="220" y2="199" stroke="#111827" strokeWidth="3" />
-        <ellipse cx="228" cy="196" rx="8" ry="4" fill="none" stroke="#111827" strokeWidth="2.5" />
-      </g>
-
-      {/* Shell (near pond)  larger, line-art with scallops */}
-      <g>
-        <path d="M100 324 C118 296, 162 296, 180 324 C172 340, 108 340, 100 324 Z" fill="none" stroke="#111827" strokeWidth="3.5" />
-        {Array.from({ length: 5 }).map((_, i) => {
-          const x = 112 + i * 14; return (<path key={i} d={`M${x} 322 Q${x + 4} 312 ${x + 8} 322`} stroke="#111827" fill="none" strokeWidth="2.5" />);
-        })}
-      </g>
-
-      {/* Ball  larger, line-art with stripes */}
-      <g>
-        <circle cx="360" cy="310" r="16" fill="none" stroke="#111827" strokeWidth="3.5" />
-        <path d="M342 310 Q360 296 378 310" stroke="#111827" strokeWidth="2.5" fill="none" />
-        <path d="M360 294 Q370 310 360 326" stroke="#111827" strokeWidth="2.5" fill="none" />
-      </g>
-
-      {/* Hat (on bench)  clearer fedora outline */}
-      <g>
-        <ellipse cx="475" cy="282" rx="28" ry="10" fill="none" stroke="#111827" strokeWidth="3.5" />
-        <path d="M452 268 Q475 258 498 268" fill="none" stroke="#111827" strokeWidth="3.5" />
-        <rect x="458" y="264" width="34" height="14" fill="none" stroke="#111827" strokeWidth="3.5" />
-        <line x1="458" y1="270" x2="492" y2="270" stroke="#111827" strokeWidth="3" />
-      </g>
-    </svg>
-  )
-}
-
-// Variant B with 7 differences from A: (1) no star, (2) leaf moved, (3) book moved, (4) car color/position, (5) key moved, (6) apple moved, (7) add a bird
-function HiddenObjectsSceneSVGB() {
-  return (
-    <svg viewBox="0 0 800 400" className="w-full h-auto bg-white border border-slate-300 rounded">
-      <defs>
-        <linearGradient id="skyB" x1="0" y1="0" x2="0" y2="1">
-          <stop offset="0%" stopColor="#e0f2fe" />
-          <stop offset="100%" stopColor="#ffffff" />
-        </linearGradient>
-      </defs>
-      {/* Background sky and ground */}
-      <rect x="0" y="0" width="800" height="240" fill="url(#skyB)" />
-      <rect x="0" y="240" width="800" height="160" fill="#f1f5f9" />
-
-      {/* Trees */}
-      {[100, 220, 560, 700].map((x, i) => (
-        <g key={i}>
-          <rect x={x} y="220" width="10" height="40" fill="#64748b" />
-          <circle cx={x + 5} cy="200" r="28" fill="#a7f3d0" />
-          <circle cx={x - 15} cy="215" r="18" fill="#a7f3d0" />
-          <circle cx={x + 22} cy="215" r="18" fill="#a7f3d0" />
+        {/* Cloud (hidden object: Cloud)  larger, line-art */}
+        <g>
+          <ellipse cx="180" cy="90" rx="70" ry="28" fill="none" stroke="#111827" strokeWidth="3.5" />
+          <ellipse cx="215" cy="90" rx="50" ry="22" fill="none" stroke="#111827" strokeWidth="3.5" />
+          <ellipse cx="140" cy="96" rx="45" ry="18" fill="none" stroke="#111827" strokeWidth="3.5" />
         </g>
-      ))}
 
-      {/* Cloud (same) */}
-      <g>
-        <ellipse cx="180" cy="90" rx="50" ry="20" fill="#ffffff" stroke="#94a3b8" />
-        <ellipse cx="210" cy="90" rx="35" ry="16" fill="#ffffff" stroke="#94a3b8" />
-        <ellipse cx="150" cy="94" rx="30" ry="14" fill="#ffffff" stroke="#94a3b8" />
-      </g>
+        {/* Star (hidden on tree)  bigger, line-art */}
+        <polygon points="560,145 568,170 596,170 572,186 580,210 560,196 540,210 548,186 524,170 552,170" fill="none" stroke="#111827" strokeWidth="3.5" />
 
-      {/* Star removed (difference 1) */}
+        {/* Leaf (on ground)  clearer outline with vein */}
+        <g>
+          <path d="M290 300 C320 280, 360 310, 330 330 C345 345, 305 350, 290 330 Z" fill="none" stroke="#111827" strokeWidth="3.5" />
+          <path d="M325 295 Q325 315 318 332" fill="none" stroke="#111827" strokeWidth="2.5" />
+        </g>
 
-      {/* Leaf moved (difference 2) */}
-      <path d="M500 310 C520 300, 540 320, 520 330 C530 340, 510 345, 500 330 Z" fill="#86efac" stroke="#16a34a" />
+        {/* Book (bench)  larger, line-art with page lines */}
+        <g>
+          <rect x="392" y="285" width="80" height="10" fill="none" stroke="#111827" strokeWidth="3" />
+          <rect x="398" y="248" width="68" height="36" rx="2" fill="none" stroke="#111827" strokeWidth="3" />
+          <line x1="432" y1="248" x2="432" y2="284" stroke="#111827" strokeWidth="3" />
+          <line x1="404" y1="256" x2="464" y2="256" stroke="#111827" strokeWidth="2" />
+          <line x1="404" y1="263" x2="464" y2="263" stroke="#111827" strokeWidth="2" />
+          <line x1="404" y1="270" x2="464" y2="270" stroke="#111827" strokeWidth="2" />
+        </g>
 
-      {/* Book moved to ground (difference 3) */}
-      <g>
-        <rect x="460" y="310" width="60" height="8" fill="#94a3b8" />
-        <rect x="465" y="280" width="50" height="30" fill="#e2e8f0" stroke="#64748b" />
-        <line x1="490" y1="280" x2="490" y2="310" stroke="#64748b" />
-      </g>
+        {/* Car (simple)  larger, line-art */}
+        <g>
+          <rect x="620" y="265" width="120" height="36" rx="8" fill="none" stroke="#111827" strokeWidth="3.5" />
+          <rect x="650" y="270" width="50" height="16" rx="3" fill="none" stroke="#111827" strokeWidth="2.5" />
+          <circle cx="648" cy="308" r="14" fill="none" stroke="#111827" strokeWidth="3.5" />
+          <circle cx="712" cy="308" r="14" fill="none" stroke="#111827" strokeWidth="3.5" />
+        </g>
 
-      {/* Car changed color and slightly moved (difference 4) */}
-      <g>
-        <rect x="620" y="275" width="90" height="30" rx="6" fill="#86efac" stroke="#64748b" />
-        <circle cx="640" cy="310" r="10" fill="#475569" />
-        <circle cx="690" cy="310" r="10" fill="#475569" />
-      </g>
+        {/* Key (on ground)  larger, line-art with teeth */}
+        <g>
+          <circle cx="520" cy="328" r="14" fill="none" stroke="#111827" strokeWidth="3.5" />
+          <rect x="538" y="325" width="36" height="8" fill="none" stroke="#111827" strokeWidth="3.5" />
+          <rect x="574" y="325" width="8" height="12" fill="none" stroke="#111827" strokeWidth="3.5" />
+          <rect x="584" y="325" width="8" height="12" fill="none" stroke="#111827" strokeWidth="3.5" />
+        </g>
 
-      {/* Key moved (difference 5) */}
-      <g>
-        <circle cx="140" cy="335" r="8" fill="#fde68a" stroke="#b45309" />
-        <rect x="148" y="333" width="20" height="4" fill="#fde68a" stroke="#b45309" />
-        <rect x="168" y="333" width="4" height="6" fill="#fde68a" stroke="#b45309" />
-        <rect x="173" y="333" width="4" height="6" fill="#fde68a" stroke="#b45309" />
-      </g>
+        {/* Apple (on tree)  larger, line-art with stem + leaf */}
+        <g>
+          <circle cx="220" cy="205" r="14" fill="none" stroke="#111827" strokeWidth="3.5" />
+          <line x1="220" y1="191" x2="220" y2="199" stroke="#111827" strokeWidth="3" />
+          <ellipse cx="228" cy="196" rx="8" ry="4" fill="none" stroke="#111827" strokeWidth="2.5" />
+        </g>
 
-      {/* Apple moved (difference 6) */}
-      <circle cx="260" cy="190" r="8" fill="#ef4444" stroke="#991b1b" />
+        {/* Shell (near pond)  larger, line-art with scallops */}
+        <g>
+          <path d="M100 324 C118 296, 162 296, 180 324 C172 340, 108 340, 100 324 Z" fill="none" stroke="#111827" strokeWidth="3.5" />
+          {Array.from({ length: 5 }).map((_, i) => {
+            const x = 112 + i * 14; return (<path key={i} d={`M${x} 322 Q${x + 4} 312 ${x + 8} 322`} stroke="#111827" fill="none" strokeWidth="2.5" />);
+          })}
+        </g>
 
-      {/* Shell (same) */}
-      <g>
-        <path d="M110 320 C120 300, 150 300, 160 320 C155 330, 115 330, 110 320 Z" fill="#f5d0fe" stroke="#a855f7" />
-        <line x1="120" y1="318" x2="150" y2="318" stroke="#9333ea" />
-      </g>
+        {/* Ball  larger, line-art with stripes */}
+        <g>
+          <circle cx="360" cy="310" r="16" fill="none" stroke="#111827" strokeWidth="3.5" />
+          <path d="M342 310 Q360 296 378 310" stroke="#111827" strokeWidth="2.5" fill="none" />
+          <path d="M360 294 Q370 310 360 326" stroke="#111827" strokeWidth="2.5" fill="none" />
+        </g>
 
-      {/* Bird in sky (difference 7) */}
-      <g>
-        <path d="M600 80 Q610 70, 620 80 M620 80 Q630 70, 640 80" fill="none" stroke="#64748b" strokeWidth="3" />
-      </g>
-    </svg>
-  )
-}
+        {/* Hat (on bench)  clearer fedora outline */}
+        <g>
+          <ellipse cx="475" cy="282" rx="28" ry="10" fill="none" stroke="#111827" strokeWidth="3.5" />
+          <path d="M452 268 Q475 258 498 268" fill="none" stroke="#111827" strokeWidth="3.5" />
+          <rect x="458" y="264" width="34" height="14" fill="none" stroke="#111827" strokeWidth="3.5" />
+          <line x1="458" y1="270" x2="492" y2="270" stroke="#111827" strokeWidth="3" />
+        </g>
+      </svg>
+    )
+  }
+
+  // Variant B with 7 differences from A: (1) no star, (2) leaf moved, (3) book moved, (4) car color/position, (5) key moved, (6) apple moved, (7) add a bird
+  function HiddenObjectsSceneSVGB() {
+    return (
+      <svg viewBox="0 0 800 400" className="w-full h-auto bg-white border border-slate-300 rounded">
+        <defs>
+          <linearGradient id="skyB" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stopColor="#e0f2fe" />
+            <stop offset="100%" stopColor="#ffffff" />
+          </linearGradient>
+        </defs>
+        {/* Background sky and ground */}
+        <rect x="0" y="0" width="800" height="240" fill="url(#skyB)" />
+        <rect x="0" y="240" width="800" height="160" fill="#f1f5f9" />
+
+        {/* Trees */}
+        {[100, 220, 560, 700].map((x, i) => (
+          <g key={i}>
+            <rect x={x} y="220" width="10" height="40" fill="#64748b" />
+            <circle cx={x + 5} cy="200" r="28" fill="#a7f3d0" />
+            <circle cx={x - 15} cy="215" r="18" fill="#a7f3d0" />
+            <circle cx={x + 22} cy="215" r="18" fill="#a7f3d0" />
+          </g>
+        ))}
+
+        {/* Cloud (same) */}
+        <g>
+          <ellipse cx="180" cy="90" rx="50" ry="20" fill="#ffffff" stroke="#94a3b8" />
+          <ellipse cx="210" cy="90" rx="35" ry="16" fill="#ffffff" stroke="#94a3b8" />
+          <ellipse cx="150" cy="94" rx="30" ry="14" fill="#ffffff" stroke="#94a3b8" />
+        </g>
+
+        {/* Star removed (difference 1) */}
+
+        {/* Leaf moved (difference 2) */}
+        <path d="M500 310 C520 300, 540 320, 520 330 C530 340, 510 345, 500 330 Z" fill="#86efac" stroke="#16a34a" />
+
+        {/* Book moved to ground (difference 3) */}
+        <g>
+          <rect x="460" y="310" width="60" height="8" fill="#94a3b8" />
+          <rect x="465" y="280" width="50" height="30" fill="#e2e8f0" stroke="#64748b" />
+          <line x1="490" y1="280" x2="490" y2="310" stroke="#64748b" />
+        </g>
+
+        {/* Car changed color and slightly moved (difference 4) */}
+        <g>
+          <rect x="620" y="275" width="90" height="30" rx="6" fill="#86efac" stroke="#64748b" />
+          <circle cx="640" cy="310" r="10" fill="#475569" />
+          <circle cx="690" cy="310" r="10" fill="#475569" />
+        </g>
+
+        {/* Key moved (difference 5) */}
+        <g>
+          <circle cx="140" cy="335" r="8" fill="#fde68a" stroke="#b45309" />
+          <rect x="148" y="333" width="20" height="4" fill="#fde68a" stroke="#b45309" />
+          <rect x="168" y="333" width="4" height="6" fill="#fde68a" stroke="#b45309" />
+          <rect x="173" y="333" width="4" height="6" fill="#fde68a" stroke="#b45309" />
+        </g>
+
+        {/* Apple moved (difference 6) */}
+        <circle cx="260" cy="190" r="8" fill="#ef4444" stroke="#991b1b" />
+
+        {/* Shell (same) */}
+        <g>
+          <path d="M110 320 C120 300, 150 300, 160 320 C155 330, 115 330, 110 320 Z" fill="#f5d0fe" stroke="#a855f7" />
+          <line x1="120" y1="318" x2="150" y2="318" stroke="#9333ea" />
+        </g>
+
+        {/* Bird in sky (difference 7) */}
+        <g>
+          <path d="M600 80 Q610 70, 620 80 M620 80 Q630 70, 640 80" fill="none" stroke="#64748b" strokeWidth="3" />
+        </g>
+      </svg>
+    )
+  }
 
 
-function generateReadingStory(seed: string, grade: number) {
-  const rng = makeRng(seed)
-  const pick = <T,>(arr: T[]) => arr[Math.floor(rng() * arr.length)]
+  function generateReadingStory(seed: string, grade: number) {
+    const rng = makeRng(seed)
+    const pick = <T,>(arr: T[]) => arr[Math.floor(rng() * arr.length)]
 
-  // Vocabulary banks
-  const animals = ['ant', 'beetle', 'ladybug', 'butterfly', 'spider', 'bee']
-  const adjectives = ['tiny', 'busy', 'fast', 'brave', 'happy', 'red']
-  const places = ['garden', 'park', 'forest', 'playground', 'backyard']
-  const foods = ['crumb', 'leaf', 'seed', 'berry', 'cookie']
-  const actions = ['ran', 'crawled', 'flew', 'marched', 'climbed']
+    // Vocabulary banks
+    const animals = ['ant', 'beetle', 'ladybug', 'butterfly', 'spider', 'bee']
+    const adjectives = ['tiny', 'busy', 'fast', 'brave', 'happy', 'red']
+    const places = ['garden', 'park', 'forest', 'playground', 'backyard']
+    const foods = ['crumb', 'leaf', 'seed', 'berry', 'cookie']
+    const actions = ['ran', 'crawled', 'flew', 'marched', 'climbed']
 
-  // Grade 1: Simple sentences
-  if (grade === 1) {
-    const mainChar = pick(animals)
-    const name = pick(['Andy', 'Betty', 'Carl', 'Dora', 'Eddie', 'Fay'])
-    const adj = pick(adjectives)
-    const place = pick(places)
-    const food = pick(foods)
-    const action = pick(actions)
+    // Grade 1: Simple sentences
+    if (grade === 1) {
+      const mainChar = pick(animals)
+      const name = pick(['Andy', 'Betty', 'Carl', 'Dora', 'Eddie', 'Fay'])
+      const adj = pick(adjectives)
+      const place = pick(places)
+      const food = pick(foods)
+      const action = pick(actions)
 
-    const title = `The ${adj.charAt(0).toUpperCase() + adj.slice(1)} ${mainChar.charAt(0).toUpperCase() + mainChar.slice(1)}`
+      const title = `The ${adj.charAt(0).toUpperCase() + adj.slice(1)} ${mainChar.charAt(0).toUpperCase() + mainChar.slice(1)}`
 
-    const story = `Once there was a ${adj} ${mainChar} named ${name}.
+      const story = `Once there was a ${adj} ${mainChar} named ${name}.
     ${name} lived in a big ${place}.
     One day, ${name} was very hungry.
     ${name} ${action} to find some food.
     Suddenly, ${name} found a big, yummy ${food}.
     ${name} was so happy to find the ${food}!`
 
-    const questions = [
-      { q: `What kind of animal was ${name}?`, options: [mainChar, 'cat', 'bird'], a: mainChar },
-      { q: `Where did ${name} live?`, options: [place, 'house', 'school'], a: place },
-      { q: `What did ${name} find to eat?`, options: [food, 'pizza', 'apple'], a: food },
-    ]
+      const questions = [
+        { q: `What kind of animal was ${name}?`, options: [mainChar, 'cat', 'bird'], a: mainChar },
+        { q: `Where did ${name} live?`, options: [place, 'house', 'school'], a: place },
+        { q: `What did ${name} find to eat?`, options: [food, 'pizza', 'apple'], a: food },
+      ]
 
-    return { title, story, questions, emoji: '📖' }
-  }
+      return { title, story, questions, emoji: '📖' }
+    }
 
-  // Grade 2: More complex sentences, social themes
-  if (grade === 2) {
-    const friend1 = pick(['Sam', 'Mia', 'Leo', 'Zoe', 'Max', 'Ava'])
-    const friend2 = pick(['Ben', 'Lily', 'Tom', 'Eva', 'Jay', 'Sky'])
-    const activity = pick(['painting', 'soccer', 'baking', 'hiking', 'gardening'])
-    const object = pick(['ball', 'brush', 'spoon', 'map', 'flower'])
-    const setting = pick(['park', 'kitchen', 'studio', 'trail', 'backyard'])
-    const emotion = pick(['excited', 'nervous', 'happy', 'proud', 'curious'])
+    // Grade 2: More complex sentences, social themes
+    if (grade === 2) {
+      const friend1 = pick(['Sam', 'Mia', 'Leo', 'Zoe', 'Max', 'Ava'])
+      const friend2 = pick(['Ben', 'Lily', 'Tom', 'Eva', 'Jay', 'Sky'])
+      const activity = pick(['painting', 'soccer', 'baking', 'hiking', 'gardening'])
+      const object = pick(['ball', 'brush', 'spoon', 'map', 'flower'])
+      const setting = pick(['park', 'kitchen', 'studio', 'trail', 'backyard'])
+      const emotion = pick(['excited', 'nervous', 'happy', 'proud', 'curious'])
 
-    const title = `${friend1} and ${friend2}'s ${activity.charAt(0).toUpperCase() + activity.slice(1)} Day`
+      const title = `${friend1} and ${friend2}'s ${activity.charAt(0).toUpperCase() + activity.slice(1)} Day`
 
-    const story = `It was a beautiful Saturday morning. ${friend1} called ${friend2} on the phone.
+      const story = `It was a beautiful Saturday morning. ${friend1} called ${friend2} on the phone.
     "Do you want to go ${activity} today?" asked ${friend1}.
     "Yes! I am so ${emotion}!" replied ${friend2}.
     They met at the ${setting}. ${friend1} brought a big ${object} to help them start.
     They spent the whole afternoon ${activity} together. Using the ${object} was very helpful.
     At the end of the day, they were tired but happy.`
 
-    const questions = [
-      { q: `What activity did the friends do?`, options: [activity, 'swimming', 'reading'], a: activity },
-      { q: `Where did they meet?`, options: [setting, 'school', 'store'], a: setting },
-      { q: `How did ${friend2} feel about playing?`, options: [emotion, 'angry', 'sad'], a: emotion },
-      { q: `What item did ${friend1} bring?`, options: [object, 'shoe', 'hat'], a: object },
-    ]
+      const questions = [
+        { q: `What activity did the friends do?`, options: [activity, 'swimming', 'reading'], a: activity },
+        { q: `Where did they meet?`, options: [setting, 'school', 'store'], a: setting },
+        { q: `How did ${friend2} feel about playing?`, options: [emotion, 'angry', 'sad'], a: emotion },
+        { q: `What item did ${friend1} bring?`, options: [object, 'shoe', 'hat'], a: object },
+      ]
 
-    return { title, story, questions, emoji: '👫' }
-  }
+      return { title, story, questions, emoji: '👫' }
+    }
 
-  // Grade 3: Paragraphs, informative/science themes
-  if (grade === 3) {
-    const topics = [
-      { t: 'Bees', f: 'pollinate flowers', h: 'hive', d: 'honey' },
-      { t: 'Frogs', f: 'catch flies', h: 'pond', d: 'eggs' },
-      { t: 'Volcanoes', f: 'erupt lava', h: 'mountain', d: 'magma' },
-      { t: 'Trees', f: 'make oxygen', h: 'forest', d: 'wood' }
-    ]
-    const topic = pick(topics)
-    const adjDoc = pick(['amazing', 'fascinating', 'important', 'incredible'])
+    // Grade 3: Paragraphs, informative/science themes
+    if (grade === 3) {
+      const topics = [
+        { t: 'Bees', f: 'pollinate flowers', h: 'hive', d: 'honey' },
+        { t: 'Frogs', f: 'catch flies', h: 'pond', d: 'eggs' },
+        { t: 'Volcanoes', f: 'erupt lava', h: 'mountain', d: 'magma' },
+        { t: 'Trees', f: 'make oxygen', h: 'forest', d: 'wood' }
+      ]
+      const topic = pick(topics)
+      const adjDoc = pick(['amazing', 'fascinating', 'important', 'incredible'])
 
-    const title = `The ${adjDoc.charAt(0).toUpperCase() + adjDoc.slice(1)} World of ${topic.t}`
+      const title = `The ${adjDoc.charAt(0).toUpperCase() + adjDoc.slice(1)} World of ${topic.t}`
 
-    const story = `${topic.t} are truly ${adjDoc} parts of nature. Did you know that they ${topic.f}? This helps our world in many ways.
+      const story = `${topic.t} are truly ${adjDoc} parts of nature. Did you know that they ${topic.f}? This helps our world in many ways.
 
     Most ${topic.t.toLowerCase()} can be found in a ${topic.h}. This is their home where they allow themselves to grow and thrive.
 
     Another interesting fact is related to ${topic.d}. This plays a key role in the life of ${topic.t.toLowerCase()}. Scientists study them to learn more about our planet.`
 
-    const questions = [
-      { q: `What is the main topic of the passage?`, options: [topic.t, 'Cars', 'Space'], a: topic.t },
-      { q: `Where can you usually find them?`, options: [topic.h, 'ocean', 'city'], a: topic.h },
-      { q: `What do they do according to the text?`, options: [topic.f, 'sleep all day', 'fly to space'], a: topic.f },
-      { q: `What specific term was mentioned?`, options: [topic.d, 'plastic', 'glass'], a: topic.d },
-    ]
+      const questions = [
+        { q: `What is the main topic of the passage?`, options: [topic.t, 'Cars', 'Space'], a: topic.t },
+        { q: `Where can you usually find them?`, options: [topic.h, 'ocean', 'city'], a: topic.h },
+        { q: `What do they do according to the text?`, options: [topic.f, 'sleep all day', 'fly to space'], a: topic.f },
+        { q: `What specific term was mentioned?`, options: [topic.d, 'plastic', 'glass'], a: topic.d },
+      ]
 
-    return { title, story, questions, emoji: '🌍' }
-  }
-
-  // Social Studies & Science Generators
-
-  function generateContinentQuiz(seed: string) {
-    const rng = makeRng(seed)
-    const pick = <T,>(arr: T[]) => arr[Math.floor(rng() * arr.length)]
-
-    const continents = [
-      { name: 'Africa', color: '#fbbf24', shape: 'M450,250 Q480,220 520,240 T540,280 T520,340 T480,360 T440,320 Z' },
-      { name: 'Asia', color: '#f87171', shape: 'M550,150 Q600,120 680,140 T700,200 T650,280 T580,260 T540,200 Z' },
-      { name: 'Europe', color: '#60a5fa', shape: 'M480,140 Q520,130 540,160 T520,200 T480,190 T460,160 Z' },
-      { name: 'North America', color: '#4ade80', shape: 'M250,120 Q300,100 350,140 T320,220 T280,240 T220,180 Z' },
-      { name: 'South America', color: '#a78bfa', shape: 'M300,260 Q340,260 360,300 T340,380 T300,420 T280,340 Z' },
-      { name: 'Australia', color: '#fcd34d', shape: 'M680,300 Q720,290 740,320 T720,360 T680,350 Z' },
-      { name: 'Antarctica', color: '#e2e8f0', shape: 'M400,450 Q500,440 600,450 T700,460 T500,480 T300,460 Z' },
-    ]
-
-    const target = pick(continents)
-
-    const question = {
-      q: "Which continent is highlighted?",
-      options: continents.map(c => c.name).sort(() => rng() - 0.5).slice(0, 4),
-      a: target.name
+      return { title, story, questions, emoji: '🌍' }
     }
 
-    if (!question.options.includes(target.name)) {
-      question.options[0] = target.name
-      question.options.sort(() => rng() - 0.5)
-    }
+    // Social Studies & Science Generators
 
-    return { target, question, allContinents: continents }
-  }
+    function generateContinentQuiz(seed: string) {
+      const rng = makeRng(seed)
+      const pick = <T,>(arr: T[]) => arr[Math.floor(rng() * arr.length)]
 
-  function generateLandformQuiz(seed: string) {
-    const rng = makeRng(seed)
-    const pick = <T,>(arr: T[]) => arr[Math.floor(rng() * arr.length)]
+      const continents = [
+        { name: 'Africa', color: '#fbbf24', shape: 'M450,250 Q480,220 520,240 T540,280 T520,340 T480,360 T440,320 Z' },
+        { name: 'Asia', color: '#f87171', shape: 'M550,150 Q600,120 680,140 T700,200 T650,280 T580,260 T540,200 Z' },
+        { name: 'Europe', color: '#60a5fa', shape: 'M480,140 Q520,130 540,160 T520,200 T480,190 T460,160 Z' },
+        { name: 'North America', color: '#4ade80', shape: 'M250,120 Q300,100 350,140 T320,220 T280,240 T220,180 Z' },
+        { name: 'South America', color: '#a78bfa', shape: 'M300,260 Q340,260 360,300 T340,380 T300,420 T280,340 Z' },
+        { name: 'Australia', color: '#fcd34d', shape: 'M680,300 Q720,290 740,320 T720,360 T680,350 Z' },
+        { name: 'Antarctica', color: '#e2e8f0', shape: 'M400,450 Q500,440 600,450 T700,460 T500,480 T300,460 Z' },
+      ]
 
-    const landforms = [
-      { name: 'Mountain', emoji: '🏔️', def: 'A very high landform with a peak.' },
-      { name: 'Island', emoji: '🏝️', def: 'Land surrounded by water on all sides.' },
-      { name: 'Volcano', emoji: '🌋', def: 'A mountain that can erupt lava.' },
-      { name: 'Desert', emoji: '🏜️', def: 'A dry place with very little rain.' },
-      { name: 'Ocean', emoji: '🌊', def: 'A large body of salt water.' },
-      { name: 'River', emoji: '💧', def: 'Water flowing towards an ocean or lake.' },
-      { name: 'Valley', emoji: '🏞️', def: 'Low land between hills or mountains.' },
-    ]
+      const target = pick(continents)
 
-    const target = pick(landforms)
-
-    // 50/50 chance of Name -> Def or Def -> Name
-    const mode = rng() > 0.5 ? 'def' : 'name'
-
-    let question
-    if (mode === 'def') {
-      question = {
-        q: `What is the definition of a ${target.name}?`,
-        options: landforms.map(l => l.def).sort(() => rng() - 0.5).slice(0, 3),
-        a: target.def
-      }
-    } else {
-      question = {
-        q: `Which landform is: "${target.def}"?`,
-        options: landforms.map(l => l.name).sort(() => rng() - 0.5).slice(0, 3),
+      const question = {
+        q: "Which continent is highlighted?",
+        options: continents.map(c => c.name).sort(() => rng() - 0.5).slice(0, 4),
         a: target.name
       }
+
+      if (!question.options.includes(target.name)) {
+        question.options[0] = target.name
+        question.options.sort(() => rng() - 0.5)
+      }
+
+      return { target, question, allContinents: continents }
     }
 
-    if (!question.options.includes(mode === 'def' ? target.def : target.name)) {
-      question.options[0] = mode === 'def' ? target.def : target.name
-      question.options.sort(() => rng() - 0.5)
-    }
+    function generateLandformQuiz(seed: string) {
+      const rng = makeRng(seed)
+      const pick = <T,>(arr: T[]) => arr[Math.floor(rng() * arr.length)]
 
-    return { target, question }
-  }
+      const landforms = [
+        { name: 'Mountain', emoji: '🏔️', def: 'A very high landform with a peak.' },
+        { name: 'Island', emoji: '🏝️', def: 'Land surrounded by water on all sides.' },
+        { name: 'Volcano', emoji: '🌋', def: 'A mountain that can erupt lava.' },
+        { name: 'Desert', emoji: '🏜️', def: 'A dry place with very little rain.' },
+        { name: 'Ocean', emoji: '🌊', def: 'A large body of salt water.' },
+        { name: 'River', emoji: '💧', def: 'Water flowing towards an ocean or lake.' },
+        { name: 'Valley', emoji: '🏞️', def: 'Low land between hills or mountains.' },
+      ]
 
-  function generateScienceSorting(seed: string) {
-    const rng = makeRng(seed)
-    const pick = <T,>(arr: T[]) => arr[Math.floor(rng() * arr.length)]
+      const target = pick(landforms)
 
-    const themes = [
-      {
-        name: 'Living vs Non-Living',
-        sets: {
-          'Living': ['🐶', '🌲', '🐛', '🌷', '🦋', '🍄', '🐢'],
-          'Non-Living': ['rock', 'car', 'balloon', 'spoon', 'robot', 'cup', 'pencil'] // Using words/simple text if emojis ambiguous
+      // 50/50 chance of Name -> Def or Def -> Name
+      const mode = rng() > 0.5 ? 'def' : 'name'
+
+      let question
+      if (mode === 'def') {
+        question = {
+          q: `What is the definition of a ${target.name}?`,
+          options: landforms.map(l => l.def).sort(() => rng() - 0.5).slice(0, 3),
+          a: target.def
         }
-      },
-      {
-        name: 'Sink or Float',
-        sets: {
-          'Float': ['apple', 'wood', 'leaf', 'boat', 'feather'],
-          'Sink': ['rock', 'coin', 'key', 'brick', 'metal spoon']
-        }
-      },
-      {
-        name: 'Vertebrate vs Invertebrate',
-        sets: {
-          'Vertebrate': ['Human', 'Dog', 'Bird', 'Fish', 'Frog'],
-          'Invertebrate': ['Worm', 'Spider', 'Jellyfish', 'Octopus', 'Snail']
-        }
-      }
-    ]
-
-    const theme = pick(themes)
-    const cats = Object.keys(theme.sets)
-    const cat1 = cats[0]
-    const cat2 = cats[1]
-
-    // Pick 3 items from each
-    const set1 = theme.sets[cat1].sort(() => rng() - 0.5).slice(0, 3)
-    const set2 = theme.sets[cat2].sort(() => rng() - 0.5).slice(0, 3)
-
-    const items = [...set1.map(i => ({ name: i, Cat: cat1 })), ...set2.map(i => ({ name: i, Cat: cat2 }))]
-    items.sort(() => rng() - 0.5)
-
-    return { theme: theme.name, items, categories: [cat1, cat2] }
-  }
-
-  function generateLifecycle(seed: string) {
-    const rng = makeRng(seed)
-    const pick = <T,>(arr: T[]) => arr[Math.floor(rng() * arr.length)]
-
-    const cycles = [
-      { name: 'Butterfly', stages: ['Egg 🥚', 'Caterpillar 🐛', 'Pupa 🧱', 'Butterfly 🦋'] },
-      { name: 'Frog', stages: ['Egg 🥚', 'Tadpole 🐟', 'Froglet 🐸', 'Adult Frog 🐸'] },
-      { name: 'Plant', stages: ['Seed 🌱', 'Sprout 🌿', 'Plant 🌳', 'Flower 🌸'] },
-      { name: 'Chicken', stages: ['Egg 🥚', 'Hatchling 🐣', 'Chick 🐥', 'Chicken 🐔'] },
-    ]
-
-    const lifecycle = pick(cycles)
-    return { name: lifecycle.name, stages: lifecycle.stages } // Stages are already in order
-  }
-
-  // Creative & Brain Tools Generators
-
-  function generateColorByNumber(seed: string) {
-    const rng = makeRng(seed)
-    const pick = <T,>(arr: T[]) => arr[Math.floor(rng() * arr.length)]
-    const randInt = (min: number, max: number) => Math.floor(rng() * (max - min + 1)) + min
-
-    const themes = [
-      {
-        name: 'Rocket',
-        emoji: '🚀',
-        regions: [
-          { id: 1, color: 'Red', hex: '#ef4444', path: 'M300,100 L350,200 H250 Z' }, // Top
-          { id: 2, color: 'White', hex: '#ffffff', path: 'M250,200 H350 V350 H250 Z' }, // Body
-          { id: 3, color: 'Blue', hex: '#3b82f6', path: 'M250,350 H350 L370,400 H230 Z' }, // Base
-          { id: 4, color: 'Yellow', hex: '#eab308', path: 'M290,240 A10,10 0 1,1 310,240 A10,10 0 1,1 290,240' }, // Window
-          { id: 5, color: 'Orange', hex: '#f97316', path: 'M250,300 L200,380 H250 Z M350,300 L400,380 H350 Z' }, // Fins
-        ]
-      },
-      {
-        name: 'Flower',
-        emoji: '🌻',
-        regions: [
-          { id: 1, color: 'Yellow', hex: '#fcd34d', path: 'M300,250 m-50,0 a50,50 0 1,0 100,0 a50,50 0 1,0 -100,0' }, // Center
-          { id: 2, color: 'Pink', hex: '#f472b6', path: 'M300,200 C250,150 200,200 250,250 M300,200 C350,150 400,200 350,250 M350,250 C400,300 350,350 300,300 M250,250 C200,300 250,350 300,300' }, // Petals (Simplified)
-          { id: 3, color: 'Green', hex: '#4ade80', path: 'M300,300 V450 M300,380 Q350,350 380,380 Q350,410 300,380' }, // Stem & Leaf
-          { id: 4, color: 'Blue', hex: '#60a5fa', path: 'M0,0 H600 V500 H0 Z' }, // Sky (Background - handled conceptually)
-        ]
-      }
-    ]
-    // Fallback simple SVG paths for Flower Petals because the above path string is broken/incomplete for a single path element usage visually without multiple paths.
-    // Actually, let's stick to the Rocket for robustness, or simplified shapes.
-    // Let's use robust Rocket and maybe a simple House.
-
-    const robustThemes = [
-      {
-        name: 'Simple House',
-        emoji: '🏠',
-        regions: [
-          { id: 1, color: 'Red', hex: '#ef4444', path: 'M200,200 L300,100 L400,200 Z' }, // Roof
-          { id: 2, color: 'Blue', hex: '#3b82f6', path: 'M220,200 H380 V350 H220 Z' }, // Walls
-          { id: 3, color: 'Yellow', hex: '#fcd34d', path: 'M250,230 H290 V270 H250 Z M310,230 H350 V270 H310 Z' }, // Windows
-          { id: 4, color: 'Brown', hex: '#78350f', path: 'M280,350 V300 H320 V350 Z' }, // Door
-          { id: 5, color: 'Green', hex: '#4ade80', path: 'M100,350 H500 V400 H100 Z' }, // Grass
-        ]
-      }
-    ]
-
-    const theme = pick([...themes.slice(0, 1), ...robustThemes])
-
-    // Generate math problems for each ID
-    const key = theme.regions.map(r => {
-      // Generate a simple addition/subtraction problem that equals r.id
-      // e.g. if id=1, prob = "0 + 1", "2 - 1"
-      const isAdd = rng() > 0.5
-      let a, b, problem
-
-      if (isAdd) {
-        a = randInt(0, r.id)
-        b = r.id - a
-        problem = `${a} + ${b}`
       } else {
-        a = randInt(r.id, 10)
-        b = a - r.id
-        problem = `${a} - ${b}`
-      }
-
-      // Sometimes just give the number for very young kids? No, math practice is the goal.
-      return { ...r, problem }
-    })
-
-    return { theme, key }
-  }
-
-  function generateMaze(seed: string) {
-    const rng = makeRng(seed)
-    const width = 15
-    const height = 15
-
-    // Initialize grid with walls (1)
-    const grid = Array(height).fill(null).map(() => Array(width).fill(1))
-
-    // DFS Maze Generation
-    const stack = [{ x: 1, y: 1 }]
-    grid[1][1] = 0
-
-    const dirs = [[0, 2], [2, 0], [0, -2], [-2, 0]]
-
-    while (stack.length > 0) {
-      const current = stack[stack.length - 1]
-      const neighbors = []
-
-      for (const [dx, dy] of dirs) {
-        const nx = current.x + dx
-        const ny = current.y + dy
-
-        if (nx > 0 && nx < width - 1 && ny > 0 && ny < height - 1 && grid[ny][nx] === 1) {
-          neighbors.push({ x: nx, y: ny, dx, dy })
+        question = {
+          q: `Which landform is: "${target.def}"?`,
+          options: landforms.map(l => l.name).sort(() => rng() - 0.5).slice(0, 3),
+          a: target.name
         }
       }
 
-      if (neighbors.length > 0) {
-        const next = neighbors[Math.floor(rng() * neighbors.length)]
-        grid[current.y + next.dy / 2][current.x + next.dx / 2] = 0 // Knock down wall
-        grid[next.y][next.x] = 0
-        stack.push({ x: next.x, y: next.y })
-      } else {
-        stack.pop()
+      if (!question.options.includes(mode === 'def' ? target.def : target.name)) {
+        question.options[0] = mode === 'def' ? target.def : target.name
+        question.options.sort(() => rng() - 0.5)
       }
+
+      return { target, question }
     }
 
-    // Entrance and Exit
-    grid[0][1] = 0
-    grid[height - 1][width - 2] = 0
+    function generateScienceSorting(seed: string) {
+      const rng = makeRng(seed)
+      const pick = <T,>(arr: T[]) => arr[Math.floor(rng() * arr.length)]
 
-    return { grid, width, height }
-  }
-
-  function generateLogicPuzzle(seed: string) {
-    const rng = makeRng(seed)
-    const pick = <T,>(arr: T[]) => arr[Math.floor(rng() * arr.length)]
-    const shuffle = <T,>(arr: T[]) => {
-      const newArr = [...arr]
-      for (let i = newArr.length - 1; i > 0; i--) {
-        const j = Math.floor(rng() * (i + 1));
-        [newArr[i], newArr[j]] = [newArr[j], newArr[i]];
-      }
-      return newArr
-    }
-
-    const names = shuffle(['Alice', 'Bob', 'Charlie', 'Diana']).slice(0, 3)
-    const colors = shuffle(['Red', 'Blue', 'Green', 'Yellow']).slice(0, 3)
-    const pets = shuffle(['Dog', 'Cat', 'Bird', 'Fish']).slice(0, 3)
-
-    // Create solution
-    const solution = names.map((n, i) => ({
-      name: n,
-      color: colors[i],
-      pet: pets[i]
-    }))
-
-    const clues = []
-    // Direct clues
-    clues.push(`${solution[0].name} has a ${solution[0].pet}.`)
-    clues.push(`The person who likes ${solution[1].color} has a ${solution[1].pet}.`)
-    clues.push(`${solution[2].name} likes ${solution[2].color}.`)
-    clues.push(`${solution[0].name} does not like ${solution[1].color}.`) // Negative clue (simple)
-
-    return { names, colors, pets, clues: shuffle(clues), solution }
-  }
-
-  function generateWordSearch(seed: string) {
-    const rng = makeRng(seed)
-    const pick = <T,>(arr: T[]) => arr[Math.floor(rng() * arr.length)]
-
-    const themes = [
-      { name: 'Space', words: ['STAR', 'MOON', 'SUN', 'PLANET', 'ORBIT', 'COMET'] },
-      { name: 'Animals', words: ['LION', 'TIGER', 'BEAR', 'ZEBRA', 'WOLF', 'FOX'] },
-      { name: 'Colors', words: ['RED', 'BLUE', 'GREEN', 'PINK', 'BLACK', 'WHITE'] },
-      { name: 'School', words: ['BOOK', 'DESK', 'PEN', 'MATH', 'READ', 'WRITE'] },
-    ]
-
-    const theme = pick(themes)
-    const size = 10
-    const grid = Array(size).fill(null).map(() => Array(size).fill(''))
-    const placedWords = []
-
-    for (const word of theme.words) {
-      let placed = false
-      let attempts = 0
-      while (!placed && attempts < 50) {
-        const dir = rng() > 0.5 ? 'H' : 'V' // Horizontal or Vertical only for simplicity
-        const row = Math.floor(rng() * size)
-        const col = Math.floor(rng() * size)
-
-        if (dir === 'H') {
-          if (col + word.length <= size) {
-            let clear = true
-            for (let i = 0; i < word.length; i++) {
-              if (grid[row][col + i] !== '' && grid[row][col + i] !== word[i]) clear = false
-            }
-            if (clear) {
-              for (let i = 0; i < word.length; i++) grid[row][col + i] = word[i]
-              placed = true
-              placedWords.push(word)
-            }
+      const themes = [
+        {
+          name: 'Living vs Non-Living',
+          sets: {
+            'Living': ['🐶', '🌲', '🐛', '🌷', '🦋', '🍄', '🐢'],
+            'Non-Living': ['rock', 'car', 'balloon', 'spoon', 'robot', 'cup', 'pencil'] // Using words/simple text if emojis ambiguous
           }
+        },
+        {
+          name: 'Sink or Float',
+          sets: {
+            'Float': ['apple', 'wood', 'leaf', 'boat', 'feather'],
+            'Sink': ['rock', 'coin', 'key', 'brick', 'metal spoon']
+          }
+        },
+        {
+          name: 'Vertebrate vs Invertebrate',
+          sets: {
+            'Vertebrate': ['Human', 'Dog', 'Bird', 'Fish', 'Frog'],
+            'Invertebrate': ['Worm', 'Spider', 'Jellyfish', 'Octopus', 'Snail']
+          }
+        }
+      ]
+
+      const theme = pick(themes)
+      const cats = Object.keys(theme.sets)
+      const cat1 = cats[0]
+      const cat2 = cats[1]
+
+      // Pick 3 items from each
+      const set1 = theme.sets[cat1].sort(() => rng() - 0.5).slice(0, 3)
+      const set2 = theme.sets[cat2].sort(() => rng() - 0.5).slice(0, 3)
+
+      const items = [...set1.map(i => ({ name: i, Cat: cat1 })), ...set2.map(i => ({ name: i, Cat: cat2 }))]
+      items.sort(() => rng() - 0.5)
+
+      return { theme: theme.name, items, categories: [cat1, cat2] }
+    }
+
+    function generateLifecycle(seed: string) {
+      const rng = makeRng(seed)
+      const pick = <T,>(arr: T[]) => arr[Math.floor(rng() * arr.length)]
+
+      const cycles = [
+        { name: 'Butterfly', stages: ['Egg 🥚', 'Caterpillar 🐛', 'Pupa 🧱', 'Butterfly 🦋'] },
+        { name: 'Frog', stages: ['Egg 🥚', 'Tadpole 🐟', 'Froglet 🐸', 'Adult Frog 🐸'] },
+        { name: 'Plant', stages: ['Seed 🌱', 'Sprout 🌿', 'Plant 🌳', 'Flower 🌸'] },
+        { name: 'Chicken', stages: ['Egg 🥚', 'Hatchling 🐣', 'Chick 🐥', 'Chicken 🐔'] },
+      ]
+
+      const lifecycle = pick(cycles)
+      return { name: lifecycle.name, stages: lifecycle.stages } // Stages are already in order
+    }
+
+    // Creative & Brain Tools Generators
+
+    function generateColorByNumber(seed: string) {
+      const rng = makeRng(seed)
+      const pick = <T,>(arr: T[]) => arr[Math.floor(rng() * arr.length)]
+      const randInt = (min: number, max: number) => Math.floor(rng() * (max - min + 1)) + min
+
+      const themes = [
+        {
+          name: 'Rocket',
+          emoji: '🚀',
+          regions: [
+            { id: 1, color: 'Red', hex: '#ef4444', path: 'M300,100 L350,200 H250 Z' }, // Top
+            { id: 2, color: 'White', hex: '#ffffff', path: 'M250,200 H350 V350 H250 Z' }, // Body
+            { id: 3, color: 'Blue', hex: '#3b82f6', path: 'M250,350 H350 L370,400 H230 Z' }, // Base
+            { id: 4, color: 'Yellow', hex: '#eab308', path: 'M290,240 A10,10 0 1,1 310,240 A10,10 0 1,1 290,240' }, // Window
+            { id: 5, color: 'Orange', hex: '#f97316', path: 'M250,300 L200,380 H250 Z M350,300 L400,380 H350 Z' }, // Fins
+          ]
+        },
+        {
+          name: 'Flower',
+          emoji: '🌻',
+          regions: [
+            { id: 1, color: 'Yellow', hex: '#fcd34d', path: 'M300,250 m-50,0 a50,50 0 1,0 100,0 a50,50 0 1,0 -100,0' }, // Center
+            { id: 2, color: 'Pink', hex: '#f472b6', path: 'M300,200 C250,150 200,200 250,250 M300,200 C350,150 400,200 350,250 M350,250 C400,300 350,350 300,300 M250,250 C200,300 250,350 300,300' }, // Petals (Simplified)
+            { id: 3, color: 'Green', hex: '#4ade80', path: 'M300,300 V450 M300,380 Q350,350 380,380 Q350,410 300,380' }, // Stem & Leaf
+            { id: 4, color: 'Blue', hex: '#60a5fa', path: 'M0,0 H600 V500 H0 Z' }, // Sky (Background - handled conceptually)
+          ]
+        }
+      ]
+      // Fallback simple SVG paths for Flower Petals because the above path string is broken/incomplete for a single path element usage visually without multiple paths.
+      // Actually, let's stick to the Rocket for robustness, or simplified shapes.
+      // Let's use robust Rocket and maybe a simple House.
+
+      const robustThemes = [
+        {
+          name: 'Simple House',
+          emoji: '🏠',
+          regions: [
+            { id: 1, color: 'Red', hex: '#ef4444', path: 'M200,200 L300,100 L400,200 Z' }, // Roof
+            { id: 2, color: 'Blue', hex: '#3b82f6', path: 'M220,200 H380 V350 H220 Z' }, // Walls
+            { id: 3, color: 'Yellow', hex: '#fcd34d', path: 'M250,230 H290 V270 H250 Z M310,230 H350 V270 H310 Z' }, // Windows
+            { id: 4, color: 'Brown', hex: '#78350f', path: 'M280,350 V300 H320 V350 Z' }, // Door
+            { id: 5, color: 'Green', hex: '#4ade80', path: 'M100,350 H500 V400 H100 Z' }, // Grass
+          ]
+        }
+      ]
+
+      const theme = pick([...themes.slice(0, 1), ...robustThemes])
+
+      // Generate math problems for each ID
+      const key = theme.regions.map(r => {
+        // Generate a simple addition/subtraction problem that equals r.id
+        // e.g. if id=1, prob = "0 + 1", "2 - 1"
+        const isAdd = rng() > 0.5
+        let a, b, problem
+
+        if (isAdd) {
+          a = randInt(0, r.id)
+          b = r.id - a
+          problem = `${a} + ${b}`
         } else {
-          if (row + word.length <= size) {
-            let clear = true
-            for (let i = 0; i < word.length; i++) {
-              if (grid[row + i][col] !== '' && grid[row + i][col] !== word[i]) clear = false
-            }
-            if (clear) {
-              for (let i = 0; i < word.length; i++) grid[row + i][col] = word[i]
-              placed = true
-              placedWords.push(word)
-            }
+          a = randInt(r.id, 10)
+          b = a - r.id
+          problem = `${a} - ${b}`
+        }
+
+        // Sometimes just give the number for very young kids? No, math practice is the goal.
+        return { ...r, problem }
+      })
+
+      return { theme, key }
+    }
+
+    function generateMaze(seed: string) {
+      const rng = makeRng(seed)
+      const width = 15
+      const height = 15
+
+      // Initialize grid with walls (1)
+      const grid = Array(height).fill(null).map(() => Array(width).fill(1))
+
+      // DFS Maze Generation
+      const stack = [{ x: 1, y: 1 }]
+      grid[1][1] = 0
+
+      const dirs = [[0, 2], [2, 0], [0, -2], [-2, 0]]
+
+      while (stack.length > 0) {
+        const current = stack[stack.length - 1]
+        const neighbors = []
+
+        for (const [dx, dy] of dirs) {
+          const nx = current.x + dx
+          const ny = current.y + dy
+
+          if (nx > 0 && nx < width - 1 && ny > 0 && ny < height - 1 && grid[ny][nx] === 1) {
+            neighbors.push({ x: nx, y: ny, dx, dy })
           }
         }
-        attempts++
+
+        if (neighbors.length > 0) {
+          const next = neighbors[Math.floor(rng() * neighbors.length)]
+          grid[current.y + next.dy / 2][current.x + next.dx / 2] = 0 // Knock down wall
+          grid[next.y][next.x] = 0
+          stack.push({ x: next.x, y: next.y })
+        } else {
+          stack.pop()
+        }
       }
+
+      // Entrance and Exit
+      grid[0][1] = 0
+      grid[height - 1][width - 2] = 0
+
+      return { grid, width, height }
     }
 
-    // Fill empty
-    const letters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
-    for (let r = 0; r < size; r++) {
-      for (let c = 0; c < size; c++) {
-        if (grid[r][c] === '') grid[r][c] = letters[Math.floor(rng() * letters.length)]
+    function generateLogicPuzzle(seed: string) {
+      const rng = makeRng(seed)
+      const pick = <T,>(arr: T[]) => arr[Math.floor(rng() * arr.length)]
+      const shuffle = <T,>(arr: T[]) => {
+        const newArr = [...arr]
+        for (let i = newArr.length - 1; i > 0; i--) {
+          const j = Math.floor(rng() * (i + 1));
+          [newArr[i], newArr[j]] = [newArr[j], newArr[i]];
+        }
+        return newArr
       }
+
+      const names = shuffle(['Alice', 'Bob', 'Charlie', 'Diana']).slice(0, 3)
+      const colors = shuffle(['Red', 'Blue', 'Green', 'Yellow']).slice(0, 3)
+      const pets = shuffle(['Dog', 'Cat', 'Bird', 'Fish']).slice(0, 3)
+
+      // Create solution
+      const solution = names.map((n, i) => ({
+        name: n,
+        color: colors[i],
+        pet: pets[i]
+      }))
+
+      const clues = []
+      // Direct clues
+      clues.push(`${solution[0].name} has a ${solution[0].pet}.`)
+      clues.push(`The person who likes ${solution[1].color} has a ${solution[1].pet}.`)
+      clues.push(`${solution[2].name} likes ${solution[2].color}.`)
+      clues.push(`${solution[0].name} does not like ${solution[1].color}.`) // Negative clue (simple)
+
+      return { names, colors, pets, clues: shuffle(clues), solution }
     }
 
-    return { theme: theme.name, grid, words: placedWords }
+    function generateWordSearch(seed: string) {
+      const rng = makeRng(seed)
+      const pick = <T,>(arr: T[]) => arr[Math.floor(rng() * arr.length)]
+
+      const themes = [
+        { name: 'Space', words: ['STAR', 'MOON', 'SUN', 'PLANET', 'ORBIT', 'COMET'] },
+        { name: 'Animals', words: ['LION', 'TIGER', 'BEAR', 'ZEBRA', 'WOLF', 'FOX'] },
+        { name: 'Colors', words: ['RED', 'BLUE', 'GREEN', 'PINK', 'BLACK', 'WHITE'] },
+        { name: 'School', words: ['BOOK', 'DESK', 'PEN', 'MATH', 'READ', 'WRITE'] },
+      ]
+
+      const theme = pick(themes)
+      const size = 10
+      const grid = Array(size).fill(null).map(() => Array(size).fill(''))
+      const placedWords = []
+
+      for (const word of theme.words) {
+        let placed = false
+        let attempts = 0
+        while (!placed && attempts < 50) {
+          const dir = rng() > 0.5 ? 'H' : 'V' // Horizontal or Vertical only for simplicity
+          const row = Math.floor(rng() * size)
+          const col = Math.floor(rng() * size)
+
+          if (dir === 'H') {
+            if (col + word.length <= size) {
+              let clear = true
+              for (let i = 0; i < word.length; i++) {
+                if (grid[row][col + i] !== '' && grid[row][col + i] !== word[i]) clear = false
+              }
+              if (clear) {
+                for (let i = 0; i < word.length; i++) grid[row][col + i] = word[i]
+                placed = true
+                placedWords.push(word)
+              }
+            }
+          } else {
+            if (row + word.length <= size) {
+              let clear = true
+              for (let i = 0; i < word.length; i++) {
+                if (grid[row + i][col] !== '' && grid[row + i][col] !== word[i]) clear = false
+              }
+              if (clear) {
+                for (let i = 0; i < word.length; i++) grid[row + i][col] = word[i]
+                placed = true
+                placedWords.push(word)
+              }
+            }
+          }
+          attempts++
+        }
+      }
+
+      // Fill empty
+      const letters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
+      for (let r = 0; r < size; r++) {
+        for (let c = 0; c < size; c++) {
+          if (grid[r][c] === '') grid[r][c] = letters[Math.floor(rng() * letters.length)]
+        }
+      }
+
+      return { theme: theme.name, grid, words: placedWords }
+    }
+
   }
-
 }
 
 export default PrintablesPage
-
-
-
-
+  ```
