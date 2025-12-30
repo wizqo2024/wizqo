@@ -11,6 +11,10 @@ import { WorksheetFooter, ProblemBox } from '@/components/worksheet'
 import { makeRng, pick, pickNUnique, shuffleArray, buildWords } from '@/utils/printableUtils'
 import { Sudoku } from '@/pages/worksheets/Sudoku'
 import { WordSearch } from '@/pages/worksheets/WordSearch'
+import { CVCWords, SightWordsPrePrimer, LetterTracingAZ } from './printables/LanguageWorksheets'
+import { MoreLessEqual10 } from './printables/MathWorksheets'
+import MathMazeWorksheets from './MathMazeWorksheets'
+import { GeographyWorksheets } from './GeographyWorksheets'
 import {
   trackWorksheetDownload,
   trackWorksheetView,
@@ -215,7 +219,7 @@ function WorkedExampleContent() {
 
 // Helper component to wrap worksheet sections with nice styling
 // Remove memo to ensure re-renders when language changes
-function WorksheetSectionWrapper({
+export function WorksheetSectionWrapper({
   docId,
   title,
   emoji,
@@ -1661,29 +1665,7 @@ export function PrintablesPage({ docId: propDocId }: { docId?: string } = {}) {
   // Helpers moved to @/utils/printableUtils and components
   // makeRng, pick, pickNUnique etc. imported from utils
 
-  const mathMazeCells = React.useMemo(() => {
-    if (!activeDocs.includes('math-maze')) return [] as string[]
-    const cells: string[] = []
-    const rng = makeRng(`${effectiveSeed}|math-maze|v${variant}`)
-    for (let r = 0; r < 7; r++) {
-      for (let c = 0; c < 7; c++) {
-        if (r === 0 && c === 0) { cells.push('S'); continue }
-        if (r === 6 && c === 6) { cells.push('F'); continue }
-        const useAddition = rng() < 0.7
-        if (useAddition) {
-          let a = Math.floor(rng() * 9) + 1
-          let b = Math.floor(rng() * 9) + 1
-          if (a + b > 18) b = Math.max(1, 18 - a)
-          cells.push(`${a}+${b}`)
-        } else {
-          const big = Math.floor(rng() * 9) + 1
-          const small = Math.floor(rng() * (big + 1))
-          cells.push(`${big}-${small}`)
-        }
-      }
-    }
-    return cells
-  }, [activeDocs, effectiveSeed, variant])
+  // local components
   function SafeImg({ sources, alt, className }: { sources: string[]; alt: string; className?: string }) {
     const [idx, setIdx] = React.useState(0)
     const src = sources[idx] || sources[0]
@@ -3195,607 +3177,59 @@ export function PrintablesPage({ docId: propDocId }: { docId?: string } = {}) {
             isPrintMode={true}
           />
         )}
-        {activeDocs.includes('geo-continents-k2') && (
-          <WorksheetSectionWrapper
-            docId="geo-continents-k2"
-            title="World Explorer: The 7 Continents"
-            emoji={String.fromCodePoint(0x1F30D)}
-            description="Color the map and trace the continent names. Can you find where you live?"
-            problemCount={7}
-            learningObjectives={[
-              'Identify and name the 7 continents',
-              'Associate continents with colors on a map',
-              'Practice tracing geographic names',
-              'Develop basic map reading skills'
-            ]}
-            parentTeacherTips={[
-              'Sing the "7 Continents Song" to help remember them.',
-              'Discuss which continent you live on and point to it.',
-              'Use the colors to help distinguish borders between continents.'
-            ]}
-          >
-            {/* Map Header */}
-            <div className="print:hidden w-full h-12 mb-2 relative overflow-hidden bg-sky-100 rounded-lg flex items-center justify-center">
-              <div className="font-bold text-xl text-sky-700">{String.fromCodePoint(0x279C)}</div>
-            </div>
-
-            <div className="border border-slate-300 rounded-xl p-4 bg-sky-50/30 break-inside-avoid">
-              <svg viewBox="0 0 800 500" className="w-full h-auto drop-shadow-sm" role="img" aria-labelledby="continents-title">
-                <title id="continents-title">World map outline with 7 continents for coloring</title>
-
-                {/* Ocean Background Pattern (Subtle waves) */}
-                <pattern id="ocean-waves" x="0" y="0" width="50" height="20" patternUnits="userSpaceOnUse">
-                  <path d="M0,10 Q12.5,0 25,10 T50,10" fill="none" stroke="#e0f2fe" strokeWidth="2" />
-                </pattern>
-                <rect x="0" y="0" width="800" height="500" fill="url(#ocean-waves)" opacity="0.5" rx="8" />
-
-                {/* Compass Rose */}
-                <g transform="translate(680, 400)">
-                  <circle cx="0" cy="0" r="45" fill="white" stroke="#94a3b8" strokeWidth="2" />
-                  <path d="M0,-35 L10,-10 L35,0 L10,10 L0,35 L-10,10 L-35,0 L-10,-10 Z" fill="#94a3b8" stroke="#475569" strokeWidth="1" />
-                  <text x="0" y="-40" textAnchor="middle" fontSize="14" fontWeight="bold" fill="#475569">N</text>
-                  <text x="0" y="52" textAnchor="middle" fontSize="14" fontWeight="bold" fill="#475569">S</text>
-                  <text x="50" y="5" textAnchor="middle" fontSize="14" fontWeight="bold" fill="#475569">E</text>
-                  <text x="-50" y="5" textAnchor="middle" fontSize="14" fontWeight="bold" fill="#475569">W</text>
-                </g>
-
-                <g fill="white" stroke="#111827" strokeWidth="2" className="continent-shapes">
-                  {/* North America */}
-                  <g>
-                    <path d="M110,60 C80,60 40,100 60,150 C70,180 120,220 160,200 C180,190 220,100 240,60 C200,40 150,50 110,60 Z" />
-                    <circle cx="150" cy="120" r="14" fill="white" />
-                    <text x="150" y="125" textAnchor="middle" fill="#111827" stroke="none" fontWeight="bold" fontSize="14">1</text>
-                  </g>
-                  {/* South America */}
-                  <g>
-                    <path d="M200,220 C240,220 280,240 290,280 C300,340 260,400 240,420 C220,400 190,340 180,280 C180,250 190,220 200,220 Z" />
-                    <circle cx="230" cy="300" r="14" fill="white" />
-                    <text x="230" y="305" textAnchor="middle" fill="#111827" stroke="none" fontWeight="bold" fontSize="14">2</text>
-                  </g>
-                  {/* Europe */}
-                  <g>
-                    <path d="M360,80 C340,90 320,130 340,150 C360,160 380,130 400,120 C420,110 400,80 360,80 Z" />
-                    <circle cx="360" cy="110" r="12" fill="white" />
-                    <text x="360" y="115" textAnchor="middle" fill="#111827" stroke="none" fontWeight="bold" fontSize="14">3</text>
-                  </g>
-                  {/* Africa */}
-                  <g>
-                    <path d="M350,170 C330,220 340,300 380,360 C420,380 480,320 480,260 C480,200 450,160 350,170 Z" />
-                    <circle cx="410" cy="250" r="14" fill="white" />
-                    <text x="410" y="255" textAnchor="middle" fill="#111827" stroke="none" fontWeight="bold" fontSize="14">4</text>
-                  </g>
-                  {/* Asia */}
-                  <g>
-                    <path d="M420,70 C460,50 600,60 680,100 C700,150 660,240 580,260 C520,240 480,200 440,150 C430,120 420,70 420,70 Z" />
-                    <circle cx="550" cy="150" r="14" fill="white" />
-                    <text x="550" y="155" textAnchor="middle" fill="#111827" stroke="none" fontWeight="bold" fontSize="14">5</text>
-                  </g>
-                  {/* Australia */}
-                  <g>
-                    <path d="M600,300 C580,320 580,360 620,380 C660,370 680,340 660,310 C640,290 620,290 600,300 Z" />
-                    <circle cx="630" cy="340" r="12" fill="white" />
-                    <text x="630" y="345" textAnchor="middle" fill="#111827" stroke="none" fontWeight="bold" fontSize="14">6</text>
-                  </g>
-                  {/* Antarctica */}
-                  <g>
-                    <path d="M150,450 C250,440 550,440 650,450 C660,470 640,490 150,490 C140,470 140,460 150,450 Z" />
-                    <circle cx="400" cy="465" r="14" fill="white" />
-                    <text x="400" y="470" textAnchor="middle" fill="#111827" stroke="none" fontWeight="bold" fontSize="14">7</text>
-                  </g>
-                </g>
-              </svg>
-            </div>
-
-            {/* Coloring Key & Tracing */}
-            <div className="mt-4 grid md:grid-cols-2 gap-4 break-inside-avoid">
-              {/* Column 1 */}
-              <div className="space-y-3">
-                <div className="flex items-center gap-3 bg-red-50 p-2 rounded border border-red-200">
-                  <div className="w-8 h-8 rounded-full bg-red-400 flex items-center justify-center font-bold text-white shadow-sm border border-red-500">1</div>
-                  <div className="flex-1">
-                    <div className="text-xs text-red-600 font-semibold mb-1">Color RED, then trace:</div>
-                    <div className="font-[Move_Pen_Lite] text-2xl tracking-wide text-slate-400 dashed-text">North America</div>
-                  </div>
-                </div>
-                <div className="flex items-center gap-3 bg-orange-50 p-2 rounded border border-orange-200">
-                  <div className="w-8 h-8 rounded-full bg-orange-400 flex items-center justify-center font-bold text-white shadow-sm border border-orange-500">2</div>
-                  <div className="flex-1">
-                    <div className="text-xs text-orange-600 font-semibold mb-1">Color ORANGE, then trace:</div>
-                    <div className="font-[Move_Pen_Lite] text-2xl tracking-wide text-slate-400 dashed-text">South America</div>
-                  </div>
-                </div>
-                <div className="flex items-center gap-3 bg-yellow-50 p-2 rounded border border-yellow-200">
-                  <div className="w-8 h-8 rounded-full bg-yellow-400 flex items-center justify-center font-bold text-white shadow-sm border border-yellow-500">3</div>
-                  <div className="flex-1">
-                    <div className="text-xs text-yellow-700 font-semibold mb-1">Color YELLOW, then trace:</div>
-                    <div className="font-[Move_Pen_Lite] text-2xl tracking-wide text-slate-400 dashed-text">Europe</div>
-                  </div>
-                </div>
-                <div className="flex items-center gap-3 bg-green-50 p-2 rounded border border-green-200">
-                  <div className="w-8 h-8 rounded-full bg-green-500 flex items-center justify-center font-bold text-white shadow-sm border border-green-600">4</div>
-                  <div className="flex-1">
-                    <div className="text-xs text-green-700 font-semibold mb-1">Color GREEN, then trace:</div>
-                    <div className="font-[Move_Pen_Lite] text-2xl tracking-wide text-slate-400 dashed-text">Africa</div>
-                  </div>
-                </div>
-              </div>
-
-              {/* Column 2 */}
-              <div className="space-y-3">
-                <div className="flex items-center gap-3 bg-purple-50 p-2 rounded border border-purple-200">
-                  <div className="w-8 h-8 rounded-full bg-purple-400 flex items-center justify-center font-bold text-white shadow-sm border border-purple-500">5</div>
-                  <div className="flex-1">
-                    <div className="text-xs text-purple-700 font-semibold mb-1">Color PURPLE, then trace:</div>
-                    <div className="font-[Move_Pen_Lite] text-2xl tracking-wide text-slate-400 dashed-text">Asia</div>
-                  </div>
-                </div>
-                <div className="flex items-center gap-3 bg-pink-50 p-2 rounded border border-pink-200">
-                  <div className="w-8 h-8 rounded-full bg-pink-400 flex items-center justify-center font-bold text-white shadow-sm border border-pink-500">6</div>
-                  <div className="flex-1">
-                    <div className="text-xs text-pink-600 font-semibold mb-1">Color PINK, then trace:</div>
-                    <div className="font-[Move_Pen_Lite] text-2xl tracking-wide text-slate-400 dashed-text">Australia</div>
-                  </div>
-                </div>
-                <div className="flex items-center gap-3 bg-blue-50 p-2 rounded border border-blue-200">
-                  <div className="w-8 h-8 rounded-full bg-blue-400 flex items-center justify-center font-bold text-white shadow-sm border border-blue-500">7</div>
-                  <div className="flex-1">
-                    <div className="text-xs text-blue-600 font-semibold mb-1">Color BLUE, then trace:</div>
-                    <div className="font-[Move_Pen_Lite] text-2xl tracking-wide text-slate-400 dashed-text">Antarctica</div>
-                  </div>
-                </div>
-
-                {/* Mini-Challenge */}
-                <div className="bg-slate-50 p-3 rounded-lg border border-slate-200 text-sm">
-                  <div className="font-bold text-slate-700 mb-1">{String.fromCodePoint(0x270F)}</div>
-                  <div className="text-slate-600">Can you circle the continent you live on?</div>
-                </div>
-              </div>
-            </div>
-
-            {showAnswersForDoc('geo-continents-k2', () => {
-              const matches = [
-                { id: 1, name: 'North America', color: 'Red' },
-                { id: 2, name: 'South America', color: 'Orange' },
-                { id: 3, name: 'Europe', color: 'Yellow' },
-                { id: 4, name: 'Africa', color: 'Green' },
-                { id: 5, name: 'Asia', color: 'Purple' },
-                { id: 6, name: 'Australia', color: 'Pink' },
-                { id: 7, name: 'Antarctica', color: 'Blue' },
-              ];
-              return (
-                <div className="mt-6 p-4 border-2 border-emerald-300 bg-emerald-50 rounded print:border print:bg-white print:page-break-before-always">
-                  <div className="font-bold text-emerald-900 mb-3 text-base">{String.fromCodePoint(0x2705)}</div>
-                  <div className="grid grid-cols-2 gap-2">
-                    {matches.map((m) => (
-                      <div key={m.id} className="text-sm text-emerald-800">
-                        {m.id}. <strong>{m.name}</strong> ({m.color})
-                      </div>
-                    ))}
-                  </div>
-                </div>
-              );
-            })}
-          </WorksheetSectionWrapper>
-        )}
-
-        {activeDocs.includes('geo-compass-rose') && (
-          <WorksheetSectionWrapper
-            docId="geo-compass-rose"
-            title="Compass Rose & Directions"
-            emoji={String.fromCodePoint(0x1F30D)}
-            description="Color the compass and label cardinal (N, E, S, W) and intercardinal (NE, SE, SW, NW) directions."
-            problemCount={8}
-            learningObjectives={[
-              'Identify cardinal directions (N, E, S, W)',
-              'Identify intercardinal directions (NE, SE, SW, NW)',
-              'Understand how to use a compass rose'
-            ]}
-            parentTeacherTips={[
-              'Cardinal directions: North, East, South, West',
-              'Intercardinal directions: Northeast, Southeast, Southwest, Northwest',
-              'Help students remember: Never Eat Soggy Waffles (N, E, S, W)',
-              'Extension: Practice using directions to navigate'
-            ]}
-          >
-            <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-blue-400 to-green-400 animate-gradient-x mb-2" />
-            {/* Worked Example */}
-            <div className="mb-6 p-4 bg-blue-50 border-2 border-blue-200 rounded-lg print:border print:bg-white">
-              <div className="font-semibold text-blue-900 mb-3 text-sm">{String.fromCodePoint(0x1F4A1)}</div>
-              <div className="space-y-2 text-sm">
-                <div className="font-semibold text-base"><strong>{t('common.problem')}</strong> {t('worksheets.geographyMap.example.problemText', 'Label the direction at the top of the compass')}</div>
-                <div className="pl-4 border-l-2 border-blue-300 space-y-1">
-                  <div><strong>{t('common.step1')}</strong> {t('worksheets.geographyMap.example.step1Text', 'Look at the top of the compass rose')}</div>
-                  <div><strong>{t('common.step2')}</strong> {t('worksheets.geographyMap.example.step2Text', 'The top direction is always North (N)')}</div>
-                  <div><strong>{t('common.step3')}</strong> {t('worksheets.geographyMap.example.step3Text', 'Write "N" at the top')}</div>
-                  <div className="font-semibold text-blue-900"><strong>{t('common.answer')}</strong> {t('worksheets.geographyMap.example.answerText', 'N (North)')}</div>
-                  <div className="text-xs text-blue-700 mt-1">{String.fromCodePoint(0x279C)}</div>
-                </div>
-              </div>
-            </div>
-            <div className="border border-slate-300 rounded p-4 bg-white break-inside-avoid" style={{ pageBreakAfter: 'auto' }}>
-              <svg viewBox="0 0 600 600" className="w-full h-auto" role="img" aria-labelledby="compass-title">
-                <title id="compass-title">Compass rose</title>
-                <g fill="none" stroke="#111827" strokeWidth="4">
-                  <circle cx="300" cy="300" r="180" />
-                  <line x1="300" y1="100" x2="300" y2="500" />
-                  <line x1="100" y1="300" x2="500" y2="300" />
-                  <path d="M300 120 L330 300 L300 480 L270 300 Z" fill="white" />
-                  <path d="M120 300 L300 330 L480 300 L300 270 Z" fill="white" />
-                </g>
-                <g stroke="#111827" strokeWidth="2" fill="white" strokeDasharray="4 4">
-                  {/* Main directions */}
-                  <circle cx="300" cy="60" r="30" />
-                  <circle cx="540" cy="300" r="30" />
-                  <circle cx="300" cy="540" r="30" />
-                  <circle cx="60" cy="300" r="30" />
-                  {/* Intercardinal directions */}
-                  <circle cx="450" cy="150" r="25" />
-                  <circle cx="450" cy="450" r="25" />
-                  <circle cx="150" cy="450" r="25" />
-                  <circle cx="150" cy="150" r="25" />
-                </g>
-              </svg>
-            </div>
-            {/* Extension/Challenge Problems */}
-            <div className="mt-6 print:mt-0 p-4 bg-purple-50 border-2 border-purple-200 rounded print:bg-white print:border" style={{ pageBreakBefore: 'always', pageBreakInside: 'avoid' }}>
-              <div className="font-semibold text-purple-900 mb-3 text-sm">{String.fromCodePoint(0x1F680)}</div>
-              <div className="space-y-2 text-sm text-purple-800">
-                <div>1. Draw your own compass rose</div>
-                <div>2. Use the compass to give directions from your house to school</div>
-                <div>3. Can you name all 8 directions in order?</div>
-              </div>
-            </div>
-            {/* Self-Assessment */}
-            <div className="print:block hidden print:mt-0 mt-6 p-4 border-2 border-slate-300 rounded" style={{ pageBreakBefore: 'avoid', pageBreakInside: 'avoid' }}>
-              <div className="font-semibold text-slate-800 mb-3 text-sm">{String.fromCodePoint(0x270F)}</div>
-              <div className="space-y-2 text-xs">
-                <div>{String.fromCharCode(0x2610)} I can identify all 4 cardinal directions</div>
-                <div>{String.fromCharCode(0x2610)} I can identify all 4 intercardinal directions</div>
-                <div>{String.fromCharCode(0x2610)} I understand how to use a compass rose</div>
-              </div>
-              <div className="mt-3 text-xs">
-                <strong>{getTrans('common.myScore', 'My score:')}</strong> ___ / 8
-              </div>
-              <div className="mt-2 text-xs">
-                <strong>{getTrans('common.whatWasHardest', 'What was hardest?')}</strong> _________________________
-              </div>
-            </div>
-            {showAnswersForDoc('geo-compass-rose', () => {
-              const directions = [
-                { position: 'Top', dir: 'N (North)' },
-                { position: 'Right', dir: 'E (East)' },
-                { position: 'Bottom', dir: 'S (South)' },
-                { position: 'Left', dir: 'W (West)' },
-                { position: 'Top-Right', dir: 'NE (Northeast)' },
-                { position: 'Bottom-Right', dir: 'SE (Southeast)' },
-                { position: 'Bottom-Left', dir: 'SW (Southwest)' },
-                { position: 'Top-Left', dir: 'NW (Northwest)' }
-              ];
-              return (
-                <div className="mt-6 p-4 border-2 border-emerald-300 bg-emerald-50 rounded print:border print:bg-white print:page-break-before-always">
-                  <div className="font-bold text-emerald-900 mb-3 text-base">{String.fromCodePoint(0x2705)}</div>
-                  <div className="space-y-2">
-                    {directions.map((d, i) => (
-                      <div key={i} className="text-sm text-emerald-800">
-                        {d.position}: <strong>{d.dir}</strong>
-                      </div>
-                    ))}
-                  </div>
-                </div>
-              );
-            })}
-          </WorksheetSectionWrapper>
-        )}
-
-        {activeDocs.includes('geo-landforms') && (() => {
-          const rng = makeRng(`${effectiveSeed}|v${variant}|doc=${doc}`);
-
-          const items = [
-            {
-              label: 'Mountain',
-              svg: (
-                <g>
-                  <path d="M40 160 L90 75 L140 160 Z" fill="white" stroke="#111827" strokeWidth="2" />
-                  <path d="M95 160 L135 95 L200 160 Z" fill="white" stroke="#111827" strokeWidth="2" />
-                  <path d="M80 120 L90 105 L100 120" stroke="#111827" strokeWidth="2" />
-                  <path d="M140 120 L150 108 L160 120" stroke="#111827" strokeWidth="2" />
-                </g>
-              )
-            },
-            {
-              label: 'Valley',
-              svg: (
-                <g>
-                  <path d="M30 160 L80 95 L110 160 Z" fill="white" stroke="#111827" strokeWidth="2" />
-                  <path d="M130 160 L170 95 L210 160 Z" fill="white" stroke="#111827" strokeWidth="2" />
-                  <path d="M30 160 Q120 145 210 160" fill="#e2e8f0" stroke="#111827" strokeWidth="2" />
-                </g>
-              )
-            },
-            {
-              label: 'Island',
-              svg: (
-                <g>
-                  <path d="M80 145 C110 110, 170 110, 200 145 C175 165, 115 165, 80 145 Z" fill="white" stroke="#111827" strokeWidth="2" />
-                  <path d="M150 140 C145 125, 146 115, 148 105" stroke="#111827" strokeWidth="2" />
-                  <path d="M148 105 C142 100, 135 100, 130 105" stroke="#111827" strokeWidth="2" />
-                  <path d="M148 105 C154 100, 162 100, 168 105" stroke="#111827" strokeWidth="2" />
-                </g>
-              )
-            },
-            {
-              label: 'Lake',
-              svg: (
-                <g>
-                  <path d="M80 130 C100 110, 140 100, 180 120 C200 135, 170 160, 130 160 C110 158, 90 150, 80 130 Z" fill="white" stroke="#111827" strokeWidth="2" />
-                  <path d="M100 135 C110 140, 120 140, 130 135" stroke="#111827" strokeWidth="2" />
-                  <path d="M120 145 C130 150, 140 150, 150 145" stroke="#111827" strokeWidth="2" />
-                </g>
-              )
-            },
-            {
-              label: 'River',
-              svg: (
-                <g>
-                  <path d="M40 65 C80 85, 110 55, 150 75 C190 95, 150 120, 190 140" fill="none" stroke="#111827" strokeWidth="2" />
-                  <path d="M30 75 C70 95, 100 65, 140 85 C180 105, 140 130, 180 150" fill="none" stroke="#111827" strokeWidth="2" />
-                </g>
-              )
-            }
-          ];
-
-          // Shuffle items
-          const shuffledItems = [...items].sort(() => rng() - 0.5);
-
-          return (
-            <WorksheetSectionWrapper
-              docId="geo-landforms"
-              title="Landforms vs Water Bodies"
-              emoji={String.fromCodePoint(0x1F30D)}
-              description="Look at the pictures. Write the correct letter (AE) next to each word."
-              problemCount={5}
-              learningObjectives={[
-                'Identify different landforms',
-                'Identify different water bodies',
-                'Match words to pictures'
-              ]}
-              parentTeacherTips={[
-                'Landforms are parts of the land: mountain, valley, island',
-                'Water bodies hold or carry water: lake, river',
-                'Help students look at the shapes in the pictures',
-                'Extension: Find examples of these in your area'
-              ]}
-            >
-              <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-blue-400 to-green-400 animate-gradient-x mb-2" />
-              {/* Worked Example */}
-              <div className="mb-6 p-4 bg-blue-50 border-2 border-blue-200 rounded-lg print:border print:bg-white">
-                <div className="font-semibold text-blue-900 mb-3 text-sm">{String.fromCodePoint(0x1F4A1)}</div>
-                <div className="space-y-2 text-sm">
-                  <div className="font-semibold text-base"><strong>Problem:</strong> Match "Mountain" to the correct picture</div>
-                  <div className="pl-4 border-l-2 border-blue-300 space-y-1">
-                    <div><strong>{t('common.step1')}</strong> {t('worksheets.vocab.example.step1Text', 'Look at the word "Mountain"')}</div>
-                    <div><strong>{t('common.step2')}</strong> {t('worksheets.vocab.example.step2Text', 'Find the picture that shows tall peaks pointing up')}</div>
-                    <div><strong>{t('common.step3')}</strong> {t('worksheets.vocab.example.step3Text', 'Write the letter of that picture next to "Mountain"')}</div>
-                  </div>
-                </div>
-              </div>
-              <div className="grid sm:grid-cols-3 grid-cols-2 gap-4 break-inside-avoid" style={{ pageBreakAfter: 'auto' }}>
-                <div className="grid sm:grid-cols-3 grid-cols-2 gap-4 break-inside-avoid" style={{ pageBreakAfter: 'auto' }}>
-                  {shuffledItems.map((item, i) => (
-                    <div key={i} className="border-2 border-slate-200 rounded-lg p-2 flex flex-col items-center bg-white">
-                      <div className="w-8 h-8 rounded-full bg-slate-100 flex items-center justify-center font-bold text-slate-600 mb-2 border border-slate-300">
-                        {String.fromCharCode(65 + i)}
-                      </div>
-                      <svg viewBox="0 0 240 180" className="w-full h-auto max-h-32 mb-2">
-                        {item.svg}
-                      </svg>
-                    </div>
-                  ))}
-                </div>
-              </div>
-              {/* Match list */}
-              <div className="mt-6">
-                <div className="text-slate-900 font-bold mb-4 text-center">Write the Letter</div>
-                <div className="grid grid-cols-1 gap-4 max-w-md mx-auto">
-                  {['Mountain', 'Valley', 'Island', 'Lake', 'River'].map((w, i) => (
-                    <div key={w} className="flex items-center justify-between p-3 border border-slate-200 rounded-lg bg-slate-50">
-                      <span className="text-lg font-medium text-slate-800">{w}</span>
-                      <div className="w-16 h-12 border-2 border-slate-400 bg-white rounded flex items-center justify-center">
-                        {/* Box for letter */}
-                      </div>
-                    </div>
-                  ))}
-                </div>
-              </div>
-              {/* Extension/Challenge Problems */}
-              <div className="mt-6 print:mt-0 p-4 bg-purple-50 border-2 border-purple-200 rounded print:bg-white print:border" style={{ pageBreakBefore: 'always', pageBreakInside: 'avoid' }}>
-                <div className="font-semibold text-purple-900 mb-3 text-sm">{String.fromCodePoint(0x1F680)}</div>
-                <div className="space-y-2 text-sm text-purple-800">
-                  <div>1. Draw your own landform or water body</div>
-                  <div>2. Can you find examples of these near your home?</div>
-                  <div>3. Create a story using 3 of these landforms/water bodies</div>
-                </div>
-              </div>
-              {/* Self-Assessment */}
-              <div className="print:block hidden print:mt-0 mt-6 p-4 border-2 border-slate-300 rounded" style={{ pageBreakBefore: 'avoid', pageBreakInside: 'avoid' }}>
-                <div className="font-semibold text-slate-800 mb-3 text-sm">{String.fromCodePoint(0x270F)}</div>
-                <div className="space-y-2 text-xs">
-                  <div>{String.fromCharCode(0x2610)} I can identify landforms</div>
-                  <div>{String.fromCharCode(0x2610)} I can identify water bodies</div>
-                  <div>{String.fromCharCode(0x2610)} I can match words to pictures</div>
-                </div>
-                <div className="mt-3 text-xs">
-                  <strong>{getTrans('common.myScore', 'My score:')}</strong> ___ / 5
-                </div>
-                <div className="mt-2 text-xs">
-                  <strong>{getTrans('common.whatWasHardest', 'What was hardest?')}</strong> _________________________
-                </div>
-              </div>
-              {showAnswersForDoc('geo-landforms', () => {
-                const matches = [
-                  { word: 'Mountain', letter: 'A' },
-                  { word: 'Valley', letter: 'B' },
-                  { word: 'Island', letter: 'C' },
-                  { word: 'Lake', letter: 'D' },
-                  { word: 'River', letter: 'E' }
-                ];
-                return (
-                  <div className="mt-6 p-4 border-2 border-emerald-300 bg-emerald-50 rounded print:border print:bg-white print:page-break-before-always">
-                    <div className="font-bold text-emerald-900 mb-3 text-base">{String.fromCodePoint(0x2705)}</div>
-                    <div className="space-y-2">
-                      {matches.map((m, i) => (
-                        <div key={i} className="text-sm text-emerald-800">
-                          {m.word}  <strong>{m.letter}</strong>
-                        </div>
-                      ))}
-                    </div>
-                  </div>
-                );
-              })}
-            </WorksheetSectionWrapper>
-          );
-        })()}
-
-        {activeDocs.includes('geo-latlong') && (
-          <WorksheetSectionWrapper
-            docId="geo-latlong"
-            title="Latitude & Longitude Basics"
-            emoji={String.fromCodePoint(0x1F30D)}
-            description="Read grid lines and plot simple coordinates. Practice with a minimal world grid. Tip: Latitude is horizontal (N/S). Longitude is vertical (E/W)."
-            problemCount={2}
-            learningObjectives={[
-              'Understand latitude and longitude coordinates',
-              'Plot coordinates on a grid',
-              'Read coordinates from a map'
-            ]}
-            parentTeacherTips={[
-              'Latitude is horizontal (runs east-west), measures north-south',
-              'Longitude is vertical (runs north-south), measures east-west',
-              'Remember: Latitude = flat (like ladder rungs), Longitude = long (up and down)',
-              'Extension: Find coordinates of your city'
-            ]}
-          >
-            <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-blue-400 to-green-400 animate-gradient-x mb-2" />
-            {/* Worked Example */}
-            <div className="mb-6 p-4 bg-blue-50 border-2 border-blue-200 rounded-lg print:border print:bg-white">
-              <div className="font-semibold text-blue-900 mb-3 text-sm">{String.fromCodePoint(0x1F4A1)}</div>
-              <div className="space-y-2 text-sm">
-                <div className="font-semibold text-base"><strong>{t('common.problem')}</strong>{String.fromCodePoint(0x1F4A1)}</div>
-                <div className="pl-4 border-l-2 border-blue-300 space-y-1">
-                  <div><strong>{t('common.step1')}</strong> Find the latitude (numbers on the side)</div>
-                  <div><strong>{t('common.step2')}</strong> Find the longitude (numbers on the top/bottom)</div>
-                  <div><strong>{t('common.step3')}</strong> {t('worksheets.geographyMap.example.step3Text2', 'Where they meet is point A')}</div>
-                  <div className="font-semibold text-blue-900"><strong>{t('common.answer')}</strong> (Latitude, Longitude)</div>
-                  <div className="text-xs text-blue-700 mt-1">Tip: Latitude lines go "ladder-style" up and down!</div>
-                </div>
-              </div>
-            </div>
-            <div className="border border-slate-300 rounded p-4 bg-white break-inside-avoid" style={{ pageBreakAfter: 'auto' }}>
-              <svg viewBox="0 0 800 500" className="w-full h-auto" role="img" aria-labelledby="latlong-title">
-                <title id="latlong-title">Latitude and longitude grid</title>
-                <g fill="none" stroke="#94a3b8" strokeWidth="2">
-                  {Array.from({ length: 10 }).map((_, i) => (<line key={`h-${i}`} x1="40" y1={50 + i * 40} x2="760" y2={50 + i * 40} />))}
-                  {Array.from({ length: 16 }).map((_, i) => (<line key={`v-${i}`} x1={40 + i * 45} y1="50" x2={40 + i * 45} y2="450" />))}
-                </g>
-                {/* Axes labels */}
-                <g fill="#111827" fontSize="12">
-                  {/* Equator and Prime Meridian labels */}
-                  <text x="380" y="46">0{String.fromCharCode(0x00B0)}</text>
-                  <text x="36" y="260" transform="rotate(-90 36,260)">0{String.fromCharCode(0x00B0)}</text>
-                  {/* Latitude tick labels */}
-                  {([-60, -30, 0, 30, 60] as number[]).map((lat) => {
-                    const y = 50 + ((90 - lat) / 180) * 400; // map -90..90 to 50..450
-                    const label = lat === 0 ? '0' : (Math.abs(lat) + '' + (lat > 0 ? 'N' : 'S'));
-                    return (<text key={`lat-${lat}`} x={30} y={y + 4} textAnchor="end">{label}</text>);
-                  })}
-                  {/* Longitude tick labels */}
-                  {([-120, -90, -60, -30, 0, 30, 60, 90, 120] as number[]).map((lon) => {
-                    const x = 40 + ((lon + 120) / 240) * 720; // map -120..120 to 40..760
-                    const label = lon === 0 ? '0' : (Math.abs(lon) + '' + (lon > 0 ? 'E' : 'W'));
-                    return (<text key={`lon-${lon}`} x={x} y={468} textAnchor="middle">{label}</text>);
-                  })}
-                </g>
-                <g fill="none" stroke="#111827" strokeWidth="3.5">
-                  <circle cx="260" cy="170" r="18" />
-                  <rect x="520" y="300" width="24" height="24" />
-                </g>
-                <g fill="#111827" fontSize="14">
-                  <text x="250" y="160">A</text>
-                  <text x="515" y="295">B</text>
-                </g>
-              </svg>
-            </div>
-            {/* Practice coordinates */}
-            <div className="mt-3 grid md:grid-cols-2 gap-3">
-              <div className="bg-slate-50 border border-slate-200 rounded-lg p-3">
-                <div className="text-slate-900 font-semibold mb-1">Try plotting:</div>
-                <ul className="text-slate-700 text-sm list-disc list-inside">
-                  <li>45{String.fromCharCode(0x00B0)}N, 90{String.fromCharCode(0x00B0)}W</li>
-                  <li>30{String.fromCharCode(0x00B0)}S, 60{String.fromCharCode(0x00B0)}E</li>
-                </ul>
-              </div>
-              <div className="text-slate-500 text-xs border border-slate-200 rounded-lg p-3">
-                Tip: Latitude (90 to 90) increases northward. Longitude (180 to 180) increases eastward. On this grid, we show from 120W to 120E.
-              </div>
-            </div>
-            {/* Extension/Challenge Problems */}
-            <div className="mt-6 print:mt-0 p-4 bg-purple-50 border-2 border-purple-200 rounded print:bg-white print:border" style={{ pageBreakBefore: 'always', pageBreakInside: 'avoid' }}>
-              <div className="font-semibold text-purple-900 mb-3 text-sm">Challenge Questions</div>
-              <div className="space-y-2 text-sm text-purple-800">
-                <div>1. Plot your own coordinates on the grid</div>
-                <div>2. Find the coordinates of your city or town</div>
-                <div>3. Can you explain the difference between latitude and longitude?</div>
-              </div>
-            </div>
-            {/* Self-Assessment */}
-            <div className="print:block hidden print:mt-0 mt-6 p-4 border-2 border-slate-300 rounded" style={{ pageBreakBefore: 'avoid', pageBreakInside: 'avoid' }}>
-              <div className="font-semibold text-slate-800 mb-3 text-sm">{String.fromCodePoint(0x270F)}</div>
-              <div className="space-y-2 text-xs">
-                <div>{String.fromCharCode(0x2610)} I understand what latitude and longitude are</div>
-                <div>{String.fromCharCode(0x2610)} I can plot coordinates on a grid</div>
-                <div>{String.fromCharCode(0x2610)} I can read coordinates from a map</div>
-              </div>
-              <div className="mt-3 text-xs">
-                <strong>{getTrans('common.myScore', 'My score:')}</strong> ___ / 2
-              </div>
-              <div className="mt-2 text-xs">
-                <strong>{getTrans('common.whatWasHardest', 'What was hardest?')}</strong> _________________________
-              </div>
-            </div>
-            {showAnswersForDoc('geo-latlong', () => (
-              <div className="mt-6 p-4 border-2 border-emerald-300 bg-emerald-50 rounded print:border print:bg-white print:page-break-before-always">
-                <div className="font-bold text-emerald-900 mb-3 text-base">{String.fromCodePoint(0x2705)}</div>
-                <div className="space-y-2">
-                  <div className="text-sm text-emerald-800">
-                    Point A: <strong>{String.fromCodePoint(0x2705)}</strong> - Located in the northern and western hemisphere
-                  </div>
-                  <div className="text-sm text-emerald-800">
-                    Point B: <strong>30{String.fromCharCode(0x00B0)}S, 60{String.fromCharCode(0x00B0)}E</strong> - Located in the southern and eastern hemisphere
-                  </div>
-                  <div className="mt-4 border border-emerald-200 rounded p-2 bg-white">
-                    <div className="text-xs font-bold mb-1 text-center">Solution Map:</div>
-                    <svg viewBox="0 0 800 500" className="w-full h-auto">
-                      <rect width="800" height="500" fill="#ecfdf5" />
-                      <g fill="none" stroke="#94a3b8" strokeWidth="1">
-                        {Array.from({ length: 10 }).map((_, i) => (<line key={`h-${i}`} x1="40" y1={50 + i * 40} x2="760" y2={50 + i * 40} />))}
-                        {Array.from({ length: 16 }).map((_, i) => (<line key={`v-${i}`} x1={40 + i * 45} y1="50" x2={40 + i * 45} y2="450" />))}
-                      </g>
-                      <g fill="#059669" stroke="#059669" strokeWidth="2">
-                        {/* C: 0, 120E */}
-                        <circle cx={40 + ((120 + 120) / 240) * 720} cy={50 + ((90 - 0) / 180) * 400} r={8} />
-                        <text x={40 + ((120 + 120) / 240) * 720} y={50 + ((90 - 0) / 180) * 400 - 15} textAnchor="middle" stroke="none">C</text>
-
-                        {/* D: 45N, 60W */}
-                        <circle cx={40 + ((-60 + 120) / 240) * 720} cy={50 + ((90 - 45) / 180) * 400} r={8} />
-                        <text x={40 + ((-60 + 120) / 240) * 720} y={50 + ((90 - 45) / 180) * 400 - 15} textAnchor="middle" stroke="none">D</text>
-                      </g>
-                    </svg>
-                  </div>
-                </div>
-              </div>
-            ))}
-          </WorksheetSectionWrapper>
-        )}
+        {/* Geography Worksheets */}
+        <GeographyWorksheets
+          docId="geo-continents-k2"
+          commonProps={{
+            activeDocs,
+            showAnswers,
+            docTitle,
+            effectiveSeed,
+            variant,
+            showAnswersForDoc,
+            t,
+            getTrans
+          }}
+        />
+        <GeographyWorksheets
+          docId="geo-compass-rose"
+          commonProps={{
+            activeDocs,
+            showAnswers,
+            docTitle,
+            effectiveSeed,
+            variant,
+            showAnswersForDoc,
+            t,
+            getTrans
+          }}
+        />
+        <GeographyWorksheets
+          docId="geo-landforms"
+          commonProps={{
+            activeDocs,
+            showAnswers,
+            docTitle,
+            effectiveSeed,
+            variant,
+            showAnswersForDoc,
+            t,
+            getTrans
+          }}
+        />
+        <GeographyWorksheets
+          docId="geo-latlong"
+          commonProps={{
+            activeDocs,
+            showAnswers,
+            docTitle,
+            effectiveSeed,
+            variant,
+            showAnswersForDoc,
+            t,
+            getTrans
+          }}
+        />
         {activeDocs.includes('number-tracing-1-10') && (() => {
           const docId = 'number-tracing-1-10';
           const numbers = Array.from({ length: 10 }, (_, i) => i + 1);
@@ -9338,127 +8772,20 @@ export function PrintablesPage({ docId: propDocId }: { docId?: string } = {}) {
           </WorksheetSectionWrapper>
         )}
         {/* (Removed legacy one-pager duplicates) */}
-        {activeDocs.includes('math-maze') && (() => {
-          const docId = 'math-maze'
-          return (
-            <WorksheetSectionWrapper
-              docId={docId}
-              title={getTrans(`worksheets.${docId}.title`, 'Math Maze Adventure')}
-              emoji={String.fromCodePoint(0x1F300)}
-              description={getTrans(`worksheets.${docId}.description`, 'Start at S and reach F. Move up/down/left/right only onto tiles whose equation equals the target shown in that row. Circle your path!')}
-              problemCount={1}
-              learningObjectives={(() => {
-                const obj = t(`worksheets.${docId}.learningObjectives`)
-                if (Array.isArray(obj) && obj.length > 0 && typeof obj[0] === 'string') return obj
-                return [
-                  'Solve addition and subtraction equations',
-                  'Navigate through a maze using math skills',
-                  'Apply problem-solving strategies',
-                  'Practice mental math and number recognition'
-                ]
-              })()}
-              parentTeacherTips={(() => {
-                const tips = t(`worksheets.${docId}.parentTeacherTips`)
-                if (Array.isArray(tips) && tips.length > 0 && typeof tips[0] === 'string') return tips
-                return [
-                  'Choose a target number for each row before starting',
-                  'Only move onto tiles where the equation equals the row target',
-                  'Work backwards: start from F and find valid paths',
-                  'Encourage students to check their math as they go',
-                  'Extension: Create your own math maze with different equations'
-                ]
-              })()}
-            >
-              <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-green-400 to-emerald-400 animate-gradient-x mb-2" />
-              {/* Worked Example */}
-              <div className="mb-6 p-4 bg-blue-50 border-2 border-blue-200 rounded-lg print:border print:bg-white">
-                <div className="font-semibold text-blue-900 mb-3 text-sm">{String.fromCodePoint(0x1F4A1)}</div>
-                <div className="space-y-2 text-sm">
-                  <div className="font-semibold text-base"><strong>{getTrans(`worksheets.${docId}.example.problem`, 'Problem:')}</strong> {getTrans(`worksheets.${docId}.example.problemText`, 'Find a path from S to F')}</div>
-                  <div className="pl-4 border-l-2 border-blue-300 space-y-1">
-                    <div><strong>{getTrans(`worksheets.${docId}.example.step1`, 'Step 1:')}</strong> {getTrans(`worksheets.${docId}.example.step1Text`, 'Choose target numbers for each row (e.g., Row 1 = 6, Row 2 = 8, Row 3 = 10)')}</div>
-                    <div><strong>{getTrans(`worksheets.${docId}.example.step2`, 'Step 2:')}</strong> {getTrans(`worksheets.${docId}.example.step2Text`, 'Find tiles in Row 1 that equal 6: 4+2=6, 8-2=6, etc.')}</div>
-                    <div><strong>{getTrans(`worksheets.${docId}.example.step3`, 'Step 3:')}</strong> {getTrans(`worksheets.${docId}.example.step3Text`, 'Move to Row 2 and find tiles that equal 8: 6+2=8, 9-1=8, etc.')}</div>
-                    <div><strong>{getTrans(`worksheets.${docId}.example.step4`, 'Step 4:')}</strong> {getTrans(`worksheets.${docId}.example.step4Text`, 'Continue to Row 3 and find tiles that equal 10: 7+3=10, 12-2=10, etc.')}</div>
-                    <div><strong>{getTrans(`worksheets.${docId}.example.step5`, 'Step 5:')}</strong> {getTrans(`worksheets.${docId}.example.step5Text`, 'Draw your path from S to F following valid tiles')}</div>
-                    <div className="text-xs text-blue-700 mt-1">Tip: Double check your steps!</div>
-                  </div>
-                </div>
-              </div>
-              <div className="flex items-start gap-4">
-                <div className="inline-grid grid-cols-7 gap-[2px] text-sm font-mono">
-                  {mathMazeCells.map((t, i) => (
-                    <div key={i} className="w-10 h-10 border border-slate-300 rounded-sm flex items-center justify-center bg-white">{t}</div>
-                  ))}
-                </div>
-                <div className="text-xs text-slate-600">
-                  <div className="font-semibold mb-1">How to play</div>
-                  <ol className="list-decimal list-inside space-y-1">
-                    <li>Choose a target number per row (e.g., row 1 = 6).</li>
-                    <li>{String.fromCodePoint(0x270F)}</li>
-                    <li>Draw your path from S to F without diagonal moves.</li>
-                  </ol>
-                </div>
-              </div>
-              {/* Extension/Challenge Problems */}
-              <div className="mt-6 print:mt-0 p-4 bg-purple-50 border-2 border-purple-200 rounded print:bg-white print:border" style={{ pageBreakBefore: 'always', pageBreakInside: 'avoid' }}>
-                <div className="font-semibold text-purple-900 mb-3 text-sm">{String.fromCodePoint(0x1F680)}</div>
-                <div className="space-y-2 text-sm text-purple-800">
-                  {(() => {
-                    const items = t(`worksheets.${docId}.challenge.items`)
-                    const fallbackItems = [
-                      'Can you find a different path using different target numbers?',
-                      'Try using only addition equations (no subtraction)',
-                      'Create your own math maze with 3 rows and 5 columns',
-                    ]
-                    const itemsArray = Array.isArray(items) && items.length > 0 && typeof items[0] === 'string' && items[0] !== `worksheets.${docId}.challenge.items` ? items : fallbackItems
-                    return itemsArray.map((item, i) => (
-                      <div key={i}>{i + 1}. {item}</div>
-                    ))
-                  })()}
-                </div>
-              </div>
-              {/* Self-Assessment */}
-              <div className="print:block hidden print:mt-0 mt-6 p-4 border-2 border-slate-300 rounded" style={{ pageBreakBefore: 'avoid', pageBreakInside: 'avoid' }}>
-                <div className="font-semibold text-slate-800 mb-3 text-sm">{String.fromCodePoint(0x270F)}</div>
-                <div className="space-y-2 text-xs">
-                  {(() => {
-                    const items = t(`worksheets.${docId}.selfAssessment.items`)
-                    const fallbackItems = [
-                      'I can solve addition and subtraction equations',
-                      'I found a valid path from S to F',
-                      'I checked my math as I went',
-                    ]
-                    const itemsArray = Array.isArray(items) && items.length > 0 && typeof items[0] === 'string' && items[0] !== `worksheets.${docId}.selfAssessment.items` ? items : fallbackItems
-                    return itemsArray.map((item, i) => (
-                      <div key={i}>{String.fromCodePoint(0x279C)}</div>
-                    ))
-                  })()}
-                </div>
-                <div className="mt-3 text-xs">
-                  <strong>{getTrans(`worksheets.${docId}.selfAssessment.targetNumbers`, 'My target numbers:')}</strong> {getTrans(`worksheets.${docId}.selfAssessment.targetNumbersFormat`, 'Row 1: ___, Row 2: ___, Row 3: ___')}
-                </div>
-                <div className="mt-2 text-xs">
-                  <strong>{getTrans(`worksheets.${docId}.selfAssessment.hardest`, 'What was hardest?')}</strong> _________________________
-                </div>
-              </div>
-              {showAnswersForDoc(docId, () => (
-                <div className="mt-6 p-4 border-2 border-emerald-300 bg-emerald-50 rounded print:border print:bg-white print:page-break-before-always">
-                  <div className="font-bold text-emerald-900 mb-3 text-base">{String.fromCodePoint(0x2705)}</div>
-                  <div className="space-y-2 text-sm text-emerald-800">
-                    <div><strong>{getTrans(`worksheets.${docId}.answerKey.exampleTargetPlan`, 'Example target plan:')}</strong></div>
-                    <ul className="list-disc list-inside space-y-1 ml-4">
-                      <li>{String.fromCodePoint(0x279C)}</li>
-                      <li>{String.fromCodePoint(0x279C)}</li>
-                      <li>{String.fromCodePoint(0x279C)}</li>
-                    </ul>
-                    <div className="text-xs text-emerald-700 mt-3">{String.fromCodePoint(0x279C)}</div>
-                  </div>
-                </div>
-              ))}
-            </WorksheetSectionWrapper>
-          );
-        })()}
+        {/* Math Maze */}
+        <MathMazeWorksheets
+          docId="math-maze"
+          commonProps={{
+            activeDocs,
+            showAnswers,
+            docTitle,
+            effectiveSeed,
+            variant,
+            showAnswersForDoc,
+            t,
+            getTrans
+          }}
+        />
 
         {activeDocs.includes('spelling') && (() => {
           const rng = makeRng(`${effectiveSeed}|v${variant}|doc=${doc}`)
@@ -17338,319 +16665,45 @@ export function PrintablesPage({ docId: propDocId }: { docId?: string } = {}) {
 
         {
           activeDocs.includes('cvc-words') && (
-            <WorksheetSectionWrapper
-              docId="cvc-words"
-              title="CVC Words (Consonant-Vowel-Consonant)"
-              emoji={String.fromCodePoint(0x1F524)}
-              description="Read each CVC (consonant-vowel-consonant) word. Match it to the correct picture. Then write the word in the blank space."
-            >
-              <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-blue-400 to-cyan-400 animate-gradient-x mb-2" />
-              <div className="grid grid-cols-2 gap-4">
-                {[
-                  { word: 'cat', emoji: String.fromCodePoint(0x1F408) },
-                  { word: 'dog', emoji: String.fromCodePoint(0x1F415) },
-                  { word: 'sun', emoji: String.fromCodePoint(0x2600, 0xFE0F) },
-                  { word: 'hat', emoji: String.fromCodePoint(0x1F3A9) },
-                  { word: 'pen', emoji: String.fromCodePoint(0x1F58A, 0xFE0F) },
-                  { word: 'cup', emoji: String.fromCodePoint(0x1F964) },
-                ].map((item, idx) => (
-                  <div key={idx} className="border border-slate-300 rounded p-4 bg-white">
-                    <div className="text-center mb-3">
-                      <div className="text-5xl mb-2">{item.emoji}</div>
-                      <div className="text-2xl font-bold text-slate-900 mb-2">{item.word}</div>
-                      <div className="flex gap-2 justify-center">
-                        {item.word.split('').map((letter, i) => (
-                          <div key={i} className="w-10 h-12 border-2 border-slate-400 rounded flex items-center justify-center">
-                            {showAnswers && activeDocs.includes('cvc-words') ? (
-                              <span className="text-xl font-semibold text-slate-700">{letter}</span>
-                            ) : null}
-                          </div>
-                        ))}
-                      </div>
-                    </div>
-                    <div className="mt-4">
-                      <p className="text-slate-500 text-xs uppercase tracking-wider mb-1 font-semibold text-center">Write the word:</p>
-                      <div className="relative h-16 w-full">
-                        <svg width="100%" height="100%" preserveAspectRatio="none" className="absolute top-0 left-0">
-                          <line x1="0" y1="25%" x2="100%" y2="25%" stroke="#cbd5e1" strokeWidth="1" />
-                          <line x1="0" y1="50%" x2="100%" y2="50%" stroke="#cbd5e1" strokeWidth="1" strokeDasharray="4,4" />
-                          <line x1="0" y1="75%" x2="100%" y2="75%" stroke="#ef4444" strokeWidth="1.5" />
-                        </svg>
-                      </div>
-                    </div>
-                  </div>
-                ))}
-              </div>
-              {showAnswersForDoc('cvc-words', () => (
-                <div className="mt-3 rounded-lg border border-emerald-200 bg-emerald-50 p-3 text-emerald-900 text-sm">
-                  <div className="font-semibold mb-1">Answer key</div>
-                  <ul className="list-disc list-inside space-y-0.5">
-                    {[
-                      { word: 'cat', emoji: String.fromCodePoint(0x2705) },
-                      { word: 'dog', emoji: String.fromCodePoint(0x279C) },
-                      { word: 'sun', emoji: String.fromCodePoint(0x279C) },
-                      { word: 'hat', emoji: String.fromCodePoint(0x279C) },
-                      { word: 'pen', emoji: String.fromCodePoint(0x279C) },
-                      { word: 'cup', emoji: String.fromCodePoint(0x279C) },
-                    ].map((item, idx) => (
-                      <li key={idx}>{item.emoji} {item.word}</li>
-                    ))}
-                  </ul>
-                </div>
-              ))}
-            </WorksheetSectionWrapper>
+            <CVCWords
+              activeDocs={activeDocs}
+              showAnswersForDoc={showAnswersForDoc}
+              seed="default"
+              variant={0}
+            />
           )
         }
 
         {
           activeDocs.includes('sight-words-pre-primer') && (
-            <WorksheetSectionWrapper
-              docId="sight-words-pre-primer"
-              title="Sight Words (Dolch Pre-Primer)"
-              emoji={String.fromCodePoint(0x1F441)}
-              description="Read each sight word. Trace it carefully, then write it three times in the blank lines provided."
-            >
-              <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-indigo-400 to-blue-400 animate-gradient-x mb-2" />
-              <div className="grid grid-cols-2 gap-4">
-                {['the', 'and', 'to', 'a', 'I', 'you', 'it', 'in', 'said', 'for', 'up', 'look'].map((word, idx) => (
-                  <div key={idx} className="border border-slate-300 rounded p-4 bg-white break-inside-avoid">
-                    <div className="flex flex-col gap-4">
-                      {/* Read Section */}
-                      <div className="text-center">
-                        <span className="text-sm text-slate-400 font-semibold uppercase tracking-wider mb-1 block">Read</span>
-                        <div className="text-4xl font-bold text-slate-900">{word}</div>
-                      </div>
-
-                      {/* Header for Trace/Write */}
-                      <div className="flex justify-between px-1">
-                        <span className="text-xs text-slate-400 font-semibold uppercase tracking-wider">Trace</span>
-                        <span className="text-xs text-slate-400 font-semibold uppercase tracking-wider">Write</span>
-                      </div>
-
-                      <div className="space-y-4">
-                        {/* Trace Line */}
-                        <div className="relative h-16 w-full">
-                          {/* Guidelines */}
-                          <svg width="100%" height="100%" preserveAspectRatio="none" className="absolute top-0 left-0 pointer-events-none">
-                            <line x1="0" y1="20%" x2="100%" y2="20%" stroke="#94a3b8" strokeWidth="1" />
-                            <line x1="0" y1="50%" x2="100%" y2="50%" stroke="#94a3b8" strokeWidth="1" strokeDasharray="5,5" />
-                            <line x1="0" y1="80%" x2="100%" y2="80%" stroke="#ef4444" strokeWidth="1.5" />
-                          </svg>
-                          {/* Tracing Text */}
-                          <div className="absolute inset-0 flex items-center pl-2 pt-1" style={{ fontFamily: 'sans-serif' }}>
-                            <span className="text-6xl text-slate-200 tracking-wider" style={{ lineHeight: 0, transform: 'translateY(-2px)' }}>{word}</span>
-                          </div>
-                        </div>
-
-                        {/* Practice Lines */}
-                        {[1, 2].map((line) => (
-                          <div key={line} className="relative h-16 w-full">
-                            <svg width="100%" height="100%" preserveAspectRatio="none" className="absolute top-0 left-0">
-                              <line x1="0" y1="20%" x2="100%" y2="20%" stroke="#94a3b8" strokeWidth="1" />
-                              <line x1="0" y1="50%" x2="100%" y2="50%" stroke="#94a3b8" strokeWidth="1" strokeDasharray="5,5" />
-                              <line x1="0" y1="80%" x2="100%" y2="80%" stroke="#ef4444" strokeWidth="1.5" />
-                            </svg>
-                          </div>
-                        ))}
-                      </div>
-                    </div>
-                  </div>
-                ))}
-              </div>
-              {showAnswersForDoc('sight-words-pre-primer', () => (
-                <div className="mt-3 rounded-lg border border-emerald-200 bg-emerald-50 p-3 text-emerald-900 text-sm">
-                  <div className="font-semibold mb-1">Answer key</div>
-                  <ul className="list-disc list-inside space-y-0.5 mb-3">
-                    {['the', 'and', 'to', 'a', 'I', 'you', 'it', 'in', 'said', 'for', 'up', 'look'].map((word, idx) => (
-                      <li key={idx}>Write "{word}" three times</li>
-                    ))}
-                  </ul>
-                  <div className="font-semibold mb-1">Teaching tip</div>
-                  <p className="text-sm">These are high-frequency words that children should recognize instantly. Practice reading them in context, not just in isolation.</p>
-                </div>
-              ))}
-            </WorksheetSectionWrapper>
+            <SightWordsPrePrimer
+              activeDocs={activeDocs}
+              showAnswersForDoc={showAnswersForDoc}
+              seed="default"
+              variant={0}
+            />
           )
         }
 
         {
           activeDocs.includes('letter-tracing-az') && (
-            <WorksheetSectionWrapper
-              docId="letter-tracing-az"
-              title="Alphabet Garden Tracing"
-              emoji={String.fromCodePoint(0x1F41E)}
-              description="Trace the letters and grow your garden of knowledge! Start at the dot and follow the lines."
-              learningObjectives={[
-                'Identify uppercase letters A-Z',
-                'Practice letter formation',
-                'Associate letters with beginning sounds',
-                'Develop fine motor control'
-              ]}
-              parentTeacherTips={[
-                'Have the child trace with their finger first',
-                'Say the letter name and sound as they trace',
-                'Ask "What is this?" for the picture next to the letter',
-                'Color the pictures after tracing!'
-              ]}
-            >
-              <div className="print:hidden h-1 w-full rounded-full bg-gradient-to-r from-green-400 to-yellow-400 animate-gradient-x mb-4" />
-
-              {/* Decorative Header */}
-              <div className="w-full h-28 mb-6 relative overflow-hidden bg-green-50 rounded-xl border-2 border-green-200 print:mb-4">
-                <div className="absolute -bottom-4 left-0 text-7xl text-green-200 opacity-40">🌿</div>
-                <div className="absolute -bottom-4 right-0 text-7xl text-green-200 opacity-40">🌿</div>
-                <div className="absolute top-2 left-6 text-3xl animate-bounce-slow">🦋</div>
-                <div className="absolute top-10 left-24 text-xl animate-pulse">🐞</div>
-                <div className="absolute top-4 right-10 text-3xl animate-bounce-float">🐝</div>
-                <div className="absolute bottom-2 right-28 text-2xl">🌱</div>
-                <div className="absolute inset-0 flex flex-col items-center justify-center gap-3">
-                  <div className="bg-white/80 px-8 py-3 rounded-full border border-green-300 shadow-sm backdrop-blur-sm">
-                    <h2 className="text-2xl font-bold text-green-800 flex items-center gap-3">
-                      {String.fromCodePoint(0x1F33B)} Alphabet Garden {String.fromCodePoint(0x1F33C)}
-                    </h2>
-                  </div>
-                  <button
-                    onClick={downloadPDF}
-                    disabled={isDownloadingPDF}
-                    className="print:hidden px-4 py-1.5 bg-green-600 hover:bg-green-700 text-white rounded-full shadow-lg transition-all hover:scale-105 active:scale-95 flex items-center gap-2 text-sm font-medium disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none"
-                  >
-                    {isDownloadingPDF ? (
-                      <>
-                        <span className="w-3 h-3 border-2 border-white/30 border-t-white rounded-full animate-spin" />
-                        Saving...
-                      </>
-                    ) : (
-                      <>
-                        <span>{String.fromCodePoint(0x1F4E5)}</span> Download PDF
-                      </>
-                    )}
-                  </button>
-                </div>
-              </div>
-              <div className="grid grid-cols-2 gap-4">
-                {[
-                  { l: 'A', i: '🍎' }, { l: 'B', i: '🐻' }, { l: 'C', i: '🐱' }, { l: 'D', i: '🐶' },
-                  { l: 'E', i: '🐘' }, { l: 'F', i: '🐸' }, { l: 'G', i: '🍇' }, { l: 'H', i: '🏠' },
-                  { l: 'I', i: '🍦' }, { l: 'J', i: '🦑' }, { l: 'K', i: '🪁' }, { l: 'L', i: '🦁' },
-                  { l: 'M', i: '🐵' }, { l: 'N', i: '👃' }, { l: 'O', i: '🐙' }, { l: 'P', i: '🐼' },
-                  { l: 'Q', i: '👑' }, { l: 'R', i: '🐰' }, { l: 'S', i: '🐍' }, { l: 'T', i: '🐯' },
-                  { l: 'U', i: '🌂' }, { l: 'V', i: '🎻' }, { l: 'W', i: '🐳' }, { l: 'X', i: '❌' },
-                  { l: 'Y', i: '🦁' }, { l: 'Z', i: '🦓' }
-                ].map(({ l: letter, i }, idx) => (
-                  <div key={idx} className="relative bg-white border border-green-200 rounded-lg p-2 hover:shadow-md transition-shadow">
-                    <div className="absolute top-2 right-2 text-2xl opacity-80">{i}</div>
-                    <svg viewBox="0 0 400 200" className="w-full h-auto">
-                      <g fill="none" strokeWidth="2">
-                        <line x1="40" y1="40" x2="360" y2="40" stroke="#cbd5e1" />
-                        <line x1="40" y1="100" x2="360" y2="100" stroke="#cbd5e1" strokeDasharray="8 8" />
-                        <line x1="40" y1="160" x2="360" y2="160" stroke="#ef4444" strokeWidth="3" />
-                      </g>
-                      <g fill="none" stroke="#111827" strokeWidth="5" strokeLinecap="round" strokeLinejoin="round">
-                        {letter === 'A' && <path d="M200 40 L150 160 M200 40 L250 160 M165 115 L235 115" />}
-                        {letter === 'B' && <path d="M160 40 L160 160 M160 40 C220 40 220 95 160 95 C230 95 230 160 160 160" />}
-                        {letter === 'C' && <path d="M230 60 C210 40 160 40 160 100 C160 160 210 160 230 140" />}
-                        {letter === 'D' && <path d="M160 40 L160 160 M160 40 C240 40 240 160 160 160" />}
-                        {letter === 'E' && <path d="M220 40 L160 40 L160 160 L220 160 M160 100 L210 100" />}
-                        {letter === 'F' && <path d="M220 40 L160 40 L160 160 M160 100 L210 100" />}
-                        {letter === 'G' && <path d="M230 60 C210 40 160 40 160 100 C160 160 210 160 230 140 L230 100 L190 100" />}
-                        {letter === 'H' && <path d="M160 40 L160 160 M240 40 L240 160 M160 100 L240 100" />}
-                        {letter === 'I' && <path d="M200 40 L200 160 M170 40 L230 40 M170 160 L230 160" />}
-                        {letter === 'J' && <path d="M220 40 L220 130 C220 160 160 160 160 130" />}
-                        {letter === 'K' && <path d="M160 40 L160 160 M240 40 L160 100 L240 160" />}
-                        {letter === 'L' && <path d="M170 40 L170 160 L230 160" />}
-                        {letter === 'M' && <path d="M150 160 L150 40 L200 110 L250 40 L250 160" />}
-                        {letter === 'N' && <path d="M160 160 L160 40 L240 160 L240 40" />}
-                        {letter === 'O' && <path d="M200 40 C250 40 250 160 200 160 C150 160 150 40 200 40 Z" />}
-                        {letter === 'P' && <path d="M160 40 L160 160 M160 40 C230 40 230 100 160 100" />}
-                        {letter === 'Q' && <path d="M200 40 C250 40 250 160 200 160 C150 160 150 40 200 40 Z M210 130 L240 160" />}
-                        {letter === 'R' && <path d="M160 40 L160 160 M160 40 C230 40 230 100 160 100 M180 100 L240 160" />}
-                        {letter === 'S' && <path d="M230 55 C210 35 160 35 160 75 C160 115 240 105 240 145 C240 185 190 185 170 165" />}
-                        {letter === 'T' && <path d="M200 40 L200 160 M160 40 L240 40" />}
-                        {letter === 'U' && <path d="M160 40 L160 120 C160 160 240 160 240 120 L240 40" />}
-                        {letter === 'V' && <path d="M160 40 L200 160 L240 40" />}
-                        {letter === 'W' && <path d="M150 40 L170 160 L200 100 L230 160 L250 40" />}
-                        {letter === 'X' && <path d="M160 40 L240 160 M240 40 L160 160" />}
-                        {letter === 'Y' && <path d="M160 40 L200 100 L240 40 M200 100 L200 160" />}
-                        {letter === 'Z' && <path d="M160 40 L240 40 L160 160 L240 160" />}
-                      </g>
-                      <circle cx="200" cy="50" r="4" fill="#ef4444" />
-                      <text x="200" y="190" fontSize="24" fill="#111827" textAnchor="middle">{letter}</text>
-                    </svg>
-                  </div>
-                ))}
-              </div>
-              {showAnswersForDoc('letter-tracing-az', () => (
-                <div className="mt-3 rounded-lg border border-emerald-200 bg-emerald-50 p-3 text-emerald-900 text-sm">
-                  <div className="font-semibold mb-1">Teaching tip</div>
-                  <p className="text-sm">Start at the red dot and follow the arrow direction. Practice saying the letter name and sound while tracing. Use proper pencil grip and take your time.</p>
-                </div>
-              ))}
-            </WorksheetSectionWrapper>
+            <LetterTracingAZ
+              activeDocs={activeDocs}
+              showAnswersForDoc={showAnswersForDoc}
+              seed="default"
+              variant={0}
+            />
           )
         }
 
         {
           activeDocs.includes('more-less-equal-10') && (
-            <WorksheetSectionWrapper
-              docId="more-less-equal-10"
-              title="More, Less, or Equal? (110)"
-              emoji={String.fromCodePoint(0x1F4D1)}
-              description="Compare the two groups. Circle: more, less, or equal."
-            >
-              <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-amber-400 to-yellow-400 animate-gradient-x mb-2" />
-              <div className="grid grid-cols-2 gap-4">
-                {[
-                  { left: 3, right: 5, emoji: '🍎' },
-                  { left: 7, right: 4, emoji: '🍌' },
-                  { left: 6, right: 6, emoji: '🍇' },
-                  { left: 8, right: 3, emoji: '🍊' },
-                  { left: 2, right: 9, emoji: '🍓' },
-                  { left: 5, right: 5, emoji: '🍒' },
-                ].map((pair, idx) => (
-                  <div key={idx} className="border border-slate-300 rounded p-4 bg-white break-inside-avoid">
-                    <div className="flex items-center justify-around mb-3">
-                      <div className="text-center">
-                        <div className="flex gap-1 flex-wrap justify-center mb-2" style={{ width: '80px' }}>
-                          {Array.from({ length: pair.left }).map((_, i) => (
-                            <span key={i} className="text-2xl leading-none">{pair.emoji}</span>
-                          ))}
-                        </div>
-                        <p className="text-xl font-bold text-slate-900">{pair.left}</p>
-                      </div>
-                      <div className="text-sm font-bold text-slate-400 uppercase tracking-widest">VS</div>
-                      <div className="text-center">
-                        <div className="flex gap-1 flex-wrap justify-center mb-2" style={{ width: '80px' }}>
-                          {Array.from({ length: pair.right }).map((_, i) => (
-                            <span key={i} className="text-2xl leading-none">{pair.emoji}</span>
-                          ))}
-                        </div>
-                        <p className="text-xl font-bold text-slate-900">{pair.right}</p>
-                      </div>
-                    </div>
-                    <div className="flex gap-2 justify-center">
-                      {['More', 'Less', 'Equal'].map((opt) => (
-                        <div key={opt} className="border-2 border-slate-200 rounded-full px-3 py-1 text-sm text-slate-600 font-semibold bg-slate-50 min-w-[60px] text-center">
-                          {opt}
-                        </div>
-                      ))}
-                    </div>
-                  </div>
-                ))}
-              </div>
-              {showAnswersForDoc('more-less-equal-10', () => (
-                <div className="mt-3 rounded-lg border border-emerald-200 bg-emerald-50 p-3 text-emerald-900 text-sm">
-                  <div className="font-semibold mb-1">Answer key</div>
-                  <ul className="list-disc list-inside space-y-0.5">
-                    <li>3 vs 5: Less (3 &lt; 5)</li>
-                    <li>7 vs 4: More (7 &gt; 4)</li>
-                    <li>6 vs 6: Equal (6 = 6)</li>
-                    <li>8 vs 3: More (8 &gt; 3)</li>
-                    <li>2 vs 9: Less (2 &lt; 9)</li>
-                    <li>5 vs 5: Equal (5 = 5)</li>
-                  </ul>
-                </div>
-              ))}
-            </WorksheetSectionWrapper>
+            <MoreLessEqual10
+              activeDocs={activeDocs}
+              showAnswersForDoc={showAnswersForDoc}
+              seed="default"
+              variant={0}
+            />
           )
         }
 

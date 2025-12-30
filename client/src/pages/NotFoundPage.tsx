@@ -15,9 +15,9 @@ export default function NotFoundPage() {
         description="The page you're looking for doesn't exist. Browse our free printable worksheets for kids (K-5) - math, reading, writing, and more!"
         noIndex={true}
       />
-      
+
       <UnifiedNavigation />
-      
+
       <main className="container mx-auto px-4 py-16 max-w-4xl">
         <div className="text-center">
           {/* 404 Visual */}
@@ -33,7 +33,7 @@ export default function NotFoundPage() {
             Oops! Page Not Found
           </h2>
           <p className="text-lg text-slate-600 mb-8 max-w-2xl mx-auto">
-            The page you're looking for doesn't exist or has been moved. But don't worry - we have lots of free worksheets waiting for you!
+            The page you're looking for doesn't exist or has been moved. But don't worry - we have lots of free worksheets waiting for you! (v2.1)
           </p>
 
           {/* Helpful Links */}
