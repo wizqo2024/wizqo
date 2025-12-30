@@ -1403,7 +1403,7 @@ export function PrintablesPage() {
 
   // Force re-render when language changes (important for /print route with ?lang=ar)
   /* eslint-disable-next-line @typescript-eslint/no-unused-vars */
-  const [_, forceUpdate] = React.useReducer(x => x + 1, 0)
+  const [_, forceUpdate] = React.useReducer((x: number) => x + 1, 0)
 
   React.useEffect(() => {
     // Force re-render when language changes to ensure translations update
@@ -1419,7 +1419,7 @@ export function PrintablesPage() {
       }
       const result = t(key)
       // Debug: Log if translation is missing
-      if (typeof window !== 'undefined' && process.env.NODE_ENV === 'development' &&
+      if (typeof window !== 'undefined' && import.meta.env.DEV &&
         key.includes('number-id-1-10') && (result === key || (typeof result === 'string' && result.startsWith('worksheets.')))) {
         console.warn(`[PrintablesPage] Translation missing for key: ${key}, language: ${language}, result: ${result}`)
       }
@@ -1524,18 +1524,18 @@ export function PrintablesPage() {
   const teacherName = params.get('teacher') || ''
   const className = params.get('class') || ''
   const studentsParam = params.get('students') || ''
-  const studentNames = studentsParam ? studentsParam.split(',').map(s => s.trim()).filter(Boolean) : []
+  const studentNames = studentsParam ? studentsParam.split(',').map((s: string) => s.trim()).filter(Boolean) : []
   const activeDocs = React.useMemo(() => {
     if (doc === 'bundle') {
       return bundleItemsParam
         .split(',')
-        .map((s) => s.trim())
-        .filter((s) => s && BUNDLE_DOC_ALLOWLIST.has(s))
+        .map((s: string) => s.trim())
+        .filter((s: string) => s && BUNDLE_DOC_ALLOWLIST.has(s))
     }
     return doc ? [doc] : []
   }, [doc, bundleItemsParam])
   const interactiveDocs = React.useMemo(
-    () => activeDocs.filter((id) => id.startsWith('interactive-')),
+    () => activeDocs.filter((id: string) => id.startsWith('interactive-')),
     [activeDocs]
   )
   const primaryDoc = activeDocs[0] || doc || ''
@@ -1543,7 +1543,7 @@ export function PrintablesPage() {
     () => new Set([...ANSWERABLE_BASE_DOC_IDS, ...INTERACTIVE_DOC_IDS]),
     []
   )
-  const bundleHasAnswers = doc === 'bundle' && activeDocs.some(id => answerableDocs.has(id))
+  const bundleHasAnswers = doc === 'bundle' && activeDocs.some((id: string) => answerableDocs.has(id))
   const shouldShowAnswerToggle = (activeDocs.length === 1 && answerableDocs.has(primaryDoc)) || bundleHasAnswers
   const docTitle = React.useMemo(() => {
     // If single worksheet, show its title instead of "Bundle"
@@ -3038,12 +3038,12 @@ export function PrintablesPage() {
                   e.stopPropagation()
                   try {
                     window.print()
-                  } catch (error) {
+                  } catch (error: unknown) {
                     // Fallback: open print dialog using a different method
                     setTimeout(() => {
                       try {
                         window.print()
-                      } catch (err) {
+                      } catch (err: unknown) {
                         console.error('Print failed:', err)
                         // Last resort: show message to user
                         alert('Please use your browser\'s print function (Ctrl+P or Cmd+P)')
@@ -3077,26 +3077,26 @@ export function PrintablesPage() {
                         logging: false,
                         backgroundColor: '#ffffff',
                         allowTaint: false,
-                        ignoreElements: (element) => {
+                        ignoreElements: (element: Element) => {
                           // Explicitly ignore elements with data-html2canvas-ignore
                           if (element.hasAttribute('data-html2canvas-ignore')) return true
                           // Ignore elements that are hidden in print
                           if (element.classList.contains('print:hidden')) return true
                           return false
                         },
-                        onclone: (clonedDoc) => {
+                        onclone: (clonedDoc: Document) => {
                           // Double safety: find any print:hidden elements in the clone and remove them
                           const printHidden = clonedDoc.querySelectorAll('.print\\:hidden')
-                          printHidden.forEach(el => {
+                          printHidden.forEach((el: Element) => {
                             if (el.parentNode) el.parentNode.removeChild(el)
                           })
                           // Also remove the specific button container if strictly needed
                           const ignoreEls = clonedDoc.querySelectorAll('[data-html2canvas-ignore="true"]')
-                          ignoreEls.forEach(el => {
+                          ignoreEls.forEach((el: Element) => {
                             if (el.parentNode) el.parentNode.removeChild(el)
                           })
                         }
-                      }).then(canvas => {
+                      }).then((canvas: HTMLCanvasElement) => {
                         const imgData = canvas.toDataURL('image/png')
                         const link = document.createElement('a')
                         link.download = docTitle
@@ -3105,11 +3105,11 @@ export function PrintablesPage() {
                         link.href = imgData
                         link.click()
                         setIsDownloadingPNG(false)
-                      }).catch(error => {
+                      }).catch((error: unknown) => {
                         console.error('PNG capture failed:', error)
                         setIsDownloadingPNG(false)
                       })
-                    }).catch(error => {
+                    }).catch((error: unknown) => {
                       console.error('Failed to load html2canvas:', error)
                       setIsDownloadingPNG(false)
                     })
@@ -19584,7 +19584,7 @@ export function PrintablesPage() {
           activeDocs.includes('pattern-complete') && (() => {
             const rng = makeRng(`${effectiveSeed}|v${variant}|doc=${doc}`)
 
-            const items = [String.fromCodePoint(0x279C), String.fromCodePoint(0x279C), String.fromCodePoint(0x279C), String.fromCodePoint(0x279C), String.fromCodePoint(0x279C), String.fromCodePoint(0x279C), String.fromCodePoint(0x279C), String.fromCodePoint(0x279C)]
+            const items = ['⬆', '⬇', '⬅', '➡', '↗', '↘', '↖', '↙']
 
             const problems = Array.from({ length: 6 }, () => {
               // Select items for this specific problem
@@ -36477,102 +36477,9 @@ export function PrintablesPage() {
           })()
         }
 
-        {
-          activeDocs.includes('pattern-complete') && (() => {
-            const rng = makeRng(`${effectiveSeed}|v${variant}|doc=${doc}`)
-            // Generate pattern sequences
-            const problems = Array.from({ length: 5 }, () => {
-              const shapes = ['🔴', '🔵', '🟢', '🟡', '🟣', '🟧']
-              const patternType = Math.floor(rng() * 3) // 0: AB, 1: AAB, 2: ABC
-              const [a, b, c] = shuffleArray(shapes).slice(0, 3)
-              let pattern = []
-              let answer = ''
 
-              if (patternType === 0) { // ABAB
-                pattern = [a, b, a, b, a]
-                answer = b
-              } else if (patternType === 1) { // AABAAB
-                pattern = [a, a, b, a, a]
-                answer = b
-              } else { // ABCABC
-                pattern = [a, b, c, a, b]
-                answer = c
-              }
 
-              return { pattern, answer }
-            })
 
-            return (
-              <WorksheetSectionWrapper
-                docId="pattern-complete"
-                title="Pattern Completion"
-                emoji="🎨"
-                description="Look at the pattern. What comes next? Draw or circle the next shape."
-                problemCount={problems.length}
-                learningObjectives={['Identify repeating patterns', 'Predict the next item in a sequence', 'Logical reasoning']}
-              >
-                <div className="grid grid-cols-1 gap-6">
-                  {problems.map((p, i) => (
-                    <div key={i} className="bg-white border-2 border-slate-200 rounded-xl p-6 flex items-center justify-between">
-                      <div className="flex gap-4 text-4xl">
-                        {p.pattern.map((item, k) => (
-                          <div key={k} className="w-12 h-12 flex items-center justify-center bg-slate-50 rounded-lg shadow-sm border border-slate-100">{item}</div>
-                        ))}
-                        <div className="w-12 h-12 flex items-center justify-center border-2 border-dashed border-slate-300 rounded-lg text-slate-300 text-2xl font-bold">?</div>
-                      </div>
-                      <div className="flex gap-4 border-l pl-6 border-slate-200">
-                        <div className="text-xs text-slate-400 font-bold uppercase tracking-wider mb-1">Choices</div>
-                        <div className="text-4xl opacity-50">{p.answer}</div>
-                      </div>
-                    </div>
-                  ))}
-                </div>
-                {showAnswersForDoc('pattern-complete', () => (
-                  <div className="mt-4 p-4 bg-slate-50 border border-slate-200 rounded text-sm">
-                    <strong>Answer Key:</strong>
-                    <div className="grid grid-cols-5 gap-2 mt-2">
-                      {problems.map((p, i) => <div key={i}>{i + 1}. {p.answer}</div>)}
-                    </div>
-                  </div>
-                ))}
-              </WorksheetSectionWrapper>
-            )
-          })()
-        }
-
-        {
-          activeDocs.includes('ab-pattern') && (() => {
-            const rng = makeRng(`${effectiveSeed}|v${variant}|doc=${doc}`)
-            const problems = Array.from({ length: 5 }, () => {
-              const shapes = ['⭐', '🌙', '☀️', '☁️', '❄️', '⚡']
-              const [a, b] = shuffleArray(shapes).slice(0, 2)
-              // AB pattern
-              const pattern = [a, b, a, b, a, b]
-              return { pattern, next: a } // Asking for start of next cycle or just continuation? Let's say continuation.
-            })
-
-            return (
-              <WorksheetSectionWrapper
-                docId="ab-pattern"
-                title="AB Pattern Practice"
-                emoji="🔄"
-                description="Continue the AB pattern. Draw the shapes that come next."
-              >
-                <div className="space-y-6">
-                  {problems.map((p, i) => (
-                    <div key={i} className="border border-slate-300 p-4 rounded-lg bg-white flex items-center gap-4">
-                      <div className="flex gap-2 text-3xl">
-                        {p.pattern.map((s, k) => <div key={k} className="p-2 bg-blue-50 rounded">{s}</div>)}
-                      </div>
-                      <div className="flex-1 border-b-2 border-slate-300 h-10 ml-4"></div>
-                      <div className="flex-1 border-b-2 border-slate-300 h-10"></div>
-                    </div>
-                  ))}
-                </div>
-              </WorksheetSectionWrapper>
-            )
-          })()
-        }
 
         {
           activeDocs.includes('cvc-words') && (() => {
@@ -36622,88 +36529,8 @@ export function PrintablesPage() {
           })()
         }
 
-        {
-          activeDocs.includes('missing-addends') && (() => {
-            const rng = makeRng(`${effectiveSeed}|v${variant}|doc=${doc}`)
 
-            const problems = Array.from({ length: 12 }, () => {
-              const total = Math.floor(rng() * 11) + 2 // 2 to 12
-              const known = Math.floor(rng() * (total - 1)) + 1 // 1 to total-1
-              const missing = total - known
-              const missingPos = Math.floor(rng() * 2) // 0: first addend missing, 1: second addend missing
 
-              return { total, known, missing, missingPos }
-            })
-
-            return (
-              <WorksheetSectionWrapper
-                docId="missing-addends"
-                title="Missing Numbers"
-                emoji="➕"
-                description="Find the missing number to make the equation true."
-                problemCount={problems.length}
-              >
-                <div className="grid grid-cols-2 md:grid-cols-3 gap-6">
-                  {problems.map((p, i) => (
-                    <div key={i} className="bg-white p-6 rounded-xl border border-slate-200 flex items-center justify-center text-3xl font-bold">
-                      {p.missingPos === 0
-                        ? <span className="w-12 h-12 border-2 border-slate-300 rounded flex items-center justify-center text-white bg-slate-100 mr-2">?</span>
-                        : <span>{p.known}</span>}
-                      <span className="mx-2">+</span>
-                      {p.missingPos === 1
-                        ? <span className="w-12 h-12 border-2 border-slate-300 rounded flex items-center justify-center text-white bg-slate-100 mx-2">?</span>
-                        : <span>{p.known}</span>}
-                      <span className="mx-2">=</span>
-                      <span>{p.total}</span>
-                    </div>
-                  ))}
-                </div>
-                {showAnswersForDoc('missing-addends', () => (
-                  <div className="mt-4 p-4 border rounded font-mono text-sm grid grid-cols-4 gap-2">
-                    {problems.map((p, i) => <div key={i}>{i + 1}) <strong>{p.missing}</strong></div>)}
-                  </div>
-                ))}
-              </WorksheetSectionWrapper>
-            )
-          })()
-        }
-        {
-          activeDocs.includes('doubles-near-doubles') && (() => {
-            const rng = makeRng(`${effectiveSeed}|v${variant}|doc=${doc}`)
-
-            const problems = Array.from({ length: 15 }, () => {
-              const type = Math.floor(rng() * 2) // 0: Double (n+n), 1: Near Double (n+n+1)
-              const n = Math.floor(rng() * 9) + 1 // 1-9
-              const op1 = n
-              const op2 = type === 0 ? n : n + 1
-              return { op1, op2, ans: op1 + op2, isDouble: type === 0 }
-            })
-
-            return (
-              <WorksheetSectionWrapper
-                docId="doubles-near-doubles"
-                title="Doubles & Near Doubles"
-                emoji="👯"
-                description="Practice adding doubles (like 4+4) and near doubles (like 4+5)."
-                problemCount={problems.length}
-              >
-                <div className="grid grid-cols-3 gap-6">
-                  {problems.map((p, i) => (
-                    <div key={i} className={`p-4 rounded-xl border-2 flex flex-col items-center justify-center text-2xl font-bold ${p.isDouble ? 'border-purple-200 bg-purple-50' : 'border-blue-200 bg-blue-50'}`}>
-                      <div>{p.op1} + {p.op2} = ___</div>
-                      {false && <div className="text-xs font-normal text-slate-400 mt-2">{p.isDouble ? 'Double' : 'Near Double'}</div>}
-                    </div>
-                  ))}
-                </div>
-                {showAnswersForDoc('doubles-near-doubles', () => (
-                  <div className="mt-4 p-4 border rounded font-mono text-sm grid grid-cols-5 gap-2">
-                    {problems.map((p, i) => <div key={i}>{i + 1}) <strong>{p.ans}</strong></div>)}
-                  </div>
-                ))}
-              </WorksheetSectionWrapper>
-            )
-          })()
-        }
 
         {
           activeDocs.includes('area-perimeter-4th') && (() => {
@@ -37527,6 +37354,7 @@ export function PrintablesPage() {
             )
           })()
         }
+
         {
           activeDocs.some(d => d.startsWith('geo-continents')) && (() => {
             const rng = makeRng(`${effectiveSeed}|v${variant}|doc=${doc}`)
@@ -37695,6 +37523,13 @@ export function PrintablesPage() {
             )
           })()
         }
+
+
+
+
+
+
+
 
         {
           activeDocs.some(d => d.startsWith('color-by-number')) && (() => {
