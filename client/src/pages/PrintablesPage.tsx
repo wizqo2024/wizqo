@@ -5240,7 +5240,7 @@ export function PrintablesPage() {
                         <div className="text-2xl mb-1">Tom has:</div>
                         <div className="flex gap-1 flex-wrap justify-center max-w-[200px]">
                           {Array.from({ length: 15 }).map((_, i) => (
-                            <span key={i} className="text-2xl">{String.fromCodePoint(0x279C)}</span>
+                            <span key={i} className="text-2xl">{String.fromCodePoint(0x1F34E)}</span>
                           ))}
                         </div>
                         <div className="text-sm font-semibold text-amber-700 mt-1">15 apples</div>
@@ -5250,7 +5250,7 @@ export function PrintablesPage() {
                         <div className="text-2xl mb-1">Buys:</div>
                         <div className="flex gap-1 flex-wrap justify-center max-w-[200px]">
                           {Array.from({ length: 12 }).map((_, i) => (
-                            <span key={i} className="text-2xl">{String.fromCodePoint(0x279C)}</span>
+                            <span key={i} className="text-2xl">{String.fromCodePoint(0x1F34E)}</span>
                           ))}
                         </div>
                         <div className="text-sm font-semibold text-amber-700 mt-1">12 more</div>
@@ -11721,7 +11721,7 @@ export function PrintablesPage() {
                 {/* Decorative Garden Header */}
                 <div className="print:hidden w-full h-16 mb-4 relative overflow-hidden bg-gradient-to-b from-sky-100 to-white rounded-lg">
                   <div className="absolute bottom-0 w-full flex justify-between text-4xl px-4 animate-bounce-slow">
-                    <span>{String.fromCodePoint(0x279C)}</span><span>{String.fromCodePoint(0x279C)}</span><span>{String.fromCodePoint(0x279C)}</span><span>{String.fromCodePoint(0x279C)}</span><span>{String.fromCodePoint(0x279C)}</span>
+                    <span>{String.fromCodePoint(0x1F33C)}</span><span>{String.fromCodePoint(0x1F33C)}</span><span>{String.fromCodePoint(0x1F33C)}</span><span>{String.fromCodePoint(0x1F33C)}</span><span>{String.fromCodePoint(0x1F33C)}</span>
                   </div>
                 </div>
 
@@ -11796,6 +11796,339 @@ export function PrintablesPage() {
             )
           })()
         }
+
+        {
+          activeDocs.includes('cut-and-paste-crafts') && (() => {
+            const rng = makeRng(`${effectiveSeed}|v${variant}|doc=${doc}`)
+            const themes = [
+              {
+                id: 'robot',
+                name: 'Build a Robot',
+                emoji: '🤖',
+                description: 'Cut out the robot parts and paste them to build your own robot!',
+                baseColor: '#e2e8f0', // slate-200
+                guide: (
+                  <g>
+                    <rect x="50" y="50" width="100" height="140" fill="none" stroke="#94a3b8" strokeWidth="2" strokeDasharray="5,5" />
+                    <rect x="70" y="10" width="60" height="40" fill="none" stroke="#94a3b8" strokeWidth="2" strokeDasharray="5,5" />
+                    <rect x="20" y="60" width="30" height="80" fill="none" stroke="#94a3b8" strokeWidth="2" strokeDasharray="5,5" />
+                    <rect x="150" y="60" width="30" height="80" fill="none" stroke="#94a3b8" strokeWidth="2" strokeDasharray="5,5" />
+                    <rect x="60" y="190" width="30" height="60" fill="none" stroke="#94a3b8" strokeWidth="2" strokeDasharray="5,5" />
+                    <rect x="110" y="190" width="30" height="60" fill="none" stroke="#94a3b8" strokeWidth="2" strokeDasharray="5,5" />
+                    <text x="100" y="140" fontSize="16" fill="#94a3b8" textAnchor="middle">PASTE HERE</text>
+                  </g>
+                ),
+                parts: [
+                  { id: 'head', type: 'rect', x: 20, y: 20, width: 60, height: 40, color: '#3b82f6', label: 'HEAD' },
+                  { id: 'body', type: 'rect', x: 100, y: 20, width: 80, height: 100, color: '#ef4444', label: 'BODY' },
+                  { id: 'arm_l', type: 'rect', x: 20, y: 80, width: 25, height: 60, color: '#eab308', label: 'ARM' },
+                  { id: 'arm_r', type: 'rect', x: 55, y: 80, width: 25, height: 60, color: '#eab308', label: 'ARM' },
+                  { id: 'leg_l', type: 'rect', x: 20, y: 160, width: 25, height: 50, color: '#22c55e', label: 'LEG' },
+                  { id: 'leg_r', type: 'rect', x: 55, y: 160, width: 25, height: 50, color: '#22c55e', label: 'LEG' },
+                ]
+              },
+              {
+                id: 'pizza',
+                name: 'Make a Pizza',
+                emoji: '🍕',
+                description: 'Cut out the toppings and paste them onto the pizza dough!',
+                baseColor: '#fef3c7', // amber-100
+                guide: (
+                  <g>
+                    <circle cx="100" cy="100" r="80" fill="#fde68a" stroke="#d97706" strokeWidth="4" />
+                    <circle cx="100" cy="100" r="70" fill="#fef3c7" />
+                    <text x="100" y="105" fontSize="16" fill="#d97706" textAnchor="middle" opacity="0.5">PIZZA DOUGH</text>
+                  </g>
+                ),
+                parts: [
+                  { id: 'pep1', type: 'circle', x: 30, y: 30, r: 15, color: '#ef4444', label: 'PEPPERONI' },
+                  { id: 'pep2', type: 'circle', x: 70, y: 30, r: 15, color: '#ef4444', label: 'PEPPERONI' },
+                  { id: 'pep3', type: 'circle', x: 110, y: 30, r: 15, color: '#ef4444', label: 'PEPPERONI' },
+                  { id: 'mush1', type: 'path', x: 30, y: 80, d: 'M10,20 Q20,0 30,20 L30,30 L10,30 Z', color: '#78350f', label: 'MUSHROOM' }, // Simple mushroom
+                  { id: 'mush2', type: 'path', x: 70, y: 80, d: 'M10,20 Q20,0 30,20 L30,30 L10,30 Z', color: '#78350f', label: 'MUSHROOM' },
+                  { id: 'pepper1', type: 'rect', x: 30, y: 140, width: 40, height: 10, color: '#16a34a', label: 'PEPPER' },
+                  { id: 'pepper2', type: 'rect', x: 80, y: 140, width: 40, height: 10, color: '#16a34a', label: 'PEPPER' },
+                ]
+              },
+              {
+                id: 'flower',
+                name: 'Grow a Flower',
+                emoji: '🌻',
+                description: 'Cut out the petals and leaves to create a beautiful flower!',
+                baseColor: '#ecfccb',
+                guide: (
+                  <g>
+                    <rect x="95" y="100" width="10" height="100" fill="#65a30d" />
+                    <path d="M80,200 L120,200 L110,240 L90,240 Z" fill="#b45309" />
+                    <circle cx="100" cy="80" r="20" fill="none" stroke="#a3e635" strokeWidth="2" strokeDasharray="5,5" />
+                    <text x="100" y="230" fontSize="12" fill="white" textAnchor="middle">POT</text>
+                  </g>
+                ),
+                parts: [
+                  { id: 'center', type: 'circle', x: 30, y: 30, r: 20, color: '#854d0e', label: 'CENTER' },
+                  // Petals represented as ellipses/circles for simplicity in cutting
+                  { id: 'petal1', type: 'circle', x: 70, y: 30, r: 15, color: '#facc15', label: 'PETAL' },
+                  { id: 'petal2', type: 'circle', x: 110, y: 30, r: 15, color: '#facc15', label: 'PETAL' },
+                  { id: 'petal3', type: 'circle', x: 150, y: 30, r: 15, color: '#facc15', label: 'PETAL' },
+                  { id: 'petal4', type: 'circle', x: 30, y: 80, r: 15, color: '#facc15', label: 'PETAL' },
+                  { id: 'petal5', type: 'circle', x: 70, y: 80, r: 15, color: '#facc15', label: 'PETAL' },
+                  { id: 'leaf1', type: 'path', x: 30, y: 130, d: 'M0,15 Q15,0 30,15 Q15,30 0,15 Z', color: '#4ade80', label: 'LEAF' },
+                  { id: 'leaf2', type: 'path', x: 70, y: 130, d: 'M0,15 Q15,0 30,15 Q15,30 0,15 Z', color: '#4ade80', label: 'LEAF' },
+                ]
+              }
+            ]
+            const themeIndex = Math.floor(rng() * themes.length)
+            const theme = themes[themeIndex]
+
+            return (
+              <WorksheetSectionWrapper
+                docId="cut-and-paste-crafts"
+                title={`${theme.name} (Cut & Paste)`}
+                emoji={theme.emoji}
+                description={theme.description}
+                problemCount={1}
+                learningObjectives={[
+                  'Practice fine motor skills with cutting',
+                  'Develop spatial awareness and assembly skills',
+                  'Follow multi-step directions',
+                  'Express creativity through arrangement'
+                ]}
+                parentTeacherTips={[
+                  'Supervise use of scissors for safety.',
+                  'Encourage the child to plan the layout before pasting.',
+                  'Ask them to name the shapes they are cutting out.'
+                ]}
+              >
+                {/* Two-Column Layout: Guide vs Cuts */}
+                <div className="flex flex-col md:flex-row gap-6 h-full print:flex-row">
+                  {/* Left: Guide / Base */}
+                  <div className="flex-1 border-4 border-dashed border-gray-300 rounded-xl p-4 flex flex-col items-center justify-center bg-white min-h-[400px]">
+                    <h3 className="text-xl font-bold text-gray-400 mb-4">{String.fromCodePoint(0x1F4CC)} PASTE AREA</h3>
+                    <svg viewBox="0 0 200 250" className="w-full h-full max-w-[300px] overflow-visible">
+                      {theme.guide}
+                    </svg>
+                  </div>
+
+                  {/* Right: Cutouts */}
+                  <div className="flex-1 bg-gray-50 rounded-xl p-4 border-2 border-gray-200">
+                    <div className="flex items-center gap-2 mb-4 border-b-2 border-gray-200 pb-2">
+                      <span className="text-2xl">{String.fromCodePoint(0x2702)}</span>
+                      <h3 className="text-xl font-bold text-gray-700">CUTOUTS</h3>
+                    </div>
+                    <div className="grid grid-cols-2 gap-4">
+                      {theme.parts.map((part, idx) => (
+                        <div key={idx} className="flex flex-col items-center">
+                          <svg width="100" height="100" viewBox="0 0 100 100" className="overflow-visible">
+                            <g transform={`translate(${50 - (part.width || (part.r || 0) * 2) / 2}, ${50 - (part.height || (part.r || 0) * 2) / 2})`}>
+                              {/* Dashed Cut Line */}
+                              {part.type === 'rect' && (
+                                <rect x="-5" y="-5" width={(part.width || 0) + 10} height={(part.height || 0) + 10} fill="none" stroke="#64748b" strokeWidth="2" strokeDasharray="8,4" />
+                              )}
+                              {part.type === 'circle' && (
+                                <circle cx={(part.r || 0)} cy={(part.r || 0)} r={(part.r || 0) + 5} fill="none" stroke="#64748b" strokeWidth="2" strokeDasharray="8,4" />
+                              )}
+                              {part.type === 'path' && (
+                                <path d={part.d} transform="scale(1.2) translate(-5, -5)" fill="none" stroke="#64748b" strokeWidth="2" strokeDasharray="8,4" />
+                              )}
+
+                              {/* Actual Shape */}
+                              {part.type === 'rect' && (
+                                <rect width={part.width} height={part.height} fill={part.color} stroke="black" strokeWidth="1" />
+                              )}
+                              {part.type === 'circle' && (
+                                <circle cx={part.r} cy={part.r} r={part.r} fill={part.color} stroke="black" strokeWidth="1" />
+                              )}
+                              {part.type === 'path' && (
+                                <path d={part.d} fill={part.color} stroke="black" strokeWidth="1" />
+                              )}
+                            </g>
+                          </svg>
+                          <span className="text-xs font-bold text-gray-500 mt-1 uppercase tracking-wider">{part.label}</span>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                </div>
+              </WorksheetSectionWrapper>
+            )
+          })()
+        }
+
+        {
+          activeDocs.includes('dot-to-dot') && (() => {
+            const rng = makeRng(`${effectiveSeed}|v${variant}|doc=${doc}`)
+
+            // Define shapes with normalized coordinates (0-100 grid)
+            const shapes = [
+              {
+                id: 'star',
+                name: 'Star',
+                emoji: '⭐',
+                points: [
+                  { x: 50, y: 10 }, { x: 61, y: 35 }, { x: 90, y: 35 }, { x: 65, y: 55 },
+                  { x: 75, y: 85 }, { x: 50, y: 65 }, { x: 25, y: 85 }, { x: 35, y: 55 },
+                  { x: 10, y: 35 }, { x: 39, y: 35 }, { x: 50, y: 10 } // Close the loop
+                ]
+              },
+              {
+                id: 'rocket',
+                name: 'Rocket',
+                emoji: '🚀',
+                points: [
+                  { x: 50, y: 10 }, { x: 70, y: 40 }, { x: 70, y: 80 }, { x: 85, y: 90 },
+                  { x: 70, y: 90 }, { x: 50, y: 80 }, { x: 30, y: 90 }, { x: 15, y: 90 },
+                  { x: 30, y: 80 }, { x: 30, y: 40 }, { x: 50, y: 10 }
+                ]
+              },
+              {
+                id: 'heart',
+                name: 'Heart',
+                emoji: '❤️',
+                points: [
+                  { x: 50, y: 30 }, { x: 65, y: 15 }, { x: 85, y: 15 }, { x: 95, y: 35 },
+                  { x: 95, y: 50 }, { x: 50, y: 90 }, { x: 5, y: 50 }, { x: 5, y: 35 },
+                  { x: 15, y: 15 }, { x: 35, y: 15 }, { x: 50, y: 30 }
+                ]
+              }
+            ]
+
+            const shapeIndex = Math.floor(rng() * shapes.length)
+            const shape = shapes[shapeIndex]
+
+            // Generate dot elements
+            const dots = shape.points.slice(0, shape.points.length - 1).map((pt, i) => ({
+              num: i + 1,
+              x: pt.x * 4, // Scale to 400x400
+              y: pt.y * 4
+            }))
+
+            // Path for answer key
+            const pathData = shape.points.map((pt, i) =>
+              `${i === 0 ? 'M' : 'L'}${pt.x * 4},${pt.y * 4}`
+            ).join(' ') + " Z"
+
+            return (
+              <WorksheetSectionWrapper
+                docId="dot-to-dot"
+                title={`Connect the Dots: ${shape.name}`}
+                emoji={shape.emoji}
+                description={`Connect the dots from 1 to ${dots.length} to reveal the picture.`}
+                problemCount={1}
+                learningObjectives={[
+                  'Sequence numbers correctly (1, 2, 3...)',
+                  'Refine fine motor skills',
+                  'Recognize shapes and drawing patterns'
+                ]}
+              >
+                <div className="flex flex-col items-center justify-center p-8 bg-white border-4 border-double border-indigo-200 rounded-xl relative">
+                  <svg width="400" height="400" viewBox="0 0 400 400" className="overflow-visible">
+                    {/* Answer Key (Ghost Line) - Visible if showing answers */}
+                    {showAnswersForDoc('dot-to-dot', () => (
+                      <path d={pathData} fill="none" stroke="#cbd5e1" strokeWidth="2" strokeDasharray="5,5" opacity="0.5" />
+                    ))}
+
+                    {/* Dots and Numbers */}
+                    {dots.map((dot, i) => (
+                      <g key={i}>
+                        <circle cx={dot.x} cy={dot.y} r="4" fill="#1e40af" />
+                        <text
+                          x={dot.x}
+                          y={dot.y - 12}
+                          fontSize="16"
+                          fontWeight="bold"
+                          fill="#1e3a8a"
+                          textAnchor="middle"
+                        >
+                          {dot.num}
+                        </text>
+                      </g>
+                    ))}
+                  </svg>
+
+                  {showAnswersForDoc('dot-to-dot', () => (
+                    <div className="absolute bottom-4 right-4 text-2xl animate-bounce">
+                      {shape.emoji}
+                    </div>
+                  ))}
+                </div>
+              </WorksheetSectionWrapper>
+            )
+          })()
+        }
+
+        {
+          activeDocs.includes('reward-chart') && (() => {
+            const rng = makeRng(`${effectiveSeed}|v${variant}|doc=${doc}`)
+
+            const themes = [
+              { id: 'star', name: 'Super Star', emoji: '⭐', bg: 'bg-yellow-50', border: 'border-yellow-400', icon: '★' },
+              { id: 'dino', name: 'Dino-mite Behavior', emoji: '🦕', bg: 'bg-green-50', border: 'border-green-600', icon: '🐾' },
+              { id: 'space', name: 'Blast Off to Success', emoji: '🚀', bg: 'bg-indigo-50', border: 'border-indigo-500', icon: '🪐' },
+              { id: 'garden', name: 'Growing Good Habits', emoji: '🌻', bg: 'bg-pink-50', border: 'border-pink-300', icon: '❀' },
+            ]
+
+            const themeIndex = Math.floor(rng() * themes.length)
+            const theme = themes[themeIndex]
+            const totalCells = 25 // 5x5 grid
+
+            return (
+              <WorksheetSectionWrapper
+                docId="reward-chart"
+                title={theme.name}
+                emoji={theme.emoji}
+                description="Track progress and build good habits with this reward chart!"
+                problemCount={1}
+                learningObjectives={[
+                  'Encourage positive behavior',
+                  'Track progress towards a goal',
+                  'Build consistency and discipline'
+                ]}
+                parentTeacherTips={[
+                  'Agree on a clear goal and reward beforehand.',
+                  'Let the child place the sticker or checkmark themselves.',
+                  'Celebrate small wins along the way.'
+                ]}
+              >
+                <div className={`p-6 rounded-2xl border-4 ${theme.border} ${theme.bg} print:bg-white print:border-2`}>
+                  {/* Header Input */}
+                  <div className="flex flex-col md:flex-row items-center justify-between mb-6 gap-4">
+                    <div className="text-xl font-bold text-gray-700 w-full md:w-auto">
+                      Name: <div className="inline-block border-b-2 border-gray-400 w-48 h-8"></div>
+                    </div>
+                    <div className="text-xl font-bold text-gray-700 w-full md:w-auto">
+                      Week of: <div className="inline-block border-b-2 border-gray-400 w-32 h-8"></div>
+                    </div>
+                  </div>
+
+                  {/* The Grid */}
+                  <div className="grid grid-cols-5 gap-3 mb-6">
+                    {Array.from({ length: totalCells }).map((_, i) => (
+                      <div key={i} className={`aspect-square bg-white rounded-lg border-2 ${theme.border} flex items-center justify-center relative`}>
+                        <span className="text-gray-200 text-4xl opacity-50 select-none print:opacity-20">{theme.icon}</span>
+                        <div className="absolute top-1 left-2 text-xs text-gray-400 font-mono">{i + 1}</div>
+                      </div>
+                    ))}
+                  </div>
+
+                  {/* Footer Goals */}
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div className="bg-white p-4 rounded-xl border-2 border-gray-200 shadow-sm print:shadow-none print:border">
+                      <h4 className="font-bold text-lg mb-2 text-gray-600">🎯 My Goal:</h4>
+                      <div className="border-b-2 border-gray-300 h-8 mt-4"></div>
+                      <div className="border-b-2 border-gray-300 h-8 mt-4"></div>
+                    </div>
+                    <div className="bg-white p-4 rounded-xl border-2 border-gray-200 shadow-sm print:shadow-none print:border">
+                      <h4 className="font-bold text-lg mb-2 text-gray-600">🏆 My Reward:</h4>
+                      <div className="border-b-2 border-gray-300 h-8 mt-4"></div>
+                      <div className="border-b-2 border-gray-300 h-8 mt-4"></div>
+                    </div>
+                  </div>
+                </div>
+              </WorksheetSectionWrapper>
+            )
+          })()
+        }
+
 
         {
           activeDocs.includes('count-write-30') && (() => {
@@ -21364,14 +21697,15 @@ export function PrintablesPage() {
 
                       {/* Penguin Target */}
                       <div
-                        className="absolute top-0 -ml-4 flex flex-col items-center"
-                        style={{ left: `${((p.target - p.start) / 30) * 100}%` }} // Approximate positioning logic
+                        className="absolute -top-8 -ml-4 flex flex-col items-center z-10"
+                        style={{ left: `${((p.target - p.start) / 30) * 100}%` }}
                       >
-                        <div className="text-3xl filter drop-shadow-sm transform -scale-x-100">{String.fromCodePoint(0x279C)}</div>
-                        <div className="w-12 h-10 border-2 border-sky-500 bg-white rounded-lg mt-2 flex items-center justify-center font-bold text-sky-700 shadow-sm z-10">
+                        {/* Penguin Emoji */}
+                        <div className="text-3xl filter drop-shadow-sm mb-1 transform -scale-x-100">{String.fromCodePoint(0x1F427)}</div>
+                        <div className="w-0.5 h-3 bg-sky-500"></div> {/* Connecting line to track */}
+                        <div className="w-12 h-10 border-2 border-sky-500 bg-white rounded-lg flex items-center justify-center font-bold text-sky-700 shadow-sm">
                           {/* Answer Box */}
                         </div>
-                        <div className="w-0.5 h-4 bg-sky-500"></div> {/* Connecting line to track */}
                       </div>
                     </div>
                   ))}
