@@ -1,5 +1,5 @@
 import React from 'react';
-import MakeRng from '../utils/MakeRng';
+import { makeRng } from '../utils/printableUtils';
 import { WorksheetSectionWrapper } from './PrintablesPage';
 
 // Standard props expected by worksheet components
@@ -26,7 +26,7 @@ export const MathMazeWorksheets: React.FC<MathMazeWorksheetsProps> = ({ docId, c
     const mathMazeCells = React.useMemo(() => {
         const cells: string[] = [];
         // makeRng expects a seed string
-        const rng = MakeRng(`${effectiveSeed}|math-maze|v${variant}`);
+        const rng = makeRng(`${effectiveSeed}|math-maze|v${variant}`);
         for (let r = 0; r < 7; r++) {
             for (let c = 0; c < 7; c++) {
                 if (r === 0 && c === 0) {
