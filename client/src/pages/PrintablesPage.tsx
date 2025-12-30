@@ -9791,234 +9791,267 @@ export function PrintablesPage() {
           </WorksheetSectionWrapper>
         )}
 
-        {activeDocs.includes('draw-half') && (
-          <WorksheetSectionWrapper
-            docId="draw-half"
-            title="Draw the Missing Half"
-            emoji={String.fromCodePoint(0x1F4D1)}
-            description="Copy the right side to complete each picture. Use the grid as a guide."
-            problemCount={4}
-            learningObjectives={[
-              'Practice symmetry and mirroring',
-              'Use grid as a guide',
-              'Practice drawing skills'
-            ]}
-            parentTeacherTips={[
-              'Use the grid lines to help match the other side',
-              'Look at the shapes and lines carefully',
-              'Help with drawing if needed',
-              'Extension: Draw your own symmetrical pictures'
-            ]}
-          >
-            <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-pink-400 to-purple-400 animate-gradient-x mb-2" />
-            <div className="grid grid-cols-2 md:grid-cols-3 gap-6">
-              <svg viewBox="0 0 220 220" className="w-full h-auto bg-white border border-slate-300">
-                <defs>
-                  <pattern id="g1" width="20" height="20" patternUnits="userSpaceOnUse">
-                    <path d="M20 0 H0 V20" fill="none" stroke="#e5e7eb" strokeWidth="1" />
-                  </pattern>
-                  <clipPath id="half1"><rect x="0" y="0" width="110" height="220" /></clipPath>
-                </defs>
-                <rect x="0" y="0" width="220" height="220" fill="url(#g1)" />
-                <g clipPath="url(#half1)">
-                  <path d="M40 110 C70 40, 150 40, 180 110 C150 180, 70 180, 40 110 Z" fill="none" stroke="#111827" strokeWidth="3" />
-                </g>
-                <line x1="110" y1="0" x2="110" y2="220" stroke="#9ca3af" strokeDasharray="4 4" />
-              </svg>
-              <svg viewBox="0 0 220 220" className="w-full h-auto bg-white border border-slate-300">
-                <defs>
-                  <pattern id="g2" width="20" height="20" patternUnits="userSpaceOnUse">
-                    <path d="M20 0 H0 V20" fill="none" stroke="#e5e7eb" strokeWidth="1" />
-                  </pattern>
-                  <clipPath id="half2"><rect x="0" y="0" width="110" height="220" /></clipPath>
-                </defs>
-                <rect x="0" y="0" width="220" height="220" fill="url(#g2)" />
-                <g clipPath="url(#half2)">
-                  <path d="M70 180 L110 40 L150 180 Z" fill="none" stroke="#111827" strokeWidth="3" />
-                </g>
-                <line x1="110" y1="0" x2="110" y2="220" stroke="#9ca3af" strokeDasharray="4 4" />
-              </svg>
-              {/* Four more prompts */}
-              {[
-                (id: string) => (
-                  <svg key={id} viewBox="0 0 220 220" className="w-full h-auto bg-white border border-slate-300">
-                    <defs>
-                      <pattern id={`${id}-g`} width="20" height="20" patternUnits="userSpaceOnUse">
-                        <path d="M20 0 H0 V20" fill="none" stroke="#e5e7eb" strokeWidth="1" />
-                      </pattern>
-                      <clipPath id={`${id}-half`}><rect x="0" y="0" width="110" height="220" /></clipPath>
-                    </defs>
-                    <rect x="0" y="0" width="220" height="220" fill={`url(#${id}-g)`} />
-                    <g clipPath={`url(#${id}-half)`}>
-                      {/* Heart */}
-                      <path d="M110 90 C90 50, 40 60, 40 95 C40 130, 110 160, 110 180" fill="none" stroke="#111827" strokeWidth="3" />
-                    </g>
-                    <line x1="110" y1="0" x2="110" y2="220" stroke="#9ca3af" strokeDasharray="4 4" />
-                  </svg>
-                ),
-                (id: string) => (
-                  <svg key={id} viewBox="0 0 220 220" className="w-full h-auto bg-white border border-slate-300">
-                    <defs>
-                      <pattern id={`${id}-g`} width="20" height="20" patternUnits="userSpaceOnUse">
-                        <path d="M20 0 H0 V20" fill="none" stroke="#e5e7eb" strokeWidth="1" />
-                      </pattern>
-                      <clipPath id={`${id}-half`}><rect x="0" y="0" width="110" height="220" /></clipPath>
-                    </defs>
-                    <rect x="0" y="0" width="220" height="220" fill={`url(#${id}-g)`} />
-                    <g clipPath={`url(#${id}-half)`}>
-                      {/* House */}
-                      <path d="M60 120 L110 80 L160 120" fill="none" stroke="#111827" strokeWidth="3" />
-                      <rect x="70" y="120" width="80" height="60" fill="none" stroke="#111827" strokeWidth="3" />
-                    </g>
-                    <line x1="110" y1="0" x2="110" y2="220" stroke="#9ca3af" strokeDasharray="4 4" />
-                  </svg>
-                ),
-                (id: string) => (
-                  <svg key={id} viewBox="0 0 220 220" className="w-full h-auto bg-white border border-slate-300">
-                    <defs>
-                      <pattern id={`${id}-g`} width="20" height="20" patternUnits="userSpaceOnUse">
-                        <path d="M20 0 H0 V20" fill="none" stroke="#e5e7eb" strokeWidth="1" />
-                      </pattern>
-                      <clipPath id={`${id}-half`}><rect x="0" y="0" width="110" height="220" /></clipPath>
-                    </defs>
-                    <rect x="0" y="0" width="220" height="220" fill={`url(#${id}-g)`} />
-                    <g clipPath={`url(#${id}-half)`}>
-                      {/* Rocket */}
-                      <path d="M110 70 L130 120 L110 170 L90 120 Z" fill="none" stroke="#111827" strokeWidth="3" />
-                      <circle cx="110" cy="120" r="10" fill="none" stroke="#111827" strokeWidth="3" />
-                    </g>
-                    <line x1="110" y1="0" x2="110" y2="220" stroke="#9ca3af" strokeDasharray="4 4" />
-                  </svg>
-                ),
-                (id: string) => (
-                  <svg key={id} viewBox="0 0 220 220" className="w-full h-auto bg-white border border-slate-300">
-                    <defs>
-                      <pattern id={`${id}-g`} width="20" height="20" patternUnits="userSpaceOnUse">
-                        <path d="M20 0 H0 V20" fill="none" stroke="#e5e7eb" strokeWidth="1" />
-                      </pattern>
-                      <clipPath id={`${id}-half`}><rect x="0" y="0" width="110" height="220" /></clipPath>
-                    </defs>
-                    <rect x="0" y="0" width="220" height="220" fill={`url(#${id}-g)`} />
-                    <g clipPath={`url(#${id}-half)`}>
-                      {/* Butterfly */}
-                      <path d="M110 110 Q90 80 70 100 Q90 120 110 110" fill="none" stroke="#111827" strokeWidth="3" />
-                      <path d="M110 130 Q90 160 70 140 Q90 120 110 130" fill="none" stroke="#111827" strokeWidth="3" />
-                      <line x1="110" y1="80" x2="110" y2="150" stroke="#111827" strokeWidth="3" />
-                    </g>
-                    <line x1="110" y1="0" x2="110" y2="220" stroke="#9ca3af" strokeDasharray="4 4" />
-                  </svg>
-                ),
-              ].map((fn, i) => fn(`dh-${i}`))}
-            </div>
-            {showAnswersForDoc('draw-half', () => (
-              <div className="mt-6 p-4 border-2 border-emerald-300 bg-emerald-50 rounded print:border print:bg-white print:page-break-before-always">
-                <div className="font-bold text-emerald-900 mb-3 text-base">{String.fromCodePoint(0x2705)}</div>
-                <div className="text-sm text-emerald-800">
-                  Use the grid lines to help you mirror the left side on the right. Look carefully at the shapes, curves, and lines. The completed picture should be symmetrical!
-                </div>
-              </div>
-            ))}
-          </WorksheetSectionWrapper>
-        )}
+        {activeDocs.includes('draw-half') && (() => {
+          const rng = makeRng(`${effectiveSeed}|v${variant}|doc=${doc}`)
+          const problems = Array.from({ length: 6 }).map((_, i) => {
+            // Generate random points for the left side
+            const cx = 110
+            const h = 220
+            const numPoints = 3 + Math.floor(rng() * 3) // 3 to 5 internal points
+            // Bias towards straight lines for easier drawing, but include some curves
+            const type = rng() > 0.4 ? 'line' : 'curve'
 
-        {activeDocs.includes('logic-grid') && (
-          <WorksheetSectionWrapper
-            docId="logic-grid"
-            title="Logic Grid Puzzle"
-            emoji={String.fromCodePoint(0x1F9E0)}
-            description="Mark  for matches and  for no match. Use the clues to solve."
-            problemCount={1}
-            learningObjectives={[
-              'Practice logical reasoning',
-              'Use clues to solve puzzles',
-              'Practice problem-solving skills'
-            ]}
-            parentTeacherTips={[
-              'Read each clue carefully',
-              'Use the process of elimination',
-              'Mark what you know for sure first',
-              'Extension: Create your own logic grid puzzle'
-            ]}
-          >
-            <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-indigo-400 to-purple-400 animate-gradient-x mb-2" />
-            {/* Worked Example */}
-            <div className="mb-6 p-4 bg-blue-50 border-2 border-blue-200 rounded-lg print:border print:bg-white">
-              <div className="font-semibold text-blue-900 mb-3 text-sm">{String.fromCodePoint(0x1F4A1)}</div>
-              <div className="space-y-2 text-sm">
-                <div className="font-semibold text-base"><strong>Problem:</strong> Use clues to fill in the logic grid</div>
-                <div className="pl-4 border-l-2 border-blue-300 space-y-1">
-                  <div><strong>Step 1:</strong> Read all the clues carefully</div>
-                  <div><strong>Step 2:</strong>{String.fromCodePoint(0x279C)}</div>
-                  <div><strong>Step 3:</strong> Use process of elimination to find remaining matches</div>
-                  <div className="font-semibold text-blue-900"><strong>Answer:</strong> Fill in the grid based on the clues</div>
-                  <div className="text-xs text-blue-700 mt-1">{String.fromCodePoint(0x279C)}</div>
-                </div>
-              </div>
-            </div>
-            <div className="overflow-x-auto break-inside-avoid" style={{ pageBreakAfter: 'auto' }}>
-              <table className="border-collapse">
-                <thead>
-                  <tr>
-                    <th className="border border-slate-400 px-2 py-1 text-sm bg-slate-50"></th>
-                    {['Cat', 'Dog', 'Fish'].map((h) => (
-                      <th key={h} className="border border-slate-400 px-2 py-1 text-sm bg-slate-50">{h}</th>
+            const points: { x: number, y: number }[] = []
+
+            // Start (Top Center)
+            points.push({ x: cx, y: 20 + rng() * 20 })
+
+            const yStep = (h - 40) / (numPoints + 1)
+
+            // Middle Points (Left Side)
+            for (let j = 1; j <= numPoints; j++) {
+              const yBase = 20 + (j * yStep)
+              const y = yBase + (rng() * 20 - 10)
+              const x = 20 + rng() * 70 // 20 to 90
+              points.push({ x, y })
+            }
+
+            // End (Bottom Center)
+            points.push({ x: cx, y: h - 20 - rng() * 20 })
+
+            // Generate Path Data
+            let fullD = `M ${points[0].x} ${points[0].y}`
+
+            // Store geometry for mirroring
+            const segments: any[] = []
+
+            for (let j = 0; j < points.length - 1; j++) {
+              const p1 = points[j]
+              const p2 = points[j + 1]
+              if (type === 'curve') {
+                // Use a control point that pulls "outward" (left)
+                const cpX = Math.min(p1.x, p2.x) - (10 + rng() * 30)
+                const cpY = p1.y + (p2.y - p1.y) / 2
+                segments.push({ type: 'Q', p1, p2, cp: { x: cpX, y: cpY } })
+                fullD += ` Q ${cpX} ${cpY}, ${p2.x} ${p2.y}`
+              } else {
+                segments.push({ type: 'L', p1, p2 })
+                fullD += ` L ${p2.x} ${p2.y}`
+              }
+            }
+
+            // Mirror back up
+            for (let j = segments.length - 1; j >= 0; j--) {
+              const seg = segments[j]
+              const target = seg.p1
+              const mirrorTargetX = cx + (cx - target.x)
+
+              if (seg.type === 'curve') {
+                const mirrorCpX = cx + (cx - seg.cp.x)
+                fullD += ` Q ${mirrorCpX} ${seg.cp.y}, ${mirrorTargetX} ${target.y}`
+              } else {
+                fullD += ` L ${mirrorTargetX} ${target.y}`
+              }
+            }
+
+            fullD += ' Z' // Close loop
+            return fullD
+          })
+
+          return (
+            <WorksheetSectionWrapper
+              docId="draw-half"
+              title="Symmetry Drawing"
+              emoji="🦋"
+              description="Complete the picture by drawing the missing half. The shapes are random every time!"
+              problemCount={6}
+              learningObjectives={[
+                'Practice symmetry and mirroring',
+                'Develop spatial reasoning',
+                'Improve fine motor control'
+              ]}
+              parentTeacherTips={[
+                'Start by marking the key points (corners) on the empty side.',
+                'Connect the dots to form the shape.',
+                'Count the grid squares to ensure accuracy.'
+              ]}
+            >
+              <div className="grid grid-cols-2 md:grid-cols-3 gap-6">
+                {problems.map((dPath, i) => (
+                  <svg key={i} viewBox="0 0 220 220" className="w-full h-auto bg-white border border-slate-300">
+                    <defs>
+                      <pattern id={`grid-${i}`} width="20" height="20" patternUnits="userSpaceOnUse">
+                        <path d="M20 0 H0 V20" fill="none" stroke="#e5e7eb" strokeWidth="1" />
+                      </pattern>
+                      <clipPath id={`clip-${i}`}><rect x="0" y="0" width="110" height="220" /></clipPath>
+                    </defs>
+                    <rect x="0" y="0" width="220" height="220" fill={`url(#grid-${i})`} />
+
+                    {/* The Shape (Left Side Only visible initially) */}
+                    <g clipPath={`url(#clip-${i})`}>
+                      <path d={dPath} fill="none" stroke="#111827" strokeWidth="3" />
+                      <path d={dPath} fill="#eff6ff" fillOpacity="0.5" stroke="none" />
+                    </g>
+
+                    {/* Dashed Center Line */}
+                    <line x1="110" y1="0" x2="110" y2="220" stroke="#9ca3af" strokeDasharray="4 4" strokeWidth="2" />
+
+                    {/* Answer Key (Ghost Line) */}
+                    {showAnswersForDoc('draw-half', () => (
+                      <path d={dPath} fill="none" stroke="#ef4444" strokeWidth="2" strokeDasharray="2 2" opacity="0.5" />
                     ))}
-                  </tr>
-                </thead>
-                <tbody>
-                  {['Liam', 'Ava', 'Noah'].map((n) => (
-                    <tr key={n}>
-                      <td className="border border-slate-400 px-2 py-1 text-sm bg-slate-50">{n}</td>
-                      {Array.from({ length: 3 }).map((_, i) => (
-                        <td key={i} className="border border-slate-400 w-10 h-10"></td>
+                  </svg>
+                ))}
+              </div>
+            </WorksheetSectionWrapper>
+          )
+        })()}
+
+        {activeDocs.includes('logic-grid') && (() => {
+          const rng = makeRng(`${effectiveSeed}|v${variant}|doc=${doc}`)
+
+          // 1. Setup Categories
+          const categoryPools = [
+            { name: 'Pets', items: ['Cat', 'Dog', 'Bird', 'Fish', 'Rabbit', 'Hamster'], emoji: '🐾' },
+            { name: 'Colors', items: ['Red', 'Blue', 'Green', 'Yellow', 'Purple', 'Orange'], emoji: '🎨' },
+            { name: 'Fruits', items: ['Apple', 'Banana', 'Grape', 'Orange', 'Pear', 'Berry'], emoji: '🍎' },
+            { name: 'Toys', items: ['Ball', 'Doll', 'Car', 'Block', 'Bear', 'Plane'], emoji: '🧸' }
+          ]
+
+          const namesPool = ['Liam', 'Ava', 'Noah', 'Emma', 'Oliver', 'Mia', 'Elijah', 'Harper']
+
+          // Select Random Categories
+          const catIndex = Math.floor(rng() * categoryPools.length)
+          const targetCategory = categoryPools[catIndex]
+
+          // Select 3 People and 3 Items
+          const people = shuffleArray(namesPool, rng).slice(0, 3)
+          const items = shuffleArray(targetCategory.items, rng).slice(0, 3)
+
+          // Create Solution (Direct mapping index-to-index)
+          // people[0] has items[0], people[1] has items[1], etc.
+          // Since we shuffled both lists, this is already a random pairing.
+          const solution = people.map((p, i) => ({ person: p, item: items[i] }))
+
+          // Generate Clues
+          // We need enough clues to solve a 3x3 grid.
+          // Strategies:
+          // 1. Give 1 Positive ("Liam has the Cat") -> Eliminates row/col
+          // 2. Give 1 Negative ("Ava does not have the Dog")
+          // 3. Give another Negative or Positive.
+
+          const clues: string[] = []
+
+          // Always give 1 Positive Clue (easiest anchor)
+          const pIdx = Math.floor(rng() * 3)
+          clues.push(`${solution[pIdx].person} has the ${solution[pIdx].item}.`)
+
+          // Give 2 Negative Clues
+          // We need random invalid pairings
+          // For person i, pick item j where i != j
+          for (let k = 0; k < 2; k++) {
+            // Pick a random person
+            const subjectIdx = Math.floor(rng() * 3)
+            // Pick a random WRONG item
+            let wrongItemIdx = Math.floor(rng() * 3)
+            while (wrongItemIdx === subjectIdx) {
+              wrongItemIdx = Math.floor(rng() * 3)
+            }
+
+            clues.push(`${people[subjectIdx]} does not have the ${items[wrongItemIdx]}.`)
+          }
+
+          // Shuffle clues so the positive isn't always first
+          const shuffledClues = shuffleArray(clues, rng)
+
+          return (
+            <WorksheetSectionWrapper
+              docId="logic-grid"
+              title="Logic Grid Puzzle"
+              emoji={String.fromCodePoint(0x1F9E0)}
+              description={`Use the clues to find out which person has which ${targetCategory.name.toLowerCase().slice(0, -1)}!`}
+              problemCount={1}
+              learningObjectives={[
+                'Practice logical reasoning',
+                'Use clues to solve puzzles',
+                'Practice process of elimination'
+              ]}
+              parentTeacherTips={[
+                'Read each clue carefully.',
+                'Mark "X" for things that are NOT true.',
+                'Mark "O" or "Check" for things that ARE true.',
+                'When you find a match, cross out the rest of that row and column.'
+              ]}
+            >
+              <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-indigo-400 to-purple-400 animate-gradient-x mb-2" />
+
+              {/* The Grid Component */}
+              <div className="overflow-x-auto mb-6">
+                <div className="inline-block min-w-full">
+                  <table className="border-collapse">
+                    <thead>
+                      <tr>
+                        <th className="p-2 border border-slate-300 bg-slate-50 min-w-[80px]"></th>
+                        {items.map(item => (
+                          <th key={item} className="p-2 border border-slate-300 bg-slate-50 font-bold min-w-[60px] text-center">
+                            <div className="text-xs mb-1 text-slate-500">{targetCategory.emoji}</div>
+                            {item}
+                          </th>
+                        ))}
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {people.map(person => (
+                        <tr key={person}>
+                          <td className="p-2 border border-slate-300 bg-slate-50 font-bold">{person}</td>
+                          {items.map((_, i) => (
+                            <td key={i} className="border border-slate-300 w-12 h-12 text-center align-middle hover:bg-slate-50 cursor-pointer">
+                              {/* Empty cell for user to mark */}
+                            </td>
+                          ))}
+                        </tr>
                       ))}
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
-            </div>
-            <div className="mt-3 text-xs text-slate-700">
-              <div className="font-semibold">Clues</div>
-              <ol className="list-decimal list-inside space-y-1">
-                <li>Liam does not own the dog.</li>
-                <li>{String.fromCodePoint(0x270F)}</li>
-                <li>{String.fromCodePoint(0x279C)}</li>
-              </ol>
-            </div>
-            {/* Extension/Challenge Problems */}
-            <div className="mt-6 print:mt-0 p-4 bg-purple-50 border-2 border-purple-200 rounded print:bg-white print:border" style={{ pageBreakBefore: 'always', pageBreakInside: 'avoid' }}>
-              <div className="font-semibold text-purple-900 mb-3 text-sm">{String.fromCodePoint(0x1F680)}</div>
-              <div className="space-y-2 text-sm text-purple-800">
-                <div>1. Create your own logic grid puzzle with 3 people and 3 pets</div>
-                <div>2. Can you solve it using only 2 clues?</div>
-                <div>3. Try a logic grid with 4 categories instead of 3</div>
-              </div>
-            </div>
-            {/* Self-Assessment */}
-            <div className="print:block hidden print:mt-0 mt-6 p-4 border-2 border-slate-300 rounded" style={{ pageBreakBefore: 'avoid', pageBreakInside: 'avoid' }}>
-              <div className="font-semibold text-slate-800 mb-3 text-sm">{String.fromCodePoint(0x270F)}</div>
-              <div className="space-y-2 text-xs">
-                <div>{String.fromCharCode(0x2610)} I can use clues to solve puzzles</div>
-                <div>{String.fromCharCode(0x2610)} I can use logical reasoning</div>
-                <div>{String.fromCodePoint(0x270F)}</div>
-              </div>
-              <div className="mt-3 text-xs">
-                <strong>{getTrans('common.whatWasHardest', 'What was hardest?')}</strong> _________________________
-              </div>
-            </div>
-            {showAnswersForDoc('logic-grid', () => (
-              <div className="mt-6 p-4 border-2 border-emerald-300 bg-emerald-50 rounded print:border print:bg-white print:page-break-before-always">
-                <div className="font-bold text-emerald-900 mb-3 text-base">{String.fromCodePoint(0x2705)}</div>
-                <div className="text-sm text-emerald-800">
-                  <div className="mb-2"><strong>Solution:</strong></div>
-                  <div>{String.fromCodePoint(0x2705)}</div>
-                  <div>{String.fromCodePoint(0x279C)}</div>
-                  <div>{String.fromCodePoint(0x279C)}</div>
+                    </tbody>
+                  </table>
                 </div>
               </div>
-            ))}
-          </WorksheetSectionWrapper>
-        )}
+
+              {/* Clues Section */}
+              <div className="mb-6 p-4 bg-yellow-50 border-2 border-yellow-200 rounded-xl print:border print:bg-white">
+                <h3 className="font-bold text-yellow-900 mb-2 flex items-center gap-2">
+                  {String.fromCodePoint(0x1F50D)} Clues:
+                </h3>
+                <ul className="list-disc list-inside space-y-2 text-lg text-slate-800">
+                  {shuffledClues.map((clue, i) => (
+                    <li key={i}>{clue}</li>
+                  ))}
+                </ul>
+              </div>
+
+              {/* Answer Key */}
+              {showAnswersForDoc('logic-grid', () => (
+                <div className="mt-6 p-4 border-2 border-emerald-300 bg-emerald-50 rounded print:border print:bg-white print:page-break-before-always">
+                  <div className="font-bold text-emerald-900 mb-3 text-base">{String.fromCodePoint(0x2705)} Solution</div>
+                  <div className="grid grid-cols-1 gap-2">
+                    {solution.map((s, i) => (
+                      <div key={i} className="flex items-center gap-2 text-emerald-800">
+                        <span className="font-bold">{s.person}</span> has the <span className="font-bold">{s.item}</span>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              ))}
+
+              {/* Self Assessment Footer */}
+              <div className="print:block hidden mt-8 p-4 border-t-2 border-slate-200">
+                <div className="flex justify-between text-sm text-slate-500">
+                  <div>Logic Puzzle #{seed.slice(0, 4)}</div>
+                  <div>Score: ______ / 3</div>
+                </div>
+              </div>
+            </WorksheetSectionWrapper>
+          )
+        })()}
 
         {activeDocs.includes('hidden-object') && (
           <WorksheetSectionWrapper
