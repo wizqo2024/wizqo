@@ -1,4 +1,4 @@
-﻿import React from 'react'
+import React from 'react'
 import type { ReactNode } from 'react'
 import { useTranslation } from '@/context/TranslationContext'
 import { WizqoLogo } from '@/components/WizqoLogo'
@@ -10,7 +10,7 @@ import { WorksheetFooter, ProblemBox } from '@/components/worksheet'
 // Local components defined below to avoid conflicts
 import { makeRng, pick, pickNUnique, shuffleArray, buildWords } from '@/utils/printableUtils'
 import { Sudoku } from '@/pages/worksheets/Sudoku'
-import { WordSearch, generateWordSearchGrid } from '@/pages/worksheets/WordSearch'
+import { WordSearch } from '@/pages/worksheets/WordSearch'
 import {
   trackWorksheetDownload,
   trackWorksheetView,
@@ -37201,78 +37201,705 @@ export function PrintablesPage() {
         }
 
         {
-          (() => {
-            const handledDocIds = new Set([
-              'ten-frames-1-20', 'number-tracing-1-20', 'stem-balloon-rocket', 'stem-walking-water', 'arts-3-shape-creature',
-              'number-tracing-1-10', 'uppercase-lowercase-match', 'beginning-sounds-az', 'addition-subtraction-0-10',
-              'ten-frames-1-10', 'shapes-colors-sort', 'dot-to-dot-1-20', 'tangram-animals', 'spot-difference', 'spotdiff',
-              'directed-drawing-animals', 'cut-and-paste-crafts', 'feelings-checkin', 'reward-chart',
-              'reading-mini-1', 'reading-g1-lost-hat', 'reading-g1-ants', 'reading-g1-bus-ride', 'reading-g1-pet-fish',
-              'reading-g1-red-balloon', 'reading-g1-big-box', 'reading-g1-garden-snail', 'reading-g1-birthday-cake',
-              'reading-g2-paper-bridge', 'reading-g2-rainy-garden', 'reading-g2-library-card', 'reading-g2-lost-and-found',
-              'reading-g2-bird-feeder', 'reading-g2-cookie-recipe', 'reading-g2-tree-house', 'reading-g2-magic-seeds',
-              'reading-g3-lighthouse', 'reading-g3-science-fair', 'reading-g3-community-garden',
-              'reading-g3-school-play', 'reading-g3-art-project', 'pack', 'math-maze',
-              'spelling', 'science-match', 'grammar-detective', 'sudoku4', 'sudoku6', 'place-value-hto',
-              'skip-count-5-10-120', 'add-2digit-100', 'sub-2digit-100', 'word-problems-100', 'compare-2digit',
-              'even-odd-100', 'time-5min', 'color-by-number', 'number-bonds-10', 'count-write-30', 'missing-numbers-50',
-              'picture-addition-10', 'subtraction-stories', 'balance-equations-10', 'skip-count-2s', 'number-line-add',
-              'doubles-facts', 'pattern-complete', 'missing-shape', 'size-comparison', 'expanded-form-200',
-              'number-patterns-200', 'rounding-nearest-10', 'add-three-numbers', 'missing-addends', 'fact-families-20',
-              'mental-math-20', 'number-line-200', 'doubles-near-doubles', 'money-coins-bills', 'measurement-length',
-              'bar-graphs-data', 'add-2digit-regrouping', 'sub-2digit-regrouping', 'fractions-halves-thirds-fourths',
-              'rhyming-words', 'cvc-words', 'sight-words-pre-primer', 'letter-tracing-az', 'more-less-equal-10',
-              'counting-objects-20', 'sentence-building', 'geo-continents-k2', 'geo-compass-rose', 'geo-landforms',
-              'geo-latlong', 'number-tracing-1-10', 'number-tracing-1-20',
-              'count-circle-1-10', 'count-match-1-20', 'how-many-1-15', 'count-color-1-10', 'number-id-1-10',
-              'number-matching-1-15', 'number-order-1-20', 'find-number-1-10', 'shape-identification', 'ab-pattern',
-              'big-small', 'more-less', 'mult-facts-0-12', 'div-facts-1-12', 'fractions-whole', 'equivalent-fractions-4th',
-              'mult-facts-1-5', 'mult-arrays-2-5', 'skip-count-mult', 'mult-word-problems-2-3', 'mult-facts-6-12',
-              'mult-arrays-models', 'mult-multi-step-word', 'mult-fact-families', 'mult-2x1', 'mult-2x1-digit', 'mult-2x2', 'mult-2x2-digit',
-              'mult-3x2-digit', 'mult-area-model', 'mult-complex-word', 'mult-fact-fluency', 'mult-mixed-review', 'mult-strategies', 'mult-patterns',
-              // Times Table worksheets
-              'times-table-horizontal-1-5', 'times-table-horizontal-6-12', 'times-table-horizontal-1-12',
-              'times-table-vertical-1-5', 'times-table-vertical-6-12', 'times-table-vertical-1-12',
-              'times-table-missing-1-5', 'times-table-missing-6-12', 'times-table-missing-mixed',
-              'times-table-timed-1-5', 'times-table-timed-6-12', 'times-table-timed-1-12',
-              'times-table-blank-1-5', 'times-table-blank-6-12', 'times-table-blank-1-12',
-              'times-table-confidence-1-5', 'times-table-confidence-6-12', 'times-table-fluency-1-12', 'times-table-mixed-review',
-              'times-table-color-1-5', 'times-table-color-6-12', 'times-table-color-1-12',
-              'long-division-1digit', 'long-division-2digit', 'area-model-mult', 'partial-products', 'comparing-fractions-4th',
-              'add-sub-fractions-4th', 'mixed-improper-fractions', 'decimals-place-value', 'comparing-decimals', 'add-sub-decimals',
-              'fractions-to-decimals', 'fractions-to-decimals-basic-tenths', 'fractions-to-decimals-division', 'classifying-angles', 'area-perimeter-4th', 'lines-angles-4th', 'classifying-triangles',
-              'classifying-quadrilaterals', 'symmetry-transformations', 'customary-conversion', 'metric-conversion', 'elapsed-time-4th',
-              'liquid-measurement-4th', 'mass-weight-4th', 'multi-step-word-4th', 'fraction-word-problems', 'decimal-word-problems',
-              'measurement-word-problems', 'geometry-word-problems', 'line-plots', 'bar-graphs-pictographs', 'mean-median-mode',
-              'long-division-multidigit', 'order-of-operations', 'pemdas-basic', 'pemdas-parentheses', 'pemdas-practice',
-              'pemdas-exponents', 'pemdas-multistep', 'pemdas-word-problems', 'pemdas-advanced', 'pemdas-complex',
-              'pemdas-rules', 'pemdas-mixed-review', 'pemdas-fluency', 'pemdas-step-by-step',
-              'powers-of-10', 'rounding-decimals', 'estimating-sums-differences',
-              'add-sub-mixed-numbers', 'multiplying-fractions', 'dividing-fractions', 'multiplying-decimals', 'dividing-decimals',
-              'fractions-decimals-percents', 'comparing-ordering-fractions-decimals', 'evaluating-expressions', 'writing-expressions',
-              'solving-one-step-equations', 'patterns-rules', 'coordinate-graphing', 'volume-rectangular-prisms', 'area-triangles-parallelograms',
-              'classifying-shapes', 'nets-3d-shapes', 'transformations-5th', 'multi-step-word-5th', 'fraction-word-problems-5th',
-              'decimal-word-problems-5th', 'ratio-proportion-word-problems', 'percent-word-problems', 'line-graphs',
-              'mean-median-mode-range', 'stem-leaf-plots', 'probability',
-              // Kindergarten worksheets
-              'color-shapes', 'shape-sorting', 'color-recognition', 'draw-shape', 'color-patterns',
-              'shape-patterns', 'what-comes-next', 'long-short', 'heavy-light', 'same-different',
-              'line-tracing', 'curve-tracing', 'zigzag-lines', 'path-tracing', 'logic-grid',
-              // New Kindergarten worksheets (code-based)
-              'kindergarten-counting-1-10', 'kindergarten-number-recognition', 'kindergarten-shapes',
-              'kindergarten-patterns', 'kindergarten-addition-pictures', 'kindergarten-counting-visual',
-              // 3rd Grade worksheets
-              'mult-arrays', 'mult-word-problems', 'mult-by-10-100', 'mult-properties',
-              'div-with-remainders', 'div-word-problems', 'div-by-10-100', 'fact-families-mult-div',
-              'comparing-fractions', 'equivalent-fractions', 'add-sub-fractions', 'fractions-number-line',
-              'perimeter-shapes', 'area-rectangles', 'identify-polygons', 'lines-rays-angles', 'symmetry',
-              'time-to-minute', 'customary-units', 'metric-units', 'liquid-measurement', 'mass-weight',
-              'multi-step-word-problems', 'elapsed-time-word-problems', 'money-word-problems', 'perimeter-area-word-problems'
-            ])
-            // Removed fallback placeholder section - worksheets without handlers should not show placeholder content
-            return null
+          activeDocs.some(d => d.startsWith('reading-g1')) && (() => {
+            const rng = makeRng(`${effectiveSeed}|v${variant}|doc=${doc}`)
+            // For now, map all G1 docs to the generic generator, but seeded differently per doc
+            const data = generateReadingStory(`${effectiveSeed}|${doc}`, 1)
+
+            return (
+              <WorksheetSectionWrapper
+                docId={doc}
+                title={data.title}
+                emoji={data.emoji}
+                description="Read the story and answer the questions."
+                problemCount={data.questions.length}
+              >
+                <div className="bg-white p-6 rounded-xl border border-slate-200 shadow-sm max-w-2xl mx-auto">
+                  <h3 className="text-xl font-bold text-center mb-4 text-slate-800">{data.title}</h3>
+                  <div className="text-lg leading-relaxed font-serif text-slate-700 whitespace-pre-line mb-8">
+                    {data.story}
+                  </div>
+
+                  <div className="space-y-6">
+                    <div className="font-bold border-b border-slate-200 pb-2">Questions:</div>
+                    {data.questions.map((q, i) => (
+                      <div key={i} className="bg-slate-50 p-4 rounded-lg">
+                        <div className="font-medium mb-2">{i + 1}. {q.q}</div>
+                        <div className="flex flex-col gap-2">
+                          {q.options.sort((a, b) => makeRng(`${effectiveSeed}|q${i}` + a)() - 0.5).map((opt, k) => (
+                            <div key={k} className="flex items-center gap-2">
+                              <div className="w-4 h-4 rounded-full border border-slate-300"></div>
+                              <span>{opt}</span>
+                            </div>
+                          ))}
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+
+                {showAnswersForDoc(doc, () => (
+                  <div className="mt-4 p-4 border rounded font-mono text-sm">
+                    {data.questions.map((q, i) => (
+                      <div key={i} className="mb-1">{i + 1}) {q.a}</div>
+                    ))}
+                  </div>
+                ))}
+              </WorksheetSectionWrapper>
+            )
           })()
         }
+
+
+        {
+          activeDocs.some(d => d.startsWith('reading-g2')) && (() => {
+            const rng = makeRng(`${effectiveSeed}|v${variant}|doc=${doc}`)
+            const data = generateReadingStory(`${effectiveSeed}|${doc}`, 2)
+
+            return (
+              <WorksheetSectionWrapper
+                docId={doc}
+                title={data.title}
+                emoji={data.emoji}
+                description="Read the story and answer the questions."
+                problemCount={data.questions.length}
+              >
+                <div className="bg-white p-6 rounded-xl border border-slate-200 shadow-sm max-w-2xl mx-auto">
+                  <h3 className="text-xl font-bold text-center mb-4 text-slate-800">{data.title}</h3>
+                  <div className="text-lg leading-relaxed font-serif text-slate-700 whitespace-pre-line mb-8">
+                    {data.story}
+                  </div>
+
+                  <div className="space-y-6">
+                    <div className="font-bold border-b border-slate-200 pb-2">Questions:</div>
+                    {data.questions.map((q, i) => (
+                      <div key={i} className="bg-slate-50 p-4 rounded-lg">
+                        <div className="font-medium mb-2">{i + 1}. {q.q}</div>
+                        <div className="flex flex-col gap-2">
+                          {q.options.sort((a, b) => makeRng(`${effectiveSeed}|q${i}` + a)() - 0.5).map((opt, k) => (
+                            <div key={k} className="flex items-center gap-2">
+                              <div className="w-4 h-4 rounded-full border border-slate-300"></div>
+                              <span>{opt}</span>
+                            </div>
+                          ))}
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+
+                {showAnswersForDoc(doc, () => (
+                  <div className="mt-4 p-4 border rounded font-mono text-sm">
+                    {data.questions.map((q, i) => (
+                      <div key={i} className="mb-1">{i + 1}) {q.a}</div>
+                    ))}
+                  </div>
+                ))}
+              </WorksheetSectionWrapper>
+            )
+          })()
+        }
+
+        {
+          activeDocs.some(d => d.startsWith('reading-g3')) && (() => {
+            const rng = makeRng(`${effectiveSeed}|v${variant}|doc=${doc}`)
+            const data = generateReadingStory(`${effectiveSeed}|${doc}`, 3)
+
+            return (
+              <WorksheetSectionWrapper
+                docId={doc}
+                title={data.title}
+                emoji={data.emoji}
+                description="Read the passage and answer the questions."
+                problemCount={data.questions.length}
+              >
+                <div className="bg-white p-6 rounded-xl border border-slate-200 shadow-sm max-w-3xl mx-auto">
+                  <h3 className="text-xl font-bold text-center mb-4 text-slate-800">{data.title}</h3>
+                  <div className="text-base leading-relaxed font-serif text-slate-700 whitespace-pre-line mb-8 columns-1 md:columns-2 gap-8">
+                    {data.story}
+                  </div>
+
+                  <div className="space-y-6 break-inside-avoid">
+                    <div className="font-bold border-b border-slate-200 pb-2">Comprehension Check:</div>
+                    {data.questions.map((q, i) => (
+                      <div key={i} className="bg-slate-50 p-4 rounded-lg">
+                        <div className="font-medium mb-2">{i + 1}. {q.q}</div>
+                        <div className="flex flex-col gap-2">
+                          {q.options.sort((a, b) => makeRng(`${effectiveSeed}|q${i}` + a)() - 0.5).map((opt, k) => (
+                            <div key={k} className="flex items-center gap-2">
+                              <div className="w-4 h-4 rounded-full border border-slate-300"></div>
+                              <span>{opt}</span>
+                            </div>
+                          ))}
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+
+                {showAnswersForDoc(doc, () => (
+                  <div className="mt-4 p-4 border rounded font-mono text-sm">
+                    {data.questions.map((q, i) => (
+                      <div key={i} className="mb-1">{i + 1}) {q.a}</div>
+                    ))}
+                  </div>
+                ))}
+              </WorksheetSectionWrapper>
+            )
+          })()
+        }
+
+        {
+          activeDocs.some(d => d.startsWith('science-lifecycle')) && (() => {
+            const rng = makeRng(`${effectiveSeed}|v${variant}|doc=${doc}`)
+            const data = generateLifecycle(`${effectiveSeed}|${doc}`)
+
+            return (
+              <WorksheetSectionWrapper
+                docId={doc}
+                title={`${data.name} Lifecycle`}
+                emoji="🔄"
+                description={`Order the stages of the ${data.name} lifecycle.`}
+                problemCount={4}
+              >
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                  {data.stages.sort(() => rng() - 0.5).map((stage, i) => (
+                    <div key={i} className="flex flex-col items-center gap-4 bg-white p-6 rounded-xl border-2 border-dashed border-slate-300">
+                      <div className="text-4xl">{stage.split(' ')[1] || '❓'}</div>
+                      <div className="font-bold text-center text-lg">{stage.split(' ')[0]}</div>
+                      <div className="w-8 h-8 rounded-full border-2 border-slate-300 flex items-center justify-center text-slate-300 font-bold">
+                        #
+                      </div>
+                    </div>
+                  ))}
+                </div>
+
+                {showAnswersForDoc(doc, () => (
+                  <div className="mt-4 p-4 border rounded font-mono text-sm max-w-md mx-auto">
+                    <div className="font-bold mb-2">Correct Order:</div>
+                    <ol className="list-decimal pl-5 space-y-1">
+                      {data.stages.map((s, i) => (
+                        <li key={i}>{s}</li>
+                      ))}
+                    </ol>
+                  </div>
+                ))}
+              </WorksheetSectionWrapper>
+            )
+          })()
+        }
+
+        {
+          activeDocs.some(d => d.startsWith('science-match')) && (() => {
+            const rng = makeRng(`${effectiveSeed}|v${variant}|doc=${doc}`)
+            const data = generateScienceSorting(`${effectiveSeed}|${doc}`)
+
+            return (
+              <WorksheetSectionWrapper
+                docId={doc}
+                title={data.theme}
+                emoji="🔬"
+                description={`Sort the items into: ${data.categories.join(' vs ')}`}
+                problemCount={6}
+              >
+                <div className="max-w-2xl mx-auto">
+                  <div className="flex justify-between mb-8 px-8">
+                    {data.categories.map((cat, i) => (
+                      <div key={i} className="flex flex-col items-center gap-2">
+                        <div className="text-xl font-bold text-indigo-600 border-b-2 border-indigo-200 pb-1">{cat}</div>
+                        <div className="w-32 h-32 border-2 border-dashed border-slate-300 rounded-xl bg-slate-50 flex items-center justify-center text-slate-400">
+                          Place Items Here
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+
+                  <div className="bg-white p-6 rounded-xl border border-slate-200 shadow-sm">
+                    <div className="text-center font-bold mb-4 text-slate-600">Items to Sort:</div>
+                    <div className="flex flex-wrap justify-center gap-4">
+                      {data.items.map((item, i) => (
+                        <div key={i} className="px-4 py-2 bg-indigo-50 text-indigo-800 rounded-lg font-medium border border-indigo-100">
+                          {item.name}
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                </div>
+
+                {showAnswersForDoc(doc, () => (
+                  <div className="mt-4 grid grid-cols-2 gap-4 max-w-lg mx-auto">
+                    {data.categories.map((cat, i) => (
+                      <div key={i} className="p-3 border rounded bg-slate-50">
+                        <div className="font-bold border-b mb-2">{cat}</div>
+                        {data.items.filter(item => item.Cat === cat).map((item, k) => (
+                          <div key={k} className="text-sm">{item.name}</div>
+                        ))}
+                      </div>
+                    ))}
+                  </div>
+                ))}
+              </WorksheetSectionWrapper>
+            )
+          })()
+        }
+
+        {
+          activeDocs.some(d => d.startsWith('geo-landforms')) && (() => {
+            const rng = makeRng(`${effectiveSeed}|v${variant}|doc=${doc}`)
+            const data = generateLandformQuiz(`${effectiveSeed}|${doc}`)
+
+            return (
+              <WorksheetSectionWrapper
+                docId={doc}
+                title="Landform Quiz"
+                emoji={data.target.emoji}
+                description="Identify the landform from the definition or image."
+                problemCount={1}
+              >
+                <div className="max-w-xl mx-auto bg-white p-8 rounded-xl border border-slate-200 shadow-lg text-center">
+                  <div className="text-6xl mb-6">{data.target.emoji}</div>
+                  <div className="text-xl font-medium mb-8 text-slate-800">{data.question.q}</div>
+
+                  <div className="grid grid-cols-1 gap-3">
+                    {data.question.options.map((opt, i) => (
+                      <div key={i} className="p-3 border rounded-lg hover:bg-slate-50 flex items-center gap-3">
+                        <div className="w-6 h-6 rounded-full border border-slate-300"></div>
+                        <div className="text-left">{opt}</div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+
+                {showAnswersForDoc(doc, () => (
+                  <div className="mt-4 p-4 border rounded font-mono text-sm text-center">
+                    Answer: {data.question.a}
+                  </div>
+                ))}
+              </WorksheetSectionWrapper>
+            )
+          })()
+        }
+
+        {
+          activeDocs.some(d => d.startsWith('geo-continents')) && (() => {
+            const rng = makeRng(`${effectiveSeed}|v${variant}|doc=${doc}`)
+            const data = generateContinentQuiz(`${effectiveSeed}|${doc}`)
+
+            return (
+              <WorksheetSectionWrapper
+                docId={doc}
+                title="Continent Identification"
+                emoji="🌍"
+                description="Identify the highlighted continent on the map."
+                problemCount={1}
+              >
+                <div className="max-w-2xl mx-auto bg-blue-50 p-6 rounded-xl border border-blue-100 mb-6">
+                  <svg viewBox="0 0 800 500" className="w-full h-auto drop-shadow-md bg-blue-100 rounded-lg">
+                    {data.allContinents.map((c, i) => (
+                      <path
+                        key={i}
+                        d={c.shape}
+                        fill={c.name === data.target.name ? c.color : '#cbd5e1'}
+                        stroke={c.name === data.target.name ? '#1e293b' : '#94a3b8'}
+                        strokeWidth={c.name === data.target.name ? 2 : 1}
+                      />
+                    ))}
+                  </svg>
+                </div>
+
+                <div className="max-w-md mx-auto">
+                  <div className="text-center font-bold mb-4">{data.question.q}</div>
+                  <div className="grid grid-cols-2 gap-3">
+                    {data.question.options.map((opt, i) => (
+                      <div key={i} className="p-3 bg-white border rounded-lg hover:bg-slate-50 text-center shadow-sm">
+                        {opt}
+                      </div>
+                    ))}
+                  </div>
+                </div>
+
+                {showAnswersForDoc(doc, () => (
+                  <div className="mt-4 p-4 border rounded font-mono text-sm text-center">
+                    Answer: {data.question.a}
+                  </div>
+                ))}
+              </WorksheetSectionWrapper>
+            )
+          })()
+        }
+        {
+          activeDocs.some(d => d.startsWith('geo-continents')) && (() => {
+            const rng = makeRng(`${effectiveSeed}|v${variant}|doc=${doc}`)
+            const data = generateContinentQuiz(`${effectiveSeed}|${doc}`)
+
+            return (
+              <WorksheetSectionWrapper
+                docId={doc}
+                title="Continent Identification"
+                emoji="🌍"
+                description="Identify the highlighted continent on the map."
+                problemCount={1}
+              >
+                <div className="max-w-2xl mx-auto bg-blue-50 p-6 rounded-xl border border-blue-100 mb-6">
+                  <svg viewBox="0 0 800 500" className="w-full h-auto drop-shadow-md bg-blue-100 rounded-lg">
+                    {data.allContinents.map((c, i) => (
+                      <path
+                        key={i}
+                        d={c.shape}
+                        fill={c.name === data.target.name ? c.color : '#cbd5e1'}
+                        stroke={c.name === data.target.name ? '#1e293b' : '#94a3b8'}
+                        strokeWidth={c.name === data.target.name ? 2 : 1}
+                      />
+                    ))}
+                  </svg>
+                </div>
+
+                <div className="max-w-md mx-auto">
+                  <div className="text-center font-bold mb-4">{data.question.q}</div>
+                  <div className="grid grid-cols-2 gap-3">
+                    {data.question.options.map((opt, i) => (
+                      <div key={i} className="p-3 bg-white border rounded-lg hover:bg-slate-50 text-center shadow-sm">
+                        {opt}
+                      </div>
+                    ))}
+                  </div>
+                </div>
+
+                {showAnswersForDoc(doc, () => (
+                  <div className="mt-4 p-4 border rounded font-mono text-sm text-center">
+                    Answer: {data.question.a}
+                  </div>
+                ))}
+              </WorksheetSectionWrapper>
+            )
+          })()
+        }
+
+        {
+          activeDocs.some(d => d.startsWith('geo-landforms')) && (() => {
+            const rng = makeRng(`${effectiveSeed}|v${variant}|doc=${doc}`)
+            const data = generateLandformQuiz(`${effectiveSeed}|${doc}`)
+
+            return (
+              <WorksheetSectionWrapper
+                docId={doc}
+                title="Landforms Quiz"
+                emoji="🏔️"
+                description={`Learn about ${data.target.name}.`}
+                problemCount={1}
+              >
+                <div className="max-w-md mx-auto bg-white p-6 rounded-xl border border-slate-200 text-center mb-6">
+                  <div className="text-6xl mb-4">{data.target.emoji}</div>
+                  <div className="text-xl font-bold mb-2">{data.question.q}</div>
+                </div>
+
+                <div className="max-w-md mx-auto grid grid-cols-1 gap-3">
+                  {data.question.options.map((opt, i) => (
+                    <div key={i} className="p-4 bg-slate-50 border rounded-lg hover:bg-slate-100 text-center cursor-pointer">
+                      {opt}
+                    </div>
+                  ))}
+                </div>
+
+                {showAnswersForDoc(doc, () => (
+                  <div className="mt-4 p-4 border rounded font-mono text-sm text-center">
+                    Answer: {data.question.a}
+                  </div>
+                ))}
+              </WorksheetSectionWrapper>
+            )
+          })()
+        }
+
+        {
+          activeDocs.some(d => d.startsWith('science-match')) && (() => {
+            const rng = makeRng(`${effectiveSeed}|v${variant}|doc=${doc}`)
+            const data = generateScienceSorting(`${effectiveSeed}|${doc}`)
+
+            return (
+              <WorksheetSectionWrapper
+                docId={doc}
+                title={`Sorting: ${data.theme}`}
+                emoji="🔬"
+                description={`Sort the items into: ${data.categories.join(' vs ')}.`}
+                problemCount={data.items.length}
+              >
+                <div className="flex flex-col md:flex-row gap-8 items-start">
+                  {/* Items to sort */}
+                  <div className="flex-1">
+                    <h3 className="font-bold mb-4 text-center">Items to Sort</h3>
+                    <div className="grid grid-cols-2 gap-4">
+                      {data.items.map((item, i) => (
+                        <div key={i} className="p-4 bg-white border border-dashed rounded-lg text-center text-lg shadow-sm">
+                          {item.name}
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+
+                  {/* Categories */}
+                  <div className="flex-1 grid grid-cols-2 gap-4 w-full">
+                    {data.categories.map((cat, i) => (
+                      <div key={i} className="min-h-[200px] bg-slate-50 border-2 border-slate-300 rounded-xl p-4 flex flex-col items-center">
+                        <div className="font-bold text-lg mb-4 underline decoration-wavy decoration-indigo-300">{cat}</div>
+                        <div className="flex-1 w-full border-2 border-dashed border-slate-200 rounded-lg flex items-center justify-center text-slate-400 text-sm">
+                          Place items here
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+
+                {showAnswersForDoc(doc, () => (
+                  <div className="mt-4 p-4 border rounded font-mono text-sm text-center">
+                    {data.items.map(i => `${i.name} -> ${i.Cat}`).join(' | ')}
+                  </div>
+                ))}
+              </WorksheetSectionWrapper>
+            )
+          })()
+        }
+
+        {
+          activeDocs.some(d => d.startsWith('science-lifecycle')) && (() => {
+            const rng = makeRng(`${effectiveSeed}|v${variant}|doc=${doc}`)
+            const data = generateLifecycle(`${effectiveSeed}|${doc}`)
+
+            return (
+              <WorksheetSectionWrapper
+                docId={doc}
+                title={`${data.name} Life Cycle`}
+                emoji="🔄"
+                description={`Number the stages of the ${data.name} life cycle in correct order (1-${data.stages.length}).`}
+                problemCount={data.stages.length}
+              >
+                <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
+                  {[...data.stages].sort(() => rng() - 0.5).map((stage, i) => (
+                    <div key={i} className="flex flex-col items-center gap-3">
+                      <div className="w-12 h-12 rounded-full border-2 border-slate-300 flex items-center justify-center bg-white text-slate-300 font-bold text-xl">
+
+                      </div>
+                      <div className="p-4 bg-white border rounded-xl shadow-sm text-center w-full min-h-[100px] flex items-center justify-center font-medium">
+                        {stage}
+                      </div>
+                    </div>
+                  ))}
+                </div>
+
+                {showAnswersForDoc(doc, () => (
+                  <div className="mt-4 p-4 border rounded font-mono text-sm text-center">
+                    Order: {data.stages.join(' -> ')}
+                  </div>
+                ))}
+              </WorksheetSectionWrapper>
+            )
+          })()
+        }
+
+        {
+          activeDocs.some(d => d.startsWith('color-by-number')) && (() => {
+            const rng = makeRng(`${effectiveSeed}|v${variant}|doc=${doc}`)
+            const data = generateColorByNumber(`${effectiveSeed}|${doc}`)
+
+            return (
+              <WorksheetSectionWrapper
+                docId={doc}
+                title="Color By Number"
+                emoji="🎨"
+                description={`Solve the math problems to color the ${data.theme.name}.`}
+                problemCount={data.key.length}
+              >
+                <div className="flex flex-col md:flex-row gap-8 items-start">
+                  {/* Key */}
+                  <div className="flex-1 bg-white p-4 rounded-xl border border-slate-200">
+                    <h3 className="font-bold mb-4 text-center">Color Key</h3>
+                    <div className="grid grid-cols-1 gap-3">
+                      {data.key.map((k, i) => (
+                        <div key={i} className="flex items-center gap-3 p-2 bg-slate-50 rounded">
+                          <div className="w-8 h-8 rounded-full border border-slate-300" style={{ backgroundColor: k.hex }}></div>
+                          <div className="font-mono text-lg font-bold">{k.problem} = ?</div>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+
+                  {/* SVG */}
+                  <div className="flex-1 bg-white p-4 rounded-xl border border-slate-200 flex justify-center">
+                    <svg viewBox="0 0 600 500" className="w-full max-w-md h-auto border border-dashed border-slate-300 rounded">
+                      {data.key.map((item, i) => (
+                        <g key={i}>
+                          <path
+                            d={item.path}
+                            fill="white"
+                            stroke="#1e293b"
+                            strokeWidth="2"
+                          />
+                          <text
+                            x="0"
+                            y="0"
+                            fill="#64748b"
+                            fontSize="14"
+                            fontWeight="bold"
+                            className="select-none pointer-events-none"
+                          >
+                            <animate attributeName="x" from="0" to="0" dur="0s" fill="freeze" />
+                          </text>
+                        </g>
+                      ))}
+
+                      {/* Re-render paths with numbers using basic regex to find first coordinate */}
+                      {data.key.map((item, i) => {
+                        const match = item.path.match(/M\s?(\d+)[,\s](\d+)/)
+                        const x = match ? parseInt(match[1]) + 20 : 0
+                        const y = match ? parseInt(match[2]) + 20 : 0
+                        return (
+                          <text key={i} x={x} y={y} fontSize="20" fontWeight="bold" fill="#1e293b">{item.id}</text>
+                        )
+                      })}
+                    </svg>
+                  </div>
+                </div>
+
+                {showAnswersForDoc(doc, () => (
+                  <div className="mt-4 p-4 border rounded font-mono text-sm text-center">
+                    {data.key.map(k => `${k.problem} = ${k.id} (${k.color})`).join(', ')}
+                  </div>
+                ))}
+              </WorksheetSectionWrapper>
+            )
+          })()
+        }
+
+        {
+          activeDocs.some(d => d.startsWith('maze-focus') || d.startsWith('math-maze')) && (() => {
+            const rng = makeRng(`${effectiveSeed}|v${variant}|doc=${doc}`)
+            const data = generateMaze(`${effectiveSeed}|${doc}`)
+
+            const cellSize = 30
+
+            return (
+              <WorksheetSectionWrapper
+                docId={doc}
+                title="Maze Challenge"
+                emoji="🌀"
+                description="Find your way from the start (top-left) to the finish (bottom-right)."
+                problemCount={1}
+              >
+                <div className="flex justify-center">
+                  <svg width={data.width * cellSize} height={data.height * cellSize} className="bg-white border-4 border-slate-800">
+                    {data.grid.map((row, y) => (
+                      row.map((cell, x) => (
+                        cell === 1 ? (
+                          <rect key={`${x}-${y}`} x={x * cellSize} y={y * cellSize} width={cellSize} height={cellSize} fill="#1e293b" />
+                        ) : (
+                          <rect key={`${x}-${y}`} x={x * cellSize} y={y * cellSize} width={cellSize} height={cellSize} fill="white" />
+                        )
+                      ))
+                    ))}
+                    {/* Start */}
+                    <text x={cellSize} y={cellSize + 20} fontSize="20">S</text>
+                    {/* End */}
+                    <text x={(data.width - 2) * cellSize} y={(data.height - 1) * cellSize + 20} fontSize="20">E</text>
+                  </svg>
+                </div>
+              </WorksheetSectionWrapper>
+            )
+          })()
+        }
+
+        {
+          activeDocs.some(d => d.startsWith('logic-grid')) && (() => {
+            const rng = makeRng(`${effectiveSeed}|v${variant}|doc=${doc}`)
+            const data = generateLogicPuzzle(`${effectiveSeed}|${doc}`)
+
+            return (
+              <WorksheetSectionWrapper
+                docId={doc}
+                title="Logic Puzzle"
+                emoji="🧠"
+                description="Use the clues to find the truth!"
+                problemCount={4}
+              >
+                <div className="bg-white p-6 rounded-xl border border-slate-200">
+                  <h3 className="font-bold text-lg mb-4">Clues:</h3>
+                  <ul className="list-disc pl-5 mb-8 space-y-2">
+                    {data.clues.map((clue, i) => (
+                      <li key={i}>{clue}</li>
+                    ))}
+                  </ul>
+
+                  <div className="grid grid-cols-4 gap-4 border-t pt-4">
+                    <div className="font-bold">Name</div>
+                    <div className="font-bold">Pet</div>
+                    <div className="font-bold">Color</div>
+                    <div className="font-bold">Verified?</div>
+
+                    {data.names.map((name, i) => (
+                      <div key={i} className="contents">
+                        <div className="p-2 border rounded bg-slate-50">{name}</div>
+                        <div className="p-2 border rounded h-10"></div>
+                        <div className="p-2 border rounded h-10"></div>
+                        <div className="p-2 border rounded h-10"></div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+
+                {showAnswersForDoc(doc, () => (
+                  <div className="mt-4 p-4 border rounded font-mono text-sm">
+                    <div className="font-bold mb-2">Solution:</div>
+                    {data.solution.map((s, i) => (
+                      <div key={i}>{s.name} has a {s.pet} and likes {s.color}.</div>
+                    ))}
+                  </div>
+                ))}
+              </WorksheetSectionWrapper>
+            )
+          })()
+        }
+
+        {
+          activeDocs.some(d => d.startsWith('word-search') || d.startsWith('spelling')) && (() => {
+            const rng = makeRng(`${effectiveSeed}|v${variant}|doc=${doc}`)
+            const data = generateWordSearch(`${effectiveSeed}|${doc}`)
+
+            return (
+              <WorksheetSectionWrapper
+                docId={doc}
+                title={`${data.theme} Word Search`}
+                emoji="🔎"
+                description={`Find these words hidden in the grid: ${data.words.join(', ')}`}
+                problemCount={data.words.length}
+              >
+                <div className="flex flex-col md:flex-row gap-8 items-start">
+                  <div className="bg-white p-2 rounded-lg border-2 border-slate-800">
+                    {data.grid.map((row, r) => (
+                      <div key={r} className="flex">
+                        {row.map((letter, c) => (
+                          <div key={c} className="w-8 h-8 flex items-center justify-center font-mono font-bold text-lg border border-slate-100 hover:bg-yellow-100 cursor-pointer">
+                            {letter}
+                          </div>
+                        ))}
+                      </div>
+                    ))}
+                  </div>
+
+                  <div className="flex-1 bg-white p-6 rounded-xl border border-slate-200">
+                    <h3 className="font-bold mb-4">Word Bank</h3>
+                    <div className="flex flex-wrap gap-2">
+                      {data.words.map((w, i) => (
+                        <div key={i} className="px-3 py-1 bg-slate-100 rounded text-sm font-medium border border-slate-300">
+                          {w}
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                </div>
+              </WorksheetSectionWrapper>
+            )
+          })()
+        }
+
 
         <footer className="text-center text-slate-500 text-xs print:hidden">
           {getTrans('common.printTip', 'Tip: Use your browser menu  Print  Save as PDF.')}
@@ -37502,7 +38129,451 @@ function HiddenObjectsSceneSVGB() {
   )
 }
 
-export default PrintablesPage
+
+function generateReadingStory(seed: string, grade: number) {
+  const rng = makeRng(seed)
+  const pick = <T,>(arr: T[]) => arr[Math.floor(rng() * arr.length)]
+
+  // Vocabulary banks
+  const animals = ['ant', 'beetle', 'ladybug', 'butterfly', 'spider', 'bee']
+  const adjectives = ['tiny', 'busy', 'fast', 'brave', 'happy', 'red']
+  const places = ['garden', 'park', 'forest', 'playground', 'backyard']
+  const foods = ['crumb', 'leaf', 'seed', 'berry', 'cookie']
+  const actions = ['ran', 'crawled', 'flew', 'marched', 'climbed']
+
+  // Grade 1: Simple sentences
+  if (grade === 1) {
+    const mainChar = pick(animals)
+    const name = pick(['Andy', 'Betty', 'Carl', 'Dora', 'Eddie', 'Fay'])
+    const adj = pick(adjectives)
+    const place = pick(places)
+    const food = pick(foods)
+    const action = pick(actions)
+
+    const title = `The ${adj.charAt(0).toUpperCase() + adj.slice(1)} ${mainChar.charAt(0).toUpperCase() + mainChar.slice(1)}`
+
+    const story = `Once there was a ${adj} ${mainChar} named ${name}.
+    ${name} lived in a big ${place}.
+    One day, ${name} was very hungry.
+    ${name} ${action} to find some food.
+    Suddenly, ${name} found a big, yummy ${food}.
+    ${name} was so happy to find the ${food}!`
+
+    const questions = [
+      { q: `What kind of animal was ${name}?`, options: [mainChar, 'cat', 'bird'], a: mainChar },
+      { q: `Where did ${name} live?`, options: [place, 'house', 'school'], a: place },
+      { q: `What did ${name} find to eat?`, options: [food, 'pizza', 'apple'], a: food },
+    ]
+
+    return { title, story, questions, emoji: '📖' }
+  }
+
+  // Grade 2: More complex sentences, social themes
+  if (grade === 2) {
+    const friend1 = pick(['Sam', 'Mia', 'Leo', 'Zoe', 'Max', 'Ava'])
+    const friend2 = pick(['Ben', 'Lily', 'Tom', 'Eva', 'Jay', 'Sky'])
+    const activity = pick(['painting', 'soccer', 'baking', 'hiking', 'gardening'])
+    const object = pick(['ball', 'brush', 'spoon', 'map', 'flower'])
+    const setting = pick(['park', 'kitchen', 'studio', 'trail', 'backyard'])
+    const emotion = pick(['excited', 'nervous', 'happy', 'proud', 'curious'])
+
+    const title = `${friend1} and ${friend2}'s ${activity.charAt(0).toUpperCase() + activity.slice(1)} Day`
+
+    const story = `It was a beautiful Saturday morning. ${friend1} called ${friend2} on the phone.
+    "Do you want to go ${activity} today?" asked ${friend1}.
+    "Yes! I am so ${emotion}!" replied ${friend2}.
+    They met at the ${setting}. ${friend1} brought a big ${object} to help them start.
+    They spent the whole afternoon ${activity} together. Using the ${object} was very helpful.
+    At the end of the day, they were tired but happy.`
+
+    const questions = [
+      { q: `What activity did the friends do?`, options: [activity, 'swimming', 'reading'], a: activity },
+      { q: `Where did they meet?`, options: [setting, 'school', 'store'], a: setting },
+      { q: `How did ${friend2} feel about playing?`, options: [emotion, 'angry', 'sad'], a: emotion },
+      { q: `What item did ${friend1} bring?`, options: [object, 'shoe', 'hat'], a: object },
+    ]
+
+    return { title, story, questions, emoji: '👫' }
+  }
+
+  // Grade 3: Paragraphs, informative/science themes
+  if (grade === 3) {
+    const topics = [
+      { t: 'Bees', f: 'pollinate flowers', h: 'hive', d: 'honey' },
+      { t: 'Frogs', f: 'catch flies', h: 'pond', d: 'eggs' },
+      { t: 'Volcanoes', f: 'erupt lava', h: 'mountain', d: 'magma' },
+      { t: 'Trees', f: 'make oxygen', h: 'forest', d: 'wood' }
+    ]
+    const topic = pick(topics)
+    const adjDoc = pick(['amazing', 'fascinating', 'important', 'incredible'])
+
+    const title = `The ${adjDoc.charAt(0).toUpperCase() + adjDoc.slice(1)} World of ${topic.t}`
+
+    const story = `${topic.t} are truly ${adjDoc} parts of nature. Did you know that they ${topic.f}? This helps our world in many ways.
+
+    Most ${topic.t.toLowerCase()} can be found in a ${topic.h}. This is their home where they allow themselves to grow and thrive.
+
+    Another interesting fact is related to ${topic.d}. This plays a key role in the life of ${topic.t.toLowerCase()}. Scientists study them to learn more about our planet.`
+
+    const questions = [
+      { q: `What is the main topic of the passage?`, options: [topic.t, 'Cars', 'Space'], a: topic.t },
+      { q: `Where can you usually find them?`, options: [topic.h, 'ocean', 'city'], a: topic.h },
+      { q: `What do they do according to the text?`, options: [topic.f, 'sleep all day', 'fly to space'], a: topic.f },
+      { q: `What specific term was mentioned?`, options: [topic.d, 'plastic', 'glass'], a: topic.d },
+    ]
+
+    return { title, story, questions, emoji: '🌍' }
+  }
+
+  // Social Studies & Science Generators
+
+  function generateContinentQuiz(seed: string) {
+    const rng = makeRng(seed)
+    const pick = <T,>(arr: T[]) => arr[Math.floor(rng() * arr.length)]
+
+    const continents = [
+      { name: 'Africa', color: '#fbbf24', shape: 'M450,250 Q480,220 520,240 T540,280 T520,340 T480,360 T440,320 Z' },
+      { name: 'Asia', color: '#f87171', shape: 'M550,150 Q600,120 680,140 T700,200 T650,280 T580,260 T540,200 Z' },
+      { name: 'Europe', color: '#60a5fa', shape: 'M480,140 Q520,130 540,160 T520,200 T480,190 T460,160 Z' },
+      { name: 'North America', color: '#4ade80', shape: 'M250,120 Q300,100 350,140 T320,220 T280,240 T220,180 Z' },
+      { name: 'South America', color: '#a78bfa', shape: 'M300,260 Q340,260 360,300 T340,380 T300,420 T280,340 Z' },
+      { name: 'Australia', color: '#fcd34d', shape: 'M680,300 Q720,290 740,320 T720,360 T680,350 Z' },
+      { name: 'Antarctica', color: '#e2e8f0', shape: 'M400,450 Q500,440 600,450 T700,460 T500,480 T300,460 Z' },
+    ]
+
+    const target = pick(continents)
+
+    const question = {
+      q: "Which continent is highlighted?",
+      options: continents.map(c => c.name).sort(() => rng() - 0.5).slice(0, 4),
+      a: target.name
+    }
+
+    if (!question.options.includes(target.name)) {
+      question.options[0] = target.name
+      question.options.sort(() => rng() - 0.5)
+    }
+
+    return { target, question, allContinents: continents }
+  }
+
+  function generateLandformQuiz(seed: string) {
+    const rng = makeRng(seed)
+    const pick = <T,>(arr: T[]) => arr[Math.floor(rng() * arr.length)]
+
+    const landforms = [
+      { name: 'Mountain', emoji: '🏔️', def: 'A very high landform with a peak.' },
+      { name: 'Island', emoji: '🏝️', def: 'Land surrounded by water on all sides.' },
+      { name: 'Volcano', emoji: '🌋', def: 'A mountain that can erupt lava.' },
+      { name: 'Desert', emoji: '🏜️', def: 'A dry place with very little rain.' },
+      { name: 'Ocean', emoji: '🌊', def: 'A large body of salt water.' },
+      { name: 'River', emoji: '💧', def: 'Water flowing towards an ocean or lake.' },
+      { name: 'Valley', emoji: '🏞️', def: 'Low land between hills or mountains.' },
+    ]
+
+    const target = pick(landforms)
+
+    // 50/50 chance of Name -> Def or Def -> Name
+    const mode = rng() > 0.5 ? 'def' : 'name'
+
+    let question
+    if (mode === 'def') {
+      question = {
+        q: `What is the definition of a ${target.name}?`,
+        options: landforms.map(l => l.def).sort(() => rng() - 0.5).slice(0, 3),
+        a: target.def
+      }
+    } else {
+      question = {
+        q: `Which landform is: "${target.def}"?`,
+        options: landforms.map(l => l.name).sort(() => rng() - 0.5).slice(0, 3),
+        a: target.name
+      }
+    }
+
+    if (!question.options.includes(mode === 'def' ? target.def : target.name)) {
+      question.options[0] = mode === 'def' ? target.def : target.name
+      question.options.sort(() => rng() - 0.5)
+    }
+
+    return { target, question }
+  }
+
+  function generateScienceSorting(seed: string) {
+    const rng = makeRng(seed)
+    const pick = <T,>(arr: T[]) => arr[Math.floor(rng() * arr.length)]
+
+    const themes = [
+      {
+        name: 'Living vs Non-Living',
+        sets: {
+          'Living': ['🐶', '🌲', '🐛', '🌷', '🦋', '🍄', '🐢'],
+          'Non-Living': ['rock', 'car', 'balloon', 'spoon', 'robot', 'cup', 'pencil'] // Using words/simple text if emojis ambiguous
+        }
+      },
+      {
+        name: 'Sink or Float',
+        sets: {
+          'Float': ['apple', 'wood', 'leaf', 'boat', 'feather'],
+          'Sink': ['rock', 'coin', 'key', 'brick', 'metal spoon']
+        }
+      },
+      {
+        name: 'Vertebrate vs Invertebrate',
+        sets: {
+          'Vertebrate': ['Human', 'Dog', 'Bird', 'Fish', 'Frog'],
+          'Invertebrate': ['Worm', 'Spider', 'Jellyfish', 'Octopus', 'Snail']
+        }
+      }
+    ]
+
+    const theme = pick(themes)
+    const cats = Object.keys(theme.sets)
+    const cat1 = cats[0]
+    const cat2 = cats[1]
+
+    // Pick 3 items from each
+    const set1 = theme.sets[cat1].sort(() => rng() - 0.5).slice(0, 3)
+    const set2 = theme.sets[cat2].sort(() => rng() - 0.5).slice(0, 3)
+
+    const items = [...set1.map(i => ({ name: i, Cat: cat1 })), ...set2.map(i => ({ name: i, Cat: cat2 }))]
+    items.sort(() => rng() - 0.5)
+
+    return { theme: theme.name, items, categories: [cat1, cat2] }
+  }
+
+  function generateLifecycle(seed: string) {
+    const rng = makeRng(seed)
+    const pick = <T,>(arr: T[]) => arr[Math.floor(rng() * arr.length)]
+
+    const cycles = [
+      { name: 'Butterfly', stages: ['Egg 🥚', 'Caterpillar 🐛', 'Pupa 🧱', 'Butterfly 🦋'] },
+      { name: 'Frog', stages: ['Egg 🥚', 'Tadpole 🐟', 'Froglet 🐸', 'Adult Frog 🐸'] },
+      { name: 'Plant', stages: ['Seed 🌱', 'Sprout 🌿', 'Plant 🌳', 'Flower 🌸'] },
+      { name: 'Chicken', stages: ['Egg 🥚', 'Hatchling 🐣', 'Chick 🐥', 'Chicken 🐔'] },
+    ]
+
+    const lifecycle = pick(cycles)
+    return { name: lifecycle.name, stages: lifecycle.stages } // Stages are already in order
+  }
+
+  // Creative & Brain Tools Generators
+
+  function generateColorByNumber(seed: string) {
+    const rng = makeRng(seed)
+    const pick = <T,>(arr: T[]) => arr[Math.floor(rng() * arr.length)]
+    const randInt = (min: number, max: number) => Math.floor(rng() * (max - min + 1)) + min
+
+    const themes = [
+      {
+        name: 'Rocket',
+        emoji: '🚀',
+        regions: [
+          { id: 1, color: 'Red', hex: '#ef4444', path: 'M300,100 L350,200 H250 Z' }, // Top
+          { id: 2, color: 'White', hex: '#ffffff', path: 'M250,200 H350 V350 H250 Z' }, // Body
+          { id: 3, color: 'Blue', hex: '#3b82f6', path: 'M250,350 H350 L370,400 H230 Z' }, // Base
+          { id: 4, color: 'Yellow', hex: '#eab308', path: 'M290,240 A10,10 0 1,1 310,240 A10,10 0 1,1 290,240' }, // Window
+          { id: 5, color: 'Orange', hex: '#f97316', path: 'M250,300 L200,380 H250 Z M350,300 L400,380 H350 Z' }, // Fins
+        ]
+      },
+      {
+        name: 'Flower',
+        emoji: '🌻',
+        regions: [
+          { id: 1, color: 'Yellow', hex: '#fcd34d', path: 'M300,250 m-50,0 a50,50 0 1,0 100,0 a50,50 0 1,0 -100,0' }, // Center
+          { id: 2, color: 'Pink', hex: '#f472b6', path: 'M300,200 C250,150 200,200 250,250 M300,200 C350,150 400,200 350,250 M350,250 C400,300 350,350 300,300 M250,250 C200,300 250,350 300,300' }, // Petals (Simplified)
+          { id: 3, color: 'Green', hex: '#4ade80', path: 'M300,300 V450 M300,380 Q350,350 380,380 Q350,410 300,380' }, // Stem & Leaf
+          { id: 4, color: 'Blue', hex: '#60a5fa', path: 'M0,0 H600 V500 H0 Z' }, // Sky (Background - handled conceptually)
+        ]
+      }
+    ]
+    // Fallback simple SVG paths for Flower Petals because the above path string is broken/incomplete for a single path element usage visually without multiple paths.
+    // Actually, let's stick to the Rocket for robustness, or simplified shapes.
+    // Let's use robust Rocket and maybe a simple House.
+
+    const robustThemes = [
+      {
+        name: 'Simple House',
+        emoji: '🏠',
+        regions: [
+          { id: 1, color: 'Red', hex: '#ef4444', path: 'M200,200 L300,100 L400,200 Z' }, // Roof
+          { id: 2, color: 'Blue', hex: '#3b82f6', path: 'M220,200 H380 V350 H220 Z' }, // Walls
+          { id: 3, color: 'Yellow', hex: '#fcd34d', path: 'M250,230 H290 V270 H250 Z M310,230 H350 V270 H310 Z' }, // Windows
+          { id: 4, color: 'Brown', hex: '#78350f', path: 'M280,350 V300 H320 V350 Z' }, // Door
+          { id: 5, color: 'Green', hex: '#4ade80', path: 'M100,350 H500 V400 H100 Z' }, // Grass
+        ]
+      }
+    ]
+
+    const theme = pick([...themes.slice(0, 1), ...robustThemes])
+
+    // Generate math problems for each ID
+    const key = theme.regions.map(r => {
+      // Generate a simple addition/subtraction problem that equals r.id
+      // e.g. if id=1, prob = "0 + 1", "2 - 1"
+      const isAdd = rng() > 0.5
+      let a, b, problem
+
+      if (isAdd) {
+        a = randInt(0, r.id)
+        b = r.id - a
+        problem = `${a} + ${b}`
+      } else {
+        a = randInt(r.id, 10)
+        b = a - r.id
+        problem = `${a} - ${b}`
+      }
+
+      // Sometimes just give the number for very young kids? No, math practice is the goal.
+      return { ...r, problem }
+    })
+
+    return { theme, key }
+  }
+
+  function generateMaze(seed: string) {
+    const rng = makeRng(seed)
+    const width = 15
+    const height = 15
+
+    // Initialize grid with walls (1)
+    const grid = Array(height).fill(null).map(() => Array(width).fill(1))
+
+    // DFS Maze Generation
+    const stack = [{ x: 1, y: 1 }]
+    grid[1][1] = 0
+
+    const dirs = [[0, 2], [2, 0], [0, -2], [-2, 0]]
+
+    while (stack.length > 0) {
+      const current = stack[stack.length - 1]
+      const neighbors = []
+
+      for (const [dx, dy] of dirs) {
+        const nx = current.x + dx
+        const ny = current.y + dy
+
+        if (nx > 0 && nx < width - 1 && ny > 0 && ny < height - 1 && grid[ny][nx] === 1) {
+          neighbors.push({ x: nx, y: ny, dx, dy })
+        }
+      }
+
+      if (neighbors.length > 0) {
+        const next = neighbors[Math.floor(rng() * neighbors.length)]
+        grid[current.y + next.dy / 2][current.x + next.dx / 2] = 0 // Knock down wall
+        grid[next.y][next.x] = 0
+        stack.push({ x: next.x, y: next.y })
+      } else {
+        stack.pop()
+      }
+    }
+
+    // Entrance and Exit
+    grid[0][1] = 0
+    grid[height - 1][width - 2] = 0
+
+    return { grid, width, height }
+  }
+
+  function generateLogicPuzzle(seed: string) {
+    const rng = makeRng(seed)
+    const pick = <T,>(arr: T[]) => arr[Math.floor(rng() * arr.length)]
+    const shuffle = <T,>(arr: T[]) => {
+      const newArr = [...arr]
+      for (let i = newArr.length - 1; i > 0; i--) {
+        const j = Math.floor(rng() * (i + 1));
+        [newArr[i], newArr[j]] = [newArr[j], newArr[i]];
+      }
+      return newArr
+    }
+
+    const names = shuffle(['Alice', 'Bob', 'Charlie', 'Diana']).slice(0, 3)
+    const colors = shuffle(['Red', 'Blue', 'Green', 'Yellow']).slice(0, 3)
+    const pets = shuffle(['Dog', 'Cat', 'Bird', 'Fish']).slice(0, 3)
+
+    // Create solution
+    const solution = names.map((n, i) => ({
+      name: n,
+      color: colors[i],
+      pet: pets[i]
+    }))
+
+    const clues = []
+    // Direct clues
+    clues.push(`${solution[0].name} has a ${solution[0].pet}.`)
+    clues.push(`The person who likes ${solution[1].color} has a ${solution[1].pet}.`)
+    clues.push(`${solution[2].name} likes ${solution[2].color}.`)
+    clues.push(`${solution[0].name} does not like ${solution[1].color}.`) // Negative clue (simple)
+
+    return { names, colors, pets, clues: shuffle(clues), solution }
+  }
+
+  function generateWordSearch(seed: string) {
+    const rng = makeRng(seed)
+    const pick = <T,>(arr: T[]) => arr[Math.floor(rng() * arr.length)]
+
+    const themes = [
+      { name: 'Space', words: ['STAR', 'MOON', 'SUN', 'PLANET', 'ORBIT', 'COMET'] },
+      { name: 'Animals', words: ['LION', 'TIGER', 'BEAR', 'ZEBRA', 'WOLF', 'FOX'] },
+      { name: 'Colors', words: ['RED', 'BLUE', 'GREEN', 'PINK', 'BLACK', 'WHITE'] },
+      { name: 'School', words: ['BOOK', 'DESK', 'PEN', 'MATH', 'READ', 'WRITE'] },
+    ]
+
+    const theme = pick(themes)
+    const size = 10
+    const grid = Array(size).fill(null).map(() => Array(size).fill(''))
+    const placedWords = []
+
+    for (const word of theme.words) {
+      let placed = false
+      let attempts = 0
+      while (!placed && attempts < 50) {
+        const dir = rng() > 0.5 ? 'H' : 'V' // Horizontal or Vertical only for simplicity
+        const row = Math.floor(rng() * size)
+        const col = Math.floor(rng() * size)
+
+        if (dir === 'H') {
+          if (col + word.length <= size) {
+            let clear = true
+            for (let i = 0; i < word.length; i++) {
+              if (grid[row][col + i] !== '' && grid[row][col + i] !== word[i]) clear = false
+            }
+            if (clear) {
+              for (let i = 0; i < word.length; i++) grid[row][col + i] = word[i]
+              placed = true
+              placedWords.push(word)
+            }
+          }
+        } else {
+          if (row + word.length <= size) {
+            let clear = true
+            for (let i = 0; i < word.length; i++) {
+              if (grid[row + i][col] !== '' && grid[row + i][col] !== word[i]) clear = false
+            }
+            if (clear) {
+              for (let i = 0; i < word.length; i++) grid[row + i][col] = word[i]
+              placed = true
+              placedWords.push(word)
+            }
+          }
+        }
+        attempts++
+      }
+    }
+
+    // Fill empty
+    const letters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
+    for (let r = 0; r < size; r++) {
+      for (let c = 0; c < size; c++) {
+        if (grid[r][c] === '') grid[r][c] = letters[Math.floor(rng() * letters.length)]
+      }
+    }
+
+    return { theme: theme.name, grid, words: placedWords }
+  }
+
+  export default PrintablesPage
+
 
 
 

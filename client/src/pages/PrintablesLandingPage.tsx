@@ -4,6 +4,7 @@ import { Footer } from '@/components/Footer';
 import { useTranslation } from '@/context/TranslationContext';
 import { PRINTABLE_BUNDLE_SECTIONS, PRINTABLE_DOC_META } from '@/data/printableBundles';
 import { getWorksheetURL, getWorksheetPrintURL } from '@/utils/worksheetLinks';
+import { getWorksheetSEO } from '@shared/worksheetSEO';
 
 const BUTTON_CLASS = 'inline-flex items-center justify-center px-4 py-2 rounded-lg bg-purple-600 text-white hover:bg-purple-700 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:ring-offset-2 transition-colors';
 const OUTLINE_BUTTON = 'inline-flex items-center justify-center px-4 py-2 rounded-lg border border-purple-200 text-purple-700 hover:bg-purple-50 transition-colors';
@@ -548,8 +549,8 @@ export function PrintablesLandingPage() {
                   <WorksheetThumbnailCard
                     key={docId}
                     docId={docId}
-                    title={docId}
-                    description=""
+                    title={getWorksheetSEO(docId)?.h1 || docId}
+                    description={getWorksheetSEO(docId)?.metaDescription || ""}
                     href={getWorksheetURL(docId, "printables")}
                     onPreview={setPreviewItem}
                   />
@@ -586,8 +587,8 @@ export function PrintablesLandingPage() {
                   <WorksheetThumbnailCard
                     key={docId}
                     docId={docId}
-                    title={docId}
-                    description=""
+                    title={getWorksheetSEO(docId)?.h1 || docId}
+                    description={getWorksheetSEO(docId)?.metaDescription || ""}
                     href={getWorksheetURL(docId, "printables")}
                     onPreview={setPreviewItem}
                   />
@@ -678,8 +679,8 @@ export function PrintablesLandingPage() {
                   <WorksheetThumbnailCard
                     key={docId}
                     docId={docId}
-                    title={docId}
-                    description=""
+                    title={getWorksheetSEO(docId)?.h1 || docId}
+                    description={getWorksheetSEO(docId)?.metaDescription || ""}
                     href={getWorksheetURL(docId, "printables")}
                     onPreview={setPreviewItem}
                   />
