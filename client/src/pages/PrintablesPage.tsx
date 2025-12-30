@@ -352,6 +352,8 @@ function WorksheetSectionWrapper({
 }
 
 const ANSWERABLE_BASE_DOC_IDS = [
+  'coloring',
+  'design-monster',
   'science-match',
   'spelling',
   'logic-grid',
