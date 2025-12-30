@@ -8,7 +8,7 @@ export function makeRng(seedStr: any) {
     for (let i = 0; i < str.length; i++) seed = (seed + str.charCodeAt(i)) >>> 0
     return function rng() {
         seed = (seed * 1664525 + 1013904223) >>> 0
-        return seed / 0xffffffff
+        return seed / 4294967296 // Divisor 2^32 ensures result is [0, 1)
     }
 }
 
