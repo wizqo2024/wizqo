@@ -11745,28 +11745,29 @@ export function PrintablesPage() {
                         <circle cx="100" cy="80" r="35" fill="#fef08a" stroke="#eab308" strokeWidth="3" />
                         <text x="100" y="92" fontSize="32" fontWeight="bold" fill="#854d0e" textAnchor="middle">10</text>
 
+                        {/* Left Petal Connection */}
+                        <line x1="65" y1="80" x2="40" y2="80" stroke="#16a34a" strokeWidth="4" />
+
+                        {/* Right Petal Connection */}
+                        <line x1="135" y1="80" x2="160" y2="80" stroke="#16a34a" strokeWidth="4" />
+
                         {/* Left Petal (Part 1) */}
-                        <g transform="translate(30, 80)">
-                          <path d="M0,0 C-20,-30 -50,-30 -50,0 C-50,30 -20,30 0,0" fill={prob.hideFirst ? "#ffffff" : "#bfdbfe"} stroke="#3b82f6" strokeWidth="2" transform="scale(1.8)" />
-                          {/* Using a circle or ellipse might be easier for text placement */}
-                          <circle cx="-40" cy="0" r="28" fill={prob.hideFirst ? "white" : "#bfdbfe"} stroke="#3b82f6" strokeWidth="2" />
+                        <g>
+                          <circle cx="40" cy="80" r="28" fill={prob.hideFirst ? "white" : "#bfdbfe"} stroke="#3b82f6" strokeWidth="2" />
                           {prob.hideFirst ? (
-                            <text x="-40" y="10" fontSize="28" fill="#cbd5e1" textAnchor="middle">?</text>
+                            <text x="40" y="90" fontSize="28" fill="#cbd5e1" textAnchor="middle">?</text>
                           ) : (
-                            <text x="-40" y="10" fontSize="28" fontWeight="bold" fill="#1e40af" textAnchor="middle">{prob.part1}</text>
+                            <text x="40" y="90" fontSize="28" fontWeight="bold" fill="#1e40af" textAnchor="middle">{prob.part1}</text>
                           )}
                         </g>
 
                         {/* Right Petal (Part 2) */}
-                        <g transform="translate(170, 80)">
-                          <circle cx="40" cy="0" r="28" fill={!prob.hideFirst ? "white" : "#bfdbfe"} stroke="#3b82f6" strokeWidth="2" transform="scale(-1, 1)" />
-                          {/* Correct coordinate system manually without scale flip for simpler text */}
-                          <circle cx="40" cy="0" r="28" fill={!prob.hideFirst ? "white" : "#bfdbfe"} stroke="#3b82f6" strokeWidth="2" />
-
+                        <g>
+                          <circle cx="160" cy="80" r="28" fill={!prob.hideFirst ? "white" : "#bfdbfe"} stroke="#3b82f6" strokeWidth="2" />
                           {!prob.hideFirst ? (
-                            <text x="40" y="10" fontSize="28" fill="#cbd5e1" textAnchor="middle">?</text>
+                            <text x="160" y="90" fontSize="28" fill="#cbd5e1" textAnchor="middle">?</text>
                           ) : (
-                            <text x="40" y="10" fontSize="28" fontWeight="bold" fill="#1e40af" textAnchor="middle">{prob.part2}</text>
+                            <text x="160" y="90" fontSize="28" fontWeight="bold" fill="#1e40af" textAnchor="middle">{prob.part2}</text>
                           )}
                         </g>
                       </svg>
