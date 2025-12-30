@@ -38059,355 +38059,356 @@ export function PrintablesPage() {
 
       return { title, story, questions, emoji: '🌍' }
     }
+  }
 
-    // Social Studies & Science Generators
+  // Social Studies & Science Generators
 
-    function generateContinentQuiz(seed: string) {
-      const rng = makeRng(seed)
-      const pick = <T,>(arr: T[]) => arr[Math.floor(rng() * arr.length)]
+  function generateContinentQuiz(seed: string) {
+    const rng = makeRng(seed)
+    const pick = <T,>(arr: T[]) => arr[Math.floor(rng() * arr.length)]
 
-      const continents = [
-        { name: 'Africa', color: '#fbbf24', shape: 'M450,250 Q480,220 520,240 T540,280 T520,340 T480,360 T440,320 Z' },
-        { name: 'Asia', color: '#f87171', shape: 'M550,150 Q600,120 680,140 T700,200 T650,280 T580,260 T540,200 Z' },
-        { name: 'Europe', color: '#60a5fa', shape: 'M480,140 Q520,130 540,160 T520,200 T480,190 T460,160 Z' },
-        { name: 'North America', color: '#4ade80', shape: 'M250,120 Q300,100 350,140 T320,220 T280,240 T220,180 Z' },
-        { name: 'South America', color: '#a78bfa', shape: 'M300,260 Q340,260 360,300 T340,380 T300,420 T280,340 Z' },
-        { name: 'Australia', color: '#fcd34d', shape: 'M680,300 Q720,290 740,320 T720,360 T680,350 Z' },
-        { name: 'Antarctica', color: '#e2e8f0', shape: 'M400,450 Q500,440 600,450 T700,460 T500,480 T300,460 Z' },
-      ]
+    const continents = [
+      { name: 'Africa', color: '#fbbf24', shape: 'M450,250 Q480,220 520,240 T540,280 T520,340 T480,360 T440,320 Z' },
+      { name: 'Asia', color: '#f87171', shape: 'M550,150 Q600,120 680,140 T700,200 T650,280 T580,260 T540,200 Z' },
+      { name: 'Europe', color: '#60a5fa', shape: 'M480,140 Q520,130 540,160 T520,200 T480,190 T460,160 Z' },
+      { name: 'North America', color: '#4ade80', shape: 'M250,120 Q300,100 350,140 T320,220 T280,240 T220,180 Z' },
+      { name: 'South America', color: '#a78bfa', shape: 'M300,260 Q340,260 360,300 T340,380 T300,420 T280,340 Z' },
+      { name: 'Australia', color: '#fcd34d', shape: 'M680,300 Q720,290 740,320 T720,360 T680,350 Z' },
+      { name: 'Antarctica', color: '#e2e8f0', shape: 'M400,450 Q500,440 600,450 T700,460 T500,480 T300,460 Z' },
+    ]
 
-      const target = pick(continents)
+    const target = pick(continents)
 
-      const question = {
-        q: "Which continent is highlighted?",
-        options: continents.map(c => c.name).sort(() => rng() - 0.5).slice(0, 4),
+    const question = {
+      q: "Which continent is highlighted?",
+      options: continents.map(c => c.name).sort(() => rng() - 0.5).slice(0, 4),
+      a: target.name
+    }
+
+    if (!question.options.includes(target.name)) {
+      question.options[0] = target.name
+      question.options.sort(() => rng() - 0.5)
+    }
+
+    return { target, question, allContinents: continents }
+  }
+
+  function generateLandformQuiz(seed: string) {
+    const rng = makeRng(seed)
+    const pick = <T,>(arr: T[]) => arr[Math.floor(rng() * arr.length)]
+
+    const landforms = [
+      { name: 'Mountain', emoji: '🏔️', def: 'A very high landform with a peak.' },
+      { name: 'Island', emoji: '🏝️', def: 'Land surrounded by water on all sides.' },
+      { name: 'Volcano', emoji: '🌋', def: 'A mountain that can erupt lava.' },
+      { name: 'Desert', emoji: '🏜️', def: 'A dry place with very little rain.' },
+      { name: 'Ocean', emoji: '🌊', def: 'A large body of salt water.' },
+      { name: 'River', emoji: '💧', def: 'Water flowing towards an ocean or lake.' },
+      { name: 'Valley', emoji: '🏞️', def: 'Low land between hills or mountains.' },
+    ]
+
+    const target = pick(landforms)
+
+    // 50/50 chance of Name -> Def or Def -> Name
+    const mode = rng() > 0.5 ? 'def' : 'name'
+
+    let question
+    if (mode === 'def') {
+      question = {
+        q: `What is the definition of a ${target.name}?`,
+        options: landforms.map(l => l.def).sort(() => rng() - 0.5).slice(0, 3),
+        a: target.def
+      }
+    } else {
+      question = {
+        q: `Which landform is: "${target.def}"?`,
+        options: landforms.map(l => l.name).sort(() => rng() - 0.5).slice(0, 3),
         a: target.name
       }
-
-      if (!question.options.includes(target.name)) {
-        question.options[0] = target.name
-        question.options.sort(() => rng() - 0.5)
-      }
-
-      return { target, question, allContinents: continents }
     }
 
-    function generateLandformQuiz(seed: string) {
-      const rng = makeRng(seed)
-      const pick = <T,>(arr: T[]) => arr[Math.floor(rng() * arr.length)]
-
-      const landforms = [
-        { name: 'Mountain', emoji: '🏔️', def: 'A very high landform with a peak.' },
-        { name: 'Island', emoji: '🏝️', def: 'Land surrounded by water on all sides.' },
-        { name: 'Volcano', emoji: '🌋', def: 'A mountain that can erupt lava.' },
-        { name: 'Desert', emoji: '🏜️', def: 'A dry place with very little rain.' },
-        { name: 'Ocean', emoji: '🌊', def: 'A large body of salt water.' },
-        { name: 'River', emoji: '💧', def: 'Water flowing towards an ocean or lake.' },
-        { name: 'Valley', emoji: '🏞️', def: 'Low land between hills or mountains.' },
-      ]
-
-      const target = pick(landforms)
-
-      // 50/50 chance of Name -> Def or Def -> Name
-      const mode = rng() > 0.5 ? 'def' : 'name'
-
-      let question
-      if (mode === 'def') {
-        question = {
-          q: `What is the definition of a ${target.name}?`,
-          options: landforms.map(l => l.def).sort(() => rng() - 0.5).slice(0, 3),
-          a: target.def
-        }
-      } else {
-        question = {
-          q: `Which landform is: "${target.def}"?`,
-          options: landforms.map(l => l.name).sort(() => rng() - 0.5).slice(0, 3),
-          a: target.name
-        }
-      }
-
-      if (!question.options.includes(mode === 'def' ? target.def : target.name)) {
-        question.options[0] = mode === 'def' ? target.def : target.name
-        question.options.sort(() => rng() - 0.5)
-      }
-
-      return { target, question }
+    if (!question.options.includes(mode === 'def' ? target.def : target.name)) {
+      question.options[0] = mode === 'def' ? target.def : target.name
+      question.options.sort(() => rng() - 0.5)
     }
 
-    function generateScienceSorting(seed: string) {
-      const rng = makeRng(seed)
-      const pick = <T,>(arr: T[]) => arr[Math.floor(rng() * arr.length)]
-
-      const themes = [
-        {
-          name: 'Living vs Non-Living',
-          sets: {
-            'Living': ['🐶', '🌲', '🐛', '🌷', '🦋', '🍄', '🐢'],
-            'Non-Living': ['rock', 'car', 'balloon', 'spoon', 'robot', 'cup', 'pencil'] // Using words/simple text if emojis ambiguous
-          }
-        },
-        {
-          name: 'Sink or Float',
-          sets: {
-            'Float': ['apple', 'wood', 'leaf', 'boat', 'feather'],
-            'Sink': ['rock', 'coin', 'key', 'brick', 'metal spoon']
-          }
-        },
-        {
-          name: 'Vertebrate vs Invertebrate',
-          sets: {
-            'Vertebrate': ['Human', 'Dog', 'Bird', 'Fish', 'Frog'],
-            'Invertebrate': ['Worm', 'Spider', 'Jellyfish', 'Octopus', 'Snail']
-          }
-        }
-      ]
-
-      const theme = pick(themes)
-      const cats = Object.keys(theme.sets)
-      const cat1 = cats[0]
-      const cat2 = cats[1]
-
-      // Pick 3 items from each
-      const set1 = theme.sets[cat1].sort(() => rng() - 0.5).slice(0, 3)
-      const set2 = theme.sets[cat2].sort(() => rng() - 0.5).slice(0, 3)
-
-      const items = [...set1.map(i => ({ name: i, Cat: cat1 })), ...set2.map(i => ({ name: i, Cat: cat2 }))]
-      items.sort(() => rng() - 0.5)
-
-      return { theme: theme.name, items, categories: [cat1, cat2] }
-    }
-
-    function generateLifecycle(seed: string) {
-      const rng = makeRng(seed)
-      const pick = <T,>(arr: T[]) => arr[Math.floor(rng() * arr.length)]
-
-      const cycles = [
-        { name: 'Butterfly', stages: ['Egg 🥚', 'Caterpillar 🐛', 'Pupa 🧱', 'Butterfly 🦋'] },
-        { name: 'Frog', stages: ['Egg 🥚', 'Tadpole 🐟', 'Froglet 🐸', 'Adult Frog 🐸'] },
-        { name: 'Plant', stages: ['Seed 🌱', 'Sprout 🌿', 'Plant 🌳', 'Flower 🌸'] },
-        { name: 'Chicken', stages: ['Egg 🥚', 'Hatchling 🐣', 'Chick 🐥', 'Chicken 🐔'] },
-      ]
-
-      const lifecycle = pick(cycles)
-      return { name: lifecycle.name, stages: lifecycle.stages } // Stages are already in order
-    }
-
-    // Creative & Brain Tools Generators
-
-    function generateColorByNumber(seed: string) {
-      const rng = makeRng(seed)
-      const pick = <T,>(arr: T[]) => arr[Math.floor(rng() * arr.length)]
-      const randInt = (min: number, max: number) => Math.floor(rng() * (max - min + 1)) + min
-
-      const themes = [
-        {
-          name: 'Rocket',
-          emoji: '🚀',
-          regions: [
-            { id: 1, color: 'Red', hex: '#ef4444', path: 'M300,100 L350,200 H250 Z' }, // Top
-            { id: 2, color: 'White', hex: '#ffffff', path: 'M250,200 H350 V350 H250 Z' }, // Body
-            { id: 3, color: 'Blue', hex: '#3b82f6', path: 'M250,350 H350 L370,400 H230 Z' }, // Base
-            { id: 4, color: 'Yellow', hex: '#eab308', path: 'M290,240 A10,10 0 1,1 310,240 A10,10 0 1,1 290,240' }, // Window
-            { id: 5, color: 'Orange', hex: '#f97316', path: 'M250,300 L200,380 H250 Z M350,300 L400,380 H350 Z' }, // Fins
-          ]
-        },
-        {
-          name: 'Flower',
-          emoji: '🌻',
-          regions: [
-            { id: 1, color: 'Yellow', hex: '#fcd34d', path: 'M300,250 m-50,0 a50,50 0 1,0 100,0 a50,50 0 1,0 -100,0' }, // Center
-            { id: 2, color: 'Pink', hex: '#f472b6', path: 'M300,200 C250,150 200,200 250,250 M300,200 C350,150 400,200 350,250 M350,250 C400,300 350,350 300,300 M250,250 C200,300 250,350 300,300' }, // Petals (Simplified)
-            { id: 3, color: 'Green', hex: '#4ade80', path: 'M300,300 V450 M300,380 Q350,350 380,380 Q350,410 300,380' }, // Stem & Leaf
-            { id: 4, color: 'Blue', hex: '#60a5fa', path: 'M0,0 H600 V500 H0 Z' }, // Sky (Background - handled conceptually)
-          ]
-        }
-      ]
-      // Fallback simple SVG paths for Flower Petals because the above path string is broken/incomplete for a single path element usage visually without multiple paths.
-      // Actually, let's stick to the Rocket for robustness, or simplified shapes.
-      // Let's use robust Rocket and maybe a simple House.
-
-      const robustThemes = [
-        {
-          name: 'Simple House',
-          emoji: '🏠',
-          regions: [
-            { id: 1, color: 'Red', hex: '#ef4444', path: 'M200,200 L300,100 L400,200 Z' }, // Roof
-            { id: 2, color: 'Blue', hex: '#3b82f6', path: 'M220,200 H380 V350 H220 Z' }, // Walls
-            { id: 3, color: 'Yellow', hex: '#fcd34d', path: 'M250,230 H290 V270 H250 Z M310,230 H350 V270 H310 Z' }, // Windows
-            { id: 4, color: 'Brown', hex: '#78350f', path: 'M280,350 V300 H320 V350 Z' }, // Door
-            { id: 5, color: 'Green', hex: '#4ade80', path: 'M100,350 H500 V400 H100 Z' }, // Grass
-          ]
-        }
-      ]
-
-      const theme = pick([...themes.slice(0, 1), ...robustThemes])
-
-      // Generate math problems for each ID
-      const key = theme.regions.map(r => {
-        // Generate a simple addition/subtraction problem that equals r.id
-        // e.g. if id=1, prob = "0 + 1", "2 - 1"
-        const isAdd = rng() > 0.5
-        let a, b, problem
-
-        if (isAdd) {
-          a = randInt(0, r.id)
-          b = r.id - a
-          problem = `${a} + ${b}`
-        } else {
-          a = randInt(r.id, 10)
-          b = a - r.id
-          problem = `${a} - ${b}`
-        }
-
-        // Sometimes just give the number for very young kids? No, math practice is the goal.
-        return { ...r, problem }
-      })
-
-      return { theme, key }
-    }
-
-    function generateMaze(seed: string) {
-      const rng = makeRng(seed)
-      const width = 15
-      const height = 15
-
-      // Initialize grid with walls (1)
-      const grid = Array(height).fill(null).map(() => Array(width).fill(1))
-
-      // DFS Maze Generation
-      const stack = [{ x: 1, y: 1 }]
-      grid[1][1] = 0
-
-      const dirs = [[0, 2], [2, 0], [0, -2], [-2, 0]]
-
-      while (stack.length > 0) {
-        const current = stack[stack.length - 1]
-        const neighbors = []
-
-        for (const [dx, dy] of dirs) {
-          const nx = current.x + dx
-          const ny = current.y + dy
-
-          if (nx > 0 && nx < width - 1 && ny > 0 && ny < height - 1 && grid[ny][nx] === 1) {
-            neighbors.push({ x: nx, y: ny, dx, dy })
-          }
-        }
-
-        if (neighbors.length > 0) {
-          const next = neighbors[Math.floor(rng() * neighbors.length)]
-          grid[current.y + next.dy / 2][current.x + next.dx / 2] = 0 // Knock down wall
-          grid[next.y][next.x] = 0
-          stack.push({ x: next.x, y: next.y })
-        } else {
-          stack.pop()
-        }
-      }
-
-      // Entrance and Exit
-      grid[0][1] = 0
-      grid[height - 1][width - 2] = 0
-
-      return { grid, width, height }
-    }
-
-    function generateLogicPuzzle(seed: string) {
-      const rng = makeRng(seed)
-      const pick = <T,>(arr: T[]) => arr[Math.floor(rng() * arr.length)]
-      const shuffle = <T,>(arr: T[]) => {
-        const newArr = [...arr]
-        for (let i = newArr.length - 1; i > 0; i--) {
-          const j = Math.floor(rng() * (i + 1));
-          [newArr[i], newArr[j]] = [newArr[j], newArr[i]];
-        }
-        return newArr
-      }
-
-      const names = shuffle(['Alice', 'Bob', 'Charlie', 'Diana']).slice(0, 3)
-      const colors = shuffle(['Red', 'Blue', 'Green', 'Yellow']).slice(0, 3)
-      const pets = shuffle(['Dog', 'Cat', 'Bird', 'Fish']).slice(0, 3)
-
-      // Create solution
-      const solution = names.map((n, i) => ({
-        name: n,
-        color: colors[i],
-        pet: pets[i]
-      }))
-
-      const clues = []
-      // Direct clues
-      clues.push(`${solution[0].name} has a ${solution[0].pet}.`)
-      clues.push(`The person who likes ${solution[1].color} has a ${solution[1].pet}.`)
-      clues.push(`${solution[2].name} likes ${solution[2].color}.`)
-      clues.push(`${solution[0].name} does not like ${solution[1].color}.`) // Negative clue (simple)
-
-      return { names, colors, pets, clues: shuffle(clues), solution }
-    }
-
-    function generateWordSearch(seed: string) {
-      const rng = makeRng(seed)
-      const pick = <T,>(arr: T[]) => arr[Math.floor(rng() * arr.length)]
-
-      const themes = [
-        { name: 'Space', words: ['STAR', 'MOON', 'SUN', 'PLANET', 'ORBIT', 'COMET'] },
-        { name: 'Animals', words: ['LION', 'TIGER', 'BEAR', 'ZEBRA', 'WOLF', 'FOX'] },
-        { name: 'Colors', words: ['RED', 'BLUE', 'GREEN', 'PINK', 'BLACK', 'WHITE'] },
-        { name: 'School', words: ['BOOK', 'DESK', 'PEN', 'MATH', 'READ', 'WRITE'] },
-      ]
-
-      const theme = pick(themes)
-      const size = 10
-      const grid = Array(size).fill(null).map(() => Array(size).fill(''))
-      const placedWords = []
-
-      for (const word of theme.words) {
-        let placed = false
-        let attempts = 0
-        while (!placed && attempts < 50) {
-          const dir = rng() > 0.5 ? 'H' : 'V' // Horizontal or Vertical only for simplicity
-          const row = Math.floor(rng() * size)
-          const col = Math.floor(rng() * size)
-
-          if (dir === 'H') {
-            if (col + word.length <= size) {
-              let clear = true
-              for (let i = 0; i < word.length; i++) {
-                if (grid[row][col + i] !== '' && grid[row][col + i] !== word[i]) clear = false
-              }
-              if (clear) {
-                for (let i = 0; i < word.length; i++) grid[row][col + i] = word[i]
-                placed = true
-                placedWords.push(word)
-              }
-            }
-          } else {
-            if (row + word.length <= size) {
-              let clear = true
-              for (let i = 0; i < word.length; i++) {
-                if (grid[row + i][col] !== '' && grid[row + i][col] !== word[i]) clear = false
-              }
-              if (clear) {
-                for (let i = 0; i < word.length; i++) grid[row + i][col] = word[i]
-                placed = true
-                placedWords.push(word)
-              }
-            }
-          }
-          attempts++
-        }
-      }
-
-      // Fill empty
-      const letters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
-      for (let r = 0; r < size; r++) {
-        for (let c = 0; c < size; c++) {
-          if (grid[r][c] === '') grid[r][c] = letters[Math.floor(rng() * letters.length)]
-        }
-      }
-
-      return { theme: theme.name, grid, words: placedWords }
-    }
-
+    return { target, question }
   }
+
+  function generateScienceSorting(seed: string) {
+    const rng = makeRng(seed)
+    const pick = <T,>(arr: T[]) => arr[Math.floor(rng() * arr.length)]
+
+    const themes = [
+      {
+        name: 'Living vs Non-Living',
+        sets: {
+          'Living': ['🐶', '🌲', '🐛', '🌷', '🦋', '🍄', '🐢'],
+          'Non-Living': ['rock', 'car', 'balloon', 'spoon', 'robot', 'cup', 'pencil'] // Using words/simple text if emojis ambiguous
+        }
+      },
+      {
+        name: 'Sink or Float',
+        sets: {
+          'Float': ['apple', 'wood', 'leaf', 'boat', 'feather'],
+          'Sink': ['rock', 'coin', 'key', 'brick', 'metal spoon']
+        }
+      },
+      {
+        name: 'Vertebrate vs Invertebrate',
+        sets: {
+          'Vertebrate': ['Human', 'Dog', 'Bird', 'Fish', 'Frog'],
+          'Invertebrate': ['Worm', 'Spider', 'Jellyfish', 'Octopus', 'Snail']
+        }
+      }
+    ]
+
+    const theme = pick(themes)
+    const cats = Object.keys(theme.sets)
+    const cat1 = cats[0]
+    const cat2 = cats[1]
+
+    // Pick 3 items from each
+    const set1 = theme.sets[cat1].sort(() => rng() - 0.5).slice(0, 3)
+    const set2 = theme.sets[cat2].sort(() => rng() - 0.5).slice(0, 3)
+
+    const items = [...set1.map(i => ({ name: i, Cat: cat1 })), ...set2.map(i => ({ name: i, Cat: cat2 }))]
+    items.sort(() => rng() - 0.5)
+
+    return { theme: theme.name, items, categories: [cat1, cat2] }
+  }
+
+  function generateLifecycle(seed: string) {
+    const rng = makeRng(seed)
+    const pick = <T,>(arr: T[]) => arr[Math.floor(rng() * arr.length)]
+
+    const cycles = [
+      { name: 'Butterfly', stages: ['Egg 🥚', 'Caterpillar 🐛', 'Pupa 🧱', 'Butterfly 🦋'] },
+      { name: 'Frog', stages: ['Egg 🥚', 'Tadpole 🐟', 'Froglet 🐸', 'Adult Frog 🐸'] },
+      { name: 'Plant', stages: ['Seed 🌱', 'Sprout 🌿', 'Plant 🌳', 'Flower 🌸'] },
+      { name: 'Chicken', stages: ['Egg 🥚', 'Hatchling 🐣', 'Chick 🐥', 'Chicken 🐔'] },
+    ]
+
+    const lifecycle = pick(cycles)
+    return { name: lifecycle.name, stages: lifecycle.stages } // Stages are already in order
+  }
+
+  // Creative & Brain Tools Generators
+
+  function generateColorByNumber(seed: string) {
+    const rng = makeRng(seed)
+    const pick = <T,>(arr: T[]) => arr[Math.floor(rng() * arr.length)]
+    const randInt = (min: number, max: number) => Math.floor(rng() * (max - min + 1)) + min
+
+    const themes = [
+      {
+        name: 'Rocket',
+        emoji: '🚀',
+        regions: [
+          { id: 1, color: 'Red', hex: '#ef4444', path: 'M300,100 L350,200 H250 Z' }, // Top
+          { id: 2, color: 'White', hex: '#ffffff', path: 'M250,200 H350 V350 H250 Z' }, // Body
+          { id: 3, color: 'Blue', hex: '#3b82f6', path: 'M250,350 H350 L370,400 H230 Z' }, // Base
+          { id: 4, color: 'Yellow', hex: '#eab308', path: 'M290,240 A10,10 0 1,1 310,240 A10,10 0 1,1 290,240' }, // Window
+          { id: 5, color: 'Orange', hex: '#f97316', path: 'M250,300 L200,380 H250 Z M350,300 L400,380 H350 Z' }, // Fins
+        ]
+      },
+      {
+        name: 'Flower',
+        emoji: '🌻',
+        regions: [
+          { id: 1, color: 'Yellow', hex: '#fcd34d', path: 'M300,250 m-50,0 a50,50 0 1,0 100,0 a50,50 0 1,0 -100,0' }, // Center
+          { id: 2, color: 'Pink', hex: '#f472b6', path: 'M300,200 C250,150 200,200 250,250 M300,200 C350,150 400,200 350,250 M350,250 C400,300 350,350 300,300 M250,250 C200,300 250,350 300,300' }, // Petals (Simplified)
+          { id: 3, color: 'Green', hex: '#4ade80', path: 'M300,300 V450 M300,380 Q350,350 380,380 Q350,410 300,380' }, // Stem & Leaf
+          { id: 4, color: 'Blue', hex: '#60a5fa', path: 'M0,0 H600 V500 H0 Z' }, // Sky (Background - handled conceptually)
+        ]
+      }
+    ]
+    // Fallback simple SVG paths for Flower Petals because the above path string is broken/incomplete for a single path element usage visually without multiple paths.
+    // Actually, let's stick to the Rocket for robustness, or simplified shapes.
+    // Let's use robust Rocket and maybe a simple House.
+
+    const robustThemes = [
+      {
+        name: 'Simple House',
+        emoji: '🏠',
+        regions: [
+          { id: 1, color: 'Red', hex: '#ef4444', path: 'M200,200 L300,100 L400,200 Z' }, // Roof
+          { id: 2, color: 'Blue', hex: '#3b82f6', path: 'M220,200 H380 V350 H220 Z' }, // Walls
+          { id: 3, color: 'Yellow', hex: '#fcd34d', path: 'M250,230 H290 V270 H250 Z M310,230 H350 V270 H310 Z' }, // Windows
+          { id: 4, color: 'Brown', hex: '#78350f', path: 'M280,350 V300 H320 V350 Z' }, // Door
+          { id: 5, color: 'Green', hex: '#4ade80', path: 'M100,350 H500 V400 H100 Z' }, // Grass
+        ]
+      }
+    ]
+
+    const theme = pick([...themes.slice(0, 1), ...robustThemes])
+
+    // Generate math problems for each ID
+    const key = theme.regions.map(r => {
+      // Generate a simple addition/subtraction problem that equals r.id
+      // e.g. if id=1, prob = "0 + 1", "2 - 1"
+      const isAdd = rng() > 0.5
+      let a, b, problem
+
+      if (isAdd) {
+        a = randInt(0, r.id)
+        b = r.id - a
+        problem = `${a} + ${b}`
+      } else {
+        a = randInt(r.id, 10)
+        b = a - r.id
+        problem = `${a} - ${b}`
+      }
+
+      // Sometimes just give the number for very young kids? No, math practice is the goal.
+      return { ...r, problem }
+    })
+
+    return { theme, key }
+  }
+
+  function generateMaze(seed: string) {
+    const rng = makeRng(seed)
+    const width = 15
+    const height = 15
+
+    // Initialize grid with walls (1)
+    const grid = Array(height).fill(null).map(() => Array(width).fill(1))
+
+    // DFS Maze Generation
+    const stack = [{ x: 1, y: 1 }]
+    grid[1][1] = 0
+
+    const dirs = [[0, 2], [2, 0], [0, -2], [-2, 0]]
+
+    while (stack.length > 0) {
+      const current = stack[stack.length - 1]
+      const neighbors = []
+
+      for (const [dx, dy] of dirs) {
+        const nx = current.x + dx
+        const ny = current.y + dy
+
+        if (nx > 0 && nx < width - 1 && ny > 0 && ny < height - 1 && grid[ny][nx] === 1) {
+          neighbors.push({ x: nx, y: ny, dx, dy })
+        }
+      }
+
+      if (neighbors.length > 0) {
+        const next = neighbors[Math.floor(rng() * neighbors.length)]
+        grid[current.y + next.dy / 2][current.x + next.dx / 2] = 0 // Knock down wall
+        grid[next.y][next.x] = 0
+        stack.push({ x: next.x, y: next.y })
+      } else {
+        stack.pop()
+      }
+    }
+
+    // Entrance and Exit
+    grid[0][1] = 0
+    grid[height - 1][width - 2] = 0
+
+    return { grid, width, height }
+  }
+
+  function generateLogicPuzzle(seed: string) {
+    const rng = makeRng(seed)
+    const pick = <T,>(arr: T[]) => arr[Math.floor(rng() * arr.length)]
+    const shuffle = <T,>(arr: T[]) => {
+      const newArr = [...arr]
+      for (let i = newArr.length - 1; i > 0; i--) {
+        const j = Math.floor(rng() * (i + 1));
+        [newArr[i], newArr[j]] = [newArr[j], newArr[i]];
+      }
+      return newArr
+    }
+
+    const names = shuffle(['Alice', 'Bob', 'Charlie', 'Diana']).slice(0, 3)
+    const colors = shuffle(['Red', 'Blue', 'Green', 'Yellow']).slice(0, 3)
+    const pets = shuffle(['Dog', 'Cat', 'Bird', 'Fish']).slice(0, 3)
+
+    // Create solution
+    const solution = names.map((n, i) => ({
+      name: n,
+      color: colors[i],
+      pet: pets[i]
+    }))
+
+    const clues = []
+    // Direct clues
+    clues.push(`${solution[0].name} has a ${solution[0].pet}.`)
+    clues.push(`The person who likes ${solution[1].color} has a ${solution[1].pet}.`)
+    clues.push(`${solution[2].name} likes ${solution[2].color}.`)
+    clues.push(`${solution[0].name} does not like ${solution[1].color}.`) // Negative clue (simple)
+
+    return { names, colors, pets, clues: shuffle(clues), solution }
+  }
+
+  function generateWordSearch(seed: string) {
+    const rng = makeRng(seed)
+    const pick = <T,>(arr: T[]) => arr[Math.floor(rng() * arr.length)]
+
+    const themes = [
+      { name: 'Space', words: ['STAR', 'MOON', 'SUN', 'PLANET', 'ORBIT', 'COMET'] },
+      { name: 'Animals', words: ['LION', 'TIGER', 'BEAR', 'ZEBRA', 'WOLF', 'FOX'] },
+      { name: 'Colors', words: ['RED', 'BLUE', 'GREEN', 'PINK', 'BLACK', 'WHITE'] },
+      { name: 'School', words: ['BOOK', 'DESK', 'PEN', 'MATH', 'READ', 'WRITE'] },
+    ]
+
+    const theme = pick(themes)
+    const size = 10
+    const grid = Array(size).fill(null).map(() => Array(size).fill(''))
+    const placedWords = []
+
+    for (const word of theme.words) {
+      let placed = false
+      let attempts = 0
+      while (!placed && attempts < 50) {
+        const dir = rng() > 0.5 ? 'H' : 'V' // Horizontal or Vertical only for simplicity
+        const row = Math.floor(rng() * size)
+        const col = Math.floor(rng() * size)
+
+        if (dir === 'H') {
+          if (col + word.length <= size) {
+            let clear = true
+            for (let i = 0; i < word.length; i++) {
+              if (grid[row][col + i] !== '' && grid[row][col + i] !== word[i]) clear = false
+            }
+            if (clear) {
+              for (let i = 0; i < word.length; i++) grid[row][col + i] = word[i]
+              placed = true
+              placedWords.push(word)
+            }
+          }
+        } else {
+          if (row + word.length <= size) {
+            let clear = true
+            for (let i = 0; i < word.length; i++) {
+              if (grid[row + i][col] !== '' && grid[row + i][col] !== word[i]) clear = false
+            }
+            if (clear) {
+              for (let i = 0; i < word.length; i++) grid[row + i][col] = word[i]
+              placed = true
+              placedWords.push(word)
+            }
+          }
+        }
+        attempts++
+      }
+    }
+
+    // Fill empty
+    const letters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
+    for (let r = 0; r < size; r++) {
+      for (let c = 0; c < size; c++) {
+        if (grid[r][c] === '') grid[r][c] = letters[Math.floor(rng() * letters.length)]
+      }
+    }
+
+    return { theme: theme.name, grid, words: placedWords }
+  }
+
+}
 }
 
 export default PrintablesPage
