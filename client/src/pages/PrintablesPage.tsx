@@ -35182,57 +35182,52 @@ export function PrintablesPage({ docId: propDocId }: { docId?: string } = {}) {
 
 
         {
+          activeDocs.some(d => d.startsWith('word-search') || d.startsWith('spelling')) && (() => {
+            const rng = makeRng(`${effectiveSeed}|v${variant}|doc=${doc}`)
+            const data = generateWordSearch(`${effectiveSeed}|${doc}`)
 
-
-
-
-          {
-            activeDocs.some(d => d.startsWith('word-search') || d.startsWith('spelling')) && (() => {
-              const rng = makeRng(`${effectiveSeed}|v${variant}|doc=${doc}`)
-              const data = generateWordSearch(`${effectiveSeed}|${doc}`)
-
-              return (
-                <WorksheetSectionWrapper
-                  docId={doc}
-                  title={`${data.theme} Word Search`}
-                  emoji="🔎"
-                  description={`Find these words hidden in the grid: ${data.words.join(', ')}`}
-                  problemCount={data.words.length}
-                >
-                  <div className="flex flex-col md:flex-row gap-8 items-start">
-                    <div className="bg-white p-2 rounded-lg border-2 border-slate-800">
-                      {data.grid.map((row, r) => (
-                        <div key={r} className="flex">
-                          {row.map((letter, c) => (
-                            <div key={c} className="w-8 h-8 flex items-center justify-center font-mono font-bold text-lg border border-slate-100 hover:bg-yellow-100 cursor-pointer">
-                              {letter}
-                            </div>
-                          ))}
-                        </div>
-                      ))}
-                    </div>
-
-                    <div className="flex-1 bg-white p-6 rounded-xl border border-slate-200">
-                      <h3 className="font-bold mb-4">Word Bank</h3>
-                      <div className="flex flex-wrap gap-2">
-                        {data.words.map((w, i) => (
-                          <div key={i} className="px-3 py-1 bg-slate-100 rounded text-sm font-medium border border-slate-300">
-                            {w}
+            return (
+              <WorksheetSectionWrapper
+                docId={doc}
+                title={`${data.theme} Word Search`}
+                emoji="🔎"
+                description={`Find these words hidden in the grid: ${data.words.join(', ')}`}
+                problemCount={data.words.length}
+              >
+                <div className="flex flex-col md:flex-row gap-8 items-start">
+                  <div className="bg-white p-2 rounded-lg border-2 border-slate-800">
+                    {data.grid.map((row, r) => (
+                      <div key={r} className="flex">
+                        {row.map((letter, c) => (
+                          <div key={c} className="w-8 h-8 flex items-center justify-center font-mono font-bold text-lg border border-slate-100 hover:bg-yellow-100 cursor-pointer">
+                            {letter}
                           </div>
                         ))}
                       </div>
+                    ))}
+                  </div>
+
+                  <div className="flex-1 bg-white p-6 rounded-xl border border-slate-200">
+                    <h3 className="font-bold mb-4">Word Bank</h3>
+                    <div className="flex flex-wrap gap-2">
+                      {data.words.map((w, i) => (
+                        <div key={i} className="px-3 py-1 bg-slate-100 rounded text-sm font-medium border border-slate-300">
+                          {w}
+                        </div>
+                      ))}
                     </div>
                   </div>
-                </WorksheetSectionWrapper>
-              )
-            })()
-          }
+                </div>
+              </WorksheetSectionWrapper>
+            )
+          })()
+        }
 
 
-          < footer className="text-center text-slate-500 text-xs print:hidden">
-        {getTrans('common.printTip', 'Tip: Use your browser menu  Print  Save as PDF.')}
-      </footer>
-    </div>
+        <footer className="text-center text-slate-500 text-xs print:hidden">
+          {getTrans('common.printTip', 'Tip: Use your browser menu  Print  Save as PDF.')}
+        </footer>
+      </div>
     </div >
   )
 }
