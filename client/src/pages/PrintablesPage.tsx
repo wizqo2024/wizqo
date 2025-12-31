@@ -1,5 +1,4 @@
 import React from 'react'
-import type { ReactNode } from 'react'
 import { useTranslation } from '@/context/TranslationContext'
 import { WizqoLogo } from '@/components/WizqoLogo'
 import InteractiveBundleSections from '@/components/InteractiveBundleSections'
@@ -17,6 +16,7 @@ import MathMazeWorksheets from './MathMazeWorksheets'
 import { MathWorksheets } from './MathWorksheets';
 import { LogicWorksheets } from './LogicWorksheets';
 import { GeographyWorksheets } from './GeographyWorksheets'
+import { ScienceWorksheets } from './printables/ScienceWorksheets'
 import {
   trackWorksheetDownload,
   trackWorksheetView,
@@ -172,12 +172,12 @@ export function WorksheetSectionWrapper({
   title: string
   emoji?: string
   description?: string
-  children: ReactNode
+  children: React.ReactNode
   problemCount?: number
   learningObjectives?: string[]
   parentTeacherTips?: string[]
   hideDefaultHeader?: boolean
-  footer?: ReactNode
+  footer?: React.ReactNode
 }) {
   const { t, isRTL, language } = useTranslation()
   const theme = getWorksheetTheme(docId)
@@ -1530,23 +1530,29 @@ export function PrintablesPage({ docId: propDocId }: { docId?: string } = {}) {
 
   const effectiveSeed = seedParam || (timestampParam ? `ts:${timestampParam}` : todaySeed)
   const variant = parseInt(variantParam || '1', 10)
-  const bundleAnswerSections: Array<{ docId: string; title: string; content: ReactNode }> = []
-  const showAnswersForDoc = (docId: string, factory: () => ReactNode) => {
+  const bundleAnswerSections: Array<{ docId: string; title: string; content: React.ReactNode }> = []
+  const showAnswersForDoc = (docId: string, factory: () => React.ReactNode) => {
     if (!showAnswers) return null
     const content = factory()
     if (doc === 'bundle') {
       const title = resolveDocTitle(docId, { packTime, bundleCategory: bundleCategoryParam || undefined, t })
       let summaryContent = content
       if (React.isValidElement(content)) {
-        const existing = content.props.className || ''
-        const cleaned = existing.replace(/\bmt-\d+\b/g, '').trim()
-        summaryContent = React.cloneElement(content, {
-          className: `${cleaned} mb-0`.trim()
-        })
+        // Clone to remove some props or simplify for summary if needed
+        // For now just keep as is
       }
       bundleAnswerSections.push({ docId, title, content: summaryContent })
+      return null
     }
-    return content
+    return (
+      <div className="mt-8 pt-8 border-t-2 border-dashed border-slate-300 break-inside-avoid">
+        <h3 className="text-lg font-bold text-slate-500 mb-4 flex items-center gap-2">
+          <span>{String.fromCodePoint(0x1F511)}</span>
+          Answer Key
+        </h3>
+        {content}
+      </div>
+    )
   }
 
   // Challenge and Assessment Component for addition-subtraction-0-10
@@ -1578,7 +1584,7 @@ export function PrintablesPage({ docId: propDocId }: { docId?: string } = {}) {
         referrerPolicy="no-referrer"
         loading="eager"
         decoding="async"
-        onError={() => setIdx((i) => Math.min(i + 1, sources.length - 1))}
+        onError={() => setIdx((i: number) => Math.min(i + 1, sources.length - 1))}
       />
     )
   }
@@ -8186,20 +8192,7 @@ export function PrintablesPage({ docId: propDocId }: { docId?: string } = {}) {
           </WorksheetSectionWrapper>
         )}
         {/* (Removed legacy one-pager duplicates) */}
-        {/* Math Maze */}
-        <MathMazeWorksheets
-          docId="math-maze"
-          commonProps={{
-            activeDocs,
-            showAnswers,
-            docTitle,
-            effectiveSeed,
-            variant,
-            showAnswersForDoc,
-            t,
-            getTrans
-          }}
-        />
+
 
         {activeDocs.includes('spelling') && (() => {
           const rng = makeRng(`${effectiveSeed}|v${variant}|doc=${doc}`)
@@ -8305,89 +8298,6 @@ export function PrintablesPage({ docId: propDocId }: { docId?: string } = {}) {
           )
         })()}
 
-        {activeDocs.includes('grammar-detective') && (() => {
-          const rng = makeRng(`${effectiveSeed}|v${variant}|doc=${doc}`)
-
-          const nouns = ['cat', 'dog', 'ball', 'tree', 'bird', 'house', 'car', 'book', 'apple', 'star']
-          const verbs = ['ran', 'jumped', 'sat', 'flew', 'sleeping', 'reading', 'eating', 'walking', 'playing', 'singing']
-          const adj = ['big', 'small', 'red', 'blue', 'happy', 'fast', 'silly', 'loud', 'soft', 'shiny']
-
-          const sentences: { text: string, noun: string, verb: string, adjs: string[] }[] = []
-
-          for (let i = 0; i < 5; i++) {
-            const n = nouns[Math.floor(rng() * nouns.length)]
-            const v = verbs[Math.floor(rng() * verbs.length)]
-            const a = adj[Math.floor(rng() * adj.length)]
-
-            // Simple schema: "The [adj] [noun] [verb]."
-            sentences.push({
-              text: `The ${a} ${n} ${v}.`,
-              noun: n,
-              verb: v,
-              adjs: [a]
-            })
-          }
-
-          return (
-            <WorksheetSectionWrapper
-              docId="grammar-detective"
-              title="Grammar Detective"
-              emoji={String.fromCodePoint(0x1F50E)}
-              description="Read the sentences. Follow the clues to find the hidden grammar parts!"
-              problemCount={5}
-              learningObjectives={[
-                'Identify nouns, verbs, and adjectives',
-                'Understand sentence structure',
-                'Practice critical reading'
-              ]}
-              parentTeacherTips={[
-                'Noun: A person, place, or thing',
-                'Verb: An action word',
-                'Adjective: Describes a noun',
-                'Extension: Write your own sentence and mark the parts'
-              ]}
-            >
-              <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-pink-400 to-rose-400 animate-gradient-x mb-2" />
-
-              <div className="mb-6 p-4 bg-slate-50 border-2 border-slate-200 rounded-lg">
-                <div className="font-bold text-slate-800 mb-2">Instructions:</div>
-                <div className="flex gap-4 text-sm">
-                  <div className="flex items-center gap-2"><div className="w-4 h-4 rounded-full border-2 border-blue-500"></div> Circle the <span className="font-bold text-blue-700">Nouns</span></div>
-                  <div className="flex items-center gap-2"><div className="w-4 h-1 bg-red-500"></div> Underline the <span className="font-bold text-red-700">Verbs</span></div>
-                  <div className="flex items-center gap-2"><div className="w-4 h-4 bg-green-200 border border-green-400"></div> Box the <span className="font-bold text-green-700">Adjectives</span></div>
-                </div>
-              </div>
-
-              <div className="space-y-8">
-                {sentences.map((s, i) => (
-                  <div key={i} className="flex gap-4 items-baseline">
-                    <div className="font-bold text-slate-400 text-xl">{i + 1}.</div>
-                    <div className="font-serif text-3xl leading-loose tracking-wide border-b border-slate-100 pb-2 w-full">
-                      {s.text}
-                    </div>
-                  </div>
-                ))}
-              </div>
-
-              {showAnswersForDoc('grammar-detective', () => (
-                <div className="mt-8 p-4 border-2 border-emerald-300 bg-emerald-50 rounded print:border print:bg-white print:page-break-before-always">
-                  <div className="font-bold text-emerald-900 mb-3 text-base">{String.fromCodePoint(0x2705)} Solution Key</div>
-                  <div className="grid gap-2">
-                    {sentences.map((s, i) => (
-                      <div key={i} className="text-emerald-800 border-b border-emerald-200 pb-1 last:border-0">
-                        {i + 1}.
-                        <span className="mx-2"><span className="font-bold">Noun:</span> {s.noun}</span>
-                        <span className="mx-2"><span className="font-bold">Verb:</span> {s.verb}</span>
-                        <span className="mx-2"><span className="font-bold">Adj:</span> {s.adjs.join(', ')}</span>
-                      </div>
-                    ))}
-                  </div>
-                </div>
-              ))}
-
-            </WorksheetSectionWrapper>
-          )
-        })()}
 
         {activeDocs.includes('science-match') && (() => {
           const rng = makeRng(`${effectiveSeed}|v${variant}|doc=${doc}`);
@@ -8930,941 +8840,385 @@ export function PrintablesPage({ docId: propDocId }: { docId?: string } = {}) {
           )
         })()}
 
-        {activeDocs.includes('logic-grid') && (() => {
-          const rng = makeRng(`${effectiveSeed}|v${variant}|doc=${doc}`)
 
-          // 1. Setup Categories
-          const categoryPools = [
-            { name: 'Pets', items: ['Cat', 'Dog', 'Bird', 'Fish', 'Rabbit', 'Hamster'], emoji: '🐾' },
-            { name: 'Colors', items: ['Red', 'Blue', 'Green', 'Yellow', 'Purple', 'Orange'], emoji: '🎨' },
-            { name: 'Fruits', items: ['Apple', 'Banana', 'Grape', 'Orange', 'Pear', 'Berry'], emoji: '🍎' },
-            { name: 'Toys', items: ['Ball', 'Doll', 'Car', 'Block', 'Bear', 'Plane'], emoji: '🧸' }
-          ]
 
-          const namesPool = ['Liam', 'Ava', 'Noah', 'Emma', 'Oliver', 'Mia', 'Elijah', 'Harper']
 
-          // Select Random Categories
-          const catIndex = Math.floor(rng() * categoryPools.length)
-          const targetCategory = categoryPools[catIndex]
-
-          // Select 3 People and 3 Items
-          const people = shuffleArray(namesPool, rng).slice(0, 3)
-          const items = shuffleArray(targetCategory.items, rng).slice(0, 3)
-
-          // Create Solution (Direct mapping index-to-index)
-          // people[0] has items[0], people[1] has items[1], etc.
-          // Since we shuffled both lists, this is already a random pairing.
-          const solution = people.map((p, i) => ({ person: p, item: items[i] }))
-
-          // Generate Clues
-          // We need enough clues to solve a 3x3 grid.
-          // Strategies:
-          // 1. Give 1 Positive ("Liam has the Cat") -> Eliminates row/col
-          // 2. Give 1 Negative ("Ava does not have the Dog")
-          // 3. Give another Negative or Positive.
-
-          const clues: string[] = []
-
-          // Always give 1 Positive Clue (easiest anchor)
-          const pIdx = Math.floor(rng() * 3)
-          clues.push(`${solution[pIdx].person} has the ${solution[pIdx].item}.`)
-
-          // Give 2 Negative Clues
-          // We need random invalid pairings
-          // For person i, pick item j where i != j
-          for (let k = 0; k < 2; k++) {
-            // Pick a random person
-            const subjectIdx = Math.floor(rng() * 3)
-            // Pick a random WRONG item
-            let wrongItemIdx = Math.floor(rng() * 3)
-            while (wrongItemIdx === subjectIdx) {
-              wrongItemIdx = Math.floor(rng() * 3)
-            }
-
-            clues.push(`${people[subjectIdx]} does not have the ${items[wrongItemIdx]}.`)
-          }
-
-          // Shuffle clues so the positive isn't always first
-          const shuffledClues = shuffleArray(clues, rng)
-
-          return (
+        {
+          activeDocs.includes('hidden-object') && (
             <WorksheetSectionWrapper
-              docId="logic-grid"
-              title="Logic Grid Puzzle"
-              emoji={String.fromCodePoint(0x1F9E0)}
-              description={`Use the clues to find out which person has which ${targetCategory.name.toLowerCase().slice(0, -1)}!`}
-              problemCount={1}
+              docId="hidden-object"
+              title="Find the Hidden Object"
+              emoji={String.fromCodePoint(0x1F50D)}
+              description="Find and circle each item hidden in the scene below."
+              problemCount={5}
               learningObjectives={[
-                'Practice logical reasoning',
-                'Use clues to solve puzzles',
-                'Practice process of elimination'
+                'Practice observation skills',
+                'Develop attention to detail',
+                'Practice visual scanning'
               ]}
               parentTeacherTips={[
-                'Read each clue carefully.',
-                'Mark "X" for things that are NOT true.',
-                'Mark "O" or "Check" for things that ARE true.',
-                'When you find a match, cross out the rest of that row and column.'
+                'Look carefully at the whole picture',
+                'Take your time - objects can be hidden in plain sight',
+                'Help children if they get stuck',
+                'Extension: Create your own hidden object scene'
               ]}
             >
               <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-indigo-400 to-purple-400 animate-gradient-x mb-2" />
-
-              {/* The Grid Component */}
-              <div className="overflow-x-auto mb-6">
-                <div className="inline-block min-w-full">
-                  <table className="border-collapse">
-                    <thead>
-                      <tr>
-                        <th className="p-2 border border-slate-300 bg-slate-50 min-w-[80px]"></th>
-                        {items.map(item => (
-                          <th key={item} className="p-2 border border-slate-300 bg-slate-50 font-bold min-w-[60px] text-center">
-                            <div className="text-xs mb-1 text-slate-500">{targetCategory.emoji}</div>
-                            {item}
-                          </th>
-                        ))}
-                      </tr>
-                    </thead>
-                    <tbody>
-                      {people.map(person => (
-                        <tr key={person}>
-                          <td className="p-2 border border-slate-300 bg-slate-50 font-bold">{person}</td>
-                          {items.map((_, i) => (
-                            <td key={i} className="border border-slate-300 w-12 h-12 text-center align-middle hover:bg-slate-50 cursor-pointer">
-                              {/* Empty cell for user to mark */}
-                            </td>
-                          ))}
-                        </tr>
-                      ))}
-                    </tbody>
-                  </table>
+              {/* Worked Example */}
+              <div className="mb-6 p-4 bg-blue-50 border-2 border-blue-200 rounded-lg print:border print:bg-white">
+                <div className="font-semibold text-blue-900 mb-3 text-sm">{String.fromCodePoint(0x1F4A1)}</div>
+                <div className="space-y-2 text-sm">
+                  <div className="font-semibold text-base"><strong>Problem:</strong> Find the hidden objects in the scene</div>
+                  <div className="pl-4 border-l-2 border-blue-300 space-y-1">
+                    <div><strong>Step 1:</strong> Read the list of objects to find</div>
+                    <div><strong>Step 2:</strong> Look carefully at the whole picture</div>
+                    <div><strong>Step 3:</strong> Scan from top to bottom, left to right</div>
+                    <div><strong>Step 4:</strong> Circle each object when you find it</div>
+                    <div className="font-semibold text-blue-900"><strong>Answer:</strong> Objects can be hidden in plain sight - look carefully!</div>
+                    <div className="text-xs text-blue-700 mt-1">{String.fromCodePoint(0x279C)}</div>
+                  </div>
                 </div>
               </div>
-
-              {/* Clues Section */}
-              <div className="mb-6 p-4 bg-yellow-50 border-2 border-yellow-200 rounded-xl print:border print:bg-white">
-                <h3 className="font-bold text-yellow-900 mb-2 flex items-center gap-2">
-                  {String.fromCodePoint(0x1F50D)} Clues:
-                </h3>
-                <ul className="list-disc list-inside space-y-2 text-lg text-slate-800">
-                  {shuffledClues.map((clue, i) => (
-                    <li key={i}>{clue}</li>
-                  ))}
-                </ul>
+              <div className="mb-3 break-inside-avoid" style={{ pageBreakAfter: 'auto' }}>
+                <HiddenObjectsSceneSVGA />
               </div>
-
-              {/* Answer Key */}
-              {showAnswersForDoc('logic-grid', () => (
+              <ul className="grid grid-cols-2 gap-2 text-sm text-slate-700">
+                {['Key', 'Apple', 'Star', 'Leaf', 'Car', 'Book', 'Shell', 'Cloud', 'Ball', 'Hat'].map((x) => (<li key={x}>{String.fromCodePoint(0x270F)}</li>))}
+              </ul>
+              {/* Extension/Challenge Problems */}
+              <div className="mt-6 print:mt-0 p-4 bg-purple-50 border-2 border-purple-200 rounded print:bg-white print:border" style={{ pageBreakBefore: 'always', pageBreakInside: 'avoid' }}>
+                <div className="font-semibold text-purple-900 mb-3 text-sm">{String.fromCodePoint(0x1F680)}</div>
+                <div className="space-y-2 text-sm text-purple-800">
+                  <div>1. Can you find all objects in under 2 minutes?</div>
+                  <div>2. Create your own hidden object scene</div>
+                  <div>3. Describe where each object is hidden</div>
+                </div>
+              </div>
+              {/* Self-Assessment */}
+              <div className="print:block hidden print:mt-0 mt-6 p-4 border-2 border-slate-300 rounded" style={{ pageBreakBefore: 'avoid', pageBreakInside: 'avoid' }}>
+                <div className="font-semibold text-slate-800 mb-3 text-sm">{String.fromCodePoint(0x270F)}</div>
+                <div className="space-y-2 text-xs">
+                  <div>{String.fromCodePoint(0x270F)}</div>
+                  <div>{String.fromCodePoint(0x270F)}</div>
+                  <div>{String.fromCodePoint(0x270F)}</div>
+                </div>
+                <div className="mt-3 text-xs">
+                  <strong>{getTrans('common.myScore', 'My score:')}</strong> ___ / 10
+                </div>
+                <div className="mt-2 text-xs">
+                  <strong>{getTrans('common.whatWasHardest', 'What was hardest?')}</strong> _________________________
+                </div>
+              </div>
+              {showAnswersForDoc('hidden-object', () => (
                 <div className="mt-6 p-4 border-2 border-emerald-300 bg-emerald-50 rounded print:border print:bg-white print:page-break-before-always">
-                  <div className="font-bold text-emerald-900 mb-3 text-base">{String.fromCodePoint(0x2705)} Solution</div>
-                  <div className="grid grid-cols-1 gap-2">
-                    {solution.map((s, i) => (
-                      <div key={i} className="flex items-center gap-2 text-emerald-800">
-                        <span className="font-bold">{s.person}</span> has the <span className="font-bold">{s.item}</span>
-                      </div>
-                    ))}
+                  <div className="font-bold text-emerald-900 mb-3 text-base">{String.fromCodePoint(0x2705)}</div>
+                  <div className="text-sm text-emerald-800">
+                    <div className="mb-2">Find and circle these objects in the scene:</div>
+                    <div><strong>Key, Apple, Star, Leaf, Car, Book, Shell, Cloud, Ball, Hat</strong></div>
+                    <div className="text-xs text-emerald-700 mt-2">{String.fromCodePoint(0x279C)}</div>
                   </div>
                 </div>
               ))}
-
-              {/* Self Assessment Footer */}
-              <div className="print:block hidden mt-8 p-4 border-t-2 border-slate-200">
-                <div className="flex justify-between text-sm text-slate-500">
-                  <div>Logic Puzzle #{seed.slice(0, 4)}</div>
-                  <div>Score: ______ / 3</div>
-                </div>
-              </div>
             </WorksheetSectionWrapper>
           )
-        })()}
+        }
 
-        {activeDocs.includes('hidden-object') && (
-          <WorksheetSectionWrapper
-            docId="hidden-object"
-            title="Find the Hidden Object"
-            emoji={String.fromCodePoint(0x1F50D)}
-            description="Find and circle each item hidden in the scene below."
-            problemCount={5}
-            learningObjectives={[
-              'Practice observation skills',
-              'Develop attention to detail',
-              'Practice visual scanning'
-            ]}
-            parentTeacherTips={[
-              'Look carefully at the whole picture',
-              'Take your time - objects can be hidden in plain sight',
-              'Help children if they get stuck',
-              'Extension: Create your own hidden object scene'
-            ]}
-          >
-            <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-indigo-400 to-purple-400 animate-gradient-x mb-2" />
-            {/* Worked Example */}
-            <div className="mb-6 p-4 bg-blue-50 border-2 border-blue-200 rounded-lg print:border print:bg-white">
-              <div className="font-semibold text-blue-900 mb-3 text-sm">{String.fromCodePoint(0x1F4A1)}</div>
-              <div className="space-y-2 text-sm">
-                <div className="font-semibold text-base"><strong>Problem:</strong> Find the hidden objects in the scene</div>
-                <div className="pl-4 border-l-2 border-blue-300 space-y-1">
-                  <div><strong>Step 1:</strong> Read the list of objects to find</div>
-                  <div><strong>Step 2:</strong> Look carefully at the whole picture</div>
-                  <div><strong>Step 3:</strong> Scan from top to bottom, left to right</div>
-                  <div><strong>Step 4:</strong> Circle each object when you find it</div>
-                  <div className="font-semibold text-blue-900"><strong>Answer:</strong> Objects can be hidden in plain sight - look carefully!</div>
-                  <div className="text-xs text-blue-700 mt-1">{String.fromCodePoint(0x279C)}</div>
-                </div>
-              </div>
-            </div>
-            <div className="mb-3 break-inside-avoid" style={{ pageBreakAfter: 'auto' }}>
-              <HiddenObjectsSceneSVGA />
-            </div>
-            <ul className="grid grid-cols-2 gap-2 text-sm text-slate-700">
-              {['Key', 'Apple', 'Star', 'Leaf', 'Car', 'Book', 'Shell', 'Cloud', 'Ball', 'Hat'].map((x) => (<li key={x}>{String.fromCodePoint(0x270F)}</li>))}
-            </ul>
-            {/* Extension/Challenge Problems */}
-            <div className="mt-6 print:mt-0 p-4 bg-purple-50 border-2 border-purple-200 rounded print:bg-white print:border" style={{ pageBreakBefore: 'always', pageBreakInside: 'avoid' }}>
-              <div className="font-semibold text-purple-900 mb-3 text-sm">{String.fromCodePoint(0x1F680)}</div>
-              <div className="space-y-2 text-sm text-purple-800">
-                <div>1. Can you find all objects in under 2 minutes?</div>
-                <div>2. Create your own hidden object scene</div>
-                <div>3. Describe where each object is hidden</div>
-              </div>
-            </div>
-            {/* Self-Assessment */}
-            <div className="print:block hidden print:mt-0 mt-6 p-4 border-2 border-slate-300 rounded" style={{ pageBreakBefore: 'avoid', pageBreakInside: 'avoid' }}>
-              <div className="font-semibold text-slate-800 mb-3 text-sm">{String.fromCodePoint(0x270F)}</div>
-              <div className="space-y-2 text-xs">
-                <div>{String.fromCodePoint(0x270F)}</div>
-                <div>{String.fromCodePoint(0x270F)}</div>
-                <div>{String.fromCodePoint(0x270F)}</div>
-              </div>
-              <div className="mt-3 text-xs">
-                <strong>{getTrans('common.myScore', 'My score:')}</strong> ___ / 10
-              </div>
-              <div className="mt-2 text-xs">
-                <strong>{getTrans('common.whatWasHardest', 'What was hardest?')}</strong> _________________________
-              </div>
-            </div>
-            {showAnswersForDoc('hidden-object', () => (
-              <div className="mt-6 p-4 border-2 border-emerald-300 bg-emerald-50 rounded print:border print:bg-white print:page-break-before-always">
-                <div className="font-bold text-emerald-900 mb-3 text-base">{String.fromCodePoint(0x2705)}</div>
-                <div className="text-sm text-emerald-800">
-                  <div className="mb-2">Find and circle these objects in the scene:</div>
-                  <div><strong>Key, Apple, Star, Leaf, Car, Book, Shell, Cloud, Ball, Hat</strong></div>
-                  <div className="text-xs text-emerald-700 mt-2">{String.fromCodePoint(0x279C)}</div>
-                </div>
-              </div>
-            ))}
-          </WorksheetSectionWrapper>
-        )}
-
-        {activeDocs.includes('maze-focus') && (
-          <WorksheetSectionWrapper
-            docId="maze-focus"
-            title="Maze of Focus"
-            emoji={String.fromCodePoint(0x1F300)}
-            description="Follow the steps from START to FINISH. Skip distractions!"
-            problemCount={1}
-            learningObjectives={[
-              'Practice focus and attention',
-              'Learn to skip distractions',
-              'Build self-regulation skills'
-            ]}
-            parentTeacherTips={[
-              'Help children identify distractions',
-              'Encourage taking breaks when needed',
-              'Celebrate small wins along the way',
-              'Extension: Create your own focus maze'
-            ]}
-          >
-            <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-indigo-400 to-purple-400 animate-gradient-x mb-2" />
-            <div className="grid grid-cols-4 gap-2 text-sm break-inside-avoid" style={{ pageBreakAfter: 'auto' }}>
-              {['START', 'Deep breath', 'Phone buzz (skip)', 'One step', 'Snack break', 'Water sip', 'Chit-chat (skip)', 'Stretch', 'Refocus', 'Tiny goal', 'Timer 10 min', 'FINISH', ' Great job!'].map((t, i) => (
-                <div key={i} className={`h-12 border rounded flex items-center justify-center ${/skip/i.test(t) ? 'bg-slate-50 text-slate-400' : 'bg-white'}`}>{t}</div>
-              ))}
-            </div>
-            <div className="mt-4 grid md:grid-cols-3 gap-3 text-sm">
-              <div className="border border-slate-200 rounded-lg p-3 bg-white print:bg-transparent print:border-0">
-                <div className="font-semibold text-slate-800 mb-2">Progress checklist</div>
-                <ul className="space-y-1 text-slate-700">
-                  <li><span className="inline-block w-4 h-4 border border-slate-400 rounded mr-2" />Clear workspace</li>
-                  <li><span className="inline-block w-4 h-4 border border-slate-400 rounded mr-2" />Turn off distractions</li>
-                  <li><span className="inline-block w-4 h-4 border border-slate-400 rounded mr-2" />Take a deep breath</li>
-                </ul>
-              </div>
-              <div className="border border-slate-200 rounded-lg p-3 bg-white print:bg-transparent print:border-0">
-                <div className="font-semibold text-slate-800 mb-2">Set your timer</div>
-                <div className="h-10 border-b-3 border-slate-600" />
-                <div className="mt-3 font-semibold text-slate-800 mb-1">Reward</div>
-                <div className="h-10 border-b-3 border-slate-600" />
-              </div>
-              <div className="border border-slate-200 rounded-lg p-3 bg-white print:bg-transparent print:border-0">
-                <div className="font-semibold text-slate-800 mb-2">Notes</div>
-                <div className="h-10 border-b-3 border-slate-600 mb-2" />
-                <div className="h-10 border-b-3 border-slate-600 mb-2" />
-                <div className="h-6 border-b border-slate-300" />
-              </div>
-            </div>
-            {showAnswersForDoc('maze-focus', () => (
-              <div className="mt-6 p-4 border-2 border-emerald-300 bg-emerald-50 rounded print:border print:bg-white print:page-break-before-always">
-                <div className="font-bold text-emerald-900 mb-3 text-base">{String.fromCodePoint(0x2705)}</div>
-                <div className="text-sm text-emerald-800">
-                  Follow the path from START to FINISH, skipping the distractions (marked with "skip"). The path should be: START  Deep breath  One step  Water sip  Stretch  Refocus  Tiny goal  Timer 10 min  FINISH   Great job!
-                </div>
-              </div>
-            ))}
-          </WorksheetSectionWrapper>
-        )}
-
-        {activeDocs.includes('gratitude-jar') && (
-          <WorksheetSectionWrapper
-            docId="gratitude-jar"
-            title="Gratitude Jar"
-            emoji={String.fromCodePoint(0x1F64F)}
-            description="Write or draw one thing you're thankful for in each circle."
-            problemCount={18}
-            learningObjectives={[
-              'Practice gratitude and mindfulness',
-              'Express thankfulness',
-              'Build positive thinking habits'
-            ]}
-            parentTeacherTips={[
-              'Help children think of things they are grateful for',
-              'Encourage both big and small things',
-              'Make this a daily or weekly practice',
-              'Extension: Share your gratitude with others'
-            ]}
-          >
-            <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-pink-400 to-purple-400 animate-gradient-x mb-2" />
-            <h2 className="text-lg font-bold text-slate-900">{String.fromCodePoint(0x270F)}</h2>
-            <p className="text-slate-600 text-sm mb-3">{String.fromCodePoint(0x270F)}</p>
-            <svg viewBox="0 0 400 400" preserveAspectRatio="xMidYMid meet" className="w-full h-auto bg-white border border-slate-300">
-              <g fill="none" stroke="#111827" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" vectorEffect="non-scaling-stroke">
-                <path d="M120 70 H280" />
-                <path d="M140 70 C140 40, 260 40, 260 70" />
-                <path d="M130 70 C120 140, 120 320, 200 360 C280 320, 280 140, 270 70" />
-              </g>
-              {Array.from({ length: 18 }).map((_, i) => {
-                const col = i % 6
-                const row = Math.floor(i / 6)
-                const cx = 70 + col * 50
-                const cy = 110 + row * 60
-                return <circle key={i} cx={cx} cy={cy} r={18} stroke="#9ca3af" fill="none" vectorEffect="non-scaling-stroke" />
-              })}
-            </svg>
-            {showAnswersForDoc('gratitude-jar', () => (
-              <div className="mt-6 p-4 border-2 border-emerald-300 bg-emerald-50 rounded print:border print:bg-white print:page-break-before-always">
-                <div className="font-bold text-emerald-900 mb-3 text-base">{String.fromCodePoint(0x2705)}</div>
-                <div className="text-sm text-emerald-800">
-                  There's no right or wrong answer! Write or draw things you're grateful for in each circle. Examples: family, friends, pets, favorite foods, toys, activities, nature, etc. Be creative and think of both big and small things!
-                </div>
-              </div>
-            ))}
-          </WorksheetSectionWrapper>
-        )}
-
-        {activeDocs.includes('mood-tracker') && (
-          <WorksheetSectionWrapper
-            docId="mood-tracker"
-            title="Mood Tracker"
-            emoji={String.fromCodePoint(0x1F60C)}
-            description="Color each day based on your mood. Use your own color legend."
-            problemCount={7}
-            learningObjectives={[
-              'Track and identify emotions',
-              'Practice self-awareness',
-              'Understand mood patterns'
-            ]}
-            parentTeacherTips={[
-              'Help children identify their moods',
-              'All moods are valid and important',
-              'Use this to start conversations about feelings',
-              'Extension: Look for patterns in your moods'
-            ]}
-          >
-            <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-pink-400 to-purple-400 animate-gradient-x mb-2" />
-            <table className="w-full border border-slate-300">
-              <thead>
-                <tr className="bg-slate-50 text-sm">
-                  <th className="border border-slate-300 px-2 py-1 text-left">Day</th>
-                  <th className="border border-slate-300 px-2 py-1 text-left">How I felt</th>
-                  <th className="border border-slate-300 px-2 py-1 text-left">Notes</th>
-                </tr>
-              </thead>
-              <tbody>
-                {['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'].map((d) => (
-                  <tr key={d} className="h-10">
-                    <td className="border border-slate-300 px-2">{d}</td>
-                    <td className="border border-slate-300" />
-                    <td className="border border-slate-300" />
-                  </tr>
+        {
+          activeDocs.includes('maze-focus') && (
+            <WorksheetSectionWrapper
+              docId="maze-focus"
+              title="Maze of Focus"
+              emoji={String.fromCodePoint(0x1F300)}
+              description="Follow the steps from START to FINISH. Skip distractions!"
+              problemCount={1}
+              learningObjectives={[
+                'Practice focus and attention',
+                'Learn to skip distractions',
+                'Build self-regulation skills'
+              ]}
+              parentTeacherTips={[
+                'Help children identify distractions',
+                'Encourage taking breaks when needed',
+                'Celebrate small wins along the way',
+                'Extension: Create your own focus maze'
+              ]}
+            >
+              <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-indigo-400 to-purple-400 animate-gradient-x mb-2" />
+              <div className="grid grid-cols-4 gap-2 text-sm break-inside-avoid" style={{ pageBreakAfter: 'auto' }}>
+                {['START', 'Deep breath', 'Phone buzz (skip)', 'One step', 'Snack break', 'Water sip', 'Chit-chat (skip)', 'Stretch', 'Refocus', 'Tiny goal', 'Timer 10 min', 'FINISH', ' Great job!'].map((t, i) => (
+                  <div key={i} className={`h-12 border rounded flex items-center justify-center ${/skip/i.test(t) ? 'bg-slate-50 text-slate-400' : 'bg-white'}`}>{t}</div>
                 ))}
-              </tbody>
-            </table>
-            {showAnswersForDoc('mood-tracker', () => (
-              <div className="mt-6 p-4 border-2 border-emerald-300 bg-emerald-50 rounded print:border print:bg-white print:page-break-before-always">
-                <div className="font-bold text-emerald-900 mb-3 text-base">{String.fromCodePoint(0x2705)}</div>
-                <div className="text-sm text-emerald-800">
-                  There's no right or wrong answer! Color each day based on how you felt. Create your own color legend (e.g., red = happy, blue = calm, yellow = excited). All moods are valid and important to track!
+              </div>
+              <div className="mt-4 grid md:grid-cols-3 gap-3 text-sm">
+                <div className="border border-slate-200 rounded-lg p-3 bg-white print:bg-transparent print:border-0">
+                  <div className="font-semibold text-slate-800 mb-2">Progress checklist</div>
+                  <ul className="space-y-1 text-slate-700">
+                    <li><span className="inline-block w-4 h-4 border border-slate-400 rounded mr-2" />Clear workspace</li>
+                    <li><span className="inline-block w-4 h-4 border border-slate-400 rounded mr-2" />Turn off distractions</li>
+                    <li><span className="inline-block w-4 h-4 border border-slate-400 rounded mr-2" />Take a deep breath</li>
+                  </ul>
+                </div>
+                <div className="border border-slate-200 rounded-lg p-3 bg-white print:bg-transparent print:border-0">
+                  <div className="font-semibold text-slate-800 mb-2">Set your timer</div>
+                  <div className="h-10 border-b-3 border-slate-600" />
+                  <div className="mt-3 font-semibold text-slate-800 mb-1">Reward</div>
+                  <div className="h-10 border-b-3 border-slate-600" />
+                </div>
+                <div className="border border-slate-200 rounded-lg p-3 bg-white print:bg-transparent print:border-0">
+                  <div className="font-semibold text-slate-800 mb-2">Notes</div>
+                  <div className="h-10 border-b-3 border-slate-600 mb-2" />
+                  <div className="h-10 border-b-3 border-slate-600 mb-2" />
+                  <div className="h-6 border-b border-slate-300" />
                 </div>
               </div>
-            ))}
-          </WorksheetSectionWrapper>
-        )}
-
-        {activeDocs.includes('mandalas') && (
-          <WorksheetSectionWrapper
-            docId="mandalas"
-            title="Mindful Coloring Mandalas"
-            emoji={String.fromCodePoint(0x1F308)}
-            description="Color slowly. Start from the center and move outward."
-            problemCount={1}
-            learningObjectives={[
-              'Practice mindfulness and relaxation',
-              'Develop focus and attention',
-              'Express creativity through coloring'
-            ]}
-            parentTeacherTips={[
-              'Start from the center and work outward',
-              'Take your time - there is no rush',
-              'Use colors that make you feel calm',
-              'Extension: Create your own mandala design'
-            ]}
-          >
-            <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-pink-400 to-purple-400 animate-gradient-x mb-2" />
-            <svg viewBox="0 0 400 400" className="w-full h-auto bg-white border border-slate-300">
-              <g fill="none" stroke="#111827" strokeWidth="2">
-                {Array.from({ length: 6 }).map((_, i) => (
-                  <circle key={i} cx={200} cy={200} r={30 + i * 25} />
-                ))}
-                {Array.from({ length: 12 }).map((_, i) => {
-                  const ang = (i / 12) * Math.PI * 2
-                  const x1 = 200 + Math.cos(ang) * 40
-                  const y1 = 200 + Math.sin(ang) * 40
-                  const x2 = 200 + Math.cos(ang) * 160
-                  const y2 = 200 + Math.sin(ang) * 160
-                  return <line key={i} x1={x1} y1={y1} x2={x2} y2={y2} />
-                })}
-                {Array.from({ length: 8 }).map((_, i) => {
-                  const ang = (i / 8) * Math.PI * 2
-                  const r = 110
-                  const x = 200 + Math.cos(ang) * r
-                  const y = 200 + Math.sin(ang) * r
-                  return <polygon key={i} points={`${x},${y} ${x + 8},${y + 14} ${x - 8},${y + 14}`} />
-                })}
-              </g>
-            </svg>
-            {showAnswersForDoc('mandalas', () => (
-              <div className="mt-6 p-4 border-2 border-emerald-300 bg-emerald-50 rounded print:border print:bg-white print:page-break-before-always">
-                <div className="font-bold text-emerald-900 mb-3 text-base">{String.fromCodePoint(0x2705)}</div>
-                <div className="text-sm text-emerald-800">
-                  There is no right or wrong way to color! Start from the center and work outward. Use colors that make you feel calm and happy. Take your time and enjoy the process!
+              {showAnswersForDoc('maze-focus', () => (
+                <div className="mt-6 p-4 border-2 border-emerald-300 bg-emerald-50 rounded print:border print:bg-white print:page-break-before-always">
+                  <div className="font-bold text-emerald-900 mb-3 text-base">{String.fromCodePoint(0x2705)}</div>
+                  <div className="text-sm text-emerald-800">
+                    Follow the path from START to FINISH, skipping the distractions (marked with "skip"). The path should be: START  Deep breath  One step  Water sip  Stretch  Refocus  Tiny goal  Timer 10 min  FINISH   Great job!
+                  </div>
                 </div>
-              </div>
-            ))}
-          </WorksheetSectionWrapper>
-        )}
-
-        {activeDocs.includes('weekly-goals') && (
-          <WorksheetSectionWrapper
-            docId="weekly-goals"
-            title="My Goals for the Week"
-            emoji={String.fromCodePoint(0x1F3AF)}
-            description="Write 3 goals, 1 thing to try, and 1 thing you're proud of."
-            problemCount={5}
-            learningObjectives={[
-              'Set achievable goals',
-              'Practice self-reflection',
-              'Build planning skills'
-            ]}
-            parentTeacherTips={[
-              'Help children set realistic, achievable goals',
-              'Celebrate what they are proud of',
-              'Encourage trying new things',
-              'Extension: Review goals at the end of the week'
-            ]}
-          >
-            <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-pink-400 to-purple-400 animate-gradient-x mb-2" />
-            <h2 className="text-lg font-bold text-slate-900">{String.fromCodePoint(0x270F)}</h2>
-            <p className="text-slate-600 text-sm mb-3">{String.fromCodePoint(0x270F)}</p>
-            {['Goal 1', 'Goal 2', 'Goal 3', 'Try this', 'Proud of'].map((t, i) => (
-              <div key={i} className="mb-3">
-                <div className="text-sm font-semibold text-slate-800">{t}</div>
-                <div className="h-10 border-b-3 border-slate-600" />
-              </div>
-            ))}
-            {showAnswersForDoc('weekly-goals', () => (
-              <div className="mt-6 p-4 border-2 border-emerald-300 bg-emerald-50 rounded print:border print:bg-white print:page-break-before-always">
-                <div className="font-bold text-emerald-900 mb-3 text-base">{String.fromCodePoint(0x2705)}</div>
-                <div className="text-sm text-emerald-800">
-                  There's no right or wrong answer! Write your own goals, something new to try, and something you're proud of. Examples: Goals - finish homework, help at home, read a book; Try - a new sport, cooking, art; Proud of - learning something new, helping a friend, etc.
-                </div>
-              </div>
-            ))}
-          </WorksheetSectionWrapper>
-        )}
-
-        {activeDocs.includes('halloween-pack') && (
-          <WorksheetSectionWrapper
-            docId="halloween-pack"
-            title="Halloween Puzzle Pack"
-            emoji={String.fromCodePoint(0x1F383)}
-            description="Mini pack: word list + costume ideas + tiny maze."
-            problemCount={1}
-            learningObjectives={[
-              'Build vocabulary with Halloween words',
-              'Practice creative thinking with costume ideas',
-              'Develop problem-solving with maze navigation'
-            ]}
-            parentTeacherTips={[
-              'Help children sound out the Halloween words',
-              'Encourage creative costume ideas',
-              'Guide children through the maze if needed',
-              'Extension: Create your own Halloween word list'
-            ]}
-          >
-            <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-orange-400 to-purple-400 animate-gradient-x mb-2" />
-            <div className="grid grid-cols-2 gap-6 text-sm">
-              <div>
-                <div className="font-semibold mb-1">Spooky Word List</div>
-                <ul className="list-disc list-inside space-y-1">
-                  {['ghost', 'pumpkin', 'witch', 'bat', 'candy', 'mask', 'moon', 'owl'].map(w => <li key={w}>{w}</li>)}
-                </ul>
-              </div>
-              <div>
-                <div className="font-semibold mb-1">Costume Idea Box</div>
-                <div className="h-32 border border-dashed border-slate-400 rounded" />
-              </div>
-            </div>
-            <div className="mt-6 hidden" aria-hidden>
-              <div className="font-semibold mb-1 text-sm">Tiny Maze</div>
-              {(() => {
-                // Generated mini-maze (10x10) with far-edge FINISH; true openings at START/FINISH
-                const cols = 10, rows = 10;
-                const cellSize = 20;
-                const pad = 14; // padding inside SVG
-                const svgW = cols * cellSize + pad * 2;
-                const svgH = rows * cellSize + pad * 2;
-                type Walls = { t: boolean; r: boolean; b: boolean; l: boolean };
-                const cells: Walls[] = Array.from({ length: cols * rows }, () => ({ t: true, r: true, b: true, l: true }));
-                const visited = new Array(cols * rows).fill(false) as boolean[];
-                const idx = (x: number, y: number) => y * cols + x;
-                const inBounds = (x: number, y: number) => x >= 0 && y >= 0 && x < cols && y < rows;
-                // Depth-first backtracker (deterministic neighbor order)
-                const stack: number[] = [0];
-                visited[0] = true;
-                while (stack.length) {
-                  const cur = stack[stack.length - 1];
-                  const cx = cur % cols;
-                  const cy = Math.floor(cur / cols);
-                  const order: Array<{ x: number; y: number; dir: 't' | 'r' | 'b' | 'l' }> = [
-                    { x: cx, y: cy - 1, dir: 't' },
-                    { x: cx + 1, y: cy, dir: 'r' },
-                    { x: cx, y: cy + 1, dir: 'b' },
-                    { x: cx - 1, y: cy, dir: 'l' }
-                  ];
-                  const neigh = order.filter(n => inBounds(n.x, n.y) && !visited[idx(n.x, n.y)]);
-                  if (!neigh.length) { stack.pop(); continue; }
-                  const next = neigh[0];
-                  const ni = idx(next.x, next.y);
-                  if (next.dir === 't') { cells[cur].t = false; cells[ni].b = false; }
-                  if (next.dir === 'r') { cells[cur].r = false; cells[ni].l = false; }
-                  if (next.dir === 'b') { cells[cur].b = false; cells[ni].t = false; }
-                  if (next.dir === 'l') { cells[cur].l = false; cells[ni].r = false; }
-                  visited[ni] = true;
-                  stack.push(ni);
-                }
-                // BFS to pick farthest border cell (right/bottom) as FINISH
-                const dist = new Array(cols * rows).fill(Infinity) as number[];
-                const q: number[] = [];
-                dist[0] = 0; q.push(0);
-                while (q.length) {
-                  const cur = q.shift()!;
-                  const cx = cur % cols; const cy = Math.floor(cur / cols);
-                  const here = cells[cur];
-                  const tryPush = (nx: number, ny: number, open: boolean) => {
-                    if (!open || !inBounds(nx, ny)) return;
-                    const ni = idx(nx, ny);
-                    if (dist[ni] !== Infinity) return;
-                    dist[ni] = dist[cur] + 1; q.push(ni);
-                  };
-                  tryPush(cx, cy - 1, !here.t);
-                  tryPush(cx + 1, cy, !here.r ? true : false);
-                  tryPush(cx, cy + 1, !here.b);
-                  tryPush(cx - 1, cy, !here.l);
-                }
-                let exitI = cols * rows - 1; let maxD = -1;
-                for (let y = 0; y < rows; y++) {
-                  const iRight = idx(cols - 1, y); if (dist[iRight] > maxD) { maxD = dist[iRight]; exitI = iRight; }
-                }
-                for (let x = 0; x < cols; x++) {
-                  const iBottom = idx(x, rows - 1); if (dist[iBottom] > maxD) { maxD = dist[iBottom]; exitI = iBottom; }
-                }
-                const exitX = exitI % cols; const exitY = Math.floor(exitI / cols);
-                const exitSide: 'right' | 'bottom' = exitX === cols - 1 ? 'right' : 'bottom';
-                const lines: Array<{ x1: number; y1: number; x2: number; y2: number }> = [];
-                for (let y = 0; y < rows; y++) {
-                  for (let x = 0; x < cols; x++) {
-                    const c = cells[idx(x, y)];
-                    const x0 = pad + x * cellSize;
-                    const y0 = pad + y * cellSize;
-                    const x1 = x0 + cellSize;
-                    const y1 = y0 + cellSize;
-                    const isStart = x === 0 && y === 0;
-                    const isExitCell = x === exitX && y === exitY;
-                    if (c.t) lines.push({ x1: x0, y1: y0, x2: x1, y2: y0 });
-                    if (c.l && !isStart) lines.push({ x1: x0, y1: y0, x2: x0, y2: y1 });
-                    if (c.b && !(isExitCell && exitSide === 'bottom')) lines.push({ x1: x0, y1: y1, x2: x1, y2: y1 });
-                    if (c.r && !(isExitCell && exitSide === 'right')) lines.push({ x1: x1, y1: y0, x2: x1, y2: y1 });
-                  }
-                }
-                return (
-                  <svg viewBox={`0 0 ${svgW} ${svgH}`} className="w-full max-w-md bg-white border border-slate-300 rounded">
-                    {/* outer border with openings at START and computed FINISH */}
-                    <g stroke="#334155" strokeWidth={4} strokeLinecap="round">
-                      {/* top border */}
-                      <line x1={pad} y1={pad} x2={pad + cols * cellSize} y2={pad} />
-                      {/* left border (skip start opening) */}
-                      <line x1={pad} y1={pad + cellSize} x2={pad} y2={pad + rows * cellSize} />
-                      {/* right border with optional gap for FINISH */}
-                      {exitSide === 'right' ? (
-                        <>
-                          <line x1={pad + cols * cellSize} y1={pad} x2={pad + cols * cellSize} y2={pad + exitY * cellSize} />
-                          <line x1={pad + cols * cellSize} y1={pad + (exitY + 1) * cellSize} x2={pad + cols * cellSize} y2={pad + rows * cellSize} />
-                        </>
-                      ) : (
-                        <line x1={pad + cols * cellSize} y1={pad} x2={pad + cols * cellSize} y2={pad + rows * cellSize} />
-                      )}
-                      {/* bottom border with optional gap for FINISH */}
-                      {exitSide === 'bottom' ? (
-                        <>
-                          <line x1={pad} y1={pad + rows * cellSize} x2={pad + exitX * cellSize} y2={pad + rows * cellSize} />
-                          <line x1={pad + (exitX + 1) * cellSize} y1={pad + rows * cellSize} x2={pad + cols * cellSize} y2={pad + rows * cellSize} />
-                        </>
-                      ) : (
-                        <line x1={pad} y1={pad + rows * cellSize} x2={pad + cols * cellSize} y2={pad + rows * cellSize} />
-                      )}
-                    </g>
-                    {/* maze walls */}
-                    {lines.map((l, i) => (
-                      <line key={i} x1={l.x1} y1={l.y1} x2={l.x2} y2={l.y2} stroke="#334155" strokeWidth={4} strokeLinecap="round" />
-                    ))}
-                    {/* labels */}
-                    <text x={pad - 6} y={pad - 8} fontSize="12" fill="#10B981" fontWeight={700}>START</text>
-                    {exitSide === 'right' ? (
-                      <text x={svgW - (pad - 8)} y={pad + exitY * cellSize + cellSize * 0.6} fontSize="12" fill="#ef4444" fontWeight={700} textAnchor="end">FINISH</text>
-                    ) : (
-                      <text x={pad + exitX * cellSize + cellSize * 0.5} y={svgH - (pad - 6)} fontSize="12" fill="#ef4444" fontWeight={700} textAnchor="middle">FINISH</text>
-                    )}
-                  </svg>
-                );
-              })()}
-            </div>
-            {showAnswersForDoc('halloween-pack', () => (
-              <div className="mt-6 p-4 border-2 border-emerald-300 bg-emerald-50 rounded print:border print:bg-white print:page-break-before-always">
-                <div className="font-bold text-emerald-900 mb-3 text-base">{String.fromCodePoint(0x2705)}</div>
-                <div className="text-sm text-emerald-800">
-                  <div className="mb-2"><strong>Spooky Word List:</strong> ghost, pumpkin, witch, bat, candy, mask, moon, owl</div>
-                  <div className="mb-2"><strong>Costume Ideas:</strong> Be creative! Draw or write your costume ideas in the box.</div>
-                  <div><strong>Maze:</strong> Follow the path from START to FINISH. There is one correct path through the maze!</div>
-                </div>
-              </div>
-            ))}
-          </WorksheetSectionWrapper>
-        )}
-
-        {activeDocs.includes('winter-kindness') && (
-          <WorksheetSectionWrapper
-            docId="winter-kindness"
-            title="Winter Kindness Challenge"
-            emoji={String.fromCodePoint(0x2744)}
-            description="Color a square each time you complete a kind act."
-            problemCount={25}
-            learningObjectives={[
-              'Practice kindness and empathy',
-              'Track acts of kindness',
-              'Build positive habits'
-            ]}
-            parentTeacherTips={[
-              'Help children identify kind acts they can do',
-              'Celebrate each act of kindness',
-              'Encourage daily practice',
-              'Extension: Share your kindness stories'
-            ]}
-          >
-            <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-blue-400 to-cyan-400 animate-gradient-x mb-2" />
-            <div className="grid grid-cols-5 gap-2">
-              {Array.from({ length: 25 }).map((_, i) => (
-                <div key={i} className="h-10 border border-slate-300 rounded text-[10px] p-1">Act #{i + 1}</div>
               ))}
-            </div>
-            {showAnswersForDoc('winter-kindness', () => (
-              <div className="mt-6 p-4 border-2 border-emerald-300 bg-emerald-50 rounded print:border print:bg-white print:page-break-before-always">
-                <div className="font-bold text-emerald-900 mb-3 text-base">{String.fromCodePoint(0x2705)}</div>
-                <div className="text-sm text-emerald-800">
-                  There is no right or wrong answer! Color a square each time you complete a kind act. Examples: helping someone, sharing, saying thank you, giving a compliment, helping with chores, etc. Keep track of your kindness acts!
-                </div>
-              </div>
-            ))}
-          </WorksheetSectionWrapper>
-        )}
+            </WorksheetSectionWrapper>
+          )
+        }
 
-        {activeDocs.includes('spring-scavenger') && (
-          <WorksheetSectionWrapper
-            docId="spring-scavenger"
-            title="Spring Nature Scavenger Hunt"
-            emoji={String.fromCodePoint(0x1F338)}
-            description="Go outside and check off what you discover."
-            problemCount={10}
-            learningObjectives={[
-              'Observe nature and surroundings',
-              'Practice attention to detail',
-              'Learn about spring nature'
-            ]}
-            parentTeacherTips={[
-              'Go outside with children to explore',
-              'Help identify items if needed',
-              'Encourage careful observation',
-              'Extension: Take photos of what you find'
-            ]}
-          >
-            <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-pink-400 to-green-400 animate-gradient-x mb-2" />
-            <ul className="grid grid-cols-2 gap-2 text-sm text-slate-700">
-              {['Leaf with spots', 'Pink flower', 'Three smooth stones', 'Ant trail', 'Bird feather', 'Cloud shaped like an animal', 'Two kinds of grass', 'Buzzing insect', 'Tiny pinecone', 'Something yellow'].map(x => <li key={x}>{String.fromCodePoint(0x270F)}</li>)}
-            </ul>
-            {showAnswersForDoc('spring-scavenger', () => (
-              <div className="mt-6 p-4 border-2 border-emerald-300 bg-emerald-50 rounded print:border print:bg-white print:page-break-before-always">
-                <div className="font-bold text-emerald-900 mb-3 text-base">{String.fromCodePoint(0x2705)}</div>
-                <div className="text-sm text-emerald-800">
-                  Check off each item as you find it outside! Look carefully - some items might be small. Have fun exploring nature!
+        {
+          activeDocs.includes('gratitude-jar') && (
+            <WorksheetSectionWrapper
+              docId="gratitude-jar"
+              title="Gratitude Jar"
+              emoji={String.fromCodePoint(0x1F64F)}
+              description="Write or draw one thing you're thankful for in each circle."
+              problemCount={18}
+              learningObjectives={[
+                'Practice gratitude and mindfulness',
+                'Express thankfulness',
+                'Build positive thinking habits'
+              ]}
+              parentTeacherTips={[
+                'Help children think of things they are grateful for',
+                'Encourage both big and small things',
+                'Make this a daily or weekly practice',
+                'Extension: Share your gratitude with others'
+              ]}
+            >
+              <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-pink-400 to-purple-400 animate-gradient-x mb-2" />
+              <h2 className="text-lg font-bold text-slate-900">{String.fromCodePoint(0x270F)}</h2>
+              <p className="text-slate-600 text-sm mb-3">{String.fromCodePoint(0x270F)}</p>
+              <svg viewBox="0 0 400 400" preserveAspectRatio="xMidYMid meet" className="w-full h-auto bg-white border border-slate-300">
+                <g fill="none" stroke="#111827" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" vectorEffect="non-scaling-stroke">
+                  <path d="M120 70 H280" />
+                  <path d="M140 70 C140 40, 260 40, 260 70" />
+                  <path d="M130 70 C120 140, 120 320, 200 360 C280 320, 280 140, 270 70" />
+                </g>
+                {Array.from({ length: 18 }).map((_, i) => {
+                  const col = i % 6
+                  const row = Math.floor(i / 6)
+                  const cx = 70 + col * 50
+                  const cy = 110 + row * 60
+                  return <circle key={i} cx={cx} cy={cy} r={18} stroke="#9ca3af" fill="none" vectorEffect="non-scaling-stroke" />
+                })}
+              </svg>
+              {showAnswersForDoc('gratitude-jar', () => (
+                <div className="mt-6 p-4 border-2 border-emerald-300 bg-emerald-50 rounded print:border print:bg-white print:page-break-before-always">
+                  <div className="font-bold text-emerald-900 mb-3 text-base">{String.fromCodePoint(0x2705)}</div>
+                  <div className="text-sm text-emerald-800">
+                    There's no right or wrong answer! Write or draw things you're grateful for in each circle. Examples: family, friends, pets, favorite foods, toys, activities, nature, etc. Be creative and think of both big and small things!
+                  </div>
                 </div>
-              </div>
-            ))}
-          </WorksheetSectionWrapper>
-        )}
+              ))}
+            </WorksheetSectionWrapper>
+          )
+        }
 
-        {activeDocs.includes('summer-pack') && (
-          <WorksheetSectionWrapper
-            docId="summer-pack"
-            title="Summer Adventure Pack"
-            emoji={String.fromCodePoint(0x2600)}
-            description="A quick set for travel days: word list + maze box + drawing prompt."
-            problemCount={1}
-            learningObjectives={[
-              'Build summer vocabulary',
-              'Practice problem-solving with mazes',
-              'Express creativity through drawing'
-            ]}
-            parentTeacherTips={[
-              'Help children read the summer words',
-              'Guide through the maze if needed',
-              'Encourage creative drawing',
-              'Extension: Create your own summer word list'
-            ]}
-          >
-            <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-yellow-400 to-orange-400 animate-gradient-x mb-2" />
-            <div className="grid grid-cols-3 gap-4 text-sm">
-              <ul className="list-disc list-inside space-y-1">
-                {['beach', 'shell', 'sand', 'wave', 'sun', 'boat', 'crab', 'icecream'].map(w => <li key={w}>{w}</li>)}
-              </ul>
-              <div className="h-24 border border-dashed border-slate-400 rounded" />
-              <div>
-                <div className="font-semibold mb-1">Draw: Your best summer day</div>
-                <div className="h-24 border border-slate-300 rounded" />
-              </div>
-            </div>
-            {showAnswersForDoc('summer-pack', () => (
-              <div className="mt-6 p-4 border-2 border-emerald-300 bg-emerald-50 rounded print:border print:bg-white print:page-break-before-always">
-                <div className="font-bold text-emerald-900 mb-3 text-base">{String.fromCodePoint(0x2705)}</div>
-                <div className="text-sm text-emerald-800">
-                  <div className="mb-2"><strong>Summer Words:</strong> beach, shell, sand, wave, sun, boat, crab, icecream</div>
-                  <div className="mb-2"><strong>Maze:</strong> Draw your path through the maze in the box.</div>
-                  <div><strong>Drawing:</strong> Be creative! Draw your best summer day in the box.</div>
-                </div>
-              </div>
-            ))}
-          </WorksheetSectionWrapper>
-        )}
-
-        {activeDocs.includes('brain-boost') && (
-          <WorksheetSectionWrapper
-            docId="brain-boost"
-            title="7-Day Brain Boost Pack"
-            emoji={String.fromCodePoint(0x1F9E0)}
-            description="Do one mini-challenge each day. Track your streak!"
-            problemCount={7}
-            learningObjectives={[
-              'Build daily learning habits',
-              'Practice various cognitive skills',
-              'Track progress and build streaks'
-            ]}
-            parentTeacherTips={[
-              'Help children complete one challenge per day',
-              'Celebrate completing the streak',
-              'Encourage reflection on what was tricky',
-              'Extension: Create your own daily challenges'
-            ]}
-          >
-            <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-purple-400 to-pink-400 animate-gradient-x mb-2" />
-            <ol className="list-decimal list-inside space-y-1 text-sm">
-              {['Memory pairs', 'Word jumble', 'Counting maze', 'Pattern copy', 'Quick sudoku', 'Riddle time', 'Spot the change'].map((t, i) => <li key={i}>{t}</li>)}
-            </ol>
-            <div className="mt-4">
-              <div className="text-sm font-semibold text-slate-800 mb-2">Streak tracker</div>
-              <table className="w-full border border-slate-300 text-sm">
+        {
+          activeDocs.includes('mood-tracker') && (
+            <WorksheetSectionWrapper
+              docId="mood-tracker"
+              title="Mood Tracker"
+              emoji={String.fromCodePoint(0x1F60C)}
+              description="Color each day based on your mood. Use your own color legend."
+              problemCount={7}
+              learningObjectives={[
+                'Track and identify emotions',
+                'Practice self-awareness',
+                'Understand mood patterns'
+              ]}
+              parentTeacherTips={[
+                'Help children identify their moods',
+                'All moods are valid and important',
+                'Use this to start conversations about feelings',
+                'Extension: Look for patterns in your moods'
+              ]}
+            >
+              <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-pink-400 to-purple-400 animate-gradient-x mb-2" />
+              <table className="w-full border border-slate-300">
                 <thead>
-                  <tr className="bg-slate-50">
-                    {['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'].map(d => (
-                      <th key={d} className="border border-slate-300 px-2 py-1 text-center">{d}</th>
-                    ))}
+                  <tr className="bg-slate-50 text-sm">
+                    <th className="border border-slate-300 px-2 py-1 text-left">Day</th>
+                    <th className="border border-slate-300 px-2 py-1 text-left">How I felt</th>
+                    <th className="border border-slate-300 px-2 py-1 text-left">Notes</th>
                   </tr>
                 </thead>
                 <tbody>
-                  <tr>
-                    {Array.from({ length: 7 }).map((_, i) => (
-                      <td key={i} className="border border-slate-300 h-8 text-center align-middle">{String.fromCodePoint(0x279C)}</td>
-                    ))}
-                  </tr>
+                  {['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'].map((d) => (
+                    <tr key={d} className="h-10">
+                      <td className="border border-slate-300 px-2">{d}</td>
+                      <td className="border border-slate-300" />
+                      <td className="border border-slate-300" />
+                    </tr>
+                  ))}
                 </tbody>
               </table>
-              <div className="mt-3 grid md:grid-cols-2 gap-3">
-                <div>
-                  <div className="text-sm font-semibold text-slate-800 mb-1">What was tricky?</div>
-                  <div className="h-6 border-b border-slate-400 mb-1" />
-                  <div className="h-10 border-b-3 border-slate-600" />
-                </div>
-                <div>
-                  <div className="text-sm font-semibold text-slate-800 mb-1">What I nailed</div>
-                  <div className="h-6 border-b border-slate-400 mb-1" />
-                  <div className="h-10 border-b-3 border-slate-600" />
-                </div>
-              </div>
-            </div>
-            {showAnswersForDoc('brain-boost', () => (
-              <div className="mt-6 p-4 border-2 border-emerald-300 bg-emerald-50 rounded print:border print:bg-white print:page-break-before-always">
-                <div className="font-bold text-emerald-900 mb-3 text-base">{String.fromCodePoint(0x2705)}</div>
-                <div className="text-sm text-emerald-800">
-                  Complete one challenge each day and check it off in the streak tracker. Challenges: Memory pairs, Word jumble, Counting maze, Pattern copy, Quick sudoku, Riddle time, Spot the change. Track your progress and reflect on what was tricky and what you nailed!
-                </div>
-              </div>
-            ))}
-          </WorksheetSectionWrapper>
-        )}
-
-        {activeDocs.includes('creative-challenge') && (
-          <WorksheetSectionWrapper
-            docId="creative-challenge"
-            title="Creative Kids Challenge"
-            emoji={String.fromCodePoint(0x1F4D1)}
-            description="7 days of quick art prompts. Spend 510 minutes each."
-            problemCount={7}
-            learningObjectives={[
-              'Express creativity through art',
-              'Practice daily creative habits',
-              'Develop artistic skills'
-            ]}
-            parentTeacherTips={[
-              'Encourage children to try each prompt',
-              'Focus on creativity, not perfection',
-              'Celebrate their unique creations',
-              'Extension: Create your own art prompts'
-            ]}
-          >
-            <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-pink-400 to-purple-400 animate-gradient-x mb-2" />
-            <ol className="list-decimal list-inside space-y-1 text-sm">
-              {['Draw a robot pet', 'Design a flag', 'Invent a snack package', 'Doodle your name in 3 styles', 'Sketch a tiny house', 'Create a new animal', 'Make a comic in 3 panels'].map((t, i) => <li key={i}>{t}</li>)}
-            </ol>
-            {showAnswersForDoc('creative-challenge', () => (
-              <div className="mt-6 p-4 border-2 border-emerald-300 bg-emerald-50 rounded print:border print:bg-white print:page-break-before-always">
-                <div className="font-bold text-emerald-900 mb-3 text-base">{String.fromCodePoint(0x2705)}</div>
-                <div className="text-sm text-emerald-800">
-                  There is no right or wrong answer! Complete each creative prompt with your own unique ideas. Spend 5-10 minutes on each one. Be creative and have fun!
-                </div>
-              </div>
-            ))}
-          </WorksheetSectionWrapper>
-        )}
-
-        {activeDocs.includes('ws-world') && (
-          <WorksheetSectionWrapper
-            docId="ws-world"
-            title="Around the World Word Search"
-            emoji={String.fromCodePoint(0x1F30D)}
-            description="Find all the world words hidden in the grid. Use the clue list to track your progress."
-            problemCount={11}
-            learningObjectives={[
-              'Build geography vocabulary',
-              'Practice pattern recognition',
-              'Develop attention to detail'
-            ]}
-            parentTeacherTips={[
-              'Help children read the clue words',
-              'Look for words horizontally, vertically, and diagonally',
-              'Check off words as you find them',
-              'Extension: Create your own word search'
-            ]}
-          >
-            <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-blue-400 to-green-400 animate-gradient-x mb-2" />
-            {(() => {
-              const words = ['PARIS', 'NILE', 'AFRICA', 'ASIA', 'ALPS', 'TOKYO', 'ITALY', 'NORTH', 'SOUTH', 'RIO', 'BERLIN']
-              return (
-                <div className="md:flex md:items-start md:gap-6">
-                  <div className="flex-1">
-                    <div className="grid grid-cols-12 gap-[2px] font-mono text-sm bg-slate-50 p-3 rounded-lg print:bg-transparent print:p-0">
-                      {generateWordSearchGrid(12, [...words], makeRng(`${effectiveSeed}|ws-world|main|v${variant}`)).map((row, r) => (
-                        <React.Fragment key={r}>
-                          {row.map((ch, c) => (
-                            <div key={c} className="w-6 h-6 border border-slate-300 flex items-center justify-center rounded-sm">{ch}</div>
-                          ))}
-                        </React.Fragment>
-                      ))}
-                    </div>
-                  </div>
-                  <div className="mt-4 md:mt-0 md:w-64 border border-slate-200 rounded-lg p-3 bg-white print:bg-transparent print:border-0">
-                    <div className="text-sm font-semibold text-slate-800 mb-2">Clue words</div>
-                    <ul className="text-sm text-slate-700 space-y-1">
-                      {words.map(w => (<li key={w}>{String.fromCodePoint(0x270F)}</li>))}
-                    </ul>
+              {showAnswersForDoc('mood-tracker', () => (
+                <div className="mt-6 p-4 border-2 border-emerald-300 bg-emerald-50 rounded print:border print:bg-white print:page-break-before-always">
+                  <div className="font-bold text-emerald-900 mb-3 text-base">{String.fromCodePoint(0x2705)}</div>
+                  <div className="text-sm text-emerald-800">
+                    There's no right or wrong answer! Color each day based on how you felt. Create your own color legend (e.g., red = happy, blue = calm, yellow = excited). All moods are valid and important to track!
                   </div>
                 </div>
-              )
-            })()}
-            {showAnswersForDoc('ws-world', () => (
-              <div className="mt-6 p-4 border-2 border-emerald-300 bg-emerald-50 rounded print:border print:bg-white print:page-break-before-always">
-                <div className="font-bold text-emerald-900 mb-3 text-base">{String.fromCodePoint(0x2705)}</div>
-                <div className="text-sm text-emerald-800">
-                  Find all 11 words in the grid: PARIS, NILE, AFRICA, ASIA, ALPS, TOKYO, ITALY, NORTH, SOUTH, RIO, BERLIN. Words can be found horizontally, vertically, or diagonally. Check off each word as you find it!
+              ))}
+            </WorksheetSectionWrapper>
+          )
+        }
+
+        {
+          activeDocs.includes('mandalas') && (
+            <WorksheetSectionWrapper
+              docId="mandalas"
+              title="Mindful Coloring Mandalas"
+              emoji={String.fromCodePoint(0x1F308)}
+              description="Color slowly. Start from the center and move outward."
+              problemCount={1}
+              learningObjectives={[
+                'Practice mindfulness and relaxation',
+                'Develop focus and attention',
+                'Express creativity through coloring'
+              ]}
+              parentTeacherTips={[
+                'Start from the center and work outward',
+                'Take your time - there is no rush',
+                'Use colors that make you feel calm',
+                'Extension: Create your own mandala design'
+              ]}
+            >
+              <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-pink-400 to-purple-400 animate-gradient-x mb-2" />
+              <svg viewBox="0 0 400 400" className="w-full h-auto bg-white border border-slate-300">
+                <g fill="none" stroke="#111827" strokeWidth="2">
+                  {Array.from({ length: 6 }).map((_, i) => (
+                    <circle key={i} cx={200} cy={200} r={30 + i * 25} />
+                  ))}
+                  {Array.from({ length: 12 }).map((_, i) => {
+                    const ang = (i / 12) * Math.PI * 2
+                    const x1 = 200 + Math.cos(ang) * 40
+                    const y1 = 200 + Math.sin(ang) * 40
+                    const x2 = 200 + Math.cos(ang) * 160
+                    const y2 = 200 + Math.sin(ang) * 160
+                    return <line key={i} x1={x1} y1={y1} x2={x2} y2={y2} />
+                  })}
+                  {Array.from({ length: 8 }).map((_, i) => {
+                    const ang = (i / 8) * Math.PI * 2
+                    const r = 110
+                    const x = 200 + Math.cos(ang) * r
+                    const y = 200 + Math.sin(ang) * r
+                    return <polygon key={i} points={`${x},${y} ${x + 8},${y + 14} ${x - 8},${y + 14}`} />
+                  })}
+                </g>
+              </svg>
+              {showAnswersForDoc('mandalas', () => (
+                <div className="mt-6 p-4 border-2 border-emerald-300 bg-emerald-50 rounded print:border print:bg-white print:page-break-before-always">
+                  <div className="font-bold text-emerald-900 mb-3 text-base">{String.fromCodePoint(0x2705)}</div>
+                  <div className="text-sm text-emerald-800">
+                    There is no right or wrong way to color! Start from the center and work outward. Use colors that make you feel calm and happy. Take your time and enjoy the process!
+                  </div>
+                </div>
+              ))}
+            </WorksheetSectionWrapper>
+          )
+        }
+
+        {
+          activeDocs.includes('weekly-goals') && (
+            <WorksheetSectionWrapper
+              docId="weekly-goals"
+              title="My Goals for the Week"
+              emoji={String.fromCodePoint(0x1F3AF)}
+              description="Write 3 goals, 1 thing to try, and 1 thing you're proud of."
+              problemCount={5}
+              learningObjectives={[
+                'Set achievable goals',
+                'Practice self-reflection',
+                'Build planning skills'
+              ]}
+              parentTeacherTips={[
+                'Help children set realistic, achievable goals',
+                'Celebrate what they are proud of',
+                'Encourage trying new things',
+                'Extension: Review goals at the end of the week'
+              ]}
+            >
+              <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-pink-400 to-purple-400 animate-gradient-x mb-2" />
+              <h2 className="text-lg font-bold text-slate-900">{String.fromCodePoint(0x270F)}</h2>
+              <p className="text-slate-600 text-sm mb-3">{String.fromCodePoint(0x270F)}</p>
+              {['Goal 1', 'Goal 2', 'Goal 3', 'Try this', 'Proud of'].map((t, i) => (
+                <div key={i} className="mb-3">
+                  <div className="text-sm font-semibold text-slate-800">{t}</div>
+                  <div className="h-10 border-b-3 border-slate-600" />
+                </div>
+              ))}
+              {showAnswersForDoc('weekly-goals', () => (
+                <div className="mt-6 p-4 border-2 border-emerald-300 bg-emerald-50 rounded print:border print:bg-white print:page-break-before-always">
+                  <div className="font-bold text-emerald-900 mb-3 text-base">{String.fromCodePoint(0x2705)}</div>
+                  <div className="text-sm text-emerald-800">
+                    There's no right or wrong answer! Write your own goals, something new to try, and something you're proud of. Examples: Goals - finish homework, help at home, read a book; Try - a new sport, cooking, art; Proud of - learning something new, helping a friend, etc.
+                  </div>
+                </div>
+              ))}
+            </WorksheetSectionWrapper>
+          )
+        }
+
+        {
+          activeDocs.includes('halloween-pack') && (
+            <WorksheetSectionWrapper
+              docId="halloween-pack"
+              title="Halloween Puzzle Pack"
+              emoji={String.fromCodePoint(0x1F383)}
+              description="Mini pack: word list + costume ideas + tiny maze."
+              problemCount={1}
+              learningObjectives={[
+                'Build vocabulary with Halloween words',
+                'Practice creative thinking with costume ideas',
+                'Develop problem-solving with maze navigation'
+              ]}
+              parentTeacherTips={[
+                'Help children sound out the Halloween words',
+                'Encourage creative costume ideas',
+                'Guide children through the maze if needed',
+                'Extension: Create your own Halloween word list'
+              ]}
+            >
+              <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-orange-400 to-purple-400 animate-gradient-x mb-2" />
+              <div className="grid grid-cols-2 gap-6 text-sm">
+                <div>
+                  <div className="font-semibold mb-1">Spooky Word List</div>
+                  <ul className="list-disc list-inside space-y-1">
+                    {['ghost', 'pumpkin', 'witch', 'bat', 'candy', 'mask', 'moon', 'owl'].map(w => <li key={w}>{w}</li>)}
+                  </ul>
+                </div>
+                <div>
+                  <div className="font-semibold mb-1">Costume Idea Box</div>
+                  <div className="h-32 border border-dashed border-slate-400 rounded" />
                 </div>
               </div>
-            ))}
-          </WorksheetSectionWrapper>
-        )}
-
-        {activeDocs.includes('animal-pack') && (
-          <WorksheetSectionWrapper
-            docId="animal-pack"
-            title="Animal Adventure Pack"
-            emoji={String.fromCodePoint(0x1F43E)}
-            description="Mix of animal-themed puzzles to print and enjoy."
-            problemCount={1}
-            learningObjectives={[
-              'Learn about different animals',
-              'Practice problem-solving with mazes',
-              'Build vocabulary with animal words'
-            ]}
-            parentTeacherTips={[
-              'Help children identify the animals',
-              'Guide through the maze if needed',
-              'Encourage reading the animal words',
-              'Extension: Create your own animal puzzle'
-            ]}
-          >
-            <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-orange-400 to-yellow-400 animate-gradient-x mb-2" />
-            <div className="grid md:grid-cols-2 gap-4">
-              {/* Mini maze */}
-              <div>
-                <div className="text-sm font-semibold text-slate-800 mb-2">Mini maze: Help the cub reach its den</div>
+              <div className="mt-6 hidden" aria-hidden>
+                <div className="font-semibold mb-1 text-sm">Tiny Maze</div>
                 {(() => {
-                  // Harder mini-maze (10x10) with farthest-edge DEN from START (0,0)
+                  // Generated mini-maze (10x10) with far-edge FINISH; true openings at START/FINISH
                   const cols = 10, rows = 10;
                   const cellSize = 20;
-                  const pad = 14;
+                  const pad = 14; // padding inside SVG
                   const svgW = cols * cellSize + pad * 2;
                   const svgH = rows * cellSize + pad * 2;
                   type Walls = { t: boolean; r: boolean; b: boolean; l: boolean };
@@ -9877,7 +9231,8 @@ export function PrintablesPage({ docId: propDocId }: { docId?: string } = {}) {
                   visited[0] = true;
                   while (stack.length) {
                     const cur = stack[stack.length - 1];
-                    const cx = cur % cols; const cy = Math.floor(cur / cols);
+                    const cx = cur % cols;
+                    const cy = Math.floor(cur / cols);
                     const order: Array<{ x: number; y: number; dir: 't' | 'r' | 'b' | 'l' }> = [
                       { x: cx, y: cy - 1, dir: 't' },
                       { x: cx + 1, y: cy, dir: 'r' },
@@ -9895,7 +9250,7 @@ export function PrintablesPage({ docId: propDocId }: { docId?: string } = {}) {
                     visited[ni] = true;
                     stack.push(ni);
                   }
-                  // BFS to locate farthest border cell on right/bottom
+                  // BFS to pick farthest border cell (right/bottom) as FINISH
                   const dist = new Array(cols * rows).fill(Infinity) as number[];
                   const q: number[] = [];
                   dist[0] = 0; q.push(0);
@@ -9927,8 +9282,10 @@ export function PrintablesPage({ docId: propDocId }: { docId?: string } = {}) {
                   for (let y = 0; y < rows; y++) {
                     for (let x = 0; x < cols; x++) {
                       const c = cells[idx(x, y)];
-                      const x0 = pad + x * cellSize; const y0 = pad + y * cellSize;
-                      const x1 = x0 + cellSize; const y1 = y0 + cellSize;
+                      const x0 = pad + x * cellSize;
+                      const y0 = pad + y * cellSize;
+                      const x1 = x0 + cellSize;
+                      const y1 = y0 + cellSize;
                       const isStart = x === 0 && y === 0;
                       const isExitCell = x === exitX && y === exitY;
                       if (c.t) lines.push({ x1: x0, y1: y0, x2: x1, y2: y0 });
@@ -9939,13 +9296,13 @@ export function PrintablesPage({ docId: propDocId }: { docId?: string } = {}) {
                   }
                   return (
                     <svg viewBox={`0 0 ${svgW} ${svgH}`} className="w-full max-w-md bg-white border border-slate-300 rounded">
-                      {/* outer border with openings at START and computed DEN */}
+                      {/* outer border with openings at START and computed FINISH */}
                       <g stroke="#334155" strokeWidth={4} strokeLinecap="round">
                         {/* top border */}
                         <line x1={pad} y1={pad} x2={pad + cols * cellSize} y2={pad} />
                         {/* left border (skip start opening) */}
                         <line x1={pad} y1={pad + cellSize} x2={pad} y2={pad + rows * cellSize} />
-                        {/* right border with optional gap for DEN */}
+                        {/* right border with optional gap for FINISH */}
                         {exitSide === 'right' ? (
                           <>
                             <line x1={pad + cols * cellSize} y1={pad} x2={pad + cols * cellSize} y2={pad + exitY * cellSize} />
@@ -9954,7 +9311,7 @@ export function PrintablesPage({ docId: propDocId }: { docId?: string } = {}) {
                         ) : (
                           <line x1={pad + cols * cellSize} y1={pad} x2={pad + cols * cellSize} y2={pad + rows * cellSize} />
                         )}
-                        {/* bottom border with optional gap for DEN */}
+                        {/* bottom border with optional gap for FINISH */}
                         {exitSide === 'bottom' ? (
                           <>
                             <line x1={pad} y1={pad + rows * cellSize} x2={pad + exitX * cellSize} y2={pad + rows * cellSize} />
@@ -9971,136 +9328,578 @@ export function PrintablesPage({ docId: propDocId }: { docId?: string } = {}) {
                       {/* labels */}
                       <text x={pad - 6} y={pad - 8} fontSize="12" fill="#10B981" fontWeight={700}>START</text>
                       {exitSide === 'right' ? (
-                        <text x={svgW - (pad - 8)} y={pad + exitY * cellSize + cellSize * 0.6} fontSize="12" fill="#ef4444" fontWeight={700} textAnchor="end">DEN</text>
+                        <text x={svgW - (pad - 8)} y={pad + exitY * cellSize + cellSize * 0.6} fontSize="12" fill="#ef4444" fontWeight={700} textAnchor="end">FINISH</text>
                       ) : (
-                        <text x={pad + exitX * cellSize + cellSize * 0.5} y={svgH - (pad - 6)} fontSize="12" fill="#ef4444" fontWeight={700} textAnchor="middle">DEN</text>
+                        <text x={pad + exitX * cellSize + cellSize * 0.5} y={svgH - (pad - 6)} fontSize="12" fill="#ef4444" fontWeight={700} textAnchor="middle">FINISH</text>
                       )}
                     </svg>
                   );
                 })()}
               </div>
-              {/* Word list with checkboxes */}
-              <div className="md:pl-2">
-                <div className="text-sm font-semibold text-slate-800 mb-2">Word list</div>
-                <div className="border border-slate-200 rounded-lg p-3 bg-white print:bg-transparent print:border-0">
-                  <ul className="text-sm text-slate-700 space-y-1 columns-2 md:columns-1">
-                    {['lion', 'zebra', 'panda', 'eagle', 'whale', 'koala'].map(w => (
-                      <li key={w}>{String.fromCodePoint(0x270F)}</li>
-                    ))}
-                  </ul>
-                  <div className="mt-3 text-sm">
-                    <div className="font-semibold text-slate-800 mb-1">Pick two animals to combine</div>
-                    <div className="flex items-center gap-3 mb-1">
-                      <span>{String.fromCodePoint(0x270F)}</span>
-                      <div className="flex-1 border-b border-slate-400" />
+              {showAnswersForDoc('halloween-pack', () => (
+                <div className="mt-6 p-4 border-2 border-emerald-300 bg-emerald-50 rounded print:border print:bg-white print:page-break-before-always">
+                  <div className="font-bold text-emerald-900 mb-3 text-base">{String.fromCodePoint(0x2705)}</div>
+                  <div className="text-sm text-emerald-800">
+                    <div className="mb-2"><strong>Spooky Word List:</strong> ghost, pumpkin, witch, bat, candy, mask, moon, owl</div>
+                    <div className="mb-2"><strong>Costume Ideas:</strong> Be creative! Draw or write your costume ideas in the box.</div>
+                    <div><strong>Maze:</strong> Follow the path from START to FINISH. There is one correct path through the maze!</div>
+                  </div>
+                </div>
+              ))}
+            </WorksheetSectionWrapper>
+          )
+        }
+
+        {
+          activeDocs.includes('winter-kindness') && (
+            <WorksheetSectionWrapper
+              docId="winter-kindness"
+              title="Winter Kindness Challenge"
+              emoji={String.fromCodePoint(0x2744)}
+              description="Color a square each time you complete a kind act."
+              problemCount={25}
+              learningObjectives={[
+                'Practice kindness and empathy',
+                'Track acts of kindness',
+                'Build positive habits'
+              ]}
+              parentTeacherTips={[
+                'Help children identify kind acts they can do',
+                'Celebrate each act of kindness',
+                'Encourage daily practice',
+                'Extension: Share your kindness stories'
+              ]}
+            >
+              <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-blue-400 to-cyan-400 animate-gradient-x mb-2" />
+              <div className="grid grid-cols-5 gap-2">
+                {Array.from({ length: 25 }).map((_, i) => (
+                  <div key={i} className="h-10 border border-slate-300 rounded text-[10px] p-1">Act #{i + 1}</div>
+                ))}
+              </div>
+              {showAnswersForDoc('winter-kindness', () => (
+                <div className="mt-6 p-4 border-2 border-emerald-300 bg-emerald-50 rounded print:border print:bg-white print:page-break-before-always">
+                  <div className="font-bold text-emerald-900 mb-3 text-base">{String.fromCodePoint(0x2705)}</div>
+                  <div className="text-sm text-emerald-800">
+                    There is no right or wrong answer! Color a square each time you complete a kind act. Examples: helping someone, sharing, saying thank you, giving a compliment, helping with chores, etc. Keep track of your kindness acts!
+                  </div>
+                </div>
+              ))}
+            </WorksheetSectionWrapper>
+          )
+        }
+
+        {
+          activeDocs.includes('spring-scavenger') && (
+            <WorksheetSectionWrapper
+              docId="spring-scavenger"
+              title="Spring Nature Scavenger Hunt"
+              emoji={String.fromCodePoint(0x1F338)}
+              description="Go outside and check off what you discover."
+              problemCount={10}
+              learningObjectives={[
+                'Observe nature and surroundings',
+                'Practice attention to detail',
+                'Learn about spring nature'
+              ]}
+              parentTeacherTips={[
+                'Go outside with children to explore',
+                'Help identify items if needed',
+                'Encourage careful observation',
+                'Extension: Take photos of what you find'
+              ]}
+            >
+              <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-pink-400 to-green-400 animate-gradient-x mb-2" />
+              <ul className="grid grid-cols-2 gap-2 text-sm text-slate-700">
+                {['Leaf with spots', 'Pink flower', 'Three smooth stones', 'Ant trail', 'Bird feather', 'Cloud shaped like an animal', 'Two kinds of grass', 'Buzzing insect', 'Tiny pinecone', 'Something yellow'].map(x => <li key={x}>{String.fromCodePoint(0x270F)}</li>)}
+              </ul>
+              {showAnswersForDoc('spring-scavenger', () => (
+                <div className="mt-6 p-4 border-2 border-emerald-300 bg-emerald-50 rounded print:border print:bg-white print:page-break-before-always">
+                  <div className="font-bold text-emerald-900 mb-3 text-base">{String.fromCodePoint(0x2705)}</div>
+                  <div className="text-sm text-emerald-800">
+                    Check off each item as you find it outside! Look carefully - some items might be small. Have fun exploring nature!
+                  </div>
+                </div>
+              ))}
+            </WorksheetSectionWrapper>
+          )
+        }
+
+        {
+          activeDocs.includes('summer-pack') && (
+            <WorksheetSectionWrapper
+              docId="summer-pack"
+              title="Summer Adventure Pack"
+              emoji={String.fromCodePoint(0x2600)}
+              description="A quick set for travel days: word list + maze box + drawing prompt."
+              problemCount={1}
+              learningObjectives={[
+                'Build summer vocabulary',
+                'Practice problem-solving with mazes',
+                'Express creativity through drawing'
+              ]}
+              parentTeacherTips={[
+                'Help children read the summer words',
+                'Guide through the maze if needed',
+                'Encourage creative drawing',
+                'Extension: Create your own summer word list'
+              ]}
+            >
+              <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-yellow-400 to-orange-400 animate-gradient-x mb-2" />
+              <div className="grid grid-cols-3 gap-4 text-sm">
+                <ul className="list-disc list-inside space-y-1">
+                  {['beach', 'shell', 'sand', 'wave', 'sun', 'boat', 'crab', 'icecream'].map(w => <li key={w}>{w}</li>)}
+                </ul>
+                <div className="h-24 border border-dashed border-slate-400 rounded" />
+                <div>
+                  <div className="font-semibold mb-1">Draw: Your best summer day</div>
+                  <div className="h-24 border border-slate-300 rounded" />
+                </div>
+              </div>
+              {showAnswersForDoc('summer-pack', () => (
+                <div className="mt-6 p-4 border-2 border-emerald-300 bg-emerald-50 rounded print:border print:bg-white print:page-break-before-always">
+                  <div className="font-bold text-emerald-900 mb-3 text-base">{String.fromCodePoint(0x2705)}</div>
+                  <div className="text-sm text-emerald-800">
+                    <div className="mb-2"><strong>Summer Words:</strong> beach, shell, sand, wave, sun, boat, crab, icecream</div>
+                    <div className="mb-2"><strong>Maze:</strong> Draw your path through the maze in the box.</div>
+                    <div><strong>Drawing:</strong> Be creative! Draw your best summer day in the box.</div>
+                  </div>
+                </div>
+              ))}
+            </WorksheetSectionWrapper>
+          )
+        }
+
+        {
+          activeDocs.includes('brain-boost') && (
+            <WorksheetSectionWrapper
+              docId="brain-boost"
+              title="7-Day Brain Boost Pack"
+              emoji={String.fromCodePoint(0x1F9E0)}
+              description="Do one mini-challenge each day. Track your streak!"
+              problemCount={7}
+              learningObjectives={[
+                'Build daily learning habits',
+                'Practice various cognitive skills',
+                'Track progress and build streaks'
+              ]}
+              parentTeacherTips={[
+                'Help children complete one challenge per day',
+                'Celebrate completing the streak',
+                'Encourage reflection on what was tricky',
+                'Extension: Create your own daily challenges'
+              ]}
+            >
+              <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-purple-400 to-pink-400 animate-gradient-x mb-2" />
+              <ol className="list-decimal list-inside space-y-1 text-sm">
+                {['Memory pairs', 'Word jumble', 'Counting maze', 'Pattern copy', 'Quick sudoku', 'Riddle time', 'Spot the change'].map((t, i) => <li key={i}>{t}</li>)}
+              </ol>
+              <div className="mt-4">
+                <div className="text-sm font-semibold text-slate-800 mb-2">Streak tracker</div>
+                <table className="w-full border border-slate-300 text-sm">
+                  <thead>
+                    <tr className="bg-slate-50">
+                      {['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'].map(d => (
+                        <th key={d} className="border border-slate-300 px-2 py-1 text-center">{d}</th>
+                      ))}
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      {Array.from({ length: 7 }).map((_, i) => (
+                        <td key={i} className="border border-slate-300 h-8 text-center align-middle">{String.fromCodePoint(0x279C)}</td>
+                      ))}
+                    </tr>
+                  </tbody>
+                </table>
+                <div className="mt-3 grid md:grid-cols-2 gap-3">
+                  <div>
+                    <div className="text-sm font-semibold text-slate-800 mb-1">What was tricky?</div>
+                    <div className="h-6 border-b border-slate-400 mb-1" />
+                    <div className="h-10 border-b-3 border-slate-600" />
+                  </div>
+                  <div>
+                    <div className="text-sm font-semibold text-slate-800 mb-1">What I nailed</div>
+                    <div className="h-6 border-b border-slate-400 mb-1" />
+                    <div className="h-10 border-b-3 border-slate-600" />
+                  </div>
+                </div>
+              </div>
+              {showAnswersForDoc('brain-boost', () => (
+                <div className="mt-6 p-4 border-2 border-emerald-300 bg-emerald-50 rounded print:border print:bg-white print:page-break-before-always">
+                  <div className="font-bold text-emerald-900 mb-3 text-base">{String.fromCodePoint(0x2705)}</div>
+                  <div className="text-sm text-emerald-800">
+                    Complete one challenge each day and check it off in the streak tracker. Challenges: Memory pairs, Word jumble, Counting maze, Pattern copy, Quick sudoku, Riddle time, Spot the change. Track your progress and reflect on what was tricky and what you nailed!
+                  </div>
+                </div>
+              ))}
+            </WorksheetSectionWrapper>
+          )
+        }
+
+        {
+          activeDocs.includes('creative-challenge') && (
+            <WorksheetSectionWrapper
+              docId="creative-challenge"
+              title="Creative Kids Challenge"
+              emoji={String.fromCodePoint(0x1F4D1)}
+              description="7 days of quick art prompts. Spend 510 minutes each."
+              problemCount={7}
+              learningObjectives={[
+                'Express creativity through art',
+                'Practice daily creative habits',
+                'Develop artistic skills'
+              ]}
+              parentTeacherTips={[
+                'Encourage children to try each prompt',
+                'Focus on creativity, not perfection',
+                'Celebrate their unique creations',
+                'Extension: Create your own art prompts'
+              ]}
+            >
+              <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-pink-400 to-purple-400 animate-gradient-x mb-2" />
+              <ol className="list-decimal list-inside space-y-1 text-sm">
+                {['Draw a robot pet', 'Design a flag', 'Invent a snack package', 'Doodle your name in 3 styles', 'Sketch a tiny house', 'Create a new animal', 'Make a comic in 3 panels'].map((t, i) => <li key={i}>{t}</li>)}
+              </ol>
+              {showAnswersForDoc('creative-challenge', () => (
+                <div className="mt-6 p-4 border-2 border-emerald-300 bg-emerald-50 rounded print:border print:bg-white print:page-break-before-always">
+                  <div className="font-bold text-emerald-900 mb-3 text-base">{String.fromCodePoint(0x2705)}</div>
+                  <div className="text-sm text-emerald-800">
+                    There is no right or wrong answer! Complete each creative prompt with your own unique ideas. Spend 5-10 minutes on each one. Be creative and have fun!
+                  </div>
+                </div>
+              ))}
+            </WorksheetSectionWrapper>
+          )
+        }
+
+        {
+          activeDocs.includes('ws-world') && (
+            <WorksheetSectionWrapper
+              docId="ws-world"
+              title="Around the World Word Search"
+              emoji={String.fromCodePoint(0x1F30D)}
+              description="Find all the world words hidden in the grid. Use the clue list to track your progress."
+              problemCount={11}
+              learningObjectives={[
+                'Build geography vocabulary',
+                'Practice pattern recognition',
+                'Develop attention to detail'
+              ]}
+              parentTeacherTips={[
+                'Help children read the clue words',
+                'Look for words horizontally, vertically, and diagonally',
+                'Check off words as you find them',
+                'Extension: Create your own word search'
+              ]}
+            >
+              <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-blue-400 to-green-400 animate-gradient-x mb-2" />
+              {(() => {
+                const words = ['PARIS', 'NILE', 'AFRICA', 'ASIA', 'ALPS', 'TOKYO', 'ITALY', 'NORTH', 'SOUTH', 'RIO', 'BERLIN']
+                return (
+                  <div className="md:flex md:items-start md:gap-6">
+                    <div className="flex-1">
+                      <div className="grid grid-cols-12 gap-[2px] font-mono text-sm bg-slate-50 p-3 rounded-lg print:bg-transparent print:p-0">
+                        {generateWordSearchGrid(12, [...words], makeRng(`${effectiveSeed}|ws-world|main|v${variant}`)).map((row, r) => (
+                          <React.Fragment key={r}>
+                            {row.map((ch, c) => (
+                              <div key={c} className="w-6 h-6 border border-slate-300 flex items-center justify-center rounded-sm">{ch}</div>
+                            ))}
+                          </React.Fragment>
+                        ))}
+                      </div>
                     </div>
-                    <div className="flex items-center gap-3">
-                      <span>{String.fromCodePoint(0x279C)}</span>
-                      <div className="flex-1 border-b border-slate-400" />
+                    <div className="mt-4 md:mt-0 md:w-64 border border-slate-200 rounded-lg p-3 bg-white print:bg-transparent print:border-0">
+                      <div className="text-sm font-semibold text-slate-800 mb-2">Clue words</div>
+                      <ul className="text-sm text-slate-700 space-y-1">
+                        {words.map(w => (<li key={w}>{String.fromCodePoint(0x270F)}</li>))}
+                      </ul>
+                    </div>
+                  </div>
+                )
+              })()}
+              {showAnswersForDoc('ws-world', () => (
+                <div className="mt-6 p-4 border-2 border-emerald-300 bg-emerald-50 rounded print:border print:bg-white print:page-break-before-always">
+                  <div className="font-bold text-emerald-900 mb-3 text-base">{String.fromCodePoint(0x2705)}</div>
+                  <div className="text-sm text-emerald-800">
+                    Find all 11 words in the grid: PARIS, NILE, AFRICA, ASIA, ALPS, TOKYO, ITALY, NORTH, SOUTH, RIO, BERLIN. Words can be found horizontally, vertically, or diagonally. Check off each word as you find it!
+                  </div>
+                </div>
+              ))}
+            </WorksheetSectionWrapper>
+          )
+        }
+
+        {
+          activeDocs.includes('animal-pack') && (
+            <WorksheetSectionWrapper
+              docId="animal-pack"
+              title="Animal Adventure Pack"
+              emoji={String.fromCodePoint(0x1F43E)}
+              description="Mix of animal-themed puzzles to print and enjoy."
+              problemCount={1}
+              learningObjectives={[
+                'Learn about different animals',
+                'Practice problem-solving with mazes',
+                'Build vocabulary with animal words'
+              ]}
+              parentTeacherTips={[
+                'Help children identify the animals',
+                'Guide through the maze if needed',
+                'Encourage reading the animal words',
+                'Extension: Create your own animal puzzle'
+              ]}
+            >
+              <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-orange-400 to-yellow-400 animate-gradient-x mb-2" />
+              <div className="grid md:grid-cols-2 gap-4">
+                {/* Mini maze */}
+                <div>
+                  <div className="text-sm font-semibold text-slate-800 mb-2">Mini maze: Help the cub reach its den</div>
+                  {(() => {
+                    // Harder mini-maze (10x10) with farthest-edge DEN from START (0,0)
+                    const cols = 10, rows = 10;
+                    const cellSize = 20;
+                    const pad = 14;
+                    const svgW = cols * cellSize + pad * 2;
+                    const svgH = rows * cellSize + pad * 2;
+                    type Walls = { t: boolean; r: boolean; b: boolean; l: boolean };
+                    const cells: Walls[] = Array.from({ length: cols * rows }, () => ({ t: true, r: true, b: true, l: true }));
+                    const visited = new Array(cols * rows).fill(false) as boolean[];
+                    const idx = (x: number, y: number) => y * cols + x;
+                    const inBounds = (x: number, y: number) => x >= 0 && y >= 0 && x < cols && y < rows;
+                    // Depth-first backtracker (deterministic neighbor order)
+                    const stack: number[] = [0];
+                    visited[0] = true;
+                    while (stack.length) {
+                      const cur = stack[stack.length - 1];
+                      const cx = cur % cols; const cy = Math.floor(cur / cols);
+                      const order: Array<{ x: number; y: number; dir: 't' | 'r' | 'b' | 'l' }> = [
+                        { x: cx, y: cy - 1, dir: 't' },
+                        { x: cx + 1, y: cy, dir: 'r' },
+                        { x: cx, y: cy + 1, dir: 'b' },
+                        { x: cx - 1, y: cy, dir: 'l' }
+                      ];
+                      const neigh = order.filter(n => inBounds(n.x, n.y) && !visited[idx(n.x, n.y)]);
+                      if (!neigh.length) { stack.pop(); continue; }
+                      const next = neigh[0];
+                      const ni = idx(next.x, next.y);
+                      if (next.dir === 't') { cells[cur].t = false; cells[ni].b = false; }
+                      if (next.dir === 'r') { cells[cur].r = false; cells[ni].l = false; }
+                      if (next.dir === 'b') { cells[cur].b = false; cells[ni].t = false; }
+                      if (next.dir === 'l') { cells[cur].l = false; cells[ni].r = false; }
+                      visited[ni] = true;
+                      stack.push(ni);
+                    }
+                    // BFS to locate farthest border cell on right/bottom
+                    const dist = new Array(cols * rows).fill(Infinity) as number[];
+                    const q: number[] = [];
+                    dist[0] = 0; q.push(0);
+                    while (q.length) {
+                      const cur = q.shift()!;
+                      const cx = cur % cols; const cy = Math.floor(cur / cols);
+                      const here = cells[cur];
+                      const tryPush = (nx: number, ny: number, open: boolean) => {
+                        if (!open || !inBounds(nx, ny)) return;
+                        const ni = idx(nx, ny);
+                        if (dist[ni] !== Infinity) return;
+                        dist[ni] = dist[cur] + 1; q.push(ni);
+                      };
+                      tryPush(cx, cy - 1, !here.t);
+                      tryPush(cx + 1, cy, !here.r ? true : false);
+                      tryPush(cx, cy + 1, !here.b);
+                      tryPush(cx - 1, cy, !here.l);
+                    }
+                    let exitI = cols * rows - 1; let maxD = -1;
+                    for (let y = 0; y < rows; y++) {
+                      const iRight = idx(cols - 1, y); if (dist[iRight] > maxD) { maxD = dist[iRight]; exitI = iRight; }
+                    }
+                    for (let x = 0; x < cols; x++) {
+                      const iBottom = idx(x, rows - 1); if (dist[iBottom] > maxD) { maxD = dist[iBottom]; exitI = iBottom; }
+                    }
+                    const exitX = exitI % cols; const exitY = Math.floor(exitI / cols);
+                    const exitSide: 'right' | 'bottom' = exitX === cols - 1 ? 'right' : 'bottom';
+                    const lines: Array<{ x1: number; y1: number; x2: number; y2: number }> = [];
+                    for (let y = 0; y < rows; y++) {
+                      for (let x = 0; x < cols; x++) {
+                        const c = cells[idx(x, y)];
+                        const x0 = pad + x * cellSize; const y0 = pad + y * cellSize;
+                        const x1 = x0 + cellSize; const y1 = y0 + cellSize;
+                        const isStart = x === 0 && y === 0;
+                        const isExitCell = x === exitX && y === exitY;
+                        if (c.t) lines.push({ x1: x0, y1: y0, x2: x1, y2: y0 });
+                        if (c.l && !isStart) lines.push({ x1: x0, y1: y0, x2: x0, y2: y1 });
+                        if (c.b && !(isExitCell && exitSide === 'bottom')) lines.push({ x1: x0, y1: y1, x2: x1, y2: y1 });
+                        if (c.r && !(isExitCell && exitSide === 'right')) lines.push({ x1: x1, y1: y0, x2: x1, y2: y1 });
+                      }
+                    }
+                    return (
+                      <svg viewBox={`0 0 ${svgW} ${svgH}`} className="w-full max-w-md bg-white border border-slate-300 rounded">
+                        {/* outer border with openings at START and computed DEN */}
+                        <g stroke="#334155" strokeWidth={4} strokeLinecap="round">
+                          {/* top border */}
+                          <line x1={pad} y1={pad} x2={pad + cols * cellSize} y2={pad} />
+                          {/* left border (skip start opening) */}
+                          <line x1={pad} y1={pad + cellSize} x2={pad} y2={pad + rows * cellSize} />
+                          {/* right border with optional gap for DEN */}
+                          {exitSide === 'right' ? (
+                            <>
+                              <line x1={pad + cols * cellSize} y1={pad} x2={pad + cols * cellSize} y2={pad + exitY * cellSize} />
+                              <line x1={pad + cols * cellSize} y1={pad + (exitY + 1) * cellSize} x2={pad + cols * cellSize} y2={pad + rows * cellSize} />
+                            </>
+                          ) : (
+                            <line x1={pad + cols * cellSize} y1={pad} x2={pad + cols * cellSize} y2={pad + rows * cellSize} />
+                          )}
+                          {/* bottom border with optional gap for DEN */}
+                          {exitSide === 'bottom' ? (
+                            <>
+                              <line x1={pad} y1={pad + rows * cellSize} x2={pad + exitX * cellSize} y2={pad + rows * cellSize} />
+                              <line x1={pad + (exitX + 1) * cellSize} y1={pad + rows * cellSize} x2={pad + cols * cellSize} y2={pad + rows * cellSize} />
+                            </>
+                          ) : (
+                            <line x1={pad} y1={pad + rows * cellSize} x2={pad + cols * cellSize} y2={pad + rows * cellSize} />
+                          )}
+                        </g>
+                        {/* maze walls */}
+                        {lines.map((l, i) => (
+                          <line key={i} x1={l.x1} y1={l.y1} x2={l.x2} y2={l.y2} stroke="#334155" strokeWidth={4} strokeLinecap="round" />
+                        ))}
+                        {/* labels */}
+                        <text x={pad - 6} y={pad - 8} fontSize="12" fill="#10B981" fontWeight={700}>START</text>
+                        {exitSide === 'right' ? (
+                          <text x={svgW - (pad - 8)} y={pad + exitY * cellSize + cellSize * 0.6} fontSize="12" fill="#ef4444" fontWeight={700} textAnchor="end">DEN</text>
+                        ) : (
+                          <text x={pad + exitX * cellSize + cellSize * 0.5} y={svgH - (pad - 6)} fontSize="12" fill="#ef4444" fontWeight={700} textAnchor="middle">DEN</text>
+                        )}
+                      </svg>
+                    );
+                  })()}
+                </div>
+                {/* Word list with checkboxes */}
+                <div className="md:pl-2">
+                  <div className="text-sm font-semibold text-slate-800 mb-2">Word list</div>
+                  <div className="border border-slate-200 rounded-lg p-3 bg-white print:bg-transparent print:border-0">
+                    <ul className="text-sm text-slate-700 space-y-1 columns-2 md:columns-1">
+                      {['lion', 'zebra', 'panda', 'eagle', 'whale', 'koala'].map(w => (
+                        <li key={w}>{String.fromCodePoint(0x270F)}</li>
+                      ))}
+                    </ul>
+                    <div className="mt-3 text-sm">
+                      <div className="font-semibold text-slate-800 mb-1">Pick two animals to combine</div>
+                      <div className="flex items-center gap-3 mb-1">
+                        <span>{String.fromCodePoint(0x270F)}</span>
+                        <div className="flex-1 border-b border-slate-400" />
+                      </div>
+                      <div className="flex items-center gap-3">
+                        <span>{String.fromCodePoint(0x279C)}</span>
+                        <div className="flex-1 border-b border-slate-400" />
+                      </div>
                     </div>
                   </div>
                 </div>
               </div>
-            </div>
-            {/* Draw challenge */}
-            <div className="mt-4">
-              <div className="text-sm font-semibold text-slate-800 mb-2">Draw challenge: Create your own creature</div>
-              <div className="h-64 sm:h-72 print:h-[26rem] border border-slate-300 rounded bg-white" />
-              <div className="mt-2 text-sm font-semibold text-slate-800">Creature name</div>
-              <div className="h-6 border-b border-slate-400" />
-            </div>
-            {showAnswersForDoc('animal-pack', () => (
-              <div className="mt-6 p-4 border-2 border-emerald-300 bg-emerald-50 rounded print:border print:bg-white print:page-break-before-always">
-                <div className="font-bold text-emerald-900 mb-3 text-base">{String.fromCodePoint(0x2705)}</div>
-                <div className="text-sm text-emerald-800">
-                  <div className="mb-2"><strong>Maze:</strong> Follow the path from START to DEN. There is one correct path!</div>
-                  <div className="mb-2"><strong>Animal Words:</strong> lion, zebra, panda, eagle, whale, koala</div>
-                  <div><strong>Creature Drawing:</strong> Be creative! Combine two animals and draw your own creature!</div>
-                </div>
+              {/* Draw challenge */}
+              <div className="mt-4">
+                <div className="text-sm font-semibold text-slate-800 mb-2">Draw challenge: Create your own creature</div>
+                <div className="h-64 sm:h-72 print:h-[26rem] border border-slate-300 rounded bg-white" />
+                <div className="mt-2 text-sm font-semibold text-slate-800">Creature name</div>
+                <div className="h-6 border-b border-slate-400" />
               </div>
-            ))}
-          </WorksheetSectionWrapper>
-        )}
-
-        {(!doc || activeDocs.includes('ws-animals')) && (
-          <WorksheetSectionWrapper
-            docId="ws-animals"
-            title="Word Search  Animals"
-            emoji={String.fromCodePoint(0x1F43E)}
-            description="Find 12 animal names. Circle horizontally, vertically, or diagonally."
-            problemCount={12}
-            learningObjectives={[
-              'Build animal vocabulary',
-              'Practice pattern recognition',
-              'Develop attention to detail'
-            ]}
-            parentTeacherTips={[
-              'Help children read the animal names',
-              'Look for words in all directions',
-              'Circle words as you find them',
-              'Extension: Create your own animal word search'
-            ]}
-          >
-            <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-orange-400 to-pink-400 animate-gradient-x mb-2" />
-            <div className="grid grid-cols-12 gap-[2px] font-mono text-sm bg-slate-50 p-3 rounded-lg print:bg-transparent print:p-0">
-              {generateWordSearchGrid(12, ["DOG", "CAT", "LION", "BEAR", "WOLF", "SEAL", "FROG", "EAGLE", "MOUSE", "HORSE", "ZEBRA", "SNAKE"], makeRng(`${effectiveSeed}|ws-animals|main|v${variant}`)).map((row, r) => (
-                <React.Fragment key={r}>
-                  {row.map((ch, c) => (
-                    <div key={c} className="w-6 h-6 border border-slate-300 flex items-center justify-center rounded-sm">{ch}</div>
-                  ))}
-                </React.Fragment>
+              {showAnswersForDoc('animal-pack', () => (
+                <div className="mt-6 p-4 border-2 border-emerald-300 bg-emerald-50 rounded print:border print:bg-white print:page-break-before-always">
+                  <div className="font-bold text-emerald-900 mb-3 text-base">{String.fromCodePoint(0x2705)}</div>
+                  <div className="text-sm text-emerald-800">
+                    <div className="mb-2"><strong>Maze:</strong> Follow the path from START to DEN. There is one correct path!</div>
+                    <div className="mb-2"><strong>Animal Words:</strong> lion, zebra, panda, eagle, whale, koala</div>
+                    <div><strong>Creature Drawing:</strong> Be creative! Combine two animals and draw your own creature!</div>
+                  </div>
+                </div>
               ))}
-            </div>
-            {showAnswersForDoc('ws-animals', () => (
-              <div className="mt-6 p-4 border-2 border-emerald-300 bg-emerald-50 rounded print:border print:bg-white print:page-break-before-always">
-                <div className="font-bold text-emerald-900 mb-3 text-base">{String.fromCharCode(0x2705)} Answer Key</div>
-                <div className="text-sm text-emerald-800">
-                  Find all 12 animal words: DOG, CAT, LION, BEAR, WOLF, SEAL, FROG, EAGLE, MOUSE, HORSE, ZEBRA, SNAKE. Words can be found horizontally, vertically, or diagonally. Circle each word as you find it!
-                </div>
-              </div>
-            ))}
-          </WorksheetSectionWrapper>
-        )}
+            </WorksheetSectionWrapper>
+          )
+        }
 
-        {activeDocs.includes('ws-space') && (
-          <WorksheetSectionWrapper
-            docId="ws-space"
-            title="Word Search  Space"
-            emoji={String.fromCodePoint(0x1F680)}
-            description="Find 12 space words. Circle horizontally, vertically, or diagonally."
-            problemCount={12}
-            learningObjectives={[
-              'Build space vocabulary',
-              'Practice pattern recognition',
-              'Develop attention to detail'
-            ]}
-            parentTeacherTips={[
-              'Help children read the space words',
-              'Look for words in all directions',
-              'Circle words as you find them',
-              'Extension: Create your own space word search'
-            ]}
-          >
-            <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-purple-400 to-blue-400 animate-gradient-x mb-2" />
-            <div className="grid grid-cols-12 gap-1 font-mono text-sm">
-              {generateWordSearchGrid(12, ["STAR", "MOON", "SUN", "COMET", "ORBIT", "SPACE", "ALIEN", "ROVER", "MARS", "VENUS", "NEBULA", "ASTRO"], makeRng(`${effectiveSeed}|ws-space|main|v${variant}`)).map((row, r) => (
-                <React.Fragment key={r}>
-                  {row.map((ch, c) => (
-                    <div key={c} className="w-6 h-6 border border-slate-300 flex items-center justify-center">{ch}</div>
-                  ))}
-                </React.Fragment>
-              ))}
-            </div>
-            {showAnswersForDoc('ws-space', () => (
-              <div className="mt-6 p-4 border-2 border-emerald-300 bg-emerald-50 rounded print:border print:bg-white print:page-break-before-always">
-                <div className="font-bold text-emerald-900 mb-3 text-base">{String.fromCharCode(0x2705)} Answer Key</div>
-                <div className="text-sm text-emerald-800">
-                  Find all 12 space words: STAR, MOON, SUN, COMET, ORBIT, SPACE, ALIEN, ROVER, MARS, VENUS, NEBULA, ASTRO. Words can be found horizontally, vertically, or diagonally. Circle each word as you find it!
-                </div>
+        {
+          (!doc || activeDocs.includes('ws-animals')) && (
+            <WorksheetSectionWrapper
+              docId="ws-animals"
+              title="Word Search  Animals"
+              emoji={String.fromCodePoint(0x1F43E)}
+              description="Find 12 animal names. Circle horizontally, vertically, or diagonally."
+              problemCount={12}
+              learningObjectives={[
+                'Build animal vocabulary',
+                'Practice pattern recognition',
+                'Develop attention to detail'
+              ]}
+              parentTeacherTips={[
+                'Help children read the animal names',
+                'Look for words in all directions',
+                'Circle words as you find them',
+                'Extension: Create your own animal word search'
+              ]}
+            >
+              <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-orange-400 to-pink-400 animate-gradient-x mb-2" />
+              <div className="grid grid-cols-12 gap-[2px] font-mono text-sm bg-slate-50 p-3 rounded-lg print:bg-transparent print:p-0">
+                {generateWordSearchGrid(12, ["DOG", "CAT", "LION", "BEAR", "WOLF", "SEAL", "FROG", "EAGLE", "MOUSE", "HORSE", "ZEBRA", "SNAKE"], makeRng(`${effectiveSeed}|ws-animals|main|v${variant}`)).map((row, r) => (
+                  <React.Fragment key={r}>
+                    {row.map((ch, c) => (
+                      <div key={c} className="w-6 h-6 border border-slate-300 flex items-center justify-center rounded-sm">{ch}</div>
+                    ))}
+                  </React.Fragment>
+                ))}
               </div>
-            ))}
-          </WorksheetSectionWrapper>
-        )}
+              {showAnswersForDoc('ws-animals', () => (
+                <div className="mt-6 p-4 border-2 border-emerald-300 bg-emerald-50 rounded print:border print:bg-white print:page-break-before-always">
+                  <div className="font-bold text-emerald-900 mb-3 text-base">{String.fromCharCode(0x2705)} Answer Key</div>
+                  <div className="text-sm text-emerald-800">
+                    Find all 12 animal words: DOG, CAT, LION, BEAR, WOLF, SEAL, FROG, EAGLE, MOUSE, HORSE, ZEBRA, SNAKE. Words can be found horizontally, vertically, or diagonally. Circle each word as you find it!
+                  </div>
+                </div>
+              ))}
+            </WorksheetSectionWrapper>
+          )
+        }
+
+        {
+          activeDocs.includes('ws-space') && (
+            <WorksheetSectionWrapper
+              docId="ws-space"
+              title="Word Search  Space"
+              emoji={String.fromCodePoint(0x1F680)}
+              description="Find 12 space words. Circle horizontally, vertically, or diagonally."
+              problemCount={12}
+              learningObjectives={[
+                'Build space vocabulary',
+                'Practice pattern recognition',
+                'Develop attention to detail'
+              ]}
+              parentTeacherTips={[
+                'Help children read the space words',
+                'Look for words in all directions',
+                'Circle words as you find them',
+                'Extension: Create your own space word search'
+              ]}
+            >
+              <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-purple-400 to-blue-400 animate-gradient-x mb-2" />
+              <div className="grid grid-cols-12 gap-1 font-mono text-sm">
+                {generateWordSearchGrid(12, ["STAR", "MOON", "SUN", "COMET", "ORBIT", "SPACE", "ALIEN", "ROVER", "MARS", "VENUS", "NEBULA", "ASTRO"], makeRng(`${effectiveSeed}|ws-space|main|v${variant}`)).map((row, r) => (
+                  <React.Fragment key={r}>
+                    {row.map((ch, c) => (
+                      <div key={c} className="w-6 h-6 border border-slate-300 flex items-center justify-center">{ch}</div>
+                    ))}
+                  </React.Fragment>
+                ))}
+              </div>
+              {showAnswersForDoc('ws-space', () => (
+                <div className="mt-6 p-4 border-2 border-emerald-300 bg-emerald-50 rounded print:border print:bg-white print:page-break-before-always">
+                  <div className="font-bold text-emerald-900 mb-3 text-base">{String.fromCharCode(0x2705)} Answer Key</div>
+                  <div className="text-sm text-emerald-800">
+                    Find all 12 space words: STAR, MOON, SUN, COMET, ORBIT, SPACE, ALIEN, ROVER, MARS, VENUS, NEBULA, ASTRO. Words can be found horizontally, vertically, or diagonally. Circle each word as you find it!
+                  </div>
+                </div>
+              ))}
+            </WorksheetSectionWrapper>
+          )
+        }
 
         <Sudoku
           activeDocs={activeDocs}
@@ -10853,162 +10652,7 @@ export function PrintablesPage({ docId: propDocId }: { docId?: string } = {}) {
           })()
         }
 
-        {
-          activeDocs.includes('cut-and-paste-crafts') && (() => {
-            const rng = makeRng(`${effectiveSeed}|v${variant}|doc=${doc}`)
-            const themes = [
-              {
-                id: 'robot',
-                name: 'Build a Robot',
-                emoji: '🤖',
-                description: 'Cut out the robot parts and paste them to build your own robot!',
-                baseColor: '#e2e8f0', // slate-200
-                guide: (
-                  <g>
-                    <rect x="50" y="50" width="100" height="140" fill="none" stroke="#94a3b8" strokeWidth="2" strokeDasharray="5,5" />
-                    <rect x="70" y="10" width="60" height="40" fill="none" stroke="#94a3b8" strokeWidth="2" strokeDasharray="5,5" />
-                    <rect x="20" y="60" width="30" height="80" fill="none" stroke="#94a3b8" strokeWidth="2" strokeDasharray="5,5" />
-                    <rect x="150" y="60" width="30" height="80" fill="none" stroke="#94a3b8" strokeWidth="2" strokeDasharray="5,5" />
-                    <rect x="60" y="190" width="30" height="60" fill="none" stroke="#94a3b8" strokeWidth="2" strokeDasharray="5,5" />
-                    <rect x="110" y="190" width="30" height="60" fill="none" stroke="#94a3b8" strokeWidth="2" strokeDasharray="5,5" />
-                    <text x="100" y="140" fontSize="16" fill="#94a3b8" textAnchor="middle">PASTE HERE</text>
-                  </g>
-                ),
-                parts: [
-                  { id: 'head', type: 'rect', x: 20, y: 20, width: 60, height: 40, color: '#3b82f6', label: 'HEAD' },
-                  { id: 'body', type: 'rect', x: 100, y: 20, width: 80, height: 100, color: '#ef4444', label: 'BODY' },
-                  { id: 'arm_l', type: 'rect', x: 20, y: 80, width: 25, height: 60, color: '#eab308', label: 'ARM' },
-                  { id: 'arm_r', type: 'rect', x: 55, y: 80, width: 25, height: 60, color: '#eab308', label: 'ARM' },
-                  { id: 'leg_l', type: 'rect', x: 20, y: 160, width: 25, height: 50, color: '#22c55e', label: 'LEG' },
-                  { id: 'leg_r', type: 'rect', x: 55, y: 160, width: 25, height: 50, color: '#22c55e', label: 'LEG' },
-                ]
-              },
-              {
-                id: 'pizza',
-                name: 'Make a Pizza',
-                emoji: '🍕',
-                description: 'Cut out the toppings and paste them onto the pizza dough!',
-                baseColor: '#fef3c7', // amber-100
-                guide: (
-                  <g>
-                    <circle cx="100" cy="100" r="80" fill="#fde68a" stroke="#d97706" strokeWidth="4" />
-                    <circle cx="100" cy="100" r="70" fill="#fef3c7" />
-                    <text x="100" y="105" fontSize="16" fill="#d97706" textAnchor="middle" opacity="0.5">PIZZA DOUGH</text>
-                  </g>
-                ),
-                parts: [
-                  { id: 'pep1', type: 'circle', x: 30, y: 30, r: 15, color: '#ef4444', label: 'PEPPERONI' },
-                  { id: 'pep2', type: 'circle', x: 70, y: 30, r: 15, color: '#ef4444', label: 'PEPPERONI' },
-                  { id: 'pep3', type: 'circle', x: 110, y: 30, r: 15, color: '#ef4444', label: 'PEPPERONI' },
-                  { id: 'mush1', type: 'path', x: 30, y: 80, d: 'M10,20 Q20,0 30,20 L30,30 L10,30 Z', color: '#78350f', label: 'MUSHROOM' }, // Simple mushroom
-                  { id: 'mush2', type: 'path', x: 70, y: 80, d: 'M10,20 Q20,0 30,20 L30,30 L10,30 Z', color: '#78350f', label: 'MUSHROOM' },
-                  { id: 'pepper1', type: 'rect', x: 30, y: 140, width: 40, height: 10, color: '#16a34a', label: 'PEPPER' },
-                  { id: 'pepper2', type: 'rect', x: 80, y: 140, width: 40, height: 10, color: '#16a34a', label: 'PEPPER' },
-                ]
-              },
-              {
-                id: 'flower',
-                name: 'Grow a Flower',
-                emoji: '🌻',
-                description: 'Cut out the petals and leaves to create a beautiful flower!',
-                baseColor: '#ecfccb',
-                guide: (
-                  <g>
-                    <rect x="95" y="100" width="10" height="100" fill="#65a30d" />
-                    <path d="M80,200 L120,200 L110,240 L90,240 Z" fill="#b45309" />
-                    <circle cx="100" cy="80" r="20" fill="none" stroke="#a3e635" strokeWidth="2" strokeDasharray="5,5" />
-                    <text x="100" y="230" fontSize="12" fill="white" textAnchor="middle">POT</text>
-                  </g>
-                ),
-                parts: [
-                  { id: 'center', type: 'circle', x: 30, y: 30, r: 20, color: '#854d0e', label: 'CENTER' },
-                  // Petals represented as ellipses/circles for simplicity in cutting
-                  { id: 'petal1', type: 'circle', x: 70, y: 30, r: 15, color: '#facc15', label: 'PETAL' },
-                  { id: 'petal2', type: 'circle', x: 110, y: 30, r: 15, color: '#facc15', label: 'PETAL' },
-                  { id: 'petal3', type: 'circle', x: 150, y: 30, r: 15, color: '#facc15', label: 'PETAL' },
-                  { id: 'petal4', type: 'circle', x: 30, y: 80, r: 15, color: '#facc15', label: 'PETAL' },
-                  { id: 'petal5', type: 'circle', x: 70, y: 80, r: 15, color: '#facc15', label: 'PETAL' },
-                  { id: 'leaf1', type: 'path', x: 30, y: 130, d: 'M0,15 Q15,0 30,15 Q15,30 0,15 Z', color: '#4ade80', label: 'LEAF' },
-                  { id: 'leaf2', type: 'path', x: 70, y: 130, d: 'M0,15 Q15,0 30,15 Q15,30 0,15 Z', color: '#4ade80', label: 'LEAF' },
-                ]
-              }
-            ]
-            const themeIndex = Math.floor(rng() * themes.length)
-            const theme = themes[themeIndex]
 
-            return (
-              <WorksheetSectionWrapper
-                docId="cut-and-paste-crafts"
-                title={`${theme.name} (Cut & Paste)`}
-                emoji={theme.emoji}
-                description={theme.description}
-                problemCount={1}
-                learningObjectives={[
-                  'Practice fine motor skills with cutting',
-                  'Develop spatial awareness and assembly skills',
-                  'Follow multi-step directions',
-                  'Express creativity through arrangement'
-                ]}
-                parentTeacherTips={[
-                  'Supervise use of scissors for safety.',
-                  'Encourage the child to plan the layout before pasting.',
-                  'Ask them to name the shapes they are cutting out.'
-                ]}
-              >
-                {/* Two-Column Layout: Guide vs Cuts */}
-                <div className="flex flex-col md:flex-row gap-6 h-full print:flex-row">
-                  {/* Left: Guide / Base */}
-                  <div className="flex-1 border-4 border-dashed border-gray-300 rounded-xl p-4 flex flex-col items-center justify-center bg-white min-h-[400px]">
-                    <h3 className="text-xl font-bold text-gray-400 mb-4">{String.fromCodePoint(0x1F4CC)} PASTE AREA</h3>
-                    <svg viewBox="0 0 200 250" className="w-full h-full max-w-[300px] overflow-visible">
-                      {theme.guide}
-                    </svg>
-                  </div>
-
-                  {/* Right: Cutouts */}
-                  <div className="flex-1 bg-gray-50 rounded-xl p-4 border-2 border-gray-200">
-                    <div className="flex items-center gap-2 mb-4 border-b-2 border-gray-200 pb-2">
-                      <span className="text-2xl">{String.fromCodePoint(0x2702)}</span>
-                      <h3 className="text-xl font-bold text-gray-700">CUTOUTS</h3>
-                    </div>
-                    <div className="grid grid-cols-2 gap-4">
-                      {theme.parts.map((part, idx) => (
-                        <div key={idx} className="flex flex-col items-center">
-                          <svg width="100" height="100" viewBox="0 0 100 100" className="overflow-visible">
-                            <g transform={`translate(${50 - (part.width || (part.r || 0) * 2) / 2}, ${50 - (part.height || (part.r || 0) * 2) / 2})`}>
-                              {/* Dashed Cut Line */}
-                              {part.type === 'rect' && (
-                                <rect x="-5" y="-5" width={(part.width || 0) + 10} height={(part.height || 0) + 10} fill="none" stroke="#64748b" strokeWidth="2" strokeDasharray="8,4" />
-                              )}
-                              {part.type === 'circle' && (
-                                <circle cx={(part.r || 0)} cy={(part.r || 0)} r={(part.r || 0) + 5} fill="none" stroke="#64748b" strokeWidth="2" strokeDasharray="8,4" />
-                              )}
-                              {part.type === 'path' && (
-                                <path d={part.d} transform="scale(1.2) translate(-5, -5)" fill="none" stroke="#64748b" strokeWidth="2" strokeDasharray="8,4" />
-                              )}
-
-                              {/* Actual Shape */}
-                              {part.type === 'rect' && (
-                                <rect width={part.width} height={part.height} fill={part.color} stroke="black" strokeWidth="1" />
-                              )}
-                              {part.type === 'circle' && (
-                                <circle cx={part.r} cy={part.r} r={part.r} fill={part.color} stroke="black" strokeWidth="1" />
-                              )}
-                              {part.type === 'path' && (
-                                <path d={part.d} fill={part.color} stroke="black" strokeWidth="1" />
-                              )}
-                            </g>
-                          </svg>
-                          <span className="text-xs font-bold text-gray-500 mt-1 uppercase tracking-wider">{part.label}</span>
-                        </div>
-                      ))}
-                    </div>
-                  </div>
-                </div>
-              </WorksheetSectionWrapper>
-            )
-          })()
-        }
 
         {
           activeDocs.includes('dot-to-dot') && (() => {
@@ -11112,78 +10756,7 @@ export function PrintablesPage({ docId: propDocId }: { docId?: string } = {}) {
           })()
         }
 
-        {
-          activeDocs.includes('reward-chart') && (() => {
-            const rng = makeRng(`${effectiveSeed}|v${variant}|doc=${doc}`)
 
-            const themes = [
-              { id: 'star', name: 'Super Star', emoji: '⭐', bg: 'bg-yellow-50', border: 'border-yellow-400', icon: '★' },
-              { id: 'dino', name: 'Dino-mite Behavior', emoji: '🦕', bg: 'bg-green-50', border: 'border-green-600', icon: '🐾' },
-              { id: 'space', name: 'Blast Off to Success', emoji: '🚀', bg: 'bg-indigo-50', border: 'border-indigo-500', icon: '🪐' },
-              { id: 'garden', name: 'Growing Good Habits', emoji: '🌻', bg: 'bg-pink-50', border: 'border-pink-300', icon: '❀' },
-            ]
-
-            const themeIndex = Math.floor(rng() * themes.length)
-            const theme = themes[themeIndex]
-            const totalCells = 25 // 5x5 grid
-
-            return (
-              <WorksheetSectionWrapper
-                docId="reward-chart"
-                title={theme.name}
-                emoji={theme.emoji}
-                description="Track progress and build good habits with this reward chart!"
-                problemCount={1}
-                learningObjectives={[
-                  'Encourage positive behavior',
-                  'Track progress towards a goal',
-                  'Build consistency and discipline'
-                ]}
-                parentTeacherTips={[
-                  'Agree on a clear goal and reward beforehand.',
-                  'Let the child place the sticker or checkmark themselves.',
-                  'Celebrate small wins along the way.'
-                ]}
-              >
-                <div className={`p-6 rounded-2xl border-4 ${theme.border} ${theme.bg} print:bg-white print:border-2`}>
-                  {/* Header Input */}
-                  <div className="flex flex-col md:flex-row items-center justify-between mb-6 gap-4">
-                    <div className="text-xl font-bold text-gray-700 w-full md:w-auto">
-                      Name: <div className="inline-block border-b-2 border-gray-400 w-48 h-8"></div>
-                    </div>
-                    <div className="text-xl font-bold text-gray-700 w-full md:w-auto">
-                      Week of: <div className="inline-block border-b-2 border-gray-400 w-32 h-8"></div>
-                    </div>
-                  </div>
-
-                  {/* The Grid */}
-                  <div className="grid grid-cols-5 gap-3 mb-6">
-                    {Array.from({ length: totalCells }).map((_, i) => (
-                      <div key={i} className={`aspect-square bg-white rounded-lg border-2 ${theme.border} flex items-center justify-center relative`}>
-                        <span className="text-gray-200 text-4xl opacity-50 select-none print:opacity-20">{theme.icon}</span>
-                        <div className="absolute top-1 left-2 text-xs text-gray-400 font-mono">{i + 1}</div>
-                      </div>
-                    ))}
-                  </div>
-
-                  {/* Footer Goals */}
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                    <div className="bg-white p-4 rounded-xl border-2 border-gray-200 shadow-sm print:shadow-none print:border">
-                      <h4 className="font-bold text-lg mb-2 text-gray-600">🎯 My Goal:</h4>
-                      <div className="border-b-2 border-gray-300 h-8 mt-4"></div>
-                      <div className="border-b-2 border-gray-300 h-8 mt-4"></div>
-                    </div>
-                    <div className="bg-white p-4 rounded-xl border-2 border-gray-200 shadow-sm print:shadow-none print:border">
-                      <h4 className="font-bold text-lg mb-2 text-gray-600">🏆 My Reward:</h4>
-                      <div className="border-b-2 border-gray-300 h-8 mt-4"></div>
-                      <div className="border-b-2 border-gray-300 h-8 mt-4"></div>
-                    </div>
-                  </div>
-                </div>
-              </WorksheetSectionWrapper>
-            )
-          })()
-        }
 
 
         {
@@ -23151,39 +22724,7 @@ export function PrintablesPage({ docId: propDocId }: { docId?: string } = {}) {
           })()
         }
 
-        {
-          activeDocs.includes('add-sub-decimals') && (() => {
-            const docId = 'add-sub-decimals'
-            const rng = makeRng(`${effectiveSeed}|v${variant}|doc=${doc}`)
-            const problems = Array.from({ length: 12 }, () => {
-              const interact = rng() > 0.5 ? '+' : '-'
-              const n1 = (Math.floor(rng() * 10000) / 100).toFixed(2) // 2 decimal places
-              const n2 = (Math.floor(rng() * 10000) / 100).toFixed(2)
-              return { n1, n2, op: interact }
-            })
-            return (
-              <WorksheetSectionWrapper
-                docId={docId}
-                title="Add Greatest Decimals"
-                emoji={String.fromCodePoint(0x2795)}
-                description="Add and subtract decimals to hundredths."
-                problemCount={problems.length}
-                learningObjectives={['Add and subtract decimals to hundredths using concrete models or drawings and strategies based on place value']}
-                parentTeacherTips={['Line up the decimal points!', 'Add/subtract as with whole numbers.', 'Place the decimal point in the answer directly below the others.']}
-              >
-                <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
-                  {problems.map((p, i) => (
-                    <div key={i} className="font-mono text-xl flex flex-col items-end">
-                      <div>{p.n1}</div>
-                      <div className="border-b-2 border-slate-800 w-full text-right pr-1">{p.op} {p.n2}</div>
-                      <div className="h-16 w-full"></div>
-                    </div>
-                  ))}
-                </div>
-              </WorksheetSectionWrapper>
-            )
-          })()
-        }
+
 
         {
           activeDocs.includes('mult-decimals') && (() => {
@@ -23210,6 +22751,46 @@ export function PrintablesPage({ docId: propDocId }: { docId?: string } = {}) {
                       <div>{p.n1}</div>
                       <div className="border-b-2 border-slate-800 w-full text-right pr-1">{String.fromCodePoint(0x279C)}</div>
                       <div className="h-16 w-full"></div>
+                    </div>
+                  ))}
+                </div>
+              </WorksheetSectionWrapper>
+            )
+          })()
+        }
+
+        {
+          activeDocs.includes('add-sub-decimals') && (() => {
+            const docId = 'add-sub-decimals'
+            const rng = makeRng(`${effectiveSeed}|v${variant}|doc=${docId}`)
+            const problems = Array.from({ length: 12 }, () => {
+              const op = rng() > 0.5 ? '+' : '-'
+              // Generate numbers with 1-2 decimal places
+              const n1 = (Math.floor(rng() * 1000) / 100).toFixed(2)
+              const n2 = (Math.floor(rng() * 1000) / 100).toFixed(2)
+              // Ensure n1 > n2 for subtraction to avoid negative for now (simple worksheets)
+              const [big, small] = parseFloat(n1) > parseFloat(n2) ? [n1, n2] : [n2, n1]
+              return { n1: big, n2: small, op }
+            })
+            return (
+              <WorksheetSectionWrapper
+                docId={docId}
+                title="Adding & Subtracting Decimals"
+                emoji={String.fromCodePoint(0x1F522)}
+                description="Solve the decimal addition and subtraction problems."
+                problemCount={problems.length}
+                learningObjectives={['Add and subtract decimals to hundredths using strategies based on place value']}
+                parentTeacherTips={['Line up the decimal points!', 'Fill in empty spots with zeros.', 'Bring the decimal point straight down into the answer.']}
+              >
+                <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
+                  {problems.map((p, i) => (
+                    <div key={i} className="font-mono text-xl flex flex-col items-end">
+                      <div>{p.n1}</div>
+                      <div className="flex justify-between w-full">
+                        <span className="mr-2">{p.op}</span>
+                        <span>{p.n2}</span>
+                      </div>
+                      <div className="border-b-2 border-slate-800 w-full mb-8"></div>
                     </div>
                   ))}
                 </div>
@@ -23974,6 +23555,50 @@ export function PrintablesPage({ docId: propDocId }: { docId?: string } = {}) {
         }
 
         {
+          activeDocs.includes('classifying-shapes') && (() => {
+            const docId = 'classifying-shapes'
+            const rng = makeRng(`${effectiveSeed}|v${variant}|doc=${docId}`)
+            const shapes = [
+              { name: 'Triangle', pts: '50,10 90,90 10,90' },
+              { name: 'Quadrilateral', pts: '20,20 80,10 90,80 10,90' },
+              { name: 'Pentagon', pts: '50,10 90,40 75,90 25,90 10,40' },
+              { name: 'Hexagon', pts: '25,10 75,10 95,50 75,90 25,90 5,50' },
+              { name: 'Octagon', pts: '30,10 70,10 90,30 90,70 70,90 30,90 10,70 10,30' }
+            ]
+            const problems = Array.from({ length: 6 }, () => shapes[Math.floor(rng() * shapes.length)])
+            return (
+              <WorksheetSectionWrapper
+                docId={docId}
+                title="Classifying Shapes"
+                emoji={String.fromCodePoint(0x1F53A)}
+                description="Identify the name of each polygon."
+                problemCount={problems.length}
+                learningObjectives={['Classify two-dimensional figures based on the presence or absence of parallel or perpendicular lines, or the presence or absence of angles of a specified size']}
+                parentTeacherTips={['Count the sides!', '3 sides = Triangle, 4 = Quadrilateral, 5 = Pentagon, 6 = Hexagon, 8 = Octagon.']}
+              >
+                <div className="grid grid-cols-2 md:grid-cols-3 gap-8">
+                  {problems.map((p, i) => (
+                    <div key={i} className="flex flex-col items-center p-4 border rounded">
+                      <svg width="100" height="100" viewBox="0 0 100 100" className="stroke-indigo-600 stroke-2 fill-none">
+                        <polygon points={p.pts} />
+                      </svg>
+                      <div className="mt-4 w-full border-b border-slate-300 h-8 flex items-end justify-center text-slate-300 text-sm">
+                        (Name)
+                      </div>
+                    </div>
+                  ))}
+                </div>
+                {showAnswersForDoc(docId, () => (
+                  <div className="grid grid-cols-3 gap-2 mt-4 text-xs text-center text-slate-500">
+                    {problems.map((p, i) => <div key={i}>{p.name}</div>)}
+                  </div>
+                ))}
+              </WorksheetSectionWrapper>
+            )
+          })()
+        }
+
+        {
           activeDocs.includes('parallel-perpendicular') && (() => {
             const docId = 'parallel-perpendicular'
             const rng = makeRng(`${effectiveSeed}|v${variant}|doc=${doc}`)
@@ -24080,87 +23705,47 @@ export function PrintablesPage({ docId: propDocId }: { docId?: string } = {}) {
           })()
         }
 
-        {
-          activeDocs.includes('classifying-shapes') && (() => {
-            const docId = 'classifying-shapes'
-            // Placeholder for shape classification logic - textual for now as complex SVG gen is risky without helper
-            // We can list properties
-            const rng = makeRng(`${effectiveSeed}|v${variant}|doc=${doc}`)
-            const problems = Array.from({ length: 6 }, () => {
-              const shapes = [
-                { desc: '4 sides, all equal length, 4 right angles', odd: false, name: 'Square' },
-                { desc: '4 sides, opposite sides equal, 4 right angles', odd: false, name: 'Rectangle' },
-                { desc: '3 sides, 1 right angle', odd: false, name: 'Right Triangle' },
-                { desc: '4 sides, only 1 pair parallel sides', odd: false, name: 'Trapezoid' },
-                { desc: '4 sides, 2 pairs parallel sides, no right angles', odd: false, name: 'Parallelogram' }
-              ]
-              return shapes[Math.floor(rng() * shapes.length)]
-            })
-            return (
-              <WorksheetSectionWrapper
-                docId={docId}
-                title="Classifying Shapes"
-                emoji={String.fromCodePoint(0x1F537)}
-                description="Classify shapes based on lines and angles."
-                problemCount={problems.length}
-                learningObjectives={['Classify two-dimensional figures based on the presence or absence of parallel or perpendicular lines', 'Recognize right triangles']}
-                parentTeacherTips={['Look at the sides: Are any parallel? Are any same length?', 'Look at the angles: Are there any right angles?']}
-              >
-                <div className="grid grid-cols-2 md:grid-cols-3 gap-6">
-                  {problems.map((p, i) => (
-                    <div key={i} className="p-4 border rounded flex flex-col justify-between min-h-[150px]">
-                      <p className="text-sm italic mb-4">"{p.desc}"</p>
-                      <div className="border-b border-dotted border-slate-400 py-1 text-transparent h-8">Answer</div>
-                    </div>
-                  ))}
-                </div>
-                {showAnswersForDoc(docId, () => (
-                  <div className="grid grid-cols-3 gap-2 mt-4 p-2 bg-slate-50 text-xs text-center">
-                    {problems.map((p, i) => <div key={i}>{p.name}</div>)}
-                  </div>
-                ))}
-              </WorksheetSectionWrapper>
-            )
-          })()
-        }
+
+
+
 
         {
           activeDocs.includes('area-perimeter-4th') && (() => {
             const docId = 'area-perimeter-4th'
-            const rng = makeRng(`${effectiveSeed}|v${variant}|doc=${doc}`)
-            const problems = Array.from({ length: 8 }, () => {
+            const rng = makeRng(`${effectiveSeed}|v${variant}|doc=${docId}`)
+            const problems = Array.from({ length: 6 }, () => {
               const w = Math.floor(rng() * 8) + 2
-              const l = Math.floor(rng() * 8) + 2
-              const ask = rng() > 0.5 ? 'Area' : 'Perimeter'
-              return { w, l, ask }
+              const l = Math.floor(rng() * 8) + w // Ensure L >= W
+              return { w, l, area: w * l, perim: 2 * (w + l) }
             })
             return (
               <WorksheetSectionWrapper
                 docId={docId}
                 title="Area & Perimeter"
-                emoji={String.fromCodePoint(0x1F4D1)}
-                description="Find area and perimeter of rectangles."
+                emoji={String.fromCodePoint(0x1F4CF)}
+                description="Find the area and perimeter of each rectangle."
                 problemCount={problems.length}
                 learningObjectives={['Apply the area and perimeter formulas for rectangles in real world and mathematical problems']}
-                parentTeacherTips={[String.fromCodePoint(0x279C), String.fromCodePoint(0x279C)]}
+                parentTeacherTips={['Area = Length  Width', 'Perimeter = 2  (Length + Width)', 'Don\'t forget the units! (sq units for area)']}
               >
-                <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
+                <div className="grid grid-cols-2 gap-8">
                   {problems.map((p, i) => (
                     <div key={i} className="p-4 border rounded flex flex-col items-center">
-                      <div className="border-2 border-slate-800 w-16 h-12 relative mb-2">
-                        <span className="absolute -top-6 left-1/2 -translate-x-1/2 text-sm">{p.l}</span>
-                        <span className="absolute top-1/2 -left-4 -translate-y-1/2 text-sm">{p.w}</span>
+                      <div className="relative mb-4">
+                        <div className="border-2 border-black bg-slate-100" style={{ width: `${p.l * 10}px`, height: `${p.w * 10}px` }}></div>
+                        <span className="absolute -top-6 left-1/2 transform -translate-x-1/2">{p.l} cm</span>
+                        <span className="absolute top-1/2 -left-8 transform -translate-y-1/2">{p.w} cm</span>
                       </div>
-                      <p className="font-medium text-sm mt-2">{p.ask} = ?</p>
-                      <div className="w-16 h-1 bg-slate-200 mt-2"></div>
+                      <div className="w-full space-y-2 text-sm">
+                        <div className="flex justify-between"><span>Area:</span> <span className="border-b border-black w-16"></span></div>
+                        <div className="flex justify-between"><span>Perimeter:</span> <span className="border-b border-black w-16"></span></div>
+                      </div>
                     </div>
                   ))}
                 </div>
                 {showAnswersForDoc(docId, () => (
-                  <div className="grid grid-cols-4 gap-2 mt-4 p-2 bg-slate-50 text-xs text-center">
-                    {problems.map((p, i) => (
-                      <div key={i}>{p.ask}: {p.ask === 'Area' ? p.l * p.w : 2 * (p.l + p.w)}</div>
-                    ))}
+                  <div className="grid grid-cols-2 gap-4 mt-4 text-xs text-slate-500 text-center">
+                    {problems.map((p, i) => <div key={i}>A: {p.area}, P: {p.perim}</div>)}
                   </div>
                 ))}
               </WorksheetSectionWrapper>
@@ -24276,38 +23861,6 @@ export function PrintablesPage({ docId: propDocId }: { docId?: string } = {}) {
                     <div key={i} className="p-4 border-l-4 border-indigo-400 bg-indigo-50 rounded">
                       <p className="font-medium mb-3">{p.q}</p>
                       <div className="w-full h-8 border-b border-indigo-200"></div>
-                    </div>
-                  ))}
-                </div>
-              </WorksheetSectionWrapper>
-            )
-          })()
-        }
-
-        {
-          activeDocs.includes('money-word-problems') && (() => {
-            const docId = 'money-word-problems'
-            const rng = makeRng(`${effectiveSeed}|v${variant}|doc=${doc}`)
-            const problems = [
-              { q: "Leo bought a book for $7.50 and a pen for $1.25. How much did he spend in total?", a: "$8.75" },
-              { q: "Ava had $20.00. She bought a toy for $12.45. How much change did she get?", a: "$7.55" },
-              { q: "If one apple costs $0.60, how much do 4 apples cost?", a: "$2.40" }
-            ]
-            return (
-              <WorksheetSectionWrapper
-                docId={docId}
-                title="Market Maths: Money Problems"
-                emoji={String.fromCodePoint(0x1F4B0)}
-                description="Solve word problems involving money and decimals."
-                problemCount={problems.length}
-                learningObjectives={['Use the four operations to solve word problems involving money']}
-                parentTeacherTips={['Money is just decimals!', 'Align the decimal points when adding or subtracting.', 'Remember the dollar sign ($) in your answer.']}
-              >
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-                  {problems.map((p, i) => (
-                    <div key={i} className="p-4 border border-emerald-200 rounded-xl bg-white shadow-sm flex flex-col justify-between">
-                      <p className="text-sm mb-4 italic">"{p.q}"</p>
-                      <div className="border-b-2 border-slate-100 py-1 text-emerald-600 font-bold">$ ____</div>
                     </div>
                   ))}
                 </div>
@@ -35456,450 +35009,12 @@ export function PrintablesPage({ docId: propDocId }: { docId?: string } = {}) {
 
 
 
-        {
-          activeDocs.includes('area-perimeter-4th') && (() => {
-            const rng = makeRng(`${effectiveSeed}|v${variant}|doc=${doc}`)
-
-            const problems = Array.from({ length: 6 }, () => {
-              const w = Math.floor(rng() * 8) + 2
-              const h = Math.floor(rng() * 8) + 2
-              const type = rng() > 0.5 ? 'AREA' : 'PERIMETER'
-              return { w, h, type, ans: type === 'AREA' ? w * h : 2 * (w + h) }
-            })
-
-            return (
-              <WorksheetSectionWrapper
-                docId="area-perimeter-4th"
-                title="Area & Perimeter Challenge"
-                emoji="📐"
-                description="Calculate the Area or Perimeter for each rectangle."
-                problemCount={problems.length}
-              >
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-                  {problems.map((p, i) => (
-                    <div key={i} className="border-2 border-slate-300 rounded-xl p-6 relative bg-white">
-                      <div className="absolute top-0 right-0 bg-slate-100 px-3 py-1 rounded-bl-lg text-xs font-bold text-slate-500">
-                        Find: {p.type}
-                      </div>
-                      <div className="flex justify-center items-center py-8">
-                        <div
-                          style={{ width: `${p.w * 20}px`, height: `${p.h * 20}px` }}
-                          className="bg-orange-100 border-4 border-orange-400 relative flex items-center justify-center"
-                        >
-                          <div className="absolute -top-6 w-full text-center font-bold text-slate-600">{p.w} cm</div>
-                          <div className="absolute -left-8 h-full flex items-center font-bold text-slate-600">{p.h} cm</div>
-                        </div>
-                      </div>
-                      <div className="mt-4 border-t pt-4 flex justify-between items-center text-lg">
-                        <span className="font-bold text-slate-400">Answer:</span>
-                        <span className="border-b-2 border-slate-300 w-24 text-center"></span>
-                      </div>
-                    </div>
-                  ))}
-                </div>
-                {showAnswersForDoc('area-perimeter-4th', () => (
-                  <div className="mt-4 p-4 border rounded font-mono text-sm grid grid-cols-3 gap-2">
-                    {problems.map((p, i) => <div key={i}>{i + 1}) <strong>{p.ans}</strong> {p.type === 'AREA' ? 'sq cm' : 'cm'}</div>)}
-                  </div>
-                ))}
-              </WorksheetSectionWrapper>
-            )
-          })()
-        }
-
-        {
-          activeDocs.includes('shapes-colors-sort') && (() => {
-            const rng = makeRng(`${effectiveSeed}|v${variant}|doc=${doc}`)
-
-            // Only 4 shapes/colors
-            const shapesList = [
-              { name: 'Circle', icon: '⚫', key: 'circle' },
-              { name: 'Square', icon: '⬛', key: 'square' },
-              { name: 'Triangle', icon: '🔺', key: 'triangle' },
-              { name: 'Star', icon: '⭐', key: 'star' }
-            ]
-            const colorsList = [
-              { name: 'Red', class: 'text-red-500' },
-              { name: 'Blue', class: 'text-blue-500' },
-              { name: 'Green', class: 'text-green-500' },
-              { name: 'Purple', class: 'text-purple-500' }
-            ]
-
-            const items = Array.from({ length: 20 }, () => {
-              const s = shapesList[Math.floor(rng() * shapesList.length)]
-              const c = colorsList[Math.floor(rng() * colorsList.length)]
-              return { shape: s, color: c }
-            })
-
-            const targetShape = shapesList[Math.floor(rng() * shapesList.length)]
-            const targetColor = colorsList[Math.floor(rng() * colorsList.length)]
-
-            // Let's make it a counting exercise for uniqueness
-            const taskType = Math.floor(rng() * 2) // 0: Count all [Color], 1: Count all [Shape]
-
-            const prompt = taskType === 0
-              ? `Count all the ${targetColor.name} items.`
-              : `Count all the ${targetShape.name}s.`
-
-            const ans = items.filter(i => taskType === 0 ? i.color.name === targetColor.name : i.shape.name === targetShape.name).length
-
-            return (
-              <WorksheetSectionWrapper
-                docId="shapes-colors-sort"
-                title="Shape & Color Sort"
-                emoji="🎨"
-                description={prompt}
-                problemCount={1}
-              >
-                <div className="text-center text-xl font-bold mb-6 p-4 bg-yellow-50 border border-yellow-200 rounded-lg">
-                  {prompt}
-                </div>
-
-                <div className="grid grid-cols-5 gap-6 p-6 border-2 border-dashed border-slate-300 rounded-2xl bg-white">
-                  {items.map((item, i) => (
-                    <div key={i} className={`text-5xl flex justify-center items-center transform rotate-${Math.floor(rng() * 12) * 30} ${item.color.class}`}>
-                      {item.shape.icon}
-                    </div>
-                  ))}
-                </div>
-
-                <div className="mt-8 flex justify-center items-center gap-4 text-2xl font-bold text-slate-700">
-                  <span>Total:</span>
-                  <div className="w-24 h-12 border-2 border-slate-400 rounded-lg bg-white"></div>
-                </div>
-
-                {showAnswersForDoc('shapes-colors-sort', () => (
-                  <div className="mt-4 p-4 border rounded text-center font-bold">
-                    Answer: {ans}
-                  </div>
-                ))}
-              </WorksheetSectionWrapper>
-            )
-          })()
-        }
 
 
-        {
-          activeDocs.includes('number-patterns-200') && (() => {
-            const rng = makeRng(`${effectiveSeed}|v${variant}|doc=${doc}`)
 
-            const problems = Array.from({ length: 8 }, () => {
-              const start = Math.floor(rng() * 100) + 1
-              const step = [2, 5, 10][Math.floor(rng() * 3)]
-              const seq = [start, start + step, start + step * 2, start + step * 3, start + step * 4]
-              const missingIndex = Math.floor(rng() * 5)
-              const ans = seq[missingIndex]
-              seq[missingIndex] = -1 // placeholder
-              return { seq, ans, step }
-            })
 
-            return (
-              <WorksheetSectionWrapper
-                docId="number-patterns-200"
-                title="Number Patterns"
-                emoji="📈"
-                description="Fill in the missing number in the pattern."
-                problemCount={problems.length}
-              >
-                <div className="grid grid-cols-1 gap-6">
-                  {problems.map((p, i) => (
-                    <div key={i} className="bg-white p-6 rounded-xl border border-slate-200 flex justify-between items-center">
-                      <div className="flex gap-4">
-                        {p.seq.map((n, k) => (
-                          <div key={k} className={`w-12 h-12 flex items-center justify-center rounded-full font-bold text-lg ${n === -1 ? 'bg-yellow-100 border-2 border-yellow-400' : 'bg-slate-50'}`}>
-                            {n === -1 ? '?' : n}
-                          </div>
-                        ))}
-                      </div>
-                      <div className="text-xs text-slate-400 font-mono">Skip by {p.step}</div>
-                    </div>
-                  ))}
-                </div>
-                {showAnswersForDoc('number-patterns-200', () => (
-                  <div className="mt-4 p-4 border rounded font-mono text-sm grid grid-cols-4 gap-2">
-                    {problems.map((p, i) => <div key={i}>{i + 1}) <strong>{p.ans}</strong></div>)}
-                  </div>
-                ))}
-              </WorksheetSectionWrapper>
-            )
-          })()
-        }
 
-        {
-          activeDocs.includes('number-id-1-10') && (() => {
-            const rng = makeRng(`${effectiveSeed}|v${variant}|doc=${doc}`)
-            const target = Math.floor(rng() * 10) + 1
-            const grid = Array.from({ length: 25 }, () => Math.floor(rng() * 10) + 1)
-            const count = grid.filter(n => n === target).length
 
-            return (
-              <WorksheetSectionWrapper
-                docId="number-id-1-10"
-                title={`Find Number ${target}`}
-                emoji="🧐"
-                description={`Circle all the number ${target}s you can find!`}
-                problemCount={1}
-              >
-                <div className="grid grid-cols-5 gap-4 p-8 bg-white border-2 border-slate-200 rounded-xl">
-                  {grid.map((n, i) => (
-                    <div key={i} className="aspect-square flex items-center justify-center text-4xl font-bold text-slate-700 bg-slate-50 rounded-lg">
-                      {n}
-                    </div>
-                  ))}
-                </div>
-                {showAnswersForDoc('number-id-1-10', () => (
-                  <div className="mt-4 p-4 border rounded font-bold">
-                    There are {count} number {target}s.
-                  </div>
-                ))}
-              </WorksheetSectionWrapper>
-            )
-          })()
-        }
-
-        {
-          activeDocs.includes('line-tracing') && (() => {
-            // Static SVG paths for tracing
-            const items = [
-              { type: 'Straight', path: 'M 10 25 L 290 25', color: '#3b82f6' },
-              { type: 'Zigzag', path: 'M 10 25 L 40 10 L 70 40 L 100 10 L 130 40 L 160 10 L 190 40 L 220 10 L 250 40 L 290 25', color: '#ef4444' },
-              { type: 'Curvy', path: 'M 10 25 C 50 5, 50 45, 90 25 S 130 5, 170 25 S 210 45, 250 25 L 290 25', color: '#22c55e' },
-              { type: 'Loop', path: 'M 10 25 Q 40 -10 70 25 T 130 25 T 190 25 T 250 25 L 290 25', color: '#a855f7' }
-            ]
-
-            return (
-              <WorksheetSectionWrapper
-                docId="line-tracing"
-                title="Line Tracing Fun"
-                emoji="✏️"
-                description="Trace along the dotted lines from left to right."
-                problemCount={items.length}
-              >
-                <div className="space-y-8">
-                  {items.map((item, i) => (
-                    <div key={i} className="flex items-center gap-4 bg-white p-4 rounded-xl border border-slate-200">
-                      <div className="text-2xl">Start 🟢</div>
-                      <div className="flex-1 h-12 relative">
-                        <svg width="100%" height="100%" viewBox="0 0 300 50" preserveAspectRatio="none">
-                          <path
-                            d={item.path}
-                            fill="none"
-                            stroke={item.color}
-                            strokeWidth="4"
-                            strokeDasharray="10, 10"
-                            strokeLinecap="round"
-                          />
-                        </svg>
-                      </div>
-                      <div className="text-2xl">🔴 Stop</div>
-                    </div>
-                  ))}
-                </div>
-              </WorksheetSectionWrapper>
-            )
-          })()
-        }
-        {
-          activeDocs.includes('ab-pattern') && (() => {
-            const rng = makeRng(`${effectiveSeed}|v${variant}|doc=${doc}`)
-
-            const themes = [
-              ['🔴', '🔵'], ['🍎', '🍌'], ['🐶', '🐱'], ['☀️', '🌙'], ['⭐', '❤️']
-            ]
-
-            const problems = Array.from({ length: 6 }, () => {
-              const theme = themes[Math.floor(rng() * themes.length)]
-              const pattern = [theme[0], theme[1], theme[0], theme[1], theme[0], theme[1]]
-              const ans = [theme[0], theme[1]]
-              return { pattern, ans }
-            })
-
-            return (
-              <WorksheetSectionWrapper
-                docId="ab-pattern"
-                title="AB Patterns"
-                emoji="🔄"
-                description="Complete the pattern."
-                problemCount={problems.length}
-              >
-                <div className="flex flex-col gap-6">
-                  {problems.map((p, i) => (
-                    <div key={i} className="flex items-center gap-4 bg-white p-4 rounded-xl border border-slate-200">
-                      {p.pattern.map((item, k) => (
-                        <div key={k} className={`w-12 h-12 flex items-center justify-center text-3xl ${k >= 4 ? 'bg-slate-100 border-2 border-dashed border-slate-300 rounded-lg' : ''}`}>
-                          {k >= 4 ? '?' : item}
-                        </div>
-                      ))}
-                      <div className="ml-auto text-slate-400 text-sm">Pattern: AB</div>
-                    </div>
-                  ))}
-                </div>
-                {showAnswersForDoc('ab-pattern', () => (
-                  <div className="mt-4 p-4 border rounded font-mono text-sm">
-                    Answers: {problems.map((p, i) => <span key={i} className="mr-4">{i + 1}) {p.ans.join('')}</span>)}
-                  </div>
-                ))}
-              </WorksheetSectionWrapper>
-            )
-          })()
-        }
-
-        {
-          activeDocs.includes('pattern-complete') && (() => {
-            const rng = makeRng(`${effectiveSeed}|v${variant}|doc=${doc}`)
-
-            const themes = [
-              ['🟥', '🟦', '🟩'], ['🚗', '🚛', '🚜'], ['🍪', '🥛', '🧁'], ['🎈', '🎁', '🎂']
-            ]
-
-            const problems = Array.from({ length: 6 }, () => {
-              const theme = themes[Math.floor(rng() * themes.length)]
-              // Types: AAB, ABB, ABC
-              const type = rng() > 0.66 ? 'ABC' : (rng() > 0.5 ? 'ABB' : 'AAB')
-
-              let seq: string[] = []
-              if (type === 'AAB') seq = [theme[0], theme[0], theme[1], theme[0], theme[0], theme[1]]
-              if (type === 'ABB') seq = [theme[0], theme[1], theme[1], theme[0], theme[1], theme[1]]
-              if (type === 'ABC') seq = [theme[0], theme[1], theme[2], theme[0], theme[1], theme[2]]
-
-              return { seq, type, ans: seq[seq.length - 1] }
-            })
-
-            return (
-              <WorksheetSectionWrapper
-                docId="pattern-complete"
-                title="Complete the Pattern"
-                emoji="🧩"
-                description="What comes next?"
-                problemCount={problems.length}
-              >
-                <div className="flex flex-col gap-6">
-                  {problems.map((p, i) => (
-                    <div key={i} className="flex items-center gap-4 bg-white p-4 rounded-xl border border-slate-200">
-                      {p.seq.map((item, k) => (
-                        <div key={k} className={`w-12 h-12 flex items-center justify-center text-3xl ${k === p.seq.length - 1 ? 'bg-slate-100 border-2 border-dashed border-slate-300 rounded-lg' : ''}`}>
-                          {k === p.seq.length - 1 ? '?' : item}
-                        </div>
-                      ))}
-                      <div className="ml-auto text-slate-400 text-sm italic">{p.type}</div>
-                    </div>
-                  ))}
-                </div>
-                {showAnswersForDoc('pattern-complete', () => (
-                  <div className="mt-4 p-4 border rounded font-mono text-sm grid grid-cols-6 gap-2">
-                    {problems.map((p, i) => <div key={i}>{i + 1}) <strong>{p.ans}</strong></div>)}
-                  </div>
-                ))}
-              </WorksheetSectionWrapper>
-            )
-          })()
-        }
-        {
-          activeDocs.includes('cvc-words') && (() => {
-            const rng = makeRng(`${effectiveSeed}|v${variant}|doc=${doc}`)
-
-            const words = [
-              { w: 'CAT', e: '🐱' }, { w: 'DOG', e: '🐶' }, { w: 'BAT', e: '🦇' },
-              { w: 'SUN', e: '☀️' }, { w: 'PIG', e: '🐷' }, { w: 'BUS', e: '🚌' },
-              { w: 'FOX', e: '🦊' }, { w: 'BED', e: '🛏️' }, { w: 'BUG', e: '🐛' },
-              { w: 'RAT', e: '🐀' }
-            ]
-
-            const problems = Array.from({ length: 6 }, () => {
-              const item = words[Math.floor(rng() * words.length)]
-              // Randomly hide a letter
-              const hideIdx = Math.floor(rng() * 3)
-              const split = item.w.split('')
-              const ans = split[hideIdx]
-              split[hideIdx] = '_'
-              return { item, display: split, ans, hideIdx }
-            })
-
-            return (
-              <WorksheetSectionWrapper
-                docId="cvc-words"
-                title="CVC Words"
-                emoji="🔡"
-                description="Fill in the missing letter."
-                problemCount={problems.length}
-              >
-                <div className="grid grid-cols-2 lg:grid-cols-3 gap-6">
-                  {problems.map((p, i) => (
-                    <div key={i} className="flex flex-col items-center p-4 bg-white rounded-xl border border-slate-200">
-                      <div className="text-6xl mb-4">{p.item.e}</div>
-                      <div className="flex gap-2 text-3xl font-bold font-mono">
-                        {p.display.map((char, k) => (
-                          <div key={k} className={`w-12 h-16 flex items-center justify-center border-b-4 ${char === '_' ? 'border-dashed border-slate-400 text-transparent' : 'border-slate-800'}`}>
-                            {char === '_' ? '?' : char}
-                          </div>
-                        ))}
-                      </div>
-                    </div>
-                  ))}
-                </div>
-                {showAnswersForDoc('cvc-words', () => (
-                  <div className="mt-4 p-4 border rounded font-mono text-sm grid grid-cols-3 gap-2">
-                    {problems.map((p, i) => <div key={i}>{i + 1}) <strong>{p.item.w}</strong> (Missing: {p.ans})</div>)}
-                  </div>
-                ))}
-              </WorksheetSectionWrapper>
-            )
-          })()
-        }
-
-        {
-          activeDocs.includes('missing-addends') && (() => {
-            const rng = makeRng(`${effectiveSeed}|v${variant}|doc=${doc}`)
-
-            const problems = Array.from({ length: 12 }, () => {
-              const sum = Math.floor(rng() * 11) + 10 // sum 10-20
-              const a = Math.floor(rng() * (sum - 1)) + 1
-              const b = sum - a
-              // a + ? = sum  OR  ? + b = sum
-              const type = rng() > 0.5 ? 'A' : 'B'
-              return { a, b, sum, type }
-            })
-
-            return (
-              <WorksheetSectionWrapper
-                docId="missing-addends"
-                title="Missing Addends"
-                emoji="➕"
-                description="Find the missing number to complete the equation."
-                problemCount={problems.length}
-              >
-                <div className="grid grid-cols-2 md:grid-cols-3 gap-6">
-                  {problems.map((p, i) => (
-                    <div key={i} className="flex items-center justify-center bg-white p-6 rounded-xl border border-slate-200 text-2xl font-bold">
-                      {p.type === 'A' ? (
-                        <>
-                          <span>{p.a}</span>
-                          <span className="mx-2">+</span>
-                          <div className="w-12 h-12 bg-slate-100 border-2 border-slate-300 rounded flex items-center justify-center text-slate-400">?</div>
-                          <span className="mx-2">=</span>
-                          <span>{p.sum}</span>
-                        </>
-                      ) : (
-                        <>
-                          <div className="w-12 h-12 bg-slate-100 border-2 border-slate-300 rounded flex items-center justify-center text-slate-400">?</div>
-                          <span className="mx-2">+</span>
-                          <span>{p.b}</span>
-                          <span className="mx-2">=</span>
-                          <span>{p.sum}</span>
-                        </>
-                      )}
-                    </div>
-                  ))}
-                </div>
-                {showAnswersForDoc('missing-addends', () => (
-                  <div className="mt-4 p-4 border rounded font-mono text-sm grid grid-cols-4 gap-2">
-                    {problems.map((p, i) => <div key={i}>{i + 1}) <strong>{p.type === 'A' ? p.b : p.a}</strong></div>)}
-                  </div>
-                ))}
-              </WorksheetSectionWrapper>
-            )
-          })()
-        }
 
         {
           activeDocs.some(d => d.startsWith('reading-g1')) && (() => {
@@ -36050,188 +35165,74 @@ export function PrintablesPage({ docId: propDocId }: { docId?: string } = {}) {
           })()
         }
 
+
+
         {
-          activeDocs.some(d => d.startsWith('science-lifecycle')) && (() => {
-            const rng = makeRng(`${effectiveSeed}|v${variant}|doc=${doc}`)
-            const data = generateLifecycle(`${effectiveSeed}|${doc}`)
-
-            return (
-              <WorksheetSectionWrapper
-                docId={doc}
-                title={`${data.name} Lifecycle`}
-                emoji="🔄"
-                description={`Order the stages of the ${data.name} lifecycle.`}
-                problemCount={4}
-              >
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-                  {data.stages.sort(() => rng() - 0.5).map((stage, i) => (
-                    <div key={i} className="flex flex-col items-center gap-4 bg-white p-6 rounded-xl border-2 border-dashed border-slate-300">
-                      <div className="text-4xl">{stage.split(' ')[1] || '❓'}</div>
-                      <div className="font-bold text-center text-lg">{stage.split(' ')[0]}</div>
-                      <div className="w-8 h-8 rounded-full border-2 border-slate-300 flex items-center justify-center text-slate-300 font-bold">
-                        #
-                      </div>
-                    </div>
-                  ))}
-                </div>
-
-                {showAnswersForDoc(doc, () => (
-                  <div className="mt-4 p-4 border rounded font-mono text-sm max-w-md mx-auto">
-                    <div className="font-bold mb-2">Correct Order:</div>
-                    <ol className="list-decimal pl-5 space-y-1">
-                      {data.stages.map((s, i) => (
-                        <li key={i}>{s}</li>
-                      ))}
-                    </ol>
-                  </div>
-                ))}
-              </WorksheetSectionWrapper>
-            )
-          })()
+          activeDocs.some(d => d.startsWith('science-lifecycle') || d.startsWith('science-match')) && (
+            <ScienceWorksheets
+              doc={doc}
+              effectiveSeed={typeof effectiveSeed === 'string' ? effectiveSeed : String(effectiveSeed)}
+              variant={typeof variant === 'string' ? variant : String(variant)}
+              showAnswersForDoc={showAnswersForDoc}
+            />
+          )
         }
 
+
+
+
         {
-          activeDocs.some(d => d.startsWith('science-match')) && (() => {
-            const rng = makeRng(`${effectiveSeed}|v${variant}|doc=${doc}`)
-            const data = generateScienceSorting(`${effectiveSeed}|${doc}`)
 
-            return (
-              <WorksheetSectionWrapper
-                docId={doc}
-                title={data.theme}
-                emoji="🔬"
-                description={`Sort the items into: ${data.categories.join(' vs ')}`}
-                problemCount={6}
-              >
-                <div className="max-w-2xl mx-auto">
-                  <div className="flex justify-between mb-8 px-8">
-                    {data.categories.map((cat, i) => (
-                      <div key={i} className="flex flex-col items-center gap-2">
-                        <div className="text-xl font-bold text-indigo-600 border-b-2 border-indigo-200 pb-1">{cat}</div>
-                        <div className="w-32 h-32 border-2 border-dashed border-slate-300 rounded-xl bg-slate-50 flex items-center justify-center text-slate-400">
-                          Place Items Here
-                        </div>
-                      </div>
-                    ))}
-                  </div>
 
-                  <div className="bg-white p-6 rounded-xl border border-slate-200 shadow-sm">
-                    <div className="text-center font-bold mb-4 text-slate-600">Items to Sort:</div>
-                    <div className="flex flex-wrap justify-center gap-4">
-                      {data.items.map((item, i) => (
-                        <div key={i} className="px-4 py-2 bg-indigo-50 text-indigo-800 rounded-lg font-medium border border-indigo-100">
-                          {item.name}
+
+
+          {
+            activeDocs.some(d => d.startsWith('word-search') || d.startsWith('spelling')) && (() => {
+              const rng = makeRng(`${effectiveSeed}|v${variant}|doc=${doc}`)
+              const data = generateWordSearch(`${effectiveSeed}|${doc}`)
+
+              return (
+                <WorksheetSectionWrapper
+                  docId={doc}
+                  title={`${data.theme} Word Search`}
+                  emoji="🔎"
+                  description={`Find these words hidden in the grid: ${data.words.join(', ')}`}
+                  problemCount={data.words.length}
+                >
+                  <div className="flex flex-col md:flex-row gap-8 items-start">
+                    <div className="bg-white p-2 rounded-lg border-2 border-slate-800">
+                      {data.grid.map((row, r) => (
+                        <div key={r} className="flex">
+                          {row.map((letter, c) => (
+                            <div key={c} className="w-8 h-8 flex items-center justify-center font-mono font-bold text-lg border border-slate-100 hover:bg-yellow-100 cursor-pointer">
+                              {letter}
+                            </div>
+                          ))}
                         </div>
                       ))}
                     </div>
-                  </div>
-                </div>
 
-                {showAnswersForDoc(doc, () => (
-                  <div className="mt-4 grid grid-cols-2 gap-4 max-w-lg mx-auto">
-                    {data.categories.map((cat, i) => (
-                      <div key={i} className="p-3 border rounded bg-slate-50">
-                        <div className="font-bold border-b mb-2">{cat}</div>
-                        {data.items.filter(item => item.Cat === cat).map((item, k) => (
-                          <div key={k} className="text-sm">{item.name}</div>
-                        ))}
-                      </div>
-                    ))}
-                  </div>
-                ))}
-              </WorksheetSectionWrapper>
-            )
-          })()
-        }
-
-
-
-        {
-          activeDocs.some(d => d.startsWith('maze-focus')) && (() => {
-            const rng = makeRng(`${effectiveSeed}|v${variant}|doc=${doc}`)
-            const data = generateMaze(`${effectiveSeed}|${doc}`)
-
-            const cellSize = 30
-
-            return (
-              <WorksheetSectionWrapper
-                docId={doc}
-                title="Maze Challenge"
-                emoji="🌀"
-                description="Find your way from the start (top-left) to the finish (bottom-right)."
-                problemCount={1}
-              >
-                <div className="flex justify-center">
-                  <svg width={data.width * cellSize} height={data.height * cellSize} className="bg-white border-4 border-slate-800">
-                    {data.grid.map((row, y) => (
-                      row.map((cell, x) => (
-                        cell === 1 ? (
-                          <rect key={`${x}-${y}`} x={x * cellSize} y={y * cellSize} width={cellSize} height={cellSize} fill="#1e293b" />
-                        ) : (
-                          <rect key={`${x}-${y}`} x={x * cellSize} y={y * cellSize} width={cellSize} height={cellSize} fill="white" />
-                        )
-                      ))
-                    ))}
-                    {/* Start */}
-                    <text x={cellSize} y={cellSize + 20} fontSize="20">S</text>
-                    {/* End */}
-                    <text x={(data.width - 2) * cellSize} y={(data.height - 1) * cellSize + 20} fontSize="20">E</text>
-                  </svg>
-                </div>
-              </WorksheetSectionWrapper>
-            )
-          })()
-        }
-
-
-
-        {
-          activeDocs.some(d => d.startsWith('word-search') || d.startsWith('spelling')) && (() => {
-            const rng = makeRng(`${effectiveSeed}|v${variant}|doc=${doc}`)
-            const data = generateWordSearch(`${effectiveSeed}|${doc}`)
-
-            return (
-              <WorksheetSectionWrapper
-                docId={doc}
-                title={`${data.theme} Word Search`}
-                emoji="🔎"
-                description={`Find these words hidden in the grid: ${data.words.join(', ')}`}
-                problemCount={data.words.length}
-              >
-                <div className="flex flex-col md:flex-row gap-8 items-start">
-                  <div className="bg-white p-2 rounded-lg border-2 border-slate-800">
-                    {data.grid.map((row, r) => (
-                      <div key={r} className="flex">
-                        {row.map((letter, c) => (
-                          <div key={c} className="w-8 h-8 flex items-center justify-center font-mono font-bold text-lg border border-slate-100 hover:bg-yellow-100 cursor-pointer">
-                            {letter}
+                    <div className="flex-1 bg-white p-6 rounded-xl border border-slate-200">
+                      <h3 className="font-bold mb-4">Word Bank</h3>
+                      <div className="flex flex-wrap gap-2">
+                        {data.words.map((w, i) => (
+                          <div key={i} className="px-3 py-1 bg-slate-100 rounded text-sm font-medium border border-slate-300">
+                            {w}
                           </div>
                         ))}
                       </div>
-                    ))}
-                  </div>
-
-                  <div className="flex-1 bg-white p-6 rounded-xl border border-slate-200">
-                    <h3 className="font-bold mb-4">Word Bank</h3>
-                    <div className="flex flex-wrap gap-2">
-                      {data.words.map((w, i) => (
-                        <div key={i} className="px-3 py-1 bg-slate-100 rounded text-sm font-medium border border-slate-300">
-                          {w}
-                        </div>
-                      ))}
                     </div>
                   </div>
-                </div>
-              </WorksheetSectionWrapper>
-            )
-          })()
-        }
+                </WorksheetSectionWrapper>
+              )
+            })()
+          }
 
 
-        <footer className="text-center text-slate-500 text-xs print:hidden">
-          {getTrans('common.printTip', 'Tip: Use your browser menu  Print  Save as PDF.')}
-        </footer>
-      </div>
+          < footer className="text-center text-slate-500 text-xs print:hidden">
+        {getTrans('common.printTip', 'Tip: Use your browser menu  Print  Save as PDF.')}
+      </footer>
+    </div>
     </div >
   )
 }
@@ -36556,153 +35557,17 @@ function generateReadingStory(seed: string, grade: number) {
 
 // Social Studies & Science Generators
 
-function generateLandformQuiz(seed: string) {
-  const rng = makeRng(seed)
-  const pick = <T,>(arr: T[]) => arr[Math.floor(rng() * arr.length)]
 
-  const landforms = [
-    { name: 'Mountain', emoji: '🏔️', def: 'A very high landform with a peak.' },
-    { name: 'Island', emoji: '🏝️', def: 'Land surrounded by water on all sides.' },
-    { name: 'Volcano', emoji: '🌋', def: 'A mountain that can erupt lava.' },
-    { name: 'Desert', emoji: '🏜️', def: 'A dry place with very little rain.' },
-    { name: 'Ocean', emoji: '🌊', def: 'A large body of salt water.' },
-    { name: 'River', emoji: '💧', def: 'Water flowing towards an ocean or lake.' },
-    { name: 'Valley', emoji: '🏞️', def: 'Low land between hills or mountains.' },
-  ]
 
-  const target = pick(landforms)
 
-  // 50/50 chance of Name -> Def or Def -> Name
-  const mode = rng() > 0.5 ? 'def' : 'name'
 
-  let question
-  if (mode === 'def') {
-    question = {
-      q: `What is the definition of a ${target.name}?`,
-      options: landforms.map(l => l.def).sort(() => rng() - 0.5).slice(0, 3),
-      a: target.def
-    }
-  } else {
-    question = {
-      q: `Which landform is: "${target.def}"?`,
-      options: landforms.map(l => l.name).sort(() => rng() - 0.5).slice(0, 3),
-      a: target.name
-    }
-  }
 
-  if (!question.options.includes(mode === 'def' ? target.def : target.name)) {
-    question.options[0] = mode === 'def' ? target.def : target.name
-    question.options.sort(() => rng() - 0.5)
-  }
-
-  return { target, question }
-}
-
-function generateScienceSorting(seed: string) {
-  const rng = makeRng(seed)
-  const pick = <T,>(arr: T[]) => arr[Math.floor(rng() * arr.length)]
-
-  const themes = [
-    {
-      name: 'Living vs Non-Living',
-      sets: {
-        'Living': ['🐶', '🌲', '🐛', '🌷', '🦋', '🍄', '🐢'],
-        'Non-Living': ['rock', 'car', 'balloon', 'spoon', 'robot', 'cup', 'pencil'] // Using words/simple text if emojis ambiguous
-      }
-    },
-    {
-      name: 'Sink or Float',
-      sets: {
-        'Float': ['apple', 'wood', 'leaf', 'boat', 'feather'],
-        'Sink': ['rock', 'coin', 'key', 'brick', 'metal spoon']
-      }
-    },
-    {
-      name: 'Vertebrate vs Invertebrate',
-      sets: {
-        'Vertebrate': ['Human', 'Dog', 'Bird', 'Fish', 'Frog'],
-        'Invertebrate': ['Worm', 'Spider', 'Jellyfish', 'Octopus', 'Snail']
-      }
-    }
-  ]
-
-  const theme = pick(themes)
-  const cats = Object.keys(theme.sets)
-  const cat1 = cats[0]
-  const cat2 = cats[1]
-
-  // Pick 3 items from each
-  const set1 = theme.sets[cat1].sort(() => rng() - 0.5).slice(0, 3)
-  const set2 = theme.sets[cat2].sort(() => rng() - 0.5).slice(0, 3)
-
-  const items = [...set1.map(i => ({ name: i, Cat: cat1 })), ...set2.map(i => ({ name: i, Cat: cat2 }))]
-  items.sort(() => rng() - 0.5)
-
-  return { theme: theme.name, items, categories: [cat1, cat2] }
-}
-
-function generateLifecycle(seed: string) {
-  const rng = makeRng(seed)
-  const pick = <T,>(arr: T[]) => arr[Math.floor(rng() * arr.length)]
-
-  const cycles = [
-    { name: 'Butterfly', stages: ['Egg 🥚', 'Caterpillar 🐛', 'Pupa 🧱', 'Butterfly 🦋'] },
-    { name: 'Frog', stages: ['Egg 🥚', 'Tadpole 🐟', 'Froglet 🐸', 'Adult Frog 🐸'] },
-    { name: 'Plant', stages: ['Seed 🌱', 'Sprout 🌿', 'Plant 🌳', 'Flower 🌸'] },
-    { name: 'Chicken', stages: ['Egg 🥚', 'Hatchling 🐣', 'Chick 🐥', 'Chicken 🐔'] },
-  ]
-
-  const lifecycle = pick(cycles)
-  return { name: lifecycle.name, stages: lifecycle.stages } // Stages are already in order
-}
 
 // Creative & Brain Tools Generators
 
 
 
-function generateMaze(seed: string) {
-  const rng = makeRng(seed)
-  const width = 15
-  const height = 15
 
-  // Initialize grid with walls (1)
-  const grid = Array(height).fill(null).map(() => Array(width).fill(1))
-
-  // DFS Maze Generation
-  const stack = [{ x: 1, y: 1 }]
-  grid[1][1] = 0
-
-  const dirs = [[0, 2], [2, 0], [0, -2], [-2, 0]]
-
-  while (stack.length > 0) {
-    const current = stack[stack.length - 1]
-    const neighbors = []
-
-    for (const [dx, dy] of dirs) {
-      const nx = current.x + dx
-      const ny = current.y + dy
-
-      if (nx > 0 && nx < width - 1 && ny > 0 && ny < height - 1 && grid[ny][nx] === 1) {
-        neighbors.push({ x: nx, y: ny, dx, dy })
-      }
-    }
-
-    if (neighbors.length > 0) {
-      const next = neighbors[Math.floor(rng() * neighbors.length)]
-      grid[current.y + next.dy / 2][current.x + next.dx / 2] = 0 // Knock down wall
-      grid[next.y][next.x] = 0
-      stack.push({ x: next.x, y: next.y })
-    } else {
-      stack.pop()
-    }
-  }
-
-  // Entrance and Exit
-  grid[0][1] = 0
-  grid[height - 1][width - 2] = 0
-
-  return { grid, width, height }
-}
 
 
 

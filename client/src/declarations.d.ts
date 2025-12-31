@@ -26,3 +26,19 @@ declare module 'react-dom/client' {
     export = ReactDOMClient;
 }
 
+// Global JSX namespace to satisfy linter for intrinsic elements
+declare namespace JSX {
+    interface IntrinsicElements {
+        [elemName: string]: any;
+    }
+}
+
+// Augment ImportMeta for Vite env
+interface ImportMeta {
+    env: Record<string, string>;
+}
+
+// Augment CSSStyleDeclaration for legacy property
+interface CSSStyleDeclaration {
+    webkitPrintColorAdjust: string;
+}
