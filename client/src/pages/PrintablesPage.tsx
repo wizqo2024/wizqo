@@ -11,7 +11,7 @@ import { makeRng, pick, pickNUnique, shuffleArray, buildWords } from '@/utils/pr
 import { Sudoku } from '@/pages/worksheets/Sudoku'
 import { WordSearch } from '@/pages/worksheets/WordSearch'
 import { CVCWords, SightWordsPrePrimer, LetterTracingAZ } from './printables/LanguageWorksheets'
-import { MoreLessEqual10 } from './printables/MathWorksheets'
+import { MoreLessEqual10, TenFrames1To10 } from './printables/MathWorksheets'
 import MathMazeWorksheets from './MathMazeWorksheets'
 import { MathWorksheets } from './MathWorksheets';
 import { LogicWorksheets } from './LogicWorksheets';
@@ -3469,192 +3469,19 @@ export function PrintablesPage({ docId: propDocId }: { docId?: string } = {}) {
 
 
 
-        {activeDocs.includes('ten-frames-1-10') && (() => {
-          // Initialize RNG for stable theme selection
-          const rng = makeRng(`${effectiveSeed}|v${variant}|doc=${doc}`);
-          const themes = ['apples', 'stars', 'cookies', 'buttons'];
-          const theme = themes[Math.floor(rng() * themes.length)];
-
-          // Generate customized problems (1-10, shuffled or ordered based on variant)
-          let numbers = Array.from({ length: 10 }, (_, n) => n + 1);
-          if (variant > 0) {
-            numbers = shuffleArray(numbers, rng);
-          }
-
-          // Theme Configuration
-          const getThemeAssets = (t: string) => {
-            switch (t) {
-              case 'apples': return {
-                icon: (filled: boolean) => (
-                  <svg viewBox="0 0 100 100" className="w-full h-full p-1">
-                    {filled ? (
-                      <path d="M50,25 C30,25 20,40 20,60 C20,85 35,95 50,95 C65,95 80,85 80,60 C80,40 70,25 50,25 Z M50,25 Q50,10 60,5" fill="#ef4444" stroke="#991b1b" strokeWidth="3" strokeLinecap="round" />
-                    ) : (
-                      <path d="M50,25 C30,25 20,40 20,60 C20,85 35,95 50,95 C65,95 80,85 80,60 C80,40 70,25 50,25 Z" fill="none" stroke="#d1d5db" strokeWidth="2" strokeDasharray="4 4" />
-                    )}
-                  </svg>
-                ),
-                color: 'text-red-600',
-                borderColor: 'border-red-200',
-                bgColor: 'bg-red-50',
-                title: 'Apple Picking',
-                emoji: String.fromCodePoint(0x1F34E)
-              };
-              case 'stars': return {
-                icon: (filled: boolean) => (
-                  <svg viewBox="0 0 100 100" className="w-full h-full p-2">
-                    <path d="M50,5 L61,35 L95,35 L68,55 L79,85 L50,65 L21,85 L32,55 L5,35 L39,35 Z"
-                      fill={filled ? "#f59e0b" : "none"}
-                      stroke={filled ? "#b45309" : "#cbd5e1"}
-                      strokeWidth={filled ? "3" : "2"}
-                      strokeDasharray={filled ? "" : "4 4"}
-                    />
-                  </svg>
-                ),
-                color: 'text-amber-600',
-                borderColor: 'border-amber-200',
-                bgColor: 'bg-amber-50',
-                title: 'Super Stars',
-                emoji: String.fromCodePoint(0x2B50)
-              };
-              case 'cookies': return {
-                icon: (filled: boolean) => (
-                  <svg viewBox="0 0 100 100" className="w-full h-full p-1">
-                    <circle cx="50" cy="50" r="40" fill={filled ? "#d97706" : "none"} stroke={filled ? "#92400e" : "#d1d5db"} strokeWidth={filled ? "3" : "2"} strokeDasharray={filled ? "" : "4 4"} />
-                    {filled && (
-                      <g fill="#78350f">
-                        <circle cx="35" cy="40" r="4" />
-                        <circle cx="65" cy="45" r="4" />
-                        <circle cx="50" cy="65" r="4" />
-                        <circle cx="45" cy="25" r="4" />
-                      </g>
-                    )}
-                  </svg>
-                ),
-                color: 'text-amber-700',
-                borderColor: 'border-amber-200',
-                bgColor: 'bg-orange-50',
-                title: 'Yummy Cookies',
-                emoji: String.fromCodePoint(0x270F)
-              };
-              default: return { // Buttons
-                icon: (filled: boolean) => (
-                  <svg viewBox="0 0 100 100" className="w-full h-full p-2">
-                    <circle cx="50" cy="50" r="40" fill={filled ? "#3b82f6" : "none"} stroke={filled ? "#1e40af" : "#cbd5e1"} strokeWidth="3" strokeDasharray={filled ? "" : "4 4"} />
-                    {filled && (
-                      <g fill="white">
-                        <circle cx="35" cy="50" r="4" />
-                        <circle cx="65" cy="50" r="4" />
-                        <circle cx="50" cy="35" r="4" />
-                        <circle cx="50" cy="65" r="4" />
-                      </g>
-                    )}
-                  </svg>
-                ),
-                color: 'text-blue-600',
-                borderColor: 'border-blue-200',
-                bgColor: 'bg-blue-50',
-                title: 'Button Counting',
-                emoji: String.fromCodePoint(0x1F4A1)
-              }
-            }
-          }
-
-          const themeData = getThemeAssets(theme);
-
-          return (
-            <WorksheetSectionWrapper
-              docId="ten-frames-1-10"
-              title={`${themeData.title}: Ten Frame Counting`}
-              emoji={themeData.emoji}
-              description={`Count the ${theme}. Trace the number, then write it in the box.`}
-              problemCount={numbers.length}
-              learningObjectives={[
-                'Compose and decompose numbers up to 10',
-                'Connect number quantities to numerals',
-                'Develop subitizing skills (instantly seeing "how many")',
-                'Practice number formation'
-              ]}
-              parentTeacherTips={[
-                `Ask: "How many ${theme} do you see?"`,
-                'Ask: "How many more do we need to make 10?"',
-                'Encourage your child to count out loud as they point to each item.',
-                'Trace the dashed number first to practice the motion.'
-              ]}
-            >
-              <div className={`print:hidden h-1 w-full rounded-full bg-slate-100 mb-6 overflow-hidden`}>
-                <div className={`h-full w-1/3 ${themeData.bgColor.replace('bg-', 'bg-')} bg-current opacity-50`}></div>
-              </div>
-
-              {/* 2-Column Layout for problems */}
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-6" style={{ pageBreakAfter: 'auto' }}>
-                {numbers.map((n, idx) => (
-                  <div key={idx} className={`flex items-center gap-4 p-4 rounded-xl border-2 ${themeData.borderColor} ${themeData.bgColor} print:border-slate-300 print:bg-white break-inside-avoid relative`}>
-
-                    {/* Number Badge */}
-                    <div className="absolute -top-3 -left-3 w-8 h-8 rounded-full bg-white border-2 border-slate-200 flex items-center justify-center text-xs font-bold text-slate-400 shadow-sm print:hidden">
-                      #{idx + 1}
-                    </div>
-
-                    {/* Ten Frame */}
-                    <div className="bg-white border-4 border-slate-800 rounded-lg p-1 shadow-sm">
-                      <div className="grid grid-cols-5 grid-rows-2 gap-1 w-40 h-20">
-                        {Array.from({ length: 10 }).map((_, i) => (
-                          <div key={i} className="border border-slate-200 rounded flex items-center justify-center relative">
-                            {/* Render icon if index < n */}
-                            {themeData.icon(i < n)}
-                          </div>
-                        ))}
-                      </div>
-                    </div>
-
-                    {/* Interaction Area */}
-                    <div className="flex-1 flex flex-col items-center justify-center gap-2 border-l-2 border-dashed border-slate-300 pl-4 h-full">
-                      <div className="flex items-end gap-3">
-                        {/* Tracing Number */}
-                        <div className={`text-6xl font-outline-2 font-mono text-slate-200 relative`} style={{ fontFamily: '"Inter", sans-serif', fontWeight: 900, WebkitTextStroke: '2px #cbd5e1', color: 'transparent' }}>
-                          {n}
-                          <svg className="absolute inset-0 w-full h-full pointer-events-none" style={{ overflow: 'visible' }}>
-                            {/* Dashed overlay for tracing effect - simplified */}
-                            <text x="50%" y="85%" textAnchor="middle" fill="none" stroke="#94a3b8" strokeWidth="1" strokeDasharray="3 3" fontSize="1em" dy="-0.1em">{n}</text>
-                          </svg>
-                        </div>
-
-                        {/* Arrow pointing to writing box */}
-                        <div className="text-2xl text-slate-300">{String.fromCodePoint(0x270F)}</div>
-                      </div>
-
-                      {/* Writing Box */}
-                      <div className="w-16 h-16 border-2 border-slate-400 rounded-lg bg-white shadow-inner flex items-center justify-center">
-                        {/* Empty box for student to write */}
-                      </div>
-                      <div className="text-[10px] uppercase font-bold text-slate-400 tracking-wider">Write</div>
-                    </div>
-
-                  </div>
-                ))}
-              </div>
-
-              {showAnswersForDoc('ten-frames-1-10', () => (
-                <div className="mt-8 p-6 border-2 border-emerald-500 bg-emerald-50 rounded-2xl print:border-black print:bg-white break-inside-avoid">
-                  <div className="flex items-center gap-3 mb-4 border-b border-emerald-200 pb-2">
-                    <span className="text-2xl">{String.fromCodePoint(0x2705)}</span>
-                    <h3 className="text-lg font-bold text-emerald-900">Answer Key</h3>
-                  </div>
-                  <div className="grid grid-cols-5 gap-4">
-                    {numbers.map((n, idx) => (
-                      <div key={idx} className="text-center">
-                        <div className="text-xs text-emerald-700 font-medium mb-1">#{idx + 1}</div>
-                        <div className="text-2xl font-black text-emerald-800">{n}</div>
-                      </div>
-                    ))}
-                  </div>
-                </div>
-              ))}
-
-            </WorksheetSectionWrapper>
-          )
-        })()}
+        {
+          activeDocs.includes('ten-frames-1-10') && (() => {
+            return (
+              <TenFrames1To10
+                docId="ten-frames-1-10"
+                activeDocs={activeDocs}
+                showAnswersForDoc={showAnswersForDoc}
+                seed={effectiveSeed}
+                variant={variant}
+              />
+            )
+          })()
+        }
 
 
 
