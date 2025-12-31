@@ -17709,12 +17709,12 @@ export function PrintablesPage({ docId: propDocId }: { docId?: string } = {}) {
             const rng = makeRng(`${effectiveSeed}|v${variant}|doc=${doc}`)
 
             const shapes = [
-              { name: 'Starfish', render: (props: any) => <path d="M50 5 L63 35 L95 38 L72 60 L79 92 L50 75 L21 92 L28 60 L5 38 L37 35 Z" fill="none" stroke="currentColor" strokeWidth="3" strokeLinejoin="round" {...props} /> },
-              { name: 'Fish', render: (props: any) => <path d="M85 50 C85 50 70 30 50 30 C30 30 10 50 10 50 C10 50 30 70 50 70 C70 70 85 50 85 50 Z M85 50 L95 35 V65 L85 50 M60 50  2 2 0 1 1 60 50.01" fill="none" stroke="currentColor" strokeWidth="3" strokeLinejoin="round" {...props} /> },
-              { name: 'Shell', render: (props: any) => <path d="M20 80 Q50 10 80 80 L20 80 M50 20 L50 80 M35 25 L35 80 M65 25 L65 80" fill="none" stroke="currentColor" strokeWidth="3" strokeLinejoin="round" {...props} /> },
-              { name: 'Jellyfish', render: (props: any) => <path d="M20 40 Q50 -10 80 40 M20 40 Q50 30 80 40 M30 40 Q30 80 20 90 M50 40 Q50 80 50 95 M70 40 Q70 80 80 90" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" {...props} /> },
-              { name: 'Seahorse', render: (props: any) => <path d="M40 20 Q60 10 60 30 Q60 40 50 45 Q50 60 60 70 Q60 90 40 90 Q30 90 30 80 M45 25  2 2 0 1 1 45 25.01" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" {...props} /> },
-              { name: 'Turtle', render: (props: any) => <path d="M30 40  20 15 0 1 1 70 40  20 15 0 1 1 30 40 M30 40 L20 30 M70 40 L80 30 M30 50 L20 60 M70 50 L80 60 M50 25 L50 15" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" {...props} /> },
+              { name: 'Starfish', render: (props: any) => <path d="M50 8 L63 35 L92 38 L72 60 L79 90 L50 75 L21 90 L28 60 L8 38 L37 35 Z" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinejoin="round" {...props} /> },
+              { name: 'Fish', render: (props: any) => <path d="M75 50 Q60 30 30 30 Q10 30 10 50 Q10 70 30 70 Q60 70 75 50 Z M75 50 L90 35 V65 L75 50 M25 45 A 2 2 0 1 1 25 45.01" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinejoin="round" {...props} /> },
+              { name: 'Shell', render: (props: any) => <path d="M20 80 Q50 10 80 80 L20 80 M50 20 L50 80 M35 25 L35 80 M65 25 L65 80" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinejoin="round" {...props} /> },
+              { name: 'Jellyfish', render: (props: any) => <path d="M25 40 Q50 -10 75 40 M25 40 Q50 30 75 40 M30 40 Q30 70 25 85 M50 40 Q50 70 50 90 M70 40 Q70 70 75 85" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" {...props} /> },
+              { name: 'Seahorse', render: (props: any) => <path d="M45 20 Q60 15 60 30 Q60 45 50 50 Q45 55 45 65 Q45 80 55 85 M45 20 L35 25 M48 25 A 1 1 0 1 1 48 25.01" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" {...props} /> },
+              { name: 'Turtle', render: (props: any) => <path d="M50 30 A 15 20 0 1 1 50 70 A 15 20 0 1 1 50 30 M50 30 L50 20 M35 40 L20 25 M65 40 L80 25 M35 60 L20 75 M65 60 L80 75" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" {...props} /> },
             ];
 
             const problems = Array.from({ length: 6 }, () => {
