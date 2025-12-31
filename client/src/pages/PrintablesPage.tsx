@@ -36285,9 +36285,6 @@ export function PrintablesPage({ docId: propDocId }: { docId?: string } = {}) {
     </div >
   )
 }
-}
-}
-}
 
 
 function generateWordSearchGrid(size: number, words: string[], rng: () => number): string[][] {
